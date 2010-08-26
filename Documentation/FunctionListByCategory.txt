@@ -1,0 +1,377 @@
+CATEGORY_CUBE
+	CUBEKPIMEMBER           ***  Not yet Implemented
+	CUBEMEMBER              ***  Not yet Implemented
+	CUBEMEMBERPROPERTY      ***  Not yet Implemented
+	CUBERANKEDMEMBER        ***  Not yet Implemented
+	CUBESET                 ***  Not yet Implemented
+	CUBESETCOUNT            ***  Not yet Implemented
+	CUBEVALUE               ***  Not yet Implemented
+
+CATEGORY_DATABASE
+	DAVERAGE                ***  Not yet Implemented
+	DCOUNT                  ***  Not yet Implemented
+	DCOUNTA                 ***  Not yet Implemented
+	DGET                    ***  Not yet Implemented
+	DMAX                    ***  Not yet Implemented
+	DMIN                    ***  Not yet Implemented
+	DPRODUCT                ***  Not yet Implemented
+	DSTDEV                  ***  Not yet Implemented
+	DSTDEVP                 ***  Not yet Implemented
+	DSUM                    ***  Not yet Implemented
+	DVAR                    ***  Not yet Implemented
+	DVARP                   ***  Not yet Implemented
+
+CATEGORY_DATE_AND_TIME
+	DATE                    PHPExcel_Calculation_Functions::DATE
+	DATEDIF                 PHPExcel_Calculation_Functions::DATEDIF
+	DATEVALUE               PHPExcel_Calculation_Functions::DATEVALUE
+	DAY                     PHPExcel_Calculation_Functions::DAYOFMONTH
+	DAYS360                 PHPExcel_Calculation_Functions::DAYS360
+	EDATE                   PHPExcel_Calculation_Functions::EDATE
+	EOMONTH                 PHPExcel_Calculation_Functions::EOMONTH
+	HOUR                    PHPExcel_Calculation_Functions::HOUROFDAY
+	MINUTE                  PHPExcel_Calculation_Functions::MINUTEOFHOUR
+	MONTH                   PHPExcel_Calculation_Functions::MONTHOFYEAR
+	NETWORKDAYS             PHPExcel_Calculation_Functions::NETWORKDAYS
+	NOW                     PHPExcel_Calculation_Functions::DATETIMENOW
+	SECOND                  PHPExcel_Calculation_Functions::SECONDOFMINUTE
+	TIME                    PHPExcel_Calculation_Functions::TIME
+	TIMEVALUE               PHPExcel_Calculation_Functions::TIMEVALUE
+	TODAY                   PHPExcel_Calculation_Functions::DATENOW
+	WEEKDAY                 PHPExcel_Calculation_Functions::DAYOFWEEK
+	WEEKNUM                 PHPExcel_Calculation_Functions::WEEKOFYEAR
+	WORKDAY                 PHPExcel_Calculation_Functions::WORKDAY
+	YEAR                    PHPExcel_Calculation_Functions::YEAR
+	YEARFRAC                PHPExcel_Calculation_Functions::YEARFRAC
+
+CATEGORY_ENGINEERING
+	BESSELI                 PHPExcel_Calculation_Functions::BESSELI
+	BESSELJ                 PHPExcel_Calculation_Functions::BESSELJ
+	BESSELK                 PHPExcel_Calculation_Functions::BESSELK
+	BESSELY                 PHPExcel_Calculation_Functions::BESSELY
+	BIN2DEC                 PHPExcel_Calculation_Functions::BINTODEC
+	BIN2HEX                 PHPExcel_Calculation_Functions::BINTOHEX
+	BIN2OCT                 PHPExcel_Calculation_Functions::BINTOOCT
+	COMPLEX                 PHPExcel_Calculation_Functions::COMPLEX
+	CONVERT                 PHPExcel_Calculation_Functions::CONVERTUOM
+	DEC2BIN                 PHPExcel_Calculation_Functions::DECTOBIN
+	DEC2HEX                 PHPExcel_Calculation_Functions::DECTOHEX
+	DEC2OCT                 PHPExcel_Calculation_Functions::DECTOOCT
+	DELTA                   PHPExcel_Calculation_Functions::DELTA
+	ERF                     PHPExcel_Calculation_Functions::ERF
+	ERFC                    PHPExcel_Calculation_Functions::ERFC
+	GESTEP                  PHPExcel_Calculation_Functions::GESTEP
+	HEX2BIN                 PHPExcel_Calculation_Functions::HEXTOBIN
+	HEX2DEC                 PHPExcel_Calculation_Functions::HEXTODEC
+	HEX2OCT                 PHPExcel_Calculation_Functions::HEXTOOCT
+	IMABS                   PHPExcel_Calculation_Functions::IMABS
+	IMAGINARY               PHPExcel_Calculation_Functions::IMAGINARY
+	IMARGUMENT              PHPExcel_Calculation_Functions::IMARGUMENT
+	IMCONJUGATE             PHPExcel_Calculation_Functions::IMCONJUGATE
+	IMCOS                   PHPExcel_Calculation_Functions::IMCOS
+	IMDIV                   PHPExcel_Calculation_Functions::IMDIV
+	IMEXP                   PHPExcel_Calculation_Functions::IMEXP
+	IMLN                    PHPExcel_Calculation_Functions::IMLN
+	IMLOG10                 PHPExcel_Calculation_Functions::IMLOG10
+	IMLOG2                  PHPExcel_Calculation_Functions::IMLOG2
+	IMPOWER                 PHPExcel_Calculation_Functions::IMPOWER
+	IMPRODUCT               PHPExcel_Calculation_Functions::IMPRODUCT
+	IMREAL                  PHPExcel_Calculation_Functions::IMREAL
+	IMSIN                   PHPExcel_Calculation_Functions::IMSIN
+	IMSQRT                  PHPExcel_Calculation_Functions::IMSQRT
+	IMSUB                   PHPExcel_Calculation_Functions::IMSUB
+	IMSUM                   PHPExcel_Calculation_Functions::IMSUM
+	OCT2BIN                 PHPExcel_Calculation_Functions::OCTTOBIN
+	OCT2DEC                 PHPExcel_Calculation_Functions::OCTTODEC
+	OCT2HEX                 PHPExcel_Calculation_Functions::OCTTOHEX
+
+CATEGORY_FINANCIAL
+	ACCRINT                 PHPExcel_Calculation_Functions::ACCRINT
+	ACCRINTM                PHPExcel_Calculation_Functions::ACCRINTM
+	AMORDEGRC               PHPExcel_Calculation_Functions::AMORDEGRC
+	AMORLINC                PHPExcel_Calculation_Functions::AMORLINC
+	COUPDAYBS               PHPExcel_Calculation_Functions::COUPDAYBS
+	COUPDAYS                PHPExcel_Calculation_Functions::COUPDAYS
+	COUPDAYSNC              PHPExcel_Calculation_Functions::COUPDAYSNC
+	COUPNCD                 PHPExcel_Calculation_Functions::COUPNCD
+	COUPNUM                 PHPExcel_Calculation_Functions::COUPNUM
+	COUPPCD                 PHPExcel_Calculation_Functions::COUPPCD
+	CUMIPMT                 PHPExcel_Calculation_Functions::CUMIPMT
+	CUMPRINC                PHPExcel_Calculation_Functions::CUMPRINC
+	DB                      PHPExcel_Calculation_Functions::DB
+	DDB                     PHPExcel_Calculation_Functions::DDB
+	DISC                    PHPExcel_Calculation_Functions::DISC
+	DOLLARDE                PHPExcel_Calculation_Functions::DOLLARDE
+	DOLLARFR                PHPExcel_Calculation_Functions::DOLLARFR
+	DURATION                ***  Not yet Implemented
+	EFFECT                  PHPExcel_Calculation_Functions::EFFECT
+	FV                      PHPExcel_Calculation_Functions::FV
+	FVSCHEDULE              PHPExcel_Calculation_Functions::FVSCHEDULE
+	INTRATE                 PHPExcel_Calculation_Functions::INTRATE
+	IPMT                    PHPExcel_Calculation_Functions::IPMT
+	IRR                     PHPExcel_Calculation_Functions::IRR
+	ISPMT                   PHPExcel_Calculation_Functions::ISPMT
+	MDURATION               ***  Not yet Implemented
+	MIRR                    PHPExcel_Calculation_Functions::MIRR
+	NOMINAL                 PHPExcel_Calculation_Functions::NOMINAL
+	NPER                    PHPExcel_Calculation_Functions::NPER
+	NPV                     PHPExcel_Calculation_Functions::NPV
+	ODDFPRICE               ***  Not yet Implemented
+	ODDFYIELD               ***  Not yet Implemented
+	ODDLPRICE               ***  Not yet Implemented
+	ODDLYIELD               ***  Not yet Implemented
+	PMT                     PHPExcel_Calculation_Functions::PMT
+	PPMT                    PHPExcel_Calculation_Functions::PPMT
+	PRICE                   PHPExcel_Calculation_Functions::PRICE
+	PRICEDISC               PHPExcel_Calculation_Functions::PRICEDISC
+	PRICEMAT                PHPExcel_Calculation_Functions::PRICEMAT
+	PV                      PHPExcel_Calculation_Functions::PV
+	RATE                    PHPExcel_Calculation_Functions::RATE
+	RECEIVED                PHPExcel_Calculation_Functions::RECEIVED
+	SLN                     PHPExcel_Calculation_Functions::SLN
+	SYD                     PHPExcel_Calculation_Functions::SYD
+	TBILLEQ                 PHPExcel_Calculation_Functions::TBILLEQ
+	TBILLPRICE              PHPExcel_Calculation_Functions::TBILLPRICE
+	TBILLYIELD              PHPExcel_Calculation_Functions::TBILLYIELD
+	USDOLLAR                ***  Not yet Implemented
+	VDB                     ***  Not yet Implemented
+	XIRR                    PHPExcel_Calculation_Functions::XIRR
+	XNPV                    PHPExcel_Calculation_Functions::XNPV
+	YIELD                   ***  Not yet Implemented
+	YIELDDISC               PHPExcel_Calculation_Functions::YIELDDISC
+	YIELDMAT                PHPExcel_Calculation_Functions::YIELDMAT
+
+CATEGORY_INFORMATION
+	CELL                    ***  Not yet Implemented
+	ERROR.TYPE              PHPExcel_Calculation_Functions::ERROR_TYPE
+	INFO                    ***  Not yet Implemented
+	ISBLANK                 PHPExcel_Calculation_Functions::IS_BLANK
+	ISERR                   PHPExcel_Calculation_Functions::IS_ERR
+	ISERROR                 PHPExcel_Calculation_Functions::IS_ERROR
+	ISEVEN                  PHPExcel_Calculation_Functions::IS_EVEN
+	ISLOGICAL               PHPExcel_Calculation_Functions::IS_LOGICAL
+	ISNA                    PHPExcel_Calculation_Functions::IS_NA
+	ISNONTEXT               PHPExcel_Calculation_Functions::IS_NONTEXT
+	ISNUMBER                PHPExcel_Calculation_Functions::IS_NUMBER
+	ISODD                   PHPExcel_Calculation_Functions::IS_ODD
+	ISREF                   ***  Not yet Implemented
+	ISTEXT                  PHPExcel_Calculation_Functions::IS_TEXT
+	N                       PHPExcel_Calculation_Functions::N
+	NA                      PHPExcel_Calculation_Functions::NA
+	TYPE                    PHPExcel_Calculation_Functions::TYPE
+	VERSION                 PHPExcel_Calculation_Functions::VERSION
+
+CATEGORY_LOGICAL
+	AND                     PHPExcel_Calculation_Functions::LOGICAL_AND
+	FALSE                   PHPExcel_Calculation_Functions::LOGICAL_FALSE
+	IF                      PHPExcel_Calculation_Functions::STATEMENT_IF
+	IFERROR                 PHPExcel_Calculation_Functions::STATEMENT_IFERROR
+	NOT                     PHPExcel_Calculation_Functions::LOGICAL_NOT
+	OR                      PHPExcel_Calculation_Functions::LOGICAL_OR
+	TRUE                    PHPExcel_Calculation_Functions::LOGICAL_TRUE
+
+CATEGORY_LOOKUP_AND_REFERENCE
+	ADDRESS                 PHPExcel_Calculation_Functions::CELL_ADDRESS
+	AREAS                   ***  Not yet Implemented
+	CHOOSE                  PHPExcel_Calculation_Functions::CHOOSE
+	COLUMN                  PHPExcel_Calculation_Functions::COLUMN
+	COLUMNS                 PHPExcel_Calculation_Functions::COLUMNS
+	GETPIVOTDATA            ***  Not yet Implemented
+	HLOOKUP                 ***  Not yet Implemented
+	HYPERLINK               PHPExcel_Calculation_Functions::HYPERLINK
+	INDEX                   PHPExcel_Calculation_Functions::INDEX
+	INDIRECT                PHPExcel_Calculation_Functions::INDIRECT
+	LOOKUP                  PHPExcel_Calculation_Functions::LOOKUP
+	MATCH                   PHPExcel_Calculation_Functions::MATCH
+	OFFSET                  PHPExcel_Calculation_Functions::OFFSET
+	ROW                     PHPExcel_Calculation_Functions::ROW
+	ROWS                    PHPExcel_Calculation_Functions::ROWS
+	RTD                     ***  Not yet Implemented
+	TRANSPOSE               PHPExcel_Calculation_Functions::TRANSPOSE
+	VLOOKUP                 PHPExcel_Calculation_Functions::VLOOKUP
+
+CATEGORY_MATH_AND_TRIG
+	ABS                     abs
+	ACOS                    acos
+	ACOSH                   acosh
+	ASIN                    asin
+	ASINH                   asinh
+	ATAN                    atan
+	ATAN2                   PHPExcel_Calculation_Functions::REVERSE_ATAN2
+	ATANH                   atanh
+	CEILING                 PHPExcel_Calculation_Functions::CEILING
+	COMBIN                  PHPExcel_Calculation_Functions::COMBIN
+	COS                     cos
+	COSH                    cosh
+	DEGREES                 rad2deg
+	EVEN                    PHPExcel_Calculation_Functions::EVEN
+	EXP                     exp
+	FACT                    PHPExcel_Calculation_Functions::FACT
+	FACTDOUBLE              PHPExcel_Calculation_Functions::FACTDOUBLE
+	FLOOR                   PHPExcel_Calculation_Functions::FLOOR
+	GCD                     PHPExcel_Calculation_Functions::GCD
+	INT                     intval
+	LCM                     PHPExcel_Calculation_Functions::LCM
+	LN                      log
+	LOG                     PHPExcel_Calculation_Functions::LOG_BASE
+	LOG10                   log10
+	MDETERM                 PHPExcel_Calculation_Functions::MDETERM
+	MINVERSE                PHPExcel_Calculation_Functions::MINVERSE
+	MMULT                   PHPExcel_Calculation_Functions::MMULT
+	MOD                     PHPExcel_Calculation_Functions::MOD
+	MROUND                  PHPExcel_Calculation_Functions::MROUND
+	MULTINOMIAL             PHPExcel_Calculation_Functions::MULTINOMIAL
+	ODD                     PHPExcel_Calculation_Functions::ODD
+	PI                      pi
+	POWER                   PHPExcel_Calculation_Functions::POWER
+	PRODUCT                 PHPExcel_Calculation_Functions::PRODUCT
+	QUOTIENT                PHPExcel_Calculation_Functions::QUOTIENT
+	RADIANS                 deg2rad
+	RAND                    PHPExcel_Calculation_Functions::RAND
+	RANDBETWEEN             PHPExcel_Calculation_Functions::RAND
+	ROMAN                   PHPExcel_Calculation_Functions::ROMAN
+	ROUND                   round
+	ROUNDDOWN               PHPExcel_Calculation_Functions::ROUNDDOWN
+	ROUNDUP                 PHPExcel_Calculation_Functions::ROUNDUP
+	SERIESSUM               PHPExcel_Calculation_Functions::SERIESSUM
+	SIGN                    PHPExcel_Calculation_Functions::SIGN
+	SIN                     sin
+	SINH                    sinh
+	SQRT                    sqrt
+	SQRTPI                  PHPExcel_Calculation_Functions::SQRTPI
+	SUBTOTAL                PHPExcel_Calculation_Functions::SUBTOTAL
+	SUM                     PHPExcel_Calculation_Functions::SUM
+	SUMIF                   PHPExcel_Calculation_Functions::SUMIF
+	SUMIFS                  ***  Not yet Implemented
+	SUMPRODUCT              PHPExcel_Calculation_Functions::SUMPRODUCT
+	SUMSQ                   PHPExcel_Calculation_Functions::SUMSQ
+	SUMX2MY2                PHPExcel_Calculation_Functions::SUMX2MY2
+	SUMX2PY2                PHPExcel_Calculation_Functions::SUMX2PY2
+	SUMXMY2                 PHPExcel_Calculation_Functions::SUMXMY2
+	TAN                     tan
+	TANH                    tanh
+	TRUNC                   PHPExcel_Calculation_Functions::TRUNC
+
+CATEGORY_STATISTICAL
+	AVEDEV                  PHPExcel_Calculation_Functions::AVEDEV
+	AVERAGE                 PHPExcel_Calculation_Functions::AVERAGE
+	AVERAGEA                PHPExcel_Calculation_Functions::AVERAGEA
+	AVERAGEIF               ***  Not yet Implemented
+	AVERAGEIFS              ***  Not yet Implemented
+	BETADIST                PHPExcel_Calculation_Functions::BETADIST
+	BETAINV                 PHPExcel_Calculation_Functions::BETAINV
+	BINOMDIST               PHPExcel_Calculation_Functions::BINOMDIST
+	CHIDIST                 PHPExcel_Calculation_Functions::CHIDIST
+	CHIINV                  PHPExcel_Calculation_Functions::CHIINV
+	CHITEST                 ***  Not yet Implemented
+	CONFIDENCE              PHPExcel_Calculation_Functions::CONFIDENCE
+	CORREL                  PHPExcel_Calculation_Functions::CORREL
+	COUNT                   PHPExcel_Calculation_Functions::COUNT
+	COUNTA                  PHPExcel_Calculation_Functions::COUNTA
+	COUNTBLANK              PHPExcel_Calculation_Functions::COUNTBLANK
+	COUNTIF                 PHPExcel_Calculation_Functions::COUNTIF
+	COUNTIFS                ***  Not yet Implemented
+	COVAR                   PHPExcel_Calculation_Functions::COVAR
+	CRITBINOM               PHPExcel_Calculation_Functions::CRITBINOM
+	DEVSQ                   PHPExcel_Calculation_Functions::DEVSQ
+	EXPONDIST               PHPExcel_Calculation_Functions::EXPONDIST
+	FDIST                   ***  Not yet Implemented
+	FINV                    ***  Not yet Implemented
+	FISHER                  PHPExcel_Calculation_Functions::FISHER
+	FISHERINV               PHPExcel_Calculation_Functions::FISHERINV
+	FORECAST                PHPExcel_Calculation_Functions::FORECAST
+	FREQUENCY               ***  Not yet Implemented
+	FTEST                   ***  Not yet Implemented
+	GAMMADIST               PHPExcel_Calculation_Functions::GAMMADIST
+	GAMMAINV                PHPExcel_Calculation_Functions::GAMMAINV
+	GAMMALN                 PHPExcel_Calculation_Functions::GAMMALN
+	GEOMEAN                 PHPExcel_Calculation_Functions::GEOMEAN
+	GROWTH                  PHPExcel_Calculation_Functions::GROWTH
+	HARMEAN                 PHPExcel_Calculation_Functions::HARMEAN
+	HYPGEOMDIST             PHPExcel_Calculation_Functions::HYPGEOMDIST
+	INTERCEPT               PHPExcel_Calculation_Functions::INTERCEPT
+	KURT                    PHPExcel_Calculation_Functions::KURT
+	LARGE                   PHPExcel_Calculation_Functions::LARGE
+	LINEST                  PHPExcel_Calculation_Functions::LINEST
+	LOGEST                  PHPExcel_Calculation_Functions::LOGEST
+	LOGINV                  PHPExcel_Calculation_Functions::LOGINV
+	LOGNORMDIST             PHPExcel_Calculation_Functions::LOGNORMDIST
+	MAX                     PHPExcel_Calculation_Functions::MAX
+	MAXA                    PHPExcel_Calculation_Functions::MAXA
+	MAXIF                   ***  Not yet Implemented
+	MEDIAN                  PHPExcel_Calculation_Functions::MEDIAN
+	MEDIANIF                ***  Not yet Implemented
+	MIN                     PHPExcel_Calculation_Functions::MIN
+	MINA                    PHPExcel_Calculation_Functions::MINA
+	MINIF                   ***  Not yet Implemented
+	MODE                    PHPExcel_Calculation_Functions::MODE
+	NEGBINOMDIST            PHPExcel_Calculation_Functions::NEGBINOMDIST
+	NORMDIST                PHPExcel_Calculation_Functions::NORMDIST
+	NORMINV                 PHPExcel_Calculation_Functions::NORMINV
+	NORMSDIST               PHPExcel_Calculation_Functions::NORMSDIST
+	NORMSINV                PHPExcel_Calculation_Functions::NORMSINV
+	PEARSON                 PHPExcel_Calculation_Functions::CORREL
+	PERCENTILE              PHPExcel_Calculation_Functions::PERCENTILE
+	PERCENTRANK             PHPExcel_Calculation_Functions::PERCENTRANK
+	PERMUT                  PHPExcel_Calculation_Functions::PERMUT
+	POISSON                 PHPExcel_Calculation_Functions::POISSON
+	PROB                    ***  Not yet Implemented
+	QUARTILE                PHPExcel_Calculation_Functions::QUARTILE
+	RANK                    PHPExcel_Calculation_Functions::RANK
+	RSQ                     PHPExcel_Calculation_Functions::RSQ
+	SKEW                    PHPExcel_Calculation_Functions::SKEW
+	SLOPE                   PHPExcel_Calculation_Functions::SLOPE
+	SMALL                   PHPExcel_Calculation_Functions::SMALL
+	STANDARDIZE             PHPExcel_Calculation_Functions::STANDARDIZE
+	STDEV                   PHPExcel_Calculation_Functions::STDEV
+	STDEVA                  PHPExcel_Calculation_Functions::STDEVA
+	STDEVP                  PHPExcel_Calculation_Functions::STDEVP
+	STDEVPA                 PHPExcel_Calculation_Functions::STDEVPA
+	STEYX                   PHPExcel_Calculation_Functions::STEYX
+	TDIST                   PHPExcel_Calculation_Functions::TDIST
+	TINV                    PHPExcel_Calculation_Functions::TINV
+	TREND                   PHPExcel_Calculation_Functions::TREND
+	TRIMMEAN                PHPExcel_Calculation_Functions::TRIMMEAN
+	TTEST                   ***  Not yet Implemented
+	VAR                     PHPExcel_Calculation_Functions::VARFunc
+	VARA                    PHPExcel_Calculation_Functions::VARA
+	VARP                    PHPExcel_Calculation_Functions::VARP
+	VARPA                   PHPExcel_Calculation_Functions::VARPA
+	WEIBULL                 PHPExcel_Calculation_Functions::WEIBULL
+	ZTEST                   PHPExcel_Calculation_Functions::ZTEST
+
+CATEGORY_TEXT_AND_DATA
+	ASC                     ***  Not yet Implemented
+	BAHTTEXT                ***  Not yet Implemented
+	CHAR                    PHPExcel_Calculation_Functions::CHARACTER
+	CLEAN                   PHPExcel_Calculation_Functions::TRIMNONPRINTABLE
+	CODE                    PHPExcel_Calculation_Functions::ASCIICODE
+	CONCATENATE             PHPExcel_Calculation_Functions::CONCATENATE
+	DOLLAR                  PHPExcel_Calculation_Functions::DOLLAR
+	EXACT                   ***  Not yet Implemented
+	FIND                    PHPExcel_Calculation_Functions::SEARCHSENSITIVE
+	FINDB                   PHPExcel_Calculation_Functions::SEARCHSENSITIVE
+	FIXED                   PHPExcel_Calculation_Functions::FIXEDFORMAT
+	JIS                     ***  Not yet Implemented
+	LEFT                    PHPExcel_Calculation_Functions::LEFT
+	LEFTB                   PHPExcel_Calculation_Functions::LEFT
+	LEN                     PHPExcel_Calculation_Functions::STRINGLENGTH
+	LENB                    PHPExcel_Calculation_Functions::STRINGLENGTH
+	LOWER                   PHPExcel_Calculation_Functions::LOWERCASE
+	MID                     PHPExcel_Calculation_Functions::MID
+	MIDB                    PHPExcel_Calculation_Functions::MID
+	PHONETIC                ***  Not yet Implemented
+	PROPER                  PHPExcel_Calculation_Functions::PROPERCASE
+	REPLACE                 PHPExcel_Calculation_Functions::REPLACE
+	REPLACEB                PHPExcel_Calculation_Functions::REPLACE
+	REPT                    str_repeat
+	RIGHT                   PHPExcel_Calculation_Functions::RIGHT
+	RIGHTB                  PHPExcel_Calculation_Functions::RIGHT
+	SEARCH                  PHPExcel_Calculation_Functions::SEARCHINSENSITIVE
+	SEARCHB                 PHPExcel_Calculation_Functions::SEARCHINSENSITIVE
+	SUBSTITUTE              PHPExcel_Calculation_Functions::SUBSTITUTE
+	T                       PHPExcel_Calculation_Functions::RETURNSTRING
+	TEXT                    PHPExcel_Calculation_Functions::TEXTFORMAT
+	TRIM                    PHPExcel_Calculation_Functions::TRIMSPACES
+	UPPER                   PHPExcel_Calculation_Functions::UPPERCASE
+	VALUE                   ***  Not yet Implemented

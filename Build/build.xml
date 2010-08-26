@@ -1,0 +1,216 @@
+<?xml version="1.0"?>
+<project name="PHPExcel" default="release-standard" basedir=".">
+  <taskdef classname="phing.tasks.ext.d51PearPkg2Task" name="d51pearpkg2"/>
+  
+  <propertyprompt propertyName="packageVersion" defaultValue="1.0.0"
+		promptText="Enter PHPExcel version number" />
+  <propertyprompt propertyName="releaseDate" defaultValue="2010-01-01"
+		promptText="Enter PHPExcel release date" />
+
+  <adhoc-task name="phpzip">
+    <![CDATA[
+        class PhpZipTask extends Task {
+            private $destinationFile;
+            private $filesets = array();
+
+            function setDestfile(PhingFile $f) {
+                $this->destinationFile = $f;
+            }
+
+            function createFileSet() {
+                $num = array_push($this->filesets, new FileSet());
+                return $this->filesets[$num-1];
+            }
+
+            function main() {   
+                if ($this->destinationFile === null || empty($this->filesets)) {
+                    throw new BuildException("You must specify a file or fileset(s) for the <phpzip> task.");
+                }
+                
+                // compile a list of all files to add to the file, both file attrib and fileset elements
+                // can be used.
+                $files = array();
+                if (!empty($this->filesets)) {
+                    $filenames = array();
+                    foreach($this->filesets as $fs) {
+                        try {
+                            $ds = $fs->getDirectoryScanner($this->project);
+                            $filenames = $ds->getIncludedFiles(); // get included filenames
+                            $dir = $fs->getDir($this->project);
+                            foreach ($filenames as $fname) {
+                                $files[] = new PhingFile($dir, $fname);
+                            }
+                        } catch (BuildException $be) {
+                            $this->log($be->getMessage(), Project::MSG_WARN);
+                        }
+                    }                        
+                }
+                
+                $objZip = new ZipArchive();
+                if ($objZip->open($this->destinationFile, ZIPARCHIVE::OVERWRITE) !== true) {
+                	throw new Exeption("Could not open " . $strResultingFile . " for writing!");
+                }
+                
+                $this->log("Creating ZIP archive of " . count($files) . " files...");
+
+                foreach($files as $file) {
+                    $this->log("Processing file " . $this->_cleanFileName($file) . " ...");
+                    $contents = file_get_contents($file);
+                    $objZip->addFromString( $this->_cleanFileName($file), $contents );
+                }     
+                
+                $objZip->close();
+                
+                $this->log("Created ZIP archive " . $this->destinationFile . '.');
+            }
+            
+            /**
+             * Cleanup a filename
+             *
+             * @param 	string	$strFile			Filename
+             * @return	string	Filename
+             */
+            protected function _cleanFileName($strFile) {
+	             $strFile = str_replace('../', '', $strFile);
+               $strFile = str_replace('.\\build\\', '', $strFile);
+	             $strFile = str_replace('WINDOWS', '', $strFile);
+            	 
+	             while (preg_match('/\/\//i', $strFile)) {
+	 	            $strFile = str_replace('//', '/', $strFile);
+	             }
+            	 
+	             return $strFile;
+            }
+        }
+		]]>
+  </adhoc-task>
+  
+  <target name="prepare">
+    <echo msg="Creating build directory: ./build" />
+    <mkdir dir="./build" />
+  </target>
+
+  <target name="build" depends="prepare">
+    <echo msg="Copying source files to build directory..." />
+
+    <copy todir="./build/Classes" overwrite="true">
+      <fileset dir="../Classes">
+        <include name="**/*" />
+        <exclude name="**/.svn" />
+      </fileset>
+    </copy>
+    
+    <copy todir="./build/Documentation" overwrite="true">
+      <fileset dir="../Documentation">
+        <include name="*.*" />
+        <exclude name="**/.svn" />
+      </fileset>
+    </copy>
+    <mkdir dir="./build/Documentation/API" />
+    
+    <copy todir="./build/Tests" overwrite="true">
+      <fileset dir="../Tests">
+        <include name="**/*" />
+        <exclude name="**/.svn" />
+      </fileset>
+    </copy>
+    
+    <copy file="../changelog.txt" tofile="./build/changelog.txt" overwrite="true" />
+    <copy file="../license.txt" tofile="./build/license.txt" overwrite="true" />
+    <copy file="../install.txt" tofile="./build/install.txt" overwrite="true" />
+  </target>
+
+  <target name="versionNumber" depends="build">
+    <reflexive>
+      <fileset dir="./build">
+        <include pattern="**/*" />
+      </fileset>
+      <filterchain>
+        <replaceregexp>
+          <regexp pattern="##VERSION##" replace="${packageVersion}"/>
+          <regexp pattern="##DATE##" replace="${releaseDate}"/>
+        </replaceregexp>
+      </filterchain>
+    </reflexive>
+
+    <reflexive>
+      <fileset dir="./build">
+        <include pattern="**/changelog.txt" />
+      </fileset>
+      <filterchain>
+        <replaceregexp>
+          <regexp pattern="Fixed in SVN" replace="${releaseDate} (v${packageVersion})"/>
+        </replaceregexp>
+      </filterchain>
+    </reflexive>
+  </target>
+
+  <target name="apidocs" depends="versionNumber">
+    <echo msg="Generating API documentation..." />
+    <phpdoc title="PHPExcel classes"
+            destdir="./build/Documentation/API"
+            sourcecode="true"
+            output="HTML:Smarty:PHP"
+            defaultcategoryname="PHPExcel"
+            defaultpackagename="PHPExcel"
+            pear="true">
+      <fileset dir="./build/Classes">
+        <include name="**/*.php" />
+      </fileset>
+    </phpdoc>
+  </target>
+
+  <target name="release-standard" depends="apidocs">
+    <mkdir dir="./release" />
+    
+    <echo msg="Creating release package (v${packageVersion})..." />
+    <phpzip destfile="./release/${packageVersion}.zip">
+      <fileset dir="./build">
+        <include name="**/*" />
+      </fileset>
+    </phpzip>
+
+    <echo msg="Cleaning build directory: ./build" />
+    <delete dir="./build" />
+  </target>
+
+  <target name="release-pear" depends="versionNumber">
+    <mkdir dir="./release" />
+    
+    <echo msg="Creating PEAR release package (v${packageVersion})..." />
+    
+    <d51pearpkg2 dir="./build/Classes" baseinstalldir="PHPExcel">
+      <name>PHPExcel</name>
+      <summary>PHP Excel classes</summary>
+      <channel>pear.pearplex.net</channel>
+      <description>Project providing a set of classes for the PHP programming language, which allow you to write to Excel 2007 files and read from Excel 2007 files.</description>
+      <notes>This package ONLY contains the class files, not the documentation and example code. Please refer to http://www.codeplex.com/PHPExcel for those files.</notes>
+      <lead user="maartenba" name="Maarten Balliauw" email="maarten@phpexcel.net"/>
+      <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt">LGPL</license>
+      <version release="${packageVersion}" api="${packageVersion}"/>
+      <stability release="stable" api="stable"/>
+      <dependencies>
+        <php minimum_version="5.2.0"/>
+        <pear minimum_version="1.4.0"/>
+        <extension name="zip" minimum_version="1.8.0"/>
+      </dependencies>
+    </d51pearpkg2>
+
+    <exec command="pear package ./build/Classes/package.xml"/>
+    <move file="PHPExcel-${packageVersion}.tgz" tofile="release/PHPExcel-${packageVersion}.tgz" overwrite="true"/>
+
+    <echo msg="Cleaning build directory: ./build" />
+    <delete dir="./build" />
+  </target>
+
+  <target name="release-documentation">
+    <mkdir dir="./release" />
+
+    <echo msg="Creating documentation release (v${packageVersion})..." />
+    <copy todir="./release" overwrite="true">
+      <fileset dir="../Documentation">
+        <include name="*.doc" />
+      </fileset>
+    </copy>
+  </target>
+</project>

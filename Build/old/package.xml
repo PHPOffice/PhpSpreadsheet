@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<package version="2.0" xmlns="http://pear.php.net/dtd/package-2.0"
+    xmlns:tasks="http://pear.php.net/dtd/tasks-1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+  <name>PHPExcel</name>
+  <uri>http://www.codeplex.com/PHPExcel/PHPExcel-##VERSION##</uri>
+  <summary>PHP Excel classes</summary>
+  <description>
+    Project providing a set of classes for the PHP programming language, which allow you to write to Excel 2007 files and read from Excel 2007 files.
+  </description>
+  <lead>
+    <name>Maarten Balliauw</name>
+    <user>maartenba</user>
+    <email>maarten@phpexcel.net</email>
+    <active>yes</active>
+  </lead>
+  <date>##DATE##</date>
+    <version>
+      <release>##VERSION##</release>
+      <api>##VERSION##</api>
+    </version>
+    <stability>
+      <release>stable</release>
+      <api>stable</api>
+    </stability>
+    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt">LGPL</license>
+    <notes>This package ONLY contains the class files, not the documentation and example code. Please refer to http://www.codeplex.com/PHPExcel for those files.</notes>
+    <contents>
+      <dir name="/">
+##PEAR_DIR##
+      </dir>
+    </contents>
+    <dependencies>
+      <required>
+        <php>
+          <min>5.0</min>
+        </php>
+        <pearinstaller>
+          <min>1.4.0</min>
+        </pearinstaller>
+        <extension>
+          <name>zip</name>
+        </extension>
+      </required>
+    </dependencies>
+    <phprelease>
+      <filelist>
+      </filelist>
+    </phprelease>
+  </package>
