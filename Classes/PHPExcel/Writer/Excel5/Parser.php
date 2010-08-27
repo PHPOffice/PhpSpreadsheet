@@ -556,6 +556,10 @@ class PHPExcel_Writer_Excel5_Parser
 		} elseif (isset($this->ptg[$token])) {
 			return pack("C", $this->ptg[$token]);
 
+        // match error codes
+		} elseif (preg_match("/^#[A-Z0\/]{3,5}[!?]{1}$/", $token) or $token == '#N/A') {
+		    return $this->_convertError($token);
+
 		// commented so argument number can be processed correctly. See toReversePolish().
 		/*elseif (preg_match("/[A-Z0-9\xc0-\xdc\.]+/",$token))
 		{
@@ -566,6 +570,7 @@ class PHPExcel_Writer_Excel5_Parser
 		} elseif ($token == 'arg') {
 			return '';
 		}
+
 		// TODO: use real error codes
 		throw new Exception("Unknown token $token");
 	}
@@ -790,6 +795,26 @@ class PHPExcel_Writer_Excel5_Parser
 
 		return $ptgRef . $ext_ref. $row . $col;
 	}
+
+    /**
+     * Convert an error code to a ptgErr
+     *
+     * @access private
+     * @param mixed $num an error codefor conversion to its ptg value
+     */
+    function _convertError($errorCode)
+    {
+        switch ($errorCode) {
+            case '#NULL!':	return pack("C", 0x00);
+            case '#DIV/0!':	return pack("C", 0x07);
+            case '#VALUE!':	return pack("C", 0x0F);
+            case '#REF!':	return pack("C", 0x17);
+            case '#NAME?':	return pack("C", 0x1D);
+            case '#NUM!':	return pack("C", 0x24);
+            case '#N/A':	return pack("C", 0x2A);
+        }
+        return pack("C", 0xFF);
+    }
 
 	/**
 	 * Convert the sheet name part of an external reference, for example "Sheet1" or
@@ -1207,6 +1232,11 @@ class PHPExcel_Writer_Excel5_Parser
 				{
 					return $token;
 				}
+			    // If it's an error code
+			    elseif (preg_match("/^#[A-Z0\/]{3,5}[!?]{1}$/", $token) or $token == '#N/A')
+			    {
+			        return $token;
+			    }
 				// if it's a function call
 				elseif (preg_match("/^[A-Z0-9\xc0-\xdc\.]+$/i",$token) and ($this->_lookahead == "("))
 				{
@@ -1280,7 +1310,9 @@ class PHPExcel_Writer_Excel5_Parser
 	 * It parses a expression. It assumes the following rule:
 	 * Expr -> Term [("+" | "-") Term]
 	 *      -> "string"
-	 *      -> "-" Term
+	 *      -> "-" Term : Negative value
+	 *      -> "+" Term : Positive value
+	 *      -> Error code
 	 *
 	 * @access private
 	 * @return mixed The parsed ptg'd tree on success
@@ -1292,12 +1324,19 @@ class PHPExcel_Writer_Excel5_Parser
 			$result = $this->_createTree($this->_current_token, '', '');
 			$this->_advance();
 			return $result;
-		} elseif ($this->_current_token == "-") {
+        // If it's an error code
+        } elseif (preg_match("/^#[A-Z0\/]{3,5}[!?]{1}$/", $this->_current_token) or $this->_current_token == '#N/A'){
+		    $result = $this->_createTree($this->_current_token, 'ptgErr', '');
+		    $this->_advance();
+		    return $result;
+		// If it's a negative value
+        } elseif ($this->_current_token == "-") {
 			// catch "-" Term
 			$this->_advance();
 			$result2 = $this->_expression();
 			$result = $this->_createTree('ptgUminus', $result2, '');
 			return $result;
+        // If it's a positive value
 		} elseif ($this->_current_token == "+") {
 			// catch "+" Term
 			$this->_advance();
