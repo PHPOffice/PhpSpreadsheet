@@ -1149,8 +1149,11 @@ class PHPExcel_Writer_Excel5_Parser
 				return $token;
 				break;
 			case "^":
-				return $token;
-				break;
+			    return $token;
+			    break;
+			case "&":
+			    return $token;
+			    break;
 			default:
 				// if it's a reference A1 or $A$1 or $A1 or A$1
 				if (preg_match('/^\$?[A-Ia-i]?[A-Za-z]\$?[0-9]+$/',$token) and
@@ -1265,6 +1268,10 @@ class PHPExcel_Writer_Excel5_Parser
 			$this->_advance();
 			$result2 = $this->_expression();
 			$result = $this->_createTree('ptgNE', $result, $result2);
+		} elseif ($this->_current_token == "&") {
+		    $this->_advance();
+		    $result2 = $this->_expression();
+		    $result = $this->_createTree('ptgConcat', $result, $result2);
 		}
 		return $result;
 	}
