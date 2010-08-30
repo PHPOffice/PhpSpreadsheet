@@ -1012,7 +1012,7 @@ class Matrix {
 							$M->set($i, $j, $this->A[$i][$j] / $value);
 						}
 					} else {
-						$this->A[$i][$j] = PHPExcel_Calculation_Functions::NaN();
+						$M->set($i, $j, PHPExcel_Calculation_Functions::NaN());
 					}
 				}
 			}
