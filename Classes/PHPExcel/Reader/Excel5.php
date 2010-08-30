@@ -960,7 +960,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 		// offset: 6; size: 2; OS indicator
 		// offset: 8; size: 16
 		// offset: 24; size: 4; section count
-		$secCount = $this->_GetInt4d($this->_documentSummaryInformation, 24);
+		$secCount = $this->_GetInt4d($this->_summaryInformation, 24);
 
 		// offset: 28; size: 16; first section's class id: e0 85 9f f2 f9 4f 68 10 ab 91 08 00 2b 27 b3 d9
 		// offset: 44; size: 4
