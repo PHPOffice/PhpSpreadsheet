@@ -345,8 +345,19 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 				case "http://schemas.openxmlformats.org/officeDocument/2006/relationships/custom-properties":
 					$xmlCore = simplexml_load_string($this->_getFromZipArchive($zip, "{$rel['Target']}"));
 					if (is_object($xmlCore)) {
-						$xmlCore->registerXPathNamespace("vt", "http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes");
 						$docProps = $excel->getProperties();
+						foreach ($xmlCore as $xmlProperty) {
+							$cellDataOfficeAttributes = $xmlProperty->attributes();
+							if (isset($cellDataOfficeAttributes['name'])) {
+								$propertyName = (string) $cellDataOfficeAttributes['name'];
+								$cellDataOfficeChildren = $xmlProperty->children('http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes');
+								$attributeType = $cellDataOfficeChildren->getName();
+								$attributeValue = (string) $cellDataOfficeChildren->{$attributeType};
+								$attributeValue = PHPExcel_DocumentProperties::convertProperty($attributeValue,$attributeType);
+								$attributeType = PHPExcel_DocumentProperties::convertPropertyType($attributeType);
+								$docProps->setCustomProperty($propertyName,$attributeValue,$attributeType);
+							}
+						}
 					}
 				break;
 

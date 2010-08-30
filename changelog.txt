@@ -24,8 +24,8 @@
 
 
 Fixed in SVN:
-- Bugfix:   (Progi1984) Workitem 7895 - Excel5 : Formula : Error constant 
-- Bugfix:   (Progi1984) Workitem 7895 - Excel5 : Formula : Concatenation operator
+- Feature:  (MBaker) Support for Extended Workbook Properties in Excel2007, Excel5 and OOCalc Readers; support for User-defined Workbook Properties in Excel2007 and OOCalc Readers
+
 
 2010-08-26 (v1.7.4):
 - Bugfix:   (Progi1984) Workitem 7895 - Excel5 : Formula : Power

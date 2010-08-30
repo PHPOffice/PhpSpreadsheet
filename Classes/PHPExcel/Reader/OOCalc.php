@@ -297,8 +297,41 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 //					echo '<hr />';
 //
 					switch ($propertyName) {
+						case 'initial-creator' :
+								$docProps->setCreator($propertyValue);
+								break;
 						case 'keyword' :
 								$docProps->setKeywords($propertyValue);
+								break;
+						case 'creation-date' :
+								$creationDate = strtotime($propertyValue);
+								$docProps->setCreated($creationDate);
+								break;
+						case 'user-defined' :
+								$propertyValueType = PHPExcel_DocumentProperties::PROPERTY_TYPE_STRING;
+								foreach ($propertyValueAttributes as $key => $value) {
+									if ($key == 'name') {
+										$propertyValueName = (string) $value;
+									} elseif($key == 'value-type') {
+										switch ($value) {
+											case 'date'	:
+												$propertyValue = PHPExcel_DocumentProperties::convertProperty($propertyValue,'date');
+												$propertyValueType = PHPExcel_DocumentProperties::PROPERTY_TYPE_DATE;
+												break;
+											case 'boolean'	:
+												$propertyValue = PHPExcel_DocumentProperties::convertProperty($propertyValue,'bool');
+												$propertyValueType = PHPExcel_DocumentProperties::PROPERTY_TYPE_BOOLEAN;
+												break;
+											case 'float'	:
+												$propertyValue = PHPExcel_DocumentProperties::convertProperty($propertyValue,'r4');
+												$propertyValueType = PHPExcel_DocumentProperties::PROPERTY_TYPE_FLOAT;
+												break;
+											default :
+												$propertyValueType = PHPExcel_DocumentProperties::PROPERTY_TYPE_STRING;
+										}
+									}
+								}
+								$docProps->setCustomProperty($propertyValueName,$propertyValue,$propertyValueType);
 								break;
 					}
 				}

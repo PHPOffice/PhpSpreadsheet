@@ -193,6 +193,13 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	private $_summaryInformation;
 
 	/**
+	 * Extended Summary Information stream data.
+	 *
+	 * @var string
+	 */
+	private $_documentSummaryInformation;
+
+	/**
 	 * Workbook stream data. (Includes workbook globals substream as well as sheet substreams)
 	 *
 	 * @var string
@@ -507,6 +514,9 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 
 		// Read the summary information stream (containing meta data)
 		$this->_readSummaryInformation();
+
+		// Read the Additional document summary information stream (containing application-specific meta data)
+		$this->_readDocumentSummaryInformation();
 
 		// total byte size of Excel data (workbook global substream + sheet substreams)
 		$this->_dataSize = strlen($this->_data);
@@ -930,6 +940,9 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 
 		// Get summary information data
 		$this->_summaryInformation = $ole->getSummaryInformation();
+
+		// Get additional document summary information data
+		$this->_documentSummaryInformation = $ole->getDocumentSummaryInformation();
 	}
 
 	/**
@@ -947,31 +960,34 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 		// offset: 6; size: 2; OS indicator
 		// offset: 8; size: 16
 		// offset: 24; size: 4; section count
+		$secCount = $this->_GetInt4d($this->_documentSummaryInformation, 24);
 
 		// offset: 28; size: 16; first section's class id: e0 85 9f f2 f9 4f 68 10 ab 91 08 00 2b 27 b3 d9
 		// offset: 44; size: 4
+		$secOffset = $this->_GetInt4d($this->_summaryInformation, 44);
 
 		// section header
-		// offset: 48; size: 4; section length
-		$secLength = $this->_GetInt4d($this->_summaryInformation, 48);
+		// offset: $secOffset; size: 4; section length
+		$secLength = $this->_GetInt4d($this->_summaryInformation, $secOffset);
 
-		// offset: 52; size: 4; property count
-		$countProperties = $this->_GetInt4d($this->_summaryInformation, 52);
+		// offset: $secOffset+4; size: 4; property count
+		$countProperties = $this->_GetInt4d($this->_summaryInformation, $secOffset+4);
 
 		// initialize code page (used to resolve string values)
 		$codePage = 'CP1252';
 
-		// offset: 56; size: var
+		// offset: ($secOffset+8); size: var
 		// loop through property decarations and properties
 		for ($i = 0; $i < $countProperties; ++$i) {
 
-			// offset: 56 + 8 * $i; size: 4; property ID
-			$id = $this->_GetInt4d($this->_summaryInformation, 56 + 8 * $i);
+			// offset: ($secOffset+8) + (8 * $i); size: 4; property ID
+			$id = $this->_GetInt4d($this->_summaryInformation, ($secOffset+8) + (8 * $i));
 
-			// offset: 60 + 8 * $i; size: 4; offset from beginning of section (48)
-			$offset = $this->_GetInt4d($this->_summaryInformation, 60 + 8 * $i);
+			// Use value of property id as appropriate
+			// offset: ($secOffset+12) + (8 * $i); size: 4; offset from beginning of section (48)
+			$offset = $this->_GetInt4d($this->_summaryInformation, ($secOffset+12) + (8 * $i));
 
-			$type = $this->_GetInt4d($this->_summaryInformation, 48 + $offset);
+			$type = $this->_GetInt4d($this->_summaryInformation, $secOffset + $offset);
 
 			// initialize property value
 			$value = null;
@@ -979,11 +995,11 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 			// extract property value based on property type
 			switch ($type) {
 				case 0x02: // 2 byte signed integer
-					$value = $this->_GetInt2d($this->_summaryInformation, 52 + $offset);
+					$value = $this->_GetInt2d($this->_summaryInformation, $secOffset + 4 + $offset);
 					break;
 
 				case 0x03: // 4 byte signed integer
-					$value = $this->_GetInt4d($this->_summaryInformation, 52 + $offset);
+					$value = $this->_GetInt4d($this->_summaryInformation, $secOffset + 4 + $offset);
 					break;
 
 				case 0x13: // 4 byte unsigned integer
@@ -991,15 +1007,15 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 					break;
 
 				case 0x1E: // null-terminated string prepended by dword string length
-					$byteLength = $this->_GetInt4d($this->_summaryInformation, 52 + $offset);
-					$value = substr($this->_summaryInformation, 56 + $offset, $byteLength);
+					$byteLength = $this->_GetInt4d($this->_summaryInformation, $secOffset + 4 + $offset);
+					$value = substr($this->_summaryInformation, $secOffset + 8 + $offset, $byteLength);
 					$value = PHPExcel_Shared_String::ConvertEncoding($value, 'UTF-8', $codePage);
 					$value = rtrim($value);
 					break;
 
 				case 0x40: // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
 					// PHP-time
-					$value = PHPExcel_Shared_OLE::OLE2LocalDate(substr($this->_summaryInformation, 52 + $offset, 8));
+					$value = PHPExcel_Shared_OLE::OLE2LocalDate(substr($this->_summaryInformation, $secOffset + 4 + $offset, 8));
 					break;
 
 				case 0x47: // Clipboard format
@@ -1007,51 +1023,225 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 					break;
 			}
 
-			// Use value of property id as appropriate
 			switch ($id) {
-				case 0x01: // Code Page
+				case 0x01:	//	Code Page
 					$codePage = PHPExcel_Shared_CodePage::NumberToName($value);
 					break;
 
-				case 0x02: // Title
+				case 0x02:	//	Title
 					$this->_phpExcel->getProperties()->setTitle($value);
 					break;
 
-				case 0x03: // Subject
+				case 0x03:	//	Subject
 					$this->_phpExcel->getProperties()->setSubject($value);
 					break;
 
-				case 0x04: // Author (Creator)
+				case 0x04:	//	Author (Creator)
 					$this->_phpExcel->getProperties()->setCreator($value);
 					break;
 
-				case 0x05: // Keywords
+				case 0x05:	//	Keywords
 					$this->_phpExcel->getProperties()->setKeywords($value);
 					break;
 
-				case 0x06: // Comments (Description)
+				case 0x06:	//	Comments (Description)
 					$this->_phpExcel->getProperties()->setDescription($value);
 					break;
 
-				case 0x08: // Last Saved By (LastModifiedBy)
+				case 0x07:	//	Template
+					//	Not supported by PHPExcel
+					break;
+
+				case 0x08:	//	Last Saved By (LastModifiedBy)
 					$this->_phpExcel->getProperties()->setLastModifiedBy($value);
 					break;
 
-				case 0x09: // Revision
-					// not supported by PHPExcel
+				case 0x09:	//	Revision
+					//	Not supported by PHPExcel
 					break;
 
-				case 0x0C: // Created
+				case 0x0A:	//	Total Editing Time
+					//	Not supported by PHPExcel
+					break;
+
+				case 0x0B:	//	Last Printed
+					//	Not supported by PHPExcel
+					break;
+
+				case 0x0C:	//	Created Date/Time
 					$this->_phpExcel->getProperties()->setCreated($value);
 					break;
 
-				case 0x0D: // Modified
+				case 0x0D:	//	Modified Date/Time
 					$this->_phpExcel->getProperties()->setModified($value);
 					break;
 
-				case 0x12: // Name of creating application
-					// not supported by PHPExcel
+				case 0x0E:	//	Number of Pages
+					//	Not supported by PHPExcel
 					break;
+
+				case 0x0F:	//	Number of Words
+					//	Not supported by PHPExcel
+					break;
+
+				case 0x10:	//	Number of Characters
+					//	Not supported by PHPExcel
+					break;
+
+				case 0x11:	//	Thumbnail
+					//	Not supported by PHPExcel
+					break;
+
+				case 0x12:	//	Name of creating application
+					//	Not supported by PHPExcel
+					break;
+
+				case 0x13:	//	Security
+					//	Not supported by PHPExcel
+					break;
+
+			}
+		}
+	}
+
+	/**
+	 * Read additional document summary information
+	 */
+	private function _readDocumentSummaryInformation()
+	{
+		if (!isset($this->_documentSummaryInformation)) {
+			return;
+		}
+
+		//	offset: 0;	size: 2;	must be 0xFE 0xFF (UTF-16 LE byte order mark)
+		//	offset: 2;	size: 2;
+		//	offset: 4;	size: 2;	OS version
+		//	offset: 6;	size: 2;	OS indicator
+		//	offset: 8;	size: 16
+		//	offset: 24;	size: 4;	section count
+		$secCount = $this->_GetInt4d($this->_documentSummaryInformation, 24);
+
+		// offset: 28;	size: 16;	first section's class id: 02 d5 cd d5 9c 2e 1b 10 93 97 08 00 2b 2c f9 ae
+		// offset: 44;	size: 4;	first section offset
+		$secOffset = $this->_GetInt4d($this->_documentSummaryInformation, 44);
+
+		//	section header
+		//	offset: $secOffset;	size: 4;	section length
+		$secLength = $this->_GetInt4d($this->_documentSummaryInformation, $secOffset);
+
+		//	offset: $secOffset+4;	size: 4;	property count
+		$countProperties = $this->_GetInt4d($this->_documentSummaryInformation, $secOffset+4);
+
+		// initialize code page (used to resolve string values)
+		$codePage = 'CP1252';
+
+		//	offset: ($secOffset+8);	size: var
+		//	loop through property decarations and properties
+		for ($i = 0; $i < $countProperties; ++$i) {
+			//	offset: ($secOffset+8) + (8 * $i);	size: 4;	property ID
+			$id = $this->_GetInt4d($this->_documentSummaryInformation, ($secOffset+8) + (8 * $i));
+
+			// Use value of property id as appropriate
+			// offset: 60 + 8 * $i;	size: 4;	offset from beginning of section (48)
+			$offset = $this->_GetInt4d($this->_documentSummaryInformation, ($secOffset+12) + (8 * $i));
+
+			$type = $this->_GetInt4d($this->_documentSummaryInformation, $secOffset + $offset);
+
+			// initialize property value
+			$value = null;
+
+			// extract property value based on property type
+			switch ($type) {
+				case 0x02:	//	2 byte signed integer
+					$value = $this->_GetInt2d($this->_documentSummaryInformation, $secOffset + 4 + $offset);
+					break;
+
+				case 0x03:	//	4 byte signed integer
+					$value = $this->_GetInt4d($this->_documentSummaryInformation, $secOffset + 4 + $offset);
+					break;
+
+				case 0x13:	//	4 byte unsigned integer
+					// not needed yet, fix later if necessary
+					break;
+
+				case 0x1E:	//	null-terminated string prepended by dword string length
+					$byteLength = $this->_GetInt4d($this->_documentSummaryInformation, $secOffset + 4 + $offset);
+					$value = substr($this->_documentSummaryInformation, $secOffset + 8 + $offset, $byteLength);
+					$value = PHPExcel_Shared_String::ConvertEncoding($value, 'UTF-8', $codePage);
+					$value = rtrim($value);
+					break;
+
+				case 0x40:	//	Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
+					// PHP-Time
+					$value = PHPExcel_Shared_OLE::OLE2LocalDate(substr($this->_documentSummaryInformation, $secOffset + 4 + $offset, 8));
+					break;
+
+				case 0x47:	//	Clipboard format
+					// not needed yet, fix later if necessary
+					break;
+			}
+
+			switch ($id) {
+				case 0x02:	//	Category
+					$this->_phpExcel->getProperties()->setCategory($value);
+					break;
+
+				case 0x03:	//	Presentation Target
+					//	Not supported by PHPExcel
+					break;
+
+				case 0x04:	//	Bytes
+					//	Not supported by PHPExcel
+					break;
+
+				case 0x05:	//	Lines
+					//	Not supported by PHPExcel
+					break;
+
+				case 0x06:	//	Paragraphs
+					//	Not supported by PHPExcel
+					break;
+
+				case 0x07:	//	Slides
+					//	Not supported by PHPExcel
+					break;
+
+				case 0x08:	//	Notes
+					//	Not supported by PHPExcel
+					break;
+
+				case 0x09:	//	Hidden Slides
+					//	Not supported by PHPExcel
+					break;
+
+				case 0x0A:	//	MM Clips
+					//	Not supported by PHPExcel
+					break;
+
+				case 0x0B:	//	Scale Crop
+					//	Not supported by PHPExcel
+					break;
+
+				case 0x0C:	//	Heading Pairs
+					//	Not supported by PHPExcel
+					break;
+
+				case 0x0D:	//	Titles of Parts
+					//	Not supported by PHPExcel
+					break;
+
+				case 0x0E:	//	Manager
+					$this->_phpExcel->getProperties()->setManager($value);
+					break;
+
+				case 0x0F:	//	Company
+					$this->_phpExcel->getProperties()->setCompany($value);
+					break;
+
+				case 0x10:	//	Links up-to-date
+					//	Not supported by PHPExcel
+					break;
+
 			}
 		}
 	}
@@ -6182,3 +6372,4 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	}
 
 }
+
