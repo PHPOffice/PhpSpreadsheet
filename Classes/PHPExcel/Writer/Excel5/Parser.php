@@ -1179,6 +1179,9 @@ class PHPExcel_Writer_Excel5_Parser
 			case "&":
 			    return $token;
 			    break;
+			case "%":
+			    return $token;
+			    break;
 			default:
 				// if it's a reference A1 or $A$1 or $A1 or A$1
 				if (preg_match('/^\$?[A-Ia-i]?[A-Za-z]\$?[0-9]+$/',$token) and
@@ -1476,11 +1479,16 @@ class PHPExcel_Writer_Excel5_Parser
 			$this->_advance();
 			return $result;
 		}
+		// If it's a number or a percent
 		elseif (is_numeric($this->_current_token))
 		{
-			$result = $this->_createTree($this->_current_token, '', '');
-			$this->_advance();
-			return $result;
+		    if($this->_lookahead == '%'){
+		        $result = $this->_createTree('ptgPercent', $this->_current_token, '');
+		    } else {
+		        $result = $this->_createTree($this->_current_token, '', '');
+		    }
+		    $this->_advance();
+		    return $result;
 		}
 		// if it's a function call
 		elseif (preg_match("/^[A-Z0-9\xc0-\xdc\.]+$/i",$this->_current_token))
