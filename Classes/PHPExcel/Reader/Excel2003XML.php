@@ -99,7 +99,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 	 * Set read data only
 	 *
 	 * @param boolean $pValue
-	 * @return PHPExcel_Reader_Excel2007
+	 * @return PHPExcel_Reader_Excel2003XML
 	 */
 	public function setReadDataOnly($pValue = false) {
 		$this->_readDataOnly = $pValue;
@@ -120,7 +120,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 	 * Set which sheets to load
 	 *
 	 * @param mixed $value
-	 * @return PHPExcel_Reader_Excel2007
+	 * @return PHPExcel_Reader_Excel2003XML
 	 */
 	public function setLoadSheetsOnly($value = null)
 	{
@@ -132,7 +132,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 	/**
 	 * Set all sheets to load
 	 *
-	 * @return PHPExcel_Reader_Excel2007
+	 * @return PHPExcel_Reader_Excel2003XML
 	 */
 	public function setLoadAllSheets()
 	{
@@ -153,7 +153,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 	 * Set read filter
 	 *
 	 * @param PHPExcel_Reader_IReadFilter $pValue
-	 * @return PHPExcel_Reader_Excel2007
+	 * @return PHPExcel_Reader_Excel2003XML
 	 */
 	public function setReadFilter(PHPExcel_Reader_IReadFilter $pValue) {
 		$this->_readFilter = $pValue;
