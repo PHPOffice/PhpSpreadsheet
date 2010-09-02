@@ -75,6 +75,7 @@ class PHPExcel_IOFactory
 		'Excel2003XML',
 		'OOCalc',
 		'SYLK',
+		'Gnumeric',
 		'Serialized',
 		'CSV',
 	);
@@ -246,6 +247,9 @@ class PHPExcel_IOFactory
 					break;
 				case 'xml':
 					$reader = self::createReader('Excel2003XML');
+					break;
+				case 'gnumeric':
+					$reader = self::createReader('Gnumeric');
 					break;
 				case 'csv':
 					// Do nothing
