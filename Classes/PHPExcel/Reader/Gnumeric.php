@@ -356,6 +356,14 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 				$cellAttributes = $cell->attributes();
 				$row = (string) $cellAttributes->Row + 1;
 				$column = PHPExcel_Cell::stringFromColumnIndex($cellAttributes->Col);
+
+				// Read cell?
+				if (!is_null($this->getReadFilter())) {
+					if (!$this->getReadFilter()->readCell($column, $row, $worksheetName)) {
+						continue;
+					}
+				}
+
 				$ValueType = $cellAttributes->ValueType;
 				$ExprID = (string) $cellAttributes->ExprID;
 //				echo 'Cell ',$column,$row,'<br />';
@@ -398,6 +406,11 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 				$objPHPExcel->getActiveSheet()->getCell($column.$row)->setValueExplicit($cell,$type);
 			}
 
+			if (isset($sheet->MergedRegions)) {
+				foreach($sheet->MergedRegions->Merge as $mergeCells) {
+					$objPHPExcel->getActiveSheet()->mergeCells($mergeCells);
+				}
+			}
 			$worksheetID++;
 		}
 
