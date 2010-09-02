@@ -338,7 +338,6 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 			}
 		}
 
-
 		$worksheetID = 0;
 		foreach($gnmXML->Sheets->Sheet as $sheet) {
 			$worksheetName = (string) $sheet->Name;
@@ -412,6 +411,21 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 				}
 			}
 			$worksheetID++;
+		}
+
+		//	Loop through definedNames
+		if (isset($gnmXML->Names)) {
+			foreach($gnmXML->Names->Name as $namedRange) {
+				$name = (string) $namedRange->name;
+				$range = (string) $namedRange->value;
+
+				$range = explode('!',$range);
+				$range[0] = trim($range[0],"'");;
+				if ($worksheet = $objPHPExcel->getSheetByName($range[0])) {
+					$extractedRange = str_replace('$', '', $range[1]);
+					$objPHPExcel->addNamedRange( new PHPExcel_NamedRange($name, $worksheet, $extractedRange) );
+				}
+			}
 		}
 
 
