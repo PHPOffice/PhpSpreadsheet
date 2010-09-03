@@ -346,6 +346,8 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 				continue;
 			}
 
+			$maxRow = $maxCol = 0;
+
 			// Create new Worksheet
 			$objPHPExcel->createSheet();
 			$objPHPExcel->setActiveSheetIndex($worksheetID);
@@ -353,8 +355,13 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 
 			foreach($sheet->Cells->Cell as $cell) {
 				$cellAttributes = $cell->attributes();
-				$row = (string) $cellAttributes->Row + 1;
-				$column = PHPExcel_Cell::stringFromColumnIndex($cellAttributes->Col);
+				$row = (int) $cellAttributes->Row + 1;
+				$column = (int) $cellAttributes->Col;
+
+				if ($row > $maxRow) $maxRow = $row;
+				if ($column > $maxCol) $maxCol = $column;
+
+				$column = PHPExcel_Cell::stringFromColumnIndex($column);
 
 				// Read cell?
 				if (!is_null($this->getReadFilter())) {
@@ -405,19 +412,133 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 				$objPHPExcel->getActiveSheet()->getCell($column.$row)->setValueExplicit($cell,$type);
 			}
 
+//			echo '$maxCol=',$maxCol,'; $maxRow=',$maxRow,'<br />';
+//
+			foreach($sheet->Styles->StyleRegion as $styleRegion) {
+				$styleAttributes = $styleRegion->attributes();
+//				var_dump($styleAttributes);
+//				echo '<br />';
+
+				if (($styleAttributes['startRow'] <= $maxRow) &&
+					($styleAttributes['startCol'] <= $maxCol)) {
+
+					$startColumn = PHPExcel_Cell::stringFromColumnIndex($styleAttributes['startCol']);
+					$startRow = $styleAttributes['startRow'] + 1;
+
+					$endColumn = ($styleAttributes['endCol'] > $maxCol) ? $maxCol : $styleAttributes['endCol'];
+					$endColumn = PHPExcel_Cell::stringFromColumnIndex($endColumn);
+					$endRow = ($styleAttributes['endRow'] > $maxRow) ? $maxRow : $styleAttributes['endRow'];
+					$endRow += 1;
+					$cellRange = $startColumn.$startRow.':'.$endColumn.$endRow;
+//					echo $cellRange,'<br />';
+
+					$styleAttributes = $styleRegion->Style->attributes();
+//					var_dump($styleAttributes);
+//					echo '<br />';
+					$styleArray = array();
+					$styleArray['numberformat']['code'] = (string) $styleAttributes['Format'];
+
+					//	We still set the number format mask for date/time values, even if _readDataOnly is true
+					if ((!$this->_readDataOnly) ||
+						(PHPExcel_Shared_Date::isDateTimeFormatCode($styleArray['numberformat']['code']))) {
+						//	If _readDataOnly is false, we set all formatting information
+						if (!$this->_readDataOnly) {
+							switch($styleAttributes['HAlign']) {
+								case '1' :
+									$styleArray['alignment']['horizontal'] = PHPExcel_Style_Alignment::HORIZONTAL_GENERAL;
+									break;
+								case '2' :
+									$styleArray['alignment']['horizontal'] = PHPExcel_Style_Alignment::HORIZONTAL_LEFT;
+									break;
+								case '4' :
+									$styleArray['alignment']['horizontal'] = PHPExcel_Style_Alignment::HORIZONTAL_RIGHT;
+									break;
+								case '8' :
+									$styleArray['alignment']['horizontal'] = PHPExcel_Style_Alignment::HORIZONTAL_CENTER;
+									break;
+								case '16' :
+								case '64' :
+									$styleArray['alignment']['horizontal'] = PHPExcel_Style_Alignment::HORIZONTAL_CENTER_CONTINUOUS;
+									break;
+								case '32' :
+									$styleArray['alignment']['horizontal'] = PHPExcel_Style_Alignment::HORIZONTAL_JUSTIFY;
+									break;
+							}
+
+							switch($styleAttributes['VAlign']) {
+								case '1' :
+									$styleArray['alignment']['vertical'] = PHPExcel_Style_Alignment::VERTICAL_TOP;
+									break;
+								case '2' :
+									$styleArray['alignment']['vertical'] = PHPExcel_Style_Alignment::VERTICAL_BOTTOM;
+									break;
+								case '4' :
+									$styleArray['alignment']['vertical'] = PHPExcel_Style_Alignment::VERTICAL_CENTER;
+									break;
+								case '8' :
+									$styleArray['alignment']['vertical'] = PHPExcel_Style_Alignment::VERTICAL_JUSTIFY;
+									break;
+							}
+
+							$styleArray['alignment']['wrap'] = ($styleAttributes['WrapText'] == '1') ? True : False;
+							$styleArray['alignment']['shrinkToFit'] = ($styleAttributes['ShrinkToFit'] == '1') ? True : False;
+							$styleArray['alignment']['indent'] = (intval($styleAttributes["Indent"]) > 0) ? $styleAttributes["indent"] : 0;
+
+							$fontAttributes = $styleRegion->Style->Font->attributes();
+//							var_dump($fontAttributes);
+//							echo '<br />';
+							$styleArray['font']['size'] = intval($fontAttributes['Unit']);
+							$styleArray['font']['bold'] = ($fontAttributes['Bold'] == '1') ? True : False;
+							$styleArray['font']['italic'] = ($fontAttributes['Italic'] == '1') ? True : False;
+							$styleArray['font']['strike'] = ($fontAttributes['StrikeThrough'] == '1') ? True : False;
+							switch($fontAttributes['Underline']) {
+								case '1' :
+									$styleArray['font']['underline'] = PHPExcel_Style_Font::UNDERLINE_SINGLE;
+									break;
+								case '2' :
+									$styleArray['font']['underline'] = PHPExcel_Style_Font::UNDERLINE_DOUBLE;
+									break;
+								case '3' :
+									$styleArray['font']['underline'] = PHPExcel_Style_Font::UNDERLINE_SINGLEACCOUNTING;
+									break;
+								case '4' :
+									$styleArray['font']['underline'] = PHPExcel_Style_Font::UNDERLINE_DOUBLEACCOUNTING;
+									break;
+								default :
+									$styleArray['font']['underline'] = PHPExcel_Style_Font::UNDERLINE_NONE;
+									break;
+							}
+							switch($fontAttributes['Script']) {
+								case '1' :
+									$styleArray['font']['superScript'] = True;
+									break;
+								case '-1' :
+									$styleArray['font']['subScript'] = True;
+									break;
+							}
+						}
+						$objPHPExcel->getActiveSheet()->getStyle($cellRange)->applyFromArray($styleArray);
+					}
+				}
+			}
+
 			if (isset($sheet->MergedRegions)) {
 				foreach($sheet->MergedRegions->Merge as $mergeCells) {
 					$objPHPExcel->getActiveSheet()->mergeCells($mergeCells);
 				}
 			}
+
 			$worksheetID++;
 		}
 
-		//	Loop through definedNames
+		//	Loop through definedNames (global named ranges)
 		if (isset($gnmXML->Names)) {
 			foreach($gnmXML->Names->Name as $namedRange) {
 				$name = (string) $namedRange->name;
 				$range = (string) $namedRange->value;
+				if (stripos($range, '#REF!') !== false) {
+					continue;
+				}
 
 				$range = explode('!',$range);
 				$range[0] = trim($range[0],"'");;
