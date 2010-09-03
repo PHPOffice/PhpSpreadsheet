@@ -1471,7 +1471,9 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 		if (isset($style->fill)) {
 			if ($style->fill->gradientFill) {
 				$gradientFill = $style->fill->gradientFill[0];
-				$docStyle->getFill()->setFillType((string) $gradientFill["type"]);
+				if(!empty($gradientFill["type"])) {
+					$docStyle->getFill()->setFillType((string) $gradientFill["type"]);
+				}
 				$docStyle->getFill()->setRotation(floatval($gradientFill["degree"]));
 				$gradientFill->registerXPathNamespace("sml", "http://schemas.openxmlformats.org/spreadsheetml/2006/main");
 				$docStyle->getFill()->getStartColor()->setARGB($this->_readColor( self::array_item($gradientFill->xpath("sml:stop[@position=0]"))->color) );

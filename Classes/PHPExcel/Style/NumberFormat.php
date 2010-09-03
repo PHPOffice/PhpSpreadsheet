@@ -323,7 +323,7 @@ class PHPExcel_Style_NumberFormat implements PHPExcel_IComparable
 			self::$_builtInFormats = array();
 
 			// General
-			self::$_builtInFormats[0] = 'General';
+			self::$_builtInFormats[0] = PHPExcel_Style_NumberFormat::FORMAT_GENERAL;
 			self::$_builtInFormats[1] = '0';
 			self::$_builtInFormats[2] = '0.00';
 			self::$_builtInFormats[3] = '#,##0';
@@ -509,7 +509,7 @@ class PHPExcel_Style_NumberFormat implements PHPExcel_IComparable
 
 		// For 'General' format code, we just pass the value although this is not entirely the way Excel does it,
 		// it seems to round numbers to a total of 10 digits.
-		if ($format === 'General') {
+		if (($format === PHPExcel_Style_NumberFormat::FORMAT_GENERAL) || ($format === PHPExcel_Style_NumberFormat::FORMAT_TEXT)) {
 			return $value;
 		}
 

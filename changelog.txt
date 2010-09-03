@@ -31,6 +31,10 @@ Fixed in SVN:
 - Bugfix:   (MB) Work item 14143 - NA() doesn't propagate in matrix calc - quick fix in JAMA/Matrix.php
 - Bugfix:   (Progi1984) Workitem 7895 - Excel5 : Formula : Error constant
 - Bugfix:   (Progi1984) Workitem 7895 - Excel5 : Formula : Concatenation operator
+- Bugfix:   (MBaker) Workitem 14146 - Worksheet clone broken for CachedObjectStorage_Memory
+- Bugfix:   (MBaker) Workitem 12998 - PHPExcel_Reader_Excel2007 fails when gradient fill without type is present in a file
+- Bugfix:   (MBaker) Workitem 14176 - @ format for numeric strings in XLSX to CSV conversion
+
 
 2010-08-26 (v1.7.4):
 - Bugfix:   (Progi1984) Workitem 7895 - Excel5 : Formula : Power
