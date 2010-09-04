@@ -186,7 +186,7 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 	 */
 	public function canRead($pFilename)
 	{
-		// Check if zip class exists
+		// Check if gzlib functions are available
 		if (!function_exists('gzread')) {
 			return false;
 		}
@@ -213,17 +213,6 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 
 		// Load into this instance
 		return $this->loadIntoExisting($pFilename, $objPHPExcel);
-	}
-
-	private static function identifyFixedStyleValue($styleList,&$styleAttributeValue) {
-		$styleAttributeValue = strtolower($styleAttributeValue);
-		foreach($styleList as $style) {
-			if ($styleAttributeValue == strtolower($style)) {
-				$styleAttributeValue = $style;
-				return true;
-			}
-		}
-		return false;
 	}
 
 	private function _gzfileGetContents($filename) {
@@ -499,9 +488,73 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 							$RGB = self::_parseGnumericColour($styleAttributes["Fore"]);
 							$styleArray['font']['color']['rgb'] = $RGB;
 							$RGB = self::_parseGnumericColour($styleAttributes["Back"]);
-							if ($RGB != '000000') {
-								$styleArray['fill']['color']['rgb'] = $RGB;
-								$styleArray['fill']['type'] = PHPExcel_Style_Fill::FILL_SOLID;
+							$shade = $styleAttributes["Shade"];
+							if (($RGB != '000000') || ($shade != '0')) {
+								$styleArray['fill']['color']['rgb'] = $styleArray['fill']['startcolor']['rgb'] = $RGB;
+								$RGB2 = self::_parseGnumericColour($styleAttributes["PatternColor"]);
+								$styleArray['fill']['endcolor']['rgb'] = $RGB2;
+								switch($shade) {
+									case '1' :
+										$styleArray['fill']['type'] = PHPExcel_Style_Fill::FILL_SOLID;
+										break;
+									case '2' :
+										$styleArray['fill']['type'] = PHPExcel_Style_Fill::FILL_GRADIENT_LINEAR;
+										break;
+									case '3' :
+										$styleArray['fill']['type'] = PHPExcel_Style_Fill::FILL_GRADIENT_PATH;
+										break;
+									case '4' :
+										$styleArray['fill']['type'] = PHPExcel_Style_Fill::FILL_PATTERN_DARKDOWN;
+										break;
+									case '5' :
+										$styleArray['fill']['type'] = PHPExcel_Style_Fill::FILL_PATTERN_DARKGRAY;
+										break;
+									case '6' :
+										$styleArray['fill']['type'] = PHPExcel_Style_Fill::FILL_PATTERN_DARKGRID;
+										break;
+									case '7' :
+										$styleArray['fill']['type'] = PHPExcel_Style_Fill::FILL_PATTERN_DARKHORIZONTAL;
+										break;
+									case '8' :
+										$styleArray['fill']['type'] = PHPExcel_Style_Fill::FILL_PATTERN_DARKTRELLIS;
+										break;
+									case '9' :
+										$styleArray['fill']['type'] = PHPExcel_Style_Fill::FILL_PATTERN_DARKUP;
+										break;
+									case '10' :
+										$styleArray['fill']['type'] = PHPExcel_Style_Fill::FILL_PATTERN_DARKVERTICAL;
+										break;
+									case '11' :
+										$styleArray['fill']['type'] = PHPExcel_Style_Fill::FILL_PATTERN_GRAY0625;
+										break;
+									case '12' :
+										$styleArray['fill']['type'] = PHPExcel_Style_Fill::FILL_PATTERN_GRAY125;
+										break;
+									case '13' :
+										$styleArray['fill']['type'] = PHPExcel_Style_Fill::FILL_PATTERN_LIGHTDOWN;
+										break;
+									case '14' :
+										$styleArray['fill']['type'] = PHPExcel_Style_Fill::FILL_PATTERN_LIGHTGRAY;
+										break;
+									case '15' :
+										$styleArray['fill']['type'] = PHPExcel_Style_Fill::FILL_PATTERN_LIGHTGRID;
+										break;
+									case '16' :
+										$styleArray['fill']['type'] = PHPExcel_Style_Fill::FILL_PATTERN_LIGHTHORIZONTAL;
+										break;
+									case '17' :
+										$styleArray['fill']['type'] = PHPExcel_Style_Fill::FILL_PATTERN_LIGHTTRELLIS;
+										break;
+									case '18' :
+										$styleArray['fill']['type'] = PHPExcel_Style_Fill::FILL_PATTERN_LIGHTUP;
+										break;
+									case '19' :
+										$styleArray['fill']['type'] = PHPExcel_Style_Fill::FILL_PATTERN_LIGHTVERTICAL;
+										break;
+									case '20' :
+										$styleArray['fill']['type'] = PHPExcel_Style_Fill::FILL_PATTERN_MEDIUMGRAY;
+										break;
+								}
 							}
 
 							$fontAttributes = $styleRegion->Style->Font->attributes();
@@ -554,6 +607,7 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 					$columnAttributes = $columnOverride->attributes();
 					$column = $columnAttributes['No'];
 					$columnWidth = $columnAttributes['Unit']  / 5.4;
+					$hidden = ((isset($columnAttributes['Hidden'])) && ($columnAttributes['Hidden'] == '1')) ? true : false;
 					$columnCount = (isset($columnAttributes['Count'])) ? $columnAttributes['Count'] : 1;
 					while ($c < $column) {
 						$objPHPExcel->getActiveSheet()->getColumnDimension(PHPExcel_Cell::stringFromColumnIndex($c))->setWidth($defaultWidth);
@@ -561,6 +615,9 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 					}
 					while (($c < ($column+$columnCount)) && ($c <= $maxCol)) {
 						$objPHPExcel->getActiveSheet()->getColumnDimension(PHPExcel_Cell::stringFromColumnIndex($c))->setWidth($columnWidth);
+						if ($hidden) {
+							$objPHPExcel->getActiveSheet()->getColumnDimension(PHPExcel_Cell::stringFromColumnIndex($c))->setVisible(false);
+						}
 						++$c;
 					}
 				}
@@ -580,6 +637,7 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 					$rowAttributes = $rowOverride->attributes();
 					$row = $rowAttributes['No'];
 					$rowHeight = $rowAttributes['Unit'];
+					$hidden = ((isset($rowAttributes['Hidden'])) && ($rowAttributes['Hidden'] == '1')) ? true : false;
 					$rowCount = (isset($rowAttributes['Count'])) ? $rowAttributes['Count'] : 1;
 					while ($r < $row) {
 						++$r;
@@ -588,6 +646,9 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 					while (($r < ($row+$rowCount)) && ($r < $maxRow)) {
 						++$r;
 						$objPHPExcel->getActiveSheet()->getRowDimension($r)->setRowHeight($rowHeight);
+						if ($hidden) {
+							$objPHPExcel->getActiveSheet()->getRowDimension($r)->setVisible(false);
+						}
 					}
 				}
 				while ($r < $maxRow) {
