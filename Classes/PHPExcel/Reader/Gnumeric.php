@@ -396,18 +396,30 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 //						echo 'SHARED EXPRESSION ',$ExprID,'<br />';
 //						echo 'New Value is ',$cell,'<br />';
 					}
-				}
-				switch($ValueType) {
-					case '20' :
-						$type = PHPExcel_Cell_DataType::TYPE_BOOL;
-						$cell = ($cell == 'TRUE') ? True : False;
-						break;
-					case '40' :
-						$type = PHPExcel_Cell_DataType::TYPE_NUMERIC;
-						break;
-					case '60' :
-						$type = PHPExcel_Cell_DataType::TYPE_STRING;
-						break;
+					$type = PHPExcel_Cell_DataType::TYPE_FORMULA;
+				} else {
+					switch($ValueType) {
+						case '10' :		//	NULL
+							$type = PHPExcel_Cell_DataType::TYPE_NULL;
+							break;
+						case '20' :		//	Boolean
+							$type = PHPExcel_Cell_DataType::TYPE_BOOL;
+							$cell = ($cell == 'TRUE') ? True : False;
+							break;
+						case '30' :		//	Integer
+							$cell = intval($cell);
+						case '40' :		//	Float
+							$type = PHPExcel_Cell_DataType::TYPE_NUMERIC;
+							break;
+						case '50' :		//	Error
+							$type = PHPExcel_Cell_DataType::TYPE_ERROR;
+							break;
+						case '60' :		//	String
+							$type = PHPExcel_Cell_DataType::TYPE_STRING;
+							break;
+						case '70' :		//	Cell Range
+						case '80' :		//	Array
+					}
 				}
 				$objPHPExcel->getActiveSheet()->getCell($column.$row)->setValueExplicit($cell,$type);
 			}
@@ -435,12 +447,12 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 					$styleAttributes = $styleRegion->Style->attributes();
 //					var_dump($styleAttributes);
 //					echo '<br />';
-					$styleArray = array();
-					$styleArray['numberformat']['code'] = (string) $styleAttributes['Format'];
 
 					//	We still set the number format mask for date/time values, even if _readDataOnly is true
 					if ((!$this->_readDataOnly) ||
 						(PHPExcel_Shared_Date::isDateTimeFormatCode($styleArray['numberformat']['code']))) {
+						$styleArray = array();
+						$styleArray['numberformat']['code'] = (string) $styleAttributes['Format'];
 						//	If _readDataOnly is false, we set all formatting information
 						if (!$this->_readDataOnly) {
 							switch($styleAttributes['HAlign']) {
@@ -484,9 +496,18 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 							$styleArray['alignment']['shrinkToFit'] = ($styleAttributes['ShrinkToFit'] == '1') ? True : False;
 							$styleArray['alignment']['indent'] = (intval($styleAttributes["Indent"]) > 0) ? $styleAttributes["indent"] : 0;
 
+							$RGB = self::_parseGnumericColour($styleAttributes["Fore"]);
+							$styleArray['font']['color']['rgb'] = $RGB;
+							$RGB = self::_parseGnumericColour($styleAttributes["Back"]);
+							if ($RGB != '000000') {
+								$styleArray['fill']['color']['rgb'] = $RGB;
+								$styleArray['fill']['type'] = PHPExcel_Style_Fill::FILL_SOLID;
+							}
+
 							$fontAttributes = $styleRegion->Style->Font->attributes();
 //							var_dump($fontAttributes);
 //							echo '<br />';
+							$styleArray['font']['name'] = (string) $styleRegion->Style->Font;
 							$styleArray['font']['size'] = intval($fontAttributes['Unit']);
 							$styleArray['font']['bold'] = ($fontAttributes['Bold'] == '1') ? True : False;
 							$styleArray['font']['italic'] = ($fontAttributes['Italic'] == '1') ? True : False;
@@ -517,11 +538,65 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 									break;
 							}
 						}
+//						var_dump($styleArray);
+//						echo '<br />';
 						$objPHPExcel->getActiveSheet()->getStyle($cellRange)->applyFromArray($styleArray);
 					}
 				}
 			}
 
+			//	Column Widths
+			if (isset($sheet->Cols)) {
+				$columnAttributes = $sheet->Cols->attributes();
+				$defaultWidth = $columnAttributes['DefaultSizePts']  / 5.4;
+				$c = 0;
+				foreach($sheet->Cols->ColInfo as $columnOverride) {
+					$columnAttributes = $columnOverride->attributes();
+					$column = $columnAttributes['No'];
+					$columnWidth = $columnAttributes['Unit']  / 5.4;
+					$columnCount = (isset($columnAttributes['Count'])) ? $columnAttributes['Count'] : 1;
+					while ($c < $column) {
+						$objPHPExcel->getActiveSheet()->getColumnDimension(PHPExcel_Cell::stringFromColumnIndex($c))->setWidth($defaultWidth);
+						++$c;
+					}
+					while (($c < ($column+$columnCount)) && ($c <= $maxCol)) {
+						$objPHPExcel->getActiveSheet()->getColumnDimension(PHPExcel_Cell::stringFromColumnIndex($c))->setWidth($columnWidth);
+						++$c;
+					}
+				}
+				while ($c <= $maxCol) {
+					$objPHPExcel->getActiveSheet()->getColumnDimension(PHPExcel_Cell::stringFromColumnIndex($c))->setWidth($defaultWidth);
+					++$c;
+				}
+			}
+
+			//	Row Heights
+			if (isset($sheet->Rows)) {
+				$rowAttributes = $sheet->Rows->attributes();
+				$defaultHeight = $rowAttributes['DefaultSizePts'];
+				$r = 0;
+
+				foreach($sheet->Rows->RowInfo as $rowOverride) {
+					$rowAttributes = $rowOverride->attributes();
+					$row = $rowAttributes['No'];
+					$rowHeight = $rowAttributes['Unit'];
+					$rowCount = (isset($rowAttributes['Count'])) ? $rowAttributes['Count'] : 1;
+					while ($r < $row) {
+						++$r;
+						$objPHPExcel->getActiveSheet()->getRowDimension($r)->setRowHeight($defaultHeight);
+					}
+					while (($r < ($row+$rowCount)) && ($r < $maxRow)) {
+						++$r;
+						$objPHPExcel->getActiveSheet()->getRowDimension($r)->setRowHeight($rowHeight);
+					}
+				}
+				while ($r < $maxRow) {
+					++$r;
+					$objPHPExcel->getActiveSheet()->getRowDimension($r)->setRowHeight($defaultHeight);
+				}
+			}
+
+			//	Handle Merged Cells
 			if (isset($sheet->MergedRegions)) {
 				foreach($sheet->MergedRegions->Merge as $mergeCells) {
 					$objPHPExcel->getActiveSheet()->mergeCells($mergeCells);
@@ -552,6 +627,17 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 
 		// Return
 		return $objPHPExcel;
+	}
+
+	private static function _parseGnumericColour($gnmColour) {
+//		echo 'Gnumeric Colour: ',$gnmColour,'<br />';
+		list($gnmR,$gnmG,$gnmB) = explode(':',$gnmColour);
+		$gnmR = substr(str_pad($gnmR,4,'0',STR_PAD_RIGHT),0,2);
+		$gnmG = substr(str_pad($gnmG,4,'0',STR_PAD_RIGHT),0,2);
+		$gnmB = substr(str_pad($gnmB,4,'0',STR_PAD_RIGHT),0,2);
+		$RGB = $gnmR.$gnmG.$gnmB;
+//		echo 'Excel Colour: ',$RGB,'<br />';
+		return $RGB;
 	}
 
 	/**
