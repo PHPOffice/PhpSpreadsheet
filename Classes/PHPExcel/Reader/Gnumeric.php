@@ -595,16 +595,26 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 
 							if (isset($styleRegion->Style->StyleBorder)) {
 								if (isset($styleRegion->Style->StyleBorder->Top)) {
-									$styleArray['borders']['top'] = self::_parseBorderAttributes($styleRegion->Style->StyleBorder->Top->attributes(),'top');
+									$styleArray['borders']['top'] = self::_parseBorderAttributes($styleRegion->Style->StyleBorder->Top->attributes());
 								}
 								if (isset($styleRegion->Style->StyleBorder->Bottom)) {
-									$styleArray['borders']['bottom'] = self::_parseBorderAttributes($styleRegion->Style->StyleBorder->Bottom->attributes(),'bottom');
+									$styleArray['borders']['bottom'] = self::_parseBorderAttributes($styleRegion->Style->StyleBorder->Bottom->attributes());
 								}
 								if (isset($styleRegion->Style->StyleBorder->Left)) {
-									$styleArray['borders']['left'] = self::_parseBorderAttributes($styleRegion->Style->StyleBorder->Left->attributes(),'left');
+									$styleArray['borders']['left'] = self::_parseBorderAttributes($styleRegion->Style->StyleBorder->Left->attributes());
 								}
 								if (isset($styleRegion->Style->StyleBorder->Right)) {
-									$styleArray['borders']['right'] = self::_parseBorderAttributes($styleRegion->Style->StyleBorder->Right->attributes(),'right');
+									$styleArray['borders']['right'] = self::_parseBorderAttributes($styleRegion->Style->StyleBorder->Right->attributes());
+								}
+								if ((isset($styleRegion->Style->StyleBorder->Diagonal)) && (isset($styleRegion->Style->StyleBorder->{'Rev-Diagonal'}))) {
+									$styleArray['borders']['diagonal'] = self::_parseBorderAttributes($styleRegion->Style->StyleBorder->Diagonal->attributes());
+									$styleArray['borders']['diagonaldirection'] = PHPExcel_Style_Borders::DIAGONAL_BOTH;
+								} elseif (isset($styleRegion->Style->StyleBorder->Diagonal)) {
+									$styleArray['borders']['diagonal'] = self::_parseBorderAttributes($styleRegion->Style->StyleBorder->Diagonal->attributes());
+									$styleArray['borders']['diagonaldirection'] = PHPExcel_Style_Borders::DIAGONAL_UP;
+								} elseif (isset($styleRegion->Style->StyleBorder->{'Rev-Diagonal'})) {
+									$styleArray['borders']['diagonal'] = self::_parseBorderAttributes($styleRegion->Style->StyleBorder->{'Rev-Diagonal'}->attributes());
+									$styleArray['borders']['diagonaldirection'] = PHPExcel_Style_Borders::DIAGONAL_DOWN;
 								}
 							}
 						}
@@ -707,7 +717,7 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 		return $objPHPExcel;
 	}
 
-	private static function _parseBorderAttributes($borderAttributes,$border) {
+	private static function _parseBorderAttributes($borderAttributes) {
 		$styleArray = array();
 
 		$RGB = self::_parseGnumericColour($borderAttributes["Color"]);
