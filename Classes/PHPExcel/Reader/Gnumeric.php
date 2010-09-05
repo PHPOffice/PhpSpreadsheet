@@ -248,7 +248,7 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 		$gFileData = $this->_gzfileGetContents($pFilename);
 
 //		echo '<pre>';
-//		echo htmlentities($gFileData);
+//		echo htmlentities($gFileData,ENT_QUOTES,'UTF-8');
 //		echo '</pre><hr />';
 //
 		$xml = simplexml_load_string($gFileData);
@@ -343,6 +343,39 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 			$objPHPExcel->createSheet();
 			$objPHPExcel->setActiveSheetIndex($worksheetID);
 			$objPHPExcel->getActiveSheet()->setTitle($worksheetName);
+
+			if ((!$this->_readDataOnly) && (isset($sheet->PrintInformation))) {
+				if (isset($sheet->PrintInformation->Margins)) {
+					foreach($sheet->PrintInformation->Margins->children('gnm',TRUE) as $key => $margin) {
+						$marginAttributes = $margin->attributes();
+						switch($marginAttributes['PrefUnit']) {
+							case 'mm' :
+								$marginSize = intval($marginAttributes['Points']) / 100;
+								break;
+						}
+						switch($key) {
+							case 'top' :
+								$objPHPExcel->getActiveSheet()->getPageMargins()->setTop($marginSize);
+								break;
+							case 'bottom' :
+								$objPHPExcel->getActiveSheet()->getPageMargins()->setBottom($marginSize);
+								break;
+							case 'left' :
+								$objPHPExcel->getActiveSheet()->getPageMargins()->setLeft($marginSize);
+								break;
+							case 'right' :
+								$objPHPExcel->getActiveSheet()->getPageMargins()->setRight($marginSize);
+								break;
+							case 'header' :
+								$objPHPExcel->getActiveSheet()->getPageMargins()->setHeader($marginSize);
+								break;
+							case 'footer' :
+								$objPHPExcel->getActiveSheet()->getPageMargins()->setFooter($marginSize);
+								break;
+						}
+					}
+				}
+			}
 
 			foreach($sheet->Cells->Cell as $cell) {
 				$cellAttributes = $cell->attributes();
@@ -617,6 +650,10 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 									$styleArray['borders']['diagonaldirection'] = PHPExcel_Style_Borders::DIAGONAL_DOWN;
 								}
 							}
+							if (isset($styleRegion->Style->HyperLink)) {
+								//	TO DO
+								$hyperlink = $styleRegion->Style->HyperLink->attributes();
+							}
 						}
 //						var_dump($styleArray);
 //						echo '<br />';
@@ -625,8 +662,8 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 				}
 			}
 
-			//	Column Widths
-			if (isset($sheet->Cols)) {
+			if ((!$this->_readDataOnly) && (isset($sheet->Cols))) {
+				//	Column Widths
 				$columnAttributes = $sheet->Cols->attributes();
 				$defaultWidth = $columnAttributes['DefaultSizePts']  / 5.4;
 				$c = 0;
@@ -654,8 +691,8 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 				}
 			}
 
-			//	Row Heights
-			if (isset($sheet->Rows)) {
+			if ((!$this->_readDataOnly) && (isset($sheet->Rows))) {
+				//	Row Heights
 				$rowAttributes = $sheet->Rows->attributes();
 				$defaultHeight = $rowAttributes['DefaultSizePts'];
 				$r = 0;
