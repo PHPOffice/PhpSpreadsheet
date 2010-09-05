@@ -281,10 +281,12 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 							break;
 					case 'creator' :
 							$docProps->setCreator(trim($propertyValue));
+							$docProps->setLastModifiedBy(trim($propertyValue));
 							break;
 					case 'date' :
 							$creationDate = strtotime(trim($propertyValue));
 							$docProps->setCreated($creationDate);
+							$docProps->setModified($creationDate);
 							break;
 					case 'description' :
 							$docProps->setDescription(trim($propertyValue));
@@ -590,6 +592,21 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 									$styleArray['font']['subScript'] = True;
 									break;
 							}
+
+							if (isset($styleRegion->Style->StyleBorder)) {
+								if (isset($styleRegion->Style->StyleBorder->Top)) {
+									$styleArray['borders']['top'] = self::_parseBorderAttributes($styleRegion->Style->StyleBorder->Top->attributes(),'top');
+								}
+								if (isset($styleRegion->Style->StyleBorder->Bottom)) {
+									$styleArray['borders']['bottom'] = self::_parseBorderAttributes($styleRegion->Style->StyleBorder->Bottom->attributes(),'bottom');
+								}
+								if (isset($styleRegion->Style->StyleBorder->Left)) {
+									$styleArray['borders']['left'] = self::_parseBorderAttributes($styleRegion->Style->StyleBorder->Left->attributes(),'left');
+								}
+								if (isset($styleRegion->Style->StyleBorder->Right)) {
+									$styleArray['borders']['right'] = self::_parseBorderAttributes($styleRegion->Style->StyleBorder->Right->attributes(),'right');
+								}
+							}
 						}
 //						var_dump($styleArray);
 //						echo '<br />';
@@ -657,7 +674,7 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 				}
 			}
 
-			//	Handle Merged Cells
+			//	Handle Merged Cells in this worksheet
 			if (isset($sheet->MergedRegions)) {
 				foreach($sheet->MergedRegions->Merge as $mergeCells) {
 					$objPHPExcel->getActiveSheet()->mergeCells($mergeCells);
@@ -688,6 +705,59 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 
 		// Return
 		return $objPHPExcel;
+	}
+
+	private static function _parseBorderAttributes($borderAttributes,$border) {
+		$styleArray = array();
+
+		$RGB = self::_parseGnumericColour($borderAttributes["Color"]);
+		$styleArray['color']['rgb'] = $RGB;
+
+		switch ($borderAttributes["Style"]) {
+			case '0' :
+				$styleArray['style'] = PHPExcel_Style_Border::BORDER_NONE;
+				break;
+			case '1' :
+				$styleArray['style'] = PHPExcel_Style_Border::BORDER_THIN;
+				break;
+			case '2' :
+				$styleArray['style'] = PHPExcel_Style_Border::BORDER_MEDIUM;
+				break;
+			case '4' :
+				$styleArray['style'] = PHPExcel_Style_Border::BORDER_DASHED;
+				break;
+			case '5' :
+				$styleArray['style'] = PHPExcel_Style_Border::BORDER_THICK;
+				break;
+			case '6' :
+				$styleArray['style'] = PHPExcel_Style_Border::BORDER_DOUBLE;
+				break;
+			case '7' :
+				$styleArray['style'] = PHPExcel_Style_Border::BORDER_DOTTED;
+				break;
+			case '9' :
+				$styleArray['style'] = PHPExcel_Style_Border::BORDER_DASHDOT;
+				break;
+			case '10' :
+				$styleArray['style'] = PHPExcel_Style_Border::BORDER_MEDIUMDASHDOT;
+				break;
+			case '11' :
+				$styleArray['style'] = PHPExcel_Style_Border::BORDER_DASHDOTDOT;
+				break;
+			case '12' :
+				$styleArray['style'] = PHPExcel_Style_Border::BORDER_MEDIUMDASHDOTDOT;
+				break;
+			case '13' :
+				$styleArray['style'] = PHPExcel_Style_Border::BORDER_MEDIUMDASHDOTDOT;
+				break;
+			case '3' :
+				$styleArray['style'] = PHPExcel_Style_Border::BORDER_SLANTDASHDOT;
+				break;
+			case '8' :
+				$styleArray['style'] = PHPExcel_Style_Border::BORDER_MEDIUMDASHED;
+				break;
+		}
+		return $styleArray;
 	}
 
 	private static function _parseGnumericColour($gnmColour) {
