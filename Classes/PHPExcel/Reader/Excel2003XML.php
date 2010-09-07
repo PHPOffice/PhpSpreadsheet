@@ -272,6 +272,11 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 		return $pixels;
 	}
 
+
+	private static function _hex2str($hex) {
+		return chr(hexdec($hex[1]));
+	}
+
 	/**
 	 * Loads PHPExcel from file into PHPExcel instance
 	 *
@@ -307,6 +312,9 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 				PHPExcel_Style_Alignment::HORIZONTAL_JUSTIFY
 			);
 
+		$timezoneObj = new DateTimeZone('Europe/London');
+		$GMT = new DateTimeZone('UTC');
+
 
 		// Check if file exists
 		if (!file_exists($pFilename)) {
@@ -315,14 +323,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 
 		$xml = simplexml_load_file($pFilename);
 		$namespaces = $xml->getNamespaces(true);
-//		echo '<pre>';
-//		print_r($namespaces);
-//		echo '</pre><hr />';
-//
-//		echo '<pre>';
-//		print_r($xml);
-//		echo '</pre><hr />';
-//
+
 		$docProps = $objPHPExcel->getProperties();
 		foreach($xml->DocumentProperties[0] as $propertyName => $propertyValue) {
 			switch ($propertyName) {
@@ -342,11 +343,18 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 				case 'LastAuthor' :
 						$docProps->setLastModifiedBy($propertyValue);
 						break;
+				case 'LastSaved' :
+						$lastSaveDate = strtotime($propertyValue);
+						$docProps->setModified($lastSaveDate);
+						break;
 				case 'Company' :
 						$docProps->setCompany($propertyValue);
 						break;
 				case 'Category' :
 						$docProps->setCategory($propertyValue);
+						break;
+				case 'Manager' :
+						$docProps->setManager($propertyValue);
 						break;
 				case 'Keywords' :
 						$docProps->setKeywords($propertyValue);
@@ -356,7 +364,36 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 						break;
 			}
 		}
-
+		if (isset($xml->CustomDocumentProperties)) {
+			foreach($xml->CustomDocumentProperties[0] as $propertyName => $propertyValue) {
+				$propertyAttributes = $propertyValue->attributes($namespaces['dt']);
+				$propertyName = preg_replace_callback('/_x([0-9a-z]{4})_/','PHPExcel_Reader_Excel2003XML::_hex2str',$propertyName);
+				$propertyType = PHPExcel_DocumentProperties::PROPERTY_TYPE_UNKNOWN;
+				switch((string) $propertyAttributes) {
+					case 'string' :
+						$propertyType = PHPExcel_DocumentProperties::PROPERTY_TYPE_STRING;
+						$propertyValue = trim($propertyValue);
+						break;
+					case 'boolean' :
+						$propertyType = PHPExcel_DocumentProperties::PROPERTY_TYPE_BOOLEAN;
+						$propertyValue = (bool) $propertyValue;
+						break;
+					case 'integer' :
+						$propertyType = PHPExcel_DocumentProperties::PROPERTY_TYPE_INTEGER;
+						$propertyValue = intval($propertyValue);
+						break;
+					case 'float' :
+						$propertyType = PHPExcel_DocumentProperties::PROPERTY_TYPE_FLOAT;
+						$propertyValue = floatval($propertyValue);
+						break;
+					case 'dateTime.tz' :
+						$propertyType = PHPExcel_DocumentProperties::PROPERTY_TYPE_DATE;
+						$propertyValue = strtotime(trim($propertyValue));
+						break;
+				}
+				$docProps->setCustomProperty($propertyName,$propertyValue,$propertyType);
+			}
+		}
 
 		foreach($xml->Styles[0] as $style) {
 			$style_ss = $style->attributes($namespaces['ss']);
