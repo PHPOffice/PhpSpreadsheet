@@ -522,7 +522,7 @@ class PHPExcel_Writer_Excel5_Parser
 	 */
 	function _convert($token)
 	{
-		if (preg_match("/^\"[^\"]{0,255}\"$/", $token)) {
+		if (preg_match("/\"([^\"]|\"\"){0,255}\"/", $token)) {
 			return $this->_convertString($token);
 
 		} elseif (is_numeric($token)) {
@@ -1231,7 +1231,7 @@ class PHPExcel_Writer_Excel5_Parser
 					return $token;
 				}
 				// If it's a string (of maximum 255 characters)
-				elseif (preg_match("/^\"[^\"]{0,255}\"$/",$token))
+				elseif (preg_match("/\"([^\"]|\"\"){0,255}\"/",$token) and $this->_lookahead != '"' and (substr_count($token, '"')%2 == 0))
 				{
 					return $token;
 				}
@@ -1323,8 +1323,8 @@ class PHPExcel_Writer_Excel5_Parser
 	function _expression()
 	{
 		// If it's a string return a string node
-		if (preg_match("/^\"[^\"]{0,255}\"$/", $this->_current_token)) {
-			$result = $this->_createTree($this->_current_token, '', '');
+		if (preg_match("/\"([^\"]|\"\"){0,255}\"/", $this->_current_token)) {
+			$result = $this->_createTree(str_replace('""', '"', $this->_current_token), '', '');
 			$this->_advance();
 			return $result;
         // If it's an error code
