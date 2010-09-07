@@ -200,6 +200,13 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	private $_documentSummaryInformation;
 
 	/**
+	 * User-Defined Properties stream data.
+	 *
+	 * @var string
+	 */
+	private $_userDefinedProperties;
+
+	/**
 	 * Workbook stream data. (Includes workbook globals substream as well as sheet substreams)
 	 *
 	 * @var string
@@ -943,6 +950,9 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 
 		// Get additional document summary information data
 		$this->_documentSummaryInformation = $ole->getDocumentSummaryInformation();
+
+		// Get user-defined property data
+//		$this->_userDefinedProperties = $ole->getUserDefinedProperties();
 	}
 
 	/**
@@ -1113,6 +1123,8 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 			return;
 		}
 
+//		hexDump($this->_documentSummaryInformation);
+//
 		//	offset: 0;	size: 2;	must be 0xFE 0xFF (UTF-16 LE byte order mark)
 		//	offset: 2;	size: 2;
 		//	offset: 4;	size: 2;	OS version
@@ -1120,17 +1132,21 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 		//	offset: 8;	size: 16
 		//	offset: 24;	size: 4;	section count
 		$secCount = $this->_GetInt4d($this->_documentSummaryInformation, 24);
+//		echo '$secCount = ',$secCount,'<br />';
 
 		// offset: 28;	size: 16;	first section's class id: 02 d5 cd d5 9c 2e 1b 10 93 97 08 00 2b 2c f9 ae
 		// offset: 44;	size: 4;	first section offset
 		$secOffset = $this->_GetInt4d($this->_documentSummaryInformation, 44);
+//		echo '$secOffset = ',$secOffset,'<br />';
 
 		//	section header
 		//	offset: $secOffset;	size: 4;	section length
 		$secLength = $this->_GetInt4d($this->_documentSummaryInformation, $secOffset);
+//		echo '$secLength = ',$secLength,'<br />';
 
 		//	offset: $secOffset+4;	size: 4;	property count
 		$countProperties = $this->_GetInt4d($this->_documentSummaryInformation, $secOffset+4);
+//		echo '$countProperties = ',$countProperties,'<br />';
 
 		// initialize code page (used to resolve string values)
 		$codePage = 'CP1252';
@@ -1138,14 +1154,17 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 		//	offset: ($secOffset+8);	size: var
 		//	loop through property decarations and properties
 		for ($i = 0; $i < $countProperties; ++$i) {
+//			echo 'Property ',$i,'<br />';
 			//	offset: ($secOffset+8) + (8 * $i);	size: 4;	property ID
 			$id = $this->_GetInt4d($this->_documentSummaryInformation, ($secOffset+8) + (8 * $i));
+//			echo 'ID is ',$id,'<br />';
 
 			// Use value of property id as appropriate
 			// offset: 60 + 8 * $i;	size: 4;	offset from beginning of section (48)
 			$offset = $this->_GetInt4d($this->_documentSummaryInformation, ($secOffset+12) + (8 * $i));
 
 			$type = $this->_GetInt4d($this->_documentSummaryInformation, $secOffset + $offset);
+//			echo 'Type is ',$type,', ';
 
 			// initialize property value
 			$value = null;
@@ -1182,6 +1201,10 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 			}
 
 			switch ($id) {
+				case 0x01:	//	Code Page
+					$codePage = PHPExcel_Shared_CodePage::NumberToName($value);
+					break;
+
 				case 0x02:	//	Category
 					$this->_phpExcel->getProperties()->setCategory($value);
 					break;
@@ -6373,3 +6396,20 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 
 }
 
+function hexDump($string) {
+
+	echo '<pre>';
+	for ($i = 0; $i < strlen($string); $i++) {
+		if (($i % 16) == 0) {
+			echo '<br />';
+			echo str_pad(strtoupper(dechex(floor($i/16))),3,'0',STR_PAD_LEFT),' ';
+		}
+		echo str_pad(strtoupper(dechex(ord($string{$i}))),2,'0',STR_PAD_LEFT),' ';
+		if ((ord($string{$i}) >= 32) && (ord($string{$i}) <= 127)) {
+			echo '(',$string{$i},') ';
+		} else {
+			echo '(¬) ';
+		}
+	}
+	echo '</pre><hr />';
+}

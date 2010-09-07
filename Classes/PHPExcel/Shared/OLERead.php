@@ -385,11 +385,13 @@ class PHPExcel_Shared_OLERead {
 
 			// Summary information
 			if ($name == chr(5) . 'SummaryInformation') {
+//				echo 'Summary Information<br />';
 				$this->summaryInformation = count($this->props) - 1;
 			}
 
 			// Additional Document Summary information
 			if ($name == chr(5) . 'DocumentSummaryInformation') {
+//				echo 'Document Summary Information<br />';
 				$this->documentSummaryInformation = count($this->props) - 1;
 			}
 
