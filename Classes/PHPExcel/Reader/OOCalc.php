@@ -273,10 +273,12 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 								break;
 						case 'creator' :
 								$docProps->setCreator($propertyValue);
+								$docProps->setLastModifiedBy($propertyValue);
 								break;
 						case 'date' :
 								$creationDate = strtotime($propertyValue);
 								$docProps->setCreated($creationDate);
+								$docProps->setModified($creationDate);
 								break;
 						case 'description' :
 								$docProps->setDescription($propertyValue);
