@@ -258,73 +258,106 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 //
 		$gnmXML = $xml->children($namespacesMeta['gnm']);
 
-		$officeXML = $xml->children($namespacesMeta['office']);
-	    $officeDocXML = $officeXML->{'document-meta'};
-		$officeDocMetaXML = $officeDocXML->meta;
-
 		$docProps = $objPHPExcel->getProperties();
+		//	Document Properties are held differently, depending on the version of Gnumeric
+		if (isset($namespacesMeta['office'])) {
+			$officeXML = $xml->children($namespacesMeta['office']);
+		    $officeDocXML = $officeXML->{'document-meta'};
+			$officeDocMetaXML = $officeDocXML->meta;
 
-		foreach($officeDocMetaXML as $officePropertyData) {
+			foreach($officeDocMetaXML as $officePropertyData) {
 
-			$officePropertyDC = array();
-			if (isset($namespacesMeta['dc'])) {
-				$officePropertyDC = $officePropertyData->children($namespacesMeta['dc']);
-			}
-			foreach($officePropertyDC as $propertyName => $propertyValue) {
-				$propertyValue = (string) $propertyValue;
-				switch ($propertyName) {
-					case 'title' :
-							$docProps->setTitle(trim($propertyValue));
-							break;
-					case 'subject' :
-							$docProps->setSubject(trim($propertyValue));
-							break;
-					case 'creator' :
-							$docProps->setCreator(trim($propertyValue));
-							$docProps->setLastModifiedBy(trim($propertyValue));
-							break;
-					case 'date' :
-							$creationDate = strtotime(trim($propertyValue));
-							$docProps->setCreated($creationDate);
-							$docProps->setModified($creationDate);
-							break;
-					case 'description' :
-							$docProps->setDescription(trim($propertyValue));
-							break;
+				$officePropertyDC = array();
+				if (isset($namespacesMeta['dc'])) {
+					$officePropertyDC = $officePropertyData->children($namespacesMeta['dc']);
+				}
+				foreach($officePropertyDC as $propertyName => $propertyValue) {
+					$propertyValue = (string) $propertyValue;
+					switch ($propertyName) {
+						case 'title' :
+								$docProps->setTitle(trim($propertyValue));
+								break;
+						case 'subject' :
+								$docProps->setSubject(trim($propertyValue));
+								break;
+						case 'creator' :
+								$docProps->setCreator(trim($propertyValue));
+								$docProps->setLastModifiedBy(trim($propertyValue));
+								break;
+						case 'date' :
+								$creationDate = strtotime(trim($propertyValue));
+								$docProps->setCreated($creationDate);
+								$docProps->setModified($creationDate);
+								break;
+						case 'description' :
+								$docProps->setDescription(trim($propertyValue));
+								break;
+					}
+				}
+				$officePropertyMeta = array();
+				if (isset($namespacesMeta['meta'])) {
+					$officePropertyMeta = $officePropertyData->children($namespacesMeta['meta']);
+				}
+				foreach($officePropertyMeta as $propertyName => $propertyValue) {
+					$attributes = $propertyValue->attributes($namespacesMeta['meta']);
+					$propertyValue = (string) $propertyValue;
+					switch ($propertyName) {
+						case 'keyword' :
+								$docProps->setKeywords(trim($propertyValue));
+								break;
+						case 'initial-creator' :
+								$docProps->setCreator(trim($propertyValue));
+								$docProps->setLastModifiedBy(trim($propertyValue));
+								break;
+						case 'creation-date' :
+								$creationDate = strtotime(trim($propertyValue));
+								$docProps->setCreated($creationDate);
+								$docProps->setModified($creationDate);
+								break;
+						case 'user-defined' :
+								list(,$attrName) = explode(':',$attributes['name']);
+								switch ($attrName) {
+									case 'publisher' :
+											$docProps->setCompany(trim($propertyValue));
+											break;
+									case 'category' :
+											$docProps->setCategory(trim($propertyValue));
+											break;
+									case 'manager' :
+											$docProps->setManager(trim($propertyValue));
+											break;
+								}
+								break;
+					}
 				}
 			}
-			$officePropertyMeta = array();
-			if (isset($namespacesMeta['meta'])) {
-				$officePropertyMeta = $officePropertyData->children($namespacesMeta['meta']);
-			}
-			foreach($officePropertyMeta as $propertyName => $propertyValue) {
-				$attributes = $propertyValue->attributes($namespacesMeta['meta']);
-				$propertyValue = (string) $propertyValue;
+		} elseif (isset($gnmXML->Summary)) {
+			foreach($gnmXML->Summary->Item as $summaryItem) {
+				$propertyName = $summaryItem->name;
+				$propertyValue = $summaryItem->{'val-string'};
 				switch ($propertyName) {
-					case 'keyword' :
-							$docProps->setKeywords(trim($propertyValue));
-							break;
-					case 'initial-creator' :
-							$docProps->setCreator(trim($propertyValue));
-							break;
-					case 'creation-date' :
-							$creationDate = strtotime(trim($propertyValue));
-							$docProps->setCreated($creationDate);
-							break;
-					case 'user-defined' :
-							list(,$attrName) = explode(':',$attributes['name']);
-							switch ($attrName) {
-								case 'publisher' :
-										$docProps->setCompany(trim($propertyValue));
-										break;
-								case 'category' :
-										$docProps->setCategory(trim($propertyValue));
-										break;
-								case 'manager' :
-										$docProps->setManager(trim($propertyValue));
-										break;
-							}
-							break;
+					case 'title' :
+						$docProps->setTitle(trim($propertyValue));
+						break;
+					case 'comments' :
+						$docProps->setDescription(trim($propertyValue));
+						break;
+					case 'keywords' :
+						$docProps->setKeywords(trim($propertyValue));
+						break;
+					case 'category' :
+						$docProps->setCategory(trim($propertyValue));
+						break;
+					case 'manager' :
+						$docProps->setManager(trim($propertyValue));
+						break;
+					case 'author' :
+						$docProps->setCreator(trim($propertyValue));
+						$docProps->setLastModifiedBy(trim($propertyValue));
+						break;
+					case 'company' :
+						$docProps->setCompany(trim($propertyValue));
+						break;
 				}
 			}
 		}
@@ -757,8 +790,10 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 	private static function _parseBorderAttributes($borderAttributes) {
 		$styleArray = array();
 
-		$RGB = self::_parseGnumericColour($borderAttributes["Color"]);
-		$styleArray['color']['rgb'] = $RGB;
+		if (isset($borderAttributes["Color"])) {
+			$RGB = self::_parseGnumericColour($borderAttributes["Color"]);
+			$styleArray['color']['rgb'] = $RGB;
+		}
 
 		switch ($borderAttributes["Style"]) {
 			case '0' :
@@ -808,7 +843,6 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 	}
 
 	private static function _parseGnumericColour($gnmColour) {
-//		echo 'Gnumeric Colour: ',$gnmColour,'<br />';
 		list($gnmR,$gnmG,$gnmB) = explode(':',$gnmColour);
 		$gnmR = substr(str_pad($gnmR,4,'0',STR_PAD_RIGHT),0,2);
 		$gnmG = substr(str_pad($gnmG,4,'0',STR_PAD_RIGHT),0,2);
