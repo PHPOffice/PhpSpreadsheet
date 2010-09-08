@@ -38,18 +38,18 @@ require_once '../Classes/PHPExcel/IOFactory.php';
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>PHPExcel OOCalc Reader Test</title>
+<title>PHPExcel Gnumeric Reader Test</title>
 
 </head>
 <body>
 
 <?php
 
-echo date('H:i:s') . " Load from OOCalc file\n";
+echo date('H:i:s') . " Load from Gnumeric file\n";
 $callStartTime = microtime(true);
 
-$objReader = PHPExcel_IOFactory::createReader('OOCalc');
-$objPHPExcel = $objReader->load("OOCalcTest.ods");
+$objReader = PHPExcel_IOFactory::createReader('Gnumeric');
+$objPHPExcel = $objReader->load("GnumericTest.gnumeric");
 
 
 $callEndTime = microtime(true);

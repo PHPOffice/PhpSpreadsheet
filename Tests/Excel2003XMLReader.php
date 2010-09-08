@@ -38,18 +38,18 @@ require_once '../Classes/PHPExcel/IOFactory.php';
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>PHPExcel OOCalc Reader Test</title>
+<title>PHPExcel Excel2003XML Reader Test</title>
 
 </head>
 <body>
 
 <?php
 
-echo date('H:i:s') . " Load from OOCalc file\n";
+echo date('H:i:s') . " Load from Excel2003XML file\n";
 $callStartTime = microtime(true);
 
-$objReader = PHPExcel_IOFactory::createReader('OOCalc');
-$objPHPExcel = $objReader->load("OOCalcTest.ods");
+$objReader = PHPExcel_IOFactory::createReader('Excel2003XML');
+$objPHPExcel = $objReader->load("Excel2003XMLTest.xml");
 
 
 $callEndTime = microtime(true);

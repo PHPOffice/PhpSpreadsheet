@@ -262,8 +262,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 					$officePropertyDC = $officePropertyData->children($namespacesMeta['dc']);
 				}
 				foreach($officePropertyDC as $propertyName => $propertyValue) {
-//					echo $propertyName.' = '.$propertyValue.'<hr />';
-
 					switch ($propertyName) {
 						case 'title' :
 								$docProps->setTitle($propertyValue);
@@ -291,13 +289,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 				}
 				foreach($officePropertyMeta as $propertyName => $propertyValue) {
 					$propertyValueAttributes = $propertyValue->attributes($namespacesMeta['meta']);
-
-//					echo $propertyName.' = '.$propertyValue.'<br />';
-//					foreach ($propertyValueAttributes as $key => $value) {
-//						echo $key.' = '.$value.'<br />';
-//					}
-//					echo '<hr />';
-//
 					switch ($propertyName) {
 						case 'initial-creator' :
 								$docProps->setCreator($propertyValue);
@@ -384,6 +375,12 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 							case 'table-row' :
 								$columnID = 'A';
 								foreach($rowData as $key => $cellData) {
+									if (!is_null($this->getReadFilter())) {
+										if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
+											continue;
+										}
+									}
+
 //									echo '<b>'.$columnID.$rowID.'</b><br />';
 									$cellDataText = $cellData->children($namespacesContent['text']);
 									$cellDataOfficeAttributes = $cellData->attributes($namespacesContent['office']);

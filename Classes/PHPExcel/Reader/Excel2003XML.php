@@ -325,43 +325,45 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 		$namespaces = $xml->getNamespaces(true);
 
 		$docProps = $objPHPExcel->getProperties();
-		foreach($xml->DocumentProperties[0] as $propertyName => $propertyValue) {
-			switch ($propertyName) {
-				case 'Title' :
-						$docProps->setTitle($propertyValue);
-						break;
-				case 'Subject' :
-						$docProps->setSubject($propertyValue);
-						break;
-				case 'Author' :
-						$docProps->setCreator($propertyValue);
-						break;
-				case 'Created' :
-						$creationDate = strtotime($propertyValue);
-						$docProps->setCreated($creationDate);
-						break;
-				case 'LastAuthor' :
-						$docProps->setLastModifiedBy($propertyValue);
-						break;
-				case 'LastSaved' :
-						$lastSaveDate = strtotime($propertyValue);
-						$docProps->setModified($lastSaveDate);
-						break;
-				case 'Company' :
-						$docProps->setCompany($propertyValue);
-						break;
-				case 'Category' :
-						$docProps->setCategory($propertyValue);
-						break;
-				case 'Manager' :
-						$docProps->setManager($propertyValue);
-						break;
-				case 'Keywords' :
-						$docProps->setKeywords($propertyValue);
-						break;
-				case 'Description' :
-						$docProps->setDescription($propertyValue);
-						break;
+		if (isset($xml->DocumentProperties[0])) {
+			foreach($xml->DocumentProperties[0] as $propertyName => $propertyValue) {
+				switch ($propertyName) {
+					case 'Title' :
+							$docProps->setTitle($propertyValue);
+							break;
+					case 'Subject' :
+							$docProps->setSubject($propertyValue);
+							break;
+					case 'Author' :
+							$docProps->setCreator($propertyValue);
+							break;
+					case 'Created' :
+							$creationDate = strtotime($propertyValue);
+							$docProps->setCreated($creationDate);
+							break;
+					case 'LastAuthor' :
+							$docProps->setLastModifiedBy($propertyValue);
+							break;
+					case 'LastSaved' :
+							$lastSaveDate = strtotime($propertyValue);
+							$docProps->setModified($lastSaveDate);
+							break;
+					case 'Company' :
+							$docProps->setCompany($propertyValue);
+							break;
+					case 'Category' :
+							$docProps->setCategory($propertyValue);
+							break;
+					case 'Manager' :
+							$docProps->setManager($propertyValue);
+							break;
+					case 'Keywords' :
+							$docProps->setKeywords($propertyValue);
+							break;
+					case 'Description' :
+							$docProps->setDescription($propertyValue);
+							break;
+				}
 			}
 		}
 		if (isset($xml->CustomDocumentProperties)) {
@@ -576,6 +578,12 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 						$columnID = PHPExcel_Cell::stringFromColumnIndex($cell_ss['Index']-1);
 					}
 					$cellRange = $columnID.$rowID;
+
+					if (!is_null($this->getReadFilter())) {
+						if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
+							continue;
+						}
+					}
 
 					if ((isset($cell_ss['MergeAcross'])) || (isset($cell_ss['MergeDown']))) {
 						$columnTo = $columnID;
