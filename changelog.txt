@@ -24,10 +24,11 @@
 
 
 Fixed in SVN:
-- Bugfix:   (Progi1984) Workitem 7895 - Excel5 : Formula : String constant containing double quotation mark 
+- Bugfix:   (Progi1984) Workitem 7895 - Excel5 : Formula : String constant containing double quotation mark
 - Feature:  (MBaker) Work item 8769 - Implement Gnumeric File Format
                                       Initial work on Gnumeric Reader (Worksheet Data, Document Properties and basic Formatting)
 - Feature:  (MBaker) Support for Extended Workbook Properties in Excel2007, Excel5 and OOCalc Readers; support for User-defined Workbook Properties in Excel2007 and OOCalc Readers
+- Feature:  (MBaker) Provided a setGenerateSheetNavigationBlock(false); option to suppress generation of the sheet navigation block when writing multiple worksheets to HTML
 - Bugfix:   (Progi1984) Workitem 7895 - Excel5 : Formula : Percent
 - Bugfix:   (MB) Work item 14143 - NA() doesn't propagate in matrix calc - quick fix in JAMA/Matrix.php
 - Bugfix:   (Progi1984) Workitem 7895 - Excel5 : Formula : Error constant
