@@ -126,6 +126,13 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	protected $_isPdf = false;
 
 	/**
+	 * Generate the Navigation block
+	 *
+	 * @var boolean
+	 */
+	private $_generateSheetNavigationBlock = true;
+
+	/**
 	 * Create a new PHPExcel_Writer_HTML
 	 *
 	 * @param 	PHPExcel	$phpExcel	PHPExcel object
@@ -170,7 +177,7 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 		fwrite($fileHandle, $this->generateHTMLHeader(!$this->_useInlineCss));
 
 		// Write navigation (tabs)
-		if (!$this->_isPdf) {
+		if ((!$this->_isPdf) && ($this->_generateSheetNavigationBlock)) {
 			fwrite($fileHandle, $this->generateNavigation());
 		}
 
@@ -247,6 +254,26 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 */
 	public function setSheetIndex($pValue = 0) {
 		$this->_sheetIndex = $pValue;
+		return $this;
+	}
+
+	/**
+	 * Get sheet index
+	 *
+	 * @return boolean
+	 */
+	public function getGenerateSheetNavigationBlock() {
+		return $this->_generateSheetNavigationBlock;
+	}
+
+	/**
+	 * Set sheet index
+	 *
+	 * @param	boolean		$pValue		Flag indicating whether the sheet navigation block should be generated or not
+	 * @return PHPExcel_Writer_HTML
+	 */
+	public function setGenerateSheetNavigationBlock($pValue = true) {
+		$this->_generateSheetNavigationBlock = (bool) $pValue;
 		return $this;
 	}
 
