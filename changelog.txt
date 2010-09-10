@@ -36,6 +36,7 @@ Fixed in SVN:
 - Bugfix:   (MBaker) Workitem 14146 - Worksheet clone broken for CachedObjectStorage_Memory
 - Bugfix:   (MBaker) Workitem 12998 - PHPExcel_Reader_Excel2007 fails when gradient fill without type is present in a file
 - Bugfix:   (MBaker) Workitem 14176 - @ format for numeric strings in XLSX to CSV conversion
+- Bugfix:   (MBaker) Workitem 14223 - Advanced Value Binder Not Working?
 
 
 2010-08-26 (v1.7.4):

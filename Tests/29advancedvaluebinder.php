@@ -69,19 +69,67 @@ $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(14);
 // Add some data, resembling some different data types
 echo date('H:i:s') . " Add some data\n";
 $objPHPExcel->getActiveSheet()->setCellValue('A1', 'String value:');
-$objPHPExcel->getActiveSheet()->setCellValue('B1', 'String');
+$objPHPExcel->getActiveSheet()->setCellValue('B1', 'Mark Baker');
 
-$objPHPExcel->getActiveSheet()->setCellValue('A2', 'Numeric value:');
-$objPHPExcel->getActiveSheet()->setCellValue('B2', 12);
+$objPHPExcel->getActiveSheet()->setCellValue('A2', 'Numeric value #1:');
+$objPHPExcel->getActiveSheet()->setCellValue('B2', 12345);
 
-$objPHPExcel->getActiveSheet()->setCellValue('A3', 'Boolean value:');
-$objPHPExcel->getActiveSheet()->setCellValue('B3', true);
+$objPHPExcel->getActiveSheet()->setCellValue('A3', 'Numeric value #2:');
+$objPHPExcel->getActiveSheet()->setCellValue('B3', -12.345);
 
-$objPHPExcel->getActiveSheet()->setCellValue('A4', 'Percentage value:');
-$objPHPExcel->getActiveSheet()->setCellValue('B4', '10%');
+$objPHPExcel->getActiveSheet()->setCellValue('A4', 'Numeric value #3:');
+$objPHPExcel->getActiveSheet()->setCellValue('B4', .12345);
 
-$objPHPExcel->getActiveSheet()->setCellValue('A5', 'Date/time value:');
-$objPHPExcel->getActiveSheet()->setCellValue('B5', '21 December 1983');
+$objPHPExcel->getActiveSheet()->setCellValue('A5', 'Numeric value #4:');
+$objPHPExcel->getActiveSheet()->setCellValue('B5', '12345');
+
+$objPHPExcel->getActiveSheet()->setCellValue('A6', 'Numeric value #5:');
+$objPHPExcel->getActiveSheet()->setCellValue('B6', '1.2345');
+
+$objPHPExcel->getActiveSheet()->setCellValue('A7', 'Numeric value #6:');
+$objPHPExcel->getActiveSheet()->setCellValue('B7', '.12345');
+
+$objPHPExcel->getActiveSheet()->setCellValue('A8', 'Numeric value #7:');
+$objPHPExcel->getActiveSheet()->setCellValue('B8', '1.234e-5');
+
+$objPHPExcel->getActiveSheet()->setCellValue('A9', 'Numeric value #8:');
+$objPHPExcel->getActiveSheet()->setCellValue('B9', '-1.234e+5');
+
+$objPHPExcel->getActiveSheet()->setCellValue('A10', 'Boolean value:');
+$objPHPExcel->getActiveSheet()->setCellValue('B10', true);
+
+$objPHPExcel->getActiveSheet()->setCellValue('A11', 'Percentage value #1:');
+$objPHPExcel->getActiveSheet()->setCellValue('B11', '10%');
+
+$objPHPExcel->getActiveSheet()->setCellValue('A12', 'Percentage value #2:');
+$objPHPExcel->getActiveSheet()->setCellValue('B12', '12.5%');
+
+$objPHPExcel->getActiveSheet()->setCellValue('A13', 'Date value #1:');
+$objPHPExcel->getActiveSheet()->setCellValue('B13', '21 December 1983');
+
+$objPHPExcel->getActiveSheet()->setCellValue('A14', 'Date value #2:');
+$objPHPExcel->getActiveSheet()->setCellValue('B14', '19-Dec-1960');
+
+$objPHPExcel->getActiveSheet()->setCellValue('A15', 'Date value #3:');
+$objPHPExcel->getActiveSheet()->setCellValue('B15', '19/12/1960');
+
+$objPHPExcel->getActiveSheet()->setCellValue('A16', 'Date value #4:');
+$objPHPExcel->getActiveSheet()->setCellValue('B16', '19-12-1960');
+
+$objPHPExcel->getActiveSheet()->setCellValue('A17', 'Date value #5:');
+$objPHPExcel->getActiveSheet()->setCellValue('B17', '1-Jan');
+
+$objPHPExcel->getActiveSheet()->setCellValue('A18', 'Time value #1:');
+$objPHPExcel->getActiveSheet()->setCellValue('B18', '01:30');
+
+$objPHPExcel->getActiveSheet()->setCellValue('A19', 'Time value #2:');
+$objPHPExcel->getActiveSheet()->setCellValue('B19', '01:30:15');
+
+$objPHPExcel->getActiveSheet()->setCellValue('A20', 'Date/Time value:');
+$objPHPExcel->getActiveSheet()->setCellValue('B20', '19-Dec-1960 01:30');
+
+$objPHPExcel->getActiveSheet()->setCellValue('A21', 'Formula:');
+$objPHPExcel->getActiveSheet()->setCellValue('B21', '=SUM(B2:B9)');
 
 // Rename sheet
 echo date('H:i:s') . " Rename sheet\n";
@@ -93,9 +141,9 @@ $objPHPExcel->setActiveSheetIndex(0);
 
 
 // Save Excel 2007 file
-echo date('H:i:s') . " Write to Excel2007 format\n";
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-$objWriter->save(str_replace('.php', '.xlsx', __FILE__));
+echo date('H:i:s') . " Write to Excel5 format\n";
+$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter->save(str_replace('.php', '.xls', __FILE__));
 
 
 // Echo memory peak usage
