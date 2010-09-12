@@ -628,7 +628,7 @@ class PHPExcel
 			// then update cellXf indexes for cells
 			foreach ($this->_workSheetCollection as $worksheet) {
 				foreach ($worksheet->getCellCollection(false) as $cellID) {
-					$cell = $sheet->getCell($cellID);
+					$cell = $worksheet->getCell($cellID);
 					$xfIndex = $cell->getXfIndex();
 					if ($xfIndex > $pIndex ) {
 						// decrease xf index by 1
