@@ -38,6 +38,7 @@ Fixed in SVN:
 - Bugfix:   (MBaker) Workitem 14176 - @ format for numeric strings in XLSX to CSV conversion
 - Bugfix:   (MBaker) Workitem 14223 - Advanced Value Binder Not Working?
 - Bugfix:   (MBaker) Workitem 14226 - unassigned object variable in PHPExcel->removeCellXfByIndex
+- Bugfix:   (MBaker) Workitem 14236 - problem with getting cell values from another worksheet... (if cell doesn't exist)
 
 
 2010-08-26 (v1.7.4):

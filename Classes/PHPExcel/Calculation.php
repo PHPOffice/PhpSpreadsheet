@@ -3138,7 +3138,7 @@ class PHPExcel_Calculation {
 									$cellValue = $this->extractCellRange($cellRef, $pCellParent->getParent()->getSheetByName($matches[2]), false);
 									$pCell->attach($pCellParent);
 								} else {
-									$cellValue = PHPExcel_Calculation_Functions::REF();
+									$cellValue = NULL;
 								}
 							} else {
 								return $this->_raiseFormulaError('Unable to access Cell Reference');
