@@ -98,6 +98,13 @@ class PHPExcel_Writer_Excel2007_ContentTypes extends PHPExcel_Writer_Excel2007_W
 				$objWriter, '/docProps/core.xml', 'application/vnd.openxmlformats-package.core-properties+xml'
 			);
 
+			$customPropertyList = $pPHPExcel->getProperties()->getCustomProperties();
+			if (count($customPropertyList) > 0) {
+				$this->_writeOverrideContentType(
+					$objWriter, '/docProps/custom.xml', 'application/vnd.openxmlformats-officedocument.custom-properties+xml'
+				);
+			}
+
 			// Worksheets
 			$sheetCount = $pPHPExcel->getSheetCount();
 			for ($i = 0; $i < $sheetCount; ++$i) {

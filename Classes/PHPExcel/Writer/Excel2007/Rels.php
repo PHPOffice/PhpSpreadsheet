@@ -59,6 +59,18 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
 		$objWriter->startElement('Relationships');
 		$objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/package/2006/relationships');
 
+			$customPropertyList = $pPHPExcel->getProperties()->getCustomProperties();
+			if (count($customPropertyList) > 0) {
+				// Relationship docProps/app.xml
+				$this->_writeRelationship(
+					$objWriter,
+					4,
+					'http://schemas.openxmlformats.org/officeDocument/2006/relationships/custom-properties',
+					'docProps/custom.xml'
+				);
+
+			}
+
 			// Relationship docProps/app.xml
 			$this->_writeRelationship(
 				$objWriter,

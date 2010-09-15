@@ -242,6 +242,10 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 			// Add document properties to ZIP file
 			$objZip->addFromString('docProps/app.xml', 				$this->getWriterPart('DocProps')->writeDocPropsApp($this->_spreadSheet));
 			$objZip->addFromString('docProps/core.xml', 			$this->getWriterPart('DocProps')->writeDocPropsCore($this->_spreadSheet));
+			$customPropertiesPart = $this->getWriterPart('DocProps')->writeDocPropsCustom($this->_spreadSheet);
+			if (!is_null($customPropertiesPart)) {
+				$objZip->addFromString('docProps/custom.xml', 		$customPropertiesPart);
+			}
 
 			// Add theme to ZIP file
 			$objZip->addFromString('xl/theme/theme1.xml', 			$this->getWriterPart('Theme')->writeTheme($this->_spreadSheet));

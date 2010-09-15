@@ -57,8 +57,8 @@ class PHPExcel_Writer_Excel2007_DocProps extends PHPExcel_Writer_Excel2007_Write
 
 		// Properties
 		$objWriter->startElement('Properties');
-		$objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/officeDocument/2006/extended-properties');
-		$objWriter->writeAttribute('xmlns:vt', 'http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes');
+			$objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/officeDocument/2006/extended-properties');
+			$objWriter->writeAttribute('xmlns:vt', 'http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes');
 
 			// Application
 			$objWriter->writeElement('Application', 	'Microsoft Excel');
@@ -74,9 +74,8 @@ class PHPExcel_Writer_Excel2007_DocProps extends PHPExcel_Writer_Excel2007_Write
 
 				// Vector
 				$objWriter->startElement('vt:vector');
-				$objWriter->writeAttribute('size', 		'2');
-				$objWriter->writeAttribute('baseType', 	'variant');
-
+					$objWriter->writeAttribute('size', 		'2');
+					$objWriter->writeAttribute('baseType', 	'variant');
 
 					// Variant
 					$objWriter->startElement('vt:variant');
@@ -97,13 +96,13 @@ class PHPExcel_Writer_Excel2007_DocProps extends PHPExcel_Writer_Excel2007_Write
 
 				// Vector
 				$objWriter->startElement('vt:vector');
-				$objWriter->writeAttribute('size', 		$pPHPExcel->getSheetCount());
-				$objWriter->writeAttribute('baseType',	'lpstr');
+					$objWriter->writeAttribute('size', 		$pPHPExcel->getSheetCount());
+					$objWriter->writeAttribute('baseType',	'lpstr');
 
-				$sheetCount = $pPHPExcel->getSheetCount();
-				for ($i = 0; $i < $sheetCount; ++$i) {
-					$objWriter->writeElement('vt:lpstr', $pPHPExcel->getSheet($i)->getTitle());
-				}
+					$sheetCount = $pPHPExcel->getSheetCount();
+					for ($i = 0; $i < $sheetCount; ++$i) {
+						$objWriter->writeElement('vt:lpstr', $pPHPExcel->getSheet($i)->getTitle());
+					}
 
 				$objWriter->endElement();
 
@@ -155,11 +154,11 @@ class PHPExcel_Writer_Excel2007_DocProps extends PHPExcel_Writer_Excel2007_Write
 
 		// cp:coreProperties
 		$objWriter->startElement('cp:coreProperties');
-		$objWriter->writeAttribute('xmlns:cp', 'http://schemas.openxmlformats.org/package/2006/metadata/core-properties');
-		$objWriter->writeAttribute('xmlns:dc', 'http://purl.org/dc/elements/1.1/');
-		$objWriter->writeAttribute('xmlns:dcterms', 'http://purl.org/dc/terms/');
-		$objWriter->writeAttribute('xmlns:dcmitype', 'http://purl.org/dc/dcmitype/');
-		$objWriter->writeAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
+			$objWriter->writeAttribute('xmlns:cp', 'http://schemas.openxmlformats.org/package/2006/metadata/core-properties');
+			$objWriter->writeAttribute('xmlns:dc', 'http://purl.org/dc/elements/1.1/');
+			$objWriter->writeAttribute('xmlns:dcterms', 'http://purl.org/dc/terms/');
+			$objWriter->writeAttribute('xmlns:dcmitype', 'http://purl.org/dc/dcmitype/');
+			$objWriter->writeAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
 
 			// dc:creator
 			$objWriter->writeElement('dc:creator',			$pPHPExcel->getProperties()->getCreator());
@@ -169,14 +168,14 @@ class PHPExcel_Writer_Excel2007_DocProps extends PHPExcel_Writer_Excel2007_Write
 
 			// dcterms:created
 			$objWriter->startElement('dcterms:created');
-			$objWriter->writeAttribute('xsi:type', 'dcterms:W3CDTF');
-			$objWriter->writeRaw(date(DATE_W3C, 			$pPHPExcel->getProperties()->getCreated()));
+				$objWriter->writeAttribute('xsi:type', 'dcterms:W3CDTF');
+				$objWriter->writeRaw(date(DATE_W3C, 			$pPHPExcel->getProperties()->getCreated()));
 			$objWriter->endElement();
 
 			// dcterms:modified
 			$objWriter->startElement('dcterms:modified');
-			$objWriter->writeAttribute('xsi:type', 'dcterms:W3CDTF');
-			$objWriter->writeRaw(date(DATE_W3C, 			$pPHPExcel->getProperties()->getModified()));
+				$objWriter->writeAttribute('xsi:type', 'dcterms:W3CDTF');
+				$objWriter->writeRaw(date(DATE_W3C, 			$pPHPExcel->getProperties()->getModified()));
 			$objWriter->endElement();
 
 			// dc:title
@@ -199,4 +198,75 @@ class PHPExcel_Writer_Excel2007_DocProps extends PHPExcel_Writer_Excel2007_Write
 		// Return
 		return $objWriter->getData();
 	}
+
+	/**
+	 * Write docProps/custom.xml to XML format
+	 *
+	 * @param 	PHPExcel	$pPHPExcel
+	 * @return 	string 		XML Output
+	 * @throws 	Exception
+	 */
+	public function writeDocPropsCustom(PHPExcel $pPHPExcel = null)
+	{
+		$customPropertyList = $pPHPExcel->getProperties()->getCustomProperties();
+		if (count($customPropertyList) == 0) {
+			return;
+		}
+
+		// Create XML writer
+		$objWriter = null;
+		if ($this->getParentWriter()->getUseDiskCaching()) {
+			$objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+		} else {
+			$objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_MEMORY);
+		}
+
+		// XML header
+		$objWriter->startDocument('1.0','UTF-8','yes');
+
+		// cp:coreProperties
+		$objWriter->startElement('Properties');
+			$objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/officeDocument/2006/custom-properties');
+			$objWriter->writeAttribute('xmlns:vt', 'http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes');
+
+
+			foreach($customPropertyList as $key => $customProperty) {
+				$propertyValue = $pPHPExcel->getProperties()->getCustomPropertyValue($customProperty);
+				$propertyType = $pPHPExcel->getProperties()->getCustomPropertyType($customProperty);
+
+				$objWriter->startElement('property');
+					$objWriter->writeAttribute('fmtid', 	'{D5CDD505-2E9C-101B-9397-08002B2CF9AE}');
+					$objWriter->writeAttribute('pid', 		$key+2);
+					$objWriter->writeAttribute('name', 		$customProperty);
+
+					switch($propertyType) {
+						case 'i' :
+							$objWriter->writeElement('vt:i4', 		$propertyValue);
+							break;
+						case 'f' :
+							$objWriter->writeElement('vt:r8', 		$propertyValue);
+							break;
+						case 'b' :
+							$objWriter->writeElement('vt:bool', 	($propertyValue) ? 'true' : 'false');
+							break;
+						case 'd' :
+							$objWriter->startElement('vt:filetime');
+								$objWriter->writeRaw(date(DATE_W3C, $propertyValue));
+							$objWriter->endElement();
+							break;
+						default :
+							$objWriter->writeElement('vt:lpwstr', 	$propertyValue);
+							break;
+					}
+
+				$objWriter->endElement();
+			}
+
+
+		$objWriter->endElement();
+
+		// Return
+		return $objWriter->getData();
+	}
+
 }
