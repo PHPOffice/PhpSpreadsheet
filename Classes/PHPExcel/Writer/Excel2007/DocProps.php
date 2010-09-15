@@ -112,6 +112,9 @@ class PHPExcel_Writer_Excel2007_DocProps extends PHPExcel_Writer_Excel2007_Write
 			// Company
 			$objWriter->writeElement('Company', 			$pPHPExcel->getProperties()->getCompany());
 
+			// Company
+			$objWriter->writeElement('Manager', 			$pPHPExcel->getProperties()->getManager());
+
 			// LinksUpToDate
 			$objWriter->writeElement('LinksUpToDate', 		'false');
 
