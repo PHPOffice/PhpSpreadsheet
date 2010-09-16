@@ -303,7 +303,7 @@ class PHPExcel_Shared_String
 
 		// Sometimes iconv_substr('A', 0, 1, 'UTF-8') just returns false in PHP 5.2.0
 		// we cannot use iconv in that case either (http://bugs.php.net/bug.php?id=37773)
-		if (!@iconv('UTF-8', 'UTF-16LE', 'x')) {
+		if (!@iconv_substr('A', 0, 1, 'UTF-8')) {
 			self::$_isIconvEnabled = false;
 			return false;
 		}
@@ -491,7 +491,7 @@ class PHPExcel_Shared_String
 		// else, no conversion
 		return $value;
 	}
-	
+
 	/**
 	 * Decode UTF-16 encoded strings.
 	 *
@@ -602,7 +602,7 @@ class PHPExcel_Shared_String
 			$localeconv = localeconv();
 			self::$_decimalSeparator = $localeconv['decimal_point'] != ''
 				? $localeconv['decimal_point'] : $localeconv['mon_decimal_point'];
-				
+
 			if (self::$_decimalSeparator == '')
 			{
 				// Default to .
