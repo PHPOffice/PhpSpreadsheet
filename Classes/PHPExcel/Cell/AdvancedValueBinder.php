@@ -54,6 +54,15 @@ class PHPExcel_Cell_AdvancedValueBinder extends PHPExcel_Cell_DefaultValueBinder
 
 		// Style logic - strings
 		if ($dataType === PHPExcel_Cell_DataType::TYPE_STRING && !$value instanceof PHPExcel_RichText) {
+			//	Test for booleans using locale-setting
+			if ($value == PHPExcel_Calculation::getTRUE()) {
+				$cell->setValueExplicit( True, PHPExcel_Cell_DataType::TYPE_BOOL);
+				return true;
+			} elseif($value == PHPExcel_Calculation::getFALSE()) {
+				$cell->setValueExplicit( False, PHPExcel_Cell_DataType::TYPE_BOOL);
+				return true;
+			}
+
 			// Check for number in scientific format
 			if (preg_match('/^'.PHPExcel_Calculation::CALCULATION_REGEXP_NUMBER.'$/', $value)) {
 				$cell->setValueExplicit( (float) $value, PHPExcel_Cell_DataType::TYPE_NUMERIC);

@@ -192,7 +192,7 @@ class PHPExcel_Calculation {
 												 );
 	private static $_localeArgumentSeparator = ',';
 	private static $_localeFunctions = array();
-	private static $_localeBoolean = array(	'TRUE'	=> 'TRUE',
+	public static $_localeBoolean = array(	'TRUE'	=> 'TRUE',
 											'FALSE'	=> 'FALSE',
 											'NULL'	=> 'NULL'
 										  );
@@ -1685,6 +1685,26 @@ class PHPExcel_Calculation {
 		throw new Exception ('Cloning a Singleton is not allowed!');
 	}	//	function __clone()
 
+
+	/**
+	 *	Return the locale-specific translation of TRUE
+	 *
+	 *	@access	public
+	 *	@return	 string		locale-specific translation of TRUE
+	 */
+	public static function getTRUE() {
+		return self::$_localeBoolean['TRUE'];
+	}
+
+	/**
+	 *	Return the locale-specific translation of FALSE
+	 *
+	 *	@access	public
+	 *	@return	 string		locale-specific translation of FALSE
+	 */
+	public static function getFALSE() {
+		return self::$_localeBoolean['FALSE'];
+	}
 
 	/**
 	 *	Set the Array Return Type (Array or Value of first element in the array)

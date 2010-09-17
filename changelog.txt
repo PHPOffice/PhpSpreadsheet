@@ -30,6 +30,7 @@ Fixed in SVN:
 - Feature:  (MBaker) Support for Extended Workbook Properties in Excel2007, Excel5 and OOCalc Readers; support for User-defined Workbook Properties in Excel2007 and OOCalc Readers
 - Feature:  (MBaker) Support for Extended and User-defined Workbook Properties in Excel2007 Writer
 - Feature:  (MBaker) Provided a setGenerateSheetNavigationBlock(false); option to suppress generation of the sheet navigation block when writing multiple worksheets to HTML
+- Feature:  (MBaker) Advanced Value Binder now recognises TRUE/FALSE strings (locale-specific) and converts to boolean
 - Bugfix:   (Progi1984) Workitem 7895 - Excel5 : Formula : Percent
 - Bugfix:   (MB) Work item 14143 - NA() doesn't propagate in matrix calc - quick fix in JAMA/Matrix.php
 - Bugfix:   (Progi1984) Workitem 7895 - Excel5 : Formula : Error constant
