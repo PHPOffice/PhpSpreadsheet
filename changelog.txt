@@ -41,7 +41,8 @@ Fixed in SVN:
 - Bugfix:   (MBaker) Workitem 14223 - Advanced Value Binder Not Working?
 - Bugfix:   (MBaker) Workitem 14226 - unassigned object variable in PHPExcel->removeCellXfByIndex
 - Bugfix:   (MBaker) Workitem 14236 - problem with getting cell values from another worksheet... (if cell doesn't exist)
-- Bugfix:   (MBaker) Workitem 14260 & 14233 - Setting cell values to one char strings & Trouble reading one character string (thanks gorfou)
+- Bugfix:   (MBaker) Workitems 14260 & 14233 - Setting cell values to one char strings & Trouble reading one character string (thanks gorfou)
+- Bugfix:   (MBaker) Workitem 14256 - Worksheet title exception when duplicate worksheet is being renamed but exceeds the 31 character limit
 
 
 2010-08-26 (v1.7.4):

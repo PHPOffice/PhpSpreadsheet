@@ -643,9 +643,9 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
     public function setTitle($pValue = 'Worksheet')
     {
     	// Is this a 'rename' or not?
-    	if ($this->getTitle() == $pValue) {
-    		return;
-    	}
+		if ($this->getTitle() == $pValue) {
+			return;
+		}
 
 		// Syntax check
 		self::_checkSheetTitle($pValue);
@@ -657,9 +657,21 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		if ($this->getParent()->getSheetByName($pValue)) {
 			// Use name, but append with lowest possible integer
 
+			if (PHPExcel_Shared_String::CountCharacters($pValue) > 29) {
+				$pValue = PHPExcel_Shared_String::Substring($pValue,0,29);
+			}
 			$i = 1;
 			while ($this->getParent()->getSheetByName($pValue . ' ' . $i)) {
 				++$i;
+				if ($i == 10) {
+					if (PHPExcel_Shared_String::CountCharacters($pValue) > 28) {
+						$pValue = PHPExcel_Shared_String::Substring($pValue,0,28);
+					}
+				} elseif ($i == 100) {
+					if (PHPExcel_Shared_String::CountCharacters($pValue) > 27) {
+						$pValue = PHPExcel_Shared_String::Substring($pValue,0,27);
+					}
+				}
 			}
 
 			$altTitle = $pValue . ' ' . $i;
