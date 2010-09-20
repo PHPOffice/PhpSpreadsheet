@@ -1278,7 +1278,11 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 									// Extract range
 									$extractedRange = (string)$definedName;
 									$extractedRange = preg_replace('/\'(\w+)\'\!/', '', $extractedRange);
-									$extractedRange = str_replace('$', '', $extractedRange);
+									if (($spos = strpos($extractedRange,'!')) !== false) {
+										$extractedRange = substr($extractedRange,0,$spos).str_replace('$', '', substr($extractedRange,$spos));
+									} else {
+										$extractedRange = str_replace('$', '', $extractedRange);
+									}
 
 									// Valid range?
 									if (stripos((string)$definedName, '#REF!') !== false || $extractedRange == '') {
