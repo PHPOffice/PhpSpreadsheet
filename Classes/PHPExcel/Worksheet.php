@@ -2115,11 +2115,14 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
     /**
      * Create array from worksheet
      *
-     * @param mixed $nullValue Value treated as "null"
-     * @param boolean $calculateFormulas Should formulas be calculated?
+     * @param	mixed	$nullValue				Value returned in the array entry if a cell doesn't exist
+     * @param	boolean	$calculateFormulas		Should formulas be calculated?
+     * @param	boolean	$formatData				Should formatting be applied to cell values?
+     * @param	boolean	$returnColumnRef		False - Return columns indexed by number (0..x)
+     *											True - Return columns indexed by column ID (A..x)
      * @return array
      */
-    public function toArray($nullValue = null, $calculateFormulas = true) {
+    public function toArray($nullValue = null, $calculateFormulas = true, $formatData = true, $returnColumnRef = false) {
     	// Returnvalue
     	$returnValue = array();
 
@@ -2136,25 +2139,27 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
     	// Loop through cells
     	for ($row = $dimension[0][1]; $row <= $dimension[1][1]; ++$row) {
     		for ($column = $dimension[0][0]; $column <= $dimension[1][0]; ++$column) {
+    			$columnRef = ($returnColumnRef) ? PHPExcel_Cell::stringFromColumnIndex($column) : $column;
     			// Cell exists?
     			if ($this->cellExistsByColumnAndRow($column, $row)) {
     				$cell = $this->getCellByColumnAndRow($column, $row);
 
     				if ($cell->getValue() instanceof PHPExcel_RichText) {
-    					$returnValue[$row][$column] = $cell->getValue()->getPlainText();
+    					$returnValue[$row][$columnRef] = $cell->getValue()->getPlainText();
     				} else {
 	    				if ($calculateFormulas) {
-	    					$returnValue[$row][$column] = $cell->getCalculatedValue();
+	    					$returnValue[$row][$columnRef] = $cell->getCalculatedValue();
 	    				} else {
-	    					$returnValue[$row][$column] = $cell->getValue();
+	    					$returnValue[$row][$columnRef] = $cell->getValue();
 	    				}
     				}
 
-					$style = $this->_parent->getCellXfByIndex($cell->getXfIndex());
-
-    				$returnValue[$row][$column] = PHPExcel_Style_NumberFormat::toFormattedString($returnValue[$row][$column], $style->getNumberFormat()->getFormatCode());
+					if ($formatData) {
+						$style = $this->_parent->getCellXfByIndex($cell->getXfIndex());
+	    				$returnValue[$row][$columnRef] = PHPExcel_Style_NumberFormat::toFormattedString($returnValue[$row][$columnRef], $style->getNumberFormat()->getFormatCode());
+	    			}
     			} else {
-    				$returnValue[$row][$column] = $nullValue;
+    				$returnValue[$row][$columnRef] = $nullValue;
     			}
     		}
     	}
