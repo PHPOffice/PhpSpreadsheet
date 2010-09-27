@@ -27,7 +27,7 @@ Fixed in SVN:
 - Bugfix:   (Progi1984) Workitem 7895 - Excel5 : Formula : String constant containing double quotation mark
 - Feature:  (MBaker) Work item 8769 - Implement Gnumeric File Format
                                       Initial work on Gnumeric Reader (Worksheet Data, Document Properties and basic Formatting)
-- Feature:  (MBaker) Support for Extended Workbook Properties in Excel2007, Excel5 and OOCalc Readers; support for User-defined Workbook Properties in Excel2007 and OOCalc Readers
+- Feature:  (MBaker) (incorporating part of Workitem 9759) - Support for Extended Workbook Properties in Excel2007, Excel5 and OOCalc Readers; support for User-defined Workbook Properties in Excel2007 and OOCalc Readers
 - Feature:  (MBaker) Support for Extended and User-defined Workbook Properties in Excel2007 Writer
 - Feature:  (MBaker) Provided a setGenerateSheetNavigationBlock(false); option to suppress generation of the sheet navigation block when writing multiple worksheets to HTML
 - Feature:  (MBaker) Advanced Value Binder now recognises TRUE/FALSE strings (locale-specific) and converts to boolean
@@ -45,6 +45,7 @@ Fixed in SVN:
 - Bugfix:   (MBaker) Workitems 14260 & 14233 - Setting cell values to one char strings & Trouble reading one character string (thanks gorfou)
 - Bugfix:   (MBaker) Workitem 14256 - Worksheet title exception when duplicate worksheet is being renamed but exceeds the 31 character limit
 - Bugfix:   (MBaker) Workitem 14086 - Named range with sheet name that contains the $ throws exception when getting the cell
+- Bugfix:   (MBaker) Added autoloader to DefaultValueBinder and AdvancedValueBinder
 
 
 2010-08-26 (v1.7.4):
