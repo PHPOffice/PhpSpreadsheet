@@ -256,6 +256,10 @@ class PHPExcel_Shared_Date
 				return true;
 		}
 
+		//	Typically number, currency or accounting (or occasionally fraction) formats
+		if ((substr($pFormatCode,0,1) == '_') || (substr($pFormatCode,0,2) == '0 ')) {
+			return false;
+		}
 		// Try checking for any of the date formatting characters that don't appear within square braces
 		if (preg_match('/(^|\])[^\[]*['.self::$possibleDateFormatCharacters.']/i',$pFormatCode)) {
 			return true;
