@@ -245,9 +245,11 @@ class PHPExcel_Writer_PDF extends PHPExcel_Writer_HTML implements PHPExcel_Write
 		if (is_null($this->getSheetIndex())) {
 			$orientation = ($this->_phpExcel->getSheet(0)->getPageSetup()->getOrientation() == PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
 			$printPaperSize = $this->_phpExcel->getSheet(0)->getPageSetup()->getPaperSize();
+			$printMargins = $this->_phpExcel->getSheet(0)->getPageMargins();
 		} else {
 			$orientation = ($this->_phpExcel->getSheet($this->getSheetIndex())->getPageSetup()->getOrientation() == PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
 			$printPaperSize = $this->_phpExcel->getSheet($this->getSheetIndex())->getPageSetup()->getPaperSize();
+			$printMargins = $this->_phpExcel->getSheet($this->getSheetIndex())->getPageMargins();
 		}
 
 		//	Override Page Orientation
@@ -267,8 +269,15 @@ class PHPExcel_Writer_PDF extends PHPExcel_Writer_HTML implements PHPExcel_Write
 
 		// Create PDF
 		$pdf = new TCPDF($orientation, 'pt', $paperSize);
+		//	Set margins, converting inches to points (using 72 dpi)
+		$pdf->SetMargins($printMargins->getLeft() * 72,$printMargins->getTop() * 72,$printMargins->getRight() * 72);
+		$pdf->SetAutoPageBreak(true,$printMargins->getBottom() * 72);
+//		$pdf->setHeaderMargin($printMargins->getHeader() * 72);
+//		$pdf->setFooterMargin($printMargins->getFooter() * 72);
+
 		$pdf->setPrintHeader(false);
 		$pdf->setPrintFooter(false);
+
 		$pdf->AddPage();
 
 		// Set the appropriate font
