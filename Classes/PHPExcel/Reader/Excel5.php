@@ -828,8 +828,11 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 			// treat SHAREDFMLA records
 			if ($this->_version == self::XLS_BIFF8) {
 				foreach ($this->_sharedFormulaParts as $cell => $baseCell) {
-					$formula = $this->_getFormulaFromStructure($this->_sharedFormulas[$baseCell], $cell);
-					$this->_phpSheet->getCell($cell)->setValueExplicit('=' . $formula, PHPExcel_Cell_DataType::TYPE_FORMULA);
+					list($column, $row) = PHPExcel_Cell::coordinateFromString($cell);
+					if ( !is_null($this->getReadFilter()) && $this->getReadFilter()->readCell($column, $row, $this->_phpSheet->getTitle()) ) {
+						$formula = $this->_getFormulaFromStructure($this->_sharedFormulas[$baseCell], $cell);
+						$this->_phpSheet->getCell($cell)->setValueExplicit('=' . $formula, PHPExcel_Cell_DataType::TYPE_FORMULA);
+					}
 				}
 			}
 		}
