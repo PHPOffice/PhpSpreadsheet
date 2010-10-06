@@ -2118,48 +2118,47 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      * @param	mixed	$nullValue				Value returned in the array entry if a cell doesn't exist
      * @param	boolean	$calculateFormulas		Should formulas be calculated?
      * @param	boolean	$formatData				Should formatting be applied to cell values?
-     * @param	boolean	$returnColumnRef		False - Return columns indexed by number (0..x)
-     *											True - Return columns indexed by column ID (A..x)
+     * @param	boolean	$returnCellRef			False - Return a simple array of rows and columns indexed by number counting from zero
+     *											True - Return rows and columns indexed by their actual row and column IDs
      * @return array
      */
-    public function toArray($nullValue = null, $calculateFormulas = true, $formatData = true, $returnColumnRef = false) {
+    public function toArray($nullValue = null, $calculateFormulas = true, $formatData = true, $returnCellRef = false) {
     	// Returnvalue
     	$returnValue = array();
 
         // Garbage collect...
         $this->garbageCollect();
 
-    	// Get worksheet dimension
-    	$dimension = explode(':', $this->calculateWorksheetDimension());
-    	$dimension[0] = PHPExcel_Cell::coordinateFromString($dimension[0]);
-    	$dimension[0][0] = PHPExcel_Cell::columnIndexFromString($dimension[0][0]) - 1;
-    	$dimension[1] = PHPExcel_Cell::coordinateFromString($dimension[1]);
-    	$dimension[1][0] = PHPExcel_Cell::columnIndexFromString($dimension[1][0]) - 1;
-
-    	// Loop through cells
-    	for ($row = $dimension[0][1]; $row <= $dimension[1][1]; ++$row) {
-    		for ($column = $dimension[0][0]; $column <= $dimension[1][0]; ++$column) {
-    			$columnRef = ($returnColumnRef) ? PHPExcel_Cell::stringFromColumnIndex($column) : $column;
-    			// Cell exists?
-    			if ($this->cellExistsByColumnAndRow($column, $row)) {
-    				$cell = $this->getCellByColumnAndRow($column, $row);
-
+    	// Loop through rows
+		$r = -2;
+		$rowIterator = $this->getRowIterator();
+		foreach ($rowIterator as $row) {
+			++$r;
+			$cellIterator = $row->getCellIterator();
+			$cellIterator->setIterateOnlyExistingCells(true); // Loop through each cell in the current row
+			$c = -1;
+			foreach ($cellIterator as $cell) {
+				++$c;
+	   			$rRef = ($returnCellRef) ? $cell->getRow() : $r;
+    			$cRef = ($returnCellRef) ? $cell->getColumn() : $c;
+				if (!is_null($cell)) {
+	    			// Cell exists?
     				if ($cell->getValue() instanceof PHPExcel_RichText) {
-    					$returnValue[$row][$columnRef] = $cell->getValue()->getPlainText();
+    					$returnValue[$rRef][$cRef] = $cell->getValue()->getPlainText();
     				} else {
 	    				if ($calculateFormulas) {
-	    					$returnValue[$row][$columnRef] = $cell->getCalculatedValue();
+	    					$returnValue[$rRef][$cRef] = $cell->getCalculatedValue();
 	    				} else {
-	    					$returnValue[$row][$columnRef] = $cell->getValue();
+	    					$returnValue[$rRef][$cRef] = $cell->getValue();
 	    				}
     				}
 
 					if ($formatData) {
 						$style = $this->_parent->getCellXfByIndex($cell->getXfIndex());
-	    				$returnValue[$row][$columnRef] = PHPExcel_Style_NumberFormat::toFormattedString($returnValue[$row][$columnRef], $style->getNumberFormat()->getFormatCode());
+	    				$returnValue[$rRef][$cRef] = PHPExcel_Style_NumberFormat::toFormattedString($returnValue[$rRef][$cRef], $style->getNumberFormat()->getFormatCode());
 	    			}
     			} else {
-    				$returnValue[$row][$columnRef] = $nullValue;
+    				$returnValue[$rRef][$cRef] = $nullValue;
     			}
     		}
     	}
