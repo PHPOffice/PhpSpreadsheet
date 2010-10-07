@@ -196,6 +196,15 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
 		}
 
+		// Read signature data (first 3 bytes)
+		$fh = fopen($pFilename, 'r');
+		$data = fread($fh, 2);
+		fclose($fh);
+
+		if ($data != chr(0x1F).chr(0x8B)) {
+			return false;
+		}
+
 		return true;
 	}
 
