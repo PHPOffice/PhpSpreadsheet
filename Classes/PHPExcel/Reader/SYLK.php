@@ -58,27 +58,6 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 	private $_inputEncoding;
 
 	/**
-	 * Delimiter
-	 *
-	 * @var string
-	 */
-	private $_delimiter;
-
-	/**
-	 * Enclosure
-	 *
-	 * @var string
-	 */
-	private $_enclosure;
-
-	/**
-	 * Line ending
-	 *
-	 * @var string
-	 */
-	private $_lineEnding;
-
-	/**
 	 * Sheet index to read
 	 *
 	 * @var int
@@ -111,9 +90,6 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 	 */
 	public function __construct() {
 		$this->_inputEncoding = 'ANSI';
-		$this->_delimiter 	= ';';
-		$this->_enclosure 	= '"';
-		$this->_lineEnding 	= PHP_EOL;
 		$this->_sheetIndex 	= 0;
 		$this->_readFilter 	= new PHPExcel_Reader_DefaultReadFilter();
 	}
@@ -421,69 +397,6 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 
 		// Return
 		return $objPHPExcel;
-	}
-
-	/**
-	 * Get delimiter
-	 *
-	 * @return string
-	 */
-	public function getDelimiter() {
-		return $this->_delimiter;
-	}
-
-	/**
-	 * Set delimiter
-	 *
-	 * @param	string	$pValue		Delimiter, defaults to ,
-	 * @return PHPExcel_Reader_SYLK
-	 */
-	public function setDelimiter($pValue = ',') {
-		$this->_delimiter = $pValue;
-		return $this;
-	}
-
-	/**
-	 * Get enclosure
-	 *
-	 * @return string
-	 */
-	public function getEnclosure() {
-		return $this->_enclosure;
-	}
-
-	/**
-	 * Set enclosure
-	 *
-	 * @param	string	$pValue		Enclosure, defaults to "
-	 * @return PHPExcel_Reader_SYLK
-	 */
-	public function setEnclosure($pValue = '"') {
-		if ($pValue == '') {
-			$pValue = '"';
-		}
-		$this->_enclosure = $pValue;
-		return $this;
-	}
-
-	/**
-	 * Get line ending
-	 *
-	 * @return string
-	 */
-	public function getLineEnding() {
-		return $this->_lineEnding;
-	}
-
-	/**
-	 * Set line ending
-	 *
-	 * @param	string	$pValue		Line ending, defaults to OS line ending (PHP_EOL)
-	 * @return PHPExcel_Reader_SYLK
-	 */
-	public function setLineEnding($pValue = PHP_EOL) {
-		$this->_lineEnding = $pValue;
-		return $this;
 	}
 
 	/**
