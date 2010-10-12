@@ -2130,7 +2130,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
         $this->garbageCollect();
 
     	// Loop through rows
-		$r = -2;
+		$r = -1;
 		$rowIterator = $this->getRowIterator();
 		foreach ($rowIterator as $row) {
 			++$r;
