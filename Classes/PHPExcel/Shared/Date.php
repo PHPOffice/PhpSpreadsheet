@@ -277,6 +277,9 @@ class PHPExcel_Shared_Date
 	 * @return	float|false		Excel date/time serial value
 	 */
 	public static function stringToExcel($dateValue = '') {
+		if (strlen($dateValue) < 2)
+			return false;
+
 		$dateValueNew = PHPExcel_Calculation_Functions::DATEVALUE($dateValue);
 
 		if ($dateValueNew === PHPExcel_Calculation_Functions::VALUE()) {
