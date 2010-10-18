@@ -3817,6 +3817,24 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 		}
 	}
 
+	private function _includeCellRangeFiltered($cellRangeAddress)
+	{
+		$includeCellRange = true;
+		if (!is_null($this->getReadFilter())) {
+			$includeCellRange = false;
+			$rangeBoundaries = PHPExcel_Cell::getRangeBoundaries($cellRangeAddress);
+			for ($row = $rangeBoundaries[0][1]; $row <= $rangeBoundaries[1][1]; $row++) {
+				for ($column = $rangeBoundaries[0][0]; $column <= $rangeBoundaries[1][0]; $column++) {
+					if ($this->getReadFilter()->readCell($column, $row, $this->_phpSheet->getTitle())) {
+						$includeCellRange = true;
+						break 2;
+					}
+				}
+			}
+		}
+		return $includeCellRange;
+	}
+
 	/**
 	 * MERGEDCELLS
 	 *
@@ -3837,7 +3855,9 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 		if ($this->_version == self::XLS_BIFF8 && !$this->_readDataOnly) {
 			$cellRangeAddressList = $this->_readBIFF8CellRangeAddressList($recordData);
 			foreach ($cellRangeAddressList['cellRangeAddresses'] as $cellRangeAddress) {
-				$this->_phpSheet->mergeCells($cellRangeAddress);
+				if ($this->_includeCellRangeFiltered($cellRangeAddress)) {
+					$this->_phpSheet->mergeCells($cellRangeAddress);
+				}
 			}
 		}
 	}
