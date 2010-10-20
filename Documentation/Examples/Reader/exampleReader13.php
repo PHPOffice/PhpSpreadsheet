@@ -51,7 +51,7 @@ foreach($loadedSheetNames as $sheetIndex => $loadedSheetName) {
 	$objPHPExcel->setActiveSheetIndexByName($loadedSheetName);
 	$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
 	var_dump($sheetData);
-	echo '<br />';
+	echo '<br /><br />';
 }
 
 

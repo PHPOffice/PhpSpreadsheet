@@ -1,7 +1,5 @@
 <?php
 
-include_once('../baseIncludes.php');
-
 ?>
 <html>
 <head>

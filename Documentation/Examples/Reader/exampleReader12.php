@@ -20,13 +20,17 @@ date_default_timezone_set('Europe/London');
 <?php
 
 /**  Set Include path to point at the PHPExcel Classes folder  **/
-set_include_path(get_include_path() . PATH_SEPARATOR . '../../PHPExcel/Classes/');
+set_include_path(get_include_path() . PATH_SEPARATOR . '../../../Classes/');
 
 /**  Include PHPExcel_IOFactory  **/
 include 'PHPExcel/IOFactory.php';
 
 
 $inputFileType = 'Excel5';
+//	$inputFileType = 'Excel2007';
+//	$inputFileType = 'Excel2003XML';
+//	$inputFileType = 'OOCalc';
+//	$inputFileType = 'Gnumeric';
 $inputFileName = './sampleData/example2.xls';
 
 

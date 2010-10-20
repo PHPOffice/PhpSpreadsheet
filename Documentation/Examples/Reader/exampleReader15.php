@@ -31,7 +31,7 @@ echo 'Loading file ',pathinfo($inputFileName,PATHINFO_BASENAME),' using IOFactor
 try {
 	$objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
 } catch(Exception $e) {
-	die('Error loading file "',pathinfo($inputFileName,PATHINFO_BASENAME),'": ',$e->getMessage());
+	die('Error loading file "'.pathinfo($inputFileName,PATHINFO_BASENAME).'": '.$e->getMessage());
 }
 
 
