@@ -5,12 +5,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>PHPExcel Reader Example #14</title>
+<title>PHPExcel Reader Example #15</title>
 
 </head>
 <body>
 
-<h1>PHPExcel Reader Example #14</h1>
+<h1>PHPExcel Reader Example #15</h1>
 <h2>Reading a Large CSV file in "Chunks" to split across multiple Worksheets</h2>
 <?php
 
@@ -61,7 +61,9 @@ $chunkSize = 100;
 $chunkFilter = new chunkReadFilter();
 
 /**  Tell the Reader that we want to use the Read Filter that we've Instantiated  **/
-$objReader->setReadFilter($chunkFilter);
+/**    and that we want to store it in contiguous rows/columns  **/
+$objReader->setReadFilter($chunkFilter)
+		  ->setContiguous(true);
 
 
 /**  Instantiate a new PHPExcel object manually  **/

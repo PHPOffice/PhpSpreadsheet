@@ -91,6 +91,14 @@ class PHPExcel_Reader_CSV implements PHPExcel_Reader_IReader
 	private $_sheetIndex;
 
 	/**
+	 *	Load rows contiguously
+	 *
+	 *	@access	private
+	 *	@var	int
+	 */
+	private $_contiguous;
+
+	/**
 	 *	PHPExcel_Reader_IReadFilter instance
 	 *
 	 *	@access	private
@@ -108,6 +116,7 @@ class PHPExcel_Reader_CSV implements PHPExcel_Reader_IReader
 		$this->_lineEnding 	= PHP_EOL;
 		$this->_sheetIndex 	= 0;
 		$this->_readFilter 	= new PHPExcel_Reader_DefaultReadFilter();
+		$this->_contiguous	= false;
 	}	//	function __construct()
 
 	/**
@@ -228,10 +237,12 @@ class PHPExcel_Reader_CSV implements PHPExcel_Reader_IReader
 		}
 
 		// Loop through file
-		$currentRow = 0;
+		$currentRow = $contiguousRow = 0;
 		$rowData = array();
 		while (($rowData = fgetcsv($fileHandle, 0, $this->_delimiter, $this->_enclosure)) !== FALSE) {
 			++$currentRow;
+			$crset = false;
+			$ccRef = 0;
 			$rowDataCount = count($rowData);
 			for ($i = 0; $i < $rowDataCount; ++$i) {
 				$columnLetter = PHPExcel_Cell::stringFromColumnIndex($i);
@@ -245,8 +256,17 @@ class PHPExcel_Reader_CSV implements PHPExcel_Reader_IReader
 						$rowData[$i] = PHPExcel_Shared_String::ConvertEncoding($rowData[$i], 'UTF-8', $this->_inputEncoding);
 					}
 
-					// Set cell value
-					$objPHPExcel->getActiveSheet()->getCell($columnLetter . $currentRow)->setValue($rowData[$i]);
+					if ($this->_contiguous) {
+						if (!$crset) {
+							++$contiguousRow;
+							$crset = true;
+						}
+						// Set cell value
+						$objPHPExcel->getActiveSheet()->getCell(PHPExcel_Cell::stringFromColumnIndex($ccRef++) . $contiguousRow)->setValue($rowData[$i]);
+					} else {
+						// Set cell value
+						$objPHPExcel->getActiveSheet()->getCell($columnLetter . $currentRow)->setValue($rowData[$i]);
+					}
 				}
 			}
 		}
@@ -348,4 +368,27 @@ class PHPExcel_Reader_CSV implements PHPExcel_Reader_IReader
 		$this->_sheetIndex = $pValue;
 		return $this;
 	}	//	function setSheetIndex()
+
+	/**
+	 *	Set Contiguous
+	 *
+	 *	@access	public
+	 *	@param string $pValue Input encoding
+	 */
+	public function setContiguous($contiguous = false)
+	{
+		$this->_contiguous = $contiguous;
+		return $this;
+	}	//	function setInputEncoding()
+
+	/**
+	 *	Get Contiguous
+	 *
+	 *	@access	public
+	 *	@return boolean
+	 */
+	public function getContiguous() {
+		return $this->_contiguous;
+	}	//	function getSheetIndex()
+
 }
