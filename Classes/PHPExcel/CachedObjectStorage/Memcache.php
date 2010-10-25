@@ -234,6 +234,3 @@ class PHPExcel_CachedObjectStorage_Memcache extends PHPExcel_CachedObjectStorage
 	}	//	function __destruct()
 
 }
-
-
-?>

@@ -228,6 +228,3 @@ class PHPExcel_CachedObjectStorage_Wincache extends PHPExcel_CachedObjectStorage
 	}	//	function __destruct()
 
 }
-
-
-?>

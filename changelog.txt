@@ -52,6 +52,7 @@ Fixed in SVN:
                      These leading characters are most commonly associated with number, currency or accounting (or occasionally fraction) formats
 - Bugfix:   (MBaker) Workitem 14374 - BUG : Excel5 and setReadFilter ?
 - Bugfix:   (MBaker) Workitem 14425 - Wrong exception message while deleting column
+- General:  (MBaker) Applied patch 7169 - Removed spurious PHP end tags (?>)
 
 
 2010-08-26 (v1.7.4):
