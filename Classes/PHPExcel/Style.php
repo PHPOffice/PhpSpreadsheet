@@ -610,9 +610,7 @@ class PHPExcel_Style implements PHPExcel_IComparable
      */
     public function setConditionalStyles($pValue = null) {
 		if (is_array($pValue)) {
-			foreach (PHPExcel_Cell::extractAllCellReferencesInRange($this->getSelectedCells()) as $cellReference) {
-				$this->getActiveSheet()->setConditionalStyles($cellReference, $pValue);
-			}
+			$this->getActiveSheet()->setConditionalStyles($this->getSelectedCells(), $pValue);
 		}
 		return $this;
     }
