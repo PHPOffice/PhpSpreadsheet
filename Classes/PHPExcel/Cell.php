@@ -627,20 +627,17 @@ class PHPExcel_Cell
 			'N' => 14, 'O' => 15, 'P' => 16, 'Q' => 17, 'R' => 18, 'S' => 19, 'T' => 20, 'U' => 21, 'V' => 22, 'W' => 23, 'X' => 24, 'Y' => 25, 'Z' => 26
 		);
 
-		if (isset($lookup[$pString]))
-			return $lookup[$pString];
-
 		// Convert to uppercase
 		$pString = strtoupper($pString);
 
 		$strLen = strlen($pString);
 		// Convert column to integer
 		if ($strLen == 1) {
-			return (ord($pString{0}) - 64);
+			return $lookup[$pString];
 		} elseif ($strLen == 2) {
-			return $result = ((1 + (ord($pString{0}) - 65)) * 26) + (ord($pString{1}) - 64);
+			return $lookup[$pString{0}] * 26 + $lookup[$pString{1}];
 		} elseif ($strLen == 3) {
-			return ((1 + (ord($pString{0}) - 65)) * 676) + ((1 + (ord($pString{1}) - 65)) * 26) + (ord($pString{2}) - 64);
+			return $lookup[$pString{0}] * 676 + $lookup[$pString{1}] * 26 + $lookup[$pString{2}];
 		} else {
 			throw new Exception("Column string index can not be " . ($strLen != 0 ? "longer than 3 characters" : "empty") . ".");
 		}
