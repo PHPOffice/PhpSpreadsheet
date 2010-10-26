@@ -658,7 +658,10 @@ class PHPExcel_Cell
 		if ($pColumnIndex < 26) {
 			return chr(65 + $pColumnIndex);
 		}
-		return PHPExcel_Cell::stringFromColumnIndex((int)($pColumnIndex / 26) -1).chr(65 + $pColumnIndex%26) ;
+		if ($pColumnIndex < 702) {
+			return chr(64 + ($pColumnIndex / 26)).chr(65 + $pColumnIndex % 26);
+		}
+		return chr(64 + (($pColumnIndex - 26) / 676)).chr(65 + ((($pColumnIndex - 26) % 676) / 26)).chr(65 + $pColumnIndex % 26);
 	}
 
 	/**
