@@ -533,18 +533,15 @@ class PHPExcel_Shared_String
 	public static function CountCharacters($value, $enc = 'UTF-8')
 	{
 		if (self::getIsIconvEnabled()) {
-			$count = iconv_strlen($value, $enc);
-			return $count;
+			return iconv_strlen($value, $enc);
 		}
 
 		if (self::getIsMbstringEnabled()) {
-			$count = mb_strlen($value, $enc);
-			return $count;
+			return mb_strlen($value, $enc);
 		}
 
 		// else strlen
-		$count = strlen($value);
-		return $count;
+		return strlen($value);
 	}
 
 	/**
@@ -558,18 +555,15 @@ class PHPExcel_Shared_String
 	public static function Substring($pValue = '', $pStart = 0, $pLength = 0)
 	{
 		if (self::getIsIconvEnabled()) {
-			$string = iconv_substr($pValue, $pStart, $pLength, 'UTF-8');
-			return $string;
+			return iconv_substr($pValue, $pStart, $pLength, 'UTF-8');
 		}
 
 		if (self::getIsMbstringEnabled()) {
-			$string = mb_substr($pValue, $pStart, $pLength, 'UTF-8');
-			return $string;
+			return mb_substr($pValue, $pStart, $pLength, 'UTF-8');
 		}
 
 		// else substr
-		$string = substr($pValue, $pStart, $pLength);
-		return $string;
+		return substr($pValue, $pStart, $pLength);
 	}
 
 

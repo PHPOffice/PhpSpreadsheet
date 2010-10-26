@@ -2089,22 +2089,18 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		if (is_array($source)) {
 			// start coordinate
 			list ($startColumn, $startRow) = PHPExcel_Cell::coordinateFromString($pCell);
-			$startColumn = PHPExcel_Cell::columnIndexFromString($startColumn) - 1;
 
 			// Loop through $source
-			$currentRow = $startRow - 1;
-			$rowData = null;
 			foreach ($source as $rowData) {
-				++$currentRow;
-
-				$rowCount = count($rowData);
-				for ($i = 0; $i < $rowCount; ++$i) {
-					if ($rowData[$i] != $nullValue) {
+				$currentColumn = $startColumn;
+				foreach($rowData as $cellValue) {
+					if ($cellValue != $nullValue) {
 						// Set cell value
-						$this->getCell(PHPExcel_Cell::stringFromColumnIndex($i + $startColumn) . $currentRow)
-							->setValue($rowData[$i]);
+						$this->getCell($currentColumn . $startRow)->setValue($cellValue);
 					}
+					++$currentColumn;
 				}
+				++$startRow;
 			}
 		} else {
 			throw new Exception("Parameter \$source should be an array.");
