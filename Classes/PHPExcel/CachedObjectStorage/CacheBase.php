@@ -140,9 +140,9 @@ class PHPExcel_CachedObjectStorage_CacheBase {
 	 */
 	public function getSortedCellList() {
 		$sortKeys = array();
-		foreach ($this->_cellCache as $coord => $value) {
-			list($colNum,$rowNum) = sscanf($coord,'%[A-Z]%d');
-			$sortKeys[sprintf('%09d%3s',$rowNum,$colNum)] = $coord;
+		foreach (array_keys($this->_cellCache) as $coord) {
+			list($column,$row) = sscanf($coord,'%[A-Z]%d');
+			$sortKeys[sprintf('%09d%3s',$row,$column)] = $coord;
 		}
 		ksort($sortKeys);
 
