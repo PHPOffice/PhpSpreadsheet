@@ -248,8 +248,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		$this->_lastColumnIndex  = -1;
 
 		foreach ($this->_phpSheet->getCellCollection(false) as $cellID) {
-			preg_match('/^(\w+)(\d+)$/U',$cellID,$matches);
-			list(,$col,$row) = $matches;
+			list($col,$row) = sscanf($cellID,'%[A-Z]%d');
 			$column = PHPExcel_Cell::columnIndexFromString($col) - 1;
 
 			// Don't break Excel!

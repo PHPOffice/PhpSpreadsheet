@@ -430,7 +430,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	{
 		if (!is_null($this->_cellCollection)) {
 			return $this->_cellCollection->getSortedCellList();
-			}
+		}
 		return array();
 	}
 
