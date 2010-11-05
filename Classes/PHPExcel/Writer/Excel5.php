@@ -395,9 +395,8 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 
 					case 1: // GIF, not supported by BIFF8, we convert to PNG
 						$blipType = PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE::BLIPTYPE_PNG;
-						$imageResource = imagecreatefromgif($filename);
 						ob_start();
-						imagepng($imageResource);
+						imagepng(imagecreatefromgif($filename));
 						$blipData = ob_get_contents();
 						ob_end_clean();
 						break;
@@ -414,9 +413,8 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 
 					case 6: // Windows DIB (BMP), we convert to PNG
 						$blipType = PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE::BLIPTYPE_PNG;
-						$imageResource = PHPExcel_Shared_Drawing::imagecreatefrombmp($filename);
 						ob_start();
-						imagepng($imageResource);
+						imagepng(PHPExcel_Shared_Drawing::imagecreatefrombmp($filename));
 						$blipData = ob_get_contents();
 						ob_end_clean();
 						break;

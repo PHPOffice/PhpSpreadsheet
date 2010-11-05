@@ -393,7 +393,7 @@ class PHPExcel_Style_NumberFormat implements PHPExcel_IComparable
 		self::fillBuiltInFormatCodes();
 
 		// Lookup format code
-		if (array_key_exists($pIndex, self::$_builtInFormats)) {
+		if (isset(self::$_builtInFormats[$pIndex])) {
 			return self::$_builtInFormats[$pIndex];
 		}
 
@@ -412,7 +412,7 @@ class PHPExcel_Style_NumberFormat implements PHPExcel_IComparable
 		self::fillBuiltInFormatCodes();
 
 		// Lookup format code
-		if (array_key_exists($formatCode, self::$_flippedBuiltInFormats)) {
+		if (isset(self::$_flippedBuiltInFormats[$formatCode])) {
 			return self::$_flippedBuiltInFormats[$formatCode];
 		}
 

@@ -32,7 +32,7 @@
 // *  The majority of this is _NOT_ my code.  I simply ported it from the
 // *  PERL Spreadsheet::WriteExcel module.
 // *
-// *  The author of the Spreadsheet::WriteExcel module is John McNamara 
+// *  The author of the Spreadsheet::WriteExcel module is John McNamara
 // *  <jmcnamara@cpan.org>
 // *
 // *  I _DO_ maintain this code, and John McNamara has nothing to do with the
@@ -148,8 +148,8 @@ class PHPExcel_Writer_Excel5_BIFFwriter
 		if (strlen($data) - 4 > $this->_limit) {
 			$data = $this->_addContinue($data);
 		}
-		$this->_data      = $this->_data.$data;
-		$this->_datasize += strlen($data);
+		$this->_data		.= $data;
+		$this->_datasize	+= strlen($data);
 	}
 
 	/**
@@ -164,7 +164,7 @@ class PHPExcel_Writer_Excel5_BIFFwriter
 			$data = $this->_addContinue($data);
 		}
 		$this->_datasize += strlen($data);
-		
+
 		return $data;
 	}
 
@@ -190,7 +190,7 @@ class PHPExcel_Writer_Excel5_BIFFwriter
 		} elseif ($this->_BIFF_version == 0x0600) {
 			$length  = 0x0010;
 
-			// by inspection of real files, MS Office Excel 2007 writes the following 
+			// by inspection of real files, MS Office Excel 2007 writes the following
 			$unknown = pack("VV", 0x000100D1, 0x00000406);
 
 			$build   = 0x0DBB;

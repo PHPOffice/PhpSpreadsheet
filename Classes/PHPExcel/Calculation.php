@@ -2335,10 +2335,7 @@ class PHPExcel_Calculation {
 		$matrixRows = count($matrix);
 		$matrixColumns = 0;
 		foreach($matrix as $rowKey => $rowValue) {
-			$colCount = count($rowValue);
-			if ($colCount > $matrixColumns) {
-				$matrixColumns = $colCount;
-			}
+			$matrixColumns = max(count($rowValue),$matrixColumns);
 			if (!is_array($rowValue)) {
 				$matrix[$rowKey] = array($rowValue);
 			} else {
@@ -2678,11 +2675,11 @@ class PHPExcel_Calculation {
 //					}
 					$output[] = $d;						//	Dump the argument count on the output
 					$output[] = $stack->pop();			//	Pop the function and push onto the output
-					if (array_key_exists($functionName, self::$_controlFunctions)) {
+					if (isset(self::$_controlFunctions[$functionName])) {
 //						echo 'Built-in function '.$functionName.'<br />';
 						$expectedArgumentCount = self::$_controlFunctions[$functionName]['argumentCount'];
 						$functionCall = self::$_controlFunctions[$functionName]['functionCall'];
-					} elseif (array_key_exists($functionName, self::$_PHPExcelFunctions)) {
+					} elseif (isset(self::$_PHPExcelFunctions[$functionName])) {
 //						echo 'PHPExcel function '.$functionName.'<br />';
 						$expectedArgumentCount = self::$_PHPExcelFunctions[$functionName]['argumentCount'];
 						$functionCall = self::$_PHPExcelFunctions[$functionName]['functionCall'];
@@ -2773,7 +2770,7 @@ class PHPExcel_Calculation {
 				if (preg_match('/^'.self::CALCULATION_REGEXP_FUNCTION.'$/i', $val, $matches)) {
 					$val = preg_replace('/\s/','',$val);
 //					echo 'Element '.$val.' is a Function<br />';
-					if (array_key_exists(strtoupper($matches[1]), self::$_PHPExcelFunctions) || array_key_exists(strtoupper($matches[1]), self::$_controlFunctions)) {	// it's a func
+					if (isset(self::$_PHPExcelFunctions[strtoupper($matches[1])]) || isset(self::$_controlFunctions[strtoupper($matches[1])])) {	// it's a function
 						$stack->push('Function', strtoupper($val));
 						$ax = preg_match('/^\s*(\s*\))/i', substr($formula, $index+$length), $amatch);
 						if ($ax) {
@@ -2855,7 +2852,7 @@ class PHPExcel_Calculation {
 //							echo 'Casting '.$val.' to integer<br />';
 							$val = (integer) $val;
 						}
-					} elseif (array_key_exists(trim(strtoupper($val)), self::$_ExcelConstants)) {
+					} elseif (isset(self::$_ExcelConstants[trim(strtoupper($val))])) {
 						$excelConstant = trim(strtoupper($val));
 //						echo 'Element '.$excelConstant.' is an Excel Constant<br />';
 						$val = self::$_ExcelConstants[$excelConstant];
@@ -3189,12 +3186,12 @@ class PHPExcel_Calculation {
 				if ($functionName != 'MKMATRIX') {
 					$this->_writeDebug('Evaluating Function '.self::_localeFunc($functionName).'() with '.(($argCount == 0) ? 'no' : $argCount).' argument'.(($argCount == 1) ? '' : 's'));
 				}
-				if ((array_key_exists($functionName, self::$_PHPExcelFunctions)) || (array_key_exists($functionName, self::$_controlFunctions))) {	// function
-					if (array_key_exists($functionName, self::$_PHPExcelFunctions)) {
+				if ((isset(self::$_PHPExcelFunctions[$functionName])) || (isset(self::$_controlFunctions[$functionName]))) {	// function
+					if (isset(self::$_PHPExcelFunctions[$functionName])) {
 						$functionCall = self::$_PHPExcelFunctions[$functionName]['functionCall'];
 						$passByReference = isset(self::$_PHPExcelFunctions[$functionName]['passByReference']);
 						$passCellReference = isset(self::$_PHPExcelFunctions[$functionName]['passCellReference']);
-					} elseif (array_key_exists($functionName, self::$_controlFunctions)) {
+					} elseif (isset(self::$_controlFunctions[$functionName])) {
 						$functionCall = self::$_controlFunctions[$functionName]['functionCall'];
 						$passByReference = isset(self::$_controlFunctions[$functionName]['passByReference']);
 						$passCellReference = isset(self::$_controlFunctions[$functionName]['passCellReference']);
@@ -3278,7 +3275,7 @@ class PHPExcel_Calculation {
 
 			} else {
 				// if the token is a number, boolean, string or an Excel error, push it onto the stack
-				if (array_key_exists(strtoupper($token), self::$_ExcelConstants)) {
+				if (isset(self::$_ExcelConstants[strtoupper($token)])) {
 					$excelConstant = strtoupper($token);
 //					echo 'Token is a PHPExcel constant: '.$excelConstant.'<br />';
 					$stack->push('Constant Value',self::$_ExcelConstants[$excelConstant]);
@@ -3521,7 +3518,7 @@ class PHPExcel_Calculation {
 			$aReferences = PHPExcel_Cell::extractAllCellReferencesInRange($pRange);
 			$pRange = $pSheet->getTitle().'!'.$pRange;
 			if (count($aReferences) == 1) {
-				list($currentCol,$currentRow) = PHPExcel_Cell::coordinateFromString($aReferences[0]);
+				list($currentCol,$currentRow) = sscanf($aReferences[0],'%[A-Z]%d');
 				if ($pSheet->cellExists($aReferences[0])) {
 					$returnValue[$currentRow][$currentCol] = $pSheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
 				} else {
@@ -3531,7 +3528,7 @@ class PHPExcel_Calculation {
 				// Extract cell data
 				foreach ($aReferences as $reference) {
 					// Extract range
-					list($currentCol,$currentRow) = PHPExcel_Cell::coordinateFromString($reference);
+					list($currentCol,$currentRow) = sscanf($reference,'%[A-Z]%d');
 
 					if ($pSheet->cellExists($reference)) {
 						$returnValue[$currentRow][$currentCol] = $pSheet->getCell($reference)->getCalculatedValue($resetLog);

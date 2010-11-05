@@ -484,8 +484,8 @@ class PHPExcel_Cell
 		} else if ($pCoordinateString == '') {
 			throw new Exception('Cell coordinate can not be zero-length string.');
 		} else if (preg_match("/([$]?[A-Z]+)([$]?\d+)/", $pCoordinateString, $matches)) {
-			list(, $column, $row) = $matches;
-			return array($column, $row);
+			array_shift($matches);
+			return $matches;
 		} else {
 			throw new Exception('Invalid cell coordinate.');
 		}
@@ -518,7 +518,8 @@ class PHPExcel_Cell
 	public static function splitRange($pRange = 'A1:A1')
 	{
 		$exploded = explode(',', $pRange);
-		for ($i = 0; $i < count($exploded); ++$i) {
+		$counter = count($exploded);
+		for ($i = 0; $i < $counter; ++$i) {
 			$exploded[$i] = explode(':', $exploded[$i]);
 		}
 		return $exploded;
@@ -540,7 +541,8 @@ class PHPExcel_Cell
 
 		// Build range
 		$imploded = array();
-		for ($i = 0; $i < count($pRange); ++$i) {
+		$counter = count($pRange);
+		for ($i = 0; $i < $counter; ++$i) {
 			$pRange[$i] = implode(':', $pRange[$i]);
 		}
 		$imploded = implode(',', $pRange);
@@ -622,22 +624,24 @@ class PHPExcel_Cell
 	 */
 	public static function columnIndexFromString($pString = 'A')
 	{
-		static $lookup = array(
+		//	It's surprising how costly the strtoupper() and ord() calls actually are, so we use a lookup array rather than use ord()
+		//		and make it case insensitive to get rid of the strtoupper() as well. Because it's a static, there's no significant
+		//		memory overhead either
+		static $_columnLookup = array(
 			'A' => 1, 'B' => 2, 'C' => 3, 'D' => 4, 'E' => 5, 'F' => 6, 'G' => 7, 'H' => 8, 'I' => 9, 'J' => 10, 'K' => 11, 'L' => 12, 'M' => 13,
-			'N' => 14, 'O' => 15, 'P' => 16, 'Q' => 17, 'R' => 18, 'S' => 19, 'T' => 20, 'U' => 21, 'V' => 22, 'W' => 23, 'X' => 24, 'Y' => 25, 'Z' => 26
+			'N' => 14, 'O' => 15, 'P' => 16, 'Q' => 17, 'R' => 18, 'S' => 19, 'T' => 20, 'U' => 21, 'V' => 22, 'W' => 23, 'X' => 24, 'Y' => 25, 'Z' => 26,
+			'a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5, 'f' => 6, 'g' => 7, 'h' => 8, 'i' => 9, 'j' => 10, 'k' => 11, 'l' => 12, 'm' => 13,
+			'n' => 14, 'o' => 15, 'p' => 16, 'q' => 17, 'r' => 18, 's' => 19, 't' => 20, 'u' => 21, 'v' => 22, 'w' => 23, 'x' => 24, 'y' => 25, 'z' => 26
 		);
-
-		// Convert to uppercase
-		$pString = strtoupper($pString);
 
 		$strLen = strlen($pString);
 		// Convert column to integer
 		if ($strLen == 1) {
-			return $lookup[$pString];
+			return $_columnLookup[$pString];
 		} elseif ($strLen == 2) {
-			return $lookup[$pString{0}] * 26 + $lookup[$pString{1}];
+			return $_columnLookup[$pString[0]] * 26 + $_columnLookup[$pString[1]];
 		} elseif ($strLen == 3) {
-			return $lookup[$pString{0}] * 676 + $lookup[$pString{1}] * 26 + $lookup[$pString{2}];
+			return $_columnLookup[$pString[0]] * 676 + $_columnLookup[$pString[1]] * 26 + $_columnLookup[$pString[2]];
 		} else {
 			throw new Exception("Column string index can not be " . ($strLen != 0 ? "longer than 3 characters" : "empty") . ".");
 		}
@@ -654,8 +658,7 @@ class PHPExcel_Cell
 		// Determine column string
 		if ($pColumnIndex < 26) {
 			return chr(65 + $pColumnIndex);
-		}
-		if ($pColumnIndex < 702) {
+		} elseif ($pColumnIndex < 702) {
 			return chr(64 + ($pColumnIndex / 26)).chr(65 + $pColumnIndex % 26);
 		}
 		return chr(64 + (($pColumnIndex - 26) / 676)).chr(65 + ((($pColumnIndex - 26) % 676) / 26)).chr(65 + $pColumnIndex % 26);
@@ -672,60 +675,41 @@ class PHPExcel_Cell
 		$returnValue = array();
 
 		// Explode spaces
-		$aExplodeSpaces = explode(' ', str_replace('$', '', strtoupper($pRange)));
-		foreach ($aExplodeSpaces as $explodedSpaces) {
+		$cellBlocks = explode(' ', str_replace('$', '', strtoupper($pRange)));
+		foreach ($cellBlocks as $cellBlock) {
 			// Single cell?
-			if (strpos($explodedSpaces,':') === false && strpos($explodedSpaces,',') === false) {
-				$col = 'A';
-				$row = 1;
-				list($col, $row) = PHPExcel_Cell::coordinateFromString($explodedSpaces);
-
-				if (strlen($col) <= 2) {
-					$returnValue[] = $explodedSpaces;
-				}
-
+			if (strpos($cellBlock,':') === false && strpos($cellBlock,',') === false) {
+				$returnValue[] = $cellBlock;
 				continue;
 			}
 
 			// Range...
-			$range = PHPExcel_Cell::splitRange($explodedSpaces);
-			for ($i = 0; $i < count($range); ++$i) {
+			$ranges = PHPExcel_Cell::splitRange($cellBlock);
+			foreach($ranges as $range) {
 				// Single cell?
-				if (count($range[$i]) == 1) {
-					$col = 'A';
-					$row = 1;
-					list($col, $row) = PHPExcel_Cell::coordinateFromString($range[$i]);
-
-					if (strlen($col) <= 2) {
-						$returnValue[] = $explodedSpaces;
-					}
+				if (count($range) == 1) {
+					$returnValue[] = $range[0];
+					continue;
 				}
 
 				// Range...
-				$rangeStart		= $rangeEnd		= '';
-				$startingCol	= $startingRow	= $endingCol	= $endingRow	= 0;
-
-				list($rangeStart, $rangeEnd)		= $range[$i];
-				list($startingCol, $startingRow)	= PHPExcel_Cell::coordinateFromString($rangeStart);
-				list($endingCol, $endingRow)		= PHPExcel_Cell::coordinateFromString($rangeEnd);
-
-				// Conversions...
-				$startingCol	= PHPExcel_Cell::columnIndexFromString($startingCol);
-				$endingCol		= PHPExcel_Cell::columnIndexFromString($endingCol);
+				list($rangeStart, $rangeEnd)	= $range;
+				list($startCol, $startRow)	= sscanf($rangeStart,'%[A-Z]%d');
+				list($endCol, $endRow)		= sscanf($rangeEnd,'%[A-Z]%d');
+				$endCol++;
 
 				// Current data
-				$currentCol	= --$startingCol;
-				$currentRow	= $startingRow;
+				$currentCol	= $startCol;
+				$currentRow	= $startRow;
 
 				// Loop cells
-				while ($currentCol < $endingCol) {
-					$loopColumn = PHPExcel_Cell::stringFromColumnIndex($currentCol);
-					while ($currentRow <= $endingRow) {
-						$returnValue[] = $loopColumn.$currentRow;
+				while ($currentCol != $endCol) {
+					while ($currentRow <= $endRow) {
+						$returnValue[] = $currentCol.$currentRow;
 						++$currentRow;
 					}
 					++$currentCol;
-					$currentRow = $startingRow;
+					$currentRow = $startRow;
 				}
 			}
 		}

@@ -242,25 +242,29 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		$this->_outline_on			= 1;
 
 		// calculate values for DIMENSIONS record
-		$this->_firstRowIndex    =  0;
-		$this->_lastRowIndex     = -1;
-		$this->_firstColumnIndex =  0;
-		$this->_lastColumnIndex  = -1;
+		$_firstRowIndex    =  0;
+		$_lastRowIndex     = -1;
+		$_firstColumnIndex =  0;
+		$_lastColumnIndex  = -1;
 
 		foreach ($this->_phpSheet->getCellCollection(false) as $cellID) {
 			list($col,$row) = sscanf($cellID,'%[A-Z]%d');
 			$column = PHPExcel_Cell::columnIndexFromString($col) - 1;
 
 			// Don't break Excel!
-			if ($row + 1 > 65536 or $column + 1 > 256) {
+			if ($row >= 65536 or $column >= 256) {
 				break;
 			}
 
-			$this->_firstRowIndex    = min($this->_firstRowIndex, $row);
-			$this->_lastRowIndex     = max($this->_lastRowIndex, $row);
-			$this->_firstColumnIndex = min($this->_firstColumnIndex, $column);
-			$this->_lastColumnIndex  = max($this->_lastColumnIndex, $column);
+			$_firstRowIndex    = min($_firstRowIndex, $row);
+			$_lastRowIndex     = max($_lastRowIndex, $row);
+			$_firstColumnIndex = min($_firstColumnIndex, $column);
+			$_lastColumnIndex  = max($_lastColumnIndex, $column);
 		}
+		$this->_firstRowIndex    = $_firstRowIndex;
+		$this->_lastRowIndex     = $_lastRowIndex;
+		$this->_firstColumnIndex = $_firstColumnIndex;
+		$this->_lastColumnIndex  = $_lastColumnIndex;
 
 		$this->_countCellStyleXfs = count($phpSheet->getParent()->getCellStyleXfCollection());
 	}
@@ -529,14 +533,12 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		$firstCellCoordinates = PHPExcel_Cell::coordinateFromString($firstCell); // e.g. array(0, 1)
 		$lastCellCoordinates  = PHPExcel_Cell::coordinateFromString($lastCell);  // e.g. array(1, 6)
 
-		$data = pack('vvvv',
+		return(pack('vvvv',
 			$firstCellCoordinates[1] - 1,
 			$lastCellCoordinates[1] - 1,
 			PHPExcel_Cell::columnIndexFromString($firstCellCoordinates[0]) - 1,
 			PHPExcel_Cell::columnIndexFromString($lastCellCoordinates[0]) - 1
-		);
-
-		return $data;
+		));
 	}
 
 	/**
@@ -852,8 +854,8 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		$unknown   = 0x0000;			  // Must be zero
 
 		// Strip the '=' or '@' sign at the beginning of the formula string
-		if (preg_match("/^=/", $formula)) {
-			$formula = preg_replace("/(^=)/", "", $formula);
+		if ($formula{0} == '=') {
+			$formula = substr($formula,1);
 		} else {
 			// Error handling
 			$this->_writeString($row, $col, 'Unrecognised character for formula');

@@ -98,9 +98,7 @@ class PHPExcel_CachedObjectStorage_CacheBase {
      *	@throws	Exception
      */
 	public function updateCacheData(PHPExcel_Cell $cell) {
-		$pCoord = $cell->getCoordinate();
-
-		return $this->addCacheData($pCoord,$cell);
+		return $this->addCacheData($cell->getCoordinate(),$cell);
 	}	//	function updateCacheData()
 
 

@@ -1055,7 +1055,7 @@ class PHPExcel_Writer_Excel5_Parser
 		$col    = 0;
 		$col_ref_length = strlen($col_ref);
 		for ($i = 0; $i < $col_ref_length; ++$i) {
-			$col += (ord($col_ref{$i}) - ord('A') + 1) * pow(26, $expn);
+			$col += (ord($col_ref{$i}) - 64) * pow(26, $expn);
 			--$expn;
 		}
 
@@ -1125,27 +1125,20 @@ class PHPExcel_Writer_Excel5_Parser
 	{
 		switch($token) {
 			case "+":
-				return $token;
-				break;
 			case "-":
-				return $token;
-				break;
 			case "*":
-				return $token;
-				break;
 			case "/":
-				return $token;
-				break;
 			case "(":
-				return $token;
-				break;
 			case ")":
-				return $token;
-				break;
 			case ",":
-				return $token;
-				break;
 			case ";":
+			case ">=":
+			case "<=":
+			case "=":
+			case "<>":
+			case "^":
+			case "&":
+			case "%":
 				return $token;
 				break;
 			case ">":
@@ -1161,27 +1154,6 @@ class PHPExcel_Writer_Excel5_Parser
 				}
 				return $token;
 				break;
-			case ">=":
-				return $token;
-				break;
-			case "<=":
-				return $token;
-				break;
-			case "=":
-				return $token;
-				break;
-			case "<>":
-				return $token;
-				break;
-			case "^":
-			    return $token;
-			    break;
-			case "&":
-			    return $token;
-			    break;
-			case "%":
-			    return $token;
-			    break;
 			default:
 				// if it's a reference A1 or $A$1 or $A1 or A$1
 				if (preg_match('/^\$?[A-Ia-i]?[A-Za-z]\$?[0-9]+$/',$token) and

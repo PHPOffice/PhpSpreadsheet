@@ -1278,7 +1278,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	private function _readDefault()
 	{
 		$length = $this->_GetInt2d($this->_data, $this->_pos + 2);
-		$recordData = substr($this->_data, $this->_pos + 4, $length);
+//		$recordData = substr($this->_data, $this->_pos + 4, $length);
 
 		// move stream pointer to next record
 		$this->_pos += 4 + $length;
@@ -1337,7 +1337,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	private function _readFilepass()
 	{
 		$length = $this->_GetInt2d($this->_data, $this->_pos + 2);
-		$recordData = substr($this->_data, $this->_pos + 4, $length);
+//		$recordData = substr($this->_data, $this->_pos + 4, $length);
 
 		// move stream pointer to next record
 		$this->_pos += 4 + $length;
@@ -5869,7 +5869,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 		$b = ord($rgb{2});
 
 		// HEX notation, e.g. 'FF00FC'
-		$rgb = sprintf('%02X', $r) . sprintf('%02X', $g) . sprintf('%02X', $b);
+		$rgb = sprintf('%02X%02X%02X', $r, $g, $b);
 
 		return array('rgb' => $rgb);
 	}
@@ -6021,17 +6021,17 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 		$rknumhigh = $this->_GetInt4d($data, 4);
 		$rknumlow = $this->_GetInt4d($data, 0);
 		$sign = ($rknumhigh & 0x80000000) >> 31;
-		$exp = ($rknumhigh & 0x7ff00000) >> 20;
+		$exp = (($rknumhigh & 0x7ff00000) >> 20) - 1023;
 		$mantissa = (0x100000 | ($rknumhigh & 0x000fffff));
 		$mantissalow1 = ($rknumlow & 0x80000000) >> 31;
 		$mantissalow2 = ($rknumlow & 0x7fffffff);
-		$value = $mantissa / pow( 2 , (20 - ($exp - 1023)));
+		$value = $mantissa / pow( 2 , (20 - $exp));
 
 		if ($mantissalow1 != 0) {
-			$value += 1 / pow (2 , (21 - ($exp - 1023)));
+			$value += 1 / pow (2 , (21 - $exp));
 		}
 
-		$value += $mantissalow2 / pow (2 , (52 - ($exp - 1023)));
+		$value += $mantissalow2 / pow (2 , (52 - $exp));
 		if ($sign) {
 			$value = -1 * $value;
 		}
@@ -6078,9 +6078,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 			$string = $this->_uncompressByteString($string);
  		}
 
-		$result = PHPExcel_Shared_String::ConvertEncoding($string, 'UTF-8', 'UTF-16LE');
-
-		return $result;
+		return PHPExcel_Shared_String::ConvertEncoding($string, 'UTF-8', 'UTF-16LE');
 	}
 
 	/**
@@ -6092,7 +6090,8 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	private function _uncompressByteString($string)
 	{
 		$uncompressedString = '';
-		for ($i = 0; $i < strlen($string); ++$i) {
+		$strLen = strlen($string);
+		for ($i = 0; $i < $strLen; ++$i) {
 			$uncompressedString .= $string[$i] . "\0";
 		}
 
@@ -6107,8 +6106,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	 */
 	private function _decodeCodepage($string)
 	{
-		$result = PHPExcel_Shared_String::ConvertEncoding($string, 'UTF-8', $this->_codepage);
-		return $result;
+		return PHPExcel_Shared_String::ConvertEncoding($string, 'UTF-8', $this->_codepage);
 	}
 
 	/**
@@ -6157,17 +6155,17 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	{
 		if ($color <= 0x07 || $color >= 0x40) {
 			// special built-in color
-			$color = $this->_mapBuiltInColor($color);
+			return $this->_mapBuiltInColor($color);
 		} else if (isset($this->_palette) && isset($this->_palette[$color - 8])) {
 			// palette color, color index 0x08 maps to pallete index 0
-			$color = $this->_palette[$color - 8];
+			return $this->_palette[$color - 8];
 		} else {
 			// default color table
 			if ($this->_version == self::XLS_BIFF8) {
-				$color = $this->_mapColor($color);
+				return $this->_mapColor($color);
 			} else {
 				// BIFF5
-				$color = $this->_mapColorBIFF5($color);
+				return $this->_mapColorBIFF5($color);
 			}
 		}
 
