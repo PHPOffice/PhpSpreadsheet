@@ -54,6 +54,7 @@ Fixed in SVN:
 - Bugfix:   (MBaker) Workitem 14425 - Wrong exception message while deleting column
 - General:  (MBaker) Applied patch 6609 - Removes a unnecessary loop through each cell when applying conditional formatting to a range.
 - General:  (MBaker) Applied patch 7169 - Removed spurious PHP end tags (?>)
+- General:  (MBaker) Improved performance specifically for the Excel5 Writer, but also some general improvement for all Writers
 
 
 2010-08-26 (v1.7.4):
