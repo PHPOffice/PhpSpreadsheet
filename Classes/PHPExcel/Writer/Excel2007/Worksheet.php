@@ -965,10 +965,8 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 					case 'f':			// Formula
 						$calculatedValue = null;
 						if ($this->getParentWriter()->getPreCalculateFormulas()) {
-							$pCell->attach($pSheet);
 							$calculatedValue = $pCell->getCalculatedValue();
 						} else {
-							$pCell->attach($pSheet);
 							$calculatedValue = $pCell->getValue();
 						}
 						if (is_string($calculatedValue)) {

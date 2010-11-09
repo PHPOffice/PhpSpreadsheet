@@ -169,13 +169,13 @@ class PHPExcel_Writer_Excel2007_DocProps extends PHPExcel_Writer_Excel2007_Write
 			// dcterms:created
 			$objWriter->startElement('dcterms:created');
 				$objWriter->writeAttribute('xsi:type', 'dcterms:W3CDTF');
-				$objWriter->writeRaw(date(DATE_W3C, 			$pPHPExcel->getProperties()->getCreated()));
+				$objWriter->writeRawData(date(DATE_W3C, 	$pPHPExcel->getProperties()->getCreated()));
 			$objWriter->endElement();
 
 			// dcterms:modified
 			$objWriter->startElement('dcterms:modified');
 				$objWriter->writeAttribute('xsi:type', 'dcterms:W3CDTF');
-				$objWriter->writeRaw(date(DATE_W3C, 			$pPHPExcel->getProperties()->getModified()));
+				$objWriter->writeRawData(date(DATE_W3C, 	$pPHPExcel->getProperties()->getModified()));
 			$objWriter->endElement();
 
 			// dc:title
@@ -251,7 +251,7 @@ class PHPExcel_Writer_Excel2007_DocProps extends PHPExcel_Writer_Excel2007_Write
 							break;
 						case 'd' :
 							$objWriter->startElement('vt:filetime');
-								$objWriter->writeRaw(date(DATE_W3C, $propertyValue));
+								$objWriter->writeRawData(date(DATE_W3C, $propertyValue));
 							$objWriter->endElement();
 							break;
 						default :

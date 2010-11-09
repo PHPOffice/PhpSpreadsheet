@@ -123,7 +123,7 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
 							if ($textToWrite !== trim($textToWrite)) {
 								$objWriter->writeAttribute('xml:space', 'preserve');
 							}
-							$objWriter->writeRaw($textToWrite);
+							$objWriter->writeRawData($textToWrite);
 							$objWriter->endElement();
 						} else if ($textElement instanceof PHPExcel_RichText) {
 							$this->writeRichText($objWriter, $textElement);
@@ -213,7 +213,7 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
 				// t
 				$objWriter->startElement('t');
 				$objWriter->writeAttribute('xml:space', 'preserve');
-				$objWriter->writeRaw(PHPExcel_Shared_String::ControlCharacterPHP2OOXML( $element->getText() ));
+				$objWriter->writeRawData(PHPExcel_Shared_String::ControlCharacterPHP2OOXML( $element->getText() ));
 				$objWriter->endElement();
 
 			$objWriter->endElement();

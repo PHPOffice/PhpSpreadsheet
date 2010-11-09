@@ -328,7 +328,7 @@ class PHPExcel_Writer_Excel2007_Workbook extends PHPExcel_Writer_Excel2007_Write
 		}
 		$range = PHPExcel_Cell::buildRange($range);
 
-		$objWriter->writeRaw($range);
+		$objWriter->writeRawData($range);
 
 		$objWriter->endElement();
 	}
@@ -357,7 +357,7 @@ class PHPExcel_Writer_Excel2007_Workbook extends PHPExcel_Writer_Excel2007_Write
 			$range[1] = PHPExcel_Cell::absoluteCoordinate($range[1]);
 			$range = implode(':', $range);
 
-			$objWriter->writeRaw('\'' . str_replace("'", "''", $pSheet->getTitle()) . '\'!' . $range);
+			$objWriter->writeRawData('\'' . str_replace("'", "''", $pSheet->getTitle()) . '\'!' . $range);
 
 			$objWriter->endElement();
 		}
@@ -400,7 +400,7 @@ class PHPExcel_Writer_Excel2007_Workbook extends PHPExcel_Writer_Excel2007_Write
 				$settingString .= '\'' . str_replace("'", "''", $pSheet->getTitle()) . '\'!$' . $repeat[0] . ':$' . $repeat[1];
 			}
 
-			$objWriter->writeRaw($settingString);
+			$objWriter->writeRawData($settingString);
 
 			$objWriter->endElement();
 		}
@@ -435,7 +435,7 @@ class PHPExcel_Writer_Excel2007_Workbook extends PHPExcel_Writer_Excel2007_Write
 				$chunks[] = '\'' . str_replace("'", "''", $pSheet->getTitle()) . '\'!' . implode(':', $printAreaRect);
 			}
 
-			$objWriter->writeRaw(implode(',', $chunks));
+			$objWriter->writeRawData(implode(',', $chunks));
 
 			$objWriter->endElement();
 		}
