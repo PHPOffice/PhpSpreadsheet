@@ -199,10 +199,10 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 */
 	private function _mapVAlign($vAlign) {
 		switch ($vAlign) {
-			case PHPExcel_Style_Alignment::VERTICAL_BOTTOM: return 'bottom';
-			case PHPExcel_Style_Alignment::VERTICAL_TOP: return 'top';
+			case PHPExcel_Style_Alignment::VERTICAL_BOTTOM:		return 'bottom';
+			case PHPExcel_Style_Alignment::VERTICAL_TOP:		return 'top';
 			case PHPExcel_Style_Alignment::VERTICAL_CENTER:
-			case PHPExcel_Style_Alignment::VERTICAL_JUSTIFY: return 'middle';
+			case PHPExcel_Style_Alignment::VERTICAL_JUSTIFY:	return 'middle';
 			default: return 'baseline';
 		}
 	}
@@ -214,11 +214,12 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 */
 	private function _mapHAlign($hAlign) {
 		switch ($hAlign) {
-			case PHPExcel_Style_Alignment::HORIZONTAL_GENERAL: return false;
-			case PHPExcel_Style_Alignment::HORIZONTAL_LEFT: return 'left';
-			case PHPExcel_Style_Alignment::HORIZONTAL_RIGHT: return 'right';
-			case PHPExcel_Style_Alignment::HORIZONTAL_CENTER: return 'center';
-			case PHPExcel_Style_Alignment::HORIZONTAL_JUSTIFY: return 'justify';
+			case PHPExcel_Style_Alignment::HORIZONTAL_GENERAL:				return false;
+			case PHPExcel_Style_Alignment::HORIZONTAL_LEFT:					return 'left';
+			case PHPExcel_Style_Alignment::HORIZONTAL_RIGHT:				return 'right';
+			case PHPExcel_Style_Alignment::HORIZONTAL_CENTER:
+			case PHPExcel_Style_Alignment::HORIZONTAL_CENTER_CONTINUOUS:	return 'center';
+			case PHPExcel_Style_Alignment::HORIZONTAL_JUSTIFY:				return 'justify';
 			default: return false;
 		}
 	}
@@ -228,11 +229,20 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 */
 	private function _mapBorderStyle($borderStyle) {
 		switch ($borderStyle) {
-			case PHPExcel_Style_Border::BORDER_NONE: return '0px';
-			case PHPExcel_Style_Border::BORDER_DASHED: return '1px dashed';
-			case PHPExcel_Style_Border::BORDER_DOTTED: return '1px dotted';
-			case PHPExcel_Style_Border::BORDER_DOUBLE: return '3px double';
-			case PHPExcel_Style_Border::BORDER_THICK: return '2px solid';
+			case PHPExcel_Style_Border::BORDER_NONE:				return '0px';
+			case PHPExcel_Style_Border::BORDER_DASHDOT:				return '1px dashed';
+			case PHPExcel_Style_Border::BORDER_DASHDOTDOT:			return '1px dotted';
+			case PHPExcel_Style_Border::BORDER_DASHED:				return '1px dashed';
+			case PHPExcel_Style_Border::BORDER_DOTTED:				return '1px dotted';
+			case PHPExcel_Style_Border::BORDER_DOUBLE:				return '3px double';
+			case PHPExcel_Style_Border::BORDER_HAIR:				return '1px solid';
+			case PHPExcel_Style_Border::BORDER_MEDIUM:				return '2px solid';
+			case PHPExcel_Style_Border::BORDER_MEDIUMDASHDOT:		return '2px dashed';
+			case PHPExcel_Style_Border::BORDER_MEDIUMDASHDOTDOT:	return '2px dotted';
+			case PHPExcel_Style_Border::BORDER_MEDIUMDASHED:		return '2px dashed';
+			case PHPExcel_Style_Border::BORDER_SLANTDASHDOT:		return '2px dashed';
+			case PHPExcel_Style_Border::BORDER_THICK:				return '3px solid';
+			case PHPExcel_Style_Border::BORDER_THIN					return '1px solid';
 			default: return '1px solid'; // map others to thin
 		}
 	}

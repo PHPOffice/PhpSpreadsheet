@@ -1910,9 +1910,9 @@ class PHPExcel_Calculation {
 	}
 
 	private static function _translateFormula($from,$to,$formula,$fromSeparator,$toSeparator) {
-		$inBraces = False;
 		//	Convert any Excel function names to the required language
 		if (self::$_localeLanguage !== 'en_us') {
+			$inBraces = False;
 			//	If there is the possibility of braces within a quoted string, then we don't treat those as matrix indicators
 			if (strpos($formula,'"') !== false) {
 				//	So instead we skip replacing in any quoted strings by only replacing in every other array element after we've exploded
@@ -2211,7 +2211,7 @@ class PHPExcel_Calculation {
 		$formulaLength = strlen($formula);
 		if ($formulaLength < 1) return self::_wrapResult($formula);
 
-		$wsTitle = 'Wrk';
+		$wsTitle = 0x00.'Wrk';
 		if (!is_null($pCell)) {
 			$pCellParent = $pCell->getParent();
 			if (!is_null($pCellParent)) {
@@ -2248,7 +2248,7 @@ class PHPExcel_Calculation {
 			}
 		}
 
-		if ((in_array($wsTitle.'!'.$cellID,$this->debugLogStack)) && ($wsTitle != 'Wrk')) {
+		if ((in_array($wsTitle.'!'.$cellID,$this->debugLogStack)) && ($wsTitle != 0x00.'Wrk')) {
 			if ($this->cyclicFormulaCount <= 0) {
 				return $this->_raiseFormulaError('Cyclic Reference in Formula');
 			} elseif (($this->_cyclicFormulaCount >= $this->cyclicFormulaCount) &&
@@ -2441,28 +2441,29 @@ class PHPExcel_Calculation {
 	 *	@param	mixed		$value	First matrix operand
 	 *	@return	mixed
 	 */
-	private static function _showValue($value) {
-		$testArray = PHPExcel_Calculation_Functions::flattenArray($value);
-		if (count($testArray) == 1) {
-			$value = array_pop($testArray);
-		}
-
-		if (is_array($value)) {
-			$returnMatrix = array();
-			$pad = $rpad = ', ';
-			foreach($value as $row) {
-				if (is_array($row)) {
-					$returnMatrix[] = implode($pad,$row);
-					$rpad = '; ';
-				} else {
-					$returnMatrix[] = $row;
-				}
+	private function _showValue($value) {
+		if ($this->writeDebugLog) {
+			$testArray = PHPExcel_Calculation_Functions::flattenArray($value);
+			if (count($testArray) == 1) {
+				$value = array_pop($testArray);
 			}
-			return '{ '.implode($rpad,$returnMatrix).' }';
-		} elseif(is_bool($value)) {
-			return ($value) ? self::$_localeBoolean['TRUE'] : self::$_localeBoolean['FALSE'];
-		}
 
+			if (is_array($value)) {
+				$returnMatrix = array();
+				$pad = $rpad = ', ';
+				foreach($value as $row) {
+					if (is_array($row)) {
+						$returnMatrix[] = implode($pad,$row);
+						$rpad = '; ';
+					} else {
+						$returnMatrix[] = $row;
+					}
+				}
+				return '{ '.implode($rpad,$returnMatrix).' }';
+			} elseif(is_bool($value)) {
+				return ($value) ? self::$_localeBoolean['TRUE'] : self::$_localeBoolean['FALSE'];
+			}
+		}
 		return $value;
 	}	//	function _showValue()
 
@@ -2473,32 +2474,34 @@ class PHPExcel_Calculation {
 	 *	@param	mixed		$value	First matrix operand
 	 *	@return	mixed
 	 */
-	private static function _showTypeDetails($value) {
-		$testArray = PHPExcel_Calculation_Functions::flattenArray($value);
-		if (count($testArray) == 1) {
-			$value = array_pop($testArray);
-		}
-
-		if (is_null($value)) {
-			return 'a null value';
-		} elseif (is_float($value)) {
-			$typeString = 'a floating point number';
-		} elseif(is_int($value)) {
-			$typeString = 'an integer number';
-		} elseif(is_bool($value)) {
-			$typeString = 'a boolean';
-		} elseif(is_array($value)) {
-			$typeString = 'a matrix';
-		} else {
-			if ($value == '') {
-				return 'an empty string';
-			} elseif ($value{0} == '#') {
-				return 'a '.$value.' error';
-			} else {
-				$typeString = 'a string';
+	private function _showTypeDetails($value) {
+		if ($this->writeDebugLog) {
+			$testArray = PHPExcel_Calculation_Functions::flattenArray($value);
+			if (count($testArray) == 1) {
+				$value = array_pop($testArray);
 			}
+
+			if (is_null($value)) {
+				return 'a null value';
+			} elseif (is_float($value)) {
+				$typeString = 'a floating point number';
+			} elseif(is_int($value)) {
+				$typeString = 'an integer number';
+			} elseif(is_bool($value)) {
+				$typeString = 'a boolean';
+			} elseif(is_array($value)) {
+				$typeString = 'a matrix';
+			} else {
+				if ($value == '') {
+					return 'an empty string';
+				} elseif ($value{0} == '#') {
+					return 'a '.$value.' error';
+				} else {
+					$typeString = 'a string';
+				}
+			}
+			return $typeString.' with a value of '.$this->_showValue($value);
 		}
-		return $typeString.' with a value of '.self::_showValue($value);
 	}	//	function _showTypeDetails()
 
 
@@ -2950,9 +2953,9 @@ class PHPExcel_Calculation {
 				$operand1 = $operand1Data['value'];
 				$operand2 = $operand2Data['value'];
 				if ($token == ':') {
-					$this->_writeDebug('Evaluating Range '.self::_showValue($operand1Data['reference']).$token.self::_showValue($operand2Data['reference']));
+					$this->_writeDebug('Evaluating Range '.$this->_showValue($operand1Data['reference']).$token.$this->_showValue($operand2Data['reference']));
 				} else {
-					$this->_writeDebug('Evaluating '.self::_showValue($operand1).' '.$token.' '.self::_showValue($operand2));
+					$this->_writeDebug('Evaluating '.$this->_showValue($operand1).' '.$token.' '.$this->_showValue($operand2));
 				}
 				//	Process the operation in the appropriate manner
 				switch ($token) {
@@ -3058,7 +3061,7 @@ class PHPExcel_Calculation {
 						} else {
 							$result = '"'.str_replace('""','"',self::_unwrapResult($operand1,'"').self::_unwrapResult($operand2,'"')).'"';
 						}
-						$this->_writeDebug('Evaluation Result is '.self::_showTypeDetails($result));
+						$this->_writeDebug('Evaluation Result is '.$this->_showTypeDetails($result));
 						$stack->push('Value',$result);
 						break;
 					case '|'	:			//	Intersect
@@ -3072,7 +3075,7 @@ class PHPExcel_Calculation {
 							}
 						}
 						$cellRef = PHPExcel_Cell::stringFromColumnIndex(min($oCol)).min($oRow).':'.PHPExcel_Cell::stringFromColumnIndex(max($oCol)).max($oRow);
-						$this->_writeDebug('Evaluation Result is '.self::_showTypeDetails($cellIntersect));
+						$this->_writeDebug('Evaluation Result is '.$this->_showTypeDetails($cellIntersect));
 						$stack->push('Value',$cellIntersect,$cellRef);
 						break;
 				}
@@ -3084,11 +3087,11 @@ class PHPExcel_Calculation {
 				$arg = $arg['value'];
 				if ($token === '~') {
 //					echo 'Token is a negation operator<br />';
-					$this->_writeDebug('Evaluating Negation of '.self::_showValue($arg));
+					$this->_writeDebug('Evaluating Negation of '.$this->_showValue($arg));
 					$multiplier = -1;
 				} else {
 //					echo 'Token is a percentile operator<br />';
-					$this->_writeDebug('Evaluating Percentile of '.self::_showValue($arg));
+					$this->_writeDebug('Evaluating Percentile of '.$this->_showValue($arg));
 					$multiplier = 0.01;
 				}
 				if (is_array($arg)) {
@@ -3101,7 +3104,7 @@ class PHPExcel_Calculation {
 						$this->_writeDebug('JAMA Matrix Exception: '.$ex->getMessage());
 						$result = '#VALUE!';
 					}
-					$this->_writeDebug('Evaluation Result is '.self::_showTypeDetails($result));
+					$this->_writeDebug('Evaluation Result is '.$this->_showTypeDetails($result));
 					$stack->push('Value',$result);
 				} else {
 					$this->_executeNumericBinaryOperation($cellID,$multiplier,$arg,'*','arrayTimesEquals',$stack);
@@ -3126,7 +3129,7 @@ class PHPExcel_Calculation {
 							} else {
 								return $this->_raiseFormulaError('Unable to access Cell Reference');
 							}
-							$this->_writeDebug('Evaluation Result for cells '.$cellRef.' in worksheet '.$matches[2].' is '.self::_showTypeDetails($cellValue));
+							$this->_writeDebug('Evaluation Result for cells '.$cellRef.' in worksheet '.$matches[2].' is '.$this->_showTypeDetails($cellValue));
 //							$cellRef = $matches[2].'!'.$cellRef;
 						} else {
 //							echo '$cellRef='.$cellRef.' in current worksheet<br />';
@@ -3136,7 +3139,7 @@ class PHPExcel_Calculation {
 							} else {
 								return $this->_raiseFormulaError('Unable to access Cell Reference');
 							}
-							$this->_writeDebug('Evaluation Result for cells '.$cellRef.' is '.self::_showTypeDetails($cellValue));
+							$this->_writeDebug('Evaluation Result for cells '.$cellRef.' is '.$this->_showTypeDetails($cellValue));
 						}
 					}
 				} else {
@@ -3160,7 +3163,7 @@ class PHPExcel_Calculation {
 							} else {
 								return $this->_raiseFormulaError('Unable to access Cell Reference');
 							}
-							$this->_writeDebug('Evaluation Result for cell '.$cellRef.' in worksheet '.$matches[2].' is '.self::_showTypeDetails($cellValue));
+							$this->_writeDebug('Evaluation Result for cell '.$cellRef.' in worksheet '.$matches[2].' is '.$this->_showTypeDetails($cellValue));
 //							$cellRef = $matches[2].'!'.$cellRef;
 						} else {
 //							echo '$cellRef='.$cellRef.' in current worksheet<br />';
@@ -3171,7 +3174,7 @@ class PHPExcel_Calculation {
 							} else {
 								$cellValue = NULL;
 							}
-							$this->_writeDebug('Evaluation Result for cell '.$cellRef.' is '.self::_showTypeDetails($cellValue));
+							$this->_writeDebug('Evaluation Result for cell '.$cellRef.' is '.$this->_showTypeDetails($cellValue));
 						}
 					}
 				}
@@ -3207,21 +3210,21 @@ class PHPExcel_Calculation {
 							(self::$_PHPExcelFunctions[$functionName]['passByReference'][$a])) {
 							if (is_null($arg['reference'])) {
 								$args[] = $cellID;
-								if ($functionName != 'MKMATRIX') { $argArrayVals[] = self::_showValue($cellID); }
+								if ($functionName != 'MKMATRIX') { $argArrayVals[] = $this->_showValue($cellID); }
 							} else {
 								$args[] = $arg['reference'];
-								if ($functionName != 'MKMATRIX') { $argArrayVals[] = self::_showValue($arg['reference']); }
+								if ($functionName != 'MKMATRIX') { $argArrayVals[] = $this->_showValue($arg['reference']); }
 							}
 						} else {
 							$args[] = self::_unwrapResult($arg['value']);
-							if ($functionName != 'MKMATRIX') { $argArrayVals[] = self::_showValue($arg['value']); }
+							if ($functionName != 'MKMATRIX') { $argArrayVals[] = $this->_showValue($arg['value']); }
 						}
 					}
 					//	Reverse the order of the arguments
 					krsort($args);
 					if (($passByReference) && ($argCount == 0)) {
 						$args[] = $cellID;
-						$argArrayVals[] = self::_showValue($cellID);
+						$argArrayVals[] = $this->_showValue($cellID);
 					}
 //					echo 'Arguments are: ';
 //					print_r($args);
@@ -3233,22 +3236,22 @@ class PHPExcel_Calculation {
 					//	Process each argument in turn, building the return value as an array
 //					if (($argCount == 1) && (is_array($args[1])) && ($functionName != 'MKMATRIX')) {
 //						$operand1 = $args[1];
-//						$this->_writeDebug('Argument is a matrix: '.self::_showValue($operand1));
+//						$this->_writeDebug('Argument is a matrix: '.$this->_showValue($operand1));
 //						$result = array();
 //						$row = 0;
 //						foreach($operand1 as $args) {
 //							if (is_array($args)) {
 //								foreach($args as $arg) {
-//									$this->_writeDebug('Evaluating '.self::_localeFunc($functionName).'( '.self::_showValue($arg).' )');
+//									$this->_writeDebug('Evaluating '.self::_localeFunc($functionName).'( '.$this->_showValue($arg).' )');
 //									$r = call_user_func_array($functionCall,$arg);
-//									$this->_writeDebug('Evaluation Result for '.self::_localeFunc($functionName).'() function call is '.self::_showTypeDetails($r));
+//									$this->_writeDebug('Evaluation Result for '.self::_localeFunc($functionName).'() function call is '.$this->_showTypeDetails($r));
 //									$result[$row][] = $r;
 //								}
 //								++$row;
 //							} else {
-//								$this->_writeDebug('Evaluating '.self::_localeFunc($functionName).'( '.self::_showValue($args).' )');
+//								$this->_writeDebug('Evaluating '.self::_localeFunc($functionName).'( '.$this->_showValue($args).' )');
 //								$r = call_user_func_array($functionCall,$args);
-//								$this->_writeDebug('Evaluation Result for '.self::_localeFunc($functionName).'() function call is '.self::_showTypeDetails($r));
+//								$this->_writeDebug('Evaluation Result for '.self::_localeFunc($functionName).'() function call is '.$this->_showTypeDetails($r));
 //								$result[] = $r;
 //							}
 //						}
@@ -3268,7 +3271,7 @@ class PHPExcel_Calculation {
 						}
 //					}
 					if ($functionName != 'MKMATRIX') {
-						$this->_writeDebug('Evaluation Result for '.self::_localeFunc($functionName).'() function call is '.self::_showTypeDetails($result));
+						$this->_writeDebug('Evaluation Result for '.self::_localeFunc($functionName).'() function call is '.$this->_showTypeDetails($result));
 					}
 					$stack->push('Value',self::_wrapResult($result));
 				}
@@ -3279,7 +3282,7 @@ class PHPExcel_Calculation {
 					$excelConstant = strtoupper($token);
 //					echo 'Token is a PHPExcel constant: '.$excelConstant.'<br />';
 					$stack->push('Constant Value',self::$_ExcelConstants[$excelConstant]);
-					$this->_writeDebug('Evaluating Constant '.$excelConstant.' as '.self::_showTypeDetails(self::$_ExcelConstants[$excelConstant]));
+					$this->_writeDebug('Evaluating Constant '.$excelConstant.' as '.$this->_showTypeDetails(self::$_ExcelConstants[$excelConstant]));
 				} elseif ((is_numeric($token)) || (is_bool($token)) || (is_null($token)) || ($token == '') || ($token{0} == '"') || ($token{0} == '#')) {
 //					echo 'Token is a number, boolean, string, null or an Excel error<br />';
 					$stack->push('Value',$token);
@@ -3291,7 +3294,7 @@ class PHPExcel_Calculation {
 					$this->_writeDebug('Evaluating Named Range '.$namedRange);
 					$cellValue = $this->extractNamedRange($namedRange, ((null !== $pCell) ? $pCellParent : null), false);
 					$pCell->attach($pCellParent);
-					$this->_writeDebug('Evaluation Result for named range '.$namedRange.' is '.self::_showTypeDetails($cellValue));
+					$this->_writeDebug('Evaluation Result for named range '.$namedRange.' is '.$this->_showTypeDetails($cellValue));
 					$stack->push('Named Range',$cellValue,$namedRange);
 				} else {
 					return $this->_raiseFormulaError("undefined variable '$token'");
@@ -3321,12 +3324,12 @@ class PHPExcel_Calculation {
 				//	If not a numeric, test to see if the value is an Excel error, and so can't be used in normal binary operations
 				if ($operand > '' && $operand{0} == '#') {
 					$stack->push('Value', $operand);
-					$this->_writeDebug('Evaluation Result is '.self::_showTypeDetails($operand));
+					$this->_writeDebug('Evaluation Result is '.$this->_showTypeDetails($operand));
 					return false;
 				} elseif (!PHPExcel_Shared_String::convertToNumberIfFraction($operand)) {
 					//	If not a numeric or a fraction, then it's a text string, and so can't be used in mathematical binary operations
 					$stack->push('Value', '#VALUE!');
-					$this->_writeDebug('Evaluation Result is a '.self::_showTypeDetails('#VALUE!'));
+					$this->_writeDebug('Evaluation Result is a '.$this->_showTypeDetails('#VALUE!'));
 					return false;
 				}
 			}
@@ -3343,14 +3346,14 @@ class PHPExcel_Calculation {
 			$result = array();
 			if ((is_array($operand1)) && (!is_array($operand2))) {
 				foreach($operand1 as $x => $operandData) {
-					$this->_writeDebug('Evaluating '.self::_showValue($operandData).' '.$operation.' '.self::_showValue($operand2));
+					$this->_writeDebug('Evaluating '.$this->_showValue($operandData).' '.$operation.' '.$this->_showValue($operand2));
 					$this->_executeBinaryComparisonOperation($cellID,$operandData,$operand2,$operation,$stack);
 					$r = $stack->pop();
 					$result[$x] = $r['value'];
 				}
 			} elseif ((!is_array($operand1)) && (is_array($operand2))) {
 				foreach($operand2 as $x => $operandData) {
-					$this->_writeDebug('Evaluating '.self::_showValue($operand1).' '.$operation.' '.self::_showValue($operandData));
+					$this->_writeDebug('Evaluating '.$this->_showValue($operand1).' '.$operation.' '.$this->_showValue($operandData));
 					$this->_executeBinaryComparisonOperation($cellID,$operand1,$operandData,$operation,$stack);
 					$r = $stack->pop();
 					$result[$x] = $r['value'];
@@ -3358,14 +3361,14 @@ class PHPExcel_Calculation {
 			} else {
 				if (!$recursingArrays) { self::_checkMatrixOperands($operand1,$operand2,2); }
 				foreach($operand1 as $x => $operandData) {
-					$this->_writeDebug('Evaluating '.self::_showValue($operandData).' '.$operation.' '.self::_showValue($operand2[$x]));
+					$this->_writeDebug('Evaluating '.$this->_showValue($operandData).' '.$operation.' '.$this->_showValue($operand2[$x]));
 					$this->_executeBinaryComparisonOperation($cellID,$operandData,$operand2[$x],$operation,$stack,True);
 					$r = $stack->pop();
 					$result[$x] = $r['value'];
 				}
 			}
 			//	Log the result details
-			$this->_writeDebug('Evaluation Result is '.self::_showTypeDetails($result));
+			$this->_writeDebug('Evaluation Result is '.$this->_showTypeDetails($result));
 			//	And push the result onto the stack
 			$stack->push('Array',$result);
 			return true;
@@ -3404,7 +3407,7 @@ class PHPExcel_Calculation {
 		}
 
 		//	Log the result details
-		$this->_writeDebug('Evaluation Result is '.self::_showTypeDetails($result));
+		$this->_writeDebug('Evaluation Result is '.$this->_showTypeDetails($result));
 		//	And push the result onto the stack
 		$stack->push('Value',$result);
 		return true;
@@ -3452,7 +3455,7 @@ class PHPExcel_Calculation {
 					if ($operand2 == 0) {
 						//	Trap for Divide by Zero error
 						$stack->push('Value','#DIV/0!');
-						$this->_writeDebug('Evaluation Result is '.self::_showTypeDetails('#DIV/0!'));
+						$this->_writeDebug('Evaluation Result is '.$this->_showTypeDetails('#DIV/0!'));
 						return false;
 					} else {
 						$result = $operand1/$operand2;
@@ -3466,7 +3469,7 @@ class PHPExcel_Calculation {
 		}
 
 		//	Log the result details
-		$this->_writeDebug('Evaluation Result is '.self::_showTypeDetails($result));
+		$this->_writeDebug('Evaluation Result is '.$this->_showTypeDetails($result));
 		//	And push the result onto the stack
 		$stack->push('Value',$result);
 		return true;

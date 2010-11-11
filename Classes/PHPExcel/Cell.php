@@ -479,13 +479,12 @@ class PHPExcel_Cell
 	 */
 	public static function coordinateFromString($pCoordinateString = 'A1')
 	{
-		if (strpos($pCoordinateString,':') !== false) {
+		if (preg_match("/^([$]?[A-Z]{1,3})([$]?\d{1,5})$/", $pCoordinateString, $matches)) {
+			return array($matches[1],$matches[2]);
+		} elseif ((strpos($pCoordinateString,':') !== false) || (strpos($pCoordinateString,',') !== false)) {
 			throw new Exception('Cell coordinate string can not be a range of cells.');
-		} else if ($pCoordinateString == '') {
+		} elseif ($pCoordinateString == '') {
 			throw new Exception('Cell coordinate can not be zero-length string.');
-		} else if (preg_match("/([$]?[A-Z]+)([$]?\d+)/", $pCoordinateString, $matches)) {
-			array_shift($matches);
-			return $matches;
 		} else {
 			throw new Exception('Invalid cell coordinate.');
 		}
@@ -503,6 +502,8 @@ class PHPExcel_Cell
 		if (strpos($pCoordinateString,':') === false && strpos($pCoordinateString,',') === false) {
 			// Create absolute coordinate
 			list($column, $row) = PHPExcel_Cell::coordinateFromString($pCoordinateString);
+			if ($column[0] == '$')	$column = substr($column,1);
+			if ($row[0] == '$')		$row = substr($row,1);
 			return '$' . $column . '$' . $row;
 		} else {
 			throw new Exception("Coordinate string should not be a cell range.");
