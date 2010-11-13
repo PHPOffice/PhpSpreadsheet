@@ -68,7 +68,7 @@ class PHPExcel_Calculation {
 	//	Cell reference (cell or range of cells, with or without a sheet reference)
 	const CALCULATION_REGEXP_CELLREF	= '((((?:\P{M}\p{M}*)+?)|(\'[^\']*\')|(\"[^\"]*\"))!)?\$?([a-z]{1,3})\$?(\d+)';
 	//	Named Range of cells
-	const CALCULATION_REGEXP_NAMEDRANGE	= '(((\w*)|(\'.*\')|(\".*\"))!)?([_A-Z][_A-Z0-9]*)';
+	const CALCULATION_REGEXP_NAMEDRANGE	= '((((?:\P{M}\p{M}*)+?)|(\'[^\']*\')|(\"[^\"]*\"))!)?([_A-Z][_A-Z0-9]*)';
 	//	Error
 	const CALCULATION_REGEXP_ERROR		= '\#[A-Z][A-Z0_\/]*[!\?]?';
 
