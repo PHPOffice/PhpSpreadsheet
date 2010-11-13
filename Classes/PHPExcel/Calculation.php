@@ -1797,7 +1797,7 @@ class PHPExcel_Calculation {
 	 *
 	 *	@param float $pValue
 	 */
-	public function setCalculationCacheExpirationTime($pValue = 2.5) {
+	public function setCalculationCacheExpirationTime($pValue = 15) {
 		self::$_calculationCacheExpirationTime = $pValue;
 	}	//	function setCalculationCacheExpirationTime()
 
@@ -2208,10 +2208,9 @@ class PHPExcel_Calculation {
 		$formula = trim($formula);
 		if ($formula{0} != '=') return self::_wrapResult($formula);
 		$formula = trim(substr($formula,1));
-		$formulaLength = strlen($formula);
-		if ($formulaLength < 1) return self::_wrapResult($formula);
+		if (strlen($formula) < 1) return self::_wrapResult($formula);
 
-		$wsTitle = 0x00.'Wrk';
+		$wsTitle = "\x00Wrk";
 		if (!is_null($pCell)) {
 			$pCellParent = $pCell->getParent();
 			if (!is_null($pCellParent)) {
@@ -2248,14 +2247,14 @@ class PHPExcel_Calculation {
 			}
 		}
 
-		if ((in_array($wsTitle.'!'.$cellID,$this->debugLogStack)) && ($wsTitle != 0x00.'Wrk')) {
+		if ((in_array($wsTitle.'!'.$cellID,$this->debugLogStack)) && ($wsTitle != "\x00Wrk")) {
 			if ($this->cyclicFormulaCount <= 0) {
 				return $this->_raiseFormulaError('Cyclic Reference in Formula');
 			} elseif (($this->_cyclicFormulaCount >= $this->cyclicFormulaCount) &&
 					  ($this->_cyclicFormulaCell == $wsTitle.'!'.$cellID)) {
 				return $cellValue;
 			} elseif ($this->_cyclicFormulaCell == $wsTitle.'!'.$cellID) {
-				$this->_cyclicFormulaCount++;
+				++$this->_cyclicFormulaCount;
 				if ($this->_cyclicFormulaCount >= $this->cyclicFormulaCount) {
 					return $cellValue;
 				}
@@ -2353,7 +2352,7 @@ class PHPExcel_Calculation {
 	 *	@param	mixed		&$matrix1	First matrix operand
 	 *	@param	mixed		&$matrix2	Second matrix operand
 	 */
-	private static function _resizeMatricesShrink(&$matrix1,&$matrix2) {
+	private static function _resizeMatricesShrink(&$matrix1,&$matrix2,$matrix1Rows,$matrix1Columns,$matrix2Rows,$matrix2Columns) {
 		list($matrix1Rows,$matrix1Columns) = self::_getMatrixDimensions($matrix1);
 		list($matrix2Rows,$matrix2Columns) = self::_getMatrixDimensions($matrix2);
 
@@ -2806,9 +2805,8 @@ class PHPExcel_Calculation {
 							}
 						}
 					}
-					$cellRef = strtoupper($val);
 
-					$output[] = array('type' => 'Cell Reference', 'value' => $val, 'reference' => $cellRef);
+					$output[] = array('type' => 'Cell Reference', 'value' => $val, 'reference' => $val);
 //					$expectingOperator = false;
 				} else {	// it's a variable, constant, string, number or boolean
 //					echo 'Element is a Variable, Constant, String, Number or Boolean<br />';
@@ -2870,7 +2868,7 @@ class PHPExcel_Calculation {
 				$index += $length;
 
 			} elseif ($opCharacter == '$') {	// absolute row or column range
-				$index++;
+				++$index;
 			} elseif ($opCharacter == ')') {	// miscellaneous error checking
 				if ($expectingOperand) {
 					$output[] = array('type' => 'Null Value', 'value' => self::$_ExcelConstants['NULL'], 'reference' => NULL);
@@ -3288,9 +3286,9 @@ class PHPExcel_Calculation {
 					$stack->push('Value',$token);
 				// if the token is a named range, push the named range name onto the stack
 				} elseif (preg_match('/^'.self::CALCULATION_REGEXP_NAMEDRANGE.'$/i', $token, $matches)) {
-//					echo 'Token is a named range<br />';
+					echo 'Token is a named range<br />';
 					$namedRange = $matches[6];
-//					echo 'Named Range is '.$namedRange.'<br />';
+					echo 'Named Range is '.$namedRange.'<br />';
 					$this->_writeDebug('Evaluating Named Range '.$namedRange);
 					$cellValue = $this->extractNamedRange($namedRange, ((null !== $pCell) ? $pCellParent : null), false);
 					$pCell->attach($pCellParent);

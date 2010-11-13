@@ -248,7 +248,7 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 	 * @throws	Exception
 	 */
 	private function _writeLine($pFileHandle = null, $pValues = null) {
-		if (!is_null($pFileHandle) && is_array($pValues)) {
+		if (is_array($pValues)) {
 			// No leading delimiter
 			$writeDelimiter = false;
 
