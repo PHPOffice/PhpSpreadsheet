@@ -19,10 +19,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PHPExcel
- * @package    PHPExcel_Writer
+ * @package	PHPExcel_Writer
  * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
- * @version    ##VERSION##, ##DATE##
+ * @license	http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version	##VERSION##, ##DATE##
  */
 
 
@@ -30,7 +30,7 @@
  * PHPExcel_Writer_CSV
  *
  * @category   PHPExcel
- * @package    PHPExcel_Writer
+ * @package	PHPExcel_Writer
  * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
@@ -86,21 +86,21 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 	/**
 	 * Create a new PHPExcel_Writer_CSV
 	 *
-	 * @param 	PHPExcel	$phpExcel	PHPExcel object
+	 * @param	PHPExcel	$phpExcel	PHPExcel object
 	 */
 	public function __construct(PHPExcel $phpExcel) {
-		$this->_phpExcel 	= $phpExcel;
-		$this->_delimiter 	= ',';
-		$this->_enclosure 	= '"';
-		$this->_lineEnding 	= PHP_EOL;
-		$this->_sheetIndex 	= 0;
+		$this->_phpExcel	= $phpExcel;
+		$this->_delimiter	= ',';
+		$this->_enclosure	= '"';
+		$this->_lineEnding	= PHP_EOL;
+		$this->_sheetIndex	= 0;
 	}
 
 	/**
 	 * Save PHPExcel to file
 	 *
-	 * @param 	string 		$pFileName
-	 * @throws 	Exception
+	 * @param	string		$pFileName
+	 * @throws	Exception
 	 */
 	public function save($pFilename = null) {
 		// Fetch sheet
@@ -112,7 +112,7 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 		PHPExcel_Calculation::setArrayReturnType(PHPExcel_Calculation::RETURN_ARRAY_AS_VALUE);
 
 		// Open file
-		$fileHandle = fopen($pFilename, 'w');
+		$fileHandle = fopen($pFilename, 'wb+');
 		if ($fileHandle === false) {
 			throw new Exception("Could not open file $pFilename for writing.");
 		}
@@ -280,23 +280,23 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 		}
 	}
 
-    /**
-     * Get Pre-Calculate Formulas
-     *
-     * @return boolean
-     */
-    public function getPreCalculateFormulas() {
-    	return $this->_preCalculateFormulas;
-    }
+	/**
+	 * Get Pre-Calculate Formulas
+	 *
+	 * @return boolean
+	 */
+	public function getPreCalculateFormulas() {
+		return $this->_preCalculateFormulas;
+	}
 
-    /**
-     * Set Pre-Calculate Formulas
-     *
-     * @param boolean $pValue	Pre-Calculate Formulas?
-     * @return PHPExcel_Writer_CSV
-     */
-    public function setPreCalculateFormulas($pValue = true) {
-    	$this->_preCalculateFormulas = $pValue;
-    	return $this;
-    }
+	/**
+	 * Set Pre-Calculate Formulas
+	 *
+	 * @param boolean $pValue	Pre-Calculate Formulas?
+	 * @return PHPExcel_Writer_CSV
+	 */
+	public function setPreCalculateFormulas($pValue = true) {
+		$this->_preCalculateFormulas = $pValue;
+		return $this;
+	}
 }
