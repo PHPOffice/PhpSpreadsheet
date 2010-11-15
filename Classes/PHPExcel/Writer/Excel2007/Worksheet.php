@@ -934,12 +934,11 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 	 */
 	private function _writeCell(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_Worksheet $pSheet = null, $pCellAddress = null, $pStringTable = null, $pFlippedStringTable = null)
 	{
-		$pCell = $pSheet->getCell($pCellAddress);
-
 		if (is_array($pStringTable) && is_array($pFlippedStringTable)) {
 			// Cell
+			$pCell = $pSheet->getCell($pCellAddress);
 			$objWriter->startElement('c');
-			$objWriter->writeAttribute('r', $pCell->getCoordinate());
+			$objWriter->writeAttribute('r', $pCellAddress);
 
 			// Sheet styles
 			if ($pCell->getXfIndex() != '') {
@@ -947,18 +946,15 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 			}
 
 			// If cell value is supplied, write cell value
-			if (is_object($pCell->getValue()) || $pCell->getValue() !== '') {
+			$cellValue = $pCell->getValue();
+			if (is_object($cellValue) || $cellValue !== '') {
 				// Map type
 				$mappedType = $pCell->getDataType();
 
 				// Write data type depending on its type
 				switch (strtolower($mappedType)) {
 					case 'inlinestr':	// Inline string
-						$objWriter->writeAttribute('t', $mappedType);
-						break;
 					case 's':			// String
-						$objWriter->writeAttribute('t', $mappedType);
-						break;
 					case 'b':			// Boolean
 						$objWriter->writeAttribute('t', $mappedType);
 						break;
@@ -967,7 +963,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 						if ($this->getParentWriter()->getPreCalculateFormulas()) {
 							$calculatedValue = $pCell->getCalculatedValue();
 						} else {
-							$calculatedValue = $pCell->getValue();
+							$calculatedValue = $cellValue;
 						}
 						if (is_string($calculatedValue)) {
 							$objWriter->writeAttribute('t', 'str');
@@ -980,22 +976,22 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 				// Write data depending on its type
 				switch (strtolower($mappedType)) {
 					case 'inlinestr':	// Inline string
-						if (! $pCell->getValue() instanceof PHPExcel_RichText) {
-							$objWriter->writeElement('t', PHPExcel_Shared_String::ControlCharacterPHP2OOXML( htmlspecialchars($pCell->getValue()) ) );
-						} else if ($pCell->getValue() instanceof PHPExcel_RichText) {
+						if (! $cellValue instanceof PHPExcel_RichText) {
+							$objWriter->writeElement('t', PHPExcel_Shared_String::ControlCharacterPHP2OOXML( htmlspecialchars($cellValue) ) );
+						} else if ($cellValue instanceof PHPExcel_RichText) {
 							$objWriter->startElement('is');
-							$this->getParentWriter()->getWriterPart('stringtable')->writeRichText($objWriter, $pCell->getValue());
+							$this->getParentWriter()->getWriterPart('stringtable')->writeRichText($objWriter, $cellValue);
 							$objWriter->endElement();
 						}
 
 						break;
 					case 's':			// String
-						if (! $pCell->getValue() instanceof PHPExcel_RichText) {
-							if (isset($pFlippedStringTable[$pCell->getValue()])) {
-								$objWriter->writeElement('v', $pFlippedStringTable[$pCell->getValue()]);
+						if (! $cellValue instanceof PHPExcel_RichText) {
+							if (isset($pFlippedStringTable[$cellValue])) {
+								$objWriter->writeElement('v', $pFlippedStringTable[$cellValue]);
 							}
-						} else if ($pCell->getValue() instanceof PHPExcel_RichText) {
-							$objWriter->writeElement('v', $pFlippedStringTable[$pCell->getValue()->getHashCode()]);
+						} else if ($cellValue instanceof PHPExcel_RichText) {
+							$objWriter->writeElement('v', $pFlippedStringTable[$cellValue->getHashCode()]);
 						}
 
 						break;
@@ -1004,20 +1000,19 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 						if($attributes['t'] == 'array') {
 							$objWriter->startElement('f');
 							$objWriter->writeAttribute('t', 'array');
-							$objWriter->writeAttribute('ref', $pCell->getCoordinate());
+							$objWriter->writeAttribute('ref', $pCellAddress);
 							$objWriter->writeAttribute('aca', '1');
 							$objWriter->writeAttribute('ca', '1');
-							$objWriter->text(substr($pCell->getValue(), 1));
+							$objWriter->text(substr($cellValue, 1));
 							$objWriter->endElement();
 						} else {
-							$objWriter->writeElement('f', substr($pCell->getValue(), 1));
+							$objWriter->writeElement('f', substr($cellValue, 1));
 						}
 						if ($this->getParentWriter()->getOffice2003Compatibility() === false) {
 							if ($this->getParentWriter()->getPreCalculateFormulas()) {
 								$calculatedValue = $pCell->getCalculatedValue();
 								if (!is_array($calculatedValue) && substr($calculatedValue, 0, 1) != '#') {
-									$v = PHPExcel_Shared_String::FormatNumber($calculatedValue);
-									$objWriter->writeElement('v', $v);
+									$objWriter->writeElement('v', PHPExcel_Shared_String::FormatNumber($calculatedValue));
 								} else {
 									$objWriter->writeElement('v', '0');
 								}
@@ -1028,18 +1023,17 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 						break;
 					case 'n':			// Numeric
 						// force point as decimal separator in case current locale uses comma
-						$v = str_replace(',', '.', $pCell->getValue());
-						$objWriter->writeElement('v', $v);
+						$objWriter->writeElement('v', str_replace(',', '.', $cellValue));
 						break;
 					case 'b':			// Boolean
-						$objWriter->writeElement('v', ($pCell->getValue() ? '1' : '0'));
+						$objWriter->writeElement('v', ($cellValue ? '1' : '0'));
 						break;
 					case 'e':			// Error
-						if (substr($pCell->getValue(), 0, 1) == '=') {
-							$objWriter->writeElement('f', substr($pCell->getValue(), 1));
-							$objWriter->writeElement('v', substr($pCell->getValue(), 1));
+						if (substr($cellValue, 0, 1) == '=') {
+							$objWriter->writeElement('f', substr($cellValue, 1));
+							$objWriter->writeElement('v', substr($cellValue, 1));
 						} else {
-							$objWriter->writeElement('v', $pCell->getValue());
+							$objWriter->writeElement('v', $cellValue);
 						}
 
 						break;

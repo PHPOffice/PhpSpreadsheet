@@ -140,7 +140,7 @@ class PHPExcel_Cell
 		$this->_parent = $pSheet;
 
 		// Set datatype?
-		if (!is_null($pDataType)) {
+		if ($pDataType !== NULL) {
 			$this->_dataType = $pDataType;
 		} else {
 			if (!self::getValueBinder()->bindValue($this, $pValue)) {
@@ -280,10 +280,10 @@ class PHPExcel_Cell
 			return $result;
 		}
 
-		if (is_null($this->_value)) {
+//		if (is_null($this->_value)) {
 //			echo 'Cell '.$this->getCoordinate().' has no value, formula or otherwise<br />';
-			return null;
-		}
+//			return null;
+//		}
 //		echo 'Cell value for '.$this->getCoordinate().' is not a formula: Returning data value of '.$this->_value.'<br />';
 		return $this->_value;
 	}

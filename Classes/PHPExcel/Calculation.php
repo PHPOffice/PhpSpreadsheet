@@ -2317,11 +2317,9 @@ class PHPExcel_Calculation {
 		if ($resize == 2) {
 			//	Given two matrices of (potentially) unequal size, convert the smaller in each dimension to match the larger
 			self::_resizeMatricesExtend($operand1,$operand2,$matrix1Rows,$matrix1Columns,$matrix2Rows,$matrix2Columns);
-//			self::_resizeMatricesExtend($operand1,$operand2);
 		} elseif ($resize == 1) {
 			//	Given two matrices of (potentially) unequal size, convert the larger in each dimension to match the smaller
 			self::_resizeMatricesShrink($operand1,$operand2,$matrix1Rows,$matrix1Columns,$matrix2Rows,$matrix2Columns);
-//			self::_resizeMatricesShrink($operand1,$operand2);
 		}
 	}	//	function _checkMatrixOperands()
 
@@ -2355,10 +2353,6 @@ class PHPExcel_Calculation {
 	 *	@param	mixed		&$matrix2	Second matrix operand
 	 */
 	private static function _resizeMatricesShrink(&$matrix1,&$matrix2,$matrix1Rows,$matrix1Columns,$matrix2Rows,$matrix2Columns) {
-//	private static function _resizeMatricesShrink(&$matrix1,&$matrix2) {
-//		list($matrix1Rows,$matrix1Columns) = self::_getMatrixDimensions($matrix1);
-//		list($matrix2Rows,$matrix2Columns) = self::_getMatrixDimensions($matrix2);
-
 		if (($matrix2Columns < $matrix1Columns) || ($matrix2Rows < $matrix1Rows)) {
 			if ($matrix2Columns < $matrix1Columns) {
 				for ($i = 0; $i < $matrix1Rows; ++$i) {
@@ -2398,10 +2392,6 @@ class PHPExcel_Calculation {
 	 *	@param	mixed		&$matrix2	Second matrix operand
 	 */
 	private static function _resizeMatricesExtend(&$matrix1,&$matrix2,$matrix1Rows,$matrix1Columns,$matrix2Rows,$matrix2Columns) {
-//	private static function _resizeMatricesExtend(&$matrix1,&$matrix2) {
-//		list($matrix1Rows,$matrix1Columns) = self::_getMatrixDimensions($matrix1);
-//		list($matrix2Rows,$matrix2Columns) = self::_getMatrixDimensions($matrix2);
-
 		if (($matrix2Columns < $matrix1Columns) || ($matrix2Rows < $matrix1Rows)) {
 			if ($matrix2Columns < $matrix1Columns) {
 				for ($i = 0; $i < $matrix2Rows; ++$i) {
