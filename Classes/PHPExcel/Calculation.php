@@ -2042,7 +2042,7 @@ class PHPExcel_Calculation {
 	 */
 	public static function _unwrapResult($value) {
 		if (is_string($value)) {
-			if ((strlen($value) > 0) && ($value{0} == '"') && (substr($value,-1) == '"')) {
+			if ((isset($value{0})) && ($value{0} == '"') && (substr($value,-1) == '"')) {
 				return substr($value,1,-1);
 			}
 		//	Convert numeric errors to NaN error
@@ -2150,10 +2150,9 @@ class PHPExcel_Calculation {
 		//	Basic validation that this is indeed a formula
 		//	We return an empty array if not
 		$formula = trim($formula);
-		if ((strlen($formula) == 0) || ($formula{0} != '=')) return array();
+		if ((!isset($formula{0})) || ($formula{0} != '=')) return array();
 		$formula = trim(substr($formula,1));
-		$formulaLength = strlen($formula);
-		if ($formulaLength < 1) return array();
+		if (!isset($formula{0})) return array();
 
 		//	Parse the formula and return the token stack
 		return $this->_parseFormula($formula);
@@ -2208,7 +2207,7 @@ class PHPExcel_Calculation {
 		$formula = trim($formula);
 		if ($formula{0} != '=') return self::_wrapResult($formula);
 		$formula = trim(substr($formula,1));
-		if (strlen($formula) < 1) return self::_wrapResult($formula);
+		if (!isset($formula{0})) return self::_wrapResult($formula);
 
 		$wsTitle = "\x00Wrk";
 		if (!is_null($pCell)) {
@@ -3280,9 +3279,9 @@ class PHPExcel_Calculation {
 					$stack->push('Value',$token);
 				// if the token is a named range, push the named range name onto the stack
 				} elseif (preg_match('/^'.self::CALCULATION_REGEXP_NAMEDRANGE.'$/i', $token, $matches)) {
-					echo 'Token is a named range<br />';
+//					echo 'Token is a named range<br />';
 					$namedRange = $matches[6];
-					echo 'Named Range is '.$namedRange.'<br />';
+//					echo 'Named Range is '.$namedRange.'<br />';
 					$this->_writeDebug('Evaluating Named Range '.$namedRange);
 					$cellValue = $this->extractNamedRange($namedRange, ((null !== $pCell) ? $pCellParent : null), false);
 					$pCell->attach($pCellParent);

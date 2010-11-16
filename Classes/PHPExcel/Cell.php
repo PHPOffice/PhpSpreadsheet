@@ -635,17 +635,18 @@ class PHPExcel_Cell
 			'n' => 14, 'o' => 15, 'p' => 16, 'q' => 17, 'r' => 18, 's' => 19, 't' => 20, 'u' => 21, 'v' => 22, 'w' => 23, 'x' => 24, 'y' => 25, 'z' => 26
 		);
 
-		$strLen = strlen($pString);
-		// Convert column to integer
-		if ($strLen == 1) {
-			return $_columnLookup[$pString];
-		} elseif ($strLen == 2) {
-			return $_columnLookup[$pString[0]] * 26 + $_columnLookup[$pString[1]];
-		} elseif ($strLen == 3) {
-			return $_columnLookup[$pString[0]] * 676 + $_columnLookup[$pString[1]] * 26 + $_columnLookup[$pString[2]];
-		} else {
-			throw new Exception("Column string index can not be " . ($strLen != 0 ? "longer than 3 characters" : "empty") . ".");
+		//	We also use the language construct isset() rather than the more costly strlen() function to match the length of $pString
+		//		for improved performance
+		if (isset($pString[0])) {
+			if (!isset($pString[1])) {
+				return $_columnLookup[$pString];
+			} elseif(!isset($pString[2])) {
+				return $_columnLookup[$pString[0]] * 26 + $_columnLookup[$pString[1]];
+			} elseif(!isset($pString[3])) {
+				return $_columnLookup[$pString[0]] * 676 + $_columnLookup[$pString[1]] * 26 + $_columnLookup[$pString[2]];
+			}
 		}
+		throw new Exception("Column string index can not be " . ((isset($pString[0])) ? "longer than 3 characters" : "empty") . ".");
 	}
 
 	/**
