@@ -242,7 +242,7 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 			case PHPExcel_Style_Border::BORDER_MEDIUMDASHED:		return '2px dashed';
 			case PHPExcel_Style_Border::BORDER_SLANTDASHDOT:		return '2px dashed';
 			case PHPExcel_Style_Border::BORDER_THICK:				return '3px solid';
-			case PHPExcel_Style_Border::BORDER_THIN					return '1px solid';
+			case PHPExcel_Style_Border::BORDER_THIN:				return '1px solid';
 			default: return '1px solid'; // map others to thin
 		}
 	}
