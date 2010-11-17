@@ -986,7 +986,6 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 				}
 				$colSpan = 1;
 				$rowSpan = 1;
-				$writeCell = true;	// Write cell
 
 				// initialize
 				$cellData = '';
@@ -1042,11 +1041,12 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 						}
 					}
 
-					// replace leading spaces on each line with &nbsp;
-					$cellData = $this->_convertNbsp($cellData);
+					// Converts the cell content so that spaces occuring at beginning of each new line are replaced by &nbsp;
+					// Example: "  Hello\n to the world" is converted to "&nbsp;&nbsp;Hello\n&nbsp;to the world"
+					$cellData = preg_replace("/(?m)(?:^|\\G) /", '&nbsp;', $cellData);
 
 					// convert newline "\n" to '<br>'
-					$cellData = str_replace("\n", '<br/>', $cellData);
+					$cellData = nl2br($cellData);
 
 					// Extend CSS class?
 					if (!$this->_useInlineCss) {
@@ -1220,28 +1220,6 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	public function setUseInlineCss($pValue = false) {
 		$this->_useInlineCss = $pValue;
 		return $this;
-	}
-
-	/**
-	 * Converts a string so that spaces occuring at beginning of each new line are replaced by &nbsp;
-	 * Example: "  Hello\n to the world" is converted to "&nbsp;&nbsp;Hello\n&nbsp;to the world"
-	 *
-	 * @param string $pValue
-	 * @return string
-	 */
-	private function _convertNbsp($pValue = '')
-	{
-		$explodes = explode("\n", $pValue);
-		foreach ($explodes as $explode) {
-			$matches = array();
-			if (preg_match('/^( )+/', $explode, $matches)) {
-				$explode = str_repeat('&nbsp;', strlen($matches[0])) . substr($explode, strlen($matches[0]));
-			}
-			$implodes[] = $explode;
-		}
-
-		$string = implode("\n", $implodes);
-		return $string;
 	}
 
 	/**
