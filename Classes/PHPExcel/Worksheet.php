@@ -305,6 +305,20 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	private $_tabColor;
 
 	/**
+	 * Dirty flag
+	 *
+	 * @var boolean
+	 */
+	private $_dirty	= true;
+
+	/**
+	 * Hash
+	 *
+	 * @var string
+	 */
+	private $_hash	= null;
+
+	/**
 	 * Create a new worksheet
 	 *
 	 * @param PHPExcel		$pParent
@@ -644,7 +658,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	{
 		// Is this a 'rename' or not?
 		if ($this->getTitle() == $pValue) {
-			return;
+			return $this;
 		}
 
 		// Syntax check
@@ -675,13 +689,12 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 			}
 
 			$altTitle = $pValue . ' ' . $i;
-			$this->setTitle($altTitle);
-
-			return;
+			return $this->setTitle($altTitle);
 		}
 
 		// Set title
 		$this->_title = $pValue;
+		$this->_dirty = true;
 
 		// New title
 		$newTitle = $this->getTitle();
@@ -817,6 +830,8 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	public function setProtection(PHPExcel_Worksheet_Protection $pValue)
 	{
 		$this->_protection = $pValue;
+		$this->_dirty = true;
+
 		return $this;
 	}
 
@@ -1629,6 +1644,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 
 		if (strpos($pRange,':') !== false) {
 			$this->_autoFilter = $pRange;
+			$this->_dirty = true;
 		} else {
 			throw new Exception('Autofilter must be set on a range of cells.');
 		}
@@ -2176,25 +2192,29 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 */
 	public function garbageCollect() {
 		// Build a reference table from images
-		$imageCoordinates = array();
-		$iterator = $this->getDrawingCollection()->getIterator();
-		while ($iterator->valid()) {
-			$imageCoordinates[$iterator->current()->getCoordinates()] = true;
-
-			$iterator->next();
-		}
-
+//		$imageCoordinates = array();
+//		$iterator = $this->getDrawingCollection()->getIterator();
+//		while ($iterator->valid()) {
+//			$imageCoordinates[$iterator->current()->getCoordinates()] = true;
+//
+//			$iterator->next();
+//		}
+//
 		// Lookup highest column and highest row if cells are cleaned
 		$highestColumn = -1;
 		$highestRow	= 1;
 
 		// Find cells that can be cleaned
+		$col = $row = array();
 		foreach ($this->_cellCollection->getCellList() as $coord) {
-			list($col,$row) = sscanf($coord,'%[A-Z]%d');
-			// Determine highest column and row
-			$highestColumn = max($highestColumn,PHPExcel_Cell::columnIndexFromString($col));
-			$highestRow = max($highestRow,$row);
+			list($c,$r) = sscanf($coord,'%[A-Z]%d');
+			$row[$r] = $r;
+			$col[$c] = strlen($c).$c;
 		}
+		// Determine highest column and row
+		$highestRow = max($row);
+		$highestColumn = PHPExcel_Cell::columnIndexFromString(substr(max($col),1));
+
 
 		// Loop through column dimensions
 		foreach ($this->_columnDimensions as $dimension) {
@@ -2224,20 +2244,22 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @return string	Hash code
 	 */
 	public function getHashCode() {
-		return md5(
-			  $this->_title
-			. $this->_autoFilter
-			. ($this->_protection->isProtectionEnabled() ? 't' : 'f')
-			//. $this->calculateWorksheetDimension()
-			. __CLASS__
-		);
+		if ($this->_dirty) {
+			$this->_hash = md5( $this->_title .
+								$this->_autoFilter .
+								($this->_protection->isProtectionEnabled() ? 't' : 'f') .
+								__CLASS__
+							  );
+			$this->_dirty = false;
+		}
+		return $this->_hash;
 	}
 
 	/**
 	 * Extract worksheet title from range.
 	 *
-	 * Example: extractSheetTitle('test!A1') ==> 'A1'
-	 * Example: extractSheetTitle('test!A1', true) ==> array('test', 'A1');
+	 * Example: extractSheetTitle("testSheet!A1") ==> 'A1'
+	 * Example: extractSheetTitle("'testSheet 1'!A1", true) ==> array('testSheet 1', 'A1');
 	 *
 	 * @param string $pRange	Range to extract title from
 	 * @param bool $returnRange	Return range? (see example)
@@ -2245,30 +2267,17 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 */
 	public static function extractSheetTitle($pRange, $returnRange = false) {
 		// Sheet title included?
-		if (strpos($pRange, '!') === false) {
+		if (($sep = strpos($pRange, '!')) === false) {
 			return '';
 		}
 
-		// Position of separator exclamation mark
-		$sep = strrpos($pRange, '!');
-
-		// Extract sheet title
-		$reference[0] = substr($pRange, 0, $sep);
-		$reference[1] = substr($pRange, $sep + 1);
-
-		// Strip possible enclosing single quotes
-		if (strpos($reference[0], '\'') === 0) {
-			$reference[0] = substr($reference[0], 1);
-		}
-		if (strrpos($reference[0], '\'') === strlen($reference[0]) - 1) {
-			$reference[0] = substr($reference[0], 0, strlen($reference[0]) - 1);
-		}
-
 		if ($returnRange) {
-			return $reference;
-		} else {
-			return $reference[1];
+			return array( trim(substr($pRange, 0, $sep),"'"),
+						  substr($pRange, $sep + 1)
+						);
 		}
+
+		return substr($pRange, $sep + 1);
 	}
 
 	/**
