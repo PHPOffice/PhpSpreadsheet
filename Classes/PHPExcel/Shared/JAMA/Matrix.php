@@ -80,6 +80,12 @@ class Matrix {
 			$match = implode(",", array_map('gettype', $args));
 
 			switch($match) {
+				//Rectangular matrix - m x n initialized from 2D array
+				case 'array':
+						$this->m = count($args[0]);
+						$this->n = count($args[0][0]);
+						$this->A = $args[0];
+						break;
 				//Square matrix - n x n
 				case 'integer':
 						$this->m = $args[0];
@@ -103,12 +109,6 @@ class Matrix {
 						$this->m = $args[0];
 						$this->n = $args[1];
 						$this->A = array_fill(0, $this->m, array_fill(0, $this->n, $args[2]));
-						break;
-				//Rectangular matrix - m x n initialized from 2D array
-				case 'array':
-						$this->m = count($args[0]);
-						$this->n = count($args[0][0]);
-						$this->A = $args[0];
 						break;
 				//Rectangular matrix - m x n initialized from 2D array
 				case 'array,integer,integer':

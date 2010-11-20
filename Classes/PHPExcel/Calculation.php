@@ -2320,6 +2320,7 @@ class PHPExcel_Calculation {
 			//	Given two matrices of (potentially) unequal size, convert the larger in each dimension to match the smaller
 			self::_resizeMatricesShrink($operand1,$operand2,$matrix1Rows,$matrix1Columns,$matrix2Rows,$matrix2Columns);
 		}
+		return array( $matrix1Rows,$matrix1Columns,$matrix2Rows,$matrix2Columns);
 	}	//	function _checkMatrixOperands()
 
 
@@ -3410,12 +3411,25 @@ class PHPExcel_Calculation {
 		if (!$this->_validateBinaryOperand($cellID,$operand1,$stack)) return false;
 		if (!$this->_validateBinaryOperand($cellID,$operand2,$stack)) return false;
 
+		$executeMatrixOperation = false;
 		//	If either of the operands is a matrix, we need to treat them both as matrices
 		//		(converting the other operand to a matrix if need be); then perform the required
 		//		matrix operation
 		if ((is_array($operand1)) || (is_array($operand2))) {
 			//	Ensure that both operands are arrays/matrices
-			self::_checkMatrixOperands($operand1,$operand2,2);
+			$executeMatrixOperation = true;
+			$mSize = array();
+			list($mSize[],$mSize[],$mSize[],$mSize[]) = self::_checkMatrixOperands($operand1,$operand2,2);
+
+			//	But if they're both single cell matrices, then we can treat them as simple values
+			if (array_sum($mSize) == 4) {
+				$executeMatrixOperation = false;
+				$operand1 = $operand1[0][0];
+				$operand2 = $operand2[0][0];
+			}
+		}
+
+		if ($executeMatrixOperation) {
 			try {
 				//	Convert operand 1 from a PHP array to a matrix
 				$matrix = new Matrix($operand1);
