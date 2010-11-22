@@ -3222,8 +3222,10 @@ class PHPExcel_Calculation {
 //					print_r($args);
 //					echo '<br />';
 					if ($functionName != 'MKMATRIX') {
-						krsort($argArrayVals);
-						$this->_writeDebug('Evaluating '. self::_localeFunc($functionName).'( '.implode(self::$_localeArgumentSeparator.' ',$argArrayVals).' )');
+						if ($this->writeDebugLog) {
+							krsort($argArrayVals);
+							$this->_writeDebug('Evaluating '. self::_localeFunc($functionName).'( '.implode(self::$_localeArgumentSeparator.' ',PHPExcel_Calculation_Functions::flattenArray($argArrayVals)).' )');
+						}
 					}
 					//	Process each argument in turn, building the return value as an array
 //					if (($argCount == 1) && (is_array($args[1])) && ($functionName != 'MKMATRIX')) {

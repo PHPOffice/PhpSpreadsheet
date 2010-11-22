@@ -193,6 +193,18 @@ class PHPExcel_Cell
 	}
 
 	/**
+	 * Get cell value with formatting
+	 *
+	 * @return string
+	 */
+	public function getFormattedValue()
+	{
+		return PHPExcel_Style_NumberFormat::toFormattedString( $this->getCalculatedValue(),
+						$this->_parent->getParent()->getCellXfByIndex($this->getXfIndex())->getNumberFormat()->getFormatCode()
+			   );
+	}
+
+	/**
 	 * Set cell value
 	 *
 	 * This clears the cell formula.
@@ -486,7 +498,7 @@ class PHPExcel_Cell
 		} elseif ($pCoordinateString == '') {
 			throw new Exception('Cell coordinate can not be zero-length string.');
 		} else {
-			throw new Exception('Invalid cell coordinate.');
+			throw new Exception('Invalid cell coordinate '.$pCoordinateString);
 		}
 	}
 
