@@ -2978,7 +2978,7 @@ class PHPExcel_Calculation {
 								if ((trim($operand1Data['value']) != '') && (is_numeric($operand1Data['value']))) {
 									$operand1Data['reference'] = $pCell->getColumn().$operand1Data['value'];
 								} elseif (trim($operand1Data['reference']) == '') {
-									$operand1Data['reference'] = $pCell->getColumn().$pCell->getRow();
+									$operand1Data['reference'] = $pCell->getCoordinate();
 								} else {
 									$operand1Data['reference'] = $operand1Data['value'].$pCell->getRow();
 								}
@@ -2987,7 +2987,7 @@ class PHPExcel_Calculation {
 								if ((trim($operand2Data['value']) != '') && (is_numeric($operand2Data['value']))) {
 									$operand2Data['reference'] = $pCell->getColumn().$operand2Data['value'];
 								} elseif (trim($operand2Data['reference']) == '') {
-									$operand2Data['reference'] = $pCell->getColumn().$pCell->getRow();
+									$operand2Data['reference'] = $pCell->getCoordinate();
 								} else {
 									$operand2Data['reference'] = $operand2Data['value'].$pCell->getRow();
 								}
