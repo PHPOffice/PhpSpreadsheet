@@ -34,6 +34,7 @@ Fixed in SVN:
 - Feature:  (MBaker) Work item 14301 - PHPExcel_Worksheet->toArray() is returning truncated values
 - Feature:  (MBaker) Configure PDF Writer margins based on Excel Worksheet Margin Settings value
 - Feature:  (MBaker) Added Contiguous flag for the CSV Reader, when working with Read Filters
+- Feature:  (MBaker) Added getFormattedValue() method for cell object
 - Bugfix:   (Progi1984) Workitem 7895 - Excel5 : Formula : Percent
 - Bugfix:   (MB) Work item 14143 - NA() doesn't propagate in matrix calc - quick fix in JAMA/Matrix.php
 - Bugfix:   (Progi1984) Workitem 7895 - Excel5 : Formula : Error constant
