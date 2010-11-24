@@ -736,7 +736,7 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 		// Create CSS
 		$css = array_merge(
 			$this->_createCSSStyleAlignment($pStyle->getAlignment())
-			, $this->_createCSSStyleBorders($pStyle->getBorders())
+			, $this->_createCSSStyleBorders($pStyle->getBorders(),$pStyle->getFill())
 			, $this->_createCSSStyleFont($pStyle->getFont())
 			, $this->_createCSSStyleFill($pStyle->getFill())
 		);
@@ -804,15 +804,15 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 * @param	PHPExcel_Style_Borders		$pStyle			PHPExcel_Style_Borders
 	 * @return	array
 	 */
-	private function _createCSSStyleBorders(PHPExcel_Style_Borders $pStyle) {
+	private function _createCSSStyleBorders(PHPExcel_Style_Borders $pStyle, PHPExcel_Style_Fill $fill) {
 		// Construct CSS
 		$css = array();
 
 		// Create CSS
-		$css['border-bottom']	= $this->_createCSSStyleBorder($pStyle->getBottom());
-		$css['border-top']		= $this->_createCSSStyleBorder($pStyle->getTop());
-		$css['border-left']		= $this->_createCSSStyleBorder($pStyle->getLeft());
-		$css['border-right']	= $this->_createCSSStyleBorder($pStyle->getRight());
+		$css['border-bottom']	= $this->_createCSSStyleBorder($pStyle->getBottom(),$fill);
+		$css['border-top']		= $this->_createCSSStyleBorder($pStyle->getTop(),$fill);
+		$css['border-left']		= $this->_createCSSStyleBorder($pStyle->getLeft(),$fill);
+		$css['border-right']	= $this->_createCSSStyleBorder($pStyle->getRight(),$fill);
 
 		// Return
 		return $css;
@@ -824,12 +824,20 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 * @param	PHPExcel_Style_Border		$pStyle			PHPExcel_Style_Border
 	 * @return	string
 	 */
-	private function _createCSSStyleBorder(PHPExcel_Style_Border $pStyle) {
+	private function _createCSSStyleBorder(PHPExcel_Style_Border $pStyle, PHPExcel_Style_Fill $fill) {
 		// Construct HTML
 		$css = '';
 
 		// Create CSS
-		$css .= $this->_mapBorderStyle($pStyle->getBorderStyle()) . ' #' . $pStyle->getColor()->getRGB();
+		$borderWidth = $this->_mapBorderStyle($pStyle->getBorderStyle());
+		if (($borderWidth == '0px') && ($this->_isPdf)) {
+			//	tcPDF treats a 0px border with a colour of black as a thick black border, so we set the colour to the
+			//		background colour for the cell if we're generating PDF output
+			$bValue = $fill->getFillType() == PHPExcel_Style_Fill::FILL_NONE ? 'FFFFFF' : $fill->getStartColor()->getRGB();
+			$css .= $borderWidth . ' #' . $bValue;
+		} else {
+			$css .= $borderWidth . ' #' . $pStyle->getColor()->getRGB();
+		}
 
 		// Return
 		return $css;
@@ -888,9 +896,9 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 				$this->_assembleCSS($this->_cssStyles['table']) : '';
 
 			if ($this->_isPdf && $pSheet->getShowGridLines()) {
-				$html .= '	<table border="1" cellpadding="0" id="sheet' . $sheetIndex . '" cellspacing="0" style="' . $style . '">' . PHP_EOL;
+				$html .= '	<table border="1" cellpadding="1" id="sheet' . $sheetIndex . '" cellspacing="4" style="' . $style . '">' . PHP_EOL;
 			} else {
-				$html .= '	<table border="0" cellpadding="0" id="sheet' . $sheetIndex . '" cellspacing="0" style="' . $style . '">' . PHP_EOL;
+				$html .= '	<table border="0" cellpadding="1" id="sheet' . $sheetIndex . '" cellspacing="4" style="' . $style . '">' . PHP_EOL;
 			}
 		}
 

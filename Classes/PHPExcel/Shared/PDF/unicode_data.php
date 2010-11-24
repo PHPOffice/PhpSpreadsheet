@@ -1,49 +1,43 @@
 <?php
 //============================================================+
 // File name   : unicode_data.php
+// Version     : 1.0.006
 // Begin       : 2008-01-01
-// Last Update : 2009-08-17
-// License     : GNU LGPL (http://www.gnu.org/copyleft/lesser.html)
-// 	----------------------------------------------------------------------------
-//  Copyright (C) 2002-2009  Nicola Asuni - Tecnick.com S.r.l.
-// 	
-// 	This program is free software: you can redistribute it and/or modify
-// 	it under the terms of the GNU Lesser General Public License as published by
-// 	the Free Software Foundation, either version 2.1 of the License, or
-// 	(at your option) any later version.
-// 	
-// 	This program is distributed in the hope that it will be useful,
-// 	but WITHOUT ANY WARRANTY; without even the implied warranty of
-// 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// 	GNU Lesser General Public License for more details.
-// 	
-// 	You should have received a copy of the GNU Lesser General Public License
-// 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-// 	
-// 	See LICENSE.TXT file for more information.
-//  ----------------------------------------------------------------------------
+// Last Update : 2010-10-18
+// Author      : Nicola Asuni - Tecnick.com S.r.l - Via Della Pace, 11 - 09044 - Quartucciu (CA) - ITALY - www.tecnick.com - info@tecnick.com
+// License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
+// -------------------------------------------------------------------
+// Copyright (C) 2008-2010  Nicola Asuni - Tecnick.com S.r.l.
 //
-// Description : Unicode Include file for TCPDF.
+// This file is part of TCPDF software library.
 //
-// Author: Nicola Asuni
+// TCPDF is free software: you can redistribute it and/or modify it
+// under the terms of the GNU Lesser General Public License as
+// published by the Free Software Foundation, either version 3 of the
+// License, or (at your option) any later version.
 //
-// (c) Copyright:
-//               Nicola Asuni
-//               Tecnick.com s.r.l.
-//               Via Della Pace, 11
-//               09044 Quartucciu (CA)
-//               ITALY
-//               www.tecnick.com
-//               info@tecnick.com
+// TCPDF is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with TCPDF.  If not, see <http://www.gnu.org/licenses/>.
+//
+// See LICENSE.TXT file for more information.
+// -------------------------------------------------------------------
+//
+// Description : Unicode data for TCPDF library.
+//
 //============================================================+
 // THANKS TO
 // Efthimios Mavrogeorgiadis
 // Saleh AlMatrafe
 
 /**
- * Unicode Include file for TCPDF.
+ * Unicode data class for TCPDF library.
  * @author Nicola Asuni
- * @copyright 2004-2009 Nicola Asuni - Tecnick.com S.r.l (www.tecnick.com) Via Della Pace, 11 - 09044 - Quartucciu (CA) - ITALY - www.tecnick.com - info@tecnick.com
+ * @copyright 2008-2010 Nicola Asuni - Tecnick.com S.r.l (www.tecnick.com) Via Della Pace, 11 - 09044 - Quartucciu (CA) - ITALY - www.tecnick.com - info@tecnick.com
  * @package com.tecnick.tcpdf
  * @link http://www.tcpdf.org
  * @license http://www.gnu.org/copyleft/lesser.html LGPL
@@ -51,38 +45,63 @@
 */
 
 /**
-* Left-to-Right Mark
+* This is a PHP class containing Unicde data for TCPDF library
+* @name TCPDF_UNICODE_DATA
+* @package com.tecnick.tcpdf
+* @version 1.0.006
+* @author Nicola Asuni - info@tecnick.com
+* @link http://www.tcpdf.org
+* @license http://www.gnu.org/copyleft/lesser.html LGPL
 */
-define('K_LRM', 8206);
+class TCPDF_UNICODE_DATA {
+
 /**
-* Right-to-Left Mark
-*/
-define('K_RLM', 8207);
+ * @var Unicode code for Left-to-Right Mark
+ * @access public
+ */
+public $uni_LRM = 8206;
+
 /**
-* Left-to-Right Embedding
-*/
-define('K_LRE', 8234);
+ * @var Unicode code for Right-to-Left Mark
+ * @access public
+ */
+public $uni_RLM = 8207;
+
 /**
-* Right-to-Left Embedding
-*/
-define('K_RLE', 8235);
+ * @var Unicode code for Left-to-Right Embedding
+ * @access public
+ */
+public $uni_LRE = 8234;
+
 /**
-* Pop Directional Format
-*/
-define('K_PDF', 8236);
+ * @var Unicode code for Right-to-Left Embedding
+ * @access public
+ */
+public $uni_RLE = 8235;
+
 /**
-* Left-to-Right Override
-*/
-define('K_LRO', 8237);
+ * @var Unicode code for Pop Directional Format
+ * @access public
+ */
+public $uni_PDF = 8236;
+
 /**
-* Right-to-Left Override
-*/
-define('K_RLO', 8238);
+ * @var Unicode code for Left-to-Right Override
+ * @access public
+ */
+public $uni_LRO = 8237;
+
+/**
+ * @var Unicode code for Right-to-Left Override
+ * @access public
+ */
+public $uni_RLO = 8238;
 
 /*
- * Pattern to test RTL (Righ-To-Left) strings using regular expressions.
+ * @var Pattern to test RTL (Righ-To-Left) strings using regular expressions.
+ * @access public
  */
-define('K_RE_PATTERN_RTL', "/(
+public $uni_RE_PATTERN_RTL = "/(
 	  \xD6\xBE                                             # R
 	| \xD7[\x80\x83\x86\x90-\xAA\xB0-\xB4]                 # R
 	| \xDF[\x80-\xAA\xB4\xB5\xBA]                          # R
@@ -94,13 +113,14 @@ define('K_RE_PATTERN_RTL', "/(
 	| \xF0\x90\xA8[\x80\x90-\x93\x95-\x97\x99-\xB3]        # R
 	| \xF0\x90\xA9[\x80-\x87\x90-\x98]                     # R
 	| \xE2\x80[\xAB\xAE]                                   # RLE & RLO
-	)/x");
+	)/x";
 
 /*
- * Pattern to test Arabic strings using regular expressions.
- * source: http://www.w3.org/International/questions/qa-forms-utf-8
+ * @var Pattern to test Arabic strings using regular expressions.
+ * Source: http://www.w3.org/International/questions/qa-forms-utf-8
+ * @access public
  */
-define("K_RE_PATTERN_ARABIC", "/(
+public $uni_RE_PATTERN_ARABIC = "/(
 		  \xD8[\x80-\x83\x8B\x8D\x9B\x9E\x9F\xA1-\xBA]  # AL
 		| \xD9[\x80-\x8A\xAD-\xAF\xB1-\xBF]             # AL
 		| \xDA[\x80-\xBF]                               # AL
@@ -120,13 +140,13 @@ define("K_RE_PATTERN_ARABIC", "/(
 		| \xEF\xBA[\x80-\xBF]                           # AL
 		| \xEF\xBB[\x80-\xBC]                           # AL
 		| \xD9[\xA0-\xA9\xAB\xAC]                       # AN
-		)/x");
+		)/x";
 
 /**
- * Array of unicode types
+ * @var Array of Unicode types
+ * @access public
  */
-global $unicode;
-$unicode = array(
+public $uni_type = array(
 0=>'BN',
 1=>'BN',
 2=>'BN',
@@ -17850,12 +17870,12 @@ $unicode = array(
 );
 
 /**
- * Mirror unicode characters.
- * For information on bidi mirroring, see UAX #9: Bidirectional Algorithm, 
+ * @var Mirror unicode characters.
+ * For information on bidi mirroring, see UAX #9: Bidirectional Algorithm,
  * at http://www.unicode.org/unicode/reports/tr9/
+ * @access public
  */
-global $unicode_mirror;
-$unicode_mirror = array (
+public $uni_mirror = array (
 0x0028=>0x0029,
 0x0029=>0x0028,
 0x003C=>0x003E,
@@ -18210,11 +18230,10 @@ $unicode_mirror = array (
 0xFF63=>0xFF62);
 
 /**
- * Arabic shape subtitutions
- * char code=>isolated, final, initial, medial
+ * @var Arabic shape substitutions: char code => (isolated, final, initial, medial)
+ * @access public
  */
-global $unicode_arlet;
-$unicode_arlet = array(
+public $uni_arabicsubst = array(
 1569=>array(65152),
 1570=>array(65153, 65154, 65153, 65154),
 1571=>array(65155, 65156, 65155, 65156),
@@ -18294,11 +18313,10 @@ $unicode_arlet = array(
 );
 
 /**
- * Arabic laa letter
- * char code=>isolated, final, initial, medial
+ * @var Arabic laa letter: char code => isolated, final, initial, medial
+ * @access public
  */
-global $laa_array;
-$laa_array = array (
+public $uni_laa_array = array (
 1570 =>array(65269, 65270, 65269, 65270),
 1571 =>array(65271, 65272, 65271, 65272),
 1573 =>array(65273, 65274, 65273, 65274),
@@ -18306,13 +18324,12 @@ $laa_array = array (
 );
 
 /**
- * Array of character substitutions for sequences of two diacritics symbols starting with SHADDA (0651 HEX, 1617 DEC).
- * Combining characters that can occur with Shadda (U0651) are placed in UE586-UE594. 
- * Putting the combining mark and shadda in the same glyph allows us to avoid the two marks overlapping each other in an illegible manner.
- * second NSM char code=>substitution char
+ * @var Array of character substitutions for sequences of two diacritics symbols.
+ * Putting the combining mark and character in the same glyph allows us to avoid the two marks overlapping each other in an illegible manner.
+ * second NSM char code => substitution char
+ * @access public
  */
-global $diacritics;
-$diacritics = array (
+public $uni_diacritics = array (
 1612=>64606, # Shadda + Dammatan
 1613=>64607, # Shadda + Kasratan
 1614=>64608, # Shadda + Fatha
@@ -18321,10 +18338,10 @@ $diacritics = array (
 );
 
 /**
- * Array of character substitutions from UTF-8 unicode to latin1
+ * @var Array of character substitutions from UTF-8 Unicode to Latin1
+ * @access public
  */
-global $utf8tolatin;
-$utf8tolatin = array (
+public $uni_utf8tolatin = array (
 8364=>128, # Euro1
 338=>140,  # OE
 352=>138,  # Scaron
@@ -18354,7 +18371,8 @@ $utf8tolatin = array (
 382=>158   # zcaron2
 );
 
+} // --- END OF CLASS ---
+
 //============================================================+
 // END OF FILE
 //============================================================+
-?>

@@ -24,7 +24,6 @@
 
 
 Fixed in SVN:
-- Bugfix:   (Progi1984) Workitem 7895 - Excel5 : Formula : String constant containing double quotation mark
 - Feature:  (MBaker) Work item 8769 - Implement Gnumeric File Format
                                       Initial work on Gnumeric Reader (Worksheet Data, Document Properties and basic Formatting)
 - Feature:  (MBaker) (incorporating part of Workitem 9759) - Support for Extended Workbook Properties in Excel2007, Excel5 and OOCalc Readers; support for User-defined Workbook Properties in Excel2007 and OOCalc Readers
@@ -35,28 +34,30 @@ Fixed in SVN:
 - Feature:  (MBaker) Configure PDF Writer margins based on Excel Worksheet Margin Settings value
 - Feature:  (MBaker) Added Contiguous flag for the CSV Reader, when working with Read Filters
 - Feature:  (MBaker) Added getFormattedValue() method for cell object
-- Bugfix:   (Progi1984) Workitem 7895 - Excel5 : Formula : Percent
 - Bugfix:   (MB) Work item 14143 - NA() doesn't propagate in matrix calc - quick fix in JAMA/Matrix.php
-- Bugfix:   (Progi1984) Workitem 7895 - Excel5 : Formula : Error constant
-- Bugfix:   (Progi1984) Workitem 7895 - Excel5 : Formula : Concatenation operator
-- Bugfix:   (MBaker) Workitem 14146 - Worksheet clone broken for CachedObjectStorage_Memory
-- Bugfix:   (MBaker) Workitem 12998 - PHPExcel_Reader_Excel2007 fails when gradient fill without type is present in a file
-- Bugfix:   (MBaker) Workitem 14176 - @ format for numeric strings in XLSX to CSV conversion
-- Bugfix:   (MBaker) Workitem 14223 - Advanced Value Binder Not Working?
-- Bugfix:   (MBaker) Workitem 14226 - unassigned object variable in PHPExcel->removeCellXfByIndex
-- Bugfix:   (MBaker) Workitem 14236 - problem with getting cell values from another worksheet... (if cell doesn't exist)
-- Bugfix:   (MBaker) Workitems 14260 & 14233 - Setting cell values to one char strings & Trouble reading one character string (thanks gorfou)
-- Bugfix:   (MBaker) Workitem 14256 - Worksheet title exception when duplicate worksheet is being renamed but exceeds the 31 character limit
-- Bugfix:   (MBaker) Workitem 14086 - Named range with sheet name that contains the $ throws exception when getting the cell
+- Bugfix:   (Progi1984) Work item 7895 - Excel5 : Formula : String constant containing double quotation mark
+- Bugfix:   (Progi1984) Work item 7895 - Excel5 : Formula : Percent
+- Bugfix:   (Progi1984) Work item 7895 - Excel5 : Formula : Error constant
+- Bugfix:   (Progi1984) Work item 7895 - Excel5 : Formula : Concatenation operator
+- Bugfix:   (MBaker) Work item 14146 - Worksheet clone broken for CachedObjectStorage_Memory
+- Bugfix:   (MBaker) Work item 12998 - PHPExcel_Reader_Excel2007 fails when gradient fill without type is present in a file
+- Bugfix:   (MBaker) Work item 14176 - @ format for numeric strings in XLSX to CSV conversion
+- Bugfix:   (MBaker) Work item 14223 - Advanced Value Binder Not Working?
+- Bugfix:   (MBaker) Work item 14226 - unassigned object variable in PHPExcel->removeCellXfByIndex
+- Bugfix:   (MBaker) Work item 14236 - problem with getting cell values from another worksheet... (if cell doesn't exist)
+- Bugfix:   (MBaker) Work items 14260 & 14233 - Setting cell values to one char strings & Trouble reading one character string (thanks gorfou)
+- Bugfix:   (MBaker) Work item 14256 - Worksheet title exception when duplicate worksheet is being renamed but exceeds the 31 character limit
+- Bugfix:   (MBaker) Work item 14086 - Named range with sheet name that contains the $ throws exception when getting the cell
 - Bugfix:   (MBaker) Added autoloader to DefaultValueBinder and AdvancedValueBinder
 - Bugfix:   (MBaker) Modified PHPExcel_Shared_Date::isDateTimeFormatCode() to return false if format code begins with "_" or with "0 " to prevent false positives
                      These leading characters are most commonly associated with number, currency or accounting (or occasionally fraction) formats
-- Bugfix:   (MBaker) Workitem 14374 - BUG : Excel5 and setReadFilter ?
-- Bugfix:   (MBaker) Workitem 14425 - Wrong exception message while deleting column
-- Bugfix:   (MBaker) Workitem 14679 - Formula evaluation fails with Japanese sheet refs
+- Bugfix:   (MBaker) Work item 14374 - BUG : Excel5 and setReadFilter ?
+- Bugfix:   (MBaker) Work item 14425 - Wrong exception message while deleting column
+- Bugfix:   (MBaker) Work item 14679 - Formula evaluation fails with Japanese sheet refs
+- Bugfix:   (MBaker) Work item 13559 - PHPExcel_Writer_PDF does not handle cell borders correctly
 - General:  (MBaker) Applied patch 6609 - Removes a unnecessary loop through each cell when applying conditional formatting to a range.
 - General:  (MBaker) Applied patch 7169 - Removed spurious PHP end tags (?>)
-- General:  (MBaker) Improved performance specifically for the Excel5 and Excel2007 Writers, but also some general improvement for all Writers
+- General:  (MBaker) Improved performance specifically for the Excel5, Excel2007, HTML and PDF Writers, but also some general improvement for all Writers
 
 
 2010-08-26 (v1.7.4):

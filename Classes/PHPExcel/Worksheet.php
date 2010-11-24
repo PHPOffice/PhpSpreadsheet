@@ -2211,10 +2211,11 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 			$row[$r] = $r;
 			$col[$c] = strlen($c).$c;
 		}
-		// Determine highest column and row
-		$highestRow = max($row);
-		$highestColumn = PHPExcel_Cell::columnIndexFromString(substr(max($col),1));
-
+		if (count($row) > 0) {
+			// Determine highest column and row
+			$highestRow = max($row);
+			$highestColumn = PHPExcel_Cell::columnIndexFromString(substr(max($col),1));
+		}
 
 		// Loop through column dimensions
 		foreach ($this->_columnDimensions as $dimension) {

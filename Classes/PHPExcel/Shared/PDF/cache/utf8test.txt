@@ -86,21 +86,6 @@ Greek (el)
   Ξεσκεπάζω τὴν ψυχοφθόρα βδελυγμία
   (= I uncover the soul-destroying abhorrence)
 
-Japanese (jp)
--------------
-
-  Hiragana: (Iroha)
-
-  いろはにほへとちりぬるを
-  わかよたれそつねならむ
-  うゐのおくやまけふこえて
-  あさきゆめみしゑひもせす
-
-  Katakana:
-
-  イロハニホヘト チリヌルヲ ワカヨタレソ ツネナラム
-  ウヰノオクヤマ ケフコエテ アサキユメミシ ヱヒモセスン
-
 Hebrew (iw)
 -----------
 
@@ -109,8 +94,10 @@ Hebrew (iw)
 Polish (pl)
 -----------
 
-  Pchnąć w tę łódź jeża lub ośm skrzyń fig
+  Pchnąć w tę łódź jeża lub osiem skrzyń fig
   (= To push a hedgehog or eight bins of figs in this boat)
+  
+  Zażółć gęślą jaźń
 
 Russian (ru)
 ------------

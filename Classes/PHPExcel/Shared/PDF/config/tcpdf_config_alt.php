@@ -2,7 +2,7 @@
 //============================================================+
 // File name   : tcpdf_config.php
 // Begin       : 2004-06-11
-// Last Update : 2009-09-30
+// Last Update : 2010-08-19
 //
 // Description : Alternative configuration file for TCPDF.
 //
@@ -21,9 +21,9 @@
 /**
  * Alternative configuration file for TCPDF.
  * @author Nicola Asuni
- * @copyright 2004-2008 Nicola Asuni - Tecnick.com S.r.l (www.tecnick.com) Via Della Pace, 11 - 09044 - Quartucciu (CA) - ITALY - www.tecnick.com - info@tecnick.com
+ * @copyright 2004-2010 Nicola Asuni - Tecnick.com S.r.l (www.tecnick.com) Via Della Pace, 11 - 09044 - Quartucciu (CA) - ITALY - www.tecnick.com - info@tecnick.com
  * @package com.tecnick.tcpdf
- * @version 4.0.014
+ * @version 4.9.005
  * @link http://tcpdf.sourceforge.net
  * @license http://www.gnu.org/copyleft/lesser.html LGPL
  * @since 2004-10-27
@@ -61,7 +61,7 @@ if (isset($_SERVER['HTTP_HOST']) AND (!empty($_SERVER['HTTP_HOST']))) {
 		$k_path_url = 'http://';
 	}
 	$k_path_url .= $_SERVER['HTTP_HOST'];
-	$k_path_url .= str_replace( '\\', '/', substr($_SERVER['PHP_SELF'], 0, -24));
+	$k_path_url .= str_replace( '\\', '/', substr(K_PATH_MAIN, (strlen($_SERVER['DOCUMENT_ROOT']) - 1)));
 }
 
 /**
@@ -199,7 +199,7 @@ define ('PDF_FONT_MONOSPACED', 'courier');
 /**
  * ratio used to adjust the conversion of pixels to user units
  */
-define ('PDF_IMAGE_SCALE_RATIO', 1);
+define ('PDF_IMAGE_SCALE_RATIO', 1.25);
 
 /**
  * magnification factor for titles
@@ -221,7 +221,17 @@ define('K_TITLE_MAGNIFICATION', 1.3);
  */
 define('K_SMALL_RATIO', 2/3);
 
+/**
+ * set to true to enable the special procedure used to avoid the overlappind of symbols on Thai language
+ */
+define('K_THAI_TOPCHARS', true);
+
+/**
+ * if true allows to call TCPDF methods using HTML syntax
+ * IMPORTANT: For security reason, disable this feature if you are printing user HTML content.
+ */
+define('K_TCPDF_CALLS_IN_HTML', true);
+
 //============================================================+
-// END OF FILE                                                 
+// END OF FILE
 //============================================================+
-?>
