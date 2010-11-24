@@ -2082,7 +2082,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	/**
 	 * Set right-to-left
 	 *
-	 * @param boolean $value Right-to-left true/false
+	 * @param	boolean	$value	Right-to-left true/false
 	 * @return PHPExcel_Worksheet
 	 */
 	public function setRightToLeft($value = false) {
@@ -2093,23 +2093,32 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	/**
 	 * Fill worksheet from values in array
 	 *
-	 * @param array $source	Source array
-	 * @param mixed $nullValue Value in source array that stands for blank cell
+	 * @param	array	$source					Source array
+	 * @param	mixed	$nullValue				Value in source array that stands for blank cell
+	 * @param	string	$startCell				Insert array starting from this cell address as the top left coordinate
+	 * @param	boolean	$strictNullComparison	Apply strict comparison when testing for null values in the array
 	 * @throws Exception
 	 * @return PHPExcel_Worksheet
 	 */
-	public function fromArray($source = null, $nullValue = null, $pCell = 'A1') {
+	public function fromArray($source = null, $nullValue = null, $startCell = 'A1', $strictNullComparison = false) {
 		if (is_array($source)) {
 			// start coordinate
-			list ($startColumn, $startRow) = PHPExcel_Cell::coordinateFromString($pCell);
+			list ($startColumn, $startRow) = PHPExcel_Cell::coordinateFromString($startCell);
 
 			// Loop through $source
 			foreach ($source as $rowData) {
 				$currentColumn = $startColumn;
 				foreach($rowData as $cellValue) {
-					if ($cellValue != $nullValue) {
-						// Set cell value
-						$this->getCell($currentColumn . $startRow)->setValue($cellValue);
+					if ($strictNullComparison) {
+						if ($cellValue !== $nullValue) {
+							// Set cell value
+							$this->getCell($currentColumn . $startRow)->setValue($cellValue);
+						}
+					} else {
+						if ($cellValue != $nullValue) {
+							// Set cell value
+							$this->getCell($currentColumn . $startRow)->setValue($cellValue);
+						}
 					}
 					++$currentColumn;
 				}

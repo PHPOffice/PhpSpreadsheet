@@ -34,6 +34,7 @@ Fixed in SVN:
 - Feature:  (MBaker) Configure PDF Writer margins based on Excel Worksheet Margin Settings value
 - Feature:  (MBaker) Added Contiguous flag for the CSV Reader, when working with Read Filters
 - Feature:  (MBaker) Added getFormattedValue() method for cell object
+- Feature:  (MBaker) Added strictNullComparison argument to the worksheet fromArray() method
 - Bugfix:   (MB) Work item 14143 - NA() doesn't propagate in matrix calc - quick fix in JAMA/Matrix.php
 - Bugfix:   (Progi1984) Work item 7895 - Excel5 : Formula : String constant containing double quotation mark
 - Bugfix:   (Progi1984) Work item 7895 - Excel5 : Formula : Percent
