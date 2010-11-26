@@ -858,7 +858,8 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 					$cellsByRow[$cellAddress[1]][] = $cellID;
 				}
 
-				for ($currentRow = 1; $currentRow <= $highestRow; ++$currentRow) {
+				$currentRow = 0;
+				while($currentRow++ < $highestRow) {
 					// Get row dimension
 					$rowDimension = $pSheet->getRowDimension($currentRow);
 

@@ -3517,7 +3517,8 @@ class PHPExcel_Calculation {
 			// Extract range
 			$aReferences = PHPExcel_Cell::extractAllCellReferencesInRange($pRange);
 			$pRange = $pSheet->getTitle().'!'.$pRange;
-			if (count($aReferences) == 1) {
+			if (!isset($aReferences[1])) {
+				//	Single cell in range
 				list($currentCol,$currentRow) = sscanf($aReferences[0],'%[A-Z]%d');
 				if ($pSheet->cellExists($aReferences[0])) {
 					$returnValue[$currentRow][$currentCol] = $pSheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
@@ -3525,7 +3526,7 @@ class PHPExcel_Calculation {
 					$returnValue[$currentRow][$currentCol] = null;
 				}
 			} else {
-				// Extract cell data
+				// Extract cell data for all cells in the range
 				foreach ($aReferences as $reference) {
 					// Extract range
 					list($currentCol,$currentRow) = sscanf($reference,'%[A-Z]%d');
@@ -3589,7 +3590,8 @@ class PHPExcel_Calculation {
 
 			// Extract range
 			$aReferences = PHPExcel_Cell::extractAllCellReferencesInRange($pRange);
-			if (count($aReferences) == 1) {
+			if (!isset($aReferences[1])) {
+				//	Single cell in range
 				list($currentCol,$currentRow) = PHPExcel_Cell::coordinateFromString($aReferences[0]);
 				if ($pSheet->cellExists($aReferences[0])) {
 					$returnValue[$currentRow][$currentCol] = $pSheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
@@ -3597,7 +3599,7 @@ class PHPExcel_Calculation {
 					$returnValue[$currentRow][$currentCol] = null;
 				}
 			} else {
-				// Extract cell data
+				// Extract cell data for all cells in the range
 				foreach ($aReferences as $reference) {
 					// Extract range
 					list($currentCol,$currentRow) = PHPExcel_Cell::coordinateFromString($reference);

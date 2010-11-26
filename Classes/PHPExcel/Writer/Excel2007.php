@@ -172,7 +172,7 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 	 * @param 	string 	$pPartName		Writer part name
 	 * @return 	PHPExcel_Writer_Excel2007_WriterPart
 	 */
-	function getWriterPart($pPartName = '') {
+	public function getWriterPart($pPartName = '') {
 		if ($pPartName != '' && isset($this->_writerParts[strtolower($pPartName)])) {
 			return $this->_writerParts[strtolower($pPartName)];
 		} else {
@@ -363,7 +363,7 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 	 * @throws Exception
 	 */
 	public function getPHPExcel() {
-		if ($this->_spreadSheet !== NULL) {
+		if ($this->_spreadSheet !== null) {
 			return $this->_spreadSheet;
 		} else {
 			throw new Exception("No PHPExcel assigned.");
