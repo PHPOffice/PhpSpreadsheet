@@ -701,7 +701,7 @@ class PHPExcel_Cell
 			$ranges = PHPExcel_Cell::splitRange($cellBlock);
 			foreach($ranges as $range) {
 				// Single cell?
-				if (count($range) == 1) {
+				if (!isset($range[1])) {
 					$returnValue[] = $range[0];
 					continue;
 				}

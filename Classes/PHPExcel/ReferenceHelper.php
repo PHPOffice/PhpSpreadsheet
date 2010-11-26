@@ -536,8 +536,10 @@ class PHPExcel_ReferenceHelper
 		if (strpos($pCellRange,':') !== false || strpos($pCellRange, ',') !== false) {
 			// Update range
 			$range = PHPExcel_Cell::splitRange($pCellRange);
-			for ($i = 0; $i < count($range); ++$i) {
-				for ($j = 0; $j < count($range[$i]); ++$j) {
+			$ic = count($range);
+			for ($i = 0; $i < $ic; ++$i) {
+				$jc = count($range[$i]);
+				for ($j = 0; $j < $jc; ++$j) {
 					$range[$i][$j] = $this->_updateSingleCellReference($range[$i][$j], $pBefore, $pNumCols, $pNumRows);
 				}
 			}
