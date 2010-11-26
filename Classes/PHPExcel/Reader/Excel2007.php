@@ -168,18 +168,26 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
 		}
 
+		$xl = false;
 		// Load file
 		$zip = new ZipArchive;
 		if ($zip->open($pFilename) === true) {
 			// check if it is an OOXML archive
 			$rels = simplexml_load_string($this->_getFromZipArchive($zip, "_rels/.rels"));
+			foreach ($rels->Relationship as $rel) {
+				switch ($rel["Type"]) {
+					case "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument":
+						if (basename($rel["Target"]) == 'workbook.xml') {
+							$xl = true;
+						}
+						break;
 
+				}
+			}
 			$zip->close();
-
-			return ($rels !== false);
 		}
 
-		return false;
+		return $xl;
 	}
 
 	private function _castToBool($c) {
