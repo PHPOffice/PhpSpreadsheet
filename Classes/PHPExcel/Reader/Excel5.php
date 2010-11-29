@@ -570,7 +570,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 		if (!$this->_readDataOnly) {
 			foreach ($this->_objFonts as $objFont) {
 				if (isset($objFont->colorIndex)) {
-					$color = $this->_readColor($objFont->colorIndex);
+					$color = self::_readColor($objFont->colorIndex,$this->_palette);
 					$objFont->getColor()->setRGB($color['rgb']);
 				}
 			}
@@ -580,12 +580,12 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 				$fill = $objStyle->getFill();
 
 				if (isset($fill->startcolorIndex)) {
-					$startColor = $this->_readColor($fill->startcolorIndex);
+					$startColor = self::_readColor($fill->startcolorIndex,$this->_palette);
 					$fill->getStartColor()->setRGB($startColor['rgb']);
 				}
 
 				if (isset($fill->endcolorIndex)) {
-					$endColor = $this->_readColor($fill->endcolorIndex);
+					$endColor = self::_readColor($fill->endcolorIndex,$this->_palette);
 					$fill->getEndColor()->setRGB($endColor['rgb']);
 				}
 
@@ -597,27 +597,27 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 				$diagonal = $objStyle->getBorders()->getDiagonal();
 
 				if (isset($top->colorIndex)) {
-					$borderTopColor = $this->_readColor($top->colorIndex);
+					$borderTopColor = self::_readColor($top->colorIndex,$this->_palette);
 					$top->getColor()->setRGB($borderTopColor['rgb']);
 				}
 
 				if (isset($right->colorIndex)) {
-					$borderRightColor = $this->_readColor($right->colorIndex);
+					$borderRightColor = self::_readColor($right->colorIndex,$this->_palette);
 					$right->getColor()->setRGB($borderRightColor['rgb']);
 				}
 
 				if (isset($bottom->colorIndex)) {
-					$borderBottomColor = $this->_readColor($bottom->colorIndex);
+					$borderBottomColor = self::_readColor($bottom->colorIndex,$this->_palette);
 					$bottom->getColor()->setRGB($borderBottomColor['rgb']);
 				}
 
 				if (isset($left->colorIndex)) {
-					$borderLeftColor = $this->_readColor($left->colorIndex);
+					$borderLeftColor = self::_readColor($left->colorIndex,$this->_palette);
 					$left->getColor()->setRGB($borderLeftColor['rgb']);
 				}
 
 				if (isset($diagonal->colorIndex)) {
-					$borderDiagonalColor = $this->_readColor($diagonal->colorIndex);
+					$borderDiagonalColor = self::_readColor($diagonal->colorIndex,$this->_palette);
 					$diagonal->getColor()->setRGB($borderDiagonalColor['rgb']);
 				}
 			}
@@ -3124,7 +3124,8 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 				// then we should treat as rich text
 				$richText = new PHPExcel_RichText();
 				$charPos = 0;
-				for ($i = 0; $i <= count($this->_sst[$index]['fmtRuns']); ++$i) {
+				$sstCount = count($this->_sst[$index]['fmtRuns']);
+				for ($i = 0; $i <= $sstCount; ++$i) {
 					if (isset($fmtRuns[$i])) {
 						$text = PHPExcel_Shared_String::Substring($this->_sst[$index]['value'], $charPos, $fmtRuns[$i]['charPos'] - $charPos);
 						$charPos = $fmtRuns[$i]['charPos'];
@@ -4228,7 +4229,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 				case 0x14:
 					// offset: 16; size: 2; color index for sheet tab
 					$colorIndex = self::_GetInt2d($recordData, 16);
-					$color = $this->_readColor($colorIndex);
+					$color = self::_readColor($colorIndex,$this->_palette);
 					$this->_phpSheet->getTabColor()->setRGB($color['rgb']);
 					break;
 
@@ -6142,16 +6143,17 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	 * Read color
 	 *
 	 * @param int $color Indexed color
+	 * @param array $palette Color palette
 	 * @return array RGB color value, example: array('rgb' => 'FF0000')
 	 */
-	private function _readColor($color)
+	private static function _readColor($color,$palette)
 	{
 		if ($color <= 0x07 || $color >= 0x40) {
 			// special built-in color
 			return self::_mapBuiltInColor($color);
-		} else if (isset($this->_palette) && isset($this->_palette[$color - 8])) {
+		} else if (isset($palette) && isset($palette[$color - 8])) {
 			// palette color, color index 0x08 maps to pallete index 0
-			return $this->_palette[$color - 8];
+			return $palette[$color - 8];
 		} else {
 			// default color table
 			if ($this->_version == self::XLS_BIFF8) {

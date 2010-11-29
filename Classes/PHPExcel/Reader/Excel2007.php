@@ -190,7 +190,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 		return $xl;
 	}
 
-	private function _castToBool($c) {
+	private static function _castToBool($c) {
 //		echo 'Initial Cast to Boolean<br />';
 		$value = isset($c->v) ? (string) $c->v : null;
 		if ($value == '0') {
@@ -203,12 +203,12 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 		return $value;
 	}	//	function _castToBool()
 
-	private function _castToError($c) {
+	private static function _castToError($c) {
 //		echo 'Initial Cast to Error<br />';
 		return isset($c->v) ? (string) $c->v : null;;
 	}	//	function _castToError()
 
-	private function _castToString($c) {
+	private static function _castToString($c) {
 //		echo 'Initial Cast to String<br />';
 		return isset($c->v) ? (string) $c->v : null;;
 	}	//	function _castToString()
@@ -218,7 +218,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 //		echo '$c->f is '.$c->f.'<br />';
 		$cellDataType 		= 'f';
 		$value 				= "={$c->f}";
-		$calculatedValue 	= $this->$castBaseType($c);
+		$calculatedValue 	= self::$castBaseType($c);
 
 		// Shared formula?
 		if (isset($c->f['t']) && strtolower((string)$c->f['t']) == 'shared') {
@@ -723,7 +723,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 											case "b":
 	//											echo 'Boolean<br />';
 												if (!isset($c->f)) {
-													$value = $this->_castToBool($c);
+													$value = self::_castToBool($c);
 												} else {
 													// Formula
 													$this->_castToFormula($c,$r,$cellDataType,$value,$calculatedValue,$sharedFormulas,'_castToBool');
@@ -743,7 +743,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 											case "e":
 	//											echo 'Error<br />';
 												if (!isset($c->f)) {
-													$value = $this->_castToError($c);
+													$value = self::_castToError($c);
 												} else {
 													// Formula
 													$this->_castToFormula($c,$r,$cellDataType,$value,$calculatedValue,$sharedFormulas,'_castToError');
@@ -756,7 +756,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 	//											echo 'Default<br />';
 												if (!isset($c->f)) {
 	//												echo 'Not a Formula<br />';
-													$value = $this->_castToString($c);
+													$value = self::_castToString($c);
 												} else {
 	//												echo 'Treat as Formula<br />';
 													// Formula
@@ -1431,7 +1431,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 		return $excel;
 	}
 
-	private function _readColor($color) {
+	private static function _readColor($color) {
 		if (isset($color["rgb"])) {
 			return (string)$color["rgb"];
 		} else if (isset($color["indexed"])) {
@@ -1458,7 +1458,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 			if (isset($style->font->strike)) {
 				$docStyle->getFont()->setStrikethrough(!isset($style->font->strike["val"]) || $style->font->strike["val"] == 'true' || $style->font->strike["val"] == '1');
 			}
-			$docStyle->getFont()->getColor()->setARGB($this->_readColor($style->font->color));
+			$docStyle->getFont()->getColor()->setARGB(self::_readColor($style->font->color));
 
 			if (isset($style->font->u) && !isset($style->font->u["val"])) {
 				$docStyle->getFont()->setUnderline(PHPExcel_Style_Font::UNDERLINE_SINGLE);
@@ -1486,18 +1486,18 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 				}
 				$docStyle->getFill()->setRotation(floatval($gradientFill["degree"]));
 				$gradientFill->registerXPathNamespace("sml", "http://schemas.openxmlformats.org/spreadsheetml/2006/main");
-				$docStyle->getFill()->getStartColor()->setARGB($this->_readColor( self::array_item($gradientFill->xpath("sml:stop[@position=0]"))->color) );
-				$docStyle->getFill()->getEndColor()->setARGB($this->_readColor( self::array_item($gradientFill->xpath("sml:stop[@position=1]"))->color) );
+				$docStyle->getFill()->getStartColor()->setARGB(self::_readColor( self::array_item($gradientFill->xpath("sml:stop[@position=0]"))->color) );
+				$docStyle->getFill()->getEndColor()->setARGB(self::_readColor( self::array_item($gradientFill->xpath("sml:stop[@position=1]"))->color) );
 			} elseif ($style->fill->patternFill) {
 				$patternType = (string)$style->fill->patternFill["patternType"] != '' ? (string)$style->fill->patternFill["patternType"] : 'solid';
 				$docStyle->getFill()->setFillType($patternType);
 				if ($style->fill->patternFill->fgColor) {
-					$docStyle->getFill()->getStartColor()->setARGB($this->_readColor($style->fill->patternFill->fgColor));
+					$docStyle->getFill()->getStartColor()->setARGB(self::_readColor($style->fill->patternFill->fgColor));
 				} else {
 					$docStyle->getFill()->getStartColor()->setARGB('FF000000');
 				}
 				if ($style->fill->patternFill->bgColor) {
-					$docStyle->getFill()->getEndColor()->setARGB($this->_readColor($style->fill->patternFill->bgColor));
+					$docStyle->getFill()->getEndColor()->setARGB(self::_readColor($style->fill->patternFill->bgColor));
 				}
 			}
 		}
@@ -1521,11 +1521,11 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 			} elseif ($diagonalUp == true && $diagonalDown == true) {
 				$docStyle->getBorders()->setDiagonalDirection(PHPExcel_Style_Borders::DIAGONAL_BOTH);
 			}
-			$this->_readBorder($docStyle->getBorders()->getLeft(), $style->border->left);
-			$this->_readBorder($docStyle->getBorders()->getRight(), $style->border->right);
-			$this->_readBorder($docStyle->getBorders()->getTop(), $style->border->top);
-			$this->_readBorder($docStyle->getBorders()->getBottom(), $style->border->bottom);
-			$this->_readBorder($docStyle->getBorders()->getDiagonal(), $style->border->diagonal);
+			self::_readBorder($docStyle->getBorders()->getLeft(), $style->border->left);
+			self::_readBorder($docStyle->getBorders()->getRight(), $style->border->right);
+			self::_readBorder($docStyle->getBorders()->getTop(), $style->border->top);
+			self::_readBorder($docStyle->getBorders()->getBottom(), $style->border->bottom);
+			self::_readBorder($docStyle->getBorders()->getDiagonal(), $style->border->diagonal);
 		}
 
 		// alignment
@@ -1566,12 +1566,12 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 		}
 	}
 
-	private function _readBorder($docBorder, $eleBorder) {
+	private static function _readBorder($docBorder, $eleBorder) {
 		if (isset($eleBorder["style"])) {
 			$docBorder->setBorderStyle((string) $eleBorder["style"]);
 		}
 		if (isset($eleBorder->color)) {
-			$docBorder->getColor()->setARGB($this->_readColor($eleBorder->color));
+			$docBorder->getColor()->setARGB(self::_readColor($eleBorder->color));
 		}
 	}
 
@@ -1597,7 +1597,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 					}
 
 					if (isset($run->rPr->color)) {
-						$objText->getFont()->setColor( new PHPExcel_Style_Color( $this->_readColor($run->rPr->color) ) );
+						$objText->getFont()->setColor( new PHPExcel_Style_Color( self::_readColor($run->rPr->color) ) );
 					}
 
 					if ( (isset($run->rPr->b["val"]) && ((string) $run->rPr->b["val"] == 'true' || (string) $run->rPr->b["val"] == '1'))
@@ -1646,11 +1646,9 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 	}
 
 	private static function toCSSArray($style) {
-		$style = str_replace("\r", "", $style);
-		$style = str_replace("\n", "", $style);
+		$style = str_replace(array("\r","\n"), "", $style);
 
 		$temp = explode(';', $style);
-
 		$style = array();
 		foreach ($temp as $item) {
 			$item = explode(':', $item);
