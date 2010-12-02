@@ -564,29 +564,17 @@ class PHPExcel_ReferenceHelper
 	private function _updateSingleCellReference($pCellReference = 'A1', $pBefore = 'A1', $pNumCols = 0, $pNumRows = 0) {
 		if (strpos($pCellReference, ':') === false && strpos($pCellReference, ',') === false) {
 			// Get coordinates of $pBefore
-			$beforeColumn	= 'A';
-			$beforeRow		= 1;
 			list($beforeColumn, $beforeRow) = PHPExcel_Cell::coordinateFromString( $pBefore );
 
-			// Get coordinates
-			$newColumn	= 'A';
-			$newRow	= 1;
+			// Get coordinates of $pCellReference
 			list($newColumn, $newRow) = PHPExcel_Cell::coordinateFromString( $pCellReference );
 
-			// Make sure the reference can be used
-			if ($newColumn == '' && $newRow == '')
-			{
-				return $pCellReference;
-			}
-
 			// Verify which parts should be updated
-			$updateColumn = (PHPExcel_Cell::columnIndexFromString($newColumn) >= PHPExcel_Cell::columnIndexFromString($beforeColumn))
-							&& (strpos($newColumn, '$') === false)
-							&& (strpos($beforeColumn, '$') === false);
+			$updateColumn = (($newColumn{0} != '$') && ($beforeColumn{0} != '$') &&
+							 PHPExcel_Cell::columnIndexFromString($newColumn) >= PHPExcel_Cell::columnIndexFromString($beforeColumn));
 
-			$updateRow = ($newRow >= $beforeRow)
-							&& (strpos($newRow, '$') === false)
-							&& (strpos($beforeRow, '$') === false);
+			$updateRow = (($newRow{0} != '$') && ($beforeRow{0} != '$') &&
+						  $newRow >= $beforeRow);
 
 			// Create new column reference
 			if ($updateColumn) {

@@ -16,7 +16,9 @@
  *	@license PHP v3.0
  *	@version 1.1
  */
-class QRDecomposition {
+class PHPExcel_Shared_JAMA_QRDecomposition {
+
+	const MatrixRankException	= "Can only perform operation on full-rank matrix.";
 
 	/**
 	 *	Array for internal storage of decomposition.
@@ -50,7 +52,7 @@ class QRDecomposition {
 	 *	@return Structure to access R and the Householder vectors and compute Q.
 	 */
 	public function __construct($A) {
-		if($A instanceof Matrix) {
+		if($A instanceof PHPExcel_Shared_JAMA_Matrix) {
 			// Initialize.
 			$this->QR = $A->getArrayCopy();
 			$this->m  = $A->getRowDimension();
@@ -86,7 +88,7 @@ class QRDecomposition {
 				$this->Rdiag[$k] = -$nrm;
 			}
 		} else {
-			throw new Exception(JAMAError(ArgumentTypeException));
+			throw new Exception(PHPExcel_Shared_JAMA_Matrix::ArgumentTypeException);
 		}
 	}	//	function __construct()
 
@@ -121,7 +123,7 @@ class QRDecomposition {
 				}
 			}
 		}
-		return new Matrix($H);
+		return new PHPExcel_Shared_JAMA_Matrix($H);
 	}	//	function getH()
 
 
@@ -142,7 +144,7 @@ class QRDecomposition {
 				}
 			}
 		}
-		return new Matrix($R);
+		return new PHPExcel_Shared_JAMA_Matrix($R);
 	}	//	function getR()
 
 
@@ -179,7 +181,7 @@ class QRDecomposition {
 			}
 		}
 		*/
-		return new Matrix($Q);
+		return new PHPExcel_Shared_JAMA_Matrix($Q);
 	}	//	function getQ()
 
 
@@ -219,14 +221,14 @@ class QRDecomposition {
 						}
 					}
 				}
-				$X = new Matrix($X);
+				$X = new PHPExcel_Shared_JAMA_Matrix($X);
 				return ($X->getMatrix(0, $this->n-1, 0, $nx));
 			} else {
-				throw new Exception(JAMAError(MatrixRankException));
+				throw new Exception(self::MatrixRankException);
 			}
 		} else {
-			throw new Exception(JAMAError(MatrixDimensionException));
+			throw new Exception(PHPExcel_Shared_JAMA_Matrix::MatrixDimensionException);
 		}
 	}	//	function solve()
 
-}	//	class QRDecomposition
+}	//	PHPExcel_Shared_JAMA_class QRDecomposition

@@ -644,7 +644,7 @@ class PHPExcel_Style_NumberFormat implements PHPExcel_IComparable
 						$decimalLength = strlen($decimalPart);
 						$decimalDivisor = pow(10,$decimalLength);
 
-						$GCD = PHPExcel_Calculation_Functions::GCD($decimalPart,$decimalDivisor);
+						$GCD = PHPExcel_Calculation_MathTrig::GCD($decimalPart,$decimalDivisor);
 
 						$adjustedDecimalPart = $decimalPart/$GCD;
 						$adjustedDecimalDivisor = $decimalDivisor/$GCD;

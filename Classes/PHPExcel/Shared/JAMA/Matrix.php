@@ -1018,6 +1018,23 @@ class PHPExcel_Shared_JAMA_Matrix {
 
 
 	/**
+	 *	Solve A*X = B.
+	 *
+	 *	@param Matrix $B Right hand side
+	 *	@return Matrix ... Solution if A is square, least squares solution otherwise
+	 */
+	public function solve($B) {
+		if ($this->m == $this->n) {
+			$LU = new PHPExcel_Shared_JAMA_LUDecomposition($this);
+			return $LU->solve($B);
+		} else {
+			$QR = new QRDecomposition($this);
+			return $QR->solve($B);
+		}
+	}	//	function solve()
+
+
+	/**
 	 *	Matrix inverse or pseudoinverse.
 	 *
 	 *	@return Matrix ... Inverse(A) if A is square, pseudoinverse otherwise.
@@ -1027,4 +1044,16 @@ class PHPExcel_Shared_JAMA_Matrix {
 	}	//	function inverse()
 
 
-}	//	class Matrix
+	/**
+	 *	det
+	 *
+	 *	Calculate determinant
+	 *	@return float Determinant
+	 */
+	public function det() {
+		$L = new PHPExcel_Shared_JAMA_LUDecomposition($this);
+		return $L->det();
+	}	//	function det()
+
+
+}	//	class PHPExcel_Shared_JAMA_Matrix
