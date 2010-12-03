@@ -230,20 +230,22 @@ class PHPExcel_Reader_CSV implements PHPExcel_Reader_IReader
 				break;
 		}
 
+		$escapeEnclosures = array( "\\" . $this->_enclosure,
+								   $this->_enclosure . $this->_enclosure
+								 );
+
 		// Loop through file
 		$currentRow = $contiguousRow = 0;
 		$rowData = array();
 		while (($rowData = fgetcsv($fileHandle, 0, $this->_delimiter, $this->_enclosure)) !== FALSE) {
 			++$currentRow;
 			$crset = false;
-			$ccRef = 0;
 			$rowDataCount = count($rowData);
+			$columnLetter = 'A';
 			for ($i = 0; $i < $rowDataCount; ++$i) {
-				$columnLetter = PHPExcel_Cell::stringFromColumnIndex($i);
 				if ($rowData[$i] != '' && $this->_readFilter->readCell($columnLetter, $currentRow)) {
 					// Unescape enclosures
-					$rowData[$i] = str_replace("\\" . $this->_enclosure, $this->_enclosure, $rowData[$i]);
-					$rowData[$i] = str_replace($this->_enclosure . $this->_enclosure, $this->_enclosure, $rowData[$i]);
+					$rowData[$i] = str_replace($escapeEnclosures, $this->_enclosure, $rowData[$i]);
 
 					// Convert encoding if necessary
 					if ($this->_inputEncoding !== 'UTF-8') {
@@ -256,12 +258,13 @@ class PHPExcel_Reader_CSV implements PHPExcel_Reader_IReader
 							$crset = true;
 						}
 						// Set cell value
-						$objPHPExcel->getActiveSheet()->getCell(PHPExcel_Cell::stringFromColumnIndex($ccRef++) . $contiguousRow)->setValue($rowData[$i]);
+						$objPHPExcel->getActiveSheet()->getCell($columnLetter . $contiguousRow)->setValue($rowData[$i]);
 					} else {
 						// Set cell value
 						$objPHPExcel->getActiveSheet()->getCell($columnLetter . $currentRow)->setValue($rowData[$i]);
 					}
 				}
+				++$columnLetter;
 			}
 		}
 

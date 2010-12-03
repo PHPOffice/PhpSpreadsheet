@@ -194,11 +194,11 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 //		echo 'Initial Cast to Boolean<br />';
 		$value = isset($c->v) ? (string) $c->v : null;
 		if ($value == '0') {
-			$value = false;
+			return false;
 		} elseif ($value == '1') {
-			$value = true;
+			return true;
 		} else {
-			$value = (bool)$c->v;
+			return (bool)$c->v;
 		}
 		return $value;
 	}	//	function _castToBool()

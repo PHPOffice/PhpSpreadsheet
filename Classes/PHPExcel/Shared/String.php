@@ -322,6 +322,15 @@ class PHPExcel_Shared_String
 		return true;
 	}
 
+	public static function buildCharacterSets() {
+		if(empty(self::$_controlCharacters)) {
+			self::_buildControlCharacters();
+		}
+		if(empty(self::$_SYLKCharacters)) {
+			self::_buildSYLKCharacters();
+		}
+	}
+
 	/**
 	 * Convert from OpenXML escaped control character to PHP control character
 	 *
@@ -337,10 +346,6 @@ class PHPExcel_Shared_String
 	 * @return 	string
 	 */
 	public static function ControlCharacterOOXML2PHP($value = '') {
-		if(empty(self::$_controlCharacters)) {
-			self::_buildControlCharacters();
-		}
-
 		return str_replace( array_keys(self::$_controlCharacters), array_values(self::$_controlCharacters), $value );
 	}
 
@@ -359,10 +364,6 @@ class PHPExcel_Shared_String
 	 * @return 	string
 	 */
 	public static function ControlCharacterPHP2OOXML($value = '') {
-		if(empty(self::$_controlCharacters)) {
-			self::_buildControlCharacters();
-		}
-
 		return str_replace( array_values(self::$_controlCharacters), array_keys(self::$_controlCharacters), $value );
 	}
 
@@ -655,10 +656,6 @@ class PHPExcel_Shared_String
 		// If there is no escape character in the string there is nothing to do
 		if (strpos($pValue, '') === false) {
 			return $pValue;
-		}
-
-		if(empty(self::$_SYLKCharacters)) {
-			self::_buildSYLKCharacters();
 		}
 
 		foreach (self::$_SYLKCharacters as $k => $v) {
