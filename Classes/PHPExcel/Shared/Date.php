@@ -280,13 +280,13 @@ class PHPExcel_Shared_Date
 		if (strlen($dateValue) < 2)
 			return false;
 
-		$dateValueNew = PHPExcel_Calculation_Functions::DATEVALUE($dateValue);
+		$dateValueNew = PHPExcel_Calculation_DateTime::DATEVALUE($dateValue);
 
 		if ($dateValueNew === PHPExcel_Calculation_Functions::VALUE()) {
 			return false;
 		} else {
 			if (strpos($dateValue, ':') !== false) {
-				$timeValue = PHPExcel_Calculation_Functions::TIMEVALUE($dateValue);
+				$timeValue = PHPExcel_Calculation_DateTime::TIMEVALUE($dateValue);
 				if ($timeValue === PHPExcel_Calculation_Functions::VALUE()) {
 					return false;
 				}
