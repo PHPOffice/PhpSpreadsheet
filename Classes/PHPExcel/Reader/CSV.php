@@ -92,6 +92,15 @@ class PHPExcel_Reader_CSV implements PHPExcel_Reader_IReader
 	 */
 	private $_contiguous;
 
+
+	/**
+	 *	Row counter for loading rows contiguously
+	 *
+	 *	@access	private
+	 *	@var	int
+	 */
+	private $_contiguousRow;
+
 	/**
 	 *	PHPExcel_Reader_IReadFilter instance
 	 *
@@ -104,13 +113,14 @@ class PHPExcel_Reader_CSV implements PHPExcel_Reader_IReader
 	 *	Create a new PHPExcel_Reader_CSV
 	 */
 	public function __construct() {
-		$this->_inputEncoding = 'UTF-8';
-		$this->_delimiter 	= ',';
-		$this->_enclosure 	= '"';
-		$this->_lineEnding 	= PHP_EOL;
-		$this->_sheetIndex 	= 0;
-		$this->_readFilter 	= new PHPExcel_Reader_DefaultReadFilter();
-		$this->_contiguous	= false;
+		$this->_inputEncoding	= 'UTF-8';
+		$this->_delimiter		= ',';
+		$this->_enclosure		= '"';
+		$this->_lineEnding		= PHP_EOL;
+		$this->_sheetIndex		= 0;
+		$this->_readFilter		= new PHPExcel_Reader_DefaultReadFilter();
+		$this->_contiguous		= false;
+		$this->_contiguousRow	= -1;
 	}	//	function __construct()
 
 	/**
@@ -235,11 +245,13 @@ class PHPExcel_Reader_CSV implements PHPExcel_Reader_IReader
 								 );
 
 		// Loop through file
-		$currentRow = $contiguousRow = 0;
+		$currentRow = 0;
+		if ($this->_contiguousRow == -1) {
+			$this->_contiguousRow = $objPHPExcel->getActiveSheet()->getHighestRow();
+		}
 		$rowData = array();
 		while (($rowData = fgetcsv($fileHandle, 0, $this->_delimiter, $this->_enclosure)) !== FALSE) {
 			++$currentRow;
-			$crset = false;
 			$rowDataCount = count($rowData);
 			$columnLetter = 'A';
 			for ($i = 0; $i < $rowDataCount; ++$i) {
@@ -253,12 +265,8 @@ class PHPExcel_Reader_CSV implements PHPExcel_Reader_IReader
 					}
 
 					if ($this->_contiguous) {
-						if (!$crset) {
-							++$contiguousRow;
-							$crset = true;
-						}
 						// Set cell value
-						$objPHPExcel->getActiveSheet()->getCell($columnLetter . $contiguousRow)->setValue($rowData[$i]);
+						$objPHPExcel->getActiveSheet()->getCell($columnLetter . $this->_contiguousRow)->setValue($rowData[$i]);
 					} else {
 						// Set cell value
 						$objPHPExcel->getActiveSheet()->getCell($columnLetter . $currentRow)->setValue($rowData[$i]);
@@ -266,6 +274,7 @@ class PHPExcel_Reader_CSV implements PHPExcel_Reader_IReader
 				}
 				++$columnLetter;
 			}
+			++$this->_contiguousRow;
 		}
 
 		// Close file
@@ -374,7 +383,11 @@ class PHPExcel_Reader_CSV implements PHPExcel_Reader_IReader
 	 */
 	public function setContiguous($contiguous = false)
 	{
-		$this->_contiguous = $contiguous;
+		$this->_contiguous = (bool)$contiguous;
+		if (!$contiguous) {
+			$this->_contiguousRow	= -1;
+		}
+
 		return $this;
 	}	//	function setInputEncoding()
 
