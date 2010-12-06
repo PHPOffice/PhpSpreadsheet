@@ -315,6 +315,12 @@ class PHPExcel_Style_Borders implements PHPExcel_IComparable
 				if (array_key_exists('diagonaldirection', $pStyles)) {
 					$this->setDiagonalDirection($pStyles['diagonaldirection']);
 				}
+				if (array_key_exists('allborders', $pStyles)) {
+					$this->getLeft()->applyFromArray($pStyles['allborders']);
+					$this->getRight()->applyFromArray($pStyles['allborders']);
+					$this->getTop()->applyFromArray($pStyles['allborders']);
+					$this->getBottom()->applyFromArray($pStyles['allborders']);
+				}
 			}
 		} else {
 			throw new Exception("Invalid style array passed.");
