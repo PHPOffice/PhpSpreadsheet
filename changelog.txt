@@ -35,6 +35,7 @@ Fixed in SVN:
 - Feature:  (MBaker) Added Contiguous flag for the CSV Reader, when working with Read Filters
 - Feature:  (MBaker) Added getFormattedValue() method for cell object
 - Feature:  (MBaker) Added strictNullComparison argument to the worksheet fromArray() method
+- Feature:  (MBaker) Fix to toFormattedString() method in PHPExcel_Style_NumberFormat to handle fractions with a # code for the integer part
 - Bugfix:   (MB) Work item 14143 - NA() doesn't propagate in matrix calc - quick fix in JAMA/Matrix.php
 - Bugfix:   (Progi1984) Work item 7895 - Excel5 : Formula : String constant containing double quotation mark
 - Bugfix:   (Progi1984) Work item 7895 - Excel5 : Formula : Percent

@@ -649,7 +649,7 @@ class PHPExcel_Style_NumberFormat implements PHPExcel_IComparable
 						$adjustedDecimalPart = $decimalPart/$GCD;
 						$adjustedDecimalDivisor = $decimalDivisor/$GCD;
 
-						if ((strpos($format,'0') !== false) || (substr($format,0,3) == '? ?')) {
+						if ((strpos($format,'0') !== false) || (strpos($format,'#') !== false) || (substr($format,0,3) == '? ?')) {
 							if ($integerPart == 0) { $integerPart = ''; }
 							$value = "$sign$integerPart $adjustedDecimalPart/$adjustedDecimalDivisor";
 						} else {
