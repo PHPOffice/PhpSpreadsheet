@@ -6110,7 +6110,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	 * @param int $pos
 	 * @return int
 	 */
-	private static function _GetInt2d($data, $pos)
+	public static function _GetInt2d($data, $pos)
 	{
 		return ord($data[$pos]) | (ord($data[$pos + 1]) << 8);
 	}
@@ -6122,7 +6122,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	 * @param int $pos
 	 * @return int
 	 */
-	private static function _GetInt4d($data, $pos)
+	public static function _GetInt4d($data, $pos)
 	{
 		// FIX: represent numbers correctly on 64-bit system
 		// http://sourceforge.net/tracker/index.php?func=detail&aid=1487372&group_id=99160&atid=623334
