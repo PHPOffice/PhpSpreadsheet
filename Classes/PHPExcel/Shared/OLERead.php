@@ -81,19 +81,19 @@ class PHPExcel_Shared_OLERead {
 		}
 
 		// Total number of sectors used for the SAT
-		$this->numBigBlockDepotBlocks = $this->_GetInt4d($this->data, self::NUM_BIG_BLOCK_DEPOT_BLOCKS_POS);
+		$this->numBigBlockDepotBlocks = self::_GetInt4d($this->data, self::NUM_BIG_BLOCK_DEPOT_BLOCKS_POS);
 
 		// SecID of the first sector of the directory stream
-		$this->rootStartBlock = $this->_GetInt4d($this->data, self::ROOT_START_BLOCK_POS);
+		$this->rootStartBlock = self::_GetInt4d($this->data, self::ROOT_START_BLOCK_POS);
 
 		// SecID of the first sector of the SSAT (or -2 if not extant)
-		$this->sbdStartBlock = $this->_GetInt4d($this->data, self::SMALL_BLOCK_DEPOT_BLOCK_POS);
+		$this->sbdStartBlock = self::_GetInt4d($this->data, self::SMALL_BLOCK_DEPOT_BLOCK_POS);
 
 		// SecID of the first sector of the MSAT (or -2 if no additional sectors are used)
-		$this->extensionBlock = $this->_GetInt4d($this->data, self::EXTENSION_BLOCK_POS);
+		$this->extensionBlock = self::_GetInt4d($this->data, self::EXTENSION_BLOCK_POS);
 
 		// Total number of sectors used by MSAT
-		$this->numExtensionBlocks = $this->_GetInt4d($this->data, self::NUM_EXTENSION_BLOCK_POS);
+		$this->numExtensionBlocks = self::_GetInt4d($this->data, self::NUM_EXTENSION_BLOCK_POS);
 
 		$bigBlockDepotBlocks = array();
 		$pos = self::BIG_BLOCK_DEPOT_BLOCKS_POS;
@@ -105,7 +105,7 @@ class PHPExcel_Shared_OLERead {
 		}
 
 		for ($i = 0; $i < $bbdBlocks; ++$i) {
-			  $bigBlockDepotBlocks[$i] = $this->_GetInt4d($this->data, $pos);
+			  $bigBlockDepotBlocks[$i] = self::_GetInt4d($this->data, $pos);
 			  $pos += 4;
 		}
 
@@ -114,13 +114,13 @@ class PHPExcel_Shared_OLERead {
 			$blocksToRead = min($this->numBigBlockDepotBlocks - $bbdBlocks, self::BIG_BLOCK_SIZE / 4 - 1);
 
 			for ($i = $bbdBlocks; $i < $bbdBlocks + $blocksToRead; ++$i) {
-				$bigBlockDepotBlocks[$i] = $this->_GetInt4d($this->data, $pos);
+				$bigBlockDepotBlocks[$i] = self::_GetInt4d($this->data, $pos);
 				$pos += 4;
 			}
 
 			$bbdBlocks += $blocksToRead;
 			if ($bbdBlocks < $this->numBigBlockDepotBlocks) {
-				$this->extensionBlock = $this->_GetInt4d($this->data, $pos);
+				$this->extensionBlock = self::_GetInt4d($this->data, $pos);
 			}
 		}
 
@@ -128,11 +128,12 @@ class PHPExcel_Shared_OLERead {
 		$index = 0;
 		$this->bigBlockChain = array();
 
+		$bbs = self::BIG_BLOCK_SIZE / 4;
 		for ($i = 0; $i < $this->numBigBlockDepotBlocks; ++$i) {
 			$pos = ($bigBlockDepotBlocks[$i] + 1) * self::BIG_BLOCK_SIZE;
 
-			for ($j = 0 ; $j < self::BIG_BLOCK_SIZE / 4; ++$j) {
-				$this->bigBlockChain[$index] = $this->_GetInt4d($this->data, $pos);
+			for ($j = 0 ; $j < $bbs; ++$j) {
+				$this->bigBlockChain[$index] = self::_GetInt4d($this->data, $pos);
 				$pos += 4 ;
 				++$index;
 			}
@@ -146,8 +147,8 @@ class PHPExcel_Shared_OLERead {
 		while ($sbdBlock != -2) {
 			$pos = ($sbdBlock + 1) * self::BIG_BLOCK_SIZE;
 
-			for ($j = 0; $j < self::BIG_BLOCK_SIZE / 4; ++$j) {
-				$this->smallBlockChain[$index] = $this->_GetInt4d($this->data, $pos);
+			for ($j = 0; $j < $bbs; ++$j) {
+				$this->smallBlockChain[$index] = self::_GetInt4d($this->data, $pos);
 				$pos += 4;
 				++$index;
 			}
@@ -187,7 +188,6 @@ class PHPExcel_Shared_OLERead {
 
 			return $streamData;
 
-
 		} else {
 			$numBlocks = $this->props[$this->wrkbook]['size'] / self::BIG_BLOCK_SIZE;
 			if ($this->props[$this->wrkbook]['size'] % self::BIG_BLOCK_SIZE != 0) {
@@ -195,7 +195,6 @@ class PHPExcel_Shared_OLERead {
 			}
 
 			if ($numBlocks == 0) return '';
-
 
 			$streamData = '';
 			$block = $this->props[$this->wrkbook]['startBlock'];
@@ -239,7 +238,6 @@ class PHPExcel_Shared_OLERead {
 
 			return $streamData;
 
-
 		} else {
 			$numBlocks = $this->props[$this->summaryInformation]['size'] / self::BIG_BLOCK_SIZE;
 			if ($this->props[$this->summaryInformation]['size'] % self::BIG_BLOCK_SIZE != 0) {
@@ -247,7 +245,6 @@ class PHPExcel_Shared_OLERead {
 			}
 
 			if ($numBlocks == 0) return '';
-
 
 			$streamData = '';
 			$block = $this->props[$this->summaryInformation]['startBlock'];
@@ -291,7 +288,6 @@ class PHPExcel_Shared_OLERead {
 
 			return $streamData;
 
-
 		} else {
 			$numBlocks = $this->props[$this->documentSummaryInformation]['size'] / self::BIG_BLOCK_SIZE;
 			if ($this->props[$this->documentSummaryInformation]['size'] % self::BIG_BLOCK_SIZE != 0) {
@@ -299,7 +295,6 @@ class PHPExcel_Shared_OLERead {
 			}
 
 			if ($numBlocks == 0) return '';
-
 
 			$streamData = '';
 			$block = $this->props[$this->documentSummaryInformation]['startBlock'];
@@ -330,7 +325,7 @@ class PHPExcel_Shared_OLERead {
 
 		while ($block != -2)  {
 			$pos = ($block + 1) * self::BIG_BLOCK_SIZE;
-			$data = $data . substr($this->data, $pos, self::BIG_BLOCK_SIZE);
+			$data .= substr($this->data, $pos, self::BIG_BLOCK_SIZE);
 			$block = $this->bigBlockChain[$block];
 		}
 		return $data;
@@ -356,16 +351,11 @@ class PHPExcel_Shared_OLERead {
 
 			// sectorID of first sector or short sector, if this entry refers to a stream (the case with workbook)
 			// sectorID of first sector of the short-stream container stream, if this entry is root entry
-			$startBlock = $this->_GetInt4d($d, self::START_BLOCK_POS);
+			$startBlock = self::_GetInt4d($d, self::START_BLOCK_POS);
 
-			$size = $this->_GetInt4d($d, self::SIZE_POS);
+			$size = self::_GetInt4d($d, self::SIZE_POS);
 
-			$name = '';
-			for ($i = 0; $i < $nameSize ; ++$i) {
-				$name .= $d[$i];
-			}
-
-			$name = str_replace("\x00", "", $name);
+			$name = str_replace("\x00", "", substr($d,0,$nameSize));
 
 			$this->props[] = array (
 				'name' => $name,
@@ -407,14 +397,19 @@ class PHPExcel_Shared_OLERead {
 	 * @param int $pos
 	 * @return int
 	 */
-	private function _GetInt4d($data, $pos)
+	private static function _GetInt4d($data, $pos)
 	{
+		// FIX: represent numbers correctly on 64-bit system
+		// http://sourceforge.net/tracker/index.php?func=detail&aid=1487372&group_id=99160&atid=623334
 		// Hacked by Andreas Rehm 2006 to ensure correct result of the <<24 block on 32 and 64bit systems
-		$_or_24 = ord($data[$pos+3]);
-		if ($_or_24>=128) $_ord_24 = -abs((256-$_or_24) << 24);
-		else $_ord_24 = ($_or_24&127) << 24;
-
-		return ord($data[$pos]) | (ord($data[$pos+1]) << 8) | (ord($data[$pos+2]) << 16) | $_ord_24;
+		$_or_24 = ord($data[$pos + 3]);
+		if ($_or_24 >= 128) {
+			// negative number
+			$_ord_24 = -abs((256 - $_or_24) << 24);
+		} else {
+			$_ord_24 = ($_or_24 & 127) << 24;
+		}
+		return ord($data[$pos]) | (ord($data[$pos + 1]) << 8) | (ord($data[$pos + 2]) << 16) | $_ord_24;
 	}
 
 }

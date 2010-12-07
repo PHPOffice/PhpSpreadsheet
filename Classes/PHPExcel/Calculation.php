@@ -2630,11 +2630,11 @@ class PHPExcel_Calculation {
 //				echo 'Element is a Percentage operator<br />';
 				$stack->push('Unary Operator','%');							//	Put a percentage on the stack
 				++$index;
-			} elseif ($opCharacter == '+' && !$expectingOperator) {			//	Positive (rather than plus) can be discarded?
+			} elseif ($opCharacter == '+' && !$expectingOperator) {			//	Positive (unary plus rather than binary operator plus) can be discarded?
 //				echo 'Element is a Positive number, not Plus operator<br />';
 				++$index;													//	Drop the redundant plus symbol
-			} elseif (($opCharacter == '~') && (!$isOperandOrFunction)) {					//	We have to explicitly deny a tilde, because it's legal
-				return $this->_raiseFormulaError("Formula Error: Illegal character '~'");	//		on the stack but not in the input expression
+			} elseif ((($opCharacter == '~') || ($opCharacter == '|')) && (!$isOperandOrFunction)) {	//	We have to explicitly deny a tilde or pipe, because they are legal
+				return $this->_raiseFormulaError("Formula Error: Illegal character '~'");				//		on the stack but not in the input expression
 
 			} elseif ((isset(self::$_operators[$opCharacter]) or $isOperandOrFunction) && $expectingOperator) {	//	Are we putting an operator on the stack?
 //				echo 'Element with value '.$opCharacter.' is an Operator<br />';
@@ -3278,7 +3278,7 @@ class PHPExcel_Calculation {
 //					echo 'Token is a PHPExcel constant: '.$excelConstant.'<br />';
 					$stack->push('Constant Value',self::$_ExcelConstants[$excelConstant]);
 					$this->_writeDebug('Evaluating Constant '.$excelConstant.' as '.$this->_showTypeDetails(self::$_ExcelConstants[$excelConstant]));
-				} elseif ((is_numeric($token)) || (is_bool($token)) || (is_null($token)) || ($token == '') || ($token{0} == '"') || ($token{0} == '#')) {
+				} elseif ((is_numeric($token)) || (is_null($token)) || (is_bool($token)) || ($token == '') || ($token{0} == '"') || ($token{0} == '#')) {
 //					echo 'Token is a number, boolean, string, null or an Excel error<br />';
 					$stack->push('Value',$token);
 				// if the token is a named range, push the named range name onto the stack

@@ -570,7 +570,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 		if (!$this->_readDataOnly) {
 			foreach ($this->_objFonts as $objFont) {
 				if (isset($objFont->colorIndex)) {
-					$color = self::_readColor($objFont->colorIndex,$this->_palette);
+					$color = self::_readColor($objFont->colorIndex,$this->_palette,$this->_version);
 					$objFont->getColor()->setRGB($color['rgb']);
 				}
 			}
@@ -580,12 +580,12 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 				$fill = $objStyle->getFill();
 
 				if (isset($fill->startcolorIndex)) {
-					$startColor = self::_readColor($fill->startcolorIndex,$this->_palette);
+					$startColor = self::_readColor($fill->startcolorIndex,$this->_palette,$this->_version);
 					$fill->getStartColor()->setRGB($startColor['rgb']);
 				}
 
 				if (isset($fill->endcolorIndex)) {
-					$endColor = self::_readColor($fill->endcolorIndex,$this->_palette);
+					$endColor = self::_readColor($fill->endcolorIndex,$this->_palette,$this->_version);
 					$fill->getEndColor()->setRGB($endColor['rgb']);
 				}
 
@@ -597,27 +597,27 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 				$diagonal = $objStyle->getBorders()->getDiagonal();
 
 				if (isset($top->colorIndex)) {
-					$borderTopColor = self::_readColor($top->colorIndex,$this->_palette);
+					$borderTopColor = self::_readColor($top->colorIndex,$this->_palette,$this->_version);
 					$top->getColor()->setRGB($borderTopColor['rgb']);
 				}
 
 				if (isset($right->colorIndex)) {
-					$borderRightColor = self::_readColor($right->colorIndex,$this->_palette);
+					$borderRightColor = self::_readColor($right->colorIndex,$this->_palette,$this->_version);
 					$right->getColor()->setRGB($borderRightColor['rgb']);
 				}
 
 				if (isset($bottom->colorIndex)) {
-					$borderBottomColor = self::_readColor($bottom->colorIndex,$this->_palette);
+					$borderBottomColor = self::_readColor($bottom->colorIndex,$this->_palette,$this->_version);
 					$bottom->getColor()->setRGB($borderBottomColor['rgb']);
 				}
 
 				if (isset($left->colorIndex)) {
-					$borderLeftColor = self::_readColor($left->colorIndex,$this->_palette);
+					$borderLeftColor = self::_readColor($left->colorIndex,$this->_palette,$this->_version);
 					$left->getColor()->setRGB($borderLeftColor['rgb']);
 				}
 
 				if (isset($diagonal->colorIndex)) {
-					$borderDiagonalColor = self::_readColor($diagonal->colorIndex,$this->_palette);
+					$borderDiagonalColor = self::_readColor($diagonal->colorIndex,$this->_palette,$this->_version);
 					$diagonal->getColor()->setRGB($borderDiagonalColor['rgb']);
 				}
 			}
@@ -4229,7 +4229,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 				case 0x14:
 					// offset: 16; size: 2; color index for sheet tab
 					$colorIndex = self::_GetInt2d($recordData, 16);
-					$color = self::_readColor($colorIndex,$this->_palette);
+					$color = self::_readColor($colorIndex,$this->_palette,$this->_version);
 					$this->_phpSheet->getTabColor()->setRGB($color['rgb']);
 					break;
 
@@ -4665,7 +4665,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 			case 'tAdd': // addition
 			case 'tConcat': // addition
 			case 'tDiv': // division
-			case 'tEQ': // equaltiy
+			case 'tEQ': // equality
 			case 'tGE': // greater than or equal
 			case 'tGT': // greater than
 			case 'tIsect': // intersection
@@ -5373,7 +5373,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	private function _readBIFF8CellAddress($cellAddressStructure)
 	{
 		// offset: 0; size: 2; index to row (0... 65535) (or offset (-32768... 32767))
-			$row = self::_GetInt2d($cellAddressStructure, 0) + 1;
+		$row = self::_GetInt2d($cellAddressStructure, 0) + 1;
 
 		// offset: 2; size: 2; index to column or column offset + relative flags
 
@@ -6124,11 +6124,9 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	 */
 	private static function _GetInt4d($data, $pos)
 	{
-		//return ord($data[$pos]) | (ord($data[$pos + 1]) << 8) |
-		//	(ord($data[$pos + 2]) << 16) | (ord($data[$pos + 3]) << 24);
-
 		// FIX: represent numbers correctly on 64-bit system
 		// http://sourceforge.net/tracker/index.php?func=detail&aid=1487372&group_id=99160&atid=623334
+		// Hacked by Andreas Rehm 2006 to ensure correct result of the <<24 block on 32 and 64bit systems
 		$_or_24 = ord($data[$pos + 3]);
 		if ($_or_24 >= 128) {
 			// negative number
@@ -6146,7 +6144,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	 * @param array $palette Color palette
 	 * @return array RGB color value, example: array('rgb' => 'FF0000')
 	 */
-	private static function _readColor($color,$palette)
+	private static function _readColor($color,$palette,$version)
 	{
 		if ($color <= 0x07 || $color >= 0x40) {
 			// special built-in color
@@ -6156,7 +6154,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 			return $palette[$color - 8];
 		} else {
 			// default color table
-			if ($this->_version == self::XLS_BIFF8) {
+			if ($version == self::XLS_BIFF8) {
 				return self::_mapColor($color);
 			} else {
 				// BIFF5
