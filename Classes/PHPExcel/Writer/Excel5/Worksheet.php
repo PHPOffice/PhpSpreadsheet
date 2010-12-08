@@ -249,13 +249,13 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 			$col[$c] = strlen($c).$c;
 		}
 		// Determine lowest and highest column and row
-		$this->_firstRowIndex	= min($row);
-		$this->_lastRowIndex	= max($row);
+		$this->_firstRowIndex	= (count($row) > 0) ? min($row) : 1;
+		$this->_lastRowIndex	= (count($row) > 0) ? max($row) : 1;
 		if ($this->_firstRowIndex > 65535) $this->_firstRowIndex = 65535;
 		if ($this->_lastRowIndex > 65535) $this->_lastRowIndex = 65535;
 
-		$this->_firstColumnIndex	= PHPExcel_Cell::columnIndexFromString(substr(min($col),1));
-		$this->_lastColumnIndex		= PHPExcel_Cell::columnIndexFromString(substr(max($col),1));
+		$this->_firstColumnIndex	= (count($col) > 0) ? PHPExcel_Cell::columnIndexFromString(substr(min($col),1)) : 1;
+		$this->_lastColumnIndex		= (count($col) > 0) ? PHPExcel_Cell::columnIndexFromString(substr(max($col),1)) : 1;
 		if ($this->_firstColumnIndex > 255) $this->_firstColumnIndex = 255;
 		if ($this->_lastColumnIndex > 255) $this->_lastColumnIndex = 255;
 
