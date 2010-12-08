@@ -6149,7 +6149,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 		if ($color <= 0x07 || $color >= 0x40) {
 			// special built-in color
 			return self::_mapBuiltInColor($color);
-		} else if (isset($palette) && isset($palette[$color - 8])) {
+		} elseif (isset($palette) && isset($palette[$color - 8])) {
 			// palette color, color index 0x08 maps to pallete index 0
 			return $palette[$color - 8];
 		} else {
@@ -6408,22 +6408,4 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 		}
 	}
 
-}
-
-function hexDump($string) {
-
-	echo '<pre>';
-	for ($i = 0; $i < strlen($string); $i++) {
-		if (($i % 16) == 0) {
-			echo '<br />';
-			echo str_pad(strtoupper(dechex(floor($i/16))),3,'0',STR_PAD_LEFT),' ';
-		}
-		echo str_pad(strtoupper(dechex(ord($string{$i}))),2,'0',STR_PAD_LEFT),' ';
-		if ((ord($string{$i}) >= 32) && (ord($string{$i}) <= 127)) {
-			echo '(',$string{$i},') ';
-		} else {
-			echo '(¬) ';
-		}
-	}
-	echo '</pre><hr />';
 }
