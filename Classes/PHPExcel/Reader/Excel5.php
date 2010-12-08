@@ -720,6 +720,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 					case self::XLS_Type_SHEETLAYOUT:			$this->_readSheetLayout();				break;
 					case self::XLS_Type_SHEETPROTECTION:		$this->_readSheetProtection();			break;
 					case self::XLS_Type_RANGEPROTECTION:		$this->_readRangeProtection();			break;
+					case self::XLS_Type_NOTE:					$this->_readNote();						break;
 					//case self::XLS_Type_IMDATA:				$this->_readImData();					break;
 					case self::XLS_Type_CONTINUE:				$this->_readContinue();					break;
 					case self::XLS_Type_EOF:					$this->_readDefault();					break 2;
@@ -744,7 +745,8 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 
 			// treat OBJ records
 			foreach ($this->_objs as $n => $obj) {
-
+//				echo 'Object ID is ',$n,'<br />';
+//
 				// the first shape container never has a corresponding OBJ record, hence $n + 1
 				$spContainer = $allSpContainers[$n + 1];
 
@@ -770,6 +772,11 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 				$offsetY = $startOffsetY * PHPExcel_Shared_Excel5::sizeRow($this->_phpSheet, $startRow) / 256;
 
 				switch ($obj['type']) {
+
+				case 0x19:
+					// Note
+//					echo 'Comment Object<br />';
+					break;
 
 				case 0x08:
 					// picture
@@ -1275,6 +1282,30 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 
 		// move stream pointer to next record
 		$this->_pos += 4 + $length;
+	}
+
+	private function _readNote()
+	{
+//		echo 'Read Note<br />';
+		$length = self::_GetInt2d($this->_data, $this->_pos + 2);
+		$recordData = substr($this->_data, $this->_pos + 4, $length);
+
+		// move stream pointer to next record
+		$this->_pos += 4 + $length;
+
+		if ($this->_readDataOnly || $this->_version != self::XLS_BIFF8) {
+			return;
+		}
+
+//		hexDump($recordData);
+//
+		$cellAddress = $this->_readBIFF8CellAddress(substr($recordData, 0, 4));
+		$noteObjID = self::_GetInt2d($recordData, 6);
+		$noteAuthor = trim(substr($recordData, 8));
+
+//		echo 'Note Address=',$cellAddress,'<br />';
+//		echo 'Note Object ID=',$noteObjID,'<br />';
+//		echo 'Note Author=',$noteAuthor,'<br />';
 	}
 
 	/**
