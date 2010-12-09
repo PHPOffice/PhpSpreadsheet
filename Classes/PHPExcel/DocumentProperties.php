@@ -49,7 +49,7 @@ class PHPExcel_DocumentProperties
 	 *
 	 * @var	string
 	 */
-	private $_creator;
+	private $_creator	= 'Unknown Creator';
 
 	/**
 	 * LastModifiedBy
@@ -77,42 +77,49 @@ class PHPExcel_DocumentProperties
 	 *
 	 * @var	string
 	 */
-	private $_title;
+	private $_title			= 'Untitled Spreadsheet';
 
 	/**
 	 * Description
 	 *
 	 * @var	string
 	 */
-	private $_description;
+	private $_description	= '';
 
 	/**
 	 * Subject
 	 *
 	 * @var	string
 	 */
-	private $_subject;
+	private $_subject		= '';
 
 	/**
 	 * Keywords
 	 *
 	 * @var	string
 	 */
-	private $_keywords;
+	private $_keywords		= '';
 
 	/**
 	 * Category
 	 *
 	 * @var	string
 	 */
-	private $_category;
+	private $_category		= '';
+
+	/**
+	 * Manager
+	 *
+	 * @var	string
+	 */
+	private $_manager		= '';
 
 	/**
 	 * Company
 	 *
 	 * @var	string
 	 */
-	private $_company;
+	private $_company		= 'Microsoft Corporation';
 
 	/**
 	 * Custom Properties
@@ -128,17 +135,9 @@ class PHPExcel_DocumentProperties
 	public function __construct()
 	{
 		// Initialise values
-		$this->_creator		= 'Unknown Creator';
 		$this->_lastModifiedBy	= $this->_creator;
 		$this->_created		= time();
-		$this->_modified		= time();
-		$this->_title			= "Untitled Spreadsheet";
-		$this->_subject			= '';
-		$this->_description		= '';
-		$this->_keywords		= '';
-		$this->_category		= '';
-		$this->_manager			= '';
-		$this->_company		= 'Microsoft Corporation';
+		$this->_modified	= time();
 	}
 
 	/**

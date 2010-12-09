@@ -19,10 +19,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PHPExcel
- * @package    PHPExcel_Style
+ * @package	PHPExcel_Style
  * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
- * @version    ##VERSION##, ##DATE##
+ * @license	http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version	##VERSION##, ##DATE##
  */
 
 
@@ -30,7 +30,7 @@
  * PHPExcel_Style_NumberFormat
  *
  * @category   PHPExcel
- * @package    PHPExcel_Style
+ * @package	PHPExcel_Style
  * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Style_NumberFormat implements PHPExcel_IComparable
@@ -94,14 +94,14 @@ class PHPExcel_Style_NumberFormat implements PHPExcel_IComparable
 	 *
 	 * @var string
 	 */
-	private $_formatCode;
+	private $_formatCode	=	PHPExcel_Style_NumberFormat::FORMAT_GENERAL;
 
 	/**
 	 * Built-in format Code
 	 *
 	 * @var string
 	 */
-	private $_builtInFormatCode;
+	private $_builtInFormatCode	= 0;
 
 	/**
 	 * Parent Borders
@@ -131,10 +131,6 @@ class PHPExcel_Style_NumberFormat implements PHPExcel_IComparable
 	{
 		// Supervisor?
 		$this->_isSupervisor = $isSupervisor;
-
-		// Initialise values
-		$this->_formatCode			= PHPExcel_Style_NumberFormat::FORMAT_GENERAL;
-		$this->_builtInFormatCode	= 0;
 	}
 
 	/**
@@ -217,9 +213,9 @@ class PHPExcel_Style_NumberFormat implements PHPExcel_IComparable
 	 *
 	 * <code>
 	 * $objPHPExcel->getActiveSheet()->getStyle('B2')->getNumberFormat()->applyFromArray(
-	 * 		array(
-	 * 			'code' => PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE
-	 * 		)
+	 *		array(
+	 *			'code' => PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE
+	 *		)
 	 * );
 	 * </code>
 	 *
@@ -497,8 +493,8 @@ class PHPExcel_Style_NumberFormat implements PHPExcel_IComparable
 	/**
 	 * Convert a value in a pre-defined format to a PHP string
 	 *
-	 * @param mixed 	$value		Value to format
-	 * @param string 	$format		Format code
+	 * @param mixed	$value		Value to format
+	 * @param string	$format		Format code
 	 * @param array		$callBack	Callback function for additional formatting of string
 	 * @return string	Formatted string
 	 */
@@ -623,7 +619,7 @@ class PHPExcel_Style_NumberFormat implements PHPExcel_IComparable
 
 				// Scale thousands, millions,...
 				// This is indicated by a number of commas after a digit placeholder:
-				//		#,   or    0.0,,
+				//		#,   or	0.0,,
 				$scale = 1; // same as no scale
 				$matches = array();
 				if (preg_match('/(#|0)(,+)/', $format, $matches)) {

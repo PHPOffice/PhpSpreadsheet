@@ -189,14 +189,14 @@ class PHPExcel_Worksheet_PageSetup
 	 *
 	 * @var int
 	 */
-	private $_paperSize;
+	private $_paperSize		= PHPExcel_Worksheet_PageSetup::PAPERSIZE_LETTER;
 
 	/**
 	 * Orientation
 	 *
 	 * @var string
 	 */
-	private $_orientation;
+	private $_orientation	= PHPExcel_Worksheet_PageSetup::ORIENTATION_DEFAULT;
 
 	/**
 	 * Scale (Print Scale)
@@ -206,7 +206,7 @@ class PHPExcel_Worksheet_PageSetup
 	 *
 	 * @var int?
 	 */
-	private $_scale;
+	private $_scale			= 100;
 
 	/**
 	  * Fit To Page
@@ -214,7 +214,7 @@ class PHPExcel_Worksheet_PageSetup
 	  *
 	  * @var boolean
 	  */
-	private $_fitToPage;
+	private $_fitToPage		= false;
 
 	/**
 	  * Fit To Height
@@ -222,7 +222,7 @@ class PHPExcel_Worksheet_PageSetup
 	  *
 	  * @var int?
 	  */
-	private $_fitToHeight;
+	private $_fitToHeight	= 1;
 
 	/**
 	  * Fit To Width
@@ -230,7 +230,7 @@ class PHPExcel_Worksheet_PageSetup
 	  *
 	  * @var int?
 	  */
-	private $_fitToWidth;
+	private $_fitToWidth	= 1;
 
 	/**
 	 * Columns to repeat at left
@@ -279,19 +279,6 @@ class PHPExcel_Worksheet_PageSetup
      */
     public function __construct()
     {
-    	// Initialise values
-    	$this->_paperSize 				= PHPExcel_Worksheet_PageSetup::PAPERSIZE_LETTER;
-    	$this->_orientation				= PHPExcel_Worksheet_PageSetup::ORIENTATION_DEFAULT;
-    	$this->_scale					= 100;
-    	$this->_fitToPage				= false;
-    	$this->_fitToHeight				= 1;
-    	$this->_fitToWidth				= 1;
-    	$this->_columnsToRepeatAtLeft 	= array('', '');
-    	$this->_rowsToRepeatAtTop		= array(0, 0);
-    	$this->_horizontalCentered		= false;
-    	$this->_verticalCentered		= false;
-    	$this->_printArea				= null;
-    	$this->_firstPageNumber         = null;
     }
 
     /**

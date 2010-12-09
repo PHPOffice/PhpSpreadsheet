@@ -19,10 +19,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PHPExcel
- * @package    PHPExcel_Style
+ * @package	PHPExcel_Style
  * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
- * @version    ##VERSION##, ##DATE##
+ * @license	http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version	##VERSION##, ##DATE##
  */
 
 
@@ -30,7 +30,7 @@
  * PHPExcel_Style_Border
  *
  * @category   PHPExcel
- * @package    PHPExcel_Style
+ * @package	PHPExcel_Style
  * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Style_Border implements PHPExcel_IComparable
@@ -56,7 +56,7 @@ class PHPExcel_Style_Border implements PHPExcel_IComparable
 	 *
 	 * @var string
 	 */
-	private $_borderStyle;
+	private $_borderStyle	= PHPExcel_Style_Border::BORDER_NONE;
 
 	/**
 	 * Border color
@@ -86,23 +86,22 @@ class PHPExcel_Style_Border implements PHPExcel_IComparable
 	 */
 	private $_parentPropertyName;
 
-    /**
-     * Create a new PHPExcel_Style_Border
-     */
-    public function __construct($isSupervisor = false)
-    {
-    	// Supervisor?
+	/**
+	 * Create a new PHPExcel_Style_Border
+	 */
+	public function __construct($isSupervisor = false)
+	{
+		// Supervisor?
 		$this->_isSupervisor = $isSupervisor;
 
-    	// Initialise values
-		$this->_borderStyle			= PHPExcel_Style_Border::BORDER_NONE;
+		// Initialise values
 		$this->_color			= new PHPExcel_Style_Color(PHPExcel_Style_Color::COLOR_BLACK, $isSupervisor);
 
 		// bind parent if we are a supervisor
 		if ($isSupervisor) {
 			$this->_color->bindParent($this, '_color');
 		}
-    }
+	}
 
 	/**
 	 * Bind parent. Only used for supervisor
@@ -253,24 +252,24 @@ class PHPExcel_Style_Border implements PHPExcel_IComparable
 		return $this->_parent->getStyleArray(array($key => $array));
 	}
 
-    /**
-     * Apply styles from array
-     *
-     * <code>
-     * $objPHPExcel->getActiveSheet()->getStyle('B2')->getBorders()->getTop()->applyFromArray(
-     * 		array(
-     * 			'style' => PHPExcel_Style_Border::BORDER_DASHDOT,
-     * 			'color' => array(
-     * 				'rgb' => '808080'
-     * 			)
-     * 		)
-     * );
-     * </code>
-     *
-     * @param	array	$pStyles	Array containing style information
-     * @throws	Exception
-     * @return PHPExcel_Style_Border
-     */
+	/**
+	 * Apply styles from array
+	 *
+	 * <code>
+	 * $objPHPExcel->getActiveSheet()->getStyle('B2')->getBorders()->getTop()->applyFromArray(
+	 *		array(
+	 *			'style' => PHPExcel_Style_Border::BORDER_DASHDOT,
+	 *			'color' => array(
+	 *				'rgb' => '808080'
+	 *			)
+	 *		)
+	 * );
+	 * </code>
+	 *
+	 * @param	array	$pStyles	Array containing style information
+	 * @throws	Exception
+	 * @return PHPExcel_Style_Border
+	 */
 	public function applyFromArray($pStyles = null) {
 		if (is_array($pStyles)) {
 			if ($this->_isSupervisor) {
@@ -289,29 +288,29 @@ class PHPExcel_Style_Border implements PHPExcel_IComparable
 		return $this;
 	}
 
-    /**
-     * Get Border style
-     *
-     * @return string
-     */
-    public function getBorderStyle() {
+	/**
+	 * Get Border style
+	 *
+	 * @return string
+	 */
+	public function getBorderStyle() {
 		if ($this->_isSupervisor) {
 			return $this->getSharedComponent()->getBorderStyle();
 		}
-    	return $this->_borderStyle;
-    }
+		return $this->_borderStyle;
+	}
 
-    /**
-     * Set Border style
-     *
-     * @param string $pValue
-     * @return PHPExcel_Style_Border
-     */
-    public function setBorderStyle($pValue = PHPExcel_Style_Border::BORDER_NONE) {
+	/**
+	 * Set Border style
+	 *
+	 * @param string $pValue
+	 * @return PHPExcel_Style_Border
+	 */
+	public function setBorderStyle($pValue = PHPExcel_Style_Border::BORDER_NONE) {
 
-        if ($pValue == '') {
-    		$pValue = PHPExcel_Style_Border::BORDER_NONE;
-    	}
+		if ($pValue == '') {
+			$pValue = PHPExcel_Style_Border::BORDER_NONE;
+		}
 		if ($this->_isSupervisor) {
 			$styleArray = $this->getStyleArray(array('style' => $pValue));
 			$this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
@@ -319,25 +318,25 @@ class PHPExcel_Style_Border implements PHPExcel_IComparable
 			$this->_borderStyle = $pValue;
 		}
 		return $this;
-    }
+	}
 
-    /**
-     * Get Border Color
-     *
-     * @return PHPExcel_Style_Color
-     */
-    public function getColor() {
-    	return $this->_color;
-    }
+	/**
+	 * Get Border Color
+	 *
+	 * @return PHPExcel_Style_Color
+	 */
+	public function getColor() {
+		return $this->_color;
+	}
 
-    /**
-     * Set Border Color
-     *
-     * @param 	PHPExcel_Style_Color $pValue
-     * @throws 	Exception
-     * @return PHPExcel_Style_Border
-     */
-    public function setColor(PHPExcel_Style_Color $pValue = null) {
+	/**
+	 * Set Border Color
+	 *
+	 * @param	PHPExcel_Style_Color $pValue
+	 * @throws	Exception
+	 * @return PHPExcel_Style_Border
+	 */
+	public function setColor(PHPExcel_Style_Color $pValue = null) {
 		// make sure parameter is a real color and not a supervisor
 		$color = $pValue->getIsSupervisor() ? $pValue->getSharedComponent() : $pValue;
 
@@ -348,7 +347,7 @@ class PHPExcel_Style_Border implements PHPExcel_IComparable
 			$this->_color = $color;
 		}
 		return $this;
-    }
+	}
 
 	/**
 	 * Get hash code
@@ -359,12 +358,12 @@ class PHPExcel_Style_Border implements PHPExcel_IComparable
 		if ($this->_isSupervisor) {
 			return $this->getSharedComponent()->getHashCode();
 		}
-    	return md5(
-    		  $this->_borderStyle
-    		. $this->_color->getHashCode()
-    		. __CLASS__
-    	);
-    }
+		return md5(
+			  $this->_borderStyle
+			. $this->_color->getHashCode()
+			. __CLASS__
+		);
+	}
 
 	/**
 	 * Implement PHP __clone to create a deep clone, not just a shallow copy.

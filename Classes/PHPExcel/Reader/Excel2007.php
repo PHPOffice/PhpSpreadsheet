@@ -431,7 +431,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 
 							// add style to cellXf collection
 							$objStyle = new PHPExcel_Style;
-							$this->_readStyle($objStyle, $style);
+							self::_readStyle($objStyle, $style);
 							$excel->addCellXf($objStyle);
 						}
 
@@ -458,7 +458,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 
 							// add style to cellStyleXf collection
 							$objStyle = new PHPExcel_Style;
-							$this->_readStyle($objStyle, $cellStyle);
+							self::_readStyle($objStyle, $cellStyle);
 							$excel->addCellStyleXf($objStyle);
 						}
 					}
@@ -468,7 +468,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 						if ($xmlStyles->dxfs) {
 							foreach ($xmlStyles->dxfs->dxf as $dxf) {
 								$style = new PHPExcel_Style;
-								$this->_readStyle($style, $dxf);
+								self::_readStyle($style, $dxf);
 								$dxfs[] = $style;
 							}
 						}
@@ -480,7 +480,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 									if (isset($cellStyles[intval($cellStyle['xfId'])])) {
 										// Set default style
 										$style = new PHPExcel_Style;
-										$this->_readStyle($style, $cellStyles[intval($cellStyle['xfId'])]);
+										self::_readStyle($style, $cellStyles[intval($cellStyle['xfId'])]);
 
 										// normal style, currently not using it for anything
 									}
@@ -1439,7 +1439,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 		}
 	}
 
-	private function _readStyle($docStyle, $style) {
+	private static function _readStyle($docStyle, $style) {
 		// format code
 		if (isset($style->numFmt)) {
 			$docStyle->getNumberFormat()->setFormatCode($style->numFmt);

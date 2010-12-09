@@ -49,14 +49,14 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 	 *
 	 * @var string
 	 */
-	private $_inputEncoding;
+	private $_inputEncoding	= 'ANSI';
 
 	/**
 	 * Sheet index to read
 	 *
 	 * @var int
 	 */
-	private $_sheetIndex;
+	private $_sheetIndex 	= 0;
 
 	/**
 	 * Formats
@@ -83,8 +83,6 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 	 * Create a new PHPExcel_Reader_SYLK
 	 */
 	public function __construct() {
-		$this->_inputEncoding = 'ANSI';
-		$this->_sheetIndex 	= 0;
 		$this->_readFilter 	= new PHPExcel_Reader_DefaultReadFilter();
 	}
 

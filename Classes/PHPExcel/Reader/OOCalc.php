@@ -63,7 +63,7 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 	 *
 	 * @var int
 	 */
-	private $_sheetIndex;
+	private $_sheetIndex 	= 0;
 
 	/**
 	 * Formats
@@ -158,7 +158,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 	 * Create a new PHPExcel_Reader_OOCalc
 	 */
 	public function __construct() {
-		$this->_sheetIndex 	= 0;
 		$this->_readFilter 	= new PHPExcel_Reader_DefaultReadFilter();
 	}
 

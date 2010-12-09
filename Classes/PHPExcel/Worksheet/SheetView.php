@@ -37,30 +37,27 @@ class PHPExcel_Worksheet_SheetView
 {
 	/**
 	 * ZoomScale
-	 * 
+	 *
 	 * Valid values range from 10 to 400.
 	 *
 	 * @var int
 	 */
-	private $_zoomScale;
+	private $_zoomScale			= 100;
 
 	/**
 	 * ZoomScaleNormal
-	 * 
+	 *
 	 * Valid values range from 10 to 400.
 	 *
 	 * @var int
 	 */
-	private $_zoomScaleNormal;
+	private $_zoomScaleNormal	= 100;
 
     /**
      * Create a new PHPExcel_Worksheet_SheetView
      */
     public function __construct()
     {
-    	// Initialise values
-    	$this->_zoomScale 				= 100;
-    	$this->_zoomScaleNormal 		= 100;
     }
 
 	/**
@@ -91,7 +88,7 @@ class PHPExcel_Worksheet_SheetView
 		}
 		return $this;
 	}
-	
+
 	/**
 	 * Get ZoomScaleNormal
 	 *

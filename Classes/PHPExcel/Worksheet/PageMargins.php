@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
@@ -34,63 +34,56 @@
  * @copyright  Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Worksheet_PageMargins
-{			
+{
 	/**
 	 * Left
 	 *
 	 * @var double
 	 */
-	private $_left;
-	
+	private $_left		= 0.7;
+
 	/**
 	 * Right
 	 *
 	 * @var double
 	 */
-	private $_right;
-	
+	private $_right		= 0.7;
+
 	/**
 	 * Top
 	 *
 	 * @var double
 	 */
-	private $_top;
-	
+	private $_top		= 0.75;
+
 	/**
 	 * Bottom
 	 *
 	 * @var double
 	 */
-	private $_bottom;
-	
+	private $_bottom	= 0.75;
+
 	/**
 	 * Header
 	 *
 	 * @var double
 	 */
-	private $_header;
-	
+	private $_header 	= 0.3;
+
 	/**
 	 * Footer
 	 *
 	 * @var double
 	 */
-	private $_footer;
-	
+	private $_footer 	= 0.3;
+
     /**
      * Create a new PHPExcel_Worksheet_PageMargins
      */
     public function __construct()
     {
-    	// Initialise values
-    	$this->_left 	= 0.7;
-    	$this->_right 	= 0.7;
-    	$this->_top 	= 0.75;
-    	$this->_bottom 	= 0.75;
-    	$this->_header 	= 0.3;
-    	$this->_footer 	= 0.3;
     }
-    
+
     /**
      * Get Left
      *
@@ -99,7 +92,7 @@ class PHPExcel_Worksheet_PageMargins
     public function getLeft() {
     	return $this->_left;
     }
-    
+
     /**
      * Set Left
      *
@@ -110,7 +103,7 @@ class PHPExcel_Worksheet_PageMargins
     	$this->_left = $pValue;
     	return $this;
     }
-    
+
     /**
      * Get Right
      *
@@ -119,7 +112,7 @@ class PHPExcel_Worksheet_PageMargins
     public function getRight() {
     	return $this->_right;
     }
-    
+
     /**
      * Set Right
      *
@@ -130,7 +123,7 @@ class PHPExcel_Worksheet_PageMargins
     	$this->_right = $pValue;
     	return $this;
     }
-    
+
     /**
      * Get Top
      *
@@ -139,7 +132,7 @@ class PHPExcel_Worksheet_PageMargins
     public function getTop() {
     	return $this->_top;
     }
-    
+
     /**
      * Set Top
      *
@@ -150,7 +143,7 @@ class PHPExcel_Worksheet_PageMargins
     	$this->_top = $pValue;
     	return $this;
     }
-    
+
     /**
      * Get Bottom
      *
@@ -159,7 +152,7 @@ class PHPExcel_Worksheet_PageMargins
     public function getBottom() {
     	return $this->_bottom;
     }
-    
+
     /**
      * Set Bottom
      *
@@ -170,7 +163,7 @@ class PHPExcel_Worksheet_PageMargins
     	$this->_bottom = $pValue;
     	return $this;
     }
-    
+
     /**
      * Get Header
      *
@@ -179,7 +172,7 @@ class PHPExcel_Worksheet_PageMargins
     public function getHeader() {
     	return $this->_header;
     }
-    
+
     /**
      * Set Header
      *
@@ -190,7 +183,7 @@ class PHPExcel_Worksheet_PageMargins
     	$this->_header = $pValue;
     	return $this;
     }
-    
+
     /**
      * Get Footer
      *
@@ -199,7 +192,7 @@ class PHPExcel_Worksheet_PageMargins
     public function getFooter() {
     	return $this->_footer;
     }
-    
+
     /**
      * Set Footer
      *
@@ -210,7 +203,7 @@ class PHPExcel_Worksheet_PageMargins
     	$this->_footer = $pValue;
     	return $this;
     }
-        
+
 	/**
 	 * Implement PHP __clone to create a deep clone, not just a shallow copy.
 	 */

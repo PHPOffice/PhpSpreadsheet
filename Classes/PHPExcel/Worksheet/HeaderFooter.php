@@ -108,70 +108,70 @@ class PHPExcel_Worksheet_HeaderFooter
 	 *
 	 * @var string
 	 */
-	private $_oddHeader;
+	private $_oddHeader			= '';
 
 	/**
 	 * OddFooter
 	 *
 	 * @var string
 	 */
-	private $_oddFooter;
+	private $_oddFooter			= '';
 
 	/**
 	 * EvenHeader
 	 *
 	 * @var string
 	 */
-	private $_evenHeader;
+	private $_evenHeader		= '';
 
 	/**
 	 * EvenFooter
 	 *
 	 * @var string
 	 */
-	private $_evenFooter;
+	private $_evenFooter		= '';
 
 	/**
 	 * FirstHeader
 	 *
 	 * @var string
 	 */
-	private $_firstHeader;
+	private $_firstHeader		= '';
 
 	/**
 	 * FirstFooter
 	 *
 	 * @var string
 	 */
-	private $_firstFooter;
+	private $_firstFooter		= '';
 
 	/**
 	 * Different header for Odd/Even, defaults to false
 	 *
 	 * @var boolean
 	 */
-	private $_differentOddEven;
+	private $_differentOddEven	= false;
 
 	/**
 	 * Different header for first page, defaults to false
 	 *
 	 * @var boolean
 	 */
-	private $_differentFirst;
+	private $_differentFirst	= false;
 
 	/**
 	 * Scale with document, defaults to true
 	 *
 	 * @var boolean
 	 */
-	private $_scaleWithDocument;
+	private $_scaleWithDocument	= true;
 
 	/**
 	 * Align with margins, defaults to true
 	 *
 	 * @var boolean
 	 */
-	private $_alignWithMargins;
+	private $_alignWithMargins	= true;
 
 	/**
 	 * Header/footer images
@@ -185,18 +185,6 @@ class PHPExcel_Worksheet_HeaderFooter
      */
     public function __construct()
     {
-    	// Initialise values
-    	$this->_oddHeader			= '';
-    	$this->_oddFooter			= '';
-    	$this->_evenHeader			= '';
-    	$this->_evenFooter			= '';
-    	$this->_firstHeader			= '';
-    	$this->_firstFooter			= '';
-    	$this->_differentOddEven 	= false;
-    	$this->_differentFirst 		= false;
-    	$this->_scaleWithDocument 	= true;
-    	$this->_alignWithMargins 	= true;
-    	$this->_headerFooterImages	= array();
     }
 
     /**

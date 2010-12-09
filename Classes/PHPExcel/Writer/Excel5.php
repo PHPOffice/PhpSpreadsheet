@@ -40,7 +40,7 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 	 *
 	 * @var boolean
 	 */
-	private $_preCalculateFormulas;
+	private $_preCalculateFormulas	= true;
 
 	/**
 	 * PHPExcel object
@@ -54,28 +54,28 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 	 *
 	 * @var integer
 	 */
-	private $_BIFF_version;
+	private $_BIFF_version	= 0x0600;
 
 	/**
 	 * Total number of shared strings in workbook
 	 *
 	 * @var int
 	 */
-	private $_str_total;
+	private $_str_total		= 0;
 
 	/**
 	 * Number of unique shared strings in workbook
 	 *
 	 * @var int
 	 */
-	private $_str_unique;
+	private $_str_unique	= 0;
 
 	/**
 	 * Array of unique shared strings in workbook
 	 *
 	 * @var array
 	 */
-	private $_str_table;
+	private $_str_table		= array();
 
 	/**
 	 * Color cache. Mapping between RGB value and color index.
@@ -105,15 +105,9 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 	 * @param	PHPExcel	$phpExcel	PHPExcel object
 	 */
 	public function __construct(PHPExcel $phpExcel) {
-		$this->_preCalculateFormulas = true;
 		$this->_phpExcel		= $phpExcel;
-		$this->_BIFF_version	= 0x0600;
 
-		$this->_str_total       = 0;
-		$this->_str_unique      = 0;
-		$this->_str_table       = array();
-		$this->_parser          = new PHPExcel_Writer_Excel5_Parser($this->_BIFF_version);
-
+		$this->_parser			= new PHPExcel_Writer_Excel5_Parser($this->_BIFF_version);
 	}
 
 	/**

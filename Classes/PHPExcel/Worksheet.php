@@ -337,27 +337,19 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		$this->_pageSetup			= new PHPExcel_Worksheet_PageSetup();
 
 		// Set page margins
-		$this->_pageMargins		= new PHPExcel_Worksheet_PageMargins();
+		$this->_pageMargins			= new PHPExcel_Worksheet_PageMargins();
 
 		// Set page header/footer
 		$this->_headerFooter		= new PHPExcel_Worksheet_HeaderFooter();
 
 		// Set sheet view
-		$this->_sheetView		   = new PHPExcel_Worksheet_SheetView();
+		$this->_sheetView			= new PHPExcel_Worksheet_SheetView();
 
 		// Drawing collection
 		$this->_drawingCollection	= new ArrayObject();
 
 		// Protection
 		$this->_protection			= new PHPExcel_Worksheet_Protection();
-
-		// Gridlines
-		$this->_showGridlines		= true;
-		$this->_printGridlines		= false;
-
-		// Outline summary
-		$this->_showSummaryBelow	= true;
-		$this->_showSummaryRight	= true;
 
 		// Default row dimension
 		$this->_defaultRowDimension = new PHPExcel_Worksheet_RowDimension(null);

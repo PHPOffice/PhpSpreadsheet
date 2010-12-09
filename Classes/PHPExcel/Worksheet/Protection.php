@@ -40,143 +40,125 @@ class PHPExcel_Worksheet_Protection
 	 *
 	 * @var boolean
 	 */
-	private $_sheet;
+	private $_sheet					= false;
 
 	/**
 	 * Objects
 	 *
 	 * @var boolean
 	 */
-	private $_objects;
+	private $_objects				= false;
 
 	/**
 	 * Scenarios
 	 *
 	 * @var boolean
 	 */
-	private $_scenarios;
+	private $_scenarios				= false;
 
 	/**
 	 * Format cells
 	 *
 	 * @var boolean
 	 */
-	private $_formatCells;
+	private $_formatCells			= false;
 
 	/**
 	 * Format columns
 	 *
 	 * @var boolean
 	 */
-	private $_formatColumns;
+	private $_formatColumns			= false;
 
 	/**
 	 * Format rows
 	 *
 	 * @var boolean
 	 */
-	private $_formatRows;
+	private $_formatRows			= false;
 
 	/**
 	 * Insert columns
 	 *
 	 * @var boolean
 	 */
-	private $_insertColumns;
+	private $_insertColumns			= false;
 
 	/**
 	 * Insert rows
 	 *
 	 * @var boolean
 	 */
-	private $_insertRows;
+	private $_insertRows			= false;
 
 	/**
 	 * Insert hyperlinks
 	 *
 	 * @var boolean
 	 */
-	private $_insertHyperlinks;
+	private $_insertHyperlinks		= false;
 
 	/**
 	 * Delete columns
 	 *
 	 * @var boolean
 	 */
-	private $_deleteColumns;
+	private $_deleteColumns			= false;
 
 	/**
 	 * Delete rows
 	 *
 	 * @var boolean
 	 */
-	private $_deleteRows;
+	private $_deleteRows			= false;
 
 	/**
 	 * Select locked cells
 	 *
 	 * @var boolean
 	 */
-	private $_selectLockedCells;
+	private $_selectLockedCells		= false;
 
 	/**
 	 * Sort
 	 *
 	 * @var boolean
 	 */
-	private $_sort;
+	private $_sort					= false;
 
 	/**
 	 * AutoFilter
 	 *
 	 * @var boolean
 	 */
-	private $_autoFilter;
+	private $_autoFilter			= false;
 
 	/**
 	 * Pivot tables
 	 *
 	 * @var boolean
 	 */
-	private $_pivotTables;
+	private $_pivotTables			= false;
 
 	/**
 	 * Select unlocked cells
 	 *
 	 * @var boolean
 	 */
-	private $_selectUnlockedCells;
+	private $_selectUnlockedCells	= false;
 
 	/**
 	 * Password
 	 *
 	 * @var string
 	 */
-	private $_password;
+	private $_password				= '';
 
     /**
      * Create a new PHPExcel_Worksheet_Protection
      */
     public function __construct()
     {
-    	// Initialise values
-    	$this->_sheet					= false;
-    	$this->_objects					= false;
-    	$this->_scenarios				= false;
-    	$this->_formatCells				= false;
-    	$this->_formatColumns			= false;
-    	$this->_formatRows				= false;
-    	$this->_insertColumns			= false;
-    	$this->_insertRows				= false;
-    	$this->_insertHyperlinks		= false;
-    	$this->_deleteColumns			= false;
-    	$this->_deleteRows				= false;
-    	$this->_selectLockedCells		= false;
-    	$this->_sort					= false;
-    	$this->_autoFilter				= false;
-    	$this->_pivotTables				= false;
-    	$this->_selectUnlockedCells		= false;
-    	$this->_password				= '';
     }
 
     /**

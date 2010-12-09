@@ -46,7 +46,7 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 *
 	 * @var int
 	 */
-	private $_sheetIndex;
+	private $_sheetIndex	= 0;
 
 	/**
 	 * Pre-calculate formulas
@@ -60,7 +60,7 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 *
 	 * @var string
 	 */
-	private $_imagesRoot = '.';
+	private $_imagesRoot	= '.';
 
 	/**
 	 * Use inline CSS?
@@ -95,28 +95,28 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 *
 	 * @var boolean
 	 */
-	private $_spansAreCalculated;
+	private $_spansAreCalculated	= false;
 
 	/**
 	 * Excel cells that should not be written as HTML cells
 	 *
 	 * @var array
 	 */
-	private $_isSpannedCell;
+	private $_isSpannedCell	= array();
 
 	/**
 	 * Excel cells that are upper-left corner in a cell merge
 	 *
 	 * @var array
 	 */
-	private $_isBaseCell;
+	private $_isBaseCell	= array();
 
 	/**
 	 * Excel rows that should not be written as HTML rows
 	 *
 	 * @var array
 	 */
-	private $_isSpannedRow;
+	private $_isSpannedRow	= array();
 
 	/**
 	 * Is the current writer creating PDF?
@@ -140,13 +140,6 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	public function __construct(PHPExcel $phpExcel) {
 		$this->_phpExcel = $phpExcel;
 		$this->_defaultFont = $this->_phpExcel->getDefaultStyle()->getFont();
-		$this->_sheetIndex = 0;
-		$this->_imagesRoot = '.';
-
-		$this->_spansAreCalculated = false;
-		$this->_isSpannedCell = array();
-		$this->_isBaseCell	= array();
-		$this->_isSpannedRow  = array();
 	}
 
 	/**

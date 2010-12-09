@@ -46,28 +46,28 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 	 *
 	 * @var string
 	 */
-	private $_delimiter;
+	private $_delimiter	= ',';
 
 	/**
 	 * Enclosure
 	 *
 	 * @var string
 	 */
-	private $_enclosure;
+	private $_enclosure	= '"';
 
 	/**
 	 * Line ending
 	 *
 	 * @var string
 	 */
-	private $_lineEnding;
+	private $_lineEnding	= PHP_EOL;
 
 	/**
 	 * Sheet index to write
 	 *
 	 * @var int
 	 */
-	private $_sheetIndex;
+	private $_sheetIndex	= 0;
 
 	/**
 	 * Pre-calculate formulas
@@ -90,10 +90,6 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 	 */
 	public function __construct(PHPExcel $phpExcel) {
 		$this->_phpExcel	= $phpExcel;
-		$this->_delimiter	= ',';
-		$this->_enclosure	= '"';
-		$this->_lineEnding	= PHP_EOL;
-		$this->_sheetIndex	= 0;
 	}
 
 	/**
