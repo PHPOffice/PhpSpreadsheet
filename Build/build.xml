@@ -194,6 +194,7 @@
         <pear minimum_version="1.4.0"/>
         <extension name="zip" minimum_version="1.8.0"/>
       </dependencies>
+      <dirroles key="PHPExcel/Shared/PDF/fonts">data</dirroles> 
     </d51pearpkg2>
 
     <exec command="pear package ./build/Classes/package.xml"/>
