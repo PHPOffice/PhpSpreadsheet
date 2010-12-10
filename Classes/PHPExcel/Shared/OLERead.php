@@ -59,6 +59,13 @@ class PHPExcel_Shared_OLERead {
 	const START_BLOCK_POS					= 0x74;
 	const SIZE_POS							= 0x78;
 
+
+
+	public $wrkbook						= null;
+	public $summaryInformation			= null;
+	public $documentSummaryInformation	= null;
+
+
 	/**
 	 * Read the file
 	 *
@@ -124,8 +131,7 @@ class PHPExcel_Shared_OLERead {
 			}
 		}
 
-		$pos = 0;
-		$index = 0;
+		$pos = $index = 0;
 		$this->bigBlockChain = array();
 
 		$bbs = self::BIG_BLOCK_SIZE / 4;
@@ -139,8 +145,7 @@ class PHPExcel_Shared_OLERead {
 			}
 		}
 
-		$pos = 0;
-		$index = 0;
+		$pos = $index = 0;
 		$sbdBlock = $this->sbdStartBlock;
 		$this->smallBlockChain = array();
 
@@ -156,79 +161,31 @@ class PHPExcel_Shared_OLERead {
 			$sbdBlock = $this->bigBlockChain[$sbdBlock];
 		}
 
-		$block = $this->rootStartBlock;
-		$pos = 0;
-
 		// read the directory stream
+		$block = $this->rootStartBlock;
 		$this->entry = $this->_readData($block);
 
 		$this->_readPropertySets();
 	}
 
 	/**
-	 * Extract binary stream data, workbook stream + sheet streams
+	 * Extract binary stream data
 	 *
 	 * @return string
 	 */
-	public function getWorkBook()
+	public function getStream($stream)
 	{
-		if ($this->props[$this->wrkbook]['size'] < self::SMALL_BLOCK_THRESHOLD){
-			$rootdata = $this->_readData($this->props[$this->rootentry]['startBlock']);
-
-			$streamData = '';
-			$block = $this->props[$this->wrkbook]['startBlock'];
-
-			$pos = 0;
-			while ($block != -2) {
-	  			$pos = $block * self::SMALL_BLOCK_SIZE;
-				$streamData .= substr($rootdata, $pos, self::SMALL_BLOCK_SIZE);
-
-				$block = $this->smallBlockChain[$block];
-			}
-
-			return $streamData;
-
-		} else {
-			$numBlocks = $this->props[$this->wrkbook]['size'] / self::BIG_BLOCK_SIZE;
-			if ($this->props[$this->wrkbook]['size'] % self::BIG_BLOCK_SIZE != 0) {
-				++$numBlocks;
-			}
-
-			if ($numBlocks == 0) return '';
-
-			$streamData = '';
-			$block = $this->props[$this->wrkbook]['startBlock'];
-
-			$pos = 0;
-
-			while ($block != -2) {
-				$pos = ($block + 1) * self::BIG_BLOCK_SIZE;
-				$streamData .= substr($this->data, $pos, self::BIG_BLOCK_SIZE);
-				$block = $this->bigBlockChain[$block];
-			}
-
-			return $streamData;
-		}
-	}
-
-	/**
-	 * Extract binary stream data, summary information
-	 *
-	 * @return string|null
-	 */
-	public function getSummaryInformation()
-	{
-		if (!isset($this->summaryInformation)) {
+		if (is_null($stream)) {
 			return null;
 		}
 
-		if ($this->props[$this->summaryInformation]['size'] < self::SMALL_BLOCK_THRESHOLD){
+		$streamData = '';
+
+		if ($this->props[$stream]['size'] < self::SMALL_BLOCK_THRESHOLD) {
 			$rootdata = $this->_readData($this->props[$this->rootentry]['startBlock']);
 
-			$streamData = '';
-			$block = $this->props[$this->summaryInformation]['startBlock'];
+			$block = $this->props[$stream]['startBlock'];
 
-			$pos = 0;
 			while ($block != -2) {
 	  			$pos = $block * self::SMALL_BLOCK_SIZE;
 				$streamData .= substr($rootdata, $pos, self::SMALL_BLOCK_SIZE);
@@ -237,69 +194,15 @@ class PHPExcel_Shared_OLERead {
 			}
 
 			return $streamData;
-
 		} else {
-			$numBlocks = $this->props[$this->summaryInformation]['size'] / self::BIG_BLOCK_SIZE;
-			if ($this->props[$this->summaryInformation]['size'] % self::BIG_BLOCK_SIZE != 0) {
+			$numBlocks = $this->props[$stream]['size'] / self::BIG_BLOCK_SIZE;
+			if ($this->props[$stream]['size'] % self::BIG_BLOCK_SIZE != 0) {
 				++$numBlocks;
 			}
 
 			if ($numBlocks == 0) return '';
 
-			$streamData = '';
-			$block = $this->props[$this->summaryInformation]['startBlock'];
-
-			$pos = 0;
-
-			while ($block != -2) {
-				$pos = ($block + 1) * self::BIG_BLOCK_SIZE;
-				$streamData .= substr($this->data, $pos, self::BIG_BLOCK_SIZE);
-				$block = $this->bigBlockChain[$block];
-			}
-
-			return $streamData;
-		}
-	}
-
-	/**
-	 * Extract binary stream data, additional document summary information
-	 *
-	 * @return string|null
-	 */
-	public function getDocumentSummaryInformation()
-	{
-		if (!isset($this->documentSummaryInformation)) {
-			return null;
-		}
-
-		if ($this->props[$this->documentSummaryInformation]['size'] < self::SMALL_BLOCK_THRESHOLD){
-			$rootdata = $this->_readData($this->props[$this->rootentry]['startBlock']);
-
-			$streamData = '';
-			$block = $this->props[$this->documentSummaryInformation]['startBlock'];
-
-			$pos = 0;
-			while ($block != -2) {
-	  			$pos = $block * self::SMALL_BLOCK_SIZE;
-				$streamData .= substr($rootdata, $pos, self::SMALL_BLOCK_SIZE);
-
-				$block = $this->smallBlockChain[$block];
-			}
-
-			return $streamData;
-
-		} else {
-			$numBlocks = $this->props[$this->documentSummaryInformation]['size'] / self::BIG_BLOCK_SIZE;
-			if ($this->props[$this->documentSummaryInformation]['size'] % self::BIG_BLOCK_SIZE != 0) {
-				++$numBlocks;
-			}
-
-			if ($numBlocks == 0) return '';
-
-			$streamData = '';
-			$block = $this->props[$this->documentSummaryInformation]['startBlock'];
-
-			$pos = 0;
+			$block = $this->props[$stream]['startBlock'];
 
 			while ($block != -2) {
 				$pos = ($block + 1) * self::BIG_BLOCK_SIZE;
@@ -320,7 +223,6 @@ class PHPExcel_Shared_OLERead {
 	private function _readData($bl)
 	{
 		$block = $bl;
-		$pos = 0;
 		$data = '';
 
 		while ($block != -2)  {
@@ -334,12 +236,12 @@ class PHPExcel_Shared_OLERead {
 	/**
 	 * Read entries in the directory stream.
 	 */
-	private function _readPropertySets()
-	{
+	private function _readPropertySets() {
 		$offset = 0;
 
 		// loop through entires, each entry is 128 bytes
-		while ($offset < strlen($this->entry)) {
+		$entryLen = strlen($this->entry);
+		while ($offset < $entryLen) {
 			// entry data (128 bytes)
 			$d = substr($this->entry, $offset, self::PROPERTY_STORAGE_BLOCK_SIZE);
 

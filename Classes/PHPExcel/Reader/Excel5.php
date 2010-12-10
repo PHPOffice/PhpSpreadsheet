@@ -944,15 +944,16 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 		// OLE reader
 		$ole = new PHPExcel_Shared_OLERead();
 
-		// get excel data
+		// get excel data,
 		$res = $ole->read($pFilename);
-		$this->_data = $ole->getWorkBook();
+		// Get workbook data: workbook stream + sheet streams
+		$this->_data = $ole->getStream($ole->wrkbook);
 
 		// Get summary information data
-		$this->_summaryInformation = $ole->getSummaryInformation();
+		$this->_summaryInformation = $ole->getStream($ole->summaryInformation);
 
 		// Get additional document summary information data
-		$this->_documentSummaryInformation = $ole->getDocumentSummaryInformation();
+		$this->_documentSummaryInformation = $ole->getStream($ole->documentSummaryInformation);
 
 		// Get user-defined property data
 //		$this->_userDefinedProperties = $ole->getUserDefinedProperties();
