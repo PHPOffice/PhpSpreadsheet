@@ -232,6 +232,8 @@ class PHPExcel_Cell
 	{
 		// set the value according to data type
 		switch ($pDataType) {
+			case PHPExcel_Cell_DataType::TYPE_STRING2:
+				$pDataType = PHPExcel_Cell_DataType::TYPE_STRING;
 			case PHPExcel_Cell_DataType::TYPE_STRING:
 			case PHPExcel_Cell_DataType::TYPE_NULL:
 			case PHPExcel_Cell_DataType::TYPE_INLINE:
@@ -343,6 +345,9 @@ class PHPExcel_Cell
 	 */
 	public function setDataType($pDataType = PHPExcel_Cell_DataType::TYPE_STRING)
 	{
+		if ($pDataType == PHPExcel_Cell_DataType::TYPE_STRING2)
+			$pDataType = PHPExcel_Cell_DataType::TYPE_STRING;
+
 		$this->_dataType = $pDataType;
 
 		return $this->notifyCacheController();

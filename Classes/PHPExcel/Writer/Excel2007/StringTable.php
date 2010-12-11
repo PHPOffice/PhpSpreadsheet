@@ -66,7 +66,7 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
 	        		!isset($aFlippedStringTable[$cell->getValue()]) &&
 	        		!is_null($cell->getValue()) &&
 	        		$cell->getValue() !== '' &&
-	        		($cell->getDataType() == PHPExcel_Cell_DataType::TYPE_STRING || $cell->getDataType() == PHPExcel_Cell_DataType::TYPE_NULL)
+	        		($cell->getDataType() == PHPExcel_Cell_DataType::TYPE_STRING || $cell->getDataType() == PHPExcel_Cell_DataType::TYPE_STRING2 || $cell->getDataType() == PHPExcel_Cell_DataType::TYPE_NULL)
 	        	) {
 	        			$aStringTable[] = $cell->getValue();
 						$aFlippedStringTable[$cell->getValue()] = 1;
