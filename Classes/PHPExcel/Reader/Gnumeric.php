@@ -59,13 +59,6 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 	private $_loadSheetsOnly = null;
 
 	/**
-	 * Sheet index to read
-	 *
-	 * @var int
-	 */
-	private $_sheetIndex 	= 0;
-
-	/**
 	 * Formats
 	 *
 	 * @var array
@@ -854,23 +847,4 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 		return $RGB;
 	}
 
-	/**
-	 * Get sheet index
-	 *
-	 * @return int
-	 */
-	public function getSheetIndex() {
-		return $this->_sheetIndex;
-	}
-
-	/**
-	 * Set sheet index
-	 *
-	 * @param	int		$pValue		Sheet index
-	 * @return PHPExcel_Reader_Gnumeric
-	 */
-	public function setSheetIndex($pValue = 0) {
-		$this->_sheetIndex = $pValue;
-		return $this;
-	}
 }

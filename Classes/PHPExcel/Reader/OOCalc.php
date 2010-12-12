@@ -59,13 +59,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 	private $_loadSheetsOnly = null;
 
 	/**
-	 * Sheet index to read
-	 *
-	 * @var int
-	 */
-	private $_sheetIndex 	= 0;
-
-	/**
 	 * Formats
 	 *
 	 * @var array
@@ -510,23 +503,4 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 		return $objPHPExcel;
 	}
 
-	/**
-	 * Get sheet index
-	 *
-	 * @return int
-	 */
-	public function getSheetIndex() {
-		return $this->_sheetIndex;
-	}
-
-	/**
-	 * Set sheet index
-	 *
-	 * @param	int		$pValue		Sheet index
-	 * @return PHPExcel_Reader_OOCalc
-	 */
-	public function setSheetIndex($pValue = 0) {
-		$this->_sheetIndex = $pValue;
-		return $this;
-	}
 }
