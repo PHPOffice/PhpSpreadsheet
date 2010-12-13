@@ -24,6 +24,8 @@
 
 
 Fixed in SVN:
+- Feature:  (MBaker) Provide option to use PCLZip as an alternative to ZipArchive.
+					 This allows the writing of Excel2007 files, even without ZipArchive enabled (it does require zlib), or when php_zip is one of the buggy PHP 5.2.6 or 5.2.8 versions
 
 
 2010-12-10 (v1.7.5):

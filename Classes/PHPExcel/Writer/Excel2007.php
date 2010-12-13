@@ -223,8 +223,12 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 			$this->_drawingHashTable->addFromSource( 			$this->getWriterPart('Drawing')->allDrawings($this->_spreadSheet) 		);
 
 			// Create new ZIP file and open it for writing
-			$objZip = new ZipArchive();
+			$zipClass = PHPExcel_Settings::getZipClass();
+			$objZip = new $zipClass();
 
+			if (file_exists($pFilename)) {
+				unlink($pFilename);
+			}
 			// Try opening the ZIP file
 			if ($objZip->open($pFilename, ZIPARCHIVE::OVERWRITE) !== true) {
 				if ($objZip->open($pFilename, ZIPARCHIVE::CREATE) !== true) {

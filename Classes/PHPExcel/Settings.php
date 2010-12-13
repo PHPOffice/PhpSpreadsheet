@@ -37,6 +37,40 @@ if (!defined('PHPEXCEL_ROOT')) {
 
 class PHPExcel_Settings
 {
+	/**	constants */
+	const PCLZIP		= 'PHPExcel_Shared_ZipArchive';
+	const ZIPARCHIVE	= 'ZipArchive';
+
+
+	private static $_zipClass	= self::ZIPARCHIVE;
+
+
+	/**
+	 * Set the Zip Class to use (PCLZip or ZipArchive)
+	 *
+	 * @param	 string	$zipClass			PHPExcel_Settings::PCLZip or PHPExcel_Settings::ZipArchive
+	 * @return	 boolean					Success or failure
+	 */
+	public static function setZipClass($zipClass) {
+		if (($zipClass == self::PCLZIP) ||
+			($zipClass == self::ZIPARCHIVE)) {
+			self::$_zipClass = $zipClass;
+			return True;
+		}
+		return False;
+	}	//	function setZipClass()
+
+
+	/**
+	 * Return the Zip Class to use (PCLZip or ZipArchive)
+	 *
+	 * @return	 string						Zip Class to use	- PHPExcel_Settings::PCLZip or PHPExcel_Settings::ZipArchive
+	 */
+	public static function getZipClass() {
+		return self::$_zipClass;
+	}	//	function getZipClass()
+
+
 	public static function getCacheStorageMethod() {
 		return PHPExcel_CachedObjectStorageFactory::$_cacheStorageMethod;
 	}	//	function getCacheStorageMethod()
