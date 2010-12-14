@@ -139,31 +139,34 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 		// Set up disk caching location
 		$this->_diskCachingDirectory = './';
 
-    	// Initialise writer parts
-    	$this->_writerParts['stringtable']		= new PHPExcel_Writer_Excel2007_StringTable();
-		$this->_writerParts['contenttypes'] 	= new PHPExcel_Writer_Excel2007_ContentTypes();
-		$this->_writerParts['docprops'] 		= new PHPExcel_Writer_Excel2007_DocProps();
-		$this->_writerParts['rels'] 			= new PHPExcel_Writer_Excel2007_Rels();
-		$this->_writerParts['theme'] 			= new PHPExcel_Writer_Excel2007_Theme();
-		$this->_writerParts['style'] 			= new PHPExcel_Writer_Excel2007_Style();
-		$this->_writerParts['workbook'] 		= new PHPExcel_Writer_Excel2007_Workbook();
-		$this->_writerParts['worksheet'] 		= new PHPExcel_Writer_Excel2007_Worksheet();
-		$this->_writerParts['drawing'] 			= new PHPExcel_Writer_Excel2007_Drawing();
-		$this->_writerParts['comments'] 		= new PHPExcel_Writer_Excel2007_Comments();
+    	$writerPartsArray = array(	'stringtable'	=> 'PHPExcel_Writer_Excel2007_StringTable',
+									'contenttypes'	=> 'PHPExcel_Writer_Excel2007_ContentTypes',
+									'docprops' 		=> 'PHPExcel_Writer_Excel2007_DocProps',
+									'rels'			=> 'PHPExcel_Writer_Excel2007_Rels',
+									'theme' 		=> 'PHPExcel_Writer_Excel2007_Theme',
+									'style' 		=> 'PHPExcel_Writer_Excel2007_Style',
+									'workbook' 		=> 'PHPExcel_Writer_Excel2007_Workbook',
+									'worksheet' 	=> 'PHPExcel_Writer_Excel2007_Worksheet',
+									'drawing' 		=> 'PHPExcel_Writer_Excel2007_Drawing',
+									'comments' 		=> 'PHPExcel_Writer_Excel2007_Comments'
+								 );
 
-		// Assign parent IWriter
-		foreach ($this->_writerParts as $writer) {
-			$writer->setParentWriter($this);
+    	//	Initialise writer parts
+		//		and Assign their parent IWriters
+		foreach ($writerPartsArray as $writer => $class) {
+			$this->_writerParts[$writer] = new $class();
+			$this->_writerParts[$writer]->setParentWriter($this);
 		}
 
+    	$hashTablesArray = array( '_stylesConditionalHashTable',	'_fillHashTable',		'_fontHashTable',
+								  '_bordersHashTable',				'_numFmtHashTable',		'_drawingHashTable'
+							    );
+
 		// Set HashTable variables
-		$this->_stringTable					= array();
-		$this->_stylesConditionalHashTable 	= new PHPExcel_HashTable();
-		$this->_fillHashTable 				= new PHPExcel_HashTable();
-		$this->_fontHashTable 				= new PHPExcel_HashTable();
-		$this->_bordersHashTable 			= new PHPExcel_HashTable();
-		$this->_numFmtHashTable 			= new PHPExcel_HashTable();
-		$this->_drawingHashTable 			= new PHPExcel_HashTable();
+		$this->_stringTable = array();
+		foreach ($hashTablesArray as $tableName) {
+			$this->$tableName 	= new PHPExcel_HashTable();
+		}
     }
 
 	/**
