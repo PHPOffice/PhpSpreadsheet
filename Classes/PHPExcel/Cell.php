@@ -140,7 +140,9 @@ class PHPExcel_Cell
 		$this->_parent = $pSheet;
 
 		// Set datatype?
-		if ($pDataType !== NULL) {
+		if ($pDataType !== null) {
+			if ($pDataType == PHPExcel_Cell_DataType::TYPE_STRING2)
+				$pDataType = PHPExcel_Cell_DataType::TYPE_STRING;
 			$this->_dataType = $pDataType;
 		} else {
 			if (!self::getValueBinder()->bindValue($this, $pValue)) {
@@ -624,8 +626,7 @@ class PHPExcel_Cell
 
 		// Extract range
 		if (strpos($pRange, ':') === false) {
-			$rangeA = $pRange;
-			$rangeB = $pRange;
+			$rangeA = $rangeB = $pRange;
 		} else {
 			list($rangeA, $rangeB) = explode(':', $pRange);
 		}

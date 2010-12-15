@@ -54,7 +54,7 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 	 *
 	 * @var PHPExcel_Writer_Excel2007_WriterPart[]
 	 */
-	private $_writerParts;
+	private $_writerParts	= array();
 
 	/**
 	 * Private PHPExcel
@@ -68,7 +68,7 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 	 *
 	 * @var string[]
 	 */
-	private $_stringTable;
+	private $_stringTable	= array();
 
 	/**
 	 * Private unique PHPExcel_Style_Conditional HashTable
@@ -124,7 +124,7 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 	 *
 	 * @var string
 	 */
-	private $_diskCachingDirectory;
+	private $_diskCachingDirectory	= './';
 
     /**
      * Create a new PHPExcel_Writer_Excel2007
@@ -135,9 +135,6 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
     {
     	// Assign PHPExcel
 		$this->setPHPExcel($pPHPExcel);
-
-		// Set up disk caching location
-		$this->_diskCachingDirectory = './';
 
     	$writerPartsArray = array(	'stringtable'	=> 'PHPExcel_Writer_Excel2007_StringTable',
 									'contenttypes'	=> 'PHPExcel_Writer_Excel2007_ContentTypes',
@@ -154,8 +151,7 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
     	//	Initialise writer parts
 		//		and Assign their parent IWriters
 		foreach ($writerPartsArray as $writer => $class) {
-			$this->_writerParts[$writer] = new $class();
-			$this->_writerParts[$writer]->setParentWriter($this);
+			$this->_writerParts[$writer] = new $class($this);
 		}
 
     	$hashTablesArray = array( '_stylesConditionalHashTable',	'_fillHashTable',		'_fontHashTable',
@@ -163,7 +159,6 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 							    );
 
 		// Set HashTable variables
-		$this->_stringTable = array();
 		foreach ($hashTablesArray as $tableName) {
 			$this->$tableName 	= new PHPExcel_HashTable();
 		}
