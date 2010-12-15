@@ -1296,7 +1296,9 @@ class PHPExcel_Writer_Excel5_Parser
 	{
 		// If it's a string return a string node
 		if (preg_match("/\"([^\"]|\"\"){0,255}\"/", $this->_current_token)) {
-			$result = $this->_createTree(str_replace('""', '"', $this->_current_token), '', '');
+			$tmp = str_replace('""', '"', $this->_current_token);
+			if (($tmp == '"') || ($tmp == '')) $tmp = '""';	//	Trap for "" that has been used for an empty string
+			$result = $this->_createTree($tmp, '', '');
 			$this->_advance();
 			return $result;
         // If it's an error code
@@ -1568,6 +1570,7 @@ class PHPExcel_Writer_Excel5_Parser
 		if (empty($tree)) { // If it's the first call use _parse_tree
 			$tree = $this->_parse_tree;
 		}
+
 		if (is_array($tree['left'])) {
 			$converted_tree = $this->toReversePolish($tree['left']);
 			$polish .= $converted_tree;
