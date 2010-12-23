@@ -36,6 +36,22 @@ if (!defined('PHPEXCEL_ROOT')) {
 }
 
 
+if (!defined('CALCULATION_REGEXP_CELLREF')) {
+	//	Test for support of \P (multibyte options) in PCRE
+	if(defined('PREG_BAD_UTF8_ERROR')) {
+		//	Cell reference (cell or range of cells, with or without a sheet reference)
+		define('CALCULATION_REGEXP_CELLREF','((([^,!]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?\$?([a-z]{1,3})\$?(\d+)');
+		//	Named Range of cells
+		define('CALCULATION_REGEXP_NAMEDRANGE','((([^,!]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?([_A-Z][_A-Z0-9]*)');
+	} else {
+		//	Cell reference (cell or range of cells, with or without a sheet reference)
+		define('CALCULATION_REGEXP_CELLREF','(((\w*)|(\'[^\']*\')|(\"[^\"]*\"))!)?\$?([a-z]{1,3})\$?(\d+)');
+		//	Named Range of cells
+		define('CALCULATION_REGEXP_NAMEDRANGE','(((\w*)|(\'.*\')|(\".*\"))!)?([_A-Z][_A-Z0-9]*)');
+	}
+}
+
+
 /**
  * PHPExcel_Calculation (Singleton)
  *
@@ -56,9 +72,9 @@ class PHPExcel_Calculation {
 	//	Function
 	const CALCULATION_REGEXP_FUNCTION	= '@?([A-Z][A-Z0-9\.]*)[\s]*\(';
 	//	Cell reference (cell or range of cells, with or without a sheet reference)
-	const CALCULATION_REGEXP_CELLREF	= '((((?:\P{M}\p{M}*)+?)|(\'[^\']*\')|(\"[^\"]*\"))!)?\$?([a-z]{1,3})\$?(\d+)';
+	const CALCULATION_REGEXP_CELLREF	= CALCULATION_REGEXP_CELLREF;
 	//	Named Range of cells
-	const CALCULATION_REGEXP_NAMEDRANGE	= '((((?:\P{M}\p{M}*)+?)|(\'[^\']*\')|(\"[^\"]*\"))!)?([_A-Z][_A-Z0-9]*)';
+	const CALCULATION_REGEXP_NAMEDRANGE	= CALCULATION_REGEXP_NAMEDRANGE;
 	//	Error
 	const CALCULATION_REGEXP_ERROR		= '\#[A-Z][A-Z0_\/]*[!\?]?';
 
@@ -2597,7 +2613,7 @@ class PHPExcel_Calculation {
 							   '|'.self::CALCULATION_REGEXP_CELLREF.
 							   '|'.self::CALCULATION_REGEXP_NAMEDRANGE.
 							   '|'.self::CALCULATION_REGEXP_ERROR.
-							 ')/si';
+							 ')/siU';
 
 		//	Start with initialisation
 		$index = 0;
@@ -2621,6 +2637,7 @@ class PHPExcel_Calculation {
 			//	Find out if we're currently at the beginning of a number, variable, cell reference, function, parenthesis or operand
 			$isOperandOrFunction = preg_match($regexpMatchString, substr($formula, $index), $match);
 //			echo '$isOperandOrFunction is '.(($isOperandOrFunction) ? 'True' : 'False').'<br />';
+//			var_dump($match);
 
 			if ($opCharacter == '-' && !$expectingOperator) {				//	Is it a negation instead of a minus?
 //				echo 'Element is a Negation operator<br />';
@@ -2898,7 +2915,7 @@ class PHPExcel_Calculation {
 				//	If we're expecting an operator, but only have a space between the previous and next operands (and both are
 				//		Cell References) then we have an INTERSECTION operator
 //				echo 'Possible Intersect Operator<br />';
-				if (($expectingOperator) && (preg_match('/^'.self::CALCULATION_REGEXP_CELLREF.'.*/i', substr($formula, $index), $match)) &&
+				if (($expectingOperator) && (preg_match('/^'.self::CALCULATION_REGEXP_CELLREF.'.*/Ui', substr($formula, $index), $match)) &&
 					($output[count($output)-1]['type'] == 'Cell Reference')) {
 //					echo 'Element is an Intersect Operator<br />';
 					while($stack->count() > 0 &&
