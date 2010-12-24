@@ -2613,7 +2613,7 @@ class PHPExcel_Calculation {
 							   '|'.self::CALCULATION_REGEXP_CELLREF.
 							   '|'.self::CALCULATION_REGEXP_NAMEDRANGE.
 							   '|'.self::CALCULATION_REGEXP_ERROR.
-							 ')/siU';
+							 ')/si';
 
 		//	Start with initialisation
 		$index = 0;
