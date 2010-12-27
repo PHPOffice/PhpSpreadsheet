@@ -480,7 +480,7 @@ class PHPExcel_Cell
 		list($rangeStart,$rangeEnd) = PHPExcel_Cell::rangeBoundaries($pRange);
 
 		// Translate properties
-		$myColumn	= PHPExcel_Cell::columnIndexFromString($this->getColumn()) - 1;
+		$myColumn	= PHPExcel_Cell::columnIndexFromString($this->getColumn());
 		$myRow		= $this->getRow();
 
 		// Verify if cell is in range
