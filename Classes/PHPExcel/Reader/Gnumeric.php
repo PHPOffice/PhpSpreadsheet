@@ -223,6 +223,36 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 	}
 
 	/**
+	 * Reads names of the worksheets from a file, without parsing the whole file to a PHPExcel object
+	 *
+	 * @param 	string 		$pFilename
+	 * @throws 	Exception
+	 */
+	public function listWorksheetNames($pFilename)
+	{
+		// Check if file exists
+		if (!file_exists($pFilename)) {
+			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+		}
+
+		$gFileData = $this->_gzfileGetContents($pFilename);
+
+		$xml = simplexml_load_string($gFileData);
+		$namespacesMeta = $xml->getNamespaces(true);
+
+		$gnmXML = $xml->children($namespacesMeta['gnm']);
+
+		$worksheetNames = array();
+
+		foreach($gnmXML->Sheets->Sheet as $sheet) {
+			$worksheetNames[] = (string) $sheet->Name;
+		}
+
+		return $worksheetNames;
+	}
+
+
+	/**
 	 * Loads PHPExcel from file into PHPExcel instance
 	 *
 	 * @param 	string 		$pFilename

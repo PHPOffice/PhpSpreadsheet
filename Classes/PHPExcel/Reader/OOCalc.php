@@ -187,6 +187,42 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 	}
 
 	/**
+	 * Reads names of the worksheets from a file, without parsing the whole file to a PHPExcel object
+	 *
+	 * @param 	string 		$pFilename
+	 * @throws 	Exception
+	 */
+	public function listWorksheetNames($pFilename)
+	{
+		// Check if file exists
+		if (!file_exists($pFilename)) {
+			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+		}
+
+		$worksheetNames = array();
+
+		$zip = new ZipArchive;
+		if ($zip->open($pFilename) === true) {
+
+			$xml = simplexml_load_string($zip->getFromName("content.xml"));
+			$namespacesContent = $xml->getNamespaces(true);
+
+			$workbook = $xml->children($namespacesContent['office']);
+			foreach($workbook->body->spreadsheet as $workbookData) {
+				$workbookData = $workbookData->children($namespacesContent['table']);
+				foreach($workbookData->table as $worksheetDataSet) {
+					$worksheetDataAttributes = $worksheetDataSet->attributes($namespacesContent['table']);
+
+					$worksheetNames[] = $worksheetDataAttributes['name'];
+				}
+			}
+		}
+
+		return $worksheetNames;
+	}
+
+
+	/**
 	 * Loads PHPExcel from file
 	 *
 	 * @param 	string 		$pFilename
