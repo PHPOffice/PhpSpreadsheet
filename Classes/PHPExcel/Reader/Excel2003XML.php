@@ -549,6 +549,8 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 				continue;
 			}
 
+//			echo '<h3>Worksheet: ',$worksheet_ss['Name'],'<h3>';
+//
 			// Create new Worksheet
 			$objPHPExcel->createSheet();
 			$objPHPExcel->setActiveSheetIndex($worksheetID);
@@ -573,19 +575,13 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 
 			$rowID = 1;
 			foreach($worksheet->Table->Row as $rowData) {
+				$rowHasData = false;
 				$row_ss = $rowData->attributes($namespaces['ss']);
 				if (isset($row_ss['Index'])) {
 					$rowID = (integer) $row_ss['Index'];
 				}
 //				echo '<b>Row '.$rowID.'</b><br />';
-				if (isset($row_ss['StyleID'])) {
-					$rowStyle = $row_ss['StyleID'];
-				}
-				if (isset($row_ss['Height'])) {
-					$rowHeight = $row_ss['Height'];
-//					echo '<b>Setting row height to '.$rowHeight.'</b><br />';
-					$objPHPExcel->getActiveSheet()->getRowDimension($rowID)->setRowHeight($rowHeight);
-				}
+
 				$columnID = 'A';
 				foreach($rowData->Cell as $cell) {
 
@@ -614,7 +610,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 						$objPHPExcel->getActiveSheet()->mergeCells($cellRange);
 					}
 
-					$hasCalculatedValue = false;
+					$cellIsSet = $hasCalculatedValue = false;
 					$cellDataFormula = '';
 					if (isset($cell_ss['Formula'])) {
 						$cellDataFormula = $cell_ss['Formula'];
@@ -704,11 +700,13 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 //
 						$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->setValueExplicit((($hasCalculatedValue) ? $cellDataFormula : $cellValue),$type);
 						if ($hasCalculatedValue) {
-//							echo 'Forumla result is '.$cellValue.'<br />';
+//							echo 'Formula result is '.$cellValue.'<br />';
 							$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->setCalculatedValue($cellValue);
 						}
+						$cellIsSet = $rowHasData = true;
 					}
-					if (isset($cell_ss['StyleID'])) {
+
+					if (($cellIsSet) && (isset($cell_ss['StyleID']))) {
 						$style = (string) $cell_ss['StyleID'];
 //						echo 'Cell style for '.$columnID.$rowID.' is '.$style.'<br />';
 						if ((isset($this->_styles[$style])) && (count($this->_styles[$style]) > 0)) {
@@ -723,6 +721,18 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 					}
 					++$columnID;
 				}
+
+				if ($rowHasData) {
+					if (isset($row_ss['StyleID'])) {
+						$rowStyle = $row_ss['StyleID'];
+					}
+					if (isset($row_ss['Height'])) {
+						$rowHeight = $row_ss['Height'];
+//						echo '<b>Setting row height to '.$rowHeight.'</b><br />';
+						$objPHPExcel->getActiveSheet()->getRowDimension($rowID)->setRowHeight($rowHeight);
+					}
+				}
+
 				++$rowID;
 			}
 			++$worksheetID;
