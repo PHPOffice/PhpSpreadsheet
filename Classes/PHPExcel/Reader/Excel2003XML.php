@@ -207,6 +207,34 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 	}
 
 	/**
+	 * Reads names of the worksheets from a file, without parsing the whole file to a PHPExcel object
+	 *
+	 * @param 	string 		$pFilename
+	 * @throws 	Exception
+	 */
+	public function listWorksheetNames($pFilename)
+	{
+		// Check if file exists
+		if (!file_exists($pFilename)) {
+			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+		}
+
+		$worksheetNames = array();
+
+		$xml = simplexml_load_file($pFilename);
+		$namespaces = $xml->getNamespaces(true);
+
+		$xml_ss = $xml->children($namespaces['ss']);
+		foreach($xml_ss->Worksheet as $worksheet) {
+			$worksheet_ss = $worksheet->attributes($namespaces['ss']);
+			$worksheetNames[] = $worksheet_ss['Name'];
+		}
+
+		return $worksheetNames;
+	}
+
+
+	/**
 	 * Loads PHPExcel from file
 	 *
 	 * @param 	string 		$pFilename
@@ -512,9 +540,10 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 //		echo '<hr />';
 
 		$worksheetID = 0;
-		foreach($xml->Worksheet as $worksheet) {
+		$xml_ss = $xml->children($namespaces['ss']);
+		foreach($xml_ss->Worksheet as $worksheet) {
 			$worksheet_ss = $worksheet->attributes($namespaces['ss']);
-//			echo $worksheet_ss['Name'],'<br />';
+
 			if ((isset($this->_loadSheetsOnly)) && (isset($worksheet_ss['Name'])) &&
 				(!in_array($worksheet_ss['Name'], $this->_loadSheetsOnly))) {
 				continue;
