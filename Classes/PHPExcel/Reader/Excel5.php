@@ -494,6 +494,55 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	}
 
 	/**
+	 * Reads names of the worksheets from a file, without parsing the whole file to a PHPExcel object
+	 *
+	 * @param 	string 		$pFilename
+	 * @throws 	Exception
+	 */
+	public function listWorksheetNames($pFilename)
+	{
+		// Check if file exists
+		if (!file_exists($pFilename)) {
+			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+		}
+
+		$worksheetNames = array();
+
+		// Read the OLE file
+		$this->_loadOLE($pFilename);
+
+		// total byte size of Excel data (workbook global substream + sheet substreams)
+		$this->_dataSize = strlen($this->_data);
+
+		$this->_pos		= 0;
+		$this->_sheets	= array();
+
+		// Parse Workbook Global Substream
+		while ($this->_pos < $this->_dataSize) {
+			$code = self::_GetInt2d($this->_data, $this->_pos);
+
+			switch ($code) {
+				case self::XLS_Type_BOF:	$this->_readBof();		break;
+				case self::XLS_Type_SHEET:	$this->_readSheet();	break;
+				case self::XLS_Type_EOF:	$this->_readDefault();	break 2;
+				default:					$this->_readDefault();	break;
+			}
+		}
+
+		foreach ($this->_sheets as $sheet) {
+			if ($sheet['sheetType'] != 0x00) {
+				// 0x00: Worksheet, 0x02: Chart, 0x06: Visual Basic module
+				continue;
+			}
+
+			$worksheetNames[] = $sheet['name'];
+		}
+
+		return $worksheetNames;
+	}
+
+
+	/**
 	 * Loads PHPExcel from file
 	 *
 	 * @param 	string 		$pFilename

@@ -277,16 +277,47 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 			$contents = $archive->getFromName(substr($fileName, 1));
 		}
 
-		/*
-		if (strpos($contents, '<?xml') !== false && strpos($contents, '<?xml') !== 0)
-		{
-			$contents = substr($contents, strpos($contents, '<?xml'));
-		}
-		var_dump($fileName);
-		var_dump($contents);
-		*/
 		return $contents;
 	}
+
+	/**
+	 * Reads names of the worksheets from a file, without parsing the whole file to a PHPExcel object
+	 *
+	 * @param 	string 		$pFilename
+	 * @throws 	Exception
+	 */
+	public function listWorksheetNames($pFilename)
+	{
+		// Check if file exists
+		if (!file_exists($pFilename)) {
+			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+		}
+
+		$worksheetNames = array();
+
+		$zip = new ZipArchive;
+		$zip->open($pFilename);
+
+		$rels = simplexml_load_string($this->_getFromZipArchive($zip, "_rels/.rels")); //~ http://schemas.openxmlformats.org/package/2006/relationships");
+		foreach ($rels->Relationship as $rel) {
+			switch ($rel["Type"]) {
+				case "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument":
+					$xmlWorkbook = simplexml_load_string($this->_getFromZipArchive($zip, "{$rel['Target']}"));  //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main");
+
+					if ($xmlWorkbook->sheets) {
+						foreach ($xmlWorkbook->sheets->sheet as $eleSheet) {
+							// Check if sheet should be skipped
+							$worksheetNames[] = (string) $eleSheet["name"];
+						}
+					}
+			}
+		}
+
+		$zip->close();
+
+		return $worksheetNames;
+	}
+
 
 	/**
 	 * Loads PHPExcel from file
@@ -1427,6 +1458,8 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 			}
 
 		}
+
+		$zip->close();
 
 		return $excel;
 	}

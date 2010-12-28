@@ -26,10 +26,12 @@
 Fixed in SVN:
 - Feature:  (MBaker) Provide option to use PCLZip as an alternative to ZipArchive.
 					 This allows the writing of Excel2007 files, even without ZipArchive enabled (it does require zlib), or when php_zip is one of the buggy PHP 5.2.6 or 5.2.8 versions
+- Feature:	(MBaker) Work item 14979 - Added listWorksheetNames() method to Excel2007 and Excel5 Readers, allowing a user to extract a list of worksheet names from a file without parsing/loading the whole file.
 - Bugfix:   (MBaker) Work item 14888 - Simple =IF() formula disappears
 - Bugfix:	(MBaker) Work item 14898 - PHP Warning: preg_match(): Compilation failed: PCRE does not support \\L, \\l, \\N, \\P, \\p, \\U, \\u, or \\X
 - Bugfix:	(MBaker) Work item 14901 - VLOOKUP choking on parameters in PHPExcel.1.7.5/PHPExcel_Writer_Excel2007
 - Bugfix:	(MBaker) Work item 14973 - PHPExcel_Cell::isInRange() incorrect results - offset by one column
+
 
 
 2010-12-10 (v1.7.5):
