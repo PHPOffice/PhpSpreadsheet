@@ -2,7 +2,7 @@
 /**
  * PHPExcel
  *
- * Copyright (c) 2006 - 2010 PHPExcel
+ * Copyright (c) 2006 - 2011 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@
  *
  * @category	PHPExcel
  * @package		PHPExcel_Writer
- * @copyright	Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright	Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license		http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version		##VERSION##, ##DATE##
  */
@@ -35,7 +35,7 @@ require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/PDF/tcpdf.php';
  *
  * @category	PHPExcel
  * @package		PHPExcel_Writer
- * @copyright	Copyright (c) 2006 - 2010 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright	Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Writer_PDF extends PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	/**
