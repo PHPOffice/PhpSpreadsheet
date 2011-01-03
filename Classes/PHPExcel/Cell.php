@@ -498,7 +498,7 @@ class PHPExcel_Cell
 	 */
 	public static function coordinateFromString($pCoordinateString = 'A1')
 	{
-		if (preg_match("/^([$]?[A-Z]{1,3})([$]?\d{1,5})$/", $pCoordinateString, $matches)) {
+		if (preg_match("/^([$]?[A-Z]{1,3})([$]?\d{1,7})$/", $pCoordinateString, $matches)) {
 			return array($matches[1],$matches[2]);
 		} elseif ((strpos($pCoordinateString,':') !== false) || (strpos($pCoordinateString,',') !== false)) {
 			throw new Exception('Cell coordinate string can not be a range of cells.');
