@@ -1661,6 +1661,17 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 			PHPExcel_Cell::stringFromColumnIndex($pColumn2) . $pRow2
 		);
 	}
+    
+    /**
+     * Remove autofilter
+     * 
+     * @return PHPExcel_Worksheet
+     */
+    public function removeAutoFilter()
+    {
+    	$this->_autoFilter = '';
+    	return $this;
+    }
 
 	/**
 	 * Get Freeze Pane
