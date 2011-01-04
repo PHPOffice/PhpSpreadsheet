@@ -27,13 +27,14 @@ Fixed in SVN:
 - Feature:  (MBaker) Provide option to use PCLZip as an alternative to ZipArchive.
 					 This allows the writing of Excel2007 files, even without ZipArchive enabled (it does require zlib), or when php_zip is one of the buggy PHP 5.2.6 or 5.2.8 versions
 - Feature:	(MBaker) Work item 14979 - Added listWorksheetNames() method to Readers that support multiple worksheets in a workbook, allowing a user to extract a list of all the worksheet names from a file without parsing/loading the whole file.
+- Feature:	(MBaker) Speed boost and memory reduction in the Worksheet toArray() method.
 - Bugfix:   (MBaker) Work item 14888 - Simple =IF() formula disappears
 - Bugfix:	(MBaker) Work item 14898 - PHP Warning: preg_match(): Compilation failed: PCRE does not support \\L, \\l, \\N, \\P, \\p, \\U, \\u, or \\X
 - Bugfix:	(MBaker) Work item 14901 - VLOOKUP choking on parameters in PHPExcel.1.7.5/PHPExcel_Writer_Excel2007
 - Bugfix:	(MBaker) Work item 14973 - PHPExcel_Cell::isInRange() incorrect results - offset by one column
 - Bugfix:   (MBaker) Treat CodePage of 0 as CP1251 (for .xls files written by applications that don't set the CodePage correctly, such as Apple Numbers)
-- Bugfix:	(MB) Work item 11583 - Need method for removing autoFilter 
-- Bugfix:	(MBaker) Work item 15029 - coordinateFromString throws exception for rows greater than 99,999 
+- Bugfix:	(MB) Work item 11583 - Need method for removing autoFilter
+- Bugfix:	(MBaker) Work item 15029 - coordinateFromString throws exception for rows greater than 99,999
 
 
 2010-12-10 (v1.7.5):

@@ -1661,10 +1661,10 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 			PHPExcel_Cell::stringFromColumnIndex($pColumn2) . $pRow2
 		);
 	}
-    
+
     /**
      * Remove autofilter
-     * 
+     *
      * @return PHPExcel_Worksheet
      */
     public function removeAutoFilter()
@@ -2150,36 +2150,42 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		// Garbage collect...
 		$this->garbageCollect();
 
-		// Loop through rows
-		$r = -1;
-		$rowIterator = $this->getRowIterator();
-		foreach ($rowIterator as $row) {
-			++$r;
-			$cellIterator = $row->getCellIterator();
-			$cellIterator->setIterateOnlyExistingCells(true); // Loop through each cell in the current row
-			$c = -1;
-			foreach ($cellIterator as $cell) {
-				++$c;
-				$rRef = ($returnCellRef) ? $cell->getRow() : $r;
-				$cRef = ($returnCellRef) ? $cell->getColumn() : $c;
-				if (!is_null($cell)) {
-					// Cell exists?
-					if ($cell->getValue() instanceof PHPExcel_RichText) {
-						$returnValue[$rRef][$cRef] = $cell->getValue()->getPlainText();
-					} else {
-						if ($calculateFormulas) {
-							$returnValue[$rRef][$cRef] = $cell->getCalculatedValue();
-						} else {
-							$returnValue[$rRef][$cRef] = $cell->getValue();
-						}
-					}
+		//	Identify the range that we need to extract from the worksheet
+		$maxCol = $this->getHighestColumn();
+		$maxRow = $this->getHighestRow();
+		$maxCol++;
 
-					if ($formatData) {
-						$style = $this->_parent->getCellXfByIndex($cell->getXfIndex());
-						$returnValue[$rRef][$cRef] = PHPExcel_Style_NumberFormat::toFormattedString($returnValue[$rRef][$cRef], $style->getNumberFormat()->getFormatCode());
+		// Loop through rows
+		for ($row = 1; $row <= $maxRow; ++$row) {
+			$c = -1;
+			// Loop through columns in the current row
+			for ($col = 'A'; $col != $maxCol; ++$col) {
+				$rRef = ($returnCellRef) ? $row : $row-1;
+				$cRef = ($returnCellRef) ? $col : ++$c;
+				//	Using getCell() will create a new cell if it doesn't already exist. We don't want that to happen
+				//		so we test and retrieve directly against _cellCollection
+				if ($this->_cellCollection->isDataSet($col.$row)) {
+					// Cell exists
+					$cell = $this->_cellCollection->getCacheData($col.$row);
+					if ($cell->getValue() !== null) {
+						if ($cell->getValue() instanceof PHPExcel_RichText) {
+							$returnValue[$rRef][$cRef] = $cell->getValue()->getPlainText();
+						} else {
+							if ($calculateFormulas) {
+								$returnValue[$rRef][$cRef] = $cell->getCalculatedValue();
+							} else {
+								$returnValue[$rRef][$cRef] = $cell->getValue();
+							}
+						}
+
+						if ($formatData) {
+							$style = $this->_parent->getCellXfByIndex($cell->getXfIndex());
+							$returnValue[$row][$cRef] = PHPExcel_Style_NumberFormat::toFormattedString($returnValue[$rRef][$cRef], $style->getNumberFormat()->getFormatCode());
+						}
+					} else {
+						// Cell doesn't exist
+						$returnValue[$rRef][$cRef] = $nullValue;
 					}
-				} else {
-					$returnValue[$rRef][$cRef] = $nullValue;
 				}
 			}
 		}
