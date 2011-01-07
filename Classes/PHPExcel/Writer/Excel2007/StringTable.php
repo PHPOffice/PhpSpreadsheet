@@ -59,24 +59,22 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
 			// Fill index array
 			$aFlippedStringTable = $this->flipStringTable($aStringTable);
 
-	        // Loop through cells
-	        foreach ($pSheet->getCellCollection() as $cellID) {
+			// Loop through cells
+			foreach ($pSheet->getCellCollection() as $cellID) {
 				$cell = $pSheet->getCell($cellID);
-	        	if (!is_object($cell->getValue()) &&
-	        		!isset($aFlippedStringTable[$cell->getValue()]) &&
-	        		!is_null($cell->getValue()) &&
-	        		$cell->getValue() !== '' &&
-	        		($cell->getDataType() == PHPExcel_Cell_DataType::TYPE_STRING || $cell->getDataType() == PHPExcel_Cell_DataType::TYPE_STRING2 || $cell->getDataType() == PHPExcel_Cell_DataType::TYPE_NULL)
-	        	) {
-	        			$aStringTable[] = $cell->getValue();
-						$aFlippedStringTable[$cell->getValue()] = 1;
-
-	        	} else if ($cell->getValue() instanceof PHPExcel_RichText &&
-	        			   !isset($aFlippedStringTable[$cell->getValue()->getHashCode()]) &&
-	        			   !is_null($cell->getValue())
-	        	) {
-	        		$aStringTable[] = $cell->getValue();
-					$aFlippedStringTable[$cell->getValue()->getHashCode()] = 1;
+				$cellValue = $cell->getValue();
+				if (!is_object($cellValue) &&
+					!is_null($cellValue) &&
+					$cellValue !== '' &&
+					!isset($aFlippedStringTable[$cellValue]) &&
+					($cell->getDataType() == PHPExcel_Cell_DataType::TYPE_STRING || $cell->getDataType() == PHPExcel_Cell_DataType::TYPE_STRING2 || $cell->getDataType() == PHPExcel_Cell_DataType::TYPE_NULL)) {
+						$aStringTable[] = $cellValue;
+						$aFlippedStringTable[$cellValue] = 1;
+				} elseif ($cellValue instanceof PHPExcel_RichText &&
+						  !is_null($cellValue) &&
+						  !isset($aFlippedStringTable[$cellValue->getHashCode()])) {
+								$aStringTable[] = $cellValue;
+								$aFlippedStringTable[$cellValue->getHashCode()] = 1;
 	        	}
 	        }
 
