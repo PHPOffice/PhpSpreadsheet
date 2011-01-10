@@ -39,6 +39,7 @@ Fixed in SVN:
 - Bugfix:	(MBaker) Work item 13215 - Formatting get lost and edit a template XLSX file
 - Bugfix:	(MBaker) Work item 14029 - Excel 2007 Reader /writer lost fontcolor
 - Bugfix:	(MBaker) Work item 13374 - file that makes cells go black
+- Bugfix:	(MBaker) Minor patchfix for Excel2003XML Reader when XML is defined with a charset attribute
 - General:  (MBaker) Improved performance (speed), for building the Shared Strings table in the Excel2007 Writer.
 
 

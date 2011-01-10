@@ -174,7 +174,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 //
 
 		$signature = array(
-				'<?xml version="1.0"?>',
+				'<?xml version="1.0"',
 				'<?mso-application progid="Excel.Sheet"?>'
 			);
 
@@ -188,16 +188,10 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 		$data = fread($fh, 2048);
 		fclose($fh);
 
-		$headers = explode("\n",$data);
 		$valid = true;
-		foreach($signature as $key => $match) {
-			if (isset($headers[$key])) {
-				$line = trim(rtrim($headers[$key], "\r\n"));
-				if ($line != $match) {
-					$valid = false;
-					break;
-				}
-			} else {
+		foreach($signature as $match) {
+			// every part of the signature must be present
+			if (strpos($data, $match) === false) {
 				$valid = false;
 				break;
 			}
