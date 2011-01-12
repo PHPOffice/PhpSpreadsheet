@@ -2134,8 +2134,9 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	}
 
 	/**
-	 * Create array from worksheet
+	 * Create array from a range of cells
 	 *
+	 * @param	string	$pRange					Range of cells (i.e. "A1:B10"), or just one cell (i.e. "A1")
 	 * @param	mixed	$nullValue				Value returned in the array entry if a cell doesn't exist
 	 * @param	boolean	$calculateFormulas		Should formulas be calculated?
 	 * @param	boolean	$formatData				Should formatting be applied to cell values?
@@ -2143,23 +2144,24 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 *											True - Return rows and columns indexed by their actual row and column IDs
 	 * @return array
 	 */
-	public function toArray($nullValue = null, $calculateFormulas = true, $formatData = true, $returnCellRef = false) {
+	public function rangeToArray($pRange = 'A1', $nullValue = null, $calculateFormulas = true, $formatData = true, $returnCellRef = false) {
 		// Returnvalue
 		$returnValue = array();
 
-		// Garbage collect...
-		$this->garbageCollect();
-
 		//	Identify the range that we need to extract from the worksheet
-		$maxCol = $this->getHighestColumn();
-		$maxRow = $this->getHighestRow();
+		list($rangeStart, $rangeEnd) = PHPExcel_Cell::rangeBoundaries($pRange);
+		$minCol = PHPExcel_Cell::stringFromColumnIndex($rangeStart[0] -1);
+		$minRow = $rangeStart[1];
+		$maxCol = PHPExcel_Cell::stringFromColumnIndex($rangeEnd[0] -1);
+		$maxRow = $rangeEnd[1];
+
 		$maxCol++;
 
 		// Loop through rows
-		for ($row = 1; $row <= $maxRow; ++$row) {
+		for ($row = $minRow; $row <= $maxRow; ++$row) {
 			$c = -1;
 			// Loop through columns in the current row
-			for ($col = 'A'; $col != $maxCol; ++$col) {
+			for ($col = $minCol; $col != $maxCol; ++$col) {
 				$rRef = ($returnCellRef) ? $row : $row-1;
 				$cRef = ($returnCellRef) ? $col : ++$c;
 				//	Using getCell() will create a new cell if it doesn't already exist. We don't want that to happen
@@ -2192,6 +2194,56 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 
 		// Return
 		return $returnValue;
+	}
+
+
+	/**
+	 * Create array from a range of cells
+	 *
+	 * @param	string	$pNamedRange			Name of the Named Range
+	 * @param	mixed	$nullValue				Value returned in the array entry if a cell doesn't exist
+	 * @param	boolean	$calculateFormulas		Should formulas be calculated?
+	 * @param	boolean	$formatData				Should formatting be applied to cell values?
+	 * @param	boolean	$returnCellRef			False - Return a simple array of rows and columns indexed by number counting from zero
+	 *											True - Return rows and columns indexed by their actual row and column IDs
+	 * @return array
+	 * @throws Exception
+	 */
+	public function namedRangeToArray($pNamedRange = '', $nullValue = null, $calculateFormulas = true, $formatData = true, $returnCellRef = false) {
+		$namedRange = PHPExcel_NamedRange::resolveRange($pNamedRange, $this);
+		if (!is_null($namedRange)) {
+			$pWorkSheet = $namedRange->getWorksheet();
+			$pCellRange = $namedRange->getRange();
+
+			return $pWorkSheet->rangeToArray(	$pCellRange,
+												$nullValue, $calculateFormulas, $formatData, $returnCellRef);
+		}
+
+		throw new Exception('Named Range '.$pNamedRange.' does not exist.');
+	}
+
+
+	/**
+	 * Create array from worksheet
+	 *
+	 * @param	mixed	$nullValue				Value returned in the array entry if a cell doesn't exist
+	 * @param	boolean	$calculateFormulas		Should formulas be calculated?
+	 * @param	boolean	$formatData				Should formatting be applied to cell values?
+	 * @param	boolean	$returnCellRef			False - Return a simple array of rows and columns indexed by number counting from zero
+	 *											True - Return rows and columns indexed by their actual row and column IDs
+	 * @return array
+	 */
+	public function toArray($nullValue = null, $calculateFormulas = true, $formatData = true, $returnCellRef = false) {
+		// Garbage collect...
+		$this->garbageCollect();
+
+		//	Identify the range that we need to extract from the worksheet
+		$maxCol = $this->getHighestColumn();
+		$maxRow = $this->getHighestRow();
+
+		// Return
+		return $this->rangeToArray(	'A1:'.$maxCol.$maxRow,
+									$nullValue, $calculateFormulas, $formatData, $returnCellRef);
 	}
 
 	/**
