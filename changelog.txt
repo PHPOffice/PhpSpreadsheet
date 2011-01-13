@@ -44,6 +44,7 @@ Fixed in SVN:
 - Bugfix:	(MBaker) Work item 13374 - file that makes cells go black
 - Bugfix:	(MBaker) Minor patchfix for Excel2003XML Reader when XML is defined with a charset attribute
 - Bugfix:	(MBaker) Work item 15089 - PHPExcel_Worksheet->toArray() index problem
+- Bugfix:	(MBaker) Work item 15094 - Merge cells 'un-merge' when using an existing spreadsheet
 - General:  (MBaker) Improved performance (speed), for building the Shared Strings table in the Excel2007 Writer.
 
 
