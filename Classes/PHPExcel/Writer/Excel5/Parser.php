@@ -510,6 +510,7 @@ class PHPExcel_Writer_Excel5_Parser
 			  'VARPA'           => array( 365,   -1,    0,    0 ),
 			  'STDEVA'          => array( 366,   -1,    0,    0 ),
 			  'VARA'            => array( 367,   -1,    0,    0 ),
+			  'BAHTTEXT'        => array( 368,    1,    0,    0 ),
 			  );
 	}
 

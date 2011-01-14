@@ -5200,6 +5200,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 			case 352: $function = 'DATESTRING';		$args = 1;	break;
 			case 353: $function = 'NUMBERSTRING';	$args = 2;	break;
 			case 360: $function = 'PHONETIC';		$args = 1;	break;
+			case 368: $function = 'BAHTTEXT';		$args = 1;	break;
 			default:
 				throw new Exception('Unrecognized function in formula');
 				break;
