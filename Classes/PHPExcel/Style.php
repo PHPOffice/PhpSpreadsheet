@@ -632,13 +632,13 @@ class PHPExcel_Style implements PHPExcel_IComparable
 		}
 
     	return md5(
-    		  $this->getFill()->getHashCode()
-    		. $this->getFont()->getHashCode()
-    		. $this->getBorders()->getHashCode()
-    		. $this->getAlignment()->getHashCode()
-    		. $this->getNumberFormat()->getHashCode()
+    		  $this->_fill->getHashCode()
+    		. $this->_font->getHashCode()
+    		. $this->_borders->getHashCode()
+    		. $this->_alignment->getHashCode()
+    		. $this->_numberFormat->getHashCode()
     		. $hashConditionals
-    		. $this->getProtection()->getHashCode()
+    		. $this->_protection->getHashCode()
     		. __CLASS__
     	);
     }

@@ -406,6 +406,7 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 				if (isset($sheet->PrintInformation->Margins)) {
 					foreach($sheet->PrintInformation->Margins->children('gnm',TRUE) as $key => $margin) {
 						$marginAttributes = $margin->attributes();
+						$marginSize = 72 / 100;	//	Default
 						switch($marginAttributes['PrefUnit']) {
 							case 'mm' :
 								$marginSize = intval($marginAttributes['Points']) / 100;
@@ -506,6 +507,14 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 				$objPHPExcel->getActiveSheet()->getCell($column.$row)->setValueExplicit($cell,$type);
 			}
 
+			if ((!$this->_readDataOnly) && (isset($sheet->Objects))) {
+				foreach($sheet->Objects->children('gnm',TRUE) as $key => $comment) {
+					$commentAttributes = $comment->attributes();
+					$objPHPExcel->getActiveSheet()->getComment( (string)$commentAttributes->ObjectBound )
+														->setAuthor( (string)$commentAttributes->Author )
+														->setText($this->_parseRichText((string)$commentAttributes->Text) );
+				}
+			}
 //			echo '$maxCol=',$maxCol,'; $maxRow=',$maxRow,'<br />';
 //
 			foreach($sheet->Styles->StyleRegion as $styleRegion) {
@@ -865,6 +874,14 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 				break;
 		}
 		return $styleArray;
+	}
+
+	private function _parseRichText($is = '') {
+		$value = new PHPExcel_RichText();
+
+		$value->createText($is);
+
+		return $value;
 	}
 
 	private static function _parseGnumericColour($gnmColour) {

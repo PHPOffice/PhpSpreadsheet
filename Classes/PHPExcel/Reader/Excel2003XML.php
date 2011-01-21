@@ -554,186 +554,217 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 			}
 
 			$columnID = 'A';
-			foreach($worksheet->Table->Column as $columnData) {
-				$columnData_ss = $columnData->attributes($namespaces['ss']);
-				if (isset($columnData_ss['Index'])) {
-					$columnID = PHPExcel_Cell::stringFromColumnIndex($columnData_ss['Index']-1);
-				}
-				if (isset($columnData_ss['Width'])) {
-					$columnWidth = $columnData_ss['Width'];
-//					echo '<b>Setting column width for '.$columnID.' to '.$columnWidth.'</b><br />';
-					$objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth($columnWidth / 5.4);
-				}
-				++$columnID;
-			}
-
-			$rowID = 1;
-			foreach($worksheet->Table->Row as $rowData) {
-				$rowHasData = false;
-				$row_ss = $rowData->attributes($namespaces['ss']);
-				if (isset($row_ss['Index'])) {
-					$rowID = (integer) $row_ss['Index'];
-				}
-//				echo '<b>Row '.$rowID.'</b><br />';
-
-				$columnID = 'A';
-				foreach($rowData->Cell as $cell) {
-
-					$cell_ss = $cell->attributes($namespaces['ss']);
-					if (isset($cell_ss['Index'])) {
-						$columnID = PHPExcel_Cell::stringFromColumnIndex($cell_ss['Index']-1);
+			if (isset($worksheet->Table->Column)) {
+				foreach($worksheet->Table->Column as $columnData) {
+					$columnData_ss = $columnData->attributes($namespaces['ss']);
+					if (isset($columnData_ss['Index'])) {
+						$columnID = PHPExcel_Cell::stringFromColumnIndex($columnData_ss['Index']-1);
 					}
-					$cellRange = $columnID.$rowID;
-
-					if (!is_null($this->getReadFilter())) {
-						if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
-							continue;
-						}
-					}
-
-					if ((isset($cell_ss['MergeAcross'])) || (isset($cell_ss['MergeDown']))) {
-						$columnTo = $columnID;
-						if (isset($cell_ss['MergeAcross'])) {
-							$columnTo = PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($columnID) + $cell_ss['MergeAcross'] -1);
-						}
-						$rowTo = $rowID;
-						if (isset($cell_ss['MergeDown'])) {
-							$rowTo = $rowTo + $cell_ss['MergeDown'];
-						}
-						$cellRange .= ':'.$columnTo.$rowTo;
-						$objPHPExcel->getActiveSheet()->mergeCells($cellRange);
-					}
-
-					$cellIsSet = $hasCalculatedValue = false;
-					$cellDataFormula = '';
-					if (isset($cell_ss['Formula'])) {
-						$cellDataFormula = $cell_ss['Formula'];
-						// added this as a check for array formulas
-						if (isset($cell_ss['ArrayRange'])) {
-							$cellDataCSEFormula = $cell_ss['ArrayRange'];
-//							echo "found an array formula at ".$columnID.$rowID."<br />";
-						}
-						$hasCalculatedValue = true;
-					}
-					if (isset($cell->Data)) {
-						$cellValue = $cellData = $cell->Data;
-						$type = PHPExcel_Cell_DataType::TYPE_NULL;
-						$cellData_ss = $cellData->attributes($namespaces['ss']);
-						if (isset($cellData_ss['Type'])) {
-							$cellDataType = $cellData_ss['Type'];
-							switch ($cellDataType) {
-								/*
-								const TYPE_STRING		= 's';
-								const TYPE_FORMULA		= 'f';
-								const TYPE_NUMERIC		= 'n';
-								const TYPE_BOOL			= 'b';
-							    const TYPE_NULL			= 's';
-							    const TYPE_INLINE		= 'inlineStr';
-								const TYPE_ERROR		= 'e';
-								*/
-								case 'String' :
-										$type = PHPExcel_Cell_DataType::TYPE_STRING;
-										break;
-								case 'Number' :
-										$type = PHPExcel_Cell_DataType::TYPE_NUMERIC;
-										$cellValue = (float) $cellValue;
-										if (floor($cellValue) == $cellValue) {
-											$cellValue = (integer) $cellValue;
-										}
-										break;
-								case 'Boolean' :
-										$type = PHPExcel_Cell_DataType::TYPE_BOOL;
-										$cellValue = ($cellValue != 0);
-										break;
-								case 'DateTime' :
-										$type = PHPExcel_Cell_DataType::TYPE_NUMERIC;
-										$cellValue = PHPExcel_Shared_Date::PHPToExcel(strtotime($cellValue));
-										break;
-								case 'Error' :
-										$type = PHPExcel_Cell_DataType::TYPE_ERROR;
-										break;
-							}
-						}
-						if ($hasCalculatedValue) {
-							$type = PHPExcel_Cell_DataType::TYPE_FORMULA;
-							$columnNumber = PHPExcel_Cell::columnIndexFromString($columnID);
-							//	Convert R1C1 style references to A1 style references (but only when not quoted)
-							$temp = explode('"',$cellDataFormula);
-							foreach($temp as $key => &$value) {
-								//	Only replace in alternate array entries (i.e. non-quoted blocks)
-								if (($key % 2) == 0) {
-									preg_match_all('/(R(\[?-?\d*\]?))(C(\[?-?\d*\]?))/',$value, $cellReferences,PREG_SET_ORDER+PREG_OFFSET_CAPTURE);
-									//	Reverse the matches array, otherwise all our offsets will become incorrect if we modify our way
-									//		through the formula from left to right. Reversing means that we work right to left.through
-									//		the formula
-									$cellReferences = array_reverse($cellReferences);
-									//	Loop through each R1C1 style reference in turn, converting it to its A1 style equivalent,
-									//		then modify the formula to use that new reference
-									foreach($cellReferences as $cellReference) {
-										$rowReference = $cellReference[2][0];
-										//	Empty R reference is the current row
-										if ($rowReference == '') $rowReference = $rowID;
-										//	Bracketed R references are relative to the current row
-										if ($rowReference{0} == '[') $rowReference = $rowID + trim($rowReference,'[]');
-										$columnReference = $cellReference[4][0];
-										//	Empty C reference is the current column
-										if ($columnReference == '') $columnReference = $columnNumber;
-										//	Bracketed C references are relative to the current column
-										if ($columnReference{0} == '[') $columnReference = $columnNumber + trim($columnReference,'[]');
-										$A1CellReference = PHPExcel_Cell::stringFromColumnIndex($columnReference-1).$rowReference;
-											$value = substr_replace($value,$A1CellReference,$cellReference[0][1],strlen($cellReference[0][0]));
-									}
-								}
-							}
-							unset($value);
-							//	Then rebuild the formula string
-							$cellDataFormula = implode('"',$temp);
-						}
-
-//						echo 'Cell '.$columnID.$rowID.' is a '.$type.' with a value of '.(($hasCalculatedValue) ? $cellDataFormula : $cellValue).'<br />';
-//
-						$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->setValueExplicit((($hasCalculatedValue) ? $cellDataFormula : $cellValue),$type);
-						if ($hasCalculatedValue) {
-//							echo 'Formula result is '.$cellValue.'<br />';
-							$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->setCalculatedValue($cellValue);
-						}
-						$cellIsSet = $rowHasData = true;
-					}
-
-					if (($cellIsSet) && (isset($cell_ss['StyleID']))) {
-						$style = (string) $cell_ss['StyleID'];
-//						echo 'Cell style for '.$columnID.$rowID.' is '.$style.'<br />';
-						if ((isset($this->_styles[$style])) && (count($this->_styles[$style]) > 0)) {
-//							echo 'Cell '.$columnID.$rowID.'<br />';
-//							print_r($this->_styles[$style]);
-//							echo '<br />';
-							if (!$objPHPExcel->getActiveSheet()->cellExists($columnID.$rowID)) {
-								$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->setValue(NULL);
-							}
-							$objPHPExcel->getActiveSheet()->getStyle($cellRange)->applyFromArray($this->_styles[$style]);
-						}
+					if (isset($columnData_ss['Width'])) {
+						$columnWidth = $columnData_ss['Width'];
+//						echo '<b>Setting column width for '.$columnID.' to '.$columnWidth.'</b><br />';
+						$objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setWidth($columnWidth / 5.4);
 					}
 					++$columnID;
 				}
+			}
 
-				if ($rowHasData) {
-					if (isset($row_ss['StyleID'])) {
-						$rowStyle = $row_ss['StyleID'];
+			$rowID = 1;
+			if (isset($worksheet->Table->Row)) {
+				foreach($worksheet->Table->Row as $rowData) {
+					$rowHasData = false;
+					$row_ss = $rowData->attributes($namespaces['ss']);
+					if (isset($row_ss['Index'])) {
+						$rowID = (integer) $row_ss['Index'];
 					}
-					if (isset($row_ss['Height'])) {
-						$rowHeight = $row_ss['Height'];
-//						echo '<b>Setting row height to '.$rowHeight.'</b><br />';
-						$objPHPExcel->getActiveSheet()->getRowDimension($rowID)->setRowHeight($rowHeight);
+//					echo '<b>Row '.$rowID.'</b><br />';
+
+					$columnID = 'A';
+					foreach($rowData->Cell as $cell) {
+
+						$cell_ss = $cell->attributes($namespaces['ss']);
+						if (isset($cell_ss['Index'])) {
+							$columnID = PHPExcel_Cell::stringFromColumnIndex($cell_ss['Index']-1);
+						}
+						$cellRange = $columnID.$rowID;
+
+						if (!is_null($this->getReadFilter())) {
+							if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
+								continue;
+							}
+						}
+
+						if ((isset($cell_ss['MergeAcross'])) || (isset($cell_ss['MergeDown']))) {
+							$columnTo = $columnID;
+							if (isset($cell_ss['MergeAcross'])) {
+								$columnTo = PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($columnID) + $cell_ss['MergeAcross'] -1);
+							}
+							$rowTo = $rowID;
+							if (isset($cell_ss['MergeDown'])) {
+								$rowTo = $rowTo + $cell_ss['MergeDown'];
+							}
+							$cellRange .= ':'.$columnTo.$rowTo;
+							$objPHPExcel->getActiveSheet()->mergeCells($cellRange);
+						}
+
+						$cellIsSet = $hasCalculatedValue = false;
+						$cellDataFormula = '';
+						if (isset($cell_ss['Formula'])) {
+							$cellDataFormula = $cell_ss['Formula'];
+							// added this as a check for array formulas
+							if (isset($cell_ss['ArrayRange'])) {
+								$cellDataCSEFormula = $cell_ss['ArrayRange'];
+//								echo "found an array formula at ".$columnID.$rowID."<br />";
+							}
+							$hasCalculatedValue = true;
+						}
+						if (isset($cell->Data)) {
+							$cellValue = $cellData = $cell->Data;
+							$type = PHPExcel_Cell_DataType::TYPE_NULL;
+							$cellData_ss = $cellData->attributes($namespaces['ss']);
+							if (isset($cellData_ss['Type'])) {
+								$cellDataType = $cellData_ss['Type'];
+								switch ($cellDataType) {
+									/*
+									const TYPE_STRING		= 's';
+									const TYPE_FORMULA		= 'f';
+									const TYPE_NUMERIC		= 'n';
+									const TYPE_BOOL			= 'b';
+								    const TYPE_NULL			= 's';
+								    const TYPE_INLINE		= 'inlineStr';
+									const TYPE_ERROR		= 'e';
+									*/
+									case 'String' :
+											$type = PHPExcel_Cell_DataType::TYPE_STRING;
+											break;
+									case 'Number' :
+											$type = PHPExcel_Cell_DataType::TYPE_NUMERIC;
+											$cellValue = (float) $cellValue;
+											if (floor($cellValue) == $cellValue) {
+												$cellValue = (integer) $cellValue;
+											}
+											break;
+									case 'Boolean' :
+											$type = PHPExcel_Cell_DataType::TYPE_BOOL;
+											$cellValue = ($cellValue != 0);
+											break;
+									case 'DateTime' :
+											$type = PHPExcel_Cell_DataType::TYPE_NUMERIC;
+											$cellValue = PHPExcel_Shared_Date::PHPToExcel(strtotime($cellValue));
+											break;
+									case 'Error' :
+											$type = PHPExcel_Cell_DataType::TYPE_ERROR;
+											break;
+								}
+							}
+
+							if ($hasCalculatedValue) {
+								$type = PHPExcel_Cell_DataType::TYPE_FORMULA;
+								$columnNumber = PHPExcel_Cell::columnIndexFromString($columnID);
+								//	Convert R1C1 style references to A1 style references (but only when not quoted)
+								$temp = explode('"',$cellDataFormula);
+								foreach($temp as $key => &$value) {
+									//	Only replace in alternate array entries (i.e. non-quoted blocks)
+									if (($key % 2) == 0) {
+										preg_match_all('/(R(\[?-?\d*\]?))(C(\[?-?\d*\]?))/',$value, $cellReferences,PREG_SET_ORDER+PREG_OFFSET_CAPTURE);
+										//	Reverse the matches array, otherwise all our offsets will become incorrect if we modify our way
+										//		through the formula from left to right. Reversing means that we work right to left.through
+										//		the formula
+										$cellReferences = array_reverse($cellReferences);
+										//	Loop through each R1C1 style reference in turn, converting it to its A1 style equivalent,
+										//		then modify the formula to use that new reference
+										foreach($cellReferences as $cellReference) {
+											$rowReference = $cellReference[2][0];
+											//	Empty R reference is the current row
+											if ($rowReference == '') $rowReference = $rowID;
+											//	Bracketed R references are relative to the current row
+											if ($rowReference{0} == '[') $rowReference = $rowID + trim($rowReference,'[]');
+											$columnReference = $cellReference[4][0];
+											//	Empty C reference is the current column
+											if ($columnReference == '') $columnReference = $columnNumber;
+											//	Bracketed C references are relative to the current column
+											if ($columnReference{0} == '[') $columnReference = $columnNumber + trim($columnReference,'[]');
+											$A1CellReference = PHPExcel_Cell::stringFromColumnIndex($columnReference-1).$rowReference;
+												$value = substr_replace($value,$A1CellReference,$cellReference[0][1],strlen($cellReference[0][0]));
+										}
+									}
+								}
+								unset($value);
+								//	Then rebuild the formula string
+								$cellDataFormula = implode('"',$temp);
+							}
+
+//							echo 'Cell '.$columnID.$rowID.' is a '.$type.' with a value of '.(($hasCalculatedValue) ? $cellDataFormula : $cellValue).'<br />';
+//
+							$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->setValueExplicit((($hasCalculatedValue) ? $cellDataFormula : $cellValue),$type);
+							if ($hasCalculatedValue) {
+//								echo 'Formula result is '.$cellValue.'<br />';
+								$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->setCalculatedValue($cellValue);
+							}
+							$cellIsSet = $rowHasData = true;
+						}
+
+						if (isset($cell->Comment)) {
+//							echo '<b>comment found</b><br />';
+							$commentAttributes = $cell->Comment->attributes($namespaces['ss']);
+							$author = 'unknown';
+							if (isset($commentAttributes->Author)) {
+								$author = (string)$commentAttributes->Author;
+//								echo 'Author: ',$author,'<br />';
+							}
+							$node = $cell->Comment->Data->asXML();
+//							$annotation = str_replace('html:','',substr($node,49,-10));
+//							echo $annotation,'<br />';
+							$annotation = strip_tags($node);
+//							echo 'Annotation: ',$annotation,'<br />';
+							$objPHPExcel->getActiveSheet()->getComment( $columnID.$rowID )
+															->setAuthor( $author )
+															->setText($this->_parseRichText($annotation) );
+						}
+
+						if (($cellIsSet) && (isset($cell_ss['StyleID']))) {
+							$style = (string) $cell_ss['StyleID'];
+//							echo 'Cell style for '.$columnID.$rowID.' is '.$style.'<br />';
+							if ((isset($this->_styles[$style])) && (count($this->_styles[$style]) > 0)) {
+//								echo 'Cell '.$columnID.$rowID.'<br />';
+//								print_r($this->_styles[$style]);
+//								echo '<br />';
+								if (!$objPHPExcel->getActiveSheet()->cellExists($columnID.$rowID)) {
+									$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->setValue(NULL);
+								}
+								$objPHPExcel->getActiveSheet()->getStyle($cellRange)->applyFromArray($this->_styles[$style]);
+							}
+						}
+						++$columnID;
 					}
+
+					if ($rowHasData) {
+						if (isset($row_ss['StyleID'])) {
+							$rowStyle = $row_ss['StyleID'];
+						}
+						if (isset($row_ss['Height'])) {
+							$rowHeight = $row_ss['Height'];
+//							echo '<b>Setting row height to '.$rowHeight.'</b><br />';
+							$objPHPExcel->getActiveSheet()->getRowDimension($rowID)->setRowHeight($rowHeight);
+						}
+					}
+
+					++$rowID;
 				}
-
-				++$rowID;
 			}
 			++$worksheetID;
 		}
 
 		// Return
 		return $objPHPExcel;
+	}
+
+	private function _parseRichText($is = '') {
+		$value = new PHPExcel_RichText();
+
+		$value->createText($is);
+
+		return $value;
 	}
 
 }

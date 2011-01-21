@@ -26,11 +26,14 @@
 Fixed in SVN:
 - Feature:  (MBaker) Provide option to use PCLZip as an alternative to ZipArchive.
 					 This allows the writing of Excel2007 files, even without ZipArchive enabled (it does require zlib), or when php_zip is one of the buggy PHP 5.2.6 or 5.2.8 versions
+					 It can be enabled using PHPExcel_Settings::setZipClass(PHPExcel_Settings::PCLZIP);
+					 Note that it is not yet implemented as an alternative to ZipArchive for those Readers that are extracting from zips
 - Feature:	(MBaker) Work item 14979 - Added listWorksheetNames() method to Readers that support multiple worksheets in a workbook, allowing a user to extract a list of all the worksheet names from a file without parsing/loading the whole file.
 - Feature:	(MBaker) Speed boost and memory reduction in the Worksheet toArray() method.
 - Feature:	(MBaker) Added new rangeToArray() and namedRangeToArray() methods to the PHPExcel_Worksheet object.
 					 Functionally, these are identical to the toArray() method, except that they take an additional first parameter of a Range (e.g. 'B2:C3') or a Named Range name.
 					 Modified the toArray() method so that it actually uses rangeToArray().
+- Feature:	(MBaker) Added support for cell comments in the Gnumeric and Excel2003XML Readers
 - Bugfix:   (MBaker) Work item 14888 - Simple =IF() formula disappears
 - Bugfix:	(MBaker) Work item 14898 - PHP Warning: preg_match(): Compilation failed: PCRE does not support \\L, \\l, \\N, \\P, \\p, \\U, \\u, or \\X
 - Bugfix:	(MBaker) Work item 14901 - VLOOKUP choking on parameters in PHPExcel.1.7.5/PHPExcel_Writer_Excel2007
