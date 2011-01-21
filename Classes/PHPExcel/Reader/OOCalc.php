@@ -405,6 +405,7 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 
 //									echo '<b>'.$columnID.$rowID.'</b><br />';
 									$cellDataText = $cellData->children($namespacesContent['text']);
+									$cellDataOffice = $cellData->children($namespacesContent['office']);
 									$cellDataOfficeAttributes = $cellData->attributes($namespacesContent['office']);
 									$cellDataTableAttributes = $cellData->attributes($namespacesContent['table']);
 
@@ -422,6 +423,22 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 									if (isset($cellDataTableAttributes['formula'])) {
 										$cellDataFormula = $cellDataTableAttributes['formula'];
 										$hasCalculatedValue = true;
+									}
+
+									if (isset($cellDataOffice->annotation)) {
+//										echo 'Cell has comment<br />';
+										$annotationText = $cellDataOffice->annotation->children($namespacesContent['text']);
+										$textArray = array();
+										foreach($annotationText as $t) {
+											foreach($t->span as $text) {
+												$textArray[] = (string)$text;
+											}
+										}
+										$text = implode("\n",$textArray);
+//										echo $text,'<br />';
+										$objPHPExcel->getActiveSheet()->getComment( $columnID.$rowID )
+//																		->setAuthor( $author )
+																		->setText($this->_parseRichText($text) );
 									}
 
 									if (isset($cellDataText->p)) {
@@ -537,6 +554,14 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 
 		// Return
 		return $objPHPExcel;
+	}
+
+	private function _parseRichText($is = '') {
+		$value = new PHPExcel_RichText();
+
+		$value->createText($is);
+
+		return $value;
 	}
 
 }
