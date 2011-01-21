@@ -2105,6 +2105,11 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 */
 	public function fromArray($source = null, $nullValue = null, $startCell = 'A1', $strictNullComparison = false) {
 		if (is_array($source)) {
+			//	Convert a 1-D array to 2-D (for ease of looping)
+			if (!is_array(end($source))) {
+				$source = array($source);
+			}
+
 			// start coordinate
 			list ($startColumn, $startRow) = PHPExcel_Cell::coordinateFromString($startCell);
 
