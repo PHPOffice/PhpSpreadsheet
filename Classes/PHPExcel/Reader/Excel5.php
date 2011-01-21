@@ -1334,6 +1334,11 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 		$this->_pos += 4 + $length;
 	}
 
+
+	/**
+	 *	The NOTE record specifies a comment associated with a particular cell. In Excel 95 (BIFF7) and earlier versions,
+	 *		this record stores a note (cell note). This feature was significantly enhanced in Excel 97.
+	 */
 	private function _readNote()
 	{
 //		echo '<b>Read Cell Annotation</b><br />';
@@ -1351,23 +1356,36 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 		if ($this->_version == self::XLS_BIFF8) {
 			$noteObjID = self::_GetInt2d($recordData, 6);
 			$noteAuthor = trim(substr($recordData, 8));
-
 //			echo 'Note Address=',$cellAddress,'<br />';
 //			echo 'Note Object ID=',$noteObjID,'<br />';
 //			echo 'Note Author=',$noteAuthor,'<hr />';
 		} else {
-			$cellAddress = str_replace('$','',$cellAddress);
-//			$noteLength = self::_GetInt2d($recordData, 4);
-			$noteText = trim(substr($recordData, 6));
-
-
+			$extension = false;
+			if ($cellAddress == '$B$65536') {
+				//	If the address row is -1 and the column is 0, (which translates as $B$65536) then this is a continuation
+				//		note from the previous cell annotation. We're not yet handling this, so annotations longer than the
+				//		max 2048 bytes will probably throw a wobbly.
+				$row = self::_GetInt2d($recordData, 0);
+				$extension = true;
+				$cellAddress = array_pop(array_keys($this->_phpSheet->getComments()));
+			}
 //			echo 'Note Address=',$cellAddress,'<br />';
+
+			$cellAddress = str_replace('$','',$cellAddress);
+			$noteLength = self::_GetInt2d($recordData, 4);
+			$noteText = trim(substr($recordData, 6));
 //			echo 'Note Length=',$noteLength,'<br />';
 //			echo 'Note Text=',$noteText,'<br />';
 
-			$this->_phpSheet->getComment( $cellAddress )
-//												->setAuthor( $author )
-												->setText($this->_parseRichText($noteText) );
+			if ($extension) {
+				$comment = $this->_phpSheet->getComment( $cellAddress );
+				$commentText = $comment->getText()->getPlainText();
+				$comment->setText($this->_parseRichText($commentText.$noteText) );
+			} else {
+				$this->_phpSheet->getComment( $cellAddress )
+//													->setAuthor( $author )
+													->setText($this->_parseRichText($noteText) );
+			}
 		}
 
 	}
