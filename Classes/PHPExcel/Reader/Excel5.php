@@ -820,11 +820,11 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 				$offsetX = $startOffsetX * PHPExcel_Shared_Excel5::sizeCol($this->_phpSheet, $startColumn) / 1024;
 				$offsetY = $startOffsetY * PHPExcel_Shared_Excel5::sizeRow($this->_phpSheet, $startRow) / 256;
 
-				switch ($obj['type']) {
+				switch ($obj['otObjType']) {
 
 				case 0x19:
 					// Note
-//					echo 'Comment Object<br />';
+//					echo 'Cell Annotation Object<br />';
 					break;
 
 				case 0x08:
@@ -1336,26 +1336,40 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 
 	private function _readNote()
 	{
-//		echo 'Read Note<br />';
+//		echo '<b>Read Cell Annotation</b><br />';
 		$length = self::_GetInt2d($this->_data, $this->_pos + 2);
 		$recordData = substr($this->_data, $this->_pos + 4, $length);
 
 		// move stream pointer to next record
 		$this->_pos += 4 + $length;
 
-		if ($this->_readDataOnly || $this->_version != self::XLS_BIFF8) {
+		if ($this->_readDataOnly) {
 			return;
 		}
 
-//		hexDump($recordData);
-//
 		$cellAddress = $this->_readBIFF8CellAddress(substr($recordData, 0, 4));
-		$noteObjID = self::_GetInt2d($recordData, 6);
-		$noteAuthor = trim(substr($recordData, 8));
+		if ($this->_version == self::XLS_BIFF8) {
+			$noteObjID = self::_GetInt2d($recordData, 6);
+			$noteAuthor = trim(substr($recordData, 8));
 
-//		echo 'Note Address=',$cellAddress,'<br />';
-//		echo 'Note Object ID=',$noteObjID,'<br />';
-//		echo 'Note Author=',$noteAuthor,'<br />';
+//			echo 'Note Address=',$cellAddress,'<br />';
+//			echo 'Note Object ID=',$noteObjID,'<br />';
+//			echo 'Note Author=',$noteAuthor,'<hr />';
+		} else {
+			$cellAddress = str_replace('$','',$cellAddress);
+//			$noteLength = self::_GetInt2d($recordData, 4);
+			$noteText = trim(substr($recordData, 6));
+
+
+//			echo 'Note Address=',$cellAddress,'<br />';
+//			echo 'Note Length=',$noteLength,'<br />';
+//			echo 'Note Text=',$noteText,'<br />';
+
+			$this->_phpSheet->getComment( $cellAddress )
+//												->setAuthor( $author )
+												->setText($this->_parseRichText($noteText) );
+		}
+
 	}
 
 	/**
@@ -3747,16 +3761,28 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 		}
 
 		// recordData consists of an array of subrecords looking like this:
-		//	ft: 2 bytes; id number
-		//	cb: 2 bytes; size in bytes of following data
+		//	ft: 2 bytes; ftCmo type (0x15)
+		//	cb: 2 bytes; size in bytes of ftCmo data
+		//	ot: 2 bytes; Object Type
+		//	id: 2 bytes; Object id number
+		//	grbit: 2 bytes; Option Flags
 		//	data: var; subrecord data
 
 		// for now, we are just interested in the second subrecord containing the object type
-		$ot = self::_GetInt2d($recordData, 4);
+		$ftCmoType	= self::_GetInt2d($recordData, 0);
+		$cbCmoSize	= self::_GetInt2d($recordData, 2);
+		$otObjType	= self::_GetInt2d($recordData, 4);
+		$idObjID	= self::_GetInt2d($recordData, 6);
+		$grbitOpts	= self::_GetInt2d($recordData, 6);
 
 		$this->_objs[] = array(
-			'type' => $ot,
+			'ftCmoType'	=> $ftCmoType,
+			'cbCmoSize'	=> $cbCmoSize,
+			'otObjType'	=> $otObjType,
+			'idObjID'	=> $idObjID,
+			'grbitOpts'	=> $grbitOpts
 		);
+
 	}
 
 	/**
@@ -6489,6 +6515,14 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 			case 0x3F: return array('rgb' => '333333');
 			default:   return array('rgb' => '000000');
 		}
+	}
+
+	private function _parseRichText($is = '') {
+		$value = new PHPExcel_RichText();
+
+		$value->createText($is);
+
+		return $value;
 	}
 
 }
