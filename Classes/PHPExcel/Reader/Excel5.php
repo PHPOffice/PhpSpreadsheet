@@ -335,6 +335,20 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	private $_objs;
 
 	/**
+	 * Text Objects. One TXO record corresponds with one entry.
+	 *
+	 * @var array
+	 */
+	private $_textObjects;
+
+	/**
+	 * Cell Annotations (BIFF8)
+	 *
+	 * @var array
+	 */
+	private $_cellNotes;
+
+	/**
 	 * The combined MSODRAWINGGROUP data
 	 *
 	 * @var string
@@ -712,11 +726,17 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 			// Initialize objs
 			$this->_objs = array();
 
+			// Initialize text objs
+			$this->_textObjects = array();
+
 			// Initialize shared formula parts
 			$this->_sharedFormulaParts = array();
 
 			// Initialize shared formulas
 			$this->_sharedFormulas = array();
+
+			// Initialize cell annotations
+			$this->_cellNotes = array();
 
 			while ($this->_pos <= $this->_dataSize - 4) {
 				$code = self::_GetInt2d($this->_data, $this->_pos);
@@ -771,6 +791,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 					case self::XLS_Type_RANGEPROTECTION:		$this->_readRangeProtection();			break;
 					case self::XLS_Type_NOTE:					$this->_readNote();						break;
 					//case self::XLS_Type_IMDATA:				$this->_readImData();					break;
+					case self::XLS_Type_TXO:					$this->_readTextObject();				break;
 					case self::XLS_Type_CONTINUE:				$this->_readContinue();					break;
 					case self::XLS_Type_EOF:					$this->_readDefault();					break 2;
 					default:									$this->_readDefault();					break;
@@ -794,7 +815,9 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 
 			// treat OBJ records
 			foreach ($this->_objs as $n => $obj) {
-//				echo 'Object ID is ',$n,'<br />';
+//				echo '<b>Object</b> ID is ',$n,'<br />';
+//				var_dump($obj);
+//				echo '<br />';
 //
 				// the first shape container never has a corresponding OBJ record, hence $n + 1
 				$spContainer = $allSpContainers[$n + 1];
@@ -825,6 +848,9 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 				case 0x19:
 					// Note
 //					echo 'Cell Annotation Object<br />';
+					$this->_objs[$n]['objTextData'] = $this->_textObjects[$obj['idObjID']-1];
+					$text = $this->_textObjects[$obj['idObjID']-1]['text'];
+//					echo $text,'<br />';
 					break;
 
 				case 0x08:
@@ -881,6 +907,22 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 					if ( !is_null($this->getReadFilter()) && $this->getReadFilter()->readCell($column, $row, $this->_phpSheet->getTitle()) ) {
 						$formula = $this->_getFormulaFromStructure($this->_sharedFormulas[$baseCell], $cell);
 						$this->_phpSheet->getCell($cell)->setValueExplicit('=' . $formula, PHPExcel_Cell_DataType::TYPE_FORMULA);
+					}
+				}
+			}
+
+			if (count($this->_cellNotes) > 0) {
+				foreach($this->_cellNotes as $note => $noteDetails) {
+//					echo '<b>Cell annotation ',$note,'</b><br />';
+//					var_dump($noteDetails);
+//					echo '<br />';
+					if (isset($this->_objs[$noteDetails['objectID']-1])) {
+//						var_dump($this->_objs[$noteDetails['objectID']-1]);
+//						echo '<br />';
+						$cellAddress = str_replace('$','',$noteDetails['cellRef']);
+						$this->_phpSheet->getComment( $cellAddress )
+														->setAuthor( $noteDetails['author'] )
+														->setText($this->_parseRichText($this->_objs[$noteDetails['objectID']-1]['objTextData']['text']) );
 					}
 				}
 			}
@@ -1359,6 +1401,11 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 //			echo 'Note Address=',$cellAddress,'<br />';
 //			echo 'Note Object ID=',$noteObjID,'<br />';
 //			echo 'Note Author=',$noteAuthor,'<hr />';
+//
+			$this->_cellNotes[] = array('cellRef'	=> $cellAddress,
+										'objectID'	=> $noteObjID,
+										'author'	=> $noteAuthor
+									   );
 		} else {
 			$extension = false;
 			if ($cellAddress == '$B$65536') {
@@ -1378,16 +1425,53 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 //			echo 'Note Text=',$noteText,'<br />';
 
 			if ($extension) {
+				//	Concatenate this extension with the currently set comment for the cell
 				$comment = $this->_phpSheet->getComment( $cellAddress );
 				$commentText = $comment->getText()->getPlainText();
 				$comment->setText($this->_parseRichText($commentText.$noteText) );
 			} else {
+				//	Set comment for the cell
 				$this->_phpSheet->getComment( $cellAddress )
 //													->setAuthor( $author )
 													->setText($this->_parseRichText($noteText) );
 			}
 		}
 
+	}
+
+	/**
+	 *	The TEXT Object record contains the text associated with a cell annotation.
+	 */
+	private function _readTextObject()
+	{
+//		echo '<b>Read Text Object</b><br />';
+		$length = self::_GetInt2d($this->_data, $this->_pos + 2);
+		$recordData = substr($this->_data, $this->_pos + 4, $length);
+
+		// move stream pointer to next record
+		$this->_pos += 4 + $length;
+
+		if ($this->_readDataOnly) {
+			return;
+		}
+
+		// recordData consists of an array of subrecords looking like this:
+		//	grbit: 2 bytes; Option Flags
+		//	rot: 2 bytes; rotation
+		//	cchText: 2 bytes; length of the text (in the first continue record)
+		//	cbRuns: 2 bytes; length of the formatting (in the second continue record)
+
+		$grbitOpts	= self::_GetInt2d($recordData, 0);
+		$rot		= self::_GetInt2d($recordData, 2);
+		$cchText	= self::_GetInt2d($recordData, 10);
+		$cbRuns		= self::_GetInt2d($recordData, 12);
+		$text		= $this->_getSplicedRecordData();
+
+		$this->_textObjects[] = array(	'text'		=> substr($text["recordData"],$text["spliceOffsets"][0]+1,$cchText),
+										'format'	=> substr($text["recordData"],$text["spliceOffsets"][1],$cbRuns),
+										'alignment'	=> $grbitOpts,
+										'rotation'	=> $rot
+									 );
 	}
 
 	/**
