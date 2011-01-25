@@ -49,12 +49,6 @@ define('MAX_ITERATIONS', 256);
 define('PRECISION', 8.88E-016);
 
 
-$savedPrecision = ini_get('precision');
-if ($savedPrecision < 16) {
-	ini_set('precision',16);
-}
-
-
 /**
  * PHPExcel_Calculation_Functions
  *

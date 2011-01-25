@@ -202,6 +202,9 @@ class PHPExcel_Calculation {
 	public $cyclicFormulaCount = 0;
 
 
+	private $_savedPrecision	= 12;
+
+
 	private static $_localeLanguage = 'en_us';					//	US English	(default locale)
 	private static $_validLocaleLanguages = array(	'en'		//	English		(default language)
 												 );
@@ -1664,7 +1667,7 @@ class PHPExcel_Calculation {
 
 
 
-	function __construct() {
+	private function __construct() {
 		$localeFileDirectory = PHPEXCEL_ROOT.'PHPExcel/locale/';
 		foreach (glob($localeFileDirectory.'/*',GLOB_ONLYDIR) as $filename) {
 			$filename = substr($filename,strlen($localeFileDirectory)+1);
@@ -1672,8 +1675,18 @@ class PHPExcel_Calculation {
 				self::$_validLocaleLanguages[] = $filename;
 			}
 		}
+
+		$setPrecision = (PHP_INT_SIZE == 4) ? 12 : 16;
+		$this->_savedPrecision = ini_get('precision');
+		if ($savedPrecision < $setPrecision) {
+			ini_set('precision',$setPrecision);
+		}
 	}	//	function __construct()
 
+
+	public function __destruct() {
+		ini_set('precision',$this->_savedPrecision);
+	}
 
 	/**
 	 *	Get an instance of this class
@@ -1688,6 +1701,20 @@ class PHPExcel_Calculation {
 
 		return self::$_instance;
 	}	//	function getInstance()
+
+
+	/**
+	 *	Flush the calculation cache for any existing instance of this class
+	 *		but only if a PHPExcel_Calculation instance exists
+	 *
+	 *	@access	public
+	 *	@return null
+	 */
+	public static function flushInstance() {
+		if (isset(self::$_instance) && !is_null(self::$_instance)) {
+			self::$_instance->clearCalculationCache();
+		}
+	}	//	function flushInstance()
 
 
 	/**
