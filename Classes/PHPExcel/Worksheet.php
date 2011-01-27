@@ -2190,9 +2190,12 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 							$returnValue[$rRef][$cRef] = PHPExcel_Style_NumberFormat::toFormattedString($returnValue[$rRef][$cRef], $style->getNumberFormat()->getFormatCode());
 						}
 					} else {
-						// Cell doesn't exist
+						// Cell holds a NULL
 						$returnValue[$rRef][$cRef] = $nullValue;
 					}
+				} else {
+					// Cell doesn't exist
+					$returnValue[$rRef][$cRef] = $nullValue;
 				}
 			}
 		}
