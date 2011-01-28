@@ -426,7 +426,7 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 			// Writing PDF?
 			if ($this->_isPdf) {
 				if (is_null($this->_sheetIndex) && $sheetId + 1 < $this->_phpExcel->getSheetCount()) {
-					$html .= '<tcpdf method="AddPage" />';
+					$html .= '<div style="page-break-before:always" />';
 				}
 			}
 
@@ -729,7 +729,7 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 		// Create CSS
 		$css = array_merge(
 			$this->_createCSSStyleAlignment($pStyle->getAlignment())
-			, $this->_createCSSStyleBorders($pStyle->getBorders(),$pStyle->getFill())
+			, $this->_createCSSStyleBorders($pStyle->getBorders())
 			, $this->_createCSSStyleFont($pStyle->getFont())
 			, $this->_createCSSStyleFill($pStyle->getFill())
 		);
@@ -797,15 +797,15 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 * @param	PHPExcel_Style_Borders		$pStyle			PHPExcel_Style_Borders
 	 * @return	array
 	 */
-	private function _createCSSStyleBorders(PHPExcel_Style_Borders $pStyle, PHPExcel_Style_Fill $fill) {
+	private function _createCSSStyleBorders(PHPExcel_Style_Borders $pStyle) {
 		// Construct CSS
 		$css = array();
 
 		// Create CSS
-		$css['border-bottom']	= $this->_createCSSStyleBorder($pStyle->getBottom(),$fill);
-		$css['border-top']		= $this->_createCSSStyleBorder($pStyle->getTop(),$fill);
-		$css['border-left']		= $this->_createCSSStyleBorder($pStyle->getLeft(),$fill);
-		$css['border-right']	= $this->_createCSSStyleBorder($pStyle->getRight(),$fill);
+		$css['border-bottom']	= $this->_createCSSStyleBorder($pStyle->getBottom());
+		$css['border-top']		= $this->_createCSSStyleBorder($pStyle->getTop());
+		$css['border-left']		= $this->_createCSSStyleBorder($pStyle->getLeft());
+		$css['border-right']	= $this->_createCSSStyleBorder($pStyle->getRight());
 
 		// Return
 		return $css;
@@ -817,20 +817,12 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 * @param	PHPExcel_Style_Border		$pStyle			PHPExcel_Style_Border
 	 * @return	string
 	 */
-	private function _createCSSStyleBorder(PHPExcel_Style_Border $pStyle, PHPExcel_Style_Fill $fill) {
+	private function _createCSSStyleBorder(PHPExcel_Style_Border $pStyle) {
 		// Construct HTML
 		$css = '';
 
 		// Create CSS
-		$borderWidth = $this->_mapBorderStyle($pStyle->getBorderStyle());
-		if (($borderWidth == '0px') && ($this->_isPdf)) {
-			//	tcPDF treats a 0px border with a colour of black as a thick black border, so we set the colour to the
-			//		background colour for the cell if we're generating PDF output
-			$bValue = $fill->getFillType() == PHPExcel_Style_Fill::FILL_NONE ? 'FFFFFF' : $fill->getStartColor()->getRGB();
-			$css .= $borderWidth . ' #' . $bValue;
-		} else {
-			$css .= $borderWidth . ' #' . $pStyle->getColor()->getRGB();
-		}
+		$css .= $this->_mapBorderStyle($pStyle->getBorderStyle()) . ' #' . $pStyle->getColor()->getRGB();
 
 		// Return
 		return $css;
@@ -943,7 +935,7 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 			// Sheet index
 			$sheetIndex = $pSheet->getParent()->getIndex($pSheet);
 
-			// TCPDF and breaks
+			// DomPDF and breaks
 			if ($this->_isPdf && count($pSheet->getBreaks()) > 0) {
 				$breaks = $pSheet->getBreaks();
 
@@ -953,7 +945,7 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 					$html .= $this->_generateTableFooter();
 
 					// insert page break
-					$html .= '<tcpdf method="AddPage" />';
+					$html .= '<div style="page-break-before:always" />';
 
 					// open table again: <table> + <col> etc.
 					$html .= $this->_generateTableHeader($pSheet);
@@ -1038,6 +1030,11 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 								$pSheet->getParent()->getCellXfByIndex( $cell->getXfIndex() )->getNumberFormat()->getFormatCode(),
 								array($this, 'formatColor')
 							);
+						}
+						if ($pSheet->getParent()->getCellXfByIndex( $cell->getXfIndex() )->getFont()->getSuperScript()) {
+							$cellData = '<sup>'.$cellData.'</sup>';
+						} elseif ($pSheet->getParent()->getCellXfByIndex( $cell->getXfIndex() )->getFont()->getSubScript()) {
+							$cellData = '<sub>'.$cellData.'</sub>';
 						}
 					}
 
