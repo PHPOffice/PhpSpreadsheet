@@ -726,17 +726,18 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 			// Initialize objs
 			$this->_objs = array();
 
-			// Initialize text objs
-			$this->_textObjects = array();
-
 			// Initialize shared formula parts
 			$this->_sharedFormulaParts = array();
 
 			// Initialize shared formulas
 			$this->_sharedFormulas = array();
 
+			// Initialize text objs
+			$this->_textObjects = array();
+
 			// Initialize cell annotations
 			$this->_cellNotes = array();
+			$this->textObjRef = -1;
 
 			while ($this->_pos <= $this->_dataSize - 4) {
 				$code = self::_GetInt2d($this->_data, $this->_pos);
@@ -815,10 +816,10 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 
 			// treat OBJ records
 			foreach ($this->_objs as $n => $obj) {
-//				echo '<b>Object</b> ID is ',$n,'<br />';
+//				echo '<hr /><b>Object</b> reference is ',$n,'<br />';
 //				var_dump($obj);
 //				echo '<br />';
-//
+
 				// the first shape container never has a corresponding OBJ record, hence $n + 1
 				$spContainer = $allSpContainers[$n + 1];
 
@@ -848,12 +849,30 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 				case 0x19:
 					// Note
 //					echo 'Cell Annotation Object<br />';
-					$this->_objs[$n]['objTextData'] = $this->_textObjects[$obj['idObjID']-1];
-					$text = $this->_textObjects[$obj['idObjID']-1]['text'];
-//					echo $text,'<br />';
+//					echo 'Object ID is ',$obj['idObjID'],'<br />';
+//
+					if (isset($this->_cellNotes[$obj['idObjID']])) {
+						$cellNote = $this->_cellNotes[$obj['idObjID']];
+
+//						echo '_cellNotes[',$obj['idObjID'],']: ';
+//						var_dump($cellNote);
+//						echo '<br />';
+//
+						if (isset($this->_textObjects[$obj['idObjID']])) {
+							$textObject = $this->_textObjects[$obj['idObjID']];
+//							echo '_textObject: ';
+//							var_dump($textObject);
+//							echo '<br />';
+//
+							$this->_cellNotes[$obj['idObjID']]['objTextData'] = $textObject;
+							$text = $textObject['text'];
+						}
+//						echo $text,'<br />';
+					}
 					break;
 
 				case 0x08:
+//					echo 'Picture Object<br />';
 					// picture
 
 					// get index to BSE entry (1-based)
@@ -916,14 +935,10 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 //					echo '<b>Cell annotation ',$note,'</b><br />';
 //					var_dump($noteDetails);
 //					echo '<br />';
-					if (isset($this->_objs[$noteDetails['objectID']-1])) {
-//						var_dump($this->_objs[$noteDetails['objectID']-1]);
-//						echo '<br />';
-						$cellAddress = str_replace('$','',$noteDetails['cellRef']);
-						$this->_phpSheet->getComment( $cellAddress )
-														->setAuthor( $noteDetails['author'] )
-														->setText($this->_parseRichText($this->_objs[$noteDetails['objectID']-1]['objTextData']['text']) );
-					}
+					$cellAddress = str_replace('$','',$noteDetails['cellRef']);
+					$this->_phpSheet->getComment( $cellAddress )
+													->setAuthor( $noteDetails['author'] )
+													->setText($this->_parseRichText($noteDetails['objTextData']['text']) );
 				}
 			}
 		}
@@ -1397,15 +1412,16 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 		$cellAddress = $this->_readBIFF8CellAddress(substr($recordData, 0, 4));
 		if ($this->_version == self::XLS_BIFF8) {
 			$noteObjID = self::_GetInt2d($recordData, 6);
-			$noteAuthor = trim(substr($recordData, 8));
+			$noteAuthor = self::_readUnicodeStringLong(substr($recordData, 8));
+			$noteAuthor = $noteAuthor['value'];
 //			echo 'Note Address=',$cellAddress,'<br />';
 //			echo 'Note Object ID=',$noteObjID,'<br />';
 //			echo 'Note Author=',$noteAuthor,'<hr />';
 //
-			$this->_cellNotes[] = array('cellRef'	=> $cellAddress,
-										'objectID'	=> $noteObjID,
-										'author'	=> $noteAuthor
-									   );
+			$this->_cellNotes[$noteObjID] = array('cellRef'		=> $cellAddress,
+												  'objectID'	=> $noteObjID,
+												  'author'		=> $noteAuthor
+												 );
 		} else {
 			$extension = false;
 			if ($cellAddress == '$B$65536') {
@@ -1444,7 +1460,6 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	 */
 	private function _readTextObject()
 	{
-//		echo '<b>Read Text Object</b><br />';
 		$length = self::_GetInt2d($this->_data, $this->_pos + 2);
 		$recordData = substr($this->_data, $this->_pos + 4, $length);
 
@@ -1460,18 +1475,23 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 		//	rot: 2 bytes; rotation
 		//	cchText: 2 bytes; length of the text (in the first continue record)
 		//	cbRuns: 2 bytes; length of the formatting (in the second continue record)
-
+		// followed by the continuation records containing the actual text and formatting
 		$grbitOpts	= self::_GetInt2d($recordData, 0);
 		$rot		= self::_GetInt2d($recordData, 2);
 		$cchText	= self::_GetInt2d($recordData, 10);
 		$cbRuns		= self::_GetInt2d($recordData, 12);
 		$text		= $this->_getSplicedRecordData();
 
-		$this->_textObjects[] = array(	'text'		=> substr($text["recordData"],$text["spliceOffsets"][0]+1,$cchText),
-										'format'	=> substr($text["recordData"],$text["spliceOffsets"][1],$cbRuns),
-										'alignment'	=> $grbitOpts,
-										'rotation'	=> $rot
-									 );
+		$this->_textObjects[$this->textObjRef] = array(
+				'text'		=> substr($text["recordData"],$text["spliceOffsets"][0]+1,$cchText),
+				'format'	=> substr($text["recordData"],$text["spliceOffsets"][1],$cbRuns),
+				'alignment'	=> $grbitOpts,
+				'rotation'	=> $rot
+			 );
+
+//		echo '<b>_readTextObject()</b><br />';
+//		var_dump($this->_textObjects[$this->textObjRef]);
+//		echo '<br />';
 	}
 
 	/**
@@ -3884,7 +3904,11 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 			'idObjID'	=> $idObjID,
 			'grbitOpts'	=> $grbitOpts
 		);
+		$this->textObjRef = $idObjID;
 
+//		echo '<b>_readObj()</b><br />';
+//		var_dump(end($this->_objs));
+//		echo '<br />';
 	}
 
 	/**
