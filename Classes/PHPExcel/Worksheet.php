@@ -2558,6 +2558,9 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 					$newCollection = clone $this->_cellCollection;
 					$newCollection->copyCellCollection($this);
 					$this->_cellCollection = $newCollection;
+				} elseif ($key == '_drawingCollection') {
+					$newCollection = clone $this->_drawingCollection;
+					$this->_drawingCollection = $newCollection;
 				} else {
 					$this->{$key} = unserialize(serialize($val));
 				}
