@@ -51,6 +51,7 @@ Fixed in SVN:
 - Bugfix:	(MBaker) Work item 15129 - Worksheet fromArray() only working with 2-D arrays
 - Bugfix:	(MBaker) Work item 15172 - rangeToarray function modified for non-existent cells
 - Bugfix:	(MBaker) Work item 14980 - Images not getting copyied with the ->clone function
+- Bugfix:	(MBaker) Work item 11576 - AdvancedValueBinder.php: String sometimes becomes a date when it shouldn't
 - General:  (MBaker) Improved performance (speed), for building the Shared Strings table in the Excel2007 Writer.
 
 

@@ -279,6 +279,8 @@ class PHPExcel_Shared_Date
 	public static function stringToExcel($dateValue = '') {
 		if (strlen($dateValue) < 2)
 			return false;
+		if (!preg_match('/^(\d{1,4}[ \.\/\-][A-Z]{3,9}([ \.\/\-]\d{1,4})?|[A-Z]{3,9}[ \.\/\-]\d{1,4}([ \.\/\-]\d{1,4})?|\d{1,4}[ \.\/\-]\d{1,4}([ \.\/\-]\d{1,4})?)( \d{1,2}:\d{1,2}(:\d{1,2})?)?$/iu', $dateValue))
+			return false;
 
 		$dateValueNew = PHPExcel_Calculation_DateTime::DATEVALUE($dateValue);
 
