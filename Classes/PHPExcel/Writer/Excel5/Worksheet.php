@@ -256,6 +256,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 
 		$this->_firstColumnIndex	= (count($col) > 0) ? PHPExcel_Cell::columnIndexFromString(substr(min($col),1)) : 1;
 		$this->_lastColumnIndex		= (count($col) > 0) ? PHPExcel_Cell::columnIndexFromString(substr(max($col),1)) : 1;
+
 		if ($this->_firstColumnIndex > 255) $this->_firstColumnIndex = 255;
 		if ($this->_lastColumnIndex > 255) $this->_lastColumnIndex = 255;
 
@@ -289,8 +290,9 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		$this->_phpSheet->calculateColumnWidths();
 
 		// Column dimensions
+		$maxCol = PHPExcel_Cell::columnIndexFromString($this->_phpSheet->getHighestColumn()) -1;
 		$columnDimensions = $this->_phpSheet->getColumnDimensions();
-		for ($i = 0; $i < 256; ++$i) {
+		for ($i = 0; $i <= $maxCol; ++$i) {
 			$hidden = 0;
 			$level = 0;
 			$xfIndex = 15; // there are 15 cell style Xfs
@@ -1236,6 +1238,8 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 					, 0x0000 // reserved
 				);
 		}
+
+		hexdump($data);
 
 		$header = pack("vv", $record, $length);
 		$this->_append($header.$data);
