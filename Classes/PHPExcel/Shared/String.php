@@ -70,6 +70,13 @@ class PHPExcel_Shared_String
 	private static $_thousandsSeparator;
 
 	/**
+	 * Currency code
+	 *
+	 * @var string
+	 */
+	private static $_currencyCode;
+
+	/**
 	 * Is mbstring extension avalable?
 	 *
 	 * @var boolean
@@ -598,8 +605,7 @@ class PHPExcel_Shared_String
 			self::$_decimalSeparator = $localeconv['decimal_point'] != ''
 				? $localeconv['decimal_point'] : $localeconv['mon_decimal_point'];
 
-			if (self::$_decimalSeparator == '')
-			{
+			if (self::$_decimalSeparator == '') {
 				// Default to .
 				self::$_decimalSeparator = '.';
 			}
@@ -643,6 +649,38 @@ class PHPExcel_Shared_String
 	public static function setThousandsSeparator($pValue = ',')
 	{
 		self::$_thousandsSeparator = $pValue;
+	}
+
+	/**
+	 *	Get the currency code. If it has not yet been set explicitly, try to obtain the
+	 *		symbol information from locale.
+	 *
+	 * @return string
+	 */
+	public static function getCurrencyCode()
+	{
+		if (!isset(self::$_currencyCode)) {
+			$localeconv = localeconv();
+			self::$_currencyCode = $localeconv['currency_symbol'] != ''
+				? $localeconv['currency_symbol'] : $localeconv['int_curr_symbol'];
+
+			if (self::$_currencyCode == '') {
+				// Default to $
+				self::$_currencyCode = '$';
+			}
+		}
+		return self::$_currencyCode;
+	}
+
+	/**
+	 *	Set the currency code. Only used by PHPExcel_Style_NumberFormat::toFormattedString()
+	 *		to format output by PHPExcel_Writer_HTML and PHPExcel_Writer_PDF
+	 *
+	 *	@param string $pValue Character for currency code
+	 */
+	public static function setCurrencyCode($pValue = '$')
+	{
+		self::$_currencyCode = $pValue;
 	}
 
 	/**
