@@ -1239,8 +1239,6 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 				);
 		}
 
-		hexdump($data);
-
 		$header = pack("vv", $record, $length);
 		$this->_append($header.$data);
 	}
