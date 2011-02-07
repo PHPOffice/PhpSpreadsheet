@@ -871,11 +871,11 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 *
 	 * @param string	$pColumn		Numeric column coordinate of the cell
 	 * @param string	$pRow			Numeric row coordinate of the cell
-	 * @param mixed	$pValue			Value of the cell
+	 * @param mixed		$pValue			Value of the cell
 	 * @param bool		$returnCell		Return the worksheet (false, default) or the cell (true)
 	 * @return PHPExcel_Worksheet|PHPExcel_Cell	Depending on the last parameter being specified
 	 */
-	public function setCellValueByColumnAndRow($pColumn = 0, $pRow = 0, $pValue = null, $returnCell = false)
+	public function setCellValueByColumnAndRow($pColumn = 0, $pRow = 1, $pValue = null, $returnCell = false)
 	{
 		$cell = $this->getCell(PHPExcel_Cell::stringFromColumnIndex($pColumn) . $pRow);
 		$cell->setValue($pValue);
@@ -906,11 +906,11 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 *
 	 * @param string	$pColumn		Numeric column coordinate of the cell
 	 * @param string	$pRow			Numeric row coordinate of the cell
-	 * @param mixed	$pValue			Value of the cell
+	 * @param mixed		$pValue			Value of the cell
 	 * @param string	$pDataType		Explicit data type
 	 * @return PHPExcel_Worksheet
 	 */
-	public function setCellValueExplicitByColumnAndRow($pColumn = 0, $pRow = 0, $pValue = null, $pDataType = PHPExcel_Cell_DataType::TYPE_STRING)
+	public function setCellValueExplicitByColumnAndRow($pColumn = 0, $pRow = 1, $pValue = null, $pDataType = PHPExcel_Cell_DataType::TYPE_STRING)
 	{
 		return $this->getCell(PHPExcel_Cell::stringFromColumnIndex($pColumn) . $pRow)->setValueExplicit($pValue, $pDataType);
 	}
@@ -992,7 +992,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @param	string $pRow		Numeric row coordinate of the cell
 	 * @return	PHPExcel_Cell		Cell that was found
 	 */
-	public function getCellByColumnAndRow($pColumn = 0, $pRow = 0)
+	public function getCellByColumnAndRow($pColumn = 0, $pRow = 1)
 	{
 		$columnLetter = PHPExcel_Cell::stringFromColumnIndex($pColumn);
 		$coordinate = $columnLetter . $pRow;
@@ -1066,7 +1066,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @param	string $pRow		Numeric row coordinate of the cell
 	 * @return	boolean
 	 */
-	public function cellExistsByColumnAndRow($pColumn = 0, $pRow = 0)
+	public function cellExistsByColumnAndRow($pColumn = 0, $pRow = 1)
 	{
 		return $this->cellExists(PHPExcel_Cell::stringFromColumnIndex($pColumn) . $pRow);
 	}
@@ -1077,7 +1077,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @param int $pRow	Numeric index of the row
 	 * @return PHPExcel_Worksheet_RowDimension
 	 */
-	public function getRowDimension($pRow = 0)
+	public function getRowDimension($pRow = 1)
 	{
 		// Found
 		$found = null;
@@ -1253,7 +1253,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @param	int $pRow		Numeric row coordinate of the cell
 	 * @return	PHPExcel_Style
 	 */
-	public function getStyleByColumnAndRow($pColumn = 0, $pRow = 0)
+	public function getStyleByColumnAndRow($pColumn = 0, $pRow = 1)
 	{
 		return $this->getStyle(PHPExcel_Cell::stringFromColumnIndex($pColumn) . $pRow);
 	}
@@ -1384,13 +1384,13 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	/**
 	 * Set break on a cell by using numeric cell coordinates
 	 *
-	 * @param	int	$pColumn	Numeric column coordinate of the cell
-	 * @param	int	$pRow		Numeric row coordinate of the cell
-	 * @param	int		$pBreak		Break type (type of PHPExcel_Worksheet::BREAK_*)
+	 * @param	integer	$pColumn	Numeric column coordinate of the cell
+	 * @param	integer	$pRow		Numeric row coordinate of the cell
+	 * @param	integer	$pBreak		Break type (type of PHPExcel_Worksheet::BREAK_*)
 	 * @throws	Exception
 	 * @return PHPExcel_Worksheet
 	 */
-	public function setBreakByColumnAndRow($pColumn = 0, $pRow = 0, $pBreak = PHPExcel_Worksheet::BREAK_NONE)
+	public function setBreakByColumnAndRow($pColumn = 0, $pRow = 1, $pBreak = PHPExcel_Worksheet::BREAK_NONE)
 	{
 		return $this->setBreak(PHPExcel_Cell::stringFromColumnIndex($pColumn) . $pRow, $pBreak);
 	}
@@ -1454,7 +1454,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @throws	Exception
 	 * @return PHPExcel_Worksheet
 	 */
-	public function mergeCellsByColumnAndRow($pColumn1 = 0, $pRow1 = 0, $pColumn2 = 0, $pRow2 = 0)
+	public function mergeCellsByColumnAndRow($pColumn1 = 0, $pRow1 = 1, $pColumn2 = 0, $pRow2 = 1)
 	{
 		$cellRange = PHPExcel_Cell::stringFromColumnIndex($pColumn1) . $pRow1 . ':' . PHPExcel_Cell::stringFromColumnIndex($pColumn2) . $pRow2;
 		return $this->mergeCells($cellRange);
@@ -1495,7 +1495,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @throws	Exception
 	 * @return PHPExcel_Worksheet
 	 */
-	public function unmergeCellsByColumnAndRow($pColumn1 = 0, $pRow1 = 0, $pColumn2 = 0, $pRow2 = 0)
+	public function unmergeCellsByColumnAndRow($pColumn1 = 0, $pRow1 = 1, $pColumn2 = 0, $pRow2 = 1)
 	{
 		$cellRange = PHPExcel_Cell::stringFromColumnIndex($pColumn1) . $pRow1 . ':' . PHPExcel_Cell::stringFromColumnIndex($pColumn2) . $pRow2;
 		return $this->unmergeCells($cellRange);
@@ -1558,7 +1558,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @throws	Exception
 	 * @return PHPExcel_Worksheet
 	 */
-	public function protectCellsByColumnAndRow($pColumn1 = 0, $pRow1 = 0, $pColumn2 = 0, $pRow2 = 0, $pPassword = '', $pAlreadyHashed = false)
+	public function protectCellsByColumnAndRow($pColumn1 = 0, $pRow1 = 1, $pColumn2 = 0, $pRow2 = 1, $pPassword = '', $pAlreadyHashed = false)
 	{
 		$cellRange = PHPExcel_Cell::stringFromColumnIndex($pColumn1) . $pRow1 . ':' . PHPExcel_Cell::stringFromColumnIndex($pColumn2) . $pRow2;
 		return $this->protectCells($cellRange, $pPassword, $pAlreadyHashed);
@@ -1596,7 +1596,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @throws	Exception
 	 * @return PHPExcel_Worksheet
 	 */
-	public function unprotectCellsByColumnAndRow($pColumn1 = 0, $pRow1 = 0, $pColumn2 = 0, $pRow2 = 0, $pPassword = '', $pAlreadyHashed = false)
+	public function unprotectCellsByColumnAndRow($pColumn1 = 0, $pRow1 = 1, $pColumn2 = 0, $pRow2 = 1, $pPassword = '', $pAlreadyHashed = false)
 	{
 		$cellRange = PHPExcel_Cell::stringFromColumnIndex($pColumn1) . $pRow1 . ':' . PHPExcel_Cell::stringFromColumnIndex($pColumn2) . $pRow2;
 		return $this->unprotectCells($cellRange, $pPassword, $pAlreadyHashed);
@@ -1653,7 +1653,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @throws	Exception
 	 * @return PHPExcel_Worksheet
 	 */
-	public function setAutoFilterByColumnAndRow($pColumn1 = 0, $pRow1 = 0, $pColumn2 = 0, $pRow2 = 0)
+	public function setAutoFilterByColumnAndRow($pColumn1 = 0, $pRow1 = 1, $pColumn2 = 0, $pRow2 = 1)
 	{
 		return $this->setAutoFilter(
 			PHPExcel_Cell::stringFromColumnIndex($pColumn1) . $pRow1
@@ -1711,7 +1711,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @throws	Exception
 	 * @return PHPExcel_Worksheet
 	 */
-	public function freezePaneByColumnAndRow($pColumn = 0, $pRow = 0)
+	public function freezePaneByColumnAndRow($pColumn = 0, $pRow = 1)
 	{
 		return $this->freezePane(PHPExcel_Cell::stringFromColumnIndex($pColumn) . $pRow);
 	}
@@ -1979,7 +1979,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @param	int $pRow		Numeric row coordinate of the cell
 	 * @return	PHPExcel_Comment
 	 */
-	public function getCommentByColumnAndRow($pColumn = 0, $pRow = 0)
+	public function getCommentByColumnAndRow($pColumn = 0, $pRow = 1)
 	{
 		return $this->getComment(PHPExcel_Cell::stringFromColumnIndex($pColumn) . $pRow);
 	}
@@ -2068,7 +2068,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @throws	Exception
 	 * @return PHPExcel_Worksheet
 	 */
-	public function setSelectedCellByColumnAndRow($pColumn = 0, $pRow = 0)
+	public function setSelectedCellByColumnAndRow($pColumn = 0, $pRow = 1)
 	{
 		return $this->setSelectedCells(PHPExcel_Cell::stringFromColumnIndex($pColumn) . $pRow);
 	}
