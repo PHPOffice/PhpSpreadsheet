@@ -510,10 +510,32 @@ class PHPExcel_Cell
 	}
 
 	/**
+	 * Make string row, column or cell coordinate absolute
+	 *
+	 * @param	string	$pCoordinateString		e.g. 'A' or '1' or 'A1'
+	 * @return	string	Absolute coordinate		e.g. '$A' or '$1' or '$A$1'
+	 * @throws	Exception
+	 */
+	public static function absoluteReference($pCoordinateString = 'A1')
+	{
+		if (strpos($pCoordinateString,':') === false && strpos($pCoordinateString,',') === false) {
+			// Create absolute coordinate
+			if (ctype_digit($pCoordinateString)) {
+				return '$'.$pCoordinateString;
+			} elseif (ctype_alpha($pCoordinateString)) {
+				return '$'.strtoupper($pCoordinateString);
+			}
+			return self::absoluteCoordinate($pCoordinateString);
+		} else {
+			throw new Exception("Coordinate string should not be a cell range.");
+		}
+	}
+
+	/**
 	 * Make string coordinate absolute
 	 *
-	 * @param	string	$pCoordinateString
-	 * @return	string	Absolute coordinate
+	 * @param	string	$pCoordinateString		e.g. 'A1'
+	 * @return	string	Absolute coordinate		e.g. '$A$1'
 	 * @throws	Exception
 	 */
 	public static function absoluteCoordinate($pCoordinateString = 'A1')

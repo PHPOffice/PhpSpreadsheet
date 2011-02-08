@@ -430,8 +430,8 @@ class PHPExcel_Writer_Excel2007_Workbook extends PHPExcel_Writer_Excel2007_Write
 
 			$chunks = array();
 			foreach ($printArea as $printAreaRect) {
-				$printAreaRect[0] = PHPExcel_Cell::absoluteCoordinate($printAreaRect[0]);
-				$printAreaRect[1] = PHPExcel_Cell::absoluteCoordinate($printAreaRect[1]);
+				$printAreaRect[0] = PHPExcel_Cell::absoluteReference($printAreaRect[0]);
+				$printAreaRect[1] = PHPExcel_Cell::absoluteReference($printAreaRect[1]);
 				$chunks[] = '\'' . str_replace("'", "''", $pSheet->getTitle()) . '\'!' . implode(':', $printAreaRect);
 			}
 

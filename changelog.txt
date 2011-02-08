@@ -56,6 +56,8 @@ Fixed in SVN:
 - Bugfix:	(MBaker) Fix Excel5 Writer so that it only writes column dimensions for columns that are actually used rather than the full range (A to IV)
 - Bugfix:	(MBaker) The freezePaneByColumnAndRow() method row argument should default to 1 rather than 0.
 						Default row argument for all __ByColumnAndRow() methods should be 1
+- Bugfix:	(MBaker) Work item 15121 - Column reference rather than cell reference in Print Area definition
+						Fix Excel2007 Writer to handle print areas that are defined as row or column ranges rather than just as cell ranges
 - General:  (MBaker) Improved performance (speed), for building the Shared Strings table in the Excel2007 Writer.
 - General:  (MBaker) Enhanced SheetViews element structures in the Excel2007 Writer for frozen panes.
 
