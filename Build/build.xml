@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="PHPExcel" default="release-standard" basedir=".">
   <taskdef classname="phing.tasks.ext.d51PearPkg2Task" name="d51pearpkg2"/>
-  
+
   <propertyprompt propertyName="packageVersion" defaultValue="1.0.0"
 		promptText="Enter PHPExcel version number" />
   <propertyprompt propertyName="releaseDate" defaultValue="2010-01-01"
@@ -22,11 +22,11 @@
                 return $this->filesets[$num-1];
             }
 
-            function main() {   
+            function main() {
                 if ($this->destinationFile === null || empty($this->filesets)) {
                     throw new BuildException("You must specify a file or fileset(s) for the <phpzip> task.");
                 }
-                
+
                 // compile a list of all files to add to the file, both file attrib and fileset elements
                 // can be used.
                 $files = array();
@@ -43,27 +43,27 @@
                         } catch (BuildException $be) {
                             $this->log($be->getMessage(), Project::MSG_WARN);
                         }
-                    }                        
+                    }
                 }
-                
+
                 $objZip = new ZipArchive();
                 if ($objZip->open($this->destinationFile, ZIPARCHIVE::OVERWRITE) !== true) {
                 	throw new Exeption("Could not open " . $strResultingFile . " for writing!");
                 }
-                
+
                 $this->log("Creating ZIP archive of " . count($files) . " files...");
 
                 foreach($files as $file) {
                     $this->log("Processing file " . $this->_cleanFileName($file) . " ...");
                     $contents = file_get_contents($file);
                     $objZip->addFromString( $this->_cleanFileName($file), $contents );
-                }     
-                
+                }
+
                 $objZip->close();
-                
+
                 $this->log("Created ZIP archive " . $this->destinationFile . '.');
             }
-            
+
             /**
              * Cleanup a filename
              *
@@ -74,17 +74,17 @@
 	             $strFile = str_replace('../', '', $strFile);
                $strFile = str_replace('.\\build\\', '', $strFile);
 	             $strFile = str_replace('WINDOWS', '', $strFile);
-            	 
+
 	             while (preg_match('/\/\//i', $strFile)) {
 	 	            $strFile = str_replace('//', '/', $strFile);
 	             }
-            	 
+
 	             return $strFile;
             }
         }
 		]]>
   </adhoc-task>
-  
+
   <target name="prepare">
     <echo msg="Creating build directory: ./build" />
     <mkdir dir="./build" />
@@ -99,7 +99,7 @@
         <exclude name="**/.svn" />
       </fileset>
     </copy>
-    
+
     <copy todir="./build/Documentation" overwrite="true">
       <fileset dir="../Documentation">
         <include name="*.*" />
@@ -107,14 +107,21 @@
       </fileset>
     </copy>
     <mkdir dir="./build/Documentation/API" />
-    
+
+    <copy todir="./build/Documentation/Examples" overwrite="true">
+      <fileset dir="../Documentation/Examples">
+        <include name="**.*" />
+        <exclude name="**/.svn" />
+      </fileset>
+    </copy>
+
     <copy todir="./build/Tests" overwrite="true">
       <fileset dir="../Tests">
         <include name="**/*" />
         <exclude name="**/.svn" />
       </fileset>
     </copy>
-    
+
     <copy file="../changelog.txt" tofile="./build/changelog.txt" overwrite="true" />
     <copy file="../license.txt" tofile="./build/license.txt" overwrite="true" />
     <copy file="../install.txt" tofile="./build/install.txt" overwrite="true" />
@@ -162,7 +169,7 @@
 
   <target name="release-standard" depends="apidocs">
     <mkdir dir="./release" />
-    
+
     <echo msg="Creating release package (v${packageVersion})..." />
     <phpzip destfile="./release/${packageVersion}.zip">
       <fileset dir="./build">
@@ -176,9 +183,9 @@
 
   <target name="release-pear" depends="versionNumber">
     <mkdir dir="./release" />
-    
+
     <echo msg="Creating PEAR release package (v${packageVersion})..." />
-    
+
     <d51pearpkg2 dir="./build/Classes" baseinstalldir="PHPExcel">
       <name>PHPExcel</name>
       <summary>PHP Excel classes</summary>
@@ -194,7 +201,7 @@
         <pear minimum_version="1.4.0"/>
         <extension name="zip" minimum_version="1.8.0"/>
       </dependencies>
-      <dirroles key="PHPExcel/Shared/PDF/fonts">data</dirroles> 
+      <dirroles key="PHPExcel/Shared/PDF/fonts">data</dirroles>
     </d51pearpkg2>
 
     <exec command="pear package ./build/Classes/package.xml"/>
@@ -210,8 +217,16 @@
     <echo msg="Creating documentation release (v${packageVersion})..." />
     <copy todir="./release" overwrite="true">
       <fileset dir="../Documentation">
-        <include name="*.doc" />
+        <include name="*.*" />
+        <exclude name="**/.svn" />
       </fileset>
     </copy>
+    <copy todir="./release/Examples" overwrite="true">
+      <fileset dir="../Documentation/Examples">
+        <include name="**.*" />
+        <exclude name="**/.svn" />
+      </fileset>
+    </copy>
+
   </target>
 </project>
