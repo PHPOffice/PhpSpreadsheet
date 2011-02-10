@@ -270,9 +270,10 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 						case 'E' :	$cellDataFormula = '='.substr($rowDatum,1);
 									//	Convert R1C1 style references to A1 style references (but only when not quoted)
 									$temp = explode('"',$cellDataFormula);
-									foreach($temp as $key => &$value) {
+									$key = false;
+									foreach($temp as &$value) {
 										//	Only count/replace in alternate array entries
-										if (($key % 2) == 0) {
+										if ($key = !$key) {
 											preg_match_all('/(R(\[?-?\d*\]?))(C(\[?-?\d*\]?))/',$value, $cellReferences,PREG_SET_ORDER+PREG_OFFSET_CAPTURE);
 											//	Reverse the matches array, otherwise all our offsets will become incorrect if we modify our way
 											//		through the formula from left to right. Reversing means that we work right to left.through

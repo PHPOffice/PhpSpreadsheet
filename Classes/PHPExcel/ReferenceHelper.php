@@ -348,9 +348,10 @@ class PHPExcel_ReferenceHelper
 	public function updateFormulaReferences($pFormula = '', $pBefore = 'A1', $pNumCols = 0, $pNumRows = 0, $sheetName = '') {
 		//	Update cell references in the formula
 		$formulaBlocks = explode('"',$pFormula);
-		foreach($formulaBlocks as $i => &$formulaBlock) {
-			//	Ignore blocks that were enclosed in quotes (even entries in the $formulaBlocks array after the explode)
-			if (($i % 2) == 0) {
+		$i = false;
+		foreach($formulaBlocks as &$formulaBlock) {
+			//	Ignore blocks that were enclosed in quotes (alternating entries in the $formulaBlocks array after the explode)
+			if ($i = !$i) {
 				$adjustCount = 0;
 				$newCellTokens = $cellTokens = array();
 				//	Search for row ranges (e.g. 'Sheet1'!3:5 or 3:5) with or without $ absolutes (e.g. $3:5)

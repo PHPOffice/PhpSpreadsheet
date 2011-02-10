@@ -493,9 +493,10 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 //										echo 'Formula: '.$cellDataFormula.'<br />';
 										$cellDataFormula = substr($cellDataFormula,strpos($cellDataFormula,':=')+1);
 										$temp = explode('"',$cellDataFormula);
-										foreach($temp as $key => &$value) {
+										$tKey = false;
+										foreach($temp as &$value) {
 											//	Only replace in alternate array entries (i.e. non-quoted blocks)
-											if (($key % 2) == 0) {
+											if ($tKey = !$tKey) {
 												$value = preg_replace('/\[\.(.*):\.(.*)\]/Ui','$1:$2',$value);
 												$value = preg_replace('/\[\.(.*)\]/Ui','$1',$value);
 												$value = PHPExcel_Calculation::_translateSeparator(';',',',$value,$inBraces);

@@ -1960,9 +1960,10 @@ class PHPExcel_Calculation {
 				//	So instead we skip replacing in any quoted strings by only replacing in every other array element after we've exploded
 				//		the formula
 				$temp = explode('"',$formula);
-				foreach($temp as $i => &$value) {
-					//	Only count/replace in alternate array entries
-					if (($i % 2) == 0) {
+				$i = false;
+				foreach($temp as &$value) {
+					//	Only count/replace in alternating array entries
+					if ($i = !$i) {
 						$value = preg_replace($from,$to,$value);
 						$value = self::_translateSeparator($fromSeparator,$toSeparator,$value,$inBraces);
 					}
@@ -2553,9 +2554,10 @@ class PHPExcel_Calculation {
 				$temp = explode('"',$formula);
 				//	Open and Closed counts used for trapping mismatched braces in the formula
 				$openCount = $closeCount = 0;
-				foreach($temp as $i => &$value) {
-					//	Only count/replace in alternate array entries
-					if (($i % 2) == 0) {
+				$i = false;
+				foreach($temp as &$value) {
+					//	Only count/replace in alternating array entries
+					if ($i = !$i) {
 						$openCount += substr_count($value,'{');
 						$closeCount += substr_count($value,'}');
 						$value = str_replace($matrixReplaceFrom,$matrixReplaceTo,$value);
