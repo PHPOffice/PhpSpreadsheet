@@ -29,12 +29,21 @@
 */
 class PHPExcel_Shared_OLE_PPS_Root extends PHPExcel_Shared_OLE_PPS
 	{
+
+	/**
+	 *	Directory for temporary files
+	 *	@var string
+	 */
+	protected $_tmp_dir
+
 	/**
 	 * @param integer $time_1st A timestamp
 	 * @param integer $time_2nd A timestamp
 	 */
 	public function __construct($time_1st, $time_2nd, $raChild)
 	{
+		$this->_tempDir = PHPExcel_Shared_File::sys_get_temp_dir();
+
 		parent::__construct(
 		   null,
 		   PHPExcel_Shared_OLE::Asc2Ucs('Root Entry'),
