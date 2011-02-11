@@ -181,6 +181,19 @@ class PHPExcel_Calculation {
 	public $writeDebugLog = false;
 
 	/**
+	 *	Flag to determine whether a debug log should be echoed by the calculation engine
+	 *		If true, then a debug log will be echoed
+	 *		If false, then a debug log will not be echoed
+	 *	A debug log can only be echoed if it is generated
+	 *
+	 *	@access	public
+	 *	@var boolean
+	 *
+	 */
+	public $echoDebugLog = false;
+
+
+	/**
 	 *	An array of the nested cell references accessed by the calculation engine, used for the debug log
 	 *
 	 *	@access	private
@@ -3538,6 +3551,9 @@ class PHPExcel_Calculation {
 	private function _writeDebug($message) {
 		//	Only write the debug log if logging is enabled
 		if ($this->writeDebugLog) {
+			if ($this->echoDebugLog) {
+				echo implode(' -> ',$this->debugLogStack).' -> '.$message,'<br />';
+			}
 			$this->debugLog[] = implode(' -> ',$this->debugLogStack).' -> '.$message;
 		}
 	}	//	function _writeDebug()
