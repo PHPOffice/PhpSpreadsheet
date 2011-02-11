@@ -34,7 +34,7 @@ class PHPExcel_Shared_OLE_PPS_Root extends PHPExcel_Shared_OLE_PPS
 	 *	Directory for temporary files
 	 *	@var string
 	 */
-	protected $_tmp_dir
+	protected $_tmp_dir		= '';
 
 	/**
 	 * @param integer $time_1st A timestamp
