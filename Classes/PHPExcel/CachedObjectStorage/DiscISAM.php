@@ -112,7 +112,7 @@ class PHPExcel_CachedObjectStorage_DiscISAM extends PHPExcel_CachedObjectStorage
 		parent::copyCellCollection($parent);
 		//	Get a new id for the new file name
 		$baseUnique = $this->_getUniqueID();
-		$newFileName = sys_get_temp_dir().'/PHPExcel.'.$baseUnique.'.cache';
+		$newFileName = PHPExcel_Shared_File::sys_get_temp_dir().'/PHPExcel.'.$baseUnique.'.cache';
 		//	Copy the existing cell cache file
 		copy ($this->_fileName,$newFileName);
 		$this->_fileName = $newFileName;
@@ -140,7 +140,7 @@ class PHPExcel_CachedObjectStorage_DiscISAM extends PHPExcel_CachedObjectStorage
 		parent::__construct($parent);
 		if (is_null($this->_fileHandle)) {
 			$baseUnique = $this->_getUniqueID();
-			$this->_fileName = sys_get_temp_dir().'/PHPExcel.'.$baseUnique.'.cache';
+			$this->_fileName = PHPExcel_Shared_File::sys_get_temp_dir().'/PHPExcel.'.$baseUnique.'.cache';
 			$this->_fileHandle = fopen($this->_fileName,'a+');
 		}
 	}	//	function __construct()

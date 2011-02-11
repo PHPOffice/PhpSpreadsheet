@@ -60,6 +60,7 @@ Fixed in SVN:
 - Bugfix:	(MBaker) Work item 15121 - Column reference rather than cell reference in Print Area definition
 						Fix Excel2007 Writer to handle print areas that are defined as row or column ranges rather than just as cell ranges
 - Bugfix:	(MBaker) Reduced false positives from isDateTimeFormatCode() method by suppressing testing within quoted strings
+- Bugfix:	(MBaker) Work item 15312 - Caching and tmp partition exhaustion 
 - General:  (MBaker) Improved performance (speed), for building the Shared Strings table in the Excel2007 Writer.
 - General:  (MBaker) Enhanced SheetViews element structures in the Excel2007 Writer for frozen panes.
 
