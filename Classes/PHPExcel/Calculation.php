@@ -559,11 +559,11 @@ class PHPExcel_Calculation {
 												 'argumentCount'	=>	'4,5'
 												),
 				'DCOUNT'				=> array('category'			=>	PHPExcel_Calculation_Function::CATEGORY_DATABASE,
-												 'functionCall'		=>	'PHPExcel_Calculation_Functions::DUMMY',
+												 'functionCall'		=>	'PHPExcel_Calculation_Database::DCOUNT',
 												 'argumentCount'	=>	'3'
 												),
 				'DCOUNTA'				=> array('category'			=>	PHPExcel_Calculation_Function::CATEGORY_DATABASE,
-												 'functionCall'		=>	'PHPExcel_Calculation_Functions::DUMMY',
+												 'functionCall'		=>	'PHPExcel_Calculation_Database::DCOUNTA',
 												 'argumentCount'	=>	'3'
 												),
 				'DDB'					=> array('category'			=>	PHPExcel_Calculation_Function::CATEGORY_FINANCIAL,
@@ -603,11 +603,11 @@ class PHPExcel_Calculation {
 												 'argumentCount'	=>	'4,5'
 												),
 				'DMAX'					=> array('category'			=>	PHPExcel_Calculation_Function::CATEGORY_DATABASE,
-												 'functionCall'		=>	'PHPExcel_Calculation_Functions::DUMMY',
+												 'functionCall'		=>	'PHPExcel_Calculation_Database::DMAX',
 												 'argumentCount'	=>	'3'
 												),
 				'DMIN'					=> array('category'			=>	PHPExcel_Calculation_Function::CATEGORY_DATABASE,
-												 'functionCall'		=>	'PHPExcel_Calculation_Functions::DUMMY',
+												 'functionCall'		=>	'PHPExcel_Calculation_Database::DMIN',
 												 'argumentCount'	=>	'3'
 												),
 				'DOLLAR'				=> array('category'			=>	PHPExcel_Calculation_Function::CATEGORY_TEXT_AND_DATA,
@@ -623,19 +623,19 @@ class PHPExcel_Calculation {
 												 'argumentCount'	=>	'2'
 												),
 				'DPRODUCT'				=> array('category'			=>	PHPExcel_Calculation_Function::CATEGORY_DATABASE,
-												 'functionCall'		=>	'PHPExcel_Calculation_Functions::DUMMY',
+												 'functionCall'		=>	'PHPExcel_Calculation_Database::DPRODUCT',
 												 'argumentCount'	=>	'3'
 												),
 				'DSTDEV'				=> array('category'			=>	PHPExcel_Calculation_Function::CATEGORY_DATABASE,
-												 'functionCall'		=>	'PHPExcel_Calculation_Functions::DUMMY',
+												 'functionCall'		=>	'PHPExcel_Calculation_Database::DSTDEV',
 												 'argumentCount'	=>	'3'
 												),
 				'DSTDEVP'				=> array('category'			=>	PHPExcel_Calculation_Function::CATEGORY_DATABASE,
-												 'functionCall'		=>	'PHPExcel_Calculation_Functions::DUMMY',
+												 'functionCall'		=>	'PHPExcel_Calculation_Database::DSTDEVP',
 												 'argumentCount'	=>	'3'
 												),
 				'DSUM'					=> array('category'			=>	PHPExcel_Calculation_Function::CATEGORY_DATABASE,
-												 'functionCall'		=>	'PHPExcel_Calculation_Functions::DUMMY',
+												 'functionCall'		=>	'PHPExcel_Calculation_Database::DSUM',
 												 'argumentCount'	=>	'3'
 												),
 				'DURATION'				=> array('category'			=>	PHPExcel_Calculation_Function::CATEGORY_FINANCIAL,
@@ -643,11 +643,11 @@ class PHPExcel_Calculation {
 												 'argumentCount'	=>	'5,6'
 												),
 				'DVAR'					=> array('category'			=>	PHPExcel_Calculation_Function::CATEGORY_DATABASE,
-												 'functionCall'		=>	'PHPExcel_Calculation_Functions::DUMMY',
+												 'functionCall'		=>	'PHPExcel_Calculation_Database::DVAR',
 												 'argumentCount'	=>	'3'
 												),
 				'DVARP'					=> array('category'			=>	PHPExcel_Calculation_Function::CATEGORY_DATABASE,
-												 'functionCall'		=>	'PHPExcel_Calculation_Functions::DUMMY',
+												 'functionCall'		=>	'PHPExcel_Calculation_Database::DVARP',
 												 'argumentCount'	=>	'3'
 												),
 				'EDATE'					=> array('category'			=>	PHPExcel_Calculation_Function::CATEGORY_DATE_AND_TIME,

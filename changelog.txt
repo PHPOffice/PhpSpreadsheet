@@ -35,6 +35,8 @@ Fixed in SVN:
 					 Modified the toArray() method so that it actually uses rangeToArray().
 - Feature:	(MBaker) Added support for cell comments in the OOCalc, Gnumeric and Excel2003XML Readers, and in the Excel5 Reader
 - Feature:  (MBaker) Improved toFormattedString() handling for Currency and Accounting formats to render currency symbols
+- Feature:  (MBaker) Work Item  2346 - Implement more Excel calculation functions
+            -   Implemented the DAVERAGE(), DCOUNT(), DCOUNTA(), DMAX(), DMIN(), DPRODUCT(), DSTDEV(), DSTDEVP(), DSUM(), DVAR() and DVARP() Database functions
 - Bugfix:   (MBaker) Work item 14888 - Simple =IF() formula disappears
 - Bugfix:	(MBaker) Work item 14898 - PHP Warning: preg_match(): Compilation failed: PCRE does not support \\L, \\l, \\N, \\P, \\p, \\U, \\u, or \\X
 - Bugfix:	(MBaker) Work item 14901 - VLOOKUP choking on parameters in PHPExcel.1.7.5/PHPExcel_Writer_Excel2007

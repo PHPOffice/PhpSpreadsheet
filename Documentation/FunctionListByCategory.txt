@@ -8,18 +8,18 @@ CATEGORY_CUBE
 	CUBEVALUE               ***  Not yet Implemented
 
 CATEGORY_DATABASE
-	DAVERAGE                ***  Not yet Implemented
-	DCOUNT                  ***  Not yet Implemented
-	DCOUNTA                 ***  Not yet Implemented
+	DAVERAGE                PHPExcel_Calculation_Database::DAVERAGE
+	DCOUNT                  PHPExcel_Calculation_Database::DCOUNT
+	DCOUNTA                 PHPExcel_Calculation_Database::DCOUNTA
 	DGET                    ***  Not yet Implemented
-	DMAX                    ***  Not yet Implemented
-	DMIN                    ***  Not yet Implemented
-	DPRODUCT                ***  Not yet Implemented
-	DSTDEV                  ***  Not yet Implemented
-	DSTDEVP                 ***  Not yet Implemented
-	DSUM                    ***  Not yet Implemented
-	DVAR                    ***  Not yet Implemented
-	DVARP                   ***  Not yet Implemented
+	DMAX                    PHPExcel_Calculation_Database::DMAX
+	DMIN                    PHPExcel_Calculation_Database::DMIN
+	DPRODUCT                PHPExcel_Calculation_Database::DPRODUCT
+	DSTDEV                  PHPExcel_Calculation_Database::DSTDEV
+	DSTDEVP                 PHPExcel_Calculation_Database::DSTDEVP
+	DSUM                    PHPExcel_Calculation_Database::DSUM
+	DVAR                    PHPExcel_Calculation_Database::DVAR
+	DVARP                   PHPExcel_Calculation_Database::DVARP
 
 CATEGORY_DATE_AND_TIME
 	DATE                    PHPExcel_Calculation_DateTime::DATE

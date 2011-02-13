@@ -77,12 +77,12 @@ CUMPRINC                CATEGORY_FINANCIAL              PHPExcel_Calculation_Fin
 DATE                    CATEGORY_DATE_AND_TIME          PHPExcel_Calculation_DateTime::DATE
 DATEDIF                 CATEGORY_DATE_AND_TIME          PHPExcel_Calculation_DateTime::DATEDIF
 DATEVALUE               CATEGORY_DATE_AND_TIME          PHPExcel_Calculation_DateTime::DATEVALUE
-DAVERAGE                CATEGORY_DATABASE               ***  Not yet Implemented
+DAVERAGE                CATEGORY_DATABASE               PHPExcel_Calculation_Database::DAVERAGE
 DAY                     CATEGORY_DATE_AND_TIME          PHPExcel_Calculation_DateTime::DAYOFMONTH
 DAYS360                 CATEGORY_DATE_AND_TIME          PHPExcel_Calculation_DateTime::DAYS360
 DB                      CATEGORY_FINANCIAL              PHPExcel_Calculation_Financial::DB
-DCOUNT                  CATEGORY_DATABASE               ***  Not yet Implemented
-DCOUNTA                 CATEGORY_DATABASE               ***  Not yet Implemented
+DCOUNT                  CATEGORY_DATABASE               PHPExcel_Calculation_Database::DCOUNT
+DCOUNTA                 CATEGORY_DATABASE               PHPExcel_Calculation_Database::DCOUNTA
 DDB                     CATEGORY_FINANCIAL              PHPExcel_Calculation_Financial::DDB
 DEC2BIN                 CATEGORY_ENGINEERING            PHPExcel_Calculation_Engineering::DECTOBIN
 DEC2HEX                 CATEGORY_ENGINEERING            PHPExcel_Calculation_Engineering::DECTOHEX
@@ -92,18 +92,18 @@ DELTA                   CATEGORY_ENGINEERING            PHPExcel_Calculation_Eng
 DEVSQ                   CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::DEVSQ
 DGET                    CATEGORY_DATABASE               ***  Not yet Implemented
 DISC                    CATEGORY_FINANCIAL              PHPExcel_Calculation_Financial::DISC
-DMAX                    CATEGORY_DATABASE               ***  Not yet Implemented
-DMIN                    CATEGORY_DATABASE               ***  Not yet Implemented
+DMAX                    CATEGORY_DATABASE               PHPExcel_Calculation_Database::DMAX
+DMIN                    CATEGORY_DATABASE               PHPExcel_Calculation_Database::DMIN
 DOLLAR                  CATEGORY_TEXT_AND_DATA          PHPExcel_Calculation_TextData::DOLLAR
 DOLLARDE                CATEGORY_FINANCIAL              PHPExcel_Calculation_Financial::DOLLARDE
 DOLLARFR                CATEGORY_FINANCIAL              PHPExcel_Calculation_Financial::DOLLARFR
-DPRODUCT                CATEGORY_DATABASE               ***  Not yet Implemented
-DSTDEV                  CATEGORY_DATABASE               ***  Not yet Implemented
-DSTDEVP                 CATEGORY_DATABASE               ***  Not yet Implemented
-DSUM                    CATEGORY_DATABASE               ***  Not yet Implemented
+DPRODUCT                CATEGORY_DATABASE               PHPExcel_Calculation_Database::DPRODUCT
+DSTDEV                  CATEGORY_DATABASE               PHPExcel_Calculation_Database::DSTDEV
+DSTDEVP                 CATEGORY_DATABASE               PHPExcel_Calculation_Database::DSTDEVP
+DSUM                    CATEGORY_DATABASE               PHPExcel_Calculation_Database::DSUM
 DURATION                CATEGORY_FINANCIAL              ***  Not yet Implemented
-DVAR                    CATEGORY_DATABASE               ***  Not yet Implemented
-DVARP                   CATEGORY_DATABASE               ***  Not yet Implemented
+DVAR                    CATEGORY_DATABASE               PHPExcel_Calculation_Database::DVAR
+DVARP                   CATEGORY_DATABASE               PHPExcel_Calculation_Database::DVARP
 
 EDATE                   CATEGORY_DATE_AND_TIME          PHPExcel_Calculation_DateTime::EDATE
 EFFECT                  CATEGORY_FINANCIAL              PHPExcel_Calculation_Financial::EFFECT
