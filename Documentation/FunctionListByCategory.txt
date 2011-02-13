@@ -11,7 +11,7 @@ CATEGORY_DATABASE
 	DAVERAGE                PHPExcel_Calculation_Database::DAVERAGE
 	DCOUNT                  PHPExcel_Calculation_Database::DCOUNT
 	DCOUNTA                 PHPExcel_Calculation_Database::DCOUNTA
-	DGET                    ***  Not yet Implemented
+	DGET                    PHPExcel_Calculation_Database::DGET
 	DMAX                    PHPExcel_Calculation_Database::DMAX
 	DMIN                    PHPExcel_Calculation_Database::DMIN
 	DPRODUCT                PHPExcel_Calculation_Database::DPRODUCT

@@ -90,7 +90,7 @@ DEC2OCT                 CATEGORY_ENGINEERING            PHPExcel_Calculation_Eng
 DEGREES                 CATEGORY_MATH_AND_TRIG          rad2deg
 DELTA                   CATEGORY_ENGINEERING            PHPExcel_Calculation_Engineering::DELTA
 DEVSQ                   CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::DEVSQ
-DGET                    CATEGORY_DATABASE               ***  Not yet Implemented
+DGET                    CATEGORY_DATABASE               PHPExcel_Calculation_Database::DGET
 DISC                    CATEGORY_FINANCIAL              PHPExcel_Calculation_Financial::DISC
 DMAX                    CATEGORY_DATABASE               PHPExcel_Calculation_Database::DMAX
 DMIN                    CATEGORY_DATABASE               PHPExcel_Calculation_Database::DMIN
