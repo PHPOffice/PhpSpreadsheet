@@ -595,7 +595,7 @@ class PHPExcel_Calculation {
 												 'argumentCount'	=>	'1+'
 												),
 				'DGET'					=> array('category'			=>	PHPExcel_Calculation_Function::CATEGORY_DATABASE,
-												 'functionCall'		=>	'PHPExcel_Calculation_Functions::DUMMY',
+												 'functionCall'		=>	'PHPExcel_Calculation_Database::DGET',
 												 'argumentCount'	=>	'3'
 												),
 				'DISC'					=> array('category'			=>	PHPExcel_Calculation_Function::CATEGORY_FINANCIAL,

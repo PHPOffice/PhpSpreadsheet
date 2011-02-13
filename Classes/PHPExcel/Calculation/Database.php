@@ -179,6 +179,32 @@ class PHPExcel_Calculation_Database {
 	}	//	function DCOUNTA()
 
 	/**
+	 *	DGET
+	 *
+	 */
+	public static function DGET($database,$field,$criteria) {
+		$field = self::__fieldExtract($database,$field);
+		if (is_null($field)) {
+			return NULL;
+		}
+
+		//	reduce the database to a set of rows that match all the criteria
+		$database = self::__filter($database,$criteria);
+		//	extract an array of values for the requested column
+		$colData = array();
+		foreach($database as $row) {
+			$colData[] = $row[$field];
+		}
+
+		// Return
+		if (count($colData) > 1) {
+			return PHPExcel_Calculation_Functions::NaN();
+		}
+
+		return $colData[0];
+	}	//	function DGET()
+
+	/**
 	 *	DMAX
 	 *
 	 */
