@@ -1987,7 +1987,7 @@ class PHPExcel_Calculation {
 			} else {
 				//	If there's no quoted strings, then we do a simple count/replace
 				$formula = preg_replace($from,$to,$formula);
-				$formula = self::_translateSeparator($fromSeparator,$toSeparator,$formula);
+				$formula = self::_translateSeparator($fromSeparator,$toSeparator,$formula,$inBraces);
 			}
 		}
 
