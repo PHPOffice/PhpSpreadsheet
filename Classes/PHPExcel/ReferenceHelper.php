@@ -137,7 +137,8 @@ class PHPExcel_ReferenceHelper
 				if ($cell->getDataType() == PHPExcel_Cell_DataType::TYPE_FORMULA) {
 					// Formula should be adjusted
 					$pSheet->getCell($newCoordinates)
-						   ->setValue($this->updateFormulaReferences($cell->getValue(), $pBefore, $pNumCols, $pNumRows, $pSheet->getTitle()));
+						   ->setValue($this->updateFormulaReferences($cell->getValue(),
+						   					$pBefore, $pNumCols, $pNumRows, $pSheet->getTitle()));
 				} else {
 					// Formula should not be adjusted
 					$pSheet->getCell($newCoordinates)->setValue($cell->getValue());
@@ -145,6 +146,16 @@ class PHPExcel_ReferenceHelper
 
 				// Clear the original cell
 				$pSheet->getCell($cell->getCoordinate())->setValue('');
+
+			} else {
+				/*	We don't need to update styles for rows/columns before our insertion position,
+						but we do still need to adjust any formulae	in those cells					*/
+				if ($cell->getDataType() == PHPExcel_Cell_DataType::TYPE_FORMULA) {
+					// Formula should be adjusted
+					$cell->setValue($this->updateFormulaReferences($cell->getValue(),
+										$pBefore, $pNumCols, $pNumRows, $pSheet->getTitle()));
+				}
+
 			}
 		}
 

@@ -42,12 +42,12 @@ if (!defined('CALCULATION_REGEXP_CELLREF')) {
 		//	Cell reference (cell or range of cells, with or without a sheet reference)
 		define('CALCULATION_REGEXP_CELLREF','((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?\$?([a-z]{1,3})\$?(\d{1,7})');
 		//	Named Range of cells
-		define('CALCULATION_REGEXP_NAMEDRANGE','((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?([_A-Z][_A-Z0-9]*)');
+		define('CALCULATION_REGEXP_NAMEDRANGE','((([^\s,!&%^\/\*\+<>=-]*)|(\'[^\']*\')|(\"[^\"]*\"))!)?([_A-Z][_A-Z0-9\.]*)');
 	} else {
 		//	Cell reference (cell or range of cells, with or without a sheet reference)
 		define('CALCULATION_REGEXP_CELLREF','(((\w*)|(\'[^\']*\')|(\"[^\"]*\"))!)?\$?([a-z]{1,3})\$?(\d+)');
 		//	Named Range of cells
-		define('CALCULATION_REGEXP_NAMEDRANGE','(((\w*)|(\'.*\')|(\".*\"))!)?([_A-Z][_A-Z0-9]*)');
+		define('CALCULATION_REGEXP_NAMEDRANGE','(((\w*)|(\'.*\')|(\".*\"))!)?([_A-Z][_A-Z0-9\.]*)');
 	}
 }
 
@@ -55,9 +55,9 @@ if (!defined('CALCULATION_REGEXP_CELLREF')) {
 /**
  * PHPExcel_Calculation (Singleton)
  *
- * @category   PHPExcel
- * @package	PHPExcel_Calculation
- * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @category	PHPExcel
+ * @package		PHPExcel_Calculation
+ * @copyright	Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Calculation {
 
@@ -69,7 +69,7 @@ class PHPExcel_Calculation {
 	const CALCULATION_REGEXP_STRING		= '"(?:[^"]|"")*"';
 	//	Opening bracket
 	const CALCULATION_REGEXP_OPENBRACE	= '\(';
-	//	Function
+	//	Function (allow for the old @ symbol that could be used to prefix a function, but we'll ignore it)
 	const CALCULATION_REGEXP_FUNCTION	= '@?([A-Z][A-Z0-9\.]*)[\s]*\(';
 	//	Cell reference (cell or range of cells, with or without a sheet reference)
 	const CALCULATION_REGEXP_CELLREF	= CALCULATION_REGEXP_CELLREF;

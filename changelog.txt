@@ -62,9 +62,13 @@ Fixed in SVN:
 - Bugfix:	(MBaker) Work item 15121 - Column reference rather than cell reference in Print Area definition
 						Fix Excel2007 Writer to handle print areas that are defined as row or column ranges rather than just as cell ranges
 - Bugfix:	(MBaker) Reduced false positives from isDateTimeFormatCode() method by suppressing testing within quoted strings
-- Bugfix:	(MBaker) Work item 15312 - Caching and tmp partition exhaustion 
+- Bugfix:	(MBaker) Work item 15312 - Caching and tmp partition exhaustion
 - Bugfix:	(MBaker) Work item 15308 - Writing to Variable No Longer Works. $_tmp_dir Missing in PHPExcel\PHPExcel\Shared\OLE\PPS\Root.php
+- Bugfix:	(MBaker) Work item 15379 - Named ranges with dot don't get parsed properly
+- Bugfix:	(MBaker) Work item 15096 - insertNewRowBefore fails to consistently update references
+- Bugfix:	(MBaker) "i" is not a valid character for Excel date format masks (in isDateTimeFormatCode() method)
 - General:  (MBaker) Improved performance (speed), for building the Shared Strings table in the Excel2007 Writer.
+- General:  (MBaker) Improved performance (speed), for PHP to Excel date conversions
 - General:  (MBaker) Enhanced SheetViews element structures in the Excel2007 Writer for frozen panes.
 
 
