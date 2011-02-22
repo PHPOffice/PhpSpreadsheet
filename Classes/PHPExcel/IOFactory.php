@@ -70,7 +70,6 @@ class PHPExcel_IOFactory
 		'OOCalc',
 		'SYLK',
 		'Gnumeric',
-		'Serialized',
 		'CSV',
 	);
 

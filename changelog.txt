@@ -70,6 +70,7 @@ Fixed in SVN:
 - General:  (MBaker) Improved performance (speed), for building the Shared Strings table in the Excel2007 Writer.
 - General:  (MBaker) Improved performance (speed), for PHP to Excel date conversions
 - General:  (MBaker) Enhanced SheetViews element structures in the Excel2007 Writer for frozen panes.
+- General:  (MBaker) Removed Serialized Reader/Writer as these no longer work.
 
 
 
