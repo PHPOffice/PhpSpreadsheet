@@ -510,9 +510,12 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 			if ((!$this->_readDataOnly) && (isset($sheet->Objects))) {
 				foreach($sheet->Objects->children('gnm',TRUE) as $key => $comment) {
 					$commentAttributes = $comment->attributes();
-					$objPHPExcel->getActiveSheet()->getComment( (string)$commentAttributes->ObjectBound )
-														->setAuthor( (string)$commentAttributes->Author )
-														->setText($this->_parseRichText((string)$commentAttributes->Text) );
+					//	Only comment objects are handled at the moment
+					if ($commentAttributes->Text) {
+						$objPHPExcel->getActiveSheet()->getComment( (string)$commentAttributes->ObjectBound )
+															->setAuthor( (string)$commentAttributes->Author )
+															->setText($this->_parseRichText((string)$commentAttributes->Text) );
+					}
 				}
 			}
 //			echo '$maxCol=',$maxCol,'; $maxRow=',$maxRow,'<br />';
