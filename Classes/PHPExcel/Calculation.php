@@ -3738,12 +3738,31 @@ class PHPExcel_Calculation {
 
 
 	/**
+	 * Get a list of all Excel function names
+	 *
+	 * @return	array
+	 */
+	public function listAllFunctionNames() {
+		return array_keys(self::$_PHPExcelFunctions);
+	}	//	function listAllFunctionNames()
+
+	/**
 	 * Get a list of implemented Excel function names
 	 *
 	 * @return	array
 	 */
 	public function listFunctionNames() {
-		return array_keys(self::$_PHPExcelFunctions);
+		// Return value
+		$returnValue = array();
+		// Loop functions
+		foreach(self::$_PHPExcelFunctions as $functionName => $function) {
+			if ($function['functionCall'] != 'PHPExcel_Calculation_Functions::DUMMY') {
+				$returnValue[] = $functionName;
+			}
+		}
+
+		// Return
+		return $returnValue;
 	}	//	function listFunctionNames()
 
 }	//	class PHPExcel_Calculation
