@@ -35,7 +35,16 @@ require_once '../Classes/PHPExcel/IOFactory.php';
 
 
 echo date('H:i:s') . " Load from XML file\n";
-$objPHPExcel = PHPExcel_IOFactory::load("XMLTest.xml");
+$inputFileName = "XMLTest.xml";
+
+/**  Identify the type of $inputFileName  **/
+$inputFileType = PHPExcel_IOFactory::identify($inputFileName);
+echo 'Loading ',$inputFileName,' using ',$inputFileType," Reader\n";
+
+/**  Create a new Reader of the type that has been identified  **/
+$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+/**  Load $inputFileName to a PHPExcel Object  **/
+$objPHPExcel = $objReader->load($inputFileName);
 
 echo date('H:i:s') . " Write to Excel2007 format\n";
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
