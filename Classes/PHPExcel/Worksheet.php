@@ -1942,6 +1942,19 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	}
 
 	/**
+	 * Set comments array for the entire sheet.
+	 *
+	 * @param array of PHPExcel_Comment
+	 * @return PHPExcel_Worksheet
+	 */
+	public function setComments($pValue = array())
+	{
+		$this->_comments = $pValue;
+
+		return $this;
+	}
+
+	/**
 	 * Get comment for cell
 	 *
 	 * @param	string	$pCellCoordinate	Cell coordinate to get comment for

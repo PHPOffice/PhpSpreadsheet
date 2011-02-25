@@ -259,6 +259,14 @@ class PHPExcel_ReferenceHelper
 			}
 		}
 
+		// Update worksheet: comments
+		$aComments = $pSheet->getComments();
+		$aNewComments = array(); // the new array of all comments
+		foreach ($aComments as $key => &$value) {
+			$newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
+			$aNewComments[$newReference] = $value;
+		}
+		$pSheet->setComments($aNewComments); // replace the comments array
 
 		// Update worksheet: hyperlinks
 		$aHyperlinkCollection = array_reverse($pSheet->getHyperlinkCollection(), true);
