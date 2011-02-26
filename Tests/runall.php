@@ -41,7 +41,6 @@ $aTests = array(
 	, '09pagebreaks.php'
 	, '10autofilter.php'
 	, '11documentsecurity.php'
-	, '12serializedfileformat.php'
 	, '13calculation.php'
 	, '14excel5.php'
 	, '15datavalidation.php'
@@ -71,7 +70,6 @@ $aTests = array(
 foreach ($aTests as $sTest) {
 	@unlink( str_replace('.php', '.xls', 	$sTest) );
 	@unlink( str_replace('.php', '.xlsx', 	$sTest) );
-	@unlink( str_replace('.php', '.phpxl',	$sTest) );
 	@unlink( str_replace('.php', '.csv',	$sTest) );
 	@unlink( str_replace('.php', '.htm',	$sTest) );
 	@unlink( str_replace('.php', '.pdf',	$sTest) );
