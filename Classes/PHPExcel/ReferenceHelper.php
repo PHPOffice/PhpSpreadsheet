@@ -545,7 +545,7 @@ class PHPExcel_ReferenceHelper
 	/**
 	 * Update cell range
 	 *
-	 * @param	string	$pCellRange			Cell range
+	 * @param	string	$pCellRange			Cell range	(e.g. 'B2:D4', 'B:C' or '2:3')
 	 * @param	int		$pBefore			Insert before this one
 	 * @param	int		$pNumCols			Number of columns to increment
 	 * @param	int		$pNumRows			Number of rows to increment
@@ -560,7 +560,15 @@ class PHPExcel_ReferenceHelper
 			for ($i = 0; $i < $ic; ++$i) {
 				$jc = count($range[$i]);
 				for ($j = 0; $j < $jc; ++$j) {
-					$range[$i][$j] = $this->_updateSingleCellReference($range[$i][$j], $pBefore, $pNumCols, $pNumRows);
+					if (ctype_alpha($range[$i][$j])) {
+						$r = PHPExcel_Cell::coordinateFromString($this->_updateSingleCellReference($range[$i][$j].'1', $pBefore, $pNumCols, $pNumRows));
+						$range[$i][$j] = $r[0];
+					} elseif(ctype_digit($range[$i][$j])) {
+						$r = PHPExcel_Cell::coordinateFromString($this->_updateSingleCellReference('A'.$range[$i][$j], $pBefore, $pNumCols, $pNumRows));
+						$range[$i][$j] = $r[1];
+					} else {
+						$range[$i][$j] = $this->_updateSingleCellReference($range[$i][$j], $pBefore, $pNumCols, $pNumRows);
+					}
 				}
 			}
 

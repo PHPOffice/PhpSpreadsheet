@@ -3652,9 +3652,17 @@ class PHPExcel_Calculation {
 			$namedRange = PHPExcel_NamedRange::resolveRange($pRange, $pSheet);
 			if (!is_null($namedRange)) {
 				$pSheet = $namedRange->getWorksheet();
-////			echo 'Named Range '.$pRange.' (';
+//				echo 'Named Range '.$pRange.' (';
 				$pRange = $namedRange->getRange();
-////				echo $pRange.') is in sheet '.$namedRange->getWorksheet()->getTitle().'<br />';
+				$splitRange = PHPExcel_Cell::splitRange($pRange);
+				//	Convert row and column references
+				if (ctype_alpha($splitRange[0][0])) {
+					$pRange = $splitRange[0][0] . '1:' . $splitRange[0][1] . $namedRange->getWorksheet()->getHighestRow();
+				} elseif(ctype_digit($splitRange[0][0])) {
+					$pRange = 'A' . $splitRange[0][0] . ':' . $namedRange->getWorksheet()->getHighestColumn() . $splitRange[0][1];
+				}
+//				echo $pRange.') is in sheet '.$namedRange->getWorksheet()->getTitle().'<br />';
+
 //				if ($pSheet->getTitle() != $namedRange->getWorksheet()->getTitle()) {
 //					if (!$namedRange->getLocalOnly()) {
 //						$pSheet = $namedRange->getWorksheet();
@@ -3668,8 +3676,9 @@ class PHPExcel_Calculation {
 
 			// Extract range
 			$aReferences = PHPExcel_Cell::extractAllCellReferencesInRange($pRange);
+//			var_dump($aReferences);
 			if (!isset($aReferences[1])) {
-				//	Single cell in range
+				//	Single cell (or single column or row) in range
 				list($currentCol,$currentRow) = PHPExcel_Cell::coordinateFromString($aReferences[0]);
 				if ($pSheet->cellExists($aReferences[0])) {
 					$returnValue[$currentRow][$currentCol] = $pSheet->getCell($aReferences[0])->getCalculatedValue($resetLog);

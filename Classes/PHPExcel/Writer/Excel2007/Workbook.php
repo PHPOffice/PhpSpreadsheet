@@ -321,9 +321,9 @@ class PHPExcel_Writer_Excel2007_Workbook extends PHPExcel_Writer_Excel2007_Write
 		// Create absolute coordinate and write as raw text
 		$range = PHPExcel_Cell::splitRange($pNamedRange->getRange());
 		for ($i = 0; $i < count($range); $i++) {
-			$range[$i][0] = '\'' . str_replace("'", "''", $pNamedRange->getWorksheet()->getTitle()) . '\'!' . PHPExcel_Cell::absoluteCoordinate($range[$i][0]);
+			$range[$i][0] = '\'' . str_replace("'", "''", $pNamedRange->getWorksheet()->getTitle()) . '\'!' . PHPExcel_Cell::absoluteReference($range[$i][0]);
 			if (isset($range[$i][1])) {
-				$range[$i][1] = PHPExcel_Cell::absoluteCoordinate($range[$i][1]);
+				$range[$i][1] = PHPExcel_Cell::absoluteReference($range[$i][1]);
 			}
 		}
 		$range = PHPExcel_Cell::buildRange($range);
