@@ -2531,7 +2531,7 @@ class PHPExcel_Calculation {
 			}
 
 			if (is_null($value)) {
-				return 'a null value';
+				return 'a NULL value';
 			} elseif (is_float($value)) {
 				$typeString = 'a floating point number';
 			} elseif(is_int($value)) {
@@ -2828,10 +2828,10 @@ class PHPExcel_Calculation {
 						$stack->push('Function', strtoupper($val));
 						$ax = preg_match('/^\s*(\s*\))/i', substr($formula, $index+$length), $amatch);
 						if ($ax) {
-							$stack->push('Operand Count for Function '.self::_localeFunc(strtoupper($val)).')', 0);
+							$stack->push('Operand Count for Function '.strtoupper($val).')', 0);
 							$expectingOperator = true;
 						} else {
-							$stack->push('Operand Count for Function '.self::_localeFunc(strtoupper($val)).')', 1);
+							$stack->push('Operand Count for Function '.strtoupper($val).')', 1);
 							$expectingOperator = false;
 						}
 						$stack->push('Brace', '(');
@@ -2925,7 +2925,7 @@ class PHPExcel_Calculation {
 				++$index;
 			} elseif ($opCharacter == ')') {	// miscellaneous error checking
 				if ($expectingOperand) {
-					$output[] = array('type' => 'Null Value', 'value' => self::$_ExcelConstants['NULL'], 'reference' => null);
+					$output[] = array('type' => 'NULL Value', 'value' => self::$_ExcelConstants['NULL'], 'reference' => null);
 					$expectingOperand = false;
 					$expectingOperator = true;
 				} else {

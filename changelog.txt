@@ -72,6 +72,7 @@ Fixed in SVN:
 - Bugfix:	(MBaker) "i" is not a valid character for Excel date format masks (in isDateTimeFormatCode() method)
 - Bugfix:	(MKunert) Work item 15421 - PHPExcel_ReferenceHelper::insertNewBefore() is missing an 'Update worksheet: comments' section
 - Bugfix:	(MBaker) Work item 15409 - Full column/row references in named ranges not supported by updateCellReference()
+- General:	(MBaker) Work item 15405 - Two easy to fix Issues concerning PHPExcel_Token_Stack (l10n/UC)
 - General:  (MBaker) Improved performance (speed), for building the Shared Strings table in the Excel2007 Writer.
 - General:  (MBaker) Improved performance (speed), for PHP to Excel date conversions
 - General:  (MBaker) Enhanced SheetViews element structures in the Excel2007 Writer for frozen panes.
