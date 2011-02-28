@@ -24,6 +24,9 @@
 
 
 Fixed in SVN:
+
+
+2011-02)27 (v1.7.6):
 - Feature:  (MBaker) Provide option to use PCLZip as an alternative to ZipArchive.
 					 This allows the writing of Excel2007 files, even without ZipArchive enabled (it does require zlib), or when php_zip is one of the buggy PHP 5.2.6 or 5.2.8 versions
 					 It can be enabled using PHPExcel_Settings::setZipClass(PHPExcel_Settings::PCLZIP);
@@ -73,8 +76,6 @@ Fixed in SVN:
 - General:  (MBaker) Improved performance (speed), for PHP to Excel date conversions
 - General:  (MBaker) Enhanced SheetViews element structures in the Excel2007 Writer for frozen panes.
 - General:  (MBaker) Removed Serialized Reader/Writer as these no longer work.
-
-
 
 
 2010-12-10 (v1.7.5):
