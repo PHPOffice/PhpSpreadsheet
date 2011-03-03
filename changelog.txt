@@ -24,6 +24,7 @@
 
 
 Fixed in SVN:
+- Bugfix:   (MBaker) Work item 15459 - Invalid cell coordinate in Autofilter for Excel2007 Writer
 
 
 2011-02)27 (v1.7.6):

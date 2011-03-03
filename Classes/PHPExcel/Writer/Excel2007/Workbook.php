@@ -353,6 +353,11 @@ class PHPExcel_Writer_Excel2007_Workbook extends PHPExcel_Writer_Excel2007_Write
 			// Create absolute coordinate and write as raw text
 			$range = PHPExcel_Cell::splitRange($pSheet->getAutoFilter());
 			$range = $range[0];
+			//	Strip any worksheet ref so we can make the cell ref absolute
+			if (strpos($range[0],'!') !== false) {
+				list($ws,$range[0]) = explode('!',$range[0]);
+			}
+
 			$range[0] = PHPExcel_Cell::absoluteCoordinate($range[0]);
 			$range[1] = PHPExcel_Cell::absoluteCoordinate($range[1]);
 			$range = implode(':', $range);
