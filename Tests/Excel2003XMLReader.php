@@ -52,6 +52,8 @@ $objReader = PHPExcel_IOFactory::createReader('Excel2003XML');
 $objPHPExcel = $objReader->load("Excel2003XMLTest.xml");
 
 
+
+
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;
 echo '<br />Call time to read Workbook was '.sprintf('%.4f',$callTime)." seconds<br />\n";
@@ -59,9 +61,9 @@ echo '<br />Call time to read Workbook was '.sprintf('%.4f',$callTime)." seconds
 echo date('H:i:s').' Current memory usage: '.(memory_get_usage(true) / 1024 / 1024)." MB<br /><hr />\n";
 
 
-echo date('H:i:s') . " Write to Excel2007 format<br />";
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-$objWriter->save(str_replace('.php', '.xlsx', __FILE__));
+echo date('H:i:s') . " Write to Excel5 format<br />";
+$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter->save(str_replace('.php', '.xls', __FILE__));
 
 
 // Echo memory peak usage

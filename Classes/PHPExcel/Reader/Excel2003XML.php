@@ -72,6 +72,13 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 	 */
 	private $_readFilter = null;
 
+	/**
+	 * Character set used in the file
+	 *
+	 * @var string
+	 */
+	private $_charSet = 'UTF-8';
+
 
 	/**
 	 * Read data only?
@@ -197,6 +204,12 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 			}
 		}
 
+		//	Retrieve charset encoding
+		if(preg_match('/<?xml.*encoding=[\'"](.*?)[\'"].*?>/um',$data,$matches)) {
+			$this->_charSet = strtoupper($matches[1]);
+		}
+//		echo 'Character Set is ',$this->_charSet,'<br />';
+
 		return $valid;
 	}
 
@@ -212,6 +225,9 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 		if (!file_exists($pFilename)) {
 			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
 		}
+		if (!$this->canRead($pFilename)) {
+			throw new Exception($pFilename . " is an Invalid Spreadsheet file.");
+		}
 
 		$worksheetNames = array();
 
@@ -221,7 +237,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 		$xml_ss = $xml->children($namespaces['ss']);
 		foreach($xml_ss->Worksheet as $worksheet) {
 			$worksheet_ss = $worksheet->attributes($namespaces['ss']);
-			$worksheetNames[] = $worksheet_ss['Name'];
+			$worksheetNames[] = self::_convertStringEncoding((string) $worksheet_ss['Name'],$this->_charSet);
 		}
 
 		return $worksheetNames;
@@ -329,6 +345,10 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
 		}
 
+		if (!$this->canRead($pFilename)) {
+			throw new Exception($pFilename . " is an Invalid Spreadsheet file.");
+		}
+
 		$xml = simplexml_load_file($pFilename);
 		$namespaces = $xml->getNamespaces(true);
 
@@ -337,39 +357,39 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 			foreach($xml->DocumentProperties[0] as $propertyName => $propertyValue) {
 				switch ($propertyName) {
 					case 'Title' :
-							$docProps->setTitle($propertyValue);
+							$docProps->setTitle(self::_convertStringEncoding($propertyValue,$this->_charSet));
 							break;
 					case 'Subject' :
-							$docProps->setSubject($propertyValue);
+							$docProps->setSubject(self::_convertStringEncoding($propertyValue,$this->_charSet));
 							break;
 					case 'Author' :
-							$docProps->setCreator($propertyValue);
+							$docProps->setCreator(self::_convertStringEncoding($propertyValue,$this->_charSet));
 							break;
 					case 'Created' :
 							$creationDate = strtotime($propertyValue);
 							$docProps->setCreated($creationDate);
 							break;
 					case 'LastAuthor' :
-							$docProps->setLastModifiedBy($propertyValue);
+							$docProps->setLastModifiedBy(self::_convertStringEncoding($propertyValue,$this->_charSet));
 							break;
 					case 'LastSaved' :
 							$lastSaveDate = strtotime($propertyValue);
 							$docProps->setModified($lastSaveDate);
 							break;
 					case 'Company' :
-							$docProps->setCompany($propertyValue);
+							$docProps->setCompany(self::_convertStringEncoding($propertyValue,$this->_charSet));
 							break;
 					case 'Category' :
-							$docProps->setCategory($propertyValue);
+							$docProps->setCategory(self::_convertStringEncoding($propertyValue,$this->_charSet));
 							break;
 					case 'Manager' :
-							$docProps->setManager($propertyValue);
+							$docProps->setManager(self::_convertStringEncoding($propertyValue,$this->_charSet));
 							break;
 					case 'Keywords' :
-							$docProps->setKeywords($propertyValue);
+							$docProps->setKeywords(self::_convertStringEncoding($propertyValue,$this->_charSet));
 							break;
 					case 'Description' :
-							$docProps->setDescription($propertyValue);
+							$docProps->setDescription(self::_convertStringEncoding($propertyValue,$this->_charSet));
 							break;
 				}
 			}
@@ -535,6 +555,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 
 		$worksheetID = 0;
 		$xml_ss = $xml->children($namespaces['ss']);
+
 		foreach($xml_ss->Worksheet as $worksheet) {
 			$worksheet_ss = $worksheet->attributes($namespaces['ss']);
 
@@ -549,7 +570,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 			$objPHPExcel->createSheet();
 			$objPHPExcel->setActiveSheetIndex($worksheetID);
 			if (isset($worksheet_ss['Name'])) {
-				$worksheetName = (string) $worksheet_ss['Name'];
+				$worksheetName = self::_convertStringEncoding((string) $worksheet_ss['Name'],$this->_charSet);
 				$objPHPExcel->getActiveSheet()->setTitle($worksheetName);
 			}
 
@@ -635,6 +656,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 									const TYPE_ERROR		= 'e';
 									*/
 									case 'String' :
+											$cellValue = self::_convertStringEncoding($cellValue,$this->_charSet);
 											$type = PHPExcel_Cell_DataType::TYPE_STRING;
 											break;
 									case 'Number' :
@@ -735,7 +757,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 							$annotation = strip_tags($node);
 //							echo 'Annotation: ',$annotation,'<br />';
 							$objPHPExcel->getActiveSheet()->getComment( $columnID.$rowID )
-															->setAuthor( $author )
+															->setAuthor(self::_convertStringEncoding($author ,$this->_charSet))
 															->setText($this->_parseRichText($annotation) );
 						}
 
@@ -776,10 +798,17 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 		return $objPHPExcel;
 	}
 
+	private static function _convertStringEncoding($string,$charset) {
+		if ($charset != 'UTF-8') {
+			return PHPExcel_Shared_String::ConvertEncoding($string,'UTF-8',$charset);
+		}
+		return $string;
+	}
+
 	private function _parseRichText($is = '') {
 		$value = new PHPExcel_RichText();
 
-		$value->createText($is);
+		$value->createText(self::_convertStringEncoding($is,$this->_charSet));
 
 		return $value;
 	}
