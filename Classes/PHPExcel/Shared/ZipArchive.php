@@ -38,6 +38,11 @@ require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/PCLZip/pclzip.lib.php';
 class PHPExcel_Shared_ZipArchive
 {
 
+	/**	constants */
+	const OVERWRITE		= 'OVERWRITE';
+	const CREATE		= 'CREATE';
+
+
 	/**
 	 * Temporary storage directory
 	 *

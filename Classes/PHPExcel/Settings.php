@@ -42,6 +42,13 @@ class PHPExcel_Settings
 	const ZIPARCHIVE	= 'ZipArchive';
 
 
+	/**
+	 *	Reference to the class used for Zip file management
+	 *		e.g.
+	 *			ZipArchive
+	 *
+	 *	@var string
+	 */
 	private static $_zipClass	= self::ZIPARCHIVE;
 
 
