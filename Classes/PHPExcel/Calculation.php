@@ -3001,14 +3001,31 @@ class PHPExcel_Calculation {
 				//	We must have two operands, error if we don't
 				if (is_null($operand2Data = $stack->pop())) return $this->_raiseFormulaError('Internal error - Operand value missing from stack');
 				if (is_null($operand1Data = $stack->pop())) return $this->_raiseFormulaError('Internal error - Operand value missing from stack');
-				//	Log what we're doing
+
 				$operand1 = $operand1Data['value'];
+				if ((is_null($operand1Data['reference'])) && (is_array($operand1))) {
+					$rowKey = array_shift(array_keys($operand1));
+					$colKey = array_shift(array_keys($operand1[$rowKey]));
+					if (ctype_upper($colKey)) {
+						$operand1Data['reference'] = $colKey.$rowKey;
+					}
+				}
 				$operand2 = $operand2Data['value'];
+				if ((is_null($operand2Data['reference'])) && (is_array($operand2))) {
+					$rowKey = array_shift(array_keys($operand2));
+					$colKey = array_shift(array_keys($operand2[$rowKey]));
+					if (ctype_upper($colKey)) {
+						$operand2Data['reference'] = $colKey.$rowKey;
+					}
+				}
+
+				//	Log what we're doing
 				if ($token == ':') {
 					$this->_writeDebug('Evaluating Range '.$this->_showValue($operand1Data['reference']).$token.$this->_showValue($operand2Data['reference']));
 				} else {
 					$this->_writeDebug('Evaluating '.$this->_showValue($operand1).' '.$token.' '.$this->_showValue($operand2));
 				}
+
 				//	Process the operation in the appropriate manner
 				switch ($token) {
 					//	Comparison (Boolean) Operators
