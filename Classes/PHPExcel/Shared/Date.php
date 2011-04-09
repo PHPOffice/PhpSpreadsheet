@@ -91,14 +91,14 @@ class PHPExcel_Shared_Date
 		// Perform conversion
 		if ($dateValue >= 1) {
 			$utcDays = $dateValue - $myExcelBaseDate;
-			$returnValue = round($utcDays * 24 * 60 * 60);
+			$returnValue = round($utcDays * 86400);
 			if (($returnValue <= PHP_INT_MAX) && ($returnValue >= -PHP_INT_MAX)) {
 				$returnValue = (integer) $returnValue;
 			}
 		} else {
 			$hours = round($dateValue * 24);
-			$mins = round($dateValue * 24 * 60) - round($hours * 60);
-			$secs = round($dateValue * 24 * 60 * 60) - round($hours * 60 * 60) - round($mins * 60);
+			$mins = round($dateValue * 1440) - round($hours * 60);
+			$secs = round($dateValue * 86400) - round($hours * 3600) - round($mins * 60);
 			$returnValue = (integer) gmmktime($hours, $mins, $secs);
 		}
 
