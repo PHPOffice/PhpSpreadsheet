@@ -1698,7 +1698,9 @@ class PHPExcel_Calculation {
 
 
 	public function __destruct() {
-		ini_set('precision',$this->_savedPrecision);
+		if ($this->_savedPrecision != ini_get('precision')) {
+			ini_set('precision',$this->_savedPrecision);
+		}
 	}
 
 	/**

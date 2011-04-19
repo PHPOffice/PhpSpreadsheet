@@ -28,6 +28,7 @@ Fixed in SVN:
 - Bugfix:   (MBaker) Work item 15518 - PCLZip library issue
 - Bugfix:   (MBaker) Work item 15537 - Excel2007 Reader canRead function bug
 - Bugfix:   (MBaker) Support for Excel functions whose return can be used as either a value or as a cell reference depending on its context within a formula
+- Bugfix:   (gilles06) Work item 15707 - ini_set() call in Calculation class destructor
 - General:	(MBaker) Work item 15405 - Two easy to fix Issues concerning PHPExcel_Token_Stack (l10n/UC)
 - General:	(MBaker) Work item 15461 - Locale file paths not fit for windows
 
