@@ -110,7 +110,8 @@
 
     <copy todir="./build/Documentation/Examples" overwrite="true">
       <fileset dir="../Documentation/Examples">
-        <include name="**.*" />
+        <include name="**/*" />
+        <exclude name="assets" />
         <exclude name="**/.svn" />
       </fileset>
     </copy>
