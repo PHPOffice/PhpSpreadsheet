@@ -58,6 +58,13 @@ class PHPExcel_CachedObjectStorage_CacheBase {
 
 
 	/**
+	 *	Flag indicating whether the currently active Cell requires saving
+	 *
+	 *	@var boolean
+	 */
+	protected $_currentCellIsDirty = true;
+
+	/**
 	 *	An array of cells or cell pointers for the worksheet cells held in this cache,
 	 *		and indexed by their coordinate address within the worksheet
 	 *
@@ -118,6 +125,7 @@ class PHPExcel_CachedObjectStorage_CacheBase {
 			$this->_cellCache[$pCoord]->detach();
 			unset($this->_cellCache[$pCoord]);
 		}
+		$this->_currentCellIsDirty = false;
 	}	//	function deleteCacheData()
 
 

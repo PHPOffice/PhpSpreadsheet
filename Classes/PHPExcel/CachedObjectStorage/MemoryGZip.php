@@ -36,9 +36,12 @@
 class PHPExcel_CachedObjectStorage_MemoryGZip extends PHPExcel_CachedObjectStorage_CacheBase implements PHPExcel_CachedObjectStorage_ICache {
 
 	private function _storeData() {
-		$this->_currentObject->detach();
+		if ($this->_currentCellIsDirty) {
+			$this->_currentObject->detach();
 
-		$this->_cellCache[$this->_currentObjectID] = gzdeflate(serialize($this->_currentObject));
+			$this->_cellCache[$this->_currentObjectID] = gzdeflate(serialize($this->_currentObject));
+			$this->_currentCellIsDirty = false;
+		}
 		$this->_currentObjectID = $this->_currentObject = null;
 	}	//	function _storeData()
 
@@ -58,6 +61,7 @@ class PHPExcel_CachedObjectStorage_MemoryGZip extends PHPExcel_CachedObjectStora
 
 		$this->_currentObjectID = $pCoord;
 		$this->_currentObject = $cell;
+		$this->_currentCellIsDirty = true;
 
 		return $cell;
 	}	//	function addCacheData()

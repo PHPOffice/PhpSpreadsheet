@@ -41,19 +41,22 @@ class PHPExcel_CachedObjectStorage_Wincache extends PHPExcel_CachedObjectStorage
 
 
 	private function _storeData() {
-		$this->_currentObject->detach();
+		if ($this->_currentCellIsDirty) {
+			$this->_currentObject->detach();
 
-		$obj = serialize($this->_currentObject);
-		if (wincache_ucache_exists($this->_cachePrefix.$this->_currentObjectID.'.cache')) {
-			if (!wincache_ucache_set($this->_cachePrefix.$this->_currentObjectID.'.cache', $obj, $this->_cacheTime)) {
-				$this->__destruct();
-				throw new Exception('Failed to store cell '.$cellID.' in WinCache');
+			$obj = serialize($this->_currentObject);
+			if (wincache_ucache_exists($this->_cachePrefix.$this->_currentObjectID.'.cache')) {
+				if (!wincache_ucache_set($this->_cachePrefix.$this->_currentObjectID.'.cache', $obj, $this->_cacheTime)) {
+					$this->__destruct();
+					throw new Exception('Failed to store cell '.$cellID.' in WinCache');
+				}
+			} else {
+				if (!wincache_ucache_add($this->_cachePrefix.$this->_currentObjectID.'.cache', $obj, $this->_cacheTime)) {
+					$this->__destruct();
+					throw new Exception('Failed to store cell '.$cellID.' in WinCache');
+				}
 			}
-		} else {
-			if (!wincache_ucache_add($this->_cachePrefix.$this->_currentObjectID.'.cache', $obj, $this->_cacheTime)) {
-				$this->__destruct();
-				throw new Exception('Failed to store cell '.$cellID.' in WinCache');
-			}
+			$this->_currentCellIsDirty = false;
 		}
 
 		$this->_currentObjectID = $this->_currentObject = null;
@@ -76,6 +79,7 @@ class PHPExcel_CachedObjectStorage_Wincache extends PHPExcel_CachedObjectStorage
 
 		$this->_currentObjectID = $pCoord;
 		$this->_currentObject = $cell;
+		$this->_currentCellIsDirty = true;
 
 		return $cell;
 	}	//	function addCacheData()

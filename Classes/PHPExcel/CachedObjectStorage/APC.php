@@ -41,11 +41,14 @@ class PHPExcel_CachedObjectStorage_APC extends PHPExcel_CachedObjectStorage_Cach
 
 
 	private function _storeData() {
-		$this->_currentObject->detach();
+		if ($this->_currentCellIsDirty) {
+			$this->_currentObject->detach();
 
-		if (!apc_store($this->_cachePrefix.$this->_currentObjectID.'.cache',serialize($this->_currentObject),$this->_cacheTime)) {
-			$this->__destruct();
-			throw new Exception('Failed to store cell '.$cellID.' in APC');
+			if (!apc_store($this->_cachePrefix.$this->_currentObjectID.'.cache',serialize($this->_currentObject),$this->_cacheTime)) {
+				$this->__destruct();
+				throw new Exception('Failed to store cell '.$cellID.' in APC');
+			}
+			$this->_currentCellIsDirty = false;
 		}
 		$this->_currentObjectID = $this->_currentObject = null;
 	}	//	function _storeData()
@@ -67,6 +70,7 @@ class PHPExcel_CachedObjectStorage_APC extends PHPExcel_CachedObjectStorage_Cach
 
 		$this->_currentObjectID = $pCoord;
 		$this->_currentObject = $cell;
+		$this->_currentCellIsDirty = true;
 
 		return $cell;
 	}	//	function addCacheData()

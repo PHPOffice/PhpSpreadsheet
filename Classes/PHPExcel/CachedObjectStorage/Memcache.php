@@ -43,14 +43,17 @@ class PHPExcel_CachedObjectStorage_Memcache extends PHPExcel_CachedObjectStorage
 
 
 	private function _storeData() {
-		$this->_currentObject->detach();
+		if ($this->_currentCellIsDirty) {
+			$this->_currentObject->detach();
 
-		$obj = serialize($this->_currentObject);
-		if (!$this->_memcache->replace($this->_cachePrefix.$this->_currentObjectID.'.cache',$obj,NULL,$this->_cacheTime)) {
-			if (!$this->_memcache->add($this->_cachePrefix.$this->_currentObjectID.'.cache',$obj,NULL,$this->_cacheTime)) {
-				$this->__destruct();
-				throw new Exception('Failed to store cell '.$cellID.' in MemCache');
+			$obj = serialize($this->_currentObject);
+			if (!$this->_memcache->replace($this->_cachePrefix.$this->_currentObjectID.'.cache',$obj,NULL,$this->_cacheTime)) {
+				if (!$this->_memcache->add($this->_cachePrefix.$this->_currentObjectID.'.cache',$obj,NULL,$this->_cacheTime)) {
+					$this->__destruct();
+					throw new Exception('Failed to store cell '.$cellID.' in MemCache');
+				}
 			}
+			$this->_currentCellIsDirty = false;
 		}
 		$this->_currentObjectID = $this->_currentObject = null;
 	}	//	function _storeData()
@@ -72,6 +75,7 @@ class PHPExcel_CachedObjectStorage_Memcache extends PHPExcel_CachedObjectStorage
 
 		$this->_currentObjectID = $pCoord;
 		$this->_currentObject = $cell;
+		$this->_currentCellIsDirty = true;
 
 		return $cell;
 	}	//	function addCacheData()
