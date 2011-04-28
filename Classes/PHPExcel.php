@@ -379,7 +379,7 @@ class PHPExcel
 	public function setActiveSheetIndexByName($pValue = '')
 	{
 		if (($worksheet = $this->getSheetByName($pValue)) instanceof PHPExcel_Worksheet) {
-			$this->setActiveSheetIndex($worksheet->getParent()->getIndex($worksheet));
+			$this->setActiveSheetIndex($this->getIndex($worksheet));
 			return $worksheet;
 		}
 
@@ -396,7 +396,7 @@ class PHPExcel
 		$returnValue = array();
 		$worksheetCount = $this->getSheetCount();
 		for ($i = 0; $i < $worksheetCount; ++$i) {
-			array_push($returnValue, $this->getSheet($i)->getTitle());
+			$returnValue[] = $this->getSheet($i)->getTitle();
 		}
 
 		return $returnValue;

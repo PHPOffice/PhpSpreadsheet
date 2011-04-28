@@ -2176,11 +2176,12 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		$maxCol++;
 
 		// Loop through rows
+		$r = -1;
 		for ($row = $minRow; $row <= $maxRow; ++$row) {
+			$rRef = ($returnCellRef) ? $row : ++$r;
 			$c = -1;
 			// Loop through columns in the current row
 			for ($col = $minCol; $col != $maxCol; ++$col) {
-				$rRef = ($returnCellRef) ? $row : $row-1;
 				$cRef = ($returnCellRef) ? $col : ++$c;
 				//	Using getCell() will create a new cell if it doesn't already exist. We don't want that to happen
 				//		so we test and retrieve directly against _cellCollection
