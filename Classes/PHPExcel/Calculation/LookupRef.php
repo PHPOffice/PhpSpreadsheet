@@ -51,6 +51,9 @@ class PHPExcel_Calculation_LookupRef {
 	 *
 	 *	Creates a cell address as text, given specified row and column numbers.
 	 *
+	 *	Excel Function:
+	 *		=ADDRESS(row, column, [relativity], [referenceStyle], [sheetText])
+	 *
 	 *	@param	row				Row number to use in the cell reference
 	 *	@param	column			Column number to use in the cell reference
 	 *	@param	relativity		Flag indicating the type of reference to return
@@ -100,6 +103,9 @@ class PHPExcel_Calculation_LookupRef {
 	 *	If cell reference is omitted, and the function is being called through the calculation engine, then it is assumed to be the
 	 *		reference of the cell in which the COLUMN function appears; otherwise this function returns 0.
 	 *
+	 *	Excel Function:
+	 *		=COLUMN([cellAddress])
+	 *
 	 *	@param	cellAddress		A reference to a range of cells for which you want the column numbers
 	 *	@return	integer or array of integer
 	 */
@@ -137,8 +143,11 @@ class PHPExcel_Calculation_LookupRef {
 	 *
 	 *	Returns the number of columns in an array or reference.
 	 *
+	 *	Excel Function:
+	 *		=COLUMNS(cellAddress)
+	 *
 	 *	@param	cellAddress		An array or array formula, or a reference to a range of cells for which you want the number of columns
-	 *	@return	integer
+	 *	@return	integer			The number of columns in cellAddress
 	 */
 	public static function COLUMNS($cellAddress=Null) {
 		if (is_null($cellAddress) || $cellAddress === '') {
@@ -167,6 +176,9 @@ class PHPExcel_Calculation_LookupRef {
 	 *	If the cell reference is a range of cells, ROW returns the row numbers of each row in the reference as a vertical array.
 	 *	If cell reference is omitted, and the function is being called through the calculation engine, then it is assumed to be the
 	 *		reference of the cell in which the ROW function appears; otherwise this function returns 0.
+	 *
+	 *	Excel Function:
+	 *		=ROW([cellAddress])
 	 *
 	 *	@param	cellAddress		A reference to a range of cells for which you want the row numbers
 	 *	@return	integer or array of integer
@@ -206,8 +218,11 @@ class PHPExcel_Calculation_LookupRef {
 	 *
 	 *	Returns the number of rows in an array or reference.
 	 *
+	 *	Excel Function:
+	 *		=ROWS(cellAddress)
+	 *
 	 *	@param	cellAddress		An array or array formula, or a reference to a range of cells for which you want the number of rows
-	 *	@return	integer
+	 *	@return	integer			The number of rows in cellAddress
 	 */
 	public static function ROWS($cellAddress=Null) {
 		if (is_null($cellAddress) || $cellAddress === '') {
@@ -238,7 +253,7 @@ class PHPExcel_Calculation_LookupRef {
 	 *	@category Logical Functions
 	 *	@param	string	$linkURL		Value to check, is also the value returned when no error
 	 *	@param	string	$displayName	Value to return when testValue is an error condition
-	 *	@return	mixed	The value of errorpart or testValue determined by error condition
+	 *	@return	mixed	The value of $displayName (or $linkURL if $displayName was blank)
 	 */
 	public static function HYPERLINK($linkURL = '', $displayName = null, PHPExcel_Cell $pCell = null) {
 		$args = func_get_args();
@@ -264,10 +279,19 @@ class PHPExcel_Calculation_LookupRef {
 	/**
 	 *	INDIRECT
 	 *
-	 *	Returns the number of rows in an array or reference.
+	 *	Returns the reference specified by a text string.
+	 *	References are immediately evaluated to display their contents.
+	 *
+	 *	Excel Function:
+	 *		=INDIRECT(cellAddress)
+	 *
+	 *	NOTE - INDIRECT() does not yet support the optional a1 parameter introduced in Excel 2010
 	 *
 	 *	@param	cellAddress		An array or array formula, or a reference to a range of cells for which you want the number of rows
-	 *	@return	integer
+	 *	@return	mixed			The cells referenced by cellAddress
+	 *
+	 *	@todo	Support for the optional a1 parameter introduced in Excel 2010
+	 *
 	 */
 	public static function INDIRECT($cellAddress=Null, PHPExcel_Cell $pCell = null) {
 		$cellAddress	= PHPExcel_Calculation_Functions::flattenSingleValue($cellAddress);
@@ -315,6 +339,9 @@ class PHPExcel_Calculation_LookupRef {
 	 *	Returns a reference to a range that is a specified number of rows and columns from a cell or range of cells.
 	 *	The reference that is returned can be a single cell or a range of cells. You can specify the number of rows and
 	 *	the number of columns to be returned.
+	 *
+	 *	Excel Function:
+	 *		=OFFSET(cellAddress, rows, cols, [height], [width])
 	 *
 	 *	@param	cellAddress		The reference from which you want to base the offset. Reference must refer to a cell or
 	 *								range of adjacent cells; otherwise, OFFSET returns the #VALUE! error value.
@@ -399,6 +426,24 @@ class PHPExcel_Calculation_LookupRef {
 	}	//	function OFFSET()
 
 
+	/**
+	 *	CHOOSE
+	 *
+	 *	Uses lookup_value to return a value from the list of value arguments.
+	 *	Use CHOOSE to select one of up to 254 values based on the lookup_value.
+	 *
+	 *	Excel Function:
+	 *		=CHOOSE(index_num, value1, [value2], ...)
+	 *
+	 *	@param	index_num		Specifies which value argument is selected.
+	 *							Index_num must be a number between 1 and 254, or a formula or reference to a cell containing a number
+	 *								between 1 and 254.
+	 *	@param	value1...		Value1 is required, subsequent values are optional.
+	 *							Between 1 to 254 value arguments from which CHOOSE selects a value or an action to perform based on
+	 *								index_num. The arguments can be numbers, cell references, defined names, formulas, functions, or
+	 *								text.
+	 *	@return	mixed			The selected value
+	 */
 	public static function CHOOSE() {
 		$chooseArgs = func_get_args();
 		$chosenEntry = PHPExcel_Calculation_Functions::flattenArray(array_shift($chooseArgs));
@@ -429,6 +474,9 @@ class PHPExcel_Calculation_LookupRef {
 	 *	MATCH
 	 *
 	 *	The MATCH function searches for a specified item in a range of cells
+	 *
+	 *	Excel Function:
+	 *		=MATCH(lookup_value, lookup_array, [match_type])
 	 *
 	 *	@param	lookup_value	The value that you want to match in lookup_array
 	 *	@param	lookup_array	The range of cells being searched
@@ -538,13 +586,15 @@ class PHPExcel_Calculation_LookupRef {
 	/**
 	 *	INDEX
 	 *
-	 * Uses an index to choose a value from a reference or array
-	 * implemented: Return the value of a specified cell or array of cells	Array form
-	 * not implemented: Return a reference to specified cells	Reference form
+	 *	Uses an index to choose a value from a reference or array
 	 *
-	 * @param	range_array	a range of cells or an array constant
-	 * @param	row_num		selects the row in array from which to return a value. If row_num is omitted, column_num is required.
-	 * @param	column_num	selects the column in array from which to return a value. If column_num is omitted, row_num is required.
+	 *	Excel Function:
+	 *		=INDEX(range_array, row_num, [column_num])
+	 *
+	 *	@param	range_array		A range of cells or an array constant
+	 *	@param	row_num			The row in array from which to return a value. If row_num is omitted, column_num is required.
+	 *	@param	column_num		The column in array from which to return a value. If column_num is omitted, row_num is required.
+	 *	@return	mixed			the value of a specified cell or array of cells
 	 */
 	public static function INDEX($arrayValues,$rowNum = 0,$columnNum = 0) {
 
