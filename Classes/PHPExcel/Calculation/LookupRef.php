@@ -283,7 +283,19 @@ class PHPExcel_Calculation_LookupRef {
 
 		if ((!preg_match('/^'.PHPExcel_Calculation::CALCULATION_REGEXP_CELLREF.'$/i', $cellAddress1, $matches)) ||
 			((!is_null($cellAddress2)) && (!preg_match('/^'.PHPExcel_Calculation::CALCULATION_REGEXP_CELLREF.'$/i', $cellAddress2, $matches)))) {
-			return PHPExcel_Calculation_Functions::REF();
+
+			if (!preg_match('/^'.PHPExcel_Calculation::CALCULATION_REGEXP_NAMEDRANGE.'$/i', $cellAddress1, $matches)) {
+				return PHPExcel_Calculation_Functions::REF();
+			}
+
+			if (strpos($cellAddress,'!') !== false) {
+				list($sheetName,$cellAddress) = explode('!',$cellAddress);
+				$pSheet = $pCell->getParent()->getParent()->getSheetByName($sheetName);
+			} else {
+				$pSheet = $pCell->getParent();
+			}
+
+			return PHPExcel_Calculation::getInstance()->extractNamedRange($cellAddress, $pSheet, False);
 		}
 
 		if (strpos($cellAddress,'!') !== false) {
