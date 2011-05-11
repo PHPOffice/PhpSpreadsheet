@@ -118,12 +118,16 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 			fwrite($fileHandle, "\xEF\xBB\xBF");
 		}
 
-		// Convert sheet to array
-		$cellsArray = $sheet->toArray('', $this->_preCalculateFormulas);
+		//	Identify the range that we need to extract from the worksheet
+		$maxCol = $sheet->getHighestColumn();
+		$maxRow = $sheet->getHighestRow();
 
 		// Write rows to file
-		foreach ($cellsArray as $row) {
-			$this->_writeLine($fileHandle, $row);
+		for($row = 1; $row <= $maxRow; ++$row) {
+			// Convert the row to an array...
+			$cellsArray = $sheet->rangeToArray('A'.$row.':'.$maxCol.$row,'', $this->_preCalculateFormulas);
+			// ... and write to the file
+			$this->_writeLine($fileHandle, $cellsArray[0]);
 		}
 
 		// Close file
