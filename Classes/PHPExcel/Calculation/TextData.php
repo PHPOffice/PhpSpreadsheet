@@ -96,7 +96,7 @@ class PHPExcel_Calculation_TextData {
 		$stringValue	= PHPExcel_Calculation_Functions::flattenSingleValue($stringValue);
 
 		if (is_bool($stringValue)) {
-			$stringValue = ($stringValue) ? 'TRUE' : 'FALSE';
+			$stringValue = ($stringValue) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
 		}
 
 		if (self::$_invalidChars == Null) {
@@ -138,11 +138,7 @@ class PHPExcel_Calculation_TextData {
 			if (PHPExcel_Calculation_Functions::getCompatibilityMode() == PHPExcel_Calculation_Functions::COMPATIBILITY_OPENOFFICE) {
 				$characters = (int) $characters;
 			} else {
-				if ($characters) {
-					$characters = 'True';
-				} else {
-					$characters = 'False';
-				}
+				$characters = ($characters) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
 			}
 		}
 
@@ -173,11 +169,7 @@ class PHPExcel_Calculation_TextData {
 				if (PHPExcel_Calculation_Functions::getCompatibilityMode() == PHPExcel_Calculation_Functions::COMPATIBILITY_OPENOFFICE) {
 					$arg = (int) $arg;
 				} else {
-					if ($arg) {
-						$arg = 'TRUE';
-					} else {
-						$arg = 'FALSE';
-					}
+					$arg = ($arg) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
 				}
 			}
 			$returnValue .= $arg;
@@ -238,7 +230,7 @@ class PHPExcel_Calculation_TextData {
 
 		if (!is_bool($needle)) {
 			if (is_bool($haystack)) {
-				$haystack = ($haystack) ? 'TRUE' : 'FALSE';
+				$haystack = ($haystack) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
 			}
 
 			if (($offset > 0) && (strlen($haystack) > $offset)) {
@@ -271,7 +263,7 @@ class PHPExcel_Calculation_TextData {
 
 		if (!is_bool($needle)) {
 			if (is_bool($haystack)) {
-				$haystack = ($haystack) ? 'TRUE' : 'FALSE';
+				$haystack = ($haystack) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
 			}
 
 			if (($offset > 0) && (strlen($haystack) > $offset)) {
@@ -326,7 +318,7 @@ class PHPExcel_Calculation_TextData {
 		}
 
 		if (is_bool($value)) {
-			$value = ($value) ? 'TRUE' : 'FALSE';
+			$value = ($value) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
 		}
 
 		if (function_exists('mb_substr')) {
@@ -355,7 +347,7 @@ class PHPExcel_Calculation_TextData {
 		}
 
 		if (is_bool($value)) {
-			$value = ($value) ? 'TRUE' : 'FALSE';
+			$value = ($value) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
 		}
 
 		if (function_exists('mb_substr')) {
@@ -382,7 +374,7 @@ class PHPExcel_Calculation_TextData {
 		}
 
 		if (is_bool($value)) {
-			$value = ($value) ? 'TRUE' : 'FALSE';
+			$value = ($value) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
 		}
 
 		if ((function_exists('mb_substr')) && (function_exists('mb_strlen'))) {
@@ -404,7 +396,7 @@ class PHPExcel_Calculation_TextData {
 		$value		= PHPExcel_Calculation_Functions::flattenSingleValue($value);
 
 		if (is_bool($value)) {
-			$value = ($value) ? 'TRUE' : 'FALSE';
+			$value = ($value) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
 		}
 
 		if (function_exists('mb_strlen')) {
@@ -427,7 +419,7 @@ class PHPExcel_Calculation_TextData {
 		$mixedCaseString	= PHPExcel_Calculation_Functions::flattenSingleValue($mixedCaseString);
 
 		if (is_bool($mixedCaseString)) {
-			$mixedCaseString = ($mixedCaseString) ? 'TRUE' : 'FALSE';
+			$mixedCaseString = ($mixedCaseString) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
 		}
 
 		if (function_exists('mb_convert_case')) {
@@ -450,7 +442,7 @@ class PHPExcel_Calculation_TextData {
 		$mixedCaseString	= PHPExcel_Calculation_Functions::flattenSingleValue($mixedCaseString);
 
 		if (is_bool($mixedCaseString)) {
-			$mixedCaseString = ($mixedCaseString) ? 'TRUE' : 'FALSE';
+			$mixedCaseString = ($mixedCaseString) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
 		}
 
 		if (function_exists('mb_convert_case')) {
@@ -473,7 +465,7 @@ class PHPExcel_Calculation_TextData {
 		$mixedCaseString	= PHPExcel_Calculation_Functions::flattenSingleValue($mixedCaseString);
 
 		if (is_bool($mixedCaseString)) {
-			$mixedCaseString = ($mixedCaseString) ? 'TRUE' : 'FALSE';
+			$mixedCaseString = ($mixedCaseString) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
 		}
 
 		if (function_exists('mb_convert_case')) {
