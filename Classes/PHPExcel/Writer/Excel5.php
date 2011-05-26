@@ -107,7 +107,7 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 	public function __construct(PHPExcel $phpExcel) {
 		$this->_phpExcel		= $phpExcel;
 
-		$this->_parser			= new PHPExcel_Writer_Excel5_Parser($this->_BIFF_version);
+		$this->_parser			= new PHPExcel_Writer_Excel5_Parser();
 	}
 
 	/**
@@ -130,18 +130,18 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 		$this->_colors          = array();
 
 		// Initialise workbook writer
-		$this->_writerWorkbook = new PHPExcel_Writer_Excel5_Workbook($this->_phpExcel, $this->_BIFF_version,
-					$this->_str_total, $this->_str_unique, $this->_str_table, $this->_colors, $this->_parser);
+		$this->_writerWorkbook = new PHPExcel_Writer_Excel5_Workbook($this->_phpExcel,
+																	 $this->_str_total, $this->_str_unique, $this->_str_table,
+																	 $this->_colors, $this->_parser);
 
 		// Initialise worksheet writers
 		$countSheets = $this->_phpExcel->getSheetCount();
 		for ($i = 0; $i < $countSheets; ++$i) {
-			$this->_writerWorksheets[$i] = new PHPExcel_Writer_Excel5_Worksheet($this->_BIFF_version,
-									   $this->_str_total, $this->_str_unique,
-									   $this->_str_table, $this->_colors,
-									   $this->_parser,
-									   $this->_preCalculateFormulas,
-									   $this->_phpExcel->getSheet($i));
+			$this->_writerWorksheets[$i] = new PHPExcel_Writer_Excel5_Worksheet($this->_str_total, $this->_str_unique,
+																			   $this->_str_table, $this->_colors,
+																			   $this->_parser,
+																			   $this->_preCalculateFormulas,
+																			   $this->_phpExcel->getSheet($i));
 		}
 
 		// build Escher objects. Escher objects for workbooks needs to be build before Escher object for workbook.
@@ -161,7 +161,7 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 		}
 
 		// initialize OLE file
-		$workbookStreamName = ($this->_BIFF_version == 0x0600) ? 'Workbook' : 'Book';
+		$workbookStreamName = 'Workbook';
 		$OLE = new PHPExcel_Shared_OLE_PPS_File(PHPExcel_Shared_OLE::Asc2Ucs($workbookStreamName));
 
 		// Write the worksheet streams before the global workbook stream,

@@ -70,13 +70,6 @@
  */
 class PHPExcel_Writer_Excel5_Xf
 {
-	/**
-	 * BIFF version
-	 *
-	 * @var int
-	 */
-	private $_BIFFVersion;
-
     /**
 	 * Style XF or a cell XF ?
 	 *
@@ -148,7 +141,6 @@ class PHPExcel_Writer_Excel5_Xf
 	public function __construct(PHPExcel_Style $style = null)
 	{
 		$this->_isStyleXf =     false;
-		$this->_BIFFVersion   = 0x0600;
 		$this->_fontIndex      = 0;
 
 		$this->_numberFormatIndex     = 0;
@@ -218,110 +210,62 @@ class PHPExcel_Writer_Excel5_Xf
 		}
 
 		$record         = 0x00E0;              // Record identifier
-		if ($this->_BIFFVersion == 0x0500) {
-			$length         = 0x0010;              // Number of bytes to follow
-		}
-		if ($this->_BIFFVersion == 0x0600) {
-			$length         = 0x0014;
-		}
+		$length         = 0x0014;              // Number of bytes to follow
 
 		$ifnt           = $this->_fontIndex;   // Index to FONT record
 		$ifmt           = $this->_numberFormatIndex;  // Index to FORMAT record
-		if ($this->_BIFFVersion == 0x0500) {
-			$align          = $this->_mapHAlign($this->_style->getAlignment()->getHorizontal());       // Alignment
-			$align         |= (int) $this->_style->getAlignment()->getWrapText()     << 3;
-			$align         |= $this->_mapVAlign($this->_style->getAlignment()->getVertical())  << 4;
-			$align         |= $this->_text_justlast << 7;
-			$align         |= 0                       << 8; // rotation
-			$align         |= $atr_num                << 10;
-			$align         |= $atr_fnt                << 11;
-			$align         |= $atr_alc                << 12;
-			$align         |= $atr_bdr                << 13;
-			$align         |= $atr_pat                << 14;
-			$align         |= $atr_prot               << 15;
 
-			$icv            = $this->_fg_color;       // fg and bg pattern colors
-			$icv           |= $this->_bg_color      << 7;
+		$align          = $this->_mapHAlign($this->_style->getAlignment()->getHorizontal());       // Alignment
+		$align         |= (int) $this->_style->getAlignment()->getWrapText()     << 3;
+		$align         |= $this->_mapVAlign($this->_style->getAlignment()->getVertical())  << 4;
+		$align         |= $this->_text_justlast << 7;
 
-			$fill           = $this->_mapFillType($this->_style->getFill()->getFillType());        // Fill and border line style
-			$fill          |= $this->_mapBorderStyle($this->_style->getBorders()->getBottom()->getBorderStyle())        << 6;
-			$fill          |= $this->_bottom_color  << 9;
+		$used_attrib    = $atr_num              << 2;
+		$used_attrib   |= $atr_fnt              << 3;
+		$used_attrib   |= $atr_alc              << 4;
+		$used_attrib   |= $atr_bdr              << 5;
+		$used_attrib   |= $atr_pat              << 6;
+		$used_attrib   |= $atr_prot             << 7;
 
-			$border1        = $this->_mapBorderStyle($this->_style->getBorders()->getTop()->getBorderStyle());            // Border line style and color
-			$border1       |= $this->_mapBorderStyle($this->_style->getBorders()->getLeft()->getBorderStyle())          << 3;
-			$border1       |= $this->_mapBorderStyle($this->_style->getBorders()->getRight()->getBorderStyle())         << 6;
-			$border1       |= $this->_top_color     << 9;
+		$icv            = $this->_fg_color;      // fg and bg pattern colors
+		$icv           |= $this->_bg_color      << 7;
 
-			$border2        = $this->_left_color;     // Border color
-			$border2       |= $this->_right_color   << 7;
+		$border1        = $this->_mapBorderStyle($this->_style->getBorders()->getLeft()->getBorderStyle());          // Border line style and color
+		$border1       |= $this->_mapBorderStyle($this->_style->getBorders()->getRight()->getBorderStyle())         << 4;
+		$border1       |= $this->_mapBorderStyle($this->_style->getBorders()->getTop()->getBorderStyle())           << 8;
+		$border1       |= $this->_mapBorderStyle($this->_style->getBorders()->getBottom()->getBorderStyle())        << 12;
+		$border1       |= $this->_left_color    << 16;
+		$border1       |= $this->_right_color   << 23;
 
-			$header      = pack("vv",       $record, $length);
-			$data        = pack("vvvvvvvv", $ifnt, $ifmt, $style, $align,
-											$icv, $fill,
-											$border1, $border2);
-		} elseif ($this->_BIFFVersion == 0x0600) {
-			$align          = $this->_mapHAlign($this->_style->getAlignment()->getHorizontal());       // Alignment
-			$align         |= (int) $this->_style->getAlignment()->getWrapText()     << 3;
-			$align         |= $this->_mapVAlign($this->_style->getAlignment()->getVertical())  << 4;
-			$align         |= $this->_text_justlast << 7;
+		$diagonalDirection = $this->_style->getBorders()->getDiagonalDirection();
+		$diag_tl_to_rb = $diagonalDirection == PHPExcel_Style_Borders::DIAGONAL_BOTH
+							|| $diagonalDirection == PHPExcel_Style_Borders::DIAGONAL_DOWN;
+		$diag_tr_to_lb = $diagonalDirection == PHPExcel_Style_Borders::DIAGONAL_BOTH
+							|| $diagonalDirection == PHPExcel_Style_Borders::DIAGONAL_UP;
+		$border1       |= $diag_tl_to_rb        << 30;
+		$border1       |= $diag_tr_to_lb        << 31;
 
-			$used_attrib    = $atr_num              << 2;
-			$used_attrib   |= $atr_fnt              << 3;
-			$used_attrib   |= $atr_alc              << 4;
-			$used_attrib   |= $atr_bdr              << 5;
-			$used_attrib   |= $atr_pat              << 6;
-			$used_attrib   |= $atr_prot             << 7;
+		$border2        = $this->_top_color;    // Border color
+		$border2       |= $this->_bottom_color   << 7;
+		$border2       |= $this->_diag_color     << 14;
+		$border2       |= $this->_mapBorderStyle($this->_style->getBorders()->getDiagonal()->getBorderStyle())           << 21;
+		$border2       |= $this->_mapFillType($this->_style->getFill()->getFillType())        << 26;
 
-			$icv            = $this->_fg_color;      // fg and bg pattern colors
-			$icv           |= $this->_bg_color      << 7;
+		$header      = pack("vv",       $record, $length);
 
-			$border1        = $this->_mapBorderStyle($this->_style->getBorders()->getLeft()->getBorderStyle());          // Border line style and color
-			$border1       |= $this->_mapBorderStyle($this->_style->getBorders()->getRight()->getBorderStyle())         << 4;
-			$border1       |= $this->_mapBorderStyle($this->_style->getBorders()->getTop()->getBorderStyle())           << 8;
-			$border1       |= $this->_mapBorderStyle($this->_style->getBorders()->getBottom()->getBorderStyle())        << 12;
-			$border1       |= $this->_left_color    << 16;
-			$border1       |= $this->_right_color   << 23;
+		//BIFF8 options: identation, shrinkToFit and  text direction
+		$biff8_options  = $this->_style->getAlignment()->getIndent();
+		$biff8_options |= (int) $this->_style->getAlignment()->getShrinkToFit() << 4;
 
-			$diagonalDirection = $this->_style->getBorders()->getDiagonalDirection();
-			$diag_tl_to_rb = $diagonalDirection == PHPExcel_Style_Borders::DIAGONAL_BOTH
-								|| $diagonalDirection == PHPExcel_Style_Borders::DIAGONAL_DOWN;
-			$diag_tr_to_lb = $diagonalDirection == PHPExcel_Style_Borders::DIAGONAL_BOTH
-								|| $diagonalDirection == PHPExcel_Style_Borders::DIAGONAL_UP;
-			$border1       |= $diag_tl_to_rb        << 30;
-			$border1       |= $diag_tr_to_lb        << 31;
-
-			$border2        = $this->_top_color;    // Border color
-			$border2       |= $this->_bottom_color   << 7;
-			$border2       |= $this->_diag_color     << 14;
-			$border2       |= $this->_mapBorderStyle($this->_style->getBorders()->getDiagonal()->getBorderStyle())           << 21;
-			$border2       |= $this->_mapFillType($this->_style->getFill()->getFillType())        << 26;
-
-			$header      = pack("vv",       $record, $length);
-
-			//BIFF8 options: identation, shrinkToFit and  text direction
-			$biff8_options  = $this->_style->getAlignment()->getIndent();
-			$biff8_options |= (int) $this->_style->getAlignment()->getShrinkToFit() << 4;
-
-			$data  = pack("vvvC", $ifnt, $ifmt, $style, $align);
-			$data .= pack("CCC"
-				, $this->_mapTextRotation($this->_style->getAlignment()->getTextRotation())
-				, $biff8_options
-				, $used_attrib
-				);
-			$data .= pack("VVv", $border1, $border2, $icv);
-		}
+		$data  = pack("vvvC", $ifnt, $ifmt, $style, $align);
+		$data .= pack("CCC"
+			, $this->_mapTextRotation($this->_style->getAlignment()->getTextRotation())
+			, $biff8_options
+			, $used_attrib
+			);
+		$data .= pack("VVv", $border1, $border2, $icv);
 
 		return($header . $data);
-	}
-
-	/**
-	 * Set BIFF version
-	 *
-	 * @param int $BIFFVersion
-	 */
-	public function setBIFFVersion($BIFFVersion)
-	{
-		$this->_BIFFVersion = $BIFFVersion;
 	}
 
 	/**

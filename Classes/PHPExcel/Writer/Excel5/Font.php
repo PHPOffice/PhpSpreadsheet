@@ -36,13 +36,6 @@
 class PHPExcel_Writer_Excel5_Font
 {
 	/**
-	 * BIFF version
-	 *
-	 * @var int
-	 */
-	private $_BIFFVersion;
-
-	/**
 	 * Color index
 	 *
 	 * @var int
@@ -63,7 +56,6 @@ class PHPExcel_Writer_Excel5_Font
 	 */
 	public function __construct(PHPExcel_Style_Font $font = null)
 	{
-		$this->_BIFFVersion = 0x0600;
 		$this->_colorIndex = 0x7FFF;
 		$this->_font = $font;
 	}
@@ -115,49 +107,23 @@ class PHPExcel_Writer_Excel5_Font
 			$grbit |= 0x20;
 		}
 
-		if ($this->_BIFFVersion == 0x0500) {
-			$data = pack("vvvvvCCCCC",
-				$this->_font->getSize() * 20,
-				$grbit,
-				$icv,
-				$this->_mapBold($this->_font->getBold()),
-				$sss,
-				$this->_mapUnderline($this->_font->getUnderline()),
-				$bFamily,
-				$bCharSet,
-				$reserved,
-				strlen($this->_font->getName())
-			);
-			$data .= $this->_font->getName();
-		} elseif ($this->_BIFFVersion == 0x0600) {
-			$data = pack("vvvvvCCCC",
-				$this->_font->getSize() * 20,
-				$grbit,
-				$icv,
-				$this->_mapBold($this->_font->getBold()),
-				$sss,
-				$this->_mapUnderline($this->_font->getUnderline()),
-				$bFamily,
-				$bCharSet,
-				$reserved
-			);
-			$data .= PHPExcel_Shared_String::UTF8toBIFF8UnicodeShort($this->_font->getName());
-		}
+		$data = pack("vvvvvCCCC",
+			$this->_font->getSize() * 20,
+			$grbit,
+			$icv,
+			$this->_mapBold($this->_font->getBold()),
+			$sss,
+			$this->_mapUnderline($this->_font->getUnderline()),
+			$bFamily,
+			$bCharSet,
+			$reserved
+		);
+		$data .= PHPExcel_Shared_String::UTF8toBIFF8UnicodeShort($this->_font->getName());
 
 		$length = strlen($data);
 		$header = pack("vv", $record, $length);
 
 		return($header . $data);
-	}
-
-	/**
-	 * Set BIFF version
-	 *
-	 * @param int $BIFFVersion
-	 */
-	public function setBIFFVersion($BIFFVersion)
-	{
-		$this->_BIFFVersion = $BIFFVersion;
 	}
 
 	/**
