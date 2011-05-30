@@ -69,12 +69,12 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
 					!isset($aFlippedStringTable[$cellValue]) &&
 					($cell->getDataType() == PHPExcel_Cell_DataType::TYPE_STRING || $cell->getDataType() == PHPExcel_Cell_DataType::TYPE_STRING2 || $cell->getDataType() == PHPExcel_Cell_DataType::TYPE_NULL)) {
 						$aStringTable[] = $cellValue;
-						$aFlippedStringTable[$cellValue] = 1;
+						$aFlippedStringTable[$cellValue] = true;
 				} elseif ($cellValue instanceof PHPExcel_RichText &&
 						  !is_null($cellValue) &&
 						  !isset($aFlippedStringTable[$cellValue->getHashCode()])) {
 								$aStringTable[] = $cellValue;
-								$aFlippedStringTable[$cellValue->getHashCode()] = 1;
+								$aFlippedStringTable[$cellValue->getHashCode()] = true;
 	        	}
 	        }
 

@@ -92,7 +92,7 @@ class PHPExcel_Writer_Excel5_BIFFwriter
 	 * @var integer
 	 * @see _addContinue()
 	 */
-	public $_limit;
+	public $_limit	= 8224;
 
 	/**
 	 * Constructor
@@ -101,7 +101,7 @@ class PHPExcel_Writer_Excel5_BIFFwriter
 	{
 		$this->_data       = '';
 		$this->_datasize   = 0;
-		$this->_limit      = 2080;
+//		$this->_limit      = 8224;
 	}
 
 	/**
@@ -171,16 +171,16 @@ class PHPExcel_Writer_Excel5_BIFFwriter
 	 */
 	function _storeBof($type)
 	{
-		$record  = 0x0809;        // Record identifier
+		$record  = 0x0809;			// Record identifier	(BIFF5-BIFF8)
 		$length  = 0x0010;
 
 		// by inspection of real files, MS Office Excel 2007 writes the following
 		$unknown = pack("VV", 0x000100D1, 0x00000406);
 
-		$build   = 0x0DBB;
-		$year    = 0x07CC;
+		$build   = 0x0DBB;			//	Excel 97
+		$year    = 0x07CC;			//	Excel 97
 
-		$version = 0x0600;
+		$version = 0x0600;			//	BIFF8
 
 		$header  = pack("vv",   $record, $length);
 		$data    = pack("vvvv", $version, $type, $build, $year);

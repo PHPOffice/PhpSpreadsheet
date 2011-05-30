@@ -91,9 +91,9 @@ class PHPExcel_Writer_Excel5_Font
 		$bFamily = 0; // Font family
 		$bCharSet = PHPExcel_Shared_Font::getCharsetFromFontName($this->_font->getName()); // Character set
 
-		$record = 0x31; // Record identifier
-		$reserved = 0x00; // Reserved
-		$grbit = 0x00; // Font attributes
+		$record = 0x31;		// Record identifier
+		$reserved = 0x00;	// Reserved
+		$grbit = 0x00;		// Font attributes
 		if ($this->_font->getItalic()) {
 			$grbit |= 0x02;
 		}
@@ -108,12 +108,12 @@ class PHPExcel_Writer_Excel5_Font
 		}
 
 		$data = pack("vvvvvCCCC",
-			$this->_font->getSize() * 20,
+			$this->_font->getSize() * 20,						//	Fontsize (in twips)
 			$grbit,
-			$icv,
-			$this->_mapBold($this->_font->getBold()),
-			$sss,
-			$this->_mapUnderline($this->_font->getUnderline()),
+			$icv,												//	Colour
+			self::_mapBold($this->_font->getBold()),			//	Font weight
+			$sss,												//	Superscript/Subscript
+			self::_mapUnderline($this->_font->getUnderline()),
 			$bFamily,
 			$bCharSet,
 			$reserved
@@ -132,28 +132,29 @@ class PHPExcel_Writer_Excel5_Font
 	 * @param boolean $bold
 	 * @return int
 	 */
-	private function _mapBold($bold) {
+	private static function _mapBold($bold) {
 		if ($bold) {
-			return 0x2BC;
+			return 0x2BC;	//	700 = Bold font weight
 		}
-		return 0x190;
+		return 0x190;		//	400 = Normal font weight
 	}
 
+	private static $_mapUnderline = array(	PHPExcel_Style_Font::UNDERLINE_NONE					=> 0x00,
+											PHPExcel_Style_Font::UNDERLINE_SINGLE				=> 0x01,
+											PHPExcel_Style_Font::UNDERLINE_DOUBLE				=> 0x02,
+											PHPExcel_Style_Font::UNDERLINE_SINGLEACCOUNTING		=> 0x21,
+											PHPExcel_Style_Font::UNDERLINE_DOUBLEACCOUNTING		=> 0x22,
+										 );
 	/**
 	 * Map underline
 	 *
 	 * @param string
 	 * @return int
 	 */
-	private function _mapUnderline($underline) {
-		switch ($underline) {
-			case PHPExcel_Style_Font::UNDERLINE_NONE:				return 0x00;
-			case PHPExcel_Style_Font::UNDERLINE_SINGLE:				return 0x01;
-			case PHPExcel_Style_Font::UNDERLINE_DOUBLE:				return 0x02;
-			case PHPExcel_Style_Font::UNDERLINE_SINGLEACCOUNTING:	return 0x21;
-			case PHPExcel_Style_Font::UNDERLINE_DOUBLEACCOUNTING:	return 0x22;
-			default:												return 0x00;
-		}
+	private static function _mapUnderline($underline) {
+		if (isset(self::$_mapUnderline[$underline]))
+			return self::$_mapUnderline[$underline];
+		return 0x00;
 	}
 
 }

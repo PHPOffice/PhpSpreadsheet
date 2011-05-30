@@ -209,7 +209,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		parent::__construct();
 
 		// change BIFFwriter limit for CONTINUE records
-		$this->_limit = 8224;
+//		$this->_limit = 8224;
 
 
 		$this->_preCalculateFormulas = $preCalculateFormulas;
@@ -236,20 +236,22 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		$this->_outline_on			= 1;
 
 		// calculate values for DIMENSIONS record
-		$col = $row = array();
+		$minR = $maxR = 1;
+		$minC = $maxC = '1A';
 		foreach ($this->_phpSheet->getCellCollection(false) as $cellID) {
 			list($c,$r) = sscanf($cellID,'%[A-Z]%d');
-			$row[$r] = $r;
-			$col[$c] = strlen($c).$c;
+			$minR = min($minR,$r);
+			$maxR = max($maxR,$r);
+			$C = strlen($c).$c;
+			$minC = min($minC,$C);
+			$maxC = max($maxC,$C);
 		}
 		// Determine lowest and highest column and row
-		$this->_firstRowIndex	= (count($row) > 0) ? min($row) : 1;
-		$this->_lastRowIndex	= (count($row) > 0) ? max($row) : 1;
-		if ($this->_firstRowIndex > 65535) $this->_firstRowIndex = 65535;
-		if ($this->_lastRowIndex > 65535) $this->_lastRowIndex = 65535;
+		$this->_firstRowIndex = ($minR > 65535) ? $minR: 65535;
+		$this->_lastRowIndex = ($maxR > 65535) ? $maxR : 65535;
 
-		$this->_firstColumnIndex	= (count($col) > 0) ? PHPExcel_Cell::columnIndexFromString(substr(min($col),1)) : 1;
-		$this->_lastColumnIndex		= (count($col) > 0) ? PHPExcel_Cell::columnIndexFromString(substr(max($col),1)) : 1;
+		$this->_firstColumnIndex	= PHPExcel_Cell::columnIndexFromString(substr($minC,1));
+		$this->_lastColumnIndex		= PHPExcel_Cell::columnIndexFromString(substr($maxC,1));
 
 		if ($this->_firstColumnIndex > 255) $this->_firstColumnIndex = 255;
 		if ($this->_lastColumnIndex > 255) $this->_lastColumnIndex = 255;
@@ -266,7 +268,9 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 	 */
 	function close()
 	{
-		$num_sheets = $this->_phpSheet->getParent()->getSheetCount();
+		$_phpSheet = $this->_phpSheet;
+
+		$num_sheets = $_phpSheet->getParent()->getSheetCount();
 
 		// Write BOF record
 		$this->_storeBof(0x0010);
@@ -281,21 +285,21 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		$this->_writeGridset();
 
 		// Calculate column widths
-		$this->_phpSheet->calculateColumnWidths();
+		$_phpSheet->calculateColumnWidths();
 
 		// Column dimensions
-		$maxCol = PHPExcel_Cell::columnIndexFromString($this->_phpSheet->getHighestColumn()) -1;
-		$columnDimensions = $this->_phpSheet->getColumnDimensions();
+		if (($defaultWidth = $_phpSheet->getDefaultColumnDimension()->getWidth()) < 0) {
+			$defaultWidth = PHPExcel_Shared_Font::getDefaultColumnWidthByFont($_phpSheet->getParent()->getDefaultStyle()->getFont());
+		}
+
+		$columnDimensions = $_phpSheet->getColumnDimensions();
+		$maxCol = $this->_lastColumnIndex -1;
 		for ($i = 0; $i <= $maxCol; ++$i) {
 			$hidden = 0;
 			$level = 0;
 			$xfIndex = 15; // there are 15 cell style Xfs
 
-			if ($this->_phpSheet->getDefaultColumnDimension()->getWidth() >= 0) {
-				$width = $this->_phpSheet->getDefaultColumnDimension()->getWidth();
-			} else {
-				$width = PHPExcel_Shared_Font::getDefaultColumnWidthByFont($this->_phpSheet->getParent()->getDefaultStyle()->getFont());
-			}
+			$width = $defaultWidth;
 
 			$columnLetter = PHPExcel_Cell::stringFromColumnIndex($i);
 			if (isset($columnDimensions[$columnLetter])) {
@@ -384,55 +388,57 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		$this->_writeDimensions();
 
 		// Row dimensions
-		foreach ($this->_phpSheet->getRowDimensions() as $rowDimension) {
+		foreach ($_phpSheet->getRowDimensions() as $rowDimension) {
 			$xfIndex = $rowDimension->getXfIndex() + 15; // there are 15 cellXfs
 			$this->_writeRow( $rowDimension->getRowIndex() - 1, $rowDimension->getRowHeight(), $xfIndex, ($rowDimension->getVisible() ? '0' : '1'), $rowDimension->getOutlineLevel() );
 		}
 
 		// Write Cells
-		foreach ($this->_phpSheet->getCellCollection() as $cellID) {
-			$cell = $this->_phpSheet->getCell($cellID);
+		foreach ($_phpSheet->getCellCollection() as $cellID) {
+			$cell = $_phpSheet->getCell($cellID);
 			$row = $cell->getRow() - 1;
 			$column = PHPExcel_Cell::columnIndexFromString($cell->getColumn()) - 1;
 
 			// Don't break Excel!
-			if ($row + 1 > 65536 or $column + 1 > 256) {
+//			if ($row + 1 > 65536 or $column + 1 > 256) {
+			if ($row > 65535 || $column > 255) {
 				break;
 			}
 
 			// Write cell value
 			$xfIndex = $cell->getXfIndex() + 15; // there are 15 cell style Xfs
 
-			if ($cell->getValue() instanceof PHPExcel_RichText) {
-				$this->_writeString($row, $column, $cell->getValue()->getPlainText(), $xfIndex);
+			$cVal = $cell->getValue();
+			if ($cVal instanceof PHPExcel_RichText) {
+				$this->_writeString($row, $column, $cVal->getPlainText(), $xfIndex);
 			} else {
 				switch ($cell->getDatatype()) {
+					case PHPExcel_Cell_DataType::TYPE_STRING:
+						if ($cVal === '' || $cVal === null) {
+							$this->_writeBlank($row, $column, $xfIndex);
+						} else {
+							$this->_writeString($row, $column, $cVal, $xfIndex);
+						}
+						break;
 
-				case PHPExcel_Cell_DataType::TYPE_STRING:
-					if ($cell->getValue() === '' or $cell->getValue() === null) {
-						$this->_writeBlank($row, $column, $xfIndex);
-					} else {
-						$this->_writeString($row, $column, $cell->getValue(), $xfIndex);
-					}
-					break;
+					case PHPExcel_Cell_DataType::TYPE_NUMERIC:
+						$this->_writeNumber($row, $column, $cVal, $xfIndex);
+						break;
 
-				case PHPExcel_Cell_DataType::TYPE_FORMULA:
-					$calculatedValue = $this->_preCalculateFormulas ?
-						$cell->getCalculatedValue() : null;
-					$this->_writeFormula($row, $column, $cell->getValue(), $xfIndex, $calculatedValue);
-					break;
+					case PHPExcel_Cell_DataType::TYPE_FORMULA:
+						$calculatedValue = $this->_preCalculateFormulas ?
+							$cell->getCalculatedValue() : null;
+						$this->_writeFormula($row, $column, $cVal, $xfIndex, $calculatedValue);
+						break;
 
-				case PHPExcel_Cell_DataType::TYPE_BOOL:
-					$this->_writeBoolErr($row, $column, $cell->getValue(), 0, $xfIndex);
-					break;
+					case PHPExcel_Cell_DataType::TYPE_BOOL:
+						$this->_writeBoolErr($row, $column, $cVal, 0, $xfIndex);
+						break;
 
-				case PHPExcel_Cell_DataType::TYPE_ERROR:
-					$this->_writeBoolErr($row, $column, $this->_mapErrorCode($cell->getValue()), 1, $xfIndex);
-					break;
+					case PHPExcel_Cell_DataType::TYPE_ERROR:
+						$this->_writeBoolErr($row, $column, self::_mapErrorCode($cVal), 1, $xfIndex);
+						break;
 
-				case PHPExcel_Cell_DataType::TYPE_NUMERIC:
-					$this->_writeNumber($row, $column, $cell->getValue(), $xfIndex);
-					break;
 				}
 			}
 		}
@@ -442,14 +448,14 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 
 		$this->_writeWindow2();
 		$this->_writeZoom();
-		if ($this->_phpSheet->getFreezePane()) {
+		if ($_phpSheet->getFreezePane()) {
 			$this->_writePanes();
 		}
 		$this->_writeSelection();
 		$this->_writeMergedCells();
 
 		// Hyperlinks
-		foreach ($this->_phpSheet->getHyperLinkCollection() as $coordinate => $hyperlink) {
+		foreach ($_phpSheet->getHyperLinkCollection() as $coordinate => $hyperlink) {
 			list($column, $row) = PHPExcel_Cell::coordinateFromString($coordinate);
 
 			$url = $hyperlink->getUrl();
@@ -789,7 +795,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 			} elseif (is_string($calculatedValue)) {
 				if (array_key_exists($calculatedValue, PHPExcel_Cell_DataType::getErrorCodes())) {
 					// Error value
-					$num = pack('CCCvCv', 0x02, 0x00, $this->_mapErrorCode($calculatedValue), 0x00, 0x00, 0xFFFF);
+					$num = pack('CCCvCv', 0x02, 0x00, self::_mapErrorCode($calculatedValue), 0x00, 0x00, 0xFFFF);
 				} elseif ($calculatedValue === '') {
 					// Empty string (and BIFF8)
 					$num = pack('CCCvCv', 0x03, 0x00, 0x00, 0x00, 0x00, 0xFFFF);
@@ -2839,7 +2845,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 	/**
 	 * Map Error code
 	 */
-	private function _mapErrorCode($errorCode) {
+	private static function _mapErrorCode($errorCode) {
 		switch ($errorCode) {
 			case '#NULL!':	return 0x00;
 			case '#DIV/0!':	return 0x07;

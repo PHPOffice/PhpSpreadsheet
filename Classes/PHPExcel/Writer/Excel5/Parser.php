@@ -618,7 +618,7 @@ class PHPExcel_Writer_Excel5_Parser
 	function _convertFunction($token, $num_args)
 	{
 		$args     = $this->_functions[$token][1];
-		$volatile = $this->_functions[$token][3];
+//		$volatile = $this->_functions[$token][3];
 
 		// Fixed number of args eg. TIME($i,$j,$k).
 		if ($args >= 0) {
@@ -649,10 +649,8 @@ class PHPExcel_Writer_Excel5_Parser
 		}
 
 		// Convert the cell references
-		$cell_array1 = $this->_cellToPackedRowcol($cell1);
-		list($row1, $col1) = $cell_array1;
-		$cell_array2 = $this->_cellToPackedRowcol($cell2);
-		list($row2, $col2) = $cell_array2;
+		list($row1, $col1) = $this->_cellToPackedRowcol($cell1);
+		list($row2, $col2) = $this->_cellToPackedRowcol($cell2);
 
 		// The ptg value depends on the class of the ptg.
 		if ($class == 0) {
@@ -678,7 +676,7 @@ class PHPExcel_Writer_Excel5_Parser
 	 */
 	function _convertRange3d($token)
 	{
-		$class = 0; // formulas like Sheet1!$A$1:$A$2 in list type data validation need this class (0x3B)
+//		$class = 0; // formulas like Sheet1!$A$1:$A$2 in list type data validation need this class (0x3B)
 
 		// Split the ref at the ! symbol
 		list($ext_ref, $range) = explode('!', $token);
@@ -691,25 +689,22 @@ class PHPExcel_Writer_Excel5_Parser
 
 		// Convert the cell references
 		if (preg_match("/^(\\$)?[A-Ia-i]?[A-Za-z](\\$)?(\d+)$/", $cell1)) {
-			$cell_array1 = $this->_cellToPackedRowcol($cell1);
-			list($row1, $col1) = $cell_array1;
-			$cell_array2 = $this->_cellToPackedRowcol($cell2);
-			list($row2, $col2) = $cell_array2;
+			list($row1, $col1) = $this->_cellToPackedRowcol($cell1);
+			list($row2, $col2) = $this->_cellToPackedRowcol($cell2);
 		} else { // It's a rows range (like 26:27)
-			 $cells_array = $this->_rangeToPackedRange($cell1.':'.$cell2);
-			 list($row1, $col1, $row2, $col2) = $cells_array;
+			 list($row1, $col1, $row2, $col2) = $this->_rangeToPackedRange($cell1.':'.$cell2);
 		}
 
 		// The ptg value depends on the class of the ptg.
-		if ($class == 0) {
+//		if ($class == 0) {
 			$ptgArea = pack("C", $this->ptg['ptgArea3d']);
-		} elseif ($class == 1) {
-			$ptgArea = pack("C", $this->ptg['ptgArea3dV']);
-		} elseif ($class == 2) {
-			$ptgArea = pack("C", $this->ptg['ptgArea3dA']);
-		} else {
-			throw new Exception("Unknown class $class");
-		}
+//		} elseif ($class == 1) {
+//			$ptgArea = pack("C", $this->ptg['ptgArea3dV']);
+//		} elseif ($class == 2) {
+//			$ptgArea = pack("C", $this->ptg['ptgArea3dA']);
+//		} else {
+//			throw new Exception("Unknown class $class");
+//		}
 
 		return $ptgArea . $ext_ref . $row1 . $row2 . $col1. $col2;
 	}
@@ -723,23 +718,23 @@ class PHPExcel_Writer_Excel5_Parser
 	 */
 	function _convertRef2d($cell)
 	{
-		$class = 2; // as far as I know, this is magick.
+//		$class = 2; // as far as I know, this is magick.
 
 		// Convert the cell reference
 		$cell_array = $this->_cellToPackedRowcol($cell);
 		list($row, $col) = $cell_array;
 
 		// The ptg value depends on the class of the ptg.
-		if ($class == 0) {
-			$ptgRef = pack("C", $this->ptg['ptgRef']);
-		} elseif ($class == 1) {
-			$ptgRef = pack("C", $this->ptg['ptgRefV']);
-		} elseif ($class == 2) {
+//		if ($class == 0) {
+//			$ptgRef = pack("C", $this->ptg['ptgRef']);
+//		} elseif ($class == 1) {
+//			$ptgRef = pack("C", $this->ptg['ptgRefV']);
+//		} elseif ($class == 2) {
 			$ptgRef = pack("C", $this->ptg['ptgRefA']);
-		} else {
-			// TODO: use real error codes
-			throw new Exception("Unknown class $class");
-		}
+//		} else {
+//			// TODO: use real error codes
+//			throw new Exception("Unknown class $class");
+//		}
 		return $ptgRef.$row.$col;
 	}
 
@@ -753,7 +748,7 @@ class PHPExcel_Writer_Excel5_Parser
 	 */
 	function _convertRef3d($cell)
 	{
-		$class = 2; // as far as I know, this is magick.
+//		$class = 2; // as far as I know, this is magick.
 
 		// Split the ref at the ! symbol
 		list($ext_ref, $cell) = explode('!', $cell);
@@ -765,15 +760,15 @@ class PHPExcel_Writer_Excel5_Parser
 		list($row, $col) = $this->_cellToPackedRowcol($cell);
 
 		// The ptg value depends on the class of the ptg.
-		if ($class == 0) {
-			$ptgRef = pack("C", $this->ptg['ptgRef3d']);
-		} elseif ($class == 1) {
-			$ptgRef = pack("C", $this->ptg['ptgRef3dV']);
-		} elseif ($class == 2) {
+//		if ($class == 0) {
+//			$ptgRef = pack("C", $this->ptg['ptgRef3d']);
+//		} elseif ($class == 1) {
+//			$ptgRef = pack("C", $this->ptg['ptgRef3dV']);
+//		} elseif ($class == 2) {
 			$ptgRef = pack("C", $this->ptg['ptgRef3dA']);
-		} else {
-			throw new Exception("Unknown class $class");
-		}
+//		} else {
+//			throw new Exception("Unknown class $class");
+//		}
 
 		return $ptgRef . $ext_ref. $row . $col;
 	}

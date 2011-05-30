@@ -220,7 +220,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 		$this->_phpExcel = $phpExcel;
 
 		// set BIFFwriter limit for CONTINUE records
-		$this->_limit = 8224;
+		//		$this->_limit = 8224;
 		$this->_codepage = 0x04B0;
 
 		// Add empty sheets and Build color cache
@@ -293,8 +293,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 				$this->_numberFormats[$numberFormatIndex] = $style->getNumberFormat();
 				$this->_addedNumberFormats[$numberFormatHashCode] = $numberFormatIndex;
 			}
-		}
-		else {
+		} else {
 			$numberFormatIndex = (int) $style->getNumberFormat()->getBuiltInFormatCode();
 		}
 
@@ -1270,24 +1269,18 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 				// there will be need for more than one cylcle, if string longer than one record data block, there
 				// may be need for even more cycles
 
-				if (strlen($recordData) + strlen($string) < $continue_limit) {
+				if (strlen($recordData) + strlen($string) <= $continue_limit) {
 					// then we can write the string (or remainder of string) without any problems
 					$recordData .= $string;
 
-					// we are finished writing this string
-					$finished = true;
-
-				} else if (strlen($recordData) + strlen($string) == $continue_limit) {
-					// then we can also write the string (or remainder of string)
-					$recordData .= $string;
-
-					// but we close the record data block, and initialize a new one
-					$recordDatas[] = $recordData;
-					$recordData = '';
+					if (strlen($recordData) + strlen($string) == $continue_limit) {
+						// we close the record data block, and initialize a new one
+						$recordDatas[] = $recordData;
+						$recordData = '';
+					}
 
 					// we are finished writing this string
 					$finished = true;
-
 				} else {
 					// special treatment writing the string (or remainder of the string)
 					// If the string is very long it may need to be written in more than one CONTINUE record.

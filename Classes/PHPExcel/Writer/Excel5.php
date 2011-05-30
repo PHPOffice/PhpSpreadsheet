@@ -50,13 +50,6 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 	private $_phpExcel;
 
 	/**
-	 * The BIFF version of the written Excel file, BIFF5 = 0x0500, BIFF8 = 0x0600
-	 *
-	 * @var integer
-	 */
-	private $_BIFF_version	= 0x0600;
-
-	/**
 	 * Total number of shared strings in workbook
 	 *
 	 * @var int
@@ -105,9 +98,9 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 	 * @param	PHPExcel	$phpExcel	PHPExcel object
 	 */
 	public function __construct(PHPExcel $phpExcel) {
-		$this->_phpExcel		= $phpExcel;
+		$this->_phpExcel	= $phpExcel;
 
-		$this->_parser			= new PHPExcel_Writer_Excel5_Parser();
+		$this->_parser		= new PHPExcel_Writer_Excel5_Parser();
 	}
 
 	/**
