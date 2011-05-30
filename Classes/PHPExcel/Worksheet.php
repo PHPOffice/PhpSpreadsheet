@@ -857,8 +857,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 */
 	public function setCellValue($pCoordinate = 'A1', $pValue = null, $returnCell = false)
 	{
-		$cell = $this->getCell($pCoordinate);
-		$cell->setValue($pValue);
+		$cell = $this->getCell($pCoordinate)->setValue($pValue);
 
 		if ($returnCell) {
 			return $cell;
@@ -877,8 +876,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 */
 	public function setCellValueByColumnAndRow($pColumn = 0, $pRow = 1, $pValue = null, $returnCell = false)
 	{
-		$cell = $this->getCell(PHPExcel_Cell::stringFromColumnIndex($pColumn) . $pRow);
-		$cell->setValue($pValue);
+		$cell = $this->getCell(PHPExcel_Cell::stringFromColumnIndex($pColumn) . $pRow)->setValue($pValue);
 
 		if ($returnCell) {
 			return $cell;
