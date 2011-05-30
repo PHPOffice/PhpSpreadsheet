@@ -209,7 +209,7 @@ class PHPExcel_Cell
 	/**
 	 * Set cell value
 	 *
-	 * This clears the cell formula.
+	 * Sets the value for a cell, automatically determining the datatype using the value binder
 	 *
 	 * @param mixed	$pValue					Value
 	 * @return PHPExcel_Cell
@@ -223,7 +223,7 @@ class PHPExcel_Cell
 	}
 
 	/**
-	 * Set cell value (with explicit data type given)
+	 * Set the value for a cell, with the explicit data type passed to the method (bypassing any use of the value binder)
 	 *
 	 * @param mixed	$pValue			Value
 	 * @param string	$pDataType		Explicit data type
