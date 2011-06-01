@@ -236,24 +236,20 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		$this->_outline_on			= 1;
 
 		// calculate values for DIMENSIONS record
-		$minR = $maxR = 1;
-		$minC = $maxC = '1A';
-		foreach ($this->_phpSheet->getCellCollection(false) as $cellID) {
-			list($c,$r) = sscanf($cellID,'%[A-Z]%d');
-			$minR = min($minR,$r);
-			$maxR = max($maxR,$r);
-			$C = strlen($c).$c;
-			$minC = min($minC,$C);
-			$maxC = max($maxC,$C);
-		}
+		$minR = 1;
+		$minC = 'A';
+
+		$maxR  = $this->_phpSheet->getHighestRow();
+		$maxC = $this->_phpSheet->getHighestColumn();
+
 		// Determine lowest and highest column and row
-		$this->_firstRowIndex = ($minR > 65535) ? $minR: 65535;
-		$this->_lastRowIndex = ($maxR > 65535) ? $maxR : 65535;
+//		$this->_firstRowIndex = ($minR > 65535) ? 65535 : $minR;
+		$this->_lastRowIndex = ($maxR > 65535) ? 65535 : $maxR ;
 
-		$this->_firstColumnIndex	= PHPExcel_Cell::columnIndexFromString(substr($minC,1));
-		$this->_lastColumnIndex		= PHPExcel_Cell::columnIndexFromString(substr($maxC,1));
+		$this->_firstColumnIndex	= PHPExcel_Cell::columnIndexFromString($minC);
+		$this->_lastColumnIndex		= PHPExcel_Cell::columnIndexFromString($maxC);
 
-		if ($this->_firstColumnIndex > 255) $this->_firstColumnIndex = 255;
+//		if ($this->_firstColumnIndex > 255) $this->_firstColumnIndex = 255;
 		if ($this->_lastColumnIndex > 255) $this->_lastColumnIndex = 255;
 
 		$this->_countCellStyleXfs = count($phpSheet->getParent()->getCellStyleXfCollection());

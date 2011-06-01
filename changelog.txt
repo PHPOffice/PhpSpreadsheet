@@ -27,6 +27,7 @@ Fixed in SVN:
 - General:  (MBaker) Fix to build to ensure that Examples are included with the documentation
 - General:  (MBaker) Reduce cell caching overhead using dirty flag to ensure that cells are only rewritten to the cache if they have actually been changed
 - General:  (MBaker) Improved memory usage in CSV Writer
+- General:  (MBaker) Improved speed and memory usage in Excel5 Writer
 - Bugfix:   (MBaker) Work item 15459 - Invalid cell coordinate in Autofilter for Excel2007 Writer
 - Bugfix:   (MBaker) Work item 15518 - PCLZip library issue
 - Bugfix:   (MBaker) Work item 15537 - Excel2007 Reader canRead function bug
