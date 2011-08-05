@@ -217,6 +217,9 @@ class PHPExcel_Reader_CSV implements PHPExcel_Reader_IReader
 		}
 		$objPHPExcel->setActiveSheetIndex( $this->_sheetIndex );
 
+		$lineEnding = ini_set('auto_detect_line_endings');
+		ini_set('auto_detect_line_endings', true);
+
 		// Open file
 		$fileHandle = fopen($pFilename, 'r');
 		if ($fileHandle === false) {
@@ -286,6 +289,8 @@ class PHPExcel_Reader_CSV implements PHPExcel_Reader_IReader
 		if ($this->_contiguous) {
 			$this->_contiguousRow = $currentRow;
 		}
+
+		ini_set('auto_detect_line_endings', $lineEnding);
 
 		// Return
 		return $objPHPExcel;
