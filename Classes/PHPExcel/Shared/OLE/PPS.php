@@ -196,21 +196,35 @@ class PHPExcel_Shared_OLE_PPS
 	* PPS. I don't think it'll work with Dir PPS's.
 	*
 	* @access public
-	* @param array &$pps_array Reference to the array of PPS's for the whole OLE
+	* @param array &$raList Reference to the array of PPS's for the whole OLE
 	*                          container
 	* @return integer          The index for this PPS
 	*/
-	public function _savePpsSetPnt(&$pps_array)
+	public static function _savePpsSetPnt(&$raList, $to_save, $depth = 0)
 	{
-		$pps_array[count($pps_array)] = &$this;
-		$this->No = count($pps_array) - 1;
-		$this->PrevPps = 0xFFFFFFFF;
-		$this->NextPps = 0xFFFFFFFF;
-		if (count($this->children) > 0) {
-			$this->DirPps = $this->children[0]->_savePpsSetPnt($pps_array);
+		if ( !is_array($to_save) || (count($to_save) == 0) ) {
+			return 0xFFFFFFFF;
+		} elseif( count($to_save) == 1 ) {
+			$cnt = count($raList);
+			// If the first entry, it's the root... Don't clone it!
+			$raList[$cnt] = ( $depth == 0 ) ? $to_save[0] : clone $to_save[0];
+			$raList[$cnt]->No = $cnt;
+			$raList[$cnt]->PrevPps = 0xFFFFFFFF;
+			$raList[$cnt]->NextPps = 0xFFFFFFFF;
+			$raList[$cnt]->DirPps  = self::_savePpsSetPnt($raList, @$raList[$cnt]->children, $depth++);
 		} else {
-			$this->DirPps = 0xFFFFFFFF;
+			$iPos  = floor(count($to_save) / 2);
+			$aPrev = array_slice($to_save, 0, $iPos);
+			$aNext = array_slice($to_save, $iPos + 1);
+			$cnt   = count($raList);
+			// If the first entry, it's the root... Don't clone it!
+			$raList[$cnt] = ( $depth == 0 ) ? $to_save[$iPos] : clone $to_save[$iPos];
+			$raList[$cnt]->No = $cnt;
+			$raList[$cnt]->PrevPps = self::_savePpsSetPnt($raList, $aPrev, $depth++);
+			$raList[$cnt]->NextPps = self::_savePpsSetPnt($raList, $aNext, $depth++);
+			$raList[$cnt]->DirPps  = self::_savePpsSetPnt($raList, @$raList[$cnt]->children, $depth++);
+
 		}
-		return $this->No;
+		return $cnt;
 	}
 }
