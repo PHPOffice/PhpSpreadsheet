@@ -536,7 +536,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 
 		// Create EXTERNSHEET for each worksheet
 		for ($i = 0; $i < $countSheets; ++$i) {
-			$this->_writeExternsheet($phpExcel->getSheet($i)->getTitle());
+			$this->_writeExternsheet($this->_phpExcel->getSheet($i)->getTitle());
 		}
 	}
 
