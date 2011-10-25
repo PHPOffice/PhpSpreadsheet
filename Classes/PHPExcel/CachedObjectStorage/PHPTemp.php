@@ -141,7 +141,7 @@ class PHPExcel_CachedObjectStorage_PHPTemp extends PHPExcel_CachedObjectStorage_
 	}	//	function unsetWorksheetCells()
 
 
-	public function __construct(PHPExcel_Worksheet $parent, $memoryCacheSize = '1MB') {
+	public function __construct(PHPExcel_Worksheet $parent, $arguments) {
 		$this->_memoryCacheSize	= (isset($arguments['memoryCacheSize']))	? $arguments['memoryCacheSize']	: '1MB';
 
 		parent::__construct($parent);
