@@ -37,7 +37,7 @@ class PHPExcel_CachedObjectStorageFactory {
 													),
 		self::cache_to_phpTemp				=> array( 'memoryCacheSize'	=> '1MB'
 													),
-		self::cache_to_discISAM				=> array(
+		self::cache_to_discISAM				=> array( 'dir'				=> NULL
 													),
 		self::cache_to_apc					=> array( 'cacheTime'		=> 600
 													),

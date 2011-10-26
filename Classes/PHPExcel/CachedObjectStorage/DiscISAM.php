@@ -38,6 +38,8 @@ class PHPExcel_CachedObjectStorage_DiscISAM extends PHPExcel_CachedObjectStorage
 	private $_fileName = null;
 	private $_fileHandle = null;
 
+	private $_cacheDirectory = NULL;
+
 
 	private function _storeData() {
 		if ($this->_currentCellIsDirty) {
@@ -116,7 +118,7 @@ class PHPExcel_CachedObjectStorage_DiscISAM extends PHPExcel_CachedObjectStorage
 		parent::copyCellCollection($parent);
 		//	Get a new id for the new file name
 		$baseUnique = $this->_getUniqueID();
-		$newFileName = PHPExcel_Shared_File::sys_get_temp_dir().'/PHPExcel.'.$baseUnique.'.cache';
+		$newFileName = $this->_cacheDirectory.'/PHPExcel.'.$baseUnique.'.cache';
 		//	Copy the existing cell cache file
 		copy ($this->_fileName,$newFileName);
 		$this->_fileName = $newFileName;
@@ -140,11 +142,15 @@ class PHPExcel_CachedObjectStorage_DiscISAM extends PHPExcel_CachedObjectStorage
 	}	//	function unsetWorksheetCells()
 
 
-	public function __construct(PHPExcel_Worksheet $parent) {
+	public function __construct(PHPExcel_Worksheet $parent, $arguments) {
+		$this->_cacheDirectory	= ((isset($arguments['dir'])) && ($arguments['dir'] !== NULL))
+									? $arguments['dir']
+									: PHPExcel_Shared_File::sys_get_temp_dir();
+
 		parent::__construct($parent);
 		if (is_null($this->_fileHandle)) {
 			$baseUnique = $this->_getUniqueID();
-			$this->_fileName = PHPExcel_Shared_File::sys_get_temp_dir().'/PHPExcel.'.$baseUnique.'.cache';
+			$this->_fileName = $this->_cacheDirectory.'/PHPExcel.'.$baseUnique.'.cache';
 			$this->_fileHandle = fopen($this->_fileName,'a+');
 		}
 	}	//	function __construct()
