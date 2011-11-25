@@ -3193,6 +3193,11 @@ class PHPExcel_Calculation {
 						$cellRef = $matches[6].$matches[7].':'.$matches[9].$matches[10];
 						if ($matches[2] > '') {
 							$matches[2] = trim($matches[2],"\"'");
+							if ((strpos($matches[2],'[') !== false) || (strpos($matches[2],']') !== false)) {
+								//	It's a Reference to an external workbook (not currently supported)
+								return $this->_raiseFormulaError('Unable to access External Workbook');
+							}
+							$matches[2] = trim($matches[2],"\"'");
 //							echo '$cellRef='.$cellRef.' in worksheet '.$matches[2].'<br />';
 							$this->_writeDebug('Evaluating Cell Range '.$cellRef.' in worksheet '.$matches[2]);
 							if (!is_null($pCellParent)) {
@@ -3222,6 +3227,10 @@ class PHPExcel_Calculation {
 						$cellRef = $matches[6].$matches[7];
 						if ($matches[2] > '') {
 							$matches[2] = trim($matches[2],"\"'");
+							if ((strpos($matches[2],'[') !== false) || (strpos($matches[2],']') !== false)) {
+								//	It's a Reference to an external workbook (not currently supported)
+								return $this->_raiseFormulaError('Unable to access External Workbook');
+							}
 //							echo '$cellRef='.$cellRef.' in worksheet '.$matches[2].'<br />';
 							$this->_writeDebug('Evaluating Cell '.$cellRef.' in worksheet '.$matches[2]);
 							if (!is_null($pCellParent)) {
