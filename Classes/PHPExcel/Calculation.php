@@ -3590,6 +3590,7 @@ class PHPExcel_Calculation {
 	// trigger an error, but nicely, if need be
 	protected function _raiseFormulaError($errorMessage) {
 		$this->formulaError = $errorMessage;
+		$this->debugLogStack = array();
 		if (!$this->suppressFormulaErrors) throw new Exception($errorMessage);
 		trigger_error($errorMessage, E_USER_ERROR);
 	}	//	function _raiseFormulaError()
