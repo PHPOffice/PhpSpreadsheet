@@ -40,9 +40,11 @@ Fixed in SVN:
                      auto_detect_line_endings now set in CSV reader
 - Bugfix:   (MBaker) Work item 16212 - $arguments improperly used in CachedObjectStorage/PHPTemp.php
 - Bugfix:   (MBaker) Work item 16643 - Bug In Cache System (cell reference when throwing caching errors)
+- Bugfix:   (MBaker) Work item 16895 - PHP Invalid index notice on writing excel file when active sheet has been deleted
 - General:  (MBaker) Work item 15405 - Two easy to fix Issues concerning PHPExcel_Token_Stack (l10n/UC)
 - General:  (MBaker) Work item 15461 - Locale file paths not fit for windows
 - General:  (MBaker) Work item 16643 - Add file directory as a cache option for cache_to_discISAM
+- General:  (MBaker) Work item 16923 - Datatype.php & constant TYPE_NULL
 
 
 2011-02-27 (v1.7.6):

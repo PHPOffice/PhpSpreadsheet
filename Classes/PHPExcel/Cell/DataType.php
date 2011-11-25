@@ -41,7 +41,7 @@ class PHPExcel_Cell_DataType
 	const TYPE_FORMULA		= 'f';
 	const TYPE_NUMERIC		= 'n';
 	const TYPE_BOOL			= 'b';
-    const TYPE_NULL			= 's';
+    const TYPE_NULL			= 'null';
     const TYPE_INLINE		= 'inlineStr';
 	const TYPE_ERROR		= 'e';
 

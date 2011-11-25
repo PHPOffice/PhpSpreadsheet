@@ -217,7 +217,7 @@ class PHPExcel_Reader_CSV implements PHPExcel_Reader_IReader
 		}
 		$objPHPExcel->setActiveSheetIndex( $this->_sheetIndex );
 
-		$lineEnding = ini_set('auto_detect_line_endings');
+		$lineEnding = ini_get('auto_detect_line_endings');
 		ini_set('auto_detect_line_endings', true);
 
 		// Open file

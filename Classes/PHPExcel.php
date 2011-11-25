@@ -244,6 +244,12 @@ class PHPExcel
 		} else {
 			array_splice($this->_workSheetCollection, $pIndex, 1);
 		}
+		// Adjust active sheet index if necessary
+		if (($this->_activeSheetIndex >= $pIndex) &&
+			($pIndex > count($this->_workSheetCollection) - 1)) {
+			--$this->_activeSheetIndex;
+		}
+
 	}
 
 	/**

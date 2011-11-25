@@ -651,7 +651,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 									const TYPE_FORMULA		= 'f';
 									const TYPE_NUMERIC		= 'n';
 									const TYPE_BOOL			= 'b';
-								    const TYPE_NULL			= 's';
+								    const TYPE_NULL			= 'null';
 								    const TYPE_INLINE		= 'inlineStr';
 									const TYPE_ERROR		= 'e';
 									*/

@@ -410,6 +410,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 			} else {
 				switch ($cell->getDatatype()) {
 					case PHPExcel_Cell_DataType::TYPE_STRING:
+					case PHPExcel_Cell_DataType::TYPE_NULL:
 						if ($cVal === '' || $cVal === null) {
 							$this->_writeBlank($row, $column, $xfIndex);
 						} else {
