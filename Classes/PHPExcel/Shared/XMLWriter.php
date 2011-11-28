@@ -59,12 +59,14 @@ class PHPExcel_Shared_XMLWriter extends XMLWriter {
 	 * @param int		$pTemporaryStorage			Temporary storage location
 	 * @param string	$pTemporaryStorageFolder	Temporary storage folder
 	 */
-	public function __construct($pTemporaryStorage = self::STORAGE_MEMORY, $pTemporaryStorageFolder = './') {
+	public function __construct($pTemporaryStorage = self::STORAGE_MEMORY, $pTemporaryStorageFolder = NULL) {
 		// Open temporary storage
 		if ($pTemporaryStorage == self::STORAGE_MEMORY) {
 			$this->openMemory();
 		} else {
 			// Create temporary filename
+			if (is_null($pTemporaryStorageFolder))
+				$pTemporaryStorageFolder = PHPExcel_Shared_File::sys_get_temp_dir();
 			$this->_tempFileName = @tempnam($pTemporaryStorageFolder, 'xml');
 
 			// Open storage
