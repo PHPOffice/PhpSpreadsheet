@@ -669,6 +669,14 @@ class PHPExcel_Cell
 	 */
 	public static function columnIndexFromString($pString = 'A')
 	{
+		//	Using a lookup cache adds a slight memory overhead, but boosts speed
+		//	caching using a static within the method is faster than a class static,
+		//		though it's additional memory overhead
+		static $_indexCache = array();
+
+		if (isset($_indexCache[$pString]))
+			return $_indexCache[$pString];
+
 		//	It's surprising how costly the strtoupper() and ord() calls actually are, so we use a lookup array rather than use ord()
 		//		and make it case insensitive to get rid of the strtoupper() as well. Because it's a static, there's no significant
 		//		memory overhead either
@@ -683,11 +691,14 @@ class PHPExcel_Cell
 		//		for improved performance
 		if (isset($pString{0})) {
 			if (!isset($pString{1})) {
-				return $_columnLookup[$pString];
+				$_indexCache[$pString] = $_columnLookup[$pString];
+				return $_indexCache[$pString];
 			} elseif(!isset($pString{2})) {
-				return $_columnLookup[$pString{0}] * 26 + $_columnLookup[$pString{1}];
+				$_indexCache[$pString] = $_columnLookup[$pString{0}] * 26 + $_columnLookup[$pString{1}];
+				return $_indexCache[$pString];
 			} elseif(!isset($pString{3})) {
-				return $_columnLookup[$pString{0}] * 676 + $_columnLookup[$pString{1}] * 26 + $_columnLookup[$pString{2}];
+				$_indexCache[$pString] = $_columnLookup[$pString{0}] * 676 + $_columnLookup[$pString{1}] * 26 + $_columnLookup[$pString{2}];
+				return $_indexCache[$pString];
 			}
 		}
 		throw new Exception("Column string index can not be " . ((isset($pString{0})) ? "longer than 3 characters" : "empty") . ".");
@@ -701,13 +712,25 @@ class PHPExcel_Cell
 	 */
 	public static function stringFromColumnIndex($pColumnIndex = 0)
 	{
-		// Determine column string
-		if ($pColumnIndex < 26) {
-			return chr(65 + $pColumnIndex);
-		} elseif ($pColumnIndex < 702) {
-			return chr(64 + ($pColumnIndex / 26)).chr(65 + $pColumnIndex % 26);
+		//	Using a lookup cache adds a slight memory overhead, but boosts speed
+		//	caching using a static within the method is faster than a class static,
+		//		though it's additional memory overhead
+		static $_indexCache = array();
+
+		if (!isset($_indexCache[$pColumnIndex])) {
+			// Determine column string
+			if ($pColumnIndex < 26) {
+				$_indexCache[$pColumnIndex] = chr(65 + $pColumnIndex);
+			} elseif ($pColumnIndex < 702) {
+				$_indexCache[$pColumnIndex] = chr(64 + ($pColumnIndex / 26)) .
+											  chr(65 + $pColumnIndex % 26);
+			} else {
+				$_indexCache[$pColumnIndex] = chr(64 + (($pColumnIndex - 26) / 676)) .
+											  chr(65 + ((($pColumnIndex - 26) % 676) / 26)) .
+											  chr(65 + $pColumnIndex % 26);
+			}
 		}
-		return chr(64 + (($pColumnIndex - 26) / 676)).chr(65 + ((($pColumnIndex - 26) % 676) / 26)).chr(65 + $pColumnIndex % 26);
+		return $_indexCache[$pColumnIndex];
 	}
 
 	/**
