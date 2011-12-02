@@ -24,32 +24,33 @@
 
 
 Fixed in SVN:
-- General:  (MBaker) Fix to build to ensure that Examples are included with the documentation
-- General:  (MBaker) Reduce cell caching overhead using dirty flag to ensure that cells are only rewritten to the cache if they have actually been changed
-- General:  (MBaker) Improved memory usage in CSV Writer
-- General:  (MBaker) Improved speed and memory usage in Excel5 Writer
-- Bugfix:   (MBaker) Work item 15459 - Invalid cell coordinate in Autofilter for Excel2007 Writer
-- Bugfix:   (MBaker) Work item 15518 - PCLZip library issue
-- Bugfix:   (MBaker) Work item 15537 - Excel2007 Reader canRead function bug
-- Bugfix:   (MBaker) Support for Excel functions whose return can be used as either a value or as a cell reference depending on its context within a formula
-- Bugfix:   (gilles06) Work item 15707 - ini_set() call in Calculation class destructor
-- Bugfix:   (MBaker) Work item 15786 - RangeToArray strange array keys
-- Bugfix:   (MBaker) Work item 15762 - INDIRECT() function doesn't work with named ranges
-- Bugfix:   (MBaker) Locale-specific fix to text functions when passing a boolean argument instead of a string
-- Bugfix:   (MBaker) Work item 16246 - reader/CSV fails on this file
-                     auto_detect_line_endings now set in CSV reader
-- Bugfix:   (MBaker) Work item 16212 - $arguments improperly used in CachedObjectStorage/PHPTemp.php
-- Bugfix:   (MBaker) Work item 16643 - Bug In Cache System (cell reference when throwing caching errors)
-- Bugfix:   (MBaker) Work item 16895 - PHP Invalid index notice on writing excel file when active sheet has been deleted
-- Bugfix:   (MBaker) Work item 16956 - External links in Excel2010 files cause Fatal error
-- Bugfix:   (MBaker) Work item 16960 - Previous calculation engine error conditions trigger cyclic reference errors
+- General:  (MBaker)    Fix to build to ensure that Examples are included with the documentation
+- General:  (MBaker)    Reduce cell caching overhead using dirty flag to ensure that cells are only rewritten to the cache if they have actually been changed
+- General:  (MBaker)    Improved memory usage in CSV Writer
+- General:  (MBaker)    Improved speed and memory usage in Excel5 Writer
+- Bugfix:   (MBaker)    Work item 15459 - Invalid cell coordinate in Autofilter for Excel2007 Writer
+- Bugfix:   (MBaker)    Work item 15518 - PCLZip library issue
+- Bugfix:   (MBaker)    Work item 15537 - Excel2007 Reader canRead function bug
+- Bugfix:   (MBaker)    Support for Excel functions whose return can be used as either a value or as a cell reference depending on its context within a formula
+- Bugfix:   (gilles06)  Work item 15707 - ini_set() call in Calculation class destructor
+- Bugfix:   (MBaker)    Work item 15786 - RangeToArray strange array keys
+- Bugfix:   (MBaker)    Work item 15762 - INDIRECT() function doesn't work with named ranges
+- Bugfix:   (MBaker)    Locale-specific fix to text functions when passing a boolean argument instead of a string
+- Bugfix:   (MBaker)    Work item 16246 - reader/CSV fails on this file
+                        auto_detect_line_endings now set in CSV reader
+- Bugfix:   (MBaker)    Work item 16212 - $arguments improperly used in CachedObjectStorage/PHPTemp.php
+- Bugfix:   (MBaker)    Work item 16643 - Bug In Cache System (cell reference when throwing caching errors)
+- Bugfix:   (MBaker)    Work item 16895 - PHP Invalid index notice on writing excel file when active sheet has been deleted
+- Bugfix:   (MBaker)    Work item 16956 - External links in Excel2010 files cause Fatal error
+- Bugfix:   (MBaker)    Work item 16960 - Previous calculation engine error conditions trigger cyclic reference errors
 - Bugfix:   (mkopinsky) Work item 16266 - PHPExcel_Style::applyFromArray() returns null rather than style object in advanced mode
-- General:  (MBaker) Work item 15405 - Two easy to fix Issues concerning PHPExcel_Token_Stack (l10n/UC)
-- General:  (MBaker) Work item 15461 - Locale file paths not fit for windows
-- General:  (MBaker) Work item 16643 - Add file directory as a cache option for cache_to_discISAM
-- General:  (MBaker) Work item 16923 - Datatype.php & constant TYPE_NULL
-- General:  (MBaker) Ensure use of system temp directory for all temporary work files, unless explicitly specified
-- General:  (char101) Work item 16359 - [Patch] faster stringFromColumnIndex()
+- General:  (MBaker)    Work item 15405 - Two easy to fix Issues concerning PHPExcel_Token_Stack (l10n/UC)
+- General:  (MBaker)    Work item 15461 - Locale file paths not fit for windows
+- General:  (MBaker)    Work item 16643 - Add file directory as a cache option for cache_to_discISAM
+- General:  (MBaker)    Work item 16923 - Datatype.php & constant TYPE_NULL
+- General:  (MBaker)    Ensure use of system temp directory for all temporary work files, unless explicitly specified
+- General:  (char101)   Work item 16359 - [Patch] faster stringFromColumnIndex()
+- General:  (whit1206)  Work item 16028 - Fix for projects that still use old autoloaders
 
 
 2011-02-27 (v1.7.6):

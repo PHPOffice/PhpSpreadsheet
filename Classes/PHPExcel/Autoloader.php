@@ -37,6 +37,9 @@ PHPExcel_Shared_String::buildCharacterSets();
 class PHPExcel_Autoloader
 {
 	public static function Register() {
+		if (function_exists('__autoload')) {
+			spl_autoload_register('__autoload');
+		}
 		return spl_autoload_register(array('PHPExcel_Autoloader', 'Load'));
 	}	//	function Register()
 
