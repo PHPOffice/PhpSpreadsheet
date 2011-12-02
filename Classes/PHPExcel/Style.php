@@ -414,7 +414,7 @@ class PHPExcel_Style implements PHPExcel_IComparable
 							$this->getActiveSheet()->getStyle($range)->applyFromArray($regionStyles, false);
 						}
 					}
-					return;
+					return $this;
 				}
 
 				// SIMPLE MODE:
