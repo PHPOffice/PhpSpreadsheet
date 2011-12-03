@@ -230,6 +230,7 @@ class PHPExcel_IOFactory
 					$reader = self::createReader('Excel2007');
 					break;
 				case 'xls':
+				case 'xlsm':
 					$reader = self::createReader('Excel5');
 					break;
 				case 'ods':

@@ -199,7 +199,6 @@ class PHPExcel_CachedObjectStorage_SQLite3 extends PHPExcel_CachedObjectStorage_
 		if (is_null($this->_DBHandle)) {
 			$this->_TableName = str_replace('.','_',$this->_getUniqueID());
 			$_DBName = ':memory:';
-//			$_DBName = PHPExcel_Shared_File::sys_get_temp_dir().'/PHPExcel.sqlite3';
 
 			$this->_DBHandle = new SQLite3($_DBName);
 			$this->_DBHandle->exec('CREATE TABLE kvp_'.$this->_TableName.' (id VARCHAR(12) PRIMARY KEY, value BLOB)');
@@ -209,8 +208,6 @@ class PHPExcel_CachedObjectStorage_SQLite3 extends PHPExcel_CachedObjectStorage_
 
 	public function __destruct() {
 		if (!is_null($this->_DBHandle)) {
-//			$this->_DBHandle->exec('DROP TABLE kvp_'.$this->_TableName);
-
 			$this->_DBHandle->close();
 		}
 		$this->_DBHandle = null;
