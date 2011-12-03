@@ -181,9 +181,9 @@ class PHPExcel_Shared_Date
 
 		//	Julian base date Adjustment
 		if ($month > 2) {
-			$month = $month - 3;
+			$month -= 3;
 		} else {
-			$month = $month + 9;
+			$month += 9;
 			--$year;
 		}
 
