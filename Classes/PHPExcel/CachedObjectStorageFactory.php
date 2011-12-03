@@ -9,6 +9,8 @@ class PHPExcel_CachedObjectStorageFactory {
 	const cache_to_memcache				= 'Memcache';
 	const cache_to_phpTemp				= 'PHPTemp';
 	const cache_to_wincache				= 'Wincache';
+	const cache_to_sqlite				= 'SQLite';
+	const cache_to_sqlite3				= 'SQLite3';
 
 
 	private static $_cacheStorageMethod = null;
@@ -25,6 +27,8 @@ class PHPExcel_CachedObjectStorageFactory {
 		self::cache_to_apc,
 		self::cache_to_memcache,
 		self::cache_to_wincache,
+		self::cache_to_sqlite,
+		self::cache_to_sqlite3,
 	);
 
 
@@ -46,7 +50,11 @@ class PHPExcel_CachedObjectStorageFactory {
 													  'cacheTime'		=> 600
 													),
 		self::cache_to_wincache				=> array( 'cacheTime'		=> 600
-													)
+													),
+		self::cache_to_sqlite				=> array(
+													),
+		self::cache_to_sqlite3				=> array(
+													),
 	);
 
 
@@ -95,6 +103,16 @@ class PHPExcel_CachedObjectStorageFactory {
 				break;
 			case self::cache_to_wincache :
 				if (!function_exists('wincache_ucache_add')) {
+					return false;
+				}
+				break;
+			case self::cache_to_sqlite :
+				if (!function_exists('sqlite_open')) {
+					return false;
+				}
+				break;
+			case self::cache_to_sqlite3 :
+				if (!class_exists('SQLite3')) {
 					return false;
 				}
 				break;
