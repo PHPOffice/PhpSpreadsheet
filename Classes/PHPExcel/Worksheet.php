@@ -644,9 +644,14 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * Set title
 	 *
 	 * @param string $pValue String containing the dimension of this worksheet
+	 * @param string $updateFormulaCellReferences boolean Flag indicating whether cell references in formulae should
+	 *                                                    be updated to reflect the new sheet name.
+	 *                                                    This should be left as the default true, unless you are
+	 *                                                    certain that no formula cells on any worksheet contain
+	 *                                                    references to this worksheet
 	 * @return PHPExcel_Worksheet
 	 */
-	public function setTitle($pValue = 'Worksheet')
+	public function setTitle($pValue = 'Worksheet', $updateFormulaCellReferences = true)
 	{
 		// Is this a 'rename' or not?
 		if ($this->getTitle() == $pValue) {
@@ -690,7 +695,8 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 
 		// New title
 		$newTitle = $this->getTitle();
-		PHPExcel_ReferenceHelper::getInstance()->updateNamedFormulas($this->getParent(), $oldTitle, $newTitle);
+		if ($updateFormulaCellReferences)
+			PHPExcel_ReferenceHelper::getInstance()->updateNamedFormulas($this->getParent(), $oldTitle, $newTitle);
 
 		return $this;
 	}
@@ -2260,7 +2266,6 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		//	Identify the range that we need to extract from the worksheet
 		$maxCol = $this->getHighestColumn();
 		$maxRow = $this->getHighestRow();
-
 		// Return
 		return $this->rangeToArray(	'A1:'.$maxCol.$maxRow,
 									$nullValue, $calculateFormulas, $formatData, $returnCellRef);
@@ -2269,10 +2274,11 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	/**
 	 * Get row iterator
 	 *
+     * @param  integer                           $startRow    The row number at which to start iterating
 	 * @return PHPExcel_Worksheet_RowIterator
 	 */
-	public function getRowIterator() {
-		return new PHPExcel_Worksheet_RowIterator($this);
+	public function getRowIterator($startRow = 1) {
+		return new PHPExcel_Worksheet_RowIterator($this,$startRow);
 	}
 
 	/**

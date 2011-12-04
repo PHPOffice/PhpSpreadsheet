@@ -414,7 +414,10 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 			// Create new Worksheet
 			$objPHPExcel->createSheet();
 			$objPHPExcel->setActiveSheetIndex($worksheetID);
-			$objPHPExcel->getActiveSheet()->setTitle($worksheetName);
+			//	Use false for $updateFormulaCellReferences to prevent adjustment of worksheet references in formula
+			//		cells... during the load, all formulae should be correct, and we're simply bringing the worksheet
+			//		name in line with the formula, not the reverse
+			$objPHPExcel->getActiveSheet()->setTitle($worksheetName,false);
 
 			if ((!$this->_readDataOnly) && (isset($sheet->PrintInformation))) {
 				if (isset($sheet->PrintInformation->Margins)) {

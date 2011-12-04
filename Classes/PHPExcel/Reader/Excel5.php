@@ -727,7 +727,10 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 
 			// add sheet to PHPExcel object
 			$this->_phpSheet = $this->_phpExcel->createSheet();
-			$this->_phpSheet->setTitle($sheet['name']);
+			//	Use false for $updateFormulaCellReferences to prevent adjustment of worksheet references in formula
+			//		cells... during the load, all formulae should be correct, and we're simply bringing the worksheet
+			//		name in line with the formula, not the reverse
+			$this->_phpSheet->setTitle($sheet['name'],false);
 			$this->_phpSheet->setSheetState($sheet['sheetState']);
 
 			$this->_pos = $sheet['offset'];

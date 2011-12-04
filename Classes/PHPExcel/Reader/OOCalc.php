@@ -396,7 +396,10 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 					$objPHPExcel->setActiveSheetIndex($worksheetID);
 					if (isset($worksheetDataAttributes['name'])) {
 						$worksheetName = (string) $worksheetDataAttributes['name'];
-						$objPHPExcel->getActiveSheet()->setTitle($worksheetName);
+						//	Use false for $updateFormulaCellReferences to prevent adjustment of worksheet references in
+						//		formula cells... during the load, all formulae should be correct, and we're simply
+						//		bringing the worksheet name in line with the formula, not the reverse
+						$objPHPExcel->getActiveSheet()->setTitle($worksheetName,false);
 					}
 
 					$rowID = 1;
