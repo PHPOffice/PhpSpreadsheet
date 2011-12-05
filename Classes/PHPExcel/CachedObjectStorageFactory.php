@@ -4,6 +4,7 @@ class PHPExcel_CachedObjectStorageFactory {
 	const cache_in_memory				= 'Memory';
 	const cache_in_memory_gzip			= 'MemoryGZip';
 	const cache_in_memory_serialized	= 'MemorySerialized';
+	const cache_igbinary				= 'Igbinary';
 	const cache_to_discISAM				= 'DiscISAM';
 	const cache_to_apc					= 'APC';
 	const cache_to_memcache				= 'Memcache';
@@ -22,6 +23,7 @@ class PHPExcel_CachedObjectStorageFactory {
 		self::cache_in_memory,
 		self::cache_in_memory_gzip,
 		self::cache_in_memory_serialized,
+		self::cache_igbinary,
 		self::cache_to_phpTemp,
 		self::cache_to_discISAM,
 		self::cache_to_apc,
@@ -38,6 +40,8 @@ class PHPExcel_CachedObjectStorageFactory {
 		self::cache_in_memory_gzip			=> array(
 													),
 		self::cache_in_memory_serialized	=> array(
+													),
+		self::cache_igbinary				=> array(
 													),
 		self::cache_to_phpTemp				=> array( 'memoryCacheSize'	=> '1MB'
 													),
@@ -113,6 +117,11 @@ class PHPExcel_CachedObjectStorageFactory {
 				break;
 			case self::cache_to_sqlite3 :
 				if (!class_exists('SQLite3')) {
+					return false;
+				}
+				break;
+			case self::cache_igbinary :
+				if (!function_exists('igbinary_serialize')) {
 					return false;
 				}
 				break;
