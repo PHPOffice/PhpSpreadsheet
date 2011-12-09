@@ -125,12 +125,14 @@ class PHPExcel_CachedObjectStorageFactory {
 
 	public static function getInstance(PHPExcel_Worksheet $parent) {
 		if (is_null(self::$_cacheStorageMethod)) {
-			self::initialize();
+			$cacheMethodIsAvailable = self::initialize();
 		}
 
-		$instance = new self::$_cacheStorageClass($parent,self::$_storageMethodParameters[self::$_cacheStorageMethod]);
-		if (!is_null($instance)) {
-			return $instance;
+		if ($cacheMethodIsAvailable) {
+			$instance = new self::$_cacheStorageClass($parent,self::$_storageMethodParameters[self::$_cacheStorageMethod]);
+			if (!is_null($instance)) {
+				return $instance;
+			}
 		}
 
 		return false;
