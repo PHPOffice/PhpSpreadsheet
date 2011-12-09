@@ -108,4 +108,19 @@ class PHPExcel_CachedObjectStorage_Igbinary extends PHPExcel_CachedObjectStorage
 		$this->_parent = null;
 	}	//	function unsetWorksheetCells()
 
+
+	/**
+	 *	Identify whether the caching method is currently available
+	 *	Some methods are dependent on the availability of certain extensions being enabled in the PHP build
+	 *
+	 *	@return	boolean
+	 */
+	public static function cacheMethodIsAvailable() {
+		if (!function_exists('igbinary_serialize')) {
+			return false;
+		}
+
+		return true;
+	}
+
 }

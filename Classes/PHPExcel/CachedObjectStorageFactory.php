@@ -81,8 +81,20 @@ class PHPExcel_CachedObjectStorageFactory {
 	}	//	function getCacheStorageClass()
 
 
-	public static function getCacheStorageMethods() {
+	public static function getAllCacheStorageMethods() {
 		return self::$_storageMethods;
+	}	//	function getCacheStorageMethods()
+
+
+	public static function getCacheStorageMethods() {
+		$activeMethods = array();
+		foreach(self::$_storageMethods as $storageMethod) {
+			$cacheStorageClass = 'PHPExcel_CachedObjectStorage_'.$storageMethod;
+			if (call_user_func(array($cacheStorageClass,'cacheMethodIsAvailable'))) {
+				$activeMethods[] = $storageMethod;
+			}
+		}
+		return $activeMethods;
 	}	//	function getCacheStorageMethods()
 
 
@@ -91,40 +103,9 @@ class PHPExcel_CachedObjectStorageFactory {
 			return false;
 		}
 
-		switch($method) {
-			case self::cache_to_apc	:
-				if (!function_exists('apc_store')) {
-					return false;
-				}
-				if (apc_sma_info() === false) {
-					return false;
-				}
-				break;
-			case self::cache_to_memcache :
-				if (!function_exists('memcache_add')) {
-					return false;
-				}
-				break;
-			case self::cache_to_wincache :
-				if (!function_exists('wincache_ucache_add')) {
-					return false;
-				}
-				break;
-			case self::cache_to_sqlite :
-				if (!function_exists('sqlite_open')) {
-					return false;
-				}
-				break;
-			case self::cache_to_sqlite3 :
-				if (!class_exists('SQLite3')) {
-					return false;
-				}
-				break;
-			case self::cache_igbinary :
-				if (!function_exists('igbinary_serialize')) {
-					return false;
-				}
-				break;
+		$cacheStorageClass = 'PHPExcel_CachedObjectStorage_'.$method;
+		if (!call_user_func(array($cacheStorageClass,'cacheMethodIsAvailable'))) {
+			return false;
 		}
 
 		self::$_storageMethodParameters[$method] = self::$_storageMethodDefaultParameters[$method];

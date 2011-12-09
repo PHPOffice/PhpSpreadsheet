@@ -220,4 +220,19 @@ class PHPExcel_CachedObjectStorage_SQLite extends PHPExcel_CachedObjectStorage_C
 		$this->_DBHandle = null;
 	}	//	function __destruct()
 
+
+	/**
+	 *	Identify whether the caching method is currently available
+	 *	Some methods are dependent on the availability of certain extensions being enabled in the PHP build
+	 *
+	 *	@return	boolean
+	 */
+	public static function cacheMethodIsAvailable() {
+		if (!function_exists('sqlite_open')) {
+			return false;
+		}
+
+		return true;
+	}
+
 }

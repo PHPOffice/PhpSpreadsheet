@@ -219,4 +219,22 @@ class PHPExcel_CachedObjectStorage_APC extends PHPExcel_CachedObjectStorage_Cach
 		}
 	}	//	function __destruct()
 
+
+	/**
+	 *	Identify whether the caching method is currently available
+	 *	Some methods are dependent on the availability of certain extensions being enabled in the PHP build
+	 *
+	 *	@return	boolean
+	 */
+	public static function cacheMethodIsAvailable() {
+		if (!function_exists('apc_store')) {
+			return false;
+		}
+		if (apc_sma_info() === false) {
+			return false;
+		}
+
+		return true;
+	}
+
 }

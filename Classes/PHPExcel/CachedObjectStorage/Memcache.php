@@ -237,4 +237,18 @@ class PHPExcel_CachedObjectStorage_Memcache extends PHPExcel_CachedObjectStorage
 		}
 	}	//	function __destruct()
 
+	/**
+	 *	Identify whether the caching method is currently available
+	 *	Some methods are dependent on the availability of certain extensions being enabled in the PHP build
+	 *
+	 *	@return	boolean
+	 */
+	public static function cacheMethodIsAvailable() {
+		if (!function_exists('memcache_add')) {
+			return false;
+		}
+
+		return true;
+	}
+
 }

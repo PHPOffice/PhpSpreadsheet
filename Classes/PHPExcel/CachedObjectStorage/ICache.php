@@ -101,4 +101,12 @@ interface PHPExcel_CachedObjectStorage_ICache
 	 */
 	public function copyCellCollection(PHPExcel_Worksheet $parent);
 
+	/**
+	 *	Identify whether the caching method is currently available
+	 *	Some methods are dependent on the availability of certain extensions being enabled in the PHP build
+	 *
+	 *	@return	boolean
+	 */
+	public static function cacheMethodIsAvailable();
+
 }

@@ -176,4 +176,15 @@ class PHPExcel_CachedObjectStorage_CacheBase {
 		}
 	}	//	function copyCellCollection()
 
+
+	/**
+	 *	Identify whether the caching method is currently available
+	 *	Some methods are dependent on the availability of certain extensions being enabled in the PHP build
+	 *
+	 *	@return	boolean
+	 */
+	public static function cacheMethodIsAvailable() {
+		return true;
+	}
+
 }
