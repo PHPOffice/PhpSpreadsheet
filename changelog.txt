@@ -52,6 +52,8 @@ Fixed in SVN:
 - General:  (MBaker)    Ensure use of system temp directory for all temporary work files, unless explicitly specified
 - General:  (char101)   Work item 16359 - [Patch] faster stringFromColumnIndex()
 - General:  (whit1206)  Work item 16028 - Fix for projects that still use old autoloaders
+- General:  (atz)       Work item 17024 - Unknown codepage: 10007
+                        Additional Mac codepages
 
 
 2011-02-27 (v1.7.6):
