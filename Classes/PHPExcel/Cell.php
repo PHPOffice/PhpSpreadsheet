@@ -201,9 +201,9 @@ class PHPExcel_Cell
 	 */
 	public function getFormattedValue()
 	{
-		return PHPExcel_Style_NumberFormat::toFormattedString( $this->getCalculatedValue(),
-						$this->_parent->getParent()->getCellXfByIndex($this->getXfIndex())->getNumberFormat()->getFormatCode()
-			   );
+		return (string) PHPExcel_Style_NumberFormat::toFormattedString( $this->getCalculatedValue(),
+						         $this->_parent->getParent()->getCellXfByIndex($this->getXfIndex())->getNumberFormat()->getFormatCode()
+			            );
 	}
 
 	/**

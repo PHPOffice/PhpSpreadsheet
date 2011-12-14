@@ -45,6 +45,7 @@ Fixed in SVN:
 - Bugfix:   (MBaker)    Work item 16956 - External links in Excel2010 files cause Fatal error
 - Bugfix:   (MBaker)    Work item 16960 - Previous calculation engine error conditions trigger cyclic reference errors
 - Bugfix:   (mkopinsky) Work item 16266 - PHPExcel_Style::applyFromArray() returns null rather than style object in advanced mode
+- Bugfix:   (fauvel)    Work item 16958 - Cell::getFormattedValue returns RichText object instead of string
 - General:  (MBaker)    Work item 15405 - Two easy to fix Issues concerning PHPExcel_Token_Stack (l10n/UC)
 - General:  (MBaker)    Work item 15461 - Locale file paths not fit for windows
 - General:  (MBaker)    Work item 16643 - Add file directory as a cache option for cache_to_discISAM
