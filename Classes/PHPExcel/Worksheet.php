@@ -540,6 +540,17 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	}
 
 	/**
+	 * Calculate worksheet data dimension
+	 *
+	 * @return string  String containing the dimension of this worksheet that actually contain data
+	 */
+	public function calculateWorksheetDataDimension()
+	{
+		// Return
+		return 'A1' . ':' .  $this->getHighestDataColumn() . $this->getHighestDataRow();
+	}
+
+	/**
 	 * Calculate widths for auto-size columns
 	 *
 	 * @param  boolean  $calculateMergeCells  Calculate merge cell width
@@ -844,6 +855,16 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	}
 
 	/**
+	 * Get highest worksheet column that contains data
+	 *
+	 * @return string Highest column name that contains data
+	 */
+	public function getHighestDataColumn()
+	{
+		return $this->_cellCollection->getHighestColumn();
+	}
+
+	/**
 	 * Get highest worksheet row
 	 *
 	 * @return int Highest row number
@@ -851,6 +872,26 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	public function getHighestRow()
 	{
 		return $this->_cachedHighestRow;
+	}
+
+	/**
+	 * Get highest worksheet row that contains data
+	 *
+	 * @return string Highest row number that contains data
+	 */
+	public function getHighestDataRow()
+	{
+		return $this->_cellCollection->getHighestRow();
+	}
+
+	/**
+	 * Get highest worksheet column and highest row that have cell records
+	 *
+	 * @return array Highest column name and highest row number
+	 */
+	public function getHighestRowAndColumn()
+	{
+		return $this->_cellCollection->getHighestRowAndColumn();
 	}
 
 	/**
@@ -2297,21 +2338,9 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 //		}
 //
 		// Lookup highest column and highest row if cells are cleaned
-		$highestColumn = -1;
-		$highestRow	= 1;
-
-		// Find cells that can be cleaned
-		$col = $row = array();
-		foreach ($this->_cellCollection->getCellList() as $coord) {
-			list($c,$r) = sscanf($coord,'%[A-Z]%d');
-			$row[$r] = $r;
-			$col[$c] = strlen($c).$c;
-		}
-		if (count($row) > 0) {
-			// Determine highest column and row
-			$highestRow = max($row);
-			$highestColumn = PHPExcel_Cell::columnIndexFromString(substr(max($col),1));
-		}
+		$colRow = $this->_cellCollection->getHighestRowAndColumn();
+		$highestRow = $colRow['row'];
+		$highestColumn = PHPExcel_Cell::columnIndexFromString($colRow['column']);
 
 		// Loop through column dimensions
 		foreach ($this->_columnDimensions as $dimension) {

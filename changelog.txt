@@ -29,6 +29,8 @@ Fixed in SVN:
 - General:  (MBaker)    Reduce cell caching overhead using dirty flag to ensure that cells are only rewritten to the cache if they have actually been changed
 - General:  (MBaker)    Improved memory usage in CSV Writer
 - General:  (MBaker)    Improved speed and memory usage in Excel5 Writer
+- General:  (MBaker)    Experimental - 
+                        Added getHighestDataColumn(), getHighestDataRow(), getHighestRowAndColumn() and calculateWorksheetDataDimension() methods for the worksheet that return the highest row and column that have cell records
 - Bugfix:   (MBaker)    Work item 15459 - Invalid cell coordinate in Autofilter for Excel2007 Writer
 - Bugfix:   (MBaker)    Work item 15518 - PCLZip library issue
 - Bugfix:   (MBaker)    Work item 15537 - Excel2007 Reader canRead function bug

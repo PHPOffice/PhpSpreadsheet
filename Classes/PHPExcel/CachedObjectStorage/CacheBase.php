@@ -155,6 +155,56 @@ class PHPExcel_CachedObjectStorage_CacheBase {
 	}	//	function sortCellList()
 
 
+
+	/**
+	 * Get highest worksheet column and highest row that have cell records
+	 *
+	 * @return array Highest column name and highest row number
+	 */
+	public function getHighestRowAndColumn()
+	{
+		// Lookup highest column and highest row
+		$col = array('A' => '1A');
+		$row = array(1);
+		foreach ($this->getCellList() as $coord) {
+			list($c,$r) = sscanf($coord,'%[A-Z]%d');
+			$row[$r] = $r;
+			$col[$c] = strlen($c).$c;
+		}
+		if (count($row) > 0) {
+			// Determine highest column and row
+			$highestRow = max($row);
+			$highestColumn = substr(max($col),1);
+		}
+		return array( 'row'	   => $highestRow,
+					  'column' => $highestColumn
+					);
+	}
+
+
+	/**
+	 * Get highest worksheet column
+	 *
+	 * @return string Highest column name
+	 */
+	public function getHighestColumn()
+	{
+		$colRow = $this->getHighestRowAndColumn();
+		return $colRow['column'];
+	}
+
+	/**
+	 * Get highest worksheet row
+	 *
+	 * @return int Highest row number
+	 */
+	public function getHighestRow()
+	{
+		$colRow = $this->getHighestRowAndColumn();
+		return $colRow['row'];
+	}
+
+
 	protected function _getUniqueID() {
 		if (function_exists('posix_getpid')) {
 			$baseUnique = posix_getpid();
