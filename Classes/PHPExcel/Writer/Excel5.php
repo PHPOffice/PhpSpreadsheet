@@ -321,6 +321,7 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 		foreach ($this->_phpExcel->getAllSheets() as $sheet) {
 			if (count($sheet->getDrawingCollection()) > 0) {
 				$found = true;
+				break;
 			}
 		}
 
