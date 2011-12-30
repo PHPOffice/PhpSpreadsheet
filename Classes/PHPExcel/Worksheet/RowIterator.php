@@ -35,7 +35,7 @@
  * @package	PHPExcel_Worksheet
  * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
-class PHPExcel_Worksheet_RowIterator extends CachingIterator
+class PHPExcel_Worksheet_RowIterator implements Iterator
 {
 	/**
 	 * PHPExcel_Worksheet to iterate

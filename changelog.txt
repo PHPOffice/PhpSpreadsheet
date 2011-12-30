@@ -32,6 +32,7 @@ Fixed in SVN:
 - General:  (MBaker)    Improved speed and memory usage in Excel5 Writer
 - General:  (MBaker)    Experimental - 
                         Added getHighestDataColumn(), getHighestDataRow(), getHighestRowAndColumn() and calculateWorksheetDataDimension() methods for the worksheet that return the highest row and column that have cell records
+- General:  (MBaker)    Change iterators to implement Iterator rather than extend CachingIterator, as a fix for PHP 5.4. changes in SPL
 - Bugfix:   (MBaker)    Work item 15459 - Invalid cell coordinate in Autofilter for Excel2007 Writer
 - Bugfix:   (MBaker)    Work item 15518 - PCLZip library issue
 - Bugfix:   (MBaker)    Work item 15537 - Excel2007 Reader canRead function bug
