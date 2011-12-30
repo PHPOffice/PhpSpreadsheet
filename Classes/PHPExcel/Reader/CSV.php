@@ -215,7 +215,7 @@ class PHPExcel_Reader_CSV implements PHPExcel_Reader_IReader
 		while ($objPHPExcel->getSheetCount() <= $this->_sheetIndex) {
 			$objPHPExcel->createSheet();
 		}
-		$objPHPExcel->setActiveSheetIndex( $this->_sheetIndex );
+		$sheet = $objPHPExcel->setActiveSheetIndex( $this->_sheetIndex );
 
 		$lineEnding = ini_get('auto_detect_line_endings');
 		ini_set('auto_detect_line_endings', true);
@@ -259,7 +259,7 @@ class PHPExcel_Reader_CSV implements PHPExcel_Reader_IReader
 		// Set our starting row based on whether we're in contiguous mode or not
 		$currentRow = 1;
 		if ($this->_contiguous) {
-			$currentRow = ($this->_contiguousRow == -1) ? $objPHPExcel->getActiveSheet()->getHighestRow(): $this->_contiguousRow;
+			$currentRow = ($this->_contiguousRow == -1) ? $sheet->getHighestRow(): $this->_contiguousRow;
 		}
 
 		// Loop through each line of the file in turn
@@ -276,7 +276,7 @@ class PHPExcel_Reader_CSV implements PHPExcel_Reader_IReader
 					}
 
 					// Set cell value
-					$objPHPExcel->getActiveSheet()->getCell($columnLetter . $currentRow)->setValue($rowDatum);
+					$sheet->getCell($columnLetter . $currentRow)->setValue($rowDatum);
 				}
 				++$columnLetter;
 			}
