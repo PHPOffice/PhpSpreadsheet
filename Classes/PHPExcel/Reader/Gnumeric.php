@@ -539,16 +539,13 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 //
 			foreach($sheet->Styles->StyleRegion as $styleRegion) {
 				$styleAttributes = $styleRegion->attributes();
-//				var_dump($styleAttributes);
-//				echo '<br />';
-
 				if (($styleAttributes['startRow'] <= $maxRow) &&
 					($styleAttributes['startCol'] <= $maxCol)) {
 
-					$startColumn = PHPExcel_Cell::stringFromColumnIndex($styleAttributes['startCol']);
+					$startColumn = PHPExcel_Cell::stringFromColumnIndex((int) $styleAttributes['startCol']);
 					$startRow = $styleAttributes['startRow'] + 1;
 
-					$endColumn = ($styleAttributes['endCol'] > $maxCol) ? $maxCol : $styleAttributes['endCol'];
+					$endColumn = ($styleAttributes['endCol'] > $maxCol) ? $maxCol : (int) $styleAttributes['endCol'];
 					$endColumn = PHPExcel_Cell::stringFromColumnIndex($endColumn);
 					$endRow = ($styleAttributes['endRow'] > $maxRow) ? $maxRow : $styleAttributes['endRow'];
 					$endRow += 1;
