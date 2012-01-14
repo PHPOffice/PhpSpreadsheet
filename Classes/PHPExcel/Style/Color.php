@@ -369,62 +369,62 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 		// Indexed colors
 		if (is_null(self::$_indexedColors)) {
 			self::$_indexedColors = array(
-					'00000000',	//	System Colour #1 - Black
-					'00FFFFFF',	//	System Colour #2 - White
-					'00FF0000',	//	System Colour #3 - Red
-					'0000FF00',	//	System Colour #4 - Green
-					'000000FF',	//	System Colour #5 - Blue
-					'00FFFF00',	//	System Colour #6 - Yellow
-					'00FF00FF',	//	System Colour #7- Magenta
-					'0000FFFF',	//	System Colour #8- Cyan
-					'00800000',	//	Standard Colour #9
-					'00008000',	//	Standard Colour #10
-					'00000080',	//	Standard Colour #11
-					'00808000',	//	Standard Colour #12
-					'00800080',	//	Standard Colour #13
-					'00008080',	//	Standard Colour #14
-					'00C0C0C0',	//	Standard Colour #15
-					'00808080',	//	Standard Colour #16
-					'009999FF',	//	Chart Fill Colour #17
-					'00993366',	//	Chart Fill Colour #18
-					'00FFFFCC',	//	Chart Fill Colour #19
-					'00CCFFFF',	//	Chart Fill Colour #20
-					'00660066',	//	Chart Fill Colour #21
-					'00FF8080',	//	Chart Fill Colour #22
-					'000066CC',	//	Chart Fill Colour #23
-					'00CCCCFF',	//	Chart Fill Colour #24
-					'00000080',	//	Chart Line Colour #25
-					'00FF00FF',	//	Chart Line Colour #26
-					'00FFFF00',	//	Chart Line Colour #27
-					'0000FFFF',	//	Chart Line Colour #28
-					'00800080',	//	Chart Line Colour #29
-					'00800000',	//	Chart Line Colour #30
-					'00008080',	//	Chart Line Colour #31
-					'000000FF',	//	Chart Line Colour #32
-					'0000CCFF',	//	Standard Colour #33
-					'00CCFFFF',	//	Standard Colour #34
-					'00CCFFCC',	//	Standard Colour #35
-					'00FFFF99',	//	Standard Colour #36
-					'0099CCFF',	//	Standard Colour #37
-					'00FF99CC',	//	Standard Colour #38
-					'00CC99FF',	//	Standard Colour #39
-					'00FFCC99',	//	Standard Colour #40
-					'003366FF',	//	Standard Colour #41
-					'0033CCCC',	//	Standard Colour #42
-					'0099CC00',	//	Standard Colour #43
-					'00FFCC00',	//	Standard Colour #44
-					'00FF9900',	//	Standard Colour #45
-					'00FF6600',	//	Standard Colour #46
-					'00666699',	//	Standard Colour #47
-					'00969696',	//	Standard Colour #48
-					'00003366',	//	Standard Colour #49
-					'00339966',	//	Standard Colour #50
-					'00003300',	//	Standard Colour #51
-					'00333300',	//	Standard Colour #52
-					'00993300',	//	Standard Colour #53
-					'00993366',	//	Standard Colour #54
-					'00333399',	//	Standard Colour #55
-					'00333333'	//	Standard Colour #56
+					1	=> '00000000',	//	System Colour #1 - Black
+					2	=> '00FFFFFF',	//	System Colour #2 - White
+					3	=> '00FF0000',	//	System Colour #3 - Red
+					4	=> '0000FF00',	//	System Colour #4 - Green
+					5	=> '000000FF',	//	System Colour #5 - Blue
+					6	=> '00FFFF00',	//	System Colour #6 - Yellow
+					7	=> '00FF00FF',	//	System Colour #7- Magenta
+					8	=> '0000FFFF',	//	System Colour #8- Cyan
+					9	=> '00800000',	//	Standard Colour #9
+					10	=> '00008000',	//	Standard Colour #10
+					11	=> '00000080',	//	Standard Colour #11
+					12	=> '00808000',	//	Standard Colour #12
+					13	=> '00800080',	//	Standard Colour #13
+					14	=> '00008080',	//	Standard Colour #14
+					15	=> '00C0C0C0',	//	Standard Colour #15
+					16	=> '00808080',	//	Standard Colour #16
+					17	=> '009999FF',	//	Chart Fill Colour #17
+					18	=> '00993366',	//	Chart Fill Colour #18
+					19	=> '00FFFFCC',	//	Chart Fill Colour #19
+					20	=> '00CCFFFF',	//	Chart Fill Colour #20
+					21	=> '00660066',	//	Chart Fill Colour #21
+					22	=> '00FF8080',	//	Chart Fill Colour #22
+					23	=> '000066CC',	//	Chart Fill Colour #23
+					24	=> '00CCCCFF',	//	Chart Fill Colour #24
+					25	=> '00000080',	//	Chart Line Colour #25
+					26	=> '00FF00FF',	//	Chart Line Colour #26
+					27	=> '00FFFF00',	//	Chart Line Colour #27
+					28	=> '0000FFFF',	//	Chart Line Colour #28
+					29	=> '00800080',	//	Chart Line Colour #29
+					30	=> '00800000',	//	Chart Line Colour #30
+					31	=> '00008080',	//	Chart Line Colour #31
+					32	=> '000000FF',	//	Chart Line Colour #32
+					33	=> '0000CCFF',	//	Standard Colour #33
+					34	=> '00CCFFFF',	//	Standard Colour #34
+					35	=> '00CCFFCC',	//	Standard Colour #35
+					36	=> '00FFFF99',	//	Standard Colour #36
+					37	=> '0099CCFF',	//	Standard Colour #37
+					38	=> '00FF99CC',	//	Standard Colour #38
+					39	=> '00CC99FF',	//	Standard Colour #39
+					40	=> '00FFCC99',	//	Standard Colour #40
+					41	=> '003366FF',	//	Standard Colour #41
+					42	=> '0033CCCC',	//	Standard Colour #42
+					43	=> '0099CC00',	//	Standard Colour #43
+					44	=> '00FFCC00',	//	Standard Colour #44
+					45	=> '00FF9900',	//	Standard Colour #45
+					46	=> '00FF6600',	//	Standard Colour #46
+					47	=> '00666699',	//	Standard Colour #47
+					48	=> '00969696',	//	Standard Colour #48
+					49	=> '00003366',	//	Standard Colour #49
+					50	=> '00339966',	//	Standard Colour #50
+					51	=> '00003300',	//	Standard Colour #51
+					52	=> '00333300',	//	Standard Colour #52
+					53	=> '00993300',	//	Standard Colour #53
+					54	=> '00993366',	//	Standard Colour #54
+					55	=> '00333399',	//	Standard Colour #55
+					56	=> '00333333'	//	Standard Colour #56
 				);
 		}
 
