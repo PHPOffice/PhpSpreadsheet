@@ -497,10 +497,11 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	}
 
 	/**
-	 * Can the current PHPExcel_Reader_IReader read the file?
+	 *	Can the current PHPExcel_Reader_IReader read the file?
 	 *
-	 * @param 	string 		$pFileName
-	 * @return 	boolean
+	 *	@param 	string 		$pFileName
+	 *	@return 	boolean
+	 *	@throws Exception
 	 */
 	public function canRead($pFilename)
 	{
@@ -1041,16 +1042,21 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 				$explodes = explode('!', $definedName['formula']);
 
 				if (count($explodes) == 2) {
-					if ($docSheet = $this->_phpExcel->getSheetByName($explodes[0])) {
+					if (($docSheet = $this->_phpExcel->getSheetByName($explodes[0])) ||
+						($docSheet = $this->_phpExcel->getSheetByName(trim($explodes[0],"'")))) {
 						$extractedRange = $explodes[1];
 						$extractedRange = str_replace('$', '', $extractedRange);
 
 						$localOnly = ($definedName['scope'] == 0) ? false : true;
+
 						$scope = ($definedName['scope'] == 0) ?
 							null : $this->_phpExcel->getSheetByName($this->_sheets[$definedName['scope'] - 1]['name']);
 
 						$this->_phpExcel->addNamedRange( new PHPExcel_NamedRange((string)$definedName['name'], $docSheet, $extractedRange, $localOnly, $scope) );
 					}
+				} else {
+					//	Named Value
+					//	TODO Provide support for named values
 				}
 			}
 		}
@@ -6278,7 +6284,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 
 		$value += $mantissalow2 / pow (2 , (52 - $exp));
 		if ($sign) {
-			$value = -1 * $value;
+			$value *= -1;
 		}
 
 		return $value;
@@ -6288,8 +6294,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	{
 		if (($rknum & 0x02) != 0) {
 			$value = $rknum >> 2;
-		}
-		else {
+		} else {
 			// changes by mmp, info on IEEE754 encoding from
 			// research.microsoft.com/~hollasch/cgindex/coding/ieeefloat.html
 			// The RK format calls for using only the most significant 30 bits
@@ -6363,7 +6368,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	 */
 	public static function _GetInt2d($data, $pos)
 	{
-		return ord($data[$pos]) | (ord($data[$pos + 1]) << 8);
+		return ord($data[$pos]) | (ord($data[$pos+1]) << 8);
 	}
 
 	/**
@@ -6385,7 +6390,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 		} else {
 			$_ord_24 = ($_or_24 & 127) << 24;
 		}
-		return ord($data[$pos]) | (ord($data[$pos + 1]) << 8) | (ord($data[$pos + 2]) << 16) | $_ord_24;
+		return ord($data[$pos]) | (ord($data[$pos+1]) << 8) | (ord($data[$pos+2]) << 16) | $_ord_24;
 	}
 
 	/**
