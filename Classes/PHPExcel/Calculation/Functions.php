@@ -555,7 +555,7 @@ class PHPExcel_Calculation_Functions {
 			} elseif (self::isMatrixValue($a)) {
 				return 64;
 			}
-		} elseif(count($value) == 0) {
+		} elseif(empty($value)) {
 			//	Empty Cell
 			return 1;
 		}

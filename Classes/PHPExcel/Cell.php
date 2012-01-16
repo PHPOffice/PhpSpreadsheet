@@ -581,7 +581,7 @@ class PHPExcel_Cell
 	public static function buildRange($pRange)
 	{
 		// Verify range
-		if (!is_array($pRange) || count($pRange) == 0 || !is_array($pRange[0])) {
+		if (!is_array($pRange) || empty($pRange) || !is_array($pRange[0])) {
 			throw new Exception('Range does not contain any information.');
 		}
 

@@ -202,7 +202,7 @@ class PHPExcel_Shared_OLE_PPS
 	*/
 	public static function _savePpsSetPnt(&$raList, $to_save, $depth = 0)
 	{
-		if ( !is_array($to_save) || (count($to_save) == 0) ) {
+		if ( !is_array($to_save) || (empty($to_save)) ) {
 			return 0xFFFFFFFF;
 		} elseif( count($to_save) == 1 ) {
 			$cnt = count($raList);

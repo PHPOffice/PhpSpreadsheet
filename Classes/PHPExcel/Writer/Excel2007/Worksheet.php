@@ -342,7 +342,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 	private function _writeCols(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_Worksheet $pSheet = null)
 	{
 		// cols
-		if (count($pSheet->getColumnDimensions()) > 0)  {
+		if (!empty($pSheet->getColumnDimensions()))  {
 			$objWriter->startElement('cols');
 
 				$pSheet->calculateColumnWidths();
@@ -521,7 +521,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 		$dataValidationCollection = $pSheet->getDataValidationCollection();
 
 		// Write data validations?
-		if (count($dataValidationCollection) > 0) {
+		if (!empty($dataValidationCollection)) {
 			$objWriter->startElement('dataValidations');
 			$objWriter->writeAttribute('count', count($dataValidationCollection));
 
@@ -590,7 +590,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 		$relationId = 1;
 
 		// Write hyperlinks?
-		if (count($hyperlinkCollection) > 0) {
+		if (!empty($hyperlinkCollection)) {
 			$objWriter->startElement('hyperlinks');
 
 			foreach ($hyperlinkCollection as $coordinate => $hyperlink) {
@@ -624,7 +624,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 	 */
 	private function _writeProtectedRanges(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_Worksheet $pSheet = null)
 	{
-		if (count($pSheet->getProtectedCells()) > 0) {
+		if (!empty($pSheet->getProtectedCells())) {
 			// protectedRanges
 			$objWriter->startElement('protectedRanges');
 
@@ -651,7 +651,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 	 */
 	private function _writeMergeCells(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_Worksheet $pSheet = null)
 	{
-		if (count($pSheet->getMergeCells()) > 0) {
+		if (!empty($pSheet->getMergeCells())) {
 			// mergeCells
 			$objWriter->startElement('mergeCells');
 
@@ -811,7 +811,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 		}
 
 		// rowBreaks
-		if (count($aRowBreaks) > 0) {
+		if (!empty($aRowBreaks)) {
 			$objWriter->startElement('rowBreaks');
 			$objWriter->writeAttribute('count',			count($aRowBreaks));
 			$objWriter->writeAttribute('manualBreakCount',	count($aRowBreaks));
@@ -829,7 +829,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 		}
 
 		// Second, write column breaks
-		if (count($aColumnBreaks) > 0) {
+		if (!empty($aColumnBreaks)) {
 			$objWriter->startElement('colBreaks');
 			$objWriter->writeAttribute('count',			count($aColumnBreaks));
 			$objWriter->writeAttribute('manualBreakCount',	count($aColumnBreaks));
@@ -1093,7 +1093,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 	private function _writeLegacyDrawing(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_Worksheet $pSheet = null)
 	{
 		// If sheet contains comments, add the relationships
-		if (count($pSheet->getComments()) > 0) {
+		if (!empty($pSheet->getComments())) {
 			$objWriter->startElement('legacyDrawing');
 			$objWriter->writeAttribute('r:id', 'rId_comments_vml1');
 			$objWriter->endElement();
@@ -1110,7 +1110,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 	private function _writeLegacyDrawingHF(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_Worksheet $pSheet = null)
 	{
 		// If sheet contains comments, add the relationships
-		if (count($pSheet->getHeaderFooter()->getImages()) > 0) {
+		if (!empty($pSheet->getHeaderFooter()->getImages())) {
 			$objWriter->startElement('legacyDrawingHF');
 			$objWriter->writeAttribute('r:id', 'rId_headerfooter_vml1');
 			$objWriter->endElement();

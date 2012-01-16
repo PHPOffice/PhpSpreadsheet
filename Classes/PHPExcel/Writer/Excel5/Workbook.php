@@ -643,7 +643,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 		$chunk = '';
 
 		// Named ranges
-		if (count($this->_phpExcel->getNamedRanges()) > 0) {
+		if (!empty($this->_phpExcel->getNamedRanges())) {
 			// Loop named ranges
 			$namedRanges = $this->_phpExcel->getNamedRanges();
 			foreach ($namedRanges as $namedRange) {

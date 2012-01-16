@@ -841,7 +841,7 @@ class PHPExcel_Calculation_Statistical {
 
 		$aArgs = PHPExcel_Calculation_Functions::flattenArray($aArgs);
 		$averageArgs = PHPExcel_Calculation_Functions::flattenArray($averageArgs);
-		if (count($averageArgs) == 0) {
+		if (empty($averageArgs)) {
 			$averageArgs = $aArgs;
 		}
 		$condition = PHPExcel_Calculation_Functions::_ifCondition($condition);
@@ -1734,7 +1734,7 @@ class PHPExcel_Calculation_Statistical {
 		$const	= (is_null($const))	? True :	(boolean) PHPExcel_Calculation_Functions::flattenSingleValue($const);
 
 		$bestFitExponential = trendClass::calculate(trendClass::TREND_EXPONENTIAL,$yValues,$xValues,$const);
-		if (count($newValues) == 0) {
+		if (empty($newValues)) {
 			$newValues = $bestFitExponential->getXValues();
 		}
 
@@ -2202,7 +2202,7 @@ class PHPExcel_Calculation_Statistical {
 
 		$aArgs = PHPExcel_Calculation_Functions::flattenArray($aArgs);
 		$sumArgs = PHPExcel_Calculation_Functions::flattenArray($sumArgs);
-		if (count($sumArgs) == 0) {
+		if (empty($sumArgs)) {
 			$sumArgs = $aArgs;
 		}
 		$condition = PHPExcel_Calculation_Functions::_ifCondition($condition);
@@ -2364,7 +2364,7 @@ class PHPExcel_Calculation_Statistical {
 
 		$aArgs = PHPExcel_Calculation_Functions::flattenArray($aArgs);
 		$sumArgs = PHPExcel_Calculation_Functions::flattenArray($sumArgs);
-		if (count($sumArgs) == 0) {
+		if (empty($sumArgs)) {
 			$sumArgs = $aArgs;
 		}
 		$condition = PHPExcel_Calculation_Functions::_ifCondition($condition);
@@ -2446,7 +2446,7 @@ class PHPExcel_Calculation_Statistical {
 			}
 		}
 
-		if (count($mArgs) > 0) {
+		if (!empty($mArgs)) {
 			return self::_modeCalc($mArgs);
 		}
 
@@ -3332,7 +3332,7 @@ class PHPExcel_Calculation_Statistical {
 		$const	= (is_null($const))	? True :	(boolean) PHPExcel_Calculation_Functions::flattenSingleValue($const);
 
 		$bestFitLinear = trendClass::calculate(trendClass::TREND_LINEAR,$yValues,$xValues,$const);
-		if (count($newValues) == 0) {
+		if (empty($newValues)) {
 			$newValues = $bestFitLinear->getXValues();
 		}
 

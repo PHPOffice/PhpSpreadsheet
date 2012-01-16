@@ -949,7 +949,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 				}
 			}
 
-			if (count($this->_cellNotes) > 0) {
+			if (!empty($this->_cellNotes)) {
 				foreach($this->_cellNotes as $note => $noteDetails) {
 //					echo '<b>Cell annotation ',$note,'</b><br />';
 //					var_dump($noteDetails);
@@ -4903,7 +4903,7 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	private function _createFormulaFromTokens($tokens, $additionalData)
 	{
 		// empty formula?
-		if (count($tokens) == 0) {
+		if (empty($tokens)) {
 			return '';
 		}
 

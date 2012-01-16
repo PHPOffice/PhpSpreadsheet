@@ -1186,7 +1186,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 	    									$row          = null;
 
 	    									$clientData   = $shape->xpath('.//x:ClientData');
-	    									if (is_array($clientData) && count($clientData) > 0) {
+	    									if (is_array($clientData) && !empty($clientData)) {
 	        									$clientData   = $clientData[0];
 
 	        									if ( isset($clientData['ObjectType']) && (string)$clientData['ObjectType'] == 'Note' ) {

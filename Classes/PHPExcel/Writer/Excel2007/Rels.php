@@ -60,7 +60,7 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
 		$objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/package/2006/relationships');
 
 			$customPropertyList = $pPHPExcel->getProperties()->getCustomProperties();
-			if (count($customPropertyList) > 0) {
+			if (!empty($customPropertyList)) {
 				// Relationship docProps/app.xml
 				$this->_writeRelationship(
 					$objWriter,
@@ -223,7 +223,7 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
 
 			// Write comments relationship?
 			$i = 1;
-			if (count($pWorksheet->getComments()) > 0) {
+			if (!empty($pWorksheet->getComments())) {
 				$this->_writeRelationship(
 					$objWriter,
 					'_comments_vml' . $i,
@@ -241,7 +241,7 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
 
 			// Write header/footer relationship?
 			$i = 1;
-			if (count($pWorksheet->getHeaderFooter()->getImages()) > 0) {
+			if (!empty($pWorksheet->getHeaderFooter()->getImages())) {
 				$this->_writeRelationship(
 					$objWriter,
 					'_headerfooter_vml' . $i,

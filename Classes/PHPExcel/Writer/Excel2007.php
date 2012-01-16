@@ -288,7 +288,7 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 				}
 
 				// Add comment relationship parts
-				if (count($this->_spreadSheet->getSheet($i)->getComments()) > 0) {
+				if (!empty($this->_spreadSheet->getSheet($i)->getComments())) {
 					// VML Comments
 					$objZip->addFromString('xl/drawings/vmlDrawing' . ($i + 1) . '.vml', $this->getWriterPart('Comments')->writeVMLComments($this->_spreadSheet->getSheet($i)));
 
@@ -297,7 +297,7 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 				}
 
 				// Add header/footer relationship parts
-				if (count($this->_spreadSheet->getSheet($i)->getHeaderFooter()->getImages()) > 0) {
+				if (!empty($this->_spreadSheet->getSheet($i)->getHeaderFooter()->getImages())) {
 					// VML Drawings
 					$objZip->addFromString('xl/drawings/vmlDrawingHF' . ($i + 1) . '.vml', $this->getWriterPart('Drawing')->writeVMLHeaderFooterImages($this->_spreadSheet->getSheet($i)));
 

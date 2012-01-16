@@ -223,7 +223,7 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 			$escher = null;
 
 			// check if there are any shapes for this sheet
-			if (count($sheet->getDrawingCollection()) == 0) {
+			if (empty($sheet->getDrawingCollection())) {
 				continue;
 			}
 
@@ -319,7 +319,7 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 		// any drawings in this workbook?
 		$found = false;
 		foreach ($this->_phpExcel->getAllSheets() as $sheet) {
-			if (count($sheet->getDrawingCollection()) > 0) {
+			if (!empty($sheet->getDrawingCollection())) {
 				$found = true;
 				break;
 			}
@@ -348,7 +348,7 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 		foreach ($this->_phpExcel->getAllsheets() as $sheet) {
 			$sheetCountShapes = 0; // count number of shapes (minus group shape), in sheet
 
-			if (count($sheet->getDrawingCollection()) > 0) {
+			if (!empty($sheet->getDrawingCollection())) {
 				++$countDrawings;
 
 				foreach ($sheet->getDrawingCollection() as $drawing) {

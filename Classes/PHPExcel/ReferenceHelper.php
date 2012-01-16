@@ -214,7 +214,7 @@ class PHPExcel_ReferenceHelper
 
 		// Update worksheet: column dimensions
 		$aColumnDimensions = array_reverse($pSheet->getColumnDimensions(), true);
-		if (count($aColumnDimensions) > 0) {
+		if (!empty($aColumnDimensions)) {
 			foreach ($aColumnDimensions as $objColumnDimension) {
 				$newReference = $this->updateCellReference($objColumnDimension->getColumnIndex() . '1', $pBefore, $pNumCols, $pNumRows);
 				list($newReference) = PHPExcel_Cell::coordinateFromString($newReference);
@@ -228,7 +228,7 @@ class PHPExcel_ReferenceHelper
 
 		// Update worksheet: row dimensions
 		$aRowDimensions = array_reverse($pSheet->getRowDimensions(), true);
-		if (count($aRowDimensions) > 0) {
+		if (!empty($aRowDimensions)) {
 			foreach ($aRowDimensions as $objRowDimension) {
 				$newReference = $this->updateCellReference('A' . $objRowDimension->getRowIndex(), $pBefore, $pNumCols, $pNumRows);
 				list(, $newReference) = PHPExcel_Cell::coordinateFromString($newReference);
@@ -340,7 +340,7 @@ class PHPExcel_ReferenceHelper
 
 
 		// Update workbook: named ranges
-		if (count($pSheet->getParent()->getNamedRanges()) > 0) {
+		if (!empty($pSheet->getParent()->getNamedRanges())) {
 			foreach ($pSheet->getParent()->getNamedRanges() as $namedRange) {
 				if ($namedRange->getWorksheet()->getHashCode() == $pSheet->getHashCode()) {
 					$namedRange->setRange(

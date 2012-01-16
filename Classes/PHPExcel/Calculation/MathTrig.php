@@ -61,7 +61,7 @@ class PHPExcel_Calculation_MathTrig {
 				}
 			}
 		}
-		if (count($factorArray) > 0) {
+		if (!empty($factorArray)) {
 			rsort($factorArray);
 			return $factorArray;
 		} else {
@@ -1040,7 +1040,7 @@ class PHPExcel_Calculation_MathTrig {
 
 		$aArgs = PHPExcel_Calculation_Functions::flattenArray($aArgs);
 		$sumArgs = PHPExcel_Calculation_Functions::flattenArray($sumArgs);
-		if (count($sumArgs) == 0) {
+		if (empty($sumArgs)) {
 			$sumArgs = $aArgs;
 		}
 		$condition = PHPExcel_Calculation_Functions::_ifCondition($condition);

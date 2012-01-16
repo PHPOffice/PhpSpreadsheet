@@ -789,7 +789,7 @@ class PHPExcel_Calculation_DateTime {
 		}
 
 		//	Test any extra holiday parameters
-		if (count($dateArgs) > 0) {
+		if (!empty($dateArgs)) {
 			$holidayCountedArray = $holidayDates = array();
 			foreach ($dateArgs as $holidayDate) {
 				if ((!is_null($holidayDate)) && (trim($holidayDate) > '')) {

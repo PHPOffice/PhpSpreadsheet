@@ -354,7 +354,7 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 					$columnLetter = PHPExcel_Cell::stringFromColumnIndex($column-1);
 					$objPHPExcel->getActiveSheet()->getStyle($columnLetter.$row)->applyFromArray($this->_formats[$formatStyle]);
 				}
-				if ((count($styleData) > 0) && ($column > '') && ($row > '')) {
+				if ((!empty($styleData)) && ($column > '') && ($row > '')) {
 					$columnLetter = PHPExcel_Cell::stringFromColumnIndex($column-1);
 					$objPHPExcel->getActiveSheet()->getStyle($columnLetter.$row)->applyFromArray($styleData);
 				}

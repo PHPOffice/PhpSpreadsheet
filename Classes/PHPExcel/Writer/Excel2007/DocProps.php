@@ -209,7 +209,7 @@ class PHPExcel_Writer_Excel2007_DocProps extends PHPExcel_Writer_Excel2007_Write
 	public function writeDocPropsCustom(PHPExcel $pPHPExcel = null)
 	{
 		$customPropertyList = $pPHPExcel->getProperties()->getCustomProperties();
-		if (count($customPropertyList) == 0) {
+		if (empty($customPropertyList)) {
 			return;
 		}
 

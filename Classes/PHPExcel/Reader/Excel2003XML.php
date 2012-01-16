@@ -482,7 +482,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 												break;
 									}
 								}
-								if (count($thisBorder) > 0) {
+								if (!empty($thisBorder)) {
 									if (($borderPosition == 'left') || ($borderPosition == 'right') || ($borderPosition == 'top') || ($borderPosition == 'bottom')) {
 										$this->_styles[$styleID]['borders'][$borderPosition] = $thisBorder;
 									}
@@ -767,7 +767,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 						if (($cellIsSet) && (isset($cell_ss['StyleID']))) {
 							$style = (string) $cell_ss['StyleID'];
 //							echo 'Cell style for '.$columnID.$rowID.' is '.$style.'<br />';
-							if ((isset($this->_styles[$style])) && (count($this->_styles[$style]) > 0)) {
+							if ((isset($this->_styles[$style])) && (!empty($this->_styles[$style]))) {
 //								echo 'Cell '.$columnID.$rowID.'<br />';
 //								print_r($this->_styles[$style]);
 //								echo '<br />';

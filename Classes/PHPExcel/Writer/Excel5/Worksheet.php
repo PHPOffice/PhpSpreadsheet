@@ -2104,7 +2104,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		}
 
 		//horizontal page breaks
-		if (count($hbreaks) > 0) {
+		if (!empty($hbreaks)) {
 
 			// Sort and filter array of page breaks
 			sort($hbreaks, SORT_NUMERIC);
@@ -2128,7 +2128,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		}
 
 		// vertical page breaks
-		if (count($vbreaks) > 0) {
+		if (!empty($vbreaks)) {
 
 			// 1000 vertical pagebreaks appears to be an internal Excel 5 limit.
 			// It is slightly higher in Excel 97/200, approx. 1026
@@ -2691,21 +2691,21 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		$dataValidationCollection = $this->_phpSheet->getDataValidationCollection();
 
 		// Write data validations?
-		if (count($dataValidationCollection) > 0) {
+		if (!empty($dataValidationCollection)) {
 
 			// DATAVALIDATIONS record
 			$record = 0x01B2;	  // Record identifier
-		$length	  = 0x0012;	  // Bytes to follow
+			$length	  = 0x0012;	  // Bytes to follow
 
 			$grbit  = 0x0000;	   // Prompt box at cell, no cached validity data at DV records
-		$horPos	  = 0x00000000;  // Horizontal position of prompt box, if fixed position
-		$verPos	  = 0x00000000;  // Vertical position of prompt box, if fixed position
+			$horPos	  = 0x00000000;  // Horizontal position of prompt box, if fixed position
+			$verPos	  = 0x00000000;  // Vertical position of prompt box, if fixed position
 			$objId  = 0xFFFFFFFF;  // Object identifier of drop down arrow object, or -1 if not visible
 
-		$header	  = pack('vv', $record, $length);
-		$data		= pack('vVVVV', $grbit, $horPos, $verPos, $objId,
+			$header	  = pack('vv', $record, $length);
+			$data		= pack('vVVVV', $grbit, $horPos, $verPos, $objId,
 										 count($dataValidationCollection));
-		$this->_append($header.$data);
+			$this->_append($header.$data);
 
 			// DATAVALIDATION records
 			$record = 0x01BE;			  // Record identifier

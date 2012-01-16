@@ -767,7 +767,7 @@ class PHPExcel
 		}
 
 		// make sure there is always at least one cellXf (there should be)
-		if (count($this->_cellXfCollection) == 0) {
+		if (empty($this->_cellXfCollection)) {
 			$this->_cellXfCollection[] = new PHPExcel_Style();
 		}
 

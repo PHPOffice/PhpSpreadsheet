@@ -265,7 +265,7 @@ class PHPExcel_Writer_Excel2007_Workbook extends PHPExcel_Writer_Excel2007_Write
 		$objWriter->startElement('definedNames');
 
 		// Named ranges
-		if (count($pPHPExcel->getNamedRanges()) > 0) {
+		if (!empty($pPHPExcel->getNamedRanges())) {
 			// Named ranges
 			$this->_writeNamedRanges($objWriter, $pPHPExcel);
 		}
