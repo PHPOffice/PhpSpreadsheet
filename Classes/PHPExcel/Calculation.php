@@ -2504,13 +2504,15 @@ class PHPExcel_Calculation {
 				$pad = $rpad = ', ';
 				foreach($value as $row) {
 					if (is_array($row)) {
-						$returnMatrix[] = implode($pad,$row);
+						$returnMatrix[] = implode($pad,array_map(array($this,'_showValue'),$row));
 						$rpad = '; ';
 					} else {
-						$returnMatrix[] = $row;
+						$returnMatrix[] = $this->_showValue($row);
 					}
 				}
 				return '{ '.implode($rpad,$returnMatrix).' }';
+			} elseif(is_string($value) && (trim($value,'"') == $value)) {
+				return '"'.$value.'"';
 			} elseif(is_bool($value)) {
 				return ($value) ? self::$_localeBoolean['TRUE'] : self::$_localeBoolean['FALSE'];
 			}
@@ -3428,14 +3430,14 @@ class PHPExcel_Calculation {
 			$result = array();
 			if ((is_array($operand1)) && (!is_array($operand2))) {
 				foreach($operand1 as $x => $operandData) {
-					$this->_writeDebug('Evaluating '.$this->_showValue($operandData).' '.$operation.' '.$this->_showValue($operand2));
+					$this->_writeDebug('Evaluating Comparison '.$this->_showValue($operandData).' '.$operation.' '.$this->_showValue($operand2));
 					$this->_executeBinaryComparisonOperation($cellID,$operandData,$operand2,$operation,$stack);
 					$r = $stack->pop();
 					$result[$x] = $r['value'];
 				}
 			} elseif ((!is_array($operand1)) && (is_array($operand2))) {
 				foreach($operand2 as $x => $operandData) {
-					$this->_writeDebug('Evaluating '.$this->_showValue($operand1).' '.$operation.' '.$this->_showValue($operandData));
+					$this->_writeDebug('Evaluating Comparison '.$this->_showValue($operand1).' '.$operation.' '.$this->_showValue($operandData));
 					$this->_executeBinaryComparisonOperation($cellID,$operand1,$operandData,$operation,$stack);
 					$r = $stack->pop();
 					$result[$x] = $r['value'];
@@ -3443,14 +3445,14 @@ class PHPExcel_Calculation {
 			} else {
 				if (!$recursingArrays) { self::_checkMatrixOperands($operand1,$operand2,2); }
 				foreach($operand1 as $x => $operandData) {
-					$this->_writeDebug('Evaluating '.$this->_showValue($operandData).' '.$operation.' '.$this->_showValue($operand2[$x]));
+					$this->_writeDebug('Evaluating Comparison '.$this->_showValue($operandData).' '.$operation.' '.$this->_showValue($operand2[$x]));
 					$this->_executeBinaryComparisonOperation($cellID,$operandData,$operand2[$x],$operation,$stack,true);
 					$r = $stack->pop();
 					$result[$x] = $r['value'];
 				}
 			}
 			//	Log the result details
-			$this->_writeDebug('Evaluation Result is '.$this->_showTypeDetails($result));
+			$this->_writeDebug('Comparison Evaluation Result is '.$this->_showTypeDetails($result));
 			//	And push the result onto the stack
 			$stack->push('Array',$result);
 			return true;

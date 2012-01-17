@@ -340,7 +340,7 @@ class PHPExcel_ReferenceHelper
 
 
 		// Update workbook: named ranges
-		if (!empty($pSheet->getParent()->getNamedRanges())) {
+		if (count($pSheet->getParent()->getNamedRanges()) > 0) {
 			foreach ($pSheet->getParent()->getNamedRanges() as $namedRange) {
 				if ($namedRange->getWorksheet()->getHashCode() == $pSheet->getHashCode()) {
 					$namedRange->setRange(
