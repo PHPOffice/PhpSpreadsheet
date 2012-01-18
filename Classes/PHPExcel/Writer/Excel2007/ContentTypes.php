@@ -129,7 +129,7 @@ class PHPExcel_Writer_Excel2007_ContentTypes extends PHPExcel_Writer_Excel2007_W
 
 			// Comments
 			for ($i = 0; $i < $sheetCount; ++$i) {
-				if (!empty($pPHPExcel->getSheet($i)->getComments())) {
+				if (count($pPHPExcel->getSheet($i)->getComments()) > 0) {
 					$this->_writeOverrideContentType(
 						$objWriter, '/xl/comments' . ($i + 1) . '.xml', 'application/vnd.openxmlformats-officedocument.spreadsheetml.comments+xml'
 					);
@@ -165,7 +165,7 @@ class PHPExcel_Writer_Excel2007_ContentTypes extends PHPExcel_Writer_Excel2007_W
 
 			$sheetCount = $pPHPExcel->getSheetCount();
 			for ($i = 0; $i < $sheetCount; ++$i) {
-				if (!empty($pPHPExcel->getSheet()->getHeaderFooter()->getImages())) {
+				if (count($pPHPExcel->getSheet()->getHeaderFooter()->getImages()) > 0) {
 					foreach ($pPHPExcel->getSheet()->getHeaderFooter()->getImages() as $image) {
 						if (!isset( $aMediaContentTypes[strtolower($image->getExtension())]) ) {
 							$aMediaContentTypes[strtolower($image->getExtension())] = $this->_getImageMimeType( $image->getPath() );

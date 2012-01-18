@@ -342,7 +342,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 	private function _writeCols(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_Worksheet $pSheet = null)
 	{
 		// cols
-		if (!empty($pSheet->getColumnDimensions()))  {
+		if (count($pSheet->getColumnDimensions()) > 0)  {
 			$objWriter->startElement('cols');
 
 				$pSheet->calculateColumnWidths();
@@ -624,7 +624,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 	 */
 	private function _writeProtectedRanges(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_Worksheet $pSheet = null)
 	{
-		if (!empty($pSheet->getProtectedCells())) {
+		if (count($pSheet->getProtectedCells()) > 0) {
 			// protectedRanges
 			$objWriter->startElement('protectedRanges');
 
@@ -651,7 +651,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 	 */
 	private function _writeMergeCells(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_Worksheet $pSheet = null)
 	{
-		if (!empty($pSheet->getMergeCells())) {
+		if (count($pSheet->getMergeCells()) > 0) {
 			// mergeCells
 			$objWriter->startElement('mergeCells');
 
@@ -1093,7 +1093,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 	private function _writeLegacyDrawing(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_Worksheet $pSheet = null)
 	{
 		// If sheet contains comments, add the relationships
-		if (!empty($pSheet->getComments())) {
+		if (count($pSheet->getComments()) > 0) {
 			$objWriter->startElement('legacyDrawing');
 			$objWriter->writeAttribute('r:id', 'rId_comments_vml1');
 			$objWriter->endElement();
@@ -1109,8 +1109,8 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 	 */
 	private function _writeLegacyDrawingHF(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_Worksheet $pSheet = null)
 	{
-		// If sheet contains comments, add the relationships
-		if (!empty($pSheet->getHeaderFooter()->getImages())) {
+		// If sheet contains images, add the relationships
+		if (count($pSheet->getHeaderFooter()->getImages()) > 0) {
 			$objWriter->startElement('legacyDrawingHF');
 			$objWriter->writeAttribute('r:id', 'rId_headerfooter_vml1');
 			$objWriter->endElement();

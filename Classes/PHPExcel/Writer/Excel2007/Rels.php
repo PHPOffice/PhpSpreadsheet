@@ -223,7 +223,7 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
 
 			// Write comments relationship?
 			$i = 1;
-			if (!empty($pWorksheet->getComments())) {
+			if (count($pWorksheet->getComments()) > 0) {
 				$this->_writeRelationship(
 					$objWriter,
 					'_comments_vml' . $i,
@@ -241,7 +241,7 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
 
 			// Write header/footer relationship?
 			$i = 1;
-			if (!empty($pWorksheet->getHeaderFooter()->getImages())) {
+			if (count($pWorksheet->getHeaderFooter()->getImages()) > 0) {
 				$this->_writeRelationship(
 					$objWriter,
 					'_headerfooter_vml' . $i,
