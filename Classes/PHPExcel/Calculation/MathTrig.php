@@ -179,7 +179,11 @@ class PHPExcel_Calculation_MathTrig {
 
 		if (is_null($number)) {
 			return 0;
-		} elseif (is_numeric($number)) {
+		} elseif (is_bool($number)) {
+			$number = (int) $number;
+		}
+
+		if (is_numeric($number)) {
 			$significance = 2 * self::SIGN($number);
 			return (int) self::CEILING($number,$significance);
 		}
@@ -228,9 +232,10 @@ class PHPExcel_Calculation_MathTrig {
 	 *	@return	int		Double Factorial
 	 */
 	public static function FACTDOUBLE($factVal) {
-		$factLoop	= floor(PHPExcel_Calculation_Functions::flattenSingleValue($factVal));
+		$factLoop	= PHPExcel_Calculation_Functions::flattenSingleValue($factVal);
 
 		if (is_numeric($factLoop)) {
+			$factLoop	= floor($factLoop);
 			if ($factVal < 0) {
 				return PHPExcel_Calculation_Functions::NaN();
 			}
@@ -289,8 +294,12 @@ class PHPExcel_Calculation_MathTrig {
 		$allPoweredFactors = array();
 		// Loop through arguments
 		foreach(PHPExcel_Calculation_Functions::flattenArray(func_get_args()) as $value) {
-			if ($value == 0) {
+			if (!is_numeric($value)) {
+				return PHPExcel_Calculation_Functions::VALUE();
+			} elseif ($value == 0) {
 				break;
+			} elseif($value < 0) {
+				return PHPExcel_Calculation_Functions::NaN();
 			}
 			$myFactors = self::_factors($value);
 			$myCountedFactors = array_count_values($myFactors);
@@ -637,7 +646,11 @@ class PHPExcel_Calculation_MathTrig {
 
 		if (is_null($number)) {
 			return 1;
-		} elseif (is_numeric($number)) {
+		} elseif (is_bool($number)) {
+			$number = (int) $number;
+		}
+
+		if (is_numeric($number)) {
 			$significance = self::SIGN($number);
 			if ($significance == 0) {
 				return 1;
