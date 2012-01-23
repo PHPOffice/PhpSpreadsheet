@@ -40,31 +40,7 @@ class LogicalTest extends PHPUnit_Framework_TestCase
 
     public function providerAND()
     {
-		return array(
-				array(	'#VALUE!'	),								//	No arguments
-				array(	NULL,	TRUE	),							//	NULL
-				array(	TRUE,	NULL,	TRUE	),					//	Boolean TRUE and NULL
-				array(	FALSE,	NULL,	FALSE	),					//	Boolean FALSE and NULL
-				array(	TRUE,	TRUE,	TRUE	),					//	Both TRUE Booleans
-				array(	TRUE,	FALSE,	FALSE	),					//	Mixed Booleans
-				array(	FALSE,	TRUE,	FALSE	),					//	Mixed Booleans
-				array(	FALSE,	FALSE,	FALSE	),					//	Both FALSE Booleans
-				array(	TRUE,	TRUE,	FALSE,	FALSE	),			//	Multiple Mixed Booleans
-				array(	TRUE,	TRUE,	TRUE,	TRUE	),			//	Multiple TRUE Booleans
-				array(	FALSE,	FALSE,	FALSE,	FALSE,	FALSE	),	//	Multiple FALSE Booleans
-				array(	-1,	-2,	TRUE	),
-				array(	0,	0,	FALSE	),
-				array(	0,	1,	FALSE	),
-				array(	1,	1,	TRUE	),
-				array(	'1',1,	'#VALUE!'	),
-				array(	'TRUE',1,	TRUE	),						//	'TRUE' String
-				array(	'FALSE',TRUE,	FALSE	),					//	'FALSE' String
-				array(	'ABCD',1,	'#VALUE!'	),					//	Non-numeric String
-				array(	-2,	1,	TRUE	),
-				array(	-2,	0,	FALSE	),
-			);
-
-//    	return new testDataFileIterator('rawTestData/Calculation/Logical/AND.data');
+    	return new testDataFileIterator('rawTestData/Calculation/Logical/AND.data');
 	}
 
     /**
@@ -80,30 +56,7 @@ class LogicalTest extends PHPUnit_Framework_TestCase
 
     public function providerOR()
     {
-		return array(
-				array(	'#VALUE!'	),								//	No arguments
-				array(	NULL,	FALSE	),							//	NULL
-				array(	TRUE,	NULL,	TRUE	),					//	Boolean TRUE and NULL
-				array(	FALSE,	NULL,	FALSE	),					//	Boolean FALSE and NULL
-				array(	TRUE,	TRUE,	TRUE	),					//	Both TRUE Booleans
-				array(	TRUE,	FALSE,	TRUE	),					//	Mixed Booleans
-				array(	FALSE,	TRUE,	TRUE	),					//	Mixed Booleans
-				array(	FALSE,	FALSE,	FALSE	),					//	Both FALSE Booleans
-				array(	TRUE,	TRUE,	FALSE,	TRUE	),			//	Multiple Mixed Booleans
-				array(	TRUE,	TRUE,	TRUE,	TRUE	),			//	Multiple TRUE Booleans
-				array(	FALSE,	FALSE,	FALSE,	FALSE,	FALSE	),	//	Multiple FALSE Booleans
-				array(	-1,	-2,	TRUE	),
-				array(	0,	0,	FALSE	),
-				array(	0,	1,	TRUE	),
-				array(	1,	1,	TRUE	),
-				array(	'TRUE',1,	TRUE	),						//	'TRUE' String
-				array(	'FALSE',TRUE,	TRUE	),					//	'FALSE' String
-				array(	'ABCD',1,	'#VALUE!'	),					//	Non-numeric String
-				array(	-2,	1,	TRUE	),
-				array(	-2,	0,	TRUE	),
-			);
-
-//    	return new testDataFileIterator('rawTestData/Calculation/Logical/OR.data');
+    	return new testDataFileIterator('rawTestData/Calculation/Logical/OR.data');
 	}
 
     /**
@@ -135,17 +88,7 @@ class LogicalTest extends PHPUnit_Framework_TestCase
 
     public function providerIF()
     {
-		return array(
-				array(	0	),
-				array(	TRUE,	0	),
-				array(	FALSE,	FALSE	),
-				array(	TRUE,	'ABC',	'ABC'	),
-				array(	FALSE,	'ABC',	FALSE	),
-				array(	TRUE,	'ABC',	'XYZ',	'ABC'	),
-				array(	FALSE,	'ABC',	'XYZ',	'XYZ'	),
-			);
-
-//    	return new testDataFileIterator('rawTestData/Calculation/Logical/IF.data');
+    	return new testDataFileIterator('rawTestData/Calculation/Logical/IF.data');
 	}
 
     /**
@@ -161,12 +104,7 @@ class LogicalTest extends PHPUnit_Framework_TestCase
 
     public function providerIFERROR()
     {
-		return array(
-				array(	TRUE,	'Not an Error',	'Not an Error'),
-				array(	'#VALUE!',	'Error',	'Error'	),
-			);
-
-//    	return new testDataFileIterator('rawTestData/Calculation/Logical/IFERROR.data');
+        return new testDataFileIterator('rawTestData/Calculation/Logical/IFERROR.data');
 	}
 
 }
