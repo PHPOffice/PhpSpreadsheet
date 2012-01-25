@@ -421,7 +421,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 			// Re-order cell collection
 			return $this->sortCellCollection();
 		}
-		if (!is_null($this->_cellCollection)) {
+		if ($this->_cellCollection !== NULL) {
 			return $this->_cellCollection->getCellList();
 		}
 		return array();
@@ -434,7 +434,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 */
 	public function sortCellCollection()
 	{
-		if (!is_null($this->_cellCollection)) {
+		if ($this->_cellCollection !== NULL) {
 			return $this->_cellCollection->getSortedCellList();
 		}
 		return array();
@@ -984,7 +984,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		if ((!preg_match('/^'.PHPExcel_Calculation::CALCULATION_REGEXP_CELLREF.'$/i', $pCoordinate, $matches)) &&
 			(preg_match('/^'.PHPExcel_Calculation::CALCULATION_REGEXP_NAMEDRANGE.'$/i', $pCoordinate, $matches))) {
 			$namedRange = PHPExcel_NamedRange::resolveRange($pCoordinate, $this);
-			if (!is_null($namedRange)) {
+			if ($namedRange !== NULL) {
 				$pCoordinate = $namedRange->getRange();
 				return $namedRange->getWorksheet()->getCell($pCoordinate);
 			}

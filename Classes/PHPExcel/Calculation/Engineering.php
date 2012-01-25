@@ -2046,7 +2046,7 @@ class PHPExcel_Calculation_Engineering {
 		if (!is_numeric($value)) {
 			return PHPExcel_Calculation_Functions::VALUE();
 		}
-		$fromMultiplier = 1;
+		$fromMultiplier = 1.0;
 		if (isset(self::$_conversionUnits[$fromUOM])) {
 			$unitGroup1 = self::$_conversionUnits[$fromUOM]['Group'];
 		} else {
@@ -2065,7 +2065,7 @@ class PHPExcel_Calculation_Engineering {
 		}
 		$value *= $fromMultiplier;
 
-		$toMultiplier = 1;
+		$toMultiplier = 1.0;
 		if (isset(self::$_conversionUnits[$toUOM])) {
 			$unitGroup2 = self::$_conversionUnits[$toUOM]['Group'];
 		} else {
@@ -2086,12 +2086,12 @@ class PHPExcel_Calculation_Engineering {
 			return PHPExcel_Calculation_Functions::NA();
 		}
 
-		if ($fromUOM == $toUOM) {
-			return 1.0;
+		if (($fromUOM == $toUOM) && ($fromMultiplier == $toMultiplier)) {
+			return $value;
 		} elseif ($unitGroup1 == 'Temperature') {
 			if (($fromUOM == 'F') || ($fromUOM == 'fah')) {
 				if (($toUOM == 'F') || ($toUOM == 'fah')) {
-					return 1.0;
+					return $value;
 				} else {
 					$value = (($value - 32) / 1.8);
 					if (($toUOM == 'K') || ($toUOM == 'kel')) {
@@ -2101,10 +2101,10 @@ class PHPExcel_Calculation_Engineering {
 				}
 			} elseif ((($fromUOM == 'K') || ($fromUOM == 'kel')) &&
 					  (($toUOM == 'K') || ($toUOM == 'kel'))) {
-						return 1.0;
+						return $value;
 			} elseif ((($fromUOM == 'C') || ($fromUOM == 'cel')) &&
 					  (($toUOM == 'C') || ($toUOM == 'cel'))) {
-					return 1.0;
+					return $value;
 			}
 			if (($toUOM == 'F') || ($toUOM == 'fah')) {
 				if (($fromUOM == 'K') || ($fromUOM == 'kel')) {

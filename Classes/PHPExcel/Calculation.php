@@ -2152,8 +2152,8 @@ class PHPExcel_Calculation {
 		}
 
 		//	Read the formula from the cell
-		if (is_null($pCell)) {
-			return null;
+		if ($pCell === NULL) {
+			return NULL;
 		}
 
 		if ($resetLog) {
@@ -2188,7 +2188,7 @@ class PHPExcel_Calculation {
 			$result = array_shift($testResult);
 		}
 
-		if (is_null($result)) {
+		if ($result === NULL) {
 			return 0;
 		} elseif((is_float($result)) && ((is_nan($result)) || (is_infinite($result)))) {
 			return PHPExcel_Calculation_Functions::NaN();
@@ -2268,14 +2268,14 @@ class PHPExcel_Calculation {
 		if (!isset($formula{0})) return self::_wrapResult($formula);
 
 		$wsTitle = "\x00Wrk";
-		if (!is_null($pCell)) {
+		if ($pCell !== NULL) {
 			$pCellParent = $pCell->getParent();
-			if (!is_null($pCellParent)) {
+			if ($pCellParent !== NULL) {
 				$wsTitle = $pCellParent->getTitle();
 			}
 		}
 		// Is calculation cacheing enabled?
-		if (!is_null($cellID)) {
+		if ($cellID !== NULL) {
 			if (self::$_calculationCacheEnabled) {
 				// Is the value present in calculation cache?
 //				echo 'Testing cache value<br />';
@@ -2328,7 +2328,7 @@ class PHPExcel_Calculation {
 		array_pop($this->debugLogStack);
 
 		// Save to calculation cache
-		if (!is_null($cellID)) {
+		if ($cellID !== NULL) {
 			if (self::$_calculationCacheEnabled) {
 				self::$_calculationCache[$wsTitle][$cellID]['time'] = microtime(true);
 				self::$_calculationCache[$wsTitle][$cellID]['data'] = $cellValue;
@@ -2534,7 +2534,7 @@ class PHPExcel_Calculation {
 				$value = array_pop($testArray);
 			}
 
-			if (is_null($value)) {
+			if ($value === NULL) {
 				return 'a NULL value';
 			} elseif (is_float($value)) {
 				$typeString = 'a floating point number';
@@ -2617,12 +2617,12 @@ class PHPExcel_Calculation {
 	// Convert infix to postfix notation
 	private function _parseFormula($formula, PHPExcel_Cell $pCell = null) {
 		if (($formula = self::_convertMatrixReferences(trim($formula))) === false) {
-			return false;
+			return FALSE;
 		}
 
 		//	If we're using cell caching, then $pCell may well be flushed back to the cache (which detaches the parent worksheet),
 		//		so we store the parent worksheet so that we can re-attach it when necessary
-		$pCellParent = (!is_null($pCell)) ? $pCell->getParent() : null;
+		$pCellParent = ($pCell !== NULL) ? $pCell->getParent() : NULL;
 
 		//	Binary Operators
 		//	These operators always work on two values
@@ -2715,7 +2715,7 @@ class PHPExcel_Calculation {
 //				echo 'Element is a Closing bracket<br />';
 				$expectingOperand = false;
 				while (($o2 = $stack->pop()) && $o2['value'] != '(') {		//	Pop off the stack back to the last (
-					if (is_null($o2)) return $this->_raiseFormulaError('Formula Error: Unexpected closing brace ")"');
+					if ($o2 === NULL) return $this->_raiseFormulaError('Formula Error: Unexpected closing brace ")"');
 					else $output[] = $o2;
 				}
 				$d = $stack->last(2);
@@ -2794,7 +2794,7 @@ class PHPExcel_Calculation {
 			} elseif ($opCharacter == ',') {			//	Is this the separator for function arguments?
 //				echo 'Element is a Function argument separator<br />';
 				while (($o2 = $stack->pop()) && $o2['value'] != '(') {		//	Pop off the stack back to the last (
-					if (is_null($o2)) return $this->_raiseFormulaError("Formula Error: Unexpected ,");
+					if ($o2 === NULL) return $this->_raiseFormulaError("Formula Error: Unexpected ,");
 					else $output[] = $o2;	// pop the argument expression stuff and push onto the output
 				}
 				//	If we've a comma when we're expecting an operand, then what we actually have is a null operand;
@@ -2885,13 +2885,13 @@ class PHPExcel_Calculation {
 						if ((is_integer($startRowColRef)) && (ctype_digit($val)) &&
 							($startRowColRef <= 1048576) && ($val <= 1048576)) {
 							//	Row range
-							$endRowColRef = (!is_null($pCellParent)) ? $pCellParent->getHighestColumn() : 'XFD';	//	Max 16,384 columns for Excel2007
+							$endRowColRef = ($pCellParent !== NULL) ? $pCellParent->getHighestColumn() : 'XFD';	//	Max 16,384 columns for Excel2007
 							$output[count($output)-1]['value'] = $rangeWS1.'A'.$startRowColRef;
 							$val = $rangeWS2.$endRowColRef.$val;
 						} elseif ((ctype_alpha($startRowColRef)) && (ctype_alpha($val)) &&
 							(strlen($startRowColRef) <= 3) && (strlen($val) <= 3)) {
 							//	Column range
-							$endRowColRef = (!is_null($pCellParent)) ? $pCellParent->getHighestRow() : 1048576;		//	Max 1,048,576 rows for Excel2007
+							$endRowColRef = ($pCellParent !== NULL) ? $pCellParent->getHighestRow() : 1048576;		//	Max 1,048,576 rows for Excel2007
 							$output[count($output)-1]['value'] = $rangeWS1.strtoupper($startRowColRef).'1';
 							$val = $rangeWS2.$val.$endRowColRef;
 						}
@@ -2976,7 +2976,7 @@ class PHPExcel_Calculation {
 			}
 		}
 
-		while (!is_null($op = $stack->pop())) {	// pop everything off the stack and push onto output
+		while (($op = $stack->pop()) !== NULL) {	// pop everything off the stack and push onto output
 			if ($opCharacter['value'] == '(') return $this->_raiseFormulaError("Formula Error: Expecting ')'");	// if there are any opening braces on the stack, then braces were unbalanced
 			$output[] = $op;
 		}
@@ -2990,7 +2990,7 @@ class PHPExcel_Calculation {
 
 		//	If we're using cell caching, then $pCell may well be flushed back to the cache (which detaches the parent worksheet),
 		//		so we store the parent worksheet so that we can re-attach it when necessary
-		$pCellParent = (!is_null($pCell)) ? $pCell->getParent() : null;
+		$pCellParent = ($pCell !== NULL) ? $pCell->getParent() : null;
 		$stack = new PHPExcel_Token_Stack;
 
 		//	Loop through each token in turn
@@ -3003,11 +3003,11 @@ class PHPExcel_Calculation {
 			if (isset(self::$_binaryOperators[$token])) {
 //				echo 'Token is a binary operator<br />';
 				//	We must have two operands, error if we don't
-				if (is_null($operand2Data = $stack->pop())) return $this->_raiseFormulaError('Internal error - Operand value missing from stack');
-				if (is_null($operand1Data = $stack->pop())) return $this->_raiseFormulaError('Internal error - Operand value missing from stack');
+				if (($operand2Data = $stack->pop()) === NULL) return $this->_raiseFormulaError('Internal error - Operand value missing from stack');
+				if (($operand1Data = $stack->pop()) === NULL) return $this->_raiseFormulaError('Internal error - Operand value missing from stack');
 
 				$operand1 = $operand1Data['value'];
-				if ((is_null($operand1Data['reference'])) && (is_array($operand1))) {
+				if (($operand1Data['reference'] === NULL) && (is_array($operand1))) {
 					$rowKey = array_shift(array_keys($operand1));
 					$colKey = array_shift(array_keys($operand1[$rowKey]));
 					if (ctype_upper($colKey)) {
@@ -3015,7 +3015,7 @@ class PHPExcel_Calculation {
 					}
 				}
 				$operand2 = $operand2Data['value'];
-				if ((is_null($operand2Data['reference'])) && (is_array($operand2))) {
+				if (($operand2Data['reference'] === NULL) && (is_array($operand2))) {
 					$rowKey = array_shift(array_keys($operand2));
 					$colKey = array_shift(array_keys($operand2[$rowKey]));
 					if (ctype_upper($colKey)) {
@@ -3047,7 +3047,7 @@ class PHPExcel_Calculation {
 						if (strpos($operand1Data['reference'],'!') !== false) {
 							list($sheet1,$operand1Data['reference']) = explode('!',$operand1Data['reference']);
 						} else {
-							$sheet1 = (!is_null($pCellParent)) ? $pCellParent->getTitle() : '';
+							$sheet1 = ($pCellParent !== NULL) ? $pCellParent->getTitle() : '';
 						}
 						if (strpos($operand2Data['reference'],'!') !== false) {
 							list($sheet2,$operand2Data['reference']) = explode('!',$operand2Data['reference']);
@@ -3055,7 +3055,7 @@ class PHPExcel_Calculation {
 							$sheet2 = $sheet1;
 						}
 						if ($sheet1 == $sheet2) {
-							if (is_null($operand1Data['reference'])) {
+							if ($operand1Data['reference'] === NULL) {
 								if ((trim($operand1Data['value']) != '') && (is_numeric($operand1Data['value']))) {
 									$operand1Data['reference'] = $pCell->getColumn().$operand1Data['value'];
 								} elseif (trim($operand1Data['reference']) == '') {
@@ -3064,7 +3064,7 @@ class PHPExcel_Calculation {
 									$operand1Data['reference'] = $operand1Data['value'].$pCell->getRow();
 								}
 							}
-							if (is_null($operand2Data['reference'])) {
+							if ($operand2Data['reference'] === NULL) {
 								if ((trim($operand2Data['value']) != '') && (is_numeric($operand2Data['value']))) {
 									$operand2Data['reference'] = $pCell->getColumn().$operand2Data['value'];
 								} elseif (trim($operand2Data['reference']) == '') {
@@ -3082,7 +3082,7 @@ class PHPExcel_Calculation {
 								$oRow[] = $oCR[1];
 							}
 							$cellRef = PHPExcel_Cell::stringFromColumnIndex(min($oCol)).min($oRow).':'.PHPExcel_Cell::stringFromColumnIndex(max($oCol)).max($oRow);
-							if (!is_null($pCellParent)) {
+							if ($pCellParent !== NULL) {
 								$cellValue = $this->extractCellRange($cellRef, $pCellParent->getParent()->getSheetByName($sheet1), false);
 							} else {
 								return $this->_raiseFormulaError('Unable to access Cell Reference');
@@ -3156,7 +3156,7 @@ class PHPExcel_Calculation {
 			// if the token is a unary operator, pop one value off the stack, do the operation, and push it back on
 			} elseif (($token === '~') || ($token === '%')) {
 //				echo 'Token is a unary operator<br />';
-				if (is_null($arg = $stack->pop())) return $this->_raiseFormulaError('Internal error - Operand value missing from stack');
+				if (($arg = $stack->pop()) === NULL) return $this->_raiseFormulaError('Internal error - Operand value missing from stack');
 				$arg = $arg['value'];
 				if ($token === '~') {
 //					echo 'Token is a negation operator<br />';
@@ -3188,7 +3188,7 @@ class PHPExcel_Calculation {
 //				echo 'Element '.$token.' is a Cell reference<br />';
 				if (isset($matches[8])) {
 //					echo 'Reference is a Range of cells<br />';
-					if (is_null($pCell)) {
+					if ($pCell === NULL) {
 //						We can't access the range, so return a REF error
 						$cellValue = PHPExcel_Calculation_Functions::REF();
 					} else {
@@ -3202,7 +3202,7 @@ class PHPExcel_Calculation {
 							$matches[2] = trim($matches[2],"\"'");
 //							echo '$cellRef='.$cellRef.' in worksheet '.$matches[2].'<br />';
 							$this->_writeDebug('Evaluating Cell Range '.$cellRef.' in worksheet '.$matches[2]);
-							if (!is_null($pCellParent)) {
+							if ($pCellParent !== NULL) {
 								$cellValue = $this->extractCellRange($cellRef, $pCellParent->getParent()->getSheetByName($matches[2]), false);
 							} else {
 								return $this->_raiseFormulaError('Unable to access Cell Reference');
@@ -3212,7 +3212,7 @@ class PHPExcel_Calculation {
 						} else {
 //							echo '$cellRef='.$cellRef.' in current worksheet<br />';
 							$this->_writeDebug('Evaluating Cell Range '.$cellRef.' in current worksheet');
-							if (!is_null($pCellParent)) {
+							if ($pCellParent !== NULL) {
 								$cellValue = $this->extractCellRange($cellRef, $pCellParent, false);
 							} else {
 								return $this->_raiseFormulaError('Unable to access Cell Reference');
@@ -3222,7 +3222,7 @@ class PHPExcel_Calculation {
 					}
 				} else {
 //					echo 'Reference is a single Cell<br />';
-					if (is_null($pCell)) {
+					if ($pCell !== NULL) {
 //						We can't access the cell, so return a REF error
 						$cellValue = PHPExcel_Calculation_Functions::REF();
 					} else {
@@ -3235,7 +3235,7 @@ class PHPExcel_Calculation {
 							}
 //							echo '$cellRef='.$cellRef.' in worksheet '.$matches[2].'<br />';
 							$this->_writeDebug('Evaluating Cell '.$cellRef.' in worksheet '.$matches[2]);
-							if (!is_null($pCellParent)) {
+							if ($pCellParent !== NULL) {
 								if ($pCellParent->getParent()->getSheetByName($matches[2])->cellExists($cellRef)) {
 									$cellValue = $this->extractCellRange($cellRef, $pCellParent->getParent()->getSheetByName($matches[2]), false);
 									$pCell->attach($pCellParent);
@@ -3290,7 +3290,7 @@ class PHPExcel_Calculation {
 						if (($passByReference) &&
 							(isset(self::$_PHPExcelFunctions[$functionName]['passByReference'][$a])) &&
 							(self::$_PHPExcelFunctions[$functionName]['passByReference'][$a])) {
-							if (is_null($arg['reference'])) {
+							if ($arg['reference'] === NULL) {
 								$args[] = $cellID;
 								if ($functionName != 'MKMATRIX') { $argArrayVals[] = $this->_showValue($cellID); }
 							} else {
@@ -3367,7 +3367,7 @@ class PHPExcel_Calculation {
 //					echo 'Token is a PHPExcel constant: '.$excelConstant.'<br />';
 					$stack->push('Constant Value',self::$_ExcelConstants[$excelConstant]);
 					$this->_writeDebug('Evaluating Constant '.$excelConstant.' as '.$this->_showTypeDetails(self::$_ExcelConstants[$excelConstant]));
-				} elseif ((is_numeric($token)) || (is_null($token)) || (is_bool($token)) || ($token == '') || ($token{0} == '"') || ($token{0} == '#')) {
+				} elseif ((is_numeric($token)) || ($token === NULL) || (is_bool($token)) || ($token == '') || ($token{0} == '"') || ($token{0} == '#')) {
 //					echo 'Token is a number, boolean, string, null or an Excel error<br />';
 					$stack->push('Value',$token);
 				// if the token is a named range, push the named range name onto the stack
@@ -3611,7 +3611,7 @@ class PHPExcel_Calculation {
 		$returnValue = array ();
 
 //		echo 'extractCellRange('.$pRange.')<br />';
-		if (!is_null($pSheet)) {
+		if ($pSheet !== NULL) {
 //			echo 'Passed sheet name is '.$pSheet->getTitle().'<br />';
 //			echo 'Range reference is '.$pRange.'<br />';
 			if (strpos ($pRange, '!') !== false) {
@@ -3667,7 +3667,7 @@ class PHPExcel_Calculation {
 		$returnValue = array ();
 
 //		echo 'extractNamedRange('.$pRange.')<br />';
-		if (!is_null($pSheet)) {
+		if ($pSheet !== NULL) {
 //			echo 'Current sheet name is '.$pSheet->getTitle().'<br />';
 //			echo 'Range reference is '.$pRange.'<br />';
 			if (strpos ($pRange, '!') !== false) {
@@ -3681,7 +3681,7 @@ class PHPExcel_Calculation {
 
 			// Named range?
 			$namedRange = PHPExcel_NamedRange::resolveRange($pRange, $pSheet);
-			if (!is_null($namedRange)) {
+			if ($namedRange !== NULL) {
 				$pSheet = $namedRange->getWorksheet();
 //				echo 'Named Range '.$pRange.' (';
 				$pRange = $namedRange->getRange();

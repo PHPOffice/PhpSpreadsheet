@@ -55,7 +55,7 @@ class PHPExcel_ReferenceHelper
 	 * @return PHPExcel_ReferenceHelper
 	 */
 	public static function getInstance() {
-		if (!isset(self::$_instance) || is_null(self::$_instance)) {
+		if (!isset(self::$_instance) || (self::$_instance === NULL)) {
 			self::$_instance = new PHPExcel_ReferenceHelper();
 		}
 
@@ -530,7 +530,7 @@ class PHPExcel_ReferenceHelper
 		foreach ($pPhpExcel->getWorksheetIterator() as $sheet) {
 			foreach ($sheet->getCellCollection(false) as $cellID) {
 				$cell = $sheet->getCell($cellID);
-				if (!is_null($cell) && $cell->getDataType() == PHPExcel_Cell_DataType::TYPE_FORMULA) {
+				if (($cell !== NULL) && ($cell->getDataType() == PHPExcel_Cell_DataType::TYPE_FORMULA)) {
 					$formula = $cell->getValue();
 					if (strpos($formula, $oldName) !== false) {
 						$formula = str_replace("'" . $oldName . "'!", "'" . $newName . "'!", $formula);

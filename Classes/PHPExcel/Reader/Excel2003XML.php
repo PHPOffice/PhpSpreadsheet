@@ -612,7 +612,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 						}
 						$cellRange = $columnID.$rowID;
 
-						if (!is_null($this->getReadFilter())) {
+						if ($this->getReadFilter() !== NULL) {
 							if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
 								continue;
 							}

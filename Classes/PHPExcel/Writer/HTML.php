@@ -222,7 +222,7 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 */
 	private function _mapBorderStyle($borderStyle) {
 		switch ($borderStyle) {
-			case PHPExcel_Style_Border::BORDER_NONE:				return '0px';
+			case PHPExcel_Style_Border::BORDER_NONE:				return '1px hidden';
 			case PHPExcel_Style_Border::BORDER_DASHDOT:				return '1px dashed';
 			case PHPExcel_Style_Border::BORDER_DASHDOTDOT:			return '1px dotted';
 			case PHPExcel_Style_Border::BORDER_DASHED:				return '1px dashed';
@@ -839,11 +839,8 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 * @return	string
 	 */
 	private function _createCSSStyleBorder(PHPExcel_Style_Border $pStyle) {
-		// Construct HTML
-		$css = '';
-
 		// Create CSS
-		$css .= $this->_mapBorderStyle($pStyle->getBorderStyle()) . ' #' . $pStyle->getColor()->getRGB();
+		$css = $this->_mapBorderStyle($pStyle->getBorderStyle()) . ' #' . $pStyle->getColor()->getRGB();
 
 		// Return
 		return $css;

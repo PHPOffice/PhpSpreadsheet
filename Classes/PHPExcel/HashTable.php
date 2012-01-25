@@ -57,7 +57,7 @@ class PHPExcel_HashTable
 	 */
 	public function __construct($pSource = null)
 	{
-		if (!is_null($pSource)) {
+		if ($pSource !== NULL) {
 			// Create HashTable
 			$this->addFromSource($pSource);
 		}

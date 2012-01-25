@@ -414,7 +414,7 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 							case 'table-row' :
 								$columnID = 'A';
 								foreach($rowData as $key => $cellData) {
-									if (!is_null($this->getReadFilter())) {
+									if ($this->getReadFilter() !== NULL) {
 										if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
 											continue;
 										}

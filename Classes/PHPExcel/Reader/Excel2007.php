@@ -493,7 +493,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 					if ($xmlStyles && $xmlStyles->numFmts[0]) {
 						$numFmts = $xmlStyles->numFmts[0];
 					}
-					if (isset($numFmts) && !is_null($numFmts)) {
+					if (isset($numFmts) && ($numFmts !== NULL)) {
 						$numFmts->registerXPathNamespace("sml", "http://schemas.openxmlformats.org/spreadsheetml/2006/main");
 					}
 					if (!$this->_readDataOnly && $xmlStyles) {
@@ -793,7 +793,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 										$calculatedValue 	= null;
 
 										// Read cell?
-										if (!is_null($this->getReadFilter())) {
+										if ($this->getReadFilter() !== NULL) {
 											$coordinates = PHPExcel_Cell::coordinateFromString($r);
 
 											if (!$this->getReadFilter()->readCell($coordinates[0], $coordinates[1], $docSheet->getTitle())) {
@@ -888,7 +888,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 										} else {
 											$cell->setValue($value);
 										}
-										if (!is_null($calculatedValue)) {
+										if ($calculatedValue !== NULL) {
 											$cell->setCalculatedValue($calculatedValue);
 										}
 
@@ -1198,7 +1198,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 	        									}
 	    									}
 
-	    									if (!is_null($column) && !is_null($row)) {
+	    									if (($column !== NULL) && ($row !== NULL)) {
 	    									    // Set comment properties
 	    									    $comment = $docSheet->getCommentByColumnAndRow($column, $row + 1);
 	    									    $comment->getFillColor()->setRGB( $fillColor );
@@ -1501,7 +1501,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 										$extractedRange = isset($range[1]) ? $range[1] : $range[0];
 									}
 
-									if (!is_null($locatedSheet)) {
+									if ($locatedSheet !== NULL) {
 										$excel->addNamedRange( new PHPExcel_NamedRange((string)$definedName['name'], $locatedSheet, $extractedRange, false) );
 									}
 								}
@@ -1540,7 +1540,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 		} else if (isset($color["indexed"])) {
 			return PHPExcel_Style_Color::indexedColor($color["indexed"],$background)->getARGB();
 		} else if (isset($color["theme"])) {
-			if (!is_null(self::$_theme)) {
+			if (self::$_theme !== NULL) {
 				$returnColour = self::$_theme->getColourByIndex((int)$color["theme"]);
 				if (isset($color["tint"])) {
 					$tintAdjust = (float) $color["tint"];

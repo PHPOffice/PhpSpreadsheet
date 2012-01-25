@@ -464,7 +464,7 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 				$column = PHPExcel_Cell::stringFromColumnIndex($column);
 
 				// Read cell?
-				if (!is_null($this->getReadFilter())) {
+				if ($this->getReadFilter() !== NULL) {
 					if (!$this->getReadFilter()->readCell($column, $row, $worksheetName)) {
 						continue;
 					}

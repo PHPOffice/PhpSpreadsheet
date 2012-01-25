@@ -283,7 +283,7 @@ class PHPExcel_Cell
 				$result = PHPExcel_Calculation::getInstance()->calculateCellValue($this,$resetLog);
 //				echo $this->getCoordinate().' calculation result is '.$result.'<br />';
 			} catch ( Exception $ex ) {
-				if (($ex->getMessage() === 'Unable to access External Workbook') && (!is_null($this->_calculatedValue))) {
+				if (($ex->getMessage() === 'Unable to access External Workbook') && ($this->_calculatedValue !== NULL)) {
 //					echo 'Returning fallback value of '.$this->_calculatedValue.' for cell '.$this->getCoordinate().'<br />';
 					return $this->_calculatedValue; // Fallback for calculations referencing external files.
 				}
@@ -300,7 +300,7 @@ class PHPExcel_Cell
 			return $result;
 		}
 
-//		if (is_null($this->_value)) {
+//		if ($this->_value === NULL) {
 //			echo 'Cell '.$this->getCoordinate().' has no value, formula or otherwise<br />';
 //			return null;
 //		}
@@ -813,7 +813,7 @@ class PHPExcel_Cell
 	 * @return PHPExcel_Cell_IValueBinder
 	 */
 	public static function getValueBinder() {
-		if (is_null(self::$_valueBinder)) {
+		if (self::$_valueBinder === NULL) {
 			self::$_valueBinder = new PHPExcel_Cell_DefaultValueBinder();
 		}
 
@@ -827,7 +827,7 @@ class PHPExcel_Cell
 	 * @throws Exception
 	 */
 	public static function setValueBinder(PHPExcel_Cell_IValueBinder $binder = null) {
-		if (is_null($binder)) {
+		if ($binder === NULL) {
 			throw new Exception("A PHPExcel_Cell_IValueBinder is required for PHPExcel to function correctly.");
 		}
 

@@ -357,6 +357,11 @@ class PHPExcel_Calculation_MathTrig {
 	public static function INT($number) {
 		$number	= PHPExcel_Calculation_Functions::flattenSingleValue($number);
 
+		if (is_null($number)) {
+			return 0;
+		} elseif (is_bool($number)) {
+			return (int) $number;
+		}
 		if (is_numeric($number)) {
 			return (int) floor($number);
 		}
@@ -681,12 +686,15 @@ class PHPExcel_Calculation_MathTrig {
 		$y	= PHPExcel_Calculation_Functions::flattenSingleValue($y);
 
 		// Validate parameters
-		if ($x == 0 && $y <= 0) {
+		if ($x == 0.0 && $y == 0.0) {
+			return PHPExcel_Calculation_Functions::NaN();
+		} elseif ($x == 0.0 && $y < 0.0) {
 			return PHPExcel_Calculation_Functions::DIV0();
 		}
 
 		// Return
-		return pow($x, $y);
+		$result = pow($x, $y);
+		return (!is_nan($result) && !is_infinite($result)) ? $result : PHPExcel_Calculation_Functions::NaN();
 	}	//	function POWER()
 
 
@@ -915,6 +923,8 @@ class PHPExcel_Calculation_MathTrig {
 	public static function SIGN($number) {
 		$number	= PHPExcel_Calculation_Functions::flattenSingleValue($number);
 
+		if (is_bool($number))
+			return (int) $number;
 		if (is_numeric($number)) {
 			if ($number == 0.0) {
 				return 0;

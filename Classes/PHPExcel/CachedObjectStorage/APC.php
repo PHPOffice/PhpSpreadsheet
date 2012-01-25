@@ -184,7 +184,7 @@ class PHPExcel_CachedObjectStorage_APC extends PHPExcel_CachedObjectStorage_Cach
 
 
 	public function unsetWorksheetCells() {
-		if(!is_null($this->_currentObject)) {
+		if ($this->_currentObject !== NULL) {
 			$this->_currentObject->detach();
 			$this->_currentObject = $this->_currentObjectID = null;
 		}
@@ -202,7 +202,7 @@ class PHPExcel_CachedObjectStorage_APC extends PHPExcel_CachedObjectStorage_Cach
 	public function __construct(PHPExcel_Worksheet $parent, $arguments) {
 		$cacheTime	= (isset($arguments['cacheTime']))	? $arguments['cacheTime']	: 600;
 
-		if (is_null($this->_cachePrefix)) {
+		if ($this->_cachePrefix === NULL) {
 			$baseUnique = $this->_getUniqueID();
 			$this->_cachePrefix = substr(md5($baseUnique),0,8).'.';
 			$this->_cacheTime = $cacheTime;

@@ -703,4 +703,18 @@ class PHPExcel_Shared_String
 		return $pValue;
 	}
 
+	/**
+	 * Retrieve any leading numeric part of a string, or return the full string if no leading numeric
+	 *	(handles basic integer or float, but not exponent or non decimal)
+	 *
+	 * @param	string	$value
+	 * @return	mixed	string or only the leading numeric part of the string
+	 */
+	public static function testStringAsNumeric($value)
+	{
+		if (is_numeric($value))
+			return $value;
+		$v = floatval($value);
+		return (is_numeric(substr($value,0,strlen($v)))) ? $v : $value;
+	}
 }
