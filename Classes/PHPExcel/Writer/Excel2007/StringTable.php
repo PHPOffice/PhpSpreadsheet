@@ -45,7 +45,7 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
 	 */
 	public function createStringTable($pSheet = null, $pExistingTable = null)
 	{
-		if (!is_null($pSheet)) {
+		if ($pSheet !== NULL) {
 			// Create string lookup table
 			$aStringTable = array();
 			$cellCollection = null;
@@ -64,14 +64,14 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
 				$cell = $pSheet->getCell($cellID);
 				$cellValue = $cell->getValue();
 				if (!is_object($cellValue) &&
-					!is_null($cellValue) &&
+					($cellValue !== NULL) &&
 					$cellValue !== '' &&
 					!isset($aFlippedStringTable[$cellValue]) &&
 					($cell->getDataType() == PHPExcel_Cell_DataType::TYPE_STRING || $cell->getDataType() == PHPExcel_Cell_DataType::TYPE_STRING2 || $cell->getDataType() == PHPExcel_Cell_DataType::TYPE_NULL)) {
 						$aStringTable[] = $cellValue;
 						$aFlippedStringTable[$cellValue] = true;
 				} elseif ($cellValue instanceof PHPExcel_RichText &&
-						  !is_null($cellValue) &&
+						  ($cellValue !== NULL) &&
 						  !isset($aFlippedStringTable[$cellValue->getHashCode()])) {
 								$aStringTable[] = $cellValue;
 								$aFlippedStringTable[$cellValue->getHashCode()] = true;

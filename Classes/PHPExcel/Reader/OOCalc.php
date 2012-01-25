@@ -500,7 +500,7 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 													break;
 										}
 //										echo 'Data value is '.$dataValue.'<br />';
-//										if (!is_null($hyperlink)) {
+//										if ($hyperlink !== NULL) {
 //											echo 'Hyperlink is '.$hyperlink.'<br />';
 //										}
 									}
@@ -525,7 +525,7 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 //										echo 'Adjusted Formula: '.$cellDataFormula.'<br />';
 									}
 
-									if (!is_null($type)) {
+									if ($type !== NULL) {
 										$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->setValueExplicit((($hasCalculatedValue) ? $cellDataFormula : $dataValue),$type);
 										if ($hasCalculatedValue) {
 //											echo 'Forumla result is '.$dataValue.'<br />';
@@ -535,7 +535,7 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 											($cellDataOfficeAttributes['value-type'] == 'time')) {
 											$objPHPExcel->getActiveSheet()->getStyle($columnID.$rowID)->getNumberFormat()->setFormatCode($formatting);
 										}
-										if (!is_null($hyperlink)) {
+										if ($hyperlink !== NULL) {
 											$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->getHyperlink()->setUrl($hyperlink);
 										}
 									}

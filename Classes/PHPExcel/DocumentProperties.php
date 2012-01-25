@@ -196,7 +196,7 @@ class PHPExcel_DocumentProperties
 	 * @return	PHPExcel_DocumentProperties
 	 */
 	public function setCreated($pValue = null) {
-		if (is_null($pValue)) {
+		if ($pValue === NULL) {
 			$pValue = time();
 		} elseif (is_string($pValue)) {
 			if (is_numeric($pValue)) {
@@ -226,7 +226,7 @@ class PHPExcel_DocumentProperties
 	 * @return	PHPExcel_DocumentProperties
 	 */
 	public function setModified($pValue = null) {
-		if (is_null($pValue)) {
+		if ($pValue === NULL) {
 			$pValue = time();
 		} elseif (is_string($pValue)) {
 			if (is_numeric($pValue)) {
@@ -439,12 +439,12 @@ class PHPExcel_DocumentProperties
 	 * @return	PHPExcel_DocumentProperties
 	 */
 	public function setCustomProperty($propertyName,$propertyValue='',$propertyType=NULL) {
-		if ((is_null($propertyType)) || (!in_array($propertyType,array(self::PROPERTY_TYPE_INTEGER,
+		if (($propertyType === NULL) || (!in_array($propertyType,array(self::PROPERTY_TYPE_INTEGER,
 																	   self::PROPERTY_TYPE_FLOAT,
 																	   self::PROPERTY_TYPE_STRING,
 																	   self::PROPERTY_TYPE_DATE,
 																	   self::PROPERTY_TYPE_BOOLEAN)))) {
-			if (is_null($propertyValue)) {
+			if ($propertyValue === NULL) {
 				$propertyType = self::PROPERTY_TYPE_STRING;
 			} elseif (is_float($propertyValue)) {
 				$propertyType = self::PROPERTY_TYPE_FLOAT;

@@ -208,12 +208,9 @@ class PHPExcel
      */
     public function addSheet(PHPExcel_Worksheet $pSheet = null, $iSheetIndex = null)
     {
-        if(is_null($iSheetIndex))
-        {
+        if($iSheetIndex === NULL) {
             $this->_workSheetCollection[] = $pSheet;
-        }
-        else
-        {
+        } else {
             // Insert the sheet at the requested index
             array_splice(
                 $this->_workSheetCollection,
@@ -226,7 +223,6 @@ class PHPExcel
 			if ($this->_activeSheetIndex >= $iSheetIndex) {
 				++$this->_activeSheetIndex;
 			}
-
         }
 		return $pSheet;
     }
@@ -417,7 +413,7 @@ class PHPExcel
 	 * @return PHPExcel_Worksheet
 	 */
 	public function addExternalSheet(PHPExcel_Worksheet $pSheet, $iSheetIndex = null) {
-		if (!is_null($this->getSheetByName($pSheet->getTitle()))) {
+		if ($this->getSheetByName($pSheet->getTitle()) !== NULL) {
 			throw new Exception("Workbook already contains a worksheet named '{$pSheet->getTitle()}'. Rename the external sheet first.");
 		}
 
@@ -477,14 +473,14 @@ class PHPExcel
 	public function getNamedRange($namedRange, PHPExcel_Worksheet $pSheet = null) {
 		$returnValue = null;
 
-		if ($namedRange != '' && !is_null($namedRange)) {
+		if ($namedRange != '' && ($namedRange !== NULL)) {
 			// first look for global defined name
 			if (isset($this->_namedRanges[$namedRange])) {
 				$returnValue = $this->_namedRanges[$namedRange];
 			}
 
 			// then look for local defined name (has priority over global defined name if both names exist)
-			if (!is_null($pSheet) && isset($this->_namedRanges[$pSheet->getTitle() . '!' . $namedRange])) {
+			if (($pSheet !== NULL) && isset($this->_namedRanges[$pSheet->getTitle() . '!' . $namedRange])) {
 				$returnValue = $this->_namedRanges[$pSheet->getTitle() . '!' . $namedRange];
 			}
 		}
@@ -500,7 +496,7 @@ class PHPExcel
 	 * @return PHPExcel
 	 */
 	public function removeNamedRange($namedRange, PHPExcel_Worksheet $pSheet = null) {
-		if (is_null($pSheet)) {
+		if ($pSheet === NULL) {
 			if (isset($this->_namedRanges[$namedRange])) {
 				unset($this->_namedRanges[$namedRange]);
 			}

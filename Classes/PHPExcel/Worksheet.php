@@ -1076,7 +1076,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		if ((!preg_match('/^'.PHPExcel_Calculation::CALCULATION_REGEXP_CELLREF.'$/i', $pCoordinate, $matches)) &&
 			(preg_match('/^'.PHPExcel_Calculation::CALCULATION_REGEXP_NAMEDRANGE.'$/i', $pCoordinate, $matches))) {
 			$namedRange = PHPExcel_NamedRange::resolveRange($pCoordinate, $this);
-			if (!is_null($namedRange)) {
+			if ($namedRange !== NULL) {
 				$pCoordinate = $namedRange->getRange();
 				if ($this->getHashCode() != $namedRange->getWorksheet()->getHashCode()) {
 					if (!$namedRange->getLocalOnly()) {
@@ -2278,7 +2278,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 */
 	public function namedRangeToArray($pNamedRange = '', $nullValue = null, $calculateFormulas = true, $formatData = true, $returnCellRef = false) {
 		$namedRange = PHPExcel_NamedRange::resolveRange($pNamedRange, $this);
-		if (!is_null($namedRange)) {
+		if ($namedRange !== NULL) {
 			$pWorkSheet = $namedRange->getWorksheet();
 			$pCellRange = $namedRange->getRange();
 
@@ -2551,7 +2551,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 */
 	public function getTabColor()
 	{
-		if (is_null($this->_tabColor))
+		if ($this->_tabColor === NULL)
 			$this->_tabColor = new PHPExcel_Style_Color();
 
 		return $this->_tabColor;
@@ -2577,7 +2577,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 */
 	public function isTabColorSet()
 	{
-		return !is_null($this->_tabColor);
+		return ($this->_tabColor !== NULL);
 	}
 
 	/**

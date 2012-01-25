@@ -221,7 +221,7 @@ class PHPExcel_CachedObjectStorage_CacheBase {
 	 */
 	public function copyCellCollection(PHPExcel_Worksheet $parent) {
 		$this->_parent = $parent;
-		if ((!is_null($this->_currentObject)) && (is_object($this->_currentObject))) {
+		if (($this->_currentObject !== NULL) && (is_object($this->_currentObject))) {
 			$this->_currentObject->attach($parent);
 		}
 	}	//	function copyCellCollection()

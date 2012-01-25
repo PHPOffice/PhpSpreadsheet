@@ -65,7 +65,7 @@ class PHPExcel_Shared_XMLWriter extends XMLWriter {
 			$this->openMemory();
 		} else {
 			// Create temporary filename
-			if (is_null($pTemporaryStorageFolder))
+			if ($pTemporaryStorageFolder === NULL)
 				$pTemporaryStorageFolder = PHPExcel_Shared_File::sys_get_temp_dir();
 			$this->_tempFileName = @tempnam($pTemporaryStorageFolder, 'xml');
 

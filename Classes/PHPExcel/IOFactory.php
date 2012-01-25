@@ -139,7 +139,7 @@ class PHPExcel_IOFactory
 				$classFile = str_replace('{0}', $writerType, $searchLocation['path']);
 
 				$instance = new $className($phpExcel);
-				if (!is_null($instance)) {
+				if ($instance !== NULL) {
 					return $instance;
 				}
 			}
@@ -169,7 +169,7 @@ class PHPExcel_IOFactory
 				$classFile = str_replace('{0}', $readerType, $searchLocation['path']);
 
 				$instance = new $className();
-				if (!is_null($instance)) {
+				if ($instance !== NULL) {
 					return $instance;
 				}
 			}

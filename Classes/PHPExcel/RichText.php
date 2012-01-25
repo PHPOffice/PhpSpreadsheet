@@ -54,7 +54,7 @@ class PHPExcel_RichText implements PHPExcel_IComparable
     	$this->_richTextElements = array();
 
     	// Rich-Text string attached to cell?
-    	if (!is_null($pCell)) {
+    	if ($pCell !== NULL) {
 	    	// Add cell text and style
 	    	if ($pCell->getValue() != "") {
 	    		$objRun = new PHPExcel_RichText_Run($pCell->getValue());

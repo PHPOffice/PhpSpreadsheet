@@ -175,7 +175,7 @@ class PHPExcel_Shared_OLERead {
 	 */
 	public function getStream($stream)
 	{
-		if (is_null($stream)) {
+		if ($stream === NULL) {
 			return null;
 		}
 

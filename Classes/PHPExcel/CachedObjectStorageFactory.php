@@ -66,7 +66,7 @@ class PHPExcel_CachedObjectStorageFactory {
 
 
 	public static function getCacheStorageMethod() {
-		if (!is_null(self::$_cacheStorageMethod)) {
+		if (self::$_cacheStorageMethod !== NULL) {
 			return self::$_cacheStorageMethod;
 		}
 		return null;
@@ -74,7 +74,7 @@ class PHPExcel_CachedObjectStorageFactory {
 
 
 	public static function getCacheStorageClass() {
-		if (!is_null(self::$_cacheStorageClass)) {
+		if (self::$_cacheStorageClass !== NULL) {
 			return self::$_cacheStorageClass;
 		}
 		return null;
@@ -115,7 +115,7 @@ class PHPExcel_CachedObjectStorageFactory {
 			}
 		}
 
-		if (is_null(self::$_cacheStorageMethod)) {
+		if (self::$_cacheStorageMethod === NULL) {
 			self::$_cacheStorageClass = 'PHPExcel_CachedObjectStorage_'.$method;
 			self::$_cacheStorageMethod = $method;
 		}
@@ -125,13 +125,13 @@ class PHPExcel_CachedObjectStorageFactory {
 
 	public static function getInstance(PHPExcel_Worksheet $parent) {
 		$cacheMethodIsAvailable = TRUE;
-		if (is_null(self::$_cacheStorageMethod)) {
+		if (self::$_cacheStorageMethod === NULL) {
 			$cacheMethodIsAvailable = self::initialize();
 		}
 
 		if ($cacheMethodIsAvailable) {
 			$instance = new self::$_cacheStorageClass($parent,self::$_storageMethodParameters[self::$_cacheStorageMethod]);
-			if (!is_null($instance)) {
+			if ($instance !== NULL) {
 				return $instance;
 			}
 		}

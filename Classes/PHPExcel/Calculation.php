@@ -1710,7 +1710,7 @@ class PHPExcel_Calculation {
 	 *	@return PHPExcel_Calculation
 	 */
 	public static function getInstance() {
-		if (!isset(self::$_instance) || is_null(self::$_instance)) {
+		if (!isset(self::$_instance) || (self::$_instance === NULL)) {
 			self::$_instance = new PHPExcel_Calculation();
 		}
 
@@ -1726,7 +1726,7 @@ class PHPExcel_Calculation {
 	 *	@return null
 	 */
 	public static function flushInstance() {
-		if (isset(self::$_instance) && !is_null(self::$_instance)) {
+		if (isset(self::$_instance) && (self::$_instance !== NULL)) {
 			self::$_instance->clearCalculationCache();
 		}
 	}	//	function flushInstance()
@@ -2000,7 +2000,7 @@ class PHPExcel_Calculation {
 	private static $functionReplaceToLocale		= null;
 
 	public function _translateFormulaToLocale($formula) {
-		if (is_null(self::$functionReplaceFromExcel)) {
+		if (self::$functionReplaceFromExcel === NULL) {
 			self::$functionReplaceFromExcel = array();
 			foreach(array_keys(self::$_localeFunctions) as $excelFunctionName) {
 				self::$functionReplaceFromExcel[] = '/(@?[^\w\.])'.preg_quote($excelFunctionName).'([\s]*\()/Ui';
@@ -2011,7 +2011,7 @@ class PHPExcel_Calculation {
 
 		}
 
-		if (is_null(self::$functionReplaceToLocale)) {
+		if (self::$functionReplaceToLocale === NULL) {
 			self::$functionReplaceToLocale = array();
 			foreach(array_values(self::$_localeFunctions) as $localeFunctionName) {
 				self::$functionReplaceToLocale[] = '$1'.trim($localeFunctionName).'$2';
@@ -2029,7 +2029,7 @@ class PHPExcel_Calculation {
 	private static $functionReplaceToExcel		= null;
 
 	public function _translateFormulaToEnglish($formula) {
-		if (is_null(self::$functionReplaceFromLocale)) {
+		if (self::$functionReplaceFromLocale === NULL) {
 			self::$functionReplaceFromLocale = array();
 			foreach(array_values(self::$_localeFunctions) as $localeFunctionName) {
 				self::$functionReplaceFromLocale[] = '/(@?[^\w\.])'.preg_quote($localeFunctionName).'([\s]*\()/Ui';
@@ -2039,7 +2039,7 @@ class PHPExcel_Calculation {
 			}
 		}
 
-		if (is_null(self::$functionReplaceToExcel)) {
+		if (self::$functionReplaceToExcel === NULL) {
 			self::$functionReplaceToExcel = array();
 			foreach(array_keys(self::$_localeFunctions) as $excelFunctionName) {
 				self::$functionReplaceToExcel[] = '$1'.trim($excelFunctionName).'$2';

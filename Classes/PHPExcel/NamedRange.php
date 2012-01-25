@@ -82,7 +82,7 @@ class PHPExcel_NamedRange
     public function __construct($pName = null, PHPExcel_Worksheet $pWorksheet, $pRange = 'A1', $pLocalOnly = false, $pScope = null)
     {
     	// Validate data
-    	if (is_null($pName) || is_null($pWorksheet)|| is_null($pRange)) {
+    	if (($pName === NULL) || ($pWorksheet === NULL) || ($pRange === NULL)) {
     		throw new Exception('Parameters can not be null.');
     	}
 
@@ -111,17 +111,17 @@ class PHPExcel_NamedRange
      * @return PHPExcel_NamedRange
      */
     public function setName($value = null) {
-    	if (!is_null($value)) {
+    	if ($value !== NULL) {
     		// Old title
     		$oldTitle = $this->_name;
 
     		// Re-attach
-    		if (!is_null($this->_worksheet)) {
+    		if ($this->_worksheet !== NULL) {
     			$this->_worksheet->getParent()->removeNamedRange($this->_name,$this->_worksheet);
     		}
     		$this->_name = $value;
 
-    		if (!is_null($this->_worksheet)) {
+    		if ($this->_worksheet !== NULL) {
     			$this->_worksheet->getParent()->addNamedRange($this);
     		}
 
@@ -148,7 +148,7 @@ class PHPExcel_NamedRange
      * @return PHPExcel_NamedRange
      */
     public function setWorksheet(PHPExcel_Worksheet $value = null) {
-    	if (!is_null($value)) {
+    	if ($value !== NULL) {
     		$this->_worksheet = $value;
     	}
     	return $this;
@@ -170,7 +170,7 @@ class PHPExcel_NamedRange
      * @return PHPExcel_NamedRange
      */
     public function setRange($value = null) {
-    	if (!is_null($value)) {
+    	if ($value !== NULL) {
     		$this->_range = $value;
     	}
     	return $this;

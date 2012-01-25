@@ -79,7 +79,7 @@ class PHPExcel_Shared_OLE_PPS_Root extends PHPExcel_Shared_OLE_PPS
 		if (is_resource($filename)) {
 		    $this->_FILEH_ = $filename;
 		} else if ($filename == '-' || $filename == '') {
-			if (is_null($this->_tmp_dir))
+			if ($this->_tmp_dir === NULL)
 				$this->_tmp_dir = PHPExcel_Shared_File::sys_get_temp_dir();
 			$this->_tmp_filename = tempnam($this->_tmp_dir, "OLE_PPS_Root");
 			$this->_FILEH_ = fopen($this->_tmp_filename,"w+b");
