@@ -15,12 +15,6 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
         require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
 	}
 
-//	public function testDUMMY()
-//	{
-//		$result = PHPExcel_Calculation_Functions::DUMMY();
-//		$this->assertEquals('#Not Yet Implemented', $result);
-//	}
-//
     /**
      * @dataProvider providerATAN2
      */
@@ -179,6 +173,54 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function providerLCM()
     {
     	return new testDataFileIterator('rawTestData/Calculation/MathTrig/LCM.data');
+	}
+
+    /**
+     * @dataProvider providerINT
+     */
+	public function testINT()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_MathTrig','INT'),$args);
+		$this->assertEquals($expectedResult, $result);
+	}
+
+    public function providerINT()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/MathTrig/INT.data');
+	}
+
+    /**
+     * @dataProvider providerSIGN
+     */
+	public function testSIGN()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_MathTrig','SIGN'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-12);
+	}
+
+    public function providerSIGN()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/MathTrig/SIGN.data');
+	}
+
+    /**
+     * @dataProvider providerPOWER
+     */
+	public function testPOWER()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_MathTrig','POWER'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-12);
+	}
+
+    public function providerPOWER()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/MathTrig/POWER.data');
 	}
 
 }
