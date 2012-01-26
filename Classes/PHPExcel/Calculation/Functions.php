@@ -331,12 +331,12 @@ class PHPExcel_Calculation_Functions {
 
 		$i = 1;
 		foreach(self::$_errorCodes as $errorCode) {
-			if ($value == $errorCode) {
+			if ($value === $errorCode) {
 				return $i;
 			}
 			++$i;
 		}
-		return self::$_errorCodes['na'];
+		return self::NA();
 	}	//	function ERROR_TYPE()
 
 
@@ -346,7 +346,7 @@ class PHPExcel_Calculation_Functions {
 	 *	@param	mixed	$value	Value to check
 	 *	@return	boolean
 	 */
-	public static function IS_BLANK($value=null) {
+	public static function IS_BLANK($value = NULL) {
 		if (!is_null($value)) {
 			$value	= self::flattenSingleValue($value);
 		}
@@ -377,6 +377,8 @@ class PHPExcel_Calculation_Functions {
 	public static function IS_ERROR($value = '') {
 		$value		= self::flattenSingleValue($value);
 
+		if (!is_string($value))
+			return false;
 		return in_array($value, array_values(self::$_errorCodes));
 	}	//	function IS_ERROR()
 
@@ -390,7 +392,7 @@ class PHPExcel_Calculation_Functions {
 	public static function IS_NA($value = '') {
 		$value		= self::flattenSingleValue($value);
 
-		return ($value === self::$_errorCodes['na']);
+		return ($value === self::NA());
 	}	//	function IS_NA()
 
 
@@ -400,12 +402,13 @@ class PHPExcel_Calculation_Functions {
 	 *	@param	mixed	$value	Value to check
 	 *	@return	boolean
 	 */
-	public static function IS_EVEN($value = 0) {
-		$value		= self::flattenSingleValue($value);
+	public static function IS_EVEN($value = NULL) {
+		$value = self::flattenSingleValue($value);
 
-		if ((is_bool($value)) || ((is_string($value)) && (!is_numeric($value)))) {
-			return self::$_errorCodes['value'];
-		}
+		if ($value === NULL)
+			return self::NAME();
+		if ((is_bool($value)) || ((is_string($value)) && (!is_numeric($value))))
+			return self::VALUE();
 		return ($value % 2 == 0);
 	}	//	function IS_EVEN()
 
@@ -416,12 +419,13 @@ class PHPExcel_Calculation_Functions {
 	 *	@param	mixed	$value	Value to check
 	 *	@return	boolean
 	 */
-	public static function IS_ODD($value = null) {
-		$value	= self::flattenSingleValue($value);
+	public static function IS_ODD($value = NULL) {
+		$value = self::flattenSingleValue($value);
 
-		if ((is_bool($value)) || ((is_string($value)) && (!is_numeric($value)))) {
-			return self::$_errorCodes['value'];
-		}
+		if ($value === NULL)
+			return self::NAME();
+		if ((is_bool($value)) || ((is_string($value)) && (!is_numeric($value))))
+			return self::VALUE();
 		return (abs($value) % 2 == 1);
 	}	//	function IS_ODD()
 
@@ -432,7 +436,7 @@ class PHPExcel_Calculation_Functions {
 	 *	@param	mixed	$value		Value to check
 	 *	@return	boolean
 	 */
-	public static function IS_NUMBER($value = 0) {
+	public static function IS_NUMBER($value = NULL) {
 		$value		= self::flattenSingleValue($value);
 
 		if (is_string($value)) {
@@ -448,7 +452,7 @@ class PHPExcel_Calculation_Functions {
 	 *	@param	mixed	$value		Value to check
 	 *	@return	boolean
 	 */
-	public static function IS_LOGICAL($value = true) {
+	public static function IS_LOGICAL($value = NULL) {
 		$value		= self::flattenSingleValue($value);
 
 		return is_bool($value);
@@ -461,10 +465,10 @@ class PHPExcel_Calculation_Functions {
 	 *	@param	mixed	$value		Value to check
 	 *	@return	boolean
 	 */
-	public static function IS_TEXT($value = '') {
+	public static function IS_TEXT($value = NULL) {
 		$value		= self::flattenSingleValue($value);
 
-		return is_string($value);
+		return (is_string($value) && !self::IS_ERROR($value));
 	}	//	function IS_TEXT()
 
 
@@ -474,7 +478,7 @@ class PHPExcel_Calculation_Functions {
 	 *	@param	mixed	$value		Value to check
 	 *	@return	boolean
 	 */
-	public static function IS_NONTEXT($value = '') {
+	public static function IS_NONTEXT($value = NULL) {
 		return !self::IS_TEXT($value);
 	}	//	function IS_NONTEXT()
 
@@ -504,7 +508,7 @@ class PHPExcel_Calculation_Functions {
 	 *		An error value		The error value
 	 *		Anything else		0
 	 */
-	public static function N($value) {
+	public static function N($value = NULL) {
 		while (is_array($value)) {
 			$value = array_shift($value);
 		}
@@ -543,7 +547,7 @@ class PHPExcel_Calculation_Functions {
 	 *		An error value		16
 	 *		Array or Matrix		64
 	 */
-	public static function TYPE($value) {
+	public static function TYPE($value = NULL) {
 		$value	= self::flattenArrayIndexed($value);
 		if (is_array($value) && (count($value) > 1)) {
 			$a = array_keys($value);
@@ -561,7 +565,7 @@ class PHPExcel_Calculation_Functions {
 		}
 		$value	= self::flattenSingleValue($value);
 
-		if ((is_float($value)) || (is_int($value))) {
+		if (($value === NULL) || (is_float($value)) || (is_int($value))) {
 				return 1;
 		} elseif(is_bool($value)) {
 				return 4;
