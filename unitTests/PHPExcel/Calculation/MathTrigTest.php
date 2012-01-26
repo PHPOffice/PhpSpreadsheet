@@ -223,4 +223,36 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     	return new testDataFileIterator('rawTestData/Calculation/MathTrig/POWER.data');
 	}
 
+    /**
+     * @dataProvider providerLOG
+     */
+	public function testLOG()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_MathTrig','LOG_BASE'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-12);
+	}
+
+    public function providerLOG()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/MathTrig/LOG.data');
+	}
+
+    /**
+     * @dataProvider providerSQRTPI
+     */
+	public function testSQRTPI()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_MathTrig','SQRTPI'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-12);
+	}
+
+    public function providerSQRTPI()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/MathTrig/SQRTPI.data');
+	}
+
 }
