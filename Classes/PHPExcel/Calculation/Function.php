@@ -76,9 +76,9 @@ class PHPExcel_Calculation_Function {
      * @param 	string		$pPHPExcelName	PHPExcel function mapping
      * @throws 	Exception
      */
-    public function __construct($pCategory = null, $pExcelName = null, $pPHPExcelName = null)
+    public function __construct($pCategory = NULL, $pExcelName = NULL, $pPHPExcelName = NULL)
     {
-    	if (!is_null($pCategory) && !is_null($pExcelName) && !is_null($pPHPExcelName)) {
+    	if (($pCategory !== NULL) && ($pExcelName !== NULL) && ($pPHPExcelName !== NULL)) {
     		// Initialise values
     		$this->_category 		= $pCategory;
     		$this->_excelName 		= $pExcelName;
