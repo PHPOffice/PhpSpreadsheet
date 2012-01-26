@@ -427,10 +427,14 @@ class PHPExcel_Calculation_MathTrig {
 	 *	@param	float	$base		The base of the logarithm. If base is omitted, it is assumed to be 10.
 	 *	@return	float
 	 */
-	public static function LOG_BASE($number, $base=10) {
+	public static function LOG_BASE($number = NULL, $base=10) {
 		$number	= PHPExcel_Calculation_Functions::flattenSingleValue($number);
 		$base	= (is_null($base))	? 10 :	(float) PHPExcel_Calculation_Functions::flattenSingleValue($base);
 
+		if ((!is_numeric($base)) || (!is_numeric($number)))
+			return PHPExcel_Calculation_Functions::VALUE();
+		if (($base <= 0) || ($number <= 0))
+			return PHPExcel_Calculation_Functions::NaN();
 		return log($number, $base);
 	}	//	function LOG_BASE()
 
