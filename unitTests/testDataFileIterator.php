@@ -59,34 +59,54 @@ class testDataFileIterator implements Iterator
         //    Split data into an array of individual values and a result
         $dataSet = explode(',',$testData);
         foreach($dataSet as &$dataValue) {
-            //    discard any white space
-            $dataValue = trim($dataValue);
-            //    test for the required datatype and convert accordingly
-            if (!is_numeric($dataValue)) {
-                if($dataValue == '') {
-                    $dataValue = NULL;
-                } elseif($dataValue == '""') {
-                    $dataValue = '';
-                } elseif(($dataValue[0] == '"') && ($dataValue[strlen($dataValue)-1] == '"')) {
-                    $dataValue = substr($dataValue,1,-1);
-                } else {
-                    switch (strtoupper($dataValue)) {
-                        case 'NULL' :  $dataValue = NULL; break;
-                        case 'TRUE' :  $dataValue = TRUE; break;
-                        case 'FALSE' : $dataValue = FALSE; break;
-                    }
-                }
-            } else {
-                if (strpos($dataValue,'.') !== FALSE) {
-                    $dataValue = (float) $dataValue;
-                } else {
-                    $dataValue = (int) $dataValue;
-                }
-            }
+            $dataValue = $this->_parseDataValue($dataValue);
         }
         unset($dataValue);
 
         return $dataSet;
+    }
+
+    private function _parseDataValue($dataValue) {
+        //    discard any white space
+        $dataValue = trim($dataValue);
+        //    test for the required datatype and convert accordingly
+        if (!is_numeric($dataValue)) {
+            if($dataValue == '') {
+                $dataValue = NULL;
+            } elseif($dataValue == '""') {
+                $dataValue = '';
+            } elseif(($dataValue[0] == '"') && ($dataValue[strlen($dataValue)-1] == '"')) {
+                $dataValue = substr($dataValue,1,-1);
+            } elseif(($dataValue[0] == '{') && ($dataValue[strlen($dataValue)-1] == '}')) {
+                $dataValue = explode(';',substr($dataValue,1,-1));
+                foreach($dataValue as &$dataRow) {
+                    if (strpos($dataRow,'|') !== FALSE) {
+                        $dataRow = explode('|',$dataRow);
+                        foreach($dataRow as &$dataCell) {
+                            $dataCell = $this->_parseDataValue($dataCell);
+                        }
+                        unset($dataCell);
+                    } else {
+                        $dataRow = $this->_parseDataValue($dataRow);
+                    }
+                }
+                unset($dataRow);
+            } else {
+                switch (strtoupper($dataValue)) {
+                    case 'NULL' :  $dataValue = NULL; break;
+                    case 'TRUE' :  $dataValue = TRUE; break;
+                    case 'FALSE' : $dataValue = FALSE; break;
+                }
+            }
+        } else {
+            if (strpos($dataValue,'.') !== FALSE) {
+                $dataValue = (float) $dataValue;
+            } else {
+                $dataValue = (int) $dataValue;
+            }
+        }
+
+		return $dataValue;
     }
 
 }
