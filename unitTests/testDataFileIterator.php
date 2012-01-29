@@ -57,7 +57,7 @@ class testDataFileIterator implements Iterator
         list($testData) = explode('//',$testDataRow);
 
         //    Split data into an array of individual values and a result
-        $dataSet = explode(',',$testData);
+        $dataSet = str_getcsv($testData,',',"'");
         foreach($dataSet as &$dataValue) {
             $dataValue = $this->_parseDataValue($dataValue);
         }
