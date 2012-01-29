@@ -37,7 +37,7 @@
 "The 1st day of March 2007",	"#VALUE!"
 "1 Jan",			40909
 "31/12",			41274
-"12/31",			11658		//	???
+"12/31",			11658		//	Excel reads as 1st December 1931, not 31st December in current year
 "5-JUL",			41095
 "5 Jul",			41095
 "12/2008",			39783
