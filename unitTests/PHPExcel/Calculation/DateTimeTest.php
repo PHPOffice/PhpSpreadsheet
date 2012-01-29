@@ -52,6 +52,22 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($result->format('d-M-Y'),'31-Jan-2012');
 	}
 
+	public function testDATEwith1904Calendar()
+	{
+		PHPExcel_Shared_Date::setExcelCalendar(PHPExcel_Shared_Date::CALENDAR_MAC_1904);
+		$result = PHPExcel_Calculation_DateTime::DATE(1918,11,11);
+		PHPExcel_Shared_Date::setExcelCalendar(PHPExcel_Shared_Date::CALENDAR_WINDOWS_1900);
+        $this->assertEquals($result,5428);
+	}
+
+	public function testDATEwith1904CalendarError()
+	{
+		PHPExcel_Shared_Date::setExcelCalendar(PHPExcel_Shared_Date::CALENDAR_MAC_1904);
+		$result = PHPExcel_Calculation_DateTime::DATE(1901,1,31);
+		PHPExcel_Shared_Date::setExcelCalendar(PHPExcel_Shared_Date::CALENDAR_WINDOWS_1900);
+        $this->assertEquals($result,'#NUM!');
+	}
+
     /**
      * @dataProvider providerDATEVALUE
      */
@@ -308,6 +324,22 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
 	}
 
     /**
+     * @dataProvider providerWORKDAY
+     */
+	public function testWORKDAY()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_DateTime','WORKDAY'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-8);
+	}
+
+    public function providerWORKDAY()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/DateTime/WORKDAY.data');
+	}
+
+    /**
      * @dataProvider providerEDATE
      */
 	public function testEDATE()
@@ -379,6 +411,54 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(is_a($result,'DateTime'));
         //    ... with the correct value
         $this->assertEquals($result->format('d-M-Y'),'31-Dec-2011');
+	}
+
+    /**
+     * @dataProvider providerDATEDIF
+     */
+	public function testDATEDIF()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_DateTime','DATEDIF'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-8);
+	}
+
+    public function providerDATEDIF()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/DateTime/DATEDIF.data');
+	}
+
+    /**
+     * @dataProvider providerDAYS360
+     */
+	public function testDAYS360()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_DateTime','DAYS360'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-8);
+	}
+
+    public function providerDAYS360()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/DateTime/DAYS360.data');
+	}
+
+    /**
+     * @dataProvider providerYEARFRAC
+     */
+	public function testYEARFRAC()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_DateTime','YEARFRAC'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-8);
+	}
+
+    public function providerYEARFRAC()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/DateTime/YEARFRAC.data');
 	}
 
 }

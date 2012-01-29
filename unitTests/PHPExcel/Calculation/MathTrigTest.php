@@ -240,6 +240,120 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 	}
 
     /**
+     * @dataProvider providerMOD
+     */
+	public function testMOD()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_MathTrig','MOD'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-12);
+	}
+
+    public function providerMOD()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/MathTrig/MOD.data');
+	}
+
+    /**
+     * @dataProvider providerMDETERM
+     */
+	public function testMDETERM()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_MathTrig','MDETERM'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-12);
+	}
+
+    public function providerMDETERM()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/MathTrig/MDETERM.data');
+	}
+
+    /**
+     * @dataProvider providerMINVERSE
+     */
+	public function testMINVERSE()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_MathTrig','MINVERSE'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-12);
+	}
+
+    public function providerMINVERSE()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/MathTrig/MINVERSE.data');
+	}
+
+    /**
+     * @dataProvider providerMROUND
+     */
+	public function testMROUND()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		PHPExcel_Calculation::setArrayReturnType(PHPExcel_Calculation::RETURN_ARRAY_AS_VALUE);
+		$result = call_user_func_array(array('PHPExcel_Calculation_MathTrig','MROUND'),$args);
+		PHPExcel_Calculation::setArrayReturnType(PHPExcel_Calculation::RETURN_ARRAY_AS_ARRAY);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-12);
+	}
+
+    public function providerMROUND()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/MathTrig/MROUND.data');
+	}
+
+    /**
+     * @dataProvider providerROUNDUP
+     */
+	public function testROUNDUP()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_MathTrig','ROUNDUP'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-12);
+	}
+
+    public function providerROUNDUP()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/MathTrig/ROUNDUP.data');
+	}
+
+    /**
+     * @dataProvider providerROUNDDOWN
+     */
+	public function testROUNDDOWN()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_MathTrig','ROUNDDOWN'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-12);
+	}
+
+    public function providerROUNDDOWN()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/MathTrig/ROUNDDOWN.data');
+	}
+
+    /**
+     * @dataProvider providerROMAN
+     */
+	public function testROMAN()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_MathTrig','ROMAN'),$args);
+		$this->assertEquals($expectedResult, $result);
+	}
+
+    public function providerROMAN()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/MathTrig/ROMAN.data');
+	}
+
+    /**
      * @dataProvider providerSQRTPI
      */
 	public function testSQRTPI()
