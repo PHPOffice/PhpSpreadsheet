@@ -750,6 +750,12 @@ if (!function_exists('money_format')) {
 		}
 		$space = $locale["{$letter}_sep_by_space"] ? ' ' : '';
 
+		if (!isset($locale['mon_decimal_point']) || empty($locale['mon_decimal_point'])) {
+			$locale['mon_decimal_point'] = (!isset($locale['decimal_point']) || empty($locale['decimal_point'])) ?
+											$locale['decimal_point'] :
+											'.';
+		}
+
 		$number = number_format($number, $right, $locale['mon_decimal_point'], $flags['nogroup'] ? '' : $locale['mon_thousands_sep'] );
 		$number = explode($locale['mon_decimal_point'], $number);
 

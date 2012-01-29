@@ -549,6 +549,8 @@ class PHPExcel_Calculation_DateTime {
 					if ($retVal < 0) { $retVal += 365; }
 				}
 				break;
+			default:
+				$retVal = PHPExcel_Calculation_Functions::NaN();
 		}
 		return $retVal;
 	}	//	function DATEDIF()
@@ -753,7 +755,7 @@ class PHPExcel_Calculation_DateTime {
 	public static function WORKDAY($startDate,$endDays) {
 		//	Retrieve the mandatory start date and days that are referenced in the function definition
 		$startDate	= PHPExcel_Calculation_Functions::flattenSingleValue($startDate);
-		$endDays	= (int) PHPExcel_Calculation_Functions::flattenSingleValue($endDays);
+		$endDays	= PHPExcel_Calculation_Functions::flattenSingleValue($endDays);
 		//	Flush the mandatory start date and days that are referenced in the function definition, and get the optional days
 		$dateArgs = PHPExcel_Calculation_Functions::flattenArray(func_get_args());
 		array_shift($dateArgs);
@@ -763,6 +765,7 @@ class PHPExcel_Calculation_DateTime {
 			return PHPExcel_Calculation_Functions::VALUE();
 		}
 		$startDate = (float) floor($startDate);
+		$endDays = (int) floor($endDays);
 		//	If endDays is 0, we always return startDate
 		if ($endDays == 0) { return $startDate; }
 

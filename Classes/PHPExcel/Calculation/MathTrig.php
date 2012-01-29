@@ -798,11 +798,12 @@ class PHPExcel_Calculation_MathTrig {
 
 
 	public static function ROMAN($aValue, $style=0) {
-		$aValue	= (integer) PHPExcel_Calculation_Functions::flattenSingleValue($aValue);
+		$aValue	= PHPExcel_Calculation_Functions::flattenSingleValue($aValue);
 		$style	= (is_null($style))	? 0 :	(integer) PHPExcel_Calculation_Functions::flattenSingleValue($style);
 		if ((!is_numeric($aValue)) || ($aValue < 0) || ($aValue >= 4000)) {
 			return PHPExcel_Calculation_Functions::VALUE();
 		}
+		$aValue = (integer) $aValue;
 		if ($aValue == 0) {
 			return '';
 		}
@@ -839,7 +840,7 @@ class PHPExcel_Calculation_MathTrig {
 		$digits	= PHPExcel_Calculation_Functions::flattenSingleValue($digits);
 
 		if ((is_numeric($number)) && (is_numeric($digits))) {
-			$significance = pow(10,$digits);
+			$significance = pow(10,(int) $digits);
 			if ($number < 0.0) {
 				return floor($number * $significance) / $significance;
 			} else {
@@ -864,7 +865,7 @@ class PHPExcel_Calculation_MathTrig {
 		$digits	= PHPExcel_Calculation_Functions::flattenSingleValue($digits);
 
 		if ((is_numeric($number)) && (is_numeric($digits))) {
-			$significance = pow(10,$digits);
+			$significance = pow(10,(int) $digits);
 			if ($number < 0.0) {
 				return ceil($number * $significance) / $significance;
 			} else {

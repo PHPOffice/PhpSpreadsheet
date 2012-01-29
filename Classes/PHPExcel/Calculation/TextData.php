@@ -96,7 +96,7 @@ class PHPExcel_Calculation_TextData {
 		$stringValue	= PHPExcel_Calculation_Functions::flattenSingleValue($stringValue);
 
 		if (is_bool($stringValue)) {
-			$stringValue = ($stringValue) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
+			return ($stringValue) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
 		}
 
 		if (self::$_invalidChars == Null) {
@@ -106,7 +106,7 @@ class PHPExcel_Calculation_TextData {
 		if (is_string($stringValue) || is_numeric($stringValue)) {
 			return str_replace(self::$_invalidChars,'',trim($stringValue,"\x00..\x1F"));
 		}
-		return Null;
+		return NULL;
 	}	//	function TRIMNONPRINTABLE()
 
 
@@ -119,10 +119,14 @@ class PHPExcel_Calculation_TextData {
 	public static function TRIMSPACES($stringValue = '') {
 		$stringValue	= PHPExcel_Calculation_Functions::flattenSingleValue($stringValue);
 
-		if (is_string($stringValue) || is_numeric($stringValue)) {
-			return trim(preg_replace('/  +/',' ',$stringValue));
+		if (is_bool($stringValue)) {
+			return ($stringValue) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
 		}
-		return Null;
+
+		if (is_string($stringValue) || is_numeric($stringValue)) {
+			return trim(preg_replace('/ +/',' ',trim($stringValue,' ')));
+		}
+		return NULL;
 	}	//	function TRIMSPACES()
 
 
@@ -133,6 +137,8 @@ class PHPExcel_Calculation_TextData {
 	 * @return	int
 	 */
 	public static function ASCIICODE($characters) {
+		if (($characters === NULL) || ($characters === ''))
+			return PHPExcel_Calculation_Functions::VALUE();
 		$characters	= PHPExcel_Calculation_Functions::flattenSingleValue($characters);
 		if (is_bool($characters)) {
 			if (PHPExcel_Calculation_Functions::getCompatibilityMode() == PHPExcel_Calculation_Functions::COMPATIBILITY_OPENOFFICE) {
@@ -287,10 +293,16 @@ class PHPExcel_Calculation_TextData {
 	 *	@param	mixed	$value	Value to check
 	 *	@return	boolean
 	 */
-	public static function FIXEDFORMAT($value,$decimals=2,$no_commas=false) {
+	public static function FIXEDFORMAT($value, $decimals = 2, $no_commas = FALSE) {
 		$value		= PHPExcel_Calculation_Functions::flattenSingleValue($value);
 		$decimals	= PHPExcel_Calculation_Functions::flattenSingleValue($decimals);
-		$no_commas		= PHPExcel_Calculation_Functions::flattenSingleValue($no_commas);
+		$no_commas	= PHPExcel_Calculation_Functions::flattenSingleValue($no_commas);
+
+		// Validate parameters
+		if (!is_numeric($value) || !is_numeric($decimals)) {
+			return PHPExcel_Calculation_Functions::NaN();
+		}
+		$decimals = floor($decimals);
 
 		$valueResult = round($value,$decimals);
 		if ($decimals < 0) { $decimals = 0; }
@@ -540,7 +552,7 @@ class PHPExcel_Calculation_TextData {
 			}
 		}
 
-		return $left.$newText.$right;
+		return $text;
 	}	//	function SUBSTITUTE()
 
 
