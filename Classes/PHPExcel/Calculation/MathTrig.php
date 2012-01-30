@@ -1241,29 +1241,25 @@ class PHPExcel_Calculation_MathTrig {
 	 *	Truncates value to the number of fractional digits by number_digits.
 	 *
 	 *	@param	float		$value
-	 *	@param	int			$number_digits
+	 *	@param	int			$digits
 	 *	@return	float		Truncated value
 	 */
-	public static function TRUNC($value = 0, $number_digits = 0) {
-		$value			= PHPExcel_Calculation_Functions::flattenSingleValue($value);
-		$number_digits	= PHPExcel_Calculation_Functions::flattenSingleValue($number_digits);
+	public static function TRUNC($value = 0, $digits = 0) {
+		$value	= PHPExcel_Calculation_Functions::flattenSingleValue($value);
+		$digits	= PHPExcel_Calculation_Functions::flattenSingleValue($digits);
 
 		// Validate parameters
-		if ($number_digits < 0) {
+		if ((!is_numeric($value)) || (!is_numeric($digits)))
 			return PHPExcel_Calculation_Functions::VALUE();
-		}
+		$digits	= floor($digits);
 
 		// Truncate
-		if ($number_digits > 0) {
-			$value = $value * pow(10, $number_digits);
-		}
-		$value = intval($value);
-		if ($number_digits > 0) {
-			$value = $value / pow(10, $number_digits);
-		}
+		$adjust = pow(10, $digits);
 
-		// Return
-		return $value;
+		if (($digits > 0) && (rtrim(intval((abs($value) - abs(intval($value))) * $adjust),'0') < $adjust/10))
+			return $value;
+
+		return (intval($value * $adjust)) / $adjust;
 	}	//	function TRUNC()
 
 }	//	class PHPExcel_Calculation_MathTrig
