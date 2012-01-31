@@ -1310,7 +1310,12 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 				case 0x03:	//	4 byte signed integer
 					$value = self::_GetInt4d($this->_documentSummaryInformation, $secOffset + 4 + $offset);
 					break;
-
+					
+				case 0x0B:  // Boolean
+					$value = self::_GetInt2d($this->_documentSummaryInformation, $secOffset + 4 + $offset);
+					$value = ($value == 0 ? false : true);
+					break;
+					
 				case 0x13:	//	4 byte unsigned integer
 					// not needed yet, fix later if necessary
 					break;
