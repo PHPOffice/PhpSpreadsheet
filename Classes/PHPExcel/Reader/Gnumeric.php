@@ -179,21 +179,22 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 	}
 
 	/**
-	 * Can the current PHPExcel_Reader_IReader read the file?
+	 *	Can the current PHPExcel_Reader_IReader read the file?
 	 *
-	 * @param 	string 		$pFileName
-	 * @return 	boolean
+	 *	@param 	string 		$pFileName
+	 *	@return 	boolean
+	 *	@throws Exception
 	 */
 	public function canRead($pFilename)
 	{
-		// Check if gzlib functions are available
-		if (!function_exists('gzread')) {
-			return false;
-		}
-
 		// Check if file exists
 		if (!file_exists($pFilename)) {
 			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+		}
+
+		// Check if gzlib functions are available
+		if (!function_exists('gzread')) {
+			throw new Exception("gzlib library is not enabled");
 		}
 
 		// Read signature data (first 3 bytes)

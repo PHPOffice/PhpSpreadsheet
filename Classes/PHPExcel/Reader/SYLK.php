@@ -87,10 +87,11 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 	}
 
 	/**
-	 * Can the current PHPExcel_Reader_IReader read the file?
+	 *	Can the current PHPExcel_Reader_IReader read the file?
 	 *
-	 * @param 	string 		$pFileName
-	 * @return 	boolean
+	 *	@param 	string 		$pFileName
+	 *	@return 	boolean
+	 *	@throws Exception
 	 */
 	public function canRead($pFilename)
 	{

@@ -177,21 +177,22 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 	}
 
 	/**
-	 * Can the current PHPExcel_Reader_IReader read the file?
+	 *	Can the current PHPExcel_Reader_IReader read the file?
 	 *
-	 * @param 	string 		$pFileName
-	 * @return 	boolean
+	 *	@param 	string 		$pFileName
+	 *	@return 	boolean
+	 *	@throws Exception
 	 */
 	public function canRead($pFilename)
 	{
-		// Check if zip class exists
-		if (!class_exists('ZipArchive')) {
-			return false;
-		}
-
 		// Check if file exists
 		if (!file_exists($pFilename)) {
 			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+		}
+
+		// Check if zip class exists
+		if (!class_exists('ZipArchive')) {
+			throw new Exception("ZipArchive library is not enabled");
 		}
 
 		$xl = false;
@@ -200,7 +201,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 		if ($zip->open($pFilename) === true) {
 			// check if it is an OOXML archive
 			$rels = simplexml_load_string($this->_getFromZipArchive($zip, "_rels/.rels"));
-			if ($rels) {
+			if ($rels !== false) {
 				foreach ($rels->Relationship as $rel) {
 					switch ($rel["Type"]) {
 						case "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument":

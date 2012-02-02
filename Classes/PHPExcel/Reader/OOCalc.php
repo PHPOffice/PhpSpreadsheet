@@ -169,21 +169,22 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 	}
 
 	/**
-	 * Can the current PHPExcel_Reader_IReader read the file?
+	 *	Can the current PHPExcel_Reader_IReader read the file?
 	 *
-	 * @param 	string 		$pFileName
-	 * @return 	boolean
+	 *	@param 	string 		$pFileName
+	 *	@return 	boolean
+	 *	@throws Exception
 	 */
 	public function canRead($pFilename)
 	{
-		// Check if zip class exists
-		if (!class_exists('ZipArchive')) {
-			return false;
-		}
-
 		// Check if file exists
 		if (!file_exists($pFilename)) {
 			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+		}
+
+		// Check if zip class exists
+		if (!class_exists('ZipArchive')) {
+			throw new Exception("ZipArchive library is not enabled");
 		}
 
 		// Load file
