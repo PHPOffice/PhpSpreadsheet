@@ -288,6 +288,22 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 	}
 
     /**
+     * @dataProvider providerMMULT
+     */
+	public function testMMULT()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_MathTrig','MMULT'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-12);
+	}
+
+    public function providerMMULT()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/MathTrig/MMULT.data');
+	}
+
+    /**
      * @dataProvider providerMROUND
      */
 	public function testMROUND()
@@ -335,6 +351,22 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function providerROUNDDOWN()
     {
     	return new testDataFileIterator('rawTestData/Calculation/MathTrig/ROUNDDOWN.data');
+	}
+
+    /**
+     * @dataProvider providerTRUNC
+     */
+	public function testTRUNC()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_MathTrig','TRUNC'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-12);
+	}
+
+    public function providerTRUNC()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/MathTrig/TRUNC.data');
 	}
 
     /**
