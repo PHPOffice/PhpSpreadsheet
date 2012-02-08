@@ -69,7 +69,10 @@ $objPHPExcel->getActiveSheet()->setCellValue('A7', 'Total of both ranges:');
 $objPHPExcel->getActiveSheet()->setCellValue('B7', '=SUM(B5:C5)');
 
 $objPHPExcel->getActiveSheet()->setCellValue('A8', 'Minimum of both ranges:');
-$objPHPExcel->getActiveSheet()->setCellValue('B8', '=MIN(B2:C5)');
+$objPHPExcel->getActiveSheet()->setCellValue('B8', '=MIN(B2:C4)');
+
+$objPHPExcel->getActiveSheet()->setCellValue('A9', 'Maximum of both ranges:');
+$objPHPExcel->getActiveSheet()->setCellValue('B9', '=MAX(B2:C4)');
 
 // Rename sheet
 echo date('H:i:s') . " Rename sheet\n";
