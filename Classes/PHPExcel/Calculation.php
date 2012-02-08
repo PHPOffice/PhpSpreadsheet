@@ -3222,7 +3222,7 @@ class PHPExcel_Calculation {
 					}
 				} else {
 //					echo 'Reference is a single Cell<br />';
-					if ($pCell !== NULL) {
+					if ($pCell === NULL) {
 //						We can't access the cell, so return a REF error
 						$cellValue = PHPExcel_Calculation_Functions::REF();
 					} else {
