@@ -102,6 +102,13 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	private $_drawingCollection = null;
 
 	/**
+	 * Collection of Chart objects
+	 *
+	 * @var PHPExcel_Chart[]
+	 */
+	private $_chartCollection = array();
+
+	/**
 	 * Worksheet title
 	 *
 	 * @var string
@@ -348,6 +355,9 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		// Drawing collection
 		$this->_drawingCollection	= new ArrayObject();
 
+    	// Chart collection
+    	$this->_chartCollection 	= new ArrayObject();
+
 		// Protection
 		$this->_protection			= new PHPExcel_Worksheet_Protection();
 
@@ -488,6 +498,80 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	public function getDrawingCollection()
 	{
 		return $this->_drawingCollection;
+	}
+
+	/**
+	 * Get collection of charts
+	 *
+	 * @return PHPExcel_Chart[]
+	 */
+	public function getChartCollection()
+	{
+		return $this->_chartCollection;
+	}
+
+	/**
+	 * Add chart
+	 *
+	 * @param PHPExcel_Chart $pChart
+	 * @param int|null $iChartIndex Index where chart should go (0,1,..., or null for last)
+	 * @return PHPExcel_Chart
+	 * @throws Exception
+	 */
+	public function addChart(PHPExcel_Chart $pChart = null, $iChartIndex = null)
+	{
+		if (is_null($iChartIndex)) {
+			$this->_chartCollection[] = $pChart;
+		} else {
+			// Insert the chart at the requested index
+			array_splice($this->_chartCollection, $iChartIndex, 0, array($pChart));
+		}
+
+		return $pChart;
+	}
+
+	public function getChartCount()
+	{
+		return count($this->_chartCollection);
+	}
+
+	public function getChartByIndex($index = null)
+	{
+		$chartCount = count($this->_chartCollection);
+		if ($chartCount == 0) {
+			return false;
+		}
+		if (is_null($index)) {
+			$index = --$chartCount;
+		}
+		if (!isset($this->_chartCollection[$index])) {
+			return false;
+		}
+
+		return $this->_chartCollection[$index];
+	}
+
+	public function getChartNames()
+	{
+		$chartNames = array();
+		foreach($this->_chartCollection as $chart) {
+			$chartNames[] = $chart->getName();
+		}
+		return $chartNames;
+	}
+
+	public function getChartByName($chartName = '')
+	{
+		$chartCount = count($this->_chartCollection);
+		if ($chartCount == 0) {
+			return false;
+		}
+		foreach($this->_chartCollection as $index => $chart) {
+			if ($chart->getName() == $chartName) {
+				return $this->_chartCollection[$index];
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -1314,7 +1398,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @throws	Exception
 	 * @return PHPExcel_Worksheet
 	 */
-	 public function setSharedStyle(PHPExcel_Style $pSharedCellStyle = null, $pRange = '')
+	public function setSharedStyle(PHPExcel_Style $pSharedCellStyle = null, $pRange = '')
 	{
 		$this->duplicateStyle($pSharedCellStyle, $pRange);
 		return $this;
@@ -1378,6 +1462,62 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		for ($col = $rangeStart[0]; $col <= $rangeEnd[0]; ++$col) {
 			for ($row = $rangeStart[1]; $row <= $rangeEnd[1]; ++$row) {
 				$this->getCell(PHPExcel_Cell::stringFromColumnIndex($col) . $row)->setXfIndex($xfIndex);
+			}
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Duplicate conditional style to a range of cells
+	 *
+	 * Please note that this will overwrite existing cell styles for cells in range!
+	 *
+	 * @param	array of PHPExcel_Style_Conditional	$pCellStyle	Cell style to duplicate
+	 * @param	string								$pRange		Range of cells (i.e. "A1:B10"), or just one cell (i.e. "A1")
+	 * @throws	Exception
+	 * @return PHPExcel_Worksheet
+	 */
+	public function duplicateConditionalStyle(array $pCellStyle = null, $pRange = '')
+	{
+		foreach($pCellStyle as $cellStyle) {
+			if (!is_a($cellStyle,'PHPExcel_Style_Conditional')) {
+				throw new Exception('Style is not a conditional style');
+			}
+		}
+
+		// Uppercase coordinate
+		$pRange = strtoupper($pRange);
+
+		// Is it a cell range or a single cell?
+		$rangeA	= '';
+		$rangeB	= '';
+		if (strpos($pRange, ':') === false) {
+			$rangeA = $pRange;
+			$rangeB = $pRange;
+		} else {
+			list($rangeA, $rangeB) = explode(':', $pRange);
+		}
+
+		// Calculate range outer borders
+		$rangeStart = PHPExcel_Cell::coordinateFromString($rangeA);
+		$rangeEnd	= PHPExcel_Cell::coordinateFromString($rangeB);
+
+		// Translate column into index
+		$rangeStart[0]	= PHPExcel_Cell::columnIndexFromString($rangeStart[0]) - 1;
+		$rangeEnd[0]	= PHPExcel_Cell::columnIndexFromString($rangeEnd[0]) - 1;
+
+		// Make sure we can loop upwards on rows and columns
+		if ($rangeStart[0] > $rangeEnd[0] && $rangeStart[1] > $rangeEnd[1]) {
+			$tmp = $rangeStart;
+			$rangeStart = $rangeEnd;
+			$rangeEnd = $tmp;
+		}
+
+		// Loop through cells and apply styles
+		for ($col = $rangeStart[0]; $col <= $rangeEnd[0]; ++$col) {
+			for ($row = $rangeStart[1]; $row <= $rangeEnd[1]; ++$row) {
+				$this->setConditionalStyles(PHPExcel_Cell::stringFromColumnIndex($col) . $row, $pCellStyle);
 			}
 		}
 
