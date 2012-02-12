@@ -2,7 +2,7 @@
 /**
  * PHPExcel
  *
- * Copyright (C) 2006 - 2011 PHPExcel
+ * Copyright (C) 2006 - 2012 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -28,16 +28,16 @@
 /** Error reporting */
 error_reporting(E_ALL);
 
-/** PHPExcel */
+/** Include PHPExcel */
 require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
 
 
 // Create new PHPExcel object
-echo date('H:i:s') . " Create new PHPExcel object\n";
+echo date('H:i:s') , " Create new PHPExcel object" , PHP_EOL;
 $objPHPExcel = new PHPExcel();
 
-// Set properties
-echo date('H:i:s') . " Set properties\n";
+// Set document properties
+echo date('H:i:s') , " Set document properties" , PHP_EOL;
 $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 							 ->setLastModifiedBy("Maarten Balliauw")
 							 ->setTitle("Office 2007 XLSX Test Document")
@@ -48,7 +48,7 @@ $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 
 
 // Create a first sheet, representing sales data
-echo date('H:i:s') . " Add some data\n";
+echo date('H:i:s') , " Add some data" , PHP_EOL;
 $objPHPExcel->setActiveSheetIndex(0);
 $objPHPExcel->getActiveSheet()->setCellValue('B1', 'Invoice');
 $objPHPExcel->getActiveSheet()->setCellValue('D1', PHPExcel_Shared_Date::PHPToExcel( gmmktime(0,0,0,date('m'),date('d'),date('Y')) ));
@@ -65,18 +65,18 @@ $objPHPExcel->getActiveSheet()->setCellValue('A4', '1001');
 $objPHPExcel->getActiveSheet()->setCellValue('B4', 'PHP for dummies');
 $objPHPExcel->getActiveSheet()->setCellValue('C4', '20');
 $objPHPExcel->getActiveSheet()->setCellValue('D4', '1');
-$objPHPExcel->getActiveSheet()->setCellValue('E4', '=C4*D4');
+$objPHPExcel->getActiveSheet()->setCellValue('E4', '=IF(D4<>"",C4*D4,"")');
 
 $objPHPExcel->getActiveSheet()->setCellValue('A5', '1012');
 $objPHPExcel->getActiveSheet()->setCellValue('B5', 'OpenXML for dummies');
 $objPHPExcel->getActiveSheet()->setCellValue('C5', '22');
 $objPHPExcel->getActiveSheet()->setCellValue('D5', '2');
-$objPHPExcel->getActiveSheet()->setCellValue('E5', '=C5*D5');
+$objPHPExcel->getActiveSheet()->setCellValue('E5', '=IF(D5<>"",C5*D5,"")');
 
-$objPHPExcel->getActiveSheet()->setCellValue('E6', '=C6*D6');
-$objPHPExcel->getActiveSheet()->setCellValue('E7', '=C7*D7');
-$objPHPExcel->getActiveSheet()->setCellValue('E8', '=C8*D8');
-$objPHPExcel->getActiveSheet()->setCellValue('E9', '=C9*D9');
+$objPHPExcel->getActiveSheet()->setCellValue('E6', '=IF(D6<>"",C6*D6,"")');
+$objPHPExcel->getActiveSheet()->setCellValue('E7', '=IF(D7<>"",C7*D7,"")');
+$objPHPExcel->getActiveSheet()->setCellValue('E8', '=IF(D8<>"",C8*D8,"")');
+$objPHPExcel->getActiveSheet()->setCellValue('E9', '=IF(D9<>"",C9*D9,"")');
 
 $objPHPExcel->getActiveSheet()->setCellValue('D11', 'Total excl.:');
 $objPHPExcel->getActiveSheet()->setCellValue('E11', '=SUM(E4:E9)');
@@ -88,7 +88,7 @@ $objPHPExcel->getActiveSheet()->setCellValue('D13', 'Total incl.:');
 $objPHPExcel->getActiveSheet()->setCellValue('E13', '=E11+E12');
 
 // Add comment
-echo date('H:i:s') . " Add comments\n";
+echo date('H:i:s') , " Add comments" , PHP_EOL;
 
 $objPHPExcel->getActiveSheet()->getComment('E11')->setAuthor('PHPExcel');
 $objCommentRichText = $objPHPExcel->getActiveSheet()->getComment('E11')->getText()->createTextRun('PHPExcel:');
@@ -114,7 +114,7 @@ $objPHPExcel->getActiveSheet()->getComment('E13')->getFillColor()->setRGB('EEEEE
 
 
 // Add rich-text string
-echo date('H:i:s') . " Add rich-text string\n";
+echo date('H:i:s') , " Add rich-text string" , PHP_EOL;
 $objRichText = new PHPExcel_RichText();
 $objRichText->createText('This invoice is ');
 
@@ -128,28 +128,28 @@ $objRichText->createText(', unless specified otherwise on the invoice.');
 $objPHPExcel->getActiveSheet()->getCell('A18')->setValue($objRichText);
 
 // Merge cells
-echo date('H:i:s') . " Merge cells\n";
+echo date('H:i:s') , " Merge cells" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->mergeCells('A18:E22');
 $objPHPExcel->getActiveSheet()->mergeCells('A28:B28');		// Just to test...
 $objPHPExcel->getActiveSheet()->unmergeCells('A28:B28');	// Just to test...
 
 // Protect cells
-echo date('H:i:s') . " Protect cells\n";
+echo date('H:i:s') , " Protect cells" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->getProtection()->setSheet(true);	// Needs to be set to true in order to enable any worksheet protection!
 $objPHPExcel->getActiveSheet()->protectCells('A3:E13', 'PHPExcel');
 
 // Set cell number formats
-echo date('H:i:s') . " Set cell number formats\n";
+echo date('H:i:s') , " Set cell number formats" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->getStyle('E4:E13')->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
 
 // Set column widths
-echo date('H:i:s') . " Set column widths\n";
+echo date('H:i:s') , " Set column widths" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
 $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(12);
 $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(12);
 
 // Set fonts
-echo date('H:i:s') . " Set fonts\n";
+echo date('H:i:s') , " Set fonts" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->getStyle('B1')->getFont()->setName('Candara');
 $objPHPExcel->getActiveSheet()->getStyle('B1')->getFont()->setSize(20);
 $objPHPExcel->getActiveSheet()->getStyle('B1')->getFont()->setBold(true);
@@ -163,7 +163,7 @@ $objPHPExcel->getActiveSheet()->getStyle('D13')->getFont()->setBold(true);
 $objPHPExcel->getActiveSheet()->getStyle('E13')->getFont()->setBold(true);
 
 // Set alignments
-echo date('H:i:s') . " Set alignments\n";
+echo date('H:i:s') , " Set alignments" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->getStyle('D11')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
 $objPHPExcel->getActiveSheet()->getStyle('D12')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
 $objPHPExcel->getActiveSheet()->getStyle('D13')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
@@ -174,7 +174,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A18')->getAlignment()->setVertical(PHP
 $objPHPExcel->getActiveSheet()->getStyle('B5')->getAlignment()->setShrinkToFit(true);
 
 // Set thin black border outline around column
-echo date('H:i:s') . " Set thin black border outline around column\n";
+echo date('H:i:s') , " Set thin black border outline around column" , PHP_EOL;
 $styleThinBlackBorderOutline = array(
 	'borders' => array(
 		'outline' => array(
@@ -187,7 +187,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A4:E10')->applyFromArray($styleThinBla
 
 
 // Set thick brown border outline around "Total"
-echo date('H:i:s') . " Set thick brown border outline around Total\n";
+echo date('H:i:s') , " Set thick brown border outline around Total" , PHP_EOL;
 $styleThickBrownBorderOutline = array(
 	'borders' => array(
 		'outline' => array(
@@ -199,12 +199,12 @@ $styleThickBrownBorderOutline = array(
 $objPHPExcel->getActiveSheet()->getStyle('D13:E13')->applyFromArray($styleThickBrownBorderOutline);
 
 // Set fills
-echo date('H:i:s') . " Set fills\n";
+echo date('H:i:s') , " Set fills" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->getStyle('A1:E1')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
 $objPHPExcel->getActiveSheet()->getStyle('A1:E1')->getFill()->getStartColor()->setARGB('FF808080');
 
 // Set style for header row using alternative method
-echo date('H:i:s') . " Set style for header row using alternative method\n";
+echo date('H:i:s') , " Set style for header row using alternative method" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->getStyle('A3:E3')->applyFromArray(
 		array(
 			'font'    => array(
@@ -263,11 +263,11 @@ $objPHPExcel->getActiveSheet()->getStyle('E3')->applyFromArray(
 );
 
 // Unprotect a cell
-echo date('H:i:s') . " Unprotect a cell\n";
+echo date('H:i:s') , " Unprotect a cell" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->getStyle('B1')->getProtection()->setLocked(PHPExcel_Style_Protection::PROTECTION_UNPROTECTED);
 
 // Add a hyperlink to the sheet
-echo date('H:i:s') . " Add a hyperlink to the sheet\n";
+echo date('H:i:s') , " Add a hyperlink to the sheet" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->setCellValue('E26', 'www.phpexcel.net');
 $objPHPExcel->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl('http://www.phpexcel.net');
 $objPHPExcel->getActiveSheet()->getCell('E26')->getHyperlink()->setTooltip('Navigate to website');
@@ -279,7 +279,7 @@ $objPHPExcel->getActiveSheet()->getCell('E27')->getHyperlink()->setTooltip('Revi
 $objPHPExcel->getActiveSheet()->getStyle('E27')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
 
 // Add a drawing to the worksheet
-echo date('H:i:s') . " Add a drawing to the worksheet\n";
+echo date('H:i:s') , " Add a drawing to the worksheet" , PHP_EOL;
 $objDrawing = new PHPExcel_Worksheet_Drawing();
 $objDrawing->setName('Logo');
 $objDrawing->setDescription('Logo');
@@ -288,7 +288,7 @@ $objDrawing->setHeight(36);
 $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
 
 // Add a drawing to the worksheet
-echo date('H:i:s') . " Add a drawing to the worksheet\n";
+echo date('H:i:s') , " Add a drawing to the worksheet" , PHP_EOL;
 $objDrawing = new PHPExcel_Worksheet_Drawing();
 $objDrawing->setName('Paid');
 $objDrawing->setDescription('Paid');
@@ -301,7 +301,7 @@ $objDrawing->getShadow()->setDirection(45);
 $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
 
 // Add a drawing to the worksheet
-echo date('H:i:s') . " Add a drawing to the worksheet\n";
+echo date('H:i:s') , " Add a drawing to the worksheet" , PHP_EOL;
 $objDrawing = new PHPExcel_Worksheet_Drawing();
 $objDrawing->setName('PHPExcel logo');
 $objDrawing->setDescription('PHPExcel logo');
@@ -312,36 +312,36 @@ $objDrawing->setOffsetX(10);
 $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
 
 // Play around with inserting and removing rows and columns
-echo date('H:i:s') . " Play around with inserting and removing rows and columns\n";
+echo date('H:i:s') , " Play around with inserting and removing rows and columns" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->insertNewRowBefore(6, 10);
 $objPHPExcel->getActiveSheet()->removeRow(6, 10);
 $objPHPExcel->getActiveSheet()->insertNewColumnBefore('E', 5);
 $objPHPExcel->getActiveSheet()->removeColumn('E', 5);
 
 // Set header and footer. When no different headers for odd/even are used, odd header is assumed.
-echo date('H:i:s') . " Set header/footer\n";
+echo date('H:i:s') , " Set header/footer" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddHeader('&L&BInvoice&RPrinted on &D');
 $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&L&B' . $objPHPExcel->getProperties()->getTitle() . '&RPage &P of &N');
 
 // Set page orientation and size
-echo date('H:i:s') . " Set page orientation and size\n";
+echo date('H:i:s') , " Set page orientation and size" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
 $objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
 
-// Rename sheet
-echo date('H:i:s') . " Rename sheet\n";
+// Rename first worksheet
+echo date('H:i:s') , " Rename first worksheet" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->setTitle('Invoice');
 
 
 // Create a new worksheet, after the default sheet
-echo date('H:i:s') . " Create new Worksheet object\n";
+echo date('H:i:s') , " Create a second Worksheet object" , PHP_EOL;
 $objPHPExcel->createSheet();
 
 // Llorem ipsum...
 $sLloremIpsum = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus eget ante. Sed cursus nunc semper tortor. Aliquam luctus purus non elit. Fusce vel elit commodo sapien dignissim dignissim. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur accumsan magna sed massa. Nullam bibendum quam ac ipsum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin augue. Praesent malesuada justo sed orci. Pellentesque lacus ligula, sodales quis, ultricies a, ultricies vitae, elit. Sed luctus consectetuer dolor. Vivamus vel sem ut nisi sodales accumsan. Nunc et felis. Suspendisse semper viverra odio. Morbi at odio. Integer a orci a purus venenatis molestie. Nam mattis. Praesent rhoncus, nisi vel mattis auctor, neque nisi faucibus sem, non dapibus elit pede ac nisl. Cras turpis.';
 
 // Add some data to the second sheet, resembling some different data types
-echo date('H:i:s') . " Add some data\n";
+echo date('H:i:s') , " Add some data" , PHP_EOL;
 $objPHPExcel->setActiveSheetIndex(1);
 $objPHPExcel->getActiveSheet()->setCellValue('A1', 'Terms and conditions');
 $objPHPExcel->getActiveSheet()->setCellValue('A3', $sLloremIpsum);
@@ -350,19 +350,19 @@ $objPHPExcel->getActiveSheet()->setCellValue('A5', $sLloremIpsum);
 $objPHPExcel->getActiveSheet()->setCellValue('A6', $sLloremIpsum);
 
 // Set the worksheet tab color
-echo date('H:i:s') . " Set the worksheet tab color\n";
+echo date('H:i:s') , " Set the worksheet tab color" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->getTabColor()->setARGB('FF0094FF');;
 
 // Set alignments
-echo date('H:i:s') . " Set alignments\n";
+echo date('H:i:s') , " Set alignments" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->getStyle('A3:A6')->getAlignment()->setWrapText(true);
 
 // Set column widths
-echo date('H:i:s') . " Set column widths\n";
+echo date('H:i:s') , " Set column widths" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(80);
 
 // Set fonts
-echo date('H:i:s') . " Set fonts\n";
+echo date('H:i:s') , " Set fonts" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setName('Candara');
 $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setSize(20);
 $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
@@ -371,7 +371,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setUnderline(PHPExcel
 $objPHPExcel->getActiveSheet()->getStyle('A3:A6')->getFont()->setSize(8);
 
 // Add a drawing to the worksheet
-echo date('H:i:s') . " Add a drawing to the worksheet\n";
+echo date('H:i:s') , " Add a drawing to the worksheet" , PHP_EOL;
 $objDrawing = new PHPExcel_Worksheet_Drawing();
 $objDrawing->setName('Terms and conditions');
 $objDrawing->setDescription('Terms and conditions');
@@ -380,12 +380,12 @@ $objDrawing->setCoordinates('B14');
 $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
 
 // Set page orientation and size
-echo date('H:i:s') . " Set page orientation and size\n";
+echo date('H:i:s') , " Set page orientation and size" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
 $objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
 
-// Rename sheet
-echo date('H:i:s') . " Rename sheet\n";
+// Rename second worksheet
+echo date('H:i:s') , " Rename second worksheet" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->setTitle('Terms and conditions');
 
 

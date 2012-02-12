@@ -34,26 +34,12 @@ date_default_timezone_set('Europe/London');
 require_once '../Classes/PHPExcel.php';
 
 
-/*
-After doing some test, I've got these results benchmarked
-for writing to Excel2007:
-
-	Number of rows	Seconds to generate
-	200				3
-	500				4
-	1000			6
-	2000			12
-	4000			36
-	8000			64
-	15000			465
-*/
-
 // Create new PHPExcel object
 echo date('H:i:s') , " Create new PHPExcel object" , PHP_EOL;
 $objPHPExcel = new PHPExcel();
 
 // Set document properties
-echo date('H:i:s') , " Set properties" , PHP_EOL;
+echo date('H:i:s') , " Set document properties" , PHP_EOL;
 $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 							 ->setLastModifiedBy("Maarten Balliauw")
 							 ->setTitle("Office 2007 XLSX Test Document")
@@ -63,46 +49,33 @@ $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 							 ->setCategory("Test result file");
 
 
-// Create a first sheet
-echo date('H:i:s') , " Add data" , PHP_EOL;
+// Add some data
+echo date('H:i:s') , " Add some data" , PHP_EOL;
 $objPHPExcel->setActiveSheetIndex(0);
-$objPHPExcel->getActiveSheet()->setCellValue('A1', "Firstname");
-$objPHPExcel->getActiveSheet()->setCellValue('B1', "Lastname");
-$objPHPExcel->getActiveSheet()->setCellValue('C1', "Phone");
-$objPHPExcel->getActiveSheet()->setCellValue('D1', "Fax");
-$objPHPExcel->getActiveSheet()->setCellValue('E1', "Is Client ?");
+$objPHPExcel->getActiveSheet()->setCellValue('A1', 'Hello');
+$objPHPExcel->getActiveSheet()->setCellValue('B2', 'world!');
+$objPHPExcel->getActiveSheet()->setCellValue('C1', 'Hello');
+$objPHPExcel->getActiveSheet()->setCellValue('D2', 'world!');
+
+// Rename worksheet
+echo date('H:i:s') , " Rename worksheet" , PHP_EOL;
+$objPHPExcel->getActiveSheet()->setTitle('Simple');
 
 
-// Hide "Phone" and "fax" column
-echo date('H:i:s') , " Hide 'Phone' and 'fax' columns" , PHP_EOL;
-$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setVisible(false);
-$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setVisible(false);
+// Set document security
+echo date('H:i:s') , " Set document security" , PHP_EOL;
+$objPHPExcel->getSecurity()->setLockWindows(true);
+$objPHPExcel->getSecurity()->setLockStructure(true);
+$objPHPExcel->getSecurity()->setWorkbookPassword("PHPExcel");
 
 
-// Set outline levels
-echo date('H:i:s') , " Set outline levels" , PHP_EOL;
-$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setOutlineLevel(1)
-                                                       ->setVisible(false)
-                                                       ->setCollapsed(true);
-
-// Freeze panes
-echo date('H:i:s') , " Freeze panes" , PHP_EOL;
-$objPHPExcel->getActiveSheet()->freezePane('A2');
-
-
-// Rows to repeat at top
-echo date('H:i:s') , " Rows to repeat at top" , PHP_EOL;
-$objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 1);
-
-
-// Add data
-for ($i = 2; $i <= 5000; $i++) {
-	$objPHPExcel->getActiveSheet()->setCellValue('A' . $i, "FName $i")
-	                              ->setCellValue('B' . $i, "LName $i")
-	                              ->setCellValue('C' . $i, "PhoneNo $i")
-	                              ->setCellValue('D' . $i, "FaxNo $i")
-	                              ->setCellValue('E' . $i, true);
-}
+// Set sheet security
+echo date('H:i:s') , " Set sheet security" , PHP_EOL;
+$objPHPExcel->getActiveSheet()->getProtection()->setPassword('PHPExcel');
+$objPHPExcel->getActiveSheet()->getProtection()->setSheet(true); // This should be enabled in order to enable any of the following!
+$objPHPExcel->getActiveSheet()->getProtection()->setSort(true);
+$objPHPExcel->getActiveSheet()->getProtection()->setInsertRows(true);
+$objPHPExcel->getActiveSheet()->getProtection()->setFormatCells(true);
 
 
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
@@ -110,10 +83,10 @@ $objPHPExcel->setActiveSheetIndex(0);
 
 
 // Save Excel 2007 file
-echo date('H:i:s') , " Write to Excel2007 format" , PHP_EOL;
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-$objWriter->save(str_replace('.php', '.xlsx', __FILE__));
-echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', __FILE__) , PHP_EOL;
+echo date('H:i:s') , " Write to Excel5 format" , PHP_EOL;
+$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter->save(str_replace('.php', '.xls', __FILE__));
+echo date('H:i:s') , " File written to " , str_replace('.php', '.xls', __FILE__) , PHP_EOL;
 
 
 // Echo memory peak usage

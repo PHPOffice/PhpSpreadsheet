@@ -2,7 +2,7 @@
 /**
  * PHPExcel
  *
- * Copyright (C) 2006 - 2011 PHPExcel
+ * Copyright (C) 2006 - 2012 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -30,16 +30,16 @@ error_reporting(E_ALL);
 
 date_default_timezone_set('Europe/London');
 
-/** PHPExcel */
+/** Include PHPExcel */
 require_once '../Classes/PHPExcel.php';
 
 
 // Create new PHPExcel object
-echo date('H:i:s') . " Create new PHPExcel object\n";
+echo date('H:i:s') , " Create new PHPExcel object" , PHP_EOL;
 $objPHPExcel = new PHPExcel();
 
-// Set properties
-echo date('H:i:s') . " Set properties\n";
+// Set document properties
+echo date('H:i:s') , " Set document properties" , PHP_EOL;
 $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 							 ->setLastModifiedBy("Maarten Balliauw")
 							 ->setTitle("Office 2007 XLSX Test Document")
@@ -50,7 +50,7 @@ $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 
 
 // Create a first sheet, representing sales data
-echo date('H:i:s') . " Add some data\n";
+echo date('H:i:s') , " Add some data" , PHP_EOL;
 $objPHPExcel->setActiveSheetIndex(0);
 $objPHPExcel->getActiveSheet()->setCellValue('A1', 'Description');
 $objPHPExcel->getActiveSheet()->setCellValue('B1', 'Amount');
@@ -75,13 +75,13 @@ $objPHPExcel->getActiveSheet()->setCellValue('B7', '=SUM(B2:B6)');
 
 
 // Set column widths
-echo date('H:i:s') . " Set column widths\n";
+echo date('H:i:s') , " Set column widths" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(30);
 $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(12);
 
 
 // Add conditional formatting
-echo date('H:i:s') . " Add conditional formatting\n";
+echo date('H:i:s') , " Add conditional formatting" , PHP_EOL;
 $objConditional1 = new PHPExcel_Style_Conditional();
 $objConditional1->setConditionType(PHPExcel_Style_Conditional::CONDITION_CELLIS);
 $objConditional1->setOperatorType(PHPExcel_Style_Conditional::OPERATOR_BETWEEN);
@@ -113,11 +113,17 @@ array_push($conditionalStyles, $objConditional2);
 array_push($conditionalStyles, $objConditional3);
 $objPHPExcel->getActiveSheet()->getStyle('B2')->setConditionalStyles($conditionalStyles);
 
-$objPHPExcel->getActiveSheet()->duplicateStyle( $objPHPExcel->getActiveSheet()->getStyle('B2'), 'B3:B7' );
+
+//	duplicate the conditional styles across a range of cells
+echo date('H:i:s') , " Duplicate the conditional formatting across a range of cells" , PHP_EOL;
+$objPHPExcel->getActiveSheet()->duplicateConditionalStyle(
+				$objPHPExcel->getActiveSheet()->getStyle('B2')->getConditionalStyles(),
+				'B3:B7'
+			);
 
 
 // Set fonts
-echo date('H:i:s') . " Set fonts\n";
+echo date('H:i:s') , " Set fonts" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
 $objPHPExcel->getActiveSheet()->getStyle('B1')->getFont()->setBold(true);
 $objPHPExcel->getActiveSheet()->getStyle('A7')->getFont()->setBold(true);
@@ -125,19 +131,19 @@ $objPHPExcel->getActiveSheet()->getStyle('B7')->getFont()->setBold(true);
 
 
 // Set header and footer. When no different headers for odd/even are used, odd header is assumed.
-echo date('H:i:s') . " Set header/footer\n";
+echo date('H:i:s') , " Set header/footer" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddHeader('&L&BPersonal cash register&RPrinted on &D');
 $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&L&B' . $objPHPExcel->getProperties()->getTitle() . '&RPage &P of &N');
 
 
 // Set page orientation and size
-echo date('H:i:s') . " Set page orientation and size\n";
+echo date('H:i:s') , " Set page orientation and size" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
 $objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
 
 
-// Rename sheet
-echo date('H:i:s') . " Rename sheet\n";
+// Rename worksheet
+echo date('H:i:s') , " Rename worksheet" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->setTitle('Invoice');
 
 
@@ -146,13 +152,14 @@ $objPHPExcel->setActiveSheetIndex(0);
 
 
 // Save Excel 2007 file
-echo date('H:i:s') . " Write to Excel2007 format\n";
+echo date('H:i:s') , " Write to Excel2007 format" , PHP_EOL;
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
+echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', __FILE__) , PHP_EOL;
 
 
 // Echo memory peak usage
-echo date('H:i:s') . " Peak memory usage: " . (memory_get_peak_usage(true) / 1024 / 1024) . " MB\r\n";
+echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , PHP_EOL;
 
 // Echo done
-echo date('H:i:s') . " Done writing file.\r\n";
+echo date('H:i:s') , " Done writing file" , PHP_EOL;

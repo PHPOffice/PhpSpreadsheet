@@ -2,7 +2,7 @@
 /**
  * PHPExcel
  *
- * Copyright (C) 2006 - 2011 PHPExcel
+ * Copyright (C) 2006 - 2012 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -30,14 +30,14 @@ error_reporting(E_ALL);
 
 date_default_timezone_set('Europe/London');
 
-/** PHPExcel */
+/** Include PHPExcel */
 require_once '../Classes/PHPExcel.php';
 
 
 // Create new PHPExcel object
 $objPHPExcel = new PHPExcel();
 
-// Set properties
+// Set document properties
 $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 							 ->setLastModifiedBy("Maarten Balliauw")
 							 ->setTitle("Office 2007 XLSX Test Document")
@@ -59,7 +59,7 @@ $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('A4', 'Miscellaneous glyphs')
             ->setCellValue('A5', 'éàèùâêîôûëïüÿäöüç');
 
-// Rename sheet
+// Rename worksheet
 $objPHPExcel->getActiveSheet()->setTitle('Simple');
 
 

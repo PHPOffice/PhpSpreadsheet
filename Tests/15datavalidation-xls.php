@@ -34,26 +34,13 @@ date_default_timezone_set('Europe/London');
 require_once '../Classes/PHPExcel.php';
 
 
-/*
-After doing some test, I've got these results benchmarked
-for writing to Excel2007:
-
-	Number of rows	Seconds to generate
-	200				3
-	500				4
-	1000			6
-	2000			12
-	4000			36
-	8000			64
-	15000			465
-*/
-
 // Create new PHPExcel object
 echo date('H:i:s') , " Create new PHPExcel object" , PHP_EOL;
 $objPHPExcel = new PHPExcel();
 
+
 // Set document properties
-echo date('H:i:s') , " Set properties" , PHP_EOL;
+echo date('H:i:s') , " Set document properties" , PHP_EOL;
 $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 							 ->setLastModifiedBy("Maarten Balliauw")
 							 ->setTitle("Office 2007 XLSX Test Document")
@@ -66,43 +53,40 @@ $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 // Create a first sheet
 echo date('H:i:s') , " Add data" , PHP_EOL;
 $objPHPExcel->setActiveSheetIndex(0);
-$objPHPExcel->getActiveSheet()->setCellValue('A1', "Firstname");
-$objPHPExcel->getActiveSheet()->setCellValue('B1', "Lastname");
-$objPHPExcel->getActiveSheet()->setCellValue('C1', "Phone");
-$objPHPExcel->getActiveSheet()->setCellValue('D1', "Fax");
-$objPHPExcel->getActiveSheet()->setCellValue('E1', "Is Client ?");
+$objPHPExcel->getActiveSheet()->setCellValue('A1', "Cell B3 and B5 contain data validation...");
+$objPHPExcel->getActiveSheet()->setCellValue('A3', "Number:");
+$objPHPExcel->getActiveSheet()->setCellValue('B3', "10");
+$objPHPExcel->getActiveSheet()->setCellValue('A5', "List:");
+$objPHPExcel->getActiveSheet()->setCellValue('B5', "Item A");
 
 
-// Hide "Phone" and "fax" column
-echo date('H:i:s') , " Hide 'Phone' and 'fax' columns" , PHP_EOL;
-$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setVisible(false);
-$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setVisible(false);
+// Set data validation
+echo date('H:i:s') , " Set data validation" , PHP_EOL;
+$objValidation = $objPHPExcel->getActiveSheet()->getCell('B3')->getDataValidation();
+$objValidation->setType( PHPExcel_Cell_DataValidation::TYPE_WHOLE );
+$objValidation->setErrorStyle( PHPExcel_Cell_DataValidation::STYLE_STOP );
+$objValidation->setAllowBlank(true);
+$objValidation->setShowInputMessage(true);
+$objValidation->setShowErrorMessage(true);
+$objValidation->setErrorTitle('Input error');
+$objValidation->setError('Only numbers between 10 and 20 are allowed!');
+$objValidation->setPromptTitle('Allowed input');
+$objValidation->setPrompt('Only numbers between 10 and 20 are allowed.');
+$objValidation->setFormula1(10);
+$objValidation->setFormula2(20);
 
-
-// Set outline levels
-echo date('H:i:s') , " Set outline levels" , PHP_EOL;
-$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setOutlineLevel(1)
-                                                       ->setVisible(false)
-                                                       ->setCollapsed(true);
-
-// Freeze panes
-echo date('H:i:s') , " Freeze panes" , PHP_EOL;
-$objPHPExcel->getActiveSheet()->freezePane('A2');
-
-
-// Rows to repeat at top
-echo date('H:i:s') , " Rows to repeat at top" , PHP_EOL;
-$objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 1);
-
-
-// Add data
-for ($i = 2; $i <= 5000; $i++) {
-	$objPHPExcel->getActiveSheet()->setCellValue('A' . $i, "FName $i")
-	                              ->setCellValue('B' . $i, "LName $i")
-	                              ->setCellValue('C' . $i, "PhoneNo $i")
-	                              ->setCellValue('D' . $i, "FaxNo $i")
-	                              ->setCellValue('E' . $i, true);
-}
+$objValidation = $objPHPExcel->getActiveSheet()->getCell('B5')->getDataValidation();
+$objValidation->setType( PHPExcel_Cell_DataValidation::TYPE_LIST );
+$objValidation->setErrorStyle( PHPExcel_Cell_DataValidation::STYLE_INFORMATION );
+$objValidation->setAllowBlank(false);
+$objValidation->setShowInputMessage(true);
+$objValidation->setShowErrorMessage(true);
+$objValidation->setShowDropDown(true);
+$objValidation->setErrorTitle('Input error');
+$objValidation->setError('Value is not in list.');
+$objValidation->setPromptTitle('Pick from list');
+$objValidation->setPrompt('Please pick a value from the drop-down list.');
+$objValidation->setFormula1('"Item A,Item B,Item C"');	// Make sure to put the list items between " and "  !!!
 
 
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
@@ -110,10 +94,10 @@ $objPHPExcel->setActiveSheetIndex(0);
 
 
 // Save Excel 2007 file
-echo date('H:i:s') , " Write to Excel2007 format" , PHP_EOL;
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-$objWriter->save(str_replace('.php', '.xlsx', __FILE__));
-echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', __FILE__) , PHP_EOL;
+echo date('H:i:s') , " Write to Excel5 format" , PHP_EOL;
+$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter->save(str_replace('.php', '.xls', __FILE__));
+echo date('H:i:s') , " File written to " , str_replace('.php', '.xls', __FILE__) , PHP_EOL;
 
 
 // Echo memory peak usage

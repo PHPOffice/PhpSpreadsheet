@@ -2,7 +2,7 @@
 /**
  * PHPExcel
  *
- * Copyright (C) 2006 - 2011 PHPExcel
+ * Copyright (C) 2006 - 2012 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -30,16 +30,16 @@ error_reporting(E_ALL);
 
 date_default_timezone_set('Europe/London');
 
-/** PHPExcel */
+/** Include PHPExcel */
 require_once '../Classes/PHPExcel.php';
 
 
 // Create new PHPExcel object
-echo date('H:i:s') . " Create new PHPExcel object\n";
+echo date('H:i:s') , " Create new PHPExcel object" , PHP_EOL;
 $objPHPExcel = new PHPExcel();
 
-// Set properties
-echo date('H:i:s') . " Set properties\n";
+// Set document properties
+echo date('H:i:s') , " Set document properties" , PHP_EOL;
 $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 							 ->setLastModifiedBy("Maarten Balliauw")
 							 ->setTitle("Office 2007 XLSX Test Document")
@@ -49,64 +49,101 @@ $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 							 ->setCategory("Test result file");
 
 
-// Create a first sheet
-echo date('H:i:s') . " Add data\n";
+// Create the worksheet
+echo date('H:i:s') , " Add data" , PHP_EOL;
 $objPHPExcel->setActiveSheetIndex(0);
-$objPHPExcel->getActiveSheet()->setCellValue('A1', "Quarter");
-$objPHPExcel->getActiveSheet()->setCellValue('B1', "Country");
-$objPHPExcel->getActiveSheet()->setCellValue('C1', "Sales");
+$objPHPExcel->getActiveSheet()->setCellValue('A1', "Year")
+                              ->setCellValue('B1', "Quarter")
+                              ->setCellValue('C1', "Country")
+                              ->setCellValue('D1', "Sales");
 
-$objPHPExcel->getActiveSheet()->setCellValue('A2', "Q1");
-$objPHPExcel->getActiveSheet()->setCellValue('B2', "United States");
-$objPHPExcel->getActiveSheet()->setCellValue('C2', "800");
-$objPHPExcel->getActiveSheet()->setCellValue('A3', "Q2");
-$objPHPExcel->getActiveSheet()->setCellValue('B3', "United States");
-$objPHPExcel->getActiveSheet()->setCellValue('C3', "700");
-$objPHPExcel->getActiveSheet()->setCellValue('A4', "Q3");
-$objPHPExcel->getActiveSheet()->setCellValue('B4', "United States");
-$objPHPExcel->getActiveSheet()->setCellValue('C4', "900");
-$objPHPExcel->getActiveSheet()->setCellValue('A5', "Q4");
-$objPHPExcel->getActiveSheet()->setCellValue('B5', "United States");
-$objPHPExcel->getActiveSheet()->setCellValue('C5', "950");
-$objPHPExcel->getActiveSheet()->setCellValue('A6', "Q1");
-$objPHPExcel->getActiveSheet()->setCellValue('B6', "Belgium");
-$objPHPExcel->getActiveSheet()->setCellValue('C6', "400");
-$objPHPExcel->getActiveSheet()->setCellValue('A7', "Q2");
-$objPHPExcel->getActiveSheet()->setCellValue('B7', "Belgium");
-$objPHPExcel->getActiveSheet()->setCellValue('C7', "350");
-$objPHPExcel->getActiveSheet()->setCellValue('A8', "Q3");
-$objPHPExcel->getActiveSheet()->setCellValue('B8', "Belgium");
-$objPHPExcel->getActiveSheet()->setCellValue('C8', "450");
-$objPHPExcel->getActiveSheet()->setCellValue('A9', "Q4");
-$objPHPExcel->getActiveSheet()->setCellValue('B9', "Belgium");
-$objPHPExcel->getActiveSheet()->setCellValue('C9', "500");
+$dataArray = array(array("2010",	"Q1",	"United States",	790),
+                   array("2010",	"Q2",	"United States",	730),
+                   array("2010",	"Q3",	"United States",	860),
+                   array("2010",	"Q4",	"United States",	850),
+                   array("2011",	"Q1",	"United States",	800),
+                   array("2011",	"Q2",	"United States",	700),
+                   array("2011",	"Q3",	"United States",	900),
+                   array("2011",	"Q4",	"United States",	950),
+                   array("2010",	"Q1",	"Belgium",			380),
+                   array("2010",	"Q2",	"Belgium",			390),
+                   array("2010",	"Q3",	"Belgium",			420),
+                   array("2010",	"Q4",	"Belgium",			460),
+                   array("2011",	"Q1",	"Belgium",			400),
+                   array("2011",	"Q2",	"Belgium",			350),
+                   array("2011",	"Q3",	"Belgium",			450),
+                   array("2011",	"Q4",	"Belgium",			500),
+                   array("2010",	"Q1",	"UK",				690),
+                   array("2010",	"Q2",	"UK",				610),
+                   array("2010",	"Q3",	"UK",				620),
+                   array("2010",	"Q4",	"UK",				600),
+                   array("2011",	"Q1",	"UK",				720),
+                   array("2011",	"Q2",	"UK",				650),
+                   array("2011",	"Q3",	"UK",				580),
+                   array("2011",	"Q4",	"UK",				510),
+                   array("2010",	"Q1",	"France",			510),
+                   array("2010",	"Q2",	"France",			490),
+                   array("2010",	"Q3",	"France",			460),
+                   array("2010",	"Q4",	"France", 			590),
+                   array("2011",	"Q1",	"France",			620),
+                   array("2011",	"Q2",	"France",			650),
+                   array("2011",	"Q3",	"France",			415),
+                   array("2011",	"Q4",	"France", 			570),
+                   array("2010",	"Q1",	"Germany",			720),
+                   array("2010",	"Q2",	"Germany",			680),
+                   array("2010",	"Q3",	"Germany",			640),
+                   array("2010",	"Q4",	"Germany",			660),
+                   array("2011",	"Q1",	"Germany",			680),
+                   array("2011",	"Q2",	"Germany",			620),
+                   array("2011",	"Q3",	"Germany",			710),
+                   array("2011",	"Q4",	"Germany",			690),
+                   array("2010",	"Q1",	"Spain",			510),
+                   array("2010",	"Q2",	"Spain",			490),
+                   array("2010",	"Q3",	"Spain",			470),
+                   array("2010",	"Q4",	"Spain",			420),
+                   array("2011",	"Q1",	"Spain",			460),
+                   array("2011",	"Q2",	"Spain",			390),
+                   array("2011",	"Q3",	"Spain",			430),
+                   array("2011",	"Q4",	"Spain",			415),
+                   array("2010",	"Q1",	"Italy",			440),
+                   array("2010",	"Q2",	"Italy",			410),
+                   array("2010",	"Q3",	"Italy",			420),
+                   array("2010",	"Q4",	"Italy",			450),
+                   array("2011",	"Q1",	"Italy",			430),
+                   array("2011",	"Q2",	"Italy",			370),
+                   array("2011",	"Q3",	"Italy",			350),
+                   array("2011",	"Q4",	"Italy",			335),
+                  );
+
+
+$objPHPExcel->getActiveSheet()->fromArray($dataArray, NULL, 'A2');
 
 
 // Set title row bold
-echo date('H:i:s') . " Set title row bold\n";
-$objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
-$objPHPExcel->getActiveSheet()->getStyle('B1')->getFont()->setBold(true);
-$objPHPExcel->getActiveSheet()->getStyle('C1')->getFont()->setBold(true);
+echo date('H:i:s') , " Set title row bold" , PHP_EOL;
+$objPHPExcel->getActiveSheet()->getStyle('A1:D1')->getFont()->setBold(true);
 
 
 // Set autofilter
-echo date('H:i:s') . " Set autofilter\n";
-$objPHPExcel->getActiveSheet()->setAutoFilter('A1:C9');	// Always include the complete filter range!
-														// Excel does support setting only the caption
-														// row, but that's not a best practise...
+echo date('H:i:s') , " Set autofilter" , PHP_EOL;
+		// Always include the complete filter range!
+		// Excel does support setting only the caption
+		// row, but that's not a best practise...
+$objPHPExcel->getActiveSheet()->setAutoFilter($objPHPExcel->getActiveSheet()->calculateWorksheetDimension());
 
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
 $objPHPExcel->setActiveSheetIndex(0);
 
 
 // Save Excel 2007 file
-echo date('H:i:s') . " Write to Excel2007 format\n";
+echo date('H:i:s') , " Write to Excel2007 format" , PHP_EOL;
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
+echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', __FILE__) , PHP_EOL;
 
 
 // Echo memory peak usage
-echo date('H:i:s') . " Peak memory usage: " . (memory_get_peak_usage(true) / 1024 / 1024) . " MB\r\n";
+echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , PHP_EOL;
 
 // Echo done
-echo date('H:i:s') . " Done writing file.\r\n";
+echo date('H:i:s') , " Done writing file" , PHP_EOL;
