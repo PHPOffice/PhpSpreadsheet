@@ -34,8 +34,8 @@ date_default_timezone_set('Europe/London');
 require_once '../Classes/PHPExcel.php';
 
 
-$inputFileType = 'Excel2007';
-$inputFileName = 'templates/31docproperties.xlsx';
+$inputFileType = 'Excel5';
+$inputFileName = 'templates/31docproperties.xls';
 
 
 echo date('H:i:s') , " Load Tests from $inputFileType file" , PHP_EOL;
@@ -52,17 +52,17 @@ echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 
 
 
 echo date('H:i:s') , " Adjust properties" , PHP_EOL;
-$objPHPExcel->getProperties()->setTitle("Office 2007 XLSX Test Document")
-							 ->setSubject("Office 2007 XLSX Test Document")
-							 ->setDescription("Test XLSX document, generated using PHPExcel")
-							 ->setKeywords("office 2007 openxml php");
+$objPHPExcel->getProperties()->setTitle("Office 95 XLS Test Document")
+							 ->setSubject("Office 95 XLS Test Document")
+							 ->setDescription("Test XLS document, generated using PHPExcel")
+							 ->setKeywords("office 95 biff php");
 
 
-// Save Excel 2007 file
-echo date('H:i:s') , " Write to Excel2007 format" , PHP_EOL;
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-$objWriter->save(str_replace('.php', '.xlsx', __FILE__));
-echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', __FILE__) , PHP_EOL;
+// Save Excel 95 file
+echo date('H:i:s') , " Write to Excel5 format" , PHP_EOL;
+$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter->save(str_replace('.php', '.xls', __FILE__));
+echo date('H:i:s') , " File written to " , str_replace('.php', '.xls', __FILE__) , PHP_EOL;
 
 
 // Echo memory peak usage
@@ -71,8 +71,8 @@ echo date('H:i:s') , " Peak memory usage: " . (memory_get_peak_usage(true) / 102
 
 echo PHP_EOL;
 // Reread File
-echo date('H:i:s') , " Reread Excel2007 file" , PHP_EOL;
-$objPHPExcelRead = PHPExcel_IOFactory::load(str_replace('.php', '.xlsx', __FILE__));
+echo date('H:i:s') , " Reread Excel5 file" , PHP_EOL;
+$objPHPExcelRead = PHPExcel_IOFactory::load(str_replace('.php', '.xls', __FILE__));
 
 // Set properties
 echo date('H:i:s') , " Get properties" , PHP_EOL;

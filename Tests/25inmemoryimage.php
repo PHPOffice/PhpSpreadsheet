@@ -2,7 +2,7 @@
 /**
  * PHPExcel
  *
- * Copyright (C) 2006 - 2011 PHPExcel
+ * Copyright (C) 2006 - 2012 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -30,16 +30,16 @@ error_reporting(E_ALL);
 
 date_default_timezone_set('Europe/London');
 
-/** PHPExcel */
+/** Include PHPExcel */
 require_once '../Classes/PHPExcel.php';
 
 
 // Create new PHPExcel object
-echo date('H:i:s') . " Create new PHPExcel object\n";
+echo date('H:i:s') , " Create new PHPExcel object" , PHP_EOL;
 $objPHPExcel = new PHPExcel();
 
-// Set properties
-echo date('H:i:s') . " Set properties\n";
+// Set document properties
+echo date('H:i:s') , " Set document properties" , PHP_EOL;
 $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 							 ->setLastModifiedBy("Maarten Balliauw")
 							 ->setTitle("Office 2007 XLSX Test Document")
@@ -49,13 +49,13 @@ $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 							 ->setCategory("Test result file");
 
 // Generate an image
-echo date('H:i:s') . " Generate an image\n";
+echo date('H:i:s') , " Generate an image" , PHP_EOL;
 $gdImage = @imagecreatetruecolor(120, 20) or die('Cannot Initialize new GD image stream');
 $textColor = imagecolorallocate($gdImage, 255, 255, 255);
 imagestring($gdImage, 1, 5, 5,  'Created with PHPExcel', $textColor);
 
 // Add a drawing to the worksheet
-echo date('H:i:s') . " Add a drawing to the worksheet\n";
+echo date('H:i:s') , " Add a drawing to the worksheet" , PHP_EOL;
 $objDrawing = new PHPExcel_Worksheet_MemoryDrawing();
 $objDrawing->setName('Sample image');
 $objDrawing->setDescription('Sample image');
@@ -65,13 +65,14 @@ $objDrawing->setMimeType(PHPExcel_Worksheet_MemoryDrawing::MIMETYPE_DEFAULT);
 $objDrawing->setHeight(36);
 $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
 
-echo date('H:i:s') . " Write to Excel2007 format\n";
+echo date('H:i:s') , " Write to Excel2007 format" , PHP_EOL;
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
+echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', __FILE__) , PHP_EOL;
 
 
 // Echo memory peak usage
-echo date('H:i:s') . " Peak memory usage: " . (memory_get_peak_usage(true) / 1024 / 1024) . " MB\r\n";
+echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , PHP_EOL;
 
 // Echo done
-echo date('H:i:s') . " Done writing files.\r\n";
+echo date('H:i:s') , " Done writing files" , PHP_EOL;

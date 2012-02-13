@@ -2,7 +2,7 @@
 /**
  * PHPExcel
  *
- * Copyright (C) 2006 - 2011 PHPExcel
+ * Copyright (C) 2006 - 2012 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -30,32 +30,30 @@ error_reporting(E_ALL);
 
 date_default_timezone_set('Europe/London');
 
-/** PHPExcel */
+/** Include PHPExcel */
 require_once '../Classes/PHPExcel.php';
 
 
-// Create new PHPExcel object
-echo date('H:i:s') . " Create new PHPExcel object\n";
-$objPHPExcel = new PHPExcel();
-
 // Read from Excel5 (.xls) template
-echo date('H:i:s') . " Load Excel2007 template file\n";
+echo date('H:i:s') , " Load Excel2007 template file" , PHP_EOL;
 $objReader = PHPExcel_IOFactory::createReader('Excel5');
 $objPHPExcel = $objReader->load("templates/27template.xls");
 
 // Export to Excel2007 (.xlsx)
-echo date('H:i:s') . " Write to Excel5 format\n";
+echo date('H:i:s') , " Write to Excel5 format" , PHP_EOL;
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
+echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', __FILE__) , PHP_EOL;
 
 // Export to Excel5 (.xls)
-echo date('H:i:s') . " Write to Excel5 format\n";
+echo date('H:i:s') , " Write to Excel5 format" , PHP_EOL;
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save(str_replace('.php', '.xls', __FILE__));
+echo date('H:i:s') , " File written to " , str_replace('.php', '.xls', __FILE__) , PHP_EOL;
 
 
 // Echo memory peak usage
-echo date('H:i:s') . " Peak memory usage: " . (memory_get_peak_usage(true) / 1024 / 1024) . " MB\r\n";
+echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , PHP_EOL;
 
 // Echo done
-echo date('H:i:s') . " Done writing files.\r\n";
+echo date('H:i:s') , " Done writing files" , PHP_EOL;

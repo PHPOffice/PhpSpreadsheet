@@ -2,7 +2,7 @@
 /**
  * PHPExcel
  *
- * Copyright (C) 2006 - 2011 PHPExcel
+ * Copyright (C) 2006 - 2012 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -35,19 +35,19 @@ require_once '../Classes/PHPExcel.php';
 
 
 // Set timezone
-echo date('H:i:s') . " Set timezone\n";
+echo date('H:i:s') , " Set timezone" , PHP_EOL;
 date_default_timezone_set('UTC');
 
 // Set value binder
-echo date('H:i:s') . " Set value binder\n";
+echo date('H:i:s') , " Set value binder" , PHP_EOL;
 PHPExcel_Cell::setValueBinder( new PHPExcel_Cell_AdvancedValueBinder() );
 
 // Create new PHPExcel object
-echo date('H:i:s') . " Create new PHPExcel object\n";
+echo date('H:i:s') , " Create new PHPExcel object" , PHP_EOL;
 $objPHPExcel = new PHPExcel();
 
-// Set properties
-echo date('H:i:s') . " Set properties\n";
+// Set document properties
+echo date('H:i:s') , " Set document properties" , PHP_EOL;
 $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 							 ->setLastModifiedBy("Maarten Balliauw")
 							 ->setTitle("Office 2007 XLSX Test Document")
@@ -57,17 +57,17 @@ $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 							 ->setCategory("Test result file");
 
 // Set default font
-echo date('H:i:s') . " Set default font\n";
+echo date('H:i:s') , " Set default font" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->getDefaultStyle()->getFont()->setName('Arial');
 $objPHPExcel->getActiveSheet()->getDefaultStyle()->getFont()->setSize(10);
 
 // Set column widths
-echo date('H:i:s') . " Set column widths\n";
+echo date('H:i:s') , " Set column widths" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
 $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(14);
 
 // Add some data, resembling some different data types
-echo date('H:i:s') . " Add some data\n";
+echo date('H:i:s') , " Add some data" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->setCellValue('A1', 'String value:');
 $objPHPExcel->getActiveSheet()->setCellValue('B1', 'Mark Baker');
 
@@ -131,8 +131,8 @@ $objPHPExcel->getActiveSheet()->setCellValue('B20', '19-Dec-1960 01:30');
 $objPHPExcel->getActiveSheet()->setCellValue('A21', 'Formula:');
 $objPHPExcel->getActiveSheet()->setCellValue('B21', '=SUM(B2:B9)');
 
-// Rename sheet
-echo date('H:i:s') . " Rename sheet\n";
+// Rename worksheet
+echo date('H:i:s') , " Rename worksheet" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->setTitle('Advanced value binder');
 
 
@@ -141,13 +141,14 @@ $objPHPExcel->setActiveSheetIndex(0);
 
 
 // Save Excel 2007 file
-echo date('H:i:s') . " Write to Excel5 format\n";
+echo date('H:i:s') , " Write to Excel5 format" , PHP_EOL;
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save(str_replace('.php', '.xls', __FILE__));
+echo date('H:i:s') , " File written to " , str_replace('.php', '.xls', __FILE__) , PHP_EOL;
 
 
 // Echo memory peak usage
-echo date('H:i:s') . " Peak memory usage: " . (memory_get_peak_usage(true) / 1024 / 1024) . " MB\r\n";
+echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , PHP_EOL;
 
 // Echo done
-echo date('H:i:s') . " Done writing file.\r\n";
+echo date('H:i:s') , " Done writing file" , PHP_EOL;

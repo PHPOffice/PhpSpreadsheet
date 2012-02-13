@@ -34,7 +34,7 @@ require_once '../Classes/PHPExcel/IOFactory.php';
 
 
 if (!file_exists("05featuredemo.xlsx")) {
-	exit("Please run 05featuredemo.php first.\n");
+	exit("Please run 05featuredemo.php first." . PHP_EOL);
 }
 
 echo date('H:i:s') , " Load from Excel2007 file" , PHP_EOL;

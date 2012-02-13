@@ -16,13 +16,16 @@
   <LastSaved>2009-09-17T22:53:09Z</LastSaved>
   <Category>Reader</Category>
   <Company>PHPExcel</Company>
-  <Version>12.00</Version>
+  <Version>14.00</Version>
  </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <AllowPNG/>
+ </OfficeDocumentSettings>
  <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
-  <WindowHeight>13995</WindowHeight>
-  <WindowWidth>28455</WindowWidth>
+  <WindowHeight>13176</WindowHeight>
+  <WindowWidth>28452</WindowWidth>
   <WindowTopX>240</WindowTopX>
-  <WindowTopY>510</WindowTopY>
+  <WindowTopY>516</WindowTopY>
   <ProtectStructure>False</ProtectStructure>
   <ProtectWindows>False</ProtectWindows>
  </ExcelWorkbook>
@@ -35,7 +38,7 @@
    <NumberFormat/>
    <Protection/>
   </Style>
-  <Style ss:ID="m46076128">
+  <Style ss:ID="m42221568">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="3"
@@ -145,8 +148,8 @@
  <Worksheet ss:Name="Sample Data">
   <Table ss:ExpandedColumnCount="10" ss:ExpandedRowCount="20" x:FullColumns="1"
    x:FullRows="1" ss:DefaultRowHeight="15">
-   <Column ss:AutoFitWidth="0" ss:Width="90.75"/>
-   <Column ss:Index="4" ss:AutoFitWidth="0" ss:Width="33.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="90.6"/>
+   <Column ss:Index="4" ss:AutoFitWidth="0" ss:Width="33.6"/>
    <Row ss:AutoFitHeight="0">
     <Cell ss:StyleID="s62"><Data ss:Type="String">Test String 1</Data></Cell>
     <Cell ss:StyleID="s63"><Data ss:Type="Number">1</Data></Cell>
@@ -222,7 +225,7 @@
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="13.5"/>
    <Row ss:AutoFitHeight="0" ss:Height="13.5">
-    <Cell ss:Index="2" ss:MergeAcross="1" ss:MergeDown="1" ss:StyleID="m46076128"><Data
+    <Cell ss:Index="2" ss:MergeAcross="1" ss:MergeDown="1" ss:StyleID="m42221568"><Data
       ss:Type="String">BOX</Data></Cell>
     <Cell ss:Index="5" ss:StyleID="s85"/>
     <Cell ss:Index="7"><Data ss:Type="String">Test Column 1</Data></Cell>
@@ -251,7 +254,7 @@
     <Pane>
      <Number>3</Number>
      <ActiveRow>17</ActiveRow>
-     <ActiveCol>6</ActiveCol>
+     <ActiveCol>4</ActiveCol>
     </Pane>
    </Panes>
    <ProtectObjects>False</ProtectObjects>
@@ -272,12 +275,12 @@
  <Worksheet ss:Name="Report Data">
   <Table ss:ExpandedColumnCount="7" ss:ExpandedRowCount="14" x:FullColumns="1"
    x:FullRows="1" ss:DefaultRowHeight="15">
-   <Column ss:AutoFitWidth="0" ss:Width="66.75"/>
-   <Column ss:AutoFitWidth="0" ss:Width="68.25"/>
-   <Column ss:AutoFitWidth="0" ss:Width="62.25"/>
-   <Column ss:Width="69.75"/>
-   <Column ss:Index="6" ss:Width="69.75"/>
-   <Column ss:AutoFitWidth="0" ss:Width="64.5"/>
+   <Column ss:AutoFitWidth="0" ss:Width="66.600000000000009"/>
+   <Column ss:AutoFitWidth="0" ss:Width="68.399999999999991"/>
+   <Column ss:AutoFitWidth="0" ss:Width="62.400000000000006"/>
+   <Column ss:Width="69.599999999999994"/>
+   <Column ss:Index="6" ss:Width="69.599999999999994"/>
+   <Column ss:AutoFitWidth="0" ss:Width="64.8"/>
    <Row ss:AutoFitHeight="0" ss:Height="31.5">
     <Cell ss:StyleID="s86"><Data ss:Type="String">Heading 1</Data></Cell>
     <Cell ss:StyleID="s86"><Data ss:Type="String">Heading 2</Data></Cell>
@@ -416,13 +419,6 @@
     <HorizontalResolution>600</HorizontalResolution>
     <VerticalResolution>600</VerticalResolution>
    </Print>
-   <Panes>
-    <Pane>
-     <Number>3</Number>
-     <ActiveRow>1</ActiveRow>
-     <ActiveCol>8</ActiveCol>
-    </Pane>
-   </Panes>
    <ProtectObjects>False</ProtectObjects>
    <ProtectScenarios>False</ProtectScenarios>
    <AllowFormatCells/>
@@ -437,5 +433,18 @@
    <AllowFilter/>
    <AllowUsePivotTables/>
   </WorksheetOptions>
+  <ConditionalFormatting xmlns="urn:schemas-microsoft-com:office:excel">
+   <Range>R2C3:R14C3</Range>
+   <Condition>
+    <Qualifier>Greater</Qualifier>
+    <Value1>0</Value1>
+    <Format Style='color:#006100;background:#C6EFCE'/>
+   </Condition>
+   <Condition>
+    <Qualifier>Less</Qualifier>
+    <Value1>0</Value1>
+    <Format Style='color:#9C0006;background:#FFC7CE'/>
+   </Condition>
+  </ConditionalFormatting>
  </Worksheet>
 </Workbook>
