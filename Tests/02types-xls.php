@@ -87,7 +87,7 @@ $objPHPExcel->getActiveSheet()->setCellValue('A8', 'Boolean');
 $objPHPExcel->getActiveSheet()->setCellValue('B8', 'False');
 $objPHPExcel->getActiveSheet()->setCellValue('C8', false);
 
-$dateTimeNow = gmmktime();
+$dateTimeNow = time();
 $objPHPExcel->getActiveSheet()->setCellValue('A9', 'Date/Time');
 $objPHPExcel->getActiveSheet()->setCellValue('B9', 'Date');
 $objPHPExcel->getActiveSheet()->setCellValue('C9', PHPExcel_Shared_Date::PHPToExcel( $dateTimeNow ));
@@ -120,6 +120,12 @@ echo date('H:i:s') , " Write to Excel5 format" , PHP_EOL;
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save(str_replace('.php', '.xls', __FILE__));
 echo date('H:i:s') , " File written to " , str_replace('.php', '.xls', __FILE__) , PHP_EOL;
+
+
+echo date('H:i:s') , " Reload workbook from saved file" , PHP_EOL;
+$objPHPExcel = PHPExcel_IOFactory::load(str_replace('.php', '.xls', __FILE__));
+
+var_dump($objPHPExcel->getActiveSheet()->toArray());
 
 
 // Echo memory peak usage
