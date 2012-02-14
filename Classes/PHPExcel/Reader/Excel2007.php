@@ -605,8 +605,10 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 					$countSkippedSheets = 0; // keep track of number of skipped sheets
 					$mapSheetId = array(); // mapping of sheet ids from old to new
 
-					if ($xmlWorkbook->sheets)
-					{
+
+					$charts = $chartDetails = array();
+
+					if ($xmlWorkbook->sheets) {
 						foreach ($xmlWorkbook->sheets->sheet as $eleSheet) {
 							++$oldSheetId;
 
@@ -1201,7 +1203,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 
 	    									if (($column !== NULL) && ($row !== NULL)) {
 	    									    // Set comment properties
-	    									    $comment = $docSheet->getCommentByColumnAndRow($column, $row + 1);
+	    									    $comment = $docSheet->getCommentByColumnAndRow((string) $column, $row + 1);
 	    									    $comment->getFillColor()->setRGB( $fillColor );
 
 	    									    // Parse style
@@ -1298,6 +1300,10 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 											foreach ($relsDrawing->Relationship as $ele) {
 												if ($ele["Type"] == "http://schemas.openxmlformats.org/officeDocument/2006/relationships/image") {
 													$images[(string) $ele["Id"]] = self::dir_add($fileDrawing, $ele["Target"]);
+												} elseif ($ele["Type"] == "http://schemas.openxmlformats.org/officeDocument/2006/relationships/chart") {
+													$charts[self::dir_add($fileDrawing, $ele["Target"])] = array('id'		=> (string) $ele["Id"],
+																												 'sheet'	=> $docSheet->getTitle()
+																												);
 												}
 											}
 										}
@@ -1313,7 +1319,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 													$objDrawing->setName((string) self::array_item($oneCellAnchor->pic->nvPicPr->cNvPr->attributes(), "name"));
 													$objDrawing->setDescription((string) self::array_item($oneCellAnchor->pic->nvPicPr->cNvPr->attributes(), "descr"));
 													$objDrawing->setPath("zip://$pFilename#" . $images[(string) self::array_item($blip->attributes("http://schemas.openxmlformats.org/officeDocument/2006/relationships"), "embed")], false);
-													$objDrawing->setCoordinates(PHPExcel_Cell::stringFromColumnIndex($oneCellAnchor->from->col) . ($oneCellAnchor->from->row + 1));
+													$objDrawing->setCoordinates(PHPExcel_Cell::stringFromColumnIndex((string) $oneCellAnchor->from->col) . ($oneCellAnchor->from->row + 1));
 													$objDrawing->setOffsetX(PHPExcel_Shared_Drawing::EMUToPixels($oneCellAnchor->from->colOff));
 													$objDrawing->setOffsetY(PHPExcel_Shared_Drawing::EMUToPixels($oneCellAnchor->from->rowOff));
 													$objDrawing->setResizeProportional(false);
@@ -1333,6 +1339,12 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 														$shadow->setAlpha(self::array_item($outerShdw->srgbClr->alpha->attributes(), "val") / 1000);
 													}
 													$objDrawing->setWorksheet($docSheet);
+												} else {
+													$coordinates	= PHPExcel_Cell::stringFromColumnIndex((string) $oneCellAnchor->from->col) . ($oneCellAnchor->from->row + 1);
+													$offsetX		= PHPExcel_Shared_Drawing::EMUToPixels($oneCellAnchor->from->colOff);
+													$offsetY		= PHPExcel_Shared_Drawing::EMUToPixels($oneCellAnchor->from->rowOff);
+													$width			= PHPExcel_Shared_Drawing::EMUToPixels(self::array_item($oneCellAnchor->ext->attributes(), "cx"));
+													$height			= PHPExcel_Shared_Drawing::EMUToPixels(self::array_item($oneCellAnchor->ext->attributes(), "cy"));
 												}
 											}
 										}
@@ -1346,7 +1358,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 													$objDrawing->setName((string) self::array_item($twoCellAnchor->pic->nvPicPr->cNvPr->attributes(), "name"));
 													$objDrawing->setDescription((string) self::array_item($twoCellAnchor->pic->nvPicPr->cNvPr->attributes(), "descr"));
 													$objDrawing->setPath("zip://$pFilename#" . $images[(string) self::array_item($blip->attributes("http://schemas.openxmlformats.org/officeDocument/2006/relationships"), "embed")], false);
-													$objDrawing->setCoordinates(PHPExcel_Cell::stringFromColumnIndex($twoCellAnchor->from->col) . ($twoCellAnchor->from->row + 1));
+													$objDrawing->setCoordinates(PHPExcel_Cell::stringFromColumnIndex((string) $twoCellAnchor->from->col) . ($twoCellAnchor->from->row + 1));
 													$objDrawing->setOffsetX(PHPExcel_Shared_Drawing::EMUToPixels($twoCellAnchor->from->colOff));
 													$objDrawing->setOffsetY(PHPExcel_Shared_Drawing::EMUToPixels($twoCellAnchor->from->rowOff));
 													$objDrawing->setResizeProportional(false);
@@ -1368,6 +1380,26 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 														$shadow->setAlpha(self::array_item($outerShdw->srgbClr->alpha->attributes(), "val") / 1000);
 													}
 													$objDrawing->setWorksheet($docSheet);
+												} else {
+													$fromCoordinate	= PHPExcel_Cell::stringFromColumnIndex((string) $twoCellAnchor->from->col) . ($twoCellAnchor->from->row + 1);
+													$fromOffsetX	= PHPExcel_Shared_Drawing::EMUToPixels($twoCellAnchor->from->colOff);
+													$fromOffsetY	= PHPExcel_Shared_Drawing::EMUToPixels($twoCellAnchor->from->rowOff);
+													$toCoordinate	= PHPExcel_Cell::stringFromColumnIndex((string) $twoCellAnchor->to->col) . ($twoCellAnchor->to->row + 1);
+													$toOffsetX		= PHPExcel_Shared_Drawing::EMUToPixels($twoCellAnchor->to->colOff);
+													$toOffsetY		= PHPExcel_Shared_Drawing::EMUToPixels($twoCellAnchor->to->rowOff);
+													$graphic		= $twoCellAnchor->graphicFrame->children("http://schemas.openxmlformats.org/drawingml/2006/main")->graphic;
+													$chartRef		= $graphic->graphicData->children("http://schemas.openxmlformats.org/drawingml/2006/chart")->chart;
+													$thisChart		= (string) $chartRef->attributes("http://schemas.openxmlformats.org/officeDocument/2006/relationships");
+
+													$chartDetails[$docSheet->getTitle().'!'.$thisChart] =
+															array(	'fromCoordinate'	=> $fromCoordinate,
+																	'fromOffsetX'		=> $fromOffsetX,
+																	'fromOffsetY'		=> $fromOffsetY,
+																	'toCoordinate'		=> $toCoordinate,
+																	'toOffsetX'			=> $toOffsetX,
+																	'toOffsetY'			=> $toOffsetY,
+																	'worksheetTitle'	=> $docSheet->getTitle()
+																 );
 												}
 											}
 										}
@@ -1518,8 +1550,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 						if (isset($mapSheetId[$activeTab]) && $mapSheetId[$activeTab] !== null) {
 							$excel->setActiveSheetIndex($mapSheetId[$activeTab]);
 						} else {
-							if ($excel->getSheetCount() == 0)
-							{
+							if ($excel->getSheetCount() == 0) {
 								$excel->createSheet();
 							}
 							$excel->setActiveSheetIndex(0);
@@ -1528,6 +1559,40 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 				break;
 			}
 
+		}
+
+
+		if (!$this->_readDataOnly) {
+			$contentTypes = simplexml_load_string($this->_getFromZipArchive($zip, "[Content_Types].xml"));
+			foreach ($contentTypes->Override as $contentType) {
+				switch ($contentType["ContentType"]) {
+					case "application/vnd.openxmlformats-officedocument.drawingml.chart+xml":
+						$chartEntryRef = ltrim($contentType['PartName'],'/');
+						$chartElements = simplexml_load_string($this->_getFromZipArchive($zip, $chartEntryRef));
+						$objChart = PHPExcel_Reader_Excel2007_Chart::readChart($chartElements,basename($chartEntryRef,'.xml'));
+
+//						echo 'Chart ',$chartEntryRef,'<br />';
+//						var_dump($charts[$chartEntryRef]);
+//
+						if (isset($charts[$chartEntryRef])) {
+							$chartPositionRef = $charts[$chartEntryRef]['sheet'].'!'.$charts[$chartEntryRef]['id'];
+//							echo 'Position Ref ',$chartPositionRef,'<br />';
+							if (isset($chartDetails[$chartPositionRef])) {
+//								var_dump($chartDetails[$chartPositionRef]);
+								$excel->getSheetByName($charts[$chartEntryRef]['sheet'])->addChart($objChart);
+								$objChart->setWorksheet($excel->getSheetByName($charts[$chartEntryRef]['sheet']));
+								$objChart->setTopLeftPosition( $chartDetails[$chartPositionRef]['fromCoordinate'],
+															   PHPExcel_Shared_Drawing::EMUToPixels($chartDetails[$chartPositionRef]['fromOffsetX']),
+															   PHPExcel_Shared_Drawing::EMUToPixels($chartDetails[$chartPositionRef]['fromOffsetY'])
+															 );
+								$objChart->setBottomRightPosition( $chartDetails[$chartPositionRef]['toCoordinate'],
+																   PHPExcel_Shared_Drawing::EMUToPixels($chartDetails[$chartPositionRef]['fromOffsetX']),
+																   PHPExcel_Shared_Drawing::EMUToPixels($chartDetails[$chartPositionRef]['fromOffsetY'])
+																 );
+							}
+						}
+				}
+			}
 		}
 
 		$zip->close();
