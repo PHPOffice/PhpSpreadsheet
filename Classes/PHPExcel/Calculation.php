@@ -2517,7 +2517,7 @@ class PHPExcel_Calculation {
 				return ($value) ? self::$_localeBoolean['TRUE'] : self::$_localeBoolean['FALSE'];
 			}
 		}
-		return $value;
+		return PHPExcel_Calculation_Functions::flattenSingleValue($value);
 	}	//	function _showValue()
 
 
@@ -2977,7 +2977,8 @@ class PHPExcel_Calculation {
 		}
 
 		while (($op = $stack->pop()) !== NULL) {	// pop everything off the stack and push onto output
-			if ($opCharacter['value'] == '(') return $this->_raiseFormulaError("Formula Error: Expecting ')'");	// if there are any opening braces on the stack, then braces were unbalanced
+			if ((is_array($opCharacter) && $opCharacter['value'] == '(') || ($opCharacter === '('))
+				return $this->_raiseFormulaError("Formula Error: Expecting ')'");	// if there are any opening braces on the stack, then braces were unbalanced
 			$output[] = $op;
 		}
 		return $output;
@@ -3008,16 +3009,20 @@ class PHPExcel_Calculation {
 
 				$operand1 = $operand1Data['value'];
 				if (($operand1Data['reference'] === NULL) && (is_array($operand1))) {
-					$rowKey = array_shift(array_keys($operand1));
-					$colKey = array_shift(array_keys($operand1[$rowKey]));
+					$rKeys = array_keys($operand1);
+					$rowKey = array_shift($rKeys);
+					$cKeys = array_keys(array_keys($operand1[$rowKey]));
+					$colKey = array_shift($cKeys);
 					if (ctype_upper($colKey)) {
 						$operand1Data['reference'] = $colKey.$rowKey;
 					}
 				}
 				$operand2 = $operand2Data['value'];
 				if (($operand2Data['reference'] === NULL) && (is_array($operand2))) {
-					$rowKey = array_shift(array_keys($operand2));
-					$colKey = array_shift(array_keys($operand2[$rowKey]));
+					$rKeys = array_keys($operand2);
+					$rowKey = array_shift($rKeys);
+					$cKeys = array_keys(array_keys($operand1[$rowKey]));
+					$colKey = array_shift($cKeys);
 					if (ctype_upper($colKey)) {
 						$operand2Data['reference'] = $colKey.$rowKey;
 					}
