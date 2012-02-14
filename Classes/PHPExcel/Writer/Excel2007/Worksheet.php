@@ -725,7 +725,17 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 		if ($pSheet->getAutoFilter() != '') {
 			// autoFilter
 			$objWriter->startElement('autoFilter');
-			$objWriter->writeAttribute('ref',		$pSheet->getAutoFilter());
+
+			// Strip any worksheet reference from the filter coordinates
+			$range = PHPExcel_Cell::splitRange($pSheet->getAutoFilter());
+			$range = $range[0];
+			//	Strip any worksheet ref
+			if (strpos($range[0],'!') !== false) {
+				list($ws,$range[0]) = explode('!',$range[0]);
+			}
+			$range = implode(':', $range);
+
+			$objWriter->writeAttribute('ref',	str_replace('$','',$range));
 			$objWriter->endElement();
 		}
 	}
