@@ -1055,6 +1055,7 @@ class PHPExcel_Writer_Excel5_Parser
 
 		while ($i < $formula_length) {
 			$token .= $this->_formula{$i};
+
 			if ($i < ($formula_length - 1)) {
 				$this->_lookahead = $this->_formula{$i+1};
 			} else {
@@ -1181,6 +1182,11 @@ class PHPExcel_Writer_Excel5_Parser
 				// if it's a function call
 				elseif (preg_match("/^[A-Z0-9\xc0-\xdc\.]+$/i",$token) and ($this->_lookahead == "("))
 				{
+					return $token;
+				}
+				//	It's an argument of some description (e.g. a named range),
+				//		precise nature yet to be determined
+				elseif(substr($token,-1) == ')') {
 					return $token;
 				}
 				return '';
