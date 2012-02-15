@@ -64,6 +64,7 @@ $aTests = array(
 	, '29advancedvaluebinder.php'
 	, '30template.php'
 	, '31docproperties_write.php'
+	, '31docproperties_write-xls.php'
 	, '32chartreadwrite.php'
 	, 'OOCalcReader.php'
 	, 'SylkReader.php'
