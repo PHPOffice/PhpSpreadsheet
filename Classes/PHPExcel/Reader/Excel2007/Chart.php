@@ -295,11 +295,13 @@ class PHPExcel_Reader_Excel2007_Chart
 		} elseif (isset($seriesDetail->multiLvlStrRef)) {
 			$seriesSource = (string) $seriesDetail->multiLvlStrRef->f;
 			$seriesData = self::_chartDataSeriesValuesMultiLevel($seriesDetail->multiLvlStrRef->multiLvlStrCache->children($namespacesChartMeta['c']),'s');
+			$seriesData['pointCount'] = count($seriesData['dataValues']);
 
 			return new PHPExcel_Chart_DataSeriesValues('String',$seriesSource,$seriesData['formatCode'],$seriesData['pointCount'],$seriesData['dataValues'],$marker,$smoothLine);
 		} elseif (isset($seriesDetail->multiLvlNumRef)) {
 			$seriesSource = (string) $seriesDetail->multiLvlNumRef->f;
 			$seriesData = self::_chartDataSeriesValuesMultiLevel($seriesDetail->multiLvlNumRef->multiLvlNumCache->children($namespacesChartMeta['c']),'s');
+			$seriesData['pointCount'] = count($seriesData['dataValues']);
 
 			return new PHPExcel_Chart_DataSeriesValues('String',$seriesSource,$seriesData['formatCode'],$seriesData['pointCount'],$seriesData['dataValues'],$marker,$smoothLine);
 		}
