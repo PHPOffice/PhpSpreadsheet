@@ -54,6 +54,14 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 	private $_readDataOnly = false;
 
 	/**
+	 *	Read charts that are defined in the workbook?
+	 *	Identifies whether the Reader should read the definitions for any charts that exist in the workbook;
+	 *
+	 *	@var	boolean
+	 */
+	private $_includeCharts = false;
+
+	/**
 	 *	Restrict which sheets should be loaded?
 	 *	This property holds an array of worksheet names to be loaded. If null, then all worksheets will be loaded.
 	 *
@@ -105,6 +113,33 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 	 */
 	public function setReadDataOnly($pValue = false) {
 		$this->_readDataOnly = $pValue;
+		return $this;
+	}
+
+	/**
+	 *	Read charts in workbook?
+	 *		If this is true, then the Reader will include any charts that exist in the workbook.
+	 *      Note that a ReadDataOnly value of false overrides, and charts won't be read regardless of the IncludeCharts value.
+	 *		If false (the default) it will ignore any charts defined in the workbook file.
+	 *
+	 *	@return	boolean
+	 */
+	public function getIncludeCharts() {
+		return $this->_includeCharts;
+	}
+
+	/**
+	 *	Set read charts in workbook
+	 *		Set to true, to advise the Reader to include any charts that exist in the workbook.
+	 *      Note that a ReadDataOnly value of false overrides, and charts won't be read regardless of the IncludeCharts value.
+	 *		Set to false (the default) to discard charts.
+	 *
+	 *	@param	boolean	$pValue
+	 *
+	 *	@return	PHPExcel_Reader_Excel2007
+	 */
+	public function setIncludeCharts($pValue = false) {
+		$this->_includeCharts = (boolean) $pValue;
 		return $this;
 	}
 
@@ -1301,9 +1336,11 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 												if ($ele["Type"] == "http://schemas.openxmlformats.org/officeDocument/2006/relationships/image") {
 													$images[(string) $ele["Id"]] = self::dir_add($fileDrawing, $ele["Target"]);
 												} elseif ($ele["Type"] == "http://schemas.openxmlformats.org/officeDocument/2006/relationships/chart") {
-													$charts[self::dir_add($fileDrawing, $ele["Target"])] = array('id'		=> (string) $ele["Id"],
-																												 'sheet'	=> $docSheet->getTitle()
-																												);
+													if ($this->_includeCharts) {
+														$charts[self::dir_add($fileDrawing, $ele["Target"])] = array('id'		=> (string) $ele["Id"],
+																													 'sheet'	=> $docSheet->getTitle()
+																													);
+													}
 												}
 											}
 										}
@@ -1380,7 +1417,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 														$shadow->setAlpha(self::array_item($outerShdw->srgbClr->alpha->attributes(), "val") / 1000);
 													}
 													$objDrawing->setWorksheet($docSheet);
-												} else {
+												} elseif($this->_includeCharts) {
 													$fromCoordinate	= PHPExcel_Cell::stringFromColumnIndex((string) $twoCellAnchor->from->col) . ($twoCellAnchor->from->row + 1);
 													$fromOffsetX	= PHPExcel_Shared_Drawing::EMUToPixels($twoCellAnchor->from->colOff);
 													$fromOffsetY	= PHPExcel_Shared_Drawing::EMUToPixels($twoCellAnchor->from->rowOff);
@@ -1567,28 +1604,31 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 			foreach ($contentTypes->Override as $contentType) {
 				switch ($contentType["ContentType"]) {
 					case "application/vnd.openxmlformats-officedocument.drawingml.chart+xml":
-						$chartEntryRef = ltrim($contentType['PartName'],'/');
-						$chartElements = simplexml_load_string($this->_getFromZipArchive($zip, $chartEntryRef));
-						$objChart = PHPExcel_Reader_Excel2007_Chart::readChart($chartElements,basename($chartEntryRef,'.xml'));
+						if ($this->_includeCharts) {
+							$chartEntryRef = ltrim($contentType['PartName'],'/');
+							$chartElements = simplexml_load_string($this->_getFromZipArchive($zip, $chartEntryRef));
+							$objChart = PHPExcel_Reader_Excel2007_Chart::readChart($chartElements,basename($chartEntryRef,'.xml'));
 
-//						echo 'Chart ',$chartEntryRef,'<br />';
-//						var_dump($charts[$chartEntryRef]);
+//							echo 'Chart ',$chartEntryRef,'<br />';
+//							var_dump($charts[$chartEntryRef]);
 //
-						if (isset($charts[$chartEntryRef])) {
-							$chartPositionRef = $charts[$chartEntryRef]['sheet'].'!'.$charts[$chartEntryRef]['id'];
-//							echo 'Position Ref ',$chartPositionRef,'<br />';
-							if (isset($chartDetails[$chartPositionRef])) {
-//								var_dump($chartDetails[$chartPositionRef]);
-								$excel->getSheetByName($charts[$chartEntryRef]['sheet'])->addChart($objChart);
-								$objChart->setWorksheet($excel->getSheetByName($charts[$chartEntryRef]['sheet']));
-								$objChart->setTopLeftPosition( $chartDetails[$chartPositionRef]['fromCoordinate'],
-															   PHPExcel_Shared_Drawing::EMUToPixels($chartDetails[$chartPositionRef]['fromOffsetX']),
-															   PHPExcel_Shared_Drawing::EMUToPixels($chartDetails[$chartPositionRef]['fromOffsetY'])
-															 );
-								$objChart->setBottomRightPosition( $chartDetails[$chartPositionRef]['toCoordinate'],
-																   PHPExcel_Shared_Drawing::EMUToPixels($chartDetails[$chartPositionRef]['fromOffsetX']),
-																   PHPExcel_Shared_Drawing::EMUToPixels($chartDetails[$chartPositionRef]['fromOffsetY'])
+							if (isset($charts[$chartEntryRef])) {
+								$chartPositionRef = $charts[$chartEntryRef]['sheet'].'!'.$charts[$chartEntryRef]['id'];
+//								echo 'Position Ref ',$chartPositionRef,'<br />';
+								if (isset($chartDetails[$chartPositionRef])) {
+//									var_dump($chartDetails[$chartPositionRef]);
+
+									$excel->getSheetByName($charts[$chartEntryRef]['sheet'])->addChart($objChart);
+									$objChart->setWorksheet($excel->getSheetByName($charts[$chartEntryRef]['sheet']));
+									$objChart->setTopLeftPosition( $chartDetails[$chartPositionRef]['fromCoordinate'],
+																   $chartDetails[$chartPositionRef]['fromOffsetX'],
+																   $chartDetails[$chartPositionRef]['fromOffsetY']
 																 );
+									$objChart->setBottomRightPosition( $chartDetails[$chartPositionRef]['toCoordinate'],
+																	   $chartDetails[$chartPositionRef]['toOffsetX'],
+																	   $chartDetails[$chartPositionRef]['toOffsetY']
+																	 );
+								}
 							}
 						}
 				}

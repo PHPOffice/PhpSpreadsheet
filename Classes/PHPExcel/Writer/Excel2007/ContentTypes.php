@@ -42,7 +42,7 @@ class PHPExcel_Writer_Excel2007_ContentTypes extends PHPExcel_Writer_Excel2007_W
 	 * @return 	string 						XML Output
 	 * @throws 	Exception
 	 */
-	public function writeContentTypes(PHPExcel $pPHPExcel = null)
+	public function writeContentTypes(PHPExcel $pPHPExcel = null, $includeCharts = FALSE)
 	{
 		// Create XML writer
 		$objWriter = null;
@@ -119,11 +119,26 @@ class PHPExcel_Writer_Excel2007_ContentTypes extends PHPExcel_Writer_Excel2007_W
 			);
 
 			// Add worksheet relationship content types
+			$chart = 1;
 			for ($i = 0; $i < $sheetCount; ++$i) {
-				if ($pPHPExcel->getSheet($i)->getDrawingCollection()->count() > 0) {
+				$drawings = $pPHPExcel->getSheet($i)->getDrawingCollection();
+				$drawingCount = count($drawings);
+				$chartCount = ($includeCharts) ? $pPHPExcel->getSheet($i)->getChartCount() : 0;
+
+				//	We need a drawing relationship for the worksheet if we have either drawings or charts
+				if (($drawingCount > 0) || ($chartCount > 0)) {
 					$this->_writeOverrideContentType(
 						$objWriter, '/xl/drawings/drawing' . ($i + 1) . '.xml', 'application/vnd.openxmlformats-officedocument.drawing+xml'
 					);
+				}
+
+				//	If we have charts, then we need a chart relationship for every individual chart
+				if ($chartCount > 0) {
+					for ($c = 0; $c < $chartCount; ++$c) {
+						$this->_writeOverrideContentType(
+							$objWriter, '/xl/charts/chart' . $chart++ . '.xml', 'application/vnd.openxmlformats-officedocument.drawingml.chart+xml'
+						);
+					}
 				}
 			}
 

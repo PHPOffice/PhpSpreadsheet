@@ -42,7 +42,7 @@ class PHPExcel_Writer_Excel2007_Workbook extends PHPExcel_Writer_Excel2007_Write
 	 * @return 	string 		XML Output
 	 * @throws 	Exception
 	 */
-	public function writeWorkbook(PHPExcel $pPHPExcel = null)
+	public function writeWorkbook(PHPExcel $pPHPExcel = null, $recalcRequired = FALSE)
 	{
 		// Create XML writer
 		$objWriter = null;
@@ -82,7 +82,7 @@ class PHPExcel_Writer_Excel2007_Workbook extends PHPExcel_Writer_Excel2007_Write
 			$this->_writeDefinedNames($objWriter, $pPHPExcel);
 
 			// calcPr
-			$this->_writeCalcPr($objWriter);
+			$this->_writeCalcPr($objWriter,$recalcRequired);
 
 		$objWriter->endElement();
 
@@ -188,13 +188,14 @@ class PHPExcel_Writer_Excel2007_Workbook extends PHPExcel_Writer_Excel2007_Write
 	 * @param 	PHPExcel_Shared_XMLWriter $objWriter 		XML Writer
 	 * @throws 	Exception
 	 */
-	private function _writeCalcPr(PHPExcel_Shared_XMLWriter $objWriter = null)
+	private function _writeCalcPr(PHPExcel_Shared_XMLWriter $objWriter = null, $recalcRequired = TRUE)
 	{
 		$objWriter->startElement('calcPr');
 
 		$objWriter->writeAttribute('calcId', 			'124519');
 		$objWriter->writeAttribute('calcMode', 			'auto');
-		$objWriter->writeAttribute('fullCalcOnLoad', 	'1');
+		//	fullCalcOnLoad isn't needed if we've recalculating for the save
+		$objWriter->writeAttribute('fullCalcOnLoad', 	($recalcRequired) ? '0' : '1');
 
 		$objWriter->endElement();
 	}

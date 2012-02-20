@@ -36,6 +36,14 @@
 class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 {
 	/**
+	 *	Write charts that are defined in the workbook?
+	 *	Identifies whether the Writer should write definitions for any charts that exist in the PHPExcel object;
+	 *
+	 *	@var	boolean
+	 */
+	private $_includeCharts = false;
+
+	/**
 	 * Pre-calculate formulas
 	 *
 	 * @var boolean
@@ -145,8 +153,11 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 									'workbook' 		=> 'PHPExcel_Writer_Excel2007_Workbook',
 									'worksheet' 	=> 'PHPExcel_Writer_Excel2007_Worksheet',
 									'drawing' 		=> 'PHPExcel_Writer_Excel2007_Drawing',
-									'comments' 		=> 'PHPExcel_Writer_Excel2007_Comments'
+									'comments' 		=> 'PHPExcel_Writer_Excel2007_Comments',
 								 );
+		if ($this->_includeCharts) {
+			$writerPartsArray['chart'] = 'PHPExcel_Writer_Excel2007_Chart';
+		}
 
     	//	Initialise writer parts
 		//		and Assign their parent IWriters
@@ -241,7 +252,7 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 			}
 
 			// Add [Content_Types].xml to ZIP file
-			$objZip->addFromString('[Content_Types].xml', 			$this->getWriterPart('ContentTypes')->writeContentTypes($this->_spreadSheet));
+			$objZip->addFromString('[Content_Types].xml', 			$this->getWriterPart('ContentTypes')->writeContentTypes($this->_spreadSheet, $this->_includeCharts));
 
 			// Add relationships to ZIP file
 			$objZip->addFromString('_rels/.rels', 					$this->getWriterPart('Rels')->writeRelationships($this->_spreadSheet));
@@ -265,26 +276,43 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 			$objZip->addFromString('xl/styles.xml', 				$this->getWriterPart('Style')->writeStyles($this->_spreadSheet));
 
 			// Add workbook to ZIP file
-			$objZip->addFromString('xl/workbook.xml', 				$this->getWriterPart('Workbook')->writeWorkbook($this->_spreadSheet));
+			$objZip->addFromString('xl/workbook.xml', 				$this->getWriterPart('Workbook')->writeWorkbook($this->_spreadSheet, $this->_preCalculateFormulas));
 
+			$chartCount = 0;
 			// Add worksheets
 			for ($i = 0; $i < $this->_spreadSheet->getSheetCount(); ++$i) {
-				$objZip->addFromString('xl/worksheets/sheet' . ($i + 1) . '.xml', $this->getWriterPart('Worksheet')->writeWorksheet($this->_spreadSheet->getSheet($i), $this->_stringTable));
+				$objZip->addFromString('xl/worksheets/sheet' . ($i + 1) . '.xml', $this->getWriterPart('Worksheet')->writeWorksheet($this->_spreadSheet->getSheet($i), $this->_stringTable, $this->_includeCharts));
+				if ($this->_includeCharts) {
+					$charts = $this->_spreadSheet->getSheet($i)->getChartCollection();
+					if (count($charts) > 0) {
+						foreach($charts as $chart) {
+							$objZip->addFromString('xl/charts/chart' . ($chartCount + 1) . '.xml', $this->getWriterPart('Chart')->writeChart($chart));
+							$chartCount++;
+						}
+					}
+				}
 			}
 
+			$chartRef1 = $chartRef2 = 0;
 			// Add worksheet relationships (drawings, ...)
 			for ($i = 0; $i < $this->_spreadSheet->getSheetCount(); ++$i) {
 
 				// Add relationships
-				$objZip->addFromString('xl/worksheets/_rels/sheet' . ($i + 1) . '.xml.rels', 	$this->getWriterPart('Rels')->writeWorksheetRelationships($this->_spreadSheet->getSheet($i), ($i + 1)));
+				$objZip->addFromString('xl/worksheets/_rels/sheet' . ($i + 1) . '.xml.rels', 	$this->getWriterPart('Rels')->writeWorksheetRelationships($this->_spreadSheet->getSheet($i), ($i + 1), $this->_includeCharts));
 
-				// Add drawing relationship parts
-				if ($this->_spreadSheet->getSheet($i)->getDrawingCollection()->count() > 0) {
+				$drawings = $this->_spreadSheet->getSheet($i)->getDrawingCollection();
+				$drawingCount = count($drawings);
+				if ($this->_includeCharts) {
+					$chartCount = $this->_spreadSheet->getSheet($i)->getChartCount();
+				}
+
+				// Add drawing and image relationship parts
+				if (($drawingCount > 0) || ($chartCount > 0)) {
 					// Drawing relationships
-					$objZip->addFromString('xl/drawings/_rels/drawing' . ($i + 1) . '.xml.rels', $this->getWriterPart('Rels')->writeDrawingRelationships($this->_spreadSheet->getSheet($i)));
+					$objZip->addFromString('xl/drawings/_rels/drawing' . ($i + 1) . '.xml.rels', $this->getWriterPart('Rels')->writeDrawingRelationships($this->_spreadSheet->getSheet($i),$chartRef1, $this->_includeCharts));
 
 					// Drawings
-					$objZip->addFromString('xl/drawings/drawing' . ($i + 1) . '.xml', $this->getWriterPart('Drawing')->writeDrawings($this->_spreadSheet->getSheet($i)));
+					$objZip->addFromString('xl/drawings/drawing' . ($i + 1) . '.xml', $this->getWriterPart('Drawing')->writeDrawings($this->_spreadSheet->getSheet($i),$chartRef2,$this->_includeCharts));
 				}
 
 				// Add comment relationship parts
@@ -452,6 +480,31 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
     public function getDrawingHashTable() {
     	return $this->_drawingHashTable;
     }
+
+	/**
+	 *	Write charts in workbook?
+	 *		If this is true, then the Writer will write definitions for any charts that exist in the PHPExcel object.
+	 *		If false (the default) it will ignore any charts defined in the PHPExcel object.
+	 *
+	 *	@return	boolean
+	 */
+	public function getIncludeCharts() {
+		return $this->_includeCharts;
+	}
+
+	/**
+	 *	Set write charts in workbook
+	 *		Set to true, to advise the Writer to include any charts that exist in the PHPExcel object.
+	 *		Set to false (the default) to ignore charts.
+	 *
+	 *	@param	boolean	$pValue
+	 *
+	 *	@return	PHPExcel_Writer_Excel2007
+	 */
+	public function setIncludeCharts($pValue = false) {
+		$this->_includeCharts = (boolean) $pValue;
+		return $this;
+	}
 
     /**
      * Get Pre-Calculate Formulas

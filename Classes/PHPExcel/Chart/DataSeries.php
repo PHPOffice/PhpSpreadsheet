@@ -314,4 +314,22 @@ class PHPExcel_Chart_DataSeries
 		return count($this->_plotValues);
 	}
 
+	/**
+	 * Get Smooth Line
+	 *
+	 * @return boolean
+	 */
+	public function getSmoothLine() {
+		return $this->_smoothLine;
+	}
+
+	/**
+	 * Set Smooth Line
+	 *
+	 * @param boolean $smoothLine
+	 */
+	public function setSmoothLine($smoothLine = TRUE) {
+		$this->_smoothLine = $smoothLine;
+	}
+
 }

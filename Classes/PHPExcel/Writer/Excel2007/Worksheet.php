@@ -43,7 +43,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 	 * @return	string					XML Output
 	 * @throws	Exception
 	 */
-	public function writeWorksheet($pSheet = null, $pStringTable = null)
+	public function writeWorksheet($pSheet = null, $pStringTable = null, $includeCharts = FALSE)
 	{
 		if (!is_null($pSheet)) {
 			// Create XML writer
@@ -117,8 +117,8 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 				// Breaks
 				$this->_writeBreaks($objWriter, $pSheet);
 
-				// Drawings
-				$this->_writeDrawings($objWriter, $pSheet);
+				// Drawings and/or Charts
+				$this->_writeDrawings($objWriter, $pSheet, $includeCharts);
 
 				// LegacyDrawing
 				$this->_writeLegacyDrawing($objWriter, $pSheet);
@@ -1083,10 +1083,12 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 	 * @param	PHPExcel_Worksheet				$pSheet			Worksheet
 	 * @throws	Exception
 	 */
-	private function _writeDrawings(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_Worksheet $pSheet = null)
+	private function _writeDrawings(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_Worksheet $pSheet = null, $includeCharts = FALSE)
 	{
+		$chartCount = ($includeCharts) ? $pSheet->getChartCollection()->count() : 0;
 		// If sheet contains drawings, add the relationships
-		if ($pSheet->getDrawingCollection()->count() > 0) {
+		if (($pSheet->getDrawingCollection()->count() > 0) ||
+			($chartCount > 0)) {
 			$objWriter->startElement('drawing');
 			$objWriter->writeAttribute('r:id', 'rId1');
 			$objWriter->endElement();

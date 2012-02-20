@@ -178,7 +178,7 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
 	 * @return 	string 					XML Output
 	 * @throws 	Exception
 	 */
-	public function writeWorksheetRelationships(PHPExcel_Worksheet $pWorksheet = null, $pWorksheetId = 1)
+	public function writeWorksheetRelationships(PHPExcel_Worksheet $pWorksheet = null, $pWorksheetId = 1, $includeCharts = FALSE)
 	{
 		// Create XML writer
 		$objWriter = null;
@@ -196,15 +196,37 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
 		$objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/package/2006/relationships');
 
 			// Write drawing relationships?
-			if ($pWorksheet->getDrawingCollection()->count() > 0) {
+			$d = 0;
+			if ($includeCharts) {
+				$charts = $pWorksheet->getChartCollection();
+			} else {
+				$charts = array();
+			}
+			if (($pWorksheet->getDrawingCollection()->count() > 0) ||
+				(count($charts) > 0)) {
 				$this->_writeRelationship(
 					$objWriter,
-					1,
+					++$d,
 					'http://schemas.openxmlformats.org/officeDocument/2006/relationships/drawing',
 					'../drawings/drawing' . $pWorksheetId . '.xml'
 				);
 			}
 
+			// Write chart relationships?
+//			$chartCount = 0;
+//			$charts = $pWorksheet->getChartCollection();
+//			echo 'Chart Rels: ' , count($charts) , '<br />';
+//			if (count($charts) > 0) {
+//				foreach($charts as $chart) {
+//					$this->_writeRelationship(
+//						$objWriter,
+//						++$d,
+//						'http://schemas.openxmlformats.org/officeDocument/2006/relationships/chart',
+//						'../charts/chart' . ++$chartCount . '.xml'
+//					);
+//				}
+//			}
+//
 			// Write hyperlink relationships?
 			$i = 1;
 			foreach ($pWorksheet->getHyperlinkCollection() as $hyperlink) {
@@ -263,7 +285,7 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
 	 * @return 	string 						XML Output
 	 * @throws 	Exception
 	 */
-	public function writeDrawingRelationships(PHPExcel_Worksheet $pWorksheet = null)
+	public function writeDrawingRelationships(PHPExcel_Worksheet $pWorksheet = null, &$chartRef, $includeCharts = FALSE)
 	{
 		// Create XML writer
 		$objWriter = null;
@@ -297,6 +319,21 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
 
 				$iterator->next();
 				++$i;
+			}
+
+			if ($includeCharts) {
+				// Loop through charts and write relationships
+				$chartCount = $pWorksheet->getChartCount();
+				if ($chartCount > 0) {
+					for ($c = 0; $c < $chartCount; ++$c) {
+						$this->_writeRelationship(
+							$objWriter,
+							$i++,
+							'http://schemas.openxmlformats.org/officeDocument/2006/relationships/chart',
+							'../charts/chart' . ++$chartRef . '.xml'
+						);
+					}
+				}
 			}
 
 		$objWriter->endElement();

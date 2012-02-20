@@ -1,0 +1,827 @@
+<?php
+/**
+ * PHPExcel
+ *
+ * Copyright (c) 2006 - 2011 PHPExcel
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_Writer_Excel2007
+ * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version    ##VERSION##, ##DATE##
+ */
+
+
+/**
+ * PHPExcel_Writer_Excel2007_Chart
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_Writer_Excel2007
+ * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
+ */
+class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPart
+{
+	/**
+	 * Write charts to XML format
+	 *
+	 * @param 	PHPExcel_Chart				$pChart
+	 * @return 	string 						XML Output
+	 * @throws 	Exception
+	 */
+	public function writeChart(PHPExcel_Chart $pChart = null)
+	{
+		// Create XML writer
+		$objWriter = null;
+		if ($this->getParentWriter()->getUseDiskCaching()) {
+			$objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+		} else {
+			$objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_MEMORY);
+		}
+
+		// XML header
+		$objWriter->startDocument('1.0','UTF-8','yes');
+
+		// c:chartSpace
+		$objWriter->startElement('c:chartSpace');
+			$objWriter->writeAttribute('xmlns:c', 'http://schemas.openxmlformats.org/drawingml/2006/chart');
+			$objWriter->writeAttribute('xmlns:a', 'http://schemas.openxmlformats.org/drawingml/2006/main');
+			$objWriter->writeAttribute('xmlns:r', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships');
+
+			$objWriter->startElement('c:date1904');
+				$objWriter->writeAttribute('val', 0);
+			$objWriter->endElement();
+			$objWriter->startElement('c:lang');
+				$objWriter->writeAttribute('val', "en-GB");
+			$objWriter->endElement();
+			$objWriter->startElement('c:roundedCorners');
+				$objWriter->writeAttribute('val', 0);
+			$objWriter->endElement();
+
+			$this->_writeAlternateContent($objWriter);
+
+			$objWriter->startElement('c:chart');
+
+				$this->_writeTitle($pChart->getTitle(), $objWriter);
+
+				$objWriter->startElement('c:autoTitleDeleted');
+					$objWriter->writeAttribute('val', 0);
+				$objWriter->endElement();
+
+				$this->_writePlotArea($pChart->getPlotArea(), $pChart->getXAxisLabel(), $pChart->getYAxisLabel(), $objWriter);
+
+				$this->_writeLegend($pChart->getLegend(), $objWriter);
+
+
+				$objWriter->startElement('c:plotVisOnly');
+					$objWriter->writeAttribute('val', 1);
+				$objWriter->endElement();
+
+				$objWriter->startElement('c:dispBlanksAs');
+					$objWriter->writeAttribute('val', "gap");
+				$objWriter->endElement();
+
+				$objWriter->startElement('c:showDLblsOverMax');
+					$objWriter->writeAttribute('val', 0);
+				$objWriter->endElement();
+
+			$objWriter->endElement();
+
+			$this->_writePrintSettings($objWriter);
+
+		$objWriter->endElement();
+
+		// Return
+		return $objWriter->getData();
+	}
+
+	private function _writeTitle(PHPExcel_Chart_Title $title = null, $objWriter)
+	{
+		if (is_null($title)) {
+			return;
+		}
+
+		$objWriter->startElement('c:title');
+			$objWriter->startElement('c:tx');
+				$objWriter->startElement('c:rich');
+					$objWriter->startElement('a:p');
+
+						$caption = $title->getCaption();
+						if (is_array($caption))
+							$caption = $caption[0];
+						$this->getParentWriter()->getWriterPart('stringtable')->writeRichText($objWriter, $caption, 'a');
+
+					$objWriter->endElement();
+				$objWriter->endElement();
+			$objWriter->endElement();
+
+			$layout = $title->getLayout();
+			$this->_writeLayout($layout, $objWriter);
+
+			$objWriter->startElement('c:overlay');
+				$objWriter->writeAttribute('val', 0);
+			$objWriter->endElement();
+
+		$objWriter->endElement();
+	}
+
+	private function _writeLegend(PHPExcel_Chart_Legend $legend = null, $objWriter)
+	{
+		if (is_null($legend)) {
+			return;
+		}
+
+		$objWriter->startElement('c:legend');
+
+			$objWriter->startElement('c:legendPos');
+				$objWriter->writeAttribute('val', $legend->getPosition());
+			$objWriter->endElement();
+
+			$layout = $legend->getLayout();
+			$this->_writeLayout($layout, $objWriter);
+
+			$objWriter->startElement('c:overlay');
+				$objWriter->writeAttribute('val', ($legend->getOverlay()) ? '1' : '0');
+			$objWriter->endElement();
+
+			$objWriter->startElement('c:txPr');
+				$objWriter->startElement('a:bodyPr');
+				$objWriter->endElement();
+
+				$objWriter->startElement('a:lstStyle');
+				$objWriter->endElement();
+
+				$objWriter->startElement('a:p');
+					$objWriter->startElement('a:pPr');
+						$objWriter->writeAttribute('rtl', 0);
+
+						$objWriter->startElement('a:defRPr');
+						$objWriter->endElement();
+					$objWriter->endElement();
+
+					$objWriter->startElement('a:endParaRPr');
+						$objWriter->writeAttribute('lang', "en-US");
+					$objWriter->endElement();
+
+				$objWriter->endElement();
+			$objWriter->endElement();
+
+		$objWriter->endElement();
+	}
+
+	private function _writePlotArea(PHPExcel_Chart_PlotArea $plotArea,
+									PHPExcel_Chart_Title $xAxisLabel = NULL,
+									PHPExcel_Chart_Title $yAxisLabel = NULL,
+									$objWriter)
+	{
+		if (is_null($plotArea)) {
+			return;
+		}
+
+		$id1 = $id2 = 0;
+		$objWriter->startElement('c:plotArea');
+
+			$layout = $plotArea->getLayout();
+			$this->_writeLayout($layout, $objWriter);
+
+			$chartTypes = self::_getChartType($plotArea);
+			$catIsMultiLevelSeries = $valIsMultiLevelSeries = FALSE;
+			foreach($chartTypes as $chartType) {
+				$objWriter->startElement('c:'.$chartType);
+
+					$groupCount = $plotArea->getPlotGroupCount();
+					for($i = 0; $i < $groupCount; ++$i) {
+						$plotGroup = $plotArea->getPlotGroupByIndex($i);
+						$groupType = $plotGroup->getPlotType();
+						if ($groupType == $chartType) {
+							$this->_writePlotGroup($plotGroup, $groupType, $objWriter, $catIsMultiLevelSeries, $valIsMultiLevelSeries);
+						}
+					}
+
+					$this->_writeDataLbls($objWriter);
+
+					if (($groupType === PHPExcel_Chart_DataSeries::TYPE_LINECHART) ||
+						($groupType === PHPExcel_Chart_DataSeries::TYPE_LINECHART_3D) ||
+						($groupType === PHPExcel_Chart_DataSeries::TYPE_AREACHART) ||
+						($groupType === PHPExcel_Chart_DataSeries::TYPE_AREACHART_3D)) {
+						$objWriter->startElement('c:smooth');
+							$objWriter->writeAttribute('val', (integer) $plotGroup->getSmoothLine() );
+						$objWriter->endElement();
+					} elseif (($groupType === PHPExcel_Chart_DataSeries::TYPE_BARCHART) ||
+						($groupType === PHPExcel_Chart_DataSeries::TYPE_BARCHART_3D)) {
+						$objWriter->startElement('c:gapWidth');
+							$objWriter->writeAttribute('val', 150 );
+						$objWriter->endElement();
+					}
+
+					if (($groupType !== PHPExcel_Chart_DataSeries::TYPE_PIECHART) &&
+						($groupType !== PHPExcel_Chart_DataSeries::TYPE_PIECHART_3D) &&
+						($groupType !== PHPExcel_Chart_DataSeries::TYPE_DONUTCHART)) {
+						//	Generate 2 unique numbers to use for axId values
+						$id1 = $id2 = rand(10000000,99999999);
+						do {
+							$id2 = rand(10000000,99999999);
+						} while ($id1 == $id2);
+
+						$objWriter->startElement('c:axId');
+							$objWriter->writeAttribute('val', $id1 );
+						$objWriter->endElement();
+						$objWriter->startElement('c:axId');
+							$objWriter->writeAttribute('val', $id2 );
+						$objWriter->endElement();
+					} else {
+						$objWriter->startElement('c:firstSliceAng');
+							$objWriter->writeAttribute('val', 0);
+						$objWriter->endElement();
+					}
+
+				$objWriter->endElement();
+			}
+
+			$this->_writeCatAx($objWriter,$plotArea,$xAxisLabel,$id1,$id2,$catIsMultiLevelSeries);
+
+			$this->_writeValAx($objWriter,$plotArea,$yAxisLabel,$id1,$id2,$valIsMultiLevelSeries);
+
+		$objWriter->endElement();
+	}
+
+	private function _writeDataLbls($objWriter)
+	{
+		$objWriter->startElement('c:dLbls');
+
+			$objWriter->startElement('c:showLegendKey');
+				$objWriter->writeAttribute('val', 0);
+			$objWriter->endElement();
+
+			$objWriter->startElement('c:showVal');
+				$objWriter->writeAttribute('val', 0);
+			$objWriter->endElement();
+
+			$objWriter->startElement('c:showCatName');
+				$objWriter->writeAttribute('val', 0);
+			$objWriter->endElement();
+
+			$objWriter->startElement('c:showSerName');
+				$objWriter->writeAttribute('val', 0);
+			$objWriter->endElement();
+
+			$objWriter->startElement('c:showPercent');
+				$objWriter->writeAttribute('val', 0);
+			$objWriter->endElement();
+
+			$objWriter->startElement('c:showBubbleSize');
+				$objWriter->writeAttribute('val', 0);
+			$objWriter->endElement();
+
+			$objWriter->startElement('c:showLeaderLines');
+				$objWriter->writeAttribute('val', 1);
+			$objWriter->endElement();
+
+		$objWriter->endElement();
+	}
+
+	private function _writeCatAx($objWriter, PHPExcel_Chart_PlotArea $plotArea, $xAxisLabel, $id1, $id2, $isMultiLevelSeries)
+	{
+		$objWriter->startElement('c:catAx');
+
+			if ($id1 > 0) {
+				$objWriter->startElement('c:axId');
+					$objWriter->writeAttribute('val', $id1);
+				$objWriter->endElement();
+			}
+
+			$objWriter->startElement('c:scaling');
+				$objWriter->startElement('c:orientation');
+					$objWriter->writeAttribute('val', "minMax");
+				$objWriter->endElement();
+			$objWriter->endElement();
+
+			$objWriter->startElement('c:delete');
+				$objWriter->writeAttribute('val', 0);
+			$objWriter->endElement();
+
+			$objWriter->startElement('c:axPos');
+				$objWriter->writeAttribute('val', "b");
+			$objWriter->endElement();
+
+			$objWriter->startElement('c:numFmt');
+				$objWriter->writeAttribute('formatCode', "General");
+				$objWriter->writeAttribute('sourceLinked', 1);
+			$objWriter->endElement();
+
+			$objWriter->startElement('c:majorTickMark');
+				$objWriter->writeAttribute('val', "out");
+			$objWriter->endElement();
+
+			$objWriter->startElement('c:minorTickMark');
+				$objWriter->writeAttribute('val', "none");
+			$objWriter->endElement();
+
+			$objWriter->startElement('c:tickLblPos');
+				$objWriter->writeAttribute('val', "nextTo");
+			$objWriter->endElement();
+
+			if (!is_null($xAxisLabel)) {
+				$objWriter->startElement('c:title');
+					$objWriter->startElement('c:tx');
+						$objWriter->startElement('c:rich');
+							$objWriter->startElement('a:p');
+
+								$caption = $xAxisLabel->getCaption();
+								if (is_array($caption))
+									$caption = $caption[0];
+								$this->getParentWriter()->getWriterPart('stringtable')->writeRichText($objWriter, $caption, 'a');
+
+							$objWriter->endElement();
+						$objWriter->endElement();
+					$objWriter->endElement();
+				$objWriter->endElement();
+
+				$objWriter->startElement('c:overlay');
+					$objWriter->writeAttribute('val', 0);
+				$objWriter->endElement();
+
+				$layout = $xAxisLabel->getLayout();
+				$this->_writeLayout($layout, $objWriter);
+
+			}
+
+			if ($id2 > 0) {
+				$objWriter->startElement('c:crossAx');
+					$objWriter->writeAttribute('val', $id2);
+				$objWriter->endElement();
+
+				$objWriter->startElement('c:crosses');
+					$objWriter->writeAttribute('val', "autoZero");
+				$objWriter->endElement();
+			}
+
+			$objWriter->startElement('c:auto');
+				$objWriter->writeAttribute('val', 1);
+			$objWriter->endElement();
+
+			$objWriter->startElement('c:lblAlgn');
+				$objWriter->writeAttribute('val', "ctr");
+			$objWriter->endElement();
+
+			$objWriter->startElement('c:lblOffset');
+				$objWriter->writeAttribute('val', 100);
+			$objWriter->endElement();
+
+			if ($isMultiLevelSeries) {
+				$objWriter->startElement('c:noMultiLvlLbl');
+					$objWriter->writeAttribute('val', 0);
+				$objWriter->endElement();
+			}
+		$objWriter->endElement();
+
+	}
+
+
+	private function _writeValAx($objWriter, PHPExcel_Chart_PlotArea $plotArea, $yAxisLabel, $id1, $id2, $isMultiLevelSeries)
+	{
+		$objWriter->startElement('c:valAx');
+
+			if ($id2 > 0) {
+				$objWriter->startElement('c:axId');
+					$objWriter->writeAttribute('val', $id2);
+				$objWriter->endElement();
+			}
+
+			$objWriter->startElement('c:scaling');
+				$objWriter->startElement('c:orientation');
+					$objWriter->writeAttribute('val', "minMax");
+				$objWriter->endElement();
+			$objWriter->endElement();
+
+			$objWriter->startElement('c:delete');
+				$objWriter->writeAttribute('val', 0);
+			$objWriter->endElement();
+
+			$objWriter->startElement('c:axPos');
+				$objWriter->writeAttribute('val', "l");
+			$objWriter->endElement();
+
+			$objWriter->startElement('c:majorGridlines');
+			$objWriter->endElement();
+
+			$objWriter->startElement('c:numFmt');
+				$objWriter->writeAttribute('formatCode', "General");
+				$objWriter->writeAttribute('sourceLinked', 1);
+			$objWriter->endElement();
+
+			$objWriter->startElement('c:majorTickMark');
+				$objWriter->writeAttribute('val', "out");
+			$objWriter->endElement();
+
+			$objWriter->startElement('c:minorTickMark');
+				$objWriter->writeAttribute('val', "none");
+			$objWriter->endElement();
+
+			$objWriter->startElement('c:tickLblPos');
+				$objWriter->writeAttribute('val', "nextTo");
+			$objWriter->endElement();
+
+			if (!is_null($yAxisLabel)) {
+				$objWriter->startElement('c:title');
+					$objWriter->startElement('c:tx');
+						$objWriter->startElement('c:rich');
+							$objWriter->startElement('a:p');
+
+								$caption = $yAxisLabel->getCaption();
+								if (is_array($caption))
+									$caption = $caption[0];
+								$this->getParentWriter()->getWriterPart('stringtable')->writeRichText($objWriter, $caption, 'a');
+
+							$objWriter->endElement();
+						$objWriter->endElement();
+					$objWriter->endElement();
+
+					$objWriter->startElement('c:overlay');
+						$objWriter->writeAttribute('val', 0);
+					$objWriter->endElement();
+
+					$layout = $yAxisLabel->getLayout();
+					$this->_writeLayout($layout, $objWriter);
+
+				$objWriter->endElement();
+			}
+
+			if ($id1 > 0) {
+				$objWriter->startElement('c:crossAx');
+					$objWriter->writeAttribute('val', $id2);
+				$objWriter->endElement();
+
+				$objWriter->startElement('c:crosses');
+					$objWriter->writeAttribute('val', "autoZero");
+				$objWriter->endElement();
+
+				$objWriter->startElement('c:crossBetween');
+					$objWriter->writeAttribute('val', "midCat");
+				$objWriter->endElement();
+			}
+
+			if ($isMultiLevelSeries) {
+				$objWriter->startElement('c:noMultiLvlLbl');
+					$objWriter->writeAttribute('val', 0);
+				$objWriter->endElement();
+			}
+		$objWriter->endElement();
+
+	}
+
+
+	private static function _getChartType($plotArea)
+	{
+		$groupCount = $plotArea->getPlotGroupCount();
+		if ($groupCount == 1) {
+			$chartType = array($plotArea->getPlotGroupByIndex(0)->getPlotType());
+		} else {
+			$chartTypes = array();
+			for($i = 0; $i < $groupCount; ++$i) {
+				$chartTypes[] = $plotArea->getPlotGroupByIndex($i)->getPlotType();
+			}
+			$chartType = array_unique($chartTypes);
+			if (count($chartTypes) == 0) {
+				throw new Exception('Chart is not yet implemented');
+			}
+		}
+
+		return $chartType;
+	}
+
+	private function _writePlotGroup($plotGroup, $groupType, $objWriter, &$catIsMultiLevelSeries, &$valIsMultiLevelSeries)
+	{
+		if (is_null($plotGroup)) {
+			return;
+		}
+
+		if (($groupType == PHPExcel_Chart_DataSeries::TYPE_BARCHART) ||
+			($groupType == PHPExcel_Chart_DataSeries::TYPE_BARCHART_3D)) {
+			$objWriter->startElement('c:barDir');
+				$objWriter->writeAttribute('val', $plotGroup->getPlotDirection());
+			$objWriter->endElement();
+		}
+
+		if (!is_null($plotGroup->getPlotGrouping())) {
+			$objWriter->startElement('c:grouping');
+				$objWriter->writeAttribute('val', $plotGroup->getPlotGrouping());
+			$objWriter->endElement();
+		}
+
+		//	TODO	Set to 1 if any plotseries values don't have style colours defined, otherwise set to 0
+		$objWriter->startElement('c:varyColors');
+			$objWriter->writeAttribute('val', 1);
+		$objWriter->endElement();
+
+		$plotSeriesOrder = $plotGroup->getPlotOrder();
+		$plotSeriesCount = count($plotSeriesOrder);
+		foreach($plotSeriesOrder as $plotSeriesIdx => $plotSeriesRef) {
+			$objWriter->startElement('c:ser');
+
+				$objWriter->startElement('c:idx');
+					$objWriter->writeAttribute('val', $plotSeriesIdx);
+				$objWriter->endElement();
+
+				$objWriter->startElement('c:order');
+					$objWriter->writeAttribute('val', $plotSeriesRef);
+				$objWriter->endElement();
+
+				if (($groupType == PHPExcel_Chart_DataSeries::TYPE_PIECHART) ||
+					($groupType == PHPExcel_Chart_DataSeries::TYPE_PIECHART_3D) ||
+					($groupType == PHPExcel_Chart_DataSeries::TYPE_DONUTCHART)) {
+					$objWriter->startElement('c:dPt');
+						$objWriter->startElement('c:idx');
+							$objWriter->writeAttribute('val', 3);
+						$objWriter->endElement();
+
+						$objWriter->startElement('c:bubble3D');
+							$objWriter->writeAttribute('val', 0);
+						$objWriter->endElement();
+
+						$objWriter->startElement('c:spPr');
+							$objWriter->startElement('a:solidFill');
+								$objWriter->startElement('a:srgbClr');
+									$objWriter->writeAttribute('val', 'FF9900');
+								$objWriter->endElement();
+							$objWriter->endElement();
+						$objWriter->endElement();
+					$objWriter->endElement();
+				}
+
+				//	Labels
+				$plotSeriesLabel = $plotGroup->getPlotLabelByIndex($plotSeriesRef);
+				if ($plotSeriesLabel && ($plotSeriesLabel->getPointCount() > 0)) {
+					$objWriter->startElement('c:tx');
+						$objWriter->startElement('c:strRef');
+							$this->_writePlotSeriesLabel($plotSeriesLabel, $objWriter);
+						$objWriter->endElement();
+					$objWriter->endElement();
+				}
+
+				//	Formatting for the points
+				if ($groupType == PHPExcel_Chart_DataSeries::TYPE_LINECHART) {
+					$objWriter->startElement('c:spPr');
+						$objWriter->startElement('a:ln');
+							$objWriter->writeAttribute('w', 12700);
+						$objWriter->endElement();
+					$objWriter->endElement();
+				}
+
+				if (($groupType !== PHPExcel_Chart_DataSeries::TYPE_PIECHART) &&
+					($groupType !== PHPExcel_Chart_DataSeries::TYPE_PIECHART_3D) &&
+					($groupType !== PHPExcel_Chart_DataSeries::TYPE_DONUTCHART)) {
+
+					$objWriter->startElement('c:invertIfNegative');
+						$objWriter->writeAttribute('val', 0);
+					$objWriter->endElement();
+				}
+
+				//	Category Labels
+				$plotSeriesCategory = $plotGroup->getPlotCategoryByIndex($plotSeriesRef);
+				if ($plotSeriesCategory && ($plotSeriesCategory->getPointCount() > 0)) {
+					$catIsMultiLevelSeries = $catIsMultiLevelSeries || $plotSeriesCategory->isMultiLevelSeries();
+					$objWriter->startElement('c:cat');
+						$this->_writePlotSeriesValues($plotSeriesCategory, $objWriter, 'str');
+					$objWriter->endElement();
+				}
+
+				//	Values
+				$plotSeriesValues = $plotGroup->getPlotValuesByIndex($plotSeriesRef);
+				if ($plotSeriesValues) {
+					$valIsMultiLevelSeries = $valIsMultiLevelSeries || $plotSeriesValues->isMultiLevelSeries();
+					$objWriter->startElement('c:val');
+						$this->_writePlotSeriesValues($plotSeriesValues, $objWriter, 'num');
+					$objWriter->endElement();
+				}
+
+			$objWriter->endElement();
+
+		}
+	}
+
+	private function _writePlotSeriesLabel($plotSeriesLabel, $objWriter)
+	{
+		if (is_null($plotSeriesLabel)) {
+			return;
+		}
+
+		$objWriter->startElement('c:f');
+			$objWriter->writeRawData($plotSeriesLabel->getDataSource());
+		$objWriter->endElement();
+
+		$objWriter->startElement('c:strCache');
+			$objWriter->startElement('c:ptCount');
+				$objWriter->writeAttribute('val', $plotSeriesLabel->getPointCount() );
+			$objWriter->endElement();
+
+			foreach($plotSeriesLabel->getDataValues() as $plotLabelKey => $plotLabelValue) {
+				$objWriter->startElement('c:pt');
+					$objWriter->writeAttribute('idx', $plotLabelKey );
+
+					$objWriter->startElement('c:v');
+						$objWriter->writeRawData( $plotLabelValue );
+					$objWriter->endElement();
+				$objWriter->endElement();
+			}
+		$objWriter->endElement();
+
+	}
+
+	private function _writePlotSeriesValues($plotSeriesValues, $objWriter, $dataType='str')
+	{
+		if (is_null($plotSeriesValues)) {
+			return;
+		}
+
+		if ($plotSeriesValues->isMultiLevelSeries()) {
+			$levelCount = $plotSeriesValues->multiLevelCount();
+
+			$objWriter->startElement('c:multiLvlStrRef');
+
+				$objWriter->startElement('c:f');
+					$objWriter->writeRawData( $plotSeriesValues->getDataSource() );
+				$objWriter->endElement();
+
+				$objWriter->startElement('c:multiLvlStrCache');
+
+					$objWriter->startElement('c:ptCount');
+						$objWriter->writeAttribute('val', $plotSeriesValues->getPointCount() );
+					$objWriter->endElement();
+
+					for ($level = 0; $level < $levelCount; ++$level) {
+						$objWriter->startElement('c:lvl');
+
+						foreach($plotSeriesValues->getDataValues() as $plotSeriesKey => $plotSeriesValue) {
+							if (isset($plotSeriesValue[$level])) {
+								$objWriter->startElement('c:pt');
+									$objWriter->writeAttribute('idx', $plotSeriesKey );
+
+									$objWriter->startElement('c:v');
+										$objWriter->writeRawData( $plotSeriesValue[$level] );
+									$objWriter->endElement();
+								$objWriter->endElement();
+							}
+						}
+
+						$objWriter->endElement();
+					}
+
+				$objWriter->endElement();
+
+			$objWriter->endElement();
+		} else {
+			$objWriter->startElement('c:'.$dataType.'Ref');
+
+				$objWriter->startElement('c:f');
+					$objWriter->writeRawData( $plotSeriesValues->getDataSource() );
+				$objWriter->endElement();
+
+				$objWriter->startElement('c:'.$dataType.'Cache');
+
+					$objWriter->startElement('c:formatCode');
+						$objWriter->writeRawData( $plotSeriesValues->getFormatCode() );
+					$objWriter->endElement();
+
+					$objWriter->startElement('c:ptCount');
+						$objWriter->writeAttribute('val', $plotSeriesValues->getPointCount() );
+					$objWriter->endElement();
+
+					foreach($plotSeriesValues->getDataValues() as $plotSeriesKey => $plotSeriesValue) {
+						$objWriter->startElement('c:pt');
+							$objWriter->writeAttribute('idx', $plotSeriesKey );
+
+							$objWriter->startElement('c:v');
+								$objWriter->writeRawData( $plotSeriesValue );
+							$objWriter->endElement();
+						$objWriter->endElement();
+					}
+
+				$objWriter->endElement();
+
+			$objWriter->endElement();
+		}
+	}
+
+	private function _writeLayout(PHPExcel_Chart_Layout $layout = NULL, $objWriter)
+	{
+		$objWriter->startElement('c:layout');
+
+			if (!is_null($layout)) {
+				$objWriter->startElement('c:manualLayout');
+
+					$layoutTarget = $layout->getLayoutTarget();
+					if (!is_null($layoutTarget)) {
+						$objWriter->startElement('c:layoutTarget');
+							$objWriter->writeAttribute('val', $layoutTarget);
+						$objWriter->endElement();
+					}
+
+					$xMode = $layout->getXMode();
+					if (!is_null($xMode)) {
+						$objWriter->startElement('c:xMode');
+							$objWriter->writeAttribute('val', $xMode);
+						$objWriter->endElement();
+					}
+
+					$yMode = $layout->getYMode();
+					if (!is_null($yMode)) {
+						$objWriter->startElement('c:yMode');
+							$objWriter->writeAttribute('val', $yMode);
+						$objWriter->endElement();
+					}
+
+					$x = $layout->getXPosition();
+					if (!is_null($x)) {
+						$objWriter->startElement('c:x');
+							$objWriter->writeAttribute('val', $x);
+						$objWriter->endElement();
+					}
+
+					$y = $layout->getYPosition();
+					if (!is_null($y)) {
+						$objWriter->startElement('c:y');
+							$objWriter->writeAttribute('val', $y);
+						$objWriter->endElement();
+					}
+
+					$w = $layout->getWidth();
+					if (!is_null($w)) {
+						$objWriter->startElement('c:w');
+							$objWriter->writeAttribute('val', $w);
+						$objWriter->endElement();
+					}
+
+					$h = $layout->getHeight();
+					if (!is_null($h)) {
+						$objWriter->startElement('c:h');
+							$objWriter->writeAttribute('val', $h);
+						$objWriter->endElement();
+					}
+
+				$objWriter->endElement();
+			}
+
+		$objWriter->endElement();
+	}
+
+	private function _writeAlternateContent($objWriter)
+	{
+		$objWriter->startElement('mc:AlternateContent');
+			$objWriter->writeAttribute('xmlns:mc', 'http://schemas.openxmlformats.org/markup-compatibility/2006');
+
+			$objWriter->startElement('mc:Choice');
+				$objWriter->writeAttribute('xmlns:c14', 'http://schemas.microsoft.com/office/drawing/2007/8/2/chart');
+				$objWriter->writeAttribute('Requires', 'c14');
+
+				$objWriter->startElement('c14:style');
+					$objWriter->writeAttribute('val', '102');
+				$objWriter->endElement();
+			$objWriter->endElement();
+
+			$objWriter->startElement('mc:Fallback');
+				$objWriter->startElement('c:style');
+					$objWriter->writeAttribute('val', '2');
+				$objWriter->endElement();
+			$objWriter->endElement();
+
+		$objWriter->endElement();
+	}
+
+	private function _writePrintSettings($objWriter)
+	{
+		$objWriter->startElement('c:printSettings');
+
+			$objWriter->startElement('c:headerFooter');
+			$objWriter->endElement();
+
+			$objWriter->startElement('c:pageMargins');
+				$objWriter->writeAttribute('footer', 0.3);
+				$objWriter->writeAttribute('header', 0.3);
+				$objWriter->writeAttribute('r', 0.7);
+				$objWriter->writeAttribute('l', 0.7);
+				$objWriter->writeAttribute('t', 0.75);
+				$objWriter->writeAttribute('b', 0.75);
+			$objWriter->endElement();
+
+			$objWriter->startElement('c:pageSetup');
+				$objWriter->writeAttribute('orientation', "portrait");
+			$objWriter->endElement();
+
+		$objWriter->endElement();
+	}
+
+}
