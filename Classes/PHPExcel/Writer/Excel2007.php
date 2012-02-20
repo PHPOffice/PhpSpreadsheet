@@ -154,10 +154,8 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 									'worksheet' 	=> 'PHPExcel_Writer_Excel2007_Worksheet',
 									'drawing' 		=> 'PHPExcel_Writer_Excel2007_Drawing',
 									'comments' 		=> 'PHPExcel_Writer_Excel2007_Comments',
+									'chart'			=> 'PHPExcel_Writer_Excel2007_Chart',
 								 );
-		if ($this->_includeCharts) {
-			$writerPartsArray['chart'] = 'PHPExcel_Writer_Excel2007_Chart';
-		}
 
     	//	Initialise writer parts
 		//		and Assign their parent IWriters
