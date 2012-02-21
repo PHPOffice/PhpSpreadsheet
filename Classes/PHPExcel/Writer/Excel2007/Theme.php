@@ -219,25 +219,25 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
 							// a:font
 							$objWriter->startElement('a:font');
 							$objWriter->writeAttribute('script', 'Jpan');
-							$objWriter->writeAttribute('typeface', '?? ?????');
+							$objWriter->writeAttribute('typeface', 'ＭＳ Ｐゴシック');
 							$objWriter->endElement();
 
 							// a:font
 							$objWriter->startElement('a:font');
 							$objWriter->writeAttribute('script', 'Hang');
-							$objWriter->writeAttribute('typeface', '?? ??');
+							$objWriter->writeAttribute('typeface', '맑은 고딕');
 							$objWriter->endElement();
 
 							// a:font
 							$objWriter->startElement('a:font');
 							$objWriter->writeAttribute('script', 'Hans');
-							$objWriter->writeAttribute('typeface', '??');
+							$objWriter->writeAttribute('typeface', '宋体');
 							$objWriter->endElement();
 
 							// a:font
 							$objWriter->startElement('a:font');
 							$objWriter->writeAttribute('script', 'Hant');
-							$objWriter->writeAttribute('typeface', '????');
+							$objWriter->writeAttribute('typeface', '新細明體');
 							$objWriter->endElement();
 
 							// a:font
@@ -413,25 +413,25 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
 							// a:font
 							$objWriter->startElement('a:font');
 							$objWriter->writeAttribute('script', 'Jpan');
-							$objWriter->writeAttribute('typeface', '?? ?????');
+							$objWriter->writeAttribute('typeface', 'ＭＳ Ｐゴシック');
 							$objWriter->endElement();
 
 							// a:font
 							$objWriter->startElement('a:font');
 							$objWriter->writeAttribute('script', 'Hang');
-							$objWriter->writeAttribute('typeface', '?? ??');
+							$objWriter->writeAttribute('typeface', '맑은 고딕');
 							$objWriter->endElement();
 
 							// a:font
 							$objWriter->startElement('a:font');
 							$objWriter->writeAttribute('script', 'Hans');
-							$objWriter->writeAttribute('typeface', '??');
+							$objWriter->writeAttribute('typeface', '宋体');
 							$objWriter->endElement();
 
 							// a:font
 							$objWriter->startElement('a:font');
 							$objWriter->writeAttribute('script', 'Hant');
-							$objWriter->writeAttribute('typeface', '????');
+							$objWriter->writeAttribute('typeface', '新細明體');
 							$objWriter->endElement();
 
 							// a:font
