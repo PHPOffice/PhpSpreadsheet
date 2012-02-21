@@ -51,11 +51,11 @@ class PHPExcel_Reader_Excel2007_Chart
 	}	//	function _getAttribute()
 
 
-	private static function _readColor($color) {
+	private static function _readColor($color,$background=false) {
 		if (isset($color["rgb"])) {
 			return (string)$color["rgb"];
 		} else if (isset($color["indexed"])) {
-			return PHPExcel_Style_Color::indexedColor($color["indexed"])->getARGB();
+			return PHPExcel_Style_Color::indexedColor($color["indexed"]-7,$background)->getARGB();
 		}
 	}
 

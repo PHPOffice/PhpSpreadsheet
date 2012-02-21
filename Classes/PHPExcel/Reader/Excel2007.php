@@ -1644,7 +1644,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 		if (isset($color["rgb"])) {
 			return (string)$color["rgb"];
 		} else if (isset($color["indexed"])) {
-			return PHPExcel_Style_Color::indexedColor($color["indexed"],$background)->getARGB();
+			return PHPExcel_Style_Color::indexedColor($color["indexed"]-7,$background)->getARGB();
 		} else if (isset($color["theme"])) {
 			if (self::$_theme !== NULL) {
 				$returnColour = self::$_theme->getColourByIndex((int)$color["theme"]);

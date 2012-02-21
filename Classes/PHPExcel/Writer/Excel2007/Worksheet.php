@@ -305,7 +305,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 				$objWriter->writeAttribute('customHeight',		'true');
 				$objWriter->writeAttribute('defaultRowHeight',	PHPExcel_Shared_String::FormatNumber($pSheet->getDefaultRowDimension()->getRowHeight()));
 			} else {
-				$objWriter->writeAttribute('defaultRowHeight', '12.75');
+				$objWriter->writeAttribute('defaultRowHeight', '14.4');
 			}
 
 			// Default column width

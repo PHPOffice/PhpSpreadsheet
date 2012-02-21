@@ -1685,7 +1685,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 			// The default column width is 8.43
 			// The following slope and intersection values were interpolated.
 			//
-			$y = 20*$y	  + 255;
+			$y = 20*$y + 255;
 			$x = 113.879*$x + 390;
 		}
 
