@@ -1,7 +1,7 @@
 **************************************************************************************
 * PHPExcel
 *
-* Copyright (c) 2006 - 2011 PHPExcel
+* Copyright (c) 2006 - 2012 PHPExcel
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Lesser General Public
@@ -17,16 +17,33 @@
 * License along with this library; if not, write to the Free Software
 * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 *
-* @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
+* @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
 * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
 * @version    ##VERSION##, ##DATE##
 **************************************************************************************
+
+
+--------------------------------------------------------------------------------
+BREAKING CHANGE! In previous versions of PHPExcel up to and including 1.7.7,
+the 3rd-party tcPDF library was bundled with PHPExcel for rendering PDF files
+through the PDF Writer.
+
+From PHPExcel 1.7.8 onwards, this will no longer be the case. The PDF Writer is
+being rewritten to allow a choice of 3rd party PDF libraries (tcPDF, mPDF, and
+domPDF initially), none of which will be bundled with PHPExcel, but which can
+be downloaded seperately from the appropriate sites. Selection of the library to
+be used, and the directory path to that library will be defined through PHPExcel
+configuration settings, allowing more flexibility.
+--------------------------------------------------------------------------------
 
 
 Fixed in SVN:
 - Feature:  (MBaker)    Options for cell caching using Igbinary and SQLite/SQlite3.
 - Feature:  (MBaker)    Additional row iterator options: allow a start row to be defined in the constructor; seek(), and prev() methods added.
 - Feature:  (Progi1984) Work item 9759 - Implement document properties in Excel5 writer
+- Feature:  (MBaker)    Initial definition of chart objects.
+                        Reading Chart definitions through the Excel2007 Reader
+                        Facility to render charts to images using the 3rd-party jpgraph library
 - General:  (MBaker)    Fix to build to ensure that Examples are included with the documentation
 - General:  (MBaker)    Reduce cell caching overhead using dirty flag to ensure that cells are only rewritten to the cache if they have actually been changed
 - General:  (MBaker)    Improved memory usage in CSV Writer
@@ -56,6 +73,7 @@ Fixed in SVN:
 - Bugfix:   (MBaker)    Work item 17262 - Named Range definition in .xls when sheet reeference is quote wrapped
 - Bugfix:   (MBaker)    Work item 17403 - duplicateStyle() method doesn't duplicate conditional formats
                                           Added an equivalent duplicateConditionalStyle() method for duplicating conditional styles
+- Bugfix:   (MBaker)    Work item 17186 - setSelectedCellByColumnAndRow is not working
 - General:  (MBaker)    Work item 15405 - Two easy to fix Issues concerning PHPExcel_Token_Stack (l10n/UC)
 - General:  (MBaker)    Work item 15461 - Locale file paths not fit for windows
 - General:  (MBaker)    Work item 16643 - Add file directory as a cache option for cache_to_discISAM

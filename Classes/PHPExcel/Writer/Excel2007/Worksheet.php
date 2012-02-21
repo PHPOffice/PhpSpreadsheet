@@ -271,15 +271,17 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 				}
 
 				// Selection
-				if ($pane != '') {
+//				if ($pane != '') {
 					//	Only need to write selection element if we have a split pane
 					//		We cheat a little by over-riding the active cell selection, setting it to the split cell
 					$objWriter->startElement('selection');
-					$objWriter->writeAttribute('pane', $pane);
+					if ($pane != '') {
+						$objWriter->writeAttribute('pane', $pane);
+					}
 					$objWriter->writeAttribute('activeCell', $activeCell);
 					$objWriter->writeAttribute('sqref', $activeCell);
 					$objWriter->endElement();
-				}
+//				}
 
 			$objWriter->endElement();
 
