@@ -117,12 +117,19 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 		$objWriter->startElement('c:title');
 			$objWriter->startElement('c:tx');
 				$objWriter->startElement('c:rich');
+
+					$objWriter->startElement('a:bodyPr');
+					$objWriter->endElement();
+
+					$objWriter->startElement('a:lstStyle');
+					$objWriter->endElement();
+
 					$objWriter->startElement('a:p');
 
 						$caption = $title->getCaption();
 						if (is_array($caption))
 							$caption = $caption[0];
-						$this->getParentWriter()->getWriterPart('stringtable')->writeRichText($objWriter, $caption, 'a');
+						$this->getParentWriter()->getWriterPart('stringtable')->writeRichTextForCharts($objWriter, $caption, 'a');
 
 					$objWriter->endElement();
 				$objWriter->endElement();
@@ -214,14 +221,14 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 					$this->_writeDataLbls($objWriter);
 
 					if (($groupType === PHPExcel_Chart_DataSeries::TYPE_LINECHART) ||
-						($groupType === PHPExcel_Chart_DataSeries::TYPE_LINECHART_3D) ||
-						($groupType === PHPExcel_Chart_DataSeries::TYPE_AREACHART) ||
-						($groupType === PHPExcel_Chart_DataSeries::TYPE_AREACHART_3D)) {
+						($groupType === PHPExcel_Chart_DataSeries::TYPE_LINECHART_3D)) {
+
 						$objWriter->startElement('c:smooth');
 							$objWriter->writeAttribute('val', (integer) $plotGroup->getSmoothLine() );
 						$objWriter->endElement();
 					} elseif (($groupType === PHPExcel_Chart_DataSeries::TYPE_BARCHART) ||
 						($groupType === PHPExcel_Chart_DataSeries::TYPE_BARCHART_3D)) {
+
 						$objWriter->startElement('c:gapWidth');
 							$objWriter->writeAttribute('val', 150 );
 						$objWriter->endElement();
@@ -230,6 +237,7 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 					if (($groupType !== PHPExcel_Chart_DataSeries::TYPE_PIECHART) &&
 						($groupType !== PHPExcel_Chart_DataSeries::TYPE_PIECHART_3D) &&
 						($groupType !== PHPExcel_Chart_DataSeries::TYPE_DONUTCHART)) {
+
 						//	Generate 2 unique numbers to use for axId values
 						$id1 = $id2 = rand(10000000,99999999);
 						do {
@@ -317,6 +325,44 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 				$objWriter->writeAttribute('val', "b");
 			$objWriter->endElement();
 
+			if (!is_null($xAxisLabel)) {
+				$objWriter->startElement('c:title');
+					$objWriter->startElement('c:tx');
+						$objWriter->startElement('c:rich');
+
+							$objWriter->startElement('a:bodyPr');
+							$objWriter->endElement();
+
+							$objWriter->startElement('a:lstStyle');
+							$objWriter->endElement();
+
+							$objWriter->startElement('a:p');
+								$objWriter->startElement('a:r');
+
+									$caption = $xAxisLabel->getCaption();
+									if (is_array($caption))
+										$caption = $caption[0];
+									$objWriter->startElement('a:t');
+										$objWriter->writeAttribute('xml:space', 'preserve');
+										$objWriter->writeRawData(PHPExcel_Shared_String::ControlCharacterPHP2OOXML( $caption ));
+									$objWriter->endElement();
+
+								$objWriter->endElement();
+							$objWriter->endElement();
+						$objWriter->endElement();
+					$objWriter->endElement();
+
+					$objWriter->startElement('c:overlay');
+						$objWriter->writeAttribute('val', 0);
+					$objWriter->endElement();
+
+					$layout = $xAxisLabel->getLayout();
+					$this->_writeLayout($layout, $objWriter);
+
+				$objWriter->endElement();
+
+			}
+
 			$objWriter->startElement('c:numFmt');
 				$objWriter->writeAttribute('formatCode', "General");
 				$objWriter->writeAttribute('sourceLinked', 1);
@@ -333,31 +379,6 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 			$objWriter->startElement('c:tickLblPos');
 				$objWriter->writeAttribute('val', "nextTo");
 			$objWriter->endElement();
-
-			if (!is_null($xAxisLabel)) {
-				$objWriter->startElement('c:title');
-					$objWriter->startElement('c:tx');
-						$objWriter->startElement('c:rich');
-							$objWriter->startElement('a:p');
-
-								$caption = $xAxisLabel->getCaption();
-								if (is_array($caption))
-									$caption = $caption[0];
-								$this->getParentWriter()->getWriterPart('stringtable')->writeRichText($objWriter, $caption, 'a');
-
-							$objWriter->endElement();
-						$objWriter->endElement();
-					$objWriter->endElement();
-				$objWriter->endElement();
-
-				$objWriter->startElement('c:overlay');
-					$objWriter->writeAttribute('val', 0);
-				$objWriter->endElement();
-
-				$layout = $xAxisLabel->getLayout();
-				$this->_writeLayout($layout, $objWriter);
-
-			}
 
 			if ($id2 > 0) {
 				$objWriter->startElement('c:crossAx');
@@ -418,6 +439,43 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 			$objWriter->startElement('c:majorGridlines');
 			$objWriter->endElement();
 
+			if (!is_null($yAxisLabel)) {
+				$objWriter->startElement('c:title');
+					$objWriter->startElement('c:tx');
+						$objWriter->startElement('c:rich');
+
+							$objWriter->startElement('a:bodyPr');
+							$objWriter->endElement();
+
+							$objWriter->startElement('a:lstStyle');
+							$objWriter->endElement();
+
+							$objWriter->startElement('a:p');
+								$objWriter->startElement('a:r');
+
+									$caption = $yAxisLabel->getCaption();
+									if (is_array($caption))
+										$caption = $caption[0];
+									$objWriter->startElement('a:t');
+										$objWriter->writeAttribute('xml:space', 'preserve');
+										$objWriter->writeRawData(PHPExcel_Shared_String::ControlCharacterPHP2OOXML( $caption ));
+									$objWriter->endElement();
+
+								$objWriter->endElement();
+							$objWriter->endElement();
+						$objWriter->endElement();
+					$objWriter->endElement();
+
+					$objWriter->startElement('c:overlay');
+						$objWriter->writeAttribute('val', 0);
+					$objWriter->endElement();
+
+					$layout = $yAxisLabel->getLayout();
+					$this->_writeLayout($layout, $objWriter);
+
+				$objWriter->endElement();
+			}
+
 			$objWriter->startElement('c:numFmt');
 				$objWriter->writeAttribute('formatCode', "General");
 				$objWriter->writeAttribute('sourceLinked', 1);
@@ -434,31 +492,6 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 			$objWriter->startElement('c:tickLblPos');
 				$objWriter->writeAttribute('val', "nextTo");
 			$objWriter->endElement();
-
-			if (!is_null($yAxisLabel)) {
-				$objWriter->startElement('c:title');
-					$objWriter->startElement('c:tx');
-						$objWriter->startElement('c:rich');
-							$objWriter->startElement('a:p');
-
-								$caption = $yAxisLabel->getCaption();
-								if (is_array($caption))
-									$caption = $caption[0];
-								$this->getParentWriter()->getWriterPart('stringtable')->writeRichText($objWriter, $caption, 'a');
-
-							$objWriter->endElement();
-						$objWriter->endElement();
-					$objWriter->endElement();
-
-					$objWriter->startElement('c:overlay');
-						$objWriter->writeAttribute('val', 0);
-					$objWriter->endElement();
-
-					$layout = $yAxisLabel->getLayout();
-					$this->_writeLayout($layout, $objWriter);
-
-				$objWriter->endElement();
-			}
 
 			if ($id1 > 0) {
 				$objWriter->startElement('c:crossAx');
@@ -581,9 +614,8 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 					$objWriter->endElement();
 				}
 
-				if (($groupType !== PHPExcel_Chart_DataSeries::TYPE_PIECHART) &&
-					($groupType !== PHPExcel_Chart_DataSeries::TYPE_PIECHART_3D) &&
-					($groupType !== PHPExcel_Chart_DataSeries::TYPE_DONUTCHART)) {
+				if (($groupType === PHPExcel_Chart_DataSeries::TYPE_BARCHART) ||
+					($groupType === PHPExcel_Chart_DataSeries::TYPE_BARCHART_3D)) {
 
 					$objWriter->startElement('c:invertIfNegative');
 						$objWriter->writeAttribute('val', 0);
