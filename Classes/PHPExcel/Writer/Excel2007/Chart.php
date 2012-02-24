@@ -241,7 +241,15 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 								$objWriter->writeAttribute('val', 100 );
 							$objWriter->endElement();
 						}
+					} elseif ($groupType === PHPExcel_Chart_DataSeries::TYPE_BUBBLECHART) {
 
+							$objWriter->startElement('c:bubbleScale');
+								$objWriter->writeAttribute('val', 25 );
+							$objWriter->endElement();
+
+							$objWriter->startElement('c:showNegBubbles');
+								$objWriter->writeAttribute('val', 0 );
+							$objWriter->endElement();
 					}
 
 					//	Generate 2 unique numbers to use for axId values
@@ -280,7 +288,11 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 				($groupType !== PHPExcel_Chart_DataSeries::TYPE_PIECHART_3D) &&
 				($groupType !== PHPExcel_Chart_DataSeries::TYPE_DONUTCHART)) {
 
-				$this->_writeCatAx($objWriter,$plotArea,$xAxisLabel,$groupType,$id1,$id2,$catIsMultiLevelSeries);
+				if ($groupType === PHPExcel_Chart_DataSeries::TYPE_BUBBLECHART) {
+					$this->_writeValAx($objWriter,$plotArea,$xAxisLabel,$groupType,$id1,$id2,$catIsMultiLevelSeries);
+				} else {
+					$this->_writeCatAx($objWriter,$plotArea,$xAxisLabel,$groupType,$id1,$id2,$catIsMultiLevelSeries);
+				}
 
 				$this->_writeValAx($objWriter,$plotArea,$yAxisLabel,$groupType,$id1,$id2,$valIsMultiLevelSeries);
 			}
@@ -530,9 +542,11 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 			}
 
 			if ($isMultiLevelSeries) {
-				$objWriter->startElement('c:noMultiLvlLbl');
-					$objWriter->writeAttribute('val', 0);
-				$objWriter->endElement();
+				if ($groupType !== PHPExcel_Chart_DataSeries::TYPE_BUBBLECHART) {
+					$objWriter->startElement('c:noMultiLvlLbl');
+						$objWriter->writeAttribute('val', 0);
+					$objWriter->endElement();
+				}
 			}
 		$objWriter->endElement();
 
@@ -608,6 +622,7 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 				if (($groupType == PHPExcel_Chart_DataSeries::TYPE_PIECHART) ||
 					($groupType == PHPExcel_Chart_DataSeries::TYPE_PIECHART_3D) ||
 					($groupType == PHPExcel_Chart_DataSeries::TYPE_DONUTCHART)) {
+
 					$objWriter->startElement('c:dPt');
 						$objWriter->startElement('c:idx');
 							$objWriter->writeAttribute('val', 3);
@@ -658,7 +673,27 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 				$plotSeriesCategory = $plotGroup->getPlotCategoryByIndex($plotSeriesRef);
 				if ($plotSeriesCategory && ($plotSeriesCategory->getPointCount() > 0)) {
 					$catIsMultiLevelSeries = $catIsMultiLevelSeries || $plotSeriesCategory->isMultiLevelSeries();
-					$objWriter->startElement('c:cat');
+
+					if (($groupType == PHPExcel_Chart_DataSeries::TYPE_PIECHART) ||
+						($groupType == PHPExcel_Chart_DataSeries::TYPE_PIECHART_3D) ||
+						($groupType == PHPExcel_Chart_DataSeries::TYPE_DONUTCHART)) {
+
+						if (!is_null($plotGroup->getPlotStyle())) {
+							$plotStyle = $plotGroup->getPlotStyle();
+							if ($plotStyle) {
+								$objWriter->startElement('c:explosion');
+									$objWriter->writeAttribute('val', 25);
+								$objWriter->endElement();
+							}
+						}
+					}
+
+					if ($groupType == PHPExcel_Chart_DataSeries::TYPE_BUBBLECHART) {
+						$objWriter->startElement('c:xVal');
+					} else {
+						$objWriter->startElement('c:cat');
+					}
+
 						$this->_writePlotSeriesValues($plotSeriesCategory, $objWriter, $groupType, 'str');
 					$objWriter->endElement();
 				}
@@ -667,7 +702,13 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 				$plotSeriesValues = $plotGroup->getPlotValuesByIndex($plotSeriesRef);
 				if ($plotSeriesValues) {
 					$valIsMultiLevelSeries = $valIsMultiLevelSeries || $plotSeriesValues->isMultiLevelSeries();
-					$objWriter->startElement('c:val');
+
+					if ($groupType == PHPExcel_Chart_DataSeries::TYPE_BUBBLECHART) {
+						$objWriter->startElement('c:yVal');
+					} else {
+						$objWriter->startElement('c:val');
+					}
+
 						$this->_writePlotSeriesValues($plotSeriesValues, $objWriter, $groupType, 'num');
 					$objWriter->endElement();
 				}
