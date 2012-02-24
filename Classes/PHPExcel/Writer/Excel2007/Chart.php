@@ -220,8 +220,8 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 
 					$this->_writeDataLbls($objWriter);
 
-					if (($groupType === PHPExcel_Chart_DataSeries::TYPE_LINECHART) ||
-						($groupType === PHPExcel_Chart_DataSeries::TYPE_LINECHART_3D)) {
+					if ($groupType === PHPExcel_Chart_DataSeries::TYPE_LINECHART) {
+						//	Line only, Line3D can't be smoothed
 
 						$objWriter->startElement('c:smooth');
 							$objWriter->writeAttribute('val', (integer) $plotGroup->getSmoothLine() );
@@ -567,13 +567,22 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 			$objWriter->endElement();
 		}
 
-		//	TODO	Set to 1 if any plotseries values don't have style colours defined, otherwise set to 0
-		$objWriter->startElement('c:varyColors');
-			$objWriter->writeAttribute('val', 1);
-		$objWriter->endElement();
-
+		//	Get these details before the loop, because we can use the count to check for varyColors
 		$plotSeriesOrder = $plotGroup->getPlotOrder();
 		$plotSeriesCount = count($plotSeriesOrder);
+
+		if (($groupType !== PHPExcel_Chart_DataSeries::TYPE_SCATTERCHART) &&
+			($groupType !== PHPExcel_Chart_DataSeries::TYPE_RADARCHART) &&
+			($groupType !== PHPExcel_Chart_DataSeries::TYPE_STOCKCHART)) {
+
+			if (($groupType !== PHPExcel_Chart_DataSeries::TYPE_LINECHART) ||
+				($plotSeriesCount > 1)) {
+				$objWriter->startElement('c:varyColors');
+					$objWriter->writeAttribute('val', 1);
+				$objWriter->endElement();
+			}
+		}
+
 		foreach($plotSeriesOrder as $plotSeriesIdx => $plotSeriesRef) {
 			$objWriter->startElement('c:ser');
 
