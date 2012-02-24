@@ -215,6 +215,17 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 						$plotGroup = $plotArea->getPlotGroupByIndex($i);
 						$groupType = $plotGroup->getPlotType();
 						if ($groupType == $chartType) {
+
+							if ($groupType === PHPExcel_Chart_DataSeries::TYPE_RADARCHART) {
+								$objWriter->startElement('c:radarStyle');
+									$objWriter->writeAttribute('val', 'marker' );
+								$objWriter->endElement();
+							} elseif ($groupType === PHPExcel_Chart_DataSeries::TYPE_SCATTERCHART) {
+								$objWriter->startElement('c:scatterStyle');
+									$objWriter->writeAttribute('val', 'lineMarker' );
+								$objWriter->endElement();
+							}
+
 							$this->_writePlotGroup($plotGroup, $groupType, $objWriter, $catIsMultiLevelSeries, $valIsMultiLevelSeries, $plotGroupingType);
 						}
 					}
@@ -504,8 +515,10 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 						$objWriter->writeAttribute('val', 0);
 					$objWriter->endElement();
 
-					$layout = $yAxisLabel->getLayout();
-					$this->_writeLayout($layout, $objWriter);
+					if ($groupType !== PHPExcel_Chart_DataSeries::TYPE_BUBBLECHART) {
+						$layout = $yAxisLabel->getLayout();
+						$this->_writeLayout($layout, $objWriter);
+					}
 
 				$objWriter->endElement();
 			}
@@ -662,7 +675,8 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 				}
 
 				if (($groupType === PHPExcel_Chart_DataSeries::TYPE_BARCHART) ||
-					($groupType === PHPExcel_Chart_DataSeries::TYPE_BARCHART_3D)) {
+					($groupType === PHPExcel_Chart_DataSeries::TYPE_BARCHART_3D) ||
+					($groupType === PHPExcel_Chart_DataSeries::TYPE_BUBBLECHART)) {
 
 					$objWriter->startElement('c:invertIfNegative');
 						$objWriter->writeAttribute('val', 0);
@@ -688,7 +702,7 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 						}
 					}
 
-					if ($groupType == PHPExcel_Chart_DataSeries::TYPE_BUBBLECHART) {
+					if ($groupType === PHPExcel_Chart_DataSeries::TYPE_BUBBLECHART) {
 						$objWriter->startElement('c:xVal');
 					} else {
 						$objWriter->startElement('c:cat');
@@ -703,7 +717,7 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 				if ($plotSeriesValues) {
 					$valIsMultiLevelSeries = $valIsMultiLevelSeries || $plotSeriesValues->isMultiLevelSeries();
 
-					if ($groupType == PHPExcel_Chart_DataSeries::TYPE_BUBBLECHART) {
+					if ($groupType === PHPExcel_Chart_DataSeries::TYPE_BUBBLECHART) {
 						$objWriter->startElement('c:yVal');
 					} else {
 						$objWriter->startElement('c:val');
@@ -711,6 +725,10 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 
 						$this->_writePlotSeriesValues($plotSeriesValues, $objWriter, $groupType, 'num');
 					$objWriter->endElement();
+				}
+
+				if ($groupType === PHPExcel_Chart_DataSeries::TYPE_BUBBLECHART) {
+					$this->_writeBubbles($plotSeriesValues, $objWriter);
 				}
 
 			$objWriter->endElement();
@@ -824,6 +842,40 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 
 			$objWriter->endElement();
 		}
+	}
+
+	private function _writeBubbles($plotSeriesValues, $objWriter)
+	{
+		if (is_null($plotSeriesValues)) {
+			return;
+		}
+
+		$objWriter->startElement('c:bubbleSize');
+			$objWriter->startElement('c:numLit');
+
+				$objWriter->startElement('c:formatCode');
+					$objWriter->writeRawData( 'General' );
+				$objWriter->endElement();
+
+				$objWriter->startElement('c:ptCount');
+					$objWriter->writeAttribute('val', $plotSeriesValues->getPointCount() );
+				$objWriter->endElement();
+
+				foreach($plotSeriesValues->getDataValues() as $plotSeriesKey => $plotSeriesValue) {
+					$objWriter->startElement('c:pt');
+						$objWriter->writeAttribute('idx', $plotSeriesKey );
+						$objWriter->startElement('c:v');
+							$objWriter->writeRawData( 1 );
+						$objWriter->endElement();
+					$objWriter->endElement();
+				}
+
+			$objWriter->endElement();
+		$objWriter->endElement();
+
+		$objWriter->startElement('c:bubble3D');
+			$objWriter->writeAttribute('val', 0 );
+		$objWriter->endElement();
 	}
 
 	private function _writeLayout(PHPExcel_Chart_Layout $layout = NULL, $objWriter)
