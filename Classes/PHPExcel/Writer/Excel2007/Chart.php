@@ -206,6 +206,7 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 
 			$chartTypes = self::_getChartType($plotArea);
 			$catIsMultiLevelSeries = $valIsMultiLevelSeries = FALSE;
+			$plotGroupingType = '';
 			foreach($chartTypes as $chartType) {
 				$objWriter->startElement('c:'.$chartType);
 
@@ -214,7 +215,7 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 						$plotGroup = $plotArea->getPlotGroupByIndex($i);
 						$groupType = $plotGroup->getPlotType();
 						if ($groupType == $chartType) {
-							$this->_writePlotGroup($plotGroup, $groupType, $objWriter, $catIsMultiLevelSeries, $valIsMultiLevelSeries);
+							$this->_writePlotGroup($plotGroup, $groupType, $objWriter, $catIsMultiLevelSeries, $valIsMultiLevelSeries, $plotGroupingType);
 						}
 					}
 
@@ -232,6 +233,15 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 						$objWriter->startElement('c:gapWidth');
 							$objWriter->writeAttribute('val', 150 );
 						$objWriter->endElement();
+
+						if ($plotGroupingType == 'percentStacked' ||
+							$plotGroupingType == 'stacked') {
+
+							$objWriter->startElement('c:overlap');
+								$objWriter->writeAttribute('val', 100 );
+							$objWriter->endElement();
+						}
+
 					}
 
 					//	Generate 2 unique numbers to use for axId values
@@ -548,7 +558,7 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 		return $chartType;
 	}
 
-	private function _writePlotGroup($plotGroup, $groupType, $objWriter, &$catIsMultiLevelSeries, &$valIsMultiLevelSeries)
+	private function _writePlotGroup($plotGroup, $groupType, $objWriter, &$catIsMultiLevelSeries, &$valIsMultiLevelSeries, &$plotGroupingType)
 	{
 		if (is_null($plotGroup)) {
 			return;
@@ -562,8 +572,9 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 		}
 
 		if (!is_null($plotGroup->getPlotGrouping())) {
+			$plotGroupingType = $plotGroup->getPlotGrouping();
 			$objWriter->startElement('c:grouping');
-				$objWriter->writeAttribute('val', $plotGroup->getPlotGrouping());
+				$objWriter->writeAttribute('val', $plotGroupingType);
 			$objWriter->endElement();
 		}
 
