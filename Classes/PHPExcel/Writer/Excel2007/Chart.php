@@ -254,6 +254,13 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 						$objWriter->startElement('c:firstSliceAng');
 							$objWriter->writeAttribute('val', 0);
 						$objWriter->endElement();
+
+						if ($groupType === PHPExcel_Chart_DataSeries::TYPE_DONUTCHART) {
+
+							$objWriter->startElement('c:holeSize');
+								$objWriter->writeAttribute('val', 50);
+							$objWriter->endElement();
+						}
 					}
 
 				$objWriter->endElement();
