@@ -110,6 +110,7 @@ foreach($inputFileNames as $inputFileName) {
 
 	echo date('H:i:s') , " Write Tests to Excel2007 file " , PHP_EOL;
 	$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+	$objWriter->setIncludeCharts(TRUE);
 	$objWriter->save($outputFileName);
 	echo date('H:i:s') , " File written to " , $outputFileName , PHP_EOL;
 
