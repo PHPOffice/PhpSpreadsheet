@@ -65,6 +65,7 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
 					'Mong' => 'Mongolian Baiti',
 					'Viet' => 'Times New Roman',
 					'Uigh' => 'Microsoft Uighur',
+					'Geor' => 'Sylfaen',
 			);
 
 	private static $_minorFonts = array(
@@ -97,8 +98,22 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
 					'Mong' => 'Mongolian Baiti',
 					'Viet' => 'Arial',
 					'Uigh' => 'Microsoft Uighur',
+					'Geor' => 'Sylfaen',
 			);
 
+		private static $_colourScheme = array(
+					'dk2'		=> '1F497D',
+					'lt2'		=> 'EEECE1',
+					'accent1'	=> '4F81BD',
+					'accent2'	=> 'C0504D',
+					'accent3'	=> '9BBB59',
+					'accent4'	=> '8064A2',
+					'accent5'	=> '4BACC6',
+					'accent6'	=> 'F79646',
+					'hlink'		=> '0000FF',
+					'folHlink'	=> '800080',
+			);
+			
 	/**
 	 * Write theme to XML format
 	 *
@@ -154,104 +169,7 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
 						$objWriter->endElement();
 
 						// a:dk2
-						$objWriter->startElement('a:dk2');
-
-							// a:sysClr
-							$objWriter->startElement('a:srgbClr');
-							$objWriter->writeAttribute('val', '1F497D');
-							$objWriter->endElement();
-
-						$objWriter->endElement();
-
-						// a:lt2
-						$objWriter->startElement('a:lt2');
-
-							// a:sysClr
-							$objWriter->startElement('a:srgbClr');
-							$objWriter->writeAttribute('val', 'EEECE1');
-							$objWriter->endElement();
-
-						$objWriter->endElement();
-
-						// a:accent1
-						$objWriter->startElement('a:accent1');
-
-							// a:sysClr
-							$objWriter->startElement('a:srgbClr');
-							$objWriter->writeAttribute('val', '4F81BD');
-							$objWriter->endElement();
-
-						$objWriter->endElement();
-
-						// a:accent2
-						$objWriter->startElement('a:accent2');
-
-							// a:sysClr
-							$objWriter->startElement('a:srgbClr');
-							$objWriter->writeAttribute('val', 'C0504D');
-							$objWriter->endElement();
-
-						$objWriter->endElement();
-
-						// a:accent3
-						$objWriter->startElement('a:accent3');
-
-							// a:sysClr
-							$objWriter->startElement('a:srgbClr');
-							$objWriter->writeAttribute('val', '9BBB59');
-							$objWriter->endElement();
-
-						$objWriter->endElement();
-
-						// a:accent4
-						$objWriter->startElement('a:accent4');
-
-							// a:sysClr
-							$objWriter->startElement('a:srgbClr');
-							$objWriter->writeAttribute('val', '8064A2');
-							$objWriter->endElement();
-
-						$objWriter->endElement();
-
-						// a:accent5
-						$objWriter->startElement('a:accent5');
-
-							// a:sysClr
-							$objWriter->startElement('a:srgbClr');
-							$objWriter->writeAttribute('val', '4BACC6');
-							$objWriter->endElement();
-
-						$objWriter->endElement();
-
-						// a:accent6
-						$objWriter->startElement('a:accent6');
-
-							// a:sysClr
-							$objWriter->startElement('a:srgbClr');
-							$objWriter->writeAttribute('val', 'F79646');
-							$objWriter->endElement();
-
-						$objWriter->endElement();
-
-						// a:hlink
-						$objWriter->startElement('a:hlink');
-
-							// a:sysClr
-							$objWriter->startElement('a:srgbClr');
-							$objWriter->writeAttribute('val', '0000FF');
-							$objWriter->endElement();
-
-						$objWriter->endElement();
-
-						// a:folHlink
-						$objWriter->startElement('a:folHlink');
-
-							// a:sysClr
-							$objWriter->startElement('a:srgbClr');
-							$objWriter->writeAttribute('val', '800080');
-							$objWriter->endElement();
-
-						$objWriter->endElement();
+						$this->_writeColourScheme($objWriter);
 
 					$objWriter->endElement();
 
@@ -261,16 +179,12 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
 
 						// a:majorFont
 						$objWriter->startElement('a:majorFont');
-
 							$this->_writeFonts($objWriter, 'Cambria', self::$_majorFonts);
-
 						$objWriter->endElement();
 
 						// a:minorFont
 						$objWriter->startElement('a:minorFont');
-
 							$this->_writeFonts($objWriter, 'Calibri', self::$_minorFonts);
-
 						$objWriter->endElement();
 
 					$objWriter->endElement();
@@ -910,4 +824,17 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
 
 	}
 
+	private function _writeColourScheme($objWriter)
+	{
+		foreach(self::$_colourScheme as $colourName => $colourValue) {
+			$objWriter->startElement('a:'.$colourName);
+
+				$objWriter->startElement('a:srgbClr');
+					$objWriter->writeAttribute('val', $colourValue);
+				$objWriter->endElement();
+
+			$objWriter->endElement();
+		}
+						
+	}
 }
