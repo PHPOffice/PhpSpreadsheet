@@ -35,6 +35,70 @@
  */
 class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPart
 {
+	private static $_majorFonts = array(
+					'Jpan' => 'ＭＳ Ｐゴシック',
+					'Hang' => '맑은 고딕',
+					'Hans' => '宋体',
+					'Hant' => '新細明體',
+					'Arab' => 'Times New Roman',
+					'Hebr' => 'Times New Roman',
+					'Thai' => 'Tahoma',
+					'Ethi' => 'Nyala',
+					'Beng' => 'Vrinda',
+					'Gujr' => 'Shruti',
+					'Khmr' => 'MoolBoran',
+					'Knda' => 'Tunga',
+					'Guru' => 'Raavi',
+					'Cans' => 'Euphemia',
+					'Cher' => 'Plantagenet Cherokee',
+					'Yiii' => 'Microsoft Yi Baiti',
+					'Tibt' => 'Microsoft Himalaya',
+					'Thaa' => 'MV Boli',
+					'Deva' => 'Mangal',
+					'Telu' => 'Gautami',
+					'Taml' => 'Latha',
+					'Syrc' => 'Estrangelo Edessa',
+					'Orya' => 'Kalinga',
+					'Mlym' => 'Kartika',
+					'Laoo' => 'DokChampa',
+					'Sinh' => 'Iskoola Pota',
+					'Mong' => 'Mongolian Baiti',
+					'Viet' => 'Times New Roman',
+					'Uigh' => 'Microsoft Uighur',
+			);
+
+	private static $_minorFonts = array(
+					'Jpan' => 'ＭＳ Ｐゴシック',
+					'Hang' => '맑은 고딕',
+					'Hans' => '宋体',
+					'Hant' => '新細明體',
+					'Arab' => 'Arial',
+					'Hebr' => 'Arial',
+					'Thai' => 'Tahoma',
+					'Ethi' => 'Nyala',
+					'Beng' => 'Vrinda',
+					'Gujr' => 'Shruti',
+					'Khmr' => 'DaunPenh',
+					'Knda' => 'Tunga',
+					'Guru' => 'Raavi',
+					'Cans' => 'Euphemia',
+					'Cher' => 'Plantagenet Cherokee',
+					'Yiii' => 'Microsoft Yi Baiti',
+					'Tibt' => 'Microsoft Himalaya',
+					'Thaa' => 'MV Boli',
+					'Deva' => 'Mangal',
+					'Telu' => 'Gautami',
+					'Taml' => 'Latha',
+					'Syrc' => 'Estrangelo Edessa',
+					'Orya' => 'Kalinga',
+					'Mlym' => 'Kartika',
+					'Laoo' => 'DokChampa',
+					'Sinh' => 'Iskoola Pota',
+					'Mong' => 'Mongolian Baiti',
+					'Viet' => 'Arial',
+					'Uigh' => 'Microsoft Uighur',
+			);
+
 	/**
 	 * Write theme to XML format
 	 *
@@ -63,7 +127,6 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
 				// a:themeElements
 				$objWriter->startElement('a:themeElements');
 
-					{
 					// a:clrScheme
 					$objWriter->startElement('a:clrScheme');
 					$objWriter->writeAttribute('name', 'Office');
@@ -191,9 +254,7 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
 						$objWriter->endElement();
 
 					$objWriter->endElement();
-					}
 
-					{
 					// a:fontScheme
 					$objWriter->startElement('a:fontScheme');
 					$objWriter->writeAttribute('name', 'Office');
@@ -201,395 +262,19 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
 						// a:majorFont
 						$objWriter->startElement('a:majorFont');
 
-							// a:latin
-							$objWriter->startElement('a:latin');
-							$objWriter->writeAttribute('typeface', 'Cambria');
-							$objWriter->endElement();
-
-							// a:ea
-							$objWriter->startElement('a:ea');
-							$objWriter->writeAttribute('typeface', '');
-							$objWriter->endElement();
-
-							// a:cs
-							$objWriter->startElement('a:cs');
-							$objWriter->writeAttribute('typeface', '');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Jpan');
-							$objWriter->writeAttribute('typeface', 'ＭＳ Ｐゴシック');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Hang');
-							$objWriter->writeAttribute('typeface', '맑은 고딕');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Hans');
-							$objWriter->writeAttribute('typeface', '宋体');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Hant');
-							$objWriter->writeAttribute('typeface', '新細明體');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Arab');
-							$objWriter->writeAttribute('typeface', 'Times New Roman');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Hebr');
-							$objWriter->writeAttribute('typeface', 'Times New Roman');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Thai');
-							$objWriter->writeAttribute('typeface', 'Tahoma');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Ethi');
-							$objWriter->writeAttribute('typeface', 'Nyala');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Beng');
-							$objWriter->writeAttribute('typeface', 'Vrinda');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Gujr');
-							$objWriter->writeAttribute('typeface', 'Shruti');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Khmr');
-							$objWriter->writeAttribute('typeface', 'MoolBoran');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Knda');
-							$objWriter->writeAttribute('typeface', 'Tunga');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Guru');
-							$objWriter->writeAttribute('typeface', 'Raavi');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Cans');
-							$objWriter->writeAttribute('typeface', 'Euphemia');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Cher');
-							$objWriter->writeAttribute('typeface', 'Plantagenet Cherokee');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Yiii');
-							$objWriter->writeAttribute('typeface', 'Microsoft Yi Baiti');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Tibt');
-							$objWriter->writeAttribute('typeface', 'Microsoft Himalaya');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Thaa');
-							$objWriter->writeAttribute('typeface', 'MV Boli');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Deva');
-							$objWriter->writeAttribute('typeface', 'Mangal');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Telu');
-							$objWriter->writeAttribute('typeface', 'Gautami');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Taml');
-							$objWriter->writeAttribute('typeface', 'Latha');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Syrc');
-							$objWriter->writeAttribute('typeface', 'Estrangelo Edessa');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Orya');
-							$objWriter->writeAttribute('typeface', 'Kalinga');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Mlym');
-							$objWriter->writeAttribute('typeface', 'Kartika');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Laoo');
-							$objWriter->writeAttribute('typeface', 'DokChampa');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Sinh');
-							$objWriter->writeAttribute('typeface', 'Iskoola Pota');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Mong');
-							$objWriter->writeAttribute('typeface', 'Mongolian Baiti');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Viet');
-							$objWriter->writeAttribute('typeface', 'Times New Roman');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Uigh');
-							$objWriter->writeAttribute('typeface', 'Microsoft Uighur');
-							$objWriter->endElement();
+							$this->_writeFonts($objWriter, 'Cambria', self::$_majorFonts);
 
 						$objWriter->endElement();
 
 						// a:minorFont
 						$objWriter->startElement('a:minorFont');
 
-							// a:latin
-							$objWriter->startElement('a:latin');
-							$objWriter->writeAttribute('typeface', 'Calibri');
-							$objWriter->endElement();
-
-							// a:ea
-							$objWriter->startElement('a:ea');
-							$objWriter->writeAttribute('typeface', '');
-							$objWriter->endElement();
-
-							// a:cs
-							$objWriter->startElement('a:cs');
-							$objWriter->writeAttribute('typeface', '');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Jpan');
-							$objWriter->writeAttribute('typeface', 'ＭＳ Ｐゴシック');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Hang');
-							$objWriter->writeAttribute('typeface', '맑은 고딕');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Hans');
-							$objWriter->writeAttribute('typeface', '宋体');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Hant');
-							$objWriter->writeAttribute('typeface', '新細明體');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Arab');
-							$objWriter->writeAttribute('typeface', 'Arial');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Hebr');
-							$objWriter->writeAttribute('typeface', 'Arial');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Thai');
-							$objWriter->writeAttribute('typeface', 'Tahoma');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Ethi');
-							$objWriter->writeAttribute('typeface', 'Nyala');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Beng');
-							$objWriter->writeAttribute('typeface', 'Vrinda');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Gujr');
-							$objWriter->writeAttribute('typeface', 'Shruti');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Khmr');
-							$objWriter->writeAttribute('typeface', 'DaunPenh');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Knda');
-							$objWriter->writeAttribute('typeface', 'Tunga');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Guru');
-							$objWriter->writeAttribute('typeface', 'Raavi');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Cans');
-							$objWriter->writeAttribute('typeface', 'Euphemia');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Cher');
-							$objWriter->writeAttribute('typeface', 'Plantagenet Cherokee');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Yiii');
-							$objWriter->writeAttribute('typeface', 'Microsoft Yi Baiti');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Tibt');
-							$objWriter->writeAttribute('typeface', 'Microsoft Himalaya');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Thaa');
-							$objWriter->writeAttribute('typeface', 'MV Boli');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Deva');
-							$objWriter->writeAttribute('typeface', 'Mangal');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Telu');
-							$objWriter->writeAttribute('typeface', 'Gautami');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Taml');
-							$objWriter->writeAttribute('typeface', 'Latha');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Syrc');
-							$objWriter->writeAttribute('typeface', 'Estrangelo Edessa');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Orya');
-							$objWriter->writeAttribute('typeface', 'Kalinga');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Mlym');
-							$objWriter->writeAttribute('typeface', 'Kartika');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Laoo');
-							$objWriter->writeAttribute('typeface', 'DokChampa');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Sinh');
-							$objWriter->writeAttribute('typeface', 'Iskoola Pota');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Mong');
-							$objWriter->writeAttribute('typeface', 'Mongolian Baiti');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Viet');
-							$objWriter->writeAttribute('typeface', 'Arial');
-							$objWriter->endElement();
-
-							// a:font
-							$objWriter->startElement('a:font');
-							$objWriter->writeAttribute('script', 'Uigh');
-							$objWriter->writeAttribute('typeface', 'Microsoft Uighur');
-							$objWriter->endElement();
+							$this->_writeFonts($objWriter, 'Calibri', self::$_minorFonts);
 
 						$objWriter->endElement();
 
 					$objWriter->endElement();
-					}
 
-					{
 					// a:fmtScheme
 					$objWriter->startElement('a:fmtScheme');
 					$objWriter->writeAttribute('name', 'Office');
@@ -1184,7 +869,6 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
 						$objWriter->endElement();
 
 					$objWriter->endElement();
-					}
 
 				$objWriter->endElement();
 
@@ -1199,4 +883,31 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
 			// Return
 			return $objWriter->getData();
 	}
+
+	private function _writeFonts($objWriter, $latinFont, $fontSet)
+	{
+		// a:latin
+		$objWriter->startElement('a:latin');
+		$objWriter->writeAttribute('typeface', $latinFont);
+		$objWriter->endElement();
+
+		// a:ea
+		$objWriter->startElement('a:ea');
+		$objWriter->writeAttribute('typeface', '');
+		$objWriter->endElement();
+
+		// a:cs
+		$objWriter->startElement('a:cs');
+		$objWriter->writeAttribute('typeface', '');
+		$objWriter->endElement();
+
+		foreach($fontSet as $fontScript => $typeface) {
+			$objWriter->startElement('a:font');
+				$objWriter->writeAttribute('script', $fontScript);
+				$objWriter->writeAttribute('typeface', $typeface);
+			$objWriter->endElement();
+		}
+
+	}
+
 }
