@@ -673,13 +673,16 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 					$objWriter->endElement();
 				}
 
-				$plotSeriesMarker = $plotGroup->getPlotValuesByIndex($plotSeriesRef)->getPointMarker();
-				if ($plotSeriesMarker) {
-					$objWriter->startElement('c:marker');
-						$objWriter->startElement('c:symbol');
-							$objWriter->writeAttribute('val', $plotSeriesMarker);
+				$plotSeriesValues = $plotGroup->getPlotValuesByIndex($plotSeriesRef);
+				if ($plotSeriesValues) {
+					$plotSeriesMarker = $plotSeriesValues->getPointMarker();
+					if ($plotSeriesMarker) {
+						$objWriter->startElement('c:marker');
+							$objWriter->startElement('c:symbol');
+								$objWriter->writeAttribute('val', $plotSeriesMarker);
+							$objWriter->endElement();
 						$objWriter->endElement();
-					$objWriter->endElement();
+					}
 				}
 
 				if (($groupType === PHPExcel_Chart_DataSeries::TYPE_BARCHART) ||
@@ -722,7 +725,6 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 				}
 
 				//	Values
-				$plotSeriesValues = $plotGroup->getPlotValuesByIndex($plotSeriesRef);
 				if ($plotSeriesValues) {
 					$valIsMultiLevelSeries = $valIsMultiLevelSeries || $plotSeriesValues->isMultiLevelSeries();
 
