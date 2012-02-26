@@ -609,8 +609,7 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 		$plotSeriesOrder = $plotGroup->getPlotOrder();
 		$plotSeriesCount = count($plotSeriesOrder);
 
-		if (($groupType !== PHPExcel_Chart_DataSeries::TYPE_SCATTERCHART) &&
-			($groupType !== PHPExcel_Chart_DataSeries::TYPE_RADARCHART) &&
+		if (($groupType !== PHPExcel_Chart_DataSeries::TYPE_RADARCHART) &&
 			($groupType !== PHPExcel_Chart_DataSeries::TYPE_STOCKCHART)) {
 
 			if (($groupType !== PHPExcel_Chart_DataSeries::TYPE_LINECHART) ||
@@ -674,6 +673,15 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 					$objWriter->endElement();
 				}
 
+				$plotSeriesMarker = $plotGroup->getPlotValuesByIndex($plotSeriesRef)->getPointMarker();
+				if ($plotSeriesMarker) {
+					$objWriter->startElement('c:marker');
+						$objWriter->startElement('c:symbol');
+							$objWriter->writeAttribute('val', $plotSeriesMarker);
+						$objWriter->endElement();
+					$objWriter->endElement();
+				}
+
 				if (($groupType === PHPExcel_Chart_DataSeries::TYPE_BARCHART) ||
 					($groupType === PHPExcel_Chart_DataSeries::TYPE_BARCHART_3D) ||
 					($groupType === PHPExcel_Chart_DataSeries::TYPE_BUBBLECHART)) {
@@ -702,7 +710,8 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 						}
 					}
 
-					if ($groupType === PHPExcel_Chart_DataSeries::TYPE_BUBBLECHART) {
+					if (($groupType === PHPExcel_Chart_DataSeries::TYPE_BUBBLECHART) ||
+						($groupType === PHPExcel_Chart_DataSeries::TYPE_SCATTERCHART)) {
 						$objWriter->startElement('c:xVal');
 					} else {
 						$objWriter->startElement('c:cat');
@@ -717,7 +726,8 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 				if ($plotSeriesValues) {
 					$valIsMultiLevelSeries = $valIsMultiLevelSeries || $plotSeriesValues->isMultiLevelSeries();
 
-					if ($groupType === PHPExcel_Chart_DataSeries::TYPE_BUBBLECHART) {
+					if (($groupType === PHPExcel_Chart_DataSeries::TYPE_BUBBLECHART) ||
+						($groupType === PHPExcel_Chart_DataSeries::TYPE_SCATTERCHART)) {
 						$objWriter->startElement('c:yVal');
 					} else {
 						$objWriter->startElement('c:val');
