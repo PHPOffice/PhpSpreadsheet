@@ -216,13 +216,14 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 						$groupType = $plotGroup->getPlotType();
 						if ($groupType == $chartType) {
 
+							$plotStyle = $plotGroup->getPlotStyle();
 							if ($groupType === PHPExcel_Chart_DataSeries::TYPE_RADARCHART) {
 								$objWriter->startElement('c:radarStyle');
-									$objWriter->writeAttribute('val', 'marker' );
+									$objWriter->writeAttribute('val', $plotStyle );
 								$objWriter->endElement();
 							} elseif ($groupType === PHPExcel_Chart_DataSeries::TYPE_SCATTERCHART) {
 								$objWriter->startElement('c:scatterStyle');
-									$objWriter->writeAttribute('val', 'lineMarker' );
+									$objWriter->writeAttribute('val', $plotStyle );
 								$objWriter->endElement();
 							}
 
