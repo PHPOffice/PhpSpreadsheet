@@ -38,6 +38,7 @@ configuration settings, allowing more flexibility.
 
 
 Fixed in SVN:
+- Bugfix:   (Progi1984) Work item 8916 - Support for Rich-Text in PHPExcel_Writer_Excel5
 - Feature:  (MBaker)    Options for cell caching using Igbinary and SQLite/SQlite3.
 - Feature:  (MBaker)    Additional row iterator options: allow a start row to be defined in the constructor; seek(), and prev() methods added.
 - Feature:  (Progi1984) Work item 9759 - Implement document properties in Excel5 writer

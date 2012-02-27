@@ -430,19 +430,29 @@ class PHPExcel_Shared_String
 	 * @param string $value UTF-8 encoded string
 	 * @return string
 	 */
-	public static function UTF8toBIFF8UnicodeShort($value)
+	public static function UTF8toBIFF8UnicodeShort($value, $arrcRuns = array())
 	{
 		// character count
 		$ln = self::CountCharacters($value, 'UTF-8');
 
 		// option flags
-		$opt = (self::getIsIconvEnabled() || self::getIsMbstringEnabled()) ?
-			0x0001 : 0x0000;
-
-		// characters
-		$chars = self::ConvertEncoding($value, 'UTF-16LE', 'UTF-8');
-
-		$data = pack('CC', $ln, $opt) . $chars;
+		if(empty($arrcRuns)){
+			$opt = (self::getIsIconvEnabled() || self::getIsMbstringEnabled()) ?
+				0x0001 : 0x0000;
+			$data = pack('CC', $ln, $opt);
+			// characters
+			$data .= self::ConvertEncoding($value, 'UTF-16LE', 'UTF-8');
+		}
+		else {
+			$data = pack('vC', $ln, 0x08);
+			$data .= pack('v', count($arrcRuns));
+			// characters
+			$data .= $value;
+			foreach ($arrcRuns as $cRun){
+				$data .= pack('v', $cRun['strlen']);
+				$data .= pack('v', $cRun['fontidx']);
+			}
+		}
 		return $data;
 	}
 

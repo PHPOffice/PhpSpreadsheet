@@ -156,6 +156,23 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 			$this->_writerWorkbook->addXfWriter($style, false);
 		}
 
+		// add fonts from rich text eleemnts
+		for ($i = 0; $i < $countSheets; ++$i) {
+			foreach ($this->_writerWorksheets[$i]->_phpSheet->getCellCollection() as $cellID) {
+				$cell = $this->_writerWorksheets[$i]->_phpSheet->getCell($cellID);
+				$cVal = $cell->getValue();
+				if ($cVal instanceof PHPExcel_RichText) {
+					$elements = $cVal->getRichTextElements();
+					foreach ($elements as $element) {
+						if ($element instanceof PHPExcel_RichText_Run) {
+							$font = $element->getFont();
+							$this->_writerWorksheets[$i]->_fntHashIndex[$font->getHashCode()] = $this->_writerWorkbook->_addFont($font);
+						}
+					}
+				}
+			}
+		}
+		
 		// initialize OLE file
 		$workbookStreamName = 'Workbook';
 		$OLE = new PHPExcel_Shared_OLE_PPS_File(PHPExcel_Shared_OLE::Asc2Ucs($workbookStreamName));

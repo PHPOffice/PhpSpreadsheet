@@ -255,20 +255,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 		$xfWriter->setIsStyleXf($isStyleXf);
 
 		// Add the font if not already added
-		$fontHashCode = $style->getFont()->getHashCode();
-
-		if (isset($this->_addedFonts[$fontHashCode])) {
-			$fontIndex = $this->_addedFonts[$fontHashCode];
-		} else {
-			$countFonts = count($this->_fontWriters);
-			$fontIndex = ($countFonts < 4) ? $countFonts : $countFonts + 1;
-
-			$fontWriter = new PHPExcel_Writer_Excel5_Font($style->getFont());
-			$fontWriter->setColorIndex($this->_addColor($style->getFont()->getColor()->getRGB()));
-			$this->_fontWriters[] = $fontWriter;
-
-			$this->_addedFonts[$fontHashCode] = $fontIndex;
-		}
+		$fontIndex = $this->_addFont($style->getFont());
 
 		// Assign the font index to the xf record
 		$xfWriter->setFontIndex($fontIndex);
@@ -306,6 +293,29 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 		return $xfIndex;
 	}
 
+	/**
+	 * Add a font to added fonts 
+	 * 
+	 * @param PHPExcel_Style_Font $font
+	 * @return int Index to FONT record
+	 */
+	public function _addFont(PHPExcel_Style_Font $font)
+	{
+		$fontHashCode = $font->getHashCode();
+		if(isset($this->_addedFonts[$fontHashCode])){
+			$fontIndex = $this->_addedFonts[$fontHashCode];
+		} else {
+			$countFonts = count($this->_fontWriters);
+			$fontIndex = ($countFonts < 4) ? $countFonts : $countFonts + 1;
+		
+			$fontWriter = new PHPExcel_Writer_Excel5_Font($font);
+			$fontWriter->setColorIndex($this->_addColor($font->getColor()->getRGB()));
+			$this->_fontWriters[] = $fontWriter;
+		
+			$this->_addedFonts[$fontHashCode] = $fontIndex;
+		}
+		return $fontIndex;
+	}
 	/**
 	 * Alter color palette adding a custom color
 	 *
@@ -633,7 +643,6 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 		}
 	}
 
-
 	/**
 	 * Writes all the DEFINEDNAME records (BIFF8).
 	 * So far this is only used for repeating rows/columns (print titles) and print areas
@@ -937,7 +946,6 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 		$this->_append($header . $data);
 	}
 
-
 	/**
 	 * Writes Excel FORMAT record for non "built-in" numerical formats.
 	 *
@@ -973,7 +981,6 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 		$this->_append($header . $data);
 	}
 
-
 	/**
 	 * Write BIFF record EXTERNCOUNT to indicate the number of external sheet
 	 * references in the workbook.
@@ -996,7 +1003,6 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 		$this->_append($header . $data);
 	}
 
-
 	/**
 	 * Writes the Excel BIFF EXTERNSHEET record. These references are used by
 	 * formulas. NAME record is required to define the print area and the repeat
@@ -1018,7 +1024,6 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 		$data        = pack("CC", $cch, $rgch);
 		$this->_append($header . $data . $sheetname);
 	}
-
 
 	/**
 	 * Store the NAME record in the short format that is used for storing the print
@@ -1081,7 +1086,6 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 		$data              .= pack("C", $colmax);
 		$this->_append($header . $data);
 	}
-
 
 	/**
 	 * Store the NAME record in the long format that is used for storing the repeat
