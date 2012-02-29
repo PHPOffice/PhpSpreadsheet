@@ -262,6 +262,10 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 							$objWriter->startElement('c:showNegBubbles');
 								$objWriter->writeAttribute('val', 0 );
 							$objWriter->endElement();
+					} elseif ($groupType === PHPExcel_Chart_DataSeries::TYPE_STOCKCHART) {
+
+							$objWriter->startElement('c:hiLowLines');
+							$objWriter->endElement();
 					}
 
 					//	Generate 2 unique numbers to use for axId values
@@ -570,6 +574,7 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 	private static function _getChartType($plotArea)
 	{
 		$groupCount = $plotArea->getPlotGroupCount();
+
 		if ($groupCount == 1) {
 			$chartType = array($plotArea->getPlotGroupByIndex(0)->getPlotType());
 		} else {
@@ -682,6 +687,12 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 							$objWriter->startElement('c:symbol');
 								$objWriter->writeAttribute('val', $plotSeriesMarker);
 							$objWriter->endElement();
+
+							if ($plotSeriesMarker !== 'none') {
+								$objWriter->startElement('c:size');
+									$objWriter->writeAttribute('val', 3);
+								$objWriter->endElement();
+							}
 						$objWriter->endElement();
 					}
 				}
