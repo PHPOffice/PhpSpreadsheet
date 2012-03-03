@@ -2,7 +2,7 @@
 /**
  * PHPExcel
  *
- * Copyright (c) 2006 - 2011 PHPExcel
+ * Copyright (c) 2006 - 2012 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel_Writer_Excel5
- * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -66,7 +66,7 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel_Writer_Excel5
- * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 {
@@ -294,8 +294,8 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 	}
 
 	/**
-	 * Add a font to added fonts 
-	 * 
+	 * Add a font to added fonts
+	 *
 	 * @param PHPExcel_Style_Font $font
 	 * @return int Index to FONT record
 	 */
@@ -307,11 +307,11 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 		} else {
 			$countFonts = count($this->_fontWriters);
 			$fontIndex = ($countFonts < 4) ? $countFonts : $countFonts + 1;
-		
+
 			$fontWriter = new PHPExcel_Writer_Excel5_Font($font);
 			$fontWriter->setColorIndex($this->_addColor($font->getColor()->getRGB()));
 			$this->_fontWriters[] = $fontWriter;
-		
+
 			$this->_addedFonts[$fontHashCode] = $fontIndex;
 		}
 		return $fontIndex;

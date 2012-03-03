@@ -2,7 +2,7 @@
 /**
  * PHPExcel
  *
- * Copyright (c) 2006 - 2011 PHPExcel
+ * Copyright (c) 2006 - 2012 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel_Writer_Excel5
- * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -66,7 +66,7 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel_Writer_Excel5
- * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 {
@@ -194,11 +194,11 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 
 	/**
 	 * Array of font hashes associated to FONT records index
-	 * 
+	 *
 	 * @var array
 	 */
 	public $_fntHashIndex;
-	
+
 	/**
 	 * Constructor
 	 *
@@ -241,7 +241,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		$this->_outline_below		= 1;
 		$this->_outline_right		= 1;
 		$this->_outline_on			= 1;
-		
+
 		$this->_fntHashIndex	= array();
 
 		// calculate values for DIMENSIONS record
@@ -647,20 +647,20 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 	private function _writeRichTextString($row, $col, $str, $xfIndex, $arrcRun){
 		$record	= 0x00FD;				   // Record identifier
 		$length	= 0x000A;				   // Bytes to follow
-		
+
 		$str = PHPExcel_Shared_String::UTF8toBIFF8UnicodeShort($str, $arrcRun);
-		
+
 		/* check if string is already present */
 		if (!isset($this->_str_table[$str])) {
 			$this->_str_table[$str] = $this->_str_unique++;
 		}
 		$this->_str_total++;
-		
+
 		$header	= pack('vv',   $record, $length);
 		$data	= pack('vvvV', $row, $col, $xfIndex, $this->_str_table[$str]);
 		$this->_append($header.$data);
 	}
-	
+
 	/**
 	 * Write a string to the specified row and column (zero indexed).
 	 * NOTE: there is an Excel 5 defined limit of 255 characters.
