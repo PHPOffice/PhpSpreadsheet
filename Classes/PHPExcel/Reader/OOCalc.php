@@ -2,7 +2,7 @@
 /**
  * PHPExcel
  *
- * Copyright (c) 2006 - 2011 PHPExcel
+ * Copyright (c) 2006 - 2012 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel_Reader
- * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -40,7 +40,7 @@ if (!defined('PHPEXCEL_ROOT')) {
  *
  *	@category	PHPExcel
  *	@package	PHPExcel_Reader
- *	@copyright	Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
+ *	@copyright	Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 {
@@ -558,6 +558,21 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 									if (isset($cellDataTableAttributes['number-columns-repeated'])) {
 //										echo 'Repeated '.$cellDataTableAttributes['number-columns-repeated'].' times<br />';
 										$columnID = PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($columnID) + $cellDataTableAttributes['number-columns-repeated'] - 2);
+
+										if ($type !== NULL) {
+											$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->setValueExplicit((($hasCalculatedValue) ? $cellDataFormula : $dataValue),$type);
+											if ($hasCalculatedValue) {
+//												echo 'Forumla result is '.$dataValue.'<br />';
+												$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->setCalculatedValue($dataValue);
+											}
+											if (($cellDataOfficeAttributes['value-type'] == 'date') ||
+												($cellDataOfficeAttributes['value-type'] == 'time')) {
+												$objPHPExcel->getActiveSheet()->getStyle($columnID.$rowID)->getNumberFormat()->setFormatCode($formatting);
+											}
+											if ($hyperlink !== NULL) {
+												$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->getHyperlink()->setUrl($hyperlink);
+											}
+										}
 									}
 									++$columnID;
 								}
