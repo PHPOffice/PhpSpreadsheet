@@ -2,7 +2,7 @@
 /**
  * PHPExcel
  *
- * Copyright (c) 2006 - 2011 PHPExcel
+ * Copyright (c) 2006 - 2012 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel_Calculation
- * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license	http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version	##VERSION##, ##DATE##
  */
@@ -57,7 +57,7 @@ if (!defined('CALCULATION_REGEXP_CELLREF')) {
  *
  * @category	PHPExcel
  * @package		PHPExcel_Calculation
- * @copyright	Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright	Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Calculation {
 
@@ -2985,6 +2985,21 @@ class PHPExcel_Calculation {
 	}	//	function _parseFormula()
 
 
+	private static function _dataTestReference(&$operandData)
+	{
+		$operand = $operandData['value'];
+		if (($operandData['reference'] === NULL) && (is_array($operand))) {
+			$rKeys = array_keys($operand);
+			$rowKey = array_shift($rKeys);
+			$cKeys = array_keys(array_keys($operand[$rowKey]));
+			$colKey = array_shift($cKeys);
+			if (ctype_upper($colKey)) {
+				$operandData['reference'] = $colKey.$rowKey;
+			}
+		}
+		return $operand;
+	}
+
 	// evaluate postfix notation
 	private function _processTokenStack($tokens, $cellID = null, PHPExcel_Cell $pCell = null) {
 		if ($tokens == false) return false;
@@ -3007,26 +3022,8 @@ class PHPExcel_Calculation {
 				if (($operand2Data = $stack->pop()) === NULL) return $this->_raiseFormulaError('Internal error - Operand value missing from stack');
 				if (($operand1Data = $stack->pop()) === NULL) return $this->_raiseFormulaError('Internal error - Operand value missing from stack');
 
-				$operand1 = $operand1Data['value'];
-				if (($operand1Data['reference'] === NULL) && (is_array($operand1))) {
-					$rKeys = array_keys($operand1);
-					$rowKey = array_shift($rKeys);
-					$cKeys = array_keys(array_keys($operand1[$rowKey]));
-					$colKey = array_shift($cKeys);
-					if (ctype_upper($colKey)) {
-						$operand1Data['reference'] = $colKey.$rowKey;
-					}
-				}
-				$operand2 = $operand2Data['value'];
-				if (($operand2Data['reference'] === NULL) && (is_array($operand2))) {
-					$rKeys = array_keys($operand2);
-					$rowKey = array_shift($rKeys);
-					$cKeys = array_keys(array_keys($operand1[$rowKey]));
-					$colKey = array_shift($cKeys);
-					if (ctype_upper($colKey)) {
-						$operand2Data['reference'] = $colKey.$rowKey;
-					}
-				}
+				$operand1 = self::_dataTestReference($operand1Data);
+				$operand2 = self::_dataTestReference($operand2Data);
 
 				//	Log what we're doing
 				if ($token == ':') {
