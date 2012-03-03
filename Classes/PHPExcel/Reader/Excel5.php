@@ -2,7 +2,7 @@
 /**
  * PHPExcel
  *
- * Copyright (c) 2006 - 2011 PHPExcel
+ * Copyright (c) 2006 - 2012 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel_Reader_Excel5
- * @copyright  Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -73,7 +73,7 @@ if (!defined('PHPEXCEL_ROOT')) {
  *
  *	@category	PHPExcel
  *	@package	PHPExcel_Reader_Excel5
- *	@copyright	Copyright (c) 2006 - 2011 PHPExcel (http://www.codeplex.com/PHPExcel)
+ *	@copyright	Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 {
@@ -1310,12 +1310,12 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 				case 0x03:	//	4 byte signed integer
 					$value = self::_GetInt4d($this->_documentSummaryInformation, $secOffset + 4 + $offset);
 					break;
-					
+
 				case 0x0B:  // Boolean
 					$value = self::_GetInt2d($this->_documentSummaryInformation, $secOffset + 4 + $offset);
 					$value = ($value == 0 ? false : true);
 					break;
-					
+
 				case 0x13:	//	4 byte unsigned integer
 					// not needed yet, fix later if necessary
 					break;
