@@ -203,6 +203,8 @@
         <extension name="zip" minimum_version="1.8.0"/>
       </dependencies>
       <dirroles key="PHPExcel/Shared/PDF/fonts">data</dirroles>
+	  <dirroles key="PHPExcel/Shared/PDF/fonts/utils">data</dirroles>
+	  <dirroles key="/PHPExcel/Shared/PDF/fonts/utils">data</dirroles>
     </d51pearpkg2>
 
     <exec command="pear package ./build/Classes/package.xml"/>
@@ -216,18 +218,28 @@
     <mkdir dir="./release" />
 
     <echo msg="Creating documentation release (v${packageVersion})..." />
-    <copy todir="./release" overwrite="true">
+    <copy todir="./build" overwrite="true">
       <fileset dir="../Documentation">
         <include name="*.*" />
         <exclude name="**/.svn" />
       </fileset>
     </copy>
-    <copy todir="./release/Examples" overwrite="true">
+    <copy todir="./build/Examples" overwrite="true">
       <fileset dir="../Documentation/Examples">
-        <include name="**.*" />
+        <include name="**/*" />
         <exclude name="**/.svn" />
       </fileset>
     </copy>
+	
+    <echo msg="Creating documentation release package (v${packageVersion})..." />
+    <phpzip destfile="./release/${packageVersion}-documentation.zip">
+      <fileset dir="./build">
+        <include name="**/*" />
+        <exclude name="**/.svn" />
+      </fileset>
+    </phpzip>
 
+    <echo msg="Cleaning build directory: ./build" />
+    <delete dir="./build" />
   </target>
 </project>
