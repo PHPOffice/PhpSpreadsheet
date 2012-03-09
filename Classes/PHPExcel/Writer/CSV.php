@@ -95,7 +95,7 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 	/**
 	 * Save PHPExcel to file
 	 *
-	 * @param	string		$pFileName
+	 * @param	string		$pFilename
 	 * @throws	Exception
 	 */
 	public function save($pFilename = null) {

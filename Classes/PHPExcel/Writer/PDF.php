@@ -210,7 +210,7 @@ class PHPExcel_Writer_PDF extends PHPExcel_Writer_HTML implements PHPExcel_Write
 	/**
 	 * Save PHPExcel to file
 	 *
-	 * @param 	string 		$pFileName
+	 * @param 	string 		$pFilename    Filename for the saved file
 	 * @throws 	Exception
 	 */
 	public function save($pFilename = null) {

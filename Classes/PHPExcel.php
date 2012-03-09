@@ -127,6 +127,11 @@ class PHPExcel
 	}
 
 
+	/**
+	 * Disconnect all worksheets from this PHPExcel workbook object,
+	 *    typically so that the PHPExcel object can be unset
+	 *
+	 */
 	public function disconnectWorksheets() {
 		foreach($this->_workSheetCollection as $k => &$worksheet) {
 			$worksheet->disconnectCells();
@@ -189,7 +194,9 @@ class PHPExcel
     /**
      * Create sheet and add it to this workbook
      *
+	 * @param int|null $iSheetIndex Index where sheet should go (0,1,..., or null for last)
      * @return PHPExcel_Worksheet
+     * @throws Exception
      */
     public function createSheet($iSheetIndex = null)
     {
@@ -491,8 +498,8 @@ class PHPExcel
 	/**
 	 * Remove named range
 	 *
-	 * @param string $namedRange
-	 * @param PHPExcel_Worksheet|null $pSheet. Scope. Use null for global scope.
+	 * @param  string  $namedRange
+	 * @param  PHPExcel_Worksheet|null  $pSheet  Scope: use null for global scope.
 	 * @return PHPExcel
 	 */
 	public function removeNamedRange($namedRange, PHPExcel_Worksheet $pSheet = null) {
@@ -558,7 +565,7 @@ class PHPExcel
 	/**
 	 * Get cellXf by index
 	 *
-	 * @param int $index
+	 * @param int $pIndex
 	 * @return PHPExcel_Style
 	 */
 	public function getCellXfByIndex($pIndex = 0)
@@ -599,7 +606,7 @@ class PHPExcel
 	/**
 	 * Add a cellXf to the workbook
 	 *
-	 * @param PHPExcel_Style
+	 * @param PHPExcel_Style $style
 	 */
 	public function addCellXf(PHPExcel_Style $style)
 	{

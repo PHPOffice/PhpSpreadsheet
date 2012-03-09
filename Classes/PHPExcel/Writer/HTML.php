@@ -145,7 +145,7 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	/**
 	 * Save PHPExcel to file
 	 *
-	 * @param	string		$pFileName
+	 * @param	string		$pFilename
 	 * @throws	Exception
 	 */
 	public function save($pFilename = null) {
@@ -189,6 +189,9 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 
 	/**
 	 * Map VAlign
+	 *
+	 * @param	string		$vAlign		Vertical alignment
+	 * @return string
 	 */
 	private function _mapVAlign($vAlign) {
 		switch ($vAlign) {
@@ -203,6 +206,7 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	/**
 	 * Map HAlign
 	 *
+	 * @param	string		$hAlign		Horizontal alignment
 	 * @return string|false
 	 */
 	private function _mapHAlign($hAlign) {

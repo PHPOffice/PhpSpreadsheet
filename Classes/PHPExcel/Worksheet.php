@@ -369,6 +369,11 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	}
 
 
+	/**
+	 * Disconnect all cells from this PHPExcel_Worksheet object,
+	 *    typically so that the worksheet object can be unset
+	 *
+	 */
 	public function disconnectCells() {
 		$this->_cellCollection->unsetWorksheetCells();
 		$this->_cellCollection = null;
