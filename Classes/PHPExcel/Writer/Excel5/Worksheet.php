@@ -204,8 +204,8 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 	 *
 	 * @param int		&$str_total		Total number of strings
 	 * @param int		&$str_unique	Total number of unique strings
-	 * @param array		&$str_table
-	 * @param array		&$colors
+	 * @param array		&$str_table		String Table
+	 * @param array		&$colors		Colour Table
 	 * @param mixed		$parser			The formula parser created for the Workbook
 	 * @param boolean	$preCalculateFormulas	Flag indicating whether formulas should be calculated or just written
 	 * @param string	$phpSheet		The worksheet to write

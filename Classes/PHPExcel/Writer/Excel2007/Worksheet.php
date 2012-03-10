@@ -40,6 +40,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 	 *
 	 * @param	PHPExcel_Worksheet		$pSheet
 	 * @param	string[]				$pStringTable
+	 * @param	boolean					$includeCharts	Flag indicating if we should write charts
 	 * @return	string					XML Output
 	 * @throws	Exception
 	 */
@@ -959,7 +960,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 	 *
 	 * @param	PHPExcel_Shared_XMLWriter	$objWriter				XML Writer
 	 * @param	PHPExcel_Worksheet			$pSheet					Worksheet
-	 * @param	PHPExcel_Cell				$pCell					Cell
+	 * @param	PHPExcel_Cell				$pCellAddress			Cell Address
 	 * @param	string[]					$pStringTable			String table
 	 * @param	string[]					$pFlippedStringTable	String table (flipped), for faster index searching
 	 * @throws	Exception
@@ -1081,8 +1082,9 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 	/**
 	 * Write Drawings
 	 *
-	 * @param	PHPExcel_Shared_XMLWriter		$objWriter		XML Writer
-	 * @param	PHPExcel_Worksheet				$pSheet			Worksheet
+	 * @param	PHPExcel_Shared_XMLWriter	$objWriter		XML Writer
+	 * @param	PHPExcel_Worksheet			$pSheet			Worksheet
+	 * @param	boolean						$includeCharts	Flag indicating if we should include drawing details for charts
 	 * @throws	Exception
 	 */
 	private function _writeDrawings(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_Worksheet $pSheet = null, $includeCharts = FALSE)

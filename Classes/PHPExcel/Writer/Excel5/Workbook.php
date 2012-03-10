@@ -193,11 +193,12 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 	/**
 	 * Class constructor
 	 *
-	 * @param PHPExcel $phpExcel The Workbook
-	 * @param int  $str_total		Total number of strings
-	 * @param int  $str_unique		Total number of unique strings
-	 * @param array  $str_table
-	 * @param mixed   $parser	  The formula parser created for the Workbook
+	 * @param PHPExcel	$phpExcel		The Workbook
+	 * @param int		&$str_total		Total number of strings
+	 * @param int		&$str_unique	Total number of unique strings
+	 * @param array		&$str_table		String Table
+	 * @param array		&$colors		Colour Table
+	 * @param mixed		$parser			The formula parser created for the Workbook
 	 */
 	public function __construct(PHPExcel $phpExcel = null,
 								&$str_total, &$str_unique, &$str_table, &$colors,
@@ -418,8 +419,8 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 	 * Assemble worksheets into a workbook and send the BIFF data to an OLE
 	 * storage.
 	 *
-	 * @param array $worksheetSizes The sizes in bytes of the binary worksheet streams
-	 * @return string Binary data for workbook stream
+	 * @param	array	$pWorksheetSizes	The sizes in bytes of the binary worksheet streams
+	 * @return	string	Binary data for workbook stream
 	 */
 	public function writeWorkbook($pWorksheetSizes = null)
 	{
