@@ -134,9 +134,8 @@ class PHPExcel_Writer_Excel5_Xf
 	/**
 	 * Constructor
 	 *
-	 * @access private
-	 * @param integer $index the XF index for the format.
-	 * @param PHPExcel_Style
+	 * @access public
+	 * @param PHPExcel_Style	The XF format
 	 */
 	public function __construct(PHPExcel_Style $style = null)
 	{

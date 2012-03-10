@@ -202,11 +202,13 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 	/**
 	 * Constructor
 	 *
-	 * @param int  $str_total		Total number of strings
-	 * @param int  $str_unique		Total number of unique strings
-	 * @param array  $str_table
-	 * @param mixed   $parser	  The formula parser created for the Workbook
-	 * @param string   $tempDir	  The temporary directory to be used
+	 * @param int		&$str_total		Total number of strings
+	 * @param int		&$str_unique	Total number of unique strings
+	 * @param array		&$str_table
+	 * @param array		&$colors
+	 * @param mixed		$parser			The formula parser created for the Workbook
+	 * @param boolean	$preCalculateFormulas	Flag indicating whether formulas should be calculated or just written
+	 * @param string	$phpSheet		The worksheet to write
 	 * @param PHPExcel_Worksheet $phpSheet
 	 */
 	public function __construct(&$str_total, &$str_unique, &$str_table, &$colors,
@@ -604,7 +606,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 	 * @param integer $row	Zero indexed row
 	 * @param integer $col	Zero indexed column
 	 * @param float   $num	The number to write
-	 * @param mixed   $format The optional XF format
+	 * @param mixed   $xfIndex The optional XF format
 	 * @return integer
 	 */
 	private function _writeNumber($row, $col, $num, $xfIndex)
@@ -641,7 +643,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 	 * @param int $row Row index (0-based)
 	 * @param int $col Column index (0-based)
 	 * @param string $str The string
-	 * @param mixed   $format The XF format for the cell
+	 * @param mixed   $xfIndex The XF format index for the cell
 	 * @param array $arrcRun Index to Font record and characters beginning
 	 */
 	private function _writeRichTextString($row, $col, $str, $xfIndex, $arrcRun){
@@ -673,7 +675,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 	 * @param integer $row	Zero indexed row
 	 * @param integer $col	Zero indexed column
 	 * @param string  $str	The string to write
-	 * @param mixed   $format The XF format for the cell
+	 * @param mixed   $xfIndex The XF format index for the cell
 	 * @return integer
 	 */
 	private function _writeLabel($row, $col, $str, $xfIndex)
@@ -709,7 +711,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 	 * @param integer $row	Zero indexed row
 	 * @param integer $col	Zero indexed column
 	 * @param string  $str	The string to write
-	 * @param mixed   $format The XF format for the cell
+	 * @param mixed   $xfIndex The XF format index for the cell
 	 * @return integer
 	 */
 	private function _writeLabelSst($row, $col, $str, $xfIndex)
@@ -774,7 +776,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 	 *
 	 * @param integer $row	Zero indexed row
 	 * @param integer $col	Zero indexed column
-	 * @param mixed   $format The XF format
+	 * @param mixed   $xfIndex The XF format index
 	 */
 	function _writeBlank($row, $col, $xfIndex)
 	{
@@ -819,7 +821,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 	 * @param integer $row	 Zero indexed row
 	 * @param integer $col	 Zero indexed column
 	 * @param string  $formula The formula text string
-	 * @param mixed   $format  The optional XF format
+	 * @param mixed   $xfIndex  The XF format index
 	 * @param mixed   $calculatedValue  Calculated value
 	 * @return integer
 	 */
@@ -2887,6 +2889,9 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 
 	/**
 	 * Map Error code
+	 *
+	 * @param string $errorCode
+	 * @return int
 	 */
 	private static function _mapErrorCode($errorCode) {
 		switch ($errorCode) {
