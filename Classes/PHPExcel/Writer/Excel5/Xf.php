@@ -165,7 +165,6 @@ class PHPExcel_Writer_Excel5_Xf
 	/**
 	 * Generate an Excel BIFF XF record (style or cell).
 	 *
-	 * @param string $style The type of the XF record ('style' or 'cell').
 	 * @return string The XF record
 	 */
 	function writeXf()
@@ -378,6 +377,11 @@ class PHPExcel_Writer_Excel5_Xf
 		$this->_fontIndex = $value;
 	}
 
+	/**
+	 * Map of BIFF2-BIFF8 codes for border styles
+	 * @static	array of int
+	 *
+	 */
 	private static $_mapBorderStyle = array	( PHPExcel_Style_Border::BORDER_NONE				=> 0x00,
 											  PHPExcel_Style_Border::BORDER_THIN				=> 0x01,
 											  PHPExcel_Style_Border::BORDER_MEDIUM				=> 0x02,
@@ -396,6 +400,9 @@ class PHPExcel_Writer_Excel5_Xf
 
 	/**
 	 * Map border style
+	 *
+	 * @param string $borderStyle
+	 * @return int
 	 */
 	private static function _mapBorderStyle($borderStyle) {
 		if (isset(self::$_mapBorderStyle[$borderStyle]))
@@ -403,6 +410,11 @@ class PHPExcel_Writer_Excel5_Xf
 		return 0x00;
 	}
 
+	/**
+	 * Map of BIFF2-BIFF8 codes for fill types
+	 * @static	array of int
+	 *
+	 */
 	private static $_mapFillType = array( PHPExcel_Style_Fill::FILL_NONE					=> 0x00,
 										  PHPExcel_Style_Fill::FILL_SOLID					=> 0x01,
 										  PHPExcel_Style_Fill::FILL_PATTERN_MEDIUMGRAY		=> 0x02,
@@ -427,6 +439,9 @@ class PHPExcel_Writer_Excel5_Xf
 										);
 	/**
 	 * Map fill type
+	 *
+	 * @param string $fillType
+	 * @return int
 	 */
 	private static function _mapFillType($fillType) {
 		if (isset(self::$_mapFillType[$fillType]))
@@ -434,6 +449,11 @@ class PHPExcel_Writer_Excel5_Xf
 		return 0x00;
 	}
 
+	/**
+	 * Map of BIFF2-BIFF8 codes for horizontal alignment
+	 * @static	array of int
+	 *
+	 */
 	private static $_mapHAlign = array( PHPExcel_Style_Alignment::HORIZONTAL_GENERAL			=> 0,
 										PHPExcel_Style_Alignment::HORIZONTAL_LEFT				=> 1,
 										PHPExcel_Style_Alignment::HORIZONTAL_CENTER				=> 2,
@@ -454,6 +474,11 @@ class PHPExcel_Writer_Excel5_Xf
 		return 0;
 	}
 
+	/**
+	 * Map of BIFF2-BIFF8 codes for vertical alignment
+	 * @static	array of int
+	 *
+	 */
 	private static $_mapVAlign = array( PHPExcel_Style_Alignment::VERTICAL_TOP		=> 0,
 										PHPExcel_Style_Alignment::VERTICAL_CENTER	=> 1,
 										PHPExcel_Style_Alignment::VERTICAL_BOTTOM	=> 2,

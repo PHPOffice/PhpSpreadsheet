@@ -91,8 +91,18 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 	 */
 	private $_IDCLs;
 
+	/**
+	 * Basic OLE object summary information
+	 *
+	 * @var array
+	 */
 	private $_summaryInformation;
 
+	/**
+	 * Extended OLE object document summary information
+	 *
+	 * @var array
+	 */
 	private $_documentSummaryInformation;
 
 	/**
@@ -256,6 +266,10 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 		$this->_preCalculateFormulas = $pValue;
 	}
 
+	/**
+	 * Build the Worksheet Escher objects
+	 *
+	 */
 	private function _buildWorksheetEschers()
 	{
 		// 1-based index to BstoreContainer

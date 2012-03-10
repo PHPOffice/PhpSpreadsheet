@@ -223,6 +223,9 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 
 	/**
 	 * Map border style
+	 *
+	 * @param	int		$borderStyle		Sheet index
+	 * @return	string
 	 */
 	private function _mapBorderStyle($borderStyle) {
 		switch ($borderStyle) {
