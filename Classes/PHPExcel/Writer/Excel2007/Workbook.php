@@ -39,6 +39,7 @@ class PHPExcel_Writer_Excel2007_Workbook extends PHPExcel_Writer_Excel2007_Write
 	 * Write workbook to XML format
 	 *
 	 * @param 	PHPExcel	$pPHPExcel
+	 * @param	boolean		$recalcRequired	Indicate whether formulas should be recalculated before writing
 	 * @return 	string 		XML Output
 	 * @throws 	Exception
 	 */
@@ -185,7 +186,8 @@ class PHPExcel_Writer_Excel2007_Workbook extends PHPExcel_Writer_Excel2007_Write
 	/**
 	 * Write calcPr
 	 *
-	 * @param 	PHPExcel_Shared_XMLWriter $objWriter 		XML Writer
+	 * @param 	PHPExcel_Shared_XMLWriter	$objWriter		XML Writer
+	 * @param	boolean						$recalcRequired	Indicate whether formulas should be recalculated before writing
 	 * @throws 	Exception
 	 */
 	private function _writeCalcPr(PHPExcel_Shared_XMLWriter $objWriter = null, $recalcRequired = TRUE)

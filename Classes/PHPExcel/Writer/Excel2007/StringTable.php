@@ -142,8 +142,9 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
 	/**
 	 * Write Rich Text
 	 *
-	 * @param 	PHPExcel_Shared_XMLWriter		$objWriter 		XML Writer
-	 * @param 	PHPExcel_RichText				$pRichText		Rich text
+	 * @param 	PHPExcel_Shared_XMLWriter	$objWriter 		XML Writer
+	 * @param 	PHPExcel_RichText			$pRichText		Rich text
+	 * @param 	string						$prefix			Optional Namespace prefix
 	 * @throws 	Exception
 	 */
 	public function writeRichText(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_RichText $pRichText = null, $prefix=NULL)
@@ -223,8 +224,9 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
 	/**
 	 * Write Rich Text
 	 *
-	 * @param 	PHPExcel_Shared_XMLWriter		$objWriter 		XML Writer
-	 * @param 	PHPExcel_RichText				$pRichText		Rich text
+	 * @param 	PHPExcel_Shared_XMLWriter	$objWriter 		XML Writer
+	 * @param 	PHPExcel_RichText			$pRichText		Rich text
+	 * @param 	string						$prefix			Optional Namespace prefix
 	 * @throws 	Exception
 	 */
 	public function writeRichTextForCharts(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_RichText $pRichText = null, $prefix=NULL)
