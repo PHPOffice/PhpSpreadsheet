@@ -90,9 +90,9 @@ class PHPExcel_Writer_Excel2007_Drawing extends PHPExcel_Writer_Excel2007_Writer
 	/**
 	 * Write drawings to XML format
 	 *
-	 * @param 	PHPExcel_Shared_XMLWriter			$objWriter 		XML Writer
-	 * @param 	PHPExcel_Worksheet_BaseDrawing		$pDrawing
-	 * @param 	int									$pRelationId
+	 * @param 	PHPExcel_Shared_XMLWriter	$objWriter 		XML Writer
+	 * @param 	PHPExcel_Chart				$pChart
+	 * @param 	int							$pRelationId
 	 * @throws 	Exception
 	 */
 	public function _writeChart(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_Chart $pChart = null, $pRelationId = -1)
