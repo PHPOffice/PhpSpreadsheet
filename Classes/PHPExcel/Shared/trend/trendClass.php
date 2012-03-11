@@ -21,11 +21,23 @@ class trendClass
 	const TREND_BEST_FIT			= 'Bestfit';
 	const TREND_BEST_FIT_NO_POLY	= 'Bestfit_no_Polynomials';
 
+	/*
+	 * Names of the best-fit trend analysis methods
+	 *
+	 * @private
+	 * @var	string[]
+	 */
 	private static $_trendTypes = array( self::TREND_LINEAR,
 										 self::TREND_LOGARITHMIC,
 										 self::TREND_EXPONENTIAL,
 										 self::TREND_POWER
 									   );
+	/*
+	 * Names of the best-fit trend polynomial orders
+	 *
+	 * @private
+	 * @var	string[]
+	 */
 	private static $_trendTypePolyOrders = array( self::TREND_POLYNOMIAL_2,
 												  self::TREND_POLYNOMIAL_3,
 												  self::TREND_POLYNOMIAL_4,
@@ -33,6 +45,12 @@ class trendClass
 												  self::TREND_POLYNOMIAL_6
 											    );
 
+	/*
+	 * Cached results for each method when trying to identify which provides the best fit
+	 *
+	 * @private
+	 * @var	PHPExcel_Shared_Best_Fit[]
+	 */
 	private static $_trendCache = array();
 
 

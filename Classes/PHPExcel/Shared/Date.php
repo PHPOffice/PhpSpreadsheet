@@ -40,6 +40,13 @@ class PHPExcel_Shared_Date
 	const CALENDAR_WINDOWS_1900 = 1900;		//	Base date of 1st Jan 1900 = 1.0
 	const CALENDAR_MAC_1904 = 1904;			//	Base date of 2nd Jan 1904 = 1.0
 
+	/*
+	 * Names of the months of the year, indexed by shortname
+	 * Planned usage for locale settings
+	 *
+	 * @public
+	 * @var	string[]
+	 */
 	public static $_monthNames = array(	'Jan' => 'January',
 										'Feb' => 'February',
 										'Mar' => 'March',
@@ -54,8 +61,20 @@ class PHPExcel_Shared_Date
 										'Dec' => 'December'
 									  );
 
+	/*
+	 * Base calendar year to use for calculations
+	 *
+	 * @private
+	 * @var	int
+	 */
 	private static $ExcelBaseDate	= self::CALENDAR_WINDOWS_1900;
 
+	/*
+	 * Object type for PHP Date/Time values
+	 *
+	 * @private
+	 * @var	string
+	 */
 	public static $dateTimeObjectType	= 'DateTime';
 
 

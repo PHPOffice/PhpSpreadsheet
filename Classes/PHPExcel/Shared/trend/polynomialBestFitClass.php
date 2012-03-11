@@ -49,6 +49,12 @@ class PHPExcel_Polynomial_Best_Fit extends PHPExcel_Best_Fit
 	}	//	function getOrder()
 
 
+	/**
+	 * Return the Y-Value for a specified value of X
+	 *
+	 * @param	 float		$xValue			X-Value
+	 * @return	 float						Y-Value
+	 */
 	public function getValueOfYForX($xValue) {
 		$retVal = $this->getIntersect();
 		$slope = $this->getSlope();
@@ -61,11 +67,23 @@ class PHPExcel_Polynomial_Best_Fit extends PHPExcel_Best_Fit
 	}	//	function getValueOfYForX()
 
 
+	/**
+	 * Return the X-Value for a specified value of Y
+	 *
+	 * @param	 float		$yValue			Y-Value
+	 * @return	 float						X-Value
+	 */
 	public function getValueOfXForY($yValue) {
 		return ($yValue - $this->getIntersect()) / $this->getSlope();
 	}	//	function getValueOfXForY()
 
 
+	/**
+	 * Return the Equation of the best-fit line
+	 *
+	 * @param	 int		$dp		Number of places of decimal precision to display
+	 * @return	 string
+	 */
 	public function getEquation($dp=0) {
 		$slope = $this->getSlope($dp);
 		$intersect = $this->getIntersect($dp);
@@ -83,6 +101,12 @@ class PHPExcel_Polynomial_Best_Fit extends PHPExcel_Best_Fit
 	}	//	function getEquation()
 
 
+	/**
+	 * Return the Slope of the line
+	 *
+	 * @param	 int		$dp		Number of places of decimal precision to display
+	 * @return	 string
+	 */
 	public function getSlope($dp=0) {
 		if ($dp != 0) {
 			$coefficients = array();

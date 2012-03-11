@@ -41,16 +41,34 @@ class PHPExcel_Exponential_Best_Fit extends PHPExcel_Best_Fit
 	protected $_bestFitType		= 'exponential';
 
 
+	/**
+	 * Return the Y-Value for a specified value of X
+	 *
+	 * @param	 float		$xValue			X-Value
+	 * @return	 float						Y-Value
+	 */
 	public function getValueOfYForX($xValue) {
 		return $this->getIntersect() * pow($this->getSlope(),($xValue - $this->_Xoffset));
 	}	//	function getValueOfYForX()
 
 
+	/**
+	 * Return the X-Value for a specified value of Y
+	 *
+	 * @param	 float		$yValue			Y-Value
+	 * @return	 float						X-Value
+	 */
 	public function getValueOfXForY($yValue) {
 		return log(($yValue + $this->_Yoffset) / $this->getIntersect()) / log($this->getSlope());
 	}	//	function getValueOfXForY()
 
 
+	/**
+	 * Return the Equation of the best-fit line
+	 *
+	 * @param	 int		$dp		Number of places of decimal precision to display
+	 * @return	 string
+	 */
 	public function getEquation($dp=0) {
 		$slope = $this->getSlope($dp);
 		$intersect = $this->getIntersect($dp);
@@ -59,6 +77,12 @@ class PHPExcel_Exponential_Best_Fit extends PHPExcel_Best_Fit
 	}	//	function getEquation()
 
 
+	/**
+	 * Return the Slope of the line
+	 *
+	 * @param	 int		$dp		Number of places of decimal precision to display
+	 * @return	 string
+	 */
 	public function getSlope($dp=0) {
 		if ($dp != 0) {
 			return round(exp($this->_slope),$dp);
@@ -67,6 +91,12 @@ class PHPExcel_Exponential_Best_Fit extends PHPExcel_Best_Fit
 	}	//	function getSlope()
 
 
+	/**
+	 * Return the Value of X where it intersects Y = 0
+	 *
+	 * @param	 int		$dp		Number of places of decimal precision to display
+	 * @return	 string
+	 */
 	public function getIntersect($dp=0) {
 		if ($dp != 0) {
 			return round(exp($this->_intersect),$dp);

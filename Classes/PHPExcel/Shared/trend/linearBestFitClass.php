@@ -41,16 +41,34 @@ class PHPExcel_Linear_Best_Fit extends PHPExcel_Best_Fit
 	protected $_bestFitType		= 'linear';
 
 
+	/**
+	 * Return the Y-Value for a specified value of X
+	 *
+	 * @param	 float		$xValue			X-Value
+	 * @return	 float						Y-Value
+	 */
 	public function getValueOfYForX($xValue) {
 		return $this->getIntersect() + $this->getSlope() * $xValue;
 	}	//	function getValueOfYForX()
 
 
+	/**
+	 * Return the X-Value for a specified value of Y
+	 *
+	 * @param	 float		$yValue			Y-Value
+	 * @return	 float						X-Value
+	 */
 	public function getValueOfXForY($yValue) {
 		return ($yValue - $this->getIntersect()) / $this->getSlope();
 	}	//	function getValueOfXForY()
 
 
+	/**
+	 * Return the Equation of the best-fit line
+	 *
+	 * @param	 int		$dp		Number of places of decimal precision to display
+	 * @return	 string
+	 */
 	public function getEquation($dp=0) {
 		$slope = $this->getSlope($dp);
 		$intersect = $this->getIntersect($dp);

@@ -35,18 +35,60 @@
  */
 class PHPExcel_Best_Fit
 {
+	/*
+	 * Indicator flag for a calculation error
+	 *
+	 * @protected
+	 * @var	boolean
+	 */
 	protected $_error				= False;
 
+	/*
+	 * Algorithm type to use for best-fit
+	 *
+	 * @protected
+	 * @var	string
+	 */
 	protected $_bestFitType			= 'undetermined';
 
+	/*
+	 * Number of entries in the sets of x- and y-value arrays
+	 *
+	 * @protected
+	 * @var	int
+	 */
 	protected $_valueCount			= 0;
 
+	/*
+	 * X-value dataseries of values
+	 *
+	 * @protected
+	 * @var	float[]
+	 */
 	protected $_xValues				= array();
 
+	/*
+	 * Y-value dataseries of values
+	 *
+	 * @protected
+	 * @var	float[]
+	 */
 	protected $_yValues				= array();
 
+	/*
+	 * X-value series of values
+	 *
+	 * @protected
+	 * @var	boolean
+	 */
 	protected $_adjustToZero		= False;
 
+	/*
+	 * Y-value series of best-fit values
+	 *
+	 * @protected
+	 * @var	float[]
+	 */
 	protected $_yBestFitValues		= array();
 
 	protected $_goodnessOfFit 		= 1;
@@ -88,11 +130,23 @@ class PHPExcel_Best_Fit
 	}	//	function getBestFitType()
 
 
+	/**
+	 * Return the Y-Value for a specified value of X
+	 *
+	 * @param	 float		$xValue			X-Value
+	 * @return	 float						Y-Value
+	 */
 	public function getValueOfYForX($xValue) {
 		return False;
 	}	//	function getValueOfYForX()
 
 
+	/**
+	 * Return the X-Value for a specified value of Y
+	 *
+	 * @param	 float		$yValue			Y-Value
+	 * @return	 float						X-Value
+	 */
 	public function getValueOfXForY($yValue) {
 		return False;
 	}	//	function getValueOfXForY()
@@ -103,11 +157,23 @@ class PHPExcel_Best_Fit
 	}	//	function getValueOfXForY()
 
 
+	/**
+	 * Return the Equation of the best-fit line
+	 *
+	 * @param	 int		$dp		Number of places of decimal precision to display
+	 * @return	 string
+	 */
 	public function getEquation($dp=0) {
 		return False;
 	}	//	function getEquation()
 
 
+	/**
+	 * Return the Slope of the line
+	 *
+	 * @param	 int		$dp		Number of places of decimal precision to display
+	 * @return	 string
+	 */
 	public function getSlope($dp=0) {
 		if ($dp != 0) {
 			return round($this->_slope,$dp);
@@ -116,6 +182,12 @@ class PHPExcel_Best_Fit
 	}	//	function getSlope()
 
 
+	/**
+	 * Return the standard error of the Slope
+	 *
+	 * @param	 int		$dp		Number of places of decimal precision to display
+	 * @return	 string
+	 */
 	public function getSlopeSE($dp=0) {
 		if ($dp != 0) {
 			return round($this->_slopeSE,$dp);
@@ -124,6 +196,12 @@ class PHPExcel_Best_Fit
 	}	//	function getSlopeSE()
 
 
+	/**
+	 * Return the Value of X where it intersects Y = 0
+	 *
+	 * @param	 int		$dp		Number of places of decimal precision to display
+	 * @return	 string
+	 */
 	public function getIntersect($dp=0) {
 		if ($dp != 0) {
 			return round($this->_intersect,$dp);
@@ -132,6 +210,12 @@ class PHPExcel_Best_Fit
 	}	//	function getIntersect()
 
 
+	/**
+	 * Return the standard error of the Intersect
+	 *
+	 * @param	 int		$dp		Number of places of decimal precision to display
+	 * @return	 string
+	 */
 	public function getIntersectSE($dp=0) {
 		if ($dp != 0) {
 			return round($this->_intersectSE,$dp);
