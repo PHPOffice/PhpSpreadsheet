@@ -58,23 +58,23 @@ class PHPExcel_Chart_Legend
 									     );
 
 	/**
-	 *	Legend position
+	 * Legend position
 	 *
-	 *	@var	string
+	 * @var	string
 	 */
 	private $_position = self::POSITION_RIGHT;
 
 	/**
-	 *	Allow overlay of other elements?
+	 * Allow overlay of other elements?
 	 *
-	 *	@var	boolean
+	 * @var	boolean
 	 */
 	private $_overlay = true;
 
 	/**
-	 *	Legend Layout
+	 * Legend Layout
 	 *
-	 *	@var	PHPExcel_Chart_Layout
+	 * @var	PHPExcel_Chart_Layout
 	 */
 	private $_layout = null;
 
@@ -90,18 +90,18 @@ class PHPExcel_Chart_Legend
 	}
 
 	/**
-	 *	Get legend position as an excel string value
+	 * Get legend position as an excel string value
 	 *
-	 *	@return	string
+	 * @return	string
 	 */
 	public function getPosition() {
 		return $this->_position;
 	}
 
 	/**
-	 *	Get legend position using an excel string value
+	 * Get legend position using an excel string value
 	 *
-	 *	@param	string	$position
+	 * @param	string	$position
 	 */
 	public function setPosition($position = self::POSITION_RIGHT) {
 		if (!in_array($position,self::$positionXref)) {
@@ -114,18 +114,18 @@ class PHPExcel_Chart_Legend
 	}
 
 	/**
-	 *	Get legend position as an Excel internal numeric value
+	 * Get legend position as an Excel internal numeric value
 	 *
-	 *	@return	number
+	 * @return	number
 	 */
 	public function getPositionXL() {
 		return array_search($this->_position,self::$positionXref);
 	}
 
 	/**
-	 *	Set legend position using an Excel internal numeric value
+	 * Set legend position using an Excel internal numeric value
 	 *
-	 *	@param	number	$positionXL
+	 * @param	number	$positionXL
 	 */
 	public function setPositionXL($positionXL = self::xlLegendPositionRight) {
 		if (!array_key_exists($positionXL,self::$positionXref)) {
@@ -137,27 +137,27 @@ class PHPExcel_Chart_Legend
 	}
 
 	/**
-	 *	Get allow overlay of other elements?
+	 * Get allow overlay of other elements?
 	 *
-	 *	@return	boolean
+	 * @return	boolean
 	 */
 	public function getOverlay() {
 		return $this->_overlay;
 	}
 
 	/**
-	 *	Set allow overlay of other elements?
+	 * Set allow overlay of other elements?
 	 *
-	 *	@param	boolean	$value
+	 * @param	boolean	$value
 	 */
 	public function setOverlay($value=false) {
 		$this->_overlay = $value;
 	}
 
 	/**
-	 *	Get Layout
+	 * Get Layout
 	 *
-	 *	@return PHPExcel_Chart_Layout
+	 * @return PHPExcel_Chart_Layout
 	 */
 	public function getLayout() {
 		return $this->_layout;

@@ -87,10 +87,10 @@ class PHPExcel_Calculation_TextData {
 
 
 	/**
-	 *	TRIMNONPRINTABLE
+	 * TRIMNONPRINTABLE
 	 *
-	 *	@param	mixed	$value	Value to check
-	 *	@return	string
+	 * @param	mixed	$value	Value to check
+	 * @return	string
 	 */
 	public static function TRIMNONPRINTABLE($stringValue = '') {
 		$stringValue	= PHPExcel_Calculation_Functions::flattenSingleValue($stringValue);
@@ -111,10 +111,10 @@ class PHPExcel_Calculation_TextData {
 
 
 	/**
-	 *	TRIMSPACES
+	 * TRIMSPACES
 	 *
-	 *	@param	mixed	$value	Value to check
-	 *	@return	string
+	 * @param	mixed	$value	Value to check
+	 * @return	string
 	 */
 	public static function TRIMSPACES($stringValue = '') {
 		$stringValue	= PHPExcel_Calculation_Functions::flattenSingleValue($stringValue);
@@ -187,16 +187,16 @@ class PHPExcel_Calculation_TextData {
 
 
 	/**
-	 *	DOLLAR
+	 * DOLLAR
 	 *
-	 *	This function converts a number to text using currency format, with the decimals rounded to the specified place.
-	 *	The format used is $#,##0.00_);($#,##0.00)..
+	 * This function converts a number to text using currency format, with the decimals rounded to the specified place.
+	 * The format used is $#,##0.00_);($#,##0.00)..
 	 *
-	 *	@param	float	$value			The value to format
-	 *	@param	int		$decimals		The number of digits to display to the right of the decimal point.
+	 * @param	float	$value			The value to format
+	 * @param	int		$decimals		The number of digits to display to the right of the decimal point.
 	 *									If decimals is negative, number is rounded to the left of the decimal point.
 	 *									If you omit decimals, it is assumed to be 2
-	 *	@return	string
+	 * @return	string
 	 */
 	public static function DOLLAR($value = 0, $decimals = 2) {
 		$value		= PHPExcel_Calculation_Functions::flattenSingleValue($value);
@@ -288,10 +288,10 @@ class PHPExcel_Calculation_TextData {
 
 
 	/**
-	 *	FIXEDFORMAT
+	 * FIXEDFORMAT
 	 *
-	 *	@param	mixed	$value	Value to check
-	 *	@return	boolean
+	 * @param	mixed	$value	Value to check
+	 * @return	boolean
 	 */
 	public static function FIXEDFORMAT($value, $decimals = 2, $no_commas = FALSE) {
 		$value		= PHPExcel_Calculation_Functions::flattenSingleValue($value);
@@ -342,12 +342,12 @@ class PHPExcel_Calculation_TextData {
 
 
 	/**
-	 *	MID
+	 * MID
 	 *
-	 *	@param	string	$value	Value
-	 *	@param	int		$start	Start character
-	 *	@param	int		$chars	Number of characters
-	 *	@return	string
+	 * @param	string	$value	Value
+	 * @param	int		$start	Start character
+	 * @param	int		$chars	Number of characters
+	 * @return	string
 	 */
 	public static function MID($value = '', $start = 1, $chars = null) {
 		$value		= PHPExcel_Calculation_Functions::flattenSingleValue($value);
@@ -371,11 +371,11 @@ class PHPExcel_Calculation_TextData {
 
 
 	/**
-	 *	RIGHT
+	 * RIGHT
 	 *
-	 *	@param	string	$value	Value
-	 *	@param	int		$chars	Number of characters
-	 *	@return	string
+	 * @param	string	$value	Value
+	 * @param	int		$chars	Number of characters
+	 * @return	string
 	 */
 	public static function RIGHT($value = '', $chars = 1) {
 		$value		= PHPExcel_Calculation_Functions::flattenSingleValue($value);
@@ -420,12 +420,12 @@ class PHPExcel_Calculation_TextData {
 
 
 	/**
-	 *	LOWERCASE
+	 * LOWERCASE
 	 *
-	 *	Converts a string value to upper case.
+	 * Converts a string value to upper case.
 	 *
-	 *	@param	string		$mixedCaseString
-	 *	@return	string
+	 * @param	string		$mixedCaseString
+	 * @return	string
 	 */
 	public static function LOWERCASE($mixedCaseString) {
 		$mixedCaseString	= PHPExcel_Calculation_Functions::flattenSingleValue($mixedCaseString);
@@ -443,12 +443,12 @@ class PHPExcel_Calculation_TextData {
 
 
 	/**
-	 *	UPPERCASE
+	 * UPPERCASE
 	 *
-	 *	Converts a string value to upper case.
+	 * Converts a string value to upper case.
 	 *
-	 *	@param	string		$mixedCaseString
-	 *	@return	string
+	 * @param	string		$mixedCaseString
+	 * @return	string
 	 */
 	public static function UPPERCASE($mixedCaseString) {
 		$mixedCaseString	= PHPExcel_Calculation_Functions::flattenSingleValue($mixedCaseString);
@@ -466,12 +466,12 @@ class PHPExcel_Calculation_TextData {
 
 
 	/**
-	 *	PROPERCASE
+	 * PROPERCASE
 	 *
-	 *	Converts a string value to upper case.
+	 * Converts a string value to upper case.
 	 *
-	 *	@param	string		$mixedCaseString
-	 *	@return	string
+	 * @param	string		$mixedCaseString
+	 * @return	string
 	 */
 	public static function PROPERCASE($mixedCaseString) {
 		$mixedCaseString	= PHPExcel_Calculation_Functions::flattenSingleValue($mixedCaseString);
@@ -489,12 +489,12 @@ class PHPExcel_Calculation_TextData {
 
 
 	/**
-	 *	REPLACE
+	 * REPLACE
 	 *
-	 *	@param	string	$value	Value
-	 *	@param	int		$start	Start character
-	 *	@param	int		$chars	Number of characters
-	 *	@return	string
+	 * @param	string	$value	Value
+	 * @param	int		$start	Start character
+	 * @param	int		$chars	Number of characters
+	 * @return	string
 	 */
 	public static function REPLACE($oldText = '', $start = 1, $chars = null, $newText) {
 		$oldText	= PHPExcel_Calculation_Functions::flattenSingleValue($oldText);
@@ -510,13 +510,13 @@ class PHPExcel_Calculation_TextData {
 
 
 	/**
-	 *	SUBSTITUTE
+	 * SUBSTITUTE
 	 *
-	 *	@param	string	$text		Value
-	 *	@param	string	$fromText	From Value
-	 *	@param	string	$toText		To Value
-	 *	@param	integer	$instance	Instance Number
-	 *	@return	string
+	 * @param	string	$text		Value
+	 * @param	string	$fromText	From Value
+	 * @param	string	$toText		To Value
+	 * @param	integer	$instance	Instance Number
+	 * @return	string
 	 */
 	public static function SUBSTITUTE($text = '', $fromText = '', $toText = '', $instance = 0) {
 		$text		= PHPExcel_Calculation_Functions::flattenSingleValue($text);
@@ -557,10 +557,10 @@ class PHPExcel_Calculation_TextData {
 
 
 	/**
-	 *	RETURNSTRING
+	 * RETURNSTRING
 	 *
-	 *	@param	mixed	$value	Value to check
-	 *	@return	boolean
+	 * @param	mixed	$value	Value to check
+	 * @return	boolean
 	 */
 	public static function RETURNSTRING($testValue = '') {
 		$testValue	= PHPExcel_Calculation_Functions::flattenSingleValue($testValue);
@@ -573,10 +573,10 @@ class PHPExcel_Calculation_TextData {
 
 
 	/**
-	 *	TEXTFORMAT
+	 * TEXTFORMAT
 	 *
-	 *	@param	mixed	$value	Value to check
-	 *	@return	boolean
+	 * @param	mixed	$value	Value to check
+	 * @return	boolean
 	 */
 	public static function TEXTFORMAT($value,$format) {
 		$value	= PHPExcel_Calculation_Functions::flattenSingleValue($value);

@@ -36,12 +36,12 @@
 class PHPExcel_CachedObjectStorage_Memory extends PHPExcel_CachedObjectStorage_CacheBase implements PHPExcel_CachedObjectStorage_ICache {
 
     /**
-     *	Add or Update a cell in cache identified by coordinate address
+     * Add or Update a cell in cache identified by coordinate address
      *
-     *	@param	string			$pCoord		Coordinate address of the cell to update
-     *	@param	PHPExcel_Cell	$cell		Cell to update
-	 *	@return	void
-     *	@throws	Exception
+     * @param	string			$pCoord		Coordinate address of the cell to update
+     * @param	PHPExcel_Cell	$cell		Cell to update
+	 * @return	void
+     * @throws	Exception
      */
 	public function addCacheData($pCoord, PHPExcel_Cell $cell) {
 		$this->_cellCache[$pCoord] = $cell;

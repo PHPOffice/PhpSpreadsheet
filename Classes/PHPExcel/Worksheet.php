@@ -535,11 +535,24 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		return $pChart;
 	}
 
+	/**
+	 * Return the count of charts on this worksheet
+	 *
+	 * @return int		The number of charts
+	 * @throws Exception
+	 */
 	public function getChartCount()
 	{
 		return count($this->_chartCollection);
 	}
 
+	/**
+	 * Get a chart by its index position
+	 *
+	 * @param	string	$index			Chart index position
+	 * @return	false|PHPExcel_Chart
+	 * @throws Exception
+	 */
 	public function getChartByIndex($index = null)
 	{
 		$chartCount = count($this->_chartCollection);
@@ -556,6 +569,12 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		return $this->_chartCollection[$index];
 	}
 
+	/**
+	 * Return an array of the names of charts on this worksheet
+	 *
+	 * @return string[]		The names of charts
+	 * @throws Exception
+	 */
 	public function getChartNames()
 	{
 		$chartNames = array();
@@ -565,6 +584,13 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		return $chartNames;
 	}
 
+	/**
+	 * Get a chart by name
+	 *
+	 * @param	string	$chartName		Chart name
+	 * @return	false|PHPExcel_Chart
+	 * @throws Exception
+	 */
 	public function getChartByName($chartName = '')
 	{
 		$chartCount = count($this->_chartCollection);
@@ -1250,7 +1276,6 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * Get column dimension at a specific column by using numeric cell coordinates
 	 *
 	 * @param	string $pColumn		Numeric column coordinate of the cell
-	 * @param	string $pRow		Numeric row coordinate of the cell
 	 * @return	PHPExcel_Worksheet_ColumnDimension
 	 */
 	public function getColumnDimensionByColumn($pColumn = 0)
@@ -1284,7 +1309,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * Set default style - should only be used by PHPExcel_IReader implementations!
 	 *
 	 * @deprecated
-	 * @param	PHPExcel_Style $value
+	 * @param	PHPExcel_Style	$pValue
 	 * @throws	Exception
 	 * @return PHPExcel_Worksheet
 	 */
@@ -2221,7 +2246,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	/**
 	 * Selected cell
 	 *
-	 * @param	string		$pCell		Cell (i.e. A1)
+	 * @param	string		$pCoordinate	Cell (i.e. A1)
 	 * @return PHPExcel_Worksheet
 	 */
 	public function setSelectedCell($pCoordinate = 'A1')
@@ -2588,7 +2613,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	/**
 	 * Hyperlink at a specific coordinate exists?
 	 *
-	 * @param string $pCellCoordinate
+	 * @param string $pCoordinate
 	 * @return boolean
 	 */
 	public function hyperlinkExists($pCoordinate = 'A1')
@@ -2643,7 +2668,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	/**
 	 * Data validation at a specific coordinate exists?
 	 *
-	 * @param string $pCellCoordinate
+	 * @param string $pCoordinate
 	 * @return boolean
 	 */
 	public function dataValidationExists($pCoordinate = 'A1')

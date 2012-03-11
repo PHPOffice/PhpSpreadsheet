@@ -162,11 +162,11 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 	}
 
 	/**
-	 *	Can the current PHPExcel_Reader_IReader read the file?
+	 * Can the current PHPExcel_Reader_IReader read the file?
 	 *
-	 *	@param 	string 		$pFileName
-	 *	@return 	boolean
-	 *	@throws Exception
+	 * @param 	string 		$pFileName
+	 * @return 	boolean
+	 * @throws Exception
 	 */
 	public function canRead($pFilename)
 	{

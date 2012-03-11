@@ -117,7 +117,7 @@ class PHPExcel_Worksheet_CellIterator implements Iterator
     }
 
     /**
-     * More PHPExcel_Cell instances available?
+     * Are there any more PHPExcel_Cell instances available?
      *
      * @return boolean
      */
@@ -151,9 +151,9 @@ class PHPExcel_Worksheet_CellIterator implements Iterator
     }
 
 	/**
-	 * Set loop only existing cells
+	 * Set the iterator to loop only existing cells
 	 *
-	 * @return boolean
+	 * @param	boolean		$value
 	 */
     public function setIterateOnlyExistingCells($value = true) {
     	$this->_onlyExistingCells = $value;

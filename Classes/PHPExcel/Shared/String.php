@@ -683,10 +683,10 @@ class PHPExcel_Shared_String
 	}
 
 	/**
-	 *	Set the currency code. Only used by PHPExcel_Style_NumberFormat::toFormattedString()
+	 * Set the currency code. Only used by PHPExcel_Style_NumberFormat::toFormattedString()
 	 *		to format output by PHPExcel_Writer_HTML and PHPExcel_Writer_PDF
 	 *
-	 *	@param string $pValue Character for currency code
+	 * @param string $pValue Character for currency code
 	 */
 	public static function setCurrencyCode($pValue = '$')
 	{

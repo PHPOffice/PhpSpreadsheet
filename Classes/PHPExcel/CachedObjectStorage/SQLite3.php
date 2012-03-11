@@ -55,12 +55,12 @@ class PHPExcel_CachedObjectStorage_SQLite3 extends PHPExcel_CachedObjectStorage_
 
 
     /**
-     *	Add or Update a cell in cache identified by coordinate address
+     * Add or Update a cell in cache identified by coordinate address
      *
-     *	@param	string			$pCoord		Coordinate address of the cell to update
-     *	@param	PHPExcel_Cell	$cell		Cell to update
-	 *	@return	void
-     *	@throws	Exception
+     * @param	string			$pCoord		Coordinate address of the cell to update
+     * @param	PHPExcel_Cell	$cell		Cell to update
+	 * @return	void
+     * @throws	Exception
      */
 	public function addCacheData($pCoord, PHPExcel_Cell $cell) {
 		if (($pCoord !== $this->_currentObjectID) && ($this->_currentObjectID !== null)) {
@@ -112,8 +112,8 @@ class PHPExcel_CachedObjectStorage_SQLite3 extends PHPExcel_CachedObjectStorage_
 	/**
 	 *	Is a value set for an indexed cell?
 	 *
-	 *	@param	string		$pCoord		Coordinate address of the cell to check
-	 *	@return	boolean
+	 * @param	string		$pCoord		Coordinate address of the cell to check
+	 * @return	boolean
 	 */
 	public function isDataSet($pCoord) {
 		if ($pCoord === $this->_currentObjectID) {
@@ -136,8 +136,8 @@ class PHPExcel_CachedObjectStorage_SQLite3 extends PHPExcel_CachedObjectStorage_
     /**
      *	Delete a cell in cache identified by coordinate address
      *
-     *	@param	string			$pCoord		Coordinate address of the cell to delete
-     *	@throws	Exception
+     * @param	string			$pCoord		Coordinate address of the cell to delete
+     * @throws	Exception
      */
 	public function deleteCacheData($pCoord) {
 		if ($pCoord === $this->_currentObjectID) {
@@ -156,9 +156,9 @@ class PHPExcel_CachedObjectStorage_SQLite3 extends PHPExcel_CachedObjectStorage_
 
 
 	/**
-	 *	Get a list of all cell addresses currently held in cache
+	 * Get a list of all cell addresses currently held in cache
 	 *
-	 *	@return	array of string
+	 * @return	array of string
 	 */
 	public function getCellList() {
 		$query = "SELECT id FROM kvp_".$this->_TableName;
@@ -176,9 +176,9 @@ class PHPExcel_CachedObjectStorage_SQLite3 extends PHPExcel_CachedObjectStorage_
 
 
 	/**
-	 *	Clone the cell collection
+	 * Clone the cell collection
 	 *
-	 *	@return	void
+	 * @return	void
 	 */
 	public function copyCellCollection(PHPExcel_Worksheet $parent) {
 		//	Get a new id for the new table name
@@ -229,10 +229,10 @@ class PHPExcel_CachedObjectStorage_SQLite3 extends PHPExcel_CachedObjectStorage_
 
 
 	/**
-	 *	Identify whether the caching method is currently available
-	 *	Some methods are dependent on the availability of certain extensions being enabled in the PHP build
+	 * Identify whether the caching method is currently available
+	 * Some methods are dependent on the availability of certain extensions being enabled in the PHP build
 	 *
-	 *	@return	boolean
+	 * @return	boolean
 	 */
 	public static function cacheMethodIsAvailable() {
 		if (!class_exists('SQLite3')) {

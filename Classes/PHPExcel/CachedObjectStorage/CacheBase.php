@@ -36,39 +36,39 @@
 class PHPExcel_CachedObjectStorage_CacheBase {
 
 	/**
-	 *	Parent worksheet
+	 * Parent worksheet
 	 *
-	 *	@var PHPExcel_Worksheet
+	 * @var PHPExcel_Worksheet
 	 */
 	protected $_parent;
 
 	/**
-	 *	The currently active Cell
+	 * The currently active Cell
 	 *
-	 *	@var PHPExcel_Cell
+	 * @var PHPExcel_Cell
 	 */
 	protected $_currentObject = null;
 
 	/**
-	 *	Coordinate address of the currently active Cell
+	 * Coordinate address of the currently active Cell
 	 *
-	 *	@var string
+	 * @var string
 	 */
 	protected $_currentObjectID = null;
 
 
 	/**
-	 *	Flag indicating whether the currently active Cell requires saving
+	 * Flag indicating whether the currently active Cell requires saving
 	 *
-	 *	@var boolean
+	 * @var boolean
 	 */
 	protected $_currentCellIsDirty = true;
 
 	/**
-	 *	An array of cells or cell pointers for the worksheet cells held in this cache,
+	 * An array of cells or cell pointers for the worksheet cells held in this cache,
 	 *		and indexed by their coordinate address within the worksheet
 	 *
-	 *	@var array of mixed
+	 * @var array of mixed
 	 */
 	protected $_cellCache = array();
 
@@ -82,10 +82,10 @@ class PHPExcel_CachedObjectStorage_CacheBase {
 
 
 	/**
-	 *	Is a value set in the current PHPExcel_CachedObjectStorage_ICache for an indexed cell?
+	 * Is a value set in the current PHPExcel_CachedObjectStorage_ICache for an indexed cell?
 	 *
-	 *	@param	string		$pCoord		Coordinate address of the cell to check
-	 *	@return	boolean
+	 * @param	string		$pCoord		Coordinate address of the cell to check
+	 * @return	boolean
 	 */
 	public function isDataSet($pCoord) {
 		if ($pCoord === $this->_currentObjectID) {
@@ -97,11 +97,11 @@ class PHPExcel_CachedObjectStorage_CacheBase {
 
 
     /**
-     *	Add or Update a cell in cache
+     * Add or Update a cell in cache
      *
-     *	@param	PHPExcel_Cell	$cell		Cell to update
-	 *	@return	void
-     *	@throws	Exception
+     * @param	PHPExcel_Cell	$cell		Cell to update
+	 * @return	void
+     * @throws	Exception
      */
 	public function updateCacheData(PHPExcel_Cell $cell) {
 		return $this->addCacheData($cell->getCoordinate(),$cell);
@@ -109,10 +109,10 @@ class PHPExcel_CachedObjectStorage_CacheBase {
 
 
     /**
-     *	Delete a cell in cache identified by coordinate address
+     * Delete a cell in cache identified by coordinate address
      *
-     *	@param	string			$pCoord		Coordinate address of the cell to delete
-     *	@throws	Exception
+     * @param	string			$pCoord		Coordinate address of the cell to delete
+     * @throws	Exception
      */
 	public function deleteCacheData($pCoord) {
 		if ($pCoord === $this->_currentObjectID) {
@@ -129,9 +129,9 @@ class PHPExcel_CachedObjectStorage_CacheBase {
 
 
 	/**
-	 *	Get a list of all cell addresses currently held in cache
+	 * Get a list of all cell addresses currently held in cache
 	 *
-	 *	@return	array of string
+	 * @return	array of string
 	 */
 	public function getCellList() {
 		return array_keys($this->_cellCache);
@@ -139,9 +139,9 @@ class PHPExcel_CachedObjectStorage_CacheBase {
 
 
 	/**
-	 *	Sort the list of all cell addresses currently held in cache by row and column
+	 * Sort the list of all cell addresses currently held in cache by row and column
 	 *
-	 *	@return	void
+	 * @return	void
 	 */
 	public function getSortedCellList() {
 		$sortKeys = array();
@@ -215,9 +215,9 @@ class PHPExcel_CachedObjectStorage_CacheBase {
 	}
 
 	/**
-	 *	Clone the cell collection
+	 * Clone the cell collection
 	 *
-	 *	@return	void
+	 * @return	void
 	 */
 	public function copyCellCollection(PHPExcel_Worksheet $parent) {
 		$this->_parent = $parent;
@@ -228,10 +228,10 @@ class PHPExcel_CachedObjectStorage_CacheBase {
 
 
 	/**
-	 *	Identify whether the caching method is currently available
-	 *	Some methods are dependent on the availability of certain extensions being enabled in the PHP build
+	 * Identify whether the caching method is currently available
+	 * Some methods are dependent on the availability of certain extensions being enabled in the PHP build
 	 *
-	 *	@return	boolean
+	 * @return	boolean
 	 */
 	public static function cacheMethodIsAvailable() {
 		return true;

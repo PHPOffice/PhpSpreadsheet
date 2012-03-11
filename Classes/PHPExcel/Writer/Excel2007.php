@@ -36,10 +36,10 @@
 class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 {
 	/**
-	 *	Write charts that are defined in the workbook?
-	 *	Identifies whether the Writer should write definitions for any charts that exist in the PHPExcel object;
+	 * Write charts that are defined in the workbook?
+	 * Identifies whether the Writer should write definitions for any charts that exist in the PHPExcel object;
 	 *
-	 *	@var	boolean
+	 * @var	boolean
 	 */
 	private $_includeCharts = false;
 
@@ -480,24 +480,24 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
     }
 
 	/**
-	 *	Write charts in workbook?
+	 * Write charts in workbook?
 	 *		If this is true, then the Writer will write definitions for any charts that exist in the PHPExcel object.
 	 *		If false (the default) it will ignore any charts defined in the PHPExcel object.
 	 *
-	 *	@return	boolean
+	 * @return	boolean
 	 */
 	public function getIncludeCharts() {
 		return $this->_includeCharts;
 	}
 
 	/**
-	 *	Set write charts in workbook
+	 * Set write charts in workbook
 	 *		Set to true, to advise the Writer to include any charts that exist in the PHPExcel object.
 	 *		Set to false (the default) to ignore charts.
 	 *
-	 *	@param	boolean	$pValue
+	 * @param	boolean	$pValue
 	 *
-	 *	@return	PHPExcel_Writer_Excel2007
+	 * @return	PHPExcel_Writer_Excel2007
 	 */
 	public function setIncludeCharts($pValue = false) {
 		$this->_includeCharts = (boolean) $pValue;

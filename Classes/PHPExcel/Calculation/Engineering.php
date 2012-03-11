@@ -744,7 +744,7 @@ class PHPExcel_Calculation_Engineering {
 	 *
 	 * Returns the modified Bessel function, which is equivalent to the Bessel function evaluated for purely imaginary arguments
 	 *
-	 *	@TODO Better handling of the approximation method to support the differences between Excel/Gnumeric and Open/Libre Office
+	 * @TODO Better handling of the approximation method to support the differences between Excel/Gnumeric and Open/Libre Office
 	 *
 	 * @param	float		$x
 	 * @param	float		$n
@@ -789,7 +789,7 @@ class PHPExcel_Calculation_Engineering {
 	 *
 	 * Returns the Bessel function
 	 *
-	 *	@TODO Better handling of the approximation method to support the differences between Excel/Gnumeric and Open/Libre Office
+	 * @TODO Better handling of the approximation method to support the differences between Excel/Gnumeric and Open/Libre Office
 	 *
 	 * @param	float		$x
 	 * @param	float		$n

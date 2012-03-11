@@ -58,12 +58,12 @@ class PHPExcel_CachedObjectStorage_DiscISAM extends PHPExcel_CachedObjectStorage
 
 
     /**
-     *	Add or Update a cell in cache identified by coordinate address
+     * Add or Update a cell in cache identified by coordinate address
      *
-     *	@param	string			$pCoord		Coordinate address of the cell to update
-     *	@param	PHPExcel_Cell	$cell		Cell to update
-	 *	@return	void
-     *	@throws	Exception
+     * @param	string			$pCoord		Coordinate address of the cell to update
+     * @param	PHPExcel_Cell	$cell		Cell to update
+	 * @return	void
+     * @throws	Exception
      */
 	public function addCacheData($pCoord, PHPExcel_Cell $cell) {
 		if (($pCoord !== $this->_currentObjectID) && ($this->_currentObjectID !== null)) {
@@ -110,9 +110,9 @@ class PHPExcel_CachedObjectStorage_DiscISAM extends PHPExcel_CachedObjectStorage
 
 
 	/**
-	 *	Clone the cell collection
+	 * Clone the cell collection
 	 *
-	 *	@return	void
+	 * @return	void
 	 */
 	public function copyCellCollection(PHPExcel_Worksheet $parent) {
 		parent::copyCellCollection($parent);

@@ -47,12 +47,12 @@ class PHPExcel_CachedObjectStorage_Igbinary extends PHPExcel_CachedObjectStorage
 
 
     /**
-     *	Add or Update a cell in cache identified by coordinate address
+     * Add or Update a cell in cache identified by coordinate address
      *
-     *	@param	string			$pCoord		Coordinate address of the cell to update
-     *	@param	PHPExcel_Cell	$cell		Cell to update
-	 *	@return	void
-     *	@throws	Exception
+     * @param	string			$pCoord		Coordinate address of the cell to update
+     * @param	PHPExcel_Cell	$cell		Cell to update
+	 * @return	void
+     * @throws	Exception
      */
 	public function addCacheData($pCoord, PHPExcel_Cell $cell) {
 		if (($pCoord !== $this->_currentObjectID) && ($this->_currentObjectID !== null)) {
@@ -110,10 +110,10 @@ class PHPExcel_CachedObjectStorage_Igbinary extends PHPExcel_CachedObjectStorage
 
 
 	/**
-	 *	Identify whether the caching method is currently available
-	 *	Some methods are dependent on the availability of certain extensions being enabled in the PHP build
+	 * Identify whether the caching method is currently available
+	 * Some methods are dependent on the availability of certain extensions being enabled in the PHP build
 	 *
-	 *	@return	boolean
+	 * @return	boolean
 	 */
 	public static function cacheMethodIsAvailable() {
 		if (!function_exists('igbinary_serialize')) {

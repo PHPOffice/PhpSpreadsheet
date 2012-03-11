@@ -591,21 +591,21 @@ class PHPExcel_Calculation_DateTime {
 
 
 	/**
-	 *	YEARFRAC
+	 * YEARFRAC
 	 *
-	 *	Calculates the fraction of the year represented by the number of whole days between two dates (the start_date and the
-	 *	end_date). Use the YEARFRAC worksheet function to identify the proportion of a whole year's benefits or obligations
-	 *	to assign to a specific term.
+	 * Calculates the fraction of the year represented by the number of whole days between two dates (the start_date and the
+	 * end_date). Use the YEARFRAC worksheet function to identify the proportion of a whole year's benefits or obligations
+	 * to assign to a specific term.
 	 *
-	 *	@param	mixed	$startDate		Excel date serial value (float), PHP date timestamp (integer) or date object, or a standard date string
-	 *	@param	mixed	$endDate		Excel date serial value (float), PHP date timestamp (integer) or date object, or a standard date string
-	 *	@param	integer	$method			Method used for the calculation
+	 * @param	mixed	$startDate		Excel date serial value (float), PHP date timestamp (integer) or date object, or a standard date string
+	 * @param	mixed	$endDate		Excel date serial value (float), PHP date timestamp (integer) or date object, or a standard date string
+	 * @param	integer	$method			Method used for the calculation
 	 *										0 or omitted	US (NASD) 30/360
 	 *										1				Actual/actual
 	 *										2				Actual/360
 	 *										3				Actual/365
 	 *										4				European 30/360
-	 *	@return	float	fraction of the year
+	 * @return	float	fraction of the year
 	 */
 	public static function YEARFRAC($startDate = 0, $endDate = 0, $method = 0) {
 		$startDate	= PHPExcel_Calculation_Functions::flattenSingleValue($startDate);

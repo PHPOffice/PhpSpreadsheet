@@ -67,13 +67,13 @@ if (!defined('PHPEXCEL_ROOT')) {
 }
 
 /**
- *	PHPExcel_Reader_Excel5
+ * PHPExcel_Reader_Excel5
  *
- *	This class uses {@link http://sourceforge.net/projects/phpexcelreader/parseXL}
+ * This class uses {@link http://sourceforge.net/projects/phpexcelreader/parseXL}
  *
- *	@category	PHPExcel
- *	@package	PHPExcel_Reader_Excel5
- *	@copyright	Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @category	PHPExcel
+ * @package		PHPExcel_Reader_Excel5
+ * @copyright	Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 {
@@ -159,19 +159,19 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	const XLS_Type_UNKNOWN				= 0xffff;
 
 	/**
-	 *	Read data only?
-	 *	Identifies whether the Reader should only read data values for cells, and ignore any formatting information;
+	 * Read data only?
+	 * Identifies whether the Reader should only read data values for cells, and ignore any formatting information;
 	 *		or whether it should read both data and formatting
 	 *
-	 *	@var	boolean
+	 * @var	boolean
 	 */
 	private $_readDataOnly = false;
 
 	/**
-	 *	Restrict which sheets should be loaded?
-	 *	This property holds an array of worksheet names to be loaded. If null, then all worksheets will be loaded.
+	 * Restrict which sheets should be loaded?
+	 * This property holds an array of worksheet names to be loaded. If null, then all worksheets will be loaded.
 	 *
-	 *	@var	array of string
+	 * @var	array of string
 	 */
 	private $_loadSheetsOnly = null;
 
@@ -403,11 +403,11 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 
 
 	/**
-	 *	Read data only?
+	 * Read data only?
 	 *		If this is true, then the Reader will only read data values for cells, it will not read any formatting information.
 	 *		If false (the default) it will read data and formatting.
 	 *
-	 *	@return	boolean
+	 * @return	boolean
 	 */
 	public function getReadDataOnly()
 	{
@@ -415,13 +415,13 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	}
 
 	/**
-	 *	Set read data only
+	 * Set read data only
 	 *		Set to true, to advise the Reader only to read data values for cells, and to ignore any formatting information.
 	 *		Set to false (the default) to advise the Reader to read both data and formatting for cells.
 	 *
-	 *	@param	boolean	$pValue
+	 * @param	boolean	$pValue
 	 *
-	 *	@return	PHPExcel_Reader_Excel5
+	 * @return	PHPExcel_Reader_Excel5
 	 */
 	public function setReadDataOnly($pValue = false)
 	{
@@ -430,11 +430,11 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	}
 
 	/**
-	 *	Get which sheets to load
+	 * Get which sheets to load
 	 *		Returns either an array of worksheet names (the list of worksheets that should be loaded), or a null
 	 *			indicating that all worksheets in the workbook should be loaded.
 	 *
-	 *	@return mixed
+	 * @return mixed
 	 */
 	public function getLoadSheetsOnly()
 	{
@@ -442,13 +442,13 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	}
 
 	/**
-	 *	Set which sheets to load
+	 * Set which sheets to load
 	 *
-	 *	@param mixed $value
+	 * @param mixed $value
 	 *		This should be either an array of worksheet names to be loaded, or a string containing a single worksheet name.
 	 *		If NULL, then it tells the Reader to read all worksheets in the workbook
 	 *
-	 *	@return PHPExcel_Reader_Excel5
+	 * @return PHPExcel_Reader_Excel5
 	 */
 	public function setLoadSheetsOnly($value = null)
 	{
@@ -458,10 +458,10 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	}
 
 	/**
-	 *	Set all sheets to load
+	 * Set all sheets to load
 	 *		Tells the Reader to load all worksheets from the workbook.
 	 *
-	 *	@return	PHPExcel_Reader_Excel5
+	 * @return	PHPExcel_Reader_Excel5
 	 */
 	public function setLoadAllSheets()
 	{
@@ -497,11 +497,11 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 	}
 
 	/**
-	 *	Can the current PHPExcel_Reader_IReader read the file?
+	 * Can the current PHPExcel_Reader_IReader read the file?
 	 *
-	 *	@param 	string 		$pFileName
-	 *	@return 	boolean
-	 *	@throws Exception
+	 * @param 	string 		$pFileName
+	 * @return 	boolean
+	 * @throws Exception
 	 */
 	public function canRead($pFilename)
 	{

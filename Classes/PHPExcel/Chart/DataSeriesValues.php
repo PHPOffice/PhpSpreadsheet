@@ -37,49 +37,49 @@ class PHPExcel_Chart_DataSeriesValues
 {
 
 	/**
-	 *	Series Data Type
+	 * Series Data Type
 	 *
-	 *	@var	string
+	 * @var	string
 	 */
 	private $_dataType = null;
 
 	/**
-	 *	Series Data Source
+	 * Series Data Source
 	 *
-	 *	@var	string
+	 * @var	string
 	 */
 	private $_dataSource = null;
 
 	/**
-	 *	Format Code
+	 * Format Code
 	 *
-	 *	@var	string
+	 * @var	string
 	 */
 	private $_formatCode = null;
 
 	/**
-	 *	Series Point Marker
+	 * Series Point Marker
 	 *
-	 *	@var	string
+	 * @var	string
 	 */
 	private $_marker = null;
 
 	/**
-	 *	Point Count (The number of datapoints in the dataseries)
+	 * Point Count (The number of datapoints in the dataseries)
 	 *
-	 *	@var	integer
+	 * @var	integer
 	 */
 	private $_pointCount = 0;
 
 	/**
-	 *	Data Values
+	 * Data Values
 	 *
-	 *	@var	array of mixed
+	 * @var	array of mixed
 	 */
 	private $_dataValues = array();
 
 	/**
-	 *	Create a new PHPExcel_Chart_DataSeriesValues object
+	 * Create a new PHPExcel_Chart_DataSeriesValues object
 	 */
 	public function __construct($dataType = null, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = array(), $marker = null)
 	{
@@ -92,19 +92,19 @@ class PHPExcel_Chart_DataSeriesValues
 	}
 
 	/**
-	 *	Get Series Data Type
+	 * Get Series Data Type
 	 *
-	 *	@return	string
+	 * @return	string
 	 */
 	public function getDataType() {
 		return $this->_dataType;
 	}
 
 	/**
-	 *	Set Series Data Type
+	 * Set Series Data Type
 	 *
-	 *	@param	string	$dataType
-	 *	@return	PHPExcel_Chart_DataSeriesValues
+	 * @param	string	$dataType
+	 * @return	PHPExcel_Chart_DataSeriesValues
 	 */
 	public function setDataType($dataType = 'Number') {
 		$this->_dataType = $dataType;
@@ -113,19 +113,19 @@ class PHPExcel_Chart_DataSeriesValues
 	}
 
 	/**
-	 *	Get Series Data Source (formula)
+	 * Get Series Data Source (formula)
 	 *
-	 *	@return	string
+	 * @return	string
 	 */
 	public function getDataSource() {
 		return $this->_dataSource;
 	}
 
 	/**
-	 *	Set Series Data Source (formula)
+	 * Set Series Data Source (formula)
 	 *
-	 *	@param	string	$dataSource
-	 *	@return	PHPExcel_Chart_DataSeriesValues
+	 * @param	string	$dataSource
+	 * @return	PHPExcel_Chart_DataSeriesValues
 	 */
 	public function setDataSource($dataSource = null, $refreshDataValues = true) {
 		$this->_dataSource = $dataSource;
@@ -138,19 +138,19 @@ class PHPExcel_Chart_DataSeriesValues
 	}
 
 	/**
-	 *	Get Point Marker
+	 * Get Point Marker
 	 *
-	 *	@return string
+	 * @return string
 	 */
 	public function getPointMarker() {
 		return $this->_marker;
 	}
 
 	/**
-	 *	Set Point Marker
+	 * Set Point Marker
 	 *
-	 *	@param	string	$marker
-	 *	@return	PHPExcel_Chart_DataSeriesValues
+	 * @param	string	$marker
+	 * @return	PHPExcel_Chart_DataSeriesValues
 	 */
 	public function setPointMarker($marker = null) {
 		$this->_marker = $marker;
@@ -159,19 +159,19 @@ class PHPExcel_Chart_DataSeriesValues
 	}
 
 	/**
-	 *	Get Series Format Code
+	 * Get Series Format Code
 	 *
-	 *	@return	string
+	 * @return	string
 	 */
 	public function getFormatCode() {
 		return $this->_formatCode;
 	}
 
 	/**
-	 *	Set Series Format Code
+	 * Set Series Format Code
 	 *
-	 *	@param	string	$formatCode
-	 *	@return	PHPExcel_Chart_DataSeriesValues
+	 * @param	string	$formatCode
+	 * @return	PHPExcel_Chart_DataSeriesValues
 	 */
 	public function setFormatCode($formatCode = null) {
 		$this->_formatCode = $formatCode;
@@ -180,18 +180,18 @@ class PHPExcel_Chart_DataSeriesValues
 	}
 
 	/**
-	 *	Get Series Point Count
+	 * Get Series Point Count
 	 *
-	 *	@return	integer
+	 * @return	integer
 	 */
 	public function getPointCount() {
 		return $this->_pointCount;
 	}
 
 	/**
-	 *	Identify if the Data Series is a multi-level or a simple series
+	 * Identify if the Data Series is a multi-level or a simple series
 	 *
-	 *	@return	boolean
+	 * @return	boolean
 	 */
 	public function isMultiLevelSeries() {
 		if (count($this->_dataValues) > 0) {
@@ -201,9 +201,9 @@ class PHPExcel_Chart_DataSeriesValues
 	}
 
 	/**
-	 *	Identify if the Data Series is a multi-level or a simple series
+	 * Return the level count of a multi-level Data Series
 	 *
-	 *	@return	boolean
+	 * @return	boolean
 	 */
 	public function multiLevelCount() {
 		$levelCount = 0;
@@ -214,18 +214,18 @@ class PHPExcel_Chart_DataSeriesValues
 	}
 
 	/**
-	 *	Get Series Data Values
+	 * Get Series Data Values
 	 *
-	 *	@return	array of mixed
+	 * @return	array of mixed
 	 */
 	public function getDataValues() {
 		return $this->_dataValues;
 	}
 
 	/**
-	 *	Get the first Series Data value
+	 * Get the first Series Data value
 	 *
-	 *	@return	mixed
+	 * @return	mixed
 	 */
 	public function getDataValue() {
 		$count = count($this->_dataValues);
@@ -238,13 +238,13 @@ class PHPExcel_Chart_DataSeriesValues
 	}
 
 	/**
-	 *	Set Series Data Values
+	 * Set Series Data Values
 	 *
-	 *	@param	array	$dataValues
-	 *	@param	boolean	$refreshDataSource
+	 * @param	array	$dataValues
+	 * @param	boolean	$refreshDataSource
 	 *					TRUE - refresh the value of _dataSource based on the values of $dataValues
 	 *					FALSE - don't change the value of _dataSource
-	 *	@return	PHPExcel_Chart_DataSeriesValues
+	 * @return	PHPExcel_Chart_DataSeriesValues
 	 */
 	public function setDataValues($dataValues = array(), $refreshDataSource = true) {
 		$this->_dataValues = PHPExcel_Calculation_Functions::flattenArray($dataValues);

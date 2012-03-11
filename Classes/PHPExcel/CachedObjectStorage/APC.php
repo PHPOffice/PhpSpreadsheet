@@ -55,12 +55,12 @@ class PHPExcel_CachedObjectStorage_APC extends PHPExcel_CachedObjectStorage_Cach
 
 
     /**
-     *	Add or Update a cell in cache identified by coordinate address
+     * Add or Update a cell in cache identified by coordinate address
      *
-     *	@param	string			$pCoord		Coordinate address of the cell to update
-     *	@param	PHPExcel_Cell	$cell		Cell to update
-	 *	@return	void
-     *	@throws	Exception
+     * @param	string			$pCoord		Coordinate address of the cell to update
+     * @param	PHPExcel_Cell	$cell		Cell to update
+	 * @return	void
+     * @throws	Exception
      */
 	public function addCacheData($pCoord, PHPExcel_Cell $cell) {
 		if (($pCoord !== $this->_currentObjectID) && ($this->_currentObjectID !== null)) {
@@ -77,11 +77,11 @@ class PHPExcel_CachedObjectStorage_APC extends PHPExcel_CachedObjectStorage_Cach
 
 
 	/**
-	 *	Is a value set in the current PHPExcel_CachedObjectStorage_ICache for an indexed cell?
+	 * Is a value set in the current PHPExcel_CachedObjectStorage_ICache for an indexed cell?
 	 *
-	 *	@param	string		$pCoord		Coordinate address of the cell to check
-	 *	@return	void
-	 *	@return	boolean
+	 * @param	string		$pCoord		Coordinate address of the cell to check
+	 * @return	void
+	 * @return	boolean
 	 */
 	public function isDataSet($pCoord) {
 		//	Check if the requested entry is the current object, or exists in the cache
@@ -140,10 +140,10 @@ class PHPExcel_CachedObjectStorage_APC extends PHPExcel_CachedObjectStorage_Cach
 
 
     /**
-     *	Delete a cell in cache identified by coordinate address
+     * Delete a cell in cache identified by coordinate address
      *
-     *	@param	string			$pCoord		Coordinate address of the cell to delete
-     *	@throws	Exception
+     * @param	string			$pCoord		Coordinate address of the cell to delete
+     * @throws	Exception
      */
 	public function deleteCacheData($pCoord) {
 		//	Delete the entry from APC
@@ -155,9 +155,9 @@ class PHPExcel_CachedObjectStorage_APC extends PHPExcel_CachedObjectStorage_Cach
 
 
 	/**
-	 *	Clone the cell collection
+	 * Clone the cell collection
 	 *
-	 *	@return	void
+	 * @return	void
 	 */
 	public function copyCellCollection(PHPExcel_Worksheet $parent) {
 		parent::copyCellCollection($parent);
@@ -221,10 +221,10 @@ class PHPExcel_CachedObjectStorage_APC extends PHPExcel_CachedObjectStorage_Cach
 
 
 	/**
-	 *	Identify whether the caching method is currently available
-	 *	Some methods are dependent on the availability of certain extensions being enabled in the PHP build
+	 * Identify whether the caching method is currently available
+	 * Some methods are dependent on the availability of certain extensions being enabled in the PHP build
 	 *
-	 *	@return	boolean
+	 * @return	boolean
 	 */
 	public static function cacheMethodIsAvailable() {
 		if (!function_exists('apc_store')) {

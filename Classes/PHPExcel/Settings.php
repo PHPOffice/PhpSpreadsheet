@@ -63,55 +63,55 @@ class PHPExcel_Settings
 
 
 	/**
-	 *	Name of the class used for Zip file management
+	 * Name of the class used for Zip file management
 	 *		e.g.
 	 *			ZipArchive
 	 *
-	 *	@var string
+	 * @var string
 	 */
 	private static $_zipClass	= self::ZIPARCHIVE;
 
 
 	/**
-	 *	Name of the external Library used for rendering charts
+	 * Name of the external Library used for rendering charts
 	 *		e.g.
 	 *			jpgraph
 	 *
-	 *	@var string
+	 * @var string
 	 */
 	private static $_chartRendererName = NULL;
 
 	/**
-	 *	Directory Path to the external Library used for rendering charts
+	 * Directory Path to the external Library used for rendering charts
 	 *
-	 *	@var string
+	 * @var string
 	 */
 	private static $_chartRendererPath = NULL;
 
 
 	/**
-	 *	Name of the external Library used for rendering PDF files
+	 * Name of the external Library used for rendering PDF files
 	 *		e.g.
 	 *			mPDF
 	 *
-	 *	@var string
+	 * @var string
 	 */
 	private static $_pdfRendererName = NULL;
 
 	/**
-	 *	Directory Path to the external Library used for rendering PDF files
+	 * Directory Path to the external Library used for rendering PDF files
 	 *
-	 *	@var string
+	 * @var string
 	 */
 	private static $_pdfRendererPath = NULL;
 
 
 	/**
-	 *	Set the Zip handler Class that PHPExcel should use for Zip file management (PCLZip or ZipArchive)
+	 * Set the Zip handler Class that PHPExcel should use for Zip file management (PCLZip or ZipArchive)
 	 *
-	 *	@param	 string	$zipClass			The Zip handler class that PHPExcel should use for Zip file management
+	 * @param	 string	$zipClass			The Zip handler class that PHPExcel should use for Zip file management
 	 *											e.g. PHPExcel_Settings::PCLZip or PHPExcel_Settings::ZipArchive
-	 *	@return	 boolean					Success or failure
+	 * @return	 boolean					Success or failure
 	 */
 	public static function setZipClass($zipClass) {
 		if (($zipClass === self::PCLZIP) ||
@@ -124,10 +124,10 @@ class PHPExcel_Settings
 
 
 	/**
-	 *	Return the name of the Zip handler Class that PHPExcel is configured to use (PCLZip or ZipArchive)
+	 * Return the name of the Zip handler Class that PHPExcel is configured to use (PCLZip or ZipArchive)
 	 *		for Zip file management
 	 *
-	 *	@return	 string						Name of the Zip handler Class that PHPExcel is configured to use
+	 * @return	 string						Name of the Zip handler Class that PHPExcel is configured to use
 	 *											for Zip file management
 	 *												e.g. PHPExcel_Settings::PCLZip or PHPExcel_Settings::ZipArchive
 	 */
@@ -137,9 +137,9 @@ class PHPExcel_Settings
 
 
 	/**
-	 *	Return the name of the method that is currently configured for cell cacheing
+	 * Return the name of the method that is currently configured for cell cacheing
 	 *
-	 *	@return	string				Name of the cacheing method
+	 * @return	string				Name of the cacheing method
 	 */
 	public static function getCacheStorageMethod() {
 		return PHPExcel_CachedObjectStorageFactory::$_cacheStorageMethod;
@@ -147,9 +147,9 @@ class PHPExcel_Settings
 
 
 	/**
-	 *	Return the name of the class that is currently being used for cell cacheing
+	 * Return the name of the class that is currently being used for cell cacheing
 	 *
-	 *	@return	string				Name of the class currently being used for cacheing
+	 * @return	string				Name of the class currently being used for cacheing
 	 */
 	public static function getCacheStorageClass() {
 		return PHPExcel_CachedObjectStorageFactory::$_cacheStorageClass;
@@ -157,11 +157,11 @@ class PHPExcel_Settings
 
 
 	/**
-	 *	Set the method that should be used for cell cacheing
+	 * Set the method that should be used for cell cacheing
 	 *
-	 *	@param	string	$method		Name of the cacheing method
-	 *	@param	array	$arguments	Optional configuration arguments for the cacheing method
-	 *	@return	boolean				Success or failure
+	 * @param	string	$method		Name of the cacheing method
+	 * @param	array	$arguments	Optional configuration arguments for the cacheing method
+	 * @return	boolean				Success or failure
 	 */
 	public static function setCacheStorageMethod($method = PHPExcel_CachedObjectStorageFactory::cache_in_memory,
 												 $arguments = array()) {
@@ -170,10 +170,10 @@ class PHPExcel_Settings
 
 
 	/**
-	 *	Set the locale code to use for formula translations and any special formatting
+	 * Set the locale code to use for formula translations and any special formatting
 	 *
-	 *	@param	string	$locale		The locale code to use (e.g. "fr" or "pt_br" or "en_uk")
-	 *	@return	boolean				Success or failure
+	 * @param	string	$locale		The locale code to use (e.g. "fr" or "pt_br" or "en_uk")
+	 * @return	boolean				Success or failure
 	 */
 	public static function setLocale($locale='en_us') {
 		return PHPExcel_Calculation::getInstance()->setLocale($locale);

@@ -38,7 +38,8 @@ class PHPExcel_Writer_Excel2007_ContentTypes extends PHPExcel_Writer_Excel2007_W
 	/**
 	 * Write content types to XML format
 	 *
-	 * @param 	PHPExcel $pPHPExcel
+	 * @param 	PHPExcel	$pPHPExcel
+	 * @param	boolean		$includeCharts	Flag indicating if we should include drawing details for charts
 	 * @return 	string 						XML Output
 	 * @throws 	Exception
 	 */

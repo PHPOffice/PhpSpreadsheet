@@ -135,22 +135,22 @@ class PHPExcel_Calculation_Financial {
 
 
 	/**
-	 *	ACCRINT
+	 * ACCRINT
 	 *
-	 *	Returns the discount rate for a security.
+	 * Returns the discount rate for a security.
 	 *
-	 *	@param	mixed	issue		The security's issue date.
-	 *	@param	mixed	firstinter	The security's first interest date.
-	 *	@param	mixed	settlement	The security's settlement date.
-	 *	@param	float	rate		The security's annual coupon rate.
-	 *	@param	float	par			The security's par value.
-	 *	@param	int		basis		The type of day count to use.
+	 * @param	mixed	issue		The security's issue date.
+	 * @param	mixed	firstinter	The security's first interest date.
+	 * @param	mixed	settlement	The security's settlement date.
+	 * @param	float	rate		The security's annual coupon rate.
+	 * @param	float	par			The security's par value.
+	 * @param	int		basis		The type of day count to use.
 	 *										0 or omitted	US (NASD) 30/360
 	 *										1				Actual/actual
 	 *										2				Actual/360
 	 *										3				Actual/365
 	 *										4				European 30/360
-	 *	@return	float
+	 * @return	float
 	 */
 	public static function ACCRINT($issue, $firstinter, $settlement, $rate, $par=1000, $frequency=1, $basis=0) {
 		$issue		= PHPExcel_Calculation_Functions::flattenSingleValue($issue);
@@ -179,21 +179,21 @@ class PHPExcel_Calculation_Financial {
 
 
 	/**
-	 *	ACCRINTM
+	 * ACCRINTM
 	 *
-	 *	Returns the discount rate for a security.
+	 * Returns the discount rate for a security.
 	 *
-	 *	@param	mixed	issue		The security's issue date.
-	 *	@param	mixed	settlement	The security's settlement date.
-	 *	@param	float	rate		The security's annual coupon rate.
-	 *	@param	float	par			The security's par value.
-	 *	@param	int		basis		The type of day count to use.
+	 * @param	mixed	issue		The security's issue date.
+	 * @param	mixed	settlement	The security's settlement date.
+	 * @param	float	rate		The security's annual coupon rate.
+	 * @param	float	par			The security's par value.
+	 * @param	int		basis		The type of day count to use.
 	 *										0 or omitted	US (NASD) 30/360
 	 *										1				Actual/actual
 	 *										2				Actual/360
 	 *										3				Actual/365
 	 *										4				European 30/360
-	 *	@return	float
+	 * @return	float
 	 */
 	public static function ACCRINTM($issue, $settlement, $rate, $par=1000, $basis=0) {
 		$issue		= PHPExcel_Calculation_Functions::flattenSingleValue($issue);
@@ -472,18 +472,18 @@ class PHPExcel_Calculation_Financial {
 
 
 	/**
-	 *	CUMIPMT
+	 * CUMIPMT
 	 *
-	 *	Returns the cumulative interest paid on a loan between start_period and end_period.
+	 * Returns the cumulative interest paid on a loan between start_period and end_period.
 	 *
-	 *	@param	float	$rate	Interest rate per period
-	 *	@param	int		$nper	Number of periods
-	 *	@param	float	$pv		Present Value
-	 *	@param	int		start	The first period in the calculation.
+	 * @param	float	$rate	Interest rate per period
+	 * @param	int		$nper	Number of periods
+	 * @param	float	$pv		Present Value
+	 * @param	int		start	The first period in the calculation.
 	 *								Payment periods are numbered beginning with 1.
-	 *	@param	int		end		The last period in the calculation.
-	 *	@param	int		$type	Payment type: 0 = at the end of each period, 1 = at the beginning of each period
-	 *	@return	float
+	 * @param	int		end		The last period in the calculation.
+	 * @param	int		$type	Payment type: 0 = at the end of each period, 1 = at the beginning of each period
+	 * @return	float
 	 */
 	public static function CUMIPMT($rate, $nper, $pv, $start, $end, $type = 0) {
 		$rate	= PHPExcel_Calculation_Functions::flattenSingleValue($rate);
@@ -512,18 +512,18 @@ class PHPExcel_Calculation_Financial {
 
 
 	/**
-	 *	CUMPRINC
+	 * CUMPRINC
 	 *
-	 *	Returns the cumulative principal paid on a loan between start_period and end_period.
+	 * Returns the cumulative principal paid on a loan between start_period and end_period.
 	 *
-	 *	@param	float	$rate	Interest rate per period
-	 *	@param	int		$nper	Number of periods
-	 *	@param	float	$pv		Present Value
-	 *	@param	int		start	The first period in the calculation.
+	 * @param	float	$rate	Interest rate per period
+	 * @param	int		$nper	Number of periods
+	 * @param	float	$pv		Present Value
+	 * @param	int		start	The first period in the calculation.
 	 *								Payment periods are numbered beginning with 1.
-	 *	@param	int		end		The last period in the calculation.
-	 *	@param	int		$type	Payment type: 0 = at the end of each period, 1 = at the beginning of each period
-	 *	@return	float
+	 * @param	int		end		The last period in the calculation.
+	 * @param	int		$type	Payment type: 0 = at the end of each period, 1 = at the beginning of each period
+	 * @return	float
 	 */
 	public static function CUMPRINC($rate, $nper, $pv, $start, $end, $type = 0) {
 		$rate	= PHPExcel_Calculation_Functions::flattenSingleValue($rate);
@@ -552,19 +552,19 @@ class PHPExcel_Calculation_Financial {
 
 
 	/**
-	 *	DB
+	 * DB
 	 *
-	 *	Returns the depreciation of an asset for a specified period using the fixed-declining balance method.
-	 *	This form of depreciation is used if you want to get a higher depreciation value at the beginning of the depreciation
+	 * Returns the depreciation of an asset for a specified period using the fixed-declining balance method.
+	 * This form of depreciation is used if you want to get a higher depreciation value at the beginning of the depreciation
 	 *		(as opposed to linear depreciation). The depreciation value is reduced with every depreciation period by the
 	 *		depreciation already deducted from the initial cost.
 	 *
-	 *	@param	float	cost		Initial cost of the asset.
-	 *	@param	float	salvage		Value at the end of the depreciation. (Sometimes called the salvage value of the asset)
-	 *	@param	int		life		Number of periods over which the asset is depreciated. (Sometimes called the useful life of the asset)
-	 *	@param	int		period		The period for which you want to calculate the depreciation. Period must use the same units as life.
-	 *	@param	float	month		Number of months in the first year. If month is omitted, it defaults to 12.
-	 *	@return	float
+	 * @param	float	cost		Initial cost of the asset.
+	 * @param	float	salvage		Value at the end of the depreciation. (Sometimes called the salvage value of the asset)
+	 * @param	int		life		Number of periods over which the asset is depreciated. (Sometimes called the useful life of the asset)
+	 * @param	int		period		The period for which you want to calculate the depreciation. Period must use the same units as life.
+	 * @param	float	month		Number of months in the first year. If month is omitted, it defaults to 12.
+	 * @return	float
 	 */
 	public static function DB($cost, $salvage, $life, $period, $month=12) {
 		$cost		= (float) PHPExcel_Calculation_Functions::flattenSingleValue($cost);
@@ -606,17 +606,17 @@ class PHPExcel_Calculation_Financial {
 
 
 	/**
-	 *	DDB
+	 * DDB
 	 *
-	 *	Returns the depreciation of an asset for a specified period using the double-declining balance method or some other method you specify.
+	 * Returns the depreciation of an asset for a specified period using the double-declining balance method or some other method you specify.
 	 *
-	 *	@param	float	cost		Initial cost of the asset.
-	 *	@param	float	salvage		Value at the end of the depreciation. (Sometimes called the salvage value of the asset)
-	 *	@param	int		life		Number of periods over which the asset is depreciated. (Sometimes called the useful life of the asset)
-	 *	@param	int		period		The period for which you want to calculate the depreciation. Period must use the same units as life.
-	 *	@param	float	factor		The rate at which the balance declines.
+	 * @param	float	cost		Initial cost of the asset.
+	 * @param	float	salvage		Value at the end of the depreciation. (Sometimes called the salvage value of the asset)
+	 * @param	int		life		Number of periods over which the asset is depreciated. (Sometimes called the useful life of the asset)
+	 * @param	int		period		The period for which you want to calculate the depreciation. Period must use the same units as life.
+	 * @param	float	factor		The rate at which the balance declines.
 	 *								If factor is omitted, it is assumed to be 2 (the double-declining balance method).
-	 *	@return	float
+	 * @return	float
 	 */
 	public static function DDB($cost, $salvage, $life, $period, $factor=2.0) {
 		$cost		= (float) PHPExcel_Calculation_Functions::flattenSingleValue($cost);
@@ -650,23 +650,23 @@ class PHPExcel_Calculation_Financial {
 
 
 	/**
-	 *	DISC
+	 * DISC
 	 *
-	 *	Returns the discount rate for a security.
+	 * Returns the discount rate for a security.
 	 *
-	 *	@param	mixed	settlement	The security's settlement date.
+	 * @param	mixed	settlement	The security's settlement date.
 	 *								The security settlement date is the date after the issue date when the security is traded to the buyer.
-	 *	@param	mixed	maturity	The security's maturity date.
+	 * @param	mixed	maturity	The security's maturity date.
 	 *								The maturity date is the date when the security expires.
-	 *	@param	int		price		The security's price per $100 face value.
-	 *	@param	int		redemption	the security's redemption value per $100 face value.
-	 *	@param	int		basis		The type of day count to use.
+	 * @param	int		price		The security's price per $100 face value.
+	 * @param	int		redemption	the security's redemption value per $100 face value.
+	 * @param	int		basis		The type of day count to use.
 	 *										0 or omitted	US (NASD) 30/360
 	 *										1				Actual/actual
 	 *										2				Actual/360
 	 *										3				Actual/365
 	 *										4				European 30/360
-	 *	@return	float
+	 * @return	float
 	 */
 	public static function DISC($settlement, $maturity, $price, $redemption, $basis=0) {
 		$settlement	= PHPExcel_Calculation_Functions::flattenSingleValue($settlement);
@@ -824,23 +824,23 @@ class PHPExcel_Calculation_Financial {
 
 
 	/**
-	 *	INTRATE
+	 * INTRATE
 	 *
-	 *	Returns the interest rate for a fully invested security.
+	 * Returns the interest rate for a fully invested security.
 	 *
-	 *	@param	mixed	settlement	The security's settlement date.
+	 * @param	mixed	settlement	The security's settlement date.
 	 *								The security settlement date is the date after the issue date when the security is traded to the buyer.
-	 *	@param	mixed	maturity	The security's maturity date.
+	 * @param	mixed	maturity	The security's maturity date.
 	 *								The maturity date is the date when the security expires.
-	 *	@param	int		investment	The amount invested in the security.
-	 *	@param	int		redemption	The amount to be received at maturity.
-	 *	@param	int		basis		The type of day count to use.
+	 * @param	int		investment	The amount invested in the security.
+	 * @param	int		redemption	The amount to be received at maturity.
+	 * @param	int		basis		The type of day count to use.
 	 *										0 or omitted	US (NASD) 30/360
 	 *										1				Actual/actual
 	 *										2				Actual/360
 	 *										3				Actual/365
 	 *										4				European 30/360
-	 *	@return	float
+	 * @return	float
 	 */
 	public static function INTRATE($settlement, $maturity, $investment, $redemption, $basis=0) {
 		$settlement	= PHPExcel_Calculation_Functions::flattenSingleValue($settlement);
@@ -867,17 +867,17 @@ class PHPExcel_Calculation_Financial {
 
 
 	/**
-	 *	IPMT
+	 * IPMT
 	 *
-	 *	Returns the interest payment for a given period for an investment based on periodic, constant payments and a constant interest rate.
+	 * Returns the interest payment for a given period for an investment based on periodic, constant payments and a constant interest rate.
 	 *
-	 *	@param	float	$rate	Interest rate per period
-	 *	@param	int		$per	Period for which we want to find the interest
-	 *	@param	int		$nper	Number of periods
-	 *	@param	float	$pv		Present Value
-	 *	@param	float	$fv		Future Value
-	 *	@param	int		$type	Payment type: 0 = at the end of each period, 1 = at the beginning of each period
-	 *	@return	float
+	 * @param	float	$rate	Interest rate per period
+	 * @param	int		$per	Period for which we want to find the interest
+	 * @param	int		$nper	Number of periods
+	 * @param	float	$pv		Present Value
+	 * @param	float	$fv		Future Value
+	 * @param	int		$type	Payment type: 0 = at the end of each period, 1 = at the beginning of each period
+	 * @return	float
 	 */
 	public static function IPMT($rate, $per, $nper, $pv, $fv = 0, $type = 0) {
 		$rate	= PHPExcel_Calculation_Functions::flattenSingleValue($rate);
@@ -1040,12 +1040,12 @@ class PHPExcel_Calculation_Financial {
 	 *
 	 * Returns the number of periods for a cash flow with constant periodic payments (annuities), and interest rate.
 	 *
-	 *	@param	float	$rate	Interest rate per period
-	 *	@param	int		$pmt	Periodic payment (annuity)
-	 *	@param	float	$pv		Present Value
-	 *	@param	float	$fv		Future Value
-	 *	@param	int		$type	Payment type: 0 = at the end of each period, 1 = at the beginning of each period
-	 *	@return	float
+	 * @param	float	$rate	Interest rate per period
+	 * @param	int		$pmt	Periodic payment (annuity)
+	 * @param	float	$pv		Present Value
+	 * @param	float	$fv		Future Value
+	 * @param	int		$type	Payment type: 0 = at the end of each period, 1 = at the beginning of each period
+	 * @return	float
 	 */
 	public static function NPER($rate = 0, $pmt = 0, $pv = 0, $fv = 0, $type = 0) {
 		$rate	= PHPExcel_Calculation_Functions::flattenSingleValue($rate);
@@ -1138,17 +1138,17 @@ class PHPExcel_Calculation_Financial {
 
 
 	/**
-	 *	PPMT
+	 * PPMT
 	 *
-	 *	Returns the interest payment for a given period for an investment based on periodic, constant payments and a constant interest rate.
+	 * Returns the interest payment for a given period for an investment based on periodic, constant payments and a constant interest rate.
 	 *
-	 *	@param	float	$rate	Interest rate per period
-	 *	@param	int		$per	Period for which we want to find the interest
-	 *	@param	int		$nper	Number of periods
-	 *	@param	float	$pv		Present Value
-	 *	@param	float	$fv		Future Value
-	 *	@param	int		$type	Payment type: 0 = at the end of each period, 1 = at the beginning of each period
-	 *	@return	float
+	 * @param	float	$rate	Interest rate per period
+	 * @param	int		$per	Period for which we want to find the interest
+	 * @param	int		$nper	Number of periods
+	 * @param	float	$pv		Present Value
+	 * @param	float	$fv		Future Value
+	 * @param	int		$type	Payment type: 0 = at the end of each period, 1 = at the beginning of each period
+	 * @return	float
 	 */
 	public static function PPMT($rate, $per, $nper, $pv, $fv = 0, $type = 0) {
 		$rate	= PHPExcel_Calculation_Functions::flattenSingleValue($rate);
@@ -1214,23 +1214,23 @@ class PHPExcel_Calculation_Financial {
 
 
 	/**
-	 *	PRICEDISC
+	 * PRICEDISC
 	 *
-	 *	Returns the price per $100 face value of a discounted security.
+	 * Returns the price per $100 face value of a discounted security.
 	 *
-	 *	@param	mixed	settlement	The security's settlement date.
+	 * @param	mixed	settlement	The security's settlement date.
 	 *								The security settlement date is the date after the issue date when the security is traded to the buyer.
-	 *	@param	mixed	maturity	The security's maturity date.
+	 * @param	mixed	maturity	The security's maturity date.
 	 *								The maturity date is the date when the security expires.
-	 *	@param	int		discount	The security's discount rate.
-	 *	@param	int		redemption	The security's redemption value per $100 face value.
-	 *	@param	int		basis		The type of day count to use.
+	 * @param	int		discount	The security's discount rate.
+	 * @param	int		redemption	The security's redemption value per $100 face value.
+	 * @param	int		basis		The type of day count to use.
 	 *										0 or omitted	US (NASD) 30/360
 	 *										1				Actual/actual
 	 *										2				Actual/360
 	 *										3				Actual/365
 	 *										4				European 30/360
-	 *	@return	float
+	 * @return	float
 	 */
 	public static function PRICEDISC($settlement, $maturity, $discount, $redemption, $basis=0) {
 		$settlement	= PHPExcel_Calculation_Functions::flattenSingleValue($settlement);
@@ -1257,24 +1257,24 @@ class PHPExcel_Calculation_Financial {
 
 
 	/**
-	 *	PRICEMAT
+	 * PRICEMAT
 	 *
-	 *	Returns the price per $100 face value of a security that pays interest at maturity.
+	 * Returns the price per $100 face value of a security that pays interest at maturity.
 	 *
-	 *	@param	mixed	settlement	The security's settlement date.
+	 * @param	mixed	settlement	The security's settlement date.
 	 *								The security's settlement date is the date after the issue date when the security is traded to the buyer.
-	 *	@param	mixed	maturity	The security's maturity date.
+	 * @param	mixed	maturity	The security's maturity date.
 	 *								The maturity date is the date when the security expires.
-	 *	@param	mixed	issue		The security's issue date.
-	 *	@param	int		rate		The security's interest rate at date of issue.
-	 *	@param	int		yield		The security's annual yield.
-	 *	@param	int		basis		The type of day count to use.
+	 * @param	mixed	issue		The security's issue date.
+	 * @param	int		rate		The security's interest rate at date of issue.
+	 * @param	int		yield		The security's annual yield.
+	 * @param	int		basis		The type of day count to use.
 	 *										0 or omitted	US (NASD) 30/360
 	 *										1				Actual/actual
 	 *										2				Actual/360
 	 *										3				Actual/365
 	 *										4				European 30/360
-	 *	@return	float
+	 * @return	float
 	 */
 	public static function PRICEMAT($settlement, $maturity, $issue, $rate, $yield, $basis=0) {
 		$settlement	= PHPExcel_Calculation_Functions::flattenSingleValue($settlement);
@@ -1399,23 +1399,23 @@ class PHPExcel_Calculation_Financial {
 
 
 	/**
-	 *	RECEIVED
+	 * RECEIVED
 	 *
-	 *	Returns the price per $100 face value of a discounted security.
+	 * Returns the price per $100 face value of a discounted security.
 	 *
-	 *	@param	mixed	settlement	The security's settlement date.
+	 * @param	mixed	settlement	The security's settlement date.
 	 *								The security settlement date is the date after the issue date when the security is traded to the buyer.
-	 *	@param	mixed	maturity	The security's maturity date.
+	 * @param	mixed	maturity	The security's maturity date.
 	 *								The maturity date is the date when the security expires.
-	 *	@param	int		investment	The amount invested in the security.
-	 *	@param	int		discount	The security's discount rate.
-	 *	@param	int		basis		The type of day count to use.
+	 * @param	int		investment	The amount invested in the security.
+	 * @param	int		discount	The security's discount rate.
+	 * @param	int		basis		The type of day count to use.
 	 *										0 or omitted	US (NASD) 30/360
 	 *										1				Actual/actual
 	 *										2				Actual/360
 	 *										3				Actual/365
 	 *										4				European 30/360
-	 *	@return	float
+	 * @return	float
 	 */
 	public static function RECEIVED($settlement, $maturity, $investment, $discount, $basis=0) {
 		$settlement	= PHPExcel_Calculation_Functions::flattenSingleValue($settlement);
@@ -1496,16 +1496,16 @@ class PHPExcel_Calculation_Financial {
 
 
 	/**
-	 *	TBILLEQ
+	 * TBILLEQ
 	 *
-	 *	Returns the bond-equivalent yield for a Treasury bill.
+	 * Returns the bond-equivalent yield for a Treasury bill.
 	 *
-	 *	@param	mixed	settlement	The Treasury bill's settlement date.
+	 * @param	mixed	settlement	The Treasury bill's settlement date.
 	 *								The Treasury bill's settlement date is the date after the issue date when the Treasury bill is traded to the buyer.
-	 *	@param	mixed	maturity	The Treasury bill's maturity date.
+	 * @param	mixed	maturity	The Treasury bill's maturity date.
 	 *								The maturity date is the date when the Treasury bill expires.
-	 *	@param	int		discount	The Treasury bill's discount rate.
-	 *	@return	float
+	 * @param	int		discount	The Treasury bill's discount rate.
+	 * @return	float
 	 */
 	public static function TBILLEQ($settlement, $maturity, $discount) {
 		$settlement	= PHPExcel_Calculation_Functions::flattenSingleValue($settlement);
@@ -1534,16 +1534,16 @@ class PHPExcel_Calculation_Financial {
 
 
 	/**
-	 *	TBILLPRICE
+	 * TBILLPRICE
 	 *
-	 *	Returns the yield for a Treasury bill.
+	 * Returns the yield for a Treasury bill.
 	 *
-	 *	@param	mixed	settlement	The Treasury bill's settlement date.
+	 * @param	mixed	settlement	The Treasury bill's settlement date.
 	 *								The Treasury bill's settlement date is the date after the issue date when the Treasury bill is traded to the buyer.
-	 *	@param	mixed	maturity	The Treasury bill's maturity date.
+	 * @param	mixed	maturity	The Treasury bill's maturity date.
 	 *								The maturity date is the date when the Treasury bill expires.
-	 *	@param	int		discount	The Treasury bill's discount rate.
-	 *	@return	float
+	 * @param	int		discount	The Treasury bill's discount rate.
+	 * @return	float
 	 */
 	public static function TBILLPRICE($settlement, $maturity, $discount) {
 		$settlement	= PHPExcel_Calculation_Functions::flattenSingleValue($settlement);
@@ -1586,16 +1586,16 @@ class PHPExcel_Calculation_Financial {
 
 
 	/**
-	 *	TBILLYIELD
+	 * TBILLYIELD
 	 *
-	 *	Returns the yield for a Treasury bill.
+	 * Returns the yield for a Treasury bill.
 	 *
-	 *	@param	mixed	settlement	The Treasury bill's settlement date.
+	 * @param	mixed	settlement	The Treasury bill's settlement date.
 	 *								The Treasury bill's settlement date is the date after the issue date when the Treasury bill is traded to the buyer.
-	 *	@param	mixed	maturity	The Treasury bill's maturity date.
+	 * @param	mixed	maturity	The Treasury bill's maturity date.
 	 *								The maturity date is the date when the Treasury bill expires.
-	 *	@param	int		price		The Treasury bill's price per $100 face value.
-	 *	@return	float
+	 * @param	int		price		The Treasury bill's price per $100 face value.
+	 * @return	float
 	 */
 	public static function TBILLYIELD($settlement, $maturity, $price) {
 		$settlement	= PHPExcel_Calculation_Functions::flattenSingleValue($settlement);
@@ -1672,18 +1672,18 @@ class PHPExcel_Calculation_Financial {
 
 
 	/**
-	 *	XNPV
+	 * XNPV
 	 *
-	 *	Returns the net present value for a schedule of cash flows that is not necessarily periodic.
-	 *	To calculate the net present value for a series of cash flows that is periodic, use the NPV function.
+	 * Returns the net present value for a schedule of cash flows that is not necessarily periodic.
+	 * To calculate the net present value for a series of cash flows that is periodic, use the NPV function.
 	 *
-	 *	Excel Function:
+	 * Excel Function:
 	 *		=XNPV(rate,values,dates)
 	 *
-	 *	@param	float			$rate		The discount rate to apply to the cash flows.
-	 *	@param	array of float	$values		A series of cash flows that corresponds to a schedule of payments in dates. The first payment is optional and corresponds to a cost or payment that occurs at the beginning of the investment. If the first value is a cost or payment, it must be a negative value. All succeeding payments are discounted based on a 365-day year. The series of values must contain at least one positive value and one negative value.
-	 *	@param	array of mixed	$dates		A schedule of payment dates that corresponds to the cash flow payments. The first payment date indicates the beginning of the schedule of payments. All other dates must be later than this date, but they may occur in any order.
-	 *	@return	float
+	 * @param	float			$rate		The discount rate to apply to the cash flows.
+	 * @param	array of float	$values		A series of cash flows that corresponds to a schedule of payments in dates. The first payment is optional and corresponds to a cost or payment that occurs at the beginning of the investment. If the first value is a cost or payment, it must be a negative value. All succeeding payments are discounted based on a 365-day year. The series of values must contain at least one positive value and one negative value.
+	 * @param	array of mixed	$dates		A schedule of payment dates that corresponds to the cash flow payments. The first payment date indicates the beginning of the schedule of payments. All other dates must be later than this date, but they may occur in any order.
+	 * @return	float
 	 */
 	public static function XNPV($rate, $values, $dates) {
 		$rate = PHPExcel_Calculation_Functions::flattenSingleValue($rate);
@@ -1705,23 +1705,23 @@ class PHPExcel_Calculation_Financial {
 
 
 	/**
-	 *	YIELDDISC
+	 * YIELDDISC
 	 *
-	 *	Returns the annual yield of a security that pays interest at maturity.
+	 * Returns the annual yield of a security that pays interest at maturity.
 	 *
-	 *	@param	mixed	settlement	The security's settlement date.
+	 * @param	mixed	settlement	The security's settlement date.
 	 *								The security's settlement date is the date after the issue date when the security is traded to the buyer.
-	 *	@param	mixed	maturity	The security's maturity date.
+	 * @param	mixed	maturity	The security's maturity date.
 	 *								The maturity date is the date when the security expires.
-	 *	@param	int		price		The security's price per $100 face value.
-	 *	@param	int		redemption	The security's redemption value per $100 face value.
-	 *	@param	int		basis		The type of day count to use.
+	 * @param	int		price		The security's price per $100 face value.
+	 * @param	int		redemption	The security's redemption value per $100 face value.
+	 * @param	int		basis		The type of day count to use.
 	 *										0 or omitted	US (NASD) 30/360
 	 *										1				Actual/actual
 	 *										2				Actual/360
 	 *										3				Actual/365
 	 *										4				European 30/360
-	 *	@return	float
+	 * @return	float
 	 */
 	public static function YIELDDISC($settlement, $maturity, $price, $redemption, $basis=0) {
 		$settlement	= PHPExcel_Calculation_Functions::flattenSingleValue($settlement);
@@ -1753,24 +1753,24 @@ class PHPExcel_Calculation_Financial {
 
 
 	/**
-	 *	YIELDMAT
+	 * YIELDMAT
 	 *
-	 *	Returns the annual yield of a security that pays interest at maturity.
+	 * Returns the annual yield of a security that pays interest at maturity.
 	 *
-	 *	@param	mixed	settlement	The security's settlement date.
+	 * @param	mixed	settlement	The security's settlement date.
 	 *								The security's settlement date is the date after the issue date when the security is traded to the buyer.
-	 *	@param	mixed	maturity	The security's maturity date.
+	 * @param	mixed	maturity	The security's maturity date.
 	 *								The maturity date is the date when the security expires.
-	 *	@param	mixed	issue		The security's issue date.
-	 *	@param	int		rate		The security's interest rate at date of issue.
-	 *	@param	int		price		The security's price per $100 face value.
-	 *	@param	int		basis		The type of day count to use.
+	 * @param	mixed	issue		The security's issue date.
+	 * @param	int		rate		The security's interest rate at date of issue.
+	 * @param	int		price		The security's price per $100 face value.
+	 * @param	int		basis		The type of day count to use.
 	 *										0 or omitted	US (NASD) 30/360
 	 *										1				Actual/actual
 	 *										2				Actual/360
 	 *										3				Actual/365
 	 *										4				European 30/360
-	 *	@return	float
+	 * @return	float
 	 */
 	public static function YIELDMAT($settlement, $maturity, $issue, $rate, $price, $basis=0) {
 		$settlement	= PHPExcel_Calculation_Functions::flattenSingleValue($settlement);
