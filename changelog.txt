@@ -42,9 +42,11 @@ Fixed in SVN:
 - Feature:  (MBaker)    Options for cell caching using Igbinary and SQLite/SQlite3.
 - Feature:  (MBaker)    Additional row iterator options: allow a start row to be defined in the constructor; seek(), and prev() methods added.
 - Feature:  (Progi1984) Work item 9759 - Implement document properties in Excel5 writer
-- Feature:  (MBaker)    Initial definition of chart objects.
+- Feature:  (MBaker)    Work item 16 - Implement chart functionality (EXPERIMENTAL)
+                        Initial definition of chart objects.
                         Reading Chart definitions through the Excel2007 Reader
                         Facility to render charts to images using the 3rd-party jpgraph library
+                        Writing Charts using the Excel2007 Writer
 - General:  (MBaker)    Fix to build to ensure that Examples are included with the documentation
 - General:  (MBaker)    Reduce cell caching overhead using dirty flag to ensure that cells are only rewritten to the cache if they have actually been changed
 - General:  (MBaker)    Improved memory usage in CSV Writer
@@ -74,7 +76,8 @@ Fixed in SVN:
 - Bugfix:   (MBaker)    Work item 17262 - Named Range definition in .xls when sheet reeference is quote wrapped
 - Bugfix:   (MBaker)    Work item 17403 - duplicateStyle() method doesn't duplicate conditional formats
                                           Added an equivalent duplicateConditionalStyle() method for duplicating conditional styles
-- Bugfix:   (MBaker)    Work item 17186 - setSelectedCellByColumnAndRow is not working
+- Bugfix:   (bnr)       Work item 17501 - =sumproduct(A,B) <> =sumproduct(B,A) in xlsx
+- Bugfix:   (Progi1984) Work item 8916  - Support for Rich-Text in PHPExcel_Writer_Excel5
 - General:  (MBaker)    Work item 15405 - Two easy to fix Issues concerning PHPExcel_Token_Stack (l10n/UC)
 - General:  (MBaker)    Work item 15461 - Locale file paths not fit for windows
 - General:  (MBaker)    Work item 16643 - Add file directory as a cache option for cache_to_discISAM

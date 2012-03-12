@@ -144,7 +144,7 @@ class PHPExcel_Calculation_MathTrig {
 	 * COMBIN
 	 *
 	 * Returns the number of combinations for a given number of items. Use COMBIN to
-	 * determine the total possible number of groups for a given number of items.
+	 *		determine the total possible number of groups for a given number of items.
 	 *
 	 * @param	int		$numObjs	Number of different objects
 	 * @param	int		$numInSet	Number of objects in each combination
@@ -920,7 +920,7 @@ class PHPExcel_Calculation_MathTrig {
 	 * SIGN
 	 *
 	 * Determines the sign of a number. Returns 1 if the number is positive, zero (0)
-	 * if the number is 0, and -1 if the number is negative.
+	 *		if the number is 0, and -1 if the number is negative.
 	 *
 	 * @param	float	$number			Number to round
 	 * @return	int		sign value
@@ -1090,7 +1090,12 @@ class PHPExcel_Calculation_MathTrig {
 	/**
 	 * SUMPRODUCT
 	 *
-	 * @param	mixed	$value	Value to check
+	 * Excel Function:
+	 *		SUMPRODUCT(value1[,value2[, ...]])
+	 *
+	 * @access	public
+	 * @category Mathematical and Trigonometric Functions
+	 * @param	mixed		$arg,...		Data values
 	 * @return	float
 	 */
 	public static function SUMPRODUCT() {
@@ -1098,6 +1103,12 @@ class PHPExcel_Calculation_MathTrig {
 
 		$wrkArray = PHPExcel_Calculation_Functions::flattenArray(array_shift($arrayList));
 		$wrkCellCount = count($wrkArray);
+
+		for ($i=0; $i< $wrkCellCount; ++$i) {
+			if ((!is_numeric($wrkArray[$i])) || (is_string($wrkArray[$i]))) {
+				$wrkArray[$i] = 0;
+			}
+		}
 
 		foreach($arrayList as $matrixData) {
 			$array2 = PHPExcel_Calculation_Functions::flattenArray($matrixData);
@@ -1107,10 +1118,10 @@ class PHPExcel_Calculation_MathTrig {
 			}
 
 			foreach ($array2 as $i => $val) {
-				if (((is_numeric($wrkArray[$i])) && (!is_string($wrkArray[$i]))) &&
-					((is_numeric($val)) && (!is_string($val)))) {
-					$wrkArray[$i] *= $val;
+				if ((!is_numeric($val)) || (is_string($val))) {
+					$val = 0;
 				}
+				$wrkArray[$i] *= $val;
 			}
 		}
 

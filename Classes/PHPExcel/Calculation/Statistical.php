@@ -960,10 +960,10 @@ class PHPExcel_Calculation_Statistical {
 	 * BINOMDIST
 	 *
 	 * Returns the individual term binomial distribution probability. Use BINOMDIST in problems with
-	 * a fixed number of tests or trials, when the outcomes of any trial are only success or failure,
-	 * when trials are independent, and when the probability of success is constant throughout the
-	 * experiment. For example, BINOMDIST can calculate the probability that two of the next three
-	 * babies born are male.
+	 *		a fixed number of tests or trials, when the outcomes of any trial are only success or failure,
+	 *		when trials are independent, and when the probability of success is constant throughout the
+	 *		experiment. For example, BINOMDIST can calculate the probability that two of the next three
+	 *		babies born are male.
 	 *
 	 * @param	float		$value			Number of successes in trials
 	 * @param	float		$trials			Number of trials
@@ -1309,7 +1309,7 @@ class PHPExcel_Calculation_Statistical {
 	 * CRITBINOM
 	 *
 	 * Returns the smallest value for which the cumulative binomial distribution is greater
-	 * than or equal to a criterion value
+	 *		than or equal to a criterion value
 	 *
 	 * See http://support.microsoft.com/kb/828117/ for details of the algorithm used
 	 *
@@ -1467,9 +1467,9 @@ class PHPExcel_Calculation_Statistical {
 	/**
 	 * EXPONDIST
 	 *
-	 * Returns the exponential distribution. Use EXPONDIST to model the time between events,
-	 * such as how long an automated bank teller takes to deliver cash. For example, you can
-	 * use EXPONDIST to determine the probability that the process takes at most 1 minute.
+	 *	Returns the exponential distribution. Use EXPONDIST to model the time between events,
+	 *		such as how long an automated bank teller takes to deliver cash. For example, you can
+	 *		use EXPONDIST to determine the probability that the process takes at most 1 minute.
 	 *
 	 * @param	float		$value			Value of the function
 	 * @param	float		$lambda			The parameter value
@@ -1501,8 +1501,8 @@ class PHPExcel_Calculation_Statistical {
 	 * FISHER
 	 *
 	 * Returns the Fisher transformation at x. This transformation produces a function that
-	 * is normally distributed rather than skewed. Use this function to perform hypothesis
-	 * testing on the correlation coefficient.
+	 *		is normally distributed rather than skewed. Use this function to perform hypothesis
+	 *		testing on the correlation coefficient.
 	 *
 	 * @param	float		$value
 	 * @return	float
@@ -1524,8 +1524,8 @@ class PHPExcel_Calculation_Statistical {
 	 * FISHERINV
 	 *
 	 * Returns the inverse of the Fisher transformation. Use this transformation when
-	 * analyzing correlations between ranges or arrays of data. If y = FISHER(x), then
-	 * FISHERINV(y) = x.
+	 *		analyzing correlations between ranges or arrays of data. If y = FISHER(x), then
+	 *		FISHERINV(y) = x.
 	 *
 	 * @param	float		$value
 	 * @return	float
@@ -2460,10 +2460,10 @@ class PHPExcel_Calculation_Statistical {
 	 * NEGBINOMDIST
 	 *
 	 * Returns the negative binomial distribution. NEGBINOMDIST returns the probability that
-	 * there will be number_f failures before the number_s-th success, when the constant
-	 * probability of a success is probability_s. This function is similar to the binomial
-	 * distribution, except that the number of successes is fixed, and the number of trials is
-	 * variable. Like the binomial, trials are assumed to be independent.
+	 *		there will be number_f failures before the number_s-th success, when the constant
+	 *		probability of a success is probability_s. This function is similar to the binomial
+	 *		distribution, except that the number of successes is fixed, and the number of trials is
+	 *		variable. Like the binomial, trials are assumed to be independent.
 	 *
 	 * @param	float		$failures		Number of Failures
 	 * @param	float		$successes		Threshold number of Successes
@@ -2688,10 +2688,10 @@ class PHPExcel_Calculation_Statistical {
 	 * PERMUT
 	 *
 	 * Returns the number of permutations for a given number of objects that can be
-	 * selected from number objects. A permutation is any set or subset of objects or
-	 * events where internal order is significant. Permutations are different from
-	 * combinations, for which the internal order is not significant. Use this function
-	 * for lottery-style probability calculations.
+	 *		selected from number objects. A permutation is any set or subset of objects or
+	 *		events where internal order is significant. Permutations are different from
+	 *		combinations, for which the internal order is not significant. Use this function
+	 *		for lottery-style probability calculations.
 	 *
 	 * @param	int		$numObjs	Number of different objects
 	 * @param	int		$numInSet	Number of objects in each permutation
