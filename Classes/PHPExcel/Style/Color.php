@@ -82,10 +82,12 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 	 */
 	private $_parentPropertyName;
 
+
 	/**
 	 * Create a new PHPExcel_Style_Color
 	 *
-	 * @param string $pARGB
+	 * @param	string	$pARGB			ARGB value for the colour
+	 * @param	boolean	$isSupervisor	Flag indicating if this is a supervisor or not
 	 */
 	public function __construct($pARGB = PHPExcel_Style_Color::COLOR_BLACK, $isSupervisor = false)
 	{
@@ -275,7 +277,7 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 	/**
 	 * Set RGB
 	 *
-	 * @param string $pValue
+	 * @param	string	$pValue	RGB value
 	 * @return PHPExcel_Style_Color
 	 */
 	public function setRGB($pValue = '000000') {
@@ -291,6 +293,16 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 		return $this;
 	}
 
+	/**
+	 * Get a specified colour component of an RGB value
+	 *
+	 * @private
+	 * @param	string		$RGB		The colour as an RGB value (e.g. FF00CCCC or CCDDEE
+	 * @param	int			$offset		Position within the RGB value to extract
+	 * @param	boolean		$hex		Flag indicating whether the component should be returned as a hex or a
+	 *									decimal value
+	 * @return	string		The extracted colour component
+	 */
 	private static function _getColourComponent($RGB,$offset,$hex=true) {
 		$colour = substr($RGB,$offset,2);
 		if (!$hex)
@@ -298,6 +310,14 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 		return $colour;
 	}
 
+	/**
+	 * Get the red colour component of an RGB value
+	 *
+	 * @param	string		$RGB		The colour as an RGB value (e.g. FF00CCCC or CCDDEE
+	 * @param	boolean		$hex		Flag indicating whether the component should be returned as a hex or a
+	 *									decimal value
+	 * @return	string		The red colour component
+	 */
 	public static function getRed($RGB,$hex=true) {
 		if (strlen($RGB) == 8) {
 			return self::_getColourComponent($RGB,2,$hex);
@@ -306,6 +326,14 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 		}
 	}
 
+	/**
+	 * Get the green colour component of an RGB value
+	 *
+	 * @param	string		$RGB		The colour as an RGB value (e.g. FF00CCCC or CCDDEE
+	 * @param	boolean		$hex		Flag indicating whether the component should be returned as a hex or a
+	 *									decimal value
+	 * @return	string		The green colour component
+	 */
 	public static function getGreen($RGB,$hex=true) {
 		if (strlen($RGB) == 8) {
 			return self::_getColourComponent($RGB,4,$hex);
@@ -314,6 +342,14 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 		}
 	}
 
+	/**
+	 * Get the blue colour component of an RGB value
+	 *
+	 * @param	string		$RGB		The colour as an RGB value (e.g. FF00CCCC or CCDDEE
+	 * @param	boolean		$hex		Flag indicating whether the component should be returned as a hex or a
+	 *									decimal value
+	 * @return	string		The blue colour component
+	 */
 	public static function getBlue($RGB,$hex=true) {
 		if (strlen($RGB) == 8) {
 			return self::_getColourComponent($RGB,6,$hex);
@@ -359,7 +395,9 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 	/**
 	 * Get indexed color
 	 *
-	 * @param	int		$pIndex
+	 * @param	int			$pIndex			Index entry point into the colour array
+	 * @param	boolean		$background		Flag to indicate whether default background or foreground colour
+	 *											should be returned if the indexed colour doesn't exist
 	 * @return	PHPExcel_Style_Color
 	 */
 	public static function indexedColor($pIndex, $background=false) {

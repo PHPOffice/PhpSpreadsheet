@@ -128,6 +128,8 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 
 	/**
 	 * Create a new PHPExcel_Style_Font
+	 *
+	 * @param	boolean	$isSupervisor	Flag indicating if this is a supervisor or not
 	 */
 	public function __construct($isSupervisor = false)
 	{

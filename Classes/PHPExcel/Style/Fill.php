@@ -109,6 +109,8 @@ class PHPExcel_Style_Fill implements PHPExcel_IComparable
 
 	/**
 	 * Create a new PHPExcel_Style_Fill
+	 *
+	 * @param	boolean	$isSupervisor	Flag indicating if this is a supervisor or not
 	 */
 	public function __construct($isSupervisor = false)
 	{

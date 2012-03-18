@@ -141,6 +141,8 @@ class PHPExcel_Style_Borders implements PHPExcel_IComparable
 
 	/**
      * Create a new PHPExcel_Style_Borders
+	 *
+	 * @param	boolean	$isSupervisor	Flag indicating if this is a supervisor or not
      */
     public function __construct($isSupervisor = false)
     {
