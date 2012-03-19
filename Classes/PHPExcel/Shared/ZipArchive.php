@@ -58,6 +58,12 @@ class PHPExcel_Shared_ZipArchive
 	private $_zip;
 
 
+    /**
+	 * Open a new zip archive
+	 *
+	 * @param	string	$fileName	Filename for the zip archive
+	 * @return	boolean
+     */
 	public function open($fileName)
 	{
 		$this->_tempDir = PHPExcel_Shared_File::sys_get_temp_dir();
@@ -68,11 +74,21 @@ class PHPExcel_Shared_ZipArchive
 	}
 
 
+    /**
+	 * Close this zip archive
+	 *
+     */
 	public function close()
 	{
 	}
 
 
+    /**
+	 * Add a new file to the zip archive from a string of raw data.
+	 *
+	 * @param	string	$localname		Directory/Name of the file to add to the zip archive
+	 * @param	string	$contents		String of data to add to the zip archive
+     */
 	public function addFromString($localname, $contents)
 	{
 		$filenameParts = pathinfo($localname);

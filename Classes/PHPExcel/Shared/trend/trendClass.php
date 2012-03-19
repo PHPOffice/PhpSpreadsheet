@@ -1,4 +1,30 @@
 <?php
+/**
+ * PHPExcel
+ *
+ * Copyright (c) 2006 - 2012 PHPExcel
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_Shared_Trend
+ * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version    ##VERSION##, ##DATE##
+ */
+
 
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/trend/linearBestFitClass.php';
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/trend/logarithmicBestFitClass.php';
@@ -7,6 +33,13 @@ require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/trend/powerBestFitClass.php';
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/trend/polynomialBestFitClass.php';
 
 
+/**
+ * PHPExcel_trendClass
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_Shared_Trend
+ * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
+ */
 class trendClass
 {
 	const TREND_LINEAR				= 'Linear';
@@ -21,23 +54,21 @@ class trendClass
 	const TREND_BEST_FIT			= 'Bestfit';
 	const TREND_BEST_FIT_NO_POLY	= 'Bestfit_no_Polynomials';
 
-	/*
+	/**
 	 * Names of the best-fit trend analysis methods
 	 *
-	 * @private
-	 * @var	string[]
-	 */
+	 * @var string[]
+	 **/
 	private static $_trendTypes = array( self::TREND_LINEAR,
 										 self::TREND_LOGARITHMIC,
 										 self::TREND_EXPONENTIAL,
 										 self::TREND_POWER
 									   );
-	/*
+	/**
 	 * Names of the best-fit trend polynomial orders
 	 *
-	 * @private
-	 * @var	string[]
-	 */
+	 * @var string[]
+	 **/
 	private static $_trendTypePolyOrders = array( self::TREND_POLYNOMIAL_2,
 												  self::TREND_POLYNOMIAL_3,
 												  self::TREND_POLYNOMIAL_4,
@@ -45,12 +76,11 @@ class trendClass
 												  self::TREND_POLYNOMIAL_6
 											    );
 
-	/*
+	/**
 	 * Cached results for each method when trying to identify which provides the best fit
 	 *
-	 * @private
-	 * @var	PHPExcel_Shared_Best_Fit[]
-	 */
+	 * @var PHPExcel_Best_Fit[]
+	 **/
 	private static $_trendCache = array();
 
 

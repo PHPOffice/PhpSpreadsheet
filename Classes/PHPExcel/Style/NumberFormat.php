@@ -449,6 +449,11 @@ class PHPExcel_Style_NumberFormat implements PHPExcel_IComparable
 		}
 	}
 
+	/**
+	 * Search/replace values to convert Excel date/time format masks to PHP format masks
+	 *
+	 * @var array
+	 */
 	private static $_dateFormatReplacements = array(
 			// first remove escapes related to non-format characters
 			'\\'	=> '',
@@ -483,10 +488,20 @@ class PHPExcel_Style_NumberFormat implements PHPExcel_IComparable
 			//	fractional seconds - no php equivalent
 			'.s'	=> ''
 		);
+	/**
+	 * Search/replace values to convert Excel date/time format masks hours to PHP format masks (24 hr clock)
+	 *
+	 * @var array
+	 */
 	private static $_dateFormatReplacements24 = array(
 			'hh'	=> 'H',
 			'h'		=> 'G'
 		);
+	/**
+	 * Search/replace values to convert Excel date/time format masks hours to PHP format masks (12 hr clock)
+	 *
+	 * @var array
+	 */
 	private static $_dateFormatReplacements12 = array(
 			'hh'	=> 'h',
 			'h'		=> 'g'

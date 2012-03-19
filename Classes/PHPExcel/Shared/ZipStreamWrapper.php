@@ -71,7 +71,13 @@ class PHPExcel_Shared_ZipStreamWrapper {
     }
 
     /**
-     * Open stream
+	 * Implements support for fopen().
+	 *
+	 * @param	string	$path			resource name including scheme, e.g.
+	 * @param	string	$mode			only "r" is supported
+	 * @param	int		$options		mask of STREAM_REPORT_ERRORS and STREAM_USE_PATH
+	 * @param	string  &$openedPath	absolute path of the opened stream (out parameter)
+	 * @return	bool    true on success
      */
     public function stream_open($path, $mode, $options, &$opened_path) {
         // Check for mode
@@ -95,14 +101,19 @@ class PHPExcel_Shared_ZipStreamWrapper {
     }
 
     /**
-     * Stat stream
+	 * Implements support for fstat().
+	 *
+	 * @return  boolean
      */
     public function stream_stat() {
         return $this->_archive->statName( $this->_fileNameInArchive );
     }
 
     /**
-     * Read stream
+	 * Implements support for fread(), fgets() etc.
+	 *
+	 * @param   int		$count	maximum number of bytes to read
+	 * @return  string
      */
     function stream_read($count) {
         $ret = substr($this->_data, $this->_position, $count);
@@ -111,7 +122,10 @@ class PHPExcel_Shared_ZipStreamWrapper {
     }
 
     /**
-     * Tell stream
+	 * Returns the position of the file pointer, i.e. its offset into the file
+	 * stream. Implements support for ftell().
+	 *
+	 * @return  int
      */
     public function stream_tell() {
         return $this->_position;
@@ -119,6 +133,8 @@ class PHPExcel_Shared_ZipStreamWrapper {
 
     /**
      * EOF stream
+	 *
+	 * @return	bool
      */
     public function stream_eof() {
         return $this->_position >= strlen($this->_data);
@@ -126,6 +142,10 @@ class PHPExcel_Shared_ZipStreamWrapper {
 
     /**
      * Seek stream
+	 *
+	 * @param	int		$offset	byte offset
+	 * @param	int		$whence	SEEK_SET, SEEK_CUR or SEEK_END
+	 * @return	bool
      */
     public function stream_seek($offset, $whence) {
         switch ($whence) {
