@@ -35,13 +35,35 @@
  */
 class PHPExcel_CachedObjectStorage_Memcache extends PHPExcel_CachedObjectStorage_CacheBase implements PHPExcel_CachedObjectStorage_ICache {
 
+	/**
+	 * Prefix used to uniquely identify cache data for this worksheet
+	 *
+	 * @var string
+	 */
 	private $_cachePrefix = null;
 
+	/**
+	 * Cache timeout
+	 *
+	 * @var integer
+	 */
 	private $_cacheTime = 600;
 
+	/**
+	 * Memcache interface
+	 *
+	 * @var resource
+	 */
 	private $_memcache = null;
 
 
+    /**
+     * Store cell data in cache for the current cell object if it's "dirty",
+     *     and the 'nullify' the current cell object
+     *
+	 * @return	void
+     * @throws	Exception
+     */
 	private function _storeData() {
 		if ($this->_currentCellIsDirty) {
 			$this->_currentObject->detach();
@@ -162,6 +184,7 @@ class PHPExcel_CachedObjectStorage_Memcache extends PHPExcel_CachedObjectStorage
 	/**
 	 * Clone the cell collection
 	 *
+	 * @param	PHPExcel_Worksheet	$parent		The new worksheet
 	 * @return	void
 	 */
 	public function copyCellCollection(PHPExcel_Worksheet $parent) {
@@ -188,6 +211,11 @@ class PHPExcel_CachedObjectStorage_Memcache extends PHPExcel_CachedObjectStorage
 	}	//	function copyCellCollection()
 
 
+	/**
+	 * Clear the cell collection and disconnect from our parent
+	 *
+	 * @return	void
+	 */
 	public function unsetWorksheetCells() {
 		if(!is_null($this->_currentObject)) {
 			$this->_currentObject->detach();
@@ -204,6 +232,12 @@ class PHPExcel_CachedObjectStorage_Memcache extends PHPExcel_CachedObjectStorage
 	}	//	function unsetWorksheetCells()
 
 
+	/**
+	 * Initialise this new cell collection
+	 *
+	 * @param	PHPExcel_Worksheet	$parent		The worksheet for this cell collection
+	 * @param	array of mixed		$arguments	Additional initialisation arguments
+	 */
 	public function __construct(PHPExcel_Worksheet $parent, $arguments) {
 		$memcacheServer	= (isset($arguments['memcacheServer']))	? $arguments['memcacheServer']	: 'localhost';
 		$memcachePort	= (isset($arguments['memcachePort']))	? $arguments['memcachePort']	: 11211;
@@ -225,11 +259,21 @@ class PHPExcel_CachedObjectStorage_Memcache extends PHPExcel_CachedObjectStorage
 	}	//	function __construct()
 
 
+	/**
+	 * Memcache error handler
+	 *
+	 * @param	string	$host		Memcache server
+	 * @param	integer	$port		Memcache port
+     * @throws	Exception
+	 */
 	public function failureCallback($host, $port) {
 		throw new Exception('memcache '.$host.':'.$port.' failed');
 	}
 
 
+	/**
+	 * Destroy this cell collection
+	 */
 	public function __destruct() {
 		$cacheList = $this->getCellList();
 		foreach($cacheList as $cellID) {

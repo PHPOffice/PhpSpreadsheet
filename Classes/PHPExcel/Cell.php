@@ -101,6 +101,7 @@ class PHPExcel_Cell
 
 	/**
 	 * Send notification to the cache controller
+	 *
 	 * @return void
 	 **/
 	public function notifyCacheController() {
@@ -121,7 +122,7 @@ class PHPExcel_Cell
 	 * Create a new Cell
 	 *
 	 * @param	string				$pColumn
-	 * @param	int				$pRow
+	 * @param	int					$pRow
 	 * @param	mixed				$pValue
 	 * @param	string				$pDataType
 	 * @param	PHPExcel_Worksheet	$pSheet

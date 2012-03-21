@@ -75,7 +75,6 @@ interface PHPExcel_CachedObjectStorage_ICache
 	 * Is a value set in the current PHPExcel_CachedObjectStorage_ICache for an indexed cell?
 	 *
 	 * @param	string		$pCoord		Coordinate address of the cell to check
-	 * @return	void
 	 * @return	boolean
 	 */
 	public function isDataSet($pCoord);
@@ -97,6 +96,7 @@ interface PHPExcel_CachedObjectStorage_ICache
 	/**
 	 * Clone the cell collection
 	 *
+	 * @param	PHPExcel_Worksheet	$parent		The new worksheet
 	 * @return	void
 	 */
 	public function copyCellCollection(PHPExcel_Worksheet $parent);

@@ -73,6 +73,11 @@ class PHPExcel_CachedObjectStorage_CacheBase {
 	protected $_cellCache = array();
 
 
+	/**
+	 * Initialise this new cell collection
+	 *
+	 * @param	PHPExcel_Worksheet	$parent		The worksheet for this cell collection
+	 */
 	public function __construct(PHPExcel_Worksheet $parent) {
 		//	Set our parent worksheet.
 		//	This is maintained within the cache controller to facilitate re-attaching it to PHPExcel_Cell objects when
@@ -205,6 +210,11 @@ class PHPExcel_CachedObjectStorage_CacheBase {
 	}
 
 
+	/**
+	 * Generate a unique ID for cache referencing
+	 *
+	 * @return string Unique Reference
+	 */
 	protected function _getUniqueID() {
 		if (function_exists('posix_getpid')) {
 			$baseUnique = posix_getpid();
@@ -217,6 +227,7 @@ class PHPExcel_CachedObjectStorage_CacheBase {
 	/**
 	 * Clone the cell collection
 	 *
+	 * @param	PHPExcel_Worksheet	$parent		The new worksheet
 	 * @return	void
 	 */
 	public function copyCellCollection(PHPExcel_Worksheet $parent) {

@@ -34,34 +34,50 @@ if (ini_get('mbstring.func_overload') & 2) {
 PHPExcel_Shared_String::buildCharacterSets();
 
 
+/**
+ * PHPExcel_Autoloader
+ *
+ * @category	PHPExcel
+ * @package		PHPExcel
+ * @copyright	Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
+ */
 class PHPExcel_Autoloader
 {
-    public static function Register() {
-        if (function_exists('__autoload')) {
-            //    Register any existing autoloader function with SPL, so we don't get any clashes
-            spl_autoload_register('__autoload');
-        }
-        //    Register ourselves with SPL
-        return spl_autoload_register(array('PHPExcel_Autoloader', 'Load'));
-    }    //    function Register()
+	/**
+	 * Register the Autoloader with SPL
+	 *
+	 */
+	public static function Register() {
+		if (function_exists('__autoload')) {
+			//	Register any existing autoloader function with SPL, so we don't get any clashes
+			spl_autoload_register('__autoload');
+		}
+		//	Register ourselves with SPL
+		return spl_autoload_register(array('PHPExcel_Autoloader', 'Load'));
+	}	//	function Register()
 
 
-    public static function Load($pObjectName){
-        if ((class_exists($pObjectName)) || (strpos($pObjectName, 'PHPExcel') !== 0)) {
-            //    Either already loaded, or not a PHPExcel class request
-            return FALSE;
-        }
+	/**
+	 * Autoload a class identified by name
+	 *
+	 * @param	string	$pClassName		Name of the object to load
+	 */
+	public static function Load($pClassName){
+		if ((class_exists($pClassName)) || (strpos($pClassName, 'PHPExcel') !== 0)) {
+			//	Either already loaded, or not a PHPExcel class request
+			return FALSE;
+		}
 
-        $pObjectFilePath = PHPEXCEL_ROOT .
-                           str_replace('_',DIRECTORY_SEPARATOR,$pObjectName) .
-                           '.php';
+		$pObjectFilePath = PHPEXCEL_ROOT .
+						   str_replace('_',DIRECTORY_SEPARATOR,$pClassName) .
+						   '.php';
 
-        if ((file_exists($pObjectFilePath) === false) || (is_readable($pObjectFilePath) === false)) {
-            //    Can't load
-            return FALSE;
-        }
+		if ((file_exists($pObjectFilePath) === false) || (is_readable($pObjectFilePath) === false)) {
+			//	Can't load
+			return FALSE;
+		}
 
-        require($pObjectFilePath);
-    }    //    function Load()
+		require($pObjectFilePath);
+	}	//	function Load()
 
 }
