@@ -742,39 +742,49 @@ class PHPExcel_Calculation_Engineering {
 	/**
 	 * BESSELI
 	 *
-	 * Returns the modified Bessel function, which is equivalent to the Bessel function evaluated for purely imaginary arguments
+	 * Returns the modified Bessel function, which is equivalent to the Bessel function evaluated for
+	 * purely imaginary arguments
+	 *
+	 * Excel Function:
+	 *		BESSELI(x,ord)
+	 *
+	 * @access	public
+	 * @category Engineering Functions
+	 * @param	float		$x		The value at which to evaluate the function.
+	 *								If x is nonnumeric, BESSELI returns the #VALUE! error value.
+	 * @param	integer		$ord	The order of the Bessel function. If n is not an integer, it is truncated.
+	 *								If $ord is nonnumeric, BESSELI returns the #VALUE! error value.
+	 *								If $ord < 0, BESSELI returns the #NUM! error value.
+	 * @return	float
 	 *
 	 * @TODO Better handling of the approximation method to support the differences between Excel/Gnumeric and Open/Libre Office
 	 *
-	 * @param	float		$x
-	 * @param	float		$n
-	 * @return	float
 	 */
-	public static function BESSELI($x, $n) {
+	public static function BESSELI($x, $ord) {
 		$x	= (is_null($x))	? 0.0 :	PHPExcel_Calculation_Functions::flattenSingleValue($x);
-		$n	= (is_null($n))	? 0.0 :	PHPExcel_Calculation_Functions::flattenSingleValue($n);
+		$ord	= (is_null($ord))	? 0.0 :	PHPExcel_Calculation_Functions::flattenSingleValue($ord);
 
-		if ((is_numeric($x)) && (is_numeric($n))) {
-			$n	= floor($n);
-			if ($n < 0) {
+		if ((is_numeric($x)) && (is_numeric($ord))) {
+			$ord	= floor($ord);
+			if ($ord < 0) {
 				return PHPExcel_Calculation_Functions::NaN();
 			}
 
 			if (abs($x) <= 30) {
-				$fResult = $fTerm = pow($x / 2, $n) / PHPExcel_Calculation_MathTrig::FACT($n);
-				$nK = 1;
+				$fResult = $fTerm = pow($x / 2, $ord) / PHPExcel_Calculation_MathTrig::FACT($ord);
+				$ordK = 1;
 				$fSqrX = ($x * $x) / 4;
 				do {
 					$fTerm *= $fSqrX;
-					$fTerm /= ($nK * ($nK + $n));
+					$fTerm /= ($ordK * ($ordK + $ord));
 					$fResult += $fTerm;
-				} while ((abs($fTerm) > 1e-12) && (++$nK < 100));
+				} while ((abs($fTerm) > 1e-12) && (++$ordK < 100));
 			} else {
 				$f_2_PI = 2 * M_PI;
 
 				$fXAbs = abs($x);
 				$fResult = exp($fXAbs) / sqrt($f_2_PI * $fXAbs);
-				if (($n & 1) && ($x < 0)) {
+				if (($ord & 1) && ($x < 0)) {
 					$fResult = -$fResult;
 				}
 			}
@@ -789,39 +799,48 @@ class PHPExcel_Calculation_Engineering {
 	 *
 	 * Returns the Bessel function
 	 *
+	 * Excel Function:
+	 *		BESSELJ(x,ord)
+	 *
+	 * @access	public
+	 * @category Engineering Functions
+	 * @param	float		$x		The value at which to evaluate the function.
+	 *								If x is nonnumeric, BESSELJ returns the #VALUE! error value.
+	 * @param	integer		$ord	The order of the Bessel function. If n is not an integer, it is truncated.
+	 *								If $ord is nonnumeric, BESSELJ returns the #VALUE! error value.
+	 *								If $ord < 0, BESSELJ returns the #NUM! error value.
+	 * @return	float
+	 *
 	 * @TODO Better handling of the approximation method to support the differences between Excel/Gnumeric and Open/Libre Office
 	 *
-	 * @param	float		$x
-	 * @param	float		$n
-	 * @return	float
 	 */
-	public static function BESSELJ($x, $n) {
+	public static function BESSELJ($x, $ord) {
 		$x	= (is_null($x))	? 0.0 :	PHPExcel_Calculation_Functions::flattenSingleValue($x);
-		$n	= (is_null($n))	? 0.0 :	PHPExcel_Calculation_Functions::flattenSingleValue($n);
+		$ord	= (is_null($ord))	? 0.0 :	PHPExcel_Calculation_Functions::flattenSingleValue($ord);
 
-		if ((is_numeric($x)) && (is_numeric($n))) {
-			$n	= floor($n);
-			if ($n < 0) {
+		if ((is_numeric($x)) && (is_numeric($ord))) {
+			$ord	= floor($ord);
+			if ($ord < 0) {
 				return PHPExcel_Calculation_Functions::NaN();
 			}
 
 			$fResult = 0;
 			if (abs($x) <= 30) {
-				$fResult = $fTerm = pow($x / 2, $n) / PHPExcel_Calculation_MathTrig::FACT($n);
-				$nK = 1;
+				$fResult = $fTerm = pow($x / 2, $ord) / PHPExcel_Calculation_MathTrig::FACT($ord);
+				$ordK = 1;
 				$fSqrX = ($x * $x) / -4;
 				do {
 					$fTerm *= $fSqrX;
-					$fTerm /= ($nK * ($nK + $n));
+					$fTerm /= ($ordK * ($ordK + $ord));
 					$fResult += $fTerm;
-				} while ((abs($fTerm) > 1e-12) && (++$nK < 100));
+				} while ((abs($fTerm) > 1e-12) && (++$ordK < 100));
 			} else {
 				$f_PI_DIV_2 = M_PI / 2;
 				$f_PI_DIV_4 = M_PI / 4;
 
 				$fXAbs = abs($x);
-				$fResult = sqrt(M_2DIVPI / $fXAbs) * cos($fXAbs - $n * $f_PI_DIV_2 - $f_PI_DIV_4);
-				if (($n & 1) && ($x < 0)) {
+				$fResult = sqrt(M_2DIVPI / $fXAbs) * cos($fXAbs - $ord * $f_PI_DIV_2 - $f_PI_DIV_4);
+				if (($ord & 1) && ($x < 0)) {
 					$fResult = -$fResult;
 				}
 			}
@@ -868,11 +887,23 @@ class PHPExcel_Calculation_Engineering {
 	/**
 	 * BESSELK
 	 *
-	 * Returns the modified Bessel function, which is equivalent to the Bessel functions evaluated for purely imaginary arguments.
+	 * Returns the modified Bessel function, which is equivalent to the Bessel functions evaluated
+	 * for purely imaginary arguments.
 	 *
-	 * @param	float		$x
-	 * @param	float		$ord
+	 * Excel Function:
+	 *		BESSELK(x,ord)
+	 *
+	 * @access	public
+	 * @category Engineering Functions
+	 * @param	float		$x		The value at which to evaluate the function.
+	 *								If x is nonnumeric, BESSELK returns the #VALUE! error value.
+	 * @param	integer		$ord	The order of the Bessel function. If n is not an integer, it is truncated.
+	 *								If $ord is nonnumeric, BESSELK returns the #VALUE! error value.
+	 *								If $ord < 0, BESSELK returns the #NUM! error value.
 	 * @return	float
+	 *
+	 * @TODO Better handling of the approximation method to support the differences between Excel/Gnumeric and Open/Libre Office
+	 *
 	 */
 	public static function BESSELK($x, $ord) {
 		$x		= (is_null($x))		? 0.0 :	PHPExcel_Calculation_Functions::flattenSingleValue($x);
@@ -948,8 +979,19 @@ class PHPExcel_Calculation_Engineering {
 	 *
 	 * Returns the Bessel function, which is also called the Weber function or the Neumann function.
 	 *
-	 * @param	float		$x
-	 * @param	float		$n
+	 * Excel Function:
+	 *		BESSELY(x,ord)
+	 *
+	 * @access	public
+	 * @category Engineering Functions
+	 * @param	float		$x		The value at which to evaluate the function.
+	 *								If x is nonnumeric, BESSELK returns the #VALUE! error value.
+	 * @param	integer		$ord	The order of the Bessel function. If n is not an integer, it is truncated.
+	 *								If $ord is nonnumeric, BESSELK returns the #VALUE! error value.
+	 *								If $ord < 0, BESSELK returns the #NUM! error value.
+	 *
+	 * @TODO Better handling of the approximation method to support the differences between Excel/Gnumeric and Open/Libre Office
+	 *
 	 * @return	float
 	 */
 	public static function BESSELY($x, $ord) {
@@ -984,9 +1026,19 @@ class PHPExcel_Calculation_Engineering {
 	/**
 	 * BINTODEC
 	 *
-	 * Return a binary value as Decimal.
+	 * Return a binary value as decimal.
 	 *
-	 * @param	string		$x
+	 * Excel Function:
+	 *		BIN2DEC(x)
+	 *
+	 * @access	public
+	 * @category Engineering Functions
+	 * @param	string		$x		The binary number (as a string) that you want to convert. The number
+	 *								cannot contain more than 10 characters (10 bits). The most significant
+	 *								bit of number is the sign bit. The remaining 9 bits are magnitude bits.
+	 *								Negative numbers are represented using two's-complement notation.
+	 *								If number is not a valid binary number, or if number contains more than
+	 *								10 characters (10 bits), BIN2DEC returns the #NUM! error value.
 	 * @return	string
 	 */
 	public static function BINTODEC($x) {
@@ -1020,12 +1072,28 @@ class PHPExcel_Calculation_Engineering {
 	/**
 	 * BINTOHEX
 	 *
-	 * Return a binary value as Hex.
+	 * Return a binary value as hex.
 	 *
-	 * @param	string		$x
+	 * Excel Function:
+	 *		BIN2HEX(x[,places])
+	 *
+	 * @access	public
+	 * @category Engineering Functions
+	 * @param	string		$x		The binary number (as a string) that you want to convert. The number
+	 *								cannot contain more than 10 characters (10 bits). The most significant
+	 *								bit of number is the sign bit. The remaining 9 bits are magnitude bits.
+	 *								Negative numbers are represented using two's-complement notation.
+	 *								If number is not a valid binary number, or if number contains more than
+	 *								10 characters (10 bits), BIN2HEX returns the #NUM! error value.
+	 * @param	integer		$places	The number of characters to use. If places is omitted, BIN2HEX uses the
+	 *								minimum number of characters necessary. Places is useful for padding the
+	 *								return value with leading 0s (zeros).
+	 *								If places is not an integer, it is truncated.
+	 *								If places is nonnumeric, BIN2HEX returns the #VALUE! error value.
+	 *								If places is negative, BIN2HEX returns the #NUM! error value.
 	 * @return	string
 	 */
-	public static function BINTOHEX($x, $places=null) {
+	public static function BINTOHEX($x, $places=NULL) {
 		$x	= PHPExcel_Calculation_Functions::flattenSingleValue($x);
 		$places	= PHPExcel_Calculation_Functions::flattenSingleValue($places);
 
@@ -1058,12 +1126,28 @@ class PHPExcel_Calculation_Engineering {
 	/**
 	 * BINTOOCT
 	 *
-	 * Return a binary value as Octal.
+	 * Return a binary value as octal.
 	 *
-	 * @param	string		$x
+	 * Excel Function:
+	 *		BIN2OCT(x[,places])
+	 *
+	 * @access	public
+	 * @category Engineering Functions
+	 * @param	string		$x		The binary number (as a string) that you want to convert. The number
+	 *								cannot contain more than 10 characters (10 bits). The most significant
+	 *								bit of number is the sign bit. The remaining 9 bits are magnitude bits.
+	 *								Negative numbers are represented using two's-complement notation.
+	 *								If number is not a valid binary number, or if number contains more than
+	 *								10 characters (10 bits), BIN2OCT returns the #NUM! error value.
+	 * @param	integer		$places	The number of characters to use. If places is omitted, BIN2OCT uses the
+	 *								minimum number of characters necessary. Places is useful for padding the
+	 *								return value with leading 0s (zeros).
+	 *								If places is not an integer, it is truncated.
+	 *								If places is nonnumeric, BIN2OCT returns the #VALUE! error value.
+	 *								If places is negative, BIN2OCT returns the #NUM! error value.
 	 * @return	string
 	 */
-	public static function BINTOOCT($x, $places=null) {
+	public static function BINTOOCT($x, $places=NULL) {
 		$x	= PHPExcel_Calculation_Functions::flattenSingleValue($x);
 		$places	= PHPExcel_Calculation_Functions::flattenSingleValue($places);
 
@@ -1096,12 +1180,32 @@ class PHPExcel_Calculation_Engineering {
 	/**
 	 * DECTOBIN
 	 *
-	 * Return an octal value as binary.
+	 * Return a decimal value as binary.
 	 *
-	 * @param	string		$x
+	 * Excel Function:
+	 *		DEC2BIN(x[,places])
+	 *
+	 * @access	public
+	 * @category Engineering Functions
+	 * @param	string		$x		The decimal integer you want to convert. If number is negative,
+	 *								valid place values are ignored and DEC2BIN returns a 10-character
+	 *								(10-bit) binary number in which the most significant bit is the sign
+	 *								bit. The remaining 9 bits are magnitude bits. Negative numbers are
+	 *								represented using two's-complement notation.
+	 *								If number < -512 or if number > 511, DEC2BIN returns the #NUM! error
+	 *								value.
+	 *								If number is nonnumeric, DEC2BIN returns the #VALUE! error value.
+	 *								If DEC2BIN requires more than places characters, it returns the #NUM!
+	 *								error value.
+	 * @param	integer		$places	The number of characters to use. If places is omitted, DEC2BIN uses
+	 *								the minimum number of characters necessary. Places is useful for
+	 *								padding the return value with leading 0s (zeros).
+	 *								If places is not an integer, it is truncated.
+	 *								If places is nonnumeric, DEC2BIN returns the #VALUE! error value.
+	 *								If places is zero or negative, DEC2BIN returns the #NUM! error value.
 	 * @return	string
 	 */
-	public static function DECTOBIN($x, $places=null) {
+	public static function DECTOBIN($x, $places=NULL) {
 		$x	= PHPExcel_Calculation_Functions::flattenSingleValue($x);
 		$places	= PHPExcel_Calculation_Functions::flattenSingleValue($places);
 
@@ -1132,9 +1236,29 @@ class PHPExcel_Calculation_Engineering {
 	/**
 	 * DECTOHEX
 	 *
-	 * Return an octal value as binary.
+	 * Return a decimal value as hex.
 	 *
-	 * @param	string		$x
+	 * Excel Function:
+	 *		DEC2HEX(x[,places])
+	 *
+	 * @access	public
+	 * @category Engineering Functions
+	 * @param	string		$x		The decimal integer you want to convert. If number is negative,
+	 *								places is ignored and DEC2HEX returns a 10-character (40-bit)
+	 *								hexadecimal number in which the most significant bit is the sign
+	 *								bit. The remaining 39 bits are magnitude bits. Negative numbers
+	 *								are represented using two's-complement notation.
+	 *								If number < -549,755,813,888 or if number > 549,755,813,887,
+	 *								DEC2HEX returns the #NUM! error value.
+	 *								If number is nonnumeric, DEC2HEX returns the #VALUE! error value.
+	 *								If DEC2HEX requires more than places characters, it returns the
+	 *								#NUM! error value.
+	 * @param	integer		$places	The number of characters to use. If places is omitted, DEC2HEX uses
+	 *								the minimum number of characters necessary. Places is useful for
+	 *								padding the return value with leading 0s (zeros).
+	 *								If places is not an integer, it is truncated.
+	 *								If places is nonnumeric, DEC2HEX returns the #VALUE! error value.
+	 *								If places is zero or negative, DEC2HEX returns the #NUM! error value.
 	 * @return	string
 	 */
 	public static function DECTOHEX($x, $places=null) {
@@ -1166,9 +1290,29 @@ class PHPExcel_Calculation_Engineering {
 	/**
 	 * DECTOOCT
 	 *
-	 * Return an octal value as binary.
+	 * Return an decimal value as octal.
 	 *
-	 * @param	string		$x
+	 * Excel Function:
+	 *		DEC2OCT(x[,places])
+	 *
+	 * @access	public
+	 * @category Engineering Functions
+	 * @param	string		$x		The decimal integer you want to convert. If number is negative,
+	 *								places is ignored and DEC2OCT returns a 10-character (30-bit)
+	 *								octal number in which the most significant bit is the sign bit.
+	 *								The remaining 29 bits are magnitude bits. Negative numbers are
+	 *								represented using two's-complement notation.
+	 *								If number < -536,870,912 or if number > 536,870,911, DEC2OCT
+	 *								returns the #NUM! error value.
+	 *								If number is nonnumeric, DEC2OCT returns the #VALUE! error value.
+	 *								If DEC2OCT requires more than places characters, it returns the
+	 *								#NUM! error value.
+	 * @param	integer		$places	The number of characters to use. If places is omitted, DEC2OCT uses
+	 *								the minimum number of characters necessary. Places is useful for
+	 *								padding the return value with leading 0s (zeros).
+	 *								If places is not an integer, it is truncated.
+	 *								If places is nonnumeric, DEC2OCT returns the #VALUE! error value.
+	 *								If places is zero or negative, DEC2OCT returns the #NUM! error value.
 	 * @return	string
 	 */
 	public static function DECTOOCT($x, $places=null) {
@@ -1202,7 +1346,30 @@ class PHPExcel_Calculation_Engineering {
 	 *
 	 * Return a hex value as binary.
 	 *
-	 * @param	string		$x
+	 * Excel Function:
+	 *		HEX2BIN(x[,places])
+	 *
+	 * @access	public
+	 * @category Engineering Functions
+	 * @param	string		$x			the hexadecimal number you want to convert. Number cannot
+	 *									contain more than 10 characters. The most significant bit of
+	 *									number is the sign bit (40th bit from the right). The remaining
+	 *									9 bits are magnitude bits. Negative numbers are represented
+	 *									using two's-complement notation.
+	 *									If number is negative, HEX2BIN ignores places and returns a
+	 *									10-character binary number.
+	 *									If number is negative, it cannot be less than FFFFFFFE00, and
+	 *									if number is positive, it cannot be greater than 1FF.
+	 *									If number is not a valid hexadecimal number, HEX2BIN returns
+	 *									the #NUM! error value.
+	 *									If HEX2BIN requires more than places characters, it returns
+	 *									the #NUM! error value.
+	 * @param	integer		$places		The number of characters to use. If places is omitted,
+	 *									HEX2BIN uses the minimum number of characters necessary. Places
+	 *									is useful for padding the return value with leading 0s (zeros).
+	 *									If places is not an integer, it is truncated.
+	 *									If places is nonnumeric, HEX2BIN returns the #VALUE! error value.
+	 *									If places is negative, HEX2BIN returns the #NUM! error value.
 	 * @return	string
 	 */
 	public static function HEXTOBIN($x, $places=null) {
@@ -1225,9 +1392,20 @@ class PHPExcel_Calculation_Engineering {
 	/**
 	 * HEXTODEC
 	 *
-	 * Return a hex value as octal.
+	 * Return a hex value as decimal.
 	 *
-	 * @param	string		$x
+	 * Excel Function:
+	 *		HEX2DEC(x)
+	 *
+	 * @access	public
+	 * @category Engineering Functions
+	 * @param	string		$x		The hexadecimal number you want to convert. This number cannot
+	 *								contain more than 10 characters (40 bits). The most significant
+	 *								bit of number is the sign bit. The remaining 39 bits are magnitude
+	 *								bits. Negative numbers are represented using two's-complement
+	 *								notation.
+	 *								If number is not a valid hexadecimal number, HEX2DEC returns the
+	 *								#NUM! error value.
 	 * @return	string
 	 */
 	public static function HEXTODEC($x) {
@@ -1249,7 +1427,31 @@ class PHPExcel_Calculation_Engineering {
 	 *
 	 * Return a hex value as octal.
 	 *
-	 * @param	string		$x
+	 * Excel Function:
+	 *		HEX2OCT(x[,places])
+	 *
+	 * @access	public
+	 * @category Engineering Functions
+	 * @param	string		$x			The hexadecimal number you want to convert. Number cannot
+	 *									contain more than 10 characters. The most significant bit of
+	 *									number is the sign bit. The remaining 39 bits are magnitude
+	 *									bits. Negative numbers are represented using two's-complement
+	 *									notation.
+	 *									If number is negative, HEX2OCT ignores places and returns a
+	 *									10-character octal number.
+	 *									If number is negative, it cannot be less than FFE0000000, and
+	 *									if number is positive, it cannot be greater than 1FFFFFFF.
+	 *									If number is not a valid hexadecimal number, HEX2OCT returns
+	 *									the #NUM! error value.
+	 *									If HEX2OCT requires more than places characters, it returns
+	 *									the #NUM! error value.
+	 * @param	integer		$places		The number of characters to use. If places is omitted, HEX2OCT
+	 *									uses the minimum number of characters necessary. Places is
+	 *									useful for padding the return value with leading 0s (zeros).
+	 *									If places is not an integer, it is truncated.
+	 *									If places is nonnumeric, HEX2OCT returns the #VALUE! error
+	 *									value.
+	 *									If places is negative, HEX2OCT returns the #NUM! error value.
 	 * @return	string
 	 */
 	public static function HEXTOOCT($x, $places=null) {
@@ -1274,7 +1476,33 @@ class PHPExcel_Calculation_Engineering {
 	 *
 	 * Return an octal value as binary.
 	 *
-	 * @param	string		$x
+	 * Excel Function:
+	 *		OCT2BIN(x[,places])
+	 *
+	 * @access	public
+	 * @category Engineering Functions
+	 * @param	string		$x			The octal number you want to convert. Number may not
+	 *									contain more than 10 characters. The most significant
+	 *									bit of number is the sign bit. The remaining 29 bits
+	 *									are magnitude bits. Negative numbers are represented
+	 *									using two's-complement notation.
+	 *									If number is negative, OCT2BIN ignores places and returns
+	 *									a 10-character binary number.
+	 *									If number is negative, it cannot be less than 7777777000,
+	 *									and if number is positive, it cannot be greater than 777.
+	 *									If number is not a valid octal number, OCT2BIN returns
+	 *									the #NUM! error value.
+	 *									If OCT2BIN requires more than places characters, it
+	 *									returns the #NUM! error value.
+	 * @param	integer		$places		The number of characters to use. If places is omitted,
+	 *									OCT2BIN uses the minimum number of characters necessary.
+	 *									Places is useful for padding the return value with
+	 *									leading 0s (zeros).
+	 *									If places is not an integer, it is truncated.
+	 *									If places is nonnumeric, OCT2BIN returns the #VALUE!
+	 *									error value.
+	 *									If places is negative, OCT2BIN returns the #NUM! error
+	 *									value.
 	 * @return	string
 	 */
 	public static function OCTTOBIN($x, $places=null) {
@@ -1297,9 +1525,20 @@ class PHPExcel_Calculation_Engineering {
 	/**
 	 * OCTTODEC
 	 *
-	 * Return an octal value as binary.
+	 * Return an octal value as decimal.
 	 *
-	 * @param	string		$x
+	 * Excel Function:
+	 *		OCT2DEC(x)
+	 *
+	 * @access	public
+	 * @category Engineering Functions
+	 * @param	string		$x		The octal number you want to convert. Number may not contain
+	 *								more than 10 octal characters (30 bits). The most significant
+	 *								bit of number is the sign bit. The remaining 29 bits are
+	 *								magnitude bits. Negative numbers are represented using
+	 *								two's-complement notation.
+	 *								If number is not a valid octal number, OCT2DEC returns the
+	 *								#NUM! error value.
 	 * @return	string
 	 */
 	public static function OCTTODEC($x) {
@@ -1321,7 +1560,28 @@ class PHPExcel_Calculation_Engineering {
 	 *
 	 * Return an octal value as hex.
 	 *
-	 * @param	string		$x
+	 * Excel Function:
+	 *		OCT2HEX(x[,places])
+	 *
+	 * @access	public
+	 * @category Engineering Functions
+	 * @param	string		$x			The octal number you want to convert. Number may not contain
+	 *									more than 10 octal characters (30 bits). The most significant
+	 *									bit of number is the sign bit. The remaining 29 bits are
+	 *									magnitude bits. Negative numbers are represented using
+	 *									two's-complement notation.
+	 *									If number is negative, OCT2HEX ignores places and returns a
+	 *									10-character hexadecimal number.
+	 *									If number is not a valid octal number, OCT2HEX returns the
+	 *									#NUM! error value.
+	 *									If OCT2HEX requires more than places characters, it returns
+	 *									the #NUM! error value.
+	 * @param	integer		$places		The number of characters to use. If places is omitted, OCT2HEX
+	 *									uses the minimum number of characters necessary. Places is useful
+	 *									for padding the return value with leading 0s (zeros).
+	 *									If places is not an integer, it is truncated.
+	 *									If places is nonnumeric, OCT2HEX returns the #VALUE! error value.
+	 *									If places is negative, OCT2HEX returns the #NUM! error value.
 	 * @return	string
 	 */
 	public static function OCTTOHEX($x, $places=null) {
@@ -1664,6 +1924,7 @@ class PHPExcel_Calculation_Engineering {
 	 * Returns a complex number in x + yi or x + yj text format raised to a power.
 	 *
 	 * @param	string		$complexNumber
+	 * @param	float		$realNumber
 	 * @return	string
 	 */
 	public static function IMPOWER($complexNumber,$realNumber) {
