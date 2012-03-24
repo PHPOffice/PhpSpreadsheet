@@ -9,6 +9,16 @@ class complexAssert {
 
     public function assertComplexEquals($expected, $actual, $delta = 0)
     {
+		if ($expected{0} === '#') {
+			//	Expecting an error, so we do a straight string comparison
+			if ($expected === $actual) {
+				return TRUE;
+			}
+			$this->_errorMessage = 'Expected Error: ' .
+			                       $actual . ' !== ' . $expected;
+            return FALSE;
+		}
+
         $expectedComplex = new Complex($expected);
         $actualComplex = new Complex($actual);
 

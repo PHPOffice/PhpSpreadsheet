@@ -15,15 +15,17 @@ class Complex {
 		//	Fix silly human errors
 		if (strpos($complexNumber,'+-') !== FALSE)
 			$complexNumber = str_replace('+-','-',$complexNumber);
+		if (strpos($complexNumber,'++') !== FALSE)
+			$complexNumber = str_replace('++','+',$complexNumber);
 		if (strpos($complexNumber,'--') !== FALSE)
 			$complexNumber = str_replace('--','-',$complexNumber);
 
 		//	Basic validation of string, to parse out real and imaginary parts, and any suffix
-		$validComplex = preg_match('/^([-+]?(\d+\.?\d*|\d*\.?\d+)([Ee][-+]?[0-2]?\d{1,2})?)([-+]?(\d+\.?\d*|\d*\.?\d+)([Ee][-+]?[0-2]?\d{1,2})?)?(([-+]?)([ij]?))$/ui',$complexNumber,$complexParts);
+		$validComplex = preg_match('/^([\-\+]?(\d+\.?\d*|\d*\.?\d+)([Ee][\-\+]?[0-2]?\d{1,3})?)([\-\+]?(\d+\.?\d*|\d*\.?\d+)([Ee][\-\+]?[0-2]?\d{1,3})?)?(([\-\+]?)([ij]?))$/ui',$complexNumber,$complexParts);
 
 		if (!$validComplex) {
 			//	Neither real nor imaginary part, so test to see if we actually have a suffix
-			$validComplex = preg_match('/^([-+]?)([ij])$/ui',$complexNumber,$complexParts);
+			$validComplex = preg_match('/^([\-\+]?)([ij])$/ui',$complexNumber,$complexParts);
 			if (!$validComplex) {
 				throw new Exception('COMPLEX: Invalid complex number');
 			}
