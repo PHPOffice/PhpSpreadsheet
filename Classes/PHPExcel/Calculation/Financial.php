@@ -52,20 +52,36 @@ define('FINANCIAL_PRECISION', 1.0e-08);
  */
 class PHPExcel_Calculation_Financial {
 
-	private static function _lastDayOfMonth($testDate) {
-		$date = clone $testDate;
-		$date->modify('+1 day');
-		return ($date->format('d') == 1);
+	/**
+	 * _lastDayOfMonth
+	 *
+	 * Returns a boolean TRUE/FALSE indicating if this date is the last date of the month
+	 *
+	 * @param	DateTime	$testDate	The date for testing
+	 * @return	boolean
+	 */
+	private static function _lastDayOfMonth($testDate)
+	{
+		return ($testDate->format('d') == $testDate->format('t'));
 	}	//	function _lastDayOfMonth()
 
 
-	private static function _firstDayOfMonth($testDate) {
-		$date = clone $testDate;
-		return ($date->format('d') == 1);
-	}	//	function _lastDayOfMonth()
+	/**
+	 * _firstDayOfMonth
+	 *
+	 * Returns a boolean TRUE/FALSE indicating if this date is the first date of the month
+	 *
+	 * @param	DateTime	$testDate	The date for testing
+	 * @return	boolean
+	 */
+	private static function _firstDayOfMonth($testDate)
+	{
+		return ($testDate->format('d') == 1);
+	}	//	function _firstDayOfMonth()
 
 
-	private static function _coupFirstPeriodDate($settlement, $maturity, $frequency, $next) {
+	private static function _coupFirstPeriodDate($settlement, $maturity, $frequency, $next)
+	{
 		$months = 12 / $frequency;
 
 		$result = PHPExcel_Shared_Date::ExcelToPHPObject($maturity);
@@ -86,7 +102,8 @@ class PHPExcel_Calculation_Financial {
 	}	//	function _coupFirstPeriodDate()
 
 
-	private static function _validFrequency($frequency) {
+	private static function _validFrequency($frequency)
+	{
 		if (($frequency == 1) || ($frequency == 2) || ($frequency == 4)) {
 			return true;
 		}
@@ -98,7 +115,22 @@ class PHPExcel_Calculation_Financial {
 	}	//	function _validFrequency()
 
 
-	private static function _daysPerYear($year,$basis) {
+	/**
+	 * _daysPerYear
+	 *
+	 * Returns the number of days in a specified year, as defined by the "basis" value
+	 *
+	 * @param	integer		$year	The year against which we're testing
+	 * @param   integer		$basis	The type of day count:
+	 *									0 or omitted US (NASD)	360
+	 *									1						Actual (365 or 366 in a leap year)
+	 *									2						360
+	 *									3						365
+	 *									4						European 360
+	 * @return	integer
+	 */
+	private static function _daysPerYear($year, $basis=0)
+	{
 		switch ($basis) {
 			case 0 :
 			case 2 :
@@ -109,11 +141,7 @@ class PHPExcel_Calculation_Financial {
 				$daysPerYear = 365;
 				break;
 			case 1 :
-				if (PHPExcel_Calculation_DateTime::_isLeapYear($year)) {
-					$daysPerYear = 366;
-				} else {
-					$daysPerYear = 365;
-				}
+				$daysPerYear = (PHPExcel_Calculation_DateTime::_isLeapYear($year)) ? 366 : 365;
 				break;
 			default	:
 				return PHPExcel_Calculation_Functions::NaN();
@@ -122,7 +150,8 @@ class PHPExcel_Calculation_Financial {
 	}	//	function _daysPerYear()
 
 
-	private static function _interestAndPrincipal($rate=0, $per=0, $nper=0, $pv=0, $fv=0, $type=0) {
+	private static function _interestAndPrincipal($rate=0, $per=0, $nper=0, $pv=0, $fv=0, $type=0)
+	{
 		$pmt = self::PMT($rate, $nper, $pv, $fv, $type);
 		$capital = $pv;
 		for ($i = 1; $i<= $per; ++$i) {
@@ -137,14 +166,31 @@ class PHPExcel_Calculation_Financial {
 	/**
 	 * ACCRINT
 	 *
-	 * Returns the discount rate for a security.
+	 * Returns the accrued interest for a security that pays periodic interest.
 	 *
-	 * @param	mixed	issue		The security's issue date.
-	 * @param	mixed	firstinter	The security's first interest date.
-	 * @param	mixed	settlement	The security's settlement date.
-	 * @param	float	rate		The security's annual coupon rate.
-	 * @param	float	par			The security's par value.
-	 * @param	int		basis		The type of day count to use.
+	 * Excel Function:
+	 *		ACCRINT(issue,firstinterest,settlement,rate,par,frequency[,basis])
+	 *
+	 * @access	public
+	 * @category Financial Functions
+	 * @param	mixed	$issue			The security's issue date.
+	 * @param	mixed	$firstinterest	The security's first interest date.
+	 * @param	mixed	$settlement		The security's settlement date.
+	 *									The security settlement date is the date after the issue date
+	 *									when the security is traded to the buyer.
+	 * @param	float	$rate			The security's annual coupon rate.
+	 * @param	float	$par			The security's par value.
+	 *									If you omit par, ACCRINT uses $1,000.
+	 * @param	float	$frequency		the number of coupon payments per year.
+	 *									Valid frequency values are:
+	 *										1	Annual
+	 *										2	Semi-Annual
+	 *										4	Quarterly
+	 *									If working in Gnumeric Mode, the following frequency options are
+	 *									also available
+	 *										6	Bimonthly
+	 *										12	Monthly
+	 * @param	int		$basis			The type of day count to use.
 	 *										0 or omitted	US (NASD) 30/360
 	 *										1				Actual/actual
 	 *										2				Actual/360
@@ -152,9 +198,10 @@ class PHPExcel_Calculation_Financial {
 	 *										4				European 30/360
 	 * @return	float
 	 */
-	public static function ACCRINT($issue, $firstinter, $settlement, $rate, $par=1000, $frequency=1, $basis=0) {
+	public static function ACCRINT($issue, $firstinterest, $settlement, $rate, $par=1000, $frequency=1, $basis=0)
+	{
 		$issue		= PHPExcel_Calculation_Functions::flattenSingleValue($issue);
-		$firstinter	= PHPExcel_Calculation_Functions::flattenSingleValue($firstinter);
+		$firstinterest	= PHPExcel_Calculation_Functions::flattenSingleValue($firstinterest);
 		$settlement	= PHPExcel_Calculation_Functions::flattenSingleValue($settlement);
 		$rate		= (float) PHPExcel_Calculation_Functions::flattenSingleValue($rate);
 		$par		= (is_null($par))		? 1000 :	(float) PHPExcel_Calculation_Functions::flattenSingleValue($par);
@@ -181,12 +228,18 @@ class PHPExcel_Calculation_Financial {
 	/**
 	 * ACCRINTM
 	 *
-	 * Returns the discount rate for a security.
+	 * Returns the accrued interest for a security that pays interest at maturity.
 	 *
+	 * Excel Function:
+	 *		ACCRINTM(issue,settlement,rate[,par[,basis]])
+	 *
+	 * @access	public
+	 * @category Financial Functions
 	 * @param	mixed	issue		The security's issue date.
-	 * @param	mixed	settlement	The security's settlement date.
+	 * @param	mixed	settlement	The security's settlement (or maturity) date.
 	 * @param	float	rate		The security's annual coupon rate.
 	 * @param	float	par			The security's par value.
+	 *									If you omit par, ACCRINT uses $1,000.
 	 * @param	int		basis		The type of day count to use.
 	 *										0 or omitted	US (NASD) 30/360
 	 *										1				Actual/actual

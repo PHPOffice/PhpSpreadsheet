@@ -49,6 +49,11 @@ define('EULER', 2.71828182845904523536);
  */
 class PHPExcel_Calculation_Engineering {
 
+	/**
+	 * Details of the Units of measure that can be used in CONVERTUOM()
+	 *
+	 * @var mixed[]
+	 */
 	private static $_conversionUnits = array( 'g'		=> array(	'Group'	=> 'Mass',			'Unit Name'	=> 'Gram',						'AllowPrefix'	=> True		),
 											  'sg'		=> array(	'Group'	=> 'Mass',			'Unit Name'	=> 'Slug',						'AllowPrefix'	=> False	),
 											  'lbm'		=> array(	'Group'	=> 'Mass',			'Unit Name'	=> 'Pound mass (avoirdupois)',	'AllowPrefix'	=> False	),
@@ -114,6 +119,11 @@ class PHPExcel_Calculation_Engineering {
 											  'lt'		=> array(	'Group'	=> 'Liquid',		'Unit Name'	=> 'Litre',						'AllowPrefix'	=> True		)
 											);
 
+	/**
+	 * Details of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM()
+	 *
+	 * @var mixed[]
+	 */
 	private static $_conversionMultipliers = array(	'Y'	=> array(	'multiplier'	=> 1E24,	'name'	=> 'yotta'	),
 													'Z'	=> array(	'multiplier'	=> 1E21,	'name'	=> 'zetta'	),
 													'E'	=> array(	'multiplier'	=> 1E18,	'name'	=> 'exa'	),
@@ -136,6 +146,11 @@ class PHPExcel_Calculation_Engineering {
 													'y'	=> array(	'multiplier'	=> 1E-24,	'name'	=> 'yocto'	)
 												 );
 
+	/**
+	 * Details of the Units of measure conversion factors, organised by group
+	 *
+	 * @var mixed[]
+	 */
 	private static $_unitConversions = array(	'Mass'		=> array(	'g'		=> array(	'g'		=> 1.0,
 																							'sg'	=> 6.85220500053478E-05,
 																							'lbm'	=> 2.20462291469134E-03,
@@ -670,6 +685,14 @@ class PHPExcel_Calculation_Engineering {
 											);
 
 
+	/**
+	 * _parseComplex
+	 *
+	 * Parses a complex number into its real and imaginary parts, and an I or J suffix
+	 *
+	 * @param	string		$complexNumber	The complex number
+	 * @return	string[]	Indexed on "real", "imaginary" and "suffix"
+	 */
 	public static function _parseComplex($complexNumber) {
 		$workString = (string) $complexNumber;
 
@@ -717,6 +740,14 @@ class PHPExcel_Calculation_Engineering {
 	}	//	function _parseComplex()
 
 
+	/**
+	 * _cleanComplex
+	 *
+	 * Cleans the leading characters in a complex number string
+	 *
+	 * @param	string		$complexNumber	The complex number to clean
+	 * @return	string		The "cleaned" complex number
+	 */
 	private static function _cleanComplex($complexNumber) {
 		if ($complexNumber{0} == '+') $complexNumber = substr($complexNumber,1);
 		if ($complexNumber{0} == '0') $complexNumber = substr($complexNumber,1);
@@ -1604,11 +1635,17 @@ class PHPExcel_Calculation_Engineering {
 	/**
 	 * COMPLEX
 	 *
-	 * returns a complex number of the form x + yi or x + yj.
+	 * Converts real and imaginary coefficients into a complex number of the form x + yi or x + yj.
 	 *
-	 * @param	float		$realNumber
-	 * @param	float		$imaginary
-	 * @param	string		$suffix
+	 * Excel Function:
+	 *		COMPLEX(realNumber,imaginary[,places])
+	 *
+	 * @access	public
+	 * @category Engineering Functions
+	 * @param	float		$realNumber		The real coefficient of the complex number.
+	 * @param	float		$imaginary		The imaginary coefficient of the complex number.
+	 * @param	string		$suffix			The suffix for the imaginary component of the complex number.
+	 *										If omitted, the suffix is assumed to be "i".
 	 * @return	string
 	 */
 	public static function COMPLEX($realNumber=0.0, $imaginary=0.0, $suffix='i') {
@@ -1651,8 +1688,14 @@ class PHPExcel_Calculation_Engineering {
 	 *
 	 * Returns the imaginary coefficient of a complex number in x + yi or x + yj text format.
 	 *
-	 * @param	string		$complexNumber
-	 * @return	real
+	 * Excel Function:
+	 *		IMAGINARY(complexNumber)
+	 *
+	 * @access	public
+	 * @category Engineering Functions
+	 * @param	string		$complexNumber	The complex number for which you want the imaginary
+	 * 										coefficient.
+	 * @return	float
 	 */
 	public static function IMAGINARY($complexNumber) {
 		$complexNumber	= PHPExcel_Calculation_Functions::flattenSingleValue($complexNumber);
@@ -1667,8 +1710,13 @@ class PHPExcel_Calculation_Engineering {
 	 *
 	 * Returns the real coefficient of a complex number in x + yi or x + yj text format.
 	 *
-	 * @param	string		$complexNumber
-	 * @return	real
+	 * Excel Function:
+	 *		IMREAL(complexNumber)
+	 *
+	 * @access	public
+	 * @category Engineering Functions
+	 * @param	string		$complexNumber	The complex number for which you want the real coefficient.
+	 * @return	float
 	 */
 	public static function IMREAL($complexNumber) {
 		$complexNumber	= PHPExcel_Calculation_Functions::flattenSingleValue($complexNumber);
@@ -1683,8 +1731,11 @@ class PHPExcel_Calculation_Engineering {
 	 *
 	 * Returns the absolute value (modulus) of a complex number in x + yi or x + yj text format.
 	 *
-	 * @param	string		$complexNumber
-	 * @return	real
+	 * Excel Function:
+	 *		IMABS(complexNumber)
+	 *
+	 * @param	string		$complexNumber	The complex number for which you want the absolute value.
+	 * @return	float
 	 */
 	public static function IMABS($complexNumber) {
 		$complexNumber	= PHPExcel_Calculation_Functions::flattenSingleValue($complexNumber);
@@ -1698,10 +1749,14 @@ class PHPExcel_Calculation_Engineering {
 	/**
 	 * IMARGUMENT
 	 *
-	 * Returns the argument theta of a complex number, i.e. the angle in radians from the real axis to the representation of the number in polar coordinates.
+	 * Returns the argument theta of a complex number, i.e. the angle in radians from the real
+	 * axis to the representation of the number in polar coordinates.
 	 *
-	 * @param	string		$complexNumber
-	 * @return	string
+	 * Excel Function:
+	 *		IMARGUMENT(complexNumber)
+	 *
+	 * @param	string		$complexNumber	The complex number for which you want the argument theta.
+	 * @return	float
 	 */
 	public static function IMARGUMENT($complexNumber) {
 		$complexNumber	= PHPExcel_Calculation_Functions::flattenSingleValue($complexNumber);
@@ -1731,7 +1786,10 @@ class PHPExcel_Calculation_Engineering {
 	 *
 	 * Returns the complex conjugate of a complex number in x + yi or x + yj text format.
 	 *
-	 * @param	string		$complexNumber
+	 * Excel Function:
+	 *		IMCONJUGATE(complexNumber)
+	 *
+	 * @param	string		$complexNumber	The complex number for which you want the conjugate.
 	 * @return	string
 	 */
 	public static function IMCONJUGATE($complexNumber) {
@@ -1742,7 +1800,11 @@ class PHPExcel_Calculation_Engineering {
 		if ($parsedComplex['imaginary'] == 0.0) {
 			return $parsedComplex['real'];
 		} else {
-			return self::_cleanComplex(self::COMPLEX($parsedComplex['real'], 0 - $parsedComplex['imaginary'], $parsedComplex['suffix']));
+			return self::_cleanComplex( self::COMPLEX( $parsedComplex['real'],
+													   0 - $parsedComplex['imaginary'],
+													   $parsedComplex['suffix']
+													 )
+									  );
 		}
 	}	//	function IMCONJUGATE()
 
@@ -1752,8 +1814,11 @@ class PHPExcel_Calculation_Engineering {
 	 *
 	 * Returns the cosine of a complex number in x + yi or x + yj text format.
 	 *
-	 * @param	string		$complexNumber
-	 * @return	string
+	 * Excel Function:
+	 *		IMCOS(complexNumber)
+	 *
+	 * @param	string		$complexNumber	The complex number for which you want the cosine.
+	 * @return	string|float
 	 */
 	public static function IMCOS($complexNumber) {
 		$complexNumber	= PHPExcel_Calculation_Functions::flattenSingleValue($complexNumber);
@@ -1773,8 +1838,11 @@ class PHPExcel_Calculation_Engineering {
 	 *
 	 * Returns the sine of a complex number in x + yi or x + yj text format.
 	 *
-	 * @param	string		$complexNumber
-	 * @return	string
+	 * Excel Function:
+	 *		IMSIN(complexNumber)
+	 *
+	 * @param	string		$complexNumber	The complex number for which you want the sine.
+	 * @return	string|float
 	 */
 	public static function IMSIN($complexNumber) {
 		$complexNumber	= PHPExcel_Calculation_Functions::flattenSingleValue($complexNumber);
@@ -1794,7 +1862,10 @@ class PHPExcel_Calculation_Engineering {
 	 *
 	 * Returns the square root of a complex number in x + yi or x + yj text format.
 	 *
-	 * @param	string		$complexNumber
+	 * Excel Function:
+	 *		IMSQRT(complexNumber)
+	 *
+	 * @param	string		$complexNumber	The complex number for which you want the square root.
 	 * @return	string
 	 */
 	public static function IMSQRT($complexNumber) {
@@ -1820,7 +1891,10 @@ class PHPExcel_Calculation_Engineering {
 	 *
 	 * Returns the natural logarithm of a complex number in x + yi or x + yj text format.
 	 *
-	 * @param	string		$complexNumber
+	 * Excel Function:
+	 *		IMLN(complexNumber)
+	 *
+	 * @param	string		$complexNumber	The complex number for which you want the natural logarithm.
 	 * @return	string
 	 */
 	public static function IMLN($complexNumber) {
@@ -1848,7 +1922,10 @@ class PHPExcel_Calculation_Engineering {
 	 *
 	 * Returns the common logarithm (base 10) of a complex number in x + yi or x + yj text format.
 	 *
-	 * @param	string		$complexNumber
+	 * Excel Function:
+	 *		IMLOG10(complexNumber)
+	 *
+	 * @param	string		$complexNumber	The complex number for which you want the common logarithm.
 	 * @return	string
 	 */
 	public static function IMLOG10($complexNumber) {
@@ -1871,7 +1948,10 @@ class PHPExcel_Calculation_Engineering {
 	 *
 	 * Returns the common logarithm (base 10) of a complex number in x + yi or x + yj text format.
 	 *
-	 * @param	string		$complexNumber
+	 * Excel Function:
+	 *		IMLOG2(complexNumber)
+	 *
+	 * @param	string		$complexNumber	The complex number for which you want the base-2 logarithm.
 	 * @return	string
 	 */
 	public static function IMLOG2($complexNumber) {
@@ -1894,7 +1974,10 @@ class PHPExcel_Calculation_Engineering {
 	 *
 	 * Returns the exponential of a complex number in x + yi or x + yj text format.
 	 *
-	 * @param	string		$complexNumber
+	 * Excel Function:
+	 *		IMEXP(complexNumber)
+	 *
+	 * @param	string		$complexNumber	The complex number for which you want the exponential.
 	 * @return	string
 	 */
 	public static function IMEXP($complexNumber) {
@@ -1923,8 +2006,11 @@ class PHPExcel_Calculation_Engineering {
 	 *
 	 * Returns a complex number in x + yi or x + yj text format raised to a power.
 	 *
-	 * @param	string		$complexNumber
-	 * @param	float		$realNumber
+	 * Excel Function:
+	 *		IMPOWER(complexNumber,realNumber)
+	 *
+	 * @param	string		$complexNumber	The complex number you want to raise to a power.
+	 * @param	float		$realNumber		The power to which you want to raise the complex number.
 	 * @return	string
 	 */
 	public static function IMPOWER($complexNumber,$realNumber) {
@@ -1955,9 +2041,12 @@ class PHPExcel_Calculation_Engineering {
 	 *
 	 * Returns the quotient of two complex numbers in x + yi or x + yj text format.
 	 *
-	 * @param	string		$complexDividend
-	 * @param	string		$complexDivisor
-	 * @return	real
+	 * Excel Function:
+	 *		IMDIV(complexDividend,complexDivisor)
+	 *
+	 * @param	string		$complexDividend	The complex numerator or dividend.
+	 * @param	string		$complexDivisor		The complex denominator or divisor.
+	 * @return	string
 	 */
 	public static function IMDIV($complexDividend,$complexDivisor) {
 		$complexDividend	= PHPExcel_Calculation_Functions::flattenSingleValue($complexDividend);
@@ -1996,9 +2085,12 @@ class PHPExcel_Calculation_Engineering {
 	 *
 	 * Returns the difference of two complex numbers in x + yi or x + yj text format.
 	 *
-	 * @param	string		$complexNumber1
-	 * @param	string		$complexNumber2
-	 * @return	real
+	 * Excel Function:
+	 *		IMSUB(complexNumber1,complexNumber2)
+	 *
+	 * @param	string		$complexNumber1		The complex number from which to subtract complexNumber2.
+	 * @param	string		$complexNumber2		The complex number to subtract from complexNumber1.
+	 * @return	string
 	 */
 	public static function IMSUB($complexNumber1,$complexNumber2) {
 		$complexNumber1	= PHPExcel_Calculation_Functions::flattenSingleValue($complexNumber1);
@@ -2026,8 +2118,11 @@ class PHPExcel_Calculation_Engineering {
 	 *
 	 * Returns the sum of two or more complex numbers in x + yi or x + yj text format.
 	 *
-	 * @param	array of mixed		Data Series
-	 * @return	real
+	 * Excel Function:
+	 *		IMSUM(complexNumber[,complexNumber[,...]])
+	 *
+	 * @param	string		$complexNumber,...	Series of complex numbers to add
+	 * @return	string
 	 */
 	public static function IMSUM() {
 		// Return value
@@ -2059,8 +2154,11 @@ class PHPExcel_Calculation_Engineering {
 	 *
 	 * Returns the product of two or more complex numbers in x + yi or x + yj text format.
 	 *
-	 * @param	array of mixed		Data Series
-	 * @return	real
+	 * Excel Function:
+	 *		IMPRODUCT(complexNumber[,complexNumber[,...]])
+	 *
+	 * @param	string		$complexNumber,...	Series of complex numbers to multiply
+	 * @return	string
 	 */
 	public static function IMPRODUCT() {
 		// Return value
@@ -2091,9 +2189,15 @@ class PHPExcel_Calculation_Engineering {
 	 * DELTA
 	 *
 	 * Tests whether two values are equal. Returns 1 if number1 = number2; returns 0 otherwise.
+	 * Use this function to filter a set of values. For example, by summing several DELTA
+	 * functions you calculate the count of equal pairs. This function is also known as the
+	 * Kronecker Delta function.
 	 *
-	 * @param	float		$a
-	 * @param	float		$b
+	 * Excel Function:
+	 *		DELTA(a[,b])
+	 *
+	 * @param	float		$a	The first number.
+	 * @param	float		$b	The second number. If omitted, b is assumed to be zero.
 	 * @return	int
 	 */
 	public static function DELTA($a, $b=0) {
@@ -2107,10 +2211,16 @@ class PHPExcel_Calculation_Engineering {
 	/**
 	 * GESTEP
 	 *
-	 * Returns 1 if number = step; returns 0 (zero) otherwise
+	 * Excel Function:
+	 *		GESTEP(number[,step])
 	 *
-	 * @param	float		$number
-	 * @param	float		$step
+	 * Returns 1 if number >= step; returns 0 (zero) otherwise
+	 * Use this function to filter a set of values. For example, by summing several GESTEP
+	 * functions you calculate the count of values that exceed a threshold.
+	 *
+	 * @param	float		$number		The value to test against step.
+	 * @param	float		$step		The threshold value.
+	 *									If you omit a value for step, GESTEP uses zero.
 	 * @return	int
 	 */
 	public static function GESTEP($number, $step=0) {
@@ -2152,6 +2262,9 @@ class PHPExcel_Calculation_Engineering {
 	 * ERF
 	 *
 	 * Returns the error function integrated between lower_limit and upper_limit
+	 *
+	 * Excel Function:
+	 *		ERF(lower[,upper])
 	 *
 	 * @param	float		$lower	lower bound for integrating ERF
 	 * @param	float		$upper	upper bound for integrating ERF.
@@ -2216,6 +2329,9 @@ class PHPExcel_Calculation_Engineering {
 	 * ERFC
 	 *
 	 * Returns the complementary ERF function integrated between x and infinity
+	 *
+	 * Excel Function:
+	 *		ERF(x)
 	 *
 	 * @param	float		$x		The lower bound for integrating ERF
 	 * @return	int
@@ -2294,9 +2410,16 @@ class PHPExcel_Calculation_Engineering {
 	/**
 	 * CONVERTUOM
 	 *
-	 * @param	float		$value
-	 * @param	string		$fromUOM
-	 * @param	string		$toUOM
+	 * Converts a number from one measurement system to another.
+	 * For example, CONVERT can translate a table of distances in miles to a table of distances
+	 * in kilometers.
+	 *
+	 * Excel Function:
+	 *		CONVERT(value,fromUOM,toUOM)
+	 *
+	 * @param	float		$value		The value in fromUOM to convert.
+	 * @param	string		$fromUOM	The units for value.
+	 * @param	string		$toUOM		The units for the result.
 	 * @return	float
 	 */
 	public static function CONVERTUOM($value, $fromUOM, $toUOM) {
