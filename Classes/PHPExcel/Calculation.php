@@ -543,7 +543,7 @@ class PHPExcel_Calculation {
 												 'argumentCount'	=>	'1'
 												),
 				'DAVERAGE'				=> array('category'			=>	PHPExcel_Calculation_Function::CATEGORY_DATABASE,
-												 'functionCall'		=>	'PHPExcel_Calculation_Functions::DUMMY',
+												 'functionCall'		=>	'PHPExcel_Calculation_Database::DAVERAGE',
 												 'argumentCount'	=>	'3'
 												),
 				'DAY'					=> array('category'			=>	PHPExcel_Calculation_Function::CATEGORY_DATE_AND_TIME,
