@@ -181,7 +181,7 @@ class PHPExcel_Calculation_Financial {
 	 * @param	float	$rate			The security's annual coupon rate.
 	 * @param	float	$par			The security's par value.
 	 *									If you omit par, ACCRINT uses $1,000.
-	 * @param	float	$frequency		the number of coupon payments per year.
+	 * @param	integer	$frequency		the number of coupon payments per year.
 	 *									Valid frequency values are:
 	 *										1	Annual
 	 *										2	Semi-Annual
@@ -190,7 +190,7 @@ class PHPExcel_Calculation_Financial {
 	 *									also available
 	 *										6	Bimonthly
 	 *										12	Monthly
-	 * @param	int		$basis			The type of day count to use.
+	 * @param	integer	$basis			The type of day count to use.
 	 *										0 or omitted	US (NASD) 30/360
 	 *										1				Actual/actual
 	 *										2				Actual/360
@@ -240,7 +240,7 @@ class PHPExcel_Calculation_Financial {
 	 * @param	float	rate		The security's annual coupon rate.
 	 * @param	float	par			The security's par value.
 	 *									If you omit par, ACCRINT uses $1,000.
-	 * @param	int		basis		The type of day count to use.
+	 * @param	integer	basis		The type of day count to use.
 	 *										0 or omitted	US (NASD) 30/360
 	 *										1				Actual/actual
 	 *										2				Actual/360
@@ -271,6 +271,37 @@ class PHPExcel_Calculation_Financial {
 	}	//	function ACCRINTM()
 
 
+	/**
+	 * AMORDEGRC
+	 *
+	 * Returns the depreciation for each accounting period.
+	 * This function is provided for the French accounting system. If an asset is purchased in
+	 * the middle of the accounting period, the prorated depreciation is taken into account.
+	 * The function is similar to AMORLINC, except that a depreciation coefficient is applied in
+	 * the calculation depending on the life of the assets.
+	 * This function will return the depreciation until the last period of the life of the assets
+	 * or until the cumulated value of depreciation is greater than the cost of the assets minus
+	 * the salvage value.
+	 *
+	 * Excel Function:
+	 *		AMORDEGRC(cost,purchased,firstPeriod,salvage,period,rate[,basis])
+	 *
+	 * @access	public
+	 * @category Financial Functions
+	 * @param	float	cost		The cost of the asset.
+	 * @param	mixed	purchased	Date of the purchase of the asset.
+	 * @param	mixed	firstPeriod	Date of the end of the first period.
+	 * @param	mixed	salvage		The salvage value at the end of the life of the asset.
+	 * @param	float	period		The period.
+	 * @param	float	rate		Rate of depreciation.
+	 * @param	int		basis		The type of day count to use.
+	 *										0 or omitted	US (NASD) 30/360
+	 *										1				Actual/actual
+	 *										2				Actual/360
+	 *										3				Actual/365
+	 *										4				European 30/360
+	 * @return	float
+	 */
 	public static function AMORDEGRC($cost, $purchased, $firstPeriod, $salvage, $period, $rate, $basis=0) {
 		$cost			= PHPExcel_Calculation_Functions::flattenSingleValue($cost);
 		$purchased		= PHPExcel_Calculation_Functions::flattenSingleValue($purchased);
@@ -280,8 +311,13 @@ class PHPExcel_Calculation_Financial {
 		$rate			= PHPExcel_Calculation_Functions::flattenSingleValue($rate);
 		$basis			= (is_null($basis))	? 0 :	(int) PHPExcel_Calculation_Functions::flattenSingleValue($basis);
 
+		//	The depreciation coefficients are:
+		//	Life of assets (1/rate)		Depreciation coefficient
+		//	Less than 3 years			1
+		//	Between 3 and 4 years		1.5
+		//	Between 5 and 6 years		2
+		//	More than 6 years			2.5
 		$fUsePer = 1.0 / $rate;
-
 		if ($fUsePer < 3.0) {
 			$amortiseCoeff = 1.0;
 		} elseif ($fUsePer < 5.0) {
@@ -304,7 +340,7 @@ class PHPExcel_Calculation_Financial {
 			if ($fRest < 0.0) {
 				switch ($period - $n) {
 					case 0	:
-					case 1	: return round($cost * 0.5,0);
+					case 1	: return round($cost * 0.5, 0);
 							  break;
 					default	: return 0.0;
 							  break;
@@ -316,6 +352,32 @@ class PHPExcel_Calculation_Financial {
 	}	//	function AMORDEGRC()
 
 
+	/**
+	 * AMORLINC
+	 *
+	 * Returns the depreciation for each accounting period.
+	 * This function is provided for the French accounting system. If an asset is purchased in
+	 * the middle of the accounting period, the prorated depreciation is taken into account.
+	 *
+	 * Excel Function:
+	 *		AMORLINC(cost,purchased,firstPeriod,salvage,period,rate[,basis])
+	 *
+	 * @access	public
+	 * @category Financial Functions
+	 * @param	float	cost		The cost of the asset.
+	 * @param	mixed	purchased	Date of the purchase of the asset.
+	 * @param	mixed	firstPeriod	Date of the end of the first period.
+	 * @param	mixed	salvage		The salvage value at the end of the life of the asset.
+	 * @param	float	period		The period.
+	 * @param	float	rate		Rate of depreciation.
+	 * @param	int		basis		The type of day count to use.
+	 *										0 or omitted	US (NASD) 30/360
+	 *										1				Actual/actual
+	 *										2				Actual/360
+	 *										3				Actual/365
+	 *										4				European 30/360
+	 * @return	float
+	 */
 	public static function AMORLINC($cost, $purchased, $firstPeriod, $salvage, $period, $rate, $basis=0) {
 		$cost			= PHPExcel_Calculation_Functions::flattenSingleValue($cost);
 		$purchased		= PHPExcel_Calculation_Functions::flattenSingleValue($purchased);

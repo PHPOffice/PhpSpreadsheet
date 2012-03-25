@@ -240,36 +240,36 @@ class PHPExcel_Calculation_DateTime {
 	 *
 	 * @access	public
 	 * @category Date/Time Functions
-	 * @param	int|mixed[]		$year	The value of the year argument can include one to four digits.
-	 *									Excel interprets the year argument according to the configured
-	 *									date system: 1900 or 1904.
-	 *									If year is between 0 (zero) and 1899 (inclusive), Excel adds that
-	 *									value to 1900 to calculate the year. For example, DATE(108,1,2)
-	 *									returns January 2, 2008 (1900+108).
-	 *									If year is between 1900 and 9999 (inclusive), Excel uses that
-	 *									value as the year. For example, DATE(2008,1,2) returns January 2,
-	 *									2008.
-	 *									If year is less than 0 or is 10000 or greater, Excel returns the
-	 *									#NUM! error value.
-	 * @param	int|mixed[]		$month	A positive or negative integer representing the month of the year
-	 *									from 1 to 12 (January to December).
-	 *									If month is greater than 12, month adds that number of months to
-	 *									the first month in the year specified. For example, DATE(2008,14,2)
-	 *									returns the serial number representing February 2, 2009.
-	 *									If month is less than 1, month subtracts the magnitude of that
-	 *									number of months, plus 1, from the first month in the year
-	 *									specified. For example, DATE(2008,-3,2) returns the serial number
-	 *									representing September 2, 2007.
-	 * @param	int|mixed[]		$day	A positive or negative integer representing the day of the month
-	 *									from 1 to 31.
-	 *									If day is greater than the number of days in the month specified,
-	 *									day adds that number of days to the first day in the month. For
-	 *									example, DATE(2008,1,35) returns the serial number representing
-	 *									February 4, 2008.
-	 *									If day is less than 1, day subtracts the magnitude that number of
-	 *									days, plus one, from the first day of the month specified. For
-	 *									example, DATE(2008,1,-15) returns the serial number representing
-	 *									December 16, 2007.
+	 * @param	integer		$year	The value of the year argument can include one to four digits.
+	 *								Excel interprets the year argument according to the configured
+	 *								date system: 1900 or 1904.
+	 *								If year is between 0 (zero) and 1899 (inclusive), Excel adds that
+	 *								value to 1900 to calculate the year. For example, DATE(108,1,2)
+	 *								returns January 2, 2008 (1900+108).
+	 *								If year is between 1900 and 9999 (inclusive), Excel uses that
+	 *								value as the year. For example, DATE(2008,1,2) returns January 2,
+	 *								2008.
+	 *								If year is less than 0 or is 10000 or greater, Excel returns the
+	 *								#NUM! error value.
+	 * @param	integer		$month	A positive or negative integer representing the month of the year
+	 *								from 1 to 12 (January to December).
+	 *								If month is greater than 12, month adds that number of months to
+	 *								the first month in the year specified. For example, DATE(2008,14,2)
+	 *								returns the serial number representing February 2, 2009.
+	 *								If month is less than 1, month subtracts the magnitude of that
+	 *								number of months, plus 1, from the first month in the year
+	 *								specified. For example, DATE(2008,-3,2) returns the serial number
+	 *								representing September 2, 2007.
+	 * @param	integer		$day	A positive or negative integer representing the day of the month
+	 *								from 1 to 31.
+	 *								If day is greater than the number of days in the month specified,
+	 *								day adds that number of days to the first day in the month. For
+	 *								example, DATE(2008,1,35) returns the serial number representing
+	 *								February 4, 2008.
+	 *								If day is less than 1, day subtracts the magnitude that number of
+	 *								days, plus one, from the first day of the month specified. For
+	 *								example, DATE(2008,1,-15) returns the serial number representing
+	 *								December 16, 2007.
 	 * @return	mixed	Excel date/time serial value, PHP date/time serial value or PHP date/time object,
 	 *						depending on the value of the ReturnDateType flag
 	 */
@@ -345,17 +345,17 @@ class PHPExcel_Calculation_DateTime {
 	 *
 	 * @access	public
 	 * @category Date/Time Functions
-	 * @param	int|mixed[]		$hour		A number from 0 (zero) to 32767 representing the hour.
-	 *										Any value greater than 23 will be divided by 24 and the remainder
-	 *										will be treated as the hour value. For example, TIME(27,0,0) =
-	 *										TIME(3,0,0) = .125 or 3:00 AM.
-	 * @param	int|mixed[]		$minute		A number from 0 to 32767 representing the minute.
-	 *										Any value greater than 59 will be converted to hours and minutes.
-	 *										For example, TIME(0,750,0) = TIME(12,30,0) = .520833 or 12:30 PM.
-	 * @param	int|mixed[]		$second		A number from 0 to 32767 representing the second.
-	 *										Any value greater than 59 will be converted to hours, minutes,
-	 *										and seconds. For example, TIME(0,0,2000) = TIME(0,33,22) = .023148
-	 *										or 12:33:20 AM
+	 * @param	integer		$hour		A number from 0 (zero) to 32767 representing the hour.
+	 *									Any value greater than 23 will be divided by 24 and the remainder
+	 *									will be treated as the hour value. For example, TIME(27,0,0) =
+	 *									TIME(3,0,0) = .125 or 3:00 AM.
+	 * @param	integer		$minute		A number from 0 to 32767 representing the minute.
+	 *									Any value greater than 59 will be converted to hours and minutes.
+	 *									For example, TIME(0,750,0) = TIME(12,30,0) = .520833 or 12:30 PM.
+	 * @param	integer		$second		A number from 0 to 32767 representing the second.
+	 *									Any value greater than 59 will be converted to hours, minutes,
+	 *									and seconds. For example, TIME(0,0,2000) = TIME(0,33,22) = .023148
+	 *									or 12:33:20 AM
 	 * @return	mixed	Excel date/time serial value, PHP date/time serial value or PHP date/time object,
 	 *						depending on the value of the ReturnDateType flag
 	 */
