@@ -47,4 +47,36 @@ class FinancialTest extends PHPUnit_Framework_TestCase
     	return new testDataFileIterator('rawTestData/Calculation/Financial/ACCRINTM.data');
 	}
 
+    /**
+     * @dataProvider providerAMORDEGRC
+     */
+	public function testAMORDEGRC()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_Financial','AMORDEGRC'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-12);
+	}
+
+    public function providerAMORDEGRC()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/Financial/AMORDEGRC.data');
+	}
+
+    /**
+     * @dataProvider providerAMORLINC
+     */
+	public function testAMORLINC()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_Financial','AMORLINC'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-12);
+	}
+
+    public function providerAMORLINC()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/Financial/AMORLINC.data');
+	}
+
 }
