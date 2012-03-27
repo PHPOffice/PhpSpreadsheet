@@ -16,9 +16,9 @@ date_default_timezone_set('Europe/London');
 </head>
 <body>
 
-<h1>PHPExcel Calculation Example</h1>
+<h1>PHPExcel Calculation Example </h1>
 <h2>Database Formulae</h2>
-<h3>DAVERAGE</h3>
+<h3>DCOUNT</h3>
 <?php
 
 /** Include path **/
@@ -49,11 +49,11 @@ $criteria = array( array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Heig
 $worksheet->fromArray( $criteria, NULL, 'A1' );
 $worksheet->fromArray( $database, NULL, 'A4' );
 
-$worksheet->setCellValue('A12', 'The Average yield of Apple trees over 10\' in height');
-$worksheet->setCellValue('B12', '=DAVERAGE(A4:E10,"Yield",A1:B2)');
+$worksheet->setCellValue('A12', 'The Number of Apple trees over 10\' in height');
+$worksheet->setCellValue('B12', '=DCOUNT(A4:E10,"Yield",A1:B2)');
 
-$worksheet->setCellValue('A13', 'The Average age of all Apple and Pear trees in the orchard');
-$worksheet->setCellValue('B13', '=DAVERAGE(A4:E10,3,A1:A3)');
+$worksheet->setCellValue('A13', 'The Number of Apple and Pear trees in the orchard');
+$worksheet->setCellValue('B13', '=DCOUNT(A4:E10,3,A1:A3)');
 
 
 echo '<hr />';
@@ -75,7 +75,7 @@ $criteriaData = $worksheet->rangeToArray('A1:B2',null,true,true,true);
 var_dump($criteriaData);
 
 echo $worksheet->getCell("A12")->getValue() .'<br />';
-echo 'DAVERAGE() Result is ' . $worksheet->getCell("B12")->getCalculatedValue() .'<br /><br />';
+echo 'DCOUNT() Result is ' . $worksheet->getCell("B12")->getCalculatedValue() .'<br /><br />';
 
 echo '<h4>Criteria</h4>';
 
@@ -83,7 +83,7 @@ $criteriaData = $worksheet->rangeToArray('A1:A3',null,true,true,true);
 var_dump($criteriaData);
 
 echo $worksheet->getCell("A13")->getValue() .'<br />';
-echo 'DAVERAGE() Result is ' . $worksheet->getCell("B13")->getCalculatedValue();
+echo 'DCOUNT() Result is ' . $worksheet->getCell("B13")->getCalculatedValue();
 
 
 ?>
