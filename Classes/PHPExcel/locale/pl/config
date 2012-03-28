@@ -32,7 +32,7 @@ ArgumentSeparator	= ;
 ##
 ##	(For future use)
 ##
-currencySymbol	= zł	##	Not sure if it should be a € (Euro)
+currencySymbol	= zł
 
 
 ##
