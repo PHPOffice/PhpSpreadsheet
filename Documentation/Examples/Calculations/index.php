@@ -10,18 +10,20 @@ date_default_timezone_set('Europe/London');
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>PHPExcel Examples</title>
+<title>PHPExcel Calculation Function Examples</title>
 
 </head>
 <body>
 
 <?php
 
+echo '<h1>PHPExcel Calculation Function Examples</h1>';
+
 $exampleTypeList = glob('./*',GLOB_ONLYDIR);
 
 foreach($exampleTypeList as $exampleType) {
 
-	echo '<h1>PHPExcel ' . pathinfo($exampleType,PATHINFO_BASENAME) . ' Examples</h1>';
+	echo '<h2>' . pathinfo($exampleType,PATHINFO_BASENAME) . ' Function Examples</h2>';
 
 	$exampleList = glob('./'.$exampleType.'/*.php');
 
@@ -36,8 +38,7 @@ foreach($exampleTypeList as $exampleType) {
 			$h2Text = (preg_match($h2Pattern, $fileData, $out)) ? $out[1] : '';
 
 			echo '<a href="',$exampleFile,'">',$h1Text,'</a><br />';
-			if (($h2Text > '') &&
-				(pathinfo($exampleType,PATHINFO_BASENAME) != 'Calculations')) {
+			if ($h2Text > '') {
 				echo $h2Text,'<br />';
 			}
 		}

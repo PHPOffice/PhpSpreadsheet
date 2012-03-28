@@ -16,15 +16,14 @@ date_default_timezone_set('Europe/London');
 </head>
 <body>
 
-<h1>PHPExcel Calculation Example</h1>
-<h2>Data/Time Formulae</h2>
-<h3>TIME</h3>
+<h1>TIME</h1>
+<h2>Returns the serial number of a particular time.</h2>
 <?php
 
 /** Include path **/
 set_include_path(get_include_path() . PATH_SEPARATOR . '../../../../Classes/');
 
-/** PHPExcel_IOFactory */
+/** Include PHPExcel */
 include 'PHPExcel.php';
 
 

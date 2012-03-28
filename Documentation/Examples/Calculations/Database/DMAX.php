@@ -16,15 +16,14 @@ date_default_timezone_set('Europe/London');
 </head>
 <body>
 
-<h1>PHPExcel Calculation Example </h1>
-<h2>Database Formulae</h2>
-<h3>DMAX</h3>
+<h1>DMAX</h1>
+<h2>Returns the maximum value from selected database entries.</h2>
 <?php
 
 /** Include path **/
 set_include_path(get_include_path() . PATH_SEPARATOR . '../../../../Classes/');
 
-/** PHPExcel_IOFactory */
+/** Include PHPExcel */
 include 'PHPExcel.php';
 
 

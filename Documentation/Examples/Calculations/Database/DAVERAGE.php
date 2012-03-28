@@ -16,15 +16,14 @@ date_default_timezone_set('Europe/London');
 </head>
 <body>
 
-<h1>PHPExcel Calculation Example</h1>
-<h2>Database Formulae</h2>
-<h3>DAVERAGE</h3>
+<h1>DAVERAGE</h1>
+<h2>Returns the average of selected database entries.</h2>
 <?php
 
 /** Include path **/
 set_include_path(get_include_path() . PATH_SEPARATOR . '../../../../Classes/');
 
-/** PHPExcel_IOFactory */
+/** Include PHPExcel */
 include 'PHPExcel.php';
 
 

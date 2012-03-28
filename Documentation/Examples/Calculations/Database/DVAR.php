@@ -16,15 +16,14 @@ date_default_timezone_set('Europe/London');
 </head>
 <body>
 
-<h1>PHPExcel Calculation Example</h1>
-<h2>Database Formulae</h2>
-<h3>DVAR</h3>
+<h1>DVAR</h1>
+<h2>Estimates variance based on a sample from selected database entries.</h2>
 <?php
 
 /** Include path **/
 set_include_path(get_include_path() . PATH_SEPARATOR . '../../../../Classes/');
 
-/** PHPExcel_IOFactory */
+/** Include PHPExcel */
 include 'PHPExcel.php';
 
 
