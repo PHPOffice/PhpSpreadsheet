@@ -81,6 +81,14 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 
 
 	/**
+	 * Create a new PHPExcel_Reader_Excel2003XML
+	 */
+	public function __construct() {
+		$this->_readFilter 	= new PHPExcel_Reader_DefaultReadFilter();
+	}
+
+
+	/**
 	 * Read data only?
 	 *
 	 * @return boolean
@@ -88,6 +96,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 	public function getReadDataOnly() {
 		return $this->_readDataOnly;
 	}
+
 
 	/**
 	 * Set read data only
@@ -100,6 +109,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 		return $this;
 	}
 
+
 	/**
 	 * Get which sheets to load
 	 *
@@ -109,6 +119,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 	{
 		return $this->_loadSheetsOnly;
 	}
+
 
 	/**
 	 * Set which sheets to load
@@ -123,6 +134,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 		return $this;
 	}
 
+
 	/**
 	 * Set all sheets to load
 	 *
@@ -134,6 +146,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 		return $this;
 	}
 
+
 	/**
 	 * Read filter
 	 *
@@ -142,6 +155,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 	public function getReadFilter() {
 		return $this->_readFilter;
 	}
+
 
 	/**
 	 * Set read filter
@@ -154,12 +168,6 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 		return $this;
 	}
 
-	/**
-	 * Create a new PHPExcel_Reader_Excel2003XML
-	 */
-	public function __construct() {
-		$this->_readFilter 	= new PHPExcel_Reader_DefaultReadFilter();
-	}
 
 	/**
 	 * Can the current PHPExcel_Reader_IReader read the file?
@@ -171,15 +179,15 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 	public function canRead($pFilename)
 	{
 
-//	Office					xmlns:o="urn:schemas-microsoft-com:office:office"
-//	Excel					xmlns:x="urn:schemas-microsoft-com:office:excel"
-//	XML Spreadsheet			xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
-//	Spreadsheet component	xmlns:c="urn:schemas-microsoft-com:office:component:spreadsheet"
-//	XML schema 				xmlns:s="uuid:BDC6E3F0-6DA3-11d1-A2A3-00AA00C14882"
-//	XML data type			xmlns:dt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
-//	MS-persist recordset	xmlns:rs="urn:schemas-microsoft-com:rowset"
-//	Rowset					xmlns:z="#RowsetSchema"
-//
+		//	Office					xmlns:o="urn:schemas-microsoft-com:office:office"
+		//	Excel					xmlns:x="urn:schemas-microsoft-com:office:excel"
+		//	XML Spreadsheet			xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+		//	Spreadsheet component	xmlns:c="urn:schemas-microsoft-com:office:component:spreadsheet"
+		//	XML schema 				xmlns:s="uuid:BDC6E3F0-6DA3-11d1-A2A3-00AA00C14882"
+		//	XML data type			xmlns:dt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
+		//	MS-persist recordset	xmlns:rs="urn:schemas-microsoft-com:rowset"
+		//	Rowset					xmlns:z="#RowsetSchema"
+		//
 
 		$signature = array(
 				'<?xml version="1.0"',
@@ -214,6 +222,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 		return $valid;
 	}
 
+
 	/**
 	 * Reads names of the worksheets from a file, without parsing the whole file to a PHPExcel object
 	 *
@@ -246,6 +255,77 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 
 
 	/**
+	 * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns)
+	 *
+	 * @param   string     $pFilename
+	 * @throws   Exception
+	 */
+	public function listWorksheetInfo($pFilename)
+	{
+		// Check if file exists
+		if (!file_exists($pFilename)) {
+			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+		}
+
+		$worksheetInfo = array();
+
+		$xml = simplexml_load_file($pFilename);
+		$namespaces = $xml->getNamespaces(true);
+
+		$worksheetID = 1;
+		$xml_ss = $xml->children($namespaces['ss']);
+		foreach($xml_ss->Worksheet as $worksheet) {
+			$worksheet_ss = $worksheet->attributes($namespaces['ss']);
+
+			$tmpInfo = array();
+			$tmpInfo['worksheetName'] = '';
+			$tmpInfo['lastColumnLetter'] = 'A';
+			$tmpInfo['lastColumnIndex'] = 0;
+			$tmpInfo['totalRows'] = 0;
+			$tmpInfo['totalColumns'] = 0;
+
+			if (isset($worksheet_ss['Name'])) {
+				$tmpInfo['worksheetName'] = (string) $worksheet_ss['Name'];
+			} else {
+				$tmpInfo['worksheetName'] = "Worksheet_{$worksheetID}";
+			}
+
+			if (isset($worksheet->Table->Row)) {
+				$rowIndex = 0;
+
+				foreach($worksheet->Table->Row as $rowData) {
+					$columnIndex = 0;
+					$rowHasData = false;
+
+					foreach($rowData->Cell as $cell) {
+						if (isset($cell->Data)) {
+							$tmpInfo['lastColumnIndex'] = max($tmpInfo['lastColumnIndex'], $columnIndex);
+							$rowHasData = true;
+						}
+
+						++$columnIndex;
+					}
+
+					++$rowIndex;
+
+					if ($rowHasData) {
+						$tmpInfo['totalRows'] = max($tmpInfo['totalRows'], $rowIndex);
+					}
+				}
+			}
+
+			$tmpInfo['lastColumnLetter'] = PHPExcel_Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
+			$tmpInfo['totalColumns'] = $tmpInfo['lastColumnIndex'] + 1;
+
+			$worksheetInfo[] = $tmpInfo;
+			++$worksheetID;
+		}
+
+		return $worksheetInfo;
+	}
+
+
+    /**
 	 * Loads PHPExcel from file
 	 *
 	 * @param 	string 		$pFilename
@@ -261,6 +341,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 		return $this->loadIntoExisting($pFilename, $objPHPExcel);
 	}
 
+
 	private static function identifyFixedStyleValue($styleList,&$styleAttributeValue) {
 		$styleAttributeValue = strtolower($styleAttributeValue);
 		foreach($styleList as $style) {
@@ -271,6 +352,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 		}
 		return false;
 	}
+
 
  	/**
  	 * pixel units to excel width units(units of 1/256th of a character width)
@@ -284,6 +366,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 		$widthUnits += $UNIT_OFFSET_MAP[($pxs % 7)];
 		return $widthUnits;
 	}
+
 
 	/**
 	 * excel width units(units of 1/256th of a character width) to pixel units
@@ -301,6 +384,7 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 	private static function _hex2str($hex) {
 		return chr(hexdec($hex[1]));
 	}
+
 
 	/**
 	 * Loads PHPExcel from file into PHPExcel instance
@@ -802,12 +886,14 @@ class PHPExcel_Reader_Excel2003XML implements PHPExcel_Reader_IReader
 		return $objPHPExcel;
 	}
 
+
 	private static function _convertStringEncoding($string,$charset) {
 		if ($charset != 'UTF-8') {
 			return PHPExcel_Shared_String::ConvertEncoding($string,'UTF-8',$charset);
 		}
 		return $string;
 	}
+
 
 	private function _parseRichText($is = '') {
 		$value = new PHPExcel_RichText();

@@ -92,6 +92,15 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 
 
 	/**
+	 * Create a new PHPExcel_Reader_Excel2007 instance
+	 */
+	public function __construct() {
+		$this->_readFilter = new PHPExcel_Reader_DefaultReadFilter();
+		$this->_referenceHelper = PHPExcel_ReferenceHelper::getInstance();
+	}
+
+
+	/**
 	 * Read data only?
 	 *		If this is true, then the Reader will only read data values for cells, it will not read any formatting information.
 	 *		If false (the default) it will read data and formatting.
@@ -101,6 +110,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 	public function getReadDataOnly() {
 		return $this->_readDataOnly;
 	}
+
 
 	/**
 	 * Set read data only
@@ -116,6 +126,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 		return $this;
 	}
 
+
 	/**
 	 * Read charts in workbook?
 	 *		If this is true, then the Reader will include any charts that exist in the workbook.
@@ -127,6 +138,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 	public function getIncludeCharts() {
 		return $this->_includeCharts;
 	}
+
 
 	/**
 	 * Set read charts in workbook
@@ -143,6 +155,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 		return $this;
 	}
 
+
 	/**
 	 * Get which sheets to load
 	 * Returns either an array of worksheet names (the list of worksheets that should be loaded), or a null
@@ -154,6 +167,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 	{
 		return $this->_loadSheetsOnly;
 	}
+
 
 	/**
 	 * Set which sheets to load
@@ -171,6 +185,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 		return $this;
 	}
 
+
 	/**
 	 * Set all sheets to load
 	 *		Tells the Reader to load all worksheets from the workbook.
@@ -183,6 +198,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 		return $this;
 	}
 
+
 	/**
 	 * Read filter
 	 *
@@ -191,6 +207,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 	public function getReadFilter() {
 		return $this->_readFilter;
 	}
+
 
 	/**
 	 * Set read filter
@@ -203,13 +220,6 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 		return $this;
 	}
 
-	/**
-	 * Create a new PHPExcel_Reader_Excel2007 instance
-	 */
-	public function __construct() {
-		$this->_readFilter = new PHPExcel_Reader_DefaultReadFilter();
-		$this->_referenceHelper = PHPExcel_ReferenceHelper::getInstance();
-	}
 
 	/**
 	 * Can the current PHPExcel_Reader_IReader read the file?
@@ -254,6 +264,82 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 		return $xl;
 	}
 
+
+	/**
+	 * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns)
+	 *
+	 * @param   string     $pFilename
+	 * @throws   Exception
+	 */
+	public function listWorksheetInfo($pFilename)
+	{
+		// Check if file exists
+		if (!file_exists($pFilename)) {
+			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+		}
+
+		$worksheetInfo = array();
+
+		$zip = new ZipArchive;
+		$zip->open($pFilename);
+
+		$rels = simplexml_load_string($this->_getFromZipArchive($zip, "_rels/.rels")); //~ http://schemas.openxmlformats.org/package/2006/relationships");
+		foreach ($rels->Relationship as $rel) {
+			if ($rel["Type"] == "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument") {
+				$dir = dirname($rel["Target"]);
+				$relsWorkbook = simplexml_load_string($this->_getFromZipArchive($zip, "$dir/_rels/" . basename($rel["Target"]) . ".rels"));  //~ http://schemas.openxmlformats.org/package/2006/relationships");
+				$relsWorkbook->registerXPathNamespace("rel", "http://schemas.openxmlformats.org/package/2006/relationships");
+
+				$worksheets = array();
+				foreach ($relsWorkbook->Relationship as $ele) {
+					if ($ele["Type"] == "http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet") {
+						$worksheets[(string) $ele["Id"]] = $ele["Target"];
+					}
+				}
+
+				$xmlWorkbook = simplexml_load_string($this->_getFromZipArchive($zip, "{$rel['Target']}"));  //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main");
+				if ($xmlWorkbook->sheets) {
+					$dir = dirname($rel["Target"]);
+					foreach ($xmlWorkbook->sheets->sheet as $eleSheet) {
+						$tmpInfo = array();
+						$tmpInfo['worksheetName'] = (string) $eleSheet["name"];
+						$tmpInfo['lastColumnLetter'] = 'A';
+						$tmpInfo['lastColumnIndex'] = 0;
+						$tmpInfo['totalRows'] = 0;
+						$tmpInfo['totalColumns'] = 0;
+
+						$fileWorksheet = $worksheets[(string) self::array_item($eleSheet->attributes("http://schemas.openxmlformats.org/officeDocument/2006/relationships"), "id")];
+						$xmlSheet = simplexml_load_string($this->_getFromZipArchive($zip, "$dir/$fileWorksheet"));  //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main");
+						if ($xmlSheet && $xmlSheet->sheetData && $xmlSheet->sheetData->row) {
+							foreach ($xmlSheet->sheetData->row as $row) {
+								foreach ($row->c as $c) {
+									$r = (string) $c["r"];
+									$coordinates = PHPExcel_Cell::coordinateFromString($r);
+
+									$rowIndex = $coordinates[1];
+									$columnIndex = PHPExcel_Cell::columnIndexFromString($coordinates[0]) - 1;
+
+									$tmpInfo['totalRows'] = max($tmpInfo['totalRows'], $rowIndex);
+									$tmpInfo['lastColumnIndex'] = max($tmpInfo['lastColumnIndex'], $columnIndex);
+								}
+							}
+						}
+
+						$tmpInfo['lastColumnLetter'] = PHPExcel_Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
+						$tmpInfo['totalColumns'] = $tmpInfo['lastColumnIndex'] + 1;
+
+						$worksheetInfo[] = $tmpInfo;
+					}
+				}
+			}
+		}
+
+		$zip->close();
+
+		return $worksheetInfo;
+	}
+
+
 	private static function _castToBool($c) {
 //		echo 'Initial Cast to Boolean<br />';
 		$value = isset($c->v) ? (string) $c->v : null;
@@ -267,15 +353,18 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 		return $value;
 	}	//	function _castToBool()
 
+
 	private static function _castToError($c) {
 //		echo 'Initial Cast to Error<br />';
 		return isset($c->v) ? (string) $c->v : null;;
 	}	//	function _castToError()
 
+
 	private static function _castToString($c) {
 //		echo 'Initial Cast to String<br />';
 		return isset($c->v) ? (string) $c->v : null;;
 	}	//	function _castToString()
+
 
 	private function _castToFormula($c,$r,&$cellDataType,&$value,&$calculatedValue,&$sharedFormulas,$castBaseType) {
 //		echo '<font color="darkgreen">Formula</font><br />';
@@ -325,6 +414,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 		}
 	}
 
+
 	public function _getFromZipArchive(ZipArchive $archive, $fileName = '')
 	{
 		// Root-relative paths
@@ -343,6 +433,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 
 		return $contents;
 	}
+
 
 	/**
 	 * Reads names of the worksheets from a file, without parsing the whole file to a PHPExcel object
@@ -1640,6 +1731,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 		return $excel;
 	}
 
+
 	private static function _readColor($color, $background=false) {
 		if (isset($color["rgb"])) {
 			return (string)$color["rgb"];
@@ -1661,6 +1753,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 		}
 		return 'FF000000';
 	}
+
 
 	private static function _readStyle($docStyle, $style) {
 		// format code
@@ -1789,6 +1882,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 		}
 	}
 
+
 	private static function _readBorder($docBorder, $eleBorder) {
 		if (isset($eleBorder["style"])) {
 			$docBorder->setBorderStyle((string) $eleBorder["style"]);
@@ -1797,6 +1891,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 			$docBorder->getColor()->setARGB(self::_readColor($eleBorder->color));
 		}
 	}
+
 
 	private function _parseRichText($is = null) {
 		$value = new PHPExcel_RichText();
@@ -1860,13 +1955,16 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 		return $value;
 	}
 
+
 	private static function array_item($array, $key = 0) {
 		return (isset($array[$key]) ? $array[$key] : null);
 	}
 
+
 	private static function dir_add($base, $add) {
 		return preg_replace('~[^/]+/\.\./~', '', dirname($base) . "/$add");
 	}
+
 
 	private static function toCSSArray($style) {
 		$style = str_replace(array("\r","\n"), "", $style);

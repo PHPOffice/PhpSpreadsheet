@@ -79,12 +79,14 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 	 */
 	private $_readFilter = null;
 
+
 	/**
 	 * Create a new PHPExcel_Reader_SYLK
 	 */
 	public function __construct() {
 		$this->_readFilter 	= new PHPExcel_Reader_DefaultReadFilter();
 	}
+
 
 	/**
 	 * Can the current PHPExcel_Reader_IReader read the file?
@@ -120,6 +122,123 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 		return true;
 	}
 
+
+	/**
+	 * Read filter
+	 *
+	 * @return PHPExcel_Reader_IReadFilter
+	 */
+	public function getReadFilter() {
+		return $this->_readFilter;
+	}
+
+
+	/**
+	 * Set read filter
+	 *
+	 * @param PHPExcel_Reader_IReadFilter $pValue
+	 */
+	public function setReadFilter(PHPExcel_Reader_IReadFilter $pValue) {
+		$this->_readFilter = $pValue;
+		return $this;
+	}
+
+
+	/**
+	 * Set input encoding
+	 *
+	 * @param string $pValue Input encoding
+	 */
+	public function setInputEncoding($pValue = 'ANSI')
+	{
+		$this->_inputEncoding = $pValue;
+		return $this;
+	}
+
+
+	/**
+	 * Get input encoding
+	 *
+	 * @return string
+	 */
+	public function getInputEncoding()
+	{
+		return $this->_inputEncoding;
+	}
+
+
+	/**
+	 * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns)
+	 *
+	 * @param   string     $pFilename
+	 * @throws   Exception
+	 */
+	public function listWorksheetInfo($pFilename)
+	{
+		// Check if file exists
+		if (!file_exists($pFilename)) {
+			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+		}
+
+		// Open file
+		$fileHandle = fopen($pFilename, 'r');
+		if ($fileHandle === false) {
+			throw new Exception("Could not open file " . $pFilename . " for reading.");
+		}
+
+		$worksheetInfo = array();
+		$worksheetInfo[0]['worksheetName'] = 'Worksheet';
+		$worksheetInfo[0]['lastColumnLetter'] = 'A';
+		$worksheetInfo[0]['lastColumnIndex'] = 0;
+		$worksheetInfo[0]['totalRows'] = 0;
+		$worksheetInfo[0]['totalColumns'] = 0;
+
+		// Loop through file
+		$rowData = array();
+
+		// loop through one row (line) at a time in the file
+		$rowIndex = 0;
+		while (($rowData = fgets($fileHandle)) !== FALSE) {
+			$columnIndex = 0;
+
+			// convert SYLK encoded $rowData to UTF-8
+			$rowData = PHPExcel_Shared_String::SYLKtoUTF8($rowData);
+
+			// explode each row at semicolons while taking into account that literal semicolon (;)
+			// is escaped like this (;;)
+			$rowData = explode("\t",str_replace('?',';',str_replace(';',"\t",str_replace(';;','?',rtrim($rowData)))));
+
+			$dataType = array_shift($rowData);
+			if ($dataType == 'C') {
+				//  Read cell value data
+				foreach($rowData as $rowDatum) {
+					switch($rowDatum{0}) {
+						case 'C' :
+						case 'X' :
+							$columnIndex = substr($rowDatum,1) - 1;
+							break;
+						case 'R' :
+						case 'Y' :
+							$rowIndex = substr($rowDatum,1);
+							break;
+					}
+
+					$worksheetInfo[0]['totalRows'] = max($worksheetInfo[0]['totalRows'], $rowIndex);
+					$worksheetInfo[0]['lastColumnIndex'] = max($worksheetInfo[0]['lastColumnIndex'], $columnIndex);
+				}
+			}
+		}
+
+		$worksheetInfo[0]['lastColumnLetter'] = PHPExcel_Cell::stringFromColumnIndex($worksheetInfo[0]['lastColumnIndex']);
+		$worksheetInfo[0]['totalColumns'] = $worksheetInfo[0]['lastColumnIndex'] + 1;
+
+		// Close file
+		fclose($fileHandle);
+
+		return $worksheetInfo;
+	}
+
+
 	/**
 	 * Loads PHPExcel from file
 	 *
@@ -136,45 +255,6 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 		return $this->loadIntoExisting($pFilename, $objPHPExcel);
 	}
 
-	/**
-	 * Read filter
-	 *
-	 * @return PHPExcel_Reader_IReadFilter
-	 */
-	public function getReadFilter() {
-		return $this->_readFilter;
-	}
-
-	/**
-	 * Set read filter
-	 *
-	 * @param PHPExcel_Reader_IReadFilter $pValue
-	 */
-	public function setReadFilter(PHPExcel_Reader_IReadFilter $pValue) {
-		$this->_readFilter = $pValue;
-		return $this;
-	}
-
-	/**
-	 * Set input encoding
-	 *
-	 * @param string $pValue Input encoding
-	 */
-	public function setInputEncoding($pValue = 'ANSI')
-	{
-		$this->_inputEncoding = $pValue;
-		return $this;
-	}
-
-	/**
-	 * Get input encoding
-	 *
-	 * @return string
-	 */
-	public function getInputEncoding()
-	{
-		return $this->_inputEncoding;
-	}
 
 	/**
 	 * Loads PHPExcel from file into PHPExcel instance
@@ -393,6 +473,7 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 		return $objPHPExcel;
 	}
 
+
 	/**
 	 * Get sheet index
 	 *
@@ -401,6 +482,7 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 	public function getSheetIndex() {
 		return $this->_sheetIndex;
 	}
+
 
 	/**
 	 * Set sheet index
