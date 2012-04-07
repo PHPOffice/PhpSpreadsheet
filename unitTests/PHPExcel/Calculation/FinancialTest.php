@@ -79,4 +79,20 @@ class FinancialTest extends PHPUnit_Framework_TestCase
     	return new testDataFileIterator('rawTestData/Calculation/Financial/AMORLINC.data');
 	}
 
+    /**
+     * @dataProvider providerRATE
+     */
+	public function testRATE()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_Financial','RATE'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-12);
+	}
+
+    public function providerRATE()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/Financial/RATE.data');
+	}
+
 }
