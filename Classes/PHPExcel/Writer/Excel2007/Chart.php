@@ -51,6 +51,8 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 		} else {
 			$objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_MEMORY);
 		}
+		//	Ensure that data series values are up-to-date before we save
+		$pChart->refresh();
 
 		// XML header
 		$objWriter->startDocument('1.0','UTF-8','yes');

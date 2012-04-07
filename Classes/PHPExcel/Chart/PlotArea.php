@@ -116,4 +116,10 @@ class PHPExcel_Chart_PlotArea
 		$this->_plotSeries = $plotSeries;
 	}
 
+	public function refresh(PHPExcel_Worksheet $worksheet) {
+	    foreach($this->_plotSeries as $plotSeries)
+			$plotSeries->refresh($worksheet);
+		}
+	}
+
 }

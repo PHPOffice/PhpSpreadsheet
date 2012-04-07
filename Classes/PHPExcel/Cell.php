@@ -547,10 +547,18 @@ class PHPExcel_Cell
 	{
 		if (strpos($pCoordinateString,':') === false && strpos($pCoordinateString,',') === false) {
 			// Create absolute coordinate
+			$worksheet = '';
+			$cellAddress = explode('!',$pCoordinateString);
+			if (count($cellAddress) == 2) {
+				list($worksheet,$pCoordinateString) = $cellAddress;
+			}
+
 			list($column, $row) = PHPExcel_Cell::coordinateFromString($pCoordinateString);
 			if ($column[0] == '$')	$column = substr($column,1);
 			if ($row[0] == '$')		$row = substr($row,1);
-			return '$' . $column . '$' . $row;
+			if ($worksheet > '')
+				$worksheet .= '!';
+			return $worksheet . '$' . $column . '$' . $row;
 		} else {
 			throw new Exception("Coordinate string should not be a cell range.");
 		}

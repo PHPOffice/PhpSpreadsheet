@@ -294,7 +294,7 @@ class PHPExcel_Calculation_Financial {
 	 * @param	mixed	salvage		The salvage value at the end of the life of the asset.
 	 * @param	float	period		The period.
 	 * @param	float	rate		Rate of depreciation.
-	 * @param	int		basis		The type of day count to use.
+	 * @param	integer	basis		The type of day count to use.
 	 *										0 or omitted	US (NASD) 30/360
 	 *										1				Actual/actual
 	 *										2				Actual/360
@@ -370,7 +370,7 @@ class PHPExcel_Calculation_Financial {
 	 * @param	mixed	salvage		The salvage value at the end of the life of the asset.
 	 * @param	float	period		The period.
 	 * @param	float	rate		Rate of depreciation.
-	 * @param	int		basis		The type of day count to use.
+	 * @param	integer	basis		The type of day count to use.
 	 *										0 or omitted	US (NASD) 30/360
 	 *										1				Actual/actual
 	 *										2				Actual/360
@@ -412,6 +412,38 @@ class PHPExcel_Calculation_Financial {
 	}	//	function AMORLINC()
 
 
+	/**
+	 * COUPDAYBS
+	 *
+	 * Returns the number of days from the beginning of the coupon period to the settlement date.
+	 *
+	 * Excel Function:
+	 *		COUPDAYBS(settlement,maturity,frequency[,basis])
+	 *
+	 * @access	public
+	 * @category Financial Functions
+	 * @param	mixed	settlement	The security's settlement date.
+	 *								The security settlement date is the date after the issue
+	 *								date when the security is traded to the buyer.
+	 * @param	mixed	maturity	The security's maturity date.
+	 *								The maturity date is the date when the security expires.
+	 * @param	mixed	frequency	the number of coupon payments per year.
+	 *									Valid frequency values are:
+	 *										1	Annual
+	 *										2	Semi-Annual
+	 *										4	Quarterly
+	 *									If working in Gnumeric Mode, the following frequency options are
+	 *									also available
+	 *										6	Bimonthly
+	 *										12	Monthly
+	 * @param	integer		basis		The type of day count to use.
+	 *										0 or omitted	US (NASD) 30/360
+	 *										1				Actual/actual
+	 *										2				Actual/360
+	 *										3				Actual/365
+	 *										4				European 30/360
+	 * @return	float
+	 */
 	public static function COUPDAYBS($settlement, $maturity, $frequency, $basis=0) {
 		$settlement	= PHPExcel_Calculation_Functions::flattenSingleValue($settlement);
 		$maturity	= PHPExcel_Calculation_Functions::flattenSingleValue($maturity);
@@ -438,6 +470,38 @@ class PHPExcel_Calculation_Financial {
 	}	//	function COUPDAYBS()
 
 
+	/**
+	 * COUPDAYS
+	 *
+	 * Returns the number of days in the coupon period that contains the settlement date.
+	 *
+	 * Excel Function:
+	 *		COUPDAYS(settlement,maturity,frequency[,basis])
+	 *
+	 * @access	public
+	 * @category Financial Functions
+	 * @param	mixed	settlement	The security's settlement date.
+	 *								The security settlement date is the date after the issue
+	 *								date when the security is traded to the buyer.
+	 * @param	mixed	maturity	The security's maturity date.
+	 *								The maturity date is the date when the security expires.
+	 * @param	mixed	frequency	the number of coupon payments per year.
+	 *									Valid frequency values are:
+	 *										1	Annual
+	 *										2	Semi-Annual
+	 *										4	Quarterly
+	 *									If working in Gnumeric Mode, the following frequency options are
+	 *									also available
+	 *										6	Bimonthly
+	 *										12	Monthly
+	 * @param	integer		basis		The type of day count to use.
+	 *										0 or omitted	US (NASD) 30/360
+	 *										1				Actual/actual
+	 *										2				Actual/360
+	 *										3				Actual/365
+	 *										4				European 30/360
+	 * @return	float
+	 */
 	public static function COUPDAYS($settlement, $maturity, $frequency, $basis=0) {
 		$settlement	= PHPExcel_Calculation_Functions::flattenSingleValue($settlement);
 		$maturity	= PHPExcel_Calculation_Functions::flattenSingleValue($maturity);
@@ -476,6 +540,38 @@ class PHPExcel_Calculation_Financial {
 	}	//	function COUPDAYS()
 
 
+	/**
+	 * COUPDAYSNC
+	 *
+	 * Returns the number of days from the settlement date to the next coupon date.
+	 *
+	 * Excel Function:
+	 *		COUPDAYSNC(settlement,maturity,frequency[,basis])
+	 *
+	 * @access	public
+	 * @category Financial Functions
+	 * @param	mixed	settlement	The security's settlement date.
+	 *								The security settlement date is the date after the issue
+	 *								date when the security is traded to the buyer.
+	 * @param	mixed	maturity	The security's maturity date.
+	 *								The maturity date is the date when the security expires.
+	 * @param	mixed	frequency	the number of coupon payments per year.
+	 *									Valid frequency values are:
+	 *										1	Annual
+	 *										2	Semi-Annual
+	 *										4	Quarterly
+	 *									If working in Gnumeric Mode, the following frequency options are
+	 *									also available
+	 *										6	Bimonthly
+	 *										12	Monthly
+	 * @param	integer		basis		The type of day count to use.
+	 *										0 or omitted	US (NASD) 30/360
+	 *										1				Actual/actual
+	 *										2				Actual/360
+	 *										3				Actual/365
+	 *										4				European 30/360
+	 * @return	float
+	 */
 	public static function COUPDAYSNC($settlement, $maturity, $frequency, $basis=0) {
 		$settlement	= PHPExcel_Calculation_Functions::flattenSingleValue($settlement);
 		$maturity	= PHPExcel_Calculation_Functions::flattenSingleValue($maturity);
@@ -502,6 +598,39 @@ class PHPExcel_Calculation_Financial {
 	}	//	function COUPDAYSNC()
 
 
+	/**
+	 * COUPNCD
+	 *
+	 * Returns the next coupon date after the settlement date.
+	 *
+	 * Excel Function:
+	 *		COUPNCD(settlement,maturity,frequency[,basis])
+	 *
+	 * @access	public
+	 * @category Financial Functions
+	 * @param	mixed	settlement	The security's settlement date.
+	 *								The security settlement date is the date after the issue
+	 *								date when the security is traded to the buyer.
+	 * @param	mixed	maturity	The security's maturity date.
+	 *								The maturity date is the date when the security expires.
+	 * @param	mixed	frequency	the number of coupon payments per year.
+	 *									Valid frequency values are:
+	 *										1	Annual
+	 *										2	Semi-Annual
+	 *										4	Quarterly
+	 *									If working in Gnumeric Mode, the following frequency options are
+	 *									also available
+	 *										6	Bimonthly
+	 *										12	Monthly
+	 * @param	integer		basis		The type of day count to use.
+	 *										0 or omitted	US (NASD) 30/360
+	 *										1				Actual/actual
+	 *										2				Actual/360
+	 *										3				Actual/365
+	 *										4				European 30/360
+	 * @return	mixed	Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+	 *						depending on the value of the ReturnDateType flag
+	 */
 	public static function COUPNCD($settlement, $maturity, $frequency, $basis=0) {
 		$settlement	= PHPExcel_Calculation_Functions::flattenSingleValue($settlement);
 		$maturity	= PHPExcel_Calculation_Functions::flattenSingleValue($maturity);
@@ -525,6 +654,39 @@ class PHPExcel_Calculation_Financial {
 	}	//	function COUPNCD()
 
 
+	/**
+	 * COUPNUM
+	 *
+	 * Returns the number of coupons payable between the settlement date and maturity date,
+	 * rounded up to the nearest whole coupon.
+	 *
+	 * Excel Function:
+	 *		COUPNUM(settlement,maturity,frequency[,basis])
+	 *
+	 * @access	public
+	 * @category Financial Functions
+	 * @param	mixed	settlement	The security's settlement date.
+	 *								The security settlement date is the date after the issue
+	 *								date when the security is traded to the buyer.
+	 * @param	mixed	maturity	The security's maturity date.
+	 *								The maturity date is the date when the security expires.
+	 * @param	mixed	frequency	the number of coupon payments per year.
+	 *									Valid frequency values are:
+	 *										1	Annual
+	 *										2	Semi-Annual
+	 *										4	Quarterly
+	 *									If working in Gnumeric Mode, the following frequency options are
+	 *									also available
+	 *										6	Bimonthly
+	 *										12	Monthly
+	 * @param	integer		basis		The type of day count to use.
+	 *										0 or omitted	US (NASD) 30/360
+	 *										1				Actual/actual
+	 *										2				Actual/360
+	 *										3				Actual/365
+	 *										4				European 30/360
+	 * @return	integer
+	 */
 	public static function COUPNUM($settlement, $maturity, $frequency, $basis=0) {
 		$settlement	= PHPExcel_Calculation_Functions::flattenSingleValue($settlement);
 		$maturity	= PHPExcel_Calculation_Functions::flattenSingleValue($maturity);
@@ -563,6 +725,39 @@ class PHPExcel_Calculation_Financial {
 	}	//	function COUPNUM()
 
 
+	/**
+	 * COUPPCD
+	 *
+	 * Returns the previous coupon date before the settlement date.
+	 *
+	 * Excel Function:
+	 *		COUPPCD(settlement,maturity,frequency[,basis])
+	 *
+	 * @access	public
+	 * @category Financial Functions
+	 * @param	mixed	settlement	The security's settlement date.
+	 *								The security settlement date is the date after the issue
+	 *								date when the security is traded to the buyer.
+	 * @param	mixed	maturity	The security's maturity date.
+	 *								The maturity date is the date when the security expires.
+	 * @param	mixed	frequency	the number of coupon payments per year.
+	 *									Valid frequency values are:
+	 *										1	Annual
+	 *										2	Semi-Annual
+	 *										4	Quarterly
+	 *									If working in Gnumeric Mode, the following frequency options are
+	 *									also available
+	 *										6	Bimonthly
+	 *										12	Monthly
+	 * @param	integer		basis		The type of day count to use.
+	 *										0 or omitted	US (NASD) 30/360
+	 *										1				Actual/actual
+	 *										2				Actual/360
+	 *										3				Actual/365
+	 *										4				European 30/360
+	 * @return	mixed	Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+	 *						depending on the value of the ReturnDateType flag
+	 */
 	public static function COUPPCD($settlement, $maturity, $frequency, $basis=0) {
 		$settlement	= PHPExcel_Calculation_Functions::flattenSingleValue($settlement);
 		$maturity	= PHPExcel_Calculation_Functions::flattenSingleValue($maturity);
@@ -589,15 +784,22 @@ class PHPExcel_Calculation_Financial {
 	/**
 	 * CUMIPMT
 	 *
-	 * Returns the cumulative interest paid on a loan between start_period and end_period.
+	 * Returns the cumulative interest paid on a loan between the start and end periods.
 	 *
-	 * @param	float	$rate	Interest rate per period
-	 * @param	int		$nper	Number of periods
+	 * Excel Function:
+	 *		CUMIPMT(rate,nper,pv,start,end[,type])
+	 *
+	 * @access	public
+	 * @category Financial Functions
+	 * @param	float	$rate	The Interest rate
+	 * @param	integer	$nper	The total number of payment periods
 	 * @param	float	$pv		Present Value
-	 * @param	int		start	The first period in the calculation.
-	 *								Payment periods are numbered beginning with 1.
-	 * @param	int		end		The last period in the calculation.
-	 * @param	int		$type	Payment type: 0 = at the end of each period, 1 = at the beginning of each period
+	 * @param	integer	$start	The first period in the calculation.
+	 *							Payment periods are numbered beginning with 1.
+	 * @param	integer	$end	The last period in the calculation.
+	 * @param	integer	$type	A number 0 or 1 and indicates when payments are due:
+	 *								0 or omitted	At the end of the period.
+	 *								1				At the beginning of the period.
 	 * @return	float
 	 */
 	public static function CUMIPMT($rate, $nper, $pv, $start, $end, $type = 0) {
@@ -629,15 +831,22 @@ class PHPExcel_Calculation_Financial {
 	/**
 	 * CUMPRINC
 	 *
-	 * Returns the cumulative principal paid on a loan between start_period and end_period.
+	 * Returns the cumulative principal paid on a loan between the start and end periods.
 	 *
-	 * @param	float	$rate	Interest rate per period
-	 * @param	int		$nper	Number of periods
+	 * Excel Function:
+	 *		CUMPRINC(rate,nper,pv,start,end[,type])
+	 *
+	 * @access	public
+	 * @category Financial Functions
+	 * @param	float	$rate	The Interest rate
+	 * @param	integer	$nper	The total number of payment periods
 	 * @param	float	$pv		Present Value
-	 * @param	int		start	The first period in the calculation.
-	 *								Payment periods are numbered beginning with 1.
-	 * @param	int		end		The last period in the calculation.
-	 * @param	int		$type	Payment type: 0 = at the end of each period, 1 = at the beginning of each period
+	 * @param	integer	$start	The first period in the calculation.
+	 *							Payment periods are numbered beginning with 1.
+	 * @param	integer	$end	The last period in the calculation.
+	 * @param	integer	$type	A number 0 or 1 and indicates when payments are due:
+	 *								0 or omitted	At the end of the period.
+	 *								1				At the beginning of the period.
 	 * @return	float
 	 */
 	public static function CUMPRINC($rate, $nper, $pv, $start, $end, $type = 0) {
@@ -669,16 +878,27 @@ class PHPExcel_Calculation_Financial {
 	/**
 	 * DB
 	 *
-	 * Returns the depreciation of an asset for a specified period using the fixed-declining balance method.
-	 * This form of depreciation is used if you want to get a higher depreciation value at the beginning of the depreciation
-	 *		(as opposed to linear depreciation). The depreciation value is reduced with every depreciation period by the
-	 *		depreciation already deducted from the initial cost.
+	 * Returns the depreciation of an asset for a specified period using the
+	 * fixed-declining balance method.
+	 * This form of depreciation is used if you want to get a higher depreciation value
+	 * at the beginning of the depreciation (as opposed to linear depreciation). The
+	 * depreciation value is reduced with every depreciation period by the depreciation
+	 * already deducted from the initial cost.
 	 *
+	 * Excel Function:
+	 *		DB(cost,salvage,life,period[,month])
+	 *
+	 * @access	public
+	 * @category Financial Functions
 	 * @param	float	cost		Initial cost of the asset.
-	 * @param	float	salvage		Value at the end of the depreciation. (Sometimes called the salvage value of the asset)
-	 * @param	int		life		Number of periods over which the asset is depreciated. (Sometimes called the useful life of the asset)
-	 * @param	int		period		The period for which you want to calculate the depreciation. Period must use the same units as life.
-	 * @param	float	month		Number of months in the first year. If month is omitted, it defaults to 12.
+	 * @param	float	salvage		Value at the end of the depreciation.
+	 *								(Sometimes called the salvage value of the asset)
+	 * @param	integer	life		Number of periods over which the asset is depreciated.
+	 *								(Sometimes called the useful life of the asset)
+	 * @param	integer	period		The period for which you want to calculate the
+	 *								depreciation. Period must use the same units as life.
+	 * @param	integer	month		Number of months in the first year. If month is omitted,
+	 *								it defaults to 12.
 	 * @return	float
 	 */
 	public static function DB($cost, $salvage, $life, $period, $month=12) {
@@ -723,14 +943,24 @@ class PHPExcel_Calculation_Financial {
 	/**
 	 * DDB
 	 *
-	 * Returns the depreciation of an asset for a specified period using the double-declining balance method or some other method you specify.
+	 * Returns the depreciation of an asset for a specified period using the
+	 * double-declining balance method or some other method you specify.
 	 *
+	 * Excel Function:
+	 *		DDB(cost,salvage,life,period[,factor])
+	 *
+	 * @access	public
+	 * @category Financial Functions
 	 * @param	float	cost		Initial cost of the asset.
-	 * @param	float	salvage		Value at the end of the depreciation. (Sometimes called the salvage value of the asset)
-	 * @param	int		life		Number of periods over which the asset is depreciated. (Sometimes called the useful life of the asset)
-	 * @param	int		period		The period for which you want to calculate the depreciation. Period must use the same units as life.
+	 * @param	float	salvage		Value at the end of the depreciation.
+	 *								(Sometimes called the salvage value of the asset)
+	 * @param	int		life		Number of periods over which the asset is depreciated.
+	 *								(Sometimes called the useful life of the asset)
+	 * @param	int		period		The period for which you want to calculate the
+	 *								depreciation. Period must use the same units as life.
 	 * @param	float	factor		The rate at which the balance declines.
-	 *								If factor is omitted, it is assumed to be 2 (the double-declining balance method).
+	 *								If factor is omitted, it is assumed to be 2 (the
+	 *								double-declining balance method).
 	 * @return	float
 	 */
 	public static function DDB($cost, $salvage, $life, $period, $factor=2.0) {
@@ -1471,6 +1701,32 @@ class PHPExcel_Calculation_Financial {
 	/**
 	 * RATE
 	 *
+	 * Returns the interest rate per period of an annuity.
+	 * RATE is calculated by iteration and can have zero or more solutions.
+	 * If the successive results of RATE do not converge to within 0.0000001 after 20 iterations,
+	 * RATE returns the #NUM! error value.
+	 *
+	 * Excel Function:
+	 *		RATE(nper,pmt,pv[,fv[,type[,guess]]])
+	 *
+	 * @access	public
+	 * @category Financial Functions
+	 * @param	float	nper		The total number of payment periods in an annuity.
+	 * @param	float	pmt			The payment made each period and cannot change over the life
+	 *									of the annuity.
+	 *								Typically, pmt includes principal and interest but no other
+	 *									fees or taxes.
+	 * @param	float	pv			The present value - the total amount that a series of future
+	 *									payments is worth now.
+	 * @param	float	fv			The future value, or a cash balance you want to attain after
+	 *									the last payment is made. If fv is omitted, it is assumed
+	 *									to be 0 (the future value of a loan, for example, is 0).
+	 * @param	integer	type		A number 0 or 1 and indicates when payments are due:
+	 *										0 or omitted	At the end of the period.
+	 *										1				At the beginning of the period.
+	 * @param	float	guess		Your guess for what the rate will be.
+	 *									If you omit guess, it is assumed to be 10 percent.
+	 * @return	float
 	 **/
 	public static function RATE($nper, $pmt, $pv, $fv = 0.0, $type = 0, $guess = 0.1) {
 		$nper	= (int) PHPExcel_Calculation_Functions::flattenSingleValue($nper);
@@ -1497,6 +1753,8 @@ class PHPExcel_Calculation_Financial {
 			$rate = ($y1 * $x0 - $y0 * $x1) / ($y1 - $y0);
 			$x0 = $x1;
 			$x1 = $rate;
+			if (($nper * abs($pmt)) > ($pv - $fv))
+				$x1 = abs($x1);
 
 			if (abs($rate) < FINANCIAL_PRECISION) {
 				$y = $pv * (1 + $nper * $rate) + $pmt * (1 + $rate * $type) * $nper + $fv;

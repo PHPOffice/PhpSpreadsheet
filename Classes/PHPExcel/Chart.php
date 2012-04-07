@@ -447,6 +447,9 @@ class PHPExcel_Chart
 
 
 	public function refresh() {
+		if ($this->_worksheet !== NULL) {
+			$this->$_plotArea->refresh($this->_worksheet);
+		}
 	}
 
 	public function render($outputDestination = null) {
@@ -454,6 +457,8 @@ class PHPExcel_Chart
 		if (is_null($libraryName)) {
 			return false;
 		}
+		//	Ensure that data series values are up-to-date before we render
+		$this->refresh();
 
 		$libraryPath = PHPExcel_Settings::getChartRendererPath();
 		$includePath = str_replace('\\','/',get_include_path());

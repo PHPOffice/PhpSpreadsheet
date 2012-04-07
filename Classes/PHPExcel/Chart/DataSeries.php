@@ -335,4 +335,10 @@ class PHPExcel_Chart_DataSeries
 		$this->_smoothLine = $smoothLine;
 	}
 
+	public function refresh(PHPExcel_Worksheet $worksheet) {
+	    foreach($this->_plotValues as $plotValues)
+			$plotValues->refresh($worksheet);
+		}
+	}
+
 }

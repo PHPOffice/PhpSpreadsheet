@@ -257,4 +257,15 @@ class PHPExcel_Chart_DataSeriesValues
 		return $this;
 	}
 
+	public function refresh(PHPExcel_Worksheet $worksheet) {
+        if ($this->_dataSource !== NULL)
+        	$calcEngine = PHPExcel_Calculation::getInstance();
+			$this->_dataValues = PHPExcel_Calculation::_unwrapResult(
+			    $calcEngine->_calculateFormulaValue(
+			        $this->_dataSource
+			    )
+			);
+		}
+	}
+
 }
