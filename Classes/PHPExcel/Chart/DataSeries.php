@@ -336,7 +336,7 @@ class PHPExcel_Chart_DataSeries
 	}
 
 	public function refresh(PHPExcel_Worksheet $worksheet) {
-	    foreach($this->_plotValues as $plotValues)
+	    foreach($this->_plotValues as $plotValues) {
 			$plotValues->refresh($worksheet);
 		}
 	}
