@@ -203,13 +203,15 @@ class PHPExcel_Calculation_Financial {
 		$issue		= PHPExcel_Calculation_Functions::flattenSingleValue($issue);
 		$firstinterest	= PHPExcel_Calculation_Functions::flattenSingleValue($firstinterest);
 		$settlement	= PHPExcel_Calculation_Functions::flattenSingleValue($settlement);
-		$rate		= (float) PHPExcel_Calculation_Functions::flattenSingleValue($rate);
-		$par		= (is_null($par))		? 1000 :	(float) PHPExcel_Calculation_Functions::flattenSingleValue($par);
-		$frequency	= (is_null($frequency))	? 1	: 		(int) PHPExcel_Calculation_Functions::flattenSingleValue($frequency);
-		$basis		= (is_null($basis))		? 0	:		(int) PHPExcel_Calculation_Functions::flattenSingleValue($basis);
+		$rate		= PHPExcel_Calculation_Functions::flattenSingleValue($rate);
+		$par		= (is_null($par))		? 1000 :	PHPExcel_Calculation_Functions::flattenSingleValue($par);
+		$frequency	= (is_null($frequency))	? 1	: 		PHPExcel_Calculation_Functions::flattenSingleValue($frequency);
+		$basis		= (is_null($basis))		? 0	:		PHPExcel_Calculation_Functions::flattenSingleValue($basis);
 
 		//	Validate
 		if ((is_numeric($rate)) && (is_numeric($par))) {
+			$rate	= (float) $rate;
+			$par	= (float) $par;
 			if (($rate <= 0) || ($par <= 0)) {
 				return PHPExcel_Calculation_Functions::NaN();
 			}
@@ -251,12 +253,14 @@ class PHPExcel_Calculation_Financial {
 	public static function ACCRINTM($issue, $settlement, $rate, $par=1000, $basis=0) {
 		$issue		= PHPExcel_Calculation_Functions::flattenSingleValue($issue);
 		$settlement	= PHPExcel_Calculation_Functions::flattenSingleValue($settlement);
-		$rate		= (float) PHPExcel_Calculation_Functions::flattenSingleValue($rate);
-		$par		= (is_null($par))	? 1000 :	(float) PHPExcel_Calculation_Functions::flattenSingleValue($par);
-		$basis		= (is_null($basis))	? 0 :		(int) PHPExcel_Calculation_Functions::flattenSingleValue($basis);
+		$rate		= PHPExcel_Calculation_Functions::flattenSingleValue($rate);
+		$par		= (is_null($par))	? 1000 :	PHPExcel_Calculation_Functions::flattenSingleValue($par);
+		$basis		= (is_null($basis))	? 0 :		PHPExcel_Calculation_Functions::flattenSingleValue($basis);
 
 		//	Validate
 		if ((is_numeric($rate)) && (is_numeric($par))) {
+			$rate	= (float) $rate;
+			$par	= (float) $par;
 			if (($rate <= 0) || ($par <= 0)) {
 				return PHPExcel_Calculation_Functions::NaN();
 			}
@@ -902,14 +906,19 @@ class PHPExcel_Calculation_Financial {
 	 * @return	float
 	 */
 	public static function DB($cost, $salvage, $life, $period, $month=12) {
-		$cost		= (float) PHPExcel_Calculation_Functions::flattenSingleValue($cost);
-		$salvage	= (float) PHPExcel_Calculation_Functions::flattenSingleValue($salvage);
-		$life		= (int) PHPExcel_Calculation_Functions::flattenSingleValue($life);
-		$period		= (int) PHPExcel_Calculation_Functions::flattenSingleValue($period);
-		$month		= (int) PHPExcel_Calculation_Functions::flattenSingleValue($month);
+		$cost		= PHPExcel_Calculation_Functions::flattenSingleValue($cost);
+		$salvage	= PHPExcel_Calculation_Functions::flattenSingleValue($salvage);
+		$life		= PHPExcel_Calculation_Functions::flattenSingleValue($life);
+		$period		= PHPExcel_Calculation_Functions::flattenSingleValue($period);
+		$month		= PHPExcel_Calculation_Functions::flattenSingleValue($month);
 
 		//	Validate
 		if ((is_numeric($cost)) && (is_numeric($salvage)) && (is_numeric($life)) && (is_numeric($period)) && (is_numeric($month))) {
+			$cost		= (float) $cost;
+			$salvage	= (float) $salvage;
+			$life		= (int) $life;
+			$period		= (int) $period;
+			$month		= (int) $month;
 			if ($cost == 0) {
 				return 0.0;
 			} elseif (($cost < 0) || (($salvage / $cost) < 0) || ($life <= 0) || ($period < 1) || ($month < 1)) {
@@ -964,14 +973,19 @@ class PHPExcel_Calculation_Financial {
 	 * @return	float
 	 */
 	public static function DDB($cost, $salvage, $life, $period, $factor=2.0) {
-		$cost		= (float) PHPExcel_Calculation_Functions::flattenSingleValue($cost);
-		$salvage	= (float) PHPExcel_Calculation_Functions::flattenSingleValue($salvage);
-		$life		= (int) PHPExcel_Calculation_Functions::flattenSingleValue($life);
-		$period		= (int) PHPExcel_Calculation_Functions::flattenSingleValue($period);
-		$factor		= (float) PHPExcel_Calculation_Functions::flattenSingleValue($factor);
+		$cost		= PHPExcel_Calculation_Functions::flattenSingleValue($cost);
+		$salvage	= PHPExcel_Calculation_Functions::flattenSingleValue($salvage);
+		$life		= PHPExcel_Calculation_Functions::flattenSingleValue($life);
+		$period		= PHPExcel_Calculation_Functions::flattenSingleValue($period);
+		$factor		= PHPExcel_Calculation_Functions::flattenSingleValue($factor);
 
 		//	Validate
 		if ((is_numeric($cost)) && (is_numeric($salvage)) && (is_numeric($life)) && (is_numeric($period)) && (is_numeric($factor))) {
+			$cost		= (float) $cost;
+			$salvage	= (float) $salvage;
+			$life		= (int) $life;
+			$period		= (int) $period;
+			$factor		= (float) $factor;
 			if (($cost <= 0) || (($salvage / $cost) < 0) || ($life <= 0) || ($period < 1) || ($factor <= 0.0) || ($period > $life)) {
 				return PHPExcel_Calculation_Functions::NaN();
 			}
@@ -999,12 +1013,18 @@ class PHPExcel_Calculation_Financial {
 	 *
 	 * Returns the discount rate for a security.
 	 *
+	 * Excel Function:
+	 *		DISC(settlement,maturity,price,redemption[,basis])
+	 *
+	 * @access	public
+	 * @category Financial Functions
 	 * @param	mixed	settlement	The security's settlement date.
-	 *								The security settlement date is the date after the issue date when the security is traded to the buyer.
+	 *								The security settlement date is the date after the issue
+	 *								date when the security is traded to the buyer.
 	 * @param	mixed	maturity	The security's maturity date.
 	 *								The maturity date is the date when the security expires.
 	 * @param	int		price		The security's price per $100 face value.
-	 * @param	int		redemption	the security's redemption value per $100 face value.
+	 * @param	int		redemption	The security's redemption value per $100 face value.
 	 * @param	int		basis		The type of day count to use.
 	 *										0 or omitted	US (NASD) 30/360
 	 *										1				Actual/actual
@@ -1016,12 +1036,15 @@ class PHPExcel_Calculation_Financial {
 	public static function DISC($settlement, $maturity, $price, $redemption, $basis=0) {
 		$settlement	= PHPExcel_Calculation_Functions::flattenSingleValue($settlement);
 		$maturity	= PHPExcel_Calculation_Functions::flattenSingleValue($maturity);
-		$price		= (float) PHPExcel_Calculation_Functions::flattenSingleValue($price);
-		$redemption	= (float) PHPExcel_Calculation_Functions::flattenSingleValue($redemption);
-		$basis		= (int) PHPExcel_Calculation_Functions::flattenSingleValue($basis);
+		$price		= PHPExcel_Calculation_Functions::flattenSingleValue($price);
+		$redemption	= PHPExcel_Calculation_Functions::flattenSingleValue($redemption);
+		$basis		= PHPExcel_Calculation_Functions::flattenSingleValue($basis);
 
 		//	Validate
 		if ((is_numeric($price)) && (is_numeric($redemption)) && (is_numeric($basis))) {
+			$price		= (float) $price;
+			$redemption	= (float) $redemption;
+			$basis		= (int) $basis;
 			if (($price <= 0) || ($redemption <= 0)) {
 				return PHPExcel_Calculation_Functions::NaN();
 			}
@@ -1040,9 +1063,15 @@ class PHPExcel_Calculation_Financial {
 	/**
 	 * DOLLARDE
 	 *
-	 * Converts a dollar price expressed as an integer part and a fraction part into a dollar price expressed as a decimal number.
+	 * Converts a dollar price expressed as an integer part and a fraction
+	 *		part into a dollar price expressed as a decimal number.
 	 * Fractional dollar numbers are sometimes used for security prices.
 	 *
+	 * Excel Function:
+	 *		DOLLARDE(fractional_dollar,fraction)
+	 *
+	 * @access	public
+	 * @category Financial Functions
 	 * @param	float	$fractional_dollar	Fractional Dollar
 	 * @param	int		$fraction			Fraction
 	 * @return	float
@@ -1070,9 +1099,15 @@ class PHPExcel_Calculation_Financial {
 	/**
 	 * DOLLARFR
 	 *
-	 * Converts a dollar price expressed as a decimal number into a dollar price expressed as a fraction.
+	 * Converts a dollar price expressed as a decimal number into a dollar price
+	 *		expressed as a fraction.
 	 * Fractional dollar numbers are sometimes used for security prices.
 	 *
+	 * Excel Function:
+	 *		DOLLARDE(decimal_dollar,fraction)
+	 *
+	 * @access	public
+	 * @category Financial Functions
 	 * @param	float	$decimal_dollar		Decimal Dollar
 	 * @param	int		$fraction			Fraction
 	 * @return	float
