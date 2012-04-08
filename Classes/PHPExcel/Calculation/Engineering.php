@@ -2471,7 +2471,9 @@ class PHPExcel_Calculation_Engineering {
 		}
 
 		if (($fromUOM == $toUOM) && ($fromMultiplier == $toMultiplier)) {
-			return $value;
+			//	We've already factored $fromMultiplier into the value, so we need
+			//		to reverse it again
+			return $value / $fromMultiplier;
 		} elseif ($unitGroup1 == 'Temperature') {
 			if (($fromUOM == 'F') || ($fromUOM == 'fah')) {
 				if (($toUOM == 'F') || ($toUOM == 'fah')) {
