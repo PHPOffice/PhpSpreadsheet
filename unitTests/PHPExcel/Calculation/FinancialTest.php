@@ -288,6 +288,118 @@ class FinancialTest extends PHPUnit_Framework_TestCase
 	}
 
     /**
+     * @dataProvider providerEFFECT
+     */
+	public function testEFFECT()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_Financial','EFFECT'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-8);
+	}
+
+    public function providerEFFECT()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/Financial/EFFECT.data');
+	}
+
+    /**
+     * @dataProvider providerFV
+     */
+	public function testFV()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_Financial','FV'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-8);
+	}
+
+    public function providerFV()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/Financial/FV.data');
+	}
+
+    /**
+     * @dataProvider providerFVSCHEDULE
+     */
+	public function testFVSCHEDULE()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_Financial','FVSCHEDULE'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-8);
+	}
+
+    public function providerFVSCHEDULE()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/Financial/FVSCHEDULE.data');
+	}
+
+    /**
+     * @dataProvider providerINTRATE
+     */
+	public function testINTRATE()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_Financial','INTRATE'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-8);
+	}
+
+    public function providerINTRATE()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/Financial/INTRATE.data');
+	}
+
+    /**
+     * @dataProvider providerIPMT
+     */
+	public function testIPMT()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_Financial','IPMT'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-8);
+	}
+
+    public function providerIPMT()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/Financial/IPMT.data');
+	}
+
+    /**
+     * @dataProvider providerIRR
+     */
+	public function testIRR()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_Financial','IRR'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-8);
+	}
+
+    public function providerIRR()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/Financial/IRR.data');
+	}
+
+    /**
+     * @dataProvider providerISPMT
+     */
+	public function testISPMT()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_Financial','ISPMT'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-8);
+	}
+
+    public function providerISPMT()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/Financial/ISPMT.data');
+	}
+
+    /**
      * @dataProvider providerRATE
      */
 	public function testRATE()
