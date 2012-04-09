@@ -400,6 +400,70 @@ class FinancialTest extends PHPUnit_Framework_TestCase
 	}
 
     /**
+     * @dataProvider providerMIRR
+     */
+	public function testMIRR()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_Financial','MIRR'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-8);
+	}
+
+    public function providerMIRR()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/Financial/MIRR.data');
+	}
+
+    /**
+     * @dataProvider providerNOMINAL
+     */
+	public function testNOMINAL()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_Financial','NOMINAL'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-8);
+	}
+
+    public function providerNOMINAL()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/Financial/NOMINAL.data');
+	}
+
+    /**
+     * @dataProvider providerNPER
+     */
+	public function testNPER()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_Financial','NPER'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-8);
+	}
+
+    public function providerNPER()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/Financial/NPER.data');
+	}
+
+    /**
+     * @dataProvider providerNPV
+     */
+	public function testNPV()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_Financial','NPV'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-8);
+	}
+
+    public function providerNPV()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/Financial/NPV.data');
+	}
+
+    /**
      * @dataProvider providerRATE
      */
 	public function testRATE()
@@ -413,6 +477,22 @@ class FinancialTest extends PHPUnit_Framework_TestCase
     public function providerRATE()
     {
     	return new testDataFileIterator('rawTestData/Calculation/Financial/RATE.data');
+	}
+
+    /**
+     * @dataProvider providerXIRR
+     */
+	public function testXIRR()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_Financial','XIRR'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-8);
+	}
+
+    public function providerXIRR()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/Financial/XIRR.data');
 	}
 
 }
