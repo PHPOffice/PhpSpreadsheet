@@ -963,9 +963,9 @@ class PHPExcel_Calculation_Financial {
 	 * @param	float	cost		Initial cost of the asset.
 	 * @param	float	salvage		Value at the end of the depreciation.
 	 *								(Sometimes called the salvage value of the asset)
-	 * @param	int		life		Number of periods over which the asset is depreciated.
+	 * @param	integer	life		Number of periods over which the asset is depreciated.
 	 *								(Sometimes called the useful life of the asset)
-	 * @param	int		period		The period for which you want to calculate the
+	 * @param	integer	period		The period for which you want to calculate the
 	 *								depreciation. Period must use the same units as life.
 	 * @param	float	factor		The rate at which the balance declines.
 	 *								If factor is omitted, it is assumed to be 2 (the
@@ -1023,9 +1023,9 @@ class PHPExcel_Calculation_Financial {
 	 *								date when the security is traded to the buyer.
 	 * @param	mixed	maturity	The security's maturity date.
 	 *								The maturity date is the date when the security expires.
-	 * @param	int		price		The security's price per $100 face value.
-	 * @param	int		redemption	The security's redemption value per $100 face value.
-	 * @param	int		basis		The type of day count to use.
+	 * @param	integer	price		The security's price per $100 face value.
+	 * @param	integer	redemption	The security's redemption value per $100 face value.
+	 * @param	integer	basis		The type of day count to use.
 	 *										0 or omitted	US (NASD) 30/360
 	 *										1				Actual/actual
 	 *										2				Actual/360
@@ -1073,7 +1073,7 @@ class PHPExcel_Calculation_Financial {
 	 * @access	public
 	 * @category Financial Functions
 	 * @param	float	$fractional_dollar	Fractional Dollar
-	 * @param	int		$fraction			Fraction
+	 * @param	integer	$fraction			Fraction
 	 * @return	float
 	 */
 	public static function DOLLARDE($fractional_dollar = Null, $fraction = 0) {
@@ -1104,12 +1104,12 @@ class PHPExcel_Calculation_Financial {
 	 * Fractional dollar numbers are sometimes used for security prices.
 	 *
 	 * Excel Function:
-	 *		DOLLARDE(decimal_dollar,fraction)
+	 *		DOLLARFR(decimal_dollar,fraction)
 	 *
 	 * @access	public
 	 * @category Financial Functions
 	 * @param	float	$decimal_dollar		Decimal Dollar
-	 * @param	int		$fraction			Fraction
+	 * @param	integer	$fraction			Fraction
 	 * @return	float
 	 */
 	public static function DOLLARFR($decimal_dollar = Null, $fraction = 0) {
@@ -1135,10 +1135,16 @@ class PHPExcel_Calculation_Financial {
 	/**
 	 * EFFECT
 	 *
-	 * Returns the effective interest rate given the nominal rate and the number of compounding payments per year.
+	 * Returns the effective interest rate given the nominal rate and the number of
+	 *		compounding payments per year.
 	 *
+	 * Excel Function:
+	 *		EFFECT(nominal_rate,npery)
+	 *
+	 * @access	public
+	 * @category Financial Functions
 	 * @param	float	$nominal_rate		Nominal interest rate
-	 * @param	int		$npery				Number of compounding payments per year
+	 * @param	integer	$npery				Number of compounding payments per year
 	 * @return	float
 	 */
 	public static function EFFECT($nominal_rate = 0, $npery = 0) {
@@ -1159,11 +1165,21 @@ class PHPExcel_Calculation_Financial {
 	 *
 	 * Returns the Future Value of a cash flow with constant payments and interest rate (annuities).
 	 *
-	 * @param	float	$rate	Interest rate per period
-	 * @param	int		$nper	Number of periods
-	 * @param	float	$pmt	Periodic payment (annuity)
-	 * @param	float	$pv		Present Value
-	 * @param	int		$type	Payment type: 0 = at the end of each period, 1 = at the beginning of each period
+	 * Excel Function:
+	 *		FV(rate,nper,pmt[,pv[,type]])
+	 *
+	 * @access	public
+	 * @category Financial Functions
+	 * @param	float	$rate	The interest rate per period
+	 * @param	int		$nper	Total number of payment periods in an annuity
+	 * @param	float	$pmt	The payment made each period: it cannot change over the
+	 *							life of the annuity. Typically, pmt contains principal
+	 *							and interest but no other fees or taxes.
+	 * @param	float	$pv		Present Value, or the lump-sum amount that a series of
+	 *							future payments is worth right now.
+	 * @param	integer	$type	A number 0 or 1 and indicates when payments are due:
+	 *								0 or omitted	At the end of the period.
+	 *								1				At the beginning of the period.
 	 * @return	float
 	 */
 	public static function FV($rate = 0, $nper = 0, $pmt = 0, $pv = 0, $type = 0) {
@@ -1208,13 +1224,16 @@ class PHPExcel_Calculation_Financial {
 	 *
 	 * Returns the interest rate for a fully invested security.
 	 *
+	 * Excel Function:
+	 *		INTRATE(settlement,maturity,investment,redemption[,basis])
+	 *
 	 * @param	mixed	settlement	The security's settlement date.
 	 *								The security settlement date is the date after the issue date when the security is traded to the buyer.
 	 * @param	mixed	maturity	The security's maturity date.
 	 *								The maturity date is the date when the security expires.
-	 * @param	int		investment	The amount invested in the security.
-	 * @param	int		redemption	The amount to be received at maturity.
-	 * @param	int		basis		The type of day count to use.
+	 * @param	integer	investment	The amount invested in the security.
+	 * @param	integer	redemption	The amount to be received at maturity.
+	 * @param	integer	basis		The type of day count to use.
 	 *										0 or omitted	US (NASD) 30/360
 	 *										1				Actual/actual
 	 *										2				Actual/360
@@ -1225,12 +1244,15 @@ class PHPExcel_Calculation_Financial {
 	public static function INTRATE($settlement, $maturity, $investment, $redemption, $basis=0) {
 		$settlement	= PHPExcel_Calculation_Functions::flattenSingleValue($settlement);
 		$maturity	= PHPExcel_Calculation_Functions::flattenSingleValue($maturity);
-		$investment	= (float) PHPExcel_Calculation_Functions::flattenSingleValue($investment);
-		$redemption	= (float) PHPExcel_Calculation_Functions::flattenSingleValue($redemption);
-		$basis		= (int) PHPExcel_Calculation_Functions::flattenSingleValue($basis);
+		$investment	= PHPExcel_Calculation_Functions::flattenSingleValue($investment);
+		$redemption	= PHPExcel_Calculation_Functions::flattenSingleValue($redemption);
+		$basis		= PHPExcel_Calculation_Functions::flattenSingleValue($basis);
 
 		//	Validate
 		if ((is_numeric($investment)) && (is_numeric($redemption)) && (is_numeric($basis))) {
+			$investment	= (float) $investment;
+			$redemption	= (float) $redemption;
+			$basis		= (int) $basis;
 			if (($investment <= 0) || ($redemption <= 0)) {
 				return PHPExcel_Calculation_Functions::NaN();
 			}
