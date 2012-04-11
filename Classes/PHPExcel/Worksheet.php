@@ -335,7 +335,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	{
 		// Set parent and title
 		$this->_parent = $pParent;
-		$this->setTitle($pTitle);
+		$this->setTitle($pTitle, FALSE);
 		$this->setSheetState(PHPExcel_Worksheet::SHEETSTATE_VISIBLE);
 
 		$this->_cellCollection		= PHPExcel_CachedObjectStorageFactory::getInstance($this);
@@ -812,7 +812,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 			}
 
 			$altTitle = $pValue . ' ' . $i;
-			return $this->setTitle($altTitle);
+			return $this->setTitle($altTitle,$updateFormulaCellReferences);
 		}
 
 		// Set title
