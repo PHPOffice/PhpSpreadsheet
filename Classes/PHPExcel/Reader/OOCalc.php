@@ -626,18 +626,25 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 //										echo 'Adjusted Formula: '.$cellDataFormula.'<br />';
 									}
 
+									$repeats = (isset($cellDataTableAttributes['number-columns-repeated'])) ?
+										$cellDataTableAttributes['number-columns-repeated'] : 1;
 									if ($type !== NULL) {
-										$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->setValueExplicit((($hasCalculatedValue) ? $cellDataFormula : $dataValue),$type);
-										if ($hasCalculatedValue) {
-//											echo 'Forumla result is '.$dataValue.'<br />';
-											$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->setCalculatedValue($dataValue);
-										}
-										if (($cellDataOfficeAttributes['value-type'] == 'date') ||
-											($cellDataOfficeAttributes['value-type'] == 'time')) {
-											$objPHPExcel->getActiveSheet()->getStyle($columnID.$rowID)->getNumberFormat()->setFormatCode($formatting);
-										}
-										if ($hyperlink !== NULL) {
-											$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->getHyperlink()->setUrl($hyperlink);
+										for ($i = 0; $i < $repeats; ++$i) {
+											if ($i > 0) {
+												++$columnID;
+											}
+											$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->setValueExplicit((($hasCalculatedValue) ? $cellDataFormula : $dataValue),$type);
+											if ($hasCalculatedValue) {
+//												echo 'Forumla result is '.$dataValue.'<br />';
+												$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->setCalculatedValue($dataValue);
+											}
+											if (($cellDataOfficeAttributes['value-type'] == 'date') ||
+												($cellDataOfficeAttributes['value-type'] == 'time')) {
+												$objPHPExcel->getActiveSheet()->getStyle($columnID.$rowID)->getNumberFormat()->setFormatCode($formatting);
+											}
+											if ($hyperlink !== NULL) {
+												$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->getHyperlink()->setUrl($hyperlink);
+											}
 										}
 									}
 
@@ -655,25 +662,6 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 										$objPHPExcel->getActiveSheet()->mergeCells($cellRange);
 									}
 
-									if (isset($cellDataTableAttributes['number-columns-repeated'])) {
-//										echo 'Repeated '.$cellDataTableAttributes['number-columns-repeated'].' times<br />';
-										$columnID = PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($columnID) + $cellDataTableAttributes['number-columns-repeated'] - 2);
-
-										if ($type !== NULL) {
-											$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->setValueExplicit((($hasCalculatedValue) ? $cellDataFormula : $dataValue),$type);
-											if ($hasCalculatedValue) {
-//												echo 'Forumla result is '.$dataValue.'<br />';
-												$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->setCalculatedValue($dataValue);
-											}
-											if (($cellDataOfficeAttributes['value-type'] == 'date') ||
-												($cellDataOfficeAttributes['value-type'] == 'time')) {
-												$objPHPExcel->getActiveSheet()->getStyle($columnID.$rowID)->getNumberFormat()->setFormatCode($formatting);
-											}
-											if ($hyperlink !== NULL) {
-												$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->getHyperlink()->setUrl($hyperlink);
-											}
-										}
-									}
 									++$columnID;
 								}
 								++$rowID;

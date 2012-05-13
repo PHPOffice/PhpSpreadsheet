@@ -38,6 +38,7 @@ class PHPExcel_CachedObjectStorage_APC extends PHPExcel_CachedObjectStorage_Cach
 	/**
 	 * Prefix used to uniquely identify cache data for this worksheet
 	 *
+	 * @access	private
 	 * @var string
 	 */
 	private $_cachePrefix = null;
@@ -45,6 +46,7 @@ class PHPExcel_CachedObjectStorage_APC extends PHPExcel_CachedObjectStorage_Cach
 	/**
 	 * Cache timeout
 	 *
+	 * @access	private
 	 * @var integer
 	 */
 	private $_cacheTime = 600;
@@ -54,6 +56,7 @@ class PHPExcel_CachedObjectStorage_APC extends PHPExcel_CachedObjectStorage_Cach
      * Store cell data in cache for the current cell object if it's "dirty",
      *     and the 'nullify' the current cell object
      *
+	 * @access	private
 	 * @return	void
      * @throws	Exception
      */
@@ -74,6 +77,7 @@ class PHPExcel_CachedObjectStorage_APC extends PHPExcel_CachedObjectStorage_Cach
     /**
      * Add or Update a cell in cache identified by coordinate address
      *
+	 * @access	public
      * @param	string			$pCoord		Coordinate address of the cell to update
      * @param	PHPExcel_Cell	$cell		Cell to update
 	 * @return	void
@@ -96,6 +100,7 @@ class PHPExcel_CachedObjectStorage_APC extends PHPExcel_CachedObjectStorage_Cach
 	/**
 	 * Is a value set in the current PHPExcel_CachedObjectStorage_ICache for an indexed cell?
 	 *
+	 * @access	public
 	 * @param	string		$pCoord		Coordinate address of the cell to check
 	 * @return	void
 	 * @return	boolean
@@ -122,6 +127,7 @@ class PHPExcel_CachedObjectStorage_APC extends PHPExcel_CachedObjectStorage_Cach
     /**
      * Get cell at a specific coordinate
      *
+	 * @access	public
      * @param 	string 			$pCoord		Coordinate of the cell
      * @throws 	Exception
      * @return 	PHPExcel_Cell 	Cell that was found, or null if not found
@@ -159,6 +165,7 @@ class PHPExcel_CachedObjectStorage_APC extends PHPExcel_CachedObjectStorage_Cach
     /**
      * Delete a cell in cache identified by coordinate address
      *
+	 * @access	public
      * @param	string			$pCoord		Coordinate address of the cell to delete
      * @throws	Exception
      */
@@ -174,6 +181,7 @@ class PHPExcel_CachedObjectStorage_APC extends PHPExcel_CachedObjectStorage_Cach
 	/**
 	 * Clone the cell collection
 	 *
+	 * @access	public
 	 * @param	PHPExcel_Worksheet	$parent		The new worksheet
 	 * @return	void
 	 */

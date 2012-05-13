@@ -448,7 +448,7 @@ class PHPExcel_Chart
 
 	public function refresh() {
 		if ($this->_worksheet !== NULL) {
-			$this->$_plotArea->refresh($this->_worksheet);
+			$this->_plotArea->refresh($this->_worksheet);
 		}
 	}
 
