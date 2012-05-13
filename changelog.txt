@@ -39,6 +39,7 @@ configuration settings, allowing more flexibility.
 
 Fixed in SVN:
 - Bugfix:   (Progi1984) Work item 8916 - Support for Rich-Text in PHPExcel_Writer_Excel5
+- Bugfix:   (cyberconte) Work item 17471 - OOCalc cells contain same data bug?
 - Feature:  (schir1964) listWorksheetInfo() method added to Readers... courtesy of Christopher Mullins
 - Feature:  (MBaker)    Options for cell caching using Igbinary and SQLite/SQlite3.
 - Feature:  (MBaker)    Additional row iterator options: allow a start row to be defined in the constructor; seek(), and prev() methods added.
@@ -119,7 +120,7 @@ Fixed in SVN:
 - Bugfix:   (MBaker)  Work item 15089 - PHPExcel_Worksheet->toArray() index problem
 - Bugfix:   (MBaker)  Work item 15094 - Merge cells 'un-merge' when using an existing spreadsheet
 - Bugfix:   (MBaker)  Work item 15129 - Worksheet fromArray() only working with 2-D arrays
-- Bugfix:   (MBaker)  Work item 15172 - rangeToarray function modified for non-existent cells
+- Bugfix:   (xkeshav) Work item 15172 - rangeToarray function modified for non-existent cells
 - Bugfix:   (MBaker)  Work item 14980 - Images not getting copyied with the ->clone function
 - Bugfix:   (MBaker)  Work item 11576 - AdvancedValueBinder.php: String sometimes becomes a date when it shouldn't
 - Bugfix:   (MBaker)  Fix Excel5 Writer so that it only writes column dimensions for columns that are actually used rather than the full range (A to IV)
