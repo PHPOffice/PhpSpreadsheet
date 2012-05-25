@@ -26,6 +26,8 @@
  */
 
 PHPExcel_Autoloader::Register();
+//	As we always try to run the autoloader before anything else, we can use it to do a few
+//		simple checks and initialisations
 PHPExcel_Shared_ZipStreamWrapper::register();
 // check mbstring.func_overload
 if (ini_get('mbstring.func_overload') & 2) {
@@ -68,16 +70,16 @@ class PHPExcel_Autoloader
 			return FALSE;
 		}
 
-		$pObjectFilePath = PHPEXCEL_ROOT .
-						   str_replace('_',DIRECTORY_SEPARATOR,$pClassName) .
-						   '.php';
+		$pClassFilePath = PHPEXCEL_ROOT .
+						  str_replace('_',DIRECTORY_SEPARATOR,$pClassName) .
+						  '.php';
 
-		if ((file_exists($pObjectFilePath) === false) || (is_readable($pObjectFilePath) === false)) {
+		if ((file_exists($pClassFilePath) === false) || (is_readable($pClassFilePath) === false)) {
 			//	Can't load
 			return FALSE;
 		}
 
-		require($pObjectFilePath);
+		require($pClassFilePath);
 	}	//	function Load()
 
 }

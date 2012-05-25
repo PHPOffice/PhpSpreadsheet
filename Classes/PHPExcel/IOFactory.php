@@ -70,6 +70,7 @@ class PHPExcel_IOFactory
 		'OOCalc',
 		'SYLK',
 		'Gnumeric',
+		'HTML',
 		'CSV',
 	);
 
@@ -136,7 +137,6 @@ class PHPExcel_IOFactory
 		foreach (self::$_searchLocations as $searchLocation) {
 			if ($searchLocation['type'] == $searchType) {
 				$className = str_replace('{0}', $writerType, $searchLocation['class']);
-				$classFile = str_replace('{0}', $writerType, $searchLocation['path']);
 
 				$instance = new $className($phpExcel);
 				if ($instance !== NULL) {
@@ -166,7 +166,6 @@ class PHPExcel_IOFactory
 		foreach (self::$_searchLocations as $searchLocation) {
 			if ($searchLocation['type'] == $searchType) {
 				$className = str_replace('{0}', $readerType, $searchLocation['class']);
-				$classFile = str_replace('{0}', $readerType, $searchLocation['path']);
 
 				$instance = new $className();
 				if ($instance !== NULL) {
@@ -184,7 +183,7 @@ class PHPExcel_IOFactory
 	 *
 	 * @static
 	 * @access public
-	 * @param 	string 		$pFileName
+	 * @param 	string 		$pFileName		The name of the spreadsheet file
 	 * @return	PHPExcel
 	 * @throws	Exception
 	 */
@@ -198,7 +197,7 @@ class PHPExcel_IOFactory
 	 *
 	 * @static
 	 * @access public
-	 * @param 	string 		$pFileName
+	 * @param 	string 		$pFileName		The name of the spreadsheet file to identify
 	 * @return	string
 	 * @throws	Exception
 	 */
@@ -215,7 +214,7 @@ class PHPExcel_IOFactory
 	 *
 	 * @static
 	 * @access	public
-	 * @param 	string 		$pFileName
+	 * @param 	string 		$pFileName		The name of the spreadsheet file
 	 * @return	PHPExcel_Reader_IReader
 	 * @throws	Exception
 	 */
@@ -227,23 +226,27 @@ class PHPExcel_IOFactory
 		if (isset($pathinfo['extension'])) {
 			switch (strtolower($pathinfo['extension'])) {
 				case 'xlsx':
-					$reader = self::createReader('Excel2007');
+					$extensionType = 'Excel2007';
 					break;
 				case 'xls':
 				case 'xlsm':
-					$reader = self::createReader('Excel5');
+					$extensionType = 'Excel5';
 					break;
 				case 'ods':
-					$reader = self::createReader('OOCalc');
+					$extensionType = 'OOCalc';
 					break;
 				case 'slk':
-					$reader = self::createReader('SYLK');
+					$extensionType = 'SYLK';
 					break;
 				case 'xml':
-					$reader = self::createReader('Excel2003XML');
+					$extensionType = 'Excel2003XML';
 					break;
 				case 'gnumeric':
-					$reader = self::createReader('Gnumeric');
+					$extensionType = 'Gnumeric';
+					break;
+				case 'htm':
+				case 'html':
+					$extensionType = 'HTML';
 					break;
 				case 'csv':
 					// Do nothing
@@ -254,6 +257,7 @@ class PHPExcel_IOFactory
 					break;
 			}
 
+			$reader = self::createReader($extensionType);
 			// Let's see if we are lucky
 			if (isset($reader) && $reader->canRead($pFilename)) {
 				return $reader;
@@ -262,14 +266,17 @@ class PHPExcel_IOFactory
 		}
 
 		// If we reach here then "lucky guess" didn't give any result
-
-		// Try loading using self::$_autoResolveClasses
+		// Try walking through all the options in self::$_autoResolveClasses
 		foreach (self::$_autoResolveClasses as $autoResolveClass) {
-			$reader = self::createReader($autoResolveClass);
-			if ($reader->canRead($pFilename)) {
-				return $reader;
+			//	Ignore our original guess, we know that won't work
+		    if ($reader !== $extensionType) {
+				$reader = self::createReader($autoResolveClass);
+				if ($reader->canRead($pFilename)) {
+					return $reader;
+				}
 			}
 		}
 
+    	throw new Exception('Unable to identify a reader for this file');
 	}	//	function createReaderForFile()
 }
