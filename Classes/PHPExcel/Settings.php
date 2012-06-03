@@ -46,9 +46,9 @@ class PHPExcel_Settings
     const CHART_RENDERER_JPGRAPH	= 'jpgraph';
 
 	/**	Optional PDF Rendering libraries */
-    const PDF_RENDERER_TCPDF		= 'tcpdf';
-    const PDF_RENDERER_DOMPDF		= 'dompdf';
-    const PDF_RENDERER_MPDF			= 'mpdf';
+    const PDF_RENDERER_TCPDF		= 'tcPDF';
+    const PDF_RENDERER_DOMPDF		= 'DomPDF';
+    const PDF_RENDERER_MPDF			= 'mPDF';
 
 
 	private static $_chartRenderers = array(
