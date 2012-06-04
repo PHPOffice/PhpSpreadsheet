@@ -630,7 +630,9 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 
 		// table { }
 		$css['table']['border-collapse']  = 'collapse';
-		$css['table']['page-break-after'] = 'always';
+	    if (!$this->_isPdf) {
+			$css['table']['page-break-after'] = 'always';
+		}
 
 		// .gridlines td { }
 		$css['.gridlines td']['border'] = '1px dotted black';
@@ -916,12 +918,14 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 		$highestColumnIndex = PHPExcel_Cell::columnIndexFromString($pSheet->getHighestColumn()) - 1;
 		$i = -1;
 		while($i++ < $highestColumnIndex) {
-			if (!$this->_useInlineCss) {
-				$html .= '		<col class="col' . $i . '">' . PHP_EOL;
-			} else {
-				$style = isset($this->_cssStyles['table.sheet' . $sheetIndex . ' col.col' . $i]) ?
-					$this->_assembleCSS($this->_cssStyles['table.sheet' . $sheetIndex . ' col.col' . $i]) : '';
-				$html .= '		<col style="' . $style . '">' . PHP_EOL;
+		    if (!$this->_isPdf) {
+				if (!$this->_useInlineCss) {
+					$html .= '		<col class="col' . $i . '">' . PHP_EOL;
+				} else {
+					$style = isset($this->_cssStyles['table.sheet' . $sheetIndex . ' col.col' . $i]) ?
+						$this->_assembleCSS($this->_cssStyles['table.sheet' . $sheetIndex . ' col.col' . $i]) : '';
+					$html .= '		<col style="' . $style . '">' . PHP_EOL;
+				}
 			}
 		}
 

@@ -67,16 +67,8 @@ class PHPExcel_Writer_PDF_DomPDF extends PHPExcel_Writer_PDF_Core implements PHP
 
 		// Set PDF
 		$this->_isPdf = true;
-
 		// Build CSS
 		$this->buildCSS(true);
-
-		// Generate HTML
-		$html = '';
-		$html .= $this->generateHTMLHeader(false);
-		$html .= $this->generateSheetData();
-		$html .= $this->generateHTMLFooter();
-
 
 		// Default PDF paper size
 		$paperSize = 'LETTER';	//	Letter	(8.5 in. by 11 in.)
@@ -102,26 +94,19 @@ class PHPExcel_Writer_PDF_DomPDF extends PHPExcel_Writer_PDF_Core implements PHP
 			$printPaperSize = $this->getPaperSize();
 		}
 
-
 		if (isset(self::$_paperSizes[$printPaperSize])) {
 			$paperSize = self::$_paperSizes[$printPaperSize];
 		}
-
 
 		// Create PDF
 		$pdf = new DOMPDF();
 		$pdf->set_paper(strtolower($paperSize), strtolower($orientation));
 
-		// Document info
-//		$pdf->SetTitle($this->_phpExcel->getProperties()->getTitle());
-//		$pdf->SetAuthor($this->_phpExcel->getProperties()->getCreator());
-//		$pdf->SetSubject($this->_phpExcel->getProperties()->getSubject());
-//		$pdf->SetKeywords($this->_phpExcel->getProperties()->getKeywords());
-//		$pdf->SetCreator($this->_phpExcel->getProperties()->getCreator());
-
-//		echo '<hr />',htmlentities($html),'<hr />';
-
-		$pdf->load_html($html);
+		$pdf->load_html(
+			$this->generateHTMLHeader(false) .
+			$this->generateSheetData() .
+			$this->generateHTMLFooter()
+		);
 		$pdf->render();
 
 		// Write to file

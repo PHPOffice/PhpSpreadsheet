@@ -67,16 +67,8 @@ class PHPExcel_Writer_PDF_mPDF extends PHPExcel_Writer_PDF_Core implements PHPEx
 
 		// Set PDF
 		$this->_isPdf = true;
-
 		// Build CSS
 		$this->buildCSS(true);
-
-		// Generate HTML
-		$html = '';
-		$html .= $this->generateHTMLHeader(false);
-		$html .= $this->generateSheetData();
-		$html .= $this->generateHTMLFooter();
-
 
 		// Default PDF paper size
 		$paperSize = 'LETTER';	//	Letter	(8.5 in. by 11 in.)
@@ -91,6 +83,7 @@ class PHPExcel_Writer_PDF_mPDF extends PHPExcel_Writer_PDF_Core implements PHPEx
 			$printPaperSize = $this->_phpExcel->getSheet($this->getSheetIndex())->getPageSetup()->getPaperSize();
 			$printMargins = $this->_phpExcel->getSheet($this->getSheetIndex())->getPageMargins();
 		}
+		$this->setOrientation($orientation);
 
 		//	Override Page Orientation
 		if (!is_null($this->getOrientation())) {
@@ -102,11 +95,9 @@ class PHPExcel_Writer_PDF_mPDF extends PHPExcel_Writer_PDF_Core implements PHPEx
 			$printPaperSize = $this->getPaperSize();
 		}
 
-
 		if (isset(self::$_paperSizes[$printPaperSize])) {
 			$paperSize = self::$_paperSizes[$printPaperSize];
 		}
-
 
 		// Create PDF
 		$pdf = new mpdf();
@@ -119,9 +110,11 @@ class PHPExcel_Writer_PDF_mPDF extends PHPExcel_Writer_PDF_Core implements PHPEx
 		$pdf->SetKeywords($this->_phpExcel->getProperties()->getKeywords());
 		$pdf->SetCreator($this->_phpExcel->getProperties()->getCreator());
 
-//		echo '<hr />',htmlentities($html),'<hr />';
-
-		$pdf->WriteHTML($html);
+		$pdf->WriteHTML(
+			$this->generateHTMLHeader(false) .
+			$this->generateSheetData() .
+			$this->generateHTMLFooter()
+		);
 
 		// Write to file
 		fwrite($fileHandle, $pdf->Output('','S'));

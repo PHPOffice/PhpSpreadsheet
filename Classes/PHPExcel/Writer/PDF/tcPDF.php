@@ -68,15 +68,8 @@ class PHPExcel_Writer_PDF_tcPDF extends PHPExcel_Writer_PDF_Core implements PHPE
 
 		// Set PDF
 		$this->_isPdf = true;
-
 		// Build CSS
 		$this->buildCSS(true);
-
-		// Generate HTML
-		$html = '';
-		//$html .= $this->generateHTMLHeader(false);
-		$html .= $this->generateSheetData();
-		//$html .= $this->generateHTMLFooter();
 
 		// Default PDF paper size
 		$paperSize = 'LETTER';	//	Letter	(8.5 in. by 11 in.)
@@ -94,7 +87,8 @@ class PHPExcel_Writer_PDF_tcPDF extends PHPExcel_Writer_PDF_Core implements PHPE
 
 		//	Override Page Orientation
 		if (!is_null($this->getOrientation())) {
-			$orientation = ($this->getOrientation() == PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
+			$orientation = ($this->getOrientation() == PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE) ?
+				'L' : 'P';
 		}
 		//	Override Paper Size
 		if (!is_null($this->getPaperSize())) {
@@ -123,7 +117,11 @@ class PHPExcel_Writer_PDF_tcPDF extends PHPExcel_Writer_PDF_Core implements PHPE
 
 		// Set the appropriate font
 		$pdf->SetFont($this->getFont());
-		$pdf->writeHTML($html);
+		$pdf->writeHTML(
+			$this->generateHTMLHeader(false) .
+			$this->generateSheetData() .
+			$this->generateHTMLFooter()
+		);
 
 		// Document info
 		$pdf->SetTitle($this->_phpExcel->getProperties()->getTitle());
