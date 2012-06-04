@@ -23,21 +23,14 @@
 **************************************************************************************
 
 
---------------------------------------------------------------------------------
-BREAKING CHANGE! In previous versions of PHPExcel up to and including 1.7.7,
-the 3rd-party tcPDF library was bundled with PHPExcel for rendering PDF files
-through the PDF Writer.
-
-From PHPExcel 1.7.8 onwards, this will no longer be the case. The PDF Writer is
-being rewritten to allow a choice of 3rd party PDF libraries (tcPDF, mPDF, and
-domPDF initially), none of which will be bundled with PHPExcel, but which can
-be downloaded seperately from the appropriate sites. Selection of the library to
-be used, and the directory path to that library will be defined through PHPExcel
-configuration settings, allowing more flexibility.
---------------------------------------------------------------------------------
-
-
 Fixed in SVN:
+- Feature:   (MBaker)    Refactor PDF Writer to allow use with a choice of PDF Rendering library
+                         rather than restricting to tcPDF
+                         Current options are tcPDF, mPDF, DomPDF
+                         tcPDF Library has now been removed from the deployment bundle
+
+
+2012-05-19 (v1.7.7):
 - Bugfix:   (Progi1984) Work item 8916 - Support for Rich-Text in PHPExcel_Writer_Excel5
 - Bugfix:   (cyberconte) Work item 17471 - OOCalc cells contain same data bug?
 - Feature:  (schir1964) listWorksheetInfo() method added to Readers... courtesy of Christopher Mullins
