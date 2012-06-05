@@ -220,6 +220,9 @@ class PHPExcel_Settings
 	 * @return	 boolean					Success or failure
 	 */
 	public static function setChartRendererPath($libraryBaseDir) {
+		if ((file_exists($libraryBaseDir) === false) || (is_readable($libraryBaseDir) === false)) {
+			return FALSE;
+		}
 		self::$_chartRendererPath = $libraryBaseDir;
 
 		return TRUE;
@@ -293,6 +296,9 @@ class PHPExcel_Settings
 	 * @return	 boolean					Success or failure
 	 */
 	public static function setPdfRendererPath($libraryBaseDir) {
+		if ((file_exists($libraryBaseDir) === false) || (is_readable($libraryBaseDir) === false)) {
+			return FALSE;
+		}
 		self::$_pdfRendererPath = $libraryBaseDir;
 
 		return TRUE;
