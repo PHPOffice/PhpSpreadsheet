@@ -34,6 +34,17 @@ date_default_timezone_set('Europe/London');
 require_once '../Classes/PHPExcel.php';
 
 
+//	Change these values to select the Rendering library that you wish to use
+//		and its directory location on your server
+//$rendererName = PHPExcel_Settings::PDF_RENDERER_TCPDF;
+$rendererName = PHPExcel_Settings::PDF_RENDERER_MPDF;
+//$rendererName = PHPExcel_Settings::PDF_RENDERER_DOMPDF;
+//$rendererLibrary = 'tcPDF5.9';
+$rendererLibrary = 'mPDF5.4';
+//$rendererLibrary = 'domPDF0.6.0beta3';
+$rendererLibraryPath = dirname(__FILE__).'/../../../libraries/PDF/' . $rendererLibrary;
+
+
 // Create new PHPExcel object
 $objPHPExcel = new PHPExcel();
 
@@ -61,10 +72,22 @@ $objPHPExcel->setActiveSheetIndex(0)
 
 // Rename worksheet
 $objPHPExcel->getActiveSheet()->setTitle('Simple');
-
+$objPHPExcel->getActiveSheet()->setShowGridLines(false);
 
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
 $objPHPExcel->setActiveSheetIndex(0);
+
+
+if (!PHPExcel_Settings::setPdfRenderer(
+		$rendererName,
+		$rendererLibraryPath
+	)) {
+	die(
+		'NOTICE: Please set the $rendererName and $rendererLibraryPath values' .
+		PHP_EOL .
+		'at the top of this script as appropriate for your directory structure'
+	);
+}
 
 
 // Redirect output to a client’s web browser (PDF)

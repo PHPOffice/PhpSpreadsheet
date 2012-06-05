@@ -36,17 +36,41 @@ include "05featuredemo.inc.php";
 require_once '../Classes/PHPExcel/IOFactory.php';
 
 
+//	Change these values to select the Rendering library that you wish to use
+//		and its directory location on your server
+//$rendererName = PHPExcel_Settings::PDF_RENDERER_MPDF;
+$rendererName = PHPExcel_Settings::PDF_RENDERER_DOMPDF;
+//$rendererLibrary = 'tcPDF5.9';
+//$rendererLibrary = 'mPDF5.4';
+$rendererLibrary = 'domPDF0.6.0beta3';
+$rendererLibraryPath = dirname(__FILE__).'/../../../libraries/PDF/' . $rendererLibrary;
+
+
 echo date('H:i:s') , " Hide grid lines" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->setShowGridLines(false);
 
 echo date('H:i:s') , " Set orientation to landscape" , PHP_EOL;
 $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
 
-echo date('H:i:s') , " Write to PDF format" , PHP_EOL;
+
+echo date('H:i:s') , " Write to PDF format using {$rendererName}" , PHP_EOL;
+
+if (!PHPExcel_Settings::setPdfRenderer(
+		$rendererName,
+		$rendererLibraryPath
+	)) {
+	die(
+		'NOTICE: Please set the $rendererName and $rendererLibraryPath values' .
+		PHP_EOL .
+		'at the top of this script as appropriate for your directory structure'
+	);
+}
+
+
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'PDF');
 $objWriter->setSheetIndex(0);
-$objWriter->save(str_replace('.php', '.pdf', __FILE__));
-echo date('H:i:s') , " File written to " , str_replace('.php', '.pdf', __FILE__) , PHP_EOL;
+$objWriter->save(str_replace('.php', '_'.$rendererName.'.pdf', __FILE__));
+echo date('H:i:s') , " File written to " , str_replace('.php', '_'.$rendererName.'.pdf', __FILE__) , PHP_EOL;
 
 
 // Echo memory peak usage
