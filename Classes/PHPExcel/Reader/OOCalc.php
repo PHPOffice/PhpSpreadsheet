@@ -303,7 +303,7 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 					$worksheetDataAttributes = $worksheetDataSet->attributes($namespacesContent['table']);
 
 					$tmpInfo = array();
-					$tmpInfo['worksheetName'] = $worksheetDataAttributes['name'];
+					$tmpInfo['worksheetName'] = (string) $worksheetDataAttributes['name'];
 					$tmpInfo['lastColumnLetter'] = 'A';
 					$tmpInfo['lastColumnIndex'] = 0;
 					$tmpInfo['totalRows'] = 0;
@@ -311,43 +311,16 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 
 					$rowIndex = 0;
 					foreach ($worksheetData as $key => $rowData) {
-						$rowHasData = false;
-
 						switch ($key) {
 							case 'table-row' :
 								$columnIndex = 0;
 
 								foreach ($rowData as $key => $cellData) {
-									$cellHasData = false;
-
-									$cellDataText = $cellData->children($namespacesContent['text']);
-									$cellDataOfficeAttributes = $cellData->attributes($namespacesContent['office']);
-									if (isset($cellDataText->p)) {
-										switch ($cellDataOfficeAttributes['value-type']) {
-											case 'string' :
-											case 'boolean' :
-											case 'float' :
-											case 'date' :
-											case 'time' :
-												$cellHasData = true;
-												break;
-										}
-									}
-
-									$cellDataText = null;
-									$cellDataOfficeAttributes = null;
-
-									if ($cellHasData) {
-										$tmpInfo['lastColumnIndex'] = max($tmpInfo['lastColumnIndex'], $columnIndex);
-										$rowHasData = true;
-									}
+									$tmpInfo['lastColumnIndex'] = max($tmpInfo['lastColumnIndex'], $columnIndex);
 									++$columnIndex;
 								}
 								++$rowIndex;
-
-								if ($rowHasData) {
-									$tmpInfo['totalRows'] = max($tmpInfo['totalRows'], $rowIndex);
-								}
+								$tmpInfo['totalRows'] = max($tmpInfo['totalRows'], $rowIndex);
 								break;
 						}
 					}
@@ -560,11 +533,31 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 									}
 
 									if (isset($cellDataText->p)) {
+										// Consolodate if there are multiple p records (maybe with spans as well)
+										$dataArray = array();
+										// Text can have multiple text:p and within those, multiple text:span.
+										// text:p newlines, but text:span does not.
+										// Also, here we assume there is no text data is span fields are specified, since
+										// we have no way of knowing proper positioning anyway.
+										foreach ($cellDataText->p as $pData) {
+											if (isset($pData->span)) {
+												// span sections do not newline, so we just create one large string here
+												$spanSection = "";
+												foreach ($pData->span as $spanData) {
+													$spanSection .= $spanData;
+												}
+												array_push($dataArray, $spanSection);
+											} else {
+												array_push($dataArray, $pData);
+											}
+										}
+										$allCellDataText = implode($dataArray, "\n");
+
 //										echo 'Value Type is '.$cellDataOfficeAttributes['value-type'].'<br />';
 										switch ($cellDataOfficeAttributes['value-type']) {
-											case 'string' :
+ 											case 'string' :
 													$type = PHPExcel_Cell_DataType::TYPE_STRING;
-													$dataValue = $cellDataText->p;
+													$dataValue = $allCellDataText;
 													if (isset($dataValue->a)) {
 														$dataValue = $dataValue->a;
 														$cellXLinkAttributes = $dataValue->attributes($namespacesContent['xlink']);
@@ -573,7 +566,7 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 													break;
 											case 'boolean' :
 													$type = PHPExcel_Cell_DataType::TYPE_BOOL;
-													$dataValue = ($cellDataText->p == 'TRUE') ? True : False;
+													$dataValue = ($allCellDataText == 'TRUE') ? True : False;
 													break;
 											case 'float' :
 													$type = PHPExcel_Cell_DataType::TYPE_NUMERIC;
