@@ -27,8 +27,13 @@
 
 
 /** Require tcPDF library */
-$k_path_url = PHPExcel_Settings::getPdfRendererPath();
-require_once PHPExcel_Settings::getPdfRendererPath() . '/tcpdf.php';
+$pdfRendererClassFile = PHPExcel_Settings::getPdfRendererPath() . '/tcpdf.php';
+if (file_exists($pdfRendererClassFile)) {
+	$k_path_url = PHPExcel_Settings::getPdfRendererPath();
+	require_once $pdfRendererClassFile;
+} else {
+	throw new Exception('Unable to load PDF Rendering library');
+}
 
 /**
  * PHPExcel_Writer_PDF_tcPDF
