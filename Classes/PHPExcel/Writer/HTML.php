@@ -1060,6 +1060,7 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 								array($this, 'formatColor')
 							);
 						}
+						$cellData = htmlspecialchars($cellData);
 						if ($pSheet->getParent()->getCellXfByIndex( $cell->getXfIndex() )->getFont()->getSuperScript()) {
 							$cellData = '<sup>'.$cellData.'</sup>';
 						} elseif ($pSheet->getParent()->getCellXfByIndex( $cell->getXfIndex() )->getFont()->getSubScript()) {
