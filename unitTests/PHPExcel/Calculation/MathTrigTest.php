@@ -304,6 +304,22 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 	}
 
     /**
+     * @dataProvider providerMULTINOMIAL
+     */
+	public function testMULTINOMIAL()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_MathTrig','MULTINOMIAL'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-12);
+	}
+
+    public function providerMULTINOMIAL()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/MathTrig/MULTINOMIAL.data');
+	}
+
+    /**
      * @dataProvider providerMROUND
      */
 	public function testMROUND()
@@ -319,6 +335,38 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function providerMROUND()
     {
     	return new testDataFileIterator('rawTestData/Calculation/MathTrig/MROUND.data');
+	}
+
+    /**
+     * @dataProvider providerPRODUCT
+     */
+	public function testPRODUCT()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_MathTrig','PRODUCT'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-12);
+	}
+
+    public function providerPRODUCT()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/MathTrig/PRODUCT.data');
+	}
+
+    /**
+     * @dataProvider providerQUOTIENT
+     */
+	public function testQUOTIENT()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_MathTrig','QUOTIENT'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-12);
+	}
+
+    public function providerQUOTIENT()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/MathTrig/QUOTIENT.data');
 	}
 
     /**
@@ -351,6 +399,38 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
     public function providerROUNDDOWN()
     {
     	return new testDataFileIterator('rawTestData/Calculation/MathTrig/ROUNDDOWN.data');
+	}
+
+    /**
+     * @dataProvider providerSERIESSUM
+     */
+	public function testSERIESSUM()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_MathTrig','SERIESSUM'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-12);
+	}
+
+    public function providerSERIESSUM()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/MathTrig/SERIESSUM.data');
+	}
+
+    /**
+     * @dataProvider providerSUMSQ
+     */
+	public function testSUMSQ()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_MathTrig','SUMSQ'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-12);
+	}
+
+    public function providerSUMSQ()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/MathTrig/SUMSQ.data');
 	}
 
     /**

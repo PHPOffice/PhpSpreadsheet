@@ -464,6 +464,22 @@ class FinancialTest extends PHPUnit_Framework_TestCase
 	}
 
     /**
+     * @dataProvider providerPRICE
+     */
+	public function testPRICE()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_Financial','PRICE'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-8);
+	}
+
+    public function providerPRICE()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/Financial/PRICE.data');
+	}
+
+    /**
      * @dataProvider providerRATE
      */
 	public function testRATE()
