@@ -324,6 +324,11 @@ class TextDataTest extends PHPUnit_Framework_TestCase
      */
 	public function testTEXT()
 	{
+		//	Enforce decimal and thousands separator values to UK/US, and currency code to USD
+		call_user_func(array('PHPExcel_Shared_String','setDecimalSeparator'),'.');
+		call_user_func(array('PHPExcel_Shared_String','setThousandsSeparator'),',');
+		call_user_func(array('PHPExcel_Shared_String','setCurrencyCode'),'$');
+
 		$args = func_get_args();
 		$expectedResult = array_pop($args);
 		$result = call_user_func_array(array('PHPExcel_Calculation_TextData','TEXTFORMAT'),$args);
