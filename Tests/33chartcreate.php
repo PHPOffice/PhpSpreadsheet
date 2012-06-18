@@ -83,10 +83,13 @@ $plotarea = new PHPExcel_Chart_PlotArea(null, array($series));
 //	Set the chart legend
 $legend = new PHPExcel_Chart_Legend(PHPExcel_Chart_Legend::POSITION_RIGHT, null, false);
 
+$title = new PHPExcel_Chart_Title('Test Chart');
+
+
 //	Create the chart
 $chart = new PHPExcel_Chart(
 	'chart1',		// name
-	null,			// title
+	$title,			// title
 	$legend,		// legend
 	$plotarea,		// plotArea
 	true,			// plotVisibleOnly

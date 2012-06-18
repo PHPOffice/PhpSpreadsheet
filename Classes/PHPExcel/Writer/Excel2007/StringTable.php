@@ -52,7 +52,7 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
 			$aFlippedStringTable = null;	// For faster lookup
 
 			// Is an existing table given?
-			if (!is_null($pExistingTable) && is_array($pExistingTable)) {
+			if (($pExistingTable !== NULL) && is_array($pExistingTable)) {
 				$aStringTable = $pExistingTable;
 			}
 
@@ -94,7 +94,7 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
 	 */
 	public function writeStringTable($pStringTable = null)
 	{
-		if (!is_null($pStringTable)) {
+		if ($pStringTable !== NULL) {
 			// Create XML writer
 			$objWriter = null;
 			if ($this->getParentWriter()->getUseDiskCaching()) {
@@ -225,12 +225,18 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
 	 * Write Rich Text
 	 *
 	 * @param 	PHPExcel_Shared_XMLWriter	$objWriter 		XML Writer
-	 * @param 	PHPExcel_RichText			$pRichText		Rich text
+	 * @param 	string|PHPExcel_RichText	$pRichText		text string or Rich text
 	 * @param 	string						$prefix			Optional Namespace prefix
 	 * @throws 	Exception
 	 */
-	public function writeRichTextForCharts(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_RichText $pRichText = null, $prefix=NULL)
+	public function writeRichTextForCharts(PHPExcel_Shared_XMLWriter $objWriter = null, $pRichText = null, $prefix=NULL)
 	{
+		if (!$pRichText instanceof PHPExcel_RichText) {
+			$textRun = $pRichText;
+			$pRichText = new PHPExcel_RichText();
+			$pRichText->createTextRun($textRun);
+		}
+
 		if ($prefix !== NULL)
 			$prefix .= ':';
 		// Loop through rich text elements
