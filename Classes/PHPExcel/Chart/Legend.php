@@ -49,13 +49,13 @@ class PHPExcel_Chart_Legend
 	const POSITION_TOP		= 't';
 	const POSITION_TOPRIGHT	= 'tr';
 
-	private static $_positionXref = array( self::xlLegendPositionBottom	=> self::POSITION_BOTTOM,
-										   self::xlLegendPositionCorner	=> self::POSITION_TOPRIGHT,
-										   self::xlLegendPositionCustom	=> '??',
-										   self::xlLegendPositionLeft	=> self::POSITION_LEFT,
-										   self::xlLegendPositionRight	=> self::POSITION_RIGHT,
-										   self::xlLegendPositionTop	=> self::POSITION_TOP
-									     );
+	private static $_positionXLref = array( self::xlLegendPositionBottom	=> self::POSITION_BOTTOM,
+											self::xlLegendPositionCorner	=> self::POSITION_TOPRIGHT,
+											self::xlLegendPositionCustom	=> '??',
+											self::xlLegendPositionLeft		=> self::POSITION_LEFT,
+											self::xlLegendPositionRight		=> self::POSITION_RIGHT,
+											self::xlLegendPositionTop		=> self::POSITION_TOP
+										  );
 
 	/**
 	 * Legend position
@@ -69,24 +69,24 @@ class PHPExcel_Chart_Legend
 	 *
 	 * @var	boolean
 	 */
-	private $_overlay = true;
+	private $_overlay = TRUE;
 
 	/**
 	 * Legend Layout
 	 *
 	 * @var	PHPExcel_Chart_Layout
 	 */
-	private $_layout = null;
+	private $_layout = NULL;
 
 
 	/**
 	 *	Create a new PHPExcel_Chart_Legend
 	 */
-	public function __construct($position = null, PHPExcel_Chart_Layout $layout = null, $overlay= false)
+	public function __construct($position = self::POSITION_RIGHT, PHPExcel_Chart_Layout $layout = NULL, $overlay = FALSE)
 	{
-		$this->_position = $position;
+		$this->setPosition($position);
 		$this->_layout = $layout;
-		$this->_overlay = $overlay;
+		$this->setOverlay($overlay);
 	}
 
 	/**
@@ -104,12 +104,11 @@ class PHPExcel_Chart_Legend
 	 * @param	string	$position
 	 */
 	public function setPosition($position = self::POSITION_RIGHT) {
-		if (!in_array($position,self::$positionXref)) {
+		if (!in_array($position,self::$_positionXLref)) {
 			return false;
 		}
 
 		$this->_position = $position;
-
 		return true;
 	}
 
@@ -119,7 +118,7 @@ class PHPExcel_Chart_Legend
 	 * @return	number
 	 */
 	public function getPositionXL() {
-		return array_search($this->_position,self::$positionXref);
+		return array_search($this->_position,self::$_positionXLref);
 	}
 
 	/**
@@ -128,11 +127,11 @@ class PHPExcel_Chart_Legend
 	 * @param	number	$positionXL
 	 */
 	public function setPositionXL($positionXL = self::xlLegendPositionRight) {
-		if (!array_key_exists($positionXL,self::$positionXref)) {
+		if (!array_key_exists($positionXL,self::$_positionXLref)) {
 			return false;
 		}
 
-		$this->_position = self::$positionXref[$positionXL];
+		$this->_position = self::$_positionXLref[$positionXL];
 		return true;
 	}
 
@@ -148,10 +147,16 @@ class PHPExcel_Chart_Legend
 	/**
 	 * Set allow overlay of other elements?
 	 *
-	 * @param	boolean	$value
+	 * @param	boolean	$overlay
+	 * @return	boolean
 	 */
-	public function setOverlay($value=false) {
-		$this->_overlay = $value;
+	public function setOverlay($overlay = FALSE) {
+		if (!is_bool($overlay)) {
+			return false;
+		}
+
+		$this->_overlay = $overlay;
+		return true;
 	}
 
 	/**

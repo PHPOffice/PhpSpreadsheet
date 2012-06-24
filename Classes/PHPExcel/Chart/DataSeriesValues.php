@@ -36,6 +36,14 @@
 class PHPExcel_Chart_DataSeriesValues
 {
 
+	const DATASERIES_TYPE_STRING	= 'String';
+	const DATASERIES_TYPE_NUMBER	= 'Number';
+
+	private static $_dataTypeValues = array(
+		self::DATASERIES_TYPE_STRING,
+		self::DATASERIES_TYPE_NUMBER,
+	);
+
 	/**
 	 * Series Data Type
 	 *
@@ -81,9 +89,9 @@ class PHPExcel_Chart_DataSeriesValues
 	/**
 	 * Create a new PHPExcel_Chart_DataSeriesValues object
 	 */
-	public function __construct($dataType = null, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = array(), $marker = null)
+	public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = array(), $marker = null)
 	{
-		$this->_dataType = $dataType;
+		$this->setDataType($dataType);
 		$this->_dataSource = $dataSource;
 		$this->_formatCode = $formatCode;
 		$this->_pointCount = $pointCount;
@@ -103,10 +111,18 @@ class PHPExcel_Chart_DataSeriesValues
 	/**
 	 * Set Series Data Type
 	 *
-	 * @param	string	$dataType
+	 * @param	string	$dataType	Datatype of this data series
+	 *								Typical values are:
+	 *									PHPExcel_Chart_DataSeriesValues::DATASERIES_TYPE_STRING
+	 *										Normally used for axis point values
+	 *									PHPExcel_Chart_DataSeriesValues::DATASERIES_TYPE_NUMBER
+	 *										Normally used for chart data values
 	 * @return	PHPExcel_Chart_DataSeriesValues
 	 */
-	public function setDataType($dataType = 'Number') {
+	public function setDataType($dataType = self::DATASERIES_TYPE_NUMBER) {
+		if (!in_array($dataType, self::$_dataTypeValues)) {
+    		throw new PHPExcel_Chart_Exception('Invalid datatype for chart data series values');
+		}
 		$this->_dataType = $dataType;
 
 		return $this;

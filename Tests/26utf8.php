@@ -34,6 +34,17 @@ date_default_timezone_set('Europe/London');
 require_once '../Classes/PHPExcel.php';
 
 
+//	Change these values to select the PDF Rendering library that you wish to use
+//		and its directory location on your server
+//$rendererName = PHPExcel_Settings::PDF_RENDERER_TCPDF;
+$rendererName = PHPExcel_Settings::PDF_RENDERER_MPDF;
+//$rendererName = PHPExcel_Settings::PDF_RENDERER_DOMPDF;
+//$rendererLibrary = 'tcPDF5.9';
+$rendererLibrary = 'mPDF5.4';
+//$rendererLibrary = 'domPDF0.6.0beta3';
+$rendererLibraryPath = dirname(__FILE__).'/../../../libraries/PDF/' . $rendererLibrary;
+
+
 // Read from Excel2007 (.xlsx) template
 echo date('H:i:s') , " Load Excel2007 template file" , PHP_EOL;
 $objReader = PHPExcel_IOFactory::createReader('Excel2007');
@@ -61,9 +72,24 @@ echo date('H:i:s') , " File written to " , str_replace('.php', '.htm', __FILE__)
 
 // Export to PDF (.pdf)
 echo date('H:i:s') , " Write to PDF format" , PHP_EOL;
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'PDF');
-$objWriter->save(str_replace('.php', '.pdf', __FILE__));
-echo date('H:i:s') , " File written to " , str_replace('.php', '.pdf', __FILE__) , PHP_EOL;
+try {
+	if (!PHPExcel_Settings::setPdfRenderer(
+		$rendererName,
+		$rendererLibraryPath
+	)) {
+		echo (
+			'NOTICE: Please set the $rendererName and $rendererLibraryPath values' .
+			PHP_EOL .
+			'at the top of this script as appropriate for your directory structure'
+		);
+	} else {
+		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'PDF');
+		$objWriter->save(str_replace('.php', '.pdf', __FILE__));
+		echo date('H:i:s') , " File written to " , str_replace('.php', '.pdf', __FILE__) , PHP_EOL;
+	}
+} catch (Exception $e) {
+	echo date('H:i:s') , ' EXCEPTION: ', $e->getMessage() , PHP_EOL;
+}
 
 // Remove first two rows with field headers before exporting to CSV
 echo date('H:i:s') , " Removing first two heading rows for CSV export" , PHP_EOL;

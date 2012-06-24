@@ -49,18 +49,18 @@ $objWorksheet->fromArray(
 	)
 );
 
-//	Set the Labels for each dataset we want to plot
-$labels = array(
+//	Set the Labels for each data series we want to plot
+$dataseriesLabels = array(
 	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$B$1', null, 1),	//	2010
 	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$C$1', null, 1),	//	2011
 	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$D$1', null, 1),	//	2012
 );
 //	Set the X-Axis Labels
-$categories = array(
+$xAxisTickValues = array(
 	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$A$2:$A$5', null, 4),	//	Q1 to Q4
 );
-//	Set the Data values for each dataset we want to plot
-$values = array(
+//	Set the Data values for each data series we want to plot
+$dataSeriesValues = array(
 	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$B$2:$B$5', null, 4),
 	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$C$2:$C$5', null, 4),
 	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$D$2:$D$5', null, 4),
@@ -70,10 +70,10 @@ $values = array(
 $series = new PHPExcel_Chart_DataSeries(
 	PHPExcel_Chart_DataSeries::TYPE_BARCHART,		// plotType
 	PHPExcel_Chart_DataSeries::GROUPING_CLUSTERED,	// plotGrouping
-	array(0, 1, 2),									// plotOrder
-	$labels,										// plotLabel
-	$categories,									// plotCategory
-	$values											// plotValues
+	range(0, count($dataSeriesValues)-1),			// plotOrder
+	$dataseriesLabels,								// plotLabel
+	$xAxisTickValues,								// plotCategory
+	$dataSeriesValues								// plotValues
 );
 //	Set additional dataseries parameters
 $series->setPlotDirection(PHPExcel_Chart_DataSeries::DIRECTION_COL);
@@ -84,6 +84,7 @@ $plotarea = new PHPExcel_Chart_PlotArea(null, array($series));
 $legend = new PHPExcel_Chart_Legend(PHPExcel_Chart_Legend::POSITION_RIGHT, null, false);
 
 $title = new PHPExcel_Chart_Title('Test Chart');
+$yAxisLabel = new PHPExcel_Chart_Title('Value ($k)');
 
 
 //	Create the chart
@@ -95,7 +96,7 @@ $chart = new PHPExcel_Chart(
 	true,			// plotVisibleOnly
 	0,				// displayBlanksAs
 	null,			// xAxisLabel
-	null			// yAxisLabel
+	$yAxisLabel		// yAxisLabel
 );
 
 //	Set the position where the chart should appear in the worksheet
