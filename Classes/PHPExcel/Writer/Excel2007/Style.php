@@ -245,15 +245,17 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 			$objWriter->startElement('patternFill');
 				$objWriter->writeAttribute('patternType', $pFill->getFillType());
 
-				// fgColor
-				$objWriter->startElement('fgColor');
-				$objWriter->writeAttribute('rgb', $pFill->getStartColor()->getARGB());
-				$objWriter->endElement();
+				if ($pFill->getFillType() !== PHPExcel_Style_Fill::FILL_NONE) {
+					// fgColor
+					$objWriter->startElement('fgColor');
+					$objWriter->writeAttribute('rgb', $pFill->getStartColor()->getARGB());
+					$objWriter->endElement();
 
-				// bgColor
-				$objWriter->startElement('bgColor');
-				$objWriter->writeAttribute('rgb', $pFill->getEndColor()->getARGB());
-				$objWriter->endElement();
+					// bgColor
+					$objWriter->startElement('bgColor');
+					$objWriter->writeAttribute('rgb', $pFill->getEndColor()->getARGB());
+					$objWriter->endElement();
+				}
 
 			$objWriter->endElement();
 

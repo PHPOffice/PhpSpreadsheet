@@ -23,7 +23,7 @@
 **************************************************************************************
 
 
-Fixed in SVN:
+Fixed in develop branch:
 - Feature:  (MBaker)     Refactor PDF Writer to allow use with a choice of PDF Rendering library
                          rather than restricting to tcPDF
                          Current options are tcPDF, mPDF, DomPDF
@@ -33,6 +33,8 @@ Fixed in SVN:
 - Bugfix:   (schir1964)  Fix to listWorksheetInfo() method for OOCalc Reader
 - Bugfix:   (MBaker)     Support for "e" (epoch) date format mask
                          Rendered as a 4-digit CE year in non-Excel outputs
+- Bugfix:   (MBaker)     Work items 15799 and 18278 - Background color cell is always black when editing cell
+
 
 2012-05-19 (v1.7.7):
 - Bugfix:   (Progi1984) Work item 8916 - Support for Rich-Text in PHPExcel_Writer_Excel5
