@@ -460,6 +460,7 @@ class PHPExcel_Style_NumberFormat implements PHPExcel_IComparable
 			//	12-hour suffix
 			'am/pm'	=> 'A',
 			//	4-digit year
+			'e'	=> 'Y',
 			'yyyy'	=> 'Y',
 			//	2-digit year
 			'yy'	=> 'y',

@@ -31,7 +31,8 @@ Fixed in SVN:
 - Feature:  (MBaker)     Initial version of HTML Reader
 - Bugfix:   (cyberconte) Patch 12318 - OOCalc cells containing <text:span> inside the <text:p> tag
 - Bugfix:   (schir1964)  Fix to listWorksheetInfo() method for OOCalc Reader
-
+- Bugfix:   (MBaker)     Support for "e" (epoch) date format mask
+                         Rendered as a 4-digit CE year in non-Excel outputs
 
 2012-05-19 (v1.7.7):
 - Bugfix:   (Progi1984) Work item 8916 - Support for Rich-Text in PHPExcel_Writer_Excel5

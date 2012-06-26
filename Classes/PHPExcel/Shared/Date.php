@@ -253,7 +253,7 @@ class PHPExcel_Shared_Date
 	}	//	function isDateTimeFormat()
 
 
-	private static	$possibleDateFormatCharacters = 'ymdHs';
+	private static	$possibleDateFormatCharacters = 'eymdHs';
 
 	/**
 	 * Is a given number format code a date/time?
