@@ -116,11 +116,22 @@ class PHPExcel_Style_Alignment implements PHPExcel_IComparable
 	 * Create a new PHPExcel_Style_Alignment
 	 *
 	 * @param	boolean	$isSupervisor	Flag indicating if this is a supervisor or not
+	 *									Leave this value at default unless you understand exactly what
+	 *										its ramifications are
+	 * @param	boolean	$isConditional	Flag indicating if this is a conditional style or not
+	 *									Leave this value at default unless you understand exactly what
+	 *										its ramifications are
 	 */
-	public function __construct($isSupervisor = false)
+	public function __construct($isSupervisor = false, $isConditional = false)
 	{
 		// Supervisor?
 		$this->_isSupervisor = $isSupervisor;
+
+		if ($isConditional) {
+			$this->_horizontal		= NULL;
+			$this->_vertical		= NULL;
+			$this->_textRotation	= NULL;
+		}
 	}
 
 	/**

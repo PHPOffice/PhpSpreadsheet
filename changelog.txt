@@ -34,6 +34,7 @@ Fixed in develop branch:
 - Bugfix:   (MBaker)     Support for "e" (epoch) date format mask
                          Rendered as a 4-digit CE year in non-Excel outputs
 - Bugfix:   (MBaker)     Work items 15799 and 18278 - Background color cell is always black when editing cell
+- Bugfix:   (MBaker)     Work items 15905 and 18183 - Allow "no impact" to formats on Conditional Formatting
 
 
 2012-05-19 (v1.7.7):

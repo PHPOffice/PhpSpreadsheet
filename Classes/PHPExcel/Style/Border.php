@@ -90,14 +90,19 @@ class PHPExcel_Style_Border implements PHPExcel_IComparable
 	 * Create a new PHPExcel_Style_Border
 	 *
 	 * @param	boolean	$isSupervisor	Flag indicating if this is a supervisor or not
+	 *									Leave this value at default unless you understand exactly what
+	 *										its ramifications are
+	 * @param	boolean	$isConditional	Flag indicating if this is a conditional style or not
+	 *									Leave this value at default unless you understand exactly what
+	 *										its ramifications are
 	 */
-	public function __construct($isSupervisor = false)
+	public function __construct($isSupervisor = false, $isConditional = false)
 	{
 		// Supervisor?
 		$this->_isSupervisor = $isSupervisor;
 
 		// Initialise values
-		$this->_color			= new PHPExcel_Style_Color(PHPExcel_Style_Color::COLOR_BLACK, $isSupervisor);
+		$this->_color	= new PHPExcel_Style_Color(PHPExcel_Style_Color::COLOR_BLACK, $isSupervisor);
 
 		// bind parent if we are a supervisor
 		if ($isSupervisor) {

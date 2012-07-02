@@ -79,15 +79,22 @@ class PHPExcel_Style_Protection implements PHPExcel_IComparable
      * Create a new PHPExcel_Style_Protection
 	 *
 	 * @param	boolean	$isSupervisor	Flag indicating if this is a supervisor or not
+	 *									Leave this value at default unless you understand exactly what
+	 *										its ramifications are
+	 * @param	boolean	$isConditional	Flag indicating if this is a conditional style or not
+	 *									Leave this value at default unless you understand exactly what
+	 *										its ramifications are
      */
-    public function __construct($isSupervisor = false)
+    public function __construct($isSupervisor = false, $isConditional = false)
     {
     	// Supervisor?
 		$this->_isSupervisor = $isSupervisor;
 
     	// Initialise values
-    	$this->_locked			= self::PROTECTION_INHERIT;
-    	$this->_hidden			= self::PROTECTION_INHERIT;
+		if (!$isConditional) {
+	    	$this->_locked			= self::PROTECTION_INHERIT;
+	    	$this->_hidden			= self::PROTECTION_INHERIT;
+		}
     }
 
 	/**

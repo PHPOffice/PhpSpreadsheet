@@ -689,16 +689,17 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 
 					$dxfs = array();
 					if (!$this->_readDataOnly && $xmlStyles) {
+						//	Conditional Styles
 						if ($xmlStyles->dxfs) {
 							foreach ($xmlStyles->dxfs->dxf as $dxf) {
-								$style = new PHPExcel_Style;
+								$style = new PHPExcel_Style(FALSE, TRUE);
 								self::_readStyle($style, $dxf);
 								$dxfs[] = $style;
 							}
 						}
 
-						if ($xmlStyles->cellStyles)
-						{
+						//	Cell Styles
+						if ($xmlStyles->cellStyles) {
 							foreach ($xmlStyles->cellStyles->cellStyle as $cellStyle) {
 								if (intval($cellStyle['builtinId']) == 0) {
 									if (isset($cellStyles[intval($cellStyle['xfId'])])) {

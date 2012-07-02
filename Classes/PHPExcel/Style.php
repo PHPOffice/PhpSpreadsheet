@@ -108,21 +108,26 @@ class PHPExcel_Style implements PHPExcel_IComparable
     /**
      * Create a new PHPExcel_Style
 	 *
-	 * @param boolean $isSupervisor
+	 * @param	boolean	$isSupervisor	Flag indicating if this is a supervisor or not
+	 *									Leave this value at default unless you understand exactly what
+	 *										its ramifications are
+	 * @param	boolean	$isConditional	Flag indicating if this is a conditional style or not
+	 *									Leave this value at default unless you understand exactly what
+	 *										its ramifications are
      */
-    public function __construct($isSupervisor = false)
+    public function __construct($isSupervisor = false, $isConditional = false)
     {
     	// Supervisor?
 		$this->_isSupervisor = $isSupervisor;
 
 		// Initialise values
     	$this->_conditionalStyles 	= array();
-		$this->_font				= new PHPExcel_Style_Font($isSupervisor);
-		$this->_fill				= new PHPExcel_Style_Fill($isSupervisor);
-		$this->_borders				= new PHPExcel_Style_Borders($isSupervisor);
-		$this->_alignment			= new PHPExcel_Style_Alignment($isSupervisor);
-		$this->_numberFormat		= new PHPExcel_Style_NumberFormat($isSupervisor);
-		$this->_protection			= new PHPExcel_Style_Protection($isSupervisor);
+		$this->_font				= new PHPExcel_Style_Font($isSupervisor, $isConditional);
+		$this->_fill				= new PHPExcel_Style_Fill($isSupervisor, $isConditional);
+		$this->_borders				= new PHPExcel_Style_Borders($isSupervisor, $isConditional);
+		$this->_alignment			= new PHPExcel_Style_Alignment($isSupervisor, $isConditional);
+		$this->_numberFormat		= new PHPExcel_Style_NumberFormat($isSupervisor, $isConditional);
+		$this->_protection			= new PHPExcel_Style_Protection($isSupervisor, $isConditional);
 
 		// bind parent if we are a supervisor
 		if ($isSupervisor) {

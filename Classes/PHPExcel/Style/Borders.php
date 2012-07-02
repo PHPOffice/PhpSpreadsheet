@@ -143,18 +143,23 @@ class PHPExcel_Style_Borders implements PHPExcel_IComparable
      * Create a new PHPExcel_Style_Borders
 	 *
 	 * @param	boolean	$isSupervisor	Flag indicating if this is a supervisor or not
+	 *									Leave this value at default unless you understand exactly what
+	 *										its ramifications are
+	 * @param	boolean	$isConditional	Flag indicating if this is a conditional style or not
+	 *									Leave this value at default unless you understand exactly what
+	 *										its ramifications are
      */
-    public function __construct($isSupervisor = false)
+    public function __construct($isSupervisor = false, $isConditional = false)
     {
     	// Supervisor?
 		$this->_isSupervisor = $isSupervisor;
 
     	// Initialise values
-    	$this->_left				= new PHPExcel_Style_Border($isSupervisor);
-    	$this->_right				= new PHPExcel_Style_Border($isSupervisor);
-    	$this->_top					= new PHPExcel_Style_Border($isSupervisor);
-    	$this->_bottom				= new PHPExcel_Style_Border($isSupervisor);
-    	$this->_diagonal			= new PHPExcel_Style_Border($isSupervisor);
+    	$this->_left				= new PHPExcel_Style_Border($isSupervisor, $isConditional);
+    	$this->_right				= new PHPExcel_Style_Border($isSupervisor, $isConditional);
+    	$this->_top					= new PHPExcel_Style_Border($isSupervisor, $isConditional);
+    	$this->_bottom				= new PHPExcel_Style_Border($isSupervisor, $isConditional);
+    	$this->_diagonal			= new PHPExcel_Style_Border($isSupervisor, $isConditional);
 		$this->_diagonalDirection	= PHPExcel_Style_Borders::DIAGONAL_NONE;
 
 		// Specially for supervisor
