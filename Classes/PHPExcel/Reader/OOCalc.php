@@ -533,7 +533,7 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 									}
 
 									if (isset($cellDataText->p)) {
-										// Consolodate if there are multiple p records (maybe with spans as well)
+										// Consolidate if there are multiple p records (maybe with spans as well)
 										$dataArray = array();
 										// Text can have multiple text:p and within those, multiple text:span.
 										// text:p newlines, but text:span does not.
@@ -597,6 +597,9 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 //										if ($hyperlink !== NULL) {
 //											echo 'Hyperlink is '.$hyperlink.'<br />';
 //										}
+									} else {
+										$type = PHPExcel_Cell_DataType::TYPE_NULL;
+										$dataValue = null;
 									}
 
 									if ($hasCalculatedValue) {
