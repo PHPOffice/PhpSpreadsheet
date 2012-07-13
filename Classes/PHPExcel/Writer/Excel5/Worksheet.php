@@ -390,6 +390,11 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 				$this->_writeColinfo($this->_colinfo[$i]);
 			}
 		}
+		
+		if ($_phpSheet->getAutoFilter() != '') {
+			// Write AUTOFILTERINFO
+			$this->_writeAutoFilterInfo();
+		}
 
 		// Write sheet dimensions
 		$this->_writeDimensions();
@@ -2017,7 +2022,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		$fPrintGrid  = $this->_phpSheet->getPrintGridlines() ? 1 : 0;	// Boolean flag
 
 		$header	  = pack("vv", $record, $length);
-		$data		= pack("v", $fPrintGrid);
+		$data	  = pack("v", $fPrintGrid);
 		$this->_append($header . $data);
 	}
 
@@ -2037,6 +2042,21 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		$this->_append($header . $data);
 	}
 
+	/**
+	 * Write the AUTOFILTERINFO BIFF record. This is used to configure the number of autofilter select used in the sheet.
+	 */
+	private function _writeAutoFilterInfo(){
+		$record	  = 0x009D;						// Record identifier
+		$length	  = 0x0002;						// Bytes to follow
+		
+		$rangeBounds = PHPExcel_Cell::rangeBoundaries($this->_phpSheet->getAutoFilter());
+		$iNumFilters = 1 + $rangeBounds[1][0] - $rangeBounds[0][0];
+
+		$header   = pack("vv", $record, $length);
+		$data     = pack("v",  $iNumFilters);
+		$this->_append($header . $data);
+	}
+	
 	/**
 	 * Write the GUTS BIFF record. This is used to configure the gutter margins
 	 * where Excel outline symbols are displayed. The visibility of the gutters is
@@ -2681,7 +2701,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 			$writer = new PHPExcel_Writer_Excel5_Escher($this->_escher);
 			$data = $writer->close();
 			$spOffsets = $writer->getSpOffsets();
-
+			$spTypes = $writer->getSpTypes();
 			// write the neccesary MSODRAWING, OBJ records
 
 			// split the Escher stream
@@ -2692,7 +2712,6 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 				$record = 0x00EC;			// Record identifier
 
 				// chunk of Escher stream for one shape
-
 				$dataChunk = substr($data, $spOffsets[$i -1], $spOffsets[$i] - $spOffsets[$i - 1]);
 
 				$length = strlen($dataChunk);
@@ -2705,17 +2724,42 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 				$objData = '';
 
 				// ftCmo
-				$objData .=
-					pack('vvvvvVVV'
-						, 0x0015	// 0x0015 = ftCmo
-						, 0x0012	// length of ftCmo data
-						, 0x0008	// object type, 0x0008 = picture
-						, $i		// object id number, Excel seems to use 1-based index, local for the sheet
-						, 0x6011	// option flags, 0x6011 is what OpenOffice.org uses
-						, 0			// reserved
-						, 0			// reserved
-						, 0			// reserved
-					);
+				if($spTypes[$i] == 0x00C9){
+					// Add ftCmo (common object data) subobject
+					$objData .=
+						pack('vvvvvVVV'
+								, 0x0015	// 0x0015 = ftCmo
+								, 0x0012	// length of ftCmo data
+								, 0x0014	// object type, 0x0014 = filter
+								, $i		// object id number, Excel seems to use 1-based index, local for the sheet
+								, 0x2101	// option flags, 0x2001 is what OpenOffice.org uses
+								, 0			// reserved
+								, 0			// reserved
+								, 0			// reserved
+						);
+					
+					// Add ftSbs Scroll bar subobject
+					$objData .= pack('vv', 0x00C, 0x0014);
+					$objData .= pack('H*', '0000000000000000640001000A00000010000100');
+					// Add ftLbsData (List box data) subobject
+					$objData .= pack('vv', 0x0013, 0x1FEE);
+					$objData .= pack('H*', '00000000010001030000020008005700');
+				}
+				else {
+					// Add ftCmo (common object data) subobject
+					$objData .=
+						pack('vvvvvVVV'
+							, 0x0015	// 0x0015 = ftCmo
+							, 0x0012	// length of ftCmo data
+							, 0x0008	// object type, 0x0008 = picture
+							, $i		// object id number, Excel seems to use 1-based index, local for the sheet
+							, 0x6011	// option flags, 0x6011 is what OpenOffice.org uses
+							, 0			// reserved
+							, 0			// reserved
+							, 0			// reserved
+						);
+				}
+				
 				// ftEnd
 				$objData .=
 					pack('vv'

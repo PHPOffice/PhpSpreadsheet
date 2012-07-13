@@ -779,6 +779,19 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 				$chunk .= $this->writeData($this->_writeDefinedNameBiff8(pack('C', 0x06), $formulaData, $i + 1, true));
 			}
 		}
+		
+		// write autofilters, if any
+		for ($i = 0; $i < $total_worksheets; ++$i) {
+			$sheetAutoFilter = $this->_phpExcel->getSheet($i)->getAutoFilter();
+			if($sheetAutoFilter != ''){
+				$rangeBounds = PHPExcel_Cell::rangeBoundaries($sheetAutoFilter);
+				
+				//Autofilter built in name
+				$name = pack('C', 0x0D);
+				
+				$chunk .= $this->writeData($this->_writeShortNameBiff8($name, $i + 1, $rangeBounds, true));
+			}
+		}
 
 		return $chunk;
 	}
@@ -815,6 +828,42 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 
 		$header = pack('vv', $record, $length);
 
+		return $header . $data;
+	}
+	
+	/**
+	 * Write a short NAME record
+	 *
+	 * @param	string		$name
+	 * @param	string		$sheetIndex		1-based sheet index the defined name applies to. 0 = global
+	 * @param	int[][]     $range          rangeboundaries
+	 * @param	bool        $isHidden
+	 * @return	string	Complete binary record data
+	 * */
+	private function _writeShortNameBiff8($name, $sheetIndex = 0, $rangeBounds, $isHidden = false){
+		$record = 0x0018;
+	
+		// option flags
+		$options = ($isHidden  ? 0x21 : 0x00);
+	
+		$extra  = pack('Cvvvvv',
+				0x3B,
+				$sheetIndex - 1,
+				$rangeBounds[0][1] - 1,
+				$rangeBounds[1][1] - 1,
+				$rangeBounds[0][0] - 1,
+				$rangeBounds[1][0] - 1);
+	
+		// size of the formula (in bytes)
+		$sz = strlen($extra);
+	
+		// combine the parts
+		$data = pack('vCCvvvCCCCC', $options, 0, 1, $sz, 0, $sheetIndex, 0, 0, 0, 0, 0)
+			. $name . $extra;
+		$length = strlen($data);
+	
+		$header = pack('vv', $record, $length);
+	
 		return $header . $data;
 	}
 

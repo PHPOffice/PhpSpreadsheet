@@ -52,7 +52,13 @@ class PHPExcel_Writer_Excel5_Escher
 	 */
 	private $_spOffsets;
 
-
+	/**
+	 * Shape types.
+	 *
+	 * @var array
+	 */
+	private $_spTypes;
+	
 	/**
 	 * Constructor
 	 *
@@ -81,6 +87,7 @@ class PHPExcel_Writer_Excel5_Escher
 				$writer = new PHPExcel_Writer_Excel5_Escher($dgContainer);
 				$this->_data = $writer->close();
 				$this->_spOffsets = $writer->getSpOffsets();
+				$this->_spTypes = $writer->getSpTypes();
 			}
 			break;
 
@@ -307,13 +314,15 @@ class PHPExcel_Writer_Excel5_Escher
 
 				// get the shape offsets relative to the spgrContainer record
 				$spOffsets = $writer->getSpOffsets();
-
+				$spTypes   = $writer->getSpTypes();
+				
 				// save the shape offsets relative to dgContainer
 				foreach ($spOffsets as & $spOffset) {
 					$spOffset += 24; // add length of dgContainer header data (8 bytes) plus dg data (16 bytes)
 				}
 
 				$this->_spOffsets = $spOffsets;
+				$this->_spTypes = $spTypes;
 			}
 
 			// write the record
@@ -339,6 +348,7 @@ class PHPExcel_Writer_Excel5_Escher
 			// initialize spape offsets
 			$totalSize = 8;
 			$spOffsets = array();
+			$spTypes   = array();
 
 			// treat the inner data
 			foreach ($this->_object->getChildren() as $spContainer) {
@@ -349,6 +359,8 @@ class PHPExcel_Writer_Excel5_Escher
 				// save the shape offsets (where new shape records begin)
 				$totalSize += strlen($spData);
 				$spOffsets[] = $totalSize;
+				
+				$spTypes = array_merge($spTypes, $writer->getSpTypes());
 			}
 
 			// write the record
@@ -364,6 +376,7 @@ class PHPExcel_Writer_Excel5_Escher
 
 			$this->_data = $header . $innerData;
 			$this->_spOffsets = $spOffsets;
+			$this->_spTypes = $spTypes;
 			break;
 
 		case 'PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer':
@@ -386,6 +399,7 @@ class PHPExcel_Writer_Excel5_Escher
 
 				$data .= $header . pack('VVVV', 0,0,0,0);
 			}
+			$this->_spTypes[] = ($this->_object->getSpType());
 
 			// write the shape record
 			$recVer			= 0x2;
@@ -450,10 +464,10 @@ class PHPExcel_Writer_Excel5_Escher
 				// end offsetY
 				$endOffsetY = $this->_object->getEndOffsetY();
 
-				$clientAnchorData = pack('vvvvvvvvv', 0x02,
+				$clientAnchorData = pack('vvvvvvvvv', $this->_object->getSpFlag(),
 					$c1, $startOffsetX, $r1, $startOffsetY,
 					$c2, $endOffsetX, $r2, $endOffsetY);
-
+				
 				$length			= strlen($clientAnchorData);
 
 				$recVerInstance  = $recVer;
@@ -509,4 +523,15 @@ class PHPExcel_Writer_Excel5_Escher
 		return $this->_spOffsets;
 	}
 
+	/**
+	 * Gets the shape types
+	 *
+	 * @return array
+	 */
+	public function getSpTypes()
+	{
+		return $this->_spTypes;
+	}
+	
+	
 }
