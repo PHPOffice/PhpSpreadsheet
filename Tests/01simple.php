@@ -42,10 +42,10 @@ $objPHPExcel = new PHPExcel();
 echo date('H:i:s') , " Set document properties" , PHP_EOL;
 $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 							 ->setLastModifiedBy("Maarten Balliauw")
-							 ->setTitle("Office 2007 XLSX Test Document")
-							 ->setSubject("Office 2007 XLSX Test Document")
-							 ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
-							 ->setKeywords("office 2007 openxml php")
+							 ->setTitle("PHPExcel Test Document")
+							 ->setSubject("PHPExcel Test Document")
+							 ->setDescription("Test document for PHPExcel, generated using PHP classes.")
+							 ->setKeywords("office PHPExcel php")
 							 ->setCategory("Test result file");
 
 
@@ -76,6 +76,11 @@ echo date('H:i:s') , " Write to Excel2007 format" , PHP_EOL;
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', __FILE__) , PHP_EOL;
+// Save Excel5 file
+echo date('H:i:s') , " Write to Excel5 format" , PHP_EOL;
+$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter->save(str_replace('.php', '.xls', __FILE__));
+echo date('H:i:s') , " File written to " , str_replace('.php', '.xls', __FILE__) , PHP_EOL;
 
 
 // Echo memory peak usage
