@@ -405,7 +405,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
 		$args = func_get_args();
 		$expectedResult = array_pop($args);
 		$result = call_user_func_array(array('PHPExcel_Calculation_Engineering','ERF'),$args);
-		$this->assertEquals($expectedResult, $result, NULL, 1E-6);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-12);
 	}
 
     public function providerERF()
@@ -421,7 +421,7 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
 		$args = func_get_args();
 		$expectedResult = array_pop($args);
 		$result = call_user_func_array(array('PHPExcel_Calculation_Engineering','ERFC'),$args);
-		$this->assertEquals($expectedResult, $result, NULL, 1E-6);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-12);
 	}
 
     public function providerERFC()

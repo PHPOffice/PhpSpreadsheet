@@ -30,6 +30,7 @@ Fixed in develop branch:
                          tcPDF Library has now been removed from the deployment bundle
 - Feature:  (MBaker)     Initial version of HTML Reader
 - Feature:  (Progi1984) & (blazzy) Work items 9605 - Implement support for AutoFilter in PHPExcel_Writer_Excel5
+- Feature:  (MBaker)     Modified ERF and ERFC Engineering functions to accept Excel 2010's modified acceptance of negative arguments
 - Bugfix:   (cyberconte) Patch 12318 - OOCalc cells containing <text:span> inside the <text:p> tag
 - Bugfix:   (schir1964)  Fix to listWorksheetInfo() method for OOCalc Reader
 - Bugfix:   (MBaker)     Support for "e" (epoch) date format mask

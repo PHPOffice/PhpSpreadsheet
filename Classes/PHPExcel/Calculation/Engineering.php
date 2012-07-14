@@ -771,24 +771,25 @@ class PHPExcel_Calculation_Engineering {
 
 
 	/**
-	 * BESSELI
+	 *	BESSELI
 	 *
-	 * Returns the modified Bessel function, which is equivalent to the Bessel function evaluated for
-	 * purely imaginary arguments
+	 *	Returns the modified Bessel function, which is equivalent to the Bessel function evaluated for
+	 *		purely imaginary arguments
 	 *
-	 * Excel Function:
+	 *	Excel Function:
 	 *		BESSELI(x,ord)
 	 *
-	 * @access	public
-	 * @category Engineering Functions
-	 * @param	float		$x		The value at which to evaluate the function.
+	 *	@access	public
+	 *	@category Engineering Functions
+	 *	@param	float		$x		The value at which to evaluate the function.
 	 *								If x is nonnumeric, BESSELI returns the #VALUE! error value.
-	 * @param	integer		$ord	The order of the Bessel function. If n is not an integer, it is truncated.
+	 *	@param	integer		$ord	The order of the Bessel function. If n is not an integer, it is truncated.
 	 *								If $ord is nonnumeric, BESSELI returns the #VALUE! error value.
 	 *								If $ord < 0, BESSELI returns the #NUM! error value.
-	 * @return	float
+	 *	@return	float
 	 *
-	 * @TODO Better handling of the approximation method to support the differences between Excel/Gnumeric and Open/Libre Office
+	 *	@TODO Better handling of the approximation method to support the differences between Excel/Gnumeric
+	 *		and Open/Libre Office
 	 *
 	 */
 	public static function BESSELI($x, $ord) {
@@ -2259,33 +2260,32 @@ class PHPExcel_Calculation_Engineering {
 
 
 	/**
-	 * ERF
+	 *	ERF
 	 *
-	 * Returns the error function integrated between lower_limit and upper_limit
+	 *	Returns the error function integrated between the lower and upper bound arguments.
 	 *
-	 * Excel Function:
+	 *	Note: In Excel 2007 or earlier, if you input a negative value for the upper or lower bound arguments,
+	 *			the function would return a #NUM! error. However, in Excel 2010, the function algorithm was
+	 *			improved, so that it can now calculate the function for both positive and negative ranges.
+	 *			PHPExcel follows Excel 2010 behaviour, and accepts nagative arguments.
+	 *
+	 *	Excel Function:
 	 *		ERF(lower[,upper])
 	 *
-	 * @param	float		$lower	lower bound for integrating ERF
-	 * @param	float		$upper	upper bound for integrating ERF.
+	 *	@param	float		$lower	lower bound for integrating ERF
+	 *	@param	float		$upper	upper bound for integrating ERF.
 	 *								If omitted, ERF integrates between zero and lower_limit
-	 * @return	int
+	 *	@return	float
 	 */
-	public static function ERF($lower, $upper = null) {
+	public static function ERF($lower, $upper = NULL) {
 		$lower	= PHPExcel_Calculation_Functions::flattenSingleValue($lower);
 		$upper	= PHPExcel_Calculation_Functions::flattenSingleValue($upper);
 
 		if (is_numeric($lower)) {
-			if ($lower < 0) {
-				return PHPExcel_Calculation_Functions::NaN();
-			}
 			if (is_null($upper)) {
 				return self::_erfVal($lower);
 			}
 			if (is_numeric($upper)) {
-				if ($upper < 0) {
-					return PHPExcel_Calculation_Functions::NaN();
-				}
 				return self::_erfVal($upper) - self::_erfVal($lower);
 			}
 		}
@@ -2326,23 +2326,25 @@ class PHPExcel_Calculation_Engineering {
 
 
 	/**
-	 * ERFC
+	 *	ERFC
 	 *
-	 * Returns the complementary ERF function integrated between x and infinity
+	 *	Returns the complementary ERF function integrated between x and infinity
 	 *
-	 * Excel Function:
+	 *	Note: In Excel 2007 or earlier, if you input a negative value for the lower bound argument,
+	 *		the function would return a #NUM! error. However, in Excel 2010, the function algorithm was
+	 *		improved, so that it can now calculate the function for both positive and negative x values.
+	 *			PHPExcel follows Excel 2010 behaviour, and accepts nagative arguments.
+	 *
+	 *	Excel Function:
 	 *		ERF(x)
 	 *
-	 * @param	float		$x		The lower bound for integrating ERF
-	 * @return	int
+	 *	@param	float	$x	The lower bound for integrating ERF
+	 *	@return	float
 	 */
 	public static function ERFC($x) {
-		$x	= PHPExcel_Calculation_Functions::flattenSingleValue($x);
+		$x = PHPExcel_Calculation_Functions::flattenSingleValue($x);
 
 		if (is_numeric($x)) {
-			if ($x < 0) {
-				return PHPExcel_Calculation_Functions::NaN();
-			}
 			return self::_erfcVal($x);
 		}
 		return PHPExcel_Calculation_Functions::VALUE();
