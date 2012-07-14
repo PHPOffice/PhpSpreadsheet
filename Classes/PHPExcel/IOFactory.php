@@ -225,20 +225,24 @@ class PHPExcel_IOFactory
 
 		if (isset($pathinfo['extension'])) {
 			switch (strtolower($pathinfo['extension'])) {
-				case 'xlsx':
+				case 'xlsx':			//	Excel (OfficeOpenXML) Spreadsheet
+				case 'xlsm':			//	Excel (OfficeOpenXML) Macro Spreadsheet (macros will be discarded)
+				case 'xltx':			//	Excel (OfficeOpenXML) Template
+				case 'xltm':			//	Excel (OfficeOpenXML) Macro Template (macros will be discarded)
 					$extensionType = 'Excel2007';
 					break;
-				case 'xls':
-				case 'xlsm':
+				case 'xls':				//	Excel (BIFF) Spreadsheet
+				case 'xlt':				//	Excel (BIFF) Template
 					$extensionType = 'Excel5';
 					break;
-				case 'ods':
+				case 'ods':				//	Open/Libre Offic Calc
+				case 'ots':				//	Open/Libre Offic Calc Template
 					$extensionType = 'OOCalc';
 					break;
 				case 'slk':
 					$extensionType = 'SYLK';
 					break;
-				case 'xml':
+				case 'xml':				//	Excel 2003 SpreadSheetML
 					$extensionType = 'Excel2003XML';
 					break;
 				case 'gnumeric':
