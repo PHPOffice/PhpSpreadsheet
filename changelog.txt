@@ -37,6 +37,7 @@ Fixed in develop branch:
 - Bugfix:   (MBaker)     Work items 15799 and 18278 - Background color cell is always black when editing cell
 - Bugfix:   (MBaker)     Work items 15905 and 18183 - Allow "no impact" to formats on Conditional Formatting
 - Bugfix:   (wackonline) OOCalc Reader fix for NULL cells
+- Bugfix:   (seltzlab)   Fix to excel2007 Chart Writer when a $plotSeriesValues is empty
 
 
 2012-05-19 (v1.7.7):
