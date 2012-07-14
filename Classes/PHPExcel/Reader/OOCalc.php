@@ -198,14 +198,20 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 		$zip = new ZipArchive;
 		if ($zip->open($pFilename) === true) {
 			// check if it is an OOXML archive
-			$mimeType = $zip->getFromName("mimetype");
+			$stat = $zip->statName('mimetype');
+			if ($stat && ($stat['size'] <= 255)) {
+				$mimeType = $zip->getFromName($stat['name']);
+			} else {
+				$zip->close();
+				return FALSE;
+			}
 
 			$zip->close();
 
 			return ($mimeType === 'application/vnd.oasis.opendocument.spreadsheet');
 		}
 
-		return false;
+		return FALSE;
 	}
 
 
