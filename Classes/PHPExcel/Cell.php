@@ -273,6 +273,8 @@ class PHPExcel_Cell
 	/**
 	 * Get calculated cell value
 	 *
+	 *	@deprecated		Since version 1.7.8 for planned changes to cell for array formula handling
+	 *
 	 * @return mixed
 	 */
 	public function getCalculatedValue($resetLog=true)
@@ -311,6 +313,8 @@ class PHPExcel_Cell
 
 	/**
 	 * Set calculated value (used for caching)
+	 *
+	 *	@deprecated		Since version 1.7.8 for planned changes to cell for array formula handling
 	 *
 	 * @param mixed $pValue	Value
 	 * @return PHPExcel_Cell
@@ -880,13 +884,18 @@ class PHPExcel_Cell
 		return $this->notifyCacheController();
 	}
 
-
+	/**
+	 *	@deprecated		Since version 1.7.8 for planned changes to cell for array formula handling
+	 */
 	public function setFormulaAttributes($pAttributes)
 	{
 		$this->_formulaAttributes = $pAttributes;
 		return $this;
 	}
 
+	/**
+	 *	@deprecated		Since version 1.7.8 for planned changes to cell for array formula handling
+	 */
 	public function getFormulaAttributes()
 	{
 		return $this->_formulaAttributes;

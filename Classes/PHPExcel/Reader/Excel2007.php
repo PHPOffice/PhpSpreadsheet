@@ -1187,7 +1187,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 							if ($xmlSheet && $xmlSheet->colBreaks && $xmlSheet->colBreaks->brk && !$this->_readDataOnly) {
 								foreach ($xmlSheet->colBreaks->brk as $brk) {
 									if ($brk["man"]) {
-										$docSheet->setBreak(PHPExcel_Cell::stringFromColumnIndex($brk["id"]) . "1", PHPExcel_Worksheet::BREAK_COLUMN);
+										$docSheet->setBreak(PHPExcel_Cell::stringFromColumnIndex((string) $brk["id"]) . "1", PHPExcel_Worksheet::BREAK_COLUMN);
 									}
 								}
 							}

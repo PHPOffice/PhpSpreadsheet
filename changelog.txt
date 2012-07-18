@@ -23,6 +23,54 @@
 **************************************************************************************
 
 
+--------------------------------------------------------------------------------
+BREAKING CHANGE! As part of the planned changes for handling array formulae in
+workbooks, there are some changes that will affect the PHPExcel_Cell object 
+methods.
+
+The following methods are now deprecated, and will be removed in version 1.7.9:
+    getCalculatedValue()      The getValue() method will return calculated
+                                  values for cells containing formulae instead.
+    setCalculatedValue()      The cell value will always contain the result of a
+                                  any formula calculation.
+    setFormulaAttributes()    Will now be determined by the arguments to the
+                                  setFormula() method.
+    getFormulaAttributes()    This will be replaced by the getArrayFormulaRange()
+                                  method.
+
+The following methods will be added in version 1.7.9
+    getFormula()              Use to retrieve a cell formula, will return the cell
+                                  value if the cell doesn't contain a formula, or
+                                  is not part of an array formula range.
+    setFormula()              Use to set a cell formula. It will still be possible
+                                  to set formulae using the setValue() and 
+                                  setValueExplicit() methods.
+    calculate()               Use to execute a formula calculation to update the
+                                  cell value.
+    isFormula()               Use to determine if a cell contains a formula, or is
+                                  part of an array formula range or not.
+    isArrayFormula()          Use to determine if a cell contains an array formula, 
+                                 or is part of an array formula range or not.
+    getArrayFormulaRange()    Use to retrieve an array formula range.
+
+The following methods will be changed in version 1.7.9
+    setValue()                The logic behind this will be modified to store
+                                  formula values in the new cell property structure,
+                                  but it will still perform the same function.
+    setValueExplicit()        The logic behind this will be modified to store
+                                  formula values in the new cell property structure,
+                                  but it will still perform the same function.
+    getValue()                Will no longer return a formula if the cell contains 
+                                  a formula, but will return the calculated value
+                                  instead. For cells that don't contain a formula,
+                                  it will still return the stored value.
+    getDataType()             Will return the datatype of the calculated value for
+                                  cells that contain formulae.
+    setDataType()             Error handling will be added to prevent setting a
+                                  cell datatype to an inappropriate value.
+--------------------------------------------------------------------------------
+
+
 Fixed in develop branch:
 - Feature:  (MBaker)     Refactor PDF Writer to allow use with a choice of PDF Rendering library
                          rather than restricting to tcPDF
@@ -39,6 +87,7 @@ Fixed in develop branch:
 - Bugfix:   (MBaker)     Work items 15905 and 18183 - Allow "no impact" to formats on Conditional Formatting
 - Bugfix:   (wackonline) OOCalc Reader fix for NULL cells
 - Bugfix:   (seltzlab)   Fix to excel2007 Chart Writer when a $plotSeriesValues is empty
+- Bugfix:   (MBaker)     Work item 18370 - Error loading xlsx file with column breaks
 
 
 2012-05-19 (v1.7.7):
