@@ -282,7 +282,7 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 			$escher = null;
 
 			// check if there are any shapes for this sheet
-			if (count($sheet->getDrawingCollection()) == 0 && $sheet->getAutoFilter() == '') {
+			if (count($sheet->getDrawingCollection()) == 0 && $sheet->getAutoFilter()->getRange() === '') {
 				continue;
 			}
 
@@ -358,43 +358,43 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 
 				$spgrContainer->addChild($spContainer);
 			}
-			
+
 			// AutoFilters
-			if($sheet->getAutoFilter() != ''){
-				$rangeBounds = PHPExcel_Cell::rangeBoundaries($sheet->getAutoFilter());
+			if($sheet->getAutoFilter()->getRange() !== ''){
+				$rangeBounds = PHPExcel_Cell::rangeBoundaries($sheet->getAutoFilter()->getRange());
 				$iNumColStart = $rangeBounds[0][0];
 				$iNumColEnd = $rangeBounds[1][0];
-				
+
 				$iInc = $iNumColStart;
 				while($iInc <= $iNumColEnd){
 					++$countShapes[$sheetIndex];
-					
+
 					// create an Drawing Object for the dropdown
 					$oDrawing  = new PHPExcel_Worksheet_BaseDrawing();
 					// get the coordinates of drawing
 					$cDrawing   = PHPExcel_Cell::stringFromColumnIndex($iInc - 1) . $rangeBounds[0][1];
 					$oDrawing->setCoordinates($cDrawing);
 					$oDrawing->setWorksheet($sheet);
-					
+
 					// add the shape
 					$spContainer = new PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer();
 					// set the shape type
 					$spContainer->setSpType(0x00C9);
 					// set the shape flag
 					$spContainer->setSpFlag(0x01);
-					
+
 					// set the shape index (we combine 1-based sheet index and $countShapes to create unique shape index)
 					$reducedSpId = $countShapes[$sheetIndex];
 					$spId = $reducedSpId
 						| ($sheet->getParent()->getIndex($sheet) + 1) << 10;
 					$spContainer->setSpId($spId);
-					
+
 					// keep track of last reducedSpId
 					$lastReducedSpId = $reducedSpId;
-					
+
 					// keep track of last spId
 					$lastSpId = $spId;
-					
+
 					$spContainer->setOPT(0x007F, 0x01040104); // Protection -> fLockAgainstGrouping
 					$spContainer->setOPT(0x00BF, 0x00080008); // Text -> fFitTextToShape
 					$spContainer->setOPT(0x01BF, 0x00010000); // Fill Style -> fNoFillHitTest
@@ -411,7 +411,7 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 					$spContainer->setEndCoordinates($endCoordinates);
 					$spContainer->setEndOffsetX(0);
 					$spContainer->setEndOffsetY(0);
-					
+
 					$spgrContainer->addChild($spContainer);
 					$iInc++;
 				}

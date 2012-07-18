@@ -1098,7 +1098,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 							}
 
 							if ($xmlSheet && $xmlSheet->autoFilter && !$this->_readDataOnly) {
-								$docSheet->setAutoFilter((string) $xmlSheet->autoFilter["ref"]);
+								$docSheet->getAutoFilter()->setRange((string) $xmlSheet->autoFilter["ref"]);
 							}
 
 							if ($xmlSheet && $xmlSheet->mergeCells && $xmlSheet->mergeCells->mergeCell && !$this->_readDataOnly) {
@@ -1560,7 +1560,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 										switch ((string)$definedName['name']) {
 
 											case '_xlnm._FilterDatabase':
-												$docSheet->setAutoFilter($extractedRange);
+												$docSheet->getAutoFilter()->setRange($extractedRange);
 												break;
 
 											case '_xlnm.Print_Titles':

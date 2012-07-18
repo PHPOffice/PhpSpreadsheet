@@ -200,11 +200,11 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	private $_protectedCells = array();
 
 	/**
-	 * Autofilter Range
+	 * Autofilter Range and selection
 	 *
-	 * @var string
+	 * @var PHPExcel_Worksheet_AutoFilter
 	 */
-	private $_autoFilter = '';
+	private $_autoFilter = NULL;
 
 	/**
 	 * Freeze pane
@@ -365,7 +365,9 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		$this->_defaultRowDimension = new PHPExcel_Worksheet_RowDimension(null);
 
 		// Default column dimension
-		$this->_defaultColumnDimension = new PHPExcel_Worksheet_ColumnDimension(null);
+		$this->_defaultColumnDimension	= new PHPExcel_Worksheet_ColumnDimension(null);
+
+		$this->_autoFilter			= new PHPExcel_Worksheet_AutoFilter();
 	}
 
 
@@ -1832,9 +1834,9 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	}
 
 	/**
-	 * Get Autofilter Range
+	 *	Get Autofilter
 	 *
-	 * @return string
+	 *	@return PHPExcel_Worksheet_AutoFilter
 	 */
 	public function getAutoFilter()
 	{
@@ -1842,35 +1844,32 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	}
 
 	/**
-	 * Set Autofilter Range
+	 *	Set AutoFilter
 	 *
-	 * @param	string		$pRange		Cell range (i.e. A1:E10)
-	 * @throws	Exception
-	 * @return PHPExcel_Worksheet
+	 *	@param	PHPExcel_Worksheet_AutoFilter|string	$pValue
+	 *			A simple string containing a Cell range like 'A1:E10' is permitted for backward compatibility
+	 *	@throws	Exception
+	 *	@return PHPExcel_Worksheet
 	 */
-	public function setAutoFilter($pRange = '')
+	public function setAutoFilter($pValue)
 	{
-		// Uppercase coordinate
-		$pRange = strtoupper($pRange);
-
-		if (strpos($pRange,':') !== false) {
-			$this->_autoFilter = $pRange;
-			$this->_dirty = true;
-		} else {
-			throw new Exception('Autofilter must be set on a range of cells.');
+		if (is_string($pValue)) {
+			$this->_autoFilter->setRange($pValue);
+		} elseif(is_object($pValue) && ($pValue instanceof PHPExcel_Worksheet_AutoFilter)) {
+			$this->_autoFilter = $pValue;
 		}
 		return $this;
 	}
 
 	/**
-	 * Set Autofilter Range by using numeric cell coordinates
+	 *	Set Autofilter Range by using numeric cell coordinates
 	 *
-	 * @param	int	$pColumn1	Numeric column coordinate of the first cell
-	 * @param	int	$pRow1		Numeric row coordinate of the first cell
-	 * @param	int	$pColumn2	Numeric column coordinate of the second cell
-	 * @param	int	$pRow2		Numeric row coordinate of the second cell
-	 * @throws	Exception
-	 * @return PHPExcel_Worksheet
+	 *	@param	int	$pColumn1	Numeric column coordinate of the first cell
+	 *	@param	int	$pRow1		Numeric row coordinate of the first cell
+	 *	@param	int	$pColumn2	Numeric column coordinate of the second cell
+	 *	@param	int	$pRow2		Numeric row coordinate of the second cell
+	 *	@throws	Exception
+	 *	@return PHPExcel_Worksheet
 	 */
 	public function setAutoFilterByColumnAndRow($pColumn1 = 0, $pRow1 = 1, $pColumn2 = 0, $pRow2 = 1)
 	{

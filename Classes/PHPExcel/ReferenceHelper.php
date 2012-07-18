@@ -312,8 +312,8 @@ class PHPExcel_ReferenceHelper
 
 
 		// Update worksheet: autofilter
-		if ($pSheet->getAutoFilter() != '') {
-			$pSheet->setAutoFilter( $this->updateCellReference($pSheet->getAutoFilter(), $pBefore, $pNumCols, $pNumRows) );
+		if ($pSheet->getAutoFilter()->getRange() !== '') {
+			$pSheet->setAutoFilter( $this->updateCellReference($pSheet->getAutoFilter()->getRange(), $pBefore, $pNumCols, $pNumRows) );
 		}
 
 

@@ -725,12 +725,12 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 	 */
 	private function _writeAutoFilter(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_Worksheet $pSheet = null)
 	{
-		if ($pSheet->getAutoFilter() != '') {
+		if ($pSheet->getAutoFilter()->getRange() !== '') {
 			// autoFilter
 			$objWriter->startElement('autoFilter');
 
 			// Strip any worksheet reference from the filter coordinates
-			$range = PHPExcel_Cell::splitRange($pSheet->getAutoFilter());
+			$range = PHPExcel_Cell::splitRange($pSheet->getAutoFilter()->getRange());
 			$range = $range[0];
 			//	Strip any worksheet ref
 			if (strpos($range[0],'!') !== false) {

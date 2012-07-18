@@ -390,8 +390,8 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 				$this->_writeColinfo($this->_colinfo[$i]);
 			}
 		}
-		
-		if ($_phpSheet->getAutoFilter() != '') {
+
+		if ($_phpSheet->getAutoFilter()->getRange() !== '') {
 			// Write AUTOFILTERINFO
 			$this->_writeAutoFilterInfo();
 		}
@@ -2048,15 +2048,15 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 	private function _writeAutoFilterInfo(){
 		$record	  = 0x009D;						// Record identifier
 		$length	  = 0x0002;						// Bytes to follow
-		
-		$rangeBounds = PHPExcel_Cell::rangeBoundaries($this->_phpSheet->getAutoFilter());
+
+		$rangeBounds = PHPExcel_Cell::rangeBoundaries($this->_phpSheet->getAutoFilter()->getRange());
 		$iNumFilters = 1 + $rangeBounds[1][0] - $rangeBounds[0][0];
 
 		$header   = pack("vv", $record, $length);
 		$data     = pack("v",  $iNumFilters);
 		$this->_append($header . $data);
 	}
-	
+
 	/**
 	 * Write the GUTS BIFF record. This is used to configure the gutter margins
 	 * where Excel outline symbols are displayed. The visibility of the gutters is
@@ -2737,7 +2737,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 								, 0			// reserved
 								, 0			// reserved
 						);
-					
+
 					// Add ftSbs Scroll bar subobject
 					$objData .= pack('vv', 0x00C, 0x0014);
 					$objData .= pack('H*', '0000000000000000640001000A00000010000100');
@@ -2759,7 +2759,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 							, 0			// reserved
 						);
 				}
-				
+
 				// ftEnd
 				$objData .=
 					pack('vv'
