@@ -64,7 +64,8 @@ class PHPExcel_Reader_Excel2007_Chart
 		$namespacesChartMeta = $chartElements->getNamespaces(true);
 		$chartElementsC = $chartElements->children($namespacesChartMeta['c']);
 
-		$XaxisLabel = $YaxisLabel = $legend = $title = null;
+		$XaxisLabel = $YaxisLabel = $legend = $title = NULL;
+		$dispBlanksAs = $plotVisOnly = NULL;
 
 		foreach($chartElementsC as $chartElementKey => $chartElement) {
 			switch ($chartElementKey) {

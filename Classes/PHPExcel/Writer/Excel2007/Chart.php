@@ -955,14 +955,19 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 
 					$dataValues = $plotSeriesValues->getDataValues();
 					if (!empty($dataValues)) {
-						foreach($dataValues as $plotSeriesKey => $plotSeriesValue) {
-							$objWriter->startElement('c:pt');
-								$objWriter->writeAttribute('idx', $plotSeriesKey );
+						if (!is_array($dataValues)) {
+							var_dump($dataValues);
+						}
+						if (is_array($dataValues)) {
+							foreach($dataValues as $plotSeriesKey => $plotSeriesValue) {
+								$objWriter->startElement('c:pt');
+									$objWriter->writeAttribute('idx', $plotSeriesKey );
 
-								$objWriter->startElement('c:v');
-									$objWriter->writeRawData( $plotSeriesValue );
+									$objWriter->startElement('c:v');
+										$objWriter->writeRawData( $plotSeriesValue );
+									$objWriter->endElement();
 								$objWriter->endElement();
-							$objWriter->endElement();
+							}
 						}
 					}
 
