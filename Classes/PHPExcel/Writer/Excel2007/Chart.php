@@ -849,7 +849,7 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 				}
 
 				if ($groupType === PHPExcel_Chart_DataSeries::TYPE_BUBBLECHART) {
-					$this->_writeBubbles($plotSeriesValues, $objWriter);
+					$this->_writeBubbles($plotSeriesValues, $objWriter, $pSheet);
 				}
 
 			$objWriter->endElement();
@@ -975,15 +975,17 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 
 					$dataValues = $plotSeriesValues->getDataValues();
 					if (!empty($dataValues)) {
-						if (!is_array($dataValues)) {
-							$dataValues = PHPExcel_Calculation_Functions::flattenArray(
-								PHPExcel_Calculation::getInstance()
-								    ->calculateFormula('='.$dataValues,
-								    	NULL,
-								    	$pSheet->getCell('A1')
-								    )
-							);
-						}
+//						if (!is_array($dataValues)) {
+//							echo 'NOT AN ARRAY: ';
+//							var_dump($dataValues);
+//							$dataValues = PHPExcel_Calculation_Functions::flattenArray(
+//								PHPExcel_Calculation::getInstance()
+//								    ->calculateFormula('='.$dataValues,
+//								    	NULL,
+//								    	$pSheet->getCell('A1')
+//								    )
+//							);
+//						}
 						if (is_array($dataValues)) {
 							foreach($dataValues as $plotSeriesKey => $plotSeriesValue) {
 								$objWriter->startElement('c:pt');
@@ -1010,7 +1012,7 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 	 * @param 	PHPExcel_Shared_XMLWriter 			$objWriter 			XML Writer
 	 * @throws 	Exception
 	 */
-	private function _writeBubbles($plotSeriesValues, $objWriter)
+	private function _writeBubbles($plotSeriesValues, $objWriter, PHPExcel_Worksheet $pSheet)
 	{
 		if (is_null($plotSeriesValues)) {
 			return;
@@ -1027,13 +1029,29 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 					$objWriter->writeAttribute('val', $plotSeriesValues->getPointCount() );
 				$objWriter->endElement();
 
-				foreach($plotSeriesValues->getDataValues() as $plotSeriesKey => $plotSeriesValue) {
-					$objWriter->startElement('c:pt');
-						$objWriter->writeAttribute('idx', $plotSeriesKey );
-						$objWriter->startElement('c:v');
-							$objWriter->writeRawData( 1 );
-						$objWriter->endElement();
-					$objWriter->endElement();
+				$dataValues = $plotSeriesValues->getDataValues();
+				if (!empty($dataValues)) {
+//					if (!is_array($dataValues)) {
+//						echo 'NOT AN ARRAY: ';
+//						var_dump($dataValues);
+//						$dataValues = PHPExcel_Calculation_Functions::flattenArray(
+//							PHPExcel_Calculation::getInstance()
+//							    ->calculateFormula('='.$dataValues,
+//							    	NULL,
+//							    	$pSheet->getCell('A1')
+//							    )
+//						);
+//					}
+					if (is_array($dataValues)) {
+						foreach($dataValues as $plotSeriesKey => $plotSeriesValue) {
+							$objWriter->startElement('c:pt');
+								$objWriter->writeAttribute('idx', $plotSeriesKey );
+								$objWriter->startElement('c:v');
+									$objWriter->writeRawData( 1 );
+								$objWriter->endElement();
+							$objWriter->endElement();
+						}
+					}
 				}
 
 			$objWriter->endElement();
