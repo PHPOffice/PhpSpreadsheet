@@ -975,17 +975,6 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 
 					$dataValues = $plotSeriesValues->getDataValues();
 					if (!empty($dataValues)) {
-//						if (!is_array($dataValues)) {
-//							echo 'NOT AN ARRAY: ';
-//							var_dump($dataValues);
-//							$dataValues = PHPExcel_Calculation_Functions::flattenArray(
-//								PHPExcel_Calculation::getInstance()
-//								    ->calculateFormula('='.$dataValues,
-//								    	NULL,
-//								    	$pSheet->getCell('A1')
-//								    )
-//							);
-//						}
 						if (is_array($dataValues)) {
 							foreach($dataValues as $plotSeriesKey => $plotSeriesValue) {
 								$objWriter->startElement('c:pt');
@@ -1031,17 +1020,6 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 
 				$dataValues = $plotSeriesValues->getDataValues();
 				if (!empty($dataValues)) {
-//					if (!is_array($dataValues)) {
-//						echo 'NOT AN ARRAY: ';
-//						var_dump($dataValues);
-//						$dataValues = PHPExcel_Calculation_Functions::flattenArray(
-//							PHPExcel_Calculation::getInstance()
-//							    ->calculateFormula('='.$dataValues,
-//							    	NULL,
-//							    	$pSheet->getCell('A1')
-//							    )
-//						);
-//					}
 					if (is_array($dataValues)) {
 						foreach($dataValues as $plotSeriesKey => $plotSeriesValue) {
 							$objWriter->startElement('c:pt');
