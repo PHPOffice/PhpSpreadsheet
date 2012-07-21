@@ -278,11 +278,11 @@ class PHPExcel_Chart_DataSeriesValues
 	}
 
 	public function refresh(PHPExcel_Worksheet $worksheet) {
-		echo '$this->_dataSource:',PHP_EOL;
-		var_dump($this->_dataSource);
+//		echo '$this->_dataSource:',PHP_EOL;
+//		var_dump($this->_dataSource);
         if ($this->_dataSource !== NULL) {
-			echo '$this->_dataValues:',PHP_EOL;
-			var_dump($this->_dataValues);
+//			echo '$this->_dataValues:',PHP_EOL;
+//			var_dump($this->_dataValues);
 
         	$calcEngine = PHPExcel_Calculation::getInstance();
 			$newDataValues = PHPExcel_Calculation::_unwrapResult(
@@ -293,13 +293,13 @@ class PHPExcel_Chart_DataSeriesValues
 			    )
 			);
 
-			echo '$newDataValues:',PHP_EOL;
-			var_dump($newDataValues);
+//			echo '$newDataValues:',PHP_EOL;
+//			var_dump($newDataValues);
 			$this->_dataValues = PHPExcel_Calculation_Functions::flattenArray($newDataValues);
 			$this->_dataValues = array_values(array_shift($newDataValues));
 //			$this->_dataValues = array_filter($this->_dataValues,array($this,'_stripNulls'));
-			echo '$this->_dataValues:',PHP_EOL;
-			var_dump($this->_dataValues);
+//			echo '$this->_dataValues:',PHP_EOL;
+//			var_dump($this->_dataValues);
 		}
 	}
 
