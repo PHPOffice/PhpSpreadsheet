@@ -89,6 +89,7 @@ Fixed in develop branch:
 - Bugfix:   (seltzlab)   Fix to excel2007 Chart Writer when a $plotSeriesValues is empty
 - Bugfix:   (MBaker)     Work item 18370 - Error loading xlsx file with column breaks
 - Bugfix:   (MBaker)     OOCalc Reader now handles percentage and currency data types
+- Bugfix:   (MBaker)     OOCalc Reader modified to process number-rows-repeated
 
 
 2012-05-19 (v1.7.7):
