@@ -574,6 +574,22 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 													$type = PHPExcel_Cell_DataType::TYPE_BOOL;
 													$dataValue = ($allCellDataText == 'TRUE') ? True : False;
 													break;
+											case 'percentage' :
+													$type = PHPExcel_Cell_DataType::TYPE_NUMERIC;
+													$dataValue = (float) $cellDataOfficeAttributes['value'];
+													if (floor($dataValue) == $dataValue) {
+														$dataValue = (integer) $dataValue;
+													}
+													$formatting = PHPExcel_Style_NumberFormat::FORMAT_PERCENTAGE_00;
+													break;
+											case 'currency' :
+													$type = PHPExcel_Cell_DataType::TYPE_NUMERIC;
+													$dataValue = (float) $cellDataOfficeAttributes['value'];
+													if (floor($dataValue) == $dataValue) {
+														$dataValue = (integer) $dataValue;
+													}
+													$formatting = PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
+													break;
 											case 'float' :
 													$type = PHPExcel_Cell_DataType::TYPE_NUMERIC;
 													$dataValue = (float) $cellDataOfficeAttributes['value'];
@@ -640,8 +656,7 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 //												echo 'Forumla result is '.$dataValue.'<br />';
 												$objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->setCalculatedValue($dataValue);
 											}
-											if (($cellDataOfficeAttributes['value-type'] == 'date') ||
-												($cellDataOfficeAttributes['value-type'] == 'time')) {
+											if ($formatting !== NULL) {
 												$objPHPExcel->getActiveSheet()->getStyle($columnID.$rowID)->getNumberFormat()->setFormatCode($formatting);
 											}
 											if ($hyperlink !== NULL) {
