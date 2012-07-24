@@ -265,7 +265,7 @@ class PHPExcel_Shared_Date
 		// Switch on formatcode
 		switch ($pFormatCode) {
 			//	General contains an epoch letter 'e', so we trap for it explicitly here
-			case PHPExcel_Style_NumberFormat::GENERAL:
+			case PHPExcel_Style_NumberFormat::FORMAT_GENERAL:
 				return FALSE;
 			//	Explicitly defined date formats
 			case PHPExcel_Style_NumberFormat::FORMAT_DATE_YYYYMMDD:
