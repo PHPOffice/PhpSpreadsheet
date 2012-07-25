@@ -104,32 +104,35 @@ $objPHPExcel->getActiveSheet()->setCellValue('B11', '10%');
 $objPHPExcel->getActiveSheet()->setCellValue('A12', 'Percentage value #2:');
 $objPHPExcel->getActiveSheet()->setCellValue('B12', '12.5%');
 
-$objPHPExcel->getActiveSheet()->setCellValue('A13', 'Date value #1:');
-$objPHPExcel->getActiveSheet()->setCellValue('B13', '21 December 1983');
+$objPHPExcel->getActiveSheet()->setCellValue('A13', 'Currency value:');
+$objPHPExcel->getActiveSheet()->setCellValue('B13', '$12345');
 
-$objPHPExcel->getActiveSheet()->setCellValue('A14', 'Date value #2:');
-$objPHPExcel->getActiveSheet()->setCellValue('B14', '19-Dec-1960');
+$objPHPExcel->getActiveSheet()->setCellValue('A14', 'Date value #1:');
+$objPHPExcel->getActiveSheet()->setCellValue('B14', '21 December 1983');
 
-$objPHPExcel->getActiveSheet()->setCellValue('A15', 'Date value #3:');
-$objPHPExcel->getActiveSheet()->setCellValue('B15', '19/12/1960');
+$objPHPExcel->getActiveSheet()->setCellValue('A15', 'Date value #2:');
+$objPHPExcel->getActiveSheet()->setCellValue('B15', '19-Dec-1960');
 
-$objPHPExcel->getActiveSheet()->setCellValue('A16', 'Date value #4:');
-$objPHPExcel->getActiveSheet()->setCellValue('B16', '19-12-1960');
+$objPHPExcel->getActiveSheet()->setCellValue('A16', 'Date value #3:');
+$objPHPExcel->getActiveSheet()->setCellValue('B16', '19/12/1960');
 
-$objPHPExcel->getActiveSheet()->setCellValue('A17', 'Date value #5:');
-$objPHPExcel->getActiveSheet()->setCellValue('B17', '1-Jan');
+$objPHPExcel->getActiveSheet()->setCellValue('A17', 'Date value #4:');
+$objPHPExcel->getActiveSheet()->setCellValue('B17', '19-12-1960');
 
-$objPHPExcel->getActiveSheet()->setCellValue('A18', 'Time value #1:');
-$objPHPExcel->getActiveSheet()->setCellValue('B18', '01:30');
+$objPHPExcel->getActiveSheet()->setCellValue('A18', 'Date value #5:');
+$objPHPExcel->getActiveSheet()->setCellValue('B18', '1-Jan');
 
-$objPHPExcel->getActiveSheet()->setCellValue('A19', 'Time value #2:');
-$objPHPExcel->getActiveSheet()->setCellValue('B19', '01:30:15');
+$objPHPExcel->getActiveSheet()->setCellValue('A19', 'Time value #1:');
+$objPHPExcel->getActiveSheet()->setCellValue('B19', '01:30');
 
-$objPHPExcel->getActiveSheet()->setCellValue('A20', 'Date/Time value:');
-$objPHPExcel->getActiveSheet()->setCellValue('B20', '19-Dec-1960 01:30');
+$objPHPExcel->getActiveSheet()->setCellValue('A20', 'Time value #2:');
+$objPHPExcel->getActiveSheet()->setCellValue('B20', '01:30:15');
 
-$objPHPExcel->getActiveSheet()->setCellValue('A21', 'Formula:');
-$objPHPExcel->getActiveSheet()->setCellValue('B21', '=SUM(B2:B9)');
+$objPHPExcel->getActiveSheet()->setCellValue('A21', 'Date/Time value:');
+$objPHPExcel->getActiveSheet()->setCellValue('B21', '19-Dec-1960 01:30');
+
+$objPHPExcel->getActiveSheet()->setCellValue('A22', 'Formula:');
+$objPHPExcel->getActiveSheet()->setCellValue('B22', '=SUM(B2:B9)');
 
 // Rename worksheet
 echo date('H:i:s') , " Rename worksheet" , PHP_EOL;
