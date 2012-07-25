@@ -1024,11 +1024,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	public function setCellValue($pCoordinate = 'A1', $pValue = null, $returnCell = false)
 	{
 		$cell = $this->getCell($pCoordinate)->setValue($pValue);
-
-		if ($returnCell) {
-			return $cell;
-		}
-		return $this;
+		return ($returnCell) ? $cell : $this;
 	}
 
 	/**
@@ -1043,11 +1039,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	public function setCellValueByColumnAndRow($pColumn = 0, $pRow = 1, $pValue = null, $returnCell = false)
 	{
 		$cell = $this->getCell(PHPExcel_Cell::stringFromColumnIndex($pColumn) . $pRow)->setValue($pValue);
-
-		if ($returnCell) {
-			return $cell;
-		}
-		return $this;
+		return ($returnCell) ? $cell : $this;
 	}
 
 	/**
@@ -1056,13 +1048,14 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @param string	$pCoordinate	Coordinate of the cell
 	 * @param mixed	$pValue			Value of the cell
 	 * @param string	$pDataType		Explicit data type
-	 * @return PHPExcel_Worksheet
+	 * @param bool		$returnCell		Return the worksheet (false, default) or the cell (true)
+	 * @return PHPExcel_Worksheet|PHPExcel_Cell	Depending on the last parameter being specified
 	 */
-	public function setCellValueExplicit($pCoordinate = 'A1', $pValue = null, $pDataType = PHPExcel_Cell_DataType::TYPE_STRING)
+	public function setCellValueExplicit($pCoordinate = 'A1', $pValue = null, $pDataType = PHPExcel_Cell_DataType::TYPE_STRING, $returnCell = false)
 	{
 		// Set value
-		$this->getCell($pCoordinate)->setValueExplicit($pValue, $pDataType);
-		return $this;
+		$cell = $this->getCell($pCoordinate)->setValueExplicit($pValue, $pDataType);
+		return ($returnCell) ? $cell : $this;
 	}
 
 	/**
@@ -1072,11 +1065,13 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @param string	$pRow			Numeric row coordinate of the cell
 	 * @param mixed		$pValue			Value of the cell
 	 * @param string	$pDataType		Explicit data type
-	 * @return PHPExcel_Worksheet
+	 * @param bool		$returnCell		Return the worksheet (false, default) or the cell (true)
+	 * @return PHPExcel_Worksheet|PHPExcel_Cell	Depending on the last parameter being specified
 	 */
-	public function setCellValueExplicitByColumnAndRow($pColumn = 0, $pRow = 1, $pValue = null, $pDataType = PHPExcel_Cell_DataType::TYPE_STRING)
+	public function setCellValueExplicitByColumnAndRow($pColumn = 0, $pRow = 1, $pValue = null, $pDataType = PHPExcel_Cell_DataType::TYPE_STRING, $returnCell = false)
 	{
-		return $this->getCell(PHPExcel_Cell::stringFromColumnIndex($pColumn) . $pRow)->setValueExplicit($pValue, $pDataType);
+		$cell = $this->getCell(PHPExcel_Cell::stringFromColumnIndex($pColumn) . $pRow)->setValueExplicit($pValue, $pDataType);
+		return ($returnCell) ? $cell : $this;
 	}
 
 	/**

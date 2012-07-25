@@ -80,6 +80,7 @@ Fixed in develop branch:
 - Feature:  (Progi1984) & (blazzy) Work items 9605 - Implement support for AutoFilter in PHPExcel_Writer_Excel5
 - Feature:  (MBaker)     Modified ERF and ERFC Engineering functions to accept Excel 2010's modified acceptance of negative arguments
 - General:  (alexgann)   Add Currency detection to the Advanced Value Binder
+- General:  (MBaker)     Work item 18404 - setCellValueExplicitByColumnAndRow() do not return PHPExcel_Worksheet
 - Bugfix:   (cyberconte) Patch 12318 - OOCalc cells containing <text:span> inside the <text:p> tag
 - Bugfix:   (schir1964)  Fix to listWorksheetInfo() method for OOCalc Reader
 - Bugfix:   (MBaker)     Support for "e" (epoch) date format mask
