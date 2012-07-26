@@ -525,6 +525,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 */
 	public function addChart(PHPExcel_Chart $pChart = null, $iChartIndex = null)
 	{
+		$pChart->setWorksheet($this);
 		if (is_null($iChartIndex)) {
 			$this->_chartCollection[] = $pChart;
 		} else {
