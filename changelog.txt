@@ -92,7 +92,7 @@ Fixed in develop branch:
 - Bugfix:   (MBaker)     Various fixes to Chart handling
 - Bugfix:   (MBaker)     Work item 18370 - Error loading xlsx file with column breaks
 - Bugfix:   (MBaker)     OOCalc Reader now handles percentage and currency data types
-- Bugfix:   (MBaker)     OOCalc Reader modified to process number-rows-repeated
+- Bugfix:   (MBaker)     Work Item 18415- mb_stripos empty delimiter
 
 
 2012-05-19 (v1.7.7):

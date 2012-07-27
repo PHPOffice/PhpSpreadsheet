@@ -239,9 +239,12 @@ class PHPExcel_Calculation_TextData {
 				$haystack = ($haystack) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
 			}
 
-			if (($offset > 0) && (strlen($haystack) > $offset)) {
+			if (($offset > 0) && (PHPExcel_Shared_String::CountCharacters($haystack) > $offset)) {
+				if (PHPExcel_Shared_String::CountCharacters($needle) == 0) {
+					return $offset;
+				}
 				if (function_exists('mb_strpos')) {
-					$pos = mb_strpos($haystack, $needle, --$offset,'UTF-8');
+					$pos = mb_strpos($haystack, $needle, --$offset, 'UTF-8');
 				} else {
 					$pos = strpos($haystack, $needle, --$offset);
 				}
@@ -272,7 +275,10 @@ class PHPExcel_Calculation_TextData {
 				$haystack = ($haystack) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
 			}
 
-			if (($offset > 0) && (strlen($haystack) > $offset)) {
+			if (($offset > 0) && (PHPExcel_Shared_String::CountCharacters($haystack) > $offset)) {
+				if (PHPExcel_Shared_String::CountCharacters($needle) == 0) {
+					return $offset;
+				}
 				if (function_exists('mb_stripos')) {
 					$pos = mb_stripos($haystack, $needle, --$offset,'UTF-8');
 				} else {
