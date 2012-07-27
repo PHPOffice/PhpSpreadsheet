@@ -28,7 +28,7 @@ date_default_timezone_set('Europe/London');
  * @package    PHPExcel
  * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
- * @version    1.7.7, 2012-05-19
+ * @version    ##VERSION##, ##DATE##
  */
 
 /** Include path **/

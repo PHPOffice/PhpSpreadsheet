@@ -962,7 +962,8 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 						($groupType != PHPExcel_Chart_DataSeries::TYPE_PIECHART_3D) &&
 						($groupType != PHPExcel_Chart_DataSeries::TYPE_DONUTCHART)) {
 
-						if ($plotSeriesValues->getFormatCode() !== NULL) {
+						if (($plotSeriesValues->getFormatCode() !== NULL) &&
+							($plotSeriesValues->getFormatCode() !== '')) {
 							$objWriter->startElement('c:formatCode');
 								$objWriter->writeRawData( $plotSeriesValues->getFormatCode() );
 							$objWriter->endElement();
