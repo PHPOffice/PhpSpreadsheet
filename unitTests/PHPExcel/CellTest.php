@@ -187,7 +187,11 @@ class CellTest extends PHPUnit_Framework_TestCase
 		$expectedResult = array_pop($args);
 		$result = call_user_func_array(array('PHPExcel_Cell','splitRange'),$args);
 		foreach($result as $key => $split) {
-			$this->assertEquals($expectedResult[$key], $split);
+			if (!is_array($expectedResult[$key])) {
+				$this->assertEquals($expectedResult[$key], $split[0]);
+			} else {
+				$this->assertEquals($expectedResult[$key], $split);
+			}
 		}
 	}
 
@@ -254,6 +258,38 @@ class CellTest extends PHPUnit_Framework_TestCase
     public function providerRangeDimension()
     {
     	return new testDataFileIterator('rawTestData/CellRangeDimension.data');
+	}
+
+    /**
+     * @dataProvider providerGetRangeBoundaries
+     */
+	public function testGetRangeBoundaries()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Cell','getRangeBoundaries'),$args);
+		$this->assertEquals($expectedResult, $result);
+	}
+
+    public function providerGetRangeBoundaries()
+    {
+    	return new testDataFileIterator('rawTestData/CellGetRangeBoundaries.data');
+	}
+
+    /**
+     * @dataProvider providerExtractAllCellReferencesInRange
+     */
+	public function testExtractAllCellReferencesInRange()
+	{
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Cell','extractAllCellReferencesInRange'),$args);
+		$this->assertEquals($expectedResult, $result);
+	}
+
+    public function providerExtractAllCellReferencesInRange()
+    {
+    	return new testDataFileIterator('rawTestData/CellExtractAllCellReferencesInRange.data');
 	}
 
 }

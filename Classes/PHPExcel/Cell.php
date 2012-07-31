@@ -593,9 +593,10 @@ class PHPExcel_Cell
 	/**
 	 *	Split range into coordinate strings
 	 *
-	 *	@param	string	$pRange		e.g. 'B4:D9' or 'B4:D9,H2:O11'
+	 *	@param	string	$pRange		e.g. 'B4:D9' or 'B4:D9,H2:O11' or 'B4'
 	 *	@return	array	Array containg one or more arrays containing one or two coordinate strings
 	 *								e.g. array('B4','D9') or array(array('B4','D9'),array('H2','O11'))
+	 *										or array('B4')
 	 */
 	public static function splitRange($pRange = 'A1:A1')
 	{
@@ -636,7 +637,8 @@ class PHPExcel_Cell
 	 *	Calculate range boundaries
 	 *
 	 *	@param	string	$pRange		Cell range (e.g. A1:A1)
-	 *	@return	array	Range coordinates (Start Cell, End Cell) where Start Cell and End Cell are arrays (Column Number, Row Number)
+	 *	@return	array	Range coordinates array(Start Cell, End Cell)
+	 *					where Start Cell and End Cell are arrays (Column Number, Row Number)
 	 */
 	public static function rangeBoundaries($pRange = 'A1:A1')
 	{
@@ -679,7 +681,8 @@ class PHPExcel_Cell
 	 *	Calculate range boundaries
 	 *
 	 *	@param	string	$pRange		Cell range (e.g. A1:A1)
-	 *	@return	array	Range boundaries (staring Column, starting Row, Final Column, Final Row)
+	 *	@return	array	Range coordinates array(Start Cell, End Cell)
+	 *					where Start Cell and End Cell are arrays (Column ID, Row Number)
 	 */
 	public static function getRangeBoundaries($pRange = 'A1:A1')
 	{
@@ -772,7 +775,7 @@ class PHPExcel_Cell
 	/**
 	 *	Extract all cell references in range
 	 *
-	 *	@param	string	$pRange		Range (e.g. A1 or A1:A10 or A1:A10 A100:A1000)
+	 *	@param	string	$pRange		Range (e.g. A1 or A1:C10 or A1:E10 A20:E25)
 	 *	@return	array	Array containing single cell references
 	 */
 	public static function extractAllCellReferencesInRange($pRange = 'A1') {
@@ -819,8 +822,16 @@ class PHPExcel_Cell
 			}
 		}
 
+		//	Sort the result by column and row
+		$sortKeys = array();
+		foreach (array_unique($returnValue) as $coord) {
+			list($column,$row) = sscanf($coord,'%[A-Z]%d');
+			$sortKeys[sprintf('%3s%09d',$column,$row)] = $coord;
+		}
+		ksort($sortKeys);
+
 		// Return value
-		return $returnValue;
+		return array_values($sortKeys);
 	}
 
 	/**
