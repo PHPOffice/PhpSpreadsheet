@@ -339,6 +339,12 @@ class PHPExcel_Chart_DataSeries
 	    foreach($this->_plotValues as $plotValues) {
 			$plotValues->refresh($worksheet);
 		}
+		foreach($this->_plotLabel as $plotValues) {
+			$plotValues->refresh($worksheet);
+		}
+		foreach($this->_plotCategory as $plotValues) {
+			$plotValues->refresh($worksheet);
+		}
 	}
 
 }

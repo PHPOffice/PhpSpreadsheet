@@ -92,7 +92,9 @@ Fixed in develop branch:
 - Bugfix:   (MBaker)     Various fixes to Chart handling
 - Bugfix:   (MBaker)     Work item 18370 - Error loading xlsx file with column breaks
 - Bugfix:   (MBaker)     OOCalc Reader now handles percentage and currency data types
-- Bugfix:   (MBaker)     Work Item 18415- mb_stripos empty delimiter
+- Bugfix:   (MBaker)     Work Item 18415 - mb_stripos empty delimiter
+- Bugfix:   (takaakik)   Work Item 15455 - getNestingLevel() Error on Excel5 Read
+- Bugfix:   (MBaker)     Fix to Excel5 Reader when cell annotations are defined before their referenced text objects
 
 
 2012-05-19 (v1.7.7):

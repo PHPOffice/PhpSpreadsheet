@@ -944,101 +944,92 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 //				echo '<br />';
 
 				// the first shape container never has a corresponding OBJ record, hence $n + 1
-				$spContainer = $allSpContainers[$n + 1];
+				if (isset($allSpContainers[$n + 1]) && is_object($allSpContainers[$n + 1])) {
+					$spContainer = $allSpContainers[$n + 1];
 
-				// we skip all spContainers that are a part of a group shape since we cannot yet handle those
-				if ($spContainer->getNestingLevel() > 1) {
-					continue;
-				}
-
-				// calculate the width and height of the shape
-				list($startColumn, $startRow) = PHPExcel_Cell::coordinateFromString($spContainer->getStartCoordinates());
-				list($endColumn, $endRow) = PHPExcel_Cell::coordinateFromString($spContainer->getEndCoordinates());
-
-				$startOffsetX = $spContainer->getStartOffsetX();
-				$startOffsetY = $spContainer->getStartOffsetY();
-				$endOffsetX = $spContainer->getEndOffsetX();
-				$endOffsetY = $spContainer->getEndOffsetY();
-
-				$width = PHPExcel_Shared_Excel5::getDistanceX($this->_phpSheet, $startColumn, $startOffsetX, $endColumn, $endOffsetX);
-				$height = PHPExcel_Shared_Excel5::getDistanceY($this->_phpSheet, $startRow, $startOffsetY, $endRow, $endOffsetY);
-
-				// calculate offsetX and offsetY of the shape
-				$offsetX = $startOffsetX * PHPExcel_Shared_Excel5::sizeCol($this->_phpSheet, $startColumn) / 1024;
-				$offsetY = $startOffsetY * PHPExcel_Shared_Excel5::sizeRow($this->_phpSheet, $startRow) / 256;
-
-				switch ($obj['otObjType']) {
-
-				case 0x19:
-					// Note
-//					echo 'Cell Annotation Object<br />';
-//					echo 'Object ID is ',$obj['idObjID'],'<br />';
-//
-					if (isset($this->_cellNotes[$obj['idObjID']])) {
-						$cellNote = $this->_cellNotes[$obj['idObjID']];
-
-//						echo '_cellNotes[',$obj['idObjID'],']: ';
-//						var_dump($cellNote);
-//						echo '<br />';
-//
-						if (isset($this->_textObjects[$obj['idObjID']])) {
-							$textObject = $this->_textObjects[$obj['idObjID']];
-//							echo '_textObject: ';
-//							var_dump($textObject);
-//							echo '<br />';
-//
-							$this->_cellNotes[$obj['idObjID']]['objTextData'] = $textObject;
-							$text = $textObject['text'];
-						}
-//						echo $text,'<br />';
-					}
-					break;
-
-				case 0x08:
-//					echo 'Picture Object<br />';
-					// picture
-
-					// get index to BSE entry (1-based)
-					$BSEindex = $spContainer->getOPT(0x0104);
-					$BSECollection = $escherWorkbook->getDggContainer()->getBstoreContainer()->getBSECollection();
-					$BSE = $BSECollection[$BSEindex - 1];
-					$blipType = $BSE->getBlipType();
-
-					// need check because some blip types are not supported by Escher reader such as EMF
-					if ($blip = $BSE->getBlip()) {
-						$ih = imagecreatefromstring($blip->getData());
-						$drawing = new PHPExcel_Worksheet_MemoryDrawing();
-						$drawing->setImageResource($ih);
-
-						// width, height, offsetX, offsetY
-						$drawing->setResizeProportional(false);
-						$drawing->setWidth($width);
-						$drawing->setHeight($height);
-						$drawing->setOffsetX($offsetX);
-						$drawing->setOffsetY($offsetY);
-
-						switch ($blipType) {
-							case PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE::BLIPTYPE_JPEG:
-								$drawing->setRenderingFunction(PHPExcel_Worksheet_MemoryDrawing::RENDERING_JPEG);
-								$drawing->setMimeType(PHPExcel_Worksheet_MemoryDrawing::MIMETYPE_JPEG);
-								break;
-
-							case PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE::BLIPTYPE_PNG:
-								$drawing->setRenderingFunction(PHPExcel_Worksheet_MemoryDrawing::RENDERING_PNG);
-								$drawing->setMimeType(PHPExcel_Worksheet_MemoryDrawing::MIMETYPE_PNG);
-								break;
-						}
-
-						$drawing->setWorksheet($this->_phpSheet);
-						$drawing->setCoordinates($spContainer->getStartCoordinates());
+					// we skip all spContainers that are a part of a group shape since we cannot yet handle those
+					if ($spContainer->getNestingLevel() > 1) {
+						continue;
 					}
 
-					break;
+					// calculate the width and height of the shape
+					list($startColumn, $startRow) = PHPExcel_Cell::coordinateFromString($spContainer->getStartCoordinates());
+					list($endColumn, $endRow) = PHPExcel_Cell::coordinateFromString($spContainer->getEndCoordinates());
 
-				default:
-					// other object type
-					break;
+					$startOffsetX = $spContainer->getStartOffsetX();
+					$startOffsetY = $spContainer->getStartOffsetY();
+					$endOffsetX = $spContainer->getEndOffsetX();
+					$endOffsetY = $spContainer->getEndOffsetY();
 
+					$width = PHPExcel_Shared_Excel5::getDistanceX($this->_phpSheet, $startColumn, $startOffsetX, $endColumn, $endOffsetX);
+					$height = PHPExcel_Shared_Excel5::getDistanceY($this->_phpSheet, $startRow, $startOffsetY, $endRow, $endOffsetY);
+
+					// calculate offsetX and offsetY of the shape
+					$offsetX = $startOffsetX * PHPExcel_Shared_Excel5::sizeCol($this->_phpSheet, $startColumn) / 1024;
+					$offsetY = $startOffsetY * PHPExcel_Shared_Excel5::sizeRow($this->_phpSheet, $startRow) / 256;
+
+					switch ($obj['otObjType']) {
+						case 0x19:
+							// Note
+//							echo 'Cell Annotation Object<br />';
+//							echo 'Object ID is ',$obj['idObjID'],'<br />';
+//
+							if (isset($this->_cellNotes[$obj['idObjID']])) {
+								$cellNote = $this->_cellNotes[$obj['idObjID']];
+
+								if (isset($this->_textObjects[$obj['idObjID']])) {
+									$textObject = $this->_textObjects[$obj['idObjID']];
+									$this->_cellNotes[$obj['idObjID']]['objTextData'] = $textObject;
+								}
+							}
+							break;
+
+						case 0x08:
+//							echo 'Picture Object<br />';
+							// picture
+
+							// get index to BSE entry (1-based)
+							$BSEindex = $spContainer->getOPT(0x0104);
+							$BSECollection = $escherWorkbook->getDggContainer()->getBstoreContainer()->getBSECollection();
+							$BSE = $BSECollection[$BSEindex - 1];
+							$blipType = $BSE->getBlipType();
+
+							// need check because some blip types are not supported by Escher reader such as EMF
+							if ($blip = $BSE->getBlip()) {
+								$ih = imagecreatefromstring($blip->getData());
+								$drawing = new PHPExcel_Worksheet_MemoryDrawing();
+								$drawing->setImageResource($ih);
+
+								// width, height, offsetX, offsetY
+								$drawing->setResizeProportional(false);
+								$drawing->setWidth($width);
+								$drawing->setHeight($height);
+								$drawing->setOffsetX($offsetX);
+								$drawing->setOffsetY($offsetY);
+
+								switch ($blipType) {
+									case PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE::BLIPTYPE_JPEG:
+										$drawing->setRenderingFunction(PHPExcel_Worksheet_MemoryDrawing::RENDERING_JPEG);
+										$drawing->setMimeType(PHPExcel_Worksheet_MemoryDrawing::MIMETYPE_JPEG);
+										break;
+
+									case PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE::BLIPTYPE_PNG:
+										$drawing->setRenderingFunction(PHPExcel_Worksheet_MemoryDrawing::RENDERING_PNG);
+										$drawing->setMimeType(PHPExcel_Worksheet_MemoryDrawing::MIMETYPE_PNG);
+										break;
+								}
+
+								$drawing->setWorksheet($this->_phpSheet);
+								$drawing->setCoordinates($spContainer->getStartCoordinates());
+							}
+
+							break;
+
+						default:
+							// other object type
+							break;
+
+					}
 				}
 			}
 
@@ -1055,6 +1046,14 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 
 			if (!empty($this->_cellNotes)) {
 				foreach($this->_cellNotes as $note => $noteDetails) {
+					if (!isset($noteDetails['objTextData'])) {
+						if (isset($this->_textObjects[$note])) {
+							$textObject = $this->_textObjects[$note];
+							$noteDetails['objTextData'] = $textObject;
+						} else {
+							$noteDetails['objTextData']['text'] = '';
+						}
+					}
 //					echo '<b>Cell annotation ',$note,'</b><br />';
 //					var_dump($noteDetails);
 //					echo '<br />';

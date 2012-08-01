@@ -238,7 +238,11 @@ class PHPExcel_Shared_Date
 	 * @return	 boolean
 	 */
 	public static function isDateTime(PHPExcel_Cell $pCell) {
-		return self::isDateTimeFormat($pCell->getParent()->getStyle($pCell->getCoordinate())->getNumberFormat());
+		return self::isDateTimeFormat(
+			$pCell->getParent()->getStyle(
+				$pCell->getCoordinate()
+			)->getNumberFormat()
+		);
 	}	//	function isDateTime()
 
 
