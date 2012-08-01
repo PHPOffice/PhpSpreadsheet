@@ -935,5 +935,15 @@ class PHPExcel_Cell
 		return $this->_formulaAttributes;
 	}
 
+    /**
+     * Convert to string
+     *
+     * @return string
+     */
+	public function __toString()
+	{
+		return (string) $this->getValue();
+	}
+
 }
 
