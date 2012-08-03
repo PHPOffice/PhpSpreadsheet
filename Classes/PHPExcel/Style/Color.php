@@ -213,7 +213,7 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 	 * @throws	Exception
 	 * @return PHPExcel_Style_Color
 	 */
-	public function applyFromArray($pStyles = null) {
+	public function applyFromArray($pStyles = NULL) {
 		if (is_array($pStyles)) {
 			if ($this->_isSupervisor) {
 				$this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
@@ -303,8 +303,8 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 	 *									decimal value
 	 * @return	string		The extracted colour component
 	 */
-	private static function _getColourComponent($RGB,$offset,$hex=true) {
-		$colour = substr($RGB,$offset,2);
+	private static function _getColourComponent($RGB,$offset,$hex=TRUE) {
+		$colour = substr($RGB, $offset, 2);
 		if (!$hex)
 			$colour = hexdec($colour);
 		return $colour;
@@ -318,11 +318,11 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 	 *									decimal value
 	 * @return	string		The red colour component
 	 */
-	public static function getRed($RGB,$hex=true) {
+	public static function getRed($RGB,$hex=TRUE) {
 		if (strlen($RGB) == 8) {
-			return self::_getColourComponent($RGB,2,$hex);
+			return self::_getColourComponent($RGB, 2, $hex);
 		} elseif (strlen($RGB) == 6) {
-			return self::_getColourComponent($RGB,0,$hex);
+			return self::_getColourComponent($RGB, 0, $hex);
 		}
 	}
 
@@ -334,11 +334,11 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 	 *									decimal value
 	 * @return	string		The green colour component
 	 */
-	public static function getGreen($RGB,$hex=true) {
+	public static function getGreen($RGB,$hex=TRUE) {
 		if (strlen($RGB) == 8) {
-			return self::_getColourComponent($RGB,4,$hex);
+			return self::_getColourComponent($RGB, 4, $hex);
 		} elseif (strlen($RGB) == 6) {
-			return self::_getColourComponent($RGB,2,$hex);
+			return self::_getColourComponent($RGB, 2, $hex);
 		}
 	}
 
@@ -350,25 +350,27 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 	 *									decimal value
 	 * @return	string		The blue colour component
 	 */
-	public static function getBlue($RGB,$hex=true) {
+	public static function getBlue($RGB,$hex=TRUE) {
 		if (strlen($RGB) == 8) {
-			return self::_getColourComponent($RGB,6,$hex);
+			return self::_getColourComponent($RGB, 6, $hex);
 		} elseif (strlen($RGB) == 6) {
-			return self::_getColourComponent($RGB,4,$hex);
+			return self::_getColourComponent($RGB, 4, $hex);
 		}
 	}
 
 	/**
 	 * Adjust the brightness of a color
 	 *
-	 * @param	string		$hex	The colour as an RGB value (e.g. FF00CCCC or CCDDEE
+	 * @param	string		$hex	The colour as an RGBA or RGB value (e.g. FF00CCCC or CCDDEE)
 	 * @param	float		$adjustPercentage	The percentage by which to adjust the colour as a float from -1 to 1
-	 * @return	string		The adjusted colour as an RGB value (e.g. FF00CCCC or CCDDEE
+	 * @return	string		The adjusted colour as an RGBA or RGB value (e.g. FF00CCCC or CCDDEE)
 	 */
 	public static function changeBrightness($hex, $adjustPercentage) {
-		$red	= self::getRed($hex,false);
-		$green	= self::getGreen($hex,false);
-		$blue	= self::getBlue($hex,false);
+		$rgba = (strlen($hex) == 8);
+
+		$red	= self::getRed($hex, FALSE);
+		$green	= self::getGreen($hex, FALSE);
+		$blue	= self::getBlue($hex, FALSE);
 		if ($adjustPercentage > 0) {
 			$red	+= (255 - $red) * $adjustPercentage;
 			$green	+= (255 - $green) * $adjustPercentage;
@@ -386,10 +388,11 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 		if ($blue < 0) $blue = 0;
 		elseif ($blue > 255) $blue = 255;
 
-		return strtoupper(	str_pad(dechex($red), 2, '0', 0) .
+		$rgb = strtoupper(	str_pad(dechex($red), 2, '0', 0) .
 							str_pad(dechex($green), 2, '0', 0) .
 							str_pad(dechex($blue), 2, '0', 0)
 						 );
+		return (($rgba) ? 'FF' : '') . $rgb;
 	}
 
 	/**
@@ -400,7 +403,7 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 	 *											should be returned if the indexed colour doesn't exist
 	 * @return	PHPExcel_Style_Color
 	 */
-	public static function indexedColor($pIndex, $background=false) {
+	public static function indexedColor($pIndex, $background=FALSE) {
 		// Clean parameter
 		$pIndex = intval($pIndex);
 
