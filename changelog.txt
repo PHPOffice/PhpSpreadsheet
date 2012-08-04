@@ -97,6 +97,8 @@ Fixed in develop branch:
 - Bugfix:   (MBaker)     Work Item 18415 - mb_stripos empty delimiter
 - Bugfix:   (takaakik)   Work Item 15455 - getNestingLevel() Error on Excel5 Read
 - Bugfix:   (MBaker)     Fix to Excel5 Reader when cell annotations are defined before their referenced text objects
+- Bugfix:   (MBaker)     OOCalc Reader modified to process number-rows-repeated
+- Bugfix:   (MBaker)     Work item 18377 - Chart Title compatibility on Excel 2007
 
 
 2012-05-19 (v1.7.7):

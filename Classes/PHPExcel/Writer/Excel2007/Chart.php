@@ -444,7 +444,7 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 									if (is_array($caption))
 										$caption = $caption[0];
 									$objWriter->startElement('a:t');
-										$objWriter->writeAttribute('xml:space', 'preserve');
+//										$objWriter->writeAttribute('xml:space', 'preserve');
 										$objWriter->writeRawData(PHPExcel_Shared_String::ControlCharacterPHP2OOXML( $caption ));
 									$objWriter->endElement();
 
@@ -570,7 +570,7 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 									if (is_array($caption))
 										$caption = $caption[0];
 									$objWriter->startElement('a:t');
-										$objWriter->writeAttribute('xml:space', 'preserve');
+//										$objWriter->writeAttribute('xml:space', 'preserve');
 										$objWriter->writeRawData(PHPExcel_Shared_String::ControlCharacterPHP2OOXML( $caption ));
 									$objWriter->endElement();
 

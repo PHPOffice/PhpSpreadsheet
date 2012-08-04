@@ -286,7 +286,7 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
 
 				// t
 				$objWriter->startElement($prefix.'t');
-					$objWriter->writeAttribute('xml:space', 'preserve');
+//					$objWriter->writeAttribute('xml:space', 'preserve');	//	Excel2010 accepts, Excel2007 complains
 					$objWriter->writeRawData(PHPExcel_Shared_String::ControlCharacterPHP2OOXML( $element->getText() ));
 				$objWriter->endElement();
 
