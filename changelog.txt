@@ -93,6 +93,7 @@ Fixed in develop branch:
 - Bugfix:   (MBaker)     Work item 18370 - Error loading xlsx file with column breaks
 - Bugfix:   (MBaker)     OOCalc Reader now handles percentage and currency data types
 - Bugfix:   (MBaker)     OOCalc Reader modified to process number-rows-repeated
+- Bugfix:   (MBaker)     Work item 18377 - Chart Title compatibility on Excel 2007
 
 
 2012-05-19 (v1.7.7):
