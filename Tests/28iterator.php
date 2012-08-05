@@ -27,6 +27,10 @@
 
 /** Error reporting */
 error_reporting(E_ALL);
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
+
+define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 date_default_timezone_set('Europe/London');
 
@@ -35,25 +39,25 @@ require_once '../Classes/PHPExcel/IOFactory.php';
 
 
 if (!file_exists("05featuredemo.xlsx")) {
-	exit("Please run 05featuredemo.php first." . PHP_EOL);
+	exit("Please run 05featuredemo.php first." . EOL);
 }
 
-echo date('H:i:s') , " Load from Excel2007 file" , PHP_EOL;
+echo date('H:i:s') , " Load from Excel2007 file" , EOL;
 $objReader = PHPExcel_IOFactory::createReader('Excel2007');
 $objPHPExcel = $objReader->load("05featuredemo.xlsx");
 
-echo date('H:i:s') , " Iterate worksheets" , PHP_EOL;
+echo date('H:i:s') , " Iterate worksheets" , EOL;
 foreach ($objPHPExcel->getWorksheetIterator() as $worksheet) {
-	echo 'Worksheet - ' , $worksheet->getTitle() , PHP_EOL;
+	echo 'Worksheet - ' , $worksheet->getTitle() , EOL;
 
 	foreach ($worksheet->getRowIterator() as $row) {
-		echo '    Row number - ' , $row->getRowIndex() , PHP_EOL;
+		echo '    Row number - ' , $row->getRowIndex() , EOL;
 
 		$cellIterator = $row->getCellIterator();
 		$cellIterator->setIterateOnlyExistingCells(false); // Loop all cells, even if it is not set
 		foreach ($cellIterator as $cell) {
 			if (!is_null($cell)) {
-				echo '        Cell - ' , $cell->getCoordinate() , ' - ' , $cell->getCalculatedValue() , PHP_EOL;
+				echo '        Cell - ' , $cell->getCoordinate() , ' - ' , $cell->getCalculatedValue() , EOL;
 			}
 		}
 	}
@@ -61,4 +65,4 @@ foreach ($objPHPExcel->getWorksheetIterator() as $worksheet) {
 
 
 // Echo memory peak usage
-echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , PHP_EOL;
+echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , EOL;

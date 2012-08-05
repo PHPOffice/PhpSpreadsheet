@@ -2,6 +2,11 @@
 
 /** Error reporting */
 error_reporting(E_ALL);
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
+date_default_timezone_set('Europe/London');
+
+define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 date_default_timezone_set('Europe/London');
 
@@ -38,16 +43,16 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../Classes/');
 include 'PHPExcel.php';
 
 if (!file_exists("33chartcreate.xlsx")) {
-	exit("Please run 33chartcreate.php first." . PHP_EOL);
+	exit("Please run 33chartcreate.php first." . EOL);
 }
 
-echo date('H:i:s') , " Load from Excel2007 file" , PHP_EOL;
+echo date('H:i:s') , " Load from Excel2007 file" , EOL;
 $objReader = PHPExcel_IOFactory::createReader("Excel2007");
 $objReader->setIncludeCharts(TRUE);
 $objPHPExcel = $objReader->load("33chartcreate.xlsx");
 
 
-echo date('H:i:s') , " Update cell data values that are displayed in the chart" , PHP_EOL;
+echo date('H:i:s') , " Update cell data values that are displayed in the chart" , EOL;
 $objWorksheet = $objPHPExcel->getActiveSheet();
 $objWorksheet->fromArray(
 	array(
@@ -61,15 +66,16 @@ $objWorksheet->fromArray(
 );
 
 // Save Excel 2007 file
-echo date('H:i:s') , " Write to Excel2007 format" , PHP_EOL;
+echo date('H:i:s') , " Write to Excel2007 format" , EOL;
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->setIncludeCharts(TRUE);
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
-echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', __FILE__) , PHP_EOL;
+echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
 
 
 // Echo memory peak usage
-echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , PHP_EOL;
+echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , EOL;
 
 // Echo done
-echo date('H:i:s') , " Done writing file" , PHP_EOL;
+echo date('H:i:s') , " Done writing file" , EOL;
+echo 'File has been created in ' , getcwd() , EOL;
