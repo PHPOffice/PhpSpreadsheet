@@ -27,18 +27,15 @@
 
 /** Error reporting */
 error_reporting(E_ALL);
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
+
+define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 date_default_timezone_set('Europe/London');
 
 /** Include PHPExcel */
 require_once '../Classes/PHPExcel.php';
-
-if(php_sapi_name() == 'cli' && empty($_SERVER['REMOTE_ADDR'])) {
-	define('EOL',PHP_EOL);
-}
-else {
-	define('EOL', '<br />');
-}
 
 // Create new PHPExcel object
 echo date('H:i:s').' Create new PHPExcel object'.EOL;
@@ -139,15 +136,16 @@ $objPHPExcel->setActiveSheetIndex(0);
 echo date('H:i:s').' Write to Excel2007 format'.EOL;
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
-echo date('H:i:s').' File written to '.str_replace('.php', '.xlsx', __FILE__).EOL;
+echo date('H:i:s').' File written to '.str_replace('.php', '.xlsx', pathinfo(__FILE__, PATHINFO_BASENAME)).EOL;
 // Save Excel5 file
 echo date('H:i:s').' Write to Excel5 format'.EOL;
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save(str_replace('.php', '.xls', __FILE__));
-echo date('H:i:s').' File written to '.str_replace('.php', '.xls', __FILE__).EOL;
+echo date('H:i:s').' File written to '.str_replace('.php', '.xls', pathinfo(__FILE__, PATHINFO_BASENAME)).EOL;
 
 // Echo memory peak usage
 echo date('H:i:s').' Peak memory usage: '.(memory_get_peak_usage(true) / 1024 / 1024).' MB'.EOL;
 
 // Echo done
-echo date('H:i:s').' Done writing file'.EOL;
+echo date('H:i:s').' Done writing files'.EOL;
+echo 'Files have been created in ' , getcwd() , EOL;

@@ -27,6 +27,10 @@
 
 /** Error reporting */
 error_reporting(E_ALL);
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
+
+define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 date_default_timezone_set('Europe/London');
 
@@ -49,11 +53,11 @@ for writing to Excel2007:
 */
 
 // Create new PHPExcel object
-echo date('H:i:s') , " Create new PHPExcel object" , PHP_EOL;
+echo date('H:i:s') , " Create new PHPExcel object" , EOL;
 $objPHPExcel = new PHPExcel();
 
 // Set document properties
-echo date('H:i:s') , " Set properties" , PHP_EOL;
+echo date('H:i:s') , " Set properties" , EOL;
 $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 							 ->setLastModifiedBy("Maarten Balliauw")
 							 ->setTitle("Office 2007 XLSX Test Document")
@@ -64,7 +68,7 @@ $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 
 
 // Create a first sheet
-echo date('H:i:s') , " Add data" , PHP_EOL;
+echo date('H:i:s') , " Add data" , EOL;
 $objPHPExcel->setActiveSheetIndex(0);
 $objPHPExcel->getActiveSheet()->setCellValue('A1', "Firstname");
 $objPHPExcel->getActiveSheet()->setCellValue('B1', "Lastname");
@@ -74,24 +78,24 @@ $objPHPExcel->getActiveSheet()->setCellValue('E1', "Is Client ?");
 
 
 // Hide "Phone" and "fax" column
-echo date('H:i:s') , " Hide 'Phone' and 'fax' columns" , PHP_EOL;
+echo date('H:i:s') , " Hide 'Phone' and 'fax' columns" , EOL;
 $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setVisible(false);
 $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setVisible(false);
 
 
 // Set outline levels
-echo date('H:i:s') , " Set outline levels" , PHP_EOL;
+echo date('H:i:s') , " Set outline levels" , EOL;
 $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setOutlineLevel(1)
                                                        ->setVisible(false)
                                                        ->setCollapsed(true);
 
 // Freeze panes
-echo date('H:i:s') , " Freeze panes" , PHP_EOL;
+echo date('H:i:s') , " Freeze panes" , EOL;
 $objPHPExcel->getActiveSheet()->freezePane('A2');
 
 
 // Rows to repeat at top
-echo date('H:i:s') , " Rows to repeat at top" , PHP_EOL;
+echo date('H:i:s') , " Rows to repeat at top" , EOL;
 $objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 1);
 
 
@@ -110,14 +114,15 @@ $objPHPExcel->setActiveSheetIndex(0);
 
 
 // Save Excel 5 file
-echo date('H:i:s') , " Write to Excel5 format" , PHP_EOL;
+echo date('H:i:s') , " Write to Excel5 format" , EOL;
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save(str_replace('.php', '.xls', __FILE__));
-echo date('H:i:s') , " File written to " , str_replace('.php', '.xls', __FILE__) , PHP_EOL;
+echo date('H:i:s') , " File written to " , str_replace('.php', '.xls', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
 
 
 // Echo memory peak usage
-echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , PHP_EOL;
+echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , EOL;
 
 // Echo done
-echo date('H:i:s') , " Done writing file" , PHP_EOL;
+echo date('H:i:s') , " Done writing file" , EOL;
+echo 'File has been created in ' , getcwd() , EOL;

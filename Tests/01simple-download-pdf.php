@@ -27,8 +27,12 @@
 
 /** Error reporting */
 error_reporting(E_ALL);
-
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
 date_default_timezone_set('Europe/London');
+
+if (PHP_SAPI == 'cli')
+	die('This example should only be run from a Web Browser');
 
 /** Include PHPExcel */
 require_once '../Classes/PHPExcel.php';
@@ -84,7 +88,7 @@ if (!PHPExcel_Settings::setPdfRenderer(
 	)) {
 	die(
 		'NOTICE: Please set the $rendererName and $rendererLibraryPath values' .
-		PHP_EOL .
+		'<br />' .
 		'at the top of this script as appropriate for your directory structure'
 	);
 }
