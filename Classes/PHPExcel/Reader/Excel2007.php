@@ -51,7 +51,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 	 *
 	 * @var	boolean
 	 */
-	private $_readDataOnly = false;
+	private $_readDataOnly = FALSE;
 
 	/**
 	 * Read charts that are defined in the workbook?
@@ -59,7 +59,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 	 *
 	 * @var	boolean
 	 */
-	private $_includeCharts = false;
+	private $_includeCharts = FALSE;
 
 	/**
 	 * Restrict which sheets should be loaded?
@@ -67,28 +67,28 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 	 *
 	 * @var array of string
 	 */
-	private $_loadSheetsOnly = null;
+	private $_loadSheetsOnly = NULL;
 
 	/**
 	 * PHPExcel_Reader_IReadFilter instance
 	 *
 	 * @var PHPExcel_Reader_IReadFilter
 	 */
-	private $_readFilter = null;
+	private $_readFilter = NULL;
 
 	/**
 	 * PHPExcel_ReferenceHelper instance
 	 *
 	 * @var PHPExcel_ReferenceHelper
 	 */
-	private $_referenceHelper = null;
+	private $_referenceHelper = NULL;
 
 	/**
 	 * PHPExcel_Reader_Excel2007_Theme instance
 	 *
 	 * @var PHPExcel_Reader_Excel2007_Theme
 	 */
-	private static $_theme = null;
+	private static $_theme = NULL;
 
 
 	/**
@@ -121,7 +121,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 	 *
 	 * @return	PHPExcel_Reader_Excel2007
 	 */
-	public function setReadDataOnly($pValue = false) {
+	public function setReadDataOnly($pValue = FALSE) {
 		$this->_readDataOnly = $pValue;
 		return $this;
 	}
@@ -150,7 +150,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 	 *
 	 * @return	PHPExcel_Reader_Excel2007
 	 */
-	public function setIncludeCharts($pValue = false) {
+	public function setIncludeCharts($pValue = FALSE) {
 		$this->_includeCharts = (boolean) $pValue;
 		return $this;
 	}
@@ -178,7 +178,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 	 *
 	 * @return PHPExcel_Reader_Excel2007
 	 */
-	public function setLoadSheetsOnly($value = null)
+	public function setLoadSheetsOnly($value = NULL)
 	{
 		$this->_loadSheetsOnly = is_array($value) ?
 			$value : array($value);
@@ -194,7 +194,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 	 */
 	public function setLoadAllSheets()
 	{
-		$this->_loadSheetsOnly = null;
+		$this->_loadSheetsOnly = NULL;
 		return $this;
 	}
 
@@ -342,11 +342,11 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 
 	private static function _castToBool($c) {
 //		echo 'Initial Cast to Boolean<br />';
-		$value = isset($c->v) ? (string) $c->v : null;
+		$value = isset($c->v) ? (string) $c->v : NULL;
 		if ($value == '0') {
-			return false;
+			return FALSE;
 		} elseif ($value == '1') {
-			return true;
+			return TRUE;
 		} else {
 			return (bool)$c->v;
 		}
@@ -356,18 +356,18 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 
 	private static function _castToError($c) {
 //		echo 'Initial Cast to Error<br />';
-		return isset($c->v) ? (string) $c->v : null;;
+		return isset($c->v) ? (string) $c->v : NULL;
 	}	//	function _castToError()
 
 
 	private static function _castToString($c) {
 //		echo 'Initial Cast to String<br />';
-		return isset($c->v) ? (string) $c->v : null;;
+		return isset($c->v) ? (string) $c->v : NULL;
 	}	//	function _castToString()
 
 
 	private function _castToFormula($c,$r,&$cellDataType,&$value,&$calculatedValue,&$sharedFormulas,$castBaseType) {
-//		echo '<font color="darkgreen">Formula</font><br />';
+//		echo 'Formula<br />';
 //		echo '$c->f is '.$c->f.'<br />';
 		$cellDataType 		= 'f';
 		$value 				= "={$c->f}";
@@ -375,7 +375,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 
 		// Shared formula?
 		if (isset($c->f['t']) && strtolower((string)$c->f['t']) == 'shared') {
-//			echo '<font color="darkgreen">SHARED FORMULA</font><br />';
+//			echo 'SHARED FORMULA<br />';
 			$instance = (string)$c->f['si'];
 
 //			echo 'Instance ID = '.$instance.'<br />';
@@ -384,7 +384,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 //			print_r($sharedFormulas);
 //			echo '</pre>';
 			if (!isset($sharedFormulas[(string)$c->f['si']])) {
-//				echo '<font color="darkgreen">SETTING NEW SHARED FORMULA</font><br />';
+//				echo 'SETTING NEW SHARED FORMULA<br />';
 //				echo 'Master is '.$r.'<br />';
 //				echo 'Formula is '.$value.'<br />';
 				$sharedFormulas[$instance] = array(	'master' => $r,
@@ -394,7 +394,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 //				print_r($sharedFormulas);
 //				echo '</pre>';
 			} else {
-//				echo '<font color="darkgreen">GETTING SHARED FORMULA</font><br />';
+//				echo 'GETTING SHARED FORMULA<br />';
 //				echo 'Master is '.$sharedFormulas[$instance]['master'].'<br />';
 //				echo 'Formula is '.$sharedFormulas[$instance]['formula'].'<br />';
 				$master = PHPExcel_Cell::coordinateFromString($sharedFormulas[$instance]['master']);
@@ -1408,7 +1408,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 
 							}
 
-	// TODO: Make sure drawings and graph are loaded differently!
+// TODO: Autoshapes from twoCellAnchors!
 							if ($zip->locateName(dirname("$dir/$fileWorksheet") . "/_rels/" . basename($fileWorksheet) . ".rels")) {
 								$relsWorksheet = simplexml_load_string($this->_getFromZipArchive($zip,  dirname("$dir/$fileWorksheet") . "/_rels/" . basename($fileWorksheet) . ".rels") ); //~ http://schemas.openxmlformats.org/package/2006/relationships");
 								$drawings = array();
@@ -1469,6 +1469,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 													}
 													$objDrawing->setWorksheet($docSheet);
 												} else {
+													//	? Can charts be positioned with a oneCellAnchor ?
 													$coordinates	= PHPExcel_Cell::stringFromColumnIndex((string) $oneCellAnchor->from->col) . ($oneCellAnchor->from->row + 1);
 													$offsetX		= PHPExcel_Shared_Drawing::EMUToPixels($oneCellAnchor->from->colOff);
 													$offsetY		= PHPExcel_Shared_Drawing::EMUToPixels($oneCellAnchor->from->rowOff);
@@ -1509,7 +1510,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 														$shadow->setAlpha(self::array_item($outerShdw->srgbClr->alpha->attributes(), "val") / 1000);
 													}
 													$objDrawing->setWorksheet($docSheet);
-												} elseif($this->_includeCharts) {
+												} elseif(($this->_includeCharts) && ($twoCellAnchor->graphicFrame)) {
 													$fromCoordinate	= PHPExcel_Cell::stringFromColumnIndex((string) $twoCellAnchor->from->col) . ($twoCellAnchor->from->row + 1);
 													$fromOffsetX	= PHPExcel_Shared_Drawing::EMUToPixels($twoCellAnchor->from->colOff);
 													$fromOffsetY	= PHPExcel_Shared_Drawing::EMUToPixels($twoCellAnchor->from->rowOff);
@@ -1733,7 +1734,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 	}
 
 
-	private static function _readColor($color, $background=false) {
+	private static function _readColor($color, $background=FALSE) {
 		if (isset($color["rgb"])) {
 			return (string)$color["rgb"];
 		} else if (isset($color["indexed"])) {
