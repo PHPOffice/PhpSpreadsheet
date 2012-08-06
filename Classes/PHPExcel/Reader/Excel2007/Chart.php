@@ -305,6 +305,13 @@ class PHPExcel_Reader_Excel2007_Chart
 			$seriesData['pointCount'] = count($seriesData['dataValues']);
 
 			return new PHPExcel_Chart_DataSeriesValues('String',$seriesSource,$seriesData['formatCode'],$seriesData['pointCount'],$seriesData['dataValues'],$marker,$smoothLine);
+		} elseif (isset($seriesDetail->v)) {
+			$seriesData = array( 'formatCode'	=> '@',
+								 'pointCount'	=> 1,
+								 'dataValues'	=> array((string) $seriesDetail->v)
+							   );
+
+			return new PHPExcel_Chart_DataSeriesValues('String',NULL,'@',1,$seriesData['dataValues'],$marker,$smoothLine);
 		}
 		return null;
 	}	//	function _chartDataSeriesValueSet()

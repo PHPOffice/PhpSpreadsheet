@@ -101,6 +101,7 @@ Fixed in develop branch:
 - Bugfix:   (MBaker)     Work item 18377 - Chart Title compatibility on Excel 2007
 - Bugfix:   (MBaker)     Work item 18146 - Chart Refresh returning cell reference rather than values
 - Bugfix:   (MBaker)     Work item 18145 - Autoshape being identified in twoCellAnchor when includeCharts is TRUE triggering load error
+- Bugfix:   (MBaker)     Work item 18325 - v-type texts for series labels now recognised and parsed correctly
 
 
 2012-05-19 (v1.7.7):
