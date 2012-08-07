@@ -530,6 +530,7 @@ class PHPExcel_Calculation_MathTrig {
 
 		$row = $maxColumn = 0;
 		foreach($matrixValues as $matrixRow) {
+			if (!is_array($matrixRow)) { $matrixRow = array($matrixRow); }
 			$column = 0;
 			foreach($matrixRow as $matrixCell) {
 				if ((is_string($matrixCell)) || ($matrixCell === null)) {
@@ -571,6 +572,7 @@ class PHPExcel_Calculation_MathTrig {
 
 		$row = $maxColumn = 0;
 		foreach($matrixValues as $matrixRow) {
+			if (!is_array($matrixRow)) { $matrixRow = array($matrixRow); }
 			$column = 0;
 			foreach($matrixRow as $matrixCell) {
 				if ((is_string($matrixCell)) || ($matrixCell === null)) {
@@ -607,6 +609,7 @@ class PHPExcel_Calculation_MathTrig {
 
 		$rowA = 0;
 		foreach($matrixData1 as $matrixRow) {
+			if (!is_array($matrixRow)) { $matrixRow = array($matrixRow); }
 			$columnA = 0;
 			foreach($matrixRow as $matrixCell) {
 				if ((is_string($matrixCell)) || ($matrixCell === null)) {
@@ -621,6 +624,7 @@ class PHPExcel_Calculation_MathTrig {
 			$matrixA = new PHPExcel_Shared_JAMA_Matrix($matrixAData);
 			$rowB = 0;
 			foreach($matrixData2 as $matrixRow) {
+				if (!is_array($matrixRow)) { $matrixRow = array($matrixRow); }
 				$columnB = 0;
 				foreach($matrixRow as $matrixCell) {
 					if ((is_string($matrixCell)) || ($matrixCell === null)) {
