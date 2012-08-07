@@ -64,7 +64,8 @@ class PHPExcel_Reader_Excel2007_Chart
 		$namespacesChartMeta = $chartElements->getNamespaces(true);
 		$chartElementsC = $chartElements->children($namespacesChartMeta['c']);
 
-		$XaxisLabel = $YaxisLabel = $legend = $title = null;
+		$XaxisLabel = $YaxisLabel = $legend = $title = NULL;
+		$dispBlanksAs = $plotVisOnly = NULL;
 
 		foreach($chartElementsC as $chartElementKey => $chartElement) {
 			switch ($chartElementKey) {
@@ -304,6 +305,13 @@ class PHPExcel_Reader_Excel2007_Chart
 			$seriesData['pointCount'] = count($seriesData['dataValues']);
 
 			return new PHPExcel_Chart_DataSeriesValues('String',$seriesSource,$seriesData['formatCode'],$seriesData['pointCount'],$seriesData['dataValues'],$marker,$smoothLine);
+		} elseif (isset($seriesDetail->v)) {
+			$seriesData = array( 'formatCode'	=> '@',
+								 'pointCount'	=> 1,
+								 'dataValues'	=> array((string) $seriesDetail->v)
+							   );
+
+			return new PHPExcel_Chart_DataSeriesValues('String',NULL,'@',1,$seriesData['dataValues'],$marker,$smoothLine);
 		}
 		return null;
 	}	//	function _chartDataSeriesValueSet()

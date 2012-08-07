@@ -273,14 +273,22 @@ class PHPExcel_Chart_DataSeriesValues
 		return $this;
 	}
 
+	private function _stripNulls($var) {
+		return $var !== NULL;
+	}
+
 	public function refresh(PHPExcel_Worksheet $worksheet) {
         if ($this->_dataSource !== NULL) {
         	$calcEngine = PHPExcel_Calculation::getInstance();
-			$this->_dataValues = PHPExcel_Calculation::_unwrapResult(
+			$newDataValues = PHPExcel_Calculation::_unwrapResult(
 			    $calcEngine->_calculateFormulaValue(
-			        $this->_dataSource
+			        '='.$this->_dataSource,
+			        NULL,
+			        $worksheet->getCell('A1')
 			    )
 			);
+
+			$this->_dataValues = PHPExcel_Calculation_Functions::flattenArray($newDataValues);
 		}
 	}
 

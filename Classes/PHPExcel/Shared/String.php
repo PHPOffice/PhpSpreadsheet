@@ -612,7 +612,7 @@ class PHPExcel_Shared_String
 	{
 		if (!isset(self::$_decimalSeparator)) {
 			$localeconv = localeconv();
-			self::$_decimalSeparator = $localeconv['decimal_point'] != ''
+			self::$_decimalSeparator = ($localeconv['decimal_point'] != '')
 				? $localeconv['decimal_point'] : $localeconv['mon_decimal_point'];
 
 			if (self::$_decimalSeparator == '') {
@@ -644,7 +644,7 @@ class PHPExcel_Shared_String
 	{
 		if (!isset(self::$_thousandsSeparator)) {
 			$localeconv = localeconv();
-			self::$_thousandsSeparator = $localeconv['thousands_sep'] != ''
+			self::$_thousandsSeparator = ($localeconv['thousands_sep'] != '')
 				? $localeconv['thousands_sep'] : $localeconv['mon_thousands_sep'];
 		}
 		return self::$_thousandsSeparator;
@@ -671,7 +671,7 @@ class PHPExcel_Shared_String
 	{
 		if (!isset(self::$_currencyCode)) {
 			$localeconv = localeconv();
-			self::$_currencyCode = $localeconv['currency_symbol'] != ''
+			self::$_currencyCode = ($localeconv['currency_symbol'] != '')
 				? $localeconv['currency_symbol'] : $localeconv['int_curr_symbol'];
 
 			if (self::$_currencyCode == '') {

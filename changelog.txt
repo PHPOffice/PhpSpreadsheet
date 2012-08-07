@@ -79,6 +79,10 @@ Fixed in develop branch:
 - Feature:  (MBaker)     Initial version of HTML Reader
 - Feature:  (Progi1984) & (blazzy) Work items 9605 - Implement support for AutoFilter in PHPExcel_Writer_Excel5
 - Feature:  (MBaker)     Modified ERF and ERFC Engineering functions to accept Excel 2010's modified acceptance of negative arguments
+- General:  (alexgann)   Add Currency detection to the Advanced Value Binder
+- General:  (MBaker)     Work item 18404 - setCellValueExplicitByColumnAndRow() do not return PHPExcel_Worksheet
+- General:  (MBaker)     Work item 18324 - Reader factory doesn't read anymore XLTX and XLT files
+- General:  (MBaker)     Magic __toString() method added to Cell object to return raw data value as a string
 - Bugfix:   (cyberconte) Patch 12318 - OOCalc cells containing <text:span> inside the <text:p> tag
 - Bugfix:   (schir1964)  Fix to listWorksheetInfo() method for OOCalc Reader
 - Bugfix:   (MBaker)     Support for "e" (epoch) date format mask
@@ -87,7 +91,17 @@ Fixed in develop branch:
 - Bugfix:   (MBaker)     Work items 15905 and 18183 - Allow "no impact" to formats on Conditional Formatting
 - Bugfix:   (wackonline) OOCalc Reader fix for NULL cells
 - Bugfix:   (seltzlab)   Fix to excel2007 Chart Writer when a $plotSeriesValues is empty
+- Bugfix:   (MBaker)     Various fixes to Chart handling
 - Bugfix:   (MBaker)     Work item 18370 - Error loading xlsx file with column breaks
+- Bugfix:   (MBaker)     OOCalc Reader now handles percentage and currency data types
+- Bugfix:   (MBaker)     Work Item 18415 - mb_stripos empty delimiter
+- Bugfix:   (takaakik)   Work Item 15455 - getNestingLevel() Error on Excel5 Read
+- Bugfix:   (MBaker)     Fix to Excel5 Reader when cell annotations are defined before their referenced text objects
+- Bugfix:   (MBaker)     OOCalc Reader modified to process number-rows-repeated
+- Bugfix:   (MBaker)     Work item 18377 - Chart Title compatibility on Excel 2007
+- Bugfix:   (MBaker)     Work item 18146 - Chart Refresh returning cell reference rather than values
+- Bugfix:   (MBaker)     Work item 18145 - Autoshape being identified in twoCellAnchor when includeCharts is TRUE triggering load error
+- Bugfix:   (MBaker)     Work item 18325 - v-type texts for series labels now recognised and parsed correctly
 
 
 2012-05-19 (v1.7.7):

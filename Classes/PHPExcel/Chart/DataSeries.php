@@ -146,6 +146,7 @@ class PHPExcel_Chart_DataSeries
 		if ((count($plotLabel) == 0) || (is_null($plotLabel[$keys[0]]))) {
 			$plotLabel[$keys[0]] = new PHPExcel_Chart_DataSeriesValues();
 		}
+
 		$this->_plotLabel = $plotLabel;
 		if ((count($plotCategory) == 0) || (is_null($plotCategory[$keys[0]]))) {
 			$plotCategory[$keys[0]] = new PHPExcel_Chart_DataSeriesValues();
@@ -337,7 +338,16 @@ class PHPExcel_Chart_DataSeries
 
 	public function refresh(PHPExcel_Worksheet $worksheet) {
 	    foreach($this->_plotValues as $plotValues) {
-			$plotValues->refresh($worksheet);
+			if ($plotValues !== NULL)
+				$plotValues->refresh($worksheet);
+		}
+		foreach($this->_plotLabel as $plotValues) {
+			if ($plotValues !== NULL)
+				$plotValues->refresh($worksheet);
+		}
+		foreach($this->_plotCategory as $plotValues) {
+			if ($plotValues !== NULL)
+				$plotValues->refresh($worksheet);
 		}
 	}
 

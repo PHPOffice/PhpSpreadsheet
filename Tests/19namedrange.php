@@ -27,6 +27,11 @@
 
 /** Error reporting */
 error_reporting(E_ALL);
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
+date_default_timezone_set('Europe/London');
+
+define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 date_default_timezone_set('Europe/London');
 
@@ -35,11 +40,11 @@ require_once '../Classes/PHPExcel.php';
 
 
 // Create new PHPExcel object
-echo date('H:i:s') , " Create new PHPExcel object" , PHP_EOL;
+echo date('H:i:s') , " Create new PHPExcel object" , EOL;
 $objPHPExcel = new PHPExcel();
 
 // Set document properties
-echo date('H:i:s') , " Set document properties" , PHP_EOL;
+echo date('H:i:s') , " Set document properties" , EOL;
 $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 							 ->setLastModifiedBy("Maarten Balliauw")
 							 ->setTitle("Office 2007 XLSX Test Document")
@@ -50,7 +55,7 @@ $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 
 
 // Add some data
-echo date('H:i:s') , " Add some data" , PHP_EOL;
+echo date('H:i:s') , " Add some data" , EOL;
 $objPHPExcel->setActiveSheetIndex(0);
 $objPHPExcel->getActiveSheet()->setCellValue('A1', 'Firstname:')
                               ->setCellValue('A2', 'Lastname:')
@@ -60,25 +65,25 @@ $objPHPExcel->getActiveSheet()->setCellValue('A1', 'Firstname:')
                               ->setCellValue('B3', '=B1 & " " & B2');
 
 // Define named ranges
-echo date('H:i:s') , " Define named ranges" , PHP_EOL;
+echo date('H:i:s') , " Define named ranges" , EOL;
 $objPHPExcel->addNamedRange( new PHPExcel_NamedRange('PersonName', $objPHPExcel->getActiveSheet(), 'B1') );
 $objPHPExcel->addNamedRange( new PHPExcel_NamedRange('PersonLN', $objPHPExcel->getActiveSheet(), 'B2') );
 
 // Rename named ranges
-echo date('H:i:s') , " Rename named ranges" , PHP_EOL;
+echo date('H:i:s') , " Rename named ranges" , EOL;
 $objPHPExcel->getNamedRange('PersonName')->setName('PersonFN');
 
 // Rename worksheet
-echo date('H:i:s') , " Rename worksheet" , PHP_EOL;
+echo date('H:i:s') , " Rename worksheet" , EOL;
 $objPHPExcel->getActiveSheet()->setTitle('Person');
 
 
 // Create a new worksheet, after the default sheet
-echo date('H:i:s') , " Create new Worksheet object" , PHP_EOL;
+echo date('H:i:s') , " Create new Worksheet object" , EOL;
 $objPHPExcel->createSheet();
 
 // Add some data to the second sheet, resembling some different data types
-echo date('H:i:s') , " Add some data" , PHP_EOL;
+echo date('H:i:s') , " Add some data" , EOL;
 $objPHPExcel->setActiveSheetIndex(1);
 $objPHPExcel->getActiveSheet()->setCellValue('A1', 'Firstname:')
                               ->setCellValue('A2', 'Lastname:')
@@ -88,13 +93,13 @@ $objPHPExcel->getActiveSheet()->setCellValue('A1', 'Firstname:')
                               ->setCellValue('B3', '=PersonFN & " " & PersonLN');
 
 // Resolve range
-echo date('H:i:s') , " Resolve range" , PHP_EOL;
-echo 'Cell B1 {=PersonFN}: ' , $objPHPExcel->getActiveSheet()->getCell('B1')->getCalculatedValue() , PHP_EOL;
-echo 'Cell B3 {=PersonFN & " " & PersonLN}: ' , $objPHPExcel->getActiveSheet()->getCell('B3')->getCalculatedValue() , PHP_EOL;
-echo 'Cell Person!B1: ' , $objPHPExcel->getActiveSheet()->getCell('Person!B1')->getCalculatedValue() , PHP_EOL;
+echo date('H:i:s') , " Resolve range" , EOL;
+echo 'Cell B1 {=PersonFN}: ' , $objPHPExcel->getActiveSheet()->getCell('B1')->getCalculatedValue() , EOL;
+echo 'Cell B3 {=PersonFN & " " & PersonLN}: ' , $objPHPExcel->getActiveSheet()->getCell('B3')->getCalculatedValue() , EOL;
+echo 'Cell Person!B1: ' , $objPHPExcel->getActiveSheet()->getCell('Person!B1')->getCalculatedValue() , EOL;
 
 // Rename worksheet
-echo date('H:i:s') , " Rename worksheet" , PHP_EOL;
+echo date('H:i:s') , " Rename worksheet" , EOL;
 $objPHPExcel->getActiveSheet()->setTitle('Person (cloned)');
 
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
@@ -102,14 +107,15 @@ $objPHPExcel->setActiveSheetIndex(0);
 
 
 // Save Excel 2007 file
-echo date('H:i:s') , " Write to Excel2007 format" , PHP_EOL;
+echo date('H:i:s') , " Write to Excel2007 format" , EOL;
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
-echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', __FILE__) , PHP_EOL;
+echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
 
 
 // Echo memory peak usage
-echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , PHP_EOL;
+echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , EOL;
 
 // Echo done
-echo date('H:i:s') , " Done writing file" , PHP_EOL;
+echo date('H:i:s') , " Done writing file" , EOL;
+echo 'File has been created in ' , getcwd() , EOL;

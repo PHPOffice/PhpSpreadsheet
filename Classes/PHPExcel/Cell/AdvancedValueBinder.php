@@ -88,6 +88,26 @@ class PHPExcel_Cell_AdvancedValueBinder extends PHPExcel_Cell_DefaultValueBinder
 				return true;
 			}
 
+			// Check for currency
+			$currencyCode = PHPExcel_Shared_String::getCurrencyCode();
+			if (preg_match('/^'.preg_quote($currencyCode).' ?(\d{1,3}(\,\d{3})*|(\d+))(\.\d{2})?$/', $value)) {
+				// Convert value to number
+				$cell->setValueExplicit( trim(str_replace($currencyCode, '', $value)), PHPExcel_Cell_DataType::TYPE_NUMERIC);
+				// Set style
+				$cell->getParent()->getStyle( $cell->getCoordinate() )
+					->getNumberFormat()->setFormatCode(
+						str_replace('$', $currencyCode, PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD_SIMPLE )
+					);
+				return true;
+			} elseif (preg_match('/^\$ ?(\d{1,3}(\,\d{3})*|(\d+))(\.\d{2})?$/', $value)) {
+				// Convert value to number
+				$cell->setValueExplicit( trim(str_replace('$', '', $value)), PHPExcel_Cell_DataType::TYPE_NUMERIC);
+				// Set style
+				$cell->getParent()->getStyle( $cell->getCoordinate() )
+					->getNumberFormat()->setFormatCode( PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD_SIMPLE );
+				return true;
+			}
+
 			// Check for time without seconds e.g. '9:45', '09:45'
 			if (preg_match('/^(\d|[0-1]\d|2[0-3]):[0-5]\d$/', $value)) {
 				list($h, $m) = explode(':', $value);

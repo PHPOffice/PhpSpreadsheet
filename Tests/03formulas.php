@@ -27,19 +27,22 @@
 
 /** Error reporting */
 error_reporting(E_ALL);
-
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
 date_default_timezone_set('Europe/London');
+
+define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 /** Include PHPExcel */
 require_once '../Classes/PHPExcel.php';
 
 
 // Create new PHPExcel object
-echo date('H:i:s') , " Create new PHPExcel object" , PHP_EOL;
+echo date('H:i:s') , " Create new PHPExcel object" , EOL;
 $objPHPExcel = new PHPExcel();
 
 // Set document properties
-echo date('H:i:s') , " Set document properties" , PHP_EOL;
+echo date('H:i:s') , " Set document properties" , EOL;
 $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 							 ->setLastModifiedBy("Maarten Balliauw")
 							 ->setTitle("Office 2007 XLSX Test Document")
@@ -50,7 +53,7 @@ $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 
 
 // Add some data, we will use some formulas here
-echo date('H:i:s') , " Add some data" , PHP_EOL;
+echo date('H:i:s') , " Add some data" , EOL;
 $objPHPExcel->getActiveSheet()->setCellValue('A5', 'Sum:');
 
 $objPHPExcel->getActiveSheet()->setCellValue('B1', 'Range #1')
@@ -59,7 +62,7 @@ $objPHPExcel->getActiveSheet()->setCellValue('B1', 'Range #1')
                               ->setCellValue('B4', 13)
                               ->setCellValue('B5', '=SUM(B2:B4)');
 echo date('H:i:s') , " Sum of Range #1 is " ,
-                     $objPHPExcel->getActiveSheet()->getCell('B5')->getCalculatedValue() , PHP_EOL;
+                     $objPHPExcel->getActiveSheet()->getCell('B5')->getCalculatedValue() , EOL;
 
 $objPHPExcel->getActiveSheet()->setCellValue('C1', 'Range #2')
                               ->setCellValue('C2', 5)
@@ -67,31 +70,31 @@ $objPHPExcel->getActiveSheet()->setCellValue('C1', 'Range #2')
                               ->setCellValue('C4', 17)
                               ->setCellValue('C5', '=SUM(C2:C4)');
 echo date('H:i:s') , " Sum of Range #2 is " ,
-                     $objPHPExcel->getActiveSheet()->getCell('C5')->getCalculatedValue() , PHP_EOL;
+                     $objPHPExcel->getActiveSheet()->getCell('C5')->getCalculatedValue() , EOL;
 
 $objPHPExcel->getActiveSheet()->setCellValue('A7', 'Total of both ranges:');
 $objPHPExcel->getActiveSheet()->setCellValue('B7', '=SUM(B5:C5)');
 echo date('H:i:s') , " Sum of both Ranges is " ,
-                     $objPHPExcel->getActiveSheet()->getCell('B7')->getCalculatedValue() , PHP_EOL;
+                     $objPHPExcel->getActiveSheet()->getCell('B7')->getCalculatedValue() , EOL;
 
 $objPHPExcel->getActiveSheet()->setCellValue('A8', 'Minimum of both ranges:');
 $objPHPExcel->getActiveSheet()->setCellValue('B8', '=MIN(B2:C4)');
 echo date('H:i:s') , " Minimum value in either Range is " ,
-                     $objPHPExcel->getActiveSheet()->getCell('B8')->getCalculatedValue() , PHP_EOL;
+                     $objPHPExcel->getActiveSheet()->getCell('B8')->getCalculatedValue() , EOL;
 
 $objPHPExcel->getActiveSheet()->setCellValue('A9', 'Maximum of both ranges:');
 $objPHPExcel->getActiveSheet()->setCellValue('B9', '=MAX(B2:C4)');
 echo date('H:i:s') , " Maximum value in either Range is " ,
-                     $objPHPExcel->getActiveSheet()->getCell('B9')->getCalculatedValue() , PHP_EOL;
+                     $objPHPExcel->getActiveSheet()->getCell('B9')->getCalculatedValue() , EOL;
 
 $objPHPExcel->getActiveSheet()->setCellValue('A10', 'Average of both ranges:');
 $objPHPExcel->getActiveSheet()->setCellValue('B10', '=AVERAGE(B2:C4)');
 echo date('H:i:s') , " Average value of both Ranges is " ,
-                     $objPHPExcel->getActiveSheet()->getCell('B10')->getCalculatedValue() , PHP_EOL;
+                     $objPHPExcel->getActiveSheet()->getCell('B10')->getCalculatedValue() , EOL;
 
 
 // Rename worksheet
-echo date('H:i:s') , " Rename worksheet" , PHP_EOL;
+echo date('H:i:s') , " Rename worksheet" , EOL;
 $objPHPExcel->getActiveSheet()->setTitle('Formulas');
 
 
@@ -100,14 +103,20 @@ $objPHPExcel->setActiveSheetIndex(0);
 
 
 // Save Excel 2007 file
-echo date('H:i:s') , " Write to Excel2007 format" , PHP_EOL;
+echo date('H:i:s') , " Write to Excel2007 format" , EOL;
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
-echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', __FILE__) , PHP_EOL;
+echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
+// Save Excel5 file
+echo date('H:i:s') , " Write to Excel5 format" , EOL;
+$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter->save(str_replace('.php', '.xls', __FILE__));
+echo date('H:i:s') , " File written to " , str_replace('.php', '.xls', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
 
 
 // Echo memory peak usage
-echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , PHP_EOL;
+echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , EOL;
 
 // Echo done
-echo date('H:i:s') , " Done writing file" , PHP_EOL;
+echo date('H:i:s') , " Done writing files" , EOL;
+echo 'Files have been created in ' , getcwd() , EOL;

@@ -27,6 +27,11 @@
 
 /** Error reporting */
 error_reporting(E_ALL);
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
+date_default_timezone_set('Europe/London');
+
+define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 date_default_timezone_set('Europe/London');
 
@@ -35,12 +40,12 @@ require_once '../Classes/PHPExcel.php';
 
 
 // Create new PHPExcel object
-echo date('H:i:s') , " Create new PHPExcel object" , PHP_EOL;
+echo date('H:i:s') , " Create new PHPExcel object" , EOL;
 $objPHPExcel = new PHPExcel();
 
 
 // Set document properties
-echo date('H:i:s') , " Set document properties" , PHP_EOL;
+echo date('H:i:s') , " Set document properties" , EOL;
 $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 							 ->setLastModifiedBy("Maarten Balliauw")
 							 ->setTitle("Office 2007 XLSX Test Document")
@@ -51,17 +56,17 @@ $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 
 
 // Create a first sheet
-echo date('H:i:s') , " Add data" , PHP_EOL;
+echo date('H:i:s') , " Add data" , EOL;
 $objPHPExcel->setActiveSheetIndex(0);
-$objPHPExcel->getActiveSheet()->setCellValue('A1', "Cell B3 and B5 contain data validation...");
-$objPHPExcel->getActiveSheet()->setCellValue('A3', "Number:");
-$objPHPExcel->getActiveSheet()->setCellValue('B3', "10");
-$objPHPExcel->getActiveSheet()->setCellValue('A5', "List:");
-$objPHPExcel->getActiveSheet()->setCellValue('B5', "Item A");
+$objPHPExcel->getActiveSheet()->setCellValue('A1', "Cell B3 and B5 contain data validation...")
+                              ->setCellValue('A3', "Number:")
+                              ->setCellValue('B3', "10")
+                              ->setCellValue('A5', "List:")
+                              ->setCellValue('B5', "Item A");
 
 
 // Set data validation
-echo date('H:i:s') , " Set data validation" , PHP_EOL;
+echo date('H:i:s') , " Set data validation" , EOL;
 $objValidation = $objPHPExcel->getActiveSheet()->getCell('B3')->getDataValidation();
 $objValidation->setType( PHPExcel_Cell_DataValidation::TYPE_WHOLE );
 $objValidation->setErrorStyle( PHPExcel_Cell_DataValidation::STYLE_STOP );
@@ -94,14 +99,15 @@ $objPHPExcel->setActiveSheetIndex(0);
 
 
 // Save Excel 2007 file
-echo date('H:i:s') , " Write to Excel5 format" , PHP_EOL;
+echo date('H:i:s') , " Write to Excel5 format" , EOL;
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save(str_replace('.php', '.xls', __FILE__));
-echo date('H:i:s') , " File written to " , str_replace('.php', '.xls', __FILE__) , PHP_EOL;
+echo date('H:i:s') , " File written to " , str_replace('.php', '.xls', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
 
 
 // Echo memory peak usage
-echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , PHP_EOL;
+echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , EOL;
 
 // Echo done
-echo date('H:i:s') , " Done writing file" , PHP_EOL;
+echo date('H:i:s') , " Done writing file" , EOL;
+echo 'File has been created in ' , getcwd() , EOL;

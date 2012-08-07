@@ -88,9 +88,9 @@ class PHPExcel_Shared_Date
 		if (($baseDate == self::CALENDAR_WINDOWS_1900) ||
 			($baseDate == self::CALENDAR_MAC_1904)) {
 			self::$ExcelBaseDate = $baseDate;
-			return True;
+			return TRUE;
 		}
-		return False;
+		return FALSE;
 	}	//	function setExcelCalendar()
 
 
@@ -166,12 +166,12 @@ class PHPExcel_Shared_Date
 	 *
 	 * @param	 mixed		$dateValue	PHP serialized date/time or date object
 	 * @return	 mixed					Excel date/time value
-	 *										or boolean False on failure
+	 *										or boolean FALSE on failure
 	 */
 	public static function PHPToExcel($dateValue = 0) {
 		$saveTimeZone = date_default_timezone_get();
 		date_default_timezone_set('UTC');
-		$retValue = False;
+		$retValue = FALSE;
 		if ((is_object($dateValue)) && ($dateValue instanceof self::$dateTimeObjectType)) {
 			$retValue = self::FormattedPHPToExcel( $dateValue->format('Y'), $dateValue->format('m'), $dateValue->format('d'),
 												   $dateValue->format('H'), $dateValue->format('i'), $dateValue->format('s')
@@ -204,12 +204,12 @@ class PHPExcel_Shared_Date
 			//	Fudge factor for the erroneous fact that the year 1900 is treated as a Leap Year in MS Excel
 			//	This affects every date following 28th February 1900
 			//
-			$excel1900isLeapYear = True;
-			if (($year == 1900) && ($month <= 2)) { $excel1900isLeapYear = False; }
+			$excel1900isLeapYear = TRUE;
+			if (($year == 1900) && ($month <= 2)) { $excel1900isLeapYear = FALSE; }
 			$myExcelBaseDate = 2415020;
 		} else {
 			$myExcelBaseDate = 2416481;
-			$excel1900isLeapYear = False;
+			$excel1900isLeapYear = FALSE;
 		}
 
 		//	Julian base date Adjustment
@@ -238,7 +238,11 @@ class PHPExcel_Shared_Date
 	 * @return	 boolean
 	 */
 	public static function isDateTime(PHPExcel_Cell $pCell) {
-		return self::isDateTimeFormat($pCell->getParent()->getStyle($pCell->getCoordinate())->getNumberFormat());
+		return self::isDateTimeFormat(
+			$pCell->getParent()->getStyle(
+				$pCell->getCoordinate()
+			)->getNumberFormat()
+		);
 	}	//	function isDateTime()
 
 
@@ -264,6 +268,10 @@ class PHPExcel_Shared_Date
 	public static function isDateTimeFormatCode($pFormatCode = '') {
 		// Switch on formatcode
 		switch ($pFormatCode) {
+			//	General contains an epoch letter 'e', so we trap for it explicitly here
+			case PHPExcel_Style_NumberFormat::FORMAT_GENERAL:
+				return FALSE;
+			//	Explicitly defined date formats
 			case PHPExcel_Style_NumberFormat::FORMAT_DATE_YYYYMMDD:
 			case PHPExcel_Style_NumberFormat::FORMAT_DATE_YYYYMMDD2:
 			case PHPExcel_Style_NumberFormat::FORMAT_DATE_DDMMYYYY:
@@ -286,32 +294,32 @@ class PHPExcel_Shared_Date
 			case PHPExcel_Style_NumberFormat::FORMAT_DATE_XLSX16:
 			case PHPExcel_Style_NumberFormat::FORMAT_DATE_XLSX17:
 			case PHPExcel_Style_NumberFormat::FORMAT_DATE_XLSX22:
-				return true;
+				return TRUE;
 		}
 
 		//	Typically number, currency or accounting (or occasionally fraction) formats
 		if ((substr($pFormatCode,0,1) == '_') || (substr($pFormatCode,0,2) == '0 ')) {
-			return false;
+			return FALSE;
 		}
 		// Try checking for any of the date formatting characters that don't appear within square braces
 		if (preg_match('/(^|\])[^\[]*['.self::$possibleDateFormatCharacters.']/i',$pFormatCode)) {
 			//	We might also have a format mask containing quoted strings...
 			//		we don't want to test for any of our characters within the quoted blocks
-			if (strpos($pFormatCode,'"') !== false) {
-				$i = false;
+			if (strpos($pFormatCode,'"') !== FALSE) {
+				$i = FALSE;
 				foreach(explode('"',$pFormatCode) as $subVal) {
 					//	Only test in alternate array entries (the non-quoted blocks)
 					if (($i = !$i) && (preg_match('/(^|\])[^\[]*['.self::$possibleDateFormatCharacters.']/i',$subVal))) {
-						return true;
+						return TRUE;
 					}
 				}
-				return false;
+				return FALSE;
 			}
-			return true;
+			return TRUE;
 		}
 
 		// No date...
-		return false;
+		return FALSE;
 	}	//	function isDateTimeFormatCode()
 
 
@@ -319,23 +327,23 @@ class PHPExcel_Shared_Date
 	 * Convert a date/time string to Excel time
 	 *
 	 * @param	string	$dateValue		Examples: '2009-12-31', '2009-12-31 15:59', '2009-12-31 15:59:10'
-	 * @return	float|false		Excel date/time serial value
+	 * @return	float|FALSE		Excel date/time serial value
 	 */
 	public static function stringToExcel($dateValue = '') {
 		if (strlen($dateValue) < 2)
-			return false;
+			return FALSE;
 		if (!preg_match('/^(\d{1,4}[ \.\/\-][A-Z]{3,9}([ \.\/\-]\d{1,4})?|[A-Z]{3,9}[ \.\/\-]\d{1,4}([ \.\/\-]\d{1,4})?|\d{1,4}[ \.\/\-]\d{1,4}([ \.\/\-]\d{1,4})?)( \d{1,2}:\d{1,2}(:\d{1,2})?)?$/iu', $dateValue))
-			return false;
+			return FALSE;
 
 		$dateValueNew = PHPExcel_Calculation_DateTime::DATEVALUE($dateValue);
 
 		if ($dateValueNew === PHPExcel_Calculation_Functions::VALUE()) {
-			return false;
+			return FALSE;
 		} else {
-			if (strpos($dateValue, ':') !== false) {
+			if (strpos($dateValue, ':') !== FALSE) {
 				$timeValue = PHPExcel_Calculation_DateTime::TIMEVALUE($dateValue);
 				if ($timeValue === PHPExcel_Calculation_Functions::VALUE()) {
-					return false;
+					return FALSE;
 				}
 				$dateValueNew += $timeValue;
 			}

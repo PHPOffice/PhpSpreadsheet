@@ -2,6 +2,11 @@
 
 /** Error reporting */
 error_reporting(E_ALL);
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
+date_default_timezone_set('Europe/London');
+
+define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 date_default_timezone_set('Europe/London');
 
@@ -52,25 +57,25 @@ foreach($inputFileNames as $inputFileName) {
 	$inputFileNameShort = basename($inputFileName);
 
 	if (!file_exists($inputFileName)) {
-		echo date('H:i:s') , " File " , $inputFileNameShort , ' does not exist' , PHP_EOL;
+		echo date('H:i:s') , " File " , $inputFileNameShort , ' does not exist' , EOL;
 		continue;
 	}
 
-	echo date('H:i:s') , " Load Test from $inputFileType file " , $inputFileNameShort , PHP_EOL;
+	echo date('H:i:s') , " Load Test from $inputFileType file " , $inputFileNameShort , EOL;
 
 	$objReader = PHPExcel_IOFactory::createReader($inputFileType);
 	$objReader->setIncludeCharts(TRUE);
 	$objPHPExcel = $objReader->load($inputFileName);
 
 
-	echo date('H:i:s') , " Iterate worksheets looking at the charts" , PHP_EOL;
+	echo date('H:i:s') , " Iterate worksheets looking at the charts" , EOL;
 	foreach ($objPHPExcel->getWorksheetIterator() as $worksheet) {
 		$sheetName = $worksheet->getTitle();
-		echo 'Worksheet: ' , $sheetName , PHP_EOL;
+		echo 'Worksheet: ' , $sheetName , EOL;
 
 		$chartNames = $worksheet->getChartNames();
 		if(empty($chartNames)) {
-			echo '    There are no charts in this worksheet' , PHP_EOL;
+			echo '    There are no charts in this worksheet' , EOL;
 		} else {
 			natsort($chartNames);
 			foreach($chartNames as $i => $chartName) {
@@ -80,12 +85,12 @@ foreach($inputFileNames as $inputFileName) {
 				} else {
 					$caption = 'Untitled';
 				}
-				echo '    ' , $chartName , ' - ' , $caption , PHP_EOL;
+				echo '    ' , $chartName , ' - ' , $caption , EOL;
 				echo str_repeat(' ',strlen($chartName)+3);
 				$groupCount = $chart->getPlotArea()->getPlotGroupCount();
 				if ($groupCount == 1) {
 					$chartType = $chart->getPlotArea()->getPlotGroupByIndex(0)->getPlotType();
-					echo '    ' , $chartType , PHP_EOL;
+					echo '    ' , $chartType , EOL;
 				} else {
 					$chartTypes = array();
 					for($i = 0; $i < $groupCount; ++$i) {
@@ -94,11 +99,11 @@ foreach($inputFileNames as $inputFileName) {
 					$chartTypes = array_unique($chartTypes);
 					if (count($chartTypes) == 1) {
 						$chartType = 'Multiple Plot ' . array_pop($chartTypes);
-						echo '    ' , $chartType , PHP_EOL;
+						echo '    ' , $chartType , EOL;
 					} elseif (count($chartTypes) == 0) {
-						echo '    *** Type not yet implemented' , PHP_EOL;
+						echo '    *** Type not yet implemented' , EOL;
 					} else {
-						echo '    Combination Chart' , PHP_EOL;
+						echo '    Combination Chart' , EOL;
 					}
 				}
 			}
@@ -108,18 +113,19 @@ foreach($inputFileNames as $inputFileName) {
 
 	$outputFileName = basename($inputFileName);
 
-	echo date('H:i:s') , " Write Tests to Excel2007 file " , PHP_EOL;
+	echo date('H:i:s') , " Write Tests to Excel2007 file " , EOL;
 	$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 	$objWriter->setIncludeCharts(TRUE);
 	$objWriter->save($outputFileName);
-	echo date('H:i:s') , " File written to " , $outputFileName , PHP_EOL;
+	echo date('H:i:s') , " File written to " , $outputFileName , EOL;
 
 	$objPHPExcel->disconnectWorksheets();
 	unset($objPHPExcel);
 }
 
 // Echo memory peak usage
-echo date('H:i:s') , ' Peak memory usage: ' , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , PHP_EOL;
+echo date('H:i:s') , ' Peak memory usage: ' , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , EOL;
 
 // Echo done
-echo date('H:i:s') , " Done writing files" , PHP_EOL;
+echo date('H:i:s') , " Done writing files" , EOL;
+echo 'Files have been created in ' , getcwd() , EOL;

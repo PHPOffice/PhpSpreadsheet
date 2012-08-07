@@ -39,6 +39,11 @@ class PHPExcel_Shared_Font
 	const AUTOSIZE_METHOD_APPROX	= 'approx';
 	const AUTOSIZE_METHOD_EXACT		= 'exact';
 
+	private static $_autoSizeMethods = array(
+		self::AUTOSIZE_METHOD_APPROX,
+		self::AUTOSIZE_METHOD_EXACT,
+	);
+
 	/** Character set codes used by BIFF5-8 in Font records */
 	const CHARSET_ANSI_LATIN				= 0x00;
 	const CHARSET_SYSTEM_DEFAULT			= 0x01;
@@ -187,10 +192,17 @@ class PHPExcel_Shared_Font
 	 * Set autoSize method
 	 *
 	 * @param string $pValue
+	 * @return	 boolean					Success or failure
 	 */
-	public static function setAutoSizeMethod($pValue = 'approx')
+	public static function setAutoSizeMethod($pValue = self::AUTOSIZE_METHOD_APPROX)
 	{
+		if (!in_array($pValue,self::$_autoSizeMethods)) {
+			return FALSE;
+		}
+
 		self::$autoSizeMethod = $pValue;
+
+		return TRUE;
 	}
 
 	/**

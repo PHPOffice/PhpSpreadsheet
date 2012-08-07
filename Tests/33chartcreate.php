@@ -2,6 +2,11 @@
 
 /** Error reporting */
 error_reporting(E_ALL);
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
+date_default_timezone_set('Europe/London');
+
+define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 date_default_timezone_set('Europe/London');
 
@@ -28,7 +33,7 @@ date_default_timezone_set('Europe/London');
  * @package    PHPExcel
  * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
- * @version    1.7.7, 2012-05-19
+ * @version    ##VERSION##, ##DATE##
  */
 
 /** Include path **/
@@ -50,16 +55,34 @@ $objWorksheet->fromArray(
 );
 
 //	Set the Labels for each data series we want to plot
+//		Datatype
+//		Cell reference for data
+//		Format Code
+//		Number of datapoints in series
+//		Data values
+//		Data Marker
 $dataseriesLabels = array(
 	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$B$1', null, 1),	//	2010
 	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$C$1', null, 1),	//	2011
 	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$D$1', null, 1),	//	2012
 );
 //	Set the X-Axis Labels
+//		Datatype
+//		Cell reference for data
+//		Format Code
+//		Number of datapoints in series
+//		Data values
+//		Data Marker
 $xAxisTickValues = array(
 	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$A$2:$A$5', null, 4),	//	Q1 to Q4
 );
 //	Set the Data values for each data series we want to plot
+//		Datatype
+//		Cell reference for data
+//		Format Code
+//		Number of datapoints in series
+//		Data values
+//		Data Marker
 $dataSeriesValues = array(
 	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$B$2:$B$5', null, 4),
 	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$C$2:$C$5', null, 4),
@@ -76,6 +99,7 @@ $series = new PHPExcel_Chart_DataSeries(
 	$dataSeriesValues								// plotValues
 );
 //	Set additional dataseries parameters
+//		Make it a vertical column rather than a horizontal bar graph
 $series->setPlotDirection(PHPExcel_Chart_DataSeries::DIRECTION_COL);
 
 //	Set the series in the plot area
@@ -108,15 +132,16 @@ $objWorksheet->addChart($chart);
 
 
 // Save Excel 2007 file
-echo date('H:i:s') , " Write to Excel2007 format" , PHP_EOL;
+echo date('H:i:s') , " Write to Excel2007 format" , EOL;
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->setIncludeCharts(TRUE);
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
-echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', __FILE__) , PHP_EOL;
+echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
 
 
 // Echo memory peak usage
-echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , PHP_EOL;
+echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , EOL;
 
 // Echo done
-echo date('H:i:s') , " Done writing file" , PHP_EOL;
+echo date('H:i:s') , " Done writing file" , EOL;
+echo 'File has been created in ' , getcwd() , EOL;
