@@ -362,12 +362,12 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		$this->_protection			= new PHPExcel_Worksheet_Protection();
 
 		// Default row dimension
-		$this->_defaultRowDimension = new PHPExcel_Worksheet_RowDimension(null);
+		$this->_defaultRowDimension = new PHPExcel_Worksheet_RowDimension(NULL);
 
 		// Default column dimension
-		$this->_defaultColumnDimension	= new PHPExcel_Worksheet_ColumnDimension(null);
+		$this->_defaultColumnDimension	= new PHPExcel_Worksheet_ColumnDimension(NULL);
 
-		$this->_autoFilter			= new PHPExcel_Worksheet_AutoFilter();
+		$this->_autoFilter			= new PHPExcel_Worksheet_AutoFilter(NULL, $this);
 	}
 
 
@@ -1883,7 +1883,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      */
     public function removeAutoFilter()
     {
-    	$this->_autoFilter = '';
+    	$this->_autoFilter->setRange(NULL);
     	return $this;
     }
 

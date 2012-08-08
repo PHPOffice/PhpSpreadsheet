@@ -1098,7 +1098,29 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 							}
 
 							if ($xmlSheet && $xmlSheet->autoFilter && !$this->_readDataOnly) {
-								$docSheet->getAutoFilter()->setRange((string) $xmlSheet->autoFilter["ref"]);
+								$autoFilter = $docSheet->getAutoFilter();
+								$autoFilter->setRange((string) $xmlSheet->autoFilter["ref"]);
+								foreach ($xmlSheet->autoFilter->filterColumn as $filterColumn) {
+									$column = $autoFilter->getColumnByOffset((integer) $filterColumn["colId"]);
+									if ($filterColumn->filters) {
+										$filters = $filterColumn->filters;
+										foreach ($filters->filter as $filterRule) {
+											echo 'FILTER RULE',PHP_EOL;
+											echo (string) $filterRule["val"],PHP_EOL;
+											echo (string) $filterRule["operator"],PHP_EOL;
+										}
+									}
+									if ($filterColumn->customFilters) {
+										$customFilters = $filterColumn->customFilters;
+											echo (string) $customFilters["and"],PHP_EOL;
+										foreach ($customFilters->customFilter as $customFilterRule) {
+											echo 'CUSTOM FILTER RULE',PHP_EOL;
+											echo (string) $customFilterRule["val"],PHP_EOL;
+											echo (string) $customFilterRule["operator"],PHP_EOL;
+										}
+									}
+								}
+								var_dump($autoFilter);
 							}
 
 							if ($xmlSheet && $xmlSheet->mergeCells && $xmlSheet->mergeCells->mergeCell && !$this->_readDataOnly) {
