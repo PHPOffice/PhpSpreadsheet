@@ -35,6 +35,11 @@
  */
 class PHPExcel_Worksheet_SheetView
 {
+
+	/* Fill types */
+	const VIEW_PAGE_LAYOUT			= 'pageLayout';
+	const VIEW_PAGE_BREAK_PREVIEW	= 'pageBreakPreview';
+
 	/**
 	 * ZoomScale
 	 *
@@ -52,6 +57,15 @@ class PHPExcel_Worksheet_SheetView
 	 * @var int
 	 */
 	private $_zoomScaleNormal	= 100;
+
+	/**
+	 * View
+	 *
+	 * Valid values range from 10 to 400.
+	 *
+	 * @var string
+	 */
+	private $_view				= false;
 
     /**
      * Create a new PHPExcel_Worksheet_SheetView
@@ -112,6 +126,34 @@ class PHPExcel_Worksheet_SheetView
 			$this->_zoomScaleNormal = $pValue;
 		} else {
 			throw new Exception("Scale must be greater than or equal to 1.");
+		}
+		return $this;
+	}
+
+	/**
+	 * Get View
+	 *
+	 * @return int
+	 */
+	public function getView() {
+		return $this->_view;
+	}
+
+	/**
+	 * Set View
+	 *
+	 * Valid values range from 10 to 400.
+	 *
+	 * @param 	string 	$pValue
+	 * @throws 	Exception
+	 * @return PHPExcel_Worksheet_SheetView
+	 */
+	public function setView($pValue = false) {
+		// Microsoft Office Excel 2007 only allows setting a view 'pageLayout' or 'pageBreakPreview' via the user interface,
+		if (($pValue === false) || in_array($pValue, array(self::VIEW_PAGE_LAYOUT, self::VIEW_PAGE_BREAK_PREVIEW))) {
+			$this->_view = $pValue;
+		} else {
+			throw new Exception("Invalid view.");
 		}
 		return $this;
 	}
