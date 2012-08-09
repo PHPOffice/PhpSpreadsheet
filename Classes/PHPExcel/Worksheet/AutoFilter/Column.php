@@ -35,15 +35,23 @@
  */
 class PHPExcel_Worksheet_AutoFilter_Column
 {
-	/* Column Datatypes */
-	const AUTOFILTER_COLUMN_DATATYPE_STRING	= 's';
-	const AUTOFILTER_COLUMN_DATATYPE_NUMBER	= 'n';
-	const AUTOFILTER_COLUMN_DATATYPE_DATE	= 'd';
+	const AUTOFILTER_FILTERTYPE_FILTER			= 'filter';
+	const AUTOFILTER_FILTERTYPE_CUSTOMFILTER	= 'customFilter';
+	//	Supports no more than 2 rules, with an And/Or join criteria
+	//		if more than 1 rule is defined
+	const AUTOFILTER_FILTERTYPE_DYNAMICFILTER	= 'dynamicFilter';
+	//	Even though the filter rule is constant, the filtered data can vary
+	//		e.g. filtered by date = TODAY
 
-	private static $_dataTypes = array(
-		self::AUTOFILTER_COLUMN_DATATYPE_STRING,
-		self::AUTOFILTER_COLUMN_DATATYPE_NUMBER,
-		self::AUTOFILTER_COLUMN_DATATYPE_DATE,
+	private static $_filterTypes = array(
+		//	Currently we're not handling
+		//		colorFilter
+		//		extLst
+		//		iconFilter
+		//		topTen
+		self::AUTOFILTER_FILTERTYPE_FILTER,
+		self::AUTOFILTER_FILTERTYPE_CUSTOMFILTER,
+		self::AUTOFILTER_FILTERTYPE_DYNAMICFILTER,
 	);
 
 	/* Multiple Rule Connections */
@@ -72,11 +80,11 @@ class PHPExcel_Worksheet_AutoFilter_Column
 
 
 	/**
-	 * Autofilter Column DataType
+	 * Autofilter Column Filter Type
 	 *
 	 * @var string
 	 */
-	private $_dataType = NULL;
+	private $_filterType = self::AUTOFILTER_FILTERTYPE_FILTER;
 
 
 	/**
@@ -154,6 +162,32 @@ class PHPExcel_Worksheet_AutoFilter_Column
 	}
 
 	/**
+	 * Get AutoFilter Type
+	 *
+	 * @return string
+	 */
+	public function getFilterType() {
+		return $this->_filterType;
+	}
+
+	/**
+	 *	Set AutoFilter Type
+	 *
+	 *	@param	string		$pfilterType
+	 *	@throws	Exception
+	 *	@return PHPExcel_Worksheet_AutoFilter_Column
+	 */
+	public function setFilterType($pfilterType = self::AUTOFILTER_FILTERTYPE_FILTER) {
+		if (!in_array($pfilterType,self::$_filterTypes)) {
+			throw new PHPExcel_Exception('Invalid filter type for column AutoFilter.');
+		}
+
+		$this->_filterType = $pfilterType;
+
+		return $this;
+	}
+
+	/**
 	 * Get AutoFilter Multiple Rules And/Or
 	 *
 	 * @return string
@@ -177,37 +211,6 @@ class PHPExcel_Worksheet_AutoFilter_Column
 		}
 
 		$this->_andOr = $pAndOr;
-
-		return $this;
-	}
-
-	/**
-	 * Get AutoFilter Column Data Type
-	 *
-	 * @return string
-	 */
-	public function getDataType() {
-		if ($this->_dataType === NULL) {
-		}
-
-		return $this->_dataType;
-	}
-
-	/**
-	 *	Set AutoFilter Column Data Type
-	 *
-	 *	@param	string		$pDataType		Data Type
-	 *	@throws	Exception
-	 *	@return PHPExcel_Worksheet_AutoFilter_Column
-	 */
-	public function setDataType($pDataType = self::AUTOFILTER_COLUMN_DATATYPE_STRING) {
-		// Lowercase datatype
-		$pDataType = strtolower($pDataType);
-		if (!in_array($pDataType,self::$_dataTypes)) {
-			throw new PHPExcel_Exception('Invalid datatype for column AutoFilter.');
-		}
-
-		$this->_dataType = $pDataType;
 
 		return $this;
 	}
@@ -262,6 +265,7 @@ class PHPExcel_Worksheet_AutoFilter_Column
 
 	/**
 	 * Delete a specified AutoFilter Column Rule
+	 *	If the number of rules is reduced to 1, then we reset And/Or logic to Or
 	 *
 	 * @param	integer	$pIndex		Rule index in the ruleset array
 	 * @return	PHPExcel_Worksheet_AutoFilter_Column
@@ -269,7 +273,12 @@ class PHPExcel_Worksheet_AutoFilter_Column
 	public function deleteRule($pIndex) {
 		if (isset($this->_ruleset[$pIndex])) {
 			unset($this->_ruleset[$pIndex]);
+			//	If we've just deleted down to a single rule, then reset And/Or joining to Or
+			if (count($this->_ruleset) <= 1) {
+				$this->setAndOr(self::AUTOFILTER_COLUMN_ANDOR_OR);
+			}
 		}
+
 		return $this;
 	}
 

@@ -744,6 +744,39 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 			$range = implode(':', $range);
 
 			$objWriter->writeAttribute('ref',	str_replace('$','',$range));
+
+			$columns = $pSheet->getAutoFilter()->getColumns();
+			if (count($columns > 0)) {
+				foreach($columns as $columnID => $column) {
+					$rules = $column->getRules();
+					if (count($rules > 0)) {
+						$objWriter->startElement('filterColumn');
+							$objWriter->writeAttribute('colId',	$pSheet->getAutoFilter()->getColumnOffset($columnID));
+
+							//	We'll keep things simple and always group our filters, even if there's only one
+							$objWriter->startElement( $column->getFilterType() . 's');
+								if ($column->getAndOr() == PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_COLUMN_ANDOR_AND) {
+									$objWriter->writeAttribute('and',	1);
+								}
+
+								foreach ($rules as $rule) {
+									$objWriter->startElement($column->getFilterType());
+
+										if ($rule->getOperator() !== PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_EQUAL) {
+											$objWriter->writeAttribute('operator',	$rule->getOperator());
+										}
+										$objWriter->writeAttribute('val',	$rule->getValue());
+
+									$objWriter->endElement();
+								}
+
+							$objWriter->endElement();
+
+						$objWriter->endElement();
+					}
+				}
+			}
+
 			$objWriter->endElement();
 		}
 	}

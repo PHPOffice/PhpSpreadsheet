@@ -1107,8 +1107,9 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 								foreach ($xmlSheet->autoFilter->filterColumn as $filterColumn) {
 									$column = $autoFilter->getColumnByOffset((integer) $filterColumn["colId"]);
 									if ($filterColumn->filters) {
+										$column->setFilterType(PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_FILTERTYPE_FILTER);
 										$filters = $filterColumn->filters;
-										//	Standard filters are always an OR join
+										//	Standard filters are always an OR join, so no join rule needed
 										foreach ($filters->filter as $filterRule) {
 											$column->createRule()->setRule(
 												(string) $filterRule["operator"],
@@ -1116,20 +1117,32 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 											);
 										}
 									}
+									if ($filterColumn->dynamicFilter) {
+										$column->setFilterType(PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER);
+										//	We should only ever have one dynamic filter
+										foreach ($filterColumn->dynamicFilter as $filterRule) {
+											$column->createRule()->setRule(
+												(string) $filterRule["operator"],
+												(string) $filterRule["val"]
+											);
+										}
+									}
 									if ($filterColumn->customFilters) {
+										$column->setFilterType(PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER);
 										$customFilters = $filterColumn->customFilters;
 										//	Custom filters can an AND or an OR join
 										if ((isset($customFilters["and"])) && ($customFilters["and"] == 1)) {
 											$column->setAndOr(PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_COLUMN_ANDOR_AND);
 										}
-										foreach ($customFilters->customFilter as $customFilterRule) {
+										foreach ($customFilters->customFilter as $filterRule) {
 											$column->createRule()->setRule(
-												(string) $customFilterRule["operator"],
-												(string) $customFilterRule["val"]
+												(string) $filterRule["operator"],
+												(string) $filterRule["val"]
 											);
 										}
 									}
 								}
+								var_dump($autoFilter);
 							}
 
 							if ($xmlSheet && $xmlSheet->mergeCells && $xmlSheet->mergeCells->mergeCell && !$this->_readDataOnly) {

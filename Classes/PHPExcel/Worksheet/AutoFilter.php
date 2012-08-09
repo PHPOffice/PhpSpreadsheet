@@ -271,7 +271,7 @@ class PHPExcel_Worksheet_AutoFilter
 	 *    referenced as a property of its parent.
 	 */
 	public function __toString() {
-		return $this->_range;
+		return (string) $this->_range;
 	}
 
 }
