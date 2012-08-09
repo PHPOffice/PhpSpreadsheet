@@ -79,6 +79,7 @@ Fixed in develop branch:
 - Feature:  (MBaker)     Initial version of HTML Reader
 - Feature:  (Progi1984) & (blazzy) Work items 9605 - Implement support for AutoFilter in PHPExcel_Writer_Excel5
 - Feature:  (MBaker)     Modified ERF and ERFC Engineering functions to accept Excel 2010's modified acceptance of negative arguments
+- Feature:  (k1LoW)      Support SheetView `view` attribute (Excel2007)
 - General:  (alexgann)   Add Currency detection to the Advanced Value Binder
 - General:  (MBaker)     Work item 18404 - setCellValueExplicitByColumnAndRow() do not return PHPExcel_Worksheet
 - General:  (MBaker)     Work item 18324 - Reader factory doesn't read anymore XLTX and XLT files

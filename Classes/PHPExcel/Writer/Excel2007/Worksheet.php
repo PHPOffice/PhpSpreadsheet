@@ -194,7 +194,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 	 * @param	PHPExcel_Worksheet					$pSheet			Worksheet
 	 * @throws	Exception
 	 */
-	private function _writeSheetViews(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_Worksheet $pSheet = null)
+	private function _writeSheetViews(PHPExcel_Shared_XMLWriter $objWriter = NULL, PHPExcel_Worksheet $pSheet = NULL)
 	{
 		// sheetViews
 		$objWriter->startElement('sheetViews');
@@ -216,6 +216,11 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 				}
 				if ($pSheet->getSheetView()->getZoomScaleNormal() != 100) {
 					$objWriter->writeAttribute('zoomScaleNormal',	$pSheet->getSheetView()->getZoomScaleNormal());
+				}
+
+				// View Layout Type
+				if ($pSheet->getSheetView()->getView() !== PHPExcel_Worksheet_SheetView::SHEETVIEW_NORMAL) {
+					$objWriter->writeAttribute('view',	$pSheet->getSheetView()->getView());
 				}
 
 				// Gridlines
