@@ -218,6 +218,11 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 					$objWriter->writeAttribute('zoomScaleNormal',	$pSheet->getSheetView()->getZoomScaleNormal());
 				}
 
+				// View
+				if ($pSheet->getSheetView()->getView() != false) {
+					$objWriter->writeAttribute('view',	$pSheet->getSheetView()->getView());
+				}
+
 				// Gridlines
 				if ($pSheet->getShowGridlines()) {
 					$objWriter->writeAttribute('showGridLines',	'true');
