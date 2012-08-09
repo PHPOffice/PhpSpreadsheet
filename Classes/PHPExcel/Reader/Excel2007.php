@@ -775,6 +775,10 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 								    $docSheet->getSheetView()->setZoomScaleNormal( intval($xmlSheet->sheetViews->sheetView['zoomScaleNormal']) );
 								}
 
+							    if (isset($xmlSheet->sheetViews->sheetView['view'])) {
+								    $docSheet->getSheetView()->setView((string) $xmlSheet->sheetViews->sheetView['view']);
+								}
+
 								if (isset($xmlSheet->sheetViews->sheetView['showGridLines'])) {
 									$docSheet->setShowGridLines((string)$xmlSheet->sheetViews->sheetView['showGridLines'] ? true : false);
 								}

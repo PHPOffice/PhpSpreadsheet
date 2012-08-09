@@ -36,9 +36,16 @@
 class PHPExcel_Worksheet_SheetView
 {
 
-	/* Fill types */
-	const VIEW_PAGE_LAYOUT			= 'pageLayout';
-	const VIEW_PAGE_BREAK_PREVIEW	= 'pageBreakPreview';
+	/* Sheet View types */
+	const SHEETVIEW_NORMAL				= 'normal';
+	const SHEETVIEW_PAGE_LAYOUT			= 'pageLayout';
+	const SHEETVIEW_PAGE_BREAK_PREVIEW	= 'pageBreakPreview';
+
+	private static $_sheetViewTypes = array(
+		self::SHEETVIEW_NORMAL,
+		self::SHEETVIEW_PAGE_LAYOUT,
+		self::SHEETVIEW_PAGE_BREAK_PREVIEW,
+	);
 
 	/**
 	 * ZoomScale
@@ -65,7 +72,7 @@ class PHPExcel_Worksheet_SheetView
 	 *
 	 * @var string
 	 */
-	private $_view				= false;
+	private $_sheetviewType		= self::SHEETVIEW_NORMAL;
 
     /**
      * Create a new PHPExcel_Worksheet_SheetView
@@ -133,28 +140,35 @@ class PHPExcel_Worksheet_SheetView
 	/**
 	 * Get View
 	 *
-	 * @return int
+	 * @return string
 	 */
 	public function getView() {
-		return $this->_view;
+		return $this->_sheetviewType;
 	}
 
 	/**
 	 * Set View
 	 *
-	 * Valid values range from 10 to 400.
+	 * Valid values are
+	 *		'normal'			self::SHEETVIEW_NORMAL
+	 *		'pageLayout'		self::SHEETVIEW_PAGE_LAYOUT
+	 *		'pageBreakPreview'	self::SHEETVIEW_PAGE_BREAK_PREVIEW
 	 *
 	 * @param 	string 	$pValue
 	 * @throws 	Exception
 	 * @return PHPExcel_Worksheet_SheetView
 	 */
-	public function setView($pValue = false) {
-		// Microsoft Office Excel 2007 only allows setting a view 'pageLayout' or 'pageBreakPreview' via the user interface,
-		if (($pValue === false) || in_array($pValue, array(self::VIEW_PAGE_LAYOUT, self::VIEW_PAGE_BREAK_PREVIEW))) {
-			$this->_view = $pValue;
+	public function setView($pValue = NULL) {
+		//	MS Excel 2007 allows setting the view to 'normal', 'pageLayout' or 'pageBreakPreview'
+		//		via the user interface
+		if ($pValue === NULL)
+			$pValue = self::SHEETVIEW_NORMAL;
+		if (in_array($pValue, self::$_sheetViewTypes)) {
+			$this->_sheetviewType = $pValue;
 		} else {
-			throw new Exception("Invalid view.");
+			throw new Exception("Invalid sheetview layout type.");
 		}
+
 		return $this;
 	}
 
