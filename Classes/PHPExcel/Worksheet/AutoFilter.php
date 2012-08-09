@@ -192,6 +192,7 @@ class PHPExcel_Worksheet_AutoFilter
 		if (!isset($this->_columns[$pColumn])) {
 			$this->_columns[$pColumn] = new PHPExcel_Worksheet_AutoFilter_Column($pColumn, $this);
 		}
+
 		return $this->_columns[$pColumn];
 	}
 
@@ -206,12 +207,7 @@ class PHPExcel_Worksheet_AutoFilter
 		list($rangeStart,$rangeEnd) = PHPExcel_Cell::rangeBoundaries($this->_range);
 		$pColumn = PHPExcel_Cell::stringFromColumnIndex($rangeStart[0] + $pColumnOffset - 1);
 
-		echo 'Filter rules to apply for column ',$pColumn,PHP_EOL;
-
-		if (!isset($this->_columns[$pColumn])) {
-			$this->_columns[$pColumn] = new PHPExcel_Worksheet_AutoFilter_Column($pColumn, $this);
-		}
-		return $this->_columns[$pColumn];
+		return $this->getColumn($pColumn);
 	}
 
 	/**

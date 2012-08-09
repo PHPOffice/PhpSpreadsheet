@@ -1104,23 +1104,28 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 									$column = $autoFilter->getColumnByOffset((integer) $filterColumn["colId"]);
 									if ($filterColumn->filters) {
 										$filters = $filterColumn->filters;
+										//	Standard filters are always an OR join
 										foreach ($filters->filter as $filterRule) {
-											echo 'FILTER RULE',PHP_EOL;
-											echo (string) $filterRule["val"],PHP_EOL;
-											echo (string) $filterRule["operator"],PHP_EOL;
+											$column->createRule()->setRule(
+												(string) $filterRule["operator"],
+												(string) $filterRule["val"]
+											);
 										}
 									}
 									if ($filterColumn->customFilters) {
 										$customFilters = $filterColumn->customFilters;
-											echo (string) $customFilters["and"],PHP_EOL;
+										//	Custom filters can an AND or an OR join
+										if ((isset($customFilters["and"])) && ($customFilters["and"] == 1)) {
+											$column->setAndOr(PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_COLUMN_ANDOR_AND);
+										}
 										foreach ($customFilters->customFilter as $customFilterRule) {
-											echo 'CUSTOM FILTER RULE',PHP_EOL;
-											echo (string) $customFilterRule["val"],PHP_EOL;
-											echo (string) $customFilterRule["operator"],PHP_EOL;
+											$column->createRule()->setRule(
+												(string) $customFilterRule["operator"],
+												(string) $customFilterRule["val"]
+											);
 										}
 									}
 								}
-								var_dump($autoFilter);
 							}
 
 							if ($xmlSheet && $xmlSheet->mergeCells && $xmlSheet->mergeCells->mergeCell && !$this->_readDataOnly) {

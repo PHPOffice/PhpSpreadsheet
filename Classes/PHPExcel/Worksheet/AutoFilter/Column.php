@@ -172,7 +172,7 @@ class PHPExcel_Worksheet_AutoFilter_Column
 	public function setAndOr($pAndOr = self::AUTOFILTER_COLUMN_ANDOR_OR) {
 		// Lowercase And/Or
 		$pAndOr = strtolower($pAndOr);
-		if (!in_array($pDataType,self::$_ruleConnections)) {
+		if (!in_array($pAndOr,self::$_ruleConnections)) {
 			throw new PHPExcel_Exception('Invalid rule connection for column AutoFilter.');
 		}
 
