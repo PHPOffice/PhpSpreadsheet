@@ -35,13 +35,14 @@
  */
 class PHPExcel_Worksheet_AutoFilter_Column
 {
-	const AUTOFILTER_FILTERTYPE_FILTER			= 'filter';
-	const AUTOFILTER_FILTERTYPE_CUSTOMFILTER	= 'customFilter';
+	const AUTOFILTER_FILTERTYPE_FILTER			= 'filters';
+	const AUTOFILTER_FILTERTYPE_CUSTOMFILTER	= 'customFilters';
 	//	Supports no more than 2 rules, with an And/Or join criteria
 	//		if more than 1 rule is defined
 	const AUTOFILTER_FILTERTYPE_DYNAMICFILTER	= 'dynamicFilter';
 	//	Even though the filter rule is constant, the filtered data can vary
 	//		e.g. filtered by date = TODAY
+	const AUTOFILTER_FILTERTYPE_TOPTENFILTER	= 'top10';
 
 	private static $_filterTypes = array(
 		//	Currently we're not handling
@@ -52,6 +53,7 @@ class PHPExcel_Worksheet_AutoFilter_Column
 		self::AUTOFILTER_FILTERTYPE_FILTER,
 		self::AUTOFILTER_FILTERTYPE_CUSTOMFILTER,
 		self::AUTOFILTER_FILTERTYPE_DYNAMICFILTER,
+		self::AUTOFILTER_FILTERTYPE_TOPTENFILTER,
 	);
 
 	/* Multiple Rule Connections */
@@ -173,16 +175,16 @@ class PHPExcel_Worksheet_AutoFilter_Column
 	/**
 	 *	Set AutoFilter Type
 	 *
-	 *	@param	string		$pfilterType
+	 *	@param	string		$pFilterType
 	 *	@throws	Exception
 	 *	@return PHPExcel_Worksheet_AutoFilter_Column
 	 */
-	public function setFilterType($pfilterType = self::AUTOFILTER_FILTERTYPE_FILTER) {
-		if (!in_array($pfilterType,self::$_filterTypes)) {
+	public function setFilterType($pFilterType = self::AUTOFILTER_FILTERTYPE_FILTER) {
+		if (!in_array($pFilterType,self::$_filterTypes)) {
 			throw new PHPExcel_Exception('Invalid filter type for column AutoFilter.');
 		}
 
-		$this->_filterType = $pfilterType;
+		$this->_filterType = $pFilterType;
 
 		return $this;
 	}
@@ -278,6 +280,18 @@ class PHPExcel_Worksheet_AutoFilter_Column
 				$this->setAndOr(self::AUTOFILTER_COLUMN_ANDOR_OR);
 			}
 		}
+
+		return $this;
+	}
+
+	/**
+	 * Delete all AutoFilter Column Rules
+	 *
+	 * @return	PHPExcel_Worksheet_AutoFilter_Column
+	 */
+	public function clearRules() {
+		$this->_ruleset = array();
+		$this->setAndOr(self::AUTOFILTER_COLUMN_ANDOR_OR);
 
 		return $this;
 	}

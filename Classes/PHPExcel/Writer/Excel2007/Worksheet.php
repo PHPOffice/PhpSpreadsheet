@@ -149,6 +149,10 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 		$objWriter->startElement('sheetPr');
 		//$objWriter->writeAttribute('codeName',		$pSheet->getTitle());
 
+			if ($pSheet->getAutoFilter()->getRange() !== '') {
+				$objWriter->writeAttribute('filterMode', 1);
+			}
+
 			// tabColor
 			if ($pSheet->isTabColorSet()) {
 				$objWriter->startElement('tabColor');
@@ -421,21 +425,21 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 			$objWriter->writeAttribute('password',				$pSheet->getProtection()->getPassword());
 		}
 
-		$objWriter->writeAttribute('sheet',				($pSheet->getProtection()->getSheet()				? 'true' : 'false'));
-		$objWriter->writeAttribute('objects',				($pSheet->getProtection()->getObjects()			? 'true' : 'false'));
-		$objWriter->writeAttribute('scenarios',			($pSheet->getProtection()->getScenarios()			? 'true' : 'false'));
-		$objWriter->writeAttribute('formatCells',			($pSheet->getProtection()->getFormatCells()		? 'true' : 'false'));
-		$objWriter->writeAttribute('formatColumns',		($pSheet->getProtection()->getFormatColumns()		? 'true' : 'false'));
+		$objWriter->writeAttribute('sheet',					($pSheet->getProtection()->getSheet()				? 'true' : 'false'));
+		$objWriter->writeAttribute('objects',				($pSheet->getProtection()->getObjects()				? 'true' : 'false'));
+		$objWriter->writeAttribute('scenarios',				($pSheet->getProtection()->getScenarios()			? 'true' : 'false'));
+		$objWriter->writeAttribute('formatCells',			($pSheet->getProtection()->getFormatCells()			? 'true' : 'false'));
+		$objWriter->writeAttribute('formatColumns',			($pSheet->getProtection()->getFormatColumns()		? 'true' : 'false'));
 		$objWriter->writeAttribute('formatRows',			($pSheet->getProtection()->getFormatRows()			? 'true' : 'false'));
-		$objWriter->writeAttribute('insertColumns',		($pSheet->getProtection()->getInsertColumns()		? 'true' : 'false'));
+		$objWriter->writeAttribute('insertColumns',			($pSheet->getProtection()->getInsertColumns()		? 'true' : 'false'));
 		$objWriter->writeAttribute('insertRows',			($pSheet->getProtection()->getInsertRows()			? 'true' : 'false'));
 		$objWriter->writeAttribute('insertHyperlinks',		($pSheet->getProtection()->getInsertHyperlinks()	? 'true' : 'false'));
-		$objWriter->writeAttribute('deleteColumns',		($pSheet->getProtection()->getDeleteColumns()		? 'true' : 'false'));
+		$objWriter->writeAttribute('deleteColumns',			($pSheet->getProtection()->getDeleteColumns()		? 'true' : 'false'));
 		$objWriter->writeAttribute('deleteRows',			($pSheet->getProtection()->getDeleteRows()			? 'true' : 'false'));
-		$objWriter->writeAttribute('selectLockedCells',	($pSheet->getProtection()->getSelectLockedCells()	? 'true' : 'false'));
+		$objWriter->writeAttribute('selectLockedCells',		($pSheet->getProtection()->getSelectLockedCells()	? 'true' : 'false'));
 		$objWriter->writeAttribute('sort',					($pSheet->getProtection()->getSort()				? 'true' : 'false'));
 		$objWriter->writeAttribute('autoFilter',			($pSheet->getProtection()->getAutoFilter()			? 'true' : 'false'));
-		$objWriter->writeAttribute('pivotTables',			($pSheet->getProtection()->getPivotTables()		? 'true' : 'false'));
+		$objWriter->writeAttribute('pivotTables',			($pSheet->getProtection()->getPivotTables()			? 'true' : 'false'));
 		$objWriter->writeAttribute('selectUnlockedCells',	($pSheet->getProtection()->getSelectUnlockedCells()	? 'true' : 'false'));
 		$objWriter->endElement();
 	}
@@ -753,21 +757,43 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 						$objWriter->startElement('filterColumn');
 							$objWriter->writeAttribute('colId',	$pSheet->getAutoFilter()->getColumnOffset($columnID));
 
-							//	We'll keep things simple and always group our filters, even if there's only one
-							$objWriter->startElement( $column->getFilterType() . 's');
+							$objWriter->startElement( $column->getFilterType());
 								if ($column->getAndOr() == PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_COLUMN_ANDOR_AND) {
 									$objWriter->writeAttribute('and',	1);
 								}
 
 								foreach ($rules as $rule) {
-									$objWriter->startElement($column->getFilterType());
-
-										if ($rule->getOperator() !== PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_EQUAL) {
-											$objWriter->writeAttribute('operator',	$rule->getOperator());
-										}
+									if (($rule->getOperator() === PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_EQUAL) &&
+										($rule->getValue() === '')) {
+										//	Filter rule for Blanks
+										$objWriter->writeAttribute('blank',	1);
+									} elseif($rule->getRuleType() === PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER) {
+										//	Dynamic Filter Rule
+										$objWriter->writeAttribute('type',	$rule->getGrouping());
+									} elseif($rule->getRuleType() === PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_TOPTENFILTER) {
+										//	Top 10 Filter Rule
 										$objWriter->writeAttribute('val',	$rule->getValue());
+										$objWriter->writeAttribute('percent',	(($rule->getOperator() === PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT) ? '1' : '0'));
+										$objWriter->writeAttribute('top',	(($rule->getGrouping() === PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP) ? '1': '0'));
+									} else {
+										//	Filter, DateGroupItem or CustomFilter
+										$objWriter->startElement($rule->getRuleType());
 
-									$objWriter->endElement();
+											if ($rule->getOperator() !== PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_EQUAL) {
+												$objWriter->writeAttribute('operator',	$rule->getOperator());
+											}
+											if ($rule->getRuleType() === PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_DATEGROUP) {
+												// Date Group filters
+												foreach($rule->getValue() as $key => $value) {
+													if ($value > '') $objWriter->writeAttribute($key,	$value);
+												}
+												$objWriter->writeAttribute('dateTimeGrouping',	$rule->getGrouping());
+											} else {
+												$objWriter->writeAttribute('val',	$rule->getValue());
+											}
+
+										$objWriter->endElement();
+									}
 								}
 
 							$objWriter->endElement();
