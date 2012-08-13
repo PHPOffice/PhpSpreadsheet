@@ -84,6 +84,7 @@ Fixed in develop branch:
 - General:  (MBaker)     Work item 18404 - setCellValueExplicitByColumnAndRow() do not return PHPExcel_Worksheet
 - General:  (MBaker)     Work item 18324 - Reader factory doesn't read anymore XLTX and XLT files
 - General:  (MBaker)     Magic __toString() method added to Cell object to return raw data value as a string
+- General:  (alexgann)   Add cell indent to html rendering
 - Bugfix:   (cyberconte) Patch 12318 - OOCalc cells containing <text:span> inside the <text:p> tag
 - Bugfix:   (schir1964)  Fix to listWorksheetInfo() method for OOCalc Reader
 - Bugfix:   (MBaker)     Support for "e" (epoch) date format mask
