@@ -782,6 +782,7 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 		$css['vertical-align'] = $this->_mapVAlign($pStyle->getVertical());
 		if ($textAlign = $this->_mapHAlign($pStyle->getHorizontal())) {
 			$css['text-align'] = $textAlign;
+			if(in_array($textAlign,array('left','right'))) $css['padding-'.$textAlign] = (string)((int)$pStyle->getIndent() * 9).'px';
 		}
 
 		// Return
