@@ -390,8 +390,8 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 				$this->_writeColinfo($this->_colinfo[$i]);
 			}
 		}
-
-		if ($_phpSheet->getAutoFilter()->getRange() !== '') {
+		$autoFilterRange = $_phpSheet->getAutoFilter()->getRange();
+		if (!empty($autoFilterRange)) {
 			// Write AUTOFILTERINFO
 			$this->_writeAutoFilterInfo();
 		}

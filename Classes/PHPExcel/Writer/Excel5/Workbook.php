@@ -783,8 +783,9 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 		// write autofilters, if any
 		for ($i = 0; $i < $total_worksheets; ++$i) {
 			$sheetAutoFilter = $this->_phpExcel->getSheet($i)->getAutoFilter();
-			if($sheetAutoFilter->getRange() !== ''){
-				$rangeBounds = PHPExcel_Cell::rangeBoundaries($sheetAutoFilter->getRange());
+			$autoFilterRange = $sheetAutoFilter->getRange();
+			if(!empty($autoFilterRange)) {
+				$rangeBounds = PHPExcel_Cell::rangeBoundaries($autoFilterRange);
 
 				//Autofilter built in name
 				$name = pack('C', 0x0D);

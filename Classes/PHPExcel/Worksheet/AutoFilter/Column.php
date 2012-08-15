@@ -49,7 +49,6 @@ class PHPExcel_Worksheet_AutoFilter_Column
 		//		colorFilter
 		//		extLst
 		//		iconFilter
-		//		topTen
 		self::AUTOFILTER_FILTERTYPE_FILTER,
 		self::AUTOFILTER_FILTERTYPE_CUSTOMFILTER,
 		self::AUTOFILTER_FILTERTYPE_DYNAMICFILTER,
@@ -60,7 +59,7 @@ class PHPExcel_Worksheet_AutoFilter_Column
 	const AUTOFILTER_COLUMN_ANDOR_AND	= 'and';
 	const AUTOFILTER_COLUMN_ANDOR_OR	= 'or';
 
-	private static $_ruleConnections = array(
+	private static $_ruleJoin = array(
 		self::AUTOFILTER_COLUMN_ANDOR_AND,
 		self::AUTOFILTER_COLUMN_ANDOR_OR,
 	);
@@ -208,7 +207,7 @@ class PHPExcel_Worksheet_AutoFilter_Column
 	public function setAndOr($pAndOr = self::AUTOFILTER_COLUMN_ANDOR_OR) {
 		// Lowercase And/Or
 		$pAndOr = strtolower($pAndOr);
-		if (!in_array($pAndOr,self::$_ruleConnections)) {
+		if (!in_array($pAndOr,self::$_ruleJoin)) {
 			throw new PHPExcel_Exception('Invalid rule connection for column AutoFilter.');
 		}
 

@@ -1193,7 +1193,6 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 										}
 									}
 								}
-								var_dump($autoFilter);
 							}
 
 							if ($xmlSheet && $xmlSheet->mergeCells && $xmlSheet->mergeCells->mergeCell && !$this->_readDataOnly) {

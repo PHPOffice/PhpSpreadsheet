@@ -274,6 +274,8 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 	{
 		// 1-based index to BstoreContainer
 		$blipIndex = 0;
+		$lastReducedSpId = 0;
+		$lastSpId = 0;
 
 		foreach ($this->_phpExcel->getAllsheets() as $sheet) {
 			// sheet index
@@ -282,7 +284,8 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 			$escher = null;
 
 			// check if there are any shapes for this sheet
-			if (count($sheet->getDrawingCollection()) == 0 && $sheet->getAutoFilter()->getRange() === '') {
+			$filterRange = $sheet->getAutoFilter()->getRange();
+			if (count($sheet->getDrawingCollection()) == 0 && empty($filterRange)) {
 				continue;
 			}
 
@@ -360,8 +363,8 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 			}
 
 			// AutoFilters
-			if($sheet->getAutoFilter()->getRange() !== ''){
-				$rangeBounds = PHPExcel_Cell::rangeBoundaries($sheet->getAutoFilter()->getRange());
+			if(!empty($filterRange)){
+				$rangeBounds = PHPExcel_Cell::rangeBoundaries($filterRange);
 				$iNumColStart = $rangeBounds[0][0];
 				$iNumColEnd = $rangeBounds[1][0];
 
