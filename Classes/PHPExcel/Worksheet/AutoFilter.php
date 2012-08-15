@@ -451,12 +451,16 @@ var_dump($ruleValue);
 					);
 					break;
 				case PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER :
+					$ruleValues = array();
+
 					$columnFilterTests[$columnID] = array(
 						'method' => '_filterTypeDynamicFilters',
 						'arguments' => $ruleValues
 					);
 				break;
 				case PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_FILTERTYPE_TOPTENFILTER :
+					$ruleValues = array();
+
 					$columnFilterTests[$columnID] = array(
 						'method' => '_filterTypeTopTenFilters',
 						'arguments' => $ruleValues
