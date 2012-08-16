@@ -281,10 +281,16 @@ class PHPExcel_Worksheet_AutoFilter
 		return FALSE;
 	}
 
-	private static function _filterTypeCustomFilters($cellValue,$ruleSet)
+	private static function _filterTestInCustomDataSet($cellValue,$ruleSet)
 	{
+		echo 'CALLING _filterTestInCustomDataSet',PHP_EOL;
 		$dataSet = $ruleSet['filterRules'];
 		$join = $ruleSet['join'];
+
+		if (($cellValue == '') || ($cellValue === NULL)) {
+			echo 'EMPTY CELL',PHP_EOL;
+			return FALSE;
+		}
 
 		$returnVal = ($join == PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_COLUMN_ANDOR_AND);
 		foreach($dataSet as $rule) {
@@ -311,14 +317,15 @@ class PHPExcel_Worksheet_AutoFilter
 						break;
 				}
 			} else {
-				//	String values are always tested for equality
-				$retVal	= preg_match('/^'.$rule['value'].'$/',$cellValue);
+				//	String values are always tested for equality, factoring in for wildcards (hence a regexp test)
+				$retVal	= preg_match('/^'.$rule['value'].'$/i',$cellValue);
 			}
 			//	If there are multiple conditions, then we need to test both using the appropriate join operator
 			switch ($join) {
 				case PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_COLUMN_ANDOR_OR :
 					$returnVal = $returnVal || $retVal;
-					//	Break as soon as we have a match for OR joins
+					//	Break as soon as we have a TRUE match for OR joins,
+					//		to avoid unnecessary additional code execution
 					if ($returnVal)
 						return $returnVal;
 					break;
@@ -333,11 +340,13 @@ class PHPExcel_Worksheet_AutoFilter
 
 	private static function _filterTypeDynamicFilters($cellValue,$testSet)
 	{
+		echo 'CALLING _filterTypeDynamicFilters',PHP_EOL;
 		return TRUE;
 	}
 
 	private static function _filterTypeTopTenFilters($cellValue,$testSet)
 	{
+		echo 'CALLING _filterTypeTopTenFilters',PHP_EOL;
 		return TRUE;
 	}
 
@@ -430,13 +439,8 @@ class PHPExcel_Worksheet_AutoFilter
 						$ruleValue = $rule->getValue();
 						if (!is_numeric($ruleValue)) {
 							//	Convert to a regexp allowing for regexp reserved characters, wildcards and escaped wildcards
-var_dump($ruleValue);
-echo ' = > ';
 							$ruleValue = preg_quote($ruleValue);
-var_dump($ruleValue);
-echo ' = > ';
 							$ruleValue = str_replace(self::$_fromReplace,self::$_toReplace,$ruleValue);
-var_dump($ruleValue);
 						}
 						$ruleValues[] = array( 'operator' => $rule->getOperator(),
 											   'value' => $ruleValue
@@ -444,7 +448,7 @@ var_dump($ruleValue);
 					}
 					$join = $filterColumn->getAndOr();
 					$columnFilterTests[$columnID] = array(
-						'method' => '_filterTypeCustomFilters',
+						'method' => '_filterTestInCustomDataSet',
 						'arguments' => array( 'filterRules' => $ruleValues,
 											  'join' => $join
 											)
@@ -452,15 +456,44 @@ var_dump($ruleValue);
 					break;
 				case PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER :
 					$ruleValues = array();
-
-					$columnFilterTests[$columnID] = array(
-						'method' => '_filterTypeDynamicFilters',
-						'arguments' => $ruleValues
-					);
+//var_dump($rules);
+					foreach($rules as $rule) {
+						//	We should only ever have one Dynamic Filter Rule anyway
+						$dynamicRuleType = $rule->getGrouping();
+echo '$dynamicRuleType is ',$dynamicRuleType,PHP_EOL;
+						if (($dynamicRuleType == PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_DYNAMIC_ABOVEAVERAGE) ||
+							($dynamicRuleType == PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_DYNAMIC_BELOWAVERAGE)) {
+							//	Number based
+							$averageFormula = '=AVERAGE('.$columnID.($rangeStart[1]+1).':'.$columnID.$rangeEnd[1].')';
+echo 'Average Formula Result is ',$averageFormula,PHP_EOL;
+							$average = PHPExcel_Calculation::getInstance()->calculateFormula($averageFormula,NULL,$this->_workSheet->getCell('A1'));
+							$operator = ($dynamicRuleType === PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_DYNAMIC_ABOVEAVERAGE)
+								? PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_GREATERTHAN
+								: PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_LESSTHAN;
+							$ruleValues[] = array( 'operator' => $operator,
+												   'value' => $average
+												 );
+							$columnFilterTests[$columnID] = array(
+								'method' => '_filterTestInCustomDataSet',
+								'arguments' => array( 'filterRules' => $ruleValues,
+													  'join' => PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_COLUMN_ANDOR_OR
+													)
+							);
+						} else {
+							//	Date based
+							$columnFilterTests[$columnID] = array(
+								'method' => '_filterTypeDynamicFilters',
+								'arguments' => $ruleValues
+							);
+						}
+					}
 				break;
 				case PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_FILTERTYPE_TOPTENFILTER :
 					$ruleValues = array();
-
+var_dump($rules);
+					foreach($rules as $rule) {
+						//	We should only ever have one Dynamic Filter Rule anyway
+					}
 					$columnFilterTests[$columnID] = array(
 						'method' => '_filterTypeTopTenFilters',
 						'arguments' => $ruleValues
@@ -489,7 +522,7 @@ var_dump($ruleValue);
 						)
 					);
 					echo (($result) ? 'VALID' : 'INVALID'),PHP_EOL;
-				//	If filter test has resulted in FALSE, exit straightaway rather than running any more tests
+				//	If filter test has resulted in FALSE, exit the loop straightaway rather than running any more tests
 				if (!$result)
 					break;
 			}

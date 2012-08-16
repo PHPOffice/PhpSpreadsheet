@@ -35,6 +35,14 @@
  */
 class PHPExcel_Cell
 {
+
+	/**
+	 *  Default range variable constant
+	 *
+	 *  @var  string
+	 */
+	const DEFAULT_RANGE = 'A1:A1';
+
 	/**
 	 *	Value binder to use
 	 *
@@ -600,6 +608,11 @@ class PHPExcel_Cell
 	 */
 	public static function splitRange($pRange = 'A1:A1')
 	{
+		// Ensure $pRange is a valid range
+		if(empty($pRange)) {
+			$pRange = self::DEFAULT_RANGE;
+		}
+
 		$exploded = explode(',', $pRange);
 		$counter = count($exploded);
 		for ($i = 0; $i < $counter; ++$i) {
@@ -642,6 +655,11 @@ class PHPExcel_Cell
 	 */
 	public static function rangeBoundaries($pRange = 'A1:A1')
 	{
+		// Ensure $pRange is a valid range
+		if(empty($pRange)) {
+			$pRange = self::DEFAULT_RANGE;
+		}
+
 		// Uppercase coordinate
 		$pRange = strtoupper($pRange);
 
@@ -686,6 +704,11 @@ class PHPExcel_Cell
 	 */
 	public static function getRangeBoundaries($pRange = 'A1:A1')
 	{
+		// Ensure $pRange is a valid range
+		if(empty($pRange)) {
+			$pRange = self::DEFAULT_RANGE;
+		}
+
 		// Uppercase coordinate
 		$pRange = strtoupper($pRange);
 
