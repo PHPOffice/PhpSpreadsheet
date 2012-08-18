@@ -151,7 +151,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 			$autoFilterRange = $pSheet->getAutoFilter()->getRange();
 			if (!empty($autoFilterRange)) {
 				$objWriter->writeAttribute('filterMode', 1);
-//				$pSheet->getAutoFilter()->showHideRows();
+				$pSheet->getAutoFilter()->showHideRows();
 			}
 
 			// tabColor
@@ -760,7 +760,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 							$objWriter->writeAttribute('colId',	$pSheet->getAutoFilter()->getColumnOffset($columnID));
 
 							$objWriter->startElement( $column->getFilterType());
-								if ($column->getAndOr() == PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_COLUMN_ANDOR_AND) {
+								if ($column->getJoin() == PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_COLUMN_JOIN_AND) {
 									$objWriter->writeAttribute('and',	1);
 								}
 
@@ -772,7 +772,15 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 										$objWriter->writeAttribute('blank',	1);
 									} elseif($rule->getRuleType() === PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER) {
 										//	Dynamic Filter Rule
-										$objWriter->writeAttribute('type',	$rule->getGrouping());
+										$objWriter->writeAttribute('type', $rule->getGrouping());
+										$val = $column->getAttribute('val');
+										if ($val !== NULL) {
+											$objWriter->writeAttribute('val', $val);
+										}
+										$maxVal = $column->getAttribute('maxVal');
+										if ($maxVal !== NULL) {
+											$objWriter->writeAttribute('maxVal', $maxVal);
+										}
 									} elseif($rule->getRuleType() === PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_TOPTENFILTER) {
 										//	Top 10 Filter Rule
 										$objWriter->writeAttribute('val',	$rule->getValue());

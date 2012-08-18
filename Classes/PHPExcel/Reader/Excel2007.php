@@ -1150,7 +1150,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 										//	Custom filters can an AND or an OR join;
 										//		and there should only ever be one or two entries
 										if ((isset($customFilters["and"])) && ($customFilters["and"] == 1)) {
-											$column->setAndOr(PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_COLUMN_ANDOR_AND);
+											$column->setJoin(PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_COLUMN_JOIN_AND);
 										}
 										foreach ($customFilters->customFilter as $filterRule) {
 											$column->createRule()->setRule(
@@ -1171,6 +1171,12 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 												(string) $filterRule["type"]
 											)
 											->setRuleType(PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER);
+											if (isset($filterRule["val"])) {
+												$column->setAttribute('val',(string) $filterRule["val"]);
+											}
+											if (isset($filterRule["maxVal"])) {
+												$column->setAttribute('maxVal',(string) $filterRule["maxVal"]);
+											}
 										}
 									}
 									//	Check for dynamic filters

@@ -197,7 +197,7 @@ class PHPExcel_Writer_Excel2007_Workbook extends PHPExcel_Writer_Excel2007_Write
 		$objWriter->writeAttribute('calcId', 			'124519');
 		$objWriter->writeAttribute('calcMode', 			'auto');
 		//	fullCalcOnLoad isn't needed if we've recalculating for the save
-		$objWriter->writeAttribute('fullCalcOnLoad', 	($recalcRequired) ? '0' : '1');
+		$objWriter->writeAttribute('fullCalcOnLoad', 	($recalcRequired) ? '1' : '0');
 
 		$objWriter->endElement();
 	}

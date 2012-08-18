@@ -56,12 +56,12 @@ class PHPExcel_Worksheet_AutoFilter_Column
 	);
 
 	/* Multiple Rule Connections */
-	const AUTOFILTER_COLUMN_ANDOR_AND	= 'and';
-	const AUTOFILTER_COLUMN_ANDOR_OR	= 'or';
+	const AUTOFILTER_COLUMN_JOIN_AND	= 'and';
+	const AUTOFILTER_COLUMN_JOIN_OR		= 'or';
 
-	private static $_ruleJoin = array(
-		self::AUTOFILTER_COLUMN_ANDOR_AND,
-		self::AUTOFILTER_COLUMN_ANDOR_OR,
+	private static $_ruleJoins = array(
+		self::AUTOFILTER_COLUMN_JOIN_AND,
+		self::AUTOFILTER_COLUMN_JOIN_OR,
 	);
 
 	/**
@@ -93,7 +93,7 @@ class PHPExcel_Worksheet_AutoFilter_Column
 	 *
 	 * @var string
 	 */
-	private $_andOr = self::AUTOFILTER_COLUMN_ANDOR_OR;
+	private $_join = self::AUTOFILTER_COLUMN_JOIN_OR;
 
 
 	/**
@@ -102,6 +102,14 @@ class PHPExcel_Worksheet_AutoFilter_Column
 	 * @var array of PHPExcel_Worksheet_AutoFilter_Column_Rule
 	 */
 	private $_ruleset = array();
+
+
+	/**
+	 * Autofilter Column Dynamic Attributes
+	 *
+	 * @var array of mixed
+	 */
+	private $_attributes = array();
 
 
 	/**
@@ -189,31 +197,79 @@ class PHPExcel_Worksheet_AutoFilter_Column
 	}
 
 	/**
-	 * Get AutoFilter Multiple Rules And/Or
+	 * Get AutoFilter Multiple Rules And/Or Join
 	 *
 	 * @return string
 	 */
-	public function getAndOr() {
-		return $this->_andOr;
+	public function getJoin() {
+		return $this->_join;
 	}
 
 	/**
 	 *	Set AutoFilter Multiple Rules And/Or
 	 *
-	 *	@param	string		$pAndOr		And/Or
+	 *	@param	string		$pJoin		And/Or
 	 *	@throws	Exception
 	 *	@return PHPExcel_Worksheet_AutoFilter_Column
 	 */
-	public function setAndOr($pAndOr = self::AUTOFILTER_COLUMN_ANDOR_OR) {
+	public function setJoin($pJoin = self::AUTOFILTER_COLUMN_JOIN_OR) {
 		// Lowercase And/Or
-		$pAndOr = strtolower($pAndOr);
-		if (!in_array($pAndOr,self::$_ruleJoin)) {
+		$pJoin = strtolower($pJoin);
+		if (!in_array($pJoin,self::$_ruleJoins)) {
 			throw new PHPExcel_Exception('Invalid rule connection for column AutoFilter.');
 		}
 
-		$this->_andOr = $pAndOr;
+		$this->_join = $pJoin;
 
 		return $this;
+	}
+
+	/**
+	 *	Set AutoFilter Attributes
+	 *
+	 *	@param	string[]		$pAttributes
+	 *	@throws	Exception
+	 *	@return PHPExcel_Worksheet_AutoFilter_Column
+	 */
+	public function setAttributes($pAttributes = array()) {
+		$this->_attributes = $pAttributes;
+
+		return $this;
+	}
+
+	/**
+	 *	Set An AutoFilter Attribute
+	 *
+	 *	@param	string		$pName		Attribute Name
+	 *	@param	string		$pValue		Attribute Value
+	 *	@throws	Exception
+	 *	@return PHPExcel_Worksheet_AutoFilter_Column
+	 */
+	public function setAttribute($pName, $pValue) {
+		$this->_attributes[$pName] = $pValue;
+
+		return $this;
+	}
+
+	/**
+	 * Get AutoFilter Column Attributes
+	 *
+	 * @return string
+	 */
+	public function getAttributes() {
+		return $this->_attributes;
+	}
+
+	/**
+	 * Get specific AutoFilter Column Attribute
+	 *
+	 *	@param	string		$pName		Attribute Name
+	 * @return string
+	 */
+	public function getAttribute($pName) {
+		if (isset($this->_attributes[$pName]))
+			return $this->_attributes[$pName];
+		return NULL;
 	}
 
 	/**
@@ -276,7 +332,7 @@ class PHPExcel_Worksheet_AutoFilter_Column
 			unset($this->_ruleset[$pIndex]);
 			//	If we've just deleted down to a single rule, then reset And/Or joining to Or
 			if (count($this->_ruleset) <= 1) {
-				$this->setAndOr(self::AUTOFILTER_COLUMN_ANDOR_OR);
+				$this->setJoin(self::AUTOFILTER_COLUMN_JOIN_OR);
 			}
 		}
 
@@ -290,7 +346,7 @@ class PHPExcel_Worksheet_AutoFilter_Column
 	 */
 	public function clearRules() {
 		$this->_ruleset = array();
-		$this->setAndOr(self::AUTOFILTER_COLUMN_ANDOR_OR);
+		$this->setJoin(self::AUTOFILTER_COLUMN_JOIN_OR);
 
 		return $this;
 	}
