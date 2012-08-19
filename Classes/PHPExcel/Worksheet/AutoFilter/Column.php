@@ -141,7 +141,7 @@ class PHPExcel_Worksheet_AutoFilter_Column
 		// Uppercase coordinate
 		$pColumn = strtoupper($pColumn);
 		if ($this->_parent !== NULL) {
-			$this->_parent->_testColumnInRange($pColumn);
+			$this->_parent->testColumnInRange($pColumn);
 		}
 
 		$this->_columnIndex = $pColumn;

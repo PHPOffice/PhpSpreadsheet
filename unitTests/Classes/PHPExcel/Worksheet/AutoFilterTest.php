@@ -15,7 +15,14 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
         }
         require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
 
-		$this->_testAutoFilterObject = new PHPExcel_Worksheet_AutoFilter($this->_testInitialRange);
+        $this->_mockWorksheetObject = $this->getMockBuilder('PHPExcel_Worksheet')
+        	->disableOriginalConstructor()
+        	->getMock();
+
+		$this->_testAutoFilterObject = new PHPExcel_Worksheet_AutoFilter(
+			$this->_testInitialRange,
+			$this->_mockWorksheetObject
+		);
     }
 
 	public function testToString()
@@ -25,6 +32,19 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
 		//	magic __toString should return the active autofilter range
 		$result = $this->_testAutoFilterObject;
 		$this->assertEquals($expectedResult, $result);
+	}
+
+	public function testGetParent()
+	{
+		$result = $this->_testAutoFilterObject->getParent();
+		$this->assertInstanceOf('PHPExcel_Worksheet', $result);
+	}
+
+	public function testSetParent()
+	{
+		//	Setters return the instance to implement the fluent interface
+		$result = $this->_testAutoFilterObject->setParent($this->_mockWorksheetObject);
+		$this->assertInstanceOf('PHPExcel_Worksheet_AutoFilter', $result);
 	}
 
 	public function testGetRange()
@@ -38,15 +58,19 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
 
 	public function testSetRange()
 	{
-		$expectedResult = 'G1:J512';
+		$ranges = array('G1:J512' => 'Worksheet1!G1:J512',
+						'K1:N20' => 'K1:N20'
+					   );
 
-		//	Setters return the instance to implement the fluent interface
-		$result = $this->_testAutoFilterObject->setRange($expectedResult);
-		$this->assertInstanceOf('PHPExcel_Worksheet_AutoFilter', $result);
+		foreach($ranges as $actualRange => $fullRange) {
+			//	Setters return the instance to implement the fluent interface
+			$result = $this->_testAutoFilterObject->setRange($fullRange);
+			$this->assertInstanceOf('PHPExcel_Worksheet_AutoFilter', $result);
 
-		//	Result should be the new autofilter range
-		$result = $this->_testAutoFilterObject->getRange();
-		$this->assertEquals($expectedResult, $result);
+			//	Result should be the new autofilter range
+			$result = $this->_testAutoFilterObject->getRange();
+			$this->assertEquals($actualRange, $result);
+		}
 	}
 
 	public function testClearRange()
@@ -204,6 +228,22 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
 		foreach($columnIndexes as $columnIndex) {
 			$result = $this->_testAutoFilterObject->getColumn($columnIndex);
 			$this->assertInstanceOf('PHPExcel_Worksheet_AutoFilter_Column', $result);
+		}
+	}
+
+	public function testGetColumnByOffset()
+	{
+		$columnIndexes = array(	0 => 'H',
+								3 => 'K',
+								5 => 'M'
+							  );
+
+		//	If we request a specific column by its offset, we should
+		//	get a PHPExcel_Worksheet_AutoFilter_Column object returned
+		foreach($columnIndexes as $columnIndex => $columnID) {
+			$result = $this->_testAutoFilterObject->getColumnByOffset($columnIndex);
+			$this->assertInstanceOf('PHPExcel_Worksheet_AutoFilter_Column', $result);
+			$this->assertEquals($result->getColumnIndex(),$columnID);
 		}
 	}
 
