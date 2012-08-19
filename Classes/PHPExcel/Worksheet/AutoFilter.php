@@ -338,12 +338,26 @@ class PHPExcel_Worksheet_AutoFilter
 		return $returnVal;
 	}
 
-	private static function _filterTypeDynamicFilters($cellValue,$testSet)
+	private static function _filterTestInPeriodDateSet($cellValue,$testSet)
 	{
-		echo 'CALLING _filterTypeDynamicFilters',PHP_EOL;
+		echo 'CALLING _filterTestInPeriodDateSet',PHP_EOL;
 
-		return TRUE;
+		if (($cellValue == '') || ($cellValue === NULL)) {
+			echo 'EMPTY CELL',PHP_EOL;
+			return FALSE;
+		}
+
+		if (is_numeric($cellValue)) {
+			$dateValue = date('m',PHPExcel_Shared_Date::ExcelToPHP($cellValue));
+			if (in_array($dateValue,$testSet)) {
+				return TRUE;
+			}
+		}
+
+		return FALSE;
 	}
+
+
 
 	private static function _filterTypeTopTenFilters($cellValue,$testSet)
 	{
@@ -598,6 +612,20 @@ class PHPExcel_Worksheet_AutoFilter
 							//	Date based
 							if ($dynamicRuleType{0} == 'M' || $dynamicRuleType{0} == 'Q') {
 								//	Month or Quarter
+								list($periodType,$period) = sscanf($dynamicRuleType,'%[A-Z]%d');
+								if ($periodType == 'M') {
+									$ruleValues = array($period);
+								} else {
+									--$period;
+									$periodEnd = (1+$period)*3;
+									$periodStart = 1+$period*3;
+									$ruleValues = range($periodStart,periodEnd);
+								}
+								$columnFilterTests[$columnID] = array(
+									'method' => '_filterTestInPeriodDateSet',
+									'arguments' => $ruleValues
+								);
+								$filterColumn->setAttributes(array());
 							} else {
 								//	Date Range
 								$columnFilterTests[$columnID] = $this->_dynamicFilterDateRange($dynamicRuleType, $filterColumn);
