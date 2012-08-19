@@ -223,6 +223,7 @@ class PHPExcel_IOFactory
 		// First, lucky guess by inspecting file extension
 		$pathinfo = pathinfo($pFilename);
 
+		$extensionType = NULL;
 		if (isset($pathinfo['extension'])) {
 			switch (strtolower($pathinfo['extension'])) {
 				case 'xlsx':			//	Excel (OfficeOpenXML) Spreadsheet
@@ -261,19 +262,20 @@ class PHPExcel_IOFactory
 					break;
 			}
 
-			$reader = self::createReader($extensionType);
-			// Let's see if we are lucky
-			if (isset($reader) && $reader->canRead($pFilename)) {
-				return $reader;
+			if ($extensionType !== NULL) {
+				$reader = self::createReader($extensionType);
+				// Let's see if we are lucky
+				if (isset($reader) && $reader->canRead($pFilename)) {
+					return $reader;
+				}
 			}
-
 		}
 
 		// If we reach here then "lucky guess" didn't give any result
 		// Try walking through all the options in self::$_autoResolveClasses
 		foreach (self::$_autoResolveClasses as $autoResolveClass) {
 			//	Ignore our original guess, we know that won't work
-		    if ($reader !== $extensionType) {
+			if ($autoResolveClass !== $extensionType) {
 				$reader = self::createReader($autoResolveClass);
 				if ($reader->canRead($pFilename)) {
 					return $reader;
@@ -281,6 +283,6 @@ class PHPExcel_IOFactory
 			}
 		}
 
-    	throw new Exception('Unable to identify a reader for this file');
+		throw new Exception('Unable to identify a reader for this file');
 	}	//	function createReaderForFile()
 }

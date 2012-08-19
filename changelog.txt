@@ -105,6 +105,7 @@ Fixed in develop branch:
 - Bugfix:   (MBaker)     Work item 18146 - Chart Refresh returning cell reference rather than values
 - Bugfix:   (MBaker)     Work item 18145 - Autoshape being identified in twoCellAnchor when includeCharts is TRUE triggering load error
 - Bugfix:   (MBaker)     Work item 18325 - v-type texts for series labels now recognised and parsed correctly
+- Bugfix:   (wolf5x)     Work item 18492 - load file failed if the file has no extensionType
 
 
 2012-05-19 (v1.7.7):
