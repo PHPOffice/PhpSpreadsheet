@@ -150,7 +150,7 @@ class PHPExcel_Worksheet_AutoFilter
 	/**
 	 * Validate that the specified column is in the AutoFilter range
 	 *
-	 * @param	string	$column		Column name (e.g. A)
+	 * @param	string	$column			Column name (e.g. A)
 	 * @throws	PHPExcel_Exception
 	 * @return	integer	The column offset within the autofilter range
 	 */
@@ -234,6 +234,49 @@ class PHPExcel_Worksheet_AutoFilter
 		} elseif(is_object($pColumn) && ($pColumn instanceof PHPExcel_Worksheet_AutoFilter_Column)) {
 			$pColumn->setParent($this);
 			$this->_columns[$column] = $pColumn;
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Clear a specified AutoFilter Column
+	 *
+	 * @param	string	$pColumn		Column name (e.g. A)
+	 * @throws	PHPExcel_Exception
+	 * @return PHPExcel_Worksheet_AutoFilter
+	 */
+	public function clearColumn($pColumn) {
+		$this->testColumnInRange($pColumn);
+
+		if (isset($this->_columns[$pColumn])) {
+			unset($this->_columns[$pColumn]);
+		}
+
+		return $this;
+	}
+
+	/**
+	 *	Shift an AutoFilter Column Rule to a different column
+	 *
+	 *	Note: This method bypasses validation of the destination column to ensure it is within this AutoFilter range.
+	 *		Nor does it verify whether any column rule already exists at $toColumn, but will simply overrideany existing value.
+	 *		Use with caution.
+	 *
+	 *	@param	string	$fromColumn		Column name (e.g. A)
+	 *	@param	string	$toColumn		Column name (e.g. B)
+	 *	@return PHPExcel_Worksheet_AutoFilter
+	 */
+	public function shiftColumn($fromColumn=NULL,$toColumn=NULL) {
+		$fromColumn = strtoupper($fromColumn);
+		$toColumn = strtoupper($toColumn);
+
+		if (($fromColumn !== NULL) && (isset($this->_columns[$fromColumn])) && ($toColumn !== NULL)) {
+			$this->_columns[$fromColumn]->setParent();
+			$this->_columns[$fromColumn]->setColumnIndex($toColumn);
+			$this->_columns[$toColumn] = $this->_columns[$fromColumn];
+			$this->_columns[$toColumn]->setParent($this);
+			unset($this->_columns[$fromColumn]);
 		}
 
 		return $this;

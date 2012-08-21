@@ -312,8 +312,61 @@ class PHPExcel_ReferenceHelper
 
 
 		// Update worksheet: autofilter
-		if ($pSheet->getAutoFilter()->getRange() !== '') {
-			$pSheet->setAutoFilter( $this->updateCellReference($pSheet->getAutoFilter()->getRange(), $pBefore, $pNumCols, $pNumRows) );
+		$autoFilter = $pSheet->getAutoFilter();
+		$autoFilterRange = $autoFilter->getRange();
+		if (!empty($autoFilterRange)) {
+			if ($pNumCols != 0) {
+				$autoFilterColumns = array_keys($autoFilter->getColumns());
+				if (count($autoFilterColumns) > 0) {
+					list($column,$row) = sscanf($pBefore,'%[A-Z]%d');
+					$columnIndex = PHPExcel_Cell::columnIndexFromString($column);
+					list($rangeStart,$rangeEnd) = PHPExcel_Cell::rangeBoundaries($autoFilterRange);
+					if ($columnIndex <= $rangeEnd[0]) {
+						if ($pNumCols < 0) {
+							//	If we're actually deleting any columns that fall within the autofilter range,
+							//		then we delete any rules for those columns
+							$deleteColumn = $columnIndex + $pNumCols - 1;
+							$deleteCount = abs($pNumCols);
+							for ($i = 1; $i <= $deleteCount; ++$i) {
+								if (in_array(PHPExcel_Cell::stringFromColumnIndex($deleteColumn),$autoFilterColumns)) {
+									$autoFilter->clearColumn(PHPExcel_Cell::stringFromColumnIndex($deleteColumn));
+								}
+								++$deleteColumn;
+							}
+						}
+						$startCol = ($columnIndex > $rangeStart[0]) ? $columnIndex : $rangeStart[0];
+
+						//	Shuffle columns in autofilter range
+						if ($pNumCols > 0) {
+							//	For insert, we shuffle from end to beginning to avoid overwriting
+							$startColID = PHPExcel_Cell::stringFromColumnIndex($startCol-1);
+							$toColID = PHPExcel_Cell::stringFromColumnIndex($startCol+$pNumCols-1);
+							$endColID = PHPExcel_Cell::stringFromColumnIndex($rangeEnd[0]);
+
+							$startColRef = $startCol;
+							$endColRef = $rangeEnd[0];
+							$toColRef = $rangeEnd[0]+$pNumCols;
+
+							do {
+								$autoFilter->shiftColumn(PHPExcel_Cell::stringFromColumnIndex($endColRef-1),PHPExcel_Cell::stringFromColumnIndex($toColRef-1));
+								--$endColRef;
+								--$toColRef;
+							} while ($startColRef <= $endColRef);
+						} else {
+							//	For delete, we shuffle from beginning to end to avoid overwriting
+							$startColID = PHPExcel_Cell::stringFromColumnIndex($startCol-1);
+							$toColID = PHPExcel_Cell::stringFromColumnIndex($startCol+$pNumCols-1);
+							$endColID = PHPExcel_Cell::stringFromColumnIndex($rangeEnd[0]);
+							do {
+								$autoFilter->shiftColumn($startColID,$toColID);
+								++$startColID;
+								++$toColID;
+							} while ($startColID != $endColID);
+						}
+					}
+				}
+			}
+			$pSheet->setAutoFilter( $this->updateCellReference($autoFilterRange, $pBefore, $pNumCols, $pNumRows) );
 		}
 
 
