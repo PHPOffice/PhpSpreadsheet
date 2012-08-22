@@ -253,11 +253,13 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 						$objWriter->endElement();
 					}
 
-					// bgColor
-					if ($pFill->getEndColor()->getARGB()) {
-						$objWriter->startElement('bgColor');
-						$objWriter->writeAttribute('rgb', $pFill->getEndColor()->getARGB());
-						$objWriter->endElement();
+					if ($pFill->getFillType() !== PHPExcel_Style_Fill::FILL_SOLID) {
+						// bgColor
+						if ($pFill->getEndColor()->getARGB()) {
+							$objWriter->startElement('bgColor');
+							$objWriter->writeAttribute('rgb', $pFill->getEndColor()->getARGB());
+							$objWriter->endElement();
+						}
 					}
 				}
 
@@ -277,20 +279,9 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 	{
 		// font
 		$objWriter->startElement('font');
-
-			// Name
-			if ($pFont->getName() !== NULL) {
-				$objWriter->startElement('name');
-					$objWriter->writeAttribute('val', $pFont->getName());
-				$objWriter->endElement();
-			}
-
-			// Size
-			if ($pFont->getSize() !== NULL) {
-				$objWriter->startElement('sz');
-					$objWriter->writeAttribute('val', $pFont->getSize());
-				$objWriter->endElement();
-			}
+			//	Weird! The order of these elements actually makes a difference when opening Excel2007
+			//		files in Excel2003 with the compatibility pack. It's not documented behaviour,
+			//		and makes for a real WTF!
 
 			// Bold. We explicitly write this element also when false (like MS Office Excel 2007 does
 			// for conditional formatting). Otherwise it will apparently not be picked up in conditional
@@ -308,6 +299,20 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 				$objWriter->endElement();
 			}
 
+			// Strikethrough
+			if ($pFont->getStrikethrough() !== NULL) {
+				$objWriter->startElement('strike');
+				$objWriter->writeAttribute('val', $pFont->getStrikethrough() ? '1' : '0');
+				$objWriter->endElement();
+			}
+
+			// Underline
+			if ($pFont->getUnderline() !== NULL) {
+				$objWriter->startElement('u');
+				$objWriter->writeAttribute('val', $pFont->getUnderline());
+				$objWriter->endElement();
+			}
+
 			// Superscript / subscript
 			if ($pFont->getSuperScript() === TRUE || $pFont->getSubScript() === TRUE) {
 				$objWriter->startElement('vertAlign');
@@ -319,17 +324,10 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 				$objWriter->endElement();
 			}
 
-			// Underline
-			if ($pFont->getUnderline() !== NULL) {
-				$objWriter->startElement('u');
-				$objWriter->writeAttribute('val', $pFont->getUnderline());
-				$objWriter->endElement();
-			}
-
-			// Strikethrough
-			if ($pFont->getStrikethrough() !== NULL) {
-				$objWriter->startElement('strike');
-				$objWriter->writeAttribute('val', $pFont->getStrikethrough() ? '1' : '0');
+			// Size
+			if ($pFont->getSize() !== NULL) {
+				$objWriter->startElement('sz');
+					$objWriter->writeAttribute('val', $pFont->getSize());
 				$objWriter->endElement();
 			}
 
@@ -337,6 +335,13 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 			if ($pFont->getColor()->getARGB() !== NULL) {
 				$objWriter->startElement('color');
 				$objWriter->writeAttribute('rgb', $pFont->getColor()->getARGB());
+				$objWriter->endElement();
+			}
+
+			// Name
+			if ($pFont->getName() !== NULL) {
+				$objWriter->startElement('name');
+					$objWriter->writeAttribute('val', $pFont->getName());
 				$objWriter->endElement();
 			}
 

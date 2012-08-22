@@ -100,7 +100,7 @@ $objConditional2->setConditionType(PHPExcel_Style_Conditional::CONDITION_CELLIS)
                 ->setOperatorType(PHPExcel_Style_Conditional::OPERATOR_LESSTHAN)
                 ->addCondition('0');
 $objConditional2->getStyle()->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_RED);
-$objConditional2->getStyle()->getFont()->setBold(true);
+$objConditional2->getStyle()->getFont()->setItalic(true);
 $objConditional2->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
 
 $objConditional3 = new PHPExcel_Style_Conditional();
@@ -108,7 +108,7 @@ $objConditional3->setConditionType(PHPExcel_Style_Conditional::CONDITION_CELLIS)
                 ->setOperatorType(PHPExcel_Style_Conditional::OPERATOR_GREATERTHANOREQUAL)
                 ->addCondition('0');
 $objConditional3->getStyle()->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_GREEN);
-$objConditional3->getStyle()->getFont()->setBold(true);
+$objConditional3->getStyle()->getFont()->setItalic(true);
 $objConditional3->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
 
 $conditionalStyles = $objPHPExcel->getActiveSheet()->getStyle('B2')->getConditionalStyles();
@@ -128,10 +128,10 @@ $objPHPExcel->getActiveSheet()->duplicateConditionalStyle(
 
 // Set fonts
 echo date('H:i:s') , " Set fonts" , EOL;
-$objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
-$objPHPExcel->getActiveSheet()->getStyle('B1')->getFont()->setBold(true);
-$objPHPExcel->getActiveSheet()->getStyle('A7')->getFont()->setBold(true);
-$objPHPExcel->getActiveSheet()->getStyle('B7')->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('A1:B1')->getFont()->setBold(true);
+//$objPHPExcel->getActiveSheet()->getStyle('B1')->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('A7:B7')->getFont()->setBold(true);
+//$objPHPExcel->getActiveSheet()->getStyle('B7')->getFont()->setBold(true);
 
 
 // Set header and footer. When no different headers for odd/even are used, odd header is assumed.
