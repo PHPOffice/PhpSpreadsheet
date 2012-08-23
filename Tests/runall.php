@@ -42,6 +42,8 @@ $aTests = array(
 	, '08conditionalformatting.php'
 	, '09pagebreaks.php'
 	, '10autofilter.php'
+	, '10autofilter-selection-1.php'
+	, '10autofilter-selection-2.php'
 	, '11documentsecurity.php'
 	, '11documentsecurity-xls.php'
 	, '13calculation.php'

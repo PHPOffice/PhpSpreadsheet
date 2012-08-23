@@ -715,10 +715,15 @@ class PHPExcel_Worksheet_AutoFilter
 					break;
 				case PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_FILTERTYPE_TOPTENFILTER :
 					$ruleValues = array();
-var_dump($rules);
+					$dataRowCount = $rangeEnd[1] - $rangeStart[1];
 					foreach($rules as $rule) {
+var_dump($rule);
 						//	We should only ever have one Dynamic Filter Rule anyway
+						$toptenRuleType = $rule->getGrouping();
+						$ruleValue = $rule->getValue();
 					}
+var_dump($toptenRuleType);
+var_dump($ruleValue);
 					$columnFilterTests[$columnID] = array(
 						'method' => '_filterTypeTopTenFilters',
 						'arguments' => $ruleValues
