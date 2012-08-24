@@ -426,12 +426,6 @@ class PHPExcel_Worksheet_AutoFilter
 		return FALSE;
 	}
 
-	private static function _filterTypeTopTenFilters($cellValue,$testSet)
-	{
-		echo 'CALLING _filterTypeTopTenFilters',PHP_EOL;
-		return TRUE;
-	}
-
 	/**
 	 *	Search/Replace arrays to convert Excel wildcard syntax to a regexp syntax for preg_matching
 	 *
@@ -448,7 +442,7 @@ class PHPExcel_Worksheet_AutoFilter
 	 *	@param	PHPExcel_Worksheet_AutoFilter_Column		$filterColumn
 	 *	@return mixed[]
 	 */
-	private function _dynamicFilterDateRange($dynamicRuleType, $filterColumn)
+	private function _dynamicFilterDateRange($dynamicRuleType, &$filterColumn)
 	{
 		$rDateType = PHPExcel_Calculation_Functions::getReturnDateType();
 		PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_PHP_NUMERIC);
@@ -541,7 +535,7 @@ class PHPExcel_Worksheet_AutoFilter
 
 		//	Set the filter column rule attributes ready for writing
 		$filterColumn->setAttributes(array(	'val' => $val,
-											'maxVal', $maxVal
+											'maxVal' => $maxVal
 										  )
 									);
 
@@ -562,6 +556,22 @@ class PHPExcel_Worksheet_AutoFilter
 		);
 	}
 
+	private function _calculateTopTenValue($columnID,$startRow,$endRow,$ruleType,$ruleValue) {
+		$range = $columnID.$startRow.':'.$columnID.$endRow;
+		$dataValues = PHPExcel_Calculation_Functions::flattenArray(
+			$this->_workSheet->rangeToArray($range,NULL,TRUE,FALSE)
+		);
+
+		$dataValues = array_filter($dataValues);
+		if ($ruleType == PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP) {
+			rsort($dataValues);
+		} else {
+			sort($dataValues);
+		}
+
+		return array_pop(array_slice($dataValues,0,$ruleValue));
+	}
+
 	/**
 	 *	Apply the AutoFilter rules to the AutoFilter Range
 	 *
@@ -573,7 +583,7 @@ class PHPExcel_Worksheet_AutoFilter
 		list($rangeStart,$rangeEnd) = PHPExcel_Cell::rangeBoundaries($this->_range);
 
 		//	The heading row should always be visible
-		echo 'AutoFilter Heading Row ',$rangeStart[1],' is always SHOWN',PHP_EOL;
+//		echo 'AutoFilter Heading Row ',$rangeStart[1],' is always SHOWN',PHP_EOL;
 		$this->_workSheet->getRowDimension($rangeStart[1])->setVisible(TRUE);
 
 		$columnFilterTests = array();
@@ -717,32 +727,49 @@ class PHPExcel_Worksheet_AutoFilter
 					$ruleValues = array();
 					$dataRowCount = $rangeEnd[1] - $rangeStart[1];
 					foreach($rules as $rule) {
-var_dump($rule);
 						//	We should only ever have one Dynamic Filter Rule anyway
 						$toptenRuleType = $rule->getGrouping();
 						$ruleValue = $rule->getValue();
+						$ruleOperator = $rule->getOperator();
 					}
-var_dump($toptenRuleType);
-var_dump($ruleValue);
+					if ($ruleOperator === PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT) {
+						$ruleValue = floor($ruleValue * ($dataRowCount / 100));
+					}
+					if ($ruleValue < 1) $ruleValue = 1;
+					if ($ruleValue > 500) $ruleValue = 500;
+
+					$maxVal = $this->_calculateTopTenValue($columnID,$rangeStart[1]+1,$rangeEnd[1],$toptenRuleType,$ruleValue);
+
+					$operator = ($toptenRuleType == PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP)
+						? PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL
+						: PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL;
+					$ruleValues[] = array( 'operator' => $operator,
+										   'value' => $maxVal
+										 );
 					$columnFilterTests[$columnID] = array(
-						'method' => '_filterTypeTopTenFilters',
-						'arguments' => $ruleValues
+						'method' => '_filterTestInCustomDataSet',
+						'arguments' => array( 'filterRules' => $ruleValues,
+											  'join' => PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_COLUMN_JOIN_OR
+											)
+					);
+					$filterColumn->setAttributes(
+						array('maxVal' => $maxVal)
 					);
 					break;
 			}
 		}
 
-		echo 'Column Filter Test CRITERIA',PHP_EOL;
-		var_dump($columnFilterTests);
-
+//		echo 'Column Filter Test CRITERIA',PHP_EOL;
+//		var_dump($columnFilterTests);
+//
 		//	Execute the column tests for each row in the autoFilter range to determine show/hide,
 		for ($row = $rangeStart[1]+1; $row <= $rangeEnd[1]; ++$row) {
-			echo 'Testing Row = ',$row,PHP_EOL;
+//			echo 'Testing Row = ',$row,PHP_EOL;
 			$result = TRUE;
 			foreach($columnFilterTests as $columnID => $columnFilterTest) {
-				echo 'Testing cell ',$columnID.$row,PHP_EOL;
+//				echo 'Testing cell ',$columnID.$row,PHP_EOL;
 				$cellValue = $this->_workSheet->getCell($columnID.$row)->getCalculatedValue();
-				echo 'Value is ',$cellValue,PHP_EOL;
+//				echo 'Value is ',$cellValue,PHP_EOL;
 				//	Execute the filter test
 				$result = $result &&
 					call_user_func_array(
@@ -752,13 +779,13 @@ var_dump($ruleValue);
 							$columnFilterTest['arguments']
 						)
 					);
-				echo (($result) ? 'VALID' : 'INVALID'),PHP_EOL;
+//				echo (($result) ? 'VALID' : 'INVALID'),PHP_EOL;
 				//	If filter test has resulted in FALSE, exit the loop straightaway rather than running any more tests
 				if (!$result)
 					break;
 			}
 			//	Set show/hide for the row based on the result of the autoFilter result
-			echo (($result) ? 'SHOW' : 'HIDE'),PHP_EOL;
+//			echo (($result) ? 'SHOW' : 'HIDE'),PHP_EOL;
 			$this->_workSheet->getRowDimension($row)->setVisible($result);
 		}
 

@@ -28,6 +28,10 @@
 /** Error reporting */
 error_reporting(E_ALL);
 
+if (PHP_SAPI != 'cli') {
+	die ('This script executes all tests, and should only be run from the command line');
+}
+
 // List of tests
 $aTests = array(
 	  '01simple.php'
