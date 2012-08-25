@@ -235,6 +235,7 @@ class PHPExcel_Worksheet_AutoFilter
 			$pColumn->setParent($this);
 			$this->_columns[$column] = $pColumn;
 		}
+		ksort($this->_columns);
 
 		return $this;
 	}
@@ -277,6 +278,8 @@ class PHPExcel_Worksheet_AutoFilter
 			$this->_columns[$toColumn] = $this->_columns[$fromColumn];
 			$this->_columns[$toColumn]->setParent($this);
 			unset($this->_columns[$fromColumn]);
+
+			ksort($this->_columns);
 		}
 
 		return $this;
@@ -350,6 +353,7 @@ class PHPExcel_Worksheet_AutoFilter
 	private static function _filterTestInCustomDataSet($cellValue,$ruleSet)
 	{
 		//	Blank cells are always ignored, so return a FALSE
+		//	TODO a rule of notEqual ' ' overrides this, unsure how to handle it at this point
 		if (($cellValue == '') || ($cellValue === NULL)) {
 			return FALSE;
 		}
@@ -583,7 +587,7 @@ class PHPExcel_Worksheet_AutoFilter
 		list($rangeStart,$rangeEnd) = PHPExcel_Cell::rangeBoundaries($this->_range);
 
 		//	The heading row should always be visible
-//		echo 'AutoFilter Heading Row ',$rangeStart[1],' is always SHOWN',PHP_EOL;
+		echo 'AutoFilter Heading Row ',$rangeStart[1],' is always SHOWN',PHP_EOL;
 		$this->_workSheet->getRowDimension($rangeStart[1])->setVisible(TRUE);
 
 		$columnFilterTests = array();
@@ -759,17 +763,17 @@ class PHPExcel_Worksheet_AutoFilter
 			}
 		}
 
-//		echo 'Column Filter Test CRITERIA',PHP_EOL;
-//		var_dump($columnFilterTests);
-//
+		echo 'Column Filter Test CRITERIA',PHP_EOL;
+		var_dump($columnFilterTests);
+
 		//	Execute the column tests for each row in the autoFilter range to determine show/hide,
 		for ($row = $rangeStart[1]+1; $row <= $rangeEnd[1]; ++$row) {
-//			echo 'Testing Row = ',$row,PHP_EOL;
+			echo 'Testing Row = ',$row,PHP_EOL;
 			$result = TRUE;
 			foreach($columnFilterTests as $columnID => $columnFilterTest) {
-//				echo 'Testing cell ',$columnID.$row,PHP_EOL;
+				echo 'Testing cell ',$columnID.$row,PHP_EOL;
 				$cellValue = $this->_workSheet->getCell($columnID.$row)->getCalculatedValue();
-//				echo 'Value is ',$cellValue,PHP_EOL;
+				echo 'Value is ',$cellValue,PHP_EOL;
 				//	Execute the filter test
 				$result = $result &&
 					call_user_func_array(
@@ -779,13 +783,13 @@ class PHPExcel_Worksheet_AutoFilter
 							$columnFilterTest['arguments']
 						)
 					);
-//				echo (($result) ? 'VALID' : 'INVALID'),PHP_EOL;
+				echo (($result) ? 'VALID' : 'INVALID'),PHP_EOL;
 				//	If filter test has resulted in FALSE, exit the loop straightaway rather than running any more tests
 				if (!$result)
 					break;
 			}
 			//	Set show/hide for the row based on the result of the autoFilter result
-//			echo (($result) ? 'SHOW' : 'HIDE'),PHP_EOL;
+			echo (($result) ? 'SHOW' : 'HIDE'),PHP_EOL;
 			$this->_workSheet->getRowDimension($row)->setVisible($result);
 		}
 
