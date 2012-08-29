@@ -352,14 +352,18 @@ class PHPExcel_Worksheet_AutoFilter
 	 */
 	private static function _filterTestInCustomDataSet($cellValue,$ruleSet)
 	{
-		//	Blank cells are always ignored, so return a FALSE
-		//	TODO a rule of notEqual ' ' overrides this, unsure how to handle it at this point
-		if (($cellValue == '') || ($cellValue === NULL)) {
-			return FALSE;
-		}
+var_dump($ruleSet);
+
 		$dataSet = $ruleSet['filterRules'];
 		$join = $ruleSet['join'];
+		$customRuleForBlanks = isset($ruleSet['customRuleForBlanks']) ? $ruleSet['customRuleForBlanks'] : FALSE;
 
+		if (!$customRuleForBlanks) {
+			//	Blank cells are always ignored, so return a FALSE
+			if (($cellValue == '') || ($cellValue === NULL)) {
+				return FALSE;
+			}
+		}
 		$returnVal = ($join == PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_COLUMN_JOIN_AND);
 		foreach($dataSet as $rule) {
 			if (is_numeric($rule['value'])) {
@@ -382,6 +386,18 @@ class PHPExcel_Worksheet_AutoFilter
 						break;
 					case PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL :
 						$retVal	= ($cellValue <= $rule['value']);
+						break;
+				}
+			} elseif($rule['value'] == '') {
+				switch ($rule['operator']) {
+					case PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_EQUAL :
+						$retVal	= (($cellValue == '') || ($cellValue === NULL));
+						break;
+					case PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_NOTEQUAL :
+						$retVal	= (($cellValue != '') && ($cellValue !== NULL));
+						break;
+					default :
+						$retVal	= TRUE;
 						break;
 				}
 			} else {
@@ -655,6 +671,7 @@ class PHPExcel_Worksheet_AutoFilter
 					}
 					break;
 				case PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER :
+					$customRuleForBlanks = FALSE;
 					$ruleValues = array();
 					//	Build a list of the filter value selections
 					foreach($rules as $rule) {
@@ -664,6 +681,10 @@ class PHPExcel_Worksheet_AutoFilter
 							//	Convert to a regexp allowing for regexp reserved characters, wildcards and escaped wildcards
 							$ruleValue = preg_quote($ruleValue);
 							$ruleValue = str_replace(self::$_fromReplace,self::$_toReplace,$ruleValue);
+							if (trim($ruleValue) == '') {
+								$customRuleForBlanks = TRUE;
+								$ruleValue = trim($ruleValue);
+							}
 						}
 						$ruleValues[] = array( 'operator' => $rule->getOperator(),
 											   'value' => $ruleValue
@@ -673,7 +694,8 @@ class PHPExcel_Worksheet_AutoFilter
 					$columnFilterTests[$columnID] = array(
 						'method' => '_filterTestInCustomDataSet',
 						'arguments' => array( 'filterRules' => $ruleValues,
-											  'join' => $join
+											  'join' => $join,
+											  'customRuleForBlanks' => $customRuleForBlanks
 											)
 					);
 					break;
