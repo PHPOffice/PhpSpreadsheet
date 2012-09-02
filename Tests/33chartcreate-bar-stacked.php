@@ -91,20 +91,23 @@ $dataSeriesValues = array(
 
 //	Build the dataseries
 $series = new PHPExcel_Chart_DataSeries(
-	PHPExcel_Chart_DataSeries::TYPE_LINECHART,		// plotType
+	PHPExcel_Chart_DataSeries::TYPE_BARCHART,		// plotType
 	PHPExcel_Chart_DataSeries::GROUPING_STACKED,	// plotGrouping
 	range(0, count($dataSeriesValues)-1),			// plotOrder
 	$dataseriesLabels,								// plotLabel
 	$xAxisTickValues,								// plotCategory
 	$dataSeriesValues								// plotValues
 );
+//	Set additional dataseries parameters
+//		Make it a horizontal bar rather than a vertical column graph
+$series->setPlotDirection(PHPExcel_Chart_DataSeries::DIRECTION_BAR);
 
 //	Set the series in the plot area
 $plotarea = new PHPExcel_Chart_PlotArea(null, array($series));
 //	Set the chart legend
-$legend = new PHPExcel_Chart_Legend(PHPExcel_Chart_Legend::POSITION_TOPRIGHT, null, false);
+$legend = new PHPExcel_Chart_Legend(PHPExcel_Chart_Legend::POSITION_RIGHT, null, false);
 
-$title = new PHPExcel_Chart_Title('Test Stacked Line Chart');
+$title = new PHPExcel_Chart_Title('Test Chart');
 $yAxisLabel = new PHPExcel_Chart_Title('Value ($k)');
 
 

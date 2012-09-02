@@ -183,6 +183,7 @@ class PHPExcel_Reader_Excel2007_Chart
 					}
 			}
 		}
+
 		$chart = new PHPExcel_Chart($chartName,$title,$legend,$plotArea,$plotVisOnly,$dispBlanksAs,$XaxisLabel,$YaxisLabel);
 
 		return $chart;

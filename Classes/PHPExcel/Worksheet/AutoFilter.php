@@ -352,8 +352,6 @@ class PHPExcel_Worksheet_AutoFilter
 	 */
 	private static function _filterTestInCustomDataSet($cellValue,$ruleSet)
 	{
-var_dump($ruleSet);
-
 		$dataSet = $ruleSet['filterRules'];
 		$join = $ruleSet['join'];
 		$customRuleForBlanks = isset($ruleSet['customRuleForBlanks']) ? $ruleSet['customRuleForBlanks'] : FALSE;

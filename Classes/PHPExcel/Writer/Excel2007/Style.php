@@ -252,14 +252,13 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 						$objWriter->writeAttribute('rgb', $pFill->getStartColor()->getARGB());
 						$objWriter->endElement();
 					}
-
-					if ($pFill->getFillType() !== PHPExcel_Style_Fill::FILL_SOLID) {
-						// bgColor
-						if ($pFill->getEndColor()->getARGB()) {
-							$objWriter->startElement('bgColor');
-							$objWriter->writeAttribute('rgb', $pFill->getEndColor()->getARGB());
-							$objWriter->endElement();
-						}
+				}
+				if ($pFill->getFillType() !== PHPExcel_Style_Fill::FILL_NONE) {
+					// bgColor
+					if ($pFill->getEndColor()->getARGB()) {
+						$objWriter->startElement('bgColor');
+						$objWriter->writeAttribute('rgb', $pFill->getEndColor()->getARGB());
+						$objWriter->endElement();
 					}
 				}
 
@@ -623,7 +622,6 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 		$fill1 = new PHPExcel_Style_Fill();
 		$fill1->setFillType(PHPExcel_Style_Fill::FILL_PATTERN_GRAY125);
 		$aFills[] = $fill1;
-
 		// The remaining fills
 		$aStyles 	= $this->allStyles($pPHPExcel);
 		foreach ($aStyles as $style) {

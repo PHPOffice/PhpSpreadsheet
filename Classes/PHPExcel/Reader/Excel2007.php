@@ -697,7 +697,6 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 								$dxfs[] = $style;
 							}
 						}
-
 						//	Cell Styles
 						if ($xmlStyles->cellStyles) {
 							foreach ($xmlStyles->cellStyles->cellStyle as $cellStyle) {
@@ -1859,9 +1858,13 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 
 	private static function _readStyle($docStyle, $style) {
 		// format code
-		if (isset($style->numFmt)) {
-			$docStyle->getNumberFormat()->setFormatCode($style->numFmt);
-		}
+//		if (isset($style->numFmt)) {
+//			if (isset($style->numFmt['formatCode'])) {
+//				$docStyle->getNumberFormat()->setFormatCode((string) $style->numFmt['formatCode']);
+//			} else {
+				$docStyle->getNumberFormat()->setFormatCode($style->numFmt);
+//			}
+//		}
 
 		// font
 		if (isset($style->font)) {

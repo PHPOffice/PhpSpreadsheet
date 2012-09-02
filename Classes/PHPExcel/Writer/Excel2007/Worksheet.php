@@ -464,7 +464,6 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 				// if ($this->getParentWriter()->getStylesConditionalHashTable()->getIndexForHashCode( $conditional->getHashCode() ) == '') {
 				//	continue;
 				// }
-
 				if ($conditional->getConditionType() != PHPExcel_Style_Conditional::CONDITION_NONE) {
 					// conditionalFormatting
 					$objWriter->startElement('conditionalFormatting');

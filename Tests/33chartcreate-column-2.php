@@ -46,11 +46,19 @@ $objPHPExcel = new PHPExcel();
 $objWorksheet = $objPHPExcel->getActiveSheet();
 $objWorksheet->fromArray(
 	array(
-		array('',	2010,	2011,	2012),
-		array('Q1',   12,   15,		21),
-		array('Q2',   56,   73,		86),
-		array('Q3',   52,   61,		69),
-		array('Q4',   30,   32,		0),
+		array('',		'',		'Budget',	'Forecast',	'Actual'),
+		array('2010',	'Q1',   47,   		44,			43		),
+		array('',		'Q2',   56,   		53,			50		),
+		array('',		'Q3',   52,   		46,			45		),
+		array('',		'Q4',   45,   		40,			40		),
+		array('2011',	'Q1',   51,   		42,			46		),
+		array('',		'Q2',   53,   		58,			56		),
+		array('',		'Q3',   64,   		66,			69		),
+		array('',		'Q4',   54,   		55,			56		),
+		array('2012',	'Q1',   49,   		52,			58		),
+		array('',		'Q2',   68,   		73,			86		),
+		array('',		'Q3',   72,   		78,			0		),
+		array('',		'Q4',   50,   		60,			0		),
 	)
 );
 
@@ -62,9 +70,9 @@ $objWorksheet->fromArray(
 //		Data values
 //		Data Marker
 $dataseriesLabels = array(
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$B$1', null, 1),	//	2010
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$C$1', null, 1),	//	2011
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$D$1', null, 1),	//	2012
+	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$C$1', null, 1),	//	'Budget'
+	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$D$1', null, 1),	//	'Forecast'
+	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$E$1', null, 1),	//	'Actual'
 );
 //	Set the X-Axis Labels
 //		Datatype
@@ -74,7 +82,7 @@ $dataseriesLabels = array(
 //		Data values
 //		Data Marker
 $xAxisTickValues = array(
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$A$2:$A$5', null, 4),	//	Q1 to Q4
+	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$A$2:$B$13', null, 12),	//	Q1 to Q4 for 2010 to 2012
 );
 //	Set the Data values for each data series we want to plot
 //		Datatype
@@ -84,27 +92,31 @@ $xAxisTickValues = array(
 //		Data values
 //		Data Marker
 $dataSeriesValues = array(
-	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$B$2:$B$5', null, 4),
-	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$C$2:$C$5', null, 4),
-	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$D$2:$D$5', null, 4),
+	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$C$2:$C$13', null, 12),
+	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$D$2:$D$13', null, 12),
+	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$E$2:$E$13', null, 12),
 );
 
 //	Build the dataseries
 $series = new PHPExcel_Chart_DataSeries(
-	PHPExcel_Chart_DataSeries::TYPE_LINECHART,		// plotType
-	PHPExcel_Chart_DataSeries::GROUPING_STACKED,	// plotGrouping
+	PHPExcel_Chart_DataSeries::TYPE_BARCHART,		// plotType
+	PHPExcel_Chart_DataSeries::GROUPING_CLUSTERED,	// plotGrouping
 	range(0, count($dataSeriesValues)-1),			// plotOrder
 	$dataseriesLabels,								// plotLabel
 	$xAxisTickValues,								// plotCategory
 	$dataSeriesValues								// plotValues
 );
+//	Set additional dataseries parameters
+//		Make it a vertical column rather than a horizontal bar graph
+$series->setPlotDirection(PHPExcel_Chart_DataSeries::DIRECTION_COL);
 
 //	Set the series in the plot area
 $plotarea = new PHPExcel_Chart_PlotArea(null, array($series));
 //	Set the chart legend
-$legend = new PHPExcel_Chart_Legend(PHPExcel_Chart_Legend::POSITION_TOPRIGHT, null, false);
+$legend = new PHPExcel_Chart_Legend(PHPExcel_Chart_Legend::POSITION_BOTTOM, null, false);
 
-$title = new PHPExcel_Chart_Title('Test Stacked Line Chart');
+$title = new PHPExcel_Chart_Title('Test Grouped Column Chart');
+$xAxisLabel = new PHPExcel_Chart_Title('Financial Period');
 $yAxisLabel = new PHPExcel_Chart_Title('Value ($k)');
 
 
@@ -116,13 +128,13 @@ $chart = new PHPExcel_Chart(
 	$plotarea,		// plotArea
 	true,			// plotVisibleOnly
 	0,				// displayBlanksAs
-	null,			// xAxisLabel
+	$xAxisLabel,	// xAxisLabel
 	$yAxisLabel		// yAxisLabel
 );
 
 //	Set the position where the chart should appear in the worksheet
-$chart->setTopLeftPosition('A7');
-$chart->setBottomRightPosition('H20');
+$chart->setTopLeftPosition('G2');
+$chart->setBottomRightPosition('P20');
 
 //	Add the chart to the worksheet
 $objWorksheet->addChart($chart);

@@ -1900,7 +1900,12 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	/**
 	 * Freeze Pane
 	 *
-	 * @param	string		$pCell		Cell (i.e. A1)
+	 * @param	string		$pCell		Cell (i.e. A2)
+	 *									Examples:
+	 *										A2 will freeze the rows above cell A2 (i.e row 1)
+	 *										B1 will freeze the columns to the left of cell B1 (i.e column A)
+	 *										B2 will freeze the rows above and to the left of cell A2
+	 *											(i.e row 1 and column A)
 	 * @throws	Exception
 	 * @return PHPExcel_Worksheet
 	 */

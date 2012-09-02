@@ -92,7 +92,7 @@ $dataSeriesValues = array(
 //	Build the dataseries
 $series = new PHPExcel_Chart_DataSeries(
 	PHPExcel_Chart_DataSeries::TYPE_BARCHART,		// plotType
-	PHPExcel_Chart_DataSeries::GROUPING_CLUSTERED,	// plotGrouping
+	PHPExcel_Chart_DataSeries::GROUPING_STANDARD,	// plotGrouping
 	range(0, count($dataSeriesValues)-1),			// plotOrder
 	$dataseriesLabels,								// plotLabel
 	$xAxisTickValues,								// plotCategory
@@ -107,7 +107,7 @@ $plotarea = new PHPExcel_Chart_PlotArea(null, array($series));
 //	Set the chart legend
 $legend = new PHPExcel_Chart_Legend(PHPExcel_Chart_Legend::POSITION_RIGHT, null, false);
 
-$title = new PHPExcel_Chart_Title('Test Chart');
+$title = new PHPExcel_Chart_Title('Test Column Chart');
 $yAxisLabel = new PHPExcel_Chart_Title('Value ($k)');
 
 
