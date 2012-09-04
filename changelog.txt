@@ -108,6 +108,7 @@ Fixed in develop branch:
 - Bugfix:   (wolf5x)     Work item 18492 - load file failed if the file has no extensionType
 - Bugfix:   (dverspui)   Pattern fill colours in Excel2007 Style Writer
 - Bugfix:   (MBaker)     Excel2007 Writer order of font style elements to conform with Excel2003 using compatibility pack
+- Bugfix:   (MBaker)     Work item 18425 - Problems with $_activeSheetIndex when decreased below 0.
 
 
 2012-05-19 (v1.7.7):

@@ -198,7 +198,7 @@ class PHPExcel
      * @return PHPExcel_Worksheet
      * @throws Exception
      */
-    public function createSheet($iSheetIndex = null)
+    public function createSheet($iSheetIndex = NULL)
     {
         $newSheet = new PHPExcel_Worksheet($this);
         $this->addSheet($newSheet, $iSheetIndex);
@@ -224,13 +224,16 @@ class PHPExcel
      * @return PHPExcel_Worksheet
      * @throws Exception
      */
-    public function addSheet(PHPExcel_Worksheet $pSheet, $iSheetIndex = null)
+    public function addSheet(PHPExcel_Worksheet $pSheet, $iSheetIndex = NULL)
     {
 		if ($this->sheetNameExists($pSheet->getTitle())) {
 			throw new Exception("Workbook already contains a worksheet named '{$pSheet->getTitle()}'. Rename this worksheet first.");
 		}
 
         if($iSheetIndex === NULL) {
+            if ($this->_activeSheetIndex < 0) {
+            	$this->_activeSheetIndex = 0;
+            }
             $this->_workSheetCollection[] = $pSheet;
         } else {
             // Insert the sheet at the requested index
