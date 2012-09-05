@@ -84,6 +84,13 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 	private $_useBOM = false;
 
 	/**
+	 * Whether to write a fully Excel compatible CSV file.
+	 *
+	 * @var boolean
+	 */
+	private $_excelCompatibility = false;
+
+	/**
 	 * Create a new PHPExcel_Writer_CSV
 	 *
 	 * @param	PHPExcel	$phpExcel	PHPExcel object
@@ -113,7 +120,12 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 			throw new Exception("Could not open file $pFilename for writing.");
 		}
 
-		if ($this->_useBOM) {
+		if ($this->_excelCompatibility) {
+			// Write the UTF-16LE BOM code
+			fwrite($fileHandle, "\xFF\xFE");	//	Excel uses UTF-16LE encoding
+			$this->setEnclosure();				//	Default enclosure is "
+			$this->setDelimiter("\t");			//	Excel delimiter is a TAB
+		} elseif ($this->_useBOM) {
 			// Write the UTF-8 BOM code
 			fwrite($fileHandle, "\xEF\xBB\xBF");
 		}
@@ -221,6 +233,27 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 	}
 
 	/**
+	 * Get whether the file should be saved with full Excel Compatibility
+	 *
+	 * @return boolean
+	 */
+	public function getExcelCompatibility() {
+		return $this->_excelCompatibility;
+	}
+
+	/**
+	 * Set whether the file should be saved with full Excel Compatibility
+	 *
+	 * @param	boolean	$pValue		Set the file to be written as a fully Excel compatible csv file
+	 *								Note that this overrides other settings such as useBOM, enclosure and delimiter
+	 * @return PHPExcel_Writer_CSV
+	 */
+	public function setExcelCompatibility($pValue = false) {
+		$this->_excelCompatibility = $pValue;
+		return $this;
+	}
+
+	/**
 	 * Get sheet index
 	 *
 	 * @return int
@@ -274,9 +307,13 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 			$line .= $this->_lineEnding;
 
 			// Write to file
-			fwrite($pFileHandle, $line);
+			if ($this->_excelCompatibility) {
+				fwrite($pFileHandle, mb_convert_encoding($line,"UTF-16LE","UTF-8"));
+			} else {
+				fwrite($pFileHandle, $line);
+			}
 		} else {
-			throw new Exception("Invalid parameters passed.");
+			throw new Exception("Invalid data row passed to CSV writer.");
 		}
 	}
 

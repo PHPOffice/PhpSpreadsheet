@@ -181,6 +181,7 @@ class PHPExcel_CachedObjectStorage_CacheBase {
 			$highestRow = max($row);
 			$highestColumn = substr(max($col),1);
 		}
+
 		return array( 'row'	   => $highestRow,
 					  'column' => $highestColumn
 					);
