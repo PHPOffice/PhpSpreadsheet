@@ -142,7 +142,7 @@ class PHPExcel_Settings
 	 * @return	string				Name of the cacheing method
 	 */
 	public static function getCacheStorageMethod() {
-		return PHPExcel_CachedObjectStorageFactory::$_cacheStorageMethod;
+		return PHPExcel_CachedObjectStorageFactory::getCacheStorageMethod();
 	}	//	function getCacheStorageMethod()
 
 
@@ -152,7 +152,7 @@ class PHPExcel_Settings
 	 * @return	string				Name of the class currently being used for cacheing
 	 */
 	public static function getCacheStorageClass() {
-		return PHPExcel_CachedObjectStorageFactory::$_cacheStorageClass;
+		return PHPExcel_CachedObjectStorageFactory::getCacheStorageClass();
 	}	//	function getCacheStorageClass()
 
 
@@ -232,7 +232,7 @@ class PHPExcel_Settings
 	/**
 	 * Return the Chart Rendering Library that PHPExcel is currently configured to use (e.g. jpgraph)
 	 *
-	 * @return	 string						Internal reference name of the Chart Rendering Library that PHPExcel is
+	 * @return	 string|NULL				Internal reference name of the Chart Rendering Library that PHPExcel is
 	 *											currently configured to use
 	 *												e.g. PHPExcel_Settings::CHART_RENDERER_JPGRAPH
 	 */
@@ -244,7 +244,7 @@ class PHPExcel_Settings
 	/**
 	 * Return the directory path to the Chart Rendering Library that PHPExcel is currently configured to use
 	 *
-	 * @return	 string						Directory Path to the Chart Rendering Library that PHPExcel is
+	 * @return	 string|NULL				Directory Path to the Chart Rendering Library that PHPExcel is
 	 *											currently configured to use
 	 */
 	public static function getChartRendererPath() {
@@ -308,7 +308,7 @@ class PHPExcel_Settings
 	/**
 	 * Return the PDF Rendering Library that PHPExcel is currently configured to use (e.g. dompdf)
 	 *
-	 * @return	 string						Internal reference name of the PDF Rendering Library that PHPExcel is
+	 * @return	 string|NULL				Internal reference name of the PDF Rendering Library that PHPExcel is
 	 *											currently configured to use
 	 *												e.g. PHPExcel_Settings::PDF_RENDERER_TCPDF,
 	 *													 PHPExcel_Settings::PDF_RENDERER_DOMPDF
@@ -322,7 +322,7 @@ class PHPExcel_Settings
 	/**
 	 * Return the directory path to the PDF Rendering Library that PHPExcel is currently configured to use
 	 *
-	 * @return	 string						Directory Path to the PDF Rendering Library that PHPExcel is
+	 * @return	 string|NULL				Directory Path to the PDF Rendering Library that PHPExcel is
 	 *											currently configured to use
 	 */
 	public static function getPdfRendererPath() {

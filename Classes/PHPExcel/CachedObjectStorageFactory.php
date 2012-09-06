@@ -132,10 +132,7 @@ class PHPExcel_CachedObjectStorageFactory
 	 **/
 	public static function getCacheStorageMethod()
 	{
-		if (self::$_cacheStorageMethod !== NULL) {
-			return self::$_cacheStorageMethod;
-		}
-		return NULL;
+		return self::$_cacheStorageMethod;
 	}	//	function getCacheStorageMethod()
 
 
@@ -146,10 +143,7 @@ class PHPExcel_CachedObjectStorageFactory
 	 **/
 	public static function getCacheStorageClass()
 	{
-		if (self::$_cacheStorageClass !== NULL) {
-			return self::$_cacheStorageClass;
-		}
-		return NULL;
+		return self::$_cacheStorageClass;
 	}	//	function getCacheStorageClass()
 
 
