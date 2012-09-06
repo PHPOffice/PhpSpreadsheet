@@ -33,4 +33,4 @@ PHPExcel is a library written in pure PHP and providing a set of classes that al
 Fork us!
 
 ## License
-PHPExcel is licensed under [LGPL (GNU LESSER GENERAL PUBLIC LICENSE)](https://github.com/PHPOffice/PHPExcel/blob/master/license.txt)
+PHPExcel is licensed under [LGPL (GNU LESSER GENERAL PUBLIC LICENSE)](https://github.com/PHPOffice/PHPExcel/blob/master/license.md)
