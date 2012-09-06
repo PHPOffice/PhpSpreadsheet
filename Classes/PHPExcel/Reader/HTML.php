@@ -442,6 +442,10 @@ class PHPExcel_Reader_HTML implements PHPExcel_Reader_IReader
 			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
 		}
 
+		if (!is_file($pFilename)) {
+			throw new Exception("Could not open " . $pFilename . " for reading! The given file is not a regular file.");
+		}
+
 		// Create new PHPExcel
 		while ($objPHPExcel->getSheetCount() <= $this->_sheetIndex) {
 			$objPHPExcel->createSheet();
