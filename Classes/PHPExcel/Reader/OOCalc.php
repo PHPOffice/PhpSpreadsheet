@@ -190,7 +190,7 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 		}
 
 		// Check if zip class exists
-		if (!class_exists('ZipArchive')) {
+		if (!class_exists('ZipArchive',FALSE)) {
 			throw new Exception("ZipArchive library is not enabled");
 		}
 

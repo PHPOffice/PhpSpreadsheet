@@ -1,15 +1,36 @@
-# PHPExcel - OpenXML - Read, Write and Create Excel documents in PHP - Spreadsheet engine
-PHPExcel is a Project providing a set of classes for the PHP programming language that allow you to write to and read from different spreadsheet file formats, like Excel (BIFF) .xls, Excel 2007 (OfficeOpenXML) .xlsx, CSV, Libre/OpenOffice Calc .ods, Gnumeric, PDF, HTML, ... This project is built around Microsoft's OpenXML standard and PHP.
+# PHPExcel - OpenXML - Read, Write and Create spreadsheet documents in PHP - Spreadsheet engine
+PHPExcel is a library written in pure PHP and providing a set of classes that allow you to write to and read from different spreadsheet file formats, like Excel (BIFF) .xls, Excel 2007 (OfficeOpenXML) .xlsx, CSV, Libre/OpenOffice Calc .ods, Gnumeric, PDF, HTML, ... This project is built around Microsoft's OpenXML standard and PHP.
 
-Checkout the features this class set provides, such as setting spreadsheet meta data (author, title, description, ...), multiple worksheets, different fonts and font styles, cell borders, fills, gradients, adding images to your spreadsheet, calculating formulas, converting between file types and much, much more!
 
-Want to bookmark this page? Please use [www.phpexcel.net](http://www.phpexcel.net) as the URL.
+## File Formats supported
+
+### Reading
+ * BIFF 5-8 (.xls) Excel 95 and above
+ * Office Open XML (.xlsx) Excel 2007 and above
+ * SpreadsheetML (.xml) Excel 2003
+ * Open Document Format/OASIS (.ods)
+ * Gnumeric
+ * HTML
+ * SYLK
+ * CSV
+
+### Writing
+ * BIFF 8 (.xls) Excel 95 and above
+ * Office Open XML (.xlsx) Excel 2007 and above
+ * HTML
+ * CSV
+ * PDF (using either the tcPDF, DomPDF or mPDF libraries, which need to be installed separately)
+
+
+## Requirements
+ * PHP version 5.2.0 or higher
+ * PHP extension php_zip enabled (required if you need PHPExcel to handle .xlsx .ods or .gnumeric files)
+ * PHP extension php_xml enabled
+ * PHP extension php_gd2 enabled (optional, but required for exact column width autocalculation)
+
 
 ## Want to contribute?
 Fork us!
-
-## Donations
-[<img src="https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif">](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7UYH9AS6HND74) via [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7UYH9AS6HND74).
 
 ## License
 PHPExcel is licensed under [LGPL (GNU LESSER GENERAL PUBLIC LICENSE)](https://github.com/PHPOffice/PHPExcel/blob/master/license.md)

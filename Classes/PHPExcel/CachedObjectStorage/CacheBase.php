@@ -33,7 +33,7 @@
  * @package    PHPExcel_CachedObjectStorage
  * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
-class PHPExcel_CachedObjectStorage_CacheBase {
+abstract class PHPExcel_CachedObjectStorage_CacheBase {
 
 	/**
 	 * Parent worksheet
