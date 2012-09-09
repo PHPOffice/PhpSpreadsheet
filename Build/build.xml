@@ -6,6 +6,8 @@
 		promptText="Enter PHPExcel version number" />
   <propertyprompt propertyName="releaseDate" defaultValue="2010-01-01"
 		promptText="Enter PHPExcel release date" />
+  <propertyprompt propertyName="documentFormat" defaultValue="doc"
+		promptText="Enter Document Format" />
 
   <adhoc-task name="phpzip">
     <![CDATA[
@@ -102,7 +104,8 @@
 
     <copy todir="./build/Documentation" overwrite="true">
       <fileset dir="../Documentation">
-        <include name="*.*" />
+        <include name="*.${documentFormat}" />
+        <include name="*.txt" />
         <exclude name="**/.svn" />
       </fileset>
     </copy>
@@ -124,7 +127,7 @@
     </copy>
 
     <copy file="../changelog.txt" tofile="./build/changelog.txt" overwrite="true" />
-    <copy file="../license.txt" tofile="./build/license.txt" overwrite="true" />
+    <copy file="../license.md" tofile="./build/license.txt" overwrite="true" />
     <copy file="../install.txt" tofile="./build/install.txt" overwrite="true" />
   </target>
 
@@ -171,8 +174,8 @@
   <target name="release-standard" depends="apidocs">
     <mkdir dir="./release" />
 
-    <echo msg="Creating release package (v${packageVersion})..." />
-    <phpzip destfile="./release/${packageVersion}.zip">
+    <echo msg="Creating release package (v${packageVersion} with ${documentFormat} documents)..." />
+    <phpzip destfile="./release/PHPExcel_${packageVersion}_${documentFormat}.zip">
       <fileset dir="./build">
         <include name="**/*" />
       </fileset>
@@ -217,10 +220,11 @@
   <target name="release-documentation">
     <mkdir dir="./release" />
 
-    <echo msg="Creating documentation release (v${packageVersion})..." />
+    <echo msg="Creating documentation release (v${packageVersion} with ${documentFormat} documents)..." />
     <copy todir="./build" overwrite="true">
       <fileset dir="../Documentation">
-        <include name="*.*" />
+        <include name="*.${documentFormat}" />
+        <include name="*.txt" />
         <exclude name="**/.svn" />
       </fileset>
     </copy>
@@ -231,8 +235,8 @@
       </fileset>
     </copy>
 	
-    <echo msg="Creating documentation release package (v${packageVersion})..." />
-    <phpzip destfile="./release/${packageVersion}-documentation.zip">
+    <echo msg="Creating documentation release package (v${packageVersion} with ${documentFormat} documents)..." />
+    <phpzip destfile="./release/PHPExcel_${packageVersion}-documentation_${documentFormat}.zip">
       <fileset dir="./build">
         <include name="**/*" />
         <exclude name="**/.svn" />
