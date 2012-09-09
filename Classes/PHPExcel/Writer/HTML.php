@@ -229,7 +229,7 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 */
 	private function _mapBorderStyle($borderStyle) {
 		switch ($borderStyle) {
-			case PHPExcel_Style_Border::BORDER_NONE:				return '1px hidden';
+			case PHPExcel_Style_Border::BORDER_NONE:				return 'none';
 			case PHPExcel_Style_Border::BORDER_DASHDOT:				return '1px dashed';
 			case PHPExcel_Style_Border::BORDER_DASHDOTDOT:			return '1px dotted';
 			case PHPExcel_Style_Border::BORDER_DASHED:				return '1px dashed';

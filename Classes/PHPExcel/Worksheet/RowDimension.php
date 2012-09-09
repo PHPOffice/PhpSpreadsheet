@@ -51,6 +51,13 @@ class PHPExcel_Worksheet_RowDimension
 	 */
 	private $_rowHeight		= -1;
 
+ 	/**
+	 * ZeroHeight for Row?
+	 *
+	 * @var bool
+	 */
+	private $_zeroHeight	= true;
+
 	/**
 	 * Visible?
 	 *
@@ -132,6 +139,26 @@ class PHPExcel_Worksheet_RowDimension
     	$this->_rowHeight = $pValue;
     	return $this;
     }
+
+	/**
+	 * Get ZeroHeight
+	 *
+	 * @return bool
+	 */
+	public function getzeroHeight() {
+		return $this->_zeroHeight;
+	}
+
+	/**
+	 * Set ZeroHeight
+	 *
+	 * @param bool $pValue
+	 * @return PHPExcel_Worksheet_RowDimension
+	 */
+	public function setzeroHeight($pValue = false) {
+		$this->_zeroHeight = $pValue;
+		return $this;
+	}
 
     /**
      * Get Visible

@@ -319,6 +319,12 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 				$objWriter->writeAttribute('defaultRowHeight', '14.4');
 			}
 
+			// Set Zero Height row
+			if ((string)$pSheet->getDefaultRowDimension()->getzeroHeight()  == '1' ||
+				strtolower((string)$pSheet->getDefaultRowDimension()->getzeroHeight()) == 'true' ) {
+				$objWriter->writeAttribute('zeroHeight', '1');
+			}
+
 			// Default column width
 			if ($pSheet->getDefaultColumnDimension()->getWidth() >= 0) {
 				$objWriter->writeAttribute('defaultColWidth', PHPExcel_Shared_String::FormatNumber($pSheet->getDefaultColumnDimension()->getWidth()));

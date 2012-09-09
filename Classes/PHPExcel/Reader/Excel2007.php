@@ -855,6 +855,10 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 								if (isset($xmlSheet->sheetFormatPr['defaultColWidth'])) {
 									$docSheet->getDefaultColumnDimension()->setWidth( (float)$xmlSheet->sheetFormatPr['defaultColWidth'] );
 								}
+								if (isset($xmlSheet->sheetFormatPr['zeroHeight']) &&
+									((string)$xmlSheet->sheetFormatPr['zeroHeight'] == '1')) {
+									$docSheet->getDefaultRowDimension()->setzeroHeight(true);
+								}
 							}
 
 							if (isset($xmlSheet->cols) && !$this->_readDataOnly) {
