@@ -46,7 +46,7 @@ $rendererName = PHPExcel_Settings::PDF_RENDERER_MPDF;
 //$rendererLibrary = 'tcPDF5.9';
 $rendererLibrary = 'mPDF5.4';
 //$rendererLibrary = 'domPDF0.6.0beta3';
-$rendererLibraryPath = dirname(__FILE__).'/../../../libraries/PDF/' . $rendererLibrary;
+$rendererLibraryPath = '/php/libraries/PDF/' . $rendererLibrary;
 
 
 // Read from Excel2007 (.xlsx) template

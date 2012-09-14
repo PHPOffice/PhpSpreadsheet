@@ -42,8 +42,8 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../Classes/');
 /** PHPExcel */
 include 'PHPExcel.php';
 
-if (!file_exists("33chartcreate.xlsx")) {
-	exit("Please run 33chartcreate.php first." . EOL);
+if (!file_exists("33chartcreate-bar.xlsx")) {
+	exit("Please run 33chartcreate-bar.php first." . EOL);
 }
 
 echo date('H:i:s') , " Load from Excel2007 file" , EOL;
