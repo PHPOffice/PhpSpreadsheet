@@ -56,7 +56,7 @@ class PHPExcel_Worksheet_RowDimension
 	 *
 	 * @var bool
 	 */
-	private $_zeroHeight	= true;
+	private $_zeroHeight	= false;
 
 	/**
 	 * Visible?
