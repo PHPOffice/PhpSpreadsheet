@@ -49,7 +49,7 @@ if (!file_exists("33chartcreate-bar.xlsx")) {
 echo date('H:i:s') , " Load from Excel2007 file" , EOL;
 $objReader = PHPExcel_IOFactory::createReader("Excel2007");
 $objReader->setIncludeCharts(TRUE);
-$objPHPExcel = $objReader->load("33chartcreate.xlsx");
+$objPHPExcel = $objReader->load("33chartcreate-bar.xlsx");
 
 
 echo date('H:i:s') , " Update cell data values that are displayed in the chart" , EOL;

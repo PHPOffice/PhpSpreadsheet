@@ -3085,7 +3085,12 @@ class PHPExcel_Calculation {
 							}
 							$cellRef = PHPExcel_Cell::stringFromColumnIndex(min($oCol)).min($oRow).':'.PHPExcel_Cell::stringFromColumnIndex(max($oCol)).max($oRow);
 							if ($pCellParent !== NULL) {
-								$cellValue = $this->extractCellRange($cellRef, $pCellParent->getParent()->getSheetByName($sheet1), false);
+								$referencedWorksheet = $pCellParent->getParent()->getSheetByName($sheet1);
+								if ($referencedWorksheet) {
+									$cellValue = $this->extractCellRange($cellRef, $referencedWorksheet, false);
+								} else {
+									return $this->_raiseFormulaError('Unable to access Cell Reference');
+								}
 							} else {
 								return $this->_raiseFormulaError('Unable to access Cell Reference');
 							}
@@ -3205,7 +3210,12 @@ class PHPExcel_Calculation {
 //							echo '$cellRef='.$cellRef.' in worksheet '.$matches[2].'<br />';
 							$this->_writeDebug('Evaluating Cell Range '.$cellRef.' in worksheet '.$matches[2]);
 							if ($pCellParent !== NULL) {
-								$cellValue = $this->extractCellRange($cellRef, $pCellParent->getParent()->getSheetByName($matches[2]), false);
+								$referencedWorksheet = $pCellParent->getParent()->getSheetByName($matches[2]);
+								if ($referencedWorksheet) {
+									$cellValue = $this->extractCellRange($cellRef, $pCellParent->getParent()->getSheetByName($matches[2]), false);
+								} else {
+									return $this->_raiseFormulaError('Unable to access Cell Reference');
+								}
 							} else {
 								return $this->_raiseFormulaError('Unable to access Cell Reference');
 							}
@@ -3238,11 +3248,12 @@ class PHPExcel_Calculation {
 //							echo '$cellRef='.$cellRef.' in worksheet '.$matches[2].'<br />';
 							$this->_writeDebug('Evaluating Cell '.$cellRef.' in worksheet '.$matches[2]);
 							if ($pCellParent !== NULL) {
-								if ($pCellParent->getParent()->getSheetByName($matches[2])->cellExists($cellRef)) {
-									$cellValue = $this->extractCellRange($cellRef, $pCellParent->getParent()->getSheetByName($matches[2]), false);
+								$referencedWorksheet = $pCellParent->getParent()->getSheetByName($matches[2]);
+								if (($referencedWorksheet) && ($referencedWorksheet->cellExists($cellRef))) {
+									$cellValue = $this->extractCellRange($cellRef, $referencedWorksheet, false);
 									$pCell->attach($pCellParent);
 								} else {
-									$cellValue = null;
+									$cellValue = NULL;
 								}
 							} else {
 								return $this->_raiseFormulaError('Unable to access Cell Reference');
@@ -3631,7 +3642,7 @@ class PHPExcel_Calculation {
 			if (!isset($aReferences[1])) {
 				//	Single cell in range
 				list($currentCol,$currentRow) = sscanf($aReferences[0],'%[A-Z]%d');
-				if ($pSheet->cellExists($aReferences[0])) {
+				if ($pSheet && $pSheet->cellExists($aReferences[0])) {
 					$returnValue[$currentRow][$currentCol] = $pSheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
 				} else {
 					$returnValue[$currentRow][$currentCol] = null;
@@ -3642,7 +3653,7 @@ class PHPExcel_Calculation {
 					// Extract range
 					list($currentCol,$currentRow) = sscanf($reference,'%[A-Z]%d');
 
-					if ($pSheet->cellExists($reference)) {
+					if ($pSheet && $pSheet->cellExists($reference)) {
 						$returnValue[$currentRow][$currentCol] = $pSheet->getCell($reference)->getCalculatedValue($resetLog);
 					} else {
 						$returnValue[$currentRow][$currentCol] = null;
