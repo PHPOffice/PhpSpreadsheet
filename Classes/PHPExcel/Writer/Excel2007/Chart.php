@@ -233,6 +233,7 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 		$objWriter->startElement('c:plotArea');
 
 			$layout = $plotArea->getLayout();
+
 			$this->_writeLayout($layout, $objWriter);
 
 			$chartTypes = self::_getChartType($plotArea);
@@ -262,7 +263,7 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 						}
 					}
 
-					$this->_writeDataLbls($objWriter);
+					$this->_writeDataLbls($objWriter, $layout);
 
 					if ($chartType === PHPExcel_Chart_DataSeries::TYPE_LINECHART) {
 						//	Line only, Line3D can't be smoothed
@@ -353,38 +354,47 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 	 * Write Data Labels
 	 *
 	 * @param 	PHPExcel_Shared_XMLWriter 	$objWriter 		XML Writer
+	 * @param 	PHPExcel_Chart_Layout		$chartLayout	Chart layout
 	 * @throws 	Exception
 	 */
-	private function _writeDataLbls($objWriter)
+	private function _writeDataLbls($objWriter, $chartLayout)
 	{
 		$objWriter->startElement('c:dLbls');
 
 			$objWriter->startElement('c:showLegendKey');
-				$objWriter->writeAttribute('val', 0);
+				$showLegendKey = (empty($chartLayout)) ? 0 : $chartLayout->getShowLegendKey();
+				$objWriter->writeAttribute('val', ((empty($showLegendKey)) ? 0 : 1) );
 			$objWriter->endElement();
 
+
 			$objWriter->startElement('c:showVal');
-				$objWriter->writeAttribute('val', 0);
+				$showVal = (empty($chartLayout)) ? 0 : $chartLayout->getShowVal();
+				$objWriter->writeAttribute('val', ((empty($showVal)) ? 0 : 1) );
 			$objWriter->endElement();
 
 			$objWriter->startElement('c:showCatName');
-				$objWriter->writeAttribute('val', 0);
+				$showCatName = (empty($chartLayout)) ? 0 : $chartLayout->getShowCatName();
+				$objWriter->writeAttribute('val', ((empty($showCatName)) ? 0 : 1) );
 			$objWriter->endElement();
 
 			$objWriter->startElement('c:showSerName');
-				$objWriter->writeAttribute('val', 0);
+				$showSerName = (empty($chartLayout)) ? 0 : $chartLayout->getShowSerName();
+				$objWriter->writeAttribute('val', ((empty($showSerName)) ? 0 : 1) );
 			$objWriter->endElement();
 
 			$objWriter->startElement('c:showPercent');
-				$objWriter->writeAttribute('val', 0);
+				$showPercent = (empty($chartLayout)) ? 0 : $chartLayout->getShowPercent();
+				$objWriter->writeAttribute('val', ((empty($showPercent)) ? 0 : 1) );
 			$objWriter->endElement();
 
 			$objWriter->startElement('c:showBubbleSize');
-				$objWriter->writeAttribute('val', 0);
+				$showBubbleSize = (empty($chartLayout)) ? 0 : $chartLayout->getShowBubbleSize();
+				$objWriter->writeAttribute('val', ((empty($showBubbleSize)) ? 0 : 1) );
 			$objWriter->endElement();
 
 			$objWriter->startElement('c:showLeaderLines');
-				$objWriter->writeAttribute('val', 1);
+				$showLeaderLines = (empty($chartLayout)) ? 1 : $chartLayout->getShowLeaderLines();
+				$objWriter->writeAttribute('val', ((empty($showLeaderLines)) ? 0 : 1) );
 			$objWriter->endElement();
 
 		$objWriter->endElement();
