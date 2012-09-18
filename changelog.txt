@@ -85,6 +85,7 @@ Fixed in develop branch:
                          While Excel 2010 can read CSV files with a simple UTF-8 BOM, Excel2007 and earlier require UTF-16LE encoded tab-separated files.
                          The new setExcelCompatibility(TRUE) option for the CSV Writer will generate files with this formatting for easy import into Excel2007 and below.
 - Feature:  (MBaker)     Language implementations for Turkish (tr)
+- Feature:  (MBaker)     Added fraction tests to advanced value binder
 - General:  (alexgann)   Add Currency detection to the Advanced Value Binder
 - General:  (MBaker)     Work item 18404 - setCellValueExplicitByColumnAndRow() do not return PHPExcel_Worksheet
 - General:  (MBaker)     Work item 18324 - Reader factory doesn't read anymore XLTX and XLT files
