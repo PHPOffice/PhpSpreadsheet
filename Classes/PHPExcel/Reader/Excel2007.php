@@ -1206,7 +1206,10 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 
 							if ($xmlSheet && $xmlSheet->mergeCells && $xmlSheet->mergeCells->mergeCell && !$this->_readDataOnly) {
 								foreach ($xmlSheet->mergeCells->mergeCell as $mergeCell) {
-									$docSheet->mergeCells((string) $mergeCell["ref"]);
+									$mergeRef = (string) $mergeCell["ref"];
+									if (strpos($mergeRef,':') !== FALSE) {
+										$docSheet->mergeCells((string) $mergeCell["ref"]);
+									}
 								}
 							}
 
@@ -1654,7 +1657,7 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 									}
 
 									// Valid range?
-									if (stripos((string)$definedName, '#REF!') !== false || $extractedRange == '') {
+									if (stripos((string)$definedName, '#REF!') !== FALSE || $extractedRange == '') {
 										continue;
 									}
 
@@ -1664,7 +1667,9 @@ class PHPExcel_Reader_Excel2007 implements PHPExcel_Reader_IReader
 										switch ((string)$definedName['name']) {
 
 											case '_xlnm._FilterDatabase':
-												$docSheet->getAutoFilter()->setRange($extractedRange);
+												if ((string)$definedName['hidden'] !== '1') {
+													$docSheet->getAutoFilter()->setRange($extractedRange);
+												}
 												break;
 
 											case '_xlnm.Print_Titles':

@@ -870,7 +870,9 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 			//	Handle Merged Cells in this worksheet
 			if (isset($sheet->MergedRegions)) {
 				foreach($sheet->MergedRegions->Merge as $mergeCells) {
-					$objPHPExcel->getActiveSheet()->mergeCells($mergeCells);
+					if (strpos($mergeCells,':') !== FALSE) {
+						$objPHPExcel->getActiveSheet()->mergeCells($mergeCells);
+					}
 				}
 			}
 
@@ -901,7 +903,8 @@ class PHPExcel_Reader_Gnumeric implements PHPExcel_Reader_IReader
 	}
 
 
-	private static function _parseBorderAttributes($borderAttributes) {
+	private static function _parseBorderAttributes($borderAttributes)
+	{
 		$styleArray = array();
 
 		if (isset($borderAttributes["Color"])) {

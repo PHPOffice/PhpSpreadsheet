@@ -116,6 +116,10 @@ Fixed in develop branch:
 - Bugfix:   (MBaker)     Work item 18425 - Problems with $_activeSheetIndex when decreased below 0.
 - Bugfix:   (MBaker)     Work item 18597 - PHPExcel_CachedObjectStorage_SQLite3::cacheMethodIsAvailable() uses class_exists - autoloader throws error
 - Bugfix:   (MBaker)     Work item 18598 - Cannot access private property PHPExcel_CachedObjectStorageFactory::$_cacheStorageMethod
+- Bugfix:   (MBaker)     Work item 18397 - Data titles for charts
+                         PHPExcel_Chart_Layout now has methods for getting/setting switches for displaying/hiding chart data labels
+- Bugfix:   (MBaker)     Discard single cell merge ranges when reading (stupid that Excel allows them in the first place)
+- Bugfix:   (MBaker)     Discard hidden autoFilter named ranges
 
 
 2012-05-19 (v1.7.7):

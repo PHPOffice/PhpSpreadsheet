@@ -513,10 +513,15 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 									}
 
 //									echo '<b>'.$columnID.$rowID.'</b><br />';
-									$cellDataText = $cellData->children($namespacesContent['text']);
-									$cellDataOffice = $cellData->children($namespacesContent['office']);
-									$cellDataOfficeAttributes = $cellData->attributes($namespacesContent['office']);
-									$cellDataTableAttributes = $cellData->attributes($namespacesContent['table']);
+									if ($cellData->children) {
+										$cellDataText = $cellData->children($namespacesContent['text']);
+										$cellDataOffice = $cellData->children($namespacesContent['office']);
+										$cellDataOfficeAttributes = $cellData->attributes($namespacesContent['office']);
+										$cellDataTableAttributes = $cellData->attributes($namespacesContent['table']);
+									} else {
+										$cellDataText = '';
+										$cellDataOffice = $cellDataOfficeAttributes = $cellDataTableAttributes = array();
+									}
 
 //									echo 'Office Attributes: ';
 //									print_r($cellDataOfficeAttributes);

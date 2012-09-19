@@ -4275,7 +4275,8 @@ class PHPExcel_Reader_Excel5 implements PHPExcel_Reader_IReader
 		if ($this->_version == self::XLS_BIFF8 && !$this->_readDataOnly) {
 			$cellRangeAddressList = $this->_readBIFF8CellRangeAddressList($recordData);
 			foreach ($cellRangeAddressList['cellRangeAddresses'] as $cellRangeAddress) {
-				if ($this->_includeCellRangeFiltered($cellRangeAddress)) {
+				if ((strpos($cellRangeAddress,':') !== FALSE) &&
+					($this->_includeCellRangeFiltered($cellRangeAddress))) {
 					$this->_phpSheet->mergeCells($cellRangeAddress);
 				}
 			}
