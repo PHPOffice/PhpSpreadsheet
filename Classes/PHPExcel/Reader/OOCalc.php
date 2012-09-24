@@ -513,15 +513,12 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 									}
 
 //									echo '<b>'.$columnID.$rowID.'</b><br />';
-									if ($cellData->children) {
-										$cellDataText = $cellData->children($namespacesContent['text']);
-										$cellDataOffice = $cellData->children($namespacesContent['office']);
-										$cellDataOfficeAttributes = $cellData->attributes($namespacesContent['office']);
-										$cellDataTableAttributes = $cellData->attributes($namespacesContent['table']);
-									} else {
-										$cellDataText = '';
-										$cellDataOffice = $cellDataOfficeAttributes = $cellDataTableAttributes = array();
-									}
+									$cellDataText = (isset($namespacesContent['text'])) ?
+										$cellData->children($namespacesContent['text']) :
+										'';
+									$cellDataOffice = $cellData->children($namespacesContent['office']);
+									$cellDataOfficeAttributes = $cellData->attributes($namespacesContent['office']);
+									$cellDataTableAttributes = $cellData->attributes($namespacesContent['table']);
 
 //									echo 'Office Attributes: ';
 //									print_r($cellDataOfficeAttributes);
@@ -611,7 +608,10 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 													$type = PHPExcel_Cell_DataType::TYPE_NUMERIC;
 													$dataValue = (float) $cellDataOfficeAttributes['value'];
 													if (floor($dataValue) == $dataValue) {
-														$dataValue = (integer) $dataValue;
+														if ($dataValue = (integer) $dataValue)
+															$dataValue = (integer) $dataValue;
+														else
+															$dataValue = (float) $dataValue;
 													}
 													break;
 											case 'date' :
@@ -638,7 +638,7 @@ class PHPExcel_Reader_OOCalc implements PHPExcel_Reader_IReader
 //										}
 									} else {
 										$type = PHPExcel_Cell_DataType::TYPE_NULL;
-										$dataValue = null;
+										$dataValue = NULL;
 									}
 
 									if ($hasCalculatedValue) {

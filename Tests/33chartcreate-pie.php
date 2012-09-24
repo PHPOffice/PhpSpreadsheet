@@ -183,7 +183,7 @@ $title2 = new PHPExcel_Chart_Title('Test Donut Chart');
 
 //	Create the chart
 $chart2 = new PHPExcel_Chart(
-	'chart1',		// name
+	'chart2',		// name
 	$title2,		// title
 	NULL,			// legend
 	$plotarea2,		// plotArea

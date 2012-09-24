@@ -188,8 +188,8 @@ $yAxisLabel2 = new PHPExcel_Chart_Title('Value ($k)');
 
 //	Create the chart
 $chart2 = new PHPExcel_Chart(
-	'chart1',		// name
-	$title2,			// title
+	'chart2',		// name
+	$title2,		// title
 	$legend2,		// legend
 	$plotarea2,		// plotArea
 	true,			// plotVisibleOnly
