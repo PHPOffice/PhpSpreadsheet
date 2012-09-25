@@ -86,6 +86,7 @@ Fixed in develop branch:
                          The new setExcelCompatibility(TRUE) option for the CSV Writer will generate files with this formatting for easy import into Excel2007 and below.
 - Feature:  (MBaker)     Language implementations for Turkish (tr)
 - Feature:  (MBaker)     Added fraction tests to advanced value binder
+- Feature:  (MBaker)     Allow call to font setUnderline() for underline format to specify a simple boolean for UNDERLINE_NONE or UNDERLINE_SINGLE
 - General:  (alexgann)   Add Currency detection to the Advanced Value Binder
 - General:  (MBaker)     Work item 18404 - setCellValueExplicitByColumnAndRow() do not return PHPExcel_Worksheet
 - General:  (MBaker)     Work item 18324 - Reader factory doesn't read anymore XLTX and XLT files

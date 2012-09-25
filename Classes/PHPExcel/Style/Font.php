@@ -504,6 +504,9 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 	 * @return PHPExcel_Style_Font
 	 */
 	public function setUnderline($pValue = PHPExcel_Style_Font::UNDERLINE_NONE) {
+		if (is_bool($pValue)) {
+			$pValue = ($pValue) ? PHPExcel_Style_Font::UNDERLINE_SINGLE : PHPExcel_Style_Font::UNDERLINE_NONE;
+		}
 		if ($pValue == '') {
 			$pValue = PHPExcel_Style_Font::UNDERLINE_NONE;
 		}
