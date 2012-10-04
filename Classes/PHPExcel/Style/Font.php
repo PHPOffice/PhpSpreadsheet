@@ -89,7 +89,7 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 	 *
 	 * @var string
 	 */
-	private $_underline		= PHPExcel_Style_Font::UNDERLINE_NONE;
+	private $_underline		= self::UNDERLINE_NONE;
 
 	/**
 	 * Strikethrough
@@ -500,15 +500,16 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 	/**
 	 * Set Underline
 	 *
-	 * @param string $pValue	PHPExcel_Style_Font underline type
+	 * @param string|boolean $pValue	PHPExcel_Style_Font underline type
+	 *									If a boolean is passed, then true equates to UNDERLINE_SINGLE,
+	 *										false equates to UNDERLINE_NONE
 	 * @return PHPExcel_Style_Font
 	 */
-	public function setUnderline($pValue = PHPExcel_Style_Font::UNDERLINE_NONE) {
+	public function setUnderline($pValue = self::UNDERLINE_NONE) {
 		if (is_bool($pValue)) {
-			$pValue = ($pValue) ? PHPExcel_Style_Font::UNDERLINE_SINGLE : PHPExcel_Style_Font::UNDERLINE_NONE;
-		}
-		if ($pValue == '') {
-			$pValue = PHPExcel_Style_Font::UNDERLINE_NONE;
+			$pValue = ($pValue) ? self::UNDERLINE_SINGLE : self::UNDERLINE_NONE;
+		} elseif ($pValue == '') {
+			$pValue = self::UNDERLINE_NONE;
 		}
 		if ($this->_isSupervisor) {
 			$styleArray = $this->getStyleArray(array('underline' => $pValue));
