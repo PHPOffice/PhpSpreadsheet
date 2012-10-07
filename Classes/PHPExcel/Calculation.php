@@ -2663,7 +2663,7 @@ class PHPExcel_Calculation {
 
 		//	Start with initialisation
 		$index = 0;
-		$stack = new PHPExcel_Token_Stack;
+		$stack = new PHPExcel_Calculation_Token_Stack;
 		$output = array();
 		$expectingOperator = false;					//	We use this test in syntax-checking the expression to determine when a
 													//		- is a negation or + is a positive operator rather than an operation
@@ -3007,7 +3007,7 @@ class PHPExcel_Calculation {
 		//	If we're using cell caching, then $pCell may well be flushed back to the cache (which detaches the parent worksheet),
 		//		so we store the parent worksheet so that we can re-attach it when necessary
 		$pCellParent = ($pCell !== NULL) ? $pCell->getParent() : null;
-		$stack = new PHPExcel_Token_Stack;
+		$stack = new PHPExcel_Calculation_Token_Stack;
 
 		//	Loop through each token in turn
 		foreach ($tokens as $tokenData) {
@@ -3085,12 +3085,7 @@ class PHPExcel_Calculation {
 							}
 							$cellRef = PHPExcel_Cell::stringFromColumnIndex(min($oCol)).min($oRow).':'.PHPExcel_Cell::stringFromColumnIndex(max($oCol)).max($oRow);
 							if ($pCellParent !== NULL) {
-								$referencedWorksheet = $pCellParent->getParent()->getSheetByName($sheet1);
-								if ($referencedWorksheet) {
-									$cellValue = $this->extractCellRange($cellRef, $referencedWorksheet, false);
-								} else {
-									return $this->_raiseFormulaError('Unable to access Cell Reference');
-								}
+								$cellValue = $this->extractCellRange($cellRef, $pCellParent->getParent()->getSheetByName($sheet1), false);
 							} else {
 								return $this->_raiseFormulaError('Unable to access Cell Reference');
 							}
@@ -3210,12 +3205,7 @@ class PHPExcel_Calculation {
 //							echo '$cellRef='.$cellRef.' in worksheet '.$matches[2].'<br />';
 							$this->_writeDebug('Evaluating Cell Range '.$cellRef.' in worksheet '.$matches[2]);
 							if ($pCellParent !== NULL) {
-								$referencedWorksheet = $pCellParent->getParent()->getSheetByName($matches[2]);
-								if ($referencedWorksheet) {
-									$cellValue = $this->extractCellRange($cellRef, $pCellParent->getParent()->getSheetByName($matches[2]), false);
-								} else {
-									return $this->_raiseFormulaError('Unable to access Cell Reference');
-								}
+								$cellValue = $this->extractCellRange($cellRef, $pCellParent->getParent()->getSheetByName($matches[2]), false);
 							} else {
 								return $this->_raiseFormulaError('Unable to access Cell Reference');
 							}
@@ -3248,12 +3238,11 @@ class PHPExcel_Calculation {
 //							echo '$cellRef='.$cellRef.' in worksheet '.$matches[2].'<br />';
 							$this->_writeDebug('Evaluating Cell '.$cellRef.' in worksheet '.$matches[2]);
 							if ($pCellParent !== NULL) {
-								$referencedWorksheet = $pCellParent->getParent()->getSheetByName($matches[2]);
-								if (($referencedWorksheet) && ($referencedWorksheet->cellExists($cellRef))) {
-									$cellValue = $this->extractCellRange($cellRef, $referencedWorksheet, false);
+								if ($pCellParent->getParent()->getSheetByName($matches[2])->cellExists($cellRef)) {
+									$cellValue = $this->extractCellRange($cellRef, $pCellParent->getParent()->getSheetByName($matches[2]), false);
 									$pCell->attach($pCellParent);
 								} else {
-									$cellValue = NULL;
+									$cellValue = null;
 								}
 							} else {
 								return $this->_raiseFormulaError('Unable to access Cell Reference');
@@ -3642,7 +3631,7 @@ class PHPExcel_Calculation {
 			if (!isset($aReferences[1])) {
 				//	Single cell in range
 				list($currentCol,$currentRow) = sscanf($aReferences[0],'%[A-Z]%d');
-				if ($pSheet && $pSheet->cellExists($aReferences[0])) {
+				if ($pSheet->cellExists($aReferences[0])) {
 					$returnValue[$currentRow][$currentCol] = $pSheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
 				} else {
 					$returnValue[$currentRow][$currentCol] = null;
@@ -3653,7 +3642,7 @@ class PHPExcel_Calculation {
 					// Extract range
 					list($currentCol,$currentRow) = sscanf($reference,'%[A-Z]%d');
 
-					if ($pSheet && $pSheet->cellExists($reference)) {
+					if ($pSheet->cellExists($reference)) {
 						$returnValue[$currentRow][$currentCol] = $pSheet->getCell($reference)->getCalculatedValue($resetLog);
 					} else {
 						$returnValue[$currentRow][$currentCol] = null;
@@ -3820,52 +3809,3 @@ class PHPExcel_Calculation {
 
 }	//	class PHPExcel_Calculation
 
-
-
-
-// for internal use
-class PHPExcel_Token_Stack {
-
-	private $_stack = array();
-	private $_count = 0;
-
-
-	public function count() {
-		return $this->_count;
-	}	//	function count()
-
-
-	public function push($type,$value,$reference=null) {
-		$this->_stack[$this->_count++] = array('type'		=> $type,
-											   'value'		=> $value,
-											   'reference'	=> $reference
-											  );
-		if ($type == 'Function') {
-			$localeFunction = PHPExcel_Calculation::_localeFunc($value);
-			if ($localeFunction != $value) {
-				$this->_stack[($this->_count - 1)]['localeValue'] = $localeFunction;
-			}
-		}
-	}	//	function push()
-
-
-	public function pop() {
-		if ($this->_count > 0) {
-			return $this->_stack[--$this->_count];
-		}
-		return null;
-	}	//	function pop()
-
-
-	public function last($n=1) {
-		if ($this->_count-$n < 0) {
-			return null;
-		}
-		return $this->_stack[$this->_count-$n];
-	}	//	function last()
-
-
-	function __construct() {
-	}
-
-}	//	class PHPExcel_Token_Stack
