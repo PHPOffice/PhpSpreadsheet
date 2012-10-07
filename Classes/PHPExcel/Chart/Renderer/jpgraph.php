@@ -744,6 +744,8 @@ class PHPExcel_Chart_Renderer_jpgraph
 
 
 	public function render($outputDestination) {
+        self::$_plotColour = 0;
+
 		$groupCount = $this->_chart->getPlotArea()->getPlotGroupCount();
 
 		$dimensions = null;
