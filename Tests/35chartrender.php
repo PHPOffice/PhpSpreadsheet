@@ -113,7 +113,11 @@ foreach($inputFileNames as $inputFileName) {
 				if (file_exists($jpegFile)) {
 					unlink($jpegFile);
 				}
-				$chart->render($jpegFile);
+				try {
+					$chart->render($jpegFile);
+				} catch (Exception $e) {
+					echo 'Error rendering chart: ',$e->getMessage();
+				}
 			}
 		}
 	}
