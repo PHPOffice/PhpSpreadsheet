@@ -190,9 +190,11 @@ class PHPExcel_Chart_Renderer_jpgraph
 			switch ($legendPosition) {
 				case 'r'	:
 					$this->_graph->legend->SetPos(0.01,0.5,'right','center');	//	right
+					$this->_graph->legend->SetColumns(1);
 					break;
 				case 'l'	:
 					$this->_graph->legend->SetPos(0.01,0.5,'left','center');	//	left
+					$this->_graph->legend->SetColumns(1);
 					break;
 				case 't'	:
 					$this->_graph->legend->SetPos(0.5,0.01,'center','top');	//	top
@@ -202,8 +204,11 @@ class PHPExcel_Chart_Renderer_jpgraph
 					break;
 				default		:
 					$this->_graph->legend->SetPos(0.01,0.01,'right','top');	//	top-right
+					$this->_graph->legend->SetColumns(1);
 					break;
 			}
+		} else {
+			$this->_graph->legend->Hide();
 		}
 	}	//	function _renderLegend()
 
