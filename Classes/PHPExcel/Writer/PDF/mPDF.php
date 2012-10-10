@@ -95,7 +95,7 @@ class PHPExcel_Writer_PDF_mPDF extends PHPExcel_Writer_PDF_Core implements PHPEx
 			$orientation = ($this->getOrientation() == PHPExcel_Worksheet_PageSetup::ORIENTATION_DEFAULT) ?
 				PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT : $this->getOrientation();
 		}
-		$orientation = strtolower($orientation);
+		$orientation = strtoupper($orientation);
 
 		//	Override Paper Size
 		if (!is_null($this->getPaperSize())) {
@@ -109,7 +109,7 @@ class PHPExcel_Writer_PDF_mPDF extends PHPExcel_Writer_PDF_Core implements PHPEx
 		// Create PDF
 		$pdf = new mpdf();
 		$pdf->_setPageSize(strtoupper($paperSize), $orientation);
-
+        $pdf->DefOrientation = $orientation;
 		// Document info
 		$pdf->SetTitle($this->_phpExcel->getProperties()->getTitle());
 		$pdf->SetAuthor($this->_phpExcel->getProperties()->getCreator());

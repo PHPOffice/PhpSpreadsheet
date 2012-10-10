@@ -339,15 +339,15 @@ class PHPExcel_Chart_DataSeries
 	public function refresh(PHPExcel_Worksheet $worksheet) {
 	    foreach($this->_plotValues as $plotValues) {
 			if ($plotValues !== NULL)
-				$plotValues->refresh($worksheet);
+				$plotValues->refresh($worksheet, TRUE);
 		}
 		foreach($this->_plotLabel as $plotValues) {
 			if ($plotValues !== NULL)
-				$plotValues->refresh($worksheet);
+				$plotValues->refresh($worksheet, TRUE);
 		}
 		foreach($this->_plotCategory as $plotValues) {
 			if ($plotValues !== NULL)
-				$plotValues->refresh($worksheet);
+				$plotValues->refresh($worksheet, FALSE);
 		}
 	}
 

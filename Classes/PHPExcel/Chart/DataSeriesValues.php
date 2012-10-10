@@ -262,7 +262,7 @@ class PHPExcel_Chart_DataSeriesValues
 	 *					FALSE - don't change the value of _dataSource
 	 * @return	PHPExcel_Chart_DataSeriesValues
 	 */
-	public function setDataValues($dataValues = array(), $refreshDataSource = true) {
+	public function setDataValues($dataValues = array(), $refreshDataSource = TRUE) {
 		$this->_dataValues = PHPExcel_Calculation_Functions::flattenArray($dataValues);
 		$this->_pointCount = count($dataValues);
 
@@ -277,7 +277,7 @@ class PHPExcel_Chart_DataSeriesValues
 		return $var !== NULL;
 	}
 
-	public function refresh(PHPExcel_Worksheet $worksheet) {
+	public function refresh(PHPExcel_Worksheet $worksheet, $flatten = TRUE) {
         if ($this->_dataSource !== NULL) {
         	$calcEngine = PHPExcel_Calculation::getInstance();
 			$newDataValues = PHPExcel_Calculation::_unwrapResult(
@@ -287,9 +287,26 @@ class PHPExcel_Chart_DataSeriesValues
 			        $worksheet->getCell('A1')
 			    )
 			);
+			if ($flatten) {
+				$this->_dataValues = PHPExcel_Calculation_Functions::flattenArray($newDataValues);
+			} else {
+				$newArray = array_values(array_shift($newDataValues));
+				foreach($newArray as $i => $newDataSet) {
+					$newArray[$i] = array($newDataSet);
+				}
 
-			$this->_dataValues = PHPExcel_Calculation_Functions::flattenArray($newDataValues);
+				foreach($newDataValues as $newDataSet) {
+					$i = 0;
+					foreach($newDataSet as $newDataVal) {
+						array_unshift($newArray[$i++],$newDataVal);
+					}
+				}
+				$this->_dataValues = $newArray;
+			}
+
+			$this->_pointCount = count($this->_dataValues);
 		}
+
 	}
 
 }

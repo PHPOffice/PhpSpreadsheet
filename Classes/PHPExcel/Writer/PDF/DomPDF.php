@@ -103,9 +103,11 @@ class PHPExcel_Writer_PDF_DomPDF extends PHPExcel_Writer_PDF_Core implements PHP
 			$paperSize = self::$_paperSizes[$printPaperSize];
 		}
 
+		$orientation = ($orientation == 'L') ? 'landscape' : 'portrait';
+
 		// Create PDF
 		$pdf = new DOMPDF();
-		$pdf->set_paper(strtolower($paperSize), strtolower($orientation));
+		$pdf->set_paper(strtolower($paperSize), $orientation);
 
 		$pdf->load_html(
 			$this->generateHTMLHeader(false) .

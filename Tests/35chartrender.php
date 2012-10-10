@@ -109,7 +109,7 @@ foreach($inputFileNames as $inputFileName) {
 				echo '    ' , $chartName , ' - ' , $caption , EOL;
 				echo str_repeat(' ',strlen($chartName)+3);
 
-				$jpegFile = str_replace('.xlsx', '.jpg', $inputFileNameShort);
+				$jpegFile = '35'.str_replace('.xlsx', '.jpg', substr($inputFileNameShort,2));
 				if (file_exists($jpegFile)) {
 					unlink($jpegFile);
 				}

@@ -98,7 +98,7 @@ class PHPExcel_Chart_Renderer_jpgraph
 	}	//	function _formatPointMarker()
 
 
-	private function _formatDataSetLabels($groupID,$datasetLabels,$rotation = '') {
+	private function _formatDataSetLabels($groupID, $datasetLabels, $labelCount, $rotation = '') {
 		$datasetLabelFormatCode = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex(0)->getFormatCode();
 		if (!is_null($datasetLabelFormatCode)) {
 			//	Retrieve any label formatting code
@@ -107,11 +107,8 @@ class PHPExcel_Chart_Renderer_jpgraph
 
 		$testCurrentIndex = 0;
 		foreach($datasetLabels as $i => $datasetLabel) {
-			//	Fill in any missing values in the $datasetLabels array
-			while ($i != $testCurrentIndex) {
-				$datasetLabels[$testCurrentIndex] = '';
-				++$testCurrentIndex;
-			}
+			array_reverse($datasetLabel);
+
 			if (is_array($datasetLabel)) {
 				if ($rotation == 'bar') {
 					$datasetLabel = array_reverse($datasetLabel);
@@ -266,9 +263,10 @@ class PHPExcel_Chart_Renderer_jpgraph
 	private function _renderPlotLine($groupID, $filled = false, $combination = false, $dimensions = '2d') {
 		$grouping = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotGrouping();
 
-		$datasetLabels = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex(0)->getDataValues();
-		if (count($datasetLabels) > 0) {
-			$datasetLabels = $this->_formatDataSetLabels($groupID,$datasetLabels);
+        $labelCount = count($this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex(0)->getPointCount());
+		if ($labelCount > 0) {
+			$datasetLabels = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex(0)->getDataValues();
+			$datasetLabels = $this->_formatDataSetLabels($groupID, $datasetLabels, $labelCount);
 			$this->_graph->xaxis->SetTickLabels($datasetLabels);
 		}
 
@@ -333,9 +331,10 @@ class PHPExcel_Chart_Renderer_jpgraph
 		}
 		$grouping = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotGrouping();
 
-		$datasetLabels = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex(0)->getDataValues();
-		if (count($datasetLabels) > 0) {
-			$datasetLabels = $this->_formatDataSetLabels($groupID,$datasetLabels,$rotation);
+        $labelCount = count($this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex(0)->getPointCount());
+		if ($labelCount > 0) {
+			$datasetLabels = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex(0)->getDataValues();
+			$datasetLabels = $this->_formatDataSetLabels($groupID, $datasetLabels, $labelCount, $rotation);
 			//	Rotate for bar rather than column chart
 			if ($rotation == 'bar') {
 				$datasetLabels = array_reverse($datasetLabels);
@@ -599,23 +598,24 @@ class PHPExcel_Chart_Renderer_jpgraph
 		$this->_renderPiePlotArea($doughnut);
 
 		$iLimit = ($multiplePlots) ? $groupCount : 1;
-		for($i = 0; $i < $iLimit; ++$i) {
-			$grouping = $this->_chart->getPlotArea()->getPlotGroupByIndex($i)->getPlotGrouping();
-			$exploded = $this->_chart->getPlotArea()->getPlotGroupByIndex($i)->getPlotStyle();
-			if ($i == 0) {
-				$datasetLabels = $this->_chart->getPlotArea()->getPlotGroupByIndex($i)->getPlotCategoryByIndex(0)->getDataValues();
-				if (count($datasetLabels) > 0) {
-					$datasetLabels = $this->_formatDataSetLabels($i,$datasetLabels);
+		for($groupID = 0; $groupID < $iLimit; ++$groupID) {
+			$grouping = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotGrouping();
+			$exploded = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotStyle();
+			if ($groupID == 0) {
+		        $labelCount = count($this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex(0)->getPointCount());
+				if ($labelCount > 0) {
+					$datasetLabels = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex(0)->getDataValues();
+					$datasetLabels = $this->_formatDataSetLabels($groupID, $datasetLabels, $labelCount);
 				}
 			}
 
-			$seriesCount = $this->_chart->getPlotArea()->getPlotGroupByIndex($i)->getPlotSeriesCount();
+			$seriesCount = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotSeriesCount();
 			$seriesPlots = array();
 			//	For pie charts, we only display the first series: doughnut charts generally display all series
 			$jLimit = ($multiplePlots) ? $seriesCount : 1;
 			//	Loop through each data series in turn
 			for($j = 0; $j < $jLimit; ++$j) {
-				$dataValues = $this->_chart->getPlotArea()->getPlotGroupByIndex($i)->getPlotValuesByIndex($j)->getDataValues();
+				$dataValues = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($j)->getDataValues();
 
 				//	Fill in any missing values in the $dataValues array
 				$testCurrentIndex = 0;
@@ -646,7 +646,8 @@ class PHPExcel_Chart_Renderer_jpgraph
 				}
 
 				$seriesPlot->SetColor(self::$_colourSet[self::$_plotColour++]);
-				$seriesPlot->SetLabels(array_fill(0,count($datasetLabels),''));
+				if (count($datasetLabels) > 0)
+					$seriesPlot->SetLabels(array_fill(0,count($datasetLabels),''));
 				if ($dimensions != '3d') {
 					$seriesPlot->SetGuideLines(false);
 				}
@@ -668,8 +669,8 @@ class PHPExcel_Chart_Renderer_jpgraph
 
 		$this->_renderRadarPlotArea();
 
-		for($i = 0; $i < $groupCount; ++$i) {
-			$this->_renderPlotRadar($i);
+		for($groupID = 0; $groupID < $groupCount; ++$groupID) {
+			$this->_renderPlotRadar($groupID);
 		}
 	}	//	function _renderRadarChart()
 
@@ -679,8 +680,8 @@ class PHPExcel_Chart_Renderer_jpgraph
 
 		$this->_renderCartesianPlotArea();
 
-		for($i = 0; $i < $groupCount; ++$i) {
-			$this->_renderPlotStock($i);
+		for($groupID = 0; $groupID < $groupCount; ++$i) {
+			$this->_renderPlotStock($groupID);
 		}
 	}	//	function _renderStockChart()
 
