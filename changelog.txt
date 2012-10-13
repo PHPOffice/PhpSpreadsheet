@@ -72,6 +72,9 @@ The following methods will be changed in version 1.7.9
 
 
 Fixed in develop branch:
+
+
+2012-10-12 (v1.7.8):
 - Special:  (kkamkou)    Phar builder script to add phar file as a distribution option
 - Feature:  (MBaker)     Refactor PDF Writer to allow use with a choice of PDF Rendering library
                          rather than restricting to tcPDF

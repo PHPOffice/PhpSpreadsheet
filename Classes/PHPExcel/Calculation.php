@@ -2977,7 +2977,7 @@ class PHPExcel_Calculation {
 		}
 
 		while (($op = $stack->pop()) !== NULL) {	// pop everything off the stack and push onto output
-			if ((is_array($opCharacter) && $opCharacter['value'] == '(') || ($opCharacter === '('))
+			if ((is_array($op) && $op['value'] == '(') || ($op === '('))
 				return $this->_raiseFormulaError("Formula Error: Expecting ')'");	// if there are any opening braces on the stack, then braces were unbalanced
 			$output[] = $op;
 		}
