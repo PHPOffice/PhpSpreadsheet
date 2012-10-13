@@ -290,20 +290,29 @@ class PHPExcel_Chart_DataSeriesValues
 			if ($flatten) {
 				$this->_dataValues = PHPExcel_Calculation_Functions::flattenArray($newDataValues);
 			} else {
-				$newArray = array_values(array_shift($newDataValues));
-				foreach($newArray as $i => $newDataSet) {
-					$newArray[$i] = array($newDataSet);
+				$cellRange = explode('!',$this->_dataSource);
+				if (count($cellRange) > 1) {
+					list(,$cellRange) = $cellRange;
 				}
 
-				foreach($newDataValues as $newDataSet) {
-					$i = 0;
-					foreach($newDataSet as $newDataVal) {
-						array_unshift($newArray[$i++],$newDataVal);
+				$dimensions = PHPExcel_Cell::rangeDimension(str_replace('$','',$cellRange));
+				if (($dimensions[0] == 1) || ($dimensions[1] == 1)) {
+					$this->_dataValues = PHPExcel_Calculation_Functions::flattenArray($newDataValues);
+				} else {
+					$newArray = array_values(array_shift($newDataValues));
+					foreach($newArray as $i => $newDataSet) {
+						$newArray[$i] = array($newDataSet);
 					}
-				}
-				$this->_dataValues = $newArray;
-			}
 
+					foreach($newDataValues as $newDataSet) {
+						$i = 0;
+						foreach($newDataSet as $newDataVal) {
+							array_unshift($newArray[$i++],$newDataVal);
+						}
+					}
+					$this->_dataValues = $newArray;
+				}
+			}
 			$this->_pointCount = count($this->_dataValues);
 		}
 
