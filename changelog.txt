@@ -23,6 +23,11 @@
 **************************************************************************************
 
 
+Fixed in develop branch:
+- Bugfix:   (Asker)  Work item 18777 - Error in PHPEXCEL/Calculation.php script on line 2976 (stack pop check)
+- Bugfix:   (MBaker) Work item 18794 - CSV files without a file extension being identified as HTML
+
+
 --------------------------------------------------------------------------------
 BREAKING CHANGE! As part of the planned changes for handling array formulae in
 workbooks, there are some changes that will affect the PHPExcel_Cell object 
@@ -69,9 +74,6 @@ The following methods will be changed in version 1.7.9
     setDataType()             Error handling will be added to prevent setting a
                                   cell datatype to an inappropriate value.
 --------------------------------------------------------------------------------
-
-
-Fixed in develop branch:
 
 
 2012-10-12 (v1.7.8):

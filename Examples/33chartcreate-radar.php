@@ -71,8 +71,8 @@ $objWorksheet->fromArray(
 //		Data values
 //		Data Marker
 $dataseriesLabels = array(
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$C$1', null, 1),	//	2011
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$D$1', null, 1),	//	2012
+	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$C$1', NULL, 1),	//	2011
+	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$D$1', NULL, 1),	//	2012
 );
 //	Set the X-Axis Labels
 //		Datatype
@@ -82,8 +82,8 @@ $dataseriesLabels = array(
 //		Data values
 //		Data Marker
 $xAxisTickValues = array(
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$A$2:$A$13', null, 12),	//	Jan to Dec
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$A$2:$A$13', null, 12),	//	Jan to Dec
+	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$A$2:$A$13', NULL, 12),	//	Jan to Dec
+	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$A$2:$A$13', NULL, 12),	//	Jan to Dec
 );
 //	Set the Data values for each data series we want to plot
 //		Datatype
@@ -93,8 +93,8 @@ $xAxisTickValues = array(
 //		Data values
 //		Data Marker
 $dataSeriesValues = array(
-	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$C$2:$C$13', null, 12),
-	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$D$2:$D$13', null, 12),
+	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$C$2:$C$13', NULL, 12),
+	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$D$2:$D$13', NULL, 12),
 );
 
 //	Build the dataseries
@@ -115,7 +115,7 @@ $layout = new PHPExcel_Chart_Layout();
 //	Set the series in the plot area
 $plotarea = new PHPExcel_Chart_PlotArea($layout, array($series));
 //	Set the chart legend
-$legend = new PHPExcel_Chart_Legend(PHPExcel_Chart_Legend::POSITION_RIGHT, null, false);
+$legend = new PHPExcel_Chart_Legend(PHPExcel_Chart_Legend::POSITION_RIGHT, NULL, false);
 
 $title = new PHPExcel_Chart_Title('Test Radar Chart');
 
@@ -128,8 +128,8 @@ $chart = new PHPExcel_Chart(
 	$plotarea,		// plotArea
 	true,			// plotVisibleOnly
 	0,				// displayBlanksAs
-	null,			// xAxisLabel
-	null			// yAxisLabel		- Radar charts don't have a Y-Axis
+	NULL,			// xAxisLabel
+	NULL			// yAxisLabel		- Radar charts don't have a Y-Axis
 );
 
 //	Set the position where the chart should appear in the worksheet

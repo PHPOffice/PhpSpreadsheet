@@ -62,9 +62,9 @@ $objWorksheet->fromArray(
 //		Data values
 //		Data Marker
 $dataseriesLabels = array(
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$B$1', null, 1),	//	2010
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$C$1', null, 1),	//	2011
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$D$1', null, 1),	//	2012
+	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$B$1', NULL, 1),	//	2010
+	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$C$1', NULL, 1),	//	2011
+	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$D$1', NULL, 1),	//	2012
 );
 //	Set the X-Axis Labels
 //		Datatype
@@ -74,7 +74,7 @@ $dataseriesLabels = array(
 //		Data values
 //		Data Marker
 $xAxisTickValues = array(
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$A$2:$A$5', null, 4),	//	Q1 to Q4
+	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$A$2:$A$5', NULL, 4),	//	Q1 to Q4
 );
 //	Set the Data values for each data series we want to plot
 //		Datatype
@@ -84,9 +84,9 @@ $xAxisTickValues = array(
 //		Data values
 //		Data Marker
 $dataSeriesValues = array(
-	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$B$2:$B$5', null, 4),
-	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$C$2:$C$5', null, 4),
-	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$D$2:$D$5', null, 4),
+	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$B$2:$B$5', NULL, 4),
+	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$C$2:$C$5', NULL, 4),
+	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$D$2:$D$5', NULL, 4),
 );
 
 //	Build the dataseries
@@ -103,9 +103,9 @@ $series = new PHPExcel_Chart_DataSeries(
 $series->setPlotDirection(PHPExcel_Chart_DataSeries::DIRECTION_COL);
 
 //	Set the series in the plot area
-$plotarea = new PHPExcel_Chart_PlotArea(null, array($series));
+$plotarea = new PHPExcel_Chart_PlotArea(NULL, array($series));
 //	Set the chart legend
-$legend = new PHPExcel_Chart_Legend(PHPExcel_Chart_Legend::POSITION_RIGHT, null, false);
+$legend = new PHPExcel_Chart_Legend(PHPExcel_Chart_Legend::POSITION_RIGHT, NULL, false);
 
 $title = new PHPExcel_Chart_Title('Test Column Chart');
 $yAxisLabel = new PHPExcel_Chart_Title('Value ($k)');
@@ -119,7 +119,7 @@ $chart = new PHPExcel_Chart(
 	$plotarea,		// plotArea
 	true,			// plotVisibleOnly
 	0,				// displayBlanksAs
-	null,			// xAxisLabel
+	NULL,			// xAxisLabel
 	$yAxisLabel		// yAxisLabel
 );
 

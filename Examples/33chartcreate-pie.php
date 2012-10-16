@@ -63,7 +63,7 @@ $objWorksheet->fromArray(
 //		Data values
 //		Data Marker
 $dataseriesLabels1 = array(
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$C$1', null, 1),	//	2011
+	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$C$1', NULL, 1),	//	2011
 );
 //	Set the X-Axis Labels
 //		Datatype
@@ -73,7 +73,7 @@ $dataseriesLabels1 = array(
 //		Data values
 //		Data Marker
 $xAxisTickValues1 = array(
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$A$2:$A$5', null, 4),	//	Q1 to Q4
+	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$A$2:$A$5', NULL, 4),	//	Q1 to Q4
 );
 //	Set the Data values for each data series we want to plot
 //		Datatype
@@ -83,7 +83,7 @@ $xAxisTickValues1 = array(
 //		Data values
 //		Data Marker
 $dataSeriesValues1 = array(
-	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$C$2:$C$5', null, 4),
+	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$C$2:$C$5', NULL, 4),
 );
 
 //	Build the dataseries
@@ -104,7 +104,7 @@ $layout1->setShowPercent(TRUE);
 //	Set the series in the plot area
 $plotarea1 = new PHPExcel_Chart_PlotArea($layout1, array($series1));
 //	Set the chart legend
-$legend1 = new PHPExcel_Chart_Legend(PHPExcel_Chart_Legend::POSITION_RIGHT, null, false);
+$legend1 = new PHPExcel_Chart_Legend(PHPExcel_Chart_Legend::POSITION_RIGHT, NULL, false);
 
 $title1 = new PHPExcel_Chart_Title('Test Pie Chart');
 
@@ -117,8 +117,8 @@ $chart1 = new PHPExcel_Chart(
 	$plotarea1,		// plotArea
 	true,			// plotVisibleOnly
 	0,				// displayBlanksAs
-	null,			// xAxisLabel
-	null			// yAxisLabel		- Pie charts don't have a Y-Axis
+	NULL,			// xAxisLabel
+	NULL			// yAxisLabel		- Pie charts don't have a Y-Axis
 );
 
 //	Set the position where the chart should appear in the worksheet
@@ -137,7 +137,7 @@ $objWorksheet->addChart($chart1);
 //		Data values
 //		Data Marker
 $dataseriesLabels2 = array(
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$C$1', null, 1),	//	2011
+	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$C$1', NULL, 1),	//	2011
 );
 //	Set the X-Axis Labels
 //		Datatype
@@ -147,7 +147,7 @@ $dataseriesLabels2 = array(
 //		Data values
 //		Data Marker
 $xAxisTickValues2 = array(
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$A$2:$A$5', null, 4),	//	Q1 to Q4
+	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$A$2:$A$5', NULL, 4),	//	Q1 to Q4
 );
 //	Set the Data values for each data series we want to plot
 //		Datatype
@@ -157,7 +157,7 @@ $xAxisTickValues2 = array(
 //		Data values
 //		Data Marker
 $dataSeriesValues2 = array(
-	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$C$2:$C$5', null, 4),
+	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$C$2:$C$5', NULL, 4),
 );
 
 //	Build the dataseries
@@ -189,8 +189,8 @@ $chart2 = new PHPExcel_Chart(
 	$plotarea2,		// plotArea
 	true,			// plotVisibleOnly
 	0,				// displayBlanksAs
-	null,			// xAxisLabel
-	null			// yAxisLabel		- Like Pie charts, Donut charts don't have a Y-Axis
+	NULL,			// xAxisLabel
+	NULL			// yAxisLabel		- Like Pie charts, Donut charts don't have a Y-Axis
 );
 
 //	Set the position where the chart should appear in the worksheet

@@ -134,7 +134,12 @@ class PHPExcel_Reader_HTML implements PHPExcel_Reader_IReader
 		$data = fread($fh, 2048);
 		fclose($fh);
 
-		return true;
+		if ((strpos('<',$data) !== FALSE) &&
+			(strlen($data) !== strlen(strip_tags($data)))) {
+			return TRUE;
+		}
+
+		return FALSE;
 	}
 
 	/**
