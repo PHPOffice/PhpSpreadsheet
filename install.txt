@@ -59,16 +59,16 @@ Getting started
 ---------------
 
 A good way to get started is to run some of the tests included in the download.
-Copy the "Tests" folder next to your "Classes" folder from above so you end up with:
+Copy the "Examples" folder next to your "Classes" folder from above so you end up with:
 
-/var/www/Tests/01simple.php
-/var/www/Tests/02types.php
+/var/www/Examples/01simple.php
+/var/www/Examples/02types.php
 ...
 
 Start running the test by pointing your browser to the test scripts:
 
-http://example.com/Tests/01simple.php
-http://example.com/Tests/02types.php
+http://example.com/Examples/01simple.php
+http://example.com/Examples/02types.php
 ...
 
 Note: It may be necessary to modify the include/require statements at the beginning of
