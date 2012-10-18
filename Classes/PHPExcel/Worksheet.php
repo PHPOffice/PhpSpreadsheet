@@ -1513,7 +1513,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	public function duplicateConditionalStyle(array $pCellStyle = null, $pRange = '')
 	{
 		foreach($pCellStyle as $cellStyle) {
-			if (!is_a($cellStyle,'PHPExcel_Style_Conditional')) {
+			if (!($cellStyle instanceof PHPExcel_Style_Conditional)) {
 				throw new Exception('Style is not a conditional style');
 			}
 		}
