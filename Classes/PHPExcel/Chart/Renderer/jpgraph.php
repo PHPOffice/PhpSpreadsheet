@@ -107,13 +107,11 @@ class PHPExcel_Chart_Renderer_jpgraph
 
 		$testCurrentIndex = 0;
 		foreach($datasetLabels as $i => $datasetLabel) {
-			array_reverse($datasetLabel);
-
 			if (is_array($datasetLabel)) {
 				if ($rotation == 'bar') {
-					$datasetLabel = array_reverse($datasetLabel);
 					$datasetLabels[$i] = implode(" ",$datasetLabel);
 				} else {
+					$datasetLabel = array_reverse($datasetLabel);
 					$datasetLabels[$i] = implode("\n",$datasetLabel);
 				}
 			} else {
