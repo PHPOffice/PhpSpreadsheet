@@ -33,77 +33,63 @@
  * @package    PHPExcel_Style
  * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
-class PHPExcel_Style implements PHPExcel_IComparable
+class PHPExcel_Style extends PHPExcel_Style_Supervisor implements PHPExcel_IComparable
 {
 	/**
 	 * Font
 	 *
 	 * @var PHPExcel_Style_Font
 	 */
-	private $_font;
+	protected $_font;
 
 	/**
 	 * Fill
 	 *
 	 * @var PHPExcel_Style_Fill
 	 */
-	private $_fill;
+	protected $_fill;
 
 	/**
 	 * Borders
 	 *
 	 * @var PHPExcel_Style_Borders
 	 */
-	private $_borders;
+	protected $_borders;
 
 	/**
 	 * Alignment
 	 *
 	 * @var PHPExcel_Style_Alignment
 	 */
-	private $_alignment;
+	protected $_alignment;
 
 	/**
 	 * Number Format
 	 *
 	 * @var PHPExcel_Style_NumberFormat
 	 */
-	private $_numberFormat;
+	protected $_numberFormat;
 
 	/**
 	 * Conditional styles
 	 *
 	 * @var PHPExcel_Style_Conditional[]
 	 */
-	private $_conditionalStyles;
+	protected $_conditionalStyles;
 
 	/**
 	 * Protection
 	 *
 	 * @var PHPExcel_Style_Protection
 	 */
-	private $_protection;
-
-	/**
-	 * Style supervisor?
-	 *
-	 * @var boolean
-	 */
-	private $_isSupervisor;
-
-	/**
-	 * Parent. Only used for style supervisor
-	 *
-	 * @var PHPExcel
-	 */
-	private $_parent;
+	protected $_protection;
 
 	/**
 	 * Index of style in collection. Only used for real style.
 	 *
 	 * @var int
 	 */
-	private $_index;
+	protected $_index;
 
     /**
      * Create a new PHPExcel_Style
@@ -141,28 +127,6 @@ class PHPExcel_Style implements PHPExcel_IComparable
     }
 
 	/**
-	 * Bind parent. Only used for supervisor
-	 *
-	 * @param PHPExcel $parent
-	 * @return PHPExcel_Style
-	 */
-	public function bindParent($parent)
-	{
-		$this->_parent = $parent;
-		return $this;
-	}
-
-	/**
-	 * Is this a supervisor or a real style component?
-	 *
-	 * @return boolean
-	 */
-	public function getIsSupervisor()
-	{
-		return $this->_isSupervisor;
-	}
-
-	/**
 	 * Get the shared style component for the currently active cell in currently active sheet.
 	 * Only used for style supervisor
 	 *
@@ -180,38 +144,6 @@ class PHPExcel_Style implements PHPExcel_IComparable
 		}
 
 		return $this->_parent->getCellXfByIndex($xfIndex);
-	}
-
-	/**
-	 * Get the currently active sheet. Only used for supervisor
-	 *
-	 * @return PHPExcel_Worksheet
-	 */
-	public function getActiveSheet()
-	{
-		return $this->_parent->getActiveSheet();
-	}
-
-	/**
-	 * Get the currently active cell coordinate in currently active sheet.
-	 * Only used for supervisor
-	 *
-	 * @return string E.g. 'A1'
-	 */
-	public function getSelectedCells()
-	{
-		return $this->_parent->getActiveSheet()->getSelectedCells();
-	}
-
-	/**
-	 * Get the currently active cell coordinate in currently active sheet.
-	 * Only used for supervisor
-	 *
-	 * @return string E.g. 'A1'
-	 */
-	public function getActiveCell()
-	{
-		return $this->_parent->getActiveSheet()->getActiveCell();
 	}
 
 	/**
@@ -668,17 +600,4 @@ class PHPExcel_Style implements PHPExcel_IComparable
 		$this->_index = $pValue;
 	}
 
-	/**
-	 * Implement PHP __clone to create a deep clone, not just a shallow copy.
-	 */
-	public function __clone() {
-		$vars = get_object_vars($this);
-		foreach ($vars as $key => $value) {
-			if ((is_object($value)) && ($key != '_parent')) {
-				$this->$key = clone $value;
-			} else {
-				$this->$key = $value;
-			}
-		}
-	}
 }

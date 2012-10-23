@@ -33,7 +33,7 @@
  * @package	PHPExcel_Style
  * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
-class PHPExcel_Style_Font implements PHPExcel_IComparable
+class PHPExcel_Style_Font extends PHPExcel_Style_Supervisor implements PHPExcel_IComparable
 {
 	/* Underline types */
 	const UNDERLINE_NONE					= 'none';
@@ -47,84 +47,63 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 	 *
 	 * @var string
 	 */
-	private $_name			= 'Calibri';
+	protected $_name			= 'Calibri';
 
 	/**
 	 * Font Size
 	 *
 	 * @var float
 	 */
-	private $_size			= 11;
+	protected $_size			= 11;
 
 	/**
 	 * Bold
 	 *
 	 * @var boolean
 	 */
-	private $_bold			= false;
+	protected $_bold			= FALSE;
 
 	/**
 	 * Italic
 	 *
 	 * @var boolean
 	 */
-	private $_italic		= false;
+	protected $_italic		= FALSE;
 
 	/**
 	 * Superscript
 	 *
 	 * @var boolean
 	 */
-	private $_superScript	= false;
+	protected $_superScript	= FALSE;
 
 	/**
 	 * Subscript
 	 *
 	 * @var boolean
 	 */
-	private $_subScript		= false;
+	protected $_subScript		= FALSE;
 
 	/**
 	 * Underline
 	 *
 	 * @var string
 	 */
-	private $_underline		= self::UNDERLINE_NONE;
+	protected $_underline		= self::UNDERLINE_NONE;
 
 	/**
 	 * Strikethrough
 	 *
 	 * @var boolean
 	 */
-	private $_strikethrough	= false;
+	protected $_strikethrough	= FALSE;
 
 	/**
 	 * Foreground color
 	 *
 	 * @var PHPExcel_Style_Color
 	 */
-	private $_color;
-
-	/**
-	 * Parent Borders
-	 *
-	 * @var _parentPropertyName string
-	 */
-	private $_parentPropertyName;
-
-	/**
-	 * Supervisor?
-	 *
-	 * @var boolean
-	 */
-	private $_isSupervisor;
-
-	/**
-	 * Parent. Only used for supervisor
-	 *
-	 * @var PHPExcel_Style
-	 */
-	private $_parent;
+	protected $_color;
 
 	/**
 	 * Create a new PHPExcel_Style_Font
@@ -136,10 +115,10 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 	 *									Leave this value at default unless you understand exactly what
 	 *										its ramifications are
 	 */
-	public function __construct($isSupervisor = false, $isConditional = false)
+	public function __construct($isSupervisor = FALSE, $isConditional = FALSE)
 	{
 		// Supervisor?
-		$this->_isSupervisor = $isSupervisor;
+		parent::__construct($isSupervisor);
 
 		// Initialise values
 		if ($isConditional) {
@@ -162,27 +141,6 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 	}
 
 	/**
-	 * Bind parent. Only used for supervisor
-	 *
-	 * @param PHPExcel_Style $parent
-	 * @return PHPExcel_Style_Font
-	 */
-	public function bindParent($parent)
-	{
-		$this->_parent = $parent;
-	}
-
-	/**
-	 * Is this a supervisor or a real style component?
-	 *
-	 * @return boolean
-	 */
-	public function getIsSupervisor()
-	{
-		return $this->_isSupervisor;
-	}
-
-	/**
 	 * Get the shared style component for the currently active cell in currently active sheet.
 	 * Only used for style supervisor
 	 *
@@ -191,38 +149,6 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 	public function getSharedComponent()
 	{
 		return $this->_parent->getSharedComponent()->getFont();
-	}
-
-	/**
-	 * Get the currently active sheet. Only used for supervisor
-	 *
-	 * @return PHPExcel_Worksheet
-	 */
-	public function getActiveSheet()
-	{
-		return $this->_parent->getActiveSheet();
-	}
-
-	/**
-	 * Get the currently active cell coordinate in currently active sheet.
-	 * Only used for supervisor
-	 *
-	 * @return string E.g. 'A1'
-	 */
-	public function getSelectedCells()
-	{
-		return $this->getActiveSheet()->getSelectedCells();
-	}
-
-	/**
-	 * Get the currently active cell coordinate in currently active sheet.
-	 * Only used for supervisor
-	 *
-	 * @return string E.g. 'A1'
-	 */
-	public function getActiveCell()
-	{
-		return $this->getActiveSheet()->getActiveCell();
 	}
 
 	/**
@@ -242,12 +168,12 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 	 * <code>
 	 * $objPHPExcel->getActiveSheet()->getStyle('B2')->getFont()->applyFromArray(
 	 *		array(
-	 *			'name'	  => 'Arial',
-	 *			'bold'	  => true,
-	 *			'italic'	=> false,
+	 *			'name'		=> 'Arial',
+	 *			'bold'		=> TRUE,
+	 *			'italic'	=> FALSE,
 	 *			'underline' => PHPExcel_Style_Font::UNDERLINE_DOUBLE,
-	 *			'strike'	=> false,
-	 *			'color'	 => array(
+	 *			'strike'	=> FALSE,
+	 *			'color'		=> array(
 	 *				'rgb' => '808080'
 	 *			)
 	 *		)
@@ -255,7 +181,7 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 	 * </code>
 	 *
 	 * @param	array	$pStyles	Array containing style information
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Style_Font
 	 */
 	public function applyFromArray($pStyles = null) {
@@ -292,7 +218,7 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 				}
 			}
 		} else {
-			throw new Exception("Invalid style array passed.");
+			throw new PHPExcel_Exception("Invalid style array passed.");
 		}
 		return $this;
 	}
@@ -501,7 +427,7 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 	 * Set Underline
 	 *
 	 * @param string|boolean $pValue	PHPExcel_Style_Font underline type
-	 *									If a boolean is passed, then true equates to UNDERLINE_SINGLE,
+	 *									If a boolean is passed, then TRUE equates to UNDERLINE_SINGLE,
 	 *										false equates to UNDERLINE_NONE
 	 * @return PHPExcel_Style_Font
 	 */
@@ -518,27 +444,6 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 			$this->_underline = $pValue;
 		}
 		return $this;
-	}
-
-	/**
-	 * Get Striketrough
-	 *
-	 * @deprecated Use getStrikethrough() instead.
-	 * @return boolean
-	 */
-	public function getStriketrough() {
-		return $this->getStrikethrough();
-	}
-
-	/**
-	 * Set Striketrough
-	 *
-	 * @deprecated Use setStrikethrough() instead.
-	 * @param boolean $pValue
-	 * @return PHPExcel_Style_Font
-	 */
-	public function setStriketrough($pValue = false) {
-		return $this->setStrikethrough($pValue);
 	}
 
 	/**
@@ -585,7 +490,7 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 	 * Set Color
 	 *
 	 * @param	PHPExcel_Style_Color $pValue
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Style_Font
 	 */
 	public function setColor(PHPExcel_Style_Color $pValue = null) {
@@ -624,17 +529,4 @@ class PHPExcel_Style_Font implements PHPExcel_IComparable
 		);
 	}
 
-	/**
-	 * Implement PHP __clone to create a deep clone, not just a shallow copy.
-	 */
-	public function __clone() {
-		$vars = get_object_vars($this);
-		foreach ($vars as $key => $value) {
-			if ((is_object($value)) && ($key != '_parent')) {
-				$this->$key = clone $value;
-			} else {
-				$this->$key = $value;
-			}
-		}
-	}
 }

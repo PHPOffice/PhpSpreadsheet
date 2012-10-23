@@ -33,7 +33,7 @@
  * @package	PHPExcel_Style
  * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
-class PHPExcel_Style_Color implements PHPExcel_IComparable
+class PHPExcel_Style_Color extends PHPExcel_Style_Supervisor implements PHPExcel_IComparable
 {
 	/* Colors */
 	const COLOR_BLACK						= 'FF000000';
@@ -52,35 +52,21 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 	 *
 	 * @var array
 	 */
-	private static $_indexedColors;
+	protected static $_indexedColors;
 
 	/**
 	 * ARGB - Alpha RGB
 	 *
 	 * @var string
 	 */
-	private $_argb	= NULL;
-
-	/**
-	 * Supervisor?
-	 *
-	 * @var boolean
-	 */
-	private $_isSupervisor;
-
-	/**
-	 * Parent. Only used for supervisor
-	 *
-	 * @var mixed
-	 */
-	private $_parent;
+	protected $_argb	= NULL;
 
 	/**
 	 * Parent property name
 	 *
 	 * @var string
 	 */
-	private $_parentPropertyName;
+	protected $_parentPropertyName;
 
 
 	/**
@@ -94,10 +80,10 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 	 *									Leave this value at default unless you understand exactly what
 	 *										its ramifications are
 	 */
-	public function __construct($pARGB = PHPExcel_Style_Color::COLOR_BLACK, $isSupervisor = false, $isConditional = false)
+	public function __construct($pARGB = PHPExcel_Style_Color::COLOR_BLACK, $isSupervisor = FALSE, $isConditional = FALSE)
 	{
 		//	Supervisor?
-		$this->_isSupervisor = $isSupervisor;
+		parent::__construct($isSupervisor);
 
 		//	Initialise values
 		if (!$isConditional) {
@@ -120,16 +106,6 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 	}
 
 	/**
-	 * Is this a supervisor or a real style component?
-	 *
-	 * @return boolean
-	 */
-	public function getIsSupervisor()
-	{
-		return $this->_isSupervisor;
-	}
-
-	/**
 	 * Get the shared style component for the currently active cell in currently active sheet.
 	 * Only used for style supervisor
 	 *
@@ -145,38 +121,6 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 			case '_startColor':
 				return $this->_parent->getSharedComponent()->getStartColor();	break;
 		}
-	}
-
-	/**
-	 * Get the currently active sheet. Only used for supervisor
-	 *
-	 * @return PHPExcel_Worksheet
-	 */
-	public function getActiveSheet()
-	{
-		return $this->_parent->getActiveSheet();
-	}
-
-	/**
-	 * Get the currently active cell coordinate in currently active sheet.
-	 * Only used for supervisor
-	 *
-	 * @return string E.g. 'A1'
-	 */
-	public function getSelectedCells()
-	{
-		return $this->getActiveSheet()->getSelectedCells();
-	}
-
-	/**
-	 * Get the currently active cell coordinate in currently active sheet.
-	 * Only used for supervisor
-	 *
-	 * @return string E.g. 'A1'
-	 */
-	public function getActiveCell()
-	{
-		return $this->getActiveSheet()->getActiveCell();
 	}
 
 	/**
@@ -210,7 +154,7 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 	 * </code>
 	 *
 	 * @param	array	$pStyles	Array containing style information
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Style_Color
 	 */
 	public function applyFromArray($pStyles = NULL) {
@@ -226,7 +170,7 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 				}
 			}
 		} else {
-			throw new Exception("Invalid style array passed.");
+			throw new PHPExcel_Exception("Invalid style array passed.");
 		}
 		return $this;
 	}
@@ -494,17 +438,4 @@ class PHPExcel_Style_Color implements PHPExcel_IComparable
 		);
 	}
 
-	/**
-	 * Implement PHP __clone to create a deep clone, not just a shallow copy.
-	 */
-	public function __clone() {
-		$vars = get_object_vars($this);
-		foreach ($vars as $key => $value) {
-			if ((is_object($value)) && ($key != '_parent')) {
-				$this->$key = clone $value;
-			} else {
-				$this->$key = $value;
-			}
-		}
-	}
 }
