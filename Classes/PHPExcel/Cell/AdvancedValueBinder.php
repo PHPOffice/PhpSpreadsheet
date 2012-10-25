@@ -113,9 +113,11 @@ class PHPExcel_Cell_AdvancedValueBinder extends PHPExcel_Cell_DefaultValueBinder
 
 			// Check for currency
 			$currencyCode = PHPExcel_Shared_String::getCurrencyCode();
-			if (preg_match('/^'.preg_quote($currencyCode).' *(\d{1,3}(\,\d{3})*|(\d+))(\.\d{2})?$/', $value)) {
+      $decimalSeparator = PHPExcel_Shared_String::getDecimalSeparator();
+      $thousandsSeparator = PHPExcel_Shared_String::getThousandsSeparator();
+			if (preg_match('/^'.preg_quote($currencyCode).' *(\d{1,3}('.preg_quote($thousandsSeparator).'\d{3})*|(\d+))('.preg_quote($decimalSeparator).'\d{2})?$/', $value)) {
 				// Convert value to number
-				$value = (float) trim(str_replace(array($currencyCode,','), '', $value));
+				$value = (float) trim(str_replace(array($currencyCode, $thousandsSeparator, $decimalSeparator), array('', '', '.'), $value));
 				$cell->setValueExplicit( $value, PHPExcel_Cell_DataType::TYPE_NUMERIC);
 				// Set style
 				$cell->getParent()->getStyle( $cell->getCoordinate() )
