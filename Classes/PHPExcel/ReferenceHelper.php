@@ -77,12 +77,14 @@ class PHPExcel_ReferenceHelper
 	 * @throws	Exception
 	 */
 	public function insertNewBefore($pBefore = 'A1', $pNumCols = 0, $pNumRows = 0, PHPExcel_Worksheet $pSheet = null) {
+		$remove = ($pNumCols < 0 || $pNumRows < 0);
 		$aCellCollection = $pSheet->getCellCollection();
 
 		// Get coordinates of $pBefore
 		$beforeColumn	= 'A';
 		$beforeRow		= 1;
 		list($beforeColumn, $beforeRow) = PHPExcel_Cell::coordinateFromString( $pBefore );
+		$beforeColumnIndex = PHPExcel_Cell::columnIndexFromString($beforeColumn);
 
 
 		// Clear cells if we are removing columns or rows
@@ -90,9 +92,9 @@ class PHPExcel_ReferenceHelper
 		$highestRow	= $pSheet->getHighestRow();
 
 		// 1. Clear column strips if we are removing columns
-		if ($pNumCols < 0 && PHPExcel_Cell::columnIndexFromString($beforeColumn) - 2 + $pNumCols > 0) {
+		if ($pNumCols < 0 && $beforeColumnIndex - 2 + $pNumCols > 0) {
 			for ($i = 1; $i <= $highestRow - 1; ++$i) {
-				for ($j = PHPExcel_Cell::columnIndexFromString($beforeColumn) - 1 + $pNumCols; $j <= PHPExcel_Cell::columnIndexFromString($beforeColumn) - 2; ++$j) {
+				for ($j = $beforeColumnIndex - 1 + $pNumCols; $j <= $beforeColumnIndex - 2; ++$j) {
 					$coordinate = PHPExcel_Cell::stringFromColumnIndex($j) . $i;
 					$pSheet->removeConditionalStyles($coordinate);
 					if ($pSheet->cellExists($coordinate)) {
@@ -105,7 +107,7 @@ class PHPExcel_ReferenceHelper
 
 		// 2. Clear row strips if we are removing rows
 		if ($pNumRows < 0 && $beforeRow - 1 + $pNumRows > 0) {
-			for ($i = PHPExcel_Cell::columnIndexFromString($beforeColumn) - 1; $i <= PHPExcel_Cell::columnIndexFromString($highestColumn) - 1; ++$i) {
+			for ($i = $beforeColumnIndex - 1; $i <= PHPExcel_Cell::columnIndexFromString($highestColumn) - 1; ++$i) {
 				for ($j = $beforeRow + $pNumRows; $j <= $beforeRow - 1; ++$j) {
 					$coordinate = PHPExcel_Cell::stringFromColumnIndex($i) . $j;
 					$pSheet->removeConditionalStyles($coordinate);
@@ -119,20 +121,23 @@ class PHPExcel_ReferenceHelper
 
 
 		// Loop through cells, bottom-up, and change cell coordinates
-		while (($cellID = ($pNumCols < 0 || $pNumRows < 0) ? array_shift($aCellCollection) : array_pop($aCellCollection))) {
+		while (($cellID = $remove ? array_shift($aCellCollection) : array_pop($aCellCollection))) {
 			$cell = $pSheet->getCell($cellID);
+			$cellIndex = PHPExcel_Cell::columnIndexFromString($cell->getColumn());
+			if ($cellIndex-1 + $pNumCols < 0) {
+				continue;
+			}
 
 			// New coordinates
-			$newCoordinates = PHPExcel_Cell::stringFromColumnIndex( PHPExcel_Cell::columnIndexFromString($cell->getColumn()) - 1 + $pNumCols ) . ($cell->getRow() + $pNumRows);
+			$newCoordinates = PHPExcel_Cell::stringFromColumnIndex($cellIndex-1 + $pNumCols) . ($cell->getRow() + $pNumRows);
 
 			// Should the cell be updated? Move value and cellXf index from one cell to another.
-			if ((PHPExcel_Cell::columnIndexFromString( $cell->getColumn() ) >= PHPExcel_Cell::columnIndexFromString($beforeColumn)) &&
+			if (($cellIndex >= $beforeColumnIndex) &&
 				($cell->getRow() >= $beforeRow)) {
-
+				
 				// Update cell styles
 				$pSheet->getCell($newCoordinates)->setXfIndex($cell->getXfIndex());
-				$cell->setXfIndex(0);
-
+				
 				// Insert this cell at its new location
 				if ($cell->getDataType() == PHPExcel_Cell_DataType::TYPE_FORMULA) {
 					// Formula should be adjusted
@@ -145,7 +150,7 @@ class PHPExcel_ReferenceHelper
 				}
 
 				// Clear the original cell
-				$pSheet->getCell($cell->getCoordinate())->setValue('');
+				$pSheet->getCellCacheController()->deleteCacheData($cellID);
 
 			} else {
 				/*	We don't need to update styles for rows/columns before our insertion position,
@@ -164,16 +169,16 @@ class PHPExcel_ReferenceHelper
 		$highestColumn	= $pSheet->getHighestColumn();
 		$highestRow	= $pSheet->getHighestRow();
 
-		if ($pNumCols > 0 && PHPExcel_Cell::columnIndexFromString($beforeColumn) - 2 > 0) {
+		if ($pNumCols > 0 && $beforeColumnIndex - 2 > 0) {
 			for ($i = $beforeRow; $i <= $highestRow - 1; ++$i) {
 
 				// Style
-				$coordinate = PHPExcel_Cell::stringFromColumnIndex( PHPExcel_Cell::columnIndexFromString($beforeColumn) - 2 ) . $i;
+				$coordinate = PHPExcel_Cell::stringFromColumnIndex( $beforeColumnIndex - 2 ) . $i;
 				if ($pSheet->cellExists($coordinate)) {
 					$xfIndex = $pSheet->getCell($coordinate)->getXfIndex();
 					$conditionalStyles = $pSheet->conditionalStylesExists($coordinate) ?
 						$pSheet->getConditionalStyles($coordinate) : false;
-					for ($j = PHPExcel_Cell::columnIndexFromString($beforeColumn) - 1; $j <= PHPExcel_Cell::columnIndexFromString($beforeColumn) - 2 + $pNumCols; ++$j) {
+					for ($j = $beforeColumnIndex - 1; $j <= $beforeColumnIndex - 2 + $pNumCols; ++$j) {
 						$pSheet->getCellByColumnAndRow($j, $i)->setXfIndex($xfIndex);
 						if ($conditionalStyles) {
 							$cloned = array();
@@ -189,7 +194,7 @@ class PHPExcel_ReferenceHelper
 		}
 
 		if ($pNumRows > 0 && $beforeRow - 1 > 0) {
-			for ($i = PHPExcel_Cell::columnIndexFromString($beforeColumn) - 1; $i <= PHPExcel_Cell::columnIndexFromString($highestColumn) - 1; ++$i) {
+			for ($i = $beforeColumnIndex - 1; $i <= PHPExcel_Cell::columnIndexFromString($highestColumn) - 1; ++$i) {
 
 				// Style
 				$coordinate = PHPExcel_Cell::stringFromColumnIndex($i) . ($beforeRow - 1);
@@ -417,7 +422,7 @@ class PHPExcel_ReferenceHelper
 	 * @return	string	Updated formula
 	 * @throws	Exception
 	 */
-	public function updateFormulaReferences($pFormula = '', $pBefore = 'A1', $pNumCols = 0, $pNumRows = 0, $sheetName = '') {
+	public function updateFormulaReferences($pFormula = '', $pBefore = 'A1', $pNumCols = 0, $pNumRows = 0, $sheetName = '') {	
 		//	Update cell references in the formula
 		$formulaBlocks = explode('"',$pFormula);
 		$i = false;
@@ -528,8 +533,13 @@ class PHPExcel_ReferenceHelper
 					}
 				}
 				if ($adjustCount > 0) {
-					krsort($cellTokens);
-					krsort($newCellTokens);
+					if ($pNumCols > 0) {
+						krsort($cellTokens);
+						krsort($newCellTokens);
+					} else {
+						ksort($cellTokens);
+						ksort($newCellTokens);
+					}
 					//	Update cell references in the formula
 					$formulaBlock = str_replace('\\','',preg_replace($cellTokens,$newCellTokens,$formulaBlock));
 				}
