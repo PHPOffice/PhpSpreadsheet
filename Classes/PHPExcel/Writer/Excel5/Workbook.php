@@ -629,7 +629,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 					$rowmax = $repeat[1] - 1;
 				} else {
 					$rowmin = 0;
-					$rowmax = 16383;
+					$rowmax = 65535;
 				}
 
 				$this->_writeNameShort(

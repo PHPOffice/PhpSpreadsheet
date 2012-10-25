@@ -493,14 +493,13 @@ class PHPExcel_Shared_String
 	public static function ConvertEncoding($value, $to, $from)
 	{
 		if (self::getIsIconvEnabled()) {
-			$value = iconv($from, $to, $value);
-			return $value;
+			return iconv($from, $to, $value);
 		}
 
 		if (self::getIsMbstringEnabled()) {
-			$value = mb_convert_encoding($value, $to, $from);
-			return $value;
+			return mb_convert_encoding($value, $to, $from);
 		}
+
 		if($from == 'UTF-16LE'){
 			return self::utf16_decode($value, false);
 		}else if($from == 'UTF-16BE'){

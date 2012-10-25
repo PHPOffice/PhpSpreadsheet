@@ -944,9 +944,8 @@ class PHPExcel_Writer_Excel5_Parser
 		if ($col >= 256) {
 			throw new Exception("Column in: $cell greater than 255");
 		}
-		// FIXME: change for BIFF8
-		if ($row >= 16384) {
-			throw new Exception("Row in: $cell greater than 16384 ");
+		if ($row >= 65536) {
+			throw new Exception("Row in: $cell greater than 65536 ");
 		}
 
 		// Set the high bits to indicate if row or col are relative.
@@ -980,11 +979,11 @@ class PHPExcel_Writer_Excel5_Parser
 		--$row2;
 		// Trick poor inocent Excel
 		$col1 = 0;
-		$col2 = 16383; // FIXME: maximum possible value for Excel 5 (change this!!!)
+		$col2 = 65535; // FIXME: maximum possible value for Excel 5 (change this!!!)
 
 		// FIXME: this changes for BIFF8
-		if (($row1 >= 16384) or ($row2 >= 16384)) {
-			throw new Exception("Row in: $range greater than 16384 ");
+		if (($row1 >= 65536) or ($row2 >= 65536)) {
+			throw new Exception("Row in: $range greater than 65536 ");
 		}
 
 		// Set the high bits to indicate if rows are relative.
