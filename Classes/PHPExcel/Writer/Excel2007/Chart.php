@@ -463,12 +463,12 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 						$objWriter->endElement();
 					$objWriter->endElement();
 
+					$layout = $xAxisLabel->getLayout();
+					$this->_writeLayout($layout, $objWriter);
+
 					$objWriter->startElement('c:overlay');
 						$objWriter->writeAttribute('val', 0);
 					$objWriter->endElement();
-
-					$layout = $xAxisLabel->getLayout();
-					$this->_writeLayout($layout, $objWriter);
 
 				$objWriter->endElement();
 
@@ -589,14 +589,14 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 						$objWriter->endElement();
 					$objWriter->endElement();
 
-					$objWriter->startElement('c:overlay');
-						$objWriter->writeAttribute('val', 0);
-					$objWriter->endElement();
-
 					if ($groupType !== PHPExcel_Chart_DataSeries::TYPE_BUBBLECHART) {
 						$layout = $yAxisLabel->getLayout();
 						$this->_writeLayout($layout, $objWriter);
 					}
+
+					$objWriter->startElement('c:overlay');
+						$objWriter->writeAttribute('val', 0);
+					$objWriter->endElement();
 
 				$objWriter->endElement();
 			}

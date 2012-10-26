@@ -347,6 +347,10 @@ class PHPExcel_Reader_Excel2007_Chart
 			}
 		}
 
+		if (empty($seriesVal)) {
+			$seriesVal = NULL;
+		}
+
 		return array( 'formatCode'	=> $formatCode,
 					  'pointCount'	=> $pointCount,
 					  'dataValues'	=> $seriesVal
