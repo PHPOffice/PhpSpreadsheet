@@ -68,7 +68,7 @@ abstract class PHPExcel_Style_Supervisor
 	 * @param PHPExcel $parent
 	 * @return PHPExcel_Style_Supervisor
 	 */
-	public function bindParent($parent)
+	public function bindParent($parent, $parentPropertyName=NULL)
 	{
 		$this->_parent = $parent;
 		return $this;

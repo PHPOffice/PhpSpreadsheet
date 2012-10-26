@@ -98,7 +98,7 @@ class PHPExcel_Style_Color extends PHPExcel_Style_Supervisor implements PHPExcel
 	 * @param string $parentPropertyName
 	 * @return PHPExcel_Style_Color
 	 */
-	public function bindParent($parent, $parentPropertyName)
+	public function bindParent($parent, $parentPropertyName=NULL)
 	{
 		$this->_parent = $parent;
 		$this->_parentPropertyName = $parentPropertyName;

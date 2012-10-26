@@ -103,7 +103,7 @@ class PHPExcel_Style_Border extends PHPExcel_Style_Supervisor implements PHPExce
 	 * @param string $parentPropertyName
 	 * @return PHPExcel_Style_Border
 	 */
-	public function bindParent($parent, $parentPropertyName)
+	public function bindParent($parent, $parentPropertyName=NULL)
 	{
 		$this->_parent = $parent;
 		$this->_parentPropertyName = $parentPropertyName;
