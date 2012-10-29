@@ -96,13 +96,13 @@ class PHPExcel_IOFactory
 	 * @static
 	 * @access	public
 	 * @param	array $value
-	 * @throws	Exception
+	 * @throws	PHPExcel_Reader_Exception
 	 */
 	public static function setSearchLocations($value) {
 		if (is_array($value)) {
 			self::$_searchLocations = $value;
 		} else {
-			throw new Exception('Invalid parameter passed.');
+			throw new PHPExcel_Reader_Exception('Invalid parameter passed.');
 		}
 	}	//	function setSearchLocations()
 
@@ -127,7 +127,7 @@ class PHPExcel_IOFactory
 	 * @param	PHPExcel $phpExcel
 	 * @param	string  $writerType	Example: Excel2007
 	 * @return	PHPExcel_Writer_IWriter
-	 * @throws	Exception
+	 * @throws	PHPExcel_Reader_Exception
 	 */
 	public static function createWriter(PHPExcel $phpExcel, $writerType = '') {
 		// Search type
@@ -146,7 +146,7 @@ class PHPExcel_IOFactory
 		}
 
 		// Nothing found...
-		throw new Exception("No $searchType found for type $writerType");
+		throw new PHPExcel_Reader_Exception("No $searchType found for type $writerType");
 	}	//	function createWriter()
 
 	/**
@@ -156,7 +156,7 @@ class PHPExcel_IOFactory
 	 * @access	public
 	 * @param	string $readerType	Example: Excel2007
 	 * @return	PHPExcel_Reader_IReader
-	 * @throws	Exception
+	 * @throws	PHPExcel_Reader_Exception
 	 */
 	public static function createReader($readerType = '') {
 		// Search type
@@ -175,7 +175,7 @@ class PHPExcel_IOFactory
 		}
 
 		// Nothing found...
-		throw new Exception("No $searchType found for type $readerType");
+		throw new PHPExcel_Reader_Exception("No $searchType found for type $readerType");
 	}	//	function createReader()
 
 	/**
@@ -185,7 +185,7 @@ class PHPExcel_IOFactory
 	 * @access public
 	 * @param 	string 		$pFileName		The name of the spreadsheet file
 	 * @return	PHPExcel
-	 * @throws	Exception
+	 * @throws	PHPExcel_Reader_Exception
 	 */
 	public static function load($pFilename) {
 		$reader = self::createReaderForFile($pFilename);
@@ -199,7 +199,7 @@ class PHPExcel_IOFactory
 	 * @access public
 	 * @param 	string 		$pFileName		The name of the spreadsheet file to identify
 	 * @return	string
-	 * @throws	Exception
+	 * @throws	PHPExcel_Reader_Exception
 	 */
 	public static function identify($pFilename) {
 		$reader = self::createReaderForFile($pFilename);
@@ -216,7 +216,7 @@ class PHPExcel_IOFactory
 	 * @access	public
 	 * @param 	string 		$pFileName		The name of the spreadsheet file
 	 * @return	PHPExcel_Reader_IReader
-	 * @throws	Exception
+	 * @throws	PHPExcel_Reader_Exception
 	 */
 	public static function createReaderForFile($pFilename) {
 
@@ -283,6 +283,6 @@ class PHPExcel_IOFactory
 			}
 		}
 
-		throw new Exception('Unable to identify a reader for this file');
+		throw new PHPExcel_Reader_Exception('Unable to identify a reader for this file');
 	}	//	function createReaderForFile()
 }
