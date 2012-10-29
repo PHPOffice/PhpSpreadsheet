@@ -69,15 +69,6 @@ class PHPExcel_Shared_Date
 	 */
 	private static $ExcelBaseDate	= self::CALENDAR_WINDOWS_1900;
 
-	/*
-	 * Object type for PHP Date/Time values
-	 *
-	 * @private
-	 * @var	string
-	 */
-	public static $dateTimeObjectType	= 'DateTime';
-
-
 	/**
 	 * Set the Excel calendar (Windows 1900 or Mac 1904)
 	 *
@@ -172,7 +163,7 @@ class PHPExcel_Shared_Date
 		$saveTimeZone = date_default_timezone_get();
 		date_default_timezone_set('UTC');
 		$retValue = FALSE;
-		if ((is_object($dateValue)) && ($dateValue instanceof self::$dateTimeObjectType)) {
+		if ((is_object($dateValue)) && ($dateValue instanceof DateTime)) {
 			$retValue = self::FormattedPHPToExcel( $dateValue->format('Y'), $dateValue->format('m'), $dateValue->format('d'),
 												   $dateValue->format('H'), $dateValue->format('i'), $dateValue->format('s')
 												 );

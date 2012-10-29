@@ -120,13 +120,13 @@ class PHPExcel_Reader_HTML implements PHPExcel_Reader_IReader
 	 *
 	 *	@param 	string 		$pFileName
 	 *	@return 	boolean
-	 *	@throws Exception
+	 *	@throws PHPExcel_Reader_Exception
 	 */
 	public function canRead($pFilename)
 	{
 		// Check if file exists
 		if (!file_exists($pFilename)) {
-			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+			throw new PHPExcel_Reader_Exception("Could not open " . $pFilename . " for reading! File does not exist.");
 		}
 
 		// Read sample data (first 2 KB will do)
@@ -147,7 +147,7 @@ class PHPExcel_Reader_HTML implements PHPExcel_Reader_IReader
 	 *
 	 * @param 	string 		$pFilename
 	 * @return 	PHPExcel
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Reader_Exception
 	 */
 	public function load($pFilename)
 	{
@@ -243,7 +243,7 @@ class PHPExcel_Reader_HTML implements PHPExcel_Reader_IReader
 
 	private function _processDomElement(DOMNode $element, $sheet, &$row, &$column, &$cellContent){
 		foreach($element->childNodes as $child){
-			if ($child instanceOf DOMText) {
+			if ($child instanceof DOMText) {
 				$domText = preg_replace('/\s+/',' ',trim($child->nodeValue));
 				if (is_string($cellContent)) {
 					//	simply append the text if the cell content is a plain text string
@@ -252,7 +252,7 @@ class PHPExcel_Reader_HTML implements PHPExcel_Reader_IReader
 					//	but if we have a rich text run instead, we need to append it correctly
 					//	TODO
 				}
-			} elseif($child instanceOf DOMElement) {
+			} elseif($child instanceof DOMElement) {
 				echo '<b>DOM ELEMENT: </b>' , strtoupper($child->nodeName) , '<br />';
 
 				$attributeArray = array();
@@ -438,17 +438,17 @@ class PHPExcel_Reader_HTML implements PHPExcel_Reader_IReader
 	 * @param 	string 		$pFilename
 	 * @param	PHPExcel	$objPHPExcel
 	 * @return 	PHPExcel
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Reader_Exception
 	 */
 	public function loadIntoExisting($pFilename, PHPExcel $objPHPExcel)
 	{
 		// Check if file exists
 		if (!file_exists($pFilename)) {
-			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+			throw new PHPExcel_Reader_Exception("Could not open " . $pFilename . " for reading! File does not exist.");
 		}
 
 		if (!is_file($pFilename)) {
-			throw new Exception("Could not open " . $pFilename . " for reading! The given file is not a regular file.");
+			throw new PHPExcel_Reader_Exception("Could not open " . $pFilename . " for reading! The given file is not a regular file.");
 		}
 
 		// Create new PHPExcel
@@ -462,7 +462,7 @@ class PHPExcel_Reader_HTML implements PHPExcel_Reader_IReader
 		//	Load the HTML file into the DOM object
 		$loaded = $dom->loadHTMLFile($pFilename);
 		if ($loaded === false) {
-			throw new Exception('Failed to load ',$pFilename,' as a DOM Document');
+			throw new PHPExcel_Reader_Exception('Failed to load ',$pFilename,' as a DOM Document');
 		}
 
 		//	Discard white space

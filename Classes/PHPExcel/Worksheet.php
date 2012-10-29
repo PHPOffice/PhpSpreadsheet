@@ -2782,7 +2782,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 				} elseif ($key == '_drawingCollection') {
 					$newCollection = clone $this->_drawingCollection;
 					$this->_drawingCollection = $newCollection;
-				} elseif (($key == '_autoFilter') && (is_a($this->_autoFilter,'PHPExcel_Worksheet_AutoFilter'))) {
+				} elseif (($key == '_autoFilter') && ($this->_autoFilter instanceof PHPExcel_Worksheet_AutoFilter)) {
 					$newAutoFilter = clone $this->_autoFilter;
 					$this->_autoFilter = $newAutoFilter;
 					$this->_autoFilter->setParent($this);

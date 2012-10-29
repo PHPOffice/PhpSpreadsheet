@@ -93,13 +93,13 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 	 *
 	 * @param 	string 		$pFileName
 	 * @return 	boolean
-	 * @throws Exception
+	 * @throws PHPExcel_Reader_Exception
 	 */
 	public function canRead($pFilename)
 	{
 		// Check if file exists
 		if (!file_exists($pFilename)) {
-			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+			throw new PHPExcel_Reader_Exception("Could not open " . $pFilename . " for reading! File does not exist.");
 		}
 
 		// Read sample data (first 2 KB will do)
@@ -171,19 +171,19 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 	 * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns)
 	 *
 	 * @param   string     $pFilename
-	 * @throws   Exception
+	 * @throws   PHPExcel_Reader_Exception
 	 */
 	public function listWorksheetInfo($pFilename)
 	{
 		// Check if file exists
 		if (!file_exists($pFilename)) {
-			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+			throw new PHPExcel_Reader_Exception("Could not open " . $pFilename . " for reading! File does not exist.");
 		}
 
 		// Open file
 		$fileHandle = fopen($pFilename, 'r');
 		if ($fileHandle === false) {
-			throw new Exception("Could not open file " . $pFilename . " for reading.");
+			throw new PHPExcel_Reader_Exception("Could not open file " . $pFilename . " for reading.");
 		}
 
 		$worksheetInfo = array();
@@ -244,7 +244,7 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 	 *
 	 * @param 	string 		$pFilename
 	 * @return 	PHPExcel
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Reader_Exception
 	 */
 	public function load($pFilename)
 	{
@@ -262,13 +262,13 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 	 * @param 	string 		$pFilename
 	 * @param	PHPExcel	$objPHPExcel
 	 * @return 	PHPExcel
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Reader_Exception
 	 */
 	public function loadIntoExisting($pFilename, PHPExcel $objPHPExcel)
 	{
 		// Check if file exists
 		if (!file_exists($pFilename)) {
-			throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+			throw new PHPExcel_Reader_Exception("Could not open " . $pFilename . " for reading! File does not exist.");
 		}
 
 		// Create new PHPExcel
@@ -283,7 +283,7 @@ class PHPExcel_Reader_SYLK implements PHPExcel_Reader_IReader
 		// Open file
 		$fileHandle = fopen($pFilename, 'r');
 		if ($fileHandle === false) {
-			throw new Exception("Could not open file $pFilename for reading.");
+			throw new PHPExcel_Reader_Exception("Could not open file $pFilename for reading.");
 		}
 
 		// Loop through file

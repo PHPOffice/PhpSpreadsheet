@@ -24,9 +24,11 @@
 
 
 Fixed in develop branch:
-- Bugfix:   (Asker)  Work item 18777 - Error in PHPEXCEL/Calculation.php script on line 2976 (stack pop check)
-- Bugfix:   (MBaker) Work item 18794 - CSV files without a file extension being identified as HTML
-- Bugfix:   (MBaker) Work item GH-66 - Wrong check for maximum number of rows in Excel5 Writer
+- Bugfix:   (Asker)    Work item 18777 - Error in PHPEXCEL/Calculation.php script on line 2976 (stack pop check)
+- Bugfix:   (MBaker)   Work item 18794 - CSV files without a file extension being identified as HTML
+- Bugfix:   (MBaker)   Work item GH-66 - Wrong check for maximum number of rows in Excel5 Writer
+- General:  (kea)      Improved AdvancedValueBinder for currency
+- Bugfix:   (techhead) Work item GH-70 - Fixed formula/formatting bug when removing rows
 
 
 --------------------------------------------------------------------------------

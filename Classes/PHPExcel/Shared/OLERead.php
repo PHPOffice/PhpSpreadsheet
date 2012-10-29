@@ -70,13 +70,13 @@ class PHPExcel_Shared_OLERead {
 	 * Read the file
 	 *
 	 * @param $sFileName string Filename
-	 * @throws Exception
+	 * @throws PHPExcel_Reader_Exception
 	 */
 	public function read($sFileName)
 	{
 		// Check if file exists and is readable
 		if(!is_readable($sFileName)) {
-			throw new Exception("Could not open " . $sFileName . " for reading! File does not exist, or it is not readable.");
+			throw new PHPExcel_Reader_Exception("Could not open " . $sFileName . " for reading! File does not exist, or it is not readable.");
 		}
 
 		// Get the file data
@@ -84,7 +84,7 @@ class PHPExcel_Shared_OLERead {
 
 		// Check OLE identifier
 		if (substr($this->data, 0, 8) != self::IDENTIFIER_OLE) {
-			throw new Exception('The filename ' . $sFileName . ' is not recognised as an OLE file');
+			throw new PHPExcel_Reader_Exception('The filename ' . $sFileName . ' is not recognised as an OLE file');
 		}
 
 		// Total number of sectors used for the SAT
