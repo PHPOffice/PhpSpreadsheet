@@ -608,6 +608,22 @@ class PHPExcel
 	}
 
 	/**
+	 * Check if style exists in style collection
+	 *
+	 * @param PHPExcel_Style $style
+	 * @return boolean
+	 */
+	public function cellXfExists($pCellStyle = null)
+	{
+		foreach ($this->_cellXfCollection as $cellXf) {
+			if ($cellXf === $pCellStyle) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * Get default style
 	 *
 	 * @return PHPExcel_Style
