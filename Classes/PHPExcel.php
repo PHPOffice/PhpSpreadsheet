@@ -615,12 +615,7 @@ class PHPExcel
 	 */
 	public function cellXfExists($pCellStyle = null)
 	{
-		foreach ($this->_cellXfCollection as $cellXf) {
-			if ($cellXf === $pCellStyle) {
-				return true;
-			}
-		}
-		return false;
+		return in_array($pCellStyle, $this->_cellXfCollection, true);
 	}
 
 	/**
