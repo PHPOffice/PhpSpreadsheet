@@ -146,7 +146,7 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 * Save PHPExcel to file
 	 *
 	 * @param	string		$pFilename
-	 * @throws	Exception
+	 * @throws	PHPExcel_Writer_Exception
 	 */
 	public function save($pFilename = null) {
 		// garbage collect
@@ -163,7 +163,7 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 		// Open file
 		$fileHandle = fopen($pFilename, 'wb+');
 		if ($fileHandle === false) {
-			throw new Exception("Could not open file $pFilename for writing.");
+			throw new PHPExcel_Writer_Exception("Could not open file $pFilename for writing.");
 		}
 
 		// Write headers
@@ -300,12 +300,12 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 *
 	 * @param	boolean		$pIncludeStyles		Include styles?
 	 * @return	string
-	 * @throws Exception
+	 * @throws PHPExcel_Writer_Exception
 	 */
 	public function generateHTMLHeader($pIncludeStyles = false) {
 		// PHPExcel object known?
 		if (is_null($this->_phpExcel)) {
-			throw new Exception('Internal PHPExcel object not set to an instance of an object.');
+			throw new PHPExcel_Writer_Exception('Internal PHPExcel object not set to an instance of an object.');
 		}
 
 		// Construct HTML
@@ -351,12 +351,12 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 * Generate sheet data
 	 *
 	 * @return	string
-	 * @throws Exception
+	 * @throws PHPExcel_Writer_Exception
 	 */
 	public function generateSheetData() {
 		// PHPExcel object known?
 		if (is_null($this->_phpExcel)) {
-			throw new Exception('Internal PHPExcel object not set to an instance of an object.');
+			throw new PHPExcel_Writer_Exception('Internal PHPExcel object not set to an instance of an object.');
 		}
 
 		// Ensure that Spans have been calculated?
@@ -470,13 +470,13 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 * Generate sheet tabs
 	 *
 	 * @return	string
-	 * @throws Exception
+	 * @throws PHPExcel_Writer_Exception
 	 */
 	public function generateNavigation()
 	{
 		// PHPExcel object known?
 		if (is_null($this->_phpExcel)) {
-			throw new Exception('Internal PHPExcel object not set to an instance of an object.');
+			throw new PHPExcel_Writer_Exception('Internal PHPExcel object not set to an instance of an object.');
 		}
 
 		// Fetch sheets
@@ -514,7 +514,7 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 * @param	PHPExcel_Worksheet	$pSheet			PHPExcel_Worksheet
 	 * @param	string				$coordinates	Cell coordinates
 	 * @return	string
-	 * @throws	Exception
+	 * @throws	PHPExcel_Writer_Exception
 	 */
 	private function _writeImageTagInCell(PHPExcel_Worksheet $pSheet, $coordinates) {
 		// Construct HTML
@@ -557,12 +557,12 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 *
 	 * @param	boolean	$generateSurroundingHTML	Generate surrounding HTML tags? (<style> and </style>)
 	 * @return	string
-	 * @throws	Exception
+	 * @throws	PHPExcel_Writer_Exception
 	 */
 	public function generateStyles($generateSurroundingHTML = true) {
 		// PHPExcel object known?
 		if (is_null($this->_phpExcel)) {
-			throw new Exception('Internal PHPExcel object not set to an instance of an object.');
+			throw new PHPExcel_Writer_Exception('Internal PHPExcel object not set to an instance of an object.');
 		}
 
 		// Build CSS
@@ -598,12 +598,12 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 *
 	 * @param	boolean	$generateSurroundingHTML	Generate surrounding HTML style? (html { })
 	 * @return	array
-	 * @throws	Exception
+	 * @throws	PHPExcel_Writer_Exception
 	 */
 	public function buildCSS($generateSurroundingHTML = true) {
 		// PHPExcel object known?
 		if (is_null($this->_phpExcel)) {
-			throw new Exception('Internal PHPExcel object not set to an instance of an object.');
+			throw new PHPExcel_Writer_Exception('Internal PHPExcel object not set to an instance of an object.');
 		}
 
 		// Cached?
@@ -894,7 +894,7 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 *
 	 * @param	PHPExcel_Worksheet	$pSheet		The worksheet for the table we are writing
 	 * @return	string
-	 * @throws	Exception
+	 * @throws	PHPExcel_Writer_Exception
 	 */
 	private function _generateTableHeader($pSheet) {
 		$sheetIndex = $pSheet->getParent()->getIndex($pSheet);
@@ -938,7 +938,7 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	/**
 	 * Generate table footer
 	 *
-	 * @throws	Exception
+	 * @throws	PHPExcel_Writer_Exception
 	 */
 	private function _generateTableFooter() {
 		// Construct HTML
@@ -956,7 +956,7 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 * @param	array				$pValues		Array containing cells in a row
 	 * @param	int					$pRow			Row number (0-based)
 	 * @return	string
-	 * @throws	Exception
+	 * @throws	PHPExcel_Writer_Exception
 	 */
 	private function _generateRow(PHPExcel_Worksheet $pSheet, $pValues = null, $pRow = 0) {
 		if (is_array($pValues)) {
@@ -1172,7 +1172,7 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 			// Return
 			return $html;
 		} else {
-			throw new Exception("Invalid parameters passed.");
+			throw new PHPExcel_Writer_Exception("Invalid parameters passed.");
 		}
 	}
 

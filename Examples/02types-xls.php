@@ -106,6 +106,10 @@ $objPHPExcel->getActiveSheet()->setCellValue('A11', 'Date/Time')
                               ->setCellValue('C11', PHPExcel_Shared_Date::PHPToExcel( $dateTimeNow ));
 $objPHPExcel->getActiveSheet()->getStyle('C11')->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_DATE_DATETIME);
 
+$objPHPExcel->getActiveSheet()->setCellValue('A12', 'NULL')
+                              ->setCellValue('C12', NULL);
+
+
 $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
 $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
 

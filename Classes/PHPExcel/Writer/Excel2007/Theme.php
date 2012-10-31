@@ -134,7 +134,7 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
 	 *
 	 * @param 	PHPExcel	$pPHPExcel
 	 * @return 	string 		XML Output
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	public function writeTheme(PHPExcel $pPHPExcel = null)
 	{
@@ -820,7 +820,7 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
 	 * @param 	string						$latinFont
 	 * @param 	array of string				$fontSet
 	 * @return 	string 						XML Output
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	private function _writeFonts($objWriter, $latinFont, $fontSet)
 	{
@@ -853,7 +853,7 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
 	 *
 	 * @param 	PHPExcel_Shared_XMLWriter	$objWriter
 	 * @return 	string 						XML Output
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	private function _writeColourScheme($objWriter)
 	{

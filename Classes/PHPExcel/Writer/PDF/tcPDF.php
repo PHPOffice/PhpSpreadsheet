@@ -32,7 +32,7 @@ if (file_exists($pdfRendererClassFile)) {
 	$k_path_url = PHPExcel_Settings::getPdfRendererPath();
 	require_once $pdfRendererClassFile;
 } else {
-	throw new Exception('Unable to load PDF Rendering library');
+	throw new PHPExcel_Reader_Exception('Unable to load PDF Rendering library');
 }
 
 /**
@@ -56,7 +56,7 @@ class PHPExcel_Writer_PDF_tcPDF extends PHPExcel_Writer_PDF_Core implements PHPE
 	 * Save PHPExcel to file
 	 *
 	 * @param 	string 		$pFileName
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Reader_Exception
 	 */
 	public function save($pFilename = null) {
 		// garbage collect
@@ -68,7 +68,7 @@ class PHPExcel_Writer_PDF_tcPDF extends PHPExcel_Writer_PDF_Core implements PHPE
 		// Open file
 		$fileHandle = fopen($pFilename, 'w');
 		if ($fileHandle === false) {
-			throw new Exception("Could not open file $pFilename for writing.");
+			throw new PHPExcel_Reader_Exception("Could not open file $pFilename for writing.");
 		}
 
 		// Set PDF

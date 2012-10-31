@@ -191,7 +191,7 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 	 * Save PHPExcel to file
 	 *
 	 * @param 	string 		$pFilename
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	public function save($pFilename = null)
 	{
@@ -245,7 +245,7 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 			// Try opening the ZIP file
 			if ($objZip->open($pFilename, $zipOverWrite) !== true) {
 				if ($objZip->open($pFilename, $zipCreate) !== true) {
-					throw new Exception("Could not open " . $pFilename . " for writing.");
+					throw new PHPExcel_Writer_Exception("Could not open " . $pFilename . " for writing.");
 				}
 			}
 
@@ -375,18 +375,18 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 
 			// Close file
 			if ($objZip->close() === false) {
-				throw new Exception("Could not close zip file $pFilename.");
+				throw new PHPExcel_Writer_Exception("Could not close zip file $pFilename.");
 			}
 
 			// If a temporary file was used, copy it to the correct file stream
 			if ($originalFilename != $pFilename) {
 				if (copy($pFilename, $originalFilename) === false) {
-					throw new Exception("Could not copy temporary zip file $pFilename to $originalFilename.");
+					throw new PHPExcel_Writer_Exception("Could not copy temporary zip file $pFilename to $originalFilename.");
 				}
 				@unlink($pFilename);
 			}
 		} else {
-			throw new Exception("PHPExcel object unassigned.");
+			throw new PHPExcel_Writer_Exception("PHPExcel object unassigned.");
 		}
 	}
 
@@ -394,13 +394,13 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 	 * Get PHPExcel object
 	 *
 	 * @return PHPExcel
-	 * @throws Exception
+	 * @throws PHPExcel_Writer_Exception
 	 */
 	public function getPHPExcel() {
 		if ($this->_spreadSheet !== null) {
 			return $this->_spreadSheet;
 		} else {
-			throw new Exception("No PHPExcel assigned.");
+			throw new PHPExcel_Writer_Exception("No PHPExcel assigned.");
 		}
 	}
 
@@ -408,7 +408,7 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 	 * Set PHPExcel object
 	 *
 	 * @param 	PHPExcel 	$pPHPExcel	PHPExcel object
-	 * @throws	Exception
+	 * @throws	PHPExcel_Writer_Exception
 	 * @return PHPExcel_Writer_Excel2007
 	 */
 	public function setPHPExcel(PHPExcel $pPHPExcel = null) {
@@ -556,7 +556,7 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 	 *
 	 * @param 	boolean 	$pValue
 	 * @param	string		$pDirectory		Disk caching directory
-	 * @throws	Exception	Exception when directory does not exist
+	 * @throws	PHPExcel_Writer_Exception	Exception when directory does not exist
 	 * @return PHPExcel_Writer_Excel2007
 	 */
 	public function setUseDiskCaching($pValue = false, $pDirectory = null) {
@@ -566,7 +566,7 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
     		if (is_dir($pDirectory)) {
     			$this->_diskCachingDirectory = $pDirectory;
     		} else {
-    			throw new Exception("Directory does not exist: $pDirectory");
+    			throw new PHPExcel_Writer_Exception("Directory does not exist: $pDirectory");
     		}
 		}
 		return $this;

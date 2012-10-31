@@ -41,7 +41,7 @@ class PHPExcel_Writer_Excel2007_ContentTypes extends PHPExcel_Writer_Excel2007_W
 	 * @param 	PHPExcel	$pPHPExcel
 	 * @param	boolean		$includeCharts	Flag indicating if we should include drawing details for charts
 	 * @return 	string 						XML Output
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	public function writeContentTypes(PHPExcel $pPHPExcel = null, $includeCharts = FALSE)
 	{
@@ -205,7 +205,7 @@ class PHPExcel_Writer_Excel2007_ContentTypes extends PHPExcel_Writer_Excel2007_W
 	 *
 	 * @param 	string	$pFile	Filename
 	 * @return 	string	Mime Type
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	private function _getImageMimeType($pFile = '')
 	{
@@ -213,7 +213,7 @@ class PHPExcel_Writer_Excel2007_ContentTypes extends PHPExcel_Writer_Excel2007_W
 			$image = getimagesize($pFile);
 			return image_type_to_mime_type($image[2]);
 		} else {
-			throw new Exception("File $pFile does not exist");
+			throw new PHPExcel_Writer_Exception("File $pFile does not exist");
 		}
 	}
 
@@ -223,7 +223,7 @@ class PHPExcel_Writer_Excel2007_ContentTypes extends PHPExcel_Writer_Excel2007_W
 	 * @param 	PHPExcel_Shared_XMLWriter 	$objWriter 		XML Writer
 	 * @param 	string 						$pPartname 		Part name
 	 * @param 	string 						$pContentType 	Content type
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	private function _writeDefaultContentType(PHPExcel_Shared_XMLWriter $objWriter = null, $pPartname = '', $pContentType = '')
 	{
@@ -234,7 +234,7 @@ class PHPExcel_Writer_Excel2007_ContentTypes extends PHPExcel_Writer_Excel2007_W
 			$objWriter->writeAttribute('ContentType', 	$pContentType);
 			$objWriter->endElement();
 		} else {
-			throw new Exception("Invalid parameters passed.");
+			throw new PHPExcel_Writer_Exception("Invalid parameters passed.");
 		}
 	}
 
@@ -244,7 +244,7 @@ class PHPExcel_Writer_Excel2007_ContentTypes extends PHPExcel_Writer_Excel2007_W
 	 * @param 	PHPExcel_Shared_XMLWriter 	$objWriter 		XML Writer
 	 * @param 	string 						$pPartname 		Part name
 	 * @param 	string 						$pContentType 	Content type
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	private function _writeOverrideContentType(PHPExcel_Shared_XMLWriter $objWriter = null, $pPartname = '', $pContentType = '')
 	{
@@ -255,7 +255,7 @@ class PHPExcel_Writer_Excel2007_ContentTypes extends PHPExcel_Writer_Excel2007_W
 			$objWriter->writeAttribute('ContentType', 	$pContentType);
 			$objWriter->endElement();
 		} else {
-			throw new Exception("Invalid parameters passed.");
+			throw new PHPExcel_Writer_Exception("Invalid parameters passed.");
 		}
 	}
 }

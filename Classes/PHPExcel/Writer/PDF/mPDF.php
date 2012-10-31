@@ -31,7 +31,7 @@ $pdfRendererClassFile = PHPExcel_Settings::getPdfRendererPath() . '/mpdf.php';
 if (file_exists($pdfRendererClassFile)) {
 	require_once $pdfRendererClassFile;
 } else {
-	throw new Exception('Unable to load PDF Rendering library');
+	throw new PHPExcel_Reader_Exception('Unable to load PDF Rendering library');
 }
 
 /**
@@ -55,7 +55,7 @@ class PHPExcel_Writer_PDF_mPDF extends PHPExcel_Writer_PDF_Core implements PHPEx
 	 * Save PHPExcel to file
 	 *
 	 * @param 	string 		$pFileName
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Reader_Exception
 	 */
 	public function save($pFilename = null) {
 		// garbage collect
@@ -67,7 +67,7 @@ class PHPExcel_Writer_PDF_mPDF extends PHPExcel_Writer_PDF_Core implements PHPEx
 		// Open file
 		$fileHandle = fopen($pFilename, 'w');
 		if ($fileHandle === false) {
-			throw new Exception("Could not open file $pFilename for writing.");
+			throw new PHPExcel_Reader_Exception("Could not open file $pFilename for writing.");
 		}
 
 		// Set PDF
@@ -108,8 +108,11 @@ class PHPExcel_Writer_PDF_mPDF extends PHPExcel_Writer_PDF_Core implements PHPEx
 
 		// Create PDF
 		$pdf = new mpdf();
-		$pdf->_setPageSize(strtoupper($paperSize), $orientation);
+		$ortmp = $orientation;
+		$pdf->_setPageSize(strtoupper($paperSize), $ortmp);
         $pdf->DefOrientation = $orientation;
+        $pdf->AddPage($orientation);
+
 		// Document info
 		$pdf->SetTitle($this->_phpExcel->getProperties()->getTitle());
 		$pdf->SetAuthor($this->_phpExcel->getProperties()->getCreator());

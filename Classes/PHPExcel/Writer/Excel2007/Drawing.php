@@ -42,7 +42,7 @@ class PHPExcel_Writer_Excel2007_Drawing extends PHPExcel_Writer_Excel2007_Writer
 	 * @param	int					&$chartRef		Chart ID
 	 * @param	boolean				$includeCharts	Flag indicating if we should include drawing details for charts
 	 * @return 	string 				XML Output
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	public function writeDrawings(PHPExcel_Worksheet $pWorksheet = null, &$chartRef, $includeCharts = FALSE)
 	{
@@ -95,7 +95,7 @@ class PHPExcel_Writer_Excel2007_Drawing extends PHPExcel_Writer_Excel2007_Writer
 	 * @param 	PHPExcel_Shared_XMLWriter	$objWriter 		XML Writer
 	 * @param 	PHPExcel_Chart				$pChart
 	 * @param 	int							$pRelationId
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	public function _writeChart(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_Chart $pChart = null, $pRelationId = -1)
 	{
@@ -167,7 +167,7 @@ class PHPExcel_Writer_Excel2007_Drawing extends PHPExcel_Writer_Excel2007_Writer
 	 * @param 	PHPExcel_Shared_XMLWriter			$objWriter 		XML Writer
 	 * @param 	PHPExcel_Worksheet_BaseDrawing		$pDrawing
 	 * @param 	int									$pRelationId
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	public function _writeDrawing(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_Worksheet_BaseDrawing $pDrawing = null, $pRelationId = -1)
 	{
@@ -375,7 +375,7 @@ class PHPExcel_Writer_Excel2007_Drawing extends PHPExcel_Writer_Excel2007_Writer
 
 			$objWriter->endElement();
 		} else {
-			throw new Exception("Invalid parameters passed.");
+			throw new PHPExcel_Writer_Exception("Invalid parameters passed.");
 		}
 	}
 
@@ -384,7 +384,7 @@ class PHPExcel_Writer_Excel2007_Drawing extends PHPExcel_Writer_Excel2007_Writer
 	 *
 	 * @param 	PHPExcel_Worksheet				$pWorksheet
 	 * @return 	string 								XML Output
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	public function writeVMLHeaderFooterImages(PHPExcel_Worksheet $pWorksheet = null)
 	{
@@ -532,7 +532,7 @@ class PHPExcel_Writer_Excel2007_Drawing extends PHPExcel_Writer_Excel2007_Writer
 	 * @param 	PHPExcel_Shared_XMLWriter		$objWriter 			XML Writer
 	 * @param	string							$pReference			Reference
 	 * @param 	PHPExcel_Worksheet_HeaderFooterDrawing	$pImage		Image
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	public function _writeVMLHeaderFooterImage(PHPExcel_Shared_XMLWriter $objWriter = null, $pReference = '', PHPExcel_Worksheet_HeaderFooterDrawing $pImage = null)
 	{
@@ -574,7 +574,7 @@ class PHPExcel_Writer_Excel2007_Drawing extends PHPExcel_Writer_Excel2007_Writer
 	 *
 	 * @param 	PHPExcel							$pPHPExcel
 	 * @return 	PHPExcel_Worksheet_Drawing[]		All drawings in PHPExcel
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	public function allDrawings(PHPExcel $pPHPExcel = null)
 	{

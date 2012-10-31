@@ -1033,7 +1033,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	/**
 	 * Set a cell value by using numeric cell coordinates
 	 *
-	 * @param string	$pColumn		Numeric column coordinate of the cell
+	 * @param string	$pColumn		Numeric column coordinate of the cell (A = 0)
 	 * @param string	$pRow			Numeric row coordinate of the cell
 	 * @param mixed		$pValue			Value of the cell
 	 * @param bool		$returnCell		Return the worksheet (false, default) or the cell (true)

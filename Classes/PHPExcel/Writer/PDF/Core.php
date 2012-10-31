@@ -225,14 +225,14 @@ abstract class PHPExcel_Writer_PDF_Core extends PHPExcel_Writer_HTML {
 	 * Set temporary storage directory
 	 *
 	 * @param 	string	$pValue		Temporary storage directory
-	 * @throws 	Exception	Exception when directory does not exist
+	 * @throws 	PHPExcel_Writer_Exception	Exception when directory does not exist
 	 * @return PHPExcel_Writer_PDF
 	 */
 	public function setTempDir($pValue = '') {
 		if (is_dir($pValue)) {
 			$this->_tempDir = $pValue;
 		} else {
-			throw new Exception("Directory does not exist: $pValue");
+			throw new PHPExcel_Writer_Exception("Directory does not exist: $pValue");
 		}
 		return $this;
 	}

@@ -103,7 +103,7 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 	 * Save PHPExcel to file
 	 *
 	 * @param	string		$pFilename
-	 * @throws	Exception
+	 * @throws	PHPExcel_Writer_Exception
 	 */
 	public function save($pFilename = null) {
 		// Fetch sheet
@@ -117,7 +117,7 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 		// Open file
 		$fileHandle = fopen($pFilename, 'wb+');
 		if ($fileHandle === false) {
-			throw new Exception("Could not open file $pFilename for writing.");
+			throw new PHPExcel_Writer_Exception("Could not open file $pFilename for writing.");
 		}
 
 		if ($this->_excelCompatibility) {
@@ -278,7 +278,7 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 	 *
 	 * @param	mixed	$pFileHandle	PHP filehandle
 	 * @param	array	$pValues		Array containing values in a row
-	 * @throws	Exception
+	 * @throws	PHPExcel_Writer_Exception
 	 */
 	private function _writeLine($pFileHandle = null, $pValues = null) {
 		if (is_array($pValues)) {
@@ -313,7 +313,7 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 				fwrite($pFileHandle, $line);
 			}
 		} else {
-			throw new Exception("Invalid data row passed to CSV writer.");
+			throw new PHPExcel_Writer_Exception("Invalid data row passed to CSV writer.");
 		}
 	}
 

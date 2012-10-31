@@ -120,7 +120,7 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 	 * Save PHPExcel to file
 	 *
 	 * @param	string		$pFilename
-	 * @throws	Exception
+	 * @throws	PHPExcel_Writer_Exception
 	 */
 	public function save($pFilename = null) {
 
@@ -241,7 +241,7 @@ class PHPExcel_Writer_Excel5 implements PHPExcel_Writer_IWriter
 	 *
 	 * @deprecated
 	 * @param	string	$pValue		Temporary storage directory
-	 * @throws	Exception	Exception when directory does not exist
+	 * @throws	PHPExcel_Writer_Exception	Exception when directory does not exist
 	 * @return PHPExcel_Writer_Excel5
 	 */
 	public function setTempDir($pValue = '') {

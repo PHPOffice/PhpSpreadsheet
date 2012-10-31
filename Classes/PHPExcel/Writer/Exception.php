@@ -19,27 +19,34 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PHPExcel
- * @package    PHPExcel_Writer
+ * @package    PHPExcel_Reader
  * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
- * @version    ##VERSION##, ##DATE##
+ * @license	http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @version	##VERSION##, ##DATE##
  */
 
 
 /**
- * PHPExcel_Writer_IWriter
+ * PHPExcel_Writer_Exception
  *
  * @category   PHPExcel
- * @package    PHPExcel_Writer
+ * @package    PHPExcel_Reader
  * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
-interface PHPExcel_Writer_IWriter
-{
+class PHPExcel_Writer_Exception extends Exception {
 	/**
-	 * Save PHPExcel to file
+	 * Error handler callback
 	 *
-	 * @param 	string 		$pFilename
-	 * @throws 	PHPExcel_Writer_Exception
+	 * @param mixed $code
+	 * @param mixed $string
+	 * @param mixed $file
+	 * @param mixed $line
+	 * @param mixed $context
 	 */
-	public function save($pFilename = null);
+	public static function errorHandlerCallback($code, $string, $file, $line, $context) {
+		$e = new self($string, $code);
+		$e->line = $line;
+		$e->file = $file;
+		throw $e;
+	}
 }

@@ -40,7 +40,7 @@ class PHPExcel_Writer_Excel2007_Comments extends PHPExcel_Writer_Excel2007_Write
 	 *
 	 * @param 	PHPExcel_Worksheet				$pWorksheet
 	 * @return 	string 								XML Output
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	public function writeComments(PHPExcel_Worksheet $pWorksheet = null)
 	{
@@ -98,7 +98,7 @@ class PHPExcel_Writer_Excel2007_Comments extends PHPExcel_Writer_Excel2007_Write
 	 * @param	string							$pCellReference		Cell reference
 	 * @param 	PHPExcel_Comment				$pComment			Comment
 	 * @param	array							$pAuthors			Array of authors
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	public function _writeComment(PHPExcel_Shared_XMLWriter $objWriter = null, $pCellReference = 'A1', PHPExcel_Comment $pComment = null, $pAuthors = null)
 	{
@@ -120,7 +120,7 @@ class PHPExcel_Writer_Excel2007_Comments extends PHPExcel_Writer_Excel2007_Write
 	 *
 	 * @param 	PHPExcel_Worksheet				$pWorksheet
 	 * @return 	string 								XML Output
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	public function writeVMLComments(PHPExcel_Worksheet $pWorksheet = null)
 	{
@@ -193,7 +193,7 @@ class PHPExcel_Writer_Excel2007_Comments extends PHPExcel_Writer_Excel2007_Write
 	 * @param 	PHPExcel_Shared_XMLWriter		$objWriter 			XML Writer
 	 * @param	string							$pCellReference		Cell reference
 	 * @param 	PHPExcel_Comment				$pComment			Comment
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	public function _writeVMLComment(PHPExcel_Shared_XMLWriter $objWriter = null, $pCellReference = 'A1', PHPExcel_Comment $pComment = null)
 	{
