@@ -1203,6 +1203,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 					}
 				}
 			}
+			else { return false; }
 		}
 
 		// Uppercase coordinate
