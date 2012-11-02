@@ -34,6 +34,30 @@ class DateTest extends PHPUnit_Framework_TestCase
 		$this->assertFalse($result);
 	}
 
+	public function testSetTimezone()
+	{
+		$timezoneValues = array(
+			'Europe/Prague',
+			'Asia/Tokyo',
+			'America/Indiana/Indianapolis',
+			'Pacific/Honolulu',
+			'Atlantic/St_Helena',
+		);
+
+		foreach($timezoneValues as $timezoneValue) {
+			$result = call_user_func(array('PHPExcel_Shared_Date','setTimezone'),$timezoneValue);
+			$this->assertTrue($result);
+		}
+
+	}
+
+    public function testSetTimezoneWithInvalidValue()
+	{
+		$unsupportedTimezone = 'Etc/GMT+10';
+		$result = call_user_func(array('PHPExcel_Shared_Date','setTimezone'),$unsupportedTimezone);
+		$this->assertFalse($result);
+	}
+
     /**
      * @dataProvider providerDateTimeExcelToPHP1900
      */
@@ -159,6 +183,30 @@ class DateTest extends PHPUnit_Framework_TestCase
     public function providerIsDateTimeFormatCode()
     {
     	return new testDataFileIterator('rawTestData/Shared/DateTimeFormatCodes.data');
+	}
+
+    /**
+     * @dataProvider providerDateTimeExcelToPHP1900Timezone
+     */
+	public function testDateTimeExcelToPHP1900Timezone()
+	{
+		$result = call_user_func(
+			array('PHPExcel_Shared_Date','setExcelCalendar'),
+			PHPExcel_Shared_Date::CALENDAR_WINDOWS_1900
+		);
+
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		if ($args[0] < 1) {
+			$expectedResult += gmmktime(0,0,0);
+		}
+		$result = call_user_func_array(array('PHPExcel_Shared_Date','ExcelToPHP'),$args);
+		$this->assertEquals($expectedResult, $result);
+	}
+
+    public function providerDateTimeExcelToPHP1900Timezone()
+    {
+    	return new testDataFileIterator('rawTestData/Shared/DateTimeExcelToPHP1900Timezone.data');
 	}
 
 }

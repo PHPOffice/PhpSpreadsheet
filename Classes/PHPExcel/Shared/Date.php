@@ -67,18 +67,26 @@ class PHPExcel_Shared_Date
 	 * @private
 	 * @var	int
 	 */
-	private static $ExcelBaseDate	= self::CALENDAR_WINDOWS_1900;
+	private static $_excelBaseDate	= self::CALENDAR_WINDOWS_1900;
+
+	/*
+	 * Default Timezone used for date/time conversions
+	 *
+	 * @private
+	 * @var	string
+	 */
+	private static $_timezone	= 'UTC';
 
 	/**
 	 * Set the Excel calendar (Windows 1900 or Mac 1904)
 	 *
-	 * @param	 integer	$baseDate			Excel base date
+	 * @param	 integer	$baseDate			Excel base date (1900 or 1904)
 	 * @return	 boolean						Success or failure
 	 */
 	public static function setExcelCalendar($baseDate) {
 		if (($baseDate == self::CALENDAR_WINDOWS_1900) ||
 			($baseDate == self::CALENDAR_MAC_1904)) {
-			self::$ExcelBaseDate = $baseDate;
+			self::$_excelBaseDate = $baseDate;
 			return TRUE;
 		}
 		return FALSE;
@@ -88,33 +96,116 @@ class PHPExcel_Shared_Date
 	/**
 	 * Return the Excel calendar (Windows 1900 or Mac 1904)
 	 *
-	 * @return	 integer	$baseDate			Excel base date
+	 * @return	 integer	Excel base date (1900 or 1904)
 	 */
 	public static function getExcelCalendar() {
-		return self::$ExcelBaseDate;
+		return self::$_excelBaseDate;
 	}	//	function getExcelCalendar()
 
 
 	/**
-	 * Convert a date from Excel to PHP
+	 * Validate a Timezone value
 	 *
-	 * @param	 long	 $dateValue		Excel date/time value
-	 * @return	 long					PHP serialized date/time
+	 * @param	 string		$timezone			Time zone (e.g. 'Europe/London')
+	 * @return	 boolean						Success or failure
 	 */
-	public static function ExcelToPHP($dateValue = 0) {
-		if (self::$ExcelBaseDate == self::CALENDAR_WINDOWS_1900) {
-			$myExcelBaseDate = 25569;
-			//	Adjust for the spurious 29-Feb-1900 (Day 60)
-			if ($dateValue < 60) {
-				--$myExcelBaseDate;
+	private static function _validateTimezone($timezone) {
+		if (in_array($timezone, DateTimeZone::listIdentifiers())) {
+			return TRUE;
+		}
+		return FALSE;
+	}
+
+	/**
+	 * Set the Default Timezone used for date/time conversions
+	 *
+	 * @param	 string		$timezone			Time zone (e.g. 'Europe/London')
+	 * @return	 boolean						Success or failure
+	 */
+	public static function setTimezone($timezone) {
+		if (self::_validateTimezone($timezone)) {
+			self::$_timezone = $timezone;
+			return TRUE;
+		}
+		return FALSE;
+	}	//	function setTimezone()
+
+
+	/**
+	 * Return the Default Timezone used for date/time conversions
+	 *
+	 * @return	 string		Timezone (e.g. 'Europe/London')
+	 */
+	public static function getTimezone() {
+		return self::$_timezone;
+	}	//	function getTimezone()
+
+
+	/**
+	 *	Return the Timezone offset used for date/time conversions to/from UST
+	 *	This requires both the timezone and the calculated date/time to allow for local DST
+	 *
+	 *	@param		string	 			$timezone		The timezone for finding the adjustment to UST
+	 *	@param		integer	 			$timestamp		PHP date/time value
+	 *	@return	 	integer				Number of seconds for timezone adjustment
+	 *	@throws		PHPExcel_Exception
+	 */
+	private static function _getTimezoneAdjustment($timezone, $timestamp) {
+		if ($timezone !== NULL) {
+			if (!self::_validateTimezone($timezone)) {
+				throw new PHPExcel_Exception("Invalid timezone " . $timezone);
 			}
 		} else {
-			$myExcelBaseDate = 24107;
+			$timezone = self::$_timezone;
+		}
+
+		if ($timezone == 'UST') {
+			return 0;
+		}
+
+		$objTimezone = new DateTimeZone($timezone);
+		if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
+			$transitions = $objTimezone->getTransitions($timestamp,$timestamp);
+		} else {
+			$allTransitions = $objTimezone->getTransitions();
+			$transitions = array();
+			foreach($allTransitions as $key => $transition) {
+				if ($transition['ts'] > $timestamp) {
+				    $transitions[] = ($key > 0) ? $allTransitions[$key - 1] : $transitions1[] = $transition;
+					break;
+				}
+				if (empty($transitions)) {
+					$transitions[] = end($allTransitions);
+				}
+			}
+		}
+
+		return (count($transitions) > 0) ? $transitions[0]['offset'] : 0;
+	}
+
+	/**
+	 *	Convert a date from Excel to PHP
+	 *
+	 *	@param		long		$dateValue			Excel date/time value
+	 *	@param		boolean		$adjustToTimezone	Flag indicating whether $dateValue should be treated as
+	 *													a UST timestamp, or adjusted to UST
+	 *	@param		string	 	$timezone			The timezone for finding the adjustment from UST
+	 *	@return		long					PHP serialized date/time
+	 */
+	public static function ExcelToPHP($dateValue = 0, $adjustToTimezone = FALSE, $timezone = NULL) {
+		if (self::$_excelBaseDate == self::CALENDAR_WINDOWS_1900) {
+			$my_excelBaseDate = 25569;
+			//	Adjust for the spurious 29-Feb-1900 (Day 60)
+			if ($dateValue < 60) {
+				--$my_excelBaseDate;
+			}
+		} else {
+			$my_excelBaseDate = 24107;
 		}
 
 		// Perform conversion
 		if ($dateValue >= 1) {
-			$utcDays = $dateValue - $myExcelBaseDate;
+			$utcDays = $dateValue - $my_excelBaseDate;
 			$returnValue = round($utcDays * 86400);
 			if (($returnValue <= PHP_INT_MAX) && ($returnValue >= -PHP_INT_MAX)) {
 				$returnValue = (integer) $returnValue;
@@ -126,8 +217,10 @@ class PHPExcel_Shared_Date
 			$returnValue = (integer) gmmktime($hours, $mins, $secs);
 		}
 
+		$timezoneAdjustment = ($adjustToTimezone) ? self::_getTimezoneAdjustment($timezone, $returnValue) : 0;
+
 		// Return
-		return $returnValue;
+		return $returnValue + $timezoneAdjustment;
 	}	//	function ExcelToPHP()
 
 
@@ -159,7 +252,7 @@ class PHPExcel_Shared_Date
 	 * @return	 mixed					Excel date/time value
 	 *										or boolean FALSE on failure
 	 */
-	public static function PHPToExcel($dateValue = 0) {
+	public static function PHPToExcel($dateValue = 0, $adjustToTimezone = FALSE, $timezone = NULL) {
 		$saveTimeZone = date_default_timezone_get();
 		date_default_timezone_set('UTC');
 		$retValue = FALSE;
@@ -190,16 +283,16 @@ class PHPExcel_Shared_Date
 	 * @return  long				Excel date/time value
 	 */
 	public static function FormattedPHPToExcel($year, $month, $day, $hours=0, $minutes=0, $seconds=0) {
-		if (self::$ExcelBaseDate == self::CALENDAR_WINDOWS_1900) {
+		if (self::$_excelBaseDate == self::CALENDAR_WINDOWS_1900) {
 			//
 			//	Fudge factor for the erroneous fact that the year 1900 is treated as a Leap Year in MS Excel
 			//	This affects every date following 28th February 1900
 			//
 			$excel1900isLeapYear = TRUE;
 			if (($year == 1900) && ($month <= 2)) { $excel1900isLeapYear = FALSE; }
-			$myExcelBaseDate = 2415020;
+			$my_excelBaseDate = 2415020;
 		} else {
-			$myExcelBaseDate = 2416481;
+			$my_excelBaseDate = 2416481;
 			$excel1900isLeapYear = FALSE;
 		}
 
@@ -214,7 +307,7 @@ class PHPExcel_Shared_Date
 		//	Calculate the Julian Date, then subtract the Excel base date (JD 2415020 = 31-Dec-1899 Giving Excel Date of 0)
 		$century = substr($year,0,2);
 		$decade = substr($year,2,2);
-		$excelDate = floor((146097 * $century) / 4) + floor((1461 * $decade) / 4) + floor((153 * $month + 2) / 5) + $day + 1721119 - $myExcelBaseDate + $excel1900isLeapYear;
+		$excelDate = floor((146097 * $century) / 4) + floor((1461 * $decade) / 4) + floor((153 * $month + 2) / 5) + $day + 1721119 - $my_excelBaseDate + $excel1900isLeapYear;
 
 		$excelTime = (($hours * 3600) + ($minutes * 60) + $seconds) / 86400;
 
