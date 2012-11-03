@@ -67,15 +67,7 @@ class PHPExcel_Shared_Date
 	 * @private
 	 * @var	int
 	 */
-	private static $_excelBaseDate	= self::CALENDAR_WINDOWS_1900;
-
-	/*
-	 * Default Timezone used for date/time conversions
-	 *
-	 * @private
-	 * @var	string
-	 */
-	private static $_timezone	= 'UTC';
+	protected static $_excelBaseDate	= self::CALENDAR_WINDOWS_1900;
 
 	/**
 	 * Set the Excel calendar (Windows 1900 or Mac 1904)
@@ -104,93 +96,13 @@ class PHPExcel_Shared_Date
 
 
 	/**
-	 * Validate a Timezone value
-	 *
-	 * @param	 string		$timezone			Time zone (e.g. 'Europe/London')
-	 * @return	 boolean						Success or failure
-	 */
-	private static function _validateTimezone($timezone) {
-		if (in_array($timezone, DateTimeZone::listIdentifiers())) {
-			return TRUE;
-		}
-		return FALSE;
-	}
-
-	/**
-	 * Set the Default Timezone used for date/time conversions
-	 *
-	 * @param	 string		$timezone			Time zone (e.g. 'Europe/London')
-	 * @return	 boolean						Success or failure
-	 */
-	public static function setTimezone($timezone) {
-		if (self::_validateTimezone($timezone)) {
-			self::$_timezone = $timezone;
-			return TRUE;
-		}
-		return FALSE;
-	}	//	function setTimezone()
-
-
-	/**
-	 * Return the Default Timezone used for date/time conversions
-	 *
-	 * @return	 string		Timezone (e.g. 'Europe/London')
-	 */
-	public static function getTimezone() {
-		return self::$_timezone;
-	}	//	function getTimezone()
-
-
-	/**
-	 *	Return the Timezone offset used for date/time conversions to/from UST
-	 *	This requires both the timezone and the calculated date/time to allow for local DST
-	 *
-	 *	@param		string	 			$timezone		The timezone for finding the adjustment to UST
-	 *	@param		integer	 			$timestamp		PHP date/time value
-	 *	@return	 	integer				Number of seconds for timezone adjustment
-	 *	@throws		PHPExcel_Exception
-	 */
-	private static function _getTimezoneAdjustment($timezone, $timestamp) {
-		if ($timezone !== NULL) {
-			if (!self::_validateTimezone($timezone)) {
-				throw new PHPExcel_Exception("Invalid timezone " . $timezone);
-			}
-		} else {
-			$timezone = self::$_timezone;
-		}
-
-		if ($timezone == 'UST') {
-			return 0;
-		}
-
-		$objTimezone = new DateTimeZone($timezone);
-		if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
-			$transitions = $objTimezone->getTransitions($timestamp,$timestamp);
-		} else {
-			$allTransitions = $objTimezone->getTransitions();
-			$transitions = array();
-			foreach($allTransitions as $key => $transition) {
-				if ($transition['ts'] > $timestamp) {
-				    $transitions[] = ($key > 0) ? $allTransitions[$key - 1] : $transitions1[] = $transition;
-					break;
-				}
-				if (empty($transitions)) {
-					$transitions[] = end($allTransitions);
-				}
-			}
-		}
-
-		return (count($transitions) > 0) ? $transitions[0]['offset'] : 0;
-	}
-
-	/**
 	 *	Convert a date from Excel to PHP
 	 *
 	 *	@param		long		$dateValue			Excel date/time value
 	 *	@param		boolean		$adjustToTimezone	Flag indicating whether $dateValue should be treated as
 	 *													a UST timestamp, or adjusted to UST
 	 *	@param		string	 	$timezone			The timezone for finding the adjustment from UST
-	 *	@return		long					PHP serialized date/time
+	 *	@return		long		PHP serialized date/time
 	 */
 	public static function ExcelToPHP($dateValue = 0, $adjustToTimezone = FALSE, $timezone = NULL) {
 		if (self::$_excelBaseDate == self::CALENDAR_WINDOWS_1900) {
@@ -217,7 +129,9 @@ class PHPExcel_Shared_Date
 			$returnValue = (integer) gmmktime($hours, $mins, $secs);
 		}
 
-		$timezoneAdjustment = ($adjustToTimezone) ? self::_getTimezoneAdjustment($timezone, $returnValue) : 0;
+		$timezoneAdjustment = ($adjustToTimezone) ?
+		    PHPExcel_Shared_TimeZone::getTimezoneAdjustment($timezone, $returnValue) :
+		    0;
 
 		// Return
 		return $returnValue + $timezoneAdjustment;
@@ -227,8 +141,8 @@ class PHPExcel_Shared_Date
 	/**
 	 * Convert a date from Excel to a PHP Date/Time object
 	 *
-	 * @param	 long	 $dateValue		Excel date/time value
-	 * @return	 long					PHP date/time object
+	 * @param	integer		$dateValue		Excel date/time value
+	 * @return	integer						PHP date/time object
 	 */
 	public static function ExcelToPHPObject($dateValue = 0) {
 		$dateTime = self::ExcelToPHP($dateValue);
@@ -246,11 +160,14 @@ class PHPExcel_Shared_Date
 
 
 	/**
-	 * Convert a date from PHP to Excel
+	 *	Convert a date from PHP to Excel
 	 *
-	 * @param	 mixed		$dateValue	PHP serialized date/time or date object
-	 * @return	 mixed					Excel date/time value
-	 *										or boolean FALSE on failure
+	 *	@param	mixed		$dateValue			PHP serialized date/time or date object
+	 *	@param	boolean		$adjustToTimezone	Flag indicating whether $dateValue should be treated as
+	 *													a UST timestamp, or adjusted to UST
+	 *	@param	string	 	$timezone			The timezone for finding the adjustment from UST
+	 *	@return	mixed		Excel date/time value
+	 *							or boolean FALSE on failure
 	 */
 	public static function PHPToExcel($dateValue = 0, $adjustToTimezone = FALSE, $timezone = NULL) {
 		$saveTimeZone = date_default_timezone_get();
@@ -390,10 +307,11 @@ class PHPExcel_Shared_Date
 			//	We might also have a format mask containing quoted strings...
 			//		we don't want to test for any of our characters within the quoted blocks
 			if (strpos($pFormatCode,'"') !== FALSE) {
-				$i = FALSE;
+				$segMatcher = FALSE;
 				foreach(explode('"',$pFormatCode) as $subVal) {
 					//	Only test in alternate array entries (the non-quoted blocks)
-					if (($i = !$i) && (preg_match('/(^|\])[^\[]*['.self::$possibleDateFormatCharacters.']/i',$subVal))) {
+					if (($segMatcher = !$segMatcher) &&
+						(preg_match('/(^|\])[^\[]*['.self::$possibleDateFormatCharacters.']/i',$subVal))) {
 						return TRUE;
 					}
 				}
