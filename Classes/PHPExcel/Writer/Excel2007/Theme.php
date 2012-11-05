@@ -27,7 +27,7 @@
 
 
 /**
- * PHPExcel_Writer_Excel2007_DocProps
+ * PHPExcel_Writer_Excel2007_Theme
  *
  * @category   PHPExcel
  * @package    PHPExcel_Writer_Excel2007

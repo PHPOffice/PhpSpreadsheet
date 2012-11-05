@@ -41,7 +41,7 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
 	 * @param 	PHPExcel_Worksheet 	$pSheet				Worksheet
 	 * @param 	string[] 				$pExistingTable 	Existing table to eventually merge with
 	 * @return 	string[] 				String table for worksheet
-	 * @throws 	PHPExcel_Reader_Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	public function createStringTable($pSheet = null, $pExistingTable = null)
 	{
@@ -81,7 +81,7 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
 	        // Return
 	        return $aStringTable;
 		} else {
-			throw new PHPExcel_Reader_Exception("Invalid PHPExcel_Worksheet object passed.");
+			throw new PHPExcel_Writer_Exception("Invalid PHPExcel_Worksheet object passed.");
 		}
 	}
 
@@ -90,7 +90,7 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
 	 *
 	 * @param 	string[] 	$pStringTable
 	 * @return 	string 		XML Output
-	 * @throws 	PHPExcel_Reader_Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	public function writeStringTable($pStringTable = null)
 	{
@@ -135,7 +135,7 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
 			// Return
 			return $objWriter->getData();
 		} else {
-			throw new PHPExcel_Reader_Exception("Invalid string table array passed.");
+			throw new PHPExcel_Writer_Exception("Invalid string table array passed.");
 		}
 	}
 
@@ -145,7 +145,7 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
 	 * @param 	PHPExcel_Shared_XMLWriter	$objWriter 		XML Writer
 	 * @param 	PHPExcel_RichText			$pRichText		Rich text
 	 * @param 	string						$prefix			Optional Namespace prefix
-	 * @throws 	PHPExcel_Reader_Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	public function writeRichText(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_RichText $pRichText = null, $prefix=NULL)
 	{
@@ -227,7 +227,7 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
 	 * @param 	PHPExcel_Shared_XMLWriter	$objWriter 		XML Writer
 	 * @param 	string|PHPExcel_RichText	$pRichText		text string or Rich text
 	 * @param 	string						$prefix			Optional Namespace prefix
-	 * @throws 	PHPExcel_Reader_Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	public function writeRichTextForCharts(PHPExcel_Shared_XMLWriter $objWriter = null, $pRichText = null, $prefix=NULL)
 	{

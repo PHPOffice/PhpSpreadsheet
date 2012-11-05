@@ -30,7 +30,7 @@
  * PHPExcel_Writer_Excel2007
  *
  * @category   PHPExcel
- * @package    PHPExcel_Writer
+ * @package    PHPExcel_Writer_2007
  * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Writer_Excel2007 extends PHPExcel_Writer_Abstract implements PHPExcel_Writer_IWriter

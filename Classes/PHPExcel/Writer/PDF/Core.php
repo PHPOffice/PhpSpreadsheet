@@ -65,6 +65,13 @@ abstract class PHPExcel_Writer_PDF_Core extends PHPExcel_Writer_HTML
 
 
     /**
+     * Temporary storage for Save Array Return type
+     *
+     * @var string
+     */
+	private $_saveArrayReturnType;
+
+    /**
      * Paper Sizes xRef List
      *
      * @var array
@@ -313,7 +320,7 @@ abstract class PHPExcel_Writer_PDF_Core extends PHPExcel_Writer_HTML
     }
 
     /**
-     *  Save PHPExcel to file, pre-save
+     *  Save PHPExcel to PDF file, pre-save
      *
      *  @param     string         $pFileName
      *  @throws    PHPExcel_Writer_Exception
@@ -323,13 +330,13 @@ abstract class PHPExcel_Writer_PDF_Core extends PHPExcel_Writer_HTML
         //  garbage collect
         $this->_phpExcel->garbageCollect();
 
-        $saveArrayReturnType = PHPExcel_Calculation::getArrayReturnType();
+        $this->_saveArrayReturnType = PHPExcel_Calculation::getArrayReturnType();
         PHPExcel_Calculation::setArrayReturnType(PHPExcel_Calculation::RETURN_ARRAY_AS_VALUE);
 
         //  Open file
         $fileHandle = fopen($pFilename, 'w');
         if ($fileHandle === FALSE) {
-            throw new PHPExcel_Reader_Exception("Could not open file $pFilename for writing.");
+            throw new PHPExcel_Writer_Exception("Could not open file $pFilename for writing.");
         }
 
         //  Set PDF
@@ -338,6 +345,20 @@ abstract class PHPExcel_Writer_PDF_Core extends PHPExcel_Writer_HTML
         $this->buildCSS(TRUE);
 
         return $fileHandle;
+    }
+
+    /**
+     *  Save PHPExcel to PDF file, post-save
+     *
+     *  @param     resource      $fileHandle
+     *  @throws    PHPExcel_Writer_Exception
+     */
+    protected function restoreStateAfterSave($fileHandle)
+    {
+        //  Close file
+        fclose($fileHandle);
+
+        PHPExcel_Calculation::setArrayReturnType($this->_saveArrayReturnType);
     }
 
 }

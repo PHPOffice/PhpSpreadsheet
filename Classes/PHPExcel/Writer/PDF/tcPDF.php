@@ -32,7 +32,7 @@ if (file_exists($pdfRendererClassFile)) {
     $k_path_url = PHPExcel_Settings::getPdfRendererPath();
     require_once $pdfRendererClassFile;
 } else {
-    throw new PHPExcel_Reader_Exception('Unable to load PDF Rendering library');
+    throw new PHPExcel_Writer_Exception('Unable to load PDF Rendering library');
 }
 
 /**
@@ -130,10 +130,7 @@ class PHPExcel_Writer_PDF_tcPDF extends PHPExcel_Writer_PDF_Core implements PHPE
         //  Write to file
         fwrite($fileHandle, $pdf->output($pFilename, 'S'));
 
-        //  Close file
-        fclose($fileHandle);
-
-        PHPExcel_Calculation::setArrayReturnType($saveArrayReturnType);
+		parent::restoreStateAfterSave($fileHandle);
     }
 
 }

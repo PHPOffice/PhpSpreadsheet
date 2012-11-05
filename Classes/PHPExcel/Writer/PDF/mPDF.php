@@ -31,7 +31,7 @@ $pdfRendererClassFile = PHPExcel_Settings::getPdfRendererPath() . '/mpdf.php';
 if (file_exists($pdfRendererClassFile)) {
     require_once $pdfRendererClassFile;
 } else {
-    throw new PHPExcel_Reader_Exception('Unable to load PDF Rendering library');
+    throw new PHPExcel_Writer_Exception('Unable to load PDF Rendering library');
 }
 
 /**
@@ -124,10 +124,7 @@ class PHPExcel_Writer_PDF_mPDF extends PHPExcel_Writer_PDF_Core implements PHPEx
         //  Write to file
         fwrite($fileHandle, $pdf->Output('', 'S'));
 
-        //  Close file
-        fclose($fileHandle);
-
-        PHPExcel_Calculation::setArrayReturnType($saveArrayReturnType);
+		parent::restoreStateAfterSave($fileHandle);
     }
 
 }

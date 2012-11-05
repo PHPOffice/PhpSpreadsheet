@@ -106,7 +106,7 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
 	 *
 	 * @param 	PHPExcel	$pPHPExcel
 	 * @return 	string 		XML Output
-	 * @throws 	PHPExcel_Reader_Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	public function writeWorkbookRelationships(PHPExcel $pPHPExcel = null)
 	{
@@ -177,7 +177,7 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
 	 * @param 	int					$pWorksheetId
 	 * @param	boolean				$includeCharts	Flag indicating if we should write charts
 	 * @return 	string 				XML Output
-	 * @throws 	PHPExcel_Reader_Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	public function writeWorksheetRelationships(PHPExcel_Worksheet $pWorksheet = null, $pWorksheetId = 1, $includeCharts = FALSE)
 	{
@@ -286,7 +286,7 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
 	 * @param	int					&$chartRef		Chart ID
 	 * @param	boolean				$includeCharts	Flag indicating if we should write charts
 	 * @return 	string 				XML Output
-	 * @throws 	PHPExcel_Reader_Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	public function writeDrawingRelationships(PHPExcel_Worksheet $pWorksheet = null, &$chartRef, $includeCharts = FALSE)
 	{
@@ -350,7 +350,7 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
 	 *
 	 * @param 	PHPExcel_Worksheet			$pWorksheet
 	 * @return 	string 						XML Output
-	 * @throws 	PHPExcel_Reader_Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	public function writeHeaderFooterDrawingRelationships(PHPExcel_Worksheet $pWorksheet = null)
 	{
@@ -394,7 +394,7 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
 	 * @param 	string						$pType			Relationship type
 	 * @param 	string 						$pTarget		Relationship target
 	 * @param 	string 						$pTargetMode	Relationship target mode
-	 * @throws 	PHPExcel_Reader_Exception
+	 * @throws 	PHPExcel_Writer_Exception
 	 */
 	private function _writeRelationship(PHPExcel_Shared_XMLWriter $objWriter = null, $pId = 1, $pType = '', $pTarget = '', $pTargetMode = '')
 	{
@@ -411,7 +411,7 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
 
 			$objWriter->endElement();
 		} else {
-			throw new PHPExcel_Reader_Exception("Invalid parameters passed.");
+			throw new PHPExcel_Writer_Exception("Invalid parameters passed.");
 		}
 	}
 }
