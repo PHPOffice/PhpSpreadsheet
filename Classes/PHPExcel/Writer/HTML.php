@@ -49,6 +49,14 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	private $_sheetIndex	= 0;
 
 	/**
+	 * Write charts that are defined in the workbook?
+	 * Identifies whether the Writer should write definitions for any charts that exist in the PHPExcel object;
+	 *
+	 * @var	boolean
+	 */
+	private $_includeCharts = false;
+
+	/**
 	 * Pre-calculate formulas
 	 *
 	 * @var boolean
@@ -61,6 +69,13 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 * @var string
 	 */
 	private $_imagesRoot	= '.';
+
+	/**
+	 * embed images, or link to images
+	 *
+	 * @var boolean
+	 */
+	private $_embedImages	= FALSE;
 
 	/**
 	 * Use inline CSS?
@@ -516,7 +531,7 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 * @return	string
 	 * @throws	PHPExcel_Writer_Exception
 	 */
-	private function _writeImageTagInCell(PHPExcel_Worksheet $pSheet, $coordinates) {
+	private function _writeImageInCell(PHPExcel_Worksheet $pSheet, $coordinates) {
 		// Construct HTML
 		$html = '';
 
@@ -543,7 +558,66 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 					$filename = htmlspecialchars($filename);
 
 					$html .= PHP_EOL;
-					$html .= '		<img style="position: relative; left: ' . $drawing->getOffsetX() . 'px; top: ' . $drawing->getOffsetY() . 'px; width: ' . $drawing->getWidth() . 'px; height: ' . $drawing->getHeight() . 'px;" src="' . $filename . '" border="0" width="' . $drawing->getWidth() . '" height="' . $drawing->getHeight() . '" />' . PHP_EOL;
+					if ((!$this->_embedImages) || ($this->_isPdf)) {
+						$imageData = $filename;
+					} else {
+						$imageDetails = getimagesize($filename);
+						if ($fp = fopen($filename,"rb", 0)) {
+							$picture = fread($fp,filesize($filename));
+							fclose($fp);
+							// base64 encode the binary data, then break it
+							// into chunks according to RFC 2045 semantics
+							$base64 = chunk_split(base64_encode($picture));
+							$imageData = 'data:'.$imageDetails['mime'].';base64,' . $base64;
+						} else {
+							$imageData = $filename;
+						}
+					}
+					$html .= '<img style="position: relative; left: ' . $drawing->getOffsetX() . 'px; top: ' . $drawing->getOffsetY() . 'px; width: ' . $drawing->getWidth() . 'px; height: ' . $drawing->getHeight() . 'px;" src="' . $imageData . '" border="0" width="' . $drawing->getWidth() . '" height="' . $drawing->getHeight() . '" />' . PHP_EOL;
+				}
+			}
+		}
+
+		// Return
+		return $html;
+	}
+
+	/**
+	 * Generate chart tag in cell
+	 *
+	 * @param	PHPExcel_Worksheet	$pSheet			PHPExcel_Worksheet
+	 * @param	string				$coordinates	Cell coordinates
+	 * @return	string
+	 * @throws	PHPExcel_Writer_Exception
+	 */
+	private function _writeChartInCell(PHPExcel_Worksheet $pSheet, $coordinates) {
+		// Construct HTML
+		$html = '';
+
+		// Write charts
+		foreach ($pSheet->getChartCollection() as $chart) {
+			if ($chart instanceof PHPExcel_Chart) {
+			    $chartCoordinates = $chart->getTopLeftPosition();
+				if ($chartCoordinates['cell'] == $coordinates) {
+					$chartFileName = tempnam(PHPExcel_Shared_File::sys_get_temp_dir());
+					if (!$chart->render($chartFileName)) {
+						return;
+					}
+
+					$html .= PHP_EOL;
+					$imageDetails = getimagesize($chartFileName);
+					if ($fp = fopen($chartFileName,"rb", 0)) {
+						$picture = fread($fp,filesize($chartFileName));
+						fclose($fp);
+						// base64 encode the binary data, then break it
+						// into chunks according to RFC 2045 semantics
+						$base64 = chunk_split(base64_encode($picture));
+						$imageData = 'data:'.$imageDetails['mime'].';base64,' . $base64;
+
+						$html .= '<img style="position: relative; left: ' . $chartCoordinates['xOffset'] . 'px; top: ' . $chartCoordinates['yOffset'] . 'px; width: ' . $chart->getWidth() . 'px; height: ' . $chart->getHeight() . 'px;" src="' . $imageData . '" border="0" />' . PHP_EOL;
+
+						unlink($chartFileName);
+					}
 				}
 			}
 		}
@@ -1153,7 +1227,12 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 					$html .= '>';
 
 					// Image?
-					$html .= $this->_writeImageTagInCell($pSheet, $coordinate);
+					$html .= $this->_writeImageInCell($pSheet, $coordinate);
+
+					// Chart?
+					if ($this->_includeCharts) {
+						$html .= $this->_writeChartInCell($pSheet, $coordinate);
+					}
 
 					// Cell data
 					$html .= $cellData;
@@ -1230,6 +1309,26 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 	 */
 	public function setImagesRoot($pValue = '.') {
 		$this->_imagesRoot = $pValue;
+		return $this;
+	}
+
+	/**
+	 * Get embed images
+	 *
+	 * @return boolean
+	 */
+	public function getEmbedImages() {
+		return $this->_embedImages;
+	}
+
+	/**
+	 * Set embed images
+	 *
+	 * @param boolean $pValue
+	 * @return PHPExcel_Writer_HTML
+	 */
+	public function setEmbedImages($pValue = '.') {
+		$this->_embedImages = $pValue;
 		return $this;
 	}
 
@@ -1372,6 +1471,31 @@ class PHPExcel_Writer_HTML implements PHPExcel_Writer_IWriter {
 
 		// We have calculated the spans
 		$this->_spansAreCalculated = true;
+	}
+
+	/**
+	 * Write charts in workbook?
+	 *		If this is true, then the Writer will write definitions for any charts that exist in the PHPExcel object.
+	 *		If false (the default) it will ignore any charts defined in the PHPExcel object.
+	 *
+	 * @return	boolean
+	 */
+	public function getIncludeCharts() {
+		return $this->_includeCharts;
+	}
+
+	/**
+	 * Set write charts in workbook
+	 *		Set to true, to advise the Writer to include any charts that exist in the PHPExcel object.
+	 *		Set to false (the default) to ignore charts.
+	 *
+	 * @param	boolean	$pValue
+	 *
+	 * @return	PHPExcel_Writer_Excel2007
+	 */
+	public function setIncludeCharts($pValue = false) {
+		$this->_includeCharts = (boolean) $pValue;
+		return $this;
 	}
 
 }
