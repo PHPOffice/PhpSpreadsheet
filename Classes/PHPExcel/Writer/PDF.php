@@ -19,7 +19,7 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  *  @category    PHPExcel
- *  @package     PHPExcel_Writer
+ *  @package     PHPExcel_Writer_PDF
  *  @copyright   Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  *  @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  *  @version     ##VERSION##, ##DATE##
@@ -30,7 +30,7 @@
  *  PHPExcel_Writer_PDF
  *
  *  @category    PHPExcel
- *  @package     PHPExcel_Writer
+ *  @package     PHPExcel_Writer_PDF
  *  @copyright   Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Writer_PDF
@@ -39,7 +39,7 @@ class PHPExcel_Writer_PDF
     private $_renderer = NULL;
 
     /**
-     *  Create a new PHPExcel_Writer_PDF
+     *  Instantiate a new renderer of the configured type within this container class
      *
      *  @param     PHPExcel    $phpExcel        PHPExcel object
      *  @throws    PHPExcel_Writer_Exception    Exception when PDF library is not configured
@@ -67,11 +67,11 @@ class PHPExcel_Writer_PDF
 
 
     /**
-     *  Magic method to handle direct calls to the renderer library
+     *  Magic method to handle direct calls to the configured PDF renderer wrapper class
      *
      *  @param     string    $name        Renderer library method name
      *  @param     mixed[]   $arguments   Array of arguments to pass to the renderer method
-     *  @return    mixed     Returned data from the renderer method
+     *  @return    mixed     Returned data from the PDF renderer wrapper method
      */
     public function __call($name, $arguments)
     {

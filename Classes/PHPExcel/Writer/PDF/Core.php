@@ -19,7 +19,7 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  *  @category    PHPExcel
- *  @package     PHPExcel_Writer
+ *  @package     PHPExcel_Writer_PDF
  *  @copyright   Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  *  @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  *  @version     ##VERSION##, ##DATE##
@@ -30,7 +30,7 @@
  *  PHPExcel_Writer_PDF_Core
  *
  *  @category    PHPExcel
- *  @package     PHPExcel_Writer
+ *  @package     PHPExcel_Writer_PDF
  *  @copyright   Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 abstract class PHPExcel_Writer_PDF_Core extends PHPExcel_Writer_HTML
@@ -40,28 +40,28 @@ abstract class PHPExcel_Writer_PDF_Core extends PHPExcel_Writer_HTML
      *
      * @var string
      */
-    private $_tempDir = '';
+    protected $_tempDir = '';
 
     /**
      * Font
      *
      * @var string
      */
-    private $_font = 'freesans';
+    protected $_font = 'freesans';
 
     /**
      * Orientation (Over-ride)
      *
      * @var string
      */
-    private $_orientation    = NULL;
+    protected $_orientation    = NULL;
 
     /**
      * Paper size (Over-ride)
      *
      * @var int
      */
-    private $_paperSize    = NULL;
+    protected $_paperSize    = NULL;
 
 
     /**

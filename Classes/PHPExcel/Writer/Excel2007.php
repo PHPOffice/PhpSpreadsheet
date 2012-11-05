@@ -30,26 +30,11 @@
  * PHPExcel_Writer_Excel2007
  *
  * @category   PHPExcel
- * @package    PHPExcel_Writer_Excel2007
+ * @package    PHPExcel_Writer
  * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
-class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
+class PHPExcel_Writer_Excel2007 extends PHPExcel_Writer_Abstract implements PHPExcel_Writer_IWriter
 {
-	/**
-	 * Write charts that are defined in the workbook?
-	 * Identifies whether the Writer should write definitions for any charts that exist in the PHPExcel object;
-	 *
-	 * @var	boolean
-	 */
-	private $_includeCharts = false;
-
-	/**
-	 * Pre-calculate formulas
-	 *
-	 * @var boolean
-	 */
-	private $_preCalculateFormulas = true;
-
 	/**
 	 * Office2003 compatibility
 	 *
@@ -119,20 +104,6 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
 	 * @var PHPExcel_HashTable
 	 */
 	private $_drawingHashTable;
-
-	/**
-	 * Use disk caching where possible?
-	 *
-	 * @var boolean
-	 */
-	private $_useDiskCaching = false;
-
-	/**
-	 * Disk caching directory
-	 *
-	 * @var string
-	 */
-	private $_diskCachingDirectory	= './';
 
     /**
      * Create a new PHPExcel_Writer_Excel2007
@@ -479,49 +450,6 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
     	return $this->_drawingHashTable;
     }
 
-	/**
-	 * Write charts in workbook?
-	 *		If this is true, then the Writer will write definitions for any charts that exist in the PHPExcel object.
-	 *		If false (the default) it will ignore any charts defined in the PHPExcel object.
-	 *
-	 * @return	boolean
-	 */
-	public function getIncludeCharts() {
-		return $this->_includeCharts;
-	}
-
-	/**
-	 * Set write charts in workbook
-	 *		Set to true, to advise the Writer to include any charts that exist in the PHPExcel object.
-	 *		Set to false (the default) to ignore charts.
-	 *
-	 * @param	boolean	$pValue
-	 *
-	 * @return	PHPExcel_Writer_Excel2007
-	 */
-	public function setIncludeCharts($pValue = false) {
-		$this->_includeCharts = (boolean) $pValue;
-		return $this;
-	}
-
-    /**
-     * Get Pre-Calculate Formulas
-     *
-     * @return boolean
-     */
-    public function getPreCalculateFormulas() {
-    	return $this->_preCalculateFormulas;
-    }
-
-    /**
-     * Set Pre-Calculate Formulas
-     *
-     * @param boolean $pValue	Pre-Calculate Formulas?
-     */
-    public function setPreCalculateFormulas($pValue = true) {
-    	$this->_preCalculateFormulas = $pValue;
-    }
-
     /**
      * Get Office2003 compatibility
      *
@@ -532,7 +460,7 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
     }
 
     /**
-     * Set Pre-Calculate Formulas
+     * Set Office2003 compatibility
      *
      * @param boolean $pValue	Office2003 compatibility?
      * @return PHPExcel_Writer_Excel2007
@@ -542,42 +470,4 @@ class PHPExcel_Writer_Excel2007 implements PHPExcel_Writer_IWriter
     	return $this;
     }
 
-	/**
-	 * Get use disk caching where possible?
-	 *
-	 * @return boolean
-	 */
-	public function getUseDiskCaching() {
-		return $this->_useDiskCaching;
-	}
-
-	/**
-	 * Set use disk caching where possible?
-	 *
-	 * @param 	boolean 	$pValue
-	 * @param	string		$pDirectory		Disk caching directory
-	 * @throws	PHPExcel_Writer_Exception	Exception when directory does not exist
-	 * @return PHPExcel_Writer_Excel2007
-	 */
-	public function setUseDiskCaching($pValue = false, $pDirectory = null) {
-		$this->_useDiskCaching = $pValue;
-
-		if ($pDirectory !== NULL) {
-    		if (is_dir($pDirectory)) {
-    			$this->_diskCachingDirectory = $pDirectory;
-    		} else {
-    			throw new PHPExcel_Writer_Exception("Directory does not exist: $pDirectory");
-    		}
-		}
-		return $this;
-	}
-
-	/**
-	 * Get disk caching directory
-	 *
-	 * @return string
-	 */
-	public function getDiskCachingDirectory() {
-		return $this->_diskCachingDirectory;
-	}
 }

@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PHPExcel
- * @package	PHPExcel_Writer
+ * @package	PHPExcel_Writer_CSV
  * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license	http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version	##VERSION##, ##DATE##
@@ -30,10 +30,10 @@
  * PHPExcel_Writer_CSV
  *
  * @category   PHPExcel
- * @package	PHPExcel_Writer
+ * @package	PHPExcel_Writer_CSV
  * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
-class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
+class PHPExcel_Writer_CSV extends PHPExcel_Writer_Abstract implements PHPExcel_Writer_IWriter {
 	/**
 	 * PHPExcel object
 	 *
@@ -68,13 +68,6 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 	 * @var int
 	 */
 	private $_sheetIndex	= 0;
-
-	/**
-	 * Pre-calculate formulas
-	 *
-	 * @var boolean
-	 */
-	private $_preCalculateFormulas = true;
 
 	/**
 	 * Whether to write a BOM (for UTF8).
@@ -317,23 +310,4 @@ class PHPExcel_Writer_CSV implements PHPExcel_Writer_IWriter {
 		}
 	}
 
-	/**
-	 * Get Pre-Calculate Formulas
-	 *
-	 * @return boolean
-	 */
-	public function getPreCalculateFormulas() {
-		return $this->_preCalculateFormulas;
-	}
-
-	/**
-	 * Set Pre-Calculate Formulas
-	 *
-	 * @param boolean $pValue	Pre-Calculate Formulas?
-	 * @return PHPExcel_Writer_CSV
-	 */
-	public function setPreCalculateFormulas($pValue = true) {
-		$this->_preCalculateFormulas = $pValue;
-		return $this;
-	}
 }

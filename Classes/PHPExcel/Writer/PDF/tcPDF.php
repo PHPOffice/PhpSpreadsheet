@@ -19,7 +19,7 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  *  @category    PHPExcel
- *  @package     PHPExcel_Writer
+ *  @package     PHPExcel_Writer_PDF
  *  @copyright   Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  *  @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  *  @version     ##VERSION##, ##DATE##
@@ -39,7 +39,7 @@ if (file_exists($pdfRendererClassFile)) {
  *  PHPExcel_Writer_PDF_tcPDF
  *
  *  @category    PHPExcel
- *  @package     PHPExcel_Writer
+ *  @package     PHPExcel_Writer_PDF
  *  @copyright   Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Writer_PDF_tcPDF extends PHPExcel_Writer_PDF_Core implements PHPExcel_Writer_IWriter
