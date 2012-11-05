@@ -42,7 +42,7 @@ if (!defined('PHPEXCEL_ROOT')) {
  * @package    PHPExcel_Reader
  * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
-class PHPExcel_Reader_CSV implements PHPExcel_Reader_IReader
+class PHPExcel_Reader_CSV extends PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
 {
 	/**
 	 * Input encoding
@@ -102,15 +102,6 @@ class PHPExcel_Reader_CSV implements PHPExcel_Reader_IReader
 	private $_contiguousRow	= -1;
 
 	/**
-	 * PHPExcel_Reader_IReadFilter instance
-	 *
-	 * @access	private
-	 * @var	PHPExcel_Reader_IReadFilter
-	 */
-	private $_readFilter = null;
-
-
-	/**
 	 * Create a new PHPExcel_Reader_CSV
 	 */
 	public function __construct() {
@@ -135,29 +126,6 @@ class PHPExcel_Reader_CSV implements PHPExcel_Reader_IReader
 
 		return true;
 	}	//	function canRead()
-
-
-	/**
-	 * Read filter
-	 *
-	 * @access	public
-	 * @return PHPExcel_Reader_IReadFilter
-	 */
-	public function getReadFilter() {
-		return $this->_readFilter;
-	}	//	function getReadFilter()
-
-
-	/**
-	 * Set read filter
-	 *
-	 * @access	public
-	 * @param	PHPExcel_Reader_IReadFilter $pValue
-	 */
-	public function setReadFilter(PHPExcel_Reader_IReadFilter $pValue) {
-		$this->_readFilter = $pValue;
-		return $this;
-	}	//	function setReadFilter()
 
 
 	/**
