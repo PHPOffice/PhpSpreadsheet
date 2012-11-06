@@ -440,11 +440,7 @@ class PHPExcel_Calculation_TextData {
 			$mixedCaseString = ($mixedCaseString) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
 		}
 
-		if (function_exists('mb_convert_case')) {
-			return mb_convert_case($mixedCaseString, MB_CASE_LOWER, 'UTF-8');
-		} else {
-			return strtoupper($mixedCaseString);
-		}
+		return PHPExcel_Shared_String::StrToLower($mixedCaseString);
 	}	//	function LOWERCASE()
 
 
@@ -463,11 +459,7 @@ class PHPExcel_Calculation_TextData {
 			$mixedCaseString = ($mixedCaseString) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
 		}
 
-		if (function_exists('mb_convert_case')) {
-			return mb_convert_case($mixedCaseString, MB_CASE_UPPER, 'UTF-8');
-		} else {
-			return strtoupper($mixedCaseString);
-		}
+		return PHPExcel_Shared_String::StrToUpper($mixedCaseString);
 	}	//	function UPPERCASE()
 
 
@@ -486,11 +478,7 @@ class PHPExcel_Calculation_TextData {
 			$mixedCaseString = ($mixedCaseString) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
 		}
 
-		if (function_exists('mb_convert_case')) {
-			return mb_convert_case($mixedCaseString, MB_CASE_TITLE, 'UTF-8');
-		} else {
-			return ucwords($mixedCaseString);
-		}
+		return PHPExcel_Shared_String::StrToTitle($mixedCaseString);
 	}	//	function PROPERCASE()
 
 

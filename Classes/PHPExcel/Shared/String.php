@@ -583,6 +583,48 @@ class PHPExcel_Shared_String
 		return substr($pValue, $pStart, $pLength);
 	}
 
+	/**
+	 * Convert a UTF-8 encoded string to upper case
+	 *
+	 * @param string $pValue UTF-8 encoded string
+	 * @return string
+	 */
+	public static function StrToUpper($pValue = '')
+	{
+		if (function_exists('mb_convert_case')) {
+			return mb_convert_case($pValue, MB_CASE_UPPER, "UTF-8");
+		}
+		return strtoupper($pValue);
+	}
+
+	/**
+	 * Convert a UTF-8 encoded string to lower case
+	 *
+	 * @param string $pValue UTF-8 encoded string
+	 * @return string
+	 */
+	public static function StrToLower($pValue = '')
+	{
+		if (function_exists('mb_convert_case')) {
+			return mb_convert_case($pValue, MB_CASE_LOWER, "UTF-8");
+		}
+		return strtolower($pValue);
+	}
+
+	/**
+	 * Convert a UTF-8 encoded string to title/proper case
+	 *    (uppercase every first character in each word, lower case all other characters)
+	 *
+	 * @param string $pValue UTF-8 encoded string
+	 * @return string
+	 */
+	public static function StrToTitle($pValue = '')
+	{
+		if (function_exists('mb_convert_case')) {
+			return mb_convert_case($pValue, MB_CASE_LOWER, "UTF-8");
+		}
+		return ucwords($pValue);
+	}
 
 	/**
 	 * Identify whether a string contains a fractional numeric value,

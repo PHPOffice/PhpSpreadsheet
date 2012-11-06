@@ -45,6 +45,8 @@ abstract class PHPExcel_Writer_Abstract implements PHPExcel_Writer_IWriter
 
 	/**
 	 * Pre-calculate formulas
+	 * Forces PHPExcel to recalculate all formulae in a workbook when saving, so that the pre-calculated values are
+	 *    immediately available to MS Excel or other office spreadsheet viewer when opening the file
 	 *
 	 * @var boolean
 	 */
@@ -89,7 +91,12 @@ abstract class PHPExcel_Writer_Abstract implements PHPExcel_Writer_IWriter
 	}
 
     /**
-     * Get Pre-Calculate Formulas
+     * Get Pre-Calculate Formulas flag
+	 *     If this is true (the default), then the writer will recalculate all formulae in a workbook when saving,
+	 *        so that the pre-calculated values are immediately available to MS Excel or other office spreadsheet
+	 *        viewer when opening the file
+	 *     If false, then formulae are not calculated on save. This is faster for saving in PHPExcel, but slower
+	 *        when opening the resulting file in MS Excel, because Excel has to recalculate the formulae itself
      *
      * @return boolean
      */
@@ -99,6 +106,8 @@ abstract class PHPExcel_Writer_Abstract implements PHPExcel_Writer_IWriter
 
     /**
      * Set Pre-Calculate Formulas
+	 *		Set to true (the default) to advise the Writer to calculate all formulae on save
+	 *		Set to false to prevent precalculation of formulae on save.
      *
      * @param boolean $pValue	Pre-Calculate Formulas?
 	 * @return	PHPExcel_Writer_IWriter
