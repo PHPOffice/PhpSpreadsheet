@@ -626,15 +626,15 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 								}
 
 								if (isset($xmlSheet->sheetViews->sheetView['showGridLines'])) {
-									$docSheet->setShowGridLines((string)$xmlSheet->sheetViews->sheetView['showGridLines'] ? true : false);
+									$docSheet->setShowGridLines(self::boolean((string)$xmlSheet->sheetViews->sheetView['showGridLines']));
 								}
 
 								if (isset($xmlSheet->sheetViews->sheetView['showRowColHeaders'])) {
-									$docSheet->setShowRowColHeaders((string)$xmlSheet->sheetViews->sheetView['showRowColHeaders'] ? true : false);
+									$docSheet->setShowRowColHeaders(self::boolean((string)$xmlSheet->sheetViews->sheetView['showRowColHeaders']));
 								}
 
 								if (isset($xmlSheet->sheetViews->sheetView['rightToLeft'])) {
-									$docSheet->setRightToLeft((string)$xmlSheet->sheetViews->sheetView['rightToLeft'] ? true : false);
+									$docSheet->setRightToLeft(self::boolean((string)$xmlSheet->sheetViews->sheetView['rightToLeft']));
 								}
 
 								if (isset($xmlSheet->sheetViews->sheetView->pane)) {
@@ -688,7 +688,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 							}
 
 							if (isset($xmlSheet->sheetPr) && isset($xmlSheet->sheetPr->pageSetUpPr)) {
-								if (isset($xmlSheet->sheetPr->pageSetUpPr['fitToPage']) && $xmlSheet->sheetPr->pageSetUpPr['fitToPage'] == false) {
+								if (isset($xmlSheet->sheetPr->pageSetUpPr['fitToPage']) && !self::boolean((string) $xmlSheet->sheetPr->pageSetUpPr['fitToPage'])) {
 									$docSheet->getPageSetup()->setFitToPage(false);
 								} else {
 									$docSheet->getPageSetup()->setFitToPage(true);
@@ -714,13 +714,13 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 										if ($col["style"] && !$this->_readDataOnly) {
 											$docSheet->getColumnDimension(PHPExcel_Cell::stringFromColumnIndex($i))->setXfIndex(intval($col["style"]));
 										}
-										if ($col["bestFit"]) {
+										if (self::boolean($col["bestFit"])) {
 											//$docSheet->getColumnDimension(PHPExcel_Cell::stringFromColumnIndex($i))->setAutoSize(true);
 										}
-										if ($col["hidden"]) {
+										if (self::boolean($col["hidden"])) {
 											$docSheet->getColumnDimension(PHPExcel_Cell::stringFromColumnIndex($i))->setVisible(false);
 										}
-										if ($col["collapsed"]) {
+										if (self::boolean($col["collapsed"])) {
 											$docSheet->getColumnDimension(PHPExcel_Cell::stringFromColumnIndex($i))->setCollapsed(true);
 										}
 										if ($col["outlineLevel"] > 0) {
@@ -757,10 +757,10 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 									if ($row["ht"] && !$this->_readDataOnly) {
 										$docSheet->getRowDimension(intval($row["r"]))->setRowHeight(floatval($row["ht"]));
 									}
-									if ($row["hidden"] && !$this->_readDataOnly) {
+									if (self::boolean($row["hidden"]) && !$this->_readDataOnly) {
 										$docSheet->getRowDimension(intval($row["r"]))->setVisible(false);
 									}
-									if ($row["collapsed"]) {
+									if (self::boolean($row["collapsed"])) {
 										$docSheet->getRowDimension(intval($row["r"]))->setCollapsed(true);
 									}
 									if ($row["outlineLevel"] > 0) {
@@ -1955,5 +1955,13 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 		}
 
 		return $style;
+	}
+
+	private static function boolean($value)
+	{
+		if (is_numeric($value)) {
+			return (boolean) $value;
+		}
+		return ($value === 'true') ? TRUE : FALSE;
 	}
 }

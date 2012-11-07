@@ -42,7 +42,7 @@ class PHPExcel_Reader_Excel2007_Chart
 			} elseif ($format == 'integer') {
 				return (integer) $attributes[$name];
 			} elseif ($format == 'boolean') {
-				return (boolean) ($attributes[$name] == '0') ? false : true;
+				return (boolean) ($attributes[$name] === '0' || $attributes[$name] !== 'true') ? false : true;
 			} else {
 				return (float) $attributes[$name];
 			}
