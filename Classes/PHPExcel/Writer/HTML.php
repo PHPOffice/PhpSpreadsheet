@@ -512,16 +512,18 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 	private function _extendRowsForChartsAndImages(PHPExcel_Worksheet $pSheet, $row) {
 		$rowMax = $row;
 		$colMax = 'A';
-		foreach ($pSheet->getChartCollection() as $chart) {
-			if ($chart instanceof PHPExcel_Chart) {
-			    $chartCoordinates = $chart->getTopLeftPosition();
-			    $chartTL = PHPExcel_Cell::coordinateFromString($chartCoordinates['cell']);
-				$chartCol = PHPExcel_Cell::columnIndexFromString($chartTL[0]);
-				if ($chartTL[1] > $rowMax) {
-					$rowMax = $chartTL[1];
-				}
-				if ($chartCol > PHPExcel_Cell::columnIndexFromString($colMax)) {
-					$colMax = $chartTL[0];
+		if ($this->_includeCharts) {
+			foreach ($pSheet->getChartCollection() as $chart) {
+				if ($chart instanceof PHPExcel_Chart) {
+				    $chartCoordinates = $chart->getTopLeftPosition();
+				    $chartTL = PHPExcel_Cell::coordinateFromString($chartCoordinates['cell']);
+					$chartCol = PHPExcel_Cell::columnIndexFromString($chartTL[0]);
+					if ($chartTL[1] > $rowMax) {
+						$rowMax = $chartTL[1];
+					}
+					if ($chartCol > PHPExcel_Cell::columnIndexFromString($colMax)) {
+						$colMax = $chartTL[0];
+					}
 				}
 			}
 		}
@@ -545,7 +547,9 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 			for ($col = 'A'; $col != $colMax; ++$col) {
 				$html .= '<td>';
 				$html .= $this->_writeImageInCell($pSheet, $col.$row);
-				$html .= $this->_writeChartInCell($pSheet, $col.$row);
+				if ($this->_includeCharts) {
+					$html .= $this->_writeChartInCell($pSheet, $col.$row);
+				}
 				$html .= '</td>';
 			}
 			++$row;
