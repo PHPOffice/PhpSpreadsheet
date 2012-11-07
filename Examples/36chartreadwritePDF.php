@@ -44,7 +44,30 @@ include 'PHPExcel/IOFactory.php';
 
 
 //	Change these values to select the Rendering library that you wish to use
-//		and its directory location on your server
+//		for PDF files, and its directory location on your server
+//$rendererName = PHPExcel_Settings::PDF_RENDERER_TCPDF;
+$rendererName = PHPExcel_Settings::PDF_RENDERER_MPDF;
+//$rendererName = PHPExcel_Settings::PDF_RENDERER_DOMPDF;
+//$rendererLibrary = 'tcPDF5.9';
+$rendererLibrary = 'mPDF5.4';
+//$rendererLibrary = 'domPDF0.6.0beta3';
+$rendererLibraryPath = '/php/libraries/PDF/' . $rendererLibrary;
+
+
+if (!PHPExcel_Settings::setPdfRenderer(
+		$rendererName,
+		$rendererLibraryPath
+	)) {
+	die(
+		'NOTICE: Please set the $rendererName and $rendererLibraryPath values' .
+		EOL .
+		'at the top of this script as appropriate for your directory structure'
+	);
+}
+
+
+//	Change these values to select the Rendering library that you wish to use
+//		for Chart images, and its directory location on your server
 $rendererName = PHPExcel_Settings::CHART_RENDERER_JPGRAPH;
 $rendererLibrary = 'jpgraph3.5.0b1/src';
 $rendererLibraryPath = '/php/libraries/Charts/' . $rendererLibrary;
@@ -63,9 +86,9 @@ if (!PHPExcel_Settings::setChartRenderer(
 
 
 $inputFileType = 'Excel2007';
-$inputFileNames = 'templates/32readwrite*[0-9].xlsx';
+$inputFileNames = 'templates/36write*.xlsx';
 
-	if ((isset($argc)) && ($argc > 1)) {
+if ((isset($argc)) && ($argc > 1)) {
 	$inputFileNames = array();
 	for($i = 1; $i < $argc; ++$i) {
 		$inputFileNames[] = __DIR__ . '/templates/' . $argv[$i];
@@ -107,20 +130,37 @@ foreach($inputFileNames as $inputFileName) {
 				}
 				echo '    ' , $chartName , ' - ' , $caption , EOL;
 				echo str_repeat(' ',strlen($chartName)+3);
-
-				$jpegFile = '35'.str_replace('.xlsx', '.jpg', substr($inputFileNameShort,2));
-				if (file_exists($jpegFile)) {
-					unlink($jpegFile);
-				}
-				try {
-					$chart->render($jpegFile);
-				} catch (Exception $e) {
-					echo 'Error rendering chart: ',$e->getMessage();
+				$groupCount = $chart->getPlotArea()->getPlotGroupCount();
+				if ($groupCount == 1) {
+					$chartType = $chart->getPlotArea()->getPlotGroupByIndex(0)->getPlotType();
+					echo '    ' , $chartType , EOL;
+				} else {
+					$chartTypes = array();
+					for($i = 0; $i < $groupCount; ++$i) {
+						$chartTypes[] = $chart->getPlotArea()->getPlotGroupByIndex($i)->getPlotType();
+					}
+					$chartTypes = array_unique($chartTypes);
+					if (count($chartTypes) == 1) {
+						$chartType = 'Multiple Plot ' . array_pop($chartTypes);
+						echo '    ' , $chartType , EOL;
+					} elseif (count($chartTypes) == 0) {
+						echo '    *** Type not yet implemented' , EOL;
+					} else {
+						echo '    Combination Chart' , EOL;
+					}
 				}
 			}
 		}
 	}
 
+
+	$outputFileName = str_replace('.xlsx', '.pdf', basename($inputFileName));
+
+	echo date('H:i:s') , " Write Tests to HTML file " , EOL;
+	$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'PDF');
+	$objWriter->setIncludeCharts(TRUE);
+	$objWriter->save($outputFileName);
+	echo date('H:i:s') , " File written to " , $outputFileName , EOL;
 
 	$objPHPExcel->disconnectWorksheets();
 	unset($objPHPExcel);
@@ -130,5 +170,5 @@ foreach($inputFileNames as $inputFileName) {
 echo date('H:i:s') , ' Peak memory usage: ' , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , EOL;
 
 // Echo done
-echo date('H:i:s') , " Done rendering charts as images" , EOL;
-echo 'Image files have been created in ' , getcwd() , EOL;
+echo date('H:i:s') , " Done writing files" , EOL;
+echo 'Files have been created in ' , getcwd() , EOL;

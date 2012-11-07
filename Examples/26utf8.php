@@ -41,11 +41,11 @@ require_once '../Classes/PHPExcel.php';
 //	Change these values to select the PDF Rendering library that you wish to use
 //		and its directory location on your server
 //$rendererName = PHPExcel_Settings::PDF_RENDERER_TCPDF;
-$rendererName = PHPExcel_Settings::PDF_RENDERER_MPDF;
-//$rendererName = PHPExcel_Settings::PDF_RENDERER_DOMPDF;
+//$rendererName = PHPExcel_Settings::PDF_RENDERER_MPDF;
+$rendererName = PHPExcel_Settings::PDF_RENDERER_DOMPDF;
 //$rendererLibrary = 'tcPDF5.9';
-$rendererLibrary = 'mPDF5.4';
-//$rendererLibrary = 'domPDF0.6.0beta3';
+//$rendererLibrary = 'mPDF5.4';
+$rendererLibrary = 'domPDF0.6.0beta3';
 $rendererLibraryPath = '/php/libraries/PDF/' . $rendererLibrary;
 
 

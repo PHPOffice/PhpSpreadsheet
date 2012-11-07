@@ -447,6 +447,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 					$html .= '		</tbody>' . PHP_EOL;
 				}
 			}
+			$html .= $this->_extendRowsForChartsAndImages($sheet, $row);
 
 			// Write table footer
 			$html .= $this->_generateTableFooter();
@@ -507,6 +508,52 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 
 		return $html;
 	}
+
+	private function _extendRowsForChartsAndImages(PHPExcel_Worksheet $pSheet, $row) {
+		$rowMax = $row;
+		$colMax = 'A';
+		foreach ($pSheet->getChartCollection() as $chart) {
+			if ($chart instanceof PHPExcel_Chart) {
+			    $chartCoordinates = $chart->getTopLeftPosition();
+			    $chartTL = PHPExcel_Cell::coordinateFromString($chartCoordinates['cell']);
+				$chartCol = PHPExcel_Cell::columnIndexFromString($chartTL[0]);
+				if ($chartTL[1] > $rowMax) {
+					$rowMax = $chartTL[1];
+				}
+				if ($chartCol > PHPExcel_Cell::columnIndexFromString($colMax)) {
+					$colMax = $chartTL[0];
+				}
+			}
+		}
+
+		foreach ($pSheet->getDrawingCollection() as $drawing) {
+			if ($drawing instanceof PHPExcel_Worksheet_Drawing) {
+			    $imageTL = PHPExcel_Cell::coordinateFromString($drawing->getCoordinates());
+				$imageCol = PHPExcel_Cell::columnIndexFromString($imageTL[0]);
+				if ($imageTL[1] > $rowMax) {
+					$rowMax = $imageTL[1];
+				}
+				if ($imageCol > PHPExcel_Cell::columnIndexFromString($colMax)) {
+					$colMax = $imageTL[0];
+				}
+			}
+		}
+		$html = '';
+		$colMax++;
+		while ($row <= $rowMax) {
+			$html .= '<tr>';
+			for ($col = 'A'; $col != $colMax; ++$col) {
+				$html .= '<td>';
+				$html .= $this->_writeImageInCell($pSheet, $col.$row);
+				$html .= $this->_writeChartInCell($pSheet, $col.$row);
+				$html .= '</td>';
+			}
+			++$row;
+			$html .= '</tr>';
+		}
+		return $html;
+	}
+
 
 	/**
 	 * Generate image tag in cell
@@ -584,7 +631,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 			if ($chart instanceof PHPExcel_Chart) {
 			    $chartCoordinates = $chart->getTopLeftPosition();
 				if ($chartCoordinates['cell'] == $coordinates) {
-					$chartFileName = tempnam(PHPExcel_Shared_File::sys_get_temp_dir());
+//					$chartFileName = tempnam(PHPExcel_Shared_File::sys_get_temp_dir(),'xlc');
+					$chartFileName = './'.uniqid().'.png';
 					if (!$chart->render($chartFileName)) {
 						return;
 					}
@@ -599,7 +647,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 						$base64 = chunk_split(base64_encode($picture));
 						$imageData = 'data:'.$imageDetails['mime'].';base64,' . $base64;
 
-						$html .= '<img style="position: relative; left: ' . $chartCoordinates['xOffset'] . 'px; top: ' . $chartCoordinates['yOffset'] . 'px; width: ' . $chart->getWidth() . 'px; height: ' . $chart->getHeight() . 'px;" src="' . $imageData . '" border="0" />' . PHP_EOL;
+						$html .= '<img style="position: relative; left: ' . $chartCoordinates['xOffset'] . 'px; top: ' . $chartCoordinates['yOffset'] . 'px; width: ' . $imageDetails[0] . 'px; height: ' . $imageDetails[1] . 'px;" src="' . $imageData . '" border="0" />' . PHP_EOL;
 
 						unlink($chartFileName);
 					}
@@ -969,9 +1017,9 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 				$this->_assembleCSS($this->_cssStyles['table']) : '';
 
 			if ($this->_isPdf && $pSheet->getShowGridLines()) {
-				$html .= '	<table border="1" cellpadding="1" id="sheet' . $sheetIndex . '" cellspacing="4" style="' . $style . '">' . PHP_EOL;
+				$html .= '	<table border="1" cellpadding="1" id="sheet' . $sheetIndex . '" cellspacing="1" style="' . $style . '">' . PHP_EOL;
 			} else {
-				$html .= '	<table border="0" cellpadding="1" id="sheet' . $sheetIndex . '" cellspacing="4" style="' . $style . '">' . PHP_EOL;
+				$html .= '	<table border="0" cellpadding="1" id="sheet' . $sheetIndex . '" cellspacing="0" style="' . $style . '">' . PHP_EOL;
 			}
 		}
 
