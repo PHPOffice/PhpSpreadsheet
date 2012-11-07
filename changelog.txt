@@ -24,6 +24,7 @@
 
 
 Fixed in develop branch:
+- Feature:  (MBaker)   Include charts option for HTML Writer
 - Bugfix:   (Asker)    Work item 18777 - Error in PHPEXCEL/Calculation.php script on line 2976 (stack pop check)
 - Bugfix:   (MBaker)   Work item 18794 - CSV files without a file extension being identified as HTML
 - Bugfix:   (AndreKR)  Work item GH-66 - Wrong check for maximum number of rows in Excel5 Writer
