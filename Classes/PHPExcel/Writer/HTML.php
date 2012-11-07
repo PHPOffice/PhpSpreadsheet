@@ -605,7 +605,10 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 							$imageData = $filename;
 						}
 					}
-					$html .= '<img style="position: relative; left: ' . $drawing->getOffsetX() . 'px; top: ' . $drawing->getOffsetY() . 'px; width: ' . $drawing->getWidth() . 'px; height: ' . $drawing->getHeight() . 'px;" src="' . $imageData . '" border="0" width="' . $drawing->getWidth() . '" height="' . $drawing->getHeight() . '" />' . PHP_EOL;
+
+					$html .= '<div style="position: relative;">';
+					$html .= '<img style="position: absolute; z-index: 1; left: ' . $drawing->getOffsetX() . 'px; top: ' . $drawing->getOffsetY() . 'px; width: ' . $drawing->getWidth() . 'px; height: ' . $drawing->getHeight() . 'px;" src="' . $imageData . '" border="0" />' . PHP_EOL;
+					$html .= '</div>';
 				}
 			}
 		}
@@ -647,7 +650,9 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 						$base64 = chunk_split(base64_encode($picture));
 						$imageData = 'data:'.$imageDetails['mime'].';base64,' . $base64;
 
-						$html .= '<img style="position: relative; left: ' . $chartCoordinates['xOffset'] . 'px; top: ' . $chartCoordinates['yOffset'] . 'px; width: ' . $imageDetails[0] . 'px; height: ' . $imageDetails[1] . 'px;" src="' . $imageData . '" border="0" />' . PHP_EOL;
+						$html .= '<div style="position: relative;">';
+						$html .= '<img style="position: absolute; z-index: 1; left: ' . $chartCoordinates['xOffset'] . 'px; top: ' . $chartCoordinates['yOffset'] . 'px; width: ' . $imageDetails[0] . 'px; height: ' . $imageDetails[1] . 'px;" src="' . $imageData . '" border="0" />' . PHP_EOL;
+						$html .= '</div>';
 
 						unlink($chartFileName);
 					}
