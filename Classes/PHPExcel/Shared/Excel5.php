@@ -40,7 +40,7 @@ class PHPExcel_Shared_Excel5
 	 * This holds for Arial 10
 	 *
 	 * @param PHPExcel_Worksheet $sheet The sheet
-	 * @param integer $col The column
+	 * @param string $col The column
 	 * @return integer The width in pixels
 	*/
 	public static function sizeCol($sheet, $col = 'A')
@@ -136,9 +136,9 @@ class PHPExcel_Shared_Excel5
 	 *
 	 * @param PHPExcel_Worksheet $sheet
 	 * @param string $startColumn
-	 * @param integer $startOffset Offset within start cell measured in 1/1024 of the cell width
+	 * @param integer $startOffsetX Offset within start cell measured in 1/1024 of the cell width
 	 * @param string $endColumn
-	 * @param integer $endOffset Offset within end cell measured in 1/1024 of the cell width
+	 * @param integer $endOffsetX Offset within end cell measured in 1/1024 of the cell width
 	 * @return integer Horizontal measured in pixels
 	 */
 	public static function getDistanceX(PHPExcel_Worksheet $sheet, $startColumn = 'A', $startOffsetX = 0, $endColumn = 'A', $endOffsetX = 0)
@@ -166,10 +166,10 @@ class PHPExcel_Shared_Excel5
 	 * The distanceY is found as sum of all the spanning rows minus two offsets
 	 *
 	 * @param PHPExcel_Worksheet $sheet
-	 * @param string $startRow (1-based)
-	 * @param integer $startOffset Offset within start cell measured in 1/256 of the cell height
-	 * @param string $endRow (1-based)
-	 * @param integer $endOffset Offset within end cell measured in 1/256 of the cell height
+	 * @param integer $startRow (1-based)
+	 * @param integer $startOffsetY Offset within start cell measured in 1/256 of the cell height
+	 * @param integer $endRow (1-based)
+	 * @param integer $endOffsetY Offset within end cell measured in 1/256 of the cell height
 	 * @return integer Vertical distance measured in pixels
 	 */
 	public static function getDistanceY(PHPExcel_Worksheet $sheet, $startRow = 1, $startOffsetY = 0, $endRow = 1, $endOffsetY = 0)

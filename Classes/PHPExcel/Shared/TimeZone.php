@@ -85,7 +85,7 @@ class PHPExcel_Shared_TimeZone
 	/**
 	 *	Return the Timezone transition for the specified timezone and timestamp
 	 *
-	 *	@param		string	 			$timezone		The timezone for finding the transitions
+	 *	@param		DateTimeZone	 	$objTimezone	The timezone for finding the transitions
 	 *	@param		integer	 			$timestamp		PHP date/time value for finding the current transition
 	 *	@return	 	array				The current transition details
 	 */
