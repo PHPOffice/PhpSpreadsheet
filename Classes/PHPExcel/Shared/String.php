@@ -621,7 +621,7 @@ class PHPExcel_Shared_String
 	public static function StrToTitle($pValue = '')
 	{
 		if (function_exists('mb_convert_case')) {
-			return mb_convert_case($pValue, MB_CASE_LOWER, "UTF-8");
+			return mb_convert_case($pValue, MB_CASE_TITLE, "UTF-8");
 		}
 		return ucwords($pValue);
 	}
