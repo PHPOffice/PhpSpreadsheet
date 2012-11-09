@@ -2385,7 +2385,6 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	public function rangeToArray($pRange = 'A1', $nullValue = null, $calculateFormulas = true, $formatData = true, $returnCellRef = false) {
 		// Returnvalue
 		$returnValue = array();
-
 		//	Identify the range that we need to extract from the worksheet
 		list($rangeStart, $rangeEnd) = PHPExcel_Cell::rangeBoundaries($pRange);
 		$minCol = PHPExcel_Cell::stringFromColumnIndex($rangeStart[0] -1);
@@ -2394,7 +2393,6 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		$maxRow = $rangeEnd[1];
 
 		$maxCol++;
-
 		// Loop through rows
 		$r = -1;
 		for ($row = $minRow; $row <= $maxRow; ++$row) {
@@ -2503,6 +2501,8 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @return PHPExcel_Worksheet
 	 */
 	public function garbageCollect() {
+		// Flush cache
+		$this->_cellCollection->getCacheData('A1');
 		// Build a reference table from images
 //		$imageCoordinates = array();
 //		$iterator = $this->getDrawingCollection()->getIterator();
