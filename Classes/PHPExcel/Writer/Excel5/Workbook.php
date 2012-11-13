@@ -317,6 +317,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 		}
 		return $fontIndex;
 	}
+
 	/**
 	 * Alter color palette adding a custom color
 	 *
@@ -1446,5 +1447,4 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 	{
 		$this->_escher = $pValue;
 	}
-
 }

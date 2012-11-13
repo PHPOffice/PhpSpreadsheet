@@ -923,7 +923,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	/**
 	 * Get sheet view
 	 *
-	 * @return PHPExcel_Worksheet_HeaderFooter
+	 * @return PHPExcel_Worksheet_SheetView
 	 */
 	public function getSheetView()
 	{
@@ -2717,7 +2717,6 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 
 		return $stRange;
 	}
-
 
 	/**
 	 * Get tab color

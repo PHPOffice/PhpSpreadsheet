@@ -189,7 +189,7 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
 		}
 
 		// add binary data for global workbook stream
-		$OLE->append( $this->_writerWorkbook->writeWorkbook($worksheetSizes) );
+		$OLE->append($this->_writerWorkbook->writeWorkbook($worksheetSizes));
 
 		// add binary data for sheet streams
 		for ($i = 0; $i < $countSheets; ++$i) {
