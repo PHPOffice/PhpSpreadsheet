@@ -4,3 +4,4 @@ analysis
 
 *.buildpath
 *.project
+/.settings
