@@ -477,6 +477,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		$this->_writeMsoDrawing();
 
 		$this->_writeWindow2();
+		$this->_writePageLayoutView();
 		$this->_writeZoom();
 		if ($_phpSheet->getFreezePane()) {
 			$this->_writePanes();
@@ -642,6 +643,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 	{
 		$this->_writeLabelSst($row, $col, $str, $xfIndex);
 	}
+
 	/**
 	 * Write a LABELSST record or a LABEL record. Which one depends on BIFF version
 	 * It differs from _writeString by the writing of rich text strings.
@@ -1279,15 +1281,15 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 
 		$grbit			 = $fDspFmla;
 		$grbit			|= $fDspGrid	   << 1;
-		$grbit			|= $fDspRwCol	  << 2;
-		$grbit			|= $fFrozen		<< 3;
-		$grbit			|= $fDspZeros	  << 4;
-		$grbit			|= $fDefaultHdr	<< 5;
-		$grbit			|= $fArabic		<< 6;
+		$grbit			|= $fDspRwCol	   << 2;
+		$grbit			|= $fFrozen		   << 3;
+		$grbit			|= $fDspZeros	   << 4;
+		$grbit			|= $fDefaultHdr	   << 5;
+		$grbit			|= $fArabic		   << 6;
 		$grbit			|= $fDspGuts	   << 7;
 		$grbit			|= $fFrozenNoSplit << 8;
-		$grbit			|= $fSelected	  << 9;
-		$grbit			|= $fPaged		 << 10;
+		$grbit			|= $fSelected	   << 9;
+		$grbit			|= $fPaged		   << 10;
 
 		$header  = pack("vv",   $record, $length);
 		$data	= pack("vvv", $grbit, $rwTop, $colLeft);
@@ -2238,10 +2240,10 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		$record	  = 0x0012;			 // Record identifier
 		$length	  = 0x0002;			 // Bytes to follow
 
-		$fLock	   = 1;	// Worksheet is protected
+		$fLock	  = 1;	// Worksheet is protected
 
 		$header	  = pack("vv", $record, $length);
-		$data		= pack("v",  $fLock);
+		$data	  = pack("v",  $fLock);
 
 		$this->_append($header.$data);
 	}
@@ -2951,4 +2953,33 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		return 0;
 	}
 
+	/**
+	 * Write PLV Record
+	 */
+	private function _writePageLayoutView(){
+		$record	  = 0x088B;			   // Record identifier
+		$length	  = 0x0010;			   // Bytes to follow
+		
+		$rt         = 0x088B; // 2
+		$grbitFrt   = 0x0000; // 2
+		$reserved   = 0x0000000000000000; // 8
+		$wScalvePLV = $this->_phpSheet->getSheetView()->getZoomScale(); // 2
+		
+		// The options flags that comprise $grbit
+		if($this->_phpSheet->getSheetView()->getView() == PHPExcel_Worksheet_SheetView::SHEETVIEW_PAGE_LAYOUT){
+			$fPageLayoutView   = 1;
+		} else {
+			$fPageLayoutView   = 0;
+		}
+		$fRulerVisible     = 0;
+		$fWhitespaceHidden = 0;		
+		
+		$grbit      = $fPageLayoutView; // 2
+		$grbit		|= $fRulerVisible	   << 1;
+		$grbit		|= $fWhitespaceHidden  << 3;
+		
+		$header	  = pack("vv", $record, $length);
+		$data	  = pack("vvVVvv", $rt, $grbitFrt, 0x00000000, 0x00000000, $wScalvePLV, $grbit);
+		$this->_append($header . $data);
+	}
 }

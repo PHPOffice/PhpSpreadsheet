@@ -32,7 +32,7 @@ Fixed in develop branch:
 - Bugfix:   (techhead) Work item GH-70 - Fixed formula/formatting bug when removing rows
 - Bugfix:   (alexgann) Work item GH-63 - Fix to cellExists for non-existent namedRanges
 - Bugfix:   (MBaker)   Work item 18844 - cache_in_memory_gzip "eats" last worksheet line, cache_in_memory doesn't
-
+- Bugfix:   (Progi1984)Work item GH-22 - Sheet View in Excel5 Writer
 
 --------------------------------------------------------------------------------
 BREAKING CHANGE! As part of the planned changes for handling array formulae in
