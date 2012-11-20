@@ -1454,9 +1454,9 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 
 		// Add the style to the workbook if necessary
 		$workbook = $this->_parent;
-		if ($existingStyle = $this->_parent->getCellXfByHashCode($pCellStyle->getHashCode())) {
-			// there is already such cell Xf in our collection
-			$xfIndex = $existingStyle->getIndex();
+		if ($this->_parent->cellXfExists($pCellStyle)) {
+			// there is already this cell Xf in our collection
+			$xfIndex = $pCellStyle->getIndex();
 		} else {
 			// we don't have such a cell Xf, need to add
 			$workbook->addCellXf($pCellStyle);
