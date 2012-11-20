@@ -84,6 +84,8 @@ $aTests = array(
 	, '34chartupdate.php'
 	, '35chartrender.php'
 	, '36chartreadwriteHTML.php'
+	, '37page_layout_view.php'
+	, '40duplicateStyle.php'
 	, 'OOCalcReader.php'
 	, 'SylkReader.php'
 	, 'Excel2003XMLReader.php'

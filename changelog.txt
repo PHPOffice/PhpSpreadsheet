@@ -24,18 +24,19 @@
 
 
 Fixed in develop branch:
-- Feature:  (MBaker)   Include charts option for HTML Writer
-- Bugfix:   (Asker)    Work item 18777 - Error in PHPEXCEL/Calculation.php script on line 2976 (stack pop check)
-- Bugfix:   (MBaker)   Work item 18794 - CSV files without a file extension being identified as HTML
-- Bugfix:   (AndreKR)  Work item GH-66 - Wrong check for maximum number of rows in Excel5 Writer
-- Bugfix:   (MBaker)   Work item GH-67 - Cache directory for DiscISAM cache storage cannot be set
-- General:  (kea)      Work item GH-69 - Improved AdvancedValueBinder for currency
-- General:  (MBaker)   Work items 17936 and 17840 - Fix for environments where there is no access to /tmp but to upload_tmp_dir
-                       Provided an option to set the sys_get_temp_dir() call to use the upload_tmp_dir; though by default the standard temp directory will still be used
-- Bugfix:   (techhead) Work item GH-70 - Fixed formula/formatting bug when removing rows
-- Bugfix:   (alexgann) Work item GH-63 - Fix to cellExists for non-existent namedRanges
-- Bugfix:   (MBaker)   Work item 18844 - cache_in_memory_gzip "eats" last worksheet line, cache_in_memory doesn't
-- Bugfix:   (Progi1984)Work item GH-22 - Sheet View in Excel5 Writer
+- Feature:  (MBaker)    Include charts option for HTML Writer
+- Bugfix:   (Asker)     Work item 18777 - Error in PHPEXCEL/Calculation.php script on line 2976 (stack pop check)
+- Bugfix:   (MBaker)    Work item 18794 - CSV files without a file extension being identified as HTML
+- Bugfix:   (AndreKR)   Work item GH-66 - Wrong check for maximum number of rows in Excel5 Writer
+- Bugfix:   (MBaker)    Work item GH-67 - Cache directory for DiscISAM cache storage cannot be set
+- General:  (kea)       Work item GH-69 - Improved AdvancedValueBinder for currency
+- General:  (MBaker)    Work items 17936 and 17840 - Fix for environments where there is no access to /tmp but to upload_tmp_dir
+                        Provided an option to set the sys_get_temp_dir() call to use the upload_tmp_dir; though by default the standard temp directory will still be used
+- General:  (amironov ) Work item GH-84 - Search style by identity in PHPExcel_Worksheet::duplicateStyle()
+- Bugfix:   (techhead)  Work item GH-70 - Fixed formula/formatting bug when removing rows
+- Bugfix:   (alexgann)  Work item GH-63 - Fix to cellExists for non-existent namedRanges
+- Bugfix:   (MBaker)    Work item 18844 - cache_in_memory_gzip "eats" last worksheet line, cache_in_memory doesn't
+- Bugfix:   (Progi1984) Work item GH-22 - Sheet View in Excel5 Writer
 
 --------------------------------------------------------------------------------
 BREAKING CHANGE! As part of the planned changes for handling array formulae in

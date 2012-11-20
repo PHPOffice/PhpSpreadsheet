@@ -402,7 +402,7 @@ class PHPExcel_Style extends PHPExcel_Style_Supervisor implements PHPExcel_IComp
 					$newStyle = clone $style;
 					$newStyle->applyFromArray($pStyles);
 
-					if ($existingStyle = $workbook->getCellXfByHashCode($newStyle->getHashCode())) {
+					if ($workbook->cellXfExists($newStyle)) {
 						// there is already such cell Xf in our collection
 						$newXfIndexes[$oldXfIndex] = $existingStyle->getIndex();
 					} else {
