@@ -28,6 +28,7 @@ Fixed in develop branch:
 - Bugfix:   (Asker)    Work item 18777 - Error in PHPEXCEL/Calculation.php script on line 2976 (stack pop check)
 - Bugfix:   (MBaker)   Work item 18794 - CSV files without a file extension being identified as HTML
 - Bugfix:   (AndreKR)  Work item GH-66 - Wrong check for maximum number of rows in Excel5 Writer
+- Bugfix:   (MBaker)   Work item GH-67 - Cache directory for DiscISAM cache storage cannot be set
 - General:  (kea)      Work item GH-69 - Improved AdvancedValueBinder for currency
 - General:  (MBaker)   Work items 17936 and 17840 - Fix for environments where there is no access to /tmp but to upload_tmp_dir
                        Provided an option to set the sys_get_temp_dir() call to use the upload_tmp_dir; though by default the standard temp directory will still be used
