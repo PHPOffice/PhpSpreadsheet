@@ -3995,6 +3995,22 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
 		// offset: 0; size: 2; option flags
 		$options = self::_GetInt2d($recordData, 0);
 
+		// offset: 2; size: 2; index to first visible row 
+		$firstVisibleRow = self::_GetInt2d($recordData, 2);
+
+		// offset: 4; size: 2; index to first visible colum
+		$firstVisibleColumn = self::_GetInt2d($recordData, 4);
+		if ($this->_version === self::XLS_BIFF8) {
+			// offset:  8; size: 2; not used
+			// offset: 10; size: 2; cached magnification factor in page break preview (in percent); 0 = Default (60%)
+			// offset: 12; size: 2; cached magnification factor in normal view (in percent); 0 = Default (100%)
+			// offset: 14; size: 4; not used
+			$zoomscaleInPageBreakPreview = self::_GetInt2d($recordData, 10);
+			if ($zoomscaleInPageBreakPreview === 0) $zoomscaleInPageBreakPreview = 60;
+			$zoomscaleInNormalView = self::_GetInt2d($recordData, 12);
+			if ($zoomscaleInNormalView === 0) $zoomscaleInNormalView = 100;
+		}
+
 		// bit: 1; mask: 0x0002; 0 = do not show gridlines, 1 = show gridlines
 		$showGridlines = (bool) ((0x0002 & $options) >> 1);
 		$this->_phpSheet->setShowGridlines($showGridlines);
@@ -4013,6 +4029,23 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
 		$isActive = (bool) ((0x0400 & $options) >> 10);
 		if ($isActive) {
 			$this->_phpExcel->setActiveSheetIndex($this->_phpExcel->getIndex($this->_phpSheet));
+		}
+
+		// bit: 11; mask: 0x0800; 0 = normal view, 1 = page break view
+		$isPageBreakPreview = (bool) ((0x0800 & $options) >> 11);
+		
+		//FIXME: set $firstVisibleRow and $firstVisibleColumn
+		
+		if ($this->_phpSheet->getSheetView()->getView() !== PHPExcel_Worksheet_SheetView::SHEETVIEW_PAGE_LAYOUT) {
+			//NOTE: this setting is inferior to page layout view(Excel2007-)
+			$view = $isPageBreakPreview? PHPExcel_Worksheet_SheetView::SHEETVIEW_PAGE_BREAK_PREVIEW :
+				PHPExcel_Worksheet_SheetView::SHEETVIEW_NORMAL;
+			$this->_phpSheet->getSheetView()->setView($view);
+			if ($this->_version === self::XLS_BIFF8) {
+				$zoomScale = $isPageBreakPreview? $zoomscaleInPageBreakPreview : $zoomscaleInNormalView;
+				$this->_phpSheet->getSheetView()->setZoomScale($zoomScale);
+				$this->_phpSheet->getSheetView()->setZoomScaleNormal($zoomscaleInNormalView);
+			}
 		}
 	}
 
