@@ -8,6 +8,8 @@
  * @author      Mark Baker
  */
 
+chdir(dirname(__FILE__));
+
 // PHP 5.3 Compat
 date_default_timezone_set('Europe/London');
 
