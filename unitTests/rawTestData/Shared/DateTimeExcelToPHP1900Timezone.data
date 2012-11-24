@@ -6,9 +6,9 @@
 50424,			TRUE,	'America/New_York',	2147454000	//	PHP 32-bit Latest Date		19-Jan-2038 00:00:00 UST
 22345.56789,		TRUE,	'America/New_York',	-278522534	//					18-May-1903 13:37:46 UST
 22345.6789,		TRUE,	'America/New_York',	-278512943	//					18-Oct-1933 16:17:37 UST
-0.5,			TRUE,	'America/New_York',	28800		//					12:00:00 UST
-0.75,			TRUE,	'America/New_York',	50400		//					18:00.00 UST
-0.12345,		TRUE,	'America/New_York',	-3734		//					02:57:46 UST
+0.5,			TRUE,	'America/New_York',	25200		//					12:00:00 UST
+0.75,			TRUE,	'America/New_York',	46800		//					18:00.00 UST
+0.12345,		TRUE,	'America/New_York',	-7334		//					02:57:46 UST
 41215,			TRUE,	'America/New_York',	1351800000	//					02-Nov-2012 00:00:00 UST
 22269,			TRUE,	'Pacific/Auckland',	-285076800	//					19-Dec-1960 00:00:00 UST
 25569,			TRUE,	'Pacific/Auckland',	43200		//	PHP Base Date			01-Jan-1970 00:00:00 UST
