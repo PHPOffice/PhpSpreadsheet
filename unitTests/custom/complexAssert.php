@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__.'/Complex.php';
+include_once dirname(__FILE__).'/Complex.php';
 
 
 class complexAssert {
