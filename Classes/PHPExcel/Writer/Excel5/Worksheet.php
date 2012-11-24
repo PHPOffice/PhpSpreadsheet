@@ -1278,6 +1278,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		// no support in PHPExcel for selected sheet, therefore sheet is only selected if it is the active sheet
 		$fSelected	  = ($this->_phpSheet === $this->_phpSheet->getParent()->getActiveSheet()) ? 1 : 0;
 		$fPaged		 = 1;					 // 2
+		$fPageBreakPreview = $this->_phpSheet->getSheetView()->getView() === PHPExcel_Worksheet_SheetView::SHEETVIEW_PAGE_BREAK_PREVIEW;
 
 		$grbit			 = $fDspFmla;
 		$grbit			|= $fDspGrid	   << 1;
@@ -1290,14 +1291,16 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		$grbit			|= $fFrozenNoSplit << 8;
 		$grbit			|= $fSelected	   << 9;
 		$grbit			|= $fPaged		   << 10;
+		$grbit			|= $fPageBreakPreview << 11;
 
 		$header  = pack("vv",   $record, $length);
 		$data	= pack("vvv", $grbit, $rwTop, $colLeft);
 
 		// FIXME !!!
 		$rgbHdr	   = 0x0040; // Row/column heading and gridline color index
-		$zoom_factor_page_break = 0x0000;
-		$zoom_factor_normal	 = 0x0000;
+		$zoom_factor_page_break = ($fPageBreakPreview? $this->_phpSheet->getSheetView()->getZoomScale() : 0x0000);
+		$zoom_factor_normal =  $this->_phpSheet->getSheetView()->getZoomScaleNormal();
+
 		$data .= pack("vvvvV", $rgbHdr, 0x0000, $zoom_factor_page_break, $zoom_factor_normal, 0x00000000);
 
 		$this->_append($header.$data);
