@@ -91,7 +91,7 @@ $inputFileNames = 'templates/36write*.xlsx';
 if ((isset($argc)) && ($argc > 1)) {
 	$inputFileNames = array();
 	for($i = 1; $i < $argc; ++$i) {
-		$inputFileNames[] = __DIR__ . '/templates/' . $argv[$i];
+		$inputFileNames[] = dirname(__FILE__) . '/templates/' . $argv[$i];
 	}
 } else {
 	$inputFileNames = glob($inputFileNames);

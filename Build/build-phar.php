@@ -36,7 +36,7 @@ if (ini_get('phar.readonly')) {
 $pharName = 'PHPExcel.phar';
 
 // target folder
-$sourceDir = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'Classes' . DIRECTORY_SEPARATOR;
+$sourceDir = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'Classes' . DIRECTORY_SEPARATOR;
 
 // default meta information
 $metaData = array(

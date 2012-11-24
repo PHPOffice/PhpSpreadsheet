@@ -57,13 +57,32 @@ class testDataFileIterator implements Iterator
         list($testData) = explode('//',$testDataRow);
 
         //    Split data into an array of individual values and a result
-        $dataSet = str_getcsv($testData,',',"'");
+        $dataSet = $this->_getcsv($testData, ',', "'");
         foreach($dataSet as &$dataValue) {
             $dataValue = $this->_parseDataValue($dataValue);
         }
         unset($dataValue);
 
         return $dataSet;
+    }
+
+    private function _getcsv($input, $delimiter, $enclosure)
+    {
+        if (function_exists('str_getcsv')) {
+            return str_getcsv($input, $delimiter, $enclosure);
+        }
+
+        $temp = fopen('php://memory', 'rw');
+        fwrite($temp, $input);
+        rewind($temp);
+        $data = fgetcsv($temp, strlen($input), $delimiter, $enclosure);
+        fclose($temp);
+
+        if ($data === false) {
+            $data = array(null);
+        }
+
+        return $data;
     }
 
     private function _parseDataValue($dataValue) {
