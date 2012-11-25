@@ -73,7 +73,7 @@ class StringTest extends PHPUnit_Framework_TestCase
 
 	public function testSetCurrencyCode()
 	{
-		$expectedResult = '£';
+		$expectedResult = 'Â£';
 		$result = call_user_func(array('PHPExcel_Shared_String','setCurrencyCode'),$expectedResult);
 
 		$result = call_user_func(array('PHPExcel_Shared_String','getCurrencyCode'));
