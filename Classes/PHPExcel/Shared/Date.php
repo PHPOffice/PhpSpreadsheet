@@ -58,8 +58,21 @@ class PHPExcel_Shared_Date
 										'Sep' => 'September',
 										'Oct' => 'October',
 										'Nov' => 'November',
-										'Dec' => 'December'
+										'Dec' => 'December',
 									  );
+
+	/*
+	 * Names of the months of the year, indexed by shortname
+	 * Planned usage for locale settings
+	 *
+	 * @public
+	 * @var	string[]
+	 */
+	public static $_numberSuffixes = array(	'st',
+											'nd',
+											'rd',
+											'th',
+										  );
 
 	/*
 	 * Base calendar year to use for calculations
@@ -354,5 +367,24 @@ class PHPExcel_Shared_Date
 
 
 	}
+
+    public static function monthStringToNumber($month) {
+        $monthIndex = 1;
+        foreach(self::$_monthNames as $shortMonthName => $longMonthName) {
+            if (($month === $longMonthName) || ($month === $shortMonthName)) {
+                return $monthIndex;
+            }
+            ++$monthIndex;
+        }
+        return $month;
+    }
+
+    public static function dayStringToNumber($day) {
+		$strippedDayValue = (str_replace(self::$_numberSuffixes,'',$day));
+		if (is_numeric($strippedDayValue)) {
+		    return $strippedDayValue;
+		}
+		return $day;
+    }
 
 }

@@ -72,8 +72,8 @@
 2010,	0,	-1,		40146
 2010,	5,	31,		40329
 2010,	1,	'21st',		40199		//	MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
-2010,	"March",'21st',		40168		//	MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
-2010,	"March",21,		40168		//	MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
+2010,	"March",'21st',		40258		//	MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
+2010,	"March",21,		40258		//	MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
 "ABC",	1,	21,		"#VALUE!"
 2010,	"DEF",	21,		"#VALUE!"
 2010,	3,	"GHI",		"#VALUE!"

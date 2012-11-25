@@ -349,13 +349,13 @@ class PHPExcel
             $this->_workSheetCollection,
             $oldIndex,
             1
-            );
+        );
         array_splice(
             $this->_workSheetCollection,
             $newIndex,
             0,
             $pSheet
-            );
+        );
         return $newIndex;
     }
 
