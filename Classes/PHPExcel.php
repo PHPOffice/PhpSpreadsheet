@@ -196,7 +196,7 @@ class PHPExcel
      *
      * @param  int|null $iSheetIndex Index where sheet should go (0,1,..., or null for last)
      * @return PHPExcel_Worksheet
-     * @throws Exception
+     * @throws PHPExcel_Exception
      */
     public function createSheet($iSheetIndex = NULL)
     {
@@ -222,12 +222,12 @@ class PHPExcel
      * @param  PHPExcel_Worksheet $pSheet
      * @param  int|null $iSheetIndex Index where sheet should go (0,1,..., or null for last)
      * @return PHPExcel_Worksheet
-     * @throws Exception
+     * @throws PHPExcel_Exception
      */
     public function addSheet(PHPExcel_Worksheet $pSheet, $iSheetIndex = NULL)
     {
         if ($this->sheetNameExists($pSheet->getTitle())) {
-            throw new Exception("Workbook already contains a worksheet named '{$pSheet->getTitle()}'. Rename this worksheet first.");
+            throw new PHPExcel_Exception("Workbook already contains a worksheet named '{$pSheet->getTitle()}'. Rename this worksheet first.");
         }
 
         if($iSheetIndex === NULL) {
@@ -256,12 +256,12 @@ class PHPExcel
      * Remove sheet by index
      *
      * @param  int $pIndex Active sheet index
-     * @throws Exception
+     * @throws PHPExcel_Exception
      */
     public function removeSheetByIndex($pIndex = 0)
     {
         if ($pIndex > count($this->_workSheetCollection) - 1) {
-            throw new Exception("Sheet index is out of bounds.");
+            throw new PHPExcel_Exception("Sheet index is out of bounds.");
         } else {
             array_splice($this->_workSheetCollection, $pIndex, 1);
         }
@@ -278,12 +278,12 @@ class PHPExcel
      *
      * @param  int $pIndex Sheet index
      * @return PHPExcel_Worksheet
-     * @throws Exception
+     * @throws PHPExcel_Exception
      */
     public function getSheet($pIndex = 0)
     {
         if ($pIndex > count($this->_workSheetCollection) - 1) {
-            throw new Exception("Sheet index is out of bounds.");
+            throw new PHPExcel_Exception("Sheet index is out of bounds.");
         } else {
             return $this->_workSheetCollection[$pIndex];
         }
@@ -304,7 +304,6 @@ class PHPExcel
      *
      * @param  string $pName Sheet name
      * @return PHPExcel_Worksheet
-     * @throws Exception
      */
     public function getSheetByName($pName = '')
     {
@@ -315,7 +314,7 @@ class PHPExcel
             }
         }
 
-        return null;
+        return NULL;
     }
 
     /**
@@ -323,7 +322,7 @@ class PHPExcel
      *
      * @param  PHPExcel_Worksheet $pSheet
      * @return Sheet index
-     * @throws Exception
+     * @throws PHPExcel_Exception
      */
     public function getIndex(PHPExcel_Worksheet $pSheet)
     {
@@ -332,6 +331,8 @@ class PHPExcel
                 return $key;
             }
         }
+
+        throw new PHPExcel_Exception("Sheet does not exist.");
     }
 
     /**
@@ -340,7 +341,7 @@ class PHPExcel
      * @param  string $sheetName Sheet name to modify index for
      * @param  int $newIndex New index for the sheet
      * @return New sheet index
-     * @throws Exception
+     * @throws PHPExcel_Exception
      */
     public function setIndexByName($sheetName, $newIndex)
     {
@@ -383,13 +384,13 @@ class PHPExcel
      * Set active sheet index
      *
      * @param  int $pIndex Active sheet index
-     * @throws Exception
+     * @throws PHPExcel_Exception
      * @return PHPExcel_Worksheet
      */
     public function setActiveSheetIndex($pIndex = 0)
     {
         if ($pIndex > count($this->_workSheetCollection) - 1) {
-            throw new Exception("Active sheet index is out of bounds.");
+            throw new PHPExcel_Exception("Active sheet index is out of bounds.");
         } else {
             $this->_activeSheetIndex = $pIndex;
         }
@@ -401,7 +402,7 @@ class PHPExcel
      *
      * @param  string $pValue Sheet title
      * @return PHPExcel_Worksheet
-     * @throws Exception
+     * @throws PHPExcel_Exception
      */
     public function setActiveSheetIndexByName($pValue = '')
     {
@@ -410,7 +411,7 @@ class PHPExcel
             return $worksheet;
         }
 
-        throw new Exception('Workbook does not contain sheet:' . $pValue);
+        throw new PHPExcel_Exception('Workbook does not contain sheet:' . $pValue);
     }
 
     /**
@@ -434,12 +435,12 @@ class PHPExcel
      *
      * @param  PHPExcel_Worksheet $pSheet External sheet to add
      * @param  int|null $iSheetIndex Index where sheet should go (0,1,..., or null for last)
-     * @throws Exception
+     * @throws PHPExcel_Exception
      * @return PHPExcel_Worksheet
      */
     public function addExternalSheet(PHPExcel_Worksheet $pSheet, $iSheetIndex = null) {
         if ($this->sheetNameExists($pSheet->getTitle())) {
-            throw new Exception("Workbook already contains a worksheet named '{$pSheet->getTitle()}'. Rename the external sheet first.");
+            throw new PHPExcel_Exception("Workbook already contains a worksheet named '{$pSheet->getTitle()}'. Rename the external sheet first.");
         }
 
         // count how many cellXfs there are in this workbook currently, we will need this below
@@ -622,14 +623,14 @@ class PHPExcel
      * Get default style
      *
      * @return PHPExcel_Style
-     * @throws Exception
+     * @throws PHPExcel_Exception
      */
     public function getDefaultStyle()
     {
         if (isset($this->_cellXfCollection[0])) {
             return $this->_cellXfCollection[0];
         }
-        throw new Exception('No default style found for this workbook');
+        throw new PHPExcel_Exception('No default style found for this workbook');
     }
 
     /**
@@ -647,12 +648,12 @@ class PHPExcel
      * Remove cellXf by index. It is ensured that all cells get their xf index updated.
      *
      * @param  int $pIndex Index to cellXf
-     * @throws Exception
+     * @throws PHPExcel_Exception
      */
     public function removeCellXfByIndex($pIndex = 0)
     {
         if ($pIndex > count($this->_cellXfCollection) - 1) {
-            throw new Exception("CellXf index is out of bounds.");
+            throw new PHPExcel_Exception("CellXf index is out of bounds.");
         } else {
             // first remove the cellXf
             array_splice($this->_cellXfCollection, $pIndex, 1);
@@ -736,12 +737,12 @@ class PHPExcel
      * Remove cellStyleXf by index
      *
      * @param int $pIndex
-     * @throws Exception
+     * @throws PHPExcel_Exception
      */
     public function removeCellStyleXfByIndex($pIndex = 0)
     {
         if ($pIndex > count($this->_cellStyleXfCollection) - 1) {
-            throw new Exception("CellStyleXf index is out of bounds.");
+            throw new PHPExcel_Exception("CellStyleXf index is out of bounds.");
         } else {
             array_splice($this->_cellStyleXfCollection, $pIndex, 1);
         }

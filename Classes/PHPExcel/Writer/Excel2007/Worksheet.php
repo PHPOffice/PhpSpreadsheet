@@ -1029,7 +1029,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 						// End row
 						$objWriter->endElement();
 					}
-					$objWriter->flush();
+//					$objWriter->flush();
 				}
 
 			$objWriter->endElement();

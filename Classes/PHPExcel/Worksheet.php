@@ -409,18 +409,18 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 *
 	 * @param string $pValue The string to check
 	 * @return string The valid string
-	 * @throws Exception
+	 * @throws PHPExcel_Exception
 	 */
 	private static function _checkSheetTitle($pValue)
 	{
 		// Some of the printable ASCII characters are invalid:  * : / \ ? [ ]
 		if (str_replace(self::$_invalidCharacters, '', $pValue) !== $pValue) {
-			throw new Exception('Invalid character found in sheet title');
+			throw new PHPExcel_Exception('Invalid character found in sheet title');
 		}
 
 		// Maximum 31 characters allowed for sheet title
 		if (PHPExcel_Shared_String::CountCharacters($pValue) > 31) {
-			throw new Exception('Maximum 31 characters allowed in sheet title.');
+			throw new PHPExcel_Exception('Maximum 31 characters allowed in sheet title.');
 		}
 
 		return $pValue;
@@ -523,7 +523,6 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @param PHPExcel_Chart $pChart
 	 * @param int|null $iChartIndex Index where chart should go (0,1,..., or null for last)
 	 * @return PHPExcel_Chart
-	 * @throws Exception
 	 */
 	public function addChart(PHPExcel_Chart $pChart = null, $iChartIndex = null)
 	{
@@ -542,7 +541,6 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * Return the count of charts on this worksheet
 	 *
 	 * @return int		The number of charts
-	 * @throws Exception
 	 */
 	public function getChartCount()
 	{
@@ -1081,7 +1079,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * Get cell at a specific coordinate
 	 *
 	 * @param	string			$pCoordinate	Coordinate of the cell
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return	PHPExcel_Cell	Cell that was found
 	 */
 	public function getCell($pCoordinate = 'A1')
@@ -1111,9 +1109,9 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		$pCoordinate = strtoupper($pCoordinate);
 
 		if (strpos($pCoordinate,':') !== false || strpos($pCoordinate,',') !== false) {
-			throw new Exception('Cell coordinate can not be a range of cells.');
+			throw new PHPExcel_Exception('Cell coordinate can not be a range of cells.');
 		} elseif (strpos($pCoordinate,'$') !== false) {
-			throw new Exception('Cell coordinate must not be absolute.');
+			throw new PHPExcel_Exception('Cell coordinate must not be absolute.');
 		} else {
 			// Create new cell object
 
@@ -1178,7 +1176,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * Cell at a specific coordinate exists?
 	 *
 	 * @param	string			$pCoordinate	Coordinate of the cell
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return	boolean
 	 */
 	public function cellExists($pCoordinate = 'A1')
@@ -1210,9 +1208,9 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		$pCoordinate = strtoupper($pCoordinate);
 
 		if (strpos($pCoordinate,':') !== false || strpos($pCoordinate,',') !== false) {
-			throw new Exception('Cell coordinate can not be a range of cells.');
+			throw new PHPExcel_Exception('Cell coordinate can not be a range of cells.');
 		} elseif (strpos($pCoordinate,'$') !== false) {
-			throw new Exception('Cell coordinate must not be absolute.');
+			throw new PHPExcel_Exception('Cell coordinate must not be absolute.');
 		} else {
 			// Coordinates
 			$aCoordinates = PHPExcel_Cell::coordinateFromString($pCoordinate);
@@ -1508,14 +1506,14 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 *
 	 * @param	array of PHPExcel_Style_Conditional	$pCellStyle	Cell style to duplicate
 	 * @param	string								$pRange		Range of cells (i.e. "A1:B10"), or just one cell (i.e. "A1")
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function duplicateConditionalStyle(array $pCellStyle = null, $pRange = '')
 	{
 		foreach($pCellStyle as $cellStyle) {
 			if (!($cellStyle instanceof PHPExcel_Style_Conditional)) {
-				throw new Exception('Style is not a conditional style');
+				throw new PHPExcel_Exception('Style is not a conditional style');
 			}
 		}
 
@@ -1582,7 +1580,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 *
 	 * @param	string			$pCell		Cell coordinate (e.g. A1)
 	 * @param	int				$pBreak		Break type (type of PHPExcel_Worksheet::BREAK_*)
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function setBreak($pCell = 'A1', $pBreak = PHPExcel_Worksheet::BREAK_NONE)
@@ -1593,7 +1591,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		if ($pCell != '') {
 			$this->_breaks[$pCell] = $pBreak;
 		} else {
-			throw new Exception('No cell coordinate specified.');
+			throw new PHPExcel_Exception('No cell coordinate specified.');
 		}
 
 		return $this;
@@ -1605,7 +1603,6 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @param	integer	$pColumn	Numeric column coordinate of the cell
 	 * @param	integer	$pRow		Numeric row coordinate of the cell
 	 * @param	integer	$pBreak		Break type (type of PHPExcel_Worksheet::BREAK_*)
-	 * @throws	Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function setBreakByColumnAndRow($pColumn = 0, $pRow = 1, $pBreak = PHPExcel_Worksheet::BREAK_NONE)

@@ -78,12 +78,13 @@ class PHPExcel_NamedRange
      * @param string $pRange
      * @param bool $pLocalOnly
      * @param PHPExcel_Worksheet|null $pScope	Scope. Only applies when $pLocalOnly = true. Null for global scope.
+     * @throws PHPExcel_Exception
      */
     public function __construct($pName = null, PHPExcel_Worksheet $pWorksheet, $pRange = 'A1', $pLocalOnly = false, $pScope = null)
     {
     	// Validate data
     	if (($pName === NULL) || ($pWorksheet === NULL) || ($pRange === NULL)) {
-    		throw new Exception('Parameters can not be null.');
+    		throw new PHPExcel_Exception('Parameters can not be null.');
     	}
 
     	// Set local members
