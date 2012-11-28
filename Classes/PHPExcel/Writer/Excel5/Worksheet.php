@@ -656,7 +656,6 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 	private function _writeRichTextString($row, $col, $str, $xfIndex, $arrcRun){
 		$record	= 0x00FD;				   // Record identifier
 		$length	= 0x000A;				   // Bytes to follow
-
 		$str = PHPExcel_Shared_String::UTF8toBIFF8UnicodeShort($str, $arrcRun);
 
 		/* check if string is already present */
@@ -2962,12 +2961,12 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 	private function _writePageLayoutView(){
 		$record	  = 0x088B;			   // Record identifier
 		$length	  = 0x0010;			   // Bytes to follow
-		
+
 		$rt         = 0x088B; // 2
 		$grbitFrt   = 0x0000; // 2
 		$reserved   = 0x0000000000000000; // 8
 		$wScalvePLV = $this->_phpSheet->getSheetView()->getZoomScale(); // 2
-		
+
 		// The options flags that comprise $grbit
 		if($this->_phpSheet->getSheetView()->getView() == PHPExcel_Worksheet_SheetView::SHEETVIEW_PAGE_LAYOUT){
 			$fPageLayoutView   = 1;
@@ -2975,12 +2974,12 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 			$fPageLayoutView   = 0;
 		}
 		$fRulerVisible     = 0;
-		$fWhitespaceHidden = 0;		
-		
+		$fWhitespaceHidden = 0;
+
 		$grbit      = $fPageLayoutView; // 2
 		$grbit		|= $fRulerVisible	   << 1;
 		$grbit		|= $fWhitespaceHidden  << 3;
-		
+
 		$header	  = pack("vv", $record, $length);
 		$data	  = pack("vvVVvv", $rt, $grbitFrt, 0x00000000, 0x00000000, $wScalvePLV, $grbit);
 		$this->_append($header . $data);

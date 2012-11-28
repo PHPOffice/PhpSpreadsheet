@@ -132,16 +132,36 @@ $objPHPExcel->getActiveSheet()->setAutoFilter($objPHPExcel->getActiveSheet()->ca
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
 $objPHPExcel->setActiveSheetIndex(0);
 
+
 // Save Excel 2007 file
-echo date('H:i:s').' Write to Excel2007 format'.EOL;
+echo date('H:i:s') , " Write to Excel2007 format" , EOL;
+$callStartTime = microtime(true);
+
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
-echo date('H:i:s').' File written to '.str_replace('.php', '.xlsx', pathinfo(__FILE__, PATHINFO_BASENAME)).EOL;
-// Save Excel5 file
-echo date('H:i:s').' Write to Excel5 format'.EOL;
+$callEndTime = microtime(true);
+$callTime = $callEndTime - $callStartTime;
+
+echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
+echo 'Call time to write Workbook was ' , sprintf('%.4f',$callTime) , " seconds" , EOL;
+// Echo memory usage
+echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 / 1024) , " MB" , EOL;
+
+
+// Save Excel 95 file
+echo date('H:i:s') , " Write to Excel5 format" , EOL;
+$callStartTime = microtime(true);
+
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save(str_replace('.php', '.xls', __FILE__));
-echo date('H:i:s').' File written to '.str_replace('.php', '.xls', pathinfo(__FILE__, PATHINFO_BASENAME)).EOL;
+$callEndTime = microtime(true);
+$callTime = $callEndTime - $callStartTime;
+
+echo date('H:i:s') , " File written to " , str_replace('.php', '.xls', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
+echo 'Call time to write Workbook was ' , sprintf('%.4f',$callTime) , " seconds" , EOL;
+// Echo memory usage
+echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 / 1024) , " MB" , EOL;
+
 
 // Echo memory peak usage
 echo date('H:i:s').' Peak memory usage: '.(memory_get_peak_usage(true) / 1024 / 1024).' MB'.EOL;

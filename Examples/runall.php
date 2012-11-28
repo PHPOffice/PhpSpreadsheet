@@ -45,6 +45,7 @@ $aTests = array(
 	, '06largescale-xls.php'
 	, '07reader.php'
 	, '08conditionalformatting.php'
+	, '08conditionalformatting2.php'
 	, '09pagebreaks.php'
 	, '10autofilter.php'
 	, '10autofilter-selection-1.php'

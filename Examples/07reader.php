@@ -42,12 +42,30 @@ if (!file_exists("05featuredemo.xlsx")) {
 }
 
 echo date('H:i:s') , " Load from Excel2007 file" , EOL;
+$callStartTime = microtime(true);
+
 $objPHPExcel = PHPExcel_IOFactory::load("05featuredemo.xlsx");
 
+$callEndTime = microtime(true);
+$callTime = $callEndTime - $callStartTime;
+echo 'Call time to read Workbook was ' , sprintf('%.4f',$callTime) , " seconds" , EOL;
+// Echo memory usage
+echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 / 1024) , " MB" , EOL;
+
+
 echo date('H:i:s') , " Write to Excel2007 format" , EOL;
+$callStartTime = microtime(true);
+
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
+
+$callEndTime = microtime(true);
+$callTime = $callEndTime - $callStartTime;
+
 echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
+echo 'Call time to write Workbook was ' , sprintf('%.4f',$callTime) , " seconds" , EOL;
+// Echo memory usage
+echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 / 1024) , " MB" , EOL;
 
 
 // Echo memory peak usage

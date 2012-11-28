@@ -434,7 +434,6 @@ class PHPExcel_Shared_String
 	{
 		// character count
 		$ln = self::CountCharacters($value, 'UTF-8');
-
 		// option flags
 		if(empty($arrcRuns)){
 			$opt = (self::getIsIconvEnabled() || self::getIsMbstringEnabled()) ?

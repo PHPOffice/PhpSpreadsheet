@@ -42,26 +42,47 @@ require_once '../Classes/PHPExcel/IOFactory.php';
 
 
 echo date('H:i:s') , " Write to CSV format" , EOL;
+$callStartTime = microtime(true);
+
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV')->setDelimiter(',')
                                                                   ->setEnclosure('"')
                                                                   ->setLineEnding("\r\n")
                                                                   ->setSheetIndex(0)
                                                                   ->save(str_replace('.php', '.csv', __FILE__));
+$callEndTime = microtime(true);
+$callTime = $callEndTime - $callStartTime;
 echo date('H:i:s') , " File written to " , str_replace('.php', '.csv', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
+echo 'Call time to write Workbook was ' , sprintf('%.4f',$callTime) , " seconds" , EOL;
+// Echo memory usage
+echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 / 1024) , " MB" , EOL;
+
 
 echo date('H:i:s') , " Read from CSV format" , EOL;
+$callStartTime = microtime(true);
 $objReader = PHPExcel_IOFactory::createReader('CSV')->setDelimiter(',')
                                                     ->setEnclosure('"')
                                                     ->setLineEnding("\r\n")
                                                     ->setSheetIndex(0);
 $objPHPExcelFromCSV = $objReader->load(str_replace('.php', '.csv', __FILE__));
-echo date('H:i:s') , " File read from " , str_replace('.php', '.csv', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
+
+$callEndTime = microtime(true);
+$callTime = $callEndTime - $callStartTime;
+echo 'Call time to reload Workbook was ' , sprintf('%.4f',$callTime) , " seconds" , EOL;
+// Echo memory usage
+echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 / 1024) , " MB" , EOL;
 
 
 echo date('H:i:s') , " Write to Excel2007 format" , EOL;
+$callStartTime = microtime(true);
+
 $objWriter2007 = PHPExcel_IOFactory::createWriter($objPHPExcelFromCSV, 'Excel2007');
 $objWriter2007->save(str_replace('.php', '.xlsx', __FILE__));
+$callEndTime = microtime(true);
+$callTime = $callEndTime - $callStartTime;
 echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
+echo 'Call time to write Workbook was ' , sprintf('%.4f',$callTime) , " seconds" , EOL;
+// Echo memory usage
+echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 / 1024) , " MB" , EOL;
 
 
 // Echo memory peak usage

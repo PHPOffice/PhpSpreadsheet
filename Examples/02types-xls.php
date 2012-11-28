@@ -122,15 +122,33 @@ $objPHPExcel->getActiveSheet()->setTitle('Datatypes');
 $objPHPExcel->setActiveSheetIndex(0);
 
 
-// Save Excel 2007 file
+// Save Excel 95 file
 echo date('H:i:s') , " Write to Excel5 format" , EOL;
+$callStartTime = microtime(true);
+
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save(str_replace('.php', '.xls', __FILE__));
 echo date('H:i:s') , " File written to " , str_replace('.php', '.xls', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
+$callEndTime = microtime(true);
+$callTime = $callEndTime - $callStartTime;
+
+echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
+echo 'Call time to write Workbook was ' , sprintf('%.4f',$callTime) , " seconds" , EOL;
+// Echo memory usage
+echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 / 1024) , " MB" , EOL;
 
 
 echo date('H:i:s') , " Reload workbook from saved file" , EOL;
+$callStartTime = microtime(true);
+
 $objPHPExcel = PHPExcel_IOFactory::load(str_replace('.php', '.xls', __FILE__));
+
+$callEndTime = microtime(true);
+$callTime = $callEndTime - $callStartTime;
+echo 'Call time to reload Workbook was ' , sprintf('%.4f',$callTime) , " seconds" , EOL;
+// Echo memory usage
+echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 / 1024) , " MB" , EOL;
+
 
 var_dump($objPHPExcel->getActiveSheet()->toArray());
 
@@ -139,5 +157,5 @@ var_dump($objPHPExcel->getActiveSheet()->toArray());
 echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , EOL;
 
 // Echo done
-echo date('H:i:s') , " Done writing file" , EOL;
+echo date('H:i:s') , " Done testing file" , EOL;
 echo 'File has been created in ' , getcwd() , EOL;

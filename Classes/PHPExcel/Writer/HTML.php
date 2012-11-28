@@ -1126,10 +1126,11 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 				$rowSpan = 1;
 
 				// initialize
-				$cellData = '';
+				$cellData = '&nbsp;';
 
 				// PHPExcel_Cell
 				if ($cell instanceof PHPExcel_Cell) {
+					$cellData = '';
 					if (is_null($cell->getParent())) {
 						$cell->attach($pSheet);
 					}

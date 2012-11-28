@@ -73,10 +73,17 @@ if (!PHPExcel_Settings::setPdfRenderer(
 }
 
 
+$callStartTime = microtime(true);
+
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'PDF');
 $objWriter->setSheetIndex(0);
 $objWriter->save(str_replace('.php', '_'.$rendererName.'.pdf', __FILE__));
+$callEndTime = microtime(true);
+$callTime = $callEndTime - $callStartTime;
 echo date('H:i:s') , " File written to " , str_replace('.php', '_'.$rendererName.'.pdf', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
+echo 'Call time to write Workbook was ' , sprintf('%.4f',$callTime) , " seconds" , EOL;
+// Echo memory usage
+echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 / 1024) , " MB" , EOL;
 
 
 // Echo memory peak usage
