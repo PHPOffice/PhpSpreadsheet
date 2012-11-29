@@ -36,23 +36,4 @@ class FileTest extends PHPUnit_Framework_TestCase
 			$this->assertEquals($useUploadTempDirectoryValue, $result);
 		}
 	}
-
-	public function testSysGetTempDir()
-	{
-		$expectedResult = 'C:\Users\Mark\AppData\Local\Temp';
-
-		$result = call_user_func(array('PHPExcel_Shared_File','sys_get_temp_dir'));
-		$this->assertEquals($expectedResult, $result);
-	}
-
-	public function testSysGetTempDirUpload()
-	{
-		$expectedResult = 'C:\xampp\tmp';
-
-		call_user_func(array('PHPExcel_Shared_File','setUseUploadTempDirectory'),TRUE);
-
-		$result = call_user_func(array('PHPExcel_Shared_File','sys_get_temp_dir'));
-		$this->assertEquals($expectedResult, $result);
-	}
-
 }
