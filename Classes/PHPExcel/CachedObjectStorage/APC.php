@@ -60,7 +60,7 @@ class PHPExcel_CachedObjectStorage_APC extends PHPExcel_CachedObjectStorage_Cach
      * @return  void
      * @throws  PHPExcel_Exception
      */
-    private function _storeData() {
+    protected function _storeData() {
         if ($this->_currentCellIsDirty) {
             $this->_currentObject->detach();
 
@@ -160,6 +160,20 @@ class PHPExcel_CachedObjectStorage_APC extends PHPExcel_CachedObjectStorage_Cach
         //    Return requested entry
         return $this->_currentObject;
     }    //    function getCacheData()
+
+
+	/**
+	 * Get a list of all cell addresses currently held in cache
+	 *
+	 * @return  array of string
+	 */
+	public function getCellList() {
+		if ($this->_currentObjectID !== null) {
+			$this->_storeData();
+		}
+
+		return parent::getCellList();
+	}
 
 
     /**

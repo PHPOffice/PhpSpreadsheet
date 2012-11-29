@@ -236,4 +236,12 @@ class PHPExcel_CachedObjectStorageFactory
         return FALSE;
     }   //    function getInstance()
 
+
+	public static function finalize()
+	{
+		self::$_cacheStorageMethod = NULL;
+		self::$_cacheStorageClass = NULL;
+		self::$_storageMethodParameters = array();
+	}
+
 }

@@ -56,7 +56,7 @@ class PHPExcel_CachedObjectStorage_SQLite extends PHPExcel_CachedObjectStorage_C
 	 * @return	void
      * @throws	Exception
      */
-	private function _storeData() {
+	protected function _storeData() {
 		if ($this->_currentCellIsDirty) {
 			$this->_currentObject->detach();
 
@@ -175,6 +175,10 @@ class PHPExcel_CachedObjectStorage_SQLite extends PHPExcel_CachedObjectStorage_C
 	 * @return	array of string
 	 */
 	public function getCellList() {
+		if ($this->_currentObjectID !== null) {
+			$this->_storeData();
+		}
+
 		$query = "SELECT id FROM kvp_".$this->_TableName;
 		$cellIdsResult = $this->_DBHandle->unbufferedQuery($query,SQLITE_ASSOC);
 		if ($cellIdsResult === false)
@@ -196,6 +200,9 @@ class PHPExcel_CachedObjectStorage_SQLite extends PHPExcel_CachedObjectStorage_C
 	 * @return	void
 	 */
 	public function copyCellCollection(PHPExcel_Worksheet $parent) {
+		$this->_currentCellIsDirty;
+        $this->_storeData();
+
 		//	Get a new id for the new table name
 		$tableName = str_replace('.','_',$this->_getUniqueID());
 		if (!$this->_DBHandle->queryExec('CREATE TABLE kvp_'.$tableName.' (id VARCHAR(12) PRIMARY KEY, value BLOB)

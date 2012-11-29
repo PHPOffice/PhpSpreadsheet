@@ -42,6 +42,7 @@ Fixed in develop branch:
 - Bugfix:   (alexgann)  Work item GH-63 - Fix to cellExists for non-existent namedRanges
 - Bugfix:   (MBaker)    Work item 18844 - cache_in_memory_gzip "eats" last worksheet line, cache_in_memory doesn't
 - Bugfix:   (Progi1984) Work item GH-22 - Sheet View in Excel5 Writer
+- Bugfix:   (amironov)  Work item GH-82 - PHPExcel_Worksheet::getCellCollection() may not return last cached cell
 
 
 --------------------------------------------------------------------------------

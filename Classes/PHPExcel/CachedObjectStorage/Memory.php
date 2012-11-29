@@ -36,6 +36,14 @@
 class PHPExcel_CachedObjectStorage_Memory extends PHPExcel_CachedObjectStorage_CacheBase implements PHPExcel_CachedObjectStorage_ICache {
 
     /**
+     * Dummy method callable from CacheBase, but unused by Memory cache
+     *
+	 * @return	void
+     */
+	protected function _storeData() {
+	}	//	function _storeData()
+
+    /**
      * Add or Update a cell in cache identified by coordinate address
      *
      * @param	string			$pCoord		Coordinate address of the cell to update
