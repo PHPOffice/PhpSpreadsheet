@@ -26,24 +26,25 @@
 Fixed in develop branch:
 - Feature:  (MBaker)    Include charts option for HTML Writer
 - Feature:  (MBaker)    Added composer file
-- Bugfix:   (Asker)     Work item 18777 - Error in PHPEXCEL/Calculation.php script on line 2976 (stack pop check)
-- Bugfix:   (MBaker)    Work item 18794 - CSV files without a file extension being identified as HTML
-- Bugfix:   (AndreKR)   Work item GH-66 - Wrong check for maximum number of rows in Excel5 Writer
-- Bugfix:   (MBaker)    Work item GH-67 - Cache directory for DiscISAM cache storage cannot be set
-- Bugfix:   (MBaker)    Work item 17976 - Fix to Excel2007 Reader for hyperlinks with an anchor fragment (following a #), otherwise they were treated as sheet references
-- Bugfix:   (MBaker)    Work item 18963 - getSheetNames() fails on numeric (floating point style) names with trailing zeroes
-- General:  (kea)       Work item GH-69 - Improved AdvancedValueBinder for currency
+- Bugfix:   (Asker)     Work item 18777  - Error in PHPEXCEL/Calculation.php script on line 2976 (stack pop check)
+- Bugfix:   (MBaker)    Work item 18794  - CSV files without a file extension being identified as HTML
+- Bugfix:   (AndreKR)   Work item GH-66  - Wrong check for maximum number of rows in Excel5 Writer
+- Bugfix:   (MBaker)    Work item GH-67  - Cache directory for DiscISAM cache storage cannot be set
+- Bugfix:   (MBaker)    Work item 17976  - Fix to Excel2007 Reader for hyperlinks with an anchor fragment (following a #), otherwise they were treated as sheet references
+- Bugfix:   (MBaker)    Work item 18963  - getSheetNames() fails on numeric (floating point style) names with trailing zeroes
+- General:  (kea)       Work item GH-69  - Improved AdvancedValueBinder for currency
 - General:  (MBaker)    Work items 17936 and 17840 - Fix for environments where there is no access to /tmp but to upload_tmp_dir
                         Provided an option to set the sys_get_temp_dir() call to use the upload_tmp_dir; though by default the standard temp directory will still be used
-- General:  (amironov ) Work item GH-84 - Search style by identity in PHPExcel_Worksheet::duplicateStyle()
-- General:  (karak)     Work item GH-85 - Fill SheetView IO in Excel5
-- General:  (cfhay)     Work item 18958 - Memory and Speed improvements in PHPExcel_Reader_Excel5
-- Bugfix:   (techhead)  Work item GH-70 - Fixed formula/formatting bug when removing rows
-- Bugfix:   (alexgann)  Work item GH-63 - Fix to cellExists for non-existent namedRanges
-- Bugfix:   (MBaker)    Work item 18844 - cache_in_memory_gzip "eats" last worksheet line, cache_in_memory doesn't
-- Bugfix:   (Progi1984) Work item GH-22 - Sheet View in Excel5 Writer
-- Bugfix:   (amironov)  Work item GH-82 - PHPExcel_Worksheet::getCellCollection() may not return last cached cell
-- Bugfix:   (teso)      Work item 18551 - Rich Text containing UTF-8 characters creating unreadable content with Excel5 Writer
+- General:  (amironov ) Work item GH-84  - Search style by identity in PHPExcel_Worksheet::duplicateStyle()
+- General:  (karak)     Work item GH-85  - Fill SheetView IO in Excel5
+- General:  (cfhay)     Work item 18958  - Memory and Speed improvements in PHPExcel_Reader_Excel5
+- Bugfix:   (techhead)  Work item GH-70  - Fixed formula/formatting bug when removing rows
+- Bugfix:   (alexgann)  Work item GH-63  - Fix to cellExists for non-existent namedRanges
+- Bugfix:   (MBaker)    Work item 18844  - cache_in_memory_gzip "eats" last worksheet line, cache_in_memory doesn't
+- Bugfix:   (Progi1984) Work item GH-22  - Sheet View in Excel5 Writer
+- Bugfix:   (amironov)  Work item GH-82  - PHPExcel_Worksheet::getCellCollection() may not return last cached cell
+- Bugfix:   (teso)      Work item 18551  - Rich Text containing UTF-8 characters creating unreadable content with Excel5 Writer
+- Bugfix:   (MBaker)    Work item GH-104 - echo statements in HTML.php
 
 
 --------------------------------------------------------------------------------
