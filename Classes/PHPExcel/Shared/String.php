@@ -443,10 +443,10 @@ class PHPExcel_Shared_String
 			$data .= self::ConvertEncoding($value, 'UTF-16LE', 'UTF-8');
 		}
 		else {
-			$data = pack('vC', $ln, 0x08);
+			$data = pack('vC', $ln, 0x09);
 			$data .= pack('v', count($arrcRuns));
 			// characters
-			$data .= $value;
+			$data .= self::ConvertEncoding($value, 'UTF-16LE', 'UTF-8');
 			foreach ($arrcRuns as $cRun){
 				$data .= pack('v', $cRun['strlen']);
 				$data .= pack('v', $cRun['fontidx']);

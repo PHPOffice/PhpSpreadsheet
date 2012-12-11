@@ -43,6 +43,7 @@ Fixed in develop branch:
 - Bugfix:   (MBaker)    Work item 18844 - cache_in_memory_gzip "eats" last worksheet line, cache_in_memory doesn't
 - Bugfix:   (Progi1984) Work item GH-22 - Sheet View in Excel5 Writer
 - Bugfix:   (amironov)  Work item GH-82 - PHPExcel_Worksheet::getCellCollection() may not return last cached cell
+- Bugfix:   (teso)      Work item 18551 - Rich Text containing UTF-8 characters creating unreadable content with Excel5 Writer
 
 
 --------------------------------------------------------------------------------

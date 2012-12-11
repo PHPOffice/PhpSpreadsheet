@@ -424,7 +424,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 			if ($cVal instanceof PHPExcel_RichText) {
 				// $this->_writeString($row, $column, $cVal->getPlainText(), $xfIndex);
 				$arrcRun = array();
-				$str_len = strlen($cVal->getPlainText());
+				$str_len = PHPExcel_Shared_String::CountCharacters($cVal->getPlainText(), 'UTF-8');
 				$str_pos = 0;
 				$elements = $cVal->getRichTextElements();
 				foreach ($elements as $element) {
@@ -437,7 +437,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 					}
 					$arrcRun[] = array('strlen' => $str_pos, 'fontidx' => $str_fontidx);
 					// Position FROM
-					$str_pos += strlen($element->getText());
+					$str_pos += PHPExcel_Shared_String::CountCharacters($element->getText(), 'UTF-8');
 				}
 				$this->_writeRichTextString($row, $column, $cVal->getPlainText(), $xfIndex, $arrcRun);
 			} else {
