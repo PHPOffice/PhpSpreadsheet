@@ -65,6 +65,12 @@ $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('A4', 'Miscellaneous glyphs')
             ->setCellValue('A5', 'éàèùâêîôûëïüÿäöüç');
 
+
+$objPHPExcel->getActiveSheet()->setCellValue('A8',"Hello\nWorld");
+$objPHPExcel->getActiveSheet()->getRowDimension(8)->setRowHeight(-1);
+$objPHPExcel->getActiveSheet()->getStyle('A8')->getAlignment()->setWrapText(true);
+
+
 // Rename worksheet
 echo date('H:i:s') , " Rename worksheet" , EOL;
 $objPHPExcel->getActiveSheet()->setTitle('Simple');
