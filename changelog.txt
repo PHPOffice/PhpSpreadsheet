@@ -41,10 +41,11 @@ Fixed in develop branch:
 - Bugfix:   (techhead)  Work item GH-70  - Fixed formula/formatting bug when removing rows
 - Bugfix:   (alexgann)  Work item GH-63  - Fix to cellExists for non-existent namedRanges
 - Bugfix:   (MBaker)    Work item 18844  - cache_in_memory_gzip "eats" last worksheet line, cache_in_memory doesn't
-- Bugfix:   (Progi1984) Work item GH-22  - Sheet View in Excel5 Writer
+- Feature:  (Progi1984) Work item GH-22  - Sheet View in Excel5 Writer
 - Bugfix:   (amironov)  Work item GH-82  - PHPExcel_Worksheet::getCellCollection() may not return last cached cell
 - Bugfix:   (teso)      Work item 18551  - Rich Text containing UTF-8 characters creating unreadable content with Excel5 Writer
 - Bugfix:   (MBaker)    Work item GH-104 - echo statements in HTML.php
+- Feature:  (Progi1984) Work item GH-8/CP11704 : Conditional formatting in Excel 5 Writer
 
 
 --------------------------------------------------------------------------------

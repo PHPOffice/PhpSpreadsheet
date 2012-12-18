@@ -476,13 +476,22 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		// Append
 		$this->_writeMsoDrawing();
 
+		// Write WINDOW2 record
 		$this->_writeWindow2();
+		
+		// Write PLV record	
 		$this->_writePageLayoutView();
+		
+		// Write ZOOM record
 		$this->_writeZoom();
 		if ($_phpSheet->getFreezePane()) {
 			$this->_writePanes();
 		}
+		
+		// Write SELECTION record
 		$this->_writeSelection();
+		
+		// Write MergedCellsTable Record
 		$this->_writeMergedCells();
 
 		// Hyperlinks
@@ -509,9 +518,32 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 
 		$this->_writeDataValidity();
 		$this->_writeSheetLayout();
+		
+		// Write SHEETPROTECTION record
 		$this->_writeSheetProtection();
 		$this->_writeRangeProtection();
-
+		
+		$arrConditionalStyles = $_phpSheet->getConditionalStylesCollection();
+		if(!empty($arrConditionalStyles)){
+			$arrConditional = array();
+			// @todo CFRule & CFHeader
+			// Write CFHEADER record
+			$this->_writeCFHeader();
+			// Write ConditionalFormattingTable records
+			foreach ($arrConditionalStyles as $cellCoordinate => $conditionalStyles) {
+				foreach ($conditionalStyles as $conditional) {
+					if($conditional->getConditionType() == PHPExcel_Style_Conditional::CONDITION_EXPRESSION
+						|| $conditional->getConditionType() == PHPExcel_Style_Conditional::CONDITION_CELLIS){
+						if(!in_array($conditional->getHashCode(), $arrConditional)){
+							$arrConditional[] = $conditional->getHashCode();
+							// Write CFRULE record
+							$this->_writeCFRule($conditional);
+						}
+					}
+				}
+			}
+		}
+		
 		$this->_storeEof();
 	}
 
@@ -2982,6 +3014,668 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 
 		$header	  = pack("vv", $record, $length);
 		$data	  = pack("vvVVvv", $rt, $grbitFrt, 0x00000000, 0x00000000, $wScalvePLV, $grbit);
+		$this->_append($header . $data);
+	}
+	
+	/**
+	 * Write CFRule Record
+	 * @param PHPExcel_Style_Conditional $conditional
+	 */
+	private function _writeCFRule(PHPExcel_Style_Conditional $conditional){
+		$record	  = 0x01B1;			   // Record identifier
+		
+		// $type : Type of the CF
+		// $operatorType : Comparison operator
+		if($conditional->getConditionType() == PHPExcel_Style_Conditional::CONDITION_EXPRESSION){
+			$type = 0x02;
+			$operatorType = 0x00;
+		} else if($conditional->getConditionType() == PHPExcel_Style_Conditional::CONDITION_CELLIS){
+			$type = 0x01;
+			
+			switch ($conditional->getOperatorType()){
+				case PHPExcel_Style_Conditional::OPERATOR_NONE:
+					$operatorType = 0x00;
+					break;
+				case PHPExcel_Style_Conditional::OPERATOR_EQUAL:
+					$operatorType = 0x03;
+					break;
+				case PHPExcel_Style_Conditional::OPERATOR_GREATERTHAN:
+					$operatorType = 0x05;
+					break;
+				case PHPExcel_Style_Conditional::OPERATOR_GREATERTHANOREQUAL:
+					$operatorType = 0x07;
+					break;
+				case PHPExcel_Style_Conditional::OPERATOR_LESSTHAN:
+					$operatorType = 0x06;
+					break;
+				case PHPExcel_Style_Conditional::OPERATOR_LESSTHANOREQUAL:
+					$operatorType = 0x08;
+					break;
+				case PHPExcel_Style_Conditional::OPERATOR_NOTEQUAL:
+					$operatorType = 0x04;
+					break;
+				case PHPExcel_Style_Conditional::OPERATOR_BETWEEN:
+					$operatorType = 0x01;
+					break;
+					// not OPERATOR_NOTBETWEEN 0x02
+			}
+		}
+		
+		// $szValue1 : size of the formula data for first value or formula
+		// $szValue2 : size of the formula data for second value or formula
+		$arrConditions = $conditional->getConditions();
+		$numConditions = sizeof($arrConditions);
+		if($numConditions == 1){
+			$szValue1 = ($arrConditions[0] <= 65535 ? 3 : 0x0000);
+			$szValue2 = 0x0000;
+			$operand1 = pack('Cv', 0x1E, $arrConditions[0]);
+			$operand2 = null;
+		} else if($numConditions == 2 && ($conditional->getOperatorType() == PHPExcel_Style_Conditional::OPERATOR_BETWEEN)){
+			$szValue1 = ($arrConditions[0] <= 65535 ? 3 : 0x0000);
+			$szValue2 = ($arrConditions[1] <= 65535 ? 3 : 0x0000);
+			$operand1 = pack('Cv', 0x1E, $arrConditions[0]);
+			$operand2 = pack('Cv', 0x1E, $arrConditions[1]);		
+		} else {
+			$szValue1 = 0x0000;
+			$szValue2 = 0x0000;
+			$operand1 = null;
+			$operand2 = null;
+		}
+		
+		// $flags : Option flags
+		// Alignment
+		$bAlignHz = ($conditional->getStyle()->getAlignment()->getHorizontal() == null ? 1 : 0);
+		$bAlignVt = ($conditional->getStyle()->getAlignment()->getVertical() == null ? 1 : 0);
+		$bAlignWrapTx = ($conditional->getStyle()->getAlignment()->getWrapText() == false ? 1 : 0);
+		$bTxRotation = ($conditional->getStyle()->getAlignment()->getTextRotation() == null ? 1 : 0);
+		$bIndent = ($conditional->getStyle()->getAlignment()->getIndent() == 0 ? 1 : 0);
+		$bShrinkToFit = ($conditional->getStyle()->getAlignment()->getShrinkToFit() == false ? 1 : 0);
+		if($bAlignHz == 0 || $bAlignVt == 0 || $bAlignWrapTx == 0 || $bTxRotation == 0 || $bIndent == 0 || $bShrinkToFit == 0){
+			$bFormatAlign = 1;
+		} else {
+			$bFormatAlign = 0;
+		}
+		// Protection
+		$bProtLocked = ($conditional->getStyle()->getProtection()->getLocked() == null ? 1 : 0);
+		$bProtHidden = ($conditional->getStyle()->getProtection()->getHidden() == null ? 1 : 0);
+		if($bProtLocked == 0 || $bProtHidden == 0){
+			$bFormatProt = 1;
+		} else {
+			$bFormatProt = 0;
+		}
+		// Border
+		$bBorderLeft = ($conditional->getStyle()->getBorders()->getLeft()->getColor()->getARGB() == PHPExcel_Style_Color::COLOR_BLACK
+						&& $conditional->getStyle()->getBorders()->getLeft()->getBorderStyle() == PHPExcel_Style_Border::BORDER_NONE ? 1 : 0);
+		$bBorderRight = ($conditional->getStyle()->getBorders()->getRight()->getColor()->getARGB() == PHPExcel_Style_Color::COLOR_BLACK
+						&& $conditional->getStyle()->getBorders()->getRight()->getBorderStyle() == PHPExcel_Style_Border::BORDER_NONE ? 1 : 0);
+		$bBorderTop = ($conditional->getStyle()->getBorders()->getTop()->getColor()->getARGB() == PHPExcel_Style_Color::COLOR_BLACK
+						&& $conditional->getStyle()->getBorders()->getTop()->getBorderStyle() == PHPExcel_Style_Border::BORDER_NONE ? 1 : 0);
+		$bBorderBottom = ($conditional->getStyle()->getBorders()->getBottom()->getColor()->getARGB() == PHPExcel_Style_Color::COLOR_BLACK
+						&& $conditional->getStyle()->getBorders()->getBottom()->getBorderStyle() == PHPExcel_Style_Border::BORDER_NONE ? 1 : 0);
+		if($bBorderLeft == 0 || $bBorderRight == 0 || $bBorderTop == 0 || $bBorderBottom == 0){
+			$bFormatBorder = 1;
+		} else {
+			$bFormatBorder = 0;
+		}
+		// Pattern
+		$bFillStyle = ($conditional->getStyle()->getFill()->getFillType() == null ? 0 : 1);
+		$bFillColor = ($conditional->getStyle()->getFill()->getStartColor()->getARGB() == null ? 0 : 1);
+		$bFillColorBg = ($conditional->getStyle()->getFill()->getEndColor()->getARGB() == null ? 0 : 1);
+		if($bFillStyle == 0 || $bFillColor == 0 || $bFillColorBg == 0){
+			$bFormatFill = 1;
+		} else {
+			$bFormatFill = 0;
+		}
+		// Font
+		if($conditional->getStyle()->getFont()->getName() != null
+			|| $conditional->getStyle()->getFont()->getSize() != null
+			|| $conditional->getStyle()->getFont()->getBold() != null
+			|| $conditional->getStyle()->getFont()->getItalic() != null
+			|| $conditional->getStyle()->getFont()->getSuperScript() != null
+			|| $conditional->getStyle()->getFont()->getSubScript() != null
+			|| $conditional->getStyle()->getFont()->getUnderline() != null
+			|| $conditional->getStyle()->getFont()->getStrikethrough() != null
+			|| $conditional->getStyle()->getFont()->getColor()->getARGB() != null){
+			$bFormatFont = 1;
+		} else {
+			$bFormatFont = 0;
+		}
+		// Alignment
+		$flags = 0;
+		$flags |= (1 == $bAlignHz      ? 0x00000001 : 0);
+		$flags |= (1 == $bAlignVt      ? 0x00000002 : 0);
+		$flags |= (1 == $bAlignWrapTx  ? 0x00000004 : 0);
+		$flags |= (1 == $bTxRotation   ? 0x00000008 : 0);
+		// Justify last line flag
+		$flags |= (1 == 1              ? 0x00000010 : 0);
+		$flags |= (1 == $bIndent       ? 0x00000020 : 0);
+		$flags |= (1 == $bShrinkToFit  ? 0x00000040 : 0);
+		// Default
+		$flags |= (1 == 1              ? 0x00000080 : 0);
+		// Protection
+		$flags |= (1 == $bProtLocked   ? 0x00000100 : 0);
+		$flags |= (1 == $bProtHidden   ? 0x00000200 : 0);
+		// Border
+		$flags |= (1 == $bBorderLeft   ? 0x00000400 : 0);
+		$flags |= (1 == $bBorderRight  ? 0x00000800 : 0);
+		$flags |= (1 == $bBorderTop    ? 0x00001000 : 0);
+		$flags |= (1 == $bBorderBottom ? 0x00002000 : 0);
+		$flags |= (1 == 1              ? 0x00004000 : 0); // Top left to Bottom right border
+		$flags |= (1 == 1              ? 0x00008000 : 0); // Bottom left to Top right border
+		// Pattern
+		$flags |= (1 == $bFillStyle    ? 0x00010000 : 0);
+		$flags |= (1 == $bFillColor    ? 0x00020000 : 0);
+		$flags |= (1 == $bFillColorBg  ? 0x00040000 : 0);
+		$flags |= (1 == 1              ? 0x00380000 : 0);
+		// Font
+		$flags |= (1 == $bFormatFont   ? 0x04000000 : 0);
+	    // Alignment : 
+		$flags |= (1 == $bFormatAlign  ? 0x08000000 : 0);
+		// Border
+		$flags |= (1 == $bFormatBorder ? 0x10000000 : 0);
+		// Pattern
+		$flags |= (1 == $bFormatFill   ? 0x20000000 : 0);
+		// Protection
+		$flags |= (1 == $bFormatProt   ? 0x40000000 : 0);
+		// Text direction
+		$flags |= (1 == 0              ? 0x80000000 : 0);
+		
+		// Data Blocks
+		if($bFormatFont == 1){
+			// Font Name
+			if($conditional->getStyle()->getFont()->getName() == null){
+				$dataBlockFont =  pack('VVVVVVVV', 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000);
+				$dataBlockFont .= pack('VVVVVVVV', 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000);
+			} else {
+				$dataBlockFont = PHPExcel_Shared_String::UTF8toBIFF8UnicodeLong($conditional->getStyle()->getFont()->getName());
+			}
+			// Font Size
+			if($conditional->getStyle()->getFont()->getSize() == null){
+				$dataBlockFont .= pack('V', 20 * 11);
+			} else {
+				$dataBlockFont .= pack('V', 20 * $conditional->getStyle()->getFont()->getSize());
+			}
+			// Font Options
+			$dataBlockFont .= pack('V', 0);
+			// Font weight
+			if($conditional->getStyle()->getFont()->getBold() == true){
+				$dataBlockFont .= pack('v', 0x02BC);
+			} else {
+				$dataBlockFont .= pack('v', 0x0190);
+			}
+			// Escapement type
+			if($conditional->getStyle()->getFont()->getSubScript() == true){
+				$dataBlockFont .= pack('v', 0x02);
+				$fontEscapement = 0;
+			} else if($conditional->getStyle()->getFont()->getSuperScript() == true){
+				$dataBlockFont .= pack('v', 0x01);
+				$fontEscapement = 0;
+			} else {
+				$dataBlockFont .= pack('v', 0x00);
+				$fontEscapement = 1;
+			}
+			// Underline type
+			switch ($conditional->getStyle()->getFont()->getUnderline()){
+				case PHPExcel_Style_Font::UNDERLINE_NONE             : $dataBlockFont .= pack('C', 0x00); $fontUnderline = 0; break;
+				case PHPExcel_Style_Font::UNDERLINE_DOUBLE           : $dataBlockFont .= pack('C', 0x02); $fontUnderline = 0; break;
+				case PHPExcel_Style_Font::UNDERLINE_DOUBLEACCOUNTING : $dataBlockFont .= pack('C', 0x22); $fontUnderline = 0; break;
+				case PHPExcel_Style_Font::UNDERLINE_SINGLE           : $dataBlockFont .= pack('C', 0x01); $fontUnderline = 0; break;
+				case PHPExcel_Style_Font::UNDERLINE_SINGLEACCOUNTING : $dataBlockFont .= pack('C', 0x21); $fontUnderline = 0; break;
+				default                                              : $dataBlockFont .= pack('C', 0x00); $fontUnderline = 1; break;
+			}
+			// Not used (3)
+			$dataBlockFont .= pack('vC', 0x0000, 0x00);
+			// Font color index
+			switch ($conditional->getStyle()->getFont()->getColor()->getRGB()) {
+				case '000000': $colorIdx = 0x08; break;
+				case 'FFFFFF': $colorIdx = 0x09; break;
+				case 'FF0000': $colorIdx = 0x0A; break;
+				case '00FF00': $colorIdx = 0x0B; break;
+				case '0000FF': $colorIdx = 0x0C; break;
+				case 'FFFF00': $colorIdx = 0x0D; break;
+				case 'FF00FF': $colorIdx = 0x0E; break;
+				case '00FFFF': $colorIdx = 0x0F; break;
+				case '800000': $colorIdx = 0x10; break;
+				case '008000': $colorIdx = 0x11; break;
+				case '000080': $colorIdx = 0x12; break;
+				case '808000': $colorIdx = 0x13; break;
+				case '800080': $colorIdx = 0x14; break;
+				case '008080': $colorIdx = 0x15; break;
+				case 'C0C0C0': $colorIdx = 0x16; break;
+				case '808080': $colorIdx = 0x17; break;
+				case '9999FF': $colorIdx = 0x18; break;
+				case '993366': $colorIdx = 0x19; break;
+				case 'FFFFCC': $colorIdx = 0x1A; break;
+				case 'CCFFFF': $colorIdx = 0x1B; break;
+				case '660066': $colorIdx = 0x1C; break;
+				case 'FF8080': $colorIdx = 0x1D; break;
+				case '0066CC': $colorIdx = 0x1E; break;
+				case 'CCCCFF': $colorIdx = 0x1F; break;
+				case '000080': $colorIdx = 0x20; break;
+				case 'FF00FF': $colorIdx = 0x21; break;
+				case 'FFFF00': $colorIdx = 0x22; break;
+				case '00FFFF': $colorIdx = 0x23; break;
+				case '800080': $colorIdx = 0x24; break;
+				case '800000': $colorIdx = 0x25; break;
+				case '008080': $colorIdx = 0x26; break;
+				case '0000FF': $colorIdx = 0x27; break; 
+				case '00CCFF': $colorIdx = 0x28; break;
+				case 'CCFFFF': $colorIdx = 0x29; break;
+				case 'CCFFCC': $colorIdx = 0x2A; break;
+				case 'FFFF99': $colorIdx = 0x2B; break;
+				case '99CCFF': $colorIdx = 0x2C; break;
+				case 'FF99CC': $colorIdx = 0x2D; break;
+				case 'CC99FF': $colorIdx = 0x2E; break;
+				case 'FFCC99': $colorIdx = 0x2F; break;
+				case '3366FF': $colorIdx = 0x30; break;
+				case '33CCCC': $colorIdx = 0x31; break;
+				case '99CC00': $colorIdx = 0x32; break;
+				case 'FFCC00': $colorIdx = 0x33; break;
+				case 'FF9900': $colorIdx = 0x34; break;
+				case 'FF6600': $colorIdx = 0x35; break;
+				case '666699': $colorIdx = 0x36; break;
+				case '969696': $colorIdx = 0x37; break;
+				case '003366': $colorIdx = 0x38; break;
+				case '339966': $colorIdx = 0x39; break;
+				case '003300': $colorIdx = 0x3A; break;
+				case '333300': $colorIdx = 0x3B; break;
+				case '993300': $colorIdx = 0x3C; break;
+				case '993366': $colorIdx = 0x3D; break;
+				case '333399': $colorIdx = 0x3E; break;
+				case '333333': $colorIdx = 0x3F; break;
+				default: $colorIdx = 0x00; break;
+			}
+			$dataBlockFont .= pack('V', $colorIdx);
+			// Not used (4)
+			$dataBlockFont .= pack('V', 0x00000000);
+			// Options flags for modified font attributes
+			$optionsFlags = 0;
+			$optionsFlagsBold = ($conditional->getStyle()->getFont()->getBold() == null ? 1 : 0);
+			$optionsFlags |= (1 == $optionsFlagsBold  ? 0x00000002 : 0);
+			$optionsFlags |= (1 == 1                  ? 0x00000008 : 0);
+			$optionsFlags |= (1 == 1                  ? 0x00000010 : 0);
+			$optionsFlags |= (1 == 0                  ? 0x00000020 : 0);
+			$optionsFlags |= (1 == 1                  ? 0x00000080 : 0);
+			$dataBlockFont .= pack('V', $optionsFlags);
+			// Escapement type
+			$dataBlockFont .= pack('V', $fontEscapement);
+			// Underline type
+			$dataBlockFont .= pack('V', $fontUnderline);
+			// Always
+			$dataBlockFont .= pack('V', 0x00000000);
+			// Always
+			$dataBlockFont .= pack('V', 0x00000000);
+			// Not used (8)
+			$dataBlockFont .= pack('VV', 0x00000000, 0x00000000);
+			// Always
+			$dataBlockFont .= pack('v', 0x0001);
+		}
+		if($bFormatAlign == 1){
+			$blockAlign = 0;
+			// Alignment and text break
+			switch ($conditional->getStyle()->getAlignment()->getHorizontal()){
+				case PHPExcel_Style_Alignment::HORIZONTAL_GENERAL 			: $blockAlign = 0; break;
+				case PHPExcel_Style_Alignment::HORIZONTAL_LEFT				: $blockAlign = 1; break;
+				case PHPExcel_Style_Alignment::HORIZONTAL_RIGHT				: $blockAlign = 3; break;
+				case PHPExcel_Style_Alignment::HORIZONTAL_CENTER			: $blockAlign = 2; break;
+				case PHPExcel_Style_Alignment::HORIZONTAL_CENTER_CONTINUOUS	: $blockAlign = 6; break;
+				case PHPExcel_Style_Alignment::HORIZONTAL_JUSTIFY			: $blockAlign = 5; break;
+			}
+			if($conditional->getStyle()->getAlignment()->getWrapText() == true){
+				$blockAlign |= 1 << 3;
+			} else {
+				$blockAlign |= 0 << 3;
+			}
+			switch ($conditional->getStyle()->getAlignment()->getVertical()){
+				case PHPExcel_Style_Alignment::VERTICAL_BOTTOM 				: $blockAlign = 2 << 4; break;
+				case PHPExcel_Style_Alignment::VERTICAL_TOP					: $blockAlign = 0 << 4; break;
+				case PHPExcel_Style_Alignment::VERTICAL_CENTER				: $blockAlign = 1 << 4; break;
+				case PHPExcel_Style_Alignment::VERTICAL_JUSTIFY				: $blockAlign = 3 << 4; break;
+			}
+			$blockAlign |= 0 << 7;
+			
+			// Text rotation angle
+			$blockRotation = $conditional->getStyle()->getAlignment()->getTextRotation();		
+			
+			// Indentation
+			$blockIndent = $conditional->getStyle()->getAlignment()->getIndent();
+			if($conditional->getStyle()->getAlignment()->getShrinkToFit() == true){
+				$blockIndent |= 1 << 4;
+			} else {
+				$blockIndent |= 0 << 4;
+			}
+			$blockIndent |= 0 << 6;
+			
+			// Relative indentation
+			$blockIndentRelative = 255;
+			
+			$dataBlockAlign = pack('CCvvv', $blockAlign, $blockRotation, $blockIndent, $blockIndentRelative, 0x0000);
+		}
+		if($bFormatBorder == 1){
+			$blockLineStyle = 0;
+			switch ($conditional->getStyle()->getBorders()->getLeft()->getBorderStyle()){
+				case PHPExcel_Style_Border::BORDER_NONE              : $blockLineStyle |= 0x00; break;
+				case PHPExcel_Style_Border::BORDER_THIN              : $blockLineStyle |= 0x01; break;
+				case PHPExcel_Style_Border::BORDER_MEDIUM            : $blockLineStyle |= 0x02; break;
+				case PHPExcel_Style_Border::BORDER_DASHED            : $blockLineStyle |= 0x03; break;
+				case PHPExcel_Style_Border::BORDER_DOTTED            : $blockLineStyle |= 0x04; break;
+				case PHPExcel_Style_Border::BORDER_THICK             : $blockLineStyle |= 0x05; break;
+				case PHPExcel_Style_Border::BORDER_DOUBLE            : $blockLineStyle |= 0x06; break;
+				case PHPExcel_Style_Border::BORDER_HAIR              : $blockLineStyle |= 0x07; break;
+				case PHPExcel_Style_Border::BORDER_MEDIUMDASHED      : $blockLineStyle |= 0x08; break;
+				case PHPExcel_Style_Border::BORDER_DASHDOT           : $blockLineStyle |= 0x09; break;
+				case PHPExcel_Style_Border::BORDER_MEDIUMDASHDOT     : $blockLineStyle |= 0x0A; break;
+				case PHPExcel_Style_Border::BORDER_DASHDOTDOT        : $blockLineStyle |= 0x0B; break;
+				case PHPExcel_Style_Border::BORDER_MEDIUMDASHDOTDOT  : $blockLineStyle |= 0x0C; break;
+				case PHPExcel_Style_Border::BORDER_SLANTDASHDOT      : $blockLineStyle |= 0x0D; break;
+			}
+			switch ($conditional->getStyle()->getBorders()->getRight()->getBorderStyle()){
+				case PHPExcel_Style_Border::BORDER_NONE              : $blockLineStyle |= 0x00 << 4; break;
+				case PHPExcel_Style_Border::BORDER_THIN              : $blockLineStyle |= 0x01 << 4; break;
+				case PHPExcel_Style_Border::BORDER_MEDIUM            : $blockLineStyle |= 0x02 << 4; break;
+				case PHPExcel_Style_Border::BORDER_DASHED            : $blockLineStyle |= 0x03 << 4; break;
+				case PHPExcel_Style_Border::BORDER_DOTTED            : $blockLineStyle |= 0x04 << 4; break;
+				case PHPExcel_Style_Border::BORDER_THICK             : $blockLineStyle |= 0x05 << 4; break;
+				case PHPExcel_Style_Border::BORDER_DOUBLE            : $blockLineStyle |= 0x06 << 4; break;
+				case PHPExcel_Style_Border::BORDER_HAIR              : $blockLineStyle |= 0x07 << 4; break;
+				case PHPExcel_Style_Border::BORDER_MEDIUMDASHED      : $blockLineStyle |= 0x08 << 4; break;
+				case PHPExcel_Style_Border::BORDER_DASHDOT           : $blockLineStyle |= 0x09 << 4; break;
+				case PHPExcel_Style_Border::BORDER_MEDIUMDASHDOT     : $blockLineStyle |= 0x0A << 4; break;
+				case PHPExcel_Style_Border::BORDER_DASHDOTDOT        : $blockLineStyle |= 0x0B << 4; break;
+				case PHPExcel_Style_Border::BORDER_MEDIUMDASHDOTDOT  : $blockLineStyle |= 0x0C << 4; break;
+				case PHPExcel_Style_Border::BORDER_SLANTDASHDOT      : $blockLineStyle |= 0x0D << 4; break;
+			}
+			switch ($conditional->getStyle()->getBorders()->getTop()->getBorderStyle()){
+				case PHPExcel_Style_Border::BORDER_NONE              : $blockLineStyle |= 0x00 << 8; break;
+				case PHPExcel_Style_Border::BORDER_THIN              : $blockLineStyle |= 0x01 << 8; break;
+				case PHPExcel_Style_Border::BORDER_MEDIUM            : $blockLineStyle |= 0x02 << 8; break;
+				case PHPExcel_Style_Border::BORDER_DASHED            : $blockLineStyle |= 0x03 << 8; break;
+				case PHPExcel_Style_Border::BORDER_DOTTED            : $blockLineStyle |= 0x04 << 8; break;
+				case PHPExcel_Style_Border::BORDER_THICK             : $blockLineStyle |= 0x05 << 8; break;
+				case PHPExcel_Style_Border::BORDER_DOUBLE            : $blockLineStyle |= 0x06 << 8; break;
+				case PHPExcel_Style_Border::BORDER_HAIR              : $blockLineStyle |= 0x07 << 8; break;
+				case PHPExcel_Style_Border::BORDER_MEDIUMDASHED      : $blockLineStyle |= 0x08 << 8; break;
+				case PHPExcel_Style_Border::BORDER_DASHDOT           : $blockLineStyle |= 0x09 << 8; break;
+				case PHPExcel_Style_Border::BORDER_MEDIUMDASHDOT     : $blockLineStyle |= 0x0A << 8; break;
+				case PHPExcel_Style_Border::BORDER_DASHDOTDOT        : $blockLineStyle |= 0x0B << 8; break;
+				case PHPExcel_Style_Border::BORDER_MEDIUMDASHDOTDOT  : $blockLineStyle |= 0x0C << 8; break;
+				case PHPExcel_Style_Border::BORDER_SLANTDASHDOT      : $blockLineStyle |= 0x0D << 8; break;
+			}
+			switch ($conditional->getStyle()->getBorders()->getBottom()->getBorderStyle()){
+				case PHPExcel_Style_Border::BORDER_NONE              : $blockLineStyle |= 0x00 << 12; break;
+				case PHPExcel_Style_Border::BORDER_THIN              : $blockLineStyle |= 0x01 << 12; break;
+				case PHPExcel_Style_Border::BORDER_MEDIUM            : $blockLineStyle |= 0x02 << 12; break;
+				case PHPExcel_Style_Border::BORDER_DASHED            : $blockLineStyle |= 0x03 << 12; break;
+				case PHPExcel_Style_Border::BORDER_DOTTED            : $blockLineStyle |= 0x04 << 12; break;
+				case PHPExcel_Style_Border::BORDER_THICK             : $blockLineStyle |= 0x05 << 12; break;
+				case PHPExcel_Style_Border::BORDER_DOUBLE            : $blockLineStyle |= 0x06 << 12; break;
+				case PHPExcel_Style_Border::BORDER_HAIR              : $blockLineStyle |= 0x07 << 12; break;
+				case PHPExcel_Style_Border::BORDER_MEDIUMDASHED      : $blockLineStyle |= 0x08 << 12; break;
+				case PHPExcel_Style_Border::BORDER_DASHDOT           : $blockLineStyle |= 0x09 << 12; break;
+				case PHPExcel_Style_Border::BORDER_MEDIUMDASHDOT     : $blockLineStyle |= 0x0A << 12; break;
+				case PHPExcel_Style_Border::BORDER_DASHDOTDOT        : $blockLineStyle |= 0x0B << 12; break;
+				case PHPExcel_Style_Border::BORDER_MEDIUMDASHDOTDOT  : $blockLineStyle |= 0x0C << 12; break;
+				case PHPExcel_Style_Border::BORDER_SLANTDASHDOT      : $blockLineStyle |= 0x0D << 12; break;
+			}
+			//@todo _writeCFRule() => $blockLineStyle => Index Color for left line
+			//@todo _writeCFRule() => $blockLineStyle => Index Color for right line
+			//@todo _writeCFRule() => $blockLineStyle => Top-left to bottom-right on/off
+			//@todo _writeCFRule() => $blockLineStyle => Bottom-left to top-right on/off
+			$blockColor = 0;
+			//@todo _writeCFRule() => $blockColor => Index Color for top line
+			//@todo _writeCFRule() => $blockColor => Index Color for bottom line
+			//@todo _writeCFRule() => $blockColor => Index Color for diagonal line
+			switch ($conditional->getStyle()->getBorders()->getDiagonal()->getBorderStyle()){
+				case PHPExcel_Style_Border::BORDER_NONE              : $blockColor |= 0x00 << 21; break;
+				case PHPExcel_Style_Border::BORDER_THIN              : $blockColor |= 0x01 << 21; break;
+				case PHPExcel_Style_Border::BORDER_MEDIUM            : $blockColor |= 0x02 << 21; break;
+				case PHPExcel_Style_Border::BORDER_DASHED            : $blockColor |= 0x03 << 21; break;
+				case PHPExcel_Style_Border::BORDER_DOTTED            : $blockColor |= 0x04 << 21; break;
+				case PHPExcel_Style_Border::BORDER_THICK             : $blockColor |= 0x05 << 21; break;
+				case PHPExcel_Style_Border::BORDER_DOUBLE            : $blockColor |= 0x06 << 21; break;
+				case PHPExcel_Style_Border::BORDER_HAIR              : $blockColor |= 0x07 << 21; break;
+				case PHPExcel_Style_Border::BORDER_MEDIUMDASHED      : $blockColor |= 0x08 << 21; break;
+				case PHPExcel_Style_Border::BORDER_DASHDOT           : $blockColor |= 0x09 << 21; break;
+				case PHPExcel_Style_Border::BORDER_MEDIUMDASHDOT     : $blockColor |= 0x0A << 21; break;
+				case PHPExcel_Style_Border::BORDER_DASHDOTDOT        : $blockColor |= 0x0B << 21; break;
+				case PHPExcel_Style_Border::BORDER_MEDIUMDASHDOTDOT  : $blockColor |= 0x0C << 21; break;
+				case PHPExcel_Style_Border::BORDER_SLANTDASHDOT      : $blockColor |= 0x0D << 21; break;
+			}
+			$dataBlockBorder = pack('vv', $blockLineStyle, $blockColor);
+		}
+		if($bFormatFill == 1){
+			// Fill Patern Style
+			$blockFillPatternStyle = 0;
+			switch ($conditional->getStyle()->getFill()->getFillType()){
+				case PHPExcel_Style_Fill::FILL_NONE						: $blockFillPatternStyle = 0x00; break;
+				case PHPExcel_Style_Fill::FILL_SOLID					: $blockFillPatternStyle = 0x01; break;
+				case PHPExcel_Style_Fill::FILL_PATTERN_MEDIUMGRAY		: $blockFillPatternStyle = 0x02; break;
+				case PHPExcel_Style_Fill::FILL_PATTERN_DARKGRAY			: $blockFillPatternStyle = 0x03; break;
+				case PHPExcel_Style_Fill::FILL_PATTERN_LIGHTGRAY		: $blockFillPatternStyle = 0x04; break;
+				case PHPExcel_Style_Fill::FILL_PATTERN_DARKHORIZONTAL	: $blockFillPatternStyle = 0x05; break;
+				case PHPExcel_Style_Fill::FILL_PATTERN_DARKVERTICAL		: $blockFillPatternStyle = 0x06; break;
+				case PHPExcel_Style_Fill::FILL_PATTERN_DARKDOWN			: $blockFillPatternStyle = 0x07; break;
+				case PHPExcel_Style_Fill::FILL_PATTERN_DARKUP			: $blockFillPatternStyle = 0x08; break;
+				case PHPExcel_Style_Fill::FILL_PATTERN_DARKGRID			: $blockFillPatternStyle = 0x09; break;
+				case PHPExcel_Style_Fill::FILL_PATTERN_DARKTRELLIS		: $blockFillPatternStyle = 0x0A; break;
+				case PHPExcel_Style_Fill::FILL_PATTERN_LIGHTHORIZONTAL	: $blockFillPatternStyle = 0x0B; break;
+				case PHPExcel_Style_Fill::FILL_PATTERN_LIGHTVERTICAL	: $blockFillPatternStyle = 0x0C; break;
+				case PHPExcel_Style_Fill::FILL_PATTERN_LIGHTDOWN		: $blockFillPatternStyle = 0x0D; break;
+				case PHPExcel_Style_Fill::FILL_PATTERN_LIGHTUP			: $blockFillPatternStyle = 0x0E; break;
+				case PHPExcel_Style_Fill::FILL_PATTERN_LIGHTGRID		: $blockFillPatternStyle = 0x0F; break;
+				case PHPExcel_Style_Fill::FILL_PATTERN_LIGHTTRELLIS		: $blockFillPatternStyle = 0x10; break;
+				case PHPExcel_Style_Fill::FILL_PATTERN_GRAY125			: $blockFillPatternStyle = 0x11; break;
+				case PHPExcel_Style_Fill::FILL_PATTERN_GRAY0625			: $blockFillPatternStyle = 0x12; break;
+				case PHPExcel_Style_Fill::FILL_GRADIENT_LINEAR			: $blockFillPatternStyle = 0x00; break;	// does not exist in BIFF8
+				case PHPExcel_Style_Fill::FILL_GRADIENT_PATH			: $blockFillPatternStyle = 0x00; break;	// does not exist in BIFF8
+				default                                                 : $blockFillPatternStyle = 0x00; break;
+			}
+			// Color
+			switch ($conditional->getStyle()->getFill()->getStartColor()->getRGB()) {
+				case '000000': $colorIdxBg = 0x08; break;
+				case 'FFFFFF': $colorIdxBg = 0x09; break;
+				case 'FF0000': $colorIdxBg = 0x0A; break;
+				case '00FF00': $colorIdxBg = 0x0B; break;
+				case '0000FF': $colorIdxBg = 0x0C; break;
+				case 'FFFF00': $colorIdxBg = 0x0D; break;
+				case 'FF00FF': $colorIdxBg = 0x0E; break;
+				case '00FFFF': $colorIdxBg = 0x0F; break;
+				case '800000': $colorIdxBg = 0x10; break;
+				case '008000': $colorIdxBg = 0x11; break;
+				case '000080': $colorIdxBg = 0x12; break;
+				case '808000': $colorIdxBg = 0x13; break;
+				case '800080': $colorIdxBg = 0x14; break;
+				case '008080': $colorIdxBg = 0x15; break;
+				case 'C0C0C0': $colorIdxBg = 0x16; break;
+				case '808080': $colorIdxBg = 0x17; break;
+				case '9999FF': $colorIdxBg = 0x18; break;
+				case '993366': $colorIdxBg = 0x19; break;
+				case 'FFFFCC': $colorIdxBg = 0x1A; break;
+				case 'CCFFFF': $colorIdxBg = 0x1B; break;
+				case '660066': $colorIdxBg = 0x1C; break;
+				case 'FF8080': $colorIdxBg = 0x1D; break;
+				case '0066CC': $colorIdxBg = 0x1E; break;
+				case 'CCCCFF': $colorIdxBg = 0x1F; break;
+				case '000080': $colorIdxBg = 0x20; break;
+				case 'FF00FF': $colorIdxBg = 0x21; break;
+				case 'FFFF00': $colorIdxBg = 0x22; break;
+				case '00FFFF': $colorIdxBg = 0x23; break;
+				case '800080': $colorIdxBg = 0x24; break;
+				case '800000': $colorIdxBg = 0x25; break;
+				case '008080': $colorIdxBg = 0x26; break;
+				case '0000FF': $colorIdxBg = 0x27; break;
+				case '00CCFF': $colorIdxBg = 0x28; break;
+				case 'CCFFFF': $colorIdxBg = 0x29; break;
+				case 'CCFFCC': $colorIdxBg = 0x2A; break;
+				case 'FFFF99': $colorIdxBg = 0x2B; break;
+				case '99CCFF': $colorIdxBg = 0x2C; break;
+				case 'FF99CC': $colorIdxBg = 0x2D; break;
+				case 'CC99FF': $colorIdxBg = 0x2E; break;
+				case 'FFCC99': $colorIdxBg = 0x2F; break;
+				case '3366FF': $colorIdxBg = 0x30; break;
+				case '33CCCC': $colorIdxBg = 0x31; break;
+				case '99CC00': $colorIdxBg = 0x32; break;
+				case 'FFCC00': $colorIdxBg = 0x33; break;
+				case 'FF9900': $colorIdxBg = 0x34; break;
+				case 'FF6600': $colorIdxBg = 0x35; break;
+				case '666699': $colorIdxBg = 0x36; break;
+				case '969696': $colorIdxBg = 0x37; break;
+				case '003366': $colorIdxBg = 0x38; break;
+				case '339966': $colorIdxBg = 0x39; break;
+				case '003300': $colorIdxBg = 0x3A; break;
+				case '333300': $colorIdxBg = 0x3B; break;
+				case '993300': $colorIdxBg = 0x3C; break;
+				case '993366': $colorIdxBg = 0x3D; break;
+				case '333399': $colorIdxBg = 0x3E; break;
+				case '333333': $colorIdxBg = 0x3F; break;
+				default:       $colorIdxBg = 0x41; break;
+			}
+			// Fg Color
+			switch ($conditional->getStyle()->getFill()->getEndColor()->getRGB()) {
+				case '000000': $colorIdxFg = 0x08; break;
+				case 'FFFFFF': $colorIdxFg = 0x09; break;
+				case 'FF0000': $colorIdxFg = 0x0A; break;
+				case '00FF00': $colorIdxFg = 0x0B; break;
+				case '0000FF': $colorIdxFg = 0x0C; break;
+				case 'FFFF00': $colorIdxFg = 0x0D; break;
+				case 'FF00FF': $colorIdxFg = 0x0E; break;
+				case '00FFFF': $colorIdxFg = 0x0F; break;
+				case '800000': $colorIdxFg = 0x10; break;
+				case '008000': $colorIdxFg = 0x11; break;
+				case '000080': $colorIdxFg = 0x12; break;
+				case '808000': $colorIdxFg = 0x13; break;
+				case '800080': $colorIdxFg = 0x14; break;
+				case '008080': $colorIdxFg = 0x15; break;
+				case 'C0C0C0': $colorIdxFg = 0x16; break;
+				case '808080': $colorIdxFg = 0x17; break;
+				case '9999FF': $colorIdxFg = 0x18; break;
+				case '993366': $colorIdxFg = 0x19; break;
+				case 'FFFFCC': $colorIdxFg = 0x1A; break;
+				case 'CCFFFF': $colorIdxFg = 0x1B; break;
+				case '660066': $colorIdxFg = 0x1C; break;
+				case 'FF8080': $colorIdxFg = 0x1D; break;
+				case '0066CC': $colorIdxFg = 0x1E; break;
+				case 'CCCCFF': $colorIdxFg = 0x1F; break;
+				case '000080': $colorIdxFg = 0x20; break;
+				case 'FF00FF': $colorIdxFg = 0x21; break;
+				case 'FFFF00': $colorIdxFg = 0x22; break;
+				case '00FFFF': $colorIdxFg = 0x23; break;
+				case '800080': $colorIdxFg = 0x24; break;
+				case '800000': $colorIdxFg = 0x25; break;
+				case '008080': $colorIdxFg = 0x26; break;
+				case '0000FF': $colorIdxFg = 0x27; break;
+				case '00CCFF': $colorIdxFg = 0x28; break;
+				case 'CCFFFF': $colorIdxFg = 0x29; break;
+				case 'CCFFCC': $colorIdxFg = 0x2A; break;
+				case 'FFFF99': $colorIdxFg = 0x2B; break;
+				case '99CCFF': $colorIdxFg = 0x2C; break;
+				case 'FF99CC': $colorIdxFg = 0x2D; break;
+				case 'CC99FF': $colorIdxFg = 0x2E; break;
+				case 'FFCC99': $colorIdxFg = 0x2F; break;
+				case '3366FF': $colorIdxFg = 0x30; break;
+				case '33CCCC': $colorIdxFg = 0x31; break;
+				case '99CC00': $colorIdxFg = 0x32; break;
+				case 'FFCC00': $colorIdxFg = 0x33; break;
+				case 'FF9900': $colorIdxFg = 0x34; break;
+				case 'FF6600': $colorIdxFg = 0x35; break;
+				case '666699': $colorIdxFg = 0x36; break;
+				case '969696': $colorIdxFg = 0x37; break;
+				case '003366': $colorIdxFg = 0x38; break;
+				case '339966': $colorIdxFg = 0x39; break;
+				case '003300': $colorIdxFg = 0x3A; break;
+				case '333300': $colorIdxFg = 0x3B; break;
+				case '993300': $colorIdxFg = 0x3C; break;
+				case '993366': $colorIdxFg = 0x3D; break;
+				case '333399': $colorIdxFg = 0x3E; break;
+				case '333333': $colorIdxFg = 0x3F; break;
+				default:       $colorIdxFg = 0x40; break;
+			}
+			$dataBlockFill = pack('v', $blockFillPatternStyle);
+			$dataBlockFill .= pack('v', $colorIdxFg | ($colorIdxBg << 7));
+		}
+		if($bFormatProt == 1){
+			$dataBlockProtection = 0;
+			if($conditional->getStyle()->getProtection()->getLocked() == PHPExcel_Style_Protection::PROTECTION_PROTECTED){
+				$dataBlockProtection = 1;
+			}
+			if($conditional->getStyle()->getProtection()->getHidden() == PHPExcel_Style_Protection::PROTECTION_PROTECTED){
+				$dataBlockProtection = 1 << 1;
+			}
+		}
+		
+		$data	  = pack('CCvvVv', $type, $operatorType, $szValue1, $szValue2, $flags, 0x0000);
+		if($bFormatFont == 1){ // Block Formatting : OK
+			$data .= $dataBlockFont;
+		}
+		if($bFormatAlign == 1){
+			$data .= $dataBlockAlign;
+		}
+		if($bFormatBorder == 1){
+			$data .= $dataBlockBorder;
+		}
+		if($bFormatFill == 1){ // Block Formatting : OK
+			$data .= $dataBlockFill;
+		}
+		if($bFormatProt == 1){
+			$data .= $dataBlockProtection;
+		}
+		if(!is_null($operand1)){
+			$data .= $operand1;
+		}
+		if(!is_null($operand2)){
+			$data .= $operand2;
+		}
+		$header	  = pack('vv', $record, strlen($data));
+		$this->_append($header . $data);
+	}
+
+	/**
+	 * Write CFHeader record
+	 */
+	private function _writeCFHeader(){
+		$record	  = 0x01B0;			   // Record identifier
+		$length	  = 0x0016;			   // Bytes to follow
+		
+		$numColumnMin = null;
+		$numColumnMax = null;
+		$numRowMin = null;
+		$numRowMax = null;
+		$arrConditional = array();
+		foreach ($this->_phpSheet->getConditionalStylesCollection() as $cellCoordinate => $conditionalStyles) {
+			foreach ($conditionalStyles as $conditional) {
+				if($conditional->getConditionType() == PHPExcel_Style_Conditional::CONDITION_EXPRESSION
+						|| $conditional->getConditionType() == PHPExcel_Style_Conditional::CONDITION_CELLIS){
+					if(!in_array($conditional->getHashCode(), $arrConditional)){
+						$arrConditional[] = $conditional->getHashCode();
+					}
+					// Cells
+					$arrCoord = PHPExcel_Cell::coordinateFromString($cellCoordinate);
+					if(!is_numeric($arrCoord[0])){
+						$arrCoord[0] = PHPExcel_Cell::columnIndexFromString($arrCoord[0]);
+					}
+					if(is_null($numColumnMin) || ($numColumnMin > $arrCoord[0])){
+						$numColumnMin = $arrCoord[0];
+					}
+					if(is_null($numColumnMax) || ($numColumnMax < $arrCoord[0])){
+						$numColumnMax = $arrCoord[0];
+					}
+					if(is_null($numRowMin) || ($numRowMin > $arrCoord[1])){
+						$numRowMin = $arrCoord[1];
+					}
+					if(is_null($numRowMax) || ($numRowMax < $arrCoord[1])){
+						$numRowMax = $arrCoord[1];
+					}
+				}
+			}
+		}
+		$needRedraw = 1; 
+		$cellRange = pack('vvvv', $numRowMin-1, $numRowMax-1, $numColumnMin-1, $numColumnMax-1);
+		
+		$header	  = pack('vv', $record, $length);
+		$data	  = pack('vv', count($arrConditional), $needRedraw);
+		$data     .= $cellRange;
+		$data     .= pack('v', 0x0001);
+		$data     .= $cellRange;
 		$this->_append($header . $data);
 	}
 }
