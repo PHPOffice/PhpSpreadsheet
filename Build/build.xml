@@ -154,7 +154,7 @@
         <d51pearpkg2 dir="${phing.dir}/build/Classes" baseinstalldir="PHPExcel">
             <name>PHPExcel</name>
             <summary>PHP Excel classes</summary>
-            <channel>pear.php.net</channel>
+            <channel>pear.pearplex.net</channel>
             <description>Project providing a set of classes for the PHP programming language, which allow you to write
                 to Excel 2007 files and read from Excel 2007 files.
             </description>
