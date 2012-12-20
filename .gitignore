@@ -5,3 +5,4 @@ analysis
 *.buildpath
 *.project
 /.settings
+/.idea

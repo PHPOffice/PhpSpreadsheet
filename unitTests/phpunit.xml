@@ -16,4 +16,14 @@
     <testsuite name="PHPExcel Unit Test Suite">
         <directory suffix="Test.php">./Classes</directory>
     </testsuite>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">../Classes</directory>
+            <exclude>
+                <directory>../Classes/PHPExcel/Shared/PCLZip</directory>
+                <directory>../Classes/PHPExcel/Shared/JAMA</directory>
+                <directory>../Classes/PHPExcel/Writer/PDF</directory>
+            </exclude>
+        </whitelist>
+    </filter>
 </phpunit> 
