@@ -79,6 +79,7 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
 			throw new PHPExcel_Reader_Exception("ZipArchive library is not enabled");
 		}
 
+        $mimeType = 'UNKNOWN';
 		// Load file
 		$zip = new ZipArchive;
 		if ($zip->open($pFilename) === true) {
@@ -86,9 +87,19 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
 			$stat = $zip->statName('mimetype');
 			if ($stat && ($stat['size'] <= 255)) {
 				$mimeType = $zip->getFromName($stat['name']);
-			} else {
-				$zip->close();
-				return FALSE;
+			} elseif($stat = $zip->statName('META-INF/manifest.xml')) {
+		        $xml = simplexml_load_string($zip->getFromName('META-INF/manifest.xml'));
+		        $namespacesContent = $xml->getNamespaces(true);
+				if (isset($namespacesContent['manifest'])) {
+			        $manifest = $xml->children($namespacesContent['manifest']);
+				    foreach($manifest as $manifestDataSet) {
+					    $manifestAttributes = $manifestDataSet->attributes($namespacesContent['manifest']);
+				        if ($manifestAttributes->{'full-path'} == '/') {
+				            $mimeType = (string) $manifestAttributes->{'media-type'};
+				            break;
+				    	}
+				    }
+				}
 			}
 
 			$zip->close();
