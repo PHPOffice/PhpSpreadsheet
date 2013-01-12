@@ -28,7 +28,7 @@
 PHPExcel_Autoloader::Register();
 //    As we always try to run the autoloader before anything else, we can use it to do a few
 //        simple checks and initialisations
-PHPExcel_Shared_ZipStreamWrapper::register();
+//PHPExcel_Shared_ZipStreamWrapper::register();
 // check mbstring.func_overload
 if (ini_get('mbstring.func_overload') & 2) {
     throw new Exception('Multibyte function overloading in PHP must be disabled for string functions (2).');

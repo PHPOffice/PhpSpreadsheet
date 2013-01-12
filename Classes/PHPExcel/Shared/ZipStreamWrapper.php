@@ -105,6 +105,24 @@ class PHPExcel_Shared_ZipStreamWrapper {
 	 *
 	 * @return  boolean
      */
+    public function statName() {
+        return $this->_fileNameInArchive;
+    }
+
+    /**
+	 * Implements support for fstat().
+	 *
+	 * @return  boolean
+     */
+    public function url_stat() {
+        return $this->statName( $this->_fileNameInArchive );
+    }
+
+    /**
+	 * Implements support for fstat().
+	 *
+	 * @return  boolean
+     */
     public function stream_stat() {
         return $this->_archive->statName( $this->_fileNameInArchive );
     }

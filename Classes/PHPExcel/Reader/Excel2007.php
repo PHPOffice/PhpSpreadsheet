@@ -113,6 +113,50 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 
 
 	/**
+	 * Reads names of the worksheets from a file, without parsing the whole file to a PHPExcel object
+	 *
+	 * @param 	string 		$pFilename
+	 * @throws 	PHPExcel_Reader_Exception
+	 */
+	public function listWorksheetNames($pFilename)
+	{
+		// Check if file exists
+		if (!file_exists($pFilename)) {
+			throw new PHPExcel_Reader_Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+		}
+
+		$worksheetNames = array();
+
+		$zip = new ZipArchive;
+		$zip->open($pFilename);
+
+		//	The files we're looking at here are small enough that simpleXML is more efficient than XMLReader
+		$rels = simplexml_load_string(
+		    $this->_getFromZipArchive($zip, "_rels/.rels")
+		); //~ http://schemas.openxmlformats.org/package/2006/relationships");
+		foreach ($rels->Relationship as $rel) {
+			switch ($rel["Type"]) {
+				case "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument":
+					$xmlWorkbook = simplexml_load_string(
+					    $this->_getFromZipArchive($zip, "{$rel['Target']}")
+					);  //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main");
+
+					if ($xmlWorkbook->sheets) {
+						foreach ($xmlWorkbook->sheets->sheet as $eleSheet) {
+							// Check if sheet should be skipped
+							$worksheetNames[] = (string) $eleSheet["name"];
+						}
+					}
+			}
+		}
+
+		$zip->close();
+
+		return $worksheetNames;
+	}
+
+
+	/**
 	 * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns)
 	 *
 	 * @param   string     $pFilename
@@ -148,32 +192,35 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 				if ($xmlWorkbook->sheets) {
 					$dir = dirname($rel["Target"]);
 					foreach ($xmlWorkbook->sheets->sheet as $eleSheet) {
-						$tmpInfo = array();
-						$tmpInfo['worksheetName'] = (string) $eleSheet["name"];
-						$tmpInfo['lastColumnLetter'] = 'A';
-						$tmpInfo['lastColumnIndex'] = 0;
-						$tmpInfo['totalRows'] = 0;
-						$tmpInfo['totalColumns'] = 0;
+						$tmpInfo = array(
+							'worksheetName' => (string) $eleSheet["name"],
+							'lastColumnLetter' => 'A',
+							'lastColumnIndex' => 0,
+							'totalRows' => 0,
+							'totalColumns' => 0,
+						);
 
 						$fileWorksheet = $worksheets[(string) self::array_item($eleSheet->attributes("http://schemas.openxmlformats.org/officeDocument/2006/relationships"), "id")];
-						$xmlSheet = simplexml_load_string($this->_getFromZipArchive($zip, "$dir/$fileWorksheet"));  //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main");
-						if ($xmlSheet && $xmlSheet->sheetData && $xmlSheet->sheetData->row) {
-							foreach ($xmlSheet->sheetData->row as $row) {
-								foreach ($row->c as $c) {
-									$r = (string) $c["r"];
-									$coordinates = PHPExcel_Cell::coordinateFromString($r);
 
-									$rowIndex = $coordinates[1];
-									$columnIndex = PHPExcel_Cell::columnIndexFromString($coordinates[0]) - 1;
+						$xml = new XMLReader();
+						$res = $xml->open('zip://'.realpath($pFilename).'#'."$dir/$fileWorksheet");
+						$xml->setParserProperty(2,true);
 
-									$tmpInfo['totalRows'] = max($tmpInfo['totalRows'], $rowIndex);
-									$tmpInfo['lastColumnIndex'] = max($tmpInfo['lastColumnIndex'], $columnIndex);
-								}
+						$currCells = 0;
+						while ($xml->read()) {
+							if ($xml->name == 'row' && $xml->nodeType == XMLReader::ELEMENT) {
+								$tmpInfo['totalRows']++;
+								$tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'],$currCells);
+								$currCells = 0;
+							} elseif ($xml->name == 'c' && $xml->nodeType == XMLReader::ELEMENT) {
+								$currCells++;
 							}
 						}
+						$tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'],$currCells);
+						$xml->close();
 
+						$tmpInfo['lastColumnIndex'] = $tmpInfo['totalColumns'] - 1;
 						$tmpInfo['lastColumnLetter'] = PHPExcel_Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
-						$tmpInfo['totalColumns'] = $tmpInfo['lastColumnIndex'] + 1;
 
 						$worksheetInfo[] = $tmpInfo;
 					}
@@ -279,45 +326,6 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 		}
 
 		return $contents;
-	}
-
-
-	/**
-	 * Reads names of the worksheets from a file, without parsing the whole file to a PHPExcel object
-	 *
-	 * @param 	string 		$pFilename
-	 * @throws 	PHPExcel_Reader_Exception
-	 */
-	public function listWorksheetNames($pFilename)
-	{
-		// Check if file exists
-		if (!file_exists($pFilename)) {
-			throw new PHPExcel_Reader_Exception("Could not open " . $pFilename . " for reading! File does not exist.");
-		}
-
-		$worksheetNames = array();
-
-		$zip = new ZipArchive;
-		$zip->open($pFilename);
-
-		$rels = simplexml_load_string($this->_getFromZipArchive($zip, "_rels/.rels")); //~ http://schemas.openxmlformats.org/package/2006/relationships");
-		foreach ($rels->Relationship as $rel) {
-			switch ($rel["Type"]) {
-				case "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument":
-					$xmlWorkbook = simplexml_load_string($this->_getFromZipArchive($zip, "{$rel['Target']}"));  //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main");
-
-					if ($xmlWorkbook->sheets) {
-						foreach ($xmlWorkbook->sheets->sheet as $eleSheet) {
-							// Check if sheet should be skipped
-							$worksheetNames[] = (string) $eleSheet["name"];
-						}
-					}
-			}
-		}
-
-		$zip->close();
-
-		return $worksheetNames;
 	}
 
 
