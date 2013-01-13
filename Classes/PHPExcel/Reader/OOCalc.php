@@ -213,7 +213,9 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
 					do {
 						$xml->read();
 						if ($xml->name == 'table:table-row' && $xml->nodeType == XMLReader::ELEMENT) {
-							$tmpInfo['totalRows']++;
+							$rowspan = $xml->getAttribute('table:number-rows-repeated');
+							$rowspan = empty($rowspan) ? 1 : $rowspan;
+							$tmpInfo['totalRows'] += $rowspan;
 							$tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'],$currCells);
 							$currCells = 0;
 							//	Step into the row

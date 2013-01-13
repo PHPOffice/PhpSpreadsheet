@@ -209,7 +209,8 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 						$currCells = 0;
 						while ($xml->read()) {
 							if ($xml->name == 'row' && $xml->nodeType == XMLReader::ELEMENT) {
-								$tmpInfo['totalRows']++;
+								$row = $xml->getAttribute('r');
+								$tmpInfo['totalRows'] = $row;
 								$tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'],$currCells);
 								$currCells = 0;
 							} elseif ($xml->name == 'c' && $xml->nodeType == XMLReader::ELEMENT) {
