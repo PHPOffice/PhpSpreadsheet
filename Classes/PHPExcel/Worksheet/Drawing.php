@@ -98,7 +98,7 @@ class PHPExcel_Worksheet_Drawing extends PHPExcel_Worksheet_BaseDrawing implemen
      *
      * @param 	string 		$pValue			File path
      * @param 	boolean		$pVerifyFile	Verify file
-     * @throws 	Exception
+     * @throws 	PHPExcel_Exception
      * @return PHPExcel_Worksheet_Drawing
      */
     public function setPath($pValue = '', $pVerifyFile = true) {
@@ -111,7 +111,7 @@ class PHPExcel_Worksheet_Drawing extends PHPExcel_Worksheet_BaseDrawing implemen
 	    			list($this->_width, $this->_height) = getimagesize($pValue);
 	    		}
 	    	} else {
-	    		throw new Exception("File $pValue not found!");
+	    		throw new PHPExcel_Exception("File $pValue not found!");
 	    	}
     	} else {
     		$this->_path = $pValue;

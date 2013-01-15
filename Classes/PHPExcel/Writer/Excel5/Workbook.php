@@ -688,7 +688,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 					}
 					$chunk .= $this->writeData($this->_writeDefinedNameBiff8($namedRange->getName(), $formulaData, $scope, false));
 
-				} catch(Exception $e) {
+				} catch(PHPExcel_Exception $e) {
 					// do nothing
 				}
 			}

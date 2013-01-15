@@ -33,7 +33,7 @@
  * @package    PHPExcel_Calculation
  * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
-class PHPExcel_Calculation_Exception extends Exception {
+class PHPExcel_Calculation_Exception extends PHPExcel_Exception {
 	/**
 	 * Error handler callback
 	 *

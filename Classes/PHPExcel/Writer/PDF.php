@@ -42,7 +42,7 @@ class PHPExcel_Writer_PDF
      *  Instantiate a new renderer of the configured type within this container class
      *
      *  @param     PHPExcel    $phpExcel        PHPExcel object
-     *  @throws    PHPExcel_Writer_Exception    Exception when PDF library is not configured
+     *  @throws    PHPExcel_Writer_Exception    when PDF library is not configured
      */
     public function __construct(PHPExcel $phpExcel)
     {

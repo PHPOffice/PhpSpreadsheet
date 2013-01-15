@@ -238,7 +238,7 @@ class PHPExcel_Style_Conditional implements PHPExcel_IComparable
      * Set Style
      *
      * @param 	PHPExcel_Style $pValue
-     * @throws 	Exception
+     * @throws 	PHPExcel_Exception
      * @return PHPExcel_Style_Conditional
      */
     public function setStyle(PHPExcel_Style $pValue = null) {

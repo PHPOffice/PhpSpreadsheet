@@ -33,7 +33,7 @@
  * @package    PHPExcel_Writer
  * @copyright  Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
-class PHPExcel_Writer_Exception extends Exception {
+class PHPExcel_Writer_Exception extends PHPExcel_Exception {
 	/**
 	 * Error handler callback
 	 *

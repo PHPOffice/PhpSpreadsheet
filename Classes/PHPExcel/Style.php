@@ -192,7 +192,7 @@ class PHPExcel_Style extends PHPExcel_Style_Supervisor implements PHPExcel_IComp
      *
      * @param	array	$pStyles	Array containing style information
      * @param 	boolean		$pAdvanced	Advanced mode for setting borders.
-     * @throws	Exception
+     * @throws	PHPExcel_Exception
      * @return PHPExcel_Style
      */
 	public function applyFromArray($pStyles = null, $pAdvanced = true) {
@@ -464,7 +464,7 @@ class PHPExcel_Style extends PHPExcel_Style_Supervisor implements PHPExcel_IComp
 				}
 			}
 		} else {
-			throw new Exception("Invalid style array passed.");
+			throw new PHPExcel_Exception("Invalid style array passed.");
 		}
 		return $this;
 	}

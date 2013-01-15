@@ -478,19 +478,19 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 
 		// Write WINDOW2 record
 		$this->_writeWindow2();
-		
-		// Write PLV record	
+
+		// Write PLV record
 		$this->_writePageLayoutView();
-		
+
 		// Write ZOOM record
 		$this->_writeZoom();
 		if ($_phpSheet->getFreezePane()) {
 			$this->_writePanes();
 		}
-		
+
 		// Write SELECTION record
 		$this->_writeSelection();
-		
+
 		// Write MergedCellsTable Record
 		$this->_writeMergedCells();
 
@@ -518,11 +518,11 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 
 		$this->_writeDataValidity();
 		$this->_writeSheetLayout();
-		
+
 		// Write SHEETPROTECTION record
 		$this->_writeSheetProtection();
 		$this->_writeRangeProtection();
-		
+
 		$arrConditionalStyles = $_phpSheet->getConditionalStylesCollection();
 		if(!empty($arrConditionalStyles)){
 			$arrConditional = array();
@@ -543,7 +543,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 				}
 			}
 		}
-		
+
 		$this->_storeEof();
 	}
 
@@ -934,7 +934,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 
 			return 0;
 
-		} catch (Exception $e) {
+		} catch (PHPExcel_Exception $e) {
 			// do nothing
 		}
 
@@ -2931,7 +2931,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 					$formula1 = $this->_parser->toReversePolish();
 					$sz1 = strlen($formula1);
 
-				} catch(PHPExcel_Writer_Exception $e) {
+				} catch(PHPExcel_Exception $e) {
 					$sz1 = 0;
 					$formula1 = '';
 				}
@@ -2948,7 +2948,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 					$formula2 = $this->_parser->toReversePolish();
 					$sz2 = strlen($formula2);
 
-				} catch(PHPExcel_Writer_Exception $e) {
+				} catch(PHPExcel_Exception $e) {
 					$sz2 = 0;
 					$formula2 = '';
 				}
@@ -3016,14 +3016,14 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		$data	  = pack("vvVVvv", $rt, $grbitFrt, 0x00000000, 0x00000000, $wScalvePLV, $grbit);
 		$this->_append($header . $data);
 	}
-	
+
 	/**
 	 * Write CFRule Record
 	 * @param PHPExcel_Style_Conditional $conditional
 	 */
 	private function _writeCFRule(PHPExcel_Style_Conditional $conditional){
 		$record	  = 0x01B1;			   // Record identifier
-		
+
 		// $type : Type of the CF
 		// $operatorType : Comparison operator
 		if($conditional->getConditionType() == PHPExcel_Style_Conditional::CONDITION_EXPRESSION){
@@ -3031,7 +3031,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 			$operatorType = 0x00;
 		} else if($conditional->getConditionType() == PHPExcel_Style_Conditional::CONDITION_CELLIS){
 			$type = 0x01;
-			
+
 			switch ($conditional->getOperatorType()){
 				case PHPExcel_Style_Conditional::OPERATOR_NONE:
 					$operatorType = 0x00;
@@ -3060,7 +3060,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 					// not OPERATOR_NOTBETWEEN 0x02
 			}
 		}
-		
+
 		// $szValue1 : size of the formula data for first value or formula
 		// $szValue2 : size of the formula data for second value or formula
 		$arrConditions = $conditional->getConditions();
@@ -3074,14 +3074,14 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 			$szValue1 = ($arrConditions[0] <= 65535 ? 3 : 0x0000);
 			$szValue2 = ($arrConditions[1] <= 65535 ? 3 : 0x0000);
 			$operand1 = pack('Cv', 0x1E, $arrConditions[0]);
-			$operand2 = pack('Cv', 0x1E, $arrConditions[1]);		
+			$operand2 = pack('Cv', 0x1E, $arrConditions[1]);
 		} else {
 			$szValue1 = 0x0000;
 			$szValue2 = 0x0000;
 			$operand1 = null;
 			$operand2 = null;
 		}
-		
+
 		// $flags : Option flags
 		// Alignment
 		$bAlignHz = ($conditional->getStyle()->getAlignment()->getHorizontal() == null ? 1 : 0);
@@ -3169,7 +3169,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		$flags |= (1 == 1              ? 0x00380000 : 0);
 		// Font
 		$flags |= (1 == $bFormatFont   ? 0x04000000 : 0);
-	    // Alignment : 
+	    // Alignment :
 		$flags |= (1 == $bFormatAlign  ? 0x08000000 : 0);
 		// Border
 		$flags |= (1 == $bFormatBorder ? 0x10000000 : 0);
@@ -3179,7 +3179,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 		$flags |= (1 == $bFormatProt   ? 0x40000000 : 0);
 		// Text direction
 		$flags |= (1 == 0              ? 0x80000000 : 0);
-		
+
 		// Data Blocks
 		if($bFormatFont == 1){
 			// Font Name
@@ -3258,7 +3258,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 				case '800080': $colorIdx = 0x24; break;
 				case '800000': $colorIdx = 0x25; break;
 				case '008080': $colorIdx = 0x26; break;
-				case '0000FF': $colorIdx = 0x27; break; 
+				case '0000FF': $colorIdx = 0x27; break;
 				case '00CCFF': $colorIdx = 0x28; break;
 				case 'CCFFFF': $colorIdx = 0x29; break;
 				case 'CCFFCC': $colorIdx = 0x2A; break;
@@ -3333,10 +3333,10 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 				case PHPExcel_Style_Alignment::VERTICAL_JUSTIFY				: $blockAlign = 3 << 4; break;
 			}
 			$blockAlign |= 0 << 7;
-			
+
 			// Text rotation angle
-			$blockRotation = $conditional->getStyle()->getAlignment()->getTextRotation();		
-			
+			$blockRotation = $conditional->getStyle()->getAlignment()->getTextRotation();
+
 			// Indentation
 			$blockIndent = $conditional->getStyle()->getAlignment()->getIndent();
 			if($conditional->getStyle()->getAlignment()->getShrinkToFit() == true){
@@ -3345,10 +3345,10 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 				$blockIndent |= 0 << 4;
 			}
 			$blockIndent |= 0 << 6;
-			
+
 			// Relative indentation
 			$blockIndentRelative = 255;
-			
+
 			$dataBlockAlign = pack('CCvvv', $blockAlign, $blockRotation, $blockIndent, $blockIndentRelative, 0x0000);
 		}
 		if($bFormatBorder == 1){
@@ -3602,7 +3602,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 				$dataBlockProtection = 1 << 1;
 			}
 		}
-		
+
 		$data	  = pack('CCvvVv', $type, $operatorType, $szValue1, $szValue2, $flags, 0x0000);
 		if($bFormatFont == 1){ // Block Formatting : OK
 			$data .= $dataBlockFont;
@@ -3635,7 +3635,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 	private function _writeCFHeader(){
 		$record	  = 0x01B0;			   // Record identifier
 		$length	  = 0x0016;			   // Bytes to follow
-		
+
 		$numColumnMin = null;
 		$numColumnMax = null;
 		$numRowMin = null;
@@ -3668,9 +3668,9 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 				}
 			}
 		}
-		$needRedraw = 1; 
+		$needRedraw = 1;
 		$cellRange = pack('vvvv', $numRowMin-1, $numRowMax-1, $numColumnMin-1, $numColumnMax-1);
-		
+
 		$header	  = pack('vv', $record, $length);
 		$data	  = pack('vv', count($arrConditional), $needRedraw);
 		$data     .= $cellRange;

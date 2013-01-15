@@ -88,7 +88,7 @@ class PHPExcel_Shared_JAMA_QRDecomposition {
 				$this->Rdiag[$k] = -$nrm;
 			}
 		} else {
-			throw new Exception(PHPExcel_Shared_JAMA_Matrix::ArgumentTypeException);
+			throw new PHPExcel_Calculation_Exception(PHPExcel_Shared_JAMA_Matrix::ArgumentTypeException);
 		}
 	}	//	function __construct()
 
@@ -224,10 +224,10 @@ class PHPExcel_Shared_JAMA_QRDecomposition {
 				$X = new PHPExcel_Shared_JAMA_Matrix($X);
 				return ($X->getMatrix(0, $this->n-1, 0, $nx));
 			} else {
-				throw new Exception(self::MatrixRankException);
+				throw new PHPExcel_Calculation_Exception(self::MatrixRankException);
 			}
 		} else {
-			throw new Exception(PHPExcel_Shared_JAMA_Matrix::MatrixDimensionException);
+			throw new PHPExcel_Calculation_Exception(PHPExcel_Shared_JAMA_Matrix::MatrixDimensionException);
 		}
 	}	//	function solve()
 

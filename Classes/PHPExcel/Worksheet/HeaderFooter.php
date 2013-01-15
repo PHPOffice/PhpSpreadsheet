@@ -392,7 +392,7 @@ class PHPExcel_Worksheet_HeaderFooter
      *
      * @param PHPExcel_Worksheet_HeaderFooterDrawing $image
      * @param string $location
-     * @throws Exception
+     * @throws PHPExcel_Exception
      * @return PHPExcel_Worksheet_HeaderFooter
      */
     public function addImage(PHPExcel_Worksheet_HeaderFooterDrawing $image = null, $location = self::IMAGE_HEADER_LEFT) {
@@ -404,7 +404,7 @@ class PHPExcel_Worksheet_HeaderFooter
      * Remove header/footer image
      *
      * @param string $location
-     * @throws Exception
+     * @throws PHPExcel_Exception
      * @return PHPExcel_Worksheet_HeaderFooter
      */
     public function removeImage($location = self::IMAGE_HEADER_LEFT) {
@@ -418,12 +418,12 @@ class PHPExcel_Worksheet_HeaderFooter
      * Set header/footer images
      *
      * @param PHPExcel_Worksheet_HeaderFooterDrawing[] $images
-     * @throws Exception
+     * @throws PHPExcel_Exception
      * @return PHPExcel_Worksheet_HeaderFooter
      */
     public function setImages($images) {
     	if (!is_array($images)) {
-    		throw new Exception('Invalid parameter!');
+    		throw new PHPExcel_Exception('Invalid parameter!');
     	}
 
     	$this->_headerFooterImages = $images;

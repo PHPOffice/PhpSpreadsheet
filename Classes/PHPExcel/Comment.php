@@ -101,7 +101,7 @@ class PHPExcel_Comment implements PHPExcel_IComparable
     /**
      * Create a new PHPExcel_Comment
      *
-     * @throws	Exception
+     * @throws PHPExcel_Exception
      */
     public function __construct()
     {

@@ -288,7 +288,7 @@ class PHPExcel_Worksheet_AutoFilter_Column_Rule
 	 *	Set AutoFilter Rule Type
 	 *
 	 *	@param	string		$pRuleType
-	 *	@throws	Exception
+	 *	@throws	PHPExcel_Exception
 	 *	@return PHPExcel_Worksheet_AutoFilter_Column
 	 */
 	public function setRuleType($pRuleType = self::AUTOFILTER_RULETYPE_FILTER) {
@@ -314,7 +314,7 @@ class PHPExcel_Worksheet_AutoFilter_Column_Rule
 	 *	Set AutoFilter Rule Value
 	 *
 	 *	@param	string|string[]		$pValue
-	 *	@throws	Exception
+	 *	@throws	PHPExcel_Exception
 	 *	@return PHPExcel_Worksheet_AutoFilter_Column_Rule
 	 */
 	public function setValue($pValue = '') {
@@ -354,7 +354,7 @@ class PHPExcel_Worksheet_AutoFilter_Column_Rule
 	 *	Set AutoFilter Rule Operator
 	 *
 	 *	@param	string		$pOperator
-	 *	@throws	Exception
+	 *	@throws	PHPExcel_Exception
 	 *	@return PHPExcel_Worksheet_AutoFilter_Column_Rule
 	 */
 	public function setOperator($pOperator = self::AUTOFILTER_COLUMN_RULE_EQUAL) {
@@ -382,7 +382,7 @@ class PHPExcel_Worksheet_AutoFilter_Column_Rule
 	 *	Set AutoFilter Rule Grouping
 	 *
 	 *	@param	string		$pGrouping
-	 *	@throws	Exception
+	 *	@throws	PHPExcel_Exception
 	 *	@return PHPExcel_Worksheet_AutoFilter_Column_Rule
 	 */
 	public function setGrouping($pGrouping = NULL) {
@@ -404,7 +404,7 @@ class PHPExcel_Worksheet_AutoFilter_Column_Rule
 	 *	@param	string				$pOperator
 	 *	@param	string|string[]		$pValue
 	 *	@param	string				$pGrouping
-	 *	@throws	Exception
+	 *	@throws	PHPExcel_Exception
 	 *	@return PHPExcel_Worksheet_AutoFilter_Column_Rule
 	 */
 	public function setRule($pOperator = self::AUTOFILTER_COLUMN_RULE_EQUAL, $pValue = '', $pGrouping = NULL) {

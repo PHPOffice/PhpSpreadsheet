@@ -134,7 +134,7 @@ class PHPExcel_Worksheet_AutoFilter_Column
 	 *	Set AutoFilter Column Index
 	 *
 	 *	@param	string		$pColumn		Column (e.g. A)
-	 *	@throws	Exception
+	 *	@throws	PHPExcel_Exception
 	 *	@return PHPExcel_Worksheet_AutoFilter_Column
 	 */
 	public function setColumnIndex($pColumn) {
@@ -183,7 +183,7 @@ class PHPExcel_Worksheet_AutoFilter_Column
 	 *	Set AutoFilter Type
 	 *
 	 *	@param	string		$pFilterType
-	 *	@throws	Exception
+	 *	@throws	PHPExcel_Exception
 	 *	@return PHPExcel_Worksheet_AutoFilter_Column
 	 */
 	public function setFilterType($pFilterType = self::AUTOFILTER_FILTERTYPE_FILTER) {
@@ -209,7 +209,7 @@ class PHPExcel_Worksheet_AutoFilter_Column
 	 *	Set AutoFilter Multiple Rules And/Or
 	 *
 	 *	@param	string		$pJoin		And/Or
-	 *	@throws	Exception
+	 *	@throws	PHPExcel_Exception
 	 *	@return PHPExcel_Worksheet_AutoFilter_Column
 	 */
 	public function setJoin($pJoin = self::AUTOFILTER_COLUMN_JOIN_OR) {
@@ -228,7 +228,7 @@ class PHPExcel_Worksheet_AutoFilter_Column
 	 *	Set AutoFilter Attributes
 	 *
 	 *	@param	string[]		$pAttributes
-	 *	@throws	Exception
+	 *	@throws	PHPExcel_Exception
 	 *	@return PHPExcel_Worksheet_AutoFilter_Column
 	 */
 	public function setAttributes($pAttributes = array()) {
@@ -242,7 +242,7 @@ class PHPExcel_Worksheet_AutoFilter_Column
 	 *
 	 *	@param	string		$pName		Attribute Name
 	 *	@param	string		$pValue		Attribute Value
-	 *	@throws	Exception
+	 *	@throws	PHPExcel_Exception
 	 *	@return PHPExcel_Worksheet_AutoFilter_Column
 	 */
 	public function setAttribute($pName, $pValue) {

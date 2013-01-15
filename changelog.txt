@@ -38,7 +38,8 @@ Fixed in develop branch:
 - General:  (amironov ) Work item GH-84  - Search style by identity in PHPExcel_Worksheet::duplicateStyle()
 - General:  (karak)     Work item GH-85  - Fill SheetView IO in Excel5
 - General:  (cfhay)     Work item 18958  - Memory and Speed improvements in PHPExcel_Reader_Excel5
-- General:  (MBaker)                       Modify listWorksheetNames() and listWorksheetInfo to use XMLReader with streamed XML rather than SimpleXML
+- General:  (MBaker)    Work item GH-78  - Modify listWorksheetNames() and listWorksheetInfo to use XMLReader with streamed XML rather than SimpleXML
+- General:  (dbonsch)                      Restructuring of PHPExcel Exceptions
 - Bugfix:   (techhead)  Work item GH-70  - Fixed formula/formatting bug when removing rows
 - Bugfix:   (alexgann)  Work item GH-63  - Fix to cellExists for non-existent namedRanges
 - Bugfix:   (MBaker)    Work item 18844  - cache_in_memory_gzip "eats" last worksheet line, cache_in_memory doesn't

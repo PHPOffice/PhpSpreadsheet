@@ -131,7 +131,7 @@ abstract class PHPExcel_Writer_Abstract implements PHPExcel_Writer_IWriter
 	 *
 	 * @param 	boolean 	$pValue
 	 * @param	string		$pDirectory		Disk caching directory
-	 * @throws	PHPExcel_Writer_Exception	Exception when directory does not exist
+	 * @throws	PHPExcel_Writer_Exception	when directory does not exist
 	 * @return PHPExcel_Writer_Excel2007
 	 */
 	public function setUseDiskCaching($pValue = FALSE, $pDirectory = NULL) {

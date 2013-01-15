@@ -153,8 +153,6 @@ class PHPExcel_Cell_DataValidation
 
     /**
      * Create a new PHPExcel_Cell_DataValidation
-     *
-     * @throws    Exception
      */
     public function __construct()
     {

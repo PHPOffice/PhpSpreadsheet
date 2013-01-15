@@ -409,7 +409,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
 			// get excel data
 			$res = $ole->read($pFilename);
 			return true;
-		} catch (PHPExcel_Reader_Exception $e) {
+		} catch (PHPExcel_Exception $e) {
 			return false;
 		}
 	}
@@ -2518,7 +2518,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
 
 			try {
 				$formula = $this->_getFormulaFromStructure($formulaStructure);
-			} catch (PHPExcel_Reader_Exception $e) {
+			} catch (PHPExcel_Exception $e) {
 				$formula = '';
 			}
 
@@ -3665,7 +3665,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
 					$formula = $this->_getFormulaFromStructure($formulaStructure); // get formula in human language
 					$cell->setValueExplicit('=' . $formula, PHPExcel_Cell_DataType::TYPE_FORMULA);
 
-				} catch (PHPExcel_Reader_Exception $e) {
+				} catch (PHPExcel_Exception $e) {
 					$cell->setValueExplicit($value, $dataType);
 				}
 			} else {
@@ -3995,7 +3995,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
 		// offset: 0; size: 2; option flags
 		$options = self::_GetInt2d($recordData, 0);
 
-		// offset: 2; size: 2; index to first visible row 
+		// offset: 2; size: 2; index to first visible row
 		$firstVisibleRow = self::_GetInt2d($recordData, 2);
 
 		// offset: 4; size: 2; index to first visible colum
@@ -4033,9 +4033,9 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
 
 		// bit: 11; mask: 0x0800; 0 = normal view, 1 = page break view
 		$isPageBreakPreview = (bool) ((0x0800 & $options) >> 11);
-		
+
 		//FIXME: set $firstVisibleRow and $firstVisibleColumn
-		
+
 		if ($this->_phpSheet->getSheetView()->getView() !== PHPExcel_Worksheet_SheetView::SHEETVIEW_PAGE_LAYOUT) {
 			//NOTE: this setting is inferior to page layout view(Excel2007-)
 			$view = $isPageBreakPreview? PHPExcel_Worksheet_SheetView::SHEETVIEW_PAGE_BREAK_PREVIEW :
@@ -4058,9 +4058,9 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
 
 		// move stream pointer to next record
 		$this->_pos += 4 + $length;
-		
+
 		//var_dump(unpack("vrt/vgrbitFrt/V2reserved/vwScalePLV/vgrbit", $recordData));
-		
+
 		// offset: 0; size: 2; rt
 		//->ignore
 		$rt = self::_GetInt2d($recordData, 0);
@@ -4069,20 +4069,20 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
 		$grbitFrt = self::_GetInt2d($recordData, 2);
 		// offset: 4; size: 8; reserved
 		//->ignore
-		
+
 		// offset: 12; size 2; zoom scale
 		$wScalePLV = self::_GetInt2d($recordData, 12);
 		// offset: 14; size 2; grbit
 		$grbit = self::_GetInt2d($recordData, 14);
-		
+
 		// decomprise grbit
 		$fPageLayoutView   = $grbit & 0x01;
 		$fRulerVisible     = ($grbit >> 1) & 0x01; //no support
 		$fWhitespaceHidden = ($grbit >> 3) & 0x01; //no support
-		
+
 		if ($fPageLayoutView === 1) {
 			$this->_phpSheet->getSheetView()->setView(PHPExcel_Worksheet_SheetView::SHEETVIEW_PAGE_LAYOUT);
-			$this->_phpSheet->getSheetView()->setZoomScale($wScalePLV); //set by Excel2007 only if SHEETVIEW_PAGE_LAYOUT 
+			$this->_phpSheet->getSheetView()->setZoomScale($wScalePLV); //set by Excel2007 only if SHEETVIEW_PAGE_LAYOUT
 		}
 		//otherwise, we cannot know whether SHEETVIEW_PAGE_LAYOUT or SHEETVIEW_PAGE_BREAK_PREVIEW.
 	}
@@ -4252,7 +4252,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
 			// offset: 0; size: 8; cell range address of all cells containing this hyperlink
 			try {
 				$cellRange = $this->_readBIFF8CellRangeAddressFixed($recordData, 0, 8);
-			} catch (PHPExcel_Reader_Exception $e) {
+			} catch (PHPExcel_Exception $e) {
 				return;
 			}
 
@@ -4536,7 +4536,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
 			if ($type == PHPExcel_Cell_DataValidation::TYPE_LIST) {
 				$formula1 = str_replace(chr(0), ',', $formula1);
 			}
-		} catch (PHPExcel_Reader_Exception $e) {
+		} catch (PHPExcel_Exception $e) {
 			return;
 		}
 		$offset += $sz1;
@@ -4553,7 +4553,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
 		$formula2 = pack('v', $sz2) . $formula2; // prepend the length
 		try {
 			$formula2 = $this->_getFormulaFromStructure($formula2);
-		} catch (PHPExcel_Reader_Exception $e) {
+		} catch (PHPExcel_Exception $e) {
 			return;
 		}
 		$offset += $sz2;
@@ -4765,7 +4765,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
 			for ($i = 0; $i < $cref; ++$i) {
 				try {
 					$cellRange = $this->_readBIFF8CellRangeAddressFixed(substr($recordData, 27 + 8 * $i, 8));
-				} catch (PHPExcel_Reader_Exception $e) {
+				} catch (PHPExcel_Exception $e) {
 					return;
 				}
 				$cellRanges[] = $cellRange;
@@ -5717,7 +5717,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
 				$cellAddress = $this->_readBIFF8CellAddress(substr($formulaData, 3, 4));
 
 				$data = "$sheetRange!$cellAddress";
-			} catch (PHPExcel_Reader_Exception $e) {
+			} catch (PHPExcel_Exception $e) {
 				// deleted sheet reference
 				$data = '#REF!';
 			}
@@ -5736,7 +5736,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
 				$cellRangeAddress = $this->_readBIFF8CellRangeAddress(substr($formulaData, 3, 8));
 
 				$data = "$sheetRange!$cellRangeAddress";
-			} catch (PHPExcel_Reader_Exception $e) {
+			} catch (PHPExcel_Exception $e) {
 				// deleted sheet reference
 				$data = '#REF!';
 			}

@@ -35,7 +35,7 @@ function hypot() {
 		if (is_numeric($d)) {
 			$s += pow($d, 2);
 		} else {
-			throw new Exception(JAMAError(ArgumentTypeException));
+			throw new PHPExcel_Calculation_Exception(JAMAError(ArgumentTypeException));
 		}
 	}
 	return sqrt($s);

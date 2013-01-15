@@ -115,7 +115,7 @@ class PHPExcel_Shared_JAMA_LUDecomposition {
 				}
 			}
 		} else {
-			throw new Exception(PHPExcel_Shared_JAMA_Matrix::ArgumentTypeException);
+			throw new PHPExcel_Calculation_Exception(PHPExcel_Shared_JAMA_Matrix::ArgumentTypeException);
 		}
 	}	//	function __construct()
 
@@ -208,7 +208,7 @@ class PHPExcel_Shared_JAMA_LUDecomposition {
 			}
 			return $d;
 		} else {
-			throw new Exception(PHPExcel_Shared_JAMA_Matrix::MatrixDimensionException);
+			throw new PHPExcel_Calculation_Exception(PHPExcel_Shared_JAMA_Matrix::MatrixDimensionException);
 		}
 	}	//	function det()
 
@@ -218,8 +218,8 @@ class PHPExcel_Shared_JAMA_LUDecomposition {
 	 *
 	 *	@param  $B  A Matrix with as many rows as A and any number of columns.
 	 *	@return  X so that L*U*X = B(piv,:)
-	 *	@exception  IllegalArgumentException Matrix row dimensions must agree.
-	 *	@exception  RuntimeException  Matrix is singular.
+	 *	@PHPExcel_Calculation_Exception  IllegalArgumentException Matrix row dimensions must agree.
+	 *	@PHPExcel_Calculation_Exception  RuntimeException  Matrix is singular.
 	 */
 	public function solve($B) {
 		if ($B->getRowDimension() == $this->m) {
@@ -248,10 +248,10 @@ class PHPExcel_Shared_JAMA_LUDecomposition {
 				}
 				return $X;
 			} else {
-				throw new Exception(self::MatrixSingularException);
+				throw new PHPExcel_Calculation_Exception(self::MatrixSingularException);
 			}
 		} else {
-			throw new Exception(self::MatrixSquareException);
+			throw new PHPExcel_Calculation_Exception(self::MatrixSquareException);
 		}
 	}	//	function solve()
 

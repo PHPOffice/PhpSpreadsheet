@@ -74,7 +74,7 @@ class PHPExcel_ReferenceHelper
 	 * @param	int	$pBefore	Insert before this one
 	 * @param	int	$pNumCols	Number of columns to insert
 	 * @param	int	$pNumRows	Number of rows to insert
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 */
 	public function insertNewBefore($pBefore = 'A1', $pNumCols = 0, $pNumRows = 0, PHPExcel_Worksheet $pSheet = null) {
 		$remove = ($pNumCols < 0 || $pNumRows < 0);
@@ -134,10 +134,10 @@ class PHPExcel_ReferenceHelper
 			// Should the cell be updated? Move value and cellXf index from one cell to another.
 			if (($cellIndex >= $beforeColumnIndex) &&
 				($cell->getRow() >= $beforeRow)) {
-				
+
 				// Update cell styles
 				$pSheet->getCell($newCoordinates)->setXfIndex($cell->getXfIndex());
-				
+
 				// Insert this cell at its new location
 				if ($cell->getDataType() == PHPExcel_Cell_DataType::TYPE_FORMULA) {
 					// Formula should be adjusted
@@ -420,9 +420,9 @@ class PHPExcel_ReferenceHelper
 	 * @param	int		$pNumCols	Number of columns to insert
 	 * @param	int		$pNumRows	Number of rows to insert
 	 * @return	string	Updated formula
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 */
-	public function updateFormulaReferences($pFormula = '', $pBefore = 'A1', $pNumCols = 0, $pNumRows = 0, $sheetName = '') {	
+	public function updateFormulaReferences($pFormula = '', $pBefore = 'A1', $pNumCols = 0, $pNumRows = 0, $sheetName = '') {
 		//	Update cell references in the formula
 		$formulaBlocks = explode('"',$pFormula);
 		$i = false;
@@ -559,7 +559,7 @@ class PHPExcel_ReferenceHelper
 	 * @param	int		$pNumCols			Number of columns to increment
 	 * @param	int		$pNumRows			Number of rows to increment
 	 * @return	string	Updated cell range
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 */
 	public function updateCellReference($pCellRange = 'A1', $pBefore = 'A1', $pNumCols = 0, $pNumRows = 0) {
 		// Is it in another worksheet? Will not have to update anything.
@@ -613,7 +613,7 @@ class PHPExcel_ReferenceHelper
 	 * @param	int		$pNumCols			Number of columns to increment
 	 * @param	int		$pNumRows			Number of rows to increment
 	 * @return	string	Updated cell range
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 */
 	private function _updateCellRange($pCellRange = 'A1:A1', $pBefore = 'A1', $pNumCols = 0, $pNumRows = 0) {
 		if (strpos($pCellRange,':') !== false || strpos($pCellRange, ',') !== false) {
@@ -638,7 +638,7 @@ class PHPExcel_ReferenceHelper
 			// Recreate range string
 			return PHPExcel_Cell::buildRange($range);
 		} else {
-			throw new Exception("Only cell ranges may be passed to this method.");
+			throw new PHPExcel_Exception("Only cell ranges may be passed to this method.");
 		}
 	}
 
@@ -650,7 +650,7 @@ class PHPExcel_ReferenceHelper
 	 * @param	int		$pNumCols			Number of columns to increment
 	 * @param	int		$pNumRows			Number of rows to increment
 	 * @return	string	Updated cell reference
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 */
 	private function _updateSingleCellReference($pCellReference = 'A1', $pBefore = 'A1', $pNumCols = 0, $pNumRows = 0) {
 		if (strpos($pCellReference, ':') === false && strpos($pCellReference, ',') === false) {
@@ -680,16 +680,16 @@ class PHPExcel_ReferenceHelper
 			// Return new reference
 			return $newColumn . $newRow;
 		} else {
-			throw new Exception("Only single cell references may be passed to this method.");
+			throw new PHPExcel_Exception("Only single cell references may be passed to this method.");
 		}
 	}
 
 	/**
 	 * __clone implementation. Cloning should not be allowed in a Singleton!
 	 *
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 */
 	public final function __clone() {
-		throw new Exception("Cloning a Singleton is not allowed!");
+		throw new PHPExcel_Exception("Cloning a Singleton is not allowed!");
 	}
 }

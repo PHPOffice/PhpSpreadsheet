@@ -97,18 +97,18 @@ class PHPExcel_Shared_OLE
 	{
 		$fh = fopen($file, "r");
 		if (!$fh) {
-			throw new Exception("Can't open file $file");
+			throw new PHPExcel_Reader_Exception("Can't open file $file");
 		}
 		$this->_file_handle = $fh;
 
 		$signature = fread($fh, 8);
 		if ("\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1" != $signature) {
-			throw new Exception("File doesn't seem to be an OLE container.");
+			throw new PHPExcel_Reader_Exception("File doesn't seem to be an OLE container.");
 		}
 		fseek($fh, 28);
 		if (fread($fh, 2) != "\xFE\xFF") {
 			// This shouldn't be a problem in practice
-			throw new Exception("Only Little-Endian encoding is supported.");
+			throw new PHPExcel_Reader_Exception("Only Little-Endian encoding is supported.");
 		}
 		// Size of blocks and short blocks in bytes
 		$this->bigBlockSize = pow(2, self::_readInt2($fh));

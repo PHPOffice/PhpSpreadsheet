@@ -212,7 +212,7 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      *
      * @param 	PHPExcel_Worksheet 	$pValue
      * @param 	bool				$pOverrideOld	If a Worksheet has already been assigned, overwrite it and remove image from old Worksheet?
-     * @throws 	Exception
+     * @throws 	PHPExcel_Exception
      * @return PHPExcel_Worksheet_BaseDrawing
      */
     public function setWorksheet(PHPExcel_Worksheet $pValue = null, $pOverrideOld = false) {
@@ -237,7 +237,7 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
     			// Set new PHPExcel_Worksheet
     			$this->setWorksheet($pValue);
     		} else {
-    			throw new Exception("A PHPExcel_Worksheet has already been assigned. Drawings can only exist on one PHPExcel_Worksheet.");
+    			throw new PHPExcel_Exception("A PHPExcel_Worksheet has already been assigned. Drawings can only exist on one PHPExcel_Worksheet.");
     		}
     	}
     	return $this;
@@ -440,7 +440,7 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      * Set Shadow
      *
      * @param 	PHPExcel_Worksheet_Drawing_Shadow $pValue
-     * @throws 	Exception
+     * @throws 	PHPExcel_Exception
      * @return PHPExcel_Worksheet_BaseDrawing
      */
     public function setShadow(PHPExcel_Worksheet_Drawing_Shadow $pValue = null) {

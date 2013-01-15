@@ -552,7 +552,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 *
 	 * @param	string	$index			Chart index position
 	 * @return	false|PHPExcel_Chart
-	 * @throws Exception
+	 * @throws PHPExcel_Exception
 	 */
 	public function getChartByIndex($index = null)
 	{
@@ -574,7 +574,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * Return an array of the names of charts on this worksheet
 	 *
 	 * @return string[]		The names of charts
-	 * @throws Exception
+	 * @throws PHPExcel_Exception
 	 */
 	public function getChartNames()
 	{
@@ -590,7 +590,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 *
 	 * @param	string	$chartName		Chart name
 	 * @return	false|PHPExcel_Chart
-	 * @throws Exception
+	 * @throws PHPExcel_Exception
 	 */
 	public function getChartByName($chartName = '')
 	{
@@ -1197,7 +1197,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 					if (!$namedRange->getLocalOnly()) {
 						return $namedRange->getWorksheet()->cellExists($pCoordinate);
 					} else {
-						throw new Exception('Named range ' . $namedRange->getName() . ' is not accessible from within sheet ' . $this->getTitle());
+						throw new PHPExcel_Exception('Named range ' . $namedRange->getName() . ' is not accessible from within sheet ' . $this->getTitle());
 					}
 				}
 			}
@@ -1299,7 +1299,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 *
 	 * @deprecated
 	 * @return	PHPExcel_Style
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 */
 	public function getDefaultStyle()
 	{
@@ -1311,7 +1311,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 *
 	 * @deprecated
 	 * @param	PHPExcel_Style	$pValue
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function setDefaultStyle(PHPExcel_Style $pValue)
@@ -1330,7 +1330,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 *
 	 * @param	string	$pCellCoordinate	Cell coordinate to get style for
 	 * @return	PHPExcel_Style
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 */
 	public function getStyle($pCellCoordinate = 'A1')
 	{
@@ -1426,7 +1426,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @deprecated
 	 * @param	PHPExcel_Style	$pSharedCellStyle	Cell style to share
 	 * @param	string			$pRange				Range of cells (i.e. "A1:B10"), or just one cell (i.e. "A1")
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function setSharedStyle(PHPExcel_Style $pSharedCellStyle = null, $pRange = '')
@@ -1442,7 +1442,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 *
 	 * @param	PHPExcel_Style	$pCellStyle	Cell style to duplicate
 	 * @param	string			$pRange		Range of cells (i.e. "A1:B10"), or just one cell (i.e. "A1")
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function duplicateStyle(PHPExcel_Style $pCellStyle = null, $pRange = '')
@@ -1566,7 +1566,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @param	array			$pStyles	Array containing style information
 	 * @param	string			$pRange		Range of cells (i.e. "A1:B10"), or just one cell (i.e. "A1")
 	 * @param	boolean			$pAdvanced	Advanced mode for setting borders.
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function duplicateStyleArray($pStyles = null, $pRange = '', $pAdvanced = true)
@@ -1624,7 +1624,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * Set merge on a cell range
 	 *
 	 * @param	string			$pRange		Cell range (e.g. A1:E1)
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function mergeCells($pRange = 'A1:A1')
@@ -1653,7 +1653,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 			}
 
 		} else {
-			throw new Exception('Merge must be set on a range of cells.');
+			throw new PHPExcel_Exception('Merge must be set on a range of cells.');
 		}
 
 		return $this;
@@ -1666,7 +1666,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @param	int $pRow1		Numeric row coordinate of the first cell
 	 * @param	int $pColumn2	Numeric column coordinate of the last cell
 	 * @param	int $pRow2		Numeric row coordinate of the last cell
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function mergeCellsByColumnAndRow($pColumn1 = 0, $pRow1 = 1, $pColumn2 = 0, $pRow2 = 1)
@@ -1679,7 +1679,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * Remove merge on a cell range
 	 *
 	 * @param	string			$pRange		Cell range (e.g. A1:E1)
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function unmergeCells($pRange = 'A1:A1')
@@ -1691,10 +1691,10 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 			if (isset($this->_mergeCells[$pRange])) {
 				unset($this->_mergeCells[$pRange]);
 			} else {
-				throw new Exception('Cell range ' . $pRange . ' not known as merged.');
+				throw new PHPExcel_Exception('Cell range ' . $pRange . ' not known as merged.');
 			}
 		} else {
-			throw new Exception('Merge can only be removed from a range of cells.');
+			throw new PHPExcel_Exception('Merge can only be removed from a range of cells.');
 		}
 
 		return $this;
@@ -1707,7 +1707,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @param	int $pRow1		Numeric row coordinate of the first cell
 	 * @param	int $pColumn2	Numeric column coordinate of the last cell
 	 * @param	int $pRow2		Numeric row coordinate of the last cell
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function unmergeCellsByColumnAndRow($pColumn1 = 0, $pRow1 = 1, $pColumn2 = 0, $pRow2 = 1)
@@ -1745,7 +1745,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @param	string			$pRange				Cell (e.g. A1) or cell range (e.g. A1:E1)
 	 * @param	string			$pPassword			Password to unlock the protection
 	 * @param	boolean		$pAlreadyHashed	If the password has already been hashed, set this to true
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function protectCells($pRange = 'A1', $pPassword = '', $pAlreadyHashed = false)
@@ -1770,7 +1770,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @param	int	$pRow2				Numeric row coordinate of the last cell
 	 * @param	string	$pPassword			Password to unlock the protection
 	 * @param	boolean $pAlreadyHashed	If the password has already been hashed, set this to true
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function protectCellsByColumnAndRow($pColumn1 = 0, $pRow1 = 1, $pColumn2 = 0, $pRow2 = 1, $pPassword = '', $pAlreadyHashed = false)
@@ -1783,7 +1783,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * Remove protection on a cell range
 	 *
 	 * @param	string			$pRange		Cell (e.g. A1) or cell range (e.g. A1:E1)
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function unprotectCells($pRange = 'A1')
@@ -1794,7 +1794,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		if (isset($this->_protectedCells[$pRange])) {
 			unset($this->_protectedCells[$pRange]);
 		} else {
-			throw new Exception('Cell range ' . $pRange . ' not known as protected.');
+			throw new PHPExcel_Exception('Cell range ' . $pRange . ' not known as protected.');
 		}
 		return $this;
 	}
@@ -1808,7 +1808,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @param	int	$pRow2				Numeric row coordinate of the last cell
 	 * @param	string	$pPassword			Password to unlock the protection
 	 * @param	boolean $pAlreadyHashed	If the password has already been hashed, set this to true
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function unprotectCellsByColumnAndRow($pColumn1 = 0, $pRow1 = 1, $pColumn2 = 0, $pRow2 = 1, $pPassword = '', $pAlreadyHashed = false)
@@ -1842,7 +1842,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 *
 	 *	@param	PHPExcel_Worksheet_AutoFilter|string	$pValue
 	 *			A simple string containing a Cell range like 'A1:E10' is permitted for backward compatibility
-	 *	@throws	Exception
+	 *	@throws	PHPExcel_Exception
 	 *	@return PHPExcel_Worksheet
 	 */
 	public function setAutoFilter($pValue)
@@ -1862,7 +1862,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 *	@param	int	$pRow1		Numeric row coordinate of the first cell
 	 *	@param	int	$pColumn2	Numeric column coordinate of the second cell
 	 *	@param	int	$pRow2		Numeric row coordinate of the second cell
-	 *	@throws	Exception
+	 *	@throws	PHPExcel_Exception
 	 *	@return PHPExcel_Worksheet
 	 */
 	public function setAutoFilterByColumnAndRow($pColumn1 = 0, $pRow1 = 1, $pColumn2 = 0, $pRow2 = 1)
@@ -1904,7 +1904,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 *										B1 will freeze the columns to the left of cell B1 (i.e column A)
 	 *										B2 will freeze the rows above and to the left of cell A2
 	 *											(i.e row 1 and column A)
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function freezePane($pCell = '')
@@ -1915,7 +1915,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		if (strpos($pCell,':') === false && strpos($pCell,',') === false) {
 			$this->_freezePane = $pCell;
 		} else {
-			throw new Exception('Freeze pane can not be set on a range of cells.');
+			throw new PHPExcel_Exception('Freeze pane can not be set on a range of cells.');
 		}
 		return $this;
 	}
@@ -1925,7 +1925,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 *
 	 * @param	int	$pColumn	Numeric column coordinate of the cell
 	 * @param	int	$pRow		Numeric row coordinate of the cell
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function freezePaneByColumnAndRow($pColumn = 0, $pRow = 1)
@@ -1948,7 +1948,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 *
 	 * @param	int	$pBefore	Insert before this one
 	 * @param	int	$pNumRows	Number of rows to insert
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function insertNewRowBefore($pBefore = 1, $pNumRows = 1) {
@@ -1956,7 +1956,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 			$objReferenceHelper = PHPExcel_ReferenceHelper::getInstance();
 			$objReferenceHelper->insertNewBefore('A' . $pBefore, 0, $pNumRows, $this);
 		} else {
-			throw new Exception("Rows can only be inserted before at least row 1.");
+			throw new PHPExcel_Exception("Rows can only be inserted before at least row 1.");
 		}
 		return $this;
 	}
@@ -1966,7 +1966,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 *
 	 * @param	int	$pBefore	Insert before this one
 	 * @param	int	$pNumCols	Number of columns to insert
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function insertNewColumnBefore($pBefore = 'A', $pNumCols = 1) {
@@ -1974,7 +1974,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 			$objReferenceHelper = PHPExcel_ReferenceHelper::getInstance();
 			$objReferenceHelper->insertNewBefore($pBefore . '1', $pNumCols, 0, $this);
 		} else {
-			throw new Exception("Column references should not be numeric.");
+			throw new PHPExcel_Exception("Column references should not be numeric.");
 		}
 		return $this;
 	}
@@ -1984,14 +1984,14 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 *
 	 * @param	int	$pBefore	Insert before this one (numeric column coordinate of the cell)
 	 * @param	int	$pNumCols	Number of columns to insert
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function insertNewColumnBeforeByIndex($pBefore = 0, $pNumCols = 1) {
 		if ($pBefore >= 0) {
 			return $this->insertNewColumnBefore(PHPExcel_Cell::stringFromColumnIndex($pBefore), $pNumCols);
 		} else {
-			throw new Exception("Columns can only be inserted before at least column A (0).");
+			throw new PHPExcel_Exception("Columns can only be inserted before at least column A (0).");
 		}
 	}
 
@@ -2000,7 +2000,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 *
 	 * @param	int	$pRow		Remove starting with this one
 	 * @param	int	$pNumRows	Number of rows to remove
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function removeRow($pRow = 1, $pNumRows = 1) {
@@ -2008,7 +2008,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 			$objReferenceHelper = PHPExcel_ReferenceHelper::getInstance();
 			$objReferenceHelper->insertNewBefore('A' . ($pRow + $pNumRows), 0, -$pNumRows, $this);
 		} else {
-			throw new Exception("Rows to be deleted should at least start from row 1.");
+			throw new PHPExcel_Exception("Rows to be deleted should at least start from row 1.");
 		}
 		return $this;
 	}
@@ -2018,7 +2018,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 *
 	 * @param	int	$pColumn	Remove starting with this one
 	 * @param	int	$pNumCols	Number of columns to remove
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function removeColumn($pColumn = 'A', $pNumCols = 1) {
@@ -2027,7 +2027,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 			$objReferenceHelper = PHPExcel_ReferenceHelper::getInstance();
 			$objReferenceHelper->insertNewBefore($pColumn . '1', -$pNumCols, 0, $this);
 		} else {
-			throw new Exception("Column references should not be numeric.");
+			throw new PHPExcel_Exception("Column references should not be numeric.");
 		}
 		return $this;
 	}
@@ -2037,14 +2037,14 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 *
 	 * @param	int	$pColumn	Remove starting with this one (numeric column coordinate of the cell)
 	 * @param	int	$pNumCols	Number of columns to remove
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function removeColumnByIndex($pColumn = 0, $pNumCols = 1) {
 		if ($pColumn >= 0) {
 			return $this->removeColumn(PHPExcel_Cell::stringFromColumnIndex($pColumn), $pNumCols);
 		} else {
-			throw new Exception("Columns to be deleted should at least start from column 0");
+			throw new PHPExcel_Exception("Columns to be deleted should at least start from column 0");
 		}
 	}
 
@@ -2176,7 +2176,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 *
 	 * @param	string	$pCellCoordinate	Cell coordinate to get comment for
 	 * @return	PHPExcel_Comment
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 */
 	public function getComment($pCellCoordinate = 'A1')
 	{
@@ -2184,11 +2184,11 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		$pCellCoordinate = strtoupper($pCellCoordinate);
 
 		if (strpos($pCellCoordinate,':') !== false || strpos($pCellCoordinate,',') !== false) {
-			throw new Exception('Cell coordinate string can not be a range of cells.');
+			throw new PHPExcel_Exception('Cell coordinate string can not be a range of cells.');
 		} else if (strpos($pCellCoordinate,'$') !== false) {
-			throw new Exception('Cell coordinate string must not be absolute.');
+			throw new PHPExcel_Exception('Cell coordinate string must not be absolute.');
 		} else if ($pCellCoordinate == '') {
-			throw new Exception('Cell coordinate can not be zero-length string.');
+			throw new PHPExcel_Exception('Cell coordinate can not be zero-length string.');
 		} else {
 			// Check if we already have a comment for this cell.
 			// If not, create a new comment.
@@ -2260,7 +2260,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * Select a range of cells.
 	 *
 	 * @param	string		$pCoordinate	Cell range, examples: 'A1', 'B2:G5', 'A:C', '3:6'
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function setSelectedCells($pCoordinate = 'A1')
@@ -2295,7 +2295,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 *
 	 * @param	int	$pColumn	Numeric column coordinate of the cell
 	 * @param	int	$pRow		Numeric row coordinate of the cell
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function setSelectedCellByColumnAndRow($pColumn = 0, $pRow = 1)
@@ -2330,7 +2330,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @param	mixed	$nullValue				Value in source array that stands for blank cell
 	 * @param	string	$startCell				Insert array starting from this cell address as the top left coordinate
 	 * @param	boolean	$strictNullComparison	Apply strict comparison when testing for null values in the array
-	 * @throws Exception
+	 * @throws PHPExcel_Exception
 	 * @return PHPExcel_Worksheet
 	 */
 	public function fromArray($source = null, $nullValue = null, $startCell = 'A1', $strictNullComparison = false) {
@@ -2363,7 +2363,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 				++$startRow;
 			}
 		} else {
-			throw new Exception("Parameter \$source should be an array.");
+			throw new PHPExcel_Exception("Parameter \$source should be an array.");
 		}
 		return $this;
 	}
@@ -2444,7 +2444,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 * @param	boolean	$returnCellRef			False - Return a simple array of rows and columns indexed by number counting from zero
 	 *											True - Return rows and columns indexed by their actual row and column IDs
 	 * @return array
-	 * @throws Exception
+	 * @throws PHPExcel_Exception
 	 */
 	public function namedRangeToArray($pNamedRange = '', $nullValue = null, $calculateFormulas = true, $formatData = true, $returnCellRef = false) {
 		$namedRange = PHPExcel_NamedRange::resolveRange($pNamedRange, $this);
@@ -2456,7 +2456,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 												$nullValue, $calculateFormulas, $formatData, $returnCellRef);
 		}
 
-		throw new Exception('Named Range '.$pNamedRange.' does not exist.');
+		throw new PHPExcel_Exception('Named Range '.$pNamedRange.' does not exist.');
 	}
 
 

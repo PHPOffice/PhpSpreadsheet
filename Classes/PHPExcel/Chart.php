@@ -184,7 +184,7 @@ class PHPExcel_Chart
 	 * Set Worksheet
 	 *
 	 * @param	PHPExcel_Worksheet	$pValue
-	 * @throws	Exception
+	 * @throws	PHPExcel_Chart_Exception
 	 * @return PHPExcel_Chart
 	 */
 	public function setWorksheet(PHPExcel_Worksheet $pValue = null) {

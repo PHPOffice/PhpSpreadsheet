@@ -271,7 +271,7 @@ class PHPExcel_Shared_Font
 		try {
 			// If autosize method is set to 'approx', use approximation
 			if (self::$autoSizeMethod == self::AUTOSIZE_METHOD_APPROX) {
-				throw new Exception('AutoSize method is set to approx');
+				throw new PHPExcel_Exception('AutoSize method is set to approx');
 			}
 
 			// Width of text in pixels excl. padding
@@ -280,7 +280,7 @@ class PHPExcel_Shared_Font
 			// Excel adds some padding, use 1.07 of the width of an 'n' glyph
 			$columnWidth += ceil(self::getTextWidthPixelsExact('0', $font, 0) * 1.07); // pixels incl. padding
 
-		} catch (Exception $e) {
+		} catch (PHPExcel_Exception $e) {
 			// Width of text in pixels excl. padding, approximation
 			$columnWidth = self::getTextWidthPixelsApprox($cellText, $font, $rotation);
 
@@ -302,11 +302,11 @@ class PHPExcel_Shared_Font
 	 * @param PHPExcel_Style_Font
 	 * @param int $rotation
 	 * @return int
-	 * @throws Exception
+	 * @throws PHPExcel_Exception
 	 */
 	public static function getTextWidthPixelsExact($text, PHPExcel_Style_Font $font, $rotation = 0) {
 		if (!function_exists('imagettfbbox')) {
-			throw new Exception('GD library needs to be enabled');
+			throw new PHPExcel_Exception('GD library needs to be enabled');
 		}
 
 		// font size should really be supplied in pixels in GD2,
@@ -425,7 +425,7 @@ class PHPExcel_Shared_Font
 	 */
 	public static function getTrueTypeFontFileFromFont($font) {
 		if (!file_exists(self::$trueTypeFontPath) || !is_dir(self::$trueTypeFontPath)) {
-			throw new Exception('Valid directory to TrueType Font files not specified');
+			throw new PHPExcel_Exception('Valid directory to TrueType Font files not specified');
 		}
 
 		$name		= $font->getName();
@@ -530,7 +530,7 @@ class PHPExcel_Shared_Font
 				break;
 
 			default:
-				throw new Exception('Unknown font name "'. $name .'". Cannot map to TrueType font file');
+				throw new PHPExcel_Exception('Unknown font name "'. $name .'". Cannot map to TrueType font file');
 				break;
 		}
 
@@ -538,7 +538,7 @@ class PHPExcel_Shared_Font
 
 		// Check if file actually exists
 		if (!file_exists($fontFile)) {
-			throw New Exception('TrueType Font file not found');
+			throw New PHPExcel_Exception('TrueType Font file not found');
 		}
 
 		return $fontFile;

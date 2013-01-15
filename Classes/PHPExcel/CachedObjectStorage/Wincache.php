@@ -55,7 +55,7 @@ class PHPExcel_CachedObjectStorage_Wincache extends PHPExcel_CachedObjectStorage
      *     and the 'nullify' the current cell object
      *
 	 * @return	void
-     * @throws	Exception
+     * @throws	PHPExcel_Exception
      */
 	protected function _storeData() {
 		if ($this->_currentCellIsDirty) {
@@ -65,12 +65,12 @@ class PHPExcel_CachedObjectStorage_Wincache extends PHPExcel_CachedObjectStorage
 			if (wincache_ucache_exists($this->_cachePrefix.$this->_currentObjectID.'.cache')) {
 				if (!wincache_ucache_set($this->_cachePrefix.$this->_currentObjectID.'.cache', $obj, $this->_cacheTime)) {
 					$this->__destruct();
-					throw new Exception('Failed to store cell '.$this->_currentObjectID.' in WinCache');
+					throw new PHPExcel_Exception('Failed to store cell '.$this->_currentObjectID.' in WinCache');
 				}
 			} else {
 				if (!wincache_ucache_add($this->_cachePrefix.$this->_currentObjectID.'.cache', $obj, $this->_cacheTime)) {
 					$this->__destruct();
-					throw new Exception('Failed to store cell '.$this->_currentObjectID.' in WinCache');
+					throw new PHPExcel_Exception('Failed to store cell '.$this->_currentObjectID.' in WinCache');
 				}
 			}
 			$this->_currentCellIsDirty = false;
@@ -86,7 +86,7 @@ class PHPExcel_CachedObjectStorage_Wincache extends PHPExcel_CachedObjectStorage
 	 * @param	string			$pCoord		Coordinate address of the cell to update
 	 * @param	PHPExcel_Cell	$cell		Cell to update
 	 * @return	void
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 */
 	public function addCacheData($pCoord, PHPExcel_Cell $cell) {
 		if (($pCoord !== $this->_currentObjectID) && ($this->_currentObjectID !== null)) {
@@ -119,7 +119,7 @@ class PHPExcel_CachedObjectStorage_Wincache extends PHPExcel_CachedObjectStorage
 			if ($success === false) {
 				//	Entry no longer exists in Wincache, so clear it from the cache array
 				parent::deleteCacheData($pCoord);
-				throw new Exception('Cell entry '.$pCoord.' no longer exists in WinCache');
+				throw new PHPExcel_Exception('Cell entry '.$pCoord.' no longer exists in WinCache');
 			}
 			return true;
 		}
@@ -131,7 +131,7 @@ class PHPExcel_CachedObjectStorage_Wincache extends PHPExcel_CachedObjectStorage
 	 * Get cell at a specific coordinate
 	 *
 	 * @param	string			$pCoord		Coordinate of the cell
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return	PHPExcel_Cell	Cell that was found, or null if not found
 	 */
 	public function getCacheData($pCoord) {
@@ -148,7 +148,7 @@ class PHPExcel_CachedObjectStorage_Wincache extends PHPExcel_CachedObjectStorage
 			if ($success === false) {
 				//	Entry no longer exists in WinCache, so clear it from the cache array
 				parent::deleteCacheData($pCoord);
-				throw new Exception('Cell entry '.$pCoord.' no longer exists in WinCache');
+				throw new PHPExcel_Exception('Cell entry '.$pCoord.' no longer exists in WinCache');
 			}
 		} else {
 			//	Return null if requested entry doesn't exist in cache
@@ -184,7 +184,7 @@ class PHPExcel_CachedObjectStorage_Wincache extends PHPExcel_CachedObjectStorage
 	 * Delete a cell in cache identified by coordinate address
 	 *
 	 * @param	string			$pCoord		Coordinate address of the cell to delete
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 */
 	public function deleteCacheData($pCoord) {
 		//	Delete the entry from Wincache
@@ -214,11 +214,11 @@ class PHPExcel_CachedObjectStorage_Wincache extends PHPExcel_CachedObjectStorage
 				if ($success === false) {
 					//	Entry no longer exists in WinCache, so clear it from the cache array
 					parent::deleteCacheData($cellID);
-					throw new Exception('Cell entry '.$cellID.' no longer exists in Wincache');
+					throw new PHPExcel_Exception('Cell entry '.$cellID.' no longer exists in Wincache');
 				}
 				if (!wincache_ucache_add($newCachePrefix.$cellID.'.cache', $obj, $this->_cacheTime)) {
 					$this->__destruct();
-					throw new Exception('Failed to store cell '.$cellID.' in Wincache');
+					throw new PHPExcel_Exception('Failed to store cell '.$cellID.' in Wincache');
 				}
 			}
 		}

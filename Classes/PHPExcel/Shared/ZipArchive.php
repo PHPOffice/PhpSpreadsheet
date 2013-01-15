@@ -105,7 +105,7 @@ class PHPExcel_Shared_ZipArchive
 								PCLZIP_OPT_ADD_PATH, $filenameParts["dirname"]
 							   );
 		if ($res == 0) {
-			throw new Exception("Error zipping files : " . $this->_zip->errorInfo(true));
+			throw new PHPExcel_Writer_Exception("Error zipping files : " . $this->_zip->errorInfo(true));
 		}
 
 		unlink($this->_tempDir.'/'.$filenameParts["basename"]);

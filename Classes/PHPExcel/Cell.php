@@ -296,7 +296,7 @@ class PHPExcel_Cell
 //				echo 'Cell value for '.$this->getCoordinate().' is a formula: Calculating value<br />';
 				$result = PHPExcel_Calculation::getInstance()->calculateCellValue($this,$resetLog);
 //				echo $this->getCoordinate().' calculation result is '.$result.'<br />';
-			} catch ( Exception $ex ) {
+			} catch ( PHPExcel_Exception $ex ) {
 				if (($ex->getMessage() === 'Unable to access External Workbook') && ($this->_calculatedValue !== NULL)) {
 //					echo 'Returning fallback value of '.$this->_calculatedValue.' for cell '.$this->getCoordinate().'<br />';
 					return $this->_calculatedValue; // Fallback for calculations referencing external files.
@@ -304,7 +304,7 @@ class PHPExcel_Cell
 //				echo 'Calculation Exception: '.$ex->getMessage().'<br />';
 				$result = '#N/A';
 				throw(
-					new PHPExcel_Exception(
+					new PHPExcel_Calculation_Exception(
 						$this->getParent()->getTitle().'!'.$this->getCoordinate().' -> '.$ex->getMessage()
 					)
 				);

@@ -339,7 +339,7 @@ class PHPExcel_Worksheet_PageSetup
 	 * @param 	int?	$pValue
 	 * @param boolean	$pUpdate	Update fitToPage so scaling applies rather than fitToHeight / fitToWidth
 	 * @return PHPExcel_Worksheet_PageSetup
-	 * @throws 	Exception
+	 * @throws 	PHPExcel_Exception
 	 */
 	public function setScale($pValue = 100, $pUpdate = true) {
 		// Microsoft Office Excel 2007 only allows setting a scale between 10 and 400 via the user interface,
@@ -350,7 +350,7 @@ class PHPExcel_Worksheet_PageSetup
 				$this->_fitToPage = false;
 			}
 		} else {
-			throw new Exception("Scale must not be negative");
+			throw new PHPExcel_Exception("Scale must not be negative");
 		}
 		return $this;
 	}
@@ -568,7 +568,7 @@ class PHPExcel_Worksheet_PageSetup
 	 *							Default behaviour, or a index value of 0, will return all ranges as a comma-separated string
 	 *							Otherwise, the specific range identified by the value of $index will be returned
 	 *							Print areas are numbered from 1
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 * @return	string
 	 */
 	public function getPrintArea($index = 0) {
@@ -579,7 +579,7 @@ class PHPExcel_Worksheet_PageSetup
 		if (isset($printAreas[$index-1])) {
 			return $printAreas[$index-1];
 		}
-		throw new Exception("Requested Print Area does not exist");
+		throw new PHPExcel_Exception("Requested Print Area does not exist");
 	}
 
 	/**
@@ -640,15 +640,15 @@ class PHPExcel_Worksheet_PageSetup
 	 *							Default behaviour, or the "O" method, overwrites existing print area
 	 *							The "I" method, inserts the new print area before any specified index, or at the end of the list
 	 * @return	PHPExcel_Worksheet_PageSetup
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 */
 	public function setPrintArea($value, $index = 0, $method = self::SETPRINTRANGE_OVERWRITE) {
 		if (strpos($value,'!') !== false) {
-			throw new Exception('Cell coordinate must not specify a worksheet.');
+			throw new PHPExcel_Exception('Cell coordinate must not specify a worksheet.');
 		} elseif (strpos($value,':') === false) {
-			throw new Exception('Cell coordinate must be a range of cells.');
+			throw new PHPExcel_Exception('Cell coordinate must be a range of cells.');
 		} elseif (strpos($value,'$') !== false) {
-			throw new Exception('Cell coordinate must not be absolute.');
+			throw new PHPExcel_Exception('Cell coordinate must not be absolute.');
 		}
 		$value = strtoupper($value);
 
@@ -661,7 +661,7 @@ class PHPExcel_Worksheet_PageSetup
 					$index = count($printAreas) - abs($index) + 1;
 				}
 				if (($index <= 0) || ($index > count($printAreas))) {
-		    		throw new Exception('Invalid index for setting print range.');
+		    		throw new PHPExcel_Exception('Invalid index for setting print range.');
 				}
 				$printAreas[$index-1] = $value;
 				$this->_printArea = implode(',',$printAreas);
@@ -675,13 +675,13 @@ class PHPExcel_Worksheet_PageSetup
 					$index = abs($index) - 1;
 				}
 				if ($index > count($printAreas)) {
-		    		throw new Exception('Invalid index for setting print range.');
+		    		throw new PHPExcel_Exception('Invalid index for setting print range.');
 				}
 				$printAreas = array_merge(array_slice($printAreas,0,$index),array($value),array_slice($printAreas,$index));
 				$this->_printArea = implode(',',$printAreas);
 			}
 		} else {
-    		throw new Exception('Invalid method for setting print range.');
+    		throw new PHPExcel_Exception('Invalid method for setting print range.');
 		}
 
     	return $this;
@@ -698,7 +698,7 @@ class PHPExcel_Worksheet_PageSetup
 	 *								list.
 	 *							Print areas are numbered from 1
 	 * @return	PHPExcel_Worksheet_PageSetup
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 */
 	public function addPrintArea($value, $index = -1) {
 		return $this->setPrintArea($value, $index, self::SETPRINTRANGE_INSERT);
@@ -725,7 +725,7 @@ class PHPExcel_Worksheet_PageSetup
 	 *								Default behaviour, or the "O" method, overwrites existing print area
 	 *								The "I" method, inserts the new print area before any specified index, or at the end of the list
 	 * @return	PHPExcel_Worksheet_PageSetup
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 */
     public function setPrintAreaByColumnAndRow($column1, $row1, $column2, $row2, $index = 0, $method = self::SETPRINTRANGE_OVERWRITE)
     {
@@ -746,7 +746,7 @@ class PHPExcel_Worksheet_PageSetup
 	 *									list.
 	 *								Print areas are numbered from 1
 	 * @return	PHPExcel_Worksheet_PageSetup
-	 * @throws	Exception
+	 * @throws	PHPExcel_Exception
 	 */
     public function addPrintAreaByColumnAndRow($column1, $row1, $column2, $row2, $index = -1)
     {
