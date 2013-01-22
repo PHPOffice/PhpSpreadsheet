@@ -227,7 +227,9 @@ class PHPExcel
     public function addSheet(PHPExcel_Worksheet $pSheet, $iSheetIndex = NULL)
     {
         if ($this->sheetNameExists($pSheet->getTitle())) {
-            throw new PHPExcel_Exception("Workbook already contains a worksheet named '{$pSheet->getTitle()}'. Rename this worksheet first.");
+            throw new PHPExcel_Exception(
+            	"Workbook already contains a worksheet named '{$pSheet->getTitle()}'. Rename this worksheet first."
+            );
         }
 
         if($iSheetIndex === NULL) {
@@ -264,7 +266,9 @@ class PHPExcel
         $numSheets = count($this->_workSheetCollection);
 
         if ($pIndex > count($this->_workSheetCollection) - 1) {
-            throw new PHPExcel_Exception("Sheet index is out of bounds. Actual number of sheets is {$numSheets}");
+            throw new PHPExcel_Exception(
+            	"The requested Sheet index: {$pIndex} is out of bounds. Actual number of sheets is {$numSheets}"
+            );
         } else {
             array_splice($this->_workSheetCollection, $pIndex, 1);
         }
@@ -289,7 +293,9 @@ class PHPExcel
         $numSheets = count($this->_workSheetCollection);
 
         if ($pIndex > $numSheets - 1) {
-            throw new PHPExcel_Exception("Sheet index is out of bounds. Actual number of sheets is {$numSheets}");
+            throw new PHPExcel_Exception(
+            	"The requested Sheet index: {$pIndex} is out of bounds. Actual number of sheets is {$numSheets}"
+           	);
         } else {
             return $this->_workSheetCollection[$pIndex];
         }
