@@ -267,7 +267,7 @@ class PHPExcel
 
         if ($pIndex > count($this->_workSheetCollection) - 1) {
             throw new PHPExcel_Exception(
-            	"The requested Sheet index: {$pIndex} is out of bounds. Actual number of sheets is {$numSheets}"
+            	"Your requested sheet index: {$pIndex} is out of bounds. The actual number of sheets is {$numSheets}"
             );
         } else {
             array_splice($this->_workSheetCollection, $pIndex, 1);
@@ -294,7 +294,7 @@ class PHPExcel
 
         if ($pIndex > $numSheets - 1) {
             throw new PHPExcel_Exception(
-            	"The requested Sheet index: {$pIndex} is out of bounds. Actual number of sheets is {$numSheets}"
+            	"Your requested sheet index: {$pIndex} is out of bounds. The actual number of sheets is {$numSheets}"
            	);
         } else {
             return $this->_workSheetCollection[$pIndex];
@@ -401,8 +401,12 @@ class PHPExcel
      */
     public function setActiveSheetIndex($pIndex = 0)
     {
-        if ($pIndex > count($this->_workSheetCollection) - 1) {
-            throw new PHPExcel_Exception("Active sheet index is out of bounds.");
+    		$numSheets = count($this->_workSheetCollection);
+
+        if ($pIndex > $numSheets - 1) {
+            throw new PHPExcel_Exception(
+            	"You tried to set a sheet active by an out of bounds index: {$pIndex}. The actual number of sheets is {$numSheets}."
+            );
         } else {
             $this->_activeSheetIndex = $pIndex;
         }
