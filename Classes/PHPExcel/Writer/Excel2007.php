@@ -313,7 +313,6 @@ class PHPExcel_Writer_Excel2007 extends PHPExcel_Writer_Abstract implements PHPE
 				if ($this->getDrawingHashTable()->getByIndex($i) instanceof PHPExcel_Worksheet_Drawing) {
 					$imageContents = null;
 					$imagePath = $this->getDrawingHashTable()->getByIndex($i)->getPath();
-
 					if (strpos($imagePath, 'zip://') !== false) {
 						$imagePath = substr($imagePath, 6);
 						$imagePathSplitted = explode('#', $imagePath);

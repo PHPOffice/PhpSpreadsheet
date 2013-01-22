@@ -32,6 +32,7 @@ Fixed in develop branch:
 - Bugfix:   (MBaker)    Work item GH-67  - Cache directory for DiscISAM cache storage cannot be set
 - Bugfix:   (MBaker)    Work item 17976  - Fix to Excel2007 Reader for hyperlinks with an anchor fragment (following a #), otherwise they were treated as sheet references
 - Bugfix:   (MBaker)    Work item 18963  - getSheetNames() fails on numeric (floating point style) names with trailing zeroes
+- Bugfix:   (MBaker)    Work item GH-130 - Single cell print area
 - General:  (kea)       Work item GH-69  - Improved AdvancedValueBinder for currency
 - General:  (MBaker)    Work items 17936 and 17840 - Fix for environments where there is no access to /tmp but to upload_tmp_dir
                         Provided an option to set the sys_get_temp_dir() call to use the upload_tmp_dir; though by default the standard temp directory will still be used
