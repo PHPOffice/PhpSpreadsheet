@@ -1295,7 +1295,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	}
 
 	/**
-	 * Get default style of workbork.
+	 * Get default style of workbook.
 	 *
 	 * @deprecated
 	 * @return	PHPExcel_Style
