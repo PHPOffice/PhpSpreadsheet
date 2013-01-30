@@ -206,7 +206,7 @@ class PHPExcel
     }
 
     /**
-     * Chech if a sheet with a specified name already exists
+     * Check if a sheet with a specified name already exists
      *
      * @param  string $pSheetName  Name of the worksheet to check
      * @return boolean
