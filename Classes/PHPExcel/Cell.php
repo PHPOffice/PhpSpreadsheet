@@ -51,18 +51,11 @@ class PHPExcel_Cell
 	private static $_valueBinder = NULL;
 
 	/**
-	 *	Column of the cell
+	 *	Cell Address (e.g. A1)
 	 *
 	 *	@var	string
 	 */
-	private $_column;
-
-	/**
-	 *	Row of the cell
-	 *
-	 *	@var	int
-	 */
-	private $_row;
+	private $_coordinate;
 
 	/**
 	 *	Value of the cell
@@ -143,8 +136,7 @@ class PHPExcel_Cell
 	public function __construct($pColumn = 'A', $pRow = 1, $pValue = NULL, $pDataType = NULL, PHPExcel_Worksheet $pSheet = NULL)
 	{
 		// Initialise cell coordinate
-		$this->_column = strtoupper($pColumn);
-		$this->_row = $pRow;
+		$this->_coordinate = strtoupper($pColumn) . $pRow;
 
 		// Initialise cell value
 		$this->_value = $pValue;
@@ -174,7 +166,8 @@ class PHPExcel_Cell
 	 */
 	public function getColumn()
 	{
-		return $this->_column;
+		list($column) = sscanf($this->_coordinate, '%[A-Z]%d');
+		return $column;
 	}
 
 	/**
@@ -184,7 +177,8 @@ class PHPExcel_Cell
 	 */
 	public function getRow()
 	{
-		return $this->_row;
+		list(,$row) = sscanf($this->_coordinate, '%[A-Z]%d');
+		return $row;
 	}
 
 	/**
@@ -194,7 +188,7 @@ class PHPExcel_Cell
 	 */
 	public function getCoordinate()
 	{
-		return $this->_column . $this->_row;
+		return $this->_coordinate;
 	}
 
 	/**
