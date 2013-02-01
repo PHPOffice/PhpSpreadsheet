@@ -133,10 +133,10 @@ class PHPExcel_Cell
 	 *	@param	PHPExcel_Worksheet	$pSheet
 	 *	@throws	PHPExcel_Exception
 	 */
-	public function __construct($pColumn = 'A', $pRow = 1, $pValue = NULL, $pDataType = NULL, PHPExcel_Worksheet $pSheet = NULL)
+	public function __construct($pCoordinate = 'A1', $pValue = NULL, $pDataType = NULL, PHPExcel_Worksheet $pSheet = NULL)
 	{
 		// Initialise cell coordinate
-		$this->_coordinate = strtoupper($pColumn) . $pRow;
+		$this->_coordinate = strtoupper($pCoordinate);
 
 		// Initialise cell value
 		$this->_value = $pValue;

@@ -390,8 +390,11 @@ class PHPExcel_Style_NumberFormat extends PHPExcel_Style_Supervisor implements P
 			'mmmm'	=> 'F',
 			//	short month name
 			'mmm'	=> 'M',
-			//	mm is minutes if time or month w/leading zero
+			//	mm is minutes if time, but can also be month w/leading zero
+			//	so we try to identify times be the inclusion of a : separator in the mask
+			//	It isn't perfect, but the best way I know how
 			':mm'	=> ':i',
+			'mm:'	=> 'i:',
 			//	month leading zero
 			'mm'	=> 'm',
 			//	month no leading zero

@@ -1118,7 +1118,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 			// Coordinates
 			$aCoordinates = PHPExcel_Cell::coordinateFromString($pCoordinate);
 
-			$cell = $this->_cellCollection->addCacheData($pCoordinate,new PHPExcel_Cell($aCoordinates[0], $aCoordinates[1], null, PHPExcel_Cell_DataType::TYPE_NULL, $this));
+			$cell = $this->_cellCollection->addCacheData($pCoordinate,new PHPExcel_Cell($pCoordinate, NULL, PHPExcel_Cell_DataType::TYPE_NULL, $this));
 			$this->_cellCollectionIsSorted = false;
 
 			if (PHPExcel_Cell::columnIndexFromString($this->_cachedHighestColumn) < PHPExcel_Cell::columnIndexFromString($aCoordinates[0]))
@@ -1158,7 +1158,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		$coordinate = $columnLetter . $pRow;
 
 		if (!$this->_cellCollection->isDataSet($coordinate)) {
-			$cell = $this->_cellCollection->addCacheData($coordinate, new PHPExcel_Cell($columnLetter, $pRow, null, PHPExcel_Cell_DataType::TYPE_NULL, $this));
+			$cell = $this->_cellCollection->addCacheData($coordinate, new PHPExcel_Cell($coordinate, NULL, PHPExcel_Cell_DataType::TYPE_NULL, $this));
 			$this->_cellCollectionIsSorted = false;
 
 			if (PHPExcel_Cell::columnIndexFromString($this->_cachedHighestColumn) < $pColumn)
