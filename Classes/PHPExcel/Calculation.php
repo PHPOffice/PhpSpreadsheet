@@ -97,12 +97,28 @@ class PHPExcel_Calculation {
 
 
 	/**
+	 * Instance of the workbook this Calculation Engine is using
+	 *
+	 * @access	private
+	 * @var PHPExcel
+	 */
+    private $_workbook;
+
+	/**
+	 * List of instances of the calculation engine that we've instantiated
+	 *
+	 * @access	private
+	 * @var PHPExcel_Calculation[]
+	 */
+    private static $_workbookSets;
+
+	/**
 	 * Calculation cache
 	 *
 	 * @access	private
 	 * @var array
 	 */
-	private static $_calculationCache = array ();
+	private $_calculationCache = array ();
 
 
 	/**
@@ -111,7 +127,7 @@ class PHPExcel_Calculation {
 	 * @access	private
 	 * @var boolean
 	 */
-	private static $_calculationCacheEnabled = true;
+	private $_calculationCacheEnabled = true;
 
 
 	/**
@@ -1671,12 +1687,18 @@ class PHPExcel_Calculation {
 
 
 
-	private function __construct() {
+	private function __construct(PHPExcel $workbook = NULL) {
 		$setPrecision = (PHP_INT_SIZE == 4) ? 12 : 16;
 		$this->_savedPrecision = ini_get('precision');
 		if ($this->_savedPrecision < $setPrecision) {
 			ini_set('precision',$setPrecision);
 		}
+
+		if ($workbook !== NULL) {
+			self::$_workbookSets[$workbook->getID()] = $this;
+		}
+
+		$this->_workbook = $workbook;
 	}	//	function __construct()
 
 
@@ -1702,7 +1724,14 @@ class PHPExcel_Calculation {
 	 * @access	public
 	 * @return PHPExcel_Calculation
 	 */
-	public static function getInstance() {
+	public static function getInstance(PHPExcel $workbook = NULL) {
+		if ($workbook !== NULL) {
+    		if (isset(self::$_workbookSets[$workbook->getID()])) {
+    			return self::$_workbookSets[$workbook->getID()];
+    		}
+			return new PHPExcel_Calculation($workbook);
+		}
+
 		if (!isset(self::$_instance) || (self::$_instance === NULL)) {
 			self::$_instance = new PHPExcel_Calculation();
 		}
@@ -1710,6 +1739,13 @@ class PHPExcel_Calculation {
 		return self::$_instance;
 	}	//	function getInstance()
 
+	public static function unsetInstance(PHPExcel $workbook = NULL) {
+		if ($workbook !== NULL) {
+    		if (isset(self::$_workbookSets[$workbook->getID()])) {
+    			unset(self::$_workbookSets[$workbook->getID()]);
+    		}
+		}
+    }
 
 	/**
 	 * Flush the calculation cache for any existing instance of this class
@@ -1718,10 +1754,8 @@ class PHPExcel_Calculation {
 	 * @access	public
 	 * @return null
 	 */
-	public static function flushInstance() {
-		if (isset(self::$_instance) && (self::$_instance !== NULL)) {
-			self::$_instance->clearCalculationCache();
-		}
+	public function flushInstance() {
+		$this->clearCalculationCache();
 	}	//	function flushInstance()
 
 
@@ -1792,7 +1826,7 @@ class PHPExcel_Calculation {
 	 * @return boolean
 	 */
 	public function getCalculationCacheEnabled() {
-		return self::$_calculationCacheEnabled;
+		return $this->_calculationCacheEnabled;
 	}	//	function getCalculationCacheEnabled()
 
 
@@ -1803,7 +1837,7 @@ class PHPExcel_Calculation {
 	 * @param boolean $pValue
 	 */
 	public function setCalculationCacheEnabled($pValue = true) {
-		self::$_calculationCacheEnabled = $pValue;
+		$this->_calculationCacheEnabled = $pValue;
 		$this->clearCalculationCache();
 	}	//	function setCalculationCacheEnabled()
 
@@ -1828,7 +1862,7 @@ class PHPExcel_Calculation {
 	 * Clear calculation cache
 	 */
 	public function clearCalculationCache() {
-		self::$_calculationCache = array();
+		$this->_calculationCache = array();
 	}	//	function clearCalculationCache()
 
 
@@ -2206,7 +2240,7 @@ class PHPExcel_Calculation {
 		//	Disable calculation cacheing because it only applies to cell calculations, not straight formulae
 		//	But don't actually flush any cache
 		$resetCache = $this->getCalculationCacheEnabled();
-		self::$_calculationCacheEnabled = false;
+		$this->_calculationCacheEnabled = FALSE;
 		//	Execute the calculation
 		try {
 			$result = self::_unwrapResult($this->_calculateFormulaValue($formula, $cellID, $pCell));
@@ -2215,7 +2249,7 @@ class PHPExcel_Calculation {
 		}
 
 		//	Reset calculation cacheing to its previous state
-		self::$_calculationCacheEnabled = $resetCache;
+		$this->_calculationCacheEnabled = $resetCache;
 
 		return $result;
 	}	//	function calculateFormula()
@@ -2250,15 +2284,15 @@ class PHPExcel_Calculation {
 		}
 		// Is calculation cacheing enabled?
 		if ($cellID !== NULL) {
-			if (self::$_calculationCacheEnabled) {
+			if ($this->_calculationCacheEnabled) {
 				// Is the value present in calculation cache?
 				$this->_writeDebug('Testing cache value for cell ', $cellID);
 //				echo 'Testing cache value<br />';
-				if (isset(self::$_calculationCache[$wsTitle][$cellID])) {
+				if (isset($this->_calculationCache[$wsTitle][$cellID])) {
 //					echo 'Value is in cache<br />';
 					$this->_writeDebug('Retrieving value for ', $cellID, ' from cache');
 					// Return the cached result
-					$returnValue = self::$_calculationCache[$wsTitle][$cellID];
+					$returnValue = $this->_calculationCache[$wsTitle][$cellID];
 //					echo 'Retrieving data value of '.$returnValue.' for '.$cellID.' from cache<br />';
 					if (is_array($returnValue)) {
 						$returnValue = PHPExcel_Calculation_Functions::flattenArray($returnValue);
@@ -2294,8 +2328,8 @@ class PHPExcel_Calculation {
 
 		// Save to calculation cache
 		if ($cellID !== NULL) {
-			if (self::$_calculationCacheEnabled) {
-				self::$_calculationCache[$wsTitle][$cellID] = $cellValue;
+			if ($this->_calculationCacheEnabled) {
+				$this->_calculationCache[$wsTitle][$cellID] = $cellValue;
 			}
 		}
 

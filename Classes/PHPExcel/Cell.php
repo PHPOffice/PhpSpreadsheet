@@ -288,7 +288,7 @@ class PHPExcel_Cell
 		if ($this->_dataType == PHPExcel_Cell_DataType::TYPE_FORMULA) {
 			try {
 //				echo 'Cell value for '.$this->getCoordinate().' is a formula: Calculating value<br />';
-				$result = PHPExcel_Calculation::getInstance()->calculateCellValue($this,$resetLog);
+				$result = $this->getParent()->getParent()->getCalculationEngine()->calculateCellValue($this,$resetLog);
 //				echo $this->getCoordinate().' calculation result is '.$result.'<br />';
 			} catch ( PHPExcel_Exception $ex ) {
 				if (($ex->getMessage() === 'Unable to access External Workbook') && ($this->_calculatedValue !== NULL)) {
@@ -859,11 +859,11 @@ class PHPExcel_Cell
 	 */
 	public static function compareCells(PHPExcel_Cell $a, PHPExcel_Cell $b)
 	{
-		if ($a->_row < $b->_row) {
+		if ($a->getRow() < $b->getRow()) {
 			return -1;
-		} elseif ($a->_row > $b->_row) {
+		} elseif ($a->getRow() > $b->getRow()) {
 			return 1;
-		} elseif (self::columnIndexFromString($a->_column) < self::columnIndexFromString($b->_column)) {
+		} elseif (self::columnIndexFromString($a->getColumn()) < self::columnIndexFromString($b->getColumn())) {
 			return -1;
 		} else {
 			return 1;
