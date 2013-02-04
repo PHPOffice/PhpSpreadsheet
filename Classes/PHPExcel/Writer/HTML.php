@@ -152,8 +152,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 		// garbage collect
 		$this->_phpExcel->garbageCollect();
 
-		$saveDebugLog = PHPExcel_Calculation::getInstance()->writeDebugLog;
-		PHPExcel_Calculation::getInstance()->writeDebugLog = false;
+		$saveDebugLog = PHPExcel_Calculation::getInstance($this->_phpExcel)->writeDebugLog;
+		PHPExcel_Calculation::getInstance($this->_phpExcel)->writeDebugLog = false;
 		$saveArrayReturnType = PHPExcel_Calculation::getArrayReturnType();
 		PHPExcel_Calculation::setArrayReturnType(PHPExcel_Calculation::RETURN_ARRAY_AS_VALUE);
 
@@ -184,7 +184,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 		fclose($fileHandle);
 
 		PHPExcel_Calculation::setArrayReturnType($saveArrayReturnType);
-		PHPExcel_Calculation::getInstance()->writeDebugLog = $saveDebugLog;
+		PHPExcel_Calculation::getInstance($this->_phpExcel)->writeDebugLog = $saveDebugLog;
 	}
 
 	/**
