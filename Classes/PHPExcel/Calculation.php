@@ -1829,7 +1829,6 @@ class PHPExcel_Calculation {
 		return $this->_calculationCacheEnabled;
 	}	//	function getCalculationCacheEnabled()
 
-
 	/**
 	 * Enable/disable calculation cache
 	 *
@@ -2265,7 +2264,7 @@ class PHPExcel_Calculation {
 	 * @throws	PHPExcel_Calculation_Exception
 	 */
 	public function _calculateFormulaValue($formula, $cellID=null, PHPExcel_Cell $pCell = null) {
-//		echo '<b>'.$cellID.'</b><br />';
+//echo $cellID,PHP_EOL;
 		$cellValue = '';
 
 		//	Basic validation that this is indeed a formula
@@ -2275,25 +2274,20 @@ class PHPExcel_Calculation {
 		$formula = ltrim(substr($formula,1));
 		if (!isset($formula{0})) return self::_wrapResult($formula);
 
-		$wsTitle = "\x00Wrk";
-		if ($pCell !== NULL) {
-			$pCellParent = $pCell->getParent();
-			if ($pCellParent !== NULL) {
-				$wsTitle = $pCellParent->getTitle();
-			}
-		}
+		$pCellParent = ($pCell !== NULL) ? $pCell->getParent() : NULL;
+		$wsTitle = ($pCellParent !== NULL) ? $pCellParent->getTitle() : "\x00Wrk";
 		// Is calculation cacheing enabled?
 		if ($cellID !== NULL) {
 			if ($this->_calculationCacheEnabled) {
 				// Is the value present in calculation cache?
 				$this->_writeDebug('Testing cache value for cell ', $cellID);
-//				echo 'Testing cache value<br />';
+//echo 'Testing cache value',PHP_EOL;
 				if (isset($this->_calculationCache[$wsTitle][$cellID])) {
-//					echo 'Value is in cache<br />';
+//echo 'Value is in cache',PHP_EOL;
 					$this->_writeDebug('Retrieving value for ', $cellID, ' from cache');
 					// Return the cached result
 					$returnValue = $this->_calculationCache[$wsTitle][$cellID];
-//					echo 'Retrieving data value of '.$returnValue.' for '.$cellID.' from cache<br />';
+//echo 'Retrieving data value of '.$returnValue.' for '.$cellID.' from cache',PHP_EOL;
 					if (is_array($returnValue)) {
 						$returnValue = PHPExcel_Calculation_Functions::flattenArray($returnValue);
 						return array_shift($returnValue);
@@ -2670,9 +2664,9 @@ class PHPExcel_Calculation {
 		//	The guts of the lexical parser
 		//	Loop through the formula extracting each operator and operand in turn
 		while(true) {
-//			echo 'Assessing Expression <b>'.substr($formula, $index).'</b><br />';
+//echo 'Assessing Expression '.substr($formula, $index),PHP_EOL;
 			$opCharacter = $formula{$index};	//	Get the first character of the value at the current index position
-//			echo 'Initial character of expression block is '.$opCharacter.'<br />';
+//echo 'Initial character of expression block is '.$opCharacter,PHP_EOL;
 			if ((isset($comparisonOperators[$opCharacter])) && (strlen($formula) > $index) && (isset($comparisonOperators[$formula{$index+1}]))) {
 				$opCharacter .= $formula{++$index};
 //				echo 'Initial character of expression block is comparison operator '.$opCharacter.'<br />';
@@ -3004,7 +2998,7 @@ class PHPExcel_Calculation {
 
 		//	If we're using cell caching, then $pCell may well be flushed back to the cache (which detaches the parent worksheet),
 		//		so we store the parent worksheet so that we can re-attach it when necessary
-		$pCellParent = ($pCell !== NULL) ? $pCell->getParent() : null;
+		$pCellParent = ($pCell !== NULL) ? $pCell->getParent() : NULL;
 		$stack = new PHPExcel_Calculation_Token_Stack;
 
 		//	Loop through each token in turn
@@ -3083,7 +3077,7 @@ class PHPExcel_Calculation {
 							}
 							$cellRef = PHPExcel_Cell::stringFromColumnIndex(min($oCol)).min($oRow).':'.PHPExcel_Cell::stringFromColumnIndex(max($oCol)).max($oRow);
 							if ($pCellParent !== NULL) {
-								$cellValue = $this->extractCellRange($cellRef, $pCellParent->getParent()->getSheetByName($sheet1), false);
+								$cellValue = $this->extractCellRange($cellRef, $this->_workbook->getSheetByName($sheet1), false);
 							} else {
 								return $this->_raiseFormulaError('Unable to access Cell Reference');
 							}
@@ -3203,7 +3197,7 @@ class PHPExcel_Calculation {
 //							echo '$cellRef='.$cellRef.' in worksheet '.$matches[2].'<br />';
 							$this->_writeDebug('Evaluating Cell Range ', $cellRef, ' in worksheet ', $matches[2]);
 							if ($pCellParent !== NULL) {
-								$cellValue = $this->extractCellRange($cellRef, $pCellParent->getParent()->getSheetByName($matches[2]), false);
+								$cellValue = $this->extractCellRange($cellRef, $this->_workbook->getSheetByName($matches[2]), false);
 							} else {
 								return $this->_raiseFormulaError('Unable to access Cell Reference');
 							}
@@ -3236,8 +3230,8 @@ class PHPExcel_Calculation {
 //							echo '$cellRef='.$cellRef.' in worksheet '.$matches[2].'<br />';
 							$this->_writeDebug('Evaluating Cell ', $cellRef, ' in worksheet ', $matches[2]);
 							if ($pCellParent !== NULL) {
-								if ($pCellParent->getParent()->getSheetByName($matches[2])->cellExists($cellRef)) {
-									$cellValue = $this->extractCellRange($cellRef, $pCellParent->getParent()->getSheetByName($matches[2]), false);
+								if ($this->_workbook->getSheetByName($matches[2])->cellExists($cellRef)) {
+									$cellValue = $this->extractCellRange($cellRef, $this->_workbook->getSheetByName($matches[2]), false);
 									$pCell->attach($pCellParent);
 								} else {
 									$cellValue = null;
@@ -3618,7 +3612,7 @@ class PHPExcel_Calculation {
 			if (strpos ($pRange, '!') !== false) {
 //				echo '$pRange reference includes sheet reference<br />';
 				$worksheetReference = PHPExcel_Worksheet::extractSheetTitle($pRange, true);
-				$pSheet = $pSheet->getParent()->getSheetByName($worksheetReference[0]);
+				$pSheet = $this->_workbook->getSheetByName($worksheetReference[0]);
 //				echo 'New sheet name is '.$pSheet->getTitle().'<br />';
 				$pRange = $worksheetReference[1];
 //				echo 'Adjusted Range reference is '.$pRange.'<br />';
@@ -3674,7 +3668,7 @@ class PHPExcel_Calculation {
 			if (strpos ($pRange, '!') !== false) {
 //				echo '$pRange reference includes sheet reference<br />';
 				$worksheetReference = PHPExcel_Worksheet::extractSheetTitle($pRange, true);
-				$pSheet = $pSheet->getParent()->getSheetByName($worksheetReference[0]);
+				$pSheet = $this->_workbook->getSheetByName($worksheetReference[0]);
 //				echo 'New sheet name is '.$pSheet->getTitle().'<br />';
 				$pRange = $worksheetReference[1];
 //				echo 'Adjusted Range reference is '.$pRange.'<br />';
