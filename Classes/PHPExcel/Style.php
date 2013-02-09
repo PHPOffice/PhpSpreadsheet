@@ -545,7 +545,7 @@ class PHPExcel_Style extends PHPExcel_Style_Supervisor implements PHPExcel_IComp
     /**
      * Set Conditional Styles. Only used on supervisor.
      *
-     * @param PHPExcel_Style_Conditional[]    $pValue    Array of condtional styles
+     * @param PHPExcel_Style_Conditional[] $pValue Array of condtional styles
      * @return PHPExcel_Style
      */
     public function setConditionalStyles($pValue = null)
@@ -569,7 +569,7 @@ class PHPExcel_Style extends PHPExcel_Style_Supervisor implements PHPExcel_IComp
     /**
      * Get hash code
      *
-     * @return string    Hash code
+     * @return string Hash code
      */
     public function getHashCode()
     {
