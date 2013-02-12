@@ -378,13 +378,25 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	 */
 	public function disconnectCells() {
 		$this->_cellCollection->unsetWorksheetCells();
-		$this->_cellCollection = null;
+        $this->_cellCollection = NULL;
 
 		//	detach ourself from the workbook, so that it can then delete this worksheet successfully
 		$this->_parent = null;
 	}
 
 	/**
+     * Code to execute when this worksheet is unset()
+     *
+     */
+	function __destruct() {
+		if ($this->_cellCollection !== NULL) {
+			$this->disconnectCells();
+		}
+		PHPExcel_Calculation::getInstance($this->_parent)
+		    ->clearCalculationCacheForWorksheet($this->_title);
+	}
+
+   /**
 	 * Return the cache controller for the cell collection
 	 *
 	 * @return PHPExcel_CachedObjectStorage_xxx
@@ -703,14 +715,20 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 						$cellValue = $cell->getCalculatedValue();
 
 						// To formatted string
-						$cellValue = PHPExcel_Style_NumberFormat::toFormattedString($cellValue, $this->getParent()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode());
+						$cellValue = PHPExcel_Style_NumberFormat::toFormattedString(
+							$cellValue,
+							$this->_parent->getCellXfByIndex($cell->getXfIndex())
+								->getNumberFormat()->getFormatCode()
+						);
 
 						$autoSizes[$cell->getColumn()] = max(
 							(float)$autoSizes[$cell->getColumn()],
 							(float)PHPExcel_Shared_Font::calculateColumnWidth(
-								$this->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont(),
+								$this->_parent->getCellXfByIndex($cell->getXfIndex())
+									->getFont(),
 								$cellValue,
-								$this->getParent()->getCellXfByIndex($cell->getXfIndex())->getAlignment()->getTextRotation(),
+								$this->_parent->getCellXfByIndex($cell->getXfIndex())
+									->getAlignment()->getTextRotation(),
 								$this->getDefaultStyle()->getFont()
 							)
 						);
@@ -791,16 +809,16 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		// Old title
 		$oldTitle = $this->getTitle();
 
-        if ($this->getParent()) {
+        if ($this->_parent) {
 			// Is there already such sheet name?
-			if ($this->getParent()->sheetNameExists($pValue)) {
+			if ($this->_parent->sheetNameExists($pValue)) {
 				// Use name, but append with lowest possible integer
 
 				if (PHPExcel_Shared_String::CountCharacters($pValue) > 29) {
 					$pValue = PHPExcel_Shared_String::Substring($pValue,0,29);
 				}
 				$i = 1;
-				while ($this->getParent()->sheetNameExists($pValue . ' ' . $i)) {
+				while ($this->_parent->sheetNameExists($pValue . ' ' . $i)) {
 					++$i;
 					if ($i == 10) {
 						if (PHPExcel_Shared_String::CountCharacters($pValue) > 28) {
@@ -822,11 +840,13 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		$this->_title = $pValue;
 		$this->_dirty = true;
 
-        if ($this->getParent()) {
+        if ($this->_parent) {
 			// New title
 			$newTitle = $this->getTitle();
+			PHPExcel_Calculation::getInstance($this->_parent)
+			    ->renameCalculationCacheForWorksheet($oldTitle, $newTitle);
 			if ($updateFormulaCellReferences)
-				PHPExcel_ReferenceHelper::getInstance()->updateNamedFormulas($this->getParent(), $oldTitle, $newTitle);
+				PHPExcel_ReferenceHelper::getInstance()->updateNamedFormulas($this->_parent, $oldTitle, $newTitle);
 		}
 
 		return $this;
@@ -1092,7 +1112,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		// Worksheet reference?
 		if (strpos($pCoordinate, '!') !== false) {
 			$worksheetReference = PHPExcel_Worksheet::extractSheetTitle($pCoordinate, true);
-			return $this->getParent()->getSheetByName($worksheetReference[0])->getCell($worksheetReference[1]);
+			return $this->_parent->getSheetByName($worksheetReference[0])->getCell($worksheetReference[1]);
 		}
 
 		// Named range?
@@ -1184,7 +1204,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 		// Worksheet reference?
 		if (strpos($pCoordinate, '!') !== false) {
 			$worksheetReference = PHPExcel_Worksheet::extractSheetTitle($pCoordinate, true);
-			return $this->getParent()->getSheetByName($worksheetReference[0])->cellExists($worksheetReference[1]);
+			return $this->_parent->getSheetByName($worksheetReference[0])->cellExists($worksheetReference[1]);
 		}
 
 		// Named range?
@@ -2416,7 +2436,9 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 
 						if ($formatData) {
 							$style = $this->_parent->getCellXfByIndex($cell->getXfIndex());
-							$returnValue[$rRef][$cRef] = PHPExcel_Style_NumberFormat::toFormattedString($returnValue[$rRef][$cRef], $style->getNumberFormat()->getFormatCode());
+                            $returnValue[$rRef][$cRef] = PHPExcel_Style_NumberFormat::toFormattedString(
+                            	$returnValue[$rRef][$cRef], $style->getNumberFormat()->getFormatCode()
+                            );
 						}
 					} else {
 						// Cell holds a NULL

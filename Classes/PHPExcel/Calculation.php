@@ -1864,6 +1864,25 @@ class PHPExcel_Calculation {
 		$this->_calculationCache = array();
 	}	//	function clearCalculationCache()
 
+	/**
+	 * Clear calculation cache for a specified worksheet
+	 */
+	public function clearCalculationCacheForWorksheet($worksheetName) {
+		if (isset($this->_calculationCache[$worksheetName])) {
+			unset($this->_calculationCache[$worksheetName]);
+		}
+	}	//	function clearCalculationCache()
+
+	/**
+	 * Rename calculation cache for a specified worksheet
+	 */
+	public function renameCalculationCacheForWorksheet($fromWorksheetName, $toWorksheetName) {
+		if (isset($this->_calculationCache[$fromWorksheetName])) {
+			$this->_calculationCache[$toWorksheetName] = &$this->_calculationCache[$fromWorksheetName];
+			unset($this->_calculationCache[$fromWorksheetName]);
+		}
+	}	//	function clearCalculationCache()
+
 
 	/**
 	 * Get the currently defined locale code
