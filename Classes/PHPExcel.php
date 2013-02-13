@@ -133,6 +133,7 @@ class PHPExcel
      *
      */
     public function disconnectWorksheets() {
+    	$worksheet = NULL;
         foreach($this->_workSheetCollection as $k => &$worksheet) {
             $worksheet->disconnectCells();
             $this->_workSheetCollection[$k] = null;
@@ -140,6 +141,14 @@ class PHPExcel
         unset($worksheet);
         $this->_workSheetCollection = array();
     }
+
+    /**
+     * Code to execute when this worksheet is unset()
+     *
+     */
+	function __destruct() {
+		$this->disconnectWorksheets();
+	}
 
     /**
      * Get properties
