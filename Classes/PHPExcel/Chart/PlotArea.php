@@ -110,7 +110,7 @@ class PHPExcel_Chart_PlotArea
 	/**
 	 * Set Plot Series
 	 *
-	 * @param array of PHPExcel_Chart_DataSeries
+	 * @param [PHPExcel_Chart_DataSeries]
 	 */
 	public function setPlotSeries($plotSeries = array()) {
 		$this->_plotSeries = $plotSeries;

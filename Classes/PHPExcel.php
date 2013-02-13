@@ -178,6 +178,14 @@ class PHPExcel
 	}	//	function getCellCacheController()
 
     /**
+     * Code to execute when this worksheet is unset()
+     *
+     */
+	function __destruct() {
+		$this->disconnectWorksheets();
+	}
+
+    /**
      * Get properties
      *
      * @return PHPExcel_DocumentProperties

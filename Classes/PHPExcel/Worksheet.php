@@ -41,7 +41,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	const BREAK_COLUMN	= 2;
 
 	/* Sheet state */
-	const SHEETSTATE_VISIBLE	= 'visible';
+	const SHEETSTATE_VISIBLE = 'visible';
 	const SHEETSTATE_HIDDEN	= 'hidden';
 	const SHEETSTATE_VERYHIDDEN = 'veryHidden';
 
