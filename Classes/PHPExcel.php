@@ -143,8 +143,9 @@ class PHPExcel
         $this->addCellStyleXf(new PHPExcel_Style);
     }
 
-	/**
-     * Destroy this workbook
+    /**
+     * Code to execute when this worksheet is unset()
+     *
      */
     public function __destruct() {
         PHPExcel_Calculation::unsetInstance($this);
@@ -176,14 +177,6 @@ class PHPExcel
 	{
 		return $this->_calculationEngine;
 	}	//	function getCellCacheController()
-
-    /**
-     * Code to execute when this worksheet is unset()
-     *
-     */
-	function __destruct() {
-		$this->disconnectWorksheets();
-	}
 
     /**
      * Get properties
