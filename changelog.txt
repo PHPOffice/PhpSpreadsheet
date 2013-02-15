@@ -23,7 +23,7 @@
 **************************************************************************************
 
 
-Fixed in develop branch:
+Fixed in develop branch for release v1.7.9:
 - Feature:  (MBaker)    Include charts option for HTML Writer
 - Feature:  (MBaker)    Added composer file
 - Bugfix:   (Asker)     Work item 18777  - Error in PHPEXCEL/Calculation.php script on line 2976 (stack pop check)
@@ -41,6 +41,8 @@ Fixed in develop branch:
 - General:  (cfhay)     Work item 18958  - Memory and Speed improvements in PHPExcel_Reader_Excel5
 - General:  (MBaker)    Work item GH-78  - Modify listWorksheetNames() and listWorksheetInfo to use XMLReader with streamed XML rather than SimpleXML
 - General:  (dbonsch)                      Restructuring of PHPExcel Exceptions
+- General:  (MBaker)    Work items 16926 and 15145 - Refactor Calculation Engine from singleton to a Multiton
+                        Ensures that calculation cache is maintained independently for different workbooks
 - Bugfix:   (techhead)  Work item GH-70  - Fixed formula/formatting bug when removing rows
 - Bugfix:   (alexgann)  Work item GH-63  - Fix to cellExists for non-existent namedRanges
 - Bugfix:   (MBaker)    Work item 18844  - cache_in_memory_gzip "eats" last worksheet line, cache_in_memory doesn't
