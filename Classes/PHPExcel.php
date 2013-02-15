@@ -70,7 +70,7 @@ class PHPExcel
      */
     private $_workSheetCollection = array();
 
-	/**
+    /**
 	 * Calculation Engine
 	 *
 	 * @var PHPExcel_Calculation
@@ -878,7 +878,7 @@ class PHPExcel
                 $columnDimension->setXfIndex( $map[$columnDimension->getXfIndex()] );
             }
 
-        	// also do garbage collection for all the sheets
+			// also do garbage collection for all the sheets
             $sheet->garbageCollect();
         }
     }

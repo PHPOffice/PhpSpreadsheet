@@ -86,6 +86,11 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase {
 	}	//	function __construct()
 
 
+	public function getParent()
+	{
+		return $this->_parent;
+	}
+
 	/**
 	 * Is a value set in the current PHPExcel_CachedObjectStorage_ICache for an indexed cell?
 	 *
@@ -187,6 +192,23 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase {
 					);
 	}
 
+
+	public function getCurrentAddress()
+	{
+		return $this->_currentObjectID;
+	}
+
+	public function getCurrentColumn()
+	{
+		list($column,$row) = sscanf($this->_currentObjectID, '%[A-Z]%d');
+		return $column;
+	}
+
+	public function getCurrentRow()
+	{
+		list($column,$row) = sscanf($this->_currentObjectID, '%[A-Z]%d');
+		return $row;
+	}
 
 	/**
 	 * Get highest worksheet column

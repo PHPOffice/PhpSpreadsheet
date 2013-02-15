@@ -67,7 +67,9 @@ class PHPExcel_Calculation_Token_Stack {
 	}	//	function last()
 
 
-	function __construct() {
+	function clear() {
+		$this->_stack = array();
+		$this->_count = 0;
 	}
 
 }	//	class PHPExcel_Calculation_Token_Stack
