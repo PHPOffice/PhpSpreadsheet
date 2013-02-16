@@ -192,7 +192,7 @@ class PHPExcel_Calculation {
 	 * @var array of string
 	 *
 	 */
-	private $cyclicReferenceStack = array();
+	private $_cyclicReferenceStack;
 
 	private $_cyclicFormulaCount = 0;
 	private $_cyclicFormulaCell = '';
@@ -1676,7 +1676,8 @@ class PHPExcel_Calculation {
 		}
 
 		$this->_workbook = $workbook;
-	    $this->_debugLog = new PHPExcel_CalcEngine_Logger();
+		$this->_cyclicReferenceStack = new PHPExcel_CalcEngine_CyclicReferenceStack();
+	    $this->_debugLog = new PHPExcel_CalcEngine_Logger($this->_cyclicReferenceStack);
 	}	//	function __construct()
 
 
@@ -2158,7 +2159,7 @@ class PHPExcel_Calculation {
 			//	Initialise the logging settings if requested
 			$this->formulaError = null;
 			$this->_debugLog->clearLog();
-			$this->cyclicReferenceStack = array();
+			$this->_cyclicReferenceStack->clear();
 			$this->_cyclicFormulaCount = 1;
 
 			self::$returnArrayAsType = self::RETURN_ARRAY_AS_ARRAY;
@@ -2236,7 +2237,7 @@ class PHPExcel_Calculation {
 		//	Initialise the logging settings
 		$this->formulaError = null;
 		$this->_debugLog->clearLog();
-		$this->cyclicReferenceStack = array();
+		$this->_cyclicReferenceStack->clear();
 
 		//	Disable calculation cacheing because it only applies to cell calculations, not straight formulae
 		//	But don't actually flush any cache
@@ -2260,10 +2261,10 @@ class PHPExcel_Calculation {
 		// Is calculation cacheing enabled?
 		// Is the value present in calculation cache?
 //echo 'Test cache for ',$worksheetName,'!',$cellID,PHP_EOL;
-		$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Testing cache value for cell ', $worksheetName, '!', $cellID);
+		$this->_debugLog->writeDebugLog('Testing cache value for cell ', $worksheetName, '!', $cellID);
 		if (($this->_calculationCacheEnabled) && (isset($this->_calculationCache[$worksheetName][$cellID]))) {
 //echo 'Retrieve from cache',PHP_EOL;
-			$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Retrieving value for cell ', $worksheetName, '!', $cellID, ' from cache');
+			$this->_debugLog->writeDebugLog('Retrieving value for cell ', $worksheetName, '!', $cellID, ' from cache');
 			// Return the cached result
 			$cellValue = $this->_calculationCache[$worksheetName][$cellID];
 			return TRUE;
@@ -2303,7 +2304,7 @@ class PHPExcel_Calculation {
 			return $cellValue;
 		}
 
-		if (($wsTitle{0} !== "\x00") && (in_array($wsTitle.'!'.$cellID,$this->cyclicReferenceStack))) {
+		if (($wsTitle{0} !== "\x00") && ($this->_cyclicReferenceStack->onStack($wsTitle.'!'.$cellID))) {
 			if ($this->cyclicFormulaCount <= 0) {
 				return $this->_raiseFormulaError('Cyclic Reference in Formula');
 			} elseif (($this->_cyclicFormulaCount >= $this->cyclicFormulaCount) &&
@@ -2321,10 +2322,11 @@ class PHPExcel_Calculation {
 				}
 			}
 		}
-		$this->cyclicReferenceStack[] = $wsTitle.'!'.$cellID;
+
 		//	Parse the formula onto the token stack and calculate the value
+		$this->_cyclicReferenceStack->push($wsTitle.'!'.$cellID);
 		$cellValue = $this->_processTokenStack($this->_parseFormula($formula, $pCell), $cellID, $pCell);
-		array_pop($this->cyclicReferenceStack);
+		$this->_cyclicReferenceStack->pop();
 
 		// Save to calculation cache
 		if ($cellID !== NULL) {
@@ -3027,9 +3029,9 @@ class PHPExcel_Calculation {
 
 				//	Log what we're doing
 				if ($token == ':') {
-					$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluating Range ', $this->_showValue($operand1Data['reference']), ' ', $token, ' ', $this->_showValue($operand2Data['reference']));
+					$this->_debugLog->writeDebugLog('Evaluating Range ', $this->_showValue($operand1Data['reference']), ' ', $token, ' ', $this->_showValue($operand2Data['reference']));
 				} else {
-					$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluating ', $this->_showValue($operand1), ' ', $token, ' ', $this->_showValue($operand2));
+					$this->_debugLog->writeDebugLog('Evaluating ', $this->_showValue($operand1), ' ', $token, ' ', $this->_showValue($operand2));
 				}
 
 				//	Process the operation in the appropriate manner
@@ -3130,13 +3132,13 @@ class PHPExcel_Calculation {
 								$matrixResult = $matrix->concat($operand2);
 								$result = $matrixResult->getArray();
 							} catch (PHPExcel_Exception $ex) {
-								$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'JAMA Matrix Exception: ', $ex->getMessage());
+								$this->_debugLog->writeDebugLog('JAMA Matrix Exception: ', $ex->getMessage());
 								$result = '#VALUE!';
 							}
 						} else {
 							$result = '"'.str_replace('""','"',self::_unwrapResult($operand1,'"').self::_unwrapResult($operand2,'"')).'"';
 						}
-						$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluation Result is ', $this->_showTypeDetails($result));
+						$this->_debugLog->writeDebugLog('Evaluation Result is ', $this->_showTypeDetails($result));
 						$stack->push('Value',$result);
 						break;
 					case '|'	:			//	Intersect
@@ -3150,7 +3152,7 @@ class PHPExcel_Calculation {
 							}
 						}
 						$cellRef = PHPExcel_Cell::stringFromColumnIndex(min($oCol)).min($oRow).':'.PHPExcel_Cell::stringFromColumnIndex(max($oCol)).max($oRow);
-						$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluation Result is ', $this->_showTypeDetails($cellIntersect));
+						$this->_debugLog->writeDebugLog('Evaluation Result is ', $this->_showTypeDetails($cellIntersect));
 						$stack->push('Value',$cellIntersect,$cellRef);
 						break;
 				}
@@ -3162,11 +3164,11 @@ class PHPExcel_Calculation {
 				$arg = $arg['value'];
 				if ($token === '~') {
 //					echo 'Token is a negation operator<br />';
-					$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluating Negation of ', $this->_showValue($arg));
+					$this->_debugLog->writeDebugLog('Evaluating Negation of ', $this->_showValue($arg));
 					$multiplier = -1;
 				} else {
 //					echo 'Token is a percentile operator<br />';
-					$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluating Percentile of ', $this->_showValue($arg));
+					$this->_debugLog->writeDebugLog('Evaluating Percentile of ', $this->_showValue($arg));
 					$multiplier = 0.01;
 				}
 				if (is_array($arg)) {
@@ -3176,10 +3178,10 @@ class PHPExcel_Calculation {
 						$matrixResult = $matrix1->arrayTimesEquals($multiplier);
 						$result = $matrixResult->getArray();
 					} catch (PHPExcel_Exception $ex) {
-						$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'JAMA Matrix Exception: ', $ex->getMessage());
+						$this->_debugLog->writeDebugLog('JAMA Matrix Exception: ', $ex->getMessage());
 						$result = '#VALUE!';
 					}
-					$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluation Result is ', $this->_showTypeDetails($result));
+					$this->_debugLog->writeDebugLog('Evaluation Result is ', $this->_showTypeDetails($result));
 					$stack->push('Value',$result);
 				} else {
 					$this->_executeNumericBinaryOperation($cellID,$multiplier,$arg,'*','arrayTimesEquals',$stack);
@@ -3203,23 +3205,23 @@ class PHPExcel_Calculation {
 							}
 							$matches[2] = trim($matches[2],"\"'");
 //							echo '$cellRef='.$cellRef.' in worksheet '.$matches[2].'<br />';
-							$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluating Cell Range ', $cellRef, ' in worksheet ', $matches[2]);
+							$this->_debugLog->writeDebugLog('Evaluating Cell Range ', $cellRef, ' in worksheet ', $matches[2]);
 							if ($pCellParent !== NULL) {
 								$cellValue = $this->extractCellRange($cellRef, $this->_workbook->getSheetByName($matches[2]), FALSE);
 							} else {
 								return $this->_raiseFormulaError('Unable to access Cell Reference');
 							}
-							$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluation Result for cells ', $cellRef, ' in worksheet ', $matches[2], ' is ', $this->_showTypeDetails($cellValue));
+							$this->_debugLog->writeDebugLog('Evaluation Result for cells ', $cellRef, ' in worksheet ', $matches[2], ' is ', $this->_showTypeDetails($cellValue));
 //							$cellRef = $matches[2].'!'.$cellRef;
 						} else {
 //							echo '$cellRef='.$cellRef.' in current worksheet<br />';
-							$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluating Cell Range ', $cellRef, ' in current worksheet');
+							$this->_debugLog->writeDebugLog('Evaluating Cell Range ', $cellRef, ' in current worksheet');
 							if ($pCellParent !== NULL) {
 								$cellValue = $this->extractCellRange($cellRef, $pCellWorksheet, FALSE);
 							} else {
 								return $this->_raiseFormulaError('Unable to access Cell Reference');
 							}
-							$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluation Result for cells ', $cellRef, ' is ', $this->_showTypeDetails($cellValue));
+							$this->_debugLog->writeDebugLog('Evaluation Result for cells ', $cellRef, ' is ', $this->_showTypeDetails($cellValue));
 						}
 					}
 				} else {
@@ -3236,7 +3238,7 @@ class PHPExcel_Calculation {
 								return $this->_raiseFormulaError('Unable to access External Workbook');
 							}
 //							echo '$cellRef='.$cellRef.' in worksheet '.$matches[2].'<br />';
-							$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluating Cell ', $cellRef, ' in worksheet ', $matches[2]);
+							$this->_debugLog->writeDebugLog('Evaluating Cell ', $cellRef, ' in worksheet ', $matches[2]);
 							if ($pCellParent !== NULL) {
 								if ($this->_workbook->getSheetByName($matches[2])->cellExists($cellRef)) {
 									$cellValue = $this->extractCellRange($cellRef, $this->_workbook->getSheetByName($matches[2]), FALSE);
@@ -3247,18 +3249,18 @@ class PHPExcel_Calculation {
 							} else {
 								return $this->_raiseFormulaError('Unable to access Cell Reference');
 							}
-							$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluation Result for cell ', $cellRef, ' in worksheet ', $matches[2], ' is ', $this->_showTypeDetails($cellValue));
+							$this->_debugLog->writeDebugLog('Evaluation Result for cell ', $cellRef, ' in worksheet ', $matches[2], ' is ', $this->_showTypeDetails($cellValue));
 //							$cellRef = $matches[2].'!'.$cellRef;
 						} else {
 //							echo '$cellRef='.$cellRef.' in current worksheet<br />';
-							$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluating Cell ', $cellRef, ' in current worksheet');
+							$this->_debugLog->writeDebugLog('Evaluating Cell ', $cellRef, ' in current worksheet');
 							if ($pCellParent->isDataSet($cellRef)) {
 								$cellValue = $this->extractCellRange($cellRef, $pCellWorksheet, FALSE);
 								$pCell->attach($pCellParent);
 							} else {
 								$cellValue = NULL;
 							}
-							$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluation Result for cell ', $cellRef, ' is ', $this->_showTypeDetails($cellValue));
+							$this->_debugLog->writeDebugLog('Evaluation Result for cell ', $cellRef, ' is ', $this->_showTypeDetails($cellValue));
 						}
 					}
 				}
@@ -3271,7 +3273,7 @@ class PHPExcel_Calculation {
 				$argCount = $stack->pop();
 				$argCount = $argCount['value'];
 				if ($functionName != 'MKMATRIX') {
-					$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluating Function ', self::_localeFunc($functionName), '() with ', (($argCount == 0) ? 'no' : $argCount), ' argument', (($argCount == 1) ? '' : 's'));
+					$this->_debugLog->writeDebugLog('Evaluating Function ', self::_localeFunc($functionName), '() with ', (($argCount == 0) ? 'no' : $argCount), ' argument', (($argCount == 1) ? '' : 's'));
 				}
 				if ((isset(self::$_PHPExcelFunctions[$functionName])) || (isset(self::$_controlFunctions[$functionName]))) {	// function
 					if (isset(self::$_PHPExcelFunctions[$functionName])) {
@@ -3316,28 +3318,28 @@ class PHPExcel_Calculation {
 					if ($functionName != 'MKMATRIX') {
 						if ($this->_debugLog->getWriteDebugLog()) {
 							krsort($argArrayVals);
-							$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluating ', self::_localeFunc($functionName), '( ', implode(self::$_localeArgumentSeparator.' ',PHPExcel_Calculation_Functions::flattenArray($argArrayVals)), ' )');
+							$this->_debugLog->writeDebugLog('Evaluating ', self::_localeFunc($functionName), '( ', implode(self::$_localeArgumentSeparator.' ',PHPExcel_Calculation_Functions::flattenArray($argArrayVals)), ' )');
 						}
 					}
 					//	Process each argument in turn, building the return value as an array
 //					if (($argCount == 1) && (is_array($args[1])) && ($functionName != 'MKMATRIX')) {
 //						$operand1 = $args[1];
-//						$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Argument is a matrix: ', $this->_showValue($operand1));
+//						$this->_debugLog->writeDebugLog('Argument is a matrix: ', $this->_showValue($operand1));
 //						$result = array();
 //						$row = 0;
 //						foreach($operand1 as $args) {
 //							if (is_array($args)) {
 //								foreach($args as $arg) {
-//									$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluating ', self::_localeFunc($functionName), '( ', $this->_showValue($arg), ' )');
+//									$this->_debugLog->writeDebugLog('Evaluating ', self::_localeFunc($functionName), '( ', $this->_showValue($arg), ' )');
 //									$r = call_user_func_array($functionCall,$arg);
-//									$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluation Result for ', self::_localeFunc($functionName), '() function call is ', $this->_showTypeDetails($r));
+//									$this->_debugLog->writeDebugLog('Evaluation Result for ', self::_localeFunc($functionName), '() function call is ', $this->_showTypeDetails($r));
 //									$result[$row][] = $r;
 //								}
 //								++$row;
 //							} else {
-//								$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluating ', self::_localeFunc($functionName), '( ', $this->_showValue($args), ' )');
+//								$this->_debugLog->writeDebugLog('Evaluating ', self::_localeFunc($functionName), '( ', $this->_showValue($args), ' )');
 //								$r = call_user_func_array($functionCall,$args);
-//								$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluation Result for ', self::_localeFunc($functionName), '() function call is ', $this->_showTypeDetails($r));
+//								$this->_debugLog->writeDebugLog('Evaluation Result for ', self::_localeFunc($functionName), '() function call is ', $this->_showTypeDetails($r));
 //								$result[] = $r;
 //							}
 //						}
@@ -3357,7 +3359,7 @@ class PHPExcel_Calculation {
 						}
 //					}
 					if ($functionName != 'MKMATRIX') {
-						$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluation Result for ', self::_localeFunc($functionName), '() function call is ', $this->_showTypeDetails($result));
+						$this->_debugLog->writeDebugLog('Evaluation Result for ', self::_localeFunc($functionName), '() function call is ', $this->_showTypeDetails($result));
 					}
 					$stack->push('Value',self::_wrapResult($result));
 				}
@@ -3368,7 +3370,7 @@ class PHPExcel_Calculation {
 					$excelConstant = strtoupper($token);
 //					echo 'Token is a PHPExcel constant: '.$excelConstant.'<br />';
 					$stack->push('Constant Value',self::$_ExcelConstants[$excelConstant]);
-					$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluating Constant ', $excelConstant, ' as ', $this->_showTypeDetails(self::$_ExcelConstants[$excelConstant]));
+					$this->_debugLog->writeDebugLog('Evaluating Constant ', $excelConstant, ' as ', $this->_showTypeDetails(self::$_ExcelConstants[$excelConstant]));
 				} elseif ((is_numeric($token)) || ($token === NULL) || (is_bool($token)) || ($token == '') || ($token{0} == '"') || ($token{0} == '#')) {
 //					echo 'Token is a number, boolean, string, null or an Excel error<br />';
 					$stack->push('Value',$token);
@@ -3377,10 +3379,10 @@ class PHPExcel_Calculation {
 //					echo 'Token is a named range<br />';
 					$namedRange = $matches[6];
 //					echo 'Named Range is '.$namedRange.'<br />';
-					$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluating Named Range ', $namedRange);
+					$this->_debugLog->writeDebugLog('Evaluating Named Range ', $namedRange);
 					$cellValue = $this->extractNamedRange($namedRange, ((NULL !== $pCell) ? $pCellWorksheet : NULL), FALSE);
 					$pCell->attach($pCellParent);
-					$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluation Result for named range ', $namedRange, ' is ', $this->_showTypeDetails($cellValue));
+					$this->_debugLog->writeDebugLog('Evaluation Result for named range ', $namedRange, ' is ', $this->_showTypeDetails($cellValue));
 					$stack->push('Named Range',$cellValue,$namedRange);
 				} else {
 					return $this->_raiseFormulaError("undefined variable '$token'");
@@ -3410,12 +3412,12 @@ class PHPExcel_Calculation {
 				//	If not a numeric, test to see if the value is an Excel error, and so can't be used in normal binary operations
 				if ($operand > '' && $operand{0} == '#') {
 					$stack->push('Value', $operand);
-					$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluation Result is ', $this->_showTypeDetails($operand));
+					$this->_debugLog->writeDebugLog('Evaluation Result is ', $this->_showTypeDetails($operand));
 					return FALSE;
 				} elseif (!PHPExcel_Shared_String::convertToNumberIfFraction($operand)) {
 					//	If not a numeric or a fraction, then it's a text string, and so can't be used in mathematical binary operations
 					$stack->push('Value', '#VALUE!');
-					$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluation Result is a ', $this->_showTypeDetails('#VALUE!'));
+					$this->_debugLog->writeDebugLog('Evaluation Result is a ', $this->_showTypeDetails('#VALUE!'));
 					return FALSE;
 				}
 			}
@@ -3432,14 +3434,14 @@ class PHPExcel_Calculation {
 			$result = array();
 			if ((is_array($operand1)) && (!is_array($operand2))) {
 				foreach($operand1 as $x => $operandData) {
-					$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluating Comparison ', $this->_showValue($operandData), ' ', $operation, ' ', $this->_showValue($operand2));
+					$this->_debugLog->writeDebugLog('Evaluating Comparison ', $this->_showValue($operandData), ' ', $operation, ' ', $this->_showValue($operand2));
 					$this->_executeBinaryComparisonOperation($cellID,$operandData,$operand2,$operation,$stack);
 					$r = $stack->pop();
 					$result[$x] = $r['value'];
 				}
 			} elseif ((!is_array($operand1)) && (is_array($operand2))) {
 				foreach($operand2 as $x => $operandData) {
-					$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluating Comparison ', $this->_showValue($operand1), ' ', $operation, ' ', $this->_showValue($operandData));
+					$this->_debugLog->writeDebugLog('Evaluating Comparison ', $this->_showValue($operand1), ' ', $operation, ' ', $this->_showValue($operandData));
 					$this->_executeBinaryComparisonOperation($cellID,$operand1,$operandData,$operation,$stack);
 					$r = $stack->pop();
 					$result[$x] = $r['value'];
@@ -3447,14 +3449,14 @@ class PHPExcel_Calculation {
 			} else {
 				if (!$recursingArrays) { self::_checkMatrixOperands($operand1,$operand2,2); }
 				foreach($operand1 as $x => $operandData) {
-					$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluating Comparison ', $this->_showValue($operandData), ' ', $operation, ' ', $this->_showValue($operand2[$x]));
+					$this->_debugLog->writeDebugLog('Evaluating Comparison ', $this->_showValue($operandData), ' ', $operation, ' ', $this->_showValue($operand2[$x]));
 					$this->_executeBinaryComparisonOperation($cellID,$operandData,$operand2[$x],$operation,$stack,TRUE);
 					$r = $stack->pop();
 					$result[$x] = $r['value'];
 				}
 			}
 			//	Log the result details
-			$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Comparison Evaluation Result is ', $this->_showTypeDetails($result));
+			$this->_debugLog->writeDebugLog('Comparison Evaluation Result is ', $this->_showTypeDetails($result));
 			//	And push the result onto the stack
 			$stack->push('Array',$result);
 			return TRUE;
@@ -3493,7 +3495,7 @@ class PHPExcel_Calculation {
 		}
 
 		//	Log the result details
-		$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluation Result is ', $this->_showTypeDetails($result));
+		$this->_debugLog->writeDebugLog('Evaluation Result is ', $this->_showTypeDetails($result));
 		//	And push the result onto the stack
 		$stack->push('Value',$result);
 		return TRUE;
@@ -3531,7 +3533,7 @@ class PHPExcel_Calculation {
 				$matrixResult = $matrix->$matrixFunction($operand2);
 				$result = $matrixResult->getArray();
 			} catch (PHPExcel_Exception $ex) {
-				$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'JAMA Matrix Exception: ', $ex->getMessage());
+				$this->_debugLog->writeDebugLog('JAMA Matrix Exception: ', $ex->getMessage());
 				$result = '#VALUE!';
 			}
 		} else {
@@ -3558,7 +3560,7 @@ class PHPExcel_Calculation {
 						if ($operand2 == 0) {
 							//	Trap for Divide by Zero error
 							$stack->push('Value','#DIV/0!');
-							$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluation Result is ', $this->_showTypeDetails('#DIV/0!'));
+							$this->_debugLog->writeDebugLog('Evaluation Result is ', $this->_showTypeDetails('#DIV/0!'));
 							return FALSE;
 						} else {
 							$result = $operand1/$operand2;
@@ -3573,7 +3575,7 @@ class PHPExcel_Calculation {
 		}
 
 		//	Log the result details
-		$this->_debugLog->writeDebugLog($this->cyclicReferenceStack, 'Evaluation Result is ', $this->_showTypeDetails($result));
+		$this->_debugLog->writeDebugLog('Evaluation Result is ', $this->_showTypeDetails($result));
 		//	And push the result onto the stack
 		$stack->push('Value',$result);
 		return TRUE;
@@ -3583,7 +3585,7 @@ class PHPExcel_Calculation {
 	// trigger an error, but nicely, if need be
 	protected function _raiseFormulaError($errorMessage) {
 		$this->formulaError = $errorMessage;
-		$this->cyclicReferenceStack = array();
+		$this->_cyclicReferenceStack->clear();
 		if (!$this->suppressFormulaErrors) throw new PHPExcel_Calculation_Exception($errorMessage);
 		trigger_error($errorMessage, E_USER_ERROR);
 	}	//	function _raiseFormulaError()
