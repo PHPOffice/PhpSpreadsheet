@@ -230,6 +230,7 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 		}
 
 		$id1 = $id2 = 0;
+		$this->_seriesIndex = 0;
 		$objWriter->startElement('c:plotArea');
 
 			$layout = $plotArea->getLayout();
@@ -737,11 +738,11 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 			$objWriter->startElement('c:ser');
 
 				$objWriter->startElement('c:idx');
-					$objWriter->writeAttribute('val', $plotSeriesIdx);
+					$objWriter->writeAttribute('val', $this->_seriesIndex + $plotSeriesIdx);
 				$objWriter->endElement();
 
 				$objWriter->startElement('c:order');
-					$objWriter->writeAttribute('val', $plotSeriesRef);
+					$objWriter->writeAttribute('val', $this->_seriesIndex + $plotSeriesRef);
 				$objWriter->endElement();
 
 				if (($groupType == PHPExcel_Chart_DataSeries::TYPE_PIECHART) ||
@@ -865,6 +866,8 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 			$objWriter->endElement();
 
 		}
+
+		$this->_seriesIndex += $plotSeriesIdx + 1;
 	}
 
 	/**
