@@ -204,7 +204,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      *
      * @var PHPExcel_Worksheet_AutoFilter
      */
-    private $_autoFilter = NULL;
+    private $_autoFilter = null;
 
     /**
      * Freeze pane
@@ -362,12 +362,12 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
         $this->_protection            = new PHPExcel_Worksheet_Protection();
 
         // Default row dimension
-        $this->_defaultRowDimension = new PHPExcel_Worksheet_RowDimension(NULL);
+        $this->_defaultRowDimension = new PHPExcel_Worksheet_RowDimension(null);
 
         // Default column dimension
-        $this->_defaultColumnDimension    = new PHPExcel_Worksheet_ColumnDimension(NULL);
+        $this->_defaultColumnDimension    = new PHPExcel_Worksheet_ColumnDimension(null);
 
-        $this->_autoFilter            = new PHPExcel_Worksheet_AutoFilter(NULL, $this);
+        $this->_autoFilter            = new PHPExcel_Worksheet_AutoFilter(null, $this);
     }
 
 
@@ -380,7 +380,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
     {
     	if ( $this->_cellCollection != null ){
             $this->_cellCollection->unsetWorksheetCells();
-            $this->_cellCollection = NULL;
+            $this->_cellCollection = null;
     	}
         //    detach ourself from the workbook, so that it can then delete this worksheet successfully
         $this->_parent = null;
@@ -391,7 +391,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      *
      */
 	function __destruct() {
-		if ($this->_cellCollection !== NULL) {
+		if ($this->_cellCollection !== null) {
 			$this->disconnectCells();
 		}
 	}
@@ -451,7 +451,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
             // Re-order cell collection
             return $this->sortCellCollection();
         }
-        if ($this->_cellCollection !== NULL) {
+        if ($this->_cellCollection !== null) {
             return $this->_cellCollection->getCellList();
         }
         return array();
@@ -464,7 +464,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      */
     public function sortCellCollection()
     {
-        if ($this->_cellCollection !== NULL) {
+        if ($this->_cellCollection !== null) {
             return $this->_cellCollection->getSortedCellList();
         }
         return array();
@@ -1117,7 +1117,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
         if ((!preg_match('/^'.PHPExcel_Calculation::CALCULATION_REGEXP_CELLREF.'$/i', $pCoordinate, $matches)) &&
             (preg_match('/^'.PHPExcel_Calculation::CALCULATION_REGEXP_NAMEDRANGE.'$/i', $pCoordinate, $matches))) {
             $namedRange = PHPExcel_NamedRange::resolveRange($pCoordinate, $this);
-            if ($namedRange !== NULL) {
+            if ($namedRange !== null) {
                 $pCoordinate = $namedRange->getRange();
                 return $namedRange->getWorksheet()->getCell($pCoordinate);
             }
@@ -1136,7 +1136,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
             // Coordinates
             $aCoordinates = PHPExcel_Cell::coordinateFromString($pCoordinate);
 
-            $cell = $this->_cellCollection->addCacheData($pCoordinate,new PHPExcel_Cell($pCoordinate, NULL, PHPExcel_Cell_DataType::TYPE_NULL, $this));
+            $cell = $this->_cellCollection->addCacheData($pCoordinate,new PHPExcel_Cell($pCoordinate, null, PHPExcel_Cell_DataType::TYPE_NULL, $this));
             $this->_cellCollectionIsSorted = false;
 
             if (PHPExcel_Cell::columnIndexFromString($this->_cachedHighestColumn) < PHPExcel_Cell::columnIndexFromString($aCoordinates[0]))
@@ -1176,7 +1176,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
         $coordinate = $columnLetter . $pRow;
 
         if (!$this->_cellCollection->isDataSet($coordinate)) {
-            $cell = $this->_cellCollection->addCacheData($coordinate, new PHPExcel_Cell($coordinate, NULL, PHPExcel_Cell_DataType::TYPE_NULL, $this));
+            $cell = $this->_cellCollection->addCacheData($coordinate, new PHPExcel_Cell($coordinate, null, PHPExcel_Cell_DataType::TYPE_NULL, $this));
             $this->_cellCollectionIsSorted = false;
 
             if (PHPExcel_Cell::columnIndexFromString($this->_cachedHighestColumn) < $pColumn)
@@ -1209,7 +1209,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
         if ((!preg_match('/^'.PHPExcel_Calculation::CALCULATION_REGEXP_CELLREF.'$/i', $pCoordinate, $matches)) &&
             (preg_match('/^'.PHPExcel_Calculation::CALCULATION_REGEXP_NAMEDRANGE.'$/i', $pCoordinate, $matches))) {
             $namedRange = PHPExcel_NamedRange::resolveRange($pCoordinate, $this);
-            if ($namedRange !== NULL) {
+            if ($namedRange !== null) {
                 $pCoordinate = $namedRange->getRange();
                 if ($this->getHashCode() != $namedRange->getWorksheet()->getHashCode()) {
                     if (!$namedRange->getLocalOnly()) {
@@ -1899,7 +1899,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      */
     public function removeAutoFilter()
     {
-        $this->_autoFilter->setRange(NULL);
+        $this->_autoFilter->setRange(null);
         return $this;
     }
 
@@ -2442,7 +2442,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
                             );
                         }
                     } else {
-                        // Cell holds a NULL
+                        // Cell holds a null
                         $returnValue[$rRef][$cRef] = $nullValue;
                     }
                 } else {
@@ -2475,7 +2475,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
     )
     {
         $namedRange = PHPExcel_NamedRange::resolveRange($pNamedRange, $this);
-        if ($namedRange !== NULL) {
+        if ($namedRange !== null) {
             $pWorkSheet = $namedRange->getWorksheet();
             $pCellRange = $namedRange->getRange();
 
@@ -2759,7 +2759,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      */
     public function getTabColor()
     {
-        if ($this->_tabColor === NULL)
+        if ($this->_tabColor === null)
             $this->_tabColor = new PHPExcel_Style_Color();
 
         return $this->_tabColor;
@@ -2785,7 +2785,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      */
     public function isTabColorSet()
     {
-        return ($this->_tabColor !== NULL);
+        return ($this->_tabColor !== null);
     }
 
     /**
