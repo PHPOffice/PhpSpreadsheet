@@ -116,8 +116,8 @@ class PHPExcel_CachedObjectStorage_SQLite extends PHPExcel_CachedObjectStorage_C
 
 		$cellResult = $cellResultSet->fetchSingle();
 		$this->_currentObject = unserialize($cellResult);
-		//	Re-attach the parent worksheet
-		$this->_currentObject->attach($this->_parent);
+        //    Re-attach this as the cell's parent
+        $this->_currentObject->attach($this);
 
 		//	Return requested entry
 		return $this->_currentObject;

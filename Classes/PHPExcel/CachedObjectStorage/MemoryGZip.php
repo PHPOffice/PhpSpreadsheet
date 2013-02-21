@@ -96,8 +96,8 @@ class PHPExcel_CachedObjectStorage_MemoryGZip extends PHPExcel_CachedObjectStora
 		//	Set current entry to the requested entry
 		$this->_currentObjectID = $pCoord;
 		$this->_currentObject = unserialize(gzinflate($this->_cellCache[$pCoord]));
-		//	Re-attach the parent worksheet
-		$this->_currentObject->attach($this->_parent);
+        //    Re-attach this as the cell's parent
+        $this->_currentObject->attach($this);
 
 		//	Return requested entry
 		return $this->_currentObject;

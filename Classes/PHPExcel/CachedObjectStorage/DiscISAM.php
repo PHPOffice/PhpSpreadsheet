@@ -124,8 +124,8 @@ class PHPExcel_CachedObjectStorage_DiscISAM extends PHPExcel_CachedObjectStorage
 		$this->_currentObjectID = $pCoord;
 		fseek($this->_fileHandle,$this->_cellCache[$pCoord]['ptr']);
 		$this->_currentObject = unserialize(fread($this->_fileHandle,$this->_cellCache[$pCoord]['sz']));
-		//	Re-attach the parent worksheet
-		$this->_currentObject->attach($this->_parent);
+        //    Re-attach this as the cell's parent
+        $this->_currentObject->attach($this);
 
 		//	Return requested entry
 		return $this->_currentObject;
