@@ -104,6 +104,7 @@ class PHPExcel_Cell
 	 **/
 	public function notifyCacheController() {
 		$this->_parent->updateCacheData($this);
+
 		return $this;
 	}
 
@@ -133,7 +134,7 @@ class PHPExcel_Cell
 
 		// Set worksheet cache
 		$this->_parent = $pSheet->getCellCacheController();
-
+			
 		// Set datatype?
 		if ($pDataType !== NULL) {
 			if ($pDataType == PHPExcel_Cell_DataType::TYPE_STRING2)
