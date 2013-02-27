@@ -170,6 +170,32 @@ class PHPExcel_CachedObjectStorage_SQLite extends PHPExcel_CachedObjectStorage_C
 
 
 	/**
+	 * Move a cell object from one address to another
+	 *
+	 * @param	string		$fromAddress	Current address of the cell to move
+	 * @param	string		$toAddress		Destination address of the cell to move
+	 * @return	boolean
+	 */
+	public function moveCell($fromAddress, $toAddress) {
+		if ($fromAddress === $this->_currentObjectID) {
+			$this->_currentObjectID = $toAddress;
+		}
+
+		$query = "DELETE FROM kvp_".$this->_TableName." WHERE id='".$toAddress."'";
+		$result = $this->_DBHandle->exec($query);
+		if ($result === false)
+			throw new PHPExcel_Exception($this->_DBHandle->lastErrorMsg());
+
+		$query = "UPDATE kvp_".$this->_TableName." SET id='".$toAddress."' WHERE id='".$fromAddress."'";
+		$result = $this->_DBHandle->exec($query);
+		if ($result === false)
+			throw new PHPExcel_Exception($this->_DBHandle->lastErrorMsg());
+
+		return TRUE;
+	}	//	function moveCell()
+
+
+	/**
 	 * Get a list of all cell addresses currently held in cache
 	 *
 	 * @return	array of string

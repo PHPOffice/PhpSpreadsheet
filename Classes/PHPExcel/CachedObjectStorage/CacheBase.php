@@ -117,13 +117,14 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase {
 		if ($fromAddress === $this->_currentObjectID) {
 			$this->_currentObjectID = $toAddress;
 		}
+		$this->_currentCellIsDirty = true;
 		if (isset($this->_cellCache[$fromAddress])) {
 			$this->_cellCache[$toAddress] = &$this->_cellCache[$fromAddress];
 			unset($this->_cellCache[$fromAddress]);
 		}
 
 		return TRUE;
-	}	//	function isDataSet()
+	}	//	function moveCell()
 
 
     /**
