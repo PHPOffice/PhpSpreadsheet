@@ -106,6 +106,26 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase {
 	}	//	function isDataSet()
 
 
+	/**
+	 * Move a cell object from one address to another
+	 *
+	 * @param	string		$fromAddress	Current address of the cell to move
+	 * @param	string		$toAddress		Destination address of the cell to move
+	 * @return	boolean
+	 */
+	public function moveCell($fromAddress, $toAddress) {
+		if ($fromAddress === $this->_currentObjectID) {
+			$this->_currentObjectID = $toAddress;
+		}
+		if (isset($this->_cellCache[$fromAddress])) {
+			$this->_cellCache[$toAddress] = &$this->_cellCache[$fromAddress];
+			unset($this->_cellCache[$fromAddress]);
+		}
+
+		return TRUE;
+	}	//	function isDataSet()
+
+
     /**
      * Add or Update a cell in cache
      *
