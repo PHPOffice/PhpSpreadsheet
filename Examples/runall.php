@@ -52,6 +52,7 @@ $aTests = array(
 	, '10autofilter-selection-2.php'
 	, '11documentsecurity.php'
 	, '11documentsecurity-xls.php'
+	, '12cellProtection.php'
 	, '13calculation.php'
 	, '14excel5.php'
 	, '15datavalidation.php'
