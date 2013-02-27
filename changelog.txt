@@ -50,7 +50,7 @@ Fixed in develop branch:
 - Bugfix:   (MBaker)    Work item GH-104 - echo statements in HTML.php
 - Feature:  (Progi1984) Work item GH-8/CP11704 : Conditional formatting in Excel 5 Writer
 - Bugfix:   (MBaker)    Work item GH-113 - canRead() Error for GoogleDocs ODS files: in ODS files from Google Docs there is no mimetype file
-
+- Bugfix:   (MBaker)    Work item GH-80  - "Sheet index is out of bounds." Exception
 
 --------------------------------------------------------------------------------
 BREAKING CHANGE! As part of the planned changes for handling array formulae in

@@ -1608,15 +1608,16 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 											break;
 
 										default:
-											$range = explode('!', (string)$definedName);
-											if (count($range) == 2) {
-												$range[0] = str_replace("''", "'", $range[0]);
-												$range[0] = str_replace("'", "", $range[0]);
-												if ($worksheet = $docSheet->getParent()->getSheetByName($range[0])) {
-													$extractedRange = str_replace('$', '', $range[1]);
-													$scope = $docSheet->getParent()->getSheet((string)$definedName['localSheetId']);
-
-													$excel->addNamedRange( new PHPExcel_NamedRange((string)$definedName['name'], $worksheet, $extractedRange, true, $scope) );
+											if ($mapSheetId[(integer) $definedName['localSheetId']] !== null) {
+												$range = explode('!', (string)$definedName);
+												if (count($range) == 2) {
+													$range[0] = str_replace("''", "'", $range[0]);
+													$range[0] = str_replace("'", "", $range[0]);
+													if ($worksheet = $docSheet->getParent()->getSheetByName($range[0])) {
+														$extractedRange = str_replace('$', '', $range[1]);
+														$scope = $docSheet->getParent()->getSheet($mapSheetId[(integer) $definedName['localSheetId']]);
+														$excel->addNamedRange( new PHPExcel_NamedRange((string)$definedName['name'], $worksheet, $extractedRange, true, $scope) );
+													}
 												}
 											}
 											break;
