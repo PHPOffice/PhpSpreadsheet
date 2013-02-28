@@ -134,7 +134,7 @@ class PHPExcel_Cell
 
 		// Set worksheet cache
 		$this->_parent = $pSheet->getCellCacheController();
-			
+
 		// Set datatype?
 		if ($pDataType !== NULL) {
 			if ($pDataType == PHPExcel_Cell_DataType::TYPE_STRING2)
@@ -273,21 +273,26 @@ class PHPExcel_Cell
 	 */
 	public function getCalculatedValue($resetLog = TRUE)
 	{
-//		echo 'Cell '.$this->getCoordinate().' value is a '.$this->_dataType.' with a value of '.$this->getValue().'<br />';
+//echo 'Cell '.$this->getCoordinate().' value is a '.$this->_dataType.' with a value of '.$this->getValue().PHP_EOL;
 		if ($this->_dataType == PHPExcel_Cell_DataType::TYPE_FORMULA) {
 			try {
-//				echo 'Cell value for '.$this->getCoordinate().' is a formula: Calculating value<br />';
+//echo 'Cell value for '.$this->getCoordinate().' is a formula: Calculating value'.PHP_EOL;
 				$result = PHPExcel_Calculation::getInstance(
 					$this->getWorksheet()->getParent()
 				)->calculateCellValue($this,$resetLog);
-//				$result = $this->getParent()->getParent()->getCalculationEngine()->calculateCellValue($this,$resetLog);
-//				echo $this->getCoordinate().' calculation result is '.$result.'<br />';
+//echo $this->getCoordinate().' calculation result is '.$result.PHP_EOL;
+				//	We don't yet handle array returns
+				if (is_array($result)) {
+					while (is_array($result)) {
+						$result = array_pop($result);
+					}
+				}
 			} catch ( PHPExcel_Exception $ex ) {
 				if (($ex->getMessage() === 'Unable to access External Workbook') && ($this->_calculatedValue !== NULL)) {
-//					echo 'Returning fallback value of '.$this->_calculatedValue.' for cell '.$this->getCoordinate().'<br />';
+//echo 'Returning fallback value of '.$this->_calculatedValue.' for cell '.$this->getCoordinate().PHP_EOL;
 					return $this->_calculatedValue; // Fallback for calculations referencing external files.
 				}
-//				echo 'Calculation Exception: '.$ex->getMessage().'<br />';
+//echo 'Calculation Exception: '.$ex->getMessage().PHP_EOL;
 				$result = '#N/A';
 				throw(
 					new PHPExcel_Calculation_Exception(
@@ -297,10 +302,10 @@ class PHPExcel_Cell
 			}
 
 			if ($result === '#Not Yet Implemented') {
-//				echo 'Returning fallback value of '.$this->_calculatedValue.' for cell '.$this->getCoordinate().'<br />';
+//echo 'Returning fallback value of '.$this->_calculatedValue.' for cell '.$this->getCoordinate().PHP_EOL;
 				return $this->_calculatedValue; // Fallback if calculation engine does not support the formula.
 			}
-//			echo 'Returning calculated value of '.$result.' for cell '.$this->getCoordinate().'<br />';
+//echo 'Returning calculated value of '.$result.' for cell '.$this->getCoordinate().PHP_EOL;
 			return $result;
 		}
 
