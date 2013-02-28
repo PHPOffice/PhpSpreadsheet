@@ -377,9 +377,10 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      *
      */
 	public function disconnectCells() {
-        $this->_cellCollection->unsetWorksheetCells();
-        $this->_cellCollection = NULL;
-
+    	if ( $this->_cellCollection !== NULL){
+            $this->_cellCollection->unsetWorksheetCells();
+            $this->_cellCollection = NULL;
+    	}
         //    detach ourself from the workbook, so that it can then delete this worksheet successfully
         $this->_parent = null;
     }
@@ -389,11 +390,10 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      *
      */
 	function __destruct() {
-		if ($this->_cellCollection !== NULL) {
-			$this->disconnectCells();
-		}
 		PHPExcel_Calculation::getInstance($this->_parent)
 		    ->clearCalculationCacheForWorksheet($this->_title);
+
+		$this->disconnectCells();
 	}
 
    /**
