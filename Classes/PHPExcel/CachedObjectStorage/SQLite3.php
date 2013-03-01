@@ -106,19 +106,22 @@ class PHPExcel_CachedObjectStorage_SQLite3 extends PHPExcel_CachedObjectStorage_
 		}
 		$this->_storeData();
 
-		$query = "SELECT value FROM kvp_".$this->_TableName." WHERE id='".$pCoord."'";
-		$cellResult = $this->_DBHandle->querySingle($query);
-		if ($cellResult === false) {
+		$query = $this->_DBHandle->prepare("SELECT value FROM kvp_".$this->_TableName." WHERE id = :id");
+		$query->bindValue('id',$pCoord,SQLITE3_TEXT);
+		$cellResult = $query->execute();
+		if ($cellResult === FALSE) {
 			throw new PHPExcel_Exception($this->_DBHandle->lastErrorMsg());
-		} elseif (is_null($cellResult)) {
+		}
+		$cellData = $cellResult->fetchArray(SQLITE3_ASSOC);
+		if ($cellData === FALSE) {
 			//	Return null if requested entry doesn't exist in cache
-			return null;
+			return NULL;
 		}
 
 		//	Set current entry to the requested entry
 		$this->_currentObjectID = $pCoord;
 
-		$this->_currentObject = unserialize($cellResult);
+		$this->_currentObject = unserialize($cellData['value']);
         //    Re-attach this as the cell's parent
         $this->_currentObject->attach($this);
 
@@ -135,19 +138,19 @@ class PHPExcel_CachedObjectStorage_SQLite3 extends PHPExcel_CachedObjectStorage_
 	 */
 	public function isDataSet($pCoord) {
 		if ($pCoord === $this->_currentObjectID) {
-			return true;
+			return TRUE;
 		}
 
 		//	Check if the requested entry exists in the cache
-		$query = "SELECT id FROM kvp_".$this->_TableName." WHERE id='".$pCoord."'";
-		$cellResult = $this->_DBHandle->querySingle($query);
-		if ($cellResult === false) {
+		$query = $this->_DBHandle->prepare("SELECT value FROM kvp_".$this->_TableName." WHERE id = :id");
+		$query->bindValue('id',$pCoord,SQLITE3_TEXT);
+		$cellResult = $query->execute();
+		if ($cellResult === FALSE) {
 			throw new PHPExcel_Exception($this->_DBHandle->lastErrorMsg());
-		} elseif (is_null($cellResult)) {
-			//	Return null if requested entry doesn't exist in cache
-			return false;
 		}
-		return true;
+		$cellData = $cellResult->fetchArray(SQLITE3_ASSOC);
+
+		return ($cellData === FALSE) ? FALSE : TRUE;
 	}	//	function isDataSet()
 
 
@@ -160,16 +163,17 @@ class PHPExcel_CachedObjectStorage_SQLite3 extends PHPExcel_CachedObjectStorage_
 	public function deleteCacheData($pCoord) {
 		if ($pCoord === $this->_currentObjectID) {
 			$this->_currentObject->detach();
-			$this->_currentObjectID = $this->_currentObject = null;
+			$this->_currentObjectID = $this->_currentObject = NULL;
 		}
 
 		//	Check if the requested entry exists in the cache
-		$query = "DELETE FROM kvp_".$this->_TableName." WHERE id='".$pCoord."'";
-		$result = $this->_DBHandle->exec($query);
-		if ($result === false)
+		$query = $this->_DBHandle->prepare("DELETE FROM kvp_".$this->_TableName." WHERE id = :id");
+		$query->bindValue('id',$pCoord,SQLITE3_TEXT);
+		$result = $query->execute();
+		if ($result === FALSE)
 			throw new PHPExcel_Exception($this->_DBHandle->lastErrorMsg());
 
-		$this->_currentCellIsDirty = false;
+		$this->_currentCellIsDirty = FALSE;
 	}	//	function deleteCacheData()
 
 
