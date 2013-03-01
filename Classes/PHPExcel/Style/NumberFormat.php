@@ -439,7 +439,7 @@ class PHPExcel_Style_NumberFormat extends PHPExcel_Style_Supervisor implements P
 	 * @param array		$callBack	Callback function for additional formatting of string
 	 * @return string	Formatted string
 	 */
-	public static function toFormattedString($value = '', $format = '', $callBack = null)
+	public static function toFormattedString($value = PHPExcel_Style_NumberFormat::FORMAT_GENERAL, $format = '', $callBack = null)
 	{
 		// For now we do not treat strings although section 4 of a format code affects strings
 		if (!is_numeric($value)) return $value;

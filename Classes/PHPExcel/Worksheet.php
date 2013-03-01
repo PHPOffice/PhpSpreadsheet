@@ -2432,7 +2432,10 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
                         if ($formatData) {
                             $style = $this->_parent->getCellXfByIndex($cell->getXfIndex());
                             $returnValue[$rRef][$cRef] = PHPExcel_Style_NumberFormat::toFormattedString(
-                            	$returnValue[$rRef][$cRef], $style->getNumberFormat()->getFormatCode()
+                            	$returnValue[$rRef][$cRef], 
+								($style->getNumberFormat()) ? 
+									$style->getNumberFormat()->getFormatCode() : 
+									PHPExcel_Style_NumberFormat::FORMAT_GENERAL
                             );
                         }
                     } else {
