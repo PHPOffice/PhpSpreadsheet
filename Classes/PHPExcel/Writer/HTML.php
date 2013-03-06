@@ -1016,7 +1016,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 
 		// Construct HTML
 		$html = '';
-
+		$html .= $this->_setMargins($pSheet);
+			
 		if (!$this->_useInlineCss) {
 			$gridlines = $pSheet->getShowGridLines() ? ' gridlines' : '';
 			$html .= '	<table border="0" cellpadding="0" cellspacing="0" id="sheet' . $sheetIndex . '" class="sheet' . $sheetIndex . $gridlines . '">' . PHP_EOL;
@@ -1495,4 +1496,27 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 		$this->_spansAreCalculated = true;
 	}
 
+	private function _setMargins(PHPExcel_Worksheet $pSheet) {
+		$htmlPage = '@page { ';
+		$htmlBody = 'body { ';
+
+		$left = PHPExcel_Shared_String::FormatNumber($pSheet->getPageMargins()->getLeft()) . 'in; ';
+		$htmlPage .= 'left-margin: ' . $left;
+		$htmlBody .= 'left-margin: ' . $left;
+		$right = PHPExcel_Shared_String::FormatNumber($pSheet->getPageMargins()->getRight()) . 'in; ';
+		$htmlPage .= 'right-margin: ' . $right;
+		$htmlBody .= 'right-margin: ' . $right;
+		$top = PHPExcel_Shared_String::FormatNumber($pSheet->getPageMargins()->getTop()) . 'in; ';
+		$htmlPage .= 'top-margin: ' . $top;
+		$htmlBody .= 'top-margin: ' . $top;
+		$bottom = PHPExcel_Shared_String::FormatNumber($pSheet->getPageMargins()->getBottom()) . 'in; ';
+		$htmlPage .= 'bottom-margin: ' . $bottom;
+		$htmlBody .= 'bottom-margin: ' . $bottom;
+
+		$htmlPage .= "}\n";
+		$htmlBody .= "}\n";
+
+		return "<style>\n" . $htmlPage . $htmlBody . "</style>\n";
+	}
+	
 }
