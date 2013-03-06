@@ -279,7 +279,7 @@ class PHPExcel_Chart_DataSeriesValues
 
 	public function refresh(PHPExcel_Worksheet $worksheet, $flatten = TRUE) {
         if ($this->_dataSource !== NULL) {
-        	$calcEngine = PHPExcel_Calculation::getInstance();
+        	$calcEngine = PHPExcel_Calculation::getInstance($worksheet->getParent());
 			$newDataValues = PHPExcel_Calculation::_unwrapResult(
 			    $calcEngine->_calculateFormulaValue(
 			        '='.$this->_dataSource,

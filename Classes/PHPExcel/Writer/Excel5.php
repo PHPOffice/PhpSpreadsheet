@@ -120,8 +120,8 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
 		// garbage collect
 		$this->_phpExcel->garbageCollect();
 
-		$saveDebugLog = PHPExcel_Calculation::getInstance()->writeDebugLog;
-		PHPExcel_Calculation::getInstance()->writeDebugLog = false;
+		$saveDebugLog = PHPExcel_Calculation::getInstance($this->_phpExcel)->getDebugLog()->getWriteDebugLog();
+		PHPExcel_Calculation::getInstance($this->_phpExcel)->getDebugLog()->setWriteDebugLog(FALSE);
 		$saveDateReturnType = PHPExcel_Calculation_Functions::getReturnDateType();
 		PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_EXCEL);
 
@@ -226,7 +226,7 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
 		$res = $root->save($pFilename);
 
 		PHPExcel_Calculation_Functions::setReturnDateType($saveDateReturnType);
-		PHPExcel_Calculation::getInstance()->writeDebugLog = $saveDebugLog;
+		PHPExcel_Calculation::getInstance($this->_phpExcel)->getDebugLog()->setWriteDebugLog($saveDebugLog);
 	}
 
 	/**

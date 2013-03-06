@@ -43,6 +43,13 @@ if (!defined('PHPEXCEL_ROOT')) {
 class PHPExcel
 {
     /**
+     * Unique ID
+     *
+     * @var string
+     */
+    private $_uniqueID;
+
+    /**
      * Document properties
      *
      * @var PHPExcel_DocumentProperties
@@ -62,6 +69,13 @@ class PHPExcel
      * @var PHPExcel_Worksheet[]
      */
     private $_workSheetCollection = array();
+
+    /**
+	 * Calculation Engine
+	 *
+	 * @var PHPExcel_Calculation
+	 */
+	private $_calculationEngine = NULL;
 
     /**
      * Active sheet index
@@ -103,6 +117,9 @@ class PHPExcel
      */
     public function __construct()
     {
+		$this->_uniqueID = uniqid();
+		$this->_calculationEngine	= PHPExcel_Calculation::getInstance($this);
+
         // Initialise worksheet collection and add one worksheet
         $this->_workSheetCollection = array();
         $this->_workSheetCollection[] = new PHPExcel_Worksheet($this);
@@ -126,13 +143,22 @@ class PHPExcel
         $this->addCellStyleXf(new PHPExcel_Style);
     }
 
+    /**
+     * Code to execute when this worksheet is unset()
+     *
+     */
+    public function __destruct() {
+        PHPExcel_Calculation::unsetInstance($this);
+        $this->disconnectWorksheets();
+    }    //    function __destruct()
 
     /**
      * Disconnect all worksheets from this PHPExcel workbook object,
      *    typically so that the PHPExcel object can be unset
      *
      */
-    public function disconnectWorksheets() {
+    public function disconnectWorksheets()
+    {
     	$worksheet = NULL;
         foreach($this->_workSheetCollection as $k => &$worksheet) {
             $worksheet->disconnectCells();
@@ -142,13 +168,15 @@ class PHPExcel
         $this->_workSheetCollection = array();
     }
 
-    /**
-     * Code to execute when this worksheet is unset()
-     *
-     */
-	function __destruct() {
-		$this->disconnectWorksheets();
-	}
+	/**
+	 * Return the calculation engine for this worksheet
+	 *
+	 * @return PHPExcel_Calculation
+	 */
+	public function getCalculationEngine()
+	{
+		return $this->_calculationEngine;
+	}	//	function getCellCacheController()
 
     /**
      * Get properties
@@ -849,12 +877,14 @@ class PHPExcel
             foreach ($sheet->getColumnDimensions() as $columnDimension) {
                 $columnDimension->setXfIndex( $map[$columnDimension->getXfIndex()] );
             }
-        }
 
-        // also do garbage collection for all the sheets
-        foreach ($this->getWorksheetIterator() as $sheet) {
+			// also do garbage collection for all the sheets
             $sheet->garbageCollect();
         }
+    }
+
+    public function getID() {
+        return $this->_uniqueID;
     }
 
 }

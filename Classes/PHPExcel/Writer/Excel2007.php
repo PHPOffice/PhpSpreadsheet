@@ -179,8 +179,8 @@ class PHPExcel_Writer_Excel2007 extends PHPExcel_Writer_Abstract implements PHPE
 				}
 			}
 
-			$saveDebugLog = PHPExcel_Calculation::getInstance()->writeDebugLog;
-			PHPExcel_Calculation::getInstance()->writeDebugLog = false;
+			$saveDebugLog = PHPExcel_Calculation::getInstance($this->_spreadSheet)->getDebugLog()->getWriteDebugLog();
+			PHPExcel_Calculation::getInstance($this->_spreadSheet)->getDebugLog()->setWriteDebugLog(FALSE);
 			$saveDateReturnType = PHPExcel_Calculation_Functions::getReturnDateType();
 			PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_EXCEL);
 
@@ -341,7 +341,7 @@ class PHPExcel_Writer_Excel2007 extends PHPExcel_Writer_Abstract implements PHPE
 			}
 
 			PHPExcel_Calculation_Functions::setReturnDateType($saveDateReturnType);
-			PHPExcel_Calculation::getInstance()->writeDebugLog = $saveDebugLog;
+			PHPExcel_Calculation::getInstance($this->_spreadSheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
 
 			// Close file
 			if ($objZip->close() === false) {
