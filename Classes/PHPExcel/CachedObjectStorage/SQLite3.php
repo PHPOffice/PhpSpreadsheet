@@ -291,6 +291,7 @@ class PHPExcel_CachedObjectStorage_SQLite3 extends PHPExcel_CachedObjectStorage_
 	 */
 	public function __destruct() {
 		if (!is_null($this->_DBHandle)) {
+			$this->_DBHandle->exec('DROP TABLE kvp_'.$this->_TableName);
 			$this->_DBHandle->close();
 		}
 		$this->_DBHandle = null;

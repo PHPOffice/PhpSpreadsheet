@@ -54,6 +54,7 @@ Fixed in develop branch for release v1.7.9:
 - Bugfix:   (MBaker)    Work item GH-113 - canRead() Error for GoogleDocs ODS files: in ODS files from Google Docs there is no mimetype file
 - Bugfix:   (MBaker)    Work item GH-80  - "Sheet index is out of bounds." Exception
 - Bugfix:   (ccorliss)  Work item GH-105 - Fixed number format fatal error
+- Bugfix:   (MBaker)                     - Add DROP TABLE in destructor for SQLite and SQLite3 cache controllers
 
 --------------------------------------------------------------------------------
 BREAKING CHANGE! As part of the planned changes for handling array formulae in
