@@ -491,12 +491,12 @@ class PHPExcel_Shared_String
 	 */
 	public static function ConvertEncoding($value, $to, $from)
 	{
-		if (self::getIsMbstringEnabled()) {
-			return mb_convert_encoding($value, $to, $from);
-		}
-
 		if (self::getIsIconvEnabled()) {
 			return iconv($from, $to, $value);
+		}
+
+		if (self::getIsMbstringEnabled()) {
+			return mb_convert_encoding($value, $to, $from);
 		}
 
 		if($from == 'UTF-16LE'){
