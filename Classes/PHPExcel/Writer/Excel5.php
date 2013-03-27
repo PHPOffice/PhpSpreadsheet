@@ -596,7 +596,6 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
 		// GKPIDDSI_CATEGORY : Category
 		if($this->_phpExcel->getProperties()->getCategory()){
 			$dataProp = $this->_phpExcel->getProperties()->getCategory();
-			$dataProp = 'Test result file';
 			$dataSection[] = array('summary'=> array('pack' => 'V', 'data' => 0x02),
 								   'offset' => array('pack' => 'V'),
 								   'type' 	=> array('pack' => 'V', 'data' => 0x1E),
