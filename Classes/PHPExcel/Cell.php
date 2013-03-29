@@ -307,12 +307,10 @@ class PHPExcel_Cell
 			}
 //echo 'Returning calculated value of '.$result.' for cell '.$this->getCoordinate().PHP_EOL;
 			return $result;
+		} elseif($this->_value instanceof PHPExcel_RichText) {
+//		echo 'Cell value for '.$this->getCoordinate().' is rich text: Returning data value of '.$this->_value.'<br />';
+			return $this->_value->getPlainText();
 		}
-
-//		if ($this->_value === NULL) {
-//			echo 'Cell '.$this->getCoordinate().' has no value, formula or otherwise<br />';
-//			return NULL;
-//		}
 //		echo 'Cell value for '.$this->getCoordinate().' is not a formula: Returning data value of '.$this->_value.'<br />';
 		return $this->_value;
 	}

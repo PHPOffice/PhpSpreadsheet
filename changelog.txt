@@ -43,6 +43,7 @@ Fixed in develop branch for release v1.7.9:
 - General:  (dbonsch)                      Restructuring of PHPExcel Exceptions
 - General:  (MBaker)    Work items 16926 and 15145 - Refactor Calculation Engine from singleton to a Multiton
                         Ensures that calculation cache is maintained independently for different workbooks
+- General:  (MBaker)                       Modify cell's getCalculatedValue() method to return the content of RichText objects rather than the RichText object itself
 - Bugfix:   (techhead)  Work item GH-70  - Fixed formula/formatting bug when removing rows
 - Bugfix:   (alexgann)  Work item GH-63  - Fix to cellExists for non-existent namedRanges
 - Bugfix:   (MBaker)    Work item 18844  - cache_in_memory_gzip "eats" last worksheet line, cache_in_memory doesn't
