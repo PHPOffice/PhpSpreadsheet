@@ -966,7 +966,10 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 	 */
 	private function _createCSSStyleBorder(PHPExcel_Style_Border $pStyle) {
 		// Create CSS
-		$css = $this->_mapBorderStyle($pStyle->getBorderStyle()) . ' #' . $pStyle->getColor()->getRGB();
+//		$css = $this->_mapBorderStyle($pStyle->getBorderStyle()) . ' #' . $pStyle->getColor()->getRGB();
+		//	Create CSS - add !important to non-none border styles for merged cells  
+		$borderStyle = $this->_mapBorderStyle($pStyle->getBorderStyle());  
+		$css = $borderStyle . ' #' . $pStyle->getColor()->getRGB() . (($borderStyle == 'none') ? '' : ' !important'); 
 
 		// Return
 		return $css;
@@ -1229,6 +1232,11 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 					$spans = $this->_isBaseCell[$pSheet->getParent()->getIndex($pSheet)][$pRow + 1][$colNum];
 					$rowSpan = $spans['rowspan'];
 					$colSpan = $spans['colspan'];
+
+					//	Also apply style from last cell in merge to fix borders -
+					//		relies on !important for non-none border declarations in _createCSSStyleBorder
+					$endCellCoord = PHPExcel_Cell::stringFromColumnIndex($colNum + $colSpan - 1) . ($pRow + $rowSpan);
+					$cssClass .= ' style' . $pSheet->getCell($endCellCoord)->getXfIndex();
 				}
 
 				// Write
