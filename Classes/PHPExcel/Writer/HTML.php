@@ -520,9 +520,9 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 					$chartCol = PHPExcel_Cell::columnIndexFromString($chartTL[0]);
 					if ($chartTL[1] > $rowMax) {
 						$rowMax = $chartTL[1];
-					}
-					if ($chartCol > PHPExcel_Cell::columnIndexFromString($colMax)) {
-						$colMax = $chartTL[0];
+						if ($chartCol > PHPExcel_Cell::columnIndexFromString($colMax)) {
+							$colMax = $chartTL[0];
+						}
 					}
 				}
 			}
@@ -534,15 +534,15 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 				$imageCol = PHPExcel_Cell::columnIndexFromString($imageTL[0]);
 				if ($imageTL[1] > $rowMax) {
 					$rowMax = $imageTL[1];
-				}
-				if ($imageCol > PHPExcel_Cell::columnIndexFromString($colMax)) {
-					$colMax = $imageTL[0];
+					if ($imageCol > PHPExcel_Cell::columnIndexFromString($colMax)) {
+						$colMax = $imageTL[0];
+					}
 				}
 			}
 		}
 		$html = '';
 		$colMax++;
-		while ($row <= $rowMax) {
+		while ($row < $rowMax) {
 			$html .= '<tr>';
 			for ($col = 'A'; $col != $colMax; ++$col) {
 				$html .= '<td>';
