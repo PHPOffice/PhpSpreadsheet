@@ -394,7 +394,6 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 
 			// calculate start of <tbody>, <thead>
 			$tbodyStart = $rowMin;
-			$tbodyEnd   = $rowMax;
 			$theadStart = $theadEnd   = 0; // default: no <thead>	no </thead>
 			if ($sheet->getPageSetup()->isRowsToRepeatAtTopSet()) {
 				$rowsToRepeatAtTop = $sheet->getPageSetup()->getRowsToRepeatAtTop();
@@ -441,13 +440,11 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 				if ($row == $theadEnd) {
 					$html .= '		</thead>' . PHP_EOL;
 				}
-
-				// </tbody> ?
-				if ($row == $tbodyEnd) {
-					$html .= '		</tbody>' . PHP_EOL;
-				}
 			}
 			$html .= $this->_extendRowsForChartsAndImages($sheet, $row);
+
+			// Close table body.
+			$html .= '		</tbody>' . PHP_EOL;
 
 			// Write table footer
 			$html .= $this->_generateTableFooter();
