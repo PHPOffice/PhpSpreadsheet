@@ -58,6 +58,7 @@ Fixed in develop branch for release v1.7.9:
 - Bugfix:   (MBaker)                     - Add DROP TABLE in destructor for SQLite and SQLite3 cache controllers
 - Bugfix:   (alexgann)  Work item GH-154 - Fix merged-cell borders on HTML/PDF output
 - Bugfix:   (Shanto)    Work item GH-161 - Fix: Hyperlinks break when removing rows
+- Bugfix:   (neclimdul) Work item GH-166 - Fix Extra Table Row From Images and Charts
 
 
 --------------------------------------------------------------------------------
