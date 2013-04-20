@@ -394,7 +394,6 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 
 			// calculate start of <tbody>, <thead>
 			$tbodyStart = $rowMin;
-			$tbodyEnd   = $rowMax;
 			$theadStart = $theadEnd   = 0; // default: no <thead>	no </thead>
 			if ($sheet->getPageSetup()->isRowsToRepeatAtTopSet()) {
 				$rowsToRepeatAtTop = $sheet->getPageSetup()->getRowsToRepeatAtTop();
@@ -441,13 +440,11 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 				if ($row == $theadEnd) {
 					$html .= '		</thead>' . PHP_EOL;
 				}
-
-				// </tbody> ?
-				if ($row == $tbodyEnd) {
-					$html .= '		</tbody>' . PHP_EOL;
-				}
 			}
 			$html .= $this->_extendRowsForChartsAndImages($sheet, $row);
+
+			// Close table body.
+			$html .= '		</tbody>' . PHP_EOL;
 
 			// Write table footer
 			$html .= $this->_generateTableFooter();
@@ -520,9 +517,9 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 					$chartCol = PHPExcel_Cell::columnIndexFromString($chartTL[0]);
 					if ($chartTL[1] > $rowMax) {
 						$rowMax = $chartTL[1];
-					}
-					if ($chartCol > PHPExcel_Cell::columnIndexFromString($colMax)) {
-						$colMax = $chartTL[0];
+						if ($chartCol > PHPExcel_Cell::columnIndexFromString($colMax)) {
+							$colMax = $chartTL[0];
+						}
 					}
 				}
 			}
@@ -534,15 +531,15 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 				$imageCol = PHPExcel_Cell::columnIndexFromString($imageTL[0]);
 				if ($imageTL[1] > $rowMax) {
 					$rowMax = $imageTL[1];
-				}
-				if ($imageCol > PHPExcel_Cell::columnIndexFromString($colMax)) {
-					$colMax = $imageTL[0];
+					if ($imageCol > PHPExcel_Cell::columnIndexFromString($colMax)) {
+						$colMax = $imageTL[0];
+					}
 				}
 			}
 		}
 		$html = '';
 		$colMax++;
-		while ($row <= $rowMax) {
+		while ($row < $rowMax) {
 			$html .= '<tr>';
 			for ($col = 'A'; $col != $colMax; ++$col) {
 				$html .= '<td>';
