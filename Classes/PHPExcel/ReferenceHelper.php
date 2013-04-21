@@ -73,7 +73,7 @@ class PHPExcel_ReferenceHelper
 		list($bc,$br) = sscanf($b,'%[A-Z]%d');
 
 		if ($ar == $br) {
-			return strcasecmp(sprintf('%03s',$ac), sprintf('%03s',$bc));
+			return strcasecmp(strlen($ac) . $ac, strlen($bc) . $bc);
 		}
 		return ($ar < $br) ? -1 : 1;
 	}
@@ -83,7 +83,7 @@ class PHPExcel_ReferenceHelper
 		list($bc,$br) = sscanf($b,'%[A-Z]%d');
 
 		if ($ar == $br) {
-			return 1 - strcasecmp(sprintf('%03s',$ac), sprintf('%03s',$bc));
+			return 1 - strcasecmp(strlen($ac) . $ac, strlen($bc) . $bc);
 		}
 		return ($ar < $br) ? 1 : -1;
 	}
@@ -105,7 +105,6 @@ class PHPExcel_ReferenceHelper
 		$beforeRow		= 1;
 		list($beforeColumn, $beforeRow) = PHPExcel_Cell::coordinateFromString( $pBefore );
 		$beforeColumnIndex = PHPExcel_Cell::columnIndexFromString($beforeColumn);
-
 
 		// Clear cells if we are removing columns or rows
 		$highestColumn	= $pSheet->getHighestColumn();
@@ -138,7 +137,6 @@ class PHPExcel_ReferenceHelper
 				}
 			}
 		}
-
 
 		// Loop through cells, bottom-up, and change cell coordinates
 		while (($cellID = $remove ? array_shift($aCellCollection) : array_pop($aCellCollection))) {
@@ -183,7 +181,6 @@ class PHPExcel_ReferenceHelper
 
 			}
 		}
-
 
 		// Duplicate styles for the newly inserted cells
 		$highestColumn	= $pSheet->getHighestColumn();
@@ -236,7 +233,6 @@ class PHPExcel_ReferenceHelper
 			}
 		}
 
-
 		// Update worksheet: column dimensions
 		$aColumnDimensions = array_reverse($pSheet->getColumnDimensions(), true);
 		if (!empty($aColumnDimensions)) {
@@ -249,7 +245,6 @@ class PHPExcel_ReferenceHelper
 			}
 			$pSheet->refreshColumnDimensions();
 		}
-
 
 		// Update worksheet: row dimensions
 		$aRowDimensions = array_reverse($pSheet->getRowDimensions(), true);
@@ -273,9 +268,11 @@ class PHPExcel_ReferenceHelper
 			}
 		}
 
-
 		// Update worksheet: breaks
-		$aBreaks = array_reverse($pSheet->getBreaks(), true);
+		$aBreaks = $pSheet->getBreaks();
+		($pNumCols > 0 || $pNumRows > 0) ? 
+			uksort($aBreaks, array('PHPExcel_ReferenceHelper','cellReverseSort')) : 
+			uksort($aBreaks, array('PHPExcel_ReferenceHelper','cellSort')); 
 		foreach ($aBreaks as $key => $value) {
 			$newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
 			if ($key != $newReference) {
@@ -306,9 +303,11 @@ class PHPExcel_ReferenceHelper
 			}
 		}
 
-
 		// Update worksheet: data validations
-		$aDataValidationCollection = array_reverse($pSheet->getDataValidationCollection(), true);
+		$aDataValidationCollection = $pSheet->getDataValidationCollection();
+		($pNumCols > 0 || $pNumRows > 0) ? 
+			uksort($aDataValidationCollection, array('PHPExcel_ReferenceHelper','cellReverseSort')) : 
+			uksort($aDataValidationCollection, array('PHPExcel_ReferenceHelper','cellSort')); 
 		foreach ($aDataValidationCollection as $key => $value) {
 			$newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
 			if ($key != $newReference) {
@@ -316,7 +315,6 @@ class PHPExcel_ReferenceHelper
 				$pSheet->setDataValidation( $key, null );
 			}
 		}
-
 
 		// Update worksheet: merge cells
 		$aMergeCells = $pSheet->getMergeCells();
@@ -327,9 +325,11 @@ class PHPExcel_ReferenceHelper
 		}
 		$pSheet->setMergeCells($aNewMergeCells); // replace the merge cells array
 
-
 		// Update worksheet: protected cells
-		$aProtectedCells = array_reverse($pSheet->getProtectedCells(), true);
+		$aProtectedCells = $pSheet->getProtectedCells();
+		($pNumCols > 0 || $pNumRows > 0) ? 
+			uksort($aProtectedCells, array('PHPExcel_ReferenceHelper','cellReverseSort')) : 
+			uksort($aProtectedCells, array('PHPExcel_ReferenceHelper','cellSort')); 
 		foreach ($aProtectedCells as $key => $value) {
 			$newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
 			if ($key != $newReference) {
@@ -337,7 +337,6 @@ class PHPExcel_ReferenceHelper
 				$pSheet->unprotectCells( $key );
 			}
 		}
-
 
 		// Update worksheet: autofilter
 		$autoFilter = $pSheet->getAutoFilter();
@@ -397,18 +396,15 @@ class PHPExcel_ReferenceHelper
 			$pSheet->setAutoFilter( $this->updateCellReference($autoFilterRange, $pBefore, $pNumCols, $pNumRows) );
 		}
 
-
 		// Update worksheet: freeze pane
 		if ($pSheet->getFreezePane() != '') {
 			$pSheet->freezePane( $this->updateCellReference($pSheet->getFreezePane(), $pBefore, $pNumCols, $pNumRows) );
 		}
 
-
 		// Page setup
 		if ($pSheet->getPageSetup()->isPrintAreaSet()) {
 			$pSheet->getPageSetup()->setPrintArea( $this->updateCellReference($pSheet->getPageSetup()->getPrintArea(), $pBefore, $pNumCols, $pNumRows) );
 		}
-
 
 		// Update worksheet: drawings
 		$aDrawings = $pSheet->getDrawingCollection();
@@ -418,7 +414,6 @@ class PHPExcel_ReferenceHelper
 				$objDrawing->setCoordinates($newReference);
 			}
 		}
-
 
 		// Update workbook: named ranges
 		if (count($pSheet->getParent()->getNamedRanges()) > 0) {
