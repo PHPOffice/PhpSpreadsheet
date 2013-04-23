@@ -1604,7 +1604,13 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
         $pCell = strtoupper($pCell);
 
         if ($pCell != '') {
-            $this->_breaks[$pCell] = $pBreak;
+        	if ($pBreak == PHPExcel_Worksheet::BREAK_NONE) {
+        		if (isset($this->_breaks[$pCell])) {
+	            	unset($this->_breaks[$pCell]);
+        		}
+        	} else {
+	            $this->_breaks[$pCell] = $pBreak;
+	        }
         } else {
             throw new PHPExcel_Exception('No cell coordinate specified.');
         }
@@ -2432,9 +2438,9 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
                         if ($formatData) {
                             $style = $this->_parent->getCellXfByIndex($cell->getXfIndex());
                             $returnValue[$rRef][$cRef] = PHPExcel_Style_NumberFormat::toFormattedString(
-                            	$returnValue[$rRef][$cRef], 
-								($style->getNumberFormat()) ? 
-									$style->getNumberFormat()->getFormatCode() : 
+                            	$returnValue[$rRef][$cRef],
+								($style->getNumberFormat()) ?
+									$style->getNumberFormat()->getFormatCode() :
 									PHPExcel_Style_NumberFormat::FORMAT_GENERAL
                             );
                         }
