@@ -96,22 +96,176 @@ class PHPExcel_ReferenceHelper
 		return ($ar < $br) ? 1 : -1;
 	}
 
+	private static function cellAddressInDeleteRange($cellAddress, $beforeRow, $pNumRows, $beforeColumnIndex, $pNumCols) {
+		list($cellColumn, $cellRow) = PHPExcel_Cell::coordinateFromString($cellAddress);
+		$cellColumnIndex = PHPExcel_Cell::columnIndexFromString($cellColumn);
+		//	Is cell within the range of rows/columns if we're deleting
+		if ($pNumRows < 0 &&
+			($cellRow >= ($beforeRow + $pNumRows)) &&
+			($cellRow < $beforeRow)) {
+			return TRUE;
+		} elseif ($pNumCols < 0 &&
+			($cellColumnIndex >= ($beforeColumnIndex + $pNumCols)) &&
+			($cellColumnIndex < $beforeColumnIndex)) {
+			return TRUE;
+		}
+		return FALSE;
+	}
+
+	protected function _adjustPageBreaks(PHPExcel_Worksheet $pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows)
+	{
+		$aBreaks = $pSheet->getBreaks();
+		($pNumCols > 0 || $pNumRows > 0) ?
+			uksort($aBreaks, array('PHPExcel_ReferenceHelper','cellReverseSort')) :
+			uksort($aBreaks, array('PHPExcel_ReferenceHelper','cellSort'));
+
+		foreach ($aBreaks as $key => $value) {
+			if (self::cellAddressInDeleteRange($key, $beforeRow, $pNumRows, $beforeColumnIndex, $pNumCols)) {
+				//	If we're deleting, then clear any defined breaks that are within the range
+				//		of rows/columns that we're deleting
+				$pSheet->setBreak($key, PHPExcel_Worksheet::BREAK_NONE);
+			} else {
+				//	Otherwise update any affected breaks by inserting a new break at the appropriate point
+				//		and removing the old affected break
+				$newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
+				if ($key != $newReference) {
+					$pSheet->setBreak($newReference, $value)
+					    ->setBreak($key, PHPExcel_Worksheet::BREAK_NONE);
+				}
+			}
+		}
+	}
+
+	protected function _adjustComments($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows)
+	{
+		$aComments = $pSheet->getComments();
+		$aNewComments = array(); // the new array of all comments
+
+		foreach ($aComments as $key => &$value) {
+			// Any comments inside a deleted range will be ignored
+			if (!self::cellAddressInDeleteRange($key, $beforeRow, $pNumRows, $beforeColumnIndex, $pNumCols)) {
+				//	Otherwise build a new array of comments indexed by the adjusted cell reference
+				$newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
+				$aNewComments[$newReference] = $value;
+			}
+		}
+		//	Replace the comments array with the new set of comments
+		$pSheet->setComments($aNewComments);
+	}
+
+	protected function _adjustHyperlinks($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows)
+	{
+		$aHyperlinkCollection = $pSheet->getHyperlinkCollection();
+		($pNumCols > 0 || $pNumRows > 0) ?
+			uksort($aHyperlinkCollection, array('PHPExcel_ReferenceHelper','cellReverseSort')) :
+			uksort($aHyperlinkCollection, array('PHPExcel_ReferenceHelper','cellSort'));
+
+		foreach ($aHyperlinkCollection as $key => $value) {
+			$newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
+			if ($key != $newReference) {
+				$pSheet->setHyperlink( $newReference, $value );
+				$pSheet->setHyperlink( $key, null );
+			}
+		}
+	}
+
+	protected function _adjustDataValidations($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows)
+	{
+		$aDataValidationCollection = $pSheet->getDataValidationCollection();
+		($pNumCols > 0 || $pNumRows > 0) ?
+			uksort($aDataValidationCollection, array('PHPExcel_ReferenceHelper','cellReverseSort')) :
+			uksort($aDataValidationCollection, array('PHPExcel_ReferenceHelper','cellSort'));
+		foreach ($aDataValidationCollection as $key => $value) {
+			$newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
+			if ($key != $newReference) {
+				$pSheet->setDataValidation( $newReference, $value );
+				$pSheet->setDataValidation( $key, null );
+			}
+		}
+	}
+
+	protected function _adjustMergeCells($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows)
+	{
+		$aMergeCells = $pSheet->getMergeCells();
+		$aNewMergeCells = array(); // the new array of all merge cells
+		foreach ($aMergeCells as $key => &$value) {
+			$newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
+			$aNewMergeCells[$newReference] = $newReference;
+		}
+		$pSheet->setMergeCells($aNewMergeCells); // replace the merge cells array
+	}
+
+	protected function _adjustProtectedCells($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows)
+	{
+		$aProtectedCells = $pSheet->getProtectedCells();
+		($pNumCols > 0 || $pNumRows > 0) ?
+			uksort($aProtectedCells, array('PHPExcel_ReferenceHelper','cellReverseSort')) :
+			uksort($aProtectedCells, array('PHPExcel_ReferenceHelper','cellSort'));
+		foreach ($aProtectedCells as $key => $value) {
+			$newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
+			if ($key != $newReference) {
+				$pSheet->protectCells( $newReference, $value, true );
+				$pSheet->unprotectCells( $key );
+			}
+		}
+	}
+
+	protected function _adjustColumnDimensions($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows)
+	{
+		$aColumnDimensions = array_reverse($pSheet->getColumnDimensions(), true);
+		if (!empty($aColumnDimensions)) {
+			foreach ($aColumnDimensions as $objColumnDimension) {
+				$newReference = $this->updateCellReference($objColumnDimension->getColumnIndex() . '1', $pBefore, $pNumCols, $pNumRows);
+				list($newReference) = PHPExcel_Cell::coordinateFromString($newReference);
+				if ($objColumnDimension->getColumnIndex() != $newReference) {
+					$objColumnDimension->setColumnIndex($newReference);
+				}
+			}
+			$pSheet->refreshColumnDimensions();
+		}
+	}
+
+	protected function _adjustRowDimensions($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows)
+	{
+		$aRowDimensions = array_reverse($pSheet->getRowDimensions(), true);
+		if (!empty($aRowDimensions)) {
+			foreach ($aRowDimensions as $objRowDimension) {
+				$newReference = $this->updateCellReference('A' . $objRowDimension->getRowIndex(), $pBefore, $pNumCols, $pNumRows);
+				list(, $newReference) = PHPExcel_Cell::coordinateFromString($newReference);
+				if ($objRowDimension->getRowIndex() != $newReference) {
+					$objRowDimension->setRowIndex($newReference);
+				}
+			}
+			$pSheet->refreshRowDimensions();
+
+			$copyDimension = $pSheet->getRowDimension($beforeRow - 1);
+			for ($i = $beforeRow; $i <= $beforeRow - 1 + $pNumRows; ++$i) {
+				$newDimension = $pSheet->getRowDimension($i);
+				$newDimension->setRowHeight($copyDimension->getRowHeight());
+				$newDimension->setVisible($copyDimension->getVisible());
+				$newDimension->setOutlineLevel($copyDimension->getOutlineLevel());
+				$newDimension->setCollapsed($copyDimension->getCollapsed());
+			}
+		}
+	}
+
 	/**
-	 * Insert a new column, updating all possible related data
+	 * Insert a new column or row, updating all possible related data
 	 *
 	 * @param	int	$pBefore	Insert before this one
 	 * @param	int	$pNumCols	Number of columns to insert
 	 * @param	int	$pNumRows	Number of rows to insert
 	 * @throws	PHPExcel_Exception
 	 */
-	public function insertNewBefore($pBefore = 'A1', $pNumCols = 0, $pNumRows = 0, PHPExcel_Worksheet $pSheet = null) {
+	public function insertNewBefore($pBefore = 'A1', $pNumCols = 0, $pNumRows = 0, PHPExcel_Worksheet $pSheet = NULL)
+	{
 		$remove = ($pNumCols < 0 || $pNumRows < 0);
 		$aCellCollection = $pSheet->getCellCollection();
 
 		// Get coordinates of $pBefore
 		$beforeColumn	= 'A';
 		$beforeRow		= 1;
-		list($beforeColumn, $beforeRow) = PHPExcel_Cell::coordinateFromString( $pBefore );
+		list($beforeColumn, $beforeRow) = PHPExcel_Cell::coordinateFromString($pBefore);
 		$beforeColumnIndex = PHPExcel_Cell::columnIndexFromString($beforeColumn);
 
 		// Clear cells if we are removing columns or rows
@@ -242,109 +396,28 @@ class PHPExcel_ReferenceHelper
 		}
 
 		// Update worksheet: column dimensions
-		$aColumnDimensions = array_reverse($pSheet->getColumnDimensions(), true);
-		if (!empty($aColumnDimensions)) {
-			foreach ($aColumnDimensions as $objColumnDimension) {
-				$newReference = $this->updateCellReference($objColumnDimension->getColumnIndex() . '1', $pBefore, $pNumCols, $pNumRows);
-				list($newReference) = PHPExcel_Cell::coordinateFromString($newReference);
-				if ($objColumnDimension->getColumnIndex() != $newReference) {
-					$objColumnDimension->setColumnIndex($newReference);
-				}
-			}
-			$pSheet->refreshColumnDimensions();
-		}
+		$this->_adjustColumnDimensions($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows);
 
 		// Update worksheet: row dimensions
-		$aRowDimensions = array_reverse($pSheet->getRowDimensions(), true);
-		if (!empty($aRowDimensions)) {
-			foreach ($aRowDimensions as $objRowDimension) {
-				$newReference = $this->updateCellReference('A' . $objRowDimension->getRowIndex(), $pBefore, $pNumCols, $pNumRows);
-				list(, $newReference) = PHPExcel_Cell::coordinateFromString($newReference);
-				if ($objRowDimension->getRowIndex() != $newReference) {
-					$objRowDimension->setRowIndex($newReference);
-				}
-			}
-			$pSheet->refreshRowDimensions();
+		$this->_adjustRowDimensions($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows);
 
-			$copyDimension = $pSheet->getRowDimension($beforeRow - 1);
-			for ($i = $beforeRow; $i <= $beforeRow - 1 + $pNumRows; ++$i) {
-				$newDimension = $pSheet->getRowDimension($i);
-				$newDimension->setRowHeight($copyDimension->getRowHeight());
-				$newDimension->setVisible($copyDimension->getVisible());
-				$newDimension->setOutlineLevel($copyDimension->getOutlineLevel());
-				$newDimension->setCollapsed($copyDimension->getCollapsed());
-			}
-		}
+		//	Update worksheet: page breaks
+		$this->_adjustPageBreaks($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows);
 
-		// Update worksheet: breaks
-		$aBreaks = $pSheet->getBreaks();
-		($pNumCols > 0 || $pNumRows > 0) ?
-			uksort($aBreaks, array('PHPExcel_ReferenceHelper','cellReverseSort')) :
-			uksort($aBreaks, array('PHPExcel_ReferenceHelper','cellSort'));
-		foreach ($aBreaks as $key => $value) {
-			$newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
-			if ($key != $newReference) {
-				$pSheet->setBreak($newReference, $value)
-				    ->setBreak($key, PHPExcel_Worksheet::BREAK_NONE);
-			}
-		}
-
-		// Update worksheet: comments
-		$aComments = $pSheet->getComments();
-		$aNewComments = array(); // the new array of all comments
-		foreach ($aComments as $key => &$value) {
-			$newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
-			$aNewComments[$newReference] = $value;
-		}
-		$pSheet->setComments($aNewComments); // replace the comments array
+		//	Update worksheet: comments
+		$this->_adjustComments($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows);
 
 		// Update worksheet: hyperlinks
-		$aHyperlinkCollection = $pSheet->getHyperlinkCollection();
-		($pNumCols > 0 || $pNumRows > 0) ?
-			uksort($aHyperlinkCollection, array('PHPExcel_ReferenceHelper','cellReverseSort')) :
-			uksort($aHyperlinkCollection, array('PHPExcel_ReferenceHelper','cellSort'));
-		foreach ($aHyperlinkCollection as $key => $value) {
-			$newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
-			if ($key != $newReference) {
-				$pSheet->setHyperlink( $newReference, $value );
-				$pSheet->setHyperlink( $key, null );
-			}
-		}
+		$this->_adjustHyperlinks($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows);
 
 		// Update worksheet: data validations
-		$aDataValidationCollection = $pSheet->getDataValidationCollection();
-		($pNumCols > 0 || $pNumRows > 0) ?
-			uksort($aDataValidationCollection, array('PHPExcel_ReferenceHelper','cellReverseSort')) :
-			uksort($aDataValidationCollection, array('PHPExcel_ReferenceHelper','cellSort'));
-		foreach ($aDataValidationCollection as $key => $value) {
-			$newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
-			if ($key != $newReference) {
-				$pSheet->setDataValidation( $newReference, $value );
-				$pSheet->setDataValidation( $key, null );
-			}
-		}
+		$this->_adjustDataValidations($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows);
 
 		// Update worksheet: merge cells
-		$aMergeCells = $pSheet->getMergeCells();
-		$aNewMergeCells = array(); // the new array of all merge cells
-		foreach ($aMergeCells as $key => &$value) {
-			$newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
-			$aNewMergeCells[$newReference] = $newReference;
-		}
-		$pSheet->setMergeCells($aNewMergeCells); // replace the merge cells array
+		$this->_adjustMergeCells($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows);
 
 		// Update worksheet: protected cells
-		$aProtectedCells = $pSheet->getProtectedCells();
-		($pNumCols > 0 || $pNumRows > 0) ?
-			uksort($aProtectedCells, array('PHPExcel_ReferenceHelper','cellReverseSort')) :
-			uksort($aProtectedCells, array('PHPExcel_ReferenceHelper','cellSort'));
-		foreach ($aProtectedCells as $key => $value) {
-			$newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
-			if ($key != $newReference) {
-				$pSheet->protectCells( $newReference, $value, true );
-				$pSheet->unprotectCells( $key );
-			}
-		}
+		$this->_adjustProtectedCells($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows);
 
 		// Update worksheet: autofilter
 		$autoFilter = $pSheet->getAutoFilter();
