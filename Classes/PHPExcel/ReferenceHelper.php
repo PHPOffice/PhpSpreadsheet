@@ -96,6 +96,16 @@ class PHPExcel_ReferenceHelper
 		return ($ar < $br) ? 1 : -1;
 	}
 
+	/**
+	 * Test whether a cell address falls within a defined range of cells
+	 *
+	 * @param   string     $cellAddress        Address of the cell we're testing
+	 * @param   integer    $beforeRow          Number of the row we're inserting/deleting before
+	 * @param   integer    $pNumRows           Number of rows to insert/delete (negative values indicate deletion)
+	 * @param   integer    $beforeColumnIndex  Index number of the column we're inserting/deleting before
+	 * @param   integer    $pNumCols           Number of columns to insert/delete (negative values indicate deletion)
+	 * @return  boolean
+	 */
 	private static function cellAddressInDeleteRange($cellAddress, $beforeRow, $pNumRows, $beforeColumnIndex, $pNumCols) {
 		list($cellColumn, $cellRow) = PHPExcel_Cell::coordinateFromString($cellAddress);
 		$cellColumnIndex = PHPExcel_Cell::columnIndexFromString($cellColumn);
@@ -112,6 +122,16 @@ class PHPExcel_ReferenceHelper
 		return FALSE;
 	}
 
+	/**
+	 * Update page breaks when inserting/deleting rows/columns
+	 *
+	 * @param   PHPExcel_Worksheet  $pSheet             The worksheet that we're editing
+	 * @param   string              $pBefore            Insert/Delete before this cell address (e.g. 'A1')
+	 * @param   integer             $beforeColumnIndex  Index number of the column we're inserting/deleting before
+	 * @param   integer             $pNumCols           Number of columns to insert/delete (negative values indicate deletion)
+	 * @param   integer             $beforeRow          Number of the row we're inserting/deleting before
+	 * @param   integer             $pNumRows           Number of rows to insert/delete (negative values indicate deletion)
+	 */
 	protected function _adjustPageBreaks(PHPExcel_Worksheet $pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows)
 	{
 		$aBreaks = $pSheet->getBreaks();
@@ -136,6 +156,16 @@ class PHPExcel_ReferenceHelper
 		}
 	}
 
+	/**
+	 * Update cell comments when inserting/deleting rows/columns
+	 *
+	 * @param   PHPExcel_Worksheet  $pSheet             The worksheet that we're editing
+	 * @param   string              $pBefore            Insert/Delete before this cell address (e.g. 'A1')
+	 * @param   integer             $beforeColumnIndex  Index number of the column we're inserting/deleting before
+	 * @param   integer             $pNumCols           Number of columns to insert/delete (negative values indicate deletion)
+	 * @param   integer             $beforeRow          Number of the row we're inserting/deleting before
+	 * @param   integer             $pNumRows           Number of rows to insert/delete (negative values indicate deletion)
+	 */
 	protected function _adjustComments($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows)
 	{
 		$aComments = $pSheet->getComments();
@@ -153,6 +183,16 @@ class PHPExcel_ReferenceHelper
 		$pSheet->setComments($aNewComments);
 	}
 
+	/**
+	 * Update hyperlinks when inserting/deleting rows/columns
+	 *
+	 * @param   PHPExcel_Worksheet  $pSheet             The worksheet that we're editing
+	 * @param   string              $pBefore            Insert/Delete before this cell address (e.g. 'A1')
+	 * @param   integer             $beforeColumnIndex  Index number of the column we're inserting/deleting before
+	 * @param   integer             $pNumCols           Number of columns to insert/delete (negative values indicate deletion)
+	 * @param   integer             $beforeRow          Number of the row we're inserting/deleting before
+	 * @param   integer             $pNumRows           Number of rows to insert/delete (negative values indicate deletion)
+	 */
 	protected function _adjustHyperlinks($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows)
 	{
 		$aHyperlinkCollection = $pSheet->getHyperlinkCollection();
@@ -169,6 +209,16 @@ class PHPExcel_ReferenceHelper
 		}
 	}
 
+	/**
+	 * Update data validations when inserting/deleting rows/columns
+	 *
+	 * @param   PHPExcel_Worksheet  $pSheet             The worksheet that we're editing
+	 * @param   string              $pBefore            Insert/Delete before this cell address (e.g. 'A1')
+	 * @param   integer             $beforeColumnIndex  Index number of the column we're inserting/deleting before
+	 * @param   integer             $pNumCols           Number of columns to insert/delete (negative values indicate deletion)
+	 * @param   integer             $beforeRow          Number of the row we're inserting/deleting before
+	 * @param   integer             $pNumRows           Number of rows to insert/delete (negative values indicate deletion)
+	 */
 	protected function _adjustDataValidations($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows)
 	{
 		$aDataValidationCollection = $pSheet->getDataValidationCollection();
@@ -184,6 +234,16 @@ class PHPExcel_ReferenceHelper
 		}
 	}
 
+	/**
+	 * Update merged cells when inserting/deleting rows/columns
+	 *
+	 * @param   PHPExcel_Worksheet  $pSheet             The worksheet that we're editing
+	 * @param   string              $pBefore            Insert/Delete before this cell address (e.g. 'A1')
+	 * @param   integer             $beforeColumnIndex  Index number of the column we're inserting/deleting before
+	 * @param   integer             $pNumCols           Number of columns to insert/delete (negative values indicate deletion)
+	 * @param   integer             $beforeRow          Number of the row we're inserting/deleting before
+	 * @param   integer             $pNumRows           Number of rows to insert/delete (negative values indicate deletion)
+	 */
 	protected function _adjustMergeCells($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows)
 	{
 		$aMergeCells = $pSheet->getMergeCells();
@@ -195,6 +255,16 @@ class PHPExcel_ReferenceHelper
 		$pSheet->setMergeCells($aNewMergeCells); // replace the merge cells array
 	}
 
+	/**
+	 * Update protected cells when inserting/deleting rows/columns
+	 *
+	 * @param   PHPExcel_Worksheet  $pSheet             The worksheet that we're editing
+	 * @param   string              $pBefore            Insert/Delete before this cell address (e.g. 'A1')
+	 * @param   integer             $beforeColumnIndex  Index number of the column we're inserting/deleting before
+	 * @param   integer             $pNumCols           Number of columns to insert/delete (negative values indicate deletion)
+	 * @param   integer             $beforeRow          Number of the row we're inserting/deleting before
+	 * @param   integer             $pNumRows           Number of rows to insert/delete (negative values indicate deletion)
+	 */
 	protected function _adjustProtectedCells($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows)
 	{
 		$aProtectedCells = $pSheet->getProtectedCells();
@@ -210,6 +280,16 @@ class PHPExcel_ReferenceHelper
 		}
 	}
 
+	/**
+	 * Update column dimensions when inserting/deleting rows/columns
+	 *
+	 * @param   PHPExcel_Worksheet  $pSheet             The worksheet that we're editing
+	 * @param   string              $pBefore            Insert/Delete before this cell address (e.g. 'A1')
+	 * @param   integer             $beforeColumnIndex  Index number of the column we're inserting/deleting before
+	 * @param   integer             $pNumCols           Number of columns to insert/delete (negative values indicate deletion)
+	 * @param   integer             $beforeRow          Number of the row we're inserting/deleting before
+	 * @param   integer             $pNumRows           Number of rows to insert/delete (negative values indicate deletion)
+	 */
 	protected function _adjustColumnDimensions($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows)
 	{
 		$aColumnDimensions = array_reverse($pSheet->getColumnDimensions(), true);
@@ -225,6 +305,16 @@ class PHPExcel_ReferenceHelper
 		}
 	}
 
+	/**
+	 * Update row dimensions when inserting/deleting rows/columns
+	 *
+	 * @param   PHPExcel_Worksheet  $pSheet             The worksheet that we're editing
+	 * @param   string              $pBefore            Insert/Delete before this cell address (e.g. 'A1')
+	 * @param   integer             $beforeColumnIndex  Index number of the column we're inserting/deleting before
+	 * @param   integer             $pNumCols           Number of columns to insert/delete (negative values indicate deletion)
+	 * @param   integer             $beforeRow          Number of the row we're inserting/deleting before
+	 * @param   integer             $pNumRows           Number of rows to insert/delete (negative values indicate deletion)
+	 */
 	protected function _adjustRowDimensions($pSheet, $pBefore, $beforeColumnIndex, $pNumCols, $beforeRow, $pNumRows)
 	{
 		$aRowDimensions = array_reverse($pSheet->getRowDimensions(), true);
@@ -252,10 +342,11 @@ class PHPExcel_ReferenceHelper
 	/**
 	 * Insert a new column or row, updating all possible related data
 	 *
-	 * @param	int	$pBefore	Insert before this one
-	 * @param	int	$pNumCols	Number of columns to insert
-	 * @param	int	$pNumRows	Number of rows to insert
-	 * @throws	PHPExcel_Exception
+	 * @param   string              $pBefore    Insert before this cell address (e.g. 'A1')
+	 * @param   integer             $pNumCols   Number of columns to insert/delete (negative values indicate deletion)
+	 * @param   integer             $pNumRows   Number of rows to insert/delete (negative values indicate deletion)
+	 * @param   PHPExcel_Worksheet  $pSheet     The worksheet that we're editing
+	 * @throws  PHPExcel_Exception
 	 */
 	public function insertNewBefore($pBefore = 'A1', $pNumCols = 0, $pNumRows = 0, PHPExcel_Worksheet $pSheet = NULL)
 	{
