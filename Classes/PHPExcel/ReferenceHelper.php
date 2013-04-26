@@ -68,14 +68,38 @@ class PHPExcel_ReferenceHelper
 	protected function __construct() {
 	}
 
+	/**
+	 * Compare two column addresses
+	 * Intended for use as a Callback function for sorting column addresses by column
+	 *
+	 * @param   string   $a  First column to test (e.g. 'AA')
+	 * @param   string   $b  Second column to test (e.g. 'Z')
+	 * @return  integer
+	 */
 	public static function columnSort($a, $b) {
 		return strcasecmp(strlen($a) . $a, strlen($b) . $b);
 	}
 
+	/**
+	 * Compare two column addresses
+	 * Intended for use as a Callback function for reverse sorting column addresses by column
+	 *
+	 * @param   string   $a  First column to test (e.g. 'AA')
+	 * @param   string   $b  Second column to test (e.g. 'Z')
+	 * @return  integer
+	 */
 	public static function columnReverseSort($a, $b) {
 		return 1 - strcasecmp(strlen($a) . $a, strlen($b) . $b);
 	}
 
+	/**
+	 * Compare two cell addresses
+	 * Intended for use as a Callback function for sorting cell addresses by column and row
+	 *
+	 * @param   string   $a  First cell to test (e.g. 'AA1')
+	 * @param   string   $b  Second cell to test (e.g. 'Z1')
+	 * @return  integer
+	 */
 	public static function cellSort($a, $b) {
 		list($ac,$ar) = sscanf($a,'%[A-Z]%d');
 		list($bc,$br) = sscanf($b,'%[A-Z]%d');
@@ -86,6 +110,14 @@ class PHPExcel_ReferenceHelper
 		return ($ar < $br) ? -1 : 1;
 	}
 
+	/**
+	 * Compare two cell addresses
+	 * Intended for use as a Callback function for sorting cell addresses by column and row
+	 *
+	 * @param   string   $a  First cell to test (e.g. 'AA1')
+	 * @param   string   $b  Second cell to test (e.g. 'Z1')
+	 * @return  integer
+	 */
 	public static function cellReverseSort($a, $b) {
 		list($ac,$ar) = sscanf($a,'%[A-Z]%d');
 		list($bc,$br) = sscanf($b,'%[A-Z]%d');
