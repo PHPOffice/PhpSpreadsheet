@@ -101,8 +101,8 @@ class PHPExcel_ReferenceHelper
 	 * @return  integer
 	 */
 	public static function cellSort($a, $b) {
-		list($ac,$ar) = sscanf($a,'%[A-Z]%d');
-		list($bc,$br) = sscanf($b,'%[A-Z]%d');
+		sscanf($a,'%[A-Z]%d', $ac, $ar);
+		sscanf($b,'%[A-Z]%d', $bc, $br);
 
 		if ($ar == $br) {
 			return strcasecmp(strlen($ac) . $ac, strlen($bc) . $bc);
@@ -119,8 +119,8 @@ class PHPExcel_ReferenceHelper
 	 * @return  integer
 	 */
 	public static function cellReverseSort($a, $b) {
-		list($ac,$ar) = sscanf($a,'%[A-Z]%d');
-		list($bc,$br) = sscanf($b,'%[A-Z]%d');
+		sscanf($a,'%[A-Z]%d', $ac, $ar);
+		sscanf($b,'%[A-Z]%d', $bc, $br);
 
 		if ($ar == $br) {
 			return 1 - strcasecmp(strlen($ac) . $ac, strlen($bc) . $bc);
@@ -549,7 +549,7 @@ class PHPExcel_ReferenceHelper
 			if ($pNumCols != 0) {
 				$autoFilterColumns = array_keys($autoFilter->getColumns());
 				if (count($autoFilterColumns) > 0) {
-					list($column,$row) = sscanf($pBefore,'%[A-Z]%d');
+					sscanf($pBefore,'%[A-Z]%d', $column, $row);
 					$columnIndex = PHPExcel_Cell::columnIndexFromString($column);
 					list($rangeStart,$rangeEnd) = PHPExcel_Cell::rangeBoundaries($autoFilterRange);
 					if ($columnIndex <= $rangeEnd[0]) {

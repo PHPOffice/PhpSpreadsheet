@@ -822,8 +822,8 @@ class PHPExcel_Cell
 
 				// Range...
 				list($rangeStart, $rangeEnd)	= $range;
-				list($startCol, $startRow)	= sscanf($rangeStart,'%[A-Z]%d');
-				list($endCol, $endRow)		= sscanf($rangeEnd,'%[A-Z]%d');
+				sscanf($rangeStart,'%[A-Z]%d', $startCol, $startRow);
+				sscanf($rangeEnd,'%[A-Z]%d', $endCol, $endRow);
 				$endCol++;
 
 				// Current data
@@ -845,7 +845,7 @@ class PHPExcel_Cell
 		//	Sort the result by column and row
 		$sortKeys = array();
 		foreach (array_unique($returnValue) as $coord) {
-			list($column,$row) = sscanf($coord,'%[A-Z]%d');
+			sscanf($coord,'%[A-Z]%d', $column, $row);
 			$sortKeys[sprintf('%3s%09d',$column,$row)] = $coord;
 		}
 		ksort($sortKeys);

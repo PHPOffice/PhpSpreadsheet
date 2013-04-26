@@ -3621,7 +3621,7 @@ class PHPExcel_Calculation {
 			$pRange = $pSheetName.'!'.$pRange;
 			if (!isset($aReferences[1])) {
 				//	Single cell in range
-				list($currentCol,$currentRow) = sscanf($aReferences[0],'%[A-Z]%d');
+				sscanf($aReferences[0],'%[A-Z]%d', $currentCol, $currentRow);
 				$cellValue = NULL;
 				if ($pSheet->cellExists($aReferences[0])) {
 					$returnValue[$currentRow][$currentCol] = $pSheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
@@ -3632,7 +3632,7 @@ class PHPExcel_Calculation {
 				// Extract cell data for all cells in the range
 				foreach ($aReferences as $reference) {
 					// Extract range
-					list($currentCol,$currentRow) = sscanf($reference,'%[A-Z]%d');
+					sscanf($reference,'%[A-Z]%d', $currentCol, $currentRow);
 					$cellValue = NULL;
 					if ($pSheet->cellExists($reference)) {
 						$returnValue[$currentRow][$currentCol] = $pSheet->getCell($reference)->getCalculatedValue($resetLog);
