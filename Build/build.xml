@@ -95,17 +95,13 @@
 
     <target name="apidocs" depends="versionNumber">
         <echo msg="Generating API documentation..."/>
-        <phpdoc title="PHPExcel classes"
-                destdir="${phing.dir}/build/Documentation/API"
-                sourcecode="true"
-                output="HTML:Smarty:PHP"
-                defaultcategoryname="PHPExcel"
-                defaultpackagename="PHPExcel"
-                pear="true">
+        <phpdoc2 title="PHPExcel classes"
+                 destdir="${phing.dir}/build/Documentation/API"
+				 template="responsive">
             <fileset dir="${phing.dir}/build/Classes">
                 <include name="**/*.php"/>
             </fileset>
-        </phpdoc>
+        </phpdoc2>
     </target>
 
     <target name="release-standard" depends="apidocs">
