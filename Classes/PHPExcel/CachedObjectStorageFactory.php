@@ -237,6 +237,10 @@ class PHPExcel_CachedObjectStorageFactory
     }   //    function getInstance()
 
 
+    /**
+     * Clear the cache storage
+     *
+     **/
 	public static function finalize()
 	{
 		self::$_cacheStorageMethod = NULL;

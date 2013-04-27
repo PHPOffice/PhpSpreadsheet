@@ -664,7 +664,7 @@ class PHPExcel
     /**
      * Check if style exists in style collection
      *
-     * @param  PHPExcel_Style $style
+     * @param  PHPExcel_Style $pCellStyle
      * @return boolean
      */
     public function cellXfExists($pCellStyle = null)
@@ -883,6 +883,11 @@ class PHPExcel
         }
     }
 
+    /**
+     * Return the unique ID value assigned to this spreadsheet workbook
+     *
+     * @return string
+     */
     public function getID() {
         return $this->_uniqueID;
     }

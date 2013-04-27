@@ -86,6 +86,11 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase {
 	}	//	function __construct()
 
 
+	/**
+	 * Return the parent worksheet for this cell collection
+	 *
+	 * @return	PHPExcel_Worksheet
+	 */
 	public function getParent()
 	{
 		return $this->_parent;
@@ -214,17 +219,32 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase {
 	}
 
 
+	/**
+	 * Return the cell address of the currently active cell object
+	 *
+	 * @return	string
+	 */
 	public function getCurrentAddress()
 	{
 		return $this->_currentObjectID;
 	}
 
+	/**
+	 * Return the column address of the currently active cell object
+	 *
+	 * @return	string
+	 */
 	public function getCurrentColumn()
 	{
 		sscanf($this->_currentObjectID, '%[A-Z]%d', $column, $row);
 		return $column;
 	}
 
+	/**
+	 * Return the row address of the currently active cell object
+	 *
+	 * @return	string
+	 */
 	public function getCurrentRow()
 	{
 		sscanf($this->_currentObjectID, '%[A-Z]%d', $column, $row);

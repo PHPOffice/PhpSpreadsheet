@@ -49,9 +49,32 @@ class PHPExcel_CachedObjectStorage_SQLite3 extends PHPExcel_CachedObjectStorage_
 	 */
 	private $_DBHandle = null;
 
+	/**
+	 * Prepared statement for a SQLite3 select query
+	 *
+	 * @var SQLite3Stmt
+	 */
 	private $_selectQuery;
+
+	/**
+	 * Prepared statement for a SQLite3 insert query
+	 *
+	 * @var SQLite3Stmt
+	 */
 	private $_insertQuery;
+
+	/**
+	 * Prepared statement for a SQLite3 update query
+	 *
+	 * @var SQLite3Stmt
+	 */
 	private $_updateQuery;
+
+	/**
+	 * Prepared statement for a SQLite3 delete query
+	 *
+	 * @var SQLite3Stmt
+	 */
 	private $_deleteQuery;
 
     /**

@@ -57,7 +57,7 @@ class PHPExcel_Writer_PDF_tcPDF extends PHPExcel_Writer_PDF_Core implements PHPE
     /**
      *  Save PHPExcel to file
      *
-     *  @param     string         $pFileName
+     *  @param     string     $pFileName   Name of the file to save as
      *  @throws    PHPExcel_Writer_Exception
      */
     public function save($pFilename = NULL)
