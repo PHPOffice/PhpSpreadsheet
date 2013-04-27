@@ -1861,7 +1861,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
     /**
      *    Set AutoFilter
      *
-     *    @param    PHPExcel_Worksheet_AutoFilter|string    $pValue
+     *    @param    PHPExcel_Worksheet_AutoFilter|string   $pValue
      *            A simple string containing a Cell range like 'A1:E10' is permitted for backward compatibility
      *    @throws    PHPExcel_Exception
      *    @return PHPExcel_Worksheet
@@ -1879,10 +1879,10 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
     /**
      *    Set Autofilter Range by using numeric cell coordinates
      *
-     *    @param int $pColumn1    Numeric column coordinate of the first cell
-     *    @param int $pRow1        Numeric row coordinate of the first cell
-     *    @param int $pColumn2    Numeric column coordinate of the second cell
-     *    @param int $pRow2        Numeric row coordinate of the second cell
+     *    @param  integer  $pColumn1    Numeric column coordinate of the first cell
+     *    @param  integer  $pRow1       Numeric row coordinate of the first cell
+     *    @param  integer  $pColumn2    Numeric column coordinate of the second cell
+     *    @param  integer  $pRow2       Numeric row coordinate of the second cell
      *    @throws    PHPExcel_Exception
      *    @return PHPExcel_Worksheet
      */

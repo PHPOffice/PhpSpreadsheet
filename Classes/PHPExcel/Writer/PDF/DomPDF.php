@@ -46,7 +46,7 @@ class PHPExcel_Writer_PDF_DomPDF extends PHPExcel_Writer_PDF_Core implements PHP
     /**
      *  Create a new PHPExcel_Writer_PDF
      *
-     *  @param     PHPExcel    $phpExcel    PHPExcel object
+     *  @param   PHPExcel    $phpExcel    PHPExcel object
      */
     public function __construct(PHPExcel $phpExcel)
     {
@@ -56,8 +56,8 @@ class PHPExcel_Writer_PDF_DomPDF extends PHPExcel_Writer_PDF_Core implements PHP
     /**
      *  Save PHPExcel to file
      *
-     *  @param     string     $pFileName   Name of the file to save as
-     *  @throws    PHPExcel_Writer_Exception
+     *  @param   string     $pFilename   Name of the file to save as
+     *  @throws  PHPExcel_Writer_Exception
      */
     public function save($pFilename = NULL)
     {

@@ -261,7 +261,7 @@ abstract class PHPExcel_Writer_PDF_Core extends PHPExcel_Writer_HTML
     /**
      *  Set Paper Size
      *
-     *  @param int $pValue
+     *  @param  string  $pValue Paper size
      *  @return PHPExcel_Writer_PDF
      */
     public function setPaperSize($pValue = PHPExcel_Worksheet_PageSetup::PAPERSIZE_LETTER)
@@ -283,7 +283,7 @@ abstract class PHPExcel_Writer_PDF_Core extends PHPExcel_Writer_HTML
     /**
      *  Set Orientation
      *
-     *  @param string $pValue
+     *  @param string $pValue  Page orientation
      *  @return PHPExcel_Writer_PDF
      */
     public function setOrientation($pValue = PHPExcel_Worksheet_PageSetup::ORIENTATION_DEFAULT)
@@ -322,7 +322,7 @@ abstract class PHPExcel_Writer_PDF_Core extends PHPExcel_Writer_HTML
     /**
      *  Save PHPExcel to PDF file, pre-save
      *
-     *  @param     string     $pFileName   Name of the file to save as
+     *  @param     string     $pFilename   Name of the file to save as
      *  @throws    PHPExcel_Writer_Exception
      */
     protected function prepareForSave($pFilename = NULL)

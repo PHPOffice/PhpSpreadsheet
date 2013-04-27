@@ -269,6 +269,8 @@ class PHPExcel_Worksheet_AutoFilter_Column_Rule
 
 	/**
 	 * Create a new PHPExcel_Worksheet_AutoFilter_Column_Rule
+	 *
+	 * @param PHPExcel_Worksheet_AutoFilter_Column $pParent
 	 */
 	public function __construct(PHPExcel_Worksheet_AutoFilter_Column $pParent = NULL)
 	{

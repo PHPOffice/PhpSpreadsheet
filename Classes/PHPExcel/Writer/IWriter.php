@@ -38,8 +38,8 @@ interface PHPExcel_Writer_IWriter
     /**
      *  Save PHPExcel to file
      *
-     *  @param     string         $pFilename
-     *  @throws     PHPExcel_Writer_Exception
+     *  @param   string       $pFilename  NAme of the file to save
+     *  @throws  PHPExcel_Writer_Exception
      */
     public function save($pFilename = NULL);
 
