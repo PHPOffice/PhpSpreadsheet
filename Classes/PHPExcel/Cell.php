@@ -268,6 +268,7 @@ class PHPExcel_Cell
 	 *
 	 *	@deprecated		Since version 1.7.8 for planned changes to cell for array formula handling
 	 *
+	 *	@param	boolean $resetLog  Whether the calculation engine logger should be reset or not
 	 *	@return	mixed
 	 *	@throws	PHPExcel_Exception
 	 */
@@ -858,7 +859,7 @@ class PHPExcel_Cell
 	 * Compare 2 cells
 	 *
 	 * @param	PHPExcel_Cell	$a	Cell a
-	 * @param	PHPExcel_Cell	$a	Cell b
+	 * @param	PHPExcel_Cell	$b	Cell b
 	 * @return	int		Result of comparison (always -1 or 1, never zero!)
 	 */
 	public static function compareCells(PHPExcel_Cell $a, PHPExcel_Cell $b)

@@ -26,18 +26,47 @@
  */
 
 
+/**
+ * PHPExcel_Calculation_Token_Stack
+ *
+ * @category	PHPExcel_Calculation_Token_Stack
+ * @package		PHPExcel_Calculation
+ * @copyright	Copyright (c) 2006 - 2012 PHPExcel (http://www.codeplex.com/PHPExcel)
+ */
 class PHPExcel_Calculation_Token_Stack {
 
+	/**
+	 *  The parser stack for formulae
+	 *
+	 *  @var mixed[]
+	 */
 	private $_stack = array();
+
+	/**
+	 *  Count of entries in the parser stack
+	 *
+	 *  @var integer
+	 */
 	private $_count = 0;
 
 
+	/**
+	 * Return the number of entries on the stack
+	 *
+	 * @return  integer
+	 */
 	public function count() {
 		return $this->_count;
 	}	//	function count()
 
-
-	public function push($type,$value,$reference=null) {
+	/**
+	 * Push a new entry onto the stack
+	 *
+	 * @param  mixed  $type
+	 * @param  mixed  $value
+	 * @param  mixed  $reference
+	 */
+	public function push($type, $value, $reference = NULL) {
 		$this->_stack[$this->_count++] = array('type'		=> $type,
 											   'value'		=> $value,
 											   'reference'	=> $reference
@@ -50,23 +79,34 @@ class PHPExcel_Calculation_Token_Stack {
 		}
 	}	//	function push()
 
-
+	/**
+	 * Pop the last entry from the stack
+	 *
+	 * @return  mixed
+	 */
 	public function pop() {
 		if ($this->_count > 0) {
 			return $this->_stack[--$this->_count];
 		}
-		return null;
+		return NULL;
 	}	//	function pop()
 
-
-	public function last($n=1) {
-		if ($this->_count-$n < 0) {
-			return null;
+	/**
+	 * Return an entry from the stack without removing it
+	 *
+	 * @param   integer  $n  number indicating how far back in the stack we want to look
+	 * @return  mixed
+	 */
+	public function last($n = 1) {
+		if ($this->_count - $n < 0) {
+			return NULL;
 		}
-		return $this->_stack[$this->_count-$n];
+		return $this->_stack[$this->_count - $n];
 	}	//	function last()
 
-
+	/**
+	 * Clear the stack
+	 */
 	function clear() {
 		$this->_stack = array();
 		$this->_count = 0;

@@ -315,6 +315,11 @@ class PHPExcel_Comment implements PHPExcel_IComparable
         }
     }
 
+    /**
+     * Convert to string
+     *
+     * @return string
+     */
     public function __toString() {
         return $this->_text->getPlainText();
     }

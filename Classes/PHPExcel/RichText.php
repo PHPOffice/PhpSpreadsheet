@@ -45,7 +45,7 @@ class PHPExcel_RichText implements PHPExcel_IComparable
     /**
      * Create a new PHPExcel_RichText instance
      *
-     * @param PHPExcel_Cell $pParent
+     * @param PHPExcel_Cell $pCell
      * @throws PHPExcel_Exception
      */
     public function __construct(PHPExcel_Cell $pCell = null)
