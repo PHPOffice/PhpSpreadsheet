@@ -113,7 +113,7 @@ class PHPExcel_Reader_CSV extends PHPExcel_Reader_Abstract implements PHPExcel_R
 	 * Can the current PHPExcel_Reader_IReader read the file?
 	 *
 	 * @access	public
-	 * @param 	string 		$pFileName
+	 * @param 	string 		$pFilename
 	 * @return boolean
 	 * @throws PHPExcel_Reader_Exception
 	 */
@@ -434,7 +434,7 @@ class PHPExcel_Reader_CSV extends PHPExcel_Reader_Abstract implements PHPExcel_R
 	 * Set sheet index
 	 *
 	 * @access	public
-	 * @param	int		$pValue		Sheet index
+	 * @param	integer		$pValue		Sheet index
 	 * @return PHPExcel_Reader_CSV
 	 */
 	public function setSheetIndex($pValue = 0) {
@@ -447,11 +447,11 @@ class PHPExcel_Reader_CSV extends PHPExcel_Reader_Abstract implements PHPExcel_R
 	 * Set Contiguous
 	 *
 	 * @access	public
-	 * @param string $pValue Input encoding
+	 * @param boolean $contiguous
 	 */
-	public function setContiguous($contiguous = false)
+	public function setContiguous($contiguous = FALSE)
 	{
-		$this->_contiguous = (bool)$contiguous;
+		$this->_contiguous = (bool) $contiguous;
 		if (!$contiguous) {
 			$this->_contiguousRow	= -1;
 		}

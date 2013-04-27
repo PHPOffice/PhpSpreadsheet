@@ -244,11 +244,11 @@ class PHPExcel_Shared_Font
 	/**
 	 * Calculate an (approximate) OpenXML column width, based on font size and text contained
 	 *
-	 * @param 	int		$fontSize			Font size (in pixels or points)
-	 * @param 	bool	$fontSizeInPixels	Is the font size specified in pixels (true) or in points (false) ?
-	 * @param 	string	$cellText			Text to calculate width
-	 * @param 	int		$rotation			Rotation angle
-	 * @return 	int		Column width
+	 * @param 	PHPExcel_Style_Font			$font			Font object
+	 * @param 	PHPExcel_RichText|string	$cellText		Text to calculate width
+	 * @param 	integer						$rotation		Rotation angle
+	 * @param 	PHPExcel_Style_Font|NULL	$defaultFont	Font object
+	 * @return 	integer		Column width
 	 */
 	public static function calculateColumnWidth(PHPExcel_Style_Font $font, $cellText = '', $rotation = 0, PHPExcel_Style_Font $defaultFont = null) {
 
