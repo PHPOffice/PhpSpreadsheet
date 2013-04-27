@@ -26,7 +26,7 @@
  */
 
 /**
- * PHPExcel_Calculation_Logger
+ * PHPExcel_CalcEngine_Logger
  *
  * @category	PHPExcel
  * @package		PHPExcel_Calculation
