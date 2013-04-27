@@ -1074,12 +1074,9 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 						$objWriter->writeAttribute('t', $mappedType);
 						break;
 					case 'f':			// Formula
-						$calculatedValue = null;
-						if ($this->getParentWriter()->getPreCalculateFormulas()) {
-							$calculatedValue = $pCell->getCalculatedValue();
-						} else {
-							$calculatedValue = $cellValue;
-						}
+						$calculatedValue = ($this->getParentWriter()->getPreCalculateFormulas()) ?
+						    $pCell->getCalculatedValue() :
+						    $cellValue;
 						if (is_string($calculatedValue)) {
 							$objWriter->writeAttribute('t', 'str');
 						}
@@ -1125,7 +1122,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 						}
 						if ($this->getParentWriter()->getOffice2003Compatibility() === false) {
 							if ($this->getParentWriter()->getPreCalculateFormulas()) {
-								$calculatedValue = $pCell->getCalculatedValue();
+//								$calculatedValue = $pCell->getCalculatedValue();
 								if (!is_array($calculatedValue) && substr($calculatedValue, 0, 1) != '#') {
 									$objWriter->writeElement('v', PHPExcel_Shared_String::FormatNumber($calculatedValue));
 								} else {

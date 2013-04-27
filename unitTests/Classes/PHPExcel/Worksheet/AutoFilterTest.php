@@ -18,6 +18,12 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
         $this->_mockWorksheetObject = $this->getMockBuilder('PHPExcel_Worksheet')
         	->disableOriginalConstructor()
         	->getMock();
+        $this->_mockCacheController = $this->getMockBuilder('PHPExcel_CachedObjectStorage_Memory')
+        	->disableOriginalConstructor()
+        	->getMock();
+        $this->_mockWorksheetObject->expects($this->any())
+            ->method('getCellCacheController')
+            ->will($this->returnValue($this->_mockCacheController));
 
 		$this->_testAutoFilterObject = new PHPExcel_Worksheet_AutoFilter(
 			$this->_testInitialRange,

@@ -23,7 +23,7 @@
 **************************************************************************************
 
 
-Fixed in develop branch:
+Fixed in develop branch for release v1.7.9:
 - Feature:  (MBaker)    Include charts option for HTML Writer
 - Feature:  (MBaker)    Added composer file
 - Bugfix:   (Asker)     Work item 18777  - Error in PHPEXCEL/Calculation.php script on line 2976 (stack pop check)
@@ -41,6 +41,9 @@ Fixed in develop branch:
 - General:  (cfhay)     Work item 18958  - Memory and Speed improvements in PHPExcel_Reader_Excel5
 - General:  (MBaker)    Work item GH-78  - Modify listWorksheetNames() and listWorksheetInfo to use XMLReader with streamed XML rather than SimpleXML
 - General:  (dbonsch)                      Restructuring of PHPExcel Exceptions
+- General:  (MBaker)    Work items 16926 and 15145 - Refactor Calculation Engine from singleton to a Multiton
+                        Ensures that calculation cache is maintained independently for different workbooks
+- General:  (MBaker)                       Modify cell's getCalculatedValue() method to return the content of RichText objects rather than the RichText object itself
 - Bugfix:   (techhead)  Work item GH-70  - Fixed formula/formatting bug when removing rows
 - Bugfix:   (alexgann)  Work item GH-63  - Fix to cellExists for non-existent namedRanges
 - Bugfix:   (MBaker)    Work item 18844  - cache_in_memory_gzip "eats" last worksheet line, cache_in_memory doesn't
@@ -50,6 +53,12 @@ Fixed in develop branch:
 - Bugfix:   (MBaker)    Work item GH-104 - echo statements in HTML.php
 - Feature:  (Progi1984) Work item GH-8/CP11704 : Conditional formatting in Excel 5 Writer
 - Bugfix:   (MBaker)    Work item GH-113 - canRead() Error for GoogleDocs ODS files: in ODS files from Google Docs there is no mimetype file
+- Bugfix:   (MBaker)    Work item GH-80  - "Sheet index is out of bounds." Exception
+- Bugfix:   (ccorliss)  Work item GH-105 - Fixed number format fatal error
+- Bugfix:   (MBaker)                     - Add DROP TABLE in destructor for SQLite and SQLite3 cache controllers
+- Bugfix:   (alexgann)  Work item GH-154 - Fix merged-cell borders on HTML/PDF output
+- Bugfix:   (Shanto)    Work item GH-161 - Fix: Hyperlinks break when removing rows
+- Bugfix:   (neclimdul) Work item GH-166 - Fix Extra Table Row From Images and Charts
 
 
 --------------------------------------------------------------------------------
@@ -57,7 +66,7 @@ BREAKING CHANGE! As part of the planned changes for handling array formulae in
 workbooks, there are some changes that will affect the PHPExcel_Cell object 
 methods.
 
-The following methods are now deprecated, and will be removed in version 1.7.9:
+The following methods are now deprecated, and will be removed in or after version 1.8.0:
     getCalculatedValue()      The getValue() method will return calculated
                                   values for cells containing formulae instead.
     setCalculatedValue()      The cell value will always contain the result of a
@@ -67,7 +76,7 @@ The following methods are now deprecated, and will be removed in version 1.7.9:
     getFormulaAttributes()    This will be replaced by the getArrayFormulaRange()
                                   method.
 
-The following methods will be added in version 1.7.9
+The following methods will be added in version 1.8.0
     getFormula()              Use to retrieve a cell formula, will return the cell
                                   value if the cell doesn't contain a formula, or
                                   is not part of an array formula range.
@@ -82,7 +91,7 @@ The following methods will be added in version 1.7.9
                                  or is part of an array formula range or not.
     getArrayFormulaRange()    Use to retrieve an array formula range.
 
-The following methods will be changed in version 1.7.9
+The following methods will be changed in version 1.8.0
     setValue()                The logic behind this will be modified to store
                                   formula values in the new cell property structure,
                                   but it will still perform the same function.

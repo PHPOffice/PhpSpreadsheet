@@ -482,7 +482,7 @@ class PHPExcel_Shared_String
 	}
 
 	/**
-	 * Convert string from one encoding to another. First try iconv, then mbstring, or no convertion
+	 * Convert string from one encoding to another. First try mbstring, then iconv, finally strlen
 	 *
 	 * @param string $value
 	 * @param string $to Encoding to convert to, e.g. 'UTF-8'
@@ -548,12 +548,12 @@ class PHPExcel_Shared_String
 	 */
 	public static function CountCharacters($value, $enc = 'UTF-8')
 	{
-		if (self::getIsIconvEnabled()) {
-			return iconv_strlen($value, $enc);
-		}
-
 		if (self::getIsMbstringEnabled()) {
 			return mb_strlen($value, $enc);
+		}
+
+		if (self::getIsIconvEnabled()) {
+			return iconv_strlen($value, $enc);
 		}
 
 		// else strlen
@@ -561,7 +561,7 @@ class PHPExcel_Shared_String
 	}
 
 	/**
-	 * Get a substring of a UTF-8 encoded string
+	 * Get a substring of a UTF-8 encoded string. First try mbstring, then iconv, finally strlen
 	 *
 	 * @param string $pValue UTF-8 encoded string
 	 * @param int $start Start offset
@@ -570,12 +570,12 @@ class PHPExcel_Shared_String
 	 */
 	public static function Substring($pValue = '', $pStart = 0, $pLength = 0)
 	{
-		if (self::getIsIconvEnabled()) {
-			return iconv_substr($pValue, $pStart, $pLength, 'UTF-8');
-		}
-
 		if (self::getIsMbstringEnabled()) {
 			return mb_substr($pValue, $pStart, $pLength, 'UTF-8');
+		}
+
+		if (self::getIsIconvEnabled()) {
+			return iconv_substr($pValue, $pStart, $pLength, 'UTF-8');
 		}
 
 		// else substr
