@@ -109,6 +109,17 @@ $objPHPExcel->getActiveSheet()->getStyle('C11')->getNumberFormat()->setFormatCod
 $objPHPExcel->getActiveSheet()->setCellValue('A12', 'NULL')
                               ->setCellValue('C12', NULL);
 
+$objRichText = new PHPExcel_RichText();
+$objRichText->createText('你好 ');
+$objPayable = $objRichText->createTextRun('你 好 吗？');
+$objPayable->getFont()->setBold(true);
+$objPayable->getFont()->setItalic(true);
+$objPayable->getFont()->setColor( new PHPExcel_Style_Color( PHPExcel_Style_Color::COLOR_DARKGREEN ) );
+
+$objRichText->createText(', unless specified otherwise on the invoice.');
+
+$objPHPExcel->getActiveSheet()->setCellValue('A13', 'Rich Text')
+                              ->setCellValue('C13', $objRichText);
 
 $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
 $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
