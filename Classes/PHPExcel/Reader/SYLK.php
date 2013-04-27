@@ -83,7 +83,7 @@ class PHPExcel_Reader_SYLK extends PHPExcel_Reader_Abstract implements PHPExcel_
 	/**
 	 * Can the current PHPExcel_Reader_IReader read the file?
 	 *
-	 * @param 	string 		$pFileName
+	 * @param 	string 		$pFilename
 	 * @return 	boolean
 	 * @throws PHPExcel_Reader_Exception
 	 */

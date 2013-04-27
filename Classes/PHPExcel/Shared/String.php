@@ -427,7 +427,8 @@ class PHPExcel_Shared_String
 	 * although this will give wrong results for non-ASCII strings
 	 * see OpenOffice.org's Documentation of the Microsoft Excel File Format, sect. 2.5.3
 	 *
-	 * @param string $value UTF-8 encoded string
+	 * @param string  $value    UTF-8 encoded string
+	 * @param mixed[] $arrcRuns Details of rich text runs in $value
 	 * @return string
 	 */
 	public static function UTF8toBIFF8UnicodeShort($value, $arrcRuns = array())
@@ -523,7 +524,7 @@ class PHPExcel_Shared_String
 	 * @author  Rasmus Andersson {@link http://rasmusandersson.se/}
 	 * @author vadik56
 	 */
-	public static function utf16_decode( $str, $bom_be=true ) {
+	public static function utf16_decode($str, $bom_be = TRUE) {
 		if( strlen($str) < 2 ) return $str;
 		$c0 = ord($str{0});
 		$c1 = ord($str{1});
@@ -564,8 +565,8 @@ class PHPExcel_Shared_String
 	 * Get a substring of a UTF-8 encoded string. First try mbstring, then iconv, finally strlen
 	 *
 	 * @param string $pValue UTF-8 encoded string
-	 * @param int $start Start offset
-	 * @param int $length Maximum number of characters in substring
+	 * @param int $pStart Start offset
+	 * @param int $pLength Maximum number of characters in substring
 	 * @return string
 	 */
 	public static function Substring($pValue = '', $pStart = 0, $pLength = 0)

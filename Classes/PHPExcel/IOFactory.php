@@ -183,7 +183,7 @@ class PHPExcel_IOFactory
 	 *
 	 * @static
 	 * @access public
-	 * @param 	string 		$pFileName		The name of the spreadsheet file
+	 * @param 	string 		$pFilename		The name of the spreadsheet file
 	 * @return	PHPExcel
 	 * @throws	PHPExcel_Reader_Exception
 	 */
@@ -197,7 +197,7 @@ class PHPExcel_IOFactory
 	 *
 	 * @static
 	 * @access public
-	 * @param 	string 		$pFileName		The name of the spreadsheet file to identify
+	 * @param 	string 		$pFilename		The name of the spreadsheet file to identify
 	 * @return	string
 	 * @throws	PHPExcel_Reader_Exception
 	 */
@@ -214,7 +214,7 @@ class PHPExcel_IOFactory
 	 *
 	 * @static
 	 * @access	public
-	 * @param 	string 		$pFileName		The name of the spreadsheet file
+	 * @param 	string 		$pFilename		The name of the spreadsheet file
 	 * @return	PHPExcel_Reader_IReader
 	 * @throws	PHPExcel_Reader_Exception
 	 */

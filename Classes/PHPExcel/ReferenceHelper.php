@@ -641,6 +641,7 @@ class PHPExcel_ReferenceHelper
 	 * @param	int		$pBefore	Insert before this one
 	 * @param	int		$pNumCols	Number of columns to insert
 	 * @param	int		$pNumRows	Number of rows to insert
+	 * @param   string  $sheetName  Worksheet name/title
 	 * @return	string	Updated formula
 	 * @throws	PHPExcel_Exception
 	 */

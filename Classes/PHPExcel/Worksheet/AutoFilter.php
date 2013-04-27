@@ -61,6 +61,9 @@ class PHPExcel_Worksheet_AutoFilter
 
     /**
      * Create a new PHPExcel_Worksheet_AutoFilter
+	 *
+	 *	@param	string		$pRange		Cell range (i.e. A1:E10)
+	 * @param PHPExcel_Worksheet $pSheet
      */
     public function __construct($pRange = '', PHPExcel_Worksheet $pSheet = NULL)
     {
@@ -80,7 +83,7 @@ class PHPExcel_Worksheet_AutoFilter
 	/**
 	 * Set AutoFilter Parent Worksheet
 	 *
-	 * @param PHPExcel_Worksheet
+	 * @param PHPExcel_Worksheet $pSheet
 	 * @return PHPExcel_Worksheet_AutoFilter
 	 */
 	public function setParent(PHPExcel_Worksheet $pSheet = NULL) {
@@ -243,7 +246,7 @@ class PHPExcel_Worksheet_AutoFilter
 	/**
 	 * Clear a specified AutoFilter Column
 	 *
-	 * @param	string	$pColumn		Column name (e.g. A)
+	 * @param	string  $pColumn    Column name (e.g. A)
 	 * @throws	PHPExcel_Exception
 	 * @return PHPExcel_Worksheet_AutoFilter
 	 */
@@ -347,10 +350,10 @@ class PHPExcel_Worksheet_AutoFilter
 	 *	Test if cell value is within a set of values defined by a ruleset
 	 *
 	 *	@param	mixed		$cellValue
-	 *	@param	mixed[]		$dataSet
+	 *	@param	mixed[]		$ruleSet
 	 *	@return boolean
 	 */
-	private static function _filterTestInCustomDataSet($cellValue,$ruleSet)
+	private static function _filterTestInCustomDataSet($cellValue, $ruleSet)
 	{
 		$dataSet = $ruleSet['filterRules'];
 		$join = $ruleSet['join'];
@@ -424,10 +427,10 @@ class PHPExcel_Worksheet_AutoFilter
 	 *	Test if cell date value is matches a set of values defined by a set of months
 	 *
 	 *	@param	mixed		$cellValue
-	 *	@param	mixed[]		$dataSet
+	 *	@param	mixed[]		$monthSet
 	 *	@return boolean
 	 */
-	private static function _filterTestInPeriodDateSet($cellValue,$monthSet)
+	private static function _filterTestInPeriodDateSet($cellValue, $monthSet)
 	{
 		//	Blank cells are always ignored, so return a FALSE
 		if (($cellValue == '') || ($cellValue === NULL)) {
@@ -457,7 +460,7 @@ class PHPExcel_Worksheet_AutoFilter
 	 *	Convert a dynamic rule daterange to a custom filter range expression for ease of calculation
 	 *
 	 *	@param	string										$dynamicRuleType
-	 *	@param	PHPExcel_Worksheet_AutoFilter_Column		$filterColumn
+	 *	@param	PHPExcel_Worksheet_AutoFilter_Column		&$filterColumn
 	 *	@return mixed[]
 	 */
 	private function _dynamicFilterDateRange($dynamicRuleType, &$filterColumn)

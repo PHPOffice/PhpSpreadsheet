@@ -44,6 +44,11 @@ class PHPExcel_Worksheet_AutoFilter_Column
 	//		e.g. filtered by date = TODAY
 	const AUTOFILTER_FILTERTYPE_TOPTENFILTER	= 'top10';
 
+	/**
+	 * Types of autofilter rules
+	 *
+	 * @var string[]
+	 */
 	private static $_filterTypes = array(
 		//	Currently we're not handling
 		//		colorFilter
@@ -59,6 +64,11 @@ class PHPExcel_Worksheet_AutoFilter_Column
 	const AUTOFILTER_COLUMN_JOIN_AND	= 'and';
 	const AUTOFILTER_COLUMN_JOIN_OR		= 'or';
 
+	/**
+	 * Join options for autofilter rules
+	 *
+	 * @var string[]
+	 */
 	private static $_ruleJoins = array(
 		self::AUTOFILTER_COLUMN_JOIN_AND,
 		self::AUTOFILTER_COLUMN_JOIN_OR,
@@ -114,6 +124,9 @@ class PHPExcel_Worksheet_AutoFilter_Column
 
 	/**
 	 * Create a new PHPExcel_Worksheet_AutoFilter_Column
+	 *
+	 *	@param	string		                   $pColumn		Column (e.g. A)
+	 *	@param	PHPExcel_Worksheet_AutoFilter  $pParent		Autofilter for this column
 	 */
 	public function __construct($pColumn, PHPExcel_Worksheet_AutoFilter $pParent = NULL)
 	{
