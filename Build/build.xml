@@ -72,12 +72,6 @@
             </fileset>
         </copy>
 
-        <copy todir="${phing.dir}/build/unitTests" overwrite="true">
-            <fileset dir="${phing.dir}/../unitTests">
-                <include name="**/*"/>
-            </fileset>
-        </copy>
-
         <copy file="${phing.dir}/../changelog.txt" tofile="${phing.dir}/build/changelog.txt" overwrite="true"/>
         <copy file="${phing.dir}/../license.md" tofile="${phing.dir}/build/license.txt" overwrite="true"/>
         <copy file="${phing.dir}/../install.txt" tofile="${phing.dir}/build/install.txt" overwrite="true"/>
@@ -193,7 +187,7 @@
         <delete dir="${phing.dir}/build"/>
     </target>
 
-    <target name="release-documentation">
+    <target name="release-documentation" depends="gather">
         <mkdir dir="${phing.dir}/release"/>
 
         <echo msg="Creating documentation release (v${packageVersion} with ${documentFormat} documents)..."/>
