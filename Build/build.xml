@@ -42,6 +42,12 @@
             </fileset>
         </copy>
 
+        <copy todir="${phing.dir}/build/Examples" overwrite="true">
+            <fileset dir="${phing.dir}/../Examples">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+
         <copy todir="${phing.dir}/build/Documentation" overwrite="true">
             <fileset dir="${phing.dir}/../Documentation">
                 <include name="*.${documentFormat}"/>
@@ -87,7 +93,7 @@
             </fileset>
             <filterchain>
                 <replaceregexp>
-                    <regexp pattern="Fixed in SVN" replace="${releaseDate} (v${packageVersion})"/>
+                    <regexp pattern="Fixed in develop branch for release v${packageVersion}" replace="${releaseDate} (v${packageVersion})"/>
                 </replaceregexp>
             </filterchain>
         </reflexive>
