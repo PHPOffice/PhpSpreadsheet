@@ -4,27 +4,36 @@
 
     <target name="gather">
         <if>
-            <isfalse value="${packageVersion}"/>
-            <then>
-                <propertyprompt propertyName="packageVersion" defaultValue="1.0.0"
-                                promptText="Enter PHPExcel version number"/>
-            </then>
+			<isset property="${packageVersion}"/>
+			<then>
+				<echo message="PHPExcel version number is ${packageVersion}" />
+			</then>
+			<else>
+				<propertyprompt propertyName="packageVersion" defaultValue="1.0.0"
+								promptText="Enter PHPExcel version number"/>
+			</else>
         </if>
 
         <if>
-            <isfalse value="${releaseDate}"/>
-            <then>
-                <propertyprompt propertyName="releaseDate" defaultValue="2010-01-01"
-                                promptText="Enter PHPExcel release date"/>
-            </then>
+			<isset property="${releaseDate}"/>
+			<then>
+				<echo message="Release date is ${releaseDate}" />
+			</then>
+			<else>
+				<propertyprompt propertyName="releaseDate" defaultValue="2010-01-01"
+								promptText="Enter PHPExcel release date"/>
+			</else>
         </if>
 
         <if>
-            <isfalse value="${documentFormat}"/>
-            <then>
-                <propertyprompt propertyName="documentFormat" defaultValue="doc"
-                                promptText="Enter Document Format"/>
-            </then>
+			<isset property="${documentFormat}"/>
+			<then>
+				<echo message="Document Format is ${documentFormat}" />
+			</then>
+			<else>
+				<propertyprompt propertyName="documentFormat" defaultValue="doc"
+								promptText="Enter Document Format"/>
+			</else>
         </if>
     </target>
 
