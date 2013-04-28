@@ -2356,7 +2356,6 @@ class PHPExcel_Calculation_Engineering {
 	 *	Returns an array of units of measure, for a specified conversion group, or for all groups
 	 *
 	 *	@param	string	$group	The group whose units of measure you want to retrieve
-	 *
 	 *	@return	array
 	 */
 	public static function getConversionGroupUnits($group = NULL) {
@@ -2373,6 +2372,7 @@ class PHPExcel_Calculation_Engineering {
 	/**
 	 *	getConversionGroupUnitDetails
 	 *
+	 *	@param	string	$group	The group whose units of measure you want to retrieve
 	 *	@return	array
 	 */
 	public static function getConversionGroupUnitDetails($group = NULL) {

@@ -1206,13 +1206,22 @@ class PHPExcel_Calculation_Financial {
 	/**
 	 * FVSCHEDULE
 	 *
+	 * Returns the future value of an initial principal after applying a series of compound interest rates.
+	 * Use FVSCHEDULE to calculate the future value of an investment with a variable or adjustable rate.
+	 *
+	 * Excel Function:
+	 *		FVSCHEDULE(principal,schedule)
+	 *
+	 * @param	float	$principal	The present value.
+	 * @param	float[]	$schedule	An array of interest rates to apply.
+	 * @return	float
 	 */
 	public static function FVSCHEDULE($principal, $schedule) {
 		$principal	= PHPExcel_Calculation_Functions::flattenSingleValue($principal);
 		$schedule	= PHPExcel_Calculation_Functions::flattenArray($schedule);
 
-		foreach($schedule as $n) {
-			$principal *= 1 + $n;
+		foreach($schedule as $rate) {
+			$principal *= 1 + $rate;
 		}
 
 		return $principal;
@@ -1227,13 +1236,13 @@ class PHPExcel_Calculation_Financial {
 	 * Excel Function:
 	 *		INTRATE(settlement,maturity,investment,redemption[,basis])
 	 *
-	 * @param	mixed	settlement	The security's settlement date.
+	 * @param	mixed	$settlement	The security's settlement date.
 	 *								The security settlement date is the date after the issue date when the security is traded to the buyer.
-	 * @param	mixed	maturity	The security's maturity date.
+	 * @param	mixed	$maturity	The security's maturity date.
 	 *								The maturity date is the date when the security expires.
-	 * @param	integer	investment	The amount invested in the security.
-	 * @param	integer	redemption	The amount to be received at maturity.
-	 * @param	integer	basis		The type of day count to use.
+	 * @param	integer	$investment	The amount invested in the security.
+	 * @param	integer	$redemption	The amount to be received at maturity.
+	 * @param	integer	$basis		The type of day count to use.
 	 *										0 or omitted	US (NASD) 30/360
 	 *										1				Actual/actual
 	 *										2				Actual/360
@@ -1273,6 +1282,9 @@ class PHPExcel_Calculation_Financial {
 	 *
 	 * Returns the interest payment for a given period for an investment based on periodic, constant payments and a constant interest rate.
 	 *
+	 * Excel Function:
+	 *		IPMT(rate,per,nper,pv[,fv][,type])
+	 *
 	 * @param	float	$rate	Interest rate per period
 	 * @param	int		$per	Period for which we want to find the interest
 	 * @param	int		$nper	Number of periods
@@ -1302,7 +1314,25 @@ class PHPExcel_Calculation_Financial {
 		return $interestAndPrincipal[0];
 	}	//	function IPMT()
 
-
+	/**
+	 * IRR
+	 *
+	 * Returns the internal rate of return for a series of cash flows represented by the numbers in values. 
+	 * These cash flows do not have to be even, as they would be for an annuity. However, the cash flows must occur 
+	 * at regular intervals, such as monthly or annually. The internal rate of return is the interest rate received
+	 * for an investment consisting of payments (negative values) and income (positive values) that occur at regular 
+	 * periods.
+	 *
+	 * Excel Function:
+	 *		IRR(values[,guess])
+	 *
+	 * @param	float[]	$values		An array or a reference to cells that contain numbers for which you want
+	 *									to calculate the internal rate of return.
+	 *								Values must contain at least one positive value and one negative value to 
+	 *									calculate the internal rate of return.
+	 * @param	float	$guess		A number that you guess is close to the result of IRR
+	 * @return	float
+	 */
 	public static function IRR($values, $guess = 0.1) {
 		if (!is_array($values)) return PHPExcel_Calculation_Functions::VALUE();
 		$values = PHPExcel_Calculation_Functions::flattenArray($values);
@@ -1336,28 +1366,30 @@ class PHPExcel_Calculation_Financial {
 			$dx *= 0.5;
 			$x_mid = $rtb + $dx;
 			$f_mid = self::NPV($x_mid, $values);
-			if ($f_mid <= 0.0) $rtb = $x_mid;
-			if ((abs($f_mid) < FINANCIAL_PRECISION) || (abs($dx) < FINANCIAL_PRECISION)) return $x_mid;
+			if ($f_mid <= 0.0) 
+				$rtb = $x_mid;
+			if ((abs($f_mid) < FINANCIAL_PRECISION) || (abs($dx) < FINANCIAL_PRECISION)) 
+				return $x_mid;
 		}
 		return PHPExcel_Calculation_Functions::VALUE();
 	}	//	function IRR()
 
 
 	/**
-	 *      ISPMT
+	 * ISPMT
 	 *
-	 *      Returns the interest payment for an investment based on an interest rate and a constant payment schedule.
+	 * Returns the interest payment for an investment based on an interest rate and a constant payment schedule.
 	 *
-	 *      Excel Function:
-	 *          =ISPMT(interest_rate, period, number_payments, PV)
+	 * Excel Function:
+	 *     =ISPMT(interest_rate, period, number_payments, PV)
 	 *
-	 *      interest_rate is the interest rate for the investment
+	 * interest_rate is the interest rate for the investment
 	 *
-	 *      period is the period to calculate the interest rate.  It must be betweeen 1 and number_payments.
+	 * period is the period to calculate the interest rate.  It must be betweeen 1 and number_payments.
 	 *
-	 *      number_payments is the number of payments for the annuity
+	 * number_payments is the number of payments for the annuity
 	 *
-	 *      PV is the loan amount or present value of the payments
+	 * PV is the loan amount or present value of the payments
 	 */
 	public static function ISPMT() {
 		// Return value
@@ -1384,6 +1416,22 @@ class PHPExcel_Calculation_Financial {
 	}	//	function ISPMT()
 
 
+	/**
+	 * MIRR
+	 *
+	 * Returns the modified internal rate of return for a series of periodic cash flows. MIRR considers both 
+	 *		the cost of the investment and the interest received on reinvestment of cash.
+	 *
+	 * Excel Function:
+	 *		MIRR(values,finance_rate, reinvestment_rate)
+	 *
+	 * @param	float[]	$values				An array or a reference to cells that contain a series of payments and
+	 *											income occurring at regular intervals.
+	 *										Payments are negative value, income is positive values.
+	 * @param	float	$finance_rate		The interest rate you pay on the money used in the cash flows
+	 * @param	float	$reinvestment_rate	The interest rate you receive on the cash flows as you reinvest them
+	 * @return	float
+	 */
 	public static function MIRR($values, $finance_rate, $reinvestment_rate) {
 		if (!is_array($values)) return PHPExcel_Calculation_Functions::VALUE();
 		$values				= PHPExcel_Calculation_Functions::flattenArray($values);
