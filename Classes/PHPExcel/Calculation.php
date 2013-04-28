@@ -2436,6 +2436,11 @@ class PHPExcel_Calculation {
 	 */
 	private static function _resizeMatricesShrink(&$matrix1,&$matrix2,$matrix1Rows,$matrix1Columns,$matrix2Rows,$matrix2Columns) {
 		if (($matrix2Columns < $matrix1Columns) || ($matrix2Rows < $matrix1Rows)) {
+			if ($matrix2Rows < $matrix1Rows) {
+				for ($i = $matrix2Rows; $i < $matrix1Rows; ++$i) {
+					unset($matrix1[$i]);
+				}
+			}
 			if ($matrix2Columns < $matrix1Columns) {
 				for ($i = 0; $i < $matrix1Rows; ++$i) {
 					for ($j = $matrix2Columns; $j < $matrix1Columns; ++$j) {
@@ -2443,24 +2448,19 @@ class PHPExcel_Calculation {
 					}
 				}
 			}
-			if ($matrix2Rows < $matrix1Rows) {
-				for ($i = $matrix2Rows; $i < $matrix1Rows; ++$i) {
-					unset($matrix1[$i]);
-				}
-			}
 		}
 
 		if (($matrix1Columns < $matrix2Columns) || ($matrix1Rows < $matrix2Rows)) {
+			if ($matrix1Rows < $matrix2Rows) {
+				for ($i = $matrix1Rows; $i < $matrix2Rows; ++$i) {
+					unset($matrix2[$i]);
+				}
+			}
 			if ($matrix1Columns < $matrix2Columns) {
 				for ($i = 0; $i < $matrix2Rows; ++$i) {
 					for ($j = $matrix1Columns; $j < $matrix2Columns; ++$j) {
 						unset($matrix2[$i][$j]);
 					}
-				}
-			}
-			if ($matrix1Rows < $matrix2Rows) {
-				for ($i = $matrix1Rows; $i < $matrix2Rows; ++$i) {
-					unset($matrix2[$i]);
 				}
 			}
 		}
