@@ -50,6 +50,7 @@ $aTests = array(
 	, '10autofilter.php'
 	, '10autofilter-selection-1.php'
 	, '10autofilter-selection-2.php'
+	, '10autofilter-selection-display.php'
 	, '11documentsecurity.php'
 	, '11documentsecurity-xls.php'
 	, '12cellProtection.php'
