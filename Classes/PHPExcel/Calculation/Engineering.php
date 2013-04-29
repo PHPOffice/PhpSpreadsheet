@@ -741,8 +741,6 @@ class PHPExcel_Calculation_Engineering {
 
 
 	/**
-	 * _cleanComplex
-	 *
 	 * Cleans the leading characters in a complex number string
 	 *
 	 * @param	string		$complexNumber	The complex number to clean
@@ -756,19 +754,24 @@ class PHPExcel_Calculation_Engineering {
 		return $complexNumber;
 	}
 
-
-	private static function _nbrConversionFormat($xVal,$places) {
+	/**
+	 * Formats a number base string value with leading zeroes
+	 *
+	 * @param	string		$xVal		The "number" to pad
+	 * @param	integer		$places		The length that we want to pad this value
+	 * @return	string		The padded "number"
+	 */
+	private static function _nbrConversionFormat($xVal, $places) {
 		if (!is_null($places)) {
 			if (strlen($xVal) <= $places) {
-				return substr(str_pad($xVal,$places,'0',STR_PAD_LEFT),-10);
+				return substr(str_pad($xVal, $places, '0', STR_PAD_LEFT), -10);
 			} else {
 				return PHPExcel_Calculation_Functions::NaN();
 			}
 		}
 
-		return substr($xVal,-10);
+		return substr($xVal, -10);
 	}	//	function _nbrConversionFormat()
-
 
 	/**
 	 *	BESSELI

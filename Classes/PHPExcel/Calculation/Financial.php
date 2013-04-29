@@ -1523,14 +1523,11 @@ class PHPExcel_Calculation_Financial {
 		}
 	}	//	function NPER()
 
-
 	/**
 	 * NPV
 	 *
 	 * Returns the Net Present Value of a cash flow series given a discount rate.
 	 *
-	 * @param	float	Discount interest rate
-	 * @param	array	Cash flow series
 	 * @return	float
 	 */
 	public static function NPV() {
@@ -1552,7 +1549,6 @@ class PHPExcel_Calculation_Financial {
 		// Return
 		return $returnValue;
 	}	//	function NPV()
-
 
 	/**
 	 * PMT

@@ -251,8 +251,9 @@ class PHPExcel_Calculation_LookupRef {
 	 *
 	 * @access	public
 	 * @category Logical Functions
-	 * @param	string	$linkURL		Value to check, is also the value returned when no error
-	 * @param	string	$displayName	Value to return when testValue is an error condition
+	 * @param	string			$linkURL		Value to check, is also the value returned when no error
+	 * @param	string			$displayName	Value to return when testValue is an error condition
+	 * @param	PHPExcel_Cell	$pCell			The cell to set the hyperlink in
 	 * @return	mixed	The value of $displayName (or $linkURL if $displayName was blank)
 	 */
 	public static function HYPERLINK($linkURL = '', $displayName = null, PHPExcel_Cell $pCell = null) {
@@ -287,13 +288,14 @@ class PHPExcel_Calculation_LookupRef {
 	 *
 	 * NOTE - INDIRECT() does not yet support the optional a1 parameter introduced in Excel 2010
 	 *
-	 * @param	cellAddress		An array or array formula, or a reference to a range of cells for which you want the number of rows
+	 * @param	cellAddress		$cellAddress	The cell address of the current cell (containing this formula)
+	 * @param	PHPExcel_Cell	$pCell			The current cell (containing this formula)
 	 * @return	mixed			The cells referenced by cellAddress
 	 *
 	 * @todo	Support for the optional a1 parameter introduced in Excel 2010
 	 *
 	 */
-	public static function INDIRECT($cellAddress=Null, PHPExcel_Cell $pCell = null) {
+	public static function INDIRECT($cellAddress = NULL, PHPExcel_Cell $pCell = NULL) {
 		$cellAddress	= PHPExcel_Calculation_Functions::flattenSingleValue($cellAddress);
 		if (is_null($cellAddress) || $cellAddress === '') {
 			return PHPExcel_Calculation_Functions::REF();
@@ -307,29 +309,30 @@ class PHPExcel_Calculation_LookupRef {
 
 		if ((!preg_match('/^'.PHPExcel_Calculation::CALCULATION_REGEXP_CELLREF.'$/i', $cellAddress1, $matches)) ||
 			((!is_null($cellAddress2)) && (!preg_match('/^'.PHPExcel_Calculation::CALCULATION_REGEXP_CELLREF.'$/i', $cellAddress2, $matches)))) {
-
 			if (!preg_match('/^'.PHPExcel_Calculation::CALCULATION_REGEXP_NAMEDRANGE.'$/i', $cellAddress1, $matches)) {
 				return PHPExcel_Calculation_Functions::REF();
 			}
 
-			if (strpos($cellAddress,'!') !== false) {
-				list($sheetName,$cellAddress) = explode('!',$cellAddress);
+			if (strpos($cellAddress,'!') !== FALSE) {
+				list($sheetName, $cellAddress) = explode('!',$cellAddress);
+				$sheetName = trim($sheetName, "'");
 				$pSheet = $pCell->getParent()->getParent()->getSheetByName($sheetName);
 			} else {
 				$pSheet = $pCell->getParent();
 			}
 
-			return PHPExcel_Calculation::getInstance()->extractNamedRange($cellAddress, $pSheet, False);
+			return PHPExcel_Calculation::getInstance()->extractNamedRange($cellAddress, $pSheet, FALSE);
 		}
 
-		if (strpos($cellAddress,'!') !== false) {
+		if (strpos($cellAddress,'!') !== FALSE) {
 			list($sheetName,$cellAddress) = explode('!',$cellAddress);
+			$sheetName = trim($sheetName, "'");
 			$pSheet = $pCell->getParent()->getParent()->getSheetByName($sheetName);
 		} else {
 			$pSheet = $pCell->getParent();
 		}
 
-		return PHPExcel_Calculation::getInstance()->extractCellRange($cellAddress, $pSheet, False);
+		return PHPExcel_Calculation::getInstance()->extractCellRange($cellAddress, $pSheet, FALSE);
 	}	//	function INDIRECT()
 
 
@@ -373,9 +376,10 @@ class PHPExcel_Calculation_LookupRef {
 			return PHPExcel_Calculation_Functions::REF();
 		}
 
-		$sheetName = null;
+		$sheetName = NULL;
 		if (strpos($cellAddress,"!")) {
 			list($sheetName,$cellAddress) = explode("!",$cellAddress);
+			$sheetName = trim($sheetName, "'");
 		}
 		if (strpos($cellAddress,":")) {
 			list($startCell,$endCell) = explode(":",$cellAddress);
@@ -416,7 +420,7 @@ class PHPExcel_Calculation_LookupRef {
 			$cellAddress .= ':'.$endCellColumn.$endCellRow;
 		}
 
-		if ($sheetName !== null) {
+		if ($sheetName !== NULL) {
 			$pSheet = $pCell->getParent()->getParent()->getSheetByName($sheetName);
 		} else {
 			$pSheet = $pCell->getParent();

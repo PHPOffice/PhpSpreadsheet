@@ -56,6 +56,18 @@ class PHPExcel_Calculation_DateTime {
 	}	//	function _isLeapYear()
 
 
+	/**
+	 * Return the number of days between two dates based on a 360 day calendar
+	 *
+	 * @param	integer	$startDay		Day of month of the start date
+	 * @param	integer	$startMonth		Month of the start date
+	 * @param	integer	$startYear		Year of the start date
+	 * @param	integer	$endDay			Day of month of the start date
+	 * @param	integer	$endMonth		Month of the start date
+	 * @param	integer	$endYear		Year of the start date
+	 * @param	boolean $methodUS		Whether to use the US method or the European method of calculation
+	 * @return	integer	Number of days between the start date and the end date
+	 */
 	private static function _dateDiff360($startDay, $startMonth, $startYear, $endDay, $endMonth, $endYear, $methodUS) {
 		if ($startDay == 31) {
 			--$startDay;
