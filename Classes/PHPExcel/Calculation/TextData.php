@@ -89,7 +89,7 @@ class PHPExcel_Calculation_TextData {
 	/**
 	 * TRIMNONPRINTABLE
 	 *
-	 * @param	mixed	$value	Value to check
+	 * @param	mixed	$stringValue	Value to check
 	 * @return	string
 	 */
 	public static function TRIMNONPRINTABLE($stringValue = '') {
@@ -113,7 +113,7 @@ class PHPExcel_Calculation_TextData {
 	/**
 	 * TRIMSPACES
 	 *
-	 * @param	mixed	$value	Value to check
+	 * @param	mixed	$stringValue	Value to check
 	 * @return	string
 	 */
 	public static function TRIMSPACES($stringValue = '') {
@@ -133,7 +133,7 @@ class PHPExcel_Calculation_TextData {
 	/**
 	 * ASCIICODE
 	 *
-	 * @param	string	$character	Value
+	 * @param	string	$characters		Value
 	 * @return	int
 	 */
 	public static function ASCIICODE($characters) {
@@ -296,7 +296,9 @@ class PHPExcel_Calculation_TextData {
 	/**
 	 * FIXEDFORMAT
 	 *
-	 * @param	mixed	$value	Value to check
+	 * @param	mixed		$value	Value to check
+	 * @param	integer		$decimals
+	 * @param	boolean		$no_commas
 	 * @return	boolean
 	 */
 	public static function FIXEDFORMAT($value, $decimals = 2, $no_commas = FALSE) {
@@ -407,7 +409,6 @@ class PHPExcel_Calculation_TextData {
 	 * STRINGLENGTH
 	 *
 	 * @param	string	$value	Value
-	 * @param	int		$chars	Number of characters
 	 * @return	string
 	 */
 	public static function STRINGLENGTH($value = '') {
@@ -485,9 +486,10 @@ class PHPExcel_Calculation_TextData {
 	/**
 	 * REPLACE
 	 *
-	 * @param	string	$value	Value
-	 * @param	int		$start	Start character
-	 * @param	int		$chars	Number of characters
+	 * @param	string	$oldText	String to modify
+	 * @param	int		$start		Start character
+	 * @param	int		$chars		Number of characters
+	 * @param	string	$newText	String to replace in defined position 
 	 * @return	string
 	 */
 	public static function REPLACE($oldText = '', $start = 1, $chars = null, $newText) {
@@ -553,7 +555,7 @@ class PHPExcel_Calculation_TextData {
 	/**
 	 * RETURNSTRING
 	 *
-	 * @param	mixed	$value	Value to check
+	 * @param	mixed	$testValue	Value to check
 	 * @return	boolean
 	 */
 	public static function RETURNSTRING($testValue = '') {
@@ -570,6 +572,7 @@ class PHPExcel_Calculation_TextData {
 	 * TEXTFORMAT
 	 *
 	 * @param	mixed	$value	Value to check
+	 * @param	string	$format	Format mask to use
 	 * @return	boolean
 	 */
 	public static function TEXTFORMAT($value,$format) {

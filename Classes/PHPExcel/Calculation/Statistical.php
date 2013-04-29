@@ -834,6 +834,7 @@ class PHPExcel_Calculation_Statistical {
 	 * @category Mathematical and Trigonometric Functions
 	 * @param	mixed		$arg,...		Data values
 	 * @param	string		$condition		The criteria that defines which cells will be checked.
+	 * @param	mixed[]		$averageArgs	Data values
 	 * @return	float
 	 */
 	public static function AVERAGEIF($aArgs,$condition,$averageArgs = array()) {
@@ -912,6 +913,8 @@ class PHPExcel_Calculation_Statistical {
 	 * @param	float		$probability	Probability at which you want to evaluate the distribution
 	 * @param	float		$alpha			Parameter to the distribution
 	 * @param	float		$beta			Parameter to the distribution
+	 * @param	float		$rMin			Minimum value
+	 * @param	float		$rMax			Maximum value
 	 * @param	boolean		$cumulative
 	 * @return	float
 	 *
@@ -1954,9 +1957,9 @@ class PHPExcel_Calculation_Statistical {
 	 * @param	boolean				A logical value specifying whether to return additional regression statistics.
 	 * @return	array
 	 */
-	public static function LINEST($yValues,$xValues=null,$const=True,$stats=False) {
-		$const	= (is_null($const))	? True :	(boolean) PHPExcel_Calculation_Functions::flattenSingleValue($const);
-		$stats	= (is_null($stats))	? False :	(boolean) PHPExcel_Calculation_Functions::flattenSingleValue($stats);
+	public static function LINEST($yValues, $xValues = NULL, $const = TRUE, $stats = FALSE) {
+		$const	= (is_null($const))	? TRUE :	(boolean) PHPExcel_Calculation_Functions::flattenSingleValue($const);
+		$stats	= (is_null($stats))	? FALSE :	(boolean) PHPExcel_Calculation_Functions::flattenSingleValue($stats);
 		if (is_null($xValues)) $xValues = range(1,count(PHPExcel_Calculation_Functions::flattenArray($yValues)));
 
 		if (!self::_checkTrendArrays($yValues,$xValues)) {
@@ -2059,7 +2062,9 @@ class PHPExcel_Calculation_Statistical {
 	 *
 	 * Returns the inverse of the normal cumulative distribution
 	 *
-	 * @param	float		$value
+	 * @param	float		$probability
+	 * @param	float		$mean
+	 * @param	float		$stdDev
 	 * @return	float
 	 *
 	 * @todo	Try implementing P J Acklam's refinement algorithm for greater
@@ -2088,6 +2093,8 @@ class PHPExcel_Calculation_Statistical {
 	 * with parameters mean and standard_dev.
 	 *
 	 * @param	float		$value
+	 * @param	float		$mean
+	 * @param	float		$stdDev
 	 * @return	float
 	 */
 	public static function LOGNORMDIST($value, $mean, $stdDev) {
@@ -3621,14 +3628,14 @@ class PHPExcel_Calculation_Statistical {
 	 * Returns the Weibull distribution. Use this distribution in reliability
 	 * analysis, such as calculating a device's mean time to failure.
 	 *
-	 * @param	float		$value
-	 * @param	float		$alpha		Alpha Parameter
-	 * @param	float		$beta		Beta Parameter
+	 * @param	float		$dataSet
+	 * @param	float		$m0		Alpha Parameter
+	 * @param	float		$sigma	Beta Parameter
 	 * @param	boolean		$cumulative
 	 * @return	float
 	 *
 	 */
-	public static function ZTEST($dataSet, $m0, $sigma=null) {
+	public static function ZTEST($dataSet, $m0, $sigma = NULL) {
 		$dataSet	= PHPExcel_Calculation_Functions::flattenArrayIndexed($dataSet);
 		$m0			= PHPExcel_Calculation_Functions::flattenSingleValue($m0);
 		$sigma		= PHPExcel_Calculation_Functions::flattenSingleValue($sigma);

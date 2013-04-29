@@ -495,13 +495,13 @@ class PHPExcel_Calculation_MathTrig {
 	 *
 	 * @access	public
 	 * @category Mathematical and Trigonometric Functions
-	 * @param	float	$value		The positive real number for which you want the logarithm
+	 * @param	float	$number		The positive real number for which you want the logarithm
 	 * @param	float	$base		The base of the logarithm. If base is omitted, it is assumed to be 10.
 	 * @return	float
 	 */
 	public static function LOG_BASE($number = NULL, $base = 10) {
 		$number	= PHPExcel_Calculation_Functions::flattenSingleValue($number);
-		$base	= (is_null($base))	? 10 :	(float) PHPExcel_Calculation_Functions::flattenSingleValue($base);
+		$base	= (is_null($base)) ? 10 : (float) PHPExcel_Calculation_Functions::flattenSingleValue($base);
 
 		if ((!is_numeric($base)) || (!is_numeric($number)))
 			return PHPExcel_Calculation_Functions::VALUE();
@@ -1252,7 +1252,8 @@ class PHPExcel_Calculation_MathTrig {
 	/**
 	 * SUMX2MY2
 	 *
-	 * @param	mixed	$value	Value to check
+	 * @param	mixed[]	$matrixData1	Matrix #1
+	 * @param	mixed[]	$matrixData2	Matrix #2
 	 * @return	float
 	 */
 	public static function SUMX2MY2($matrixData1,$matrixData2) {
@@ -1281,7 +1282,8 @@ class PHPExcel_Calculation_MathTrig {
 	/**
 	 * SUMX2PY2
 	 *
-	 * @param	mixed	$value	Value to check
+	 * @param	mixed[]	$matrixData1	Matrix #1
+	 * @param	mixed[]	$matrixData2	Matrix #2
 	 * @return	float
 	 */
 	public static function SUMX2PY2($matrixData1,$matrixData2) {
@@ -1310,7 +1312,8 @@ class PHPExcel_Calculation_MathTrig {
 	/**
 	 * SUMXMY2
 	 *
-	 * @param	mixed	$value	Value to check
+	 * @param	mixed[]	$matrixData1	Matrix #1
+	 * @param	mixed[]	$matrixData2	Matrix #2
 	 * @return	float
 	 */
 	public static function SUMXMY2($matrixData1,$matrixData2) {
