@@ -53,7 +53,7 @@ if (!defined('CALCULATION_REGEXP_CELLREF')) {
 
 
 /**
- * PHPExcel_Calculation (Singleton)
+ * PHPExcel_Calculation (Multiton)
  *
  * @category	PHPExcel
  * @package		PHPExcel_Calculation
@@ -105,7 +105,7 @@ class PHPExcel_Calculation {
     private $_workbook;
 
 	/**
-	 * List of instances of the calculation engine that we've instantiated
+	 * List of instances of the calculation engine that we've instantiated for individual workbooks
 	 *
 	 * @access	private
 	 * @var PHPExcel_Calculation[]
@@ -194,26 +194,80 @@ class PHPExcel_Calculation {
 	 */
 	private $_cyclicReferenceStack;
 
+	/**
+	 * Current iteration counter for cyclic formulae
+	 * If the value is 0 (or less) then cyclic formulae will throw an exception,
+	 *    otherwise they will iterate to the limit defined here before returning a result
+	 *
+	 * @var integer
+	 *
+	 */
 	private $_cyclicFormulaCount = 0;
+
 	private $_cyclicFormulaCell = '';
+
+	/**
+	 * Number of iterations for cyclic formulae
+	 *
+	 * @var integer
+	 *
+	 */
 	public $cyclicFormulaCount = 0;
 
-
+	/**
+	 * Precision used for calculations
+	 *
+	 * @var integer
+	 *
+	 */
 	private $_savedPrecision	= 14;
 
 
+	/**
+	 * The current locale setting
+	 *
+	 * @var string
+	 *
+	 */
 	private static $_localeLanguage = 'en_us';					//	US English	(default locale)
+
+	/**
+	 * List of available locale settings
+	 * Note that this is read for the locale subdirectory only when requested
+	 *
+	 * @var string[]
+	 *
+	 */
 	private static $_validLocaleLanguages = array(	'en'		//	English		(default language)
 												 );
+	/**
+	 * Locale-specific argument separator for function arguments
+	 *
+	 * @var string
+	 *
+	 */
 	private static $_localeArgumentSeparator = ',';
 	private static $_localeFunctions = array();
+
+	/**
+	 * Locale-specific translations for Excel constants (True, False and Null)
+	 *
+	 * @var string[]
+	 *
+	 */
 	public static $_localeBoolean = array(	'TRUE'	=> 'TRUE',
 											'FALSE'	=> 'FALSE',
 											'NULL'	=> 'NULL'
 										  );
 
 
-	//	Constant conversion from text name/value to actual (datatyped) value
+	/**
+	 * Excel constant string translations to their PHP equivalents
+	 * Constant conversion from text name/value to actual (datatyped) value
+	 *
+	 * @var string[]
+	 *
+	 */
 	private static $_ExcelConstants = array('TRUE'	=> TRUE,
 											'FALSE'	=> FALSE,
 											'NULL'	=> NULL

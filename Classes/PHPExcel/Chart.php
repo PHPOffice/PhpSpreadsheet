@@ -378,6 +378,13 @@ class PHPExcel_Chart
 		return $this;
 	}
 
+	/**
+	 * Set the offset position within the Top Left cell for the chart
+	 *
+	 * @param	integer	$xOffset
+	 * @param	integer	$yOffset
+	 * @return PHPExcel_Chart
+	 */
 	public function setTopLeftOffset($xOffset=null,$yOffset=null) {
 		if (!is_null($xOffset))
 			$this->setTopLeftXOffset($xOffset);
@@ -387,6 +394,11 @@ class PHPExcel_Chart
 		return $this;
 	}
 
+	/**
+	 * Get the offset position within the Top Left cell for the chart
+	 *
+	 * @return integer[]
+	 */
 	public function getTopLeftOffset() {
 		return array( 'X' => $this->_topLeftXOffset,
 					  'Y' => $this->_topLeftYOffset
@@ -458,6 +470,13 @@ class PHPExcel_Chart
 		return $this->_bottomRightCellRef;
 	}
 
+	/**
+	 * Set the offset position within the Bottom Right cell for the chart
+	 *
+	 * @param	integer	$xOffset
+	 * @param	integer	$yOffset
+	 * @return PHPExcel_Chart
+	 */
 	public function setBottomRightOffset($xOffset=null,$yOffset=null) {
 		if (!is_null($xOffset))
 			$this->setBottomRightXOffset($xOffset);
@@ -467,6 +486,11 @@ class PHPExcel_Chart
 		return $this;
 	}
 
+	/**
+	 * Get the offset position within the Bottom Right cell for the chart
+	 *
+	 * @return integer[]
+	 */
 	public function getBottomRightOffset() {
 		return array( 'X' => $this->_bottomRightXOffset,
 					  'Y' => $this->_bottomRightYOffset
