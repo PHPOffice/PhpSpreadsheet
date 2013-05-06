@@ -92,15 +92,13 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
 				'<?mso-application progid="Excel.Sheet"?>'
 			);
 
-		// Check if file exists
-		if (!file_exists($pFilename)) {
-			throw new PHPExcel_Reader_Exception("Could not open " . $pFilename . " for reading! File does not exist.");
-		}
-
+		// Open file
+		$this->_openFile($pFilename);
+		$fileHandle = $this->_fileHandle;
+		
 		// Read sample data (first 2 KB will do)
-		$fh = fopen($pFilename, 'r');
-		$data = fread($fh, 2048);
-		fclose($fh);
+		$data = fread($fileHandle, 2048);
+		fclose($fileHandle);
 
 		$valid = true;
 		foreach($signature as $match) {
