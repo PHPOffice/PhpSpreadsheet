@@ -140,6 +140,7 @@ class PHPExcel_Reader_SYLK extends PHPExcel_Reader_Abstract implements PHPExcel_
 			throw new PHPExcel_Reader_Exception($pFilename . " is an Invalid Spreadsheet file.");
 		}
 		$fileHandle = $this->_fileHandle;
+		rewind($fileHandle);
 
 		$worksheetInfo = array();
 		$worksheetInfo[0]['worksheetName'] = 'Worksheet';
@@ -227,7 +228,7 @@ class PHPExcel_Reader_SYLK extends PHPExcel_Reader_Abstract implements PHPExcel_
 		}
 		$fileHandle = $this->_fileHandle;
 		rewind($fileHandle);
-		
+
 		// Create new PHPExcel
 		while ($objPHPExcel->getSheetCount() <= $this->_sheetIndex) {
 			$objPHPExcel->createSheet();
