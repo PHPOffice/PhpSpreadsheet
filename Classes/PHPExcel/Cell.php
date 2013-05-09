@@ -487,6 +487,16 @@ class PHPExcel_Cell
 	}
 
 	/**
+	 *	Get cell style
+	 *
+	 *	@return	PHPExcel_Style
+	 */
+	public function getStyle()
+	{
+		return $this->getWorksheet()->getParent()->getCellXfByIndex($this->getXfIndex());
+	}
+
+	/**
 	 *	Re-bind parent
 	 *
 	 *	@param	PHPExcel_Worksheet $parent
