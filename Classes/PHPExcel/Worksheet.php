@@ -36,13 +36,13 @@
 class PHPExcel_Worksheet implements PHPExcel_IComparable
 {
     /* Break types */
-    const BREAK_NONE    = 0;
-    const BREAK_ROW        = 1;
-    const BREAK_COLUMN    = 2;
+    const BREAK_NONE   = 0;
+    const BREAK_ROW    = 1;
+    const BREAK_COLUMN = 2;
 
     /* Sheet state */
     const SHEETSTATE_VISIBLE    = 'visible';
-    const SHEETSTATE_HIDDEN    = 'hidden';
+    const SHEETSTATE_HIDDEN     = 'hidden';
     const SHEETSTATE_VERYHIDDEN = 'veryHidden';
 
     /**
