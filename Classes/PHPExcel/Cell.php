@@ -913,17 +913,6 @@ class PHPExcel_Cell
 	}
 
 	/**
-     * Get style for cell
-     *
-     * @return PHPExcel_Style
-     * @throws PHPExcel_Exception
-	 */
-	public function getStyle()
-	{
-		return $this->getWorksheet()->getParent()->getCellXfByIndex($this->getXfIndex());
-	}
-
-	/**
 	 * Implement PHP __clone to create a deep clone, not just a shallow copy.
 	 */
 	public function __clone() {
