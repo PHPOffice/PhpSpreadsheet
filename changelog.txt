@@ -26,6 +26,7 @@
 Fixed in develop branch for release v1.7.9:
 - Feature:  (MBaker)    Include charts option for HTML Writer
 - Feature:  (MBaker)    Added composer file
+- Feature:  (MBaker)    Added getStyle() method to Cell object
 - Bugfix:   (Asker)     Work item 18777  - Error in PHPEXCEL/Calculation.php script on line 2976 (stack pop check)
 - Bugfix:   (MBaker)    Work item 18794  - CSV files without a file extension being identified as HTML
 - Bugfix:   (AndreKR)   Work item GH-66  - Wrong check for maximum number of rows in Excel5 Writer
@@ -63,7 +64,7 @@ Fixed in develop branch for release v1.7.9:
 
 --------------------------------------------------------------------------------
 BREAKING CHANGE! As part of the planned changes for handling array formulae in
-workbooks, there are some changes that will affect the PHPExcel_Cell object 
+workbooks, there are some changes that will affect the PHPExcel_Cell object
 methods.
 
 The following methods are now deprecated, and will be removed in or after version 1.8.0:
@@ -81,13 +82,13 @@ The following methods will be added in version 1.8.0
                                   value if the cell doesn't contain a formula, or
                                   is not part of an array formula range.
     setFormula()              Use to set a cell formula. It will still be possible
-                                  to set formulae using the setValue() and 
+                                  to set formulae using the setValue() and
                                   setValueExplicit() methods.
     calculate()               Use to execute a formula calculation to update the
                                   cell value.
     isFormula()               Use to determine if a cell contains a formula, or is
                                   part of an array formula range or not.
-    isArrayFormula()          Use to determine if a cell contains an array formula, 
+    isArrayFormula()          Use to determine if a cell contains an array formula,
                                  or is part of an array formula range or not.
     getArrayFormulaRange()    Use to retrieve an array formula range.
 
@@ -98,7 +99,7 @@ The following methods will be changed in version 1.8.0
     setValueExplicit()        The logic behind this will be modified to store
                                   formula values in the new cell property structure,
                                   but it will still perform the same function.
-    getValue()                Will no longer return a formula if the cell contains 
+    getValue()                Will no longer return a formula if the cell contains
                                   a formula, but will return the calculated value
                                   instead. For cells that don't contain a formula,
                                   it will still return the stored value.
@@ -178,7 +179,7 @@ The following methods will be changed in version 1.8.0
 - General:  (MBaker)    Reduce cell caching overhead using dirty flag to ensure that cells are only rewritten to the cache if they have actually been changed
 - General:  (MBaker)    Improved memory usage in CSV Writer
 - General:  (MBaker)    Improved speed and memory usage in Excel5 Writer
-- General:  (MBaker)    Experimental - 
+- General:  (MBaker)    Experimental -
                         Added getHighestDataColumn(), getHighestDataRow(), getHighestRowAndColumn() and calculateWorksheetDataDimension() methods for the worksheet that return the highest row and column that have cell records
 - General:  (MBaker)    Change iterators to implement Iterator rather than extend CachingIterator, as a fix for PHP 5.4. changes in SPL
 - Bugfix:   (MBaker)    Work item 15459 - Invalid cell coordinate in Autofilter for Excel2007 Writer
