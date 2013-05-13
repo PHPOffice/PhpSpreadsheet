@@ -12,7 +12,7 @@ $autoFilter = $objPHPExcel->getActiveSheet()->getAutoFilter();
 $columnFilter = $autoFilter->getColumn('C');
 ```
 
-This returns an autoFilter column object, and you can then apply filters to that column.
+This returns an autoFilter column object, and you can then apply filter expressions to that column.
 
 There are a number of different types of autofilter expressions. The most commonly used are:
 
@@ -24,3 +24,4 @@ There are a number of different types of autofilter expressions. The most common
 
 These different types are mutually exclusive within any single column. You should not mix the different types of filter in the same column. PHPExcel will not actively prevent you from doing this, but the results are unpredictable.
 
+Other filter expression types (such as cell colour filters) are not yet supported.

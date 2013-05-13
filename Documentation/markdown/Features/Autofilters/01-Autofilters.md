@@ -14,6 +14,6 @@ To determine if a filter is applied, note the icon in the column heading. A drop
 ![01-02-autofilter.png](./images/01-02-autofilter.png "")
 
 
-A Filter button (![01-03-filter-icon-2.png](./images/01-03-filter-icon-2.png "")) means that a filter is applied. When you hover over the heading of a filtered column, a screen tip displays the filter applied to that column, such as "Equals a red cell color" or "Larger than 150".
+A Filter button (![01-03-filter-icon-2.png](./images/01-03-filter-icon-2.png "")) means that a filter is applied. When you hover over the heading of a filtered column, a screen tip displays the filter that has been applied to that column, such as "Equals a red cell color" or "Larger than 150".
 
 ![01-04-autofilter.png](./images/01-04-autofilter.png "")
