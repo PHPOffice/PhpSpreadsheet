@@ -1,78 +1,84 @@
-ABS                     CATEGORY_MATH_AND_TRIG          abs
-ACCRINT                 CATEGORY_FINANCIAL              PHPExcel_Calculation_Financial::ACCRINT
-ACCRINTM                CATEGORY_FINANCIAL              PHPExcel_Calculation_Financial::ACCRINTM
-ACOS                    CATEGORY_MATH_AND_TRIG          acos
-ACOSH                   CATEGORY_MATH_AND_TRIG          acosh
-ADDRESS                 CATEGORY_LOOKUP_AND_REFERENCE   PHPExcel_Calculation_LookupRef::CELL_ADDRESS
-AMORDEGRC               CATEGORY_FINANCIAL              PHPExcel_Calculation_Financial::AMORDEGRC
-AMORLINC                CATEGORY_FINANCIAL              PHPExcel_Calculation_Financial::AMORLINC
-AND                     CATEGORY_LOGICAL                PHPExcel_Calculation_Logical::LOGICAL_AND
-AREAS                   CATEGORY_LOOKUP_AND_REFERENCE   ***  Not yet Implemented
-ASC                     CATEGORY_TEXT_AND_DATA          ***  Not yet Implemented
-ASIN                    CATEGORY_MATH_AND_TRIG          asin
-ASINH                   CATEGORY_MATH_AND_TRIG          asinh
-ATAN                    CATEGORY_MATH_AND_TRIG          atan
-ATAN2                   CATEGORY_MATH_AND_TRIG          PHPExcel_Calculation_MathTrig::REVERSE_ATAN2
-ATANH                   CATEGORY_MATH_AND_TRIG          atanh
-AVEDEV                  CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::AVEDEV
-AVERAGE                 CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::AVERAGE
-AVERAGEA                CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::AVERAGEA
-AVERAGEIF               CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::AVERAGEIF
-AVERAGEIFS              CATEGORY_STATISTICAL            ***  Not yet Implemented
+    Excel Function      | Category                       | PHPExcel Function
+    --------------------|--------------------------------|-------------------------------------------
+    ABS                 | CATEGORY_MATH_AND_TRIG         | abs
+    ACCRINT             | CATEGORY_FINANCIAL             | PHPExcel_Calculation_Financial::ACCRINT
+    ACCRINTM            | CATEGORY_FINANCIAL             | PHPExcel_Calculation_Financial::ACCRINTM
+    ACOS                | CATEGORY_MATH_AND_TRIG         | acos
+    ACOSH               | CATEGORY_MATH_AND_TRIG         | acosh
+    ADDRESS             | CATEGORY_LOOKUP_AND_REFERENCE  | PHPExcel_Calculation_LookupRef::CELL_ADDRESS
+    AMORDEGRC           | CATEGORY_FINANCIAL             | PHPExcel_Calculation_Financial::AMORDEGRC
+    AMORLINC            | CATEGORY_FINANCIAL             | PHPExcel_Calculation_Financial::AMORLINC
+    AND                 | CATEGORY_LOGICAL               | PHPExcel_Calculation_Logical::LOGICAL_AND
+    AREAS               | CATEGORY_LOOKUP_AND_REFERENCE  | ***  Not yet Implemented
+    ASC                 | CATEGORY_TEXT_AND_DATA         | ***  Not yet Implemented
+    ASIN                | CATEGORY_MATH_AND_TRIG         | asin
+    ASINH               | CATEGORY_MATH_AND_TRIG         | asinh
+    ATAN                | CATEGORY_MATH_AND_TRIG         | atan
+    ATAN2               | CATEGORY_MATH_AND_TRIG         | PHPExcel_Calculation_MathTrig::REVERSE_ATAN2
+    ATANH               | CATEGORY_MATH_AND_TRIG         | atanh
+    AVEDEV              | CATEGORY_STATISTICAL           | PHPExcel_Calculation_Statistical::AVEDEV
+    AVERAGE             | CATEGORY_STATISTICAL           | PHPExcel_Calculation_Statistical::AVERAGE
+    AVERAGEA            | CATEGORY_STATISTICAL           | PHPExcel_Calculation_Statistical::AVERAGEA
+    AVERAGEIF           | CATEGORY_STATISTICAL           | PHPExcel_Calculation_Statistical::AVERAGEIF
+    AVERAGEIFS          | CATEGORY_STATISTICAL           | ***  Not yet Implemented
 
-BAHTTEXT                CATEGORY_TEXT_AND_DATA          ***  Not yet Implemented
-BESSELI                 CATEGORY_ENGINEERING            PHPExcel_Calculation_Engineering::BESSELI
-BESSELJ                 CATEGORY_ENGINEERING            PHPExcel_Calculation_Engineering::BESSELJ
-BESSELK                 CATEGORY_ENGINEERING            PHPExcel_Calculation_Engineering::BESSELK
-BESSELY                 CATEGORY_ENGINEERING            PHPExcel_Calculation_Engineering::BESSELY
-BETADIST                CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::BETADIST
-BETAINV                 CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::BETAINV
-BIN2DEC                 CATEGORY_ENGINEERING            PHPExcel_Calculation_Engineering::BINTODEC
-BIN2HEX                 CATEGORY_ENGINEERING            PHPExcel_Calculation_Engineering::BINTOHEX
-BIN2OCT                 CATEGORY_ENGINEERING            PHPExcel_Calculation_Engineering::BINTOOCT
-BINOMDIST               CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::BINOMDIST
+    Excel Function      | Category                       | PHPExcel Function
+    --------------------|--------------------------------|-------------------------------------------
+    BAHTTEXT            | CATEGORY_TEXT_AND_DATA         | ***  Not yet Implemented
+    BESSELI             | CATEGORY_ENGINEERING           | PHPExcel_Calculation_Engineering::BESSELI
+    BESSELJ             | CATEGORY_ENGINEERING           | PHPExcel_Calculation_Engineering::BESSELJ
+    BESSELK             | CATEGORY_ENGINEERING           | PHPExcel_Calculation_Engineering::BESSELK
+    BESSELY             | CATEGORY_ENGINEERING           | PHPExcel_Calculation_Engineering::BESSELY
+    BETADIST            | CATEGORY_STATISTICAL           | PHPExcel_Calculation_Statistical::BETADIST
+    BETAINV             | CATEGORY_STATISTICAL           | PHPExcel_Calculation_Statistical::BETAINV
+    BIN2DEC             | CATEGORY_ENGINEERING           | PHPExcel_Calculation_Engineering::BINTODEC
+    BIN2HEX             | CATEGORY_ENGINEERING           | PHPExcel_Calculation_Engineering::BINTOHEX
+    BIN2OCT             | CATEGORY_ENGINEERING           | PHPExcel_Calculation_Engineering::BINTOOCT
+    BINOMDIST           | CATEGORY_STATISTICAL           | PHPExcel_Calculation_Statistical::BINOMDIST
 
-CEILING                 CATEGORY_MATH_AND_TRIG          PHPExcel_Calculation_MathTrig::CEILING
-CELL                    CATEGORY_INFORMATION            ***  Not yet Implemented
-CHAR                    CATEGORY_TEXT_AND_DATA          PHPExcel_Calculation_TextData::CHARACTER
-CHIDIST                 CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::CHIDIST
-CHIINV                  CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::CHIINV
-CHITEST                 CATEGORY_STATISTICAL            ***  Not yet Implemented
-CHOOSE                  CATEGORY_LOOKUP_AND_REFERENCE   PHPExcel_Calculation_LookupRef::CHOOSE
-CLEAN                   CATEGORY_TEXT_AND_DATA          PHPExcel_Calculation_TextData::TRIMNONPRINTABLE
-CODE                    CATEGORY_TEXT_AND_DATA          PHPExcel_Calculation_TextData::ASCIICODE
-COLUMN                  CATEGORY_LOOKUP_AND_REFERENCE   PHPExcel_Calculation_LookupRef::COLUMN
-COLUMNS                 CATEGORY_LOOKUP_AND_REFERENCE   PHPExcel_Calculation_LookupRef::COLUMNS
-COMBIN                  CATEGORY_MATH_AND_TRIG          PHPExcel_Calculation_MathTrig::COMBIN
-COMPLEX                 CATEGORY_ENGINEERING            PHPExcel_Calculation_Engineering::COMPLEX
-CONCATENATE             CATEGORY_TEXT_AND_DATA          PHPExcel_Calculation_TextData::CONCATENATE
-CONFIDENCE              CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::CONFIDENCE
-CONVERT                 CATEGORY_ENGINEERING            PHPExcel_Calculation_Engineering::CONVERTUOM
-CORREL                  CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::CORREL
-COS                     CATEGORY_MATH_AND_TRIG          cos
-COSH                    CATEGORY_MATH_AND_TRIG          cosh
-COUNT                   CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::COUNT
-COUNTA                  CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::COUNTA
-COUNTBLANK              CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::COUNTBLANK
-COUNTIF                 CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::COUNTIF
-COUNTIFS                CATEGORY_STATISTICAL            ***  Not yet Implemented
-COUPDAYBS               CATEGORY_FINANCIAL              PHPExcel_Calculation_Financial::COUPDAYBS
-COUPDAYS                CATEGORY_FINANCIAL              PHPExcel_Calculation_Financial::COUPDAYS
-COUPDAYSNC              CATEGORY_FINANCIAL              PHPExcel_Calculation_Financial::COUPDAYSNC
-COUPNCD                 CATEGORY_FINANCIAL              PHPExcel_Calculation_Financial::COUPNCD
-COUPNUM                 CATEGORY_FINANCIAL              PHPExcel_Calculation_Financial::COUPNUM
-COUPPCD                 CATEGORY_FINANCIAL              PHPExcel_Calculation_Financial::COUPPCD
-COVAR                   CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::COVAR
-CRITBINOM               CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::CRITBINOM
-CUBEKPIMEMBER           CATEGORY_CUBE                   ***  Not yet Implemented
-CUBEMEMBER              CATEGORY_CUBE                   ***  Not yet Implemented
-CUBEMEMBERPROPERTY      CATEGORY_CUBE                   ***  Not yet Implemented
-CUBERANKEDMEMBER        CATEGORY_CUBE                   ***  Not yet Implemented
-CUBESET                 CATEGORY_CUBE                   ***  Not yet Implemented
-CUBESETCOUNT            CATEGORY_CUBE                   ***  Not yet Implemented
-CUBEVALUE               CATEGORY_CUBE                   ***  Not yet Implemented
-CUMIPMT                 CATEGORY_FINANCIAL              PHPExcel_Calculation_Financial::CUMIPMT
-CUMPRINC                CATEGORY_FINANCIAL              PHPExcel_Calculation_Financial::CUMPRINC
+    Excel Function      | Category                       | PHPExcel Function
+    --------------------|--------------------------------|-------------------------------------------
+    CEILING             | CATEGORY_MATH_AND_TRIG         | PHPExcel_Calculation_MathTrig::CEILING
+    CELL                | CATEGORY_INFORMATION           | ***  Not yet Implemented
+    CHAR                | CATEGORY_TEXT_AND_DATA         | PHPExcel_Calculation_TextData::CHARACTER
+    CHIDIST             | CATEGORY_STATISTICAL           | PHPExcel_Calculation_Statistical::CHIDIST
+    CHIINV              | CATEGORY_STATISTICAL           | PHPExcel_Calculation_Statistical::CHIINV
+    CHITEST             | CATEGORY_STATISTICAL           | ***  Not yet Implemented
+    CHOOSE              | CATEGORY_LOOKUP_AND_REFERENCE  | PHPExcel_Calculation_LookupRef::CHOOSE
+    CLEAN               | CATEGORY_TEXT_AND_DATA         | PHPExcel_Calculation_TextData::TRIMNONPRINTABLE
+    CODE                | CATEGORY_TEXT_AND_DATA         | PHPExcel_Calculation_TextData::ASCIICODE
+    COLUMN              | CATEGORY_LOOKUP_AND_REFERENCE  | PHPExcel_Calculation_LookupRef::COLUMN
+    COLUMNS             | CATEGORY_LOOKUP_AND_REFERENCE  | PHPExcel_Calculation_LookupRef::COLUMNS
+    COMBIN              | CATEGORY_MATH_AND_TRIG         | PHPExcel_Calculation_MathTrig::COMBIN
+    COMPLEX             | CATEGORY_ENGINEERING           | PHPExcel_Calculation_Engineering::COMPLEX
+    CONCATENATE         | CATEGORY_TEXT_AND_DATA         | PHPExcel_Calculation_TextData::CONCATENATE
+    CONFIDENCE          | CATEGORY_STATISTICAL           | PHPExcel_Calculation_Statistical::CONFIDENCE
+    CONVERT             | CATEGORY_ENGINEERING           | PHPExcel_Calculation_Engineering::CONVERTUOM
+    CORREL              | CATEGORY_STATISTICAL           | PHPExcel_Calculation_Statistical::CORREL
+    COS                 | CATEGORY_MATH_AND_TRIG         | cos
+    COSH                | CATEGORY_MATH_AND_TRIG         | cosh
+    COUNT               | CATEGORY_STATISTICAL           | PHPExcel_Calculation_Statistical::COUNT
+    COUNTA              | CATEGORY_STATISTICAL           | PHPExcel_Calculation_Statistical::COUNTA
+    COUNTBLANK          | CATEGORY_STATISTICAL           | PHPExcel_Calculation_Statistical::COUNTBLANK
+    COUNTIF             | CATEGORY_STATISTICAL           | PHPExcel_Calculation_Statistical::COUNTIF
+    COUNTIFS            | CATEGORY_STATISTICAL           | ***  Not yet Implemented
+    COUPDAYBS           | CATEGORY_FINANCIAL             | PHPExcel_Calculation_Financial::COUPDAYBS
+    COUPDAYS            | CATEGORY_FINANCIAL             | PHPExcel_Calculation_Financial::COUPDAYS
+    COUPDAYSNC          | CATEGORY_FINANCIAL             | PHPExcel_Calculation_Financial::COUPDAYSNC
+    COUPNCD             | CATEGORY_FINANCIAL             | PHPExcel_Calculation_Financial::COUPNCD
+    COUPNUM             | CATEGORY_FINANCIAL             | PHPExcel_Calculation_Financial::COUPNUM
+    COUPPCD             | CATEGORY_FINANCIAL             | PHPExcel_Calculation_Financial::COUPPCD
+    COVAR               | CATEGORY_STATISTICAL           | PHPExcel_Calculation_Statistical::COVAR
+    CRITBINOM           | CATEGORY_STATISTICAL           | PHPExcel_Calculation_Statistical::CRITBINOM
+    CUBEKPIMEMBER       | CATEGORY_CUBE                  | ***  Not yet Implemented
+    CUBEMEMBER          | CATEGORY_CUBE                  | ***  Not yet Implemented
+    CUBEMEMBERPROPERTY  | CATEGORY_CUBE                  | ***  Not yet Implemented
+    CUBERANKEDMEMBER    | CATEGORY_CUBE                  | ***  Not yet Implemented
+    CUBESET             | CATEGORY_CUBE                  | ***  Not yet Implemented
+    CUBESETCOUNT        | CATEGORY_CUBE                  | ***  Not yet Implemented
+    CUBEVALUE           | CATEGORY_CUBE                  | ***  Not yet Implemented
+    CUMIPMT             | CATEGORY_FINANCIAL             | PHPExcel_Calculation_Financial::CUMIPMT
+    CUMPRINC            | CATEGORY_FINANCIAL             | PHPExcel_Calculation_Financial::CUMPRINC
 
 DATE                    CATEGORY_DATE_AND_TIME          PHPExcel_Calculation_DateTime::DATE
 DATEDIF                 CATEGORY_DATE_AND_TIME          PHPExcel_Calculation_DateTime::DATEDIF
