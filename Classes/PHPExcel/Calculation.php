@@ -2209,7 +2209,7 @@ class PHPExcel_Calculation {
 		try {
 			return $this->calculateCellValue($pCell);
 		} catch (PHPExcel_Exception $e) {
-			throw(new PHPExcel_Calculation_Exception($e->getMessage()));
+			throw new PHPExcel_Calculation_Exception($e->getMessage());
 		}
 	}	//	function calculate()
 
@@ -2243,7 +2243,7 @@ class PHPExcel_Calculation {
 		try {
 			$result = self::_unwrapResult($this->_calculateFormulaValue($pCell->getValue(), $pCell->getCoordinate(), $pCell));
 		} catch (PHPExcel_Exception $e) {
-			throw(new PHPExcel_Calculation_Exception($e->getMessage()));
+			throw new PHPExcel_Calculation_Exception($e->getMessage());
 		}
 
 		if ((is_array($result)) && (self::$returnArrayAsType != self::RETURN_ARRAY_AS_ARRAY)) {
@@ -2323,7 +2323,7 @@ class PHPExcel_Calculation {
 		try {
 			$result = self::_unwrapResult($this->_calculateFormulaValue($formula, $cellID, $pCell));
 		} catch (PHPExcel_Exception $e) {
-			throw(new PHPExcel_Calculation_Exception($e->getMessage()));
+			throw new PHPExcel_Calculation_Exception($e->getMessage());
 		}
 
 		//	Reset calculation cacheing to its previous state
