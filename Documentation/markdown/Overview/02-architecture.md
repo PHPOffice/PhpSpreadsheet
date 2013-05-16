@@ -5,7 +5,7 @@
 
 ### Schematical
 
-
+![01-schematic.png](./images/01-schematic.png "")
 
 ### Lazy Loader
 
@@ -39,6 +39,9 @@ On its own, PHPExcel does not provide the functionality to read from or write to
 
 By default, the PHPExcel package provides some readers and writers, including one for the Open XML spreadsheet format (a.k.a. Excel 2007 file format). You are not limited to the default readers and writers, as you are free to implement the PHPExcel_Writer_IReader and PHPExcel_Writer_IWriter interface in a custom class.
 
+![02-readers-writers.png](./images/02-readers-writers.png "")
+
+
 ### Fluent interfaces
 
 PHPExcel supports fluent interfaces in most locations. This means that you can easily "chain"" calls to specific methods without requiring a new PHP statement. For example, take the following code:
@@ -63,5 +66,5 @@ $objPHPExcel->getProperties()
     ->setCategory("Test result file");
 ```
 
-__Using fluent interfaces is not required__ 
+__Using fluent interfaces is not required__  
 Fluent interfaces have been implemented to provide a convenient programming API. Use of them is not required, but can make your code easier to read and maintain. It can also improve performance, as you are reducing the overall number of calls to PHPExcel methods.

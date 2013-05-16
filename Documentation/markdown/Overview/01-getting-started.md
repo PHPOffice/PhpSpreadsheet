@@ -1,9 +1,9 @@
 # PHPExcel Developer Documentation
 
 
-## 1. Prerequisites, Installation, FAQ and Links
+## Prerequisites, Installation, FAQ and Links
 
-### 1.1 Software requirements
+### Software requirements
 
 The following software is required to develop using PHPExcel:
 
@@ -14,7 +14,7 @@ The following software is required to develop using PHPExcel:
 
  [^phpzip_footnote]: __php_zip__ is only needed by __PHPExcel_Reader_Excel2007__, __PHPExcel_Writer_Excel2007__ and __PHPExcel_Reader_OOCalc__. In other words, if you need PHPExcel to handle .xlsx or .ods files you will need the zip extension, but otherwise not. You can remove this dependency for writing Excel2007 files (though not yet for reading) by using the PCLZip library that is bundled with PHPExcel. See the FAQ section of this document for details about this. PCLZip does have a dependency on PHP's zlib extension being enabled.
 
-### 1.2 Installation instructions
+### Installation instructions
 
 Installation is quite easy: copy the contents of the Classes folder to any location within your application source directories.
 
@@ -27,7 +27,7 @@ If your web root folder is /var/www/ you may want to create a subfolder called /
 /var/www/Classes/PHPExcel/Cell.php  
 ...  
 
-### 1.3 Getting started
+### Getting started
 
 A good way to get started is to run some of the tests included in the download.  
 Copy the "Examples" folder next to your "Classes" folder from above so you end up with:
@@ -44,11 +44,11 @@ http://example.com/Tests/02types.php
 
 Note: It may be necessary to modify the include/require statements at the beginning of each of the test scripts if your "Classes" folder from above is named differently.
 
-### 1.4 Useful links and tools
+### Useful links and tools
 
 There are some links and tools which are very useful when developing using PHPExcel. Please refer to the [PHPExcel CodePlex pages][2] for an update version of the list below.
 
-#### 1.4.1 OpenXML / SpreadsheetML
+#### OpenXML / SpreadsheetML
 
  - __File format documentation__  
 [http://www.ecma-international.org/news/TC45_current_work/TC45_available_docs.htm][3]
@@ -59,7 +59,7 @@ There are some links and tools which are very useful when developing using PHPEx
  - __OpenXML Package Explorer__  
 [http://www.codeplex.com/PackageExplorer/][6]
 
-#### 1.4.2 Frequently asked questions
+#### Frequently asked questions
 
 The up-to-date F.A.Q. page for PHPExcel can be found on [http://www.codeplex.com/PHPExcel/Wiki/View.aspx?title=FAQ&referringTitle=Requirements][7].
 
@@ -140,7 +140,7 @@ The short answer is that PHPExcel uses a measure where padding is included. See 
 
 Thanks to peterrlynch for the following advice on resolving issues between the [PHPExcel autoloader and Joomla Autoloader][17]
 
-#### 1.4.3 Tutorials
+#### Tutorials
 
  - __English PHPExcel tutorial__  
    [http://openxmldeveloper.org][18]
