@@ -1,307 +1,59 @@
 # PHPExcel Developer Documentation
 
-# Creating a spreadsheet
-
-## The PHPExcel class
-
-The PHPExcel class is the core of PHPExcel. It contains references to the contained worksheets, document security settings and document meta data.
-
-To simplify the PHPExcel concept: the PHPExcel class represents your workbook.
-
-Typically, you will create a workbook in one of two ways, either by loading it from a spreadsheet file, or creating it manually. A third option, though less commonly used, is cloning an existing workbook that has been created using one of the previous two methods.
-
-### Loading a Workbook from a file
-
-Details of the different spreadsheet formats supported, and the options available to read them into a PHPExcel object are described fully in the “PHPExcel User Documentation - Reading Spreadsheet Files” document.
-
-
-$inputFileName� =� './sampleData/example1.xls';
-
-/**� Load� $inputFileName� to� a� PHPExcel� Object� � **/
-$objPHPExcel� =� PHPExcel_IOFactory::load($inputFileName);
-
-
-### Creating a new workbook
-
-If you want to create a new workbook, rather than load one from file, then you simply need to instantiate it as a new PHPExcel object.
-
-
-/**� Create a� new PHPExcel� Object� � **/
-$objPHPExcel� =� new PHPExcel();
-
-
-A new workbook will always be created with a single worksheet.
-
-## Configuration Settings
-
-Once you have included the PHPExcel files in your script, but before instantiating a PHPExcel object or loading a workbook file, there are a number of configuration options that can be set which will affect the subsequent behaviour of the script.
-
-### Cell Caching
-
-PHPExcel uses an average of about 1k/cell in your worksheets, so large workbooks can quickly use up available memory. Cell caching provides a mechanism that allows PHPExcel to maintain the cell objects in a smaller size of memory, on disk, or in APC, memcache or Wincache, rather than in PHP memory. This allows you to reduce the memory usage for large workbooks, although at a cost of speed to access cell data.
-
-By default, PHPExcel still holds all cell objects in memory, but you can specify alternatives. To enable cell caching, you must call the PHPExcel_Settings::setCacheStorageMethod() method, passing in the caching method that you wish to use.
-
-$cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_in_memory;
-
-PHPExcel_Settings::setCacheStorageMethod($cacheMethod);
-
-setCacheStorageMethod() will return a boolean true on success, false on failure (for example if trying to cache to APC when APC is not enabled).
-
-A separate cache is maintained for each individual worksheet, and is automatically created when the worksheet is instantiated based on the caching method and settings that you have configured. You cannot change the configuration settings once you have started to read a workbook, or have created your first worksheet.
-
-Currently, the following caching methods are available.
-
-PHPExcel_CachedObjectStorageFactory::cache_in_memory;
-
-The default. If you don’t initialise any caching method, then this is the method that PHPExcel will use. Cell objects are maintained in PHP memory as at present.
-
-PHPExcel_CachedObjectStorageFactory::cache_in_memory_serialized;
-
-Using this caching method, cells are held in PHP memory as an array of serialized objects, which reduces the memory footprint with minimal performance overhead.
-
-PHPExcel_CachedObjectStorageFactory::cache_in_memory_gzip;
-
-Like cache_in_memory_serialized, this method holds cells in PHP memory as an array of serialized objects, but gzipped to reduce the memory usage still further, although access to read or write a cell is slightly slower.
-
-PHPExcel_CachedObjectStorageFactory::cache_igbinary;
-
-Uses PHP’s igbinary extension (if it’s available) to serialize cell objects in memory. This is normally faster and uses less memory than standard PHP serialization, but isn’t available in most hosting environments.
-
-PHPExcel_CachedObjectStorageFactory::cache_to_discISAM;
-
-When using cache_to_discISAM all cells are held in a temporary disk file, with only an index to their location in that file maintained in PHP memory. This is slower than any of the cache_in_memory methods, but significantly reduces the memory footprint. By default, PHPExcel will use PHP’s temp directory for the cache file, but you can specify a different directory when initialising cache_to_discISAM.
-
-$cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_discISAM;
-
-$cacheSettings = array( 'dir'  => '/usr/local/tmp'
-
-);
-
-PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
-
-The temporary disk file is automatically deleted when your script terminates.
-
-PHPExcel_CachedObjectStorageFactory::cache_to_phpTemp;
-
-Like cache_to_discISAM, when using cache_to_phpTemp all cells are held in the php://temp I/O stream, with only an index to their location maintained in PHP memory. In PHP, the php://memory wrapper stores data in the memory: php://temp behaves similarly, but uses a temporary file for storing the data when a certain memory limit is reached. The default is 1 MB, but you can change this when initialising cache_to_phpTemp.
-
-$cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
-
-$cacheSettings = array( 'memoryCacheSize'  => '8MB'
-
-);
-
-PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
-
-The php://temp file is automatically deleted when your script terminates.
-
-PHPExcel_CachedObjectStorageFactory::cache_to_apc;
-
-When using cache_to_apc, cell objects are maintained in APC with only an index maintained in PHP memory to identify that the cell exists. By default, an APC cache timeout of 600 seconds is used, which should be enough for most applications: although it is possible to change this when initialising cache_to_APC.
-
-$cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_to_APC;
-
-$cacheSettings = array( 'cacheTime'        => 600
-
-);
-
-PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
-
-When your script terminates all entries will be cleared from APC, regardless of the cacheTime value, so it cannot be used for persistent storage using this mechanism.
-
-PHPExcel_CachedObjectStorageFactory::cache_to_memcache
-
-When using cache_to_memcache, cell objects are maintained in memcache with only an index maintained in PHP memory to identify that the cell exists.
-
-By default, PHPExcel looks for a memcache server on localhost at port 11211. It also sets a memcache timeout limit of 600 seconds. If you are running memcache on a different server or port, then you can change these defaults when you initialise cache_to_memcache:
-
-$cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_to_memcache;
-
-$cacheSettings = array( 'memcacheServer'  => 'localhost',
-
-'memcachePort'    => 11211,
-
-'cacheTime'       => 600
-
-);
-
-PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
-
-When your script terminates all entries will be cleared from memcache, regardless of the cacheTime value, so it cannot be used for persistent storage using this mechanism.
-
-PHPExcel_CachedObjectStorageFactory::cache_to_wincache;
-
-When using cache_to_wincache, cell objects are maintained in Wincache with only an index maintained in PHP memory to identify that the cell exists. By default, a Wincache cache timeout of 600 seconds is used, which should be enough for most applications: although it is possible to change this when initialising cache_to_wincache.
-
-$cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_to_wincache;
-
-$cacheSettings = array( 'cacheTime'        => 600
-
-);
-
-PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
-
-When your script terminates all entries will be cleared from Wincache, regardless of the cacheTime value, so it cannot be used for persistent storage using this mechanism.
-
-PHPExcel_CachedObjectStorageFactory::cache_to_sqlite;
-
-Uses an SQLite 2 in-memory database for caching cell data. Unlike other caching methods, neither cells nor an index are held in PHP memory - an indexed database table makes it unnecessary to hold any index in PHP memory – making this the most memory-efficient of the cell caching methods.
-
-PHPExcel_CachedObjectStorageFactory::cache_to_sqlite3;
-
-Uses an SQLite 3 in-memory database for caching cell data. Unlike other caching methods, neither cells nor an index are held in PHP memory - an indexed database table makes it unnecessary to hold any index in PHP memory – making this the most memory-efficient of the cell caching methods.
-
-### Language/Locale
-
-Some localisation elements have been included in PHPExcel. You can set a locale by changing the settings. To set the locale to Brazilian Portuguese you would use:
-
-$locale = 'pt_br';
-
-$validLocale = PHPExcel_Settings::setLocale($locale);
-
-if (!$validLocale) {
-
-echo 'Unable to set locale to '.$locale." - reverting to en_us<br />\n";
-
-}
-
-If Brazilian Portuguese language files aren’t available, then the Portuguese will be enabled instead: if Portuguese language files aren’t available, then the setLocale() method will return an error, and American English (en_us) settings will be used throughout.
-
-More details of the features available once a locale has been set, including a list of the languages and locales currently supported, can be found in section  REF _Ref259954895 \r \h 4.5.5  REF _Ref259954904 \h Locale Settings for Formulae.
-
-## Clearing a Workbook from memory
-
-The PHPExcel object contains cyclic references (e.g. the workbook is linked to the worksheets, and the worksheets are linked to their parent workbook) which cause problems when PHP tries to clear the objects from memory when they are unset(), or at the end of a function when they are in local scope. The result of this is “memory leaks”, which can easily use a large amount of PHP’s limited memory.
-
-This can only be resolved manually: if you need to unset a workbook, then you also need to “break” these cyclic references before doing so. PHPExcel provides the disconnectWorksheets() method for this purpose.
-
-$objPHPExcel->disconnectWorksheets();
-
-unset($objPHPExcel);
-
-## Worksheets
-
-A worksheet is a collection of cells, formula’s, images, graphs, … It holds all data necessary to represent as a spreadsheet worksheet.
-
-When you load a workbook from a spreadsheet file, it will be loaded with all its existing worksheets (unless you specified that only certain sheets should be loaded). When you load from non-spreadsheet files (such as a CSV or HTML file) or from spreadsheet formats that don’t identify worksheets by name (such as SYLK), then a single worksheet called “WorkSheet” will be created containing the data from that file.
-
-When you instantiate a new workbook, PHPExcel will create it with a single worksheet called “WorkSheet”.
-
-The getSheetCount() method will tell you the number of worksheets in the workbook; while the getSheetNames() method will return a list of all worksheets in the workbook, indexed by the order in which their “tabs” would appear when opened in MS Excel (or other appropriate Spreadsheet program).
-
-Individual worksheets can be accessed by name, or by their index position in the workbook. The index position represents the order that each worksheet “tab” is shown when the workbook is opened in MS Excel (or other appropriate Spreadsheet program). To access a sheet by its index, use the getSheet() method.
-
-// Get the second sheet in the workbook
-
-// Note that sheets are indexed from 0
-
-$objPHPExcel->getSheet(1);
-
-If you don’t specify a sheet index, then the first worksheet will be returned.
-
-Methods also exist allowing you to reorder the worksheets in the workbook.
-
-To access a sheet by name, use the getSheetByName() method, specifying the name of the worksheet that you want to access.
-
-// Retrieve the worksheet called 'Worksheet 1'
-
-$objPHPExcel->getSheetByName('Worksheet 1');
-
-Alternatively, one worksheet is always the currently active worksheet, and you can access that directly. The currently active worksheet is the one that will be active when the workbook is opened in MS Excel (or other appropriate Spreadsheet program).
-
-// Retrieve the current active worksheet
-
-$objPHPExcel->getActiveSheet();
-
-You can change the currently active sheet by index or by name using the setActiveSheetIndex() and setActiveSheetIndexByName()methods.
-
-### Adding a new Worksheet
-
-You can add a new worksheet to the workbook using the createSheet() method of the PHPExcel object. By default, this will be created as a new “last” sheet; but you can also specify an index position as an argument, and the worksheet will be inserted at that position, shuffling all subsequent worksheets in the collection down a place.
-
-$objPHPExcel->createSheet();
-
-A new worksheet created using this method will be called “Worksheet” or “Worksheet<n>” where “<n>” is the lowest number possible to guarantee that the title is unique.
-
-Alternatively, you can instantiate a new worksheet (setting the title to whatever you choose) and then insert it into your workbook using the addSheet() method.
-
-// Create a new worksheet called “My Data”
-
-$myWorkSheet = new PHPExcel_Worksheet($objPHPExcel, 'My Data');
-
-// Attach the “My Data” worksheet as the first worksheet in the PHPExcel object
-
-$objPHPExcel->addSheet($myWorkSheet, 0);
-
-If you don’t specify an index position as the second argument, then the new worksheet will be added after the last existing worksheet.
-
-### Copying Worksheets
-
-Sheets within the same workbook can be copied by creating a clone of the worksheet you wish to copy, and then using the addSheet() method to insert the clone into the workbook.
-
-$objClonedWorksheet = clone $objPHPExcel->getSheetByName('Worksheet 1');
-
-$objClonedWorksheet->setTitle('Copy of Worksheet 1')
-
-$objPHPExcel->addSheet($objClonedWorksheet);
-
-You can also copy worksheets from one workbook to another, though this is more complex as PHPExcel also has to replicate the styling between the two workbooks. The addExternalSheet() method is provided for this purpose.
-
-$objClonedWorksheet = clone $objPHPExcel1->getSheetByName('Worksheet 1');
-
-$objPHPExcel->addExternalSheet($objClonedWorksheet);
-
-In both cases, it is the developer’s responsibility to ensure that worksheet names are not duplicated. PHPExcel will throw an exception if you attempt to copy worksheets that will result in a duplicate name.
-
-### Removing a Worksheet
-
-You can delete a worksheet from a workbook, identified by its index position, using the removeSheetByIndex() method
-
-$sheetIndex = $objPHPExcel->getIndex($objPHPExcel-> getSheetByName('Worksheet 1'));
-
-$objPHPExcel->removeSheetByIndex($sheetIndex);
-
-If the currently active worksheet is deleted, then the sheet at the previous index position will become the currently active sheet.
-
 ## Accessing cells
 
 Accessing cells in a PHPExcel worksheet should be pretty straightforward. This topic lists some of the options to access a cell.
 
 ### Setting a cell value by coordinate
 
-Setting a cell value by coordinate can be done using the worksheet’s setCellValue method.
+Setting a cell value by coordinate can be done using the worksheet's `setCellValue()` method.
 
+```php
+// Set cell B8
 $objPHPExcel->getActiveSheet()->setCellValue('B8', 'Some value');
+```
+
+Will set cell B8 in the currently active worksheet to a string value of "Some Value"
 
 ### Retrieving a cell by coordinate
 
-To retrieve the value of a cell, the cell should first be retrieved from the worksheet using the getCell method. A cell’s value can be read again using the following line of code:
+To retrieve the value of a cell, the cell should first be retrieved from the worksheet using the `getCell()` method. A cell's value can be read again using the following line of code:
 
+```php
+// Get cell B8
 $objPHPExcel->getActiveSheet()->getCell('B8')->getValue();
+```
 
-If you need the calculated value of a cell, use the following code. This is further explained in  REF _Ref191885372 \w \h  \* MERGEFORMAT 4.4.35.
+If a cell contains a formula, and you need to retrieve the calculated value rather than the formula itself, then use the following code. This is further explained in .
 
+```php
+// Get cell B8
 $objPHPExcel->getActiveSheet()->getCell('B8')->getCalculatedValue();
+```
 
 ### Setting a cell value by column and row
 
 Setting a cell value by coordinate can be done using the worksheet’s setCellValueByColumnAndRow method.
 
+```php
 // Set cell B8
 $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1, 8, 'Some value');
+```
 
 ### Retrieving a cell by column and row
 
 To retrieve the value of a cell, the cell should first be retrieved from the worksheet using the getCellByColumnAndRow method. A cell’s value can be read again using the following line of code:
 
+```php
 // Get cell B8
 $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, 8)->getValue();
+```
+If you need the calculated value of a cell, use the following code. This is further explained in .
 
-If you need the calculated value of a cell, use the following code. This is further explained in  REF _Ref191885372 \w \h 4.4.35
-
+```php
 // Get cell B8
 $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, 8)->getCalculatedValue();
+```
 
 ### Looping cells
 
@@ -311,47 +63,32 @@ The easiest way to loop cells is by using iterators. Using iterators, one can us
 
 Below is an example where we read all the values in a worksheet and display them in a table.
 
-<?php
-
+```php
 $objReader = PHPExcel_IOFactory::createReader('Excel2007');
-
 $objReader->setReadDataOnly(true);
-
 $objPHPExcel = $objReader->load("test.xlsx");
 
 $objWorksheet = $objPHPExcel->getActiveSheet();
 
 echo '<table>' . "\n";
-
 foreach ($objWorksheet->getRowIterator() as $row) {
-
-echo '<tr>' . "\n";
-
-$cellIterator = $row->getCellIterator();
-
-$cellIterator->setIterateOnlyExistingCells(false); // This loops all cells,
-                                                     // even if it is not set.
-                                                     // By default, only cells
-                                                     // that are set will be
-                                                     // iterated.
-
-foreach ($cellIterator as $cell) {
-
-echo '<td>' . $cell->getValue() . '</td>' . "\n";
-
-}
-
-echo '</tr>' . "\n";
-
+    echo '<tr>' . "\n";
+    $cellIterator = $row->getCellIterator();
+    $cellIterator->setIterateOnlyExistingCells(FALSE); // This loops all cells,even if a cell is not set.
+                                                       // By default, only cells that are set will be iterated.
+    foreach ($cellIterator as $cell) {
+        echo '<td>' . $cell->getValue() . '</td>' . "\n";
+    }
+    echo '</tr>' . "\n";
 }
 
 echo '</table>' . "\n";
-?>
+```
 
-Note that we have set the cell iterator’s setIterateOnlyExistingCells() to false. This makes the iterator loop all cells, even if they were not set before.
+Note that we have set the cell iterator's `setIterateOnlyExistingCells()` to FALSE. This makes the iterator loop all cells, even if they were not set before.
 
-__The cell iterator will return ____null____ as the cell if it is not set in the worksheet.__
-Setting the cell iterator’s setIterateOnlyExistingCells()to false will loop all cells in the worksheet that can be available at that moment. This will create new cells if required and increase memory usage! Only use it if it is intended to loop all cells that are possibly available.
+__The cell iterator will return ____NULL____ as the cell if it is not set in the worksheet.__
+Setting the cell iterator's setIterateOnlyExistingCells() to FALSE will loop all cells in the worksheet that can be available at that moment. This will create new cells if required and increase memory usage! Only use it if it is intended to loop all cells that are possibly available.
 
 #### Looping cells using indexes
 
