@@ -1,51 +1,5 @@
 # PHPExcel Developer Documentation
 
-## Using the PHPExcel calculation engine
-
-### Performing formula calculations
-
-As PHPExcel represents an in-memory spreadsheet, it also offers formula calculation capabilities. A cell can be of a value type (containing a number or text), or a formula type (containing a formula which can be evaluated). For example, the formula "=SUM(A1:A10)" evaluates to the sum of values in A1, A2, ..., A10.
-
-To calculate a formula, you can call the cell containing the formula’s method getCalculatedValue(), for example:
-
-$objPHPExcel->getActiveSheet()->getCell('E11')->getCalculatedValue();
-
-If you write the following line of code in the invoice demo included with PHPExcel, it evaluates to the value "64":
-
-
-
-Another nice feature of PHPExcel's formula parser, is that it can automatically adjust a formula when inserting/removing rows/columns. Here's an example:
-
-
-
-You see that the formula contained in cell E11 is "SUM(E4:E9)". Now, when I write the following line of code, two new product lines are added:
-
-$objPHPExcel->getActiveSheet()->insertNewRowBefore(7, 2);
-
-
-
-Did you notice? The formula in the former cell E11 (now E13, as I inserted 2 new rows), changed to "SUM(E4:E11)". Also, the inserted cells duplicate style information of the previous cell, just like Excel's behaviour. Note that you can both insert rows and columns.
-
-## Known limitations
-
-There are some known limitations to the PHPExcel calculation engine. Most of them are due to the fact that an Excel formula is converted into PHP code before being executed. This means that Excel formula calculation is subject to PHP's language characteristics.
-
-### Operator precedence
-
-In Excel '+' wins over '&', just like '*' wins over '+' in ordinary algebra. The former rule is not what one finds using the calculation engine shipped with PHPExcel.
-
-Reference for operator precedence in Excel:
-
-Reference for operator precedence in PHP:
-
-### Formulas involving numbers and text
-
-Formulas involving numbers and text may produce unexpected results or even unreadable file contents. For example, the formula '=3+"Hello "' is expected to produce an error in Excel (#VALUE!). Due to the fact that PHP converts “Hello” to a numeric value (zero), the result of this formula is evaluated as 3 instead of evaluating as an error. This also causes the Excel document being generated as containing unreadable content.
-
-Reference for this behaviour in PHP:
-
-[http://be.php.net/manual/en/language.types.string.php#language.types.string.conversion][20]
-
 ## Reading and writing to file
 
 As you already know from part  REF _Ref191885438 \w \h 3.3  REF _Ref191885438 \h Readers and writers, reading and writing to a persisted storage is not possible using the base PHPExcel classes. For this purpose, PHPExcel provides readers and writers, which are implementations of PHPExcel_Writer_IReader and PHPExcel_Writer_IWriter.
@@ -64,22 +18,26 @@ Automatic file type resolving checks the different PHPExcel_Reader_IReader distr
 
 You can create a PHPExcel_Reader_IReader instance using PHPExcel_IOFactory in automatic file type resolving mode using the following code sample:
 
+```php
 $objPHPExcel = PHPExcel_IOFactory::load("05featuredemo.xlsx");
+```
 
 A typical use of this feature is when you need to read files uploaded by your users, and you don’t know whether they are uploading xls or xlsx files.
 
 If you need to set some properties on the reader, (e.g. to only read data, see more about this later), then you may instead want to use this variant:
 
+```php
 $objReader = PHPExcel_IOFactory::createReaderForFile("05featuredemo.xlsx");
-
 $objReader->setReadDataOnly(true);
-
 $objReader->load("05featuredemo.xlsx");
+```
 
 You can create a PHPExcel_Reader_IReader instance using PHPExcel_IOFactory in explicit mode using the following code sample:
 
+```php
 $objReader = PHPExcel_IOFactory::createReader("Excel2007");
 $objPHPExcel = $objReader->load("05featuredemo.xlsx");
+```
 
 Note that automatic type resolving mode is slightly slower than explicit mode.
 
@@ -87,8 +45,10 @@ Note that automatic type resolving mode is slightly slower than explicit mode.
 
 You can create a PHPExcel_Writer_Iwriter instance using PHPExcel_IOFactory:
 
+```php
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007");
 $objWriter->save("05featuredemo.xlsx");
+```
 
 ### Excel 2007 (SpreadsheetML) file format
 
@@ -100,29 +60,30 @@ Excel2007 file format is the main file format of PHPExcel. It allows outputting 
 
 You can read an .xlsx file using the following code:
 
+```php
 $objReader = new PHPExcel_Reader_Excel2007();
-
 $objPHPExcel = $objReader->load("05featuredemo.xlsx");
+```
 
 ##### Read data only
 
 You can set the option setReadDataOnly on the reader, to instruct the reader to ignore styling, data validation, … and just read cell data:
 
+```php
 $objReader = new PHPExcel_Reader_Excel2007();
-
 $objReader->setReadDataOnly(true);
-
 $objPHPExcel = $objReader->load("05featuredemo.xlsx");
+```
 
 ##### Read specific sheets only
 
 You can set the option setLoadSheetsOnly on the reader, to instruct the reader to only load the sheets with a given name:
 
+```php
 $objReader = new PHPExcel_Reader_Excel2007();
-
 $objReader->setLoadSheetsOnly( array("Sheet 1", "My special sheet") );
-
 $objPHPExcel = $objReader->load("05featuredemo.xlsx");
+```
 
 ##### Read specific cells only
 
@@ -130,30 +91,22 @@ You can set the option setReadFilter on the reader, to instruct the reader to on
 
 The following code will only read row 1 and rows 20 – 30 of any sheet in the Excel file:
 
-class MyReadFilter implements PHPExcel_Reader_IReadFilter
+```php
+class MyReadFilter implements PHPExcel_Reader_IReadFilter {
 
-{
-
-public function readCell($column, $row, $worksheetName = '') {
-
-// Read title row and rows 20 - 30
-
-if ($row == 1 || ($row >= 20 && $row <= 30)) {
-
-return true;
-
-}
-
-return false;
-
-}
-
+    public function readCell($column, $row, $worksheetName = '') {
+        // Read title row and rows 20 - 30
+        if ($row == 1 || ($row >= 20 && $row <= 30)) {
+            return true;
+        }
+        return false;
+    }
 }
 
 $objReader = new PHPExcel_Reader_Excel2007();
-
 $objReader->setReadFilter( new MyReadFilter() );
 $objPHPExcel = $objReader->load("06largescale.xlsx");
+```
 
 #### PHPExcel_Writer_Excel2007
 
@@ -161,27 +114,30 @@ $objPHPExcel = $objReader->load("06largescale.xlsx");
 
 You can write an .xlsx file using the following code:
 
+```php
 $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
-
 $objWriter->save("05featuredemo.xlsx");
+```
 
 ##### Formula pre-calculation
 
 By default, this writer pre-calculates all formulas in the spreadsheet. This can be slow on large spreadsheets, and maybe even unwanted. You can however disable formula pre-calculation:
 
+```php
 $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
 $objWriter->setPreCalculateFormulas(false);
-
 $objWriter->save("05featuredemo.xlsx");
+```
 
 ##### Office 2003 compatibility pack
 
 Because of a bug in the Office2003 compatibility pack, there can be some small issues when opening Excel2007 spreadsheets (mostly related to formula calculation). You can enable Office2003 compatibility with the following code:
 
+```
 $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
 $objWriter->setOffice2003Compatibility(true);
-
 $objWriter->save("05featuredemo.xlsx");
+```
 
 __Office2003 compatibility should only be used when needed__
 Office2003 compatibility option should only be used when needed. This option disables several Office2007 file format options, resulting in a lower-featured Office2007 spreadsheet when this option is used.
@@ -201,60 +157,53 @@ Please note that BIFF file format has some limits regarding to styling cells and
 
 You can read an .xls file using the following code:
 
+```php
 $objReader = new PHPExcel_Reader_Excel5();
-
 $objPHPExcel = $objReader->load("05featuredemo.xls");
+```
 
 ##### Read data only
 
 You can set the option setReadDataOnly on the reader, to instruct the reader to ignore styling, data validation, … and just read cell data:
 
+```php
 $objReader = new PHPExcel_Reader_Excel5();
-
 $objReader->setReadDataOnly(true);
-
 $objPHPExcel = $objReader->load("05featuredemo.xls");
+```
 
 ##### Read specific sheets only
 
 You can set the option setLoadSheetsOnly on the reader, to instruct the reader to only load the sheets with a given name:
 
+```php
 $objReader = new PHPExcel_Reader_Excel5();
-
 $objReader->setLoadSheetsOnly( array("Sheet 1", "My special sheet") );
-
 $objPHPExcel = $objReader->load("05featuredemo.xls");
+```
 
 ##### Read specific cells only
 
 You can set the option setReadFilter on the reader, to instruct the reader to only load the cells which match a given rule. A read filter can be any class which implements PHPExcel_Reader_IReadFilter. By default, all cells are read using the PHPExcel_Reader_DefaultReadFilter.
 
-The following code will only read row 1 and rows 20 – 30 of any sheet in the Excel file:
+The following code will only read row 1 and rows 20 to 30 of any sheet in the Excel file:
 
-class MyReadFilter implements PHPExcel_Reader_IReadFilter
+```php
+class MyReadFilter implements PHPExcel_Reader_IReadFilter {
 
-{
-
-public function readCell($column, $row, $worksheetName = '') {
-
-// Read title row and rows 20 - 30
-
-if ($row == 1 || ($row >= 20 && $row <= 30)) {
-
-return true;
-
-}
-
-return false;
-
-}
-
+    public function readCell($column, $row, $worksheetName = '') {
+        // Read title row and rows 20 - 30
+        if ($row == 1 || ($row >= 20 && $row <= 30)) {
+            return true;
+        }
+        return false;
+    }
 }
 
 $objReader = new PHPExcel_Reader_Excel5();
-
 $objReader->setReadFilter( new MyReadFilter() );
 $objPHPExcel = $objReader->load("06largescale.xls");
+```
 
 #### PHPExcel_Writer_Excel5
 
@@ -262,9 +211,10 @@ $objPHPExcel = $objReader->load("06largescale.xls");
 
 You can write an .xls file using the following code:
 
+```php
 $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel);
-
 $objWriter->save("05featuredemo.xls");
+```
 
 ### Excel 2003 XML file format
 
@@ -277,42 +227,36 @@ Please note that Excel 2003 XML format has some limits regarding to styling cell
 
 ##### Reading a spreadsheet
 
-You can read an .xml file using the following code:
+You can read an Excel 2003 .xml file using the following code:
 
+```php
 $objReader = new PHPExcel_Reader_Excel2003XML();
-
 $objPHPExcel = $objReader->load("05featuredemo.xml");
+```
 
 ##### Read specific cells only
 
 You can set the option setReadFilter on the reader, to instruct the reader to only load the cells which match a given rule. A read filter can be any class which implements PHPExcel_Reader_IReadFilter. By default, all cells are read using the PHPExcel_Reader_DefaultReadFilter.
 
-The following code will only read row 1 and rows 20 – 30 of any sheet in the Excel file:
+The following code will only read row 1 and rows 20 to 30 of any sheet in the Excel file:
 
-class MyReadFilter implements PHPExcel_Reader_IReadFilter
+```php
+class MyReadFilter implements PHPExcel_Reader_IReadFilter {
 
-{
-
-public function readCell($column, $row, $worksheetName = '') {
-
-// Read title row and rows 20 - 30
-
-if ($row == 1 || ($row >= 20 && $row <= 30)) {
-
-return true;
-
-}
-
-return false;
-
-}
+    public function readCell($column, $row, $worksheetName = '') {
+        // Read title row and rows 20 - 30
+        if ($row == 1 || ($row >= 20 && $row <= 30)) {
+            return true;
+        }
+        return false;
+    }
 
 }
 
 $objReader = new PHPExcel_Reader_Excel2003XML();
-
 $objReader->setReadFilter( new MyReadFilter() );
 $objPHPExcel = $objReader->load("06largescale.xml");
+```
 
 ### Symbolic LinK (SYLK)
 
@@ -327,44 +271,38 @@ Please note that SYLK file format has some limits regarding to styling cells and
 
 You can read an .slk file using the following code:
 
+```php
 $objReader = new PHPExcel_Reader_SYLK();
-
 $objPHPExcel = $objReader->load("05featuredemo.slk");
+```
 
 ##### Read specific cells only
 
 You can set the option setReadFilter on the reader, to instruct the reader to only load the cells which match a given rule. A read filter can be any class which implements PHPExcel_Reader_IReadFilter. By default, all cells are read using the PHPExcel_Reader_DefaultReadFilter.
 
-The following code will only read row 1 and rows 20 – 30 of any sheet in the SYLK file:
+The following code will only read row 1 and rows 20 to 30 of any sheet in the SYLK file:
 
-class MyReadFilter implements PHPExcel_Reader_IReadFilter
+```php
+class MyReadFilter implements PHPExcel_Reader_IReadFilter {
 
-{
-
-public function readCell($column, $row, $worksheetName = '') {
-
-// Read title row and rows 20 - 30
-
-if ($row == 1 || ($row >= 20 && $row <= 30)) {
-
-return true;
-
-}
-
-return false;
-
-}
+    public function readCell($column, $row, $worksheetName = '') {
+        // Read title row and rows 20 - 30
+        if ($row == 1 || ($row >= 20 && $row <= 30)) {
+            return true;
+        }
+        return false;
+    }
 
 }
 
 $objReader = new PHPExcel_Reader_SYLK();
-
 $objReader->setReadFilter( new MyReadFilter() );
 $objPHPExcel = $objReader->load("06largescale.slk");
+```
 
 ### Open/Libre Office (.ods)
 
-Open Office or Libre Office .ods files are the standard file format fopr Open Office or Libre Office Calc files.
+Open Office or Libre Office .ods files are the standard file format for Open Office or Libre Office Calc files.
 
 #### PHPExcel_Reader_OOCalc
 
@@ -372,47 +310,41 @@ Open Office or Libre Office .ods files are the standard file format fopr Open Of
 
 You can read an .ods file using the following code:
 
+```php
 $objReader = new PHPExcel_Reader_OOCalc();
-
 $objPHPExcel = $objReader->load("05featuredemo.ods");
+```
 
 ##### Read specific cells only
 
 You can set the option setReadFilter on the reader, to instruct the reader to only load the cells which match a given rule. A read filter can be any class which implements PHPExcel_Reader_IReadFilter. By default, all cells are read using the PHPExcel_Reader_DefaultReadFilter.
 
-The following code will only read row 1 and rows 20 – 30 of any sheet in the Calc file:
+The following code will only read row 1 and rows 20 to 30 of any sheet in the Calc file:
 
-class MyReadFilter implements PHPExcel_Reader_IReadFilter
+```php
+class MyReadFilter implements PHPExcel_Reader_IReadFilter {
 
-{
-
-public function readCell($column, $row, $worksheetName = '') {
-
-// Read title row and rows 20 - 30
-
-if ($row == 1 || ($row >= 20 && $row <= 30)) {
-
-return true;
-
-}
-
-return false;
-
-}
+    public function readCell($column, $row, $worksheetName = '') {
+        // Read title row and rows 20 - 30
+        if ($row == 1 || ($row >= 20 && $row <= 30)) {
+            return true;
+        }
+        return false;
+    }
 
 }
 
 $objReader = new PHPExcel_Reader_OOcalc();
-
 $objReader->setReadFilter( new MyReadFilter() );
 $objPHPExcel = $objReader->load("06largescale.ods");
+```
 
 ### CSV (Comma Separated Values)
 
 CSV (Comma Separated Values) are often used as an import/export file format with other systems. PHPExcel allows reading and writing to CSV files.
 
 __CSV limitations__
-Please note that CSV file format has some limits regarding to styling cells, number formatting, …
+Please note that CSV file format has some limits regarding to styling cells, number formatting, ...
 
 #### PHPExcel_Reader_CSV
 
@@ -422,7 +354,6 @@ You can read a .csv file using the following code:
 
 ```php
 $objReader = new PHPExcel_Reader_CSV();
-
 $objPHPExcel = $objReader->load("sample.csv");
 ```
 
@@ -473,7 +404,6 @@ You can write a .csv file using the following code:
 
 ```php
 $objWriter = new PHPExcel_Writer_CSV($objPHPExcel);
-
 $objWriter->save("05featuredemo.csv");
 ```
 
@@ -780,103 +710,5 @@ $objWriter->save('write.xls');
 
 Notice that it is ok to load an xlsx file and generate an xls file.
 
-## Credits
-
-Please refer to the internet page [http://www.codeplex.com/PHPExcel/Wiki/View.aspx?title=Credits&referringTitle=Home][22] for up-to-date credits.
-
-## Valid array keys for style applyFromArray()
-
-The following table lists the valid array keys for PHPExcel_Style applyFromArray() classes. If the "Maps to property"� column maps a key to a setter, the value provided for that key will be applied directly. If the "Maps to property" column maps a key to a getter, the value provided for that key will be applied as another style array.
-
-__PHPExcel_Style__
-
-    Array key    | Maps to property
-    -------------|-------------------
-    fill         | getFill()
-    font         | getFont()
-    borders      | getBorders()
-    alignment    | getAlignment()
-    numberformat | getNumberFormat()
-    protection   | getProtection()
-
-
-__PHPExcel_Style_Fill__
-
-    Array key  | Maps to property
-    -----------|-------------------
-    type       | setFillType()
-    rotation   | setRotation()
-    startcolor | getStartColor()
-    endcolor   | getEndColor()
-    color      | getStartColor()
-
-
-__PHPExcel_Style_Font__
-
-    Array key   | Maps to property
-    ------------|-------------------
-    name        | setName()
-    bold        | setBold()
-    italic      | setItalic()
-    underline   | setUnderline()
-    strike      | setStrikethrough()
-    color       | getColor()
-    size        | setSize()
-    superScript | setSuperScript()
-    subScript   | setSubScript()
-
-
-__PHPExcel_Style_Borders__
-
-    Array key         | Maps to property
-    ------------------|-------------------
-    allborders        | getLeft(); getRight(); getTop(); getBottom()
-    left              | getLeft()
-    right             | getRight()
-    top               | getTop()
-    bottom            | getBottom()
-    diagonal          | getDiagonal()
-    vertical          | getVertical()
-    horizontal        | getHorizontal()
-    diagonaldirection | setDiagonalDirection()
-    outline           | setOutline()
-
-
-__PHPExcel_Style_Border__
-
-    Array key | Maps to property
-    ----------|-------------------
-    style     | setBorderStyle()
-    color     | getColor()
-
-
-__PHPExcel_Style_Alignment__
-
-    Array key   | Maps to property
-    ------------|-------------------
-    horizontal  | setHorizontal()
-    vertical    | setVertical()
-    rotation    | setTextRotation()
-    wrap        | setWrapText()
-    shrinkToFit | setShrinkToFit()
-    indent      | setIndent()
-
-
-__PHPExcel_Style_NumberFormat__
-
-    Array key | Maps to property
-    ----------|-------------------
-    code      | setFormatCode()
-
-
-__PHPExcel_Style_Protection__
-
-    Array key | Maps to property
-    ----------|-------------------
-    locked    | setLocked()
-    hidden    | setHidden()
-
-
-  [20]: http://be.php.net/manual/en/language.types.string.php#language.types.string.conversion
   [21]: http://pear.php.net/package/Spreadsheet_Excel_Writer
   [22]: http://www.codeplex.com/PHPExcel/Wiki/View.aspx?title=Credits&referringTitle=Home
