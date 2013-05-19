@@ -1,5 +1,6 @@
 # PHPExcel Developer Documentation
 
+
 ## Configuration Settings
 
 Once you have included the PHPExcel files in your script, but before instantiating a PHPExcel object or loading a workbook file, there are a number of configuration options that can be set which will affect the subsequent behaviour of the script.
@@ -114,7 +115,7 @@ When your script terminates all entries will be cleared from Wincache, regardles
 
 #### PHPExcel_CachedObjectStorageFactory::cache_to_sqlite
 
-Uses an SQLite 2 "in-memory"" database for caching cell data. Unlike other caching methods, neither cells nor an index are held in PHP memory - an indexed database table makes it unnecessary to hold any index in PHP memory, which makes this the most memory-efficient of the cell caching methods.
+Uses an SQLite 2 "in-memory" database for caching cell data. Unlike other caching methods, neither cells nor an index are held in PHP memory - an indexed database table makes it unnecessary to hold any index in PHP memory, which makes this the most memory-efficient of the cell caching methods.
 
 #### PHPExcel_CachedObjectStorageFactory::cache_to_sqlite3;
 
@@ -129,11 +130,11 @@ Some localisation elements have been included in PHPExcel. You can set a locale 
 $locale = 'pt_br';
 $validLocale = PHPExcel_Settings::setLocale($locale);
 if (!$validLocale) {
-    echo 'Unable to set locale to '.$locale." - reverting to en_us<br />\n";
+    echo 'Unable to set locale to ' . $locale . " - reverting to en_us" . PHP_EOL;
 }
 ```
 
-If Brazilian Portuguese language files aren't available, then the Portuguese will be enabled instead: if Portuguese language files aren't available, then the setLocale() method will return an error, and American English (en_us) settings will be used throughout.
+If Brazilian Portuguese language files aren't available, then Portuguese will be enabled instead: if Portuguese language files aren't available, then the setLocale() method will return an error, and American English (en_us) settings will be used throughout.
 
 More details of the features available once a locale has been set, including a list of the languages and locales currently supported, can be found in the section of this document entitled "Locale Settings for Formulae".
 

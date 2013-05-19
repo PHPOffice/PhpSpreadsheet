@@ -12,7 +12,6 @@ The following software is required to develop using PHPExcel:
  - PHP extension php_xml enabled
  - PHP extension php_gd2 enabled (if not compiled in)
 
- [^phpzip_footnote]: __php_zip__ is only needed by __PHPExcel_Reader_Excel2007__, __PHPExcel_Writer_Excel2007__ and __PHPExcel_Reader_OOCalc__. In other words, if you need PHPExcel to handle .xlsx or .ods files you will need the zip extension, but otherwise not. You can remove this dependency for writing Excel2007 files (though not yet for reading) by using the PCLZip library that is bundled with PHPExcel. See the FAQ section of this document for details about this. PCLZip does have a dependency on PHP's zlib extension being enabled.
 
 ### Installation instructions
 
@@ -26,6 +25,7 @@ If your web root folder is /var/www/ you may want to create a subfolder called /
 /var/www/Classes/PHPExcel/Calculation.php  
 /var/www/Classes/PHPExcel/Cell.php  
 ...  
+
 
 ### Getting started
 
@@ -42,7 +42,8 @@ http://example.com/Tests/01simple.php
 http://example.com/Tests/02types.php  
 ...  
 
-Note: It may be necessary to modify the include/require statements at the beginning of each of the test scripts if your "Classes" folder from above is named differently.
+**Note:** It may be necessary to modify the include/require statements at the beginning of each of the test scripts if your "Classes" folder from above is named differently.
+
 
 ### Useful links and tools
 
@@ -59,7 +60,8 @@ There are some links and tools which are very useful when developing using PHPEx
  - __OpenXML Package Explorer__  
 [http://www.codeplex.com/PackageExplorer/][6]
 
-#### Frequently asked questions
+
+### Frequently asked questions
 
 The up-to-date F.A.Q. page for PHPExcel can be found on [http://www.codeplex.com/PHPExcel/Wiki/View.aspx?title=FAQ&referringTitle=Requirements][7].
 
@@ -140,6 +142,7 @@ The short answer is that PHPExcel uses a measure where padding is included. See 
 
 Thanks to peterrlynch for the following advice on resolving issues between the [PHPExcel autoloader and Joomla Autoloader][17]
 
+
 #### Tutorials
 
  - __English PHPExcel tutorial__  
@@ -172,3 +175,7 @@ Thanks to peterrlynch for the following advice on resolving issues between the [
   [19]: http://g-ernaelsten.developpez.com/tutoriels/excel2007/
   [20]: http://www.web-junior.net/sozdanie-excel-fajjlov-s-pomoshhyu-phpexcel/
   [21]: http://journal.mycom.co.jp/articles/2009/03/06/phpexcel/index.html
+
+
+[^phpzip_footnote]: __php_zip__ is only needed by __PHPExcel_Reader_Excel2007__, __PHPExcel_Writer_Excel2007__ and __PHPExcel_Reader_OOCalc__. In other words, if you need PHPExcel to handle .xlsx or .ods files you will need the zip extension, but otherwise not.<br />You can remove this dependency for writing Excel2007 files (though not yet for reading) by using the PCLZip library that is bundled with PHPExcel. See the FAQ section of this document for details about this. PCLZip does have a dependency on PHP's zlib extension being enabled.
+
