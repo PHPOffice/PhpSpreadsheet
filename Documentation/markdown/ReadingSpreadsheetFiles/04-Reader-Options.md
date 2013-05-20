@@ -31,7 +31,7 @@ Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|  
 Excel2007 | YES | Excel5 | YES | Excel2003XML | YES |  
 OOCalc    | YES | SYLK   | NO  | Gnumeric     | YES |  
-CSV       | NO  |  
+CSV       | NO  | HTML   | NO
 
 ### Reading Only Named WorkSheets from a File
 
@@ -90,7 +90,7 @@ Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|  
 Excel2007 | YES | Excel5 | YES | Excel2003XML | YES |  
 OOCalc    | YES | SYLK   | NO  | Gnumeric     | YES |  
-CSV       | NO  |
+CSV       | NO  | HTML   | NO
 
 ### Reading Only Specific Columns and Rows from a File (Read Filters)
 
@@ -219,7 +219,7 @@ Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|  
 Excel2007 | YES | Excel5 | YES | Excel2003XML | YES |  
 OOCalc    | YES | SYLK   | NO  | Gnumeric     | YES |  
-CSV       | YES |  
+CSV       | YES | HTML   | NO
 
 ### Combining Multiple Files into a Single PHPExcel Object
 
@@ -266,7 +266,7 @@ Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|  
 Excel2007 | NO  | Excel5 | NO  | Excel2003XML | NO  |  
 OOCalc    | NO  | SYLK   | YES | Gnumeric     | NO  |  
-CSV       | YES |  
+CSV       | YES | HTML   | NO
 
 ###  Combining Read Filters with the setSheetIndex() method to split a large CSV file across multiple Worksheets
 
@@ -327,7 +327,7 @@ Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|  
 Excel2007 | NO  | Excel5 | NO  | Excel2003XML | NO  |  
 OOCalc    | NO  | SYLK   | NO  | Gnumeric     | NO  |  
-CSV       | YES |  
+CSV       | YES | HTML   | NO
 
 ### Pipe or Tab Separated Value Files
 
@@ -359,7 +359,7 @@ Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|  
 Excel2007 | NO  | Excel5 | NO  | Excel2003XML | NO  |  
 OOCalc    | NO  | SYLK   | NO  | Gnumeric     | NO  |  
-CSV       | YES |  
+CSV       | YES | HTML   | NO
 
 ### A Brief Word about the Advanced Value Binder
 
@@ -388,63 +388,5 @@ Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|  
 Excel2007 | NO  | Excel5 | NO  | Excel2003XML | NO  |  
 OOCalc    | NO  | SYLK   | NO  | Gnumeric     | NO  |  
-CSV       | YES |  
+CSV       | YES | HTML   | YES
 
-## Error Handling
-
-Of course, you should always apply some error handling to your scripts as well. PHPExcel throws exceptions, so you can wrap all your code that accesses the library methods within Try/Catch blocks to trap for any problems that are encountered, and deal with them in an appropriate manner.
-
-The PHPExcel Readers throw a PHPExcel_Reader_Exception.
-
-```php
-$inputFileName = './sampleData/example-1.xls';
-
-try {
-    /** Load $inputFileName to a PHPExcel Object  **/
-    $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
-} catch(PHPExcel_Reader_Exception $e) {
-    die('Error loading file: '.$e->getMessage());
-}
-```
- > See Examples/Reader/exampleReader16.php for a working example of this code.
-
-## Helper Methods
-
-You can retrieve a list of worksheet names contained in a file without loading the whole file by using the Reader’s listWorksheetNames() method; similarly, a listWorksheetInfo() method will retrieve the dimensions of worksheet in a file without needing to load and parse the whole file.
-
-The listWorksheetNames() method returns a simple array listing each worksheet name within the workbook:
-
-```php
-$objReader = PHPExcel_IOFactory::createReader($inputFileType);
-
-$worksheetNames = $objReader->listWorksheetNames($inputFileName);
-
-echo '<h3>Worksheet Names</h3>';
-echo '<ol>';
-foreach ($worksheetNames as $worksheetName) {
-    echo '<li>', $worksheetName, '</li>';
-}
-echo '</ol>';
-```
- > See Examples/Reader/exampleReader18.php for a working example of this code.
-
-The listWorksheetInfo() method returns a nested array, with each entry listing the name and dimensions for a worksheet:
-
-```php
-$objReader = PHPExcel_IOFactory::createReader($inputFileType);
-
-$worksheetData = $objReader->listWorksheetInfo($inputFileName);
-
-echo '<h3>Worksheet Information</h3>';
-echo '<ol>';
-foreach ($worksheetData as $worksheet) {
-    echo '<li>', $worksheet['worksheetName'], '<br />';
-    echo 'Rows: ', $worksheet['totalRows'],
-         ' Columns: ', $worksheet['totalColumns'], '<br />';
-    echo 'Cell Range: A1:',
-    $worksheet['lastColumnLetter'], $worksheet['totalRows'];
-    echo '</li>';
-}
-echo '</ol>';
-```
- > See Examples/Reader/exampleReader19.php for a working example of this code.
