@@ -687,6 +687,11 @@ class PHPExcel_Shared_String
 			$localeconv = localeconv();
 			self::$_thousandsSeparator = ($localeconv['thousands_sep'] != '')
 				? $localeconv['thousands_sep'] : $localeconv['mon_thousands_sep'];
+
+			if (self::$_thousandsSeparator == '') {
+				// Default to .
+				self::$_thousandsSeparator = ',';
+			}
 		}
 		return self::$_thousandsSeparator;
 	}
