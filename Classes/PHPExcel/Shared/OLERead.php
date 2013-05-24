@@ -80,13 +80,17 @@ class PHPExcel_Shared_OLERead {
 			throw new PHPExcel_Reader_Exception("Could not open " . $sFileName . " for reading! File does not exist, or it is not readable.");
 		}
 
-		// Get the file data
-		$this->data = file_get_contents($sFileName);
+		// Get the file identifier
+		// Don't bother reading the whole file until we know it's a valid OLE file
+		$this->data = file_get_contents($sFileName, FALSE, NULL, 0, 8);
 
 		// Check OLE identifier
-		if (substr($this->data, 0, 8) != self::IDENTIFIER_OLE) {
+		if ($this->data != self::IDENTIFIER_OLE) {
 			throw new PHPExcel_Reader_Exception('The filename ' . $sFileName . ' is not recognised as an OLE file');
 		}
+
+		// Get the file data
+		$this->data = file_get_contents($sFileName);
 
 		// Total number of sectors used for the SAT
 		$this->numBigBlockDepotBlocks = self::_GetInt4d($this->data, self::NUM_BIG_BLOCK_DEPOT_BLOCKS_POS);
