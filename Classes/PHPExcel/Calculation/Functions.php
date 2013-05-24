@@ -308,6 +308,8 @@ class PHPExcel_Calculation_Functions {
 
 	public static function _ifCondition($condition) {
 		$condition	= PHPExcel_Calculation_Functions::flattenSingleValue($condition);
+		if (!isset($condition{0}))
+			$condition = '=""';
 		if (!in_array($condition{0},array('>', '<', '='))) {
 			if (!is_numeric($condition)) { $condition = PHPExcel_Calculation::_wrapResult(strtoupper($condition)); }
 			return '='.$condition;
