@@ -90,6 +90,7 @@ $aTests = array(
 	, '35chartrender.php'
 	, '36chartreadwriteHTML.php'
 	, '37page_layout_view.php'
+	, '38cloneWorksheet.php'
 	, '40duplicateStyle.php'
 	, 'OOCalcReader.php'
 	, 'SylkReader.php'
