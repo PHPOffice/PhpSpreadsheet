@@ -23,6 +23,12 @@
 **************************************************************************************
 
 
+Fixed in develop branch for release v1.7.9a:
+- Bugfix:   (MBaker)    Work item 19830  - Undefined variable: fileHandle in CSV Reader
+- Bugfix:   (MBaker)                     - Style error with merged cells in PDF Writer
+- Bugfix:   (MBaker)                     - Problem with cloning worksheets
+
+
 Fixed in develop branch for release v1.7.9:
 - Feature:  (MBaker)    Include charts option for HTML Writer
 - Feature:  (MBaker)    Added composer file
