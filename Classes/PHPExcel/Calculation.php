@@ -841,7 +841,7 @@ class PHPExcel_Calculation {
 												 'argumentCount'	=>	'1,2'
 												),
 				'HLOOKUP'				=> array('category'			=>	PHPExcel_Calculation_Function::CATEGORY_LOOKUP_AND_REFERENCE,
-												 'functionCall'		=>	'PHPExcel_Calculation_Functions::DUMMY',
+												 'functionCall'		=>	'PHPExcel_Calculation_LookupRef::HLOOKUP',
 												 'argumentCount'	=>	'3,4'
 												),
 				'HOUR'					=> array('category'			=>	PHPExcel_Calculation_Function::CATEGORY_DATE_AND_TIME,
