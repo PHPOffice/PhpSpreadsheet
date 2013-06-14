@@ -177,7 +177,7 @@ CATEGORY_LOOKUP_AND_REFERENCE
 	COLUMN                  PHPExcel_Calculation_LookupRef::COLUMN
 	COLUMNS                 PHPExcel_Calculation_LookupRef::COLUMNS
 	GETPIVOTDATA            ***  Not yet Implemented
-	HLOOKUP                 ***  Not yet Implemented
+	HLOOKUP                 PHPExcel_Calculation_LookupRef::HLOOKUP
 	HYPERLINK               PHPExcel_Calculation_LookupRef::HYPERLINK
 	INDEX                   PHPExcel_Calculation_LookupRef::INDEX
 	INDIRECT                PHPExcel_Calculation_LookupRef::INDIRECT

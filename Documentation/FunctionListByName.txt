@@ -146,7 +146,7 @@ HARMEAN                 CATEGORY_STATISTICAL            PHPExcel_Calculation_Sta
 HEX2BIN                 CATEGORY_ENGINEERING            PHPExcel_Calculation_Engineering::HEXTOBIN
 HEX2DEC                 CATEGORY_ENGINEERING            PHPExcel_Calculation_Engineering::HEXTODEC
 HEX2OCT                 CATEGORY_ENGINEERING            PHPExcel_Calculation_Engineering::HEXTOOCT
-HLOOKUP                 CATEGORY_LOOKUP_AND_REFERENCE   ***  Not yet Implemented
+HLOOKUP                 CATEGORY_LOOKUP_AND_REFERENCE   PHPExcel_Calculation_LookupRef::HLOOKUP
 HOUR                    CATEGORY_DATE_AND_TIME          PHPExcel_Calculation_DateTime::HOUROFDAY
 HYPERLINK               CATEGORY_LOOKUP_AND_REFERENCE   PHPExcel_Calculation_LookupRef::HYPERLINK
 HYPGEOMDIST             CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::HYPGEOMDIST
