@@ -12,6 +12,9 @@ class NumberFormatTest extends PHPUnit_Framework_TestCase
             define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
         }
         require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
+
+		PHPExcel_Shared_String::setDecimalSeparator('.');
+		PHPExcel_Shared_String::setThousandsSeparator(',');
 	}
 
     /**

@@ -735,7 +735,11 @@ class PHPExcel_Calculation_LookupRef {
 				return PHPExcel_Calculation_Functions::NA();
 			} else {
 				//	otherwise return the appropriate value
-				return $lookup_array[$rowNumber][$returnColumn];
+				$result = $lookup_array[$rowNumber][$returnColumn];
+				if ((is_numeric($lookup_value) && is_numeric($result)) ||
+					(!is_numeric($lookup_value) && !is_numeric($result))) {
+					return $result;
+				}
 			}
 		}
 
@@ -798,7 +802,8 @@ class PHPExcel_Calculation_LookupRef {
                 return PHPExcel_Calculation_Functions::NA();
             } else {
                 //  otherwise return the appropriate value
-                return $lookup_array[$returnColumn][$rowNumber];
+                $result = $lookup_array[$returnColumn][$rowNumber];
+				return $result;
             }
         }
 
