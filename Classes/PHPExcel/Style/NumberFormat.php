@@ -673,7 +673,10 @@ class PHPExcel_Style_NumberFormat extends PHPExcel_Style_Supervisor implements P
 									);
 							$value = preg_replace($number_regex, $value, $format);
 						} else {
-							if (preg_match('/0([^\d\.]+)0/', $format, $matches)) {
+							if (preg_match('/0E[+-]0/i', $format)) {
+								//	Scientific format
+								$value = sprintf('%5.2E', $value);
+							} elseif (preg_match('/0([^\d\.]+)0/', $format)) {
 								$value = self::_complexNumberFormatMask($value, $format);
 							} else {
 								$sprintf_pattern = "%0$minWidth." . strlen($right) . "f";
