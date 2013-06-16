@@ -3486,6 +3486,13 @@ class PHPExcel_Calculation {
 
 
 	private function _validateBinaryOperand($cellID, &$operand, &$stack) {
+		if (is_array($operand)) {
+			if ((count($operand, COUNT_RECURSIVE) - count($operand)) == 1) {
+				do {
+					$operand = array_pop($operand);
+				} while (is_array($operand));
+			}
+		}
 		//	Numbers, matrices and booleans can pass straight through, as they're already valid
 		if (is_string($operand)) {
 			//	We only need special validations for the operand if it is a string
@@ -3591,25 +3598,13 @@ class PHPExcel_Calculation {
 		if (!$this->_validateBinaryOperand($cellID,$operand1,$stack)) return FALSE;
 		if (!$this->_validateBinaryOperand($cellID,$operand2,$stack)) return FALSE;
 
-		$executeMatrixOperation = FALSE;
 		//	If either of the operands is a matrix, we need to treat them both as matrices
 		//		(converting the other operand to a matrix if need be); then perform the required
 		//		matrix operation
 		if ((is_array($operand1)) || (is_array($operand2))) {
-			//	Ensure that both operands are arrays/matrices
-			$executeMatrixOperation = TRUE;
-			$mSize = array();
-			list($mSize[],$mSize[],$mSize[],$mSize[]) = self::_checkMatrixOperands($operand1,$operand2,2);
+			//	Ensure that both operands are arrays/matrices of the same size
+			self::_checkMatrixOperands($operand1, $operand2, 2);
 
-			//	But if they're both single cell matrices, then we can treat them as simple values
-			if (array_sum($mSize) == 4) {
-				$executeMatrixOperation = FALSE;
-				$operand1 = $operand1[0][0];
-				$operand2 = $operand2[0][0];
-			}
-		}
-
-		if ($executeMatrixOperation) {
 			try {
 				//	Convert operand 1 from a PHP array to a matrix
 				$matrix = new PHPExcel_Shared_JAMA_Matrix($operand1);
