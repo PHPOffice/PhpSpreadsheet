@@ -1142,18 +1142,15 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
             $this->_cachedHighestRow = max($this->_cachedHighestRow,$aCoordinates[1]);
 
             // Cell needs appropriate xfIndex
-            $rowDimensions    = $this->getRowDimensions();
-            $columnDimensions = $this->getColumnDimensions();
+            $rowDimension    = $this->getRowDimension($aCoordinates[1], FALSE);
+            $columnDimension = $this->getColumnDimension($aCoordinates[0], FALSE);
 
-            if ( isset($rowDimensions[$aCoordinates[1]]) && $rowDimensions[$aCoordinates[1]]->getXfIndex() !== null ) {
+            if ($rowDimension !== NULL && $rowDimension->getXfIndex() > 0) {
                 // then there is a row dimension with explicit style, assign it to the cell
-                $cell->setXfIndex($rowDimensions[$aCoordinates[1]]->getXfIndex());
-            } else if ( isset($columnDimensions[$aCoordinates[0]]) ) {
+                $cell->setXfIndex($rowDimension->getXfIndex());
+            } elseif ($columnDimension !== NULL && $columnDimension->getXfIndex() > 0) {
                 // then there is a column dimension, assign it to the cell
-                $cell->setXfIndex($columnDimensions[$aCoordinates[0]]->getXfIndex());
-            } else {
-                // set to default index
-                $cell->setXfIndex(0);
+                $cell->setXfIndex($columnDimension->getXfIndex());
             }
 
             return $cell;
@@ -1253,13 +1250,15 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      * @param int $pRow Numeric index of the row
      * @return PHPExcel_Worksheet_RowDimension
      */
-    public function getRowDimension($pRow = 1)
+    public function getRowDimension($pRow = 1, $create = TRUE)
     {
         // Found
         $found = null;
 
         // Get row dimension
         if (!isset($this->_rowDimensions[$pRow])) {
+			if (!$create)
+				return NULL;
             $this->_rowDimensions[$pRow] = new PHPExcel_Worksheet_RowDimension($pRow);
 
             $this->_cachedHighestRow = max($this->_cachedHighestRow,$pRow);
@@ -1273,13 +1272,15 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      * @param string $pColumn String index of the column
      * @return PHPExcel_Worksheet_ColumnDimension
      */
-    public function getColumnDimension($pColumn = 'A')
+    public function getColumnDimension($pColumn = 'A', $create = TRUE)
     {
         // Uppercase coordinate
         $pColumn = strtoupper($pColumn);
 
         // Fetch dimensions
         if (!isset($this->_columnDimensions[$pColumn])) {
+			if (!$create)
+				return NULL;
             $this->_columnDimensions[$pColumn] = new PHPExcel_Worksheet_ColumnDimension($pColumn);
 
             if (PHPExcel_Cell::columnIndexFromString($this->_cachedHighestColumn) < PHPExcel_Cell::columnIndexFromString($pColumn))
