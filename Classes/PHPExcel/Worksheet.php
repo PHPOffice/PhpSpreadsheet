@@ -1123,38 +1123,14 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
         // Uppercase coordinate
         $pCoordinate = strtoupper($pCoordinate);
 
-        if (strpos($pCoordinate,':') !== false || strpos($pCoordinate,',') !== false) {
+        if (strpos($pCoordinate, ':') !== false || strpos($pCoordinate, ',') !== false) {
             throw new PHPExcel_Exception('Cell coordinate can not be a range of cells.');
-        } elseif (strpos($pCoordinate,'$') !== false) {
+        } elseif (strpos($pCoordinate, '$') !== false) {
             throw new PHPExcel_Exception('Cell coordinate must not be absolute.');
-        } else {
-            // Create new cell object
-
-            // Coordinates
-            $aCoordinates = PHPExcel_Cell::coordinateFromString($pCoordinate);
-
-			$cell = $this->_cellCollection->addCacheData($pCoordinate,new PHPExcel_Cell(NULL, PHPExcel_Cell_DataType::TYPE_NULL, $this));
-            $this->_cellCollectionIsSorted = false;
-
-            if (PHPExcel_Cell::columnIndexFromString($this->_cachedHighestColumn) < PHPExcel_Cell::columnIndexFromString($aCoordinates[0]))
-                $this->_cachedHighestColumn = $aCoordinates[0];
-
-            $this->_cachedHighestRow = max($this->_cachedHighestRow,$aCoordinates[1]);
-
-            // Cell needs appropriate xfIndex
-            $rowDimension    = $this->getRowDimension($aCoordinates[1], FALSE);
-            $columnDimension = $this->getColumnDimension($aCoordinates[0], FALSE);
-
-            if ($rowDimension !== NULL && $rowDimension->getXfIndex() > 0) {
-                // then there is a row dimension with explicit style, assign it to the cell
-                $cell->setXfIndex($rowDimension->getXfIndex());
-            } elseif ($columnDimension !== NULL && $columnDimension->getXfIndex() > 0) {
-                // then there is a column dimension, assign it to the cell
-                $cell->setXfIndex($columnDimension->getXfIndex());
-            }
-
-            return $cell;
         }
+
+        // Create new cell object
+        return $this->_createNewCell($pCoordinate);
     }
 
     /**
@@ -1169,21 +1145,52 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
         $columnLetter = PHPExcel_Cell::stringFromColumnIndex($pColumn);
         $coordinate = $columnLetter . $pRow;
 
-        if (!$this->_cellCollection->isDataSet($coordinate)) {
-            $cell = $this->_cellCollection->addCacheData($coordinate, new PHPExcel_Cell(NULL, PHPExcel_Cell_DataType::TYPE_NULL, $this));
-            $this->_cellCollectionIsSorted = false;
-
-            if (PHPExcel_Cell::columnIndexFromString($this->_cachedHighestColumn) < $pColumn)
-                $this->_cachedHighestColumn = $columnLetter;
-
-            $this->_cachedHighestRow = max($this->_cachedHighestRow,$pRow);
-
-            return $cell;
+        if ($this->_cellCollection->isDataSet($coordinate)) {
+            return $this->_cellCollection->getCacheData($coordinate);
         }
 
-        return $this->_cellCollection->getCacheData($coordinate);
+		return $this->_createNewCell($coordinate);
     }
 
+    /**
+     * Create a new cell at the specified coordinate
+     *
+     * @param string $pCoordinate    Coordinate of the cell
+     * @return PHPExcel_Cell Cell that was created
+     */
+	private function _createNewCell($pCoordinate)
+	{
+		$cell = $this->_cellCollection->addCacheData(
+			$pCoordinate,
+			new PHPExcel_Cell(
+				NULL, 
+				PHPExcel_Cell_DataType::TYPE_NULL, 
+				$this
+			)
+		);
+        $this->_cellCollectionIsSorted = false;
+
+        // Coordinates
+        $aCoordinates = PHPExcel_Cell::coordinateFromString($pCoordinate);
+        if (PHPExcel_Cell::columnIndexFromString($this->_cachedHighestColumn) < PHPExcel_Cell::columnIndexFromString($aCoordinates[0]))
+            $this->_cachedHighestColumn = $aCoordinates[0];
+        $this->_cachedHighestRow = max($this->_cachedHighestRow, $aCoordinates[1]);
+
+        // Cell needs appropriate xfIndex
+        $rowDimension    = $this->getRowDimension($aCoordinates[1], FALSE);
+        $columnDimension = $this->getColumnDimension($aCoordinates[0], FALSE);
+
+        if ($rowDimension !== NULL && $rowDimension->getXfIndex() > 0) {
+            // then there is a row dimension with explicit style, assign it to the cell
+            $cell->setXfIndex($rowDimension->getXfIndex());
+        } elseif ($columnDimension !== NULL && $columnDimension->getXfIndex() > 0) {
+            // then there is a column dimension, assign it to the cell
+            $cell->setXfIndex($columnDimension->getXfIndex());
+        }
+
+        return $cell;
+	}
+	
     /**
      * Cell at a specific coordinate exists?
      *
