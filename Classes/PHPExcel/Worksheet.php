@@ -1176,7 +1176,8 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
             $this->_cachedHighestColumn = $aCoordinates[0];
         $this->_cachedHighestRow = max($this->_cachedHighestRow, $aCoordinates[1]);
 
-        // Cell needs appropriate xfIndex
+        // Cell needs appropriate xfIndex from dimensions records
+		//    but don't create dimension records if they don't already exist
         $rowDimension    = $this->getRowDimension($aCoordinates[1], FALSE);
         $columnDimension = $this->getColumnDimension($aCoordinates[0], FALSE);
 
@@ -1192,7 +1193,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 	}
 	
     /**
-     * Cell at a specific coordinate exists?
+     * Does the cell at a specific coordinate exist?
      *
      * @param string $pCoordinate  Coordinate of the cell
      * @throws PHPExcel_Exception
