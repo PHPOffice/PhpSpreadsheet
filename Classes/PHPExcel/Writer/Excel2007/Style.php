@@ -397,6 +397,9 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
 		$objWriter->startElement('xf');
 			$objWriter->writeAttribute('xfId', 0);
 			$objWriter->writeAttribute('fontId', 			(int)$this->getParentWriter()->getFontHashTable()->getIndexForHashCode($pStyle->getFont()->getHashCode()));
+            if ($pStyle->getQuotePrefix()) {
+                $objWriter->writeAttribute('quotePrefix', 	    1);
+            }
 
 			if ($pStyle->getNumberFormat()->getBuiltInFormatCode() === false) {
 				$objWriter->writeAttribute('numFmtId', 			(int)($this->getParentWriter()->getNumFmtHashTable()->getIndexForHashCode($pStyle->getNumberFormat()->getHashCode()) + 164)   );

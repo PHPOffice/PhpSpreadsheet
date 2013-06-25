@@ -28,6 +28,7 @@ Fixed in develop branch for release v1.7.9a:
 - Bugfix:   (MBaker)                     - Style error with merged cells in PDF Writer
 - Bugfix:   (MBaker)                     - Problem with cloning worksheets
 - Feature:  (amerov)                     - Implementation of the Excel HLOOKUP() function
+- Feature:  (MBaker)                     - Added "Quote Prefix" to style settings (Excel2007 Reader and Writer only)
 
 Fixed in develop branch for release v1.7.9:
 - Feature:  (MBaker)    Include charts option for HTML Writer

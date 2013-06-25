@@ -92,6 +92,13 @@ class PHPExcel_Style extends PHPExcel_Style_Supervisor implements PHPExcel_IComp
     protected $_index;
 
     /**
+     * Use Quote Prefix when displaying in cell editor. Only used for real style.
+     *
+     * @var boolean
+     */
+    protected $_quotePrefix = false;
+
+    /**
      * Create a new PHPExcel_Style
      *
      * @param boolean $isSupervisor Flag indicating if this is a supervisor or not
@@ -156,6 +163,17 @@ class PHPExcel_Style extends PHPExcel_Style_Supervisor implements PHPExcel_IComp
         return $this->_parent;
     }
 
+	/**
+	 * Build style array from subcomponents
+	 *
+	 * @param array $array
+	 * @return array
+	 */
+	public function getStyleArray($array)
+	{
+		return array('quotePrefix' => $array);
+	}
+
     /**
      * Apply styles from array
      *
@@ -185,7 +203,8 @@ class PHPExcel_Style extends PHPExcel_Style_Supervisor implements PHPExcel_IComp
      *                         'rgb' => '808080'
      *                     )
      *                 )
-     *             )
+     *             ),
+     *             'quotePrefix'    => true
      *         )
      * );
      * </code>
@@ -463,6 +482,9 @@ class PHPExcel_Style extends PHPExcel_Style_Supervisor implements PHPExcel_IComp
                 if (array_key_exists('protection', $pStyles)) {
                     $this->getProtection()->applyFromArray($pStyles['protection']);
                 }
+                if (array_key_exists('quotePrefix', $pStyles)) {
+                    $this->_quotePrefix = $pStyles['quotePrefix'];
+                }
             }
         } else {
             throw new PHPExcel_Exception("Invalid style array passed.");
@@ -567,6 +589,38 @@ class PHPExcel_Style extends PHPExcel_Style_Supervisor implements PHPExcel_IComp
     }
 
     /**
+     * Get quote prefix
+     *
+     * @return boolean
+     */
+    public function getQuotePrefix()
+    {
+		if ($this->_isSupervisor) {
+			return $this->getSharedComponent()->getQuotePrefix();
+		}
+        return $this->_quotePrefix;
+    }
+
+    /**
+     * Set quote prefix
+     *
+     * @param boolean $pValue
+     */
+    public function setQuotePrefix($pValue)
+    {
+		if ($pValue == '') {
+			$pValue = false;
+		}
+		if ($this->_isSupervisor) {
+			$styleArray = array('quotePrefix' => $pValue);
+			$this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
+		} else {
+			$this->_quotePrefix = (boolean) $pValue;
+		}
+		return $this;
+    }
+
+    /**
      * Get hash code
      *
      * @return string Hash code
@@ -586,6 +640,7 @@ class PHPExcel_Style extends PHPExcel_Style_Supervisor implements PHPExcel_IComp
             . $this->_numberFormat->getHashCode()
             . $hashConditionals
             . $this->_protection->getHashCode()
+            . ($this->_quotePrefix  ? 't' : 'f')
             . __CLASS__
         );
     }
