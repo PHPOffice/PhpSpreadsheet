@@ -179,7 +179,7 @@ class PHPExcel_Writer_Excel5_Xf
 		// Flags to indicate if attributes have been set.
 		$atr_num     = ($this->_numberFormatIndex != 0)?1:0;
 		$atr_fnt     = ($this->_fontIndex != 0)?1:0;
-		$atr_alc     = ((int) $this->_style->getAlignment()->getWrapText())?1:0;
+		$atr_alc     = ((int) $this->_style->getAlignment()->getWrapText()) ? 1 : 0;
 		$atr_bdr     = (self::_mapBorderStyle($this->_style->getBorders()->getBottom()->getBorderStyle())   ||
 						self::_mapBorderStyle($this->_style->getBorders()->getTop()->getBorderStyle())      ||
 						self::_mapBorderStyle($this->_style->getBorders()->getLeft()->getBorderStyle())     ||
@@ -457,6 +457,7 @@ class PHPExcel_Writer_Excel5_Xf
 										PHPExcel_Style_Alignment::HORIZONTAL_LEFT				=> 1,
 										PHPExcel_Style_Alignment::HORIZONTAL_CENTER				=> 2,
 										PHPExcel_Style_Alignment::HORIZONTAL_RIGHT				=> 3,
+										PHPExcel_Style_Alignment::HORIZONTAL_FILL				=> 4,
 										PHPExcel_Style_Alignment::HORIZONTAL_JUSTIFY			=> 5,
 										PHPExcel_Style_Alignment::HORIZONTAL_CENTER_CONTINUOUS	=> 6,
 									  );

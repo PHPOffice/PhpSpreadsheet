@@ -29,6 +29,7 @@ Fixed in develop branch for release v1.7.9a:
 - Bugfix:   (MBaker)                     - Problem with cloning worksheets
 - Feature:  (amerov)                     - Implementation of the Excel HLOOKUP() function
 - Feature:  (MBaker)                     - Added "Quote Prefix" to style settings (Excel2007 Reader and Writer only)
+- Feature:  (MBaker)                     - Added Horizontal FILL alignment for Excel5 and Excel2007 Readers/Writers, and Horizontal DISTRIBUTED alignment for Excel2007 Reader/Writer
 
 Fixed in develop branch for release v1.7.9:
 - Feature:  (MBaker)    Include charts option for HTML Writer
