@@ -9,7 +9,7 @@
 error_reporting(E_ALL);
 
 /**	Include path		**/
-set_include_path(get_include_path() . PATH_SEPARATOR . '../Classes/');
+set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/../Classes/');
 
 ?>
 <h1>Quadratic Equation Solver</h1>

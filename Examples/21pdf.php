@@ -38,7 +38,7 @@ date_default_timezone_set('Europe/London');
 include "05featuredemo.inc.php";
 
 /** PHPExcel_IOFactory */
-require_once '../Classes/PHPExcel/IOFactory.php';
+require_once dirname(__FILE__) . '/../Classes/PHPExcel/IOFactory.php';
 
 
 //	Change these values to select the Rendering library that you wish to use
