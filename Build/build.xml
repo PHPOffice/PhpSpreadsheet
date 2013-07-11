@@ -1,7 +1,5 @@
 <?xml version="1.0"?>
 <project name="PHPExcel" default="release-standard" basedir=".">
-    <taskdef classname="phing.tasks.ext.d51PearPkg2Task" name="d51pearpkg2"/>
-
     <target name="gather">
         <if>
 			<isset property="${packageVersion}"/>
@@ -152,6 +150,8 @@
     </target>
 
     <target name="release-pear" depends="versionNumber">
+        <taskdef classname="phing.tasks.ext.d51PearPkg2Task" name="d51pearpkg2"/>
+
         <mkdir dir="${phing.dir}/release"/>
 
         <echo msg="Creating PEAR release package (v${packageVersion})..."/>

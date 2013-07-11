@@ -31,7 +31,7 @@ error_reporting(E_ALL);
 date_default_timezone_set('Europe/London');
 
 /** PHPExcel_IOFactory */
-require_once '../Classes/PHPExcel/IOFactory.php';
+require_once dirname(__FILE__) . '/../Classes/PHPExcel/IOFactory.php';
 
 
 echo date('H:i:s') , " Load from SYLK file" , PHP_EOL;

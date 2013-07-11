@@ -35,7 +35,7 @@ define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 date_default_timezone_set('Europe/London');
 
 /** Include PHPExcel */
-require_once '../Classes/PHPExcel.php';
+require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
 
 $cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_to_sqlite;
 PHPExcel_Settings::setCacheStorageMethod($cacheMethod);

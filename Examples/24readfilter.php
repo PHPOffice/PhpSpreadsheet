@@ -34,7 +34,7 @@ define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 date_default_timezone_set('Europe/London');
 
 /** PHPExcel_IOFactory */
-require_once '../Classes/PHPExcel/IOFactory.php';
+require_once dirname(__FILE__) . '/../Classes/PHPExcel/IOFactory.php';
 
 
 // Check prerequisites
