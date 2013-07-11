@@ -316,9 +316,9 @@ class PHPExcel_Calculation_LookupRef {
 			if (strpos($cellAddress,'!') !== FALSE) {
 				list($sheetName, $cellAddress) = explode('!',$cellAddress);
 				$sheetName = trim($sheetName, "'");
-				$pSheet = $pCell->getParent()->getParent()->getSheetByName($sheetName);
+				$pSheet = $pCell->getWorksheet()->getParent()->getSheetByName($sheetName);
 			} else {
-				$pSheet = $pCell->getParent();
+				$pSheet = $pCell->getWorksheet();
 			}
 
 			return PHPExcel_Calculation::getInstance()->extractNamedRange($cellAddress, $pSheet, FALSE);
@@ -327,9 +327,9 @@ class PHPExcel_Calculation_LookupRef {
 		if (strpos($cellAddress,'!') !== FALSE) {
 			list($sheetName,$cellAddress) = explode('!',$cellAddress);
 			$sheetName = trim($sheetName, "'");
-			$pSheet = $pCell->getParent()->getParent()->getSheetByName($sheetName);
+			$pSheet = $pCell->getWorksheet()->getParent()->getSheetByName($sheetName);
 		} else {
-			$pSheet = $pCell->getParent();
+			$pSheet = $pCell->getWorksheet();
 		}
 
 		return PHPExcel_Calculation::getInstance()->extractCellRange($cellAddress, $pSheet, FALSE);
@@ -421,9 +421,9 @@ class PHPExcel_Calculation_LookupRef {
 		}
 
 		if ($sheetName !== NULL) {
-			$pSheet = $pCell->getParent()->getParent()->getSheetByName($sheetName);
+			$pSheet = $pCell->getWorksheet()->getParent()->getSheetByName($sheetName);
 		} else {
-			$pSheet = $pCell->getParent();
+			$pSheet = $pCell->getWorksheet();
 		}
 
 		return PHPExcel_Calculation::getInstance()->extractCellRange($cellAddress, $pSheet, False);

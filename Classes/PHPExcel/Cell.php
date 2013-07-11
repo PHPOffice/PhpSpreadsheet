@@ -469,7 +469,7 @@ class PHPExcel_Cell
 	/**
 	 *	Get parent worksheet
 	 *
-	 *	@return PHPExcel_Worksheet
+	 *	@return PHPExcel_CachedObjectStorage_CacheBase
 	 */
 	public function getParent() {
 		return $this->_parent;
