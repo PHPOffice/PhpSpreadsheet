@@ -8,7 +8,7 @@ As you already know from part  REF _Ref191885438 \w \h 3.3  REF _Ref191885438 \h
 
 The PHPExcel API offers multiple methods to create a PHPExcel_Writer_IReader or PHPExcel_Writer_IWriter instance:
 
-Direct creationVia PHPExcel_IOFactoryAll examples underneath demonstrate the direct creation method. Note that you can also use the PHPExcel_IOFactory class to do this.
+Direct creation via PHPExcel_IOFactory.  All examples underneath demonstrate the direct creation method. Note that you can also use the PHPExcel_IOFactory class to do this.
 
 #### Creating PHPExcel_Reader_IReader using PHPExcel_IOFactory
 
