@@ -1371,7 +1371,9 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 												$hfImages[ (string)$shape['id'] ]->setResizeProportional(false);
 												$hfImages[ (string)$shape['id'] ]->setWidth($style['width']);
 												$hfImages[ (string)$shape['id'] ]->setHeight($style['height']);
-												$hfImages[ (string)$shape['id'] ]->setOffsetX($style['margin-left']);
+												if (isset($style['margin-left'])) {
+													$hfImages[ (string)$shape['id'] ]->setOffsetX($style['margin-left']);
+												}
 												$hfImages[ (string)$shape['id'] ]->setOffsetY($style['margin-top']);
 												$hfImages[ (string)$shape['id'] ]->setResizeProportional(true);
 											}
