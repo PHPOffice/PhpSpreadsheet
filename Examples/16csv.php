@@ -38,7 +38,7 @@ date_default_timezone_set('Europe/London');
 include "05featuredemo.inc.php";
 
 /** PHPExcel_IOFactory */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel/IOFactory.php';
+require_once '../Classes/PHPExcel/IOFactory.php';
 
 
 echo date('H:i:s') , " Write to CSV format" , EOL;
@@ -80,6 +80,20 @@ $objWriter2007->save(str_replace('.php', '.xlsx', __FILE__));
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;
 echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
+echo 'Call time to write Workbook was ' , sprintf('%.4f',$callTime) , " seconds" , EOL;
+// Echo memory usage
+echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 / 1024) , " MB" , EOL;
+
+
+echo date('H:i:s') , " Write to CSV format" , EOL;
+$callStartTime = microtime(true);
+
+$objWriterCSV = PHPExcel_IOFactory::createWriter($objPHPExcelFromCSV, 'CSV');
+$objWriterCSV->setExcelCompatibility(true);
+$objWriterCSV->save(str_replace('.php', '_excel.csv', __FILE__));
+$callEndTime = microtime(true);
+$callTime = $callEndTime - $callStartTime;
+echo date('H:i:s') , " File written to " , str_replace('.php', '_excel.csv', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
 echo 'Call time to write Workbook was ' , sprintf('%.4f',$callTime) , " seconds" , EOL;
 // Echo memory usage
 echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 / 1024) , " MB" , EOL;
