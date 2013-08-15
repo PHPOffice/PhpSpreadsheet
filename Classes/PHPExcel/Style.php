@@ -422,7 +422,7 @@ class PHPExcel_Style extends PHPExcel_Style_Supervisor implements PHPExcel_IComp
                     $newStyle = clone $style;
                     $newStyle->applyFromArray($pStyles);
 
-                    if ($workbook->cellXfExists($newStyle)) {
+                    if ($existingStyle = $workbook->getCellXfByHashCode($newStyle->getHashCode())) {
                         // there is already such cell Xf in our collection
                         $newXfIndexes[$oldXfIndex] = $existingStyle->getIndex();
                     } else {
@@ -595,9 +595,9 @@ class PHPExcel_Style extends PHPExcel_Style_Supervisor implements PHPExcel_IComp
      */
     public function getQuotePrefix()
     {
-		if ($this->_isSupervisor) {
-			return $this->getSharedComponent()->getQuotePrefix();
-		}
+        if ($this->_isSupervisor) {
+            return $this->getSharedComponent()->getQuotePrefix();
+        }
         return $this->_quotePrefix;
     }
 
@@ -608,16 +608,16 @@ class PHPExcel_Style extends PHPExcel_Style_Supervisor implements PHPExcel_IComp
      */
     public function setQuotePrefix($pValue)
     {
-		if ($pValue == '') {
-			$pValue = false;
-		}
-		if ($this->_isSupervisor) {
-			$styleArray = array('quotePrefix' => $pValue);
-			$this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
-		} else {
-			$this->_quotePrefix = (boolean) $pValue;
-		}
-		return $this;
+        if ($pValue == '') {
+            $pValue = false;
+        }
+        if ($this->_isSupervisor) {
+            $styleArray = array('quotePrefix' => $pValue);
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
+        } else {
+            $this->_quotePrefix = (boolean) $pValue;
+        }
+        return $this;
     }
 
     /**
