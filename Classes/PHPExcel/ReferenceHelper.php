@@ -424,7 +424,11 @@ class PHPExcel_ReferenceHelper
 		}
 
 		// Loop through cells, bottom-up, and change cell coordinates
-		while (($cellID = $remove ? array_shift($aCellCollection) : array_pop($aCellCollection))) {
+        if($remove) {
+            // It's faster to reverse and pop than to use unshift, especially with large cell collections
+            $aCellCollection = array_reverse($aCellCollection);
+        }
+		while ($cellID = array_pop($aCellCollection)) {
 			$cell = $pSheet->getCell($cellID);
 			$cellIndex = PHPExcel_Cell::columnIndexFromString($cell->getColumn());
 			if ($cellIndex-1 + $pNumCols < 0) {

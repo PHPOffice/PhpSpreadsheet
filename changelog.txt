@@ -23,13 +23,16 @@
 **************************************************************************************
 
 
-Fixed in develop branch for release v1.7.9a:
+Fixed in develop branch for release v1.8.0:
 - Bugfix:   (MBaker)    Work item 19830  - Undefined variable: fileHandle in CSV Reader
+- Bugfix:   (MBaker)    Work item 19968  - Out of memory in style/supervisor.php
 - Bugfix:   (MBaker)                     - Style error with merged cells in PDF Writer
 - Bugfix:   (MBaker)                     - Problem with cloning worksheets
 - Feature:  (amerov)                     - Implementation of the Excel HLOOKUP() function
 - Feature:  (MBaker)                     - Added "Quote Prefix" to style settings (Excel2007 Reader and Writer only)
 - Feature:  (MBaker)                     - Added Horizontal FILL alignment for Excel5 and Excel2007 Readers/Writers, and Horizontal DISTRIBUTED alignment for Excel2007 Reader/Writer
+- General:  (cdhutch)   Work item 20055  - remove array_shift in ReferenceHelper::insertNewBefore improves column or row delete speed
+
 
 Fixed in develop branch for release v1.7.9:
 - Feature:  (MBaker)    Include charts option for HTML Writer
