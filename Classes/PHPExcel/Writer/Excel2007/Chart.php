@@ -299,6 +299,20 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 
 							$objWriter->startElement('c:hiLowLines');
 							$objWriter->endElement();
+
+							$objWriter->startElement( 'c:upDownBars' );
+
+							$objWriter->startElement( 'c:gapWidth' );
+							$objWriter->writeAttribute('val', 300);
+							$objWriter->endElement();
+
+							$objWriter->startElement( 'c:upBars' );
+							$objWriter->endElement();
+
+							$objWriter->startElement( 'c:downBars' );
+							$objWriter->endElement();
+
+							$objWriter->endElement();
 					}
 
 					//	Generate 2 unique numbers to use for axId values
@@ -779,10 +793,15 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
 				}
 
 				//	Formatting for the points
-				if ($groupType == PHPExcel_Chart_DataSeries::TYPE_LINECHART) {
+				if (($groupType == PHPExcel_Chart_DataSeries::TYPE_LINECHART) ||
+                    ($groupType == PHPExcel_Chart_DataSeries::TYPE_STOCKCHART)) {
 					$objWriter->startElement('c:spPr');
 						$objWriter->startElement('a:ln');
 							$objWriter->writeAttribute('w', 12700);
+            				if ($groupType == PHPExcel_Chart_DataSeries::TYPE_STOCKCHART) {
+						        $objWriter->startElement('a:noFill');
+						        $objWriter->endElement();
+                            }
 						$objWriter->endElement();
 					$objWriter->endElement();
 				}

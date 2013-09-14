@@ -517,19 +517,36 @@ class PHPExcel_Chart_Renderer_jpgraph
 	private function _renderPlotStock($groupID) {
 		$seriesCount = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotSeriesCount();
 		$plotOrder = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotOrder();
+
 		$seriesPlots = array();
+		//var_dump($seriesCount);
 
 		$dataValues = array();
+
 		//	Loop through each data series in turn
 		for($i = 0; $i < $seriesCount; ++$i) {
-			$dataValuesY = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex($i)->getDataValues();
 			$dataValuesX = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($i)->getDataValues();
-
-			foreach($dataValuesX as $j => $dataValueX)
-			$dataValues[$j][$plotOrder[$i]] = $dataValueX;
+			foreach($dataValuesX as $j => $dataValueX) {
+				$dataValues[$plotOrder[$i]][$j] = $dataValueX;
+			}
 		}
 
-		$seriesPlot = new StockPlot($dataValues);
+		if(empty($dataValues)) {
+			return;
+		}
+
+		$dataValuesPlot = array();
+
+		for($j = 0; $j < count($dataValues[0]); $j++) {
+			for($i = 0; $i < $seriesCount; $i++) {
+				$dataValuesPlot[] = $dataValues[$i][$j];
+			}
+		}
+
+		$xAxisLabel = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex(0)->getDataValues();
+
+		$seriesPlot = new StockPlot($dataValuesPlot, $xAxisLabel);
+		$seriesPlot->SetWidth(20);
 
 		$this->_graph->Add($seriesPlot);
 	}	//	function _renderPlotStock()
@@ -681,9 +698,9 @@ class PHPExcel_Chart_Renderer_jpgraph
 	private function _renderStockChart($groupCount) {
 		require_once('jpgraph_stock.php');
 
-		$this->_renderCartesianPlotArea();
+		$this->_renderCartesianPlotArea('intint');
 
-		for($groupID = 0; $groupID < $groupCount; ++$i) {
+		for($groupID = 0; $groupID < $groupCount; ++$groupID) {
 			$this->_renderPlotStock($groupID);
 		}
 	}	//	function _renderStockChart()

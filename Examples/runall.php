@@ -84,6 +84,7 @@ $aTests = array(
 	, '33chartcreate-line.php'
 	, '33chartcreate-pie.php'
 	, '33chartcreate-radar.php'
+	, '33chartcreate-stock.php'
 	, '33chartcreate-multiple-charts.php'
 	, '33chartcreate-composite.php'
 	, '34chartupdate.php'
