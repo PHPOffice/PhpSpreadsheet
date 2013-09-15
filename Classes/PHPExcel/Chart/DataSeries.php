@@ -52,6 +52,7 @@ class PHPExcel_Chart_DataSeries
 	const TYPE_RADARCHART		= 'radarChart';
 	const TYPE_BUBBLECHART		= 'bubbleChart';
 	const TYPE_STOCKCHART		= 'stockChart';
+	const TYPE_CANDLECHART		= self::TYPE_STOCKCHART;	   //	Synonym
 
 	const GROUPING_CLUSTERED			= 'clustered';
 	const GROUPING_STACKED				= 'stacked';

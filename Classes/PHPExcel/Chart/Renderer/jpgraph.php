@@ -518,40 +518,36 @@ class PHPExcel_Chart_Renderer_jpgraph
 		$seriesCount = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotSeriesCount();
 		$plotOrder = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotOrder();
 
-		$seriesPlots = array();
-		//var_dump($seriesCount);
-
 		$dataValues = array();
-
-		//	Loop through each data series in turn
+		//	Loop through each data series in turn and build the plot arrays
 		foreach($plotOrder as $i => $v) {
 			$dataValuesX = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($v)->getDataValues();
 			foreach($dataValuesX as $j => $dataValueX) {
 				$dataValues[$plotOrder[$i]][$j] = $dataValueX;
 			}
 		}
-
 		if(empty($dataValues)) {
 			return;
 		}
 
 		$dataValuesPlot = array();
-
+        // Flatten the plot arrays to a single dimensional array to work with jpgraph
 		for($j = 0; $j < count($dataValues[0]); $j++) {
 			for($i = 0; $i < $seriesCount; $i++) {
 				$dataValuesPlot[] = $dataValues[$i][$j];
 			}
 		}
 
-		$seriesPlot = new StockPlot($dataValuesPlot);
-		$seriesPlot->SetWidth(20);
-
+        // Set the x-axis labels
         $labelCount = count($this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex(0)->getPointCount());
 		if ($labelCount > 0) {
 			$datasetLabels = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex(0)->getDataValues();
 			$datasetLabels = $this->_formatDataSetLabels($groupID, $datasetLabels, $labelCount);
 			$this->_graph->xaxis->SetTickLabels($datasetLabels);
 		}
+
+		$seriesPlot = new StockPlot($dataValuesPlot);
+		$seriesPlot->SetWidth(20);
 
 		$this->_graph->Add($seriesPlot);
 	}	//	function _renderPlotStock()

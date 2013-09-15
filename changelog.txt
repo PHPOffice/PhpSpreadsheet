@@ -31,7 +31,8 @@ Fixed in develop branch for release v1.8.0:
 - Feature:  (amerov)                     - Implementation of the Excel HLOOKUP() function
 - Feature:  (MBaker)                     - Added "Quote Prefix" to style settings (Excel2007 Reader and Writer only)
 - Feature:  (MBaker)                     - Added Horizontal FILL alignment for Excel5 and Excel2007 Readers/Writers, and Horizontal DISTRIBUTED alignment for Excel2007 Reader/Writer
-- General:  (cdhutch)   Work item 20055  - remove array_shift in ReferenceHelper::insertNewBefore improves column or row delete speed
+- General:  (cdhutch)   Work item 20055  - Remove array_shift in ReferenceHelper::insertNewBefore improves column or row delete speed
+- General:  (MBaker)                     - Improve stock chart handling and rendering, with help from Swashata Ghosh
 
 
 Fixed in develop branch for release v1.7.9:
