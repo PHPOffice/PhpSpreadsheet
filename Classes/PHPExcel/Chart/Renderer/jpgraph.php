@@ -524,8 +524,8 @@ class PHPExcel_Chart_Renderer_jpgraph
 		$dataValues = array();
 
 		//	Loop through each data series in turn
-		for($i = 0; $i < $seriesCount; ++$i) {
-			$dataValuesX = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($i)->getDataValues();
+		foreach($plotOrder as $i => $v) {
+			$dataValuesX = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex($v)->getDataValues();
 			foreach($dataValuesX as $j => $dataValueX) {
 				$dataValues[$plotOrder[$i]][$j] = $dataValueX;
 			}
@@ -543,10 +543,15 @@ class PHPExcel_Chart_Renderer_jpgraph
 			}
 		}
 
-		$xAxisLabel = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex(0)->getDataValues();
-
-		$seriesPlot = new StockPlot($dataValuesPlot, $xAxisLabel);
+		$seriesPlot = new StockPlot($dataValuesPlot);
 		$seriesPlot->SetWidth(20);
+
+        $labelCount = count($this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotValuesByIndex(0)->getPointCount());
+		if ($labelCount > 0) {
+			$datasetLabels = $this->_chart->getPlotArea()->getPlotGroupByIndex($groupID)->getPlotCategoryByIndex(0)->getDataValues();
+			$datasetLabels = $this->_formatDataSetLabels($groupID, $datasetLabels, $labelCount);
+			$this->_graph->xaxis->SetTickLabels($datasetLabels);
+		}
 
 		$this->_graph->Add($seriesPlot);
 	}	//	function _renderPlotStock()
