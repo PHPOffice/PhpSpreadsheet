@@ -36,6 +36,17 @@
 class PHPExcel_Writer_Excel2007 extends PHPExcel_Writer_Abstract implements PHPExcel_Writer_IWriter
 {
 	/**
+	 * Pre-calculate formulas
+	 * Forces PHPExcel to recalculate all formulae in a workbook when saving, so that the pre-calculated values are
+	 *    immediately available to MS Excel or other office spreadsheet viewer when opening the file
+	 *
+     * Overrides the default TRUE for this specific writer for performance reasons
+     *
+	 * @var boolean
+	 */
+	protected $_preCalculateFormulas = FALSE;
+
+	/**
 	 * Office2003 compatibility
 	 *
 	 * @var boolean
