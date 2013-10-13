@@ -370,6 +370,16 @@ class PHPExcel_Cell
 		return $this->notifyCacheController();
 	}
 
+    /**
+     *  Identify if the cell contains a formula
+     *
+     *  @return boolean
+     */
+    public function isFormula()
+    {
+        return $this->_dataType == PHPExcel_Cell_DataType::TYPE_FORMULA
+    }
+    
 	/**
 	 *	Does this cell contain Data validation rules?
 	 *
