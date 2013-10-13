@@ -22,7 +22,7 @@
  * @package    PHPExcel
  * @copyright  Copyright (c) 2006 - 2013 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
- * @version    ##VERSION##, ##DATE##
+ * @version    1.7.9, 2013-06-02
  */
 
 /** Error reporting */
@@ -78,9 +78,22 @@ for ($i = 2; $i <= 50; $i++) {
 	}
 }
 
-
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
 $objPHPExcel->setActiveSheetIndex(0);
+$objPHPExcel->getActiveSheet()->setTitle('Printing Options');
+
+// Set print headers
+$objPHPExcel->getActiveSheet()
+    ->getHeaderFooter()->setOddHeader('&C&24&K0000FF&B&U&A');
+$objPHPExcel->getActiveSheet()
+    ->getHeaderFooter()->setEvenHeader('&C&24&K0000FF&B&U&A');
+
+// Set print footers
+$objPHPExcel->getActiveSheet()
+    ->getHeaderFooter()->setOddFooter('&R&D &T&C&F&LPage &P / &N');
+$objPHPExcel->getActiveSheet()
+    ->getHeaderFooter()->setEvenFooter('&L&D &T&C&F&RPage &P / &N');
+
 
 
 // Save Excel 2007 file
