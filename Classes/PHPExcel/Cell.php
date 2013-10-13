@@ -377,7 +377,7 @@ class PHPExcel_Cell
      */
     public function isFormula()
     {
-        return $this->_dataType == PHPExcel_Cell_DataType::TYPE_FORMULA
+        return $this->_dataType == PHPExcel_Cell_DataType::TYPE_FORMULA;
     }
     
 	/**
