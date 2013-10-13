@@ -1485,26 +1485,8 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
             $xfIndex = $pCellStyle->getIndex();
         }
 
-        // Uppercase coordinate
-        $pRange = strtoupper($pRange);
-
-        // Is it a cell range or a single cell?
-        $rangeA    = '';
-        $rangeB    = '';
-        if (strpos($pRange, ':') === false) {
-            $rangeA = $pRange;
-            $rangeB = $pRange;
-        } else {
-            list($rangeA, $rangeB) = explode(':', $pRange);
-        }
-
         // Calculate range outer borders
-        $rangeStart = PHPExcel_Cell::coordinateFromString($rangeA);
-        $rangeEnd    = PHPExcel_Cell::coordinateFromString($rangeB);
-
-        // Translate column into index
-        $rangeStart[0]    = PHPExcel_Cell::columnIndexFromString($rangeStart[0]) - 1;
-        $rangeEnd[0]    = PHPExcel_Cell::columnIndexFromString($rangeEnd[0]) - 1;
+        list($rangeStart, $rangeEnd) = PHPExcel_Cell::rangeBoundaries($pRange . ':' . $pRange);
 
         // Make sure we can loop upwards on rows and columns
         if ($rangeStart[0] > $rangeEnd[0] && $rangeStart[1] > $rangeEnd[1]) {
@@ -1541,26 +1523,8 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
             }
         }
 
-        // Uppercase coordinate
-        $pRange = strtoupper($pRange);
-
-        // Is it a cell range or a single cell?
-        $rangeA    = '';
-        $rangeB    = '';
-        if (strpos($pRange, ':') === false) {
-            $rangeA = $pRange;
-            $rangeB = $pRange;
-        } else {
-            list($rangeA, $rangeB) = explode(':', $pRange);
-        }
-
         // Calculate range outer borders
-        $rangeStart = PHPExcel_Cell::coordinateFromString($rangeA);
-        $rangeEnd    = PHPExcel_Cell::coordinateFromString($rangeB);
-
-        // Translate column into index
-        $rangeStart[0]    = PHPExcel_Cell::columnIndexFromString($rangeStart[0]) - 1;
-        $rangeEnd[0]    = PHPExcel_Cell::columnIndexFromString($rangeEnd[0]) - 1;
+        list($rangeStart, $rangeEnd) = PHPExcel_Cell::rangeBoundaries($pRange . ':' . $pRange);
 
         // Make sure we can loop upwards on rows and columns
         if ($rangeStart[0] > $rangeEnd[0] && $rangeStart[1] > $rangeEnd[1]) {
