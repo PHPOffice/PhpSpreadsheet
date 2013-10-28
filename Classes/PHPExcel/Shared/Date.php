@@ -280,11 +280,14 @@ class PHPExcel_Shared_Date
 	 * @return	 boolean
 	 */
 	public static function isDateTimeFormatCode($pFormatCode = '') {
+		if (strtolower($pFormatCode) === strtolower(PHPExcel_Style_NumberFormat::FORMAT_GENERAL))
+            //	"General" contains an epoch letter 'e', so we trap for it explicitly here (case-insensitive check)
+			return FALSE;
+        if (preg_match('/0E[+-]0/i', $pFormatCode)) {
+			//	Scientific format
+			return FALSE;
 		// Switch on formatcode
 		switch ($pFormatCode) {
-			//	General contains an epoch letter 'e', so we trap for it explicitly here
-			case PHPExcel_Style_NumberFormat::FORMAT_GENERAL:
-				return FALSE;
 			//	Explicitly defined date formats
 			case PHPExcel_Style_NumberFormat::FORMAT_DATE_YYYYMMDD:
 			case PHPExcel_Style_NumberFormat::FORMAT_DATE_YYYYMMDD2:
