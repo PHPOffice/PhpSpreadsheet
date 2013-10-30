@@ -572,7 +572,7 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
 												$type = PHPExcel_Cell_DataType::TYPE_NUMERIC;
 												$dataValue = (float) $cellDataOfficeAttributes['value'];
 												if (floor($dataValue) == $dataValue) {
-													if ($dataValue = (integer) $dataValue)
+													if ($dataValue == (integer) $dataValue)
 														$dataValue = (integer) $dataValue;
 													else
 														$dataValue = (float) $dataValue;
