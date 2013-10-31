@@ -1164,7 +1164,11 @@ class PHPExcel_Calculation_MathTrig {
 		$condition = PHPExcel_Calculation_Functions::_ifCondition($condition);
 		// Loop through arguments
 		foreach ($aArgs as $key => $arg) {
-			if (!is_numeric($arg)) { $arg = PHPExcel_Calculation::_wrapResult(strtoupper($arg)); }
+			if (!is_numeric($arg)) {
+				$arg = str_replace('"', '""', $arg);
+				$arg = PHPExcel_Calculation::_wrapResult(strtoupper($arg));
+			}
+
 			$testCondition = '='.$arg.$condition;
 			if (PHPExcel_Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
 				// Is it a value within our criteria
