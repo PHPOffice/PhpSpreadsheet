@@ -462,7 +462,7 @@ class PHPExcel_Calculation_LookupRef {
 			return PHPExcel_Calculation_Functions::VALUE();
 		}
 		$chosenEntry = floor($chosenEntry);
-		if (($chosenEntry <= 0) || ($chosenEntry > $entryCount)) {
+		if (($chosenEntry < 0) || ($chosenEntry > $entryCount)) {
 			return PHPExcel_Calculation_Functions::VALUE();
 		}
 
