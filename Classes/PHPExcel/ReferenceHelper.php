@@ -702,7 +702,7 @@ class PHPExcel_ReferenceHelper
 								$cellIndex = $column.$row;
 
 								$newCellTokens[$cellIndex] = preg_quote($toString);
-								$cellTokens[$cellIndex] = '/(?<![A-Z])'.preg_quote($fromString).'(?![A-Z])/i';
+								$cellTokens[$cellIndex] = '/(?<![A-Z\$\!])'.preg_quote($fromString).'(?![A-Z])/i';
 								++$adjustCount;
 							}
 						}
@@ -728,7 +728,7 @@ class PHPExcel_ReferenceHelper
 								$cellIndex = $column.$row;
 
 								$newCellTokens[$cellIndex] = preg_quote($toString);
-								$cellTokens[$cellIndex] = '/(?<![A-Z])'.preg_quote($fromString).'(?!\d)/i';
+								$cellTokens[$cellIndex] = '/(?<![A-Z]\$\!)'.preg_quote($fromString).'(?!\d)/i';
 								++$adjustCount;
 							}
 						}
@@ -740,8 +740,8 @@ class PHPExcel_ReferenceHelper
 					foreach($matches as $match) {
 						$fromString = ($match[2] > '') ? $match[2].'!' : '';
 						$fromString .= $match[3];
-						$modified3 = $this->updateCellReference($match[3],$pBefore,$pNumCols,$pNumRows);
 
+						$modified3 = $this->updateCellReference($match[3],$pBefore,$pNumCols,$pNumRows);
 						if ($match[3] !== $modified3) {
 							if (($match[2] == '') || (trim($match[2],"'") == $sheetName)) {
 								$toString = ($match[2] > '') ? $match[2].'!' : '';
@@ -753,7 +753,7 @@ class PHPExcel_ReferenceHelper
 								$cellIndex = $column.$row;
 
 								$newCellTokens[$cellIndex] = preg_quote($toString);
-								$cellTokens[$cellIndex] = '/(?<![A-Z])'.preg_quote($fromString).'(?!\d)/i';
+								$cellTokens[$cellIndex] = '/(?<![A-Z\$\!])'.preg_quote($fromString).'(?!\d)/i';
 								++$adjustCount;
 							}
 						}
@@ -890,7 +890,6 @@ class PHPExcel_ReferenceHelper
 			// Verify which parts should be updated
 			$updateColumn = (($newColumn{0} != '$') && ($beforeColumn{0} != '$') &&
 							 PHPExcel_Cell::columnIndexFromString($newColumn) >= PHPExcel_Cell::columnIndexFromString($beforeColumn));
-
 			$updateRow = (($newRow{0} != '$') && ($beforeRow{0} != '$') &&
 						  $newRow >= $beforeRow);
 

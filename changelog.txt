@@ -29,6 +29,8 @@ Fixed in develop branch for release v1.8.0:
 - Bugfix:   (MBaker)                        - Style error with merged cells in PDF Writer
 - Bugfix:   (MBaker)                        - Problem with cloning worksheets
 - Bugfix:   (tavoarcila)  Work Item GH-259  - Bug fix reading Open Office files
+- Bugfix:   (MBaker)      Work item 20397   - Serious bug in absolute cell reference used in shared formula
+                                              Would also have affected insert/delete column/row
 - Feature:  (amerov)                        - Implementation of the Excel HLOOKUP() function
 - Feature:  (MBaker)                        - Added "Quote Prefix" to style settings (Excel2007 Reader and Writer only)
 - Feature:  (MBaker)                        - Added Horizontal FILL alignment for Excel5 and Excel2007 Readers/Writers, and Horizontal DISTRIBUTED alignment for Excel2007 Reader/Writer
