@@ -677,7 +677,7 @@ class PHPExcel_ReferenceHelper
 								$cellIndex = $column.$row;
 
 								$newCellTokens[$cellIndex] = preg_quote($toString);
-								$cellTokens[$cellIndex] = '/(?<!\d)'.preg_quote($fromString).'(?!\d)/i';
+								$cellTokens[$cellIndex] = '/(?<!\d\$\!)'.preg_quote($fromString).'(?!\d)/i';
 								++$adjustCount;
 							}
 						}
