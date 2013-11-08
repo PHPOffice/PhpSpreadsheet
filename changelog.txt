@@ -24,22 +24,23 @@
 
 
 Fixed in develop branch for release v1.8.0:
-- Bugfix:   (MBaker)      Work item 19830   - Undefined variable: fileHandle in CSV Reader
-- Bugfix:   (MBaker)      Work item 19968   - Out of memory in style/supervisor.php
-- Bugfix:   (MBaker)                        - Style error with merged cells in PDF Writer
-- Bugfix:   (MBaker)                        - Problem with cloning worksheets
-- Bugfix:   (tavoarcila)  Work Item GH-259  - Bug fix reading Open Office files
-- Bugfix:   (MBaker)      Work item 20397   - Serious bug in absolute cell reference used in shared formula
-                                              Would also have affected insert/delete column/row
-- Feature:  (amerov)                        - Implementation of the Excel HLOOKUP() function
-- Feature:  (MBaker)                        - Added "Quote Prefix" to style settings (Excel2007 Reader and Writer only)
-- Feature:  (MBaker)                        - Added Horizontal FILL alignment for Excel5 and Excel2007 Readers/Writers, and Horizontal DISTRIBUTED alignment for Excel2007 Reader/Writer
-- Feature:  (trvrnrth)                      - Add support for reading protected (RC4 encrypted) .xls files (64-bit Linux only)
-- General:  (cdhutch)     Work item 20055   - Remove array_shift in ReferenceHelper::insertNewBefore improves column or row delete speed
-- General:  (MBaker)                        - Improve stock chart handling and rendering, with help from Swashata Ghosh
-- General:  (MBaker)                        - Fix to calculation properties for Excel2007 so that the opening application will only recalculate on load if it's actually required
-- General:  (MBaker)                        - Modified Excel2007 Writer to default preCalculateFormulas to false
-                                              Note that autosize columns will still recalculate affected formulae internally
+- Bugfix:   (MBaker)          Work item 19830   - Undefined variable: fileHandle in CSV Reader
+- Bugfix:   (MBaker)          Work item 19968   - Out of memory in style/supervisor.php
+- Bugfix:   (MBaker)                            - Style error with merged cells in PDF Writer
+- Bugfix:   (MBaker)                            - Problem with cloning worksheets
+- Bugfix:   (tavoarcila)      Work Item GH-259  - Bug fix reading Open Office files
+- Bugfix:   (MBaker)          Work item 20397   - Serious bug in absolute cell reference used in shared formula
+                                                  Would also have affected insert/delete column/row
+- Bugfix:   (RomanSyroeshko)  Work Item GH-267  - CHOOSE() returns "#VALUE!" if the 1st entry is chosen
+- Feature:  (amerov)                            - Implementation of the Excel HLOOKUP() function
+- Feature:  (MBaker)                            - Added "Quote Prefix" to style settings (Excel2007 Reader and Writer only)
+- Feature:  (MBaker)                            - Added Horizontal FILL alignment for Excel5 and Excel2007 Readers/Writers, and Horizontal DISTRIBUTED alignment for Excel2007 Reader/Writer
+- Feature:  (trvrnrth)                          - Add support for reading protected (RC4 encrypted) .xls files (64-bit Linux only)
+- General:  (cdhutch)         Work item 20055   - Remove array_shift in ReferenceHelper::insertNewBefore improves column or row delete speed
+- General:  (MBaker)                            - Improve stock chart handling and rendering, with help from Swashata Ghosh
+- General:  (MBaker)                            - Fix to calculation properties for Excel2007 so that the opening application will only recalculate on load if it's actually required
+- General:  (MBaker)                            - Modified Excel2007 Writer to default preCalculateFormulas to false
+                                                  Note that autosize columns will still recalculate affected formulae internally
 
 
 Fixed in develop branch for release v1.7.9:
