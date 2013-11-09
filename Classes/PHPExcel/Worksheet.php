@@ -982,41 +982,55 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
     /**
      * Get highest worksheet column
      *
+     * @param   string     $row        Return the data highest column for the specified row,
+     *                                     or the highest column of any row if no row number is passed
      * @return string Highest column name
      */
-    public function getHighestColumn()
+    public function getHighestColumn($row = null)
     {
-        return $this->_cachedHighestColumn;
+        if ($row == null) {
+            return $this->_cachedHighestColumn;
+        }
+        return $this->getHighestDataColumn($row);
     }
 
     /**
      * Get highest worksheet column that contains data
      *
+     * @param   string     $row        Return the highest data column for the specified row,
+     *                                     or the highest data column of any row if no row number is passed
      * @return string Highest column name that contains data
      */
-    public function getHighestDataColumn()
+    public function getHighestDataColumn($row = null)
     {
-        return $this->_cellCollection->getHighestColumn();
+        return $this->_cellCollection->getHighestColumn($row);
     }
 
     /**
      * Get highest worksheet row
      *
+     * @param   string     $column     Return the highest data row for the specified column,
+     *                                     or the highest row of any column if no column letter is passed
      * @return int Highest row number
      */
-    public function getHighestRow()
+    public function getHighestRow($column = null)
     {
-        return $this->_cachedHighestRow;
+        if ($column == null) {
+            return $this->_cachedHighestRow;
+        }
+        return $this->getHighestDataRow($column);
     }
 
     /**
      * Get highest worksheet row that contains data
      *
+     * @param   string     $column     Return the highest data row for the specified column,
+     *                                     or the highest data row of any column if no column letter is passed
      * @return string Highest row number that contains data
      */
-    public function getHighestDataRow()
+    public function getHighestDataRow($column = null)
     {
-        return $this->_cellCollection->getHighestRow();
+        return $this->_cellCollection->getHighestRow($column);
     }
 
     /**
