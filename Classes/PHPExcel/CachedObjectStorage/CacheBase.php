@@ -254,23 +254,52 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase {
 	/**
 	 * Get highest worksheet column
 	 *
-	 * @return string Highest column name
+     * @param   string     $row        Return the highest column for the specified row,
+     *                                     or the highest column of any row if no row number is passed
+	 * @return  string     Highest column name
 	 */
-	public function getHighestColumn()
+	public function getHighestColumn($row = null)
 	{
-		$colRow = $this->getHighestRowAndColumn();
-		return $colRow['column'];
-	}
+        if ($row == null) {
+    		$colRow = $this->getHighestRowAndColumn();
+	    	return $colRow['column'];
+        }
+
+        $columnList = array(1);
+        foreach ($this->getCellList() as $coord) {
+            sscanf($coord,'%[A-Z]%d', $c, $r);
+            if ($r != $row) {
+                continue;
+            }
+            $columnList[] = PHPExcel_Cell::columnIndexFromString($c);
+        }
+        return PHPExcel_Cell::stringFromColumnIndex(max($columnList) - 1);
+    }
 
 	/**
 	 * Get highest worksheet row
 	 *
-	 * @return int Highest row number
+     * @param   string     $column     Return the highest row for the specified column,
+     *                                     or the highest row of any column if no column letter is passed
+	 * @return  int        Highest row number
 	 */
-	public function getHighestRow()
+	public function getHighestRow($column = null)
 	{
-		$colRow = $this->getHighestRowAndColumn();
-		return $colRow['row'];
+        if ($column == null) {
+	    	$colRow = $this->getHighestRowAndColumn();
+    		return $colRow['row'];
+        }
+
+        $rowList = array(0);
+        foreach ($this->getCellList() as $coord) {
+            sscanf($coord,'%[A-Z]%d', $c, $r);
+            if ($c != $column) {
+                continue;
+            }
+            $rowList[] = $r;
+        }
+
+        return max($rowList);
 	}
 
 

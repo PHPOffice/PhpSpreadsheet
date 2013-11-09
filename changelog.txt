@@ -41,6 +41,7 @@ Fixed in develop branch for release v1.8.0:
 - General:  (MBaker)                            - Fix to calculation properties for Excel2007 so that the opening application will only recalculate on load if it's actually required
 - General:  (MBaker)                            - Modified Excel2007 Writer to default preCalculateFormulas to false
                                                   Note that autosize columns will still recalculate affected formulae internally
+- General:  (dresenhista)     Work Item GH-242  - Functionality to getHighestRow() for a specified column, and getHighestColumn() for a specified row
 
 
 Fixed in develop branch for release v1.7.9:
