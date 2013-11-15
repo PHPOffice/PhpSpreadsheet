@@ -1512,7 +1512,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
         // Loop through cells and apply styles
         for ($col = $rangeStart[0]; $col <= $rangeEnd[0]; ++$col) {
             for ($row = $rangeStart[1]; $row <= $rangeEnd[1]; ++$row) {
-                $this->getCell(PHPExcel_Cell::stringFromColumnIndex($col) . $row)->setXfIndex($xfIndex);
+                $this->getCell(PHPExcel_Cell::stringFromColumnIndex($col - 1) . $row)->setXfIndex($xfIndex);
             }
         }
 
