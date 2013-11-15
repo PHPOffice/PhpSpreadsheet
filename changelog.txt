@@ -33,6 +33,7 @@ Fixed in develop branch for release v1.8.0:
                                                   Would also have affected insert/delete column/row
 - Bugfix:   (RomanSyroeshko)  Work Item GH-267  - CHOOSE() returns "#VALUE!" if the 1st entry is chosen
 - Bugfix:   (Gemorroj)        Work Item GH-268  - When duplicating styles, styles shifted by one column to the right
+                                                  Fix also applied to duplicating conditional styles
 - Feature:  (amerov)                            - Implementation of the Excel HLOOKUP() function
 - Feature:  (MBaker)                            - Added "Quote Prefix" to style settings (Excel2007 Reader and Writer only)
 - Feature:  (MBaker)                            - Added Horizontal FILL alignment for Excel5 and Excel2007 Readers/Writers, and Horizontal DISTRIBUTED alignment for Excel2007 Reader/Writer
