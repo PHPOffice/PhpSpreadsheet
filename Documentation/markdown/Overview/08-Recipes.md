@@ -165,22 +165,22 @@ At present, the following locale settings are supported:
 
     Language             |                      | Locale Code
     ---------------------|----------------------|-------------
-    Czech                | Ce�tina              | cs
+    Czech                | Čeština              | cs
     Danish               | Dansk                | da
     German               | Deutsch              | de
-    Spanish              | Espa�ol              | es
+    Spanish              | Español              | es
     Finnish              | Suomi                | fi
-    French               | Fran�ais             | fr
+    French               | Français             | fr
     Hungarian            | Magyar               | hu
     Italian              | Italiano             | it
     Dutch                | Nederlands           | nl
     Norwegian            | Norsk                | no
     Polish               | Jezyk polski         | pl
-    Portuguese           | Portugu�s            | pt
-    Brazilian Portuguese | Portugu�s Brasileiro | pt_br
-    Russian              | ??????? ????         | ru
+    Portuguese           | Português            | pt
+    Brazilian Portuguese | Português Brasileiro | pt_br
+    Russian              | русский язык         | ru
     Swedish              | Svenska              | sv
-    Turkish              | T�rk�e               | tr
+    Turkish              | Türkçe               | tr
 
 ### Write a newline character "\n" in a cell (ALT+"Enter")
 
@@ -195,7 +195,9 @@ $objPHPExcel->getActiveSheet()->getStyle('A1')->getAlignment()->setWrapText(true
 
 __Tip__
 
-Read more about formatting cells using getStyle() elsewhere.__Tip__
+Read more about formatting cells using getStyle() elsewhere.
+
+__Tip__
 
 AdvancedValuebinder.php automatically turns on "wrap text" for the cell when it sees a newline character in a string that you are inserting in a cell. Just like Microsoft Office Excel. Try this:
 
