@@ -270,7 +270,7 @@ class PHPExcel_Calculation_Functions {
 	 *
 	 * @access	public
 	 * @category Error Returns
-	 * @return	string	#REF!
+	 * @return	string	#NULL!
 	 */
 	public static function NULL() {
 		return self::$_errorCodes['null'];
