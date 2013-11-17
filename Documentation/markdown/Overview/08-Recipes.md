@@ -165,22 +165,22 @@ At present, the following locale settings are supported:
 
     Language             |                      | Locale Code
     ---------------------|----------------------|-------------
-    Czech                | Čeština              | cs
+    Czech                | Ce�tina              | cs
     Danish               | Dansk                | da
     German               | Deutsch              | de
-    Spanish              | Español              | es
+    Spanish              | Espa�ol              | es
     Finnish              | Suomi                | fi
-    French               | Français             | fr
+    French               | Fran�ais             | fr
     Hungarian            | Magyar               | hu
     Italian              | Italiano             | it
     Dutch                | Nederlands           | nl
     Norwegian            | Norsk                | no
     Polish               | Jezyk polski         | pl
-    Portuguese           | Português            | pt
-    Brazilian Portuguese | Português Brasileiro | pt_br
-    Russian              | русский язык         | ru
+    Portuguese           | Portugu�s            | pt
+    Brazilian Portuguese | Portugu�s Brasileiro | pt_br
+    Russian              | ??????? ????         | ru
     Swedish              | Svenska              | sv
-    Turkish              | Türkçe               | tr
+    Turkish              | T�rk�e               | tr
 
 ### Write a newline character "\n" in a cell (ALT+"Enter")
 
