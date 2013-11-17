@@ -144,6 +144,8 @@ class PHPExcel_Writer_Excel2007 extends PHPExcel_Writer_Abstract implements PHPE
 									'drawing' 		=> 'PHPExcel_Writer_Excel2007_Drawing',
 									'comments' 		=> 'PHPExcel_Writer_Excel2007_Comments',
 									'chart'			=> 'PHPExcel_Writer_Excel2007_Chart',
+									'relsvba'		=> 'PHPExcel_Writer_Excel2007_RelsVBA',
+									'relsribbonobjects' => 'PHPExcel_Writer_Excel2007_RelsRibbon'
 								 );
 
     	//	Initialise writer parts
@@ -243,6 +245,35 @@ class PHPExcel_Writer_Excel2007 extends PHPExcel_Writer_Abstract implements PHPE
 			// Add [Content_Types].xml to ZIP file
 			$objZip->addFromString('[Content_Types].xml', 			$this->getWriterPart('ContentTypes')->writeContentTypes($this->_spreadSheet, $this->_includeCharts));
 
+			//if hasMacros, add the vbaProject.bin file, Certificate file(if exists)
+			if($this->_spreadSheet->hasMacros()){
+				$macrosCode=$this->_spreadSheet->getMacrosCode();
+				if(!is_null($macrosCode)){// we have the code ?
+					$objZip->addFromString('xl/vbaProject.bin', $macrosCode);//allways in 'xl', allways named vbaProject.bin
+					if($this->_spreadSheet->hasMacrosCertificate()){//signed macros ?
+						// Yes : add the certificate file and the related rels file
+						$objZip->addFromString('xl/vbaProjectSignature.bin', $this->_spreadSheet->getMacrosCertificate());
+						$objZip->addFromString('xl/_rels/vbaProject.bin.rels',
+							$this->getWriterPart('RelsVBA')->writeVBARelationships($this->_spreadSheet));
+					}
+				}
+			}
+			//a custom UI in this workbook ? add it ("base" xml and additional objects (pictures) and rels)
+			if($this->_spreadSheet->hasRibbon()){
+				$tmpRibbonTarget=$this->_spreadSheet->getRibbonXMLData('target');
+				$objZip->addFromString($tmpRibbonTarget, $this->_spreadSheet->getRibbonXMLData('data'));
+				if($this->_spreadSheet->hasRibbonBinObjects()){
+					$tmpRootPath=dirname($tmpRibbonTarget).'/';
+					$ribbonBinObjects=$this->_spreadSheet->getRibbonBinObjects('data');//the files to write
+					foreach($ribbonBinObjects as $aPath=>$aContent){
+						$objZip->addFromString($tmpRootPath.$aPath, $aContent);
+					}
+					//the rels for files
+					$objZip->addFromString($tmpRootPath.'_rels/'.basename($tmpRibbonTarget).'.rels',
+						$this->getWriterPart('RelsRibbonObjects')->writeRibbonRelationships($this->_spreadSheet));
+				}
+			}
+			
 			// Add relationships to ZIP file
 			$objZip->addFromString('_rels/.rels', 					$this->getWriterPart('Rels')->writeRelationships($this->_spreadSheet));
 			$objZip->addFromString('xl/_rels/workbook.xml.rels', 	$this->getWriterPart('Rels')->writeWorkbookRelationships($this->_spreadSheet));

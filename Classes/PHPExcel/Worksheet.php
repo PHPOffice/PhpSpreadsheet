@@ -326,6 +326,13 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
     private $_hash    = null;
 
     /**
+    * CodeName
+    *
+    * @var string
+    */
+    private $_codeName = null;
+
+	/**
      * Create a new worksheet
      *
      * @param PHPExcel        $pParent
@@ -336,6 +343,8 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
         // Set parent and title
         $this->_parent = $pParent;
         $this->setTitle($pTitle, FALSE);
+        // setTitle can change $pTitle
+	    $this->setCodeName($this->getTitle());
         $this->setSheetState(PHPExcel_Worksheet::SHEETSTATE_VISIBLE);
 
         $this->_cellCollection        = PHPExcel_CachedObjectStorageFactory::getInstance($this);
@@ -417,6 +426,34 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
     }
 
     /**
+     * Check sheet code name for valid Excel syntax
+     *
+     * @param string $pValue The string to check
+     * @return string The valid string
+     * @throws Exception
+     */
+    private static function _checkSheetCodeName($pValue)
+    {
+        $CharCount = PHPExcel_Shared_String::CountCharacters($pValue);
+        if ($CharCount == 0) {
+            throw new PHPExcel_Exception('Sheet code name cannot be empty.');
+        }
+        // Some of the printable ASCII characters are invalid:  * : / \ ? [ ] and  first and last characters cannot be a "'"
+        if ((str_replace(self::$_invalidCharacters, '', $pValue) !== $pValue) || 
+            (PHPExcel_Shared_String::Substring($pValue,-1,1)=='\'') || 
+            (PHPExcel_Shared_String::Substring($pValue,0,1)=='\'')) {
+            throw new PHPExcel_Exception('Invalid character found in sheet code name');
+        }
+ 
+        // Maximum 31 characters allowed for sheet title
+        if ($CharCount > 31) {
+            throw new PHPExcel_Exception('Maximum 31 characters allowed in sheet code name.');
+        }
+ 
+        return $pValue;
+    }
+
+   /**
      * Check sheet title for valid Excel syntax
      *
      * @param string $pValue The string to check
@@ -2802,4 +2839,69 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
             }
         }
     }
+/**
+	 * Define the code name of the sheet
+	 *
+	 * @param null|string Same rule as Title minus space not allowed (but, like Excel, change silently space to underscore)
+	 * @return objWorksheet
+	 * @throws PHPExcel_Exception
+	*/
+	public function setCodeName($pValue=null){
+		// Is this a 'rename' or not?
+		if ($this->getCodeName() == $pValue) {
+			return $this;
+		}
+		$pValue = str_replace(' ', '_', $pValue);//Excel does this automatically without flinching, we are doing the same
+		// Syntax check
+        // throw an exception if not valid
+		self::_checkSheetCodeName($pValue);
+
+		// We use the same code that setTitle to find a valid codeName else not using a space (Excel don't like) but a '_'
+		
+        if ($this->getParent()) {
+			// Is there already such sheet name?
+			if ($this->getParent()->sheetCodeNameExists($pValue)) {
+				// Use name, but append with lowest possible integer
+
+				if (PHPExcel_Shared_String::CountCharacters($pValue) > 29) {
+					$pValue = PHPExcel_Shared_String::Substring($pValue,0,29);
+				}
+				$i = 1;
+				while ($this->getParent()->sheetCodeNameExists($pValue . '_' . $i)) {
+					++$i;
+					if ($i == 10) {
+						if (PHPExcel_Shared_String::CountCharacters($pValue) > 28) {
+							$pValue = PHPExcel_Shared_String::Substring($pValue,0,28);
+						}
+					} elseif ($i == 100) {
+						if (PHPExcel_Shared_String::CountCharacters($pValue) > 27) {
+							$pValue = PHPExcel_Shared_String::Substring($pValue,0,27);
+						}
+					}
+				}
+
+				$pValue = $pValue . '_' . $i;// ok, we have a valid name
+				//codeName is'nt used in formula : no need to call for an update
+				//return $this->setTitle($altTitle,$updateFormulaCellReferences);
+			}
+		}
+
+		$this->_codeName=$pValue;
+		return $this;
+	}
+	/**
+	 * Return the code name of the sheet
+	 *
+	 * @return null|string
+	*/
+	public function getCodeName(){
+		return $this->_codeName;
+	}
+	/**
+	 * Sheet has a code name ?
+	 * @return boolean
+	*/
+	public function hasCodeName(){
+		return !(is_null($this->_codeName));
+	}
 }
