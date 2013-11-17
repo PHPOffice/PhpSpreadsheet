@@ -118,7 +118,7 @@ class PHPExcel_Shared_ZipArchive
      * @param        string        $fileName        Filename for the file in zip archive
      * @return        boolean
      */
-    public function locateName($name)
+    public function locateName($fileName)
     {
         $list = $this->_zip->listContent();
         $listCount = count($list);
