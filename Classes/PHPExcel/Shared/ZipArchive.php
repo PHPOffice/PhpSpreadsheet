@@ -111,4 +111,66 @@ class PHPExcel_Shared_ZipArchive
 		unlink($this->_tempDir.'/'.$filenameParts["basename"]);
 	}
 
+    /**
+     * Find if given fileName exist in archive (Emulate ZipArchive locateName())
+     * author Adam (adam.riyadi@gmail.com)
+     *
+     * @param        string        $fileName        Filename for the file in zip archive
+     * @return        boolean
+     */
+    public function locateName($name)
+    {
+        $list = $this->_zip->listContent();
+        $listCount = count($list);
+        $list_index = -1;
+        for ($i = 0; $i < $listCount; $i++) {
+            if (strtolower($list[$i]["filename"]) == strtolower($fileName) ||
+                strtolower($list[$i]["stored_filename"]) == strtolower($fileName)) {
+                $list_index = $i;
+                break;
+            }
+        }
+        return ($list_index > -1);
+    }
+
+    /**
+     * Extract file from archive by given fileName (Emulate ZipArchive getFromName())
+     * author Adam (adam.riyadi@gmail.com)
+     *
+     * @param        string        $fileName        Filename for the file in zip archive
+     * @return        string  $contents        File string contents
+     */
+    public function getFromName($fileName) 
+    {
+        $list = $this->_zip->listContent();
+        $listCount = count($list);
+        $list_index = -1;
+        for ($i = 0; $i < $listCount; $i++) {
+            if (strtolower($list[$i]["filename"]) == strtolower($fileName) ||
+                strtolower($list[$i]["stored_filename"]) == strtolower($fileName)) {
+                $list_index = $i;
+                break;
+            }
+        }
+                
+        $extracted = "";
+        if ($list_index != -1) {
+            $extracted = $this->_zip->extractByIndex($list_index, PCLZIP_OPT_EXTRACT_AS_STRING);
+        } else {
+            $filename = substr($fileName, 1);
+            $list_index = -1;
+            for ($i = 0; $i < $listCount; $i++) {
+                if (strtolower($list[$i]["filename"]) == strtolower($fileName) || strtolower($list[$i]["stored_filename"]) == strtolower($fileName)) {
+                    $list_index = $i;
+                    break;
+                }
+            }
+            $extracted = $this->_zip->extractByIndex($list_index, PCLZIP_OPT_EXTRACT_AS_STRING);
+        }
+        if ((is_array($extracted)) && ($extracted != 0)) {
+            $contents = $extracted[0]["content"];
+        }
+
+        return $contents;
+    }
 }

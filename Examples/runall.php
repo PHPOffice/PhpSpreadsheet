@@ -35,6 +35,7 @@ if (PHP_SAPI != 'cli') {
 // List of tests
 $aTests = array(
 	  '01simple.php'
+	, '01simplePCLZip.php'
 	, '02types.php'
 	, '02types-xls.php'
 	, '03formulas.php'
