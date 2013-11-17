@@ -74,14 +74,16 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
 			throw new PHPExcel_Reader_Exception("Could not open " . $pFilename . " for reading! File does not exist.");
 		}
 
+        $zipClass = PHPExcel_Settings::getZipClass();
+
 		// Check if zip class exists
-		if (!class_exists('ZipArchive',FALSE)) {
-			throw new PHPExcel_Reader_Exception("ZipArchive library is not enabled");
-		}
+//		if (!class_exists($zipClass, FALSE)) {
+//			throw new PHPExcel_Reader_Exception($zipClass . " library is not enabled");
+//		}
 
         $mimeType = 'UNKNOWN';
 		// Load file
-		$zip = new ZipArchive;
+		$zip = new $zipClass;
 		if ($zip->open($pFilename) === true) {
 			// check if it is an OOXML archive
 			$stat = $zip->statName('mimetype');
@@ -124,7 +126,9 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
 			throw new PHPExcel_Reader_Exception("Could not open " . $pFilename . " for reading! File does not exist.");
 		}
 
-		$zip = new ZipArchive;
+        $zipClass = PHPExcel_Settings::getZipClass();
+
+		$zip = new $zipClass;
 		if (!$zip->open($pFilename)) {
 			throw new PHPExcel_Reader_Exception("Could not open " . $pFilename . " for reading! Error opening file.");
 		}
@@ -176,7 +180,9 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
 
 		$worksheetInfo = array();
 
-		$zip = new ZipArchive;
+        $zipClass = PHPExcel_Settings::getZipClass();
+
+		$zip = new $zipClass;
 		if (!$zip->open($pFilename)) {
 			throw new PHPExcel_Reader_Exception("Could not open " . $pFilename . " for reading! Error opening file.");
 		}
@@ -331,7 +337,9 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
 		$timezoneObj = new DateTimeZone('Europe/London');
 		$GMT = new DateTimeZone('UTC');
 
-		$zip = new ZipArchive;
+        $zipClass = PHPExcel_Settings::getZipClass();
+
+		$zip = new $zipClass;
 		if (!$zip->open($pFilename)) {
 			throw new PHPExcel_Reader_Exception("Could not open " . $pFilename . " for reading! Error opening file.");
 		}
