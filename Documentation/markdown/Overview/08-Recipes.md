@@ -731,8 +731,13 @@ An example on setting cell security:
 $objPHPExcel->getActiveSheet()->getStyle('B1')
     ->getProtection()
     ->setLocked(PHPExcel_Style_Protection::PROTECTION_UNPROTECTED);
+```
 
-__Make sure you enable worksheet protection if you need any of the worksheet protection features!__ This can be done using the following code: $objPHPExcel->getActiveSheet()->getProtection()->setSheet(true);
+__Make sure you enable worksheet protection if you need any of the worksheet protection features!__ This can be done using the following code:
+
+```php
+$objPHPExcel->getActiveSheet()->getProtection()->setSheet(true);
+```
 
 ### Setting data validation on a cell
 
