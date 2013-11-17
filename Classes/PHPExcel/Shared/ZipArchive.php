@@ -113,7 +113,6 @@ class PHPExcel_Shared_ZipArchive
 
     /**
      * Find if given fileName exist in archive (Emulate ZipArchive locateName())
-     * author Adam (adam.riyadi@gmail.com)
      *
      * @param        string        $fileName        Filename for the file in zip archive
      * @return        boolean
@@ -123,7 +122,7 @@ class PHPExcel_Shared_ZipArchive
         $list = $this->_zip->listContent();
         $listCount = count($list);
         $list_index = -1;
-        for ($i = 0; $i < $listCount; $i++) {
+        for ($i = 0; $i < $listCount; ++$i) {
             if (strtolower($list[$i]["filename"]) == strtolower($fileName) ||
                 strtolower($list[$i]["stored_filename"]) == strtolower($fileName)) {
                 $list_index = $i;
@@ -135,7 +134,6 @@ class PHPExcel_Shared_ZipArchive
 
     /**
      * Extract file from archive by given fileName (Emulate ZipArchive getFromName())
-     * author Adam (adam.riyadi@gmail.com)
      *
      * @param        string        $fileName        Filename for the file in zip archive
      * @return        string  $contents        File string contents
@@ -145,22 +143,23 @@ class PHPExcel_Shared_ZipArchive
         $list = $this->_zip->listContent();
         $listCount = count($list);
         $list_index = -1;
-        for ($i = 0; $i < $listCount; $i++) {
+        for ($i = 0; $i < $listCount; ++$i) {
             if (strtolower($list[$i]["filename"]) == strtolower($fileName) ||
                 strtolower($list[$i]["stored_filename"]) == strtolower($fileName)) {
                 $list_index = $i;
                 break;
             }
         }
-                
+
         $extracted = "";
         if ($list_index != -1) {
             $extracted = $this->_zip->extractByIndex($list_index, PCLZIP_OPT_EXTRACT_AS_STRING);
         } else {
             $filename = substr($fileName, 1);
             $list_index = -1;
-            for ($i = 0; $i < $listCount; $i++) {
-                if (strtolower($list[$i]["filename"]) == strtolower($fileName) || strtolower($list[$i]["stored_filename"]) == strtolower($fileName)) {
+            for ($i = 0; $i < $listCount; ++$i) {
+                if (strtolower($list[$i]["filename"]) == strtolower($fileName) || 
+                    strtolower($list[$i]["stored_filename"]) == strtolower($fileName)) {
                     $list_index = $i;
                     break;
                 }
