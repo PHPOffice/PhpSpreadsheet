@@ -511,7 +511,7 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
 
 					//	We still set the number format mask for date/time values, even if _readDataOnly is true
 					if ((!$this->_readDataOnly) ||
-						(PHPExcel_Shared_Date::isDateTimeFormatCode($styleArray['numberformat']['code']))) {
+						(PHPExcel_Shared_Date::isDateTimeFormatCode((string) $styleAttributes['Format']))) {
 						$styleArray = array();
 						$styleArray['numberformat']['code'] = (string) $styleAttributes['Format'];
 						//	If _readDataOnly is false, we set all formatting information
