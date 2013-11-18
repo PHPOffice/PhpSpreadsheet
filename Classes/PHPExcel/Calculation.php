@@ -2738,10 +2738,10 @@ class PHPExcel_Calculation {
 		$pCellParent = ($pCell !== NULL) ? $pCell->getWorksheet() : NULL;
 
 		$regexpMatchString = '/^('.self::CALCULATION_REGEXP_FUNCTION.
+							   '|'.self::CALCULATION_REGEXP_CELLREF.
 							   '|'.self::CALCULATION_REGEXP_NUMBER.
 							   '|'.self::CALCULATION_REGEXP_STRING.
 							   '|'.self::CALCULATION_REGEXP_OPENBRACE.
-							   '|'.self::CALCULATION_REGEXP_CELLREF.
 							   '|'.self::CALCULATION_REGEXP_NAMEDRANGE.
 							   '|'.self::CALCULATION_REGEXP_ERROR.
 							 ')/si';
