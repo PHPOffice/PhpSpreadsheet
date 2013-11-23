@@ -37,6 +37,7 @@ Fixed in develop branch for release v1.8.0:
 - Bugfix:   (IndrekHaav)      Work Item GH-212  - Fix for formulae that reference a sheet whose name begins with a digit:
                                                   these were erroneously identified as numeric values, causing the parser to throw an undefined variable error.
 - Bugfix:   (IndrekHaav)      Work Item CP16208 - Fixed undefined variable error due to $styleArray being used before it's initialised
+- Bugfix:   (PowerKiKi)       Work Item GH-273  - ISTEXT() return wrong result if referencing an empty but formatted cell
 - Feature:  (amerov)                            - Implementation of the Excel HLOOKUP() function
 - Feature:  (MBaker)                            - Added "Quote Prefix" to style settings (Excel2007 Reader and Writer only)
 - Feature:  (MBaker)                            - Added Horizontal FILL alignment for Excel5 and Excel2007 Readers/Writers, and Horizontal DISTRIBUTED alignment for Excel2007 Reader/Writer
