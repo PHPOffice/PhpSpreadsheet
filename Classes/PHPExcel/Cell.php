@@ -233,10 +233,12 @@ class PHPExcel_Cell
 	{
 		// set the value according to data type
 		switch ($pDataType) {
+			case PHPExcel_Cell_DataType::TYPE_NULL:
+				$this->_value = $pValue;
+				break;
 			case PHPExcel_Cell_DataType::TYPE_STRING2:
 				$pDataType = PHPExcel_Cell_DataType::TYPE_STRING;
 			case PHPExcel_Cell_DataType::TYPE_STRING:
-			case PHPExcel_Cell_DataType::TYPE_NULL:
 			case PHPExcel_Cell_DataType::TYPE_INLINE:
 				$this->_value = PHPExcel_Cell_DataType::checkString($pValue);
 				break;
@@ -379,7 +381,7 @@ class PHPExcel_Cell
     {
         return $this->_dataType == PHPExcel_Cell_DataType::TYPE_FORMULA;
     }
-    
+
 	/**
 	 *	Does this cell contain Data validation rules?
 	 *
