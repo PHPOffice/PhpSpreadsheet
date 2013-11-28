@@ -1687,7 +1687,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
 			substr($recordData, 38, 16),
 			$this->_md5Ctxt
 		)) {
-			throw new \Exception('Decryption password incorrect');
+			throw new PHPExcel_Reader_Exception('Decryption password incorrect');
 		}
 		
 		$this->_encryption = self::MS_BIFF_CRYPTO_RC4;

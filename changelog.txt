@@ -42,7 +42,7 @@ Fixed in develop branch for release v1.8.0:
 - Feature:  (amerov)                            - Implementation of the Excel HLOOKUP() function
 - Feature:  (MBaker)                            - Added "Quote Prefix" to style settings (Excel2007 Reader and Writer only)
 - Feature:  (MBaker)                            - Added Horizontal FILL alignment for Excel5 and Excel2007 Readers/Writers, and Horizontal DISTRIBUTED alignment for Excel2007 Reader/Writer
-- Feature:  (trvrnrth)                          - Add support for reading protected (RC4 encrypted) .xls files (64-bit Linux only)
+- Feature:  (trvrnrth)        Work Item GH-261  - Add support for reading protected (RC4 encrypted) .xls files
 - Feature:  (LWol)            Work Item GH-252  - Adding support for macros, Ribbon in Excel 2007
 - General:  (cdhutch)         Work item 20055   - Remove array_shift in ReferenceHelper::insertNewBefore improves column or row delete speed
 - General:  (MBaker)                            - Improve stock chart handling and rendering, with help from Swashata Ghosh
