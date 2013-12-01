@@ -359,6 +359,7 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
 				$officePropertyDC = $officePropertyData->children($namespacesMeta['dc']);
 			}
 			foreach($officePropertyDC as $propertyName => $propertyValue) {
+				$propertyValue = (string) $propertyValue;
 				switch ($propertyName) {
 					case 'title' :
 							$docProps->setTitle($propertyValue);
@@ -386,6 +387,7 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
 			}
 			foreach($officePropertyMeta as $propertyName => $propertyValue) {
 				$propertyValueAttributes = $propertyValue->attributes($namespacesMeta['meta']);
+				$propertyValue = (string) $propertyValue;
 				switch ($propertyName) {
 					case 'initial-creator' :
 							$docProps->setCreator($propertyValue);
