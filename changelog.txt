@@ -52,6 +52,7 @@ Fixed in develop branch for release v1.8.0:
 - General:  (dresenhista)     Work Item GH-242  - Functionality to getHighestRow() for a specified column, and getHighestColumn() for a specified row
 - General:  (adamriyadi)      Work Item GH-247  - Modify PHPExcel_Reader_Excel2007 to use zipClass from PHPExcel_Settings::getZipClass()
                                                   This allows the use of PCLZip when reading for people that don't have access to ZipArchive
+- General:  (infojunkie)      Work Item GH-276  - Convert properties to string in OOCalc reader
 
 
 Fixed in develop branch for release v1.7.9:
