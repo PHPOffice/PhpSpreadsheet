@@ -174,10 +174,10 @@ class PHPExcel_Reader_Excel5_MD5
         self::step($I, $C, $D, $A, $B, $words[2], 15, 0x2ad7d2bb);
         self::step($I, $B, $C, $D, $A, $words[9], 21, 0xeb86d391);
 
-        $this->a = ($this->a + $A);
-        $this->b = ($this->b + $B);
-        $this->c = ($this->c + $C);
-        $this->d = ($this->d + $D);
+        $this->a = ($this->a + $A) & 0xffffffff;
+        $this->b = ($this->b + $B) & 0xffffffff;
+        $this->c = ($this->c + $C) & 0xffffffff;
+        $this->d = ($this->d + $D) & 0xffffffff;
     }
 
 
@@ -207,9 +207,9 @@ class PHPExcel_Reader_Excel5_MD5
 
     private static function step($func, &$A, $B, $C, $D, $M, $s, $t)
     {
-        $A = ($A + call_user_func($func, $B, $C, $D) + $M + $t);
+        $A = ($A + call_user_func($func, $B, $C, $D) + $M + $t) & 0xffffffff;
         $A = self::rotate($A, $s);
-        $A = ($B + $A);
+        $A = ($B + $A) & 0xffffffff;
     }
 
 
