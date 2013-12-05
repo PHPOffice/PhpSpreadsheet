@@ -3324,7 +3324,8 @@ class PHPExcel_Calculation {
 //							echo '$cellRef='.$cellRef.' in worksheet '.$matches[2].'<br />';
 							$this->_debugLog->writeDebugLog('Evaluating Cell ', $cellRef, ' in worksheet ', $matches[2]);
 							if ($pCellParent !== NULL) {
-								if ($this->_workbook->getSheetByName($matches[2])->cellExists($cellRef)) {
+								$cellSheet = $this->_workbook->getSheetByName($matches[2]);
+								if ($cellSheet && $cellSheet->cellExists($cellRef)) {
 									$cellValue = $this->extractCellRange($cellRef, $this->_workbook->getSheetByName($matches[2]), FALSE);
 									$pCell->attach($pCellParent);
 								} else {
