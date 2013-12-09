@@ -39,6 +39,7 @@ Fixed in develop branch for release v1.8.0:
 - Bugfix:   (IndrekHaav)      Work Item CP16208 - Fixed undefined variable error due to $styleArray being used before it's initialised
 - Bugfix:   (PowerKiKi)       Work Item GH-273  - ISTEXT() return wrong result if referencing an empty but formatted cell
 - Bugfix:   (PowerKiKi)       Work Item GH-270/GH-31  - Binary comparison of strings are case insensitive
+- Bugfix:   (MBaker)          Work Item GH-275  - Insert New Row/Column Before is not correctly updating formula references
 - Feature:  (amerov)                            - Implementation of the Excel HLOOKUP() function
 - Feature:  (MBaker)                            - Added "Quote Prefix" to style settings (Excel2007 Reader and Writer only)
 - Feature:  (MBaker)                            - Added Horizontal FILL alignment for Excel5 and Excel2007 Readers/Writers, and Horizontal DISTRIBUTED alignment for Excel2007 Reader/Writer
