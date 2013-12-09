@@ -762,9 +762,13 @@ class PHPExcel_ReferenceHelper
 					}
 				}
 				if ($adjustCount > 0) {
-                    krsort($cellTokens);
-					krsort($newCellTokens);
-					//	Update cell references in the formula
+                    if ($pNumCols > 0 || $pNumRows > 0) {
+                        krsort($cellTokens);
+                        krsort($newCellTokens);
+                      } else {
+                        ksort($cellTokens);
+                        ksort($newCellTokens);
+                    }   //  Update cell references in the formula
 					$formulaBlock = str_replace('\\','',preg_replace($cellTokens,$newCellTokens,$formulaBlock));
 				}
 			}
