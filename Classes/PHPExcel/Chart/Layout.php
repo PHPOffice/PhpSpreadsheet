@@ -196,7 +196,7 @@ class PHPExcel_Chart_Layout
 	 * @return string
 	 */
 	public function getYMode() {
-		return $this->_xMode;
+		return $this->_yMode;
 	}
 
 	/**
@@ -205,7 +205,7 @@ class PHPExcel_Chart_Layout
 	 * @param Y-Mode $value
 	 */
 	public function setYMode($value) {
-		$this->_xMode = $value;
+		$this->_yMode = $value;
 	}
 
 	/**
