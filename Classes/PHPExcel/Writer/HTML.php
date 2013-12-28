@@ -428,7 +428,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 					while($column++ < $dimension[1][0]) {
 						// Cell exists?
 						if ($sheet->cellExistsByColumnAndRow($column, $row)) {
-							$rowData[$column] = $sheet->getCellByColumnAndRow($column, $row);
+							$rowData[$column] = PHPExcel_Cell::stringFromColumnIndex($column) . $row;
 						} else {
 							$rowData[$column] = '';
 						}
@@ -1114,9 +1114,9 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 
 			// Write cells
 			$colNum = 0;
-			foreach ($pValues as $cell) {
+			foreach ($pValues as $cellAddress) {
+                $cell = ($cellAddress > '') ? $pSheet->getCell($cellAddress) : '';
 				$coordinate = PHPExcel_Cell::stringFromColumnIndex($colNum) . ($pRow + 1);
-
 				if (!$this->_useInlineCss) {
 					$cssClass = '';
 					$cssClass = 'column' . $colNum;
