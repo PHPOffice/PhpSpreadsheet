@@ -57,7 +57,7 @@ class PHPExcel_CachedObjectStorage_PHPTemp extends PHPExcel_CachedObjectStorage_
      * @throws	PHPExcel_Exception
      */
 	protected function _storeData() {
-		if ($this->_currentCellIsDirty) {
+		if ($this->_currentCellIsDirty && !empty($this->_currentObjectID)) {
 			$this->_currentObject->detach();
 
 			fseek($this->_fileHandle,0,SEEK_END);

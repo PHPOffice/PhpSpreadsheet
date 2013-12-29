@@ -85,7 +85,7 @@ class PHPExcel_CachedObjectStorage_SQLite3 extends PHPExcel_CachedObjectStorage_
      * @throws	PHPExcel_Exception
      */
 	protected function _storeData() {
-		if ($this->_currentCellIsDirty) {
+		if ($this->_currentCellIsDirty && !empty($this->_currentObjectID)) {
 			$this->_currentObject->detach();
 
 			$this->_insertQuery->bindValue('id',$this->_currentObjectID,SQLITE3_TEXT);

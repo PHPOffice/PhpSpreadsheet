@@ -43,7 +43,7 @@ class PHPExcel_CachedObjectStorage_MemoryGZip extends PHPExcel_CachedObjectStora
      * @throws	PHPExcel_Exception
      */
 	protected function _storeData() {
-		if ($this->_currentCellIsDirty) {
+		if ($this->_currentCellIsDirty && !empty($this->_currentObjectID)) {
 			$this->_currentObject->detach();
 
 			$this->_cellCache[$this->_currentObjectID] = gzdeflate(serialize($this->_currentObject));
