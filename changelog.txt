@@ -43,6 +43,7 @@ Fixed in develop branch for release v1.8.0:
 - Bugfix:   (MBaker)          Work Item GH-257  - Passing an array of cells to _generateRow() in the HTML/PDF Writer causes caching problems with last cell in the range
 - Bugfix:   (MBaker)          Work Item GH-193  - Fix to empty worksheet garbage collection when using cell caching
 - Bugfix:   (Jazzo)           Work Item GH-248  - Excel2007 does not correctly mark rows as hidden
+- Bugfix:   (Roy Shahbazian)  Work Item GH-299  - Fixed typo in Chart/Layout set/getYMode()
 - Feature:  (amerov)                            - Implementation of the Excel HLOOKUP() function
 - Feature:  (MBaker)                            - Added "Quote Prefix" to style settings (Excel2007 Reader and Writer only)
 - Feature:  (MBaker)                            - Added Horizontal FILL alignment for Excel5 and Excel2007 Readers/Writers, and Horizontal DISTRIBUTED alignment for Excel2007 Reader/Writer
