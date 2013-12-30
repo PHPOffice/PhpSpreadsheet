@@ -92,6 +92,7 @@ $aTests = array(
 	, '34chartupdate.php'
 	, '35chartrender.php'
 	, '36chartreadwriteHTML.php'
+	, '36chartreadwritePDF.php'
 	, '37page_layout_view.php'
 	, '38cloneWorksheet.php'
 	, '40duplicateStyle.php'

@@ -111,9 +111,12 @@ class PHPExcel_Chart_PlotArea
 	 * Set Plot Series
 	 *
 	 * @param [PHPExcel_Chart_DataSeries]
+     * @return PHPExcel_Chart_PlotArea
 	 */
 	public function setPlotSeries($plotSeries = array()) {
 		$this->_plotSeries = $plotSeries;
+        
+        return $this;
 	}
 
 	public function refresh(PHPExcel_Worksheet $worksheet) {

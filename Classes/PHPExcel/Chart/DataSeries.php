@@ -170,9 +170,11 @@ class PHPExcel_Chart_DataSeries
 	 * Set Plot Type
 	 *
 	 * @param string $plotType
+     * @return PHPExcel_Chart_DataSeries
 	 */
 	public function setPlotType($plotType = '') {
 		$this->_plotType = $plotType;
+        return $this;
 	}
 
 	/**
@@ -188,9 +190,11 @@ class PHPExcel_Chart_DataSeries
 	 * Set Plot Grouping Type
 	 *
 	 * @param string $groupingType
+     * @return PHPExcel_Chart_DataSeries
 	 */
 	public function setPlotGrouping($groupingType = null) {
 		$this->_plotGrouping = $groupingType;
+        return $this;
 	}
 
 	/**
@@ -206,9 +210,11 @@ class PHPExcel_Chart_DataSeries
 	 * Set Plot Direction
 	 *
 	 * @param string $plotDirection
+     * @return PHPExcel_Chart_DataSeries
 	 */
 	public function setPlotDirection($plotDirection = null) {
 		$this->_plotDirection = $plotDirection;
+        return $this;
 	}
 
 	/**
@@ -281,9 +287,11 @@ class PHPExcel_Chart_DataSeries
 	 * Set Plot Style
 	 *
 	 * @param string $plotStyle
+     * @return PHPExcel_Chart_DataSeries
 	 */
 	public function setPlotStyle($plotStyle = null) {
 		$this->_plotStyle = $plotStyle;
+        return $this;
 	}
 
 	/**
@@ -332,9 +340,11 @@ class PHPExcel_Chart_DataSeries
 	 * Set Smooth Line
 	 *
 	 * @param boolean $smoothLine
+     * @return PHPExcel_Chart_DataSeries
 	 */
 	public function setSmoothLine($smoothLine = TRUE) {
 		$this->_smoothLine = $smoothLine;
+        return $this;
 	}
 
 	public function refresh(PHPExcel_Worksheet $worksheet) {
