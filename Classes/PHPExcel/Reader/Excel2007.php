@@ -762,7 +762,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 
 							if (isset($xmlSheet->cols) && !$this->_readDataOnly) {
 								foreach ($xmlSheet->cols->col as $col) {
-									for ($i = intval($col["min"]) - 1; $i < intval($col["max"]); ++$i) {
+                                    for ($i = intval($col["min"]) - 1; $i < intval($col["max"]); ++$i) {
 										if ($col["style"] && !$this->_readDataOnly) {
 											$docSheet->getColumnDimension(PHPExcel_Cell::stringFromColumnIndex($i))->setXfIndex(intval($col["style"]));
 										}
@@ -2057,9 +2057,9 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 
 	private static function boolean($value = NULL)
 	{
-		if (is_numeric($value)) {
+		if (is_numeric($value) || is_object($value)) {
 			return (bool) $value;
-		}
+        }
 		return ($value === 'true' || $value === 'TRUE') ? TRUE : FALSE;
 	}
 }
