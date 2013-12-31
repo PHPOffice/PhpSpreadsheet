@@ -2,7 +2,7 @@
 /**
  * $Id: bootstrap.php 2892 2011-08-14 15:11:50Z markbaker@phpexcel.net $
  *
- * @copyright   Copyright (C) 2011-2013 PHPExcel. All rights reserved.
+ * @copyright   Copyright (C) 2011-2014 PHPExcel. All rights reserved.
  * @package     PHPExcel
  * @subpackage  PHPExcel Unit Tests
  * @author      Mark Baker
