@@ -794,14 +794,16 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      * @return PHPExcel_Worksheet
      */
 	public function rebindParent(PHPExcel $parent) {
-        $namedRanges = $this->_parent->getNamedRanges();
-        foreach ($namedRanges as $namedRange) {
-            $parent->addNamedRange($namedRange);
-        }
+        if ($this->_parent !== null) {
+            $namedRanges = $this->_parent->getNamedRanges();
+            foreach ($namedRanges as $namedRange) {
+                $parent->addNamedRange($namedRange);
+            }
 
-        $this->_parent->removeSheetByIndex(
-            $this->_parent->getIndex($this)
-        );
+            $this->_parent->removeSheetByIndex(
+                $this->_parent->getIndex($this)
+            );
+        }
         $this->_parent = $parent;
 
         return $this;

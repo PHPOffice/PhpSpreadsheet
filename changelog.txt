@@ -46,6 +46,7 @@ Fixed in develop branch for release v1.8.0:
 - Bugfix:   (Roy Shahbazian)  Work Item GH-299  - Fixed typo in Chart/Layout set/getYMode()
 - Bugfix:   (EliuFlorez)      Work item GH-279  - Fatal error: Call to a member function cellExists() line: 3327 in calculation.php if referenced worksheet doesn't exist
 - Bugfix:   (MBaker)          Work Item GH-290  - AdvancedValueBinder "Division by zero"-error
+- Bugfix:   (MBaker)          Work Item CP20604 - Adding Sheet to Workbook Bug
 - Feature:  (amerov)                            - Implementation of the Excel HLOOKUP() function
 - Feature:  (MBaker)                            - Added "Quote Prefix" to style settings (Excel2007 Reader and Writer only)
 - Feature:  (MBaker)                            - Added Horizontal FILL alignment for Excel5 and Excel2007 Readers/Writers, and Horizontal DISTRIBUTED alignment for Excel2007 Reader/Writer

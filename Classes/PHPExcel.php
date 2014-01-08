@@ -527,6 +527,11 @@ class PHPExcel
                 ++$this->_activeSheetIndex;
             }
         }
+
+        if ($pSheet->getParent() === null) {
+            $pSheet->rebindParent($this);
+        }
+
         return $pSheet;
     }
 
