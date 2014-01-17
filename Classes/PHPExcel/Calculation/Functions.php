@@ -316,7 +316,12 @@ class PHPExcel_Calculation_Functions {
 		} else {
 			preg_match('/([<>=]+)(.*)/',$condition,$matches);
 			list(,$operator,$operand) = $matches;
-			if (!is_numeric($operand)) { $operand = PHPExcel_Calculation::_wrapResult(strtoupper($operand)); }
+
+			if (!is_numeric($operand)) {
+				$operand = str_replace('"', '""', $operand);
+				$operand = PHPExcel_Calculation::_wrapResult(strtoupper($operand));
+			}
+
 			return $operator.$operand;
 		}
 	}	//	function _ifCondition()
