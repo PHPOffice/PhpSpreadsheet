@@ -3663,22 +3663,23 @@ class PHPExcel_Calculation {
 			}
 		} else {
 			if ((PHPExcel_Calculation_Functions::getCompatibilityMode() != PHPExcel_Calculation_Functions::COMPATIBILITY_OPENOFFICE) &&
-				((is_string($operand1) && !is_numeric($operand1)) || (is_string($operand2) && !is_numeric($operand2)))) {
+				((is_string($operand1) && !is_numeric($operand1) && strlen($operand1)>0) || 
+                 (is_string($operand2) && !is_numeric($operand2) && strlen($operand2)>0))) {
 				$result = PHPExcel_Calculation_Functions::VALUE();
 			} else {
 				//	If we're dealing with non-matrix operations, execute the necessary operation
 				switch ($operation) {
 					//	Addition
 					case '+':
-						$result = $operand1+$operand2;
+						$result = $operand1 + $operand2;
 						break;
 					//	Subtraction
 					case '-':
-						$result = $operand1-$operand2;
+						$result = $operand1 - $operand2;
 						break;
 					//	Multiplication
 					case '*':
-						$result = $operand1*$operand2;
+						$result = $operand1 * $operand2;
 						break;
 					//	Division
 					case '/':
@@ -3688,12 +3689,12 @@ class PHPExcel_Calculation {
 							$this->_debugLog->writeDebugLog('Evaluation Result is ', $this->_showTypeDetails('#DIV/0!'));
 							return FALSE;
 						} else {
-							$result = $operand1/$operand2;
+							$result = $operand1 / $operand2;
 						}
 						break;
 					//	Power
 					case '^':
-						$result = pow($operand1,$operand2);
+						$result = pow($operand1, $operand2);
 						break;
 				}
 			}

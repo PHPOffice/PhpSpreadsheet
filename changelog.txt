@@ -24,12 +24,12 @@
 
 
 Fixed in develop branch for release v1.8.0:
-- Bugfix:   (MBaker)          Work item 19830   - Undefined variable: fileHandle in CSV Reader
-- Bugfix:   (MBaker)          Work item 19968   - Out of memory in style/supervisor.php
+- Bugfix:   (MBaker)          Work item CP19830 - Undefined variable: fileHandle in CSV Reader
+- Bugfix:   (MBaker)          Work item CP19968 - Out of memory in style/supervisor.php
 - Bugfix:   (MBaker)                            - Style error with merged cells in PDF Writer
 - Bugfix:   (MBaker)                            - Problem with cloning worksheets
 - Bugfix:   (tavoarcila)      Work Item GH-259  - Bug fix reading Open Office files
-- Bugfix:   (MBaker)          Work item 20397   - Serious bug in absolute cell reference used in shared formula
+- Bugfix:   (MBaker)          Work item CP20397 - Serious bug in absolute cell reference used in shared formula
                                                   Would also have affected insert/delete column/row
 - Bugfix:   (RomanSyroeshko)  Work Item GH-267  - CHOOSE() returns "#VALUE!" if the 1st entry is chosen
 - Bugfix:   (Gemorroj)        Work Item GH-268  - When duplicating styles, styles shifted by one column to the right
@@ -47,12 +47,13 @@ Fixed in develop branch for release v1.8.0:
 - Bugfix:   (EliuFlorez)      Work item GH-279  - Fatal error: Call to a member function cellExists() line: 3327 in calculation.php if referenced worksheet doesn't exist
 - Bugfix:   (MBaker)          Work Item GH-290  - AdvancedValueBinder "Division by zero"-error
 - Bugfix:   (MBaker)          Work Item CP20604 - Adding Sheet to Workbook Bug
+- Bugfix:   (MBaker)          Work item CP20703 - Calculation engine incorrectly evaluates empty cells as #VALUE
 - Feature:  (amerov)                            - Implementation of the Excel HLOOKUP() function
 - Feature:  (MBaker)                            - Added "Quote Prefix" to style settings (Excel2007 Reader and Writer only)
 - Feature:  (MBaker)                            - Added Horizontal FILL alignment for Excel5 and Excel2007 Readers/Writers, and Horizontal DISTRIBUTED alignment for Excel2007 Reader/Writer
 - Feature:  (trvrnrth)        Work Item GH-261  - Add support for reading protected (RC4 encrypted) .xls files
 - Feature:  (LWol)            Work Item GH-252  - Adding support for macros, Ribbon in Excel 2007
-- General:  (cdhutch)         Work item 20055   - Remove array_shift in ReferenceHelper::insertNewBefore improves column or row delete speed
+- General:  (cdhutch)         Work item CP20055 - Remove array_shift in ReferenceHelper::insertNewBefore improves column or row delete speed
 - General:  (MBaker)                            - Improve stock chart handling and rendering, with help from Swashata Ghosh
 - General:  (MBaker)                            - Fix to calculation properties for Excel2007 so that the opening application will only recalculate on load if it's actually required
 - General:  (MBaker)                            - Modified Excel2007 Writer to default preCalculateFormulas to false
