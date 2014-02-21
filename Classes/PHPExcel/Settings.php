@@ -105,6 +105,12 @@ class PHPExcel_Settings
      */
     private static $_pdfRendererPath = NULL;
 
+    /**
+     * Default options for libxml loader
+     *
+     * @var int
+     */
+    private static $_libXmlLoaderOptions = null;
 
     /**
      * Set the Zip handler Class that PHPExcel should use for Zip file management (PCLZip or ZipArchive)
@@ -339,7 +345,6 @@ class PHPExcel_Settings
         return self::$_pdfRendererName;
     } // function getPdfRendererName()
 
-
     /**
      * Return the directory path to the PDF Rendering Library that PHPExcel is currently configured to use
      *
@@ -351,4 +356,30 @@ class PHPExcel_Settings
         return self::$_pdfRendererPath;
     } // function getPdfRendererPath()
 
+    /**
+     * Set default options for libxml loader
+     *
+     * @param int $options Default options for libxml loader
+     */
+    public static function setLibXmlLoaderOptions($options = null)
+    {
+        if (is_null($options)) {
+            $options = LIBXML_DTDLOAD | LIBXML_DTDATTR;
+        }
+        self::$_libXmlLoaderOptions = $options;
+    } // function setLibXmlLoaderOptions
+
+    /**
+     * Get default options for libxml loader.
+     * Defaults to LIBXML_DTDLOAD | LIBXML_DTDATTR when not set explicitly.
+     *
+     * @return int Default options for libxml loader
+     */
+    public static function getLibXmlLoaderOptions()
+    {
+        if (is_null(self::$_libXmlLoaderOptions)) {
+            self::$_libXmlLoaderOptions = LIBXML_DTDLOAD | LIBXML_DTDATTR;
+        }
+        return self::$_libXmlLoaderOptions;
+    } // function getLibXmlLoaderOptions
 }
