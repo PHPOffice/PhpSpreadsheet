@@ -19,4 +19,6 @@ Should you ever need to change these settings, the following method is available
 PHPExcel_Settings::setLibXmlLoaderOptions();
 ```
 
-Allowing you to specify the XML loader settings that you want to use instead.
+Allowing you to specify the XML loader settings that those that you want to use instead.
+
+ > While PHPExcel protects you with its default settings, if you do change these settings yourself, then you're responsible for ensuring that your XML-based formats aren't open to XXE injection.
