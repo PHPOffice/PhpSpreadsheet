@@ -377,6 +377,7 @@ class PHPExcel_Settings
      */
     public static function getLibXmlLoaderOptions()
     {
+        libxml_disable_entity_loader(true);
         if (is_null(self::$_libXmlLoaderOptions)) {
             self::$_libXmlLoaderOptions = LIBXML_DTDLOAD | LIBXML_DTDATTR;
         }
