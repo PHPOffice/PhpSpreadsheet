@@ -62,6 +62,8 @@ Fixed in develop branch for release v1.8.0:
 - General:  (adamriyadi)      Work Item GH-247  - Modify PHPExcel_Reader_Excel2007 to use zipClass from PHPExcel_Settings::getZipClass()
                                                   This allows the use of PCLZip when reading for people that don't have access to ZipArchive
 - General:  (infojunkie)      Work Item GH-276  - Convert properties to string in OOCalc reader
+- Security: (maartenba)       Work Item GH-322  - Disable libxml external entity loading by default.
+                                                  This is to prevent XML External Entity Processing (XXE) injection attacks (see http://websec.io/2012/08/27/Preventing-XEE-in-PHP.html for an explanation of XXE injection).
 
 
 Fixed in develop branch for release v1.7.9:
