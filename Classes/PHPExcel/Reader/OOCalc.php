@@ -617,22 +617,23 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
 
 								if ($hasCalculatedValue) {
 									$type = PHPExcel_Cell_DataType::TYPE_FORMULA;
-//									echo 'Formula: '.$cellDataFormula.'<br />';
+//									echo 'Formula: ', $cellDataFormula, PHP_EOL;
 									$cellDataFormula = substr($cellDataFormula,strpos($cellDataFormula,':=')+1);
 									$temp = explode('"',$cellDataFormula);
 									$tKey = false;
 									foreach($temp as &$value) {
 										//	Only replace in alternate array entries (i.e. non-quoted blocks)
 										if ($tKey = !$tKey) {
-											$value = preg_replace('/\[\.(.*):\.(.*)\]/Ui','$1:$2',$value);
-											$value = preg_replace('/\[\.(.*)\]/Ui','$1',$value);
+											$value = preg_replace('/\[(.+)\.(.*)\]/Ui','$1!$2',$value);         //  Cell reference in another sheet
+											$value = preg_replace('/\[\.(.*):\.(.*)\]/Ui','$1:$2',$value);      //  Cell range reference
+											$value = preg_replace('/\[\.(.*)\]/Ui','$1',$value);                //  Simple cell reference
 											$value = PHPExcel_Calculation::_translateSeparator(';',',',$value,$inBraces);
 										}
 									}
 									unset($value);
 									//	Then rebuild the formula string
 									$cellDataFormula = implode('"',$temp);
-//									echo 'Adjusted Formula: '.$cellDataFormula.'<br />';
+//									echo 'Adjusted Formula: ', $cellDataFormula, PHP_EOL;
 								}
 
 								$colRepeats = (isset($cellDataTableAttributes['number-columns-repeated'])) ?
