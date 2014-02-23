@@ -23,7 +23,8 @@
     ],
     "require": {
         "php": ">=5.2.0",
-        "ext-xml": "*"
+        "ext-xml": "*",
+        "ext-xmlwriter": "*"
     },
     "recommend": {
         "ext-zip": "*",
