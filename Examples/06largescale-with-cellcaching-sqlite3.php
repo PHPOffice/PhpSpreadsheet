@@ -38,8 +38,11 @@ date_default_timezone_set('Europe/London');
 require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
 
 $cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_to_sqlite3;
-PHPExcel_Settings::setCacheStorageMethod($cacheMethod);
-echo date('H:i:s') , " Enable Cell Caching using " , $cacheMethod , " method" , EOL;
+if (PHPExcel_Settings::setCacheStorageMethod($cacheMethod)) {
+    echo date('H:i:s') , " Enable Cell Caching using " , $cacheMethod , " method" , EOL;
+} else {
+    echo date('H:i:s') , " Unable to set Cell Caching using " , $cacheMethod , " method, reverting to memory" , EOL;
+}
 
 
 // Create new PHPExcel object

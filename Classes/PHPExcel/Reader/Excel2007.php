@@ -242,7 +242,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 
 
 	private static function _castToBool($c) {
-//		echo 'Initial Cast to Boolean<br />';
+//		echo 'Initial Cast to Boolean', PHP_EOL;
 		$value = isset($c->v) ? (string) $c->v : NULL;
 		if ($value == '0') {
 			return FALSE;
@@ -256,46 +256,46 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 
 
 	private static function _castToError($c) {
-//		echo 'Initial Cast to Error<br />';
+//		echo 'Initial Cast to Error', PHP_EOL;
 		return isset($c->v) ? (string) $c->v : NULL;
 	}	//	function _castToError()
 
 
 	private static function _castToString($c) {
-//		echo 'Initial Cast to String<br />';
+//		echo 'Initial Cast to String, PHP_EOL;
 		return isset($c->v) ? (string) $c->v : NULL;
 	}	//	function _castToString()
 
 
 	private function _castToFormula($c,$r,&$cellDataType,&$value,&$calculatedValue,&$sharedFormulas,$castBaseType) {
-//		echo 'Formula',PHP_EOL;
-//		echo '$c->f is '.$c->f.PHP_EOL;
+//		echo 'Formula', PHP_EOL;
+//		echo '$c->f is ', $c->f, PHP_EOL;
 		$cellDataType 		= 'f';
 		$value 				= "={$c->f}";
 		$calculatedValue 	= self::$castBaseType($c);
 
 		// Shared formula?
 		if (isset($c->f['t']) && strtolower((string)$c->f['t']) == 'shared') {
-//			echo 'SHARED FORMULA'.PHP_EOL;
+//			echo 'SHARED FORMULA', PHP_EOL;
 			$instance = (string)$c->f['si'];
 
-//			echo 'Instance ID = '.$instance.PHP_EOL;
+//			echo 'Instance ID = ', $instance, PHP_EOL;
 //
-//			echo 'Shared Formula Array:'.PHP_EOL;
+//			echo 'Shared Formula Array:', PHP_EOL;
 //			print_r($sharedFormulas);
 			if (!isset($sharedFormulas[(string)$c->f['si']])) {
-//				echo 'SETTING NEW SHARED FORMULA'.PHP_EOL;
-//				echo 'Master is '.$r.PHP_EOL;
-//				echo 'Formula is '.$value.PHP_EOL;
+//				echo 'SETTING NEW SHARED FORMULA', PHP_EOL;
+//				echo 'Master is ', $r, PHP_EOL;
+//				echo 'Formula is ', $value, PHP_EOL;
 				$sharedFormulas[$instance] = array(	'master' => $r,
 													'formula' => $value
 												  );
-//				echo 'New Shared Formula Array:'.PHP_EOL;
+//				echo 'New Shared Formula Array:', PHP_EOL;
 //				print_r($sharedFormulas);
 			} else {
-//				echo 'GETTING SHARED FORMULA'.PHP_EOL;
-//				echo 'Master is '.$sharedFormulas[$instance]['master'].PHP_EOL;
-//				echo 'Formula is '.$sharedFormulas[$instance]['formula'].PHP_EOL;
+//				echo 'GETTING SHARED FORMULA', PHP_EOL;
+//				echo 'Master is ', $sharedFormulas[$instance]['master'], PHP_EOL;
+//				echo 'Formula is ', $sharedFormulas[$instance]['formula'], PHP_EOL;
 				$master = PHPExcel_Cell::coordinateFromString($sharedFormulas[$instance]['master']);
 				$current = PHPExcel_Cell::coordinateFromString($r);
 
@@ -308,7 +308,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 																			$difference[0],
 																			$difference[1]
 																		 );
-//				echo 'Adjusted Formula is '.$value.PHP_EOL;
+//				echo 'Adjusted Formula is ', $value, PHP_EOL;
 			}
 		}
 	}
@@ -770,6 +770,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 											//$docSheet->getColumnDimension(PHPExcel_Cell::stringFromColumnIndex($i))->setAutoSize(TRUE);
 										}
 										if (self::boolean($col["hidden"])) {
+                                        echo PHPExcel_Cell::stringFromColumnIndex($i),': HIDDEN COLUMN',PHP_EOL;
 											$docSheet->getColumnDimension(PHPExcel_Cell::stringFromColumnIndex($i))->setVisible(FALSE);
 										}
 										if (self::boolean($col["collapsed"])) {
@@ -837,15 +838,15 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 											}
 										}
 
-	//									echo '<b>Reading cell '.$coordinates[0].$coordinates[1].'</b><br />';
+	//									echo 'Reading cell ', $coordinates[0], $coordinates[1], PHP_EOL;
 	//									print_r($c);
-	//									echo '<br />';
-	//									echo 'Cell Data Type is '.$cellDataType.': ';
+	//									echo PHP_EOL;
+	//									echo 'Cell Data Type is ', $cellDataType, ': ';
 	//
 										// Read cell!
 										switch ($cellDataType) {
 											case "s":
-	//											echo 'String<br />';
+	//											echo 'String', PHP_EOL;
 												if ((string)$c->v != '') {
 													$value = $sharedStrings[intval($c->v)];
 
@@ -858,7 +859,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 
 												break;
 											case "b":
-	//											echo 'Boolean<br />';
+	//											echo 'Boolean', PHP_EOL;
 												if (!isset($c->f)) {
 													$value = self::_castToBool($c);
 												} else {
@@ -869,41 +870,41 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 														$att = $c->f;
 														$docSheet->getCell($r)->setFormulaAttributes($att);
 													}
-	//												echo '$calculatedValue = '.$calculatedValue.'<br />';
+	//												echo '$calculatedValue = ', $calculatedValue, PHP_EOL;
 												}
 												break;
 											case "inlineStr":
-	//											echo 'Inline String<br />';
+	//											echo 'Inline String', PHP_EOL;
 												$value = $this->_parseRichText($c->is);
 
 												break;
 											case "e":
-	//											echo 'Error<br />';
+	//											echo 'Error', PHP_EOL;
 												if (!isset($c->f)) {
 													$value = self::_castToError($c);
 												} else {
 													// Formula
 													$this->_castToFormula($c,$r,$cellDataType,$value,$calculatedValue,$sharedFormulas,'_castToError');
-	//												echo '$calculatedValue = '.$calculatedValue.'<br />';
+	//												echo '$calculatedValue = ', $calculatedValue, PHP_EOL;
 												}
 
 												break;
 
 											default:
-	//											echo 'Default<br />';
+	//											echo 'Default', PHP_EOL;
 												if (!isset($c->f)) {
-	//												echo 'Not a Formula<br />';
+	//												echo 'Not a Formula', PHP_EOL;
 													$value = self::_castToString($c);
 												} else {
-	//												echo 'Treat as Formula<br />';
+	//												echo 'Treat as Formula', PHP_EOL;
 													// Formula
 													$this->_castToFormula($c,$r,$cellDataType,$value,$calculatedValue,$sharedFormulas,'_castToString');
-	//												echo '$calculatedValue = '.$calculatedValue.'<br />';
+	//												echo '$calculatedValue = ', $calculatedValue, PHP_EOL;
 												}
 
 												break;
 										}
-	//									echo 'Value is '.$value.'<br />';
+	//									echo 'Value is ', $value, PHP_EOL;
 
 										// Check for numeric values
 										if (is_numeric($value) && $cellDataType != 's') {
@@ -2057,9 +2058,12 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 
 	private static function boolean($value = NULL)
 	{
-		if (is_numeric($value) || is_object($value)) {
+        if (is_object($value)) {
+			$value = (string) $value;
+        }
+		if (is_numeric($value)) {
 			return (bool) $value;
         }
-		return ($value === 'true' || $value === 'TRUE') ? TRUE : FALSE;
+		return ($value === 'true' || $value === 'TRUE');
 	}
 }

@@ -43,6 +43,8 @@ $aTests = array(
 	, '05featuredemo.php'
 	, '06largescale.php'
 	, '06largescale-with-cellcaching.php'
+	, '06largescale-with-cellcaching-sqlite.php'
+	, '06largescale-with-cellcaching-sqlite3.php'
 	, '06largescale-xls.php'
 	, '07reader.php'
 	, '07readerPCLZip.php'
