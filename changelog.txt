@@ -23,7 +23,7 @@
 **************************************************************************************
 
 
-Fixed in develop branch for release v1.8.0:
+2014-03-02 (v1.8.0):
 - Bugfix:   (MBaker)          Work item CP19830 - Undefined variable: fileHandle in CSV Reader
 - Bugfix:   (MBaker)          Work item CP19968 - Out of memory in style/supervisor.php
 - Bugfix:   (MBaker)                            - Style error with merged cells in PDF Writer
