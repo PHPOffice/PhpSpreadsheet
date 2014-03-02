@@ -139,7 +139,7 @@
                 <element name="description" value="A pure PHP library for reading and writing spreadsheet files" />
                 <element name="authors">
                     <element name="Mark Baker">
-                        <element name="e-mail" value="mbaker@inviqa.com" />
+                        <element name="e-mail" value="mark@lange.demon.co.uk" />
                     </element>
                 </element>
             </metadata>
