@@ -136,7 +136,7 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase {
      * Add or Update a cell in cache
      *
      * @param	PHPExcel_Cell	$cell		Cell to update
-	 * @return	void
+	 * @return	PHPExcel_Cell
      * @throws	PHPExcel_Exception
      */
 	public function updateCacheData(PHPExcel_Cell $cell) {
@@ -167,7 +167,7 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase {
 	/**
 	 * Get a list of all cell addresses currently held in cache
 	 *
-	 * @return	array of string
+	 * @return	string[]
 	 */
 	public function getCellList() {
 		return array_keys($this->_cellCache);
@@ -177,7 +177,7 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase {
 	/**
 	 * Sort the list of all cell addresses currently held in cache by row and column
 	 *
-	 * @return	void
+	 * @return	string[]
 	 */
 	public function getSortedCellList() {
 		$sortKeys = array();
@@ -243,12 +243,12 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase {
 	/**
 	 * Return the row address of the currently active cell object
 	 *
-	 * @return	string
+	 * @return	integer
 	 */
 	public function getCurrentRow()
 	{
 		sscanf($this->_currentObjectID, '%[A-Z]%d', $column, $row);
-		return $row;
+		return (integer) $row;
 	}
 
 	/**

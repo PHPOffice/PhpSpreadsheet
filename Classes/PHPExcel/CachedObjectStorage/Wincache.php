@@ -85,7 +85,7 @@ class PHPExcel_CachedObjectStorage_Wincache extends PHPExcel_CachedObjectStorage
 	 *
 	 * @param	string			$pCoord		Coordinate address of the cell to update
 	 * @param	PHPExcel_Cell	$cell		Cell to update
-	 * @return	void
+	 * @return	PHPExcel_Cell
 	 * @throws	PHPExcel_Exception
 	 */
 	public function addCacheData($pCoord, PHPExcel_Cell $cell) {
@@ -169,7 +169,7 @@ class PHPExcel_CachedObjectStorage_Wincache extends PHPExcel_CachedObjectStorage
 	/**
 	 * Get a list of all cell addresses currently held in cache
 	 *
-	 * @return  array of string
+	 * @return  string[]
 	 */
 	public function getCellList() {
 		if ($this->_currentObjectID !== null) {
