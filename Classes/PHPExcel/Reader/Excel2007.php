@@ -1302,7 +1302,8 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 
 									// Loop through contents
 									foreach ($commentsFile->commentList->comment as $comment) {
-										$docSheet->getComment( (string)$comment['ref'] )->setAuthor( $authors[(string)$comment['authorId']] );
+										if(!empty($comment['authorId']))
+											$docSheet->getComment( (string)$comment['ref'] )->setAuthor( $authors[(string)$comment['authorId']] );
 										$docSheet->getComment( (string)$comment['ref'] )->setText( $this->_parseRichText($comment->text) );
 									}
 								}
