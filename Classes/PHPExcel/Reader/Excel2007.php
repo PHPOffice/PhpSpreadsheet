@@ -478,7 +478,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
                     $macros = $customUI = NULL;
 					foreach ($relsWorkbook->Relationship as $ele) {
 						switch($ele['Type']){
-						case "http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet": 
+						case "http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet":
 							$worksheets[(string) $ele["Id"]] = $ele["Target"];
 							break;
 						// a vbaProject ? (: some macros)
@@ -756,7 +756,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 								}
 								if (isset($xmlSheet->sheetFormatPr['zeroHeight']) &&
 									((string)$xmlSheet->sheetFormatPr['zeroHeight'] == '1')) {
-									$docSheet->getDefaultRowDimension()->setzeroHeight(true);
+									$docSheet->getDefaultRowDimension()->setZeroHeight(true);
 								}
 							}
 
@@ -1984,7 +1984,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 		$nameCustomUI = basename($customUITarget);
         // get the xml file (ribbon)
 		$localRibbon = $this->_getFromZipArchive($zip, $customUITarget);
-		$customUIImagesNames = array(); 
+		$customUIImagesNames = array();
         $customUIImagesBinaries = array();
         // something like customUI/_rels/customUI.xml.rels
 		$pathRels = $baseDir . '/_rels/' . $nameCustomUI . '.rels';

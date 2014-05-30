@@ -326,8 +326,8 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 			}
 
 			// Set Zero Height row
-			if ((string)$pSheet->getDefaultRowDimension()->getzeroHeight()  == '1' ||
-				strtolower((string)$pSheet->getDefaultRowDimension()->getzeroHeight()) == 'true' ) {
+			if ((string)$pSheet->getDefaultRowDimension()->getZeroHeight()  == '1' ||
+				strtolower((string)$pSheet->getDefaultRowDimension()->getZeroHeight()) == 'true' ) {
 				$objWriter->writeAttribute('zeroHeight', '1');
 			}
 
