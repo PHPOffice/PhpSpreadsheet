@@ -60,7 +60,7 @@ $objWorksheet->fromArray(
 //		Number of datapoints in series
 //		Data values
 //		Data Marker
-$dataseriesLabels1 = array(
+$dataSeriesLabels1 = array(
 	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$C$1', NULL, 1),	//	2011
 );
 //	Set the X-Axis Labels
@@ -89,7 +89,7 @@ $series1 = new PHPExcel_Chart_DataSeries(
 	PHPExcel_Chart_DataSeries::TYPE_PIECHART,				// plotType
 	PHPExcel_Chart_DataSeries::GROUPING_STANDARD,			// plotGrouping
 	range(0, count($dataSeriesValues1)-1),					// plotOrder
-	$dataseriesLabels1,										// plotLabel
+	$dataSeriesLabels1,										// plotLabel
 	$xAxisTickValues1,										// plotCategory
 	$dataSeriesValues1										// plotValues
 );
@@ -100,7 +100,7 @@ $layout1->setShowVal(TRUE);
 $layout1->setShowPercent(TRUE);
 
 //	Set the series in the plot area
-$plotarea1 = new PHPExcel_Chart_PlotArea($layout1, array($series1));
+$plotArea1 = new PHPExcel_Chart_PlotArea($layout1, array($series1));
 //	Set the chart legend
 $legend1 = new PHPExcel_Chart_Legend(PHPExcel_Chart_Legend::POSITION_RIGHT, NULL, false);
 
@@ -112,7 +112,7 @@ $chart1 = new PHPExcel_Chart(
 	'chart1',		// name
 	$title1,		// title
 	$legend1,		// legend
-	$plotarea1,		// plotArea
+	$plotArea1,		// plotArea
 	true,			// plotVisibleOnly
 	0,				// displayBlanksAs
 	NULL,			// xAxisLabel
@@ -134,7 +134,7 @@ $objWorksheet->addChart($chart1);
 //		Number of datapoints in series
 //		Data values
 //		Data Marker
-$dataseriesLabels2 = array(
+$dataSeriesLabels2 = array(
 	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$C$1', NULL, 1),	//	2011
 );
 //	Set the X-Axis Labels
@@ -163,7 +163,7 @@ $series2 = new PHPExcel_Chart_DataSeries(
 	PHPExcel_Chart_DataSeries::TYPE_DONUTCHART,		// plotType
 	PHPExcel_Chart_DataSeries::GROUPING_STANDARD,	// plotGrouping
 	range(0, count($dataSeriesValues2)-1),			// plotOrder
-	$dataseriesLabels2,								// plotLabel
+	$dataSeriesLabels2,								// plotLabel
 	$xAxisTickValues2,								// plotCategory
 	$dataSeriesValues2								// plotValues
 );
@@ -174,7 +174,7 @@ $layout2->setShowVal(TRUE);
 $layout2->setShowCatName(TRUE);
 
 //	Set the series in the plot area
-$plotarea2 = new PHPExcel_Chart_PlotArea($layout2, array($series2));
+$plotArea2 = new PHPExcel_Chart_PlotArea($layout2, array($series2));
 
 $title2 = new PHPExcel_Chart_Title('Test Donut Chart');
 
@@ -184,7 +184,7 @@ $chart2 = new PHPExcel_Chart(
 	'chart2',		// name
 	$title2,		// title
 	NULL,			// legend
-	$plotarea2,		// plotArea
+	$plotArea2,		// plotArea
 	true,			// plotVisibleOnly
 	0,				// displayBlanksAs
 	NULL,			// xAxisLabel
