@@ -2737,7 +2737,7 @@ class PHPExcel_Calculation_Statistical {
 		$mean	= PHPExcel_Calculation_Functions::flattenSingleValue($mean);
 
 		if ((is_numeric($value)) && (is_numeric($mean))) {
-			if (($value <= 0) || ($mean <= 0)) {
+			if (($value < 0) || ($mean <= 0)) {
 				return PHPExcel_Calculation_Functions::NaN();
 			}
 			if ((is_numeric($cumulative)) || (is_bool($cumulative))) {
