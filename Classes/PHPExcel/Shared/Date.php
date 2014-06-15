@@ -155,7 +155,7 @@ class PHPExcel_Shared_Date
 	 * Convert a date from Excel to a PHP Date/Time object
 	 *
 	 * @param	integer		$dateValue		Excel date/time value
-	 * @return	integer						PHP date/time object
+	 * @return	DateTime					PHP date/time object
 	 */
 	public static function ExcelToPHPObject($dateValue = 0) {
 		$dateTime = self::ExcelToPHP($dateValue);
