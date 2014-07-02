@@ -241,7 +241,9 @@ class PHPExcel_Shared_Font
 		return self::$trueTypeFontPath;
 	}
 
-	/**
+    private static $columnWidthAdjust;
+
+    /**
 	 * Calculate an (approximate) OpenXML column width, based on font size and text contained
 	 *
 	 * @param 	PHPExcel_Style_Font			$font			Font object
@@ -251,7 +253,6 @@ class PHPExcel_Shared_Font
 	 * @return 	integer		Column width
 	 */
 	public static function calculateColumnWidth(PHPExcel_Style_Font $font, $cellText = '', $rotation = 0, PHPExcel_Style_Font $defaultFont = null) {
-
 		// If it is rich text, use plain text
 		if ($cellText instanceof PHPExcel_RichText) {
 			$cellText = $cellText->getPlainText();
@@ -268,25 +269,27 @@ class PHPExcel_Shared_Font
 		}
 
 		// Try to get the exact text width in pixels
-		try {
-			// If autosize method is set to 'approx', use approximation
-			if (self::$autoSizeMethod == self::AUTOSIZE_METHOD_APPROX) {
-				throw new PHPExcel_Exception('AutoSize method is set to approx');
-			}
+        $approximate = self::$autoSizeMethod == self::AUTOSIZE_METHOD_APPROX;
+        if (!$approximate) {
+            if (is_null(self::$columnWidthAdjust)) {
+                self::$columnWidthAdjust = ceil(self::getTextWidthPixelsExact('0', $font, 0) * 1.07);
+            }
+            try {
+                // Width of text in pixels excl. padding
+                $columnWidth = self::getTextWidthPixelsExact($cellText, $font, $rotation) + self::$columnWidthAdjust;
+            } catch (PHPExcel_Exception $e) {
+                $approximate == true;
+            }
+        }
 
-			// Width of text in pixels excl. padding
-			$columnWidth = self::getTextWidthPixelsExact($cellText, $font, $rotation);
-
-			// Excel adds some padding, use 1.07 of the width of an 'n' glyph
-			$columnWidth += ceil(self::getTextWidthPixelsExact('0', $font, 0) * 1.07); // pixels incl. padding
-
-		} catch (PHPExcel_Exception $e) {
+        if ($approximate) {
+            if (is_null(self::$columnWidthAdjust)) {
+                self::$columnWidthAdjust = self::getTextWidthPixelsApprox('n', $font, 0);
+            }
 			// Width of text in pixels excl. padding, approximation
-			$columnWidth = self::getTextWidthPixelsApprox($cellText, $font, $rotation);
-
-			// Excel adds some padding, just use approx width of 'n' glyph
-			$columnWidth += self::getTextWidthPixelsApprox('n', $font, 0);
-		}
+			// and addition because Excel adds some padding, just use approx width of 'n' glyph
+			$columnWidth = self::getTextWidthPixelsApprox($cellText, $font, $rotation) + self::$columnWidthAdjust;
+        }
 
 		// Convert from pixel width to column width
 		$columnWidth = PHPExcel_Shared_Drawing::pixelsToCellDimension($columnWidth, $defaultFont);
@@ -316,13 +319,13 @@ class PHPExcel_Shared_Font
 
 		// Get corners positions
 		$lowerLeftCornerX  = $textBox[0];
-		$lowerLeftCornerY  = $textBox[1];
+//		$lowerLeftCornerY  = $textBox[1];
 		$lowerRightCornerX = $textBox[2];
-		$lowerRightCornerY = $textBox[3];
+//		$lowerRightCornerY = $textBox[3];
 		$upperRightCornerX = $textBox[4];
-		$upperRightCornerY = $textBox[5];
+//		$upperRightCornerY = $textBox[5];
 		$upperLeftCornerX  = $textBox[6];
-		$upperLeftCornerY  = $textBox[7];
+//		$upperLeftCornerY  = $textBox[7];
 
 		// Consider the rotation when calculating the width
 		$textWidth = max($lowerRightCornerX - $upperLeftCornerX, $upperRightCornerX - $lowerLeftCornerX);
@@ -353,9 +356,11 @@ class PHPExcel_Shared_Font
 
 			case 'Arial':
 				// value 7 was found via interpolation by inspecting real Excel files with Arial 10 font.
-				$columnWidth = (int) (7 * PHPExcel_Shared_String::CountCharacters($columnText));
+//				$columnWidth = (int) (7 * PHPExcel_Shared_String::CountCharacters($columnText));
+                // value 8 was set because of experience in different exports at Arial 10 font.
+				$columnWidth = (int) (8 * PHPExcel_Shared_String::CountCharacters($columnText));
 				$columnWidth = $columnWidth * $fontSize / 10; // extrapolate from font size
-				break;
+                break;
 
 			case 'Verdana':
 				// value 8 was found via interpolation by inspecting real Excel files with Verdana 10 font.
@@ -383,8 +388,7 @@ class PHPExcel_Shared_Font
 		}
 
 		// pixel width is an integer
-		$columnWidth = (int) $columnWidth;
-		return $columnWidth;
+		return (int) $columnWidth;
 	}
 
 	/**
