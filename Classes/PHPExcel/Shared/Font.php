@@ -199,7 +199,6 @@ class PHPExcel_Shared_Font
 		if (!in_array($pValue,self::$_autoSizeMethods)) {
 			return FALSE;
 		}
-
 		self::$autoSizeMethod = $pValue;
 
 		return TRUE;
@@ -241,8 +240,6 @@ class PHPExcel_Shared_Font
 		return self::$trueTypeFontPath;
 	}
 
-    private static $columnWidthAdjust;
-
     /**
 	 * Calculate an (approximate) OpenXML column width, based on font size and text contained
 	 *
@@ -271,24 +268,21 @@ class PHPExcel_Shared_Font
 		// Try to get the exact text width in pixels
         $approximate = self::$autoSizeMethod == self::AUTOSIZE_METHOD_APPROX;
         if (!$approximate) {
-            if (is_null(self::$columnWidthAdjust)) {
-                self::$columnWidthAdjust = ceil(self::getTextWidthPixelsExact('0', $font, 0) * 1.07);
-            }
+            $columnWidthAdjust = ceil(self::getTextWidthPixelsExact('n', $font, 0) * 1.07);
             try {
                 // Width of text in pixels excl. padding
-                $columnWidth = self::getTextWidthPixelsExact($cellText, $font, $rotation) + self::$columnWidthAdjust;
+                // and addition because Excel adds some padding, just use approx width of 'n' glyph
+                $columnWidth = self::getTextWidthPixelsExact($cellText, $font, $rotation) + $columnWidthAdjust;
             } catch (PHPExcel_Exception $e) {
                 $approximate == true;
             }
         }
 
         if ($approximate) {
-            if (is_null(self::$columnWidthAdjust)) {
-                self::$columnWidthAdjust = self::getTextWidthPixelsApprox('n', $font, 0);
-            }
+            $columnWidthAdjust = self::getTextWidthPixelsApprox('n', $font, 0);
 			// Width of text in pixels excl. padding, approximation
 			// and addition because Excel adds some padding, just use approx width of 'n' glyph
-			$columnWidth = self::getTextWidthPixelsApprox($cellText, $font, $rotation) + self::$columnWidthAdjust;
+			$columnWidth = self::getTextWidthPixelsApprox($cellText, $font, $rotation) + $columnWidthAdjust;
         }
 
 		// Convert from pixel width to column width
