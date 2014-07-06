@@ -205,12 +205,16 @@ class PHPExcel_Writer_OpenDocument_Content extends PHPExcel_Writer_OpenDocument_
 
                 case PHPExcel_Cell_DataType::TYPE_FORMULA:
                     try {
-                        $formula_value = PHPExcel_Calculation::getInstance()->calculateCellValue($cell);
+                        $formula_value = $cell->getCalculatedValue();
                     } catch (Exception $e) {
                         $formula_value = $cell->getValue();
                     }
                     $objWriter->writeAttribute('table:formula', 'of:' . $cell->getValue());
-                    $objWriter->writeAttribute('office:value-type', 'float');
+                    if (is_numeric($formula_value)) {
+                        $objWriter->writeAttribute('office:value-type', 'float');
+                    } else {
+                        $objWriter->writeAttribute('office:value-type', 'string');
+                    }
                     $objWriter->writeAttribute('office:value', $formula_value);
                     $objWriter->writeElement('text:p', $formula_value);
                     break;
