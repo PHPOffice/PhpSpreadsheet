@@ -515,9 +515,13 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
 									$annotationText = $cellDataOffice->annotation->children($namespacesContent['text']);
 									$textArray = array();
 									foreach($annotationText as $t) {
-										foreach($t->span as $text) {
-											$textArray[] = (string)$text;
-										}
+									    if (isset($t->span)) {
+    										foreach($t->span as $text) {
+    											$textArray[] = (string)$text;
+    										}
+									    } else {
+									        $textArray[] = (string) $t;
+									    }
 									}
 									$text = implode("\n",$textArray);
 //									echo $text,'<br />';

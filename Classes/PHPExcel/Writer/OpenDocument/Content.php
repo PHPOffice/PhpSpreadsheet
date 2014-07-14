@@ -234,6 +234,7 @@ class PHPExcel_Writer_OpenDocument_Content extends PHPExcel_Writer_OpenDocument_
                     $objWriter->writeElement('text:p', $cell->getValue());
                     break;
             }
+            PHPExcel_Writer_OpenDocument_Cell_Comment::write($objWriter, $cell);
             $objWriter->endElement();
             $prev_column = $column;
             $cells->next();
