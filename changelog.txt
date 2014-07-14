@@ -24,8 +24,11 @@
 
 Planned for v1.8.1
 - Bugfix:   (goncons)         Work Item GH-397  - Fix for Writing an Open Document cell with non-numeric formula
+- Bugfix:   (sarciszewski)    Work Item GH-329  - Avoid potential divide by zero in basedrawing
+- General:  (MBaker)                            - Small performance improvement for autosize columns
 - Feature:  (WiktrzGE)        Work Item GH-404  - Methods to manage most of the existing options for Chart Axis, Major Grid-lines and Minor Grid-lines
 - Feature:  (frost-nzcr4)     Work Item GH-403  - ODS read/write comments in the cell
+- Feature:  (CQD)             Work Item GH-389  - Additional Mac CJK codepage definitions
 
 
 2014-03-02 (v1.8.0):

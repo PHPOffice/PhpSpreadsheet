@@ -321,7 +321,7 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
     public function setWidth($pValue = 0) {
     	// Resize proportional?
     	if ($this->_resizeProportional && $pValue != 0) {
-    		$ratio = $this->_height / $this->_width;
+    		$ratio = $this->_height / ($this->_width !== 0 ? $this->_width : 1);
     		$this->_height = round($ratio * $pValue);
     	}
 
@@ -373,8 +373,8 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      * @return PHPExcel_Worksheet_BaseDrawing
      */
 	public function setWidthAndHeight($width = 0, $height = 0) {
-		$xratio = $width / $this->_width;
-		$yratio = $height / $this->_height;
+		$xratio = $width / ($this->_width !== 0 ? $this->_width : 1);
+		$yratio = $height / ($this->_height !== 0 ? $this->_height : 1);
 		if ($this->_resizeProportional && !($width == 0 || $height == 0)) {
 			if (($xratio * $this->_height) < $height) {
 				$this->_height = ceil($xratio * $this->_height);
@@ -383,7 +383,11 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
 				$this->_width	= ceil($yratio * $this->_width);
 				$this->_height	= $height;
 			}
-		}
+		} else {
+            $this->_width = $width;
+            $this->_height = $height;
+        }
+
 		return $this;
 	}
 
