@@ -194,6 +194,8 @@ class PHPExcel_Calculation {
 	 */
 	private $_cyclicReferenceStack;
 
+	private $_cellStack = array();
+
 	/**
 	 * Current iteration counter for cyclic formulae
 	 * If the value is 0 (or less) then cyclic formulae will throw an exception,
@@ -2240,9 +2242,17 @@ class PHPExcel_Calculation {
 		}
 
 		//	Execute the calculation for the cell formula
+        $this->_cellStack[] = array(
+            'sheet' => $pCell->getWorksheet()->getTitle(),
+            'cell' => $pCell->getCoordinate(),
+        );
 		try {
 			$result = self::_unwrapResult($this->_calculateFormulaValue($pCell->getValue(), $pCell->getCoordinate(), $pCell));
+            $cellAddress = array_pop($this->_cellStack);
+            $this->_workbook->getSheetByName($cellAddress['sheet'])->getCell($cellAddress['cell']);
 		} catch (PHPExcel_Exception $e) {
+            $cellAddress = array_pop($this->_cellStack);
+            $this->_workbook->getSheetByName($cellAddress['sheet'])->getCell($cellAddress['cell']);
 			throw new PHPExcel_Calculation_Exception($e->getMessage());
 		}
 
