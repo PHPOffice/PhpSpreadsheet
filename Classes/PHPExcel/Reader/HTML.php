@@ -422,7 +422,7 @@ class PHPExcel_Reader_HTML extends PHPExcel_Reader_Abstract implements PHPExcel_
 		$objPHPExcel->setActiveSheetIndex( $this->_sheetIndex );
 
 		//	Create a new DOM object
-		$dom = new domDocument;
+		$dom = new DOMDocument;
 		//	Reload the HTML file into the DOM object
 		$loaded = $dom->loadHTMLFile($pFilename, PHPExcel_Settings::getLibXmlLoaderOptions());
 		if ($loaded === FALSE) {
