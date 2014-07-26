@@ -1176,7 +1176,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 								array($this, 'formatColor')
 							);
 						} else {
-							$cellData = PHPExcel_Style_NumberFormat::ToFormattedString(
+							$cellData = PHPExcel_Style_NumberFormat::toFormattedString(
 								$cell->getValue(),
 								$pSheet->getParent()->getCellXfByIndex( $cell->getXfIndex() )->getNumberFormat()->getFormatCode(),
 								array($this, 'formatColor')
