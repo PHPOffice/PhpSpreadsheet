@@ -670,7 +670,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 	/**
 	 * Generate CSS styles
 	 *
-	 * @param	boolean	$generateSurroundingHTML	Generate surrounding HTML tags? (<style> and </style>)
+	 * @param	boolean	$generateSurroundingHTML	Generate surrounding HTML tags? (&lt;style&gt; and &lt;/style&gt;)
 	 * @return	string
 	 * @throws	PHPExcel_Writer_Exception
 	 */
