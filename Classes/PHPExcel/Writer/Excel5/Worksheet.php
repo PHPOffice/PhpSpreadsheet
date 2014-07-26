@@ -1247,7 +1247,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 
 		$grbit |= $level;
 		if ($hidden) {
-			$grbit |= 0x0020;
+			$grbit |= 0x0030;
 		}
 		if ($height !== null) {
 			$grbit |= 0x0040; // fUnsynced
