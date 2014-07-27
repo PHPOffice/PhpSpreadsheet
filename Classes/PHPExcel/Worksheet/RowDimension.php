@@ -145,7 +145,7 @@ class PHPExcel_Worksheet_RowDimension
 	 *
 	 * @return bool
 	 */
-	public function getzeroHeight() {
+	public function getZeroHeight() {
 		return $this->_zeroHeight;
 	}
 
@@ -155,7 +155,7 @@ class PHPExcel_Worksheet_RowDimension
 	 * @param bool $pValue
 	 * @return PHPExcel_Worksheet_RowDimension
 	 */
-	public function setzeroHeight($pValue = false) {
+	public function setZeroHeight($pValue = false) {
 		$this->_zeroHeight = $pValue;
 		return $this;
 	}
