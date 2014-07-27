@@ -25,11 +25,14 @@
 Planned for v1.8.1
 - Bugfix:   (goncons)         Work Item GH-397  - Fix for Writing an Open Document cell with non-numeric formula
 - Bugfix:   (sarciszewski)    Work Item GH-329  - Avoid potential divide by zero in basedrawing
+- Bugfix:   (ymaerschalck)    Work Item GH-405  - XML External Entity (XXE) Processing, different behaviour between simplexml_load_string() and simplexml_load_file().
 - Bugfix:   (MBaker)                            - Fix to ensure that current cell is maintained when executing formula calculations
 - General:  (MBaker)                            - Small performance improvement for autosize columns
+- General:  (frost-nzcr4)     Work Item GH-379  - Change the getter/setter for zeroHeight to camel case
 - Feature:  (WiktrzGE)        Work Item GH-404  - Methods to manage most of the existing options for Chart Axis, Major Grid-lines and Minor Grid-lines
 - Feature:  (frost-nzcr4)     Work Item GH-403  - ODS read/write comments in the cell
 - Feature:  (CQD)             Work Item GH-389  - Additional Mac CJK codepage definitions
+- Feature:  (MBaker)                            - New methods added for testing cell status within merge groups
 
 
 2014-03-02 (v1.8.0):
