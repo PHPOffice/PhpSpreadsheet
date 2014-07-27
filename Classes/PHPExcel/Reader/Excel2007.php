@@ -1007,7 +1007,13 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 
 							if ($xmlSheet && $xmlSheet->autoFilter && !$this->_readDataOnly) {
 								$autoFilter = $docSheet->getAutoFilter();
-								$autoFilter->setRange((string) $xmlSheet->autoFilter["ref"]);
+
+                                $autoFilterRange = (string) $xmlSheet->autoFilter["ref"];
+                                if (strpos($autoFilterRange, ':') === false) {
+                                    $autoFilterRange = "${autoFilterRange}:${autoFilterRange}";
+                                }
+								$autoFilter->setRange($autoFilterRange);
+
 								foreach ($xmlSheet->autoFilter->filterColumn as $filterColumn) {
 									$column = $autoFilter->getColumnByOffset((integer) $filterColumn["colId"]);
 									//	Check for standard filters
@@ -1575,7 +1581,14 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 
 											case '_xlnm._FilterDatabase':
 												if ((string)$definedName['hidden'] !== '1') {
-													$docSheet->getAutoFilter()->setRange($extractedRange);
+                                                    $extractedRange = explode(',', $extractedRange);
+                                                    foreach ($extractedRange as $range) {
+                                                        $autoFilterRange = $range;
+                                                        if (strpos($autoFilterRange, ':') === false) {
+                                                            $autoFilterRange = "${autoFilterRange}:${autoFilterRange}";
+                                                        }
+                                                        $docSheet->getAutoFilter()->setRange($autoFilterRange);
+                                                    }
 												}
 												break;
 
