@@ -1405,7 +1405,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
     /**
      * Get style for cell
      *
-     * @param string $pCellCoordinate Cell coordinate to get style for
+     * @param string $pCellCoordinate Cell coordinate (or range) to get style for
      * @return PHPExcel_Style
      * @throws PHPExcel_Exception
      */
@@ -1492,16 +1492,15 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      * @param int pRow2 Numeric row coordinate of the range cell
      * @return PHPExcel_Style
      */
-    public function getStyleByColumnAndRow($pColumn = 0, $pRow = 1, $pColumn2=null, $pRow2=null)
+    public function getStyleByColumnAndRow($pColumn = 0, $pRow = 1, $pColumn2 = null, $pRow2 = null)
     {
+        if (!is_null($pColumn2) && !is_null($pRow2)) {
+		    $cellRange = PHPExcel_Cell::stringFromColumnIndex($pColumn) . $pRow . ':' . 
+                PHPExcel_Cell::stringFromColumnIndex($pColumn2) . $pRow2;
+		    return $this->getStyle($cellRange);
+	    }
 
-        if(!is_null($pColumn2) && !is_null($pRow2))
-	{
-		$cellRange = PHPExcel_Cell::stringFromColumnIndex($pColumn) . $pRow . ':' . PHPExcel_Cell::stringFromColumnIndex($pColumn2) . $pRow2;
-		return $this->getStyle($cellRange);
-	}
-
-	return $this->getStyle(PHPExcel_Cell::stringFromColumnIndex($pColumn) . $pRow);
+        return $this->getStyle(PHPExcel_Cell::stringFromColumnIndex($pColumn) . $pRow);
     }
 
     /**

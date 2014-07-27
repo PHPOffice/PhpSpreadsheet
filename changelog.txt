@@ -33,6 +33,7 @@ Planned for v1.8.1
 - Feature:  (WiktrzGE)        Work Item GH-404  - Methods to manage most of the existing options for Chart Axis, Major Grid-lines and Minor Grid-lines
 - Feature:  (frost-nzcr4)     Work Item GH-403  - ODS read/write comments in the cell
 - Feature:  (CQD)             Work Item GH-389  - Additional Mac CJK codepage definitions
+- Feature:  (bolovincev)      Work Item GH-269  - Update Worksheet.php getStyleByColumnAndRow() to allow a range of cells rather than just a single cell
 - Feature:  (MBaker)                            - New methods added for testing cell status within merge groups
 
 
