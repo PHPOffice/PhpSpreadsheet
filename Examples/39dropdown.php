@@ -61,6 +61,7 @@ function transpose($value) {
 $continentColumn = 'D';
 $column = 'F';
 
+// Set data for dropdowns
 foreach(glob('./data/continents/*') as $key => $filename) {
     $continent = pathinfo($filename, PATHINFO_FILENAME);
     echo "Loading $continent", EOL;
@@ -87,6 +88,8 @@ foreach(glob('./data/continents/*') as $key => $filename) {
 
     ++$column;
 }
+
+// Hide the dropdown data
 $objPHPExcel->getActiveSheet()
     ->getColumnDimension($continentColumn)
     ->setVisible(false);
@@ -99,6 +102,7 @@ $objPHPExcel->addNamedRange(
 );
 
 
+// Set selection cells
 $objPHPExcel->getActiveSheet()
     ->setCellValue('A1', 'Continent:');
 $objPHPExcel->getActiveSheet()
@@ -111,6 +115,7 @@ $objPHPExcel->getActiveSheet()
     ->getStyle('A1:A3')
     ->getFont()->setBold(true);
 
+// Set linked validators
 $objValidation = $objPHPExcel->getActiveSheet()
     ->getCell('B1')
     ->getDataValidation();
