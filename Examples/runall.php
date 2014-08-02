@@ -97,6 +97,7 @@ $aTests = array(
 	, '36chartreadwritePDF.php'
 	, '37page_layout_view.php'
 	, '38cloneWorksheet.php'
+    , '39dropdown.php'
 	, '40duplicateStyle.php'
 	, 'OOCalcReader.php'
 	, 'OOCalcReaderPCLZip.php'
@@ -106,7 +107,7 @@ $aTests = array(
 	, 'GnumericReader.php'
 );
 
-// First, clear all results
+// First, clear all previous run results
 foreach ($aTests as $sTest) {
 	@unlink( str_replace('.php', '.xls', 	$sTest) );
 	@unlink( str_replace('.php', '.xlsx', 	$sTest) );
