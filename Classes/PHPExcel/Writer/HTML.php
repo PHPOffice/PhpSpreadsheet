@@ -412,11 +412,13 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 				// <thead> ?
 				if ($row == $theadStart) {
 					$html .= '		<thead>' . PHP_EOL;
+                    $cellType = 'th';
 				}
 
 				// <tbody> ?
 				if ($row == $tbodyStart) {
 					$html .= '		<tbody>' . PHP_EOL;
+                    $cellType = 'td';
 				}
 
 				// Write row if there are HTML table cells in it
@@ -433,7 +435,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 							$rowData[$column] = '';
 						}
 					}
-					$html .= $this->_generateRow($sheet, $rowData, $row - 1);
+					$html .= $this->_generateRow($sheet, $rowData, $row - 1, $cellType);
 				}
 
 				// </thead> ?
@@ -751,6 +753,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 
 		// .gridlines td { }
 		$css['.gridlines td']['border'] = '1px dotted black';
+		$css['.gridlines th']['border'] = '1px dotted black';
 
 		// .b {}
 		$css['.b']['text-align'] = 'center'; // BOOL
@@ -773,6 +776,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 		// Calculate cell style hashes
 		foreach ($this->_phpExcel->getCellXfCollection() as $index => $style) {
 			$css['td.style' . $index] = $this->_createCSSStyle( $style );
+			$css['th.style' . $index] = $this->_createCSSStyle( $style );
 		}
 
 		// Fetch sheets
@@ -1077,7 +1081,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 	 * @return	string
 	 * @throws	PHPExcel_Writer_Exception
 	 */
-	private function _generateRow(PHPExcel_Worksheet $pSheet, $pValues = null, $pRow = 0) {
+	private function _generateRow(PHPExcel_Worksheet $pSheet, $pValues = null, $pRow = 0, $cellType = 'td') {
 		if (is_array($pValues)) {
 			// Construct HTML
 			$html = '';
@@ -1122,9 +1126,15 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 					$cssClass = 'column' . $colNum;
 				} else {
 					$cssClass = array();
-					if (isset($this->_cssStyles['table.sheet' . $sheetIndex . ' td.column' . $colNum])) {
-						$this->_cssStyles['table.sheet' . $sheetIndex . ' td.column' . $colNum];
-					}
+                    if ($cellType == 'th') {
+                        if (isset($this->_cssStyles['table.sheet' . $sheetIndex . ' th.column' . $colNum])) {
+                            $this->_cssStyles['table.sheet' . $sheetIndex . ' th.column' . $colNum];
+                        }
+                    } else {
+                        if (isset($this->_cssStyles['table.sheet' . $sheetIndex . ' td.column' . $colNum])) {
+                            $this->_cssStyles['table.sheet' . $sheetIndex . ' td.column' . $colNum];
+                        }
+                    }
 				}
 				$colSpan = 1;
 				$rowSpan = 1;
@@ -1202,9 +1212,15 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 						$cssClass .= ' style' . $cell->getXfIndex();
 						$cssClass .= ' ' . $cell->getDataType();
 					} else {
-						if (isset($this->_cssStyles['td.style' . $cell->getXfIndex()])) {
-							$cssClass = array_merge($cssClass, $this->_cssStyles['td.style' . $cell->getXfIndex()]);
-						}
+                        if ($cellType == 'th') {
+                            if (isset($this->_cssStyles['th.style' . $cell->getXfIndex()])) {
+                                $cssClass = array_merge($cssClass, $this->_cssStyles['th.style' . $cell->getXfIndex()]);
+                            }
+                        } else {
+                            if (isset($this->_cssStyles['td.style' . $cell->getXfIndex()])) {
+                                $cssClass = array_merge($cssClass, $this->_cssStyles['td.style' . $cell->getXfIndex()]);
+                            }
+                        }
 
 						// General horizontal alignment: Actual horizontal alignment depends on dataType
 						$sharedStyle = $pSheet->getParent()->getCellXfByIndex( $cell->getXfIndex() );
@@ -1244,7 +1260,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 				// Write
 				if ($writeCell) {
 					// Column start
-					$html .= '			<td';
+					$html .= '			<' . $cellType;
 						if (!$this->_useInlineCss) {
 							$html .= ' class="' . $cssClass . '"';
 						} else {
@@ -1291,7 +1307,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 					$html .= $cellData;
 
 					// Column end
-					$html .= '</td>' . PHP_EOL;
+					$html .= '</'.$cellType.'>' . PHP_EOL;
 				}
 
 				// Next column
