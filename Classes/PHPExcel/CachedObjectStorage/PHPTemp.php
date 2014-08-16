@@ -61,11 +61,11 @@ class PHPExcel_CachedObjectStorage_PHPTemp extends PHPExcel_CachedObjectStorage_
 			$this->_currentObject->detach();
 
 			fseek($this->_fileHandle,0,SEEK_END);
-			$offset = ftell($this->_fileHandle);
-			fwrite($this->_fileHandle, serialize($this->_currentObject));
-			$this->_cellCache[$this->_currentObjectID]	= array('ptr' => $offset,
-																'sz'  => ftell($this->_fileHandle) - $offset
-															   );
+
+			$this->_cellCache[$this->_currentObjectID] = array(
+                'ptr' => ftell($this->_fileHandle),
+				'sz'  => fwrite($this->_fileHandle, serialize($this->_currentObject))
+			);
 			$this->_currentCellIsDirty = false;
 		}
 		$this->_currentObjectID = $this->_currentObject = null;
