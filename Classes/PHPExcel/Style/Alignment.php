@@ -36,49 +36,54 @@
 class PHPExcel_Style_Alignment extends PHPExcel_Style_Supervisor implements PHPExcel_IComparable
 {
 	/* Horizontal alignment styles */
-	const HORIZONTAL_GENERAL				= 'general';
-	const HORIZONTAL_LEFT					= 'left';
-	const HORIZONTAL_RIGHT					= 'right';
-	const HORIZONTAL_CENTER					= 'center';
-	const HORIZONTAL_CENTER_CONTINUOUS		= 'centerContinuous';
-	const HORIZONTAL_JUSTIFY				= 'justify';
-	const HORIZONTAL_FILL				    = 'fill';
-	const HORIZONTAL_DISTRIBUTED		    = 'distributed';        // Excel2007 only
+	const HORIZONTAL_GENERAL			= 'general';
+	const HORIZONTAL_LEFT				= 'left';
+	const HORIZONTAL_RIGHT				= 'right';
+	const HORIZONTAL_CENTER				= 'center';
+	const HORIZONTAL_CENTER_CONTINUOUS	= 'centerContinuous';
+	const HORIZONTAL_JUSTIFY			= 'justify';
+	const HORIZONTAL_FILL				= 'fill';
+	const HORIZONTAL_DISTRIBUTED		= 'distributed';        // Excel2007 only
 
 	/* Vertical alignment styles */
-	const VERTICAL_BOTTOM					= 'bottom';
-	const VERTICAL_TOP						= 'top';
-	const VERTICAL_CENTER					= 'center';
-	const VERTICAL_JUSTIFY					= 'justify';
-	const VERTICAL_DISTRIBUTED		        = 'distributed';        // Excel2007 only
+	const VERTICAL_BOTTOM				= 'bottom';
+	const VERTICAL_TOP					= 'top';
+	const VERTICAL_CENTER				= 'center';
+	const VERTICAL_JUSTIFY				= 'justify';
+	const VERTICAL_DISTRIBUTED		    = 'distributed';        // Excel2007 only
+
+	/* Read order */
+	const READORDER_CONTEXT				= 0;
+	const READORDER_LTR	    			= 1;
+	const READORDER_RTL  				= 2;
 
 	/**
-	 * Horizontal
+	 * Horizontal alignment
 	 *
 	 * @var string
 	 */
-	protected $_horizontal	= PHPExcel_Style_Alignment::HORIZONTAL_GENERAL;
+	protected $_horizontal = PHPExcel_Style_Alignment::HORIZONTAL_GENERAL;
 
 	/**
-	 * Vertical
+	 * Vertical alignment
 	 *
 	 * @var string
 	 */
-	protected $_vertical		= PHPExcel_Style_Alignment::VERTICAL_BOTTOM;
+	protected $_vertical = PHPExcel_Style_Alignment::VERTICAL_BOTTOM;
 
 	/**
 	 * Text rotation
 	 *
-	 * @var int
+	 * @var integer
 	 */
-	protected $_textRotation	= 0;
+	protected $_textRotation = 0;
 
 	/**
 	 * Wrap text
 	 *
 	 * @var boolean
 	 */
-	protected $_wrapText		= FALSE;
+	protected $_wrapText = FALSE;
 
 	/**
 	 * Shrink to fit
@@ -90,9 +95,16 @@ class PHPExcel_Style_Alignment extends PHPExcel_Style_Supervisor implements PHPE
 	/**
 	 * Indent - only possible with horizontal alignment left and right
 	 *
-	 * @var int
+	 * @var integer
 	 */
-	protected $_indent		= 0;
+	protected $_indent = 0;
+
+	/**
+	 * Read order
+	 *
+	 * @var integer
+	 */
+	protected $_readorder = 0;
 
 	/**
 	 * Create a new PHPExcel_Style_Alignment
@@ -179,6 +191,9 @@ class PHPExcel_Style_Alignment extends PHPExcel_Style_Supervisor implements PHPE
 				}
 				if (isset($pStyles['indent'])) {
 					$this->setIndent($pStyles['indent']);
+				}
+				if (isset($pStyles['readorder'])) {
+					$this->setReadorder($pStyles['readorder']);
 				}
 			}
 		} else {
@@ -390,6 +405,37 @@ class PHPExcel_Style_Alignment extends PHPExcel_Style_Supervisor implements PHPE
 	}
 
 	/**
+	 * Get read order
+	 *
+	 * @return integer
+	 */
+	public function getReadorder() {
+		if ($this->_isSupervisor) {
+			return $this->getSharedComponent()->getReadorder();
+		}
+		return $this->_readorder;
+	}
+
+	/**
+	 * Set read order
+	 *
+	 * @param int $pValue
+	 * @return PHPExcel_Style_Alignment
+	 */
+	public function setReadorder($pValue = 0) {
+		if ($pValue < 0 || $pValue > 2) {
+            $pValue = 0;
+		}
+		if ($this->_isSupervisor) {
+			$styleArray = $this->getStyleArray(array('readorder' => $pValue));
+			$this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
+		} else {
+			$this->_readorder = $pValue;
+		}
+		return $this;
+	}
+
+	/**
 	 * Get hash code
 	 *
 	 * @return string	Hash code
@@ -405,6 +451,7 @@ class PHPExcel_Style_Alignment extends PHPExcel_Style_Supervisor implements PHPE
 			. ($this->_wrapText ? 't' : 'f')
 			. ($this->_shrinkToFit ? 't' : 'f')
 			. $this->_indent
+			. $this->_readorder
 			. __CLASS__
 		);
 	}
