@@ -30,6 +30,7 @@ Planned for v1.8.1
 - Bugfix:   (MBaker)          Work Item GH-350  - Keep/set the value on Reader _loadSheetsOnly as NULL, courtesy of Restless-ET 
 - Bugfix:   (MBaker)          Work Item CP18105 - Loading an Excel 2007 spreadsheet throws an "Autofilter must be set on a range of cells" exception
 - Bugfix:   (MBaker)                            - Fix to autoloader registration for backward compatibility with PHP 5.2.0 not accepting the prepend flag
+- Bugfix:   (MBaker)          Work Item GH-384  - DOM loadHTMLFile() failing with options flags when using PHP < 5.4.0
 - General:  (MBaker)                            - Small performance improvement for autosize columns
 - General:  (frost-nzcr4)     Work Item GH-379  - Change the getter/setter for zeroHeight to camel case
 - Feature:  (WiktrzGE)        Work Item GH-404  - Methods to manage most of the existing options for Chart Axis, Major Grid-lines and Minor Grid-lines

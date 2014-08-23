@@ -424,9 +424,13 @@ class PHPExcel_Reader_HTML extends PHPExcel_Reader_Abstract implements PHPExcel_
 		//	Create a new DOM object
 		$dom = new DOMDocument;
 		//	Reload the HTML file into the DOM object
-		$loaded = $dom->loadHTMLFile($pFilename, PHPExcel_Settings::getLibXmlLoaderOptions());
+        if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
+            $loaded = $dom->loadHTMLFile($pFilename, PHPExcel_Settings::getLibXmlLoaderOptions());
+        } else {
+            $loaded = $dom->loadHTMLFile($pFilename);
+        }
 		if ($loaded === FALSE) {
-			throw new PHPExcel_Reader_Exception('Failed to load ',$pFilename,' as a DOM Document');
+			throw new PHPExcel_Reader_Exception('Failed to load '. $pFilename. ' as a DOM Document');
 		}
 
 		//	Discard white space
@@ -437,9 +441,6 @@ class PHPExcel_Reader_HTML extends PHPExcel_Reader_Abstract implements PHPExcel_
 		$column = 'A';
 		$content = '';
 		$this->_processDomElement($dom,$objPHPExcel->getActiveSheet(),$row,$column,$content);
-
-//		echo '<hr />';
-//		var_dump($this->_dataArray);
 
 		// Return
 		return $objPHPExcel;
