@@ -2545,7 +2545,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
     /**
      * Get row iterator
      *
-     * @param  integer                           $startRow    The row number at which to start iterating
+     * @param integer $startRow The row number at which to start iterating
      * @return PHPExcel_Worksheet_RowIterator
      */
 	public function getRowIterator($startRow = 1) {
