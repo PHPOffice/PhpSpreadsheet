@@ -1430,6 +1430,7 @@ class PHPExcel_Writer_Excel5_Parser
 		{
 		    if($this->_lookahead == '%'){
 		        $result = $this->_createTree('ptgPercent', $this->_current_token, '');
+                $this->_advance();  // Skip the percentage operator once we've pre-built that tree
 		    } else {
 		        $result = $this->_createTree($this->_current_token, '', '');
 		    }
