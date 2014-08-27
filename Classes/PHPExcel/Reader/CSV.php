@@ -69,14 +69,6 @@ class PHPExcel_Reader_CSV extends PHPExcel_Reader_Abstract implements PHPExcel_R
 	private $_enclosure		= '"';
 
 	/**
-	 * Line ending
-	 *
-	 * @access	private
-	 * @var	string
-	 */
-	private $_lineEnding	= PHP_EOL;
-
-	/**
 	 * Sheet index to read
 	 *
 	 * @access	private
@@ -345,26 +337,6 @@ class PHPExcel_Reader_CSV extends PHPExcel_Reader_Abstract implements PHPExcel_R
 			$pValue = '"';
 		}
 		$this->_enclosure = $pValue;
-		return $this;
-	}
-
-	/**
-	 * Get line ending
-	 *
-	 * @return string
-	 */
-	public function getLineEnding() {
-		return $this->_lineEnding;
-	}
-
-	/**
-	 * Set line ending
-	 *
-	 * @param	string	$pValue		Line ending, defaults to OS line ending (PHP_EOL)
-	 * @return PHPExcel_Reader_CSV
-	 */
-	public function setLineEnding($pValue = PHP_EOL) {
-		$this->_lineEnding = $pValue;
 		return $this;
 	}
 
