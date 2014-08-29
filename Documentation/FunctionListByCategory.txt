@@ -374,4 +374,4 @@ CATEGORY_TEXT_AND_DATA
 	TEXT                    PHPExcel_Calculation_TextData::TEXTFORMAT
 	TRIM                    PHPExcel_Calculation_TextData::TRIMSPACES
 	UPPER                   PHPExcel_Calculation_TextData::UPPERCASE
-	VALUE                   ***  Not yet Implemented
+	VALUE                   PHPExcel_Calculation_TextData::VALUE

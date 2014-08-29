@@ -1628,7 +1628,7 @@ class PHPExcel_Calculation {
 												 'argumentCount'	=>	'2'
 												),
 				'VALUE'					=> array('category'			=>	PHPExcel_Calculation_Function::CATEGORY_TEXT_AND_DATA,
-												 'functionCall'		=>	'PHPExcel_Calculation_Functions::DUMMY',
+												 'functionCall'		=>	'PHPExcel_Calculation_TextData::VALUE',
 												 'argumentCount'	=>	'1'
 												),
 				'VAR'					=> array('category'			=>	PHPExcel_Calculation_Function::CATEGORY_STATISTICAL,

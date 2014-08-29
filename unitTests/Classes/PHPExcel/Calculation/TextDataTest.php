@@ -340,4 +340,24 @@ class TextDataTest extends PHPUnit_Framework_TestCase
     	return new testDataFileIterator('rawTestData/Calculation/TextData/TEXT.data');
 	}
 
+    /**
+     * @dataProvider providerVALUE
+     */
+	public function testVALUE()
+	{
+		call_user_func(array('PHPExcel_Shared_String','setDecimalSeparator'),'.');
+		call_user_func(array('PHPExcel_Shared_String','setThousandsSeparator'),' ');
+		call_user_func(array('PHPExcel_Shared_String','setCurrencyCode'),'$');
+
+		$args = func_get_args();
+		$expectedResult = array_pop($args);
+		$result = call_user_func_array(array('PHPExcel_Calculation_TextData','VALUE'),$args);
+		$this->assertEquals($expectedResult, $result, NULL, 1E-8);
+	}
+
+    public function providerVALUE()
+    {
+    	return new testDataFileIterator('rawTestData/Calculation/TextData/VALUE.data');
+	}
+
 }

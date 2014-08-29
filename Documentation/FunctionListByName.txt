@@ -355,7 +355,7 @@ TYPE                    CATEGORY_INFORMATION            PHPExcel_Calculation_Fun
 UPPER                   CATEGORY_TEXT_AND_DATA          PHPExcel_Calculation_TextData::UPPERCASE
 USDOLLAR                CATEGORY_FINANCIAL              ***  Not yet Implemented
 
-VALUE                   CATEGORY_TEXT_AND_DATA          ***  Not yet Implemented
+VALUE                   CATEGORY_TEXT_AND_DATA          PHPExcel_Calculation_TextData::VALUE
 VAR                     CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::VARFunc
 VARA                    CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::VARA
 VARP                    CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::VARP
