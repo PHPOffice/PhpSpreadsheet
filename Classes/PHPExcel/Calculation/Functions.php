@@ -710,7 +710,7 @@ if ((!function_exists('mb_str_replace')) &&
 		}
 
 		foreach((array) $search as $key => $s) {
-			if($s == '') {
+			if($s == '' && $s !== 0) {
 				continue;
 			}
 			$r = !is_array($replace) ? $replace : (array_key_exists($key, $replace) ? $replace[$key] : '');
