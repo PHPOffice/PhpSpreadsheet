@@ -88,7 +88,7 @@ class PHPExcel_Cell
 	 *
 	 *	@var	int
 	 */
-	private $_xfIndex;
+	private $_xfIndex = 0;
 
 	/**
 	 *	Attributes of the formula
@@ -113,8 +113,6 @@ class PHPExcel_Cell
 	}
 
 	public function attach(PHPExcel_CachedObjectStorage_CacheBase $parent) {
-
-
 		$this->_parent = $parent;
 	}
 
@@ -140,14 +138,9 @@ class PHPExcel_Cell
 			if ($pDataType == PHPExcel_Cell_DataType::TYPE_STRING2)
 				$pDataType = PHPExcel_Cell_DataType::TYPE_STRING;
 			$this->_dataType = $pDataType;
-		} else {
-			if (!self::getValueBinder()->bindValue($this, $pValue)) {
-				throw new PHPExcel_Exception("Value could not be bound to cell.");
-			}
+		} elseif (!self::getValueBinder()->bindValue($this, $pValue)) {
+            throw new PHPExcel_Exception("Value could not be bound to cell.");
 		}
-
-		// set default index to cellXf
-		$this->_xfIndex = 0;
 	}
 
 	/**
