@@ -424,7 +424,7 @@ class PHPExcel_Reader_HTML extends PHPExcel_Reader_Abstract implements PHPExcel_
 		//	Create a new DOM object
 		$dom = new DOMDocument;
 		//	Reload the HTML file into the DOM object
-        if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
+        if ((version_compare(PHP_VERSION, '5.4.0') >= 0) && defined(LIBXML_DTDLOAD)) {
             $loaded = $dom->loadHTMLFile($pFilename, PHPExcel_Settings::getLibXmlLoaderOptions());
         } else {
             $loaded = $dom->loadHTMLFile($pFilename);
