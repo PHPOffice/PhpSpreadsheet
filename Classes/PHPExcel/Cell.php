@@ -192,7 +192,7 @@ class PHPExcel_Cell
 	{
 		return (string) PHPExcel_Style_NumberFormat::toFormattedString(
 				$this->getCalculatedValue(),
-				$this->getWorksheet()->getParent()->getCellXfByIndex($this->getXfIndex())
+				$this->getStyle()
 					->getNumberFormat()->getFormatCode()
 			);
 	}
@@ -535,7 +535,7 @@ class PHPExcel_Cell
 	 */
 	public function getStyle()
 	{
-		return $this->getWorksheet()->getParent()->getCellXfByIndex($this->getXfIndex());
+		return $this->getWorksheet()->getStyle($this->getCoordinate());
 	}
 
 	/**
