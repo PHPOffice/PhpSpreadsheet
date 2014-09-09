@@ -35,6 +35,7 @@ Planned for v1.8.1
 - Bugfix:   (MBaker)                            - Fix to getStyle() call for cell object
 - General:  (MBaker)                            - Small performance improvement for autosize columns
 - General:  (frost-nzcr4)     Work Item GH-379  - Change the getter/setter for zeroHeight to camel case
+- General:  (MBaker)          Work Item GH-394  - DefaultValueBinder is too much aggressive when converting string to numeric
 - Feature:  (WiktrzGE)        Work Item GH-404  - Methods to manage most of the existing options for Chart Axis, Major Grid-lines and Minor Grid-lines
 - Feature:  (frost-nzcr4)     Work Item GH-403  - ODS read/write comments in the cell
 - Feature:  (CQD)             Work Item GH-389  - Additional Mac CJK codepage definitions
