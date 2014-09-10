@@ -161,7 +161,7 @@ $dataSeriesValues2 = array(
 //	Build the dataseries
 $series2 = new PHPExcel_Chart_DataSeries(
 	PHPExcel_Chart_DataSeries::TYPE_DONUTCHART,		// plotType
-	NULL,			                                        // plotGrouping
+	NULL,			                                // plotGrouping
 	range(0, count($dataSeriesValues2)-1),			// plotOrder
 	$dataSeriesLabels2,								// plotLabel
 	$xAxisTickValues2,								// plotCategory
