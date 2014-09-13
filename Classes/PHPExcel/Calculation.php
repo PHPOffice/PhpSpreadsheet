@@ -2374,13 +2374,13 @@ class PHPExcel_Calculation {
 	 * @throws	PHPExcel_Calculation_Exception
 	 */
 	public function _calculateFormulaValue($formula, $cellID=null, PHPExcel_Cell $pCell = null) {
-		$cellValue = '';
+		$cellValue = null;
 
 		//	Basic validation that this is indeed a formula
 		//	We simply return the cell value if not
 		$formula = trim($formula);
 		if ($formula{0} != '=') return self::_wrapResult($formula);
-		$formula = ltrim(substr($formula,1));
+		$formula = ltrim(substr($formula, 1));
 		if (!isset($formula{0})) return self::_wrapResult($formula);
 
 		$pCellParent = ($pCell !== NULL) ? $pCell->getWorksheet() : NULL;
@@ -2392,20 +2392,23 @@ class PHPExcel_Calculation {
 
 		if (($wsTitle{0} !== "\x00") && ($this->_cyclicReferenceStack->onStack($wsTitle.'!'.$cellID))) {
 			if ($this->cyclicFormulaCount <= 0) {
+                $this->_cyclicFormulaCell = '';
 				return $this->_raiseFormulaError('Cyclic Reference in Formula');
 			} elseif (($this->_cyclicFormulaCount >= $this->cyclicFormulaCount) &&
 					  ($this->_cyclicFormulaCell == $wsTitle.'!'.$cellID)) {
+                $this->_cyclicFormulaCell = '';
 				return $cellValue;
 			} elseif ($this->_cyclicFormulaCell == $wsTitle.'!'.$cellID) {
 				++$this->_cyclicFormulaCount;
 				if ($this->_cyclicFormulaCount >= $this->cyclicFormulaCount) {
+                    $this->_cyclicFormulaCell = '';
 					return $cellValue;
 				}
 			} elseif ($this->_cyclicFormulaCell == '') {
-				$this->_cyclicFormulaCell = $wsTitle.'!'.$cellID;
 				if ($this->_cyclicFormulaCount >= $this->cyclicFormulaCount) {
 					return $cellValue;
 				}
+				$this->_cyclicFormulaCell = $wsTitle.'!'.$cellID;
 			}
 		}
 
