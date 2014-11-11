@@ -403,7 +403,7 @@ class PHPExcel_Shared_String
 	 * @return boolean
 	 */
 	public static function IsUTF8($value = '') {
-		return $string === '' || preg_match('/^./su', $string) === 1;
+		return $value === '' || preg_match('/^./su', $value) === 1;
 	}
 
 	/**
