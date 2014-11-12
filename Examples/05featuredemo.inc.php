@@ -267,12 +267,13 @@ echo date('H:i:s') , " Unprotect a cell" , EOL;
 $objPHPExcel->getActiveSheet()->getStyle('B1')->getProtection()->setLocked(PHPExcel_Style_Protection::PROTECTION_UNPROTECTED);
 
 // Add a hyperlink to the sheet
-echo date('H:i:s') , " Add a hyperlink to the sheet" , EOL;
+echo date('H:i:s') , " Add a hyperlink to an external website" , EOL;
 $objPHPExcel->getActiveSheet()->setCellValue('E26', 'www.phpexcel.net');
 $objPHPExcel->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl('http://www.phpexcel.net');
 $objPHPExcel->getActiveSheet()->getCell('E26')->getHyperlink()->setTooltip('Navigate to website');
 $objPHPExcel->getActiveSheet()->getStyle('E26')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
 
+echo date('H:i:s') , " Add a hyperlink to another cell on a different worksheet within the workbook" , EOL;
 $objPHPExcel->getActiveSheet()->setCellValue('E27', 'Terms and conditions');
 $objPHPExcel->getActiveSheet()->getCell('E27')->getHyperlink()->setUrl("sheet://'Terms and conditions'!A1");
 $objPHPExcel->getActiveSheet()->getCell('E27')->getHyperlink()->setTooltip('Review terms and conditions');
