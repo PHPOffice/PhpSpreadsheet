@@ -34,7 +34,8 @@ Planned for v1.8.1
 - Bugfix:   (MBaker)                            - Fix for percentage operator in formulae for BIFF Writer
 - Bugfix:   (MBaker)                            - Fix to getStyle() call for cell object
 - Bugfix:   (MBaker)                            - Discard Autofilters in Excel2007 Reader when filter range isn't a valid range
-- Bugfix:   (masanaikeshima)  Work Item GH-426  - Pie chart won't work in Excel 2013
+- Bugfix:   (MBaker)                            - Discard Autofilters in Excel2007 Reader when filter range isn't a valid range
+- Bugfix:   (frozenstupidity) Work Item GH-423  - Fix invalid NA return in VLOOKUP 
 - General:  (MBaker)                            - Small performance improvement for autosize columns
 - General:  (frost-nzcr4)     Work Item GH-379  - Change the getter/setter for zeroHeight to camel case
 - General:  (MBaker)          Work Item GH-394  - DefaultValueBinder is too much aggressive when converting string to numeric
