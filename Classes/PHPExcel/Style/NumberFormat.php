@@ -120,6 +120,7 @@ class PHPExcel_Style_NumberFormat extends PHPExcel_Style_Supervisor implements P
 
 		if ($isConditional) {
 			$this->_formatCode = NULL;
+			$this->_builtInFormatCode = FALSE;
 		}
 	}
 

@@ -45,6 +45,7 @@ Planned for v1.8.1
 - Feature:  (CQD)             Work Item GH-389  - Additional Mac CJK codepage definitions
 - Feature:  (bolovincev)      Work Item GH-269  - Update Worksheet.php getStyleByColumnAndRow() to allow a range of cells rather than just a single cell
 - Feature:  (MBaker)                            - New methods added for testing cell status within merge groups
+- Bugfix:   (wiseloren)       Work Item CP21454 - "No Impact" conditional formatting fix for NumberFormat
 
 
 2014-03-02 (v1.8.0):
