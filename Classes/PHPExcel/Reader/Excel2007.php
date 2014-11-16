@@ -1935,6 +1935,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 		if (isset($is->t)) {
 			$value->createText( PHPExcel_Shared_String::ControlCharacterOOXML2PHP( (string) $is->t ) );
 		} else {
+			if(is_object($is->r)) {
 			foreach ($is->r as $run) {
 				if (!isset($run->rPr)) {
 					$objText = $value->createText( PHPExcel_Shared_String::ControlCharacterOOXML2PHP( (string) $run->t ) );
@@ -1985,6 +1986,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 						$objText->getFont()->setStrikethrough(TRUE);
 					}
 				}
+			}
 			}
 		}
 
