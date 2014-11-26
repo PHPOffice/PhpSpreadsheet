@@ -599,9 +599,11 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
 							}
 						}
 
+                        $additionalMergedCells = 0;
 						if ((isset($cell_ss['MergeAcross'])) || (isset($cell_ss['MergeDown']))) {
 							$columnTo = $columnID;
 							if (isset($cell_ss['MergeAcross'])) {
+                                $additionalMergedCells = (int)$cell_ss['MergeAcross'];
 								$columnTo = PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($columnID) + $cell_ss['MergeAcross'] -1);
 							}
 							$rowTo = $rowID;
@@ -759,6 +761,10 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
 							}
 						}
 						++$columnID;
+                        while ($additionalMergedCells > 0) {
+                            ++$columnID;
+                            $additionalMergedCells--;
+                        }
 					}
 
 					if ($rowHasData) {

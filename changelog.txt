@@ -34,8 +34,9 @@ Planned for v1.8.1
 - Bugfix:   (MBaker)                            - Fix for percentage operator in formulae for BIFF Writer
 - Bugfix:   (MBaker)                            - Fix to getStyle() call for cell object
 - Bugfix:   (MBaker)                            - Discard Autofilters in Excel2007 Reader when filter range isn't a valid range
-- Bugfix:   (MBaker)                            - Discard Autofilters in Excel2007 Reader when filter range isn't a valid range
-- Bugfix:   (frozenstupidity) Work Item GH-423  - Fix invalid NA return in VLOOKUP 
+- Bugfix:   (frozenstupidity) Work Item GH-423  - Fix invalid NA return in VLOOKUP
+- Bugfix:   (wiseloren)       Work Item CP21454 - "No Impact" conditional formatting fix for NumberFormat
+- Bugfix:   (bobwitlox)       Work Item GH-467  - Bug in Excel2003XML reader, parsing merged cells
 - General:  (MBaker)                            - Small performance improvement for autosize columns
 - General:  (frost-nzcr4)     Work Item GH-379  - Change the getter/setter for zeroHeight to camel case
 - General:  (MBaker)          Work Item GH-394  - DefaultValueBinder is too much aggressive when converting string to numeric
@@ -45,7 +46,6 @@ Planned for v1.8.1
 - Feature:  (CQD)             Work Item GH-389  - Additional Mac CJK codepage definitions
 - Feature:  (bolovincev)      Work Item GH-269  - Update Worksheet.php getStyleByColumnAndRow() to allow a range of cells rather than just a single cell
 - Feature:  (MBaker)                            - New methods added for testing cell status within merge groups
-- Bugfix:   (wiseloren)       Work Item CP21454 - "No Impact" conditional formatting fix for NumberFormat
 
 
 2014-03-02 (v1.8.0):
