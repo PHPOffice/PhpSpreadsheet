@@ -7,7 +7,7 @@ require_once 'Properties.php';
  * Time: 2:36 PM
  */
 
-class PHPExcel_Chart_Gridlines extends
+class PHPExcel_Chart_GridLines extends
   PHPExcel_Properties {
 
   /**
@@ -90,7 +90,7 @@ class PHPExcel_Chart_Gridlines extends
   /**
    * Change Object State to True
    *
-   * @return PHPExcel_Chart_Gridlines
+   * @return PHPExcel_Chart_GridLines
    */
 
   private function _activateObject() {
@@ -229,7 +229,7 @@ class PHPExcel_Chart_Gridlines extends
    *
    * @param float $size
    *
-   * @return PHPExcel_Chart_Gridlines
+   * @return PHPExcel_Chart_GridLines
    */
 
   private function _setGlowSize($size) {
@@ -245,7 +245,7 @@ class PHPExcel_Chart_Gridlines extends
    * @param int $alpha
    * @param string $type
    *
-   * @return PHPExcel_Chart_Gridlines
+   * @return PHPExcel_Chart_GridLines
    */
 
   private function _setGlowColor($color, $alpha, $type) {
@@ -307,7 +307,7 @@ class PHPExcel_Chart_Gridlines extends
    *
    * @param int $shadow_presets
    *
-   * @return PHPExcel_Chart_Gridlines
+   * @return PHPExcel_Chart_GridLines
    */
 
   private function _setShadowPresetsProperties($shadow_presets) {
@@ -323,7 +323,7 @@ class PHPExcel_Chart_Gridlines extends
    * @param array $properties_map
    * @param * $reference
    *
-   * @return PHPExcel_Chart_Gridlines
+   * @return PHPExcel_Chart_GridLines
    */
 
   private function _setShadowProperiesMapValues(array $properties_map, &$reference = NULL) {
@@ -355,7 +355,7 @@ class PHPExcel_Chart_Gridlines extends
    * @param int $alpha
    * @param string $type
    *
-   * @return PHPExcel_Chart_Gridlines
+   * @return PHPExcel_Chart_GridLines
    */
 
   private function _setShadowColor($color, $alpha, $type) {
@@ -377,7 +377,7 @@ class PHPExcel_Chart_Gridlines extends
    *
    * @param float $blur
    *
-   * @return PHPExcel_Chart_Gridlines
+   * @return PHPExcel_Chart_GridLines
    */
 
   private function _setShadowBlur($blur) {
@@ -393,7 +393,7 @@ class PHPExcel_Chart_Gridlines extends
    *
    * @param int $angle
    *
-   * @return PHPExcel_Chart_Gridlines
+   * @return PHPExcel_Chart_GridLines
    */
 
   private function _setShadowAngle($angle) {
@@ -409,7 +409,7 @@ class PHPExcel_Chart_Gridlines extends
    *
    * @param float $distance
    *
-   * @return PHPExcel_Chart_Gridlines
+   * @return PHPExcel_Chart_GridLines
    */
 
   private function _setShadowDistance($distance) {

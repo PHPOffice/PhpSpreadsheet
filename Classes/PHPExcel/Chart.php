@@ -115,14 +115,14 @@ class PHPExcel_Chart
   /**
    * Chart Major Gridlines as
    *
-   * @var PHPExcel_Chart_Gridlines
+   * @var PHPExcel_Chart_GridLines
    */
   private $_majorGridlines = null;
 
   /**
    * Chart Minor Gridlines as
    *
-   * @var PHPExcel_Chart_Gridlines
+   * @var PHPExcel_Chart_GridLines
    */
   private $_minorGridlines = null;
 
@@ -177,7 +177,7 @@ class PHPExcel_Chart
 	/**
 	 * Create a new PHPExcel_Chart
 	 */
-	public function __construct($name, PHPExcel_Chart_Title $title = null, PHPExcel_Chart_Legend $legend = null, PHPExcel_Chart_PlotArea $plotArea = null, $plotVisibleOnly = true, $displayBlanksAs = '0', PHPExcel_Chart_Title $xAxisLabel = null, PHPExcel_Chart_Title $yAxisLabel = null, PHPExcel_Chart_Axis $xAxis = null, PHPExcel_Chart_Axis $yAxis = null, PHPExcel_Chart_Gridlines $majorGridlines = null, PHPExcel_Chart_Gridlines $minorGridlines = null)
+	public function __construct($name, PHPExcel_Chart_Title $title = null, PHPExcel_Chart_Legend $legend = null, PHPExcel_Chart_PlotArea $plotArea = null, $plotVisibleOnly = true, $displayBlanksAs = '0', PHPExcel_Chart_Title $xAxisLabel = null, PHPExcel_Chart_Title $yAxisLabel = null, PHPExcel_Chart_Axis $xAxis = null, PHPExcel_Chart_Axis $yAxis = null, PHPExcel_Chart_GridLines $majorGridlines = null, PHPExcel_Chart_GridLines $minorGridlines = null)
 	{
 		$this->_name = $name;
 		$this->_title = $title;
@@ -387,27 +387,27 @@ class PHPExcel_Chart
   /**
    * Get Major Gridlines
    *
-   * @return PHPExcel_Chart_Gridlines
+   * @return PHPExcel_Chart_GridLines
    */
   public function getMajorGridlines() {
     if($this->_majorGridlines !== NULL){
       return $this->_majorGridlines;
     }
 
-    return new PHPExcel_Chart_Gridlines();
+    return new PHPExcel_Chart_GridLines();
   }
 
   /**
    * Get Minor Gridlines
    *
-   * @return PHPExcel_Chart_Gridlines
+   * @return PHPExcel_Chart_GridLines
    */
   public function getMinorGridlines() {
     if($this->_minorGridlines !== NULL){
       return $this->_minorGridlines;
     }
 
-    return new PHPExcel_Chart_Gridlines();
+    return new PHPExcel_Chart_GridLines();
   }
 
 

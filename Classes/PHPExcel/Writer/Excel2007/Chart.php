@@ -239,8 +239,8 @@ class PHPExcel_Writer_Excel2007_Chart extends
       PHPExcel_Worksheet $pSheet,
       PHPExcel_Chart_Axis $xAxis,
       PHPExcel_Chart_Axis $yAxis,
-      PHPExcel_Chart_Gridlines $majorGridlines,
-      PHPExcel_Chart_Gridlines $minorGridlines
+      PHPExcel_Chart_GridLines $majorGridlines,
+      PHPExcel_Chart_GridLines $minorGridlines
   ) {
     if (is_null($plotArea)) {
       return;
