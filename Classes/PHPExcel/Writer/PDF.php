@@ -33,7 +33,7 @@
  *  @package     PHPExcel_Writer_PDF
  *  @copyright   Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
-class PHPExcel_Writer_PDF
+class PHPExcel_Writer_PDF implements PHPExcel_Writer_IWriter
 {
 
     /**
@@ -87,4 +87,11 @@ class PHPExcel_Writer_PDF
         return call_user_func_array(array($this->_renderer, $name), $arguments);
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function save($pFilename = null)
+    {
+        $this->_renderer->save($pFilename);
+    }
 }
