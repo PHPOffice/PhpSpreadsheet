@@ -87,7 +87,7 @@ $dataSeriesValues1 = array(
 //	Build the dataseries
 $series1 = new PHPExcel_Chart_DataSeries(
 	PHPExcel_Chart_DataSeries::TYPE_PIECHART,				// plotType
-	NULL,			                                        // plotGrouping
+	NULL,			                                        // plotGrouping (Pie charts don't have any grouping)
 	range(0, count($dataSeriesValues1)-1),					// plotOrder
 	$dataSeriesLabels1,										// plotLabel
 	$xAxisTickValues1,										// plotCategory
@@ -161,7 +161,7 @@ $dataSeriesValues2 = array(
 //	Build the dataseries
 $series2 = new PHPExcel_Chart_DataSeries(
 	PHPExcel_Chart_DataSeries::TYPE_DONUTCHART,		// plotType
-	NULL,			                                // plotGrouping
+	NULL,			                                // plotGrouping (Donut charts don't have any grouping)
 	range(0, count($dataSeriesValues2)-1),			// plotOrder
 	$dataSeriesLabels2,								// plotLabel
 	$xAxisTickValues2,								// plotCategory
