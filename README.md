@@ -33,7 +33,14 @@ Develop: [![Build Status](https://travis-ci.org/PHPOffice/PHPExcel.png?branch=de
 
 
 ## Want to contribute?
-Fork us!
+
+If you would like to contribute, here are some notes and guidlines:
+ - All development happens on the develop branch, so it is always the most up-to-date
+ - The master branch only contains tagged releases
+ - If you are going to be submitting a pull request, please branch from develop, and submit your pull request back to the develop branch
+ - [Helpful article about forking](https://help.github.com/articles/fork-a-repo/ "")
+ - [Helpful article about pull requests](https://help.github.com/articles/using-pull-requests/ "")
+
 
 ## License
 PHPExcel is licensed under [LGPL (GNU LESSER GENERAL PUBLIC LICENSE)](https://github.com/PHPOffice/PHPExcel/blob/master/license.md)
