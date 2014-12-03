@@ -41,6 +41,7 @@ Planned for v1.8.1
 - General:  (frost-nzcr4)     Work Item GH-379  - Change the getter/setter for zeroHeight to camel case
 - General:  (MBaker)          Work Item GH-394  - DefaultValueBinder is too much aggressive when converting string to numeric
 - General:  (MBaker)                            - Default precalculate formulas to false for writers
+- General:  (MBaker)                            - Set default Cyclic Reference behaviour to 1 to eliminate exception when using a single cyclic iteration in formulae
 - Feature:  (WiktrzGE)        Work Item GH-404  - Methods to manage most of the existing options for Chart Axis, Major Grid-lines and Minor Grid-lines
 - Feature:  (frost-nzcr4)     Work Item GH-403  - ODS read/write comments in the cell
 - Feature:  (CQD)             Work Item GH-389  - Additional Mac CJK codepage definitions

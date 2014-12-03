@@ -214,7 +214,7 @@ class PHPExcel_Calculation {
 	 * @var integer
 	 *
 	 */
-	public $cyclicFormulaCount = 0;
+	public $cyclicFormulaCount = 1;
 
 	/**
 	 * Precision used for calculations
@@ -2236,7 +2236,7 @@ class PHPExcel_Calculation {
 			$this->formulaError = null;
 			$this->_debugLog->clearLog();
 			$this->_cyclicReferenceStack->clear();
-			$this->_cyclicFormulaCount = 1;
+			$this->_cyclicFormulaCount = 0;
 
 			self::$returnArrayAsType = self::RETURN_ARRAY_AS_ARRAY;
 		}
