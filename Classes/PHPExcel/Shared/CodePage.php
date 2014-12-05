@@ -92,6 +92,7 @@ class PHPExcel_Shared_CodePage
 			case 10029:	return 'MACCENTRALEUROPE';		break;	//	Macintosh Central Europe
 			case 10079:	return 'MACICELAND';			break;	//	Macintosh Icelandic
 			case 10081:	return 'MACTURKISH';			break;	//	Macintosh Turkish
+			case 21010:	return 'UTF-16LE';			break;	//	UTF-16 (BIFF8) This isn't correct, but some Excel writer libraries erroneously use Codepage 21010 for UTF-16LE
 			case 32768:	return 'MAC';				break;	//	Apple Roman
 			case 32769:	throw new PHPExcel_Exception('Code page 32769 not supported.');
 													break;	//	ANSI Latin I (BIFF2-BIFF3)
