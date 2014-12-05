@@ -204,7 +204,7 @@ class PHPExcel_Calculation {
 	 * @var integer
 	 *
 	 */
-	private $_cyclicFormulaCount = 0;
+	private $_cyclicFormulaCount = 1;
 
 	private $_cyclicFormulaCell = '';
 
@@ -2236,7 +2236,7 @@ class PHPExcel_Calculation {
 			$this->formulaError = null;
 			$this->_debugLog->clearLog();
 			$this->_cyclicReferenceStack->clear();
-			$this->_cyclicFormulaCount = 0;
+			$this->_cyclicFormulaCount = 1;
 
 			self::$returnArrayAsType = self::RETURN_ARRAY_AS_ARRAY;
 		}
@@ -2343,24 +2343,22 @@ class PHPExcel_Calculation {
 	}	//	function calculateFormula()
 
 
-    public function getValueFromCache($worksheetName, $cellID, &$cellValue) {
+    public function getValueFromCache($cellReference, &$cellValue) {
 		// Is calculation cacheing enabled?
 		// Is the value present in calculation cache?
-//echo 'Test cache for ',$worksheetName,'!',$cellID,PHP_EOL;
-		$this->_debugLog->writeDebugLog('Testing cache value for cell ', $worksheetName, '!', $cellID);
-		if (($this->_calculationCacheEnabled) && (isset($this->_calculationCache[$worksheetName][$cellID]))) {
-//echo 'Retrieve from cache',PHP_EOL;
-			$this->_debugLog->writeDebugLog('Retrieving value for cell ', $worksheetName, '!', $cellID, ' from cache');
+		$this->_debugLog->writeDebugLog('Testing cache value for cell ', $cellReference);
+		if (($this->_calculationCacheEnabled) && (isset($this->_calculationCache[$cellReference]))) {
+			$this->_debugLog->writeDebugLog('Retrieving value for cell ', $cellReference, ' from cache');
 			// Return the cached result
-			$cellValue = $this->_calculationCache[$worksheetName][$cellID];
+			$cellValue = $this->_calculationCache[$cellReference];
 			return TRUE;
 		}
 		return FALSE;
     }
 
-    public function saveValueToCache($worksheetName, $cellID, $cellValue) {
+    public function saveValueToCache($cellReference, $cellValue) {
 		if ($this->_calculationCacheEnabled) {
-			$this->_calculationCache[$worksheetName][$cellID] = $cellValue;
+			$this->_calculationCache[$cellReference] = $cellValue;
 		}
 	}
 
@@ -2385,20 +2383,17 @@ class PHPExcel_Calculation {
 
 		$pCellParent = ($pCell !== NULL) ? $pCell->getWorksheet() : NULL;
 		$wsTitle = ($pCellParent !== NULL) ? $pCellParent->getTitle() : "\x00Wrk";
+        $wsCellReference = $wsTitle . '!' . $cellID;
 
-		if (($cellID !== NULL) && ($this->getValueFromCache($wsTitle, $cellID, $cellValue))) {
+		if (($cellID !== NULL) && ($this->getValueFromCache($wsCellReference, $cellValue))) {
 			return $cellValue;
 		}
 
-		if (($wsTitle{0} !== "\x00") && ($this->_cyclicReferenceStack->onStack($wsTitle.'!'.$cellID))) {
-			if ($this->cyclicFormulaCount <= 0) {
+		if (($wsTitle{0} !== "\x00") && ($this->_cyclicReferenceStack->onStack($wsCellReference))) {
+            if ($this->cyclicFormulaCount <= 0) {
                 $this->_cyclicFormulaCell = '';
 				return $this->_raiseFormulaError('Cyclic Reference in Formula');
-			} elseif (($this->_cyclicFormulaCount >= $this->cyclicFormulaCount) &&
-					  ($this->_cyclicFormulaCell == $wsTitle.'!'.$cellID)) {
-                $this->_cyclicFormulaCell = '';
-				return $cellValue;
-			} elseif ($this->_cyclicFormulaCell == $wsTitle.'!'.$cellID) {
+			} elseif ($this->_cyclicFormulaCell === $wsCellReference) {
 				++$this->_cyclicFormulaCount;
 				if ($this->_cyclicFormulaCount >= $this->cyclicFormulaCount) {
                     $this->_cyclicFormulaCell = '';
@@ -2408,18 +2403,18 @@ class PHPExcel_Calculation {
 				if ($this->_cyclicFormulaCount >= $this->cyclicFormulaCount) {
 					return $cellValue;
 				}
-				$this->_cyclicFormulaCell = $wsTitle.'!'.$cellID;
+				$this->_cyclicFormulaCell = $wsCellReference;
 			}
 		}
 
 		//	Parse the formula onto the token stack and calculate the value
-		$this->_cyclicReferenceStack->push($wsTitle.'!'.$cellID);
+		$this->_cyclicReferenceStack->push($wsCellReference);
 		$cellValue = $this->_processTokenStack($this->_parseFormula($formula, $pCell), $cellID, $pCell);
 		$this->_cyclicReferenceStack->pop();
 
 		// Save to calculation cache
 		if ($cellID !== NULL) {
-			$this->saveValueToCache($wsTitle, $cellID, $cellValue);
+			$this->saveValueToCache($wsCellReference, $cellValue);
 		}
 
 		//	Return the calculated value
