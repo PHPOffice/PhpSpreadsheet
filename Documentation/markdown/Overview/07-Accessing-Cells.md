@@ -25,7 +25,40 @@ $objPHPExcel->getActiveSheet()->setCellValue(
 );
 ```
 
-#### Setting a date and/or time in a cell
+Alternatively, you can retrieve the cell object, and then call the cell’s setValue() method:
+
+```php
+$objPHPExcel->getActiveSheet()
+    ->getCell('B8')
+    ->setValue('Some value');
+```
+
+**Excel DataTypes**
+
+MS Excel supports 7 basic datatypes
+ - string
+ - number
+ - boolean
+ - null
+ - formula
+ - error
+ - Inline (or rich text) string
+
+By default, when you call the worksheet's `setCellValue()` method or the cell's `setValue()` method, PHPExcel will use the appropriate datatype for PHP nulls, booleans, floats or integers; or cast any string data value that you pass to the method into the most appropriate datatype, so numeric strings will be cast to numbers, while string values beginning with “=” will be converted to a formula. Strings that aren't numeric, or that don't begin with a leading "=" will be treated as genuine string values.
+
+This "conversion" is handled by a cell "value binder", and you can write custom "value binders" to change the behaviour of these "conversions". The standard PHPExcel package also provides an "advanced value binder" that handles a number of more complex conversions, such as converting strings with a fractional format like "3/4" to a number value (0.75 in this case) and setting an appropriate "fraction" number format mask. Similarly, strings like "5%" will be converted to a value of 0.05, and a percentage number format mask applied, and strings containing values that look like dates will be converted to Excel serialized datetimestamp values, and a corresponding mask applied. This is particularly useful when loading data from csv files, or setting cell values from a database.
+
+Formats handled by the advanced value binder include
+ - TRUE or FALSE (dependent on locale settings) are converted to booleans.
+ - Numeric strings identified as scientific (exponential) format are converted to numbers.
+ - Fractions and vulgar fractions are converted to numbers, and an appropriate number format mask applied.
+ - Percentages are converted to numbers, divided by 100, and an appropriate number format mask applied.
+ - Dates and times are converted to Excel timestamp values (numbers), and an appropriate number format mask applied.
+ - When strings contain a newline character ("\n"), then the cell styling is set to wrap.
+
+You can read more about value binders later in this section of the documentation.
+
+#### Setting a date and/or time value in a cell
 
 Date or time values are held as timestamp in Excel (a simple floating point value), and a number format mask is used to show how that value should be formatted; so if we want to store a date in a cell, we need to calculate the correct Excel timestamp, and set a number format mask.
 
@@ -48,7 +81,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A6')
 
 #### Setting a number with leading zeroes
 
-By default, PHPExcel will automatically detect the value type and set it to the appropriate Excel datatype. This type conversion is handled by a value binder, as described in the section of this document entitled "Using value binders to facilitate data entry".
+By default, PHPExcel will automatically detect the value type and set it to the appropriate Excel numeric datatype. This type conversion is handled by a value binder, as described in the section of this document entitled "Using value binders to facilitate data entry".
 
 Numbers don't have leading zeroes, so if you try to set a numeric value that does have leading zeroes (such as a telephone number) then these will be normally be lost as the value is cast to a number, so "01513789642" will be displayed as 1513789642.
 
