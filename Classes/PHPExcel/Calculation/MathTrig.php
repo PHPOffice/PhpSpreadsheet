@@ -880,9 +880,9 @@ class PHPExcel_Calculation_MathTrig {
 		$max		= PHPExcel_Calculation_Functions::flattenSingleValue($max);
 
 		if ($min == 0 && $max == 0) {
-			return (rand(0,10000000)) / 10000000;
+			return (mt_rand(0,10000000)) / 10000000;
 		} else {
-			return rand($min, $max);
+			return mt_rand($min, $max);
 		}
 	}	//	function RAND()
 
