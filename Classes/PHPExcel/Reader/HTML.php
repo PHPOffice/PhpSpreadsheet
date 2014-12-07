@@ -403,8 +403,8 @@ class PHPExcel_Reader_HTML extends PHPExcel_Reader_Abstract implements PHPExcel_
                             }
                         }
 
-                        //create merging rowspan
                         if (isset($attributeArray['rowspan']) && isset($attributeArray['colspan'])) {
+                            //create merging rowspan and colspan
                             $columnTo = $column;
                             for ($i = 0; $i < $attributeArray['colspan'] - 1; $i++) {
                                 ++$columnTo;
@@ -414,13 +414,16 @@ class PHPExcel_Reader_HTML extends PHPExcel_Reader_Abstract implements PHPExcel_
                                 $this->rowspan[$value] = true;
                             }
                             $sheet->mergeCells($range);
+                            $column = $columnTo;
                         } elseif (isset($attributeArray['rowspan'])) {
+                            //create merging rowspan
                             $range = $column . $row . ':' . $column . ($row + $attributeArray['rowspan'] - 1);
                             foreach (\PHPExcel_Cell::extractAllCellReferencesInRange($range) as $value) {
                                 $this->rowspan[$value] = true;
                             }
                             $sheet->mergeCells($range);
                         } elseif (isset($attributeArray['colspan'])) {
+                            //create merging colspan
                             $columnTo = $column;
                             for ($i = 0; $i < $attributeArray['colspan'] - 1; $i++) {
                                 ++$columnTo;
