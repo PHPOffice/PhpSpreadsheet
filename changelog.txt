@@ -50,6 +50,7 @@ Planned for v1.8.1
 - Feature:  (bolovincev)      Work Item GH-269  - Update Worksheet.php getStyleByColumnAndRow() to allow a range of cells rather than just a single cell
 - Feature:  (MBaker)                            - New methods added for testing cell status within merge groups
 - Feature:  (cifren/MBaker)   Work Item GH-205  - Handling merge cells in HTML Reader
+- Feature:  (MBaker)                            - Helper to convert basic HTML markup to a Rich Text object
 
 
 2014-03-02 (v1.8.0):
