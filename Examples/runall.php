@@ -100,6 +100,8 @@ $aTests = array(
 	, '38cloneWorksheet.php'
     , '39dropdown.php'
 	, '40duplicateStyle.php'
+	, '41password.php'
+	, '42richText.php'
 	, 'OOCalcReader.php'
 	, 'OOCalcReaderPCLZip.php'
 	, 'SylkReader.php'
