@@ -55,21 +55,31 @@ $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 // Add some data
 echo date('H:i:s') , " Add some data" , EOL;
 
-$html='<font color="#0000ff">
+$html1='<font color="#0000ff">
 <h1 align="center">My very first example of rich text<br />generated from html markup</h1>
 <p>
-<font size="12" COLOR="rgb(0,255,128)">
+<font size="14" COLOR="rgb(0,255,128)">
 <b>This block</b> contains an <i>italicized</i> word;
 while this block uses an <u>underline</u>.
 </font>
 </p>
-<p align="right"><font size="8" color="red">
-I want to eat <ins><del>steak</del><strong>pizza</strong></ins>.
+<p align="right"><font size="9" color="red">
+I want to eat <ins><del>healthy food</del><strong>pizza</strong></ins>.
 </font>
 ';
 
+$html2='<p>
+<font color="#ff0000">
+    100&deg;C is a hot temperature
+</font>
+<br>
+<font color="#0080ff">
+    10&deg;F is cold
+</font>
+</p>';
+
 $wizard = new PHPExcel_Helper_HTML;
-$richText = $wizard->toRichTextObject($html);
+$richText = $wizard->toRichTextObject($html1);
 
 $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('A1', $richText);
@@ -77,6 +87,16 @@ $objPHPExcel->setActiveSheetIndex(0)
 $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(48);
 $objPHPExcel->getActiveSheet()->getRowDimension(1)->setRowHeight(-1);
 $objPHPExcel->getActiveSheet()->getStyle('A1')
+    ->getAlignment()
+    ->setWrapText(true);
+
+$richText = $wizard->toRichTextObject($html2);
+
+$objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue('A2', $richText);
+
+$objPHPExcel->getActiveSheet()->getRowDimension(1)->setRowHeight(-1);
+$objPHPExcel->getActiveSheet()->getStyle('A2')
     ->getAlignment()
     ->setWrapText(true);
 

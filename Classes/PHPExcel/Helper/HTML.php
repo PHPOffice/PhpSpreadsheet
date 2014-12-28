@@ -573,7 +573,18 @@ class PHPExcel_Helper_HTML
 
     protected $richTextObject;
 
+    protected function initialise() {
+        $this->face = $this->size = $this->color = null;
+        $this->bold = $this->italic = $this->underline = $this->superscript = $this->subscript = $this->strikethrough = false;
+
+        $this->stack = array();
+
+        $this->stringData = '';
+    }
+
     public function toRichTextObject($html) {
+        $this->initialise();
+
         //	Create a new DOM object
         $dom = new domDocument;
         //	Load the HTML file into the DOM object
