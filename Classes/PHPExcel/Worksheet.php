@@ -1092,7 +1092,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      */
     public function setCellValue($pCoordinate = 'A1', $pValue = null, $returnCell = false)
     {
-        $cell = $this->getCell($pCoordinate)->setValue($pValue);
+        $cell = $this->getCell(strtoupper($pCoordinate))->setValue($pValue);
         return ($returnCell) ? $cell : $this;
     }
 
@@ -1123,7 +1123,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
     public function setCellValueExplicit($pCoordinate = 'A1', $pValue = null, $pDataType = PHPExcel_Cell_DataType::TYPE_STRING, $returnCell = false)
     {
         // Set value
-        $cell = $this->getCell($pCoordinate)->setValueExplicit($pValue, $pDataType);
+        $cell = $this->getCell(strtoupper($pCoordinate))->setValueExplicit($pValue, $pDataType);
         return ($returnCell) ? $cell : $this;
     }
 
@@ -1152,6 +1152,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      */
     public function getCell($pCoordinate = 'A1')
     {
+        $pCoordinate = strtoupper($pCoordinate);
         // Check cell collection
         if ($this->_cellCollection->isDataSet($pCoordinate)) {
             return $this->_cellCollection->getCacheData($pCoordinate);
@@ -1254,10 +1255,10 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      */
     public function cellExists($pCoordinate = 'A1')
     {
-        // Worksheet reference?
+       // Worksheet reference?
         if (strpos($pCoordinate, '!') !== false) {
             $worksheetReference = PHPExcel_Worksheet::extractSheetTitle($pCoordinate, true);
-			return $this->_parent->getSheetByName($worksheetReference[0])->cellExists($worksheetReference[1]);
+			return $this->_parent->getSheetByName($worksheetReference[0])->cellExists(strtoupper($worksheetReference[1]));
         }
 
         // Named range?
@@ -1415,7 +1416,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
         $this->_parent->setActiveSheetIndex($this->_parent->getIndex($this));
 
         // set cell coordinate as active
-        $this->setSelectedCells($pCellCoordinate);
+        $this->setSelectedCells(strtoupper($pCellCoordinate));
 
         return $this->_parent->getCellXfSupervisor();
     }
@@ -1428,6 +1429,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      */
     public function getConditionalStyles($pCoordinate = 'A1')
     {
+        $pCoordinate = strtoupper($pCoordinate);
         if (!isset($this->_conditionalStylesCollection[$pCoordinate])) {
             $this->_conditionalStylesCollection[$pCoordinate] = array();
         }
@@ -1442,7 +1444,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      */
     public function conditionalStylesExists($pCoordinate = 'A1')
     {
-        if (isset($this->_conditionalStylesCollection[$pCoordinate])) {
+        if (isset($this->_conditionalStylesCollection[strtoupper($pCoordinate)])) {
             return true;
         }
         return false;
@@ -1456,7 +1458,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      */
     public function removeConditionalStyles($pCoordinate = 'A1')
     {
-        unset($this->_conditionalStylesCollection[$pCoordinate]);
+        unset($this->_conditionalStylesCollection[strtoupper($pCoordinate)]);
         return $this;
     }
 
@@ -1479,7 +1481,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      */
     public function setConditionalStyles($pCoordinate = 'A1', $pValue)
     {
-        $this->_conditionalStylesCollection[$pCoordinate] = $pValue;
+        $this->_conditionalStylesCollection[strtoupper($pCoordinate)] = $pValue;
         return $this;
     }
 
@@ -1902,6 +1904,8 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      */
     public function setAutoFilter($pValue)
     {
+        $pRange = strtoupper($pValue);
+
         if (is_string($pValue)) {
             $this->_autoFilter->setRange($pValue);
         } elseif(is_object($pValue) && ($pValue instanceof PHPExcel_Worksheet_AutoFilter)) {
