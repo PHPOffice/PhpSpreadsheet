@@ -1011,7 +1011,7 @@ class PHPExcel
      */
     public function getCellStyleXfByHashCode($pValue = '')
     {
-        foreach ($this->_cellXfStyleCollection as $cellStyleXf) {
+        foreach ($this->_cellStyleXfCollection as $cellStyleXf) {
             if ($cellStyleXf->getHashCode() == $pValue) {
                 return $cellStyleXf;
             }
