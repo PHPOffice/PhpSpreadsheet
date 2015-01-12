@@ -395,13 +395,13 @@ class PHPExcel_Reader_HTML extends PHPExcel_Reader_Abstract implements PHPExcel_
 
                         $this->_flushCell($sheet, $column, $row, $cellContent);
 
-                        if (isset($attributeArray['style']) && !empty($attributeArray['style'])) {
-                            $styleAry = $this->getPhpExcelStyleArray($attributeArray['style']);
-
-                            if (!empty($styleAry)) {
-                                $sheet->getStyle($column . $row)->applyFromArray($styleAry);
-                            }
-                        }
+//                        if (isset($attributeArray['style']) && !empty($attributeArray['style'])) {
+//                            $styleAry = $this->getPhpExcelStyleArray($attributeArray['style']);
+//
+//                            if (!empty($styleAry)) {
+//                                $sheet->getStyle($column . $row)->applyFromArray($styleAry);
+//                            }
+//                        }
 
                         if (isset($attributeArray['rowspan']) && isset($attributeArray['colspan'])) {
                             //create merging rowspan and colspan
