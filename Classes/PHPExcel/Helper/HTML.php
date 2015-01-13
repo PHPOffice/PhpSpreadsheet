@@ -706,7 +706,7 @@ class PHPExcel_Helper_HTML
         $this->superscript = true;
     }
 
-    protected function endSupercriptTag() {
+    protected function endSuperscriptTag() {
         $this->superscript = false;
     }
 
