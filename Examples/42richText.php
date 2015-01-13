@@ -78,11 +78,16 @@ $html2='<p>
 </font>
 </p>';
 
+$html3='2<sup>3</sup> equals 8';
+
+$html4='H<sub>2</sub>SO<sub>4</sub> is the chemical formula for Sulphuric acid';
+
+
 $wizard = new PHPExcel_Helper_HTML;
 $richText = $wizard->toRichTextObject($html1);
 
 $objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue('A1', $richText);
+    ->setCellValue('A1', $richText);
 
 $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(48);
 $objPHPExcel->getActiveSheet()->getRowDimension(1)->setRowHeight(-1);
@@ -93,12 +98,18 @@ $objPHPExcel->getActiveSheet()->getStyle('A1')
 $richText = $wizard->toRichTextObject($html2);
 
 $objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue('A2', $richText);
+    ->setCellValue('A2', $richText);
 
 $objPHPExcel->getActiveSheet()->getRowDimension(1)->setRowHeight(-1);
 $objPHPExcel->getActiveSheet()->getStyle('A2')
     ->getAlignment()
     ->setWrapText(true);
+
+$objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue('A3', $wizard->toRichTextObject($html3));
+
+$objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('A4', $wizard->toRichTextObject($html4));
 
 
 // Rename worksheet
