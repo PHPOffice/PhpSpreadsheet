@@ -1726,6 +1726,7 @@ class PHPExcel_Calculation {
 		if ($this->_savedPrecision < $setPrecision) {
 			ini_set('precision',$setPrecision);
 		}
+		$this->delta = 1 * pow(10, -$setPrecision);
 
 		if ($workbook !== NULL) {
 			self::$_workbookSets[$workbook->getID()] = $this;
@@ -3600,27 +3601,39 @@ class PHPExcel_Calculation {
 				break;
 			//	Equality
 			case '=':
-				$result = ($operand1 == $operand2);
+                if (is_numeric($operand1) && is_numeric($operand2)) {
+                    $result = (abs($operand1 - $operand2) < $this->delta);
+                } else {
+                    $result = strcmp($operand1, $operand2) == 0;
+                }
 				break;
 			//	Greater than or equal
 			case '>=':
-				if ($useLowercaseFirstComparison) {
+                if (is_numeric($operand1) && is_numeric($operand2)) {
+                    $result = ((abs($operand1 - $operand2) < $this->delta) || ($operand1 > $operand2));
+				} elseif ($useLowercaseFirstComparison) {
 					$result = $this->strcmpLowercaseFirst($operand1, $operand2) >= 0;
 				} else {
-					$result = ($operand1 >= $operand2);
+					$result = strcmp($operand1, $operand2) >= 0;
 				}
 				break;
 			//	Less than or equal
 			case '<=':
-				if ($useLowercaseFirstComparison) {
+                if (is_numeric($operand1) && is_numeric($operand2)) {
+                    $result = ((abs($operand1 - $operand2) < $this->delta) || ($operand1 < $operand2));
+                } elseif ($useLowercaseFirstComparison) {
 					$result = $this->strcmpLowercaseFirst($operand1, $operand2) <= 0;
 				} else {
-					$result = ($operand1 <= $operand2);
+					$result = strcmp($operand1, $operand2) <= 0;
 				}
 				break;
 			//	Inequality
 			case '<>':
-				$result = ($operand1 != $operand2);
+                if (is_numeric($operand1) && is_numeric($operand2)) {
+                    $result = (abs($operand1 - $operand2) > 1E-14);
+                } else {
+                    $result = strcmp($operand1, $operand2) != 0;
+                }
 				break;
 		}
 
