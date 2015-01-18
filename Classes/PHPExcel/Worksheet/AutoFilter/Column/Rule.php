@@ -257,7 +257,7 @@ class PHPExcel_Worksheet_AutoFilter_Column_Rule
 	 *
 	 * @var string
 	 */
-	private $_operator = '';
+	private $_operator = self::AUTOFILTER_COLUMN_RULE_EQUAL;
 
 	/**
 	 * DateTimeGrouping Group Value

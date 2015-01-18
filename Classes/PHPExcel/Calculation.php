@@ -3641,21 +3641,19 @@ class PHPExcel_Calculation {
 		$this->_debugLog->writeDebugLog('Evaluation Result is ', $this->_showTypeDetails($result));
 		//	And push the result onto the stack
 		$stack->push('Value',$result);
-		return TRUE;
-	}	//	function _executeBinaryComparisonOperation()
+		return true;
+	}
 
 	/**
 	 * Compare two strings in the same way as strcmp() except that lowercase come before uppercase letters
-	 * @param string $str1
-	 * @param string $str2
-	 * @return integer
+	 * @param    string    $str1    First string value for the comparison
+	 * @param    string    $str2    Second string value for the comparison
+	 * @return   integer
 	 */
 	private function strcmpLowercaseFirst($str1, $str2)
 	{
-		$from = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-		$to = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		$inversedStr1 = strtr($str1, $from, $to);
-		$inversedStr2 = strtr($str2, $from, $to);
+        $inversedStr1 = PHPExcel_Shared_String::StrCaseReverse($str1);
+        $inversedStr2 = PHPExcel_Shared_String::StrCaseReverse($str2);
 
 		return strcmp($inversedStr1, $inversedStr2);
 	}
