@@ -118,13 +118,12 @@ class PHPExcel_Calculation_TextData {
 	 */
 	public static function TRIMSPACES($stringValue = '') {
 		$stringValue	= PHPExcel_Calculation_Functions::flattenSingleValue($stringValue);
-
 		if (is_bool($stringValue)) {
 			return ($stringValue) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
 		}
 
 		if (is_string($stringValue) || is_numeric($stringValue)) {
-			return trim(preg_replace('/ +/',' ',trim($stringValue,' ')));
+			return trim(preg_replace('/ +/',' ',trim($stringValue, ' ')), ' ');
 		}
 		return NULL;
 	}	//	function TRIMSPACES()
