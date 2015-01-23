@@ -505,8 +505,8 @@ class PHPExcel_Style_NumberFormat extends PHPExcel_Style_Supervisor implements P
 			$numbers = explode('.', $number . '.0');
 			$masks = explode('.', $mask . '.0');
 			$result1 = self::_complexNumberFormatMask($numbers[0], $masks[0], 1);
-			$result2 = strrev(self::_complexNumberFormatMask(strrev($numbers[1]), strrev($masks[1])), 1);
-			return $result1 . '.' . $result2;
+			$result2 = strrev(self::_complexNumberFormatMask(strrev($numbers[1]), strrev($masks[1]), 1));
+			return (($sign) ? '-' : '') . $result1 . '.' . $result2;
 		}
 
 		$r = preg_match_all('/0+/', $mask, $result, PREG_OFFSET_CAPTURE);
