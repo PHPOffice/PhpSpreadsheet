@@ -11,6 +11,8 @@ class CalculationTest extends PHPUnit_Framework_TestCase
             define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
         }
         require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
+
+        PHPExcel_Calculation_Functions::setCompatibilityMode(PHPExcel_Calculation_Functions::COMPATIBILITY_EXCEL);
     }
 
     /**
@@ -25,8 +27,6 @@ class CalculationTest extends PHPUnit_Framework_TestCase
         PHPExcel_Calculation_Functions::setCompatibilityMode(PHPExcel_Calculation_Functions::COMPATIBILITY_OPENOFFICE);
         $resultOpenOffice = \PHPExcel_Calculation::getInstance()->_calculateFormulaValue($formula);
         $this->assertEquals($expectedResultOpenOffice, $resultOpenOffice, 'should be OpenOffice compatible');
-
-        PHPExcel_Calculation_Functions::setCompatibilityMode(PHPExcel_Calculation_Functions::COMPATIBILITY_EXCEL);
     }
 
     public function providerBinaryComparisonOperation()

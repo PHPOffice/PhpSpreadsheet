@@ -316,14 +316,17 @@ class PHPExcel_Calculation_MathTrig {
 		}
 
 		if ((is_numeric($number)) && (is_numeric($significance))) {
-            if (($number == 0.0 ) || ($significance == 0.0)) {
+            if ($significance == 0.0) {
+                return PHPExcel_Calculation_Functions::DIV0();
+            } elseif ($number == 0.0) {
 				return 0.0;
 			} elseif (self::SIGN($number) == self::SIGN($significance)) {
 				return floor($number / $significance) * $significance;
 			} else {
 				return PHPExcel_Calculation_Functions::NaN();
 			}
-		}
+		} else
+
 		return PHPExcel_Calculation_Functions::VALUE();
 	}	//	function FLOOR()
 
@@ -606,27 +609,27 @@ class PHPExcel_Calculation_MathTrig {
 		if (!is_array($matrixData1)) { $matrixData1 = array(array($matrixData1)); }
 		if (!is_array($matrixData2)) { $matrixData2 = array(array($matrixData2)); }
 
-		$rowA = 0;
-		foreach($matrixData1 as $matrixRow) {
-			if (!is_array($matrixRow)) { $matrixRow = array($matrixRow); }
-			$columnA = 0;
-			foreach($matrixRow as $matrixCell) {
-				if ((is_string($matrixCell)) || ($matrixCell === null)) {
-					return PHPExcel_Calculation_Functions::VALUE();
-				}
-				$matrixAData[$rowA][$columnA] = $matrixCell;
-				++$columnA;
-			}
-			++$rowA;
-		}
 		try {
+            $rowA = 0;
+            foreach($matrixData1 as $matrixRow) {
+                if (!is_array($matrixRow)) { $matrixRow = array($matrixRow); }
+                $columnA = 0;
+                foreach($matrixRow as $matrixCell) {
+                    if ((!is_numeric($matrixCell)) || ($matrixCell === null)) {
+                        return PHPExcel_Calculation_Functions::VALUE();
+                    }
+                    $matrixAData[$rowA][$columnA] = $matrixCell;
+                    ++$columnA;
+                }
+                ++$rowA;
+            }
 			$matrixA = new PHPExcel_Shared_JAMA_Matrix($matrixAData);
 			$rowB = 0;
 			foreach($matrixData2 as $matrixRow) {
 				if (!is_array($matrixRow)) { $matrixRow = array($matrixRow); }
 				$columnB = 0;
 				foreach($matrixRow as $matrixCell) {
-					if ((is_string($matrixCell)) || ($matrixCell === null)) {
+					if ((!is_numeric($matrixCell)) || ($matrixCell === null)) {
 						return PHPExcel_Calculation_Functions::VALUE();
 					}
 					$matrixBData[$rowB][$columnB] = $matrixCell;
@@ -636,12 +639,13 @@ class PHPExcel_Calculation_MathTrig {
 			}
 			$matrixB = new PHPExcel_Shared_JAMA_Matrix($matrixBData);
 
-			if (($rowA != $columnB) || ($rowB != $columnA)) {
+			if ($columnA != $rowB) {
 				return PHPExcel_Calculation_Functions::VALUE();
 			}
 
 			return $matrixA->times($matrixB)->getArray();
 		} catch (PHPExcel_Exception $ex) {
+            var_dump($ex->getMessage());
 			return PHPExcel_Calculation_Functions::VALUE();
 		}
 	}	//	function MMULT()

@@ -17,6 +17,8 @@ class EngineeringTest extends PHPUnit_Framework_TestCase
             define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
         }
         require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
+
+        PHPExcel_Calculation_Functions::setCompatibilityMode(PHPExcel_Calculation_Functions::COMPATIBILITY_EXCEL);
 	}
 
     /**
