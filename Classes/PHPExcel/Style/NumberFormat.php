@@ -498,12 +498,14 @@ class PHPExcel_Style_NumberFormat extends PHPExcel_Style_Supervisor implements P
 		}
 	}
 
-	private static function _complexNumberFormatMask($number, $mask) {
+	private static function _complexNumberFormatMask($number, $mask, $level = 0) {
+        $sign = ($number < 0.0);
+        $number = abs($number);
 		if (strpos($mask,'.') !== false) {
 			$numbers = explode('.', $number . '.0');
 			$masks = explode('.', $mask . '.0');
-			$result1 = self::_complexNumberFormatMask($numbers[0], $masks[0]);
-			$result2 = strrev(self::_complexNumberFormatMask(strrev($numbers[1]), strrev($masks[1])));
+			$result1 = self::_complexNumberFormatMask($numbers[0], $masks[0], 1);
+			$result2 = strrev(self::_complexNumberFormatMask(strrev($numbers[1]), strrev($masks[1])), 1);
 			return $result1 . '.' . $result2;
 		}
 
@@ -521,7 +523,7 @@ class PHPExcel_Style_NumberFormat extends PHPExcel_Style_Supervisor implements P
 					fmod($number, $divisor)
 				);
 				$number = floor($number / $divisor);
-				$mask = substr_replace($mask,$blockValue, $offset, $size);
+				$mask = substr_replace($mask, $blockValue, $offset, $size);
 			}
 			if ($number > 0) {
 				$mask = substr_replace($mask, $number, $offset, 0);
@@ -531,7 +533,7 @@ class PHPExcel_Style_NumberFormat extends PHPExcel_Style_Supervisor implements P
 			$result = $number;
 		}
 
-		return $result;
+		return (($sign) ? '-' : '') . $result;
 	}
 
 	/**
@@ -614,9 +616,12 @@ class PHPExcel_Style_NumberFormat extends PHPExcel_Style_Supervisor implements P
 
 				// Some non-number characters are escaped with \, which we don't need
 				$format = preg_replace("/\\\\/", '', $format);
+//              Handle escaped characters, such as \" to display a literal " or \\ to display a literal \
+//              $format = preg_replace('/(?<!\\\\)\"/', '', $format);
+//				$format = str_replace(array('\\"', '*'), array('"', ''), $format);
 
 				// Some non-number strings are quoted, so we'll get rid of the quotes, likewise any positional * symbols
-				$format = str_replace(array('"','*'), '', $format);
+				$format = str_replace(array('"', '*'), '', $format);
 
 				// Find out if we need thousands separator
 				// This is indicated by a comma enclosed by a digit placeholder:
