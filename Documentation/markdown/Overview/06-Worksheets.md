@@ -46,7 +46,7 @@ You can add a new worksheet to the workbook using the `createSheet()` method of 
 $objPHPExcel->createSheet();
 ```
 
-A new worksheet created using this method will be called "Worksheet<n>"ù where "<n>"ù is the lowest number possible to guarantee that the title is unique.
+A new worksheet created using this method will be called "Worksheet\<n\>"ù where "\<n\>"ù is the lowest number possible to guarantee that the title is unique.
 
 Alternatively, you can instantiate a new worksheet (setting the title to whatever you choose) and then insert it into your workbook using the addSheet() method.
 
