@@ -2920,11 +2920,11 @@ class PHPExcel_Calculation {
 //				echo 'Element with value '.$val.' is an Operand, Variable, Constant, String, Number, Cell Reference or Function<br />';
 
 				if (preg_match('/^'.self::CALCULATION_REGEXP_FUNCTION.'$/i', $val, $matches)) {
-					$val = preg_replace('/\s/','',$val);
+					$val = preg_replace('/\s/u','',$val);
 //					echo 'Element '.$val.' is a Function<br />';
 					if (isset(self::$_PHPExcelFunctions[strtoupper($matches[1])]) || isset(self::$_controlFunctions[strtoupper($matches[1])])) {	// it's a function
 						$stack->push('Function', strtoupper($val));
-						$ax = preg_match('/^\s*(\s*\))/i', substr($formula, $index+$length), $amatch);
+						$ax = preg_match('/^\s*(\s*\))/ui', substr($formula, $index+$length), $amatch);
 						if ($ax) {
 							$stack->push('Operand Count for Function '.strtoupper($val).')', 0);
 							$expectingOperator = TRUE;

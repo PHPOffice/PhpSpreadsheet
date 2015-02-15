@@ -723,7 +723,7 @@ class PHPExcel_Helper_HTML
     }
 
     protected function parseTextNode(DOMText $textNode) {
-        $domText = preg_replace('/\s+/', ' ', ltrim($textNode->nodeValue));
+        $domText = preg_replace('/\s+/u', ' ', ltrim($textNode->nodeValue));
         $this->stringData .= $domText;
         $this->buildTextRun();
     }
