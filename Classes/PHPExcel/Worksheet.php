@@ -2064,8 +2064,13 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      */
     public function removeRow($pRow = 1, $pNumRows = 1) {
         if ($pRow >= 1) {
+            $highestRow = $this->getHighestDataRow();
             $objReferenceHelper = PHPExcel_ReferenceHelper::getInstance();
             $objReferenceHelper->insertNewBefore('A' . ($pRow + $pNumRows), 0, -$pNumRows, $this);
+            for($r = 0; $r < $pNumRows; ++$r) {
+                $this->getCellCacheController()->removeRow($highestRow);
+                --$highestRow;
+            }
         } else {
             throw new PHPExcel_Exception("Rows to be deleted should at least start from row 1.");
         }
@@ -2075,16 +2080,21 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
     /**
      * Remove a column, updating all possible related data
      *
-     * @param int $pColumn    Remove starting with this one
-     * @param int $pNumCols    Number of columns to remove
+     * @param string    $pColumn     Remove starting with this one
+     * @param int       $pNumCols    Number of columns to remove
      * @throws    PHPExcel_Exception
      * @return PHPExcel_Worksheet
      */
     public function removeColumn($pColumn = 'A', $pNumCols = 1) {
         if (!is_numeric($pColumn)) {
+            $highestColumn = $this->getHighestDataColumn();
             $pColumn = PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($pColumn) - 1 + $pNumCols);
             $objReferenceHelper = PHPExcel_ReferenceHelper::getInstance();
             $objReferenceHelper->insertNewBefore($pColumn . '1', -$pNumCols, 0, $this);
+            for($c = 0; $c < $pNumCols; ++$c) {
+                $this->getCellCacheController()->removeColumn($highestColumn);
+                $highestColumn = PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($highestColumn) - 2);
+            }
         } else {
             throw new PHPExcel_Exception("Column references should not be numeric.");
         }
