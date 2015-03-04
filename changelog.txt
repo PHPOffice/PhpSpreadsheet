@@ -38,6 +38,7 @@ Planned for v1.8.1
 - Bugfix:   (wiseloren)       Work Item CP21454 - "No Impact" conditional formatting fix for NumberFormat
 - Bugfix:   (bobwitlox)       Work Item GH-467  - Bug in Excel2003XML reader, parsing merged cells
 - Bugfix:   (MBaker)          Work Item GH-302  - Fix for CEIL() and FLOOR() when number argument is zero
+- Bugfix:   (MBaker)                            - Remove cells cleanly when calling RemoveRow() or RemoveColumn()
 - General:  (MBaker)                            - Small performance improvement for autosize columns
 - General:  (frost-nzcr4)     Work Item GH-379  - Change the getter/setter for zeroHeight to camel case
 - General:  (MBaker)          Work Item GH-394  - DefaultValueBinder is too much aggressive when converting string to numeric
