@@ -88,7 +88,9 @@ __Notes:__
 
 See section "Using value binders to facilitate data entry" to learn more about the AdvancedValueBinder used in the first example.
 In previous versions of PHPExcel up to and including 1.6.6, when a cell had a date-like number format code, it was possible to enter a date directly using an integer PHP-time without converting to Excel date format. Starting with PHPExcel 1.6.7 this is no longer supported.
-Excel can also operate in a 1904-based calendar (default for workbooks saved on Mac). Normally, you do not have to worry about this when using PHPExcel.### Write a formula into a cell
+Excel can also operate in a 1904-based calendar (default for workbooks saved on Mac). Normally, you do not have to worry about this when using PHPExcel.
+
+### Write a formula into a cell
 
 Inside the Excel file, formulas are always stored as they would appear in an English version of Microsoft Office Excel, and PHPExcel handles all formulae internally in this format. This means that the following rules hold:
 
