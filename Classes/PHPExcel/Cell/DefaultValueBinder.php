@@ -57,13 +57,20 @@ class PHPExcel_Cell_DefaultValueBinder implements PHPExcel_Cell_IValueBinder
         // sanitize UTF-8 strings
         if (is_string($value)) {
             $value = PHPExcel_Shared_String::SanitizeUTF8($value);
+        } elseif (is_object($value)) {
+            // Handle any objects that might be injected
+            if ($value instanceof DateTime) {
+                $value = $value->format('Y-m-d H:i:s');
+            } elseif (!($value instanceof PHPExcel_RichText)) {
+                $value = (string) $value;
+            }
         }
 
         // Set value explicit
         $cell->setValueExplicit( $value, self::dataTypeForValue($value) );
 
         // Done!
-        return TRUE;
+        return true;
     }
 
     /**
@@ -74,7 +81,7 @@ class PHPExcel_Cell_DefaultValueBinder implements PHPExcel_Cell_IValueBinder
      */
     public static function dataTypeForValue($pValue = null) {
         // Match the value against a few data types
-        if (is_null($pValue)) {
+        if ($pValue === null) {
             return PHPExcel_Cell_DataType::TYPE_NULL;
         } elseif ($pValue === '') {
             return PHPExcel_Cell_DataType::TYPE_STRING;
