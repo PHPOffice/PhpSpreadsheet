@@ -2559,11 +2559,13 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
     /**
      * Get row iterator
      *
-     * @param integer $startRow The row number at which to start iterating
+     * @param   integer   $startRow   The row number at which to start iterating
+     * @param   integer   $endRow     The row number at which to stop iterating
+     *
      * @return PHPExcel_Worksheet_RowIterator
      */
-	public function getRowIterator($startRow = 1) {
-        return new PHPExcel_Worksheet_RowIterator($this,$startRow);
+	public function getRowIterator($startRow = 1, $endRow = null) {
+        return new PHPExcel_Worksheet_RowIterator($this, $startRow, $endRow);
     }
 
     /**
