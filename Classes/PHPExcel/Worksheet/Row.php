@@ -82,9 +82,11 @@ class PHPExcel_Worksheet_Row
 	/**
 	 * Get cell iterator
 	 *
+	 * @param	string				$startColumn	The column address at which to start iterating
+	 * @param	string				$endColumn	    Optionally, the column address at which to stop iterating
 	 * @return PHPExcel_Worksheet_CellIterator
 	 */
-	public function getCellIterator() {
-		return new PHPExcel_Worksheet_RowCellIterator($this->_parent, $this->_rowIndex);
+	public function getCellIterator($startColumn = 'A', $endColumn = null) {
+		return new PHPExcel_Worksheet_RowCellIterator($this->_parent, $this->_rowIndex, $startColumn, $endColumn);
 	}
 }
