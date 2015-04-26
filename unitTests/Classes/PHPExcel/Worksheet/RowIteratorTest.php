@@ -55,12 +55,12 @@ class RowIteratorTest extends PHPUnit_Framework_TestCase
 
 	public function testIteratorSeekAndPrev()
 	{
-        $iterator = new PHPExcel_Worksheet_RowIterator($this->mockWorksheet);
+        $iterator = new PHPExcel_Worksheet_RowIterator($this->mockWorksheet, 2, 4);
         $columnIndexResult = 4;
         $iterator->seek(4);
-        $this->assertEquals($columnIndexResult, $iterator->key(), 2, 4);
+        $this->assertEquals($columnIndexResult, $iterator->key());
 
-        for($i = 1; $i < $columnIndexResult; $i++) {
+        for($i = 1; $i < $columnIndexResult-1; $i++) {
             $iterator->prev();
             $this->assertEquals($columnIndexResult - $i, $iterator->key());
         }

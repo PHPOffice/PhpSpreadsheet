@@ -2569,6 +2569,18 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
     }
 
     /**
+     * Get column iterator
+     *
+     * @param   string   $startColumn The column address at which to start iterating
+     * @param   string   $endColumn   The column address at which to stop iterating
+     *
+     * @return PHPExcel_Worksheet_ColumnIterator
+     */
+	public function getColumnIterator($startColumn = 'A', $endColumn = null) {
+        return new PHPExcel_Worksheet_ColumnIterator($this, $startColumn, $endColumn);
+    }
+
+    /**
      * Run PHPExcel garabage collector.
      *
      * @return PHPExcel_Worksheet
