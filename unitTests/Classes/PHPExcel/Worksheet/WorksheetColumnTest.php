@@ -1,6 +1,6 @@
 <?php
 
-class ColumnTest extends PHPUnit_Framework_TestCase
+class WorksheetColumnTest extends PHPUnit_Framework_TestCase
 {
     public $mockWorksheet;
     public $mockColumn;
@@ -15,6 +15,9 @@ class ColumnTest extends PHPUnit_Framework_TestCase
         $this->mockWorksheet = $this->getMockBuilder('PHPExcel_Worksheet')
             ->disableOriginalConstructor()
             ->getMock();
+        $this->mockWorksheet->expects($this->any())
+                 ->method('getHighestRow')
+                 ->will($this->returnValue(5));
     }
 
 
@@ -38,6 +41,6 @@ class ColumnTest extends PHPUnit_Framework_TestCase
 	{
         $column = new PHPExcel_Worksheet_Column($this->mockWorksheet);
         $cellIterator = $column->getCellIterator();
-        $this->assertInstanceOf('PHPExcel_Worksheet_CellIterator', $cellIterator);
+        $this->assertInstanceOf('PHPExcel_Worksheet_ColumnCellIterator', $cellIterator);
 	}
 }
