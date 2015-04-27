@@ -74,7 +74,7 @@ class ColumnIteratorTest extends PHPUnit_Framework_TestCase
     public function testSeekOutOfRange()
     {
         $iterator = new PHPExcel_Worksheet_ColumnIterator($this->mockWorksheet, 'B', 'D');
-        $iterator->seek(1);
+        $iterator->seek('A');
     }
 
     /**
