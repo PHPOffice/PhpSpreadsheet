@@ -52,6 +52,12 @@ Planned for v1.8.1
 - Feature:  (MBaker)                            - New methods added for testing cell status within merge groups
 - Feature:  (cifren/MBaker)   Work Item GH-205  - Handling merge cells in HTML Reader
 - Feature:  (MBaker)                            - Helper to convert basic HTML markup to a Rich Text object
+- Feature:  (MBaker)                            - Improved Iterators
+                                                    New Column Iterator
+                                                    Support for row and column ranges
+                                                    Improved handling for next/prev
+- Security: (MBaker)                            - XML filescan in XML-based Readers to prevent XML Entity Expansion (XEE)
+                                                    (see http://projects.webappsec.org/w/page/13247002/XML%20Entity%20Expansion for an explanation of XEE injection) attacks
 
 
 2014-03-02 (v1.8.0):

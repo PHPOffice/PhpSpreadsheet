@@ -227,4 +227,28 @@ abstract class PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
 		return $readable;
 	}
 
+	/**
+	 * Scan theXML for use of <!ENTITY to prevent XXE/XEE attacks
+	 *
+	 * @param 	string 		$xml
+	 * @throws PHPExcel_Reader_Exception
+	 */
+	public function securityScan($xml)
+	{
+        if (strpos($xml, '<!ENTITY') !== false) { 
+            throw new PHPExcel_Reader_Exception('Detected use of ENTITY in XML, spreadsheet file load() aborted to prevent XXE/XEE attacks');
+        }
+        return $xml;
+    }
+
+	/**
+	 * Scan theXML for use of <!ENTITY to prevent XXE/XEE attacks
+	 *
+	 * @param 	string 		$filestream
+	 * @throws PHPExcel_Reader_Exception
+	 */
+	public function securityScanFile($filestream)
+	{
+        return $this->securityScan(file_get_contents($filestream));
+    }
 }
