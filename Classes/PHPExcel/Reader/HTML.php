@@ -515,5 +515,20 @@ class PHPExcel_Reader_HTML extends PHPExcel_Reader_Abstract implements PHPExcel_
         return $this;
     }
 
+	/**
+	 * Scan theXML for use of <!ENTITY to prevent XXE/XEE attacks
+	 *
+	 * @param 	string 		$xml
+	 * @throws PHPExcel_Reader_Exception
+	 */
+	public function securityScan($xml)
+	{
+        $pattern = '/\\0?' . implode('\\0?', str_split('<!ENTITY')) . '\\0?/';
+        if (preg_match($pattern, $xml)) { 
+            throw new PHPExcel_Reader_Exception('Detected use of ENTITY in XML, spreadsheet file load() aborted to prevent XXE/XEE attacks');
+        }
+        return $xml;
+    }
+
 }
 
