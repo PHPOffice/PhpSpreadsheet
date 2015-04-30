@@ -58,9 +58,10 @@ Planned for v1.8.1
                                                     Improved handling for next/prev
 - Security: (MBaker)                            - XML filescan in XML-based Readers to prevent XML Entity Expansion (XEE)
                                                     (see http://projects.webappsec.org/w/page/13247002/XML%20Entity%20Expansion for an explanation of XEE injection) attacks
+                                                  Reference CVE-2015-3542 - Identification of problem courtesy of Dawid Golunski (Pentest Ltd.)
 
 
-2014-03-02 (v1.8.0):
+                                                  2014-03-02 (v1.8.0):
 - Bugfix:   (MBaker)          Work item CP19830 - Undefined variable: fileHandle in CSV Reader
 - Bugfix:   (MBaker)          Work item CP19968 - Out of memory in style/supervisor.php
 - Bugfix:   (MBaker)                            - Style error with merged cells in PDF Writer

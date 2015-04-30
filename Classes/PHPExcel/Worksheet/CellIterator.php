@@ -35,47 +35,28 @@
  * @package    PHPExcel_Worksheet
  * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
-class PHPExcel_Worksheet_CellIterator implements Iterator
+abstract class PHPExcel_Worksheet_CellIterator
 {
 	/**
 	 * PHPExcel_Worksheet to iterate
 	 *
 	 * @var PHPExcel_Worksheet
 	 */
-	private $_subject;
-
-	/**
-	 * Row index
-	 *
-	 * @var int
-	 */
-	private $_rowIndex;
+	protected $_subject;
 
 	/**
 	 * Current iterator position
 	 *
-	 * @var int
+	 * @var mixed
 	 */
-	private $_position = 0;
+	protected $_position = null;
 
 	/**
-	 * Loop only existing cells
+	 * Iterate only existing cells
 	 *
 	 * @var boolean
 	 */
-	private $_onlyExistingCells = true;
-
-	/**
-	 * Create a new cell iterator
-	 *
-	 * @param PHPExcel_Worksheet 		$subject
-	 * @param int						$rowIndex
-	 */
-	public function __construct(PHPExcel_Worksheet $subject = null, $rowIndex = 1) {
-		// Set subject and row index
-		$this->_subject 	= $subject;
-		$this->_rowIndex 	= $rowIndex;
-	}
+	protected $_onlyExistingCells = false;
 
 	/**
 	 * Destructor
@@ -83,63 +64,6 @@ class PHPExcel_Worksheet_CellIterator implements Iterator
 	public function __destruct() {
 		unset($this->_subject);
 	}
-
-	/**
-	 * Rewind iterator
-	 */
-    public function rewind() {
-        $this->_position = 0;
-    }
-
-    /**
-     * Current PHPExcel_Cell
-     *
-     * @return PHPExcel_Cell
-     */
-    public function current() {
-		return $this->_subject->getCellByColumnAndRow($this->_position, $this->_rowIndex);
-    }
-
-    /**
-     * Current key
-     *
-     * @return int
-     */
-    public function key() {
-        return $this->_position;
-    }
-
-    /**
-     * Next value
-     */
-    public function next() {
-        ++$this->_position;
-    }
-
-    /**
-     * Are there any more PHPExcel_Cell instances available?
-     *
-     * @return boolean
-     */
-    public function valid() {
-        // columnIndexFromString() returns an index based at one,
-        // treat it as a count when comparing it to the base zero
-        // position.
-        $columnCount = PHPExcel_Cell::columnIndexFromString($this->_subject->getHighestColumn());
-
-        if ($this->_onlyExistingCells) {
-            // If we aren't looking at an existing cell, either
-            // because the first column doesn't exist or next() has
-            // been called onto a nonexistent cell, then loop until we
-            // find one, or pass the last column.
-            while ($this->_position < $columnCount &&
-                   !$this->_subject->cellExistsByColumnAndRow($this->_position, $this->_rowIndex)) {
-                ++$this->_position;
-            }
-        }
-
-        return $this->_position < $columnCount;
-    }
 
 	/**
 	 * Get loop only existing cells
@@ -151,11 +75,22 @@ class PHPExcel_Worksheet_CellIterator implements Iterator
     }
 
 	/**
+	 * Validate start/end values for "IterateOnlyExistingCells" mode, and adjust if necessary
+	 *
+     * @throws PHPExcel_Exception
+	 */
+    abstract protected function adjustForExistingOnlyRange() {
+    }
+
+	/**
 	 * Set the iterator to loop only existing cells
 	 *
 	 * @param	boolean		$value
+     * @throws PHPExcel_Exception
 	 */
     public function setIterateOnlyExistingCells($value = true) {
-    	$this->_onlyExistingCells = $value;
+    	$this->_onlyExistingCells = (boolean) $value;
+
+        $this->adjustForExistingOnlyRange();
     }
 }
