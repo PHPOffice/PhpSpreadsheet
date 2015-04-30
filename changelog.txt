@@ -19,10 +19,10 @@
 *
 * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
 * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
-* @version    ##VERSION##, ##DATE##
+* @version    1.8.1, 2015-04-30
 **************************************************************************************
 
-Planned for v1.8.1
+2015-04-30 (v1.8.1):
 - Bugfix:   (goncons)         Work Item GH-397  - Fix for Writing an Open Document cell with non-numeric formula
 - Bugfix:   (sarciszewski)    Work Item GH-329  - Avoid potential divide by zero in basedrawing
 - Bugfix:   (ymaerschalck)    Work Item GH-405  - XML External Entity (XXE) Processing, different behaviour between simplexml_load_string() and simplexml_load_file().
