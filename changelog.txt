@@ -19,8 +19,12 @@
 *
 * @copyright  Copyright (c) 2006 - 2014 PHPExcel (http://www.codeplex.com/PHPExcel)
 * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
-* @version    1.8.1, 2015-04-30
+* @version    ##VERSION##, ##DATE##
 **************************************************************************************
+
+
+Planned for 1.8.2
+
 
 2015-04-30 (v1.8.1):
 - Bugfix:   (goncons)         Work Item GH-397  - Fix for Writing an Open Document cell with non-numeric formula
