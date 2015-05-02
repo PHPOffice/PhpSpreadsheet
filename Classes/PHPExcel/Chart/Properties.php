@@ -6,7 +6,8 @@
  * Time: 5:45 PM
  */
 
-abstract class PHPExcel_Properties {
+abstract class PHPExcel_Chart_Properties
+{
 
   const
       EXCEL_COLOR_TYPE_STANDARD = 'prstClr',

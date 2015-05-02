@@ -1,5 +1,5 @@
 <?php
-require_once 'Properties.php';
+
 /**
  * Created by PhpStorm.
  * User: Wiktor Trzonkowski
@@ -8,7 +8,7 @@ require_once 'Properties.php';
  */
 
 class PHPExcel_Chart_GridLines extends
-  PHPExcel_Properties {
+  PHPExcel_Chart_Properties {
 
   /**
    * Properties of Class:
@@ -348,111 +348,101 @@ class PHPExcel_Chart_GridLines extends
     return $this;
   }
 
-  /**
-   * Set Shadow Color
-   *
-   * @param string $color
-   * @param int $alpha
-   * @param string $type
-   *
-   * @return PHPExcel_Chart_GridLines
-   */
+    /**
+     * Set Shadow Color
+     *
+     * @param string $color
+     * @param int $alpha
+     * @param string $type
+     * @return PHPExcel_Chart_GridLines
+     */
+    private function _setShadowColor($color, $alpha, $type) {
+        if (!is_null($color)) {
+            $this->_shadow_properties['color']['value'] = (string) $color;
+        }
+        if (!is_null($alpha)) {
+            $this->_shadow_properties['color']['alpha'] = $this->getTrueAlpha((int) $alpha);
+        }
+        if (!is_null($type)) {
+            $this->_shadow_properties['color']['type'] = (string) $type;
+        }
 
-  private function _setShadowColor($color, $alpha, $type) {
-    if (!is_null($color)) {
-      $this->_shadow_properties['color']['value'] = (string) $color;
-    }
-    if (!is_null($alpha)) {
-      $this->_shadow_properties['color']['alpha'] = $this->getTrueAlpha((int) $alpha);
-    }
-    if (!is_null($type)) {
-      $this->_shadow_properties['color']['type'] = (string) $type;
-    }
-
-    return $this;
-  }
-
-  /**
-   * Set Shadow Blur
-   *
-   * @param float $blur
-   *
-   * @return PHPExcel_Chart_GridLines
-   */
-
-  private function _setShadowBlur($blur) {
-    if ($blur !== NULL) {
-      $this->_shadow_properties['blur'] = (string) $this->getExcelPointsWidth($blur);
+        return $this;
     }
 
-    return $this;
-  }
+    /**
+     * Set Shadow Blur
+     *
+     * @param float $blur
+     *
+     * @return PHPExcel_Chart_GridLines
+     */
+    private function _setShadowBlur($blur) {
+        if ($blur !== NULL) {
+            $this->_shadow_properties['blur'] = (string) $this->getExcelPointsWidth($blur);
+        }
 
-  /**
-   * Set Shadow Angle
-   *
-   * @param int $angle
-   *
-   * @return PHPExcel_Chart_GridLines
-   */
-
-  private function _setShadowAngle($angle) {
-    if ($angle !== NULL) {
-      $this->_shadow_properties['direction'] = (string) $this->getExcelPointsAngle($angle);
+        return $this;
     }
 
-    return $this;
-  }
+    /**
+     * Set Shadow Angle
+     *
+     * @param int $angle
+     * @return PHPExcel_Chart_GridLines
+     */
 
-  /**
-   * Set Shadow Distance
-   *
-   * @param float $distance
-   *
-   * @return PHPExcel_Chart_GridLines
-   */
+    private function _setShadowAngle($angle) {
+        if ($angle !== NULL) {
+            $this->_shadow_properties['direction'] = (string) $this->getExcelPointsAngle($angle);
+        }
 
-  private function _setShadowDistance($distance) {
-    if ($distance !== NULL) {
-      $this->_shadow_properties['distance'] = (string) $this->getExcelPointsWidth($distance);
+        return $this;
     }
 
-    return $this;
-  }
+    /**
+     * Set Shadow Distance
+     *
+     * @param float $distance
+     * @return PHPExcel_Chart_GridLines
+     */
+    private function _setShadowDistance($distance) {
+        if ($distance !== NULL) {
+            $this->_shadow_properties['distance'] = (string) $this->getExcelPointsWidth($distance);
+        }
 
-  /**
-   * Get Shadow Property
-   *
-   * @param string $elements
-   * @param array $elements
-   *
-   * @return string
-   */
-
-  public function getShadowProperty($elements) {
-    return $this->getArrayElementsValue($this->_shadow_properties, $elements);
-  }
-
-  /**
-   * Set Soft Edges Size
-   *
-   * @param float $size
-   */
-
-  public function setSoftEdgesSize($size) {
-    if (!is_null($size)) {
-      $this->_activateObject();
-      $_soft_edges['size'] = (string) $this->getExcelPointsWidth($size);
+        return $this;
     }
-  }
 
-  /**
-   * Get Soft Edges Size
-   *
-   * @return string
-   */
+    /**
+     * Get Shadow Property
+     *
+     * @param string $elements
+     * @param array $elements
+     * @return string
+     */
+    public function getShadowProperty($elements) {
+        return $this->getArrayElementsValue($this->_shadow_properties, $elements);
+    }
 
-  public function getSoftEdgesSize() {
-    return $this->_soft_edges['size'];
-  }
+    /**
+     * Set Soft Edges Size
+     *
+     * @param float $size
+     */
+    public function setSoftEdgesSize($size) {
+        if (!is_null($size)) {
+            $this->_activateObject();
+            $_soft_edges['size'] = (string) $this->getExcelPointsWidth($size);
+        }
+    }
+
+    /**
+     * Get Soft Edges Size
+     *
+     * @return string
+     */
+    public function getSoftEdgesSize() {
+        return $this->_soft_edges['size'];
+    }
 }

@@ -1,5 +1,4 @@
 <?php
-require_once 'Properties.php';
 
 /**
  * Created by PhpStorm.
@@ -8,276 +7,256 @@ require_once 'Properties.php';
  * Time: 12:11 PM
  */
 
-class PHPExcel_Chart_Axis extends
-  PHPExcel_Properties {
+class PHPExcel_Chart_Axis extends PHPExcel_Chart_Properties {
 
-  /**
-   * Axis Number
-   *
-   * @var  array of mixed
-   */
+    /**
+     * Axis Number
+     *
+     * @var  array of mixed
+     */
+    private $_axis_number = array(
+        'format' => self::FORMAT_CODE_GENERAL,
+        'source_linked' => 1
+    );
 
-  private
-      $_axis_number = array(
-      'format' => self::FORMAT_CODE_GENERAL,
-      'source_linked' => 1
-  );
+    /**
+     * Axis Options
+     *
+     * @var  array of mixed
+     */
+    private $_axis_options = array(
+        'minimum' => NULL,
+        'maximum' => NULL,
+        'major_unit' => NULL,
+        'minor_unit' => NULL,
+        'orientation' => self::ORIENTATION_NORMAL,
+        'minor_tick_mark' => self::TICK_MARK_NONE,
+        'major_tick_mark' => self::TICK_MARK_NONE,
+        'axis_labels' => self::AXIS_LABELS_NEXT_TO,
+        'horizontal_crosses' => self::HORIZONTAL_CROSSES_AUTOZERO,
+        'horizontal_crosses_value' => NULL
+    );
 
-  /**
-   * Axis Options
-   *
-   * @var  array of mixed
-   */
+    /**
+     * Fill Properties
+     *
+     * @var  array of mixed
+     */
+    private $_fill_properties = array(
+        'type' => self::EXCEL_COLOR_TYPE_ARGB,
+        'value' => NULL,
+        'alpha' => 0
+    );
 
-  private $_axis_options = array(
-      'minimum' => NULL,
-      'maximum' => NULL,
-      'major_unit' => NULL,
-      'minor_unit' => NULL,
-      'orientation' => self::ORIENTATION_NORMAL,
-      'minor_tick_mark' => self::TICK_MARK_NONE,
-      'major_tick_mark' => self::TICK_MARK_NONE,
-      'axis_labels' => self::AXIS_LABELS_NEXT_TO,
-      'horizontal_crosses' => self::HORIZONTAL_CROSSES_AUTOZERO,
-      'horizontal_crosses_value' => NULL
-  );
+    /**
+     * Line Properties
+     *
+     * @var  array of mixed
+     */
+    private $_line_properties = array(
+        'type' => self::EXCEL_COLOR_TYPE_ARGB,
+        'value' => NULL,
+        'alpha' => 0
+    );
 
-  /**
-   * Fill Properties
-   *
-   * @var  array of mixed
-   */
+    /**
+     * Line Style Properties
+     *
+     * @var  array of mixed
+     */
+    private $_line_style_properties = array(
+        'width' => '9525',
+        'compound' => self::LINE_STYLE_COMPOUND_SIMPLE,
+        'dash' => self::LINE_STYLE_DASH_SOLID,
+        'cap' => self::LINE_STYLE_CAP_FLAT,
+        'join' => self::LINE_STYLE_JOIN_BEVEL,
+        'arrow' => array(
+            'head' => array(
+                'type' => self::LINE_STYLE_ARROW_TYPE_NOARROW,
+                'size' => self::LINE_STYLE_ARROW_SIZE_5
+            ),
+            'end' => array(
+                'type' => self::LINE_STYLE_ARROW_TYPE_NOARROW,
+                'size' => self::LINE_STYLE_ARROW_SIZE_8
+            ),
+        )
+    );
 
-  private $_fill_properties = array(
-      'type' => self::EXCEL_COLOR_TYPE_ARGB,
-      'value' => NULL,
-      'alpha' => 0
-  );
+    /**
+     * Shadow Properties
+     *
+     * @var  array of mixed
+     */
+    private $_shadow_properties = array(
+        'presets' => self::SHADOW_PRESETS_NOSHADOW,
+        'effect' => NULL,
+        'color' => array(
+            'type' => self::EXCEL_COLOR_TYPE_STANDARD,
+            'value' => 'black',
+            'alpha' => 40,
+        ),
+        'size' => array(
+            'sx' => NULL,
+            'sy' => NULL,
+            'kx' => NULL
+        ),
+        'blur' => NULL,
+        'direction' => NULL,
+        'distance' => NULL,
+        'algn' => NULL,
+        'rotWithShape' => NULL
+    );
 
-  /**
-   * Line Properties
-   *
-   * @var  array of mixed
-   */
+    /**
+     * Glow Properties
+     *
+     * @var  array of mixed
+     */
+    private $_glow_properties = array(
+        'size' => NULL,
+        'color' => array(
+            'type' => self::EXCEL_COLOR_TYPE_STANDARD,
+            'value' => 'black',
+            'alpha' => 40
+        )
+    );
 
-  private $_line_properties = array(
-      'type' => self::EXCEL_COLOR_TYPE_ARGB,
-      'value' => NULL,
-      'alpha' => 0
-  );
+    /**
+     * Soft Edge Properties
+     *
+     * @var  array of mixed
+     */
+    private $_soft_edges = array(
+        'size' => NULL
+    );
 
-  /**
-   * Line Style Properties
-   *
-   * @var  array of mixed
-   */
+    /**
+     * Get Series Data Type
+     *
+     * @return  string
+     */
+    public function setAxisNumberProperties($format_code) {
+        $this->_axis_number['format'] = (string) $format_code;
+        $this->_axis_number['source_linked'] = 0;
+    }
 
-  private $_line_style_properties = array(
-      'width' => '9525',
-      'compound' => self::LINE_STYLE_COMPOUND_SIMPLE,
-      'dash' => self::LINE_STYLE_DASH_SOLID,
-      'cap' => self::LINE_STYLE_CAP_FLAT,
-      'join' => self::LINE_STYLE_JOIN_BEVEL,
-      'arrow' => array(
-          'head' => array(
-              'type' => self::LINE_STYLE_ARROW_TYPE_NOARROW,
-              'size' => self::LINE_STYLE_ARROW_SIZE_5
-          ),
-          'end' => array(
-              'type' => self::LINE_STYLE_ARROW_TYPE_NOARROW,
-              'size' => self::LINE_STYLE_ARROW_SIZE_8
-          ),
-      )
-  );
+    /**
+     * Get Axis Number Format Data Type
+     *
+     * @return  string
+     */
+    public function getAxisNumberFormat() {
+        return $this->_axis_number['format'];
+    }
 
-  /**
-   * Shadow Properties
-   *
-   * @var  array of mixed
-   */
+    /**
+     * Get Axis Number Source Linked
+     *
+     * @return  string
+     */
+    public function getAxisNumberSourceLinked() {
+        return (string) $this->_axis_number['source_linked'];
+    }
 
-  private $_shadow_properties = array(
-      'presets' => self::SHADOW_PRESETS_NOSHADOW,
-      'effect' => NULL,
-      'color' => array(
-          'type' => self::EXCEL_COLOR_TYPE_STANDARD,
-          'value' => 'black',
-          'alpha' => 40,
-      ),
-      'size' => array(
-          'sx' => NULL,
-          'sy' => NULL,
-          'kx' => NULL
-      ),
-      'blur' => NULL,
-      'direction' => NULL,
-      'distance' => NULL,
-      'algn' => NULL,
-      'rotWithShape' => NULL
-  );
+    /**
+     * Set Axis Options Properties
+     *
+     * @param string $axis_labels
+     * @param string $horizontal_crosses_value
+     * @param string $horizontal_crosses
+     * @param string $axis_orientation
+     * @param string $major_tmt
+     * @param string $minor_tmt
+     * @param string $minimum
+     * @param string $maximum
+     * @param string $major_unit
+     * @param string $minor_unit
+     *
+     */
+    public function setAxisOptionsProperties($axis_labels, $horizontal_crosses_value = NULL, $horizontal_crosses = NULL,
+        $axis_orientation = NULL, $major_tmt = NULL, $minor_tmt = NULL, $minimum = NULL, $maximum = NULL, $major_unit = NULL,
+        $minor_unit = NULL)
+    {
+        $this->_axis_options['axis_labels'] = (string) $axis_labels;
+        ($horizontal_crosses_value !== NULL)
+            ? $this->_axis_options['horizontal_crosses_value'] = (string) $horizontal_crosses_value : NULL;
+        ($horizontal_crosses !== NULL) ? $this->_axis_options['horizontal_crosses'] = (string) $horizontal_crosses : NULL;
+        ($axis_orientation !== NULL) ? $this->_axis_options['orientation'] = (string) $axis_orientation : NULL;
+        ($major_tmt !== NULL) ? $this->_axis_options['major_tick_mark'] = (string) $major_tmt : NULL;
+        ($minor_tmt !== NULL) ? $this->_axis_options['minor_tick_mark'] = (string) $minor_tmt : NULL;
+        ($minor_tmt !== NULL) ? $this->_axis_options['minor_tick_mark'] = (string) $minor_tmt : NULL;
+        ($minimum !== NULL) ? $this->_axis_options['minimum'] = (string) $minimum : NULL;
+        ($maximum !== NULL) ? $this->_axis_options['maximum'] = (string) $maximum : NULL;
+        ($major_unit !== NULL) ? $this->_axis_options['major_unit'] = (string) $major_unit : NULL;
+        ($minor_unit !== NULL) ? $this->_axis_options['minor_unit'] = (string) $minor_unit : NULL;
+    }
 
-  /**
-   * Glow Properties
-   *
-   * @var  array of mixed
-   */
+    /**
+     * Get Axis Options Property
+     *
+     * @param string $property
+     *
+     * @return string
+     */
+    public function getAxisOptionsProperty($property) {
+        return $this->_axis_options[$property];
+    }
 
-  private $_glow_properties = array(
-      'size' => NULL,
-      'color' => array(
-          'type' => self::EXCEL_COLOR_TYPE_STANDARD,
-          'value' => 'black',
-          'alpha' => 40
-      )
-  );
+    /**
+     * Set Axis Orientation Property
+     *
+     * @param string $orientation
+     *
+     */
+    public function setAxisOrientation($orientation) {
+        $this->orientation = (string) $orientation;
+    }
 
-  /**
-   * Soft Edge Properties
-   *
-   * @var  array of mixed
-   */
+    /**
+     * Set Fill Property
+     *
+     * @param string $color
+     * @param int $alpha
+     * @param string $type
+     *
+     */
+    public function setFillParameters($color, $alpha = 0, $type = self::EXCEL_COLOR_TYPE_ARGB) {
+        $this->_fill_properties = $this->setColorProperties($color, $alpha, $type);
+    }
 
-  private $_soft_edges = array(
-      'size' => NULL
-  );
+    /**
+     * Set Line Property
+     *
+     * @param string $color
+     * @param int $alpha
+     * @param string $type
+     *
+     */
+    public function setLineParameters($color, $alpha = 0, $type = self::EXCEL_COLOR_TYPE_ARGB) {
+        $this->_line_properties = $this->setColorProperties($color, $alpha, $type);
+    }
 
-  /**
-   * Get Series Data Type
-   *
-   * @return  string
-   */
+    /**
+     * Get Fill Property
+     *
+     * @param string $property
+     *
+     * @return string
+     */
+    public function getFillProperty($property) {
+        return $this->_fill_properties[$property];
+    }
 
-  public function setAxisNumberProperties($format_code) {
-    $this->_axis_number['format'] = (string) $format_code;
-    $this->_axis_number['source_linked'] = 0;
-  }
-
-  /**
-   * Get Axis Number Format Data Type
-   *
-   * @return  string
-   */
-
-  public function getAxisNumberFormat() {
-    return $this->_axis_number['format'];
-  }
-
-  /**
-   * Get Axis Number Source Linked
-   *
-   * @return  string
-   */
-
-  public function getAxisNumberSourceLinked() {
-    return (string) $this->_axis_number['source_linked'];
-  }
-
-  /**
-   * Set Axis Options Properties
-   *
-   * @param string $axis_labels
-   * @param string $horizontal_crosses_value
-   * @param string $horizontal_crosses
-   * @param string $axis_orientation
-   * @param string $major_tmt
-   * @param string $minor_tmt
-   * @param string $minimum
-   * @param string $maximum
-   * @param string $major_unit
-   * @param string $minor_unit
-   *
-   */
-
-  public function setAxisOptionsProperties($axis_labels, $horizontal_crosses_value = NULL, $horizontal_crosses = NULL,
-      $axis_orientation = NULL, $major_tmt = NULL, $minor_tmt = NULL, $minimum = NULL, $maximum = NULL, $major_unit = NULL,
-      $minor_unit = NULL) {
-
-    $this->_axis_options['axis_labels'] = (string) $axis_labels;
-    ($horizontal_crosses_value !== NULL)
-        ? $this->_axis_options['horizontal_crosses_value'] = (string) $horizontal_crosses_value : NULL;
-    ($horizontal_crosses !== NULL) ? $this->_axis_options['horizontal_crosses'] = (string) $horizontal_crosses : NULL;
-    ($axis_orientation !== NULL) ? $this->_axis_options['orientation'] = (string) $axis_orientation : NULL;
-    ($major_tmt !== NULL) ? $this->_axis_options['major_tick_mark'] = (string) $major_tmt : NULL;
-    ($minor_tmt !== NULL) ? $this->_axis_options['minor_tick_mark'] = (string) $minor_tmt : NULL;
-    ($minor_tmt !== NULL) ? $this->_axis_options['minor_tick_mark'] = (string) $minor_tmt : NULL;
-    ($minimum !== NULL) ? $this->_axis_options['minimum'] = (string) $minimum : NULL;
-    ($maximum !== NULL) ? $this->_axis_options['maximum'] = (string) $maximum : NULL;
-    ($major_unit !== NULL) ? $this->_axis_options['major_unit'] = (string) $major_unit : NULL;
-    ($minor_unit !== NULL) ? $this->_axis_options['minor_unit'] = (string) $minor_unit : NULL;
-  }
-
-  /**
-   * Get Axis Options Property
-   *
-   * @param string $property
-   *
-   * @return string
-   */
-
-  public function getAxisOptionsProperty($property) {
-    return $this->_axis_options[$property];
-  }
-
-  /**
-   * Set Axis Orientation Property
-   *
-   * @param string $orientation
-   *
-   */
-
-  public function setAxisOrientation($orientation) {
-    $this->orientation = (string) $orientation;
-  }
-
-  /**
-   * Set Fill Property
-   *
-   * @param string $color
-   * @param int $alpha
-   * @param string $type
-   *
-   */
-
-  public function setFillParameters($color, $alpha = 0, $type = self::EXCEL_COLOR_TYPE_ARGB) {
-    $this->_fill_properties = $this->setColorProperties($color, $alpha, $type);
-  }
-
-  /**
-   * Set Line Property
-   *
-   * @param string $color
-   * @param int $alpha
-   * @param string $type
-   *
-   */
-
-  public function setLineParameters($color, $alpha = 0, $type = self::EXCEL_COLOR_TYPE_ARGB) {
-    $this->_line_properties = $this->setColorProperties($color, $alpha, $type);
-  }
-
-  /**
-   * Get Fill Property
-   *
-   * @param string $property
-   *
-   * @return string
-   */
-
-  public function getFillProperty($property) {
-    return $this->_fill_properties[$property];
-  }
-
-  /**
-   * Get Line Property
-   *
-   * @param string $property
-   *
-   * @return string
-   */
-
-  public function getLineProperty($property) {
-    return $this->_line_properties[$property];
-  }
+    /**
+     * Get Line Property
+     *
+     * @param string $property
+     *
+     * @return string
+     */
+    public function getLineProperty($property) {
+        return $this->_line_properties[$property];
+    }
 
   /**
    * Set Line Style Properties
