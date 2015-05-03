@@ -1,6 +1,7 @@
 <?php
+
 /**
- * PHPExcel
+ * PHPExcel_CalcEngine_CyclicReferenceStack
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -21,78 +22,73 @@
  * @category   PHPExcel
  * @package    PHPExcel_Calculation
  * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- * @license	http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
- * @version	##VERSION##, ##DATE##
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ * @version    ##VERSION##, ##DATE##
  */
+class PHPExcel_CalcEngine_CyclicReferenceStack
+{
+    /**
+     *  The call stack for calculated cells
+     *
+     *  @var mixed[]
+     */
+    private $_stack = array();
 
+    /**
+     * Return the number of entries on the stack
+     *
+     * @return  integer
+     */
+    public function count()
+    {
+        return count($this->_stack);
+    }
 
-/**
- * PHPExcel_CalcEngine_CyclicReferenceStack
- *
- * @category	PHPExcel_CalcEngine_CyclicReferenceStack
- * @package		PHPExcel_Calculation
- * @copyright	Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
-class PHPExcel_CalcEngine_CyclicReferenceStack {
+    /**
+     * Push a new entry onto the stack
+     *
+     * @param  mixed  $value
+     */
+    public function push($value)
+    {
+        $this->_stack[$value] = $value;
+    }
 
-	/**
-	 *  The call stack for calculated cells
-	 *
-	 *  @var mixed[]
-	 */
-	private $_stack = array();
+    /**
+     * Pop the last entry from the stack
+     *
+     * @return  mixed
+     */
+    public function pop()
+    {
+        return array_pop($this->_stack);
+    }
 
+    /**
+     * Test to see if a specified entry exists on the stack
+     *
+     * @param  mixed  $value  The value to test
+     */
+    public function onStack($value)
+    {
+        return isset($this->_stack[$value]);
+    }
 
-	/**
-	 * Return the number of entries on the stack
-	 *
-	 * @return  integer
-	 */
-	public function count() {
-		return count($this->_stack);
-	}
+    /**
+     * Clear the stack
+     */
+    public function clear()
+    {
+        $this->_stack = array();
+    }
 
-	/**
-	 * Push a new entry onto the stack
-	 *
-	 * @param  mixed  $value
-	 */
-	public function push($value) {
-		$this->_stack[$value] = $value;
-	}
-
-	/**
-	 * Pop the last entry from the stack
-	 *
-	 * @return  mixed
-	 */
-	public function pop() {
-		return array_pop($this->_stack);
-	}
-
-	/**
-	 * Test to see if a specified entry exists on the stack
-	 *
-	 * @param  mixed  $value  The value to test
-	 */
-	public function onStack($value) {
-		return isset($this->_stack[$value]);
-	}
-
-	/**
-	 * Clear the stack
-	 */
-	public function clear() {
-		$this->_stack = array();
-	}
-
-	/**
-	 * Return an array of all entries on the stack
-	 *
-	 * @return  mixed[]
-	 */
-	public function showStack() {
-		return $this->_stack;
-	}
-
+    /**
+     * Return an array of all entries on the stack
+     *
+     * @return  mixed[]
+     */
+    public function showStack()
+    {
+        return $this->_stack;
+    }
 }
