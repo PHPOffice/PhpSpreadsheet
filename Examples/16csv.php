@@ -46,7 +46,6 @@ $callStartTime = microtime(true);
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV')->setDelimiter(',')
                                                                   ->setEnclosure('"')
-                                                                  ->setLineEnding("\r\n")
                                                                   ->setSheetIndex(0)
                                                                   ->save(str_replace('.php', '.csv', __FILE__));
 $callEndTime = microtime(true);
@@ -61,7 +60,6 @@ echo date('H:i:s') , " Read from CSV format" , EOL;
 $callStartTime = microtime(true);
 $objReader = PHPExcel_IOFactory::createReader('CSV')->setDelimiter(',')
                                                     ->setEnclosure('"')
-                                                    ->setLineEnding("\r\n")
                                                     ->setSheetIndex(0);
 $objPHPExcelFromCSV = $objReader->load(str_replace('.php', '.csv', __FILE__));
 
