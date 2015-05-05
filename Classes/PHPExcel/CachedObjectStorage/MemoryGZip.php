@@ -34,15 +34,15 @@ class PHPExcel_CachedObjectStorage_MemoryGZip extends PHPExcel_CachedObjectStora
      * @return    void
      * @throws    PHPExcel_Exception
      */
-    protected function _storeData()
+    protected function storeData()
     {
-        if ($this->_currentCellIsDirty && !empty($this->_currentObjectID)) {
-            $this->_currentObject->detach();
+        if ($this->currentCellIsDirty && !empty($this->currentObjectID)) {
+            $this->currentObject->detach();
 
-            $this->_cellCache[$this->_currentObjectID] = gzdeflate(serialize($this->_currentObject));
-            $this->_currentCellIsDirty = false;
+            $this->cellCache[$this->currentObjectID] = gzdeflate(serialize($this->currentObject));
+            $this->currentCellIsDirty = false;
         }
-        $this->_currentObjectID = $this->_currentObject = null;
+        $this->currentObjectID = $this->currentObject = null;
     }
 
 
@@ -56,13 +56,13 @@ class PHPExcel_CachedObjectStorage_MemoryGZip extends PHPExcel_CachedObjectStora
      */
     public function addCacheData($pCoord, PHPExcel_Cell $cell)
     {
-        if (($pCoord !== $this->_currentObjectID) && ($this->_currentObjectID !== null)) {
-            $this->_storeData();
+        if (($pCoord !== $this->currentObjectID) && ($this->currentObjectID !== null)) {
+            $this->storeData();
         }
 
-        $this->_currentObjectID = $pCoord;
-        $this->_currentObject = $cell;
-        $this->_currentCellIsDirty = true;
+        $this->currentObjectID = $pCoord;
+        $this->currentObject = $cell;
+        $this->currentCellIsDirty = true;
 
         return $cell;
     }
@@ -77,25 +77,25 @@ class PHPExcel_CachedObjectStorage_MemoryGZip extends PHPExcel_CachedObjectStora
      */
     public function getCacheData($pCoord)
     {
-        if ($pCoord === $this->_currentObjectID) {
-            return $this->_currentObject;
+        if ($pCoord === $this->currentObjectID) {
+            return $this->currentObject;
         }
-        $this->_storeData();
+        $this->storeData();
 
         //    Check if the entry that has been requested actually exists
-        if (!isset($this->_cellCache[$pCoord])) {
+        if (!isset($this->cellCache[$pCoord])) {
             //    Return null if requested entry doesn't exist in cache
             return null;
         }
 
         //    Set current entry to the requested entry
-        $this->_currentObjectID = $pCoord;
-        $this->_currentObject = unserialize(gzinflate($this->_cellCache[$pCoord]));
+        $this->currentObjectID = $pCoord;
+        $this->currentObject = unserialize(gzinflate($this->cellCache[$pCoord]));
         //    Re-attach this as the cell's parent
-        $this->_currentObject->attach($this);
+        $this->currentObject->attach($this);
 
         //    Return requested entry
-        return $this->_currentObject;
+        return $this->currentObject;
     }
 
 
@@ -106,8 +106,8 @@ class PHPExcel_CachedObjectStorage_MemoryGZip extends PHPExcel_CachedObjectStora
      */
     public function getCellList()
     {
-        if ($this->_currentObjectID !== null) {
-            $this->_storeData();
+        if ($this->currentObjectID !== null) {
+            $this->storeData();
         }
 
         return parent::getCellList();
@@ -121,13 +121,13 @@ class PHPExcel_CachedObjectStorage_MemoryGZip extends PHPExcel_CachedObjectStora
      */
     public function unsetWorksheetCells()
     {
-        if (!is_null($this->_currentObject)) {
-            $this->_currentObject->detach();
-            $this->_currentObject = $this->_currentObjectID = null;
+        if (!is_null($this->currentObject)) {
+            $this->currentObject->detach();
+            $this->currentObject = $this->currentObjectID = null;
         }
-        $this->_cellCache = array();
+        $this->cellCache = array();
 
         //    detach ourself from the worksheet, so that it can then delete this object successfully
-        $this->_parent = null;
+        $this->parent = null;
     }
 }

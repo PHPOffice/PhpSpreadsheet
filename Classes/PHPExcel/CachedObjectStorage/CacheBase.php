@@ -32,28 +32,28 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase
      *
      * @var PHPExcel_Worksheet
      */
-    protected $_parent;
+    protected $parent;
 
     /**
      * The currently active Cell
      *
      * @var PHPExcel_Cell
      */
-    protected $_currentObject = null;
+    protected $currentObject = null;
 
     /**
      * Coordinate address of the currently active Cell
      *
      * @var string
      */
-    protected $_currentObjectID = null;
+    protected $currentObjectID = null;
 
     /**
      * Flag indicating whether the currently active Cell requires saving
      *
      * @var boolean
      */
-    protected $_currentCellIsDirty = true;
+    protected $currentCellIsDirty = true;
 
     /**
      * An array of cells or cell pointers for the worksheet cells held in this cache,
@@ -61,7 +61,7 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase
      *
      * @var array of mixed
      */
-    protected $_cellCache = array();
+    protected $cellCache = array();
 
     /**
      * Initialise this new cell collection
@@ -73,7 +73,7 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase
         //    Set our parent worksheet.
         //    This is maintained within the cache controller to facilitate re-attaching it to PHPExcel_Cell objects when
         //        they are woken from a serialized state
-        $this->_parent = $parent;
+        $this->parent = $parent;
     }
 
     /**
@@ -83,7 +83,7 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase
      */
     public function getParent()
     {
-        return $this->_parent;
+        return $this->parent;
     }
 
     /**
@@ -94,11 +94,11 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase
      */
     public function isDataSet($pCoord)
     {
-        if ($pCoord === $this->_currentObjectID) {
+        if ($pCoord === $this->currentObjectID) {
             return true;
         }
         //    Check if the requested entry exists in the cache
-        return isset($this->_cellCache[$pCoord]);
+        return isset($this->cellCache[$pCoord]);
     }
 
     /**
@@ -110,13 +110,13 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase
      */
     public function moveCell($fromAddress, $toAddress)
     {
-        if ($fromAddress === $this->_currentObjectID) {
-            $this->_currentObjectID = $toAddress;
+        if ($fromAddress === $this->currentObjectID) {
+            $this->currentObjectID = $toAddress;
         }
-        $this->_currentCellIsDirty = true;
-        if (isset($this->_cellCache[$fromAddress])) {
-            $this->_cellCache[$toAddress] = &$this->_cellCache[$fromAddress];
-            unset($this->_cellCache[$fromAddress]);
+        $this->currentCellIsDirty = true;
+        if (isset($this->cellCache[$fromAddress])) {
+            $this->cellCache[$toAddress] = &$this->cellCache[$fromAddress];
+            unset($this->cellCache[$fromAddress]);
         }
 
         return true;
@@ -142,16 +142,16 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase
      */
     public function deleteCacheData($pCoord)
     {
-        if ($pCoord === $this->_currentObjectID && !is_null($this->_currentObject)) {
-            $this->_currentObject->detach();
-            $this->_currentObjectID = $this->_currentObject = null;
+        if ($pCoord === $this->currentObjectID && !is_null($this->currentObject)) {
+            $this->currentObject->detach();
+            $this->currentObjectID = $this->currentObject = null;
         }
 
-        if (is_object($this->_cellCache[$pCoord])) {
-            $this->_cellCache[$pCoord]->detach();
-            unset($this->_cellCache[$pCoord]);
+        if (is_object($this->cellCache[$pCoord])) {
+            $this->cellCache[$pCoord]->detach();
+            unset($this->cellCache[$pCoord]);
         }
-        $this->_currentCellIsDirty = false;
+        $this->currentCellIsDirty = false;
     }
 
     /**
@@ -161,7 +161,7 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase
      */
     public function getCellList()
     {
-        return array_keys($this->_cellCache);
+        return array_keys($this->cellCache);
     }
 
     /**
@@ -215,7 +215,7 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase
      */
     public function getCurrentAddress()
     {
-        return $this->_currentObjectID;
+        return $this->currentObjectID;
     }
 
     /**
@@ -225,7 +225,7 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase
      */
     public function getCurrentColumn()
     {
-        sscanf($this->_currentObjectID, '%[A-Z]%d', $column, $row);
+        sscanf($this->currentObjectID, '%[A-Z]%d', $column, $row);
         return $column;
     }
 
@@ -236,7 +236,7 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase
      */
     public function getCurrentRow()
     {
-        sscanf($this->_currentObjectID, '%[A-Z]%d', $column, $row);
+        sscanf($this->currentObjectID, '%[A-Z]%d', $column, $row);
         return (integer) $row;
     }
 
@@ -296,7 +296,7 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase
      *
      * @return string Unique Reference
      */
-    protected function _getUniqueID()
+    protected function getUniqueID()
     {
         if (function_exists('posix_getpid')) {
             $baseUnique = posix_getpid();
@@ -314,12 +314,12 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase
      */
     public function copyCellCollection(PHPExcel_Worksheet $parent)
     {
-        $this->_currentCellIsDirty;
-        $this->_storeData();
+        $this->currentCellIsDirty;
+        $this->storeData();
 
-        $this->_parent = $parent;
-        if (($this->_currentObject !== null) && (is_object($this->_currentObject))) {
-            $this->_currentObject->attach($this);
+        $this->parent = $parent;
+        if (($this->currentObject !== null) && (is_object($this->currentObject))) {
+            $this->currentObject->attach($this);
         }
     }    //    function copyCellCollection()
 

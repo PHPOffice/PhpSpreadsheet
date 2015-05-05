@@ -24,6 +24,7 @@
 
 
 Planned for 1.8.2
+- Bugfix:   (MBaker)                            - Fix to getCell() method when cell reference includes a worksheet reference
 
 
 2015-04-30 (v1.8.1):

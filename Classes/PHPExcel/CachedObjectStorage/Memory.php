@@ -32,7 +32,7 @@ class PHPExcel_CachedObjectStorage_Memory extends PHPExcel_CachedObjectStorage_C
      *
      * @return    void
      */
-    protected function _storeData()
+    protected function storeData()
     {
     }
 
@@ -46,10 +46,10 @@ class PHPExcel_CachedObjectStorage_Memory extends PHPExcel_CachedObjectStorage_C
      */
     public function addCacheData($pCoord, PHPExcel_Cell $cell)
     {
-        $this->_cellCache[$pCoord] = $cell;
+        $this->cellCache[$pCoord] = $cell;
 
         //    Set current entry to the new/updated entry
-        $this->_currentObjectID = $pCoord;
+        $this->currentObjectID = $pCoord;
 
         return $cell;
     }
@@ -65,17 +65,17 @@ class PHPExcel_CachedObjectStorage_Memory extends PHPExcel_CachedObjectStorage_C
     public function getCacheData($pCoord)
     {
         //    Check if the entry that has been requested actually exists
-        if (!isset($this->_cellCache[$pCoord])) {
-            $this->_currentObjectID = null;
+        if (!isset($this->cellCache[$pCoord])) {
+            $this->currentObjectID = null;
             //    Return null if requested entry doesn't exist in cache
             return null;
         }
 
         //    Set current entry to the requested entry
-        $this->_currentObjectID = $pCoord;
+        $this->currentObjectID = $pCoord;
 
         //    Return requested entry
-        return $this->_cellCache[$pCoord];
+        return $this->cellCache[$pCoord];
     }
 
 
@@ -89,12 +89,12 @@ class PHPExcel_CachedObjectStorage_Memory extends PHPExcel_CachedObjectStorage_C
         parent::copyCellCollection($parent);
 
         $newCollection = array();
-        foreach ($this->_cellCache as $k => &$cell) {
+        foreach ($this->cellCache as $k => &$cell) {
             $newCollection[$k] = clone $cell;
             $newCollection[$k]->attach($this);
         }
 
-        $this->_cellCache = $newCollection;
+        $this->cellCache = $newCollection;
     }
 
     /**
@@ -104,15 +104,15 @@ class PHPExcel_CachedObjectStorage_Memory extends PHPExcel_CachedObjectStorage_C
     public function unsetWorksheetCells()
     {
         // Because cells are all stored as intact objects in memory, we need to detach each one from the parent
-        foreach ($this->_cellCache as $k => &$cell) {
+        foreach ($this->cellCache as $k => &$cell) {
             $cell->detach();
-            $this->_cellCache[$k] = null;
+            $this->cellCache[$k] = null;
         }
         unset($cell);
 
-        $this->_cellCache = array();
+        $this->cellCache = array();
 
         //    detach ourself from the worksheet, so that it can then delete this object successfully
-        $this->_parent = null;
+        $this->parent = null;
     }
 }

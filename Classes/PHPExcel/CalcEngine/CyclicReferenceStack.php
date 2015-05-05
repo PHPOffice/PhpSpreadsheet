@@ -32,7 +32,7 @@ class PHPExcel_CalcEngine_CyclicReferenceStack
      *
      *  @var mixed[]
      */
-    private $_stack = array();
+    private $stack = array();
 
     /**
      * Return the number of entries on the stack
@@ -41,7 +41,7 @@ class PHPExcel_CalcEngine_CyclicReferenceStack
      */
     public function count()
     {
-        return count($this->_stack);
+        return count($this->stack);
     }
 
     /**
@@ -51,7 +51,7 @@ class PHPExcel_CalcEngine_CyclicReferenceStack
      */
     public function push($value)
     {
-        $this->_stack[$value] = $value;
+        $this->stack[$value] = $value;
     }
 
     /**
@@ -61,7 +61,7 @@ class PHPExcel_CalcEngine_CyclicReferenceStack
      */
     public function pop()
     {
-        return array_pop($this->_stack);
+        return array_pop($this->stack);
     }
 
     /**
@@ -71,7 +71,7 @@ class PHPExcel_CalcEngine_CyclicReferenceStack
      */
     public function onStack($value)
     {
-        return isset($this->_stack[$value]);
+        return isset($this->stack[$value]);
     }
 
     /**
@@ -79,7 +79,7 @@ class PHPExcel_CalcEngine_CyclicReferenceStack
      */
     public function clear()
     {
-        $this->_stack = array();
+        $this->stack = array();
     }
 
     /**
@@ -89,6 +89,6 @@ class PHPExcel_CalcEngine_CyclicReferenceStack
      */
     public function showStack()
     {
-        return $this->_stack;
+        return $this->stack;
     }
 }
