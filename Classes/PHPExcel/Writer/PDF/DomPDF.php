@@ -1,6 +1,15 @@
 <?php
+
+/**  Require DomPDF library */
+$pdfRendererClassFile = PHPExcel_Settings::getPdfRendererPath() . '/dompdf_config.inc.php';
+if (file_exists($pdfRendererClassFile)) {
+    require_once $pdfRendererClassFile;
+} else {
+    throw new PHPExcel_Writer_Exception('Unable to load PDF Rendering library');
+}
+
 /**
- *  PHPExcel
+ *  PHPExcel_Writer_PDF_DomPDF
  *
  *  Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -24,23 +33,6 @@
  *  @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  *  @version     ##VERSION##, ##DATE##
  */
-
-
-/**  Require DomPDF library */
-$pdfRendererClassFile = PHPExcel_Settings::getPdfRendererPath() . '/dompdf_config.inc.php';
-if (file_exists($pdfRendererClassFile)) {
-    require_once $pdfRendererClassFile;
-} else {
-    throw new PHPExcel_Writer_Exception('Unable to load PDF Rendering library');
-}
-
-/**
- *  PHPExcel_Writer_PDF_DomPDF
- *
- *  @category    PHPExcel
- *  @package     PHPExcel_Writer_PDF
- *  @copyright   Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
 class PHPExcel_Writer_PDF_DomPDF extends PHPExcel_Writer_PDF_Core implements PHPExcel_Writer_IWriter
 {
     /**
@@ -59,7 +51,7 @@ class PHPExcel_Writer_PDF_DomPDF extends PHPExcel_Writer_PDF_Core implements PHP
      *  @param   string     $pFilename   Name of the file to save as
      *  @throws  PHPExcel_Writer_Exception
      */
-    public function save($pFilename = NULL)
+    public function save($pFilename = null)
     {
         $fileHandle = parent::prepareForSave($pFilename);
 
@@ -69,20 +61,15 @@ class PHPExcel_Writer_PDF_DomPDF extends PHPExcel_Writer_PDF_Core implements PHP
         //  Check for paper size and page orientation
         if (is_null($this->getSheetIndex())) {
             $orientation = ($this->_phpExcel->getSheet(0)->getPageSetup()->getOrientation()
-                == PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE)
-                    ? 'L'
-                    : 'P';
+                == PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
             $printPaperSize = $this->_phpExcel->getSheet(0)->getPageSetup()->getPaperSize();
             $printMargins = $this->_phpExcel->getSheet(0)->getPageMargins();
         } else {
             $orientation = ($this->_phpExcel->getSheet($this->getSheetIndex())->getPageSetup()->getOrientation()
-                == PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE)
-                    ? 'L'
-                    : 'P';
+                == PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
             $printPaperSize = $this->_phpExcel->getSheet($this->getSheetIndex())->getPageSetup()->getPaperSize();
             $printMargins = $this->_phpExcel->getSheet($this->getSheetIndex())->getPageMargins();
         }
-
         
         $orientation = ($orientation == 'L') ? 'landscape' : 'portrait';
 
@@ -97,8 +84,8 @@ class PHPExcel_Writer_PDF_DomPDF extends PHPExcel_Writer_PDF_Core implements PHP
             $printPaperSize = $this->getPaperSize();
         }
 
-        if (isset(self::$_paperSizes[$printPaperSize])) {
-            $paperSize = self::$_paperSizes[$printPaperSize];
+        if (isset(self::$paperSizes[$printPaperSize])) {
+            $paperSize = self::$paperSizes[$printPaperSize];
         }
 
 
@@ -107,7 +94,7 @@ class PHPExcel_Writer_PDF_DomPDF extends PHPExcel_Writer_PDF_Core implements PHP
         $pdf->set_paper(strtolower($paperSize), $orientation);
 
         $pdf->load_html(
-            $this->generateHTMLHeader(FALSE) .
+            $this->generateHTMLHeader(false) .
             $this->generateSheetData() .
             $this->generateHTMLFooter()
         );
@@ -116,7 +103,6 @@ class PHPExcel_Writer_PDF_DomPDF extends PHPExcel_Writer_PDF_Core implements PHP
         //  Write to file
         fwrite($fileHandle, $pdf->output());
 
-		parent::restoreStateAfterSave($fileHandle);
+        parent::restoreStateAfterSave($fileHandle);
     }
-
 }

@@ -1,6 +1,16 @@
 <?php
+
+/** PHPExcel root directory */
+if (!defined('PHPEXCEL_ROOT')) {
+    /**
+     * @ignore
+     */
+    define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
+    require(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
+}
+
 /**
- * PHPExcel
+ * PHPExcel_Cell_DefaultValueBinder
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -23,25 +33,6 @@
  * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
- */
-
-
-/** PHPExcel root directory */
-if (!defined('PHPEXCEL_ROOT')) {
-    /**
-     * @ignore
-     */
-    define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
-    require(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
-}
-
-
-/**
- * PHPExcel_Cell_DefaultValueBinder
- *
- * @category   PHPExcel
- * @package    PHPExcel_Cell
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Cell_DefaultValueBinder implements PHPExcel_Cell_IValueBinder
 {
@@ -67,7 +58,7 @@ class PHPExcel_Cell_DefaultValueBinder implements PHPExcel_Cell_IValueBinder
         }
 
         // Set value explicit
-        $cell->setValueExplicit( $value, self::dataTypeForValue($value) );
+        $cell->setValueExplicit($value, self::dataTypeForValue($value));
 
         // Done!
         return true;
@@ -79,7 +70,8 @@ class PHPExcel_Cell_DefaultValueBinder implements PHPExcel_Cell_IValueBinder
      * @param   mixed  $pValue
      * @return  string
      */
-    public static function dataTypeForValue($pValue = null) {
+    public static function dataTypeForValue($pValue = null)
+    {
         // Match the value against a few data types
         if ($pValue === null) {
             return PHPExcel_Cell_DataType::TYPE_NULL;

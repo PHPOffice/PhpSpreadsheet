@@ -1,6 +1,7 @@
 <?php
+
 /**
- *  PHPExcel
+ *  PHPExcel_Writer_PDF
  *
  *  Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -24,15 +25,6 @@
  *  @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  *  @version     ##VERSION##, ##DATE##
  */
-
-
-/**
- *  PHPExcel_Writer_PDF
- *
- *  @category    PHPExcel
- *  @package     PHPExcel_Writer_PDF
- *  @copyright   Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
 class PHPExcel_Writer_PDF implements PHPExcel_Writer_IWriter
 {
 
@@ -41,7 +33,7 @@ class PHPExcel_Writer_PDF implements PHPExcel_Writer_IWriter
      *
      * @var PHPExcel_Writer_PDF_Core
      */
-    private $_renderer = NULL;
+    private $renderer = null;
 
     /**
      *  Instantiate a new renderer of the configured type within this container class
@@ -67,7 +59,7 @@ class PHPExcel_Writer_PDF implements PHPExcel_Writer_IWriter
         }
 
         $rendererName = 'PHPExcel_Writer_PDF_' . $pdfLibraryName;
-        $this->_renderer = new $rendererName($phpExcel);
+        $this->renderer = new $rendererName($phpExcel);
     }
 
 
@@ -80,11 +72,11 @@ class PHPExcel_Writer_PDF implements PHPExcel_Writer_IWriter
      */
     public function __call($name, $arguments)
     {
-        if ($this->_renderer === NULL) {
+        if ($this->renderer === null) {
             throw new PHPExcel_Writer_Exception("PDF Rendering library has not been defined.");
         }
 
-        return call_user_func_array(array($this->_renderer, $name), $arguments);
+        return call_user_func_array(array($this->renderer, $name), $arguments);
     }
 
     /**
@@ -92,6 +84,6 @@ class PHPExcel_Writer_PDF implements PHPExcel_Writer_IWriter
      */
     public function save($pFilename = null)
     {
-        $this->_renderer->save($pFilename);
+        $this->renderer->save($pFilename);
     }
 }

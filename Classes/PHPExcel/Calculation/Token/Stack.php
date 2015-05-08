@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPExcel_Calculation_Token_Stack
  *

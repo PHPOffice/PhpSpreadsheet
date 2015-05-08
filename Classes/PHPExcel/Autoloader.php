@@ -1,6 +1,6 @@
 <?php
 
-PHPExcel_Autoloader::Register();
+PHPExcel_Autoloader::register();
 //    As we always try to run the autoloader before anything else, we can use it to do a few
 //        simple checks and initialisations
 //PHPExcel_Shared_ZipStreamWrapper::register();
@@ -41,7 +41,7 @@ class PHPExcel_Autoloader
      * Register the Autoloader with SPL
      *
      */
-    public static function Register()
+    public static function register()
     {
         if (function_exists('__autoload')) {
             // Register any existing autoloader function with SPL, so we don't get any clashes
@@ -49,9 +49,9 @@ class PHPExcel_Autoloader
         }
         // Register ourselves with SPL
         if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
-            return spl_autoload_register(array('PHPExcel_Autoloader', 'Load'), true, true);
+            return spl_autoload_register(array('PHPExcel_Autoloader', 'load'), true, true);
         } else {
-            return spl_autoload_register(array('PHPExcel_Autoloader', 'Load'));
+            return spl_autoload_register(array('PHPExcel_Autoloader', 'load'));
         }
     }
 
@@ -60,7 +60,7 @@ class PHPExcel_Autoloader
      *
      * @param    string    $pClassName        Name of the object to load
      */
-    public static function Load($pClassName)
+    public static function load($pClassName)
     {
         if ((class_exists($pClassName, false)) || (strpos($pClassName, 'PHPExcel') !== 0)) {
             // Either already loaded, or not a PHPExcel class request
