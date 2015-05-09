@@ -149,16 +149,15 @@ class PHPExcel_Calculation_LookupRef {
      * @param    cellAddress        An array or array formula, or a reference to a range of cells for which you want the number of columns
      * @return    integer            The number of columns in cellAddress
      */
-    public static function COLUMNS($cellAddress=Null) {
+    public static function COLUMNS($cellAddress = null) {
         if (is_null($cellAddress) || $cellAddress === '') {
             return 1;
         } elseif (!is_array($cellAddress)) {
             return PHPExcel_Calculation_Functions::VALUE();
         }
 
-        $x = array_keys($cellAddress);
-        $x = array_shift($x);
-        $isMatrix = (is_numeric($x));
+        reset($cellAddress);
+        $isMatrix = (is_numeric(key($cellAddress)));
         list($columns,$rows) = PHPExcel_Calculation::_getMatrixDimensions($cellAddress);
 
         if ($isMatrix) {
@@ -231,8 +230,8 @@ class PHPExcel_Calculation_LookupRef {
             return PHPExcel_Calculation_Functions::VALUE();
         }
 
-        $i = array_keys($cellAddress);
-        $isMatrix = (is_numeric(array_shift($i)));
+        reset($cellAddress);
+        $isMatrix = (is_numeric(key($cellAddress)));
         list($columns,$rows) = PHPExcel_Calculation::_getMatrixDimensions($cellAddress);
 
         if ($isMatrix) {
@@ -672,8 +671,8 @@ class PHPExcel_Calculation_LookupRef {
 
 
     private static function _vlookupSort($a,$b) {
-        $f = array_keys($a);
-        $firstColumn = array_shift($f);
+        reset($a);
+        $firstColumn = key($a);
         if (strtolower($a[$firstColumn]) == strtolower($b[$firstColumn])) {
             return 0;
         }

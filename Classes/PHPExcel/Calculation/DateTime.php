@@ -1,6 +1,16 @@
 <?php
+
+/** PHPExcel root directory */
+if (!defined('PHPEXCEL_ROOT')) {
+    /**
+     * @ignore
+     */
+    define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
+    require(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
+}
+
 /**
- * PHPExcel
+ * PHPExcel_Calculation_DateTime
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -23,25 +33,6 @@
  * @copyright    Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version        ##VERSION##, ##DATE##
- */
-
-
-/** PHPExcel root directory */
-if (!defined('PHPEXCEL_ROOT')) {
-    /**
-     * @ignore
-     */
-    define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
-    require(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
-}
-
-
-/**
- * PHPExcel_Calculation_DateTime
- *
- * @category    PHPExcel
- * @package        PHPExcel_Calculation
- * @copyright    Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Calculation_DateTime
 {
@@ -95,12 +86,12 @@ class PHPExcel_Calculation_DateTime
 
 
     /**
-     * _getDateValue
+     * getDateValue
      *
      * @param    string    $dateValue
      * @return    mixed    Excel date/time serial value, or string if error
      */
-    public static function _getDateValue($dateValue)
+    public static function getDateValue($dateValue)
     {
         if (!is_numeric($dateValue)) {
             if ((is_string($dateValue)) &&
@@ -121,12 +112,12 @@ class PHPExcel_Calculation_DateTime
 
 
     /**
-     * _getTimeValue
+     * getTimeValue
      *
      * @param    string    $timeValue
      * @return    mixed    Excel date/time serial value, or string if error
      */
-    private static function _getTimeValue($timeValue)
+    private static function getTimeValue($timeValue)
     {
         $saveReturnDateType = PHPExcel_Calculation_Functions::getReturnDateType();
         PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_EXCEL);
@@ -136,7 +127,7 @@ class PHPExcel_Calculation_DateTime
     }
 
 
-    private static function _adjustDateByMonths($dateValue = 0, $adjustmentMonths = 0)
+    private static function adjustDateByMonths($dateValue = 0, $adjustmentMonths = 0)
     {
         // Execute function
         $PHPDateObject = PHPExcel_Shared_Date::ExcelToPHPObject($dateValue);
@@ -669,10 +660,10 @@ class PHPExcel_Calculation_DateTime
         $endDate   = PHPExcel_Calculation_Functions::flattenSingleValue($endDate);
         $unit      = strtoupper(PHPExcel_Calculation_Functions::flattenSingleValue($unit));
 
-        if (is_string($startDate = self::_getDateValue($startDate))) {
+        if (is_string($startDate = self::getDateValue($startDate))) {
             return PHPExcel_Calculation_Functions::VALUE();
         }
-        if (is_string($endDate = self::_getDateValue($endDate))) {
+        if (is_string($endDate = self::getDateValue($endDate))) {
             return PHPExcel_Calculation_Functions::VALUE();
         }
 
@@ -791,10 +782,10 @@ class PHPExcel_Calculation_DateTime
         $startDate    = PHPExcel_Calculation_Functions::flattenSingleValue($startDate);
         $endDate    = PHPExcel_Calculation_Functions::flattenSingleValue($endDate);
 
-        if (is_string($startDate = self::_getDateValue($startDate))) {
+        if (is_string($startDate = self::getDateValue($startDate))) {
             return PHPExcel_Calculation_Functions::VALUE();
         }
-        if (is_string($endDate = self::_getDateValue($endDate))) {
+        if (is_string($endDate = self::getDateValue($endDate))) {
             return PHPExcel_Calculation_Functions::VALUE();
         }
 
@@ -848,10 +839,10 @@ class PHPExcel_Calculation_DateTime
         $endDate    = PHPExcel_Calculation_Functions::flattenSingleValue($endDate);
         $method        = PHPExcel_Calculation_Functions::flattenSingleValue($method);
 
-        if (is_string($startDate = self::_getDateValue($startDate))) {
+        if (is_string($startDate = self::getDateValue($startDate))) {
             return PHPExcel_Calculation_Functions::VALUE();
         }
-        if (is_string($endDate = self::_getDateValue($endDate))) {
+        if (is_string($endDate = self::getDateValue($endDate))) {
             return PHPExcel_Calculation_Functions::VALUE();
         }
 
@@ -949,11 +940,11 @@ class PHPExcel_Calculation_DateTime
         array_shift($dateArgs);
 
         //    Validate the start and end dates
-        if (is_string($startDate = $sDate = self::_getDateValue($startDate))) {
+        if (is_string($startDate = $sDate = self::getDateValue($startDate))) {
             return PHPExcel_Calculation_Functions::VALUE();
         }
         $startDate = (float) floor($startDate);
-        if (is_string($endDate = $eDate = self::_getDateValue($endDate))) {
+        if (is_string($endDate = $eDate = self::getDateValue($endDate))) {
             return PHPExcel_Calculation_Functions::VALUE();
         }
         $endDate = (float) floor($endDate);
@@ -982,7 +973,7 @@ class PHPExcel_Calculation_DateTime
         //    Test any extra holiday parameters
         $holidayCountedArray = array();
         foreach ($dateArgs as $holidayDate) {
-            if (is_string($holidayDate = self::_getDateValue($holidayDate))) {
+            if (is_string($holidayDate = self::getDateValue($holidayDate))) {
                 return PHPExcel_Calculation_Functions::VALUE();
             }
             if (($holidayDate >= $startDate) && ($holidayDate <= $endDate)) {
@@ -1035,7 +1026,7 @@ class PHPExcel_Calculation_DateTime
         array_shift($dateArgs);
         array_shift($dateArgs);
 
-        if ((is_string($startDate = self::_getDateValue($startDate))) || (!is_numeric($endDays))) {
+        if ((is_string($startDate = self::getDateValue($startDate))) || (!is_numeric($endDays))) {
             return PHPExcel_Calculation_Functions::VALUE();
         }
         $startDate = (float) floor($startDate);
@@ -1069,7 +1060,7 @@ class PHPExcel_Calculation_DateTime
             $holidayCountedArray = $holidayDates = array();
             foreach ($dateArgs as $holidayDate) {
                 if (($holidayDate !== null) && (trim($holidayDate) > '')) {
-                    if (is_string($holidayDate = self::_getDateValue($holidayDate))) {
+                    if (is_string($holidayDate = self::getDateValue($holidayDate))) {
                         return PHPExcel_Calculation_Functions::VALUE();
                     }
                     if (self::DAYOFWEEK($holidayDate, 3) < 5) {
@@ -1136,7 +1127,7 @@ class PHPExcel_Calculation_DateTime
 
         if ($dateValue === null) {
             $dateValue = 1;
-        } elseif (is_string($dateValue = self::_getDateValue($dateValue))) {
+        } elseif (is_string($dateValue = self::getDateValue($dateValue))) {
             return PHPExcel_Calculation_Functions::VALUE();
         } elseif ($dateValue == 0.0) {
             return 0;
@@ -1182,7 +1173,7 @@ class PHPExcel_Calculation_DateTime
 
         if ($dateValue === null) {
             $dateValue = 1;
-        } elseif (is_string($dateValue = self::_getDateValue($dateValue))) {
+        } elseif (is_string($dateValue = self::getDateValue($dateValue))) {
             return PHPExcel_Calculation_Functions::VALUE();
         } elseif ($dateValue < 0.0) {
             return PHPExcel_Calculation_Functions::NaN();
@@ -1258,7 +1249,7 @@ class PHPExcel_Calculation_DateTime
 
         if ($dateValue === null) {
             $dateValue = 1;
-        } elseif (is_string($dateValue = self::_getDateValue($dateValue))) {
+        } elseif (is_string($dateValue = self::getDateValue($dateValue))) {
             return PHPExcel_Calculation_Functions::VALUE();
         } elseif ($dateValue < 0.0) {
             return PHPExcel_Calculation_Functions::NaN();
@@ -1297,7 +1288,7 @@ class PHPExcel_Calculation_DateTime
 
         if ($dateValue === null) {
             $dateValue = 1;
-        } elseif (is_string($dateValue = self::_getDateValue($dateValue))) {
+        } elseif (is_string($dateValue = self::getDateValue($dateValue))) {
             return PHPExcel_Calculation_Functions::VALUE();
         } elseif ($dateValue < 0.0) {
             return PHPExcel_Calculation_Functions::NaN();
@@ -1329,7 +1320,7 @@ class PHPExcel_Calculation_DateTime
 
         if ($dateValue === null) {
             $dateValue = 1;
-        } elseif (is_string($dateValue = self::_getDateValue($dateValue))) {
+        } elseif (is_string($dateValue = self::getDateValue($dateValue))) {
             return PHPExcel_Calculation_Functions::VALUE();
         } elseif ($dateValue < 0.0) {
             return PHPExcel_Calculation_Functions::NaN();
@@ -1366,7 +1357,7 @@ class PHPExcel_Calculation_DateTime
                     return PHPExcel_Calculation_Functions::VALUE();
                 }
             }
-            $timeValue = self::_getTimeValue($timeValue);
+            $timeValue = self::getTimeValue($timeValue);
             if (is_string($timeValue)) {
                 return PHPExcel_Calculation_Functions::VALUE();
             }
@@ -1407,7 +1398,7 @@ class PHPExcel_Calculation_DateTime
                     return PHPExcel_Calculation_Functions::VALUE();
                 }
             }
-            $timeValue = self::_getTimeValue($timeValue);
+            $timeValue = self::getTimeValue($timeValue);
             if (is_string($timeValue)) {
                 return PHPExcel_Calculation_Functions::VALUE();
             }
@@ -1448,7 +1439,7 @@ class PHPExcel_Calculation_DateTime
                     return PHPExcel_Calculation_Functions::VALUE();
                 }
             }
-            $timeValue = self::_getTimeValue($timeValue);
+            $timeValue = self::getTimeValue($timeValue);
             if (is_string($timeValue)) {
                 return PHPExcel_Calculation_Functions::VALUE();
             }
@@ -1494,12 +1485,12 @@ class PHPExcel_Calculation_DateTime
         }
         $adjustmentMonths = floor($adjustmentMonths);
 
-        if (is_string($dateValue = self::_getDateValue($dateValue))) {
+        if (is_string($dateValue = self::getDateValue($dateValue))) {
             return PHPExcel_Calculation_Functions::VALUE();
         }
 
         // Execute function
-        $PHPDateObject = self::_adjustDateByMonths($dateValue, $adjustmentMonths);
+        $PHPDateObject = self::adjustDateByMonths($dateValue, $adjustmentMonths);
 
         switch (PHPExcel_Calculation_Functions::getReturnDateType()) {
             case PHPExcel_Calculation_Functions::RETURNDATE_EXCEL:
@@ -1540,12 +1531,12 @@ class PHPExcel_Calculation_DateTime
         }
         $adjustmentMonths = floor($adjustmentMonths);
 
-        if (is_string($dateValue = self::_getDateValue($dateValue))) {
+        if (is_string($dateValue = self::getDateValue($dateValue))) {
             return PHPExcel_Calculation_Functions::VALUE();
         }
 
         // Execute function
-        $PHPDateObject = self::_adjustDateByMonths($dateValue, $adjustmentMonths+1);
+        $PHPDateObject = self::adjustDateByMonths($dateValue, $adjustmentMonths+1);
         $adjustDays = (int) $PHPDateObject->format('d');
         $adjustDaysString = '-' . $adjustDays . ' days';
         $PHPDateObject->modify($adjustDaysString);
