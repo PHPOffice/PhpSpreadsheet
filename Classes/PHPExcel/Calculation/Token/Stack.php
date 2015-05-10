@@ -32,14 +32,14 @@ class PHPExcel_Calculation_Token_Stack
      *
      *  @var mixed[]
      */
-    private $_stack = array();
+    private $stack = array();
 
     /**
      *  Count of entries in the parser stack
      *
      *  @var integer
      */
-    private $_count = 0;
+    private $count = 0;
 
     /**
      * Return the number of entries on the stack
@@ -48,7 +48,7 @@ class PHPExcel_Calculation_Token_Stack
      */
     public function count()
     {
-        return $this->_count;
+        return $this->count;
     }
 
     /**
@@ -60,15 +60,15 @@ class PHPExcel_Calculation_Token_Stack
      */
     public function push($type, $value, $reference = null)
     {
-        $this->_stack[$this->_count++] = array(
-            'type'        => $type,
-            'value'        => $value,
-            'reference'    => $reference
+        $this->stack[$this->count++] = array(
+            'type'      => $type,
+            'value'     => $value,
+            'reference' => $reference
         );
         if ($type == 'Function') {
             $localeFunction = PHPExcel_Calculation::_localeFunc($value);
             if ($localeFunction != $value) {
-                $this->_stack[($this->_count - 1)]['localeValue'] = $localeFunction;
+                $this->stack[($this->count - 1)]['localeValue'] = $localeFunction;
             }
         }
     }
@@ -80,8 +80,8 @@ class PHPExcel_Calculation_Token_Stack
      */
     public function pop()
     {
-        if ($this->_count > 0) {
-            return $this->_stack[--$this->_count];
+        if ($this->count > 0) {
+            return $this->stack[--$this->count];
         }
         return null;
     }
@@ -94,18 +94,18 @@ class PHPExcel_Calculation_Token_Stack
      */
     public function last($n = 1)
     {
-        if ($this->_count - $n < 0) {
+        if ($this->count - $n < 0) {
             return null;
         }
-        return $this->_stack[$this->_count - $n];
+        return $this->stack[$this->count - $n];
     }
 
     /**
      * Clear the stack
      */
-    function clear()
+    public function clear()
     {
-        $this->_stack = array();
-        $this->_count = 0;
+        $this->stack = array();
+        $this->count = 0;
     }
 }
