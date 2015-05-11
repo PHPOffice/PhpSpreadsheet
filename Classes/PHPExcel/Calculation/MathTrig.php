@@ -1201,7 +1201,7 @@ class PHPExcel_Calculation_MathTrig
         if (empty($sumArgs)) {
             $sumArgs = $aArgs;
         }
-        $condition = PHPExcel_Calculation_Functions::_ifCondition($condition);
+        $condition = PHPExcel_Calculation_Functions::ifCondition($condition);
         // Loop through arguments
         foreach ($aArgs as $key => $arg) {
             if (!is_numeric($arg)) {

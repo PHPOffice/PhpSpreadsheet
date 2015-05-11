@@ -91,12 +91,12 @@ class PHPExcel_Calculation_Statistical
      * @param q require q>0
      * @return 0 if p<=0, q<=0 or p+q>2.55E305 to avoid errors and over/underflow
      */
-    private static function _beta($p, $q)
+    private static function beta($p, $q)
     {
         if ($p <= 0.0 || $q <= 0.0 || ($p + $q) > LOG_GAMMA_X_MAX_VALUE) {
             return 0.0;
         } else {
-            return exp(self::_logBeta($p, $q));
+            return exp(self::logBeta($p, $q));
         }
     }
 
@@ -113,7 +113,7 @@ class PHPExcel_Calculation_Statistical
      * @param q require q>0
      * @return 0 if x<0, p<=0, q<=0 or p+q>2.55E305 and 1 if x>1 to avoid errors and over/underflow
      */
-    private static function _incompleteBeta($x, $p, $q)
+    private static function incompleteBeta($x, $p, $q)
     {
         if ($x <= 0.0) {
             return 0.0;
@@ -122,16 +122,16 @@ class PHPExcel_Calculation_Statistical
         } elseif (($p <= 0.0) || ($q <= 0.0) || (($p + $q) > LOG_GAMMA_X_MAX_VALUE)) {
             return 0.0;
         }
-        $beta_gam = exp((0 - self::_logBeta($p, $q)) + $p * log($x) + $q * log(1.0 - $x));
+        $beta_gam = exp((0 - self::logBeta($p, $q)) + $p * log($x) + $q * log(1.0 - $x));
         if ($x < ($p + 1.0) / ($p + $q + 2.0)) {
-            return $beta_gam * self::_betaFraction($x, $p, $q) / $p;
+            return $beta_gam * self::betaFraction($x, $p, $q) / $p;
         } else {
-            return 1.0 - ($beta_gam * self::_betaFraction(1 - $x, $q, $p) / $q);
+            return 1.0 - ($beta_gam * self::betaFraction(1 - $x, $q, $p) / $q);
         }
     }
 
 
-    // Function cache for _logBeta function
+    // Function cache for logBeta function
     private static $logBetaCacheP      = 0.0;
     private static $logBetaCacheQ      = 0.0;
     private static $logBetaCacheResult = 0.0;
@@ -144,7 +144,7 @@ class PHPExcel_Calculation_Statistical
      * @return 0 if p<=0, q<=0 or p+q>2.55E305 to avoid errors and over/underflow
      * @author Jaco van Kooten
      */
-    private static function _logBeta($p, $q)
+    private static function logBeta($p, $q)
     {
         if ($p != self::$logBetaCacheP || $q != self::$logBetaCacheQ) {
             self::$logBetaCacheP = $p;
@@ -152,7 +152,7 @@ class PHPExcel_Calculation_Statistical
             if (($p <= 0.0) || ($q <= 0.0) || (($p + $q) > LOG_GAMMA_X_MAX_VALUE)) {
                 self::$logBetaCacheResult = 0.0;
             } else {
-                self::$logBetaCacheResult = self::_logGamma($p) + self::_logGamma($q) - self::_logGamma($p + $q);
+                self::$logBetaCacheResult = self::logGamma($p) + self::logGamma($q) - self::logGamma($p + $q);
             }
         }
         return self::$logBetaCacheResult;
@@ -164,7 +164,7 @@ class PHPExcel_Calculation_Statistical
      * Based on an idea from Numerical Recipes (W.H. Press et al, 1992).
      * @author Jaco van Kooten
      */
-    private static function _betaFraction($x, $p, $q)
+    private static function betaFraction($x, $p, $q)
     {
         $c = 1.0;
         $sum_pq = $p + $q;
@@ -258,7 +258,7 @@ class PHPExcel_Calculation_Statistical
     private static $logGammaCacheResult = 0.0;
     private static $logGammaCacheX      = 0.0;
 
-    private static function _logGamma($x)
+    private static function logGamma($x)
     {
         // Log Gamma related constants
         static $lg_d1 = -0.5772156649015328605195174;
@@ -435,7 +435,7 @@ class PHPExcel_Calculation_Statistical
     //
     //    Private implementation of the incomplete Gamma function
     //
-    private static function _incompleteGamma($a, $x)
+    private static function incompleteGamma($a, $x)
     {
         static $max = 32;
         $summer = 0;
@@ -453,7 +453,7 @@ class PHPExcel_Calculation_Statistical
     //
     //    Private implementation of the Gamma function
     //
-    private static function _gamma($data)
+    private static function gamma($data)
     {
         if ($data == 0.0) {
             return 0;
@@ -872,7 +872,7 @@ class PHPExcel_Calculation_Statistical
         if (empty($averageArgs)) {
             $averageArgs = $aArgs;
         }
-        $condition = PHPExcel_Calculation_Functions::_ifCondition($condition);
+        $condition = PHPExcel_Calculation_Functions::ifCondition($condition);
         // Loop through arguments
         $aCount = 0;
         foreach ($aArgs as $key => $arg) {
@@ -926,7 +926,7 @@ class PHPExcel_Calculation_Statistical
             }
             $value -= $rMin;
             $value /= ($rMax - $rMin);
-            return self::_incompleteBeta($value, $alpha, $beta);
+            return self::incompleteBeta($value, $alpha, $beta);
         }
         return PHPExcel_Calculation_Functions::VALUE();
     }
@@ -1058,7 +1058,7 @@ class PHPExcel_Calculation_Statistical
                 }
                 return PHPExcel_Calculation_Functions::NaN();
             }
-            return 1 - (self::_incompleteGamma($degrees/2, $value/2) / self::_gamma($degrees/2));
+            return 1 - (self::incompleteGamma($degrees/2, $value/2) / self::gamma($degrees/2));
         }
         return PHPExcel_Calculation_Functions::VALUE();
     }
@@ -1294,7 +1294,7 @@ class PHPExcel_Calculation_Statistical
         $returnValue = 0;
 
         $aArgs = PHPExcel_Calculation_Functions::flattenArray($aArgs);
-        $condition = PHPExcel_Calculation_Functions::_ifCondition($condition);
+        $condition = PHPExcel_Calculation_Functions::ifCondition($condition);
         // Loop through arguments
         foreach ($aArgs as $arg) {
             if (!is_numeric($arg)) {
@@ -1649,9 +1649,9 @@ class PHPExcel_Calculation_Statistical
             }
             if ((is_numeric($cumulative)) || (is_bool($cumulative))) {
                 if ($cumulative) {
-                    return self::_incompleteGamma($a, $value / $b) / self::_gamma($a);
+                    return self::incompleteGamma($a, $value / $b) / self::gamma($a);
                 } else {
-                    return (1 / (pow($b, $a) * self::_gamma($a))) * pow($value, $a-1) * exp(0-($value / $b));
+                    return (1 / (pow($b, $a) * self::gamma($a))) * pow($value, $a-1) * exp(0-($value / $b));
                 }
             }
         }
@@ -1737,7 +1737,7 @@ class PHPExcel_Calculation_Statistical
             if ($value <= 0) {
                 return PHPExcel_Calculation_Functions::NaN();
             }
-            return log(self::_gamma($value));
+            return log(self::gamma($value));
         }
         return PHPExcel_Calculation_Functions::VALUE();
     }
@@ -2286,7 +2286,7 @@ class PHPExcel_Calculation_Statistical
         if (empty($sumArgs)) {
             $sumArgs = $aArgs;
         }
-        $condition = PHPExcel_Calculation_Functions::_ifCondition($condition);
+        $condition = PHPExcel_Calculation_Functions::ifCondition($condition);
         // Loop through arguments
         foreach ($aArgs as $key => $arg) {
             if (!is_numeric($arg)) {
@@ -2445,7 +2445,7 @@ class PHPExcel_Calculation_Statistical
         if (empty($sumArgs)) {
             $sumArgs = $aArgs;
         }
-        $condition = PHPExcel_Calculation_Functions::_ifCondition($condition);
+        $condition = PHPExcel_Calculation_Functions::ifCondition($condition);
         // Loop through arguments
         foreach ($aArgs as $key => $arg) {
             if (!is_numeric($arg)) {

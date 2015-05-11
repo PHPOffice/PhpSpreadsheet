@@ -67,7 +67,7 @@ class PHPExcel_Calculation_Functions
      * @access    private
      * @var string
      */
-    protected static $compatibilityMode    = self::COMPATIBILITY_EXCEL;
+    protected static $compatibilityMode = self::COMPATIBILITY_EXCEL;
 
     /**
      * Data Type to use when returning date values
@@ -75,7 +75,7 @@ class PHPExcel_Calculation_Functions
      * @access    private
      * @var string
      */
-    protected static $ReturnDateType    = self::RETURNDATE_EXCEL;
+    protected static $returnDateType = self::RETURNDATE_EXCEL;
 
     /**
      * List of error codes
@@ -83,7 +83,7 @@ class PHPExcel_Calculation_Functions
      * @access    private
      * @var array
      */
-    protected static $_errorCodes = array(
+    protected static $errorCodes = array(
         'null'           => '#NULL!',
         'divisionbyzero' => '#DIV/0!',
         'value'          => '#VALUE!',
@@ -153,7 +153,7 @@ class PHPExcel_Calculation_Functions
         if (($returnDateType == self::RETURNDATE_PHP_NUMERIC) ||
             ($returnDateType == self::RETURNDATE_PHP_OBJECT) ||
             ($returnDateType == self::RETURNDATE_EXCEL)) {
-            self::$ReturnDateType = $returnDateType;
+            self::$returnDateType = $returnDateType;
             return true;
         }
         return false;
@@ -173,7 +173,7 @@ class PHPExcel_Calculation_Functions
      */
     public static function getReturnDateType()
     {
-        return self::$ReturnDateType;
+        return self::$returnDateType;
     }
 
 
@@ -199,7 +199,7 @@ class PHPExcel_Calculation_Functions
      */
     public static function DIV0()
     {
-        return self::$_errorCodes['divisionbyzero'];
+        return self::$errorCodes['divisionbyzero'];
     }
 
 
@@ -218,7 +218,7 @@ class PHPExcel_Calculation_Functions
      */
     public static function NA()
     {
-        return self::$_errorCodes['na'];
+        return self::$errorCodes['na'];
     }
 
 
@@ -233,7 +233,7 @@ class PHPExcel_Calculation_Functions
      */
     public static function NaN()
     {
-        return self::$_errorCodes['num'];
+        return self::$errorCodes['num'];
     }
 
 
@@ -248,7 +248,7 @@ class PHPExcel_Calculation_Functions
      */
     public static function NAME()
     {
-        return self::$_errorCodes['name'];
+        return self::$errorCodes['name'];
     }
 
 
@@ -263,7 +263,7 @@ class PHPExcel_Calculation_Functions
      */
     public static function REF()
     {
-        return self::$_errorCodes['reference'];
+        return self::$errorCodes['reference'];
     }
 
 
@@ -278,7 +278,7 @@ class PHPExcel_Calculation_Functions
      */
     public static function NULL()
     {
-        return self::$_errorCodes['null'];
+        return self::$errorCodes['null'];
     }
 
 
@@ -293,7 +293,7 @@ class PHPExcel_Calculation_Functions
      */
     public static function VALUE()
     {
-        return self::$_errorCodes['value'];
+        return self::$errorCodes['value'];
     }
 
 
@@ -315,7 +315,7 @@ class PHPExcel_Calculation_Functions
     }
 
 
-    public static function _ifCondition($condition)
+    public static function ifCondition($condition)
     {
         $condition    = PHPExcel_Calculation_Functions::flattenSingleValue($condition);
         if (!isset($condition{0})) {
@@ -350,7 +350,7 @@ class PHPExcel_Calculation_Functions
         $value = self::flattenSingleValue($value);
 
         $i = 1;
-        foreach (self::$_errorCodes as $errorCode) {
+        foreach (self::$errorCodes as $errorCode) {
             if ($value === $errorCode) {
                 return $i;
             }
@@ -403,7 +403,7 @@ class PHPExcel_Calculation_Functions
         if (!is_string($value)) {
             return false;
         }
-        return in_array($value, array_values(self::$_errorCodes));
+        return in_array($value, array_values(self::$errorCodes));
     }
 
 
