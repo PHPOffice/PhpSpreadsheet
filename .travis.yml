@@ -2,8 +2,8 @@ language: php
 
 php:
   - 5.2
-  - 5.3.3
   - 5.3
+  - 5.3.3
   - 5.4
   - 5.5
   - 5.6
@@ -17,8 +17,11 @@ before_script:
   ## Packages
   - sudo apt-get -qq update > /dev/null
   ## Composer
+  ##@todo Remove when support of 5.2 will be dropped
+  - phpenv global 5.3
   - composer self-update
   - composer install --prefer-source --dev
+  - phpenv global "$TRAVIS_PHP_VERSION"
 
 script:
   ## PHP_CodeSniffer
