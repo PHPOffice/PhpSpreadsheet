@@ -10,11 +10,21 @@ php:
   - hhvm
  
 matrix:
-    allow_failures:
-        - php: hhvm
+  allow_failures:
+    - php: hhvm
+
+before_script:
+  ## Packages
+  - sudo apt-get -qq update > /dev/null
+  ## Composer
+  - composer self-update
+  - composer install --prefer-source --dev
 
 script:
- - phpunit -c ./unitTests/
+  ## PHP_CodeSniffer
+  - ./vendor/bin/phpcs Classes/ unitTests/ --standard=PSR2 -n --ignore=Classes/PHPExcel/Shared/PCLZip
+  ## PHPUnit
+  - phpunit -c ./unitTests/
 
 notifications:
   email: false
