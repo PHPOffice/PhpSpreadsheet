@@ -1,6 +1,7 @@
 <?php
+
 /**
- * PHPExcel
+ * PHPExcel_Writer_OpenDocument_Thumbnails
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -21,18 +22,8 @@
  * @category   PHPExcel
  * @package    PHPExcel_Writer_OpenDocument
  * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
- */
-
-
-/**
- * PHPExcel_Writer_OpenDocument_Thumbnails
- *
- * @category   PHPExcel
- * @package    PHPExcel_Writer_OpenDocument
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- * @author     Alexander Pervakov <frost-nzcr4@jagmort.com>
  */
 class PHPExcel_Writer_OpenDocument_Thumbnails extends PHPExcel_Writer_OpenDocument_WriterPart
 {

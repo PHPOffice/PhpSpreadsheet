@@ -1,6 +1,7 @@
 <?php
+
 /**
- * PHPExcel
+ * PHPExcel_Comment
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -23,15 +24,6 @@
  * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
- */
-
-
-/**
- * PHPExcel_Comment
- *
- * @category   PHPExcel
- * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Comment implements PHPExcel_IComparable
 {
@@ -106,10 +98,10 @@ class PHPExcel_Comment implements PHPExcel_IComparable
     public function __construct()
     {
         // Initialise variables
-        $this->_author		= 'Author';
-        $this->_text		= new PHPExcel_RichText();
-        $this->_fillColor	= new PHPExcel_Style_Color('FFFFFFE1');
-        $this->_alignment	= PHPExcel_Style_Alignment::HORIZONTAL_GENERAL;
+        $this->_author        = 'Author';
+        $this->_text        = new PHPExcel_RichText();
+        $this->_fillColor    = new PHPExcel_Style_Color('FFFFFFE1');
+        $this->_alignment    = PHPExcel_Style_Alignment::HORIZONTAL_GENERAL;
     }
 
     /**

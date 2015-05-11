@@ -21,7 +21,7 @@
  * @category   PHPExcel
  * @package    PHPExcel_Writer_Excel2007
  * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
 
@@ -54,7 +54,7 @@ class PHPExcel_Writer_Excel2007_Chart extends
     } else {
       $objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_MEMORY);
     }
-    //	Ensure that data series values are up-to-date before we save
+    //    Ensure that data series values are up-to-date before we save
     $pChart->refresh();
 
     // XML header
@@ -284,7 +284,7 @@ class PHPExcel_Writer_Excel2007_Chart extends
       $this->_writeDataLbls($objWriter, $layout);
 
       if ($chartType === PHPExcel_Chart_DataSeries::TYPE_LINECHART) {
-        //	Line only, Line3D can't be smoothed
+        //    Line only, Line3D can't be smoothed
 
         $objWriter->startElement('c:smooth');
         $objWriter->writeAttribute('val', (integer) $plotGroup->getSmoothLine());
@@ -334,11 +334,11 @@ class PHPExcel_Writer_Excel2007_Chart extends
         $objWriter->endElement();
       }
 
-      //	Generate 2 unique numbers to use for axId values
-      //					$id1 = $id2 = rand(10000000,99999999);
-      //					do {
-      //						$id2 = rand(10000000,99999999);
-      //					} while ($id1 == $id2);
+      //    Generate 2 unique numbers to use for axId values
+      //                    $id1 = $id2 = rand(10000000,99999999);
+      //                    do {
+      //                        $id2 = rand(10000000,99999999);
+      //                    } while ($id1 == $id2);
       $id1 = '75091328';
       $id2 = '75089408';
 
@@ -490,7 +490,7 @@ class PHPExcel_Writer_Excel2007_Chart extends
         $caption = $caption[0];
       }
       $objWriter->startElement('a:t');
-      //										$objWriter->writeAttribute('xml:space', 'preserve');
+      //                                        $objWriter->writeAttribute('xml:space', 'preserve');
       $objWriter->writeRawData(PHPExcel_Shared_String::ControlCharacterPHP2OOXML($caption));
       $objWriter->endElement();
 
@@ -840,7 +840,7 @@ class PHPExcel_Writer_Excel2007_Chart extends
       }
 
       $objWriter->startElement('a:t');
-      //										$objWriter->writeAttribute('xml:space', 'preserve');
+      //                                        $objWriter->writeAttribute('xml:space', 'preserve');
       $objWriter->writeRawData(PHPExcel_Shared_String::ControlCharacterPHP2OOXML($caption));
       $objWriter->endElement();
 
@@ -1117,7 +1117,7 @@ class PHPExcel_Writer_Excel2007_Chart extends
       $objWriter->endElement();
     }
 
-    //	Get these details before the loop, because we can use the count to check for varyColors
+    //    Get these details before the loop, because we can use the count to check for varyColors
     $plotSeriesOrder = $plotGroup->getPlotOrder();
     $plotSeriesCount = count($plotSeriesOrder);
 
@@ -1177,7 +1177,7 @@ class PHPExcel_Writer_Excel2007_Chart extends
         $objWriter->endElement();
       }
 
-      //	Labels
+      //    Labels
       $plotSeriesLabel = $plotGroup->getPlotLabelByIndex($plotSeriesRef);
       if ($plotSeriesLabel && ($plotSeriesLabel->getPointCount() > 0)) {
         $objWriter->startElement('c:tx');
@@ -1187,7 +1187,7 @@ class PHPExcel_Writer_Excel2007_Chart extends
         $objWriter->endElement();
       }
 
-      //	Formatting for the points
+      //    Formatting for the points
       if (($groupType == PHPExcel_Chart_DataSeries::TYPE_LINECHART) ||
           ($groupType == PHPExcel_Chart_DataSeries::TYPE_STOCKCHART)
       ) {
@@ -1231,7 +1231,7 @@ class PHPExcel_Writer_Excel2007_Chart extends
         $objWriter->endElement();
       }
 
-      //	Category Labels
+      //    Category Labels
       $plotSeriesCategory = $plotGroup->getPlotCategoryByIndex($plotSeriesRef);
       if ($plotSeriesCategory && ($plotSeriesCategory->getPointCount() > 0)) {
         $catIsMultiLevelSeries = $catIsMultiLevelSeries || $plotSeriesCategory->isMultiLevelSeries();
@@ -1263,7 +1263,7 @@ class PHPExcel_Writer_Excel2007_Chart extends
         $objWriter->endElement();
       }
 
-      //	Values
+      //    Values
       if ($plotSeriesValues) {
         $valIsMultiLevelSeries = $valIsMultiLevelSeries || $plotSeriesValues->isMultiLevelSeries();
 
