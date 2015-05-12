@@ -59,7 +59,7 @@ class PHPExcel_Cell_AdvancedValueBinder extends PHPExcel_Cell_DefaultValueBinder
             if ($value == PHPExcel_Calculation::getTRUE()) {
                 $cell->setValueExplicit(true, PHPExcel_Cell_DataType::TYPE_BOOL);
                 return true;
-            } elseif($value == PHPExcel_Calculation::getFALSE()) {
+            } elseif ($value == PHPExcel_Calculation::getFALSE()) {
                 $cell->setValueExplicit(false, PHPExcel_Cell_DataType::TYPE_BOOL);
                 return true;
             }
@@ -74,20 +74,24 @@ class PHPExcel_Cell_AdvancedValueBinder extends PHPExcel_Cell_DefaultValueBinder
             if (preg_match('/^([+-]?)\s*([0-9]+)\s?\/\s*([0-9]+)$/', $value, $matches)) {
                 // Convert value to number
                 $value = $matches[2] / $matches[3];
-                if ($matches[1] == '-') $value = 0 - $value;
+                if ($matches[1] == '-') {
+                    $value = 0 - $value;
+                }
                 $cell->setValueExplicit((float) $value, PHPExcel_Cell_DataType::TYPE_NUMERIC);
                 // Set style
-                $cell->getWorksheet()->getStyle( $cell->getCoordinate() )
-                    ->getNumberFormat()->setFormatCode( '??/??' );
+                $cell->getWorksheet()->getStyle($cell->getCoordinate())
+                    ->getNumberFormat()->setFormatCode('??/??');
                 return true;
             } elseif (preg_match('/^([+-]?)([0-9]*) +([0-9]*)\s?\/\s*([0-9]*)$/', $value, $matches)) {
                 // Convert value to number
                 $value = $matches[2] + ($matches[3] / $matches[4]);
-                if ($matches[1] == '-') $value = 0 - $value;
+                if ($matches[1] == '-') {
+                    $value = 0 - $value;
+                }
                 $cell->setValueExplicit((float) $value, PHPExcel_Cell_DataType::TYPE_NUMERIC);
                 // Set style
-                $cell->getWorksheet()->getStyle( $cell->getCoordinate() )
-                    ->getNumberFormat()->setFormatCode( '# ??/??' );
+                $cell->getWorksheet()->getStyle($cell->getCoordinate())
+                    ->getNumberFormat()->setFormatCode('# ??/??');
                 return true;
             }
 
@@ -95,9 +99,9 @@ class PHPExcel_Cell_AdvancedValueBinder extends PHPExcel_Cell_DefaultValueBinder
             if (preg_match('/^\-?[0-9]*\.?[0-9]*\s?\%$/', $value)) {
                 // Convert value to number
                 $value = (float) str_replace('%', '', $value) / 100;
-                $cell->setValueExplicit( $value, PHPExcel_Cell_DataType::TYPE_NUMERIC);
+                $cell->setValueExplicit($value, PHPExcel_Cell_DataType::TYPE_NUMERIC);
                 // Set style
-                $cell->getWorksheet()->getStyle( $cell->getCoordinate() )
+                $cell->getWorksheet()->getStyle($cell->getCoordinate())
                     ->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_PERCENTAGE_00);
                 return true;
             }

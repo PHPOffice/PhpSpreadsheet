@@ -112,5 +112,4 @@ class PHPExcel_Cell_DataType
 
         return $pValue;
     }
-
 }

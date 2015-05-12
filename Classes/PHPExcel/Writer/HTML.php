@@ -53,7 +53,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      *
      * @var boolean
      */
-    private $_embedImages    = FALSE;
+    private $_embedImages    = false;
 
     /**
      * Use inline CSS?
@@ -130,7 +130,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      *
      * @param    PHPExcel    $phpExcel    PHPExcel object
      */
-    public function __construct(PHPExcel $phpExcel) {
+    public function __construct(PHPExcel $phpExcel)
+    {
         $this->_phpExcel = $phpExcel;
         $this->_defaultFont = $this->_phpExcel->getDefaultStyle()->getFont();
     }
@@ -141,12 +142,13 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      * @param    string        $pFilename
      * @throws    PHPExcel_Writer_Exception
      */
-    public function save($pFilename = null) {
+    public function save($pFilename = null)
+    {
         // garbage collect
         $this->_phpExcel->garbageCollect();
 
         $saveDebugLog = PHPExcel_Calculation::getInstance($this->_phpExcel)->getDebugLog()->getWriteDebugLog();
-        PHPExcel_Calculation::getInstance($this->_phpExcel)->getDebugLog()->setWriteDebugLog(FALSE);
+        PHPExcel_Calculation::getInstance($this->_phpExcel)->getDebugLog()->setWriteDebugLog(false);
         $saveArrayReturnType = PHPExcel_Calculation::getArrayReturnType();
         PHPExcel_Calculation::setArrayReturnType(PHPExcel_Calculation::RETURN_ARRAY_AS_VALUE);
 
@@ -186,13 +188,18 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      * @param    string        $vAlign        Vertical alignment
      * @return string
      */
-    private function _mapVAlign($vAlign) {
+    private function _mapVAlign($vAlign)
+    {
         switch ($vAlign) {
-            case PHPExcel_Style_Alignment::VERTICAL_BOTTOM:        return 'bottom';
-            case PHPExcel_Style_Alignment::VERTICAL_TOP:        return 'top';
+            case PHPExcel_Style_Alignment::VERTICAL_BOTTOM:
+                return 'bottom';
+            case PHPExcel_Style_Alignment::VERTICAL_TOP:
+                return 'top';
             case PHPExcel_Style_Alignment::VERTICAL_CENTER:
-            case PHPExcel_Style_Alignment::VERTICAL_JUSTIFY:    return 'middle';
-            default: return 'baseline';
+            case PHPExcel_Style_Alignment::VERTICAL_JUSTIFY:
+                return 'middle';
+            default:
+                return 'baseline';
         }
     }
 
@@ -202,15 +209,22 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      * @param    string        $hAlign        Horizontal alignment
      * @return string|false
      */
-    private function _mapHAlign($hAlign) {
+    private function _mapHAlign($hAlign)
+    {
         switch ($hAlign) {
-            case PHPExcel_Style_Alignment::HORIZONTAL_GENERAL:                return false;
-            case PHPExcel_Style_Alignment::HORIZONTAL_LEFT:                    return 'left';
-            case PHPExcel_Style_Alignment::HORIZONTAL_RIGHT:                return 'right';
+            case PHPExcel_Style_Alignment::HORIZONTAL_GENERAL:
+                return false;
+            case PHPExcel_Style_Alignment::HORIZONTAL_LEFT:
+                return 'left';
+            case PHPExcel_Style_Alignment::HORIZONTAL_RIGHT:
+                return 'right';
             case PHPExcel_Style_Alignment::HORIZONTAL_CENTER:
-            case PHPExcel_Style_Alignment::HORIZONTAL_CENTER_CONTINUOUS:    return 'center';
-            case PHPExcel_Style_Alignment::HORIZONTAL_JUSTIFY:                return 'justify';
-            default: return false;
+            case PHPExcel_Style_Alignment::HORIZONTAL_CENTER_CONTINUOUS:
+                return 'center';
+            case PHPExcel_Style_Alignment::HORIZONTAL_JUSTIFY:
+                return 'justify';
+            default:
+                return false;
         }
     }
 
@@ -220,23 +234,40 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      * @param    int        $borderStyle        Sheet index
      * @return    string
      */
-    private function _mapBorderStyle($borderStyle) {
+    private function _mapBorderStyle($borderStyle)
+    {
         switch ($borderStyle) {
-            case PHPExcel_Style_Border::BORDER_NONE:                return 'none';
-            case PHPExcel_Style_Border::BORDER_DASHDOT:                return '1px dashed';
-            case PHPExcel_Style_Border::BORDER_DASHDOTDOT:            return '1px dotted';
-            case PHPExcel_Style_Border::BORDER_DASHED:                return '1px dashed';
-            case PHPExcel_Style_Border::BORDER_DOTTED:                return '1px dotted';
-            case PHPExcel_Style_Border::BORDER_DOUBLE:                return '3px double';
-            case PHPExcel_Style_Border::BORDER_HAIR:                return '1px solid';
-            case PHPExcel_Style_Border::BORDER_MEDIUM:                return '2px solid';
-            case PHPExcel_Style_Border::BORDER_MEDIUMDASHDOT:        return '2px dashed';
-            case PHPExcel_Style_Border::BORDER_MEDIUMDASHDOTDOT:    return '2px dotted';
-            case PHPExcel_Style_Border::BORDER_MEDIUMDASHED:        return '2px dashed';
-            case PHPExcel_Style_Border::BORDER_SLANTDASHDOT:        return '2px dashed';
-            case PHPExcel_Style_Border::BORDER_THICK:                return '3px solid';
-            case PHPExcel_Style_Border::BORDER_THIN:                return '1px solid';
-            default: return '1px solid'; // map others to thin
+            case PHPExcel_Style_Border::BORDER_NONE:
+                return 'none';
+            case PHPExcel_Style_Border::BORDER_DASHDOT:
+                return '1px dashed';
+            case PHPExcel_Style_Border::BORDER_DASHDOTDOT:
+                return '1px dotted';
+            case PHPExcel_Style_Border::BORDER_DASHED:
+                return '1px dashed';
+            case PHPExcel_Style_Border::BORDER_DOTTED:
+                return '1px dotted';
+            case PHPExcel_Style_Border::BORDER_DOUBLE:
+                return '3px double';
+            case PHPExcel_Style_Border::BORDER_HAIR:
+                return '1px solid';
+            case PHPExcel_Style_Border::BORDER_MEDIUM:
+                return '2px solid';
+            case PHPExcel_Style_Border::BORDER_MEDIUMDASHDOT:
+                return '2px dashed';
+            case PHPExcel_Style_Border::BORDER_MEDIUMDASHDOTDOT:
+                return '2px dotted';
+            case PHPExcel_Style_Border::BORDER_MEDIUMDASHED:
+                return '2px dashed';
+            case PHPExcel_Style_Border::BORDER_SLANTDASHDOT:
+                return '2px dashed';
+            case PHPExcel_Style_Border::BORDER_THICK:
+                return '3px solid';
+            case PHPExcel_Style_Border::BORDER_THIN:
+                return '1px solid';
+            default:
+                // map others to thin
+                return '1px solid';
         }
     }
 
@@ -245,7 +276,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      *
      * @return int
      */
-    public function getSheetIndex() {
+    public function getSheetIndex()
+    {
         return $this->_sheetIndex;
     }
 
@@ -255,7 +287,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      * @param    int        $pValue        Sheet index
      * @return PHPExcel_Writer_HTML
      */
-    public function setSheetIndex($pValue = 0) {
+    public function setSheetIndex($pValue = 0)
+    {
         $this->_sheetIndex = $pValue;
         return $this;
     }
@@ -265,7 +298,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      *
      * @return boolean
      */
-    public function getGenerateSheetNavigationBlock() {
+    public function getGenerateSheetNavigationBlock()
+    {
         return $this->_generateSheetNavigationBlock;
     }
 
@@ -275,7 +309,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      * @param    boolean        $pValue        Flag indicating whether the sheet navigation block should be generated or not
      * @return PHPExcel_Writer_HTML
      */
-    public function setGenerateSheetNavigationBlock($pValue = true) {
+    public function setGenerateSheetNavigationBlock($pValue = true)
+    {
         $this->_generateSheetNavigationBlock = (bool) $pValue;
         return $this;
     }
@@ -283,7 +318,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
     /**
      * Write all sheets (resets sheetIndex to NULL)
      */
-    public function writeAllSheets() {
+    public function writeAllSheets()
+    {
         $this->_sheetIndex = null;
         return $this;
     }
@@ -295,7 +331,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      * @return    string
      * @throws PHPExcel_Writer_Exception
      */
-    public function generateHTMLHeader($pIncludeStyles = false) {
+    public function generateHTMLHeader($pIncludeStyles = false)
+    {
         // PHPExcel object known?
         if (is_null($this->_phpExcel)) {
             throw new PHPExcel_Writer_Exception('Internal PHPExcel object not set to an instance of an object.');
@@ -308,25 +345,33 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
         $html .= '<html>' . PHP_EOL;
         $html .= '  <head>' . PHP_EOL;
         $html .= '      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">' . PHP_EOL;
-        if ($properties->getTitle() > '')
+        if ($properties->getTitle() > '') {
             $html .= '      <title>' . htmlspecialchars($properties->getTitle()) . '</title>' . PHP_EOL;
-
-        if ($properties->getCreator() > '')
+        }
+        if ($properties->getCreator() > '') {
             $html .= '      <meta name="author" content="' . htmlspecialchars($properties->getCreator()) . '" />' . PHP_EOL;
-        if ($properties->getTitle() > '')
+        }
+        if ($properties->getTitle() > '') {
             $html .= '      <meta name="title" content="' . htmlspecialchars($properties->getTitle()) . '" />' . PHP_EOL;
-        if ($properties->getDescription() > '')
+        }
+        if ($properties->getDescription() > '') {
             $html .= '      <meta name="description" content="' . htmlspecialchars($properties->getDescription()) . '" />' . PHP_EOL;
-        if ($properties->getSubject() > '')
+        }
+        if ($properties->getSubject() > '') {
             $html .= '      <meta name="subject" content="' . htmlspecialchars($properties->getSubject()) . '" />' . PHP_EOL;
-        if ($properties->getKeywords() > '')
+        }
+        if ($properties->getKeywords() > '') {
             $html .= '      <meta name="keywords" content="' . htmlspecialchars($properties->getKeywords()) . '" />' . PHP_EOL;
-        if ($properties->getCategory() > '')
+        }
+        if ($properties->getCategory() > '') {
             $html .= '      <meta name="category" content="' . htmlspecialchars($properties->getCategory()) . '" />' . PHP_EOL;
-        if ($properties->getCompany() > '')
+        }
+        if ($properties->getCompany() > '') {
             $html .= '      <meta name="company" content="' . htmlspecialchars($properties->getCompany()) . '" />' . PHP_EOL;
-        if ($properties->getManager() > '')
+        }
+        if ($properties->getManager() > '') {
             $html .= '      <meta name="manager" content="' . htmlspecialchars($properties->getManager()) . '" />' . PHP_EOL;
+        }
 
         if ($pIncludeStyles) {
             $html .= $this->generateStyles(true);
@@ -336,7 +381,6 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
         $html .= '' . PHP_EOL;
         $html .= '  <body>' . PHP_EOL;
 
-        // Return
         return $html;
     }
 
@@ -346,7 +390,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      * @return    string
      * @throws PHPExcel_Writer_Exception
      */
-    public function generateSheetData() {
+    public function generateSheetData()
+    {
         // PHPExcel object known?
         if (is_null($this->_phpExcel)) {
             throw new PHPExcel_Writer_Exception('Internal PHPExcel object not set to an instance of an object.');
@@ -401,7 +446,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 
             // Loop through cells
             $row = $rowMin-1;
-            while($row++ < $rowMax) {
+            while ($row++ < $rowMax) {
                 // <thead> ?
                 if ($row == $theadStart) {
                     $html .= '        <thead>' . PHP_EOL;
@@ -415,12 +460,12 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
                 }
 
                 // Write row if there are HTML table cells in it
-                if ( !isset($this->_isSpannedRow[$sheet->getParent()->getIndex($sheet)][$row]) ) {
+                if (!isset($this->_isSpannedRow[$sheet->getParent()->getIndex($sheet)][$row])) {
                     // Start a new rowData
                     $rowData = array();
                     // Loop through columns
                     $column = $dimension[0][0] - 1;
-                    while($column++ < $dimension[1][0]) {
+                    while ($column++ < $dimension[1][0]) {
                         // Cell exists?
                         if ($sheet->cellExistsByColumnAndRow($column, $row)) {
                             $rowData[$column] = PHPExcel_Cell::stringFromColumnIndex($column) . $row;
@@ -455,7 +500,6 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
             ++$sheetId;
         }
 
-        // Return
         return $html;
     }
 
@@ -501,7 +545,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
         return $html;
     }
 
-    private function _extendRowsForChartsAndImages(PHPExcel_Worksheet $pSheet, $row) {
+    private function _extendRowsForChartsAndImages(PHPExcel_Worksheet $pSheet, $row)
+    {
         $rowMax = $row;
         $colMax = 'A';
         if ($this->_includeCharts) {
@@ -559,7 +604,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      * @return    string
      * @throws    PHPExcel_Writer_Exception
      */
-    private function _writeImageInCell(PHPExcel_Worksheet $pSheet, $coordinates) {
+    private function _writeImageInCell(PHPExcel_Worksheet $pSheet, $coordinates)
+    {
         // Construct HTML
         $html = '';
 
@@ -590,8 +636,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
                         $imageData = $filename;
                     } else {
                         $imageDetails = getimagesize($filename);
-                        if ($fp = fopen($filename,"rb", 0)) {
-                            $picture = fread($fp,filesize($filename));
+                        if ($fp = fopen($filename, "rb", 0)) {
+                            $picture = fread($fp, filesize($filename));
                             fclose($fp);
                             // base64 encode the binary data, then break it
                             // into chunks according to RFC 2045 semantics
@@ -603,16 +649,15 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
                     }
 
                     $html .= '<div style="position: relative;">';
-                    $html .= '<img style="position: absolute; z-index: 1; left: ' . 
-                        $drawing->getOffsetX() . 'px; top: ' . $drawing->getOffsetY() . 'px; width: ' . 
-                        $drawing->getWidth() . 'px; height: ' . $drawing->getHeight() . 'px;" src="' . 
+                    $html .= '<img style="position: absolute; z-index: 1; left: ' .
+                        $drawing->getOffsetX() . 'px; top: ' . $drawing->getOffsetY() . 'px; width: ' .
+                        $drawing->getWidth() . 'px; height: ' . $drawing->getHeight() . 'px;" src="' .
                         $imageData . '" border="0" />';
                     $html .= '</div>';
                 }
             }
         }
 
-        // Return
         return $html;
     }
 
@@ -624,7 +669,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      * @return    string
      * @throws    PHPExcel_Writer_Exception
      */
-    private function _writeChartInCell(PHPExcel_Worksheet $pSheet, $coordinates) {
+    private function _writeChartInCell(PHPExcel_Worksheet $pSheet, $coordinates)
+    {
         // Construct HTML
         $html = '';
 
@@ -640,8 +686,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 
                     $html .= PHP_EOL;
                     $imageDetails = getimagesize($chartFileName);
-                    if ($fp = fopen($chartFileName,"rb", 0)) {
-                        $picture = fread($fp,filesize($chartFileName));
+                    if ($fp = fopen($chartFileName, "rb", 0)) {
+                        $picture = fread($fp, filesize($chartFileName));
                         fclose($fp);
                         // base64 encode the binary data, then break it
                         // into chunks according to RFC 2045 semantics
@@ -669,7 +715,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      * @return    string
      * @throws    PHPExcel_Writer_Exception
      */
-    public function generateStyles($generateSurroundingHTML = true) {
+    public function generateStyles($generateSurroundingHTML = true)
+    {
         // PHPExcel object known?
         if (is_null($this->_phpExcel)) {
             throw new PHPExcel_Writer_Exception('Internal PHPExcel object not set to an instance of an object.');
@@ -710,7 +757,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      * @return    array
      * @throws    PHPExcel_Writer_Exception
      */
-    public function buildCSS($generateSurroundingHTML = true) {
+    public function buildCSS($generateSurroundingHTML = true)
+    {
         // PHPExcel object known?
         if (is_null($this->_phpExcel)) {
             throw new PHPExcel_Writer_Exception('Internal PHPExcel object not set to an instance of an object.');
@@ -768,8 +816,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 
         // Calculate cell style hashes
         foreach ($this->_phpExcel->getCellXfCollection() as $index => $style) {
-            $css['td.style' . $index] = $this->_createCSSStyle( $style );
-            $css['th.style' . $index] = $this->_createCSSStyle( $style );
+            $css['td.style' . $index] = $this->_createCSSStyle($style);
+            $css['th.style' . $index] = $this->_createCSSStyle($style);
         }
 
         // Fetch sheets
@@ -792,7 +840,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
             // col elements, initialize
             $highestColumnIndex = PHPExcel_Cell::columnIndexFromString($sheet->getHighestColumn()) - 1;
             $column = -1;
-            while($column++ < $highestColumnIndex) {
+            while ($column++ < $highestColumnIndex) {
                 $this->_columnWidths[$sheetIndex][$column] = 42; // approximation
                 $css['table.sheet' . $sheetIndex . ' col.col' . $column]['width'] = '42pt';
             }
@@ -864,16 +912,17 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      * @param    PHPExcel_Style        $pStyle            PHPExcel_Style
      * @return    array
      */
-    private function _createCSSStyle(PHPExcel_Style $pStyle) {
+    private function _createCSSStyle(PHPExcel_Style $pStyle)
+    {
         // Construct CSS
         $css = '';
 
         // Create CSS
         $css = array_merge(
-            $this->_createCSSStyleAlignment($pStyle->getAlignment())
-            , $this->_createCSSStyleBorders($pStyle->getBorders())
-            , $this->_createCSSStyleFont($pStyle->getFont())
-            , $this->_createCSSStyleFill($pStyle->getFill())
+            $this->_createCSSStyleAlignment($pStyle->getAlignment()),
+            $this->_createCSSStyleBorders($pStyle->getBorders()),
+            $this->_createCSSStyleFont($pStyle->getFont()),
+            $this->_createCSSStyleFill($pStyle->getFill())
         );
 
         // Return
@@ -886,7 +935,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      * @param    PHPExcel_Style_Alignment        $pStyle            PHPExcel_Style_Alignment
      * @return    array
      */
-    private function _createCSSStyleAlignment(PHPExcel_Style_Alignment $pStyle) {
+    private function _createCSSStyleAlignment(PHPExcel_Style_Alignment $pStyle)
+    {
         // Construct CSS
         $css = array();
 
@@ -894,11 +944,11 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
         $css['vertical-align'] = $this->_mapVAlign($pStyle->getVertical());
         if ($textAlign = $this->_mapHAlign($pStyle->getHorizontal())) {
             $css['text-align'] = $textAlign;
-            if(in_array($textAlign,array('left','right')))
+            if (in_array($textAlign,array('left','right'))) {
                 $css['padding-'.$textAlign] = (string)((int)$pStyle->getIndent() * 9).'px';
+            }
         }
 
-        // Return
         return $css;
     }
 
@@ -908,7 +958,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      * @param    PHPExcel_Style_Font        $pStyle            PHPExcel_Style_Font
      * @return    array
      */
-    private function _createCSSStyleFont(PHPExcel_Style_Font $pStyle) {
+    private function _createCSSStyleFont(PHPExcel_Style_Font $pStyle)
+    {
         // Construct CSS
         $css = array();
 
@@ -918,20 +969,19 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
         }
         if ($pStyle->getUnderline() != PHPExcel_Style_Font::UNDERLINE_NONE && $pStyle->getStrikethrough()) {
             $css['text-decoration'] = 'underline line-through';
-        } else if ($pStyle->getUnderline() != PHPExcel_Style_Font::UNDERLINE_NONE) {
+        } elseif ($pStyle->getUnderline() != PHPExcel_Style_Font::UNDERLINE_NONE) {
             $css['text-decoration'] = 'underline';
-        } else if ($pStyle->getStrikethrough()) {
+        } elseif ($pStyle->getStrikethrough()) {
             $css['text-decoration'] = 'line-through';
         }
         if ($pStyle->getItalic()) {
             $css['font-style'] = 'italic';
         }
 
-        $css['color']        = '#' . $pStyle->getColor()->getRGB();
-        $css['font-family']    = '\'' . $pStyle->getName() . '\'';
-        $css['font-size']    = $pStyle->getSize() . 'pt';
+        $css['color']       = '#' . $pStyle->getColor()->getRGB();
+        $css['font-family'] = '\'' . $pStyle->getName() . '\'';
+        $css['font-size']   = $pStyle->getSize() . 'pt';
 
-        // Return
         return $css;
     }
 
@@ -941,17 +991,17 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      * @param    PHPExcel_Style_Borders        $pStyle            PHPExcel_Style_Borders
      * @return    array
      */
-    private function _createCSSStyleBorders(PHPExcel_Style_Borders $pStyle) {
+    private function _createCSSStyleBorders(PHPExcel_Style_Borders $pStyle)
+    {
         // Construct CSS
         $css = array();
 
         // Create CSS
-        $css['border-bottom']    = $this->_createCSSStyleBorder($pStyle->getBottom());
-        $css['border-top']        = $this->_createCSSStyleBorder($pStyle->getTop());
-        $css['border-left']        = $this->_createCSSStyleBorder($pStyle->getLeft());
-        $css['border-right']    = $this->_createCSSStyleBorder($pStyle->getRight());
+        $css['border-bottom'] = $this->_createCSSStyleBorder($pStyle->getBottom());
+        $css['border-top']    = $this->_createCSSStyleBorder($pStyle->getTop());
+        $css['border-left']   = $this->_createCSSStyleBorder($pStyle->getLeft());
+        $css['border-right']  = $this->_createCSSStyleBorder($pStyle->getRight());
 
-        // Return
         return $css;
     }
 
@@ -961,14 +1011,14 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      * @param    PHPExcel_Style_Border        $pStyle            PHPExcel_Style_Border
      * @return    string
      */
-    private function _createCSSStyleBorder(PHPExcel_Style_Border $pStyle) {
+    private function _createCSSStyleBorder(PHPExcel_Style_Border $pStyle)
+    {
         // Create CSS
 //        $css = $this->_mapBorderStyle($pStyle->getBorderStyle()) . ' #' . $pStyle->getColor()->getRGB();
         //    Create CSS - add !important to non-none border styles for merged cells  
-        $borderStyle = $this->_mapBorderStyle($pStyle->getBorderStyle());  
-        $css = $borderStyle . ' #' . $pStyle->getColor()->getRGB() . (($borderStyle == 'none') ? '' : ' !important'); 
+        $borderStyle = $this->_mapBorderStyle($pStyle->getBorderStyle());
+        $css = $borderStyle . ' #' . $pStyle->getColor()->getRGB() . (($borderStyle == 'none') ? '' : ' !important');
 
-        // Return
         return $css;
     }
 
@@ -978,7 +1028,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      * @param    PHPExcel_Style_Fill        $pStyle            PHPExcel_Style_Fill
      * @return    array
      */
-    private function _createCSSStyleFill(PHPExcel_Style_Fill $pStyle) {
+    private function _createCSSStyleFill(PHPExcel_Style_Fill $pStyle)
+    {
         // Construct HTML
         $css = array();
 
@@ -987,20 +1038,19 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
             'white' : '#' . $pStyle->getStartColor()->getRGB();
         $css['background-color'] = $value;
 
-        // Return
         return $css;
     }
 
     /**
      * Generate HTML footer
      */
-    public function generateHTMLFooter() {
+    public function generateHTMLFooter()
+    {
         // Construct HTML
         $html = '';
         $html .= '  </body>' . PHP_EOL;
         $html .= '</html>' . PHP_EOL;
 
-        // Return
         return $html;
     }
 
@@ -1011,7 +1061,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      * @return    string
      * @throws    PHPExcel_Writer_Exception
      */
-    private function _generateTableHeader($pSheet) {
+    private function _generateTableHeader($pSheet)
+    {
         $sheetIndex = $pSheet->getParent()->getIndex($pSheet);
 
         // Construct HTML
@@ -1035,7 +1086,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
         // Write <col> elements
         $highestColumnIndex = PHPExcel_Cell::columnIndexFromString($pSheet->getHighestColumn()) - 1;
         $i = -1;
-        while($i++ < $highestColumnIndex) {
+        while ($i++ < $highestColumnIndex) {
             if (!$this->_isPdf) {
                 if (!$this->_useInlineCss) {
                     $html .= '        <col class="col' . $i . '">' . PHP_EOL;
@@ -1047,7 +1098,6 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
             }
         }
 
-        // Return
         return $html;
     }
 
@@ -1056,12 +1106,10 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      *
      * @throws    PHPExcel_Writer_Exception
      */
-    private function _generateTableFooter() {
-        // Construct HTML
-        $html = '';
-        $html .= '    </table>' . PHP_EOL;
+    private function _generateTableFooter()
+    {
+        $html = '    </table>' . PHP_EOL;
 
-        // Return
         return $html;
     }
 
@@ -1074,7 +1122,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      * @return    string
      * @throws    PHPExcel_Writer_Exception
      */
-    private function _generateRow(PHPExcel_Worksheet $pSheet, $pValues = null, $pRow = 0, $cellType = 'td') {
+    private function _generateRow(PHPExcel_Worksheet $pSheet, $pValues = null, $pRow = 0, $cellType = 'td')
+    {
         if (is_array($pValues)) {
             // Construct HTML
             $html = '';
@@ -1152,7 +1201,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 
                                 if ($element->getFont()->getSuperScript()) {
                                     $cellData .= '<sup>';
-                                } else if ($element->getFont()->getSubScript()) {
+                                } elseif ($element->getFont()->getSubScript()) {
                                     $cellData .= '<sub>';
                                 }
                             }
@@ -1164,7 +1213,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
                             if ($element instanceof PHPExcel_RichText_Run) {
                                 if ($element->getFont()->getSuperScript()) {
                                     $cellData .= '</sup>';
-                                } else if ($element->getFont()->getSubScript()) {
+                                } elseif ($element->getFont()->getSubScript()) {
                                     $cellData .= '</sub>';
                                 }
 
@@ -1175,20 +1224,20 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
                         if ($this->_preCalculateFormulas) {
                             $cellData = PHPExcel_Style_NumberFormat::toFormattedString(
                                 $cell->getCalculatedValue(),
-                                $pSheet->getParent()->getCellXfByIndex( $cell->getXfIndex() )->getNumberFormat()->getFormatCode(),
+                                $pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode(),
                                 array($this, 'formatColor')
                             );
                         } else {
                             $cellData = PHPExcel_Style_NumberFormat::toFormattedString(
                                 $cell->getValue(),
-                                $pSheet->getParent()->getCellXfByIndex( $cell->getXfIndex() )->getNumberFormat()->getFormatCode(),
+                                $pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode(),
                                 array($this, 'formatColor')
                             );
                         }
                         $cellData = htmlspecialchars($cellData);
-                        if ($pSheet->getParent()->getCellXfByIndex( $cell->getXfIndex() )->getFont()->getSuperScript()) {
+                        if ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSuperScript()) {
                             $cellData = '<sup>'.$cellData.'</sup>';
-                        } elseif ($pSheet->getParent()->getCellXfByIndex( $cell->getXfIndex() )->getFont()->getSubScript()) {
+                        } elseif ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSubScript()) {
                             $cellData = '<sub>'.$cellData.'</sub>';
                         }
                     }
@@ -1231,8 +1280,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
                 }
 
                 // Should the cell be written or is it swallowed by a rowspan or colspan?
-                $writeCell = ! ( isset($this->_isSpannedCell[$pSheet->getParent()->getIndex($pSheet)][$pRow + 1][$colNum])
-                            && $this->_isSpannedCell[$pSheet->getParent()->getIndex($pSheet)][$pRow + 1][$colNum] );
+                $writeCell = !(isset($this->_isSpannedCell[$pSheet->getParent()->getIndex($pSheet)][$pRow + 1][$colNum])
+                            && $this->_isSpannedCell[$pSheet->getParent()->getIndex($pSheet)][$pRow + 1][$colNum]);
 
                 // Colspan and Rowspan
                 $colspan = 1;
@@ -1263,7 +1312,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
                             $width = 0;
                             $i = $colNum - 1;
                             $e = $colNum + $colSpan - 1;
-                            while($i++ < $e) {
+                            while ($i++ < $e) {
                                 if (isset($this->_columnWidths[$sheetIndex][$i])) {
                                     $width += $this->_columnWidths[$sheetIndex][$i];
                                 }
@@ -1286,7 +1335,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
                         if ($rowSpan > 1) {
                             $html .= ' rowspan="' . $rowSpan . '"';
                         }
-                    $html .= '>';
+                        $html .= '>';
 
                     // Image?
                     $html .= $this->_writeImageInCell($pSheet, $coordinate);
@@ -1339,7 +1388,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      *
      * @return string
      */
-    public function getImagesRoot() {
+    public function getImagesRoot()
+    {
         return $this->_imagesRoot;
     }
 
@@ -1349,7 +1399,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      * @param string $pValue
      * @return PHPExcel_Writer_HTML
      */
-    public function setImagesRoot($pValue = '.') {
+    public function setImagesRoot($pValue = '.')
+    {
         $this->_imagesRoot = $pValue;
         return $this;
     }
@@ -1359,7 +1410,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      *
      * @return boolean
      */
-    public function getEmbedImages() {
+    public function getEmbedImages()
+    {
         return $this->_embedImages;
     }
 
@@ -1369,7 +1421,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      * @param boolean $pValue
      * @return PHPExcel_Writer_HTML
      */
-    public function setEmbedImages($pValue = '.') {
+    public function setEmbedImages($pValue = '.')
+    {
         $this->_embedImages = $pValue;
         return $this;
     }
@@ -1379,7 +1432,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      *
      * @return boolean
      */
-    public function getUseInlineCss() {
+    public function getUseInlineCss()
+    {
         return $this->_useInlineCss;
     }
 
@@ -1389,7 +1443,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
      * @param boolean $pValue
      * @return PHPExcel_Writer_HTML
      */
-    public function setUseInlineCss($pValue = false) {
+    public function setUseInlineCss($pValue = false)
+    {
         $this->_useInlineCss = $pValue;
         return $this;
     }
@@ -1515,7 +1570,8 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
         $this->_spansAreCalculated = true;
     }
 
-    private function _setMargins(PHPExcel_Worksheet $pSheet) {
+    private function _setMargins(PHPExcel_Worksheet $pSheet)
+    {
         $htmlPage = '@page { ';
         $htmlBody = 'body { ';
 
@@ -1537,5 +1593,4 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 
         return "<style>\n" . $htmlPage . $htmlBody . "</style>\n";
     }
-    
 }
