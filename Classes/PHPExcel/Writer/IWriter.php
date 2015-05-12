@@ -34,5 +34,4 @@ interface PHPExcel_Writer_IWriter
      *  @throws  PHPExcel_Writer_Exception
      */
     public function save($pFilename = null);
-
 }

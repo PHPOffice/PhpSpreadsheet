@@ -3657,6 +3657,301 @@ class PHPExcel_Calculation {
 
         return strcmp($inversedStr1, $inversedStr2);
     }
+<<<<<<< HEAD
+=======
+
+    private function _executeNumericBinaryOperation($cellID,$operand1,$operand2,$operation,$matrixFunction,&$stack) {
+        //    Validate the two operands
+        if (!$this->_validateBinaryOperand($cellID,$operand1,$stack)) return FALSE;
+        if (!$this->_validateBinaryOperand($cellID,$operand2,$stack)) return FALSE;
+
+        //    If either of the operands is a matrix, we need to treat them both as matrices
+        //        (converting the other operand to a matrix if need be); then perform the required
+        //        matrix operation
+        if ((is_array($operand1)) || (is_array($operand2))) {
+            //    Ensure that both operands are arrays/matrices of the same size
+            self::_checkMatrixOperands($operand1, $operand2, 2);
+
+            try {
+                //    Convert operand 1 from a PHP array to a matrix
+                $matrix = new PHPExcel_Shared_JAMA_Matrix($operand1);
+                //    Perform the required operation against the operand 1 matrix, passing in operand 2
+                $matrixResult = $matrix->$matrixFunction($operand2);
+                $result = $matrixResult->getArray();
+            } catch (PHPExcel_Exception $ex) {
+                $this->_debugLog->writeDebugLog('JAMA Matrix Exception: ', $ex->getMessage());
+                $result = '#VALUE!';
+            }
+        } else {
+            if ((PHPExcel_Calculation_Functions::getCompatibilityMode() != PHPExcel_Calculation_Functions::COMPATIBILITY_OPENOFFICE) &&
+                ((is_string($operand1) && !is_numeric($operand1) && strlen($operand1)>0) || 
+                 (is_string($operand2) && !is_numeric($operand2) && strlen($operand2)>0))) {
+                $result = PHPExcel_Calculation_Functions::VALUE();
+            } else {
+                //    If we're dealing with non-matrix operations, execute the necessary operation
+                switch ($operation) {
+                    //    Addition
+                    case '+':
+                        $result = $operand1 + $operand2;
+                        break;
+                    //    Subtraction
+                    case '-':
+                        $result = $operand1 - $operand2;
+                        break;
+                    //    Multiplication
+                    case '*':
+                        $result = $operand1 * $operand2;
+                        break;
+                    //    Division
+                    case '/':
+                        if ($operand2 == 0) {
+                            //    Trap for Divide by Zero error
+                            $stack->push('Value','#DIV/0!');
+                            $this->_debugLog->writeDebugLog('Evaluation Result is ', $this->_showTypeDetails('#DIV/0!'));
+                            return FALSE;
+                        } else {
+                            $result = $operand1 / $operand2;
+                        }
+                        break;
+                    //    Power
+                    case '^':
+                        $result = pow($operand1, $operand2);
+                        break;
+                }
+            }
+        }
+
+        //    Log the result details
+        $this->_debugLog->writeDebugLog('Evaluation Result is ', $this->_showTypeDetails($result));
+        //    And push the result onto the stack
+        $stack->push('Value',$result);
+        return TRUE;
+    }    //    function _executeNumericBinaryOperation()
+
+
+    // trigger an error, but nicely, if need be
+    protected function _raiseFormulaError($errorMessage) {
+        $this->formulaError = $errorMessage;
+        $this->_cyclicReferenceStack->clear();
+        if (!$this->suppressFormulaErrors) throw new PHPExcel_Calculation_Exception($errorMessage);
+        trigger_error($errorMessage, E_USER_ERROR);
+    }    //    function _raiseFormulaError()
+
+
+    /**
+     * Extract range values
+     *
+     * @param    string                &$pRange    String based range representation
+     * @param    PHPExcel_Worksheet    $pSheet        Worksheet
+     * @param    boolean                $resetLog    Flag indicating whether calculation log should be reset or not
+     * @return  mixed                Array of values in range if range contains more than one element. Otherwise, a single value is returned.
+     * @throws    PHPExcel_Calculation_Exception
+     */
+    public function extractCellRange(&$pRange = 'A1', PHPExcel_Worksheet $pSheet = NULL, $resetLog = TRUE) {
+        // Return value
+        $returnValue = array ();
+
+//        echo 'extractCellRange('.$pRange.')',PHP_EOL;
+        if ($pSheet !== NULL) {
+            $pSheetName = $pSheet->getTitle();
+//            echo 'Passed sheet name is '.$pSheetName.PHP_EOL;
+//            echo 'Range reference is '.$pRange.PHP_EOL;
+            if (strpos ($pRange, '!') !== false) {
+//                echo '$pRange reference includes sheet reference',PHP_EOL;
+                list($pSheetName,$pRange) = PHPExcel_Worksheet::extractSheetTitle($pRange, true);
+//                echo 'New sheet name is '.$pSheetName,PHP_EOL;
+//                echo 'Adjusted Range reference is '.$pRange,PHP_EOL;
+                $pSheet = $this->_workbook->getSheetByName($pSheetName);
+            }
+
+            // Extract range
+            $aReferences = PHPExcel_Cell::extractAllCellReferencesInRange($pRange);
+            $pRange = $pSheetName.'!'.$pRange;
+            if (!isset($aReferences[1])) {
+                //    Single cell in range
+                sscanf($aReferences[0],'%[A-Z]%d', $currentCol, $currentRow);
+                $cellValue = NULL;
+                if ($pSheet->cellExists($aReferences[0])) {
+                    $returnValue[$currentRow][$currentCol] = $pSheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
+                } else {
+                    $returnValue[$currentRow][$currentCol] = NULL;
+                }
+            } else {
+                // Extract cell data for all cells in the range
+                foreach ($aReferences as $reference) {
+                    // Extract range
+                    sscanf($reference,'%[A-Z]%d', $currentCol, $currentRow);
+                    $cellValue = NULL;
+                    if ($pSheet->cellExists($reference)) {
+                        $returnValue[$currentRow][$currentCol] = $pSheet->getCell($reference)->getCalculatedValue($resetLog);
+                    } else {
+                        $returnValue[$currentRow][$currentCol] = NULL;
+                    }
+                }
+            }
+        }
+
+        // Return
+        return $returnValue;
+    }    //    function extractCellRange()
+
+
+    /**
+     * Extract range values
+     *
+     * @param    string                &$pRange    String based range representation
+     * @param    PHPExcel_Worksheet    $pSheet        Worksheet
+     * @return  mixed                Array of values in range if range contains more than one element. Otherwise, a single value is returned.
+     * @param    boolean                $resetLog    Flag indicating whether calculation log should be reset or not
+     * @throws    PHPExcel_Calculation_Exception
+     */
+    public function extractNamedRange(&$pRange = 'A1', PHPExcel_Worksheet $pSheet = NULL, $resetLog = TRUE) {
+        // Return value
+        $returnValue = array ();
+
+//        echo 'extractNamedRange('.$pRange.')<br />';
+        if ($pSheet !== NULL) {
+            $pSheetName = $pSheet->getTitle();
+//            echo 'Current sheet name is '.$pSheetName.'<br />';
+//            echo 'Range reference is '.$pRange.'<br />';
+            if (strpos ($pRange, '!') !== false) {
+//                echo '$pRange reference includes sheet reference',PHP_EOL;
+                list($pSheetName,$pRange) = PHPExcel_Worksheet::extractSheetTitle($pRange, true);
+//                echo 'New sheet name is '.$pSheetName,PHP_EOL;
+//                echo 'Adjusted Range reference is '.$pRange,PHP_EOL;
+                $pSheet = $this->_workbook->getSheetByName($pSheetName);
+            }
+
+            // Named range?
+            $namedRange = PHPExcel_NamedRange::resolveRange($pRange, $pSheet);
+            if ($namedRange !== NULL) {
+                $pSheet = $namedRange->getWorksheet();
+//                echo 'Named Range '.$pRange.' (';
+                $pRange = $namedRange->getRange();
+                $splitRange = PHPExcel_Cell::splitRange($pRange);
+                //    Convert row and column references
+                if (ctype_alpha($splitRange[0][0])) {
+                    $pRange = $splitRange[0][0] . '1:' . $splitRange[0][1] . $namedRange->getWorksheet()->getHighestRow();
+                } elseif(ctype_digit($splitRange[0][0])) {
+                    $pRange = 'A' . $splitRange[0][0] . ':' . $namedRange->getWorksheet()->getHighestColumn() . $splitRange[0][1];
+                }
+//                echo $pRange.') is in sheet '.$namedRange->getWorksheet()->getTitle().'<br />';
+
+//                if ($pSheet->getTitle() != $namedRange->getWorksheet()->getTitle()) {
+//                    if (!$namedRange->getLocalOnly()) {
+//                        $pSheet = $namedRange->getWorksheet();
+//                    } else {
+//                        return $returnValue;
+//                    }
+//                }
+            } else {
+                return PHPExcel_Calculation_Functions::REF();
+            }
+
+            // Extract range
+            $aReferences = PHPExcel_Cell::extractAllCellReferencesInRange($pRange);
+//            var_dump($aReferences);
+            if (!isset($aReferences[1])) {
+                //    Single cell (or single column or row) in range
+                list($currentCol,$currentRow) = PHPExcel_Cell::coordinateFromString($aReferences[0]);
+                $cellValue = NULL;
+                if ($pSheet->cellExists($aReferences[0])) {
+                    $returnValue[$currentRow][$currentCol] = $pSheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
+                } else {
+                    $returnValue[$currentRow][$currentCol] = NULL;
+                }
+            } else {
+                // Extract cell data for all cells in the range
+                foreach ($aReferences as $reference) {
+                    // Extract range
+                    list($currentCol,$currentRow) = PHPExcel_Cell::coordinateFromString($reference);
+//                    echo 'NAMED RANGE: $currentCol='.$currentCol.' $currentRow='.$currentRow.'<br />';
+                    $cellValue = NULL;
+                    if ($pSheet->cellExists($reference)) {
+                        $returnValue[$currentRow][$currentCol] = $pSheet->getCell($reference)->getCalculatedValue($resetLog);
+                    } else {
+                        $returnValue[$currentRow][$currentCol] = NULL;
+                    }
+                }
+            }
+//                print_r($returnValue);
+//            echo '<br />';
+        }
+
+        // Return
+        return $returnValue;
+    }    //    function extractNamedRange()
+
+
+    /**
+     * Is a specific function implemented?
+     *
+     * @param    string    $pFunction    Function Name
+     * @return    boolean
+     */
+    public function isImplemented($pFunction = '') {
+        $pFunction = strtoupper ($pFunction);
+        if (isset(self::$_PHPExcelFunctions[$pFunction])) {
+            return (self::$_PHPExcelFunctions[$pFunction]['functionCall'] != 'PHPExcel_Calculation_Functions::DUMMY');
+        } else {
+            return FALSE;
+        }
+    }    //    function isImplemented()
+
+
+    /**
+     * Get a list of all implemented functions as an array of function objects
+     *
+     * @return    array of PHPExcel_Calculation_Function
+     */
+    public function listFunctions() {
+        // Return value
+        $returnValue = array();
+        // Loop functions
+        foreach(self::$_PHPExcelFunctions as $functionName => $function) {
+            if ($function['functionCall'] != 'PHPExcel_Calculation_Functions::DUMMY') {
+                $returnValue[$functionName] = new PHPExcel_Calculation_Function($function['category'],
+                                                                                $functionName,
+                                                                                $function['functionCall']
+                                                                               );
+            }
+        }
+
+        // Return
+        return $returnValue;
+    }    //    function listFunctions()
+
+
+    /**
+     * Get a list of all Excel function names
+     *
+     * @return    array
+     */
+    public function listAllFunctionNames() {
+        return array_keys(self::$_PHPExcelFunctions);
+    }    //    function listAllFunctionNames()
+
+    /**
+     * Get a list of implemented Excel function names
+     *
+     * @return    array
+     */
+    public function listFunctionNames() {
+        // Return value
+        $returnValue = array();
+        // Loop functions
+        foreach(self::$_PHPExcelFunctions as $functionName => $function) {
+            if ($function['functionCall'] != 'PHPExcel_Calculation_Functions::DUMMY') {
+                $returnValue[] = $functionName;
+            }
+        }
+
+        // Return
+        return $returnValue;
+    }    //    function listFunctionNames()
+
+}    //    class PHPExcel_Calculation
+>>>>>>> f37630e938da2f1dbe9f16a20fdfbf701403812b
 
     private function _executeNumericBinaryOperation($cellID,$operand1,$operand2,$operation,$matrixFunction,&$stack) {
         //    Validate the two operands

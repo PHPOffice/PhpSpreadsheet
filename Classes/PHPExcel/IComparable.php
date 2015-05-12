@@ -31,5 +31,4 @@ interface PHPExcel_IComparable
      * @return string    Hash code
      */
     public function getHashCode();
-
 }

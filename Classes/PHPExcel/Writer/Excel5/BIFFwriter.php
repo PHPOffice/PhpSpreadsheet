@@ -118,7 +118,7 @@ class PHPExcel_Writer_Excel5_BIFFwriter
             $number  = pack("C8", 0x8D, 0x97, 0x6E, 0x12, 0x83, 0xC0, 0xF3, 0x3F);
             if ($number == $teststr) {
                 $byte_order = 0;    // Little Endian
-            } elseif ($number == strrev($teststr)){
+            } elseif ($number == strrev($teststr)) {
                 $byte_order = 1;    // Big Endian
             } else {
                 // Give up. I'll fix this in a later version.
@@ -136,7 +136,7 @@ class PHPExcel_Writer_Excel5_BIFFwriter
      * @param string $data binary data to append
      * @access private
      */
-    function _append($data)
+    private function _append($data)
     {
         if (strlen($data) - 4 > $this->_limit) {
             $data = $this->_addContinue($data);
@@ -169,7 +169,7 @@ class PHPExcel_Writer_Excel5_BIFFwriter
      *                       0x0010 Worksheet.
      * @access private
      */
-    function _storeBof($type)
+    private function _storeBof($type)
     {
         $record  = 0x0809;            // Record identifier    (BIFF5-BIFF8)
         $length  = 0x0010;
@@ -182,7 +182,7 @@ class PHPExcel_Writer_Excel5_BIFFwriter
 
         $version = 0x0600;            //    BIFF8
 
-        $header  = pack("vv",   $record, $length);
+        $header  = pack("vv", $record, $length);
         $data    = pack("vvvv", $version, $type, $build, $year);
         $this->_append($header . $data . $unknown);
     }
@@ -192,7 +192,7 @@ class PHPExcel_Writer_Excel5_BIFFwriter
      *
      * @access private
      */
-    function _storeEof()
+    private function _storeEof()
     {
         $record    = 0x000A;   // Record identifier
         $length    = 0x0000;   // Number of bytes to follow
@@ -226,7 +226,7 @@ class PHPExcel_Writer_Excel5_BIFFwriter
      * @return string        A very convenient string of continue blocks
      * @access private
      */
-    function _addContinue($data)
+    private function _addContinue($data)
     {
         $limit  = $this->_limit;
         $record = 0x003C;         // Record identifier
@@ -251,5 +251,4 @@ class PHPExcel_Writer_Excel5_BIFFwriter
 
         return $tmp;
     }
-
 }

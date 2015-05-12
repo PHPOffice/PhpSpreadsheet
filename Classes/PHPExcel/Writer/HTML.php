@@ -944,7 +944,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
         $css['vertical-align'] = $this->_mapVAlign($pStyle->getVertical());
         if ($textAlign = $this->_mapHAlign($pStyle->getHorizontal())) {
             $css['text-align'] = $textAlign;
-            if (in_array($textAlign,array('left','right'))) {
+            if (in_array($textAlign, array('left', 'right'))) {
                 $css['padding-'.$textAlign] = (string)((int)$pStyle->getIndent() * 9).'px';
             }
         }
@@ -1015,7 +1015,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
     {
         // Create CSS
 //        $css = $this->_mapBorderStyle($pStyle->getBorderStyle()) . ' #' . $pStyle->getColor()->getRGB();
-        //    Create CSS - add !important to non-none border styles for merged cells  
+        //    Create CSS - add !important to non-none border styles for merged cells
         $borderStyle = $this->_mapBorderStyle($pStyle->getBorderStyle());
         $css = $borderStyle . ' #' . $pStyle->getColor()->getRGB() . (($borderStyle == 'none') ? '' : ' !important');
 
@@ -1265,10 +1265,9 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
                         }
 
                         // General horizontal alignment: Actual horizontal alignment depends on dataType
-                        $sharedStyle = $pSheet->getParent()->getCellXfByIndex( $cell->getXfIndex() );
+                        $sharedStyle = $pSheet->getParent()->getCellXfByIndex($cell->getXfIndex());
                         if ($sharedStyle->getAlignment()->getHorizontal() == PHPExcel_Style_Alignment::HORIZONTAL_GENERAL
-                            && isset($this->_cssStyles['.' . $cell->getDataType()]['text-align']))
-                        {
+                            && isset($this->_cssStyles['.' . $cell->getDataType()]['text-align'])) {
                             $cssClass['text-align'] = $this->_cssStyles['.' . $cell->getDataType()]['text-align'];
                         }
                     }
@@ -1303,39 +1302,39 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
                 if ($writeCell) {
                     // Column start
                     $html .= '            <' . $cellType;
-                        if (!$this->_useInlineCss) {
-                            $html .= ' class="' . $cssClass . '"';
-                        } else {
-                            //** Necessary redundant code for the sake of PHPExcel_Writer_PDF **
-                            // We must explicitly write the width of the <td> element because TCPDF
-                            // does not recognize e.g. <col style="width:42pt">
-                            $width = 0;
-                            $i = $colNum - 1;
-                            $e = $colNum + $colSpan - 1;
-                            while ($i++ < $e) {
-                                if (isset($this->_columnWidths[$sheetIndex][$i])) {
-                                    $width += $this->_columnWidths[$sheetIndex][$i];
-                                }
+                    if (!$this->_useInlineCss) {
+                        $html .= ' class="' . $cssClass . '"';
+                    } else {
+                        //** Necessary redundant code for the sake of PHPExcel_Writer_PDF **
+                        // We must explicitly write the width of the <td> element because TCPDF
+                        // does not recognize e.g. <col style="width:42pt">
+                        $width = 0;
+                        $i = $colNum - 1;
+                        $e = $colNum + $colSpan - 1;
+                        while ($i++ < $e) {
+                            if (isset($this->_columnWidths[$sheetIndex][$i])) {
+                                $width += $this->_columnWidths[$sheetIndex][$i];
                             }
-                            $cssClass['width'] = $width . 'pt';
+                        }
+                        $cssClass['width'] = $width . 'pt';
 
-                            // We must also explicitly write the height of the <td> element because TCPDF
-                            // does not recognize e.g. <tr style="height:50pt">
-                            if (isset($this->_cssStyles['table.sheet' . $sheetIndex . ' tr.row' . $pRow]['height'])) {
-                                $height = $this->_cssStyles['table.sheet' . $sheetIndex . ' tr.row' . $pRow]['height'];
-                                $cssClass['height'] = $height;
-                            }
-                            //** end of redundant code **
+                        // We must also explicitly write the height of the <td> element because TCPDF
+                        // does not recognize e.g. <tr style="height:50pt">
+                        if (isset($this->_cssStyles['table.sheet' . $sheetIndex . ' tr.row' . $pRow]['height'])) {
+                            $height = $this->_cssStyles['table.sheet' . $sheetIndex . ' tr.row' . $pRow]['height'];
+                            $cssClass['height'] = $height;
+                        }
+                        //** end of redundant code **
 
-                            $html .= ' style="' . $this->_assembleCSS($cssClass) . '"';
-                        }
-                        if ($colSpan > 1) {
-                            $html .= ' colspan="' . $colSpan . '"';
-                        }
-                        if ($rowSpan > 1) {
-                            $html .= ' rowspan="' . $rowSpan . '"';
-                        }
-                        $html .= '>';
+                        $html .= ' style="' . $this->_assembleCSS($cssClass) . '"';
+                    }
+                    if ($colSpan > 1) {
+                        $html .= ' colspan="' . $colSpan . '"';
+                    }
+                    if ($rowSpan > 1) {
+                        $html .= ' rowspan="' . $rowSpan . '"';
+                    }
+                    $html .= '>';
 
                     // Image?
                     $html .= $this->_writeImageInCell($pSheet, $coordinate);
@@ -1510,13 +1509,13 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 
                 // loop through the individual cells in the individual merge
                 $r = $fr - 1;
-                while($r++ < $lr) {
+                while ($r++ < $lr) {
                     // also, flag this row as a HTML row that is candidate to be omitted
                     $candidateSpannedRow[$r] = $r;
 
                     $c = $fc - 1;
-                    while($c++ < $lc) {
-                        if ( !($c == $fc && $r == $fr) ) {
+                    while ($c++ < $lc) {
+                        if (!($c == $fc && $r == $fr)) {
                             // not the upper-left cell (should not be written in HTML)
                             $this->_isSpannedCell[$sheetIndex][$r][$c] = array(
                                 'baseCell' => array($fr, $fc),
@@ -1546,15 +1545,15 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
             }
 
             // For each of the omitted rows we found above, the affected rowspans should be subtracted by 1
-            if ( isset($this->_isSpannedRow[$sheetIndex]) ) {
+            if (isset($this->_isSpannedRow[$sheetIndex])) {
                 foreach ($this->_isSpannedRow[$sheetIndex] as $rowIndex) {
                     $adjustedBaseCells = array();
                     $c = -1;
                     $e = $countColumns - 1;
-                    while($c++ < $e) {
+                    while ($c++ < $e) {
                         $baseCell = $this->_isSpannedCell[$sheetIndex][$rowIndex][$c]['baseCell'];
 
-                        if ( !in_array($baseCell, $adjustedBaseCells) ) {
+                        if (!in_array($baseCell, $adjustedBaseCells)) {
                             // subtract rowspan by 1
                             --$this->_isBaseCell[$sheetIndex][ $baseCell[0] ][ $baseCell[1] ]['rowspan'];
                             $adjustedBaseCells[] = $baseCell;

@@ -113,9 +113,9 @@ class PHPExcel_Cell_AdvancedValueBinder extends PHPExcel_Cell_DefaultValueBinder
             if (preg_match('/^'.preg_quote($currencyCode).' *(\d{1,3}('.preg_quote($thousandsSeparator).'\d{3})*|(\d+))('.preg_quote($decimalSeparator).'\d{2})?$/', $value)) {
                 // Convert value to number
                 $value = (float) trim(str_replace(array($currencyCode, $thousandsSeparator, $decimalSeparator), array('', '', '.'), $value));
-                $cell->setValueExplicit( $value, PHPExcel_Cell_DataType::TYPE_NUMERIC);
+                $cell->setValueExplicit($value, PHPExcel_Cell_DataType::TYPE_NUMERIC);
                 // Set style
-                $cell->getWorksheet()->getStyle( $cell->getCoordinate() )
+                $cell->getWorksheet()->getStyle($cell->getCoordinate())
                     ->getNumberFormat()->setFormatCode(
                         str_replace('$', $currencyCode, PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD_SIMPLE)
                     );
@@ -123,9 +123,9 @@ class PHPExcel_Cell_AdvancedValueBinder extends PHPExcel_Cell_DefaultValueBinder
             } elseif (preg_match('/^\$ *(\d{1,3}(\,\d{3})*|(\d+))(\.\d{2})?$/', $value)) {
                 // Convert value to number
                 $value = (float) trim(str_replace(array('$',','), '', $value));
-                $cell->setValueExplicit( $value, PHPExcel_Cell_DataType::TYPE_NUMERIC);
+                $cell->setValueExplicit($value, PHPExcel_Cell_DataType::TYPE_NUMERIC);
                 // Set style
-                $cell->getWorksheet()->getStyle( $cell->getCoordinate() )
+                $cell->getWorksheet()->getStyle($cell->getCoordinate())
                     ->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
                 return true;
             }
@@ -137,7 +137,7 @@ class PHPExcel_Cell_AdvancedValueBinder extends PHPExcel_Cell_DefaultValueBinder
                 $days = $h / 24 + $m / 1440;
                 $cell->setValueExplicit($days, PHPExcel_Cell_DataType::TYPE_NUMERIC);
                 // Set style
-                $cell->getWorksheet()->getStyle( $cell->getCoordinate() )
+                $cell->getWorksheet()->getStyle($cell->getCoordinate())
                     ->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_DATE_TIME3);
                 return true;
             }
@@ -150,7 +150,7 @@ class PHPExcel_Cell_AdvancedValueBinder extends PHPExcel_Cell_DefaultValueBinder
                 // Convert value to number
                 $cell->setValueExplicit($days, PHPExcel_Cell_DataType::TYPE_NUMERIC);
                 // Set style
-                $cell->getWorksheet()->getStyle( $cell->getCoordinate() )
+                $cell->getWorksheet()->getStyle($cell->getCoordinate())
                     ->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_DATE_TIME4);
                 return true;
             }
@@ -165,7 +165,7 @@ class PHPExcel_Cell_AdvancedValueBinder extends PHPExcel_Cell_DefaultValueBinder
                 } else {
                     $formatCode = 'yyyy-mm-dd';
                 }
-                $cell->getWorksheet()->getStyle( $cell->getCoordinate() )
+                $cell->getWorksheet()->getStyle($cell->getCoordinate())
                     ->getNumberFormat()->setFormatCode($formatCode);
                 return true;
             }

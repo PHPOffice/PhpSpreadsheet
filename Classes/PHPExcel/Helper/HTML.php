@@ -526,12 +526,12 @@ class PHPExcel_Helper_HTML
     protected $size;
     protected $color;
 
-	protected $bold = false;
-	protected $italic = false;
-	protected $underline = false;
-	protected $superscript = false;
-	protected $subscript = false;
-	protected $strikethrough = false;
+    protected $bold = false;
+    protected $italic = false;
+    protected $underline = false;
+    protected $superscript = false;
+    protected $subscript = false;
+    protected $strikethrough = false;
 
     protected $startTagCallbacks = array(
         'font' => 'startFontTag',
@@ -585,13 +585,13 @@ class PHPExcel_Helper_HTML
     public function toRichTextObject($html) {
         $this->initialise();
 
-        //	Create a new DOM object
+        //    Create a new DOM object
         $dom = new domDocument;
-        //	Load the HTML file into the DOM object
+        //    Load the HTML file into the DOM object
         //  Note the use of error suppression, because typically this will be an html fragment, so not fully valid markup
         $loaded = @$dom->loadHTML($html);
 
-        //	Discard excess white space
+        //    Discard excess white space
         $dom->preserveWhiteSpace = false;
 
         $this->richTextObject = new PHPExcel_RichText();;
