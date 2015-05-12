@@ -432,8 +432,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
                     // FONT Index
                     if ($element instanceof PHPExcel_RichText_Run) {
                         $str_fontidx = $this->_fntHashIndex[$element->getFont()->getHashCode()];
-                    }
-                    else {
+                    } else {
                         $str_fontidx = 0;
                     }
                     $arrcRun[] = array('strlen' => $str_pos, 'fontidx' => $str_fontidx);
@@ -573,12 +572,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
         $firstCellCoordinates = PHPExcel_Cell::coordinateFromString($firstCell); // e.g. array(0, 1)
         $lastCellCoordinates  = PHPExcel_Cell::coordinateFromString($lastCell);  // e.g. array(1, 6)
 
-        return(pack('vvvv',
-            $firstCellCoordinates[1] - 1,
-            $lastCellCoordinates[1] - 1,
-            PHPExcel_Cell::columnIndexFromString($firstCellCoordinates[0]) - 1,
-            PHPExcel_Cell::columnIndexFromString($lastCellCoordinates[0]) - 1
-        ));
+        return pack('vvvv', $firstCellCoordinates[1] - 1, $lastCellCoordinates[1] - 1, PHPExcel_Cell::columnIndexFromString($firstCellCoordinates[0]) - 1, PHPExcel_Cell::columnIndexFromString($lastCellCoordinates[0]) - 1);
     }
 
     /**
@@ -632,7 +626,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
         if ($this->_outline_on) {
             $this->_outline_on = 1;
         }
-     }
+    }
 
     /**
      * Write a double to the specified row and column (zero indexed).
@@ -907,7 +901,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 
         // Strip the '=' or '@' sign at the beginning of the formula string
         if ($formula{0} == '=') {
-            $formula = substr($formula,1);
+            $formula = substr($formula, 1);
         } else {
             // Error handling
             $this->_writeString($row, $col, 'Unrecognised character for formula');
@@ -922,7 +916,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
             $formlen    = strlen($formula);    // Length of the binary string
             $length     = 0x16 + $formlen;     // Length of the record data
 
-            $header    = pack("vv",     $record, $length);
+            $header    = pack("vv", $record, $length);
 
             $data      = pack("vvv", $row, $col, $xfIndex)
                         . $num
@@ -1048,7 +1042,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
         $length      = 0x34 + strlen($url);
 
         // Pack the header data
-        $header      = pack("vv",  $record, $length);
+        $header      = pack("vv", $record, $length);
         $data        = pack("vvvv", $row1, $row2, $col1, $col2);
 
         // Write the packed data
@@ -1097,7 +1091,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
         $length      = 0x24 + strlen($url);
 
         // Pack the header data
-        $header      = pack("vv",  $record, $length);
+        $header      = pack("vv", $record, $length);
         $data        = pack("vvvv", $row1, $row2, $col1, $col2);
 
         // Write the packed data
@@ -1173,15 +1167,15 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
         $dir_long       = $dir_long . "\0";
 
         // Pack the lengths of the dir strings
-        $dir_short_len = pack("V", strlen($dir_short)      );
-        $dir_long_len  = pack("V", strlen($dir_long)       );
-        $stream_len    = pack("V", 0);//strlen($dir_long) + 0x06);
+        $dir_short_len = pack("V", strlen($dir_short));
+        $dir_long_len  = pack("V", strlen($dir_long));
+        $stream_len    = pack("V", 0); //strlen($dir_long) + 0x06);
 
         // Pack the undocumented parts of the hyperlink stream
-        $unknown1 = pack("H*",'D0C9EA79F9BACE118C8200AA004BA90B02000000'       );
-        $unknown2 = pack("H*",'0303000000000000C000000000000046'               );
-        $unknown3 = pack("H*",'FFFFADDE000000000000000000000000000000000000000');
-        $unknown4 = pack("v", 0x03                                            );
+        $unknown1 = pack("H*", 'D0C9EA79F9BACE118C8200AA004BA90B02000000');
+        $unknown2 = pack("H*", '0303000000000000C000000000000046');
+        $unknown3 = pack("H*", 'FFFFADDE000000000000000000000000000000000000000');
+        $unknown4 = pack("v", 0x03);
 
         // Pack the main data stream
         $data        = pack("vvvv", $row1, $row2, $col1, $col2) .
@@ -1230,7 +1224,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
         $grbit       = 0x0000;               // Option flags
         $ixfe        = $xfIndex;
 
-        if ($height < 0 ) {
+        if ($height < 0) {
             $height = null;
         }
 
@@ -1259,9 +1253,8 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
         }
         $grbit |= 0x0100;
 
-        $header   = pack("vv",      $record, $length);
-        $data     = pack("vvvvvvvv", $row, $colMic, $colMac, $miyRw,
-                                     $irwMac,$reserved, $grbit, $ixfe);
+        $header   = pack("vv", $record, $length);
+        $data     = pack("vvvvvvvv", $row, $colMic, $colMac, $miyRw, $irwMac,$reserved, $grbit, $ixfe);
         $this->_append($header.$data);
     }
 
@@ -1325,7 +1318,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 
         // FIXME !!!
         $rgbHdr       = 0x0040; // Row/column heading and gridline color index
-        $zoom_factor_page_break = ($fPageBreakPreview? $this->_phpSheet->getSheetView()->getZoomScale() : 0x0000);
+        $zoom_factor_page_break = ($fPageBreakPreview ? $this->_phpSheet->getSheetView()->getZoomScale() : 0x0000);
         $zoom_factor_normal =  $this->_phpSheet->getSheetView()->getZoomScaleNormal();
 
         $data .= pack("vvvvV", $rgbHdr, 0x0000, $zoom_factor_page_break, $zoom_factor_normal, 0x00000000);
@@ -1423,9 +1416,8 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
         $level = max(0, min($level, 7));
         $grbit |= $level << 8;
 
-        $header   = pack("vv",    $record, $length);
-        $data     = pack("vvvvvv", $colFirst, $colLast, $coldx,
-                                   $ixfe, $grbit, $reserved);
+        $header   = pack("vv", $record, $length);
+        $data     = pack("vvvvvv", $colFirst, $colLast, $coldx, $ixfe, $grbit, $reserved);
         $this->_append($header.$data);
     }
 
@@ -1554,14 +1546,14 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
         }
 
         $recordData = pack(
-            'vvVVVvv'
-            , 0x0862
-            , 0x0000        // unused
-            , 0x00000000    // unused
-            , 0x00000000    // unused
-            , 0x00000014    // size of record data
-            , $this->_colors[$this->_phpSheet->getTabColor()->getRGB()]    // color index
-            , 0x0000        // unused
+            'vvVVVvv',
+            0x0862,
+            0x0000, // unused
+            0x00000000, // unused
+            0x00000000, // unused
+            0x00000014, // size of record data
+            $this->_colors[$this->_phpSheet->getTabColor()->getRGB()], // color index
+            0x0000        // unused
         );
 
         $length = strlen($recordData);

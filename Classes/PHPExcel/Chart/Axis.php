@@ -176,9 +176,7 @@ class PHPExcel_Chart_Axis extends PHPExcel_Chart_Properties
      * @param string $minor_unit
      *
      */
-    public function setAxisOptionsProperties($axis_labels, $horizontal_crosses_value = null, $horizontal_crosses = null,
-        $axis_orientation = null, $major_tmt = null, $minor_tmt = null, $minimum = null, $maximum = null, $major_unit = null,
-        $minor_unit = null)
+    public function setAxisOptionsProperties($axis_labels, $horizontal_crosses_value = null, $horizontal_crosses = null, $axis_orientation = null, $major_tmt = null, $minor_tmt = null, $minimum = null, $maximum = null, $major_unit = null, $minor_unit = null)
     {
         $this->_axis_options['axis_labels'] = (string) $axis_labels;
         ($horizontal_crosses_value !== null)
@@ -201,7 +199,8 @@ class PHPExcel_Chart_Axis extends PHPExcel_Chart_Properties
      *
      * @return string
      */
-    public function getAxisOptionsProperty($property) {
+    public function getAxisOptionsProperty($property)
+    {
         return $this->_axis_options[$property];
     }
 
@@ -211,7 +210,8 @@ class PHPExcel_Chart_Axis extends PHPExcel_Chart_Properties
      * @param string $orientation
      *
      */
-    public function setAxisOrientation($orientation) {
+    public function setAxisOrientation($orientation)
+    {
         $this->orientation = (string) $orientation;
     }
 
@@ -223,7 +223,8 @@ class PHPExcel_Chart_Axis extends PHPExcel_Chart_Properties
      * @param string $type
      *
      */
-    public function setFillParameters($color, $alpha = 0, $type = self::EXCEL_COLOR_TYPE_ARGB) {
+    public function setFillParameters($color, $alpha = 0, $type = self::EXCEL_COLOR_TYPE_ARGB)
+    {
         $this->_fill_properties = $this->setColorProperties($color, $alpha, $type);
     }
 
@@ -235,7 +236,8 @@ class PHPExcel_Chart_Axis extends PHPExcel_Chart_Properties
      * @param string $type
      *
      */
-    public function setLineParameters($color, $alpha = 0, $type = self::EXCEL_COLOR_TYPE_ARGB) {
+    public function setLineParameters($color, $alpha = 0, $type = self::EXCEL_COLOR_TYPE_ARGB)
+    {
         $this->_line_properties = $this->setColorProperties($color, $alpha, $type);
     }
 
@@ -246,7 +248,8 @@ class PHPExcel_Chart_Axis extends PHPExcel_Chart_Properties
      *
      * @return string
      */
-    public function getFillProperty($property) {
+    public function getFillProperty($property)
+    {
         return $this->_fill_properties[$property];
     }
 
@@ -257,7 +260,8 @@ class PHPExcel_Chart_Axis extends PHPExcel_Chart_Properties
      *
      * @return string
      */
-    public function getLineProperty($property) {
+    public function getLineProperty($property)
+    {
         return $this->_line_properties[$property];
     }
 
@@ -276,10 +280,7 @@ class PHPExcel_Chart_Axis extends PHPExcel_Chart_Properties
    *
    */
 
-  public function setLineStyleProperties($line_width = null, $compound_type = null,
-      $dash_type = null, $cap_type = null, $join_type = null, $head_arrow_type = null,
-      $head_arrow_size = null, $end_arrow_type = null, $end_arrow_size = null) {
-
+  public function setLineStyleProperties($line_width = null, $compound_type = null, $dash_type = null, $cap_type = null, $join_type = null, $head_arrow_type = null, $head_arrow_size = null, $end_arrow_type = null, $end_arrow_size = null) {
     (!is_null($line_width)) ? $this->_line_style_properties['width'] = $this->getExcelPointsWidth((float) $line_width)
         : null;
     (!is_null($compound_type)) ? $this->_line_style_properties['compound'] = (string) $compound_type : null;
@@ -304,7 +305,8 @@ class PHPExcel_Chart_Axis extends PHPExcel_Chart_Properties
    * @return string
    */
 
-  public function getLineStyleProperty($elements) {
+  public function getLineStyleProperty($elements)
+  {
     return $this->getArrayElementsValue($this->_line_style_properties, $elements);
   }
 
@@ -316,7 +318,8 @@ class PHPExcel_Chart_Axis extends PHPExcel_Chart_Properties
    * @return string
    */
 
-  public function getLineStyleArrowWidth($arrow) {
+  public function getLineStyleArrowWidth($arrow)
+  {
     return $this->getLineStyleArrowSize($this->_line_style_properties['arrow'][$arrow]['size'], 'w');
   }
 
@@ -328,7 +331,8 @@ class PHPExcel_Chart_Axis extends PHPExcel_Chart_Properties
    * @return string
    */
 
-  public function getLineStyleArrowLength($arrow) {
+  public function getLineStyleArrowLength($arrow)
+  {
     return $this->getLineStyleArrowSize($this->_line_style_properties['arrow'][$arrow]['size'], 'len');
   }
 

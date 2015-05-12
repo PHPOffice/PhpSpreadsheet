@@ -191,7 +191,8 @@ class PHPExcel_Cell_DataValidation
      *
      * @return string
      */
-    public function getFormula2() {
+    public function getFormula2()
+    {
         return $this->formula2;
     }
 
