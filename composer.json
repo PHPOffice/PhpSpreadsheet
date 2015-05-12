@@ -15,7 +15,7 @@
         },
         {
             "name": "Franck Lefevre",
-            "homepage": "http://blog.rootslabs.net"
+            "homepage": "http://rootslabs.net"
         },
         {
             "name": "Erik Tilt"
@@ -25,6 +25,9 @@
         "php": ">=5.2.0",
         "ext-xml": "*",
         "ext-xmlwriter": "*"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "1.*"
     },
     "recommend": {
         "ext-zip": "*",
