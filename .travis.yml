@@ -25,7 +25,7 @@ before_script:
 
 script:
   ## PHP_CodeSniffer
-  - ./vendor/bin/phpcs Classes/ unitTests/ --standard=PSR2 -n --ignore=Classes/PHPExcel/Shared/PCLZip
+  - ./vendor/bin/phpcs --report-summary  --report-full Classes/ unitTests/ --standard=PSR2 -n
   ## PHPUnit
   - phpunit -c ./unitTests/
 
