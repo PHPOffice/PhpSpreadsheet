@@ -1590,7 +1590,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 
         // record data
         $recordData = pack(
-            'vVVCVVvv', 
+            'vVVCVVvv',
             0x0867, // repeated record identifier
             0x0000, // not used
             0x0000, // not used
@@ -2736,7 +2736,8 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
                 if ($spTypes[$i] == 0x00C9) {
                     // Add ftCmo (common object data) subobject
                     $objData .=
-                        pack('vvvvvVVV',
+                        pack(
+                            'vvvvvVVV',
                             0x0015, // 0x0015 = ftCmo
                             0x0012, // length of ftCmo data
                             0x0014, // object type, 0x0014 = filter
@@ -2756,7 +2757,8 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
                 } else {
                     // Add ftCmo (common object data) subobject
                     $objData .=
-                        pack('vvvvvVVV', 
+                        pack(
+                            'vvvvvVVV',
                             0x0015, // 0x0015 = ftCmo
                             0x0012, // length of ftCmo data
                             0x0008, // object type, 0x0008 = picture
@@ -2770,7 +2772,8 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
 
                 // ftEnd
                 $objData .=
-                    pack('vv',
+                    pack(
+                        'vv',
                         0x0000, // 0x0000 = ftEnd
                         0x0000  // length of ftEnd data
                     );

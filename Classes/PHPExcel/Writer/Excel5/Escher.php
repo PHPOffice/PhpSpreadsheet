@@ -105,7 +105,8 @@ class PHPExcel_Writer_Excel5_Escher
 
                 // dgg data
                 $dggData =
-                    pack('VVVV',
+                    pack(
+                        'VVVV',
                         $this->_object->getSpIdMax(), // maximum shape identifier increased by one
                         $this->_object->getCDgSaved() + 1, // number of file identifier clusters increased by one
                         $this->_object->getCSpSaved(),
@@ -187,7 +188,7 @@ class PHPExcel_Writer_Excel5_Escher
                 $btMacOS = $this->_object->getBlipType();
                 $data .= pack('CC', $btWin32, $btMacOS);
 
-                $rgbUid = pack('VVVV', 0,0,0,0); // todo
+                $rgbUid = pack('VVVV', 0, 0, 0, 0); // todo
                 $data .= $rgbUid;
 
                 $tag = 0;
@@ -226,7 +227,7 @@ class PHPExcel_Writer_Excel5_Escher
                         // initialize
                         $innerData = '';
 
-                        $rgbUid1 = pack('VVVV', 0,0,0,0); // todo
+                        $rgbUid1 = pack('VVVV', 0, 0, 0, 0); // todo
                         $innerData .= $rgbUid1;
 
                         $tag = 0xFF; // todo
@@ -253,7 +254,7 @@ class PHPExcel_Writer_Excel5_Escher
                         // initialize
                         $innerData = '';
 
-                        $rgbUid1 = pack('VVVV', 0,0,0,0); // todo
+                        $rgbUid1 = pack('VVVV', 0, 0, 0, 0); // todo
                         $innerData .= $rgbUid1;
 
                         $tag = 0xFF; // todo
@@ -387,7 +388,7 @@ class PHPExcel_Writer_Excel5_Escher
 
                     $header = pack('vvV', $recVerInstance, $recType, $length);
 
-                    $data .= $header . pack('VVVV', 0,0,0,0);
+                    $data .= $header . pack('VVVV', 0, 0, 0, 0);
                 }
                 $this->_spTypes[] = ($this->_object->getSpType());
 

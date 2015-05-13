@@ -42,7 +42,8 @@ class PHPExcel_Writer_Excel2007_RelsRibbon extends PHPExcel_Writer_Excel2007_Wri
      * @return     string         XML Output
      * @throws     PHPExcel_Writer_Exception
      */
-    public function writeRibbonRelationships(PHPExcel $pPHPExcel = null) {
+    public function writeRibbonRelationships(PHPExcel $pPHPExcel = null)
+    {
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
@@ -57,9 +58,9 @@ class PHPExcel_Writer_Excel2007_RelsRibbon extends PHPExcel_Writer_Excel2007_Wri
         // Relationships
         $objWriter->startElement('Relationships');
         $objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/package/2006/relationships');
-        $localRels=$pPHPExcel->getRibbonBinObjects('names');
+        $localRels = $pPHPExcel->getRibbonBinObjects('names');
         if (is_array($localRels)) {
-            foreach ($localRels as $aId=>$aTarget) {
+            foreach ($localRels as $aId => $aTarget) {
                 $objWriter->startElement('Relationship');
                 $objWriter->writeAttribute('Id', $aId);
                 $objWriter->writeAttribute('Type', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image');
@@ -71,7 +72,5 @@ class PHPExcel_Writer_Excel2007_RelsRibbon extends PHPExcel_Writer_Excel2007_Wri
 
         // Return
         return $objWriter->getData();
-
     }
-
 }

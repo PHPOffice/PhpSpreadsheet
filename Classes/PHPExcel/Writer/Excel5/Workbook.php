@@ -845,7 +845,8 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
         // option flags
         $options = ($isHidden  ? 0x21 : 0x00);
 
-        $extra  = pack('Cvvvvv',
+        $extra  = pack(
+            'Cvvvvv',
             0x3B,
             $sheetIndex - 1,
             $rangeBounds[0][1] - 1,
@@ -906,7 +907,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
         $itabFirst = 0;     // 1st displayed worksheet
         $itabCur   = $this->_phpExcel->getActiveSheetIndex();    // Active worksheet
 
-        $header    = pack("vv",        $record, $length);
+        $header    = pack("vv", $record, $length);
         $data      = pack("vvvvvvvvv", $xWn, $yWn, $dxWn, $dyWn, $grbit, $itabCur, $itabFirst, $ctabsel, $wTabRatio);
         $this->_append($header . $data);
     }
