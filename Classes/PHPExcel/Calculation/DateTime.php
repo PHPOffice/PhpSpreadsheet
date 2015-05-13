@@ -847,7 +847,7 @@ class PHPExcel_Calculation_DateTime
         }
 
         if (((is_numeric($method)) && (!is_string($method))) || ($method == '')) {
-            switch($method) {
+            switch ($method) {
                 case 0:
                     return self::DAYS360($startDate, $endDate) / 360;
                 case 1:

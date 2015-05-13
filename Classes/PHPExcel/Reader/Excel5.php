@@ -676,7 +676,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
         if (!$this->_readDataOnly) {
             foreach ($this->_objFonts as $objFont) {
                 if (isset($objFont->colorIndex)) {
-                    $color = self::_readColor($objFont->colorIndex,$this->_palette,$this->_version);
+                    $color = self::_readColor($objFont->colorIndex, $this->_palette, $this->_version);
                     $objFont->getColor()->setRGB($color['rgb']);
                 }
             }
@@ -686,12 +686,12 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
                 $fill = $objStyle->getFill();
 
                 if (isset($fill->startcolorIndex)) {
-                    $startColor = self::_readColor($fill->startcolorIndex,$this->_palette,$this->_version);
+                    $startColor = self::_readColor($fill->startcolorIndex, $this->_palette, $this->_version);
                     $fill->getStartColor()->setRGB($startColor['rgb']);
                 }
 
                 if (isset($fill->endcolorIndex)) {
-                    $endColor = self::_readColor($fill->endcolorIndex,$this->_palette,$this->_version);
+                    $endColor = self::_readColor($fill->endcolorIndex, $this->_palette, $this->_version);
                     $fill->getEndColor()->setRGB($endColor['rgb']);
                 }
 
@@ -703,27 +703,27 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
                 $diagonal = $objStyle->getBorders()->getDiagonal();
 
                 if (isset($top->colorIndex)) {
-                    $borderTopColor = self::_readColor($top->colorIndex,$this->_palette,$this->_version);
+                    $borderTopColor = self::_readColor($top->colorIndex, $this->_palette, $this->_version);
                     $top->getColor()->setRGB($borderTopColor['rgb']);
                 }
 
                 if (isset($right->colorIndex)) {
-                    $borderRightColor = self::_readColor($right->colorIndex,$this->_palette,$this->_version);
+                    $borderRightColor = self::_readColor($right->colorIndex, $this->_palette, $this->_version);
                     $right->getColor()->setRGB($borderRightColor['rgb']);
                 }
 
                 if (isset($bottom->colorIndex)) {
-                    $borderBottomColor = self::_readColor($bottom->colorIndex,$this->_palette,$this->_version);
+                    $borderBottomColor = self::_readColor($bottom->colorIndex, $this->_palette, $this->_version);
                     $bottom->getColor()->setRGB($borderBottomColor['rgb']);
                 }
 
                 if (isset($left->colorIndex)) {
-                    $borderLeftColor = self::_readColor($left->colorIndex,$this->_palette,$this->_version);
+                    $borderLeftColor = self::_readColor($left->colorIndex, $this->_palette, $this->_version);
                     $left->getColor()->setRGB($borderLeftColor['rgb']);
                 }
 
                 if (isset($diagonal->colorIndex)) {
-                    $borderDiagonalColor = self::_readColor($diagonal->colorIndex,$this->_palette,$this->_version);
+                    $borderDiagonalColor = self::_readColor($diagonal->colorIndex, $this->_palette, $this->_version);
                     $diagonal->getColor()->setRGB($borderDiagonalColor['rgb']);
                 }
             }
@@ -863,7 +863,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
 
             // treat OBJ records
             foreach ($this->_objs as $n => $obj) {
-//                echo '<hr /><b>Object</b> reference is ',$n,'<br />';
+//                echo '<hr /><b>Object</b> reference is ', $n,'<br />';
 //                var_dump($obj);
 //                echo '<br />';
 
@@ -896,7 +896,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
                         case 0x19:
                             // Note
 //                            echo 'Cell Annotation Object<br />';
-//                            echo 'Object ID is ',$obj['idObjID'],'<br />';
+//                            echo 'Object ID is ', $obj['idObjID'],'<br />';
 //
                             if (isset($this->_cellNotes[$obj['idObjID']])) {
                                 $cellNote = $this->_cellNotes[$obj['idObjID']];
@@ -969,7 +969,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
             }
 
             if (!empty($this->_cellNotes)) {
-                foreach($this->_cellNotes as $note => $noteDetails) {
+                foreach ($this->_cellNotes as $note => $noteDetails) {
                     if (!isset($noteDetails['objTextData'])) {
                         if (isset($this->_textObjects[$note])) {
                             $textObject = $this->_textObjects[$note];
@@ -978,10 +978,10 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
                             $noteDetails['objTextData']['text'] = '';
                         }
                     }
-//                    echo '<b>Cell annotation ',$note,'</b><br />';
+//                    echo '<b>Cell annotation ', $note,'</b><br />';
 //                    var_dump($noteDetails);
 //                    echo '<br />';
-                    $cellAddress = str_replace('$','',$noteDetails['cellRef']);
+                    $cellAddress = str_replace('$','', $noteDetails['cellRef']);
                     $this->_phpSheet->getComment( $cellAddress )
                                                     ->setAuthor( $noteDetails['author'] )
                                                     ->setText($this->_parseRichText($noteDetails['objTextData']['text']) );
@@ -1353,21 +1353,21 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
         //    offset: 8;    size: 16
         //    offset: 24;    size: 4;    section count
         $secCount = self::_GetInt4d($this->_documentSummaryInformation, 24);
-//        echo '$secCount = ',$secCount,'<br />';
+//        echo '$secCount = ', $secCount,'<br />';
 
         // offset: 28;    size: 16;    first section's class id: 02 d5 cd d5 9c 2e 1b 10 93 97 08 00 2b 2c f9 ae
         // offset: 44;    size: 4;    first section offset
         $secOffset = self::_GetInt4d($this->_documentSummaryInformation, 44);
-//        echo '$secOffset = ',$secOffset,'<br />';
+//        echo '$secOffset = ', $secOffset,'<br />';
 
         //    section header
         //    offset: $secOffset;    size: 4;    section length
         $secLength = self::_GetInt4d($this->_documentSummaryInformation, $secOffset);
-//        echo '$secLength = ',$secLength,'<br />';
+//        echo '$secLength = ', $secLength,'<br />';
 
         //    offset: $secOffset+4;    size: 4;    property count
         $countProperties = self::_GetInt4d($this->_documentSummaryInformation, $secOffset+4);
-//        echo '$countProperties = ',$countProperties,'<br />';
+//        echo '$countProperties = ', $countProperties,'<br />';
 
         // initialize code page (used to resolve string values)
         $codePage = 'CP1252';
@@ -1375,17 +1375,17 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
         //    offset: ($secOffset+8);    size: var
         //    loop through property decarations and properties
         for ($i = 0; $i < $countProperties; ++$i) {
-//            echo 'Property ',$i,'<br />';
+//            echo 'Property ', $i,'<br />';
             //    offset: ($secOffset+8) + (8 * $i);    size: 4;    property ID
             $id = self::_GetInt4d($this->_documentSummaryInformation, ($secOffset+8) + (8 * $i));
-//            echo 'ID is ',$id,'<br />';
+//            echo 'ID is ', $id,'<br />';
 
             // Use value of property id as appropriate
             // offset: 60 + 8 * $i;    size: 4;    offset from beginning of section (48)
             $offset = self::_GetInt4d($this->_documentSummaryInformation, ($secOffset+12) + (8 * $i));
 
             $type = self::_GetInt4d($this->_documentSummaryInformation, $secOffset + $offset);
-//            echo 'Type is ',$type,', ';
+//            echo 'Type is ', $type,', ';
 
             // initialize property value
             $value = null;
@@ -1531,9 +1531,9 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
             $noteObjID = self::_GetInt2d($recordData, 6);
             $noteAuthor = self::_readUnicodeStringLong(substr($recordData, 8));
             $noteAuthor = $noteAuthor['value'];
-//            echo 'Note Address=',$cellAddress,'<br />';
-//            echo 'Note Object ID=',$noteObjID,'<br />';
-//            echo 'Note Author=',$noteAuthor,'<hr />';
+//            echo 'Note Address=', $cellAddress,'<br />';
+//            echo 'Note Object ID=', $noteObjID,'<br />';
+//            echo 'Note Author=', $noteAuthor,'<hr />';
 //
             $this->_cellNotes[$noteObjID] = array('cellRef'        => $cellAddress,
                                                   'objectID'    => $noteObjID,
@@ -1549,13 +1549,13 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
                 $extension = true;
                 $cellAddress = array_pop(array_keys($this->_phpSheet->getComments()));
             }
-//            echo 'Note Address=',$cellAddress,'<br />';
+//            echo 'Note Address=', $cellAddress,'<br />';
 
-            $cellAddress = str_replace('$','',$cellAddress);
+            $cellAddress = str_replace('$','', $cellAddress);
             $noteLength = self::_GetInt2d($recordData, 4);
             $noteText = trim(substr($recordData, 6));
-//            echo 'Note Length=',$noteLength,'<br />';
-//            echo 'Note Text=',$noteText,'<br />';
+//            echo 'Note Length=', $noteLength,'<br />';
+//            echo 'Note Text=', $noteText,'<br />';
 
             if ($extension) {
                 //    Concatenate this extension with the currently set comment for the cell
@@ -1601,8 +1601,8 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
         $text        = $this->_getSplicedRecordData();
 
         $this->_textObjects[$this->textObjRef] = array(
-                'text'        => substr($text["recordData"],$text["spliceOffsets"][0]+1,$cchText),
-                'format'    => substr($text["recordData"],$text["spliceOffsets"][1],$cbRuns),
+                'text'        => substr($text["recordData"], $text["spliceOffsets"][0]+1, $cchText),
+                'format'    => substr($text["recordData"], $text["spliceOffsets"][1], $cbRuns),
                 'alignment'    => $grbitOpts,
                 'rotation'    => $rot
              );
@@ -4294,7 +4294,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
     /**
      * Read PLV Record(Created by Excel2007 or upper)
      */
-    private function _readPageLayoutView(){
+    private function _readPageLayoutView() {
         $length = self::_GetInt2d($this->_data, $this->_pos + 2);
         $recordData = $this->_readRecordData($this->_data, $this->_pos + 4, $length);
 
@@ -4564,7 +4564,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
                 $url = self::_encodeUTF16(substr($recordData, $offset, $us - 2), false);
                 $nullOffset = strpos($url, 0x00);
                 if ($nullOffset)
-                    $url = substr($url,0,$nullOffset);
+                    $url = substr($url,0, $nullOffset);
                 $url .= $hasText ? '#' : '';
                 $offset += $us;
                 break;
@@ -4858,7 +4858,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
                 case 0x14:
                     // offset: 16; size: 2; color index for sheet tab
                     $colorIndex = self::_GetInt2d($recordData, 16);
-                    $color = self::_readColor($colorIndex,$this->_palette,$this->_version);
+                    $color = self::_readColor($colorIndex, $this->_palette, $this->_version);
                     $this->_phpSheet->getTabColor()->setRGB($color['rgb']);
                     break;
 
@@ -6807,7 +6807,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
      * @param array $palette Color palette
      * @return array RGB color value, example: array('rgb' => 'FF0000')
      */
-    private static function _readColor($color,$palette,$version)
+    private static function _readColor($color, $palette, $version)
     {
         if ($color <= 0x07 || $color >= 0x40) {
             // special built-in color

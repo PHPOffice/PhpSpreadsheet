@@ -1275,7 +1275,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
         // Pack the RGB data
         foreach ($aref as $color) {
             foreach ($color as $byte) {
-                $data .= pack("C",$byte);
+                $data .= pack("C", $byte);
             }
         }
 

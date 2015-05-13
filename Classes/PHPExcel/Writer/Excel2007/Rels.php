@@ -53,7 +53,7 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
         }
 
         // XML header
-        $objWriter->startDocument('1.0','UTF-8','yes');
+        $objWriter->startDocument('1.0', 'UTF-8', 'yes');
 
         // Relationships
         $objWriter->startElement('Relationships');
@@ -95,7 +95,7 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
                 'xl/workbook.xml'
             );
             // a custom UI in workbook ?
-            if($pPHPExcel->hasRibbon()){
+            if ($pPHPExcel->hasRibbon()) {
                 $this->_writeRelationShip(
                     $objWriter,
                     5,
@@ -128,7 +128,7 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
         }
 
         // XML header
-        $objWriter->startDocument('1.0','UTF-8','yes');
+        $objWriter->startDocument('1.0', 'UTF-8', 'yes');
 
         // Relationships
         $objWriter->startElement('Relationships');
@@ -170,7 +170,7 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
             }
             // Relationships for vbaProject if needed
             // id : just after the last sheet
-            if($pPHPExcel->hasMacros()){
+            if ($pPHPExcel->hasMacros()) {
                 $this->_writeRelationShip(
                     $objWriter,
                     ($i + 1 + 3),
@@ -210,7 +210,7 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
         }
 
         // XML header
-        $objWriter->startDocument('1.0','UTF-8','yes');
+        $objWriter->startDocument('1.0', 'UTF-8', 'yes');
 
         // Relationships
         $objWriter->startElement('Relationships');
@@ -238,7 +238,7 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
 //            $charts = $pWorksheet->getChartCollection();
 //            echo 'Chart Rels: ' , count($charts) , '<br />';
 //            if (count($charts) > 0) {
-//                foreach($charts as $chart) {
+//                foreach ($charts as $chart) {
 //                    $this->_writeRelationship(
 //                        $objWriter,
 //                        ++$d,
@@ -319,7 +319,7 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
         }
 
         // XML header
-        $objWriter->startDocument('1.0','UTF-8','yes');
+        $objWriter->startDocument('1.0', 'UTF-8', 'yes');
 
         // Relationships
         $objWriter->startElement('Relationships');
@@ -383,7 +383,7 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
         }
 
         // XML header
-        $objWriter->startDocument('1.0','UTF-8','yes');
+        $objWriter->startDocument('1.0', 'UTF-8', 'yes');
 
         // Relationships
         $objWriter->startElement('Relationships');

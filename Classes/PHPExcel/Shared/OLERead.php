@@ -76,7 +76,7 @@ class PHPExcel_Shared_OLERead {
     public function read($sFileName)
     {
         // Check if file exists and is readable
-        if(!is_readable($sFileName)) {
+        if (!is_readable($sFileName)) {
             throw new PHPExcel_Reader_Exception("Could not open " . $sFileName . " for reading! File does not exist, or it is not readable.");
         }
 
@@ -254,7 +254,7 @@ class PHPExcel_Shared_OLERead {
 
             $size = self::_GetInt4d($d, self::SIZE_POS);
 
-            $name = str_replace("\x00", "", substr($d,0,$nameSize));
+            $name = str_replace("\x00", "", substr($d,0, $nameSize));
 
 
             $this->props[] = array (

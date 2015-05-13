@@ -110,7 +110,7 @@ class PHPExcel_NamedRange
 
             // Re-attach
             if ($this->_worksheet !== NULL) {
-                $this->_worksheet->getParent()->removeNamedRange($this->_name,$this->_worksheet);
+                $this->_worksheet->getParent()->removeNamedRange($this->_name, $this->_worksheet);
             }
             $this->_name = $value;
 

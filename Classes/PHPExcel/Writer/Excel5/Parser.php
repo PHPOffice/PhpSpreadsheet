@@ -1097,7 +1097,7 @@ class PHPExcel_Writer_Excel5_Parser
      */
     private function _match($token)
     {
-        switch($token) {
+        switch ($token) {
             case "+":
             case "-":
             case "*":
@@ -1183,7 +1183,7 @@ class PHPExcel_Writer_Excel5_Parser
                 }
                 //    It's an argument of some description (e.g. a named range),
                 //        precise nature yet to be determined
-                elseif(substr($token,-1) == ')') {
+                elseif (substr($token,-1) == ')') {
                     return $token;
                 }
                 return '';
@@ -1425,7 +1425,7 @@ class PHPExcel_Writer_Excel5_Parser
         // If it's a number or a percent
         elseif (is_numeric($this->_current_token))
         {
-            if($this->_lookahead == '%'){
+            if ($this->_lookahead == '%') {
                 $result = $this->_createTree('ptgPercent', $this->_current_token, '');
                 $this->_advance();  // Skip the percentage operator once we've pre-built that tree
             } else {

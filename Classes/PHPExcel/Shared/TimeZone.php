@@ -129,7 +129,7 @@ class PHPExcel_Shared_TimeZone
 
         $objTimezone = new DateTimeZone($timezone);
         if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
-            $transitions = $objTimezone->getTransitions($timestamp,$timestamp);
+            $transitions = $objTimezone->getTransitions($timestamp, $timestamp);
         } else {
             $transitions = self::_getTimezoneTransitions($objTimezone, $timestamp);
         }

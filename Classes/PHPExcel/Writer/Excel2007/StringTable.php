@@ -104,7 +104,7 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
             }
 
             // XML header
-            $objWriter->startDocument('1.0','UTF-8','yes');
+            $objWriter->startDocument('1.0', 'UTF-8', 'yes');
 
             // String table
             $objWriter->startElement('sst');
@@ -254,7 +254,7 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
                     $objWriter->writeAttribute('i', ($element->getFont()->getItalic() ? 1 : 0));
                     // Underline
                     $underlineType = $element->getFont()->getUnderline();
-                    switch($underlineType) {
+                    switch ($underlineType) {
                         case 'single' :
                             $underlineType = 'sng';
                             break;

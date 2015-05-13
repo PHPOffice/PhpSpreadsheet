@@ -322,7 +322,7 @@ class PHPExcel_Worksheet_AutoFilter_Column_Rule
     public function setValue($pValue = '') {
         if (is_array($pValue)) {
             $grouping = -1;
-            foreach($pValue as $key => $value) {
+            foreach ($pValue as $key => $value) {
                 //    Validate array entries
                 if (!in_array($key,self::$_dateTimeGroups)) {
                     //    Remove any invalid entries from the value array

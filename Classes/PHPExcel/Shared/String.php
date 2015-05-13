@@ -330,10 +330,10 @@ class PHPExcel_Shared_String
     }
 
     public static function buildCharacterSets() {
-        if(empty(self::$_controlCharacters)) {
+        if (empty(self::$_controlCharacters)) {
             self::_buildControlCharacters();
         }
-        if(empty(self::$_SYLKCharacters)) {
+        if (empty(self::$_SYLKCharacters)) {
             self::_buildSYLKCharacters();
         }
     }
@@ -436,19 +436,18 @@ class PHPExcel_Shared_String
         // character count
         $ln = self::CountCharacters($value, 'UTF-8');
         // option flags
-        if(empty($arrcRuns)){
+        if (empty($arrcRuns)) {
             $opt = (self::getIsIconvEnabled() || self::getIsMbstringEnabled()) ?
                 0x0001 : 0x0000;
             $data = pack('CC', $ln, $opt);
             // characters
             $data .= self::ConvertEncoding($value, 'UTF-16LE', 'UTF-8');
-        }
-        else {
+        } else {
             $data = pack('vC', $ln, 0x09);
             $data .= pack('v', count($arrcRuns));
             // characters
             $data .= self::ConvertEncoding($value, 'UTF-16LE', 'UTF-8');
-            foreach ($arrcRuns as $cRun){
+            foreach ($arrcRuns as $cRun) {
                 $data .= pack('v', $cRun['strlen']);
                 $data .= pack('v', $cRun['fontidx']);
             }
@@ -500,9 +499,9 @@ class PHPExcel_Shared_String
             return mb_convert_encoding($value, $to, $from);
         }
 
-        if($from == 'UTF-16LE'){
+        if ($from == 'UTF-16LE') {
             return self::utf16_decode($value, false);
-        }else if($from == 'UTF-16BE'){
+        } else if ($from == 'UTF-16BE') {
             return self::utf16_decode($value);
         }
         // else, no conversion
@@ -525,15 +524,15 @@ class PHPExcel_Shared_String
      * @author vadik56
      */
     public static function utf16_decode($str, $bom_be = TRUE) {
-        if( strlen($str) < 2 ) return $str;
+        if ( strlen($str) < 2 ) return $str;
         $c0 = ord($str{0});
         $c1 = ord($str{1});
-        if( $c0 == 0xfe && $c1 == 0xff ) { $str = substr($str,2); }
-        elseif( $c0 == 0xff && $c1 == 0xfe ) { $str = substr($str,2); $bom_be = false; }
+        if ( $c0 == 0xfe && $c1 == 0xff ) { $str = substr($str,2); }
+        elseif ( $c0 == 0xff && $c1 == 0xfe ) { $str = substr($str,2); $bom_be = false; }
         $len = strlen($str);
         $newstr = '';
         for($i=0;$i<$len;$i+=2) {
-            if( $bom_be ) { $val = ord($str{$i})   << 4; $val += ord($str{$i+1}); }
+            if ( $bom_be ) { $val = ord($str{$i})   << 4; $val += ord($str{$i+1}); }
             else {        $val = ord($str{$i+1}) << 4; $val += ord($str{$i}); }
             $newstr .= ($val == 0x228) ? "\n" : chr($val);
         }
@@ -649,8 +648,8 @@ class PHPExcel_Shared_String
     {
         if (self::getIsMbstringEnabled()) {
             $characters = self::mb_str_split($pValue);
-            foreach($characters as &$character) {
-                if(self::mb_is_upper($character)) {
+            foreach ($characters as &$character) {
+                if (self::mb_is_upper($character)) {
                     $character = mb_strtolower($character, 'UTF-8');
                 } else {
                     $character = mb_strtoupper($character, 'UTF-8');

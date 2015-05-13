@@ -575,7 +575,7 @@ class PHPExcel_Worksheet_PageSetup
         if ($index == 0) {
             return $this->_printArea;
         }
-        $printAreas = explode(',',$this->_printArea);
+        $printAreas = explode(',', $this->_printArea);
         if (isset($printAreas[$index-1])) {
             return $printAreas[$index-1];
         }
@@ -595,7 +595,7 @@ class PHPExcel_Worksheet_PageSetup
         if ($index == 0) {
             return !is_null($this->_printArea);
         }
-        $printAreas = explode(',',$this->_printArea);
+        $printAreas = explode(',', $this->_printArea);
         return isset($printAreas[$index-1]);
     }
 
@@ -612,10 +612,10 @@ class PHPExcel_Worksheet_PageSetup
         if ($index == 0) {
             $this->_printArea = NULL;
         } else {
-            $printAreas = explode(',',$this->_printArea);
+            $printAreas = explode(',', $this->_printArea);
             if (isset($printAreas[$index-1])) {
                 unset($printAreas[$index-1]);
-                $this->_printArea = implode(',',$printAreas);
+                $this->_printArea = implode(',', $printAreas);
             }
         }
 
@@ -656,29 +656,29 @@ class PHPExcel_Worksheet_PageSetup
             if ($index == 0) {
                 $this->_printArea = $value;
             } else {
-                $printAreas = explode(',',$this->_printArea);
-                if($index < 0) {
+                $printAreas = explode(',', $this->_printArea);
+                if ($index < 0) {
                     $index = count($printAreas) - abs($index) + 1;
                 }
                 if (($index <= 0) || ($index > count($printAreas))) {
                     throw new PHPExcel_Exception('Invalid index for setting print range.');
                 }
                 $printAreas[$index-1] = $value;
-                $this->_printArea = implode(',',$printAreas);
+                $this->_printArea = implode(',', $printAreas);
             }
-        } elseif($method == self::SETPRINTRANGE_INSERT) {
+        } elseif ($method == self::SETPRINTRANGE_INSERT) {
             if ($index == 0) {
                 $this->_printArea .= ($this->_printArea == '') ? $value : ','.$value;
             } else {
-                $printAreas = explode(',',$this->_printArea);
-                if($index < 0) {
+                $printAreas = explode(',', $this->_printArea);
+                if ($index < 0) {
                     $index = abs($index) - 1;
                 }
                 if ($index > count($printAreas)) {
                     throw new PHPExcel_Exception('Invalid index for setting print range.');
                 }
-                $printAreas = array_merge(array_slice($printAreas,0,$index),array($value),array_slice($printAreas,$index));
-                $this->_printArea = implode(',',$printAreas);
+                $printAreas = array_merge(array_slice($printAreas,0, $index),array($value),array_slice($printAreas, $index));
+                $this->_printArea = implode(',', $printAreas);
             }
         } else {
             throw new PHPExcel_Exception('Invalid method for setting print range.');

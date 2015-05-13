@@ -91,7 +91,7 @@ class PHPExcel_Linear_Best_Fit extends PHPExcel_Best_Fit
      * @param     boolean    $const
      */
     private function _linear_regression($yValues, $xValues, $const) {
-        $this->_leastSquareFit($yValues, $xValues,$const);
+        $this->_leastSquareFit($yValues, $xValues, $const);
     }    //    function _linear_regression()
 
 

@@ -53,7 +53,7 @@ class PHPExcel_Writer_Excel2007_Comments extends PHPExcel_Writer_Excel2007_Write
         }
 
         // XML header
-        $objWriter->startDocument('1.0','UTF-8','yes');
+        $objWriter->startDocument('1.0', 'UTF-8', 'yes');
 
           // Comments cache
           $comments    = $pWorksheet->getComments();
@@ -133,7 +133,7 @@ class PHPExcel_Writer_Excel2007_Comments extends PHPExcel_Writer_Excel2007_Write
         }
 
         // XML header
-        $objWriter->startDocument('1.0','UTF-8','yes');
+        $objWriter->startDocument('1.0', 'UTF-8', 'yes');
 
           // Comments cache
           $comments    = $pWorksheet->getComments();

@@ -115,7 +115,7 @@ class PHPExcel_Shared_XMLWriter extends XMLWriter {
     public function writeRawData($text)
     {
         if (is_array($text)) {
-            $text = implode("\n",$text);
+            $text = implode("\n", $text);
         }
 
         if (method_exists($this, 'writeRaw')) {

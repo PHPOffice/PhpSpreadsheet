@@ -271,7 +271,7 @@ class PHPExcel_Shared_OLE_PPS_Root extends PHPExcel_Shared_OLE_PPS
                     //if (isset($raList[$i]->_PPS_FILE)) {
                     //    $iLen = 0;
                     //    fseek($raList[$i]->_PPS_FILE, 0); // To The Top
-                    //    while($sBuff = fread($raList[$i]->_PPS_FILE, 4096)) {
+                    //    while ($sBuff = fread($raList[$i]->_PPS_FILE, 4096)) {
                     //        $iLen += strlen($sBuff);
                     //        fwrite($FILE, $sBuff);
                     //    }
@@ -337,7 +337,7 @@ class PHPExcel_Shared_OLE_PPS_Root extends PHPExcel_Shared_OLE_PPS
                         $sRes .= $raList[$i]->_data;
                     //}
                     if ($raList[$i]->Size % $this->_SMALL_BLOCK_SIZE) {
-                        $sRes .= str_repeat("\x00",$this->_SMALL_BLOCK_SIZE - ($raList[$i]->Size % $this->_SMALL_BLOCK_SIZE));
+                        $sRes .= str_repeat("\x00", $this->_SMALL_BLOCK_SIZE - ($raList[$i]->Size % $this->_SMALL_BLOCK_SIZE));
                     }
                     // Set for PPS
                     $raList[$i]->_StartBlock = $iSmBlk;

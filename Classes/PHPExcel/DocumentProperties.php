@@ -466,7 +466,7 @@ class PHPExcel_DocumentProperties
                 $propertyType = self::PROPERTY_TYPE_STRING;
             } elseif (is_float($propertyValue)) {
                 $propertyType = self::PROPERTY_TYPE_FLOAT;
-            } elseif(is_int($propertyValue)) {
+            } elseif (is_int($propertyValue)) {
                 $propertyType = self::PROPERTY_TYPE_INTEGER;
             } elseif (is_bool($propertyValue)) {
                 $propertyType = self::PROPERTY_TYPE_BOOLEAN;
@@ -497,7 +497,7 @@ class PHPExcel_DocumentProperties
         }
     }
 
-    public static function convertProperty($propertyValue,$propertyType)
+    public static function convertProperty($propertyValue, $propertyType)
     {
         switch ($propertyType) {
             case 'empty':     //    Empty

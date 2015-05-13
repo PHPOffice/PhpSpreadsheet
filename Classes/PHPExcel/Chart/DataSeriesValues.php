@@ -215,7 +215,7 @@ class PHPExcel_Chart_DataSeriesValues
      */
     public function multiLevelCount() {
         $levelCount = 0;
-        foreach($this->_dataValues as $dataValueSet) {
+        foreach ($this->_dataValues as $dataValueSet) {
             $levelCount = max($levelCount,count($dataValueSet));
         }
         return $levelCount;
@@ -281,31 +281,31 @@ class PHPExcel_Chart_DataSeriesValues
             );
             if ($flatten) {
                 $this->_dataValues = PHPExcel_Calculation_Functions::flattenArray($newDataValues);
-                foreach($this->_dataValues as &$dataValue) {
+                foreach ($this->_dataValues as &$dataValue) {
                     if ((!empty($dataValue)) && ($dataValue[0] == '#')) {
                         $dataValue = 0.0;
                     }
                 }
                 unset($dataValue);
             } else {
-                $cellRange = explode('!',$this->_dataSource);
+                $cellRange = explode('!', $this->_dataSource);
                 if (count($cellRange) > 1) {
-                    list(,$cellRange) = $cellRange;
+                    list(, $cellRange) = $cellRange;
                 }
 
-                $dimensions = PHPExcel_Cell::rangeDimension(str_replace('$','',$cellRange));
+                $dimensions = PHPExcel_Cell::rangeDimension(str_replace('$','', $cellRange));
                 if (($dimensions[0] == 1) || ($dimensions[1] == 1)) {
                     $this->_dataValues = PHPExcel_Calculation_Functions::flattenArray($newDataValues);
                 } else {
                     $newArray = array_values(array_shift($newDataValues));
-                    foreach($newArray as $i => $newDataSet) {
+                    foreach ($newArray as $i => $newDataSet) {
                         $newArray[$i] = array($newDataSet);
                     }
 
-                    foreach($newDataValues as $newDataSet) {
+                    foreach ($newDataValues as $newDataSet) {
                         $i = 0;
-                        foreach($newDataSet as $newDataVal) {
-                            array_unshift($newArray[$i++],$newDataVal);
+                        foreach ($newDataSet as $newDataVal) {
+                            array_unshift($newArray[$i++], $newDataVal);
                         }
                     }
                     $this->_dataValues = $newArray;

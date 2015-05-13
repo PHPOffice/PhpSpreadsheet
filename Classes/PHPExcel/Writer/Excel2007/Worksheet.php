@@ -56,7 +56,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
             }
 
             // XML header
-            $objWriter->startDocument('1.0','UTF-8','yes');
+            $objWriter->startDocument('1.0', 'UTF-8', 'yes');
 
             // Worksheet
             $objWriter->startElement('worksheet');
@@ -148,8 +148,8 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
         // sheetPr
         $objWriter->startElement('sheetPr');
         //$objWriter->writeAttribute('codeName',        $pSheet->getTitle());
-        if($pSheet->getParent()->hasMacros()){//if the workbook have macros, we need to have codeName for the sheet
-            if($pSheet->hasCodeName()==false){
+        if ($pSheet->getParent()->hasMacros()) {//if the workbook have macros, we need to have codeName for the sheet
+            if ($pSheet->hasCodeName()==false) {
                 $pSheet->setCodeName($pSheet->getTitle());
             }
             $objWriter->writeAttribute('codeName',        $pSheet->getCodeName());
@@ -758,15 +758,15 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
             $range = $range[0];
             //    Strip any worksheet ref
             if (strpos($range[0],'!') !== false) {
-                list($ws,$range[0]) = explode('!',$range[0]);
+                list($ws, $range[0]) = explode('!', $range[0]);
             }
             $range = implode(':', $range);
 
-            $objWriter->writeAttribute('ref',    str_replace('$','',$range));
+            $objWriter->writeAttribute('ref',    str_replace('$','', $range));
 
             $columns = $pSheet->getAutoFilter()->getColumns();
             if (count($columns > 0)) {
-                foreach($columns as $columnID => $column) {
+                foreach ($columns as $columnID => $column) {
                     $rules = $column->getRules();
                     if (count($rules > 0)) {
                         $objWriter->startElement('filterColumn');
@@ -783,7 +783,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
                                         ($rule->getValue() === '')) {
                                         //    Filter rule for Blanks
                                         $objWriter->writeAttribute('blank',    1);
-                                    } elseif($rule->getRuleType() === PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER) {
+                                    } elseif ($rule->getRuleType() === PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER) {
                                         //    Dynamic Filter Rule
                                         $objWriter->writeAttribute('type', $rule->getGrouping());
                                         $val = $column->getAttribute('val');
@@ -794,7 +794,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
                                         if ($maxVal !== NULL) {
                                             $objWriter->writeAttribute('maxVal', $maxVal);
                                         }
-                                    } elseif($rule->getRuleType() === PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_TOPTENFILTER) {
+                                    } elseif ($rule->getRuleType() === PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_TOPTENFILTER) {
                                         //    Top 10 Filter Rule
                                         $objWriter->writeAttribute('val',    $rule->getValue());
                                         $objWriter->writeAttribute('percent',    (($rule->getOperator() === PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT) ? '1' : '0'));
@@ -808,7 +808,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
                                             }
                                             if ($rule->getRuleType() === PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_DATEGROUP) {
                                                 // Date Group filters
-                                                foreach($rule->getValue() as $key => $value) {
+                                                foreach ($rule->getValue() as $key => $value) {
                                                     if ($value > '') $objWriter->writeAttribute($key,    $value);
                                                 }
                                                 $objWriter->writeAttribute('dateTimeGrouping',    $rule->getGrouping());
@@ -979,7 +979,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
                 }
 
                 $currentRow = 0;
-                while($currentRow++ < $highestRow) {
+                while ($currentRow++ < $highestRow) {
                     // Get row dimension
                     $rowDimension = $pSheet->getRowDimension($currentRow);
 
@@ -1026,7 +1026,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 
                         // Write cells
                         if (isset($cellsByRow[$currentRow])) {
-                            foreach($cellsByRow[$currentRow] as $cellAddress) {
+                            foreach ($cellsByRow[$currentRow] as $cellAddress) {
                                 // Write cell
                                 $this->_writeCell($objWriter, $pSheet, $cellAddress, $pStringTable, $aFlippedStringTable);
                             }
@@ -1115,7 +1115,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
                         break;
                     case 'f':            // Formula
                         $attributes = $pCell->getFormulaAttributes();
-                        if($attributes['t'] == 'array') {
+                        if ($attributes['t'] == 'array') {
                             $objWriter->startElement('f');
                             $objWriter->writeAttribute('t', 'array');
                             $objWriter->writeAttribute('ref', $pCellAddress);
