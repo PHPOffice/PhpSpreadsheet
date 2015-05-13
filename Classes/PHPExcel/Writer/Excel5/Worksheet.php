@@ -1266,7 +1266,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
         $record = 0x0200; // Record identifier
 
         $length = 0x000E;
-        $data = pack('VVvvv', $this->_firstRowIndex, $this->_lastRowIndex + 1, $this->_firstColumnIndex, $this->_lastColumnIndex + 1, 0x0000 // reserved);
+        $data = pack('VVvvv', $this->_firstRowIndex, $this->_lastRowIndex + 1, $this->_firstColumnIndex, $this->_lastColumnIndex + 1, 0x0000); // reserved
 
         $header = pack("vv", $record, $length);
         $this->_append($header.$data);

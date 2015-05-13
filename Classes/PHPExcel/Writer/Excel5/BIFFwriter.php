@@ -136,7 +136,7 @@ class PHPExcel_Writer_Excel5_BIFFwriter
      * @param string $data binary data to append
      * @access private
      */
-    private function _append($data)
+    public function _append($data)
     {
         if (strlen($data) - 4 > $this->_limit) {
             $data = $this->_addContinue($data);
@@ -169,7 +169,7 @@ class PHPExcel_Writer_Excel5_BIFFwriter
      *                       0x0010 Worksheet.
      * @access private
      */
-    private function _storeBof($type)
+    public function _storeBof($type)
     {
         $record  = 0x0809;            // Record identifier    (BIFF5-BIFF8)
         $length  = 0x0010;
@@ -192,7 +192,7 @@ class PHPExcel_Writer_Excel5_BIFFwriter
      *
      * @access private
      */
-    private function _storeEof()
+    public function _storeEof()
     {
         $record    = 0x000A;   // Record identifier
         $length    = 0x0000;   // Number of bytes to follow
@@ -226,7 +226,7 @@ class PHPExcel_Writer_Excel5_BIFFwriter
      * @return string        A very convenient string of continue blocks
      * @access private
      */
-    private function _addContinue($data)
+    public function _addContinue($data)
     {
         $limit  = $this->_limit;
         $record = 0x003C;         // Record identifier

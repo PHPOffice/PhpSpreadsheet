@@ -30,34 +30,12 @@ require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/PCLZip/pclzip.lib.php';
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-<<<<<<< HEAD
-=======
-
-if (!defined('PCLZIP_TEMPORARY_DIR')) {
-    define('PCLZIP_TEMPORARY_DIR', PHPExcel_Shared_File::sys_get_temp_dir() . DIRECTORY_SEPARATOR);
-}
-require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/PCLZip/pclzip.lib.php';
-
-
-/**
- * PHPExcel_Shared_ZipArchive
- *
- * @category   PHPExcel
- * @package    PHPExcel_Shared_ZipArchive
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
->>>>>>> f37630e938da2f1dbe9f16a20fdfbf701403812b
 class PHPExcel_Shared_ZipArchive
 {
 
     /**    constants */
-<<<<<<< HEAD
     const OVERWRITE = 'OVERWRITE';
     const CREATE    = 'CREATE';
-=======
-    const OVERWRITE        = 'OVERWRITE';
-    const CREATE        = 'CREATE';
->>>>>>> f37630e938da2f1dbe9f16a20fdfbf701403812b
 
 
     /**
@@ -114,14 +92,10 @@ class PHPExcel_Shared_ZipArchive
         fwrite($handle, $contents);
         fclose($handle);
 
-<<<<<<< HEAD
         $res = $this->_zip->add($this->_tempDir.'/'.$filenameParts["basename"],
                                 PCLZIP_OPT_REMOVE_PATH, $this->_tempDir,
                                 PCLZIP_OPT_ADD_PATH, $filenameParts["dirname"]
                                );
-=======
-        $res = $this->_zip->add($this->_tempDir.'/'.$filenameParts["basename"], PCLZIP_OPT_REMOVE_PATH, $this->_tempDir, PCLZIP_OPT_ADD_PATH, $filenameParts["dirname"]);
->>>>>>> f37630e938da2f1dbe9f16a20fdfbf701403812b
         if ($res == 0) {
             throw new PHPExcel_Writer_Exception("Error zipping files : " . $this->_zip->errorInfo(true));
         }
