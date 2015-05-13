@@ -105,7 +105,7 @@ class PHPExcel_Writer_OpenDocument_Content extends PHPExcel_Writer_OpenDocument_
             $objWriter->startElement('office:body');
                 $objWriter->startElement('office:spreadsheet');
                     $objWriter->writeElement('table:calculation-settings');
-                    $this->_writeSheets($objWriter);
+                    $this->writeSheets($objWriter);
                     $objWriter->writeElement('table:named-expressions');
                 $objWriter->endElement();
             $objWriter->endElement();
@@ -119,7 +119,7 @@ class PHPExcel_Writer_OpenDocument_Content extends PHPExcel_Writer_OpenDocument_
      *
      * @param PHPExcel_Shared_XMLWriter $objWriter
      */
-    private function _writeSheets(PHPExcel_Shared_XMLWriter $objWriter)
+    private function writeSheets(PHPExcel_Shared_XMLWriter $objWriter)
     {
         $pPHPExcel = $this->getParentWriter()->getPHPExcel(); /* @var $pPHPExcel PHPExcel */
 
@@ -132,7 +132,7 @@ class PHPExcel_Writer_OpenDocument_Content extends PHPExcel_Writer_OpenDocument_
                 $objWriter->startElement('table:table-column');
                     $objWriter->writeAttribute('table:number-columns-repeated', self::NUMBER_COLS_REPEATED_MAX);
                 $objWriter->endElement();
-                $this->_writeRows($objWriter, $pPHPExcel->getSheet($i));
+                $this->writeRows($objWriter, $pPHPExcel->getSheet($i));
             $objWriter->endElement();
         }
     }
@@ -143,7 +143,7 @@ class PHPExcel_Writer_OpenDocument_Content extends PHPExcel_Writer_OpenDocument_
      * @param PHPExcel_Shared_XMLWriter $objWriter
      * @param PHPExcel_Worksheet $sheet
      */
-    private function _writeRows(PHPExcel_Shared_XMLWriter $objWriter, PHPExcel_Worksheet $sheet)
+    private function writeRows(PHPExcel_Shared_XMLWriter $objWriter, PHPExcel_Worksheet $sheet)
     {
         $number_rows_repeated = self::NUMBER_ROWS_REPEATED_MAX;
         $span_row = 0;
@@ -164,7 +164,7 @@ class PHPExcel_Writer_OpenDocument_Content extends PHPExcel_Writer_OpenDocument_
                     $span_row = 0;
                 }
                 $objWriter->startElement('table:table-row');
-                $this->_writeCells($objWriter, $row);
+                $this->writeCells($objWriter, $row);
                 $objWriter->endElement();
             } else {
                 $span_row++;
@@ -180,7 +180,7 @@ class PHPExcel_Writer_OpenDocument_Content extends PHPExcel_Writer_OpenDocument_
      * @param PHPExcel_Worksheet_Row $row
      * @throws PHPExcel_Writer_Exception
      */
-    private function _writeCells(PHPExcel_Shared_XMLWriter $objWriter, PHPExcel_Worksheet_Row $row)
+    private function writeCells(PHPExcel_Shared_XMLWriter $objWriter, PHPExcel_Worksheet_Row $row)
     {
         $number_cols_repeated = self::NUMBER_COLS_REPEATED_MAX;
         $prev_column = -1;
@@ -189,7 +189,7 @@ class PHPExcel_Writer_OpenDocument_Content extends PHPExcel_Writer_OpenDocument_
             $cell = $cells->current();
             $column = PHPExcel_Cell::columnIndexFromString($cell->getColumn()) - 1;
 
-            $this->_writeCellSpan($objWriter, $column, $prev_column);
+            $this->writeCellSpan($objWriter, $column, $prev_column);
             $objWriter->startElement('table:table-cell');
 
             switch ($cell->getDataType()) {
@@ -258,7 +258,7 @@ class PHPExcel_Writer_OpenDocument_Content extends PHPExcel_Writer_OpenDocument_
      * @param integer $curColumn
      * @param integer $prevColumn
      */
-    private function _writeCellSpan(PHPExcel_Shared_XMLWriter $objWriter, $curColumn, $prevColumn)
+    private function writeCellSpan(PHPExcel_Shared_XMLWriter $objWriter, $curColumn, $prevColumn)
     {
         $diff = $curColumn - $prevColumn - 1;
         if (1 === $diff) {
