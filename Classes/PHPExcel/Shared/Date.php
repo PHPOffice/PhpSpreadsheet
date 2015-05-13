@@ -162,7 +162,7 @@ class PHPExcel_Shared_Date
         $seconds = round($time) - ($hours * 3600) - ($minutes * 60);
 
         $dateObj = date_create('1-Jan-1970+'.$days.' days');
-        $dateObj->setTime($hours,$minutes,$seconds);
+        $dateObj->setTime($hours, $minutes, $seconds);
 
         return $dateObj;
     }
@@ -188,8 +188,8 @@ class PHPExcel_Shared_Date
                                                    $dateValue->format('H'), $dateValue->format('i'), $dateValue->format('s')
                                                  );
         } elseif (is_numeric($dateValue)) {
-            $retValue = self::FormattedPHPToExcel( date('Y',$dateValue), date('m',$dateValue), date('d',$dateValue),
-                                                   date('H',$dateValue), date('i',$dateValue), date('s',$dateValue)
+            $retValue = self::FormattedPHPToExcel( date('Y', $dateValue), date('m', $dateValue), date('d', $dateValue),
+                                                   date('H', $dateValue), date('i', $dateValue), date('s', $dateValue)
                                                  );
         }
         date_default_timezone_set($saveTimeZone);
@@ -327,7 +327,7 @@ class PHPExcel_Shared_Date
             //        we don't want to test for any of our characters within the quoted blocks
             if (strpos($pFormatCode, '"') !== false) {
                 $segMatcher = false;
-                foreach(explode('"', $pFormatCode) as $subVal) {
+                foreach (explode('"', $pFormatCode) as $subVal) {
                     //    Only test in alternate array entries (the non-quoted blocks)
                     if (($segMatcher = !$segMatcher) &&
                         (preg_match('/(^|\])[^\[]*['.self::$possibleDateFormatCharacters.']/i', $subVal))) {
@@ -376,7 +376,7 @@ class PHPExcel_Shared_Date
     public static function monthStringToNumber($month)
     {
         $monthIndex = 1;
-        foreach(self::$monthNames as $shortMonthName => $longMonthName) {
+        foreach (self::$monthNames as $shortMonthName => $longMonthName) {
             if (($month === $longMonthName) || ($month === $shortMonthName)) {
                 return $monthIndex;
             }

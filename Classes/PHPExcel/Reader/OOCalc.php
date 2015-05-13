@@ -89,12 +89,12 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
             $stat = $zip->statName('mimetype');
             if ($stat && ($stat['size'] <= 255)) {
                 $mimeType = $zip->getFromName($stat['name']);
-            } elseif($stat = $zip->statName('META-INF/manifest.xml')) {
+            } elseif ($stat = $zip->statName('META-INF/manifest.xml')) {
                 $xml = simplexml_load_string($this->securityScan($zip->getFromName('META-INF/manifest.xml')), 'SimpleXMLElement', PHPExcel_Settings::getLibXmlLoaderOptions());
                 $namespacesContent = $xml->getNamespaces(true);
                 if (isset($namespacesContent['manifest'])) {
                     $manifest = $xml->children($namespacesContent['manifest']);
-                    foreach($manifest as $manifestDataSet) {
+                    foreach ($manifest as $manifestDataSet) {
                         $manifestAttributes = $manifestDataSet->attributes($namespacesContent['manifest']);
                         if ($manifestAttributes->{'full-path'} == '/') {
                             $mimeType = (string) $manifestAttributes->{'media-type'};
@@ -222,7 +222,7 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
                             $rowspan = $xml->getAttribute('table:number-rows-repeated');
                             $rowspan = empty($rowspan) ? 1 : $rowspan;
                             $tmpInfo['totalRows'] += $rowspan;
-                            $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'],$currCells);
+                            $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
                             $currCells = 0;
                             //    Step into the row
                             $xml->read();
@@ -243,14 +243,14 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
                         }
                     } while ($xml->name != 'table:table');
 
-                    $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'],$currCells);
+                    $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
                     $tmpInfo['lastColumnIndex'] = $tmpInfo['totalColumns'] - 1;
                     $tmpInfo['lastColumnLetter'] = PHPExcel_Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
                     $worksheetInfo[] = $tmpInfo;
                 }
             }
 
-//                foreach($workbookData->table as $worksheetDataSet) {
+//                foreach ($workbookData->table as $worksheetDataSet) {
 //                    $worksheetData = $worksheetDataSet->children($namespacesContent['table']);
 //                    $worksheetDataAttributes = $worksheetDataSet->attributes($namespacesContent['table']);
 //
@@ -309,7 +309,7 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
 
     private static function identifyFixedStyleValue($styleList,&$styleAttributeValue) {
         $styleAttributeValue = strtolower($styleAttributeValue);
-        foreach($styleList as $style) {
+        foreach ($styleList as $style) {
             if ($styleAttributeValue == strtolower($style)) {
                 $styleAttributeValue = $style;
                 return true;
@@ -353,12 +353,12 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
 
         $docProps = $objPHPExcel->getProperties();
         $officeProperty = $xml->children($namespacesMeta['office']);
-        foreach($officeProperty as $officePropertyData) {
+        foreach ($officeProperty as $officePropertyData) {
             $officePropertyDC = array();
             if (isset($namespacesMeta['dc'])) {
                 $officePropertyDC = $officePropertyData->children($namespacesMeta['dc']);
             }
-            foreach($officePropertyDC as $propertyName => $propertyValue) {
+            foreach ($officePropertyDC as $propertyName => $propertyValue) {
                 $propertyValue = (string) $propertyValue;
                 switch ($propertyName) {
                     case 'title' :
@@ -385,7 +385,7 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
             if (isset($namespacesMeta['dc'])) {
                 $officePropertyMeta = $officePropertyData->children($namespacesMeta['meta']);
             }
-            foreach($officePropertyMeta as $propertyName => $propertyValue) {
+            foreach ($officePropertyMeta as $propertyName => $propertyValue) {
                 $propertyValueAttributes = $propertyValue->attributes($namespacesMeta['meta']);
                 $propertyValue = (string) $propertyValue;
                 switch ($propertyName) {
@@ -404,7 +404,7 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
                             foreach ($propertyValueAttributes as $key => $value) {
                                 if ($key == 'name') {
                                     $propertyValueName = (string) $value;
-                                } elseif($key == 'value-type') {
+                                } elseif ($key == 'value-type') {
                                     switch ($value) {
                                         case 'date'    :
                                             $propertyValue = PHPExcel_DocumentProperties::convertProperty($propertyValue,'date');
@@ -423,7 +423,7 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
                                     }
                                 }
                             }
-                            $docProps->setCustomProperty($propertyValueName,$propertyValue,$propertyValueType);
+                            $docProps->setCustomProperty($propertyValueName, $propertyValue, $propertyValueType);
                             break;
                 }
             }
@@ -438,10 +438,10 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
 //        echo '</pre><hr />';
 
         $workbook = $xml->children($namespacesContent['office']);
-        foreach($workbook->body->spreadsheet as $workbookData) {
+        foreach ($workbook->body->spreadsheet as $workbookData) {
             $workbookData = $workbookData->children($namespacesContent['table']);
             $worksheetID = 0;
-            foreach($workbookData->table as $worksheetDataSet) {
+            foreach ($workbookData->table as $worksheetDataSet) {
                 $worksheetData = $worksheetDataSet->children($namespacesContent['table']);
 //                print_r($worksheetData);
 //                echo '<br />';
@@ -466,7 +466,7 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
                 }
 
                 $rowID = 1;
-                foreach($worksheetData as $key => $rowData) {
+                foreach ($worksheetData as $key => $rowData) {
 //                    echo '<b>'.$key.'</b><br />';
                     switch ($key) {
                         case 'table-header-rows':
@@ -479,7 +479,7 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
                             $rowRepeats = (isset($rowDataTableAttributes['number-rows-repeated'])) ?
                                     $rowDataTableAttributes['number-rows-repeated'] : 1;
                             $columnID = 'A';
-                            foreach($rowData as $key => $cellData) {
+                            foreach ($rowData as $key => $cellData) {
                                 if ($this->getReadFilter() !== NULL) {
                                     if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
                                         continue;
@@ -514,16 +514,16 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
 //                                    echo 'Cell has comment<br />';
                                     $annotationText = $cellDataOffice->annotation->children($namespacesContent['text']);
                                     $textArray = array();
-                                    foreach($annotationText as $t) {
+                                    foreach ($annotationText as $t) {
                                         if (isset($t->span)) {
-                                            foreach($t->span as $text) {
+                                            foreach ($t->span as $text) {
                                                 $textArray[] = (string)$text;
                                             }
                                         } else {
                                             $textArray[] = (string) $t;
                                         }
                                     }
-                                    $text = implode("\n",$textArray);
+                                    $text = implode("\n", $textArray);
 //                                    echo $text,'<br />';
                                     $objPHPExcel->getActiveSheet()->getComment( $columnID.$rowID )
 //                                                                    ->setAuthor( $author )
@@ -596,8 +596,8 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
                                                 $type = PHPExcel_Cell_DataType::TYPE_NUMERIC;
                                                 $dateObj = new DateTime($cellDataOfficeAttributes['date-value'], $GMT);
                                                 $dateObj->setTimeZone($timezoneObj);
-                                                list($year,$month,$day,$hour,$minute,$second) = explode(' ',$dateObj->format('Y m d H i s'));
-                                                $dataValue = PHPExcel_Shared_Date::FormattedPHPToExcel($year,$month,$day,$hour,$minute,$second);
+                                                list($year, $month, $day, $hour, $minute, $second) = explode(' ', $dateObj->format('Y m d H i s'));
+                                                $dataValue = PHPExcel_Shared_Date::FormattedPHPToExcel($year, $month, $day, $hour, $minute, $second);
                                                 if ($dataValue != floor($dataValue)) {
                                                     $formatting = PHPExcel_Style_NumberFormat::FORMAT_DATE_XLSX15.' '.PHPExcel_Style_NumberFormat::FORMAT_DATE_TIME4;
                                                 } else {
@@ -623,21 +623,21 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
                                     $type = PHPExcel_Cell_DataType::TYPE_FORMULA;
 //                                    echo 'Formula: ', $cellDataFormula, PHP_EOL;
                                     $cellDataFormula = substr($cellDataFormula,strpos($cellDataFormula,':=')+1);
-                                    $temp = explode('"',$cellDataFormula);
+                                    $temp = explode('"', $cellDataFormula);
                                     $tKey = false;
-                                    foreach($temp as &$value) {
+                                    foreach ($temp as &$value) {
                                         //    Only replace in alternate array entries (i.e. non-quoted blocks)
                                         if ($tKey = !$tKey) {
-                                            $value = preg_replace('/\[([^\.]+)\.([^\.]+):\.([^\.]+)\]/Ui','$1!$2:$3',$value);    //  Cell range reference in another sheet
-                                            $value = preg_replace('/\[([^\.]+)\.([^\.]+)\]/Ui','$1!$2',$value);       //  Cell reference in another sheet
-                                            $value = preg_replace('/\[\.([^\.]+):\.([^\.]+)\]/Ui','$1:$2',$value);    //  Cell range reference
-                                            $value = preg_replace('/\[\.([^\.]+)\]/Ui','$1',$value);                  //  Simple cell reference
-                                            $value = PHPExcel_Calculation::_translateSeparator(';',',',$value,$inBraces);
+                                            $value = preg_replace('/\[([^\.]+)\.([^\.]+):\.([^\.]+)\]/Ui','$1!$2:$3', $value);    //  Cell range reference in another sheet
+                                            $value = preg_replace('/\[([^\.]+)\.([^\.]+)\]/Ui','$1!$2', $value);       //  Cell reference in another sheet
+                                            $value = preg_replace('/\[\.([^\.]+):\.([^\.]+)\]/Ui','$1:$2', $value);    //  Cell range reference
+                                            $value = preg_replace('/\[\.([^\.]+)\]/Ui','$1', $value);                  //  Simple cell reference
+                                            $value = PHPExcel_Calculation::_translateSeparator(';',',', $value, $inBraces);
                                         }
                                     }
                                     unset($value);
                                     //    Then rebuild the formula string
-                                    $cellDataFormula = implode('"',$temp);
+                                    $cellDataFormula = implode('"', $temp);
 //                                    echo 'Adjusted Formula: ', $cellDataFormula, PHP_EOL;
                                 }
 
@@ -651,7 +651,7 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
                                         if ($type !== PHPExcel_Cell_DataType::TYPE_NULL) {
                                             for ($rowAdjust = 0; $rowAdjust < $rowRepeats; ++$rowAdjust) {
                                                 $rID = $rowID + $rowAdjust;
-                                                $objPHPExcel->getActiveSheet()->getCell($columnID.$rID)->setValueExplicit((($hasCalculatedValue) ? $cellDataFormula : $dataValue),$type);
+                                                $objPHPExcel->getActiveSheet()->getCell($columnID.$rID)->setValueExplicit((($hasCalculatedValue) ? $cellDataFormula : $dataValue), $type);
                                                 if ($hasCalculatedValue) {
 //                                                    echo 'Forumla result is '.$dataValue.'<br />';
                                                     $objPHPExcel->getActiveSheet()->getCell($columnID.$rID)->setCalculatedValue($dataValue);

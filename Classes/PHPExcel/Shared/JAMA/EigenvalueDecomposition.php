@@ -763,7 +763,7 @@ class EigenvalueDecomposition {
         for ($j = $nn-1; $j >= $low; --$j) {
             for ($i = $low; $i <= $high; ++$i) {
                 $z = 0.0;
-                for ($k = $low; $k <= min($j,$high); ++$k) {
+                for ($k = $low; $k <= min($j, $high); ++$k) {
                     $z = $z + $this->V[$i][$k] * $this->H[$k][$j];
                 }
                 $this->V[$i][$j] = $z;

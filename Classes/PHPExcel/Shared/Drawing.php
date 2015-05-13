@@ -181,10 +181,10 @@ class PHPExcel_Shared_Drawing
         //    Load the image into a string
         $file    =    fopen($p_sFile,"rb");
         $read    =    fread($file,10);
-        while(!feof($file)&&($read<>""))
+        while (!feof($file)&&($read<>""))
             $read    .=    fread($file,1024);
 
-        $temp    =    unpack("H*",$read);
+        $temp    =    unpack("H*", $read);
         $hex    =    $temp[1];
         $header    =    substr($hex,0,108);
 
@@ -210,7 +210,7 @@ class PHPExcel_Shared_Drawing
         $y                =    1;
 
         //    Create newimage
-        $image            =    imagecreatetruecolor($width,$height);
+        $image            =    imagecreatetruecolor($width, $height);
 
         //    Grab the body from the image
         $body            =    substr($hex,108);
@@ -255,8 +255,8 @@ class PHPExcel_Shared_Drawing
             $b        =    hexdec($body[$i_pos].$body[$i_pos+1]);
 
             //    Calculate and draw the pixel
-            $color    =    imagecolorallocate($image,$r,$g,$b);
-            imagesetpixel($image,$x,$height-$y,$color);
+            $color    =    imagecolorallocate($image, $r, $g, $b);
+            imagesetpixel($image, $x, $height-$y, $color);
 
             //    Raise the horizontal position
             $x++;

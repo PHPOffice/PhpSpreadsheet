@@ -74,7 +74,7 @@ class SingularValueDecomposition  {
 
         // Reduce A to bidiagonal form, storing the diagonal elements
         // in s and the super-diagonal elements in e.
-        for ($k = 0; $k < max($nct,$nrt); ++$k) {
+        for ($k = 0; $k < max($nct, $nrt); ++$k) {
 
             if ($k < $nct) {
                 // Compute the transformation for the k-th column and
@@ -291,7 +291,7 @@ class SingularValueDecomposition  {
                         $f = $e[$p-2];
                         $e[$p-2] = 0.0;
                         for ($j = $p - 2; $j >= $k; --$j) {
-                            $t  = hypo($this->s[$j],$f);
+                            $t  = hypo($this->s[$j], $f);
                             $cs = $this->s[$j] / $t;
                             $sn = $f / $t;
                             $this->s[$j] = $t;
@@ -353,7 +353,7 @@ class SingularValueDecomposition  {
                         $g = $sk * $ek;
                         // Chase zeros.
                         for ($j = $k; $j < $p-1; ++$j) {
-                            $t  = hypo($f,$g);
+                            $t  = hypo($f, $g);
                             $cs = $f/$t;
                             $sn = $g/$t;
                             if ($j != $k) {
@@ -370,7 +370,7 @@ class SingularValueDecomposition  {
                                     $this->V[$i][$j] = $t;
                                 }
                             }
-                            $t = hypo($f,$g);
+                            $t = hypo($f, $g);
                             $cs = $f/$t;
                             $sn = $g/$t;
                             $this->s[$j] = $t;
