@@ -371,21 +371,20 @@ class PHPExcel_Chart_DataSeries
 
     public function refresh(PHPExcel_Worksheet $worksheet)
     {
-        foreach($this->_plotValues as $plotValues) {
+        foreach ($this->_plotValues as $plotValues) {
             if ($plotValues !== null) {
                 $plotValues->refresh($worksheet, true);
             }
         }
-        foreach($this->_plotLabel as $plotValues) {
+        foreach ($this->_plotLabel as $plotValues) {
             if ($plotValues !== null) {
                 $plotValues->refresh($worksheet, true);
             }
         }
-        foreach($this->_plotCategory as $plotValues) {
+        foreach ($this->_plotCategory as $plotValues) {
             if ($plotValues !== null) {
                 $plotValues->refresh($worksheet, false);
             }
         }
     }
-
 }

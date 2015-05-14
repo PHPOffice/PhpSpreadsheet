@@ -473,8 +473,8 @@ class PHPExcel_Shared_OLE
         // days from 1-1-1601 until the beggining of UNIX era
         $days = 134774;
         // calculate seconds
-        $big_date = $days*24*3600 + gmmktime(date("H",$date),date("i",$date),date("s",$date),
-                                             date("m",$date),date("d",$date),date("Y",$date));
+        $big_date = $days*24*3600 + gmmktime(date("H", $date),date("i", $date),date("s", $date),
+                                             date("m", $date),date("d", $date),date("Y", $date));
         // multiply just to make MS happy
         $big_date *= 10000000;
 

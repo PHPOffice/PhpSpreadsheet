@@ -82,7 +82,7 @@ class PHPExcel_Shared_JAMA_LUDecomposition {
                 for ($i = 0; $i < $this->m; ++$i) {
                     $LUrowi = $this->LU[$i];
                     // Most of the time is spent in the following dot product.
-                    $kmax = min($i,$j);
+                    $kmax = min($i, $j);
                     $s = 0.0;
                     for ($k = 0; $k < $kmax; ++$k) {
                         $s += $LUrowi[$k] * $LUcolj[$k];

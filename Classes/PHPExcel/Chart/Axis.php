@@ -179,8 +179,7 @@ class PHPExcel_Chart_Axis extends PHPExcel_Chart_Properties
     public function setAxisOptionsProperties($axis_labels, $horizontal_crosses_value = null, $horizontal_crosses = null, $axis_orientation = null, $major_tmt = null, $minor_tmt = null, $minimum = null, $maximum = null, $major_unit = null, $minor_unit = null)
     {
         $this->_axis_options['axis_labels'] = (string) $axis_labels;
-        ($horizontal_crosses_value !== null)
-            ? $this->_axis_options['horizontal_crosses_value'] = (string) $horizontal_crosses_value : null;
+        ($horizontal_crosses_value !== null) ? $this->_axis_options['horizontal_crosses_value'] = (string) $horizontal_crosses_value : null;
         ($horizontal_crosses !== null) ? $this->_axis_options['horizontal_crosses'] = (string) $horizontal_crosses : null;
         ($axis_orientation !== null) ? $this->_axis_options['orientation'] = (string) $axis_orientation : null;
         ($major_tmt !== null) ? $this->_axis_options['major_tick_mark'] = (string) $major_tmt : null;
@@ -265,306 +264,282 @@ class PHPExcel_Chart_Axis extends PHPExcel_Chart_Properties
         return $this->_line_properties[$property];
     }
 
-  /**
-   * Set Line Style Properties
-   *
-   * @param float $line_width
-   * @param string $compound_type
-   * @param string $dash_type
-   * @param string $cap_type
-   * @param string $join_type
-   * @param string $head_arrow_type
-   * @param string $head_arrow_size
-   * @param string $end_arrow_type
-   * @param string $end_arrow_size
-   *
-   */
+    /**
+     * Set Line Style Properties
+     *
+     * @param float $line_width
+     * @param string $compound_type
+     * @param string $dash_type
+     * @param string $cap_type
+     * @param string $join_type
+     * @param string $head_arrow_type
+     * @param string $head_arrow_size
+     * @param string $end_arrow_type
+     * @param string $end_arrow_size
+     *
+     */
+    public function setLineStyleProperties($line_width = null, $compound_type = null, $dash_type = null, $cap_type = null, $join_type = null, $head_arrow_type = null, $head_arrow_size = null, $end_arrow_type = null, $end_arrow_size = null) {
+        (!is_null($line_width)) ? $this->_line_style_properties['width'] = $this->getExcelPointsWidth((float) $line_width) : null;
+        (!is_null($compound_type)) ? $this->_line_style_properties['compound'] = (string) $compound_type : null;
+        (!is_null($dash_type)) ? $this->_line_style_properties['dash'] = (string) $dash_type : null;
+        (!is_null($cap_type)) ? $this->_line_style_properties['cap'] = (string) $cap_type : null;
+        (!is_null($join_type)) ? $this->_line_style_properties['join'] = (string) $join_type : null;
+        (!is_null($head_arrow_type)) ? $this->_line_style_properties['arrow']['head']['type'] = (string) $head_arrow_type : null;
+        (!is_null($head_arrow_size)) ? $this->_line_style_properties['arrow']['head']['size'] = (string) $head_arrow_size : null;
+        (!is_null($end_arrow_type)) ? $this->_line_style_properties['arrow']['end']['type'] = (string) $end_arrow_type : null;
+        (!is_null($end_arrow_size)) ? $this->_line_style_properties['arrow']['end']['size'] = (string) $end_arrow_size : null;
+    }
 
-  public function setLineStyleProperties($line_width = null, $compound_type = null, $dash_type = null, $cap_type = null, $join_type = null, $head_arrow_type = null, $head_arrow_size = null, $end_arrow_type = null, $end_arrow_size = null) {
-    (!is_null($line_width)) ? $this->_line_style_properties['width'] = $this->getExcelPointsWidth((float) $line_width)
-        : null;
-    (!is_null($compound_type)) ? $this->_line_style_properties['compound'] = (string) $compound_type : null;
-    (!is_null($dash_type)) ? $this->_line_style_properties['dash'] = (string) $dash_type : null;
-    (!is_null($cap_type)) ? $this->_line_style_properties['cap'] = (string) $cap_type : null;
-    (!is_null($join_type)) ? $this->_line_style_properties['join'] = (string) $join_type : null;
-    (!is_null($head_arrow_type)) ? $this->_line_style_properties['arrow']['head']['type'] = (string) $head_arrow_type
-        : null;
-    (!is_null($head_arrow_size)) ? $this->_line_style_properties['arrow']['head']['size'] = (string) $head_arrow_size
-        : null;
-    (!is_null($end_arrow_type)) ? $this->_line_style_properties['arrow']['end']['type'] = (string) $end_arrow_type
-        : null;
-    (!is_null($end_arrow_size)) ? $this->_line_style_properties['arrow']['end']['size'] = (string) $end_arrow_size
-        : null;
-  }
+    /**
+     * Get Line Style Property
+     *
+     * @param array|string $elements
+     *
+     * @return string
+     */
+    public function getLineStyleProperty($elements)
+    {
+        return $this->getArrayElementsValue($this->_line_style_properties, $elements);
+    }
 
-  /**
-   * Get Line Style Property
-   *
-   * @param array|string $elements
-   *
-   * @return string
-   */
+    /**
+     * Get Line Style Arrow Excel Width
+     *
+     * @param string $arrow
+     *
+     * @return string
+     */
+    public function getLineStyleArrowWidth($arrow)
+    {
+        return $this->getLineStyleArrowSize($this->_line_style_properties['arrow'][$arrow]['size'], 'w');
+    }
 
-  public function getLineStyleProperty($elements)
-  {
-    return $this->getArrayElementsValue($this->_line_style_properties, $elements);
-  }
+    /**
+     * Get Line Style Arrow Excel Length
+     *
+     * @param string $arrow
+     *
+     * @return string
+     */
+    public function getLineStyleArrowLength($arrow)
+    {
+        return $this->getLineStyleArrowSize($this->_line_style_properties['arrow'][$arrow]['size'], 'len');
+    }
 
-  /**
-   * Get Line Style Arrow Excel Width
-   *
-   * @param string $arrow
-   *
-   * @return string
-   */
+    /**
+     * Set Shadow Properties
+     *
+     * @param int $shadow_presets
+     * @param string $sh_color_value
+     * @param string $sh_color_type
+     * @param string $sh_color_alpha
+     * @param float $sh_blur
+     * @param int $sh_angle
+     * @param float $sh_distance
+     *
+     */
+    public function setShadowProperties($sh_presets, $sh_color_value = null, $sh_color_type = null, $sh_color_alpha = null, $sh_blur = null, $sh_angle = null, $sh_distance = null) {
+        $this->_setShadowPresetsProperties((int) $sh_presets)
+            ->_setShadowColor(
+                is_null($sh_color_value) ? $this->_shadow_properties['color']['value'] : $sh_color_value
+                , is_null($sh_color_alpha) ? (int) $this->_shadow_properties['color']['alpha'] : $sh_color_alpha
+                , is_null($sh_color_type) ? $this->_shadow_properties['color']['type'] : $sh_color_type)
+            ->_setShadowBlur($sh_blur)
+            ->_setShadowAngle($sh_angle)
+            ->_setShadowDistance($sh_distance);
+    }
 
-  public function getLineStyleArrowWidth($arrow)
-  {
-    return $this->getLineStyleArrowSize($this->_line_style_properties['arrow'][$arrow]['size'], 'w');
-  }
+    /**
+     * Set Shadow Color
+     *
+     * @param int $shadow_presets
+     *
+     * @return PHPExcel_Chart_Axis
+     */
+    private function _setShadowPresetsProperties($shadow_presets) {
+        $this->_shadow_properties['presets'] = $shadow_presets;
+        $this->_setShadowProperiesMapValues($this->getShadowPresetsMap($shadow_presets));
 
-  /**
-   * Get Line Style Arrow Excel Length
-   *
-   * @param string $arrow
-   *
-   * @return string
-   */
+        return $this;
+    }
 
-  public function getLineStyleArrowLength($arrow)
-  {
-    return $this->getLineStyleArrowSize($this->_line_style_properties['arrow'][$arrow]['size'], 'len');
-  }
-
-  /**
-   * Set Shadow Properties
-   *
-   * @param int $shadow_presets
-   * @param string $sh_color_value
-   * @param string $sh_color_type
-   * @param string $sh_color_alpha
-   * @param float $sh_blur
-   * @param int $sh_angle
-   * @param float $sh_distance
-   *
-   */
-
-  public function setShadowProperties($sh_presets, $sh_color_value = null, $sh_color_type = null, $sh_color_alpha = null, $sh_blur = null, $sh_angle = null, $sh_distance = null) {
-    $this
-        ->_setShadowPresetsProperties((int) $sh_presets)
-        ->_setShadowColor(
-            is_null($sh_color_value) ? $this->_shadow_properties['color']['value'] : $sh_color_value
-            , is_null($sh_color_alpha) ? (int) $this->_shadow_properties['color']['alpha'] : $sh_color_alpha
-            , is_null($sh_color_type) ? $this->_shadow_properties['color']['type'] : $sh_color_type)
-        ->_setShadowBlur($sh_blur)
-        ->_setShadowAngle($sh_angle)
-        ->_setShadowDistance($sh_distance);
-  }
-
-  /**
-   * Set Shadow Color
-   *
-   * @param int $shadow_presets
-   *
-   * @return PHPExcel_Chart_Axis
-   */
-
-  private function _setShadowPresetsProperties($shadow_presets) {
-    $this->_shadow_properties['presets'] = $shadow_presets;
-    $this->_setShadowProperiesMapValues($this->getShadowPresetsMap($shadow_presets));
-
-    return $this;
-  }
-
-  /**
-   * Set Shadow Properties from Maped Values
-   *
-   * @param array $properties_map
-   * @param * $reference
-   *
-   * @return PHPExcel_Chart_Axis
-   */
-
-  private function _setShadowProperiesMapValues(array $properties_map, &$reference = null) {
-    $base_reference = $reference;
-    foreach ($properties_map as $property_key => $property_val) {
-      if (is_array($property_val)) {
-        if ($reference === null) {
-          $reference = & $this->_shadow_properties[$property_key];
-        } else {
-          $reference = & $reference[$property_key];
+    /**
+     * Set Shadow Properties from Maped Values
+     *
+     * @param array $properties_map
+     * @param * $reference
+     *
+     * @return PHPExcel_Chart_Axis
+     */
+    private function _setShadowProperiesMapValues(array $properties_map, &$reference = null) {
+        $base_reference = $reference;
+        foreach ($properties_map as $property_key => $property_val) {
+            if (is_array($property_val)) {
+                if ($reference === null) {
+                    $reference = & $this->_shadow_properties[$property_key];
+                } else {
+                    $reference = & $reference[$property_key];
+                }
+                $this->_setShadowProperiesMapValues($property_val, $reference);
+            } else {
+                if ($base_reference === null) {
+                    $this->_shadow_properties[$property_key] = $property_val;
+                } else {
+                    $reference[$property_key] = $property_val;
+                }
+            }
         }
-        $this->_setShadowProperiesMapValues($property_val, $reference);
-      } else {
-        if ($base_reference === null) {
-          $this->_shadow_properties[$property_key] = $property_val;
-        } else {
-          $reference[$property_key] = $property_val;
+
+        return $this;
+    }
+
+    /**
+     * Set Shadow Color
+     *
+     * @param string $color
+     * @param int $alpha
+     * @param string $type
+     *
+     * @return PHPExcel_Chart_Axis
+     */
+    private function _setShadowColor($color, $alpha, $type) {
+        $this->_shadow_properties['color'] = $this->setColorProperties($color, $alpha, $type);
+
+        return $this;
+    }
+
+    /**
+     * Set Shadow Blur
+     *
+     * @param float $blur
+     *
+     * @return PHPExcel_Chart_Axis
+     */
+    private function _setShadowBlur($blur) {
+        if ($blur !== null) {
+            $this->_shadow_properties['blur'] = (string) $this->getExcelPointsWidth($blur);
         }
-      }
+
+        return $this;
     }
 
-    return $this;
-  }
+    /**
+     * Set Shadow Angle
+     *
+     * @param int $angle
+     *
+     * @return PHPExcel_Chart_Axis
+     */
+    private function _setShadowAngle($angle) {
+        if ($angle !== null) {
+            $this->_shadow_properties['direction'] = (string) $this->getExcelPointsAngle($angle);
+        }
 
-  /**
-   * Set Shadow Color
-   *
-   * @param string $color
-   * @param int $alpha
-   * @param string $type
-   *
-   * @return PHPExcel_Chart_Axis
-   */
-
-  private function _setShadowColor($color, $alpha, $type) {
-    $this->_shadow_properties['color'] = $this->setColorProperties($color, $alpha, $type);
-
-    return $this;
-  }
-
-  /**
-   * Set Shadow Blur
-   *
-   * @param float $blur
-   *
-   * @return PHPExcel_Chart_Axis
-   */
-
-  private function _setShadowBlur($blur) {
-    if ($blur !== null) {
-      $this->_shadow_properties['blur'] = (string) $this->getExcelPointsWidth($blur);
+        return $this;
     }
 
-    return $this;
-  }
+    /**
+     * Set Shadow Distance
+     *
+     * @param float $distance
+     *
+     * @return PHPExcel_Chart_Axis
+     */
+    private function _setShadowDistance($distance) {
+        if ($distance !== null) {
+            $this->_shadow_properties['distance'] = (string) $this->getExcelPointsWidth($distance);
+        }
 
-  /**
-   * Set Shadow Angle
-   *
-   * @param int $angle
-   *
-   * @return PHPExcel_Chart_Axis
-   */
-
-  private function _setShadowAngle($angle) {
-    if ($angle !== null) {
-      $this->_shadow_properties['direction'] = (string) $this->getExcelPointsAngle($angle);
+        return $this;
     }
 
-    return $this;
-  }
-
-  /**
-   * Set Shadow Distance
-   *
-   * @param float $distance
-   *
-   * @return PHPExcel_Chart_Axis
-   */
-
-  private function _setShadowDistance($distance) {
-    if ($distance !== null) {
-      $this->_shadow_properties['distance'] = (string) $this->getExcelPointsWidth($distance);
+    /**
+     * Get Glow Property
+     *
+     * @param float $size
+     * @param string $color_value
+     * @param int $color_alpha
+     * @param string $color_type
+     */
+    public function getShadowProperty($elements) {
+        return $this->getArrayElementsValue($this->_shadow_properties, $elements);
     }
 
-    return $this;
-  }
-
-  /**
-   * Get Glow Property
-   *
-   * @param float $size
-   * @param string $color_value
-   * @param int $color_alpha
-   * @param string $color_type
-   */
-
-  public function getShadowProperty($elements) {
-    return $this->getArrayElementsValue($this->_shadow_properties, $elements);
-  }
-
-  /**
-   * Set Glow Properties
-   *
-   * @param float $size
-   * @param string $color_value
-   * @param int $color_alpha
-   * @param string $color_type
-   */
-
-  public function setGlowProperties($size, $color_value = null, $color_alpha = null, $color_type = null) {
-    $this
-        ->_setGlowSize($size)
-        ->_setGlowColor(
-            is_null($color_value) ? $this->_glow_properties['color']['value'] : $color_value
-            , is_null($color_alpha) ? (int) $this->_glow_properties['color']['alpha'] : $color_alpha
-            , is_null($color_type) ? $this->_glow_properties['color']['type'] : $color_type);
-  }
-
-  /**
-   * Get Glow Property
-   *
-   * @param array|string $property
-   *
-   * @return string
-   */
-
-  public function getGlowProperty($property) {
-    return $this->getArrayElementsValue($this->_glow_properties, $property);
-  }
-
-  /**
-   * Set Glow Color
-   *
-   * @param float $size
-   *
-   * @return PHPExcel_Chart_Axis
-   */
-
-  private function _setGlowSize($size) {
-    if (!is_null($size)) {
-      $this->_glow_properties['size'] = $this->getExcelPointsWidth($size);
+    /**
+     * Set Glow Properties
+     *
+     * @param float $size
+     * @param string $color_value
+     * @param int $color_alpha
+     * @param string $color_type
+     */
+    public function setGlowProperties($size, $color_value = null, $color_alpha = null, $color_type = null) {
+        $this->_setGlowSize($size)
+            ->_setGlowColor(
+                is_null($color_value) ? $this->_glow_properties['color']['value'] : $color_value
+                , is_null($color_alpha) ? (int) $this->_glow_properties['color']['alpha'] : $color_alpha
+                , is_null($color_type) ? $this->_glow_properties['color']['type'] : $color_type
+            );
     }
 
-    return $this;
-  }
-
-  /**
-   * Set Glow Color
-   *
-   * @param string $color
-   * @param int $alpha
-   * @param string $type
-   *
-   * @return PHPExcel_Chart_Axis
-   */
-
-  private function _setGlowColor($color, $alpha, $type) {
-    $this->_glow_properties['color'] = $this->setColorProperties($color, $alpha, $type);
-
-    return $this;
-  }
-
-  /**
-   * Set Soft Edges Size
-   *
-   * @param float $size
-   */
-
-  public function setSoftEdges($size) {
-    if (!is_null($size)) {
-      $_soft_edges['size'] = (string) $this->getExcelPointsWidth($size);
+    /**
+     * Get Glow Property
+     *
+     * @param array|string $property
+     *
+     * @return string
+     */
+    public function getGlowProperty($property) {
+        return $this->getArrayElementsValue($this->_glow_properties, $property);
     }
-  }
 
-  /**
-   * Get Soft Edges Size
-   *
-   * @return string
-   */
+    /**
+     * Set Glow Color
+     *
+     * @param float $size
+     *
+     * @return PHPExcel_Chart_Axis
+     */
+    private function _setGlowSize($size) {
+        if (!is_null($size)) {
+            $this->_glow_properties['size'] = $this->getExcelPointsWidth($size);
+        }
 
-  public function getSoftEdgesSize() {
-    return $this->_soft_edges['size'];
-  }
+        return $this;
+    }
+
+    /**
+     * Set Glow Color
+     *
+     * @param string $color
+     * @param int $alpha
+     * @param string $type
+     *
+     * @return PHPExcel_Chart_Axis
+     */
+    private function _setGlowColor($color, $alpha, $type) {
+        $this->_glow_properties['color'] = $this->setColorProperties($color, $alpha, $type);
+
+        return $this;
+    }
+
+    /**
+     * Set Soft Edges Size
+     *
+     * @param float $size
+     */
+    public function setSoftEdges($size) {
+        if (!is_null($size)) {
+            $_soft_edges['size'] = (string) $this->getExcelPointsWidth($size);
+        }
+    }
+
+    /**
+     * Get Soft Edges Size
+     *
+     * @return string
+     */
+    public function getSoftEdgesSize() {
+        return $this->_soft_edges['size'];
+    }
 }

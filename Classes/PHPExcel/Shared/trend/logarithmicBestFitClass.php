@@ -91,7 +91,7 @@ class PHPExcel_Logarithmic_Best_Fit extends PHPExcel_Best_Fit
      * @param     boolean    $const
      */
     private function _logarithmic_regression($yValues, $xValues, $const) {
-        foreach($xValues as &$value) {
+        foreach ($xValues as &$value) {
             if ($value < 0.0) {
                 $value = 0 - log(abs($value));
             } elseif ($value > 0.0) {

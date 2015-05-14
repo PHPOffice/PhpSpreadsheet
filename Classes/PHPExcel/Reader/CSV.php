@@ -266,7 +266,7 @@ class PHPExcel_Reader_CSV extends PHPExcel_Reader_Abstract implements PHPExcel_R
         // Loop through each line of the file in turn
         while (($rowData = fgetcsv($fileHandle, 0, $this->_delimiter, $this->_enclosure)) !== FALSE) {
             $columnLetter = 'A';
-            foreach($rowData as $rowDatum) {
+            foreach ($rowData as $rowDatum) {
                 if ($rowDatum != '' && $this->_readFilter->readCell($columnLetter, $currentRow)) {
                     // Unescape enclosures
                     $rowDatum = str_replace($escapeEnclosures, $this->_enclosure, $rowDatum);

@@ -75,7 +75,7 @@ class PHPExcel_Polynomial_Best_Fit extends PHPExcel_Best_Fit
     public function getValueOfYForX($xValue) {
         $retVal = $this->getIntersect();
         $slope = $this->getSlope();
-        foreach($slope as $key => $value) {
+        foreach ($slope as $key => $value) {
             if ($value != 0.0) {
                 $retVal += $value * pow($xValue, $key + 1);
             }
@@ -106,7 +106,7 @@ class PHPExcel_Polynomial_Best_Fit extends PHPExcel_Best_Fit
         $intersect = $this->getIntersect($dp);
 
         $equation = 'Y = '.$intersect;
-        foreach($slope as $key => $value) {
+        foreach ($slope as $key => $value) {
             if ($value != 0.0) {
                 $equation .= ' + '.$value.' * X';
                 if ($key > 0) {
@@ -127,8 +127,8 @@ class PHPExcel_Polynomial_Best_Fit extends PHPExcel_Best_Fit
     public function getSlope($dp=0) {
         if ($dp != 0) {
             $coefficients = array();
-            foreach($this->_slope as $coefficient) {
-                $coefficients[] = round($coefficient,$dp);
+            foreach ($this->_slope as $coefficient) {
+                $coefficients[] = round($coefficient, $dp);
             }
             return $coefficients;
         }
@@ -137,7 +137,7 @@ class PHPExcel_Polynomial_Best_Fit extends PHPExcel_Best_Fit
 
 
     public function getCoefficients($dp=0) {
-        return array_merge(array($this->getIntersect($dp)),$this->getSlope($dp));
+        return array_merge(array($this->getIntersect($dp)), $this->getSlope($dp));
     }    //    function getCoefficients()
 
 
@@ -191,8 +191,8 @@ class PHPExcel_Polynomial_Best_Fit extends PHPExcel_Best_Fit
         $this->_intersect = array_shift($coefficients);
         $this->_slope = $coefficients;
 
-        $this->_calculateGoodnessOfFit($x_sum,$y_sum,$xx_sum,$yy_sum,$xy_sum);
-        foreach($this->_xValues as $xKey => $xValue) {
+        $this->_calculateGoodnessOfFit($x_sum, $y_sum, $xx_sum, $yy_sum, $xy_sum);
+        foreach ($this->_xValues as $xKey => $xValue) {
             $this->_yBestFitValues[$xKey] = $this->getValueOfYForX($xValue);
         }
     }    //    function _polynomial_regression()

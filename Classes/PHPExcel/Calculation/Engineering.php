@@ -1019,7 +1019,7 @@ class PHPExcel_Calculation_Engineering
                 return PHPExcel_Calculation_Functions::NaN();
             }
 
-            switch(floor($ord)) {
+            switch (floor($ord)) {
                 case 0:
                     return self::besselK0($x);
                 case 1:
@@ -1103,7 +1103,7 @@ class PHPExcel_Calculation_Engineering
                 return PHPExcel_Calculation_Functions::NaN();
             }
 
-            switch(floor($ord)) {
+            switch (floor($ord)) {
                 case 0:
                     return self::besselY0($x);
                 case 1:

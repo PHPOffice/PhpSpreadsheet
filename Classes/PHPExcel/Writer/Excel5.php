@@ -333,7 +333,7 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
                 $iNumColEnd = $rangeBounds[1][0];
 
                 $iInc = $iNumColStart;
-                while($iInc <= $iNumColEnd) {
+                while ($iInc <= $iNumColEnd) {
                     ++$countShapes[$sheetIndex];
 
                     // create an Drawing Object for the dropdown
@@ -467,7 +467,7 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
                         case 1: // GIF, not supported by BIFF8, we convert to PNG
                             $blipType = PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE::BLIPTYPE_PNG;
                             ob_start();
-                            imagepng(imagecreatefromgif ($filename));
+                            imagepng(imagecreatefromgif($filename));
                             $blipData = ob_get_contents();
                             ob_end_clean();
                             break;
@@ -679,21 +679,18 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
                 $dataSection_Content .= pack('V', $dataProp['data']['data']);
 
                 $dataSection_Content_Offset += 4 + 4;
-            }
-            elseif ($dataProp['type']['data'] == 0x03) { // 4 byte signed integer
+            } elseif ($dataProp['type']['data'] == 0x03) { // 4 byte signed integer
                 $dataSection_Content .= pack('V', $dataProp['data']['data']);
 
                 $dataSection_Content_Offset += 4 + 4;
-            }
-            elseif ($dataProp['type']['data'] == 0x0B) { // Boolean
+            } elseif ($dataProp['type']['data'] == 0x0B) { // Boolean
                 if ($dataProp['data']['data'] == false) {
                     $dataSection_Content .= pack('V', 0x0000);
                 } else {
                     $dataSection_Content .= pack('V', 0x0001);
                 }
                 $dataSection_Content_Offset += 4 + 4;
-            }
-            elseif ($dataProp['type']['data'] == 0x1E) { // null-terminated string prepended by dword string length
+            } elseif ($dataProp['type']['data'] == 0x1E) { // null-terminated string prepended by dword string length
                 // Null-terminated string
                 $dataProp['data']['data'] .= chr(0);
                 $dataProp['data']['length'] += 1;
@@ -705,13 +702,11 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
                 $dataSection_Content .= $dataProp['data']['data'];
 
                 $dataSection_Content_Offset += 4 + 4 + strlen($dataProp['data']['data']);
-            }
-            elseif ($dataProp['type']['data'] == 0x40) { // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
+            } elseif ($dataProp['type']['data'] == 0x40) { // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
                 $dataSection_Content .= $dataProp['data']['data'];
 
                 $dataSection_Content_Offset += 4 + 8;
-            }
-            else {
+            } else {
                 // Data Type Not Used at the moment
                 $dataSection_Content .= $dataProp['data']['data'];
 
@@ -867,13 +862,11 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
                 $dataSection_Content .= pack('V', $dataProp['data']['data']);
 
                 $dataSection_Content_Offset += 4 + 4;
-            }
-            elseif ($dataProp['type']['data'] == 0x03) { // 4 byte signed integer
+            } elseif ($dataProp['type']['data'] == 0x03) { // 4 byte signed integer
                 $dataSection_Content .= pack('V', $dataProp['data']['data']);
 
                 $dataSection_Content_Offset += 4 + 4;
-            }
-            elseif ($dataProp['type']['data'] == 0x1E) { // null-terminated string prepended by dword string length
+            } elseif ($dataProp['type']['data'] == 0x1E) { // null-terminated string prepended by dword string length
                 // Null-terminated string
                 $dataProp['data']['data'] .= chr(0);
                 $dataProp['data']['length'] += 1;
@@ -885,13 +878,11 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
                 $dataSection_Content .= $dataProp['data']['data'];
 
                 $dataSection_Content_Offset += 4 + 4 + strlen($dataProp['data']['data']);
-            }
-            elseif ($dataProp['type']['data'] == 0x40) { // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
+            } elseif ($dataProp['type']['data'] == 0x40) { // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
                 $dataSection_Content .= $dataProp['data']['data'];
 
                 $dataSection_Content_Offset += 4 + 8;
-            }
-            else {
+            } else {
                 // Data Type Not Used at the moment
             }
         }

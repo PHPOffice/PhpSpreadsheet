@@ -203,7 +203,7 @@ class PHPExcel_IOFactory
     {
         $reader = self::createReaderForFile($pFilename);
         $className = get_class($reader);
-        $classType = explode('_',$className);
+        $classType = explode('_', $className);
         unset($reader);
         return array_pop($classType);
     }

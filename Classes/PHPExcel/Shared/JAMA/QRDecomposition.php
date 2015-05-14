@@ -52,7 +52,7 @@ class PHPExcel_Shared_JAMA_QRDecomposition {
      *    @return Structure to access R and the Householder vectors and compute Q.
      */
     public function __construct($A) {
-        if($A instanceof PHPExcel_Shared_JAMA_Matrix) {
+        if ($A instanceof PHPExcel_Shared_JAMA_Matrix) {
             // Initialize.
             $this->QR = $A->getArrayCopy();
             $this->m  = $A->getRowDimension();
@@ -175,7 +175,7 @@ class PHPExcel_Shared_JAMA_QRDecomposition {
         /*
         for($i = 0; $i < count($Q); ++$i) {
             for($j = 0; $j < count($Q); ++$j) {
-                if(! isset($Q[$i][$j]) ) {
+                if (! isset($Q[$i][$j]) ) {
                     $Q[$i][$j] = 0;
                 }
             }

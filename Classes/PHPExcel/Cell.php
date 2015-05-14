@@ -585,7 +585,7 @@ class PHPExcel_Cell
     {
         if (preg_match("/^([$]?[A-Z]{1,3})([$]?\d{1,7})$/", $pCoordinateString, $matches)) {
             return array($matches[1],$matches[2]);
-        } elseif ((strpos($pCoordinateString,':') !== false) || (strpos($pCoordinateString,',') !== false)) {
+        } elseif ((strpos($pCoordinateString, ':') !== false) || (strpos($pCoordinateString, ',') !== false)) {
             throw new PHPExcel_Exception('Cell coordinate string can not be a range of cells');
         } elseif ($pCoordinateString == '') {
             throw new PHPExcel_Exception('Cell coordinate can not be zero-length string');
@@ -868,7 +868,7 @@ class PHPExcel_Cell
         $cellBlocks = explode(' ', str_replace('$', '', strtoupper($pRange)));
         foreach ($cellBlocks as $cellBlock) {
             // Single cell?
-            if (strpos($cellBlock,':') === false && strpos($cellBlock,',') === false) {
+            if (strpos($cellBlock, ':') === false && strpos($cellBlock, ',') === false) {
                 $returnValue[] = $cellBlock;
                 continue;
             }

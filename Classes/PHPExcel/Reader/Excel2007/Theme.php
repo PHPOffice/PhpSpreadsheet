@@ -69,7 +69,7 @@ class PHPExcel_Reader_Excel2007_Theme
      * Create a new PHPExcel_Theme
      *
      */
-    public function __construct($themeName,$colourSchemeName,$colourMap)
+    public function __construct($themeName, $colourSchemeName, $colourMap)
     {
         // Initialise values
         $this->_themeName            = $themeName;

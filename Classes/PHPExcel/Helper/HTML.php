@@ -637,7 +637,7 @@ class PHPExcel_Helper_HTML
 
     protected function rgbToColour($rgb) {
         preg_match_all('/\d+/', $rgb, $values);
-        foreach($values[0] as &$value) {
+        foreach ($values[0] as &$value) {
             $value = str_pad(dechex($value), 2, '0', STR_PAD_LEFT);
         }
         return implode($values[0]);
@@ -655,7 +655,7 @@ class PHPExcel_Helper_HTML
             if ($attributeName == 'color') {
                 if (preg_match('/rgb\s*\(/', $attributeValue)) {
                     $this->$attributeName = $this->rgbToColour($attributeValue);
-                } elseif(strpos(trim($attributeValue), '#') === 0) {
+                } elseif (strpos(trim($attributeValue), '#') === 0) {
                     $this->$attributeName = ltrim($attributeValue, '#');
                 } else {
                     $this->$attributeName = $this->colourNameLookup($attributeValue);

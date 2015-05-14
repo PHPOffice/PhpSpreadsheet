@@ -91,7 +91,7 @@ class PHPExcel_Exponential_Best_Fit extends PHPExcel_Best_Fit
      **/
     public function getSlope($dp=0) {
         if ($dp != 0) {
-            return round(exp($this->_slope),$dp);
+            return round(exp($this->_slope), $dp);
         }
         return exp($this->_slope);
     }    //    function getSlope()
@@ -105,7 +105,7 @@ class PHPExcel_Exponential_Best_Fit extends PHPExcel_Best_Fit
      **/
     public function getIntersect($dp=0) {
         if ($dp != 0) {
-            return round(exp($this->_intersect),$dp);
+            return round(exp($this->_intersect), $dp);
         }
         return exp($this->_intersect);
     }    //    function getIntersect()
@@ -119,7 +119,7 @@ class PHPExcel_Exponential_Best_Fit extends PHPExcel_Best_Fit
      * @param     boolean    $const
      */
     private function _exponential_regression($yValues, $xValues, $const) {
-        foreach($yValues as &$value) {
+        foreach ($yValues as &$value) {
             if ($value < 0.0) {
                 $value = 0 - log(abs($value));
             } elseif ($value > 0.0) {

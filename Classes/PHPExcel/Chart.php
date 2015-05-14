@@ -90,33 +90,33 @@ class PHPExcel_Chart
      */
     private $_displayBlanksAs = '0';
 
-  /**
-   * Chart Asix Y as
-   *
-   * @var PHPExcel_Chart_Axis
-   */
-  private $_yAxis = null;
+    /**
+     * Chart Asix Y as
+     *
+     * @var PHPExcel_Chart_Axis
+     */
+    private $_yAxis = null;
 
-  /**
-   * Chart Asix X as
-   *
-   * @var PHPExcel_Chart_Axis
-   */
-  private $_xAxis = null;
+    /**
+     * Chart Asix X as
+     *
+     * @var PHPExcel_Chart_Axis
+     */
+    private $_xAxis = null;
 
-  /**
-   * Chart Major Gridlines as
-   *
-   * @var PHPExcel_Chart_GridLines
-   */
-  private $_majorGridlines = null;
+    /**
+     * Chart Major Gridlines as
+     *
+     * @var PHPExcel_Chart_GridLines
+     */
+    private $_majorGridlines = null;
 
-  /**
-   * Chart Minor Gridlines as
-   *
-   * @var PHPExcel_Chart_GridLines
-   */
-  private $_minorGridlines = null;
+    /**
+     * Chart Minor Gridlines as
+     *
+     * @var PHPExcel_Chart_GridLines
+     */
+    private $_minorGridlines = null;
 
     /**
      * Top-Left Cell Position
@@ -304,7 +304,8 @@ class PHPExcel_Chart
      * @param    PHPExcel_Chart_Title $label
      * @return    PHPExcel_Chart
      */
-    public function setYAxisLabel(PHPExcel_Chart_Title $label) {
+    public function setYAxisLabel(PHPExcel_Chart_Title $label)
+    {
         $this->_yAxisLabel = $label;
 
         return $this;
@@ -365,61 +366,61 @@ class PHPExcel_Chart
     }
 
 
-  /**
-   * Get yAxis
-   *
-   * @return PHPExcel_Chart_Axis
-   */
-  public function getChartAxisY()
-  {
-    if ($this->_yAxis !== null) {
-      return $this->_yAxis;
+    /**
+     * Get yAxis
+     *
+     * @return PHPExcel_Chart_Axis
+     */
+    public function getChartAxisY()
+    {
+        if ($this->_yAxis !== null) {
+            return $this->_yAxis;
+        }
+
+        return new PHPExcel_Chart_Axis();
     }
 
-    return new PHPExcel_Chart_Axis();
-  }
+    /**
+     * Get xAxis
+     *
+     * @return PHPExcel_Chart_Axis
+     */
+    public function getChartAxisX()
+    {
+        if ($this->_xAxis !== null) {
+            return $this->_xAxis;
+        }
 
-  /**
-   * Get xAxis
-   *
-   * @return PHPExcel_Chart_Axis
-   */
-  public function getChartAxisX()
-  {
-    if ($this->_xAxis !== null) {
-      return $this->_xAxis;
+        return new PHPExcel_Chart_Axis();
     }
 
-    return new PHPExcel_Chart_Axis();
-  }
+    /**
+     * Get Major Gridlines
+     *
+     * @return PHPExcel_Chart_GridLines
+     */
+    public function getMajorGridlines()
+    {
+        if ($this->_majorGridlines !== null) {
+            return $this->_majorGridlines;
+        }
 
-  /**
-   * Get Major Gridlines
-   *
-   * @return PHPExcel_Chart_GridLines
-   */
-  public function getMajorGridlines()
-  {
-    if ($this->_majorGridlines !== null) {
-      return $this->_majorGridlines;
+        return new PHPExcel_Chart_GridLines();
     }
 
-    return new PHPExcel_Chart_GridLines();
-  }
+    /**
+     * Get Minor Gridlines
+     *
+     * @return PHPExcel_Chart_GridLines
+     */
+    public function getMinorGridlines()
+    {
+        if ($this->_minorGridlines !== null) {
+            return $this->_minorGridlines;
+        }
 
-  /**
-   * Get Minor Gridlines
-   *
-   * @return PHPExcel_Chart_GridLines
-   */
-  public function getMinorGridlines()
-  {
-    if ($this->_minorGridlines !== null) {
-      return $this->_minorGridlines;
+        return new PHPExcel_Chart_GridLines();
     }
-
-    return new PHPExcel_Chart_GridLines();
-  }
 
 
     /**
@@ -430,7 +431,7 @@ class PHPExcel_Chart
      * @param    integer    $yOffset
      * @return PHPExcel_Chart
      */
-    public function setTopLeftPosition($cell, $xOffset=null, $yOffset=null)
+    public function setTopLeftPosition($cell, $xOffset = null, $yOffset = null)
     {
         $this->_topLeftCellRef = $cell;
         if (!is_null($xOffset)) {
@@ -662,9 +663,9 @@ class PHPExcel_Chart
         $this->refresh();
 
         $libraryPath = PHPExcel_Settings::getChartRendererPath();
-        $includePath = str_replace('\\','/',get_include_path());
-        $rendererPath = str_replace('\\','/',$libraryPath);
-        if (strpos($rendererPath,$includePath) === false) {
+        $includePath = str_replace('\\', '/', get_include_path());
+        $rendererPath = str_replace('\\', '/', $libraryPath);
+        if (strpos($rendererPath, $includePath) === false) {
             set_include_path(get_include_path() . PATH_SEPARATOR . $libraryPath);
         }
 

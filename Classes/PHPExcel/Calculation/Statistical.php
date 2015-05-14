@@ -3452,7 +3452,7 @@ class PHPExcel_Calculation_Statistical
      *        of a data set.
      *
      * Excel Function:
-     *        TRIMEAN(value1[,value2[, ...]],$discard)
+     *        TRIMEAN(value1[,value2[, ...]], $discard)
      *
      * @access    public
      * @category Statistical Functions
