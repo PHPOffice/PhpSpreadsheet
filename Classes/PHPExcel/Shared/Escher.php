@@ -87,5 +87,4 @@ class PHPExcel_Shared_Escher
     {
         return $this->_dgContainer = $dgContainer;
     }
-
 }

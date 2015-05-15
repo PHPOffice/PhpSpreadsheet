@@ -210,7 +210,6 @@ class PHPExcel_Style extends PHPExcel_Style_Supervisor implements PHPExcel_IComp
     {
         if (is_array($pStyles)) {
             if ($this->isSupervisor) {
-
                 $pRange = $this->getSelectedCells();
 
                 // Uppercase coordinate
@@ -322,7 +321,7 @@ class PHPExcel_Style extends PHPExcel_Style_Supervisor implements PHPExcel_IComp
                             unset($regionStyles['borders']['inside']);
 
                             // what are the inner edges of the region when looking at the selection
-                            $innerEdges = array_diff( array('top', 'right', 'bottom', 'left'), $edges );
+                            $innerEdges = array_diff(array('top', 'right', 'bottom', 'left'), $edges);
 
                             // inner edges that are not touching the region should take the 'inside' border properties if they have been set
                             foreach ($innerEdges as $innerEdge) {

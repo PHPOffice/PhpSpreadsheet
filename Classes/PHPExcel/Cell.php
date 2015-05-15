@@ -40,14 +40,14 @@ class PHPExcel_Cell
      *
      *    @var    PHPExcel_Cell_IValueBinder
      */
-    private static $_valueBinder;
+    private static $valueBinder;
 
     /**
      *    Value of the cell
      *
      *    @var    mixed
      */
-    private $_value;
+    private $value;
 
     /**
      *    Calculated value of the cell (used for caching)
@@ -59,34 +59,34 @@ class PHPExcel_Cell
      *
      *    @var mixed
      */
-    private $_calculatedValue;
+    private $calculatedValue;
 
     /**
      *    Type of the cell data
      *
      *    @var    string
      */
-    private $_dataType;
+    private $dataType;
 
     /**
      *    Parent worksheet
      *
      *    @var    PHPExcel_CachedObjectStorage_CacheBase
      */
-    private $_parent;
+    private $parent;
 
     /**
      *    Index to cellXf
      *
      *    @var    int
      */
-    private $_xfIndex = 0;
+    private $xfIndex = 0;
 
     /**
      *    Attributes of the formula
      *
      */
-    private $_formulaAttributes;
+    private $formulaAttributes;
 
 
     /**
@@ -96,19 +96,19 @@ class PHPExcel_Cell
      **/
     public function notifyCacheController()
     {
-        $this->_parent->updateCacheData($this);
+        $this->parent->updateCacheData($this);
 
         return $this;
     }
 
     public function detach()
     {
-        $this->_parent = null;
+        $this->parent = null;
     }
 
     public function attach(PHPExcel_CachedObjectStorage_CacheBase $parent)
     {
-        $this->_parent = $parent;
+        $this->parent = $parent;
     }
 
 
@@ -123,17 +123,17 @@ class PHPExcel_Cell
     public function __construct($pValue = null, $pDataType = null, PHPExcel_Worksheet $pSheet = null)
     {
         // Initialise cell value
-        $this->_value = $pValue;
+        $this->value = $pValue;
 
         // Set worksheet cache
-        $this->_parent = $pSheet->getCellCacheController();
+        $this->parent = $pSheet->getCellCacheController();
 
         // Set datatype?
         if ($pDataType !== null) {
             if ($pDataType == PHPExcel_Cell_DataType::TYPE_STRING2) {
                 $pDataType = PHPExcel_Cell_DataType::TYPE_STRING;
             }
-            $this->_dataType = $pDataType;
+            $this->dataType = $pDataType;
         } elseif (!self::getValueBinder()->bindValue($this, $pValue)) {
             throw new PHPExcel_Exception("Value could not be bound to cell.");
         }
@@ -146,7 +146,7 @@ class PHPExcel_Cell
      */
     public function getColumn()
     {
-        return $this->_parent->getCurrentColumn();
+        return $this->parent->getCurrentColumn();
     }
 
     /**
@@ -156,7 +156,7 @@ class PHPExcel_Cell
      */
     public function getRow()
     {
-        return $this->_parent->getCurrentRow();
+        return $this->parent->getCurrentRow();
     }
 
     /**
@@ -166,7 +166,7 @@ class PHPExcel_Cell
      */
     public function getCoordinate()
     {
-        return $this->_parent->getCurrentAddress();
+        return $this->parent->getCurrentAddress();
     }
 
     /**
@@ -176,7 +176,7 @@ class PHPExcel_Cell
      */
     public function getValue()
     {
-        return $this->_value;
+        return $this->value;
     }
 
     /**
@@ -223,7 +223,7 @@ class PHPExcel_Cell
         // set the value according to data type
         switch ($pDataType) {
             case PHPExcel_Cell_DataType::TYPE_NULL:
-                $this->_value = $pValue;
+                $this->value = $pValue;
                 break;
             case PHPExcel_Cell_DataType::TYPE_STRING2:
                 $pDataType = PHPExcel_Cell_DataType::TYPE_STRING;
@@ -231,19 +231,19 @@ class PHPExcel_Cell
                 // Synonym for string
             case PHPExcel_Cell_DataType::TYPE_INLINE:
                 // Rich text
-                $this->_value = PHPExcel_Cell_DataType::checkString($pValue);
+                $this->value = PHPExcel_Cell_DataType::checkString($pValue);
                 break;
             case PHPExcel_Cell_DataType::TYPE_NUMERIC:
-                $this->_value = (float) $pValue;
+                $this->value = (float) $pValue;
                 break;
             case PHPExcel_Cell_DataType::TYPE_FORMULA:
-                $this->_value = (string) $pValue;
+                $this->value = (string) $pValue;
                 break;
             case PHPExcel_Cell_DataType::TYPE_BOOL:
-                $this->_value = (bool) $pValue;
+                $this->value = (bool) $pValue;
                 break;
             case PHPExcel_Cell_DataType::TYPE_ERROR:
-                $this->_value = PHPExcel_Cell_DataType::checkErrorCode($pValue);
+                $this->value = PHPExcel_Cell_DataType::checkErrorCode($pValue);
                 break;
             default:
                 throw new PHPExcel_Exception('Invalid datatype: ' . $pDataType);
@@ -251,7 +251,7 @@ class PHPExcel_Cell
         }
 
         // set the datatype
-        $this->_dataType = $pDataType;
+        $this->dataType = $pDataType;
 
         return $this->notifyCacheController();
     }
@@ -267,8 +267,8 @@ class PHPExcel_Cell
      */
     public function getCalculatedValue($resetLog = true)
     {
-//echo 'Cell '.$this->getCoordinate().' value is a '.$this->_dataType.' with a value of '.$this->getValue().PHP_EOL;
-        if ($this->_dataType == PHPExcel_Cell_DataType::TYPE_FORMULA) {
+//echo 'Cell '.$this->getCoordinate().' value is a '.$this->dataType.' with a value of '.$this->getValue().PHP_EOL;
+        if ($this->dataType == PHPExcel_Cell_DataType::TYPE_FORMULA) {
             try {
 //echo 'Cell value for '.$this->getCoordinate().' is a formula: Calculating value'.PHP_EOL;
                 $result = PHPExcel_Calculation::getInstance(
@@ -282,9 +282,9 @@ class PHPExcel_Cell
                     }
                 }
             } catch (PHPExcel_Exception $ex) {
-                if (($ex->getMessage() === 'Unable to access External Workbook') && ($this->_calculatedValue !== null)) {
-//echo 'Returning fallback value of '.$this->_calculatedValue.' for cell '.$this->getCoordinate().PHP_EOL;
-                    return $this->_calculatedValue; // Fallback for calculations referencing external files.
+                if (($ex->getMessage() === 'Unable to access External Workbook') && ($this->calculatedValue !== null)) {
+//echo 'Returning fallback value of '.$this->calculatedValue.' for cell '.$this->getCoordinate().PHP_EOL;
+                    return $this->calculatedValue; // Fallback for calculations referencing external files.
                 }
 //echo 'Calculation Exception: '.$ex->getMessage().PHP_EOL;
                 $result = '#N/A';
@@ -294,17 +294,17 @@ class PHPExcel_Cell
             }
 
             if ($result === '#Not Yet Implemented') {
-//echo 'Returning fallback value of '.$this->_calculatedValue.' for cell '.$this->getCoordinate().PHP_EOL;
-                return $this->_calculatedValue; // Fallback if calculation engine does not support the formula.
+//echo 'Returning fallback value of '.$this->calculatedValue.' for cell '.$this->getCoordinate().PHP_EOL;
+                return $this->calculatedValue; // Fallback if calculation engine does not support the formula.
             }
 //echo 'Returning calculated value of '.$result.' for cell '.$this->getCoordinate().PHP_EOL;
             return $result;
-        } elseif ($this->_value instanceof PHPExcel_RichText) {
-//        echo 'Cell value for '.$this->getCoordinate().' is rich text: Returning data value of '.$this->_value.'<br />';
-            return $this->_value->getPlainText();
+        } elseif ($this->value instanceof PHPExcel_RichText) {
+//        echo 'Cell value for '.$this->getCoordinate().' is rich text: Returning data value of '.$this->value.'<br />';
+            return $this->value->getPlainText();
         }
-//        echo 'Cell value for '.$this->getCoordinate().' is not a formula: Returning data value of '.$this->_value.'<br />';
-        return $this->_value;
+//        echo 'Cell value for '.$this->getCoordinate().' is not a formula: Returning data value of '.$this->value.'<br />';
+        return $this->value;
     }
 
     /**
@@ -316,7 +316,7 @@ class PHPExcel_Cell
     public function setCalculatedValue($pValue = null)
     {
         if ($pValue !== null) {
-            $this->_calculatedValue = (is_numeric($pValue)) ? (float) $pValue : $pValue;
+            $this->calculatedValue = (is_numeric($pValue)) ? (float) $pValue : $pValue;
         }
 
         return $this->notifyCacheController();
@@ -334,7 +334,7 @@ class PHPExcel_Cell
      */
     public function getOldCalculatedValue()
     {
-        return $this->_calculatedValue;
+        return $this->calculatedValue;
     }
 
     /**
@@ -344,7 +344,7 @@ class PHPExcel_Cell
      */
     public function getDataType()
     {
-        return $this->_dataType;
+        return $this->dataType;
     }
 
     /**
@@ -358,7 +358,7 @@ class PHPExcel_Cell
         if ($pDataType == PHPExcel_Cell_DataType::TYPE_STRING2) {
             $pDataType = PHPExcel_Cell_DataType::TYPE_STRING;
         }
-        $this->_dataType = $pDataType;
+        $this->dataType = $pDataType;
 
         return $this->notifyCacheController();
     }
@@ -370,7 +370,7 @@ class PHPExcel_Cell
      */
     public function isFormula()
     {
-        return $this->_dataType == PHPExcel_Cell_DataType::TYPE_FORMULA;
+        return $this->dataType == PHPExcel_Cell_DataType::TYPE_FORMULA;
     }
 
     /**
@@ -381,7 +381,7 @@ class PHPExcel_Cell
      */
     public function hasDataValidation()
     {
-        if (!isset($this->_parent)) {
+        if (!isset($this->parent)) {
             throw new PHPExcel_Exception('Cannot check for data validation when cell is not bound to a worksheet');
         }
 
@@ -396,7 +396,7 @@ class PHPExcel_Cell
      */
     public function getDataValidation()
     {
-        if (!isset($this->_parent)) {
+        if (!isset($this->parent)) {
             throw new PHPExcel_Exception('Cannot get data validation for cell that is not bound to a worksheet');
         }
 
@@ -412,7 +412,7 @@ class PHPExcel_Cell
      */
     public function setDataValidation(PHPExcel_Cell_DataValidation $pDataValidation = null)
     {
-        if (!isset($this->_parent)) {
+        if (!isset($this->parent)) {
             throw new PHPExcel_Exception('Cannot set data validation for cell that is not bound to a worksheet');
         }
 
@@ -429,7 +429,7 @@ class PHPExcel_Cell
      */
     public function hasHyperlink()
     {
-        if (!isset($this->_parent)) {
+        if (!isset($this->parent)) {
             throw new PHPExcel_Exception('Cannot check for hyperlink when cell is not bound to a worksheet');
         }
 
@@ -444,7 +444,7 @@ class PHPExcel_Cell
      */
     public function getHyperlink()
     {
-        if (!isset($this->_parent)) {
+        if (!isset($this->parent)) {
             throw new PHPExcel_Exception('Cannot get hyperlink for cell that is not bound to a worksheet');
         }
 
@@ -460,7 +460,7 @@ class PHPExcel_Cell
      */
     public function setHyperlink(PHPExcel_Cell_Hyperlink $pHyperlink = null)
     {
-        if (!isset($this->_parent)) {
+        if (!isset($this->parent)) {
             throw new PHPExcel_Exception('Cannot set hyperlink for cell that is not bound to a worksheet');
         }
 
@@ -476,7 +476,7 @@ class PHPExcel_Cell
      */
     public function getParent()
     {
-        return $this->_parent;
+        return $this->parent;
     }
 
     /**
@@ -486,7 +486,7 @@ class PHPExcel_Cell
      */
     public function getWorksheet()
     {
-        return $this->_parent->getParent();
+        return $this->parent->getParent();
     }
 
     /**
@@ -549,7 +549,7 @@ class PHPExcel_Cell
      */
     public function rebindParent(PHPExcel_Worksheet $parent)
     {
-        $this->_parent = $parent->getCellCacheController();
+        $this->parent = $parent->getCellCacheController();
 
         return $this->notifyCacheController();
     }
@@ -943,11 +943,11 @@ class PHPExcel_Cell
      */
     public static function getValueBinder()
     {
-        if (self::$_valueBinder === null) {
-            self::$_valueBinder = new PHPExcel_Cell_DefaultValueBinder();
+        if (self::$valueBinder === null) {
+            self::$valueBinder = new PHPExcel_Cell_DefaultValueBinder();
         }
 
-        return self::$_valueBinder;
+        return self::$valueBinder;
     }
 
     /**
@@ -962,7 +962,7 @@ class PHPExcel_Cell
             throw new PHPExcel_Exception("A PHPExcel_Cell_IValueBinder is required for PHPExcel to function correctly.");
         }
 
-        self::$_valueBinder = $binder;
+        self::$valueBinder = $binder;
     }
 
     /**
@@ -972,7 +972,7 @@ class PHPExcel_Cell
     {
         $vars = get_object_vars($this);
         foreach ($vars as $key => $value) {
-            if ((is_object($value)) && ($key != '_parent')) {
+            if ((is_object($value)) && ($key != 'parent')) {
                 $this->$key = clone $value;
             } else {
                 $this->$key = $value;
@@ -987,7 +987,7 @@ class PHPExcel_Cell
      */
     public function getXfIndex()
     {
-        return $this->_xfIndex;
+        return $this->xfIndex;
     }
 
     /**
@@ -998,7 +998,7 @@ class PHPExcel_Cell
      */
     public function setXfIndex($pValue = 0)
     {
-        $this->_xfIndex = $pValue;
+        $this->xfIndex = $pValue;
 
         return $this->notifyCacheController();
     }
@@ -1008,7 +1008,7 @@ class PHPExcel_Cell
      */
     public function setFormulaAttributes($pAttributes)
     {
-        $this->_formulaAttributes = $pAttributes;
+        $this->formulaAttributes = $pAttributes;
         return $this;
     }
 
@@ -1017,7 +1017,7 @@ class PHPExcel_Cell
      */
     public function getFormulaAttributes()
     {
-        return $this->_formulaAttributes;
+        return $this->formulaAttributes;
     }
 
     /**

@@ -240,21 +240,21 @@ class PHPExcel_Writer_Excel2007_DocProps extends PHPExcel_Writer_Excel2007_Write
             $objWriter->writeAttribute('name', $customProperty);
 
             switch ($propertyType) {
-                case 'i' :
+                case 'i':
                     $objWriter->writeElement('vt:i4', $propertyValue);
                     break;
-                case 'f' :
+                case 'f':
                     $objWriter->writeElement('vt:r8', $propertyValue);
                     break;
-                case 'b' :
+                case 'b':
                     $objWriter->writeElement('vt:bool', ($propertyValue) ? 'true' : 'false');
                     break;
-                case 'd' :
+                case 'd':
                     $objWriter->startElement('vt:filetime');
                     $objWriter->writeRawData(date(DATE_W3C, $propertyValue));
                     $objWriter->endElement();
                     break;
-                default :
+                default:
                     $objWriter->writeElement('vt:lpwstr', $propertyValue);
                     break;
             }
