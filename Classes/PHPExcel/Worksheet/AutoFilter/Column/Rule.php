@@ -333,7 +333,7 @@ class PHPExcel_Worksheet_AutoFilter_Column_Rule
                     unset($pValue[$key]);
                 } else {
                     //    Work out what the dateTime grouping will be
-                    $grouping = max($grouping, array_search($key,self::$_dateTimeGroups));
+                    $grouping = max($grouping, array_search($key, self::$_dateTimeGroups));
                 }
             }
             if (count($pValue) == 0) {

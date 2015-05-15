@@ -59,7 +59,8 @@ class PHPExcel_Worksheet_Drawing extends PHPExcel_Worksheet_BaseDrawing implemen
      *
      * @return string
      */
-    public function getFilename() {
+    public function getFilename()
+    {
         return basename($this->_path);
     }
 
@@ -68,7 +69,8 @@ class PHPExcel_Worksheet_Drawing extends PHPExcel_Worksheet_BaseDrawing implemen
      *
      * @return string
      */
-    public function getIndexedFilename() {
+    public function getIndexedFilename()
+    {
         $fileName = $this->getFilename();
         $fileName = str_replace(' ', '_', $fileName);
         return str_replace('.' . $this->getExtension(), '', $fileName) . $this->getImageIndex() . '.' . $this->getExtension();
@@ -79,7 +81,8 @@ class PHPExcel_Worksheet_Drawing extends PHPExcel_Worksheet_BaseDrawing implemen
      *
      * @return string
      */
-    public function getExtension() {
+    public function getExtension()
+    {
         $exploded = explode(".", basename($this->_path));
         return $exploded[count($exploded) - 1];
     }
@@ -89,7 +92,8 @@ class PHPExcel_Worksheet_Drawing extends PHPExcel_Worksheet_BaseDrawing implemen
      *
      * @return string
      */
-    public function getPath() {
+    public function getPath()
+    {
         return $this->_path;
     }
 
@@ -101,7 +105,8 @@ class PHPExcel_Worksheet_Drawing extends PHPExcel_Worksheet_BaseDrawing implemen
      * @throws     PHPExcel_Exception
      * @return PHPExcel_Worksheet_Drawing
      */
-    public function setPath($pValue = '', $pVerifyFile = true) {
+    public function setPath($pValue = '', $pVerifyFile = true)
+    {
         if ($pVerifyFile) {
             if (file_exists($pValue)) {
                 $this->_path = $pValue;
@@ -124,9 +129,10 @@ class PHPExcel_Worksheet_Drawing extends PHPExcel_Worksheet_BaseDrawing implemen
      *
      * @return string    Hash code
      */
-    public function getHashCode() {
+    public function getHashCode()
+    {
         return md5(
-              $this->_path
+            $this->_path
             . parent::getHashCode()
             . __CLASS__
         );
@@ -135,7 +141,8 @@ class PHPExcel_Worksheet_Drawing extends PHPExcel_Worksheet_BaseDrawing implemen
     /**
      * Implement PHP __clone to create a deep clone, not just a shallow copy.
      */
-    public function __clone() {
+    public function __clone()
+    {
         $vars = get_object_vars($this);
         foreach ($vars as $key => $value) {
             if (is_object($value)) {

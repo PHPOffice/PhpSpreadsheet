@@ -267,5 +267,4 @@ class PHPExcel_Worksheet_ColumnDimension
             }
         }
     }
-
 }

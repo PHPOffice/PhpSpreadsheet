@@ -220,7 +220,8 @@ class PHPExcel_Worksheet_AutoFilter_Column
      *
      * @return string
      */
-    public function getJoin() {
+    public function getJoin()
+    {
         return $this->_join;
     }
 
@@ -409,5 +410,4 @@ class PHPExcel_Worksheet_AutoFilter_Column
             }
         }
     }
-
 }

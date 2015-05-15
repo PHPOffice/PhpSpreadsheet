@@ -405,7 +405,7 @@ class PHPExcel_Writer_Excel2007_Chart extends PHPExcel_Writer_Excel2007_WriterPa
      * @param  string $id1
      * @param  string $id2
      * @param  boolean $isMultiLevelSeries
-     * 
+     *
      * @throws  PHPExcel_Writer_Exception
      */
     private function _writeCatAx($objWriter, PHPExcel_Chart_PlotArea $plotArea, $xAxisLabel, $groupType, $id1, $id2, $isMultiLevelSeries, $xAxis, $yAxis)
