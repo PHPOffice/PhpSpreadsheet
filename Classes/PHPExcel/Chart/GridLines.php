@@ -20,9 +20,9 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
    *
    */
 
-    private $_object_state = false;
+    private $objectState = false;
 
-    private $_line_properties = array(
+    private $lineProperties = array(
         'color' => array(
             'type' => self::EXCEL_COLOR_TYPE_STANDARD,
             'value' => null,
@@ -47,7 +47,7 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
         )
     );
 
-    private $_shadow_properties = array(
+    private $shadowProperties = array(
         'presets' => self::SHADOW_PRESETS_NOSHADOW,
         'effect' => null,
         'color' => array(
@@ -67,7 +67,7 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
         'rotWithShape' => null
     );
 
-    private $_glow_properties = array(
+    private $glowProperties = array(
         'size' => null,
         'color' => array(
             'type' => self::EXCEL_COLOR_TYPE_STANDARD,
@@ -76,7 +76,7 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
         )
     );
 
-    private $_soft_edges = array(
+    private $softEdges = array(
         'size' => null
      );
 
@@ -88,7 +88,7 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
 
     public function getObjectState()
     {
-        return $this->_object_state;
+        return $this->objectState;
     }
 
     /**
@@ -97,9 +97,9 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
      * @return PHPExcel_Chart_GridLines
      */
 
-    private function _activateObject()
+    private function activateObject()
     {
-        $this->_object_state = true;
+        $this->objectState = true;
 
         return $this;
     }
@@ -114,12 +114,12 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
 
     public function setLineColorProperties($value, $alpha = 0, $type = self::EXCEL_COLOR_TYPE_STANDARD)
     {
-        $this
-                ->_activateObject()
-                ->_line_properties['color'] = $this->setColorProperties(
+        $this->activateObject()
+            ->lineProperties['color'] = $this->setColorProperties(
                 $value,
                 $alpha,
-                $type);
+                $type
+            );
     }
 
     /**
@@ -138,33 +138,33 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
 
     public function setLineStyleProperties($line_width = null, $compound_type = null, $dash_type = null, $cap_type = null, $join_type = null, $head_arrow_type = null, $head_arrow_size = null, $end_arrow_type = null, $end_arrow_size = null)
     {
-        $this->_activateObject();
+        $this->activateObject();
         (!is_null($line_width))
-                ? $this->_line_properties['style']['width'] = $this->getExcelPointsWidth((float) $line_width)
+                ? $this->lineProperties['style']['width'] = $this->getExcelPointsWidth((float) $line_width)
                 : null;
         (!is_null($compound_type))
-                ? $this->_line_properties['style']['compound'] = (string) $compound_type
+                ? $this->lineProperties['style']['compound'] = (string) $compound_type
                 : null;
         (!is_null($dash_type))
-                ? $this->_line_properties['style']['dash'] = (string) $dash_type
+                ? $this->lineProperties['style']['dash'] = (string) $dash_type
                 : null;
         (!is_null($cap_type))
-                ? $this->_line_properties['style']['cap'] = (string) $cap_type
+                ? $this->lineProperties['style']['cap'] = (string) $cap_type
                 : null;
         (!is_null($join_type))
-                ? $this->_line_properties['style']['join'] = (string) $join_type
+                ? $this->lineProperties['style']['join'] = (string) $join_type
                 : null;
         (!is_null($head_arrow_type))
-                ? $this->_line_properties['style']['arrow']['head']['type'] = (string) $head_arrow_type
+                ? $this->lineProperties['style']['arrow']['head']['type'] = (string) $head_arrow_type
                 : null;
         (!is_null($head_arrow_size))
-                ? $this->_line_properties['style']['arrow']['head']['size'] = (string) $head_arrow_size
+                ? $this->lineProperties['style']['arrow']['head']['size'] = (string) $head_arrow_size
                 : null;
         (!is_null($end_arrow_type))
-                ? $this->_line_properties['style']['arrow']['end']['type'] = (string) $end_arrow_type
+                ? $this->lineProperties['style']['arrow']['end']['type'] = (string) $end_arrow_type
                 : null;
         (!is_null($end_arrow_size))
-                ? $this->_line_properties['style']['arrow']['end']['size'] = (string) $end_arrow_size
+                ? $this->lineProperties['style']['arrow']['end']['size'] = (string) $end_arrow_size
                 : null;
     }
 
@@ -178,7 +178,7 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
 
     public function getLineColorProperty($parameter)
     {
-        return $this->_line_properties['color'][$parameter];
+        return $this->lineProperties['color'][$parameter];
     }
 
     /**
@@ -191,7 +191,7 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
 
     public function getLineStyleProperty($elements)
     {
-        return $this->getArrayElementsValue($this->_line_properties['style'], $elements);
+        return $this->getArrayElementsValue($this->lineProperties['style'], $elements);
     }
 
     /**
@@ -207,9 +207,9 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
     public function setGlowProperties($size, $color_value = null, $color_alpha = null, $color_type = null)
     {
         $this
-                ->_activateObject()
-                ->_setGlowSize($size)
-                ->_setGlowColor($color_value, $color_alpha, $color_type);
+                ->activateObject()
+                ->setGlowSize($size)
+                ->setGlowColor($color_value, $color_alpha, $color_type);
     }
 
     /**
@@ -222,7 +222,7 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
 
     public function getGlowColor($property)
     {
-        return $this->_glow_properties['color'][$property];
+        return $this->glowProperties['color'][$property];
     }
 
     /**
@@ -233,7 +233,7 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
 
     public function getGlowSize()
     {
-        return $this->_glow_properties['size'];
+        return $this->glowProperties['size'];
     }
 
     /**
@@ -244,9 +244,9 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
      * @return PHPExcel_Chart_GridLines
      */
 
-    private function _setGlowSize($size)
+    private function setGlowSize($size)
     {
-        $this->_glow_properties['size'] = $this->getExcelPointsWidth((float) $size);
+        $this->glowProperties['size'] = $this->getExcelPointsWidth((float) $size);
 
         return $this;
     }
@@ -261,16 +261,16 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
      * @return PHPExcel_Chart_GridLines
      */
 
-    private function _setGlowColor($color, $alpha, $type)
+    private function setGlowColor($color, $alpha, $type)
     {
         if (!is_null($color)) {
-            $this->_glow_properties['color']['value'] = (string) $color;
+            $this->glowProperties['color']['value'] = (string) $color;
         }
         if (!is_null($alpha)) {
-            $this->_glow_properties['color']['alpha'] = $this->getTrueAlpha((int) $alpha);
+            $this->glowProperties['color']['alpha'] = $this->getTrueAlpha((int) $alpha);
         }
         if (!is_null($type)) {
-            $this->_glow_properties['color']['type'] = (string) $type;
+            $this->glowProperties['color']['type'] = (string) $type;
         }
 
         return $this;
@@ -287,7 +287,7 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
 
     public function getLineStyleArrowParameters($arrow_selector, $property_selector)
     {
-        return $this->getLineStyleArrowSize($this->_line_properties['style']['arrow'][$arrow_selector]['size'], $property_selector);
+        return $this->getLineStyleArrowSize($this->lineProperties['style']['arrow'][$arrow_selector]['size'], $property_selector);
     }
 
     /**
@@ -305,17 +305,16 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
 
     public function setShadowProperties($sh_presets, $sh_color_value = null, $sh_color_type = null, $sh_color_alpha = null, $sh_blur = null, $sh_angle = null, $sh_distance = null)
     {
-        $this
-                ->_activateObject()
-                ->_setShadowPresetsProperties((int) $sh_presets)
-                ->_setShadowColor(
-                        is_null($sh_color_value) ? $this->_shadow_properties['color']['value'] : $sh_color_value
-                        , is_null($sh_color_alpha) ? (int) $this->_shadow_properties['color']['alpha']
-                                : $this->getTrueAlpha($sh_color_alpha)
-                        , is_null($sh_color_type) ? $this->_shadow_properties['color']['type'] : $sh_color_type)
-                ->_setShadowBlur($sh_blur)
-                ->_setShadowAngle($sh_angle)
-                ->_setShadowDistance($sh_distance);
+        $this->activateObject()
+            ->setShadowPresetsProperties((int) $sh_presets)
+            ->setShadowColor(
+                is_null($sh_color_value) ? $this->shadowProperties['color']['value'] : $sh_color_value,
+                is_null($sh_color_alpha) ? (int) $this->shadowProperties['color']['alpha'] : $this->getTrueAlpha($sh_color_alpha),
+                is_null($sh_color_type) ? $this->shadowProperties['color']['type'] : $sh_color_type
+            )
+            ->setShadowBlur($sh_blur)
+            ->setShadowAngle($sh_angle)
+            ->setShadowDistance($sh_distance);
     }
 
     /**
@@ -326,10 +325,10 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
      * @return PHPExcel_Chart_GridLines
      */
 
-    private function _setShadowPresetsProperties($shadow_presets)
+    private function setShadowPresetsProperties($shadow_presets)
     {
-        $this->_shadow_properties['presets'] = $shadow_presets;
-        $this->_setShadowProperiesMapValues($this->getShadowPresetsMap($shadow_presets));
+        $this->shadowProperties['presets'] = $shadow_presets;
+        $this->setShadowProperiesMapValues($this->getShadowPresetsMap($shadow_presets));
 
         return $this;
     }
@@ -343,20 +342,20 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
      * @return PHPExcel_Chart_GridLines
      */
 
-    private function _setShadowProperiesMapValues(array $properties_map, &$reference = null)
+    private function setShadowProperiesMapValues(array $properties_map, &$reference = null)
     {
         $base_reference = $reference;
         foreach ($properties_map as $property_key => $property_val) {
             if (is_array($property_val)) {
                 if ($reference === null) {
-                    $reference = & $this->_shadow_properties[$property_key];
+                    $reference = & $this->shadowProperties[$property_key];
                 } else {
                     $reference = & $reference[$property_key];
                 }
-                $this->_setShadowProperiesMapValues($property_val, $reference);
+                $this->setShadowProperiesMapValues($property_val, $reference);
             } else {
                 if ($base_reference === null) {
-                    $this->_shadow_properties[$property_key] = $property_val;
+                    $this->shadowProperties[$property_key] = $property_val;
                 } else {
                     $reference[$property_key] = $property_val;
                 }
@@ -374,16 +373,16 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
      * @param string $type
      * @return PHPExcel_Chart_GridLines
      */
-    private function _setShadowColor($color, $alpha, $type)
+    private function setShadowColor($color, $alpha, $type)
     {
         if (!is_null($color)) {
-            $this->_shadow_properties['color']['value'] = (string) $color;
+            $this->shadowProperties['color']['value'] = (string) $color;
         }
         if (!is_null($alpha)) {
-            $this->_shadow_properties['color']['alpha'] = $this->getTrueAlpha((int) $alpha);
+            $this->shadowProperties['color']['alpha'] = $this->getTrueAlpha((int) $alpha);
         }
         if (!is_null($type)) {
-            $this->_shadow_properties['color']['type'] = (string) $type;
+            $this->shadowProperties['color']['type'] = (string) $type;
         }
 
         return $this;
@@ -396,10 +395,10 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
      *
      * @return PHPExcel_Chart_GridLines
      */
-    private function _setShadowBlur($blur)
+    private function setShadowBlur($blur)
     {
         if ($blur !== null) {
-            $this->_shadow_properties['blur'] = (string) $this->getExcelPointsWidth($blur);
+            $this->shadowProperties['blur'] = (string) $this->getExcelPointsWidth($blur);
         }
 
         return $this;
@@ -412,10 +411,10 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
      * @return PHPExcel_Chart_GridLines
      */
 
-    private function _setShadowAngle($angle)
+    private function setShadowAngle($angle)
     {
         if ($angle !== null) {
-            $this->_shadow_properties['direction'] = (string) $this->getExcelPointsAngle($angle);
+            $this->shadowProperties['direction'] = (string) $this->getExcelPointsAngle($angle);
         }
 
         return $this;
@@ -427,10 +426,10 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
      * @param float $distance
      * @return PHPExcel_Chart_GridLines
      */
-    private function _setShadowDistance($distance)
+    private function setShadowDistance($distance)
     {
         if ($distance !== null) {
-            $this->_shadow_properties['distance'] = (string) $this->getExcelPointsWidth($distance);
+            $this->shadowProperties['distance'] = (string) $this->getExcelPointsWidth($distance);
         }
 
         return $this;
@@ -445,7 +444,7 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
      */
     public function getShadowProperty($elements)
     {
-        return $this->getArrayElementsValue($this->_shadow_properties, $elements);
+        return $this->getArrayElementsValue($this->shadowProperties, $elements);
     }
 
     /**
@@ -456,8 +455,8 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
     public function setSoftEdgesSize($size)
     {
         if (!is_null($size)) {
-            $this->_activateObject();
-            $_soft_edges['size'] = (string) $this->getExcelPointsWidth($size);
+            $this->activateObject();
+            $softEdges['size'] = (string) $this->getExcelPointsWidth($size);
         }
     }
 
@@ -468,6 +467,6 @@ class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
      */
     public function getSoftEdgesSize()
     {
-        return $this->_soft_edges['size'];
+        return $this->softEdges['size'];
     }
 }

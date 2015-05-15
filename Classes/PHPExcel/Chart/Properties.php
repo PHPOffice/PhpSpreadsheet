@@ -70,7 +70,7 @@ abstract class PHPExcel_Chart_Properties
         LINE_STYLE_JOIN_MITER = 'miter',
         LINE_STYLE_JOIN_BEVEL = 'bevel',
 
-        LINE_STYLE_ARROW_TYPE_NOARROW = NULL,
+        LINE_STYLE_ARROW_TYPE_NOARROW = null,
         LINE_STYLE_ARROW_TYPE_ARROW = 'triangle',
         LINE_STYLE_ARROW_TYPE_OPEN = 'arrow',
         LINE_STYLE_ARROW_TYPE_STEALTH = 'stealth',
@@ -88,7 +88,7 @@ abstract class PHPExcel_Chart_Properties
         LINE_STYLE_ARROW_SIZE_9 = 9;
 
     const
-        SHADOW_PRESETS_NOSHADOW = NULL,
+        SHADOW_PRESETS_NOSHADOW = null,
         SHADOW_PRESETS_OUTER_BOTTTOM_RIGHT = 1,
         SHADOW_PRESETS_OUTER_BOTTOM = 2,
         SHADOW_PRESETS_OUTER_BOTTOM_LEFT = 3,
@@ -113,19 +113,19 @@ abstract class PHPExcel_Chart_Properties
         SHADOW_PRESETS_PERSPECTIVE_LOWER_RIGHT = 22,
         SHADOW_PRESETS_PERSPECTIVE_LOWER_LEFT = 23;
 
-    protected function  getExcelPointsWidth($width)
+    protected function getExcelPointsWidth($width)
     {
-      return $width * 12700;
+        return $width * 12700;
     }
 
     protected function getExcelPointsAngle($angle)
     {
-      return $angle * 60000;
+        return $angle * 60000;
     }
 
     protected function getTrueAlpha($alpha)
     {
-      return (string) 100 - $alpha . '000';
+        return (string) 100 - $alpha . '000';
     }
 
     protected function setColorProperties($color, $alpha, $type)
@@ -137,7 +137,8 @@ abstract class PHPExcel_Chart_Properties
         );
     }
 
-    protected function getLineStyleArrowSize($array_selector, $array_kay_selector) {
+    protected function getLineStyleArrowSize($array_selector, $array_kay_selector)
+    {
         $sizes = array(
             1 => array('w' => 'sm', 'len' => 'sm'),
             2 => array('w' => 'sm', 'len' => 'med'),
@@ -153,7 +154,8 @@ abstract class PHPExcel_Chart_Properties
         return $sizes[$array_selector][$array_kay_selector];
     }
 
-    protected function getShadowPresetsMap($shadow_presets_option) {
+    protected function getShadowPresetsMap($shadow_presets_option)
+    {
         $presets_options = array(
             //OUTER
             1 => array(
@@ -345,7 +347,8 @@ abstract class PHPExcel_Chart_Properties
         return $presets_options[$shadow_presets_option];
     }
 
-    protected function getArrayElementsValue($properties, $elements) {
+    protected function getArrayElementsValue($properties, $elements)
+    {
         $reference = & $properties;
         if (!is_array($elements)) {
             return $reference[$elements];
@@ -357,4 +360,4 @@ abstract class PHPExcel_Chart_Properties
         }
         return $this;
     }
-} 
+}
