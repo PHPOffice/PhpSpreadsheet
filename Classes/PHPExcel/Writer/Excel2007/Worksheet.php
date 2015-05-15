@@ -231,7 +231,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 
         // View Layout Type
         if ($pSheet->getSheetView()->getView() !== PHPExcel_Worksheet_SheetView::SHEETVIEW_NORMAL) {
-            $objWriter->writeAttribute('view',    $pSheet->getSheetView()->getView());
+            $objWriter->writeAttribute('view', $pSheet->getSheetView()->getView());
         }
 
         // Gridlines
@@ -294,15 +294,15 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 
         // Selection
 //      if ($pane != '') {
-            // Only need to write selection element if we have a split pane
-            // We cheat a little by over-riding the active cell selection, setting it to the split cell
-            $objWriter->startElement('selection');
-            if ($pane != '') {
-                $objWriter->writeAttribute('pane', $pane);
-            }
-            $objWriter->writeAttribute('activeCell', $activeCell);
-            $objWriter->writeAttribute('sqref', $activeCell);
-            $objWriter->endElement();
+        // Only need to write selection element if we have a split pane
+        // We cheat a little by over-riding the active cell selection, setting it to the split cell
+        $objWriter->startElement('selection');
+        if ($pane != '') {
+            $objWriter->writeAttribute('pane', $pane);
+        }
+        $objWriter->writeAttribute('activeCell', $activeCell);
+        $objWriter->writeAttribute('sqref', $activeCell);
+        $objWriter->endElement();
 //      }
 
         $objWriter->endElement();
@@ -760,7 +760,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
             $range = PHPExcel_Cell::splitRange($autoFilterRange);
             $range = $range[0];
             //    Strip any worksheet ref
-            if (strpos($range[0],'!') !== false) {
+            if (strpos($range[0], '!') !== false) {
                 list($ws, $range[0]) = explode('!', $range[0]);
             }
             $range = implode(':', $range);
@@ -785,7 +785,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
                                 ($rule->getOperator() === PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_EQUAL) &&
                                 ($rule->getValue() === '')) {
                                 //    Filter rule for Blanks
-                                $objWriter->writeAttribute('blank',    1);
+                                $objWriter->writeAttribute('blank', 1);
                             } elseif ($rule->getRuleType() === PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER) {
                                 //    Dynamic Filter Rule
                                 $objWriter->writeAttribute('type', $rule->getGrouping());
@@ -812,7 +812,9 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
                                 if ($rule->getRuleType() === PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_DATEGROUP) {
                                     // Date Group filters
                                     foreach ($rule->getValue() as $key => $value) {
-                                        if ($value > '') $objWriter->writeAttribute($key, $value);
+                                        if ($value > '') {
+                                            $objWriter->writeAttribute($key, $value);
+                                        }
                                     }
                                     $objWriter->writeAttribute('dateTimeGrouping', $rule->getGrouping());
                                 } else {

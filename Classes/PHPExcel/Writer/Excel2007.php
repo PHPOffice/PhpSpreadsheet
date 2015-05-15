@@ -257,7 +257,7 @@ class PHPExcel_Writer_Excel2007 extends PHPExcel_Writer_Abstract implements PHPE
                 if ($this->_spreadSheet->hasRibbonBinObjects()) {
                     $tmpRootPath=dirname($tmpRibbonTarget).'/';
                     $ribbonBinObjects=$this->_spreadSheet->getRibbonBinObjects('data');//the files to write
-                    foreach ($ribbonBinObjects as $aPath=>$aContent) {
+                    foreach ($ribbonBinObjects as $aPath => $aContent) {
                         $objZip->addFromString($tmpRootPath.$aPath, $aContent);
                     }
                     //the rels for files
@@ -494,7 +494,7 @@ class PHPExcel_Writer_Excel2007 extends PHPExcel_Writer_Abstract implements PHPE
      *
      * @return PHPExcel_HashTable
      */
-    public function getNumFmtHashTable() 
+    public function getNumFmtHashTable()
     {
         return $this->_numFmtHashTable;
     }

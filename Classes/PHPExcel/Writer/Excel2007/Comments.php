@@ -71,19 +71,19 @@ class PHPExcel_Writer_Excel2007_Comments extends PHPExcel_Writer_Excel2007_Write
         $objWriter->startElement('comments');
         $objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/spreadsheetml/2006/main');
 
-            // Loop through authors
-            $objWriter->startElement('authors');
-            foreach ($authors as $author => $index) {
-                $objWriter->writeElement('author', $author);
-            }
-            $objWriter->endElement();
+        // Loop through authors
+        $objWriter->startElement('authors');
+        foreach ($authors as $author => $index) {
+            $objWriter->writeElement('author', $author);
+        }
+        $objWriter->endElement();
 
-            // Loop through comments
-            $objWriter->startElement('commentList');
-            foreach ($comments as $key => $value) {
-                $this->_writeComment($objWriter, $key, $value, $authors);
-            }
-            $objWriter->endElement();
+        // Loop through comments
+        $objWriter->startElement('commentList');
+        foreach ($comments as $key => $value) {
+            $this->_writeComment($objWriter, $key, $value, $authors);
+        }
+        $objWriter->endElement();
 
         $objWriter->endElement();
 
@@ -104,13 +104,13 @@ class PHPExcel_Writer_Excel2007_Comments extends PHPExcel_Writer_Excel2007_Write
     {
         // comment
         $objWriter->startElement('comment');
-        $objWriter->writeAttribute('ref',         $pCellReference);
-        $objWriter->writeAttribute('authorId',     $pAuthors[$pComment->getAuthor()]);
+        $objWriter->writeAttribute('ref', $pCellReference);
+        $objWriter->writeAttribute('authorId', $pAuthors[$pComment->getAuthor()]);
 
-            // text
-            $objWriter->startElement('text');
-            $this->getParentWriter()->getWriterPart('stringtable')->writeRichText($objWriter, $pComment->getText());
-            $objWriter->endElement();
+        // text
+        $objWriter->startElement('text');
+        $this->getParentWriter()->getWriterPart('stringtable')->writeRichText($objWriter, $pComment->getText());
+        $objWriter->endElement();
 
         $objWriter->endElement();
     }
@@ -144,42 +144,42 @@ class PHPExcel_Writer_Excel2007_Comments extends PHPExcel_Writer_Excel2007_Write
         $objWriter->writeAttribute('xmlns:o', 'urn:schemas-microsoft-com:office:office');
         $objWriter->writeAttribute('xmlns:x', 'urn:schemas-microsoft-com:office:excel');
 
-            // o:shapelayout
-            $objWriter->startElement('o:shapelayout');
-            $objWriter->writeAttribute('v:ext',         'edit');
+        // o:shapelayout
+        $objWriter->startElement('o:shapelayout');
+        $objWriter->writeAttribute('v:ext', 'edit');
 
-                // o:idmap
-                $objWriter->startElement('o:idmap');
-                $objWriter->writeAttribute('v:ext',     'edit');
-                $objWriter->writeAttribute('data',         '1');
-                $objWriter->endElement();
-
+            // o:idmap
+            $objWriter->startElement('o:idmap');
+            $objWriter->writeAttribute('v:ext', 'edit');
+            $objWriter->writeAttribute('data', '1');
             $objWriter->endElement();
 
-            // v:shapetype
-            $objWriter->startElement('v:shapetype');
-            $objWriter->writeAttribute('id',         '_x0000_t202');
-            $objWriter->writeAttribute('coordsize', '21600,21600');
-            $objWriter->writeAttribute('o:spt',     '202');
-            $objWriter->writeAttribute('path',         'm,l,21600r21600,l21600,xe');
+        $objWriter->endElement();
 
-                // v:stroke
-                $objWriter->startElement('v:stroke');
-                $objWriter->writeAttribute('joinstyle',     'miter');
-                $objWriter->endElement();
+        // v:shapetype
+        $objWriter->startElement('v:shapetype');
+        $objWriter->writeAttribute('id', '_x0000_t202');
+        $objWriter->writeAttribute('coordsize', '21600,21600');
+        $objWriter->writeAttribute('o:spt', '202');
+        $objWriter->writeAttribute('path', 'm,l,21600r21600,l21600,xe');
 
-                // v:path
-                $objWriter->startElement('v:path');
-                $objWriter->writeAttribute('gradientshapeok',     't');
-                $objWriter->writeAttribute('o:connecttype',     'rect');
-                $objWriter->endElement();
-
+            // v:stroke
+            $objWriter->startElement('v:stroke');
+            $objWriter->writeAttribute('joinstyle', 'miter');
             $objWriter->endElement();
 
-            // Loop through comments
-            foreach ($comments as $key => $value) {
-                $this->_writeVMLComment($objWriter, $key, $value);
-            }
+            // v:path
+            $objWriter->startElement('v:path');
+            $objWriter->writeAttribute('gradientshapeok', 't');
+            $objWriter->writeAttribute('o:connecttype', 'rect');
+            $objWriter->endElement();
+
+        $objWriter->endElement();
+
+        // Loop through comments
+        foreach ($comments as $key => $value) {
+            $this->_writeVMLComment($objWriter, $key, $value);
+        }
 
         $objWriter->endElement();
 
@@ -205,22 +205,22 @@ class PHPExcel_Writer_Excel2007_Comments extends PHPExcel_Writer_Excel2007_Write
 
         // v:shape
         $objWriter->startElement('v:shape');
-        $objWriter->writeAttribute('id',             '_x0000_s' . $id);
-        $objWriter->writeAttribute('type',             '#_x0000_t202');
-        $objWriter->writeAttribute('style',         'position:absolute;margin-left:' . $pComment->getMarginLeft() . ';margin-top:' . $pComment->getMarginTop() . ';width:' . $pComment->getWidth() . ';height:' . $pComment->getHeight() . ';z-index:1;visibility:' . ($pComment->getVisible() ? 'visible' : 'hidden'));
-        $objWriter->writeAttribute('fillcolor',     '#' . $pComment->getFillColor()->getRGB());
-        $objWriter->writeAttribute('o:insetmode',     'auto');
+        $objWriter->writeAttribute('id', '_x0000_s' . $id);
+        $objWriter->writeAttribute('type', '#_x0000_t202');
+        $objWriter->writeAttribute('style', 'position:absolute;margin-left:' . $pComment->getMarginLeft() . ';margin-top:' . $pComment->getMarginTop() . ';width:' . $pComment->getWidth() . ';height:' . $pComment->getHeight() . ';z-index:1;visibility:' . ($pComment->getVisible() ? 'visible' : 'hidden'));
+        $objWriter->writeAttribute('fillcolor', '#' . $pComment->getFillColor()->getRGB());
+        $objWriter->writeAttribute('o:insetmode', 'auto');
 
             // v:fill
             $objWriter->startElement('v:fill');
-            $objWriter->writeAttribute('color2',         '#' . $pComment->getFillColor()->getRGB());
+            $objWriter->writeAttribute('color2', '#' . $pComment->getFillColor()->getRGB());
             $objWriter->endElement();
 
             // v:shadow
             $objWriter->startElement('v:shadow');
-            $objWriter->writeAttribute('on',             't');
-            $objWriter->writeAttribute('color',         'black');
-            $objWriter->writeAttribute('obscured',         't');
+            $objWriter->writeAttribute('on', 't');
+            $objWriter->writeAttribute('color', 'black');
+            $objWriter->writeAttribute('obscured', 't');
             $objWriter->endElement();
 
             // v:path

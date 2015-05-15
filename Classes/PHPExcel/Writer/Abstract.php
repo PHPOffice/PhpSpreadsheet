@@ -65,7 +65,8 @@ abstract class PHPExcel_Writer_Abstract implements PHPExcel_Writer_IWriter
      *
      * @return    boolean
      */
-    public function getIncludeCharts() {
+    public function getIncludeCharts()
+    {
         return $this->_includeCharts;
     }
 
@@ -93,7 +94,8 @@ abstract class PHPExcel_Writer_Abstract implements PHPExcel_Writer_IWriter
      *
      * @return boolean
      */
-    public function getPreCalculateFormulas() {
+    public function getPreCalculateFormulas()
+    {
         return $this->_preCalculateFormulas;
     }
 
@@ -105,7 +107,8 @@ abstract class PHPExcel_Writer_Abstract implements PHPExcel_Writer_IWriter
      * @param boolean $pValue    Pre-Calculate Formulas?
      * @return    PHPExcel_Writer_IWriter
      */
-    public function setPreCalculateFormulas($pValue = TRUE) {
+    public function setPreCalculateFormulas($pValue = true)
+    {
         $this->_preCalculateFormulas = (boolean) $pValue;
         return $this;
     }
@@ -115,7 +118,8 @@ abstract class PHPExcel_Writer_Abstract implements PHPExcel_Writer_IWriter
      *
      * @return boolean
      */
-    public function getUseDiskCaching() {
+    public function getUseDiskCaching()
+    {
         return $this->_useDiskCaching;
     }
 
@@ -127,10 +131,11 @@ abstract class PHPExcel_Writer_Abstract implements PHPExcel_Writer_IWriter
      * @throws    PHPExcel_Writer_Exception    when directory does not exist
      * @return PHPExcel_Writer_Excel2007
      */
-    public function setUseDiskCaching($pValue = FALSE, $pDirectory = NULL) {
+    public function setUseDiskCaching($pValue = false, $pDirectory = null)
+    {
         $this->_useDiskCaching = $pValue;
 
-        if ($pDirectory !== NULL) {
+        if ($pDirectory !== null) {
             if (is_dir($pDirectory)) {
                 $this->_diskCachingDirectory = $pDirectory;
             } else {
@@ -145,7 +150,8 @@ abstract class PHPExcel_Writer_Abstract implements PHPExcel_Writer_IWriter
      *
      * @return string
      */
-    public function getDiskCachingDirectory() {
+    public function getDiskCachingDirectory()
+    {
         return $this->_diskCachingDirectory;
     }
 }
