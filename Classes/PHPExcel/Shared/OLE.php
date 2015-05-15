@@ -159,7 +159,7 @@ class PHPExcel_Shared_OLE
         for ($i = 0; $i < $bbatBlockCount; ++$i) {
             $pos = $this->_getBlockOffset($mbatBlocks[$i]);
             fseek($fh, $pos);
-            for ($j = 0 ; $j < $this->bigBlockSize / 4; ++$j) {
+            for ($j = 0; $j < $this->bigBlockSize / 4; ++$j) {
                 $this->bbat[] = self::_readInt4($fh);
             }
         }
@@ -198,8 +198,7 @@ class PHPExcel_Shared_OLE
     {
         static $isRegistered = false;
         if (!$isRegistered) {
-            stream_wrapper_register('ole-chainedblockstream',
-                'PHPExcel_Shared_OLE_ChainedBlockStream');
+            stream_wrapper_register('ole-chainedblockstream', 'PHPExcel_Shared_OLE_ChainedBlockStream');
             $isRegistered = true;
         }
 
@@ -266,7 +265,7 @@ class PHPExcel_Shared_OLE
     public function _readPpsWks($blockId)
     {
         $fh = $this->getStream($blockId);
-        for ($pos = 0; ; $pos += 128) {
+        for ($pos = 0;; $pos += 128) {
             fseek($fh, $pos, SEEK_SET);
             $nameUtf16 = fread($fh, 64);
             $nameLength = self::_readInt2($fh);
@@ -275,19 +274,18 @@ class PHPExcel_Shared_OLE
             $name = str_replace("\x00", "", $nameUtf16);
             $type = self::_readInt1($fh);
             switch ($type) {
-            case self::OLE_PPS_TYPE_ROOT:
-                $pps = new PHPExcel_Shared_OLE_PPS_Root(null, null, array());
-                $this->root = $pps;
-                break;
-            case self::OLE_PPS_TYPE_DIR:
-                $pps = new PHPExcel_Shared_OLE_PPS(null, null, null, null, null,
-                                   null, null, null, null, array());
-                break;
-            case self::OLE_PPS_TYPE_FILE:
-                $pps = new PHPExcel_Shared_OLE_PPS_File($name);
-                break;
-            default:
-                continue;
+                case self::OLE_PPS_TYPE_ROOT:
+                    $pps = new PHPExcel_Shared_OLE_PPS_Root(null, null, array());
+                    $this->root = $pps;
+                    break;
+                case self::OLE_PPS_TYPE_DIR:
+                    $pps = new PHPExcel_Shared_OLE_PPS(null, null, null, null, null, null, null, null, null, array());
+                    break;
+                case self::OLE_PPS_TYPE_FILE:
+                    $pps = new PHPExcel_Shared_OLE_PPS_File($name);
+                    break;
+                default:
+                    continue;
             }
             fseek($fh, 1, SEEK_CUR);
             $pps->Type    = $type;
@@ -304,9 +302,7 @@ class PHPExcel_Shared_OLE
             $this->_list[] = $pps;
 
             // check if the PPS tree (starting from root) is complete
-            if (isset($this->root) &&
-                $this->_ppsTreeComplete($this->root->No)) {
-
+            if (isset($this->root) && $this->_ppsTreeComplete($this->root->No)) {
                 break;
             }
         }
@@ -473,8 +469,7 @@ class PHPExcel_Shared_OLE
         // days from 1-1-1601 until the beggining of UNIX era
         $days = 134774;
         // calculate seconds
-        $big_date = $days*24*3600 + gmmktime(date("H", $date),date("i", $date),date("s", $date),
-                                             date("m", $date),date("d", $date),date("Y", $date));
+        $big_date = $days*24*3600 + gmmktime(date("H", $date), date("i", $date), date("s", $date), date("m", $date), date("d", $date), date("Y", $date));
         // multiply just to make MS happy
         $big_date *= 10000000;
 
@@ -513,7 +508,7 @@ class PHPExcel_Shared_OLE
         }
 
         // factor used for separating numbers into 4 bytes parts
-        $factor = pow(2,32);
+        $factor = pow(2, 32);
         list(, $high_part) = unpack('V', substr($string, 4, 4));
         list(, $low_part) = unpack('V', substr($string, 0, 4));
 

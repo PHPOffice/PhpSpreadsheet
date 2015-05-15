@@ -69,7 +69,9 @@ class PHPExcel_IOFactory
     /**
      *    Private constructor for PHPExcel_IOFactory
      */
-    private function __construct() { }
+    private function __construct()
+    { 
+    }
 
     /**
      * Get search locations
@@ -135,7 +137,7 @@ class PHPExcel_IOFactory
                 $className = str_replace('{0}', $writerType, $searchLocation['class']);
 
                 $instance = new $className($phpExcel);
-                if ($instance !== NULL) {
+                if ($instance !== null) {
                     return $instance;
                 }
             }
@@ -165,7 +167,7 @@ class PHPExcel_IOFactory
                 $className = str_replace('{0}', $readerType, $searchLocation['class']);
 
                 $instance = new $className();
-                if ($instance !== NULL) {
+                if ($instance !== null) {
                     return $instance;
                 }
             }
@@ -222,7 +224,7 @@ class PHPExcel_IOFactory
         // First, lucky guess by inspecting file extension
         $pathinfo = pathinfo($pFilename);
 
-        $extensionType = NULL;
+        $extensionType = null;
         if (isset($pathinfo['extension'])) {
             switch (strtolower($pathinfo['extension'])) {
                 case 'xlsx':            //    Excel (OfficeOpenXML) Spreadsheet

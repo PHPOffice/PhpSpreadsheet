@@ -259,10 +259,10 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
             // Underline
             $underlineType = $element->getFont()->getUnderline();
             switch ($underlineType) {
-                case 'single' :
+                case 'single':
                     $underlineType = 'sng';
                     break;
-                case 'double' :
+                case 'double':
                     $underlineType = 'dbl';
                     break;
             }
@@ -304,7 +304,8 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
      * @param     array    $stringTable    Stringtable
      * @return     array
      */
-    public function flipStringTable($stringTable = array()) {
+    public function flipStringTable($stringTable = array())
+    {
         // Return value
         $returnValue = array();
 

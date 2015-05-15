@@ -157,7 +157,7 @@ class PHPExcel_HashTable
     public function getByIndex($pIndex = 0)
     {
         if (isset($this->_keyMap[$pIndex])) {
-            return $this->getByHashCode( $this->_keyMap[$pIndex] );
+            return $this->getByHashCode($this->_keyMap[$pIndex]);
         }
 
         return null;
