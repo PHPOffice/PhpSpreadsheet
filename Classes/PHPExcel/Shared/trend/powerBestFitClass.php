@@ -53,7 +53,8 @@ class PHPExcel_Power_Best_Fit extends PHPExcel_Best_Fit
      * @param     float        $xValue            X-Value
      * @return     float                        Y-Value
      **/
-    public function getValueOfYForX($xValue) {
+    public function getValueOfYForX($xValue)
+    {
         return $this->getIntersect() * pow(($xValue - $this->_Xoffset), $this->getSlope());
     }    //    function getValueOfYForX()
 
@@ -64,8 +65,9 @@ class PHPExcel_Power_Best_Fit extends PHPExcel_Best_Fit
      * @param     float        $yValue            Y-Value
      * @return     float                        X-Value
      **/
-    public function getValueOfXForY($yValue) {
-        return pow((($yValue + $this->_Yoffset) / $this->getIntersect()),(1 / $this->getSlope()));
+    public function getValueOfXForY($yValue)
+    {
+        return pow((($yValue + $this->_Yoffset) / $this->getIntersect()), (1 / $this->getSlope()));
     }    //    function getValueOfXForY()
 
 
@@ -75,7 +77,8 @@ class PHPExcel_Power_Best_Fit extends PHPExcel_Best_Fit
      * @param     int        $dp        Number of places of decimal precision to display
      * @return     string
      **/
-    public function getEquation($dp=0) {
+    public function getEquation($dp = 0)
+    {
         $slope = $this->getSlope($dp);
         $intersect = $this->getIntersect($dp);
 
@@ -89,7 +92,8 @@ class PHPExcel_Power_Best_Fit extends PHPExcel_Best_Fit
      * @param     int        $dp        Number of places of decimal precision to display
      * @return     string
      **/
-    public function getIntersect($dp=0) {
+    public function getIntersect($dp = 0)
+    {
         if ($dp != 0) {
             return round(exp($this->_intersect), $dp);
         }
@@ -104,7 +108,8 @@ class PHPExcel_Power_Best_Fit extends PHPExcel_Best_Fit
      * @param     float[]    $xValues    The set of X-values for this regression
      * @param     boolean    $const
      */
-    private function _power_regression($yValues, $xValues, $const) {
+    private function _power_regression($yValues, $xValues, $const)
+    {
         foreach ($xValues as &$value) {
             if ($value < 0.0) {
                 $value = 0 - log(abs($value));
@@ -133,10 +138,10 @@ class PHPExcel_Power_Best_Fit extends PHPExcel_Best_Fit
      * @param     float[]    $xValues    The set of X-values for this regression
      * @param     boolean    $const
      */
-    function __construct($yValues, $xValues=array(), $const=True) {
-        if (parent::__construct($yValues, $xValues) !== False) {
+    function __construct($yValues, $xValues = array(), $const = true)
+    {
+        if (parent::__construct($yValues, $xValues) !== false) {
             $this->_power_regression($yValues, $xValues, $const);
         }
-    }    //    function __construct()
-
-}    //    class powerBestFit
+    }
+}

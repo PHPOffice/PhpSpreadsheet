@@ -434,8 +434,8 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
         }
         // Some of the printable ASCII characters are invalid:  * : / \ ? [ ] and  first and last characters cannot be a "'"
         if ((str_replace(self::$_invalidCharacters, '', $pValue) !== $pValue) ||
-            (PHPExcel_Shared_String::Substring($pValue,-1,1)=='\'') ||
-            (PHPExcel_Shared_String::Substring($pValue,0,1)=='\'')) {
+            (PHPExcel_Shared_String::Substring($pValue, -1, 1)=='\'') ||
+            (PHPExcel_Shared_String::Substring($pValue, 0, 1)=='\'')) {
             throw new PHPExcel_Exception('Invalid character found in sheet code name');
         }
 
@@ -2066,7 +2066,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
             $highestRow = $this->getHighestDataRow();
             $objReferenceHelper = PHPExcel_ReferenceHelper::getInstance();
             $objReferenceHelper->insertNewBefore('A' . ($pRow + $pNumRows), 0, -$pNumRows, $this);
-            for($r = 0; $r < $pNumRows; ++$r) {
+            for ($r = 0; $r < $pNumRows; ++$r) {
                 $this->getCellCacheController()->removeRow($highestRow);
                 --$highestRow;
             }
@@ -2091,7 +2091,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
             $pColumn = PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($pColumn) - 1 + $pNumCols);
             $objReferenceHelper = PHPExcel_ReferenceHelper::getInstance();
             $objReferenceHelper->insertNewBefore($pColumn . '1', -$pNumCols, 0, $this);
-            for($c = 0; $c < $pNumCols; ++$c) {
+            for ($c = 0; $c < $pNumCols; ++$c) {
                 $this->getCellCacheController()->removeColumn($highestColumn);
                 $highestColumn = PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($highestColumn) - 2);
             }
@@ -2502,9 +2502,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
                             $style = $this->_parent->getCellXfByIndex($cell->getXfIndex());
                             $returnValue[$rRef][$cRef] = PHPExcel_Style_NumberFormat::toFormattedString(
                                 $returnValue[$rRef][$cRef],
-                                ($style && $style->getNumberFormat()) ?
-                                    $style->getNumberFormat()->getFormatCode() :
-                                    PHPExcel_Style_NumberFormat::FORMAT_GENERAL
+                                ($style && $style->getNumberFormat()) ? $style->getNumberFormat()->getFormatCode() : PHPExcel_Style_NumberFormat::FORMAT_GENERAL
                             );
                         }
                     } else {
@@ -2622,7 +2620,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 
         // Loop through column dimensions
         foreach ($this->_columnDimensions as $dimension) {
-            $highestColumn = max($highestColumn,PHPExcel_Cell::columnIndexFromString($dimension->getColumnIndex()));
+            $highestColumn = max($highestColumn, PHPExcel_Cell::columnIndexFromString($dimension->getColumnIndex()));
         }
 
         // Loop through row dimensions
@@ -2674,7 +2672,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
         }
 
         if ($returnRange) {
-            return array(trim(substr($pRange, 0, $sep),"'"), substr($pRange, $sep + 1));
+            return array(trim(substr($pRange, 0, $sep), "'"), substr($pRange, $sep + 1));
         }
 
         return substr($pRange, $sep + 1);
@@ -2833,9 +2831,9 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      */
     public function getTabColor()
     {
-        if ($this->_tabColor === null)
+        if ($this->_tabColor === null) {
             $this->_tabColor = new PHPExcel_Style_Color();
-
+        }
         return $this->_tabColor;
     }
 
@@ -2867,7 +2865,8 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      *
      * @return PHPExcel_Worksheet
      */
-    public function copy() {
+    public function copy()
+    {
         $copied = clone $this;
 
         return $copied;
@@ -2908,7 +2907,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      * @return objWorksheet
      * @throws PHPExcel_Exception
     */
-    public function setCodeName($pValue=null)
+    public function setCodeName($pValue = null)
     {
         // Is this a 'rename' or not?
         if ($this->getCodeName() == $pValue) {
@@ -2927,18 +2926,18 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
                 // Use name, but append with lowest possible integer
 
                 if (PHPExcel_Shared_String::CountCharacters($pValue) > 29) {
-                    $pValue = PHPExcel_Shared_String::Substring($pValue,0,29);
+                    $pValue = PHPExcel_Shared_String::Substring($pValue, 0, 29);
                 }
                 $i = 1;
                 while ($this->getParent()->sheetCodeNameExists($pValue . '_' . $i)) {
                     ++$i;
                     if ($i == 10) {
                         if (PHPExcel_Shared_String::CountCharacters($pValue) > 28) {
-                            $pValue = PHPExcel_Shared_String::Substring($pValue,0,28);
+                            $pValue = PHPExcel_Shared_String::Substring($pValue, 0, 28);
                         }
                     } elseif ($i == 100) {
                         if (PHPExcel_Shared_String::CountCharacters($pValue) > 27) {
-                            $pValue = PHPExcel_Shared_String::Substring($pValue,0,27);
+                            $pValue = PHPExcel_Shared_String::Substring($pValue, 0, 27);
                         }
                     }
                 }

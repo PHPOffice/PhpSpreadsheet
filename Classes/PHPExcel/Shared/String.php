@@ -93,10 +93,11 @@ class PHPExcel_Shared_String
     /**
      * Build control characters array
      */
-    private static function _buildControlCharacters() {
+    private static function _buildControlCharacters()
+    {
         for ($i = 0; $i <= 31; ++$i) {
             if ($i != 9 && $i != 10 && $i != 13) {
-                $find = '_x' . sprintf('%04s' , strtoupper(dechex($i))) . '_';
+                $find = '_x' . sprintf('%04s', strtoupper(dechex($i))) . '_';
                 $replace = chr($i);
                 self::$_controlCharacters[$find] = $replace;
             }
@@ -316,10 +317,7 @@ class PHPExcel_Shared_String
         }
 
         // CUSTOM: IBM AIX iconv() does not work
-        if ( defined('PHP_OS') && @stristr(PHP_OS, 'AIX')
-                && defined('ICONV_IMPL') && (@strcasecmp(ICONV_IMPL, 'unknown') == 0)
-                && defined('ICONV_VERSION') && (@strcasecmp(ICONV_VERSION, 'unknown') == 0) )
-        {
+        if (defined('PHP_OS') && @stristr(PHP_OS, 'AIX') && defined('ICONV_IMPL') && (@strcasecmp(ICONV_IMPL, 'unknown') == 0) && defined('ICONV_VERSION') && (@strcasecmp(ICONV_VERSION, 'unknown') == 0)) {
             self::$_isIconvEnabled = false;
             return false;
         }
@@ -329,7 +327,8 @@ class PHPExcel_Shared_String
         return true;
     }
 
-    public static function buildCharacterSets() {
+    public static function buildCharacterSets()
+    {
         if (empty(self::$_controlCharacters)) {
             self::_buildControlCharacters();
         }
@@ -352,8 +351,9 @@ class PHPExcel_Shared_String
      * @param     string    $value    Value to unescape
      * @return     string
      */
-    public static function ControlCharacterOOXML2PHP($value = '') {
-        return str_replace( array_keys(self::$_controlCharacters), array_values(self::$_controlCharacters), $value );
+    public static function ControlCharacterOOXML2PHP($value = '')
+    {
+        return str_replace(array_keys(self::$_controlCharacters), array_values(self::$_controlCharacters), $value);
     }
 
     /**
@@ -370,8 +370,9 @@ class PHPExcel_Shared_String
      * @param     string    $value    Value to escape
      * @return     string
      */
-    public static function ControlCharacterPHP2OOXML($value = '') {
-        return str_replace( array_values(self::$_controlCharacters), array_keys(self::$_controlCharacters), $value );
+    public static function ControlCharacterPHP2OOXML($value = '')
+    {
+        return str_replace(array_values(self::$_controlCharacters), array_keys(self::$_controlCharacters), $value);
     }
 
     /**
@@ -402,7 +403,8 @@ class PHPExcel_Shared_String
      * @param string $value
      * @return boolean
      */
-    public static function IsUTF8($value = '') {
+    public static function IsUTF8($value = '')
+    {
         return $value === '' || preg_match('/^./su', $value) === 1;
     }
 
@@ -413,7 +415,8 @@ class PHPExcel_Shared_String
      * @param mixed $value
      * @return string
      */
-    public static function FormatNumber($value) {
+    public static function FormatNumber($value)
+    {
         if (is_float($value)) {
             return str_replace(',', '.', $value);
         }
@@ -524,16 +527,27 @@ class PHPExcel_Shared_String
      * @author vadik56
      */
     public static function utf16_decode($str, $bom_be = TRUE) {
-        if ( strlen($str) < 2 ) return $str;
+        if (strlen($str) < 2) {
+            return $str;
+        }
         $c0 = ord($str{0});
         $c1 = ord($str{1});
-        if ( $c0 == 0xfe && $c1 == 0xff ) { $str = substr($str,2); }
-        elseif ( $c0 == 0xff && $c1 == 0xfe ) { $str = substr($str,2); $bom_be = false; }
+        if ($c0 == 0xfe && $c1 == 0xff) {
+            $str = substr($str,2);
+        } elseif ($c0 == 0xff && $c1 == 0xfe) {
+            $str = substr($str,2);
+            $bom_be = false;
+        }
         $len = strlen($str);
         $newstr = '';
         for($i=0;$i<$len;$i+=2) {
-            if ( $bom_be ) { $val = ord($str{$i})   << 4; $val += ord($str{$i+1}); }
-            else {        $val = ord($str{$i+1}) << 4; $val += ord($str{$i}); }
+            if ($bom_be) {
+                $val = ord($str{$i})   << 4;
+                $val += ord($str{$i+1});
+            } else {
+                $val = ord($str{$i+1}) << 4;
+                $val += ord($str{$i});
+            }
             $newstr .= ($val == 0x228) ? "\n" : chr($val);
         }
         return $newstr;
@@ -634,7 +648,7 @@ class PHPExcel_Shared_String
     {
         # Split at all position not after the start: ^
         # and not before the end: $
-        return preg_split('/(?<!^)(?!$)/u', $string );
+        return preg_split('/(?<!^)(?!$)/u', $string);
     }
 
     /**
@@ -667,7 +681,8 @@ class PHPExcel_Shared_String
      * @param string &$operand string value to test
      * @return boolean
      */
-    public static function convertToNumberIfFraction(&$operand) {
+    public static function convertToNumberIfFraction(&$operand)
+    {
         if (preg_match('/^'.self::STRING_REGEXP_FRACTION.'$/i', $operand, $match)) {
             $sign = ($match[1] == '-') ? '-' : '+';
             $fractionFormula = '='.$sign.$match[2].$sign.$match[3];
@@ -802,8 +817,9 @@ class PHPExcel_Shared_String
      */
     public static function testStringAsNumeric($value)
     {
-        if (is_numeric($value))
+        if (is_numeric($value)) {
             return $value;
+        }
         $v = floatval($value);
         return (is_numeric(substr($value, 0, strlen($v)))) ? $v : $value;
     }
