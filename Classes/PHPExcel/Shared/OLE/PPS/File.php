@@ -28,7 +28,7 @@
 * @package  PHPExcel_Shared_OLE
 */
 class PHPExcel_Shared_OLE_PPS_File extends PHPExcel_Shared_OLE_PPS
-    {
+{
     /**
     * The constructor
     *

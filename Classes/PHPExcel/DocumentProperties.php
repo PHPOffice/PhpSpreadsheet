@@ -535,7 +535,7 @@ class PHPExcel_DocumentProperties
                 return strtotime($propertyValue);
                 break;
             case 'bool':     //    Boolean
-                return ($propertyValue == 'true') ? True : False;
+                return ($propertyValue == 'true') ? true : false;
                 break;
             case 'cy':       //    Currency
             case 'error':    //    Error Status Code
@@ -556,7 +556,8 @@ class PHPExcel_DocumentProperties
         return $propertyValue;
     }
 
-    public static function convertPropertyType($propertyType) {
+    public static function convertPropertyType($propertyType)
+    {
         switch ($propertyType) {
             case 'i1':       //    1-Byte Signed Integer
             case 'i2':       //    2-Byte Signed Integer
@@ -607,5 +608,4 @@ class PHPExcel_DocumentProperties
         }
         return self::PROPERTY_TYPE_UNKNOWN;
     }
-
 }
