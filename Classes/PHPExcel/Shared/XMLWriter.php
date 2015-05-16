@@ -59,7 +59,8 @@ class PHPExcel_Shared_XMLWriter extends XMLWriter
      * @param int        $pTemporaryStorage            Temporary storage location
      * @param string    $pTemporaryStorageFolder    Temporary storage folder
      */
-    public function __construct($pTemporaryStorage = self::STORAGE_MEMORY, $pTemporaryStorageFolder = null) {
+    public function __construct($pTemporaryStorage = self::STORAGE_MEMORY, $pTemporaryStorageFolder = null)
+    {
         // Open temporary storage
         if ($pTemporaryStorage == self::STORAGE_MEMORY) {
             $this->openMemory();

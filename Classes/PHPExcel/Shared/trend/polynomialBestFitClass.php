@@ -161,7 +161,7 @@ class PHPExcel_Polynomial_Best_Fit extends PHPExcel_Best_Fit
         $x_sum = array_sum($xValues);
         $y_sum = array_sum($yValues);
         $xx_sum = $xy_sum = 0;
-        for($i = 0; $i < $this->_valueCount; ++$i) {
+        for ($i = 0; $i < $this->_valueCount; ++$i) {
             $xy_sum += $xValues[$i] * $yValues[$i];
             $xx_sum += $xValues[$i] * $xValues[$i];
             $yy_sum += $yValues[$i] * $yValues[$i];
@@ -187,7 +187,7 @@ class PHPExcel_Polynomial_Best_Fit extends PHPExcel_Best_Fit
         $C = $matrixA->solve($matrixB);
 
         $coefficients = array();
-        for($i = 0; $i < $C->m; ++$i) {
+        for ($i = 0; $i < $C->m; ++$i) {
             $r = $C->get($i, 0);
             if (abs($r) <= pow(10, -9)) {
                 $r = 0;
@@ -221,10 +221,10 @@ class PHPExcel_Polynomial_Best_Fit extends PHPExcel_Best_Fit
                 $this->_order = $order;
                 $this->_polynomial_regression($order, $yValues, $xValues, $const);
                 if (($this->getGoodnessOfFit() < 0.0) || ($this->getGoodnessOfFit() > 1.0)) {
-                    $this->_error = True;
+                    $this->_error = true;
                 }
             } else {
-                $this->_error = True;
+                $this->_error = true;
             }
         }
     }    //    function __construct()

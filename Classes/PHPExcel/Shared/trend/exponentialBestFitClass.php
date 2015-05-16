@@ -54,7 +54,7 @@ class PHPExcel_Exponential_Best_Fit extends PHPExcel_Best_Fit
      **/
     public function getValueOfYForX($xValue)
     {
-        return $this->getIntersect() * pow($this->getSlope(),($xValue - $this->_Xoffset));
+        return $this->getIntersect() * pow($this->getSlope(), ($xValue - $this->_Xoffset));
     }    //    function getValueOfYForX()
 
     /**

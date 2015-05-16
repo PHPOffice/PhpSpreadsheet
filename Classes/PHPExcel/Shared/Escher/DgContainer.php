@@ -79,5 +79,4 @@ class PHPExcel_Shared_Escher_DgContainer
     {
         return $this->_spgrContainer = $spgrContainer;
     }
-
 }

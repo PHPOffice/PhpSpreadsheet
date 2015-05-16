@@ -169,7 +169,7 @@ class PHPExcel_Shared_OLE_PPS
     */
     public function _getPpsWk()
     {
-        $ret = str_pad($this->Name,64,"\x00");
+        $ret = str_pad($this->Name, 64, "\x00");
 
         $ret .= pack("v", strlen($this->Name) + 2)  // 66
               . pack("c", $this->Type)              // 67
@@ -202,9 +202,9 @@ class PHPExcel_Shared_OLE_PPS
     */
     public static function _savePpsSetPnt(&$raList, $to_save, $depth = 0)
     {
-        if ( !is_array($to_save) || (empty($to_save)) ) {
+        if (!is_array($to_save) || (empty($to_save))) {
             return 0xFFFFFFFF;
-        } elseif ( count($to_save) == 1 ) {
+        } elseif (count($to_save) == 1) {
             $cnt = count($raList);
             // If the first entry, it's the root... Don't clone it!
             $raList[$cnt] = ( $depth == 0 ) ? $to_save[0] : clone $to_save[0];

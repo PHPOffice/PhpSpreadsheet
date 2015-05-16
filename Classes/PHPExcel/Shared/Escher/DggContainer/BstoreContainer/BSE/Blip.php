@@ -87,5 +87,4 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE_Blip
     {
         return $this->_parent;
     }
-
 }
