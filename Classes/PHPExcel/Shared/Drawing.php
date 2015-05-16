@@ -225,7 +225,7 @@ class PHPExcel_Shared_Drawing
 
         //    Using a for-loop with index-calculation instaid of str_split to avoid large memory consumption
         //    Calculate the next DWORD-position in the body
-        for ($i = 0 ; $i < $body_size ; $i += 3) {
+        for ($i = 0; $i < $body_size; $i += 3) {
             //    Calculate line-ending and padding
             if ($x >= $width) {
                 // If padding needed, ignore image-padding

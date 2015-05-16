@@ -116,5 +116,4 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
     {
         $this->_blipType = $blipType;
     }
-
 }

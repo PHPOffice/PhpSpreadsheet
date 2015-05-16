@@ -32,39 +32,39 @@ class PHPExcel_Shared_OLERead {
     private $data = '';
 
     // OLE identifier
-    const IDENTIFIER_OLE = IDENTIFIER_OLE;
+    const IDENTIFIER_OLE                    = IDENTIFIER_OLE;
 
     // Size of a sector = 512 bytes
     const BIG_BLOCK_SIZE                    = 0x200;
 
     // Size of a short sector = 64 bytes
-    const SMALL_BLOCK_SIZE                    = 0x40;
+    const SMALL_BLOCK_SIZE                  = 0x40;
 
     // Size of a directory entry always = 128 bytes
-    const PROPERTY_STORAGE_BLOCK_SIZE        = 0x80;
+    const PROPERTY_STORAGE_BLOCK_SIZE       = 0x80;
 
     // Minimum size of a standard stream = 4096 bytes, streams smaller than this are stored as short streams
-    const SMALL_BLOCK_THRESHOLD                = 0x1000;
+    const SMALL_BLOCK_THRESHOLD             = 0x1000;
 
     // header offsets
     const NUM_BIG_BLOCK_DEPOT_BLOCKS_POS    = 0x2c;
-    const ROOT_START_BLOCK_POS                = 0x30;
-    const SMALL_BLOCK_DEPOT_BLOCK_POS        = 0x3c;
-    const EXTENSION_BLOCK_POS                = 0x44;
-    const NUM_EXTENSION_BLOCK_POS            = 0x48;
+    const ROOT_START_BLOCK_POS              = 0x30;
+    const SMALL_BLOCK_DEPOT_BLOCK_POS       = 0x3c;
+    const EXTENSION_BLOCK_POS               = 0x44;
+    const NUM_EXTENSION_BLOCK_POS           = 0x48;
     const BIG_BLOCK_DEPOT_BLOCKS_POS        = 0x4c;
 
     // property storage offsets (directory offsets)
-    const SIZE_OF_NAME_POS                    = 0x40;
-    const TYPE_POS                            = 0x42;
-    const START_BLOCK_POS                    = 0x74;
-    const SIZE_POS                            = 0x78;
+    const SIZE_OF_NAME_POS                  = 0x40;
+    const TYPE_POS                          = 0x42;
+    const START_BLOCK_POS                   = 0x74;
+    const SIZE_POS                          = 0x78;
 
 
 
-    public $wrkbook                        = null;
-    public $summaryInformation            = null;
-    public $documentSummaryInformation    = null;
+    public $wrkbook                         = null;
+    public $summaryInformation              = null;
+    public $documentSummaryInformation      = null;
 
 
     /**
@@ -82,7 +82,7 @@ class PHPExcel_Shared_OLERead {
 
         // Get the file identifier
         // Don't bother reading the whole file until we know it's a valid OLE file
-        $this->data = file_get_contents($sFileName, FALSE, NULL, 0, 8);
+        $this->data = file_get_contents($sFileName, false, null, 0, 8);
 
         // Check OLE identifier
         if ($this->data != self::IDENTIFIER_OLE) {
@@ -172,7 +172,7 @@ class PHPExcel_Shared_OLERead {
      */
     public function getStream($stream)
     {
-        if ($stream === NULL) {
+        if ($stream === null) {
             return null;
         }
 
@@ -197,7 +197,9 @@ class PHPExcel_Shared_OLERead {
                 ++$numBlocks;
             }
 
-            if ($numBlocks == 0) return '';
+            if ($numBlocks == 0) {
+                return '';
+            }
 
             $block = $this->props[$stream]['startBlock'];
 
@@ -222,18 +224,19 @@ class PHPExcel_Shared_OLERead {
         $block = $bl;
         $data = '';
 
-        while ($block != -2)  {
+        while ($block != -2) {
             $pos = ($block + 1) * self::BIG_BLOCK_SIZE;
             $data .= substr($this->data, $pos, self::BIG_BLOCK_SIZE);
             $block = self::_GetInt4d($this->bigBlockChain, $block*4);
         }
         return $data;
-     }
+    }
 
     /**
      * Read entries in the directory stream.
      */
-    private function _readPropertySets() {
+    private function _readPropertySets()
+    {
         $offset = 0;
 
         // loop through entires, each entry is 128 bytes
@@ -254,14 +257,14 @@ class PHPExcel_Shared_OLERead {
 
             $size = self::_GetInt4d($d, self::SIZE_POS);
 
-            $name = str_replace("\x00", "", substr($d,0, $nameSize));
+            $name = str_replace("\x00", "", substr($d, 0, $nameSize));
 
-
-            $this->props[] = array (
+            $this->props[] = array(
                 'name' => $name,
                 'type' => $type,
                 'startBlock' => $startBlock,
-                'size' => $size);
+                'size' => $size
+            );
 
             // tmp helper to simplify checks
             $upName = strtoupper($name);
@@ -269,8 +272,7 @@ class PHPExcel_Shared_OLERead {
             // Workbook directory entry (BIFF5 uses Book, BIFF8 uses Workbook)
             if (($upName === 'WORKBOOK') || ($upName === 'BOOK')) {
                 $this->wrkbook = count($this->props) - 1;
-            }
-            else if ( $upName === 'ROOT ENTRY' || $upName === 'R') {
+            } else if ($upName === 'ROOT ENTRY' || $upName === 'R') {
                 // Root entry
                 $this->rootentry = count($this->props) - 1;
             }
@@ -289,7 +291,6 @@ class PHPExcel_Shared_OLERead {
 
             $offset += self::PROPERTY_STORAGE_BLOCK_SIZE;
         }
-
     }
 
     /**
@@ -313,5 +314,4 @@ class PHPExcel_Shared_OLERead {
         }
         return ord($data[$pos]) | (ord($data[$pos + 1]) << 8) | (ord($data[$pos + 2]) << 16) | $_ord_24;
     }
-
 }

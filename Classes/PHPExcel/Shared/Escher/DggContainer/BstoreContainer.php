@@ -61,5 +61,4 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer
     {
         return $this->_BSECollection;
     }
-
 }

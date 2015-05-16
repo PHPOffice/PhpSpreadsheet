@@ -73,10 +73,7 @@ class PHPExcel_Shared_OLE_ChainedBlockStream
 
         // 25 is length of "ole-chainedblockstream://"
         parse_str(substr($path, 25), $this->params);
-        if (!isset($this->params['oleInstanceId'],
-                   $this->params['blockId'],
-                   $GLOBALS['_OLE_INSTANCES'][$this->params['oleInstanceId']])) {
-
+        if (!isset($this->params['oleInstanceId'], $this->params['blockId'], $GLOBALS['_OLE_INSTANCES'][$this->params['oleInstanceId']])) {
             if ($options & STREAM_REPORT_ERRORS) {
                 trigger_error('OLE stream not found', E_USER_WARNING);
             }
@@ -86,10 +83,7 @@ class PHPExcel_Shared_OLE_ChainedBlockStream
 
         $blockId = $this->params['blockId'];
         $this->data = '';
-        if (isset($this->params['size']) &&
-            $this->params['size'] < $this->ole->bigBlockThreshold &&
-            $blockId != $this->ole->root->_StartBlock) {
-
+        if (isset($this->params['size']) && $this->params['size'] < $this->ole->bigBlockThreshold && $blockId != $this->ole->root->_StartBlock) {
             // Block id refers to small blocks
             $rootPos = $this->ole->_getBlockOffset($this->ole->root->_StartBlock);
             while ($blockId != -2) {
