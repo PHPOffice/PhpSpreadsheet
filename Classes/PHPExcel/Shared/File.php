@@ -152,18 +152,18 @@ class PHPExcel_Shared_File
 
         // sys_get_temp_dir is only available since PHP 5.2.1
         // http://php.net/manual/en/function.sys-get-temp-dir.php#94119
-        if ( !function_exists('sys_get_temp_dir')) {
-            if ($temp = getenv('TMP') ) {
+        if (!function_exists('sys_get_temp_dir')) {
+            if ($temp = getenv('TMP')) {
                 if ((!empty($temp)) && (file_exists($temp))) {
                     return realpath($temp);
                 }
             }
-            if ($temp = getenv('TEMP') ) {
+            if ($temp = getenv('TEMP')) {
                 if ((!empty($temp)) && (file_exists($temp))) {
                     return realpath($temp);
                 }
             }
-            if ($temp = getenv('TMPDIR') ) {
+            if ($temp = getenv('TMPDIR')) {
                 if ((!empty($temp)) && (file_exists($temp))) {
                     return realpath($temp);
                 }

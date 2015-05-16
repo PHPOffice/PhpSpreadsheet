@@ -184,13 +184,9 @@ class PHPExcel_Shared_Date
         date_default_timezone_set('UTC');
         $retValue = false;
         if ((is_object($dateValue)) && ($dateValue instanceof DateTime)) {
-            $retValue = self::FormattedPHPToExcel( $dateValue->format('Y'), $dateValue->format('m'), $dateValue->format('d'),
-                                                   $dateValue->format('H'), $dateValue->format('i'), $dateValue->format('s')
-                                                 );
+            $retValue = self::FormattedPHPToExcel($dateValue->format('Y'), $dateValue->format('m'), $dateValue->format('d'), $dateValue->format('H'), $dateValue->format('i'), $dateValue->format('s'));
         } elseif (is_numeric($dateValue)) {
-            $retValue = self::FormattedPHPToExcel( date('Y', $dateValue), date('m', $dateValue), date('d', $dateValue),
-                                                   date('H', $dateValue), date('i', $dateValue), date('s', $dateValue)
-                                                 );
+            $retValue = self::FormattedPHPToExcel(date('Y', $dateValue), date('m', $dateValue), date('d', $dateValue), date('H', $dateValue), date('i', $dateValue), date('s', $dateValue));
         }
         date_default_timezone_set($saveTimeZone);
 
@@ -235,8 +231,8 @@ class PHPExcel_Shared_Date
         }
 
         //    Calculate the Julian Date, then subtract the Excel base date (JD 2415020 = 31-Dec-1899 Giving Excel Date of 0)
-        $century = substr($year,0,2);
-        $decade = substr($year,2,2);
+        $century = substr($year, 0, 2);
+        $decade = substr($year, 2, 2);
         $excelDate = floor((146097 * $century) / 4) + floor((1461 * $decade) / 4) + floor((153 * $month + 2) / 5) + $day + 1721119 - $myexcelBaseDate + $excel1900isLeapYear;
 
         $excelTime = (($hours * 3600) + ($minutes * 60) + $seconds) / 86400;
@@ -273,7 +269,7 @@ class PHPExcel_Shared_Date
     }
 
 
-    private static    $possibleDateFormatCharacters = 'eymdHs';
+    private static $possibleDateFormatCharacters = 'eymdHs';
 
     /**
      * Is a given number format code a date/time?
@@ -283,12 +279,15 @@ class PHPExcel_Shared_Date
      */
     public static function isDateTimeFormatCode($pFormatCode = '')
     {
-        if (strtolower($pFormatCode) === strtolower(PHPExcel_Style_NumberFormat::FORMAT_GENERAL))
+        if (strtolower($pFormatCode) === strtolower(PHPExcel_Style_NumberFormat::FORMAT_GENERAL)) {
             //    "General" contains an epoch letter 'e', so we trap for it explicitly here (case-insensitive check)
             return false;
-        if (preg_match('/[0#]E[+-]0/i', $pFormatCode))
+        }
+        if (preg_match('/[0#]E[+-]0/i', $pFormatCode)) {
             //    Scientific format
             return false;
+        }
+
         // Switch on formatcode
         switch ($pFormatCode) {
             //    Explicitly defined date formats
@@ -352,10 +351,12 @@ class PHPExcel_Shared_Date
      */
     public static function stringToExcel($dateValue = '')
     {
-        if (strlen($dateValue) < 2)
+        if (strlen($dateValue) < 2) {
             return false;
-        if (!preg_match('/^(\d{1,4}[ \.\/\-][A-Z]{3,9}([ \.\/\-]\d{1,4})?|[A-Z]{3,9}[ \.\/\-]\d{1,4}([ \.\/\-]\d{1,4})?|\d{1,4}[ \.\/\-]\d{1,4}([ \.\/\-]\d{1,4})?)( \d{1,2}:\d{1,2}(:\d{1,2})?)?$/iu', $dateValue))
+        }
+        if (!preg_match('/^(\d{1,4}[ \.\/\-][A-Z]{3,9}([ \.\/\-]\d{1,4})?|[A-Z]{3,9}[ \.\/\-]\d{1,4}([ \.\/\-]\d{1,4})?|\d{1,4}[ \.\/\-]\d{1,4}([ \.\/\-]\d{1,4})?)( \d{1,2}:\d{1,2}(:\d{1,2})?)?$/iu', $dateValue)) {
             return false;
+        }
 
         $dateValueNew = PHPExcel_Calculation_DateTime::DATEVALUE($dateValue);
 

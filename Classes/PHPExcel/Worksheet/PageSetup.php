@@ -366,7 +366,8 @@ class PHPExcel_Worksheet_PageSetup
      *
      * @return boolean
      */
-    public function getFitToPage() {
+    public function getFitToPage()
+    {
         return $this->_fitToPage;
     }
 

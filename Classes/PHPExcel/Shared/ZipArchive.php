@@ -92,10 +92,7 @@ class PHPExcel_Shared_ZipArchive
         fwrite($handle, $contents);
         fclose($handle);
 
-        $res = $this->_zip->add($this->_tempDir.'/'.$filenameParts["basename"],
-                                PCLZIP_OPT_REMOVE_PATH, $this->_tempDir,
-                                PCLZIP_OPT_ADD_PATH, $filenameParts["dirname"]
-                               );
+        $res = $this->_zip->add($this->_tempDir.'/'.$filenameParts["basename"], PCLZIP_OPT_REMOVE_PATH, $this->_tempDir, PCLZIP_OPT_ADD_PATH, $filenameParts["dirname"]);
         if ($res == 0) {
             throw new PHPExcel_Writer_Exception("Error zipping files : " . $this->_zip->errorInfo(true));
         }

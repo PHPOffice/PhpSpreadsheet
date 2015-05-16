@@ -28,13 +28,13 @@
 * @package  PHPExcel_Shared_OLE
 */
 class PHPExcel_Shared_OLE_PPS_Root extends PHPExcel_Shared_OLE_PPS
-    {
+{
 
     /**
      * Directory for temporary files
      * @var string
      */
-    protected $_tmp_dir        = NULL;
+    protected $_tmp_dir        = null;
 
     /**
      * @param integer $time_1st A timestamp
@@ -44,17 +44,7 @@ class PHPExcel_Shared_OLE_PPS_Root extends PHPExcel_Shared_OLE_PPS
     {
         $this->_tempDir = PHPExcel_Shared_File::sys_get_temp_dir();
 
-        parent::__construct(
-           null,
-           PHPExcel_Shared_OLE::Asc2Ucs('Root Entry'),
-           PHPExcel_Shared_OLE::OLE_PPS_TYPE_ROOT,
-           null,
-           null,
-           null,
-           $time_1st,
-           $time_2nd,
-           null,
-           $raChild);
+        parent::__construct(null, PHPExcel_Shared_OLE::Asc2Ucs('Root Entry'), PHPExcel_Shared_OLE::OLE_PPS_TYPE_ROOT, null, null, null, $time_1st, $time_2nd, null, $raChild);
     }
 
     /**
@@ -71,15 +61,19 @@ class PHPExcel_Shared_OLE_PPS_Root extends PHPExcel_Shared_OLE_PPS
     public function save($filename)
     {
         // Initial Setting for saving
-        $this->_BIG_BLOCK_SIZE  = pow(2,
-                      ((isset($this->_BIG_BLOCK_SIZE))? self::_adjust2($this->_BIG_BLOCK_SIZE)  : 9));
-        $this->_SMALL_BLOCK_SIZE= pow(2,
-                      ((isset($this->_SMALL_BLOCK_SIZE))?  self::_adjust2($this->_SMALL_BLOCK_SIZE): 6));
+        $this->_BIG_BLOCK_SIZE  = pow(
+            2,
+            (isset($this->_BIG_BLOCK_SIZE))? self::_adjust2($this->_BIG_BLOCK_SIZE) : 9
+        );
+        $this->_SMALL_BLOCK_SIZE= pow(
+            2,
+            (isset($this->_SMALL_BLOCK_SIZE))?  self::_adjust2($this->_SMALL_BLOCK_SIZE) : 6
+        );
 
         if (is_resource($filename)) {
             $this->_FILEH_ = $filename;
         } else if ($filename == '-' || $filename == '') {
-            if ($this->_tmp_dir === NULL)
+            if ($this->_tmp_dir === null)
                 $this->_tmp_dir = PHPExcel_Shared_File::sys_get_temp_dir();
             $this->_tmp_filename = tempnam($this->_tmp_dir, "OLE_PPS_Root");
             $this->_FILEH_ = fopen($this->_tmp_filename,"w+b");
@@ -447,7 +441,7 @@ class PHPExcel_Shared_OLE_PPS_Root extends PHPExcel_Shared_OLE_PPS
         if ($iBdCnt > $i1stBdL) {
             $iN=0;
             $iNb=0;
-            for ($i = $i1stBdL;$i < $iBdCnt; $i++, ++$iN) {
+            for ($i = $i1stBdL; $i < $iBdCnt; $i++, ++$iN) {
                 if ($iN >= ($iBbCnt - 1)) {
                     $iN = 0;
                     ++$iNb;

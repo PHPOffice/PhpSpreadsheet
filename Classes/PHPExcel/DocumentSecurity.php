@@ -32,35 +32,35 @@ class PHPExcel_DocumentSecurity
      *
      * @var boolean
      */
-    private $_lockRevision;
+    private $lockRevision;
 
     /**
      * LockStructure
      *
      * @var boolean
      */
-    private $_lockStructure;
+    private $lockStructure;
 
     /**
      * LockWindows
      *
      * @var boolean
      */
-    private $_lockWindows;
+    private $lockWindows;
 
     /**
      * RevisionsPassword
      *
      * @var string
      */
-    private $_revisionsPassword;
+    private $revisionsPassword;
 
     /**
      * WorkbookPassword
      *
      * @var string
      */
-    private $_workbookPassword;
+    private $workbookPassword;
 
     /**
      * Create a new PHPExcel_DocumentSecurity
@@ -68,11 +68,11 @@ class PHPExcel_DocumentSecurity
     public function __construct()
     {
         // Initialise values
-        $this->_lockRevision        = false;
-        $this->_lockStructure        = false;
-        $this->_lockWindows            = false;
-        $this->_revisionsPassword    = '';
-        $this->_workbookPassword    = '';
+        $this->lockRevision      = false;
+        $this->lockStructure     = false;
+        $this->lockWindows       = false;
+        $this->revisionsPassword = '';
+        $this->workbookPassword  = '';
     }
 
     /**
@@ -82,9 +82,9 @@ class PHPExcel_DocumentSecurity
      */
     public function isSecurityEnabled()
     {
-        return  $this->_lockRevision ||
-                $this->_lockStructure ||
-                $this->_lockWindows;
+        return  $this->lockRevision ||
+                $this->lockStructure ||
+                $this->lockWindows;
     }
 
     /**
@@ -94,7 +94,7 @@ class PHPExcel_DocumentSecurity
      */
     public function getLockRevision()
     {
-        return $this->_lockRevision;
+        return $this->lockRevision;
     }
 
     /**
@@ -105,7 +105,7 @@ class PHPExcel_DocumentSecurity
      */
     public function setLockRevision($pValue = false)
     {
-        $this->_lockRevision = $pValue;
+        $this->lockRevision = $pValue;
         return $this;
     }
 
@@ -116,7 +116,7 @@ class PHPExcel_DocumentSecurity
      */
     public function getLockStructure()
     {
-        return $this->_lockStructure;
+        return $this->lockStructure;
     }
 
     /**
@@ -127,7 +127,7 @@ class PHPExcel_DocumentSecurity
      */
     public function setLockStructure($pValue = false)
     {
-        $this->_lockStructure = $pValue;
+        $this->lockStructure = $pValue;
         return $this;
     }
 
@@ -138,7 +138,7 @@ class PHPExcel_DocumentSecurity
      */
     public function getLockWindows()
     {
-        return $this->_lockWindows;
+        return $this->lockWindows;
     }
 
     /**
@@ -149,7 +149,7 @@ class PHPExcel_DocumentSecurity
      */
     public function setLockWindows($pValue = false)
     {
-        $this->_lockWindows = $pValue;
+        $this->lockWindows = $pValue;
         return $this;
     }
 
@@ -160,7 +160,7 @@ class PHPExcel_DocumentSecurity
      */
     public function getRevisionsPassword()
     {
-        return $this->_revisionsPassword;
+        return $this->revisionsPassword;
     }
 
     /**
@@ -175,7 +175,7 @@ class PHPExcel_DocumentSecurity
         if (!$pAlreadyHashed) {
             $pValue = PHPExcel_Shared_PasswordHasher::hashPassword($pValue);
         }
-        $this->_revisionsPassword = $pValue;
+        $this->revisionsPassword = $pValue;
         return $this;
     }
 
@@ -186,7 +186,7 @@ class PHPExcel_DocumentSecurity
      */
     public function getWorkbookPassword()
     {
-        return $this->_workbookPassword;
+        return $this->workbookPassword;
     }
 
     /**
@@ -201,7 +201,7 @@ class PHPExcel_DocumentSecurity
         if (!$pAlreadyHashed) {
             $pValue = PHPExcel_Shared_PasswordHasher::hashPassword($pValue);
         }
-        $this->_workbookPassword = $pValue;
+        $this->workbookPassword = $pValue;
         return $this;
     }
 

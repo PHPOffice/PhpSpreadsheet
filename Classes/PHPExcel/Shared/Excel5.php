@@ -51,22 +51,17 @@ class PHPExcel_Shared_Excel5
         $columnDimensions = $sheet->getColumnDimensions();
 
         // first find the true column width in pixels (uncollapsed and unhidden)
-        if ( isset($columnDimensions[$col]) and $columnDimensions[$col]->getWidth() != -1 ) {
-
+        if (isset($columnDimensions[$col]) and $columnDimensions[$col]->getWidth() != -1) {
             // then we have column dimension with explicit width
             $columnDimension = $columnDimensions[$col];
             $width = $columnDimension->getWidth();
             $pixelWidth = PHPExcel_Shared_Drawing::cellDimensionToPixels($width, $font);
-
         } else if ($sheet->getDefaultColumnDimension()->getWidth() != -1) {
-
             // then we have default column dimension with explicit width
             $defaultColumnDimension = $sheet->getDefaultColumnDimension();
             $width = $defaultColumnDimension->getWidth();
             $pixelWidth = PHPExcel_Shared_Drawing::cellDimensionToPixels($width, $font);
-
         } else {
-
             // we don't even have any default column dimension. Width depends on default font
             $pixelWidth = PHPExcel_Shared_Font::getDefaultColumnWidthByFont($font, true);
         }
@@ -98,30 +93,24 @@ class PHPExcel_Shared_Excel5
         $rowDimensions = $sheet->getRowDimensions();
 
         // first find the true row height in pixels (uncollapsed and unhidden)
-        if ( isset($rowDimensions[$row]) and $rowDimensions[$row]->getRowHeight() != -1) {
-
+        if (isset($rowDimensions[$row]) and $rowDimensions[$row]->getRowHeight() != -1) {
             // then we have a row dimension
             $rowDimension = $rowDimensions[$row];
             $rowHeight = $rowDimension->getRowHeight();
             $pixelRowHeight = (int) ceil(4 * $rowHeight / 3); // here we assume Arial 10
-
         } else if ($sheet->getDefaultRowDimension()->getRowHeight() != -1) {
-
             // then we have a default row dimension with explicit height
             $defaultRowDimension = $sheet->getDefaultRowDimension();
             $rowHeight = $defaultRowDimension->getRowHeight();
             $pixelRowHeight = PHPExcel_Shared_Drawing::pointsToPixels($rowHeight);
-
         } else {
-
             // we don't even have any default row dimension. Height depends on default font
             $pointRowHeight = PHPExcel_Shared_Font::getDefaultRowHeightByFont($font);
             $pixelRowHeight = PHPExcel_Shared_Font::fontSizeToPixels($pointRowHeight);
-
         }
 
         // now find the effective row height in pixels
-        if ( isset($rowDimensions[$row]) and !$rowDimensions[$row]->getVisible() ) {
+        if (isset($rowDimensions[$row]) and !$rowDimensions[$row]->getVisible()) {
             $effectivePixelRowHeight = 0;
         } else {
             $effectivePixelRowHeight = $pixelRowHeight;
@@ -313,5 +302,4 @@ class PHPExcel_Shared_Excel5
 
         return  $twoAnchor;
     }
-
 }

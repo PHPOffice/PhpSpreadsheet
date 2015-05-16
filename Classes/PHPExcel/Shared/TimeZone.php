@@ -50,7 +50,8 @@ class PHPExcel_Shared_TimeZone
      * @param     string        $timezone            Time zone (e.g. 'Europe/London')
      * @return     boolean                        Success or failure
      */
-    public static function _validateTimeZone($timezone) {
+    public static function _validateTimeZone($timezone)
+    {
         if (in_array($timezone, DateTimeZone::listIdentifiers())) {
             return true;
         }
@@ -63,7 +64,8 @@ class PHPExcel_Shared_TimeZone
      * @param     string        $timezone            Time zone (e.g. 'Europe/London')
      * @return     boolean                        Success or failure
      */
-    public static function setTimeZone($timezone) {
+    public static function setTimeZone($timezone)
+    {
         if (self::_validateTimezone($timezone)) {
             self::$_timezone = $timezone;
             return true;
@@ -77,7 +79,8 @@ class PHPExcel_Shared_TimeZone
      *
      * @return     string        Timezone (e.g. 'Europe/London')
      */
-    public static function getTimeZone() {
+    public static function getTimeZone()
+    {
         return self::$_timezone;
     }    //    function getTimezone()
 
@@ -89,7 +92,8 @@ class PHPExcel_Shared_TimeZone
      *    @param        integer                 $timestamp        PHP date/time value for finding the current transition
      *    @return         array                The current transition details
      */
-    private static function _getTimezoneTransitions($objTimezone, $timestamp) {
+    private static function _getTimezoneTransitions($objTimezone, $timestamp)
+    {
         $allTransitions = $objTimezone->getTransitions();
         $transitions = array();
         foreach ($allTransitions as $key => $transition) {
@@ -114,7 +118,8 @@ class PHPExcel_Shared_TimeZone
      *    @return         integer                Number of seconds for timezone adjustment
      *    @throws        PHPExcel_Exception
      */
-    public static function getTimeZoneAdjustment($timezone, $timestamp) {
+    public static function getTimeZoneAdjustment($timezone, $timestamp)
+    {
         if ($timezone !== null) {
             if (!self::_validateTimezone($timezone)) {
                 throw new PHPExcel_Exception("Invalid timezone " . $timezone);

@@ -41,7 +41,7 @@ class PHPExcel_Chart_Legend
     const POSITION_TOP      = 't';
     const POSITION_TOPRIGHT = 'tr';
 
-    private static $_positionXLref = array(
+    private static $positionXLref = array(
         self::xlLegendPositionBottom => self::POSITION_BOTTOM,
         self::xlLegendPositionCorner => self::POSITION_TOPRIGHT,
         self::xlLegendPositionCustom => '??',
@@ -99,7 +99,7 @@ class PHPExcel_Chart_Legend
      */
     public function setPosition($position = self::POSITION_RIGHT)
     {
-        if (!in_array($position, self::$_positionXLref)) {
+        if (!in_array($position, self::$positionXLref)) {
             return false;
         }
 
@@ -114,7 +114,7 @@ class PHPExcel_Chart_Legend
      */
     public function getPositionXL()
     {
-        return array_search($this->position, self::$_positionXLref);
+        return array_search($this->position, self::$positionXLref);
     }
 
     /**
@@ -124,11 +124,11 @@ class PHPExcel_Chart_Legend
      */
     public function setPositionXL($positionXL = self::xlLegendPositionRight)
     {
-        if (!array_key_exists($positionXL, self::$_positionXLref)) {
+        if (!array_key_exists($positionXL, self::$positionXLref)) {
             return false;
         }
 
-        $this->position = self::$_positionXLref[$positionXL];
+        $this->position = self::$positionXLref[$positionXL];
         return true;
     }
 
