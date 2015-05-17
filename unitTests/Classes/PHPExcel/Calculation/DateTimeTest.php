@@ -359,7 +359,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     public function testEDATEtoPHP()
     {
         PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_PHP_NUMERIC);
-        $result = PHPExcel_Calculation_DateTime::EDATE('2012-1-26',-1);
+        $result = PHPExcel_Calculation_DateTime::EDATE('2012-1-26', -1);
         PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_EXCEL);
         $this->assertEquals(1324857600, $result, null, 1E-8);
     }
@@ -367,7 +367,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     public function testEDATEtoPHPObject()
     {
         PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_PHP_OBJECT);
-        $result = PHPExcel_Calculation_DateTime::EDATE('2012-1-26',-1);
+        $result = PHPExcel_Calculation_DateTime::EDATE('2012-1-26', -1);
         PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_EXCEL);
         //    Must return an object...
         $this->assertTrue(is_object($result));
@@ -396,7 +396,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     public function testEOMONTHtoPHP()
     {
         PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_PHP_NUMERIC);
-        $result = PHPExcel_Calculation_DateTime::EOMONTH('2012-1-26',-1);
+        $result = PHPExcel_Calculation_DateTime::EOMONTH('2012-1-26', -1);
         PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_EXCEL);
         $this->assertEquals(1325289600, $result, null, 1E-8);
     }
@@ -404,7 +404,7 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     public function testEOMONTHtoPHPObject()
     {
         PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_PHP_OBJECT);
-        $result = PHPExcel_Calculation_DateTime::EOMONTH('2012-1-26',-1);
+        $result = PHPExcel_Calculation_DateTime::EOMONTH('2012-1-26', -1);
         PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_EXCEL);
         //    Must return an object...
         $this->assertTrue(is_object($result));
