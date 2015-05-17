@@ -129,5 +129,4 @@ class LegendTest extends PHPUnit_Framework_TestCase
         $result = $testInstance->getOverlay();
         $this->assertEquals($OverlayValue, $result);
     }
-
 }

@@ -97,7 +97,7 @@ class testDataFileIterator implements Iterator
             } elseif (($dataValue[0] == '"') && ($dataValue[strlen($dataValue)-1] == '"')) {
                 $dataValue = substr($dataValue, 1, -1);
             } elseif (($dataValue[0] == '{') && ($dataValue[strlen($dataValue)-1] == '}')) {
-                $dataValue = explode(';',substr($dataValue, 1, -1));
+                $dataValue = explode(';', substr($dataValue, 1, -1));
                 foreach ($dataValue as &$dataRow) {
                     if (strpos($dataRow, '|') !== false) {
                         $dataRow = explode('|', $dataRow);

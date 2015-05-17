@@ -55,7 +55,7 @@ class RowCellIteratorTest extends PHPUnit_Framework_TestCase
 
     public function testIteratorSeekAndPrev()
     {
-        $ranges = range('A','E');
+        $ranges = range('A', 'E');
         $iterator = new PHPExcel_Worksheet_RowCellIterator($this->mockWorksheet, 2, 'B', 'D');
         $RowCellIndexResult = 'D';
         $iterator->seek('D');

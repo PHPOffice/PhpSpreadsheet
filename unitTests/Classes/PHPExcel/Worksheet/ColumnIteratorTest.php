@@ -55,7 +55,7 @@ class ColumnIteratorTest extends PHPUnit_Framework_TestCase
 
     public function testIteratorSeekAndPrev()
     {
-        $ranges = range('A','E');
+        $ranges = range('A', 'E');
         $iterator = new PHPExcel_Worksheet_ColumnIterator($this->mockWorksheet, 'B', 'D');
         $columnIndexResult = 'D';
         $iterator->seek('D');
