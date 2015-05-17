@@ -81,21 +81,21 @@ class PHPExcel_Reader_Excel2007_Chart
                                 foreach ($chartDetails as $chartDetailKey => $chartDetail) {
                                     switch ($chartDetailKey) {
                                         case "layout":
-                                            $plotAreaLayout = self::_chartLayoutDetails($chartDetail, $namespacesChartMeta,'plotArea');
+                                            $plotAreaLayout = self::_chartLayoutDetails($chartDetail, $namespacesChartMeta, 'plotArea');
                                             break;
                                         case "catAx":
                                             if (isset($chartDetail->title)) {
-                                                $XaxisLabel = self::_chartTitle($chartDetail->title->children($namespacesChartMeta['c']), $namespacesChartMeta,'cat');
+                                                $XaxisLabel = self::_chartTitle($chartDetail->title->children($namespacesChartMeta['c']), $namespacesChartMeta, 'cat');
                                             }
                                             break;
                                         case "dateAx":
                                             if (isset($chartDetail->title)) {
-                                                $XaxisLabel = self::_chartTitle($chartDetail->title->children($namespacesChartMeta['c']), $namespacesChartMeta,'cat');
+                                                $XaxisLabel = self::_chartTitle($chartDetail->title->children($namespacesChartMeta['c']), $namespacesChartMeta, 'cat');
                                             }
                                             break;
                                         case "valAx":
                                             if (isset($chartDetail->title)) {
-                                                $YaxisLabel = self::_chartTitle($chartDetail->title->children($namespacesChartMeta['c']), $namespacesChartMeta,'cat');
+                                                $YaxisLabel = self::_chartTitle($chartDetail->title->children($namespacesChartMeta['c']), $namespacesChartMeta, 'cat');
                                             }
                                             break;
                                         case "barChart":
@@ -173,7 +173,7 @@ class PHPExcel_Reader_Excel2007_Chart
                                 $dispBlanksAs = self::_getAttribute($chartDetails, 'val', 'string');
                                 break;
                             case "title":
-                                $title = self::_chartTitle($chartDetails, $namespacesChartMeta,'title');
+                                $title = self::_chartTitle($chartDetails, $namespacesChartMeta, 'title');
                                 break;
                             case "legend":
                                 $legendPos = 'r';
@@ -188,7 +188,7 @@ class PHPExcel_Reader_Excel2007_Chart
                                             $legendOverlay = self::_getAttribute($chartDetail, 'val', 'boolean');
                                             break;
                                         case "layout":
-                                            $legendLayout = self::_chartLayoutDetails($chartDetail, $namespacesChartMeta,'legend');
+                                            $legendLayout = self::_chartLayoutDetails($chartDetail, $namespacesChartMeta, 'legend');
                                             break;
                                     }
                                 }
@@ -239,7 +239,7 @@ class PHPExcel_Reader_Excel2007_Chart
         }
         $layout = array();
         foreach ($details as $detailKey => $detail) {
-//            echo $detailKey,' => ',self::_getAttribute($detail, 'val', 'string'),PHP_EOL;
+//            echo $detailKey, ' => ',self::_getAttribute($detail, 'val', 'string'),PHP_EOL;
             $layout[$detailKey] = self::_getAttribute($detail, 'val', 'string');
         }
         return new PHPExcel_Chart_Layout($layout);
@@ -300,7 +300,7 @@ class PHPExcel_Reader_Excel2007_Chart
     {
         if (isset($seriesDetail->strRef)) {
             $seriesSource = (string) $seriesDetail->strRef->f;
-            $seriesData = self::_chartDataSeriesValues($seriesDetail->strRef->strCache->children($namespacesChartMeta['c']),'s');
+            $seriesData = self::_chartDataSeriesValues($seriesDetail->strRef->strCache->children($namespacesChartMeta['c']), 's');
 
             return new PHPExcel_Chart_DataSeriesValues('String', $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker, $smoothLine);
         } elseif (isset($seriesDetail->numRef)) {
@@ -310,13 +310,13 @@ class PHPExcel_Reader_Excel2007_Chart
             return new PHPExcel_Chart_DataSeriesValues('Number', $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker, $smoothLine);
         } elseif (isset($seriesDetail->multiLvlStrRef)) {
             $seriesSource = (string) $seriesDetail->multiLvlStrRef->f;
-            $seriesData = self::_chartDataSeriesValuesMultiLevel($seriesDetail->multiLvlStrRef->multiLvlStrCache->children($namespacesChartMeta['c']),'s');
+            $seriesData = self::_chartDataSeriesValuesMultiLevel($seriesDetail->multiLvlStrRef->multiLvlStrCache->children($namespacesChartMeta['c']), 's');
             $seriesData['pointCount'] = count($seriesData['dataValues']);
 
             return new PHPExcel_Chart_DataSeriesValues('String', $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker, $smoothLine);
         } elseif (isset($seriesDetail->multiLvlNumRef)) {
             $seriesSource = (string) $seriesDetail->multiLvlNumRef->f;
-            $seriesData = self::_chartDataSeriesValuesMultiLevel($seriesDetail->multiLvlNumRef->multiLvlNumCache->children($namespacesChartMeta['c']),'s');
+            $seriesData = self::_chartDataSeriesValuesMultiLevel($seriesDetail->multiLvlNumRef->multiLvlNumCache->children($namespacesChartMeta['c']), 's');
             $seriesData['pointCount'] = count($seriesData['dataValues']);
 
             return new PHPExcel_Chart_DataSeriesValues('String', $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker, $smoothLine);
@@ -400,7 +400,7 @@ class PHPExcel_Reader_Excel2007_Chart
 
         foreach ($titleDetailPart as $titleDetailElementKey => $titleDetailElement) {
             if (isset($titleDetailElement->t)) {
-                $objText = $value->createTextRun( (string) $titleDetailElement->t );
+                $objText = $value->createTextRun((string) $titleDetailElement->t);
             }
             if (isset($titleDetailElement->rPr)) {
                 if (isset($titleDetailElement->rPr->rFont["val"])) {
@@ -414,7 +414,7 @@ class PHPExcel_Reader_Excel2007_Chart
 
                 $fontColor = (self::_getAttribute($titleDetailElement->rPr, 'color', 'string'));
                 if (!is_null($fontColor)) {
-                    $objText->getFont()->setColor( new PHPExcel_Style_Color( self::_readColor($fontColor) ) );
+                    $objText->getFont()->setColor(new PHPExcel_Style_Color(self::_readColor($fontColor)));
                 }
 
                 $bold = self::_getAttribute($titleDetailElement->rPr, 'b', 'boolean');
@@ -495,25 +495,25 @@ class PHPExcel_Reader_Excel2007_Chart
     {
         foreach ($plotAttributes as $plotAttributeKey => $plotAttributeValue) {
             switch ($plotAttributeKey) {
-                case 'showLegendKey' :
+                case 'showLegendKey':
                     $plotArea->setShowLegendKey($plotAttributeValue);
                     break;
-                case 'showVal' :
+                case 'showVal':
                     $plotArea->setShowVal($plotAttributeValue);
                     break;
-                case 'showCatName' :
+                case 'showCatName':
                     $plotArea->setShowCatName($plotAttributeValue);
                     break;
-                case 'showSerName' :
+                case 'showSerName':
                     $plotArea->setShowSerName($plotAttributeValue);
                     break;
-                case 'showPercent' :
+                case 'showPercent':
                     $plotArea->setShowPercent($plotAttributeValue);
                     break;
-                case 'showBubbleSize' :
+                case 'showBubbleSize':
                     $plotArea->setShowBubbleSize($plotAttributeValue);
                     break;
-                case 'showLeaderLines' :
+                case 'showLeaderLines':
                     $plotArea->setShowLeaderLines($plotAttributeValue);
                     break;
             }

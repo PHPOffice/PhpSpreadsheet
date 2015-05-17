@@ -115,7 +115,7 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
 
         $xml = new XMLReader();
         $xml->xml($this->securityScanFile('compress.zlib://'.realpath($pFilename)), null, PHPExcel_Settings::getLibXmlLoaderOptions());
-        $xml->setParserProperty(2,true);
+        $xml->setParserProperty(2, true);
 
         $worksheetNames = array();
         while ($xml->read()) {
@@ -467,7 +467,7 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
             }
 
             if ((!$this->_readDataOnly) && (isset($sheet->Objects))) {
-                foreach ($sheet->Objects->children('gnm',TRUE) as $key => $comment) {
+                foreach ($sheet->Objects->children('gnm', true) as $key => $comment) {
                     $commentAttributes = $comment->attributes();
                     //    Only comment objects are handled at the moment
                     if ($commentAttributes->Text) {
@@ -481,7 +481,6 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
                 $styleAttributes = $styleRegion->attributes();
                 if (($styleAttributes['startRow'] <= $maxRow) &&
                     ($styleAttributes['startCol'] <= $maxCol)) {
-
                     $startColumn = PHPExcel_Cell::stringFromColumnIndex((int) $styleAttributes['startCol']);
                     $startRow = $styleAttributes['startRow'] + 1;
 
@@ -748,7 +747,7 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
             //    Handle Merged Cells in this worksheet
             if (isset($sheet->MergedRegions)) {
                 foreach ($sheet->MergedRegions->Merge as $mergeCells) {
-                    if (strpos($mergeCells,':') !== false) {
+                    if (strpos($mergeCells, ':') !== false) {
                         $objPHPExcel->getActiveSheet()->mergeCells($mergeCells);
                     }
                 }
@@ -767,7 +766,7 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
                 }
 
                 $range = explode('!', $range);
-                $range[0] = trim($range[0],"'");;
+                $range[0] = trim($range[0], "'");
                 if ($worksheet = $objPHPExcel->getSheetByName($range[0])) {
                     $extractedRange = str_replace('$', '', $range[1]);
                     $objPHPExcel->addNamedRange(new PHPExcel_NamedRange($name, $worksheet, $extractedRange));
@@ -844,7 +843,8 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
         return $value;
     }
 
-    private static function _parseGnumericColour($gnmColour) {
+    private static function _parseGnumericColour($gnmColour)
+    {
         list($gnmR, $gnmG, $gnmB) = explode(':', $gnmColour);
         $gnmR = substr(str_pad($gnmR, 4, '0', STR_PAD_RIGHT), 0, 2);
         $gnmG = substr(str_pad($gnmG, 4, '0', STR_PAD_RIGHT), 0, 2);

@@ -95,8 +95,8 @@ class PHPExcel_Shared_JAMA_Matrix
                         $this->n = 0;
                     }
                     if (($this->m * $this->n) == count($args[0])) {
-                        for($i = 0; $i < $this->m; ++$i) {
-                            for($j = 0; $j < $this->n; ++$j) {
+                        for ($i = 0; $i < $this->m; ++$i) {
+                            for ($j = 0; $j < $this->n; ++$j) {
                                 $this->A[$i][$j] = $args[0][$i + $j * $this->m];
                             }
                         }
@@ -176,11 +176,19 @@ class PHPExcel_Shared_JAMA_Matrix
                 //A($i0...; $j0...)
                 case 'integer,integer':
                     list($i0, $j0) = $args;
-                    if ($i0 >= 0) { $m = $this->m - $i0; } else { throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException); }
-                    if ($j0 >= 0) { $n = $this->n - $j0; } else { throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException); }
+                    if ($i0 >= 0) {
+                        $m = $this->m - $i0;
+                    } else {
+                        throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException);
+                    }
+                    if ($j0 >= 0) {
+                        $n = $this->n - $j0;
+                    } else {
+                        throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException);
+                    }
                     $R = new PHPExcel_Shared_JAMA_Matrix($m, $n);
-                    for($i = $i0; $i < $this->m; ++$i) {
-                        for($j = $j0; $j < $this->n; ++$j) {
+                    for ($i = $i0; $i < $this->m; ++$i) {
+                        for ($j = $j0; $j < $this->n; ++$j) {
                             $R->set($i, $j, $this->A[$i][$j]);
                         }
                     }
@@ -189,11 +197,15 @@ class PHPExcel_Shared_JAMA_Matrix
                 //A($i0...$iF; $j0...$jF)
                 case 'integer,integer,integer,integer':
                     list($i0, $iF, $j0, $jF) = $args;
-                    if (($iF > $i0) && ($this->m >= $iF) && ($i0 >= 0)) { $m = $iF - $i0; } else { throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException); }
-                    if (($jF > $j0) && ($this->n >= $jF) && ($j0 >= 0)) { $n = $jF - $j0; } else { throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException); }
+                    if (($iF > $i0) && ($this->m >= $iF) && ($i0 >= 0)) {
+                        $m = $iF - $i0; } else { throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException);
+                    }
+                    if (($jF > $j0) && ($this->n >= $jF) && ($j0 >= 0)) {
+                        $n = $jF - $j0; } else { throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException);
+                    }
                     $R = new PHPExcel_Shared_JAMA_Matrix($m+1, $n+1);
-                    for($i = $i0; $i <= $iF; ++$i) {
-                        for($j = $j0; $j <= $jF; ++$j) {
+                    for ($i = $i0; $i <= $iF; ++$i) {
+                        for ($j = $j0; $j <= $jF; ++$j) {
                             $R->set($i - $i0, $j - $j0, $this->A[$i][$j]);
                         }
                     }
@@ -202,11 +214,19 @@ class PHPExcel_Shared_JAMA_Matrix
                 //$R = array of row indices; $C = array of column indices
                 case 'array,array':
                     list($RL, $CL) = $args;
-                    if (count($RL) > 0) { $m = count($RL); } else { throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException); }
-                    if (count($CL) > 0) { $n = count($CL); } else { throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException); }
+                    if (count($RL) > 0) {
+                        $m = count($RL);
+                    } else {
+                        throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException);
+                    }
+                    if (count($CL) > 0) {
+                        $n = count($CL);
+                    } else {
+                        throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException);
+                    }
                     $R = new PHPExcel_Shared_JAMA_Matrix($m, $n);
-                    for($i = 0; $i < $m; ++$i) {
-                        for($j = 0; $j < $n; ++$j) {
+                    for ($i = 0; $i < $m; ++$i) {
+                        for ($j = 0; $j < $n; ++$j) {
                             $R->set($i - $i0, $j - $j0, $this->A[$RL[$i]][$CL[$j]]);
                         }
                     }
@@ -215,11 +235,19 @@ class PHPExcel_Shared_JAMA_Matrix
                 //$RL = array of row indices; $CL = array of column indices
                 case 'array,array':
                     list($RL, $CL) = $args;
-                    if (count($RL) > 0) { $m = count($RL); } else { throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException); }
-                    if (count($CL) > 0) { $n = count($CL); } else { throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException); }
+                    if (count($RL) > 0) {
+                        $m = count($RL);
+                    } else {
+                        throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException);
+                    }
+                    if (count($CL) > 0) {
+                        $n = count($CL);
+                    } else {
+                        throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException);
+                    }
                     $R = new PHPExcel_Shared_JAMA_Matrix($m, $n);
-                    for($i = 0; $i < $m; ++$i) {
-                        for($j = 0; $j < $n; ++$j) {
+                    for ($i = 0; $i < $m; ++$i) {
+                        for ($j = 0; $j < $n; ++$j) {
                             $R->set($i, $j, $this->A[$RL[$i]][$CL[$j]]);
                         }
                     }
@@ -228,11 +256,19 @@ class PHPExcel_Shared_JAMA_Matrix
                 //A($i0...$iF); $CL = array of column indices
                 case 'integer,integer,array':
                     list($i0, $iF, $CL) = $args;
-                    if (($iF > $i0) && ($this->m >= $iF) && ($i0 >= 0)) { $m = $iF - $i0; } else { throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException); }
-                    if (count($CL) > 0) { $n = count($CL); } else { throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException); }
+                    if (($iF > $i0) && ($this->m >= $iF) && ($i0 >= 0)) {
+                        $m = $iF - $i0;
+                    } else {
+                        throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException);
+                    }
+                    if (count($CL) > 0) {
+                        $n = count($CL);
+                    } else {
+                        throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException);
+                    }
                     $R = new PHPExcel_Shared_JAMA_Matrix($m, $n);
-                    for($i = $i0; $i < $iF; ++$i) {
-                        for($j = 0; $j < $n; ++$j) {
+                    for ($i = $i0; $i < $iF; ++$i) {
+                        for ($j = 0; $j < $n; ++$j) {
                             $R->set($i - $i0, $j, $this->A[$RL[$i]][$j]);
                         }
                     }
@@ -241,11 +277,19 @@ class PHPExcel_Shared_JAMA_Matrix
                 //$RL = array of row indices
                 case 'array,integer,integer':
                     list($RL, $j0, $jF) = $args;
-                    if (count($RL) > 0) { $m = count($RL); } else { throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException); }
-                    if (($jF >= $j0) && ($this->n >= $jF) && ($j0 >= 0)) { $n = $jF - $j0; } else { throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException); }
+                    if (count($RL) > 0) {
+                        $m = count($RL);
+                    } else {
+                        throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException);
+                    }
+                    if (($jF >= $j0) && ($this->n >= $jF) && ($j0 >= 0)) {
+                        $n = $jF - $j0;
+                    } else {
+                        throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException);
+                    }
                     $R = new PHPExcel_Shared_JAMA_Matrix($m, $n+1);
-                    for($i = 0; $i < $m; ++$i) {
-                        for($j = $j0; $j <= $jF; ++$j) {
+                    for ($i = 0; $i < $m; ++$i) {
+                        for ($j = $j0; $j <= $jF; ++$j) {
                             $R->set($i, $j - $j0, $this->A[$RL[$i]][$j]);
                         }
                     }
@@ -320,7 +364,7 @@ class PHPExcel_Shared_JAMA_Matrix
     public function diagonal($m = null, $n = null, $c = 1)
     {
         $R = new PHPExcel_Shared_JAMA_Matrix($m, $n);
-        for($i = 0; $i < $m; ++$i) {
+        for ($i = 0; $i < $m; ++$i) {
             $R->set($i, $i, $c);
         }
         return $R;
@@ -377,8 +421,8 @@ class PHPExcel_Shared_JAMA_Matrix
     public function transpose()
     {
         $R = new PHPExcel_Shared_JAMA_Matrix($this->n, $this->m);
-        for($i = 0; $i < $this->m; ++$i) {
-            for($j = 0; $j < $this->n; ++$j) {
+        for ($i = 0; $i < $this->m; ++$i) {
+            for ($j = 0; $j < $this->n; ++$j) {
                 $R->set($j, $i, $this->A[$i][$j]);
             }
         }
@@ -395,7 +439,7 @@ class PHPExcel_Shared_JAMA_Matrix
     {
         $s = 0;
         $n = min($this->m, $this->n);
-        for($i = 0; $i < $n; ++$i) {
+        for ($i = 0; $i < $n; ++$i) {
             $s += $this->A[$i][$i];
         }
         return $s;
@@ -440,8 +484,8 @@ class PHPExcel_Shared_JAMA_Matrix
                     break;
             }
             $this->checkMatrixDimensions($M);
-            for($i = 0; $i < $this->m; ++$i) {
-                for($j = 0; $j < $this->n; ++$j) {
+            for ($i = 0; $i < $this->m; ++$i) {
+                for ($j = 0; $j < $this->n; ++$j) {
                     $M->set($i, $j, $M->get($i, $j) + $this->A[$i][$j]);
                 }
             }
@@ -480,16 +524,16 @@ class PHPExcel_Shared_JAMA_Matrix
                     break;
             }
             $this->checkMatrixDimensions($M);
-            for($i = 0; $i < $this->m; ++$i) {
-                for($j = 0; $j < $this->n; ++$j) {
+            for ($i = 0; $i < $this->m; ++$i) {
+                for ($j = 0; $j < $this->n; ++$j) {
                     $validValues = true;
                     $value = $M->get($i, $j);
                     if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
-                        $this->A[$i][$j] = trim($this->A[$i][$j],'"');
+                        $this->A[$i][$j] = trim($this->A[$i][$j], '"');
                         $validValues &= PHPExcel_Shared_String::convertToNumberIfFraction($this->A[$i][$j]);
                     }
                     if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
-                        $value = trim($value,'"');
+                        $value = trim($value, '"');
                         $validValues &= PHPExcel_Shared_String::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
@@ -534,8 +578,8 @@ class PHPExcel_Shared_JAMA_Matrix
                     break;
             }
             $this->checkMatrixDimensions($M);
-            for($i = 0; $i < $this->m; ++$i) {
-                for($j = 0; $j < $this->n; ++$j) {
+            for ($i = 0; $i < $this->m; ++$i) {
+                for ($j = 0; $j < $this->n; ++$j) {
                     $M->set($i, $j, $M->get($i, $j) - $this->A[$i][$j]);
                 }
             }
@@ -574,16 +618,16 @@ class PHPExcel_Shared_JAMA_Matrix
                     break;
             }
             $this->checkMatrixDimensions($M);
-            for($i = 0; $i < $this->m; ++$i) {
-                for($j = 0; $j < $this->n; ++$j) {
+            for ($i = 0; $i < $this->m; ++$i) {
+                for ($j = 0; $j < $this->n; ++$j) {
                     $validValues = true;
                     $value = $M->get($i, $j);
                     if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
-                        $this->A[$i][$j] = trim($this->A[$i][$j],'"');
+                        $this->A[$i][$j] = trim($this->A[$i][$j], '"');
                         $validValues &= PHPExcel_Shared_String::convertToNumberIfFraction($this->A[$i][$j]);
                     }
                     if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
-                        $value = trim($value,'"');
+                        $value = trim($value, '"');
                         $validValues &= PHPExcel_Shared_String::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
@@ -629,8 +673,8 @@ class PHPExcel_Shared_JAMA_Matrix
                     break;
             }
             $this->checkMatrixDimensions($M);
-            for($i = 0; $i < $this->m; ++$i) {
-                for($j = 0; $j < $this->n; ++$j) {
+            for ($i = 0; $i < $this->m; ++$i) {
+                for ($j = 0; $j < $this->n; ++$j) {
                     $M->set($i, $j, $M->get($i, $j) * $this->A[$i][$j]);
                 }
             }
@@ -670,16 +714,16 @@ class PHPExcel_Shared_JAMA_Matrix
                     break;
             }
             $this->checkMatrixDimensions($M);
-            for($i = 0; $i < $this->m; ++$i) {
-                for($j = 0; $j < $this->n; ++$j) {
+            for ($i = 0; $i < $this->m; ++$i) {
+                for ($j = 0; $j < $this->n; ++$j) {
                     $validValues = true;
                     $value = $M->get($i, $j);
                     if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
-                        $this->A[$i][$j] = trim($this->A[$i][$j],'"');
+                        $this->A[$i][$j] = trim($this->A[$i][$j], '"');
                         $validValues &= PHPExcel_Shared_String::convertToNumberIfFraction($this->A[$i][$j]);
                     }
                     if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
-                        $value = trim($value,'"');
+                        $value = trim($value, '"');
                         $validValues &= PHPExcel_Shared_String::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
@@ -725,16 +769,16 @@ class PHPExcel_Shared_JAMA_Matrix
                     break;
             }
             $this->checkMatrixDimensions($M);
-            for($i = 0; $i < $this->m; ++$i) {
-                for($j = 0; $j < $this->n; ++$j) {
+            for ($i = 0; $i < $this->m; ++$i) {
+                for ($j = 0; $j < $this->n; ++$j) {
                     $validValues = true;
                     $value = $M->get($i, $j);
                     if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
-                        $this->A[$i][$j] = trim($this->A[$i][$j],'"');
+                        $this->A[$i][$j] = trim($this->A[$i][$j], '"');
                         $validValues &= PHPExcel_Shared_String::convertToNumberIfFraction($this->A[$i][$j]);
                     }
                     if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
-                        $value = trim($value,'"');
+                        $value = trim($value, '"');
                         $validValues &= PHPExcel_Shared_String::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
@@ -786,8 +830,8 @@ class PHPExcel_Shared_JAMA_Matrix
                     break;
             }
             $this->checkMatrixDimensions($M);
-            for($i = 0; $i < $this->m; ++$i) {
-                for($j = 0; $j < $this->n; ++$j) {
+            for ($i = 0; $i < $this->m; ++$i) {
+                for ($j = 0; $j < $this->n; ++$j) {
                     $this->A[$i][$j] = $this->A[$i][$j] / $M->get($i, $j);
                 }
             }
@@ -828,8 +872,8 @@ class PHPExcel_Shared_JAMA_Matrix
                     break;
             }
             $this->checkMatrixDimensions($M);
-            for($i = 0; $i < $this->m; ++$i) {
-                for($j = 0; $j < $this->n; ++$j) {
+            for ($i = 0; $i < $this->m; ++$i) {
+                for ($j = 0; $j < $this->n; ++$j) {
                     $M->set($i, $j, $M->get($i, $j) / $this->A[$i][$j]);
                 }
             }
@@ -870,8 +914,8 @@ class PHPExcel_Shared_JAMA_Matrix
                     break;
             }
             $this->checkMatrixDimensions($M);
-            for($i = 0; $i < $this->m; ++$i) {
-                for($j = 0; $j < $this->n; ++$j) {
+            for ($i = 0; $i < $this->m; ++$i) {
+                for ($j = 0; $j < $this->n; ++$j) {
                     $this->A[$i][$j] = $M->get($i, $j) / $this->A[$i][$j];
                 }
             }
@@ -904,14 +948,14 @@ class PHPExcel_Shared_JAMA_Matrix
                     }
                     if ($this->n == $B->m) {
                         $C = new PHPExcel_Shared_JAMA_Matrix($this->m, $B->n);
-                        for($j = 0; $j < $B->n; ++$j) {
+                        for ($j = 0; $j < $B->n; ++$j) {
                             for ($k = 0; $k < $this->n; ++$k) {
                                 $Bcolj[$k] = $B->A[$k][$j];
                             }
-                            for($i = 0; $i < $this->m; ++$i) {
+                            for ($i = 0; $i < $this->m; ++$i) {
                                 $Arowi = $this->A[$i];
                                 $s = 0;
-                                for($k = 0; $k < $this->n; ++$k) {
+                                for ($k = 0; $k < $this->n; ++$k) {
                                     $s += $Arowi[$k] * $Bcolj[$k];
                                 }
                                 $C->A[$i][$j] = $s;
@@ -926,10 +970,10 @@ class PHPExcel_Shared_JAMA_Matrix
                     $B = new PHPExcel_Shared_JAMA_Matrix($args[0]);
                     if ($this->n == $B->m) {
                         $C = new PHPExcel_Shared_JAMA_Matrix($this->m, $B->n);
-                        for($i = 0; $i < $C->m; ++$i) {
-                            for($j = 0; $j < $C->n; ++$j) {
+                        for ($i = 0; $i < $C->m; ++$i) {
+                            for ($j = 0; $j < $C->n; ++$j) {
                                 $s = "0";
-                                for($k = 0; $k < $C->n; ++$k) {
+                                for ($k = 0; $k < $C->n; ++$k) {
                                     $s += $this->A[$i][$k] * $B->A[$k][$j];
                                 }
                                 $C->A[$i][$j] = $s;
@@ -943,8 +987,8 @@ class PHPExcel_Shared_JAMA_Matrix
                     break;
                 case 'integer':
                     $C = new PHPExcel_Shared_JAMA_Matrix($this->A);
-                    for($i = 0; $i < $C->m; ++$i) {
-                        for($j = 0; $j < $C->n; ++$j) {
+                    for ($i = 0; $i < $C->m; ++$i) {
+                        for ($j = 0; $j < $C->n; ++$j) {
                             $C->A[$i][$j] *= $args[0];
                         }
                     }
@@ -952,8 +996,8 @@ class PHPExcel_Shared_JAMA_Matrix
                     break;
                 case 'double':
                     $C = new PHPExcel_Shared_JAMA_Matrix($this->m, $this->n);
-                    for($i = 0; $i < $C->m; ++$i) {
-                        for($j = 0; $j < $C->n; ++$j) {
+                    for ($i = 0; $i < $C->m; ++$i) {
+                        for ($j = 0; $j < $C->n; ++$j) {
                             $C->A[$i][$j] = $args[0] * $this->A[$i][$j];
                         }
                     }
@@ -961,8 +1005,8 @@ class PHPExcel_Shared_JAMA_Matrix
                     break;
                 case 'float':
                     $C = new PHPExcel_Shared_JAMA_Matrix($this->A);
-                    for($i = 0; $i < $C->m; ++$i) {
-                        for($j = 0; $j < $C->n; ++$j) {
+                    for ($i = 0; $i < $C->m; ++$i) {
+                        for ($j = 0; $j < $C->n; ++$j) {
                             $C->A[$i][$j] *= $args[0];
                         }
                     }
@@ -1006,16 +1050,16 @@ class PHPExcel_Shared_JAMA_Matrix
                     break;
             }
             $this->checkMatrixDimensions($M);
-            for($i = 0; $i < $this->m; ++$i) {
-                for($j = 0; $j < $this->n; ++$j) {
+            for ($i = 0; $i < $this->m; ++$i) {
+                for ($j = 0; $j < $this->n; ++$j) {
                     $validValues = true;
                     $value = $M->get($i, $j);
                     if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
-                        $this->A[$i][$j] = trim($this->A[$i][$j],'"');
+                        $this->A[$i][$j] = trim($this->A[$i][$j], '"');
                         $validValues &= PHPExcel_Shared_String::convertToNumberIfFraction($this->A[$i][$j]);
                     }
                     if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
-                        $value = trim($value,'"');
+                        $value = trim($value, '"');
                         $validValues &= PHPExcel_Shared_String::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
@@ -1059,9 +1103,9 @@ class PHPExcel_Shared_JAMA_Matrix
                     break;
             }
             $this->checkMatrixDimensions($M);
-            for($i = 0; $i < $this->m; ++$i) {
-                for($j = 0; $j < $this->n; ++$j) {
-                    $this->A[$i][$j] = trim($this->A[$i][$j],'"').trim($M->get($i, $j),'"');
+            for ($i = 0; $i < $this->m; ++$i) {
+                for ($j = 0; $j < $this->n; ++$j) {
+                    $this->A[$i][$j] = trim($this->A[$i][$j], '"').trim($M->get($i, $j), '"');
                 }
             }
             return $this;

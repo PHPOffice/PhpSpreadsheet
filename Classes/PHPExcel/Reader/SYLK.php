@@ -269,7 +269,7 @@ class PHPExcel_Reader_SYLK extends PHPExcel_Reader_Abstract implements PHPExcel_
                             $formatArray['font']['size'] = substr($rowDatum, 1);
                             break;
                         case 'S':
-                            $styleSettings = substr($rowDatum,1);
+                            $styleSettings = substr($rowDatum, 1);
                             for ($i=0; $i<strlen($styleSettings); ++$i) {
                                 switch ($styleSettings{$i}) {
                                     case 'I':

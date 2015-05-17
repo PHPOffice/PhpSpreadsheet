@@ -257,11 +257,11 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
      */
     protected static function _pixel2WidthUnits($pxs)
     {
-       $UNIT_OFFSET_MAP = array(0, 36, 73, 109, 146, 182, 219);
+        $UNIT_OFFSET_MAP = array(0, 36, 73, 109, 146, 182, 219);
 
-       $widthUnits = 256 * ($pxs / 7);
-       $widthUnits += $UNIT_OFFSET_MAP[($pxs % 7)];
-       return $widthUnits;
+        $widthUnits = 256 * ($pxs / 7);
+        $widthUnits += $UNIT_OFFSET_MAP[($pxs % 7)];
+        return $widthUnits;
     }
 
     /**

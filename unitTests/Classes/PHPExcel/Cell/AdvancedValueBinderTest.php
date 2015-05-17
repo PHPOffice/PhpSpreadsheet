@@ -36,12 +36,12 @@ class AdvancedValueBinderTest extends PHPUnit_Framework_TestCase
     public function testCurrency($value, $valueBinded, $format, $thousandsSeparator, $decimalSeparator, $currencyCode)
     {
         $sheet = $this->getMock(
-			'PHPExcel_Worksheet', 
-			array('getStyle', 'getNumberFormat', 'setFormatCode','getCellCacheController')
-		);
+            'PHPExcel_Worksheet',
+            array('getStyle', 'getNumberFormat', 'setFormatCode','getCellCacheController')
+        );
         $cache = $this->getMockBuilder('PHPExcel_CachedObjectStorage_Memory')
-        	->disableOriginalConstructor()
-        	->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
         $cache->expects($this->any())
                  ->method('getParent')
                  ->will($this->returnValue($sheet));
@@ -64,7 +64,7 @@ class AdvancedValueBinderTest extends PHPUnit_Framework_TestCase
         PHPExcel_Shared_String::setDecimalSeparator($decimalSeparator);
         PHPExcel_Shared_String::setThousandsSeparator($thousandsSeparator);
 
-        $cell = new PHPExcel_Cell(NULL, PHPExcel_Cell_DataType::TYPE_STRING, $sheet);
+        $cell = new PHPExcel_Cell(null, PHPExcel_Cell_DataType::TYPE_STRING, $sheet);
 
         $binder = new PHPExcel_Cell_AdvancedValueBinder();
         $binder->bindValue($cell, $value);

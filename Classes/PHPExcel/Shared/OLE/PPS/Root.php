@@ -77,7 +77,7 @@ class PHPExcel_Shared_OLE_PPS_Root extends PHPExcel_Shared_OLE_PPS
                 $this->_tmp_dir = PHPExcel_Shared_File::sys_get_temp_dir();
             }
             $this->_tmp_filename = tempnam($this->_tmp_dir, "OLE_PPS_Root");
-            $this->_FILEH_ = fopen($this->_tmp_filename,"w+b");
+            $this->_FILEH_ = fopen($this->_tmp_filename, "w+b");
             if ($this->_FILEH_ == false) {
                 throw new PHPExcel_Writer_Exception("Can't create temporary file.");
             }
@@ -221,7 +221,7 @@ class PHPExcel_Shared_OLE_PPS_Root extends PHPExcel_Shared_OLE_PPS
             . pack("V", 0x1000)
             . pack("V", $iSBDcnt ? 0 : -2) //Small Block Depot
             . pack("V", $iSBDcnt)
-          );
+        );
         // Extra BDList Start, Count
         if ($iBdCnt < $i1stBdL) {
             fwrite(

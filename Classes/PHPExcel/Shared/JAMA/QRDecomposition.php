@@ -233,4 +233,3 @@ class PHPExcel_Shared_JAMA_QRDecomposition
         }
     }    //    function solve()
 }
-

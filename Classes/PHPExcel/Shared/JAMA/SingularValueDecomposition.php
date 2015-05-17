@@ -266,7 +266,7 @@ class SingularValueDecomposition
                         break;
                     }
                     $t = ($ks != $p ? abs($e[$ks]) : 0.) + ($ks != $k + 1 ? abs($e[$ks-1]) : 0.);
-                    if (abs($this->s[$ks]) <= $eps * $t)  {
+                    if (abs($this->s[$ks]) <= $eps * $t) {
                         $this->s[$ks] = 0.0;
                         break;
                     }

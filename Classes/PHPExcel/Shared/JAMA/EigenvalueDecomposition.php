@@ -72,7 +72,7 @@ class EigenvalueDecomposition
      *
      *    @access private
      */
-    private function tred2 ()
+    private function tred2()
     {
         //  This is derived from the Algol procedures tred2 by
         //  Bowdler, Martin, Reinsch, and Wilkinson, Handbook for
@@ -189,7 +189,7 @@ class EigenvalueDecomposition
         $this->e[$this->n-1] = 0.0;
         $f = 0.0;
         $tst1 = 0.0;
-        $eps  = pow(2.0,-52.0);
+        $eps  = pow(2.0, -52.0);
 
         for ($l = 0; $l < $this->n; ++$l) {
             // Find small subdiagonal element
@@ -741,7 +741,7 @@ class EigenvalueDecomposition
                             }
                         }
                         // Overflow control
-                        $t = max(abs($this->H[$i][$n-1]),abs($this->H[$i][$n]));
+                        $t = max(abs($this->H[$i][$n-1]), abs($this->H[$i][$n]));
                         if (($eps * $t) * $t > 1) {
                             for ($j = $i; $j <= $n; ++$j) {
                                 $this->H[$j][$n-1] = $this->H[$j][$n-1] / $t;

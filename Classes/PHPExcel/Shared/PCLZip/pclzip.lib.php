@@ -3458,7 +3458,6 @@ class PclZip
                 }
 
                 if (($v_result = $this->privDirCheck($v_dir_to_check, (($p_entry['external']&0x00000010)==0x00000010))) != 1) {
-
                     // ----- Change the file status
                     $p_entry['status'] = "path_creation_fail";
 

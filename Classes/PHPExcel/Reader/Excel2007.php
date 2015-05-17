@@ -998,16 +998,14 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
                                             //    Standard filters are always an OR join, so no join rule needs to be set
                                             //    Entries can be either filter elements
                                             foreach ($filters->filter as $filterRule) {
-                                                $column->createRule()->setRule(
-                                                    null,//    Operator is undefined, but always treated as EQUAL
-                                                    (string) $filterRule["val"]
-                                                )
-                                                ->setRuleType(PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_FILTER);
+                                                //    Operator is undefined, but always treated as EQUAL
+                                                $column->createRule()->setRule(null, (string) $filterRule["val"])->setRuleType(PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_FILTER);
                                             }
                                             //    Or Date Group elements
                                             foreach ($filters->dateGroupItem as $dateGroupItem) {
                                                 $column->createRule()->setRule(
-                                                    null,//    Operator is undefined, but always treated as EQUAL
+                                                    //    Operator is undefined, but always treated as EQUAL
+                                                    null,
                                                     array(
                                                         'year' => (string) $dateGroupItem["year"],
                                                         'month' => (string) $dateGroupItem["month"],
@@ -1044,7 +1042,8 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
                                             //    We should only ever have one dynamic filter
                                             foreach ($filterColumn->dynamicFilter as $filterRule) {
                                                 $column->createRule()->setRule(
-                                                    null,//    Operator is undefined, but always treated as EQUAL
+                                                    //    Operator is undefined, but always treated as EQUAL
+                                                    null,
                                                     (string) $filterRule["val"],
                                                     (string) $filterRule["type"]
                                                 )
