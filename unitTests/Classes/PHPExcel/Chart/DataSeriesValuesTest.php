@@ -6,8 +6,7 @@ class DataSeriesValuesTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (!defined('PHPEXCEL_ROOT'))
-        {
+        if (!defined('PHPEXCEL_ROOT')) {
             define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
         }
         require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
@@ -49,7 +48,6 @@ class DataSeriesValuesTest extends PHPUnit_Framework_TestCase
         $setValue = $testInstance->setDataType($dataTypeValue);
 
         $result = $testInstance->getDataType();
-        $this->assertEquals($dataTypeValue,$result);
+        $this->assertEquals($dataTypeValue, $result);
     }
-
 }

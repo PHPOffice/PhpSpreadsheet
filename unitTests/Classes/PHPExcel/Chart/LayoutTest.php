@@ -6,8 +6,7 @@ class LayoutTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (!defined('PHPEXCEL_ROOT'))
-        {
+        if (!defined('PHPEXCEL_ROOT')) {
             define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
         }
         require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
@@ -31,7 +30,6 @@ class LayoutTest extends PHPUnit_Framework_TestCase
         $setValue = $testInstance->setLayoutTarget($LayoutTargetValue);
 
         $result = $testInstance->getLayoutTarget();
-        $this->assertEquals($LayoutTargetValue,$result);
+        $this->assertEquals($LayoutTargetValue, $result);
     }
-
 }

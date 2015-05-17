@@ -30,7 +30,7 @@ class FontTest extends PHPUnit_Framework_TestCase
         );
 
         foreach ($autosizeMethodValues as $autosizeMethodValue) {
-            $result = call_user_func(array('PHPExcel_Shared_Font','setAutoSizeMethod'),$autosizeMethodValue);
+            $result = call_user_func(array('PHPExcel_Shared_Font','setAutoSizeMethod'), $autosizeMethodValue);
             $this->assertTrue($result);
         }
     }
@@ -39,7 +39,7 @@ class FontTest extends PHPUnit_Framework_TestCase
     {
         $unsupportedAutosizeMethod = 'guess';
 
-        $result = call_user_func(array('PHPExcel_Shared_Font','setAutoSizeMethod'),$unsupportedAutosizeMethod);
+        $result = call_user_func(array('PHPExcel_Shared_Font','setAutoSizeMethod'), $unsupportedAutosizeMethod);
         $this->assertFalse($result);
     }
 
@@ -50,7 +50,7 @@ class FontTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Shared_Font','fontSizeToPixels'),$args);
+        $result = call_user_func_array(array('PHPExcel_Shared_Font','fontSizeToPixels'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -66,7 +66,7 @@ class FontTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Shared_Font','inchSizeToPixels'),$args);
+        $result = call_user_func_array(array('PHPExcel_Shared_Font','inchSizeToPixels'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -82,7 +82,7 @@ class FontTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Shared_Font','centimeterSizeToPixels'),$args);
+        $result = call_user_func_array(array('PHPExcel_Shared_Font','centimeterSizeToPixels'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -90,5 +90,4 @@ class FontTest extends PHPUnit_Framework_TestCase
     {
         return new testDataFileIterator('rawTestData/Shared/CentimeterSizeToPixels.data');
     }
-
 }

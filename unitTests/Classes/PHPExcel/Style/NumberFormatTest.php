@@ -24,7 +24,7 @@ class NumberFormatTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Style_NumberFormat','toFormattedString'),$args);
+        $result = call_user_func_array(array('PHPExcel_Style_NumberFormat','toFormattedString'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -32,5 +32,4 @@ class NumberFormatTest extends PHPUnit_Framework_TestCase
     {
         return new testDataFileIterator('rawTestData/Style/NumberFormat.data');
     }
-
 }

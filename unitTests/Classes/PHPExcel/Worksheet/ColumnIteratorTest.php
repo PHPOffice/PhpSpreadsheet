@@ -61,7 +61,7 @@ class ColumnIteratorTest extends PHPUnit_Framework_TestCase
         $iterator->seek('D');
         $this->assertEquals($columnIndexResult, $iterator->key());
 
-        for($i = 1; $i < array_search($columnIndexResult, $ranges); $i++) {
+        for ($i = 1; $i < array_search($columnIndexResult, $ranges); $i++) {
             $iterator->prev();
             $expectedResult = $ranges[array_search($columnIndexResult, $ranges) - $i];
             $this->assertEquals($expectedResult, $iterator->key());
@@ -85,5 +85,4 @@ class ColumnIteratorTest extends PHPUnit_Framework_TestCase
         $iterator = new PHPExcel_Worksheet_ColumnIterator($this->mockWorksheet, 'B', 'D');
         $iterator->prev();
     }
-
 }

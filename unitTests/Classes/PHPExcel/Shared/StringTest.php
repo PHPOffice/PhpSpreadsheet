@@ -38,7 +38,7 @@ class StringTest extends PHPUnit_Framework_TestCase
     public function testSetDecimalSeparator()
     {
         $expectedResult = ',';
-        $result = call_user_func(array('PHPExcel_Shared_String','setDecimalSeparator'),$expectedResult);
+        $result = call_user_func(array('PHPExcel_Shared_String','setDecimalSeparator'), $expectedResult);
 
         $result = call_user_func(array('PHPExcel_Shared_String','getDecimalSeparator'));
         $this->assertEquals($expectedResult, $result);
@@ -56,7 +56,7 @@ class StringTest extends PHPUnit_Framework_TestCase
     public function testSetThousandsSeparator()
     {
         $expectedResult = ' ';
-        $result = call_user_func(array('PHPExcel_Shared_String','setThousandsSeparator'),$expectedResult);
+        $result = call_user_func(array('PHPExcel_Shared_String','setThousandsSeparator'), $expectedResult);
 
         $result = call_user_func(array('PHPExcel_Shared_String','getThousandsSeparator'));
         $this->assertEquals($expectedResult, $result);
@@ -74,10 +74,9 @@ class StringTest extends PHPUnit_Framework_TestCase
     public function testSetCurrencyCode()
     {
         $expectedResult = '£';
-        $result = call_user_func(array('PHPExcel_Shared_String','setCurrencyCode'),$expectedResult);
+        $result = call_user_func(array('PHPExcel_Shared_String','setCurrencyCode'), $expectedResult);
 
         $result = call_user_func(array('PHPExcel_Shared_String','getCurrencyCode'));
         $this->assertEquals($expectedResult, $result);
     }
-
 }

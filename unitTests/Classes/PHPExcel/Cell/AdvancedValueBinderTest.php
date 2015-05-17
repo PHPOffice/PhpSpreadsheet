@@ -13,20 +13,20 @@ class AdvancedValueBinderTest extends PHPUnit_Framework_TestCase
     public function provider()
     {
         if (!class_exists('PHPExcel_Style_NumberFormat')) {
-          $this->setUp();
+            $this->setUp();
         }
         $currencyUSD = PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
         $currencyEURO = str_replace('$', '€', PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
 
         return array(
-          array('10%', 0.1, PHPExcel_Style_NumberFormat::FORMAT_PERCENTAGE_00, ',', '.', '$'),
-          array('$10.11', 10.11, $currencyUSD, ',', '.', '$'),
-          array('$1,010.12', 1010.12, $currencyUSD, ',', '.', '$'),
-          array('$20,20', 20.2, $currencyUSD, '.', ',', '$'),
-          array('$2.020,20', 2020.2, $currencyUSD, '.', ',', '$'),
-          array('€2.020,20', 2020.2, $currencyEURO, '.', ',', '€'),
-          array('€ 2.020,20', 2020.2, $currencyEURO, '.', ',', '€'),
-          array('€2,020.22', 2020.22, $currencyEURO, ',', '.', '€'),
+            array('10%', 0.1, PHPExcel_Style_NumberFormat::FORMAT_PERCENTAGE_00, ',', '.', '$'),
+            array('$10.11', 10.11, $currencyUSD, ',', '.', '$'),
+            array('$1,010.12', 1010.12, $currencyUSD, ',', '.', '$'),
+            array('$20,20', 20.2, $currencyUSD, '.', ',', '$'),
+            array('$2.020,20', 2020.2, $currencyUSD, '.', ',', '$'),
+            array('€2.020,20', 2020.2, $currencyEURO, '.', ',', '€'),
+            array('€ 2.020,20', 2020.2, $currencyEURO, '.', ',', '€'),
+            array('€2,020.22', 2020.22, $currencyEURO, ',', '.', '€'),
         );
     }
 

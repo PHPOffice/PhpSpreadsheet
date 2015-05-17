@@ -60,7 +60,7 @@ class RowIteratorTest extends PHPUnit_Framework_TestCase
         $iterator->seek(4);
         $this->assertEquals($columnIndexResult, $iterator->key());
 
-        for($i = 1; $i < $columnIndexResult-1; $i++) {
+        for ($i = 1; $i < $columnIndexResult-1; $i++) {
             $iterator->prev();
             $this->assertEquals($columnIndexResult - $i, $iterator->key());
         }
@@ -83,5 +83,4 @@ class RowIteratorTest extends PHPUnit_Framework_TestCase
         $iterator = new PHPExcel_Worksheet_RowIterator($this->mockWorksheet, 2, 4);
         $iterator->prev();
     }
-
 }

@@ -8,8 +8,7 @@ class LogicalTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (!defined('PHPEXCEL_ROOT'))
-        {
+        if (!defined('PHPEXCEL_ROOT')) {
             define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
         }
         require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
@@ -36,7 +35,7 @@ class LogicalTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_Logical','LOGICAL_AND'),$args);
+        $result = call_user_func_array(array('PHPExcel_Calculation_Logical','LOGICAL_AND'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -52,7 +51,7 @@ class LogicalTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_Logical','LOGICAL_OR'),$args);
+        $result = call_user_func_array(array('PHPExcel_Calculation_Logical','LOGICAL_OR'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -68,7 +67,7 @@ class LogicalTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_Logical','NOT'),$args);
+        $result = call_user_func_array(array('PHPExcel_Calculation_Logical','NOT'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -84,7 +83,7 @@ class LogicalTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_Logical','STATEMENT_IF'),$args);
+        $result = call_user_func_array(array('PHPExcel_Calculation_Logical','STATEMENT_IF'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -100,7 +99,7 @@ class LogicalTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_Logical','IFERROR'),$args);
+        $result = call_user_func_array(array('PHPExcel_Calculation_Logical','IFERROR'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -108,5 +107,4 @@ class LogicalTest extends PHPUnit_Framework_TestCase
     {
         return new testDataFileIterator('rawTestData/Calculation/Logical/IFERROR.data');
     }
-
 }

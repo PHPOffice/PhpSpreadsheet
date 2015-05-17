@@ -54,5 +54,4 @@ class ReferenceHelperTest extends PHPUnit_Framework_TestCase
             $this->assertEquals($columnExpectedResult[$key], $value);
         }
     }
-
 }

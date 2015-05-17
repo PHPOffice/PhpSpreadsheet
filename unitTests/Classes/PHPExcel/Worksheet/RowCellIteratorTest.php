@@ -61,7 +61,7 @@ class RowCellIteratorTest extends PHPUnit_Framework_TestCase
         $iterator->seek('D');
         $this->assertEquals($RowCellIndexResult, $iterator->key());
 
-        for($i = 1; $i < array_search($RowCellIndexResult, $ranges); $i++) {
+        for ($i = 1; $i < array_search($RowCellIndexResult, $ranges); $i++) {
             $iterator->prev();
             $expectedResult = $ranges[array_search($RowCellIndexResult, $ranges) - $i];
             $this->assertEquals($expectedResult, $iterator->key());
@@ -85,5 +85,4 @@ class RowCellIteratorTest extends PHPUnit_Framework_TestCase
         $iterator = new PHPExcel_Worksheet_RowCellIterator($this->mockWorksheet, 2, 'B', 'D');
         $iterator->prev();
     }
-
 }

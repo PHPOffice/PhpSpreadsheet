@@ -105,5 +105,4 @@ class RuleTest extends PHPUnit_Framework_TestCase
         $result = clone $this->_testAutoFilterRuleObject;
         $this->assertInstanceOf('PHPExcel_Worksheet_AutoFilter_Column_Rule', $result);
     }
-
 }

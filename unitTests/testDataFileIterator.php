@@ -90,17 +90,17 @@ class testDataFileIterator implements Iterator
         $dataValue = trim($dataValue);
         //    test for the required datatype and convert accordingly
         if (!is_numeric($dataValue)) {
-            if($dataValue == '') {
+            if ($dataValue == '') {
                 $dataValue = null;
-            } elseif($dataValue == '""') {
+            } elseif ($dataValue == '""') {
                 $dataValue = '';
-            } elseif(($dataValue[0] == '"') && ($dataValue[strlen($dataValue)-1] == '"')) {
-                $dataValue = substr($dataValue,1,-1);
-            } elseif(($dataValue[0] == '{') && ($dataValue[strlen($dataValue)-1] == '}')) {
-                $dataValue = explode(';',substr($dataValue,1,-1));
+            } elseif (($dataValue[0] == '"') && ($dataValue[strlen($dataValue)-1] == '"')) {
+                $dataValue = substr($dataValue, 1, -1);
+            } elseif (($dataValue[0] == '{') && ($dataValue[strlen($dataValue)-1] == '}')) {
+                $dataValue = explode(';',substr($dataValue, 1, -1));
                 foreach ($dataValue as &$dataRow) {
-                    if (strpos($dataRow,'|') !== false) {
-                        $dataRow = explode('|',$dataRow);
+                    if (strpos($dataRow, '|') !== false) {
+                        $dataRow = explode('|', $dataRow);
                         foreach ($dataRow as &$dataCell) {
                             $dataCell = $this->_parseDataValue($dataCell);
                         }
@@ -124,7 +124,7 @@ class testDataFileIterator implements Iterator
                 }
             }
         } else {
-            if (strpos($dataValue,'.') !== false) {
+            if (strpos($dataValue, '.') !== false) {
                 $dataValue = (float) $dataValue;
             } else {
                 $dataValue = (int) $dataValue;

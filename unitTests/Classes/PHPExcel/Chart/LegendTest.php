@@ -6,8 +6,7 @@ class LegendTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (!defined('PHPEXCEL_ROOT'))
-        {
+        if (!defined('PHPEXCEL_ROOT')) {
             define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
         }
         require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
@@ -39,7 +38,7 @@ class LegendTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($result);
         //    Ensure that value is unchanged
         $result = $testInstance->getPosition();
-        $this->assertEquals(PHPExcel_Chart_Legend::POSITION_RIGHT,$result);
+        $this->assertEquals(PHPExcel_Chart_Legend::POSITION_RIGHT, $result);
     }
 
     public function testGetPosition()
@@ -50,7 +49,7 @@ class LegendTest extends PHPUnit_Framework_TestCase
         $setValue = $testInstance->setPosition($PositionValue);
 
         $result = $testInstance->getPosition();
-        $this->assertEquals($PositionValue,$result);
+        $this->assertEquals($PositionValue, $result);
     }
 
     public function testSetPositionXL()
@@ -80,7 +79,7 @@ class LegendTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($result);
         //    Ensure that value is unchanged
         $result = $testInstance->getPositionXL();
-        $this->assertEquals(PHPExcel_Chart_Legend::xlLegendPositionRight,$result);
+        $this->assertEquals(PHPExcel_Chart_Legend::xlLegendPositionRight, $result);
     }
 
     public function testGetPositionXL()
@@ -91,7 +90,7 @@ class LegendTest extends PHPUnit_Framework_TestCase
         $setValue = $testInstance->setPositionXL($PositionValue);
 
         $result = $testInstance->getPositionXL();
-        $this->assertEquals($PositionValue,$result);
+        $this->assertEquals($PositionValue, $result);
     }
 
     public function testSetOverlay()
@@ -128,7 +127,7 @@ class LegendTest extends PHPUnit_Framework_TestCase
         $setValue = $testInstance->setOverlay($OverlayValue);
 
         $result = $testInstance->getOverlay();
-        $this->assertEquals($OverlayValue,$result);
+        $this->assertEquals($OverlayValue, $result);
     }
 
 }

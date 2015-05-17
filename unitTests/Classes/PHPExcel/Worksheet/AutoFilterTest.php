@@ -148,7 +148,7 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
         //    objects for each column we set indexed by the column ID
         $this->assertInternalType('array', $result);
         $this->assertEquals(1, count($result));
-        $this->assertArrayHasKey($expectedResult,$result);
+        $this->assertArrayHasKey($expectedResult, $result);
         $this->assertInstanceOf('PHPExcel_Worksheet_AutoFilter_Column', $result[$expectedResult]);
     }
 
@@ -176,7 +176,7 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
         //    objects for each column we set indexed by the column ID
         $this->assertInternalType('array', $result);
         $this->assertEquals(1, count($result));
-        $this->assertArrayHasKey($expectedResult,$result);
+        $this->assertArrayHasKey($expectedResult, $result);
         $this->assertInstanceOf('PHPExcel_Worksheet_AutoFilter_Column', $result[$expectedResult]);
     }
 
@@ -216,7 +216,7 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $result);
         $this->assertEquals(count($columnIndexes), count($result));
         foreach ($columnIndexes as $columnIndex) {
-            $this->assertArrayHasKey($columnIndex,$result);
+            $this->assertArrayHasKey($columnIndex, $result);
             $this->assertInstanceOf('PHPExcel_Worksheet_AutoFilter_Column', $result[$columnIndex]);
         }
     }
@@ -249,7 +249,7 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
         foreach ($columnIndexes as $columnIndex => $columnID) {
             $result = $this->_testAutoFilterObject->getColumnByOffset($columnIndex);
             $this->assertInstanceOf('PHPExcel_Worksheet_AutoFilter_Column', $result);
-            $this->assertEquals($result->getColumnIndex(),$columnID);
+            $this->assertEquals($result->getColumnIndex(), $columnID);
         }
     }
 
@@ -336,5 +336,4 @@ class AutoFilterTest extends PHPUnit_Framework_TestCase
         $result = clone $this->_testAutoFilterObject;
         $this->assertInstanceOf('PHPExcel_Worksheet_AutoFilter', $result);
     }
-
 }

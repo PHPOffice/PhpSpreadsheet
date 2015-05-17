@@ -16,7 +16,7 @@ class FileTest extends PHPUnit_Framework_TestCase
 
     public function testGetUseUploadTempDirectory()
     {
-        $expectedResult = FALSE;
+        $expectedResult = false;
 
         $result = call_user_func(array('PHPExcel_Shared_File','getUseUploadTempDirectory'));
         $this->assertEquals($expectedResult, $result);
@@ -30,7 +30,7 @@ class FileTest extends PHPUnit_Framework_TestCase
         );
 
         foreach ($useUploadTempDirectoryValues as $useUploadTempDirectoryValue) {
-            call_user_func(array('PHPExcel_Shared_File','setUseUploadTempDirectory'),$useUploadTempDirectoryValue);
+            call_user_func(array('PHPExcel_Shared_File','setUseUploadTempDirectory'), $useUploadTempDirectoryValue);
 
             $result = call_user_func(array('PHPExcel_Shared_File','getUseUploadTempDirectory'));
             $this->assertEquals($useUploadTempDirectoryValue, $result);

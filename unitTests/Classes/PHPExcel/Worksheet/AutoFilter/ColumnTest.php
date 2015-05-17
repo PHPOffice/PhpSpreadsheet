@@ -143,7 +143,7 @@ class AutofilterColumnTest extends PHPUnit_Framework_TestCase
 
         foreach ($attributeSet as $attributeName => $attributeValue) {
             //    Setters return the instance to implement the fluent interface
-            $result = $this->_testAutoFilterColumnObject->setAttribute($attributeName,$attributeValue);
+            $result = $this->_testAutoFilterColumnObject->setAttribute($attributeName, $attributeValue);
             $this->assertInstanceOf('PHPExcel_Worksheet_AutoFilter_Column', $result);
         }
     }
@@ -169,5 +169,4 @@ class AutofilterColumnTest extends PHPUnit_Framework_TestCase
         $result = clone $this->_testAutoFilterColumnObject;
         $this->assertInstanceOf('PHPExcel_Worksheet_AutoFilter_Column', $result);
     }
-
 }

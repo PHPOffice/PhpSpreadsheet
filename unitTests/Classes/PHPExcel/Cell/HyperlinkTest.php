@@ -6,8 +6,7 @@ class HyperlinkTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (!defined('PHPEXCEL_ROOT'))
-        {
+        if (!defined('PHPEXCEL_ROOT')) {
             define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
         }
         require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
@@ -20,7 +19,7 @@ class HyperlinkTest extends PHPUnit_Framework_TestCase
         $testInstance = new PHPExcel_Cell_Hyperlink($urlValue);
 
         $result = $testInstance->getUrl();
-        $this->assertEquals($urlValue,$result);
+        $this->assertEquals($urlValue, $result);
     }
 
     public function testSetUrl()
@@ -33,7 +32,7 @@ class HyperlinkTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($result instanceof PHPExcel_Cell_Hyperlink);
 
         $result = $testInstance->getUrl();
-        $this->assertEquals($newUrlValue,$result);
+        $this->assertEquals($newUrlValue, $result);
     }
 
     public function testGetTooltip()
@@ -43,7 +42,7 @@ class HyperlinkTest extends PHPUnit_Framework_TestCase
         $testInstance = new PHPExcel_Cell_Hyperlink(null, $tooltipValue);
 
         $result = $testInstance->getTooltip();
-        $this->assertEquals($tooltipValue,$result);
+        $this->assertEquals($tooltipValue, $result);
     }
 
     public function testSetTooltip()
@@ -56,7 +55,7 @@ class HyperlinkTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($result instanceof PHPExcel_Cell_Hyperlink);
 
         $result = $testInstance->getTooltip();
-        $this->assertEquals($newTooltipValue,$result);
+        $this->assertEquals($newTooltipValue, $result);
     }
 
     public function testIsInternal()
@@ -82,7 +81,6 @@ class HyperlinkTest extends PHPUnit_Framework_TestCase
         $testInstance = new PHPExcel_Cell_Hyperlink($urlValue, $tooltipValue);
 
         $result = $testInstance->getHashCode();
-        $this->assertEquals($initialExpectedHash,$result);
+        $this->assertEquals($initialExpectedHash, $result);
     }
-
 }

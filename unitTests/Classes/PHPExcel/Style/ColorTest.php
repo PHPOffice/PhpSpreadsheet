@@ -21,7 +21,7 @@ class ColorTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Style_Color','getRed'),$args);
+        $result = call_user_func_array(array('PHPExcel_Style_Color','getRed'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -37,7 +37,7 @@ class ColorTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Style_Color','getGreen'),$args);
+        $result = call_user_func_array(array('PHPExcel_Style_Color','getGreen'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -53,7 +53,7 @@ class ColorTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Style_Color','getBlue'),$args);
+        $result = call_user_func_array(array('PHPExcel_Style_Color','getBlue'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -69,7 +69,7 @@ class ColorTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Style_Color','changeBrightness'),$args);
+        $result = call_user_func_array(array('PHPExcel_Style_Color','changeBrightness'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -77,5 +77,4 @@ class ColorTest extends PHPUnit_Framework_TestCase
     {
         return new testDataFileIterator('rawTestData/Style/ColorChangeBrightness.data');
     }
-
 }

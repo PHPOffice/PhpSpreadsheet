@@ -21,7 +21,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Cell','columnIndexFromString'),$args);
+        $result = call_user_func_array(array('PHPExcel_Cell','columnIndexFromString'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -34,7 +34,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     {
         $cellAddress = 'ABCD';
         try {
-            $result = call_user_func(array('PHPExcel_Cell','columnIndexFromString'),$cellAddress);
+            $result = call_user_func(array('PHPExcel_Cell','columnIndexFromString'), $cellAddress);
         } catch (PHPExcel_Exception $e) {
             $this->assertEquals($e->getMessage(), 'Column string index can not be longer than 3 characters');
             return;
@@ -46,7 +46,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     {
         $cellAddress = '';
         try {
-            $result = call_user_func(array('PHPExcel_Cell','columnIndexFromString'),$cellAddress);
+            $result = call_user_func(array('PHPExcel_Cell','columnIndexFromString'), $cellAddress);
         } catch (PHPExcel_Exception $e) {
             $this->assertEquals($e->getMessage(), 'Column string index can not be empty');
             return;
@@ -61,7 +61,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Cell','stringFromColumnIndex'),$args);
+        $result = call_user_func_array(array('PHPExcel_Cell','stringFromColumnIndex'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -77,7 +77,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Cell','coordinateFromString'),$args);
+        $result = call_user_func_array(array('PHPExcel_Cell','coordinateFromString'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -90,7 +90,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     {
         $cellAddress = 'A1:AI2012';
         try {
-            $result = call_user_func(array('PHPExcel_Cell','coordinateFromString'),$cellAddress);
+            $result = call_user_func(array('PHPExcel_Cell','coordinateFromString'), $cellAddress);
         } catch (PHPExcel_Exception $e) {
             $this->assertEquals($e->getMessage(), 'Cell coordinate string can not be a range of cells');
             return;
@@ -102,7 +102,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     {
         $cellAddress = '';
         try {
-            $result = call_user_func(array('PHPExcel_Cell','coordinateFromString'),$cellAddress);
+            $result = call_user_func(array('PHPExcel_Cell','coordinateFromString'), $cellAddress);
         } catch (PHPExcel_Exception $e) {
             $this->assertEquals($e->getMessage(), 'Cell coordinate can not be zero-length string');
             return;
@@ -114,7 +114,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     {
         $cellAddress = 'AI';
         try {
-            $result = call_user_func(array('PHPExcel_Cell','coordinateFromString'),$cellAddress);
+            $result = call_user_func(array('PHPExcel_Cell','coordinateFromString'), $cellAddress);
         } catch (PHPExcel_Exception $e) {
             $this->assertEquals($e->getMessage(), 'Invalid cell coordinate '.$cellAddress);
             return;
@@ -129,7 +129,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Cell','absoluteCoordinate'),$args);
+        $result = call_user_func_array(array('PHPExcel_Cell','absoluteCoordinate'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -142,7 +142,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     {
         $cellAddress = 'A1:AI2012';
         try {
-            $result = call_user_func(array('PHPExcel_Cell','absoluteCoordinate'),$cellAddress);
+            $result = call_user_func(array('PHPExcel_Cell','absoluteCoordinate'), $cellAddress);
         } catch (PHPExcel_Exception $e) {
             $this->assertEquals($e->getMessage(), 'Cell coordinate string can not be a range of cells');
             return;
@@ -157,7 +157,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Cell','absoluteReference'),$args);
+        $result = call_user_func_array(array('PHPExcel_Cell','absoluteReference'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -170,7 +170,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     {
         $cellAddress = 'A1:AI2012';
         try {
-            $result = call_user_func(array('PHPExcel_Cell','absoluteReference'),$cellAddress);
+            $result = call_user_func(array('PHPExcel_Cell','absoluteReference'), $cellAddress);
         } catch (PHPExcel_Exception $e) {
             $this->assertEquals($e->getMessage(), 'Cell coordinate string can not be a range of cells');
             return;
@@ -185,7 +185,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Cell','splitRange'),$args);
+        $result = call_user_func_array(array('PHPExcel_Cell','splitRange'), $args);
         foreach ($result as $key => $split) {
             if (!is_array($expectedResult[$key])) {
                 $this->assertEquals($expectedResult[$key], $split[0]);
@@ -207,7 +207,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Cell','buildRange'),$args);
+        $result = call_user_func_array(array('PHPExcel_Cell','buildRange'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -220,7 +220,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     {
         $cellRange = '';
         try {
-            $result = call_user_func(array('PHPExcel_Cell','buildRange'),$cellRange);
+            $result = call_user_func(array('PHPExcel_Cell','buildRange'), $cellRange);
         } catch (PHPExcel_Exception $e) {
             $this->assertEquals($e->getMessage(), 'Range does not contain any information');
             return;
@@ -235,7 +235,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Cell','rangeBoundaries'),$args);
+        $result = call_user_func_array(array('PHPExcel_Cell','rangeBoundaries'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -251,7 +251,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Cell','rangeDimension'),$args);
+        $result = call_user_func_array(array('PHPExcel_Cell','rangeDimension'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -267,7 +267,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Cell','getRangeBoundaries'),$args);
+        $result = call_user_func_array(array('PHPExcel_Cell','getRangeBoundaries'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -283,7 +283,7 @@ class CellTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Cell','extractAllCellReferencesInRange'),$args);
+        $result = call_user_func_array(array('PHPExcel_Cell','extractAllCellReferencesInRange'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -291,5 +291,4 @@ class CellTest extends PHPUnit_Framework_TestCase
     {
         return new testDataFileIterator('rawTestData/CellExtractAllCellReferencesInRange.data');
     }
-
 }

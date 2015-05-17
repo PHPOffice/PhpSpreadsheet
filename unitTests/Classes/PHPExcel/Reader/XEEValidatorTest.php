@@ -51,5 +51,4 @@ class XEEValidatorTest extends PHPUnit_Framework_TestCase
         }
         return $tests;
     }
-
 }
