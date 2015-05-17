@@ -100,7 +100,7 @@ class PHPExcel_Linear_Best_Fit extends PHPExcel_Best_Fit
      * @param    float[]        $xValues    The set of X-values for this regression
      * @param    boolean        $const
      */
-    function __construct($yValues, $xValues = array(), $const = true)
+    public function __construct($yValues, $xValues = array(), $const = true)
     {
         if (parent::__construct($yValues, $xValues) !== false) {
             $this->_linear_regression($yValues, $xValues, $const);

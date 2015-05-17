@@ -35,9 +35,9 @@
 class PHPExcel_Reader_Excel5_RC4
 {
     // Context
-    var $s = array();
-    var $i = 0;
-    var $j = 0;
+    protected $s = array();
+    protected $i = 0;
+    protected $j = 0;
 
     /**
      * RC4 stream decryption/encryption constrcutor
