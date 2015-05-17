@@ -34,24 +34,24 @@
  */
 class PHPExcel_Reader_Excel5_Escher
 {
-    const DGGCONTAINER        = 0xF000;
-    const BSTORECONTAINER    = 0xF001;
-    const DGCONTAINER        = 0xF002;
-    const SPGRCONTAINER        = 0xF003;
-    const SPCONTAINER        = 0xF004;
-    const DGG                = 0xF006;
-    const BSE                = 0xF007;
+    const DGGCONTAINER      = 0xF000;
+    const BSTORECONTAINER   = 0xF001;
+    const DGCONTAINER       = 0xF002;
+    const SPGRCONTAINER     = 0xF003;
+    const SPCONTAINER       = 0xF004;
+    const DGG               = 0xF006;
+    const BSE               = 0xF007;
     const DG                = 0xF008;
-    const SPGR                = 0xF009;
+    const SPGR              = 0xF009;
     const SP                = 0xF00A;
-    const OPT                = 0xF00B;
-    const CLIENTTEXTBOX        = 0xF00D;
-    const CLIENTANCHOR        = 0xF010;
+    const OPT               = 0xF00B;
+    const CLIENTTEXTBOX     = 0xF00D;
+    const CLIENTANCHOR      = 0xF010;
     const CLIENTDATA        = 0xF011;
-    const BLIPJPEG            = 0xF01D;
-    const BLIPPNG            = 0xF01E;
-    const SPLITMENUCOLORS    = 0xF11E;
-    const TERTIARYOPT        = 0xF122;
+    const BLIPJPEG          = 0xF01D;
+    const BLIPPNG           = 0xF01E;
+    const SPLITMENUCOLORS   = 0xF11E;
+    const TERTIARYOPT       = 0xF122;
 
     /**
      * Escher stream data (binary)
@@ -112,25 +112,63 @@ class PHPExcel_Reader_Excel5_Escher
             $fbt = PHPExcel_Reader_Excel5::_GetInt2d($this->_data, $this->_pos + 2);
 
             switch ($fbt) {
-                case self::DGGCONTAINER:    $this->_readDggContainer();        break;
-                case self::DGG:                $this->_readDgg();                break;
-                case self::BSTORECONTAINER:    $this->_readBstoreContainer();    break;
-                case self::BSE:                $this->_readBSE();                break;
-                case self::BLIPJPEG:        $this->_readBlipJPEG();            break;
-                case self::BLIPPNG:            $this->_readBlipPNG();            break;
-                case self::OPT:                $this->_readOPT();                break;
-                case self::TERTIARYOPT:        $this->_readTertiaryOPT();        break;
-                case self::SPLITMENUCOLORS:    $this->_readSplitMenuColors();    break;
-                case self::DGCONTAINER:        $this->_readDgContainer();        break;
-                case self::DG:                $this->_readDg();                break;
-                case self::SPGRCONTAINER:    $this->_readSpgrContainer();    break;
-                case self::SPCONTAINER:        $this->_readSpContainer();        break;
-                case self::SPGR:            $this->_readSpgr();                break;
-                case self::SP:                $this->_readSp();                break;
-                case self::CLIENTTEXTBOX:    $this->_readClientTextbox();    break;
-                case self::CLIENTANCHOR:    $this->_readClientAnchor();        break;
-                case self::CLIENTDATA:        $this->_readClientData();        break;
-                default:                    $this->_readDefault();            break;
+                case self::DGGCONTAINER:
+                    $this->_readDggContainer();
+                    break;
+                case self::DGG:
+                    $this->_readDgg();
+                    break;
+                case self::BSTORECONTAINER:
+                    $this->_readBstoreContainer();
+                    break;
+                case self::BSE:
+                    $this->_readBSE();
+                    break;
+                case self::BLIPJPEG:
+                    $this->_readBlipJPEG();
+                    break;
+                case self::BLIPPNG:
+                    $this->_readBlipPNG();
+                    break;
+                case self::OPT:
+                    $this->_readOPT();
+                    break;
+                case self::TERTIARYOPT:
+                    $this->_readTertiaryOPT();
+                    break;
+                case self::SPLITMENUCOLORS:
+                    $this->_readSplitMenuColors();
+                    break;
+                case self::DGCONTAINER:
+                    $this->_readDgContainer();
+                    break;
+                case self::DG:
+                    $this->_readDg();
+                    break;
+                case self::SPGRCONTAINER:
+                    $this->_readSpgrContainer();
+                    break;
+                case self::SPCONTAINER:
+                    $this->_readSpContainer();
+                    break;
+                case self::SPGR:
+                    $this->_readSpgr();
+                    break;
+                case self::SP:
+                    $this->_readSp();
+                    break;
+                case self::CLIENTTEXTBOX:
+                    $this->_readClientTextbox();
+                    break;
+                case self::CLIENTANCHOR:
+                    $this->_readClientAnchor();
+                    break;
+                case self::CLIENTDATA:
+                    $this->_readClientData();
+                    break;
+                default:
+                    $this->_readDefault();
+                    break;
             }
         }
 
@@ -598,8 +636,8 @@ class PHPExcel_Reader_Excel5_Escher
      * @param string $data Binary data
      * @param int $n Number of properties
      */
-    private function _readOfficeArtRGFOPTE($data, $n) {
-
+    private function _readOfficeArtRGFOPTE($data, $n)
+    {
         $splicedComplexData = substr($data, 6 * $n);
 
         // loop through property-value pairs
@@ -636,5 +674,4 @@ class PHPExcel_Reader_Excel5_Escher
             $this->_object->setOPT($opidOpid, $value);
         }
     }
-
 }

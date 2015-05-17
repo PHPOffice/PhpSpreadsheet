@@ -662,7 +662,7 @@ class PHPExcel_ReferenceHelper
                                 $toString .= $modified3.':'.$modified4;
                                 //    Max worksheet size is 1,048,576 rows by 16,384 columns in Excel 2007, so our adjustments need to be at least one digit more
                                 $column = 100000;
-                                $row = 10000000 + trim($match[3],'$');
+                                $row = 10000000 + trim($match[3], '$');
                                 $cellIndex = $column.$row;
 
                                 $newCellTokens[$cellIndex] = preg_quote($toString);
