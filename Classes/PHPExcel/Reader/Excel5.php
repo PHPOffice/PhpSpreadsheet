@@ -1764,7 +1764,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
         // move stream pointer to next record
         $this->_pos += 4 + $length;
         
-        if (!$this->_verifyPassword('VelvetSweatshop', substr($recordData, 6,  16), substr($recordData, 22, 16), substr($recordData, 38, 16), $this->_md5Ctxt)) {
+        if (!$this->_verifyPassword('VelvetSweatshop', substr($recordData, 6, 16), substr($recordData, 22, 16), substr($recordData, 38, 16), $this->_md5Ctxt)) {
             throw new PHPExcel_Reader_Exception('Decryption password incorrect');
         }
         
@@ -1960,19 +1960,19 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
             $objFont->setSize($size / 20);
 
             // offset: 2; size: 2; option flags
-                // bit: 0; mask 0x0001; bold (redundant in BIFF5-BIFF8)
-                // bit: 1; mask 0x0002; italic
-                $isItalic = (0x0002 & self::_GetInt2d($recordData, 2)) >> 1;
-                if ($isItalic) {
-                    $objFont->setItalic(true);
-                }
+            // bit: 0; mask 0x0001; bold (redundant in BIFF5-BIFF8)
+            // bit: 1; mask 0x0002; italic
+            $isItalic = (0x0002 & self::_GetInt2d($recordData, 2)) >> 1;
+            if ($isItalic) {
+                $objFont->setItalic(true);
+            }
 
-                // bit: 2; mask 0x0004; underlined (redundant in BIFF5-BIFF8)
-                // bit: 3; mask 0x0008; strike
-                $isStrike = (0x0008 & self::_GetInt2d($recordData, 2)) >> 3;
-                if ($isStrike) {
-                    $objFont->setStrikethrough(true);
-                }
+            // bit: 2; mask 0x0004; underlined (redundant in BIFF5-BIFF8)
+            // bit: 3; mask 0x0008; strike
+            $isStrike = (0x0008 & self::_GetInt2d($recordData, 2)) >> 3;
+            if ($isStrike) {
+                $objFont->setStrikethrough(true);
+            }
 
             // offset: 4; size: 2; colour index
             $colorIndex = self::_GetInt2d($recordData, 4);
@@ -5184,7 +5184,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
                 break;
             case 0x02: // Windows metafile or Macintosh PICT format
             case 0x0e: // native format
-            default;
+            default:
                 break;
         }
 
@@ -7471,10 +7471,10 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
         $value = $mantissa / pow(2, (20 - $exp));
 
         if ($mantissalow1 != 0) {
-            $value += 1 / pow (2, (21 - $exp));
+            $value += 1 / pow(2, (21 - $exp));
         }
 
-        $value += $mantissalow2 / pow (2, (52 - $exp));
+        $value += $mantissalow2 / pow(2, (52 - $exp));
         if ($sign) {
             $value *= -1;
         }

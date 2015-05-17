@@ -557,9 +557,9 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
                                             }
                                             break;
                                         case 'boolean':
-                                           $type = PHPExcel_Cell_DataType::TYPE_BOOL;
-                                           $dataValue = ($allCellDataText == 'TRUE') ? true : false;
-                                           break;
+                                            $type = PHPExcel_Cell_DataType::TYPE_BOOL;
+                                            $dataValue = ($allCellDataText == 'TRUE') ? true : false;
+                                            break;
                                         case 'percentage':
                                             $type = PHPExcel_Cell_DataType::TYPE_NUMERIC;
                                             $dataValue = (float) $cellDataOfficeAttributes['value'];

@@ -198,10 +198,14 @@ class PHPExcel_Shared_JAMA_Matrix
                 case 'integer,integer,integer,integer':
                     list($i0, $iF, $j0, $jF) = $args;
                     if (($iF > $i0) && ($this->m >= $iF) && ($i0 >= 0)) {
-                        $m = $iF - $i0; } else { throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException);
+                        $m = $iF - $i0;
+                    } else {
+                        throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException);
                     }
                     if (($jF > $j0) && ($this->n >= $jF) && ($j0 >= 0)) {
-                        $n = $jF - $j0; } else { throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException);
+                        $n = $jF - $j0;
+                    } else {
+                        throw new PHPExcel_Calculation_Exception(self::ArgumentBoundsException);
                     }
                     $R = new PHPExcel_Shared_JAMA_Matrix($m+1, $n+1);
                     for ($i = $i0; $i <= $iF; ++$i) {

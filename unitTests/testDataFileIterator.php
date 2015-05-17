@@ -2,7 +2,6 @@
 
 class testDataFileIterator implements Iterator
 {
-
     protected $file;
     protected $key = 0;
     protected $current;
