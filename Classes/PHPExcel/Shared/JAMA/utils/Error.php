@@ -67,7 +67,8 @@ $error['EN'][RowLengthException] = "All rows must have the same length.";
  *    Custom error handler
  *    @param int $num Error number
  */
-function JAMAError($errorNumber = null) {
+function JAMAError($errorNumber = null)
+{
     global $error;
 
     if (isset($errorNumber)) {

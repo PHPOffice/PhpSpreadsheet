@@ -58,7 +58,6 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
      */
     protected $_charSet = 'UTF-8';
 
-
     /**
      * Create a new PHPExcel_Reader_Excel2003XML
      */

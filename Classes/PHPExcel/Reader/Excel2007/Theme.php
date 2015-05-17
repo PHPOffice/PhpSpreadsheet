@@ -72,9 +72,9 @@ class PHPExcel_Reader_Excel2007_Theme
     public function __construct($themeName, $colourSchemeName, $colourMap)
     {
         // Initialise values
-        $this->_themeName            = $themeName;
+        $this->_themeName           = $themeName;
         $this->_colourSchemeName    = $colourSchemeName;
-        $this->_colourMap            = $colourMap;
+        $this->_colourMap           = $colourMap;
     }
 
     /**
@@ -92,7 +92,8 @@ class PHPExcel_Reader_Excel2007_Theme
      *
      * @return string
      */
-    public function getColourSchemeName() {
+    public function getColourSchemeName()
+    {
         return $this->_colourSchemeName;
     }
 
@@ -101,7 +102,8 @@ class PHPExcel_Reader_Excel2007_Theme
      *
      * @return string
      */
-    public function getColourByIndex($index=0) {
+    public function getColourByIndex($index = 0)
+    {
         if (isset($this->_colourMap[$index])) {
             return $this->_colourMap[$index];
         }
@@ -111,7 +113,8 @@ class PHPExcel_Reader_Excel2007_Theme
     /**
      * Implement PHP __clone to create a deep clone, not just a shallow copy.
      */
-    public function __clone() {
+    public function __clone()
+    {
         $vars = get_object_vars($this);
         foreach ($vars as $key => $value) {
             if ((is_object($value)) && ($key != '_parent')) {

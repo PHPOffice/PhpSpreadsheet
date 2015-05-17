@@ -107,7 +107,6 @@ class PHPExcel_Reader_Excel5_Escher
 
         // Parse Escher stream
         while ($this->_pos < $this->_dataSize) {
-
             // offset: 2; size: 2: Record Type
             $fbt = PHPExcel_Reader_Excel5::_GetInt2d($this->_data, $this->_pos + 2);
 

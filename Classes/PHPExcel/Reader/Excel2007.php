@@ -992,11 +992,8 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
                                             $column->setFilterType(PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_FILTERTYPE_FILTER);
                                             $filters = $filterColumn->filters;
                                             if ((isset($filters["blank"])) && ($filters["blank"] == 1)) {
-                                                $column->createRule()->setRule(
-                                                    null,//    Operator is undefined, but always treated as EQUAL
-                                                    ''
-                                                )
-                                                ->setRuleType(PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_FILTER);
+                                                //    Operator is undefined, but always treated as EQUAL
+                                                $column->createRule()->setRule(null, '')->setRuleType(PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_FILTER);
                                             }
                                             //    Standard filters are always an OR join, so no join rule needs to be set
                                             //    Entries can be either filter elements

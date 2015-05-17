@@ -1113,7 +1113,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
             if ($this->_version == self::XLS_BIFF8) {
                 foreach ($this->_sharedFormulaParts as $cell => $baseCell) {
                     list($column, $row) = PHPExcel_Cell::coordinateFromString($cell);
-                    if (($this->getReadFilter() !== NULL) && $this->getReadFilter()->readCell($column, $row, $this->_phpSheet->getTitle()) ) {
+                    if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($column, $row, $this->_phpSheet->getTitle())) {
                         $formula = $this->_getFormulaFromStructure($this->_sharedFormulas[$baseCell], $cell);
                         $this->_phpSheet->getCell($cell)->setValueExplicit('=' . $formula, PHPExcel_Cell_DataType::TYPE_FORMULA);
                     }
@@ -1156,7 +1156,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
                             $explodes = explode('!', $range);    // FIXME: what if sheetname contains exclamation mark?
                             $sheetName = trim($explodes[0], "'");
                             if (count($explodes) == 2) {
-                                if (strpos($explodes[1], ':') === FALSE) {
+                                if (strpos($explodes[1], ':') === false) {
                                     $explodes[1] = $explodes[1] . ':' . $explodes[1];
                                 }
                                 $extractedRanges[] = str_replace('$', '', $explodes[1]); // C7:J66
@@ -1221,7 +1221,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
 
                         $scope = ($definedName['scope'] == 0) ? null : $this->_phpExcel->getSheetByName($this->_sheets[$definedName['scope'] - 1]['name']);
 
-                        $this->_phpExcel->addNamedRange( new PHPExcel_NamedRange((string)$definedName['name'], $docSheet, $extractedRange, $localOnly, $scope) );
+                        $this->_phpExcel->addNamedRange(new PHPExcel_NamedRange((string)$definedName['name'], $docSheet, $extractedRange, $localOnly, $scope));
                     }
                 } else {
                     //    Named Value
@@ -1624,7 +1624,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
 //
             $this->_cellNotes[$noteObjID] = array(
                 'cellRef'   => $cellAddress,
-                 'objectID' => $noteObjID,
+                'objectID'  => $noteObjID,
                 'author'    => $noteAuthor
             );
         } else {
@@ -1647,13 +1647,13 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
 
             if ($extension) {
                 //    Concatenate this extension with the currently set comment for the cell
-                $comment = $this->_phpSheet->getComment( $cellAddress );
+                $comment = $this->_phpSheet->getComment($cellAddress);
                 $commentText = $comment->getText()->getPlainText();
-                $comment->setText($this->_parseRichText($commentText.$noteText) );
+                $comment->setText($this->_parseRichText($commentText.$noteText));
             } else {
                 //    Set comment for the cell
                 $this->_phpSheet->getComment($cellAddress)->setText($this->_parseRichText($noteText));
-//                                                    ->setAuthor( $author )
+//                                                    ->setAuthor($author)
             }
         }
 
@@ -2410,7 +2410,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
                             $rgb = sprintf('%02X%02X%02X', ord($xclrValue{0}), ord($xclrValue{1}), ord($xclrValue{2}));
 
                             // modify the relevant style property
-                            if ( isset($this->_mapCellXfIndex[$ixfe]) ) {
+                            if (isset($this->_mapCellXfIndex[$ixfe])) {
                                 $fill = $this->_phpExcel->getCellXfByIndex($this->_mapCellXfIndex[$ixfe])->getFill();
                                 $fill->getStartColor()->setRGB($rgb);
                                 unset($fill->startcolorIndex); // normal color index does not apply, discard
@@ -2425,7 +2425,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
                             $rgb = sprintf('%02X%02X%02X', ord($xclrValue{0}), ord($xclrValue{1}), ord($xclrValue{2}));
 
                             // modify the relevant style property
-                            if ( isset($this->_mapCellXfIndex[$ixfe]) ) {
+                            if (isset($this->_mapCellXfIndex[$ixfe])) {
                                 $fill = $this->_phpExcel->getCellXfByIndex($this->_mapCellXfIndex[$ixfe])->getFill();
                                 $fill->getEndColor()->setRGB($rgb);
                                 unset($fill->endcolorIndex); // normal color index does not apply, discard
@@ -2440,7 +2440,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
                             $rgb = sprintf('%02X%02X%02X', ord($xclrValue{0}), ord($xclrValue{1}), ord($xclrValue{2}));
 
                             // modify the relevant style property
-                            if ( isset($this->_mapCellXfIndex[$ixfe]) ) {
+                            if (isset($this->_mapCellXfIndex[$ixfe])) {
                                 $top = $this->_phpExcel->getCellXfByIndex($this->_mapCellXfIndex[$ixfe])->getBorders()->getTop();
                                 $top->getColor()->setRGB($rgb);
                                 unset($top->colorIndex); // normal color index does not apply, discard
@@ -2455,7 +2455,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
                             $rgb = sprintf('%02X%02X%02X', ord($xclrValue{0}), ord($xclrValue{1}), ord($xclrValue{2}));
 
                             // modify the relevant style property
-                            if ( isset($this->_mapCellXfIndex[$ixfe]) ) {
+                            if (isset($this->_mapCellXfIndex[$ixfe])) {
                                 $bottom = $this->_phpExcel->getCellXfByIndex($this->_mapCellXfIndex[$ixfe])->getBorders()->getBottom();
                                 $bottom->getColor()->setRGB($rgb);
                                 unset($bottom->colorIndex); // normal color index does not apply, discard
@@ -2470,7 +2470,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
                             $rgb = sprintf('%02X%02X%02X', ord($xclrValue{0}), ord($xclrValue{1}), ord($xclrValue{2}));
 
                             // modify the relevant style property
-                            if ( isset($this->_mapCellXfIndex[$ixfe]) ) {
+                            if (isset($this->_mapCellXfIndex[$ixfe])) {
                                 $left = $this->_phpExcel->getCellXfByIndex($this->_mapCellXfIndex[$ixfe])->getBorders()->getLeft();
                                 $left->getColor()->setRGB($rgb);
                                 unset($left->colorIndex); // normal color index does not apply, discard
@@ -2485,7 +2485,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
                             $rgb = sprintf('%02X%02X%02X', ord($xclrValue{0}), ord($xclrValue{1}), ord($xclrValue{2}));
 
                             // modify the relevant style property
-                            if ( isset($this->_mapCellXfIndex[$ixfe]) ) {
+                            if (isset($this->_mapCellXfIndex[$ixfe])) {
                                 $right = $this->_phpExcel->getCellXfByIndex($this->_mapCellXfIndex[$ixfe])->getBorders()->getRight();
                                 $right->getColor()->setRGB($rgb);
                                 unset($right->colorIndex); // normal color index does not apply, discard
@@ -2500,7 +2500,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
                             $rgb = sprintf('%02X%02X%02X', ord($xclrValue{0}), ord($xclrValue{1}), ord($xclrValue{2}));
 
                             // modify the relevant style property
-                            if ( isset($this->_mapCellXfIndex[$ixfe]) ) {
+                            if (isset($this->_mapCellXfIndex[$ixfe])) {
                                 $diagonal = $this->_phpExcel->getCellXfByIndex($this->_mapCellXfIndex[$ixfe])->getBorders()->getDiagonal();
                                 $diagonal->getColor()->setRGB($rgb);
                                 unset($diagonal->colorIndex); // normal color index does not apply, discard
@@ -2515,7 +2515,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
                             $rgb = sprintf('%02X%02X%02X', ord($xclrValue{0}), ord($xclrValue{1}), ord($xclrValue{2}));
 
                             // modify the relevant style property
-                            if ( isset($this->_mapCellXfIndex[$ixfe]) ) {
+                            if (isset($this->_mapCellXfIndex[$ixfe])) {
                                 $font = $this->_phpExcel->getCellXfByIndex($this->_mapCellXfIndex[$ixfe])->getFont();
                                 $font->getColor()->setRGB($rgb);
                                 unset($font->colorIndex); // normal color index does not apply, discard
@@ -3652,7 +3652,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
         $columnString = PHPExcel_Cell::stringFromColumnIndex($column);
 
         // Read cell?
-        if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->_phpSheet->getTitle()) ) {
+        if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->_phpSheet->getTitle())) {
             // offset: 4; size: 2; index to XF record
             $xfIndex = self::_GetInt2d($recordData, 4);
 
@@ -4125,7 +4125,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
                 $columnString = PHPExcel_Cell::stringFromColumnIndex($fc + $i);
 
                 // Read cell?
-                if (($this->getReadFilter() !== NULL) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->_phpSheet->getTitle()) ) {
+                if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->_phpSheet->getTitle())) {
                     $xfIndex = self::_GetInt2d($recordData, 4 + 2 * $i);
                     $this->_phpSheet->getCell($columnString . ($row + 1))->setXfIndex($this->_mapCellXfIndex[$xfIndex]);
                 }
@@ -4162,7 +4162,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
         $columnString = PHPExcel_Cell::stringFromColumnIndex($column);
 
         // Read cell?
-        if (($this->getReadFilter() !== NULL) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->_phpSheet->getTitle()) ) {
+        if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->_phpSheet->getTitle())) {
             // offset: 4; size: 2; XF index
             $xfIndex = self::_GetInt2d($recordData, 4);
 
@@ -4528,7 +4528,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
         if ($this->_version == self::XLS_BIFF8 && !$this->_readDataOnly) {
             $cellRangeAddressList = $this->_readBIFF8CellRangeAddressList($recordData);
             foreach ($cellRangeAddressList['cellRangeAddresses'] as $cellRangeAddress) {
-                if ((strpos($cellRangeAddress,':') !== FALSE) &&
+                if ((strpos($cellRangeAddress,':') !== false) &&
                     ($this->_includeCellRangeFiltered($cellRangeAddress))) {
                     $this->_phpSheet->mergeCells($cellRangeAddress);
                 }
@@ -5743,203 +5743,203 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
                 $size = 3;
                 // offset: 1; size: 2; index to built-in sheet function
                 switch (self::_GetInt2d($formulaData, 1)) {
-                    case   2:
+                    case 2:
                         $function = 'ISNA';
                         $args = 1;
                         break;
-                    case   3:
+                    case 3:
                         $function = 'ISERROR';
                         $args = 1;
                         break;
-                    case  10:
+                    case 10:
                         $function = 'NA';
                         $args = 0;
                         break;
-                    case  15:
+                    case 15:
                         $function = 'SIN';
                         $args = 1;
                         break;
-                    case  16:
+                    case 16:
                         $function = 'COS';
                         $args = 1;
                         break;
-                    case  17:
+                    case 17:
                         $function = 'TAN';
                         $args = 1;
                         break;
-                    case  18:
+                    case 18:
                         $function = 'ATAN';
                         $args = 1;
                         break;
-                    case  19:
+                    case 19:
                         $function = 'PI';
                         $args = 0;
                         break;
-                    case  20:
+                    case 20:
                         $function = 'SQRT';
                         $args = 1;
                         break;
-                    case  21:
+                    case 21:
                         $function = 'EXP';
                         $args = 1;
                         break;
-                    case  22:
+                    case 22:
                         $function = 'LN';
                         $args = 1;
                         break;
-                    case  23:
+                    case 23:
                         $function = 'LOG10';
                         $args = 1;
                         break;
-                    case  24:
+                    case 24:
                         $function = 'ABS';
                         $args = 1;
                         break;
-                    case  25:
+                    case 25:
                         $function = 'INT';
                         $args = 1;
                         break;
-                    case  26:
+                    case 26:
                         $function = 'SIGN';
                         $args = 1;
                         break;
-                    case  27:
+                    case 27:
                         $function = 'ROUND';
                         $args = 2;
                         break;
-                    case  30:
+                    case 30:
                         $function = 'REPT';
                         $args = 2;
                         break;
-                    case  31:
+                    case 31:
                         $function = 'MID';
                         $args = 3;
                         break;
-                    case  32:
+                    case 32:
                         $function = 'LEN';
                         $args = 1;
                         break;
-                    case  33:
+                    case 33:
                         $function = 'VALUE';
                         $args = 1;
                         break;
-                    case  34:
+                    case 34:
                         $function = 'TRUE';
                         $args = 0;
                         break;
-                    case  35:
+                    case 35:
                         $function = 'FALSE';
                         $args = 0;
                         break;
-                    case  38:
+                    case 38:
                         $function = 'NOT';
                         $args = 1;
                         break;
-                    case  39:
+                    case 39:
                         $function = 'MOD';
                         $args = 2;
                         break;
-                    case  40:
+                    case 40:
                         $function = 'DCOUNT';
                         $args = 3;
                         break;
-                    case  41:
+                    case 41:
                         $function = 'DSUM';
                         $args = 3;
                         break;
-                    case  42:
+                    case 42:
                         $function = 'DAVERAGE';
                         $args = 3;
                         break;
-                    case  43:
+                    case 43:
                         $function = 'DMIN';
                         $args = 3;
                         break;
-                    case  44:
+                    case 44:
                         $function = 'DMAX';
                         $args = 3;
                         break;
-                    case  45:
+                    case 45:
                         $function = 'DSTDEV';
                         $args = 3;
                         break;
-                    case  48:
+                    case 48:
                         $function = 'TEXT';
                         $args = 2;
                         break;
-                    case  61:
+                    case 61:
                         $function = 'MIRR';
                         $args = 3;
                         break;
-                    case  63:
+                    case 63:
                         $function = 'RAND';
                         $args = 0;
                         break;
-                    case  65:
+                    case 65:
                         $function = 'DATE';
                         $args = 3;
                         break;
-                    case  66:
+                    case 66:
                         $function = 'TIME';
                         $args = 3;
                         break;
-                    case  67:
+                    case 67:
                         $function = 'DAY';
                         $args = 1;
                         break;
-                    case  68:
+                    case 68:
                         $function = 'MONTH';
                         $args = 1;
                         break;
-                    case  69:
+                    case 69:
                         $function = 'YEAR';
                         $args = 1;
                         break;
-                    case  71:
+                    case 71:
                         $function = 'HOUR';
                         $args = 1;
                         break;
-                    case  72:
+                    case 72:
                         $function = 'MINUTE';
                         $args = 1;
                         break;
-                    case  73:
+                    case 73:
                         $function = 'SECOND';
                         $args = 1;
                         break;
-                    case  74:
+                    case 74:
                         $function = 'NOW';
                         $args = 0;
                         break;
-                    case  75:
+                    case 75:
                         $function = 'AREAS';
                         $args = 1;
                         break;
-                    case  76:
+                    case 76:
                         $function = 'ROWS';
                         $args = 1;
                         break;
-                    case  77:
+                    case 77:
                         $function = 'COLUMNS';
                         $args = 1;
                         break;
-                    case  83:
+                    case 83:
                         $function = 'TRANSPOSE';
                         $args = 1;
                         break;
-                    case  86:
+                    case 86:
                         $function = 'TYPE';
                         $args = 1;
                         break;
-                    case  97:
+                    case 97:
                         $function = 'ATAN2';
                         $args = 2;
                         break;
-                    case  98:
+                    case 98:
                         $function = 'ASIN';
                         $args = 1;
                         break;
-                    case  99:
+                    case 99:
                         $function = 'ACOS';
                         $args = 1;
                         break;
@@ -6399,97 +6399,97 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
                 // offset: 2: size: 2; index to built-in sheet function
                 $index = self::_GetInt2d($formulaData, 2);
                 switch ($index) {
-                    case   0:
+                    case 0:
                         $function = 'COUNT';
                         break;
-                    case   1:
+                    case 1:
                         $function = 'IF';
                         break;
-                    case   4:
+                    case 4:
                         $function = 'SUM';
                         break;
-                    case   5:
+                    case 5:
                         $function = 'AVERAGE';
                         break;
-                    case   6:
+                    case 6:
                         $function = 'MIN';
                         break;
-                    case   7:
+                    case 7:
                         $function = 'MAX';
                         break;
-                    case   8:
+                    case 8:
                         $function = 'ROW';
                         break;
-                    case   9:
+                    case 9:
                         $function = 'COLUMN';
                         break;
-                    case  11:
+                    case 11:
                         $function = 'NPV';
                         break;
-                    case  12:
+                    case 12:
                         $function = 'STDEV';
                         break;
-                    case  13:
+                    case 13:
                         $function = 'DOLLAR';
                         break;
-                    case  14:
+                    case 14:
                         $function = 'FIXED';
                         break;
-                    case  28:
+                    case 28:
                         $function = 'LOOKUP';
                         break;
-                    case  29:
+                    case 29:
                         $function = 'INDEX';
                         break;
-                    case  36:
+                    case 36:
                         $function = 'AND';
                         break;
-                    case  37:
+                    case 37:
                         $function = 'OR';
                         break;
-                    case  46:
+                    case 46:
                         $function = 'VAR';
                         break;
-                    case  49:
+                    case 49:
                         $function = 'LINEST';
                         break;
-                    case  50:
+                    case 50:
                         $function = 'TREND';
                         break;
-                    case  51:
+                    case 51:
                         $function = 'LOGEST';
                         break;
-                    case  52:
+                    case 52:
                         $function = 'GROWTH';
                         break;
-                    case  56:
+                    case 56:
                         $function = 'PV';
                         break;
-                    case  57:
+                    case 57:
                         $function = 'FV';
                         break;
-                    case  58:
+                    case 58:
                         $function = 'NPER';
                         break;
-                    case  59:
+                    case 59:
                         $function = 'PMT';
                         break;
-                    case  60:
+                    case 60:
                         $function = 'RATE';
                         break;
-                    case  62:
+                    case 62:
                         $function = 'IRR';
                         break;
-                    case  64:
+                    case 64:
                         $function = 'MATCH';
                         break;
-                    case  70:
+                    case 70:
                         $function = 'WEEKDAY';
                         break;
-                    case  78:
+                    case 78:
                         $function = 'OFFSET';
                         break;
-                    case  82:
+                    case 82:
                         $function = 'SEARCH';
                         break;
                     case 100:
@@ -7468,7 +7468,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
         $mantissa = (0x100000 | ($rknumhigh & 0x000fffff));
         $mantissalow1 = ($rknumlow & 0x80000000) >> 31;
         $mantissalow2 = ($rknumlow & 0x7fffffff);
-        $value = $mantissa / pow( 2 , (20 - $exp));
+        $value = $mantissa / pow(2 , (20 - $exp));
 
         if ($mantissalow1 != 0) {
             $value += 1 / pow (2 , (21 - $exp));
@@ -7496,7 +7496,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
             $sign = ($rknum & 0x80000000) >> 31;
             $exp = ($rknum & 0x7ff00000) >> 20;
             $mantissa = (0x100000 | ($rknum & 0x000ffffc));
-            $value = $mantissa / pow( 2 , (20- ($exp - 1023)));
+            $value = $mantissa / pow(2 , (20- ($exp - 1023)));
             if ($sign) {
                 $value = -1 * $value;
             }
@@ -8043,8 +8043,8 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
         }
     }
 
-
-    private function _parseRichText($is = '') {
+    private function _parseRichText($is = '')
+    {
         $value = new PHPExcel_RichText();
 
         $value->createText($is);

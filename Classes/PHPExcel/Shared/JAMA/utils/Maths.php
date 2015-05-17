@@ -11,7 +11,8 @@
  *
  *    r = sqrt(a^2 + b^2) without under/overflow.
  */
-function hypo($a, $b) {
+function hypo($a, $b)
+{
     if (abs($a) > abs($b)) {
         $r = $b / $a;
         $r = abs($a) * sqrt(1 + $r * $r);
