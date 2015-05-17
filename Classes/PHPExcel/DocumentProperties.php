@@ -40,84 +40,84 @@ class PHPExcel_DocumentProperties
      *
      * @var string
      */
-    private $_creator = 'Unknown Creator';
+    private $creator = 'Unknown Creator';
 
     /**
      * LastModifiedBy
      *
      * @var string
      */
-    private $_lastModifiedBy;
+    private $lastModifiedBy;
 
     /**
      * Created
      *
      * @var datetime
      */
-    private $_created;
+    private $created;
 
     /**
      * Modified
      *
      * @var datetime
      */
-    private $_modified;
+    private $modified;
 
     /**
      * Title
      *
      * @var string
      */
-    private $_title = 'Untitled Spreadsheet';
+    private $title = 'Untitled Spreadsheet';
 
     /**
      * Description
      *
      * @var string
      */
-    private $_description = '';
+    private $description = '';
 
     /**
      * Subject
      *
      * @var string
      */
-    private $_subject = '';
+    private $subject = '';
 
     /**
      * Keywords
      *
      * @var string
      */
-    private $_keywords = '';
+    private $keywords = '';
 
     /**
      * Category
      *
      * @var string
      */
-    private $_category = '';
+    private $category = '';
 
     /**
      * Manager
      *
      * @var string
      */
-    private $_manager = '';
+    private $manager = '';
 
     /**
      * Company
      *
      * @var string
      */
-    private $_company = 'Microsoft Corporation';
+    private $company = 'Microsoft Corporation';
 
     /**
      * Custom Properties
      *
      * @var string
      */
-    private $_customProperties = array();
+    private $customProperties = array();
 
 
     /**
@@ -126,9 +126,9 @@ class PHPExcel_DocumentProperties
     public function __construct()
     {
         // Initialise values
-        $this->_lastModifiedBy    = $this->_creator;
-        $this->_created        = time();
-        $this->_modified    = time();
+        $this->lastModifiedBy = $this->creator;
+        $this->created  = time();
+        $this->modified = time();
     }
 
     /**
@@ -138,7 +138,7 @@ class PHPExcel_DocumentProperties
      */
     public function getCreator()
     {
-        return $this->_creator;
+        return $this->creator;
     }
 
     /**
@@ -149,7 +149,7 @@ class PHPExcel_DocumentProperties
      */
     public function setCreator($pValue = '')
     {
-        $this->_creator = $pValue;
+        $this->creator = $pValue;
         return $this;
     }
 
@@ -160,7 +160,7 @@ class PHPExcel_DocumentProperties
      */
     public function getLastModifiedBy()
     {
-        return $this->_lastModifiedBy;
+        return $this->lastModifiedBy;
     }
 
     /**
@@ -171,7 +171,7 @@ class PHPExcel_DocumentProperties
      */
     public function setLastModifiedBy($pValue = '')
     {
-        $this->_lastModifiedBy = $pValue;
+        $this->lastModifiedBy = $pValue;
         return $this;
     }
 
@@ -182,7 +182,7 @@ class PHPExcel_DocumentProperties
      */
     public function getCreated()
     {
-        return $this->_created;
+        return $this->created;
     }
 
     /**
@@ -203,7 +203,7 @@ class PHPExcel_DocumentProperties
             }
         }
 
-        $this->_created = $pValue;
+        $this->created = $pValue;
         return $this;
     }
 
@@ -214,7 +214,7 @@ class PHPExcel_DocumentProperties
      */
     public function getModified()
     {
-        return $this->_modified;
+        return $this->modified;
     }
 
     /**
@@ -235,7 +235,7 @@ class PHPExcel_DocumentProperties
             }
         }
 
-        $this->_modified = $pValue;
+        $this->modified = $pValue;
         return $this;
     }
 
@@ -246,7 +246,7 @@ class PHPExcel_DocumentProperties
      */
     public function getTitle()
     {
-        return $this->_title;
+        return $this->title;
     }
 
     /**
@@ -257,7 +257,7 @@ class PHPExcel_DocumentProperties
      */
     public function setTitle($pValue = '')
     {
-        $this->_title = $pValue;
+        $this->title = $pValue;
         return $this;
     }
 
@@ -268,7 +268,7 @@ class PHPExcel_DocumentProperties
      */
     public function getDescription()
     {
-        return $this->_description;
+        return $this->description;
     }
 
     /**
@@ -279,7 +279,7 @@ class PHPExcel_DocumentProperties
      */
     public function setDescription($pValue = '')
     {
-        $this->_description = $pValue;
+        $this->description = $pValue;
         return $this;
     }
 
@@ -290,7 +290,7 @@ class PHPExcel_DocumentProperties
      */
     public function getSubject()
     {
-        return $this->_subject;
+        return $this->subject;
     }
 
     /**
@@ -301,7 +301,7 @@ class PHPExcel_DocumentProperties
      */
     public function setSubject($pValue = '')
     {
-        $this->_subject = $pValue;
+        $this->subject = $pValue;
         return $this;
     }
 
@@ -312,7 +312,7 @@ class PHPExcel_DocumentProperties
      */
     public function getKeywords()
     {
-        return $this->_keywords;
+        return $this->keywords;
     }
 
     /**
@@ -323,7 +323,7 @@ class PHPExcel_DocumentProperties
      */
     public function setKeywords($pValue = '')
     {
-        $this->_keywords = $pValue;
+        $this->keywords = $pValue;
         return $this;
     }
 
@@ -334,7 +334,7 @@ class PHPExcel_DocumentProperties
      */
     public function getCategory()
     {
-        return $this->_category;
+        return $this->category;
     }
 
     /**
@@ -345,7 +345,7 @@ class PHPExcel_DocumentProperties
      */
     public function setCategory($pValue = '')
     {
-        $this->_category = $pValue;
+        $this->category = $pValue;
         return $this;
     }
 
@@ -356,7 +356,7 @@ class PHPExcel_DocumentProperties
      */
     public function getCompany()
     {
-        return $this->_company;
+        return $this->company;
     }
 
     /**
@@ -367,7 +367,7 @@ class PHPExcel_DocumentProperties
      */
     public function setCompany($pValue = '')
     {
-        $this->_company = $pValue;
+        $this->company = $pValue;
         return $this;
     }
 
@@ -378,7 +378,7 @@ class PHPExcel_DocumentProperties
      */
     public function getManager()
     {
-        return $this->_manager;
+        return $this->manager;
     }
 
     /**
@@ -389,7 +389,7 @@ class PHPExcel_DocumentProperties
      */
     public function setManager($pValue = '')
     {
-        $this->_manager = $pValue;
+        $this->manager = $pValue;
         return $this;
     }
 
@@ -400,7 +400,7 @@ class PHPExcel_DocumentProperties
      */
     public function getCustomProperties()
     {
-        return array_keys($this->_customProperties);
+        return array_keys($this->customProperties);
     }
 
     /**
@@ -411,7 +411,7 @@ class PHPExcel_DocumentProperties
      */
     public function isCustomPropertySet($propertyName)
     {
-        return isset($this->_customProperties[$propertyName]);
+        return isset($this->customProperties[$propertyName]);
     }
 
     /**
@@ -422,8 +422,8 @@ class PHPExcel_DocumentProperties
      */
     public function getCustomPropertyValue($propertyName)
     {
-        if (isset($this->_customProperties[$propertyName])) {
-            return $this->_customProperties[$propertyName]['value'];
+        if (isset($this->customProperties[$propertyName])) {
+            return $this->customProperties[$propertyName]['value'];
         }
 
     }
@@ -436,8 +436,8 @@ class PHPExcel_DocumentProperties
      */
     public function getCustomPropertyType($propertyName)
     {
-        if (isset($this->_customProperties[$propertyName])) {
-            return $this->_customProperties[$propertyName]['type'];
+        if (isset($this->customProperties[$propertyName])) {
+            return $this->customProperties[$propertyName]['type'];
         }
 
     }
@@ -475,7 +475,7 @@ class PHPExcel_DocumentProperties
             }
         }
 
-        $this->_customProperties[$propertyName] = array(
+        $this->customProperties[$propertyName] = array(
             'value' => $propertyValue,
             'type' => $propertyType
         );
