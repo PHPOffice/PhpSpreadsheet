@@ -504,7 +504,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
                 // internal to current workbook
                 $url = str_replace('sheet://', 'internal:', $url);
 
-            } else if (preg_match('/^(http:|https:|ftp:|mailto:)/', $url)) {
+            } elseif (preg_match('/^(http:|https:|ftp:|mailto:)/', $url)) {
                 // URL
                 // $url = $url;
 
@@ -3048,7 +3048,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
         if ($conditional->getConditionType() == PHPExcel_Style_Conditional::CONDITION_EXPRESSION) {
             $type = 0x02;
             $operatorType = 0x00;
-        } else if ($conditional->getConditionType() == PHPExcel_Style_Conditional::CONDITION_CELLIS) {
+        } elseif ($conditional->getConditionType() == PHPExcel_Style_Conditional::CONDITION_CELLIS) {
             $type = 0x01;
 
             switch ($conditional->getOperatorType()) {
@@ -3089,7 +3089,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
             $szValue2 = 0x0000;
             $operand1 = pack('Cv', 0x1E, $arrConditions[0]);
             $operand2 = null;
-        } else if ($numConditions == 2 && ($conditional->getOperatorType() == PHPExcel_Style_Conditional::OPERATOR_BETWEEN)) {
+        } elseif ($numConditions == 2 && ($conditional->getOperatorType() == PHPExcel_Style_Conditional::OPERATOR_BETWEEN)) {
             $szValue1 = ($arrConditions[0] <= 65535 ? 3 : 0x0000);
             $szValue2 = ($arrConditions[1] <= 65535 ? 3 : 0x0000);
             $operand1 = pack('Cv', 0x1E, $arrConditions[0]);
@@ -3226,7 +3226,7 @@ class PHPExcel_Writer_Excel5_Worksheet extends PHPExcel_Writer_Excel5_BIFFwriter
             if ($conditional->getStyle()->getFont()->getSubScript() == true) {
                 $dataBlockFont .= pack('v', 0x02);
                 $fontEscapement = 0;
-            } else if ($conditional->getStyle()->getFont()->getSuperScript() == true) {
+            } elseif ($conditional->getStyle()->getFont()->getSuperScript() == true) {
                 $dataBlockFont .= pack('v', 0x01);
                 $fontEscapement = 0;
             } else {

@@ -5,12 +5,12 @@ class WorksheetRowTest extends PHPUnit_Framework_TestCase
     public $mockWorksheet;
     public $mockRow;
 
-	public function setUp()
-	{
-		if (!defined('PHPEXCEL_ROOT')) {
-			define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
-		}
-		require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
+    public function setUp()
+    {
+        if (!defined('PHPEXCEL_ROOT')) {
+            define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
+        }
+        require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
         
         $this->mockWorksheet = $this->getMockBuilder('PHPExcel_Worksheet')
             ->disableOriginalConstructor()
@@ -21,26 +21,26 @@ class WorksheetRowTest extends PHPUnit_Framework_TestCase
     }
 
 
-	public function testInstantiateRowDefault()
-	{
+    public function testInstantiateRowDefault()
+    {
         $row = new PHPExcel_Worksheet_Row($this->mockWorksheet);
         $this->assertInstanceOf('PHPExcel_Worksheet_Row', $row);
         $rowIndex = $row->getRowIndex();
         $this->assertEquals(1, $rowIndex);
-	}
+    }
 
-	public function testInstantiateRowSpecified()
-	{
+    public function testInstantiateRowSpecified()
+    {
         $row = new PHPExcel_Worksheet_Row($this->mockWorksheet, 5);
         $this->assertInstanceOf('PHPExcel_Worksheet_Row', $row);
         $rowIndex = $row->getRowIndex();
         $this->assertEquals(5, $rowIndex);
-	}
+    }
 
-	public function testGetCellIterator()
-	{
+    public function testGetCellIterator()
+    {
         $row = new PHPExcel_Worksheet_Row($this->mockWorksheet);
         $cellIterator = $row->getCellIterator();
         $this->assertInstanceOf('PHPExcel_Worksheet_RowCellIterator', $cellIterator);
-	}
+    }
 }

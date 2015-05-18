@@ -28,7 +28,8 @@
 defined('IDENTIFIER_OLE') ||
     define('IDENTIFIER_OLE', pack('CCCCCCCC', 0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1));
 
-class PHPExcel_Shared_OLERead {
+class PHPExcel_Shared_OLERead
+{
     private $data = '';
 
     // OLE identifier
@@ -272,7 +273,7 @@ class PHPExcel_Shared_OLERead {
             // Workbook directory entry (BIFF5 uses Book, BIFF8 uses Workbook)
             if (($upName === 'WORKBOOK') || ($upName === 'BOOK')) {
                 $this->wrkbook = count($this->props) - 1;
-            } else if ($upName === 'ROOT ENTRY' || $upName === 'R') {
+            } elseif ($upName === 'ROOT ENTRY' || $upName === 'R') {
                 // Root entry
                 $this->rootentry = count($this->props) - 1;
             }

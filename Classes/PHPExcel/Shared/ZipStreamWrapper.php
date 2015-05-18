@@ -131,7 +131,7 @@ class PHPExcel_Shared_ZipStreamWrapper
      * @param   int        $count    maximum number of bytes to read
      * @return  string
      */
-    function stream_read($count)
+    public function stream_read($count)
     {
         $ret = substr($this->_data, $this->_position, $count);
         $this->_position += strlen($ret);

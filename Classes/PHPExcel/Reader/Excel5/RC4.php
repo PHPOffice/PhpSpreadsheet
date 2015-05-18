@@ -1,6 +1,7 @@
 <?php
+
 /**
- * PHPExcel
+ * PHPExcel_Reader_Excel5_RC4
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -24,24 +25,16 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-
-/**
- * PHPExcel_Reader_Excel5_RC4
- *
- * @category    PHPExcel
- * @package        PHPExcel_Reader_Excel5
- * @copyright    Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
 class PHPExcel_Reader_Excel5_RC4
 {
     // Context
-    var $s = array();
-    var $i = 0;
-    var $j = 0;
+    protected $s = array();
+    protected $i = 0;
+    protected $j = 0;
 
     /**
      * RC4 stream decryption/encryption constrcutor
-     * 
+     *
      * @param string $key Encryption key/passphrase
      */
     public function __construct($key)
@@ -64,9 +57,9 @@ class PHPExcel_Reader_Excel5_RC4
 
     /**
      * Symmetric decryption/encryption function
-     * 
+     *
      * @param string $data Data to encrypt/decrypt
-     * 
+     *
      * @return string
      */
     public function RC4($data)

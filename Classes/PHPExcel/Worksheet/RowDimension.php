@@ -25,14 +25,14 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Worksheet_RowDimension
+class PHPExcel_Worksheet_RowDimension extends PHPExcel_Worksheet_Dimension
 {
     /**
      * Row index
      *
      * @var int
      */
-    private $_rowIndex;
+    private $rowIndex;
 
     /**
      * Row height (in pt)
@@ -41,42 +41,14 @@ class PHPExcel_Worksheet_RowDimension
      *
      * @var double
      */
-    private $_rowHeight        = -1;
+    private $height = -1;
 
      /**
      * ZeroHeight for Row?
      *
      * @var bool
      */
-    private $_zeroHeight    = false;
-
-    /**
-     * Visible?
-     *
-     * @var bool
-     */
-    private $_visible        = true;
-
-    /**
-     * Outline level
-     *
-     * @var int
-     */
-    private $_outlineLevel    = 0;
-
-    /**
-     * Collapsed
-     *
-     * @var bool
-     */
-    private $_collapsed        = false;
-
-    /**
-     * Index to cellXf. Null value means row has no explicit cellXf format.
-     *
-     * @var int|null
-     */
-    private $_xfIndex;
+    private $zeroHeight = false;
 
     /**
      * Create a new PHPExcel_Worksheet_RowDimension
@@ -86,10 +58,10 @@ class PHPExcel_Worksheet_RowDimension
     public function __construct($pIndex = 0)
     {
         // Initialise values
-        $this->_rowIndex        = $pIndex;
+        $this->rowIndex = $pIndex;
 
-        // set row dimension as unformatted by default
-        $this->_xfIndex = null;
+        // set dimension as unformatted by default
+        parent::__construct(null);
     }
 
     /**
@@ -99,7 +71,7 @@ class PHPExcel_Worksheet_RowDimension
      */
     public function getRowIndex()
     {
-        return $this->_rowIndex;
+        return $this->rowIndex;
     }
 
     /**
@@ -110,7 +82,7 @@ class PHPExcel_Worksheet_RowDimension
      */
     public function setRowIndex($pValue)
     {
-        $this->_rowIndex = $pValue;
+        $this->rowIndex = $pValue;
         return $this;
     }
 
@@ -121,7 +93,7 @@ class PHPExcel_Worksheet_RowDimension
      */
     public function getRowHeight()
     {
-        return $this->_rowHeight;
+        return $this->height;
     }
 
     /**
@@ -132,7 +104,7 @@ class PHPExcel_Worksheet_RowDimension
      */
     public function setRowHeight($pValue = -1)
     {
-        $this->_rowHeight = $pValue;
+        $this->height = $pValue;
         return $this;
     }
 
@@ -143,7 +115,7 @@ class PHPExcel_Worksheet_RowDimension
      */
     public function getZeroHeight()
     {
-        return $this->_zeroHeight;
+        return $this->zeroHeight;
     }
 
     /**
@@ -154,117 +126,7 @@ class PHPExcel_Worksheet_RowDimension
      */
     public function setZeroHeight($pValue = false)
     {
-        $this->_zeroHeight = $pValue;
+        $this->zeroHeight = $pValue;
         return $this;
-    }
-
-    /**
-     * Get Visible
-     *
-     * @return bool
-     */
-    public function getVisible()
-    {
-        return $this->_visible;
-    }
-
-    /**
-     * Set Visible
-     *
-     * @param bool $pValue
-     * @return PHPExcel_Worksheet_RowDimension
-     */
-    public function setVisible($pValue = true)
-    {
-        $this->_visible = $pValue;
-        return $this;
-    }
-
-    /**
-     * Get Outline Level
-     *
-     * @return int
-     */
-    public function getOutlineLevel()
-    {
-        return $this->_outlineLevel;
-    }
-
-    /**
-     * Set Outline Level
-     *
-     * Value must be between 0 and 7
-     *
-     * @param int $pValue
-     * @throws PHPExcel_Exception
-     * @return PHPExcel_Worksheet_RowDimension
-     */
-    public function setOutlineLevel($pValue)
-    {
-        if ($pValue < 0 || $pValue > 7) {
-            throw new PHPExcel_Exception("Outline level must range between 0 and 7.");
-        }
-
-        $this->_outlineLevel = $pValue;
-        return $this;
-    }
-
-    /**
-     * Get Collapsed
-     *
-     * @return bool
-     */
-    public function getCollapsed()
-    {
-        return $this->_collapsed;
-    }
-
-    /**
-     * Set Collapsed
-     *
-     * @param bool $pValue
-     * @return PHPExcel_Worksheet_RowDimension
-     */
-    public function setCollapsed($pValue = true)
-    {
-        $this->_collapsed = $pValue;
-        return $this;
-    }
-
-    /**
-     * Get index to cellXf
-     *
-     * @return int
-     */
-    public function getXfIndex()
-    {
-        return $this->_xfIndex;
-    }
-
-    /**
-     * Set index to cellXf
-     *
-     * @param int $pValue
-     * @return PHPExcel_Worksheet_RowDimension
-     */
-    public function setXfIndex($pValue = 0)
-    {
-        $this->_xfIndex = $pValue;
-        return $this;
-    }
-
-    /**
-     * Implement PHP __clone to create a deep clone, not just a shallow copy.
-     */
-    public function __clone()
-    {
-        $vars = get_object_vars($this);
-        foreach ($vars as $key => $value) {
-            if (is_object($value)) {
-                $this->$key = clone $value;
-            } else {
-                $this->$key = $value;
-            }
-        }
     }
 }

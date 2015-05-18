@@ -153,4 +153,4 @@ class trendClass
                 return false;
         }
     }    //    function calculate()
-}    //    class trendClass
+}

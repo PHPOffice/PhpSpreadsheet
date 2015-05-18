@@ -1,6 +1,7 @@
 <?php
+
 /**
- * PHPExcel
+ * PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -24,14 +25,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-
-/**
- * PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
- *
- * @category   PHPExcel
- * @package    PHPExcel_Shared_Escher
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
 class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
 {
     /**
@@ -39,84 +32,84 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      *
      * @var PHPExcel_Shared_Escher_DgContainer_SpgrContainer
      */
-    private $_parent;
+    private $parent;
 
     /**
      * Is this a group shape?
      *
      * @var boolean
      */
-    private $_spgr = false;
+    private $spgr = false;
 
     /**
      * Shape type
      *
      * @var int
      */
-    private $_spType;
+    private $spType;
 
     /**
      * Shape flag
      *
      * @var int
      */
-    private $_spFlag;
+    private $spFlag;
 
     /**
      * Shape index (usually group shape has index 0, and the rest: 1,2,3...)
      *
      * @var boolean
      */
-    private $_spId;
+    private $spId;
 
     /**
      * Array of options
      *
      * @var array
      */
-    private $_OPT;
+    private $OPT;
 
     /**
      * Cell coordinates of upper-left corner of shape, e.g. 'A1'
      *
      * @var string
      */
-    private $_startCoordinates;
+    private $startCoordinates;
 
     /**
      * Horizontal offset of upper-left corner of shape measured in 1/1024 of column width
      *
      * @var int
      */
-    private $_startOffsetX;
+    private $startOffsetX;
 
     /**
      * Vertical offset of upper-left corner of shape measured in 1/256 of row height
      *
      * @var int
      */
-    private $_startOffsetY;
+    private $startOffsetY;
 
     /**
      * Cell coordinates of bottom-right corner of shape, e.g. 'B2'
      *
      * @var string
      */
-    private $_endCoordinates;
+    private $endCoordinates;
 
     /**
      * Horizontal offset of bottom-right corner of shape measured in 1/1024 of column width
      *
      * @var int
      */
-    private $_endOffsetX;
+    private $endOffsetX;
 
     /**
      * Vertical offset of bottom-right corner of shape measured in 1/256 of row height
      *
      * @var int
      */
-    private $_endOffsetY;
+    private $endOffsetY;
 
     /**
      * Set parent Shape Group Container
@@ -125,7 +118,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function setParent($parent)
     {
-        $this->_parent = $parent;
+        $this->parent = $parent;
     }
 
     /**
@@ -135,7 +128,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function getParent()
     {
-        return $this->_parent;
+        return $this->parent;
     }
 
     /**
@@ -145,7 +138,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function setSpgr($value = false)
     {
-        $this->_spgr = $value;
+        $this->spgr = $value;
     }
 
     /**
@@ -155,7 +148,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function getSpgr()
     {
-        return $this->_spgr;
+        return $this->spgr;
     }
 
     /**
@@ -165,7 +158,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function setSpType($value)
     {
-        $this->_spType = $value;
+        $this->spType = $value;
     }
 
     /**
@@ -175,7 +168,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function getSpType()
     {
-        return $this->_spType;
+        return $this->spType;
     }
 
     /**
@@ -185,7 +178,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function setSpFlag($value)
     {
-        $this->_spFlag = $value;
+        $this->spFlag = $value;
     }
 
     /**
@@ -195,7 +188,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function getSpFlag()
     {
-        return $this->_spFlag;
+        return $this->spFlag;
     }
 
     /**
@@ -205,7 +198,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function setSpId($value)
     {
-        $this->_spId = $value;
+        $this->spId = $value;
     }
 
     /**
@@ -215,7 +208,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function getSpId()
     {
-        return $this->_spId;
+        return $this->spId;
     }
 
     /**
@@ -226,7 +219,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function setOPT($property, $value)
     {
-        $this->_OPT[$property] = $value;
+        $this->OPT[$property] = $value;
     }
 
     /**
@@ -237,8 +230,8 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function getOPT($property)
     {
-        if (isset($this->_OPT[$property])) {
-            return $this->_OPT[$property];
+        if (isset($this->OPT[$property])) {
+            return $this->OPT[$property];
         }
         return null;
     }
@@ -250,7 +243,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function getOPTCollection()
     {
-        return $this->_OPT;
+        return $this->OPT;
     }
 
     /**
@@ -260,7 +253,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function setStartCoordinates($value = 'A1')
     {
-        $this->_startCoordinates = $value;
+        $this->startCoordinates = $value;
     }
 
     /**
@@ -270,7 +263,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function getStartCoordinates()
     {
-        return $this->_startCoordinates;
+        return $this->startCoordinates;
     }
 
     /**
@@ -280,7 +273,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function setStartOffsetX($startOffsetX = 0)
     {
-        $this->_startOffsetX = $startOffsetX;
+        $this->startOffsetX = $startOffsetX;
     }
 
     /**
@@ -290,7 +283,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function getStartOffsetX()
     {
-        return $this->_startOffsetX;
+        return $this->startOffsetX;
     }
 
     /**
@@ -300,7 +293,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function setStartOffsetY($startOffsetY = 0)
     {
-        $this->_startOffsetY = $startOffsetY;
+        $this->startOffsetY = $startOffsetY;
     }
 
     /**
@@ -310,7 +303,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function getStartOffsetY()
     {
-        return $this->_startOffsetY;
+        return $this->startOffsetY;
     }
 
     /**
@@ -320,7 +313,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function setEndCoordinates($value = 'A1')
     {
-        $this->_endCoordinates = $value;
+        $this->endCoordinates = $value;
     }
 
     /**
@@ -330,7 +323,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function getEndCoordinates()
     {
-        return $this->_endCoordinates;
+        return $this->endCoordinates;
     }
 
     /**
@@ -340,7 +333,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function setEndOffsetX($endOffsetX = 0)
     {
-        $this->_endOffsetX = $endOffsetX;
+        $this->endOffsetX = $endOffsetX;
     }
 
     /**
@@ -350,7 +343,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function getEndOffsetX()
     {
-        return $this->_endOffsetX;
+        return $this->endOffsetX;
     }
 
     /**
@@ -360,7 +353,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function setEndOffsetY($endOffsetY = 0)
     {
-        $this->_endOffsetY = $endOffsetY;
+        $this->endOffsetY = $endOffsetY;
     }
 
     /**
@@ -370,7 +363,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
      */
     public function getEndOffsetY()
     {
-        return $this->_endOffsetY;
+        return $this->endOffsetY;
     }
 
     /**

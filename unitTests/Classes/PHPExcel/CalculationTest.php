@@ -4,7 +4,6 @@ require_once 'testDataFileIterator.php';
 
 class CalculationTest extends PHPUnit_Framework_TestCase
 {
-
     public function setUp()
     {
         if (!defined('PHPEXCEL_ROOT')) {
@@ -33,5 +32,4 @@ class CalculationTest extends PHPUnit_Framework_TestCase
     {
         return new testDataFileIterator('rawTestData/CalculationBinaryComparisonOperation.data');
     }
-
 }

@@ -504,7 +504,7 @@ class PHPExcel_Shared_String
 
         if ($from == 'UTF-16LE') {
             return self::utf16_decode($value, false);
-        } else if ($from == 'UTF-16BE') {
+        } elseif ($from == 'UTF-16BE') {
             return self::utf16_decode($value);
         }
         // else, no conversion

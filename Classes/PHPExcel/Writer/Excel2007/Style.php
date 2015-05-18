@@ -317,7 +317,7 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
             $objWriter->startElement('vertAlign');
             if ($pFont->getSuperScript() === true) {
                 $objWriter->writeAttribute('val', 'superscript');
-            } else if ($pFont->getSubScript() === true) {
+            } elseif ($pFont->getSubScript() === true) {
                 $objWriter->writeAttribute('val', 'subscript');
             }
             $objWriter->endElement();
@@ -428,7 +428,7 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
         $textRotation = 0;
         if ($pStyle->getAlignment()->getTextRotation() >= 0) {
             $textRotation = $pStyle->getAlignment()->getTextRotation();
-        } else if ($pStyle->getAlignment()->getTextRotation() < 0) {
+        } elseif ($pStyle->getAlignment()->getTextRotation() < 0) {
             $textRotation = 90 - $pStyle->getAlignment()->getTextRotation();
         }
         $objWriter->writeAttribute('textRotation', $textRotation);
@@ -493,7 +493,7 @@ class PHPExcel_Writer_Excel2007_Style extends PHPExcel_Writer_Excel2007_WriterPa
             $textRotation = 0;
             if ($pStyle->getAlignment()->getTextRotation() >= 0) {
                 $textRotation = $pStyle->getAlignment()->getTextRotation();
-            } else if ($pStyle->getAlignment()->getTextRotation() < 0) {
+            } elseif ($pStyle->getAlignment()->getTextRotation() < 0) {
                 $textRotation = 90 - $pStyle->getAlignment()->getTextRotation();
             }
             $objWriter->writeAttribute('textRotation', $textRotation);

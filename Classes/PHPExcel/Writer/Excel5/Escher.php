@@ -82,7 +82,7 @@ class PHPExcel_Writer_Excel5_Escher
                 if ($dggContainer = $this->_object->getDggContainer()) {
                     $writer = new PHPExcel_Writer_Excel5_Escher($dggContainer);
                     $this->_data = $writer->close();
-                } else if ($dgContainer = $this->_object->getDgContainer()) {
+                } elseif ($dgContainer = $this->_object->getDgContainer()) {
                     $writer = new PHPExcel_Writer_Excel5_Escher($dgContainer);
                     $this->_data = $writer->close();
                     $this->_spOffsets = $writer->getSpOffsets();

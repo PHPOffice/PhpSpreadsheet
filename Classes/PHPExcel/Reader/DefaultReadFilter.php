@@ -52,7 +52,8 @@ class PHPExcel_Reader_DefaultReadFilter implements PHPExcel_Reader_IReadFilter
      * @param    $worksheetName    Optional worksheet name
      * @return    boolean
      */
-    public function readCell($column, $row, $worksheetName = '') {
+    public function readCell($column, $row, $worksheetName = '')
+    {
         return true;
     }
 }

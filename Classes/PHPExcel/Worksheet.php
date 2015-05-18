@@ -391,7 +391,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      * Code to execute when this worksheet is unset()
      *
      */
-    function __destruct()
+    public function __destruct()
     {
         PHPExcel_Calculation::getInstance($this->_parent)->clearCalculationCacheForWorksheet($this->_title);
 
@@ -2265,9 +2265,9 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 
         if (strpos($pCellCoordinate, ':') !== false || strpos($pCellCoordinate, ',') !== false) {
             throw new PHPExcel_Exception('Cell coordinate string can not be a range of cells.');
-        } else if (strpos($pCellCoordinate, '$') !== false) {
+        } elseif (strpos($pCellCoordinate, '$') !== false) {
             throw new PHPExcel_Exception('Cell coordinate string must not be absolute.');
-        } else if ($pCellCoordinate == '') {
+        } elseif ($pCellCoordinate == '') {
             throw new PHPExcel_Exception('Cell coordinate can not be zero-length string.');
         } else {
             // Check if we already have a comment for this cell.

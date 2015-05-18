@@ -32,14 +32,14 @@ abstract class PHPExcel_Writer_PDF_Core extends PHPExcel_Writer_HTML
      *
      * @var string
      */
-    protected $_tempDir = '';
+    protected $tempDir = '';
 
     /**
      * Font
      *
      * @var string
      */
-    protected $_font = 'freesans';
+    protected $font = 'freesans';
 
     /**
      * Orientation (Over-ride)
@@ -212,7 +212,7 @@ abstract class PHPExcel_Writer_PDF_Core extends PHPExcel_Writer_HTML
     {
         parent::__construct($phpExcel);
         $this->setUseInlineCss(true);
-        $this->_tempDir = PHPExcel_Shared_File::sys_get_temp_dir();
+        $this->tempDir = PHPExcel_Shared_File::sys_get_temp_dir();
     }
 
     /**
@@ -222,7 +222,7 @@ abstract class PHPExcel_Writer_PDF_Core extends PHPExcel_Writer_HTML
      */
     public function getFont()
     {
-        return $this->_font;
+        return $this->font;
     }
 
     /**
@@ -236,7 +236,7 @@ abstract class PHPExcel_Writer_PDF_Core extends PHPExcel_Writer_HTML
      */
     public function setFont($fontName)
     {
-        $this->_font = $fontName;
+        $this->font = $fontName;
         return $this;
     }
 
@@ -291,7 +291,7 @@ abstract class PHPExcel_Writer_PDF_Core extends PHPExcel_Writer_HTML
      */
     public function getTempDir()
     {
-        return $this->_tempDir;
+        return $this->tempDir;
     }
 
     /**
@@ -304,7 +304,7 @@ abstract class PHPExcel_Writer_PDF_Core extends PHPExcel_Writer_HTML
     public function setTempDir($pValue = '')
     {
         if (is_dir($pValue)) {
-            $this->_tempDir = $pValue;
+            $this->tempDir = $pValue;
         } else {
             throw new PHPExcel_Writer_Exception("Directory does not exist: $pValue");
         }

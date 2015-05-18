@@ -83,7 +83,7 @@ class PHPExcel_Writer_Excel5_Font
         $icv = $this->_colorIndex; // Index to color palette
         if ($this->_font->getSuperScript()) {
             $sss = 1;
-        } else if ($this->_font->getSubScript()) {
+        } elseif ($this->_font->getSubScript()) {
             $sss = 2;
         } else {
             $sss = 0;

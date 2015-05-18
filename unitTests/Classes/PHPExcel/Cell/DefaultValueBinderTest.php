@@ -8,12 +8,11 @@ class DefaultValueBinderTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (!defined('PHPEXCEL_ROOT'))
-        {
+        if (!defined('PHPEXCEL_ROOT')) {
             define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
         }
         require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
-	}
+    }
 
     protected function createCellStub()
     {
@@ -32,12 +31,12 @@ class DefaultValueBinderTest extends PHPUnit_Framework_TestCase
      * @dataProvider binderProvider
      */
     public function testBindValue($value)
-	{
-		$this->createCellStub();
+    {
+        $this->createCellStub();
         $binder = new PHPExcel_Cell_DefaultValueBinder();
-		$result = $binder->bindValue($this->cellStub, $value);
-		$this->assertTrue($result);
-	}
+        $result = $binder->bindValue($this->cellStub, $value);
+        $this->assertTrue($result);
+    }
 
     public function binderProvider()
     {
@@ -60,26 +59,26 @@ class DefaultValueBinderTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider providerDataTypeForValue
      */
-	public function testDataTypeForValue()
-	{
-		$args = func_get_args();
-		$expectedResult = array_pop($args);
-		$result = call_user_func_array(array('PHPExcel_Cell_DefaultValueBinder','dataTypeForValue'), $args);
-		$this->assertEquals($expectedResult, $result);
-	}
+    public function testDataTypeForValue()
+    {
+        $args = func_get_args();
+        $expectedResult = array_pop($args);
+        $result = call_user_func_array(array('PHPExcel_Cell_DefaultValueBinder','dataTypeForValue'), $args);
+        $this->assertEquals($expectedResult, $result);
+    }
 
     public function providerDataTypeForValue()
     {
-    	return new testDataFileIterator('rawTestData/Cell/DefaultValueBinder.data');
-	}
+        return new testDataFileIterator('rawTestData/Cell/DefaultValueBinder.data');
+    }
 
-	public function testDataTypeForRichTextObject()
-	{
+    public function testDataTypeForRichTextObject()
+    {
         $objRichText = new PHPExcel_RichText();
         $objRichText->createText('Hello World');
 
         $expectedResult = PHPExcel_Cell_DataType::TYPE_INLINE;
-		$result = call_user_func(array('PHPExcel_Cell_DefaultValueBinder','dataTypeForValue'), $objRichText);
-		$this->assertEquals($expectedResult, $result);
-	}
+        $result = call_user_func(array('PHPExcel_Cell_DefaultValueBinder','dataTypeForValue'), $objRichText);
+        $this->assertEquals($expectedResult, $result);
+    }
 }

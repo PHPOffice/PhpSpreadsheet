@@ -506,19 +506,19 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
                         && $conditional->getOperatorType() == PHPExcel_Style_Conditional::OPERATOR_CONTAINSTEXT
                         && !is_null($conditional->getText())) {
                         $objWriter->writeElement('formula', 'NOT(ISERROR(SEARCH("' . $conditional->getText() . '",' . $cellCoordinate . ')))');
-                    } else if ($conditional->getConditionType() == PHPExcel_Style_Conditional::CONDITION_CONTAINSTEXT
+                    } elseif ($conditional->getConditionType() == PHPExcel_Style_Conditional::CONDITION_CONTAINSTEXT
                         && $conditional->getOperatorType() == PHPExcel_Style_Conditional::OPERATOR_BEGINSWITH
                         && !is_null($conditional->getText())) {
                         $objWriter->writeElement('formula', 'LEFT(' . $cellCoordinate . ',' . strlen($conditional->getText()) . ')="' . $conditional->getText() . '"');
-                    } else if ($conditional->getConditionType() == PHPExcel_Style_Conditional::CONDITION_CONTAINSTEXT
+                    } elseif ($conditional->getConditionType() == PHPExcel_Style_Conditional::CONDITION_CONTAINSTEXT
                         && $conditional->getOperatorType() == PHPExcel_Style_Conditional::OPERATOR_ENDSWITH
                         && !is_null($conditional->getText())) {
                         $objWriter->writeElement('formula', 'RIGHT(' . $cellCoordinate . ',' . strlen($conditional->getText()) . ')="' . $conditional->getText() . '"');
-                    } else if ($conditional->getConditionType() == PHPExcel_Style_Conditional::CONDITION_CONTAINSTEXT
+                    } elseif ($conditional->getConditionType() == PHPExcel_Style_Conditional::CONDITION_CONTAINSTEXT
                         && $conditional->getOperatorType() == PHPExcel_Style_Conditional::OPERATOR_NOTCONTAINS
                         && !is_null($conditional->getText())) {
                         $objWriter->writeElement('formula', 'ISERROR(SEARCH("' . $conditional->getText() . '",' . $cellCoordinate . '))');
-                    } else if ($conditional->getConditionType() == PHPExcel_Style_Conditional::CONDITION_CELLIS
+                    } elseif ($conditional->getConditionType() == PHPExcel_Style_Conditional::CONDITION_CELLIS
                         || $conditional->getConditionType() == PHPExcel_Style_Conditional::CONDITION_CONTAINSTEXT
                         || $conditional->getConditionType() == PHPExcel_Style_Conditional::CONDITION_EXPRESSION) {
                         foreach ($conditional->getConditions() as $formula) {
@@ -910,7 +910,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
         foreach ($pSheet->getBreaks() as $cell => $breakType) {
             if ($breakType == PHPExcel_Worksheet::BREAK_ROW) {
                 $aRowBreaks[] = $cell;
-            } else if ($breakType == PHPExcel_Worksheet::BREAK_COLUMN) {
+            } elseif ($breakType == PHPExcel_Worksheet::BREAK_COLUMN) {
                 $aColumnBreaks[] = $cell;
             }
         }
@@ -1095,7 +1095,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
                     case 'inlinestr':    // Inline string
                         if (! $cellValue instanceof PHPExcel_RichText) {
                             $objWriter->writeElement('t', PHPExcel_Shared_String::ControlCharacterPHP2OOXML(htmlspecialchars($cellValue)));
-                        } else if ($cellValue instanceof PHPExcel_RichText) {
+                        } elseif ($cellValue instanceof PHPExcel_RichText) {
                             $objWriter->startElement('is');
                             $this->getParentWriter()->getWriterPart('stringtable')->writeRichText($objWriter, $cellValue);
                             $objWriter->endElement();
@@ -1107,7 +1107,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
                             if (isset($pFlippedStringTable[$cellValue])) {
                                 $objWriter->writeElement('v', $pFlippedStringTable[$cellValue]);
                             }
-                        } else if ($cellValue instanceof PHPExcel_RichText) {
+                        } elseif ($cellValue instanceof PHPExcel_RichText) {
                             $objWriter->writeElement('v', $pFlippedStringTable[$cellValue->getHashCode()]);
                         }
 

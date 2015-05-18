@@ -27,7 +27,6 @@
  */
 class PHPExcel_Cell
 {
-
     /**
      *  Default range variable constant
      *
@@ -227,6 +226,7 @@ class PHPExcel_Cell
                 break;
             case PHPExcel_Cell_DataType::TYPE_STRING2:
                 $pDataType = PHPExcel_Cell_DataType::TYPE_STRING;
+                // no break
             case PHPExcel_Cell_DataType::TYPE_STRING:
                 // Synonym for string
             case PHPExcel_Cell_DataType::TYPE_INLINE:

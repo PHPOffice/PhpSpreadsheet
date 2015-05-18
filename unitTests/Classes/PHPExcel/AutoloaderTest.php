@@ -6,8 +6,7 @@ class AutoloaderTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (!defined('PHPEXCEL_ROOT'))
-        {
+        if (!defined('PHPEXCEL_ROOT')) {
             define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
         }
         require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
@@ -46,11 +45,10 @@ class AutoloaderTest extends PHPUnit_Framework_TestCase
 
     public function testAutoloadInstantiateSuccess()
     {
-        $result = new PHPExcel_Calculation_Function(1,2,3);
+        $result = new PHPExcel_Calculation_Function(1, 2, 3);
         //    Must return an object...
         $this->assertTrue(is_object($result));
         //    ... of the correct type
-        $this->assertTrue(is_a($result,'PHPExcel_Calculation_Function'));
+        $this->assertTrue(is_a($result, 'PHPExcel_Calculation_Function'));
     }
-
 }

@@ -288,7 +288,7 @@ class PHPExcel_Chart_DataSeriesValues
     {
         if ($this->dataSource !== null) {
             $calcEngine = PHPExcel_Calculation::getInstance($worksheet->getParent());
-            $newDataValues = PHPExcel_Calculation::_unwrapResult(
+            $newDataValues = PHPExcel_Calculation::unwrapResult(
                 $calcEngine->_calculateFormulaValue(
                     '='.$this->dataSource,
                     null,
