@@ -610,7 +610,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
                 );
 
             // (exclusive) either repeatColumns or repeatRows
-            } else if ($sheetSetup->isColumnsToRepeatAtLeftSet() || $sheetSetup->isRowsToRepeatAtTopSet()) {
+            } elseif ($sheetSetup->isColumnsToRepeatAtLeftSet() || $sheetSetup->isRowsToRepeatAtTopSet()) {
                 // Columns to repeat
                 if ($sheetSetup->isColumnsToRepeatAtLeftSet()) {
                     $repeat = $sheetSetup->getColumnsToRepeatAtLeft();
@@ -717,7 +717,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
                 $chunk .= $this->writeData($this->_writeDefinedNameBiff8(pack('C', 0x07), $formulaData, $i + 1, true));
 
             // (exclusive) either repeatColumns or repeatRows
-            } else if ($sheetSetup->isColumnsToRepeatAtLeftSet() || $sheetSetup->isRowsToRepeatAtTopSet()) {
+            } elseif ($sheetSetup->isColumnsToRepeatAtLeftSet() || $sheetSetup->isRowsToRepeatAtTopSet()) {
                 // Columns to repeat
                 if ($sheetSetup->isColumnsToRepeatAtLeftSet()) {
                     $repeat = $sheetSetup->getColumnsToRepeatAtLeft();

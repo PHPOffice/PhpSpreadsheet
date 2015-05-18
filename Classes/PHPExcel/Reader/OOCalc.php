@@ -1,6 +1,16 @@
 <?php
+
+/** PHPExcel root directory */
+if (!defined('PHPEXCEL_ROOT')) {
+    /**
+     * @ignore
+     */
+    define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
+    require(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
+}
+
 /**
- * PHPExcel
+ * PHPExcel_Reader_OOCalc
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -24,24 +34,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-
-
-/** PHPExcel root directory */
-if (!defined('PHPEXCEL_ROOT')) {
-    /**
-     * @ignore
-     */
-    define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
-    require(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
-}
-
-/**
- * PHPExcel_Reader_OOCalc
- *
- * @category    PHPExcel
- * @package        PHPExcel_Reader
- * @copyright    Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
 class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
 {
     /**
@@ -49,7 +41,7 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
      *
      * @var array
      */
-    private $_styles = array();
+    private $styles = array();
 
     /**
      * Create a new PHPExcel_Reader_OOCalc
@@ -520,7 +512,7 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
                                     }
                                     $text = implode("\n", $textArray);
 //                                    echo $text, '<br />';
-                                    $objPHPExcel->getActiveSheet()->getComment($columnID.$rowID)->setText($this->_parseRichText($text));
+                                    $objPHPExcel->getActiveSheet()->getComment($columnID.$rowID)->setText($this->parseRichText($text));
 //                                                                    ->setAuthor( $author )
                                 }
 
@@ -693,7 +685,7 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
         return $objPHPExcel;
     }
 
-    private function _parseRichText($is = '')
+    private function parseRichText($is = '')
     {
         $value = new PHPExcel_RichText();
 

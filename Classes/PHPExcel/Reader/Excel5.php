@@ -2192,9 +2192,9 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
                 $rotation = 0;
                 if ($angle <= 90) {
                     $rotation = $angle;
-                } else if ($angle <= 180) {
+                } elseif ($angle <= 180) {
                     $rotation = 90 - $angle;
-                } else if ($angle == 255) {
+                } elseif ($angle == 255) {
                     $rotation = -165;
                 }
                 $objStyle->getAlignment()->setTextRotation($rotation);
@@ -4598,11 +4598,11 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
 
             if ($isUNC) {
                 $hyperlinkType = 'UNC';
-            } else if (!$isFileLinkOrUrl) {
+            } elseif (!$isFileLinkOrUrl) {
                 $hyperlinkType = 'workbook';
-            } else if (ord($recordData{$offset}) == 0x03) {
+            } elseif (ord($recordData{$offset}) == 0x03) {
                 $hyperlinkType = 'local';
-            } else if (ord($recordData{$offset}) == 0xE0) {
+            } elseif (ord($recordData{$offset}) == 0xE0) {
                 $hyperlinkType = 'URL';
             }
 

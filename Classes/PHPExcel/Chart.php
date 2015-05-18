@@ -32,7 +32,7 @@ class PHPExcel_Chart
      *
      * @var string
      */
-    private $_name = '';
+    private $name = '';
 
     /**
      * Worksheet
@@ -171,7 +171,7 @@ class PHPExcel_Chart
      */
     public function __construct($name, PHPExcel_Chart_Title $title = null, PHPExcel_Chart_Legend $legend = null, PHPExcel_Chart_PlotArea $plotArea = null, $plotVisibleOnly = true, $displayBlanksAs = '0', PHPExcel_Chart_Title $xAxisLabel = null, PHPExcel_Chart_Title $yAxisLabel = null, PHPExcel_Chart_Axis $xAxis = null, PHPExcel_Chart_Axis $yAxis = null, PHPExcel_Chart_GridLines $majorGridlines = null, PHPExcel_Chart_GridLines $minorGridlines = null)
     {
-        $this->_name = $name;
+        $this->name = $name;
         $this->title = $title;
         $this->legend = $legend;
         $this->xAxisLabel = $xAxisLabel;
@@ -192,7 +192,7 @@ class PHPExcel_Chart
      */
     public function getName()
     {
-        return $this->_name;
+        return $this->name;
     }
 
     /**

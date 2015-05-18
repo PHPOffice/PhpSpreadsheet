@@ -2063,7 +2063,7 @@ class PHPExcel_Calculation
     private static $controlFunctions = array(
         'MKMATRIX' => array(
             'argumentCount' => '*',
-            'functionCall' => 'self::_mkMatrix'
+            'functionCall' => 'self::mkMatrix'
         )
     );
 
@@ -2542,7 +2542,7 @@ class PHPExcel_Calculation
      * @param mixed $value
      * @return mixed
      */
-    public static function _wrapResult($value)
+    public static function wrapResult($value)
     {
         if (is_string($value)) {
             //    Error values cannot be "wrapped"
@@ -2567,7 +2567,7 @@ class PHPExcel_Calculation
      * @param mixed $value
      * @return mixed
      */
-    public static function _unwrapResult($value)
+    public static function unwrapResult($value)
     {
         if (is_string($value)) {
             if ((isset($value{0})) && ($value{0} == '"') && (substr($value, -1) == '"')) {
@@ -2634,7 +2634,7 @@ class PHPExcel_Calculation
             'cell' => $pCell->getCoordinate(),
         );
         try {
-            $result = self::_unwrapResult($this->_calculateFormulaValue($pCell->getValue(), $pCell->getCoordinate(), $pCell));
+            $result = self::unwrapResult($this->_calculateFormulaValue($pCell->getValue(), $pCell->getCoordinate(), $pCell));
             $cellAddress = array_pop($this->cellStack);
             $this->workbook->getSheetByName($cellAddress['sheet'])->getCell($cellAddress['cell']);
         } catch (PHPExcel_Exception $e) {
@@ -2726,7 +2726,7 @@ class PHPExcel_Calculation
         $this->calculationCacheEnabled = false;
         //    Execute the calculation
         try {
-            $result = self::_unwrapResult($this->_calculateFormulaValue($formula, $cellID, $pCell));
+            $result = self::unwrapResult($this->_calculateFormulaValue($formula, $cellID, $pCell));
         } catch (PHPExcel_Exception $e) {
             throw new PHPExcel_Calculation_Exception($e->getMessage());
         }
@@ -2776,11 +2776,11 @@ class PHPExcel_Calculation
         //    We simply return the cell value if not
         $formula = trim($formula);
         if ($formula{0} != '=') {
-            return self::_wrapResult($formula);
+            return self::wrapResult($formula);
         }
         $formula = ltrim(substr($formula, 1));
         if (!isset($formula{0})) {
-            return self::_wrapResult($formula);
+            return self::wrapResult($formula);
         }
 
         $pCellParent = ($pCell !== null) ? $pCell->getWorksheet() : null;
@@ -2811,7 +2811,7 @@ class PHPExcel_Calculation
 
         //    Parse the formula onto the token stack and calculate the value
         $this->cyclicReferenceStack->push($wsCellReference);
-        $cellValue = $this->_processTokenStack($this->_parseFormula($formula, $pCell), $cellID, $pCell);
+        $cellValue = $this->processTokenStack($this->_parseFormula($formula, $pCell), $cellID, $pCell);
         $this->cyclicReferenceStack->pop();
 
         // Save to calculation cache
@@ -3108,7 +3108,7 @@ class PHPExcel_Calculation
     }
 
 
-    private static function _mkMatrix()
+    private static function mkMatrix()
     {
         return func_get_args();
     }
@@ -3416,7 +3416,7 @@ class PHPExcel_Calculation
                     if ($opCharacter == '"') {
 //                        echo 'Element is a String<br />';
                         //    UnEscape any quotes within the string
-                        $val = self::_wrapResult(str_replace('""', '"', self::_unwrapResult($val)));
+                        $val = self::wrapResult(str_replace('""', '"', self::unwrapResult($val)));
                     } elseif (is_numeric($val)) {
 //                        echo 'Element is a Number<br />';
                         if ((strpos($val, '.') !== false) || (stripos($val, 'e') !== false) || ($val > PHP_INT_MAX) || ($val < -PHP_INT_MAX)) {
@@ -3519,7 +3519,7 @@ class PHPExcel_Calculation
     }
 
     // evaluate postfix notation
-    private function _processTokenStack($tokens, $cellID = null, PHPExcel_Cell $pCell = null)
+    private function processTokenStack($tokens, $cellID = null, PHPExcel_Cell $pCell = null)
     {
         if ($tokens == false) {
             return false;
@@ -3659,7 +3659,7 @@ class PHPExcel_Calculation
                                 $result = '#VALUE!';
                             }
                         } else {
-                            $result = '"'.str_replace('""', '"', self::_unwrapResult($operand1, '"').self::_unwrapResult($operand2, '"')).'"';
+                            $result = '"'.str_replace('""', '"', self::unwrapResult($operand1, '"').self::unwrapResult($operand2, '"')).'"';
                         }
                         $this->_debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($result));
                         $stack->push('Value', $result);
@@ -3832,7 +3832,7 @@ class PHPExcel_Calculation
                                 }
                             }
                         } else {
-                            $args[] = self::_unwrapResult($arg['value']);
+                            $args[] = self::unwrapResult($arg['value']);
                             if ($functionName != 'MKMATRIX') {
                                 $argArrayVals[] = $this->showValue($arg['value']);
                             }
@@ -3892,7 +3892,7 @@ class PHPExcel_Calculation
                     if ($functionName != 'MKMATRIX') {
                         $this->_debugLog->writeDebugLog('Evaluation Result for ', self::localeFunc($functionName), '() function call is ', $this->showTypeDetails($result));
                     }
-                    $stack->push('Value', self::_wrapResult($result));
+                    $stack->push('Value', self::wrapResult($result));
                 }
 
             } else {
@@ -3948,7 +3948,7 @@ class PHPExcel_Calculation
             //    We only need special validations for the operand if it is a string
             //    Start by stripping off the quotation marks we use to identify true excel string values internally
             if ($operand > '' && $operand{0} == '"') {
-                $operand = self::_unwrapResult($operand);
+                $operand = self::unwrapResult($operand);
             }
             //    If the string is a numeric value, we treat it as a numeric, so no further testing
             if (!is_numeric($operand)) {
@@ -4010,10 +4010,10 @@ class PHPExcel_Calculation
 
         //    Simple validate the two operands if they are string values
         if (is_string($operand1) && $operand1 > '' && $operand1{0} == '"') {
-            $operand1 = self::_unwrapResult($operand1);
+            $operand1 = self::unwrapResult($operand1);
         }
         if (is_string($operand2) && $operand2 > '' && $operand2{0} == '"') {
-            $operand2 = self::_unwrapResult($operand2);
+            $operand2 = self::unwrapResult($operand2);
         }
 
         // Use case insensitive comparaison if not OpenOffice mode

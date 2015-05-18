@@ -273,7 +273,7 @@ class SingularValueDecomposition
                 }
                 if ($ks == $k) {
                     $kase = 3;
-                } else if ($ks == $p-1) {
+                } elseif ($ks == $p-1) {
                     $kase = 1;
                 } else {
                     $kase = 2;

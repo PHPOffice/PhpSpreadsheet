@@ -40,21 +40,21 @@ class PHPExcel_Reader_Excel2007_Theme
      *
      * @var string
      */
-    private $_themeName;
+    private $themeName;
 
     /**
      * Colour Scheme Name
      *
      * @var string
      */
-    private $_colourSchemeName;
+    private $colourSchemeName;
 
     /**
      * Colour Map indexed by position
      *
      * @var array of string
      */
-    private $_colourMapValues;
+    private $colourMapValues;
 
 
     /**
@@ -62,7 +62,7 @@ class PHPExcel_Reader_Excel2007_Theme
      *
      * @var array of string
      */
-    private $_colourMap;
+    private $colourMap;
 
 
     /**
@@ -72,9 +72,9 @@ class PHPExcel_Reader_Excel2007_Theme
     public function __construct($themeName, $colourSchemeName, $colourMap)
     {
         // Initialise values
-        $this->_themeName           = $themeName;
-        $this->_colourSchemeName    = $colourSchemeName;
-        $this->_colourMap           = $colourMap;
+        $this->themeName        = $themeName;
+        $this->colourSchemeName = $colourSchemeName;
+        $this->colourMap        = $colourMap;
     }
 
     /**
@@ -84,7 +84,7 @@ class PHPExcel_Reader_Excel2007_Theme
      */
     public function getThemeName()
     {
-        return $this->_themeName;
+        return $this->themeName;
     }
 
     /**
@@ -94,7 +94,7 @@ class PHPExcel_Reader_Excel2007_Theme
      */
     public function getColourSchemeName()
     {
-        return $this->_colourSchemeName;
+        return $this->colourSchemeName;
     }
 
     /**
@@ -104,8 +104,8 @@ class PHPExcel_Reader_Excel2007_Theme
      */
     public function getColourByIndex($index = 0)
     {
-        if (isset($this->_colourMap[$index])) {
-            return $this->_colourMap[$index];
+        if (isset($this->colourMap[$index])) {
+            return $this->colourMap[$index];
         }
         return null;
     }

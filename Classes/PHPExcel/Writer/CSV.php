@@ -32,49 +32,49 @@ class PHPExcel_Writer_CSV extends PHPExcel_Writer_Abstract implements PHPExcel_W
      *
      * @var PHPExcel
      */
-    private $_phpExcel;
+    private $phpExcel;
 
     /**
      * Delimiter
      *
      * @var string
      */
-    private $_delimiter    = ',';
+    private $delimiter    = ',';
 
     /**
      * Enclosure
      *
      * @var string
      */
-    private $_enclosure    = '"';
+    private $enclosure    = '"';
 
     /**
      * Line ending
      *
      * @var string
      */
-    private $_lineEnding    = PHP_EOL;
+    private $lineEnding    = PHP_EOL;
 
     /**
      * Sheet index to write
      *
      * @var int
      */
-    private $_sheetIndex    = 0;
+    private $sheetIndex    = 0;
 
     /**
      * Whether to write a BOM (for UTF8).
      *
      * @var boolean
      */
-    private $_useBOM = false;
+    private $useBOM = false;
 
     /**
      * Whether to write a fully Excel compatible CSV file.
      *
      * @var boolean
      */
-    private $_excelCompatibility = false;
+    private $excelCompatibility = false;
 
     /**
      * Create a new PHPExcel_Writer_CSV
@@ -83,7 +83,7 @@ class PHPExcel_Writer_CSV extends PHPExcel_Writer_Abstract implements PHPExcel_W
      */
     public function __construct(PHPExcel $phpExcel)
     {
-        $this->_phpExcel    = $phpExcel;
+        $this->phpExcel    = $phpExcel;
     }
 
     /**
@@ -95,10 +95,10 @@ class PHPExcel_Writer_CSV extends PHPExcel_Writer_Abstract implements PHPExcel_W
     public function save($pFilename = null)
     {
         // Fetch sheet
-        $sheet = $this->_phpExcel->getSheet($this->_sheetIndex);
+        $sheet = $this->phpExcel->getSheet($this->sheetIndex);
 
-        $saveDebugLog = PHPExcel_Calculation::getInstance($this->_phpExcel)->getDebugLog()->getWriteDebugLog();
-        PHPExcel_Calculation::getInstance($this->_phpExcel)->getDebugLog()->setWriteDebugLog(false);
+        $saveDebugLog = PHPExcel_Calculation::getInstance($this->phpExcel)->getDebugLog()->getWriteDebugLog();
+        PHPExcel_Calculation::getInstance($this->phpExcel)->getDebugLog()->setWriteDebugLog(false);
         $saveArrayReturnType = PHPExcel_Calculation::getArrayReturnType();
         PHPExcel_Calculation::setArrayReturnType(PHPExcel_Calculation::RETURN_ARRAY_AS_VALUE);
 
@@ -108,13 +108,13 @@ class PHPExcel_Writer_CSV extends PHPExcel_Writer_Abstract implements PHPExcel_W
             throw new PHPExcel_Writer_Exception("Could not open file $pFilename for writing.");
         }
 
-        if ($this->_excelCompatibility) {
+        if ($this->excelCompatibility) {
             fwrite($fileHandle, "\xEF\xBB\xBF");    //    Enforce UTF-8 BOM Header
             $this->setEnclosure('"');                //    Set enclosure to "
             $this->setDelimiter(";");                //    Set delimiter to a semi-colon
             $this->setLineEnding("\r\n");
-            fwrite($fileHandle, 'sep=' . $this->getDelimiter() . $this->_lineEnding);
-        } elseif ($this->_useBOM) {
+            fwrite($fileHandle, 'sep=' . $this->getDelimiter() . $this->lineEnding);
+        } elseif ($this->useBOM) {
             // Write the UTF-8 BOM code if required
             fwrite($fileHandle, "\xEF\xBB\xBF");
         }
@@ -135,7 +135,7 @@ class PHPExcel_Writer_CSV extends PHPExcel_Writer_Abstract implements PHPExcel_W
         fclose($fileHandle);
 
         PHPExcel_Calculation::setArrayReturnType($saveArrayReturnType);
-        PHPExcel_Calculation::getInstance($this->_phpExcel)->getDebugLog()->setWriteDebugLog($saveDebugLog);
+        PHPExcel_Calculation::getInstance($this->phpExcel)->getDebugLog()->setWriteDebugLog($saveDebugLog);
     }
 
     /**
@@ -145,7 +145,7 @@ class PHPExcel_Writer_CSV extends PHPExcel_Writer_Abstract implements PHPExcel_W
      */
     public function getDelimiter()
     {
-        return $this->_delimiter;
+        return $this->delimiter;
     }
 
     /**
@@ -156,7 +156,7 @@ class PHPExcel_Writer_CSV extends PHPExcel_Writer_Abstract implements PHPExcel_W
      */
     public function setDelimiter($pValue = ',')
     {
-        $this->_delimiter = $pValue;
+        $this->delimiter = $pValue;
         return $this;
     }
 
@@ -167,7 +167,7 @@ class PHPExcel_Writer_CSV extends PHPExcel_Writer_Abstract implements PHPExcel_W
      */
     public function getEnclosure()
     {
-        return $this->_enclosure;
+        return $this->enclosure;
     }
 
     /**
@@ -181,7 +181,7 @@ class PHPExcel_Writer_CSV extends PHPExcel_Writer_Abstract implements PHPExcel_W
         if ($pValue == '') {
             $pValue = null;
         }
-        $this->_enclosure = $pValue;
+        $this->enclosure = $pValue;
         return $this;
     }
 
@@ -192,7 +192,7 @@ class PHPExcel_Writer_CSV extends PHPExcel_Writer_Abstract implements PHPExcel_W
      */
     public function getLineEnding()
     {
-        return $this->_lineEnding;
+        return $this->lineEnding;
     }
 
     /**
@@ -203,7 +203,7 @@ class PHPExcel_Writer_CSV extends PHPExcel_Writer_Abstract implements PHPExcel_W
      */
     public function setLineEnding($pValue = PHP_EOL)
     {
-        $this->_lineEnding = $pValue;
+        $this->lineEnding = $pValue;
         return $this;
     }
 
@@ -214,7 +214,7 @@ class PHPExcel_Writer_CSV extends PHPExcel_Writer_Abstract implements PHPExcel_W
      */
     public function getUseBOM()
     {
-        return $this->_useBOM;
+        return $this->useBOM;
     }
 
     /**
@@ -225,7 +225,7 @@ class PHPExcel_Writer_CSV extends PHPExcel_Writer_Abstract implements PHPExcel_W
      */
     public function setUseBOM($pValue = false)
     {
-        $this->_useBOM = $pValue;
+        $this->useBOM = $pValue;
         return $this;
     }
 
@@ -236,7 +236,7 @@ class PHPExcel_Writer_CSV extends PHPExcel_Writer_Abstract implements PHPExcel_W
      */
     public function getExcelCompatibility()
     {
-        return $this->_excelCompatibility;
+        return $this->excelCompatibility;
     }
 
     /**
@@ -248,7 +248,7 @@ class PHPExcel_Writer_CSV extends PHPExcel_Writer_Abstract implements PHPExcel_W
      */
     public function setExcelCompatibility($pValue = false)
     {
-        $this->_excelCompatibility = $pValue;
+        $this->excelCompatibility = $pValue;
         return $this;
     }
 
@@ -259,7 +259,7 @@ class PHPExcel_Writer_CSV extends PHPExcel_Writer_Abstract implements PHPExcel_W
      */
     public function getSheetIndex()
     {
-        return $this->_sheetIndex;
+        return $this->sheetIndex;
     }
 
     /**
@@ -270,7 +270,7 @@ class PHPExcel_Writer_CSV extends PHPExcel_Writer_Abstract implements PHPExcel_W
      */
     public function setSheetIndex($pValue = 0)
     {
-        $this->_sheetIndex = $pValue;
+        $this->sheetIndex = $pValue;
         return $this;
     }
 
@@ -292,21 +292,21 @@ class PHPExcel_Writer_CSV extends PHPExcel_Writer_Abstract implements PHPExcel_W
 
             foreach ($pValues as $element) {
                 // Escape enclosures
-                $element = str_replace($this->_enclosure, $this->_enclosure . $this->_enclosure, $element);
+                $element = str_replace($this->enclosure, $this->enclosure . $this->enclosure, $element);
 
                 // Add delimiter
                 if ($writeDelimiter) {
-                    $line .= $this->_delimiter;
+                    $line .= $this->delimiter;
                 } else {
                     $writeDelimiter = true;
                 }
 
                 // Add enclosed string
-                $line .= $this->_enclosure . $element . $this->_enclosure;
+                $line .= $this->enclosure . $element . $this->enclosure;
             }
 
             // Add line ending
-            $line .= $this->_lineEnding;
+            $line .= $this->lineEnding;
 
             // Write to file
             fwrite($pFileHandle, $line);

@@ -877,7 +877,7 @@ class PHPExcel_Calculation_Statistical
         $aCount = 0;
         foreach ($aArgs as $key => $arg) {
             if (!is_numeric($arg)) {
-                $arg = PHPExcel_Calculation::_wrapResult(strtoupper($arg));
+                $arg = PHPExcel_Calculation::wrapResult(strtoupper($arg));
             }
             $testCondition = '='.$arg.$condition;
             if (PHPExcel_Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
@@ -1298,7 +1298,7 @@ class PHPExcel_Calculation_Statistical
         // Loop through arguments
         foreach ($aArgs as $arg) {
             if (!is_numeric($arg)) {
-                $arg = PHPExcel_Calculation::_wrapResult(strtoupper($arg));
+                $arg = PHPExcel_Calculation::wrapResult(strtoupper($arg));
             }
             $testCondition = '='.$arg.$condition;
             if (PHPExcel_Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
@@ -2290,7 +2290,7 @@ class PHPExcel_Calculation_Statistical
         // Loop through arguments
         foreach ($aArgs as $key => $arg) {
             if (!is_numeric($arg)) {
-                $arg = PHPExcel_Calculation::_wrapResult(strtoupper($arg));
+                $arg = PHPExcel_Calculation::wrapResult(strtoupper($arg));
             }
             $testCondition = '='.$arg.$condition;
             if (PHPExcel_Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
@@ -2449,7 +2449,7 @@ class PHPExcel_Calculation_Statistical
         // Loop through arguments
         foreach ($aArgs as $key => $arg) {
             if (!is_numeric($arg)) {
-                $arg = PHPExcel_Calculation::_wrapResult(strtoupper($arg));
+                $arg = PHPExcel_Calculation::wrapResult(strtoupper($arg));
             }
             $testCondition = '='.$arg.$condition;
             if (PHPExcel_Calculation::getInstance()->_calculateFormulaValue($testCondition)) {

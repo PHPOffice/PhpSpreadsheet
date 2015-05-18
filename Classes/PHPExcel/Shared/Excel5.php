@@ -1,6 +1,7 @@
 <?php
+
 /**
- * PHPExcel
+ * PHPExcel_Shared_Excel5
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -23,14 +24,6 @@
  * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
- */
-
-/**
- * PHPExcel_Shared_Excel5
- *
- * @category   PHPExcel
- * @package    PHPExcel_Shared
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Shared_Excel5
 {
@@ -56,7 +49,7 @@ class PHPExcel_Shared_Excel5
             $columnDimension = $columnDimensions[$col];
             $width = $columnDimension->getWidth();
             $pixelWidth = PHPExcel_Shared_Drawing::cellDimensionToPixels($width, $font);
-        } else if ($sheet->getDefaultColumnDimension()->getWidth() != -1) {
+        } elseif ($sheet->getDefaultColumnDimension()->getWidth() != -1) {
             // then we have default column dimension with explicit width
             $defaultColumnDimension = $sheet->getDefaultColumnDimension();
             $width = $defaultColumnDimension->getWidth();
@@ -98,7 +91,7 @@ class PHPExcel_Shared_Excel5
             $rowDimension = $rowDimensions[$row];
             $rowHeight = $rowDimension->getRowHeight();
             $pixelRowHeight = (int) ceil(4 * $rowHeight / 3); // here we assume Arial 10
-        } else if ($sheet->getDefaultRowDimension()->getRowHeight() != -1) {
+        } elseif ($sheet->getDefaultRowDimension()->getRowHeight() != -1) {
             // then we have a default row dimension with explicit height
             $defaultRowDimension = $sheet->getDefaultRowDimension();
             $rowHeight = $defaultRowDimension->getRowHeight();

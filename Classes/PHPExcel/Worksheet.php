@@ -2265,9 +2265,9 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
 
         if (strpos($pCellCoordinate, ':') !== false || strpos($pCellCoordinate, ',') !== false) {
             throw new PHPExcel_Exception('Cell coordinate string can not be a range of cells.');
-        } else if (strpos($pCellCoordinate, '$') !== false) {
+        } elseif (strpos($pCellCoordinate, '$') !== false) {
             throw new PHPExcel_Exception('Cell coordinate string must not be absolute.');
-        } else if ($pCellCoordinate == '') {
+        } elseif ($pCellCoordinate == '') {
             throw new PHPExcel_Exception('Cell coordinate can not be zero-length string.');
         } else {
             // Check if we already have a comment for this cell.

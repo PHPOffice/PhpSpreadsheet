@@ -1,6 +1,16 @@
 <?php
+
+/** PHPExcel root directory */
+if (!defined('PHPEXCEL_ROOT')) {
+    /**
+     * @ignore
+     */
+    define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
+    require(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
+}
+
 /**
- * PHPExcel
+ * PHPExcel_Reader_Excel2007
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -24,24 +34,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-
-
-/** PHPExcel root directory */
-if (!defined('PHPEXCEL_ROOT')) {
-    /**
-     * @ignore
-     */
-    define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
-    require(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
-}
-
-/**
- * PHPExcel_Reader_Excel2007
- *
- * @category    PHPExcel
- * @package    PHPExcel_Reader
- * @copyright    Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
 class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
 {
     /**
@@ -49,14 +41,14 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
      *
      * @var PHPExcel_ReferenceHelper
      */
-    private $_referenceHelper = null;
+    private $referenceHelper = null;
 
     /**
      * PHPExcel_Reader_Excel2007_Theme instance
      *
      * @var PHPExcel_Reader_Excel2007_Theme
      */
-    private static $_theme = null;
+    private static $theme = null;
 
     /**
      * Create a new PHPExcel_Reader_Excel2007 instance
@@ -64,7 +56,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
     public function __construct()
     {
         $this->_readFilter = new PHPExcel_Reader_DefaultReadFilter();
-        $this->_referenceHelper = PHPExcel_ReferenceHelper::getInstance();
+        $this->referenceHelper = PHPExcel_ReferenceHelper::getInstance();
     }
 
     /**
@@ -239,7 +231,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
         return $worksheetInfo;
     }
 
-    private static function _castToBool($c)
+    private static function castToBoolean($c)
     {
 //        echo 'Initial Cast to Boolean', PHP_EOL;
         $value = isset($c->v) ? (string) $c->v : null;
@@ -251,21 +243,21 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
             return (bool)$c->v;
         }
         return $value;
-    }    //    function _castToBool()
+    }
 
-    private static function _castToError($c)
+    private static function castToError($c)
     {
 //        echo 'Initial Cast to Error', PHP_EOL;
         return isset($c->v) ? (string) $c->v : null;
-    }    //    function _castToError()
+    }
 
-    private static function _castToString($c)
+    private static function castToString($c)
     {
 //        echo 'Initial Cast to String, PHP_EOL;
         return isset($c->v) ? (string) $c->v : null;
-    }    //    function _castToString()
+    }
 
-    private function _castToFormula($c, $r, &$cellDataType, &$value, &$calculatedValue, &$sharedFormulas, $castBaseType)
+    private function castToFormula($c, $r, &$cellDataType, &$value, &$calculatedValue, &$sharedFormulas, $castBaseType)
     {
 //        echo 'Formula', PHP_EOL;
 //        echo '$c->f is ', $c->f, PHP_EOL;
@@ -300,7 +292,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
                 $difference[0] = PHPExcel_Cell::columnIndexFromString($current[0]) - PHPExcel_Cell::columnIndexFromString($master[0]);
                 $difference[1] = $current[1] - $master[1];
 
-                $value = $this->_referenceHelper->updateFormulaReferences($sharedFormulas[$instance]['formula'], 'A1', $difference[0], $difference[1]);
+                $value = $this->referenceHelper->updateFormulaReferences($sharedFormulas[$instance]['formula'], 'A1', $difference[0], $difference[1]);
 //                echo 'Adjusted Formula is ', $value, PHP_EOL;
             }
         }
@@ -384,7 +376,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
                                 $themeColours[$themePos] = $xmlColourData['val'];
                             }
                         }
-                        self::$_theme = new PHPExcel_Reader_Excel2007_Theme($themeName, $colourSchemeName, $themeColours);
+                        self::$theme = new PHPExcel_Reader_Excel2007_Theme($themeName, $colourSchemeName, $themeColours);
                     }
                     break;
             }
@@ -445,7 +437,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
                 case "http://schemas.microsoft.com/office/2006/relationships/ui/extensibility":
                     $customUI = $rel['Target'];
                     if (!is_null($customUI)) {
-                        $this->_readRibbon($excel, $customUI, $zip);
+                        $this->readRibbon($excel, $customUI, $zip);
                     }
                     break;
                 case "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument":
@@ -461,7 +453,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
                             if (isset($val->t)) {
                                 $sharedStrings[] = PHPExcel_Shared_String::ControlCharacterOOXML2PHP((string) $val->t);
                             } elseif (isset($val->r)) {
-                                $sharedStrings[] = $this->_parseRichText($val);
+                                $sharedStrings[] = $this->parseRichText($val);
                             }
                         }
                     }
@@ -540,7 +532,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 
                             // add style to cellXf collection
                             $objStyle = new PHPExcel_Style;
-                            self::_readStyle($objStyle, $style);
+                            self::readStyle($objStyle, $style);
                             $excel->addCellXf($objStyle);
                         }
 
@@ -550,7 +542,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
                                 $tmpNumFmt = self::array_item($numFmts->xpath("sml:numFmt[@numFmtId=$xf[numFmtId]]"));
                                 if (isset($tmpNumFmt["formatCode"])) {
                                     $numFmt = (string) $tmpNumFmt["formatCode"];
-                                } else if ((int)$xf["numFmtId"] < 165) {
+                                } elseif ((int)$xf["numFmtId"] < 165) {
                                     $numFmt = PHPExcel_Style_NumberFormat::builtInFormatCode((int)$xf["numFmtId"]);
                                 }
                             }
@@ -568,7 +560,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
 
                             // add style to cellStyleXf collection
                             $objStyle = new PHPExcel_Style;
-                            self::_readStyle($objStyle, $cellStyle);
+                            self::readStyle($objStyle, $cellStyle);
                             $excel->addCellStyleXf($objStyle);
                         }
                     }
@@ -579,7 +571,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
                         if ($xmlStyles->dxfs) {
                             foreach ($xmlStyles->dxfs->dxf as $dxf) {
                                 $style = new PHPExcel_Style(false, true);
-                                self::_readStyle($style, $dxf);
+                                self::readStyle($style, $dxf);
                                 $dxfs[] = $style;
                             }
                         }
@@ -590,7 +582,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
                                     if (isset($cellStyles[intval($cellStyle['xfId'])])) {
                                         // Set default style
                                         $style = new PHPExcel_Style;
-                                        self::_readStyle($style, $cellStyles[intval($cellStyle['xfId'])]);
+                                        self::readStyle($style, $cellStyles[intval($cellStyle['xfId'])]);
 
                                         // normal style, currently not using it for anything
                                     }
@@ -843,10 +835,10 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
                                             case "b":
     //                                            echo 'Boolean', PHP_EOL;
                                                 if (!isset($c->f)) {
-                                                    $value = self::_castToBool($c);
+                                                    $value = self::castToBoolean($c);
                                                 } else {
                                                     // Formula
-                                                    $this->_castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, '_castToBool');
+                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToBoolean');
                                                     if (isset($c->f['t'])) {
                                                         $att = array();
                                                         $att = $c->f;
@@ -857,15 +849,15 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
                                                 break;
                                             case "inlineStr":
     //                                            echo 'Inline String', PHP_EOL;
-                                                $value = $this->_parseRichText($c->is);
+                                                $value = $this->parseRichText($c->is);
                                                 break;
                                             case "e":
     //                                            echo 'Error', PHP_EOL;
                                                 if (!isset($c->f)) {
-                                                    $value = self::_castToError($c);
+                                                    $value = self::castToError($c);
                                                 } else {
                                                     // Formula
-                                                    $this->_castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, '_castToError');
+                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToError');
     //                                                echo '$calculatedValue = ', $calculatedValue, PHP_EOL;
                                                 }
                                                 break;
@@ -873,11 +865,11 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
     //                                            echo 'Default', PHP_EOL;
                                                 if (!isset($c->f)) {
     //                                                echo 'Not a Formula', PHP_EOL;
-                                                    $value = self::_castToString($c);
+                                                    $value = self::castToString($c);
                                                 } else {
     //                                                echo 'Treat as Formula', PHP_EOL;
                                                     // Formula
-                                                    $this->_castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, '_castToString');
+                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToString');
     //                                                echo '$calculatedValue = ', $calculatedValue, PHP_EOL;
                                                 }
                                                 break;
@@ -1280,7 +1272,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
                                         if (!empty($comment['authorId'])) {
                                             $docSheet->getComment((string)$comment['ref'])->setAuthor($authors[(string)$comment['authorId']]);
                                         }
-                                        $docSheet->getComment((string)$comment['ref'])->setText($this->_parseRichText($comment->text));
+                                        $docSheet->getComment((string)$comment['ref'])->setText($this->parseRichText($comment->text));
                                     }
                                 }
 
@@ -1654,7 +1646,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
                                             }
                                             break;
                                     }
-                                } else if (!isset($definedName['localSheetId'])) {
+                                } elseif (!isset($definedName['localSheetId'])) {
                                     // "Global" definedNames
                                     $locatedSheet = null;
                                     $extractedSheetName = '';
@@ -1732,15 +1724,15 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
         return $excel;
     }
 
-    private static function _readColor($color, $background = false)
+    private static function readColor($color, $background = false)
     {
         if (isset($color["rgb"])) {
             return (string)$color["rgb"];
-        } else if (isset($color["indexed"])) {
+        } elseif (isset($color["indexed"])) {
             return PHPExcel_Style_Color::indexedColor($color["indexed"]-7, $background)->getARGB();
-        } else if (isset($color["theme"])) {
-            if (self::$_theme !== null) {
-                $returnColour = self::$_theme->getColourByIndex((int)$color["theme"]);
+        } elseif (isset($color["theme"])) {
+            if (self::$theme !== null) {
+                $returnColour = self::$theme->getColourByIndex((int)$color["theme"]);
                 if (isset($color["tint"])) {
                     $tintAdjust = (float) $color["tint"];
                     $returnColour = PHPExcel_Style_Color::changeBrightness($returnColour, $tintAdjust);
@@ -1755,7 +1747,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
         return 'FF000000';
     }
 
-    private static function _readStyle($docStyle, $style)
+    private static function readStyle($docStyle, $style)
     {
         // format code
 //        if (isset($style->numFmt)) {
@@ -1779,11 +1771,11 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
             if (isset($style->font->strike)) {
                 $docStyle->getFont()->setStrikethrough(!isset($style->font->strike["val"]) || self::boolean((string) $style->font->strike["val"]));
             }
-            $docStyle->getFont()->getColor()->setARGB(self::_readColor($style->font->color));
+            $docStyle->getFont()->getColor()->setARGB(self::readColor($style->font->color));
 
             if (isset($style->font->u) && !isset($style->font->u["val"])) {
                 $docStyle->getFont()->setUnderline(PHPExcel_Style_Font::UNDERLINE_SINGLE);
-            } else if (isset($style->font->u) && isset($style->font->u["val"])) {
+            } elseif (isset($style->font->u) && isset($style->font->u["val"])) {
                 $docStyle->getFont()->setUnderline((string)$style->font->u["val"]);
             }
 
@@ -1807,18 +1799,18 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
                 }
                 $docStyle->getFill()->setRotation(floatval($gradientFill["degree"]));
                 $gradientFill->registerXPathNamespace("sml", "http://schemas.openxmlformats.org/spreadsheetml/2006/main");
-                $docStyle->getFill()->getStartColor()->setARGB(self::_readColor(self::array_item($gradientFill->xpath("sml:stop[@position=0]"))->color));
-                $docStyle->getFill()->getEndColor()->setARGB(self::_readColor(self::array_item($gradientFill->xpath("sml:stop[@position=1]"))->color));
+                $docStyle->getFill()->getStartColor()->setARGB(self::readColor(self::array_item($gradientFill->xpath("sml:stop[@position=0]"))->color));
+                $docStyle->getFill()->getEndColor()->setARGB(self::readColor(self::array_item($gradientFill->xpath("sml:stop[@position=1]"))->color));
             } elseif ($style->fill->patternFill) {
                 $patternType = (string)$style->fill->patternFill["patternType"] != '' ? (string)$style->fill->patternFill["patternType"] : 'solid';
                 $docStyle->getFill()->setFillType($patternType);
                 if ($style->fill->patternFill->fgColor) {
-                    $docStyle->getFill()->getStartColor()->setARGB(self::_readColor($style->fill->patternFill->fgColor, true));
+                    $docStyle->getFill()->getStartColor()->setARGB(self::readColor($style->fill->patternFill->fgColor, true));
                 } else {
                     $docStyle->getFill()->getStartColor()->setARGB('FF000000');
                 }
                 if ($style->fill->patternFill->bgColor) {
-                    $docStyle->getFill()->getEndColor()->setARGB(self::_readColor($style->fill->patternFill->bgColor, true));
+                    $docStyle->getFill()->getEndColor()->setARGB(self::readColor($style->fill->patternFill->bgColor, true));
                 }
             }
         }
@@ -1836,11 +1828,11 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
             } else {
                 $docStyle->getBorders()->setDiagonalDirection(PHPExcel_Style_Borders::DIAGONAL_BOTH);
             }
-            self::_readBorder($docStyle->getBorders()->getLeft(), $style->border->left);
-            self::_readBorder($docStyle->getBorders()->getRight(), $style->border->right);
-            self::_readBorder($docStyle->getBorders()->getTop(), $style->border->top);
-            self::_readBorder($docStyle->getBorders()->getBottom(), $style->border->bottom);
-            self::_readBorder($docStyle->getBorders()->getDiagonal(), $style->border->diagonal);
+            self::readBorder($docStyle->getBorders()->getLeft(), $style->border->left);
+            self::readBorder($docStyle->getBorders()->getRight(), $style->border->right);
+            self::readBorder($docStyle->getBorders()->getTop(), $style->border->top);
+            self::readBorder($docStyle->getBorders()->getBottom(), $style->border->bottom);
+            self::readBorder($docStyle->getBorders()->getDiagonal(), $style->border->diagonal);
         }
 
         // alignment
@@ -1851,7 +1843,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
             $textRotation = 0;
             if ((int)$style->alignment["textRotation"] <= 90) {
                 $textRotation = (int)$style->alignment["textRotation"];
-            } else if ((int)$style->alignment["textRotation"] > 90) {
+            } elseif ((int)$style->alignment["textRotation"] > 90) {
                 $textRotation = 90 - (int)$style->alignment["textRotation"];
             }
 
@@ -1887,17 +1879,17 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
         }
     }
 
-    private static function _readBorder($docBorder, $eleBorder)
+    private static function readBorder($docBorder, $eleBorder)
     {
         if (isset($eleBorder["style"])) {
             $docBorder->setBorderStyle((string) $eleBorder["style"]);
         }
         if (isset($eleBorder->color)) {
-            $docBorder->getColor()->setARGB(self::_readColor($eleBorder->color));
+            $docBorder->getColor()->setARGB(self::readColor($eleBorder->color));
         }
     }
 
-    private function _parseRichText($is = null)
+    private function parseRichText($is = null)
     {
         $value = new PHPExcel_RichText();
 
@@ -1919,7 +1911,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
                             $objText->getFont()->setSize((string) $run->rPr->sz["val"]);
                         }
                         if (isset($run->rPr->color)) {
-                            $objText->getFont()->setColor(new PHPExcel_Style_Color(self::_readColor($run->rPr->color)));
+                            $objText->getFont()->setColor(new PHPExcel_Style_Color(self::readColor($run->rPr->color)));
                         }
                         if ((isset($run->rPr->b["val"]) && self::boolean((string) $run->rPr->b["val"])) ||
                             (isset($run->rPr->b) && !isset($run->rPr->b["val"]))) {
@@ -1940,7 +1932,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
                         }
                         if (isset($run->rPr->u) && !isset($run->rPr->u["val"])) {
                             $objText->getFont()->setUnderline(PHPExcel_Style_Font::UNDERLINE_SINGLE);
-                        } else if (isset($run->rPr->u) && isset($run->rPr->u["val"])) {
+                        } elseif (isset($run->rPr->u) && isset($run->rPr->u["val"])) {
                             $objText->getFont()->setUnderline((string)$run->rPr->u["val"]);
                         }
                         if ((isset($run->rPr->strike["val"]) && self::boolean((string) $run->rPr->strike["val"])) ||
@@ -1955,7 +1947,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
         return $value;
     }
 
-    private function _readRibbon($excel, $customUITarget, $zip)
+    private function readRibbon($excel, $customUITarget, $zip)
     {
         $baseDir = dirname($customUITarget);
         $nameCustomUI = basename($customUITarget);

@@ -1,6 +1,7 @@
 <?php
+
 /**
- * PHPExcel
+ * PHPExcel_Shared_Escher_DgContainer
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -24,14 +25,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-
-/**
- * PHPExcel_Shared_Escher_DgContainer
- *
- * @category   PHPExcel
- * @package    PHPExcel_Shared_Escher
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
 class PHPExcel_Shared_Escher_DgContainer
 {
     /**
@@ -39,44 +32,44 @@ class PHPExcel_Shared_Escher_DgContainer
      *
      * @var int
      */
-    private $_dgId;
+    private $dgId;
 
     /**
      * Last shape index in this drawing
      *
      * @var int
      */
-    private $_lastSpId;
+    private $lastSpId;
 
-    private $_spgrContainer = null;
+    private $spgrContainer = null;
 
     public function getDgId()
     {
-        return $this->_dgId;
+        return $this->dgId;
     }
 
     public function setDgId($value)
     {
-        $this->_dgId = $value;
+        $this->dgId = $value;
     }
 
     public function getLastSpId()
     {
-        return $this->_lastSpId;
+        return $this->lastSpId;
     }
 
     public function setLastSpId($value)
     {
-        $this->_lastSpId = $value;
+        $this->lastSpId = $value;
     }
 
     public function getSpgrContainer()
     {
-        return $this->_spgrContainer;
+        return $this->spgrContainer;
     }
 
     public function setSpgrContainer($spgrContainer)
     {
-        return $this->_spgrContainer = $spgrContainer;
+        return $this->spgrContainer = $spgrContainer;
     }
 }

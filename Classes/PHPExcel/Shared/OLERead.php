@@ -273,7 +273,7 @@ class PHPExcel_Shared_OLERead
             // Workbook directory entry (BIFF5 uses Book, BIFF8 uses Workbook)
             if (($upName === 'WORKBOOK') || ($upName === 'BOOK')) {
                 $this->wrkbook = count($this->props) - 1;
-            } else if ($upName === 'ROOT ENTRY' || $upName === 'R') {
+            } elseif ($upName === 'ROOT ENTRY' || $upName === 'R') {
                 // Root entry
                 $this->rootentry = count($this->props) - 1;
             }

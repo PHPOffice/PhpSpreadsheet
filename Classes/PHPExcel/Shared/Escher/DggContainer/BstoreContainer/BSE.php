@@ -1,6 +1,7 @@
 <?php
+
 /**
- * PHPExcel
+ * PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -24,26 +25,18 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-
-/**
- * PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
- *
- * @category   PHPExcel
- * @package    PHPExcel_Shared_Escher
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
 class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
 {
     const BLIPTYPE_ERROR    = 0x00;
-    const BLIPTYPE_UNKNOWN    = 0x01;
-    const BLIPTYPE_EMF        = 0x02;
-    const BLIPTYPE_WMF        = 0x03;
-    const BLIPTYPE_PICT        = 0x04;
-    const BLIPTYPE_JPEG        = 0x05;
-    const BLIPTYPE_PNG        = 0x06;
-    const BLIPTYPE_DIB        = 0x07;
-    const BLIPTYPE_TIFF        = 0x11;
-    const BLIPTYPE_CMYKJPEG    = 0x12;
+    const BLIPTYPE_UNKNOWN  = 0x01;
+    const BLIPTYPE_EMF      = 0x02;
+    const BLIPTYPE_WMF      = 0x03;
+    const BLIPTYPE_PICT     = 0x04;
+    const BLIPTYPE_JPEG     = 0x05;
+    const BLIPTYPE_PNG      = 0x06;
+    const BLIPTYPE_DIB      = 0x07;
+    const BLIPTYPE_TIFF     = 0x11;
+    const BLIPTYPE_CMYKJPEG = 0x12;
 
     /**
      * The parent BLIP Store Entry Container
@@ -57,14 +50,14 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
      *
      * @var PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE_Blip
      */
-    private $_blip;
+    private $blip;
 
     /**
      * The BLIP type
      *
      * @var int
      */
-    private $_blipType;
+    private $blipType;
 
     /**
      * Set parent BLIP Store Entry Container
@@ -83,7 +76,7 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
      */
     public function getBlip()
     {
-        return $this->_blip;
+        return $this->blip;
     }
 
     /**
@@ -93,7 +86,7 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
      */
     public function setBlip($blip)
     {
-        $this->_blip = $blip;
+        $this->blip = $blip;
         $blip->setParent($this);
     }
 
@@ -104,7 +97,7 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
      */
     public function getBlipType()
     {
-        return $this->_blipType;
+        return $this->blipType;
     }
 
     /**
@@ -114,6 +107,6 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
      */
     public function setBlipType($blipType)
     {
-        $this->_blipType = $blipType;
+        $this->blipType = $blipType;
     }
 }

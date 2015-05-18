@@ -126,7 +126,7 @@ class PHPExcel_Calculation_Database
                 $k = array_search($criteriaName, $fieldNames);
                 if (isset($dataValues[$k])) {
                     $dataValue = $dataValues[$k];
-                    $dataValue = (is_string($dataValue)) ? PHPExcel_Calculation::_wrapResult(strtoupper($dataValue)) : $dataValue;
+                    $dataValue = (is_string($dataValue)) ? PHPExcel_Calculation::wrapResult(strtoupper($dataValue)) : $dataValue;
                     $testConditionList = str_replace('[:' . $criteriaName . ']', $dataValue, $testConditionList);
                 }
             }

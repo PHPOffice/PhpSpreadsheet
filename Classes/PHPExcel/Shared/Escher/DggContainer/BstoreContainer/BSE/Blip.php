@@ -1,6 +1,7 @@
 <?php
+
 /**
- * PHPExcel
+ * PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE_Blip
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -24,14 +25,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-
-/**
- * PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE_Blip
- *
- * @category   PHPExcel
- * @package    PHPExcel_Shared_Escher
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
 class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE_Blip
 {
     /**
@@ -39,14 +32,14 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE_Blip
      *
      * @var PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
      */
-    private $_parent;
+    private $parent;
 
     /**
      * Raw image data
      *
      * @var string
      */
-    private $_data;
+    private $data;
 
     /**
      * Get the raw image data
@@ -55,7 +48,7 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE_Blip
      */
     public function getData()
     {
-        return $this->_data;
+        return $this->data;
     }
 
     /**
@@ -65,7 +58,7 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE_Blip
      */
     public function setData($data)
     {
-        $this->_data = $data;
+        $this->data = $data;
     }
 
     /**
@@ -75,7 +68,7 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE_Blip
      */
     public function setParent($parent)
     {
-        $this->_parent = $parent;
+        $this->parent = $parent;
     }
 
     /**
@@ -85,6 +78,6 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE_Blip
      */
     public function getParent()
     {
-        return $this->_parent;
+        return $this->parent;
     }
 }

@@ -1,6 +1,7 @@
 <?php
+
 /**
- * PHPExcel
+ * PHPExcel_Shared_Escher_DggContainer
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -24,14 +25,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-
-/**
- * PHPExcel_Shared_Escher_DggContainer
- *
- * @category   PHPExcel
- * @package    PHPExcel_Shared_Escher
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
 class PHPExcel_Shared_Escher_DggContainer
 {
     /**
@@ -39,42 +32,42 @@ class PHPExcel_Shared_Escher_DggContainer
      *
      * @var int
      */
-    private $_spIdMax;
+    private $spIdMax;
 
     /**
      * Total number of drawings saved
      *
      * @var int
      */
-    private $_cDgSaved;
+    private $cDgSaved;
 
     /**
      * Total number of shapes saved (including group shapes)
      *
      * @var int
      */
-    private $_cSpSaved;
+    private $cSpSaved;
 
     /**
      * BLIP Store Container
      *
      * @var PHPExcel_Shared_Escher_DggContainer_BstoreContainer
      */
-    private $_bstoreContainer;
+    private $bstoreContainer;
 
     /**
      * Array of options for the drawing group
      *
      * @var array
      */
-    private $_OPT = array();
+    private $OPT = array();
 
     /**
      * Array of identifier clusters containg information about the maximum shape identifiers
      *
      * @var array
      */
-    private $_IDCLs = array();
+    private $IDCLs = array();
 
     /**
      * Get maximum shape index of all shapes in all drawings (plus one)
@@ -83,7 +76,7 @@ class PHPExcel_Shared_Escher_DggContainer
      */
     public function getSpIdMax()
     {
-        return $this->_spIdMax;
+        return $this->spIdMax;
     }
 
     /**
@@ -93,7 +86,7 @@ class PHPExcel_Shared_Escher_DggContainer
      */
     public function setSpIdMax($value)
     {
-        $this->_spIdMax = $value;
+        $this->spIdMax = $value;
     }
 
     /**
@@ -103,7 +96,7 @@ class PHPExcel_Shared_Escher_DggContainer
      */
     public function getCDgSaved()
     {
-        return $this->_cDgSaved;
+        return $this->cDgSaved;
     }
 
     /**
@@ -113,7 +106,7 @@ class PHPExcel_Shared_Escher_DggContainer
      */
     public function setCDgSaved($value)
     {
-        $this->_cDgSaved = $value;
+        $this->cDgSaved = $value;
     }
 
     /**
@@ -123,7 +116,7 @@ class PHPExcel_Shared_Escher_DggContainer
      */
     public function getCSpSaved()
     {
-        return $this->_cSpSaved;
+        return $this->cSpSaved;
     }
 
     /**
@@ -133,7 +126,7 @@ class PHPExcel_Shared_Escher_DggContainer
      */
     public function setCSpSaved($value)
     {
-        $this->_cSpSaved = $value;
+        $this->cSpSaved = $value;
     }
 
     /**
@@ -143,7 +136,7 @@ class PHPExcel_Shared_Escher_DggContainer
      */
     public function getBstoreContainer()
     {
-        return $this->_bstoreContainer;
+        return $this->bstoreContainer;
     }
 
     /**
@@ -153,7 +146,7 @@ class PHPExcel_Shared_Escher_DggContainer
      */
     public function setBstoreContainer($bstoreContainer)
     {
-        $this->_bstoreContainer = $bstoreContainer;
+        $this->bstoreContainer = $bstoreContainer;
     }
 
     /**
@@ -164,7 +157,7 @@ class PHPExcel_Shared_Escher_DggContainer
      */
     public function setOPT($property, $value)
     {
-        $this->_OPT[$property] = $value;
+        $this->OPT[$property] = $value;
     }
 
     /**
@@ -175,8 +168,8 @@ class PHPExcel_Shared_Escher_DggContainer
      */
     public function getOPT($property)
     {
-        if (isset($this->_OPT[$property])) {
-            return $this->_OPT[$property];
+        if (isset($this->OPT[$property])) {
+            return $this->OPT[$property];
         }
         return null;
     }
@@ -188,7 +181,7 @@ class PHPExcel_Shared_Escher_DggContainer
      */
     public function getIDCLs()
     {
-        return $this->_IDCLs;
+        return $this->IDCLs;
     }
 
     /**
@@ -198,6 +191,6 @@ class PHPExcel_Shared_Escher_DggContainer
      */
     public function setIDCLs($pValue)
     {
-        $this->_IDCLs = $pValue;
+        $this->IDCLs = $pValue;
     }
 }

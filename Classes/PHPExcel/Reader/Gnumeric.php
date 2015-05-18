@@ -1,6 +1,16 @@
 <?php
+
+/** PHPExcel root directory */
+if (!defined('PHPEXCEL_ROOT')) {
+    /**
+     * @ignore
+     */
+    define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
+    require(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
+}
+
 /**
- * PHPExcel
+ * PHPExcel_Reader_Gnumeric
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -24,24 +34,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-
-
-/** PHPExcel root directory */
-if (!defined('PHPEXCEL_ROOT')) {
-    /**
-     * @ignore
-     */
-    define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
-    require(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
-}
-
-/**
- * PHPExcel_Reader_Gnumeric
- *
- * @category    PHPExcel
- * @package        PHPExcel_Reader
- * @copyright    Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
 class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
 {
     /**
@@ -49,16 +41,16 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
      *
      * @var array
      */
-    private $_styles = array();
+    private $styles = array();
 
     /**
      * Shared Expressions
      *
      * @var array
      */
-    private $_expressions = array();
+    private $expressions = array();
 
-    private $_referenceHelper = null;
+    private $referenceHelper = null;
 
     /**
      * Create a new PHPExcel_Reader_Gnumeric
@@ -66,7 +58,7 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
     public function __construct()
     {
         $this->_readFilter     = new PHPExcel_Reader_DefaultReadFilter();
-        $this->_referenceHelper = PHPExcel_ReferenceHelper::getInstance();
+        $this->referenceHelper = PHPExcel_ReferenceHelper::getInstance();
     }
 
     /**
@@ -425,16 +417,16 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
                 $type = PHPExcel_Cell_DataType::TYPE_FORMULA;
                 if ($ExprID > '') {
                     if (((string) $cell) > '') {
-                        $this->_expressions[$ExprID] = array(
+                        $this->expressions[$ExprID] = array(
                             'column'    => $cellAttributes->Col,
                             'row'        => $cellAttributes->Row,
                             'formula'    => (string) $cell
                         );
 //                        echo 'NEW EXPRESSION ', $ExprID,'<br />';
                     } else {
-                        $expression = $this->_expressions[$ExprID];
+                        $expression = $this->expressions[$ExprID];
 
-                        $cell = $this->_referenceHelper->updateFormulaReferences($expression['formula'], 'A1', $cellAttributes->Col - $expression['column'], $cellAttributes->Row - $expression['row'], $worksheetName);
+                        $cell = $this->referenceHelper->updateFormulaReferences($expression['formula'], 'A1', $cellAttributes->Col - $expression['column'], $cellAttributes->Row - $expression['row'], $worksheetName);
 //                        echo 'SHARED EXPRESSION ', $ExprID,'<br />';
 //                        echo 'New Value is ', $cell,'<br />';
                     }

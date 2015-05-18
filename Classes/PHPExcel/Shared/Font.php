@@ -39,7 +39,7 @@ class PHPExcel_Shared_Font
     const AUTOSIZE_METHOD_APPROX    = 'approx';
     const AUTOSIZE_METHOD_EXACT     = 'exact';
 
-    private static $_autoSizeMethods = array(
+    private static $autoSizeMethods = array(
         self::AUTOSIZE_METHOD_APPROX,
         self::AUTOSIZE_METHOD_EXACT,
     );
@@ -196,7 +196,7 @@ class PHPExcel_Shared_Font
      */
     public static function setAutoSizeMethod($pValue = self::AUTOSIZE_METHOD_APPROX)
     {
-        if (!in_array($pValue, self::$_autoSizeMethods)) {
+        if (!in_array($pValue, self::$autoSizeMethods)) {
             return false;
         }
         self::$autoSizeMethod = $pValue;

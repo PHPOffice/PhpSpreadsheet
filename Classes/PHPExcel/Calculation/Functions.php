@@ -323,7 +323,7 @@ class PHPExcel_Calculation_Functions
         }
         if (!in_array($condition{0}, array('>', '<', '='))) {
             if (!is_numeric($condition)) {
-                $condition = PHPExcel_Calculation::_wrapResult(strtoupper($condition));
+                $condition = PHPExcel_Calculation::wrapResult(strtoupper($condition));
             }
             return '=' . $condition;
         } else {
@@ -332,7 +332,7 @@ class PHPExcel_Calculation_Functions
 
             if (!is_numeric($operand)) {
                 $operand = str_replace('"', '""', $operand);
-                $operand = PHPExcel_Calculation::_wrapResult(strtoupper($operand));
+                $operand = PHPExcel_Calculation::wrapResult(strtoupper($operand));
             }
 
             return $operator.$operand;

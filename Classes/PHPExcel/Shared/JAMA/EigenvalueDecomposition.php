@@ -444,7 +444,7 @@ class EigenvalueDecomposition
                 --$n;
                 $iter = 0;
             // Two roots found
-            } else if ($l == $n-1) {
+            } elseif ($l == $n-1) {
                 $w = $this->H[$n][$n-1] * $this->H[$n-1][$n];
                 $p = ($this->H[$n-1][$n-1] - $this->H[$n][$n]) / 2.0;
                 $q = $p * $p + $w;
@@ -687,7 +687,7 @@ class EigenvalueDecomposition
                     }
                 }
             // Complex vector
-            } else if ($q < 0) {
+            } elseif ($q < 0) {
                 $l = $n-1;
                 // Last vector component imaginary so matrix is triangular
                 if (abs($this->H[$n][$n-1]) > abs($this->H[$n-1][$n])) {

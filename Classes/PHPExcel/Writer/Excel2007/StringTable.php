@@ -123,7 +123,7 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
                     }
                     $objWriter->writeRawData($textToWrite);
                     $objWriter->endElement();
-                } else if ($textElement instanceof PHPExcel_RichText) {
+                } elseif ($textElement instanceof PHPExcel_RichText) {
                     $this->writeRichText($objWriter, $textElement);
                 }
 
@@ -184,7 +184,7 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
                     $objWriter->startElement($prefix.'vertAlign');
                     if ($element->getFont()->getSuperScript()) {
                         $objWriter->writeAttribute('val', 'superscript');
-                    } else if ($element->getFont()->getSubScript()) {
+                    } elseif ($element->getFont()->getSubScript()) {
                         $objWriter->writeAttribute('val', 'subscript');
                     }
                     $objWriter->endElement();
@@ -280,7 +280,7 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
 //                        $objWriter->startElement($prefix.'vertAlign');
 //                        if ($element->getFont()->getSuperScript()) {
 //                            $objWriter->writeAttribute('val', 'superscript');
-//                        } else if ($element->getFont()->getSubScript()) {
+//                        } elseif ($element->getFont()->getSubScript()) {
 //                            $objWriter->writeAttribute('val', 'subscript');
 //                        }
 //                        $objWriter->endElement();
@@ -313,7 +313,7 @@ class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_Wr
         foreach ($stringTable as $key => $value) {
             if (! $value instanceof PHPExcel_RichText) {
                 $returnValue[$value] = $key;
-            } else if ($value instanceof PHPExcel_RichText) {
+            } elseif ($value instanceof PHPExcel_RichText) {
                 $returnValue[$value->getHashCode()] = $key;
             }
         }

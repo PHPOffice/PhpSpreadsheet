@@ -1,6 +1,16 @@
 <?php
+
+/** PHPExcel root directory */
+if (!defined('PHPEXCEL_ROOT')) {
+    /**
+     * @ignore
+     */
+    define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
+    require(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
+}
+
 /**
- * PHPExcel
+ * PHPExcel_Reader_Excel2003XML
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -24,24 +34,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-
-
-/** PHPExcel root directory */
-if (!defined('PHPEXCEL_ROOT')) {
-    /**
-     * @ignore
-     */
-    define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
-    require(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
-}
-
-/**
- * PHPExcel_Reader_Excel2003XML
- *
- * @category   PHPExcel
- * @package    PHPExcel_Reader
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
 class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
 {
     /**
@@ -49,21 +41,21 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
      *
      * @var array
      */
-    protected $_styles = array();
+    protected $styles = array();
 
     /**
      * Character set used in the file
      *
      * @var string
      */
-    protected $_charSet = 'UTF-8';
+    protected $charSet = 'UTF-8';
 
     /**
      * Create a new PHPExcel_Reader_Excel2003XML
      */
     public function __construct()
     {
-        $this->_readFilter     = new PHPExcel_Reader_DefaultReadFilter();
+        $this->_readFilter = new PHPExcel_Reader_DefaultReadFilter();
     }
 
 
@@ -111,9 +103,9 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
 
         //    Retrieve charset encoding
         if (preg_match('/<?xml.*encoding=[\'"](.*?)[\'"].*?>/um', $data, $matches)) {
-            $this->_charSet = strtoupper($matches[1]);
+            $this->charSet = strtoupper($matches[1]);
         }
-//        echo 'Character Set is ', $this->_charSet,'<br />';
+//        echo 'Character Set is ', $this->charSet,'<br />';
 
         return $valid;
     }
@@ -143,7 +135,7 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
         $xml_ss = $xml->children($namespaces['ss']);
         foreach ($xml_ss->Worksheet as $worksheet) {
             $worksheet_ss = $worksheet->attributes($namespaces['ss']);
-            $worksheetNames[] = self::_convertStringEncoding((string) $worksheet_ss['Name'], $this->_charSet);
+            $worksheetNames[] = self::_convertStringEncoding((string) $worksheet_ss['Name'], $this->charSet);
         }
 
         return $worksheetNames;
@@ -337,39 +329,39 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
             foreach ($xml->DocumentProperties[0] as $propertyName => $propertyValue) {
                 switch ($propertyName) {
                     case 'Title':
-                        $docProps->setTitle(self::_convertStringEncoding($propertyValue, $this->_charSet));
+                        $docProps->setTitle(self::_convertStringEncoding($propertyValue, $this->charSet));
                         break;
                     case 'Subject':
-                        $docProps->setSubject(self::_convertStringEncoding($propertyValue, $this->_charSet));
+                        $docProps->setSubject(self::_convertStringEncoding($propertyValue, $this->charSet));
                         break;
                     case 'Author':
-                        $docProps->setCreator(self::_convertStringEncoding($propertyValue, $this->_charSet));
+                        $docProps->setCreator(self::_convertStringEncoding($propertyValue, $this->charSet));
                         break;
                     case 'Created':
                         $creationDate = strtotime($propertyValue);
                         $docProps->setCreated($creationDate);
                         break;
                     case 'LastAuthor':
-                        $docProps->setLastModifiedBy(self::_convertStringEncoding($propertyValue, $this->_charSet));
+                        $docProps->setLastModifiedBy(self::_convertStringEncoding($propertyValue, $this->charSet));
                         break;
                     case 'LastSaved':
                         $lastSaveDate = strtotime($propertyValue);
                         $docProps->setModified($lastSaveDate);
                         break;
                     case 'Company':
-                        $docProps->setCompany(self::_convertStringEncoding($propertyValue, $this->_charSet));
+                        $docProps->setCompany(self::_convertStringEncoding($propertyValue, $this->charSet));
                         break;
                     case 'Category':
-                        $docProps->setCategory(self::_convertStringEncoding($propertyValue, $this->_charSet));
+                        $docProps->setCategory(self::_convertStringEncoding($propertyValue, $this->charSet));
                         break;
                     case 'Manager':
-                        $docProps->setManager(self::_convertStringEncoding($propertyValue, $this->_charSet));
+                        $docProps->setManager(self::_convertStringEncoding($propertyValue, $this->charSet));
                         break;
                     case 'Keywords':
-                        $docProps->setKeywords(self::_convertStringEncoding($propertyValue, $this->_charSet));
+                        $docProps->setKeywords(self::_convertStringEncoding($propertyValue, $this->charSet));
                         break;
                     case 'Description':
-                        $docProps->setDescription(self::_convertStringEncoding($propertyValue, $this->_charSet));
+                        $docProps->setDescription(self::_convertStringEncoding($propertyValue, $this->charSet));
                         break;
                 }
             }
@@ -410,9 +402,9 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
             $styleID = (string) $style_ss['ID'];
 //            echo 'Style ID = '.$styleID.'<br />';
             if ($styleID == 'Default') {
-                $this->_styles['Default'] = array();
+                $this->styles['Default'] = array();
             } else {
-                $this->_styles[$styleID] = $this->_styles['Default'];
+                $this->styles[$styleID] = $this->styles['Default'];
             }
             foreach ($style as $styleType => $styleData) {
                 $styleAttributes = $styleData->attributes($namespaces['ss']);
@@ -425,16 +417,16 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
                             switch ($styleAttributeKey) {
                                 case 'Vertical':
                                     if (self::identifyFixedStyleValue($verticalAlignmentStyles, $styleAttributeValue)) {
-                                        $this->_styles[$styleID]['alignment']['vertical'] = $styleAttributeValue;
+                                        $this->styles[$styleID]['alignment']['vertical'] = $styleAttributeValue;
                                     }
                                     break;
                                 case 'Horizontal':
                                     if (self::identifyFixedStyleValue($horizontalAlignmentStyles, $styleAttributeValue)) {
-                                        $this->_styles[$styleID]['alignment']['horizontal'] = $styleAttributeValue;
+                                        $this->styles[$styleID]['alignment']['horizontal'] = $styleAttributeValue;
                                     }
                                     break;
                                 case 'WrapText':
-                                    $this->_styles[$styleID]['alignment']['wrap'] = true;
+                                    $this->styles[$styleID]['alignment']['wrap'] = true;
                                     break;
                             }
                         }
@@ -464,7 +456,7 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
                             }
                             if (!empty($thisBorder)) {
                                 if (($borderPosition == 'left') || ($borderPosition == 'right') || ($borderPosition == 'top') || ($borderPosition == 'bottom')) {
-                                    $this->_styles[$styleID]['borders'][$borderPosition] = $thisBorder;
+                                    $this->styles[$styleID]['borders'][$borderPosition] = $thisBorder;
                                 }
                             }
                         }
@@ -475,23 +467,23 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
                             $styleAttributeValue = (string) $styleAttributeValue;
                             switch ($styleAttributeKey) {
                                 case 'FontName':
-                                    $this->_styles[$styleID]['font']['name'] = $styleAttributeValue;
+                                    $this->styles[$styleID]['font']['name'] = $styleAttributeValue;
                                     break;
                                 case 'Size':
-                                    $this->_styles[$styleID]['font']['size'] = $styleAttributeValue;
+                                    $this->styles[$styleID]['font']['size'] = $styleAttributeValue;
                                     break;
                                 case 'Color':
-                                    $this->_styles[$styleID]['font']['color']['rgb'] = substr($styleAttributeValue, 1);
+                                    $this->styles[$styleID]['font']['color']['rgb'] = substr($styleAttributeValue, 1);
                                     break;
                                 case 'Bold':
-                                    $this->_styles[$styleID]['font']['bold'] = true;
+                                    $this->styles[$styleID]['font']['bold'] = true;
                                     break;
                                 case 'Italic':
-                                    $this->_styles[$styleID]['font']['italic'] = true;
+                                    $this->styles[$styleID]['font']['italic'] = true;
                                     break;
                                 case 'Underline':
                                     if (self::identifyFixedStyleValue($underlineStyles, $styleAttributeValue)) {
-                                        $this->_styles[$styleID]['font']['underline'] = $styleAttributeValue;
+                                        $this->styles[$styleID]['font']['underline'] = $styleAttributeValue;
                                     }
                                     break;
                             }
@@ -502,7 +494,7 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
 //                                echo $styleAttributeKey.' = '.$styleAttributeValue.'<br />';
                             switch ($styleAttributeKey) {
                                 case 'Color':
-                                    $this->_styles[$styleID]['fill']['color']['rgb'] = substr($styleAttributeValue, 1);
+                                    $this->styles[$styleID]['fill']['color']['rgb'] = substr($styleAttributeValue, 1);
                                     break;
                             }
                         }
@@ -517,7 +509,7 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
                                     break;
                             }
                             if ($styleAttributeValue > '') {
-                                $this->_styles[$styleID]['numberformat']['code'] = $styleAttributeValue;
+                                $this->styles[$styleID]['numberformat']['code'] = $styleAttributeValue;
                             }
                         }
                         break;
@@ -528,7 +520,7 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
                         break;
                 }
             }
-//            print_r($this->_styles[$styleID]);
+//            print_r($this->styles[$styleID]);
 //            echo '<hr />';
         }
 //        echo '<hr />';
@@ -550,7 +542,7 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
             $objPHPExcel->createSheet();
             $objPHPExcel->setActiveSheetIndex($worksheetID);
             if (isset($worksheet_ss['Name'])) {
-                $worksheetName = self::_convertStringEncoding((string) $worksheet_ss['Name'], $this->_charSet);
+                $worksheetName = self::_convertStringEncoding((string) $worksheet_ss['Name'], $this->charSet);
                 //    Use false for $updateFormulaCellReferences to prevent adjustment of worksheet references in
                 //        formula cells... during the load, all formulae should be correct, and we're simply bringing
                 //        the worksheet name in line with the formula, not the reverse
@@ -640,7 +632,7 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
                                     const TYPE_ERROR        = 'e';
                                     */
                                     case 'String':
-                                        $cellValue = self::_convertStringEncoding($cellValue, $this->_charSet);
+                                        $cellValue = self::_convertStringEncoding($cellValue, $this->charSet);
                                         $type = PHPExcel_Cell_DataType::TYPE_STRING;
                                         break;
                                     case 'Number':
@@ -748,20 +740,20 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
 //                            echo $annotation,'<br />';
                             $annotation = strip_tags($node);
 //                            echo 'Annotation: ', $annotation,'<br />';
-                            $objPHPExcel->getActiveSheet()->getComment($columnID.$rowID)->setAuthor(self::_convertStringEncoding($author, $this->_charSet))->setText($this->_parseRichText($annotation));
+                            $objPHPExcel->getActiveSheet()->getComment($columnID.$rowID)->setAuthor(self::_convertStringEncoding($author, $this->charSet))->setText($this->_parseRichText($annotation));
                         }
 
                         if (($cellIsSet) && (isset($cell_ss['StyleID']))) {
                             $style = (string) $cell_ss['StyleID'];
 //                            echo 'Cell style for '.$columnID.$rowID.' is '.$style.'<br />';
-                            if ((isset($this->_styles[$style])) && (!empty($this->_styles[$style]))) {
+                            if ((isset($this->styles[$style])) && (!empty($this->styles[$style]))) {
 //                                echo 'Cell '.$columnID.$rowID.'<br />';
-//                                print_r($this->_styles[$style]);
+//                                print_r($this->styles[$style]);
 //                                echo '<br />';
                                 if (!$objPHPExcel->getActiveSheet()->cellExists($columnID.$rowID)) {
                                     $objPHPExcel->getActiveSheet()->getCell($columnID.$rowID)->setValue(null);
                                 }
-                                $objPHPExcel->getActiveSheet()->getStyle($cellRange)->applyFromArray($this->_styles[$style]);
+                                $objPHPExcel->getActiveSheet()->getStyle($cellRange)->applyFromArray($this->styles[$style]);
                             }
                         }
                         ++$columnID;
@@ -806,7 +798,7 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
     {
         $value = new PHPExcel_RichText();
 
-        $value->createText(self::_convertStringEncoding($is, $this->_charSet));
+        $value->createText(self::_convertStringEncoding($is, $this->charSet));
 
         return $value;
     }

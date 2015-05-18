@@ -43,7 +43,7 @@ class PHPExcel_IOFactory
      * @access    private
      * @static
      */
-    private static $_searchLocations = array(
+    private static $searchLocations = array(
         array( 'type' => 'IWriter', 'path' => 'PHPExcel/Writer/{0}.php', 'class' => 'PHPExcel_Writer_{0}' ),
         array( 'type' => 'IReader', 'path' => 'PHPExcel/Reader/{0}.php', 'class' => 'PHPExcel_Reader_{0}' )
     );
@@ -55,7 +55,7 @@ class PHPExcel_IOFactory
      * @access    private
      * @static
      */
-    private static $_autoResolveClasses = array(
+    private static $autoResolveClasses = array(
         'Excel2007',
         'Excel5',
         'Excel2003XML',
@@ -82,7 +82,7 @@ class PHPExcel_IOFactory
      */
     public static function getSearchLocations()
     {
-        return self::$_searchLocations;
+        return self::$searchLocations;
     }
 
     /**
@@ -96,7 +96,7 @@ class PHPExcel_IOFactory
     public static function setSearchLocations($value)
     {
         if (is_array($value)) {
-            self::$_searchLocations = $value;
+            self::$searchLocations = $value;
         } else {
             throw new PHPExcel_Reader_Exception('Invalid parameter passed.');
         }
@@ -113,7 +113,7 @@ class PHPExcel_IOFactory
      */
     public static function addSearchLocation($type = '', $location = '', $classname = '')
     {
-        self::$_searchLocations[] = array( 'type' => $type, 'path' => $location, 'class' => $classname );
+        self::$searchLocations[] = array( 'type' => $type, 'path' => $location, 'class' => $classname );
     }
 
     /**
@@ -132,7 +132,7 @@ class PHPExcel_IOFactory
         $searchType = 'IWriter';
 
         // Include class
-        foreach (self::$_searchLocations as $searchLocation) {
+        foreach (self::$searchLocations as $searchLocation) {
             if ($searchLocation['type'] == $searchType) {
                 $className = str_replace('{0}', $writerType, $searchLocation['class']);
 
@@ -162,7 +162,7 @@ class PHPExcel_IOFactory
         $searchType = 'IReader';
 
         // Include class
-        foreach (self::$_searchLocations as $searchLocation) {
+        foreach (self::$searchLocations as $searchLocation) {
             if ($searchLocation['type'] == $searchType) {
                 $className = str_replace('{0}', $readerType, $searchLocation['class']);
 
@@ -273,8 +273,8 @@ class PHPExcel_IOFactory
         }
 
         // If we reach here then "lucky guess" didn't give any result
-        // Try walking through all the options in self::$_autoResolveClasses
-        foreach (self::$_autoResolveClasses as $autoResolveClass) {
+        // Try walking through all the options in self::$autoResolveClasses
+        foreach (self::$autoResolveClasses as $autoResolveClass) {
             //    Ignore our original guess, we know that won't work
             if ($autoResolveClass !== $extensionType) {
                 $reader = self::createReader($autoResolveClass);

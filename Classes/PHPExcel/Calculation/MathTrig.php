@@ -1206,7 +1206,7 @@ class PHPExcel_Calculation_MathTrig
         foreach ($aArgs as $key => $arg) {
             if (!is_numeric($arg)) {
                 $arg = str_replace('"', '""', $arg);
-                $arg = PHPExcel_Calculation::_wrapResult(strtoupper($arg));
+                $arg = PHPExcel_Calculation::wrapResult(strtoupper($arg));
             }
 
             $testCondition = '='.$arg.$condition;
