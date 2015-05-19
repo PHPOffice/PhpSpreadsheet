@@ -40,42 +40,42 @@ class PHPExcel_Worksheet_PageMargins
      *
      * @var double
      */
-    private $_left        = 0.7;
+    private $left        = 0.7;
 
     /**
      * Right
      *
      * @var double
      */
-    private $_right        = 0.7;
+    private $right        = 0.7;
 
     /**
      * Top
      *
      * @var double
      */
-    private $_top        = 0.75;
+    private $top        = 0.75;
 
     /**
      * Bottom
      *
      * @var double
      */
-    private $_bottom    = 0.75;
+    private $bottom    = 0.75;
 
     /**
      * Header
      *
      * @var double
      */
-    private $_header     = 0.3;
+    private $header     = 0.3;
 
     /**
      * Footer
      *
      * @var double
      */
-    private $_footer     = 0.3;
+    private $footer     = 0.3;
 
     /**
      * Create a new PHPExcel_Worksheet_PageMargins
@@ -91,7 +91,7 @@ class PHPExcel_Worksheet_PageMargins
      */
     public function getLeft()
     {
-        return $this->_left;
+        return $this->left;
     }
 
     /**
@@ -102,7 +102,7 @@ class PHPExcel_Worksheet_PageMargins
      */
     public function setLeft($pValue)
     {
-        $this->_left = $pValue;
+        $this->left = $pValue;
         return $this;
     }
 
@@ -113,7 +113,7 @@ class PHPExcel_Worksheet_PageMargins
      */
     public function getRight()
     {
-        return $this->_right;
+        return $this->right;
     }
 
     /**
@@ -124,7 +124,7 @@ class PHPExcel_Worksheet_PageMargins
      */
     public function setRight($pValue)
     {
-        $this->_right = $pValue;
+        $this->right = $pValue;
         return $this;
     }
 
@@ -135,7 +135,7 @@ class PHPExcel_Worksheet_PageMargins
      */
     public function getTop()
     {
-        return $this->_top;
+        return $this->top;
     }
 
     /**
@@ -146,7 +146,7 @@ class PHPExcel_Worksheet_PageMargins
      */
     public function setTop($pValue)
     {
-        $this->_top = $pValue;
+        $this->top = $pValue;
         return $this;
     }
 
@@ -157,7 +157,7 @@ class PHPExcel_Worksheet_PageMargins
      */
     public function getBottom()
     {
-        return $this->_bottom;
+        return $this->bottom;
     }
 
     /**
@@ -168,7 +168,7 @@ class PHPExcel_Worksheet_PageMargins
      */
     public function setBottom($pValue)
     {
-        $this->_bottom = $pValue;
+        $this->bottom = $pValue;
         return $this;
     }
 
@@ -179,7 +179,7 @@ class PHPExcel_Worksheet_PageMargins
      */
     public function getHeader()
     {
-        return $this->_header;
+        return $this->header;
     }
 
     /**
@@ -190,7 +190,7 @@ class PHPExcel_Worksheet_PageMargins
      */
     public function setHeader($pValue)
     {
-        $this->_header = $pValue;
+        $this->header = $pValue;
         return $this;
     }
 
@@ -201,7 +201,7 @@ class PHPExcel_Worksheet_PageMargins
      */
     public function getFooter()
     {
-        return $this->_footer;
+        return $this->footer;
     }
 
     /**
@@ -212,7 +212,7 @@ class PHPExcel_Worksheet_PageMargins
      */
     public function setFooter($pValue)
     {
-        $this->_footer = $pValue;
+        $this->footer = $pValue;
         return $this;
     }
 
