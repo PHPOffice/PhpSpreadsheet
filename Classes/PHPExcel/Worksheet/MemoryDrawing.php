@@ -104,8 +104,8 @@ class PHPExcel_Worksheet_MemoryDrawing extends PHPExcel_Worksheet_BaseDrawing im
 
         if (!is_null($this->imageResource)) {
             // Get width/height
-            $this->_width  = imagesx($this->imageResource);
-            $this->_height = imagesy($this->imageResource);
+            $this->width  = imagesx($this->imageResource);
+            $this->height = imagesy($this->imageResource);
         }
         return $this;
     }

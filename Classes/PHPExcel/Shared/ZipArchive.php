@@ -43,14 +43,14 @@ class PHPExcel_Shared_ZipArchive
      *
      * @var string
      */
-    private $_tempDir;
+    private $tempDir;
 
     /**
      * Zip Archive Stream Handle
      *
      * @var string
      */
-    private $_zip;
+    private $zip;
 
 
     /**
@@ -61,9 +61,8 @@ class PHPExcel_Shared_ZipArchive
      */
     public function open($fileName)
     {
-        $this->_tempDir = PHPExcel_Shared_File::sys_get_temp_dir();
-
-        $this->_zip = new PclZip($fileName);
+        $this->tempDir = PHPExcel_Shared_File::sys_get_temp_dir();
+        $this->zip = new PclZip($fileName);
 
         return true;
     }
@@ -88,16 +87,16 @@ class PHPExcel_Shared_ZipArchive
     {
         $filenameParts = pathinfo($localname);
 
-        $handle = fopen($this->_tempDir.'/'.$filenameParts["basename"], "wb");
+        $handle = fopen($this->tempDir.'/'.$filenameParts["basename"], "wb");
         fwrite($handle, $contents);
         fclose($handle);
 
-        $res = $this->_zip->add($this->_tempDir.'/'.$filenameParts["basename"], PCLZIP_OPT_REMOVE_PATH, $this->_tempDir, PCLZIP_OPT_ADD_PATH, $filenameParts["dirname"]);
+        $res = $this->zip->add($this->tempDir.'/'.$filenameParts["basename"], PCLZIP_OPT_REMOVE_PATH, $this->tempDir, PCLZIP_OPT_ADD_PATH, $filenameParts["dirname"]);
         if ($res == 0) {
-            throw new PHPExcel_Writer_Exception("Error zipping files : " . $this->_zip->errorInfo(true));
+            throw new PHPExcel_Writer_Exception("Error zipping files : " . $this->zip->errorInfo(true));
         }
 
-        unlink($this->_tempDir.'/'.$filenameParts["basename"]);
+        unlink($this->tempDir.'/'.$filenameParts["basename"]);
     }
 
     /**
@@ -108,7 +107,7 @@ class PHPExcel_Shared_ZipArchive
      */
     public function locateName($fileName)
     {
-        $list = $this->_zip->listContent();
+        $list = $this->zip->listContent();
         $listCount = count($list);
         $list_index = -1;
         for ($i = 0; $i < $listCount; ++$i) {
@@ -129,7 +128,7 @@ class PHPExcel_Shared_ZipArchive
      */
     public function getFromName($fileName)
     {
-        $list = $this->_zip->listContent();
+        $list = $this->zip->listContent();
         $listCount = count($list);
         $list_index = -1;
         for ($i = 0; $i < $listCount; ++$i) {
@@ -142,7 +141,7 @@ class PHPExcel_Shared_ZipArchive
 
         $extracted = "";
         if ($list_index != -1) {
-            $extracted = $this->_zip->extractByIndex($list_index, PCLZIP_OPT_EXTRACT_AS_STRING);
+            $extracted = $this->zip->extractByIndex($list_index, PCLZIP_OPT_EXTRACT_AS_STRING);
         } else {
             $filename = substr($fileName, 1);
             $list_index = -1;
@@ -153,7 +152,7 @@ class PHPExcel_Shared_ZipArchive
                     break;
                 }
             }
-            $extracted = $this->_zip->extractByIndex($list_index, PCLZIP_OPT_EXTRACT_AS_STRING);
+            $extracted = $this->zip->extractByIndex($list_index, PCLZIP_OPT_EXTRACT_AS_STRING);
         }
         if ((is_array($extracted)) && ($extracted != 0)) {
             $contents = $extracted[0]["content"];
