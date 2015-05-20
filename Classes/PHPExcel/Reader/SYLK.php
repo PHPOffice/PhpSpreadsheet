@@ -1,6 +1,16 @@
 <?php
+
+/** PHPExcel root directory */
+if (!defined('PHPEXCEL_ROOT')) {
+    /**
+     * @ignore
+     */
+    define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
+    require(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
+}
+
 /**
- * PHPExcel
+ * PHPExcel_Reader_SYLK
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -23,24 +33,6 @@
  * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
- */
-
-
-/** PHPExcel root directory */
-if (!defined('PHPEXCEL_ROOT')) {
-    /**
-     * @ignore
-     */
-    define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
-    require(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
-}
-
-/**
- * PHPExcel_Reader_SYLK
- *
- * @category   PHPExcel
- * @package    PHPExcel_Reader
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Reader_SYLK extends PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
 {
@@ -77,7 +69,7 @@ class PHPExcel_Reader_SYLK extends PHPExcel_Reader_Abstract implements PHPExcel_
      */
     public function __construct()
     {
-        $this->_readFilter     = new PHPExcel_Reader_DefaultReadFilter();
+        $this->readFilter = new PHPExcel_Reader_DefaultReadFilter();
     }
 
     /**
@@ -85,10 +77,10 @@ class PHPExcel_Reader_SYLK extends PHPExcel_Reader_Abstract implements PHPExcel_
      *
      * @return boolean
      */
-    protected function _isValidFormat()
+    protected function isValidFormat()
     {
         // Read sample data (first 2 KB will do)
-        $data = fread($this->_fileHandle, 2048);
+        $data = fread($this->fileHandle, 2048);
 
         // Count delimiters in file
         $delimiterCount = substr_count($data, ';');
@@ -135,12 +127,12 @@ class PHPExcel_Reader_SYLK extends PHPExcel_Reader_Abstract implements PHPExcel_
     public function listWorksheetInfo($pFilename)
     {
         // Open file
-        $this->_openFile($pFilename);
-        if (!$this->_isValidFormat()) {
-            fclose($this->_fileHandle);
+        $this->openFile($pFilename);
+        if (!$this->isValidFormat()) {
+            fclose($this->fileHandle);
             throw new PHPExcel_Reader_Exception($pFilename . " is an Invalid Spreadsheet file.");
         }
-        $fileHandle = $this->_fileHandle;
+        $fileHandle = $this->fileHandle;
         rewind($fileHandle);
 
         $worksheetInfo = array();
@@ -222,12 +214,12 @@ class PHPExcel_Reader_SYLK extends PHPExcel_Reader_Abstract implements PHPExcel_
     public function loadIntoExisting($pFilename, PHPExcel $objPHPExcel)
     {
         // Open file
-        $this->_openFile($pFilename);
-        if (!$this->_isValidFormat()) {
-            fclose($this->_fileHandle);
+        $this->openFile($pFilename);
+        if (!$this->isValidFormat()) {
+            fclose($this->fileHandle);
             throw new PHPExcel_Reader_Exception($pFilename . " is an Invalid Spreadsheet file.");
         }
-        $fileHandle = $this->_fileHandle;
+        $fileHandle = $this->fileHandle;
         rewind($fileHandle);
 
         // Create new PHPExcel

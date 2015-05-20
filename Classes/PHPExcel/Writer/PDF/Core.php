@@ -320,7 +320,7 @@ abstract class PHPExcel_Writer_PDF_Core extends PHPExcel_Writer_HTML
     protected function prepareForSave($pFilename = null)
     {
         //  garbage collect
-        $this->_phpExcel->garbageCollect();
+        $this->phpExcel->garbageCollect();
 
         $this->saveArrayReturnType = PHPExcel_Calculation::getArrayReturnType();
         PHPExcel_Calculation::setArrayReturnType(PHPExcel_Calculation::RETURN_ARRAY_AS_VALUE);
@@ -332,7 +332,7 @@ abstract class PHPExcel_Writer_PDF_Core extends PHPExcel_Writer_HTML
         }
 
         //  Set PDF
-        $this->_isPdf = true;
+        $this->isPdf = true;
         //  Build CSS
         $this->buildCSS(true);
 

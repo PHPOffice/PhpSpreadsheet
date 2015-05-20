@@ -55,7 +55,7 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
      */
     public function __construct()
     {
-        $this->_readFilter = new PHPExcel_Reader_DefaultReadFilter();
+        $this->readFilter = new PHPExcel_Reader_DefaultReadFilter();
     }
 
 
@@ -85,8 +85,8 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
             );
 
         // Open file
-        $this->_openFile($pFilename);
-        $fileHandle = $this->_fileHandle;
+        $this->openFile($pFilename);
+        $fileHandle = $this->fileHandle;
         
         // Read sample data (first 2 KB will do)
         $data = fread($fileHandle, 2048);
@@ -135,7 +135,7 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
         $xml_ss = $xml->children($namespaces['ss']);
         foreach ($xml_ss->Worksheet as $worksheet) {
             $worksheet_ss = $worksheet->attributes($namespaces['ss']);
-            $worksheetNames[] = self::_convertStringEncoding((string) $worksheet_ss['Name'], $this->charSet);
+            $worksheetNames[] = self::convertStringEncoding((string) $worksheet_ss['Name'], $this->charSet);
         }
 
         return $worksheetNames;
@@ -247,7 +247,7 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
      * @param pxs
      * @return
      */
-    protected static function _pixel2WidthUnits($pxs)
+    protected static function pixel2WidthUnits($pxs)
     {
         $UNIT_OFFSET_MAP = array(0, 36, 73, 109, 146, 182, 219);
 
@@ -261,7 +261,7 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
      * @param widthUnits
      * @return
      */
-    protected static function _widthUnits2Pixel($widthUnits)
+    protected static function widthUnits2Pixel($widthUnits)
     {
         $pixels = ($widthUnits / 256) * 7;
         $offsetWidthUnits = $widthUnits % 256;
@@ -269,7 +269,7 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
         return $pixels;
     }
 
-    protected static function _hex2str($hex)
+    protected static function hex2str($hex)
     {
         return chr(hexdec($hex[1]));
     }
@@ -329,39 +329,39 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
             foreach ($xml->DocumentProperties[0] as $propertyName => $propertyValue) {
                 switch ($propertyName) {
                     case 'Title':
-                        $docProps->setTitle(self::_convertStringEncoding($propertyValue, $this->charSet));
+                        $docProps->setTitle(self::convertStringEncoding($propertyValue, $this->charSet));
                         break;
                     case 'Subject':
-                        $docProps->setSubject(self::_convertStringEncoding($propertyValue, $this->charSet));
+                        $docProps->setSubject(self::convertStringEncoding($propertyValue, $this->charSet));
                         break;
                     case 'Author':
-                        $docProps->setCreator(self::_convertStringEncoding($propertyValue, $this->charSet));
+                        $docProps->setCreator(self::convertStringEncoding($propertyValue, $this->charSet));
                         break;
                     case 'Created':
                         $creationDate = strtotime($propertyValue);
                         $docProps->setCreated($creationDate);
                         break;
                     case 'LastAuthor':
-                        $docProps->setLastModifiedBy(self::_convertStringEncoding($propertyValue, $this->charSet));
+                        $docProps->setLastModifiedBy(self::convertStringEncoding($propertyValue, $this->charSet));
                         break;
                     case 'LastSaved':
                         $lastSaveDate = strtotime($propertyValue);
                         $docProps->setModified($lastSaveDate);
                         break;
                     case 'Company':
-                        $docProps->setCompany(self::_convertStringEncoding($propertyValue, $this->charSet));
+                        $docProps->setCompany(self::convertStringEncoding($propertyValue, $this->charSet));
                         break;
                     case 'Category':
-                        $docProps->setCategory(self::_convertStringEncoding($propertyValue, $this->charSet));
+                        $docProps->setCategory(self::convertStringEncoding($propertyValue, $this->charSet));
                         break;
                     case 'Manager':
-                        $docProps->setManager(self::_convertStringEncoding($propertyValue, $this->charSet));
+                        $docProps->setManager(self::convertStringEncoding($propertyValue, $this->charSet));
                         break;
                     case 'Keywords':
-                        $docProps->setKeywords(self::_convertStringEncoding($propertyValue, $this->charSet));
+                        $docProps->setKeywords(self::convertStringEncoding($propertyValue, $this->charSet));
                         break;
                     case 'Description':
-                        $docProps->setDescription(self::_convertStringEncoding($propertyValue, $this->charSet));
+                        $docProps->setDescription(self::convertStringEncoding($propertyValue, $this->charSet));
                         break;
                 }
             }
@@ -369,7 +369,7 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
         if (isset($xml->CustomDocumentProperties)) {
             foreach ($xml->CustomDocumentProperties[0] as $propertyName => $propertyValue) {
                 $propertyAttributes = $propertyValue->attributes($namespaces['dt']);
-                $propertyName = preg_replace_callback('/_x([0-9a-z]{4})_/', 'PHPExcel_Reader_Excel2003XML::_hex2str', $propertyName);
+                $propertyName = preg_replace_callback('/_x([0-9a-z]{4})_/', 'PHPExcel_Reader_Excel2003XML::hex2str', $propertyName);
                 $propertyType = PHPExcel_DocumentProperties::PROPERTY_TYPE_UNKNOWN;
                 switch ((string) $propertyAttributes) {
                     case 'string':
@@ -531,8 +531,8 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
         foreach ($xml_ss->Worksheet as $worksheet) {
             $worksheet_ss = $worksheet->attributes($namespaces['ss']);
 
-            if ((isset($this->_loadSheetsOnly)) && (isset($worksheet_ss['Name'])) &&
-                (!in_array($worksheet_ss['Name'], $this->_loadSheetsOnly))) {
+            if ((isset($this->loadSheetsOnly)) && (isset($worksheet_ss['Name'])) &&
+                (!in_array($worksheet_ss['Name'], $this->loadSheetsOnly))) {
                 continue;
             }
 
@@ -542,7 +542,7 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
             $objPHPExcel->createSheet();
             $objPHPExcel->setActiveSheetIndex($worksheetID);
             if (isset($worksheet_ss['Name'])) {
-                $worksheetName = self::_convertStringEncoding((string) $worksheet_ss['Name'], $this->charSet);
+                $worksheetName = self::convertStringEncoding((string) $worksheet_ss['Name'], $this->charSet);
                 //    Use false for $updateFormulaCellReferences to prevent adjustment of worksheet references in
                 //        formula cells... during the load, all formulae should be correct, and we're simply bringing
                 //        the worksheet name in line with the formula, not the reverse
@@ -632,7 +632,7 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
                                     const TYPE_ERROR        = 'e';
                                     */
                                     case 'String':
-                                        $cellValue = self::_convertStringEncoding($cellValue, $this->charSet);
+                                        $cellValue = self::convertStringEncoding($cellValue, $this->charSet);
                                         $type = PHPExcel_Cell_DataType::TYPE_STRING;
                                         break;
                                     case 'Number':
@@ -740,7 +740,7 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
 //                            echo $annotation,'<br />';
                             $annotation = strip_tags($node);
 //                            echo 'Annotation: ', $annotation,'<br />';
-                            $objPHPExcel->getActiveSheet()->getComment($columnID.$rowID)->setAuthor(self::_convertStringEncoding($author, $this->charSet))->setText($this->_parseRichText($annotation));
+                            $objPHPExcel->getActiveSheet()->getComment($columnID.$rowID)->setAuthor(self::convertStringEncoding($author, $this->charSet))->setText($this->parseRichText($annotation));
                         }
 
                         if (($cellIsSet) && (isset($cell_ss['StyleID']))) {
@@ -785,7 +785,7 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
     }
 
 
-    protected static function _convertStringEncoding($string, $charset)
+    protected static function convertStringEncoding($string, $charset)
     {
         if ($charset != 'UTF-8') {
             return PHPExcel_Shared_String::ConvertEncoding($string, 'UTF-8', $charset);
@@ -794,11 +794,11 @@ class PHPExcel_Reader_Excel2003XML extends PHPExcel_Reader_Abstract implements P
     }
 
 
-    protected function _parseRichText($is = '')
+    protected function parseRichText($is = '')
     {
         $value = new PHPExcel_RichText();
 
-        $value->createText(self::_convertStringEncoding($is, $this->charSet));
+        $value->createText(self::convertStringEncoding($is, $this->charSet));
 
         return $value;
     }

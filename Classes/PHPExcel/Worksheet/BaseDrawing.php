@@ -1,6 +1,7 @@
 <?php
+
 /**
- * PHPExcel
+ * PHPExcel_Worksheet_BaseDrawing
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -24,15 +25,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-
-
-/**
- * PHPExcel_Worksheet_BaseDrawing
- *
- * @category   PHPExcel
- * @package    PHPExcel_Worksheet
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
 class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
 {
     /**
@@ -40,14 +32,14 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      *
      * @var int
      */
-    private static $_imageCounter = 0;
+    private static $imageCounter = 0;
 
     /**
      * Image index
      *
      * @var int
      */
-    private $_imageIndex = 0;
+    private $imageIndex = 0;
 
     /**
      * Name
@@ -145,8 +137,8 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
         $this->_shadow                = new PHPExcel_Worksheet_Drawing_Shadow();
 
         // Set image index
-        self::$_imageCounter++;
-        $this->_imageIndex             = self::$_imageCounter;
+        self::$imageCounter++;
+        $this->imageIndex             = self::$imageCounter;
     }
 
     /**
@@ -156,7 +148,7 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      */
     public function getImageIndex()
     {
-        return $this->_imageIndex;
+        return $this->imageIndex;
     }
 
     /**
@@ -483,7 +475,19 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      */
     public function getHashCode()
     {
-        return md5($this->_name.$this->_description.$this->_worksheet->getHashCode().$this->_coordinates.$this->_offsetX.$this->_offsetY.$this->_width.$this->_height.$this->_rotation.$this->_shadow->getHashCode().__CLASS__);
+        return md5(
+            $this->_name .
+            $this->_description .
+            $this->_worksheet->getHashCode() .
+            $this->_coordinates .
+            $this->_offsetX .
+            $this->_offsetY .
+            $this->_width .
+            $this->_height .
+            $this->_rotation .
+            $this->_shadow->getHashCode() .
+            __CLASS__
+        );
     }
 
     /**

@@ -94,19 +94,19 @@ class PHPExcel_Shared_OLERead
         $this->data = file_get_contents($sFileName);
 
         // Total number of sectors used for the SAT
-        $this->numBigBlockDepotBlocks = self::_GetInt4d($this->data, self::NUM_BIG_BLOCK_DEPOT_BLOCKS_POS);
+        $this->numBigBlockDepotBlocks = self::getInt4d($this->data, self::NUM_BIG_BLOCK_DEPOT_BLOCKS_POS);
 
         // SecID of the first sector of the directory stream
-        $this->rootStartBlock = self::_GetInt4d($this->data, self::ROOT_START_BLOCK_POS);
+        $this->rootStartBlock = self::getInt4d($this->data, self::ROOT_START_BLOCK_POS);
 
         // SecID of the first sector of the SSAT (or -2 if not extant)
-        $this->sbdStartBlock = self::_GetInt4d($this->data, self::SMALL_BLOCK_DEPOT_BLOCK_POS);
+        $this->sbdStartBlock = self::getInt4d($this->data, self::SMALL_BLOCK_DEPOT_BLOCK_POS);
 
         // SecID of the first sector of the MSAT (or -2 if no additional sectors are used)
-        $this->extensionBlock = self::_GetInt4d($this->data, self::EXTENSION_BLOCK_POS);
+        $this->extensionBlock = self::getInt4d($this->data, self::EXTENSION_BLOCK_POS);
 
         // Total number of sectors used by MSAT
-        $this->numExtensionBlocks = self::_GetInt4d($this->data, self::NUM_EXTENSION_BLOCK_POS);
+        $this->numExtensionBlocks = self::getInt4d($this->data, self::NUM_EXTENSION_BLOCK_POS);
 
         $bigBlockDepotBlocks = array();
         $pos = self::BIG_BLOCK_DEPOT_BLOCKS_POS;
@@ -118,7 +118,7 @@ class PHPExcel_Shared_OLERead
         }
 
         for ($i = 0; $i < $bbdBlocks; ++$i) {
-              $bigBlockDepotBlocks[$i] = self::_GetInt4d($this->data, $pos);
+              $bigBlockDepotBlocks[$i] = self::getInt4d($this->data, $pos);
               $pos += 4;
         }
 
@@ -127,13 +127,13 @@ class PHPExcel_Shared_OLERead
             $blocksToRead = min($this->numBigBlockDepotBlocks - $bbdBlocks, self::BIG_BLOCK_SIZE / 4 - 1);
 
             for ($i = $bbdBlocks; $i < $bbdBlocks + $blocksToRead; ++$i) {
-                $bigBlockDepotBlocks[$i] = self::_GetInt4d($this->data, $pos);
+                $bigBlockDepotBlocks[$i] = self::getInt4d($this->data, $pos);
                 $pos += 4;
             }
 
             $bbdBlocks += $blocksToRead;
             if ($bbdBlocks < $this->numBigBlockDepotBlocks) {
-                $this->extensionBlock = self::_GetInt4d($this->data, $pos);
+                $this->extensionBlock = self::getInt4d($this->data, $pos);
             }
         }
 
@@ -156,14 +156,14 @@ class PHPExcel_Shared_OLERead
             $this->smallBlockChain .= substr($this->data, $pos, 4*$bbs);
             $pos += 4*$bbs;
 
-            $sbdBlock = self::_GetInt4d($this->bigBlockChain, $sbdBlock*4);
+            $sbdBlock = self::getInt4d($this->bigBlockChain, $sbdBlock*4);
         }
 
         // read the directory stream
         $block = $this->rootStartBlock;
         $this->entry = $this->_readData($block);
 
-        $this->_readPropertySets();
+        $this->readPropertySets();
     }
 
     /**
@@ -188,7 +188,7 @@ class PHPExcel_Shared_OLERead
                   $pos = $block * self::SMALL_BLOCK_SIZE;
                 $streamData .= substr($rootdata, $pos, self::SMALL_BLOCK_SIZE);
 
-                $block = self::_GetInt4d($this->smallBlockChain, $block*4);
+                $block = self::getInt4d($this->smallBlockChain, $block*4);
             }
 
             return $streamData;
@@ -207,7 +207,7 @@ class PHPExcel_Shared_OLERead
             while ($block != -2) {
                 $pos = ($block + 1) * self::BIG_BLOCK_SIZE;
                 $streamData .= substr($this->data, $pos, self::BIG_BLOCK_SIZE);
-                $block = self::_GetInt4d($this->bigBlockChain, $block*4);
+                $block = self::getInt4d($this->bigBlockChain, $block*4);
             }
 
             return $streamData;
@@ -228,7 +228,7 @@ class PHPExcel_Shared_OLERead
         while ($block != -2) {
             $pos = ($block + 1) * self::BIG_BLOCK_SIZE;
             $data .= substr($this->data, $pos, self::BIG_BLOCK_SIZE);
-            $block = self::_GetInt4d($this->bigBlockChain, $block*4);
+            $block = self::getInt4d($this->bigBlockChain, $block*4);
         }
         return $data;
     }
@@ -236,7 +236,7 @@ class PHPExcel_Shared_OLERead
     /**
      * Read entries in the directory stream.
      */
-    private function _readPropertySets()
+    private function readPropertySets()
     {
         $offset = 0;
 
@@ -254,9 +254,9 @@ class PHPExcel_Shared_OLERead
 
             // sectorID of first sector or short sector, if this entry refers to a stream (the case with workbook)
             // sectorID of first sector of the short-stream container stream, if this entry is root entry
-            $startBlock = self::_GetInt4d($d, self::START_BLOCK_POS);
+            $startBlock = self::getInt4d($d, self::START_BLOCK_POS);
 
-            $size = self::_GetInt4d($d, self::SIZE_POS);
+            $size = self::getInt4d($d, self::SIZE_POS);
 
             $name = str_replace("\x00", "", substr($d, 0, $nameSize));
 
@@ -301,7 +301,7 @@ class PHPExcel_Shared_OLERead
      * @param int $pos
      * @return int
      */
-    private static function _GetInt4d($data, $pos)
+    private static function getInt4d($data, $pos)
     {
         // FIX: represent numbers correctly on 64-bit system
         // http://sourceforge.net/tracker/index.php?func=detail&aid=1487372&group_id=99160&atid=623334

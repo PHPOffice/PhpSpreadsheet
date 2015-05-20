@@ -57,7 +57,7 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
      */
     public function __construct()
     {
-        $this->_readFilter     = new PHPExcel_Reader_DefaultReadFilter();
+        $this->readFilter     = new PHPExcel_Reader_DefaultReadFilter();
         $this->referenceHelper = PHPExcel_ReferenceHelper::getInstance();
     }
 
@@ -173,7 +173,7 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
         return $worksheetInfo;
     }
 
-    private function _gzfileGetContents($filename)
+    private function gzfileGetContents($filename)
     {
         $file = @gzopen($filename, 'rb');
         if ($file !== false) {
@@ -220,7 +220,7 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
         $timezoneObj = new DateTimeZone('Europe/London');
         $GMT = new DateTimeZone('UTC');
 
-        $gFileData = $this->_gzfileGetContents($pFilename);
+        $gFileData = $this->gzfileGetContents($pFilename);
 
 //        echo '<pre>';
 //        echo htmlentities($gFileData,ENT_QUOTES,'UTF-8');
@@ -340,7 +340,7 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
         foreach ($gnmXML->Sheets->Sheet as $sheet) {
             $worksheetName = (string) $sheet->Name;
 //            echo '<b>Worksheet: ', $worksheetName,'</b><br />';
-            if ((isset($this->_loadSheetsOnly)) && (!in_array($worksheetName, $this->_loadSheetsOnly))) {
+            if ((isset($this->loadSheetsOnly)) && (!in_array($worksheetName, $this->loadSheetsOnly))) {
                 continue;
             }
 
@@ -354,7 +354,7 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
             //        name in line with the formula, not the reverse
             $objPHPExcel->getActiveSheet()->setTitle($worksheetName, false);
 
-            if ((!$this->_readDataOnly) && (isset($sheet->PrintInformation))) {
+            if ((!$this->readDataOnly) && (isset($sheet->PrintInformation))) {
                 if (isset($sheet->PrintInformation->Margins)) {
                     foreach ($sheet->PrintInformation->Margins->children('gnm', true) as $key => $margin) {
                         $marginAttributes = $margin->attributes();
@@ -441,6 +441,7 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
                             $cell = ($cell == 'TRUE') ? true: false;
                             break;
                         case '30':        //    Integer
+                            // Excel 2007+ doesn't differentiate between integer and float, so set the value and dropthru to the next (numeric) case
                             $cell = intval($cell);
                         case '40':        //    Float
                             $type = PHPExcel_Cell_DataType::TYPE_NUMERIC;
@@ -458,12 +459,12 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
                 $objPHPExcel->getActiveSheet()->getCell($column.$row)->setValueExplicit($cell, $type);
             }
 
-            if ((!$this->_readDataOnly) && (isset($sheet->Objects))) {
+            if ((!$this->readDataOnly) && (isset($sheet->Objects))) {
                 foreach ($sheet->Objects->children('gnm', true) as $key => $comment) {
                     $commentAttributes = $comment->attributes();
                     //    Only comment objects are handled at the moment
                     if ($commentAttributes->Text) {
-                        $objPHPExcel->getActiveSheet()->getComment((string)$commentAttributes->ObjectBound)->setAuthor((string)$commentAttributes->Author)->setText($this->_parseRichText((string)$commentAttributes->Text));
+                        $objPHPExcel->getActiveSheet()->getComment((string)$commentAttributes->ObjectBound)->setAuthor((string)$commentAttributes->Author)->setText($this->parseRichText((string)$commentAttributes->Text));
                     }
                 }
             }
@@ -487,13 +488,13 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
 //                    var_dump($styleAttributes);
 //                    echo '<br />';
 
-                    //    We still set the number format mask for date/time values, even if _readDataOnly is true
-                    if ((!$this->_readDataOnly) ||
+                    //    We still set the number format mask for date/time values, even if readDataOnly is true
+                    if ((!$this->readDataOnly) ||
                         (PHPExcel_Shared_Date::isDateTimeFormatCode((string) $styleAttributes['Format']))) {
                         $styleArray = array();
                         $styleArray['numberformat']['code'] = (string) $styleAttributes['Format'];
-                        //    If _readDataOnly is false, we set all formatting information
-                        if (!$this->_readDataOnly) {
+                        //    If readDataOnly is false, we set all formatting information
+                        if (!$this->readDataOnly) {
                             switch ($styleAttributes['HAlign']) {
                                 case '1':
                                     $styleArray['alignment']['horizontal'] = PHPExcel_Style_Alignment::HORIZONTAL_GENERAL;
@@ -535,13 +536,13 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
                             $styleArray['alignment']['shrinkToFit'] = ($styleAttributes['ShrinkToFit'] == '1') ? true : false;
                             $styleArray['alignment']['indent'] = (intval($styleAttributes["Indent"]) > 0) ? $styleAttributes["indent"] : 0;
 
-                            $RGB = self::_parseGnumericColour($styleAttributes["Fore"]);
+                            $RGB = self::parseGnumericColour($styleAttributes["Fore"]);
                             $styleArray['font']['color']['rgb'] = $RGB;
-                            $RGB = self::_parseGnumericColour($styleAttributes["Back"]);
+                            $RGB = self::parseGnumericColour($styleAttributes["Back"]);
                             $shade = $styleAttributes["Shade"];
                             if (($RGB != '000000') || ($shade != '0')) {
                                 $styleArray['fill']['color']['rgb'] = $styleArray['fill']['startcolor']['rgb'] = $RGB;
-                                $RGB2 = self::_parseGnumericColour($styleAttributes["PatternColor"]);
+                                $RGB2 = self::parseGnumericColour($styleAttributes["PatternColor"]);
                                 $styleArray['fill']['endcolor']['rgb'] = $RGB2;
                                 switch ($shade) {
                                     case '1':
@@ -643,25 +644,25 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
 
                             if (isset($styleRegion->Style->StyleBorder)) {
                                 if (isset($styleRegion->Style->StyleBorder->Top)) {
-                                    $styleArray['borders']['top'] = self::_parseBorderAttributes($styleRegion->Style->StyleBorder->Top->attributes());
+                                    $styleArray['borders']['top'] = self::parseBorderAttributes($styleRegion->Style->StyleBorder->Top->attributes());
                                 }
                                 if (isset($styleRegion->Style->StyleBorder->Bottom)) {
-                                    $styleArray['borders']['bottom'] = self::_parseBorderAttributes($styleRegion->Style->StyleBorder->Bottom->attributes());
+                                    $styleArray['borders']['bottom'] = self::parseBorderAttributes($styleRegion->Style->StyleBorder->Bottom->attributes());
                                 }
                                 if (isset($styleRegion->Style->StyleBorder->Left)) {
-                                    $styleArray['borders']['left'] = self::_parseBorderAttributes($styleRegion->Style->StyleBorder->Left->attributes());
+                                    $styleArray['borders']['left'] = self::parseBorderAttributes($styleRegion->Style->StyleBorder->Left->attributes());
                                 }
                                 if (isset($styleRegion->Style->StyleBorder->Right)) {
-                                    $styleArray['borders']['right'] = self::_parseBorderAttributes($styleRegion->Style->StyleBorder->Right->attributes());
+                                    $styleArray['borders']['right'] = self::parseBorderAttributes($styleRegion->Style->StyleBorder->Right->attributes());
                                 }
                                 if ((isset($styleRegion->Style->StyleBorder->Diagonal)) && (isset($styleRegion->Style->StyleBorder->{'Rev-Diagonal'}))) {
-                                    $styleArray['borders']['diagonal'] = self::_parseBorderAttributes($styleRegion->Style->StyleBorder->Diagonal->attributes());
+                                    $styleArray['borders']['diagonal'] = self::parseBorderAttributes($styleRegion->Style->StyleBorder->Diagonal->attributes());
                                     $styleArray['borders']['diagonaldirection'] = PHPExcel_Style_Borders::DIAGONAL_BOTH;
                                 } elseif (isset($styleRegion->Style->StyleBorder->Diagonal)) {
-                                    $styleArray['borders']['diagonal'] = self::_parseBorderAttributes($styleRegion->Style->StyleBorder->Diagonal->attributes());
+                                    $styleArray['borders']['diagonal'] = self::parseBorderAttributes($styleRegion->Style->StyleBorder->Diagonal->attributes());
                                     $styleArray['borders']['diagonaldirection'] = PHPExcel_Style_Borders::DIAGONAL_UP;
                                 } elseif (isset($styleRegion->Style->StyleBorder->{'Rev-Diagonal'})) {
-                                    $styleArray['borders']['diagonal'] = self::_parseBorderAttributes($styleRegion->Style->StyleBorder->{'Rev-Diagonal'}->attributes());
+                                    $styleArray['borders']['diagonal'] = self::parseBorderAttributes($styleRegion->Style->StyleBorder->{'Rev-Diagonal'}->attributes());
                                     $styleArray['borders']['diagonaldirection'] = PHPExcel_Style_Borders::DIAGONAL_DOWN;
                                 }
                             }
@@ -677,7 +678,7 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
                 }
             }
 
-            if ((!$this->_readDataOnly) && (isset($sheet->Cols))) {
+            if ((!$this->readDataOnly) && (isset($sheet->Cols))) {
                 //    Column Widths
                 $columnAttributes = $sheet->Cols->attributes();
                 $defaultWidth = $columnAttributes['DefaultSizePts']  / 5.4;
@@ -706,7 +707,7 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
                 }
             }
 
-            if ((!$this->_readDataOnly) && (isset($sheet->Rows))) {
+            if ((!$this->readDataOnly) && (isset($sheet->Rows))) {
                 //    Row Heights
                 $rowAttributes = $sheet->Rows->attributes();
                 $defaultHeight = $rowAttributes['DefaultSizePts'];
@@ -770,13 +771,11 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
         return $objPHPExcel;
     }
 
-    private static function _parseBorderAttributes($borderAttributes)
+    private static function parseBorderAttributes($borderAttributes)
     {
         $styleArray = array();
-
         if (isset($borderAttributes["Color"])) {
-            $RGB = self::_parseGnumericColour($borderAttributes["Color"]);
-            $styleArray['color']['rgb'] = $RGB;
+            $styleArray['color']['rgb'] = self::parseGnumericColour($borderAttributes["Color"]);
         }
 
         switch ($borderAttributes["Style"]) {
@@ -789,6 +788,9 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
             case '2':
                 $styleArray['style'] = PHPExcel_Style_Border::BORDER_MEDIUM;
                 break;
+            case '3':
+                $styleArray['style'] = PHPExcel_Style_Border::BORDER_SLANTDASHDOT;
+                break;
             case '4':
                 $styleArray['style'] = PHPExcel_Style_Border::BORDER_DASHED;
                 break;
@@ -800,6 +802,9 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
                 break;
             case '7':
                 $styleArray['style'] = PHPExcel_Style_Border::BORDER_DOTTED;
+                break;
+            case '8':
+                $styleArray['style'] = PHPExcel_Style_Border::BORDER_MEDIUMDASHED;
                 break;
             case '9':
                 $styleArray['style'] = PHPExcel_Style_Border::BORDER_DASHDOT;
@@ -816,33 +821,24 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
             case '13':
                 $styleArray['style'] = PHPExcel_Style_Border::BORDER_MEDIUMDASHDOTDOT;
                 break;
-            case '3':
-                $styleArray['style'] = PHPExcel_Style_Border::BORDER_SLANTDASHDOT;
-                break;
-            case '8':
-                $styleArray['style'] = PHPExcel_Style_Border::BORDER_MEDIUMDASHED;
-                break;
         }
         return $styleArray;
     }
 
-    private function _parseRichText($is = '')
+    private function parseRichText($is = '')
     {
         $value = new PHPExcel_RichText();
-
         $value->createText($is);
 
         return $value;
     }
 
-    private static function _parseGnumericColour($gnmColour)
+    private static function parseGnumericColour($gnmColour)
     {
         list($gnmR, $gnmG, $gnmB) = explode(':', $gnmColour);
         $gnmR = substr(str_pad($gnmR, 4, '0', STR_PAD_RIGHT), 0, 2);
         $gnmG = substr(str_pad($gnmG, 4, '0', STR_PAD_RIGHT), 0, 2);
         $gnmB = substr(str_pad($gnmB, 4, '0', STR_PAD_RIGHT), 0, 2);
-        $RGB = $gnmR.$gnmG.$gnmB;
-//        echo 'Excel Colour: ', $RGB,'<br />';
-        return $RGB;
+        return $gnmR . $gnmG . $gnmB;
     }
 }
