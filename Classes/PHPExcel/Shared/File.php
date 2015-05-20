@@ -1,6 +1,7 @@
 <?php
+
 /**
- * PHPExcel
+ * PHPExcel_Shared_File
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -24,15 +25,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-
-
-/**
- * PHPExcel_Shared_File
- *
- * @category   PHPExcel
- * @package    PHPExcel_Shared
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
 class PHPExcel_Shared_File
 {
     /*
@@ -41,7 +33,7 @@ class PHPExcel_Shared_File
      * @protected
      * @var    boolean
      */
-    protected static $_useUploadTempDirectory    = false;
+    protected static $useUploadTempDirectory = false;
 
 
     /**
@@ -51,7 +43,7 @@ class PHPExcel_Shared_File
      */
     public static function setUseUploadTempDirectory($useUploadTempDir = false)
     {
-        self::$_useUploadTempDirectory = (boolean) $useUploadTempDir;
+        self::$useUploadTempDirectory = (boolean) $useUploadTempDir;
     }
 
 
@@ -62,7 +54,7 @@ class PHPExcel_Shared_File
      */
     public static function getUseUploadTempDirectory()
     {
-        return self::$_useUploadTempDirectory;
+        return self::$useUploadTempDirectory;
     }
 
 
@@ -79,8 +71,8 @@ class PHPExcel_Shared_File
         // doing the original file_exists on ZIP archives...
         if (strtolower(substr($pFilename, 0, 3)) == 'zip') {
             // Open ZIP file and verify if the file exists
-            $zipFile         = substr($pFilename, 6, strpos($pFilename, '#') - 6);
-            $archiveFile     = substr($pFilename, strpos($pFilename, '#') + 1);
+            $zipFile     = substr($pFilename, 6, strpos($pFilename, '#') - 6);
+            $archiveFile = substr($pFilename, strpos($pFilename, '#') + 1);
 
             $zip = new ZipArchive();
             if ($zip->open($zipFile) === true) {
@@ -138,7 +130,7 @@ class PHPExcel_Shared_File
      */
     public static function sys_get_temp_dir()
     {
-        if (self::$_useUploadTempDirectory) {
+        if (self::$useUploadTempDirectory) {
             //  use upload-directory when defined to allow running on environments having very restricted
             //      open_basedir configs
             if (ini_get('upload_tmp_dir') !== false) {

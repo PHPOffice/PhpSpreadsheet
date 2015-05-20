@@ -34,7 +34,7 @@ class PHPExcel_Shared_OLE_PPS_Root extends PHPExcel_Shared_OLE_PPS
      * Directory for temporary files
      * @var string
      */
-    protected $_tmp_dir        = null;
+    protected $tempDirectory = null;
 
     /**
      * @param integer $time_1st A timestamp
@@ -63,20 +63,20 @@ class PHPExcel_Shared_OLE_PPS_Root extends PHPExcel_Shared_OLE_PPS
         // Initial Setting for saving
         $this->_BIG_BLOCK_SIZE  = pow(
             2,
-            (isset($this->_BIG_BLOCK_SIZE))? self::_adjust2($this->_BIG_BLOCK_SIZE) : 9
+            (isset($this->_BIG_BLOCK_SIZE))? self::adjust2($this->_BIG_BLOCK_SIZE) : 9
         );
         $this->_SMALL_BLOCK_SIZE= pow(
             2,
-            (isset($this->_SMALL_BLOCK_SIZE))?  self::_adjust2($this->_SMALL_BLOCK_SIZE) : 6
+            (isset($this->_SMALL_BLOCK_SIZE))?  self::adjust2($this->_SMALL_BLOCK_SIZE) : 6
         );
 
         if (is_resource($filename)) {
             $this->_FILEH_ = $filename;
         } elseif ($filename == '-' || $filename == '') {
-            if ($this->_tmp_dir === null) {
-                $this->_tmp_dir = PHPExcel_Shared_File::sys_get_temp_dir();
+            if ($this->tempDirectory === null) {
+                $this->tempDirectory = PHPExcel_Shared_File::sys_get_temp_dir();
             }
-            $this->_tmp_filename = tempnam($this->_tmp_dir, "OLE_PPS_Root");
+            $this->_tmp_filename = tempnam($this->tempDirectory, "OLE_PPS_Root");
             $this->_FILEH_ = fopen($this->_tmp_filename, "w+b");
             if ($this->_FILEH_ == false) {
                 throw new PHPExcel_Writer_Exception("Can't create temporary file.");
@@ -158,7 +158,7 @@ class PHPExcel_Shared_OLE_PPS_Root extends PHPExcel_Shared_OLE_PPS
     * @see save()
     * @return integer
     */
-    private static function _adjust2($i2)
+    private static function adjust2($i2)
     {
         $iWk = log($i2)/log(2);
         return ($iWk > floor($iWk))? floor($iWk)+1:$iWk;

@@ -426,7 +426,13 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
                     } else {
                         $expression = $this->expressions[$ExprID];
 
-                        $cell = $this->referenceHelper->updateFormulaReferences($expression['formula'], 'A1', $cellAttributes->Col - $expression['column'], $cellAttributes->Row - $expression['row'], $worksheetName);
+                        $cell = $this->referenceHelper->updateFormulaReferences(
+                            $expression['formula'],
+                            'A1',
+                            $cellAttributes->Col - $expression['column'],
+                            $cellAttributes->Row - $expression['row'],
+                            $worksheetName
+                        );
 //                        echo 'SHARED EXPRESSION ', $ExprID,'<br />';
 //                        echo 'New Value is ', $cell,'<br />';
                     }
@@ -441,8 +447,8 @@ class PHPExcel_Reader_Gnumeric extends PHPExcel_Reader_Abstract implements PHPEx
                             $cell = ($cell == 'TRUE') ? true: false;
                             break;
                         case '30':        //    Integer
-                            // Excel 2007+ doesn't differentiate between integer and float, so set the value and dropthru to the next (numeric) case
                             $cell = intval($cell);
+                            // Excel 2007+ doesn't differentiate between integer and float, so set the value and dropthru to the next (numeric) case
                         case '40':        //    Float
                             $type = PHPExcel_Cell_DataType::TYPE_NUMERIC;
                             break;

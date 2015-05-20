@@ -179,31 +179,31 @@ class PHPExcel_Reader_HTML extends PHPExcel_Reader_Abstract implements PHPExcel_
     }
 
     //    Data Array used for testing only, should write to PHPExcel object on completion of tests
-    protected $_dataArray = array();
-    protected $_tableLevel = 0;
-    protected $_nestedColumn = array('A');
+    protected $dataArray = array();
+    protected $tableLevel = 0;
+    protected $nestedColumn = array('A');
 
     protected function setTableStartColumn($column)
     {
-        if ($this->_tableLevel == 0) {
+        if ($this->tableLevel == 0) {
             $column = 'A';
         }
-        ++$this->_tableLevel;
-        $this->_nestedColumn[$this->_tableLevel] = $column;
+        ++$this->tableLevel;
+        $this->nestedColumn[$this->tableLevel] = $column;
 
-        return $this->_nestedColumn[$this->_tableLevel];
+        return $this->nestedColumn[$this->tableLevel];
     }
 
     protected function getTableStartColumn()
     {
-        return $this->_nestedColumn[$this->_tableLevel];
+        return $this->nestedColumn[$this->tableLevel];
     }
 
     protected function releaseTableStartColumn()
     {
-        --$this->_tableLevel;
+        --$this->tableLevel;
 
-        return array_pop($this->_nestedColumn);
+        return array_pop($this->nestedColumn);
     }
 
     protected function flushCell($sheet, $column, $row, &$cellContent)
@@ -216,12 +216,12 @@ class PHPExcel_Reader_HTML extends PHPExcel_Reader_Abstract implements PHPExcel_
                 //    Write to worksheet to be done here...
                 //    ... we return the cell so we can mess about with styles more easily
                 $sheet->setCellValue($column . $row, $cellContent, true);
-                $this->_dataArray[$row][$column] = $cellContent;
+                $this->dataArray[$row][$column] = $cellContent;
             }
         } else {
             //    We have a Rich Text run
             //    TODO
-            $this->_dataArray[$row][$column] = 'RICH TEXT: ' . $cellContent;
+            $this->dataArray[$row][$column] = 'RICH TEXT: ' . $cellContent;
         }
         $cellContent = (string) '';
     }
@@ -291,8 +291,9 @@ class PHPExcel_Reader_HTML extends PHPExcel_Reader_Abstract implements PHPExcel_
                             $this->flushCell($sheet, $column, $row, $cellContent);
                         }
                         ++$row;
+                        // Add a break after a horizontal rule, simply by allowing the code to dropthru
                     case 'br':
-                        if ($this->_tableLevel > 0) {
+                        if ($this->tableLevel > 0) {
                             //    If we're inside a table, replace with a \n
                             $cellContent .= "\n";
                         } else {
@@ -328,7 +329,7 @@ class PHPExcel_Reader_HTML extends PHPExcel_Reader_Abstract implements PHPExcel_
                     case 'ol':
                     case 'ul':
                     case 'p':
-                        if ($this->_tableLevel > 0) {
+                        if ($this->tableLevel > 0) {
                             //    If we're inside a table, replace with a \n
                             $cellContent .= "\n";
 //                            echo 'LIST ENTRY: ' , '<br />';
@@ -353,7 +354,7 @@ class PHPExcel_Reader_HTML extends PHPExcel_Reader_Abstract implements PHPExcel_
                         }
                         break;
                     case 'li':
-                        if ($this->_tableLevel > 0) {
+                        if ($this->tableLevel > 0) {
                             //    If we're inside a table, replace with a \n
                             $cellContent .= "\n";
 //                            echo 'LIST ENTRY: ' , '<br />';
@@ -374,14 +375,14 @@ class PHPExcel_Reader_HTML extends PHPExcel_Reader_Abstract implements PHPExcel_
                     case 'table':
                         $this->flushCell($sheet, $column, $row, $cellContent);
                         $column = $this->setTableStartColumn($column);
-//                        echo 'START OF TABLE LEVEL ' , $this->_tableLevel , '<br />';
-                        if ($this->_tableLevel > 1) {
+//                        echo 'START OF TABLE LEVEL ' , $this->tableLevel , '<br />';
+                        if ($this->tableLevel > 1) {
                             --$row;
                         }
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
-//                        echo 'END OF TABLE LEVEL ' , $this->_tableLevel , '<br />';
+//                        echo 'END OF TABLE LEVEL ' , $this->tableLevel , '<br />';
                         $column = $this->releaseTableStartColumn();
-                        if ($this->_tableLevel > 1) {
+                        if ($this->tableLevel > 1) {
                             ++$column;
                         } else {
                             ++$row;
@@ -394,16 +395,16 @@ class PHPExcel_Reader_HTML extends PHPExcel_Reader_Abstract implements PHPExcel_
                     case 'tr':
                         $column = $this->getTableStartColumn();
                         $cellContent = '';
-//                        echo 'START OF TABLE ' , $this->_tableLevel , ' ROW<br />';
+//                        echo 'START OF TABLE ' , $this->tableLevel , ' ROW<br />';
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
                         ++$row;
-//                        echo 'END OF TABLE ' , $this->_tableLevel , ' ROW<br />';
+//                        echo 'END OF TABLE ' , $this->tableLevel , ' ROW<br />';
                         break;
                     case 'th':
                     case 'td':
-//                        echo 'START OF TABLE ' , $this->_tableLevel , ' CELL<br />';
+//                        echo 'START OF TABLE ' , $this->tableLevel , ' CELL<br />';
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
-//                        echo 'END OF TABLE ' , $this->_tableLevel , ' CELL<br />';
+//                        echo 'END OF TABLE ' , $this->tableLevel , ' CELL<br />';
 
                         while (isset($this->rowspan[$column . $row])) {
                             ++$column;
@@ -453,7 +454,7 @@ class PHPExcel_Reader_HTML extends PHPExcel_Reader_Abstract implements PHPExcel_
                         $row = 1;
                         $column = 'A';
                         $content = '';
-                        $this->_tableLevel = 0;
+                        $this->tableLevel = 0;
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
                         break;
                     default:
