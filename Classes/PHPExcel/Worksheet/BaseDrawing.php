@@ -46,77 +46,77 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      *
      * @var string
      */
-    protected $_name;
+    protected $name;
 
     /**
      * Description
      *
      * @var string
      */
-    protected $_description;
+    protected $description;
 
     /**
      * Worksheet
      *
      * @var PHPExcel_Worksheet
      */
-    protected $_worksheet;
+    protected $worksheet;
 
     /**
      * Coordinates
      *
      * @var string
      */
-    protected $_coordinates;
+    protected $coordinates;
 
     /**
      * Offset X
      *
      * @var int
      */
-    protected $_offsetX;
+    protected $offsetX;
 
     /**
      * Offset Y
      *
      * @var int
      */
-    protected $_offsetY;
+    protected $offsetY;
 
     /**
      * Width
      *
      * @var int
      */
-    protected $_width;
+    protected $width;
 
     /**
      * Height
      *
      * @var int
      */
-    protected $_height;
+    protected $height;
 
     /**
      * Proportional resize
      *
      * @var boolean
      */
-    protected $_resizeProportional;
+    protected $resizeProportional;
 
     /**
      * Rotation
      *
      * @var int
      */
-    protected $_rotation;
+    protected $rotation;
 
     /**
      * Shadow
      *
      * @var PHPExcel_Worksheet_Drawing_Shadow
      */
-    protected $_shadow;
+    protected $shadow;
 
     /**
      * Create a new PHPExcel_Worksheet_BaseDrawing
@@ -124,17 +124,17 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
     public function __construct()
     {
         // Initialise values
-        $this->_name                = '';
-        $this->_description            = '';
-        $this->_worksheet            = null;
-        $this->_coordinates            = 'A1';
-        $this->_offsetX                = 0;
-        $this->_offsetY                = 0;
-        $this->_width                = 0;
-        $this->_height                = 0;
-        $this->_resizeProportional    = true;
-        $this->_rotation            = 0;
-        $this->_shadow                = new PHPExcel_Worksheet_Drawing_Shadow();
+        $this->name                = '';
+        $this->description        = '';
+        $this->worksheet          = null;
+        $this->coordinates        = 'A1';
+        $this->offsetX            = 0;
+        $this->offsetY            = 0;
+        $this->width              = 0;
+        $this->height             = 0;
+        $this->resizeProportional = true;
+        $this->rotation           = 0;
+        $this->shadow             = new PHPExcel_Worksheet_Drawing_Shadow();
 
         // Set image index
         self::$imageCounter++;
@@ -158,7 +158,7 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      */
     public function getName()
     {
-        return $this->_name;
+        return $this->name;
     }
 
     /**
@@ -169,7 +169,7 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      */
     public function setName($pValue = '')
     {
-        $this->_name = $pValue;
+        $this->name = $pValue;
         return $this;
     }
 
@@ -180,7 +180,7 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      */
     public function getDescription()
     {
-        return $this->_description;
+        return $this->description;
     }
 
     /**
@@ -191,7 +191,7 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      */
     public function setDescription($pValue = '')
     {
-        $this->_description = $pValue;
+        $this->description = $pValue;
         return $this;
     }
 
@@ -202,7 +202,7 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      */
     public function getWorksheet()
     {
-        return $this->_worksheet;
+        return $this->worksheet;
     }
 
     /**
@@ -215,20 +215,20 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      */
     public function setWorksheet(PHPExcel_Worksheet $pValue = null, $pOverrideOld = false)
     {
-        if (is_null($this->_worksheet)) {
+        if (is_null($this->worksheet)) {
             // Add drawing to PHPExcel_Worksheet
-            $this->_worksheet = $pValue;
-            $this->_worksheet->getCell($this->_coordinates);
-            $this->_worksheet->getDrawingCollection()->append($this);
+            $this->worksheet = $pValue;
+            $this->worksheet->getCell($this->coordinates);
+            $this->worksheet->getDrawingCollection()->append($this);
         } else {
             if ($pOverrideOld) {
                 // Remove drawing from old PHPExcel_Worksheet
-                $iterator = $this->_worksheet->getDrawingCollection()->getIterator();
+                $iterator = $this->worksheet->getDrawingCollection()->getIterator();
 
                 while ($iterator->valid()) {
                     if ($iterator->current()->getHashCode() == $this->getHashCode()) {
-                        $this->_worksheet->getDrawingCollection()->offsetUnset($iterator->key());
-                        $this->_worksheet = null;
+                        $this->worksheet->getDrawingCollection()->offsetUnset($iterator->key());
+                        $this->worksheet = null;
                         break;
                     }
                 }
@@ -249,7 +249,7 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      */
     public function getCoordinates()
     {
-        return $this->_coordinates;
+        return $this->coordinates;
     }
 
     /**
@@ -260,7 +260,7 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      */
     public function setCoordinates($pValue = 'A1')
     {
-        $this->_coordinates = $pValue;
+        $this->coordinates = $pValue;
         return $this;
     }
 
@@ -271,7 +271,7 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      */
     public function getOffsetX()
     {
-        return $this->_offsetX;
+        return $this->offsetX;
     }
 
     /**
@@ -282,7 +282,7 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      */
     public function setOffsetX($pValue = 0)
     {
-        $this->_offsetX = $pValue;
+        $this->offsetX = $pValue;
         return $this;
     }
 
@@ -293,7 +293,7 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      */
     public function getOffsetY()
     {
-        return $this->_offsetY;
+        return $this->offsetY;
     }
 
     /**
@@ -304,7 +304,7 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      */
     public function setOffsetY($pValue = 0)
     {
-        $this->_offsetY = $pValue;
+        $this->offsetY = $pValue;
         return $this;
     }
 
@@ -315,7 +315,7 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      */
     public function getWidth()
     {
-        return $this->_width;
+        return $this->width;
     }
 
     /**
@@ -327,13 +327,13 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
     public function setWidth($pValue = 0)
     {
         // Resize proportional?
-        if ($this->_resizeProportional && $pValue != 0) {
-            $ratio = $this->_height / ($this->_width != 0 ? $this->_width : 1);
-            $this->_height = round($ratio * $pValue);
+        if ($this->resizeProportional && $pValue != 0) {
+            $ratio = $this->height / ($this->width != 0 ? $this->width : 1);
+            $this->height = round($ratio * $pValue);
         }
 
         // Set width
-        $this->_width = $pValue;
+        $this->width = $pValue;
 
         return $this;
     }
@@ -345,7 +345,7 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      */
     public function getHeight()
     {
-        return $this->_height;
+        return $this->height;
     }
 
     /**
@@ -357,13 +357,13 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
     public function setHeight($pValue = 0)
     {
         // Resize proportional?
-        if ($this->_resizeProportional && $pValue != 0) {
-            $ratio = $this->_width / ($this->_height != 0 ? $this->_height : 1);
-            $this->_width = round($ratio * $pValue);
+        if ($this->resizeProportional && $pValue != 0) {
+            $ratio = $this->width / ($this->height != 0 ? $this->height : 1);
+            $this->width = round($ratio * $pValue);
         }
 
         // Set height
-        $this->_height = $pValue;
+        $this->height = $pValue;
 
         return $this;
     }
@@ -383,19 +383,19 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      */
     public function setWidthAndHeight($width = 0, $height = 0)
     {
-        $xratio = $width / ($this->_width != 0 ? $this->_width : 1);
-        $yratio = $height / ($this->_height != 0 ? $this->_height : 1);
-        if ($this->_resizeProportional && !($width == 0 || $height == 0)) {
-            if (($xratio * $this->_height) < $height) {
-                $this->_height = ceil($xratio * $this->_height);
-                $this->_width  = $width;
+        $xratio = $width / ($this->width != 0 ? $this->width : 1);
+        $yratio = $height / ($this->height != 0 ? $this->height : 1);
+        if ($this->resizeProportional && !($width == 0 || $height == 0)) {
+            if (($xratio * $this->height) < $height) {
+                $this->height = ceil($xratio * $this->height);
+                $this->width  = $width;
             } else {
-                $this->_width    = ceil($yratio * $this->_width);
-                $this->_height    = $height;
+                $this->width    = ceil($yratio * $this->width);
+                $this->height    = $height;
             }
         } else {
-            $this->_width = $width;
-            $this->_height = $height;
+            $this->width = $width;
+            $this->height = $height;
         }
 
         return $this;
@@ -408,7 +408,7 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      */
     public function getResizeProportional()
     {
-        return $this->_resizeProportional;
+        return $this->resizeProportional;
     }
 
     /**
@@ -419,7 +419,7 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      */
     public function setResizeProportional($pValue = true)
     {
-        $this->_resizeProportional = $pValue;
+        $this->resizeProportional = $pValue;
         return $this;
     }
 
@@ -430,7 +430,7 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      */
     public function getRotation()
     {
-        return $this->_rotation;
+        return $this->rotation;
     }
 
     /**
@@ -441,7 +441,7 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      */
     public function setRotation($pValue = 0)
     {
-        $this->_rotation = $pValue;
+        $this->rotation = $pValue;
         return $this;
     }
 
@@ -452,7 +452,7 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      */
     public function getShadow()
     {
-        return $this->_shadow;
+        return $this->shadow;
     }
 
     /**
@@ -464,7 +464,7 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
      */
     public function setShadow(PHPExcel_Worksheet_Drawing_Shadow $pValue = null)
     {
-           $this->_shadow = $pValue;
+           $this->shadow = $pValue;
            return $this;
     }
 
@@ -476,16 +476,16 @@ class PHPExcel_Worksheet_BaseDrawing implements PHPExcel_IComparable
     public function getHashCode()
     {
         return md5(
-            $this->_name .
-            $this->_description .
-            $this->_worksheet->getHashCode() .
-            $this->_coordinates .
-            $this->_offsetX .
-            $this->_offsetY .
-            $this->_width .
-            $this->_height .
-            $this->_rotation .
-            $this->_shadow->getHashCode() .
+            $this->name .
+            $this->description .
+            $this->worksheet->getHashCode() .
+            $this->coordinates .
+            $this->offsetX .
+            $this->offsetY .
+            $this->width .
+            $this->height .
+            $this->rotation .
+            $this->shadow->getHashCode() .
             __CLASS__
         );
     }

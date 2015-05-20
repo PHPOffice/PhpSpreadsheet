@@ -103,9 +103,9 @@ class PHPExcel_Worksheet_Drawing extends PHPExcel_Worksheet_BaseDrawing implemen
             if (file_exists($pValue)) {
                 $this->path = $pValue;
 
-                if ($this->_width == 0 && $this->_height == 0) {
+                if ($this->width == 0 && $this->height == 0) {
                     // Get width/height
-                    list($this->_width, $this->_height) = getimagesize($pValue);
+                    list($this->width, $this->height) = getimagesize($pValue);
                 }
             } else {
                 throw new PHPExcel_Exception("File $pValue not found!");
