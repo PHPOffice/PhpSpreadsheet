@@ -416,7 +416,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      * @return string The valid string
      * @throws Exception
      */
-    private static function _checkSheetCodeName($pValue)
+    private static function checkSheetCodeName($pValue)
     {
         $CharCount = PHPExcel_Shared_String::CountCharacters($pValue);
         if ($CharCount == 0) {
@@ -444,7 +444,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      * @return string The valid string
      * @throws PHPExcel_Exception
      */
-    private static function _checkSheetTitle($pValue)
+    private static function checkSheetTitle($pValue)
     {
         // Some of the printable ASCII characters are invalid:  * : / \ ? [ ]
         if (str_replace(self::$invalidCharacters, '', $pValue) !== $pValue) {
@@ -825,7 +825,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
         }
 
         // Syntax check
-        self::_checkSheetTitle($pValue);
+        self::checkSheetTitle($pValue);
 
         // Old title
         $oldTitle = $this->getTitle();
@@ -1173,7 +1173,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
         }
 
         // Create new cell object
-        return $this->_createNewCell($pCoordinate);
+        return $this->createNewCell($pCoordinate);
     }
 
     /**
@@ -1192,7 +1192,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
             return $this->cellCollection->getCacheData($coordinate);
         }
 
-        return $this->_createNewCell($coordinate);
+        return $this->createNewCell($coordinate);
     }
 
     /**
@@ -1201,7 +1201,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
      * @param string $pCoordinate    Coordinate of the cell
      * @return PHPExcel_Cell Cell that was created
      */
-    private function _createNewCell($pCoordinate)
+    private function createNewCell($pCoordinate)
     {
         $cell = $this->cellCollection->addCacheData(
             $pCoordinate,
@@ -2906,7 +2906,7 @@ class PHPExcel_Worksheet implements PHPExcel_IComparable
         $pValue = str_replace(' ', '_', $pValue);//Excel does this automatically without flinching, we are doing the same
         // Syntax check
         // throw an exception if not valid
-        self::_checkSheetCodeName($pValue);
+        self::checkSheetCodeName($pValue);
 
         // We use the same code that setTitle to find a valid codeName else not using a space (Excel don't like) but a '_'
 

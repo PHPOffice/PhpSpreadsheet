@@ -619,7 +619,7 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
                                             $value = preg_replace('/\[([^\.]+)\.([^\.]+)\]/Ui', '$1!$2', $value);       //  Cell reference in another sheet
                                             $value = preg_replace('/\[\.([^\.]+):\.([^\.]+)\]/Ui', '$1:$2', $value);    //  Cell range reference
                                             $value = preg_replace('/\[\.([^\.]+)\]/Ui', '$1', $value);                  //  Simple cell reference
-                                            $value = PHPExcel_Calculation::_translateSeparator(';', ',', $value, $inBraces);
+                                            $value = PHPExcel_Calculation::translateSeparator(';', ',', $value, $inBraces);
                                         }
                                     }
                                     unset($value);

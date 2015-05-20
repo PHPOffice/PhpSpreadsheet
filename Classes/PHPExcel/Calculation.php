@@ -2407,7 +2407,7 @@ class PHPExcel_Calculation
 
 
 
-    public static function _translateSeparator($fromSeparator, $toSeparator, $formula, &$inBraces)
+    public static function translateSeparator($fromSeparator, $toSeparator, $formula, &$inBraces)
     {
         $strlen = mb_strlen($formula);
         for ($i = 0; $i < $strlen; ++$i) {
@@ -2428,7 +2428,7 @@ class PHPExcel_Calculation
         return $formula;
     }
 
-    private static function _translateFormula($from, $to, $formula, $fromSeparator, $toSeparator)
+    private static function translateFormula($from, $to, $formula, $fromSeparator, $toSeparator)
     {
         //    Convert any Excel function names to the required language
         if (self::$localeLanguage !== 'en_us') {
@@ -2443,7 +2443,7 @@ class PHPExcel_Calculation
                     //    Only count/replace in alternating array entries
                     if ($i = !$i) {
                         $value = preg_replace($from, $to, $value);
-                        $value = self::_translateSeparator($fromSeparator, $toSeparator, $value, $inBraces);
+                        $value = self::translateSeparator($fromSeparator, $toSeparator, $value, $inBraces);
                     }
                 }
                 unset($value);
@@ -2452,7 +2452,7 @@ class PHPExcel_Calculation
             } else {
                 //    If there's no quoted strings, then we do a simple count/replace
                 $formula = preg_replace($from, $to, $formula);
-                $formula = self::_translateSeparator($fromSeparator, $toSeparator, $formula, $inBraces);
+                $formula = self::translateSeparator($fromSeparator, $toSeparator, $formula, $inBraces);
             }
         }
 
@@ -2485,7 +2485,7 @@ class PHPExcel_Calculation
             }
         }
 
-        return self::_translateFormula(self::$functionReplaceFromExcel, self::$functionReplaceToLocale, $formula, ',', self::$localeArgumentSeparator);
+        return self::translateFormula(self::$functionReplaceFromExcel, self::$functionReplaceToLocale, $formula, ',', self::$localeArgumentSeparator);
     }
 
 
@@ -2514,7 +2514,7 @@ class PHPExcel_Calculation
             }
         }
 
-        return self::_translateFormula(self::$functionReplaceFromLocale, self::$functionReplaceToExcel, $formula, self::$localeArgumentSeparator, ',');
+        return self::translateFormula(self::$functionReplaceFromLocale, self::$functionReplaceToExcel, $formula, self::$localeArgumentSeparator, ',');
     }
 
 
@@ -3503,7 +3503,7 @@ class PHPExcel_Calculation
     }
 
 
-    private static function _dataTestReference(&$operandData)
+    private static function dataTestReference(&$operandData)
     {
         $operand = $operandData['value'];
         if (($operandData['reference'] === null) && (is_array($operand))) {
@@ -3548,8 +3548,8 @@ class PHPExcel_Calculation
                     return $this->raiseFormulaError('Internal error - Operand value missing from stack');
                 }
 
-                $operand1 = self::_dataTestReference($operand1Data);
-                $operand2 = self::_dataTestReference($operand2Data);
+                $operand1 = self::dataTestReference($operand1Data);
+                $operand2 = self::dataTestReference($operand2Data);
 
                 //    Log what we're doing
                 if ($token == ':') {
