@@ -33,7 +33,7 @@ abstract class PHPExcel_Writer_Abstract implements PHPExcel_Writer_IWriter
      *
      * @var    boolean
      */
-    protected $_includeCharts = false;
+    protected $includeCharts = false;
 
     /**
      * Pre-calculate formulas
@@ -67,7 +67,7 @@ abstract class PHPExcel_Writer_Abstract implements PHPExcel_Writer_IWriter
      */
     public function getIncludeCharts()
     {
-        return $this->_includeCharts;
+        return $this->includeCharts;
     }
 
     /**
@@ -80,7 +80,7 @@ abstract class PHPExcel_Writer_Abstract implements PHPExcel_Writer_IWriter
      */
     public function setIncludeCharts($pValue = false)
     {
-        $this->_includeCharts = (boolean) $pValue;
+        $this->includeCharts = (boolean) $pValue;
         return $this;
     }
 

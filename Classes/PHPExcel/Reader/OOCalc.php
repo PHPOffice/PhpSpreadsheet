@@ -48,7 +48,7 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
      */
     public function __construct()
     {
-        $this->_readFilter     = new PHPExcel_Reader_DefaultReadFilter();
+        $this->readFilter     = new PHPExcel_Reader_DefaultReadFilter();
     }
 
     /**
@@ -438,8 +438,8 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
                 $worksheetDataAttributes = $worksheetDataSet->attributes($namespacesContent['table']);
 //                print_r($worksheetDataAttributes);
 //                echo '<br />';
-                if ((isset($this->_loadSheetsOnly)) && (isset($worksheetDataAttributes['name'])) &&
-                    (!in_array($worksheetDataAttributes['name'], $this->_loadSheetsOnly))) {
+                if ((isset($this->loadSheetsOnly)) && (isset($worksheetDataAttributes['name'])) &&
+                    (!in_array($worksheetDataAttributes['name'], $this->loadSheetsOnly))) {
                     continue;
                 }
 
@@ -657,7 +657,7 @@ class PHPExcel_Reader_OOCalc extends PHPExcel_Reader_Abstract implements PHPExce
 
                                 //    Merged cells
                                 if ((isset($cellDataTableAttributes['number-columns-spanned'])) || (isset($cellDataTableAttributes['number-rows-spanned']))) {
-                                    if (($type !== PHPExcel_Cell_DataType::TYPE_NULL) || (!$this->_readDataOnly)) {
+                                    if (($type !== PHPExcel_Cell_DataType::TYPE_NULL) || (!$this->readDataOnly)) {
                                         $columnTo = $columnID;
                                         if (isset($cellDataTableAttributes['number-columns-spanned'])) {
                                             $columnTo = PHPExcel_Cell::stringFromColumnIndex(PHPExcel_Cell::columnIndexFromString($columnID) + $cellDataTableAttributes['number-columns-spanned'] -2);

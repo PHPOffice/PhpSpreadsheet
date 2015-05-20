@@ -1,6 +1,7 @@
 <?php
+
 /**
- * PHPExcel
+ * PHPExcel_Reader_Abstract
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -24,15 +25,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-
-
-/**
- * PHPExcel_Reader_Abstract
- *
- * @category    PHPExcel
- * @package    PHPExcel_Reader
- * @copyright    Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
 abstract class PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
 {
     /**
@@ -42,7 +34,7 @@ abstract class PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
      *
      * @var    boolean
      */
-    protected $_readDataOnly = false;
+    protected $readDataOnly = false;
 
     /**
      * Read charts that are defined in the workbook?
@@ -50,7 +42,7 @@ abstract class PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
      *
      * @var    boolean
      */
-    protected $_includeCharts = false;
+    protected $includeCharts = false;
 
     /**
      * Restrict which sheets should be loaded?
@@ -58,16 +50,16 @@ abstract class PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
      *
      * @var array of string
      */
-    protected $_loadSheetsOnly = null;
+    protected $loadSheetsOnly;
 
     /**
      * PHPExcel_Reader_IReadFilter instance
      *
      * @var PHPExcel_Reader_IReadFilter
      */
-    protected $_readFilter = null;
+    protected $readFilter;
 
-    protected $_fileHandle = null;
+    protected $fileHandle = null;
 
 
     /**
@@ -79,7 +71,7 @@ abstract class PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
      */
     public function getReadDataOnly()
     {
-        return $this->_readDataOnly;
+        return $this->readDataOnly;
     }
 
     /**
@@ -93,7 +85,7 @@ abstract class PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
      */
     public function setReadDataOnly($pValue = false)
     {
-        $this->_readDataOnly = $pValue;
+        $this->readDataOnly = $pValue;
         return $this;
     }
 
@@ -107,7 +99,7 @@ abstract class PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
      */
     public function getIncludeCharts()
     {
-        return $this->_includeCharts;
+        return $this->includeCharts;
     }
 
     /**
@@ -122,7 +114,7 @@ abstract class PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
      */
     public function setIncludeCharts($pValue = false)
     {
-        $this->_includeCharts = (boolean) $pValue;
+        $this->includeCharts = (boolean) $pValue;
         return $this;
     }
 
@@ -135,7 +127,7 @@ abstract class PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
      */
     public function getLoadSheetsOnly()
     {
-        return $this->_loadSheetsOnly;
+        return $this->loadSheetsOnly;
     }
 
     /**
@@ -153,7 +145,7 @@ abstract class PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
             return $this->setLoadAllSheets();
         }
 
-        $this->_loadSheetsOnly = is_array($value) ? $value : array($value);
+        $this->loadSheetsOnly = is_array($value) ? $value : array($value);
         return $this;
     }
 
@@ -165,7 +157,7 @@ abstract class PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
      */
     public function setLoadAllSheets()
     {
-        $this->_loadSheetsOnly = null;
+        $this->loadSheetsOnly = null;
         return $this;
     }
 
@@ -176,7 +168,7 @@ abstract class PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
      */
     public function getReadFilter()
     {
-        return $this->_readFilter;
+        return $this->readFilter;
     }
 
     /**
@@ -187,7 +179,7 @@ abstract class PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
      */
     public function setReadFilter(PHPExcel_Reader_IReadFilter $pValue)
     {
-        $this->_readFilter = $pValue;
+        $this->readFilter = $pValue;
         return $this;
     }
 
@@ -198,7 +190,7 @@ abstract class PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
      * @throws    PHPExcel_Reader_Exception
      * @return resource
      */
-    protected function _openFile($pFilename)
+    protected function openFile($pFilename)
     {
         // Check if file exists
         if (!file_exists($pFilename) || !is_readable($pFilename)) {
@@ -206,8 +198,8 @@ abstract class PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
         }
 
         // Open file
-        $this->_fileHandle = fopen($pFilename, 'r');
-        if ($this->_fileHandle === false) {
+        $this->fileHandle = fopen($pFilename, 'r');
+        if ($this->fileHandle === false) {
             throw new PHPExcel_Reader_Exception("Could not open file " . $pFilename . " for reading.");
         }
     }
@@ -223,13 +215,13 @@ abstract class PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
     {
         // Check if file exists
         try {
-            $this->_openFile($pFilename);
+            $this->openFile($pFilename);
         } catch (Exception $e) {
             return false;
         }
 
-        $readable = $this->_isValidFormat();
-        fclose($this->_fileHandle);
+        $readable = $this->isValidFormat();
+        fclose($this->fileHandle);
         return $readable;
     }
 
