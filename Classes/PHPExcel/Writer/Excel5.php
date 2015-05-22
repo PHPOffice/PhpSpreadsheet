@@ -123,12 +123,12 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
         $this->colors = array();
 
         // Initialise workbook writer
-        $this->_writerWorkbook = new PHPExcel_Writer_Excel5_Workbook($this->phpExcel, $this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser);
+        $this->writerWorkbook = new PHPExcel_Writer_Excel5_Workbook($this->phpExcel, $this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser);
 
         // Initialise worksheet writers
         $countSheets = $this->phpExcel->getSheetCount();
         for ($i = 0; $i < $countSheets; ++$i) {
-            $this->_writerWorksheets[$i] = new PHPExcel_Writer_Excel5_Worksheet($this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser, $this->preCalculateFormulas, $this->phpExcel->getSheet($i));
+            $this->writerWorksheets[$i] = new PHPExcel_Writer_Excel5_Worksheet($this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser, $this->preCalculateFormulas, $this->phpExcel->getSheet($i));
         }
 
         // build Escher objects. Escher objects for workbooks needs to be build before Escher object for workbook.
@@ -139,25 +139,25 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
         // for now, we use the first cellXf instead of cellStyleXf
         $cellXfCollection = $this->phpExcel->getCellXfCollection();
         for ($i = 0; $i < 15; ++$i) {
-            $this->_writerWorkbook->addXfWriter($cellXfCollection[0], true);
+            $this->writerWorkbook->addXfWriter($cellXfCollection[0], true);
         }
 
         // add all the cell Xfs
         foreach ($this->phpExcel->getCellXfCollection() as $style) {
-            $this->_writerWorkbook->addXfWriter($style, false);
+            $this->writerWorkbook->addXfWriter($style, false);
         }
 
         // add fonts from rich text eleemnts
         for ($i = 0; $i < $countSheets; ++$i) {
-            foreach ($this->_writerWorksheets[$i]->_phpSheet->getCellCollection() as $cellID) {
-                $cell = $this->_writerWorksheets[$i]->_phpSheet->getCell($cellID);
+            foreach ($this->writerWorksheets[$i]->_phpSheet->getCellCollection() as $cellID) {
+                $cell = $this->writerWorksheets[$i]->_phpSheet->getCell($cellID);
                 $cVal = $cell->getValue();
                 if ($cVal instanceof PHPExcel_RichText) {
                     $elements = $cVal->getRichTextElements();
                     foreach ($elements as $element) {
                         if ($element instanceof PHPExcel_RichText_Run) {
                             $font = $element->getFont();
-                            $this->_writerWorksheets[$i]->_fntHashIndex[$font->getHashCode()] = $this->_writerWorkbook->_addFont($font);
+                            $this->writerWorksheets[$i]->_fntHashIndex[$font->getHashCode()] = $this->writerWorkbook->addFont($font);
                         }
                     }
                 }
@@ -172,16 +172,16 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
         // because the byte sizes of these are needed in the global workbook stream
         $worksheetSizes = array();
         for ($i = 0; $i < $countSheets; ++$i) {
-            $this->_writerWorksheets[$i]->close();
-            $worksheetSizes[] = $this->_writerWorksheets[$i]->_datasize;
+            $this->writerWorksheets[$i]->close();
+            $worksheetSizes[] = $this->writerWorksheets[$i]->_datasize;
         }
 
         // add binary data for global workbook stream
-        $OLE->append($this->_writerWorkbook->writeWorkbook($worksheetSizes));
+        $OLE->append($this->writerWorkbook->writeWorkbook($worksheetSizes));
 
         // add binary data for sheet streams
         for ($i = 0; $i < $countSheets; ++$i) {
-            $OLE->append($this->_writerWorksheets[$i]->getData());
+            $OLE->append($this->writerWorksheets[$i]->getData());
         }
 
         $this->documentSummaryInformation = $this->writeDocumentSummaryInformation();
@@ -391,7 +391,7 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
             $dgContainer->setLastSpId($lastSpId);
 
             // set the Escher object
-            $this->_writerWorksheets[$sheetIndex]->setEscher($escher);
+            $this->writerWorksheets[$sheetIndex]->setEscher($escher);
         }
     }
 
@@ -530,7 +530,7 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
         }
 
         // Set the Escher object
-        $this->_writerWorkbook->setEscher($escher);
+        $this->writerWorkbook->setEscher($escher);
     }
 
     /**

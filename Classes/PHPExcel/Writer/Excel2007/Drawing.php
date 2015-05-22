@@ -58,7 +58,7 @@ class PHPExcel_Writer_Excel2007_Drawing extends PHPExcel_Writer_Excel2007_Writer
         $i = 1;
         $iterator = $pWorksheet->getDrawingCollection()->getIterator();
         while ($iterator->valid()) {
-            $this->_writeDrawing($objWriter, $iterator->current(), $i);
+            $this->writeDrawing($objWriter, $iterator->current(), $i);
 
             $iterator->next();
             ++$i;
@@ -69,7 +69,7 @@ class PHPExcel_Writer_Excel2007_Drawing extends PHPExcel_Writer_Excel2007_Writer
             // Loop through charts and write the chart position
             if ($chartCount > 0) {
                 for ($c = 0; $c < $chartCount; ++$c) {
-                    $this->_writeChart($objWriter, $pWorksheet->getChartByIndex($c), $c+$i);
+                    $this->writeChart($objWriter, $pWorksheet->getChartByIndex($c), $c+$i);
                 }
             }
         }
@@ -88,7 +88,7 @@ class PHPExcel_Writer_Excel2007_Drawing extends PHPExcel_Writer_Excel2007_Writer
      * @param     int                            $pRelationId
      * @throws     PHPExcel_Writer_Exception
      */
-    public function _writeChart(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_Chart $pChart = null, $pRelationId = -1)
+    public function writeChart(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_Chart $pChart = null, $pRelationId = -1)
     {
         $tl = $pChart->getTopLeftPosition();
         $tl['colRow'] = PHPExcel_Cell::coordinateFromString($tl['cell']);
@@ -160,7 +160,7 @@ class PHPExcel_Writer_Excel2007_Drawing extends PHPExcel_Writer_Excel2007_Writer
      * @param     int                                    $pRelationId
      * @throws     PHPExcel_Writer_Exception
      */
-    public function _writeDrawing(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_Worksheet_BaseDrawing $pDrawing = null, $pRelationId = -1)
+    public function writeDrawing(PHPExcel_Shared_XMLWriter $objWriter = null, PHPExcel_Worksheet_BaseDrawing $pDrawing = null, $pRelationId = -1)
     {
         if ($pRelationId >= 0) {
             // xdr:oneCellAnchor
@@ -508,7 +508,7 @@ class PHPExcel_Writer_Excel2007_Drawing extends PHPExcel_Writer_Excel2007_Writer
 
         // Loop through images
         foreach ($images as $key => $value) {
-            $this->_writeVMLHeaderFooterImage($objWriter, $key, $value);
+            $this->writeVMLHeaderFooterImage($objWriter, $key, $value);
         }
 
         $objWriter->endElement();
@@ -525,7 +525,7 @@ class PHPExcel_Writer_Excel2007_Drawing extends PHPExcel_Writer_Excel2007_Writer
      * @param     PHPExcel_Worksheet_HeaderFooterDrawing    $pImage        Image
      * @throws     PHPExcel_Writer_Exception
      */
-    public function _writeVMLHeaderFooterImage(PHPExcel_Shared_XMLWriter $objWriter = null, $pReference = '', PHPExcel_Worksheet_HeaderFooterDrawing $pImage = null)
+    private function writeVMLHeaderFooterImage(PHPExcel_Shared_XMLWriter $objWriter = null, $pReference = '', PHPExcel_Worksheet_HeaderFooterDrawing $pImage = null)
     {
         // Calculate object id
         preg_match('{(\d+)}', md5($pReference), $m);

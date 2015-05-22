@@ -1,6 +1,7 @@
 <?php
+
 /**
- * PHPExcel
+ * PHPExcel_Writer_Excel5_BIFFwriter
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -58,15 +59,6 @@
 // *    License along with this library; if not, write to the Free Software
 // *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 // */
-
-
-/**
- * PHPExcel_Writer_Excel5_BIFFwriter
- *
- * @category   PHPExcel
- * @package    PHPExcel_Writer_Excel5
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
 class PHPExcel_Writer_Excel5_BIFFwriter
 {
     /**
@@ -88,11 +80,11 @@ class PHPExcel_Writer_Excel5_BIFFwriter
     public $_datasize;
 
     /**
-     * The maximum length for a BIFF record (excluding record header and length field). See _addContinue()
+     * The maximum length for a BIFF record (excluding record header and length field). See addContinue()
      * @var integer
-     * @see _addContinue()
+     * @see addContinue()
      */
-    public $_limit    = 8224;
+    private $limit    = 8224;
 
     /**
      * Constructor
@@ -101,7 +93,7 @@ class PHPExcel_Writer_Excel5_BIFFwriter
     {
         $this->_data       = '';
         $this->_datasize   = 0;
-//        $this->_limit      = 8224;
+//        $this->limit      = 8224;
     }
 
     /**
@@ -136,25 +128,25 @@ class PHPExcel_Writer_Excel5_BIFFwriter
      * @param string $data binary data to append
      * @access private
      */
-    public function _append($data)
+    protected function append($data)
     {
-        if (strlen($data) - 4 > $this->_limit) {
-            $data = $this->_addContinue($data);
+        if (strlen($data) - 4 > $this->limit) {
+            $data = $this->addContinue($data);
         }
-        $this->_data        .= $data;
-        $this->_datasize    += strlen($data);
+        $this->_data     .= $data;
+        $this->_datasize += strlen($data);
     }
 
     /**
-     * General storage function like _append, but returns string instead of modifying $this->_data
+     * General storage function like append, but returns string instead of modifying $this->_data
      *
      * @param string $data binary data to write
      * @return string
      */
     public function writeData($data)
     {
-        if (strlen($data) - 4 > $this->_limit) {
-            $data = $this->_addContinue($data);
+        if (strlen($data) - 4 > $this->limit) {
+            $data = $this->addContinue($data);
         }
         $this->_datasize += strlen($data);
 
@@ -169,7 +161,7 @@ class PHPExcel_Writer_Excel5_BIFFwriter
      *                       0x0010 Worksheet.
      * @access private
      */
-    public function _storeBof($type)
+    protected function storeBof($type)
     {
         $record  = 0x0809;            // Record identifier    (BIFF5-BIFF8)
         $length  = 0x0010;
@@ -184,7 +176,7 @@ class PHPExcel_Writer_Excel5_BIFFwriter
 
         $header  = pack("vv", $record, $length);
         $data    = pack("vvvv", $version, $type, $build, $year);
-        $this->_append($header . $data . $unknown);
+        $this->append($header . $data . $unknown);
     }
 
     /**
@@ -192,13 +184,13 @@ class PHPExcel_Writer_Excel5_BIFFwriter
      *
      * @access private
      */
-    public function _storeEof()
+    protected function storeEof()
     {
         $record    = 0x000A;   // Record identifier
         $length    = 0x0000;   // Number of bytes to follow
 
         $header    = pack("vv", $record, $length);
-        $this->_append($header);
+        $this->append($header);
     }
 
     /**
@@ -226,9 +218,9 @@ class PHPExcel_Writer_Excel5_BIFFwriter
      * @return string        A very convenient string of continue blocks
      * @access private
      */
-    public function _addContinue($data)
+    private function addContinue($data)
     {
-        $limit  = $this->_limit;
+        $limit  = $this->limit;
         $record = 0x003C;         // Record identifier
 
         // The first 2080/8224 bytes remain intact. However, we have to change

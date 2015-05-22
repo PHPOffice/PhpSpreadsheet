@@ -43,7 +43,7 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
      *
      * @var PHPExcel_Shared_Escher_DggContainer_BstoreContainer
      */
-    private $_parent;
+    private $parent;
 
     /**
      * The BLIP (Big Large Image or Picture)
@@ -66,7 +66,7 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
      */
     public function setParent($parent)
     {
-        $this->_parent = $parent;
+        $this->parent = $parent;
     }
 
     /**
