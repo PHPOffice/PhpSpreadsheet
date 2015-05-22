@@ -40,7 +40,7 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
      * @static    array of string
      *
      */
-    private static $_majorFonts = array(
+    private static $majorFonts = array(
         'Jpan' => 'ＭＳ Ｐゴシック',
         'Hang' => '맑은 고딕',
         'Hans' => '宋体',
@@ -78,7 +78,7 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
      * @static    array of string
      *
      */
-    private static $_minorFonts = array(
+    private static $minorFonts = array(
         'Jpan' => 'ＭＳ Ｐゴシック',
         'Hang' => '맑은 고딕',
         'Hans' => '宋体',
@@ -116,7 +116,7 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
      * @static    array of string
      *
      */
-    private static $_colourScheme = array(
+    private static $colourScheme = array(
         'dk2'        => '1F497D',
         'lt2'        => 'EEECE1',
         'accent1'    => '4F81BD',
@@ -184,7 +184,7 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
                     $objWriter->endElement();
 
                     // a:dk2
-                    $this->_writeColourScheme($objWriter);
+                    $this->writeColourScheme($objWriter);
 
                 $objWriter->endElement();
 
@@ -194,12 +194,12 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
 
                     // a:majorFont
                     $objWriter->startElement('a:majorFont');
-                        $this->_writeFonts($objWriter, 'Cambria', self::$_majorFonts);
+                        $this->writeFonts($objWriter, 'Cambria', self::$majorFonts);
                     $objWriter->endElement();
 
                     // a:minorFont
                     $objWriter->startElement('a:minorFont');
-                        $this->_writeFonts($objWriter, 'Calibri', self::$_minorFonts);
+                        $this->writeFonts($objWriter, 'Calibri', self::$minorFonts);
                     $objWriter->endElement();
 
                 $objWriter->endElement();
@@ -822,7 +822,7 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
      * @return     string                         XML Output
      * @throws     PHPExcel_Writer_Exception
      */
-    private function _writeFonts($objWriter, $latinFont, $fontSet)
+    private function writeFonts($objWriter, $latinFont, $fontSet)
     {
         // a:latin
         $objWriter->startElement('a:latin');
@@ -854,9 +854,9 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
      * @return     string                         XML Output
      * @throws     PHPExcel_Writer_Exception
      */
-    private function _writeColourScheme($objWriter)
+    private function writeColourScheme($objWriter)
     {
-        foreach (self::$_colourScheme as $colourName => $colourValue) {
+        foreach (self::$colourScheme as $colourName => $colourValue) {
             $objWriter->startElement('a:'.$colourName);
 
                 $objWriter->startElement('a:srgbClr');

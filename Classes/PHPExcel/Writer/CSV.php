@@ -126,9 +126,9 @@ class PHPExcel_Writer_CSV extends PHPExcel_Writer_Abstract implements PHPExcel_W
         // Write rows to file
         for ($row = 1; $row <= $maxRow; ++$row) {
             // Convert the row to an array...
-            $cellsArray = $sheet->rangeToArray('A'.$row.':'.$maxCol.$row, '', $this->_preCalculateFormulas);
+            $cellsArray = $sheet->rangeToArray('A'.$row.':'.$maxCol.$row, '', $this->preCalculateFormulas);
             // ... and write to the file
-            $this->_writeLine($fileHandle, $cellsArray[0]);
+            $this->writeLine($fileHandle, $cellsArray[0]);
         }
 
         // Close file
@@ -281,7 +281,7 @@ class PHPExcel_Writer_CSV extends PHPExcel_Writer_Abstract implements PHPExcel_W
      * @param    array    $pValues        Array containing values in a row
      * @throws    PHPExcel_Writer_Exception
      */
-    private function _writeLine($pFileHandle = null, $pValues = null)
+    private function writeLine($pFileHandle = null, $pValues = null)
     {
         if (is_array($pValues)) {
             // No leading delimiter
