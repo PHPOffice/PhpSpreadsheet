@@ -2841,17 +2841,17 @@ class PHPExcel_Calculation
         //    Examine each of the two operands, and turn them into an array if they aren't one already
         //    Note that this function should only be called if one or both of the operand is already an array
         if (!is_array($operand1)) {
-            list($matrixRows, $matrixColumns) = self::_getMatrixDimensions($operand2);
+            list($matrixRows, $matrixColumns) = self::getMatrixDimensions($operand2);
             $operand1 = array_fill(0, $matrixRows, array_fill(0, $matrixColumns, $operand1));
             $resize = 0;
         } elseif (!is_array($operand2)) {
-            list($matrixRows, $matrixColumns) = self::_getMatrixDimensions($operand1);
+            list($matrixRows, $matrixColumns) = self::getMatrixDimensions($operand1);
             $operand2 = array_fill(0, $matrixRows, array_fill(0, $matrixColumns, $operand2));
             $resize = 0;
         }
 
-        list($matrix1Rows, $matrix1Columns) = self::_getMatrixDimensions($operand1);
-        list($matrix2Rows, $matrix2Columns) = self::_getMatrixDimensions($operand2);
+        list($matrix1Rows, $matrix1Columns) = self::getMatrixDimensions($operand1);
+        list($matrix2Rows, $matrix2Columns) = self::getMatrixDimensions($operand2);
         if (($matrix1Rows == $matrix2Columns) && ($matrix2Rows == $matrix1Columns)) {
             $resize = 1;
         }
@@ -2873,7 +2873,7 @@ class PHPExcel_Calculation
      * @param    mixed        &$matrix        matrix operand
      * @return    array        An array comprising the number of rows, and number of columns
      */
-    public static function _getMatrixDimensions(&$matrix)
+    private static function getMatrixDimensions(&$matrix)
     {
         $matrixRows = count($matrix);
         $matrixColumns = 0;

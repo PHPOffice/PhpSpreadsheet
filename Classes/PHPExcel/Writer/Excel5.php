@@ -128,7 +128,7 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
         // Initialise worksheet writers
         $countSheets = $this->phpExcel->getSheetCount();
         for ($i = 0; $i < $countSheets; ++$i) {
-            $this->_writerWorksheets[$i] = new PHPExcel_Writer_Excel5_Worksheet($this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser, $this->_preCalculateFormulas, $this->phpExcel->getSheet($i));
+            $this->_writerWorksheets[$i] = new PHPExcel_Writer_Excel5_Worksheet($this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser, $this->preCalculateFormulas, $this->phpExcel->getSheet($i));
         }
 
         // build Escher objects. Escher objects for workbooks needs to be build before Escher object for workbook.

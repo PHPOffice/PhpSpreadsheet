@@ -1221,7 +1221,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
                             }
                         }
                     } else {
-                        if ($this->_preCalculateFormulas) {
+                        if ($this->preCalculateFormulas) {
                             $cellData = PHPExcel_Style_NumberFormat::toFormattedString(
                                 $cell->getCalculatedValue(),
                                 $pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode(),

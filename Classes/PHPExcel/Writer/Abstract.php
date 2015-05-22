@@ -42,7 +42,7 @@ abstract class PHPExcel_Writer_Abstract implements PHPExcel_Writer_IWriter
      *
      * @var boolean
      */
-    protected $_preCalculateFormulas = true;
+    protected $preCalculateFormulas = true;
 
     /**
      * Use disk caching where possible?
@@ -96,7 +96,7 @@ abstract class PHPExcel_Writer_Abstract implements PHPExcel_Writer_IWriter
      */
     public function getPreCalculateFormulas()
     {
-        return $this->_preCalculateFormulas;
+        return $this->preCalculateFormulas;
     }
 
     /**
@@ -109,7 +109,7 @@ abstract class PHPExcel_Writer_Abstract implements PHPExcel_Writer_IWriter
      */
     public function setPreCalculateFormulas($pValue = true)
     {
-        $this->_preCalculateFormulas = (boolean) $pValue;
+        $this->preCalculateFormulas = (boolean) $pValue;
         return $this;
     }
 

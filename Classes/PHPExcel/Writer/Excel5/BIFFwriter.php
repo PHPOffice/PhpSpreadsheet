@@ -73,7 +73,7 @@ class PHPExcel_Writer_Excel5_BIFFwriter
      * The byte order of this architecture. 0 => little endian, 1 => big endian
      * @var integer
      */
-    private static $_byte_order;
+    private static $byteOrder;
 
     /**
      * The string containing the data of the BIFF stream
@@ -112,7 +112,7 @@ class PHPExcel_Writer_Excel5_BIFFwriter
      */
     public static function getByteOrder()
     {
-        if (!isset(self::$_byte_order)) {
+        if (!isset(self::$byteOrder)) {
             // Check if "pack" gives the required IEEE 64bit float
             $teststr = pack("d", 1.2345);
             $number  = pack("C8", 0x8D, 0x97, 0x6E, 0x12, 0x83, 0xC0, 0xF3, 0x3F);
@@ -124,10 +124,10 @@ class PHPExcel_Writer_Excel5_BIFFwriter
                 // Give up. I'll fix this in a later version.
                 throw new PHPExcel_Writer_Exception("Required floating point format not supported on this platform.");
             }
-            self::$_byte_order = $byte_order;
+            self::$byteOrder = $byte_order;
         }
 
-        return self::$_byte_order;
+        return self::$byteOrder;
     }
 
     /**
