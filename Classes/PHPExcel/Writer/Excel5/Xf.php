@@ -1,6 +1,7 @@
 <?php
+
 /**
- * PHPExcel
+ * PHPExcel_Writer_Excel5_Xf
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -59,15 +60,6 @@
 // *    License along with this library; if not, write to the Free Software
 // *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 // */
-
-
-/**
- * PHPExcel_Writer_Excel5_Xf
- *
- * @category   PHPExcel
- * @package    PHPExcel_Writer_Excel5
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
 class PHPExcel_Writer_Excel5_Xf
 {
     /**
