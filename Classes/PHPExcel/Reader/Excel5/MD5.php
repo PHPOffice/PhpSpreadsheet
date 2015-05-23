@@ -85,10 +85,10 @@ class PHPExcel_Reader_Excel5_MD5
         $C = $this->c;
         $D = $this->d;
 
-        $F = array('PHPExcel_Reader_Excel5_MD5','F');
-        $G = array('PHPExcel_Reader_Excel5_MD5','G');
-        $H = array('PHPExcel_Reader_Excel5_MD5','H');
-        $I = array('PHPExcel_Reader_Excel5_MD5','I');
+        $F = array('PHPExcel_Reader_Excel5_MD5','f');
+        $G = array('PHPExcel_Reader_Excel5_MD5','g');
+        $H = array('PHPExcel_Reader_Excel5_MD5','h');
+        $I = array('PHPExcel_Reader_Excel5_MD5','i');
 
         /* ROUND 1 */
         self::step($F, $A, $B, $C, $D, $words[0], 7, 0xd76aa478);
@@ -168,22 +168,22 @@ class PHPExcel_Reader_Excel5_MD5
         $this->d = ($this->d + $D) & 0xffffffff;
     }
 
-    private static function F($X, $Y, $Z)
+    private static function f($X, $Y, $Z)
     {
         return (($X & $Y) | ((~ $X) & $Z)); // X AND Y OR NOT X AND Z
     }
 
-    private static function G($X, $Y, $Z)
+    private static function g($X, $Y, $Z)
     {
         return (($X & $Z) | ($Y & (~ $Z))); // X AND Z OR Y AND NOT Z
     }
 
-    private static function H($X, $Y, $Z)
+    private static function h($X, $Y, $Z)
     {
         return ($X ^ $Y ^ $Z); // X XOR Y XOR Z
     }
 
-    private static function I($X, $Y, $Z)
+    private static function i($X, $Y, $Z)
     {
         return ($Y ^ ($X | (~ $Z))) ; // Y XOR (X OR NOT Z)
     }

@@ -20,8 +20,8 @@
  */
 class PHPExcel_Shared_JAMA_LUDecomposition
 {
-    const MatrixSingularException    = "Can only perform operation on singular matrix.";
-    const MatrixSquareException        = "Mismatched Row dimension";
+    const MATRIX_SINGULAR_EXCEPTION    = "Can only perform operation on singular matrix.";
+    const MATRIX_SQUARE_EXCEPTION      = "Mismatched Row dimension";
 
     /**
      *    Decomposition storage
@@ -115,7 +115,7 @@ class PHPExcel_Shared_JAMA_LUDecomposition
                 }
             }
         } else {
-            throw new PHPExcel_Calculation_Exception(PHPExcel_Shared_JAMA_Matrix::ArgumentTypeException);
+            throw new PHPExcel_Calculation_Exception(PHPExcel_Shared_JAMA_Matrix::ARGUMENT_TYPE_EXCEPTION);
         }
     }    //    function __construct()
 
@@ -208,7 +208,7 @@ class PHPExcel_Shared_JAMA_LUDecomposition
             }
             return $d;
         } else {
-            throw new PHPExcel_Calculation_Exception(PHPExcel_Shared_JAMA_Matrix::MatrixDimensionException);
+            throw new PHPExcel_Calculation_Exception(PHPExcel_Shared_JAMA_Matrix::MATRIX_DIMENSION_EXCEPTION);
         }
     }    //    function det()
 
@@ -248,10 +248,10 @@ class PHPExcel_Shared_JAMA_LUDecomposition
                 }
                 return $X;
             } else {
-                throw new PHPExcel_Calculation_Exception(self::MatrixSingularException);
+                throw new PHPExcel_Calculation_Exception(self::MATRIX_SINGULAR_EXCEPTION);
             }
         } else {
-            throw new PHPExcel_Calculation_Exception(self::MatrixSquareException);
+            throw new PHPExcel_Calculation_Exception(self::MATRIX_SQUARE_EXCEPTION);
         }
-    }    //    function solve()
+    }
 }

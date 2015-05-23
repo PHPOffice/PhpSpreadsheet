@@ -73,7 +73,7 @@ class CholeskyDecomposition
                 }
             }
         } else {
-            throw new PHPExcel_Calculation_Exception(JAMAError(ArgumentTypeException));
+            throw new PHPExcel_Calculation_Exception(JAMAError(ARGUMENT_TYPE_EXCEPTION));
         }
     }    //    function __construct()
 
@@ -139,10 +139,10 @@ class CholeskyDecomposition
                     throw new PHPExcel_Calculation_Exception(JAMAError(MatrixSPDException));
                 }
             } else {
-                throw new PHPExcel_Calculation_Exception(JAMAError(MatrixDimensionException));
+                throw new PHPExcel_Calculation_Exception(JAMAError(MATRIX_DIMENSION_EXCEPTION));
             }
         } else {
-            throw new PHPExcel_Calculation_Exception(JAMAError(ArgumentTypeException));
+            throw new PHPExcel_Calculation_Exception(JAMAError(ARGUMENT_TYPE_EXCEPTION));
         }
     }    //    function solve()
 }

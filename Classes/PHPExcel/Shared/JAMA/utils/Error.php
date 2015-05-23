@@ -21,47 +21,47 @@ I've used Babelfish and a little poor knowledge of Romance/Germanic languages fo
 Feel free to correct anything that looks amiss to you.
 */
 
-define('PolymorphicArgumentException', -1);
-$error['EN'][PolymorphicArgumentException] = "Invalid argument pattern for polymorphic function.";
-$error['FR'][PolymorphicArgumentException] = "Modèle inadmissible d'argument pour la fonction polymorphe.".
-$error['DE'][PolymorphicArgumentException] = "Unzulässiges Argumentmuster für polymorphe Funktion.";
+define('POLYMORPHIC_ARGUMENT_EXCEPTION', -1);
+$error['EN'][POLYMORPHIC_ARGUMENT_EXCEPTION] = "Invalid argument pattern for polymorphic function.";
+$error['FR'][POLYMORPHIC_ARGUMENT_EXCEPTION] = "Modèle inadmissible d'argument pour la fonction polymorphe.".
+$error['DE'][POLYMORPHIC_ARGUMENT_EXCEPTION] = "Unzulässiges Argumentmuster für polymorphe Funktion.";
 
-define('ArgumentTypeException', -2);
-$error['EN'][ArgumentTypeException] = "Invalid argument type.";
-$error['FR'][ArgumentTypeException] = "Type inadmissible d'argument.";
-$error['DE'][ArgumentTypeException] = "Unzulässige Argumentart.";
+define('ARGUMENT_TYPE_EXCEPTION', -2);
+$error['EN'][ARGUMENT_TYPE_EXCEPTION] = "Invalid argument type.";
+$error['FR'][ARGUMENT_TYPE_EXCEPTION] = "Type inadmissible d'argument.";
+$error['DE'][ARGUMENT_TYPE_EXCEPTION] = "Unzulässige Argumentart.";
 
-define('ArgumentBoundsException', -3);
-$error['EN'][ArgumentBoundsException] = "Invalid argument range.";
-$error['FR'][ArgumentBoundsException] = "Gamme inadmissible d'argument.";
-$error['DE'][ArgumentBoundsException] = "Unzulässige Argumentstrecke.";
+define('ARGUMENT_BOUNDS_EXCEPTION', -3);
+$error['EN'][ARGUMENT_BOUNDS_EXCEPTION] = "Invalid argument range.";
+$error['FR'][ARGUMENT_BOUNDS_EXCEPTION] = "Gamme inadmissible d'argument.";
+$error['DE'][ARGUMENT_BOUNDS_EXCEPTION] = "Unzulässige Argumentstrecke.";
 
-define('MatrixDimensionException', -4);
-$error['EN'][MatrixDimensionException] = "Matrix dimensions are not equal.";
-$error['FR'][MatrixDimensionException] = "Les dimensions de Matrix ne sont pas égales.";
-$error['DE'][MatrixDimensionException] = "Matrixmaße sind nicht gleich.";
+define('MATRIX_DIMENSION_EXCEPTION', -4);
+$error['EN'][MATRIX_DIMENSION_EXCEPTION] = "Matrix dimensions are not equal.";
+$error['FR'][MATRIX_DIMENSION_EXCEPTION] = "Les dimensions de Matrix ne sont pas égales.";
+$error['DE'][MATRIX_DIMENSION_EXCEPTION] = "Matrixmaße sind nicht gleich.";
 
-define('PrecisionLossException', -5);
-$error['EN'][PrecisionLossException] = "Significant precision loss detected.";
-$error['FR'][PrecisionLossException] = "Perte significative de précision détectée.";
-$error['DE'][PrecisionLossException] = "Bedeutender Präzision Verlust ermittelte.";
+define('PRECISION_LOSS_EXCEPTION', -5);
+$error['EN'][PRECISION_LOSS_EXCEPTION] = "Significant precision loss detected.";
+$error['FR'][PRECISION_LOSS_EXCEPTION] = "Perte significative de précision détectée.";
+$error['DE'][PRECISION_LOSS_EXCEPTION] = "Bedeutender Präzision Verlust ermittelte.";
 
-define('MatrixSPDException', -6);
-$error['EN'][MatrixSPDException] = "Can only perform operation on symmetric positive definite matrix.";
-$error['FR'][MatrixSPDException] = "Perte significative de précision détectée.";
-$error['DE'][MatrixSPDException] = "Bedeutender Präzision Verlust ermittelte.";
+define('MATRIX_SPD_EXCEPTION', -6);
+$error['EN'][MATRIX_SPD_EXCEPTION] = "Can only perform operation on symmetric positive definite matrix.";
+$error['FR'][MATRIX_SPD_EXCEPTION] = "Perte significative de précision détectée.";
+$error['DE'][MATRIX_SPD_EXCEPTION] = "Bedeutender Präzision Verlust ermittelte.";
 
-define('MatrixSingularException', -7);
-$error['EN'][MatrixSingularException] = "Can only perform operation on singular matrix.";
+define('MATRIX_SINGULAR_EXCEPTION', -7);
+$error['EN'][MATRIX_SINGULAR_EXCEPTION] = "Can only perform operation on singular matrix.";
 
-define('MatrixRankException', -8);
-$error['EN'][MatrixRankException] = "Can only perform operation on full-rank matrix.";
+define('MATRIX_RANK_EXCEPTION', -8);
+$error['EN'][MATRIX_RANK_EXCEPTION] = "Can only perform operation on full-rank matrix.";
 
-define('ArrayLengthException', -9);
-$error['EN'][ArrayLengthException] = "Array length must be a multiple of m.";
+define('ARRAY_LENGTH_EXCEPTION', -9);
+$error['EN'][ARRAY_LENGTH_EXCEPTION] = "Array length must be a multiple of m.";
 
-define('RowLengthException', -10);
-$error['EN'][RowLengthException] = "All rows must have the same length.";
+define('ROW_LENGTH_EXCEPTION', -10);
+$error['EN'][ROW_LENGTH_EXCEPTION] = "All rows must have the same length.";
 
 /**
  *    Custom error handler
