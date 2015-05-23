@@ -18,7 +18,7 @@
  */
 class PHPExcel_Shared_JAMA_QRDecomposition
 {
-    const MatrixRankException    = "Can only perform operation on full-rank matrix.";
+    const MATRIX_RANK_EXCEPTION  = "Can only perform operation on full-rank matrix.";
 
     /**
      *    Array for internal storage of decomposition.
@@ -89,7 +89,7 @@ class PHPExcel_Shared_JAMA_QRDecomposition
                 $this->Rdiag[$k] = -$nrm;
             }
         } else {
-            throw new PHPExcel_Calculation_Exception(PHPExcel_Shared_JAMA_Matrix::ArgumentTypeException);
+            throw new PHPExcel_Calculation_Exception(PHPExcel_Shared_JAMA_Matrix::ARGUMENT_TYPE_EXCEPTION);
         }
     }    //    function __construct()
 
@@ -226,10 +226,10 @@ class PHPExcel_Shared_JAMA_QRDecomposition
                 $X = new PHPExcel_Shared_JAMA_Matrix($X);
                 return ($X->getMatrix(0, $this->n-1, 0, $nx));
             } else {
-                throw new PHPExcel_Calculation_Exception(self::MatrixRankException);
+                throw new PHPExcel_Calculation_Exception(self::MATRIX_RANK_EXCEPTION);
             }
         } else {
-            throw new PHPExcel_Calculation_Exception(PHPExcel_Shared_JAMA_Matrix::MatrixDimensionException);
+            throw new PHPExcel_Calculation_Exception(PHPExcel_Shared_JAMA_Matrix::MATRIX_DIMENSION_EXCEPTION);
         }
-    }    //    function solve()
+    }
 }
