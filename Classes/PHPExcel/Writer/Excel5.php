@@ -149,15 +149,15 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
 
         // add fonts from rich text eleemnts
         for ($i = 0; $i < $countSheets; ++$i) {
-            foreach ($this->writerWorksheets[$i]->_phpSheet->getCellCollection() as $cellID) {
-                $cell = $this->writerWorksheets[$i]->_phpSheet->getCell($cellID);
+            foreach ($this->writerWorksheets[$i]->phpSheet->getCellCollection() as $cellID) {
+                $cell = $this->writerWorksheets[$i]->phpSheet->getCell($cellID);
                 $cVal = $cell->getValue();
                 if ($cVal instanceof PHPExcel_RichText) {
                     $elements = $cVal->getRichTextElements();
                     foreach ($elements as $element) {
                         if ($element instanceof PHPExcel_RichText_Run) {
                             $font = $element->getFont();
-                            $this->writerWorksheets[$i]->_fntHashIndex[$font->getHashCode()] = $this->writerWorkbook->addFont($font);
+                            $this->writerWorksheets[$i]->fontHashIndex[$font->getHashCode()] = $this->writerWorkbook->addFont($font);
                         }
                     }
                 }
