@@ -153,21 +153,21 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
      *
      * @var int
      */
-    private $strTotal;
+    private $stringTotal;
 
     /**
      * Number of unique shared strings in workbook
      *
      * @var int
      */
-    private $strUnique;
+    private $stringUnique;
 
     /**
      * Array of unique shared strings in workbook
      *
      * @var array
      */
-    private $strTable;
+    private $stringTable;
 
     /**
      * Color cache
@@ -202,9 +202,9 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
         $this->palette      = array();
         $this->countryCode = -1;
 
-        $this->strTotal      = &$str_total;
-        $this->strUnique     = &$str_unique;
-        $this->strTable      = &$str_table;
+        $this->stringTotal      = &$str_total;
+        $this->stringUnique     = &$str_unique;
+        $this->stringTable      = &$str_table;
         $this->colors        = &$colors;
         $this->setPaletteXl97();
 
@@ -1300,10 +1300,10 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
         $recordDatas = array();
 
         // start SST record data block with total number of strings, total number of unique strings
-        $recordData = pack("VV", $this->strTotal, $this->strUnique);
+        $recordData = pack("VV", $this->stringTotal, $this->stringUnique);
 
         // loop through all (unique) strings in shared strings table
-        foreach (array_keys($this->strTable) as $string) {
+        foreach (array_keys($this->stringTable) as $string) {
             // here $string is a BIFF8 encoded string
 
             // length = character count
