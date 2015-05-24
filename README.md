@@ -1,6 +1,12 @@
 # PHPExcel - OpenXML - Read, Write and Create spreadsheet documents in PHP - Spreadsheet engine
 PHPExcel is a library written in pure PHP and providing a set of classes that allow you to write to and read from different spreadsheet file formats, like Excel (BIFF) .xls, Excel 2007 (OfficeOpenXML) .xlsx, CSV, Libre/OpenOffice Calc .ods, Gnumeric, PDF, HTML, ... This project is built around Microsoft's OpenXML standard and PHP.
 
+---
+
+**WARNING: **This branch breaks backward compatibility with the 1.8 branch, and is subject to major change until the first official 1.9.0 release
+
+---
+
 Master: [![Build Status](https://travis-ci.org/PHPOffice/PHPExcel.png?branch=master)](http://travis-ci.org/PHPOffice/PHPExcel)
 
 Develop: [![Build Status](https://travis-ci.org/PHPOffice/PHPExcel.png?branch=develop)](http://travis-ci.org/PHPOffice/PHPExcel)
@@ -26,7 +32,7 @@ Develop: [![Build Status](https://travis-ci.org/PHPOffice/PHPExcel.png?branch=de
 
 
 ## Requirements
- * PHP version 5.2.0 or higher
+ * PHP version 5.4.0 or higher
  * PHP extension php_zip enabled (required if you need PHPExcel to handle .xlsx .ods or .gnumeric files)
  * PHP extension php_xml enabled
  * PHP extension php_gd2 enabled (optional, but required for exact column width autocalculation)
@@ -35,11 +41,12 @@ Develop: [![Build Status](https://travis-ci.org/PHPOffice/PHPExcel.png?branch=de
 ## Want to contribute?
 
 If you would like to contribute, here are some notes and guidlines:
- - All development happens on the develop branch, so it is always the most up-to-date
+ - All new development happens on the 1.9 branch, so it is always the most up-to-date
  - The master branch only contains tagged releases
- - If you are going to be submitting a pull request, please branch from develop, and submit your pull request back to the develop branch
- - [Helpful article about forking](https://help.github.com/articles/fork-a-repo/ "")
- - [Helpful article about pull requests](https://help.github.com/articles/using-pull-requests/ "")
+ - If you are going to be submitting a pull request, please fork from 1.9, and submit your pull request back to that 1.9 branch
+ - Wherever possible, code changes should conform to PSR-2 standards
+ - [Helpful article about forking](https://help.github.com/articles/fork-a-repo/ "Forking a Github repository")
+ - [Helpful article about pull requests](https://help.github.com/articles/using-pull-requests/ "Pull Requests")
 
 
 ## License
