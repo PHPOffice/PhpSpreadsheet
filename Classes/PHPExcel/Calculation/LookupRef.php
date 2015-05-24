@@ -694,7 +694,7 @@ class PHPExcel_Calculation_LookupRef
     {
         $lookup_value    = PHPExcel_Calculation_Functions::flattenSingleValue($lookup_value);
         $index_number    = PHPExcel_Calculation_Functions::flattenSingleValue($index_number);
-        $not_exact_match    = PHPExcel_Calculation_Functions::flattenSingleValue($not_exact_match);
+        $not_exact_match = PHPExcel_Calculation_Functions::flattenSingleValue($not_exact_match);
 
         // index_number must be greater than or equal to 1
         if ($index_number < 1) {
