@@ -78,8 +78,8 @@ class PHPExcel_Shared_Date
     /**
      * Set the Excel calendar (Windows 1900 or Mac 1904)
      *
-     * @param     integer    $baseDate            Excel base date (1900 or 1904)
-     * @return     boolean                        Success or failure
+     * @param     integer    $baseDate           Excel base date (1900 or 1904)
+     * @return    boolean                        Success or failure
      */
     public static function setExcelCalendar($baseDate)
     {
@@ -374,6 +374,12 @@ class PHPExcel_Shared_Date
         return $dateValueNew;
     }
 
+    /**
+     * Converts a month name (either a long or a short name) to a month number
+     *
+     * @param     string    $month    Month name or abbreviation
+     * @return    integer|string     Month number (1 - 12), or the original string argument if it isn't a valid month name
+     */
     public static function monthStringToNumber($month)
     {
         $monthIndex = 1;
@@ -386,11 +392,17 @@ class PHPExcel_Shared_Date
         return $month;
     }
 
+    /**
+     * Strips an ordinal froma numeric value
+     *
+     * @param     string    $day      Day number with an ordinal
+     * @return    integer|string      The integer value with any ordinal stripped, or the original string argument if it isn't a valid numeric
+     */
     public static function dayStringToNumber($day)
     {
         $strippedDayValue = (str_replace(self::$numberSuffixes, '', $day));
         if (is_numeric($strippedDayValue)) {
-            return $strippedDayValue;
+            return (integer) $strippedDayValue;
         }
         return $day;
     }
