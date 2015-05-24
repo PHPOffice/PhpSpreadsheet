@@ -848,8 +848,12 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
                                                 }
                                                 break;
                                             case "inlineStr":
-    //                                            echo 'Inline String', PHP_EOL;
-                                                $value = $this->parseRichText($c->is);
+//                                                echo 'Inline String', PHP_EOL;
+                                                if (isset($c->f)) {
+                                                    $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToError');
+                                                } else {
+                                                    $value = $this->parseRichText($c->is);
+                                                }
                                                 break;
                                             case "e":
     //                                            echo 'Error', PHP_EOL;
@@ -862,7 +866,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
                                                 }
                                                 break;
                                             default:
-    //                                            echo 'Default', PHP_EOL;
+//                                                echo 'Default', PHP_EOL;
                                                 if (!isset($c->f)) {
     //                                                echo 'Not a Formula', PHP_EOL;
                                                     $value = self::castToString($c);

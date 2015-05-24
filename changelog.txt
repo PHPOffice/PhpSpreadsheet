@@ -25,6 +25,8 @@
 
 Planned for 1.8.2
 - Bugfix:   (MBaker)                            - Fix to getCell() method when cell reference includes a worksheet reference
+- Bugfix:   (ncrypthic)       Work Item GH-570  - Ignore inlineStr type if formula element exists
+- General:  (umpirsky)        Work Item GH-548  - Optimize vlookup() sort
 
 
 2015-04-30 (v1.8.1):
