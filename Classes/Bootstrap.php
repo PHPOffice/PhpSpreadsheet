@@ -1,7 +1,10 @@
 <?php
 
 /**
- * PHPExcel_IComparable
+ *
+ * Bootstrap for PHPExcel classes
+ *
+ * Copyright (c) 2006 - 2015 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,12 +26,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-interface PHPExcel_IComparable
-{
-    /**
-     * Get hash code
-     *
-     * @return string    Hash code
-     */
-    public function getHashCode();
-}
+
+include_once __DIR__ . '/Autoloader.php';
+
+\PHPExcel\Autoloader::register();

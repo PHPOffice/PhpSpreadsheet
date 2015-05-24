@@ -1,7 +1,9 @@
 <?php
 
+namespace PHPExcel\Worksheet;
+
 /**
- * PHPExcel_WorksheetIterator
+ * PHPExcel\Worksheet\Iterator
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -25,12 +27,12 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_WorksheetIterator implements Iterator
+class Iterator implements \Iterator
 {
     /**
      * Spreadsheet to iterate
      *
-     * @var PHPExcel
+     * @var \PHPExcel\Spreadsheet
      */
     private $subject;
 
@@ -44,9 +46,9 @@ class PHPExcel_WorksheetIterator implements Iterator
     /**
      * Create a new worksheet iterator
      *
-     * @param PHPExcel         $subject
+     * @param \PHPExcel\Spreadsheet    $subject
      */
-    public function __construct(PHPExcel $subject = null)
+    public function __construct(\PHPExcel\Spreadsheet $subject = null)
     {
         // Set subject
         $this->subject = $subject;
@@ -69,9 +71,9 @@ class PHPExcel_WorksheetIterator implements Iterator
     }
 
     /**
-     * Current PHPExcel_Worksheet
+     * Current Worksheet
      *
-     * @return PHPExcel_Worksheet
+     * @return \PHPExcel\Worksheet
      */
     public function current()
     {
@@ -97,7 +99,7 @@ class PHPExcel_WorksheetIterator implements Iterator
     }
 
     /**
-     * More PHPExcel_Worksheet instances available?
+     * Are there more Worksheet instances available?
      *
      * @return boolean
      */

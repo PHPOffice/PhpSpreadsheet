@@ -1,13 +1,6 @@
 <?php
 
-/** PHPExcel root directory */
-if (!defined('PHPEXCEL_ROOT')) {
-    /**
-     * @ignore
-     */
-    define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../');
-    require(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
-}
+namespace PHPExcel;
 
 if (!defined('CALCULATION_REGEXP_CELLREF')) {
     //    Test for support of \P (multibyte options) in PCRE
@@ -25,7 +18,7 @@ if (!defined('CALCULATION_REGEXP_CELLREF')) {
 }
 
 /**
- * PHPExcel_Calculation (Multiton)
+ * PHPExcel\Calculation (Multiton)
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -49,7 +42,7 @@ if (!defined('CALCULATION_REGEXP_CELLREF')) {
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Calculation
+class Calculation
 {
     /** Constants                */
     /** Regular Expressions        */
@@ -87,20 +80,20 @@ class PHPExcel_Calculation
 
 
     /**
-     * Instance of the workbook this Calculation Engine is using
+     * Instance of the spreadsheet this Calculation Engine is using
      *
      * @access    private
      * @var PHPExcel
      */
-    private $workbook;
+    private $spreadsheet;
 
     /**
-     * List of instances of the calculation engine that we've instantiated for individual workbooks
+     * List of instances of the calculation engine that we've instantiated for individual spreadsheets
      *
      * @access    private
      * @var PHPExcel_Calculation[]
      */
-    private static $workbookSets;
+    private static $spreadsheetSets;
 
     /**
      * Calculation cache
@@ -2068,7 +2061,7 @@ class PHPExcel_Calculation
     );
 
 
-    private function __construct(PHPExcel $workbook = null)
+    private function __construct(PHPExcel $spreadsheet = null)
     {
         $setPrecision = (PHP_INT_SIZE == 4) ? 14 : 16;
         $this->savedPrecision = ini_get('precision');
@@ -2077,11 +2070,11 @@ class PHPExcel_Calculation
         }
         $this->delta = 1 * pow(10, -$setPrecision);
 
-        if ($workbook !== null) {
-            self::$workbookSets[$workbook->getID()] = $this;
+        if ($spreadsheet !== null) {
+            self::$spreadsheetSets[$spreadsheet->getID()] = $this;
         }
 
-        $this->workbook = $workbook;
+        $this->spreadsheet = $spreadsheet;
         $this->cyclicReferenceStack = new PHPExcel_CalcEngine_CyclicReferenceStack();
         $this->_debugLog = new PHPExcel_CalcEngine_Logger($this->cyclicReferenceStack);
     }
@@ -2109,17 +2102,17 @@ class PHPExcel_Calculation
      * Get an instance of this class
      *
      * @access    public
-     * @param   PHPExcel $workbook  Injected workbook for working with a PHPExcel object,
+     * @param   PHPExcel $spreadsheet  Injected spreadsheet for working with a PHPExcel object,
      *                                    or NULL to create a standalone claculation engine
      * @return PHPExcel_Calculation
      */
-    public static function getInstance(PHPExcel $workbook = null)
+    public static function getInstance(Spreadsheet $spreadsheet = null)
     {
-        if ($workbook !== null) {
-            if (isset(self::$workbookSets[$workbook->getID()])) {
-                return self::$workbookSets[$workbook->getID()];
+        if ($spreadsheet !== null) {
+            if (isset(self::$spreadsheetSets[$spreadsheet->getID()])) {
+                return self::$spreadsheetSets[$spreadsheet->getID()];
             }
-            return new PHPExcel_Calculation($workbook);
+            return new PHPExcel_Calculation($spreadsheet);
         }
 
         if (!isset(self::$instance) || (self::$instance === null)) {
@@ -2133,13 +2126,13 @@ class PHPExcel_Calculation
      * Unset an instance of this class
      *
      * @access    public
-     * @param   PHPExcel $workbook  Injected workbook identifying the instance to unset
+     * @param   PHPExcel $spreadsheet  Injected spreadsheet identifying the instance to unset
      */
-    public static function unsetInstance(PHPExcel $workbook = null)
+    public static function unsetInstance(PHPExcel $spreadsheet = null)
     {
-        if ($workbook !== null) {
-            if (isset(self::$workbookSets[$workbook->getID()])) {
-                unset(self::$workbookSets[$workbook->getID()]);
+        if ($spreadsheet !== null) {
+            if (isset(self::$spreadsheetSets[$spreadsheet->getID()])) {
+                unset(self::$spreadsheetSets[$spreadsheet->getID()]);
             }
         }
     }
@@ -2636,10 +2629,10 @@ class PHPExcel_Calculation
         try {
             $result = self::unwrapResult($this->_calculateFormulaValue($pCell->getValue(), $pCell->getCoordinate(), $pCell));
             $cellAddress = array_pop($this->cellStack);
-            $this->workbook->getSheetByName($cellAddress['sheet'])->getCell($cellAddress['cell']);
+            $this->spreadsheet->getSheetByName($cellAddress['sheet'])->getCell($cellAddress['cell']);
         } catch (PHPExcel_Exception $e) {
             $cellAddress = array_pop($this->cellStack);
-            $this->workbook->getSheetByName($cellAddress['sheet'])->getCell($cellAddress['cell']);
+            $this->spreadsheet->getSheetByName($cellAddress['sheet'])->getCell($cellAddress['cell']);
             throw new PHPExcel_Calculation_Exception($e->getMessage());
         }
 
@@ -3611,7 +3604,7 @@ class PHPExcel_Calculation
                             }
                             $cellRef = PHPExcel_Cell::stringFromColumnIndex(min($oCol)).min($oRow).':'.PHPExcel_Cell::stringFromColumnIndex(max($oCol)).max($oRow);
                             if ($pCellParent !== null) {
-                                $cellValue = $this->extractCellRange($cellRef, $this->workbook->getSheetByName($sheet1), false);
+                                $cellValue = $this->extractCellRange($cellRef, $this->spreadsheet->getSheetByName($sheet1), false);
                             } else {
                                 return $this->raiseFormulaError('Unable to access Cell Reference');
                             }
@@ -3725,14 +3718,14 @@ class PHPExcel_Calculation
                         if ($matches[2] > '') {
                             $matches[2] = trim($matches[2], "\"'");
                             if ((strpos($matches[2], '[') !== false) || (strpos($matches[2], ']') !== false)) {
-                                //    It's a Reference to an external workbook (not currently supported)
+                                //    It's a Reference to an external spreadsheet (not currently supported)
                                 return $this->raiseFormulaError('Unable to access External Workbook');
                             }
                             $matches[2] = trim($matches[2], "\"'");
 //                            echo '$cellRef='.$cellRef.' in worksheet '.$matches[2].'<br />';
                             $this->_debugLog->writeDebugLog('Evaluating Cell Range ', $cellRef, ' in worksheet ', $matches[2]);
                             if ($pCellParent !== null) {
-                                $cellValue = $this->extractCellRange($cellRef, $this->workbook->getSheetByName($matches[2]), false);
+                                $cellValue = $this->extractCellRange($cellRef, $this->spreadsheet->getSheetByName($matches[2]), false);
                             } else {
                                 return $this->raiseFormulaError('Unable to access Cell Reference');
                             }
@@ -3759,15 +3752,15 @@ class PHPExcel_Calculation
                         if ($matches[2] > '') {
                             $matches[2] = trim($matches[2], "\"'");
                             if ((strpos($matches[2], '[') !== false) || (strpos($matches[2], ']') !== false)) {
-                                //    It's a Reference to an external workbook (not currently supported)
+                                //    It's a Reference to an external spreadsheet (not currently supported)
                                 return $this->raiseFormulaError('Unable to access External Workbook');
                             }
 //                            echo '$cellRef='.$cellRef.' in worksheet '.$matches[2].'<br />';
                             $this->_debugLog->writeDebugLog('Evaluating Cell ', $cellRef, ' in worksheet ', $matches[2]);
                             if ($pCellParent !== null) {
-                                $cellSheet = $this->workbook->getSheetByName($matches[2]);
+                                $cellSheet = $this->spreadsheet->getSheetByName($matches[2]);
                                 if ($cellSheet && $cellSheet->cellExists($cellRef)) {
-                                    $cellValue = $this->extractCellRange($cellRef, $this->workbook->getSheetByName($matches[2]), false);
+                                    $cellValue = $this->extractCellRange($cellRef, $this->spreadsheet->getSheetByName($matches[2]), false);
                                     $pCell->attach($pCellParent);
                                 } else {
                                     $cellValue = null;
@@ -4215,7 +4208,7 @@ class PHPExcel_Calculation
                 list($pSheetName, $pRange) = PHPExcel_Worksheet::extractSheetTitle($pRange, true);
 //                echo 'New sheet name is '.$pSheetName, PHP_EOL;
 //                echo 'Adjusted Range reference is '.$pRange, PHP_EOL;
-                $pSheet = $this->workbook->getSheetByName($pSheetName);
+                $pSheet = $this->spreadsheet->getSheetByName($pSheetName);
             }
 
             // Extract range
@@ -4273,7 +4266,7 @@ class PHPExcel_Calculation
                 list($pSheetName, $pRange) = PHPExcel_Worksheet::extractSheetTitle($pRange, true);
 //                echo 'New sheet name is '.$pSheetName, PHP_EOL;
 //                echo 'Adjusted Range reference is '.$pRange, PHP_EOL;
-                $pSheet = $this->workbook->getSheetByName($pSheetName);
+                $pSheet = $this->spreadsheet->getSheetByName($pSheetName);
             }
 
             // Named range?

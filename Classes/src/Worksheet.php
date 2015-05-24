@@ -1,7 +1,9 @@
 <?php
 
+namespace PHPExcel;
+
 /**
- * PHPExcel_Worksheet
+ * PHPExcel\Worksheet
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Worksheet implements PHPExcel_IComparable
+class Worksheet implements IComparable
 {
     /* Break types */
     const BREAK_NONE   = 0;
