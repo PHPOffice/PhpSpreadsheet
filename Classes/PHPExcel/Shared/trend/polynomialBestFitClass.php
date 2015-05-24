@@ -1,6 +1,10 @@
 <?php
+
+require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/trend/bestFitClass.php';
+require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/JAMA/Matrix.php';
+
 /**
- * PHPExcel
+ * PHPExcel_Polynomial_Best_Fit
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -24,19 +28,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-
-
-require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/trend/bestFitClass.php';
-require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/JAMA/Matrix.php';
-
-
-/**
- * PHPExcel_Polynomial_Best_Fit
- *
- * @category   PHPExcel
- * @package    PHPExcel_Shared_Trend
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
 class PHPExcel_Polynomial_Best_Fit extends PHPExcel_Best_Fit
 {
     /**
@@ -45,7 +36,7 @@ class PHPExcel_Polynomial_Best_Fit extends PHPExcel_Best_Fit
      *
      * @var    string
      **/
-    protected $_bestFitType        = 'polynomial';
+    protected $bestFitType = 'polynomial';
 
     /**
      * Polynomial order
@@ -53,7 +44,7 @@ class PHPExcel_Polynomial_Best_Fit extends PHPExcel_Best_Fit
      * @protected
      * @var    int
      **/
-    protected $_order            = 0;
+    protected $order = 0;
 
 
     /**
@@ -63,8 +54,8 @@ class PHPExcel_Polynomial_Best_Fit extends PHPExcel_Best_Fit
      **/
     public function getOrder()
     {
-        return $this->_order;
-    }    //    function getOrder()
+        return $this->order;
+    }
 
 
     /**
@@ -83,7 +74,7 @@ class PHPExcel_Polynomial_Best_Fit extends PHPExcel_Best_Fit
             }
         }
         return $retVal;
-    }    //    function getValueOfYForX()
+    }
 
 
     /**
@@ -95,7 +86,7 @@ class PHPExcel_Polynomial_Best_Fit extends PHPExcel_Best_Fit
     public function getValueOfXForY($yValue)
     {
         return ($yValue - $this->getIntersect()) / $this->getSlope();
-    }    //    function getValueOfXForY()
+    }
 
 
     /**
@@ -109,17 +100,17 @@ class PHPExcel_Polynomial_Best_Fit extends PHPExcel_Best_Fit
         $slope = $this->getSlope($dp);
         $intersect = $this->getIntersect($dp);
 
-        $equation = 'Y = '.$intersect;
+        $equation = 'Y = ' . $intersect;
         foreach ($slope as $key => $value) {
             if ($value != 0.0) {
-                $equation .= ' + '.$value.' * X';
+                $equation .= ' + ' . $value . ' * X';
                 if ($key > 0) {
-                    $equation .= '^'.($key + 1);
+                    $equation .= '^' . ($key + 1);
                 }
             }
         }
         return $equation;
-    }    //    function getEquation()
+    }
 
 
     /**
@@ -138,13 +129,13 @@ class PHPExcel_Polynomial_Best_Fit extends PHPExcel_Best_Fit
             return $coefficients;
         }
         return $this->_slope;
-    }    //    function getSlope()
+    }
 
 
     public function getCoefficients($dp = 0)
     {
         return array_merge(array($this->getIntersect($dp)), $this->getSlope($dp));
-    }    //    function getCoefficients()
+    }
 
 
     /**
@@ -155,13 +146,13 @@ class PHPExcel_Polynomial_Best_Fit extends PHPExcel_Best_Fit
      * @param    float[]        $xValues    The set of X-values for this regression
      * @param    boolean        $const
      */
-    private function _polynomial_regression($order, $yValues, $xValues, $const)
+    private function polynomialRegression($order, $yValues, $xValues, $const)
     {
         // calculate sums
         $x_sum = array_sum($xValues);
         $y_sum = array_sum($yValues);
         $xx_sum = $xy_sum = 0;
-        for ($i = 0; $i < $this->_valueCount; ++$i) {
+        for ($i = 0; $i < $this->valueCount; ++$i) {
             $xy_sum += $xValues[$i] * $yValues[$i];
             $xx_sum += $xValues[$i] * $xValues[$i];
             $yy_sum += $yValues[$i] * $yValues[$i];
@@ -174,12 +165,12 @@ class PHPExcel_Polynomial_Best_Fit extends PHPExcel_Best_Fit
          *    a series of x-y data points using least squares.
          *
          */
-        for ($i = 0; $i < $this->_valueCount; ++$i) {
+        for ($i = 0; $i < $this->valueCount; ++$i) {
             for ($j = 0; $j <= $order; ++$j) {
                 $A[$i][$j] = pow($xValues[$i], $j);
             }
         }
-        for ($i=0; $i < $this->_valueCount; ++$i) {
+        for ($i=0; $i < $this->valueCount; ++$i) {
             $B[$i] = array($yValues[$i]);
         }
         $matrixA = new Matrix($A);
@@ -195,14 +186,14 @@ class PHPExcel_Polynomial_Best_Fit extends PHPExcel_Best_Fit
             $coefficients[] = $r;
         }
 
-        $this->_intersect = array_shift($coefficients);
+        $this->intersect = array_shift($coefficients);
         $this->_slope = $coefficients;
 
-        $this->_calculateGoodnessOfFit($x_sum, $y_sum, $xx_sum, $yy_sum, $xy_sum);
-        foreach ($this->_xValues as $xKey => $xValue) {
-            $this->_yBestFitValues[$xKey] = $this->getValueOfYForX($xValue);
+        $this->calculateGoodnessOfFit($x_sum, $y_sum, $xx_sum, $yy_sum, $xy_sum);
+        foreach ($this->xValues as $xKey => $xValue) {
+            $this->yBestFitValues[$xKey] = $this->getValueOfYForX($xValue);
         }
-    }    //    function _polynomial_regression()
+    }
 
 
     /**
@@ -216,10 +207,10 @@ class PHPExcel_Polynomial_Best_Fit extends PHPExcel_Best_Fit
     public function __construct($order, $yValues, $xValues = array(), $const = true)
     {
         if (parent::__construct($yValues, $xValues) !== false) {
-            if ($order < $this->_valueCount) {
-                $this->_bestFitType .= '_'.$order;
-                $this->_order = $order;
-                $this->_polynomial_regression($order, $yValues, $xValues, $const);
+            if ($order < $this->valueCount) {
+                $this->bestFitType .= '_'.$order;
+                $this->order = $order;
+                $this->polynomialRegression($order, $yValues, $xValues, $const);
                 if (($this->getGoodnessOfFit() < 0.0) || ($this->getGoodnessOfFit() > 1.0)) {
                     $this->_error = true;
                 }
@@ -227,5 +218,5 @@ class PHPExcel_Polynomial_Best_Fit extends PHPExcel_Best_Fit
                 $this->_error = true;
             }
         }
-    }    //    function __construct()
+    }
 }
