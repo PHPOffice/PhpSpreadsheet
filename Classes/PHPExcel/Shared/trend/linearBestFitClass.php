@@ -1,6 +1,9 @@
 <?php
+
+require_once(PHPEXCEL_ROOT . 'PHPExcel/Shared/trend/bestFitClass.php');
+
 /**
- * PHPExcel
+ * PHPExcel_Linear_Best_Fit
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -24,16 +27,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-
-require_once(PHPEXCEL_ROOT . 'PHPExcel/Shared/trend/bestFitClass.php');
-
-/**
- * PHPExcel_Linear_Best_Fit
- *
- * @category   PHPExcel
- * @package    PHPExcel_Shared_Trend
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
 class PHPExcel_Linear_Best_Fit extends PHPExcel_Best_Fit
 {
     /**
@@ -42,7 +35,7 @@ class PHPExcel_Linear_Best_Fit extends PHPExcel_Best_Fit
      *
      * @var    string
      **/
-    protected $_bestFitType        = 'linear';
+    protected $bestFitType        = 'linear';
 
     /**
      * Return the Y-Value for a specified value of X
@@ -53,7 +46,7 @@ class PHPExcel_Linear_Best_Fit extends PHPExcel_Best_Fit
     public function getValueOfYForX($xValue)
     {
         return $this->getIntersect() + $this->getSlope() * $xValue;
-    }    //    function getValueOfYForX()
+    }
 
     /**
      * Return the X-Value for a specified value of Y
@@ -64,7 +57,7 @@ class PHPExcel_Linear_Best_Fit extends PHPExcel_Best_Fit
     public function getValueOfXForY($yValue)
     {
         return ($yValue - $this->getIntersect()) / $this->getSlope();
-    }    //    function getValueOfXForY()
+    }
 
 
     /**
@@ -78,8 +71,8 @@ class PHPExcel_Linear_Best_Fit extends PHPExcel_Best_Fit
         $slope = $this->getSlope($dp);
         $intersect = $this->getIntersect($dp);
 
-        return 'Y = '.$intersect.' + '.$slope.' * X';
-    }    //    function getEquation()
+        return 'Y = ' . $intersect . ' + ' . $slope . ' * X';
+    }
 
     /**
      * Execute the regression and calculate the goodness of fit for a set of X and Y data values
@@ -88,10 +81,10 @@ class PHPExcel_Linear_Best_Fit extends PHPExcel_Best_Fit
      * @param     float[]    $xValues    The set of X-values for this regression
      * @param     boolean    $const
      */
-    private function _linear_regression($yValues, $xValues, $const)
+    private function linearRegression($yValues, $xValues, $const)
     {
-        $this->_leastSquareFit($yValues, $xValues, $const);
-    }    //    function _linear_regression()
+        $this->leastSquareFit($yValues, $xValues, $const);
+    }
 
     /**
      * Define the regression and calculate the goodness of fit for a set of X and Y data values
@@ -103,7 +96,7 @@ class PHPExcel_Linear_Best_Fit extends PHPExcel_Best_Fit
     public function __construct($yValues, $xValues = array(), $const = true)
     {
         if (parent::__construct($yValues, $xValues) !== false) {
-            $this->_linear_regression($yValues, $xValues, $const);
+            $this->linearRegression($yValues, $xValues, $const);
         }
-    }    //    function __construct()
+    }
 }

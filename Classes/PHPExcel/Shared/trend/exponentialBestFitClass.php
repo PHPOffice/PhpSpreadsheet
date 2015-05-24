@@ -1,6 +1,9 @@
 <?php
+
+require_once(PHPEXCEL_ROOT . 'PHPExcel/Shared/trend/bestFitClass.php');
+
 /**
- * PHPExcel
+ * PHPExcel_Exponential_Best_Fit
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -24,18 +27,6 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-
-
-require_once(PHPEXCEL_ROOT . 'PHPExcel/Shared/trend/bestFitClass.php');
-
-
-/**
- * PHPExcel_Exponential_Best_Fit
- *
- * @category   PHPExcel
- * @package    PHPExcel_Shared_Trend
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
 class PHPExcel_Exponential_Best_Fit extends PHPExcel_Best_Fit
 {
     /**
@@ -44,7 +35,7 @@ class PHPExcel_Exponential_Best_Fit extends PHPExcel_Best_Fit
      *
      * @var    string
      **/
-    protected $_bestFitType        = 'exponential';
+    protected $bestFitType        = 'exponential';
 
     /**
      * Return the Y-Value for a specified value of X
@@ -54,8 +45,8 @@ class PHPExcel_Exponential_Best_Fit extends PHPExcel_Best_Fit
      **/
     public function getValueOfYForX($xValue)
     {
-        return $this->getIntersect() * pow($this->getSlope(), ($xValue - $this->_Xoffset));
-    }    //    function getValueOfYForX()
+        return $this->getIntersect() * pow($this->getSlope(), ($xValue - $this->xOffset));
+    }
 
     /**
      * Return the X-Value for a specified value of Y
@@ -65,8 +56,8 @@ class PHPExcel_Exponential_Best_Fit extends PHPExcel_Best_Fit
      **/
     public function getValueOfXForY($yValue)
     {
-        return log(($yValue + $this->_Yoffset) / $this->getIntersect()) / log($this->getSlope());
-    }    //    function getValueOfXForY()
+        return log(($yValue + $this->yOffset) / $this->getIntersect()) / log($this->getSlope());
+    }
 
     /**
      * Return the Equation of the best-fit line
@@ -79,8 +70,8 @@ class PHPExcel_Exponential_Best_Fit extends PHPExcel_Best_Fit
         $slope = $this->getSlope($dp);
         $intersect = $this->getIntersect($dp);
 
-        return 'Y = '.$intersect.' * '.$slope.'^X';
-    }    //    function getEquation()
+        return 'Y = ' . $intersect . ' * ' . $slope . '^X';
+    }
 
     /**
      * Return the Slope of the line
@@ -94,7 +85,7 @@ class PHPExcel_Exponential_Best_Fit extends PHPExcel_Best_Fit
             return round(exp($this->_slope), $dp);
         }
         return exp($this->_slope);
-    }    //    function getSlope()
+    }
 
     /**
      * Return the Value of X where it intersects Y = 0
@@ -105,10 +96,10 @@ class PHPExcel_Exponential_Best_Fit extends PHPExcel_Best_Fit
     public function getIntersect($dp = 0)
     {
         if ($dp != 0) {
-            return round(exp($this->_intersect), $dp);
+            return round(exp($this->intersect), $dp);
         }
-        return exp($this->_intersect);
-    }    //    function getIntersect()
+        return exp($this->intersect);
+    }
 
     /**
      * Execute the regression and calculate the goodness of fit for a set of X and Y data values
@@ -117,7 +108,7 @@ class PHPExcel_Exponential_Best_Fit extends PHPExcel_Best_Fit
      * @param     float[]    $xValues    The set of X-values for this regression
      * @param     boolean    $const
      */
-    private function _exponential_regression($yValues, $xValues, $const)
+    private function exponentialRegression($yValues, $xValues, $const)
     {
         foreach ($yValues as &$value) {
             if ($value < 0.0) {
@@ -128,8 +119,8 @@ class PHPExcel_Exponential_Best_Fit extends PHPExcel_Best_Fit
         }
         unset($value);
 
-        $this->_leastSquareFit($yValues, $xValues, $const);
-    }    //    function _exponential_regression()
+        $this->leastSquareFit($yValues, $xValues, $const);
+    }
 
     /**
      * Define the regression and calculate the goodness of fit for a set of X and Y data values
@@ -141,7 +132,7 @@ class PHPExcel_Exponential_Best_Fit extends PHPExcel_Best_Fit
     public function __construct($yValues, $xValues = array(), $const = true)
     {
         if (parent::__construct($yValues, $xValues) !== false) {
-            $this->_exponential_regression($yValues, $xValues, $const);
+            $this->exponentialRegression($yValues, $xValues, $const);
         }
-    }    //    function __construct()
+    }
 }
