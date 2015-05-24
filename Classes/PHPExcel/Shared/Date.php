@@ -106,11 +106,11 @@ class PHPExcel_Shared_Date
     /**
      *    Convert a date from Excel to PHP
      *
-     *    @param        long        $dateValue            Excel date/time value
+     *    @param        integer        $dateValue            Excel date/time value
      *    @param        boolean        $adjustToTimezone    Flag indicating whether $dateValue should be treated as
      *                                                    a UST timestamp, or adjusted to UST
      *    @param        string         $timezone            The timezone for finding the adjustment from UST
-     *    @return        long        PHP serialized date/time
+     *    @return       integer        PHP serialized date/time
      */
     public static function ExcelToPHP($dateValue = 0, $adjustToTimezone = false, $timezone = null)
     {
@@ -197,13 +197,13 @@ class PHPExcel_Shared_Date
     /**
      * FormattedPHPToExcel
      *
-     * @param    long    $year
-     * @param    long    $month
-     * @param    long    $day
-     * @param    long    $hours
-     * @param    long    $minutes
-     * @param    long    $seconds
-     * @return  long                Excel date/time value
+     * @param    integer    $year
+     * @param    integer    $month
+     * @param    integer    $day
+     * @param    integer    $hours
+     * @param    integer    $minutes
+     * @param    integer    $seconds
+     * @return   integer    Excel date/time value
      */
     public static function FormattedPHPToExcel($year, $month, $day, $hours = 0, $minutes = 0, $seconds = 0)
     {
