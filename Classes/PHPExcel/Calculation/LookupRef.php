@@ -674,10 +674,10 @@ class PHPExcel_Calculation_LookupRef
     {
         reset($a);
         $firstColumn = key($a);
-        if (strtolower($a[$firstColumn]) == strtolower($b[$firstColumn])) {
+        if (($aLower = strtolower($a[$firstColumn])) == ($bLower = strtolower($b[$firstColumn]))) {
             return 0;
         }
-        return (strtolower($a[$firstColumn]) < strtolower($b[$firstColumn])) ? -1 : 1;
+        return ($aLower < $bLower) ? -1 : 1;
     }
 
 
