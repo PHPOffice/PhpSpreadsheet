@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Cell;
+
 /**
  * PHPExcel_Cell_DataValidation
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Cell_DataValidation
+class DataValidation
 {
     /* Data validation types */
     const TYPE_NONE        = 'none';
@@ -57,111 +59,97 @@ class PHPExcel_Cell_DataValidation
      *
      * @var string
      */
-    private $formula1;
+    private $formula1 = '';
 
     /**
      * Formula 2
      *
      * @var string
      */
-    private $formula2;
+    private $formula2 = '';
 
     /**
      * Type
      *
      * @var string
      */
-    private $type = PHPExcel_Cell_DataValidation::TYPE_NONE;
+    private $type = DataValidation::TYPE_NONE;
 
     /**
      * Error style
      *
      * @var string
      */
-    private $errorStyle = PHPExcel_Cell_DataValidation::STYLE_STOP;
+    private $errorStyle = DataValidation::STYLE_STOP;
 
     /**
      * Operator
      *
      * @var string
      */
-    private $operator;
+    private $operator = '';
 
     /**
      * Allow Blank
      *
      * @var boolean
      */
-    private $allowBlank;
+    private $allowBlank = false;
 
     /**
      * Show DropDown
      *
      * @var boolean
      */
-    private $showDropDown;
+    private $showDropDown = false;
 
     /**
      * Show InputMessage
      *
      * @var boolean
      */
-    private $showInputMessage;
+    private $showInputMessage = false;
 
     /**
      * Show ErrorMessage
      *
      * @var boolean
      */
-    private $showErrorMessage;
+    private $showErrorMessage = false;
 
     /**
      * Error title
      *
      * @var string
      */
-    private $errorTitle;
+    private $errorTitle = '';
 
     /**
      * Error
      *
      * @var string
      */
-    private $error;
+    private $error = '';
 
     /**
      * Prompt title
      *
      * @var string
      */
-    private $promptTitle;
+    private $promptTitle = '';
 
     /**
      * Prompt
      *
      * @var string
      */
-    private $prompt;
+    private $prompt = '';
 
     /**
      * Create a new PHPExcel_Cell_DataValidation
      */
     public function __construct()
     {
-        // Initialise member variables
-        $this->formula1          = '';
-        $this->formula2          = '';
-        $this->type              = PHPExcel_Cell_DataValidation::TYPE_NONE;
-        $this->errorStyle        = PHPExcel_Cell_DataValidation::STYLE_STOP;
-        $this->operator          = '';
-        $this->allowBlank        = false;
-        $this->showDropDown      = false;
-        $this->showInputMessage  = false;
-        $this->showErrorMessage  = false;
-        $this->errorTitle        = '';
-        $this->error             = '';
-        $this->promptTitle       = '';
-        $this->prompt            = '';
     }
 
     /**

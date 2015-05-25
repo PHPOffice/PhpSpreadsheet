@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Shared;
+
 /**
  * PHPExcel_Shared_Date
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Shared_Date
+class Date
 {
     /** constants */
     const CALENDAR_WINDOWS_1900 = 1900;        //    Base date of 1st Jan 1900 = 1.0
@@ -38,7 +40,7 @@ class PHPExcel_Shared_Date
      * @public
      * @var    string[]
      */
-    public static $monthNames = array(
+    public static $monthNames = [
         'Jan' => 'January',
         'Feb' => 'February',
         'Mar' => 'March',
@@ -51,7 +53,7 @@ class PHPExcel_Shared_Date
         'Oct' => 'October',
         'Nov' => 'November',
         'Dec' => 'December',
-    );
+    ];
 
     /*
      * Names of the months of the year, indexed by shortname
@@ -60,12 +62,12 @@ class PHPExcel_Shared_Date
      * @public
      * @var    string[]
      */
-    public static $numberSuffixes = array(
+    public static $numberSuffixes = [
         'st',
         'nd',
         'rd',
         'th',
-    );
+    ];
 
     /*
      * Base calendar year to use for calculations
@@ -150,7 +152,7 @@ class PHPExcel_Shared_Date
      * Convert a date from Excel to a PHP Date/Time object
      *
      * @param    integer        $dateValue        Excel date/time value
-     * @return    DateTime                    PHP date/time object
+     * @return   \DateTime                    PHP date/time object
      */
     public static function ExcelToPHPObject($dateValue = 0)
     {
@@ -183,7 +185,7 @@ class PHPExcel_Shared_Date
         $saveTimeZone = date_default_timezone_get();
         date_default_timezone_set('UTC');
         $retValue = false;
-        if ((is_object($dateValue)) && ($dateValue instanceof DateTime)) {
+        if ((is_object($dateValue)) && ($dateValue instanceof \DateTime)) {
             $retValue = self::FormattedPHPToExcel($dateValue->format('Y'), $dateValue->format('m'), $dateValue->format('d'), $dateValue->format('H'), $dateValue->format('i'), $dateValue->format('s'));
         } elseif (is_numeric($dateValue)) {
             $retValue = self::FormattedPHPToExcel(date('Y', $dateValue), date('m', $dateValue), date('d', $dateValue), date('H', $dateValue), date('i', $dateValue), date('s', $dateValue));
@@ -247,7 +249,7 @@ class PHPExcel_Shared_Date
      * @param     PHPExcel_Cell    $pCell
      * @return     boolean
      */
-    public static function isDateTime(PHPExcel_Cell $pCell)
+    public static function isDateTime(\PHPExcel\Cell $pCell)
     {
         return self::isDateTimeFormat(
             $pCell->getWorksheet()->getStyle(
@@ -263,7 +265,7 @@ class PHPExcel_Shared_Date
      * @param     PHPExcel_Style_NumberFormat    $pFormat
      * @return     boolean
      */
-    public static function isDateTimeFormat(PHPExcel_Style_NumberFormat $pFormat)
+    public static function isDateTimeFormat(\PHPExcel\Style\NumberFormat $pFormat)
     {
         return self::isDateTimeFormatCode($pFormat->getFormatCode());
     }
@@ -358,15 +360,15 @@ class PHPExcel_Shared_Date
             return false;
         }
 
-        $dateValueNew = PHPExcel_Calculation_DateTime::DATEVALUE($dateValue);
+        $dateValueNew = \PHPExcel\Calculation\DateTime::DATEVALUE($dateValue);
 
-        if ($dateValueNew === PHPExcel_Calculation_Functions::VALUE()) {
+        if ($dateValueNew === \PHPExcel\Calculation\Functions::VALUE()) {
             return false;
         }
 
         if (strpos($dateValue, ':') !== false) {
-            $timeValue = PHPExcel_Calculation_DateTime::TIMEVALUE($dateValue);
-            if ($timeValue === PHPExcel_Calculation_Functions::VALUE()) {
+            $timeValue = \PHPExcel\Calculation\DateTime::TIMEVALUE($dateValue);
+            if ($timeValue === \PHPExcel\Calculation\Functions::VALUE()) {
                 return false;
             }
             $dateValueNew += $timeValue;

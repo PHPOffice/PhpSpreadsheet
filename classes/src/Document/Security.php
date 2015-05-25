@@ -1,7 +1,9 @@
 <?php
 
+namespace PHPExcel\Document;
+
 /**
- * PHPExcel_DocumentSecurity
+ * PHPExcel_Document_Security
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -25,54 +27,48 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_DocumentSecurity
+class Security
 {
     /**
      * LockRevision
      *
      * @var boolean
      */
-    private $lockRevision;
+    private $lockRevision = false;
 
     /**
      * LockStructure
      *
      * @var boolean
      */
-    private $lockStructure;
+    private $lockStructure = false;
 
     /**
      * LockWindows
      *
      * @var boolean
      */
-    private $lockWindows;
+    private $lockWindows = false;
 
     /**
      * RevisionsPassword
      *
      * @var string
      */
-    private $revisionsPassword;
+    private $revisionsPassword = '';
 
     /**
      * WorkbookPassword
      *
      * @var string
      */
-    private $workbookPassword;
+    private $workbookPassword = '';
 
     /**
      * Create a new PHPExcel_DocumentSecurity
      */
     public function __construct()
     {
-        // Initialise values
-        $this->lockRevision      = false;
-        $this->lockStructure     = false;
-        $this->lockWindows       = false;
-        $this->revisionsPassword = '';
-        $this->workbookPassword  = '';
     }
 
     /**

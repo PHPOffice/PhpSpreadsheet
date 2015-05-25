@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\CachedObjectStorage;
+
 /**
  * PHPExcel_CachedObjectStorage_CacheBase
  *
@@ -25,19 +27,19 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-abstract class PHPExcel_CachedObjectStorage_CacheBase
+abstract class CacheBase
 {
     /**
      * Parent worksheet
      *
-     * @var PHPExcel_Worksheet
+     * @var \PHPExcel\Worksheet
      */
     protected $parent;
 
     /**
      * The currently active Cell
      *
-     * @var PHPExcel_Cell
+     * @var \PHPExcel\Cell
      */
     protected $currentObject = null;
 
@@ -66,12 +68,12 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase
     /**
      * Initialise this new cell collection
      *
-     * @param    PHPExcel_Worksheet    $parent        The worksheet for this cell collection
+     * @param    \PHPExcel\Worksheet    $parent        The worksheet for this cell collection
      */
-    public function __construct(PHPExcel_Worksheet $parent)
+    public function __construct(\PHPExcel\Worksheet $parent)
     {
         //    Set our parent worksheet.
-        //    This is maintained within the cache controller to facilitate re-attaching it to PHPExcel_Cell objects when
+        //    This is maintained within the cache controller to facilitate re-attaching it to \PHPExcel\Cell objects when
         //        they are woken from a serialized state
         $this->parent = $parent;
     }
@@ -79,7 +81,7 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase
     /**
      * Return the parent worksheet for this cell collection
      *
-     * @return    PHPExcel_Worksheet
+     * @return    \PHPExcel\Worksheet
      */
     public function getParent()
     {
@@ -87,7 +89,7 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase
     }
 
     /**
-     * Is a value set in the current PHPExcel_CachedObjectStorage_ICache for an indexed cell?
+     * Is a value set in the current \PHPExcel\CachedObjectStorage\ICache for an indexed cell?
      *
      * @param    string        $pCoord        Coordinate address of the cell to check
      * @return    boolean
@@ -125,11 +127,11 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase
     /**
      * Add or Update a cell in cache
      *
-     * @param    PHPExcel_Cell    $cell        Cell to update
-     * @return    PHPExcel_Cell
-     * @throws    PHPExcel_Exception
+     * @param    \PHPExcel\Cell    $cell        Cell to update
+     * @return   \PHPExcel\Cell
+     * @throws   \PHPExcel\Exception
      */
-    public function updateCacheData(PHPExcel_Cell $cell)
+    public function updateCacheData(\PHPExcel\Cell $cell)
     {
         return $this->addCacheData($cell->getCoordinate(), $cell);
     }
@@ -138,7 +140,7 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase
      * Delete a cell in cache identified by coordinate address
      *
      * @param    string            $pCoord        Coordinate address of the cell to delete
-     * @throws    PHPExcel_Exception
+     * @throws   \PHPExcel\Exception
      */
     public function deleteCacheData($pCoord)
     {
@@ -260,9 +262,9 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase
             if ($r != $row) {
                 continue;
             }
-            $columnList[] = PHPExcel_Cell::columnIndexFromString($c);
+            $columnList[] = \PHPExcel\Cell::columnIndexFromString($c);
         }
-        return PHPExcel_Cell::stringFromColumnIndex(max($columnList) - 1);
+        return \PHPExcel\Cell::stringFromColumnIndex(max($columnList) - 1);
     }
 
     /**
@@ -309,10 +311,9 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase
     /**
      * Clone the cell collection
      *
-     * @param    PHPExcel_Worksheet    $parent        The new worksheet
-     * @return    void
+     * @param  \PHPExcel\Worksheet    $parent        The new worksheet that we're copying to
      */
-    public function copyCellCollection(PHPExcel_Worksheet $parent)
+    public function copyCellCollection(\PHPExcel\Worksheet $parent)
     {
         $this->currentCellIsDirty;
         $this->storeData();
@@ -321,7 +322,7 @@ abstract class PHPExcel_CachedObjectStorage_CacheBase
         if (($this->currentObject !== null) && (is_object($this->currentObject))) {
             $this->currentObject->attach($this);
         }
-    }    //    function copyCellCollection()
+    }
 
     /**
      * Remove a row, deleting all cells in that row

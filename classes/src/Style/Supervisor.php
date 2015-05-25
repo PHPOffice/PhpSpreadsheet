@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Style;
+
 /**
  * PHPExcel_Style_Supervisor
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-abstract class PHPExcel_Style_Supervisor
+abstract class Supervisor
 {
     /**
      * Supervisor?

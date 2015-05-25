@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Style;
+
 /**
  * PHPExcel_Style_Protection
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Style_Protection extends PHPExcel_Style_Supervisor implements PHPExcel_IComparable
+class Protection extends Supervisor implements \PHPExcel\IComparable
 {
     /** Protection styles */
     const PROTECTION_INHERIT      = 'inherit';

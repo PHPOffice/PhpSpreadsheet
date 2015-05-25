@@ -157,12 +157,12 @@ class Spreadsheet
     /**
     * Set the macros code
     *
-    * @param string $MacrosCode string|null
+    * @param string $macroCode string|null
     */
-    public function setMacrosCode($MacrosCode = null)
+    public function setMacrosCode($macroCode = null)
     {
-        $this->macrosCode=$MacrosCode;
-        $this->setHasMacros(!is_null($MacrosCode));
+        $this->macrosCode = $macroCode;
+        $this->setHasMacros(!is_null($macroCode));
     }
 
     /**
@@ -180,9 +180,9 @@ class Spreadsheet
     *
     * @param string|null $Certificate
     */
-    public function setMacrosCertificate($Certificate = null)
+    public function setMacrosCertificate($certificate = null)
     {
-        $this->macrosCertificate=$Certificate;
+        $this->macrosCertificate = $certificate;
     }
 
     /**
@@ -211,19 +211,19 @@ class Spreadsheet
     */
     public function discardMacros()
     {
-        $this->hasMacros=false;
-        $this->macrosCode=null;
-        $this->macrosCertificate=null;
+        $this->hasMacros = false;
+        $this->macrosCode = null;
+        $this->macrosCertificate = null;
     }
 
     /**
     * set ribbon XML data
     *
     */
-    public function setRibbonXMLData($Target = null, $XMLData = null)
+    public function setRibbonXMLData($target = null, $xmlData = null)
     {
-        if (!is_null($Target) && !is_null($XMLData)) {
-            $this->ribbonXMLData = array('target' => $Target, 'data' => $XMLData);
+        if (!is_null($target) && !is_null($xmlData)) {
+            $this->ribbonXMLData = array('target' => $target, 'data' => $xmlData);
         } else {
             $this->ribbonXMLData = null;
         }
@@ -234,23 +234,23 @@ class Spreadsheet
     *
     * return string|null|array
     */
-    public function getRibbonXMLData($What = 'all') //we need some constants here...
+    public function getRibbonXMLData($what = 'all') //we need some constants here...
     {
-        $ReturnData = null;
-        $What = strtolower($What);
-        switch ($What){
+        $returnData = null;
+        $what = strtolower($what);
+        switch ($what){
             case 'all':
-                $ReturnData = $this->ribbonXMLData;
+                $returnData = $this->ribbonXMLData;
                 break;
             case 'target':
             case 'data':
-                if (is_array($this->ribbonXMLData) && array_key_exists($What, $this->ribbonXMLData)) {
-                    $ReturnData = $this->ribbonXMLData[$What];
+                if (is_array($this->ribbonXMLData) && array_key_exists($what, $this->ribbonXMLData)) {
+                    $returnData = $this->ribbonXMLData[$what];
                 }
                 break;
         }
 
-        return $ReturnData;
+        return $returnData;
     }
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Style;
+
 /**
  * PHPExcel_Style_NumberFormat
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Style_NumberFormat extends PHPExcel_Style_Supervisor implements PHPExcel_IComparable
+class NumberFormat extends Supervisor implements \PHPExcel\IComparable
 {
     /* Pre-defined formats */
     const FORMAT_GENERAL                 = 'General';
@@ -86,7 +88,7 @@ class PHPExcel_Style_NumberFormat extends PHPExcel_Style_Supervisor implements P
      *
      * @var string
      */
-    protected $formatCode = PHPExcel_Style_NumberFormat::FORMAT_GENERAL;
+    protected $formatCode = self::FORMAT_GENERAL;
 
     /**
      * Built-in format Code
@@ -96,7 +98,7 @@ class PHPExcel_Style_NumberFormat extends PHPExcel_Style_Supervisor implements P
     protected $builtInFormatCode    = 0;
 
     /**
-     * Create a new PHPExcel_Style_NumberFormat
+     * Create a new NumberFormat
      *
      * @param    boolean    $isSupervisor    Flag indicating if this is a supervisor or not
      *                                    Leave this value at default unless you understand exactly what
@@ -120,7 +122,7 @@ class PHPExcel_Style_NumberFormat extends PHPExcel_Style_Supervisor implements P
      * Get the shared style component for the currently active cell in currently active sheet.
      * Only used for style supervisor
      *
-     * @return PHPExcel_Style_NumberFormat
+     * @return NumberFormat
      */
     public function getSharedComponent()
     {
@@ -144,14 +146,14 @@ class PHPExcel_Style_NumberFormat extends PHPExcel_Style_Supervisor implements P
      * <code>
      * $objPHPExcel->getActiveSheet()->getStyle('B2')->getNumberFormat()->applyFromArray(
      *        array(
-     *            'code' => PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE
+     *            'code' => \PHPExcel\Style\NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE
      *        )
      * );
      * </code>
      *
      * @param    array    $pStyles    Array containing style information
      * @throws    PHPExcel_Exception
-     * @return PHPExcel_Style_NumberFormat
+     * @return NumberFormat
      */
     public function applyFromArray($pStyles = null)
     {
@@ -189,12 +191,12 @@ class PHPExcel_Style_NumberFormat extends PHPExcel_Style_Supervisor implements P
      * Set Format Code
      *
      * @param string $pValue
-     * @return PHPExcel_Style_NumberFormat
+     * @return NumberFormat
      */
-    public function setFormatCode($pValue = PHPExcel_Style_NumberFormat::FORMAT_GENERAL)
+    public function setFormatCode($pValue = NumberFormat::FORMAT_GENERAL)
     {
         if ($pValue == '') {
-            $pValue = PHPExcel_Style_NumberFormat::FORMAT_GENERAL;
+            $pValue = NumberFormat::FORMAT_GENERAL;
         }
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(array('code' => $pValue));
@@ -223,7 +225,7 @@ class PHPExcel_Style_NumberFormat extends PHPExcel_Style_Supervisor implements P
      * Set Built-In Format Code
      *
      * @param int $pValue
-     * @return PHPExcel_Style_NumberFormat
+     * @return NumberFormat
      */
     public function setBuiltInFormatCode($pValue = 0)
     {
@@ -248,7 +250,7 @@ class PHPExcel_Style_NumberFormat extends PHPExcel_Style_Supervisor implements P
             self::$builtInFormats = array();
 
             // General
-            self::$builtInFormats[0] = PHPExcel_Style_NumberFormat::FORMAT_GENERAL;
+            self::$builtInFormats[0] = NumberFormat::FORMAT_GENERAL;
             self::$builtInFormats[1] = '0';
             self::$builtInFormats[2] = '0.00';
             self::$builtInFormats[3] = '#,##0';
@@ -538,7 +540,7 @@ class PHPExcel_Style_NumberFormat extends PHPExcel_Style_Supervisor implements P
      * @param array        $callBack    Callback function for additional formatting of string
      * @return string    Formatted string
      */
-    public static function toFormattedString($value = '0', $format = PHPExcel_Style_NumberFormat::FORMAT_GENERAL, $callBack = null)
+    public static function toFormattedString($value = '0', $format = NumberFormat::FORMAT_GENERAL, $callBack = null)
     {
         // For now we do not treat strings although section 4 of a format code affects strings
         if (!is_numeric($value)) {
@@ -547,7 +549,7 @@ class PHPExcel_Style_NumberFormat extends PHPExcel_Style_Supervisor implements P
 
         // For 'General' format code, we just pass the value although this is not entirely the way Excel does it,
         // it seems to round numbers to a total of 10 digits.
-        if (($format === PHPExcel_Style_NumberFormat::FORMAT_GENERAL) || ($format === PHPExcel_Style_NumberFormat::FORMAT_TEXT)) {
+        if (($format === NumberFormat::FORMAT_GENERAL) || ($format === NumberFormat::FORMAT_TEXT)) {
             return $value;
         }
 

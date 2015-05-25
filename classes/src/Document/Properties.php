@@ -1,7 +1,9 @@
 <?php
 
+namespace PHPExcel\Document;
+
 /**
- * PHPExcel_DocumentProperties
+ * PHPExcel_Document_Properties
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_DocumentProperties
+class Properties
 {
     /** constants */
     const PROPERTY_TYPE_BOOLEAN = 'b';

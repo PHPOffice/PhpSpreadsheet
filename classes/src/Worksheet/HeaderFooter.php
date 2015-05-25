@@ -1,4 +1,7 @@
 <?php
+
+namespace PHPExcel\Worksheet;
+
 /**
  * PHPExcel_Worksheet_HeaderFooter
  *
@@ -85,7 +88,7 @@
  * </code>
  *
  */
-class PHPExcel_Worksheet_HeaderFooter
+class HeaderFooter
 {
     /* Header/footer image location */
     const IMAGE_HEADER_LEFT   = 'LH';

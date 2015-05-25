@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Calculation;
+
 /**
  * PHPExcel_Calculation_Exception
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Calculation_Exception extends PHPExcel_Exception
+class Exception extends \PHPExcel\Exception
 {
     /**
      * Error handler callback

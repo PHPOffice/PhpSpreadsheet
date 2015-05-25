@@ -1,14 +1,6 @@
 <?php
 
-/** PHPExcel root directory */
-if (!defined('PHPEXCEL_ROOT')) {
-    /**
-     * @ignore
-     */
-    define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
-    require(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
-}
-
+namespace PHPExcel\Calculation;
 
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/trend/trendClass.php';
 
@@ -50,7 +42,7 @@ define('SQRT2PI', 2.5066282746310005024157652848110452530069867406099);
  * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version        ##VERSION##, ##DATE##
  */
-class PHPExcel_Calculation_Statistical
+class Statistical
 {
     private static function checkTrendArrays(&$array1, &$array2)
     {

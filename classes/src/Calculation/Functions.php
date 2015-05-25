@@ -1,14 +1,6 @@
 <?php
 
-/** PHPExcel root directory */
-if (!defined('PHPEXCEL_ROOT')) {
-    /**
-     * @ignore
-     */
-    define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
-    require(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
-}
-
+namespace PHPExcel\Calculation;
 
 /** MAX_VALUE */
 define('MAX_VALUE', 1.2e308);
@@ -48,7 +40,7 @@ define('PRECISION', 8.88E-016);
  * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version        ##VERSION##, ##DATE##
  */
-class PHPExcel_Calculation_Functions
+class Functions
 {
 
     /** constants */

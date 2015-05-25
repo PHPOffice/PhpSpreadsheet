@@ -1,4 +1,7 @@
 <?php
+
+namespace PHPExcel\Chart;
+
 /**
  * Created by PhpStorm.
  * User: nhw2h8s
@@ -6,7 +9,7 @@
  * Time: 5:45 PM
  */
 
-abstract class PHPExcel_Chart_Properties
+abstract class Properties
 {
     const
         EXCEL_COLOR_TYPE_STANDARD = 'prstClr',

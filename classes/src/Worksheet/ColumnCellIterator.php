@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Worksheet;
+
 /**
  * PHPExcel_Worksheet_ColumnCellIterator
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Worksheet_ColumnCellIterator extends PHPExcel_Worksheet_CellIterator implements Iterator
+class ColumnCellIterator extends CellIterator implements \Iterator
 {
     /**
      * Column index

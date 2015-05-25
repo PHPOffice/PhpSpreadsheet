@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Shared;
+
 /**
  * PHPExcel_Shared_CodePage
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Shared_CodePage
+class CodePage
 {
     /**
      * Convert Microsoft Code Page Identifier to Code Page Name which iconv

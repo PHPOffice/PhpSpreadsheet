@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Cell;
+
 /**
  * PHPExcel_Cell_DataType
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Cell_DataType
+class DataType
 {
     /* Data types */
     const TYPE_STRING2  = 'str';
@@ -71,7 +73,7 @@ class PHPExcel_Cell_DataType
      */
     public static function dataTypeForValue($pValue = null)
     {
-        return PHPExcel_Cell_DefaultValueBinder::dataTypeForValue($pValue);
+        return DefaultValueBinder::dataTypeForValue($pValue);
     }
 
     /**
@@ -82,13 +84,13 @@ class PHPExcel_Cell_DataType
      */
     public static function checkString($pValue = null)
     {
-        if ($pValue instanceof PHPExcel_RichText) {
+        if ($pValue instanceof \PHPExcel\RichText) {
             // TODO: Sanitize Rich-Text string (max. character count is 32,767)
             return $pValue;
         }
 
         // string must never be longer than 32,767 characters, truncate if necessary
-        $pValue = PHPExcel_Shared_String::Substring($pValue, 0, 32767);
+        $pValue = \PHPExcel\Shared\String::Substring($pValue, 0, 32767);
 
         // we require that newline is represented as "\n" in core, not as "\r\n" or "\r"
         $pValue = str_replace(array("\r\n", "\r"), "\n", $pValue);

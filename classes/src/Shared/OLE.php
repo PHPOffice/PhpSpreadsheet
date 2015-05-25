@@ -1,4 +1,7 @@
 <?php
+
+namespace PHPExcel\Shared;
+
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
 // +----------------------------------------------------------------------+
 // | PHP Version 4                                                        |
@@ -35,7 +38,7 @@ $GLOBALS['_OLE_INSTANCES'] = array();
 * @category   PHPExcel
 * @package    PHPExcel_Shared_OLE
 */
-class PHPExcel_Shared_OLE
+class OLE
 {
     const OLE_PPS_TYPE_ROOT   =      5;
     const OLE_PPS_TYPE_DIR    =      1;

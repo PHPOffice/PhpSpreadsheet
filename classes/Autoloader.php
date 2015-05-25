@@ -34,7 +34,8 @@ class Autoloader
      * Register the Autoloader with SPL
      *
      */
-    public static function register() {
+    public static function register()
+    {
         if (function_exists('__autoload')) {
             // Register any existing autoloader function with SPL, so we don't get any clashes
             spl_autoload_register('__autoload');
@@ -49,7 +50,8 @@ class Autoloader
      *
      * @param  string  $className  Name of the object to load
      */
-    public static function load($className) {
+    public static function load($className)
+    {
         if ((class_exists($className, false)) || (strpos($className, 'PHPExcel\\') !== 0)) {
             // Either already loaded, or not a PHPExcel class request
             return false;

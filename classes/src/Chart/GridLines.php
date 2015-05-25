@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Chart;
+
 /**
  * Created by PhpStorm.
  * User: Wiktor Trzonkowski
@@ -7,7 +9,7 @@
  * Time: 2:36 PM
  */
 
-class PHPExcel_Chart_GridLines extends PHPExcel_Chart_Properties
+class GridLines extends Properties
 {
 
   /**

@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Shared;
+
 if (!defined('DATE_W3C')) {
     define('DATE_W3C', 'Y-m-d\TH:i:sP');
 }
@@ -33,7 +35,7 @@ if (!defined('DEBUGMODE_ENABLED')) {
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Shared_XMLWriter extends XMLWriter
+class XMLWriter extends \XMLWriter
 {
     /** Temporary storage method */
     const STORAGE_MEMORY    = 1;

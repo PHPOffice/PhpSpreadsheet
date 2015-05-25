@@ -1,8 +1,10 @@
 <?php
 
-class PHPExcel_Helper_HTML
+namespace PHPExcel\Helper;
+
+class HTML
 {
-    protected static $colourMap = array(
+    protected static $colourMap = [
         'aliceblue' => 'f0f8ff',
         'antiquewhite' => 'faebd7',
         'antiquewhite1' => 'ffefdb',
@@ -520,7 +522,7 @@ class PHPExcel_Helper_HTML
         'yellow3' => 'cdcd00',
         'yellow4' => '8b8b00',
         'yellowgreen' => '9acd32',
-    );
+    ];
 
     protected $face;
     protected $size;

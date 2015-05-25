@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel;
+
 /**
  * PHPExcel_RichText
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_RichText implements PHPExcel_IComparable
+class RichText implements PHPExcel_IComparable
 {
     /**
      * Rich text elements

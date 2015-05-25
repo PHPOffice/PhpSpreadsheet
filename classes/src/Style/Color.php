@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Style;
+
 /**
  * PHPExcel_Style_Color
  *
@@ -25,7 +27,7 @@
  * @license http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version ##VERSION##, ##DATE##
  */
-class PHPExcel_Style_Color extends PHPExcel_Style_Supervisor implements PHPExcel_IComparable
+class Color extends Supervisor implements \PHPExcel\IComparable
 {
     /* Colors */
     const COLOR_BLACK      = 'FF000000';

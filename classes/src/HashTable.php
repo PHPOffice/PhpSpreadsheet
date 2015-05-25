@@ -1,7 +1,9 @@
 <?php
 
+namespace PHPExcel;
+
 /**
- * PHPExcel_HashTable
+ * PHPExcel\HashTable
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -25,27 +27,27 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_HashTable
+class HashTable
 {
     /**
      * HashTable elements
      *
-     * @var array
+     * @var mixed[]
      */
-    protected $items = array();
+    protected $items = [];
 
     /**
      * HashTable key map
      *
-     * @var array
+     * @var mixed[]
      */
-    protected $keyMap = array();
+    protected $keyMap = [];
 
     /**
-     * Create a new PHPExcel_HashTable
+     * Create a new \PHPExcel\HashTable
      *
-     * @param    PHPExcel_IComparable[] $pSource    Optional source array to create HashTable from
-     * @throws    PHPExcel_Exception
+     * @param    IComparable[] $pSource    Optional source array to create HashTable from
+     * @throws   Exception
      */
     public function __construct($pSource = null)
     {
@@ -58,8 +60,8 @@ class PHPExcel_HashTable
     /**
      * Add HashTable items from source
      *
-     * @param    PHPExcel_IComparable[] $pSource    Source array to create HashTable from
-     * @throws    PHPExcel_Exception
+     * @param    IComparable[]  $pSource    Source array to create HashTable from
+     * @throws   Exception
      */
     public function addFromSource($pSource = null)
     {
@@ -79,7 +81,7 @@ class PHPExcel_HashTable
      * Add HashTable item
      *
      * @param    PHPExcel_IComparable $pSource    Item to add
-     * @throws    PHPExcel_Exception
+     * @throws   Exception
      */
     public function add(PHPExcel_IComparable $pSource = null)
     {
@@ -93,8 +95,8 @@ class PHPExcel_HashTable
     /**
      * Remove HashTable item
      *
-     * @param    PHPExcel_IComparable $pSource    Item to remove
-     * @throws    PHPExcel_Exception
+     * @param    IComparable $pSource    Item to remove
+     * @throws   Exception
      */
     public function remove(PHPExcel_IComparable $pSource = null)
     {
@@ -140,7 +142,7 @@ class PHPExcel_HashTable
      * Get index for hash code
      *
      * @param    string    $pHashCode
-     * @return    int    Index
+     * @return   int       Index
      */
     public function getIndexForHashCode($pHashCode = '')
     {
@@ -151,7 +153,7 @@ class PHPExcel_HashTable
      * Get by index
      *
      * @param    int    $pIndex
-     * @return    PHPExcel_IComparable
+     * @return   IComparable
      *
      */
     public function getByIndex($pIndex = 0)
@@ -167,7 +169,7 @@ class PHPExcel_HashTable
      * Get by hashcode
      *
      * @param    string    $pHashCode
-     * @return    PHPExcel_IComparable
+     * @return   IComparable
      *
      */
     public function getByHashCode($pHashCode = '')
@@ -182,7 +184,7 @@ class PHPExcel_HashTable
     /**
      * HashTable to array
      *
-     * @return PHPExcel_IComparable[]
+     * @return IComparable[]
      */
     public function toArray()
     {

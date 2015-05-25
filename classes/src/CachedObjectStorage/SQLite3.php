@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\CachedObjectStorage;
+
 /**
  * PHPExcel_CachedObjectStorage_SQLite3
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_CachedObjectStorage_SQLite3 extends PHPExcel_CachedObjectStorage_CacheBase implements PHPExcel_CachedObjectStorage_ICache
+class SQLite3 extends CacheBase implements ICache
 {
     /**
      * Database table name
@@ -73,8 +75,7 @@ class PHPExcel_CachedObjectStorage_SQLite3 extends PHPExcel_CachedObjectStorage_
      * Store cell data in cache for the current cell object if it's "dirty",
      *     and the 'nullify' the current cell object
      *
-     * @return    void
-     * @throws    PHPExcel_Exception
+     * @throws  \PHPExcel\Exception
      */
     protected function storeData()
     {
@@ -85,7 +86,7 @@ class PHPExcel_CachedObjectStorage_SQLite3 extends PHPExcel_CachedObjectStorage_
             $this->insertQuery->bindValue('data', serialize($this->currentObject), SQLITE3_BLOB);
             $result = $this->insertQuery->execute();
             if ($result === false) {
-                throw new PHPExcel_Exception($this->DBHandle->lastErrorMsg());
+                throw new \PHPExcel\Exception($this->DBHandle->lastErrorMsg());
             }
             $this->currentCellIsDirty = false;
         }
@@ -95,10 +96,10 @@ class PHPExcel_CachedObjectStorage_SQLite3 extends PHPExcel_CachedObjectStorage_
     /**
      * Add or Update a cell in cache identified by coordinate address
      *
-     * @param    string            $pCoord        Coordinate address of the cell to update
-     * @param    PHPExcel_Cell    $cell        Cell to update
-     * @return    PHPExcel_Cell
-     * @throws    PHPExcel_Exception
+     * @param   string            $pCoord        Coordinate address of the cell to update
+     * @param   \PHPExcel\Cell    $cell        Cell to update
+     * @return  \PHPExcel\Cell
+     * @throws  \PHPExcel\Exception
      */
     public function addCacheData($pCoord, PHPExcel_Cell $cell)
     {
@@ -252,10 +253,9 @@ class PHPExcel_CachedObjectStorage_SQLite3 extends PHPExcel_CachedObjectStorage_
     /**
      * Clone the cell collection
      *
-     * @param    PHPExcel_Worksheet    $parent        The new worksheet
-     * @return    void
+     * @param  \PHPExcel\Worksheet    $parent        The new worksheet that we're copying to
      */
-    public function copyCellCollection(PHPExcel_Worksheet $parent)
+    public function copyCellCollection(\PHPExcel\Worksheet $parent)
     {
         $this->currentCellIsDirty;
         $this->storeData();

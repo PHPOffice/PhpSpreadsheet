@@ -1,13 +1,6 @@
 <?php
 
-/** PHPExcel root directory */
-if (!defined('PHPEXCEL_ROOT')) {
-    /**
-     * @ignore
-     */
-    define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
-    require(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
-}
+namespace PHPExcel\Calculation;
 
 /** EULER */
 define('EULER', 2.71828182845904523536);
@@ -37,7 +30,7 @@ define('EULER', 2.71828182845904523536);
  * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version        ##VERSION##, ##DATE##
  */
-class PHPExcel_Calculation_Engineering
+class Engineering
 {
     /**
      * Details of the Units of measure that can be used in CONVERTUOM()

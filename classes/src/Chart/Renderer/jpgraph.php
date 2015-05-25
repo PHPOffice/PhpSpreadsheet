@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Chart\Renderer;
+
 require_once(PHPExcel_Settings::getChartRendererPath().'/jpgraph.php');
 
 /**
@@ -27,21 +29,21 @@ require_once(PHPExcel_Settings::getChartRendererPath().'/jpgraph.php');
  * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version        ##VERSION##, ##DATE##
  */
-class PHPExcel_Chart_Renderer_jpgraph
+class jpgraph
 {
     private static $width    = 640;
 
     private static $height    = 480;
 
-    private static $colourSet = array(
+    private static $colourSet = [
         'mediumpurple1',    'palegreen3',     'gold1',          'cadetblue1',
         'darkmagenta',      'coral',          'dodgerblue3',    'eggplant',
         'mediumblue',       'magenta',        'sandybrown',     'cyan',
         'firebrick1',       'forestgreen',    'deeppink4',      'darkolivegreen',
         'goldenrod2'
-    );
+    ];
 
-    private static $markSet = array(
+    private static $markSet = [
         'diamond'  => MARK_DIAMOND,
         'square'   => MARK_SQUARE,
         'triangle' => MARK_UTRIANGLE,
@@ -51,7 +53,7 @@ class PHPExcel_Chart_Renderer_jpgraph
         'dash'     => MARK_DTRIANGLE,
         'circle'   => MARK_CIRCLE,
         'plus'     => MARK_CROSS
-    );
+    ];
 
 
     private $chart;

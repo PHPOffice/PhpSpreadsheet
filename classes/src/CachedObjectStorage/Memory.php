@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\CachedObjectStorage;
+
 /**
  * PHPExcel_CachedObjectStorage_Memory
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_CachedObjectStorage_Memory extends PHPExcel_CachedObjectStorage_CacheBase implements PHPExcel_CachedObjectStorage_ICache
+class Memory extends CacheBase implements ICache
 {
     /**
      * Dummy method callable from CacheBase, but unused by Memory cache
@@ -39,12 +41,12 @@ class PHPExcel_CachedObjectStorage_Memory extends PHPExcel_CachedObjectStorage_C
     /**
      * Add or Update a cell in cache identified by coordinate address
      *
-     * @param    string            $pCoord        Coordinate address of the cell to update
-     * @param    PHPExcel_Cell    $cell        Cell to update
-     * @return    PHPExcel_Cell
-     * @throws    PHPExcel_Exception
+     * @param   string            $pCoord        Coordinate address of the cell to update
+     * @param   \PHPExcel\Cell    $cell        Cell to update
+     * @return  \PHPExcel\Cell
+     * @throws  \PHPExcel\Exception
      */
-    public function addCacheData($pCoord, PHPExcel_Cell $cell)
+    public function addCacheData($pCoord, \PHPExcel\Cell $cell)
     {
         $this->cellCache[$pCoord] = $cell;
 
@@ -82,9 +84,9 @@ class PHPExcel_CachedObjectStorage_Memory extends PHPExcel_CachedObjectStorage_C
     /**
      * Clone the cell collection
      *
-     * @param    PHPExcel_Worksheet    $parent        The new worksheet
+     * @param  \PHPExcel\Worksheet    $parent        The new worksheet that we're copying to
      */
-    public function copyCellCollection(PHPExcel_Worksheet $parent)
+    public function copyCellCollection(\PHPExcel\Worksheet $parent)
     {
         parent::copyCellCollection($parent);
 

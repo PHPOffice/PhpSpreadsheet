@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Shared;
+
 /**
  * PHPExcel_Shared_Excel5
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Shared_Excel5
+class Excel5
 {
     /**
      * Get the width of a column in pixels. We use the relationship y = ceil(7x) where

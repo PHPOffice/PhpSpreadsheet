@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Worksheet;
+
 /**
  * PHPExcel_Worksheet_AutoFilter
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Worksheet_AutoFilter
+class AutoFilter
 {
     /**
      * Autofilter Worksheet
@@ -57,7 +59,7 @@ class PHPExcel_Worksheet_AutoFilter
      *    @param    string        $pRange        Cell range (i.e. A1:E10)
      * @param PHPExcel_Worksheet $pSheet
      */
-    public function __construct($pRange = '', PHPExcel_Worksheet $pSheet = null)
+    public function __construct($pRange = '', \PHPExcel\Worksheet $pSheet = null)
     {
         $this->range = $pRange;
         $this->workSheet = $pSheet;
@@ -79,7 +81,7 @@ class PHPExcel_Worksheet_AutoFilter
      * @param PHPExcel_Worksheet $pSheet
      * @return PHPExcel_Worksheet_AutoFilter
      */
-    public function setParent(PHPExcel_Worksheet $pSheet = null)
+    public function setParent(\PHPExcel\Worksheet $pSheet = null)
     {
         $this->workSheet = $pSheet;
 

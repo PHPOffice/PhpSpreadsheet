@@ -1,7 +1,9 @@
 <?php
 
+namespace PHPExcel\Shared;
+
 /**
- * PHPExcel
+ * PHPExcel_Shared_TimeZone
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -25,16 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-
-
-/**
- * PHPExcel_Shared_TimeZone
- *
- * @category   PHPExcel
- * @package    PHPExcel_Shared
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
-class PHPExcel_Shared_TimeZone
+class TimeZone
 {
     /*
      * Default Timezone used for date/time conversions

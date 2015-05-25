@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Chart;
+
 /**
  * PHPExcel_Chart_PlotArea
  *
@@ -25,7 +27,7 @@
  * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version        ##VERSION##, ##DATE##
  */
-class PHPExcel_Chart_PlotArea
+class PlotArea
 {
     /**
      * PlotArea Layout
@@ -44,7 +46,7 @@ class PHPExcel_Chart_PlotArea
     /**
      * Create a new PHPExcel_Chart_PlotArea
      */
-    public function __construct(PHPExcel_Chart_Layout $layout = null, $plotSeries = array())
+    public function __construct(Layout $layout = null, $plotSeries = array())
     {
         $this->layout = $layout;
         $this->plotSeries = $plotSeries;

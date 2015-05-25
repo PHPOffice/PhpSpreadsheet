@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\CachedObjectStorage;
+
 /**
  * PHPExcel_CachedObjectStorage_DiscISAM
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_CachedObjectStorage_DiscISAM extends PHPExcel_CachedObjectStorage_CacheBase implements PHPExcel_CachedObjectStorage_ICache
+class DiscISAM extends CacheBase implements ICache
 {
     /**
      * Name of the file for this cache
@@ -75,11 +77,11 @@ class PHPExcel_CachedObjectStorage_DiscISAM extends PHPExcel_CachedObjectStorage
      * Add or Update a cell in cache identified by coordinate address
      *
      * @param    string            $pCoord        Coordinate address of the cell to update
-     * @param    PHPExcel_Cell    $cell        Cell to update
-     * @return    PHPExcel_Cell
-     * @throws    PHPExcel_Exception
+     * @param    \PHPExcel\Cell    $cell        Cell to update
+     * @return   \PHPExcel\Cell
+     * @throws   \PHPExcel\Exception
      */
-    public function addCacheData($pCoord, PHPExcel_Cell $cell)
+    public function addCacheData($pCoord, \PHPExcel\Cell $cell)
     {
         if (($pCoord !== $this->currentObjectID) && ($this->currentObjectID !== null)) {
             $this->storeData();
@@ -140,9 +142,9 @@ class PHPExcel_CachedObjectStorage_DiscISAM extends PHPExcel_CachedObjectStorage
     /**
      * Clone the cell collection
      *
-     * @param    PHPExcel_Worksheet    $parent        The new worksheet
+     * @param  \PHPExcel\Worksheet    $parent        The new worksheet that we're copying to
      */
-    public function copyCellCollection(PHPExcel_Worksheet $parent)
+    public function copyCellCollection(\PHPExcel\Worksheet $parent)
     {
         parent::copyCellCollection($parent);
         //    Get a new id for the new file name

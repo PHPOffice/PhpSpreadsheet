@@ -1,6 +1,9 @@
 <?php
+
+namespace PHPExcel\Worksheet;
+
 /**
- * PHPExcel
+ * PHPExcel_Worksheet_Protection
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -24,16 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-
-
-/**
- * PHPExcel_Worksheet_Protection
- *
- * @category   PHPExcel
- * @package    PHPExcel_Worksheet
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
-class PHPExcel_Worksheet_Protection
+class Protection
 {
     /**
      * Sheet

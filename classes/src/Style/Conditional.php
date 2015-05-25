@@ -1,6 +1,9 @@
 <?php
+
+namespace PHPExcel\Style;
+
 /**
- * PHPExcel
+ * PHPExcel_Style_Conditional
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -24,16 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-
-
-/**
- * PHPExcel_Style_Conditional
- *
- * @category   PHPExcel
- * @package    PHPExcel_Style
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
-class PHPExcel_Style_Conditional implements PHPExcel_IComparable
+class Conditional implements \PHPExcel\IComparable
 {
     /* Condition types */
     const CONDITION_NONE         = 'none';

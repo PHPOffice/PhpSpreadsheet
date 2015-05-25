@@ -3,7 +3,7 @@
 namespace PHPExcel\Calculation;
 
 /**
- * PHPExcel_Calculation_Function
+ * PHPExcel_Calculation_Categories
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -27,7 +27,7 @@ namespace PHPExcel\Calculation;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class Function
+class Categories
 {
     /* Function categories */
     const CATEGORY_CUBE                 = 'Cube';

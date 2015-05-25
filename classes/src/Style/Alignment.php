@@ -1,4 +1,7 @@
 <?php
+
+namespace PHPExcel\Style;
+
 /**
  * PHPExcel_Style_Alignment
  *
@@ -24,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Style_Alignment extends PHPExcel_Style_Supervisor implements PHPExcel_IComparable
+class Alignment extends Supervisor implements \PHPExcel\IComparable
 {
     /* Horizontal alignment styles */
     const HORIZONTAL_GENERAL           = 'general';
@@ -53,14 +56,14 @@ class PHPExcel_Style_Alignment extends PHPExcel_Style_Supervisor implements PHPE
      *
      * @var string
      */
-    protected $horizontal = PHPExcel_Style_Alignment::HORIZONTAL_GENERAL;
+    protected $horizontal = self::HORIZONTAL_GENERAL;
 
     /**
      * Vertical alignment
      *
      * @var string
      */
-    protected $vertical = PHPExcel_Style_Alignment::VERTICAL_BOTTOM;
+    protected $vertical = self::VERTICAL_BOTTOM;
 
     /**
      * Text rotation

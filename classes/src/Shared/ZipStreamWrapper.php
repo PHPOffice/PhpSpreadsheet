@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Shared;
+
 /**
  * PHPExcel_Shared_ZipStreamWrapper
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Shared_ZipStreamWrapper
+class ZipStreamWrapper
 {
     /**
      * Internal ZipAcrhive

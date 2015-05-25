@@ -1,6 +1,9 @@
 <?php
+
+namespace PHPExcel;
+
 /**
- * PHPExcel
+ * PHPExcel\Exception
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -24,16 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-
-
-/**
- * PHPExcel_Exception
- *
- * @category   PHPExcel
- * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
-class PHPExcel_Exception extends Exception
+class Exception extends \Exception
 {
     /**
      * Error handler callback

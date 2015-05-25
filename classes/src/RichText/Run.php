@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\RichText;
+
 /**
  * PHPExcel_RichText_Run
  *
@@ -23,7 +25,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_RichText_Run extends PHPExcel_RichText_TextElement implements PHPExcel_RichText_ITextElement
+class Run extends TextElement implements ITextElement
 {
     /**
      * Font

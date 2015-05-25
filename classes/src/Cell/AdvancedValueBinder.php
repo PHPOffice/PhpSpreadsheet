@@ -1,13 +1,6 @@
 <?php
 
-/** PHPExcel root directory */
-if (!defined('PHPEXCEL_ROOT')) {
-    /**
-     * @ignore
-     */
-    define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
-    require(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
-}
+namespace PHPExcel\Cell;
 
 /**
  * PHPExcel_Cell_AdvancedValueBinder
@@ -34,7 +27,7 @@ if (!defined('PHPEXCEL_ROOT')) {
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Cell_AdvancedValueBinder extends PHPExcel_Cell_DefaultValueBinder implements PHPExcel_Cell_IValueBinder
+class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
 {
     /**
      * Bind value to a cell
@@ -43,7 +36,7 @@ class PHPExcel_Cell_AdvancedValueBinder extends PHPExcel_Cell_DefaultValueBinder
      * @param  mixed $value          Value to bind in cell
      * @return boolean
      */
-    public function bindValue(PHPExcel_Cell $cell, $value = null)
+    public function bindValue(\PHPExcel\Cell $cell, $value = null)
     {
         // sanitize UTF-8 strings
         if (is_string($value)) {

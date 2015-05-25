@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Chart;
+
 /**
  * Created by PhpStorm.
  * User: Wiktor Trzonkowski
@@ -7,7 +9,7 @@
  * Time: 12:11 PM
  */
 
-class PHPExcel_Chart_Axis extends PHPExcel_Chart_Properties
+class Axis extends Properties
 {
     /**
      * Axis Number
