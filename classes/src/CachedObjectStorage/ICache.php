@@ -51,9 +51,9 @@ interface ICache
     /**
      * Fetch a cell from cache identified by coordinate address
      *
-     * @param    string            $pCoord        Coordinate address of the cell to retrieve
-     * @return PHPExcel_Cell     Cell that was found, or null if not found
-     * @throws    PHPExcel_Exception
+     * @param   string            $pCoord        Coordinate address of the cell to retrieve
+     * @return  \PHPExcel\Cell     Cell that was found, or null if not found
+     * @throws  \PHPExcel\Exception
      */
     public function getCacheData($pCoord);
 
@@ -61,12 +61,12 @@ interface ICache
      * Delete a cell in cache identified by coordinate address
      *
      * @param    string            $pCoord        Coordinate address of the cell to delete
-     * @throws    PHPExcel_Exception
+     * @throws   \PHPExcel\Exception
      */
     public function deleteCacheData($pCoord);
 
     /**
-     * Is a value set in the current PHPExcel_CachedObjectStorage_ICache for an indexed cell?
+     * Is a value set in the current \PHPExcel\CachedObjectStorage\ICache for an indexed cell?
      *
      * @param    string        $pCoord        Coordinate address of the cell to check
      * @return    boolean

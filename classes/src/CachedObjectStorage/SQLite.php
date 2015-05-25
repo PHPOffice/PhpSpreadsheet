@@ -100,7 +100,7 @@ class SQLite extends CacheBase implements ICache
         $query = "SELECT value FROM kvp_".$this->TableName." WHERE id='".$pCoord."'";
         $cellResultSet = $this->DBHandle->query($query, SQLITE_ASSOC);
         if ($cellResultSet === false) {
-            throw new PHPExcel_Exception(sqlite_error_string($this->DBHandle->lastError()));
+            throw new \PHPExcel\Exception(sqlite_error_string($this->DBHandle->lastError()));
         } elseif ($cellResultSet->numRows() == 0) {
             //    Return null if requested entry doesn't exist in cache
             return null;
@@ -121,8 +121,9 @@ class SQLite extends CacheBase implements ICache
     /**
      * Is a value set for an indexed cell?
      *
-     * @param    string        $pCoord        Coordinate address of the cell to check
-     * @return    boolean
+     * @param   string        $pCoord        Coordinate address of the cell to check
+     * @return  boolean
+     * @throws  \PHPExcel\Exception
      */
     public function isDataSet($pCoord)
     {
@@ -134,7 +135,7 @@ class SQLite extends CacheBase implements ICache
         $query = "SELECT id FROM kvp_".$this->TableName." WHERE id='".$pCoord."'";
         $cellResultSet = $this->DBHandle->query($query, SQLITE_ASSOC);
         if ($cellResultSet === false) {
-            throw new PHPExcel_Exception(sqlite_error_string($this->DBHandle->lastError()));
+            throw new \PHPExcel\Exception(sqlite_error_string($this->DBHandle->lastError()));
         } elseif ($cellResultSet->numRows() == 0) {
             //    Return null if requested entry doesn't exist in cache
             return false;
@@ -145,8 +146,8 @@ class SQLite extends CacheBase implements ICache
     /**
      * Delete a cell in cache identified by coordinate address
      *
-     * @param    string            $pCoord        Coordinate address of the cell to delete
-     * @throws    PHPExcel_Exception
+     * @param   string            $pCoord        Coordinate address of the cell to delete
+     * @throws  \PHPExcel\Exception
      */
     public function deleteCacheData($pCoord)
     {
@@ -158,7 +159,7 @@ class SQLite extends CacheBase implements ICache
         //    Check if the requested entry exists in the cache
         $query = "DELETE FROM kvp_".$this->TableName." WHERE id='".$pCoord."'";
         if (!$this->DBHandle->queryExec($query)) {
-            throw new PHPExcel_Exception(sqlite_error_string($this->DBHandle->lastError()));
+            throw new \PHPExcel\Exception(sqlite_error_string($this->DBHandle->lastError()));
         }
 
         $this->currentCellIsDirty = false;
@@ -169,6 +170,7 @@ class SQLite extends CacheBase implements ICache
      *
      * @param    string        $fromAddress    Current address of the cell to move
      * @param    string        $toAddress        Destination address of the cell to move
+     * @throws  \PHPExcel\Exception
      * @return    boolean
      */
     public function moveCell($fromAddress, $toAddress)
@@ -180,13 +182,13 @@ class SQLite extends CacheBase implements ICache
         $query = "DELETE FROM kvp_".$this->TableName." WHERE id='".$toAddress."'";
         $result = $this->DBHandle->exec($query);
         if ($result === false) {
-            throw new PHPExcel_Exception($this->DBHandle->lastErrorMsg());
+            throw new \PHPExcel\Exception($this->DBHandle->lastErrorMsg());
         }
 
         $query = "UPDATE kvp_".$this->TableName." SET id='".$toAddress."' WHERE id='".$fromAddress."'";
         $result = $this->DBHandle->exec($query);
         if ($result === false) {
-            throw new PHPExcel_Exception($this->DBHandle->lastErrorMsg());
+            throw new \PHPExcel\Exception($this->DBHandle->lastErrorMsg());
         }
 
         return true;
@@ -196,6 +198,7 @@ class SQLite extends CacheBase implements ICache
      * Get a list of all cell addresses currently held in cache
      *
      * @return    string[]
+     * @throws  \PHPExcel\Exception
      */
     public function getCellList()
     {
@@ -206,7 +209,7 @@ class SQLite extends CacheBase implements ICache
         $query = "SELECT id FROM kvp_".$this->TableName;
         $cellIdsResult = $this->DBHandle->unbufferedQuery($query, SQLITE_ASSOC);
         if ($cellIdsResult === false) {
-            throw new PHPExcel_Exception(sqlite_error_string($this->DBHandle->lastError()));
+            throw new \PHPExcel\Exception(sqlite_error_string($this->DBHandle->lastError()));
         }
 
         $cellKeys = array();
@@ -221,6 +224,7 @@ class SQLite extends CacheBase implements ICache
      * Clone the cell collection
      *
      * @param  \PHPExcel\Worksheet    $parent        The new worksheet that we're copying to
+     * @throws  \PHPExcel\Exception
      */
     public function copyCellCollection(\PHPExcel\Worksheet $parent)
     {
@@ -232,7 +236,7 @@ class SQLite extends CacheBase implements ICache
         if (!$this->DBHandle->queryExec('CREATE TABLE kvp_'.$tableName.' (id VARCHAR(12) PRIMARY KEY, value BLOB)
             AS SELECT * FROM kvp_'.$this->TableName)
         ) {
-            throw new PHPExcel_Exception(sqlite_error_string($this->DBHandle->lastError()));
+            throw new \PHPExcel\Exception(sqlite_error_string($this->DBHandle->lastError()));
         }
 
         //    Copy the existing cell cache file
@@ -260,9 +264,10 @@ class SQLite extends CacheBase implements ICache
     /**
      * Initialise this new cell collection
      *
-     * @param    PHPExcel_Worksheet    $parent        The worksheet for this cell collection
+     * @param    \PHPExcel\Worksheet    $parent        The worksheet for this cell collection
+     * @throws  \PHPExcel\Exception
      */
-    public function __construct(PHPExcel_Worksheet $parent)
+    public function __construct(\PHPExcel\Worksheet $parent)
     {
         parent::__construct($parent);
         if (is_null($this->DBHandle)) {
@@ -271,10 +276,10 @@ class SQLite extends CacheBase implements ICache
 
             $this->DBHandle = new SQLiteDatabase($_DBName);
             if ($this->DBHandle === false) {
-                throw new PHPExcel_Exception(sqlite_error_string($this->DBHandle->lastError()));
+                throw new \PHPExcel\Exception(sqlite_error_string($this->DBHandle->lastError()));
             }
             if (!$this->DBHandle->queryExec('CREATE TABLE kvp_'.$this->TableName.' (id VARCHAR(12) PRIMARY KEY, value BLOB)')) {
-                throw new PHPExcel_Exception(sqlite_error_string($this->DBHandle->lastError()));
+                throw new \PHPExcel\Exception(sqlite_error_string($this->DBHandle->lastError()));
             }
         }
     }

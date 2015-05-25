@@ -60,9 +60,9 @@ class Memory extends CacheBase implements ICache
     /**
      * Get cell at a specific coordinate
      *
-     * @param     string             $pCoord        Coordinate of the cell
-     * @throws     PHPExcel_Exception
-     * @return     PHPExcel_Cell     Cell that was found, or null if not found
+     * @param   string             $pCoord        Coordinate of the cell
+     * @throws  \PHPExcel\Exception
+     * @return  \PHPExcel\Cell     Cell that was found, or null if not found
      */
     public function getCacheData($pCoord)
     {

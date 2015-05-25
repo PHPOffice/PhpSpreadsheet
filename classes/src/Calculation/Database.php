@@ -49,7 +49,7 @@ class Database
      */
     private static function fieldExtract($database, $field)
     {
-        $field = strtoupper(PHPExcel_Calculation_Functions::flattenSingleValue($field));
+        $field = strtoupper(Functions::flattenSingleValue($field));
         $fieldNames = array_map('strtoupper', array_shift($database));
 
         if (is_numeric($field)) {
@@ -92,7 +92,7 @@ class Database
             $testConditionCount = 0;
             foreach ($criteria as $row => $criterion) {
                 if ($criterion[$key] > '') {
-                    $testCondition[] = '[:'.$criteriaName.']'.PHPExcel_Calculation_Functions::ifCondition($criterion[$key]);
+                    $testCondition[] = '[:'.$criteriaName.']'.Functions::ifCondition($criterion[$key]);
                     $testConditionCount++;
                 }
             }
@@ -119,12 +119,12 @@ class Database
                 $k = array_search($criteriaName, $fieldNames);
                 if (isset($dataValues[$k])) {
                     $dataValue = $dataValues[$k];
-                    $dataValue = (is_string($dataValue)) ? PHPExcel_Calculation::wrapResult(strtoupper($dataValue)) : $dataValue;
+                    $dataValue = (is_string($dataValue)) ? \PHPExcel\Calculation::wrapResult(strtoupper($dataValue)) : $dataValue;
                     $testConditionList = str_replace('[:' . $criteriaName . ']', $dataValue, $testConditionList);
                 }
             }
             //    evaluate the criteria against the row data
-            $result = PHPExcel_Calculation::getInstance()->_calculateFormulaValue('='.$testConditionList);
+            $result = \PHPExcel\Calculation::getInstance()->_calculateFormulaValue('='.$testConditionList);
             //    If the row failed to meet the criteria, remove it from the database
             if (!$result) {
                 unset($database[$dataRow]);
@@ -183,7 +183,7 @@ class Database
         }
 
         // Return
-        return PHPExcel_Calculation_Statistical::AVERAGE(
+        return Statistical::AVERAGE(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }
@@ -231,7 +231,7 @@ class Database
         }
 
         // Return
-        return PHPExcel_Calculation_Statistical::COUNT(
+        return Statistical::COUNT(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }
@@ -283,7 +283,7 @@ class Database
         }
 
         // Return
-        return PHPExcel_Calculation_Statistical::COUNTA(
+        return Statistical::COUNTA(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }
@@ -327,7 +327,7 @@ class Database
         // Return
         $colData = self::getFilteredColumn($database, $field, $criteria);
         if (count($colData) > 1) {
-            return PHPExcel_Calculation_Functions::NaN();
+            return Functions::NaN();
         }
 
         return $colData[0];
@@ -370,7 +370,7 @@ class Database
         }
 
         // Return
-        return PHPExcel_Calculation_Statistical::MAX(
+        return Statistical::MAX(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }
@@ -412,7 +412,7 @@ class Database
         }
 
         // Return
-        return PHPExcel_Calculation_Statistical::MIN(
+        return Statistical::MIN(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }
@@ -453,7 +453,7 @@ class Database
         }
 
         // Return
-        return PHPExcel_Calculation_MathTrig::PRODUCT(
+        return MathTrig::PRODUCT(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }
@@ -495,7 +495,7 @@ class Database
         }
 
         // Return
-        return PHPExcel_Calculation_Statistical::STDEV(
+        return Statistical::STDEV(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }
@@ -537,7 +537,7 @@ class Database
         }
 
         // Return
-        return PHPExcel_Calculation_Statistical::STDEVP(
+        return Statistical::STDEVP(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }
@@ -578,7 +578,7 @@ class Database
         }
 
         // Return
-        return PHPExcel_Calculation_MathTrig::SUM(
+        return MathTrig::SUM(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }
@@ -620,7 +620,7 @@ class Database
         }
 
         // Return
-        return PHPExcel_Calculation_Statistical::VARFunc(
+        return Statistical::VARFunc(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }
@@ -662,7 +662,7 @@ class Database
         }
 
         // Return
-        return PHPExcel_Calculation_Statistical::VARP(
+        return Statistical::VARP(
             self::getFilteredColumn($database, $field, $criteria)
         );
     }

@@ -58,14 +58,14 @@ class Logger
     /**
      * The calculation engine cell reference stack
      *
-     * @var PHPExcel_CalcEngine_CyclicReferenceStack
+     * @var CyclicReferenceStack
      */
     private $cellStack;
 
     /**
      * Instantiate a Calculation engine logger
      *
-     * @param  PHPExcel_CalcEngine_CyclicReferenceStack $stack
+     * @param  CyclicReferenceStack $stack
      */
     public function __construct(CyclicReferenceStack $stack)
     {

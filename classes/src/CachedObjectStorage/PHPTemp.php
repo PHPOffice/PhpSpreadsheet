@@ -91,9 +91,9 @@ class PHPTemp extends CacheBase implements ICache
     /**
      * Get cell at a specific coordinate
      *
-     * @param     string             $pCoord        Coordinate of the cell
-     * @throws     PHPExcel_Exception
-     * @return     PHPExcel_Cell     Cell that was found, or null if not found
+     * @param   string             $pCoord        Coordinate of the cell
+     * @throws  \PHPExcel\Exception
+     * @return  \PHPExcel\Cell     Cell that was found, or null if not found
      */
     public function getCacheData($pCoord)
     {
@@ -174,10 +174,10 @@ class PHPTemp extends CacheBase implements ICache
     /**
      * Initialise this new cell collection
      *
-     * @param    PHPExcel_Worksheet    $parent        The worksheet for this cell collection
-     * @param    array of mixed        $arguments    Additional initialisation arguments
+     * @param  \PHPExcel\Worksheet    $parent        The worksheet for this cell collection
+     * @param  mixed[]        $arguments    Additional initialisation arguments
      */
-    public function __construct(PHPExcel_Worksheet $parent, $arguments)
+    public function __construct(\PHPExcel\Worksheet $parent, $arguments)
     {
         $this->memoryCacheSize = (isset($arguments['memoryCacheSize'])) ? $arguments['memoryCacheSize'] : '1MB';
 

@@ -64,12 +64,11 @@ class Categories
     private $phpExcelName;
 
     /**
-     * Create a new PHPExcel_Calculation_Function
-     *
+     * Create a new Categories
      * @param     string        $pCategory         Category (represented by CATEGORY_*)
      * @param     string        $pExcelName        Excel function name
      * @param     string        $pPHPExcelName    PHPExcel function mapping
-     * @throws     PHPExcel_Calculation_Exception
+     * @throws    Exception
      */
     public function __construct($pCategory = null, $pExcelName = null, $pPHPExcelName = null)
     {
@@ -79,7 +78,7 @@ class Categories
             $this->excelName    = $pExcelName;
             $this->phpExcelName = $pPHPExcelName;
         } else {
-            throw new PHPExcel_Calculation_Exception("Invalid parameters passed.");
+            throw new Exception("Invalid parameters passed.");
         }
     }
 
@@ -96,15 +95,15 @@ class Categories
     /**
      * Set Category (represented by CATEGORY_*)
      *
-     * @param     string        $value
-     * @throws     PHPExcel_Calculation_Exception
+     * @param   string        $value
+     * @throws  Exception
      */
     public function setCategory($value = null)
     {
         if (!is_null($value)) {
             $this->category = $value;
         } else {
-            throw new PHPExcel_Calculation_Exception("Invalid parameter passed.");
+            throw new Exception("Invalid parameter passed.");
         }
     }
 

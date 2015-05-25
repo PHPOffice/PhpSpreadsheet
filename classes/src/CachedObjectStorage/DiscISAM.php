@@ -55,7 +55,7 @@ class DiscISAM extends CacheBase implements ICache
      *     and the 'nullify' the current cell object
      *
      * @return    void
-     * @throws    PHPExcel_Exception
+     * @throws    \PHPExcel\Exception
      */
     protected function storeData()
     {
@@ -98,8 +98,8 @@ class DiscISAM extends CacheBase implements ICache
      * Get cell at a specific coordinate
      *
      * @param     string             $pCoord        Coordinate of the cell
-     * @throws     PHPExcel_Exception
-     * @return     PHPExcel_Cell     Cell that was found, or null if not found
+     * @throws     \PHPExcel\Exception
+     * @return     \PHPExcel\Cell     Cell that was found, or null if not found
      */
     public function getCacheData($pCoord)
     {
@@ -179,14 +179,14 @@ class DiscISAM extends CacheBase implements ICache
     /**
      * Initialise this new cell collection
      *
-     * @param    PHPExcel_Worksheet    $parent        The worksheet for this cell collection
+     * @param    \PHPExcel\Worksheet    $parent        The worksheet for this cell collection
      * @param    array of mixed        $arguments    Additional initialisation arguments
      */
-    public function __construct(PHPExcel_Worksheet $parent, $arguments)
+    public function __construct(\PHPExcel\Worksheet $parent, $arguments)
     {
         $this->cacheDirectory    = ((isset($arguments['dir'])) && ($arguments['dir'] !== null))
                                     ? $arguments['dir']
-                                    : PHPExcel_Shared_File::sys_get_temp_dir();
+                                    : \PHPExcel\Shared\File::sys_get_temp_dir();
 
         parent::__construct($parent);
         if (is_null($this->fileHandle)) {

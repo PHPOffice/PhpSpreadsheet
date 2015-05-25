@@ -33,8 +33,8 @@ class MemorySerialized extends CacheBase implements ICache
      * Store cell data in cache for the current cell object if it's "dirty",
      *     and the 'nullify' the current cell object
      *
-     * @return    void
-     * @throws    PHPExcel_Exception
+     * @return  void
+     * @throws  \PHPExcel\Exception
      */
     protected function storeData()
     {
@@ -71,9 +71,9 @@ class MemorySerialized extends CacheBase implements ICache
     /**
      * Get cell at a specific coordinate
      *
-     * @param     string             $pCoord        Coordinate of the cell
-     * @throws     PHPExcel_Exception
-     * @return     PHPExcel_Cell     Cell that was found, or null if not found
+     * @param   string             $pCoord        Coordinate of the cell
+     * @throws  \PHPExcel\Exception
+     * @return  \PHPExcel\Cell     Cell that was found, or null if not found
      */
     public function getCacheData($pCoord)
     {

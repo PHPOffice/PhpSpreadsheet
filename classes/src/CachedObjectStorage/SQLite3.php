@@ -101,7 +101,7 @@ class SQLite3 extends CacheBase implements ICache
      * @return  \PHPExcel\Cell
      * @throws  \PHPExcel\Exception
      */
-    public function addCacheData($pCoord, PHPExcel_Cell $cell)
+    public function addCacheData($pCoord, \PHPExcel\Cell $cell)
     {
         if (($pCoord !== $this->currentObjectID) && ($this->currentObjectID !== null)) {
             $this->storeData();
@@ -117,9 +117,10 @@ class SQLite3 extends CacheBase implements ICache
     /**
      * Get cell at a specific coordinate
      *
-     * @param     string             $pCoord        Coordinate of the cell
-     * @throws     PHPExcel_Exception
-     * @return     PHPExcel_Cell     Cell that was found, or null if not found
+     * @param   string             $pCoord        Coordinate of the cell
+     * @throws  \PHPExcel\Exception
+     * @return  \PHPExcel\Cell     Cell that was found, or null if not found
+     * @throws  \PHPExcel\Exception
      */
     public function getCacheData($pCoord)
     {
@@ -131,7 +132,7 @@ class SQLite3 extends CacheBase implements ICache
         $this->selectQuery->bindValue('id', $pCoord, SQLITE3_TEXT);
         $cellResult = $this->selectQuery->execute();
         if ($cellResult === false) {
-            throw new PHPExcel_Exception($this->DBHandle->lastErrorMsg());
+            throw new \PHPExcel\Exception($this->DBHandle->lastErrorMsg());
         }
         $cellData = $cellResult->fetchArray(SQLITE3_ASSOC);
         if ($cellData === false) {
@@ -155,6 +156,7 @@ class SQLite3 extends CacheBase implements ICache
      *
      * @param    string        $pCoord        Coordinate address of the cell to check
      * @return    boolean
+     * @throws  \PHPExcel\Exception
      */
     public function isDataSet($pCoord)
     {
@@ -166,7 +168,7 @@ class SQLite3 extends CacheBase implements ICache
         $this->selectQuery->bindValue('id', $pCoord, SQLITE3_TEXT);
         $cellResult = $this->selectQuery->execute();
         if ($cellResult === false) {
-            throw new PHPExcel_Exception($this->DBHandle->lastErrorMsg());
+            throw new \PHPExcel\Exception($this->DBHandle->lastErrorMsg());
         }
         $cellData = $cellResult->fetchArray(SQLITE3_ASSOC);
 
@@ -176,8 +178,8 @@ class SQLite3 extends CacheBase implements ICache
     /**
      *    Delete a cell in cache identified by coordinate address
      *
-     * @param    string            $pCoord        Coordinate address of the cell to delete
-     * @throws    PHPExcel_Exception
+     * @param   string            $pCoord        Coordinate address of the cell to delete
+     * @throws  \PHPExcel\Exception
      */
     public function deleteCacheData($pCoord)
     {
@@ -190,7 +192,7 @@ class SQLite3 extends CacheBase implements ICache
         $this->deleteQuery->bindValue('id', $pCoord, SQLITE3_TEXT);
         $result = $this->deleteQuery->execute();
         if ($result === false) {
-            throw new PHPExcel_Exception($this->DBHandle->lastErrorMsg());
+            throw new \PHPExcel\Exception($this->DBHandle->lastErrorMsg());
         }
 
         $this->currentCellIsDirty = false;
@@ -202,6 +204,7 @@ class SQLite3 extends CacheBase implements ICache
      * @param    string        $fromAddress    Current address of the cell to move
      * @param    string        $toAddress        Destination address of the cell to move
      * @return    boolean
+     * @throws  \PHPExcel\Exception
      */
     public function moveCell($fromAddress, $toAddress)
     {
@@ -212,14 +215,14 @@ class SQLite3 extends CacheBase implements ICache
         $this->deleteQuery->bindValue('id', $toAddress, SQLITE3_TEXT);
         $result = $this->deleteQuery->execute();
         if ($result === false) {
-            throw new PHPExcel_Exception($this->DBHandle->lastErrorMsg());
+            throw new \PHPExcel\Exception($this->DBHandle->lastErrorMsg());
         }
 
         $this->updateQuery->bindValue('toid', $toAddress, SQLITE3_TEXT);
         $this->updateQuery->bindValue('fromid', $fromAddress, SQLITE3_TEXT);
         $result = $this->updateQuery->execute();
         if ($result === false) {
-            throw new PHPExcel_Exception($this->DBHandle->lastErrorMsg());
+            throw new \PHPExcel\Exception($this->DBHandle->lastErrorMsg());
         }
 
         return true;
@@ -229,6 +232,7 @@ class SQLite3 extends CacheBase implements ICache
      * Get a list of all cell addresses currently held in cache
      *
      * @return    string[]
+     * @throws  \PHPExcel\Exception
      */
     public function getCellList()
     {
@@ -239,7 +243,7 @@ class SQLite3 extends CacheBase implements ICache
         $query = "SELECT id FROM kvp_".$this->TableName;
         $cellIdsResult = $this->DBHandle->query($query);
         if ($cellIdsResult === false) {
-            throw new PHPExcel_Exception($this->DBHandle->lastErrorMsg());
+            throw new \PHPExcel\Exception($this->DBHandle->lastErrorMsg());
         }
 
         $cellKeys = array();
@@ -254,6 +258,7 @@ class SQLite3 extends CacheBase implements ICache
      * Clone the cell collection
      *
      * @param  \PHPExcel\Worksheet    $parent        The new worksheet that we're copying to
+     * @throws  \PHPExcel\Exception
      */
     public function copyCellCollection(\PHPExcel\Worksheet $parent)
     {
@@ -265,7 +270,7 @@ class SQLite3 extends CacheBase implements ICache
         if (!$this->DBHandle->exec('CREATE TABLE kvp_'.$tableName.' (id VARCHAR(12) PRIMARY KEY, value BLOB)
             AS SELECT * FROM kvp_'.$this->TableName)
         ) {
-            throw new PHPExcel_Exception($this->DBHandle->lastErrorMsg());
+            throw new \PHPExcel\Exception($this->DBHandle->lastErrorMsg());
         }
 
         //    Copy the existing cell cache file
@@ -293,9 +298,10 @@ class SQLite3 extends CacheBase implements ICache
     /**
      * Initialise this new cell collection
      *
-     * @param    PHPExcel_Worksheet    $parent        The worksheet for this cell collection
+     * @param    \PHPExcel\Worksheet    $parent        The worksheet for this cell collection
+     * @throws  \PHPExcel\Exception
      */
-    public function __construct(PHPExcel_Worksheet $parent)
+    public function __construct(\PHPExcel\Worksheet $parent)
     {
         parent::__construct($parent);
         if (is_null($this->DBHandle)) {
@@ -304,10 +310,10 @@ class SQLite3 extends CacheBase implements ICache
 
             $this->DBHandle = new SQLite3($_DBName);
             if ($this->DBHandle === false) {
-                throw new PHPExcel_Exception($this->DBHandle->lastErrorMsg());
+                throw new \PHPExcel\Exception($this->DBHandle->lastErrorMsg());
             }
             if (!$this->DBHandle->exec('CREATE TABLE kvp_'.$this->TableName.' (id VARCHAR(12) PRIMARY KEY, value BLOB)')) {
-                throw new PHPExcel_Exception($this->DBHandle->lastErrorMsg());
+                throw new \PHPExcel\Exception($this->DBHandle->lastErrorMsg());
             }
         }
 

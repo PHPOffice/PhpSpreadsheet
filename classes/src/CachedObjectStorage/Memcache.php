@@ -99,11 +99,11 @@ class Memcache extends CacheBase implements ICache
 
 
     /**
-     * Is a value set in the current PHPExcel_CachedObjectStorage_ICache for an indexed cell?
+     * Is a value set in the current \PHPExcel\CachedObjectStorage\ICache for an indexed cell?
      *
      * @param    string        $pCoord        Coordinate address of the cell to check
-     * @return    boolean
-     * @return    boolean
+     * @return   boolean
+     * @throws   \PHPExcel\Exception
      */
     public function isDataSet($pCoord)
     {
@@ -117,7 +117,7 @@ class Memcache extends CacheBase implements ICache
             if ($success === false) {
                 //    Entry no longer exists in Memcache, so clear it from the cache array
                 parent::deleteCacheData($pCoord);
-                throw new PHPExcel_Exception('Cell entry '.$pCoord.' no longer exists in MemCache');
+                throw new \PHPExcel\Exception('Cell entry '.$pCoord.' no longer exists in MemCache');
             }
             return true;
         }
@@ -128,9 +128,9 @@ class Memcache extends CacheBase implements ICache
     /**
      * Get cell at a specific coordinate
      *
-     * @param     string             $pCoord        Coordinate of the cell
-     * @throws     PHPExcel_Exception
-     * @return     PHPExcel_Cell     Cell that was found, or null if not found
+     * @param   string             $pCoord        Coordinate of the cell
+     * @throws  \PHPExcel\Exception
+     * @return  \PHPExcel\Cell     Cell that was found, or null if not found
      */
     public function getCacheData($pCoord)
     {
@@ -145,7 +145,7 @@ class Memcache extends CacheBase implements ICache
             if ($obj === false) {
                 //    Entry no longer exists in Memcache, so clear it from the cache array
                 parent::deleteCacheData($pCoord);
-                throw new PHPExcel_Exception("Cell entry {$pCoord} no longer exists in MemCache");
+                throw new \PHPExcel\Exception("Cell entry {$pCoord} no longer exists in MemCache");
             }
         } else {
             //    Return null if requested entry doesn't exist in cache
@@ -179,8 +179,8 @@ class Memcache extends CacheBase implements ICache
     /**
      * Delete a cell in cache identified by coordinate address
      *
-     * @param    string            $pCoord        Coordinate address of the cell to delete
-     * @throws    PHPExcel_Exception
+     * @param   string            $pCoord        Coordinate address of the cell to delete
+     * @throws  \PHPExcel\Exception
      */
     public function deleteCacheData($pCoord)
     {
@@ -195,6 +195,7 @@ class Memcache extends CacheBase implements ICache
      * Clone the cell collection
      *
      * @param  \PHPExcel\Worksheet    $parent        The new worksheet that we're copying to
+     * @throws   \PHPExcel\Exception
      */
     public function copyCellCollection(\PHPExcel\Worksheet $parent)
     {
@@ -209,11 +210,11 @@ class Memcache extends CacheBase implements ICache
                 if ($obj === false) {
                     //    Entry no longer exists in Memcache, so clear it from the cache array
                     parent::deleteCacheData($cellID);
-                    throw new PHPExcel_Exception("Cell entry {$cellID} no longer exists in MemCache");
+                    throw new \PHPExcel\Exception("Cell entry {$cellID} no longer exists in MemCache");
                 }
                 if (!$this->memcache->add($newCachePrefix . $cellID . '.cache', $obj, null, $this->cacheTime)) {
                     $this->__destruct();
-                    throw new PHPExcel_Exception("Failed to store cell {$cellID} in MemCache");
+                    throw new \PHPExcel\Exception("Failed to store cell {$cellID} in MemCache");
                 }
             }
         }
@@ -244,10 +245,11 @@ class Memcache extends CacheBase implements ICache
     /**
      * Initialise this new cell collection
      *
-     * @param    PHPExcel_Worksheet    $parent        The worksheet for this cell collection
-     * @param    array of mixed        $arguments    Additional initialisation arguments
+     * @param   \PHPExcel\Worksheet    $parent        The worksheet for this cell collection
+     * @param   mixed[]        $arguments    Additional initialisation arguments
+     * @throws  \PHPExcel\Exception
      */
-    public function __construct(PHPExcel_Worksheet $parent, $arguments)
+    public function __construct(\PHPExcel\Worksheet $parent, $arguments)
     {
         $memcacheServer = (isset($arguments['memcacheServer'])) ? $arguments['memcacheServer'] : 'localhost';
         $memcachePort = (isset($arguments['memcachePort'])) ? $arguments['memcachePort'] : 11211;
@@ -260,7 +262,7 @@ class Memcache extends CacheBase implements ICache
             //    Set a new Memcache object and connect to the Memcache server
             $this->memcache = new Memcache();
             if (!$this->memcache->addServer($memcacheServer, $memcachePort, false, 50, 5, 5, true, array($this, 'failureCallback'))) {
-                throw new PHPExcel_Exception("Could not connect to MemCache server at {$memcacheServer}:{$memcachePort}");
+                throw new \PHPExcel\Exception("Could not connect to MemCache server at {$memcacheServer}:{$memcachePort}");
             }
             $this->cacheTime = $cacheTime;
 
@@ -271,13 +273,13 @@ class Memcache extends CacheBase implements ICache
     /**
      * Memcache error handler
      *
-     * @param    string    $host        Memcache server
-     * @param    integer    $port        Memcache port
-     * @throws    PHPExcel_Exception
+     * @param   string    $host        Memcache server
+     * @param   integer    $port        Memcache port
+     * @throws  \PHPExcel\Exception
      */
     public function failureCallback($host, $port)
     {
-        throw new PHPExcel_Exception("memcache {$host}:{$port} failed");
+        throw new \PHPExcel\Exception("memcache {$host}:{$port} failed");
     }
 
     /**

@@ -94,7 +94,7 @@ class APC extends CacheBase implements ICache
     }
 
     /**
-     * Is a value set in the current PHPExcel_CachedObjectStorage_ICache for an indexed cell?
+     * Is a value set in the current \PHPExcel\CachedObjectStorage\ICache for an indexed cell?
      *
      * @access  public
      * @param   string  $pCoord  Coordinate address of the cell to check
@@ -125,8 +125,8 @@ class APC extends CacheBase implements ICache
      *
      * @access  public
      * @param   string         $pCoord  Coordinate of the cell
-     * @throws  PHPExcel_Exception
-     * @return  PHPExcel_Cell  Cell that was found, or null if not found
+     * @throws  \PHPExcel\Exception
+     * @return  \PHPExcel\Cell  Cell that was found, or null if not found
      */
     public function getCacheData($pCoord)
     {
@@ -141,7 +141,7 @@ class APC extends CacheBase implements ICache
             if ($obj === false) {
                 //    Entry no longer exists in APC, so clear it from the cache array
                 parent::deleteCacheData($pCoord);
-                throw new PHPExcel_Exception('Cell entry '.$pCoord.' no longer exists in APC cache');
+                throw new \PHPExcel\Exception('Cell entry '.$pCoord.' no longer exists in APC cache');
             }
         } else {
             //    Return null if requested entry doesn't exist in cache
@@ -177,7 +177,7 @@ class APC extends CacheBase implements ICache
      *
      * @access  public
      * @param   string  $pCoord  Coordinate address of the cell to delete
-     * @throws  PHPExcel_Exception
+     * @throws  \PHPExcel\Exception
      */
     public function deleteCacheData($pCoord)
     {
@@ -243,10 +243,10 @@ class APC extends CacheBase implements ICache
     /**
      * Initialise this new cell collection
      *
-     * @param  PHPExcel_Worksheet  $parent     The worksheet for this cell collection
+     * @param  \PHPExcel\Worksheet  $parent     The worksheet for this cell collection
      * @param  array of mixed      $arguments  Additional initialisation arguments
      */
-    public function __construct(PHPExcel_Worksheet $parent, $arguments)
+    public function __construct(\PHPExcel\Worksheet $parent, $arguments)
     {
         $cacheTime = (isset($arguments['cacheTime'])) ? $arguments['cacheTime'] : 600;
 
