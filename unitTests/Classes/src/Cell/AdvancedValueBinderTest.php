@@ -7,19 +7,19 @@ class AdvancedValueBinderTest extends PHPUnit_Framework_TestCase
         if (!defined('PHPEXCEL_ROOT')) {
             define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
         }
-        require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
+        require_once(PHPEXCEL_ROOT . '/Bootstrap.php');
     }
 
     public function provider()
     {
-        if (!class_exists('PHPExcel_Style_NumberFormat')) {
+        if (!class_exists('\\PHPExcel\\Style\\NumberFormat')) {
             $this->setUp();
         }
-        $currencyUSD = PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
-        $currencyEURO = str_replace('$', '€', PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+        $currencyUSD = \PHPExcel\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
+        $currencyEURO = str_replace('$', '€', \PHPExcel\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
 
         return array(
-            array('10%', 0.1, PHPExcel_Style_NumberFormat::FORMAT_PERCENTAGE_00, ',', '.', '$'),
+            array('10%', 0.1, \PHPExcel\Style\NumberFormat::FORMAT_PERCENTAGE_00, ',', '.', '$'),
             array('$10.11', 10.11, $currencyUSD, ',', '.', '$'),
             array('$1,010.12', 1010.12, $currencyUSD, ',', '.', '$'),
             array('$20,20', 20.2, $currencyUSD, '.', ',', '$'),

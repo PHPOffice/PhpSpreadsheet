@@ -17,15 +17,15 @@
         <ini name="memory_limit" value="2048M"/>
     </php>
     <testsuite name="PHPExcel Unit Test Suite">
-        <directory suffix="Test.php">./Classes</directory>
+        <directory suffix="Test.php">./classes</directory>
     </testsuite>
     <filter>
         <whitelist>
-            <directory suffix=".php">../Classes</directory>
+            <directory suffix=".php">../classes</directory>
             <exclude>
-                <directory>../Classes/PHPExcel/Shared/PCLZip</directory>
-                <directory>../Classes/PHPExcel/Shared/JAMA</directory>
-                <directory>../Classes/PHPExcel/Writer/PDF</directory>
+                <directory>../classes/src/Shared/PCLZip</directory>
+                <directory>../classes/src/Shared/JAMA</directory>
+                <directory>../classes/src/Writer/PDF</directory>
             </exclude>
         </whitelist>
     </filter>

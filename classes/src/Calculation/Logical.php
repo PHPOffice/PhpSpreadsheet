@@ -92,7 +92,7 @@ class PHPExcel_Calculation_Logical
         $returnValue = true;
 
         // Loop through the arguments
-        $aArgs = PHPExcel_Calculation_Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray(func_get_args());
         $argCount = -1;
         foreach ($aArgs as $argCount => $arg) {
             // Is it a boolean value?
@@ -107,7 +107,7 @@ class PHPExcel_Calculation_Logical
                 } elseif (($arg == 'FALSE') || ($arg == PHPExcel_Calculation::getFALSE())) {
                     $arg = false;
                 } else {
-                    return PHPExcel_Calculation_Functions::VALUE();
+                    return Functions::VALUE();
                 }
                 $returnValue = $returnValue && ($arg != 0);
             }
@@ -115,7 +115,7 @@ class PHPExcel_Calculation_Logical
 
         // Return
         if ($argCount < 0) {
-            return PHPExcel_Calculation_Functions::VALUE();
+            return Functions::VALUE();
         }
         return $returnValue;
     }
@@ -148,7 +148,7 @@ class PHPExcel_Calculation_Logical
         $returnValue = false;
 
         // Loop through the arguments
-        $aArgs = PHPExcel_Calculation_Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray(func_get_args());
         $argCount = -1;
         foreach ($aArgs as $argCount => $arg) {
             // Is it a boolean value?
@@ -163,7 +163,7 @@ class PHPExcel_Calculation_Logical
                 } elseif (($arg == 'FALSE') || ($arg == PHPExcel_Calculation::getFALSE())) {
                     $arg = false;
                 } else {
-                    return PHPExcel_Calculation_Functions::VALUE();
+                    return Functions::VALUE();
                 }
                 $returnValue = $returnValue || ($arg != 0);
             }
@@ -171,7 +171,7 @@ class PHPExcel_Calculation_Logical
 
         // Return
         if ($argCount < 0) {
-            return PHPExcel_Calculation_Functions::VALUE();
+            return Functions::VALUE();
         }
         return $returnValue;
     }
@@ -199,7 +199,7 @@ class PHPExcel_Calculation_Logical
      */
     public static function NOT($logical = false)
     {
-        $logical = PHPExcel_Calculation_Functions::flattenSingleValue($logical);
+        $logical = Functions::flattenSingleValue($logical);
         if (is_string($logical)) {
             $logical = strtoupper($logical);
             if (($logical == 'TRUE') || ($logical == PHPExcel_Calculation::getTRUE())) {
@@ -207,7 +207,7 @@ class PHPExcel_Calculation_Logical
             } elseif (($logical == 'FALSE') || ($logical == PHPExcel_Calculation::getFALSE())) {
                 return true;
             } else {
-                return PHPExcel_Calculation_Functions::VALUE();
+                return Functions::VALUE();
             }
         }
 
@@ -248,9 +248,9 @@ class PHPExcel_Calculation_Logical
      */
     public static function STATEMENT_IF($condition = true, $returnIfTrue = 0, $returnIfFalse = false)
     {
-        $condition     = (is_null($condition))     ? true :  (boolean) PHPExcel_Calculation_Functions::flattenSingleValue($condition);
-        $returnIfTrue  = (is_null($returnIfTrue))  ? 0 :     PHPExcel_Calculation_Functions::flattenSingleValue($returnIfTrue);
-        $returnIfFalse = (is_null($returnIfFalse)) ? false : PHPExcel_Calculation_Functions::flattenSingleValue($returnIfFalse);
+        $condition     = (is_null($condition))     ? true :  (boolean) Functions::flattenSingleValue($condition);
+        $returnIfTrue  = (is_null($returnIfTrue))  ? 0 :     Functions::flattenSingleValue($returnIfTrue);
+        $returnIfFalse = (is_null($returnIfFalse)) ? false : Functions::flattenSingleValue($returnIfFalse);
 
         return ($condition) ? $returnIfTrue : $returnIfFalse;
     }
@@ -270,9 +270,9 @@ class PHPExcel_Calculation_Logical
      */
     public static function IFERROR($testValue = '', $errorpart = '')
     {
-        $testValue = (is_null($testValue)) ? '' : PHPExcel_Calculation_Functions::flattenSingleValue($testValue);
-        $errorpart = (is_null($errorpart)) ? '' : PHPExcel_Calculation_Functions::flattenSingleValue($errorpart);
+        $testValue = (is_null($testValue)) ? '' : Functions::flattenSingleValue($testValue);
+        $errorpart = (is_null($errorpart)) ? '' : Functions::flattenSingleValue($errorpart);
 
-        return self::STATEMENT_IF(PHPExcel_Calculation_Functions::IS_ERROR($testValue), $errorpart, $testValue);
+        return self::STATEMENT_IF(Functions::IS_ERROR($testValue), $errorpart, $testValue);
     }
 }

@@ -42,7 +42,6 @@ define('PRECISION', 8.88E-016);
  */
 class Functions
 {
-
     /** constants */
     const COMPATIBILITY_EXCEL      = 'Excel';
     const COMPATIBILITY_GNUMERIC   = 'Gnumeric';
@@ -94,9 +93,9 @@ class Functions
      * @category Function Configuration
      * @param     string        $compatibilityMode        Compatibility Mode
      *                                                Permitted values are:
-     *                                                    PHPExcel_Calculation_Functions::COMPATIBILITY_EXCEL            'Excel'
-     *                                                    PHPExcel_Calculation_Functions::COMPATIBILITY_GNUMERIC        'Gnumeric'
-     *                                                    PHPExcel_Calculation_Functions::COMPATIBILITY_OPENOFFICE    'OpenOfficeCalc'
+     *                                                    Functions::COMPATIBILITY_EXCEL            'Excel'
+     *                                                    Functions::COMPATIBILITY_GNUMERIC        'Gnumeric'
+     *                                                    Functions::COMPATIBILITY_OPENOFFICE    'OpenOfficeCalc'
      * @return     boolean    (Success or Failure)
      */
     public static function setCompatibilityMode($compatibilityMode)
@@ -118,9 +117,9 @@ class Functions
      * @category Function Configuration
      * @return     string        Compatibility Mode
      *                            Possible Return values are:
-     *                                PHPExcel_Calculation_Functions::COMPATIBILITY_EXCEL            'Excel'
-     *                                PHPExcel_Calculation_Functions::COMPATIBILITY_GNUMERIC        'Gnumeric'
-     *                                PHPExcel_Calculation_Functions::COMPATIBILITY_OPENOFFICE    'OpenOfficeCalc'
+     *                                Functions::COMPATIBILITY_EXCEL            'Excel'
+     *                                Functions::COMPATIBILITY_GNUMERIC        'Gnumeric'
+     *                                Functions::COMPATIBILITY_OPENOFFICE    'OpenOfficeCalc'
      */
     public static function getCompatibilityMode()
     {
@@ -135,9 +134,9 @@ class Functions
      * @category Function Configuration
      * @param     string    $returnDateType            Return Date Format
      *                                                Permitted values are:
-     *                                                    PHPExcel_Calculation_Functions::RETURNDATE_PHP_NUMERIC        'P'
-     *                                                    PHPExcel_Calculation_Functions::RETURNDATE_PHP_OBJECT        'O'
-     *                                                    PHPExcel_Calculation_Functions::RETURNDATE_EXCEL            'E'
+     *                                                    Functions::RETURNDATE_PHP_NUMERIC        'P'
+     *                                                    Functions::RETURNDATE_PHP_OBJECT        'O'
+     *                                                    Functions::RETURNDATE_EXCEL            'E'
      * @return     boolean                            Success or failure
      */
     public static function setReturnDateType($returnDateType)
@@ -159,9 +158,9 @@ class Functions
      * @category Function Configuration
      * @return     string        Return Date Format
      *                            Possible Return values are:
-     *                                PHPExcel_Calculation_Functions::RETURNDATE_PHP_NUMERIC        'P'
-     *                                PHPExcel_Calculation_Functions::RETURNDATE_PHP_OBJECT        'O'
-     *                                PHPExcel_Calculation_Functions::RETURNDATE_EXCEL            'E'
+     *                                Functions::RETURNDATE_PHP_NUMERIC        'P'
+     *                                Functions::RETURNDATE_PHP_OBJECT        'O'
+     *                                Functions::RETURNDATE_EXCEL            'E'
      */
     public static function getReturnDateType()
     {
@@ -309,7 +308,7 @@ class Functions
 
     public static function ifCondition($condition)
     {
-        $condition    = PHPExcel_Calculation_Functions::flattenSingleValue($condition);
+        $condition    = Functions::flattenSingleValue($condition);
         if (!isset($condition{0})) {
             $condition = '=""';
         }
