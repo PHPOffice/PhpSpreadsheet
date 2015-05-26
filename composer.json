@@ -4,7 +4,7 @@
     "keywords": ["PHP","Excel","OpenXML","xlsx","xls","spreadsheet"],
     "homepage": "http://phpexcel.codeplex.com",
     "type": "library",
-    "license": "LGPL",
+    "license": "LGPL-2.1",
     "authors": [
         {
             "name": "Maarten Balliauw",
@@ -31,9 +31,13 @@
         "phpunit/phpunit": "4.6.*",
         "mikey179/vfsStream": "1.5.*"
     },
-    "recommend": {
+    "suggest": {
         "ext-zip": "*",
-        "ext-gd2": "*"
+        "ext-gd2": "*",
+        "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
+        "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
+        "tecnick.com/tcpdf": "Option for rendering PDF with PDF Writer",
+        "jpgraph/jpgraph": "Option for rendering charts, or including charts with PDF or HTML Writers"
     },
     "autoload": {
         "psr-4": {
