@@ -123,7 +123,7 @@ class Properties
 
 
     /**
-     * Create a new PHPExcel_DocumentProperties
+     * Create a new Document Properties instance
      */
     public function __construct()
     {

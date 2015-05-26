@@ -27,7 +27,7 @@ namespace PHPExcel\Chart;
  * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Chart_DataSeries
+class DataSeries
 {
     const TYPE_BARCHART        = 'barChart';
     const TYPE_BARCHART_3D     = 'bar3DChart';

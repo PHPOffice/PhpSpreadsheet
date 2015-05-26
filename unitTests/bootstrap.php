@@ -17,7 +17,7 @@ date_default_timezone_set('Europe/London');
 
 // Define path to application directory
 defined('APPLICATION_PATH')
-    || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../classes'));
+    || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../src'));
 
 // Define path to application tests directory
 defined('APPLICATION_TESTS_PATH')
@@ -28,7 +28,7 @@ defined('APPLICATION_ENV') || define('APPLICATION_ENV', 'ci');
 
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
-    realpath(APPLICATION_PATH . '/../classes'),
+    realpath(APPLICATION_PATH . '/../src'),
     './',
     dirname(__FILE__),
     get_include_path(),

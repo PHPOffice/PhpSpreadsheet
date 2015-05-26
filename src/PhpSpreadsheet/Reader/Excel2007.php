@@ -951,8 +951,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
                                     }
 
                                     // Extract all cell references in $ref
-                                    $aReferences = PHPExcel_Cell::extractAllCellReferencesInRange($ref);
-                                    foreach ($aReferences as $reference) {
+                                    foreach (PHPExcel_Cell::extractAllCellReferencesInRange($ref) as $reference) {
                                         $docSheet->getStyle($reference)->setConditionalStyles($conditionalStyles);
                                     }
                                 }
@@ -1178,8 +1177,7 @@ class PHPExcel_Reader_Excel2007 extends PHPExcel_Reader_Abstract implements PHPE
                                         $stRange = $docSheet->shrinkRangeToFit($range);
 
                                         // Extract all cell references in $range
-                                        $aReferences = PHPExcel_Cell::extractAllCellReferencesInRange($stRange);
-                                        foreach ($aReferences as $reference) {
+                                        foreach (PHPExcel_Cell::extractAllCellReferencesInRange($stRange) as $reference) {
                                             // Create validation
                                             $docValidation = $docSheet->getCell($reference)->getDataValidation();
                                             $docValidation->setType((string) $dataValidation["type"]);

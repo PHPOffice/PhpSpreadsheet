@@ -4883,8 +4883,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
 
         foreach ($cellRangeAddresses as $cellRange) {
             $stRange = $this->phpSheet->shrinkRangeToFit($cellRange);
-            $stRange = PHPExcel_Cell::extractAllCellReferencesInRange($stRange);
-            foreach ($stRange as $coordinate) {
+            foreach (PHPExcel_Cell::extractAllCellReferencesInRange($stRange) as $coordinate) {
                 $objValidation = $this->phpSheet->getCell($coordinate)->getDataValidation();
                 $objValidation->setType($type);
                 $objValidation->setErrorStyle($errorStyle);

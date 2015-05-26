@@ -65,7 +65,7 @@ class Security
     private $workbookPassword = '';
 
     /**
-     * Create a new PHPExcel_DocumentSecurity
+     * Create a new Document Security instance
      */
     public function __construct()
     {

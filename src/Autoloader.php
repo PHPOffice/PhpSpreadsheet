@@ -58,7 +58,7 @@ class Autoloader
         }
 
         $classFilePath = __DIR__ . DIRECTORY_SEPARATOR .
-            'src' . DIRECTORY_SEPARATOR .
+            'PhpSpreadsheet' . DIRECTORY_SEPARATOR .
             str_replace(['PHPExcel\\', '\\'], ['', '/'], $className) .
             '.php';
 

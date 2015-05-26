@@ -2116,7 +2116,7 @@ class Calculation
         }
 
         if (!isset(self::$instance) || (self::$instance === null)) {
-            self::$instance = new PHPExcel_Calculation();
+            self::$instance = new \PHPExcel\Calculation();
         }
 
         return self::$instance;

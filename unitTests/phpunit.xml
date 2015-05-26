@@ -21,11 +21,11 @@
     </testsuite>
     <filter>
         <whitelist>
-            <directory suffix=".php">../classes</directory>
+            <directory suffix=".php">../src</directory>
             <exclude>
-                <directory>../classes/src/Shared/PCLZip</directory>
-                <directory>../classes/src/Shared/JAMA</directory>
-                <directory>../classes/src/Writer/PDF</directory>
+                <directory>../src/PhpSpreadsheet/Shared/PCLZip</directory>
+                <directory>../src/PhpSpreadsheet/Shared/JAMA</directory>
+                <directory>../src/PhpSpreadsheet/Writer/PDF</directory>
             </exclude>
         </whitelist>
     </filter>
