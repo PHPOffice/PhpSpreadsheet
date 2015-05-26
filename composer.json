@@ -37,7 +37,7 @@
     },
     "autoload": {
         "psr-4": {
-            "PHPExcel": "src/PhpSpreadsheet"
+            "PHPExcel\\": "src/PhpSpreadsheet"
         }
     }
 }
