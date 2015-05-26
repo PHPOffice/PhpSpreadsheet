@@ -15,14 +15,13 @@ before_script:
   ## Packages
   - sudo apt-get -qq update > /dev/null
   ## Composer
-  ##@todo Remove when support of 5.2 will be dropped
   - composer self-update
   - composer install --prefer-source --dev
   - phpenv global "$TRAVIS_PHP_VERSION"
 
 script:
   ## PHP_CodeSniffer
-  - ./vendor/bin/phpcs --report-width=200 --report-summary  --report-full Classes/ unitTests/ --standard=PSR2 -n
+  - ./vendor/bin/phpcs --report-width=200 --report-summary  --report-full src/ unitTests/ --standard=PSR2 -n
   ## PHPUnit
   - phpunit -c ./unitTests/
 

@@ -36,8 +36,8 @@
         "ext-gd2": "*"
     },
     "autoload": {
-        "psr-0": {
-            "PHPExcel": "Classes/"
+        "psr-4": {
+            "PHPExcel": "src/PhpSpreadsheet"
         }
     }
 }
