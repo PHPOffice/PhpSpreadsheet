@@ -49,7 +49,7 @@ class Protection extends Supervisor implements \PHPExcel\IComparable
     protected $hidden;
 
     /**
-     * Create a new PHPExcel_Style_Protection
+     * Create a new Protection
      *
      * @param    boolean    $isSupervisor    Flag indicating if this is a supervisor or not
      *                                    Leave this value at default unless you understand exactly what
@@ -74,7 +74,7 @@ class Protection extends Supervisor implements \PHPExcel\IComparable
      * Get the shared style component for the currently active cell in currently active sheet.
      * Only used for style supervisor
      *
-     * @return PHPExcel_Style_Protection
+     * @return Protection
      */
     public function getSharedComponent()
     {
@@ -105,8 +105,8 @@ class Protection extends Supervisor implements \PHPExcel\IComparable
      * </code>
      *
      * @param    array    $pStyles    Array containing style information
-     * @throws    PHPExcel_Exception
-     * @return PHPExcel_Style_Protection
+     * @throws    \PHPExcel\Exception
+     * @return Protection
      */
     public function applyFromArray($pStyles = null)
     {
@@ -122,7 +122,7 @@ class Protection extends Supervisor implements \PHPExcel\IComparable
                 }
             }
         } else {
-            throw new PHPExcel_Exception("Invalid style array passed.");
+            throw new \PHPExcel\Exception("Invalid style array passed.");
         }
         return $this;
     }
@@ -144,7 +144,7 @@ class Protection extends Supervisor implements \PHPExcel\IComparable
      * Set locked
      *
      * @param string $pValue
-     * @return PHPExcel_Style_Protection
+     * @return Protection
      */
     public function setLocked($pValue = self::PROTECTION_INHERIT)
     {
@@ -174,7 +174,7 @@ class Protection extends Supervisor implements \PHPExcel\IComparable
      * Set hidden
      *
      * @param string $pValue
-     * @return PHPExcel_Style_Protection
+     * @return Protection
      */
     public function setHidden($pValue = self::PROTECTION_INHERIT)
     {

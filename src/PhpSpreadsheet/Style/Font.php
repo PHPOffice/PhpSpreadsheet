@@ -162,12 +162,12 @@ class Font extends Supervisor implements \PHPExcel\IComparable
      * <code>
      * $objPHPExcel->getActiveSheet()->getStyle('B2')->getFont()->applyFromArray(
      *        array(
-     *            'name'        => 'Arial',
-     *            'bold'        => TRUE,
+     *            'name'      => 'Arial',
+     *            'bold'      => TRUE,
      *            'italic'    => FALSE,
      *            'underline' => \PHPExcel\Style\Font::UNDERLINE_DOUBLE,
      *            'strike'    => FALSE,
-     *            'color'        => array(
+     *            'color'     => array(
      *                'rgb' => '808080'
      *            )
      *        )

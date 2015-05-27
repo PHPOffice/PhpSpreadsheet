@@ -101,7 +101,7 @@ class Alignment extends Supervisor implements \PHPExcel\IComparable
     protected $readorder = 0;
 
     /**
-     * Create a new PHPExcel_Style_Alignment
+     * Create a new Alignment
      *
      * @param    boolean    $isSupervisor    Flag indicating if this is a supervisor or not
      *                                       Leave this value at default unless you understand exactly what
@@ -126,7 +126,7 @@ class Alignment extends Supervisor implements \PHPExcel\IComparable
      * Get the shared style component for the currently active cell in currently active sheet.
      * Only used for style supervisor
      *
-     * @return PHPExcel_Style_Alignment
+     * @return Alignment
      */
     public function getSharedComponent()
     {
@@ -150,17 +150,17 @@ class Alignment extends Supervisor implements \PHPExcel\IComparable
      * <code>
      * $objPHPExcel->getActiveSheet()->getStyle('B2')->getAlignment()->applyFromArray(
      *        array(
-     *            'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-     *            'vertical'   => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+     *            'horizontal' => \PHPExcel\Style\Alignment::HORIZONTAL_CENTER,
+     *            'vertical'   => \PHPExcel\Style\Alignment::VERTICAL_CENTER,
      *            'rotation'   => 0,
      *            'wrap'            => TRUE
      *        )
      * );
      * </code>
      *
-     * @param    array    $pStyles    Array containing style information
-     * @throws    PHPExcel_Exception
-     * @return PHPExcel_Style_Alignment
+     * @param   array    $pStyles    Array containing style information
+     * @throws  \PHPExcel\Exception
+     * @return  Alignment
      */
     public function applyFromArray($pStyles = null)
     {
@@ -192,7 +192,7 @@ class Alignment extends Supervisor implements \PHPExcel\IComparable
                 }
             }
         } else {
-            throw new PHPExcel_Exception("Invalid style array passed.");
+            throw new \PHPExcel\Exception("Invalid style array passed.");
         }
         return $this;
     }
@@ -214,12 +214,12 @@ class Alignment extends Supervisor implements \PHPExcel\IComparable
      * Set Horizontal
      *
      * @param string $pValue
-     * @return PHPExcel_Style_Alignment
+     * @return Alignment
      */
-    public function setHorizontal($pValue = PHPExcel_Style_Alignment::HORIZONTAL_GENERAL)
+    public function setHorizontal($pValue = self::HORIZONTAL_GENERAL)
     {
         if ($pValue == '') {
-            $pValue = PHPExcel_Style_Alignment::HORIZONTAL_GENERAL;
+            $pValue = self::HORIZONTAL_GENERAL;
         }
 
         if ($this->isSupervisor) {
@@ -248,12 +248,12 @@ class Alignment extends Supervisor implements \PHPExcel\IComparable
      * Set Vertical
      *
      * @param string $pValue
-     * @return PHPExcel_Style_Alignment
+     * @return Alignment
      */
-    public function setVertical($pValue = PHPExcel_Style_Alignment::VERTICAL_BOTTOM)
+    public function setVertical($pValue = self::VERTICAL_BOTTOM)
     {
         if ($pValue == '') {
-            $pValue = PHPExcel_Style_Alignment::VERTICAL_BOTTOM;
+            $pValue = self::VERTICAL_BOTTOM;
         }
 
         if ($this->isSupervisor) {
@@ -282,8 +282,8 @@ class Alignment extends Supervisor implements \PHPExcel\IComparable
      * Set TextRotation
      *
      * @param int $pValue
-     * @throws PHPExcel_Exception
-     * @return PHPExcel_Style_Alignment
+     * @throws \PHPExcel\Exception
+     * @return Alignment
      */
     public function setTextRotation($pValue = 0)
     {
@@ -301,7 +301,7 @@ class Alignment extends Supervisor implements \PHPExcel\IComparable
                 $this->textRotation = $pValue;
             }
         } else {
-            throw new PHPExcel_Exception("Text rotation should be a value between -90 and 90.");
+            throw new \PHPExcel\Exception("Text rotation should be a value between -90 and 90.");
         }
 
         return $this;
@@ -324,7 +324,7 @@ class Alignment extends Supervisor implements \PHPExcel\IComparable
      * Set Wrap Text
      *
      * @param boolean $pValue
-     * @return PHPExcel_Style_Alignment
+     * @return Alignment
      */
     public function setWrapText($pValue = false)
     {
@@ -357,7 +357,7 @@ class Alignment extends Supervisor implements \PHPExcel\IComparable
      * Set Shrink to fit
      *
      * @param boolean $pValue
-     * @return PHPExcel_Style_Alignment
+     * @return Alignment
      */
     public function setShrinkToFit($pValue = false)
     {
@@ -390,7 +390,7 @@ class Alignment extends Supervisor implements \PHPExcel\IComparable
      * Set indent
      *
      * @param int $pValue
-     * @return PHPExcel_Style_Alignment
+     * @return Alignment
      */
     public function setIndent($pValue = 0)
     {
@@ -427,7 +427,7 @@ class Alignment extends Supervisor implements \PHPExcel\IComparable
      * Set read order
      *
      * @param int $pValue
-     * @return PHPExcel_Style_Alignment
+     * @return Alignment
      */
     public function setReadorder($pValue = 0)
     {

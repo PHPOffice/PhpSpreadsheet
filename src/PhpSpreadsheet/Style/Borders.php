@@ -214,9 +214,9 @@ class Borders extends Supervisor implements \PHPExcel\IComparable
      * );
      * </code>
      *
-     * @param    array    $pStyles    Array containing style information
-     * @throws    PHPExcel_Exception
-     * @return Borders
+     * @param   array    $pStyles    Array containing style information
+     * @throws  \PHPExcel\Exception
+     * @return  Borders
      */
     public function applyFromArray($pStyles = null)
     {
@@ -250,7 +250,7 @@ class Borders extends Supervisor implements \PHPExcel\IComparable
                 }
             }
         } else {
-            throw new PHPExcel_Exception("Invalid style array passed.");
+            throw new \PHPExcel\Exception("Invalid style array passed.");
         }
         return $this;
     }
@@ -308,13 +308,13 @@ class Borders extends Supervisor implements \PHPExcel\IComparable
     /**
      * Get AllBorders (pseudo-border). Only applies to supervisor.
      *
-     * @return Border
-     * @throws PHPExcel_Exception
+     * @return  Border
+     * @throws  \PHPExcel\Exception
      */
     public function getAllBorders()
     {
         if (!$this->isSupervisor) {
-            throw new PHPExcel_Exception('Can only get pseudo-border for supervisor.');
+            throw new \PHPExcel\Exception('Can only get pseudo-border for supervisor.');
         }
         return $this->allBorders;
     }
@@ -323,12 +323,12 @@ class Borders extends Supervisor implements \PHPExcel\IComparable
      * Get Outline (pseudo-border). Only applies to supervisor.
      *
      * @return boolean
-     * @throws PHPExcel_Exception
+     * @throws \PHPExcel\Exception
      */
     public function getOutline()
     {
         if (!$this->isSupervisor) {
-            throw new PHPExcel_Exception('Can only get pseudo-border for supervisor.');
+            throw new \PHPExcel\Exception('Can only get pseudo-border for supervisor.');
         }
         return $this->outline;
     }
@@ -337,12 +337,12 @@ class Borders extends Supervisor implements \PHPExcel\IComparable
      * Get Inside (pseudo-border). Only applies to supervisor.
      *
      * @return boolean
-     * @throws PHPExcel_Exception
+     * @throws \PHPExcel\Exception
      */
     public function getInside()
     {
         if (!$this->isSupervisor) {
-            throw new PHPExcel_Exception('Can only get pseudo-border for supervisor.');
+            throw new \PHPExcel\Exception('Can only get pseudo-border for supervisor.');
         }
         return $this->inside;
     }
@@ -351,12 +351,12 @@ class Borders extends Supervisor implements \PHPExcel\IComparable
      * Get Vertical (pseudo-border). Only applies to supervisor.
      *
      * @return Border
-     * @throws PHPExcel_Exception
+     * @throws \PHPExcel\Exception
      */
     public function getVertical()
     {
         if (!$this->isSupervisor) {
-            throw new PHPExcel_Exception('Can only get pseudo-border for supervisor.');
+            throw new \PHPExcel\Exception('Can only get pseudo-border for supervisor.');
         }
         return $this->vertical;
     }
@@ -365,12 +365,12 @@ class Borders extends Supervisor implements \PHPExcel\IComparable
      * Get Horizontal (pseudo-border). Only applies to supervisor.
      *
      * @return Border
-     * @throws PHPExcel_Exception
+     * @throws \PHPExcel\Exception
      */
     public function getHorizontal()
     {
         if (!$this->isSupervisor) {
-            throw new PHPExcel_Exception('Can only get pseudo-border for supervisor.');
+            throw new \PHPExcel\Exception('Can only get pseudo-border for supervisor.');
         }
         return $this->horizontal;
     }
@@ -394,10 +394,10 @@ class Borders extends Supervisor implements \PHPExcel\IComparable
      * @param int $pValue
      * @return Borders
      */
-    public function setDiagonalDirection($pValue = Borders::DIAGONAL_NONE)
+    public function setDiagonalDirection($pValue = self::DIAGONAL_NONE)
     {
         if ($pValue == '') {
-            $pValue = Borders::DIAGONAL_NONE;
+            $pValue = self::DIAGONAL_NONE;
         }
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(array('diagonaldirection' => $pValue));

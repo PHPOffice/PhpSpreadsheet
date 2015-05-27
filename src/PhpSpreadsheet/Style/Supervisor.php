@@ -39,12 +39,12 @@ abstract class Supervisor
     /**
      * Parent. Only used for supervisor
      *
-     * @var PHPExcel_Style
+     * @var \PHPExcel\Style
      */
     protected $parent;
 
     /**
-     * Create a new PHPExcel_Style_Alignment
+     * Create a new Supervisor
      *
      * @param    boolean    $isSupervisor    Flag indicating if this is a supervisor or not
      *                                    Leave this value at default unless you understand exactly what
@@ -60,7 +60,7 @@ abstract class Supervisor
      * Bind parent. Only used for supervisor
      *
      * @param PHPExcel $parent
-     * @return PHPExcel_Style_Supervisor
+     * @return Supervisor
      */
     public function bindParent($parent, $parentPropertyName = null)
     {
@@ -81,7 +81,7 @@ abstract class Supervisor
     /**
      * Get the currently active sheet. Only used for supervisor
      *
-     * @return PHPExcel_Worksheet
+     * @return \PHPExcel\Worksheet
      */
     public function getActiveSheet()
     {

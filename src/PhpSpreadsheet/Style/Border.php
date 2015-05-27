@@ -55,7 +55,7 @@ class Border extends Supervisor implements \PHPExcel\IComparable
     /**
      * Border color
      *
-     * @var PHPExcel_Style_Color
+     * @var Color
      */
     protected $color;
 
@@ -109,7 +109,7 @@ class Border extends Supervisor implements \PHPExcel\IComparable
      * Only used for style supervisor
      *
      * @return Border
-     * @throws PHPExcel_Exception
+     * @throws \PHPExcel\Exception
      */
     public function getSharedComponent()
     {
@@ -173,9 +173,9 @@ class Border extends Supervisor implements \PHPExcel\IComparable
      * );
      * </code>
      *
-     * @param    array    $pStyles    Array containing style information
-     * @throws    PHPExcel_Exception
-     * @return Border
+     * @param   array    $pStyles    Array containing style information
+     * @throws  \PHPExcel\Exception
+     * @return  Border
      */
     public function applyFromArray($pStyles = null)
     {
@@ -237,7 +237,7 @@ class Border extends Supervisor implements \PHPExcel\IComparable
     /**
      * Get Border Color
      *
-     * @return PHPExcel_Style_Color
+     * @return Color
      */
     public function getColor()
     {
@@ -247,11 +247,11 @@ class Border extends Supervisor implements \PHPExcel\IComparable
     /**
      * Set Border Color
      *
-     * @param    PHPExcel_Style_Color $pValue
-     * @throws    PHPExcel_Exception
-     * @return Border
+     * @param   Color $pValue
+     * @throws  \PHPExcel\Exception
+     * @return  Border
      */
-    public function setColor(PHPExcel_Style_Color $pValue = null)
+    public function setColor(Color $pValue = null)
     {
         // make sure parameter is a real color and not a supervisor
         $color = $pValue->getIsSupervisor() ? $pValue->getSharedComponent() : $pValue;
