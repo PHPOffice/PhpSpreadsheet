@@ -43,7 +43,7 @@ class DefaultValueBinder implements IValueBinder
             $value = \PHPExcel\Shared\String::SanitizeUTF8($value);
         } elseif (is_object($value)) {
             // Handle any objects that might be injected
-            if ($value instanceof DateTime) {
+            if ($value instanceof \DateTime) {
                 $value = $value->format('Y-m-d H:i:s');
             } elseif (!($value instanceof \PHPExcel\RichText)) {
                 $value = (string) $value;

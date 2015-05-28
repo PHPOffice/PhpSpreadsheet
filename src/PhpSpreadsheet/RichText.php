@@ -27,22 +27,22 @@ namespace PHPExcel;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class RichText implements PHPExcel_IComparable
+class RichText implements IComparable
 {
     /**
      * Rich text elements
      *
-     * @var PHPExcel_RichText_ITextElement[]
+     * @var RichText\ITextElement[]
      */
     private $richTextElements;
 
     /**
-     * Create a new PHPExcel_RichText instance
+     * Create a new RichText instance
      *
-     * @param PHPExcel_Cell $pCell
-     * @throws PHPExcel_Exception
+     * @param Cell $pCell
+     * @throws Exception
      */
-    public function __construct(PHPExcel_Cell $pCell = null)
+    public function __construct(Cell $pCell = null)
     {
         // Initialise variables
         $this->richTextElements = array();
@@ -51,24 +51,24 @@ class RichText implements PHPExcel_IComparable
         if ($pCell !== null) {
             // Add cell text and style
             if ($pCell->getValue() != "") {
-                $objRun = new PHPExcel_RichText_Run($pCell->getValue());
+                $objRun = new RichText\Run($pCell->getValue());
                 $objRun->setFont(clone $pCell->getParent()->getStyle($pCell->getCoordinate())->getFont());
                 $this->addText($objRun);
             }
 
             // Set parent value
-            $pCell->setValueExplicit($this, PHPExcel_Cell_DataType::TYPE_STRING);
+            $pCell->setValueExplicit($this, Cell\DataType::TYPE_STRING);
         }
     }
 
     /**
      * Add text
      *
-     * @param PHPExcel_RichText_ITextElement $pText Rich text element
-     * @throws PHPExcel_Exception
-     * @return PHPExcel_RichText
+     * @param RichText\ITextElement $pText Rich text element
+     * @throws Exception
+     * @return RichText
      */
-    public function addText(PHPExcel_RichText_ITextElement $pText = null)
+    public function addText(RichText\ITextElement $pText = null)
     {
         $this->richTextElements[] = $pText;
         return $this;
@@ -78,12 +78,12 @@ class RichText implements PHPExcel_IComparable
      * Create text
      *
      * @param string $pText Text
-     * @return PHPExcel_RichText_TextElement
-     * @throws PHPExcel_Exception
+     * @return RichText\TextElement
+     * @throws Exception
      */
     public function createText($pText = '')
     {
-        $objText = new PHPExcel_RichText_TextElement($pText);
+        $objText = new RichText\TextElement($pText);
         $this->addText($objText);
         return $objText;
     }
@@ -92,12 +92,12 @@ class RichText implements PHPExcel_IComparable
      * Create text run
      *
      * @param string $pText Text
-     * @return PHPExcel_RichText_Run
-     * @throws PHPExcel_Exception
+     * @return RichText\Run
+     * @throws Exception
      */
     public function createTextRun($pText = '')
     {
-        $objText = new PHPExcel_RichText_Run($pText);
+        $objText = new RichText\Run($pText);
         $this->addText($objText);
         return $objText;
     }
@@ -112,12 +112,11 @@ class RichText implements PHPExcel_IComparable
         // Return value
         $returnValue = '';
 
-        // Loop through all PHPExcel_RichText_ITextElement
+        // Loop through all RichText\ITextElements
         foreach ($this->richTextElements as $text) {
             $returnValue .= $text->getText();
         }
 
-        // Return
         return $returnValue;
     }
 
@@ -134,7 +133,7 @@ class RichText implements PHPExcel_IComparable
     /**
      * Get Rich Text elements
      *
-     * @return PHPExcel_RichText_ITextElement[]
+     * @return RichText\ITextElement[]
      */
     public function getRichTextElements()
     {
@@ -144,16 +143,16 @@ class RichText implements PHPExcel_IComparable
     /**
      * Set Rich Text elements
      *
-     * @param PHPExcel_RichText_ITextElement[] $pElements Array of elements
-     * @throws PHPExcel_Exception
-     * @return PHPExcel_RichText
+     * @param RichText\ITextElement[] $pElements Array of elements
+     * @throws Exception
+     * @return RichText
      */
     public function setRichTextElements($pElements = null)
     {
         if (is_array($pElements)) {
             $this->richTextElements = $pElements;
         } else {
-            throw new PHPExcel_Exception("Invalid PHPExcel_RichText_ITextElement[] array passed.");
+            throw new Exception("Invalid \PHPExcel\RichText\ITextElement[] array passed.");
         }
         return $this;
     }

@@ -9,14 +9,14 @@ class HyperlinkTest extends PHPUnit_Framework_TestCase
         if (!defined('PHPEXCEL_ROOT')) {
             define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
         }
-        require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
+        require_once(PHPEXCEL_ROOT . '/Bootstrap.php');
     }
 
     public function testGetUrl()
     {
         $urlValue = 'http://www.phpexcel.net';
 
-        $testInstance = new PHPExcel_Cell_Hyperlink($urlValue);
+        $testInstance = new \PHPExcel\Cell\Hyperlink($urlValue);
 
         $result = $testInstance->getUrl();
         $this->assertEquals($urlValue, $result);
@@ -27,9 +27,9 @@ class HyperlinkTest extends PHPUnit_Framework_TestCase
         $initialUrlValue = 'http://www.phpexcel.net';
         $newUrlValue = 'http://github.com/PHPOffice/PHPExcel';
 
-        $testInstance = new PHPExcel_Cell_Hyperlink($initialUrlValue);
+        $testInstance = new \PHPExcel\Cell\Hyperlink($initialUrlValue);
         $result = $testInstance->setUrl($newUrlValue);
-        $this->assertTrue($result instanceof PHPExcel_Cell_Hyperlink);
+        $this->assertTrue($result instanceof \PHPExcel\Cell\Hyperlink);
 
         $result = $testInstance->getUrl();
         $this->assertEquals($newUrlValue, $result);
@@ -39,7 +39,7 @@ class HyperlinkTest extends PHPUnit_Framework_TestCase
     {
         $tooltipValue = 'PHPExcel Web Site';
 
-        $testInstance = new PHPExcel_Cell_Hyperlink(null, $tooltipValue);
+        $testInstance = new \PHPExcel\Cell\Hyperlink(null, $tooltipValue);
 
         $result = $testInstance->getTooltip();
         $this->assertEquals($tooltipValue, $result);
@@ -50,9 +50,9 @@ class HyperlinkTest extends PHPUnit_Framework_TestCase
         $initialTooltipValue = 'PHPExcel Web Site';
         $newTooltipValue = 'PHPExcel Repository on Github';
 
-        $testInstance = new PHPExcel_Cell_Hyperlink(null, $initialTooltipValue);
+        $testInstance = new \PHPExcel\Cell\Hyperlink(null, $initialTooltipValue);
         $result = $testInstance->setTooltip($newTooltipValue);
-        $this->assertTrue($result instanceof PHPExcel_Cell_Hyperlink);
+        $this->assertTrue($result instanceof \PHPExcel\Cell\Hyperlink);
 
         $result = $testInstance->getTooltip();
         $this->assertEquals($newTooltipValue, $result);
@@ -63,7 +63,7 @@ class HyperlinkTest extends PHPUnit_Framework_TestCase
         $initialUrlValue = 'http://www.phpexcel.net';
         $newUrlValue = 'sheet://Worksheet1!A1';
 
-        $testInstance = new PHPExcel_Cell_Hyperlink($initialUrlValue);
+        $testInstance = new \PHPExcel\Cell\Hyperlink($initialUrlValue);
         $result = $testInstance->isInternal();
         $this->assertFalse($result);
 
@@ -76,9 +76,9 @@ class HyperlinkTest extends PHPUnit_Framework_TestCase
     {
         $urlValue = 'http://www.phpexcel.net';
         $tooltipValue = 'PHPExcel Web Site';
-        $initialExpectedHash = 'd84d713aed1dbbc8a7c5af183d6c7dbb';
+        $initialExpectedHash = '176f1ec64e84084db814481bd710b6b3';
 
-        $testInstance = new PHPExcel_Cell_Hyperlink($urlValue, $tooltipValue);
+        $testInstance = new \PHPExcel\Cell\Hyperlink($urlValue, $tooltipValue);
 
         $result = $testInstance->getHashCode();
         $this->assertEquals($initialExpectedHash, $result);

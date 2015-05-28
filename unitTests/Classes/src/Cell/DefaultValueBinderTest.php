@@ -1,6 +1,7 @@
 <?php
 
 require_once 'testDataFileIterator.php';
+require_once 'testDataFileIteratorJson.php';
 
 class DefaultValueBinderTest extends PHPUnit_Framework_TestCase
 {
@@ -11,13 +12,13 @@ class DefaultValueBinderTest extends PHPUnit_Framework_TestCase
         if (!defined('PHPEXCEL_ROOT')) {
             define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
         }
-        require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
+        require_once(PHPEXCEL_ROOT . '/Bootstrap.php');
     }
 
     protected function createCellStub()
     {
         // Create a stub for the Cell class.
-        $this->cellStub = $this->getMockBuilder('PHPExcel_Cell')
+        $this->cellStub = $this->getMockBuilder('\\PHPExcel\\Cell')
             ->disableOriginalConstructor()
             ->getMock();
         // Configure the stub.
@@ -33,7 +34,7 @@ class DefaultValueBinderTest extends PHPUnit_Framework_TestCase
     public function testBindValue($value)
     {
         $this->createCellStub();
-        $binder = new PHPExcel_Cell_DefaultValueBinder();
+        $binder = new \PHPExcel\Cell\DefaultValueBinder();
         $result = $binder->bindValue($this->cellStub, $value);
         $this->assertTrue($result);
     }
@@ -52,7 +53,7 @@ class DefaultValueBinderTest extends PHPUnit_Framework_TestCase
             array('123'),
             array('-123.456'),
             array('#REF!'),
-            array(new DateTime()),
+            array(new \DateTime()),
         );
     }
 
@@ -63,22 +64,22 @@ class DefaultValueBinderTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Cell_DefaultValueBinder','dataTypeForValue'), $args);
+        $result = call_user_func_array(array('\\PHPExcel\\Cell\\DefaultValueBinder','dataTypeForValue'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
     public function providerDataTypeForValue()
     {
-        return new testDataFileIterator('rawTestData/Cell/DefaultValueBinder.data');
+        return new testDataFileIteratorJson('rawTestData/Cell/DefaultValueBinder.json');
     }
 
     public function testDataTypeForRichTextObject()
     {
-        $objRichText = new PHPExcel_RichText();
+        $objRichText = new \PHPExcel\RichText();
         $objRichText->createText('Hello World');
 
-        $expectedResult = PHPExcel_Cell_DataType::TYPE_INLINE;
-        $result = call_user_func(array('PHPExcel_Cell_DefaultValueBinder','dataTypeForValue'), $objRichText);
+        $expectedResult = \PHPExcel\Cell\DataType::TYPE_INLINE;
+        $result = call_user_func(array('\\PHPExcel\\Cell\\DefaultValueBinder','dataTypeForValue'), $objRichText);
         $this->assertEquals($expectedResult, $result);
     }
 }
