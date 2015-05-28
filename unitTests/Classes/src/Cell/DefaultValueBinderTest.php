@@ -1,6 +1,5 @@
 <?php
 
-require_once 'testDataFileIterator.php';
 require_once 'testDataFileIteratorJson.php';
 
 class DefaultValueBinderTest extends PHPUnit_Framework_TestCase
@@ -62,8 +61,7 @@ class DefaultValueBinderTest extends PHPUnit_Framework_TestCase
      */
     public function testDataTypeForValue()
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
+        list($args, $expectedResult) = func_get_args();
         $result = call_user_func_array(array('\\PHPExcel\\Cell\\DefaultValueBinder','dataTypeForValue'), $args);
         $this->assertEquals($expectedResult, $result);
     }

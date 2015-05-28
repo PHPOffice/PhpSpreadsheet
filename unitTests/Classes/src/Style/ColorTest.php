@@ -1,7 +1,7 @@
 <?php
 
-
 require_once 'testDataFileIterator.php';
+require_once 'testDataFileIteratorJson.php';
 
 class ColorTest extends PHPUnit_Framework_TestCase
 {
@@ -11,7 +11,7 @@ class ColorTest extends PHPUnit_Framework_TestCase
         if (!defined('PHPEXCEL_ROOT')) {
             define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
         }
-        require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
+        require_once(PHPEXCEL_ROOT . '/Bootstrap.php');
     }
 
     /**
@@ -21,7 +21,7 @@ class ColorTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Style_Color','getRed'), $args);
+        $result = call_user_func_array(array('\\PHPExcel\\Style\\Color','getRed'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -37,7 +37,7 @@ class ColorTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Style_Color','getGreen'), $args);
+        $result = call_user_func_array(array('\\PHPExcel\\Style\\Color','getGreen'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -53,7 +53,7 @@ class ColorTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Style_Color','getBlue'), $args);
+        $result = call_user_func_array(array('\\PHPExcel\\Style\\Color','getBlue'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -67,14 +67,13 @@ class ColorTest extends PHPUnit_Framework_TestCase
      */
     public function testChangeBrightness()
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Style_Color','changeBrightness'), $args);
+        list($args, $expectedResult) = func_get_args();
+        $result = call_user_func_array(array('\\PHPExcel\\Style\\Color','changeBrightness'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
     public function providerColorChangeBrightness()
     {
-        return new testDataFileIterator('rawTestData/Style/ColorChangeBrightness.data');
+        return new testDataFileIteratorJson('rawTestData/Style/ColorChangeBrightness.json');
     }
 }
