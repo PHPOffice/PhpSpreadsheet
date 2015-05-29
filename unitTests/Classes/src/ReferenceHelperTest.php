@@ -1,20 +1,19 @@
 <?php
 
 
-class ReferenceHelperTest extends PHPUnit_Framework_TestCase
+namespace PHPExcel;
+
+
+class ReferenceHelperTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()
     {
-        if (!defined('PHPEXCEL_ROOT')) {
-            define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
-        }
-        require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
     }
 
     public function testColumnSort()
     {
-        $columnBase = $columnExpectedResult = array(
+        $columnBase = $columnExpectedResult = [
             'A','B','Z',
             'AA','AB','AZ',
             'BA','BB','BZ',
@@ -25,9 +24,9 @@ class ReferenceHelperTest extends PHPUnit_Framework_TestCase
             'BAA','BAB','BAZ',
             'BBA','BBB','BBZ',
             'BZA','BZB','BZZ'
-        );
+        ];
         shuffle($columnBase);
-        usort($columnBase, array('PHPExcel_ReferenceHelper','columnSort'));
+        usort($columnBase, array('\\PHPExcel\\ReferenceHelper','columnSort'));
         foreach ($columnBase as $key => $value) {
             $this->assertEquals($columnExpectedResult[$key], $value);
         }
@@ -35,7 +34,7 @@ class ReferenceHelperTest extends PHPUnit_Framework_TestCase
 
     public function testColumnReverseSort()
     {
-        $columnBase = $columnExpectedResult = array(
+        $columnBase = $columnExpectedResult = [
             'A','B','Z',
             'AA','AB','AZ',
             'BA','BB','BZ',
@@ -46,10 +45,10 @@ class ReferenceHelperTest extends PHPUnit_Framework_TestCase
             'BAA','BAB','BAZ',
             'BBA','BBB','BBZ',
             'BZA','BZB','BZZ'
-        );
+        ];
         shuffle($columnBase);
         $columnExpectedResult = array_reverse($columnExpectedResult);
-        usort($columnBase, array('PHPExcel_ReferenceHelper','columnReverseSort'));
+        usort($columnBase, array('\\PHPExcel\\ReferenceHelper','columnReverseSort'));
         foreach ($columnBase as $key => $value) {
             $this->assertEquals($columnExpectedResult[$key], $value);
         }

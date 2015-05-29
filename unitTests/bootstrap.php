@@ -35,6 +35,11 @@ set_include_path(implode(PATH_SEPARATOR, array(
 )));
 
 
+if (!defined('PHPEXCEL_ROOT')) {
+    define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
+}
+require_once(PHPEXCEL_ROOT . 'Bootstrap.php');
+
 /**
  * @todo Sort out xdebug in vagrant so that this works in all sandboxes
  * For now, it is safer to test for it rather then remove it.
