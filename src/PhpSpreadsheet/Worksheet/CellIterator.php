@@ -30,9 +30,9 @@ namespace PHPExcel\Worksheet;
 abstract class CellIterator
 {
     /**
-     * PHPExcel_Worksheet to iterate
+     * \PHPExcel\Worksheet to iterate
      *
-     * @var PHPExcel_Worksheet
+     * @var \PHPExcel\Worksheet
      */
     protected $subject;
 
@@ -71,7 +71,7 @@ abstract class CellIterator
     /**
      * Validate start/end values for "IterateOnlyExistingCells" mode, and adjust if necessary
      *
-     * @throws PHPExcel_Exception
+     * @throws \PHPExcel\Exception
      */
     abstract protected function adjustForExistingOnlyRange();
 
@@ -79,7 +79,7 @@ abstract class CellIterator
      * Set the iterator to loop only existing cells
      *
      * @param    boolean        $value
-     * @throws PHPExcel_Exception
+     * @throws \PHPExcel\Exception
      */
     public function setIterateOnlyExistingCells($value = true)
     {

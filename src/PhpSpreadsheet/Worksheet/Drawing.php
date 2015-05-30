@@ -37,7 +37,7 @@ class Drawing extends BaseDrawing implements \PHPExcel\IComparable
     private $path;
 
     /**
-     * Create a new PHPExcel_Worksheet_Drawing
+     * Create a new Drawing
      */
     public function __construct()
     {
@@ -94,10 +94,10 @@ class Drawing extends BaseDrawing implements \PHPExcel\IComparable
     /**
      * Set Path
      *
-     * @param     string         $pValue            File path
-     * @param     boolean        $pVerifyFile    Verify file
-     * @throws     PHPExcel_Exception
-     * @return PHPExcel_Worksheet_Drawing
+     * @param   string         $pValue            File path
+     * @param   boolean        $pVerifyFile    Verify file
+     * @throws  \PHPExcel\Exception
+     * @return  Drawing
      */
     public function setPath($pValue = '', $pVerifyFile = true)
     {
@@ -110,7 +110,7 @@ class Drawing extends BaseDrawing implements \PHPExcel\IComparable
                     list($this->width, $this->height) = getimagesize($pValue);
                 }
             } else {
-                throw new PHPExcel_Exception("File $pValue not found!");
+                throw new \PHPExcel\Exception("File $pValue not found!");
             }
         } else {
             $this->path = $pValue;

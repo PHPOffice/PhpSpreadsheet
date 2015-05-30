@@ -58,7 +58,7 @@ abstract class Dimension
     private $xfIndex;
 
     /**
-     * Create a new PHPExcel_Worksheet_Dimension
+     * Create a new Dimension
      *
      * @param int $pIndex Numeric row index
      */
@@ -82,7 +82,7 @@ abstract class Dimension
      * Set Visible
      *
      * @param bool $pValue
-     * @return PHPExcel_Worksheet_Dimension
+     * @return Dimension
      */
     public function setVisible($pValue = true)
     {
@@ -105,14 +105,14 @@ abstract class Dimension
      *
      * Value must be between 0 and 7
      *
-     * @param int $pValue
-     * @throws PHPExcel_Exception
-     * @return PHPExcel_Worksheet_Dimension
+     * @param  integer $pValue
+     * @throws \PHPExcel\Exception
+     * @return Dimension
      */
     public function setOutlineLevel($pValue)
     {
         if ($pValue < 0 || $pValue > 7) {
-            throw new PHPExcel_Exception("Outline level must range between 0 and 7.");
+            throw new \PHPExcel\Exception("Outline level must range between 0 and 7.");
         }
 
         $this->outlineLevel = $pValue;
@@ -132,8 +132,8 @@ abstract class Dimension
     /**
      * Set Collapsed
      *
-     * @param bool $pValue
-     * @return PHPExcel_Worksheet_Dimension
+     * @param  boolean  $pValue
+     * @return Dimension
      */
     public function setCollapsed($pValue = true)
     {
@@ -154,8 +154,8 @@ abstract class Dimension
     /**
      * Set index to cellXf
      *
-     * @param int $pValue
-     * @return PHPExcel_Worksheet_Dimension
+     * @param  integer $pValue
+     * @return Dimension
      */
     public function setXfIndex($pValue = 0)
     {

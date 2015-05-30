@@ -53,7 +53,7 @@ class RowDimension extends Dimension
     private $zeroHeight = false;
 
     /**
-     * Create a new PHPExcel_Worksheet_RowDimension
+     * Create a new RowDimension
      *
      * @param int $pIndex Numeric row index
      */
@@ -80,7 +80,7 @@ class RowDimension extends Dimension
      * Set Row Index
      *
      * @param int $pValue
-     * @return PHPExcel_Worksheet_RowDimension
+     * @return RowDimension
      */
     public function setRowIndex($pValue)
     {
@@ -102,7 +102,7 @@ class RowDimension extends Dimension
      * Set Row Height
      *
      * @param double $pValue
-     * @return PHPExcel_Worksheet_RowDimension
+     * @return RowDimension
      */
     public function setRowHeight($pValue = -1)
     {
@@ -124,7 +124,7 @@ class RowDimension extends Dimension
      * Set ZeroHeight
      *
      * @param bool $pValue
-     * @return PHPExcel_Worksheet_RowDimension
+     * @return RowDimension
      */
     public function setZeroHeight($pValue = false)
     {

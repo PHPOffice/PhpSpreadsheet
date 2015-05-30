@@ -590,7 +590,7 @@ class PageSetup
      *                            Default behaviour, or a index value of 0, will return all ranges as a comma-separated string
      *                            Otherwise, the specific range identified by the value of $index will be returned
      *                            Print areas are numbered from 1
-     * @throws    PHPExcel_Exception
+     * @throws    \PHPExcel\Exception
      * @return    string
      */
     public function getPrintArea($index = 0)
@@ -602,7 +602,7 @@ class PageSetup
         if (isset($printAreas[$index-1])) {
             return $printAreas[$index-1];
         }
-        throw new PHPExcel_Exception("Requested Print Area does not exist");
+        throw new \PHPExcel\Exception("Requested Print Area does not exist");
     }
 
     /**
@@ -670,11 +670,11 @@ class PageSetup
     public function setPrintArea($value, $index = 0, $method = self::SETPRINTRANGE_OVERWRITE)
     {
         if (strpos($value, '!') !== false) {
-            throw new PHPExcel_Exception('Cell coordinate must not specify a worksheet.');
+            throw new \PHPExcel\Exception('Cell coordinate must not specify a worksheet.');
         } elseif (strpos($value, ':') === false) {
-            throw new PHPExcel_Exception('Cell coordinate must be a range of cells.');
+            throw new \PHPExcel\Exception('Cell coordinate must be a range of cells.');
         } elseif (strpos($value, '$') !== false) {
-            throw new PHPExcel_Exception('Cell coordinate must not be absolute.');
+            throw new \PHPExcel\Exception('Cell coordinate must not be absolute.');
         }
         $value = strtoupper($value);
 
@@ -687,7 +687,7 @@ class PageSetup
                     $index = count($printAreas) - abs($index) + 1;
                 }
                 if (($index <= 0) || ($index > count($printAreas))) {
-                    throw new PHPExcel_Exception('Invalid index for setting print range.');
+                    throw new \PHPExcel\Exception('Invalid index for setting print range.');
                 }
                 $printAreas[$index-1] = $value;
                 $this->printArea = implode(',', $printAreas);
@@ -701,13 +701,13 @@ class PageSetup
                     $index = abs($index) - 1;
                 }
                 if ($index > count($printAreas)) {
-                    throw new PHPExcel_Exception('Invalid index for setting print range.');
+                    throw new \PHPExcel\Exception('Invalid index for setting print range.');
                 }
                 $printAreas = array_merge(array_slice($printAreas, 0, $index), array($value), array_slice($printAreas, $index));
                 $this->printArea = implode(',', $printAreas);
             }
         } else {
-            throw new PHPExcel_Exception('Invalid method for setting print range.');
+            throw new \PHPExcel\Exception('Invalid method for setting print range.');
         }
 
         return $this;
@@ -757,7 +757,7 @@ class PageSetup
     public function setPrintAreaByColumnAndRow($column1, $row1, $column2, $row2, $index = 0, $method = self::SETPRINTRANGE_OVERWRITE)
     {
         return $this->setPrintArea(
-            PHPExcel_Cell::stringFromColumnIndex($column1) . $row1 . ':' . PHPExcel_Cell::stringFromColumnIndex($column2) . $row2,
+            \PHPExcel\Cell::stringFromColumnIndex($column1) . $row1 . ':' . \PHPExcel\Cell::stringFromColumnIndex($column2) . $row2,
             $index,
             $method
         );
@@ -782,7 +782,7 @@ class PageSetup
     public function addPrintAreaByColumnAndRow($column1, $row1, $column2, $row2, $index = -1)
     {
         return $this->setPrintArea(
-            PHPExcel_Cell::stringFromColumnIndex($column1) . $row1 . ':' . PHPExcel_Cell::stringFromColumnIndex($column2) . $row2,
+            \PHPExcel\Cell::stringFromColumnIndex($column1) . $row1 . ':' . \PHPExcel\Cell::stringFromColumnIndex($column2) . $row2,
             $index,
             self::SETPRINTRANGE_INSERT
         );
@@ -802,7 +802,7 @@ class PageSetup
      * Set first page number
      *
      * @param int $value
-     * @return PHPExcel_Worksheet_HeaderFooter
+     * @return HeaderFooter
      */
     public function setFirstPageNumber($value = null)
     {
@@ -813,7 +813,7 @@ class PageSetup
     /**
      * Reset first page number
      *
-     * @return PHPExcel_Worksheet_HeaderFooter
+     * @return HeaderFooter
      */
     public function resetFirstPageNumber()
     {

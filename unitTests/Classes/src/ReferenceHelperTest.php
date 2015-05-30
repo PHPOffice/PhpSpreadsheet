@@ -1,8 +1,6 @@
 <?php
 
-
 namespace PHPExcel;
-
 
 class ReferenceHelperTest extends \PHPUnit_Framework_TestCase
 {

@@ -781,7 +781,7 @@ class Worksheet implements IComparable
      * @param PHPExcel $parent
      * @return Worksheet
      */
-    public function rebindParent(PHPExcel $parent)
+    public function rebindParent(Spreadsheet $parent)
     {
         if ($this->parent !== null) {
             $namedRanges = $this->parent->getNamedRanges();

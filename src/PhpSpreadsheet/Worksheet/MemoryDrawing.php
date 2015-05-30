@@ -70,7 +70,7 @@ class MemoryDrawing extends BaseDrawing implements \PHPExcel\IComparable
     private $uniqueName;
 
     /**
-     * Create a new PHPExcel_Worksheet_MemoryDrawing
+     * Create a new MemoryDrawing
      */
     public function __construct()
     {
@@ -98,7 +98,7 @@ class MemoryDrawing extends BaseDrawing implements \PHPExcel\IComparable
      * Set image resource
      *
      * @param    $value resource
-     * @return PHPExcel_Worksheet_MemoryDrawing
+     * @return MemoryDrawing
      */
     public function setImageResource($value = null)
     {
@@ -126,9 +126,9 @@ class MemoryDrawing extends BaseDrawing implements \PHPExcel\IComparable
      * Set rendering function
      *
      * @param string $value
-     * @return PHPExcel_Worksheet_MemoryDrawing
+     * @return MemoryDrawing
      */
-    public function setRenderingFunction($value = PHPExcel_Worksheet_MemoryDrawing::RENDERING_DEFAULT)
+    public function setRenderingFunction($value = self::RENDERING_DEFAULT)
     {
         $this->renderingFunction = $value;
         return $this;
@@ -148,9 +148,9 @@ class MemoryDrawing extends BaseDrawing implements \PHPExcel\IComparable
      * Set mime type
      *
      * @param string $value
-     * @return PHPExcel_Worksheet_MemoryDrawing
+     * @return MemoryDrawing
      */
-    public function setMimeType($value = PHPExcel_Worksheet_MemoryDrawing::MIMETYPE_DEFAULT)
+    public function setMimeType($value = self::MIMETYPE_DEFAULT)
     {
         $this->mimeType = $value;
         return $this;

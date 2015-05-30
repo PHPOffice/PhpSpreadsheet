@@ -69,7 +69,7 @@ class SheetView
     private $sheetviewType = self::SHEETVIEW_NORMAL;
 
     /**
-     * Create a new PHPExcel_Worksheet_SheetView
+     * Create a new SheetView
      */
     public function __construct()
     {
@@ -90,9 +90,9 @@ class SheetView
      *
      * Valid values range from 10 to 400.
      *
-     * @param     int     $pValue
-     * @throws     PHPExcel_Exception
-     * @return PHPExcel_Worksheet_SheetView
+     * @param   int     $pValue
+     * @throws  \PHPExcel\Exception
+     * @return  SheetView
      */
     public function setZoomScale($pValue = 100)
     {
@@ -101,7 +101,7 @@ class SheetView
         if (($pValue >= 1) || is_null($pValue)) {
             $this->zoomScale = $pValue;
         } else {
-            throw new PHPExcel_Exception("Scale must be greater than or equal to 1.");
+            throw new \PHPExcel\Exception("Scale must be greater than or equal to 1.");
         }
         return $this;
     }
@@ -121,16 +121,16 @@ class SheetView
      *
      * Valid values range from 10 to 400.
      *
-     * @param     int     $pValue
-     * @throws     PHPExcel_Exception
-     * @return PHPExcel_Worksheet_SheetView
+     * @param   int     $pValue
+     * @throws  \PHPExcel\Exception
+     * @return  SheetView
      */
     public function setZoomScaleNormal($pValue = 100)
     {
         if (($pValue >= 1) || is_null($pValue)) {
             $this->zoomScaleNormal = $pValue;
         } else {
-            throw new PHPExcel_Exception("Scale must be greater than or equal to 1.");
+            throw new \PHPExcel\Exception("Scale must be greater than or equal to 1.");
         }
         return $this;
     }
@@ -153,9 +153,9 @@ class SheetView
      *        'pageLayout'        self::SHEETVIEW_PAGE_LAYOUT
      *        'pageBreakPreview'  self::SHEETVIEW_PAGE_BREAK_PREVIEW
      *
-     * @param     string     $pValue
-     * @throws     PHPExcel_Exception
-     * @return PHPExcel_Worksheet_SheetView
+     * @param    string     $pValue
+     * @throws   \PHPExcel\Exception
+     * @return   SheetView
      */
     public function setView($pValue = null)
     {
@@ -166,7 +166,7 @@ class SheetView
         if (in_array($pValue, self::$sheetViewTypes)) {
             $this->sheetviewType = $pValue;
         } else {
-            throw new PHPExcel_Exception("Invalid sheetview layout type.");
+            throw new \PHPExcel\Exception("Invalid sheetview layout type.");
         }
 
         return $this;

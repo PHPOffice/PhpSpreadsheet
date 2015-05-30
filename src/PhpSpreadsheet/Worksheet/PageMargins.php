@@ -72,7 +72,7 @@ class PageMargins
     private $footer     = 0.3;
 
     /**
-     * Create a new PHPExcel_Worksheet_PageMargins
+     * Create a new PageMargins
      */
     public function __construct()
     {
@@ -92,7 +92,7 @@ class PageMargins
      * Set Left
      *
      * @param double $pValue
-     * @return PHPExcel_Worksheet_PageMargins
+     * @return PageMargins
      */
     public function setLeft($pValue)
     {
@@ -114,7 +114,7 @@ class PageMargins
      * Set Right
      *
      * @param double $pValue
-     * @return PHPExcel_Worksheet_PageMargins
+     * @return PageMargins
      */
     public function setRight($pValue)
     {
@@ -136,7 +136,7 @@ class PageMargins
      * Set Top
      *
      * @param double $pValue
-     * @return PHPExcel_Worksheet_PageMargins
+     * @return PageMargins
      */
     public function setTop($pValue)
     {
@@ -158,7 +158,7 @@ class PageMargins
      * Set Bottom
      *
      * @param double $pValue
-     * @return PHPExcel_Worksheet_PageMargins
+     * @return PageMargins
      */
     public function setBottom($pValue)
     {
@@ -180,7 +180,7 @@ class PageMargins
      * Set Header
      *
      * @param double $pValue
-     * @return PHPExcel_Worksheet_PageMargins
+     * @return PageMargins
      */
     public function setHeader($pValue)
     {
@@ -202,7 +202,7 @@ class PageMargins
      * Set Footer
      *
      * @param double $pValue
-     * @return PHPExcel_Worksheet_PageMargins
+     * @return PageMargins
      */
     public function setFooter($pValue)
     {

@@ -53,7 +53,7 @@ class ColumnDimension extends Dimension
     private $autoSize = false;
 
     /**
-     * Create a new PHPExcel_Worksheet_ColumnDimension
+     * Create a new ColumnDimension
      *
      * @param string $pIndex Character column index
      */
@@ -80,7 +80,7 @@ class ColumnDimension extends Dimension
      * Set ColumnIndex
      *
      * @param string $pValue
-     * @return PHPExcel_Worksheet_ColumnDimension
+     * @return ColumnDimension
      */
     public function setColumnIndex($pValue)
     {
@@ -102,7 +102,7 @@ class ColumnDimension extends Dimension
      * Set Width
      *
      * @param double $pValue
-     * @return PHPExcel_Worksheet_ColumnDimension
+     * @return ColumnDimension
      */
     public function setWidth($pValue = -1)
     {
@@ -124,7 +124,7 @@ class ColumnDimension extends Dimension
      * Set Auto Size
      *
      * @param bool $pValue
-     * @return PHPExcel_Worksheet_ColumnDimension
+     * @return ColumnDimension
      */
     public function setAutoSize($pValue = false)
     {

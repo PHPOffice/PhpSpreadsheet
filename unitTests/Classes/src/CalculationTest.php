@@ -2,7 +2,6 @@
 
 namespace PHPExcel;
 
-
 require_once 'testDataFileIterator.php';
 
 class CalculationTest extends \PHPUnit_Framework_TestCase

@@ -1,22 +1,19 @@
 <?php
 
-class ColumnIteratorTest extends PHPUnit_Framework_TestCase
+namespace PHPExcel\Worksheet;
+
+class ColumnIteratorTest extends \PHPUnit_Framework_TestCase
 {
     public $mockWorksheet;
     public $mockColumn;
 
     public function setUp()
     {
-        if (!defined('PHPEXCEL_ROOT')) {
-            define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
-        }
-        require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
-        
-        $this->mockColumn = $this->getMockBuilder('PHPExcel_Worksheet_Column')
+        $this->mockColumn = $this->getMockBuilder('\\PHPExcel\\Worksheet\\Column')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->mockWorksheet = $this->getMockBuilder('PHPExcel_Worksheet')
+        $this->mockWorksheet = $this->getMockBuilder('\\PHPExcel\\Worksheet')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -31,32 +28,32 @@ class ColumnIteratorTest extends PHPUnit_Framework_TestCase
 
     public function testIteratorFullRange()
     {
-        $iterator = new PHPExcel_Worksheet_ColumnIterator($this->mockWorksheet);
+        $iterator = new ColumnIterator($this->mockWorksheet);
         $columnIndexResult = 'A';
         $this->assertEquals($columnIndexResult, $iterator->key());
         
         foreach ($iterator as $key => $column) {
             $this->assertEquals($columnIndexResult++, $key);
-            $this->assertInstanceOf('PHPExcel_Worksheet_Column', $column);
+            $this->assertInstanceOf('\\PHPExcel\\Worksheet\\Column', $column);
         }
     }
 
     public function testIteratorStartEndRange()
     {
-        $iterator = new PHPExcel_Worksheet_ColumnIterator($this->mockWorksheet, 'B', 'D');
+        $iterator = new ColumnIterator($this->mockWorksheet, 'B', 'D');
         $columnIndexResult = 'B';
         $this->assertEquals($columnIndexResult, $iterator->key());
         
         foreach ($iterator as $key => $column) {
             $this->assertEquals($columnIndexResult++, $key);
-            $this->assertInstanceOf('PHPExcel_Worksheet_Column', $column);
+            $this->assertInstanceOf('\\PHPExcel\\Worksheet\\Column', $column);
         }
     }
 
     public function testIteratorSeekAndPrev()
     {
         $ranges = range('A', 'E');
-        $iterator = new PHPExcel_Worksheet_ColumnIterator($this->mockWorksheet, 'B', 'D');
+        $iterator = new ColumnIterator($this->mockWorksheet, 'B', 'D');
         $columnIndexResult = 'D';
         $iterator->seek('D');
         $this->assertEquals($columnIndexResult, $iterator->key());
@@ -69,20 +66,20 @@ class ColumnIteratorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException PHPExcel_Exception
+     * @expectedException \PHPExcel\Exception
      */
     public function testSeekOutOfRange()
     {
-        $iterator = new PHPExcel_Worksheet_ColumnIterator($this->mockWorksheet, 'B', 'D');
+        $iterator = new ColumnIterator($this->mockWorksheet, 'B', 'D');
         $iterator->seek('A');
     }
 
     /**
-     * @expectedException PHPExcel_Exception
+     * @expectedException \PHPExcel\Exception
      */
     public function testPrevOutOfRange()
     {
-        $iterator = new PHPExcel_Worksheet_ColumnIterator($this->mockWorksheet, 'B', 'D');
+        $iterator = new ColumnIterator($this->mockWorksheet, 'B', 'D');
         $iterator->prev();
     }
 }

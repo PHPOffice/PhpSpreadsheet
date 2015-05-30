@@ -149,7 +149,7 @@ class Protection
     private $password                = '';
 
     /**
-     * Create a new PHPExcel_Worksheet_Protection
+     * Create a new Protection
      */
     public function __construct()
     {
@@ -194,7 +194,7 @@ class Protection
      * Set Sheet
      *
      * @param boolean $pValue
-     * @return PHPExcel_Worksheet_Protection
+     * @return Protection
      */
     public function setSheet($pValue = false)
     {
@@ -216,7 +216,7 @@ class Protection
      * Set Objects
      *
      * @param boolean $pValue
-     * @return PHPExcel_Worksheet_Protection
+     * @return Protection
      */
     public function setObjects($pValue = false)
     {
@@ -238,7 +238,7 @@ class Protection
      * Set Scenarios
      *
      * @param boolean $pValue
-     * @return PHPExcel_Worksheet_Protection
+     * @return Protection
      */
     public function setScenarios($pValue = false)
     {
@@ -260,7 +260,7 @@ class Protection
      * Set FormatCells
      *
      * @param boolean $pValue
-     * @return PHPExcel_Worksheet_Protection
+     * @return Protection
      */
     public function setFormatCells($pValue = false)
     {
@@ -282,7 +282,7 @@ class Protection
      * Set FormatColumns
      *
      * @param boolean $pValue
-     * @return PHPExcel_Worksheet_Protection
+     * @return Protection
      */
     public function setFormatColumns($pValue = false)
     {
@@ -304,7 +304,7 @@ class Protection
      * Set FormatRows
      *
      * @param boolean $pValue
-     * @return PHPExcel_Worksheet_Protection
+     * @return Protection
      */
     public function setFormatRows($pValue = false)
     {
@@ -326,7 +326,7 @@ class Protection
      * Set InsertColumns
      *
      * @param boolean $pValue
-     * @return PHPExcel_Worksheet_Protection
+     * @return Protection
      */
     public function setInsertColumns($pValue = false)
     {
@@ -348,7 +348,7 @@ class Protection
      * Set InsertRows
      *
      * @param boolean $pValue
-     * @return PHPExcel_Worksheet_Protection
+     * @return Protection
      */
     public function setInsertRows($pValue = false)
     {
@@ -370,7 +370,7 @@ class Protection
      * Set InsertHyperlinks
      *
      * @param boolean $pValue
-     * @return PHPExcel_Worksheet_Protection
+     * @return Protection
      */
     public function setInsertHyperlinks($pValue = false)
     {
@@ -392,7 +392,7 @@ class Protection
      * Set DeleteColumns
      *
      * @param boolean $pValue
-     * @return PHPExcel_Worksheet_Protection
+     * @return Protection
      */
     public function setDeleteColumns($pValue = false)
     {
@@ -414,7 +414,7 @@ class Protection
      * Set DeleteRows
      *
      * @param boolean $pValue
-     * @return PHPExcel_Worksheet_Protection
+     * @return Protection
      */
     public function setDeleteRows($pValue = false)
     {
@@ -436,7 +436,7 @@ class Protection
      * Set SelectLockedCells
      *
      * @param boolean $pValue
-     * @return PHPExcel_Worksheet_Protection
+     * @return Protection
      */
     public function setSelectLockedCells($pValue = false)
     {
@@ -458,7 +458,7 @@ class Protection
      * Set Sort
      *
      * @param boolean $pValue
-     * @return PHPExcel_Worksheet_Protection
+     * @return Protection
      */
     public function setSort($pValue = false)
     {
@@ -480,7 +480,7 @@ class Protection
      * Set AutoFilter
      *
      * @param boolean $pValue
-     * @return PHPExcel_Worksheet_Protection
+     * @return Protection
      */
     public function setAutoFilter($pValue = false)
     {
@@ -502,7 +502,7 @@ class Protection
      * Set PivotTables
      *
      * @param boolean $pValue
-     * @return PHPExcel_Worksheet_Protection
+     * @return Protection
      */
     public function setPivotTables($pValue = false)
     {
@@ -524,7 +524,7 @@ class Protection
      * Set SelectUnlockedCells
      *
      * @param boolean $pValue
-     * @return PHPExcel_Worksheet_Protection
+     * @return Protection
      */
     public function setSelectUnlockedCells($pValue = false)
     {
@@ -547,12 +547,12 @@ class Protection
      *
      * @param string     $pValue
      * @param boolean     $pAlreadyHashed If the password has already been hashed, set this to true
-     * @return PHPExcel_Worksheet_Protection
+     * @return Protection
      */
     public function setPassword($pValue = '', $pAlreadyHashed = false)
     {
         if (!$pAlreadyHashed) {
-            $pValue = PHPExcel_Shared_PasswordHasher::hashPassword($pValue);
+            $pValue = \PHPExcel\Shared\PasswordHasher::hashPassword($pValue);
         }
         $this->password = $pValue;
         return $this;

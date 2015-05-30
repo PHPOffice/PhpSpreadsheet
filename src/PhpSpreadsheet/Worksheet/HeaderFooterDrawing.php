@@ -79,7 +79,7 @@ class HeaderFooterDrawing extends Drawing implements \PHPExcel\IComparable
     protected $resizeProportional;
 
     /**
-     * Create a new PHPExcel_Worksheet_HeaderFooterDrawing
+     * Create a new HeaderFooterDrawing
      */
     public function __construct()
     {
@@ -107,7 +107,7 @@ class HeaderFooterDrawing extends Drawing implements \PHPExcel\IComparable
      * Set Name
      *
      * @param string $pValue
-     * @return PHPExcel_Worksheet_HeaderFooterDrawing
+     * @return HeaderFooterDrawing
      */
     public function setName($pValue = '')
     {
@@ -129,7 +129,7 @@ class HeaderFooterDrawing extends Drawing implements \PHPExcel\IComparable
      * Set OffsetX
      *
      * @param int $pValue
-     * @return PHPExcel_Worksheet_HeaderFooterDrawing
+     * @return HeaderFooterDrawing
      */
     public function setOffsetX($pValue = 0)
     {
@@ -151,7 +151,7 @@ class HeaderFooterDrawing extends Drawing implements \PHPExcel\IComparable
      * Set OffsetY
      *
      * @param int $pValue
-     * @return PHPExcel_Worksheet_HeaderFooterDrawing
+     * @return HeaderFooterDrawing
      */
     public function setOffsetY($pValue = 0)
     {
@@ -173,7 +173,7 @@ class HeaderFooterDrawing extends Drawing implements \PHPExcel\IComparable
      * Set Width
      *
      * @param int $pValue
-     * @return PHPExcel_Worksheet_HeaderFooterDrawing
+     * @return HeaderFooterDrawing
      */
     public function setWidth($pValue = 0)
     {
@@ -203,7 +203,7 @@ class HeaderFooterDrawing extends Drawing implements \PHPExcel\IComparable
      * Set Height
      *
      * @param int $pValue
-     * @return PHPExcel_Worksheet_HeaderFooterDrawing
+     * @return HeaderFooterDrawing
      */
     public function setHeight($pValue = 0)
     {
@@ -230,7 +230,7 @@ class HeaderFooterDrawing extends Drawing implements \PHPExcel\IComparable
      * @author Vincent@luo MSN:kele_100@hotmail.com
      * @param int $width
      * @param int $height
-     * @return PHPExcel_Worksheet_HeaderFooterDrawing
+     * @return HeaderFooterDrawing
      */
     public function setWidthAndHeight($width = 0, $height = 0)
     {
@@ -262,7 +262,7 @@ class HeaderFooterDrawing extends Drawing implements \PHPExcel\IComparable
      * Set ResizeProportional
      *
      * @param boolean $pValue
-     * @return PHPExcel_Worksheet_HeaderFooterDrawing
+     * @return HeaderFooterDrawing
      */
     public function setResizeProportional($pValue = true)
     {
@@ -304,10 +304,10 @@ class HeaderFooterDrawing extends Drawing implements \PHPExcel\IComparable
     /**
      * Set Path
      *
-     * @param     string         $pValue            File path
-     * @param     boolean        $pVerifyFile    Verify file
-     * @throws     PHPExcel_Exception
-     * @return PHPExcel_Worksheet_HeaderFooterDrawing
+     * @param    string         $pValue            File path
+     * @param    boolean        $pVerifyFile    Verify file
+     * @throws   \PHPExcel\Exception
+     * @return   HeaderFooterDrawing
      */
     public function setPath($pValue = '', $pVerifyFile = true)
     {
@@ -320,7 +320,7 @@ class HeaderFooterDrawing extends Drawing implements \PHPExcel\IComparable
                     list($this->width, $this->height) = getimagesize($pValue);
                 }
             } else {
-                throw new PHPExcel_Exception("File $pValue not found!");
+                throw new \PHPExcel\Exception("File $pValue not found!");
             }
         } else {
             $this->path = $pValue;
