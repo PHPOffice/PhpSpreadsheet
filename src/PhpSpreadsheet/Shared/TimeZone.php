@@ -43,7 +43,7 @@ class TimeZone
      * @param     string        $timezone            Time zone (e.g. 'Europe/London')
      * @return     boolean                        Success or failure
      */
-    public static function _validateTimeZone($timezone)
+    private static function validateTimeZone($timezone)
     {
         if (in_array($timezone, DateTimeZone::listIdentifiers())) {
             return true;
@@ -59,7 +59,7 @@ class TimeZone
      */
     public static function setTimeZone($timezone)
     {
-        if (self::_validateTimezone($timezone)) {
+        if (self::validateTimezone($timezone)) {
             self::$timezone = $timezone;
             return true;
         }
@@ -114,7 +114,7 @@ class TimeZone
     public static function getTimeZoneAdjustment($timezone, $timestamp)
     {
         if ($timezone !== null) {
-            if (!self::_validateTimezone($timezone)) {
+            if (!self::validateTimezone($timezone)) {
                 throw new \PHPExcel\Exception("Invalid timezone " . $timezone);
             }
         } else {
