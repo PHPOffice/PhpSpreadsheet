@@ -67,10 +67,10 @@ class Financial
     {
         $months = 12 / $frequency;
 
-        $result = PHPExcel_Shared_Date::ExcelToPHPObject($maturity);
+        $result = \PHPExcel\Shared\Date::ExcelToPHPObject($maturity);
         $eom = self::isLastDayOfMonth($result);
 
-        while ($settlement < PHPExcel_Shared_Date::PHPToExcel($result)) {
+        while ($settlement < \PHPExcel\Shared\Date::PHPToExcel($result)) {
             $result->modify('-'.$months.' months');
         }
         if ($next) {
@@ -81,7 +81,7 @@ class Financial
             $result->modify('-1 day');
         }
 
-        return PHPExcel_Shared_Date::PHPToExcel($result);
+        return \PHPExcel\Shared\Date::PHPToExcel($result);
     }
 
 

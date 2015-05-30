@@ -35,10 +35,10 @@ define('PRECISION', 8.88E-016);
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category    PHPExcel
- * @package        PHPExcel_Calculation
- * @copyright    Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version        ##VERSION##, ##DATE##
+ * @package     PHPExcel_Calculation
+ * @copyright   Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ * @version     ##VERSION##, ##DATE##
  */
 class Functions
 {
@@ -314,7 +314,7 @@ class Functions
         }
         if (!in_array($condition{0}, array('>', '<', '='))) {
             if (!is_numeric($condition)) {
-                $condition = PHPExcel_Calculation::wrapResult(strtoupper($condition));
+                $condition = \PHPExcel\Calculation::wrapResult(strtoupper($condition));
             }
             return '=' . $condition;
         } else {
@@ -323,7 +323,7 @@ class Functions
 
             if (!is_numeric($operand)) {
                 $operand = str_replace('"', '""', $operand);
-                $operand = PHPExcel_Calculation::wrapResult(strtoupper($operand));
+                $operand = \PHPExcel\Calculation::wrapResult(strtoupper($operand));
             }
 
             return $operator.$operand;

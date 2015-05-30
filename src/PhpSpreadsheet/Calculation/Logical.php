@@ -27,7 +27,7 @@ namespace PHPExcel\Calculation;
  * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version        ##VERSION##, ##DATE##
  */
-class PHPExcel_Calculation_Logical
+class Logical
 {
     /**
      * TRUE
@@ -102,9 +102,9 @@ class PHPExcel_Calculation_Logical
                 $returnValue = $returnValue && ($arg != 0);
             } elseif (is_string($arg)) {
                 $arg = strtoupper($arg);
-                if (($arg == 'TRUE') || ($arg == PHPExcel_Calculation::getTRUE())) {
+                if (($arg == 'TRUE') || ($arg == \PHPExcel\Calculation::getTRUE())) {
                     $arg = true;
-                } elseif (($arg == 'FALSE') || ($arg == PHPExcel_Calculation::getFALSE())) {
+                } elseif (($arg == 'FALSE') || ($arg == \PHPExcel\Calculation::getFALSE())) {
                     $arg = false;
                 } else {
                     return Functions::VALUE();
@@ -158,9 +158,9 @@ class PHPExcel_Calculation_Logical
                 $returnValue = $returnValue || ($arg != 0);
             } elseif (is_string($arg)) {
                 $arg = strtoupper($arg);
-                if (($arg == 'TRUE') || ($arg == PHPExcel_Calculation::getTRUE())) {
+                if (($arg == 'TRUE') || ($arg == \PHPExcel\Calculation::getTRUE())) {
                     $arg = true;
-                } elseif (($arg == 'FALSE') || ($arg == PHPExcel_Calculation::getFALSE())) {
+                } elseif (($arg == 'FALSE') || ($arg == \PHPExcel\Calculation::getFALSE())) {
                     $arg = false;
                 } else {
                     return Functions::VALUE();
@@ -202,9 +202,9 @@ class PHPExcel_Calculation_Logical
         $logical = Functions::flattenSingleValue($logical);
         if (is_string($logical)) {
             $logical = strtoupper($logical);
-            if (($logical == 'TRUE') || ($logical == PHPExcel_Calculation::getTRUE())) {
+            if (($logical == 'TRUE') || ($logical == \PHPExcel\Calculation::getTRUE())) {
                 return false;
-            } elseif (($logical == 'FALSE') || ($logical == PHPExcel_Calculation::getFALSE())) {
+            } elseif (($logical == 'FALSE') || ($logical == \PHPExcel\Calculation::getFALSE())) {
                 return true;
             } else {
                 return Functions::VALUE();

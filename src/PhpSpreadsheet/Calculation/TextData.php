@@ -85,7 +85,7 @@ class TextData
         $stringValue    = Functions::flattenSingleValue($stringValue);
 
         if (is_bool($stringValue)) {
-            return ($stringValue) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
+            return ($stringValue) ? \PHPExcel\Calculation::getTRUE() : \PHPExcel\Calculation::getFALSE();
         }
 
         if (self::$invalidChars == null) {
@@ -109,7 +109,7 @@ class TextData
     {
         $stringValue = Functions::flattenSingleValue($stringValue);
         if (is_bool($stringValue)) {
-            return ($stringValue) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
+            return ($stringValue) ? \PHPExcel\Calculation::getTRUE() : \PHPExcel\Calculation::getFALSE();
         }
 
         if (is_string($stringValue) || is_numeric($stringValue)) {
@@ -135,7 +135,7 @@ class TextData
             if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
                 $characters = (int) $characters;
             } else {
-                $characters = ($characters) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
+                $characters = ($characters) ? \PHPExcel\Calculation::getTRUE() : \PHPExcel\Calculation::getFALSE();
             }
         }
 
@@ -170,7 +170,7 @@ class TextData
                 if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
                     $arg = (int) $arg;
                 } else {
-                    $arg = ($arg) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
+                    $arg = ($arg) ? \PHPExcel\Calculation::getTRUE() : \PHPExcel\Calculation::getFALSE();
                 }
             }
             $returnValue .= $arg;
@@ -214,7 +214,7 @@ class TextData
             $value = MathTrig::MROUND($value, $round);
         }
 
-        return PHPExcel_Style_NumberFormat::toFormattedString($value, $mask);
+        return \PHPExcel\Style\NumberFormat::toFormattedString($value, $mask);
 
     }
 
@@ -235,11 +235,11 @@ class TextData
 
         if (!is_bool($needle)) {
             if (is_bool($haystack)) {
-                $haystack = ($haystack) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
+                $haystack = ($haystack) ? \PHPExcel\Calculation::getTRUE() : \PHPExcel\Calculation::getFALSE();
             }
 
-            if (($offset > 0) && (PHPExcel_Shared_String::CountCharacters($haystack) > $offset)) {
-                if (PHPExcel_Shared_String::CountCharacters($needle) == 0) {
+            if (($offset > 0) && (\PHPExcel\Shared\String::CountCharacters($haystack) > $offset)) {
+                if (\PHPExcel\Shared\String::CountCharacters($needle) == 0) {
                     return $offset;
                 }
                 if (function_exists('mb_strpos')) {
@@ -272,11 +272,11 @@ class TextData
 
         if (!is_bool($needle)) {
             if (is_bool($haystack)) {
-                $haystack = ($haystack) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
+                $haystack = ($haystack) ? \PHPExcel\Calculation::getTRUE() : \PHPExcel\Calculation::getFALSE();
             }
 
-            if (($offset > 0) && (PHPExcel_Shared_String::CountCharacters($haystack) > $offset)) {
-                if (PHPExcel_Shared_String::CountCharacters($needle) == 0) {
+            if (($offset > 0) && (\PHPExcel\Shared\String::CountCharacters($haystack) > $offset)) {
+                if (\PHPExcel\Shared\String::CountCharacters($needle) == 0) {
                     return $offset;
                 }
                 if (function_exists('mb_stripos')) {
@@ -342,7 +342,7 @@ class TextData
         }
 
         if (is_bool($value)) {
-            $value = ($value) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
+            $value = ($value) ? \PHPExcel\Calculation::getTRUE() : \PHPExcel\Calculation::getFALSE();
         }
 
         if (function_exists('mb_substr')) {
@@ -372,7 +372,7 @@ class TextData
         }
 
         if (is_bool($value)) {
-            $value = ($value) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
+            $value = ($value) ? \PHPExcel\Calculation::getTRUE() : \PHPExcel\Calculation::getFALSE();
         }
 
         if (function_exists('mb_substr')) {
@@ -400,7 +400,7 @@ class TextData
         }
 
         if (is_bool($value)) {
-            $value = ($value) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
+            $value = ($value) ? \PHPExcel\Calculation::getTRUE() : \PHPExcel\Calculation::getFALSE();
         }
 
         if ((function_exists('mb_substr')) && (function_exists('mb_strlen'))) {
@@ -422,7 +422,7 @@ class TextData
         $value = Functions::flattenSingleValue($value);
 
         if (is_bool($value)) {
-            $value = ($value) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
+            $value = ($value) ? \PHPExcel\Calculation::getTRUE() : \PHPExcel\Calculation::getFALSE();
         }
 
         if (function_exists('mb_strlen')) {
@@ -446,10 +446,10 @@ class TextData
         $mixedCaseString = Functions::flattenSingleValue($mixedCaseString);
 
         if (is_bool($mixedCaseString)) {
-            $mixedCaseString = ($mixedCaseString) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
+            $mixedCaseString = ($mixedCaseString) ? \PHPExcel\Calculation::getTRUE() : \PHPExcel\Calculation::getFALSE();
         }
 
-        return PHPExcel_Shared_String::StrToLower($mixedCaseString);
+        return \PHPExcel\Shared\String::StrToLower($mixedCaseString);
     }
 
 
@@ -466,10 +466,10 @@ class TextData
         $mixedCaseString = Functions::flattenSingleValue($mixedCaseString);
 
         if (is_bool($mixedCaseString)) {
-            $mixedCaseString = ($mixedCaseString) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
+            $mixedCaseString = ($mixedCaseString) ? \PHPExcel\Calculation::getTRUE() : \PHPExcel\Calculation::getFALSE();
         }
 
-        return PHPExcel_Shared_String::StrToUpper($mixedCaseString);
+        return \PHPExcel\Shared\String::StrToUpper($mixedCaseString);
     }
 
 
@@ -486,10 +486,10 @@ class TextData
         $mixedCaseString = Functions::flattenSingleValue($mixedCaseString);
 
         if (is_bool($mixedCaseString)) {
-            $mixedCaseString = ($mixedCaseString) ? PHPExcel_Calculation::getTRUE() : PHPExcel_Calculation::getFALSE();
+            $mixedCaseString = ($mixedCaseString) ? \PHPExcel\Calculation::getTRUE() : \PHPExcel\Calculation::getFALSE();
         }
 
-        return PHPExcel_Shared_String::StrToTitle($mixedCaseString);
+        return \PHPExcel\Shared\String::StrToTitle($mixedCaseString);
     }
 
 
@@ -593,11 +593,11 @@ class TextData
         $value  = Functions::flattenSingleValue($value);
         $format = Functions::flattenSingleValue($format);
 
-        if ((is_string($value)) && (!is_numeric($value)) && PHPExcel_Shared_Date::isDateTimeFormatCode($format)) {
+        if ((is_string($value)) && (!is_numeric($value)) && PHPExcel\Shared\Date::isDateTimeFormatCode($format)) {
             $value = DateTime::DATEVALUE($value);
         }
 
-        return (string) PHPExcel_Style_NumberFormat::toFormattedString($value, $format);
+        return (string) \PHPExcel\Style\NumberFormat::toFormattedString($value, $format);
     }
 
     /**
@@ -612,9 +612,9 @@ class TextData
 
         if (!is_numeric($value)) {
             $numberValue = str_replace(
-                PHPExcel_Shared_String::getThousandsSeparator(),
+                \PHPExcel\Shared\String::getThousandsSeparator(),
                 '',
-                trim($value, " \t\n\r\0\x0B" . PHPExcel_Shared_String::getCurrencyCode())
+                trim($value, " \t\n\r\0\x0B" . \PHPExcel\Shared\String::getCurrencyCode())
             );
             if (is_numeric($numberValue)) {
                 return (float) $numberValue;

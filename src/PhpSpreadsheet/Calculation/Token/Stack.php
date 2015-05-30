@@ -68,7 +68,7 @@ class Stack
             'reference' => $reference
         );
         if ($type == 'Function') {
-            $localeFunction = PHPExcel_Calculation::localeFunc($value);
+            $localeFunction = \PHPExcel\Calculation::localeFunc($value);
             if ($localeFunction != $value) {
                 $this->stack[($this->count - 1)]['localeValue'] = $localeFunction;
             }

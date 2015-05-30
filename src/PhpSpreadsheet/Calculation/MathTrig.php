@@ -22,10 +22,10 @@ namespace PHPExcel\Calculation;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category    PHPExcel
- * @package        PHPExcel_Calculation
- * @copyright    Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version        ##VERSION##, ##DATE##
+ * @package     PHPExcel_Calculation
+ * @copyright   Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ * @version     ##VERSION##, ##DATE##
  */
 class MathTrig
 {
@@ -556,9 +556,9 @@ class MathTrig
         }
 
         try {
-            $matrix = new PHPExcel_Shared_JAMA_Matrix($matrixData);
+            $matrix = new \PHPExcel\Shared\JAMA\Matrix($matrixData);
             return $matrix->det();
-        } catch (PHPExcel_Exception $ex) {
+        } catch (\PHPExcel\Exception $ex) {
             return Functions::VALUE();
         }
     }
@@ -607,9 +607,9 @@ class MathTrig
         }
 
         try {
-            $matrix = new PHPExcel_Shared_JAMA_Matrix($matrixData);
+            $matrix = new \PHPExcel\Shared\JAMA\Matrix($matrixData);
             return $matrix->inverse()->getArray();
-        } catch (PHPExcel_Exception $ex) {
+        } catch (\PHPExcel\Exception $ex) {
             return Functions::VALUE();
         }
     }
@@ -648,7 +648,7 @@ class MathTrig
                 }
                 ++$rowA;
             }
-            $matrixA = new PHPExcel_Shared_JAMA_Matrix($matrixAData);
+            $matrixA = new \PHPExcel\Shared\JAMA\Matrix($matrixAData);
             $rowB = 0;
             foreach ($matrixData2 as $matrixRow) {
                 if (!is_array($matrixRow)) {
@@ -664,14 +664,14 @@ class MathTrig
                 }
                 ++$rowB;
             }
-            $matrixB = new PHPExcel_Shared_JAMA_Matrix($matrixBData);
+            $matrixB = new \PHPExcel\Shared\JAMA\Matrix($matrixBData);
 
             if ($columnA != $rowB) {
                 return Functions::VALUE();
             }
 
             return $matrixA->times($matrixB)->getArray();
-        } catch (PHPExcel_Exception $ex) {
+        } catch (\PHPExcel\Exception $ex) {
             var_dump($ex->getMessage());
             return Functions::VALUE();
         }
@@ -1199,11 +1199,11 @@ class MathTrig
         foreach ($aArgs as $key => $arg) {
             if (!is_numeric($arg)) {
                 $arg = str_replace('"', '""', $arg);
-                $arg = PHPExcel_Calculation::wrapResult(strtoupper($arg));
+                $arg = \PHPExcel\Calculation::wrapResult(strtoupper($arg));
             }
 
             $testCondition = '='.$arg.$condition;
-            if (PHPExcel_Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+            if (\PHPExcel\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                 // Is it a value within our criteria
                 $returnValue += $sumArgs[$key];
             }
