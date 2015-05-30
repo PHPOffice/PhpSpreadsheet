@@ -32,7 +32,7 @@ interface IValueBinder
     /**
      * Bind value to a cell
      *
-     * @param  PHPExcel_Cell $cell    Cell to bind value to
+     * @param  \PHPExcel\Cell $cell    Cell to bind value to
      * @param  mixed $value           Value to bind in cell
      * @return boolean
      */

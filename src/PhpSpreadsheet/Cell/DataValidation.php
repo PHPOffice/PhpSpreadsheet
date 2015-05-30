@@ -146,7 +146,7 @@ class DataValidation
     private $prompt = '';
 
     /**
-     * Create a new PHPExcel_Cell_DataValidation
+     * Create a new DataValidation
      */
     public function __construct()
     {
@@ -166,7 +166,7 @@ class DataValidation
      * Set Formula 1
      *
      * @param  string    $value
-     * @return PHPExcel_Cell_DataValidation
+     * @return DataValidation
      */
     public function setFormula1($value = '')
     {
@@ -188,7 +188,7 @@ class DataValidation
      * Set Formula 2
      *
      * @param  string    $value
-     * @return PHPExcel_Cell_DataValidation
+     * @return DataValidation
      */
     public function setFormula2($value = '')
     {
@@ -210,9 +210,9 @@ class DataValidation
      * Set Type
      *
      * @param  string    $value
-     * @return PHPExcel_Cell_DataValidation
+     * @return DataValidation
      */
-    public function setType($value = PHPExcel_Cell_DataValidation::TYPE_NONE)
+    public function setType($value = self::TYPE_NONE)
     {
         $this->type = $value;
         return $this;
@@ -232,9 +232,9 @@ class DataValidation
      * Set Error style
      *
      * @param  string    $value
-     * @return PHPExcel_Cell_DataValidation
+     * @return DataValidation
      */
-    public function setErrorStyle($value = PHPExcel_Cell_DataValidation::STYLE_STOP)
+    public function setErrorStyle($value = self::STYLE_STOP)
     {
         $this->errorStyle = $value;
         return $this;
@@ -254,7 +254,7 @@ class DataValidation
      * Set Operator
      *
      * @param  string    $value
-     * @return PHPExcel_Cell_DataValidation
+     * @return DataValidation
      */
     public function setOperator($value = '')
     {
@@ -276,7 +276,7 @@ class DataValidation
      * Set Allow Blank
      *
      * @param  boolean    $value
-     * @return PHPExcel_Cell_DataValidation
+     * @return DataValidation
      */
     public function setAllowBlank($value = false)
     {
@@ -298,7 +298,7 @@ class DataValidation
      * Set Show DropDown
      *
      * @param  boolean    $value
-     * @return PHPExcel_Cell_DataValidation
+     * @return DataValidation
      */
     public function setShowDropDown($value = false)
     {
@@ -320,7 +320,7 @@ class DataValidation
      * Set Show InputMessage
      *
      * @param  boolean    $value
-     * @return PHPExcel_Cell_DataValidation
+     * @return DataValidation
      */
     public function setShowInputMessage($value = false)
     {
@@ -342,7 +342,7 @@ class DataValidation
      * Set Show ErrorMessage
      *
      * @param  boolean    $value
-     * @return PHPExcel_Cell_DataValidation
+     * @return DataValidation
      */
     public function setShowErrorMessage($value = false)
     {
@@ -364,7 +364,7 @@ class DataValidation
      * Set Error title
      *
      * @param  string    $value
-     * @return PHPExcel_Cell_DataValidation
+     * @return DataValidation
      */
     public function setErrorTitle($value = '')
     {
@@ -386,7 +386,7 @@ class DataValidation
      * Set Error
      *
      * @param  string    $value
-     * @return PHPExcel_Cell_DataValidation
+     * @return DataValidation
      */
     public function setError($value = '')
     {
@@ -408,7 +408,7 @@ class DataValidation
      * Set Prompt title
      *
      * @param  string    $value
-     * @return PHPExcel_Cell_DataValidation
+     * @return DataValidation
      */
     public function setPromptTitle($value = '')
     {
@@ -430,7 +430,7 @@ class DataValidation
      * Set Prompt
      *
      * @param  string    $value
-     * @return PHPExcel_Cell_DataValidation
+     * @return DataValidation
      */
     public function setPrompt($value = '')
     {
@@ -448,8 +448,8 @@ class DataValidation
         return md5(
             $this->formula1 .
             $this->formula2 .
-            $this->type = PHPExcel_Cell_DataValidation::TYPE_NONE .
-            $this->errorStyle = PHPExcel_Cell_DataValidation::STYLE_STOP .
+            $this->type = self::TYPE_NONE .
+            $this->errorStyle = self::STYLE_STOP .
             $this->operator .
             ($this->allowBlank ? 't' : 'f') .
             ($this->showDropDown ? 't' : 'f') .

@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Shared\Escher\DggContainer;
+
 /**
  * PHPExcel_Shared_Escher_DggContainer_BstoreContainer
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Shared_Escher_DggContainer_BstoreContainer
+class BstoreContainer
 {
     /**
      * BLIP Store Entries. Each of them holds one BLIP (Big Large Image or Picture)
@@ -37,7 +39,7 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer
     /**
      * Add a BLIP Store Entry
      *
-     * @param PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE $BSE
+     * @param BstoreContainer\BSE $BSE
      */
     public function addBSE($BSE)
     {
@@ -48,7 +50,7 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer
     /**
      * Get the collection of BLIP Store Entries
      *
-     * @return PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE[]
+     * @return BstoreContainer\BSE[]
      */
     public function getBSECollection()
     {

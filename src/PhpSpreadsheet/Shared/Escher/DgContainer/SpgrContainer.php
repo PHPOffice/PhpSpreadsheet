@@ -1,5 +1,7 @@
 <?php
 
+namespace class PHPExcel\Shared\Escher\DgContainer;
+
 /**
  * PHPExcel_Shared_Escher_DgContainer_SpgrContainer
  *
@@ -25,12 +27,12 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Shared_Escher_DgContainer_SpgrContainer
+class SpgrContainer
 {
     /**
      * Parent Shape Group Container
      *
-     * @var PHPExcel_Shared_Escher_DgContainer_SpgrContainer
+     * @var \PHPExcel\Shared\Escher\DgContainer\SpgrContainer
      */
     private $parent;
 
@@ -44,7 +46,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer
     /**
      * Set parent Shape Group Container
      *
-     * @param PHPExcel_Shared_Escher_DgContainer_SpgrContainer $parent
+     * @param \PHPExcel\Shared\Escher\DgContainer\SpgrContainer $parent
      */
     public function setParent($parent)
     {
@@ -54,7 +56,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer
     /**
      * Get the parent Shape Group Container if any
      *
-     * @return PHPExcel_Shared_Escher_DgContainer_SpgrContainer|null
+     * @return \PHPExcel\Shared\Escher\DgContainer\SpgrContainer|null
      */
     public function getParent()
     {
@@ -83,14 +85,14 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer
     /**
      * Recursively get all spContainers within this spgrContainer
      *
-     * @return PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer[]
+     * @return SpgrContainer\SpContainer[]
      */
     public function getAllSpContainers()
     {
         $allSpContainers = array();
 
         foreach ($this->children as $child) {
-            if ($child instanceof PHPExcel_Shared_Escher_DgContainer_SpgrContainer) {
+            if ($child instanceof SpgrContainer) {
                 $allSpContainers = array_merge($allSpContainers, $child->getAllSpContainers());
             } else {
                 $allSpContainers[] = $child;

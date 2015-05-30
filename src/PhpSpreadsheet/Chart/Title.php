@@ -40,12 +40,12 @@ class Title
     /**
      * Title Layout
      *
-     * @var PHPExcel_Chart_Layout
+     * @var Layout
      */
     private $layout = null;
 
     /**
-     * Create a new PHPExcel_Chart_Title
+     * Create a new Title
      */
     public function __construct($caption = null, Layout $layout = null)
     {
@@ -67,7 +67,7 @@ class Title
      * Set caption
      *
      * @param string $caption
-     * @return PHPExcel_Chart_Title
+     * @return Title
      */
     public function setCaption($caption = null)
     {
@@ -79,7 +79,7 @@ class Title
     /**
      * Get Layout
      *
-     * @return PHPExcel_Chart_Layout
+     * @return Layout
      */
     public function getLayout()
     {

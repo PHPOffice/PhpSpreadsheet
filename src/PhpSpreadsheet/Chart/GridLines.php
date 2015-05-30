@@ -96,7 +96,7 @@ class GridLines extends Properties
     /**
      * Change Object State to True
      *
-     * @return PHPExcel_Chart_GridLines
+     * @return GridLines
      */
 
     private function activateObject()
@@ -243,7 +243,7 @@ class GridLines extends Properties
      *
      * @param float $size
      *
-     * @return PHPExcel_Chart_GridLines
+     * @return GridLines
      */
 
     private function setGlowSize($size)
@@ -260,7 +260,7 @@ class GridLines extends Properties
      * @param int $alpha
      * @param string $type
      *
-     * @return PHPExcel_Chart_GridLines
+     * @return GridLines
      */
 
     private function setGlowColor($color, $alpha, $type)
@@ -324,7 +324,7 @@ class GridLines extends Properties
      *
      * @param int $shadow_presets
      *
-     * @return PHPExcel_Chart_GridLines
+     * @return GridLines
      */
 
     private function setShadowPresetsProperties($shadow_presets)
@@ -341,7 +341,7 @@ class GridLines extends Properties
      * @param array $properties_map
      * @param * $reference
      *
-     * @return PHPExcel_Chart_GridLines
+     * @return GridLines
      */
 
     private function setShadowProperiesMapValues(array $properties_map, &$reference = null)
@@ -373,7 +373,7 @@ class GridLines extends Properties
      * @param string $color
      * @param int $alpha
      * @param string $type
-     * @return PHPExcel_Chart_GridLines
+     * @return GridLines
      */
     private function setShadowColor($color, $alpha, $type)
     {
@@ -395,7 +395,7 @@ class GridLines extends Properties
      *
      * @param float $blur
      *
-     * @return PHPExcel_Chart_GridLines
+     * @return GridLines
      */
     private function setShadowBlur($blur)
     {
@@ -410,7 +410,7 @@ class GridLines extends Properties
      * Set Shadow Angle
      *
      * @param int $angle
-     * @return PHPExcel_Chart_GridLines
+     * @return GridLines
      */
 
     private function setShadowAngle($angle)
@@ -426,7 +426,7 @@ class GridLines extends Properties
      * Set Shadow Distance
      *
      * @param float $distance
-     * @return PHPExcel_Chart_GridLines
+     * @return GridLines
      */
     private function setShadowDistance($distance)
     {

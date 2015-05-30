@@ -141,7 +141,7 @@ class Date
         }
 
         $timezoneAdjustment = ($adjustToTimezone) ?
-            PHPExcel_Shared_TimeZone::getTimezoneAdjustment($timezone, $returnValue) :
+            TimeZone::getTimezoneAdjustment($timezone, $returnValue) :
             0;
 
         return $returnValue + $timezoneAdjustment;
@@ -246,8 +246,8 @@ class Date
     /**
      * Is a given cell a date/time?
      *
-     * @param     PHPExcel_Cell    $pCell
-     * @return     boolean
+     * @param   \PHPExcel\Cell    $pCell
+     * @return  boolean
      */
     public static function isDateTime(\PHPExcel\Cell $pCell)
     {
@@ -262,8 +262,8 @@ class Date
     /**
      * Is a given number format a date/time?
      *
-     * @param     PHPExcel_Style_NumberFormat    $pFormat
-     * @return     boolean
+     * @param   \PHPExcel\Style\NumberFormat    $pFormat
+     * @return  boolean
      */
     public static function isDateTimeFormat(\PHPExcel\Style\NumberFormat $pFormat)
     {
@@ -281,7 +281,7 @@ class Date
      */
     public static function isDateTimeFormatCode($pFormatCode = '')
     {
-        if (strtolower($pFormatCode) === strtolower(PHPExcel_Style_NumberFormat::FORMAT_GENERAL)) {
+        if (strtolower($pFormatCode) === strtolower(\PHPExcel\Style\NumberFormat::FORMAT_GENERAL)) {
             //    "General" contains an epoch letter 'e', so we trap for it explicitly here (case-insensitive check)
             return false;
         }
@@ -293,28 +293,28 @@ class Date
         // Switch on formatcode
         switch ($pFormatCode) {
             //    Explicitly defined date formats
-            case PHPExcel_Style_NumberFormat::FORMAT_DATE_YYYYMMDD:
-            case PHPExcel_Style_NumberFormat::FORMAT_DATE_YYYYMMDD2:
-            case PHPExcel_Style_NumberFormat::FORMAT_DATE_DDMMYYYY:
-            case PHPExcel_Style_NumberFormat::FORMAT_DATE_DMYSLASH:
-            case PHPExcel_Style_NumberFormat::FORMAT_DATE_DMYMINUS:
-            case PHPExcel_Style_NumberFormat::FORMAT_DATE_DMMINUS:
-            case PHPExcel_Style_NumberFormat::FORMAT_DATE_MYMINUS:
-            case PHPExcel_Style_NumberFormat::FORMAT_DATE_DATETIME:
-            case PHPExcel_Style_NumberFormat::FORMAT_DATE_TIME1:
-            case PHPExcel_Style_NumberFormat::FORMAT_DATE_TIME2:
-            case PHPExcel_Style_NumberFormat::FORMAT_DATE_TIME3:
-            case PHPExcel_Style_NumberFormat::FORMAT_DATE_TIME4:
-            case PHPExcel_Style_NumberFormat::FORMAT_DATE_TIME5:
-            case PHPExcel_Style_NumberFormat::FORMAT_DATE_TIME6:
-            case PHPExcel_Style_NumberFormat::FORMAT_DATE_TIME7:
-            case PHPExcel_Style_NumberFormat::FORMAT_DATE_TIME8:
-            case PHPExcel_Style_NumberFormat::FORMAT_DATE_YYYYMMDDSLASH:
-            case PHPExcel_Style_NumberFormat::FORMAT_DATE_XLSX14:
-            case PHPExcel_Style_NumberFormat::FORMAT_DATE_XLSX15:
-            case PHPExcel_Style_NumberFormat::FORMAT_DATE_XLSX16:
-            case PHPExcel_Style_NumberFormat::FORMAT_DATE_XLSX17:
-            case PHPExcel_Style_NumberFormat::FORMAT_DATE_XLSX22:
+            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_YYYYMMDD:
+            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2:
+            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_DDMMYYYY:
+            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_DMYSLASH:
+            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_DMYMINUS:
+            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_DMMINUS:
+            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_MYMINUS:
+            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_DATETIME:
+            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_TIME1:
+            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_TIME2:
+            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_TIME3:
+            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_TIME4:
+            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_TIME5:
+            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_TIME6:
+            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_TIME7:
+            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_TIME8:
+            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH:
+            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_XLSX14:
+            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_XLSX15:
+            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_XLSX16:
+            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_XLSX17:
+            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_XLSX22:
                 return true;
         }
 

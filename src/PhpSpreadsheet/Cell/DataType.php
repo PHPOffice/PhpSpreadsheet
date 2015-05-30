@@ -67,7 +67,7 @@ class DataType
     /**
      * DataType for value
      *
-     * @deprecated  Replaced by PHPExcel_Cell_IValueBinder infrastructure, will be removed in version 1.8.0
+     * @deprecated  Replaced by \PHPExcel\Cell\IValueBinder infrastructure, will be removed in version 1.8.0
      * @param       mixed  $pValue
      * @return      string
      */

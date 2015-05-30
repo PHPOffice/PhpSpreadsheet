@@ -44,7 +44,7 @@ class Hyperlink
     private $tooltip;
 
     /**
-     * Create a new PHPExcel_Cell_Hyperlink
+     * Create a new Hyperlink
      *
      * @param  string  $pUrl      Url to link the cell to
      * @param  string  $pTooltip  Tooltip to display on the hyperlink
@@ -70,7 +70,7 @@ class Hyperlink
      * Set URL
      *
      * @param  string    $value
-     * @return PHPExcel_Cell_Hyperlink
+     * @return Hyperlink
      */
     public function setUrl($value = '')
     {
@@ -92,7 +92,7 @@ class Hyperlink
      * Set tooltip
      *
      * @param  string    $value
-     * @return PHPExcel_Cell_Hyperlink
+     * @return Hyperlink
      */
     public function setTooltip($value = '')
     {

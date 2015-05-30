@@ -32,8 +32,8 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
     /**
      * Bind value to a cell
      *
-     * @param  PHPExcel_Cell  $cell  Cell to bind value to
-     * @param  mixed $value          Value to bind in cell
+     * @param  \PHPExcel\Cell  $cell  Cell to bind value to
+     * @param  mixed $value           Value to bind in cell
      * @return boolean
      */
     public function bindValue(\PHPExcel\Cell $cell, $value = null)
@@ -47,7 +47,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
         $dataType = parent::dataTypeForValue($value);
 
         // Style logic - strings
-        if ($dataType === DataType::TYPE_STRING && !$value instanceof PHPExcel_RichText) {
+        if ($dataType === DataType::TYPE_STRING && !$value instanceof \PHPExcel\RichText) {
             //    Test for booleans using locale-setting
             if ($value == \PHPExcel\Calculation::getTRUE()) {
                 $cell->setValueExplicit(true, DataType::TYPE_BOOL);
@@ -149,7 +149,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
             }
 
             // Check for datetime, e.g. '2008-12-31', '2008-12-31 15:59', '2008-12-31 15:59:10'
-            if (($d = PHPExcel_Shared_Date::stringToExcel($value)) !== false) {
+            if (($d = \PHPExcel\Shared\Date::stringToExcel($value)) !== false) {
                 // Convert value to number
                 $cell->setValueExplicit($d, DataType::TYPE_NUMERIC);
                 // Determine style. Either there is a time part or not. Look for ':'
@@ -165,7 +165,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
 
             // Check for newline character "\n"
             if (strpos($value, "\n") !== false) {
-                $value = PHPExcel_Shared_String::SanitizeUTF8($value);
+                $value = \PHPExcel\Shared\String::SanitizeUTF8($value);
                 $cell->setValueExplicit($value, DataType::TYPE_STRING);
                 // Set style
                 $cell->getWorksheet()->getStyle($cell->getCoordinate())

@@ -38,14 +38,14 @@ interface ITextElement
      * Set text
      *
      * @param     $pText string    Text
-     * @return PHPExcel_RichText_ITextElement
+     * @return ITextElement
      */
     public function setText($pText = '');
 
     /**
      * Get font
      *
-     * @return PHPExcel_Style_Font
+     * @return \PHPExcel\Style\Font
      */
     public function getFont();
 

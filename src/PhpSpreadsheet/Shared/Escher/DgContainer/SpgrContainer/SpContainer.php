@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Shared\Escher\DgContainer\SpgrContainer;
+
 /**
  * PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
  *
@@ -25,12 +27,12 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
+class SpContainer
 {
     /**
      * Parent Shape Group Container
      *
-     * @var PHPExcel_Shared_Escher_DgContainer_SpgrContainer
+     * @var \PHPExcel\Shared\Escher\DgContainer\SpgrContainer
      */
     private $parent;
 
@@ -114,7 +116,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
     /**
      * Set parent Shape Group Container
      *
-     * @param PHPExcel_Shared_Escher_DgContainer_SpgrContainer $parent
+     * @param \PHPExcel\Shared\Escher\DgContainer\SpgrContainer $parent
      */
     public function setParent($parent)
     {
@@ -124,7 +126,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
     /**
      * Get the parent Shape Group Container
      *
-     * @return PHPExcel_Shared_Escher_DgContainer_SpgrContainer
+     * @return \PHPExcel\Shared\Escher\DgContainer\SpgrContainer
      */
     public function getParent()
     {
@@ -378,7 +380,7 @@ class PHPExcel_Shared_Escher_DgContainer_SpgrContainer_SpContainer
         $nestingLevel = 0;
 
         $parent = $this->getParent();
-        while ($parent instanceof PHPExcel_Shared_Escher_DgContainer_SpgrContainer) {
+        while ($parent instanceof \PHPExcel\Shared\Escher\DgContainer\SpgrContainer) {
             ++$nestingLevel;
             $parent = $parent->getParent();
         }

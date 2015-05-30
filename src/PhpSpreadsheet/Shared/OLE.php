@@ -95,23 +95,24 @@ class OLE
      * @acces public
      * @param string $file
      * @return mixed true on success, PEAR_Error on failure
+     * @throws \PHPExcel\Reader\Exception
     */
     public function read($file)
     {
         $fh = fopen($file, "r");
         if (!$fh) {
-            throw new PHPExcel_Reader_Exception("Can't open file $file");
+            throw new \PHPExcel\Reader\Exception("Can't open file $file");
         }
         $this->_file_handle = $fh;
 
         $signature = fread($fh, 8);
         if ("\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1" != $signature) {
-            throw new PHPExcel_Reader_Exception("File doesn't seem to be an OLE container.");
+            throw new \PHPExcel\Reader\Exception("File doesn't seem to be an OLE container.");
         }
         fseek($fh, 28);
         if (fread($fh, 2) != "\xFE\xFF") {
             // This shouldn't be a problem in practice
-            throw new PHPExcel_Reader_Exception("Only Little-Endian encoding is supported.");
+            throw new \PHPExcel\Reader\Exception("Only Little-Endian encoding is supported.");
         }
         // Size of blocks and short blocks in bytes
         $this->bigBlockSize = pow(2, self::_readInt2($fh));
@@ -193,7 +194,7 @@ class OLE
 
     /**
     * Returns a stream for use with fread() etc. External callers should
-    * use PHPExcel_Shared_OLE_PPS_File::getStream().
+    * use \PHPExcel\Shared\OLE\PPS\File::getStream().
     * @param   int|PPS   block id or PPS
     * @return  resource  read-only stream
     */
@@ -201,7 +202,7 @@ class OLE
     {
         static $isRegistered = false;
         if (!$isRegistered) {
-            stream_wrapper_register('ole-chainedblockstream', 'PHPExcel_Shared_OLE_ChainedBlockStream');
+            stream_wrapper_register('ole-chainedblockstream', '\\PHPExcel\\Shared\\OLE\\ChainedBlockStream');
             $isRegistered = true;
         }
 
@@ -212,7 +213,7 @@ class OLE
         $instanceId = end(array_keys($GLOBALS['_OLE_INSTANCES']));
 
         $path = 'ole-chainedblockstream://oleInstanceId=' . $instanceId;
-        if ($blockIdOrPps instanceof PHPExcel_Shared_OLE_PPS) {
+        if ($blockIdOrPps instanceof OLE\PPS) {
             $path .= '&blockId=' . $blockIdOrPps->_StartBlock;
             $path .= '&size=' . $blockIdOrPps->Size;
         } else {
@@ -278,14 +279,14 @@ class OLE
             $type = self::_readInt1($fh);
             switch ($type) {
                 case self::OLE_PPS_TYPE_ROOT:
-                    $pps = new PHPExcel_Shared_OLE_PPS_Root(null, null, array());
+                    $pps = new OLE\PPS_Root(null, null, array());
                     $this->root = $pps;
                     break;
                 case self::OLE_PPS_TYPE_DIR:
-                    $pps = new PHPExcel_Shared_OLE_PPS(null, null, null, null, null, null, null, null, null, array());
+                    $pps = new OLE\PPS(null, null, null, null, null, null, null, null, null, array());
                     break;
                 case self::OLE_PPS_TYPE_FILE:
-                    $pps = new PHPExcel_Shared_OLE_PPS_File($name);
+                    $pps = new OLE\PPS\File($name);
                     break;
                 default:
                     continue;

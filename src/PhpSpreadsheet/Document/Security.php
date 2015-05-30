@@ -97,7 +97,7 @@ class Security
      * Set LockRevision
      *
      * @param boolean $pValue
-     * @return PHPExcel_DocumentSecurity
+     * @return Security
      */
     public function setLockRevision($pValue = false)
     {
@@ -119,7 +119,7 @@ class Security
      * Set LockStructure
      *
      * @param boolean $pValue
-     * @return PHPExcel_DocumentSecurity
+     * @return Security
      */
     public function setLockStructure($pValue = false)
     {
@@ -141,7 +141,7 @@ class Security
      * Set LockWindows
      *
      * @param boolean $pValue
-     * @return PHPExcel_DocumentSecurity
+     * @return Security
      */
     public function setLockWindows($pValue = false)
     {
@@ -164,12 +164,12 @@ class Security
      *
      * @param string     $pValue
      * @param boolean     $pAlreadyHashed If the password has already been hashed, set this to true
-     * @return PHPExcel_DocumentSecurity
+     * @return Security
      */
     public function setRevisionsPassword($pValue = '', $pAlreadyHashed = false)
     {
         if (!$pAlreadyHashed) {
-            $pValue = PHPExcel_Shared_PasswordHasher::hashPassword($pValue);
+            $pValue = \PHPExcel\Shared\PasswordHasher::hashPassword($pValue);
         }
         $this->revisionsPassword = $pValue;
         return $this;
@@ -190,12 +190,12 @@ class Security
      *
      * @param string     $pValue
      * @param boolean     $pAlreadyHashed If the password has already been hashed, set this to true
-     * @return PHPExcel_DocumentSecurity
+     * @return Security
      */
     public function setWorkbookPassword($pValue = '', $pAlreadyHashed = false)
     {
         if (!$pAlreadyHashed) {
-            $pValue = PHPExcel_Shared_PasswordHasher::hashPassword($pValue);
+            $pValue = \PHPExcel\Shared\PasswordHasher::hashPassword($pValue);
         }
         $this->workbookPassword = $pValue;
         return $this;

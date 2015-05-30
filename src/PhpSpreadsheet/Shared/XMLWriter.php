@@ -49,7 +49,7 @@ class XMLWriter extends \XMLWriter
     private $tempFileName  = '';
 
     /**
-     * Create a new PHPExcel_Shared_XMLWriter instance
+     * Create a new XMLWriter instance
      *
      * @param int      $pTemporaryStorage        Temporary storage location
      * @param string   $pTemporaryStorageFolder  Temporary storage folder
@@ -62,7 +62,7 @@ class XMLWriter extends \XMLWriter
         } else {
             // Create temporary filename
             if ($pTemporaryStorageFolder === null) {
-                $pTemporaryStorageFolder = PHPExcel_Shared_File::sys_get_temp_dir();
+                $pTemporaryStorageFolder = File::sys_get_temp_dir();
             }
             $this->tempFileName = @tempnam($pTemporaryStorageFolder, 'xml');
 

@@ -75,13 +75,13 @@ class OLERead
      * Read the file
      *
      * @param $sFileName string Filename
-     * @throws PHPExcel_Reader_Exception
+     * @throws \PHPExcel\Reader\Exception
      */
     public function read($sFileName)
     {
         // Check if file exists and is readable
         if (!is_readable($sFileName)) {
-            throw new PHPExcel_Reader_Exception("Could not open " . $sFileName . " for reading! File does not exist, or it is not readable.");
+            throw new \PHPExcel\Reader\Exception("Could not open " . $sFileName . " for reading! File does not exist, or it is not readable.");
         }
 
         // Get the file identifier
@@ -90,7 +90,7 @@ class OLERead
 
         // Check OLE identifier
         if ($this->data != self::IDENTIFIER_OLE) {
-            throw new PHPExcel_Reader_Exception('The filename ' . $sFileName . ' is not recognised as an OLE file');
+            throw new \PHPExcel\Reader\Exception('The filename ' . $sFileName . ' is not recognised as an OLE file');
         }
 
         // Get the file data

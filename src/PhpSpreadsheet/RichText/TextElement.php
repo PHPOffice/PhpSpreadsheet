@@ -35,7 +35,7 @@ class TextElement implements ITextElement
     private $text;
 
     /**
-     * Create a new PHPExcel_RichText_TextElement instance
+     * Create a new TextElement instance
      *
      * @param     string        $pText        Text
      */
@@ -58,8 +58,8 @@ class TextElement implements ITextElement
     /**
      * Set text
      *
-     * @param     $pText string    Text
-     * @return PHPExcel_RichText_ITextElement
+     * @param   $pText string    Text
+     * @return  ITextElement
      */
     public function setText($pText = '')
     {
@@ -70,7 +70,7 @@ class TextElement implements ITextElement
     /**
      * Get font
      *
-     * @return PHPExcel_Style_Font
+     * @return \PHPExcel\Style\Font
      */
     public function getFont()
     {

@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Shared\OLE;
+
 /**
  * PHPExcel_Shared_OLE_ChainedBlockStream
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version ##VERSION##, ##DATE##
  */
-class PHPExcel_Shared_OLE_ChainedBlockStream
+class ChainedBlockStream
 {
     /**
      * The OLE container of the file that is being read.

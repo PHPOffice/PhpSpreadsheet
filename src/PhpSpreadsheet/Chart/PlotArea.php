@@ -32,19 +32,19 @@ class PlotArea
     /**
      * PlotArea Layout
      *
-     * @var PHPExcel_Chart_Layout
+     * @var Layout
      */
     private $layout = null;
 
     /**
      * Plot Series
      *
-     * @var array of PHPExcel_Chart_DataSeries
+     * @var array of DataSeries
      */
     private $plotSeries = array();
 
     /**
-     * Create a new PHPExcel_Chart_PlotArea
+     * Create a new PlotArea
      */
     public function __construct(Layout $layout = null, $plotSeries = array())
     {
@@ -55,7 +55,7 @@ class PlotArea
     /**
      * Get Layout
      *
-     * @return PHPExcel_Chart_Layout
+     * @return Layout
      */
     public function getLayout()
     {
@@ -65,7 +65,7 @@ class PlotArea
     /**
      * Get Number of Plot Groups
      *
-     * @return array of PHPExcel_Chart_DataSeries
+     * @return array of DataSeries
      */
     public function getPlotGroupCount()
     {
@@ -89,7 +89,7 @@ class PlotArea
     /**
      * Get Plot Series
      *
-     * @return array of PHPExcel_Chart_DataSeries
+     * @return array of DataSeries
      */
     public function getPlotGroup()
     {
@@ -99,7 +99,7 @@ class PlotArea
     /**
      * Get Plot Series by Index
      *
-     * @return PHPExcel_Chart_DataSeries
+     * @return DataSeries
      */
     public function getPlotGroupByIndex($index)
     {
@@ -109,8 +109,8 @@ class PlotArea
     /**
      * Set Plot Series
      *
-     * @param [PHPExcel_Chart_DataSeries]
-     * @return PHPExcel_Chart_PlotArea
+     * @param  DataSeries[]
+     * @return PlotArea
      */
     public function setPlotSeries($plotSeries = array())
     {
@@ -119,7 +119,7 @@ class PlotArea
         return $this;
     }
 
-    public function refresh(PHPExcel_Worksheet $worksheet)
+    public function refresh(\PHPExcel\Worksheet $worksheet)
     {
         foreach ($this->plotSeries as $plotSeries) {
             $plotSeries->refresh($worksheet);

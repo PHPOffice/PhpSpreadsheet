@@ -69,15 +69,15 @@ class Legend
     /**
      * Legend Layout
      *
-     * @var    PHPExcel_Chart_Layout
+     * @var    Layout
      */
     private $layout = null;
 
 
     /**
-     *    Create a new PHPExcel_Chart_Legend
+     *    Create a new Legend
      */
-    public function __construct($position = self::POSITION_RIGHT, PHPExcel_Chart_Layout $layout = null, $overlay = false)
+    public function __construct($position = self::POSITION_RIGHT, Layout $layout = null, $overlay = false)
     {
         $this->setPosition($position);
         $this->layout = $layout;
@@ -163,7 +163,7 @@ class Legend
     /**
      * Get Layout
      *
-     * @return PHPExcel_Chart_Layout
+     * @return Layout
      */
     public function getLayout()
     {

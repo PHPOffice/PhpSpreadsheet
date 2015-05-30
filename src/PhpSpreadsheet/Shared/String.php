@@ -681,7 +681,7 @@ class String
         if (preg_match('/^'.self::STRING_REGEXP_FRACTION.'$/i', $operand, $match)) {
             $sign = ($match[1] == '-') ? '-' : '+';
             $fractionFormula = '='.$sign.$match[2].$sign.$match[3];
-            $operand = PHPExcel_Calculation::getInstance()->_calculateFormulaValue($fractionFormula);
+            $operand = \PHPExcel\Calculation::getInstance()->_calculateFormulaValue($fractionFormula);
             return true;
         }
         return false;
@@ -709,8 +709,8 @@ class String
     }
 
     /**
-     * Set the decimal separator. Only used by PHPExcel_Style_NumberFormat::toFormattedString()
-     * to format output by PHPExcel_Writer_HTML and PHPExcel_Writer_PDF
+     * Set the decimal separator. Only used by \PHPExcel\Style\NumberFormat::toFormattedString()
+     * to format output by \PHPExcel\Writer\HTML and \PHPExcel\Writer\PDF
      *
      * @param string $pValue Character for decimal separator
      */
@@ -741,8 +741,8 @@ class String
     }
 
     /**
-     * Set the thousands separator. Only used by PHPExcel_Style_NumberFormat::toFormattedString()
-     * to format output by PHPExcel_Writer_HTML and PHPExcel_Writer_PDF
+     * Set the thousands separator. Only used by \PHPExcel\Style\NumberFormat::toFormattedString()
+     * to format output by \PHPExcel\Writer\HTML and \PHPExcel\Writer\PDF
      *
      * @param string $pValue Character for thousands separator
      */
@@ -773,8 +773,8 @@ class String
     }
 
     /**
-     * Set the currency code. Only used by PHPExcel_Style_NumberFormat::toFormattedString()
-     *        to format output by PHPExcel_Writer_HTML and PHPExcel_Writer_PDF
+     * Set the currency code. Only used by \PHPExcel\Style\NumberFormat::toFormattedString()
+     *        to format output by \PHPExcel\Writer\HTML and \PHPExcel\Writer\PDF
      *
      * @param string $pValue Character for currency code
      */

@@ -30,12 +30,12 @@ class Run extends TextElement implements ITextElement
     /**
      * Font
      *
-     * @var PHPExcel_Style_Font
+     * @var \PHPExcel\Style\Font
      */
     private $font;
 
     /**
-     * Create a new PHPExcel_RichText_Run instance
+     * Create a new Run instance
      *
      * @param     string        $pText        Text
      */
@@ -43,13 +43,13 @@ class Run extends TextElement implements ITextElement
     {
         // Initialise variables
         $this->setText($pText);
-        $this->font = new PHPExcel_Style_Font();
+        $this->font = new \PHPExcel\Style\Font();
     }
 
     /**
      * Get font
      *
-     * @return PHPExcel_Style_Font
+     * @return \PHPExcel\Style\Font
      */
     public function getFont()
     {
@@ -59,11 +59,11 @@ class Run extends TextElement implements ITextElement
     /**
      * Set font
      *
-     * @param    PHPExcel_Style_Font        $pFont        Font
-     * @throws     PHPExcel_Exception
-     * @return PHPExcel_RichText_ITextElement
+     * @param   \PHPExcel\Style\Font        $pFont        Font
+     * @throws  \PHPExcel\Exception
+     * @return  ITextElement
      */
-    public function setFont(PHPExcel_Style_Font $pFont = null)
+    public function setFont(\PHPExcel\Style\Font $pFont = null)
     {
         $this->font = $pFont;
         return $this;

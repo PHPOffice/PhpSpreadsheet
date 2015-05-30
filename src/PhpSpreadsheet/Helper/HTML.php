@@ -2,6 +2,31 @@
 
 namespace PHPExcel\Helper;
 
+/**
+ * PHPExcel_Helper_HTML
+ *
+ * Copyright (c) 2006 - 2015 PHPExcel
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel
+ * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ * @version    ##VERSION##, ##DATE##
+ */
 class HTML
 {
     protected static $colourMap = [
@@ -598,7 +623,7 @@ class HTML
         //    Discard excess white space
         $dom->preserveWhiteSpace = false;
 
-        $this->richTextObject = new PHPExcel_RichText();
+        $this->richTextObject = new \PHPExcel\RichText();
         $this->parseElements($dom);
         return $this->richTextObject;
     }
@@ -618,7 +643,7 @@ class HTML
             $richtextRun->getFont()->setSize($this->size);
         }
         if ($this->color) {
-            $richtextRun->getFont()->setColor(new PHPExcel_Style_Color('ff' . $this->color));
+            $richtextRun->getFont()->setColor(new \PHPExcel\Style\Color('ff' . $this->color));
         }
         if ($this->bold) {
             $richtextRun->getFont()->setBold(true);
@@ -627,7 +652,7 @@ class HTML
             $richtextRun->getFont()->setItalic(true);
         }
         if ($this->underline) {
-            $richtextRun->getFont()->setUnderline(PHPExcel_Style_Font::UNDERLINE_SINGLE);
+            $richtextRun->getFont()->setUnderline(\PHPExcel\Style\Font::UNDERLINE_SINGLE);
         }
         if ($this->superscript) {
             $richtextRun->getFont()->setSuperScript(true);

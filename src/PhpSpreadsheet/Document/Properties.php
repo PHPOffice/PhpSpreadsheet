@@ -147,7 +147,7 @@ class Properties
      * Set Creator
      *
      * @param string $pValue
-     * @return PHPExcel_DocumentProperties
+     * @return Properties
      */
     public function setCreator($pValue = '')
     {
@@ -169,7 +169,7 @@ class Properties
      * Set Last Modified By
      *
      * @param string $pValue
-     * @return PHPExcel_DocumentProperties
+     * @return Properties
      */
     public function setLastModifiedBy($pValue = '')
     {
@@ -191,7 +191,7 @@ class Properties
      * Set Created
      *
      * @param datetime $pValue
-     * @return PHPExcel_DocumentProperties
+     * @return Properties
      */
     public function setCreated($pValue = null)
     {
@@ -223,7 +223,7 @@ class Properties
      * Set Modified
      *
      * @param datetime $pValue
-     * @return PHPExcel_DocumentProperties
+     * @return Properties
      */
     public function setModified($pValue = null)
     {
@@ -255,7 +255,7 @@ class Properties
      * Set Title
      *
      * @param string $pValue
-     * @return PHPExcel_DocumentProperties
+     * @return Properties
      */
     public function setTitle($pValue = '')
     {
@@ -277,7 +277,7 @@ class Properties
      * Set Description
      *
      * @param string $pValue
-     * @return PHPExcel_DocumentProperties
+     * @return Properties
      */
     public function setDescription($pValue = '')
     {
@@ -299,7 +299,7 @@ class Properties
      * Set Subject
      *
      * @param string $pValue
-     * @return PHPExcel_DocumentProperties
+     * @return Properties
      */
     public function setSubject($pValue = '')
     {
@@ -321,7 +321,7 @@ class Properties
      * Set Keywords
      *
      * @param string $pValue
-     * @return PHPExcel_DocumentProperties
+     * @return Properties
      */
     public function setKeywords($pValue = '')
     {
@@ -343,7 +343,7 @@ class Properties
      * Set Category
      *
      * @param string $pValue
-     * @return PHPExcel_DocumentProperties
+     * @return Properties
      */
     public function setCategory($pValue = '')
     {
@@ -365,7 +365,7 @@ class Properties
      * Set Company
      *
      * @param string $pValue
-     * @return PHPExcel_DocumentProperties
+     * @return Properties
      */
     public function setCompany($pValue = '')
     {
@@ -387,7 +387,7 @@ class Properties
      * Set Manager
      *
      * @param string $pValue
-     * @return PHPExcel_DocumentProperties
+     * @return Properties
      */
     public function setManager($pValue = '')
     {
@@ -455,7 +455,7 @@ class Properties
      *   's' : String
      *   'd' : Date/Time
      *   'b' : Boolean
-     * @return PHPExcel_DocumentProperties
+     * @return Properties
      */
     public function setCustomProperty($propertyName, $propertyValue = '', $propertyType = null)
     {

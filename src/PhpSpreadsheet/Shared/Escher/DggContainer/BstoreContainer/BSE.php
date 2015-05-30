@@ -1,5 +1,7 @@
 <?php
 
+namespace \PHPExcel\Shared\Escher\DggContainer\BstoreContainer;
+
 /**
  * PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
+class BSE
 {
     const BLIPTYPE_ERROR    = 0x00;
     const BLIPTYPE_UNKNOWN  = 0x01;
@@ -41,14 +43,14 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
     /**
      * The parent BLIP Store Entry Container
      *
-     * @var PHPExcel_Shared_Escher_DggContainer_BstoreContainer
+     * @var \PHPExcel\Shared\Escher\DggContainer\BstoreContainer
      */
     private $parent;
 
     /**
      * The BLIP (Big Large Image or Picture)
      *
-     * @var PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE_Blip
+     * @var BSE\Blip
      */
     private $blip;
 
@@ -62,7 +64,7 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
     /**
      * Set parent BLIP Store Entry Container
      *
-     * @param PHPExcel_Shared_Escher_DggContainer_BstoreContainer $parent
+     * @param \PHPExcel\Shared\Escher\DggContainer\BstoreContainer $parent
      */
     public function setParent($parent)
     {
@@ -72,7 +74,7 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
     /**
      * Get the BLIP
      *
-     * @return PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE_Blip
+     * @return BSE\Blip
      */
     public function getBlip()
     {
@@ -82,7 +84,7 @@ class PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE
     /**
      * Set the BLIP
      *
-     * @param PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE_Blip $blip
+     * @param BSE\Blip $blip
      */
     public function setBlip($blip)
     {

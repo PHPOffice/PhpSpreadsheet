@@ -73,13 +73,14 @@ class ZipStreamWrapper
      * @param    string    $mode            only "r" is supported
      * @param    int        $options        mask of STREAM_REPORT_ERRORS and STREAM_USE_PATH
      * @param    string  &$openedPath    absolute path of the opened stream (out parameter)
-     * @return    bool    true on success
+     * @return   bool    true on success
+     * @throws   \PHPExcel\Reader\Exception
      */
     public function stream_open($path, $mode, $options, &$opened_path)
     {
         // Check for mode
         if ($mode{0} != 'r') {
-            throw new PHPExcel_Reader_Exception('Mode ' . $mode . ' is not supported. Only read mode is supported.');
+            throw new \PHPExcel\Reader\Exception('Mode ' . $mode . ' is not supported. Only read mode is supported.');
         }
 
         $pos = strrpos($path, '#');

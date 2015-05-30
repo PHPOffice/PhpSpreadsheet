@@ -3,7 +3,7 @@
 namespace PHPExcel\Shared;
 
 if (!defined('PCLZIP_TEMPORARY_DIR')) {
-    define('PCLZIP_TEMPORARY_DIR', PHPExcel_Shared_File::sys_get_temp_dir() . DIRECTORY_SEPARATOR);
+    define('PCLZIP_TEMPORARY_DIR', File::sys_get_temp_dir() . DIRECTORY_SEPARATOR);
 }
 require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/PCLZip/pclzip.lib.php';
 
@@ -63,7 +63,7 @@ class ZipArchive
      */
     public function open($fileName)
     {
-        $this->tempDir = PHPExcel_Shared_File::sys_get_temp_dir();
+        $this->tempDir = File::sys_get_temp_dir();
         $this->zip = new PclZip($fileName);
 
         return true;
@@ -84,6 +84,7 @@ class ZipArchive
      *
      * @param    string    $localname        Directory/Name of the file to add to the zip archive
      * @param    string    $contents        String of data to add to the zip archive
+     * @throws   \PHPExcel\Writer\Exception
      */
     public function addFromString($localname, $contents)
     {
@@ -95,7 +96,7 @@ class ZipArchive
 
         $res = $this->zip->add($this->tempDir.'/'.$filenameParts["basename"], PCLZIP_OPT_REMOVE_PATH, $this->tempDir, PCLZIP_OPT_ADD_PATH, $filenameParts["dirname"]);
         if ($res == 0) {
-            throw new PHPExcel_Writer_Exception("Error zipping files : " . $this->zip->errorInfo(true));
+            throw new \PHPExcel\Writer\Exception("Error zipping files : " . $this->zip->errorInfo(true));
         }
 
         unlink($this->tempDir.'/'.$filenameParts["basename"]);

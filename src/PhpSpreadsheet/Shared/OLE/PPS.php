@@ -1,4 +1,7 @@
 <?php
+
+namespace PHPExcel\Shared\OLE;
+
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
 // +----------------------------------------------------------------------+
 // | PHP Version 4                                                        |
@@ -27,7 +30,7 @@
 * @category PHPExcel
 * @package  PHPExcel_Shared_OLE
 */
-class PHPExcel_Shared_OLE_PPS
+class PPS
 {
     /**
     * The PPS index
@@ -182,8 +185,8 @@ class PHPExcel_Shared_OLE_PPS
               . "\xc0\x00\x00\x00"                  // 92
               . "\x00\x00\x00\x46"                  // 96 // Seems to be ok only for Root
               . "\x00\x00\x00\x00"                  // 100
-              . PHPExcel_Shared_OLE::LocalDate2OLE($this->Time1st)       // 108
-              . PHPExcel_Shared_OLE::LocalDate2OLE($this->Time2nd)       // 116
+              . \PHPExcel\Shared\OLE::LocalDate2OLE($this->Time1st)       // 108
+              . \PHPExcel\Shared\OLE::LocalDate2OLE($this->Time2nd)       // 116
               . pack("V", isset($this->_StartBlock)?
                         $this->_StartBlock:0)        // 120
               . pack("V", $this->Size)               // 124
