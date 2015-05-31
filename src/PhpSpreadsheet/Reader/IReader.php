@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Reader;
+
 /**
  * PHPExcel_Reader_IReader
  *
@@ -25,10 +27,10 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-interface PHPExcel_Reader_IReader
+interface IReader
 {
     /**
-     * Can the current PHPExcel_Reader_IReader read the file?
+     * Can the current IReader read the file?
      *
      * @param     string         $pFilename
      * @return     boolean
@@ -40,7 +42,7 @@ interface PHPExcel_Reader_IReader
      *
      * @param     string         $pFilename
      * @return  PHPExcel
-     * @throws     PHPExcel_Reader_Exception
+     * @throws     Exception
      */
     public function load($pFilename);
 }

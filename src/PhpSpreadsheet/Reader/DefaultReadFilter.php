@@ -1,13 +1,6 @@
 <?php
 
-/** PHPExcel root directory */
-if (!defined('PHPEXCEL_ROOT')) {
-    /**
-     * @ignore
-     */
-    define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
-    require(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
-}
+namespace PHPExcel\Reader;
 
 /**
  * PHPExcel_Reader_DefaultReadFilter
@@ -34,7 +27,7 @@ if (!defined('PHPEXCEL_ROOT')) {
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Reader_DefaultReadFilter implements PHPExcel_Reader_IReadFilter
+class DefaultReadFilter implements IReadFilter
 {
     /**
      * Should this cell be read?

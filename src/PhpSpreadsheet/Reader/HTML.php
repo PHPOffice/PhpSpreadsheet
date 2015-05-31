@@ -1,12 +1,6 @@
 <?php
 
-if (!defined('PHPEXCEL_ROOT')) {
-    /**
-     * @ignore
-     */
-    define('PHPEXCEL_ROOT', dirname(__FILE__) . '/../../');
-    require(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
-}
+namespace PHPExcel\Reader;
 
 /**
  * PHPExcel_Reader_HTML
@@ -34,7 +28,7 @@ if (!defined('PHPEXCEL_ROOT')) {
  * @version    ##VERSION##, ##DATE##
  */
 /** PHPExcel root directory */
-class PHPExcel_Reader_HTML extends PHPExcel_Reader_Abstract implements PHPExcel_Reader_IReader
+class HTML extends BaseReader implements IReader
 {
 
     /**
