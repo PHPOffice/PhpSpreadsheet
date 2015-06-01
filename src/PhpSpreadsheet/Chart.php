@@ -39,42 +39,42 @@ class Chart
     /**
      * Worksheet
      *
-     * @var \PHPExcel\Worksheet
+     * @var Worksheet
      */
     private $worksheet;
 
     /**
      * Chart Title
      *
-     * @var PHPExcel_Chart_Title
+     * @var Chart\Title
      */
     private $title;
 
     /**
      * Chart Legend
      *
-     * @var PHPExcel_Chart_Legend
+     * @var Chart\Legend
      */
     private $legend;
 
     /**
      * X-Axis Label
      *
-     * @var PHPExcel_Chart_Title
+     * @var Chart\Title
      */
     private $xAxisLabel;
 
     /**
      * Y-Axis Label
      *
-     * @var PHPExcel_Chart_Title
+     * @var Chart\Title
      */
     private $yAxisLabel;
 
     /**
      * Chart Plot Area
      *
-     * @var PHPExcel_Chart_PlotArea
+     * @var Chart\PlotArea
      */
     private $plotArea;
 
@@ -95,28 +95,28 @@ class Chart
     /**
      * Chart Asix Y as
      *
-     * @var PHPExcel_Chart_Axis
+     * @var Chart\Axis
      */
     private $yAxis;
 
     /**
      * Chart Asix X as
      *
-     * @var PHPExcel_Chart_Axis
+     * @var Chart\Axis
      */
     private $xAxis;
 
     /**
      * Chart Major Gridlines as
      *
-     * @var PHPExcel_Chart_GridLines
+     * @var Chart\GridLines
      */
     private $majorGridlines;
 
     /**
      * Chart Minor Gridlines as
      *
-     * @var PHPExcel_Chart_GridLines
+     * @var Chart\GridLines
      */
     private $minorGridlines;
 
@@ -169,9 +169,9 @@ class Chart
 
 
     /**
-     * Create a new PHPExcel_Chart
+     * Create a new Chart
      */
-    public function __construct($name, PHPExcel_Chart_Title $title = null, PHPExcel_Chart_Legend $legend = null, PHPExcel_Chart_PlotArea $plotArea = null, $plotVisibleOnly = true, $displayBlanksAs = '0', PHPExcel_Chart_Title $xAxisLabel = null, PHPExcel_Chart_Title $yAxisLabel = null, PHPExcel_Chart_Axis $xAxis = null, PHPExcel_Chart_Axis $yAxis = null, PHPExcel_Chart_GridLines $majorGridlines = null, PHPExcel_Chart_GridLines $minorGridlines = null)
+    public function __construct($name, Chart\Title $title = null, Chart\Legend $legend = null, Chart\PlotArea $plotArea = null, $plotVisibleOnly = true, $displayBlanksAs = '0', Chart\Title $xAxisLabel = null, Chart\Title $yAxisLabel = null, Chart\Axis $xAxis = null, Chart\Axis $yAxis = null, Chart\GridLines $majorGridlines = null, Chart\GridLines $minorGridlines = null)
     {
         $this->name = $name;
         $this->title = $title;
@@ -200,7 +200,7 @@ class Chart
     /**
      * Get Worksheet
      *
-     * @return PHPExcel_Worksheet
+     * @return Worksheet
      */
     public function getWorksheet()
     {
@@ -210,11 +210,11 @@ class Chart
     /**
      * Set Worksheet
      *
-     * @param    PHPExcel_Worksheet    $pValue
-     * @throws    PHPExcel_Chart_Exception
-     * @return PHPExcel_Chart
+     * @param    Worksheet    $pValue
+     * @throws   Chart\Exception
+     * @return   Chart
      */
-    public function setWorksheet(PHPExcel_Worksheet $pValue = null)
+    public function setWorksheet(Worksheet $pValue = null)
     {
         $this->worksheet = $pValue;
 
@@ -224,7 +224,7 @@ class Chart
     /**
      * Get Title
      *
-     * @return PHPExcel_Chart_Title
+     * @return Chart\Title
      */
     public function getTitle()
     {
@@ -234,10 +234,10 @@ class Chart
     /**
      * Set Title
      *
-     * @param    PHPExcel_Chart_Title $title
-     * @return    PHPExcel_Chart
+     * @param    Chart\Title $title
+     * @return   Chart
      */
-    public function setTitle(PHPExcel_Chart_Title $title)
+    public function setTitle(Chart\Title $title)
     {
         $this->title = $title;
 
@@ -247,7 +247,7 @@ class Chart
     /**
      * Get Legend
      *
-     * @return PHPExcel_Chart_Legend
+     * @return Chart\Legend
      */
     public function getLegend()
     {
@@ -257,10 +257,10 @@ class Chart
     /**
      * Set Legend
      *
-     * @param    PHPExcel_Chart_Legend $legend
-     * @return    PHPExcel_Chart
+     * @param    Chart\Legend $legend
+     * @return   Chart
      */
-    public function setLegend(PHPExcel_Chart_Legend $legend)
+    public function setLegend(Chart\Legend $legend)
     {
         $this->legend = $legend;
 
@@ -270,7 +270,7 @@ class Chart
     /**
      * Get X-Axis Label
      *
-     * @return PHPExcel_Chart_Title
+     * @return Chart\Title
      */
     public function getXAxisLabel()
     {
@@ -280,10 +280,10 @@ class Chart
     /**
      * Set X-Axis Label
      *
-     * @param    PHPExcel_Chart_Title $label
-     * @return    PHPExcel_Chart
+     * @param    Chart\Title $label
+     * @return   Chart
      */
-    public function setXAxisLabel(PHPExcel_Chart_Title $label)
+    public function setXAxisLabel(Chart\Title $label)
     {
         $this->xAxisLabel = $label;
 
@@ -293,7 +293,7 @@ class Chart
     /**
      * Get Y-Axis Label
      *
-     * @return PHPExcel_Chart_Title
+     * @return Chart\Title
      */
     public function getYAxisLabel()
     {
@@ -303,10 +303,10 @@ class Chart
     /**
      * Set Y-Axis Label
      *
-     * @param    PHPExcel_Chart_Title $label
-     * @return    PHPExcel_Chart
+     * @param    Chart\Title $label
+     * @return   Chart
      */
-    public function setYAxisLabel(PHPExcel_Chart_Title $label)
+    public function setYAxisLabel(Chart\Title $label)
     {
         $this->yAxisLabel = $label;
 
@@ -316,7 +316,7 @@ class Chart
     /**
      * Get Plot Area
      *
-     * @return PHPExcel_Chart_PlotArea
+     * @return Chart\PlotArea
      */
     public function getPlotArea()
     {
@@ -337,7 +337,7 @@ class Chart
      * Set Plot Visible Only
      *
      * @param boolean $plotVisibleOnly
-     * @return PHPExcel_Chart
+     * @return Chart
      */
     public function setPlotVisibleOnly($plotVisibleOnly = true)
     {
@@ -360,7 +360,7 @@ class Chart
      * Set Display Blanks as
      *
      * @param string $displayBlanksAs
-     * @return PHPExcel_Chart
+     * @return Chart
      */
     public function setDisplayBlanksAs($displayBlanksAs = '0')
     {
@@ -371,7 +371,7 @@ class Chart
     /**
      * Get yAxis
      *
-     * @return PHPExcel_Chart_Axis
+     * @return Chart\Axis
      */
     public function getChartAxisY()
     {
@@ -379,13 +379,13 @@ class Chart
             return $this->yAxis;
         }
 
-        return new PHPExcel_Chart_Axis();
+        return new Chart\Axis();
     }
 
     /**
      * Get xAxis
      *
-     * @return PHPExcel_Chart_Axis
+     * @return Chart\Axis
      */
     public function getChartAxisX()
     {
@@ -393,13 +393,13 @@ class Chart
             return $this->xAxis;
         }
 
-        return new PHPExcel_Chart_Axis();
+        return new Chart\Axis();
     }
 
     /**
      * Get Major Gridlines
      *
-     * @return PHPExcel_Chart_GridLines
+     * @return Chart\GridLines
      */
     public function getMajorGridlines()
     {
@@ -407,13 +407,13 @@ class Chart
             return $this->majorGridlines;
         }
 
-        return new PHPExcel_Chart_GridLines();
+        return new Chart\GridLines();
     }
 
     /**
      * Get Minor Gridlines
      *
-     * @return PHPExcel_Chart_GridLines
+     * @return Chart\GridLines
      */
     public function getMinorGridlines()
     {
@@ -421,7 +421,7 @@ class Chart
             return $this->minorGridlines;
         }
 
-        return new PHPExcel_Chart_GridLines();
+        return new Chart\GridLines();
     }
 
 
@@ -431,7 +431,7 @@ class Chart
      * @param    string    $cell
      * @param    integer    $xOffset
      * @param    integer    $yOffset
-     * @return PHPExcel_Chart
+     * @return Chart
      */
     public function setTopLeftPosition($cell, $xOffset = null, $yOffset = null)
     {
@@ -474,7 +474,7 @@ class Chart
      * Set the Top Left cell position for the chart
      *
      * @param    string    $cell
-     * @return PHPExcel_Chart
+     * @return Chart
      */
     public function setTopLeftCell($cell)
     {
@@ -488,7 +488,7 @@ class Chart
      *
      * @param    integer    $xOffset
      * @param    integer    $yOffset
-     * @return PHPExcel_Chart
+     * @return Chart
      */
     public function setTopLeftOffset($xOffset = null, $yOffset = null)
     {
@@ -545,7 +545,7 @@ class Chart
      * @param    string    $cell
      * @param    integer    $xOffset
      * @param    integer    $yOffset
-     * @return PHPExcel_Chart
+     * @return Chart
      */
     public function setBottomRightPosition($cell, $xOffset = null, $yOffset = null)
     {
@@ -596,7 +596,7 @@ class Chart
      *
      * @param    integer    $xOffset
      * @param    integer    $yOffset
-     * @return PHPExcel_Chart
+     * @return Chart
      */
     public function setBottomRightOffset($xOffset = null, $yOffset = null)
     {
@@ -657,21 +657,21 @@ class Chart
 
     public function render($outputDestination = null)
     {
-        $libraryName = PHPExcel_Settings::getChartRendererName();
+        $libraryName = Settings::getChartRendererName();
         if (is_null($libraryName)) {
             return false;
         }
         //    Ensure that data series values are up-to-date before we render
         $this->refresh();
 
-        $libraryPath = PHPExcel_Settings::getChartRendererPath();
+        $libraryPath = Settings::getChartRendererPath();
         $includePath = str_replace('\\', '/', get_include_path());
         $rendererPath = str_replace('\\', '/', $libraryPath);
         if (strpos($rendererPath, $includePath) === false) {
             set_include_path(get_include_path() . PATH_SEPARATOR . $libraryPath);
         }
 
-        $rendererName = 'PHPExcel_Chart_Renderer_'.$libraryName;
+        $rendererName = '\\PHPExcel\\Chart\\Renderer\\'.$libraryName;
         $renderer = new $rendererName($this);
 
         if ($outputDestination == 'php://output') {

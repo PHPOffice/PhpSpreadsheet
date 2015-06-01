@@ -383,26 +383,26 @@ class OOCalc extends BaseReader implements IReader
                         $docProps->setCreated($creationDate);
                         break;
                     case 'user-defined':
-                        $propertyValueType = PHPExcel_DocumentProperties::PROPERTY_TYPE_STRING;
+                        $propertyValueType = \PHPExcel\Document\Properties::PROPERTY_TYPE_STRING;
                         foreach ($propertyValueAttributes as $key => $value) {
                             if ($key == 'name') {
                                 $propertyValueName = (string) $value;
                             } elseif ($key == 'value-type') {
                                 switch ($value) {
                                     case 'date':
-                                        $propertyValue = PHPExcel_DocumentProperties::convertProperty($propertyValue, 'date');
-                                        $propertyValueType = PHPExcel_DocumentProperties::PROPERTY_TYPE_DATE;
+                                        $propertyValue = \PHPExcel\Document\Properties::convertProperty($propertyValue, 'date');
+                                        $propertyValueType = \PHPExcel\Document\Properties::PROPERTY_TYPE_DATE;
                                         break;
                                     case 'boolean':
-                                        $propertyValue = PHPExcel_DocumentProperties::convertProperty($propertyValue, 'bool');
-                                        $propertyValueType = PHPExcel_DocumentProperties::PROPERTY_TYPE_BOOLEAN;
+                                        $propertyValue = \PHPExcel\Document\Properties::convertProperty($propertyValue, 'bool');
+                                        $propertyValueType = \PHPExcel\Document\Properties::PROPERTY_TYPE_BOOLEAN;
                                         break;
                                     case 'float':
-                                        $propertyValue = PHPExcel_DocumentProperties::convertProperty($propertyValue, 'r4');
-                                        $propertyValueType = PHPExcel_DocumentProperties::PROPERTY_TYPE_FLOAT;
+                                        $propertyValue = \PHPExcel\Document\Properties::convertProperty($propertyValue, 'r4');
+                                        $propertyValueType = \PHPExcel\Document\Properties::PROPERTY_TYPE_FLOAT;
                                         break;
                                     default:
-                                        $propertyValueType = PHPExcel_DocumentProperties::PROPERTY_TYPE_STRING;
+                                        $propertyValueType = \PHPExcel\Document\Properties::PROPERTY_TYPE_STRING;
                                 }
                             }
                         }

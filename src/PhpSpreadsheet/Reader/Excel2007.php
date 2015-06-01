@@ -419,8 +419,8 @@ class Excel2007 extends BaseReader implements IReader
                                 $cellDataOfficeChildren = $xmlProperty->children('http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes');
                                 $attributeType = $cellDataOfficeChildren->getName();
                                 $attributeValue = (string) $cellDataOfficeChildren->{$attributeType};
-                                $attributeValue = PHPExcel_DocumentProperties::convertProperty($attributeValue, $attributeType);
-                                $attributeType = PHPExcel_DocumentProperties::convertPropertyType($attributeType);
+                                $attributeValue = \PHPExcel\Document\Properties::convertProperty($attributeValue, $attributeType);
+                                $attributeType = \PHPExcel\Document\Properties::convertPropertyType($attributeType);
                                 $docProps->setCustomProperty($propertyName, $attributeValue, $attributeType);
                             }
                         }

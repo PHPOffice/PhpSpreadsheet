@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Reader\Excel5;
+
 /**
  * PHPExcel_Reader_Excel5_RC4
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Reader_Excel5_RC4
+class RC4
 {
     // Context
     protected $s = array();

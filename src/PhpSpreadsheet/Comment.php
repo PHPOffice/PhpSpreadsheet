@@ -39,7 +39,7 @@ class Comment implements IComparable
     /**
      * Rich text comment
      *
-     * @var PHPExcel_RichText
+     * @var RichText
      */
     private $text;
 
@@ -81,7 +81,7 @@ class Comment implements IComparable
     /**
      * Comment fill color
      *
-     * @var PHPExcel_Style_Color
+     * @var Style\Color
      */
     private $fillColor;
 
@@ -93,17 +93,17 @@ class Comment implements IComparable
     private $alignment;
 
     /**
-     * Create a new PHPExcel_Comment
+     * Create a new Comment
      *
-     * @throws PHPExcel_Exception
+     * @throws Exception
      */
     public function __construct()
     {
         // Initialise variables
         $this->author    = 'Author';
-        $this->text      = new PHPExcel_RichText();
-        $this->fillColor = new PHPExcel_Style_Color('FFFFFFE1');
-        $this->alignment = PHPExcel_Style_Alignment::HORIZONTAL_GENERAL;
+        $this->text      = new RichText();
+        $this->fillColor = new Style\Color('FFFFFFE1');
+        $this->alignment = Style\Alignment::HORIZONTAL_GENERAL;
     }
 
     /**
@@ -120,7 +120,7 @@ class Comment implements IComparable
      * Set Author
      *
      * @param string $pValue
-     * @return PHPExcel_Comment
+     * @return Comment
      */
     public function setAuthor($pValue = '')
     {
@@ -131,7 +131,7 @@ class Comment implements IComparable
     /**
      * Get Rich text comment
      *
-     * @return PHPExcel_RichText
+     * @return RichText
      */
     public function getText()
     {
@@ -141,10 +141,10 @@ class Comment implements IComparable
     /**
      * Set Rich text comment
      *
-     * @param PHPExcel_RichText $pValue
-     * @return PHPExcel_Comment
+     * @param RichText $pValue
+     * @return Comment
      */
-    public function setText(PHPExcel_RichText $pValue)
+    public function setText(RichText $pValue)
     {
         $this->text = $pValue;
         return $this;
@@ -164,7 +164,7 @@ class Comment implements IComparable
      * Set comment width (CSS style, i.e. XXpx or YYpt)
      *
      * @param string $value
-     * @return PHPExcel_Comment
+     * @return Comment
      */
     public function setWidth($value = '96pt')
     {
@@ -186,7 +186,7 @@ class Comment implements IComparable
      * Set comment height (CSS style, i.e. XXpx or YYpt)
      *
      * @param string $value
-     * @return PHPExcel_Comment
+     * @return Comment
      */
     public function setHeight($value = '55.5pt')
     {
@@ -208,7 +208,7 @@ class Comment implements IComparable
      * Set left margin (CSS style, i.e. XXpx or YYpt)
      *
      * @param string $value
-     * @return PHPExcel_Comment
+     * @return Comment
      */
     public function setMarginLeft($value = '59.25pt')
     {
@@ -230,7 +230,7 @@ class Comment implements IComparable
      * Set top margin (CSS style, i.e. XXpx or YYpt)
      *
      * @param string $value
-     * @return PHPExcel_Comment
+     * @return Comment
      */
     public function setMarginTop($value = '1.5pt')
     {
@@ -252,7 +252,7 @@ class Comment implements IComparable
      * Set comment default visibility
      *
      * @param boolean $value
-     * @return PHPExcel_Comment
+     * @return Comment
      */
     public function setVisible($value = false)
     {
@@ -263,7 +263,7 @@ class Comment implements IComparable
     /**
      * Get fill color
      *
-     * @return PHPExcel_Style_Color
+     * @return Style\Color
      */
     public function getFillColor()
     {
@@ -274,9 +274,9 @@ class Comment implements IComparable
      * Set Alignment
      *
      * @param string $pValue
-     * @return PHPExcel_Comment
+     * @return Comment
      */
-    public function setAlignment($pValue = PHPExcel_Style_Alignment::HORIZONTAL_GENERAL)
+    public function setAlignment($pValue = Style\Alignment::HORIZONTAL_GENERAL)
     {
         $this->alignment = $pValue;
         return $this;

@@ -69,7 +69,7 @@ class HashTable
         if ($pSource == null) {
             return;
         } elseif (!is_array($pSource)) {
-            throw new PHPExcel_Exception('Invalid array parameter passed.');
+            throw new Exception('Invalid array parameter passed.');
         }
 
         foreach ($pSource as $item) {
@@ -80,10 +80,10 @@ class HashTable
     /**
      * Add HashTable item
      *
-     * @param    PHPExcel_IComparable $pSource    Item to add
+     * @param    IComparable $pSource    Item to add
      * @throws   Exception
      */
-    public function add(PHPExcel_IComparable $pSource = null)
+    public function add(IComparable $pSource = null)
     {
         $hash = $pSource->getHashCode();
         if (!isset($this->items[$hash])) {
@@ -98,7 +98,7 @@ class HashTable
      * @param    IComparable $pSource    Item to remove
      * @throws   Exception
      */
-    public function remove(PHPExcel_IComparable $pSource = null)
+    public function remove(IComparable $pSource = null)
     {
         $hash = $pSource->getHashCode();
         if (isset($this->items[$hash])) {

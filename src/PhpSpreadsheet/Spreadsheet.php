@@ -39,14 +39,14 @@ class Spreadsheet
     /**
      * Document properties
      *
-     * @var DocumentProperties
+     * @var Document\Properties
      */
     private $properties;
 
     /**
      * Document security
      *
-     * @var DocumentSecurity
+     * @var Document\Security
      */
     private $security;
 
@@ -424,7 +424,7 @@ class Spreadsheet
     /**
      * Get properties
      *
-     * @return DocumentProperties
+     * @return Document\Properties
      */
     public function getProperties()
     {
@@ -434,9 +434,9 @@ class Spreadsheet
     /**
      * Set properties
      *
-     * @param DocumentProperties    $pValue
+     * @param Document\Properties    $pValue
      */
-    public function setProperties(DocumentProperties $pValue)
+    public function setProperties(Document\Properties $pValue)
     {
         $this->properties = $pValue;
     }
@@ -444,7 +444,7 @@ class Spreadsheet
     /**
      * Get security
      *
-     * @return DocumentSecurity
+     * @return Document\Security
      */
     public function getSecurity()
     {
@@ -454,9 +454,9 @@ class Spreadsheet
     /**
      * Set security
      *
-     * @param DocumentSecurity    $pValue
+     * @param Document\Security    $pValue
      */
-    public function setSecurity(DocumentSecurity $pValue)
+    public function setSecurity(Document\Security $pValue)
     {
         $this->security = $pValue;
     }
