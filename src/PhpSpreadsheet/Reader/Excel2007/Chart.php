@@ -1,6 +1,9 @@
 <?php
+
+namespace PHPExcel\Reader\Excel2007;
+
 /**
- * PHPExcel
+ * PHPExcel_Reader_Excel2007_Chart
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -19,20 +22,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category    PHPExcel
- * @package        PHPExcel_Reader_Excel2007
- * @copyright    Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version        ##VERSION##, ##DATE##
+ * @package     PHPExcel_Reader_Excel2007
+ * @copyright   Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ * @version     ##VERSION##, ##DATE##
  */
-
-/**
- * PHPExcel_Reader_Excel2007_Chart
- *
- * @category    PHPExcel
- * @package        PHPExcel_Reader_Excel2007
- * @copyright    Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
-class PHPExcel_Reader_Excel2007_Chart
+class Chart
 {
     private static function getAttribute($component, $name, $format)
     {
@@ -57,7 +52,7 @@ class PHPExcel_Reader_Excel2007_Chart
         if (isset($color["rgb"])) {
             return (string)$color["rgb"];
         } elseif (isset($color["indexed"])) {
-            return PHPExcel_Style_Color::indexedColor($color["indexed"]-7, $background)->getARGB();
+            return \PHPExcel\Style\Color::indexedColor($color["indexed"]-7, $background)->getARGB();
         }
     }
 
@@ -161,9 +156,9 @@ class PHPExcel_Reader_Excel2007_Chart
                                     }
                                 }
                                 if ($plotAreaLayout == null) {
-                                    $plotAreaLayout = new PHPExcel_Chart_Layout();
+                                    $plotAreaLayout = new \PHPExcel\Chart\Layout();
                                 }
-                                $plotArea = new PHPExcel_Chart_PlotArea($plotAreaLayout, $plotSeries);
+                                $plotArea = new \PHPExcel\Chart\PlotArea($plotAreaLayout, $plotSeries);
                                 self::setChartAttributes($plotAreaLayout, $plotAttributes);
                                 break;
                             case "plotVisOnly":
@@ -192,13 +187,13 @@ class PHPExcel_Reader_Excel2007_Chart
                                             break;
                                     }
                                 }
-                                $legend = new PHPExcel_Chart_Legend($legendPos, $legendLayout, $legendOverlay);
+                                $legend = new \PHPExcel\Chart\Legend($legendPos, $legendLayout, $legendOverlay);
                                 break;
                         }
                     }
             }
         }
-        $chart = new PHPExcel_Chart($chartName, $title, $legend, $plotArea, $plotVisOnly, $dispBlanksAs, $XaxisLabel, $YaxisLabel);
+        $chart = new \PHPExcel\Chart($chartName, $title, $legend, $plotArea, $plotVisOnly, $dispBlanksAs, $XaxisLabel, $YaxisLabel);
 
         return $chart;
     }
@@ -225,7 +220,7 @@ class PHPExcel_Reader_Excel2007_Chart
             }
         }
 
-        return new PHPExcel_Chart_Title($caption, $titleLayout);
+        return new \PHPExcel\Chart\Title($caption, $titleLayout);
     }
 
     private static function chartLayoutDetails($chartDetail, $namespacesChartMeta)
@@ -242,7 +237,7 @@ class PHPExcel_Reader_Excel2007_Chart
 //            echo $detailKey, ' => ',self::getAttribute($detail, 'val', 'string'),PHP_EOL;
             $layout[$detailKey] = self::getAttribute($detail, 'val', 'string');
         }
-        return new PHPExcel_Chart_Layout($layout);
+        return new \PHPExcel\Chart\Layout($layout);
     }
 
     private static function chartDataSeries($chartDetail, $namespacesChartMeta, $plotType)
@@ -293,7 +288,7 @@ class PHPExcel_Reader_Excel2007_Chart
                     }
             }
         }
-        return new PHPExcel_Chart_DataSeries($plotType, $multiSeriesType, $plotOrder, $seriesLabel, $seriesCategory, $seriesValues, $smoothLine);
+        return new \PHPExcel\Chart\DataSeries($plotType, $multiSeriesType, $plotOrder, $seriesLabel, $seriesCategory, $seriesValues, $smoothLine);
     }
 
 
@@ -303,24 +298,24 @@ class PHPExcel_Reader_Excel2007_Chart
             $seriesSource = (string) $seriesDetail->strRef->f;
             $seriesData = self::chartDataSeriesValues($seriesDetail->strRef->strCache->children($namespacesChartMeta['c']), 's');
 
-            return new PHPExcel_Chart_DataSeriesValues('String', $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker, $smoothLine);
+            return new \PHPExcel\Chart\DataSeriesValues('String', $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker, $smoothLine);
         } elseif (isset($seriesDetail->numRef)) {
             $seriesSource = (string) $seriesDetail->numRef->f;
             $seriesData = self::chartDataSeriesValues($seriesDetail->numRef->numCache->children($namespacesChartMeta['c']));
 
-            return new PHPExcel_Chart_DataSeriesValues('Number', $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker, $smoothLine);
+            return new \PHPExcel\Chart\DataSeriesValues('Number', $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker, $smoothLine);
         } elseif (isset($seriesDetail->multiLvlStrRef)) {
             $seriesSource = (string) $seriesDetail->multiLvlStrRef->f;
             $seriesData = self::chartDataSeriesValuesMultiLevel($seriesDetail->multiLvlStrRef->multiLvlStrCache->children($namespacesChartMeta['c']), 's');
             $seriesData['pointCount'] = count($seriesData['dataValues']);
 
-            return new PHPExcel_Chart_DataSeriesValues('String', $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker, $smoothLine);
+            return new \PHPExcel\Chart\DataSeriesValues('String', $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker, $smoothLine);
         } elseif (isset($seriesDetail->multiLvlNumRef)) {
             $seriesSource = (string) $seriesDetail->multiLvlNumRef->f;
             $seriesData = self::chartDataSeriesValuesMultiLevel($seriesDetail->multiLvlNumRef->multiLvlNumCache->children($namespacesChartMeta['c']), 's');
             $seriesData['pointCount'] = count($seriesData['dataValues']);
 
-            return new PHPExcel_Chart_DataSeriesValues('String', $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker, $smoothLine);
+            return new \PHPExcel\Chart\DataSeriesValues('String', $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker, $smoothLine);
         }
         return null;
     }
@@ -398,7 +393,7 @@ class PHPExcel_Reader_Excel2007_Chart
 
     private static function parseRichText($titleDetailPart = null)
     {
-        $value = new PHPExcel_RichText();
+        $value = new \PHPExcel\RichText();
 
         foreach ($titleDetailPart as $titleDetailElementKey => $titleDetailElement) {
             if (isset($titleDetailElement->t)) {
@@ -416,7 +411,7 @@ class PHPExcel_Reader_Excel2007_Chart
 
                 $fontColor = (self::getAttribute($titleDetailElement->rPr, 'color', 'string'));
                 if (!is_null($fontColor)) {
-                    $objText->getFont()->setColor(new PHPExcel_Style_Color(self::readColor($fontColor)));
+                    $objText->getFont()->setColor(new \PHPExcel\Style\Color(self::readColor($fontColor)));
                 }
 
                 $bold = self::getAttribute($titleDetailElement->rPr, 'b', 'boolean');
@@ -441,11 +436,11 @@ class PHPExcel_Reader_Excel2007_Chart
                 $underscore = (self::getAttribute($titleDetailElement->rPr, 'u', 'string'));
                 if (!is_null($underscore)) {
                     if ($underscore == 'sng') {
-                        $objText->getFont()->setUnderline(PHPExcel_Style_Font::UNDERLINE_SINGLE);
+                        $objText->getFont()->setUnderline(\PHPExcel\Style\Font::UNDERLINE_SINGLE);
                     } elseif ($underscore == 'dbl') {
-                        $objText->getFont()->setUnderline(PHPExcel_Style_Font::UNDERLINE_DOUBLE);
+                        $objText->getFont()->setUnderline(\PHPExcel\Style\Font::UNDERLINE_DOUBLE);
                     } else {
-                        $objText->getFont()->setUnderline(PHPExcel_Style_Font::UNDERLINE_NONE);
+                        $objText->getFont()->setUnderline(\PHPExcel\Style\Font::UNDERLINE_NONE);
                     }
                 }
 

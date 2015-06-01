@@ -85,9 +85,9 @@ class ChainedBlockStream
 
         $blockId = $this->params['blockId'];
         $this->data = '';
-        if (isset($this->params['size']) && $this->params['size'] < $this->ole->bigBlockThreshold && $blockId != $this->ole->root->_StartBlock) {
+        if (isset($this->params['size']) && $this->params['size'] < $this->ole->bigBlockThreshold && $blockId != $this->ole->root->startBlock) {
             // Block id refers to small blocks
-            $rootPos = $this->ole->_getBlockOffset($this->ole->root->_StartBlock);
+            $rootPos = $this->ole->_getBlockOffset($this->ole->root->startBlock);
             while ($blockId != -2) {
                 $pos = $rootPos + $blockId * $this->ole->bigBlockSize;
                 $blockId = $this->ole->sbat[$blockId];

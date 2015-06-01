@@ -214,7 +214,7 @@ class OLE
 
         $path = 'ole-chainedblockstream://oleInstanceId=' . $instanceId;
         if ($blockIdOrPps instanceof OLE\PPS) {
-            $path .= '&blockId=' . $blockIdOrPps->_StartBlock;
+            $path .= '&blockId=' . $blockIdOrPps->startBlock;
             $path .= '&size=' . $blockIdOrPps->Size;
         } else {
             $path .= '&blockId=' . $blockIdOrPps;
@@ -300,7 +300,7 @@ class OLE
             fseek($fh, 20, SEEK_CUR);
             $pps->Time1st = self::OLE2LocalDate(fread($fh, 8));
             $pps->Time2nd = self::OLE2LocalDate(fread($fh, 8));
-            $pps->_StartBlock = self::_readInt4($fh);
+            $pps->startBlock = self::_readInt4($fh);
             $pps->Size = self::_readInt4($fh);
             $pps->No = count($this->_list);
             $this->_list[] = $pps;

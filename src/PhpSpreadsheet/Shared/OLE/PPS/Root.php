@@ -282,7 +282,7 @@ class Root extends \PHPExcel\Shared\OLE\PPS
                         fwrite($FILE, str_repeat("\x00", $this->_BIG_BLOCK_SIZE - ($raList[$i]->Size % $this->_BIG_BLOCK_SIZE)));
                     }
                     // Set For PPS
-                    $raList[$i]->_StartBlock = $iStBlk;
+                    $raList[$i]->startBlock = $iStBlk;
                     $iStBlk +=
                             (floor($raList[$i]->Size / $this->_BIG_BLOCK_SIZE) +
                                 (($raList[$i]->Size % $this->_BIG_BLOCK_SIZE)? 1: 0));
@@ -339,7 +339,7 @@ class Root extends \PHPExcel\Shared\OLE\PPS
                         $sRes .= str_repeat("\x00", $this->_SMALL_BLOCK_SIZE - ($raList[$i]->Size % $this->_SMALL_BLOCK_SIZE));
                     }
                     // Set for PPS
-                    $raList[$i]->_StartBlock = $iSmBlk;
+                    $raList[$i]->startBlock = $iSmBlk;
                     $iSmBlk += $iSmbCnt;
                 }
             }

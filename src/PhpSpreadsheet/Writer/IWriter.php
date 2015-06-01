@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Writer;
+
 /**
  *  PHPExcel_Writer_IWriter
  *
@@ -25,7 +27,7 @@
  *  @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  *  @version    ##VERSION##, ##DATE##
  */
-interface PHPExcel_Writer_IWriter
+interface IWriter
 {
     /**
      *  Save PHPExcel to file

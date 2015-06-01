@@ -1,6 +1,9 @@
 <?php
+
+namespace PHPExcel\Reader\Excel2007;
+
 /**
- * PHPExcel
+ * PHPExcel_Reader_Excel2007_Theme
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -24,16 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-
-
-/**
- * PHPExcel_Reader_Excel2007_Theme
- *
- * @category   PHPExcel
- * @package    PHPExcel_Reader_Excel2007
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- */
-class PHPExcel_Reader_Excel2007_Theme
+class Theme
 {
     /**
      * Theme Name
@@ -66,7 +60,7 @@ class PHPExcel_Reader_Excel2007_Theme
 
 
     /**
-     * Create a new PHPExcel_Theme
+     * Create a new Theme
      *
      */
     public function __construct($themeName, $colourSchemeName, $colourMap)

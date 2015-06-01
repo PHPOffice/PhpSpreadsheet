@@ -84,7 +84,7 @@ class PPS
     * Starting block (small or big) for this PPS's data  inside the container
     * @var integer
     */
-    public $_StartBlock;
+    public $startBlock;
 
     /**
     * The size of the PPS's data (in bytes)
@@ -185,10 +185,9 @@ class PPS
               . "\xc0\x00\x00\x00"                  // 92
               . "\x00\x00\x00\x46"                  // 96 // Seems to be ok only for Root
               . "\x00\x00\x00\x00"                  // 100
-              . \PHPExcel\Shared\OLE::LocalDate2OLE($this->Time1st)       // 108
-              . \PHPExcel\Shared\OLE::LocalDate2OLE($this->Time2nd)       // 116
-              . pack("V", isset($this->_StartBlock)?
-                        $this->_StartBlock:0)        // 120
+              . \PHPExcel\Shared\OLE::LocalDate2OLE($this->Time1st)          // 108
+              . \PHPExcel\Shared\OLE::LocalDate2OLE($this->Time2nd)          // 116
+              . pack("V", isset($this->startBlock) ? $this->startBlock : 0)  // 120
               . pack("V", $this->Size)               // 124
               . pack("V", 0);                        // 128
         return $ret;

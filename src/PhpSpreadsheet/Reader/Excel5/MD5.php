@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Reader\Excel5;
+
 /**
  * PHPExcel_Reader_Excel5_MD5
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt        LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Reader_Excel5_MD5
+class MD5
 {
     // Context
     private $a;
@@ -85,10 +87,10 @@ class PHPExcel_Reader_Excel5_MD5
         $C = $this->c;
         $D = $this->d;
 
-        $F = array('PHPExcel_Reader_Excel5_MD5','f');
-        $G = array('PHPExcel_Reader_Excel5_MD5','g');
-        $H = array('PHPExcel_Reader_Excel5_MD5','h');
-        $I = array('PHPExcel_Reader_Excel5_MD5','i');
+        $F = ['self','f'];
+        $G = ['self','g'];
+        $H = ['self','h'];
+        $I = ['self','i'];
 
         /* ROUND 1 */
         self::step($F, $A, $B, $C, $D, $words[0], 7, 0xd76aa478);
