@@ -1,12 +1,14 @@
 <?php
 
+namespace PHPExcel\Writer\PDF;
+
 /**  Require tcPDF library */
-$pdfRendererClassFile = PHPExcel_Settings::getPdfRendererPath() . '/tcpdf.php';
+$pdfRendererClassFile = \PHPExcel\Settings::getPdfRendererPath() . '/tcpdf.php';
 if (file_exists($pdfRendererClassFile)) {
-    $k_path_url = PHPExcel_Settings::getPdfRendererPath();
+    $k_path_url = \PHPExcel\Settings::getPdfRendererPath();
     require_once $pdfRendererClassFile;
 } else {
-    throw new PHPExcel_Writer_Exception('Unable to load PDF Rendering library');
+    throw new \PHPExcel\Writer\Exception('Unable to load PDF Rendering library');
 }
 
 /**
@@ -34,20 +36,20 @@ if (file_exists($pdfRendererClassFile)) {
  *  @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  *  @version     ##VERSION##, ##DATE##
  */
-class PHPExcel_Writer_PDF_tcPDF extends PHPExcel_Writer_PDF_Core implements PHPExcel_Writer_IWriter
+class tcPDF extends Core implements \PHPExcel\Writer\IWriter
 {
     /**
-     *  Create a new PHPExcel_Writer_PDF
+     *  Create a new tcPDF Writer instance
      *
-     *  @param  PHPExcel  $phpExcel  PHPExcel object
+     *  @param  Spreadsheet  $phpExcel  Spreadsheet object
      */
-    public function __construct(PHPExcel $phpExcel)
+    public function __construct(Spreadsheet $phpExcel)
     {
         parent::__construct($phpExcel);
     }
 
     /**
-     *  Save PHPExcel to file
+     *  Save Spreadsheet to file
      *
      *  @param     string     $pFilename   Name of the file to save as
      *  @throws    PHPExcel_Writer_Exception

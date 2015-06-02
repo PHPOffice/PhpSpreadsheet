@@ -1,11 +1,13 @@
 <?php
 
+namespace PHPExcel\Writer\PDF;
+
 /**  Require DomPDF library */
-$pdfRendererClassFile = PHPExcel_Settings::getPdfRendererPath() . '/dompdf_config.inc.php';
+$pdfRendererClassFile = \PHPExcel\Settings::getPdfRendererPath() . '/dompdf_config.inc.php';
 if (file_exists($pdfRendererClassFile)) {
     require_once $pdfRendererClassFile;
 } else {
-    throw new PHPExcel_Writer_Exception('Unable to load PDF Rendering library');
+    throw new \PHPExcel\Writer\Exception('Unable to load PDF Rendering library');
 }
 
 /**
@@ -33,20 +35,20 @@ if (file_exists($pdfRendererClassFile)) {
  *  @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  *  @version     ##VERSION##, ##DATE##
  */
-class PHPExcel_Writer_PDF_DomPDF extends PHPExcel_Writer_PDF_Core implements PHPExcel_Writer_IWriter
+class DomPDF extends Core implements \PHPExcel\Writer\IWriter
 {
     /**
-     *  Create a new PHPExcel_Writer_PDF
+     *  Create a new DomPDF Writer instance
      *
-     *  @param   PHPExcel    $phpExcel    PHPExcel object
+     *  @param   Spreadsheet    $phpExcel    Spreadsheet object
      */
-    public function __construct(PHPExcel $phpExcel)
+    public function __construct(Spreadsheet $phpExcel)
     {
         parent::__construct($phpExcel);
     }
 
     /**
-     *  Save PHPExcel to file
+     *  Save Spreadsheet to file
      *
      *  @param   string     $pFilename   Name of the file to save as
      *  @throws  PHPExcel_Writer_Exception

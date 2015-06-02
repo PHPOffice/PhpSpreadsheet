@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Writer\PDF;
+
 /**
  *  PHPExcel_Writer_PDF_Core
  *
@@ -25,7 +27,7 @@
  *  @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  *  @version     ##VERSION##, ##DATE##
  */
-abstract class PHPExcel_Writer_PDF_Core extends PHPExcel_Writer_HTML
+abstract class Core extends \PHPExcel\Writer\HTML
 {
     /**
      * Temporary storage directory
@@ -204,11 +206,11 @@ abstract class PHPExcel_Writer_PDF_Core extends PHPExcel_Writer_HTML
     );
 
     /**
-     *  Create a new PHPExcel_Writer_PDF
+     *  Create a new PDF Writer instance
      *
-     *  @param     PHPExcel    $phpExcel    PHPExcel object
+     *  @param     Spreadsheet    $phpExcel    Spreadsheet object
      */
-    public function __construct(PHPExcel $phpExcel)
+    public function __construct(Spreadsheet $phpExcel)
     {
         parent::__construct($phpExcel);
         $this->setUseInlineCss(true);
@@ -312,7 +314,7 @@ abstract class PHPExcel_Writer_PDF_Core extends PHPExcel_Writer_HTML
     }
 
     /**
-     *  Save PHPExcel to PDF file, pre-save
+     *  Save Spreadsheet to PDF file, pre-save
      *
      *  @param     string     $pFilename   Name of the file to save as
      *  @throws    PHPExcel_Writer_Exception

@@ -91,16 +91,16 @@ class HTML extends BaseReader implements IReader
             'font' => array(
                 'underline' => true,
                 'color' => array(
-                    'argb' => PHPExcel_Style_Color::COLOR_BLUE,
+                    'argb' => \PHPExcel\Style\Color::COLOR_BLUE,
                 ),
             ),
         ), //    Blue underlined
         'hr' => array(
             'borders' => array(
                 'bottom' => array(
-                    'style' => PHPExcel_Style_Border::BORDER_THIN,
+                    'style' => \PHPExcel\Style\Border::BORDER_THIN,
                     'color' => array(
-                        PHPExcel_Style_Color::COLOR_BLACK,
+                        \PHPExcel\Style\Color::COLOR_BLACK,
                     ),
                 ),
             ),
@@ -110,11 +110,11 @@ class HTML extends BaseReader implements IReader
     protected $rowspan = array();
 
     /**
-     * Create a new PHPExcel_Reader_HTML
+     * Create a new HTML Reader instance
      */
     public function __construct()
     {
-        $this->readFilter = new PHPExcel_Reader_DefaultReadFilter();
+        $this->readFilter = new DefaultReadFilter();
     }
 
     /**
@@ -139,7 +139,7 @@ class HTML extends BaseReader implements IReader
      *
      * @param  string                    $pFilename
      * @return PHPExcel
-     * @throws PHPExcel_Reader_Exception
+     * @throws Exception
      */
     public function load($pFilename)
     {
@@ -421,7 +421,7 @@ class HTML extends BaseReader implements IReader
                                 ++$columnTo;
                             }
                             $range = $column . $row . ':' . $columnTo . ($row + $attributeArray['rowspan'] - 1);
-                            foreach (\PHPExcel_Cell::extractAllCellReferencesInRange($range) as $value) {
+                            foreach (\PHPExcel\Cell::extractAllCellReferencesInRange($range) as $value) {
                                 $this->rowspan[$value] = true;
                             }
                             $sheet->mergeCells($range);
@@ -429,7 +429,7 @@ class HTML extends BaseReader implements IReader
                         } elseif (isset($attributeArray['rowspan'])) {
                             //create merging rowspan
                             $range = $column . $row . ':' . $column . ($row + $attributeArray['rowspan'] - 1);
-                            foreach (\PHPExcel_Cell::extractAllCellReferencesInRange($range) as $value) {
+                            foreach (\PHPExcel\Cell::extractAllCellReferencesInRange($range) as $value) {
                                 $this->rowspan[$value] = true;
                             }
                             $sheet->mergeCells($range);
@@ -464,7 +464,7 @@ class HTML extends BaseReader implements IReader
      * @param  string                    $pFilename
      * @param  PHPExcel                  $objPHPExcel
      * @return PHPExcel
-     * @throws PHPExcel_Reader_Exception
+     * @throws Exception
      */
     public function loadIntoExisting($pFilename, PHPExcel $objPHPExcel)
     {
@@ -472,7 +472,7 @@ class HTML extends BaseReader implements IReader
         $this->openFile($pFilename);
         if (!$this->isValidFormat()) {
             fclose($this->fileHandle);
-            throw new PHPExcel_Reader_Exception($pFilename . " is an Invalid HTML file.");
+            throw new Exception($pFilename . " is an Invalid HTML file.");
         }
         //    Close after validating
         fclose($this->fileHandle);
@@ -488,7 +488,7 @@ class HTML extends BaseReader implements IReader
         //    Reload the HTML file into the DOM object
         $loaded = $dom->loadHTML($this->securityScanFile($pFilename));
         if ($loaded === false) {
-            throw new PHPExcel_Reader_Exception('Failed to load ', $pFilename, ' as a DOM Document');
+            throw new Exception('Failed to load ', $pFilename, ' as a DOM Document');
         }
 
         //    Discard white space
@@ -517,7 +517,7 @@ class HTML extends BaseReader implements IReader
      * Set sheet index
      *
      * @param  int                  $pValue Sheet index
-     * @return PHPExcel_Reader_HTML
+     * @return HTML
      */
     public function setSheetIndex($pValue = 0)
     {
@@ -530,13 +530,13 @@ class HTML extends BaseReader implements IReader
      * Scan theXML for use of <!ENTITY to prevent XXE/XEE attacks
      *
      * @param     string         $xml
-     * @throws PHPExcel_Reader_Exception
+     * @throws Exception
      */
     public function securityScan($xml)
     {
         $pattern = '/\\0?' . implode('\\0?', str_split('<!ENTITY')) . '\\0?/';
         if (preg_match($pattern, $xml)) {
-            throw new PHPExcel_Reader_Exception('Detected use of ENTITY in XML, spreadsheet file load() aborted to prevent XXE/XEE attacks');
+            throw new Exception('Detected use of ENTITY in XML, spreadsheet file load() aborted to prevent XXE/XEE attacks');
         }
         return $xml;
     }

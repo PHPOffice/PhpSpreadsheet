@@ -78,7 +78,7 @@ class CSV extends BaseReader implements IReader
 
 
     /**
-     * Create a new CSV
+     * Create a new CSV Reader instance
      */
     public function __construct()
     {

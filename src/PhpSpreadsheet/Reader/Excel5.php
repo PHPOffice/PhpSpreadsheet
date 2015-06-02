@@ -405,7 +405,7 @@ class Excel5 extends BaseReader implements IReader
     private $md5Ctxt = null;
 
     /**
-     * Create a new Excel5 instance
+     * Create a new Excel5 Reader instance
      */
     public function __construct()
     {

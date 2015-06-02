@@ -44,7 +44,7 @@ class Excel2003XML extends BaseReader implements IReader
     protected $charSet = 'UTF-8';
 
     /**
-     * Create a new Excel2003XML
+     * Create a new Excel2003XML Reader instance
      */
     public function __construct()
     {
