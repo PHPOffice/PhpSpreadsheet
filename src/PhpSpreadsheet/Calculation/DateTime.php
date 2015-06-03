@@ -430,7 +430,7 @@ class DateTime
             case Functions::RETURNDATE_EXCEL:
                 $date = 0;
                 $calendar = \PHPExcel\Shared\Date::getExcelCalendar();
-                if ($calendar != PHPExcel\Shared\Date::CALENDAR_WINDOWS_1900) {
+                if ($calendar != \PHPExcel\Shared\Date::CALENDAR_WINDOWS_1900) {
                     $date = 1;
                 }
                 return (float) \PHPExcel\Shared\Date::FormattedPHPToExcel($calendar, 1, $date, $hour, $minute, $second);

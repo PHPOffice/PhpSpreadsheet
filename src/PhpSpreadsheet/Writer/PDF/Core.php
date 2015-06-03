@@ -208,9 +208,9 @@ abstract class Core extends \PHPExcel\Writer\HTML
     /**
      *  Create a new PDF Writer instance
      *
-     *  @param     Spreadsheet    $phpExcel    Spreadsheet object
+     *  @param     \PHPExcel\Spreadsheet    $phpExcel    Spreadsheet object
      */
-    public function __construct(Spreadsheet $phpExcel)
+    public function __construct(\PHPExcel\Spreadsheet $phpExcel)
     {
         parent::__construct($phpExcel);
         $this->setUseInlineCss(true);

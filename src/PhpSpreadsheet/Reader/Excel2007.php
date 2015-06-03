@@ -364,7 +364,7 @@ class Excel2007 extends BaseReader implements IReader
         }
 
         // Initialisations
-        $excel = new Spreadsheet;
+        $excel = new \PHPExcel\Spreadsheet;
         $excel->removeSheetByIndex(0);
         if (!$this->readDataOnly) {
             $excel->removeCellStyleXfByIndex(0); // remove the default style

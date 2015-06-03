@@ -593,7 +593,7 @@ class TextData
         $value  = Functions::flattenSingleValue($value);
         $format = Functions::flattenSingleValue($format);
 
-        if ((is_string($value)) && (!is_numeric($value)) && PHPExcel\Shared\Date::isDateTimeFormatCode($format)) {
+        if ((is_string($value)) && (!is_numeric($value)) && \PHPExcel\Shared\Date::isDateTimeFormatCode($format)) {
             $value = DateTime::DATEVALUE($value);
         }
 

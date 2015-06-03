@@ -50,14 +50,14 @@ class Categories
     private $category;
 
     /**
-     * Excel name
+     * Excel function name
      *
      * @var string
      */
     private $excelName;
 
     /**
-     * PHPExcel name
+     * PHPExcel function name
      *
      * @var string
      */
@@ -67,7 +67,7 @@ class Categories
      * Create a new Categories
      * @param     string        $pCategory         Category (represented by CATEGORY_*)
      * @param     string        $pExcelName        Excel function name
-     * @param     string        $pPHPExcelName    PHPExcel function mapping
+     * @param     string        $pPHPExcelName     PHPExcel internal function name
      * @throws    Exception
      */
     public function __construct($pCategory = null, $pExcelName = null, $pPHPExcelName = null)
@@ -108,7 +108,7 @@ class Categories
     }
 
     /**
-     * Get Excel name
+     * Get Excel function name
      *
      * @return string
      */
@@ -118,7 +118,7 @@ class Categories
     }
 
     /**
-     * Set Excel name
+     * Set Excel function name
      *
      * @param string    $value
      */
@@ -128,7 +128,7 @@ class Categories
     }
 
     /**
-     * Get PHPExcel name
+     * Get PHPExcel function name
      *
      * @return string
      */
@@ -138,7 +138,7 @@ class Categories
     }
 
     /**
-     * Set PHPExcel name
+     * Set PHPExcel function  name
      *
      * @param string    $value
      */

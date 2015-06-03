@@ -2102,7 +2102,7 @@ class Calculation
      * Get an instance of this class
      *
      * @access    public
-     * @param   PHPExcel $spreadsheet  Injected spreadsheet for working with a PHPExcel object,
+     * @param   Spreadsheet $spreadsheet  Injected spreadsheet for working with a PHPExcel Spreadsheet object,
      *                                    or NULL to create a standalone claculation engine
      * @return Calculation
      */
@@ -2126,9 +2126,9 @@ class Calculation
      * Unset an instance of this class
      *
      * @access    public
-     * @param   PHPExcel $spreadsheet  Injected spreadsheet identifying the instance to unset
+     * @param   Spreadsheet $spreadsheet  Injected spreadsheet identifying the instance to unset
      */
-    public static function unsetInstance(PHPExcel $spreadsheet = null)
+    public static function unsetInstance(Spreadsheet $spreadsheet = null)
     {
         if ($spreadsheet !== null) {
             if (isset(self::$spreadsheetSets[$spreadsheet->getID()])) {

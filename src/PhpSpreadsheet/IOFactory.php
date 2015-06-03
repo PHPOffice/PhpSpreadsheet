@@ -114,12 +114,12 @@ class IOFactory
      *
      * @static
      * @access    public
-     * @param    PHPExcel $phpExcel
+     * @param    Spreadsheet $phpExcel
      * @param    string  $writerType    Example: Excel2007
      * @return    Writer\IWriter
      * @throws    Writer\Exception
      */
-    public static function createWriter(PHPExcel $phpExcel, $writerType = '')
+    public static function createWriter(Spreadsheet $phpExcel, $writerType = '')
     {
         // Search type
         $searchType = 'IWriter';
@@ -171,12 +171,12 @@ class IOFactory
     }
 
     /**
-     * Loads PHPExcel from file using automatic Reader\IReader resolution
+     * Loads Spreadsheet from file using automatic Reader\IReader resolution
      *
      * @static
      * @access public
      * @param     string         $pFilename        The name of the spreadsheet file
-     * @return    PHPExcel
+     * @return    Spreadsheet
      * @throws    Reader\Exception
      */
     public static function load($pFilename)

@@ -40,9 +40,9 @@ class DomPDF extends Core implements \PHPExcel\Writer\IWriter
     /**
      *  Create a new DomPDF Writer instance
      *
-     *  @param   Spreadsheet    $phpExcel    Spreadsheet object
+     *  @param   \PHPExcel\Spreadsheet    $phpExcel    Spreadsheet object
      */
-    public function __construct(Spreadsheet $phpExcel)
+    public function __construct(\PHPExcel\Spreadsheet $phpExcel)
     {
         parent::__construct($phpExcel);
     }
@@ -51,7 +51,7 @@ class DomPDF extends Core implements \PHPExcel\Writer\IWriter
      *  Save Spreadsheet to file
      *
      *  @param   string     $pFilename   Name of the file to save as
-     *  @throws  PHPExcel_Writer_Exception
+     *  @throws  \PHPExcel\Writer\Exception
      */
     public function save($pFilename = null)
     {

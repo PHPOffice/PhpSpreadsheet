@@ -184,13 +184,13 @@ class SYLK extends BaseReader implements IReader
      * Loads PHPExcel from file
      *
      * @param     string         $pFilename
-     * @return     Spreadsheet
+     * @return     \PHPExcel\Spreadsheet
      * @throws     Exception
      */
     public function load($pFilename)
     {
-        // Create new PHPExcel
-        $objPHPExcel = new Spreadsheet();
+        // Create new Spreadsheet
+        $objPHPExcel = new \PHPExcel\Spreadsheet();
 
         // Load into this instance
         return $this->loadIntoExisting($pFilename, $objPHPExcel);
@@ -200,11 +200,11 @@ class SYLK extends BaseReader implements IReader
      * Loads PHPExcel from file into PHPExcel instance
      *
      * @param     string         $pFilename
-     * @param     Spreadsheet    $objPHPExcel
-     * @return    Spreadsheet
+     * @param     \PHPExcel\Spreadsheet    $objPHPExcel
+     * @return    \PHPExcel\Spreadsheet
      * @throws    Exception
      */
-    public function loadIntoExisting($pFilename, Spreadsheet $objPHPExcel)
+    public function loadIntoExisting($pFilename, \PHPExcel\Spreadsheet $objPHPExcel)
     {
         // Open file
         $this->openFile($pFilename);

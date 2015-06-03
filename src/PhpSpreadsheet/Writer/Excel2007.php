@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Writer;
+
 /**
  * PHPExcel_Writer_Excel2007
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Writer_Excel2007 extends PHPExcel_Writer_Abstract implements PHPExcel_Writer_IWriter
+class Excel2007 extends BaseWriter implements IWriter
 {
     /**
      * Pre-calculate formulas
@@ -48,14 +50,14 @@ class PHPExcel_Writer_Excel2007 extends PHPExcel_Writer_Abstract implements PHPE
     /**
      * Private writer parts
      *
-     * @var PHPExcel_Writer_Excel2007_WriterPart[]
+     * @var Excel2007\WriterPart[]
      */
     private $writerParts    = array();
 
     /**
-     * Private PHPExcel
+     * Private Spreadsheet
      *
-     * @var PHPExcel
+     * @var \PHPExcel\Spreadsheet
      */
     private $spreadSheet;
 
@@ -67,9 +69,9 @@ class PHPExcel_Writer_Excel2007 extends PHPExcel_Writer_Abstract implements PHPE
     private $stringTable    = array();
 
     /**
-     * Private unique PHPExcel_Style_Conditional HashTable
+     * Private unique \PHPExcel\Style\Conditional HashTable
      *
-     * @var PHPExcel_HashTable
+     * @var \PHPExcel\HashTable
      */
     private $stylesConditionalHashTable;
 
@@ -81,37 +83,37 @@ class PHPExcel_Writer_Excel2007 extends PHPExcel_Writer_Abstract implements PHPE
     private $styleHashTable;
 
     /**
-     * Private unique PHPExcel_Style_Fill HashTable
+     * Private unique \PHPExcel\Style\Fill HashTable
      *
-     * @var PHPExcel_HashTable
+     * @var \PHPExcel\HashTable
      */
     private $fillHashTable;
 
     /**
-     * Private unique PHPExcel_Style_Font HashTable
+     * Private unique \PHPExcel\Style\Font HashTable
      *
-     * @var PHPExcel_HashTable
+     * @var \PHPExcel\HashTable
      */
     private $fontHashTable;
 
     /**
-     * Private unique PHPExcel_Style_Borders HashTable
+     * Private unique \PHPExcel\Style\Borders HashTable
      *
-     * @var PHPExcel_HashTable
+     * @var \PHPExcel\HashTable
      */
     private $bordersHashTable ;
 
     /**
-     * Private unique PHPExcel_Style_NumberFormat HashTable
+     * Private unique \PHPExcel\Style\NumberFormat HashTable
      *
-     * @var PHPExcel_HashTable
+     * @var \PHPExcel\HashTable
      */
     private $numFmtHashTable;
 
     /**
-     * Private unique PHPExcel_Worksheet_BaseDrawing HashTable
+     * Private unique \PHPExcel\Worksheet\BaseDrawing HashTable
      *
-     * @var PHPExcel_HashTable
+     * @var \PHPExcel\HashTable
      */
     private $drawingHashTable;
 
@@ -120,25 +122,26 @@ class PHPExcel_Writer_Excel2007 extends PHPExcel_Writer_Abstract implements PHPE
      *
      * @param     PHPExcel    $pPHPExcel
      */
-    public function __construct(PHPExcel $pPHPExcel = null)
+    public function __construct(\PHPExcel\Spreadsheet $pPHPExcel = null)
     {
         // Assign PHPExcel
         $this->setPHPExcel($pPHPExcel);
 
-        $writerPartsArray = array(  'stringtable'       => 'PHPExcel_Writer_Excel2007_StringTable',
-                                    'contenttypes'      => 'PHPExcel_Writer_Excel2007_ContentTypes',
-                                    'docprops'          => 'PHPExcel_Writer_Excel2007_DocProps',
-                                    'rels'              => 'PHPExcel_Writer_Excel2007_Rels',
-                                    'theme'             => 'PHPExcel_Writer_Excel2007_Theme',
-                                    'style'             => 'PHPExcel_Writer_Excel2007_Style',
-                                    'workbook'          => 'PHPExcel_Writer_Excel2007_Workbook',
-                                    'worksheet'         => 'PHPExcel_Writer_Excel2007_Worksheet',
-                                    'drawing'           => 'PHPExcel_Writer_Excel2007_Drawing',
-                                    'comments'          => 'PHPExcel_Writer_Excel2007_Comments',
-                                    'chart'             => 'PHPExcel_Writer_Excel2007_Chart',
-                                    'relsvba'           => 'PHPExcel_Writer_Excel2007_RelsVBA',
-                                    'relsribbonobjects' => 'PHPExcel_Writer_Excel2007_RelsRibbon'
-                                 );
+        $writerPartsArray = [
+            'stringtable'       => '\\PHPExcel\\Writer\\Excel2007\\StringTable',
+            'contenttypes'      => '\\PHPExcel\\Writer\\Excel2007\\ContentTypes',
+            'docprops'          => '\\PHPExcel\\Writer\\Excel2007\\DocProps',
+            'rels'              => '\\PHPExcel\\Writer\\Excel2007\\Rels',
+            'theme'             => '\\PHPExcel\\Writer\\Excel2007\\Theme',
+            'style'             => '\\PHPExcel\\Writer\\Excel2007\\Style',
+            'workbook'          => '\\PHPExcel\\Writer\\Excel2007\\Workbook',
+            'worksheet'         => '\\PHPExcel\\Writer\\Excel2007\\Worksheet',
+            'drawing'           => '\\PHPExcel\\Writer\\Excel2007\\Drawing',
+            'comments'          => '\\PHPExcel\\Writer\\Excel2007\\Comments',
+            'chart'             => '\\PHPExcel\\Writer\\Excel2007\\Chart',
+            'relsvba'           => '\\PHPExcel\\Writer\\Excel2007\\RelsVBA',
+            'relsribbonobjects' => '\\PHPExcel\\Writer\\Excel2007\\RelsRibbon'
+        ];
 
         //    Initialise writer parts
         //        and Assign their parent IWriters
@@ -419,11 +422,11 @@ class PHPExcel_Writer_Excel2007 extends PHPExcel_Writer_Abstract implements PHPE
     /**
      * Set PHPExcel object
      *
-     * @param     PHPExcel     $pPHPExcel    PHPExcel object
-     * @throws    PHPExcel_Writer_Exception
-     * @return PHPExcel_Writer_Excel2007
+     * @param     \PHPExcel\Spreadsheet     $pPHPExcel    PHPExcel object
+     * @throws    Exception
+     * @return    Excel2007
      */
-    public function setPHPExcel(PHPExcel $pPHPExcel = null)
+    public function setPHPExcel(\PHPExcel\Spreadsheet $pPHPExcel = null)
     {
         $this->spreadSheet = $pPHPExcel;
         return $this;

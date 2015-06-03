@@ -195,7 +195,7 @@ class Excel5 extends BaseReader implements IReader
     /**
      * Workbook to be returned by the reader.
      *
-     * @var Spreadsheet
+     * @var \PHPExcel\Spreadsheet
      */
     private $phpExcel;
 

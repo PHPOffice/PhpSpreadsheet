@@ -81,9 +81,9 @@ class CSV extends BaseWriter implements IWriter
     /**
      * Create a new CSV
      *
-     * @param    Spreadsheet    $phpExcel    Spreadsheet object
+     * @param    \PHPExcel\Spreadsheet    $phpExcel    Spreadsheet object
      */
-    public function __construct(Spreadsheet $phpExcel)
+    public function __construct(\PHPExcel\Spreadsheet $phpExcel)
     {
         $this->phpExcel = $phpExcel;
     }

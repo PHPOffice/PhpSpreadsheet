@@ -194,16 +194,16 @@ class CSV extends BaseReader implements IReader
     }
 
     /**
-     * Loads PHPExcel from file
+     * Loads Spreadsheet from file
      *
      * @param     string         $pFilename
-     * @return PHPExcel
+     * @return \PHPExcel\Spreadsheet
      * @throws Exception
      */
     public function load($pFilename)
     {
-        // Create new PHPExcel
-        $objPHPExcel = new PHPExcel();
+        // Create new Spreadsheet
+        $objPHPExcel = new \PHPExcel\Spreadsheet();
 
         // Load into this instance
         return $this->loadIntoExisting($pFilename, $objPHPExcel);

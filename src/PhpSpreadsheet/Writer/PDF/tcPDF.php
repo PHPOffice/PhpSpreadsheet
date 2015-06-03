@@ -41,9 +41,9 @@ class tcPDF extends Core implements \PHPExcel\Writer\IWriter
     /**
      *  Create a new tcPDF Writer instance
      *
-     *  @param  Spreadsheet  $phpExcel  Spreadsheet object
+     *  @param  \PHPExcel\Spreadsheet  $phpExcel  Spreadsheet object
      */
-    public function __construct(Spreadsheet $phpExcel)
+    public function __construct(\PHPExcel\Spreadsheet $phpExcel)
     {
         parent::__construct($phpExcel);
     }

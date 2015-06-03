@@ -218,7 +218,7 @@ class Excel2003XML extends BaseReader implements IReader
      * Loads PHPExcel from file
      *
      * @param     string         $pFilename
-     * @return     Spreadsheet
+     * @return     \PHPExcel\Spreadsheet
      * @throws     Exception
      */
     public function load($pFilename)

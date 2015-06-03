@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Writer\Excel2007;
+
 /**
  * PHPExcel_Writer_Excel2007_StringTable
  *
@@ -25,12 +27,12 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Writer_Excel2007_StringTable extends PHPExcel_Writer_Excel2007_WriterPart
+class StringTable extends WriterPart
 {
     /**
      * Create worksheet stringtable
      *
-     * @param     PHPExcel_Worksheet     $pSheet                Worksheet
+     * @param     \PHPExcel\Worksheet     $pSheet                Worksheet
      * @param     string[]                 $pExistingTable     Existing table to eventually merge with
      * @return     string[]                 String table for worksheet
      * @throws     PHPExcel_Writer_Exception

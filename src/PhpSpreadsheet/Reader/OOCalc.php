@@ -290,13 +290,13 @@ class OOCalc extends BaseReader implements IReader
      * Loads PHPExcel from file
      *
      * @param     string         $pFilename
-     * @return     Spreadsheet
+     * @return     \PHPExcel\Spreadsheet
      * @throws     Exception
      */
     public function load($pFilename)
     {
-        // Create new PHPExcel
-        $objPHPExcel = new PHPExcel();
+        // Create new Spreadsheet
+        $objPHPExcel = new \PHPExcel\Spreadsheet();
 
         // Load into this instance
         return $this->loadIntoExisting($pFilename, $objPHPExcel);
@@ -318,8 +318,8 @@ class OOCalc extends BaseReader implements IReader
      * Loads PHPExcel from file into PHPExcel instance
      *
      * @param     string         $pFilename
-     * @param    Spreadsheet    $objPHPExcel
-     * @return     Spreadsheet
+     * @param    \PHPExcel\Spreadsheet    $objPHPExcel
+     * @return     \PHPExcel\Spreadsheet
      * @throws     Exception
      */
     public function loadIntoExisting($pFilename, PHPExcel $objPHPExcel)
@@ -330,7 +330,7 @@ class OOCalc extends BaseReader implements IReader
         }
 
         $timezoneObj = new DateTimeZone('Europe/London');
-        $GMT = new DateTimeZone('UTC');
+        $GMT = new \DateTimeZone('UTC');
 
         $zipClass = \PHPExcel\Settings::getZipClass();
 
