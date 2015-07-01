@@ -287,10 +287,10 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
     /**
      * Add a font to added fonts
      *
-     * @param PHPExcel_Style_Font $font
+     * @param \PHPExcel\Style\Font $font
      * @return int Index to FONT record
      */
-    public function addFont(PHPExcel_Style_Font $font)
+    public function addFont(\PHPExcel\Style\Font $font)
     {
         $fontHashCode = $font->getHashCode();
         if (isset($this->addedFonts[$fontHashCode])) {
@@ -907,7 +907,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
     /**
      * Writes Excel BIFF BOUNDSHEET record.
      *
-     * @param PHPExcel_Worksheet  $sheet Worksheet name
+     * @param \PHPExcel\Worksheet  $sheet Worksheet name
      * @param integer $offset    Location of worksheet BOF
      */
     private function writeBoundSheet($sheet, $offset)
@@ -917,13 +917,13 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 
         // sheet state
         switch ($sheet->getSheetState()) {
-            case PHPExcel_Worksheet::SHEETSTATE_VISIBLE:
+            case \PHPExcel\Worksheet::SHEETSTATE_VISIBLE:
                 $ss = 0x00;
                 break;
-            case PHPExcel_Worksheet::SHEETSTATE_HIDDEN:
+            case \PHPExcel\Worksheet::SHEETSTATE_HIDDEN:
                 $ss = 0x01;
                 break;
-            case PHPExcel_Worksheet::SHEETSTATE_VERYHIDDEN:
+            case \PHPExcel\Worksheet::SHEETSTATE_VERYHIDDEN:
                 $ss = 0x02;
                 break;
             default:

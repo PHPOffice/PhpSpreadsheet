@@ -27,7 +27,7 @@ namespace PHPExcel\Writer;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class Excel2007 extends BaseWriter implements IWriter
+class Excel2007 implements IWriter
 {
     /**
      * Pre-calculate formulas
@@ -76,9 +76,9 @@ class Excel2007 extends BaseWriter implements IWriter
     private $stylesConditionalHashTable;
 
     /**
-     * Private unique PHPExcel_Style HashTable
+     * Private unique \PHPExcel\Style HashTable
      *
-     * @var PHPExcel_HashTable
+     * @var \PHPExcel\HashTable
      */
     private $styleHashTable;
 
@@ -120,7 +120,7 @@ class Excel2007 extends BaseWriter implements IWriter
     /**
      * Create a new PHPExcel_Writer_Excel2007
      *
-     * @param     PHPExcel    $pPHPExcel
+     * @param \PHPExcel\SpreadSheet $pPHPExcel
      */
     public function __construct(\PHPExcel\Spreadsheet $pPHPExcel = null)
     {
@@ -156,7 +156,7 @@ class Excel2007 extends BaseWriter implements IWriter
 
         // Set HashTable variables
         foreach ($hashTablesArray as $tableName) {
-            $this->$tableName     = new PHPExcel_HashTable();
+            $this->$tableName     = new \PHPExcel\HashTable();
         }
     }
 
@@ -164,7 +164,7 @@ class Excel2007 extends BaseWriter implements IWriter
      * Get writer part
      *
      * @param     string     $pPartName        Writer part name
-     * @return     PHPExcel_Writer_Excel2007_WriterPart
+     * @return     \PHPExcel\Writer\Excel2007\WriterPart
      */
     public function getWriterPart($pPartName = '')
     {
@@ -179,7 +179,7 @@ class Excel2007 extends BaseWriter implements IWriter
      * Save PHPExcel to file
      *
      * @param     string         $pFilename
-     * @throws     PHPExcel_Writer_Exception
+     * @throws     \PHPExcel\Writer\Exception
      */
     public function save($pFilename = null)
     {
@@ -198,8 +198,8 @@ class Excel2007 extends BaseWriter implements IWriter
 
             $saveDebugLog = PHPExcel_Calculation::getInstance($this->spreadSheet)->getDebugLog()->getWriteDebugLog();
             PHPExcel_Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog(false);
-            $saveDateReturnType = PHPExcel_Calculation_Functions::getReturnDateType();
-            PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_EXCEL);
+            $saveDateReturnType = \PHPExcel\Calculation\Functions::getReturnDateType();
+            \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_EXCEL);
 
             // Create string lookup table
             $this->stringTable = array();
@@ -219,12 +219,13 @@ class Excel2007 extends BaseWriter implements IWriter
             $this->drawingHashTable->addFromSource($this->getWriterPart('Drawing')->allDrawings($this->spreadSheet));
 
             // Create new ZIP file and open it for writing
-            $zipClass = PHPExcel_Settings::getZipClass();
+            $zipClass = \PHPExcel\Settings::getZipClass();
+            /** @var \ZipArchive $objZip */
             $objZip = new $zipClass();
 
             //    Retrieve OVERWRITE and CREATE constants from the instantiated zip class
             //    This method of accessing constant values from a dynamic class should work with all appropriate versions of PHP
-            $ro = new ReflectionObject($objZip);
+            $ro = new \ReflectionObject($objZip);
             $zipOverWrite = $ro->getConstant('OVERWRITE');
             $zipCreate = $ro->getConstant('CREATE');
 
@@ -234,7 +235,7 @@ class Excel2007 extends BaseWriter implements IWriter
             // Try opening the ZIP file
             if ($objZip->open($pFilename, $zipOverWrite) !== true) {
                 if ($objZip->open($pFilename, $zipCreate) !== true) {
-                    throw new PHPExcel_Writer_Exception("Could not open " . $pFilename . " for writing.");
+                    throw new \PHPExcel\Writer\Exception("Could not open " . $pFilename . " for writing.");
                 }
             }
 
@@ -267,7 +268,7 @@ class Excel2007 extends BaseWriter implements IWriter
                     $objZip->addFromString($tmpRootPath.'_rels/'.basename($tmpRibbonTarget).'.rels', $this->getWriterPart('RelsRibbonObjects')->writeRibbonRelationships($this->spreadSheet));
                 }
             }
-            
+
             // Add relationships to ZIP file
             $objZip->addFromString('_rels/.rels', $this->getWriterPart('Rels')->writeRelationships($this->spreadSheet));
             $objZip->addFromString('xl/_rels/workbook.xml.rels', $this->getWriterPart('Rels')->writeWorkbookRelationships($this->spreadSheet));
@@ -354,7 +355,7 @@ class Excel2007 extends BaseWriter implements IWriter
 
             // Add media
             for ($i = 0; $i < $this->getDrawingHashTable()->count(); ++$i) {
-                if ($this->getDrawingHashTable()->getByIndex($i) instanceof PHPExcel_Worksheet_Drawing) {
+                if ($this->getDrawingHashTable()->getByIndex($i) instanceof \PHPExcel\Worksheet\Drawing) {
                     $imageContents = null;
                     $imagePath = $this->getDrawingHashTable()->getByIndex($i)->getPath();
                     if (strpos($imagePath, 'zip://') !== false) {
@@ -371,7 +372,7 @@ class Excel2007 extends BaseWriter implements IWriter
                     }
 
                     $objZip->addFromString('xl/media/' . str_replace(' ', '_', $this->getDrawingHashTable()->getByIndex($i)->getIndexedFilename()), $imageContents);
-                } elseif ($this->getDrawingHashTable()->getByIndex($i) instanceof PHPExcel_Worksheet_MemoryDrawing) {
+                } elseif ($this->getDrawingHashTable()->getByIndex($i) instanceof \PHPExcel\Worksheet\MemoryDrawing) {
                     ob_start();
                     call_user_func(
                         $this->getDrawingHashTable()->getByIndex($i)->getRenderingFunction(),
@@ -384,23 +385,23 @@ class Excel2007 extends BaseWriter implements IWriter
                 }
             }
 
-            PHPExcel_Calculation_Functions::setReturnDateType($saveDateReturnType);
+            \PHPExcel\Calculation\Functions::setReturnDateType($saveDateReturnType);
             PHPExcel_Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
 
             // Close file
             if ($objZip->close() === false) {
-                throw new PHPExcel_Writer_Exception("Could not close zip file $pFilename.");
+                throw new \PHPExcel\Writer\Exception("Could not close zip file $pFilename.");
             }
 
             // If a temporary file was used, copy it to the correct file stream
             if ($originalFilename != $pFilename) {
                 if (copy($pFilename, $originalFilename) === false) {
-                    throw new PHPExcel_Writer_Exception("Could not copy temporary zip file $pFilename to $originalFilename.");
+                    throw new \PHPExcel\Writer\Exception("Could not copy temporary zip file $pFilename to $originalFilename.");
                 }
                 @unlink($pFilename);
             }
         } else {
-            throw new PHPExcel_Writer_Exception("PHPExcel object unassigned.");
+            throw new \PHPExcel\Writer\Exception("PHPExcel object unassigned.");
         }
     }
 
@@ -408,14 +409,14 @@ class Excel2007 extends BaseWriter implements IWriter
      * Get PHPExcel object
      *
      * @return PHPExcel
-     * @throws PHPExcel_Writer_Exception
+     * @throws \PHPExcel\Writer\Exception
      */
     public function getPHPExcel()
     {
         if ($this->spreadSheet !== null) {
             return $this->spreadSheet;
         } else {
-            throw new PHPExcel_Writer_Exception("No PHPExcel object assigned.");
+            throw new \PHPExcel\Writer\Exception("No PHPExcel object assigned.");
         }
     }
 
@@ -443,9 +444,9 @@ class Excel2007 extends BaseWriter implements IWriter
     }
 
     /**
-     * Get PHPExcel_Style HashTable
+     * Get \PHPExcel\Style HashTable
      *
-     * @return PHPExcel_HashTable
+     * @return \PHPExcel\HashTable
      */
     public function getStyleHashTable()
     {
@@ -453,9 +454,9 @@ class Excel2007 extends BaseWriter implements IWriter
     }
 
     /**
-     * Get PHPExcel_Style_Conditional HashTable
+     * Get \PHPExcel\Style\Conditional HashTable
      *
-     * @return PHPExcel_HashTable
+     * @return \PHPExcel\HashTable
      */
     public function getStylesConditionalHashTable()
     {
@@ -463,9 +464,9 @@ class Excel2007 extends BaseWriter implements IWriter
     }
 
     /**
-     * Get PHPExcel_Style_Fill HashTable
+     * Get \PHPExcel\Style\Fill HashTable
      *
-     * @return PHPExcel_HashTable
+     * @return \PHPExcel\HashTable
      */
     public function getFillHashTable()
     {
@@ -473,9 +474,9 @@ class Excel2007 extends BaseWriter implements IWriter
     }
 
     /**
-     * Get PHPExcel_Style_Font HashTable
+     * Get \PHPExcel\Style\Font HashTable
      *
-     * @return PHPExcel_HashTable
+     * @return \PHPExcel\HashTable
      */
     public function getFontHashTable()
     {
@@ -483,9 +484,9 @@ class Excel2007 extends BaseWriter implements IWriter
     }
 
     /**
-     * Get PHPExcel_Style_Borders HashTable
+     * Get \PHPExcel\Style\Borders HashTable
      *
-     * @return PHPExcel_HashTable
+     * @return \PHPExcel\HashTable
      */
     public function getBordersHashTable()
     {
@@ -493,9 +494,9 @@ class Excel2007 extends BaseWriter implements IWriter
     }
 
     /**
-     * Get PHPExcel_Style_NumberFormat HashTable
+     * Get \PHPExcel\Style\NumberFormat HashTable
      *
-     * @return PHPExcel_HashTable
+     * @return \PHPExcel\HashTable
      */
     public function getNumFmtHashTable()
     {
@@ -503,9 +504,9 @@ class Excel2007 extends BaseWriter implements IWriter
     }
 
     /**
-     * Get PHPExcel_Worksheet_BaseDrawing HashTable
+     * Get \PHPExcel\Worksheet\BaseDrawing HashTable
      *
-     * @return PHPExcel_HashTable
+     * @return \PHPExcel\HashTable
      */
     public function getDrawingHashTable()
     {

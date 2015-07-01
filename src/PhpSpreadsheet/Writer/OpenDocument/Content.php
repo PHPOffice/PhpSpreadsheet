@@ -44,9 +44,9 @@ class PHPExcel_Writer_OpenDocument_Content extends PHPExcel_Writer_OpenDocument_
      *
      * @param   PHPExcel                   $pPHPExcel
      * @return  string                     XML Output
-     * @throws  PHPExcel_Writer_Exception
+     * @throws  \PHPExcel\Writer\Exception
      */
-    public function write(PHPExcel $pPHPExcel = null)
+    public function write(\PHPExcel\SpreadSheet $pPHPExcel = null)
     {
         if (!$pPHPExcel) {
             $pPHPExcel = $this->getParentWriter()->getPHPExcel(); /* @var $pPHPExcel PHPExcel */
@@ -141,9 +141,9 @@ class PHPExcel_Writer_OpenDocument_Content extends PHPExcel_Writer_OpenDocument_
      * Write rows of the specified sheet
      *
      * @param PHPExcel_Shared_XMLWriter $objWriter
-     * @param PHPExcel_Worksheet $sheet
+     * @param \PHPExcel\Worksheet $sheet
      */
-    private function writeRows(PHPExcel_Shared_XMLWriter $objWriter, PHPExcel_Worksheet $sheet)
+    private function writeRows(PHPExcel_Shared_XMLWriter $objWriter, \PHPExcel\Worksheet $sheet)
     {
         $number_rows_repeated = self::NUMBER_ROWS_REPEATED_MAX;
         $span_row = 0;
@@ -177,10 +177,10 @@ class PHPExcel_Writer_OpenDocument_Content extends PHPExcel_Writer_OpenDocument_
      * Write cells of the specified row
      *
      * @param PHPExcel_Shared_XMLWriter $objWriter
-     * @param PHPExcel_Worksheet_Row $row
-     * @throws PHPExcel_Writer_Exception
+     * @param \PHPExcel\Worksheet\Row $row
+     * @throws \PHPExcel\Writer\Exception
      */
-    private function writeCells(PHPExcel_Shared_XMLWriter $objWriter, PHPExcel_Worksheet_Row $row)
+    private function writeCells(PHPExcel_Shared_XMLWriter $objWriter, \PHPExcel\Worksheet\Row $row)
     {
         $number_cols_repeated = self::NUMBER_COLS_REPEATED_MAX;
         $prev_column = -1;
@@ -193,17 +193,17 @@ class PHPExcel_Writer_OpenDocument_Content extends PHPExcel_Writer_OpenDocument_
             $objWriter->startElement('table:table-cell');
 
             switch ($cell->getDataType()) {
-                case PHPExcel_Cell_DataType::TYPE_BOOL:
+                case \PHPExcel\Cell\DataType::TYPE_BOOL:
                     $objWriter->writeAttribute('office:value-type', 'boolean');
                     $objWriter->writeAttribute('office:value', $cell->getValue());
                     $objWriter->writeElement('text:p', $cell->getValue());
                     break;
 
-                case PHPExcel_Cell_DataType::TYPE_ERROR:
-                    throw new PHPExcel_Writer_Exception('Writing of error not implemented yet.');
+                case \PHPExcel\Cell\DataType::TYPE_ERROR:
+                    throw new \PHPExcel\Writer\Exception('Writing of error not implemented yet.');
                     break;
 
-                case PHPExcel_Cell_DataType::TYPE_FORMULA:
+                case \PHPExcel\Cell\DataType::TYPE_FORMULA:
                     try {
                         $formula_value = $cell->getCalculatedValue();
                     } catch (Exception $e) {
@@ -219,17 +219,17 @@ class PHPExcel_Writer_OpenDocument_Content extends PHPExcel_Writer_OpenDocument_
                     $objWriter->writeElement('text:p', $formula_value);
                     break;
 
-                case PHPExcel_Cell_DataType::TYPE_INLINE:
-                    throw new PHPExcel_Writer_Exception('Writing of inline not implemented yet.');
+                case \PHPExcel\Cell\DataType::TYPE_INLINE:
+                    throw new \PHPExcel\Writer\Exception('Writing of inline not implemented yet.');
                     break;
 
-                case PHPExcel_Cell_DataType::TYPE_NUMERIC:
+                case \PHPExcel\Cell\DataType::TYPE_NUMERIC:
                     $objWriter->writeAttribute('office:value-type', 'float');
                     $objWriter->writeAttribute('office:value', $cell->getValue());
                     $objWriter->writeElement('text:p', $cell->getValue());
                     break;
 
-                case PHPExcel_Cell_DataType::TYPE_STRING:
+                case \PHPExcel\Cell\DataType::TYPE_STRING:
                     $objWriter->writeAttribute('office:value-type', 'string');
                     $objWriter->writeElement('text:p', $cell->getValue());
                     break;

@@ -3,7 +3,7 @@
 namespace PHPExcel\Writer\Excel2007;
 
 /**
- * PHPExcel_Writer_Excel2007_WriterPart
+ * \PHPExcel\Writer\Excel2007\WriterPart
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -58,7 +58,7 @@ abstract class WriterPart
         if (!is_null($this->parentWriter)) {
             return $this->parentWriter;
         } else {
-            throw new \PHPExcel\Writer\Exception("No parent \PHPExcel\Writer\IWriter assigned.");
+            throw new \PHPExcel\Writer\Exception("No parent \\PHPExcel\\Writer\\IWriter assigned.");
         }
     }
 

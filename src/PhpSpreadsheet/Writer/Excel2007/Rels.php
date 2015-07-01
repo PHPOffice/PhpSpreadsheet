@@ -1,4 +1,5 @@
 <?php
+namespace PHPExcel\Writer\Excel2007;
 
 /**
  * PHPExcel_Writer_Excel2007_Rels
@@ -25,23 +26,23 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPart
+class Rels extends WriterPart
 {
     /**
      * Write relationships to XML format
      *
-     * @param     PHPExcel    $pPHPExcel
-     * @return     string         XML Output
-     * @throws     PHPExcel_Writer_Exception
+     * @param \PHPExcel\SpreadSheet $pPHPExcel
+     * @return string  XML Output
+     * @throws     \PHPExcel\Writer\Exception
      */
-    public function writeRelationships(PHPExcel $pPHPExcel = null)
+    public function writeRelationships(\PHPExcel\SpreadSheet $pPHPExcel = null)
     {
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -104,18 +105,18 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
     /**
      * Write workbook relationships to XML format
      *
-     * @param     PHPExcel    $pPHPExcel
-     * @return     string         XML Output
-     * @throws     PHPExcel_Writer_Exception
+     * @param \PHPExcel\SpreadSheet $pPHPExcel
+     * @return string  XML Output
+     * @throws     \PHPExcel\Writer\Exception
      */
-    public function writeWorkbookRelationships(PHPExcel $pPHPExcel = null)
+    public function writeWorkbookRelationships(\PHPExcel\SpreadSheet $pPHPExcel = null)
     {
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -183,20 +184,20 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
      *     rId1                 - Drawings
      *  rId_hyperlink_x     - Hyperlinks
      *
-     * @param     PHPExcel_Worksheet    $pWorksheet
+     * @param     \PHPExcel\Worksheet    $pWorksheet
      * @param     int                    $pWorksheetId
      * @param    boolean                $includeCharts    Flag indicating if we should write charts
-     * @return     string                 XML Output
-     * @throws     PHPExcel_Writer_Exception
+     * @return string          XML Output
+     * @throws     \PHPExcel\Writer\Exception
      */
-    public function writeWorksheetRelationships(PHPExcel_Worksheet $pWorksheet = null, $pWorksheetId = 1, $includeCharts = false)
+    public function writeWorksheetRelationships(\PHPExcel\Worksheet $pWorksheet = null, $pWorksheetId = 1, $includeCharts = false)
     {
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -291,20 +292,20 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
     /**
      * Write drawing relationships to XML format
      *
-     * @param     PHPExcel_Worksheet    $pWorksheet
+     * @param     \PHPExcel\Worksheet    $pWorksheet
      * @param    int                    &$chartRef        Chart ID
      * @param    boolean                $includeCharts    Flag indicating if we should write charts
-     * @return     string                 XML Output
-     * @throws     PHPExcel_Writer_Exception
+     * @return string          XML Output
+     * @throws     \PHPExcel\Writer\Exception
      */
-    public function writeDrawingRelationships(PHPExcel_Worksheet $pWorksheet = null, &$chartRef, $includeCharts = false)
+    public function writeDrawingRelationships(\PHPExcel\Worksheet $pWorksheet = null, &$chartRef, $includeCharts = false)
     {
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -318,8 +319,8 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
         $i = 1;
         $iterator = $pWorksheet->getDrawingCollection()->getIterator();
         while ($iterator->valid()) {
-            if ($iterator->current() instanceof PHPExcel_Worksheet_Drawing
-                || $iterator->current() instanceof PHPExcel_Worksheet_MemoryDrawing) {
+            if ($iterator->current() instanceof \PHPExcel\Worksheet\Drawing
+                || $iterator->current() instanceof \PHPExcel\Worksheet\MemoryDrawing) {
                 // Write relationship for image drawing
                 $this->writeRelationship(
                     $objWriter,
@@ -356,18 +357,18 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
     /**
      * Write header/footer drawing relationships to XML format
      *
-     * @param     PHPExcel_Worksheet            $pWorksheet
-     * @return     string                         XML Output
-     * @throws     PHPExcel_Writer_Exception
+     * @param     \PHPExcel\Worksheet            $pWorksheet
+     * @return string                  XML Output
+     * @throws     \PHPExcel\Writer\Exception
      */
-    public function writeHeaderFooterDrawingRelationships(PHPExcel_Worksheet $pWorksheet = null)
+    public function writeHeaderFooterDrawingRelationships(\PHPExcel\Worksheet $pWorksheet = null)
     {
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -396,14 +397,14 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
     /**
      * Write Override content type
      *
-     * @param     PHPExcel_Shared_XMLWriter     $objWriter         XML Writer
+     * @param     \PHPExcel\Shared\XMLWriter     $objWriter         XML Writer
      * @param     int                            $pId            Relationship ID. rId will be prepended!
      * @param     string                        $pType            Relationship type
      * @param     string                         $pTarget        Relationship target
      * @param     string                         $pTargetMode    Relationship target mode
-     * @throws     PHPExcel_Writer_Exception
+     * @throws     \PHPExcel\Writer\Exception
      */
-    private function writeRelationship(PHPExcel_Shared_XMLWriter $objWriter = null, $pId = 1, $pType = '', $pTarget = '', $pTargetMode = '')
+    private function writeRelationship(\PHPExcel\Shared\XMLWriter $objWriter = null, $pId = 1, $pType = '', $pTarget = '', $pTargetMode = '')
     {
         if ($pType != '' && $pTarget != '') {
             // Write relationship
@@ -418,7 +419,7 @@ class PHPExcel_Writer_Excel2007_Rels extends PHPExcel_Writer_Excel2007_WriterPar
 
             $objWriter->endElement();
         } else {
-            throw new PHPExcel_Writer_Exception("Invalid parameters passed.");
+            throw new \PHPExcel\Writer\Exception("Invalid parameters passed.");
         }
     }
 }

@@ -1,4 +1,5 @@
 <?php
+namespace PHPExcel\Writer\Excel2007;
 
 /**
  * PHPExcel_Writer_Excel2007_Comments
@@ -25,23 +26,23 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Writer_Excel2007_Comments extends PHPExcel_Writer_Excel2007_WriterPart
+class Comments extends WriterPart
 {
     /**
      * Write comments to XML format
      *
-     * @param     PHPExcel_Worksheet                $pWorksheet
-     * @return     string                                 XML Output
-     * @throws     PHPExcel_Writer_Exception
+     * @param     \PHPExcel\Worksheet                $pWorksheet
+     * @return string                          XML Output
+     * @throws     \PHPExcel\Writer\Exception
      */
-    public function writeComments(PHPExcel_Worksheet $pWorksheet = null)
+    public function writeComments(\PHPExcel\Worksheet $pWorksheet = null)
     {
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -86,13 +87,13 @@ class PHPExcel_Writer_Excel2007_Comments extends PHPExcel_Writer_Excel2007_Write
     /**
      * Write comment to XML format
      *
-     * @param     PHPExcel_Shared_XMLWriter        $objWriter             XML Writer
+     * @param     \PHPExcel\Shared\XMLWriter        $objWriter             XML Writer
      * @param    string                            $pCellReference        Cell reference
-     * @param     PHPExcel_Comment                $pComment            Comment
+     * @param     \PHPExcel\Comment                $pComment            Comment
      * @param    array                            $pAuthors            Array of authors
-     * @throws     PHPExcel_Writer_Exception
+     * @throws     \PHPExcel\Writer\Exception
      */
-    private function writeComment(PHPExcel_Shared_XMLWriter $objWriter = null, $pCellReference = 'A1', PHPExcel_Comment $pComment = null, $pAuthors = null)
+    private function writeComment(\PHPExcel\Shared\XMLWriter $objWriter = null, $pCellReference = 'A1', \PHPExcel\Comment $pComment = null, $pAuthors = null)
     {
         // comment
         $objWriter->startElement('comment');
@@ -110,18 +111,18 @@ class PHPExcel_Writer_Excel2007_Comments extends PHPExcel_Writer_Excel2007_Write
     /**
      * Write VML comments to XML format
      *
-     * @param     PHPExcel_Worksheet                $pWorksheet
-     * @return     string                                 XML Output
-     * @throws     PHPExcel_Writer_Exception
+     * @param \PHPExcel\Worksheet $pWorksheet
+     * @return string XML Output
+     * @throws \PHPExcel\Writer\Exception
      */
-    public function writeVMLComments(PHPExcel_Worksheet $pWorksheet = null)
+    public function writeVMLComments(\PHPExcel\Worksheet $pWorksheet = null)
     {
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -182,16 +183,16 @@ class PHPExcel_Writer_Excel2007_Comments extends PHPExcel_Writer_Excel2007_Write
     /**
      * Write VML comment to XML format
      *
-     * @param     PHPExcel_Shared_XMLWriter        $objWriter             XML Writer
+     * @param     \PHPExcel\Shared\XMLWriter        $objWriter             XML Writer
      * @param    string                            $pCellReference        Cell reference
-     * @param     PHPExcel_Comment                $pComment            Comment
-     * @throws     PHPExcel_Writer_Exception
+     * @param     \PHPExcel\Comment                $pComment            Comment
+     * @throws     \PHPExcel\Writer\Exception
      */
-    private function writeVMLComment(PHPExcel_Shared_XMLWriter $objWriter = null, $pCellReference = 'A1', PHPExcel_Comment $pComment = null)
+    private function writeVMLComment(\PHPExcel\Shared\XMLWriter $objWriter = null, $pCellReference = 'A1', \PHPExcel\Comment $pComment = null)
     {
          // Metadata
-         list($column, $row) = PHPExcel_Cell::coordinateFromString($pCellReference);
-         $column = PHPExcel_Cell::columnIndexFromString($column);
+         list($column, $row) = \PHPExcel\Cell::coordinateFromString($pCellReference);
+         $column = \PHPExcel\Cell::columnIndexFromString($column);
          $id = 1024 + $column + $row;
          $id = substr($id, 0, 4);
 

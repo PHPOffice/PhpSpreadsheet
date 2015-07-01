@@ -30,11 +30,11 @@ class PHPExcel_Writer_OpenDocument_MetaInf extends PHPExcel_Writer_OpenDocument_
     /**
      * Write META-INF/manifest.xml to XML format
      *
-     * @param     PHPExcel    $pPHPExcel
+     * @param \PHPExcel\SpreadSheet $pPHPExcel
      * @return     string         XML Output
-     * @throws     PHPExcel_Writer_Exception
+     * @throws     \PHPExcel\Writer\Exception
      */
-    public function writeManifest(PHPExcel $pPHPExcel = null)
+    public function writeManifest(\PHPExcel\SpreadSheet $pPHPExcel = null)
     {
         if (!$pPHPExcel) {
             $pPHPExcel = $this->getParentWriter()->getPHPExcel();

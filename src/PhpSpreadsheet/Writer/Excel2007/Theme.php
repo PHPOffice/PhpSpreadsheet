@@ -1,4 +1,5 @@
 <?php
+namespace PHPExcel\Writer\Excel2007;
 /**
  * PHPExcel
  *
@@ -33,7 +34,7 @@
  * @package    PHPExcel_Writer_Excel2007
  * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
-class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPart
+class Theme extends WriterPart
 {
     /**
      * Map of Major fonts to write
@@ -128,22 +129,22 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
         'hlink'        => '0000FF',
         'folHlink'    => '800080',
     );
-            
+
     /**
      * Write theme to XML format
      *
-     * @param     PHPExcel    $pPHPExcel
-     * @return     string         XML Output
-     * @throws     PHPExcel_Writer_Exception
+     * @param \PHPExcel\SpreadSheet $pPHPExcel
+     * @return string  XML Output
+     * @throws     \PHPExcel\Writer\Exception
      */
-    public function writeTheme(PHPExcel $pPHPExcel = null)
+    public function writeTheme(\PHPExcel\SpreadSheet $pPHPExcel = null)
     {
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -816,11 +817,11 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
     /**
      * Write fonts to XML format
      *
-     * @param     PHPExcel_Shared_XMLWriter    $objWriter
+     * @param     \PHPExcel\Shared\XMLWriter    $objWriter
      * @param     string                        $latinFont
      * @param     array of string                $fontSet
-     * @return     string                         XML Output
-     * @throws     PHPExcel_Writer_Exception
+     * @return string                  XML Output
+     * @throws     \PHPExcel\Writer\Exception
      */
     private function writeFonts($objWriter, $latinFont, $fontSet)
     {
@@ -850,9 +851,9 @@ class PHPExcel_Writer_Excel2007_Theme extends PHPExcel_Writer_Excel2007_WriterPa
     /**
      * Write colour scheme to XML format
      *
-     * @param     PHPExcel_Shared_XMLWriter    $objWriter
-     * @return     string                         XML Output
-     * @throws     PHPExcel_Writer_Exception
+     * @param     \PHPExcel\Shared\XMLWriter    $objWriter
+     * @return string                  XML Output
+     * @throws     \PHPExcel\Writer\Exception
      */
     private function writeColourScheme($objWriter)
     {

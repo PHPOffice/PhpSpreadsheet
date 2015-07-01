@@ -1,4 +1,5 @@
 <?php
+namespace PHPExcel\Writer\Excel2007;
 
 /**
  * PHPExcel_Writer_Excel2007_ContentTypes
@@ -25,24 +26,24 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Writer_Excel2007_ContentTypes extends PHPExcel_Writer_Excel2007_WriterPart
+class ContentTypes extends WriterPart
 {
     /**
      * Write content types to XML format
      *
-     * @param     PHPExcel    $pPHPExcel
+     * @param     \PHPExcel\Spreadsheet    $pPHPExcel
      * @param    boolean        $includeCharts    Flag indicating if we should include drawing details for charts
-     * @return     string                         XML Output
-     * @throws     PHPExcel_Writer_Exception
+     * @return string                  XML Output
+     * @throws     \PHPExcel\Writer\Exception
      */
-    public function writeContentTypes(PHPExcel $pPHPExcel = null, $includeCharts = false)
+    public function writeContentTypes(\PHPExcel\Spreadsheet $pPHPExcel = null, $includeCharts = false)
     {
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -134,10 +135,10 @@ class PHPExcel_Writer_Excel2007_ContentTypes extends PHPExcel_Writer_Excel2007_W
             $extension     = '';
             $mimeType     = '';
 
-            if ($this->getParentWriter()->getDrawingHashTable()->getByIndex($i) instanceof PHPExcel_Worksheet_Drawing) {
+            if ($this->getParentWriter()->getDrawingHashTable()->getByIndex($i) instanceof \PHPExcel\Worksheet\Drawing) {
                 $extension = strtolower($this->getParentWriter()->getDrawingHashTable()->getByIndex($i)->getExtension());
                 $mimeType = $this->getImageMimeType($this->getParentWriter()->getDrawingHashTable()->getByIndex($i)->getPath());
-            } elseif ($this->getParentWriter()->getDrawingHashTable()->getByIndex($i) instanceof PHPExcel_Worksheet_MemoryDrawing) {
+            } elseif ($this->getParentWriter()->getDrawingHashTable()->getByIndex($i) instanceof \PHPExcel\Worksheet\MemoryDrawing) {
                 $extension = strtolower($this->getParentWriter()->getDrawingHashTable()->getByIndex($i)->getMimeType());
                 $extension = explode('/', $extension);
                 $extension = $extension[1];
@@ -184,27 +185,27 @@ class PHPExcel_Writer_Excel2007_ContentTypes extends PHPExcel_Writer_Excel2007_W
      *
      * @param     string    $pFile    Filename
      * @return     string    Mime Type
-     * @throws     PHPExcel_Writer_Exception
+     * @throws     \PHPExcel\Writer\Exception
      */
     private function getImageMimeType($pFile = '')
     {
-        if (PHPExcel_Shared_File::file_exists($pFile)) {
+        if (\PHPExcel\Shared\File::file_exists($pFile)) {
             $image = getimagesize($pFile);
             return image_type_to_mime_type($image[2]);
         } else {
-            throw new PHPExcel_Writer_Exception("File $pFile does not exist");
+            throw new \PHPExcel\Writer\Exception("File $pFile does not exist");
         }
     }
 
     /**
      * Write Default content type
      *
-     * @param     PHPExcel_Shared_XMLWriter     $objWriter         XML Writer
+     * @param     \PHPExcel\Shared\XMLWriter     $objWriter         XML Writer
      * @param     string                         $pPartname         Part name
      * @param     string                         $pContentType     Content type
-     * @throws     PHPExcel_Writer_Exception
+     * @throws     \PHPExcel\Writer\Exception
      */
-    private function writeDefaultContentType(PHPExcel_Shared_XMLWriter $objWriter = null, $pPartname = '', $pContentType = '')
+    private function writeDefaultContentType(\PHPExcel\Shared\XMLWriter $objWriter = null, $pPartname = '', $pContentType = '')
     {
         if ($pPartname != '' && $pContentType != '') {
             // Write content type
@@ -213,19 +214,19 @@ class PHPExcel_Writer_Excel2007_ContentTypes extends PHPExcel_Writer_Excel2007_W
             $objWriter->writeAttribute('ContentType', $pContentType);
             $objWriter->endElement();
         } else {
-            throw new PHPExcel_Writer_Exception("Invalid parameters passed.");
+            throw new \PHPExcel\Writer\Exception("Invalid parameters passed.");
         }
     }
 
     /**
      * Write Override content type
      *
-     * @param     PHPExcel_Shared_XMLWriter     $objWriter         XML Writer
+     * @param     \PHPExcel\Shared\XMLWriter     $objWriter         XML Writer
      * @param     string                         $pPartname         Part name
      * @param     string                         $pContentType     Content type
-     * @throws     PHPExcel_Writer_Exception
+     * @throws     \PHPExcel\Writer\Exception
      */
-    private function writeOverrideContentType(PHPExcel_Shared_XMLWriter $objWriter = null, $pPartname = '', $pContentType = '')
+    private function writeOverrideContentType(\PHPExcel\Shared\XMLWriter $objWriter = null, $pPartname = '', $pContentType = '')
     {
         if ($pPartname != '' && $pContentType != '') {
             // Write content type
@@ -234,7 +235,7 @@ class PHPExcel_Writer_Excel2007_ContentTypes extends PHPExcel_Writer_Excel2007_W
             $objWriter->writeAttribute('ContentType', $pContentType);
             $objWriter->endElement();
         } else {
-            throw new PHPExcel_Writer_Exception("Invalid parameters passed.");
+            throw new \PHPExcel\Writer\Exception("Invalid parameters passed.");
         }
     }
 }

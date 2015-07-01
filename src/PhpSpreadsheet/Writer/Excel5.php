@@ -106,7 +106,7 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
      * Save PHPExcel to file
      *
      * @param    string        $pFilename
-     * @throws    PHPExcel_Writer_Exception
+     * @throws    \PHPExcel\Writer\Exception
      */
     public function save($pFilename = null)
     {
@@ -116,8 +116,8 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
 
         $saveDebugLog = PHPExcel_Calculation::getInstance($this->phpExcel)->getDebugLog()->getWriteDebugLog();
         PHPExcel_Calculation::getInstance($this->phpExcel)->getDebugLog()->setWriteDebugLog(false);
-        $saveDateReturnType = PHPExcel_Calculation_Functions::getReturnDateType();
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_EXCEL);
+        $saveDateReturnType = \PHPExcel\Calculation\Functions::getReturnDateType();
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_EXCEL);
 
         // initialize colors array
         $this->colors = array();
@@ -152,10 +152,10 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
             foreach ($this->writerWorksheets[$i]->phpSheet->getCellCollection() as $cellID) {
                 $cell = $this->writerWorksheets[$i]->phpSheet->getCell($cellID);
                 $cVal = $cell->getValue();
-                if ($cVal instanceof PHPExcel_RichText) {
+                if ($cVal instanceof \PHPExcel\RichText) {
                     $elements = $cVal->getRichTextElements();
                     foreach ($elements as $element) {
-                        if ($element instanceof PHPExcel_RichText_Run) {
+                        if ($element instanceof \PHPExcel\RichText\Run) {
                             $font = $element->getFont();
                             $this->writerWorksheets[$i]->fontHashIndex[$font->getHashCode()] = $this->writerWorkbook->addFont($font);
                         }
@@ -213,7 +213,7 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
         // save the OLE file
         $res = $root->save($pFilename);
 
-        PHPExcel_Calculation_Functions::setReturnDateType($saveDateReturnType);
+        \PHPExcel\Calculation\Functions::setReturnDateType($saveDateReturnType);
         PHPExcel_Calculation::getInstance($this->phpExcel)->getDebugLog()->setWriteDebugLog($saveDebugLog);
     }
 
@@ -222,7 +222,7 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
      *
      * @deprecated
      * @param    string    $pValue        Temporary storage directory
-     * @throws    PHPExcel_Writer_Exception    when directory does not exist
+     * @throws    \PHPExcel\Writer\Exception    when directory does not exist
      * @return PHPExcel_Writer_Excel5
      */
     public function setTempDir($pValue = '')
@@ -337,7 +337,7 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
                     ++$countShapes[$sheetIndex];
 
                     // create an Drawing Object for the dropdown
-                    $oDrawing  = new PHPExcel_Worksheet_BaseDrawing();
+                    $oDrawing  = new \PHPExcel\Worksheet\BaseDrawing();
                     // get the coordinates of drawing
                     $cDrawing   = PHPExcel_Cell::stringFromColumnIndex($iInc - 1) . $rangeBounds[0][1];
                     $oDrawing->setCoordinates($cDrawing);
@@ -458,7 +458,7 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
         // the BSE's (all the images)
         foreach ($this->phpExcel->getAllsheets() as $sheet) {
             foreach ($sheet->getDrawingCollection() as $drawing) {
-                if ($drawing instanceof PHPExcel_Worksheet_Drawing) {
+                if ($drawing instanceof \PHPExcel\Worksheet\Drawing) {
                     $filename = $drawing->getPath();
 
                     list($imagesx, $imagesy, $imageFormat) = getimagesize($filename);
@@ -482,7 +482,7 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
                         case 6: // Windows DIB (BMP), we convert to PNG
                             $blipType = PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE::BLIPTYPE_PNG;
                             ob_start();
-                            imagepng(PHPExcel_Shared_Drawing::imagecreatefrombmp($filename));
+                            imagepng(\PHPExcel\Shared\Drawing::imagecreatefrombmp($filename));
                             $blipData = ob_get_contents();
                             ob_end_clean();
                             break;
@@ -498,15 +498,15 @@ class PHPExcel_Writer_Excel5 extends PHPExcel_Writer_Abstract implements PHPExce
                     $BSE->setBlip($blip);
 
                     $bstoreContainer->addBSE($BSE);
-                } elseif ($drawing instanceof PHPExcel_Worksheet_MemoryDrawing) {
+                } elseif ($drawing instanceof \PHPExcel\Worksheet\MemoryDrawing) {
                     switch ($drawing->getRenderingFunction()) {
-                        case PHPExcel_Worksheet_MemoryDrawing::RENDERING_JPEG:
+                        case \PHPExcel\Worksheet\MemoryDrawing::RENDERING_JPEG:
                             $blipType = PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE::BLIPTYPE_JPEG;
                             $renderingFunction = 'imagejpeg';
                             break;
-                        case PHPExcel_Worksheet_MemoryDrawing::RENDERING_GIF:
-                        case PHPExcel_Worksheet_MemoryDrawing::RENDERING_PNG:
-                        case PHPExcel_Worksheet_MemoryDrawing::RENDERING_DEFAULT:
+                        case \PHPExcel\Worksheet\MemoryDrawing::RENDERING_GIF:
+                        case \PHPExcel\Worksheet\MemoryDrawing::RENDERING_PNG:
+                        case \PHPExcel\Worksheet\MemoryDrawing::RENDERING_DEFAULT:
                             $blipType = PHPExcel_Shared_Escher_DggContainer_BstoreContainer_BSE::BLIPTYPE_PNG;
                             $renderingFunction = 'imagepng';
                             break;

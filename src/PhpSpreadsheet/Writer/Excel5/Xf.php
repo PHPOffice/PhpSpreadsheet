@@ -127,9 +127,9 @@ class PHPExcel_Writer_Excel5_Xf
      * Constructor
      *
      * @access public
-     * @param PHPExcel_Style    The XF format
+     * @param \PHPExcel\Style    The XF format
      */
-    public function __construct(PHPExcel_Style $style = null)
+    public function __construct(\PHPExcel\Style $style = null)
     {
         $this->isStyleXf =     false;
         $this->fontIndex = 0;
@@ -228,10 +228,10 @@ class PHPExcel_Writer_Excel5_Xf
         $border1 |= $this->rightBorderColor   << 23;
 
         $diagonalDirection = $this->_style->getBorders()->getDiagonalDirection();
-        $diag_tl_to_rb = $diagonalDirection == PHPExcel_Style_Borders::DIAGONAL_BOTH
-                            || $diagonalDirection == PHPExcel_Style_Borders::DIAGONAL_DOWN;
-        $diag_tr_to_lb = $diagonalDirection == PHPExcel_Style_Borders::DIAGONAL_BOTH
-                            || $diagonalDirection == PHPExcel_Style_Borders::DIAGONAL_UP;
+        $diag_tl_to_rb = $diagonalDirection == \PHPExcel\Style\Borders::DIAGONAL_BOTH
+                            || $diagonalDirection == \PHPExcel\Style\Borders::DIAGONAL_DOWN;
+        $diag_tr_to_lb = $diagonalDirection == \PHPExcel\Style\Borders::DIAGONAL_BOTH
+                            || $diagonalDirection == \PHPExcel\Style\Borders::DIAGONAL_UP;
         $border1 |= $diag_tl_to_rb        << 30;
         $border1 |= $diag_tr_to_lb        << 31;
 
@@ -370,20 +370,20 @@ class PHPExcel_Writer_Excel5_Xf
      *
      */
     private static $mapBorderStyles = array(
-        PHPExcel_Style_Border::BORDER_NONE             => 0x00,
-        PHPExcel_Style_Border::BORDER_THIN             => 0x01,
-        PHPExcel_Style_Border::BORDER_MEDIUM           => 0x02,
-        PHPExcel_Style_Border::BORDER_DASHED           => 0x03,
-        PHPExcel_Style_Border::BORDER_DOTTED           => 0x04,
-        PHPExcel_Style_Border::BORDER_THICK            => 0x05,
-        PHPExcel_Style_Border::BORDER_DOUBLE           => 0x06,
-        PHPExcel_Style_Border::BORDER_HAIR             => 0x07,
-        PHPExcel_Style_Border::BORDER_MEDIUMDASHED     => 0x08,
-        PHPExcel_Style_Border::BORDER_DASHDOT          => 0x09,
-        PHPExcel_Style_Border::BORDER_MEDIUMDASHDOT    => 0x0A,
-        PHPExcel_Style_Border::BORDER_DASHDOTDOT       => 0x0B,
-        PHPExcel_Style_Border::BORDER_MEDIUMDASHDOTDOT => 0x0C,
-        PHPExcel_Style_Border::BORDER_SLANTDASHDOT     => 0x0D,
+        \PHPExcel\Style\Border::BORDER_NONE             => 0x00,
+        \PHPExcel\Style\Border::BORDER_THIN             => 0x01,
+        \PHPExcel\Style\Border::BORDER_MEDIUM           => 0x02,
+        \PHPExcel\Style\Border::BORDER_DASHED           => 0x03,
+        \PHPExcel\Style\Border::BORDER_DOTTED           => 0x04,
+        \PHPExcel\Style\Border::BORDER_THICK            => 0x05,
+        \PHPExcel\Style\Border::BORDER_DOUBLE           => 0x06,
+        \PHPExcel\Style\Border::BORDER_HAIR             => 0x07,
+        \PHPExcel\Style\Border::BORDER_MEDIUMDASHED     => 0x08,
+        \PHPExcel\Style\Border::BORDER_DASHDOT          => 0x09,
+        \PHPExcel\Style\Border::BORDER_MEDIUMDASHDOT    => 0x0A,
+        \PHPExcel\Style\Border::BORDER_DASHDOTDOT       => 0x0B,
+        \PHPExcel\Style\Border::BORDER_MEDIUMDASHDOTDOT => 0x0C,
+        \PHPExcel\Style\Border::BORDER_SLANTDASHDOT     => 0x0D,
     );
 
     /**
@@ -406,27 +406,27 @@ class PHPExcel_Writer_Excel5_Xf
      *
      */
     private static $mapFillTypes = array(
-        PHPExcel_Style_Fill::FILL_NONE                    => 0x00,
-        PHPExcel_Style_Fill::FILL_SOLID                   => 0x01,
-        PHPExcel_Style_Fill::FILL_PATTERN_MEDIUMGRAY      => 0x02,
-        PHPExcel_Style_Fill::FILL_PATTERN_DARKGRAY        => 0x03,
-        PHPExcel_Style_Fill::FILL_PATTERN_LIGHTGRAY       => 0x04,
-        PHPExcel_Style_Fill::FILL_PATTERN_DARKHORIZONTAL  => 0x05,
-        PHPExcel_Style_Fill::FILL_PATTERN_DARKVERTICAL    => 0x06,
-        PHPExcel_Style_Fill::FILL_PATTERN_DARKDOWN        => 0x07,
-        PHPExcel_Style_Fill::FILL_PATTERN_DARKUP          => 0x08,
-        PHPExcel_Style_Fill::FILL_PATTERN_DARKGRID        => 0x09,
-        PHPExcel_Style_Fill::FILL_PATTERN_DARKTRELLIS     => 0x0A,
-        PHPExcel_Style_Fill::FILL_PATTERN_LIGHTHORIZONTAL => 0x0B,
-        PHPExcel_Style_Fill::FILL_PATTERN_LIGHTVERTICAL   => 0x0C,
-        PHPExcel_Style_Fill::FILL_PATTERN_LIGHTDOWN       => 0x0D,
-        PHPExcel_Style_Fill::FILL_PATTERN_LIGHTUP         => 0x0E,
-        PHPExcel_Style_Fill::FILL_PATTERN_LIGHTGRID       => 0x0F,
-        PHPExcel_Style_Fill::FILL_PATTERN_LIGHTTRELLIS    => 0x10,
-        PHPExcel_Style_Fill::FILL_PATTERN_GRAY125         => 0x11,
-        PHPExcel_Style_Fill::FILL_PATTERN_GRAY0625        => 0x12,
-        PHPExcel_Style_Fill::FILL_GRADIENT_LINEAR         => 0x00,    // does not exist in BIFF8
-        PHPExcel_Style_Fill::FILL_GRADIENT_PATH           => 0x00,    // does not exist in BIFF8
+        \PHPExcel\Style\Fill::FILL_NONE                    => 0x00,
+        \PHPExcel\Style\Fill::FILL_SOLID                   => 0x01,
+        \PHPExcel\Style\Fill::FILL_PATTERN_MEDIUMGRAY      => 0x02,
+        \PHPExcel\Style\Fill::FILL_PATTERN_DARKGRAY        => 0x03,
+        \PHPExcel\Style\Fill::FILL_PATTERN_LIGHTGRAY       => 0x04,
+        \PHPExcel\Style\Fill::FILL_PATTERN_DARKHORIZONTAL  => 0x05,
+        \PHPExcel\Style\Fill::FILL_PATTERN_DARKVERTICAL    => 0x06,
+        \PHPExcel\Style\Fill::FILL_PATTERN_DARKDOWN        => 0x07,
+        \PHPExcel\Style\Fill::FILL_PATTERN_DARKUP          => 0x08,
+        \PHPExcel\Style\Fill::FILL_PATTERN_DARKGRID        => 0x09,
+        \PHPExcel\Style\Fill::FILL_PATTERN_DARKTRELLIS     => 0x0A,
+        \PHPExcel\Style\Fill::FILL_PATTERN_LIGHTHORIZONTAL => 0x0B,
+        \PHPExcel\Style\Fill::FILL_PATTERN_LIGHTVERTICAL   => 0x0C,
+        \PHPExcel\Style\Fill::FILL_PATTERN_LIGHTDOWN       => 0x0D,
+        \PHPExcel\Style\Fill::FILL_PATTERN_LIGHTUP         => 0x0E,
+        \PHPExcel\Style\Fill::FILL_PATTERN_LIGHTGRID       => 0x0F,
+        \PHPExcel\Style\Fill::FILL_PATTERN_LIGHTTRELLIS    => 0x10,
+        \PHPExcel\Style\Fill::FILL_PATTERN_GRAY125         => 0x11,
+        \PHPExcel\Style\Fill::FILL_PATTERN_GRAY0625        => 0x12,
+        \PHPExcel\Style\Fill::FILL_GRADIENT_LINEAR         => 0x00,    // does not exist in BIFF8
+        \PHPExcel\Style\Fill::FILL_GRADIENT_PATH           => 0x00,    // does not exist in BIFF8
     );
 
     /**
@@ -449,13 +449,13 @@ class PHPExcel_Writer_Excel5_Xf
      *
      */
     private static $mapHAlignments = array(
-        PHPExcel_Style_Alignment::HORIZONTAL_GENERAL           => 0,
-        PHPExcel_Style_Alignment::HORIZONTAL_LEFT              => 1,
-        PHPExcel_Style_Alignment::HORIZONTAL_CENTER            => 2,
-        PHPExcel_Style_Alignment::HORIZONTAL_RIGHT             => 3,
-        PHPExcel_Style_Alignment::HORIZONTAL_FILL              => 4,
-        PHPExcel_Style_Alignment::HORIZONTAL_JUSTIFY           => 5,
-        PHPExcel_Style_Alignment::HORIZONTAL_CENTER_CONTINUOUS => 6,
+        \PHPExcel\Style\Alignment::HORIZONTAL_GENERAL           => 0,
+        \PHPExcel\Style\Alignment::HORIZONTAL_LEFT              => 1,
+        \PHPExcel\Style\Alignment::HORIZONTAL_CENTER            => 2,
+        \PHPExcel\Style\Alignment::HORIZONTAL_RIGHT             => 3,
+        \PHPExcel\Style\Alignment::HORIZONTAL_FILL              => 4,
+        \PHPExcel\Style\Alignment::HORIZONTAL_JUSTIFY           => 5,
+        \PHPExcel\Style\Alignment::HORIZONTAL_CENTER_CONTINUOUS => 6,
     );
 
     /**
@@ -478,10 +478,10 @@ class PHPExcel_Writer_Excel5_Xf
      *
      */
     private static $mapVAlignments = array(
-        PHPExcel_Style_Alignment::VERTICAL_TOP     => 0,
-        PHPExcel_Style_Alignment::VERTICAL_CENTER  => 1,
-        PHPExcel_Style_Alignment::VERTICAL_BOTTOM  => 2,
-        PHPExcel_Style_Alignment::VERTICAL_JUSTIFY => 3,
+        \PHPExcel\Style\Alignment::VERTICAL_TOP     => 0,
+        \PHPExcel\Style\Alignment::VERTICAL_CENTER  => 1,
+        \PHPExcel\Style\Alignment::VERTICAL_BOTTOM  => 2,
+        \PHPExcel\Style\Alignment::VERTICAL_JUSTIFY => 3,
     );
 
     /**
@@ -524,11 +524,11 @@ class PHPExcel_Writer_Excel5_Xf
     private static function mapLocked($locked)
     {
         switch ($locked) {
-            case PHPExcel_Style_Protection::PROTECTION_INHERIT:
+            case \PHPExcel\Style\Protection::PROTECTION_INHERIT:
                 return 1;
-            case PHPExcel_Style_Protection::PROTECTION_PROTECTED:
+            case \PHPExcel\Style\Protection::PROTECTION_PROTECTED:
                 return 1;
-            case PHPExcel_Style_Protection::PROTECTION_UNPROTECTED:
+            case \PHPExcel\Style\Protection::PROTECTION_UNPROTECTED:
                 return 0;
             default:
                 return 1;
@@ -544,11 +544,11 @@ class PHPExcel_Writer_Excel5_Xf
     private static function mapHidden($hidden)
     {
         switch ($hidden) {
-            case PHPExcel_Style_Protection::PROTECTION_INHERIT:
+            case \PHPExcel\Style\Protection::PROTECTION_INHERIT:
                 return 0;
-            case PHPExcel_Style_Protection::PROTECTION_PROTECTED:
+            case \PHPExcel\Style\Protection::PROTECTION_PROTECTED:
                 return 1;
-            case PHPExcel_Style_Protection::PROTECTION_UNPROTECTED:
+            case \PHPExcel\Style\Protection::PROTECTION_UNPROTECTED:
                 return 0;
             default:
                 return 0;

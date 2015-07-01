@@ -52,7 +52,7 @@ class tcPDF extends Core implements \PHPExcel\Writer\IWriter
      *  Save Spreadsheet to file
      *
      *  @param     string     $pFilename   Name of the file to save as
-     *  @throws    PHPExcel_Writer_Exception
+     *  @throws    \PHPExcel\Writer\Exception
      */
     public function save($pFilename = null)
     {
@@ -64,19 +64,19 @@ class tcPDF extends Core implements \PHPExcel\Writer\IWriter
         //  Check for paper size and page orientation
         if (is_null($this->getSheetIndex())) {
             $orientation = ($this->phpExcel->getSheet(0)->getPageSetup()->getOrientation()
-                == PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
+                == \PHPExcel\Worksheet\PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
             $printPaperSize = $this->phpExcel->getSheet(0)->getPageSetup()->getPaperSize();
             $printMargins = $this->phpExcel->getSheet(0)->getPageMargins();
         } else {
             $orientation = ($this->phpExcel->getSheet($this->getSheetIndex())->getPageSetup()->getOrientation()
-                == PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
+                == \PHPExcel\Worksheet\PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
             $printPaperSize = $this->phpExcel->getSheet($this->getSheetIndex())->getPageSetup()->getPaperSize();
             $printMargins = $this->phpExcel->getSheet($this->getSheetIndex())->getPageMargins();
         }
 
         //  Override Page Orientation
         if (!is_null($this->getOrientation())) {
-            $orientation = ($this->getOrientation() == PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE)
+            $orientation = ($this->getOrientation() == \PHPExcel\Worksheet\PageSetup::ORIENTATION_LANDSCAPE)
                 ? 'L'
                 : 'P';
         }

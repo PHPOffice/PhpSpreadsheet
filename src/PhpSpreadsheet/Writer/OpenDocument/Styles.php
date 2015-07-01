@@ -32,9 +32,9 @@ class PHPExcel_Writer_OpenDocument_Styles extends PHPExcel_Writer_OpenDocument_W
      *
      * @param   PHPExcel                   $pPHPExcel
      * @return  string                     XML Output
-     * @throws  PHPExcel_Writer_Exception
+     * @throws  \PHPExcel\Writer\Exception
      */
-    public function write(PHPExcel $pPHPExcel = null)
+    public function write(\PHPExcel\SpreadSheet $pPHPExcel = null)
     {
         if (!$pPHPExcel) {
             $pPHPExcel = $this->getParentWriter()->getPHPExcel();

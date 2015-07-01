@@ -33,7 +33,7 @@ interface IWriter
      *  Save PHPExcel to file
      *
      *  @param   string       $pFilename  Name of the file to save
-     *  @throws  PHPExcel_Writer_Exception
+     *  @throws  \PHPExcel\Writer\Exception
      */
     public function save($pFilename = null);
 }

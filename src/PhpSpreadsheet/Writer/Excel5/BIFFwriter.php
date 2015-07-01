@@ -114,7 +114,7 @@ class PHPExcel_Writer_Excel5_BIFFwriter
                 $byte_order = 1;    // Big Endian
             } else {
                 // Give up. I'll fix this in a later version.
-                throw new PHPExcel_Writer_Exception("Required floating point format not supported on this platform.");
+                throw new \PHPExcel\Writer\Exception("Required floating point format not supported on this platform.");
             }
             self::$byteOrder = $byte_order;
         }

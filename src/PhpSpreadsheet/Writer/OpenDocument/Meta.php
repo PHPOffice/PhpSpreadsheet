@@ -32,9 +32,9 @@ class PHPExcel_Writer_OpenDocument_Meta extends PHPExcel_Writer_OpenDocument_Wri
      *
      * @param   PHPExcel                   $pPHPExcel
      * @return  string                     XML Output
-     * @throws  PHPExcel_Writer_Exception
+     * @throws  \PHPExcel\Writer\Exception
      */
-    public function write(PHPExcel $pPHPExcel = null)
+    public function write(\PHPExcel\SpreadSheet $pPHPExcel = null)
     {
         if (!$pPHPExcel) {
             $pPHPExcel = $this->getParentWriter()->getPHPExcel();
@@ -80,7 +80,7 @@ class PHPExcel_Writer_OpenDocument_Meta extends PHPExcel_Writer_OpenDocument_Wri
         $objWriter->writeAttribute('meta:name', 'Company');
         $objWriter->writeRaw($pPHPExcel->getProperties()->getCompany());
         $objWriter->endElement();
- 
+
         $objWriter->startElement('meta:user-defined');
         $objWriter->writeAttribute('meta:name', 'category');
         $objWriter->writeRaw($pPHPExcel->getProperties()->getCategory());

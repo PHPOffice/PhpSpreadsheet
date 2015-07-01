@@ -3,7 +3,7 @@
 namespace PHPExcel\Writer;
 
 /**
- * PHPExcel_Writer_Exception
+ * \PHPExcel\Writer\Exception
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
