@@ -1,7 +1,9 @@
 <?php
 
+namespace PHPExcel\Writer\Excel5;
+
 /**
- * PHPExcel_Writer_Excel5_Parser
+ * \PHPExcel\Writer\Excel5\Parser
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -49,7 +51,7 @@
 // *    License along with this library; if not, write to the Free Software
 // *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 // */
-class PHPExcel_Writer_Excel5_Parser
+class Parser
 {
     /**    Constants                */
     // Sheet title in unquoted form
@@ -571,7 +573,7 @@ class PHPExcel_Writer_Excel5_Parser
         if ((preg_match("/^\d+$/", $num)) and ($num <= 65535)) {
             return pack("Cv", $this->ptg['ptgInt'], $num);
         } else { // A float
-            if (PHPExcel_Writer_Excel5_BIFFwriter::getByteOrder()) { // if it's Big Endian
+            if (BIFFwriter::getByteOrder()) { // if it's Big Endian
                 $num = strrev($num);
             }
             return pack("Cd", $this->ptg['ptgNum'], $num);
@@ -593,7 +595,7 @@ class PHPExcel_Writer_Excel5_Parser
             throw new \PHPExcel\Writer\Exception("String is too long");
         }
 
-        return pack('C', $this->ptg['ptgStr']) . PHPExcel_Shared_String::UTF8toBIFF8UnicodeShort($string);
+        return pack('C', $this->ptg['ptgStr']) . \PHPExcel\Shared\String::UTF8toBIFF8UnicodeShort($string);
     }
 
     /**
@@ -899,7 +901,7 @@ class PHPExcel_Writer_Excel5_Parser
     /**
      * Look up the index that corresponds to an external sheet name. The hash of
      * sheet names is updated by the addworksheet() method of the
-     * PHPExcel_Writer_Excel5_Workbook class.
+     * \PHPExcel\Writer\Excel5\Workbook class.
      *
      * @access    private
      * @param    string    $sheet_name        Sheet name
@@ -917,10 +919,10 @@ class PHPExcel_Writer_Excel5_Parser
     /**
      * This method is used to update the array of sheet names. It is
      * called by the addWorksheet() method of the
-     * PHPExcel_Writer_Excel5_Workbook class.
+     * \PHPExcel\Writer\Excel5\Workbook class.
      *
      * @access public
-     * @see PHPExcel_Writer_Excel5_Workbook::addWorksheet()
+     * @see \PHPExcel\Writer\Excel5\Workbook::addWorksheet()
      * @param string  $name  The name of the worksheet being added
      * @param integer $index The index of the worksheet being added
      */

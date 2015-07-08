@@ -1,7 +1,9 @@
 <?php
 
+namespace PHPExcel\Writer\Excel5;
+
 /**
- * PHPExcel_Writer_Excel5_Workbook
+ * \PHPExcel\Writer\Excel5\Workbook
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -60,12 +62,12 @@
 // *    License along with this library; if not, write to the Free Software
 // *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 // */
-class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
+class Workbook extends BIFFwriter
 {
     /**
      * Formula parser
      *
-     * @var PHPExcel_Writer_Excel5_Parser
+     * @var \PHPExcel\Writer\Excel5\Parser
      */
     private $parser;
 
@@ -78,7 +80,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
 
     /**
      * XF Writers
-     * @var PHPExcel_Writer_Excel5_Xf[]
+     * @var \PHPExcel\Writer\Excel5\Xf[]
      */
     private $xfWriters = array();
 
@@ -109,7 +111,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
     /**
      * Fonts writers
      *
-     * @var PHPExcel_Writer_Excel5_Font[]
+     * @var \PHPExcel\Writer\Excel5\Font[]
      */
     private $fontWriters = array();
 
@@ -177,7 +179,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
     /**
      * Escher object corresponding to MSODRAWINGGROUP
      *
-     * @var PHPExcel_Shared_Escher
+     * @var \PHPExcel\Shared\Escher
      */
     private $escher;
 
@@ -192,7 +194,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
      * @param array        &$colors        Colour Table
      * @param mixed        $parser            The formula parser created for the Workbook
      */
-    public function __construct(PHPExcel $phpExcel = null, &$str_total, &$str_unique, &$str_table, &$colors, $parser)
+    public function __construct(\PHPExcel\Spreadsheet $phpExcel = null, &$str_total, &$str_unique, &$str_table, &$colors, $parser)
     {
         // It needs to call its parent's constructor explicitly
         parent::__construct();
@@ -236,13 +238,13 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
     /**
      * Add a new XF writer
      *
-     * @param PHPExcel_Style
+     * @param \PHPExcel\Style
      * @param boolean Is it a style XF?
      * @return int Index to XF record
      */
     public function addXfWriter($style, $isStyleXf = false)
     {
-        $xfWriter = new PHPExcel_Writer_Excel5_Xf($style);
+        $xfWriter = new Xf($style);
         $xfWriter->setIsStyleXf($isStyleXf);
 
         // Add the font if not already added
@@ -299,7 +301,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
             $countFonts = count($this->fontWriters);
             $fontIndex = ($countFonts < 4) ? $countFonts : $countFonts + 1;
 
-            $fontWriter = new PHPExcel_Writer_Excel5_Font($font);
+            $fontWriter = new \PHPExcel\Writer\Excel5\Font($font);
             $fontWriter->setColorIndex($this->addColor($font->getColor()->getRGB()));
             $this->fontWriters[] = $fontWriter;
 
@@ -478,7 +480,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
         // add size of Workbook globals part 2, the length of the SHEET records
         $total_worksheets = count($this->phpExcel->getAllSheets());
         foreach ($this->phpExcel->getWorksheetIterator() as $sheet) {
-            $offset += $boundsheet_length + strlen(PHPExcel_Shared_String::UTF8toBIFF8UnicodeShort($sheet->getTitle()));
+            $offset += $boundsheet_length + strlen(\PHPExcel\Shared\String::UTF8toBIFF8UnicodeShort($sheet->getTitle()));
         }
 
         // add the sizes of each of the Sheet substreams, respectively
@@ -557,15 +559,15 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
             // Write a Name record if the print area has been defined
             if ($sheetSetup->isPrintAreaSet()) {
                 // Print area
-                $printArea = PHPExcel_Cell::splitRange($sheetSetup->getPrintArea());
+                $printArea = \PHPExcel\Cell::splitRange($sheetSetup->getPrintArea());
                 $printArea = $printArea[0];
-                $printArea[0] = PHPExcel_Cell::coordinateFromString($printArea[0]);
-                $printArea[1] = PHPExcel_Cell::coordinateFromString($printArea[1]);
+                $printArea[0] = \PHPExcel\Cell::coordinateFromString($printArea[0]);
+                $printArea[1] = \PHPExcel\Cell::coordinateFromString($printArea[1]);
 
                 $print_rowmin = $printArea[0][1] - 1;
                 $print_rowmax = $printArea[1][1] - 1;
-                $print_colmin = PHPExcel_Cell::columnIndexFromString($printArea[0][0]) - 1;
-                $print_colmax = PHPExcel_Cell::columnIndexFromString($printArea[1][0]) - 1;
+                $print_colmin = \PHPExcel\Cell::columnIndexFromString($printArea[0][0]) - 1;
+                $print_colmax = \PHPExcel\Cell::columnIndexFromString($printArea[1][0]) - 1;
 
                 $this->writeNameShort(
                     $i, // sheet index
@@ -585,8 +587,8 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
             // simultaneous repeatColumns repeatRows
             if ($sheetSetup->isColumnsToRepeatAtLeftSet() && $sheetSetup->isRowsToRepeatAtTopSet()) {
                 $repeat = $sheetSetup->getColumnsToRepeatAtLeft();
-                $colmin = PHPExcel_Cell::columnIndexFromString($repeat[0]) - 1;
-                $colmax = PHPExcel_Cell::columnIndexFromString($repeat[1]) - 1;
+                $colmin = \PHPExcel\Cell::columnIndexFromString($repeat[0]) - 1;
+                $colmax = \PHPExcel\Cell::columnIndexFromString($repeat[1]) - 1;
 
                 $repeat = $sheetSetup->getRowsToRepeatAtTop();
                 $rowmin = $repeat[0] - 1;
@@ -606,8 +608,8 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
                 // Columns to repeat
                 if ($sheetSetup->isColumnsToRepeatAtLeftSet()) {
                     $repeat = $sheetSetup->getColumnsToRepeatAtLeft();
-                    $colmin = PHPExcel_Cell::columnIndexFromString($repeat[0]) - 1;
-                    $colmax = PHPExcel_Cell::columnIndexFromString($repeat[1]) - 1;
+                    $colmin = \PHPExcel\Cell::columnIndexFromString($repeat[0]) - 1;
+                    $colmax = \PHPExcel\Cell::columnIndexFromString($repeat[1]) - 1;
                 } else {
                     $colmin = 0;
                     $colmax = 255;
@@ -649,14 +651,14 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
             $namedRanges = $this->phpExcel->getNamedRanges();
             foreach ($namedRanges as $namedRange) {
                 // Create absolute coordinate
-                $range = PHPExcel_Cell::splitRange($namedRange->getRange());
+                $range = \PHPExcel\Cell::splitRange($namedRange->getRange());
                 for ($i = 0; $i < count($range); $i++) {
-                    $range[$i][0] = '\'' . str_replace("'", "''", $namedRange->getWorksheet()->getTitle()) . '\'!' . PHPExcel_Cell::absoluteCoordinate($range[$i][0]);
+                    $range[$i][0] = '\'' . str_replace("'", "''", $namedRange->getWorksheet()->getTitle()) . '\'!' . \PHPExcel\Cell::absoluteCoordinate($range[$i][0]);
                     if (isset($range[$i][1])) {
-                        $range[$i][1] = PHPExcel_Cell::absoluteCoordinate($range[$i][1]);
+                        $range[$i][1] = \PHPExcel\Cell::absoluteCoordinate($range[$i][1]);
                     }
                 }
-                $range = PHPExcel_Cell::buildRange($range); // e.g. Sheet1!$A$1:$B$2
+                $range = \PHPExcel\Cell::buildRange($range); // e.g. Sheet1!$A$1:$B$2
 
                 // parse formula
                 try {
@@ -677,7 +679,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
                     }
                     $chunk .= $this->writeData($this->writeDefinedNameBiff8($namedRange->getName(), $formulaData, $scope, false));
 
-                } catch (PHPExcel_Exception $e) {
+                } catch (\PHPExcel\Exception $e) {
                     // do nothing
                 }
             }
@@ -692,8 +694,8 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
             // simultaneous repeatColumns repeatRows
             if ($sheetSetup->isColumnsToRepeatAtLeftSet() && $sheetSetup->isRowsToRepeatAtTopSet()) {
                 $repeat = $sheetSetup->getColumnsToRepeatAtLeft();
-                $colmin = PHPExcel_Cell::columnIndexFromString($repeat[0]) - 1;
-                $colmax = PHPExcel_Cell::columnIndexFromString($repeat[1]) - 1;
+                $colmin = \PHPExcel\Cell::columnIndexFromString($repeat[0]) - 1;
+                $colmax = \PHPExcel\Cell::columnIndexFromString($repeat[1]) - 1;
 
                 $repeat = $sheetSetup->getRowsToRepeatAtTop();
                 $rowmin = $repeat[0] - 1;
@@ -713,8 +715,8 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
                 // Columns to repeat
                 if ($sheetSetup->isColumnsToRepeatAtLeftSet()) {
                     $repeat = $sheetSetup->getColumnsToRepeatAtLeft();
-                    $colmin = PHPExcel_Cell::columnIndexFromString($repeat[0]) - 1;
-                    $colmax = PHPExcel_Cell::columnIndexFromString($repeat[1]) - 1;
+                    $colmin = \PHPExcel\Cell::columnIndexFromString($repeat[0]) - 1;
+                    $colmax = \PHPExcel\Cell::columnIndexFromString($repeat[1]) - 1;
                 } else {
                     $colmin = 0;
                     $colmax = 255;
@@ -742,19 +744,19 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
             $sheetSetup = $this->phpExcel->getSheet($i)->getPageSetup();
             if ($sheetSetup->isPrintAreaSet()) {
                 // Print area, e.g. A3:J6,H1:X20
-                $printArea = PHPExcel_Cell::splitRange($sheetSetup->getPrintArea());
+                $printArea = \PHPExcel\Cell::splitRange($sheetSetup->getPrintArea());
                 $countPrintArea = count($printArea);
 
                 $formulaData = '';
                 for ($j = 0; $j < $countPrintArea; ++$j) {
                     $printAreaRect = $printArea[$j]; // e.g. A3:J6
-                    $printAreaRect[0] = PHPExcel_Cell::coordinateFromString($printAreaRect[0]);
-                    $printAreaRect[1] = PHPExcel_Cell::coordinateFromString($printAreaRect[1]);
+                    $printAreaRect[0] = \PHPExcel\Cell::coordinateFromString($printAreaRect[0]);
+                    $printAreaRect[1] = \PHPExcel\Cell::coordinateFromString($printAreaRect[1]);
 
                     $print_rowmin = $printAreaRect[0][1] - 1;
                     $print_rowmax = $printAreaRect[1][1] - 1;
-                    $print_colmin = PHPExcel_Cell::columnIndexFromString($printAreaRect[0][0]) - 1;
-                    $print_colmax = PHPExcel_Cell::columnIndexFromString($printAreaRect[1][0]) - 1;
+                    $print_colmin = \PHPExcel\Cell::columnIndexFromString($printAreaRect[0][0]) - 1;
+                    $print_colmax = \PHPExcel\Cell::columnIndexFromString($printAreaRect[1][0]) - 1;
 
                     // construct formula data manually because parser does not recognize absolute 3d cell references
                     $formulaData .= pack('Cvvvvv', 0x3B, $i, $print_rowmin, $print_rowmax, $print_colmin, $print_colmax);
@@ -774,7 +776,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
             $sheetAutoFilter = $this->phpExcel->getSheet($i)->getAutoFilter();
             $autoFilterRange = $sheetAutoFilter->getRange();
             if (!empty($autoFilterRange)) {
-                $rangeBounds = PHPExcel_Cell::rangeBoundaries($autoFilterRange);
+                $rangeBounds = \PHPExcel\Cell::rangeBoundaries($autoFilterRange);
 
                 //Autofilter built in name
                 $name = pack('C', 0x0D);
@@ -803,10 +805,10 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
         $options = $isBuiltIn ? 0x20 : 0x00;
 
         // length of the name, character count
-        $nlen = PHPExcel_Shared_String::CountCharacters($name);
+        $nlen = \PHPExcel\Shared\String::CountCharacters($name);
 
         // name with stripped length field
-        $name = substr(PHPExcel_Shared_String::UTF8toBIFF8UnicodeLong($name), 2);
+        $name = substr(\PHPExcel\Shared\String::UTF8toBIFF8UnicodeLong($name), 2);
 
         // size of the formula (in bytes)
         $sz = strlen($formulaData);
@@ -937,7 +939,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
         $grbit = 0x0000;                    // Visibility and sheet type
 
         $data = pack("VCC", $offset, $ss, $st);
-        $data .= PHPExcel_Shared_String::UTF8toBIFF8UnicodeShort($sheetname);
+        $data .= \PHPExcel\Shared\String::UTF8toBIFF8UnicodeShort($sheetname);
 
         $length = strlen($data);
         $header = pack("vv", $record, $length);
@@ -1004,7 +1006,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
     {
         $record = 0x041E;    // Record identifier
 
-        $numberFormatString = PHPExcel_Shared_String::UTF8toBIFF8UnicodeLong($format);
+        $numberFormatString = \PHPExcel\Shared\String::UTF8toBIFF8UnicodeLong($format);
         $length = 2 + strlen($numberFormatString);    // Number of bytes to follow
 
 
@@ -1021,7 +1023,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
         $record = 0x0022;   // Record identifier
         $length = 0x0002;   // Bytes to follow
 
-        $f1904  = (PHPExcel_Shared_Date::getExcelCalendar() == PHPExcel_Shared_Date::CALENDAR_MAC_1904)
+        $f1904  = (\PHPExcel\Shared\Date::getExcelCalendar() == \PHPExcel\Shared\Date::CALENDAR_MAC_1904)
             ? 1
             : 0;   // Flag for 1904 date system
 
@@ -1409,7 +1411,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
     {
         // write the Escher stream if necessary
         if (isset($this->escher)) {
-            $writer = new PHPExcel_Writer_Excel5_Escher($this->escher);
+            $writer = new \PHPExcel\Writer\Excel5\Escher($this->escher);
             $data = $writer->close();
 
             $record = 0x00EB;
@@ -1425,7 +1427,7 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
     /**
      * Get Escher object
      *
-     * @return PHPExcel_Shared_Escher
+     * @return \PHPExcel\Shared\Escher
      */
     public function getEscher()
     {
@@ -1435,9 +1437,9 @@ class PHPExcel_Writer_Excel5_Workbook extends PHPExcel_Writer_Excel5_BIFFwriter
     /**
      * Set Escher object
      *
-     * @param PHPExcel_Shared_Escher $pValue
+     * @param \PHPExcel\Shared\Escher $pValue
      */
-    public function setEscher(PHPExcel_Shared_Escher $pValue = null)
+    public function setEscher(\PHPExcel\Shared\Escher $pValue = null)
     {
         $this->escher = $pValue;
     }

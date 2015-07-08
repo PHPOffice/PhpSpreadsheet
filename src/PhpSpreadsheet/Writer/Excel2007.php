@@ -3,7 +3,7 @@
 namespace PHPExcel\Writer;
 
 /**
- * PHPExcel_Writer_Excel2007
+ * PHPExcel\Writer\Excel2007
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -27,19 +27,8 @@ namespace PHPExcel\Writer;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class Excel2007 implements IWriter
+class Excel2007 extends BaseWriter implements IWriter
 {
-    /**
-     * Pre-calculate formulas
-     * Forces PHPExcel to recalculate all formulae in a workbook when saving, so that the pre-calculated values are
-     *    immediately available to MS Excel or other office spreadsheet viewer when opening the file
-     *
-     * Overrides the default TRUE for this specific writer for performance reasons
-     *
-     * @var boolean
-     */
-    protected $preCalculateFormulas = false;
-
     /**
      * Office2003 compatibility
      *
@@ -118,7 +107,7 @@ class Excel2007 implements IWriter
     private $drawingHashTable;
 
     /**
-     * Create a new PHPExcel_Writer_Excel2007
+     * Create a new Excel2007 Writer
      *
      * @param \PHPExcel\SpreadSheet $pPHPExcel
      */
@@ -196,8 +185,8 @@ class Excel2007 implements IWriter
                 }
             }
 
-            $saveDebugLog = PHPExcel_Calculation::getInstance($this->spreadSheet)->getDebugLog()->getWriteDebugLog();
-            PHPExcel_Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog(false);
+            $saveDebugLog = \PHPExcel\Calculation::getInstance($this->spreadSheet)->getDebugLog()->getWriteDebugLog();
+            \PHPExcel\Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog(false);
             $saveDateReturnType = \PHPExcel\Calculation\Functions::getReturnDateType();
             \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_EXCEL);
 
@@ -386,7 +375,7 @@ class Excel2007 implements IWriter
             }
 
             \PHPExcel\Calculation\Functions::setReturnDateType($saveDateReturnType);
-            PHPExcel_Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
+            \PHPExcel\Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
 
             // Close file
             if ($objZip->close() === false) {

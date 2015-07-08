@@ -1,7 +1,9 @@
 <?php
 
+namespace PHPExcel\Writer\Excel5;
+
 /**
- * PHPExcel_Writer_Excel5_BIFFwriter
+ * \PHPExcel\Writer\Excel5\BIFFwriter
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -59,7 +61,7 @@
 // *    License along with this library; if not, write to the Free Software
 // *    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 // */
-class PHPExcel_Writer_Excel5_BIFFwriter
+class BIFFwriter
 {
     /**
      * The byte order of this architecture. 0 => little endian, 1 => big endian
