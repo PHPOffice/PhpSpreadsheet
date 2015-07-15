@@ -34,28 +34,28 @@ date_default_timezone_set('Europe/London');
 define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 /** Include PHPExcel */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
+require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 
 // Create new PHPExcel object
 echo date('H:i:s') , " Create new PHPExcel object" , EOL;
-$objPHPExcel = new PHPExcel();
+$objPHPExcel = new \PHPExcel\Spreadsheet();
 
 // Set document properties
 echo date('H:i:s') , " Set document properties" , EOL;
 $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
-							 ->setLastModifiedBy("Maarten Balliauw")
-							 ->setTitle("PHPExcel Test Document")
-							 ->setSubject("PHPExcel Test Document")
-							 ->setDescription("Test document for PHPExcel, generated using PHP classes.")
-							 ->setKeywords("office PHPExcel php")
-							 ->setCategory("Test result file");
+	->setLastModifiedBy("Maarten Balliauw")
+	->setTitle("PHPExcel Test Document")
+	->setSubject("PHPExcel Test Document")
+	->setDescription("Test document for PHPExcel, generated using PHP classes.")
+	->setKeywords("office PHPExcel php")
+	->setCategory("Test result file");
 
 
 // Add some data
 echo date('H:i:s') , " Add some data" , EOL;
 
-$html1='<font color="#0000ff">
+$html1 = '<font color="#0000ff">
 <h1 align="center">My very first example of rich text<br />generated from html markup</h1>
 <p>
 <font size="14" COLOR="rgb(0,255,128)">
@@ -64,11 +64,11 @@ while this block uses an <u>underline</u>.
 </font>
 </p>
 <p align="right"><font size="9" color="red">
-I want to eat <ins><del>healthy food</del><strong>pizza</strong></ins>.
+I want to eat <ins><del>healthy food</del> <strong>pizza</strong></ins>.
 </font>
 ';
 
-$html2='<p>
+$html2 = '<p>
 <font color="#ff0000">
     100&deg;C is a hot temperature
 </font>
@@ -78,43 +78,55 @@ $html2='<p>
 </font>
 </p>';
 
-$html3='2<sup>3</sup> equals 8';
+$html3 = '2<sup>3</sup> equals 8';
 
-$html4='H<sub>2</sub>SO<sub>4</sub> is the chemical formula for Sulphuric acid';
+$html4 = 'H<sub>2</sub>SO<sub>4</sub> is the chemical formula for Sulphuric acid';
 
+$html5 = '<strong>bold</strong>, <em>italic</em>, <strong><em>bold+italic</em></strong>';
 
-$wizard = new PHPExcel_Helper_HTML;
+$wizard = new \PHPExcel\Helper\HTML;
 $richText = $wizard->toRichTextObject($html1);
 
-$objPHPExcel->setActiveSheetIndex(0)
+$objPHPExcel->getActiveSheet()
     ->setCellValue('A1', $richText);
 
-$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(48);
-$objPHPExcel->getActiveSheet()->getRowDimension(1)->setRowHeight(-1);
+$objPHPExcel->getActiveSheet()
+    ->getColumnDimension('A')
+    ->setWidth(48);
+$objPHPExcel->getActiveSheet()
+    ->getRowDimension(1)
+    ->setRowHeight(-1);
 $objPHPExcel->getActiveSheet()->getStyle('A1')
     ->getAlignment()
     ->setWrapText(true);
 
 $richText = $wizard->toRichTextObject($html2);
 
-$objPHPExcel->setActiveSheetIndex(0)
+$objPHPExcel->getActiveSheet()
     ->setCellValue('A2', $richText);
 
-$objPHPExcel->getActiveSheet()->getRowDimension(1)->setRowHeight(-1);
-$objPHPExcel->getActiveSheet()->getStyle('A2')
+$objPHPExcel->getActiveSheet()
+    ->getRowDimension(1)
+    ->setRowHeight(-1);
+$objPHPExcel->getActiveSheet()
+    ->getStyle('A2')
     ->getAlignment()
     ->setWrapText(true);
 
 $objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue('A3', $wizard->toRichTextObject($html3));
+    ->setCellValue('A3', $wizard->toRichTextObject($html3));
 
 $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('A4', $wizard->toRichTextObject($html4));
 
+$objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('A5', $wizard->toRichTextObject($html5));
+
 
 // Rename worksheet
 echo date('H:i:s') , " Rename worksheet" , EOL;
-$objPHPExcel->getActiveSheet()->setTitle('Simple');
+$objPHPExcel->getActiveSheet()
+    ->setTitle('Rich Text Examples');
 
 
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
@@ -125,7 +137,7 @@ $objPHPExcel->setActiveSheetIndex(0);
 echo date('H:i:s') , " Write to Excel2007 format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;
@@ -140,7 +152,7 @@ echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 
 echo date('H:i:s') , " Write to Excel5 format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save(str_replace('.php', '.xls', __FILE__));
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;

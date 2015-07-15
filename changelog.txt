@@ -23,11 +23,11 @@
 **************************************************************************************
 
 
-Planned for 1.8.2
+Planned for 1.9
 - Bugfix:   (MBaker)                            - Fix to getCell() method when cell reference includes a worksheet reference
 - Bugfix:   (ncrypthic)       Work Item GH-570  - Ignore inlineStr type if formula element exists
+- Bugfix:   (MBaker)          Work Item GH-554  - Whitespace after toRichTextObject()
 - General:  (umpirsky)        Work Item GH-548  - Optimize vlookup() sort
-
 
 2015-04-30 (v1.8.1):
 - Bugfix:   (goncons)         Work Item GH-397  - Fix for Writing an Open Document cell with non-numeric formula
