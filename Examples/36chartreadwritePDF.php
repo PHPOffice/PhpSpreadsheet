@@ -69,7 +69,7 @@ if (!PHPExcel_Settings::setPdfRenderer(
 //	Change these values to select the Rendering library that you wish to use
 //		for Chart images, and its directory location on your server
 $rendererName = PHPExcel_Settings::CHART_RENDERER_JPGRAPH;
-$rendererLibrary = 'jpgraph3.5.0b1/src';
+$rendererLibrary = 'jpgraph3.5.0b1/src/';
 $rendererLibraryPath = '/php/libraries/Charts/' . $rendererLibrary;
 
 
