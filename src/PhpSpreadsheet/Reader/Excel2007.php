@@ -581,7 +581,11 @@ class Excel2007 extends BaseReader implements IReader
                                     }
                                 }
 
-                                if ((int)$xf["numFmtId"] < 164) {
+                                // We shouldn't override any of the built-in MS Excel values (values below id 164)
+                                //  But there's a lot of naughty homebrew xlsx writers that do use "reserved" id values that aren't actually used
+                                //  So we make allowance for them rather than lose formatting masks
+                                if ((int)$xf["numFmtId"] < 164 &&
+                                    \PHPExcel\Style\NumberFormat::builtInFormatCodeIndex((int)$xf["numFmtId"]) !== false) {
                                     $numFmt = \PHPExcel\Style\NumberFormat::builtInFormatCode((int)$xf["numFmtId"]);
                                 }
                             }
@@ -589,8 +593,6 @@ class Excel2007 extends BaseReader implements IReader
                             if (isset($xf["quotePrefix"])) {
                                 $quotePrefix = (boolean) $xf["quotePrefix"];
                             }
-                            //$numFmt = str_replace('mm', 'i', $numFmt);
-                            //$numFmt = str_replace('h', 'H', $numFmt);
 
                             $style = (object) array(
                                 "numFmt" => $numFmt,
