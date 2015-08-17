@@ -664,7 +664,7 @@ class DateTime
         }
 
         // Validate parameters
-        if ($startDate >= $endDate) {
+        if ($startDate > $endDate) {
             return Functions::NAN();
         }
 
