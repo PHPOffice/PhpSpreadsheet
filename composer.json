@@ -23,9 +23,9 @@
     ],
     "require": {
         "php": ">=5.4.0",
+        "ext-mbstring": "*",
         "ext-xml": "*",
         "ext-xmlwriter": "*",
-        "pclzip/pclzip": "2.8.2"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "2.*",
@@ -35,6 +35,7 @@
     "suggest": {
         "ext-zip": "*",
         "ext-gd2": "*",
+        "pclzip/pclzip": "2.8.2"
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
         "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
         "tecnick.com/tcpdf": "Option for rendering PDF with PDF Writer",
