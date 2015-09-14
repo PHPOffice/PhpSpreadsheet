@@ -102,6 +102,7 @@ $aTests = array(
 	, '40duplicateStyle.php'
 	, '41password.php'
 	, '42richText.php'
+    , '43mergeWorkbooks.php'
 	, 'OOCalcReader.php'
 	, 'OOCalcReaderPCLZip.php'
 	, 'SylkReader.php'
