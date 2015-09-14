@@ -1575,17 +1575,17 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
         $htmlBody = 'body { ';
 
         $left = PHPExcel_Shared_String::FormatNumber($pSheet->getPageMargins()->getLeft()) . 'in; ';
-        $htmlPage .= 'left-margin: ' . $left;
-        $htmlBody .= 'left-margin: ' . $left;
+        $htmlPage .= 'margin-left: ' . $left;
+        $htmlBody .= 'margin-left: ' . $left;
         $right = PHPExcel_Shared_String::FormatNumber($pSheet->getPageMargins()->getRight()) . 'in; ';
-        $htmlPage .= 'right-margin: ' . $right;
-        $htmlBody .= 'right-margin: ' . $right;
+        $htmlPage .= 'margin-right: ' . $right;
+        $htmlBody .= 'margin-right: ' . $right;
         $top = PHPExcel_Shared_String::FormatNumber($pSheet->getPageMargins()->getTop()) . 'in; ';
-        $htmlPage .= 'top-margin: ' . $top;
-        $htmlBody .= 'top-margin: ' . $top;
+        $htmlPage .= 'margin-top: ' . $top;
+        $htmlBody .= 'margin-top: ' . $top;
         $bottom = PHPExcel_Shared_String::FormatNumber($pSheet->getPageMargins()->getBottom()) . 'in; ';
-        $htmlPage .= 'bottom-margin: ' . $bottom;
-        $htmlBody .= 'bottom-margin: ' . $bottom;
+        $htmlPage .= 'margin-bottom: ' . $bottom;
+        $htmlBody .= 'margin-bottom: ' . $bottom;
 
         $htmlPage .= "}\n";
         $htmlBody .= "}\n";
