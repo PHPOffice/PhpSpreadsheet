@@ -35,7 +35,7 @@
     "suggest": {
         "ext-zip": "*",
         "ext-gd2": "*",
-        "pclzip/pclzip": "2.8.2"
+        "pclzip/pclzip": "2.8.2",
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
         "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
         "tecnick.com/tcpdf": "Option for rendering PDF with PDF Writer",
