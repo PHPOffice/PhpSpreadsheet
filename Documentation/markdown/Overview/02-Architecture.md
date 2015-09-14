@@ -10,7 +10,7 @@
 
 ### Lazy Loader
 
-PHPExcel implements an autoloader or "lazy loader"ù, which means that it is not necessary to include every file within PHPExcel. It is only necessary to include the initial PHPExcel class file, then the autoloader will include other class files as and when required, so only those files that are actually required by your script will be loaded into PHP memory. The main benefit of this is that it reduces the memory footprint of PHPExcel itself, so that it uses less PHP memory.
+PHPExcel implements an autoloader or "lazy loader"¬ù, which means that it is not necessary to include every file within PHPExcel. It is only necessary to include the initial PHPExcel class file, then the autoloader will include other class files as and when required, so only those files that are actually required by your script will be loaded into PHP memory. The main benefit of this is that it reduces the memory footprint of PHPExcel itself, so that it uses less PHP memory.
 
 If your own scripts already define an autoload function, then this may be overwritten by the PHPExcel autoload function. For example, if you have:
 ```php
@@ -40,7 +40,7 @@ Just like desktop spreadsheet software, PHPExcel represents a spreadsheet contai
 
 On its own, PHPExcel does not provide the functionality to read from or write to a persisted spreadsheet (on disk or in a database). To provide that functionality, readers and writers can be used.
 
-By default, the PHPExcel package provides some readers and writers, including one for the Open XML spreadsheet format (a.k.a. Excel 2007 file format). You are not limited to the default readers and writers, as you are free to implement the PHPExcel_Writer_IReader and PHPExcel_Writer_IWriter interface in a custom class.
+By default, the PHPExcel package provides some readers and writers, including one for the Open XML spreadsheet format (a.k.a. Excel 2007 file format). You are not limited to the default readers and writers, as you are free to implement the PHPExcel_Reader_IReader and PHPExcel_Writer_IWriter interface in a custom class.
 
 ![02-readers-writers.png](./images/02-readers-writers.png "")
 
