@@ -2547,7 +2547,7 @@ class Calculation
             return '"'.$value.'"';
         //    Convert numeric errors to NaN error
         } elseif ((is_float($value)) && ((is_nan($value)) || (is_infinite($value)))) {
-            return Calculation\Categories::NaN();
+            return Calculation\Functions::NaN();
         }
 
         return $value;
@@ -2568,7 +2568,7 @@ class Calculation
             }
         //    Convert numeric errors to NaN error
         } elseif ((is_float($value)) && ((is_nan($value)) || (is_infinite($value)))) {
-            return Calculation\Categories::NaN();
+            return Calculation\Functions::NaN();
         }
         return $value;
     }
@@ -2638,9 +2638,9 @@ class Calculation
 
         if ((is_array($result)) && (self::$returnArrayAsType != self::RETURN_ARRAY_AS_ARRAY)) {
             self::$returnArrayAsType = $returnArrayAsType;
-            $testResult = Calculation\Categories::flattenArray($result);
+            $testResult = Calculation\Functions::flattenArray($result);
             if (self::$returnArrayAsType == self::RETURN_ARRAY_AS_ERROR) {
-                return Calculation\Categories::VALUE();
+                return Calculation\Functions::VALUE();
             }
             //    If there's only a single cell in the array, then we allow it
             if (count($testResult) != 1) {
@@ -2648,13 +2648,13 @@ class Calculation
                 $r = array_keys($result);
                 $r = array_shift($r);
                 if (!is_numeric($r)) {
-                    return Calculation\Categories::VALUE();
+                    return Calculation\Functions::VALUE();
                 }
                 if (is_array($result[$r])) {
                     $c = array_keys($result[$r]);
                     $c = array_shift($c);
                     if (!is_numeric($c)) {
-                        return Calculation\Categories::VALUE();
+                        return Calculation\Functions::VALUE();
                     }
                 }
             }
@@ -2666,7 +2666,7 @@ class Calculation
         if ($result === null) {
             return 0;
         } elseif ((is_float($result)) && ((is_nan($result)) || (is_infinite($result)))) {
-            return Calculation\Categories::NaN();
+            return Calculation\Functions::NaN();
         }
         return $result;
     }
@@ -2713,10 +2713,16 @@ class Calculation
         $this->_debugLog->clearLog();
         $this->cyclicReferenceStack->clear();
 
-        //    Disable calculation cacheing because it only applies to cell calculations, not straight formulae
-        //    But don't actually flush any cache
-        $resetCache = $this->getCalculationCacheEnabled();
-        $this->calculationCacheEnabled = false;
+        if ($this->spreadsheet !== null && $cellID === null && $pCell === null) {
+            $cellID = 'A1';
+            $pCell = $this->spreadsheet->getActiveSheet()->getCell($cellID);
+        } else {
+            //    Disable calculation cacheing because it only applies to cell calculations, not straight formulae
+            //    But don't actually flush any cache
+            $resetCache = $this->getCalculationCacheEnabled();
+            $this->calculationCacheEnabled = false;
+        }
+
         //    Execute the calculation
         try {
             $result = self::unwrapResult($this->_calculateFormulaValue($formula, $cellID, $pCell));
@@ -2724,8 +2730,10 @@ class Calculation
             throw new Calculation\Exception($e->getMessage());
         }
 
-        //    Reset calculation cacheing to its previous state
-        $this->calculationCacheEnabled = $resetCache;
+        if ($this->spreadsheet === null) {
+            //    Reset calculation cacheing to its previous state
+            $this->calculationCacheEnabled = $resetCache;
+        }
 
         return $result;
     }
@@ -2984,7 +2992,7 @@ class Calculation
     private function showValue($value)
     {
         if ($this->_debugLog->getWriteDebugLog()) {
-            $testArray = Calculation\Categories::flattenArray($value);
+            $testArray = Calculation\Functions::flattenArray($value);
             if (count($testArray) == 1) {
                 $value = array_pop($testArray);
             }
@@ -3007,7 +3015,7 @@ class Calculation
                 return ($value) ? self::$localeBoolean['TRUE'] : self::$localeBoolean['FALSE'];
             }
         }
-        return Calculation\Categories::flattenSingleValue($value);
+        return Calculation\Functions::flattenSingleValue($value);
     }
 
 
@@ -3020,7 +3028,7 @@ class Calculation
     private function showTypeDetails($value)
     {
         if ($this->_debugLog->getWriteDebugLog()) {
-            $testArray = Calculation\Categories::flattenArray($value);
+            $testArray = Calculation\Functions::flattenArray($value);
             if (count($testArray) == 1) {
                 $value = array_pop($testArray);
             }
@@ -3610,7 +3618,7 @@ class Calculation
                             }
                             $stack->push('Cell Reference', $cellValue, $cellRef);
                         } else {
-                            $stack->push('Error', Calculation\Categories::REF(), null);
+                            $stack->push('Error', Calculation\Functions::REF(), null);
                         }
                         break;
                     case '+':            //    Addition
@@ -3712,7 +3720,7 @@ class Calculation
 //                    echo 'Reference is a Range of cells<br />';
                     if ($pCell === null) {
 //                        We can't access the range, so return a REF error
-                        $cellValue = Calculation\Categories::REF();
+                        $cellValue = Calculation\Functions::REF();
                     } else {
                         $cellRef = $matches[6].$matches[7].':'.$matches[9].$matches[10];
                         if ($matches[2] > '') {
@@ -3746,7 +3754,7 @@ class Calculation
 //                    echo 'Reference is a single Cell<br />';
                     if ($pCell === null) {
 //                        We can't access the cell, so return a REF error
-                        $cellValue = Calculation\Categories::REF();
+                        $cellValue = Calculation\Functions::REF();
                     } else {
                         $cellRef = $matches[6].$matches[7];
                         if ($matches[2] > '') {
@@ -3843,7 +3851,7 @@ class Calculation
                     if ($functionName != 'MKMATRIX') {
                         if ($this->_debugLog->getWriteDebugLog()) {
                             krsort($argArrayVals);
-                            $this->_debugLog->writeDebugLog('Evaluating ', self::localeFunc($functionName), '( ', implode(self::$localeArgumentSeparator.' ', Calculation\Categories::flattenArray($argArrayVals)), ' )');
+                            $this->_debugLog->writeDebugLog('Evaluating ', self::localeFunc($functionName), '( ', implode(self::$localeArgumentSeparator.' ', Calculation\Functions::flattenArray($argArrayVals)), ' )');
                         }
                     }
                     //    Process each argument in turn, building the return value as an array
@@ -3877,7 +3885,7 @@ class Calculation
                         $result = call_user_func_array(explode('::', $functionCall), $args);
                     } else {
                         foreach ($args as &$arg) {
-                            $arg = Calculation\Categories::flattenSingleValue($arg);
+                            $arg = Calculation\Functions::flattenSingleValue($arg);
                         }
                         unset($arg);
                         $result = call_user_func_array($functionCall, $args);
@@ -3921,7 +3929,7 @@ class Calculation
         $output = $output['value'];
 
 //        if ((is_array($output)) && (self::$returnArrayAsType != self::RETURN_ARRAY_AS_ARRAY)) {
-//            return array_shift(Calculation\Categories::flattenArray($output));
+//            return array_shift(Calculation\Functions::flattenArray($output));
 //        }
         return $output;
     }
@@ -4010,7 +4018,7 @@ class Calculation
         }
 
         // Use case insensitive comparaison if not OpenOffice mode
-        if (Calculation\Categories::getCompatibilityMode() != Calculation\Categories::COMPATIBILITY_OPENOFFICE) {
+        if (Calculation\Functions::getCompatibilityMode() != Calculation\Functions::COMPATIBILITY_OPENOFFICE) {
             if (is_string($operand1)) {
                 $operand1 = strtoupper($operand1);
             }
@@ -4019,7 +4027,7 @@ class Calculation
             }
         }
 
-        $useLowercaseFirstComparison = is_string($operand1) && is_string($operand2) && Calculation\Categories::getCompatibilityMode() == Calculation\Categories::COMPATIBILITY_OPENOFFICE;
+        $useLowercaseFirstComparison = is_string($operand1) && is_string($operand2) && Calculation\Functions::getCompatibilityMode() == Calculation\Functions::COMPATIBILITY_OPENOFFICE;
 
         //    execute the necessary operation
         switch ($operation) {
@@ -4126,10 +4134,10 @@ class Calculation
                 $result = '#VALUE!';
             }
         } else {
-            if ((Calculation\Categories::getCompatibilityMode() != Calculation\Categories::COMPATIBILITY_OPENOFFICE) &&
+            if ((Calculation\Functions::getCompatibilityMode() != Calculation\Functions::COMPATIBILITY_OPENOFFICE) &&
                 ((is_string($operand1) && !is_numeric($operand1) && strlen($operand1)>0) ||
                  (is_string($operand2) && !is_numeric($operand2) && strlen($operand2)>0))) {
-                $result = Calculation\Categories::VALUE();
+                $result = Calculation\Functions::VALUE();
             } else {
                 //    If we're dealing with non-matrix operations, execute the necessary operation
                 switch ($operation) {
@@ -4292,7 +4300,7 @@ class Calculation
 //                    }
 //                }
             } else {
-                return Calculation\Categories::REF();
+                return Calculation\Functions::REF();
             }
 
             // Extract range
