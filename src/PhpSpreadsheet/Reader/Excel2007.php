@@ -585,7 +585,7 @@ class Excel2007 extends BaseReader implements IReader
                                 //  But there's a lot of naughty homebrew xlsx writers that do use "reserved" id values that aren't actually used
                                 //  So we make allowance for them rather than lose formatting masks
                                 if ((int)$xf["numFmtId"] < 164 &&
-                                    \PHPExcel\Style\NumberFormat::builtInFormatCodeIndex((int)$xf["numFmtId"]) !== false) {
+                                    \PHPExcel\Style\NumberFormat::builtInFormatCode((int)$xf["numFmtId"]) !== '') {
                                     $numFmt = \PHPExcel\Style\NumberFormat::builtInFormatCode((int)$xf["numFmtId"]);
                                 }
                             }
