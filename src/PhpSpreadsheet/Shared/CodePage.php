@@ -118,18 +118,30 @@ class CodePage
                 return 'CP950';    //    Macintosh Chinese Traditional
             case 10003:
                 return 'CP1361';   //    Macintosh Korean
+            case 10004:	
+                return 'MACARABIC';  //	Apple Arabic
+            case 10005:
+                return 'MACHEBREW';		//	Apple Hebrew
             case 10006:
                 return 'MACGREEK';  //    Macintosh Greek
             case 10007:
                 return 'MACCYRILLIC';  //    Macintosh Cyrillic
             case 10008:
                 return 'CP936';  //    Macintosh - Simplified Chinese (GB 2312)
+            case 10010:
+                return 'MACROMANIA';	//	Macintosh Romania
+            case 10017:
+                return 'MACUKRAINE';	//	Macintosh Ukraine
+            case 10021:
+                return 'MACTHAI';	//	Macintosh Thai
             case 10029:
                 return 'MACCENTRALEUROPE';  //    Macintosh Central Europe
             case 10079:
                 return 'MACICELAND';  //    Macintosh Icelandic
             case 10081:
                 return 'MACTURKISH';  //    Macintosh Turkish
+            case 10082:
+                return 'MACCROATIAN';	//	Macintosh Croatian
             case 21010:
                 return 'UTF-16LE';  //    UTF-16 (BIFF8) This isn't correct, but some Excel writer libraries erroneously use Codepage 21010 for UTF-16LE
             case 32768:
