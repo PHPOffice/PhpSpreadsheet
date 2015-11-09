@@ -428,7 +428,7 @@ class Excel5 extends BaseReader implements IReader
             $ole = new \PhpSpreadsheet\Shared\OLERead();
 
             // get excel data
-            $res = $ole->read($pFilename);
+            $ole->read($pFilename);
 
             return true;
         } catch (\PhpSpreadsheet\Exception $e) {
@@ -1258,7 +1258,7 @@ class Excel5 extends BaseReader implements IReader
         // OLE reader
         $ole = new \PhpSpreadsheet\Shared\OLERead();
         // get excel data,
-        $res = $ole->read($pFilename);
+        $ole->read($pFilename);
         // Get workbook data: workbook stream + sheet streams
         $this->data = $ole->getStream($ole->wrkbook);
         // Get summary information data
