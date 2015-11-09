@@ -28,6 +28,7 @@ Planned for 1.9
 - Bugfix:   (ncrypthic)       Work Item GH-570  - Ignore inlineStr type if formula element exists
 - Bugfix:   (MBaker)          Work Item GH-554  - Whitespace after toRichTextObject()
 - General:  (umpirsky)        Work Item GH-548  - Optimize vlookup() sort
+- Feature:  (MBaker)                            - Initial implementation of SUMIFS() function
 
 2015-04-30 (v1.8.1):
 - Bugfix:   (goncons)         Work Item GH-397  - Fix for Writing an Open Document cell with non-numeric formula
@@ -68,7 +69,7 @@ Planned for 1.9
                                                   Reference CVE-2015-3542 - Identification of problem courtesy of Dawid Golunski (Pentest Ltd.)
 
 
-                                                  2014-03-02 (v1.8.0):
+2014-03-02 (v1.8.0):
 - Bugfix:   (MBaker)          Work item CP19830 - Undefined variable: fileHandle in CSV Reader
 - Bugfix:   (MBaker)          Work item CP19968 - Out of memory in style/supervisor.php
 - Bugfix:   (MBaker)                            - Style error with merged cells in PDF Writer

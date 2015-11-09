@@ -1807,8 +1807,8 @@ class Calculation
         ),
         'SUMIFS' => array(
             'category' => Calculation\Categories::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => 'Calculation\Categories::DUMMY',
-            'argumentCount' => '?'
+            'functionCall' => '\\PHPExcel\\Calculation\\MathTrig::SUMIFS',
+            'argumentCount' => '3+'
         ),
         'SUMPRODUCT' => array(
             'category' => Calculation\Categories::CATEGORY_MATH_AND_TRIG,

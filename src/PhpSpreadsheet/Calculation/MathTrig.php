@@ -1212,6 +1212,53 @@ class MathTrig
         return $returnValue;
     }
 
+ 	/**
+	 *	SUMIFS
+	 *
+	 *	Counts the number of cells that contain numbers within the list of arguments
+	 *
+	 *	Excel Function:
+	 *		SUMIFS(value1[,value2[, ...]],condition)
+	 *
+	 *	@access	public
+	 *	@category Mathematical and Trigonometric Functions
+	 *	@param	mixed		$arg,...		Data values
+	 *	@param	string		$condition		The criteria that defines which cells will be summed.
+	 *	@return	float
+	 */
+	public static function SUMIFS() {
+		$arrayList = func_get_args();
+
+		// Return value
+		$returnValue = 0;
+
+		$sumArgs = Functions::flattenArray(array_shift($arrayList));
+
+        while (count($arrayList) > 0) {
+            $aArgsArray[] = Functions::flattenArray(array_shift($arrayList));
+            $conditions[] = Functions::ifCondition(array_shift($arrayList));
+        }
+
+        // Loop through each set of arguments and conditions
+        foreach ($conditions as $index => $condition) {
+            $aArgs = $aArgsArray[$index];
+
+            // Loop through arguments
+            foreach ($aArgs as $key => $arg) {
+                if (!is_numeric($arg)) {
+                    $arg = \PHPExcel\Calculation::wrapResult(strtoupper($arg));
+                }
+                $testCondition = '='.$arg.$condition;
+                if (\PHPExcel\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+                    // Is it a value within our criteria
+                    $returnValue += $sumArgs[$key];
+                }
+            }
+        }
+
+		// Return
+		return $returnValue;
+	}
 
     /**
      * SUMPRODUCT
