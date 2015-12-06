@@ -89,7 +89,7 @@ class Rels extends WriterPart
         );
         // a custom UI in workbook ?
         if ($pPHPExcel->hasRibbon()) {
-            $this->_writeRelationShip(
+            $this->writeRelationShip(
                 $objWriter,
                 5,
                 'http://schemas.microsoft.com/office/2006/relationships/ui/extensibility',
@@ -163,7 +163,7 @@ class Rels extends WriterPart
         // Relationships for vbaProject if needed
         // id : just after the last sheet
         if ($pPHPExcel->hasMacros()) {
-            $this->_writeRelationShip(
+            $this->writeRelationShip(
                 $objWriter,
                 ($i + 1 + 3),
                 'http://schemas.microsoft.com/office/2006/relationships/vbaProject',

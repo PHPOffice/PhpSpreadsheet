@@ -66,7 +66,7 @@ class RowIterator implements \Iterator
      * @param    integer                $startRow   The row number at which to start iterating
      * @param    integer                $endRow     Optionally, the row number at which to stop iterating
      */
-    public function __construct(\PHPExcel\Worksheet $subject = null, $startRow = 1, $endRow = null)
+    public function __construct(\PHPExcel\Worksheet $subject, $startRow = 1, $endRow = null)
     {
         // Set subject
         $this->subject = $subject;
@@ -87,10 +87,18 @@ class RowIterator implements \Iterator
      *
      * @param integer    $startRow    The row number at which to start iterating
      * @return RowIterator
+     * @throws PHPExcel_Exception
      */
     public function resetStart($startRow = 1)
     {
+        if ($startRow > $this->subject->getHighestRow()) {
+            throw new PHPExcel_Exception("Start row ({$startRow}) is beyond highest row ({$this->subject->getHighestRow()})");
+        }
+
         $this->startRow = $startRow;
+        if ($this->endRow < $this->startRow) {
+            $this->endRow = $this->startRow;
+        }
         $this->seek($startRow);
 
         return $this;

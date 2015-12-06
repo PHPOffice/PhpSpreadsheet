@@ -28,6 +28,8 @@ namespace PHPExcel\Writer\Excel2007;
  */
 class Chart extends WriterPart
 {
+    protected $calculateCellValues;
+
     /**
      * Write charts to XML format
      *
@@ -36,8 +38,10 @@ class Chart extends WriterPart
      * @return  string            XML Output
      * @throws  \PHPExcel\Writer\Exception
      */
-    public function writeChart(PHPExcel_Chart $pChart = null)
+    public function writeChart(PHPExcel_Chart $pChart = null, $calculateCellValues = true)
     {
+        $this->calculateCellValues = $calculateCellValues;
+
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
@@ -46,7 +50,9 @@ class Chart extends WriterPart
             $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_MEMORY);
         }
         //    Ensure that data series values are up-to-date before we save
-        $pChart->refresh();
+        if ($this->calculateCellValues) {
+            $pChart->refresh();
+        }
 
         // XML header
         $objWriter->startDocument('1.0', 'UTF-8', 'yes');

@@ -66,7 +66,7 @@ class ColumnIterator implements \Iterator
      * @param    string                $startColumn   The column address at which to start iterating
      * @param    string                $endColumn     Optionally, the column address at which to stop iterating
      */
-    public function __construct(\PHPExcel\Worksheet $subject = null, $startColumn = 'A', $endColumn = null)
+    public function __construct(\PHPExcel\Worksheet $subject, $startColumn = 'A', $endColumn = null)
     {
         // Set subject
         $this->subject = $subject;
@@ -87,11 +87,19 @@ class ColumnIterator implements \Iterator
      *
      * @param integer    $startColumn    The column address at which to start iterating
      * @return ColumnIterator
+     * @throws PHPExcel_Exception
      */
     public function resetStart($startColumn = 'A')
     {
         $startColumnIndex = \PHPExcel\Cell::columnIndexFromString($startColumn) - 1;
+        if ($startColumnIndex > PHPExcel_Cell::columnIndexFromString($this->subject->getHighestColumn()) - 1) {
+            throw new PHPExcel_Exception("Start column ({$startColumn}) is beyond highest column ({$this->subject->getHighestColumn()})");
+        }
+
         $this->startColumn = $startColumnIndex;
+        if ($this->endColumn < $this->startColumn) {
+            $this->endColumn = $this->startColumn;
+        }
         $this->seek($startColumn);
 
         return $this;

@@ -360,7 +360,7 @@ class Spreadsheet
     public function __construct()
     {
         $this->uniqueID = uniqid();
-        $this->calculationEngine = Calculation::getInstance($this);
+        $this->calculationEngine = new Calculation($this);
 
         // Initialise worksheet collection and add one worksheet
         $this->workSheetCollection = array();
@@ -391,7 +391,7 @@ class Spreadsheet
      */
     public function __destruct()
     {
-        Calculation::unsetInstance($this);
+        $this->calculationEngine = null;
         $this->disconnectWorksheets();
     }
 

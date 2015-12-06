@@ -486,7 +486,7 @@ class HTML extends BaseReader implements IReader
         //    Create a new DOM object
         $dom = new domDocument;
         //    Reload the HTML file into the DOM object
-        $loaded = $dom->loadHTML($this->securityScanFile($pFilename));
+        $loaded = $dom->loadHTML(mb_convert_encoding($this->securityScanFile($pFilename), 'HTML-ENTITIES', 'UTF-8'));
         if ($loaded === false) {
             throw new Exception('Failed to load ', $pFilename, ' as a DOM Document');
         }

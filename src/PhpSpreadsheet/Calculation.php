@@ -203,10 +203,10 @@ class Calculation
     /**
      * Epsilon Precision used for comparisons in calculations
      *
-     * @var integer
+     * @var float
      *
      */
-    private $delta    = 0.0000000000001;
+    private $delta    = 0.1e-12;
 
 
     /**
@@ -1490,7 +1490,7 @@ class Calculation
         'OFFSET' => array(
             'category' => Calculation\Categories::CATEGORY_LOOKUP_AND_REFERENCE,
             'functionCall' => '\\PHPExcel\\Calculation\\LookupRef::OFFSET',
-            'argumentCount' => '3,5',
+            'argumentCount' => '3-5',
             'passCellReference' => true,
             'passByReference' => array(true)
         ),
@@ -2061,13 +2061,9 @@ class Calculation
     );
 
 
-    private function __construct(Spreadsheet $spreadsheet = null)
+    public function __construct(Spreadsheet $spreadsheet = null)
     {
         $this->delta = 1 * pow(10, 0 - ini_get('precision'));
-
-        if ($spreadsheet !== null) {
-            self::$spreadsheetSets[$spreadsheet->getID()] = $this;
-        }
 
         $this->spreadsheet = $spreadsheet;
         $this->cyclicReferenceStack = new CalcEngine\CyclicReferenceStack();
@@ -2097,10 +2093,10 @@ class Calculation
     public static function getInstance(Spreadsheet $spreadsheet = null)
     {
         if ($spreadsheet !== null) {
-            if (isset(self::$spreadsheetSets[$spreadsheet->getID()])) {
-                return self::$spreadsheetSets[$spreadsheet->getID()];
+            $instance = $workbook->getCalculationEngine();
+            if (isset($instance)) {
+                return $instance;
             }
-            return new Calculation($spreadsheet);
         }
 
         if (!isset(self::$instance) || (self::$instance === null)) {
@@ -2116,13 +2112,9 @@ class Calculation
      * @access    public
      * @param   Spreadsheet $spreadsheet  Injected spreadsheet identifying the instance to unset
      */
-    public static function unsetInstance(Spreadsheet $spreadsheet = null)
+    public function __destruct()
     {
-        if ($spreadsheet !== null) {
-            if (isset(self::$spreadsheetSets[$spreadsheet->getID()])) {
-                unset(self::$spreadsheetSets[$spreadsheet->getID()]);
-            }
-        }
+        $this->workbook = null;
     }
 
     /**

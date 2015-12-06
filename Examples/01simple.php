@@ -78,6 +78,21 @@ $objPHPExcel->getActiveSheet()
     ->setWrapText(true);
 
 
+$value = "-ValueA\n-Value B\n-Value C";
+$objPHPExcel->getActiveSheet()
+    ->setCellValue('A10', $value);
+$objPHPExcel->getActiveSheet()
+    ->getRowDimension(10)
+    ->setRowHeight(-1);
+$objPHPExcel->getActiveSheet()
+    ->getStyle('A10')
+    ->getAlignment()
+    ->setWrapText(true);
+$objPHPExcel->getActiveSheet()
+    ->getStyle('A10')
+    ->setQuotePrefix(true);
+
+
 // Rename worksheet
 echo date('H:i:s') , " Rename worksheet" , EOL;
 $objPHPExcel->getActiveSheet()

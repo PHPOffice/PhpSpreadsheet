@@ -863,10 +863,10 @@ class Worksheet implements IComparable
         $this->title = $pValue;
         $this->dirty = true;
 
-        if ($this->parent) {
+        if ($this->parent && $this->parent->getCalculationEngine()) {
             // New title
             $newTitle = $this->getTitle();
-            Calculation::getInstance($this->parent)
+            $this->parent->getCalculationEngine()
                 ->renameCalculationCacheForWorksheet($oldTitle, $newTitle);
             if ($updateFormulaCellReferences) {
                 ReferenceHelper::getInstance()->updateNamedFormulas($this->parent, $oldTitle, $newTitle);

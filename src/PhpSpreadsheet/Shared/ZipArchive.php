@@ -110,17 +110,19 @@ class ZipArchive
      */
     public function locateName($fileName)
     {
+        $fileName = strtolower($fileName);
+
         $list = $this->zip->listContent();
         $listCount = count($list);
-        $list_index = -1;
+        $index = -1;
         for ($i = 0; $i < $listCount; ++$i) {
             if (strtolower($list[$i]["filename"]) == strtolower($fileName) ||
                 strtolower($list[$i]["stored_filename"]) == strtolower($fileName)) {
-                $list_index = $i;
+                $index = $i;
                 break;
             }
         }
-        return ($list_index > -1);
+        return ($index > -1) ? $index : false;
     }
 
     /**
@@ -131,36 +133,32 @@ class ZipArchive
      */
     public function getFromName($fileName)
     {
-        $list = $this->zip->listContent();
-        $listCount = count($list);
-        $list_index = -1;
-        for ($i = 0; $i < $listCount; ++$i) {
-            if (strtolower($list[$i]["filename"]) == strtolower($fileName) ||
-                strtolower($list[$i]["stored_filename"]) == strtolower($fileName)) {
-                $list_index = $i;
-                break;
+        $index = $this->locateName($fileName);
+
+        if ($index !== false) {
+            $extracted = $this->getFromIndex($index);
+        } else {
+            $fileName = substr($fileName, 1);
+            $index = $this->locateName($fileName);
+            if ($index === false) {
+                return false;
             }
+            $extracted = $this->zip->getFromIndex($index);
         }
 
-        $extracted = "";
-        if ($list_index != -1) {
-            $extracted = $this->zip->extractByIndex($list_index, PCLZIP_OPT_EXTRACT_AS_STRING);
-        } else {
-            $filename = substr($fileName, 1);
-            $list_index = -1;
-            for ($i = 0; $i < $listCount; ++$i) {
-                if (strtolower($list[$i]["filename"]) == strtolower($fileName) ||
-                    strtolower($list[$i]["stored_filename"]) == strtolower($fileName)) {
-                    $list_index = $i;
-                    break;
-                }
-            }
-            $extracted = $this->zip->extractByIndex($list_index, PCLZIP_OPT_EXTRACT_AS_STRING);
-        }
+        $contents = $extracted;
         if ((is_array($extracted)) && ($extracted != 0)) {
             $contents = $extracted[0]["content"];
         }
 
         return $contents;
+    }
+
+    public function getFromIndex($index) {
+        $extracted = $this->zip->extractByIndex($index, PCLZIP_OPT_EXTRACT_AS_STRING);
+        $contents = '';
+        if ((is_array($extracted)) && ($extracted != 0)) {
+             $contents = $extracted[0]["content"];
+        }
     }
 }

@@ -2139,8 +2139,8 @@ class Financial
         if ((!is_array($values)) && (!is_array($dates))) {
             return Functions::VALUE();
         }
-        $values    = Functions::flattenArray($values);
-        $dates    = Functions::flattenArray($dates);
+        $values = Functions::flattenArray($values);
+        $dates = Functions::flattenArray($dates);
         $guess = Functions::flattenSingleValue($guess);
         if (count($values) != count($dates)) {
             return Functions::NaN();

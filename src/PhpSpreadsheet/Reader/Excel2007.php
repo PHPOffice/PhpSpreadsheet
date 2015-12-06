@@ -339,10 +339,17 @@ class Excel2007 extends BaseReader implements IReader
         }
         $fileName = \PHPExcel\Shared\File::realpath($fileName);
 
+        // Sadly, some 3rd party xlsx generators don't use consistent case for filenaming
+        //    so we need to load case-insensitively from the zip file
+
         // Apache POI fixes
-        $contents = $archive->getFromName($fileName);
+        $contents = $archive->getFromIndex(
+            $archive->locateName($fileName, ZIPARCHIVE::FL_NOCASE)
+        );
         if ($contents === false) {
-            $contents = $archive->getFromName(substr($fileName, 1));
+            $contents = $archive->getFromIndex(
+                $archive->locateName(substr($fileName, 1), ZIPARCHIVE::FL_NOCASE)
+            );
         }
 
         return $contents;

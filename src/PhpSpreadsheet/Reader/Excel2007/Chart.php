@@ -346,10 +346,6 @@ class Chart
             }
         }
 
-        if (empty($seriesVal)) {
-            $seriesVal = null;
-        }
-
         return array(
             'formatCode'    => $formatCode,
             'pointCount'    => $pointCount,

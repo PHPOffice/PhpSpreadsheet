@@ -1733,16 +1733,16 @@ class Excel5 extends BaseReader implements IReader
         if ($length != 54) {
             throw new Exception('Unexpected file pass record length');
         }
-        
+
         $recordData = $this->readRecordData($this->data, $this->pos + 4, $length);
-        
+
         // move stream pointer to next record
         $this->pos += 4 + $length;
-        
+
         if (!$this->verifyPassword('VelvetSweatshop', substr($recordData, 6, 16), substr($recordData, 22, 16), substr($recordData, 38, 16), $this->md5Ctxt)) {
             throw new Exception('Decryption password incorrect');
         }
-        
+
         $this->encryption = self::MS_BIFF_CRYPTO_RC4;
 
         // Decryption required from the record after next onwards
