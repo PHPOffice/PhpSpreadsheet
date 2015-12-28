@@ -398,7 +398,7 @@ class Worksheet implements IComparable
     public function getCellCacheController()
     {
         return $this->cellCollection;
-    }    //    function getCellCacheController()
+    }
 
 
     /**
@@ -729,8 +729,8 @@ class Worksheet implements IComparable
 
             // loop through all cells in the worksheet
             foreach ($this->getCellCollection(false) as $cellID) {
-                $cell = $this->getCell($cellID);
-                if (isset($autoSizes[$this->cellCollection->getCurrentColumn()])) {
+                $cell = $this->getCell($cellID, false);
+                if ($cell !== null && isset($autoSizes[$this->cellCollection->getCurrentColumn()])) {
                     // Determine width if cell does not participate in a merge
                     if (!isset($isMergeCell[$this->cellCollection->getCurrentAddress()])) {
                         // Calculated value
@@ -1139,10 +1139,12 @@ class Worksheet implements IComparable
      * Get cell at a specific coordinate
      *
      * @param string $pCoordinate    Coordinate of the cell
+     * @param boolean $createIfNotExists  Flag indicating whether a new cell should be created if it doesn't
+     *                                       already exist, or a null should be returned instead
      * @throws Exception
-     * @return Cell Cell that was found
+     * @return null|Cell Cell that was found/created or null
      */
-    public function getCell($pCoordinate = 'A1')
+    public function getCell($pCoordinate = 'A1', $createIfNotExists = true)
     {
         // Check cell collection
         if ($this->cellCollection->isDataSet(strtoupper($pCoordinate))) {
@@ -1152,7 +1154,7 @@ class Worksheet implements IComparable
         // Worksheet reference?
         if (strpos($pCoordinate, '!') !== false) {
             $worksheetReference = Worksheet::extractSheetTitle($pCoordinate, true);
-            return $this->parent->getSheetByName($worksheetReference[0])->getCell(strtoupper($worksheetReference[1]));
+            return $this->parent->getSheetByName($worksheetReference[0])->getCell(strtoupper($worksheetReference[1]), $createIfNotExists);
         }
 
         // Named range?
@@ -1161,7 +1163,7 @@ class Worksheet implements IComparable
             $namedRange = NamedRange::resolveRange($pCoordinate, $this);
             if ($namedRange !== null) {
                 $pCoordinate = $namedRange->getRange();
-                return $namedRange->getWorksheet()->getCell($pCoordinate);
+                return $namedRange->getWorksheet()->getCell($pCoordinate, $createIfNotExists);
             }
         }
 
@@ -1174,8 +1176,8 @@ class Worksheet implements IComparable
             throw new Exception('Cell coordinate must not be absolute.');
         }
 
-        // Create new cell object
-        return $this->createNewCell($pCoordinate);
+        // Create new cell object, if required
+        return $createIfNotExists ? $this->createNewCell($pCoordinate) : null;
     }
 
     /**
@@ -1183,9 +1185,11 @@ class Worksheet implements IComparable
      *
      * @param  string $pColumn Numeric column coordinate of the cell
      * @param string $pRow Numeric row coordinate of the cell
-     * @return Cell Cell that was found
+     * @param boolean $createIfNotExists  Flag indicating whether a new cell should be created if it doesn't
+     *                                       already exist, or a null should be returned instead
+     * @return null|Cell Cell that was found/created or null
      */
-    public function getCellByColumnAndRow($pColumn = 0, $pRow = 1)
+    public function getCellByColumnAndRow($pColumn = 0, $pRow = 1, $createIfNotExists = true)
     {
         $columnLetter = Cell::stringFromColumnIndex($pColumn);
         $coordinate = $columnLetter . $pRow;
@@ -1194,7 +1198,8 @@ class Worksheet implements IComparable
             return $this->cellCollection->getCacheData($coordinate);
         }
 
-        return $this->createNewCell($coordinate);
+        // Create new cell object, if required
+        return $createIfNotExists ? $this->createNewCell($coordinate) : null;
     }
 
     /**
@@ -1694,10 +1699,12 @@ class Worksheet implements IComparable
                 $this->getCell($upperLeft)->setValueExplicit(null, Cell\DataType::TYPE_NULL);
             }
 
-            // create or blank out the rest of the cells in the range
+            // Blank out the rest of the cells in the range (if they exist)
             $count = count($aReferences);
             for ($i = 1; $i < $count; $i++) {
-                $this->getCell($aReferences[$i])->setValueExplicit(null, Cell\DataType::TYPE_NULL);
+                if ($this->cellExists($aReferences[$i])) {
+                    $this->getCell($aReferences[$i])->setValueExplicit(null, Cell\DataType::TYPE_NULL);
+                }
             }
         } else {
             throw new Exception('Merge must be set on a range of cells.');
