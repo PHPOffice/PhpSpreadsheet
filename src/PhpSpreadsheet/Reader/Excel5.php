@@ -7745,284 +7745,40 @@ class Excel5 extends BaseReader implements IReader
      */
     private static function mapBuiltInColor($color)
     {
-        switch ($color) {
-            case 0x00:
-                return array('rgb' => '000000');
-            case 0x01:
-                return array('rgb' => 'FFFFFF');
-            case 0x02:
-                return array('rgb' => 'FF0000');
-            case 0x03:
-                return array('rgb' => '00FF00');
-            case 0x04:
-                return array('rgb' => '0000FF');
-            case 0x05:
-                return array('rgb' => 'FFFF00');
-            case 0x06:
-                return array('rgb' => 'FF00FF');
-            case 0x07:
-                return array('rgb' => '00FFFF');
-            case 0x40:
-                return array('rgb' => '000000'); // system window text color
-            case 0x41:
-                return array('rgb' => 'FFFFFF'); // system window background color
-            default:
-                return array('rgb' => '000000');
+        if (isset(Excel5\Color\BuiltIn::$map[$color])) {
+            return array('rgb' => Excel5\Color\BuiltIn::$map[$color]);
         }
+        return array('rgb' => '000000');
     }
 
 
     /**
      * Map color array from BIFF5 built-in color index
      *
-     * @param int $subData
+     * @param int $color
      * @return array
      */
-    private static function mapColorBIFF5($subData)
+    private static function mapColorBIFF5($color)
     {
-        switch ($subData) {
-            case 0x08:
-                return array('rgb' => '000000');
-            case 0x09:
-                return array('rgb' => 'FFFFFF');
-            case 0x0A:
-                return array('rgb' => 'FF0000');
-            case 0x0B:
-                return array('rgb' => '00FF00');
-            case 0x0C:
-                return array('rgb' => '0000FF');
-            case 0x0D:
-                return array('rgb' => 'FFFF00');
-            case 0x0E:
-                return array('rgb' => 'FF00FF');
-            case 0x0F:
-                return array('rgb' => '00FFFF');
-            case 0x10:
-                return array('rgb' => '800000');
-            case 0x11:
-                return array('rgb' => '008000');
-            case 0x12:
-                return array('rgb' => '000080');
-            case 0x13:
-                return array('rgb' => '808000');
-            case 0x14:
-                return array('rgb' => '800080');
-            case 0x15:
-                return array('rgb' => '008080');
-            case 0x16:
-                return array('rgb' => 'C0C0C0');
-            case 0x17:
-                return array('rgb' => '808080');
-            case 0x18:
-                return array('rgb' => '8080FF');
-            case 0x19:
-                return array('rgb' => '802060');
-            case 0x1A:
-                return array('rgb' => 'FFFFC0');
-            case 0x1B:
-                return array('rgb' => 'A0E0F0');
-            case 0x1C:
-                return array('rgb' => '600080');
-            case 0x1D:
-                return array('rgb' => 'FF8080');
-            case 0x1E:
-                return array('rgb' => '0080C0');
-            case 0x1F:
-                return array('rgb' => 'C0C0FF');
-            case 0x20:
-                return array('rgb' => '000080');
-            case 0x21:
-                return array('rgb' => 'FF00FF');
-            case 0x22:
-                return array('rgb' => 'FFFF00');
-            case 0x23:
-                return array('rgb' => '00FFFF');
-            case 0x24:
-                return array('rgb' => '800080');
-            case 0x25:
-                return array('rgb' => '800000');
-            case 0x26:
-                return array('rgb' => '008080');
-            case 0x27:
-                return array('rgb' => '0000FF');
-            case 0x28:
-                return array('rgb' => '00CFFF');
-            case 0x29:
-                return array('rgb' => '69FFFF');
-            case 0x2A:
-                return array('rgb' => 'E0FFE0');
-            case 0x2B:
-                return array('rgb' => 'FFFF80');
-            case 0x2C:
-                return array('rgb' => 'A6CAF0');
-            case 0x2D:
-                return array('rgb' => 'DD9CB3');
-            case 0x2E:
-                return array('rgb' => 'B38FEE');
-            case 0x2F:
-                return array('rgb' => 'E3E3E3');
-            case 0x30:
-                return array('rgb' => '2A6FF9');
-            case 0x31:
-                return array('rgb' => '3FB8CD');
-            case 0x32:
-                return array('rgb' => '488436');
-            case 0x33:
-                return array('rgb' => '958C41');
-            case 0x34:
-                return array('rgb' => '8E5E42');
-            case 0x35:
-                return array('rgb' => 'A0627A');
-            case 0x36:
-                return array('rgb' => '624FAC');
-            case 0x37:
-                return array('rgb' => '969696');
-            case 0x38:
-                return array('rgb' => '1D2FBE');
-            case 0x39:
-                return array('rgb' => '286676');
-            case 0x3A:
-                return array('rgb' => '004500');
-            case 0x3B:
-                return array('rgb' => '453E01');
-            case 0x3C:
-                return array('rgb' => '6A2813');
-            case 0x3D:
-                return array('rgb' => '85396A');
-            case 0x3E:
-                return array('rgb' => '4A3285');
-            case 0x3F:
-                return array('rgb' => '424242');
-            default:
-                return array('rgb' => '000000');
+        if (isset(Excel5\Color\BIFF5::$map[$color])) {
+            return array('rgb' => Excel5\Color\BIFF5::$map[$color]);
         }
+        return array('rgb' => '000000');
     }
 
 
     /**
      * Map color array from BIFF8 built-in color index
      *
-     * @param int $subData
+     * @param int $color
      * @return array
      */
-    private static function mapColor($subData)
+    private static function mapColor($color)
     {
-        switch ($subData) {
-            case 0x08:
-                return array('rgb' => '000000');
-            case 0x09:
-                return array('rgb' => 'FFFFFF');
-            case 0x0A:
-                return array('rgb' => 'FF0000');
-            case 0x0B:
-                return array('rgb' => '00FF00');
-            case 0x0C:
-                return array('rgb' => '0000FF');
-            case 0x0D:
-                return array('rgb' => 'FFFF00');
-            case 0x0E:
-                return array('rgb' => 'FF00FF');
-            case 0x0F:
-                return array('rgb' => '00FFFF');
-            case 0x10:
-                return array('rgb' => '800000');
-            case 0x11:
-                return array('rgb' => '008000');
-            case 0x12:
-                return array('rgb' => '000080');
-            case 0x13:
-                return array('rgb' => '808000');
-            case 0x14:
-                return array('rgb' => '800080');
-            case 0x15:
-                return array('rgb' => '008080');
-            case 0x16:
-                return array('rgb' => 'C0C0C0');
-            case 0x17:
-                return array('rgb' => '808080');
-            case 0x18:
-                return array('rgb' => '9999FF');
-            case 0x19:
-                return array('rgb' => '993366');
-            case 0x1A:
-                return array('rgb' => 'FFFFCC');
-            case 0x1B:
-                return array('rgb' => 'CCFFFF');
-            case 0x1C:
-                return array('rgb' => '660066');
-            case 0x1D:
-                return array('rgb' => 'FF8080');
-            case 0x1E:
-                return array('rgb' => '0066CC');
-            case 0x1F:
-                return array('rgb' => 'CCCCFF');
-            case 0x20:
-                return array('rgb' => '000080');
-            case 0x21:
-                return array('rgb' => 'FF00FF');
-            case 0x22:
-                return array('rgb' => 'FFFF00');
-            case 0x23:
-                return array('rgb' => '00FFFF');
-            case 0x24:
-                return array('rgb' => '800080');
-            case 0x25:
-                return array('rgb' => '800000');
-            case 0x26:
-                return array('rgb' => '008080');
-            case 0x27:
-                return array('rgb' => '0000FF');
-            case 0x28:
-                return array('rgb' => '00CCFF');
-            case 0x29:
-                return array('rgb' => 'CCFFFF');
-            case 0x2A:
-                return array('rgb' => 'CCFFCC');
-            case 0x2B:
-                return array('rgb' => 'FFFF99');
-            case 0x2C:
-                return array('rgb' => '99CCFF');
-            case 0x2D:
-                return array('rgb' => 'FF99CC');
-            case 0x2E:
-                return array('rgb' => 'CC99FF');
-            case 0x2F:
-                return array('rgb' => 'FFCC99');
-            case 0x30:
-                return array('rgb' => '3366FF');
-            case 0x31:
-                return array('rgb' => '33CCCC');
-            case 0x32:
-                return array('rgb' => '99CC00');
-            case 0x33:
-                return array('rgb' => 'FFCC00');
-            case 0x34:
-                return array('rgb' => 'FF9900');
-            case 0x35:
-                return array('rgb' => 'FF6600');
-            case 0x36:
-                return array('rgb' => '666699');
-            case 0x37:
-                return array('rgb' => '969696');
-            case 0x38:
-                return array('rgb' => '003366');
-            case 0x39:
-                return array('rgb' => '339966');
-            case 0x3A:
-                return array('rgb' => '003300');
-            case 0x3B:
-                return array('rgb' => '333300');
-            case 0x3C:
-                return array('rgb' => '993300');
-            case 0x3D:
-                return array('rgb' => '993366');
-            case 0x3E:
-                return array('rgb' => '333399');
-            case 0x3F:
-                return array('rgb' => '333333');
-            default:
-                return array('rgb' => '000000');
+        if (isset(Excel5\Color\BIFF8::$map[$color])) {
+            return array('rgb' => Excel5\Color\BIFF8::$map[$color]);
         }
+        return array('rgb' => '000000');
     }
 
     private function parseRichText($is = '')
