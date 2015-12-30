@@ -3672,6 +3672,7 @@ class Excel5 extends BaseReader implements IReader
         $column = self::getInt2d($recordData, 2);
         $columnString = \PHPExcel\Cell::stringFromColumnIndex($column);
 
+        $emptyCell = true;
         // Read cell?
         if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
             // offset: 4; size: 2; index to XF record
@@ -3712,14 +3713,20 @@ class Excel5 extends BaseReader implements IReader
                         }
                     }
                 }
-                $cell = $this->phpSheet->getCell($columnString . ($row + 1));
-                $cell->setValueExplicit($richText, \PHPExcel\Cell\DataType::TYPE_STRING);
+                if ($this->readEmptyCells || trim($richText->getPlainText()) !== '') {
+                    $cell = $this->phpSheet->getCell($columnString . ($row + 1));
+                    $cell->setValueExplicit($richText, \PHPExcel\Cell\DataType::TYPE_STRING);
+                    $emptyCell = false;
+                }
             } else {
-                $cell = $this->phpSheet->getCell($columnString . ($row + 1));
-                $cell->setValueExplicit($this->sst[$index]['value'], \PHPExcel\Cell\DataType::TYPE_STRING);
+                if ($this->readEmptyCells || trim($this->sst[$index]['value']) !== '') {
+                    $cell = $this->phpSheet->getCell($columnString . ($row + 1));
+                    $cell->setValueExplicit($this->sst[$index]['value'], \PHPExcel\Cell\DataType::TYPE_STRING);
+                    $emptyCell = false;
+                }
             }
 
-            if (!$this->readDataOnly) {
+            if (!$this->readDataOnly && !$emptyCell) {
                 // add style information
                 $cell->setXfIndex($this->mapCellXfIndex[$xfIndex]);
             }
@@ -4093,7 +4100,7 @@ class Excel5 extends BaseReader implements IReader
 
         // offset: 4; size: 2 x nc; list of indexes to XF records
         // add style information
-        if (!$this->readDataOnly) {
+        if (!$this->readDataOnly && $this->readEmptyCells) {
             for ($i = 0; $i < $length / 2 - 3; ++$i) {
                 $columnString = \PHPExcel\Cell::stringFromColumnIndex($fc + $i);
 
@@ -4148,12 +4155,14 @@ class Excel5 extends BaseReader implements IReader
                 $string = $this->readByteStringLong(substr($recordData, 6));
                 $value = $string['value'];
             }
-            $cell = $this->phpSheet->getCell($columnString . ($row + 1));
-            $cell->setValueExplicit($value, \PHPExcel\Cell\DataType::TYPE_STRING);
+            if ($this->readEmptyCells || trim($value) !== '') {
+                $cell = $this->phpSheet->getCell($columnString . ($row + 1));
+                $cell->setValueExplicit($value, \PHPExcel\Cell\DataType::TYPE_STRING);
 
-            if (!$this->readDataOnly) {
-                // add cell style
-                $cell->setXfIndex($this->mapCellXfIndex[$xfIndex]);
+                if (!$this->readDataOnly) {
+                    // add cell style
+                    $cell->setXfIndex($this->mapCellXfIndex[$xfIndex]);
+                }
             }
         }
     }
@@ -4183,11 +4192,10 @@ class Excel5 extends BaseReader implements IReader
             $xfIndex = self::getInt2d($recordData, 4);
 
             // add style information
-            if (!$this->readDataOnly) {
+            if (!$this->readDataOnly && $this->readEmptyCells) {
                 $this->phpSheet->getCell($columnString . ($row + 1))->setXfIndex($this->mapCellXfIndex[$xfIndex]);
             }
         }
-
     }
 
 
