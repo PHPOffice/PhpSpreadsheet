@@ -2,34 +2,9 @@
 
 namespace PHPExcel\Reader\Excel5\Color;
 
-/**
- * PHPExcel_Reader_Excel5_Color_BIFF5
- *
- * Copyright (c) 2006 - 2015 PHPExcel
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- *
- * @category   PHPExcel
- * @package    \PHPExcel\Reader\Excel5
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version    ##VERSION##, ##DATE##
- */
 class BIFF5
 {
-    public static $map = array(
+    protected static $map = array(
         0x08 => '000000',
         0x09 => 'FFFFFF',
         0x0A => 'FF0000',
@@ -87,4 +62,18 @@ class BIFF5
         0x3E => '4A3285',
         0x3F => '424242',
     );
+
+    /**
+     * Map color array from BIFF5 built-in color index
+     *
+     * @param int $color
+     * @return array
+     */
+    public static function lookup($color)
+    {
+        if (isset(self::$map[$color])) {
+            return array('rgb' => self::$map[$color]);
+        }
+        return array('rgb' => '000000');
+    }
 }
