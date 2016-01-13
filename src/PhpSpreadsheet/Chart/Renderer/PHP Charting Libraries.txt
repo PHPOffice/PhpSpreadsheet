@@ -15,3 +15,6 @@ pChart
 
 TeeChart
 	http://www.steema.com/products/teechart/overview.html
+
+PHPGraphLib
+    http://www.ebrueggeman.com/phpgraphlib

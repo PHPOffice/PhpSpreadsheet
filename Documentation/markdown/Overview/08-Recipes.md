@@ -103,13 +103,13 @@ This is regardless of which language version of Microsoft Office Excel may have 
 
 When the final workbook is opened by the user, Microsoft Office Excel will take care of displaying the formula according the applications language. Translation is taken care of by the application!
 
-The following line of code writes the formula '=IF(C4>500,"profit","loss")' into the cell B8. Note that the formula must start with "=" to make PHPExcel recognise this as a formula.
+The following line of code writes the formula '=IF(C4>500,"profit","loss")'Â into the cell B8. Note that the formula must start with "=" to make PHPExcel recognise this as a formula.
 
 ```php
 $objPHPExcel->getActiveSheet()->setCellValue('B8','=IF(C4>500,"profit","loss")');
 ```
 
-If you want to write a string beginning with an "=" character to a cell, then you should use the setCellValueExplicit() method.
+If you want to write a string beginning with an "="Â character to a cell, then you should use the setCellValueExplicit() method.
 
 ```php
 $objPHPExcel->getActiveSheet()
@@ -167,22 +167,22 @@ At present, the following locale settings are supported:
 
     Language             |                      | Locale Code
     ---------------------|----------------------|-------------
-    Czech                | Ceština              | cs
+    Czech                | CeÅ¡tina              | cs
     Danish               | Dansk                | da
     German               | Deutsch              | de
-    Spanish              | Español              | es
+    Spanish              | EspaÃ±ol              | es
     Finnish              | Suomi                | fi
-    French               | Français             | fr
+    French               | FranÃ§ais             | fr
     Hungarian            | Magyar               | hu
     Italian              | Italiano             | it
     Dutch                | Nederlands           | nl
     Norwegian            | Norsk                | no
     Polish               | Jezyk polski         | pl
-    Portuguese           | Português            | pt
-    Brazilian Portuguese | Português Brasileiro | pt_br
+    Portuguese           | PortuguÃªs            | pt
+    Brazilian Portuguese | PortuguÃªs Brasileiro | pt_br
     Russian              | ??????? ????         | ru
     Swedish              | Svenska              | sv
-    Turkish              | Türkçe               | tr
+    Turkish              | TÃ¼rkÃ§e               | tr
 
 ### Write a newline character "\n" in a cell (ALT+"Enter")
 
@@ -843,13 +843,15 @@ You can instruct PHPExcel to add a summary to the right (default), or to the lef
 $objPHPExcel->getActiveSheet()->setShowSummaryRight(false);
 ```
 
-### Setting a row''s height
+### Setting a row's height
 
 A row's height can be set using the following code:
 
 ```php
 $objPHPExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(100);
 ```
+
+Excel measures row height in points, where 1 pt is 1/72 of an inch (or about 0.35mm). The default value is 12.75 pts; and the permitted range of values is between 0 and 409 pts, where 0 pts is a hidden row.
 
 ### Show/hide a row
 
@@ -1059,7 +1061,7 @@ Sometimes, one really wants to output a file to a client''s browser, especially 
  2. Output HTTP headers for the type of document you wish to output
  3. Use the PHPExcel_Writer_* of your choice, and save to "php://output" 
 
-PHPExcel_Writer_Excel2007 uses temporary storage when writing to php://output. By default, temporary files are stored in the script's working directory. When there is no access, it falls back to the operating system's temporary files location.
+ÂPHPExcel_Writer_Excel2007 uses temporary storage when writing to php://output. By default, temporary files are stored in the script's working directory. When there is no access, it falls back to the operating system's temporary files location.
 
 __This may not be safe for unauthorized viewing!__ 
 Depending on the configuration of your operating system, temporary storage can be read by anyone using the same temporary storage folder. When confidentiality of your document is needed, it is recommended not to use php://output.
@@ -1146,7 +1148,7 @@ To set a worksheet's zoom level, the following code can be used:
 $objPHPExcel->getActiveSheet()->getSheetView()->setZoomScale(75);
 ```
 
-Note that zoom level should be in range 10 â€“ 400.
+Note that zoom level should be in range 10 Ã¢â‚¬â€œ 400.
 
 ### Sheet tab color
 
