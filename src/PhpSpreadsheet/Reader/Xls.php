@@ -1031,6 +1031,15 @@ class Xls extends BaseReader implements IReader
                             // picture
                             // get index to BSE entry (1-based)
                             $BSEindex = $spContainer->getOPT(0x0104);
+
+                            // If there is no BSE Index, we will fail here and other fields are not read.
+                            // Fix by checking here.
+                            // TODO: Why is there no BSE Index? Is this a new Office Version? Password protected field?
+                            // More likely : a uncompatible picture
+                            if (!$BSEindex) {
+                                continue;
+                            }
+
                             $BSECollection = $escherWorkbook->getDggContainer()->getBstoreContainer()->getBSECollection();
                             $BSE = $BSECollection[$BSEindex - 1];
                             $blipType = $BSE->getBlipType();
