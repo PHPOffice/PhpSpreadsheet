@@ -34,7 +34,7 @@
     },
     "suggest": {
         "ext-zip": "*",
-        "ext-gd2": "*",
+        "ext-gd": "*",
         "pclzip/pclzip": "2.8.2",
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
         "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
