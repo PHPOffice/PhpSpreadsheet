@@ -67,7 +67,7 @@ class Column
     /**
      * Get column index
      *
-     * @return int
+     * @return string
      */
     public function getColumnIndex()
     {
