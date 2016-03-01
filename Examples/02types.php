@@ -162,6 +162,15 @@ $objPHPExcel->getActiveSheet()
     ->getAlignment()->setWrapText(true);
 
 
+$objPHPExcel->getActiveSheet()->setCellValue('A17', 'Hyperlink');
+
+$objPHPExcel->getActiveSheet()->setCellValue('C17', 'www.phpexcel.net');
+$objPHPExcel->getActiveSheet()->getCell('C17')->getHyperlink()->setUrl('http://www.phpexcel.net');
+$objPHPExcel->getActiveSheet()->getCell('C17')->getHyperlink()->setTooltip('Navigate to website');
+
+$objPHPExcel->getActiveSheet()->setCellValue('C18', '=HYPERLINK("mailto:abc@def.com","abc@def.com")');
+
+
 $objPHPExcel->getActiveSheet()
     ->getColumnDimension('B')
     ->setAutoSize(true);
