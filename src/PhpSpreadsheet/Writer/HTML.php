@@ -655,6 +655,22 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
                         $imageData . '" border="0" />';
                     $html .= '</div>';
                 }
+            } elseif ($drawing instanceof \PHPExcel\Worksheet\MemoryDrawing) {
+                if ($drawing->getCoordinates() != $coordinates) {
+                    continue;
+                }
+                ob_start();                                //  Let's start output buffering.
+                imagepng($drawing->getImageResource());    //  This will normally output the image, but because of ob_start(), it won't.
+                $contents = ob_get_contents();             //  Instead, output above is saved to $contents
+                ob_end_clean();                            //  End the output buffer.
+
+                $dataUri = "data:image/jpeg;base64," . base64_encode($contents);
+
+                //  Because of the nature of tables, width is more important than height.
+                //  max-width: 100% ensures that image doesnt overflow containing cell
+                //  width: X sets width of supplied image.
+                //  As a result, images bigger than cell will be contained and images smaller will not get stretched
+                $html .= '<img src="'.$dataUri.'" style="max-width:100%;width:'.$drawing->getWidth().'px;" />';
             }
         }
 

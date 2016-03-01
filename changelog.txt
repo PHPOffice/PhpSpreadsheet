@@ -30,6 +30,8 @@ Planned for 1.9
 - General:  (umpirsky)        Work Item GH-548  - Optimize vlookup() sort
 - Feature:  (MBaker)                            - Initial implementation of SUMIFS() function
 - Feature:  (MBaker)                            - Additional codepages
+- Feature:  (Tomino2112)      Work Item GH-808  - MemoryDrawing not working in HTML writer
+
 
 2015-04-30 (v1.8.1):
 - Bugfix:   (goncons)         Work Item GH-397  - Fix for Writing an Open Document cell with non-numeric formula
