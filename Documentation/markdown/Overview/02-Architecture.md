@@ -5,12 +5,12 @@
 
 ### Schematical
 
-![01-schematic.png](./images/01-schematic.png "")
+![01-schematic.png](./images/01-schematic.png "Basic Architecture Schematic")
 
 
 ### Lazy Loader
 
-PHPExcel implements an autoloader or "lazy loader", which means that it is not necessary to include every file within PHPExcel. It is only necessary to include the initial PHPExcel class file, then the autoloader will include other class files as and when required, so only those files that are actually required by your script will be loaded into PHP memory. The main benefit of this is that it reduces the memory footprint of PHPExcel itself, so that it uses less PHP memory.
+PHPExcel implements an autoloader or "lazy loader", which means that it is not necessary to include every file within PHPExcel. It is only necessary to include the initial PHPExcel class file, then the autoloader will include other class files as and when required, so only those files that are actually required by your script will be loaded into PHP memory. The main benefit of this is that it reduces the memory footprint of PHPExcel itself, so that it uses less PHP memory.
 
 If your own scripts already define an autoload function, then this may be overwritten by the PHPExcel autoload function. For example, if you have:
 ```php
@@ -42,11 +42,12 @@ On its own, PHPExcel does not provide the functionality to read from or write to
 
 By default, the PHPExcel package provides some readers and writers, including one for the Open XML spreadsheet format (a.k.a. Excel 2007 file format). You are not limited to the default readers and writers, as you are free to implement the PHPExcel_Reader_IReader and PHPExcel_Writer_IWriter interface in a custom class.
 
-![02-readers-writers.png](./images/02-readers-writers.png "")
+![02-readers-writers.png](./images/02-readers-writers.png "Readers/Writers")
 
 ### Fluent interfaces
 
-PHPExcel supports fluent interfaces in most locations. This means that you can easily "chain"" calls to specific methods without requiring a new PHP statement. For example, take the following code:
+PHPExcel supports fluent interfaces in most locations. This means that you can easily "chain" calls to specific methods without requiring a new PHP statement. For example, take the following code:
+
 ```php
 $objPHPExcel->getProperties()->setCreator("Maarten Balliauw");
 $objPHPExcel->getProperties()->setLastModifiedBy("Maarten Balliauw");
@@ -56,7 +57,9 @@ $objPHPExcel->getProperties()->setDescription("Test document for Office 2007 XLS
 $objPHPExcel->getProperties()->setKeywords("office 2007 openxml php");
 $objPHPExcel->getProperties()->setCategory("Test result file");
 ```
+
 This can be rewritten as:
+
 ```php
 $objPHPExcel->getProperties()
     ->setCreator("Maarten Balliauw")
