@@ -151,6 +151,23 @@ class CSV extends BaseReader implements IReader
     }
 
     /**
+     * Identify any separator that is explicitly set in the file
+     *
+     */
+    protected function checkSeparator()
+    {
+        $line = fgets($this->fileHandle);
+        if ($line === false) {
+            return;
+        }
+
+        if ((strlen(trim($line)) == 5) && (strpos($line, 'sep=') !== 0)) {
+            return $this->skipBOM();
+        }
+        $this->delimiter = substr($line, 4, 1);
+    }
+
+    /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns)
      *
      * @param     string         $pFilename
@@ -168,6 +185,7 @@ class CSV extends BaseReader implements IReader
 
         // Skip BOM, if any
         $this->skipBOM();
+        $this->checkSeparator();
 
         $escapeEnclosures = array( "\\" . $this->enclosure, $this->enclosure . $this->enclosure );
 
@@ -232,6 +250,7 @@ class CSV extends BaseReader implements IReader
 
         // Skip BOM, if any
         $this->skipBOM();
+        $this->checkSeparator();
 
         // Create new PHPExcel object
         while ($objPHPExcel->getSheetCount() <= $this->sheetIndex) {
