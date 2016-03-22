@@ -1,4 +1,7 @@
 <?php
+
+namespace PHPExcel\Writer\OpenDocument\Cell;
+
 /**
  * PHPExcel
  *
@@ -34,7 +37,7 @@
  * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @author     Alexander Pervakov <frost-nzcr4@jagmort.com>
  */
-class PHPExcel_Writer_OpenDocument_Cell_Comment
+class Comment
 {
     public static function write(PHPExcel_Shared_XMLWriter $objWriter, PHPExcel_Cell $cell)
     {

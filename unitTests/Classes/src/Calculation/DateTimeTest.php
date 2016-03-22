@@ -1,19 +1,13 @@
 <?php
 
+namespace PHPExcel\Calculation;
 
-require_once 'testDataFileIterator.php';
-
-class DateTimeTest extends PHPUnit_Framework_TestCase
+class DateTimeTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()
     {
-        if (!defined('PHPEXCEL_ROOT')) {
-            define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
-        }
-        require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
-
-        PHPExcel_Calculation_Functions::setCompatibilityMode(PHPExcel_Calculation_Functions::COMPATIBILITY_EXCEL);
+        \PHPExcel\Calculation\Functions::setCompatibilityMode(\PHPExcel\Calculation\Functions::COMPATIBILITY_EXCEL);
     }
 
     /**
@@ -23,28 +17,28 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_DateTime', 'DATE'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\DateTime', 'DATE'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerDATE()
     {
-        return new testDataFileIterator('rawTestData/Calculation/DateTime/DATE.data');
+        return new \testDataFileIterator('rawTestData/Calculation/DateTime/DATE.data');
     }
 
     public function testDATEtoPHP()
     {
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_PHP_NUMERIC);
-        $result = PHPExcel_Calculation_DateTime::DATE(2012, 1, 31);
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_EXCEL);
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_PHP_NUMERIC);
+        $result = \PHPExcel\Calculation\DateTime::DATE(2012, 1, 31);
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_EXCEL);
         $this->assertEquals(1327968000, $result, null, 1E-8);
     }
 
     public function testDATEtoPHPObject()
     {
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_PHP_OBJECT);
-        $result = PHPExcel_Calculation_DateTime::DATE(2012, 1, 31);
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_EXCEL);
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_PHP_OBJECT);
+        $result = \PHPExcel\Calculation\DateTime::DATE(2012, 1, 31);
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_EXCEL);
         //    Must return an object...
         $this->assertTrue(is_object($result));
         //    ... of the correct type
@@ -55,17 +49,17 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
 
     public function testDATEwith1904Calendar()
     {
-        PHPExcel_Shared_Date::setExcelCalendar(PHPExcel_Shared_Date::CALENDAR_MAC_1904);
-        $result = PHPExcel_Calculation_DateTime::DATE(1918, 11, 11);
-        PHPExcel_Shared_Date::setExcelCalendar(PHPExcel_Shared_Date::CALENDAR_WINDOWS_1900);
+        \PHPExcel\Shared\Date::setExcelCalendar(\PHPExcel\Shared\Date::CALENDAR_MAC_1904);
+        $result = \PHPExcel\Calculation\DateTime::DATE(1918, 11, 11);
+        \PHPExcel\Shared\Date::setExcelCalendar(\PHPExcel\Shared\Date::CALENDAR_WINDOWS_1900);
         $this->assertEquals($result, 5428);
     }
 
     public function testDATEwith1904CalendarError()
     {
-        PHPExcel_Shared_Date::setExcelCalendar(PHPExcel_Shared_Date::CALENDAR_MAC_1904);
-        $result = PHPExcel_Calculation_DateTime::DATE(1901, 1, 31);
-        PHPExcel_Shared_Date::setExcelCalendar(PHPExcel_Shared_Date::CALENDAR_WINDOWS_1900);
+        \PHPExcel\Shared\Date::setExcelCalendar(\PHPExcel\Shared\Date::CALENDAR_MAC_1904);
+        $result = \PHPExcel\Calculation\DateTime::DATE(1901, 1, 31);
+        \PHPExcel\Shared\Date::setExcelCalendar(\PHPExcel\Shared\Date::CALENDAR_WINDOWS_1900);
         $this->assertEquals($result, '#NUM!');
     }
 
@@ -76,28 +70,28 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_DateTime', 'DATEVALUE'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\DateTime', 'DATEVALUE'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerDATEVALUE()
     {
-        return new testDataFileIterator('rawTestData/Calculation/DateTime/DATEVALUE.data');
+        return new \testDataFileIterator('rawTestData/Calculation/DateTime/DATEVALUE.data');
     }
 
     public function testDATEVALUEtoPHP()
     {
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_PHP_NUMERIC);
-        $result = PHPExcel_Calculation_DateTime::DATEVALUE('2012-1-31');
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_EXCEL);
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_PHP_NUMERIC);
+        $result = \PHPExcel\Calculation\DateTime::DATEVALUE('2012-1-31');
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_EXCEL);
         $this->assertEquals(1327968000, $result, null, 1E-8);
     }
 
     public function testDATEVALUEtoPHPObject()
     {
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_PHP_OBJECT);
-        $result = PHPExcel_Calculation_DateTime::DATEVALUE('2012-1-31');
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_EXCEL);
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_PHP_OBJECT);
+        $result = \PHPExcel\Calculation\DateTime::DATEVALUE('2012-1-31');
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_EXCEL);
         //    Must return an object...
         $this->assertTrue(is_object($result));
         //    ... of the correct type
@@ -113,13 +107,13 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_DateTime', 'YEAR'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\DateTime', 'YEAR'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerYEAR()
     {
-        return new testDataFileIterator('rawTestData/Calculation/DateTime/YEAR.data');
+        return new \testDataFileIterator('rawTestData/Calculation/DateTime/YEAR.data');
     }
 
     /**
@@ -129,13 +123,13 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_DateTime', 'MONTHOFYEAR'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\DateTime', 'MONTHOFYEAR'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerMONTH()
     {
-        return new testDataFileIterator('rawTestData/Calculation/DateTime/MONTH.data');
+        return new \testDataFileIterator('rawTestData/Calculation/DateTime/MONTH.data');
     }
 
     /**
@@ -145,13 +139,13 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_DateTime', 'WEEKOFYEAR'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\DateTime', 'WEEKOFYEAR'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerWEEKNUM()
     {
-        return new testDataFileIterator('rawTestData/Calculation/DateTime/WEEKNUM.data');
+        return new \testDataFileIterator('rawTestData/Calculation/DateTime/WEEKNUM.data');
     }
 
     /**
@@ -161,13 +155,13 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_DateTime', 'DAYOFWEEK'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\DateTime', 'DAYOFWEEK'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerWEEKDAY()
     {
-        return new testDataFileIterator('rawTestData/Calculation/DateTime/WEEKDAY.data');
+        return new \testDataFileIterator('rawTestData/Calculation/DateTime/WEEKDAY.data');
     }
 
     /**
@@ -177,13 +171,13 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_DateTime', 'DAYOFMONTH'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\DateTime', 'DAYOFMONTH'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerDAY()
     {
-        return new testDataFileIterator('rawTestData/Calculation/DateTime/DAY.data');
+        return new \testDataFileIterator('rawTestData/Calculation/DateTime/DAY.data');
     }
 
     /**
@@ -193,28 +187,28 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_DateTime', 'TIME'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\DateTime', 'TIME'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerTIME()
     {
-        return new testDataFileIterator('rawTestData/Calculation/DateTime/TIME.data');
+        return new \testDataFileIterator('rawTestData/Calculation/DateTime/TIME.data');
     }
 
     public function testTIMEtoPHP()
     {
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_PHP_NUMERIC);
-        $result = PHPExcel_Calculation_DateTime::TIME(7, 30, 20);
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_EXCEL);
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_PHP_NUMERIC);
+        $result = \PHPExcel\Calculation\DateTime::TIME(7, 30, 20);
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_EXCEL);
         $this->assertEquals(27020, $result, null, 1E-8);
     }
 
     public function testTIMEtoPHPObject()
     {
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_PHP_OBJECT);
-        $result = PHPExcel_Calculation_DateTime::TIME(7, 30, 20);
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_EXCEL);
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_PHP_OBJECT);
+        $result = \PHPExcel\Calculation\DateTime::TIME(7, 30, 20);
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_EXCEL);
         //    Must return an object...
         $this->assertTrue(is_object($result));
         //    ... of the correct type
@@ -230,28 +224,28 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_DateTime', 'TIMEVALUE'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\DateTime', 'TIMEVALUE'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerTIMEVALUE()
     {
-        return new testDataFileIterator('rawTestData/Calculation/DateTime/TIMEVALUE.data');
+        return new \testDataFileIterator('rawTestData/Calculation/DateTime/TIMEVALUE.data');
     }
 
     public function testTIMEVALUEtoPHP()
     {
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_PHP_NUMERIC);
-        $result = PHPExcel_Calculation_DateTime::TIMEVALUE('7:30:20');
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_EXCEL);
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_PHP_NUMERIC);
+        $result = \PHPExcel\Calculation\DateTime::TIMEVALUE('7:30:20');
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_EXCEL);
         $this->assertEquals(23420, $result, null, 1E-8);
     }
 
     public function testTIMEVALUEtoPHPObject()
     {
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_PHP_OBJECT);
-        $result = PHPExcel_Calculation_DateTime::TIMEVALUE('7:30:20');
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_EXCEL);
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_PHP_OBJECT);
+        $result = \PHPExcel\Calculation\DateTime::TIMEVALUE('7:30:20');
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_EXCEL);
         //    Must return an object...
         $this->assertTrue(is_object($result));
         //    ... of the correct type
@@ -267,13 +261,13 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_DateTime', 'HOUROFDAY'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\DateTime', 'HOUROFDAY'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerHOUR()
     {
-        return new testDataFileIterator('rawTestData/Calculation/DateTime/HOUR.data');
+        return new \testDataFileIterator('rawTestData/Calculation/DateTime/HOUR.data');
     }
 
     /**
@@ -283,13 +277,13 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_DateTime', 'MINUTEOFHOUR'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\DateTime', 'MINUTEOFHOUR'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerMINUTE()
     {
-        return new testDataFileIterator('rawTestData/Calculation/DateTime/MINUTE.data');
+        return new \testDataFileIterator('rawTestData/Calculation/DateTime/MINUTE.data');
     }
 
     /**
@@ -299,13 +293,13 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_DateTime', 'SECONDOFMINUTE'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\DateTime', 'SECONDOFMINUTE'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerSECOND()
     {
-        return new testDataFileIterator('rawTestData/Calculation/DateTime/SECOND.data');
+        return new \testDataFileIterator('rawTestData/Calculation/DateTime/SECOND.data');
     }
 
     /**
@@ -315,13 +309,13 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_DateTime', 'NETWORKDAYS'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\DateTime', 'NETWORKDAYS'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerNETWORKDAYS()
     {
-        return new testDataFileIterator('rawTestData/Calculation/DateTime/NETWORKDAYS.data');
+        return new \testDataFileIterator('rawTestData/Calculation/DateTime/NETWORKDAYS.data');
     }
 
     /**
@@ -331,13 +325,13 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_DateTime', 'WORKDAY'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\DateTime', 'WORKDAY'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerWORKDAY()
     {
-        return new testDataFileIterator('rawTestData/Calculation/DateTime/WORKDAY.data');
+        return new \testDataFileIterator('rawTestData/Calculation/DateTime/WORKDAY.data');
     }
 
     /**
@@ -347,28 +341,28 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_DateTime', 'EDATE'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\DateTime', 'EDATE'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerEDATE()
     {
-        return new testDataFileIterator('rawTestData/Calculation/DateTime/EDATE.data');
+        return new \testDataFileIterator('rawTestData/Calculation/DateTime/EDATE.data');
     }
 
     public function testEDATEtoPHP()
     {
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_PHP_NUMERIC);
-        $result = PHPExcel_Calculation_DateTime::EDATE('2012-1-26', -1);
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_EXCEL);
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_PHP_NUMERIC);
+        $result = \PHPExcel\Calculation\DateTime::EDATE('2012-1-26', -1);
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_EXCEL);
         $this->assertEquals(1324857600, $result, null, 1E-8);
     }
 
     public function testEDATEtoPHPObject()
     {
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_PHP_OBJECT);
-        $result = PHPExcel_Calculation_DateTime::EDATE('2012-1-26', -1);
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_EXCEL);
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_PHP_OBJECT);
+        $result = \PHPExcel\Calculation\DateTime::EDATE('2012-1-26', -1);
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_EXCEL);
         //    Must return an object...
         $this->assertTrue(is_object($result));
         //    ... of the correct type
@@ -384,28 +378,28 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_DateTime', 'EOMONTH'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\DateTime', 'EOMONTH'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerEOMONTH()
     {
-        return new testDataFileIterator('rawTestData/Calculation/DateTime/EOMONTH.data');
+        return new \testDataFileIterator('rawTestData/Calculation/DateTime/EOMONTH.data');
     }
 
     public function testEOMONTHtoPHP()
     {
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_PHP_NUMERIC);
-        $result = PHPExcel_Calculation_DateTime::EOMONTH('2012-1-26', -1);
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_EXCEL);
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_PHP_NUMERIC);
+        $result = \PHPExcel\Calculation\DateTime::EOMONTH('2012-1-26', -1);
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_EXCEL);
         $this->assertEquals(1325289600, $result, null, 1E-8);
     }
 
     public function testEOMONTHtoPHPObject()
     {
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_PHP_OBJECT);
-        $result = PHPExcel_Calculation_DateTime::EOMONTH('2012-1-26', -1);
-        PHPExcel_Calculation_Functions::setReturnDateType(PHPExcel_Calculation_Functions::RETURNDATE_EXCEL);
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_PHP_OBJECT);
+        $result = \PHPExcel\Calculation\DateTime::EOMONTH('2012-1-26', -1);
+        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_EXCEL);
         //    Must return an object...
         $this->assertTrue(is_object($result));
         //    ... of the correct type
@@ -421,13 +415,13 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_DateTime', 'DATEDIF'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\DateTime', 'DATEDIF'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerDATEDIF()
     {
-        return new testDataFileIterator('rawTestData/Calculation/DateTime/DATEDIF.data');
+        return new \testDataFileIterator('rawTestData/Calculation/DateTime/DATEDIF.data');
     }
 
     /**
@@ -437,13 +431,13 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_DateTime', 'DAYS360'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\DateTime', 'DAYS360'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerDAYS360()
     {
-        return new testDataFileIterator('rawTestData/Calculation/DateTime/DAYS360.data');
+        return new \testDataFileIterator('rawTestData/Calculation/DateTime/DAYS360.data');
     }
 
     /**
@@ -453,12 +447,12 @@ class DateTimeTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_DateTime', 'YEARFRAC'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\DateTime', 'YEARFRAC'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerYEARFRAC()
     {
-        return new testDataFileIterator('rawTestData/Calculation/DateTime/YEARFRAC.data');
+        return new \testDataFileIterator('rawTestData/Calculation/DateTime/YEARFRAC.data');
     }
 }

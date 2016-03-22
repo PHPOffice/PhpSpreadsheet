@@ -3,7 +3,7 @@
 namespace PHPExcel\Shared;
 
 /**
- * PHPExcel_Shared_TimeZone
+ * \PHPExcel\Shared\TimeZone
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -45,7 +45,7 @@ class TimeZone
      */
     private static function validateTimeZone($timezone)
     {
-        if (in_array($timezone, DateTimeZone::listIdentifiers())) {
+        if (in_array($timezone, \DateTimeZone::listIdentifiers())) {
             return true;
         }
         return false;

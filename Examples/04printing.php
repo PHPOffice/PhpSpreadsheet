@@ -35,12 +35,12 @@ define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 date_default_timezone_set('Europe/London');
 
 /** Include PHPExcel */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
+require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 
 // Create new PHPExcel object
 echo date('H:i:s') , " Create new PHPExcel object" , EOL;
-$objPHPExcel = new PHPExcel();
+$objPHPExcel = new \PHPExcel\Spreadsheet();
 
 // Set document properties
 echo date('H:i:s') , " Set document properties" , EOL;
@@ -67,16 +67,16 @@ $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&L&B' . $objPHP
 
 // Add a drawing to the header
 echo date('H:i:s') , " Add a drawing to the header" , EOL;
-$objDrawing = new PHPExcel_Worksheet_HeaderFooterDrawing();
+$objDrawing = new \PHPExcel\Worksheet\HeaderFooterDrawing();
 $objDrawing->setName('PHPExcel logo');
 $objDrawing->setPath('./images/phpexcel_logo.gif');
 $objDrawing->setHeight(36);
-$objPHPExcel->getActiveSheet()->getHeaderFooter()->addImage($objDrawing, PHPExcel_Worksheet_HeaderFooter::IMAGE_HEADER_LEFT);
+$objPHPExcel->getActiveSheet()->getHeaderFooter()->addImage($objDrawing, \PHPExcel\Worksheet\HeaderFooter::IMAGE_HEADER_LEFT);
 
 // Set page orientation and size
 echo date('H:i:s') , " Set page orientation and size" , EOL;
-$objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
-$objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+$objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(\PHPExcel\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+$objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(\PHPExcel\Worksheet\PageSetup::PAPERSIZE_A4);
 
 // Rename worksheet
 echo date('H:i:s') , " Rename worksheet" , EOL;
@@ -91,7 +91,7 @@ $objPHPExcel->setActiveSheetIndex(0);
 echo date('H:i:s') , " Write to Excel2007 format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;
@@ -106,7 +106,7 @@ echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 
 echo date('H:i:s') , " Write to Excel5 format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save(str_replace('.php', '.xls', __FILE__));
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;

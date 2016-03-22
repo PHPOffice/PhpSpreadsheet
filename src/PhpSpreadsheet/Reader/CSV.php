@@ -2,6 +2,8 @@
 
 namespace PHPExcel\Reader;
 
+use PHPExcel\Spreadsheet;
+
 /**
  * PHPExcel_Reader_CSV
  *
@@ -230,12 +232,12 @@ class CSV extends BaseReader implements IReader
     /**
      * Loads PHPExcel from file into PHPExcel instance
      *
-     * @param     string         $pFilename
-     * @param    PHPExcel    $objPHPExcel
-     * @return     PHPExcel
-     * @throws     Exception
+     * @param string $pFilename
+     * @param Spreadsheet $objPHPExcel
+     * @return Spreadsheet
+     * @throws Exception
      */
-    public function loadIntoExisting($pFilename, PHPExcel $objPHPExcel)
+    public function loadIntoExisting($pFilename, Spreadsheet $objPHPExcel)
     {
         $lineEnding = ini_get('auto_detect_line_endings');
         ini_set('auto_detect_line_endings', true);

@@ -34,12 +34,12 @@ date_default_timezone_set('Europe/London');
 define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 /** Include PHPExcel */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
+require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 
 // Create new PHPExcel object
 echo date('H:i:s') , " Create new PHPExcel object" , EOL;
-$objPHPExcel = new PHPExcel();
+$objPHPExcel = new \PHPExcel\Spreadsheet();
 
 // Set document properties
 echo date('H:i:s') , " Set document properties" , EOL;
@@ -74,7 +74,7 @@ foreach(glob('./data/continents/*') as $key => $filename) {
     $objPHPExcel->getActiveSheet()
         ->fromArray($countries, null, $column . '1');
     $objPHPExcel->addNamedRange(
-        new PHPExcel_NamedRange(
+        new PHPExcel\NamedRange(
             $continent, 
             $objPHPExcel->getActiveSheet(), $column . '1:' . $column . $countryCount
         )
@@ -95,7 +95,7 @@ $objPHPExcel->getActiveSheet()
     ->setVisible(false);
 
 $objPHPExcel->addNamedRange(
-    new PHPExcel_NamedRange(
+    new PHPExcel\NamedRange(
         'Continents', 
         $objPHPExcel->getActiveSheet(), $continentColumn . '1:' . $continentColumn . ($key+1)
     )
@@ -119,8 +119,8 @@ $objPHPExcel->getActiveSheet()
 $objValidation = $objPHPExcel->getActiveSheet()
     ->getCell('B1')
     ->getDataValidation();
-$objValidation->setType( PHPExcel_Cell_DataValidation::TYPE_LIST )
-    ->setErrorStyle( PHPExcel_Cell_DataValidation::STYLE_INFORMATION )
+$objValidation->setType( PHPExcel\Cell\DataValidation::TYPE_LIST )
+    ->setErrorStyle( PHPExcel\Cell\DataValidation::STYLE_INFORMATION )
     ->setAllowBlank(false)
     ->setShowInputMessage(true)
     ->setShowErrorMessage(true)
@@ -140,8 +140,8 @@ $objPHPExcel->getActiveSheet()
 $objValidation = $objPHPExcel->getActiveSheet()
     ->getCell('B3')
     ->getDataValidation();
-$objValidation->setType( PHPExcel_Cell_DataValidation::TYPE_LIST )
-    ->setErrorStyle( PHPExcel_Cell_DataValidation::STYLE_INFORMATION )
+$objValidation->setType( PHPExcel\Cell\DataValidation::TYPE_LIST )
+    ->setErrorStyle( PHPExcel\Cell\DataValidation::STYLE_INFORMATION )
     ->setAllowBlank(false)
     ->setShowInputMessage(true)
     ->setShowErrorMessage(true)
@@ -163,7 +163,7 @@ $objPHPExcel->setActiveSheetIndex(0);
 // Save Excel 2007 file
 // This linked validation list method only seems to work for Excel2007, not for Excel5
 echo date('H:i:s') , " Write to Excel2007 format" , EOL;
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
 

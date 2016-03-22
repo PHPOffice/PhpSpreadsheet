@@ -447,11 +447,13 @@ class NumberFormat extends Supervisor implements \PHPExcel\IComparable
             'h'  => 'g'
         );
 
-    private static function setLowercaseCallback($matches) {
+    private static function setLowercaseCallback($matches)
+    {
         return mb_strtolower($matches[0]);
     }
 
-    private static function escapeQuotesCallback($matches) {
+    private static function escapeQuotesCallback($matches)
+    {
         return '\\' . implode('\\', str_split($matches[1]));
     }
 
@@ -468,7 +470,7 @@ class NumberFormat extends Supervisor implements \PHPExcel\IComparable
 
         // Only process the non-quoted blocks for date format characters
         $blocks = explode('"', $format);
-        foreach($blocks as $key => &$block) {
+        foreach ($blocks as $key => &$block) {
             if ($key % 2 == 0) {
                 $block = strtr($block, self::$dateFormatReplacements);
                 if (!strpos($block, 'A')) {

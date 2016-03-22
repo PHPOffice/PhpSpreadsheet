@@ -35,14 +35,14 @@ define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 date_default_timezone_set('Europe/London');
 
 /** Include PHPExcel */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
+require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 
 //	Change these values to select the PDF Rendering library that you wish to use
 //		and its directory location on your server
-//$rendererName = PHPExcel_Settings::PDF_RENDERER_TCPDF;
-//$rendererName = PHPExcel_Settings::PDF_RENDERER_MPDF;
-$rendererName = PHPExcel_Settings::PDF_RENDERER_DOMPDF;
+//$rendererName = \PHPExcel\Settings::PDF_RENDERER_TCPDF;
+//$rendererName = \PHPExcel\Settings::PDF_RENDERER_MPDF;
+$rendererName = \PHPExcel\Settings::PDF_RENDERER_DOMPDF;
 //$rendererLibrary = 'tcPDF5.9';
 //$rendererLibrary = 'mPDF5.4';
 $rendererLibrary = 'domPDF0.6.0beta3';
@@ -51,33 +51,33 @@ $rendererLibraryPath = '/php/libraries/PDF/' . $rendererLibrary;
 
 // Read from Excel2007 (.xlsx) template
 echo date('H:i:s') , " Load Excel2007 template file" , EOL;
-$objReader = PHPExcel_IOFactory::createReader('Excel2007');
+$objReader = \PHPExcel\IOFactory::createReader('Excel2007');
 $objPHPExcel = $objReader->load("templates/26template.xlsx");
 
 /** at this point, we could do some manipulations with the template, but we skip this step */
 
 // Export to Excel2007 (.xlsx)
 echo date('H:i:s') , " Write to Excel5 format" , EOL;
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
 
 // Export to Excel5 (.xls)
 echo date('H:i:s') , " Write to Excel5 format" , EOL;
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save(str_replace('.php', '.xls', __FILE__));
 echo date('H:i:s') , " File written to " , str_replace('.php', '.xls', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
 
 // Export to HTML (.html)
 echo date('H:i:s') , " Write to HTML format" , EOL;
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'HTML');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'HTML');
 $objWriter->save(str_replace('.php', '.htm', __FILE__));
 echo date('H:i:s') , " File written to " , str_replace('.php', '.htm', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
 
 // Export to PDF (.pdf)
 echo date('H:i:s') , " Write to PDF format" , EOL;
 try {
-	if (!PHPExcel_Settings::setPdfRenderer(
+	if (!\PHPExcel\Settings::setPdfRenderer(
 		$rendererName,
 		$rendererLibraryPath
 	)) {
@@ -88,7 +88,7 @@ try {
 			EOL
 		);
 	} else {
-		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'PDF');
+		$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'PDF');
 		$objWriter->save(str_replace('.php', '.pdf', __FILE__));
 		echo date('H:i:s') , " File written to " , str_replace('.php', '.pdf', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
 	}
@@ -103,7 +103,7 @@ $objWorksheet->removeRow(1, 2);
 
 // Export to CSV (.csv)
 echo date('H:i:s') , " Write to CSV format" , EOL;
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'CSV');
 $objWriter->save(str_replace('.php', '.csv', __FILE__));
 echo date('H:i:s') , " File written to " , str_replace('.php', '.csv', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
 

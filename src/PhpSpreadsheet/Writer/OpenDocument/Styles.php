@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Writer\OpenDocument;
+
 /**
  * PHPExcel_Writer_OpenDocument_Styles
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Writer_OpenDocument_Styles extends PHPExcel_Writer_OpenDocument_WriterPart
+class Styles extends WriterPart
 {
     /**
      * Write styles.xml to XML format

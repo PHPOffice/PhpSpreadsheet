@@ -34,16 +34,15 @@ define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 date_default_timezone_set('Europe/London');
 
-/** PHPExcel_IOFactory */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel/IOFactory.php';
-
+/** Include PHPExcel */
+require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 if (!file_exists("05featuredemo.xlsx")) {
 	exit("Please run 05featuredemo.php first." . EOL);
 }
 
 echo date('H:i:s') , " Load from Excel2007 file" , EOL;
-$objReader = PHPExcel_IOFactory::createReader('Excel2007');
+$objReader = \PHPExcel\IOFactory::createReader('Excel2007');
 $objPHPExcel = $objReader->load("05featuredemo.xlsx");
 
 echo date('H:i:s') , " Iterate worksheets" , EOL;

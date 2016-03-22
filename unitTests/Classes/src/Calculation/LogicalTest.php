@@ -1,30 +1,26 @@
 <?php
 
+namespace PHPExcel\Calculation;
 
 require_once 'testDataFileIterator.php';
 
-class LogicalTest extends PHPUnit_Framework_TestCase
+class LogicalTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()
     {
-        if (!defined('PHPEXCEL_ROOT')) {
-            define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
-        }
-        require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
-
-        PHPExcel_Calculation_Functions::setCompatibilityMode(PHPExcel_Calculation_Functions::COMPATIBILITY_EXCEL);
+        \PHPExcel\Calculation\Functions::setCompatibilityMode(\PHPExcel\Calculation\Functions::COMPATIBILITY_EXCEL);
     }
 
     public function testTRUE()
     {
-        $result = PHPExcel_Calculation_Logical::TRUE();
+        $result = \PHPExcel\Calculation\Logical::TRUE();
         $this->assertEquals(true, $result);
     }
 
     public function testFALSE()
     {
-        $result = PHPExcel_Calculation_Logical::FALSE();
+        $result = \PHPExcel\Calculation\Logical::FALSE();
         $this->assertEquals(false, $result);
     }
 
@@ -35,13 +31,13 @@ class LogicalTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_Logical','LOGICAL_AND'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\Logical','LOGICAL_AND'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
     public function providerAND()
     {
-        return new testDataFileIterator('rawTestData/Calculation/Logical/AND.data');
+        return new \testDataFileIterator('rawTestData/Calculation/Logical/AND.data');
     }
 
     /**
@@ -51,13 +47,13 @@ class LogicalTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_Logical','LOGICAL_OR'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\Logical','LOGICAL_OR'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
     public function providerOR()
     {
-        return new testDataFileIterator('rawTestData/Calculation/Logical/OR.data');
+        return new \testDataFileIterator('rawTestData/Calculation/Logical/OR.data');
     }
 
     /**
@@ -67,13 +63,13 @@ class LogicalTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_Logical','NOT'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\Logical','NOT'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
     public function providerNOT()
     {
-        return new testDataFileIterator('rawTestData/Calculation/Logical/NOT.data');
+        return new \testDataFileIterator('rawTestData/Calculation/Logical/NOT.data');
     }
 
     /**
@@ -83,13 +79,13 @@ class LogicalTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_Logical','STATEMENT_IF'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\Logical','STATEMENT_IF'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
     public function providerIF()
     {
-        return new testDataFileIterator('rawTestData/Calculation/Logical/IF.data');
+        return new \testDataFileIterator('rawTestData/Calculation/Logical/IF.data');
     }
 
     /**
@@ -99,12 +95,12 @@ class LogicalTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_Logical','IFERROR'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\Logical','IFERROR'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
     public function providerIFERROR()
     {
-        return new testDataFileIterator('rawTestData/Calculation/Logical/IFERROR.data');
+        return new \testDataFileIterator('rawTestData/Calculation/Logical/IFERROR.data');
     }
 }

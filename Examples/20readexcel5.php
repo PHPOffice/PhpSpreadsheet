@@ -35,8 +35,8 @@ define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 date_default_timezone_set('Europe/London');
 
-/** Include PHPExcel_IOFactory */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel/IOFactory.php';
+/** Include PHPExcel */
+require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 
 if (!file_exists("14excel5.xls")) {
@@ -46,7 +46,7 @@ if (!file_exists("14excel5.xls")) {
 echo date('H:i:s') , " Load workbook from Excel5 file" , EOL;
 $callStartTime = microtime(true);
 
-$objPHPExcel = PHPExcel_IOFactory::load("14excel5.xls");
+$objPHPExcel = \PHPExcel\IOFactory::load("14excel5.xls");
 
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;
@@ -60,7 +60,7 @@ echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 
 echo date('H:i:s') , " Write to Excel2007 format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;

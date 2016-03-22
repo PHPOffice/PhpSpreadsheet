@@ -225,7 +225,7 @@ class Excel2007 extends BaseReader implements IReader
 
                         $fileWorksheet = $worksheets[(string) self::getArrayItem($eleSheet->attributes("http://schemas.openxmlformats.org/officeDocument/2006/relationships"), "id")];
 
-                        $xml = new XMLReader();
+                        $xml = new \XMLReader();
                         $res = $xml->xml(
                             $this->securityScanFile(
                                 'zip://'.\PHPExcel\Shared\File::realpath($pFilename).'#'."$dir/$fileWorksheet"
@@ -237,12 +237,12 @@ class Excel2007 extends BaseReader implements IReader
 
                         $currCells = 0;
                         while ($xml->read()) {
-                            if ($xml->name == 'row' && $xml->nodeType == XMLReader::ELEMENT) {
+                            if ($xml->name == 'row' && $xml->nodeType == \XMLReader::ELEMENT) {
                                 $row = $xml->getAttribute('r');
                                 $tmpInfo['totalRows'] = $row;
                                 $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
                                 $currCells = 0;
-                            } elseif ($xml->name == 'c' && $xml->nodeType == XMLReader::ELEMENT) {
+                            } elseif ($xml->name == 'c' && $xml->nodeType == \XMLReader::ELEMENT) {
                                 $currCells++;
                             }
                         }
@@ -344,11 +344,11 @@ class Excel2007 extends BaseReader implements IReader
 
         // Apache POI fixes
         $contents = $archive->getFromIndex(
-            $archive->locateName($fileName, ZIPARCHIVE::FL_NOCASE)
+            $archive->locateName($fileName, \ZipArchive::FL_NOCASE)
         );
         if ($contents === false) {
             $contents = $archive->getFromIndex(
-                $archive->locateName(substr($fileName, 1), ZIPARCHIVE::FL_NOCASE)
+                $archive->locateName(substr($fileName, 1), \ZipArchive::FL_NOCASE)
             );
         }
 
@@ -1561,7 +1561,7 @@ class Excel2007 extends BaseReader implements IReader
                                                 $this->getFromZipArchive($zip, dirname($fileDrawing) . "/_rels/" . basename($fileDrawing) . ".rels")
                                             ),
                                             'SimpleXMLElement',
-                                            \PHPExcel|Settings::getLibXmlLoaderOptions()
+                                            \PHPExcel\Settings::getLibXmlLoaderOptions()
                                         );
                                         $images = array();
 
@@ -1655,9 +1655,9 @@ class Excel2007 extends BaseReader implements IReader
                                                     $objDrawing->setResizeProportional(false);
 
                                                     if ($xfrm) {
-                                                        $objDrawing->setWidth(\PHPExcel\Shared_Drawing::EMUToPixels(self::getArrayItem($xfrm->ext->attributes(), "cx")));
-                                                        $objDrawing->setHeight(\PHPExcel\Shared_Drawing::EMUToPixels(self::getArrayItem($xfrm->ext->attributes(), "cy")));
-                                                        $objDrawing->setRotation(\PHPExcel\Shared_Drawing::angleToDegrees(self::getArrayItem($xfrm->attributes(), "rot")));
+                                                        $objDrawing->setWidth(\PHPExcel\Shared\Drawing::EMUToPixels(self::getArrayItem($xfrm->ext->attributes(), "cx")));
+                                                        $objDrawing->setHeight(\PHPExcel\Shared\Drawing::EMUToPixels(self::getArrayItem($xfrm->ext->attributes(), "cy")));
+                                                        $objDrawing->setRotation(\PHPExcel\Shared\Drawing::angleToDegrees(self::getArrayItem($xfrm->attributes(), "rot")));
                                                     }
                                                     if ($outerShdw) {
                                                         $shadow = $objDrawing->getShadow();
@@ -1671,12 +1671,12 @@ class Excel2007 extends BaseReader implements IReader
                                                     }
                                                     $objDrawing->setWorksheet($docSheet);
                                                 } elseif (($this->includeCharts) && ($twoCellAnchor->graphicFrame)) {
-                                                    $fromCoordinate = PHPExcel\Cell::stringFromColumnIndex((string) $twoCellAnchor->from->col) . ($twoCellAnchor->from->row + 1);
-                                                    $fromOffsetX    = PHPExcel\Shared\Drawing::EMUToPixels($twoCellAnchor->from->colOff);
-                                                    $fromOffsetY    = PHPExcel\Shared\Drawing::EMUToPixels($twoCellAnchor->from->rowOff);
-                                                    $toCoordinate   = PHPExcel\Cell::stringFromColumnIndex((string) $twoCellAnchor->to->col) . ($twoCellAnchor->to->row + 1);
-                                                    $toOffsetX      = PHPExcel\Shared\Drawing::EMUToPixels($twoCellAnchor->to->colOff);
-                                                    $toOffsetY      = PHPExcel\Shared\Drawing::EMUToPixels($twoCellAnchor->to->rowOff);
+                                                    $fromCoordinate = \PHPExcel\Cell::stringFromColumnIndex((string) $twoCellAnchor->from->col) . ($twoCellAnchor->from->row + 1);
+                                                    $fromOffsetX    = \PHPExcel\Shared\Drawing::EMUToPixels($twoCellAnchor->from->colOff);
+                                                    $fromOffsetY    = \PHPExcel\Shared\Drawing::EMUToPixels($twoCellAnchor->from->rowOff);
+                                                    $toCoordinate   = \PHPExcel\Cell::stringFromColumnIndex((string) $twoCellAnchor->to->col) . ($twoCellAnchor->to->row + 1);
+                                                    $toOffsetX      = \PHPExcel\Shared\Drawing::EMUToPixels($twoCellAnchor->to->colOff);
+                                                    $toOffsetY      = \PHPExcel\Shared\Drawing::EMUToPixels($twoCellAnchor->to->rowOff);
                                                     $graphic        = $twoCellAnchor->graphicFrame->children("http://schemas.openxmlformats.org/drawingml/2006/main")->graphic;
                                                     $chartRef       = $graphic->graphicData->children("http://schemas.openxmlformats.org/drawingml/2006/chart")->chart;
                                                     $thisChart      = (string) $chartRef->attributes("http://schemas.openxmlformats.org/officeDocument/2006/relationships");
@@ -1876,7 +1876,7 @@ class Excel2007 extends BaseReader implements IReader
                                 'SimpleXMLElement',
                                 \PHPExcel\Settings::getLibXmlLoaderOptions()
                             );
-                            $objChart = \PHPExcel\Reader\Excel2007_Chart::readChart($chartElements, basename($chartEntryRef, '.xml'));
+                            $objChart = \PHPExcel\Reader\Excel2007\Chart::readChart($chartElements, basename($chartEntryRef, '.xml'));
 
 //                            echo 'Chart ', $chartEntryRef, '<br />';
 //                            var_dump($charts[$chartEntryRef]);

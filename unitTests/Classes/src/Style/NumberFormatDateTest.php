@@ -1,20 +1,16 @@
 <?php
 
+namespace PHPExcel\Style;
 
 require_once 'testDataFileIterator.php';
 
-class NumberFormatDateTest extends PHPUnit_Framework_TestCase
+class NumberFormatDateTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()
     {
-        if (!defined('PHPEXCEL_ROOT')) {
-            define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
-        }
-        require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
-
-        PHPExcel_Shared_String::setDecimalSeparator('.');
-        PHPExcel_Shared_String::setThousandsSeparator(',');
+        \PHPExcel\Shared\String::setDecimalSeparator('.');
+        \PHPExcel\Shared\String::setThousandsSeparator(',');
     }
 
     /**
@@ -30,6 +26,6 @@ class NumberFormatDateTest extends PHPUnit_Framework_TestCase
 
     public function providerNumberFormat()
     {
-        return new testDataFileIterator('rawTestData/Style/NumberFormatDates.data');
+        return new \testDataFileIterator('rawTestData/Style/NumberFormatDates.data');
     }
 }

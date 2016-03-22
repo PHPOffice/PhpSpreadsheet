@@ -3,7 +3,7 @@
 namespace PHPExcel\Chart;
 
 /**
- * PHPExcel_Chart_DataSeriesValues
+ * \PHPExcel\Chart\DataSeriesValues
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *

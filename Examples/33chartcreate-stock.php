@@ -37,10 +37,10 @@ date_default_timezone_set('Europe/London');
  */
 
 /** PHPExcel */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
+require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 
-$objPHPExcel = new PHPExcel();
+$objPHPExcel = new \PHPExcel\Spreadsheet();
 $objWorksheet = $objPHPExcel->getActiveSheet();
 $objWorksheet->fromArray(
 	array(
@@ -52,7 +52,7 @@ $objWorksheet->fromArray(
 		array(100,		 		40, 		5, 			0, 					50				),
 	), null, 'A1', true
 );
-$objWorksheet->getStyle('B2:E6')->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+$objWorksheet->getStyle('B2:E6')->getNumberFormat()->setFormatCode(PHPExcel\Style\NumberFormat::FORMAT_NUMBER_00);
 
 
 //	Set the Labels for each data series we want to plot
@@ -63,10 +63,10 @@ $objWorksheet->getStyle('B2:E6')->getNumberFormat()->setFormatCode(PHPExcel_Styl
 //		Data values
 //		Data Marker
 $dataSeriesLabels = array(
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$B$1', NULL, 1), //Max / Open
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$C$1', NULL, 1), //Min / Close
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$D$1', NULL, 1), //Min Threshold / Min
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$E$1', NULL, 1), //Max Threshold / Max
+	new \PHPExcel\Chart\DataSeriesValues('String', 'Worksheet!$B$1', NULL, 1), //Max / Open
+	new \PHPExcel\Chart\DataSeriesValues('String', 'Worksheet!$C$1', NULL, 1), //Min / Close
+	new \PHPExcel\Chart\DataSeriesValues('String', 'Worksheet!$D$1', NULL, 1), //Min Threshold / Min
+	new \PHPExcel\Chart\DataSeriesValues('String', 'Worksheet!$E$1', NULL, 1), //Max Threshold / Max
 );
 //	Set the X-Axis Labels
 //		Datatype
@@ -76,7 +76,7 @@ $dataSeriesLabels = array(
 //		Data values
 //		Data Marker
 $xAxisTickValues = array(
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$A$2:$A$6', NULL, 5),	//	Counts
+	new \PHPExcel\Chart\DataSeriesValues('String', 'Worksheet!$A$2:$A$6', NULL, 5),	//	Counts
 );
 //	Set the Data values for each data series we want to plot
 //		Datatype
@@ -86,15 +86,15 @@ $xAxisTickValues = array(
 //		Data values
 //		Data Marker
 $dataSeriesValues = array(
-	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$B$2:$B$6', NULL, 5),
-	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$C$2:$C$6', NULL, 5),
-	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$D$2:$D$6', NULL, 5),
-	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$E$2:$E$6', NULL, 5),
+	new \PHPExcel\Chart\DataSeriesValues('Number', 'Worksheet!$B$2:$B$6', NULL, 5),
+	new \PHPExcel\Chart\DataSeriesValues('Number', 'Worksheet!$C$2:$C$6', NULL, 5),
+	new \PHPExcel\Chart\DataSeriesValues('Number', 'Worksheet!$D$2:$D$6', NULL, 5),
+	new \PHPExcel\Chart\DataSeriesValues('Number', 'Worksheet!$E$2:$E$6', NULL, 5),
 );
 
 //	Build the dataseries
-$series = new PHPExcel_Chart_DataSeries(
-	PHPExcel_Chart_DataSeries::TYPE_STOCKCHART,	// plotType
+$series = new \PHPExcel\Chart\DataSeries(
+	\PHPExcel\Chart\DataSeries::TYPE_STOCKCHART,	// plotType
 	null,										// plotGrouping - if we set this to not null, then xlsx throws error
 	range(0, count($dataSeriesValues)-1),		// plotOrder
 	$dataSeriesLabels,							// plotLabel
@@ -103,16 +103,16 @@ $series = new PHPExcel_Chart_DataSeries(
 );
 
 //	Set the series in the plot area
-$plotArea = new PHPExcel_Chart_PlotArea(NULL, array($series));
+$plotArea = new \PHPExcel\Chart\PlotArea(NULL, array($series));
 //	Set the chart legend
-$legend = new PHPExcel_Chart_Legend(PHPExcel_Chart_Legend::POSITION_RIGHT, NULL, false);
+$legend = new \PHPExcel\Chart\Legend(\PHPExcel\Chart\Legend::POSITION_RIGHT, NULL, false);
 
-$title = new PHPExcel_Chart_Title('Test Stock Chart');
-$xAxisLabel = new PHPExcel_Chart_Title('Counts');
-$yAxisLabel = new PHPExcel_Chart_Title('Values');
+$title = new \PHPExcel\Chart\Title('Test Stock Chart');
+$xAxisLabel = new \PHPExcel\Chart\Title('Counts');
+$yAxisLabel = new \PHPExcel\Chart\Title('Values');
 
 //	Create the chart
-$chart = new PHPExcel_Chart(
+$chart = new \PHPExcel\Chart(
 	'stock-chart',	// name
 	$title,			// title
 	$legend,		// legend
@@ -133,7 +133,7 @@ $objWorksheet->addChart($chart);
 
 // Save Excel 2007 file
 echo date('H:i:s') , " Write to Excel2007 format" , EOL;
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->setIncludeCharts(TRUE);
 $filename = str_replace('.php', '.xlsx', __FILE__);
 if(file_exists($filename)) {

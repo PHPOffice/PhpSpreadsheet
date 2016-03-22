@@ -35,14 +35,14 @@ if (PHP_SAPI == 'cli')
 	die('This example should only be run from a Web Browser');
 
 /** Include PHPExcel */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
+require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 
 //	Change these values to select the Rendering library that you wish to use
 //		and its directory location on your server
-//$rendererName = PHPExcel_Settings::PDF_RENDERER_TCPDF;
-$rendererName = PHPExcel_Settings::PDF_RENDERER_MPDF;
-//$rendererName = PHPExcel_Settings::PDF_RENDERER_DOMPDF;
+//$rendererName = PHPExcel\Settings::PDF_RENDERER_TCPDF;
+$rendererName = PHPExcel\Settings::PDF_RENDERER_MPDF;
+//$rendererName = PHPExcel\Settings::PDF_RENDERER_DOMPDF;
 //$rendererLibrary = 'tcPDF5.9';
 $rendererLibrary = 'mPDF5.4';
 //$rendererLibrary = 'domPDF0.6.0beta3';
@@ -50,7 +50,7 @@ $rendererLibraryPath = dirname(__FILE__).'/../../../libraries/PDF/' . $rendererL
 
 
 // Create new PHPExcel object
-$objPHPExcel = new PHPExcel();
+$objPHPExcel = new \PHPExcel\Spreadsheet();
 
 // Set document properties
 $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
@@ -82,7 +82,7 @@ $objPHPExcel->getActiveSheet()->setShowGridLines(false);
 $objPHPExcel->setActiveSheetIndex(0);
 
 
-if (!PHPExcel_Settings::setPdfRenderer(
+if (!PHPExcel\Settings::setPdfRenderer(
 		$rendererName,
 		$rendererLibraryPath
 	)) {
@@ -99,6 +99,6 @@ header('Content-Type: application/pdf');
 header('Content-Disposition: attachment;filename="01simple.pdf"');
 header('Cache-Control: max-age=0');
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'PDF');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'PDF');
 $objWriter->save('php://output');
 exit;

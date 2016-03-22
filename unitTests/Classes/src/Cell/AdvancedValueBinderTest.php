@@ -1,6 +1,8 @@
 <?php
 
-class AdvancedValueBinderTest extends PHPUnit_Framework_TestCase
+namespace PHPExcel\Cell;
+
+class AdvancedValueBinderTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

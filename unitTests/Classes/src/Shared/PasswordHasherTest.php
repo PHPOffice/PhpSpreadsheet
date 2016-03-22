@@ -1,19 +1,11 @@
 <?php
 
+namespace PHPExcel\Shared;
 
 require_once 'testDataFileIterator.php';
 
-class PasswordHasherTest extends PHPUnit_Framework_TestCase
+class PasswordHasherTest extends \PHPUnit_Framework_TestCase
 {
-
-    public function setUp()
-    {
-        if (!defined('PHPEXCEL_ROOT')) {
-            define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
-        }
-        require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
-    }
-
     /**
      * @dataProvider providerHashPassword
      */
@@ -27,6 +19,6 @@ class PasswordHasherTest extends PHPUnit_Framework_TestCase
 
     public function providerHashPassword()
     {
-        return new testDataFileIterator('rawTestData/Shared/PasswordHashes.data');
+        return new \testDataFileIterator('rawTestData/Shared/PasswordHashes.data');
     }
 }

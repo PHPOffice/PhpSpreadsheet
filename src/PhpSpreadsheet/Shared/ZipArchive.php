@@ -154,7 +154,8 @@ class ZipArchive
         return $contents;
     }
 
-    public function getFromIndex($index) {
+    public function getFromIndex($index)
+    {
         $extracted = $this->zip->extractByIndex($index, PCLZIP_OPT_EXTRACT_AS_STRING);
         $contents = '';
         if ((is_array($extracted)) && ($extracted != 0)) {

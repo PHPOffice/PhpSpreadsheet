@@ -3,7 +3,7 @@
 namespace PHPExcel;
 
 /**
- * PHPExcel_NamedRange
+ * PHPExcel\NamedRange
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *

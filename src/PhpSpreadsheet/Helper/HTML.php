@@ -634,7 +634,7 @@ class HTML
 
     protected function cleanWhitespace()
     {
-        foreach($this->richTextObject->getRichTextElements() as $key => $element) {
+        foreach ($this->richTextObject->getRichTextElements() as $key => $element) {
             $text = $element->getText();
             // Trim any leading spaces on the first run
             if ($key == 0) {

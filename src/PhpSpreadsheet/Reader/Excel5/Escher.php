@@ -300,7 +300,7 @@ class Escher
         $blipData = substr($recordData, 36 + $cbName);
 
         // record is a container, read contents
-        $reader = new \PHPExcel\Reader\Excel5_Escher($BSE);
+        $reader = new \PHPExcel\Reader\Excel5\Escher($BSE);
         $reader->load($blipData);
     }
 
@@ -446,7 +446,7 @@ class Escher
         $this->pos += 8 + $length;
 
         // record is a container, read contents
-        $dgContainer = new \PHPExcel\Shared_Escher\DgContainer();
+        $dgContainer = new \PHPExcel\Shared\Escher\DgContainer();
         $this->object->setDgContainer($dgContainer);
         $reader = new \PHPExcel\Reader\Excel5\Escher($dgContainer);
         $escher = $reader->load($recordData);

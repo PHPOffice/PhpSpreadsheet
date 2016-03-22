@@ -40,7 +40,7 @@ if (isset($_POST['submit'])) {
 		include 'PHPExcel/IOFactory.php';
 
 		/**	Load the quadratic equation solver worksheet into memory			**/
-		$objPHPExcel = PHPExcel_IOFactory::load('./Quadratic.xlsx');
+		$objPHPExcel = \PHPExcel\IOFactory::load('./Quadratic.xlsx');
 
 		/**	Set our A, B and C values			**/
 		$objPHPExcel->getActiveSheet()->setCellValue('A1', $_POST['A']);

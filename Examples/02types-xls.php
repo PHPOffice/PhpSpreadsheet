@@ -34,12 +34,12 @@ date_default_timezone_set('Europe/London');
 define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 /** Include PHPExcel */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
+ require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 
 // Create new PHPExcel object
 echo date('H:i:s') , " Create new PHPExcel object" , EOL;
-$objPHPExcel = new PHPExcel();
+$objPHPExcel = new \PHPExcel\Spreadsheet();
 
 // Set document properties
 echo date('H:i:s') , " Set document properties" , EOL;
@@ -93,28 +93,28 @@ $objPHPExcel->getActiveSheet()->setCellValue('A8', 'Boolean')
 $dateTimeNow = time();
 $objPHPExcel->getActiveSheet()->setCellValue('A9', 'Date/Time')
                               ->setCellValue('B9', 'Date')
-                              ->setCellValue('C9', PHPExcel_Shared_Date::PHPToExcel( $dateTimeNow ));
-$objPHPExcel->getActiveSheet()->getStyle('C9')->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_DATE_YYYYMMDD2);
+                              ->setCellValue('C9', \PHPExcel\Shared\Date::PHPToExcel( $dateTimeNow ));
+$objPHPExcel->getActiveSheet()->getStyle('C9')->getNumberFormat()->setFormatCode(\PHPExcel\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2);
 
 $objPHPExcel->getActiveSheet()->setCellValue('A10', 'Date/Time')
                               ->setCellValue('B10', 'Time')
-                              ->setCellValue('C10', PHPExcel_Shared_Date::PHPToExcel( $dateTimeNow ));
-$objPHPExcel->getActiveSheet()->getStyle('C10')->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_DATE_TIME4);
+                              ->setCellValue('C10', \PHPExcel\Shared\Date::PHPToExcel( $dateTimeNow ));
+$objPHPExcel->getActiveSheet()->getStyle('C10')->getNumberFormat()->setFormatCode(\PHPExcel\Style\NumberFormat::FORMAT_DATE_TIME4);
 
 $objPHPExcel->getActiveSheet()->setCellValue('A11', 'Date/Time')
                               ->setCellValue('B11', 'Date and Time')
-                              ->setCellValue('C11', PHPExcel_Shared_Date::PHPToExcel( $dateTimeNow ));
-$objPHPExcel->getActiveSheet()->getStyle('C11')->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_DATE_DATETIME);
+                              ->setCellValue('C11', \PHPExcel\Shared\Date::PHPToExcel( $dateTimeNow ));
+$objPHPExcel->getActiveSheet()->getStyle('C11')->getNumberFormat()->setFormatCode(\PHPExcel\Style\NumberFormat::FORMAT_DATE_DATETIME);
 
 $objPHPExcel->getActiveSheet()->setCellValue('A12', 'NULL')
                               ->setCellValue('C12', NULL);
 
-$objRichText = new PHPExcel_RichText();
+$objRichText = new \PHPExcel\RichText();
 $objRichText->createText('你好 ');
 $objPayable = $objRichText->createTextRun('你 好 吗？');
 $objPayable->getFont()->setBold(true);
 $objPayable->getFont()->setItalic(true);
-$objPayable->getFont()->setColor( new PHPExcel_Style_Color( PHPExcel_Style_Color::COLOR_DARKGREEN ) );
+$objPayable->getFont()->setColor(new \PHPExcel\Style\Color(\PHPExcel\Style\Color::COLOR_DARKGREEN));
 
 $objRichText->createText(', unless specified otherwise on the invoice.');
 
@@ -122,11 +122,11 @@ $objPHPExcel->getActiveSheet()->setCellValue('A13', 'Rich Text')
                               ->setCellValue('C13', $objRichText);
 
 
-$objRichText2 = new PHPExcel_RichText();
+$objRichText2 = new \PHPExcel\RichText();
 $objRichText2->createText("black text\n");
 
 $objRed = $objRichText2->createTextRun("red text");
-$objRed->getFont()->setColor( new PHPExcel_Style_Color(PHPExcel_Style_Color::COLOR_RED  ) );
+$objRed->getFont()->setColor(new \PHPExcel\Style\Color(\PHPExcel\Style\Color::COLOR_RED ));
 
 $objPHPExcel->getActiveSheet()->getCell("C14")->setValue($objRichText2);
 $objPHPExcel->getActiveSheet()->getStyle("C14")->getAlignment()->setWrapText(true);
@@ -148,7 +148,7 @@ $objPHPExcel->setActiveSheetIndex(0);
 echo date('H:i:s') , " Write to Excel5 format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save(str_replace('.php', '.xls', __FILE__));
 echo date('H:i:s') , " File written to " , str_replace('.php', '.xls', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
 $callEndTime = microtime(true);
@@ -163,7 +163,7 @@ echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 
 echo date('H:i:s') , " Reload workbook from saved file" , EOL;
 $callStartTime = microtime(true);
 
-$objPHPExcel = PHPExcel_IOFactory::load(str_replace('.php', '.xls', __FILE__));
+$objPHPExcel = \PHPExcel\IOFactory::load(str_replace('.php', '.xls', __FILE__));
 
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;

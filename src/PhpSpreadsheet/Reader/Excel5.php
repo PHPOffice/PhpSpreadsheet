@@ -615,7 +615,7 @@ class Excel5 extends BaseReader implements IReader
         $this->loadOLE($pFilename);
 
         // Initialisations
-        $this->phpExcel = new PHPExcel;
+        $this->phpExcel = new \PHPExcel\Spreadsheet();
         $this->phpExcel->removeSheetByIndex(0); // remove 1st sheet
         if (!$this->readDataOnly) {
             $this->phpExcel->removeCellStyleXfByIndex(0); // remove the default style

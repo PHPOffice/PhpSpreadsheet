@@ -22,7 +22,7 @@ namespace PHPExcel;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PHPExcel
- * @package    PHPExcel_Worksheet
+ * @package    \PHPExcel\Worksheet
  * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
@@ -1506,7 +1506,7 @@ class Worksheet implements IComparable
      *
      * Please note that this will overwrite existing cell styles for cells in range!
      *
-     * @deprecated
+     * @deprecated duplicateStyle
      * @param Style $pSharedCellStyle Cell style to share
      * @param string $pRange Range of cells (i.e. "A1:B10"), or just one cell (i.e. "A1")
      * @throws Exception

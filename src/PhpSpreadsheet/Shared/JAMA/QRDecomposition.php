@@ -1,4 +1,7 @@
 <?php
+
+namespace PHPExcel\Shared\JAMA;
+
 /**
  *    @package JAMA
  *
@@ -16,7 +19,7 @@
  *    @license PHP v3.0
  *    @version 1.1
  */
-class PHPExcel_Shared_JAMA_QRDecomposition
+class QRDecomposition
 {
     const MATRIX_RANK_EXCEPTION  = "Can only perform operation on full-rank matrix.";
 
@@ -53,7 +56,7 @@ class PHPExcel_Shared_JAMA_QRDecomposition
      */
     public function __construct($A)
     {
-        if ($A instanceof PHPExcel_Shared_JAMA_Matrix) {
+        if ($A instanceof Matrix) {
             // Initialize.
             $this->QR = $A->getArrayCopy();
             $this->m  = $A->getRowDimension();
@@ -89,7 +92,7 @@ class PHPExcel_Shared_JAMA_QRDecomposition
                 $this->Rdiag[$k] = -$nrm;
             }
         } else {
-            throw new PHPExcel_Calculation_Exception(PHPExcel_Shared_JAMA_Matrix::ARGUMENT_TYPE_EXCEPTION);
+            throw new \PHPExcel\Calculation\Exception(Matrix::ARGUMENT_TYPE_EXCEPTION);
         }
     }    //    function __construct()
 
@@ -125,7 +128,7 @@ class PHPExcel_Shared_JAMA_QRDecomposition
                 }
             }
         }
-        return new PHPExcel_Shared_JAMA_Matrix($H);
+        return new Matrix($H);
     }    //    function getH()
 
     /**
@@ -146,7 +149,7 @@ class PHPExcel_Shared_JAMA_QRDecomposition
                 }
             }
         }
-        return new PHPExcel_Shared_JAMA_Matrix($R);
+        return new Matrix($R);
     }    //    function getR()
 
     /**
@@ -183,7 +186,7 @@ class PHPExcel_Shared_JAMA_QRDecomposition
             }
         }
         */
-        return new PHPExcel_Shared_JAMA_Matrix($Q);
+        return new Matrix($Q);
     }    //    function getQ()
 
     /**
@@ -223,13 +226,13 @@ class PHPExcel_Shared_JAMA_QRDecomposition
                         }
                     }
                 }
-                $X = new PHPExcel_Shared_JAMA_Matrix($X);
+                $X = new Matrix($X);
                 return ($X->getMatrix(0, $this->n-1, 0, $nx));
             } else {
-                throw new PHPExcel_Calculation_Exception(self::MATRIX_RANK_EXCEPTION);
+                throw new \PHPExcel\Calculation\Exception(self::MATRIX_RANK_EXCEPTION);
             }
         } else {
-            throw new PHPExcel_Calculation_Exception(PHPExcel_Shared_JAMA_Matrix::MATRIX_DIMENSION_EXCEPTION);
+            throw new \PHPExcel\Calculation\Exception(Matrix::MATRIX_DIMENSION_EXCEPTION);
         }
     }
 }
