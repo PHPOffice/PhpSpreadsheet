@@ -1043,8 +1043,9 @@ class Excel2007 extends BaseReader implements IReader
                                     }
 
                                     // Extract all cell references in $ref
-                                    foreach (\PHPExcel\Cell::extractAllCellReferencesInRange($ref) as $reference) {
-                                        $docSheet->getStyle($reference)->setConditionalStyles($conditionalStyles);
+                                    $cellBlocks = explode(' ', str_replace('$', '', strtoupper($ref)));
+                                    foreach ($cellBlocks as $cellBlock) {
+                                        $docSheet->getStyle($cellBlock)->setConditionalStyles($conditionalStyles);
                                     }
                                 }
                             }
