@@ -72,9 +72,9 @@ class DateTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider providerDateTimeformattedPHPToExcel1900
+     * @dataProvider providerDateTimeFormattedPHPToExcel1900
      */
-    public function testDateTimeformattedPHPToExcel1900()
+    public function testDateTimeFormattedPHPToExcel1900()
     {
         $result = call_user_func(
             array('\PHPExcel\Shared\Date','setExcelCalendar'),
@@ -87,9 +87,9 @@ class DateTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedResult, $result, null, 1E-5);
     }
 
-    public function providerDateTimeformattedPHPToExcel1900()
+    public function providerDateTimeFormattedPHPToExcel1900()
     {
-        return new \testDataFileIterator('rawTestData/Shared/DateTimeformattedPHPToExcel1900.data');
+        return new \testDataFileIterator('rawTestData/Shared/DateTimeFormattedPHPToExcel1900.data');
     }
 
     /**
