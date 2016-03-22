@@ -1,4 +1,7 @@
 <?php
+
+namespace PHPExcel\Shared\PCLZip;
+
 // --------------------------------------------------------------------------------
 // PhpConcept Library - Zip Module 2.8.2
 // --------------------------------------------------------------------------------
@@ -22,7 +25,7 @@
 //     The use of this software is at the risk of the user.
 //
 // --------------------------------------------------------------------------------
-// $Id: pclzip.lib.php,v 1.60 2009/09/30 21:01:04 vblavet Exp $
+// $Id: PclZip.php,v 1.60 2009/09/30 21:01:04 vblavet Exp $
 // --------------------------------------------------------------------------------
 
 // ----- Constants
@@ -212,7 +215,7 @@ class PclZip
     //     Note that no real action is taken, if the archive does not exist it is not
     //     created. Use create() for that.
     // --------------------------------------------------------------------------------
-    public function PclZip($p_zipname)
+    public function __construct($p_zipname)
     {
 
         // ----- Tests the zlib
@@ -1481,6 +1484,7 @@ class PclZip
                     // ereg() is deprecated starting with PHP 5.3. Move PCLZIP_OPT_BY_EREG
                     // to PCLZIP_OPT_BY_PREG
                     $p_options_list[$i] = PCLZIP_OPT_BY_PREG;
+                    // no break;
                 case PCLZIP_OPT_BY_PREG:
                 //case PCLZIP_OPT_CRYPT :
                     // ----- Check the number of parameters

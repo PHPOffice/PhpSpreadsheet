@@ -598,7 +598,7 @@ class OOCalc extends BaseReader implements IReader
                                             $dateObj = new DateTime($cellDataOfficeAttributes['date-value'], $GMT);
                                             $dateObj->setTimeZone($timezoneObj);
                                             list($year, $month, $day, $hour, $minute, $second) = explode(' ', $dateObj->format('Y m d H i s'));
-                                            $dataValue = \PHPExcel\Shared\Date::FormattedPHPToExcel($year, $month, $day, $hour, $minute, $second);
+                                            $dataValue = \PHPExcel\Shared\Date::formattedPHPToExcel($year, $month, $day, $hour, $minute, $second);
                                             if ($dataValue != floor($dataValue)) {
                                                 $formatting = \PHPExcel\Style\NumberFormat::FORMAT_DATE_XLSX15.' '.\PHPExcel\Style\NumberFormat::FORMAT_DATE_TIME4;
                                             } else {

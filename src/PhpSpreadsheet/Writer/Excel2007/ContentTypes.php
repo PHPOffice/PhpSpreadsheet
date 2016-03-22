@@ -189,7 +189,7 @@ class ContentTypes extends WriterPart
      */
     private function getImageMimeType($pFile = '')
     {
-        if (\PHPExcel\Shared\File::file_exists($pFile)) {
+        if (\PHPExcel\Shared\File::fileExists($pFile)) {
             $image = getimagesize($pFile);
             return image_type_to_mime_type($image[2]);
         } else {

@@ -62,7 +62,7 @@ class XMLWriter extends \XMLWriter
         } else {
             // Create temporary filename
             if ($pTemporaryStorageFolder === null) {
-                $pTemporaryStorageFolder = File::sys_get_temp_dir();
+                $pTemporaryStorageFolder = File::sysGetTempDir();
             }
             $this->tempFileName = @tempnam($pTemporaryStorageFolder, 'xml');
 

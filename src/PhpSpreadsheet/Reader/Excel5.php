@@ -1358,7 +1358,7 @@ class Excel5 extends BaseReader implements IReader
 
             switch ($id) {
                 case 0x01:    //    Code Page
-                    $codePage = \PHPExcel\Shared\CodePage::NumberToName($value);
+                    $codePage = \PHPExcel\Shared\CodePage::numberToName($value);
                     break;
                 case 0x02:    //    Title
                     $this->phpExcel->getProperties()->setTitle($value);
@@ -1504,7 +1504,7 @@ class Excel5 extends BaseReader implements IReader
 
             switch ($id) {
                 case 0x01:    //    Code Page
-                    $codePage = \PHPExcel\Shared\CodePage::NumberToName($value);
+                    $codePage = \PHPExcel\Shared\CodePage::numberToName($value);
                     break;
                 case 0x02:    //    Category
                     $this->phpExcel->getProperties()->setCategory($value);
@@ -1884,7 +1884,7 @@ class Excel5 extends BaseReader implements IReader
         // offset: 0; size: 2; code page identifier
         $codepage = self::getInt2d($recordData, 0);
 
-        $this->codepage = \PHPExcel\Shared\CodePage::NumberToName($codepage);
+        $this->codepage = \PHPExcel\Shared\CodePage::numberToName($codepage);
     }
 
 

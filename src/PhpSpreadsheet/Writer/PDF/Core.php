@@ -214,7 +214,7 @@ abstract class Core extends \PHPExcel\Writer\HTML
     {
         parent::__construct($phpExcel);
         $this->setUseInlineCss(true);
-        $this->tempDir = PHPExcel_Shared_File::sys_get_temp_dir();
+        $this->tempDir = PHPExcel_Shared_File::sysGetTempDir();
     }
 
     /**

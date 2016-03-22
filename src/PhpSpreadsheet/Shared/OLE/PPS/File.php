@@ -37,7 +37,7 @@ class File extends \PHPExcel\Shared\OLE\PPS
     *
     * @access public
     * @param string $name The name of the file (in Unicode)
-    * @see OLE::Asc2Ucs()
+    * @see OLE::ascToUcs()
     */
     public function __construct($name)
     {

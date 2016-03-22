@@ -443,7 +443,7 @@ class OLE
     * @param string $ascii The ASCII string to transform
     * @return string The string in Unicode
     */
-    public static function Asc2Ucs($ascii)
+    public static function ascToUcs($ascii)
     {
         $rawname = '';
         for ($i = 0; $i < strlen($ascii); ++$i) {
@@ -461,7 +461,7 @@ class OLE
     * @param integer $date A timestamp
     * @return string The string for the OLE container
     */
-    public static function LocalDate2OLE($date = null)
+    public static function localDateToOLE($date = null)
     {
         if (!isset($date)) {
             return "\x00\x00\x00\x00\x00\x00\x00\x00";

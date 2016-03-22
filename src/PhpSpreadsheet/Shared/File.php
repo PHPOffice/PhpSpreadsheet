@@ -66,7 +66,7 @@ class File
       * @param     string    $pFilename    Filename
       * @return bool
       */
-    public static function file_exists($pFilename)
+    public static function fileExists($pFilename)
     {
         // Sick construction, but it seems that
         // file_exists returns strange values when
@@ -130,7 +130,7 @@ class File
      *
      * @return string
      */
-    public static function sys_get_temp_dir()
+    public static function sysGetTempDir()
     {
         if (self::$useUploadTempDirectory) {
             //  use upload-directory when defined to allow running on environments having very restricted

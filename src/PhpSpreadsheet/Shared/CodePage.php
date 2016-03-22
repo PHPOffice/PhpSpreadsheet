@@ -37,7 +37,7 @@ class CodePage
      * @return string Code Page Name
      * @throws \PHPExcel\Exception
      */
-    public static function NumberToName($codePage = 1252)
+    public static function numberToName($codePage = 1252)
     {
         switch ($codePage) {
             case 367:

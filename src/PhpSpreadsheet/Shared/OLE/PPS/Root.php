@@ -45,9 +45,9 @@ class Root extends \PHPExcel\Shared\OLE\PPS
      */
     public function __construct($time_1st, $time_2nd, $raChild)
     {
-        $this->_tempDir = \PHPExcel\Shared\File::sys_get_temp_dir();
+        $this->_tempDir = \PHPExcel\Shared\File::sysGetTempDir();
 
-        parent::__construct(null, \PHPExcel\Shared\OLE::Asc2Ucs('Root Entry'), \PHPExcel\Shared\OLE::OLE_PPS_TYPE_ROOT, null, null, null, $time_1st, $time_2nd, null, $raChild);
+        parent::__construct(null, \PHPExcel\Shared\OLE::ascToUcs('Root Entry'), \PHPExcel\Shared\OLE::OLE_PPS_TYPE_ROOT, null, null, null, $time_1st, $time_2nd, null, $raChild);
     }
 
     /**
@@ -78,7 +78,7 @@ class Root extends \PHPExcel\Shared\OLE\PPS
             $this->_FILEH_ = $filename;
         } elseif ($filename == '-' || $filename == '') {
             if ($this->tempDirectory === null) {
-                $this->tempDirectory = \PHPExcel\Shared\File::sys_get_temp_dir();
+                $this->tempDirectory = \PHPExcel\Shared\File::sysGetTempDir();
             }
             $this->_tmp_filename = tempnam($this->tempDirectory, "OLE_PPS_Root");
             $this->_FILEH_ = fopen($this->_tmp_filename, "w+b");
@@ -132,7 +132,7 @@ class Root extends \PHPExcel\Shared\OLE\PPS
         $iCount = count($raList);
         for ($i = 0; $i < $iCount; ++$i) {
             if ($raList[$i]->Type == \PHPExcel\Shared\OLE::OLE_PPS_TYPE_FILE) {
-                $raList[$i]->Size = $raList[$i]->_DataLen();
+                $raList[$i]->Size = $raList[$i]->getDataLen();
                 if ($raList[$i]->Size < \PHPExcel\Shared\OLE::OLE_DATA_SIZE_SMALL) {
                     $iSBcnt += floor($raList[$i]->Size / $this->_SMALL_BLOCK_SIZE)
                                   + (($raList[$i]->Size % $this->_SMALL_BLOCK_SIZE)? 1: 0);
@@ -264,7 +264,7 @@ class Root extends \PHPExcel\Shared\OLE\PPS
         $iCount = count($raList);
         for ($i = 0; $i < $iCount; ++$i) {
             if ($raList[$i]->Type != \PHPExcel\Shared\OLE::OLE_PPS_TYPE_DIR) {
-                $raList[$i]->Size = $raList[$i]->_DataLen();
+                $raList[$i]->Size = $raList[$i]->getDataLen();
                 if (($raList[$i]->Size >= \PHPExcel\Shared\OLE::OLE_DATA_SIZE_SMALL) || (($raList[$i]->Type == \PHPExcel\Shared\OLE::OLE_PPS_TYPE_ROOT) && isset($raList[$i]->_data))) {
                     // Write Data
                     //if (isset($raList[$i]->_PPS_FILE)) {

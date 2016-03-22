@@ -168,7 +168,7 @@ class Excel5 extends BaseWriter implements IWriter
 
         // initialize OLE file
         $workbookStreamName = 'Workbook';
-        $OLE = new \PHPExcel\Shared\OLE\PPS\File(\PHPExcel\Shared\OLE::Asc2Ucs($workbookStreamName));
+        $OLE = new \PHPExcel\Shared\OLE\PPS\File(\PHPExcel\Shared\OLE::ascToUcs($workbookStreamName));
 
         // Write the worksheet streams before the global workbook stream,
         // because the byte sizes of these are needed in the global workbook stream
@@ -189,14 +189,14 @@ class Excel5 extends BaseWriter implements IWriter
         $this->documentSummaryInformation = $this->writeDocumentSummaryInformation();
         // initialize OLE Document Summary Information
         if (isset($this->documentSummaryInformation) && !empty($this->documentSummaryInformation)) {
-            $OLE_DocumentSummaryInformation = new \PHPExcel\Shared\OLE\PPS\File(\PHPExcel\Shared\OLE::Asc2Ucs(chr(5) . 'DocumentSummaryInformation'));
+            $OLE_DocumentSummaryInformation = new \PHPExcel\Shared\OLE\PPS\File(\PHPExcel\Shared\OLE::ascToUcs(chr(5) . 'DocumentSummaryInformation'));
             $OLE_DocumentSummaryInformation->append($this->documentSummaryInformation);
         }
 
         $this->summaryInformation = $this->writeSummaryInformation();
         // initialize OLE Summary Information
         if (isset($this->summaryInformation) && !empty($this->summaryInformation)) {
-            $OLE_SummaryInformation = new \PHPExcel\Shared\OLE\PPS\File(\PHPExcel\Shared\OLE::Asc2Ucs(chr(5) . 'SummaryInformation'));
+            $OLE_SummaryInformation = new \PHPExcel\Shared\OLE\PPS\File(\PHPExcel\Shared\OLE::ascToUcs(chr(5) . 'SummaryInformation'));
             $OLE_SummaryInformation->append($this->summaryInformation);
         }
 
@@ -828,7 +828,7 @@ class Excel5 extends BaseWriter implements IWriter
             $dataSection[] = array('summary'=> array('pack' => 'V', 'data' => 0x0C),
                                    'offset' => array('pack' => 'V'),
                                    'type'     => array('pack' => 'V', 'data' => 0x40), // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
-                                   'data'    => array('data' => \PHPExcel\Shared\OLE::LocalDate2OLE($dataProp)));
+                                   'data'    => array('data' => \PHPExcel\Shared\OLE::localDateToOLE($dataProp)));
             $dataSection_NumProps++;
         }
         //    Modified Date/Time
@@ -837,7 +837,7 @@ class Excel5 extends BaseWriter implements IWriter
             $dataSection[] = array('summary'=> array('pack' => 'V', 'data' => 0x0D),
                                    'offset' => array('pack' => 'V'),
                                    'type'     => array('pack' => 'V', 'data' => 0x40), // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
-                                   'data'    => array('data' => \PHPExcel\Shared\OLE::LocalDate2OLE($dataProp)));
+                                   'data'    => array('data' => \PHPExcel\Shared\OLE::localDateToOLE($dataProp)));
             $dataSection_NumProps++;
         }
         //    Security

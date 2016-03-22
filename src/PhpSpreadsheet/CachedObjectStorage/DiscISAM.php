@@ -186,7 +186,7 @@ class DiscISAM extends CacheBase implements ICache
     {
         $this->cacheDirectory    = ((isset($arguments['dir'])) && ($arguments['dir'] !== null))
                                     ? $arguments['dir']
-                                    : \PHPExcel\Shared\File::sys_get_temp_dir();
+                                    : \PHPExcel\Shared\File::sysGetTempDir();
 
         parent::__construct($parent);
         if (is_null($this->fileHandle)) {
