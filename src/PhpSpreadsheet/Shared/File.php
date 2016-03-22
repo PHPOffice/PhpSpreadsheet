@@ -3,7 +3,7 @@
 namespace PHPExcel\Shared;
 
 /**
- * PHPExcel_Shared_File
+ * \PHPExcel\Shared\File
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *

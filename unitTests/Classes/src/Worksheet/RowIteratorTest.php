@@ -64,7 +64,7 @@ class RowIteratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException PHPExcel_Exception
+     * @expectedException \PHPExcel\Exception
      */
     public function testSeekOutOfRange()
     {
@@ -73,7 +73,7 @@ class RowIteratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException PHPExcel_Exception
+     * @expectedException \PHPExcel\Exception
      */
     public function testPrevOutOfRange()
     {

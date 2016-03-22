@@ -3,7 +3,7 @@
 namespace PHPExcel\Style;
 
 /**
- * PHPExcel_Style_NumberFormat
+ * \PHPExcel\Style\NumberFormat
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *

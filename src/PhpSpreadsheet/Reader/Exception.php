@@ -3,7 +3,7 @@
 namespace PHPExcel\Reader;
 
 /**
- * PHPExcel_Reader_Exception
+ * \PHPExcel\Reader\Exception
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *

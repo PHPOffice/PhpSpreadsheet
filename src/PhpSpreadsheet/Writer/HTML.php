@@ -702,7 +702,7 @@ class HTML extends BaseWriter implements IWriter
             if ($chart instanceof PHPExcel_Chart) {
                 $chartCoordinates = $chart->getTopLeftPosition();
                 if ($chartCoordinates['cell'] == $coordinates) {
-                    $chartFileName = PHPExcel_Shared_File::sysGetTempDir().'/'.uniqid().'.png';
+                    $chartFileName = \PHPExcel\Shared\File::sysGetTempDir().'/'.uniqid().'.png';
                     if (!$chart->render($chartFileName)) {
                         return;
                     }

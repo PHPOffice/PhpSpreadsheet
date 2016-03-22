@@ -30,7 +30,7 @@ $inputFileName = './sampleData/example_1.xls';
 echo 'Loading file ',pathinfo($inputFileName,PATHINFO_BASENAME),' using IOFactory to identify the format<br />';
 try {
 	$objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
-} catch(PHPExcel_Reader_Exception $e) {
+} catch(\PHPExcel\Reader\Exception $e) {
 	die('Error loading file "'.pathinfo($inputFileName,PATHINFO_BASENAME).'": '.$e->getMessage());
 }
 

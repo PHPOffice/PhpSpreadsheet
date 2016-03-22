@@ -3,7 +3,7 @@
 namespace PHPExcel\Shared;
 
 /**
- * PHPExcel_Shared_PasswordHasher
+ * \PHPExcel\Shared\PasswordHasher
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
