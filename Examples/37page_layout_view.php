@@ -34,12 +34,12 @@ date_default_timezone_set('Europe/London');
 define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 /** Include PHPExcel */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
+require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 
 // Create new PHPExcel object
 echo date('H:i:s') , " Create new PHPExcel object" , EOL;
-$objPHPExcel = new PHPExcel();
+$objPHPExcel = new \PHPExcel\Spreadsheet();
 
 // Set document properties
 echo date('H:i:s') , " Set document properties" , EOL;
@@ -62,16 +62,16 @@ $objPHPExcel->setActiveSheetIndex(0)
 $objPHPExcel->setActiveSheetIndex(0);
 
 // Set the page layout view as page layout
-$objPHPExcel->getActiveSheet()->getSheetView()->setView(PHPExcel_Worksheet_SheetView::SHEETVIEW_PAGE_LAYOUT);
+$objPHPExcel->getActiveSheet()->getSheetView()->setView(PHPExcel\Worksheet\SheetView::SHEETVIEW_PAGE_LAYOUT);
 
 // Save Excel 2007 file
 echo date('H:i:s') , " Write to Excel2007 format" , EOL;
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
 // Save Excel5 file
 echo date('H:i:s') , " Write to Excel5 format" , EOL;
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save(str_replace('.php', '.xls', __FILE__));
 echo date('H:i:s') , " File written to " , str_replace('.php', '.xls', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
 

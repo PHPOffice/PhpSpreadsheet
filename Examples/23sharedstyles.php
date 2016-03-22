@@ -36,12 +36,12 @@ define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 date_default_timezone_set('Europe/London');
 
 /** Include PHPExcel */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
+require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 
 // Create new PHPExcel object
 echo date('H:i:s') , " Create new PHPExcel object" , EOL;
-$objPHPExcel = new PHPExcel();
+$objPHPExcel = new \PHPExcel\Spreadsheet();
 
 // Set document properties
 echo date('H:i:s') , " Set document properties" , EOL;
@@ -58,39 +58,39 @@ $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 echo date('H:i:s') , " Add some data" , EOL;
 $objPHPExcel->setActiveSheetIndex(0);
 
-$sharedStyle1 = new PHPExcel_Style();
-$sharedStyle2 = new PHPExcel_Style();
+$sharedStyle1 = new \PHPExcel\Style();
+$sharedStyle2 = new \PHPExcel\Style();
 
 $sharedStyle1->applyFromArray(
 	array('fill' 	=> array(
-								'type'		=> PHPExcel_Style_Fill::FILL_SOLID,
+								'type'		=> \PHPExcel\Style\Fill::FILL_SOLID,
 								'color'		=> array('argb' => 'FFCCFFCC')
 							),
 		  'borders' => array(
-								'bottom'	=> array('style' => PHPExcel_Style_Border::BORDER_THIN),
-								'right'		=> array('style' => PHPExcel_Style_Border::BORDER_MEDIUM)
+								'bottom'	=> array('style' => \PHPExcel\Style\Border::BORDER_THIN),
+								'right'		=> array('style' => \PHPExcel\Style\Border::BORDER_MEDIUM)
 							)
 		 ));
 
 $sharedStyle2->applyFromArray(
 	array('fill' 	=> array(
-								'type'		=> PHPExcel_Style_Fill::FILL_SOLID,
+								'type'		=> \PHPExcel\Style\Fill::FILL_SOLID,
 								'color'		=> array('argb' => 'FFFFFF00')
 							),
 		  'borders' => array(
-								'bottom'	=> array('style' => PHPExcel_Style_Border::BORDER_THIN),
-								'right'		=> array('style' => PHPExcel_Style_Border::BORDER_MEDIUM)
+								'bottom'	=> array('style' => \PHPExcel\Style\Border::BORDER_THIN),
+								'right'		=> array('style' => \PHPExcel\Style\Border::BORDER_MEDIUM)
 							)
 		 ));
 
-$objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "A1:T100");
-$objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle2, "C5:R95");
+$objPHPExcel->getActiveSheet()->duplicateStyle($sharedStyle1, "A1:T100");
+$objPHPExcel->getActiveSheet()->duplicateStyle($sharedStyle2, "C5:R95");
 
 // Save Excel 2007 file
 echo date('H:i:s') , " Write to Excel2007 format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;
@@ -105,7 +105,7 @@ echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 
 echo date('H:i:s') , " Write to Excel5 format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save(str_replace('.php', '.xls', __FILE__));
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;

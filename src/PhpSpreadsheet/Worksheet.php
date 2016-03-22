@@ -1506,7 +1506,7 @@ class Worksheet implements IComparable
      *
      * Please note that this will overwrite existing cell styles for cells in range!
      *
-     * @deprecated
+     * @deprecated duplicateStyle
      * @param Style $pSharedCellStyle Cell style to share
      * @param string $pRange Range of cells (i.e. "A1:B10"), or just one cell (i.e. "A1")
      * @throws Exception

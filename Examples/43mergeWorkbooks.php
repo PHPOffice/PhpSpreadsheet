@@ -33,14 +33,14 @@ define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 date_default_timezone_set('Europe/London');
 
-/** Include PHPExcel_IOFactory */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel/IOFactory.php';
+/** Include PHPExcel */
+require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 
 echo date('H:i:s') , " Load MergeBook1 from Excel2007 file" , EOL;
 $callStartTime = microtime(true);
 
-$objPHPExcel1 = PHPExcel_IOFactory::load(dirname(__FILE__) . "/templates/43mergeBook1.xlsx");
+$objPHPExcel1 = \PHPExcel\IOFactory::load(dirname(__FILE__) . "/templates/43mergeBook1.xlsx");
 
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;
@@ -52,7 +52,7 @@ echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 
 echo date('H:i:s') , " Load MergeBook2 from Excel2007 file" , EOL;
 $callStartTime = microtime(true);
 
-$objPHPExcel2 = PHPExcel_IOFactory::load(dirname(__FILE__) . "/templates/43mergeBook2.xlsx");
+$objPHPExcel2 = \PHPExcel\IOFactory::load(dirname(__FILE__) . "/templates/43mergeBook2.xlsx");
 
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;
@@ -71,7 +71,7 @@ foreach($objPHPExcel2->getSheetNames() as $sheetName) {
 echo date('H:i:s') , " Write to Excel2007 format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel1, 'Excel2007');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel1, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 
 $callEndTime = microtime(true);

@@ -34,13 +34,13 @@ define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 date_default_timezone_set('Europe/London');
 
-/** PHPExcel_IOFactory */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel/IOFactory.php';
+/** Include PHPExcel */
+require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 
 
 echo date('H:i:s') , " Load from Excel5 template" , EOL;
-$objReader = PHPExcel_IOFactory::createReader('Excel5');
+$objReader = \PHPExcel\IOFactory::createReader('Excel5');
 $objPHPExcel = $objReader->load("templates/30template.xls");
 
 
@@ -61,7 +61,7 @@ $data = array(array('title'		=> 'Excel for dummies',
 				   )
 			 );
 
-$objPHPExcel->getActiveSheet()->setCellValue('D1', PHPExcel_Shared_Date::PHPToExcel(time()));
+$objPHPExcel->getActiveSheet()->setCellValue('D1', \PHPExcel\Shared\Date::PHPToExcel(time()));
 
 $baseRow = 5;
 foreach($data as $r => $dataRow) {
@@ -78,7 +78,7 @@ $objPHPExcel->getActiveSheet()->removeRow($baseRow-1,1);
 
 
 echo date('H:i:s') , " Write to Excel5 format" , EOL;
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save(str_replace('.php', '.xls', __FILE__));
 echo date('H:i:s') , " File written to " , str_replace('.php', '.xls', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
 

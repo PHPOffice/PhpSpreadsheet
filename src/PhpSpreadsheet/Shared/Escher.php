@@ -32,7 +32,7 @@ class Escher
     /**
      * Drawing Group Container
      *
-     * @var Escher\DggContainer
+     * @var \DggContainer
      */
     private $dggContainer;
 

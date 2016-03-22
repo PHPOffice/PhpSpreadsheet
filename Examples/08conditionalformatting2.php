@@ -35,12 +35,12 @@ define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 date_default_timezone_set('Europe/London');
 
 /** Include PHPExcel */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
+require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 
 // Create new PHPExcel object
 echo date('H:i:s') , " Create new PHPExcel object" , EOL;
-$objPHPExcel = new PHPExcel();
+$objPHPExcel = new \PHPExcel\Spreadsheet();
 
 // Set document properties
 echo date('H:i:s') , " Set document properties" , EOL;
@@ -70,23 +70,23 @@ $objPHPExcel->getActiveSheet()
 $objPHPExcel->getActiveSheet()->getStyle('A1:A8')
     ->getNumberFormat()
     ->setFormatCode(
-        PHPExcel_Style_NumberFormat::FORMAT_PERCENTAGE_00
+        \PHPExcel\Style\NumberFormat::FORMAT_PERCENTAGE_00
     );
 
 
 // Add conditional formatting
 echo date('H:i:s') , " Add conditional formatting" , EOL;
-$objConditional1 = new PHPExcel_Style_Conditional();
-$objConditional1->setConditionType(PHPExcel_Style_Conditional::CONDITION_CELLIS)
-    ->setOperatorType(PHPExcel_Style_Conditional::OPERATOR_LESSTHAN)
+$objConditional1 = new \PHPExcel\Style\Conditional();
+$objConditional1->setConditionType(\PHPExcel\Style\Conditional::CONDITION_CELLIS)
+    ->setOperatorType(\PHPExcel\Style\Conditional::OPERATOR_LESSTHAN)
     ->addCondition('0');
-$objConditional1->getStyle()->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_RED);
+$objConditional1->getStyle()->getFont()->getColor()->setARGB(\PHPExcel\Style\Color::COLOR_RED);
 
-$objConditional3 = new PHPExcel_Style_Conditional();
-$objConditional3->setConditionType(PHPExcel_Style_Conditional::CONDITION_CELLIS)
-    ->setOperatorType(PHPExcel_Style_Conditional::OPERATOR_GREATERTHANOREQUAL)
+$objConditional3 = new \PHPExcel\Style\Conditional();
+$objConditional3->setConditionType(\PHPExcel\Style\Conditional::CONDITION_CELLIS)
+    ->setOperatorType(\PHPExcel\Style\Conditional::OPERATOR_GREATERTHANOREQUAL)
     ->addCondition('1');
-$objConditional3->getStyle()->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_GREEN);
+$objConditional3->getStyle()->getFont()->getColor()->setARGB(\PHPExcel\Style\Color::COLOR_GREEN);
 
 $conditionalStyles = $objPHPExcel->getActiveSheet()->getStyle('A1')->getConditionalStyles();
 array_push($conditionalStyles, $objConditional1);
@@ -106,7 +106,7 @@ $objPHPExcel->getActiveSheet()->duplicateConditionalStyle(
 echo date('H:i:s') , " Write to Excel2007 format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;
@@ -117,7 +117,7 @@ echo 'Call time to write Workbook was ' , sprintf('%.4f',$callTime) , " seconds"
 echo date('H:i:s') , " Write to Excel5 format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save(str_replace('.php', '.xls', __FILE__));
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;

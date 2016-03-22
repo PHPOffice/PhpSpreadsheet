@@ -34,12 +34,12 @@ date_default_timezone_set('Europe/London');
 define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 /** Include PHPExcel */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
+require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 
 // Create new PHPExcel object
 echo date('H:i:s') , " Create new PHPExcel object" , EOL;
-$objPHPExcel = new PHPExcel();
+$objPHPExcel = new \PHPExcel\Spreadsheet();
 
 // Set document properties
 echo date('H:i:s') , " Set document properties" , EOL;
@@ -106,7 +106,7 @@ $objPHPExcel->setActiveSheetIndex(0);
 echo date('H:i:s') , " Write to Excel2007 format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel2007');
 
 //
 //  If we set Pre Calculated Formulas to true then PHPExcel will calculate all formulae in the
@@ -130,7 +130,7 @@ echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 
 echo date('H:i:s') , " Write to Excel5 format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save(str_replace('.php', '.xls', __FILE__));
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;

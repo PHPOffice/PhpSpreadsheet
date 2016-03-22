@@ -36,15 +36,11 @@ date_default_timezone_set('Europe/London');
 
 include "05featuredemo.inc.php";
 
-/** Include PHPExcel_IOFactory */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel/IOFactory.php';
-
-
 // Save Excel 2007 file
 echo date('H:i:s') , " Write to Excel2007 format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;
@@ -59,7 +55,7 @@ echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 
 echo date('H:i:s') , " Write to Excel5 format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save(str_replace('.php', '.xls', __FILE__));
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;

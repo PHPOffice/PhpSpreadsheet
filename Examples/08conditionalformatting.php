@@ -35,12 +35,12 @@ define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 date_default_timezone_set('Europe/London');
 
 /** Include PHPExcel */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
+require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 
 // Create new PHPExcel object
 echo date('H:i:s') , " Create new PHPExcel object" , EOL;
-$objPHPExcel = new PHPExcel();
+$objPHPExcel = new \PHPExcel\Spreadsheet();
 
 // Set document properties
 echo date('H:i:s') , " Set document properties" , EOL;
@@ -86,30 +86,30 @@ $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(12);
 
 // Add conditional formatting
 echo date('H:i:s') , " Add conditional formatting" , EOL;
-$objConditional1 = new PHPExcel_Style_Conditional();
-$objConditional1->setConditionType(PHPExcel_Style_Conditional::CONDITION_CELLIS)
-                ->setOperatorType(PHPExcel_Style_Conditional::OPERATOR_BETWEEN)
+$objConditional1 = new \PHPExcel\Style\Conditional();
+$objConditional1->setConditionType(\PHPExcel\Style\Conditional::CONDITION_CELLIS)
+                ->setOperatorType(\PHPExcel\Style\Conditional::OPERATOR_BETWEEN)
                 ->addCondition('200')
                 ->addCondition('400');
-$objConditional1->getStyle()->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_YELLOW);
+$objConditional1->getStyle()->getFont()->getColor()->setARGB(\PHPExcel\Style\Color::COLOR_YELLOW);
 $objConditional1->getStyle()->getFont()->setBold(true);
-$objConditional1->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
+$objConditional1->getStyle()->getNumberFormat()->setFormatCode(\PHPExcel\Style\NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
 
-$objConditional2 = new PHPExcel_Style_Conditional();
-$objConditional2->setConditionType(PHPExcel_Style_Conditional::CONDITION_CELLIS)
-                ->setOperatorType(PHPExcel_Style_Conditional::OPERATOR_LESSTHAN)
+$objConditional2 = new \PHPExcel\Style\Conditional();
+$objConditional2->setConditionType(\PHPExcel\Style\Conditional::CONDITION_CELLIS)
+                ->setOperatorType(\PHPExcel\Style\Conditional::OPERATOR_LESSTHAN)
                 ->addCondition('0');
-$objConditional2->getStyle()->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_RED);
+$objConditional2->getStyle()->getFont()->getColor()->setARGB(\PHPExcel\Style\Color::COLOR_RED);
 $objConditional2->getStyle()->getFont()->setItalic(true);
-$objConditional2->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
+$objConditional2->getStyle()->getNumberFormat()->setFormatCode(\PHPExcel\Style\NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
 
-$objConditional3 = new PHPExcel_Style_Conditional();
-$objConditional3->setConditionType(PHPExcel_Style_Conditional::CONDITION_CELLIS)
-                ->setOperatorType(PHPExcel_Style_Conditional::OPERATOR_GREATERTHANOREQUAL)
+$objConditional3 = new \PHPExcel\Style\Conditional();
+$objConditional3->setConditionType(\PHPExcel\Style\Conditional::CONDITION_CELLIS)
+                ->setOperatorType(\PHPExcel\Style\Conditional::OPERATOR_GREATERTHANOREQUAL)
                 ->addCondition('0');
-$objConditional3->getStyle()->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_GREEN);
+$objConditional3->getStyle()->getFont()->getColor()->setARGB(\PHPExcel\Style\Color::COLOR_GREEN);
 $objConditional3->getStyle()->getFont()->setItalic(true);
-$objConditional3->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
+$objConditional3->getStyle()->getNumberFormat()->setFormatCode(\PHPExcel\Style\NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
 
 $conditionalStyles = $objPHPExcel->getActiveSheet()->getStyle('B2')->getConditionalStyles();
 array_push($conditionalStyles, $objConditional1);
@@ -142,8 +142,8 @@ $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&L&B' . $objPHP
 
 // Set page orientation and size
 echo date('H:i:s') , " Set page orientation and size" , EOL;
-$objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
-$objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+$objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(\PHPExcel\Worksheet\PageSetup::ORIENTATION_PORTRAIT);
+$objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(\PHPExcel\Worksheet\PageSetup::PAPERSIZE_A4);
 
 
 // Rename worksheet
@@ -159,7 +159,7 @@ $objPHPExcel->setActiveSheetIndex(0);
 echo date('H:i:s') , " Write to Excel2007 format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;
@@ -170,7 +170,7 @@ echo 'Call time to write Workbook was ' , sprintf('%.4f',$callTime) , " seconds"
 echo date('H:i:s') , " Write to Excel5 format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save(str_replace('.php', '.xls', __FILE__));
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;

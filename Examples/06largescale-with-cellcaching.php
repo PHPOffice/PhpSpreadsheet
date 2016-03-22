@@ -35,10 +35,10 @@ define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 date_default_timezone_set('Europe/London');
 
 /** Include PHPExcel */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
+require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
-$cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_in_memory_gzip;
-if (!PHPExcel_Settings::setCacheStorageMethod($cacheMethod)) {
+$cacheMethod = \PHPExcel\CachedObjectStorageFactory::CACHE_IN_MEMORY_GZIP;
+if (!\PHPExcel\Settings::setCacheStorageMethod($cacheMethod)) {
 	die($cacheMethod . " caching method is not available" . EOL);
 }
 echo date('H:i:s') , " Enable Cell Caching using " , $cacheMethod , " method" , EOL;
@@ -46,7 +46,7 @@ echo date('H:i:s') , " Enable Cell Caching using " , $cacheMethod , " method" , 
 
 // Create new PHPExcel object
 echo date('H:i:s') , " Create new PHPExcel object" , EOL;
-$objPHPExcel = new PHPExcel();
+$objPHPExcel = new \PHPExcel\Spreadsheet();
 
 // Set document properties
 echo date('H:i:s') , " Set properties" , EOL;
@@ -109,7 +109,7 @@ $objPHPExcel->setActiveSheetIndex(0);
 echo date('H:i:s') , " Write to Excel2007 format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;

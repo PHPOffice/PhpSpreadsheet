@@ -36,15 +36,15 @@ date_default_timezone_set('Europe/London');
 
 include "05featuredemo.inc.php";
 
-/** PHPExcel_IOFactory */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel/IOFactory.php';
+/** Include PHPExcel */
+require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 
 // Save Excel 95 file
 echo date('H:i:s') , " Write to Excel5 format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save(str_replace('.php', '.xls', __FILE__));
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;

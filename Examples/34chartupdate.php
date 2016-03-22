@@ -37,14 +37,14 @@ date_default_timezone_set('Europe/London');
  */
 
 /** PHPExcel */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
+require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 if (!file_exists("33chartcreate-bar.xlsx")) {
 	exit("Please run 33chartcreate-bar.php first." . EOL);
 }
 
 echo date('H:i:s') , " Load from Excel2007 file" , EOL;
-$objReader = PHPExcel_IOFactory::createReader("Excel2007");
+$objReader = \PHPExcel\IOFactory::createReader("Excel2007");
 $objReader->setIncludeCharts(TRUE);
 $objPHPExcel = $objReader->load("33chartcreate-bar.xlsx");
 
@@ -64,7 +64,7 @@ $objWorksheet->fromArray(
 
 // Save Excel 2007 file
 echo date('H:i:s') , " Write to Excel2007 format" , EOL;
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->setIncludeCharts(TRUE);
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;

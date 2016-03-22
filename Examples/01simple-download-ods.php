@@ -35,11 +35,11 @@ if (PHP_SAPI == 'cli')
 	die('This example should only be run from a Web Browser');
 
 /** Include PHPExcel */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
+require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 
 // Create new PHPExcel object
-$objPHPExcel = new PHPExcel();
+$objPHPExcel = new \PHPExcel\Spreadsheet();
 
 // Set document properties
 $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
@@ -84,6 +84,6 @@ header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
 header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
 header ('Pragma: public'); // HTTP/1.0
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'OpenDocument');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'OpenDocument');
 $objWriter->save('php://output');
 exit;

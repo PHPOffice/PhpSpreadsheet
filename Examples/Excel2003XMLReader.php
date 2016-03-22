@@ -30,14 +30,14 @@ error_reporting(E_ALL);
 
 date_default_timezone_set('Europe/London');
 
-/** PHPExcel_IOFactory */
+/** \PHPExcel\IOFactory */
 require_once dirname(__FILE__) . '/../Classes/PHPExcel/IOFactory.php';
 
 
 echo date('H:i:s') , " Load from Excel2003XML file" , PHP_EOL;
 $callStartTime = microtime(true);
 
-$objReader = PHPExcel_IOFactory::createReader('Excel2003XML');
+$objReader = \PHPExcel\IOFactory::createReader('Excel2003XML');
 $objPHPExcel = $objReader->load("Excel2003XMLTest.xml");
 
 
@@ -49,7 +49,7 @@ echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 
 
 
 echo date('H:i:s') , " Write to Excel5 format" , PHP_EOL;
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save(str_replace('.php', '.xls', __FILE__));
 echo date('H:i:s') , " File written to " , str_replace('.php', '.xls', __FILE__) , PHP_EOL;
 

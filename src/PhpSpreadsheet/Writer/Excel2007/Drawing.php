@@ -1,5 +1,6 @@
 <?php
 namespace PHPExcel\Writer\Excel2007;
+use PHPExcel\Chart;
 
 /**
  * PHPExcel_Writer_Excel2007_Drawing
@@ -85,11 +86,11 @@ class Drawing extends WriterPart
      * Write drawings to XML format
      *
      * @param     \PHPExcel\Shared\XMLWriter    $objWriter         XML Writer
-     * @param     PHPExcel_Chart                $pChart
+     * @param     Chart                $pChart
      * @param     int                            $pRelationId
      * @throws     \PHPExcel\Writer\Exception
      */
-    public function writeChart(\PHPExcel\Shared\XMLWriter $objWriter = null, PHPExcel_Chart $pChart = null, $pRelationId = -1)
+    public function writeChart(\PHPExcel\Shared\XMLWriter $objWriter = null, Chart $pChart = null, $pRelationId = -1)
     {
         $tl = $pChart->getTopLeftPosition();
         $tl['colRow'] = \PHPExcel\Cell::coordinateFromString($tl['cell']);

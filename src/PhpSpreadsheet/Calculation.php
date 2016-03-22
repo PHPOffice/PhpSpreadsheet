@@ -2093,7 +2093,7 @@ class Calculation
     public static function getInstance(Spreadsheet $spreadsheet = null)
     {
         if ($spreadsheet !== null) {
-            $instance = $workbook->getCalculationEngine();
+            $instance = $spreadsheet->getCalculationEngine();
             if (isset($instance)) {
                 return $instance;
             }

@@ -37,14 +37,14 @@ date_default_timezone_set('Europe/London');
 
 include "05featuredemo.inc.php";
 
-/** PHPExcel_IOFactory */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel/IOFactory.php';
+/** Include PHPExcel */
+require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 
 echo date('H:i:s') , " Write to HTML format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'HTML');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'HTML');
 $objWriter->setSheetIndex(0);
 //$objWriter->setImagesRoot('http://www.example.com');
 $objWriter->save(str_replace('.php', '.htm', __FILE__));

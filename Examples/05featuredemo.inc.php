@@ -29,12 +29,12 @@
 error_reporting(E_ALL);
 
 /** Include PHPExcel */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
+require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 
 // Create new PHPExcel object
 echo date('H:i:s') , " Create new PHPExcel object" , EOL;
-$objPHPExcel = new PHPExcel();
+$objPHPExcel = new \PHPExcel\Spreadsheet();
 
 // Set document properties
 echo date('H:i:s') , " Set document properties" , EOL;
@@ -51,8 +51,8 @@ $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 echo date('H:i:s') , " Add some data" , EOL;
 $objPHPExcel->setActiveSheetIndex(0);
 $objPHPExcel->getActiveSheet()->setCellValue('B1', 'Invoice');
-$objPHPExcel->getActiveSheet()->setCellValue('D1', PHPExcel_Shared_Date::PHPToExcel( gmmktime(0,0,0,date('m'),date('d'),date('Y')) ));
-$objPHPExcel->getActiveSheet()->getStyle('D1')->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_DATE_XLSX15);
+$objPHPExcel->getActiveSheet()->setCellValue('D1', \PHPExcel\Shared\Date::PHPToExcel( gmmktime(0,0,0,date('m'),date('d'),date('Y')) ));
+$objPHPExcel->getActiveSheet()->getStyle('D1')->getNumberFormat()->setFormatCode(\PHPExcel\Style\NumberFormat::FORMAT_DATE_XLSX15);
 $objPHPExcel->getActiveSheet()->setCellValue('E1', '#12566');
 
 $objPHPExcel->getActiveSheet()->setCellValue('A3', 'Product Id');
@@ -115,13 +115,13 @@ $objPHPExcel->getActiveSheet()->getComment('E13')->getFillColor()->setRGB('EEEEE
 
 // Add rich-text string
 echo date('H:i:s') , " Add rich-text string" , EOL;
-$objRichText = new PHPExcel_RichText();
+$objRichText = new \PHPExcel\RichText();
 $objRichText->createText('This invoice is ');
 
 $objPayable = $objRichText->createTextRun('payable within thirty days after the end of the month');
 $objPayable->getFont()->setBold(true);
 $objPayable->getFont()->setItalic(true);
-$objPayable->getFont()->setColor( new PHPExcel_Style_Color( PHPExcel_Style_Color::COLOR_DARKGREEN ) );
+$objPayable->getFont()->setColor(new \PHPExcel\Style\Color(\PHPExcel\Style\Color::COLOR_DARKGREEN));
 
 $objRichText->createText(', unless specified otherwise on the invoice.');
 
@@ -140,7 +140,7 @@ $objPHPExcel->getActiveSheet()->protectCells('A3:E13', 'PHPExcel');
 
 // Set cell number formats
 echo date('H:i:s') , " Set cell number formats" , EOL;
-$objPHPExcel->getActiveSheet()->getStyle('E4:E13')->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
+$objPHPExcel->getActiveSheet()->getStyle('E4:E13')->getNumberFormat()->setFormatCode(\PHPExcel\Style\NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
 
 // Set column widths
 echo date('H:i:s') , " Set column widths" , EOL;
@@ -153,23 +153,23 @@ echo date('H:i:s') , " Set fonts" , EOL;
 $objPHPExcel->getActiveSheet()->getStyle('B1')->getFont()->setName('Candara');
 $objPHPExcel->getActiveSheet()->getStyle('B1')->getFont()->setSize(20);
 $objPHPExcel->getActiveSheet()->getStyle('B1')->getFont()->setBold(true);
-$objPHPExcel->getActiveSheet()->getStyle('B1')->getFont()->setUnderline(PHPExcel_Style_Font::UNDERLINE_SINGLE);
-$objPHPExcel->getActiveSheet()->getStyle('B1')->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE);
+$objPHPExcel->getActiveSheet()->getStyle('B1')->getFont()->setUnderline(\PHPExcel\Style\Font::UNDERLINE_SINGLE);
+$objPHPExcel->getActiveSheet()->getStyle('B1')->getFont()->getColor()->setARGB(\PHPExcel\Style\Color::COLOR_WHITE);
 
-$objPHPExcel->getActiveSheet()->getStyle('D1')->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE);
-$objPHPExcel->getActiveSheet()->getStyle('E1')->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE);
+$objPHPExcel->getActiveSheet()->getStyle('D1')->getFont()->getColor()->setARGB(\PHPExcel\Style\Color::COLOR_WHITE);
+$objPHPExcel->getActiveSheet()->getStyle('E1')->getFont()->getColor()->setARGB(\PHPExcel\Style\Color::COLOR_WHITE);
 
 $objPHPExcel->getActiveSheet()->getStyle('D13')->getFont()->setBold(true);
 $objPHPExcel->getActiveSheet()->getStyle('E13')->getFont()->setBold(true);
 
 // Set alignments
 echo date('H:i:s') , " Set alignments" , EOL;
-$objPHPExcel->getActiveSheet()->getStyle('D11')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-$objPHPExcel->getActiveSheet()->getStyle('D12')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-$objPHPExcel->getActiveSheet()->getStyle('D13')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+$objPHPExcel->getActiveSheet()->getStyle('D11')->getAlignment()->setHorizontal(\PHPExcel\Style\Alignment::HORIZONTAL_RIGHT);
+$objPHPExcel->getActiveSheet()->getStyle('D12')->getAlignment()->setHorizontal(\PHPExcel\Style\Alignment::HORIZONTAL_RIGHT);
+$objPHPExcel->getActiveSheet()->getStyle('D13')->getAlignment()->setHorizontal(\PHPExcel\Style\Alignment::HORIZONTAL_RIGHT);
 
-$objPHPExcel->getActiveSheet()->getStyle('A18')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_JUSTIFY);
-$objPHPExcel->getActiveSheet()->getStyle('A18')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+$objPHPExcel->getActiveSheet()->getStyle('A18')->getAlignment()->setHorizontal(\PHPExcel\Style\Alignment::HORIZONTAL_JUSTIFY);
+$objPHPExcel->getActiveSheet()->getStyle('A18')->getAlignment()->setVertical(\PHPExcel\Style\Alignment::VERTICAL_CENTER);
 
 $objPHPExcel->getActiveSheet()->getStyle('B5')->getAlignment()->setShrinkToFit(true);
 
@@ -178,7 +178,7 @@ echo date('H:i:s') , " Set thin black border outline around column" , EOL;
 $styleThinBlackBorderOutline = array(
 	'borders' => array(
 		'outline' => array(
-			'style' => PHPExcel_Style_Border::BORDER_THIN,
+			'style' => \PHPExcel\Style\Border::BORDER_THIN,
 			'color' => array('argb' => 'FF000000'),
 		),
 	),
@@ -191,7 +191,7 @@ echo date('H:i:s') , " Set thick brown border outline around Total" , EOL;
 $styleThickBrownBorderOutline = array(
 	'borders' => array(
 		'outline' => array(
-			'style' => PHPExcel_Style_Border::BORDER_THICK,
+			'style' => \PHPExcel\Style\Border::BORDER_THICK,
 			'color' => array('argb' => 'FF993300'),
 		),
 	),
@@ -200,7 +200,7 @@ $objPHPExcel->getActiveSheet()->getStyle('D13:E13')->applyFromArray($styleThickB
 
 // Set fills
 echo date('H:i:s') , " Set fills" , EOL;
-$objPHPExcel->getActiveSheet()->getStyle('A1:E1')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+$objPHPExcel->getActiveSheet()->getStyle('A1:E1')->getFill()->setFillType(\PHPExcel\Style\Fill::FILL_SOLID);
 $objPHPExcel->getActiveSheet()->getStyle('A1:E1')->getFill()->getStartColor()->setARGB('FF808080');
 
 // Set style for header row using alternative method
@@ -211,15 +211,15 @@ $objPHPExcel->getActiveSheet()->getStyle('A3:E3')->applyFromArray(
 				'bold'      => true
 			),
 			'alignment' => array(
-				'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,
+				'horizontal' => \PHPExcel\Style\Alignment::HORIZONTAL_RIGHT,
 			),
 			'borders' => array(
 				'top'     => array(
- 					'style' => PHPExcel_Style_Border::BORDER_THIN
+ 					'style' => \PHPExcel\Style\Border::BORDER_THIN
  				)
 			),
 			'fill' => array(
-	 			'type'       => PHPExcel_Style_Fill::FILL_GRADIENT_LINEAR,
+	 			'type'       => \PHPExcel\Style\Fill::FILL_GRADIENT_LINEAR,
 	  			'rotation'   => 90,
 	 			'startcolor' => array(
 	 				'argb' => 'FFA0A0A0'
@@ -234,11 +234,11 @@ $objPHPExcel->getActiveSheet()->getStyle('A3:E3')->applyFromArray(
 $objPHPExcel->getActiveSheet()->getStyle('A3')->applyFromArray(
 		array(
 			'alignment' => array(
-				'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
+				'horizontal' => \PHPExcel\Style\Alignment::HORIZONTAL_LEFT,
 			),
 			'borders' => array(
 				'left'     => array(
- 					'style' => PHPExcel_Style_Border::BORDER_THIN
+ 					'style' => \PHPExcel\Style\Border::BORDER_THIN
  				)
 			)
 		)
@@ -247,7 +247,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A3')->applyFromArray(
 $objPHPExcel->getActiveSheet()->getStyle('B3')->applyFromArray(
 		array(
 			'alignment' => array(
-				'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
+				'horizontal' => \PHPExcel\Style\Alignment::HORIZONTAL_LEFT,
 			)
 		)
 );
@@ -256,7 +256,7 @@ $objPHPExcel->getActiveSheet()->getStyle('E3')->applyFromArray(
 		array(
 			'borders' => array(
 				'right'     => array(
- 					'style' => PHPExcel_Style_Border::BORDER_THIN
+ 					'style' => \PHPExcel\Style\Border::BORDER_THIN
  				)
 			)
 		)
@@ -264,24 +264,24 @@ $objPHPExcel->getActiveSheet()->getStyle('E3')->applyFromArray(
 
 // Unprotect a cell
 echo date('H:i:s') , " Unprotect a cell" , EOL;
-$objPHPExcel->getActiveSheet()->getStyle('B1')->getProtection()->setLocked(PHPExcel_Style_Protection::PROTECTION_UNPROTECTED);
+$objPHPExcel->getActiveSheet()->getStyle('B1')->getProtection()->setLocked(\PHPExcel\Style\Protection::PROTECTION_UNPROTECTED);
 
 // Add a hyperlink to the sheet
 echo date('H:i:s') , " Add a hyperlink to an external website" , EOL;
 $objPHPExcel->getActiveSheet()->setCellValue('E26', 'www.phpexcel.net');
 $objPHPExcel->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl('http://www.phpexcel.net');
 $objPHPExcel->getActiveSheet()->getCell('E26')->getHyperlink()->setTooltip('Navigate to website');
-$objPHPExcel->getActiveSheet()->getStyle('E26')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+$objPHPExcel->getActiveSheet()->getStyle('E26')->getAlignment()->setHorizontal(\PHPExcel\Style\Alignment::HORIZONTAL_RIGHT);
 
 echo date('H:i:s') , " Add a hyperlink to another cell on a different worksheet within the workbook" , EOL;
 $objPHPExcel->getActiveSheet()->setCellValue('E27', 'Terms and conditions');
 $objPHPExcel->getActiveSheet()->getCell('E27')->getHyperlink()->setUrl("sheet://'Terms and conditions'!A1");
 $objPHPExcel->getActiveSheet()->getCell('E27')->getHyperlink()->setTooltip('Review terms and conditions');
-$objPHPExcel->getActiveSheet()->getStyle('E27')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+$objPHPExcel->getActiveSheet()->getStyle('E27')->getAlignment()->setHorizontal(\PHPExcel\Style\Alignment::HORIZONTAL_RIGHT);
 
 // Add a drawing to the worksheet
 echo date('H:i:s') , " Add a drawing to the worksheet" , EOL;
-$objDrawing = new PHPExcel_Worksheet_Drawing();
+$objDrawing = new \PHPExcel\Worksheet\Drawing();
 $objDrawing->setName('Logo');
 $objDrawing->setDescription('Logo');
 $objDrawing->setPath('./images/officelogo.jpg');
@@ -290,7 +290,7 @@ $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
 
 // Add a drawing to the worksheet
 echo date('H:i:s') , " Add a drawing to the worksheet" , EOL;
-$objDrawing = new PHPExcel_Worksheet_Drawing();
+$objDrawing = new \PHPExcel\Worksheet\Drawing();
 $objDrawing->setName('Paid');
 $objDrawing->setDescription('Paid');
 $objDrawing->setPath('./images/paid.png');
@@ -303,7 +303,7 @@ $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
 
 // Add a drawing to the worksheet
 echo date('H:i:s') , " Add a drawing to the worksheet" , EOL;
-$objDrawing = new PHPExcel_Worksheet_Drawing();
+$objDrawing = new \PHPExcel\Worksheet\Drawing();
 $objDrawing->setName('PHPExcel logo');
 $objDrawing->setDescription('PHPExcel logo');
 $objDrawing->setPath('./images/phpexcel_logo.gif');
@@ -326,8 +326,8 @@ $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&L&B' . $objPHP
 
 // Set page orientation and size
 echo date('H:i:s') , " Set page orientation and size" , EOL;
-$objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
-$objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+$objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(\PHPExcel\Worksheet\PageSetup::ORIENTATION_PORTRAIT);
+$objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(\PHPExcel\Worksheet\PageSetup::PAPERSIZE_A4);
 
 // Rename first worksheet
 echo date('H:i:s') , " Rename first worksheet" , EOL;
@@ -367,13 +367,13 @@ echo date('H:i:s') , " Set fonts" , EOL;
 $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setName('Candara');
 $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setSize(20);
 $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
-$objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setUnderline(PHPExcel_Style_Font::UNDERLINE_SINGLE);
+$objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setUnderline(\PHPExcel\Style\Font::UNDERLINE_SINGLE);
 
 $objPHPExcel->getActiveSheet()->getStyle('A3:A6')->getFont()->setSize(8);
 
 // Add a drawing to the worksheet
 echo date('H:i:s') , " Add a drawing to the worksheet" , EOL;
-$objDrawing = new PHPExcel_Worksheet_Drawing();
+$objDrawing = new \PHPExcel\Worksheet\Drawing();
 $objDrawing->setName('Terms and conditions');
 $objDrawing->setDescription('Terms and conditions');
 $objDrawing->setPath('./images/termsconditions.jpg');
@@ -382,8 +382,8 @@ $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
 
 // Set page orientation and size
 echo date('H:i:s') , " Set page orientation and size" , EOL;
-$objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
-$objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+$objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(\PHPExcel\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+$objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(\PHPExcel\Worksheet\PageSetup::PAPERSIZE_A4);
 
 // Rename second worksheet
 echo date('H:i:s') , " Rename second worksheet" , EOL;

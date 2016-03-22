@@ -306,10 +306,10 @@ class Workbook extends WriterPart
      * Write Defined Name for named range
      *
      * @param     \PHPExcel\Shared\XMLWriter    $objWriter         XML Writer
-     * @param     PHPExcel_NamedRange            $pNamedRange
+     * @param     \PHPExcel\NamedRange            $pNamedRange
      * @throws     \PHPExcel\Writer\Exception
      */
-    private function writeDefinedNameForNamedRange(\PHPExcel\Shared\XMLWriter $objWriter = null, PHPExcel_NamedRange $pNamedRange)
+    private function writeDefinedNameForNamedRange(\PHPExcel\Shared\XMLWriter $objWriter = null, \PHPExcel\NamedRange $pNamedRange)
     {
         // definedName for named range
         $objWriter->startElement('definedName');

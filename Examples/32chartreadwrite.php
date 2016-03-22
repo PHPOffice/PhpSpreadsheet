@@ -10,37 +10,8 @@ define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 date_default_timezone_set('Europe/London');
 
-/**
- * PHPExcel
- *
- * Copyright (c) 2006 - 2015 PHPExcel
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- *
- * @category   PHPExcel
- * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
- * @version    ##VERSION##, ##DATE##
- */
-
-/** Include path **/
-set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/../Classes/');
-
-/** PHPExcel_IOFactory */
-include 'PHPExcel/IOFactory.php';
+/** Include PHPExcel */
+require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 $inputFileType = 'Excel2007';
 $inputFileNames = 'templates/32readwrite*[0-9].xlsx';
@@ -63,7 +34,7 @@ foreach($inputFileNames as $inputFileName) {
 
 	echo date('H:i:s') , " Load Test from $inputFileType file " , $inputFileNameShort , EOL;
 
-	$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+	$objReader = \PHPExcel\IOFactory::createReader($inputFileType);
 	$objReader->setIncludeCharts(TRUE);
 	$objPHPExcel = $objReader->load($inputFileName);
 
@@ -114,7 +85,7 @@ foreach($inputFileNames as $inputFileName) {
 	$outputFileName = basename($inputFileName);
 
 	echo date('H:i:s') , " Write Tests to Excel2007 file " , EOL;
-	$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+	$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel2007');
 	$objWriter->setIncludeCharts(TRUE);
 	$objWriter->save($outputFileName);
 	echo date('H:i:s') , " File written to " , $outputFileName , EOL;

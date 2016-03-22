@@ -10,16 +10,16 @@ define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 date_default_timezone_set('Europe/London');
 
 /** Include PHPExcel */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
+require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 echo date('H:i:s') , " Create new PHPExcel object" , EOL;
-$objPHPExcel = new PHPExcel();
+$objPHPExcel = new \PHPExcel\Spreadsheet();
 $worksheet = $objPHPExcel->getActiveSheet();
 
 echo date('H:i:s') , " Create styles array" , EOL;
 $styles = array();
 for ($i = 0; $i < 10; $i++) {
-    $style = new PHPExcel_Style();
+    $style = new \PHPExcel\Style();
     $style->getFont()->setSize($i + 4);
     $styles[] = $style;
 }
@@ -30,7 +30,7 @@ for ($col = 0; $col < 50; $col++) {
     for ($row = 0; $row < 100; $row++) {
         $str = ($row + $col);
         $style = $styles[$row % 10];
-        $coord = PHPExcel_Cell::stringFromColumnIndex($col) . ($row + 1);
+        $coord = \PHPExcel\Cell::stringFromColumnIndex($col) . ($row + 1);
         $worksheet->setCellValue($coord, $str);
         $worksheet->duplicateStyle($style, $coord);
     }
@@ -40,7 +40,7 @@ echo date('H:i:s') , " Add data (end), time: " . round($d, 2) . " s", EOL;
 
 
 echo date('H:i:s') , " Write to Excel2007 format" , EOL;
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
 

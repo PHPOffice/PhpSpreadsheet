@@ -37,10 +37,10 @@ date_default_timezone_set('Europe/London');
  */
 
 /** PHPExcel */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
+require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 
-$objPHPExcel = new PHPExcel();
+$objPHPExcel = new \PHPExcel\Spreadsheet();
 $objWorksheet = $objPHPExcel->getActiveSheet();
 $objWorksheet->fromArray(
 	array(
@@ -60,9 +60,9 @@ $objWorksheet->fromArray(
 //		Data values
 //		Data Marker
 $dataSeriesLabels = array(
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$B$1', NULL, 1),	//	2010
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$C$1', NULL, 1),	//	2011
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$D$1', NULL, 1),	//	2012
+	new \PHPExcel\Chart\DataSeriesValues('String', 'Worksheet!$B$1', NULL, 1),	//	2010
+	new \PHPExcel\Chart\DataSeriesValues('String', 'Worksheet!$C$1', NULL, 1),	//	2011
+	new \PHPExcel\Chart\DataSeriesValues('String', 'Worksheet!$D$1', NULL, 1),	//	2012
 );
 //	Set the X-Axis Labels
 //		Datatype
@@ -72,7 +72,7 @@ $dataSeriesLabels = array(
 //		Data values
 //		Data Marker
 $xAxisTickValues = array(
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$A$2:$A$5', NULL, 4),	//	Q1 to Q4
+	new \PHPExcel\Chart\DataSeriesValues('String', 'Worksheet!$A$2:$A$5', NULL, 4),	//	Q1 to Q4
 );
 //	Set the Data values for each data series we want to plot
 //		Datatype
@@ -82,15 +82,15 @@ $xAxisTickValues = array(
 //		Data values
 //		Data Marker
 $dataSeriesValues = array(
-	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$B$2:$B$5', NULL, 4),
-	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$C$2:$C$5', NULL, 4),
-	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$D$2:$D$5', NULL, 4),
+	new \PHPExcel\Chart\DataSeriesValues('Number', 'Worksheet!$B$2:$B$5', NULL, 4),
+	new \PHPExcel\Chart\DataSeriesValues('Number', 'Worksheet!$C$2:$C$5', NULL, 4),
+	new \PHPExcel\Chart\DataSeriesValues('Number', 'Worksheet!$D$2:$D$5', NULL, 4),
 );
 
 //	Build the dataseries
-$series = new PHPExcel_Chart_DataSeries(
-	PHPExcel_Chart_DataSeries::TYPE_AREACHART,				// plotType
-	PHPExcel_Chart_DataSeries::GROUPING_PERCENT_STACKED,	// plotGrouping
+$series = new \PHPExcel\Chart\DataSeries(
+	\PHPExcel\Chart\DataSeries::TYPE_AREACHART,				// plotType
+	\PHPExcel\Chart\DataSeries::GROUPING_PERCENT_STACKED,	// plotGrouping
 	range(0, count($dataSeriesValues)-1),					// plotOrder
 	$dataSeriesLabels,										// plotLabel
 	$xAxisTickValues,										// plotCategory
@@ -98,16 +98,16 @@ $series = new PHPExcel_Chart_DataSeries(
 );
 
 //	Set the series in the plot area
-$plotArea = new PHPExcel_Chart_PlotArea(NULL, array($series));
+$plotArea = new \PHPExcel\Chart\PlotArea(NULL, array($series));
 //	Set the chart legend
-$legend = new PHPExcel_Chart_Legend(PHPExcel_Chart_Legend::POSITION_TOPRIGHT, NULL, false);
+$legend = new \PHPExcel\Chart\Legend(\PHPExcel\Chart\Legend::POSITION_TOPRIGHT, NULL, false);
 
-$title = new PHPExcel_Chart_Title('Test %age-Stacked Area Chart');
-$yAxisLabel = new PHPExcel_Chart_Title('Value ($k)');
+$title = new \PHPExcel\Chart\Title('Test %age-Stacked Area Chart');
+$yAxisLabel = new \PHPExcel\Chart\Title('Value ($k)');
 
 
 //	Create the chart
-$chart = new PHPExcel_Chart(
+$chart = new \PHPExcel\Chart(
 	'chart1',		// name
 	$title,			// title
 	$legend,		// legend
@@ -128,7 +128,7 @@ $objWorksheet->addChart($chart);
 
 // Save Excel 2007 file
 echo date('H:i:s') , " Write to Excel2007 format" , EOL;
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->setIncludeCharts(TRUE);
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
