@@ -502,7 +502,7 @@ class TextData
      * @param    string    $newText    String to replace in defined position
      * @return    string
      */
-    public static function REPLACE($oldText = '', $start = 1, $chars = null, $newText)
+    public static function REPLACE($oldText, $start, $chars, $newText)
     {
         $oldText = Functions::flattenSingleValue($oldText);
         $start   = Functions::flattenSingleValue($start);

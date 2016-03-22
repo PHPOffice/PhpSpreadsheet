@@ -1,5 +1,6 @@
 <?php
 namespace PHPExcel\Writer\Excel2007;
+
 use PHPExcel\Chart;
 
 /**
@@ -38,7 +39,7 @@ class Drawing extends WriterPart
      * @return string          XML Output
      * @throws     \PHPExcel\Writer\Exception
      */
-    public function writeDrawings(\PHPExcel\Worksheet $pWorksheet = null, &$chartRef, $includeCharts = false)
+    public function writeDrawings(\PHPExcel\Worksheet $pWorksheet, &$chartRef, $includeCharts = false)
     {
         // Create XML writer
         $objWriter = null;

@@ -187,14 +187,14 @@ class Workbook extends BIFFwriter
     /**
      * Class constructor
      *
-     * @param PHPExcel    $phpExcel        The Workbook
+     * @param \PHPExcel\Spreadsheet $phpExcel The Workbook
      * @param int        &$str_total        Total number of strings
      * @param int        &$str_unique    Total number of unique strings
      * @param array        &$str_table        String Table
      * @param array        &$colors        Colour Table
      * @param mixed        $parser            The formula parser created for the Workbook
      */
-    public function __construct(\PHPExcel\Spreadsheet $phpExcel = null, &$str_total, &$str_unique, &$str_table, &$colors, $parser)
+    public function __construct(\PHPExcel\Spreadsheet $phpExcel, &$str_total, &$str_unique, &$str_table, &$colors, $parser)
     {
         // It needs to call its parent's constructor explicitly
         parent::__construct();
@@ -832,7 +832,7 @@ class Workbook extends BIFFwriter
      * @param    boolean      $isHidden
      * @return    string    Complete binary record data
      * */
-    private function writeShortNameBiff8($name, $sheetIndex = 0, $rangeBounds, $isHidden = false)
+    private function writeShortNameBiff8($name, $sheetIndex, $rangeBounds, $isHidden = false)
     {
         $record = 0x0018;
 

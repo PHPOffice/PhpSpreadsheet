@@ -473,10 +473,11 @@ class OOCalc extends BaseReader implements IReader
 //                    echo '<b>'.$key.'</b><br />';
                     switch ($key) {
                         case 'table-header-rows':
-                            foreach ($rowData as $key => $cellData) {
+                            foreach ($rowData as $keyRowData => $cellData) {
                                 $rowData = $cellData;
                                 break;
                             }
+                            break;
                         case 'table-row':
                             $rowDataTableAttributes = $rowData->attributes($namespacesContent['table']);
                             $rowRepeats = (isset($rowDataTableAttributes['number-rows-repeated'])) ? $rowDataTableAttributes['number-rows-repeated'] : 1;

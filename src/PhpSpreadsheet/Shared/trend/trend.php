@@ -1,13 +1,9 @@
 <?php
 
-require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/trend/linearBestFitClass.php';
-require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/trend/logarithmicBestFitClass.php';
-require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/trend/exponentialBestFitClass.php';
-require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/trend/powerBestFitClass.php';
-require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/trend/polynomialBestFitClass.php';
+namespace PHPExcel\Shared\trend;
 
 /**
- * PHPExcel_trendClass
+ * PHPExcel_\PHPExcel\Shared\trend\trend
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -31,7 +27,7 @@ require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/trend/polynomialBestFitClass.php';
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class trendClass
+class trend
 {
     const TREND_LINEAR            = 'Linear';
     const TREND_LOGARITHMIC       = 'Logarithmic';
@@ -73,7 +69,7 @@ class trendClass
     /**
      * Cached results for each method when trying to identify which provides the best fit
      *
-     * @var PHPExcel_Best_Fit[]
+     * @var bestFit[]
      **/
     private static $trendCache = array();
 
@@ -102,7 +98,7 @@ class trendClass
             case self::TREND_EXPONENTIAL:
             case self::TREND_POWER:
                 if (!isset(self::$trendCache[$key])) {
-                    $className = 'PHPExcel_'.$trendType.'_Best_Fit';
+                    $className = '\PHPExcel\Shared\trend\\'.strtolower($trendType).'BestFit';
                     self::$trendCache[$key] = new $className($yValues, $xValues, $const);
                 }
                 return self::$trendCache[$key];
@@ -113,7 +109,7 @@ class trendClass
             case self::TREND_POLYNOMIAL_6:
                 if (!isset(self::$trendCache[$key])) {
                     $order = substr($trendType, -1);
-                    self::$trendCache[$key] = new PHPExcel_Polynomial_Best_Fit($order, $yValues, $xValues, $const);
+                    self::$trendCache[$key] = new polynomialBestFit($order, $yValues, $xValues, $const);
                 }
                 return self::$trendCache[$key];
             case self::TREND_BEST_FIT:
@@ -121,14 +117,14 @@ class trendClass
                 //    If the request is to determine the best fit regression, then we test each trend line in turn
                 //    Start by generating an instance of each available trend method
                 foreach (self::$trendTypes as $trendMethod) {
-                    $className = 'PHPExcel_'.$trendMethod.'BestFit';
+                    $className = '\PHPExcel\Shared\trend\\'.strtolower($trendType).'BestFit';
                     $bestFit[$trendMethod] = new $className($yValues, $xValues, $const);
                     $bestFitValue[$trendMethod] = $bestFit[$trendMethod]->getGoodnessOfFit();
                 }
                 if ($trendType != self::TREND_BEST_FIT_NO_POLY) {
                     foreach (self::$trendTypePolynomialOrders as $trendMethod) {
                         $order = substr($trendMethod, -1);
-                        $bestFit[$trendMethod] = new PHPExcel_Polynomial_Best_Fit($order, $yValues, $xValues, $const);
+                        $bestFit[$trendMethod] = new polynomialBestFit($order, $yValues, $xValues, $const);
                         if ($bestFit[$trendMethod]->getError()) {
                             unset($bestFit[$trendMethod]);
                         } else {

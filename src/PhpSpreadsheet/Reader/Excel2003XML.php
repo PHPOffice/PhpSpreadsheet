@@ -1,7 +1,6 @@
 <?php
 
 namespace PHPExcel\Reader;
-use PHPExcel\Shared\TimeZone;
 
 /**
  * PHPExcel_Reader_Excel2003XML

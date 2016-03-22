@@ -1088,6 +1088,7 @@ class Matrix
                     } else {
                         throw new \PHPExcel\Calculation\Exception(self::ARGUMENT_TYPE_EXCEPTION);
                     }
+                    break;
                 case 'array':
                     $M = new Matrix($args[0]);
                     break;

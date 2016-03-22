@@ -126,7 +126,7 @@ class Chart extends WriterPart
      *
      * @throws  \PHPExcel\Writer\Exception
      */
-    private function writeTitle(Title $title = null, $objWriter)
+    private function writeTitle(Title $title, $objWriter)
     {
         if (is_null($title)) {
             return;
@@ -171,7 +171,7 @@ class Chart extends WriterPart
      *
      * @throws  \PHPExcel\Writer\Exception
      */
-    private function writeLegend(Legend $legend = null, $objWriter)
+    private function writeLegend(Legend $legend, $objWriter)
     {
         if (is_null($legend)) {
             return;
@@ -226,7 +226,7 @@ class Chart extends WriterPart
      *
      * @throws  \PHPExcel\Writer\Exception
      */
-    private function writePlotArea(PlotArea $plotArea, Title $xAxisLabel = null, Title $yAxisLabel = null, $objWriter, \PHPExcel\Worksheet $pSheet, Axis $xAxis, Axis $yAxis, GridLines $majorGridlines, GridLines $minorGridlines)
+    private function writePlotArea(PlotArea $plotArea, Title $xAxisLabel, Title $yAxisLabel, $objWriter, \PHPExcel\Worksheet $pSheet, Axis $xAxis, Axis $yAxis, GridLines $majorGridlines, GridLines $minorGridlines)
     {
         if (is_null($plotArea)) {
             return;
@@ -270,7 +270,6 @@ class Chart extends WriterPart
 
             if ($chartType === DataSeries::TYPE_LINECHART) {
                 //    Line only, Line3D can't be smoothed
-
                 $objWriter->startElement('c:smooth');
                 $objWriter->writeAttribute('val', (integer) $plotGroup->getSmoothLine());
                 $objWriter->endElement();
@@ -1404,7 +1403,7 @@ class Chart extends WriterPart
      *
      * @throws  \PHPExcel\Writer\Exception
      */
-    private function writeLayout(Layout $layout = null, $objWriter)
+    private function writeLayout(Layout $layout, $objWriter)
     {
         $objWriter->startElement('c:layout');
 
