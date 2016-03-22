@@ -19,7 +19,7 @@
         <ini name="memory_limit" value="2048M"/>
     </php>
     <testsuite name="PHPExcel Unit Test Suite">
-        <directory suffix="Test.php">./classes</directory>
+        <directory suffix="Test.php">./Classes</directory>
     </testsuite>
     <filter>
         <whitelist>
