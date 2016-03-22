@@ -1,6 +1,7 @@
 <?php
 
 namespace PHPExcel\Reader;
+use PHPExcel\Shared\TimeZone;
 
 /**
  * PHPExcel_Reader_Excel2003XML
@@ -310,8 +311,8 @@ class Excel2003XML extends BaseReader implements IReader
             \PHPExcel\Style\Alignment::HORIZONTAL_JUSTIFY
         );
 
-        $timezoneObj = new DateTimeZone('Europe/London');
-        $GMT = new DateTimeZone('UTC');
+        $timezoneObj = new \DateTimeZone('Europe/London');
+        $GMT = new \DateTimeZone('UTC');
 
         // Check if file exists
         if (!file_exists($pFilename)) {

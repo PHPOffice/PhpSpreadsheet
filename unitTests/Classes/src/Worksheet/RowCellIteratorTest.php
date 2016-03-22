@@ -7,16 +7,11 @@ class RowCellIteratorTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (!defined('PHPEXCEL_ROOT')) {
-            define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
-        }
-        require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
-        
         $this->mockCell = $this->getMockBuilder('PHPExcel_Cell')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->mockWorksheet = $this->getMockBuilder('PHPExcel_Worksheet')
+        $this->mockWorksheet = $this->getMockBuilder('\PHPExcel\Worksheet')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -31,7 +26,7 @@ class RowCellIteratorTest extends PHPUnit_Framework_TestCase
 
     public function testIteratorFullRange()
     {
-        $iterator = new PHPExcel_Worksheet_RowCellIterator($this->mockWorksheet);
+        $iterator = new \PHPExcel\Worksheet\RowCellIterator($this->mockWorksheet);
         $RowCellIndexResult = 'A';
         $this->assertEquals($RowCellIndexResult, $iterator->key());
         
@@ -43,7 +38,7 @@ class RowCellIteratorTest extends PHPUnit_Framework_TestCase
 
     public function testIteratorStartEndRange()
     {
-        $iterator = new PHPExcel_Worksheet_RowCellIterator($this->mockWorksheet, 2, 'B', 'D');
+        $iterator = new \PHPExcel\Worksheet\RowCellIterator($this->mockWorksheet, 2, 'B', 'D');
         $RowCellIndexResult = 'B';
         $this->assertEquals($RowCellIndexResult, $iterator->key());
         
@@ -56,7 +51,7 @@ class RowCellIteratorTest extends PHPUnit_Framework_TestCase
     public function testIteratorSeekAndPrev()
     {
         $ranges = range('A', 'E');
-        $iterator = new PHPExcel_Worksheet_RowCellIterator($this->mockWorksheet, 2, 'B', 'D');
+        $iterator = new \PHPExcel\Worksheet\RowCellIterator($this->mockWorksheet, 2, 'B', 'D');
         $RowCellIndexResult = 'D';
         $iterator->seek('D');
         $this->assertEquals($RowCellIndexResult, $iterator->key());
@@ -73,7 +68,7 @@ class RowCellIteratorTest extends PHPUnit_Framework_TestCase
      */
     public function testSeekOutOfRange()
     {
-        $iterator = new PHPExcel_Worksheet_RowCellIterator($this->mockWorksheet, 2, 'B', 'D');
+        $iterator = new \PHPExcel\Worksheet\RowCellIterator($this->mockWorksheet, 2, 'B', 'D');
         $iterator->seek(1);
     }
 
@@ -82,7 +77,7 @@ class RowCellIteratorTest extends PHPUnit_Framework_TestCase
      */
     public function testPrevOutOfRange()
     {
-        $iterator = new PHPExcel_Worksheet_RowCellIterator($this->mockWorksheet, 2, 'B', 'D');
+        $iterator = new \PHPExcel\Worksheet\RowCellIterator($this->mockWorksheet, 2, 'B', 'D');
         $iterator->prev();
     }
 }

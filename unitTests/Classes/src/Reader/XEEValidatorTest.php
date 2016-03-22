@@ -3,15 +3,6 @@
 
 class XEEValidatorTest extends PHPUnit_Framework_TestCase
 {
-
-    public function setUp()
-    {
-        if (!defined('PHPEXCEL_ROOT')) {
-            define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
-        }
-        require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
-    }
-
     /**
      * @dataProvider providerInvalidXML
      * @expectedException PHPExcel_Reader_Exception

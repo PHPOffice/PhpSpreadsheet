@@ -1,9 +1,11 @@
 <?php
 
 namespace PHPExcel\Worksheet;
+use PHPExcel\Cell;
+use PHPExcel\Exception;
 
 /**
- * PHPExcel_Worksheet_ColumnIterator
+ * \PHPExcel\Worksheet\ColumnIterator
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -22,7 +24,7 @@ namespace PHPExcel\Worksheet;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PHPExcel
- * @package    PHPExcel_Worksheet
+ * @package    \PHPExcel\Worksheet
  * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
@@ -87,13 +89,13 @@ class ColumnIterator implements \Iterator
      *
      * @param integer    $startColumn    The column address at which to start iterating
      * @return ColumnIterator
-     * @throws PHPExcel_Exception
+     * @throws Exception
      */
     public function resetStart($startColumn = 'A')
     {
         $startColumnIndex = \PHPExcel\Cell::columnIndexFromString($startColumn) - 1;
-        if ($startColumnIndex > PHPExcel_Cell::columnIndexFromString($this->subject->getHighestColumn()) - 1) {
-            throw new PHPExcel_Exception("Start column ({$startColumn}) is beyond highest column ({$this->subject->getHighestColumn()})");
+        if ($startColumnIndex > Cell::columnIndexFromString($this->subject->getHighestColumn()) - 1) {
+            throw new Exception("Start column ({$startColumn}) is beyond highest column ({$this->subject->getHighestColumn()})");
         }
 
         $this->startColumn = $startColumnIndex;

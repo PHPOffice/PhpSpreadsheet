@@ -1,5 +1,6 @@
 <?php
 namespace PHPExcel\Writer\Excel2007;
+
 use PHPExcel\Chart\Axis;
 use PHPExcel\Chart\DataSeries;
 use PHPExcel\Chart\DataSeriesValues;
@@ -357,7 +358,7 @@ class Chart extends WriterPart
      * Write Data Labels
      *
      * @param  \PHPExcel\Shared\XMLWriter $objWriter XML Writer
-     * @param  PHPExcel_Chart_Layout $chartLayout Chart layout
+     * @param  \PHPExcel\Chart\Layout $chartLayout Chart layout
      *
      * @throws  \PHPExcel\Writer\Exception
      */
@@ -1190,7 +1191,7 @@ class Chart extends WriterPart
                     $objWriter->startElement('c:cat');
                 }
 
-                $this->writePlotSeriesValues($plotSeriesCategory, $objWriter, $groupType, 'str', $pSheet);
+                $this->writePlotSeriesValues($plotSeriesCategory, $objWriter, $groupType, 'str');
                 $objWriter->endElement();
             }
 
@@ -1204,12 +1205,12 @@ class Chart extends WriterPart
                     $objWriter->startElement('c:val');
                 }
 
-                $this->writePlotSeriesValues($plotSeriesValues, $objWriter, $groupType, 'num', $pSheet);
+                $this->writePlotSeriesValues($plotSeriesValues, $objWriter, $groupType, 'num');
                 $objWriter->endElement();
             }
 
             if ($groupType === DataSeries::TYPE_BUBBLECHART) {
-                $this->writeBubbles($plotSeriesValues, $objWriter, $pSheet);
+                $this->writeBubbles($plotSeriesValues, $objWriter);
             }
 
             $objWriter->endElement();
@@ -1264,7 +1265,7 @@ class Chart extends WriterPart
      *
      * @throws  \PHPExcel\Writer\Exception
      */
-    private function writePlotSeriesValues($plotSeriesValues, $objWriter, $groupType, $dataType = 'str', \PHPExcel\Worksheet $pSheet)
+    private function writePlotSeriesValues($plotSeriesValues, $objWriter, $groupType, $dataType = 'str')
     {
         if (is_null($plotSeriesValues)) {
             return;
@@ -1356,7 +1357,7 @@ class Chart extends WriterPart
      *
      * @throws  \PHPExcel\Writer\Exception
      */
-    private function writeBubbles($plotSeriesValues, $objWriter, \PHPExcel\Worksheet $pSheet)
+    private function writeBubbles($plotSeriesValues, $objWriter)
     {
         if (is_null($plotSeriesValues)) {
             return;

@@ -3,7 +3,7 @@
 namespace PHPExcel\Chart;
 
 /**
- * PHPExcel_Chart_Legend
+ * \PHPExcel\Chart\Legend
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *

@@ -1,6 +1,7 @@
 <?php
 
 namespace PHPExcel\Writer;
+
 use PHPExcel\Calculation;
 use PHPExcel\Shared\Font;
 use PHPExcel\Shared\String;
@@ -36,7 +37,7 @@ class HTML extends BaseWriter implements IWriter
     /**
      * PHPExcel object
      *
-     * @var PHPExcel
+     * @var Spreadsheet
      */
     protected $phpExcel;
 
@@ -291,7 +292,7 @@ class HTML extends BaseWriter implements IWriter
      * Set sheet index
      *
      * @param    int        $pValue        Sheet index
-     * @return PHPExcel_Writer_HTML
+     * @return HTML
      */
     public function setSheetIndex($pValue = 0)
     {
@@ -313,7 +314,7 @@ class HTML extends BaseWriter implements IWriter
      * Set sheet index
      *
      * @param    boolean        $pValue        Flag indicating whether the sheet navigation block should be generated or not
-     * @return PHPExcel_Writer_HTML
+     * @return HTML
      */
     public function setGenerateSheetNavigationBlock($pValue = true)
     {

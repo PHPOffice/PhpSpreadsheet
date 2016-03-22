@@ -1,6 +1,7 @@
 <?php
 
 namespace PHPExcel\Reader;
+
 use PHPExcel\Spreadsheet;
 
 /**
@@ -231,10 +232,10 @@ class CSV extends BaseReader implements IReader
     /**
      * Loads PHPExcel from file into PHPExcel instance
      *
-     * @param     string         $pFilename
-     * @param    PHPExcel    $objPHPExcel
-     * @return     PHPExcel
-     * @throws     Exception
+     * @param string $pFilename
+     * @param Spreadsheet $objPHPExcel
+     * @return Spreadsheet
+     * @throws Exception
      */
     public function loadIntoExisting($pFilename, Spreadsheet $objPHPExcel)
     {

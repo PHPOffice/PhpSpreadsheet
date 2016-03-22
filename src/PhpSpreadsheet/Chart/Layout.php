@@ -3,7 +3,7 @@
 namespace PHPExcel\Chart;
 
 /**
- * PHPExcel_Chart_Layout
+ * \PHPExcel\Chart\Layout
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *

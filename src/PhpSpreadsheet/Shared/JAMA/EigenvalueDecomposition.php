@@ -1,4 +1,7 @@
 <?php
+
+namespace PHPExcel\Shared\JAMA;
+
 /**
  *    @package JAMA
  *

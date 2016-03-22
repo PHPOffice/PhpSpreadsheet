@@ -8,12 +8,7 @@ class LookupRefTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (!defined('PHPEXCEL_ROOT')) {
-            define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
-        }
-        require_once(PHPEXCEL_ROOT . 'PHPExcel/Autoloader.php');
-
-        PHPExcel_Calculation_Functions::setCompatibilityMode(PHPExcel_Calculation_Functions::COMPATIBILITY_EXCEL);
+        \PHPExcel\Calculation\Functions::setCompatibilityMode(\PHPExcel\Calculation\Functions::COMPATIBILITY_EXCEL);
     }
 
     /**
@@ -23,7 +18,7 @@ class LookupRefTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_LookupRef','HLOOKUP'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\LookupRef','HLOOKUP'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -39,7 +34,7 @@ class LookupRefTest extends PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('PHPExcel_Calculation_LookupRef','VLOOKUP'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\LookupRef','VLOOKUP'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
