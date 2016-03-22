@@ -31,6 +31,7 @@ Planned for 1.9
 - Feature:  (MBaker)                            - Initial implementation of SUMIFS() function
 - Feature:  (MBaker)                            - Additional codepages
 - Feature:  (Tomino2112)      Work Item GH-808  - MemoryDrawing not working in HTML writer
+- General:  (rentalhost)      Work Item GH-575  - Excel 2007 Reader freezes because of conditional formatting
 
 
 2015-04-30 (v1.8.1):
