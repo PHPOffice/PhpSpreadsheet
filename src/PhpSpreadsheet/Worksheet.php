@@ -1476,7 +1476,7 @@ class Worksheet implements IComparable
      * @param $pValue Style\Conditional[]
      * @return Worksheet
      */
-    public function setConditionalStyles($pCoordinate = 'A1', $pValue)
+    public function setConditionalStyles($pCoordinate, $pValue)
     {
         $this->conditionalStylesCollection[strtoupper($pCoordinate)] = $pValue;
         return $this;

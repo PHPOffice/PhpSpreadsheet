@@ -74,7 +74,7 @@ class NamedRange
      * @param Worksheet|null $pScope    Scope. Only applies when $pLocalOnly = true. Null for global scope.
      * @throws Exception
      */
-    public function __construct($pName = null, Worksheet $pWorksheet, $pRange = 'A1', $pLocalOnly = false, $pScope = null)
+    public function __construct($pName, Worksheet $pWorksheet, $pRange = 'A1', $pLocalOnly = false, $pScope = null)
     {
         // Validate data
         if (($pName === null) || ($pWorksheet === null) || ($pRange === null)) {
@@ -229,7 +229,7 @@ class NamedRange
      * @param Worksheet|null $pSheet Scope. Use null for global scope
      * @return NamedRange
      */
-    public static function resolveRange($pNamedRange = '', Worksheet $pSheet)
+    public static function resolveRange($pNamedRange, Worksheet $pSheet)
     {
         return $pSheet->getParent()->getNamedRange($pNamedRange, $pSheet);
     }

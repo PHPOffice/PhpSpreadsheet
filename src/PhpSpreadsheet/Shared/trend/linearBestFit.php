@@ -27,7 +27,7 @@ namespace PHPExcel\Shared\trend;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class linearBestFit extends bestFit
+class LinearBestFit extends BestFit
 {
     /**
      * Algorithm type to use for best-fit

@@ -2,7 +2,6 @@
 
 namespace PHPExcel\Calculation;
 
-
 /** LOG_GAMMA_X_MAX_VALUE */
 define('LOG_GAMMA_X_MAX_VALUE', 2.55e305);
 
