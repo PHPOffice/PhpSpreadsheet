@@ -1212,27 +1212,28 @@ class MathTrig
         return $returnValue;
     }
 
- 	/**
-	 *	SUMIFS
-	 *
-	 *	Counts the number of cells that contain numbers within the list of arguments
-	 *
-	 *	Excel Function:
-	 *		SUMIFS(value1[,value2[, ...]],condition)
-	 *
-	 *	@access	public
-	 *	@category Mathematical and Trigonometric Functions
-	 *	@param	mixed		$arg,...		Data values
-	 *	@param	string		$condition		The criteria that defines which cells will be summed.
-	 *	@return	float
-	 */
-	public static function SUMIFS() {
-		$arrayList = func_get_args();
+     /**
+     *    SUMIFS
+     *
+     *    Counts the number of cells that contain numbers within the list of arguments
+     *
+     *    Excel Function:
+     *        SUMIFS(value1[,value2[, ...]],condition)
+     *
+     *    @access    public
+     *    @category Mathematical and Trigonometric Functions
+     *    @param    mixed        $arg,...        Data values
+     *    @param    string        $condition        The criteria that defines which cells will be summed.
+     *    @return    float
+     */
+    public static function SUMIFS()
+    {
+        $arrayList = func_get_args();
 
-		// Return value
-		$returnValue = 0;
+        // Return value
+        $returnValue = 0;
 
-		$sumArgs = Functions::flattenArray(array_shift($arrayList));
+        $sumArgs = Functions::flattenArray(array_shift($arrayList));
 
         while (count($arrayList) > 0) {
             $aArgsArray[] = Functions::flattenArray(array_shift($arrayList));
@@ -1256,9 +1257,9 @@ class MathTrig
             }
         }
 
-		// Return
-		return $returnValue;
-	}
+        // Return
+        return $returnValue;
+    }
 
     /**
      * SUMPRODUCT

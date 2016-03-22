@@ -3233,7 +3233,8 @@ class Worksheet extends BIFFwriter
                     $dataBlockFont .= pack('C', 0x21);
                     $fontUnderline = 0;
                     break;
-                default: $dataBlockFont .= pack('C', 0x00);
+                default:
+                    $dataBlockFont .= pack('C', 0x00);
                     $fontUnderline = 1;
                     break;
             }

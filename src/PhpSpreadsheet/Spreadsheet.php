@@ -238,7 +238,7 @@ class Spreadsheet
     {
         $returnData = null;
         $what = strtolower($what);
-        switch ($what){
+        switch ($what) {
             case 'all':
                 $returnData = $this->ribbonXMLData;
                 break;
@@ -282,7 +282,7 @@ class Spreadsheet
     {
         $ReturnData = null;
         $What = strtolower($What);
-        switch($What) {
+        switch ($What) {
             case 'all':
                 return $this->ribbonBinObjects;
                 break;

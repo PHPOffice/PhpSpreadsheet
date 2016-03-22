@@ -1,5 +1,6 @@
 <?php
 namespace PHPExcel\Writer\Excel2007;
+
 /**
  * PHPExcel
  *

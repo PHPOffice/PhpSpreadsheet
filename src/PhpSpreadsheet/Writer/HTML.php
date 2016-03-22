@@ -1,5 +1,7 @@
 <?php
 
+namespace PHPExcel\Writer;
+
 /**
  * PHPExcel_Writer_HTML
  *
@@ -25,7 +27,7 @@
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_Writer_IWriter
+class HTML extends BaseWriter implements IWriter
 {
     /**
      * PHPExcel object
