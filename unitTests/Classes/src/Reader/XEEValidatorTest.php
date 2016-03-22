@@ -1,7 +1,8 @@
 <?php
 
+namespace PHPExcel\Reader;
 
-class XEEValidatorTest extends PHPUnit_Framework_TestCase
+class XEEValidatorTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider providerInvalidXML

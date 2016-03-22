@@ -1,7 +1,8 @@
 <?php
 
+namespace PHPExcel\Worksheet\AutoFilter;
 
-class AutofilterColumnTest extends PHPUnit_Framework_TestCase
+class AutofilterColumnTest extends \PHPUnit_Framework_TestCase
 {
     private $_testInitialColumn = 'H';
 

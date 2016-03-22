@@ -1,8 +1,10 @@
 <?php
 
+namespace PHPExcel\Cell;
+
 require_once 'testDataFileIteratorJson.php';
 
-class DefaultValueBinderTest extends PHPUnit_Framework_TestCase
+class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
 {
     protected $cellStub;
 
@@ -68,7 +70,7 @@ class DefaultValueBinderTest extends PHPUnit_Framework_TestCase
 
     public function providerDataTypeForValue()
     {
-        return new testDataFileIteratorJson('rawTestData/Cell/DefaultValueBinder.json');
+        return new \testDataFileIteratorJson('rawTestData/Cell/DefaultValueBinder.json');
     }
 
     public function testDataTypeForRichTextObject()

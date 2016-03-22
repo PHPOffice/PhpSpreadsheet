@@ -1,9 +1,10 @@
 <?php
 
+namespace PHPExcel\Style;
 
 require_once 'testDataFileIterator.php';
 
-class NumberFormatDateTest extends PHPUnit_Framework_TestCase
+class NumberFormatDateTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()
@@ -25,6 +26,6 @@ class NumberFormatDateTest extends PHPUnit_Framework_TestCase
 
     public function providerNumberFormat()
     {
-        return new testDataFileIterator('rawTestData/Style/NumberFormatDates.data');
+        return new \testDataFileIterator('rawTestData/Style/NumberFormatDates.data');
     }
 }

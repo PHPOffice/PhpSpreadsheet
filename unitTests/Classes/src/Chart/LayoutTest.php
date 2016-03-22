@@ -1,7 +1,8 @@
 <?php
 
+namespace PHPExcel\Chart;
 
-class LayoutTest extends PHPUnit_Framework_TestCase
+class LayoutTest extends \PHPUnit_Framework_TestCase
 {
     public function testSetLayoutTarget()
     {

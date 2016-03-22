@@ -1,9 +1,10 @@
 <?php
 
+namespace PHPExcel\Shared;
 
 require_once 'testDataFileIterator.php';
 
-class FontTest extends PHPUnit_Framework_TestCase
+class FontTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetAutoSizeMethod()
     {
@@ -47,7 +48,7 @@ class FontTest extends PHPUnit_Framework_TestCase
 
     public function providerFontSizeToPixels()
     {
-        return new testDataFileIterator('rawTestData/Shared/FontSizeToPixels.data');
+        return new \testDataFileIterator('rawTestData/Shared/FontSizeToPixels.data');
     }
 
     /**
@@ -63,7 +64,7 @@ class FontTest extends PHPUnit_Framework_TestCase
 
     public function providerInchSizeToPixels()
     {
-        return new testDataFileIterator('rawTestData/Shared/InchSizeToPixels.data');
+        return new \testDataFileIterator('rawTestData/Shared/InchSizeToPixels.data');
     }
 
     /**
@@ -79,6 +80,6 @@ class FontTest extends PHPUnit_Framework_TestCase
 
     public function providerCentimeterSizeToPixels()
     {
-        return new testDataFileIterator('rawTestData/Shared/CentimeterSizeToPixels.data');
+        return new \testDataFileIterator('rawTestData/Shared/CentimeterSizeToPixels.data');
     }
 }

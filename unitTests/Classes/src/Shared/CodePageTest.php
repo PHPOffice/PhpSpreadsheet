@@ -1,9 +1,10 @@
 <?php
 
+namespace PHPExcel\Shared;
 
 require_once 'testDataFileIterator.php';
 
-class CodePageTest extends PHPUnit_Framework_TestCase
+class CodePageTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider providerCodePage
@@ -18,7 +19,7 @@ class CodePageTest extends PHPUnit_Framework_TestCase
 
     public function providerCodePage()
     {
-        return new testDataFileIterator('rawTestData/Shared/CodePage.data');
+        return new \testDataFileIterator('rawTestData/Shared/CodePage.data');
     }
 
     public function testNumberToNameWithInvalidCodePage()

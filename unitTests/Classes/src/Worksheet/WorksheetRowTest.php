@@ -1,6 +1,8 @@
 <?php
 
-class WorksheetRowTest extends PHPUnit_Framework_TestCase
+namespace PHPExcel\Worksheet;
+
+class WorksheetRowTest extends \PHPUnit_Framework_TestCase
 {
     public $mockWorksheet;
     public $mockRow;

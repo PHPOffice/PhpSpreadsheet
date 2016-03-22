@@ -1,9 +1,10 @@
 <?php
 
+namespace PHPExcel\Calculation;
 
 require_once 'testDataFileIterator.php';
 
-class MathTrigTest extends PHPUnit_Framework_TestCase
+class MathTrigTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()
@@ -24,7 +25,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerATAN2()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/ATAN2.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/ATAN2.data');
     }
 
     /**
@@ -40,7 +41,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerCEILING()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/CEILING.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/CEILING.data');
     }
 
     /**
@@ -56,7 +57,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerCOMBIN()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/COMBIN.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/COMBIN.data');
     }
 
     /**
@@ -72,7 +73,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerEVEN()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/EVEN.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/EVEN.data');
     }
 
     /**
@@ -88,7 +89,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerODD()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/ODD.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/ODD.data');
     }
 
     /**
@@ -104,7 +105,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerFACT()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/FACT.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/FACT.data');
     }
 
     /**
@@ -120,7 +121,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerFACTDOUBLE()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/FACTDOUBLE.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/FACTDOUBLE.data');
     }
 
     /**
@@ -136,7 +137,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerFLOOR()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/FLOOR.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/FLOOR.data');
     }
 
     /**
@@ -152,7 +153,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerGCD()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/GCD.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/GCD.data');
     }
 
     /**
@@ -168,7 +169,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerLCM()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/LCM.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/LCM.data');
     }
 
     /**
@@ -184,7 +185,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerINT()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/INT.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/INT.data');
     }
 
     /**
@@ -200,7 +201,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerSIGN()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/SIGN.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/SIGN.data');
     }
 
     /**
@@ -216,7 +217,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerPOWER()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/POWER.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/POWER.data');
     }
 
     /**
@@ -232,7 +233,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerLOG()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/LOG.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/LOG.data');
     }
 
     /**
@@ -248,7 +249,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerMOD()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/MOD.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/MOD.data');
     }
 
     /**
@@ -264,7 +265,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerMDETERM()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/MDETERM.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/MDETERM.data');
     }
 
     /**
@@ -280,7 +281,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerMINVERSE()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/MINVERSE.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/MINVERSE.data');
     }
 
     /**
@@ -296,7 +297,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerMMULT()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/MMULT.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/MMULT.data');
     }
 
     /**
@@ -312,7 +313,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerMULTINOMIAL()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/MULTINOMIAL.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/MULTINOMIAL.data');
     }
 
     /**
@@ -330,7 +331,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerMROUND()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/MROUND.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/MROUND.data');
     }
 
     /**
@@ -346,7 +347,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerPRODUCT()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/PRODUCT.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/PRODUCT.data');
     }
 
     /**
@@ -362,7 +363,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerQUOTIENT()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/QUOTIENT.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/QUOTIENT.data');
     }
 
     /**
@@ -378,7 +379,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerROUNDUP()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/ROUNDUP.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/ROUNDUP.data');
     }
 
     /**
@@ -394,7 +395,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerROUNDDOWN()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/ROUNDDOWN.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/ROUNDDOWN.data');
     }
 
     /**
@@ -410,7 +411,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerSERIESSUM()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/SERIESSUM.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/SERIESSUM.data');
     }
 
     /**
@@ -426,7 +427,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerSUMSQ()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/SUMSQ.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/SUMSQ.data');
     }
 
     /**
@@ -442,7 +443,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerTRUNC()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/TRUNC.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/TRUNC.data');
     }
 
     /**
@@ -458,7 +459,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerROMAN()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/ROMAN.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/ROMAN.data');
     }
 
     /**
@@ -474,7 +475,7 @@ class MathTrigTest extends PHPUnit_Framework_TestCase
 
     public function providerSQRTPI()
     {
-        return new testDataFileIterator('rawTestData/Calculation/MathTrig/SQRTPI.data');
+        return new \testDataFileIterator('rawTestData/Calculation/MathTrig/SQRTPI.data');
     }
 
     /**

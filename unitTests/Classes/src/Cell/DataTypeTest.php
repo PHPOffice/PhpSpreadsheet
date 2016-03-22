@@ -1,7 +1,8 @@
 <?php
 
+namespace PHPExcel\Cell;
 
-class DataTypeTest extends PHPUnit_Framework_TestCase
+class DataTypeTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()

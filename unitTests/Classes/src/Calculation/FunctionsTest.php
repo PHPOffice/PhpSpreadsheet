@@ -1,9 +1,10 @@
 <?php
 
+namespace PHPExcel\Calculation;
 
 require_once 'testDataFileIterator.php';
 
-class FunctionsTest extends PHPUnit_Framework_TestCase
+class FunctionsTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()
@@ -72,7 +73,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
 
     public function providerIS_BLANK()
     {
-        return new testDataFileIterator('rawTestData/Calculation/Functions/IS_BLANK.data');
+        return new \testDataFileIterator('rawTestData/Calculation/Functions/IS_BLANK.data');
     }
 
     /**
@@ -88,7 +89,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
 
     public function providerIS_ERR()
     {
-        return new testDataFileIterator('rawTestData/Calculation/Functions/IS_ERR.data');
+        return new \testDataFileIterator('rawTestData/Calculation/Functions/IS_ERR.data');
     }
 
     /**
@@ -104,7 +105,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
 
     public function providerIS_ERROR()
     {
-        return new testDataFileIterator('rawTestData/Calculation/Functions/IS_ERROR.data');
+        return new \testDataFileIterator('rawTestData/Calculation/Functions/IS_ERROR.data');
     }
 
     /**
@@ -120,7 +121,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
 
     public function providerERROR_TYPE()
     {
-        return new testDataFileIterator('rawTestData/Calculation/Functions/ERROR_TYPE.data');
+        return new \testDataFileIterator('rawTestData/Calculation/Functions/ERROR_TYPE.data');
     }
 
     /**
@@ -136,7 +137,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
 
     public function providerIS_LOGICAL()
     {
-        return new testDataFileIterator('rawTestData/Calculation/Functions/IS_LOGICAL.data');
+        return new \testDataFileIterator('rawTestData/Calculation/Functions/IS_LOGICAL.data');
     }
 
     /**
@@ -152,7 +153,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
 
     public function providerIS_NA()
     {
-        return new testDataFileIterator('rawTestData/Calculation/Functions/IS_NA.data');
+        return new \testDataFileIterator('rawTestData/Calculation/Functions/IS_NA.data');
     }
 
     /**
@@ -168,7 +169,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
 
     public function providerIS_NUMBER()
     {
-        return new testDataFileIterator('rawTestData/Calculation/Functions/IS_NUMBER.data');
+        return new \testDataFileIterator('rawTestData/Calculation/Functions/IS_NUMBER.data');
     }
 
     /**
@@ -184,7 +185,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
 
     public function providerIS_TEXT()
     {
-        return new testDataFileIterator('rawTestData/Calculation/Functions/IS_TEXT.data');
+        return new \testDataFileIterator('rawTestData/Calculation/Functions/IS_TEXT.data');
     }
 
     /**
@@ -200,7 +201,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
 
     public function providerIS_NONTEXT()
     {
-        return new testDataFileIterator('rawTestData/Calculation/Functions/IS_NONTEXT.data');
+        return new \testDataFileIterator('rawTestData/Calculation/Functions/IS_NONTEXT.data');
     }
 
     /**
@@ -216,7 +217,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
 
     public function providerIS_EVEN()
     {
-        return new testDataFileIterator('rawTestData/Calculation/Functions/IS_EVEN.data');
+        return new \testDataFileIterator('rawTestData/Calculation/Functions/IS_EVEN.data');
     }
 
     /**
@@ -232,7 +233,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
 
     public function providerIS_ODD()
     {
-        return new testDataFileIterator('rawTestData/Calculation/Functions/IS_ODD.data');
+        return new \testDataFileIterator('rawTestData/Calculation/Functions/IS_ODD.data');
     }
 
     /**
@@ -248,7 +249,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
 
     public function providerTYPE()
     {
-        return new testDataFileIterator('rawTestData/Calculation/Functions/TYPE.data');
+        return new \testDataFileIterator('rawTestData/Calculation/Functions/TYPE.data');
     }
 
     /**
@@ -264,6 +265,6 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
 
     public function providerN()
     {
-        return new testDataFileIterator('rawTestData/Calculation/Functions/N.data');
+        return new \testDataFileIterator('rawTestData/Calculation/Functions/N.data');
     }
 }

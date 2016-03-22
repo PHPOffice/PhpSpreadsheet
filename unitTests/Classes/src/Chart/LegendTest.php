@@ -1,7 +1,8 @@
 <?php
 
+namespace PHPExcel\Chart;
 
-class LegendTest extends PHPUnit_Framework_TestCase
+class LegendTest extends \PHPUnit_Framework_TestCase
 {
     public function testSetPosition()
     {

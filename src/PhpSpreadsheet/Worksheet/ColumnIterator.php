@@ -1,6 +1,7 @@
 <?php
 
 namespace PHPExcel\Worksheet;
+
 use PHPExcel\Cell;
 use PHPExcel\Exception;
 

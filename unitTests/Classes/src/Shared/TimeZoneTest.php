@@ -1,7 +1,8 @@
 <?php
 
+namespace PHPExcel\Shared;
 
-class TimeZoneTest extends PHPUnit_Framework_TestCase
+class TimeZoneTest extends \PHPUnit_Framework_TestCase
 {
     public function testSetTimezone()
     {

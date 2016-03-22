@@ -1,9 +1,10 @@
 <?php
 
+namespace PHPExcel\Calculation;
 
 require_once 'testDataFileIterator.php';
 
-class LogicalTest extends PHPUnit_Framework_TestCase
+class LogicalTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()
@@ -36,7 +37,7 @@ class LogicalTest extends PHPUnit_Framework_TestCase
 
     public function providerAND()
     {
-        return new testDataFileIterator('rawTestData/Calculation/Logical/AND.data');
+        return new \testDataFileIterator('rawTestData/Calculation/Logical/AND.data');
     }
 
     /**
@@ -52,7 +53,7 @@ class LogicalTest extends PHPUnit_Framework_TestCase
 
     public function providerOR()
     {
-        return new testDataFileIterator('rawTestData/Calculation/Logical/OR.data');
+        return new \testDataFileIterator('rawTestData/Calculation/Logical/OR.data');
     }
 
     /**
@@ -68,7 +69,7 @@ class LogicalTest extends PHPUnit_Framework_TestCase
 
     public function providerNOT()
     {
-        return new testDataFileIterator('rawTestData/Calculation/Logical/NOT.data');
+        return new \testDataFileIterator('rawTestData/Calculation/Logical/NOT.data');
     }
 
     /**
@@ -84,7 +85,7 @@ class LogicalTest extends PHPUnit_Framework_TestCase
 
     public function providerIF()
     {
-        return new testDataFileIterator('rawTestData/Calculation/Logical/IF.data');
+        return new \testDataFileIterator('rawTestData/Calculation/Logical/IF.data');
     }
 
     /**
@@ -100,6 +101,6 @@ class LogicalTest extends PHPUnit_Framework_TestCase
 
     public function providerIFERROR()
     {
-        return new testDataFileIterator('rawTestData/Calculation/Logical/IFERROR.data');
+        return new \testDataFileIterator('rawTestData/Calculation/Logical/IFERROR.data');
     }
 }

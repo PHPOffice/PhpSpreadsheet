@@ -1,7 +1,8 @@
 <?php
 
+namespace PHPExcel\Worksheet\AutoFilter\Column;
 
-class RuleTest extends PHPUnit_Framework_TestCase
+class RuleTest extends \PHPUnit_Framework_TestCase
 {
     private $_testAutoFilterRuleObject;
 

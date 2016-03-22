@@ -1,9 +1,10 @@
 <?php
 
+namespace PHPExcel\Calculation;
 
 require_once 'testDataFileIterator.php';
 
-class LookupRefTest extends PHPUnit_Framework_TestCase
+class LookupRefTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()
@@ -24,7 +25,7 @@ class LookupRefTest extends PHPUnit_Framework_TestCase
 
     public function providerHLOOKUP()
     {
-        return new testDataFileIterator('rawTestData/Calculation/LookupRef/HLOOKUP.data');
+        return new \testDataFileIterator('rawTestData/Calculation/LookupRef/HLOOKUP.data');
     }
 
     /**
@@ -40,6 +41,6 @@ class LookupRefTest extends PHPUnit_Framework_TestCase
 
     public function providerVLOOKUP()
     {
-        return new testDataFileIterator('rawTestData/Calculation/LookupRef/VLOOKUP.data');
+        return new \testDataFileIterator('rawTestData/Calculation/LookupRef/VLOOKUP.data');
     }
 }

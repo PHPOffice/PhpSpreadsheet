@@ -1,9 +1,11 @@
 <?php
 
+namespace PHPExcel\Style;
+
 require_once 'testDataFileIterator.php';
 require_once 'testDataFileIteratorJson.php';
 
-class ColorTest extends PHPUnit_Framework_TestCase
+class ColorTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider providerColorGetRed
@@ -18,7 +20,7 @@ class ColorTest extends PHPUnit_Framework_TestCase
 
     public function providerColorGetRed()
     {
-        return new testDataFileIterator('rawTestData/Style/ColorGetRed.data');
+        return new \testDataFileIterator('rawTestData/Style/ColorGetRed.data');
     }
 
     /**
@@ -34,7 +36,7 @@ class ColorTest extends PHPUnit_Framework_TestCase
 
     public function providerColorGetGreen()
     {
-        return new testDataFileIterator('rawTestData/Style/ColorGetGreen.data');
+        return new \testDataFileIterator('rawTestData/Style/ColorGetGreen.data');
     }
 
     /**
@@ -50,7 +52,7 @@ class ColorTest extends PHPUnit_Framework_TestCase
 
     public function providerColorGetBlue()
     {
-        return new testDataFileIterator('rawTestData/Style/ColorGetBlue.data');
+        return new \testDataFileIterator('rawTestData/Style/ColorGetBlue.data');
     }
 
     /**
@@ -65,6 +67,6 @@ class ColorTest extends PHPUnit_Framework_TestCase
 
     public function providerColorChangeBrightness()
     {
-        return new testDataFileIteratorJson('rawTestData/Style/ColorChangeBrightness.json');
+        return new \testDataFileIteratorJson('rawTestData/Style/ColorChangeBrightness.json');
     }
 }

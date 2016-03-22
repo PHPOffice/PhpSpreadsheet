@@ -1,7 +1,8 @@
 <?php
 
+namespace PHPExcel\Chart;
 
-class DataSeriesValuesTest extends PHPUnit_Framework_TestCase
+class DataSeriesValuesTest extends \PHPUnit_Framework_TestCase
 {
     public function testSetDataType()
     {

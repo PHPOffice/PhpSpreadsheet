@@ -1,9 +1,10 @@
 <?php
 
+namespace PHPExcel\Shared;
 
 require_once 'testDataFileIterator.php';
 
-class FileTest extends PHPUnit_Framework_TestCase
+class FileTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetUseUploadTempDirectory()
     {

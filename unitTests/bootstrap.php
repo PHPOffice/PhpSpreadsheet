@@ -40,6 +40,8 @@ if (!defined('PHPEXCEL_ROOT')) {
 }
 require_once(PHPEXCEL_ROOT . 'Bootstrap.php');
 
+require_once 'testDataFileIterator.php';
+
 /**
  * @todo Sort out xdebug in vagrant so that this works in all sandboxes
  * For now, it is safer to test for it rather then remove it.

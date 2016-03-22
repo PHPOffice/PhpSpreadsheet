@@ -1,7 +1,8 @@
 <?php
 
+namespace PHPExcel\Cell;
 
-class HyperlinkTest extends PHPUnit_Framework_TestCase
+class HyperlinkTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()

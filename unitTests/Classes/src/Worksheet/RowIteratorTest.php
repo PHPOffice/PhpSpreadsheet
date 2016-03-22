@@ -1,6 +1,8 @@
 <?php
 
-class RowIteratorTest extends PHPUnit_Framework_TestCase
+namespace PHPExcel\Worksheet;
+
+class RowIteratorTest extends \PHPUnit_Framework_TestCase
 {
     public $mockWorksheet;
     public $mockRow;
