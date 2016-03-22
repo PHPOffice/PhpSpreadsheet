@@ -1765,7 +1765,7 @@ class Statistical
     /**
      * GROWTH
      *
-     * Returns values along a predicted emponential trend
+     * Returns values along a predicted emponential Trend
      *
      * @param    array of mixed        Data Series Y
      * @param    array of mixed        Data Series X
@@ -3404,7 +3404,7 @@ class Statistical
     /**
      * TREND
      *
-     * Returns values along a linear trend
+     * Returns values along a linear Trend
      *
      * @param    array of mixed        Data Series Y
      * @param    array of mixed        Data Series X

@@ -63,8 +63,8 @@ class Excel5 extends BaseReader implements IReader
     // ParseXL definitions
     const XLS_BIFF8                     = 0x0600;
     const XLS_BIFF7                     = 0x0500;
-    const XLS_WorkbookGlobals           = 0x0005;
-    const XLS_Worksheet                 = 0x0010;
+    const XLS_WORKBOOKGLOBALS           = 0x0005;
+    const XLS_WORKSHEET                 = 0x0010;
 
     // record identifiers
     const XLS_TYPE_FORMULA              = 0x0006;
@@ -1688,14 +1688,14 @@ class Excel5 extends BaseReader implements IReader
         $substreamType = self::getInt2d($recordData, 2);
 
         switch ($substreamType) {
-            case self::XLS_WorkbookGlobals:
+            case self::XLS_WORKBOOKGLOBALS:
                 $version = self::getInt2d($recordData, 0);
                 if (($version != self::XLS_BIFF8) && ($version != self::XLS_BIFF7)) {
                     throw new Exception('Cannot read this Excel file. Version is too old.');
                 }
                 $this->version = $version;
                 break;
-            case self::XLS_Worksheet:
+            case self::XLS_WORKSHEET:
                 // do not use this version information for anything
                 // it is unreliable (OpenOffice doc, 5.8), use only version information from the global stream
                 break;
