@@ -33,6 +33,7 @@ Planned for 1.9
 - Feature:  (Tomino2112)      Work Item GH-808  - MemoryDrawing not working in HTML writer
 - General:  (rentalhost)      Work Item GH-575  - Excel 2007 Reader freezes because of conditional formatting
 - Bugfix:   (vitalyrepin)     Pull Request 869  - c:max and c:min elements shall NOT be inside c:orientation elements
+- General:  (sim642)          Pull Request 489  - Implement actual timezone adjustment into PHPExcel_Shared_Date::PHPToExcel
 
 
 2015-04-30 (v1.8.1):

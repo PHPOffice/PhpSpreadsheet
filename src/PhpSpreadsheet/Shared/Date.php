@@ -184,10 +184,17 @@ class Date
     {
         $saveTimeZone = date_default_timezone_get();
         date_default_timezone_set('UTC');
+
+        $timezoneAdjustment = ($adjustToTimezone) ?
+            PHPExcel_Shared_TimeZone::getTimezoneAdjustment($timezone ? $timezone : $saveTimeZone, $dateValue) :
+            0;
+
         $retValue = false;
         if ((is_object($dateValue)) && ($dateValue instanceof \DateTime)) {
+            $dateValue->add(new DateInterval('PT' . $timezoneAdjustment . 'S'));
             $retValue = self::formattedPHPToExcel($dateValue->format('Y'), $dateValue->format('m'), $dateValue->format('d'), $dateValue->format('H'), $dateValue->format('i'), $dateValue->format('s'));
         } elseif (is_numeric($dateValue)) {
+            $dateValue += $timezoneAdjustment;
             $retValue = self::formattedPHPToExcel(date('Y', $dateValue), date('m', $dateValue), date('d', $dateValue), date('H', $dateValue), date('i', $dateValue), date('s', $dateValue));
         } elseif (is_string($dateValue)) {
             $retValue = self::stringToExcel($dateValue);
