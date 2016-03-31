@@ -549,8 +549,6 @@ class Chart extends WriterPart
         }
 
         $objWriter->startElement('c:scaling');
-        $objWriter->startElement('c:orientation');
-        $objWriter->writeAttribute('val', $xAxis->getAxisOptionsProperty('orientation'));
 
         if (!is_null($xAxis->getAxisOptionsProperty('maximum'))) {
             $objWriter->startElement('c:max');
@@ -563,6 +561,9 @@ class Chart extends WriterPart
             $objWriter->writeAttribute('val', $xAxis->getAxisOptionsProperty('minimum'));
             $objWriter->endElement();
         }
+
+        $objWriter->startElement('c:orientation');
+        $objWriter->writeAttribute('val', $xAxis->getAxisOptionsProperty('orientation'));
 
         $objWriter->endElement();
         $objWriter->endElement();
