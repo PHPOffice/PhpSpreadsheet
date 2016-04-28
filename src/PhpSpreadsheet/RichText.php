@@ -48,7 +48,7 @@ class RichText implements IComparable
             // Add cell text and style
             if ($pCell->getValue() != '') {
                 $objRun = new RichText\Run($pCell->getValue());
-                $objRun->setFont(clone $pCell->getParent()->getStyle($pCell->getCoordinate())->getFont());
+                $objRun->setFont(clone $pCell->getWorksheet()->getStyle($pCell->getCoordinate())->getFont());
                 $this->addText($objRun);
             }
 
