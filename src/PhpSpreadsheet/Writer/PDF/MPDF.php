@@ -35,7 +35,7 @@ if (file_exists($pdfRendererClassFile)) {
  *  @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  *  @version     ##VERSION##, ##DATE##
  */
-class mPDF extends Core implements \PHPExcel\Writer\IWriter
+class MPDF extends Core implements \PHPExcel\Writer\IWriter
 {
     /**
      *  Create a mPDF Writer instance
