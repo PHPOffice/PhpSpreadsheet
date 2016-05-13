@@ -36,7 +36,7 @@ if (file_exists($pdfRendererClassFile)) {
  *  @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  *  @version     ##VERSION##, ##DATE##
  */
-class tcPDF extends Core implements \PHPExcel\Writer\IWriter
+class TcPDF extends Core implements \PHPExcel\Writer\IWriter
 {
     /**
      *  Create a new tcPDF Writer instance
