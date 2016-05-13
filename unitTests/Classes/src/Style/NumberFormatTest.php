@@ -9,8 +9,8 @@ class NumberFormatTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        \PHPExcel\Shared\String::setDecimalSeparator('.');
-        \PHPExcel\Shared\String::setThousandsSeparator(',');
+        \PHPExcel\Shared\StringHelper::setDecimalSeparator('.');
+        \PHPExcel\Shared\StringHelper::setThousandsSeparator(',');
     }
 
     /**

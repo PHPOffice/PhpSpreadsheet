@@ -225,7 +225,6 @@ class PPS
             $raList[$cnt]->PrevPps = self::_savePpsSetPnt($raList, $aPrev, $depth++);
             $raList[$cnt]->NextPps = self::_savePpsSetPnt($raList, $aNext, $depth++);
             $raList[$cnt]->DirPps  = self::_savePpsSetPnt($raList, @$raList[$cnt]->children, $depth++);
-
         }
         return $cnt;
     }

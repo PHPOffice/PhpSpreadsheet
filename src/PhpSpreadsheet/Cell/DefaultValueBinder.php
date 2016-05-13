@@ -40,7 +40,7 @@ class DefaultValueBinder implements IValueBinder
     {
         // sanitize UTF-8 strings
         if (is_string($value)) {
-            $value = \PHPExcel\Shared\String::SanitizeUTF8($value);
+            $value = \PHPExcel\Shared\StringHelper::SanitizeUTF8($value);
         } elseif (is_object($value)) {
             // Handle any objects that might be injected
             if ($value instanceof \DateTime) {

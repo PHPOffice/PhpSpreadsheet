@@ -294,9 +294,9 @@ class DateTime
             $day = \PHPExcel\Shared\Date::dayStringToNumber($day);
         }
 
-        $year = ($year !== null) ? \PHPExcel\Shared\String::testStringAsNumeric($year) : 0;
-        $month = ($month !== null) ? \PHPExcel\Shared\String::testStringAsNumeric($month) : 0;
-        $day = ($day !== null) ? \PHPExcel\Shared\String::testStringAsNumeric($day) : 0;
+        $year = ($year !== null) ? \PHPExcel\Shared\StringHelper::testStringAsNumeric($year) : 0;
+        $month = ($month !== null) ? \PHPExcel\Shared\StringHelper::testStringAsNumeric($month) : 0;
+        $day = ($day !== null) ? \PHPExcel\Shared\StringHelper::testStringAsNumeric($day) : 0;
         if ((!is_numeric($year)) ||
             (!is_numeric($month)) ||
             (!is_numeric($day))) {

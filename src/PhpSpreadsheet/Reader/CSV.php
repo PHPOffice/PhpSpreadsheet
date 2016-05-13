@@ -281,7 +281,7 @@ class CSV extends BaseReader implements IReader
 
                     // Convert encoding if necessary
                     if ($this->inputEncoding !== 'UTF-8') {
-                        $rowDatum = \PHPExcel\Shared\String::ConvertEncoding($rowDatum, 'UTF-8', $this->inputEncoding);
+                        $rowDatum = \PHPExcel\Shared\StringHelper::ConvertEncoding($rowDatum, 'UTF-8', $this->inputEncoding);
                     }
 
                     // Set cell value

@@ -3,7 +3,7 @@
 namespace PHPExcel\Shared;
 
 /**
- * \PHPExcel\Shared\String
+ * \PHPExcel\Shared\StringHelper
  *
  * Copyright (c) 2006 - 2015 PHPExcel
  *
@@ -27,7 +27,7 @@ namespace PHPExcel\Shared;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class String
+class StringHelper
 {
     /**    Constants                */
     /**    Regular Expressions        */

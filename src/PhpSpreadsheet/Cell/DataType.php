@@ -90,7 +90,7 @@ class DataType
         }
 
         // string must never be longer than 32,767 characters, truncate if necessary
-        $pValue = \PHPExcel\Shared\String::Substring($pValue, 0, 32767);
+        $pValue = \PHPExcel\Shared\StringHelper::Substring($pValue, 0, 32767);
 
         // we require that newline is represented as "\n" in core, not as "\r\n" or "\r"
         $pValue = str_replace(array("\r\n", "\r"), "\n", $pValue);

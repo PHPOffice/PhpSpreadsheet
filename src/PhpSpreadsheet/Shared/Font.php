@@ -564,7 +564,6 @@ class Font
             $columnWidth = $pPixels ?
                 self::$defaultColumnWidths[$font->getName()][$font->getSize()]['px']
                     : self::$defaultColumnWidths[$font->getName()][$font->getSize()]['width'];
-
         } else {
             // We don't have data for this particular font and size, use approximation by
             // extrapolating from Calibri 11

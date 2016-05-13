@@ -440,7 +440,6 @@ class Style extends Style\Supervisor implements IComparable
                         }
                         break;
                 }
-
             } else {
                 // not a supervisor, just apply the style array directly on style object
                 if (array_key_exists('fill', $pStyles)) {

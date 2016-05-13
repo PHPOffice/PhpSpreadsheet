@@ -523,11 +523,11 @@ class Matrix
                     $value = $M->get($i, $j);
                     if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
                         $this->A[$i][$j] = trim($this->A[$i][$j], '"');
-                        $validValues &= \PHPExcel\Shared\String::convertToNumberIfFraction($this->A[$i][$j]);
+                        $validValues &= \PHPExcel\Shared\StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
                     }
                     if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
                         $value = trim($value, '"');
-                        $validValues &= \PHPExcel\Shared\String::convertToNumberIfFraction($value);
+                        $validValues &= \PHPExcel\Shared\StringHelper::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
                         $this->A[$i][$j] += $value;
@@ -617,11 +617,11 @@ class Matrix
                     $value = $M->get($i, $j);
                     if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
                         $this->A[$i][$j] = trim($this->A[$i][$j], '"');
-                        $validValues &= \PHPExcel\Shared\String::convertToNumberIfFraction($this->A[$i][$j]);
+                        $validValues &= \PHPExcel\Shared\StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
                     }
                     if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
                         $value = trim($value, '"');
-                        $validValues &= \PHPExcel\Shared\String::convertToNumberIfFraction($value);
+                        $validValues &= \PHPExcel\Shared\StringHelper::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
                         $this->A[$i][$j] -= $value;
@@ -713,11 +713,11 @@ class Matrix
                     $value = $M->get($i, $j);
                     if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
                         $this->A[$i][$j] = trim($this->A[$i][$j], '"');
-                        $validValues &= \PHPExcel\Shared\String::convertToNumberIfFraction($this->A[$i][$j]);
+                        $validValues &= \PHPExcel\Shared\StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
                     }
                     if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
                         $value = trim($value, '"');
-                        $validValues &= \PHPExcel\Shared\String::convertToNumberIfFraction($value);
+                        $validValues &= \PHPExcel\Shared\StringHelper::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
                         $this->A[$i][$j] *= $value;
@@ -768,11 +768,11 @@ class Matrix
                     $value = $M->get($i, $j);
                     if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
                         $this->A[$i][$j] = trim($this->A[$i][$j], '"');
-                        $validValues &= \PHPExcel\Shared\String::convertToNumberIfFraction($this->A[$i][$j]);
+                        $validValues &= \PHPExcel\Shared\StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
                     }
                     if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
                         $value = trim($value, '"');
-                        $validValues &= \PHPExcel\Shared\String::convertToNumberIfFraction($value);
+                        $validValues &= \PHPExcel\Shared\StringHelper::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
                         if ($value == 0) {
@@ -1049,11 +1049,11 @@ class Matrix
                     $value = $M->get($i, $j);
                     if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
                         $this->A[$i][$j] = trim($this->A[$i][$j], '"');
-                        $validValues &= \PHPExcel\Shared\String::convertToNumberIfFraction($this->A[$i][$j]);
+                        $validValues &= \PHPExcel\Shared\StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
                     }
                     if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
                         $value = trim($value, '"');
-                        $validValues &= \PHPExcel\Shared\String::convertToNumberIfFraction($value);
+                        $validValues &= \PHPExcel\Shared\StringHelper::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
                         $this->A[$i][$j] = pow($this->A[$i][$j], $value);

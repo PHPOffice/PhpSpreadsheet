@@ -62,9 +62,9 @@ class AdvancedValueBinderTest extends \PHPUnit_Framework_TestCase
                  ->method('getCellCacheController')
                  ->will($this->returnValue($cache));
 
-        \PHPExcel\Shared\String::setCurrencyCode($currencyCode);
-        \PHPExcel\Shared\String::setDecimalSeparator($decimalSeparator);
-        \PHPExcel\Shared\String::setThousandsSeparator($thousandsSeparator);
+        \PHPExcel\Shared\StringHelper::setCurrencyCode($currencyCode);
+        \PHPExcel\Shared\StringHelper::setDecimalSeparator($decimalSeparator);
+        \PHPExcel\Shared\StringHelper::setThousandsSeparator($thousandsSeparator);
 
         $cell = new \PHPExcel\Cell(null, \PHPExcel\Cell\DataType::TYPE_STRING, $sheet);
 

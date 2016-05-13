@@ -117,7 +117,7 @@ class Font
             $bCharSet,
             $reserved
         );
-        $data .= \PHPExcel\Shared\String::UTF8toBIFF8UnicodeShort($this->font->getName());
+        $data .= \PHPExcel\Shared\StringHelper::UTF8toBIFF8UnicodeShort($this->font->getName());
 
         $length = strlen($data);
         $header = pack("vv", $record, $length);

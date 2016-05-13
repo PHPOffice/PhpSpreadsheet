@@ -135,7 +135,6 @@ class Color extends Supervisor implements \PHPExcel\IComparable
             case 'startColor':
                 $key = 'startcolor';
                 break;
-
         }
         return $this->parent->getStyleArray(array($key => $array));
     }

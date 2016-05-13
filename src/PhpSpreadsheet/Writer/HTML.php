@@ -4,7 +4,7 @@ namespace PHPExcel\Writer;
 
 use PHPExcel\Calculation;
 use PHPExcel\Shared\Font;
-use PHPExcel\Shared\String;
+use PHPExcel\Shared\StringHelper;
 use PHPExcel\Spreadsheet;
 
 /**

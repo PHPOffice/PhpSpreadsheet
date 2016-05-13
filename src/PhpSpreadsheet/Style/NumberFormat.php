@@ -687,7 +687,6 @@ class NumberFormat extends Supervisor implements \PHPExcel\IComparable
                     if ($value != (int)$value) {
                         self::formatAsFraction($value, $format);
                     }
-
                 } else {
                     // Handle the number itself
 
@@ -711,8 +710,8 @@ class NumberFormat extends Supervisor implements \PHPExcel\IComparable
                             $value = number_format(
                                 $value,
                                 strlen($right),
-                                \PHPExcel\Shared\String::getDecimalSeparator(),
-                                \PHPExcel\Shared\String::getThousandsSeparator()
+                                \PHPExcel\Shared\StringHelper::getDecimalSeparator(),
+                                \PHPExcel\Shared\StringHelper::getThousandsSeparator()
                             );
                             $value = preg_replace($number_regex, $value, $format);
                         } else {
@@ -735,7 +734,7 @@ class NumberFormat extends Supervisor implements \PHPExcel\IComparable
                     $currencyCode = $m[1];
                     list($currencyCode) = explode('-', $currencyCode);
                     if ($currencyCode == '') {
-                        $currencyCode = \PHPExcel\Shared\String::getCurrencyCode();
+                        $currencyCode = \PHPExcel\Shared\StringHelper::getCurrencyCode();
                     }
                     $value = preg_replace('/\[\$([^\]]*)\]/u', $currencyCode, $value);
                 }

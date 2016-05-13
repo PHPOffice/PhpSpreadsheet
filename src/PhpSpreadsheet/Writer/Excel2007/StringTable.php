@@ -109,7 +109,7 @@ class StringTable extends WriterPart
                 $objWriter->startElement('si');
 
                 if (! $textElement instanceof \PHPExcel\RichText) {
-                    $textToWrite = \PHPExcel\Shared\String::ControlCharacterPHP2OOXML($textElement);
+                    $textToWrite = \PHPExcel\Shared\StringHelper::ControlCharacterPHP2OOXML($textElement);
                     $objWriter->startElement('t');
                     if ($textToWrite !== trim($textToWrite)) {
                         $objWriter->writeAttribute('xml:space', 'preserve');
@@ -208,7 +208,7 @@ class StringTable extends WriterPart
             // t
             $objWriter->startElement($prefix.'t');
             $objWriter->writeAttribute('xml:space', 'preserve');
-            $objWriter->writeRawData(\PHPExcel\Shared\String::ControlCharacterPHP2OOXML($element->getText()));
+            $objWriter->writeRawData(\PHPExcel\Shared\StringHelper::ControlCharacterPHP2OOXML($element->getText()));
             $objWriter->endElement();
 
             $objWriter->endElement();
@@ -283,7 +283,7 @@ class StringTable extends WriterPart
             // t
             $objWriter->startElement($prefix.'t');
 //                    $objWriter->writeAttribute('xml:space', 'preserve');    //    Excel2010 accepts, Excel2007 complains
-            $objWriter->writeRawData(\PHPExcel\Shared\String::ControlCharacterPHP2OOXML($element->getText()));
+            $objWriter->writeRawData(\PHPExcel\Shared\StringHelper::ControlCharacterPHP2OOXML($element->getText()));
             $objWriter->endElement();
 
             $objWriter->endElement();

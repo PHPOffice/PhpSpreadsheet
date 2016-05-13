@@ -789,7 +789,7 @@ class Excel2003XML extends BaseReader implements IReader
     protected static function convertStringEncoding($string, $charset)
     {
         if ($charset != 'UTF-8') {
-            return \PHPExcel\Shared\String::ConvertEncoding($string, 'UTF-8', $charset);
+            return \PHPExcel\Shared\StringHelper::ConvertEncoding($string, 'UTF-8', $charset);
         }
         return $string;
     }

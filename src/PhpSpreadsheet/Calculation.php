@@ -2445,7 +2445,6 @@ class Calculation
             foreach (array_keys(self::$localeBoolean) as $excelBoolean) {
                 self::$functionReplaceFromExcel[] = '/(@?[^\w\.])'.preg_quote($excelBoolean).'([^\w\.])/Ui';
             }
-
         }
 
         if (self::$functionReplaceToLocale === null) {
@@ -3183,7 +3182,6 @@ class Calculation
                 ++$index;                                                    //    Drop the redundant plus symbol
             } elseif ((($opCharacter == '~') || ($opCharacter == '|')) && (!$isOperandOrFunction)) {    //    We have to explicitly deny a tilde or pipe, because they are legal
                 return $this->raiseFormulaError("Formula Error: Illegal character '~'");                //        on the stack but not in the input expression
-
             } elseif ((isset(self::$operators[$opCharacter]) or $isOperandOrFunction) && $expectingOperator) {    //    Are we putting an operator on the stack?
 //echo 'Element with value '.$opCharacter.' is an Operator', PHP_EOL;
                 while ($stack->count() > 0 &&
@@ -3195,7 +3193,6 @@ class Calculation
                 $stack->push('Binary Operator', $opCharacter);    //    Finally put our current operator onto the stack
                 ++$index;
                 $expectingOperator = false;
-
             } elseif ($opCharacter == ')' && $expectingOperator) {            //    Are we expecting to close a parenthesis?
 //echo 'Element is a Closing bracket', PHP_EOL;
                 $expectingOperand = false;
@@ -3278,7 +3275,6 @@ class Calculation
                     }
                 }
                 ++$index;
-
             } elseif ($opCharacter == ',') {            //    Is this the separator for function arguments?
 //echo 'Element is a Function argument separator', PHP_EOL;
                 while (($o2 = $stack->pop()) && $o2['value'] != '(') {        //    Pop off the stack back to the last (
@@ -3304,12 +3300,10 @@ class Calculation
                 $expectingOperator = false;
                 $expectingOperand = true;
                 ++$index;
-
             } elseif ($opCharacter == '(' && !$expectingOperator) {
 //                echo 'Element is an Opening Bracket<br />';
                 $stack->push('Brace', '(');
                 ++$index;
-
             } elseif ($isOperandOrFunction && !$expectingOperator) {    // do we now have a function/variable/number?
                 $expectingOperator = true;
                 $expectingOperand = false;
@@ -3422,7 +3416,6 @@ class Calculation
                     $output[] = $details;
                 }
                 $index += $length;
-
             } elseif ($opCharacter == '$') {    // absolute row or column range
                 ++$index;
             } elseif ($opCharacter == ')') {    // miscellaneous error checking
@@ -3692,7 +3685,6 @@ class Calculation
                 } else {
                     $this->executeNumericBinaryOperation($cellID, $multiplier, $arg, '*', 'arrayTimesEquals', $stack);
                 }
-
             } elseif (preg_match('/^'.self::CALCULATION_REGEXP_CELLREF.'$/i', $token, $matches)) {
                 $cellRef = null;
 //                echo 'Element '.$token.' is a Cell reference<br />';
@@ -3875,7 +3867,6 @@ class Calculation
                     }
                     $stack->push('Value', self::wrapResult($result));
                 }
-
             } else {
                 // if the token is a number, boolean, string or an Excel error, push it onto the stack
                 if (isset(self::$excelConstants[strtoupper($token)])) {

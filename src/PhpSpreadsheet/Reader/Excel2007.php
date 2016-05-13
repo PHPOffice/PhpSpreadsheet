@@ -93,7 +93,6 @@ class Excel2007 extends BaseReader implements IReader
                                 $xl = true;
                             }
                             break;
-
                     }
                 }
             }
@@ -526,7 +525,7 @@ class Excel2007 extends BaseReader implements IReader
                     if (isset($xmlStrings) && isset($xmlStrings->si)) {
                         foreach ($xmlStrings->si as $val) {
                             if (isset($val->t)) {
-                                $sharedStrings[] = \PHPExcel\Shared\String::ControlCharacterOOXML2PHP((string) $val->t);
+                                $sharedStrings[] = \PHPExcel\Shared\StringHelper::ControlCharacterOOXML2PHP((string) $val->t);
                             } elseif (isset($val->r)) {
                                 $sharedStrings[] = $this->parseRichText($val);
                             }
@@ -1533,7 +1532,6 @@ class Excel2007 extends BaseReader implements IReader
                                         }
                                     }
                                 }
-
                             }
 
                             // TODO: Autoshapes from twoCellAnchors!
@@ -2073,15 +2071,14 @@ class Excel2007 extends BaseReader implements IReader
         $value = new \PHPExcel\RichText();
 
         if (isset($is->t)) {
-            $value->createText(\PHPExcel\Shared\String::ControlCharacterOOXML2PHP((string) $is->t));
+            $value->createText(\PHPExcel\Shared\StringHelper::ControlCharacterOOXML2PHP((string) $is->t));
         } else {
             if (is_object($is->r)) {
                 foreach ($is->r as $run) {
                     if (!isset($run->rPr)) {
-                        $objText = $value->createText(\PHPExcel\Shared\String::ControlCharacterOOXML2PHP((string) $run->t));
-
+                        $objText = $value->createText(\PHPExcel\Shared\StringHelper::ControlCharacterOOXML2PHP((string) $run->t));
                     } else {
-                        $objText = $value->createTextRun(\PHPExcel\Shared\String::ControlCharacterOOXML2PHP((string) $run->t));
+                        $objText = $value->createTextRun(\PHPExcel\Shared\StringHelper::ControlCharacterOOXML2PHP((string) $run->t));
 
                         if (isset($run->rPr->rFont["val"])) {
                             $objText->getFont()->setName((string) $run->rPr->rFont["val"]);

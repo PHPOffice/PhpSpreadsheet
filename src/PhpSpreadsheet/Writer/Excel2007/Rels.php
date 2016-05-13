@@ -61,7 +61,6 @@ class Rels extends WriterPart
                 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/custom-properties',
                 'docProps/custom.xml'
             );
-
         }
 
         // Relationship docProps/app.xml

@@ -465,7 +465,6 @@ class ReferenceHelper
                     // Formula should be adjusted
                     $cell->setValue($this->updateFormulaReferences($cell->getValue(), $pBefore, $pNumCols, $pNumRows, $pSheet->getTitle()));
                 }
-
             }
         }
 
@@ -492,7 +491,6 @@ class ReferenceHelper
                         }
                     }
                 }
-
             }
         }
 

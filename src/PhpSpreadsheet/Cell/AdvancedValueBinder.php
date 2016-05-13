@@ -40,7 +40,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
     {
         // sanitize UTF-8 strings
         if (is_string($value)) {
-            $value = \PHPExcel\Shared\String::SanitizeUTF8($value);
+            $value = \PHPExcel\Shared\StringHelper::SanitizeUTF8($value);
         }
 
         // Find out data type
@@ -100,9 +100,9 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
             }
 
             // Check for currency
-            $currencyCode = \PHPExcel\Shared\String::getCurrencyCode();
-            $decimalSeparator = \PHPExcel\Shared\String::getDecimalSeparator();
-            $thousandsSeparator = \PHPExcel\Shared\String::getThousandsSeparator();
+            $currencyCode = \PHPExcel\Shared\StringHelper::getCurrencyCode();
+            $decimalSeparator = \PHPExcel\Shared\StringHelper::getDecimalSeparator();
+            $thousandsSeparator = \PHPExcel\Shared\StringHelper::getThousandsSeparator();
             if (preg_match('/^'.preg_quote($currencyCode).' *(\d{1,3}('.preg_quote($thousandsSeparator).'\d{3})*|(\d+))('.preg_quote($decimalSeparator).'\d{2})?$/', $value)) {
                 // Convert value to number
                 $value = (float) trim(str_replace(array($currencyCode, $thousandsSeparator, $decimalSeparator), array('', '', '.'), $value));
@@ -165,7 +165,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
 
             // Check for newline character "\n"
             if (strpos($value, "\n") !== false) {
-                $value = \PHPExcel\Shared\String::SanitizeUTF8($value);
+                $value = \PHPExcel\Shared\StringHelper::SanitizeUTF8($value);
                 $cell->setValueExplicit($value, DataType::TYPE_STRING);
                 // Set style
                 $cell->getWorksheet()->getStyle($cell->getCoordinate())
