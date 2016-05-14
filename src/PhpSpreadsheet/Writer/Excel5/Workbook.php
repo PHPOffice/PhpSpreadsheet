@@ -804,7 +804,7 @@ class Workbook extends BIFFwriter
         $options = $isBuiltIn ? 0x20 : 0x00;
 
         // length of the name, character count
-        $nlen = \PHPExcel\Shared\StringHelper::CountCharacters($name);
+        $nlen = \PHPExcel\Shared\StringHelper::countCharacters($name);
 
         // name with stripped length field
         $name = substr(\PHPExcel\Shared\StringHelper::UTF8toBIFF8UnicodeLong($name), 2);

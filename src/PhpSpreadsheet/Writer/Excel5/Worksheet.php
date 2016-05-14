@@ -403,7 +403,7 @@ class Worksheet extends BIFFwriter
             if ($cVal instanceof \PHPExcel\RichText) {
                 // $this->writeString($row, $column, $cVal->getPlainText(), $xfIndex);
                 $arrcRun = array();
-                $str_len = \PHPExcel\Shared\StringHelper::CountCharacters($cVal->getPlainText(), 'UTF-8');
+                $str_len = \PHPExcel\Shared\StringHelper::countCharacters($cVal->getPlainText(), 'UTF-8');
                 $str_pos = 0;
                 $elements = $cVal->getRichTextElements();
                 foreach ($elements as $element) {
@@ -415,7 +415,7 @@ class Worksheet extends BIFFwriter
                     }
                     $arrcRun[] = array('strlen' => $str_pos, 'fontidx' => $str_fontidx);
                     // Position FROM
-                    $str_pos += \PHPExcel\Shared\StringHelper::CountCharacters($element->getText(), 'UTF-8');
+                    $str_pos += \PHPExcel\Shared\StringHelper::countCharacters($element->getText(), 'UTF-8');
                 }
                 $this->writeRichTextString($row, $column, $cVal->getPlainText(), $xfIndex, $arrcRun);
             } else {
@@ -1054,10 +1054,10 @@ class Worksheet extends BIFFwriter
         $url .= "\0";
 
         // character count
-        $url_len = \PHPExcel\Shared\StringHelper::CountCharacters($url);
+        $url_len = \PHPExcel\Shared\StringHelper::countCharacters($url);
         $url_len = pack('V', $url_len);
 
-        $url = \PHPExcel\Shared\StringHelper::ConvertEncoding($url, 'UTF-16LE', 'UTF-8');
+        $url = \PHPExcel\Shared\StringHelper::convertEncoding($url, 'UTF-16LE', 'UTF-8');
 
         // Calculate the data length
         $length      = 0x24 + strlen($url);

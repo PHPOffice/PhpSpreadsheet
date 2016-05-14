@@ -3929,7 +3929,7 @@ class Calculation
                     $stack->push('Value', $operand);
                     $this->_debugLog->writeDebugLog('Evaluation Result is ', $this->showTypeDetails($operand));
                     return false;
-                } elseif (!Shared\String::convertToNumberIfFraction($operand)) {
+                } elseif (!Shared\StringHelper::convertToNumberIfFraction($operand)) {
                     //    If not a numeric or a fraction, then it's a text string, and so can't be used in mathematical binary operations
                     $stack->push('Value', '#VALUE!');
                     $this->_debugLog->writeDebugLog('Evaluation Result is a ', $this->showTypeDetails('#VALUE!'));
@@ -4071,8 +4071,8 @@ class Calculation
      */
     private function strcmpLowercaseFirst($str1, $str2)
     {
-        $inversedStr1 = Shared\String::StrCaseReverse($str1);
-        $inversedStr2 = Shared\String::StrCaseReverse($str2);
+        $inversedStr1 = Shared\StringHelper::strCaseReverse($str1);
+        $inversedStr2 = Shared\StringHelper::strCaseReverse($str2);
 
         return strcmp($inversedStr1, $inversedStr2);
     }

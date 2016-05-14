@@ -1597,16 +1597,16 @@ class HTML extends BaseWriter implements IWriter
         $htmlPage = '@page { ';
         $htmlBody = 'body { ';
 
-        $left = String::FormatNumber($pSheet->getPageMargins()->getLeft()) . 'in; ';
+        $left = StringHelper::formatNumber($pSheet->getPageMargins()->getLeft()) . 'in; ';
         $htmlPage .= 'margin-left: ' . $left;
         $htmlBody .= 'margin-left: ' . $left;
-        $right = String::FormatNumber($pSheet->getPageMargins()->getRight()) . 'in; ';
+        $right = StringHelper::formatNumber($pSheet->getPageMargins()->getRight()) . 'in; ';
         $htmlPage .= 'margin-right: ' . $right;
         $htmlBody .= 'margin-right: ' . $right;
-        $top = String::FormatNumber($pSheet->getPageMargins()->getTop()) . 'in; ';
+        $top = StringHelper::formatNumber($pSheet->getPageMargins()->getTop()) . 'in; ';
         $htmlPage .= 'margin-top: ' . $top;
         $htmlBody .= 'margin-top: ' . $top;
-        $bottom = String::FormatNumber($pSheet->getPageMargins()->getBottom()) . 'in; ';
+        $bottom = StringHelper::formatNumber($pSheet->getPageMargins()->getBottom()) . 'in; ';
         $htmlPage .= 'margin-bottom: ' . $bottom;
         $htmlBody .= 'margin-bottom: ' . $bottom;
 

@@ -327,7 +327,7 @@ class Worksheet extends WriterPart
         // Default row height
         if ($pSheet->getDefaultRowDimension()->getRowHeight() >= 0) {
             $objWriter->writeAttribute('customHeight', 'true');
-            $objWriter->writeAttribute('defaultRowHeight', \PHPExcel\Shared\StringHelper::FormatNumber($pSheet->getDefaultRowDimension()->getRowHeight()));
+            $objWriter->writeAttribute('defaultRowHeight', \PHPExcel\Shared\StringHelper::formatNumber($pSheet->getDefaultRowDimension()->getRowHeight()));
         } else {
             $objWriter->writeAttribute('defaultRowHeight', '14.4');
         }
@@ -340,7 +340,7 @@ class Worksheet extends WriterPart
 
         // Default column width
         if ($pSheet->getDefaultColumnDimension()->getWidth() >= 0) {
-            $objWriter->writeAttribute('defaultColWidth', \PHPExcel\Shared\StringHelper::FormatNumber($pSheet->getDefaultColumnDimension()->getWidth()));
+            $objWriter->writeAttribute('defaultColWidth', \PHPExcel\Shared\StringHelper::formatNumber($pSheet->getDefaultColumnDimension()->getWidth()));
         }
 
         // Outline level - row
@@ -391,7 +391,7 @@ class Worksheet extends WriterPart
                     $objWriter->writeAttribute('width', '9.10');
                 } else {
                     // Width set
-                    $objWriter->writeAttribute('width', \PHPExcel\Shared\StringHelper::FormatNumber($colDimension->getWidth()));
+                    $objWriter->writeAttribute('width', \PHPExcel\Shared\StringHelper::formatNumber($colDimension->getWidth()));
                 }
 
                 // Column visibility
@@ -735,12 +735,12 @@ class Worksheet extends WriterPart
     {
         // pageMargins
         $objWriter->startElement('pageMargins');
-        $objWriter->writeAttribute('left', \PHPExcel\Shared\StringHelper::FormatNumber($pSheet->getPageMargins()->getLeft()));
-        $objWriter->writeAttribute('right', \PHPExcel\Shared\StringHelper::FormatNumber($pSheet->getPageMargins()->getRight()));
-        $objWriter->writeAttribute('top', \PHPExcel\Shared\StringHelper::FormatNumber($pSheet->getPageMargins()->getTop()));
-        $objWriter->writeAttribute('bottom', \PHPExcel\Shared\StringHelper::FormatNumber($pSheet->getPageMargins()->getBottom()));
-        $objWriter->writeAttribute('header', \PHPExcel\Shared\StringHelper::FormatNumber($pSheet->getPageMargins()->getHeader()));
-        $objWriter->writeAttribute('footer', \PHPExcel\Shared\StringHelper::FormatNumber($pSheet->getPageMargins()->getFooter()));
+        $objWriter->writeAttribute('left', \PHPExcel\Shared\StringHelper::formatNumber($pSheet->getPageMargins()->getLeft()));
+        $objWriter->writeAttribute('right', \PHPExcel\Shared\StringHelper::formatNumber($pSheet->getPageMargins()->getRight()));
+        $objWriter->writeAttribute('top', \PHPExcel\Shared\StringHelper::formatNumber($pSheet->getPageMargins()->getTop()));
+        $objWriter->writeAttribute('bottom', \PHPExcel\Shared\StringHelper::formatNumber($pSheet->getPageMargins()->getBottom()));
+        $objWriter->writeAttribute('header', \PHPExcel\Shared\StringHelper::formatNumber($pSheet->getPageMargins()->getHeader()));
+        $objWriter->writeAttribute('footer', \PHPExcel\Shared\StringHelper::formatNumber($pSheet->getPageMargins()->getFooter()));
         $objWriter->endElement();
     }
 
@@ -1001,7 +1001,7 @@ class Worksheet extends WriterPart
                     // Row dimensions
                     if ($rowDimension->getRowHeight() >= 0) {
                         $objWriter->writeAttribute('customHeight', '1');
-                        $objWriter->writeAttribute('ht', \PHPExcel\Shared\StringHelper::FormatNumber($rowDimension->getRowHeight()));
+                        $objWriter->writeAttribute('ht', \PHPExcel\Shared\StringHelper::formatNumber($rowDimension->getRowHeight()));
                     }
 
                     // Row visibility
@@ -1096,7 +1096,7 @@ class Worksheet extends WriterPart
                 switch (strtolower($mappedType)) {
                     case 'inlinestr':    // Inline string
                         if (! $cellValue instanceof \PHPExcel\RichText) {
-                            $objWriter->writeElement('t', \PHPExcel\Shared\StringHelper::ControlCharacterPHP2OOXML(htmlspecialchars($cellValue)));
+                            $objWriter->writeElement('t', \PHPExcel\Shared\StringHelper::controlCharacterPHP2OOXML(htmlspecialchars($cellValue)));
                         } elseif ($cellValue instanceof \PHPExcel\RichText) {
                             $objWriter->startElement('is');
                             $this->getParentWriter()->getWriterPart('stringtable')->writeRichText($objWriter, $cellValue);
@@ -1131,7 +1131,7 @@ class Worksheet extends WriterPart
                             if ($this->getParentWriter()->getPreCalculateFormulas()) {
 //                                $calculatedValue = $pCell->getCalculatedValue();
                                 if (!is_array($calculatedValue) && substr($calculatedValue, 0, 1) != '#') {
-                                    $objWriter->writeElement('v', \PHPExcel\Shared\StringHelper::FormatNumber($calculatedValue));
+                                    $objWriter->writeElement('v', \PHPExcel\Shared\StringHelper::formatNumber($calculatedValue));
                                 } else {
                                     $objWriter->writeElement('v', '0');
                                 }

@@ -460,7 +460,7 @@ class Chart extends WriterPart
             }
             $objWriter->startElement('a:t');
             //                                        $objWriter->writeAttribute('xml:space', 'preserve');
-            $objWriter->writeRawData(\PHPExcel\Shared\StringHelper::ControlCharacterPHP2OOXML($caption));
+            $objWriter->writeRawData(\PHPExcel\Shared\StringHelper::controlCharacterPHP2OOXML($caption));
             $objWriter->endElement();
 
             $objWriter->endElement();
@@ -810,7 +810,7 @@ class Chart extends WriterPart
 
             $objWriter->startElement('a:t');
             //                                        $objWriter->writeAttribute('xml:space', 'preserve');
-            $objWriter->writeRawData(\PHPExcel\Shared\StringHelper::ControlCharacterPHP2OOXML($caption));
+            $objWriter->writeRawData(\PHPExcel\Shared\StringHelper::controlCharacterPHP2OOXML($caption));
             $objWriter->endElement();
 
             $objWriter->endElement();

@@ -345,7 +345,7 @@ class StringHelper
      * @param     string    $value    Value to unescape
      * @return     string
      */
-    public static function ControlCharacterOOXML2PHP($value = '')
+    public static function controlCharacterOOXML2PHP($value = '')
     {
         return str_replace(array_keys(self::$controlCharacters), array_values(self::$controlCharacters), $value);
     }
@@ -364,7 +364,7 @@ class StringHelper
      * @param     string    $value    Value to escape
      * @return     string
      */
-    public static function ControlCharacterPHP2OOXML($value = '')
+    public static function controlCharacterPHP2OOXML($value = '')
     {
         return str_replace(array_values(self::$controlCharacters), array_keys(self::$controlCharacters), $value);
     }
@@ -375,7 +375,7 @@ class StringHelper
      * @param string $value
      * @return string
      */
-    public static function SanitizeUTF8($value)
+    public static function sanitizeUTF8($value)
     {
         if (self::getIsIconvEnabled()) {
             $value = @iconv('UTF-8', 'UTF-8', $value);
@@ -397,7 +397,7 @@ class StringHelper
      * @param string $value
      * @return boolean
      */
-    public static function IsUTF8($value = '')
+    public static function isUTF8($value = '')
     {
         return $value === '' || preg_match('/^./su', $value) === 1;
     }
@@ -409,7 +409,7 @@ class StringHelper
      * @param mixed $value
      * @return string
      */
-    public static function FormatNumber($value)
+    public static function formatNumber($value)
     {
         if (is_float($value)) {
             return str_replace(',', '.', $value);
@@ -431,19 +431,19 @@ class StringHelper
     public static function UTF8toBIFF8UnicodeShort($value, $arrcRuns = array())
     {
         // character count
-        $ln = self::CountCharacters($value, 'UTF-8');
+        $ln = self::countCharacters($value, 'UTF-8');
         // option flags
         if (empty($arrcRuns)) {
             $opt = (self::getIsIconvEnabled() || self::getIsMbstringEnabled()) ?
                 0x0001 : 0x0000;
             $data = pack('CC', $ln, $opt);
             // characters
-            $data .= self::ConvertEncoding($value, 'UTF-16LE', 'UTF-8');
+            $data .= self::convertEncoding($value, 'UTF-16LE', 'UTF-8');
         } else {
             $data = pack('vC', $ln, 0x09);
             $data .= pack('v', count($arrcRuns));
             // characters
-            $data .= self::ConvertEncoding($value, 'UTF-16LE', 'UTF-8');
+            $data .= self::convertEncoding($value, 'UTF-16LE', 'UTF-8');
             foreach ($arrcRuns as $cRun) {
                 $data .= pack('v', $cRun['strlen']);
                 $data .= pack('v', $cRun['fontidx']);
@@ -465,14 +465,14 @@ class StringHelper
     public static function UTF8toBIFF8UnicodeLong($value)
     {
         // character count
-        $ln = self::CountCharacters($value, 'UTF-8');
+        $ln = self::countCharacters($value, 'UTF-8');
 
         // option flags
         $opt = (self::getIsIconvEnabled() || self::getIsMbstringEnabled()) ?
             0x0001 : 0x0000;
 
         // characters
-        $chars = self::ConvertEncoding($value, 'UTF-16LE', 'UTF-8');
+        $chars = self::convertEncoding($value, 'UTF-16LE', 'UTF-8');
 
         $data = pack('vC', $ln, $opt) . $chars;
         return $data;
@@ -486,7 +486,7 @@ class StringHelper
      * @param string $from Encoding to convert from, e.g. 'UTF-16LE'
      * @return string
      */
-    public static function ConvertEncoding($value, $to, $from)
+    public static function convertEncoding($value, $to, $from)
     {
         if (self::getIsIconvEnabled()) {
             return iconv($from, $to, $value);
@@ -497,9 +497,9 @@ class StringHelper
         }
 
         if ($from == 'UTF-16LE') {
-            return self::utf16_decode($value, false);
+            return self::utf16Decode($value, false);
         } elseif ($from == 'UTF-16BE') {
-            return self::utf16_decode($value);
+            return self::utf16Decode($value);
         }
         // else, no conversion
         return $value;
@@ -520,7 +520,7 @@ class StringHelper
      * @author  Rasmus Andersson {@link http://rasmusandersson.se/}
      * @author vadik56
      */
-    public static function utf16_decode($str, $bom_be = true)
+    public static function utf16Decode($str, $bom_be = true)
     {
         if (strlen($str) < 2) {
             return $str;
@@ -555,7 +555,7 @@ class StringHelper
      * @param string $enc Encoding
      * @return int Character count
      */
-    public static function CountCharacters($value, $enc = 'UTF-8')
+    public static function countCharacters($value, $enc = 'UTF-8')
     {
         if (self::getIsMbstringEnabled()) {
             return mb_strlen($value, $enc);
@@ -577,7 +577,7 @@ class StringHelper
      * @param int $pLength Maximum number of characters in substring
      * @return string
      */
-    public static function Substring($pValue = '', $pStart = 0, $pLength = 0)
+    public static function substring($pValue = '', $pStart = 0, $pLength = 0)
     {
         if (self::getIsMbstringEnabled()) {
             return mb_substr($pValue, $pStart, $pLength, 'UTF-8');
@@ -597,7 +597,7 @@ class StringHelper
      * @param string $pValue UTF-8 encoded string
      * @return string
      */
-    public static function StrToUpper($pValue = '')
+    public static function strToUpper($pValue = '')
     {
         if (function_exists('mb_convert_case')) {
             return mb_convert_case($pValue, MB_CASE_UPPER, "UTF-8");
@@ -611,7 +611,7 @@ class StringHelper
      * @param string $pValue UTF-8 encoded string
      * @return string
      */
-    public static function StrToLower($pValue = '')
+    public static function strToLower($pValue = '')
     {
         if (function_exists('mb_convert_case')) {
             return mb_convert_case($pValue, MB_CASE_LOWER, "UTF-8");
@@ -626,7 +626,7 @@ class StringHelper
      * @param string $pValue UTF-8 encoded string
      * @return string
      */
-    public static function StrToTitle($pValue = '')
+    public static function strToTitle($pValue = '')
     {
         if (function_exists('mb_convert_case')) {
             return mb_convert_case($pValue, MB_CASE_TITLE, "UTF-8");
@@ -634,12 +634,12 @@ class StringHelper
         return ucwords($pValue);
     }
 
-    public static function mb_is_upper($char)
+    public static function mbIsUpper($char)
     {
         return mb_strtolower($char, "UTF-8") != $char;
     }
 
-    public static function mb_str_split($string)
+    public static function mbStrSplit($string)
     {
         # Split at all position not after the start: ^
         # and not before the end: $
@@ -653,12 +653,12 @@ class StringHelper
      * @param string $pValue UTF-8 encoded string
      * @return string
      */
-    public static function StrCaseReverse($pValue = '')
+    public static function strCaseReverse($pValue = '')
     {
         if (self::getIsMbstringEnabled()) {
-            $characters = self::mb_str_split($pValue);
+            $characters = self::mbStrSplit($pValue);
             foreach ($characters as &$character) {
-                if (self::mb_is_upper($character)) {
+                if (self::mbIsUpper($character)) {
                     $character = mb_strtolower($character, 'UTF-8');
                 } else {
                     $character = mb_strtoupper($character, 'UTF-8');

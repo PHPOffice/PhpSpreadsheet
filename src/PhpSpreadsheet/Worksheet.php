@@ -420,14 +420,14 @@ class Worksheet implements IComparable
      */
     private static function checkSheetCodeName($pValue)
     {
-        $CharCount = Shared\String::CountCharacters($pValue);
+        $CharCount = Shared\StringHelper::countCharacters($pValue);
         if ($CharCount == 0) {
             throw new Exception('Sheet code name cannot be empty.');
         }
         // Some of the printable ASCII characters are invalid:  * : / \ ? [ ] and  first and last characters cannot be a "'"
         if ((str_replace(self::$invalidCharacters, '', $pValue) !== $pValue) ||
-            (Shared\String::Substring($pValue, -1, 1)=='\'') ||
-            (Shared\String::Substring($pValue, 0, 1)=='\'')) {
+            (Shared\StringHelper::substring($pValue, -1, 1)=='\'') ||
+            (Shared\StringHelper::substring($pValue, 0, 1)=='\'')) {
             throw new Exception('Invalid character found in sheet code name');
         }
 
@@ -454,7 +454,7 @@ class Worksheet implements IComparable
         }
 
         // Maximum 31 characters allowed for sheet title
-        if (Shared\String::CountCharacters($pValue) > 31) {
+        if (Shared\StringHelper::countCharacters($pValue) > 31) {
             throw new Exception('Maximum 31 characters allowed in sheet title.');
         }
 
@@ -837,19 +837,19 @@ class Worksheet implements IComparable
             if ($this->parent->sheetNameExists($pValue)) {
                 // Use name, but append with lowest possible integer
 
-                if (Shared\String::CountCharacters($pValue) > 29) {
-                    $pValue = Shared\String::Substring($pValue, 0, 29);
+                if (Shared\StringHelper::countCharacters($pValue) > 29) {
+                    $pValue = Shared\StringHelper::substring($pValue, 0, 29);
                 }
                 $i = 1;
                 while ($this->parent->sheetNameExists($pValue . ' ' . $i)) {
                     ++$i;
                     if ($i == 10) {
-                        if (Shared\String::CountCharacters($pValue) > 28) {
-                            $pValue = Shared\String::Substring($pValue, 0, 28);
+                        if (Shared\StringHelper::countCharacters($pValue) > 28) {
+                            $pValue = Shared\StringHelper::substring($pValue, 0, 28);
                         }
                     } elseif ($i == 100) {
-                        if (Shared\String::CountCharacters($pValue) > 27) {
-                            $pValue = Shared\String::Substring($pValue, 0, 27);
+                        if (Shared\StringHelper::countCharacters($pValue) > 27) {
+                            $pValue = Shared\StringHelper::substring($pValue, 0, 27);
                         }
                     }
                 }
@@ -2924,19 +2924,19 @@ class Worksheet implements IComparable
             if ($this->getParent()->sheetCodeNameExists($pValue)) {
                 // Use name, but append with lowest possible integer
 
-                if (Shared\String::CountCharacters($pValue) > 29) {
-                    $pValue = Shared\String::Substring($pValue, 0, 29);
+                if (Shared\StringHelper::countCharacters($pValue) > 29) {
+                    $pValue = Shared\StringHelper::substring($pValue, 0, 29);
                 }
                 $i = 1;
                 while ($this->getParent()->sheetCodeNameExists($pValue . '_' . $i)) {
                     ++$i;
                     if ($i == 10) {
-                        if (Shared\String::CountCharacters($pValue) > 28) {
-                            $pValue = Shared\String::Substring($pValue, 0, 28);
+                        if (Shared\StringHelper::countCharacters($pValue) > 28) {
+                            $pValue = Shared\StringHelper::substring($pValue, 0, 28);
                         }
                     } elseif ($i == 100) {
-                        if (Shared\String::CountCharacters($pValue) > 27) {
-                            $pValue = Shared\String::Substring($pValue, 0, 27);
+                        if (Shared\StringHelper::countCharacters($pValue) > 27) {
+                            $pValue = Shared\StringHelper::substring($pValue, 0, 27);
                         }
                     }
                 }

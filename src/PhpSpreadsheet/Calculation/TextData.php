@@ -238,8 +238,8 @@ class TextData
                 $haystack = ($haystack) ? \PHPExcel\Calculation::getTRUE() : \PHPExcel\Calculation::getFALSE();
             }
 
-            if (($offset > 0) && (\PHPExcel\Shared\StringHelper::CountCharacters($haystack) > $offset)) {
-                if (\PHPExcel\Shared\StringHelper::CountCharacters($needle) == 0) {
+            if (($offset > 0) && (\PHPExcel\Shared\StringHelper::countCharacters($haystack) > $offset)) {
+                if (\PHPExcel\Shared\StringHelper::countCharacters($needle) == 0) {
                     return $offset;
                 }
                 if (function_exists('mb_strpos')) {
@@ -275,8 +275,8 @@ class TextData
                 $haystack = ($haystack) ? \PHPExcel\Calculation::getTRUE() : \PHPExcel\Calculation::getFALSE();
             }
 
-            if (($offset > 0) && (\PHPExcel\Shared\StringHelper::CountCharacters($haystack) > $offset)) {
-                if (\PHPExcel\Shared\StringHelper::CountCharacters($needle) == 0) {
+            if (($offset > 0) && (\PHPExcel\Shared\StringHelper::countCharacters($haystack) > $offset)) {
+                if (\PHPExcel\Shared\StringHelper::countCharacters($needle) == 0) {
                     return $offset;
                 }
                 if (function_exists('mb_stripos')) {
@@ -449,7 +449,7 @@ class TextData
             $mixedCaseString = ($mixedCaseString) ? \PHPExcel\Calculation::getTRUE() : \PHPExcel\Calculation::getFALSE();
         }
 
-        return \PHPExcel\Shared\StringHelper::StrToLower($mixedCaseString);
+        return \PHPExcel\Shared\StringHelper::strToLower($mixedCaseString);
     }
 
 
@@ -469,7 +469,7 @@ class TextData
             $mixedCaseString = ($mixedCaseString) ? \PHPExcel\Calculation::getTRUE() : \PHPExcel\Calculation::getFALSE();
         }
 
-        return \PHPExcel\Shared\StringHelper::StrToUpper($mixedCaseString);
+        return \PHPExcel\Shared\StringHelper::strToUpper($mixedCaseString);
     }
 
 
@@ -489,7 +489,7 @@ class TextData
             $mixedCaseString = ($mixedCaseString) ? \PHPExcel\Calculation::getTRUE() : \PHPExcel\Calculation::getFALSE();
         }
 
-        return \PHPExcel\Shared\StringHelper::StrToTitle($mixedCaseString);
+        return \PHPExcel\Shared\StringHelper::strToTitle($mixedCaseString);
     }
 
 

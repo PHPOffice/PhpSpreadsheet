@@ -340,27 +340,27 @@ class Font
         switch ($fontName) {
             case 'Calibri':
                 // value 8.26 was found via interpolation by inspecting real Excel files with Calibri 11 font.
-                $columnWidth = (int) (8.26 * String::CountCharacters($columnText));
+                $columnWidth = (int) (8.26 * String::countCharacters($columnText));
                 $columnWidth = $columnWidth * $fontSize / 11; // extrapolate from font size
                 break;
 
             case 'Arial':
                 // value 7 was found via interpolation by inspecting real Excel files with Arial 10 font.
-//                $columnWidth = (int) (7 * String::CountCharacters($columnText));
+//                $columnWidth = (int) (7 * String::countCharacters($columnText));
                 // value 8 was set because of experience in different exports at Arial 10 font.
-                $columnWidth = (int) (8 * String::CountCharacters($columnText));
+                $columnWidth = (int) (8 * String::countCharacters($columnText));
                 $columnWidth = $columnWidth * $fontSize / 10; // extrapolate from font size
                 break;
 
             case 'Verdana':
                 // value 8 was found via interpolation by inspecting real Excel files with Verdana 10 font.
-                $columnWidth = (int) (8 * String::CountCharacters($columnText));
+                $columnWidth = (int) (8 * String::countCharacters($columnText));
                 $columnWidth = $columnWidth * $fontSize / 10; // extrapolate from font size
                 break;
 
             default:
                 // just assume Calibri
-                $columnWidth = (int) (8.26 * String::CountCharacters($columnText));
+                $columnWidth = (int) (8.26 * String::countCharacters($columnText));
                 $columnWidth = $columnWidth * $fontSize / 11; // extrapolate from font size
                 break;
         }

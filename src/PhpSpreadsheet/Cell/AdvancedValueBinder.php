@@ -40,7 +40,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
     {
         // sanitize UTF-8 strings
         if (is_string($value)) {
-            $value = \PHPExcel\Shared\StringHelper::SanitizeUTF8($value);
+            $value = \PHPExcel\Shared\StringHelper::sanitizeUTF8($value);
         }
 
         // Find out data type
@@ -165,7 +165,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
 
             // Check for newline character "\n"
             if (strpos($value, "\n") !== false) {
-                $value = \PHPExcel\Shared\StringHelper::SanitizeUTF8($value);
+                $value = \PHPExcel\Shared\StringHelper::sanitizeUTF8($value);
                 $cell->setValueExplicit($value, DataType::TYPE_STRING);
                 // Set style
                 $cell->getWorksheet()->getStyle($cell->getCoordinate())
