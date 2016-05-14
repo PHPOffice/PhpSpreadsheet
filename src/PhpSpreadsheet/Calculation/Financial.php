@@ -127,7 +127,7 @@ class Financial
                 $daysPerYear = (DateTime::isLeapYear($year)) ? 366 : 365;
                 break;
             default:
-                return Functions::NaN();
+                return Functions::NAN();
         }
         return $daysPerYear;
     }
@@ -196,7 +196,7 @@ class Financial
             $rate    = (float) $rate;
             $par    = (float) $par;
             if (($rate <= 0) || ($par <= 0)) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
             $daysBetweenIssueAndSettlement = DateTime::YEARFRAC($issue, $settlement, $basis);
             if (!is_numeric($daysBetweenIssueAndSettlement)) {
@@ -246,7 +246,7 @@ class Financial
             $rate    = (float) $rate;
             $par    = (float) $par;
             if (($rate <= 0) || ($par <= 0)) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
             $daysBetweenIssueAndSettlement = DateTime::YEARFRAC($issue, $settlement, $basis);
             if (!is_numeric($daysBetweenIssueAndSettlement)) {
@@ -451,7 +451,7 @@ class Financial
         if (($settlement > $maturity) ||
             (!self::isValidFrequency($frequency)) ||
             (($basis < 0) || ($basis > 4))) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
 
         $daysPerYear = self::daysPerYear(DateTime::YEAR($settlement), $basis);
@@ -510,7 +510,7 @@ class Financial
         if (($settlement > $maturity) ||
             (!self::isValidFrequency($frequency)) ||
             (($basis < 0) || ($basis > 4))) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
 
         switch ($basis) {
@@ -583,7 +583,7 @@ class Financial
         if (($settlement > $maturity) ||
             (!self::isValidFrequency($frequency)) ||
             (($basis < 0) || ($basis > 4))) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
 
         $daysPerYear = self::daysPerYear(DateTime::YEAR($settlement), $basis);
@@ -643,7 +643,7 @@ class Financial
         if (($settlement > $maturity) ||
             (!self::isValidFrequency($frequency)) ||
             (($basis < 0) || ($basis > 4))) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
 
         return self::couponFirstPeriodDate($settlement, $maturity, $frequency, true);
@@ -700,7 +700,7 @@ class Financial
         if (($settlement > $maturity) ||
             (!self::isValidFrequency($frequency)) ||
             (($basis < 0) || ($basis > 4))) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
 
         $settlement = self::couponFirstPeriodDate($settlement, $maturity, $frequency, true);
@@ -772,7 +772,7 @@ class Financial
         if (($settlement > $maturity) ||
             (!self::isValidFrequency($frequency)) ||
             (($basis < 0) || ($basis > 4))) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
 
         return self::couponFirstPeriodDate($settlement, $maturity, $frequency, false);
@@ -811,7 +811,7 @@ class Financial
 
         // Validate parameters
         if ($type != 0 && $type != 1) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
         if ($start < 1 || $start > $end) {
             return Functions::VALUE();
@@ -859,7 +859,7 @@ class Financial
 
         // Validate parameters
         if ($type != 0 && $type != 1) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
         if ($start < 1 || $start > $end) {
             return Functions::VALUE();
@@ -919,7 +919,7 @@ class Financial
             if ($cost == 0) {
                 return 0.0;
             } elseif (($cost < 0) || (($salvage / $cost) < 0) || ($life <= 0) || ($period < 1) || ($month < 1)) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
             //    Set Fixed Depreciation Rate
             $fixedDepreciationRate = 1 - pow(($salvage / $cost), (1 / $life));
@@ -985,7 +985,7 @@ class Financial
             $period  = (int) $period;
             $factor  = (float) $factor;
             if (($cost <= 0) || (($salvage / $cost) < 0) || ($life <= 0) || ($period < 1) || ($factor <= 0.0) || ($period > $life)) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
             //    Set Fixed Depreciation Rate
             $fixedDepreciationRate = 1 - pow(($salvage / $cost), (1 / $life));
@@ -1045,7 +1045,7 @@ class Financial
             $redemption    = (float) $redemption;
             $basis        = (int) $basis;
             if (($price <= 0) || ($redemption <= 0)) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
             $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis);
             if (!is_numeric($daysBetweenSettlementAndMaturity)) {
@@ -1082,7 +1082,7 @@ class Financial
 
         // Validate parameters
         if (is_null($fractional_dollar) || $fraction < 0) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
         if ($fraction == 0) {
             return Functions::DIV0();
@@ -1119,7 +1119,7 @@ class Financial
 
         // Validate parameters
         if (is_null($decimal_dollar) || $fraction < 0) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
         if ($fraction == 0) {
             return Functions::DIV0();
@@ -1155,7 +1155,7 @@ class Financial
 
         // Validate parameters
         if ($nominal_rate <= 0 || $npery < 1) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
 
         return pow((1 + $nominal_rate / $npery), $npery) - 1;
@@ -1194,7 +1194,7 @@ class Financial
 
         // Validate parameters
         if ($type != 0 && $type != 1) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
 
         // Calculate
@@ -1267,7 +1267,7 @@ class Financial
             $redemption    = (float) $redemption;
             $basis        = (int) $basis;
             if (($investment <= 0) || ($redemption <= 0)) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
             $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis);
             if (!is_numeric($daysBetweenSettlementAndMaturity)) {
@@ -1308,7 +1308,7 @@ class Financial
 
         // Validate parameters
         if ($type != 0 && $type != 1) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
         if ($per <= 0 || $per > $nper) {
             return Functions::VALUE();
@@ -1496,7 +1496,7 @@ class Financial
 
         // Validate parameters
         if ($effect_rate <= 0 || $npery < 1) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
 
         // Calculate
@@ -1526,18 +1526,18 @@ class Financial
 
         // Validate parameters
         if ($type != 0 && $type != 1) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
 
         // Calculate
         if (!is_null($rate) && $rate != 0) {
             if ($pmt == 0 && $pv == 0) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
             return log(($pmt * (1 + $rate * $type) / $rate - $fv) / ($pv + $pmt * (1 + $rate * $type) / $rate)) / log(1 + $rate);
         }
         if ($pmt == 0) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
         return (-$pv -$fv) / $pmt;
     }
@@ -1592,7 +1592,7 @@ class Financial
 
         // Validate parameters
         if ($type != 0 && $type != 1) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
 
         // Calculate
@@ -1627,7 +1627,7 @@ class Financial
 
         // Validate parameters
         if ($type != 0 && $type != 1) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
         if ($per <= 0 || $per > $nper) {
             return Functions::VALUE();
@@ -1659,7 +1659,7 @@ class Financial
         if (($settlement > $maturity) ||
             (!self::isValidFrequency($frequency)) ||
             (($basis < 0) || ($basis > 4))) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
 
         $dsc = self::COUPDAYSNC($settlement, $maturity, $frequency, $basis);
@@ -1711,7 +1711,7 @@ class Financial
         //    Validate
         if ((is_numeric($discount)) && (is_numeric($redemption)) && (is_numeric($basis))) {
             if (($discount <= 0) || ($redemption <= 0)) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
             $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis);
             if (!is_numeric($daysBetweenSettlementAndMaturity)) {
@@ -1757,7 +1757,7 @@ class Financial
         //    Validate
         if (is_numeric($rate) && is_numeric($yield)) {
             if (($rate <= 0) || ($yield <= 0)) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
             $daysPerYear = self::daysPerYear(DateTime::YEAR($settlement), $basis);
             if (!is_numeric($daysPerYear)) {
@@ -1812,7 +1812,7 @@ class Financial
 
         // Validate parameters
         if ($type != 0 && $type != 1) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
 
         // Calculate
@@ -1927,7 +1927,7 @@ class Financial
         //    Validate
         if ((is_numeric($investment)) && (is_numeric($discount)) && (is_numeric($basis))) {
             if (($investment <= 0) || ($discount <= 0)) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
             $daysBetweenSettlementAndMaturity = DateTime::YEARFRAC($settlement, $maturity, $basis);
             if (!is_numeric($daysBetweenSettlementAndMaturity)) {
@@ -1960,7 +1960,7 @@ class Financial
         // Calculate
         if ((is_numeric($cost)) && (is_numeric($salvage)) && (is_numeric($life))) {
             if ($life < 0) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
             return ($cost - $salvage) / $life;
         }
@@ -1989,7 +1989,7 @@ class Financial
         // Calculate
         if ((is_numeric($cost)) && (is_numeric($salvage)) && (is_numeric($life)) && (is_numeric($period))) {
             if (($life < 1) || ($period > $life)) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
             return (($cost - $salvage) * ($life - $period + 1) * 2) / ($life * ($life + 1));
         }
@@ -2061,7 +2061,7 @@ class Financial
         //    Validate
         if (is_numeric($discount)) {
             if ($discount <= 0) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
 
             if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
@@ -2076,12 +2076,12 @@ class Financial
             }
 
             if ($daysBetweenSettlementAndMaturity > 360) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
 
             $price = 100 * (1 - (($discount * $daysBetweenSettlementAndMaturity) / 360));
             if ($price <= 0) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
             return $price;
         }
@@ -2110,7 +2110,7 @@ class Financial
         //    Validate
         if (is_numeric($price)) {
             if ($price <= 0) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
 
             if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
@@ -2125,7 +2125,7 @@ class Financial
             }
 
             if ($daysBetweenSettlementAndMaturity > 360) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
 
             return ((100 - $price) / $price) * (360 / $daysBetweenSettlementAndMaturity);
@@ -2143,7 +2143,7 @@ class Financial
         $dates = Functions::flattenArray($dates);
         $guess = Functions::flattenSingleValue($guess);
         if (count($values) != count($dates)) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
 
         // create an initial range, with a root somewhere between 0 and guess
@@ -2220,7 +2220,7 @@ class Financial
         $dates    = Functions::flattenArray($dates);
         $valCount = count($values);
         if ($valCount != count($dates)) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
         if ((min($values) > 0) || (max($values) < 0)) {
             return Functions::VALUE();
@@ -2267,7 +2267,7 @@ class Financial
         //    Validate
         if (is_numeric($price) && is_numeric($redemption)) {
             if (($price <= 0) || ($redemption <= 0)) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
             $daysPerYear = self::daysPerYear(DateTime::YEAR($settlement), $basis);
             if (!is_numeric($daysPerYear)) {
@@ -2318,7 +2318,7 @@ class Financial
         //    Validate
         if (is_numeric($rate) && is_numeric($price)) {
             if (($rate <= 0) || ($price <= 0)) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
             $daysPerYear = self::daysPerYear(DateTime::YEAR($settlement), $basis);
             if (!is_numeric($daysPerYear)) {

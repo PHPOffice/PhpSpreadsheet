@@ -273,6 +273,6 @@ class Logical
         $testValue = (is_null($testValue)) ? '' : Functions::flattenSingleValue($testValue);
         $errorpart = (is_null($errorpart)) ? '' : Functions::flattenSingleValue($errorpart);
 
-        return self::STATEMENT_IF(Functions::IS_ERROR($testValue), $errorpart, $testValue);
+        return self::STATEMENT_IF(Functions::isError($testValue), $errorpart, $testValue);
     }
 }

@@ -222,7 +222,7 @@ class Functions
      * @category Error Returns
      * @return    string    #NUM!
      */
-    public static function NaN()
+    public static function NAN()
     {
         return self::$errorCodes['num'];
     }
@@ -336,7 +336,7 @@ class Functions
      * @param    mixed    $value    Value to check
      * @return    boolean
      */
-    public static function ERROR_TYPE($value = '')
+    public static function errorType($value = '')
     {
         $value = self::flattenSingleValue($value);
 
@@ -357,7 +357,7 @@ class Functions
      * @param    mixed    $value    Value to check
      * @return    boolean
      */
-    public static function IS_BLANK($value = null)
+    public static function isBlank($value = null)
     {
         if (!is_null($value)) {
             $value    = self::flattenSingleValue($value);
@@ -373,11 +373,11 @@ class Functions
      * @param    mixed    $value    Value to check
      * @return    boolean
      */
-    public static function IS_ERR($value = '')
+    public static function isErr($value = '')
     {
         $value = self::flattenSingleValue($value);
 
-        return self::IS_ERROR($value) && (!self::IS_NA($value));
+        return self::isError($value) && (!self::isNa(($value));
     }
 
 
@@ -387,7 +387,7 @@ class Functions
      * @param    mixed    $value    Value to check
      * @return    boolean
      */
-    public static function IS_ERROR($value = '')
+    public static function isError($value = '')
     {
         $value = self::flattenSingleValue($value);
 
@@ -404,7 +404,7 @@ class Functions
      * @param    mixed    $value    Value to check
      * @return    boolean
      */
-    public static function IS_NA($value = '')
+    public static function isNa(($value = '')
     {
         $value = self::flattenSingleValue($value);
 
@@ -418,7 +418,7 @@ class Functions
      * @param    mixed    $value    Value to check
      * @return    boolean
      */
-    public static function IS_EVEN($value = null)
+    public static function isEven($value = null)
     {
         $value = self::flattenSingleValue($value);
 
@@ -438,7 +438,7 @@ class Functions
      * @param    mixed    $value    Value to check
      * @return    boolean
      */
-    public static function IS_ODD($value = null)
+    public static function isOdd($value = null)
     {
         $value = self::flattenSingleValue($value);
 
@@ -458,7 +458,7 @@ class Functions
      * @param    mixed    $value        Value to check
      * @return    boolean
      */
-    public static function IS_NUMBER($value = null)
+    public static function isNumber($value = null)
     {
         $value = self::flattenSingleValue($value);
 
@@ -475,7 +475,7 @@ class Functions
      * @param    mixed    $value        Value to check
      * @return    boolean
      */
-    public static function IS_LOGICAL($value = null)
+    public static function isLogical($value = null)
     {
         $value = self::flattenSingleValue($value);
 
@@ -489,11 +489,11 @@ class Functions
      * @param    mixed    $value        Value to check
      * @return    boolean
      */
-    public static function IS_TEXT($value = null)
+    public static function isText($value = null)
     {
         $value = self::flattenSingleValue($value);
 
-        return (is_string($value) && !self::IS_ERROR($value));
+        return (is_string($value) && !self::isError($value));
     }
 
 
@@ -503,9 +503,9 @@ class Functions
      * @param    mixed    $value        Value to check
      * @return    boolean
      */
-    public static function IS_NONTEXT($value = null)
+    public static function isNonText($value = null)
     {
-        return !self::IS_TEXT($value);
+        return !self::isText($value);
     }
 
 

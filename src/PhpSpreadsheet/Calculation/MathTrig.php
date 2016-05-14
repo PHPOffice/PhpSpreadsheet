@@ -139,7 +139,7 @@ class MathTrig
             } elseif (self::SIGN($number) == self::SIGN($significance)) {
                 return ceil($number / $significance) * $significance;
             } else {
-                return Functions::NaN();
+                return Functions::NAN();
             }
         }
         return Functions::VALUE();
@@ -168,9 +168,9 @@ class MathTrig
 
         if ((is_numeric($numObjs)) && (is_numeric($numInSet))) {
             if ($numObjs < $numInSet) {
-                return Functions::NaN();
+                return Functions::NAN();
             } elseif ($numInSet < 0) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
             return round(self::FACT($numObjs) / self::FACT($numObjs - $numInSet)) / self::FACT($numInSet);
         }
@@ -233,12 +233,12 @@ class MathTrig
 
         if (is_numeric($factVal)) {
             if ($factVal < 0) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
             $factLoop = floor($factVal);
             if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
                 if ($factVal > $factLoop) {
-                    return Functions::NaN();
+                    return Functions::NAN();
                 }
             }
 
@@ -272,7 +272,7 @@ class MathTrig
         if (is_numeric($factLoop)) {
             $factLoop    = floor($factLoop);
             if ($factVal < 0) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
             $factorial = 1;
             while ($factLoop > 1) {
@@ -317,7 +317,7 @@ class MathTrig
             } elseif (self::SIGN($number) == self::SIGN($significance)) {
                 return floor($number / $significance) * $significance;
             } else {
-                return Functions::NaN();
+                return Functions::NAN();
             }
         }
 
@@ -351,7 +351,7 @@ class MathTrig
             } elseif ($value == 0) {
                 continue;
             } elseif ($value < 0) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
             $myFactors = self::factors($value);
             $myCountedFactors = array_count_values($myFactors);
@@ -459,7 +459,7 @@ class MathTrig
             if ($value == 0) {
                 return 0;
             } elseif ($value < 0) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
             $myFactors = self::factors(floor($value));
             $myCountedFactors = array_count_values($myFactors);
@@ -507,7 +507,7 @@ class MathTrig
             return Functions::VALUE();
         }
         if (($base <= 0) || ($number <= 0)) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
         return log($number, $base);
     }
@@ -724,7 +724,7 @@ class MathTrig
                 $multiplier = 1 / $multiple;
                 return round($number * $multiplier) / $multiplier;
             }
-            return Functions::NaN();
+            return Functions::NAN();
         }
         return Functions::VALUE();
     }
@@ -747,7 +747,7 @@ class MathTrig
             // Is it a numeric value?
             if (is_numeric($arg)) {
                 if ($arg < 1) {
-                    return Functions::NaN();
+                    return Functions::NAN();
                 }
                 $summer += floor($arg);
                 $divisor *= self::FACT($arg);
@@ -814,14 +814,14 @@ class MathTrig
 
         // Validate parameters
         if ($x == 0.0 && $y == 0.0) {
-            return Functions::NaN();
+            return Functions::NAN();
         } elseif ($x == 0.0 && $y < 0.0) {
             return Functions::DIV0();
         }
 
         // Return
         $result = pow($x, $y);
-        return (!is_nan($result) && !is_infinite($result)) ? $result : Functions::NaN();
+        return (!is_nan($result) && !is_infinite($result)) ? $result : Functions::NAN();
     }
 
 
@@ -1087,7 +1087,7 @@ class MathTrig
 
         if (is_numeric($number)) {
             if ($number < 0) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
             return sqrt($number * M_PI) ;
         }

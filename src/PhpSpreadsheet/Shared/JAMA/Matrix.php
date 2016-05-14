@@ -532,7 +532,7 @@ class Matrix
                     if ($validValues) {
                         $this->A[$i][$j] += $value;
                     } else {
-                        $this->A[$i][$j] = PHPExcel_Calculation_Functions::NaN();
+                        $this->A[$i][$j] = PHPExcel_Calculation_Functions::NAN();
                     }
                 }
             }
@@ -626,7 +626,7 @@ class Matrix
                     if ($validValues) {
                         $this->A[$i][$j] -= $value;
                     } else {
-                        $this->A[$i][$j] = PHPExcel_Calculation_Functions::NaN();
+                        $this->A[$i][$j] = PHPExcel_Calculation_Functions::NAN();
                     }
                 }
             }
@@ -722,7 +722,7 @@ class Matrix
                     if ($validValues) {
                         $this->A[$i][$j] *= $value;
                     } else {
-                        $this->A[$i][$j] = PHPExcel_Calculation_Functions::NaN();
+                        $this->A[$i][$j] = PHPExcel_Calculation_Functions::NAN();
                     }
                 }
             }
@@ -782,7 +782,7 @@ class Matrix
                             $M->set($i, $j, $this->A[$i][$j] / $value);
                         }
                     } else {
-                        $M->set($i, $j, PHPExcel_Calculation_Functions::NaN());
+                        $M->set($i, $j, PHPExcel_Calculation_Functions::NAN());
                     }
                 }
             }
@@ -1058,7 +1058,7 @@ class Matrix
                     if ($validValues) {
                         $this->A[$i][$j] = pow($this->A[$i][$j], $value);
                     } else {
-                        $this->A[$i][$j] = PHPExcel_Calculation_Functions::NaN();
+                        $this->A[$i][$j] = PHPExcel_Calculation_Functions::NAN();
                     }
                 }
             }

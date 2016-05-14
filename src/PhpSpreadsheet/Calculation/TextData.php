@@ -199,7 +199,7 @@ class TextData
 
         // Validate parameters
         if (!is_numeric($value) || !is_numeric($decimals)) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
         $decimals = floor($decimals);
 
@@ -309,7 +309,7 @@ class TextData
 
         // Validate parameters
         if (!is_numeric($value) || !is_numeric($decimals)) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
         $decimals = floor($decimals);
 

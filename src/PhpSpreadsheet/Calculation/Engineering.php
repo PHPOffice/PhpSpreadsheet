@@ -830,7 +830,7 @@ class Engineering
             if (strlen($xVal) <= $places) {
                 return substr(str_pad($xVal, $places, '0', STR_PAD_LEFT), -10);
             } else {
-                return Functions::NaN();
+                return Functions::NAN();
             }
         }
 
@@ -865,7 +865,7 @@ class Engineering
         if ((is_numeric($x)) && (is_numeric($ord))) {
             $ord    = floor($ord);
             if ($ord < 0) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
 
             if (abs($x) <= 30) {
@@ -886,7 +886,7 @@ class Engineering
                     $fResult = -$fResult;
                 }
             }
-            return (is_nan($fResult)) ? Functions::NaN() : $fResult;
+            return (is_nan($fResult)) ? Functions::NAN() : $fResult;
         }
         return Functions::VALUE();
     }
@@ -918,7 +918,7 @@ class Engineering
         if ((is_numeric($x)) && (is_numeric($ord))) {
             $ord    = floor($ord);
             if ($ord < 0) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
 
             $fResult = 0;
@@ -941,7 +941,7 @@ class Engineering
                     $fResult = -$fResult;
                 }
             }
-            return (is_nan($fResult)) ? Functions::NaN() : $fResult;
+            return (is_nan($fResult)) ? Functions::NAN() : $fResult;
         }
         return Functions::VALUE();
     }
@@ -1009,7 +1009,7 @@ class Engineering
 
         if ((is_numeric($x)) && (is_numeric($ord))) {
             if (($ord < 0) || ($x == 0.0)) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
 
             switch (floor($ord)) {
@@ -1027,7 +1027,7 @@ class Engineering
                         $fBk    = $fBkp;
                     }
             }
-            return (is_nan($fBk)) ? Functions::NaN() : $fBk;
+            return (is_nan($fBk)) ? Functions::NAN() : $fBk;
         }
         return Functions::VALUE();
     }
@@ -1093,7 +1093,7 @@ class Engineering
 
         if ((is_numeric($x)) && (is_numeric($ord))) {
             if (($ord < 0) || ($x == 0.0)) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
 
             switch (floor($ord)) {
@@ -1111,7 +1111,7 @@ class Engineering
                         $fBy    = $fByp;
                     }
             }
-            return (is_nan($fBy)) ? Functions::NaN() : $fBy;
+            return (is_nan($fBy)) ? Functions::NAN() : $fBy;
         }
         return Functions::VALUE();
     }
@@ -1151,10 +1151,10 @@ class Engineering
         }
         $x = (string) $x;
         if (strlen($x) > preg_match_all('/[01]/', $x, $out)) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
         if (strlen($x) > 10) {
-            return Functions::NaN();
+            return Functions::NAN();
         } elseif (strlen($x) == 10) {
             //    Two's Complement
             $x = substr($x, -9);
@@ -1205,10 +1205,10 @@ class Engineering
         }
         $x = (string) $x;
         if (strlen($x) > preg_match_all('/[01]/', $x, $out)) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
         if (strlen($x) > 10) {
-            return Functions::NaN();
+            return Functions::NAN();
         } elseif (strlen($x) == 10) {
             //    Two's Complement
             return str_repeat('F', 8).substr(strtoupper(dechex(bindec(substr($x, -9)))), -2);
@@ -1260,10 +1260,10 @@ class Engineering
         }
         $x = (string) $x;
         if (strlen($x) > preg_match_all('/[01]/', $x, $out)) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
         if (strlen($x) > 10) {
-            return Functions::NaN();
+            return Functions::NAN();
         } elseif (strlen($x) == 10) {
             //    Two's Complement
             return str_repeat('7', 7).substr(strtoupper(decoct(bindec(substr($x, -9)))), -3);
@@ -1324,7 +1324,7 @@ class Engineering
             //    Two's Complement
             $r = substr($r, -10);
         } elseif (strlen($r) > 11) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
 
         return self::nbrConversionFormat($r, $places);
@@ -1482,7 +1482,7 @@ class Engineering
         }
         $x = (string) $x;
         if (strlen($x) > preg_match_all('/[0123456789ABCDEF]/', strtoupper($x), $out)) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
         $binVal = decbin(hexdec($x));
 
@@ -1518,7 +1518,7 @@ class Engineering
         }
         $x = (string) $x;
         if (strlen($x) > preg_match_all('/[0123456789ABCDEF]/', strtoupper($x), $out)) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
         return hexdec($x);
     }
@@ -1566,7 +1566,7 @@ class Engineering
         }
         $x = (string) $x;
         if (strlen($x) > preg_match_all('/[0123456789ABCDEF]/', strtoupper($x), $out)) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
         $octVal = decoct(hexdec($x));
 
@@ -1618,7 +1618,7 @@ class Engineering
         }
         $x = (string) $x;
         if (preg_match_all('/[01234567]/', $x, $out) != strlen($x)) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
         $r = decbin(octdec($x));
 
@@ -1654,7 +1654,7 @@ class Engineering
         }
         $x = (string) $x;
         if (preg_match_all('/[01234567]/', $x, $out) != strlen($x)) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
         return octdec($x);
     }
@@ -1699,7 +1699,7 @@ class Engineering
         }
         $x = (string) $x;
         if (preg_match_all('/[01234567]/', $x, $out) != strlen($x)) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
         $hexVal = strtoupper(dechex(octdec($x)));
 
@@ -2007,7 +2007,7 @@ class Engineering
         $parsedComplex = self::parseComplex($complexNumber);
 
         if (($parsedComplex['real'] == 0.0) && ($parsedComplex['imaginary'] == 0.0)) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
 
         $logR = log(sqrt(($parsedComplex['real'] * $parsedComplex['real']) + ($parsedComplex['imaginary'] * $parsedComplex['imaginary'])));
@@ -2039,7 +2039,7 @@ class Engineering
         $parsedComplex = self::parseComplex($complexNumber);
 
         if (($parsedComplex['real'] == 0.0) && ($parsedComplex['imaginary'] == 0.0)) {
-            return Functions::NaN();
+            return Functions::NAN();
         } elseif (($parsedComplex['real'] > 0.0) && ($parsedComplex['imaginary'] == 0.0)) {
             return log10($parsedComplex['real']);
         }
@@ -2066,7 +2066,7 @@ class Engineering
         $parsedComplex = self::parseComplex($complexNumber);
 
         if (($parsedComplex['real'] == 0.0) && ($parsedComplex['imaginary'] == 0.0)) {
-            return Functions::NaN();
+            return Functions::NAN();
         } elseif (($parsedComplex['real'] > 0.0) && ($parsedComplex['imaginary'] == 0.0)) {
             return log($parsedComplex['real'], 2);
         }
@@ -2166,7 +2166,7 @@ class Engineering
 
         if (($parsedComplexDividend['suffix'] != '') && ($parsedComplexDivisor['suffix'] != '') &&
             ($parsedComplexDividend['suffix'] != $parsedComplexDivisor['suffix'])) {
-            return Functions::NaN();
+            return Functions::NAN();
         }
         if (($parsedComplexDividend['suffix'] != '') && ($parsedComplexDivisor['suffix'] == '')) {
             $parsedComplexDivisor['suffix'] = $parsedComplexDividend['suffix'];
@@ -2211,7 +2211,7 @@ class Engineering
 
         if ((($parsedComplex1['suffix'] != '') && ($parsedComplex2['suffix'] != '')) &&
             ($parsedComplex1['suffix'] != $parsedComplex2['suffix'])) {
-            return Functions::NaN();
+            return Functions::NAN();
         } elseif (($parsedComplex1['suffix'] == '') && ($parsedComplex2['suffix'] != '')) {
             $parsedComplex1['suffix'] = $parsedComplex2['suffix'];
         }
@@ -2288,7 +2288,7 @@ class Engineering
             if (($parsedComplex['suffix'] != '') && ($activeSuffix == '')) {
                 $activeSuffix = $parsedComplex['suffix'];
             } elseif (($parsedComplex['suffix'] != '') && ($activeSuffix != $parsedComplex['suffix'])) {
-                return Functions::NaN();
+                return Functions::NAN();
             }
             $returnValue['real'] = ($workValue['real'] * $parsedComplex['real']) - ($workValue['imaginary'] * $parsedComplex['imaginary']);
             $returnValue['imaginary'] = ($workValue['real'] * $parsedComplex['imaginary']) + ($workValue['imaginary'] * $parsedComplex['real']);
