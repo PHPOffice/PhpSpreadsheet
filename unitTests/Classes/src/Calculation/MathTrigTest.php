@@ -227,7 +227,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','LOG_BASE'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','logBase'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 

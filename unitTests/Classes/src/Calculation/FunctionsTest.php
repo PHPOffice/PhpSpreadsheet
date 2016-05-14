@@ -121,7 +121,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerERROR_TYPE()
     {
-        return new \testDataFileIterator('rawTestData/Calculation/Functions/errorType.data');
+        return new \testDataFileIterator('rawTestData/Calculation/Functions/ERROR_TYPE.data');
     }
 
     /**

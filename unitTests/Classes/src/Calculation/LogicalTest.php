@@ -31,7 +31,7 @@ class LogicalTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\Logical','LOGICAL_AND'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\Logical','logicalAnd'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -47,7 +47,7 @@ class LogicalTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\Logical','LOGICAL_OR'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\Logical','logicalOr'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -79,7 +79,7 @@ class LogicalTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\Logical','STATEMENT_IF'), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\Logical','statementIf'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 

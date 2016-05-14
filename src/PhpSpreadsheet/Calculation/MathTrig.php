@@ -498,7 +498,7 @@ class MathTrig
      * @param    float    $base        The base of the logarithm. If base is omitted, it is assumed to be 10.
      * @return    float
      */
-    public static function LOG_BASE($number = null, $base = 10)
+    public static function logBase($number = null, $base = 10)
     {
         $number    = Functions::flattenSingleValue($number);
         $base    = (is_null($base)) ? 10 : (float) Functions::flattenSingleValue($base);

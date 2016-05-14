@@ -86,7 +86,7 @@ class Logical
      * @param    mixed        $arg,...        Data values
      * @return    boolean        The logical AND of the arguments.
      */
-    public static function LOGICAL_AND()
+    public static function logicalAnd()
     {
         // Return value
         $returnValue = true;
@@ -142,7 +142,7 @@ class Logical
      * @param    mixed        $arg,...        Data values
      * @return    boolean        The logical OR of the arguments.
      */
-    public static function LOGICAL_OR()
+    public static function logicalOr()
     {
         // Return value
         $returnValue = false;
@@ -246,7 +246,7 @@ class Logical
      * @param    mixed    $returnIfFalse    Optional value to return when condition is false
      * @return    mixed    The value of returnIfTrue or returnIfFalse determined by condition
      */
-    public static function STATEMENT_IF($condition = true, $returnIfTrue = 0, $returnIfFalse = false)
+    public static function statementIf($condition = true, $returnIfTrue = 0, $returnIfFalse = false)
     {
         $condition     = (is_null($condition))     ? true :  (boolean) Functions::flattenSingleValue($condition);
         $returnIfTrue  = (is_null($returnIfTrue))  ? 0 :     Functions::flattenSingleValue($returnIfTrue);
@@ -273,6 +273,6 @@ class Logical
         $testValue = (is_null($testValue)) ? '' : Functions::flattenSingleValue($testValue);
         $errorpart = (is_null($errorpart)) ? '' : Functions::flattenSingleValue($errorpart);
 
-        return self::STATEMENT_IF(Functions::isError($testValue), $errorpart, $testValue);
+        return self::statementIf(Functions::isError($testValue), $errorpart, $testValue);
     }
 }

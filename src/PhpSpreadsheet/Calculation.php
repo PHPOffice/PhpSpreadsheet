@@ -306,7 +306,7 @@ class Calculation
         ),
         'AND' => array(
             'category' => Calculation\Categories::CATEGORY_LOGICAL,
-            'functionCall' => '\\PHPExcel\\Calculation\\Logical::LOGICAL_AND',
+            'functionCall' => '\\PHPExcel\\Calculation\\Logical::logicalAnd',
             'argumentCount' => '1+'
         ),
         'AREAS' => array(
@@ -993,7 +993,7 @@ class Calculation
         ),
         'IF' => array(
             'category' => Calculation\Categories::CATEGORY_LOGICAL,
-            'functionCall' => '\\PHPExcel\\Calculation\\Logical::STATEMENT_IF',
+            'functionCall' => '\\PHPExcel\\Calculation\\Logical::statementIf',
             'argumentCount' => '1-3'
         ),
         'IFERROR' => array(
@@ -1239,7 +1239,7 @@ class Calculation
         ),
         'LOG' => array(
             'category' => Calculation\Categories::CATEGORY_MATH_AND_TRIG,
-            'functionCall' => '\\PHPExcel\\Calculation\\MathTrig::LOG_BASE',
+            'functionCall' => '\\PHPExcel\\Calculation\\MathTrig::logBase',
             'argumentCount' => '1,2'
         ),
         'LOG10' => array(
@@ -1496,7 +1496,7 @@ class Calculation
         ),
         'OR' => array(
             'category' => Calculation\Categories::CATEGORY_LOGICAL,
-            'functionCall' => '\\PHPExcel\\Calculation\\Logical::LOGICAL_OR',
+            'functionCall' => '\\PHPExcel\\Calculation\\Logical::logicalOr',
             'argumentCount' => '1+'
         ),
         'PEARSON' => array(
