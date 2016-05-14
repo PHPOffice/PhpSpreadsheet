@@ -35,7 +35,7 @@ class Settings
     const ZIPARCHIVE = '\\ZipArchive';
 
     /**    Optional Chart Rendering libraries */
-    const CHART_RENDERER_JPGRAPH = 'jpgraph';
+    const CHART_RENDERER_JPGRAPH = 'JpGraph';
 
     /**    Optional PDF Rendering libraries */
     const PDF_RENDERER_TCPDF  = 'TcPDF';
