@@ -23,7 +23,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerDATE()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/DateTime/DATE.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/DateTime/DATE.data');
     }
 
     public function testDATEtoPHP()
@@ -76,7 +76,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerDATEVALUE()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/DateTime/DATEVALUE.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/DateTime/DATEVALUE.data');
     }
 
     public function testDATEVALUEtoPHP()
@@ -113,7 +113,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerYEAR()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/DateTime/YEAR.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/DateTime/YEAR.data');
     }
 
     /**
@@ -129,7 +129,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerMONTH()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/DateTime/MONTH.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/DateTime/MONTH.data');
     }
 
     /**
@@ -145,7 +145,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerWEEKNUM()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/DateTime/WEEKNUM.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/DateTime/WEEKNUM.data');
     }
 
     /**
@@ -161,7 +161,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerWEEKDAY()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/DateTime/WEEKDAY.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/DateTime/WEEKDAY.data');
     }
 
     /**
@@ -177,7 +177,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerDAY()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/DateTime/DAY.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/DateTime/DAY.data');
     }
 
     /**
@@ -193,7 +193,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerTIME()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/DateTime/TIME.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/DateTime/TIME.data');
     }
 
     public function testTIMEtoPHP()
@@ -230,7 +230,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerTIMEVALUE()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/DateTime/TIMEVALUE.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/DateTime/TIMEVALUE.data');
     }
 
     public function testTIMEVALUEtoPHP()
@@ -267,7 +267,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerHOUR()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/DateTime/HOUR.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/DateTime/HOUR.data');
     }
 
     /**
@@ -283,7 +283,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerMINUTE()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/DateTime/MINUTE.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/DateTime/MINUTE.data');
     }
 
     /**
@@ -299,7 +299,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerSECOND()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/DateTime/SECOND.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/DateTime/SECOND.data');
     }
 
     /**
@@ -315,7 +315,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerNETWORKDAYS()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/DateTime/NETWORKDAYS.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/DateTime/NETWORKDAYS.data');
     }
 
     /**
@@ -331,7 +331,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerWORKDAY()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/DateTime/WORKDAY.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/DateTime/WORKDAY.data');
     }
 
     /**
@@ -347,7 +347,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerEDATE()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/DateTime/EDATE.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/DateTime/EDATE.data');
     }
 
     public function testEDATEtoPHP()
@@ -384,7 +384,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerEOMONTH()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/DateTime/EOMONTH.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/DateTime/EOMONTH.data');
     }
 
     public function testEOMONTHtoPHP()
@@ -421,7 +421,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerDATEDIF()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/DateTime/DATEDIF.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/DateTime/DATEDIF.data');
     }
 
     /**
@@ -437,7 +437,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerDAYS360()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/DateTime/DAYS360.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/DateTime/DAYS360.data');
     }
 
     /**
@@ -453,6 +453,6 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerYEARFRAC()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/DateTime/YEARFRAC.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/DateTime/YEARFRAC.data');
     }
 }

@@ -759,15 +759,18 @@ class StringHelper
      */
     public static function getCurrencyCode()
     {
-        if (!isset(self::$currencyCode)) {
-            $localeconv = localeconv();
-            self::$currencyCode = ($localeconv['currency_symbol'] != '')
-                ? $localeconv['currency_symbol'] : $localeconv['int_curr_symbol'];
-
-            if (self::$currencyCode == '') {
-                // Default to $
-                self::$currencyCode = '$';
-            }
+        if (!empty(self::$currencyCode)) {
+            return self::$currencyCode;
+        }
+        self::$currencyCode = '$';
+        $localeconv = localeconv();
+        if (!empty($localeconv['currency_symbol'])) {
+            self::$currencyCode = $localeconv['currency_symbol'];
+            return self::$currencyCode;
+        }
+        if (!empty($localeconv['int_curr_symbol'])) {
+            self::$currencyCode = $localeconv['int_curr_symbol'];
+            return self::$currencyCode;
         }
         return self::$currencyCode;
     }

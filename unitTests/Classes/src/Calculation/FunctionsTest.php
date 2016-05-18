@@ -73,7 +73,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerIsBlank()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Functions/IS_BLANK.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Functions/IS_BLANK.data');
     }
 
     /**
@@ -89,7 +89,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerIsErr()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Functions/IS_ERR.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Functions/IS_ERR.data');
     }
 
     /**
@@ -105,7 +105,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerIsError()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Functions/IS_ERROR.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Functions/IS_ERROR.data');
     }
 
     /**
@@ -121,7 +121,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerErrorType()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Functions/ERROR_TYPE.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Functions/ERROR_TYPE.data');
     }
 
     /**
@@ -137,7 +137,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerIsLogical()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Functions/IS_LOGICAL.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Functions/IS_LOGICAL.data');
     }
 
     /**
@@ -147,13 +147,13 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\Functions','isError('), $args);
+        $result = call_user_func_array(array('\PHPExcel\Calculation\Functions','isNa'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
     public function providerIsNa()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Functions/IS_NA.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Functions/IS_NA.data');
     }
 
     /**
@@ -169,7 +169,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerIsNumber()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Functions/IS_NUMBER.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Functions/IS_NUMBER.data');
     }
 
     /**
@@ -185,7 +185,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerIsText()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Functions/IS_TEXT.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Functions/IS_TEXT.data');
     }
 
     /**
@@ -201,7 +201,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerIsNonText()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Functions/IS_NONTEXT.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Functions/IS_NONTEXT.data');
     }
 
     /**
@@ -217,7 +217,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerIsEven()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Functions/IS_EVEN.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Functions/IS_EVEN.data');
     }
 
     /**
@@ -233,7 +233,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerIsOdd()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Functions/IS_ODD.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Functions/IS_ODD.data');
     }
 
     /**
@@ -249,7 +249,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerTYPE()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Functions/TYPE.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Functions/TYPE.data');
     }
 
     /**
@@ -265,6 +265,6 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerN()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Functions/N.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Functions/N.data');
     }
 }

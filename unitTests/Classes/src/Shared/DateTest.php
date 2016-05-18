@@ -47,7 +47,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 
     public function providerDateTimeExcelToPHP1900()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Shared/DateTimeExcelToPHP1900.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Shared/DateTimeExcelToPHP1900.data');
     }
 
     /**
@@ -68,7 +68,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 
     public function providerDateTimePHPToExcel1900()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Shared/DateTimePHPToExcel1900.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Shared/DateTimePHPToExcel1900.data');
     }
 
     /**
@@ -89,7 +89,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 
     public function providerDateTimeFormattedPHPToExcel1900()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Shared/DateTimeFormattedPHPToExcel1900.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Shared/DateTimeFormattedPHPToExcel1900.data');
     }
 
     /**
@@ -113,7 +113,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 
     public function providerDateTimeExcelToPHP1904()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Shared/DateTimeExcelToPHP1904.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Shared/DateTimeExcelToPHP1904.data');
     }
 
     /**
@@ -134,7 +134,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 
     public function providerDateTimePHPToExcel1904()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Shared/DateTimePHPToExcel1904.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Shared/DateTimePHPToExcel1904.data');
     }
 
     /**
@@ -150,7 +150,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 
     public function providerIsDateTimeFormatCode()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Shared/DateTimeFormatCodes.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Shared/DateTimeFormatCodes.data');
     }
 
     /**
@@ -174,6 +174,6 @@ class DateTest extends \PHPUnit_Framework_TestCase
 
     public function providerDateTimeExcelToPHP1900Timezone()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Shared/DateTimeExcelToPHP1900Timezone.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Shared/DateTimeExcelToPHP1900Timezone.data');
     }
 }

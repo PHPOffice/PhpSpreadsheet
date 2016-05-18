@@ -12,9 +12,20 @@ require_once 'testDataFileIterator.php';
 class EngineeringTest extends \PHPUnit_Framework_TestCase
 {
 
+    /**
+     * @var \PhpSpreadhsheet\unitTests\custom\ComplexAssert
+     */
+    protected $complexAssert;
+
     public function setUp()
     {
+        $this->complexAssert = new \PhpSpreadhsheet\unitTests\custom\ComplexAssert();
         \PHPExcel\Calculation\Functions::setCompatibilityMode(\PHPExcel\Calculation\Functions::COMPATIBILITY_EXCEL);
+    }
+
+    public function tearDown()
+    {
+        $this->complexAssert = null;
     }
 
     /**
@@ -30,7 +41,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerBESSELI()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/BESSELI.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/BESSELI.data');
     }
 
     /**
@@ -46,7 +57,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerBESSELJ()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/BESSELJ.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/BESSELJ.data');
     }
 
     /**
@@ -62,7 +73,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerBESSELK()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/BESSELK.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/BESSELK.data');
     }
 
     /**
@@ -78,7 +89,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerBESSELY()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/BESSELY.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/BESSELY.data');
     }
 
     /**
@@ -94,7 +105,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerCOMPLEX()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/COMPLEX.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/COMPLEX.data');
     }
 
     /**
@@ -110,7 +121,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerIMAGINARY()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/IMAGINARY.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMAGINARY.data');
     }
 
     /**
@@ -126,7 +137,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerIMREAL()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/IMREAL.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMREAL.data');
     }
 
     /**
@@ -142,7 +153,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerIMABS()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/IMABS.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMABS.data');
     }
 
     /**
@@ -158,7 +169,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerIMARGUMENT()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/IMARGUMENT.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMARGUMENT.data');
     }
 
     /**
@@ -169,13 +180,12 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
         $args = func_get_args();
         $expectedResult = array_pop($args);
         $result = call_user_func_array(array('\PHPExcel\Calculation\Engineering','IMCONJUGATE'), $args);
-        $complexAssert = new \PhpSpreadhsheet\unitTests\custom\complexAssert();
-        $this->assertTrue($complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $complexAssert->getErrorMessage());
+        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMCONJUGATE()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/IMCONJUGATE.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMCONJUGATE.data');
     }
 
     /**
@@ -186,13 +196,12 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
         $args = func_get_args();
         $expectedResult = array_pop($args);
         $result = call_user_func_array(array('\PHPExcel\Calculation\Engineering','IMCOS'), $args);
-        $complexAssert = new \PhpSpreadhsheet\unitTests\custom\complexAssert();
-        $this->assertTrue($complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $complexAssert->getErrorMessage());
+        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMCOS()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/IMCOS.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMCOS.data');
     }
 
     /**
@@ -203,13 +212,12 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
         $args = func_get_args();
         $expectedResult = array_pop($args);
         $result = call_user_func_array(array('\PHPExcel\Calculation\Engineering','IMDIV'), $args);
-        $complexAssert = new \PhpSpreadhsheet\unitTests\custom\complexAssert();
-        $this->assertTrue($complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $complexAssert->getErrorMessage());
+        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMDIV()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/IMDIV.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMDIV.data');
     }
 
     /**
@@ -220,13 +228,12 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
         $args = func_get_args();
         $expectedResult = array_pop($args);
         $result = call_user_func_array(array('\PHPExcel\Calculation\Engineering','IMEXP'), $args);
-        $complexAssert = new \PhpSpreadhsheet\unitTests\custom\complexAssert();
-        $this->assertTrue($complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $complexAssert->getErrorMessage());
+        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMEXP()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/IMEXP.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMEXP.data');
     }
 
     /**
@@ -237,13 +244,12 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
         $args = func_get_args();
         $expectedResult = array_pop($args);
         $result = call_user_func_array(array('\PHPExcel\Calculation\Engineering','IMLN'), $args);
-        $complexAssert = new \PhpSpreadhsheet\unitTests\custom\complexAssert();
-        $this->assertTrue($complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $complexAssert->getErrorMessage());
+        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMLN()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/IMLN.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMLN.data');
     }
 
     /**
@@ -254,13 +260,12 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
         $args = func_get_args();
         $expectedResult = array_pop($args);
         $result = call_user_func_array(array('\PHPExcel\Calculation\Engineering','IMLOG2'), $args);
-        $complexAssert = new \PhpSpreadhsheet\unitTests\custom\complexAssert();
-        $this->assertTrue($complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $complexAssert->getErrorMessage());
+        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMLOG2()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/IMLOG2.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMLOG2.data');
     }
 
     /**
@@ -271,13 +276,12 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
         $args = func_get_args();
         $expectedResult = array_pop($args);
         $result = call_user_func_array(array('\PHPExcel\Calculation\Engineering','IMLOG10'), $args);
-        $complexAssert = new \PhpSpreadhsheet\unitTests\custom\complexAssert();
-        $this->assertTrue($complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $complexAssert->getErrorMessage());
+        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMLOG10()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/IMLOG10.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMLOG10.data');
     }
 
     /**
@@ -288,13 +292,12 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
         $args = func_get_args();
         $expectedResult = array_pop($args);
         $result = call_user_func_array(array('\PHPExcel\Calculation\Engineering','IMPOWER'), $args);
-        $complexAssert = new \PhpSpreadhsheet\unitTests\custom\complexAssert();
-        $this->assertTrue($complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $complexAssert->getErrorMessage());
+        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMPOWER()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/IMPOWER.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMPOWER.data');
     }
 
     /**
@@ -305,13 +308,12 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
         $args = func_get_args();
         $expectedResult = array_pop($args);
         $result = call_user_func_array(array('\PHPExcel\Calculation\Engineering','IMPRODUCT'), $args);
-        $complexAssert = new \PhpSpreadhsheet\unitTests\custom\complexAssert();
-        $this->assertTrue($complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $complexAssert->getErrorMessage());
+        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMPRODUCT()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/IMPRODUCT.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMPRODUCT.data');
     }
 
     /**
@@ -322,13 +324,12 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
         $args = func_get_args();
         $expectedResult = array_pop($args);
         $result = call_user_func_array(array('\PHPExcel\Calculation\Engineering','IMSIN'), $args);
-        $complexAssert = new \PhpSpreadhsheet\unitTests\custom\complexAssert();
-        $this->assertTrue($complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $complexAssert->getErrorMessage());
+        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMSIN()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/IMSIN.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMSIN.data');
     }
 
     /**
@@ -339,13 +340,12 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
         $args = func_get_args();
         $expectedResult = array_pop($args);
         $result = call_user_func_array(array('\PHPExcel\Calculation\Engineering','IMSQRT'), $args);
-        $complexAssert = new \PhpSpreadhsheet\unitTests\custom\complexAssert();
-        $this->assertTrue($complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $complexAssert->getErrorMessage());
+        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMSQRT()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/IMSQRT.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMSQRT.data');
     }
 
     /**
@@ -356,13 +356,12 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
         $args = func_get_args();
         $expectedResult = array_pop($args);
         $result = call_user_func_array(array('\PHPExcel\Calculation\Engineering','IMSUB'), $args);
-        $complexAssert = new \PhpSpreadhsheet\unitTests\custom\complexAssert();
-        $this->assertTrue($complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $complexAssert->getErrorMessage());
+        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMSUB()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/IMSUB.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMSUB.data');
     }
 
     /**
@@ -373,13 +372,12 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
         $args = func_get_args();
         $expectedResult = array_pop($args);
         $result = call_user_func_array(array('\PHPExcel\Calculation\Engineering','IMSUM'), $args);
-        $complexAssert = new \PhpSpreadhsheet\unitTests\custom\complexAssert();
-        $this->assertTrue($complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $complexAssert->getErrorMessage());
+        $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
     public function providerIMSUM()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/IMSUM.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMSUM.data');
     }
 
     /**
@@ -395,7 +393,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerERF()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/ERF.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/ERF.data');
     }
 
     /**
@@ -411,7 +409,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerERFC()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/ERFC.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/ERFC.data');
     }
 
     /**
@@ -427,7 +425,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerBIN2DEC()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/BIN2DEC.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/BIN2DEC.data');
     }
 
     /**
@@ -443,7 +441,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerBIN2HEX()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/BIN2HEX.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/BIN2HEX.data');
     }
 
     /**
@@ -459,7 +457,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerBIN2OCT()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/BIN2OCT.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/BIN2OCT.data');
     }
 
     /**
@@ -475,7 +473,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerDEC2BIN()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/DEC2BIN.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/DEC2BIN.data');
     }
 
     /**
@@ -491,7 +489,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerDEC2HEX()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/DEC2HEX.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/DEC2HEX.data');
     }
 
     /**
@@ -507,7 +505,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerDEC2OCT()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/DEC2OCT.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/DEC2OCT.data');
     }
 
     /**
@@ -523,7 +521,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerHEX2BIN()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/HEX2BIN.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/HEX2BIN.data');
     }
 
     /**
@@ -539,7 +537,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerHEX2DEC()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/HEX2DEC.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/HEX2DEC.data');
     }
 
     /**
@@ -555,7 +553,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerHEX2OCT()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/HEX2OCT.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/HEX2OCT.data');
     }
 
     /**
@@ -571,7 +569,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerOCT2BIN()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/OCT2BIN.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/OCT2BIN.data');
     }
 
     /**
@@ -587,7 +585,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerOCT2DEC()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/OCT2DEC.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/OCT2DEC.data');
     }
 
     /**
@@ -603,7 +601,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerOCT2HEX()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/OCT2HEX.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/OCT2HEX.data');
     }
 
     /**
@@ -619,7 +617,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerDELTA()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/DELTA.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/DELTA.data');
     }
 
     /**
@@ -635,7 +633,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerGESTEP()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/GESTEP.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/GESTEP.data');
     }
 
     public function testGetConversionGroups()
@@ -675,6 +673,6 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerCONVERTUOM()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/Engineering/CONVERTUOM.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Calculation/Engineering/CONVERTUOM.data');
     }
 }

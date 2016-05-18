@@ -76,7 +76,7 @@ class ZipStreamWrapper
      * @return   bool    true on success
      * @throws   \PHPExcel\Reader\Exception
      */
-    public function stream_open($path, $mode, $options, &$opened_path)
+    public function stream_open($path, $mode, $options, &$opened_path) // @codingStandardsIgnoreLine
     {
         // Check for mode
         if ($mode{0} != 'r') {
@@ -113,7 +113,7 @@ class ZipStreamWrapper
      *
      * @return  boolean
      */
-    public function url_stat()
+    public function url_stat() // @codingStandardsIgnoreLine
     {
         return $this->statName($this->fileNameInArchive);
     }
@@ -123,7 +123,7 @@ class ZipStreamWrapper
      *
      * @return  boolean
      */
-    public function stream_stat()
+    public function stream_stat() // @codingStandardsIgnoreLine
     {
         return $this->archive->statName($this->fileNameInArchive);
     }
@@ -134,7 +134,7 @@ class ZipStreamWrapper
      * @param   int        $count    maximum number of bytes to read
      * @return  string
      */
-    public function stream_read($count)
+    public function stream_read($count) // @codingStandardsIgnoreLine
     {
         $ret = substr($this->data, $this->position, $count);
         $this->position += strlen($ret);
@@ -147,7 +147,7 @@ class ZipStreamWrapper
      *
      * @return  int
      */
-    public function stream_tell()
+    public function stream_tell() // @codingStandardsIgnoreLine
     {
         return $this->position;
     }
@@ -157,7 +157,7 @@ class ZipStreamWrapper
      *
      * @return    bool
      */
-    public function stream_eof()
+    public function stream_eof() // @codingStandardsIgnoreLine
     {
         return $this->position >= strlen($this->data);
     }
@@ -169,7 +169,7 @@ class ZipStreamWrapper
      * @param    int        $whence    SEEK_SET, SEEK_CUR or SEEK_END
      * @return    bool
      */
-    public function stream_seek($offset, $whence)
+    public function stream_seek($offset, $whence) // @codingStandardsIgnoreLine
     {
         switch ($whence) {
             case SEEK_SET:

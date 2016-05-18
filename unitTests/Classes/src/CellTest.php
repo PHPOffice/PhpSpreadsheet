@@ -24,7 +24,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
 
     public function providerColumnString()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/ColumnString.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/ColumnString.data');
     }
 
     public function testColumnIndexFromStringTooLong()
@@ -66,7 +66,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
 
     public function providerColumnIndex()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/ColumnIndex.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/ColumnIndex.data');
     }
 
     /**
@@ -82,7 +82,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
 
     public function providerCoordinates()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/CellCoordinates.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/CellCoordinates.data');
     }
 
     public function testCoordinateFromStringWithRangeAddress()
@@ -137,7 +137,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
 
     public function providerAbsoluteCoordinates()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/CellAbsoluteCoordinate.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/CellAbsoluteCoordinate.data');
     }
 
     public function testAbsoluteCoordinateFromStringWithRangeAddress()
@@ -166,7 +166,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
 
     public function providerAbsoluteReferences()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/CellAbsoluteReference.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/CellAbsoluteReference.data');
     }
 
     public function testAbsoluteReferenceFromStringWithRangeAddress()
@@ -201,7 +201,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
 
     public function providerSplitRange()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/CellSplitRange.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/CellSplitRange.data');
     }
 
     /**
@@ -217,7 +217,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
 
     public function providerBuildRange()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/CellBuildRange.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/CellBuildRange.data');
     }
 
     public function testBuildRangeInvalid()
@@ -246,7 +246,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
 
     public function providerRangeBoundaries()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/CellRangeBoundaries.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/CellRangeBoundaries.data');
     }
 
     /**
@@ -262,7 +262,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
 
     public function providerRangeDimension()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/CellRangeDimension.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/CellRangeDimension.data');
     }
 
     /**
@@ -278,7 +278,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
 
     public function providerGetRangeBoundaries()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/CellGetRangeBoundaries.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/CellGetRangeBoundaries.data');
     }
 
     /**
@@ -294,6 +294,6 @@ class CellTest extends \PHPUnit_Framework_TestCase
 
     public function providerExtractAllCellReferencesInRange()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/CellExtractAllCellReferencesInRange.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/CellExtractAllCellReferencesInRange.data');
     }
 }

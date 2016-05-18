@@ -20,7 +20,7 @@ class ColorTest extends \PHPUnit_Framework_TestCase
 
     public function providerColorGetRed()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Style/ColorGetRed.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Style/ColorGetRed.data');
     }
 
     /**
@@ -36,7 +36,7 @@ class ColorTest extends \PHPUnit_Framework_TestCase
 
     public function providerColorGetGreen()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Style/ColorGetGreen.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Style/ColorGetGreen.data');
     }
 
     /**
@@ -52,7 +52,7 @@ class ColorTest extends \PHPUnit_Framework_TestCase
 
     public function providerColorGetBlue()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Style/ColorGetBlue.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/Style/ColorGetBlue.data');
     }
 
     /**
@@ -67,6 +67,6 @@ class ColorTest extends \PHPUnit_Framework_TestCase
 
     public function providerColorChangeBrightness()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIteratorJson('rawTestData/Style/ColorChangeBrightness.json');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIteratorJson('rawTestData/Style/ColorChangeBrightness.json');
     }
 }

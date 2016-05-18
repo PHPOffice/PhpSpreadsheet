@@ -27,6 +27,6 @@ class CalculationTest extends \PHPUnit_Framework_TestCase
 
     public function providerBinaryComparisonOperation()
     {
-        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/CalculationBinaryComparisonOperation.data');
+        return new \PhpSpreadhsheet\unitTests\TestDataFileIterator('rawTestData/CalculationBinaryComparisonOperation.data');
     }
 }

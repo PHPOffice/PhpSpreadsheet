@@ -375,6 +375,9 @@ class TextData
             $value = ($value) ? \PHPExcel\Calculation::getTRUE() : \PHPExcel\Calculation::getFALSE();
         }
 
+        if (empty($chars)) {
+            return '';
+        }
         if (function_exists('mb_substr')) {
             return mb_substr($value, --$start, $chars, 'UTF-8');
         } else {
