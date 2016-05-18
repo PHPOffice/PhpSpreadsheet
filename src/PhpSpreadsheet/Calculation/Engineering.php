@@ -1531,7 +1531,7 @@ class Engineering
         }
         $binX = '';
         foreach (str_split($x) as $char) {
-            $binX .= str_pad(hex2bin($char), 3, '0', STR_PAD_LEFT);
+            $binX .= str_pad(base_convert($char, 16, 2), 3, '0', STR_PAD_LEFT);
         }
         if (strlen($binX) == 40 && $binX[0] == '1') {
             for ($i = 0; $i < 40; $i++) {
