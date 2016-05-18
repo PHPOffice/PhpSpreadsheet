@@ -379,7 +379,7 @@ class Functions
     {
         $value = self::flattenSingleValue($value);
 
-        return self::isError($value) && (!self::isNa(($value));
+        return self::isError($value) && (!self::isNa(($value)));
     }
 
 

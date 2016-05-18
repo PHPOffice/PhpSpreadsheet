@@ -19,6 +19,6 @@ class PasswordHasherTest extends \PHPUnit_Framework_TestCase
 
     public function providerHashPassword()
     {
-        return new \testDataFileIterator('rawTestData/Shared/PasswordHashes.data');
+        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Shared/PasswordHashes.data');
     }
 }

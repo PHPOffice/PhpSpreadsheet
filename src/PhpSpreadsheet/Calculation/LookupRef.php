@@ -50,7 +50,7 @@ class LookupRef
      * @param    sheetText        Optional Name of worksheet to use
      * @return    string
      */
-    public static function CELL_ADDRESS($row, $column, $relativity = 1, $referenceStyle = true, $sheetText = '')
+    public static function cellAddress($row, $column, $relativity = 1, $referenceStyle = true, $sheetText = '')
     {
         $row        = Functions::flattenSingleValue($row);
         $column     = Functions::flattenSingleValue($column);

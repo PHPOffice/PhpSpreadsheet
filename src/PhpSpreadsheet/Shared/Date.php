@@ -191,7 +191,7 @@ class Date
 
         $retValue = false;
         if ((is_object($dateValue)) && ($dateValue instanceof \DateTime)) {
-            $dateValue->add(new DateInterval('PT' . $timezoneAdjustment . 'S'));
+            $dateValue->add(new \DateInterval('PT' . $timezoneAdjustment . 'S'));
             $retValue = self::formattedPHPToExcel($dateValue->format('Y'), $dateValue->format('m'), $dateValue->format('d'), $dateValue->format('H'), $dateValue->format('i'), $dateValue->format('s'));
         } elseif (is_numeric($dateValue)) {
             $dateValue += $timezoneAdjustment;

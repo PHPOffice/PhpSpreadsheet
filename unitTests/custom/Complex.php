@@ -1,5 +1,7 @@
 <?php
 
+namespace PhpSpreadhsheet\unitTests\custom;
+
 class Complex
 {
     private $realPart = 0;

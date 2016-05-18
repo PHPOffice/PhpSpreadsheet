@@ -291,7 +291,7 @@ class Calculation
         ),
         'ADDRESS' => array(
             'category' => Calculation\Categories::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => '\\PHPExcel\\Calculation\\LookupRef::CELL_ADDRESS',
+            'functionCall' => '\\PHPExcel\\Calculation\\LookupRef::cellAddress',
             'argumentCount' => '2-5'
         ),
         'AMORDEGRC' => array(

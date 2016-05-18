@@ -25,7 +25,7 @@ class LookupRefTest extends \PHPUnit_Framework_TestCase
 
     public function providerHLOOKUP()
     {
-        return new \testDataFileIterator('rawTestData/Calculation/LookupRef/HLOOKUP.data');
+        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/LookupRef/HLOOKUP.data');
     }
 
     /**
@@ -41,6 +41,6 @@ class LookupRefTest extends \PHPUnit_Framework_TestCase
 
     public function providerVLOOKUP()
     {
-        return new \testDataFileIterator('rawTestData/Calculation/LookupRef/VLOOKUP.data');
+        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Calculation/LookupRef/VLOOKUP.data');
     }
 }

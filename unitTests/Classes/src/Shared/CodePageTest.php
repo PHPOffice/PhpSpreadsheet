@@ -19,7 +19,7 @@ class CodePageTest extends \PHPUnit_Framework_TestCase
 
     public function providerCodePage()
     {
-        return new \testDataFileIterator('rawTestData/Shared/CodePage.data');
+        return new \PhpSpreadhsheet\unitTests\testDataFileIterator('rawTestData/Shared/CodePage.data');
     }
 
     public function testNumberToNameWithInvalidCodePage()
