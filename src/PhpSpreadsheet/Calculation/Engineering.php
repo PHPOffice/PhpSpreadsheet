@@ -772,11 +772,10 @@ class Engineering
 
         $realNumber = substr($workString, 0, strlen($realNumber) + strlen($power) + $leadingSign);
 
-        //if ($suffix != '') {
+        if ($suffix != '') {
             $imaginary = substr($workString, strlen($realNumber));
-            if ($imaginary == false) {
-                $imaginary = '';
-            } elseif (($imaginary == '') && (($realNumber == '') || ($realNumber == '+') || ($realNumber == '-'))) {
+
+            if (($imaginary == '') && (($realNumber == '') || ($realNumber == '+') || ($realNumber == '-'))) {
                 $imaginary = $realNumber . '1';
                 $realNumber = '0';
             } elseif ($imaginary == '') {
@@ -785,7 +784,7 @@ class Engineering
             } elseif (($imaginary == '+') || ($imaginary == '-')) {
                 $imaginary .= '1';
             }
-        //}
+        }
 
         return array(
             'real' => $realNumber,
@@ -2192,12 +2191,9 @@ class Engineering
         $parsedComplexDividend = self::parseComplex($complexDividend);
         $parsedComplexDivisor = self::parseComplex($complexDivisor);
 
-        if (($parsedComplexDividend['suffix'] != '' && $parsedComplexDivisor['suffix'] != '') && ($parsedComplexDividend['suffix'] != $parsedComplexDivisor['suffix'])) {
-            return Functions::NAN();
-        }
-        if ((($parsedComplexDividend['suffix'] != '' && $parsedComplexDivisor['imaginary'] != '')
-            || ($parsedComplexDivisor['suffix'] != '' && $parsedComplexDividend['imaginary'] != ''))
-            && ($parsedComplexDividend['suffix'] != $parsedComplexDivisor['suffix'])) {
+        if (($parsedComplexDividend['suffix'] != '') && ($parsedComplexDivisor['suffix'] != '') &&
+            ($parsedComplexDividend['suffix'] != $parsedComplexDivisor['suffix'])
+        ) {
             return Functions::NAN();
         }
         if (($parsedComplexDividend['suffix'] != '') && ($parsedComplexDivisor['suffix'] == '')) {
@@ -2245,13 +2241,7 @@ class Engineering
             ($parsedComplex1['suffix'] != $parsedComplex2['suffix'])
         ) {
             return Functions::NAN();
-        }
-        if ((($parsedComplex1['suffix'] != '' && $parsedComplex2['imaginary'] != '')
-                || ($parsedComplex2['suffix'] != '' && $parsedComplex1['imaginary'] != ''))
-            && ($parsedComplex1['suffix'] != $parsedComplex2['suffix'])) {
-            return Functions::NAN();
-        }
-        if (($parsedComplex1['suffix'] == '') && ($parsedComplex2['suffix'] != '')) {
+        } elseif (($parsedComplex1['suffix'] == '') && ($parsedComplex2['suffix'] != '')) {
             $parsedComplex1['suffix'] = $parsedComplex2['suffix'];
         }
 
