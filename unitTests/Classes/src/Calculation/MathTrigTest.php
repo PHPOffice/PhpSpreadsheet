@@ -254,6 +254,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerMDETERM
+     * @group fail19
      */
     public function testMDETERM()
     {
@@ -270,6 +271,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerMINVERSE
+     * @group fail19
      */
     public function testMINVERSE()
     {
@@ -286,6 +288,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerMMULT
+     * @group fail19
      */
     public function testMMULT()
     {

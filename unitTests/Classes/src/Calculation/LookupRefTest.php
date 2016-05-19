@@ -14,6 +14,7 @@ class LookupRefTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerHLOOKUP
+     * @group fail19
      */
     public function testHLOOKUP()
     {
@@ -30,6 +31,7 @@ class LookupRefTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerVLOOKUP
+     * @group fail19
      */
     public function testVLOOKUP()
     {

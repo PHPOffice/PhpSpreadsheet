@@ -14,6 +14,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerACCRINT
+     * @group fail19
      */
     public function testACCRINT()
     {
@@ -462,6 +463,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerPRICE
+     * @group fail19
      */
     public function testPRICE()
     {
@@ -478,6 +480,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerRATE
+     * @group fail19
      */
     public function testRATE()
     {
@@ -494,6 +497,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerXIRR
+     * @group fail19
      */
     public function testXIRR()
     {

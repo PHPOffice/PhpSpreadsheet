@@ -772,10 +772,11 @@ class Engineering
 
         $realNumber = substr($workString, 0, strlen($realNumber) + strlen($power) + $leadingSign);
 
-        if ($suffix != '') {
+        //if ($suffix != '') {
             $imaginary = substr($workString, strlen($realNumber));
-
-            if (($imaginary == '') && (($realNumber == '') || ($realNumber == '+') || ($realNumber == '-'))) {
+            if ($imaginary == false) {
+                $imaginary = '';
+            } elseif (($imaginary == '') && (($realNumber == '') || ($realNumber == '+') || ($realNumber == '-'))) {
                 $imaginary = $realNumber . '1';
                 $realNumber = '0';
             } elseif ($imaginary == '') {
@@ -784,7 +785,7 @@ class Engineering
             } elseif (($imaginary == '+') || ($imaginary == '-')) {
                 $imaginary .= '1';
             }
-        }
+        //}
 
         return array(
             'real' => $realNumber,
@@ -1876,12 +1877,10 @@ class Engineering
     public static function IMARGUMENT($complexNumber)
     {
         $complexNumber = Functions::flattenSingleValue($complexNumber);
-
         $parsedComplex = self::parseComplex($complexNumber);
-
         if ($parsedComplex['real'] == 0.0) {
             if ($parsedComplex['imaginary'] == 0.0) {
-                return 0.0;
+                return Functions::DIV0();
             } elseif ($parsedComplex['imaginary'] < 0.0) {
                 return M_PI / -2;
             } else {
@@ -2193,9 +2192,12 @@ class Engineering
         $parsedComplexDividend = self::parseComplex($complexDividend);
         $parsedComplexDivisor = self::parseComplex($complexDivisor);
 
-        if (($parsedComplexDividend['suffix'] != '') && ($parsedComplexDivisor['suffix'] != '') &&
-            ($parsedComplexDividend['suffix'] != $parsedComplexDivisor['suffix'])
-        ) {
+        if (($parsedComplexDividend['suffix'] != '' && $parsedComplexDivisor['suffix'] != '') && ($parsedComplexDividend['suffix'] != $parsedComplexDivisor['suffix'])) {
+            return Functions::NAN();
+        }
+        if ((($parsedComplexDividend['suffix'] != '' && $parsedComplexDivisor['imaginary'] != '')
+            || ($parsedComplexDivisor['suffix'] != '' && $parsedComplexDividend['imaginary'] != ''))
+            && ($parsedComplexDividend['suffix'] != $parsedComplexDivisor['suffix'])) {
             return Functions::NAN();
         }
         if (($parsedComplexDividend['suffix'] != '') && ($parsedComplexDivisor['suffix'] == '')) {
@@ -2243,7 +2245,13 @@ class Engineering
             ($parsedComplex1['suffix'] != $parsedComplex2['suffix'])
         ) {
             return Functions::NAN();
-        } elseif (($parsedComplex1['suffix'] == '') && ($parsedComplex2['suffix'] != '')) {
+        }
+        if ((($parsedComplex1['suffix'] != '' && $parsedComplex2['imaginary'] != '')
+                || ($parsedComplex2['suffix'] != '' && $parsedComplex1['imaginary'] != ''))
+            && ($parsedComplex1['suffix'] != $parsedComplex2['suffix'])) {
+            return Functions::NAN();
+        }
+        if (($parsedComplex1['suffix'] == '') && ($parsedComplex2['suffix'] != '')) {
             $parsedComplex1['suffix'] = $parsedComplex2['suffix'];
         }
 
@@ -2279,7 +2287,7 @@ class Engineering
             if ($activeSuffix == '') {
                 $activeSuffix = $parsedComplex['suffix'];
             } elseif (($parsedComplex['suffix'] != '') && ($activeSuffix != $parsedComplex['suffix'])) {
-                return Functions::VALUE();
+                return Functions::NAN();
             }
 
             $returnValue['real'] += $parsedComplex['real'];

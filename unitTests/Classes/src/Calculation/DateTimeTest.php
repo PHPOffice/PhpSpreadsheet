@@ -141,6 +141,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerWEEKNUM
+     * @group fail19
      */
     public function testWEEKNUM()
     {
@@ -157,6 +158,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerWEEKDAY
+     * @group fail19
      */
     public function testWEEKDAY()
     {
@@ -417,6 +419,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerDATEDIF
+     * @group fail19
      */
     public function testDATEDIF()
     {
@@ -449,6 +452,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerYEARFRAC
+     * @group fail19
      */
     public function testYEARFRAC()
     {
