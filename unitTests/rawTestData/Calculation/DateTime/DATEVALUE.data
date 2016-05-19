@@ -3,8 +3,8 @@
 "31-Dec-1899",			"#VALUE!"
 "1-Jan-1900",			1
 "1900/2/28",			59
-"29-02-1900",			60
-"29th February 1900",		60		//	MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
+"29-02-1900",			"#VALUE!"
+"29th February 1900",		"#VALUE!"		//	MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
 "1900/3/1",			61
 "13-12-1901",			713
 "14-12-1901",			714
@@ -35,11 +35,11 @@
 "22 August 98",			36029
 "1st March 2007",		39142		//	MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
 "The 1st day of March 2007",	"#VALUE!"
-"1 Jan",			41275
-"31/12",			41639
+"1 Jan",			42370       // 01/01 of the current year
+"31/12",			42735       // 31/12 of the current year
 "12/31",			11658		//	Excel reads as 1st December 1931, not 31st December in current year
-"5-JUL",			41460
-"5 Jul",			41460
+"5-JUL",			42556       // 05/07 of the current year
+"5 Jul",			42556       // 05/07 of the current year
 "12/2008",			39783
 "10/32",			11963
 11,				"#VALUE!"

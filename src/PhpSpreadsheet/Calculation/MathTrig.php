@@ -602,8 +602,10 @@ class MathTrig
             }
             ++$row;
         }
-        if ($row != $maxColumn) {
-            return Functions::VALUE();
+        foreach ($matrixValues as $matrixRow) {
+            if (count($matrixRow) != $maxColumn) {
+                return Functions::VALUE();
+            }
         }
 
         try {
