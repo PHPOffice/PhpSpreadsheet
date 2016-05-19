@@ -720,8 +720,12 @@ class LookupRef
                 (!is_numeric($lookup_value) && !is_numeric($rowData[$firstColumn]) && (strtolower($rowData[$firstColumn]) > strtolower($lookup_value)))) {
                 break;
             }
-            $rowNumber = $rowKey;
-            $rowValue = $rowData[$firstColumn];
+            // remember the last key, but only if datatypes match
+            if ((is_numeric($lookup_value) && is_numeric($rowData[$firstColumn])) ||
+                (!is_numeric($lookup_value) && !is_numeric($rowData[$firstColumn]))) {
+                $rowNumber = $rowKey;
+                $rowValue = $rowData[$firstColumn];
+            }
         }
 
         if ($rowNumber !== false) {
