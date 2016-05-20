@@ -768,7 +768,7 @@ class LookupRef
         } else {
             $f = array_keys($lookup_array);
             $firstRow = array_pop($f);
-            if ((!is_array($lookup_array[$firstRow])) || ($index_number > count($lookup_array[$firstRow]))) {
+            if ((!is_array($lookup_array[$firstRow])) || ($index_number - 1 > count($lookup_array[$firstRow]))) {
                 return Functions::REF();
             } else {
                 $columnKeys = array_keys($lookup_array[$firstRow]);
@@ -781,7 +781,6 @@ class LookupRef
         if (!$not_exact_match) {
             $firstRowH = asort($lookup_array[$firstColumn]);
         }
-
         $rowNumber = $rowValue = false;
         foreach ($lookup_array[$firstColumn] as $rowKey => $rowData) {
             if ((is_numeric($lookup_value) && is_numeric($rowData) && ($rowData > $lookup_value)) ||

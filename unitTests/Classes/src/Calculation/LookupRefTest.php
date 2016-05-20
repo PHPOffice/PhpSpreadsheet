@@ -4,6 +4,10 @@ namespace PHPExcel\Calculation;
 
 require_once 'testDataFileIterator.php';
 
+/**
+ * Class LookupRefTest
+ * @package PHPExcel\Calculation
+ */
 class LookupRefTest extends \PHPUnit_Framework_TestCase
 {
 
