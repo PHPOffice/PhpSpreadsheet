@@ -352,12 +352,10 @@ class Settings
      */
     public static function setLibXmlLoaderOptions($options = null)
     {
-        if (is_null($options) && defined(LIBXML_DTDLOAD)) {
+        if (is_null($options) && defined('LIBXML_DTDLOAD')) {
             $options = LIBXML_DTDLOAD | LIBXML_DTDATTR;
         }
-        if (version_compare(PHP_VERSION, '5.2.11') >= 0) {
-            @libxml_disable_entity_loader($options == (LIBXML_DTDLOAD | LIBXML_DTDATTR));
-        }
+        @libxml_disable_entity_loader((bool) $options);
         self::$libXmlLoaderOptions = $options;
     }
 
@@ -369,12 +367,13 @@ class Settings
      */
     public static function getLibXmlLoaderOptions()
     {
-        if (is_null(self::$libXmlLoaderOptions) && defined(LIBXML_DTDLOAD)) {
+        if (is_null(self::$libXmlLoaderOptions) && defined('LIBXML_DTDLOAD')) {
             self::setLibXmlLoaderOptions(LIBXML_DTDLOAD | LIBXML_DTDATTR);
+        } elseif (is_null(self::$libXmlLoaderOptions)) {
+            self::$libXmlLoaderOptions = true;
         }
-        if (version_compare(PHP_VERSION, '5.2.11') >= 0) {
-            @libxml_disable_entity_loader(self::$libXmlLoaderOptions == (LIBXML_DTDLOAD | LIBXML_DTDATTR));
-        }
+        @libxml_disable_entity_loader((bool) self::$libXmlLoaderOptions);
+
         return self::$libXmlLoaderOptions;
     }
 }
