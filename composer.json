@@ -1,8 +1,8 @@
 {
-    "name": "phpoffice/phpexcel",
+    "name": "phpoffice/phpspreadsheet",
     "description": "PHPExcel - OpenXML - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine",
-    "keywords": ["PHP","Excel","OpenXML","xlsx","xls","spreadsheet"],
-    "homepage": "http://phpexcel.codeplex.com",
+    "keywords": ["PHP","OpenXML","Excel","xlsx","xls","odc","gnumeric","spreadsheet"],
+    "homepage": "https://github.com/PHPOffice/PhpSpreadsheet",
     "type": "library",
     "license": "LGPL-2.1",
     "authors": [
@@ -12,6 +12,7 @@
         },
         {
             "name": "Mark Baker"
+            "homepage": "http://markbakeruk.net"
         },
         {
             "name": "Franck Lefevre",
@@ -22,7 +23,7 @@
         }
     ],
     "require": {
-        "php": "^5.4|^7.0",
+        "php": "^5.5|^7.0",
         "ext-mbstring": "*",
         "ext-xml": "*",
         "ext-xmlwriter": "*"
@@ -35,7 +36,6 @@
     "suggest": {
         "ext-zip": "*",
         "ext-gd": "*",
-        "pclzip/pclzip": "2.8.2",
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
         "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
         "tecnick.com/tcpdf": "Option for rendering PDF with PDF Writer",
