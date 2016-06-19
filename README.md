@@ -1,17 +1,11 @@
-# PHPExcel - OpenXML - Read, Write and Create spreadsheet documents in PHP - Spreadsheet engine
-PHPExcel is a library written in pure PHP and providing a set of classes that allow you to write to and read from different spreadsheet file formats, like Excel (BIFF) .xls, Excel 2007 (OfficeOpenXML) .xlsx, CSV, Libre/OpenOffice Calc .ods, Gnumeric, PDF, HTML, ... This project is built around Microsoft's OpenXML standard and PHP.
+# PHPSpreadsheet - OpenXML - Read, Write and Create spreadsheet documents in PHP - Spreadsheet engine
+PHPSpreadsheet is a library written in pure PHP and providing a set of classes that allow you to write to and read from different spreadsheet file formats, like Excel (BIFF) .xls, Excel 2007 (OfficeOpenXML) .xlsx, CSV, Libre/OpenOffice Calc .ods, Gnumeric, PDF, HTML, ... This project is built around Microsoft's OpenXML standard and PHP.
 
----
+Master: [![Build Status](https://travis-ci.org/PHPOffice/PhpSpreadsheet.png?branch=master)](http://travis-ci.org/PHPOffice/PhpSpreadsheet)
 
-**WARNING: **This branch breaks backward compatibility with the 1.8 branch, and is subject to major change until the first official 1.9.0 release
+Develop: [![Build Status](https://travis-ci.org/PHPOffice/PhpSpreadsheet.png?branch=develop)](http://travis-ci.org/PHPOffice/PhpSpreadsheet)
 
----
-
-Master: [![Build Status](https://travis-ci.org/PHPOffice/PHPExcel.png?branch=master)](http://travis-ci.org/PHPOffice/PHPExcel)
-
-Develop: [![Build Status](https://travis-ci.org/PHPOffice/PHPExcel.png?branch=develop)](http://travis-ci.org/PHPOffice/PHPExcel)
-
-[![Join the chat at https://gitter.im/PHPOffice/PHPExcel](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/PHPOffice/PHPExcel)
+[![Join the chat at https://gitter.im/PHPOffice/PhpSpreadsheet](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/PHPOffice/PhpSpreadsheet)
 
 ## File Formats supported
 
@@ -34,8 +28,8 @@ Develop: [![Build Status](https://travis-ci.org/PHPOffice/PHPExcel.png?branch=de
 
 
 ## Requirements
- * PHP version 5.4.0 or higher
- * PHP extension php_zip enabled (required if you need PHPExcel to handle .xlsx .ods or .gnumeric files)
+ * PHP version 5.5.0 or higher
+ * PHP extension php_zip enabled (required if you need PHPSpreadsheet to handle .xlsx .ods or .gnumeric files)
  * PHP extension php_xml enabled
  * PHP extension php_gd2 enabled (optional, but required for exact column width autocalculation)
 
@@ -52,4 +46,4 @@ If you would like to contribute, here are some notes and guidlines:
 
 
 ## License
-PHPExcel is licensed under [LGPL (GNU LESSER GENERAL PUBLIC LICENSE)](https://github.com/PHPOffice/PHPExcel/blob/master/license.md)
+PHPSpreadsheet is licensed under [LGPL (GNU LESSER GENERAL PUBLIC LICENSE)](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/license.md)
