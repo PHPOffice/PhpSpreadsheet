@@ -1,4 +1,6 @@
 # PHPSpreadsheet - OpenXML - Read, Write and Create spreadsheet documents in PHP - Spreadsheet engine
+
+[![Join the chat at https://gitter.im/PHPOffice/PhpSpreadsheet](https://badges.gitter.im/PHPOffice/PhpSpreadsheet.svg)](https://gitter.im/PHPOffice/PhpSpreadsheet?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 PHPSpreadsheet is a library written in pure PHP and providing a set of classes that allow you to write to and read from different spreadsheet file formats, like Excel (BIFF) .xls, Excel 2007 (OfficeOpenXML) .xlsx, CSV, Libre/OpenOffice Calc .ods, Gnumeric, PDF, HTML, ... This project is built around Microsoft's OpenXML standard and PHP.
 
 Master: [![Build Status](https://travis-ci.org/PHPOffice/PhpSpreadsheet.png?branch=master)](http://travis-ci.org/PHPOffice/PhpSpreadsheet)
