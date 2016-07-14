@@ -405,7 +405,7 @@ class HTML extends BaseWriter implements IWriter
         }
 
         // Ensure that Spans have been calculated?
-        if (!$this->spansAreCalculated) {
+        if ($this->sheetIndex !== null || !$this->spansAreCalculated) {
             $this->calculateSpans();
         }
 
