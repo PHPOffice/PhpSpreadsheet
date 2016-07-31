@@ -228,7 +228,6 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerIMEXP
-     * @group fail19
      */
     public function testIMEXP()
     {
