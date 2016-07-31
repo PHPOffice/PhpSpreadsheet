@@ -1327,12 +1327,16 @@ class Engineering
         if (strlen($x) > preg_match_all('/[-0123456789.]/', $x, $out)) {
             return Functions::VALUE();
         }
+
         $x = (string)floor($x);
+        if ($x < -512 || $x > 511) {
+            return Functions::NAN();
+        }
+
         $r = decbin($x);
-        if (strlen($r) == 32) {
-            //    Two's Complement
-            $r = substr($r, -10);
-        } elseif (strlen($r) >= 11) {
+        // Two's Complement
+        $r = substr($r, -10);
+        if (strlen($r) >= 11) {
             return Functions::NAN();
         }
 
@@ -1491,11 +1495,8 @@ class Engineering
         if (strlen($x) > preg_match_all('/[0123456789ABCDEF]/', strtoupper($x), $out)) {
             return Functions::NAN();
         }
-        if (hexdec($x) > 0x1FF) {
-            return Functions::NAN();
-        }
-        $binVal = decbin(hexdec($x));
-        return substr(self::nbrConversionFormat($binVal, $places), -10);
+
+        return self::DECTOBIN(self::HEXTODEC($x), $places);
     }
 
 
@@ -1529,9 +1530,14 @@ class Engineering
         if (strlen($x) > preg_match_all('/[0123456789ABCDEF]/', strtoupper($x), $out)) {
             return Functions::NAN();
         }
+
+        if (strlen($x)> 10) {
+            return Functions::NAN();
+        }
+
         $binX = '';
         foreach (str_split($x) as $char) {
-            $binX .= str_pad(base_convert($char, 16, 2), 3, '0', STR_PAD_LEFT);
+            $binX .= str_pad(base_convert($char, 16, 2), 4, '0', STR_PAD_LEFT);
         }
         if (strlen($binX) == 40 && $binX[0] == '1') {
             for ($i = 0; $i < 40; $i++) {
@@ -1587,11 +1593,14 @@ class Engineering
         if (strlen($x) > preg_match_all('/[0123456789ABCDEF]/', strtoupper($x), $out)) {
             return Functions::NAN();
         }
-        $octVal = decoct(hexdec($x));
 
-        return self::nbrConversionFormat($octVal, $places);
+        $decimal = self::HEXTODEC($x);
+        if ($decimal < -536870912 || $decimal > 536870911) {
+            return Functions::NAN();
+        }
+
+        return self::DECTOOCT($decimal, $places);
     }
-
 
     /**
      * OCTTOBIN
@@ -1639,9 +1648,8 @@ class Engineering
         if (preg_match_all('/[01234567]/', $x, $out) != strlen($x)) {
             return Functions::NAN();
         }
-        $r = decbin(octdec($x));
 
-        return self::nbrConversionFormat($r, $places);
+        return self::DECTOBIN(self::OCTTODEC($x), $places);
     }
 
 
