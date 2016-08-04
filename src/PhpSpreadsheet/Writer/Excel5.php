@@ -371,7 +371,7 @@ class Excel5 extends BaseWriter implements IWriter
                     $spContainer->setOPT(0x03BF, 0x000A0000); // Group Shape -> fPrint
 
                     // set coordinates and offsets, client anchor
-                    $endCoordinates = \PHPExcel\Cell::stringFromColumnIndex(\PHPExcel\Cell::stringFromColumnIndex($iInc - 1));
+                    $endCoordinates = \PHPExcel\Cell::stringFromColumnIndex($iInc - 1);
                     $endCoordinates .= $rangeBounds[0][1] + 1;
 
                     $spContainer->setStartCoordinates($cDrawing);
