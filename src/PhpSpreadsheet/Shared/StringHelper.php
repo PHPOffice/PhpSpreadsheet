@@ -495,7 +495,7 @@ class StringHelper
     public static function convertEncoding($value, $to, $from)
     {
         if (self::getIsIconvEnabled()) {
-            return iconv($from, $to, $value);
+            return iconv($from, $to . '//IGNORE//TRANSLIT', $value);
         }
 
         if (self::getIsMbstringEnabled()) {
