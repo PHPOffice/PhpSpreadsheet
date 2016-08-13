@@ -34,48 +34,21 @@ class Date
     const CALENDAR_MAC_1904 = 1904;            //    Base date of 2nd Jan 1904 = 1.0
 
     /*
-     * Names of the months of the year, indexed by shortname
-     * Planned usage for locale settings
-     *
-     * @public
-     * @var    string[]
-     */
-    public static $monthNames = [
-        'Jan' => 'January',
-        'Feb' => 'February',
-        'Mar' => 'March',
-        'Apr' => 'April',
-        'May' => 'May',
-        'Jun' => 'June',
-        'Jul' => 'July',
-        'Aug' => 'August',
-        'Sep' => 'September',
-        'Oct' => 'October',
-        'Nov' => 'November',
-        'Dec' => 'December',
-    ];
-
-    /*
-     * Names of the months of the year, indexed by shortname
-     * Planned usage for locale settings
-     *
-     * @public
-     * @var    string[]
-     */
-    public static $numberSuffixes = [
-        'st',
-        'nd',
-        'rd',
-        'th',
-    ];
-
-    /*
      * Base calendar year to use for calculations
+     * Value is either CALENDAR_WINDOWS_1900 (1900) or CALENDAR_MAC_1904 (1904)
      *
      * @private
      * @var    int
      */
     protected static $excelBaseDate = self::CALENDAR_WINDOWS_1900;
+
+    /*
+     * Default timezone to use for DateTime objects
+     *
+     * @private
+     * @var    null|\DateTimeZone
+     */
+    protected static $defaultTimeZone;
 
     /**
      * Set the Excel calendar (Windows 1900 or Mac 1904)
@@ -87,12 +60,11 @@ class Date
     {
         if (($baseDate == self::CALENDAR_WINDOWS_1900) ||
             ($baseDate == self::CALENDAR_MAC_1904)) {
-            self::$excelBaseDate = $baseDate;
+            self::$excelCalendar = $baseDate;
             return true;
         }
         return false;
     }
-
 
     /**
      * Return the Excel calendar (Windows 1900 or Mac 1904)
@@ -101,73 +73,95 @@ class Date
      */
     public static function getExcelCalendar()
     {
-        return self::$excelBaseDate;
+        return self::$excelCalendar;
     }
 
+    /**
+     * Set the Default timezone to use for dates
+     *
+     * @param     string|\DateTimeZone    $timezone    The timezone to set for all Excel datetimestamp to PHP DateTime Object conversions
+     * @return    boolean                              Success or failure
+     * @throws    \Exception
+     */
+    public static function setDefaultTimezone($timeZone)
+    {
+        if ($timeZone = self::validateTimeZone($timeZone)) {
+            self::$defaultTimeZone = $timeZone;
+            return true;
+        }
+        return false;
+    }
 
     /**
-     *    Convert a date from Excel to PHP
+     * Return the Default timezone being used for dates
      *
-     *    @param        integer        $dateValue            Excel date/time value
-     *    @param        boolean        $adjustToTimezone    Flag indicating whether $dateValue should be treated as
-     *                                                    a UST timestamp, or adjusted to UST
-     *    @param        string         $timezone            The timezone for finding the adjustment from UST
-     *    @return       integer        PHP serialized date/time
+     * @return     \DateTimeZone    The timezone being used as default for Excel timestamp to PHP DateTime object
      */
-    public static function excelToPHP($dateValue = 0, $adjustToTimezone = false, $timezone = null)
+    public static function getDefaultTimezone()
     {
+        if (self::$defaultTimeZone === null) {
+            self::$defaultTimeZone = new \DateTimeZone('UTC');
+        }
+        return self::$defaultTimeZone;
+    }
+
+    /**
+     * Validate a timezone
+     *
+     * @param     string|\DateTimeZone    $timezone    The timezone to validate, either as a timezone string or object
+     * @return    \DateTimeZone                        The timezone as a timezone object
+     * @throws    \Exception
+     */
+    protected static function validateTimeZone($timeZone) {
+        if (is_object($timeZone) && $timeZone instanceof \DateTimeZone) {
+            return $timeZone;
+        } elseif (is_string($timeZone)) {
+            return new \DateTimeZone($timeZone);
+        }
+        throw new \Exception('Invalid timezone');
+    }
+
+    /**
+     * Convert a MS serialized datetime value from Excel to a PHP Date/Time object
+     *
+     * @param     integer|float    $dateValue        Excel date/time value
+     * @param     \DateTimeZone|string|null          $timezone            The timezone to assume for the Excel timestamp,
+     *                                                                        if you don't want to treat it as a UTC value
+     * @return    \DateTime                          PHP date/time object
+     * @throws    \Exception
+     */
+	public static function excelToDateTimeObject($excelTimestamp = 0, $timeZone = null) {
+        $timeZone = ($timeZone === null) ? self::getDefaultTimezone() : self::validateTimeZone($timeZone);
         if (self::$excelBaseDate == self::CALENDAR_WINDOWS_1900) {
-            $myexcelBaseDate = 25569;
-            //    Adjust for the spurious 29-Feb-1900 (Day 60)
-            if ($dateValue < 60) {
-                --$myexcelBaseDate;
-            }
+            $baseDate = ($excelTimestamp < 60) ? new \DateTime('1899-12-31', $timeZone) : new \DateTime('1899-12-30', $timeZone);
         } else {
-            $myexcelBaseDate = 24107;
+            $baseDate = new \DateTime('1904-01-01', $timeZone);
         }
+		$days = floor($excelTimestamp);
+        $partDay = $excelTimestamp - $days;
+        $hours = floor($partDay * 24);
+        $partDay = $partDay * 24 - $hours;
+        $minutes = floor($partDay * 60);
+        $partDay = $partDay * 60 - $minutes;
+        $seconds = floor($partDay * 60);
+//        $fraction = $partDay - $seconds;
 
-        // Perform conversion
-        if ($dateValue >= 1) {
-            $utcDays = $dateValue - $myexcelBaseDate;
-            $returnValue = round($utcDays * 86400);
-            if (($returnValue <= PHP_INT_MAX) && ($returnValue >= -PHP_INT_MAX)) {
-                $returnValue = (integer) $returnValue;
-            }
-        } else {
-            $hours = round($dateValue * 24);
-            $mins = round($dateValue * 1440) - round($hours * 60);
-            $secs = round($dateValue * 86400) - round($hours * 3600) - round($mins * 60);
-            $returnValue = (integer) gmmktime($hours, $mins, $secs);
-        }
-
-        $timezoneAdjustment = ($adjustToTimezone) ?
-            TimeZone::getTimezoneAdjustment($timezone, $returnValue) :
-            0;
-
-        return $returnValue + $timezoneAdjustment;
-    }
-
+        $interval = '+' . $days . ' days';
+		return $baseDate->modify($interval)
+            ->setTime($hours, $minutes, $seconds);
+	}
 
     /**
-     * Convert a date from Excel to a PHP Date/Time object
+     * Convert a MS serialized datetime value from Excel to a unix timestamp
      *
-     * @param    integer        $dateValue        Excel date/time value
-     * @return   \DateTime                    PHP date/time object
+     * @param     integer|float    $dateValue        Excel date/time value
+     * @return    integer                            Unix timetamp for this date/time
+     * @throws    \Exception
      */
-    public static function excelToPHPObject($dateValue = 0)
-    {
-        $dateTime = self::excelToPHP($dateValue);
-        $days = floor($dateTime / 86400);
-        $time = round((($dateTime / 86400) - $days) * 86400);
-        $hours = round($time / 3600);
-        $minutes = round($time / 60) - ($hours * 60);
-        $seconds = round($time) - ($hours * 3600) - ($minutes * 60);
-
-        $dateObj = date_create('1-Jan-1970+'.$days.' days');
-        $dateObj->setTime($hours, $minutes, $seconds);
-
-        return $dateObj;
-    }
+	public static function excelToTimestamp($excelTimestampexcelTimestamp = 0, $timeZone = null) {
+	    return self::excelToTimestamp($excelTimestamp, $timeZone)
+            ->format('U');
+	}
 
 
     /**

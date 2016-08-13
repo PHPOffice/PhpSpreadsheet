@@ -1,4 +1,4 @@
-<?php
+<!----><?php
 
 namespace PHPExcel;
 
@@ -21,9 +21,9 @@ namespace PHPExcel;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @category   PHPSpreadsheet
+ * @package    PHPSpreadsheet
+ * @copyright  Copyright (c) 2006 PHPOffice (http://www.github.com/PHPOffice)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
