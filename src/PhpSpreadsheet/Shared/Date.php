@@ -167,10 +167,17 @@ class Date
     public static function excelToDateTimeObject($excelTimestamp = 0, $timeZone = null)
     {
         $timeZone = ($timeZone === null) ? self::getDefaultTimezone() : self::validateTimeZone($timeZone);
-        if (self::$excelCalendar == self::CALENDAR_WINDOWS_1900) {
-            $baseDate = ($excelTimestamp < 60) ? new \DateTime('1899-12-31', $timeZone) : new \DateTime('1899-12-30', $timeZone);
+        if ($excelTimestamp < 1.0) {
+            // Unix timestamp base date
+            $baseDate = new \DateTime('1970-01-01', $timeZone);
         } else {
-            $baseDate = new \DateTime('1904-01-01', $timeZone);
+            // MS Excel calendar base dates
+            if (self::$excelCalendar == self::CALENDAR_WINDOWS_1900) {
+                // Allow adjustment for 1900 Leap Year in MS Excel
+                $baseDate = ($excelTimestamp < 60) ? new \DateTime('1899-12-31', $timeZone) : new \DateTime('1899-12-30', $timeZone);
+            } else {
+                $baseDate = new \DateTime('1904-01-01', $timeZone);
+            }
         }
         $days = floor($excelTimestamp);
         $partDay = $excelTimestamp - $days;
@@ -178,8 +185,7 @@ class Date
         $partDay = $partDay * 24 - $hours;
         $minutes = floor($partDay * 60);
         $partDay = $partDay * 60 - $minutes;
-        $seconds = floor($partDay * 60);
-//        $fraction = $partDay - $seconds;
+        $seconds = round($partDay * 60);
 
         $interval = '+' . $days . ' days';
         return $baseDate->modify($interval)
@@ -195,7 +201,7 @@ class Date
      */
     public static function excelToTimestamp($excelTimestamp = 0, $timeZone = null)
     {
-        return self::excelToDateTimeObject($excelTimestamp, $timeZone)
+        return (int) self::excelToDateTimeObject($excelTimestamp, $timeZone)
             ->format('U');
     }
 
