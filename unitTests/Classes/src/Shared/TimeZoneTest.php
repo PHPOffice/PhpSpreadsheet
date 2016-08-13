@@ -18,7 +18,6 @@ class TimeZoneTest extends \PHPUnit_Framework_TestCase
             $result = call_user_func(array('\PHPExcel\Shared\TimeZone','setTimezone'), $timezoneValue);
             $this->assertTrue($result);
         }
-
     }
 
     public function testSetTimezoneWithInvalidValue()
