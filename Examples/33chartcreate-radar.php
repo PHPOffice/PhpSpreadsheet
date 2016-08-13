@@ -97,14 +97,15 @@ $dataSeriesValues = array(
 
 //	Build the dataseries
 $series = new \PHPExcel\Chart\DataSeries(
-	\PHPExcel\Chart\DataSeries::TYPE_RADARCHART,				// plotType
-	NULL,													// plotGrouping (Radar charts don't have any grouping)
-	range(0, count($dataSeriesValues)-1),					// plotOrder
-	$dataSeriesLabels,										// plotLabel
-	$xAxisTickValues,										// plotCategory
-	$dataSeriesValues,										// plotValues
-	NULL,													// smooth line
-	\PHPExcel\Chart\DataSeries::STYLE_MARKER					// plotStyle
+	\PHPExcel\Chart\DataSeries::TYPE_RADARCHART,	// plotType
+	NULL,											// plotGrouping (Radar charts don't have any grouping)
+	range(0, count($dataSeriesValues)-1),			// plotOrder
+	$dataSeriesLabels,								// plotLabel
+	$xAxisTickValues,								// plotCategory
+	$dataSeriesValues,								// plotValues
+    NULL,                                           // plotDirection
+	NULL,											// smooth line
+	\PHPExcel\Chart\DataSeries::STYLE_MARKER		// plotStyle
 );
 
 //	Set up a layout object for the Pie chart

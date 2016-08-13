@@ -40,7 +40,7 @@ class Date
      * @private
      * @var    int
      */
-    protected static $excelBaseDate = self::CALENDAR_WINDOWS_1900;
+    protected static $excelCalendar = self::CALENDAR_WINDOWS_1900;
 
     /*
      * Default timezone to use for DateTime objects
@@ -132,7 +132,7 @@ class Date
      */
 	public static function excelToDateTimeObject($excelTimestamp = 0, $timeZone = null) {
         $timeZone = ($timeZone === null) ? self::getDefaultTimezone() : self::validateTimeZone($timeZone);
-        if (self::$excelBaseDate == self::CALENDAR_WINDOWS_1900) {
+        if (self::$excelCalendar == self::CALENDAR_WINDOWS_1900) {
             $baseDate = ($excelTimestamp < 60) ? new \DateTime('1899-12-31', $timeZone) : new \DateTime('1899-12-30', $timeZone);
         } else {
             $baseDate = new \DateTime('1904-01-01', $timeZone);
@@ -159,7 +159,7 @@ class Date
      * @throws    \Exception
      */
 	public static function excelToTimestamp($excelTimestampexcelTimestamp = 0, $timeZone = null) {
-	    return self::excelToTimestamp($excelTimestamp, $timeZone)
+	    return self::excelToDateTimeObject($excelTimestamp, $timeZone)
             ->format('U');
 	}
 
@@ -212,7 +212,7 @@ class Date
      */
     public static function formattedPHPToExcel($year, $month, $day, $hours = 0, $minutes = 0, $seconds = 0)
     {
-        if (self::$excelBaseDate == self::CALENDAR_WINDOWS_1900) {
+        if (self::$excelCalendar == self::CALENDAR_WINDOWS_1900) {
             //
             //    Fudge factor for the erroneous fact that the year 1900 is treated as a Leap Year in MS Excel
             //    This affects every date following 28th February 1900
