@@ -3,3 +3,10 @@
 *.csv
 *.jpg
 *.pdf
+*.htm
+*.html
+*.log
+!.gitignore
+!data/**
+!images/**
+!templates/**

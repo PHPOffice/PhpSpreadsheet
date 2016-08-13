@@ -126,7 +126,7 @@ class Chart extends WriterPart
      *
      * @throws  \PHPExcel\Writer\Exception
      */
-    private function writeTitle(Title $title, $objWriter)
+    private function writeTitle(Title $title=null, $objWriter)
     {
         if (is_null($title)) {
             return;
@@ -171,7 +171,7 @@ class Chart extends WriterPart
      *
      * @throws  \PHPExcel\Writer\Exception
      */
-    private function writeLegend(Legend $legend, $objWriter)
+    private function writeLegend(Legend $legend=null, $objWriter)
     {
         if (is_null($legend)) {
             return;
@@ -226,7 +226,7 @@ class Chart extends WriterPart
      *
      * @throws  \PHPExcel\Writer\Exception
      */
-    private function writePlotArea(PlotArea $plotArea, Title $xAxisLabel, Title $yAxisLabel, $objWriter, \PHPExcel\Worksheet $pSheet, Axis $xAxis, Axis $yAxis, GridLines $majorGridlines, GridLines $minorGridlines)
+    private function writePlotArea(PlotArea $plotArea, Title $xAxisLabel=null, Title $yAxisLabel=null, $objWriter, \PHPExcel\Worksheet $pSheet, Axis $xAxis=null, Axis $yAxis=null, GridLines $majorGridlines=null, GridLines $minorGridlines=null)
     {
         if (is_null($plotArea)) {
             return;
@@ -361,7 +361,7 @@ class Chart extends WriterPart
      *
      * @throws  \PHPExcel\Writer\Exception
      */
-    private function writeDataLabels($objWriter, $chartLayout)
+    private function writeDataLabels($objWriter, Layout $chartLayout=null)
     {
         $objWriter->startElement('c:dLbls');
 
@@ -1404,7 +1404,7 @@ class Chart extends WriterPart
      *
      * @throws  \PHPExcel\Writer\Exception
      */
-    private function writeLayout(Layout $layout, $objWriter)
+    private function writeLayout(Layout $layout=null, $objWriter)
     {
         $objWriter->startElement('c:layout');
 

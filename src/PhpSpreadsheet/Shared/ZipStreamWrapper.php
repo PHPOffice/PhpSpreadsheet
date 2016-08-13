@@ -88,7 +88,8 @@ class ZipStreamWrapper
         $url['fragment'] = substr($path, $pos + 1);
 
         // Open archive
-        $this->archive = new ZipArchive();
+        $zipClass = \PHPExcel\Settings::getZipClass();
+        $this->archive = new $zipClass();
         $this->archive->open($url['host']);
 
         $this->fileNameInArchive = $url['fragment'];

@@ -351,7 +351,8 @@ class Excel2007 extends BaseWriter implements IWriter
                         $imagePath = substr($imagePath, 6);
                         $imagePathSplitted = explode('#', $imagePath);
 
-                        $imageZip = new ZipArchive();
+                        $zipClass = \PHPExcel\Settings::getZipClass();
+                        $imageZip = new $zipClass();
                         $imageZip->open($imagePathSplitted[0]);
                         $imageContents = $imageZip->getFromName($imagePathSplitted[1]);
                         $imageZip->close();
