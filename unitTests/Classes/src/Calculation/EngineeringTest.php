@@ -472,7 +472,6 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerDEC2BIN
-     * @group fail19
      */
     public function testDEC2BIN()
     {
@@ -521,7 +520,6 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerHEX2BIN
-     * @group fail19
      */
     public function testHEX2BIN()
     {
@@ -538,7 +536,6 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerHEX2DEC
-     * @group fail19
      */
     public function testHEX2DEC()
     {
@@ -555,7 +552,6 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerHEX2OCT
-     * @group fail19
      */
     public function testHEX2OCT()
     {
@@ -572,7 +568,6 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerOCT2BIN
-     * @group fail19
      */
     public function testOCT2BIN()
     {
