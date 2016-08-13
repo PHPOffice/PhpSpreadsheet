@@ -34,6 +34,39 @@ class Date
     const CALENDAR_MAC_1904 = 1904;            //    Base date of 2nd Jan 1904 = 1.0
 
     /*
+     * Names of the months of the year, indexed by shortname
+     * Planned usage for locale settings
+     *
+     * @public
+     * @var    string[]
+     */
+    public static $monthNames = [
+        'Jan' => 'January',
+        'Feb' => 'February',
+        'Mar' => 'March',
+        'Apr' => 'April',
+        'May' => 'May',
+        'Jun' => 'June',
+        'Jul' => 'July',
+        'Aug' => 'August',
+        'Sep' => 'September',
+        'Oct' => 'October',
+        'Nov' => 'November',
+        'Dec' => 'December',
+    ];
+
+    /*
+     * @public
+     * @var    string[]
+     */
+    public static $numberSuffixes = [
+        'st',
+        'nd',
+        'rd',
+        'th',
+    ];
+
+    /*
      * Base calendar year to use for calculations
      * Value is either CALENDAR_WINDOWS_1900 (1900) or CALENDAR_MAC_1904 (1904)
      *
