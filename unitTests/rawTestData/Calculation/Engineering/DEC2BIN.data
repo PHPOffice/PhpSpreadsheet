@@ -1,5 +1,6 @@
 357,			"101100101"
-1357,			"#NUM!"		//	Too large
+512,			"#NUM!"		//	Too large
+-513,			"#NUM!"		//	Too small
 9,		4,	"1001"
 9,		8,	"00001001"
 9,		6.75,	"001001"	//	Leading places as a float
@@ -14,3 +15,4 @@
 TRUE,			"#VALUE!"	//	Non string
 -100,			"1110011100"	//	2's Complement
 -107,			"1110010101"	//	2's Complement
+-512,			"1000000000"	//	2's Complement

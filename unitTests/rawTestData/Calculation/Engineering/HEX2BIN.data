@@ -1,3 +1,8 @@
+"FF",		"11111111"
+"1FF",		"111111111"
+"200",		"#NUM!"
+"FFFFFFFE00",		"1000000000" 	//	2's Complement
+"FFFFFFFDFF",		"#NUM!"	        //	2's Complement
 "01AB",			"110101011"
 "ABCD",			"#NUM!"
 "F6",			"11110110"
@@ -10,4 +15,3 @@
 "G3579A",		"#NUM!"
 TRUE,			"#VALUE!"
 "-107",			"#NUM!"
-"FFFFFFFFFF",		"1111111111"	//	2's Complement

@@ -9,5 +9,7 @@
 TRUE,		"#VALUE!"
 "-107",		"#NUM!"
 "A5",		"165"
-"FFFFFFFF5B",	"-165"
-"3DA408B9",	"1034160313"	//	2's Complement
+"3DA408B9",	"1034160313"
+"FFFFFFFF5B",	"-165"   //	2's Complement
+"FFFFFFFFFF",	"-1"     //	2's Complement
+"1FFFFFFFFFF",	"#NUM!"  // Too large
