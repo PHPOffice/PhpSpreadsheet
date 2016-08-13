@@ -1022,9 +1022,11 @@ class Engineering
 
             switch (floor($ord)) {
                 case 0:
-                    return self::besselK0($x);
+                    $fBk = self::besselK0($x);
+                    break;
                 case 1:
-                    return self::besselK1($x);
+                    $fBk = self::besselK1($x);
+                    break;
                 default:
                     $fTox = 2 / $x;
                     $fBkm = self::besselK0($x);
@@ -1106,9 +1108,11 @@ class Engineering
 
             switch (floor($ord)) {
                 case 0:
-                    return self::besselY0($x);
+                    $fBy = self::besselY0($x);
+                    break;
                 case 1:
-                    return self::besselY1($x);
+                    $fBy = self::besselY1($x);
+                    break;
                 default:
                     $fTox = 2 / $x;
                     $fBym = self::besselY0($x);

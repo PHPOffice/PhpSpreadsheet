@@ -30,7 +30,6 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerBESSELI
-     * @group fail19
      */
     public function testBESSELI()
     {
@@ -47,7 +46,6 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerBESSELJ
-     * @group fail19
      */
     public function testBESSELJ()
     {
@@ -64,7 +62,6 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerBESSELK
-     * @group fail19
      */
     public function testBESSELK()
     {
@@ -81,7 +78,6 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerBESSELY
-     * @group fail19
      */
     public function testBESSELY()
     {
