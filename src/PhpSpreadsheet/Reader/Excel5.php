@@ -1628,7 +1628,6 @@ class Excel5 extends BaseReader implements IReader
 //                                                    ->setAuthor($author)
             }
         }
-
     }
 
 
@@ -2503,7 +2502,6 @@ class Excel5 extends BaseReader implements IReader
                 $offset += $cb;
             }
         }
-
     }
 
 
@@ -5258,7 +5256,6 @@ class Excel5 extends BaseReader implements IReader
         );
 
         return $splicedData;
-
     }
 
 

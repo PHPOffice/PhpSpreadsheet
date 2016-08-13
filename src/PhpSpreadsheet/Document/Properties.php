@@ -427,7 +427,6 @@ class Properties
         if (isset($this->customProperties[$propertyName])) {
             return $this->customProperties[$propertyName]['value'];
         }
-
     }
 
     /**
@@ -441,7 +440,6 @@ class Properties
         if (isset($this->customProperties[$propertyName])) {
             return $this->customProperties[$propertyName]['type'];
         }
-
     }
 
     /**

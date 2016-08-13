@@ -428,7 +428,6 @@ class SingularValueDecomposition
                     break;
             } // end switch
         } // end while
-
     } // end constructor
 
 

@@ -26,7 +26,6 @@ class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
         $this->cellStub->expects($this->any())
              ->method('setValueExplicit')
              ->will($this->returnValue(true));
-
     }
 
     /**

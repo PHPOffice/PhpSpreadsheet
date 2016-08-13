@@ -34,6 +34,39 @@ class Date
     const CALENDAR_MAC_1904 = 1904;            //    Base date of 2nd Jan 1904 = 1.0
 
     /*
+     * Names of the months of the year, indexed by shortname
+     * Planned usage for locale settings
+     *
+     * @public
+     * @var    string[]
+     */
+    public static $monthNames = [
+        'Jan' => 'January',
+        'Feb' => 'February',
+        'Mar' => 'March',
+        'Apr' => 'April',
+        'May' => 'May',
+        'Jun' => 'June',
+        'Jul' => 'July',
+        'Aug' => 'August',
+        'Sep' => 'September',
+        'Oct' => 'October',
+        'Nov' => 'November',
+        'Dec' => 'December',
+    ];
+
+    /*
+     * @public
+     * @var    string[]
+     */
+    public static $numberSuffixes = [
+        'st',
+        'nd',
+        'rd',
+        'th',
+    ];
+
+    /*
      * Base calendar year to use for calculations
      * Value is either CALENDAR_WINDOWS_1900 (1900) or CALENDAR_MAC_1904 (1904)
      *
@@ -112,7 +145,8 @@ class Date
      * @return    \DateTimeZone                        The timezone as a timezone object
      * @throws    \Exception
      */
-    protected static function validateTimeZone($timeZone) {
+    protected static function validateTimeZone($timeZone)
+    {
         if (is_object($timeZone) && $timeZone instanceof \DateTimeZone) {
             return $timeZone;
         } elseif (is_string($timeZone)) {
@@ -130,14 +164,15 @@ class Date
      * @return    \DateTime                          PHP date/time object
      * @throws    \Exception
      */
-	public static function excelToDateTimeObject($excelTimestamp = 0, $timeZone = null) {
+    public static function excelToDateTimeObject($excelTimestamp = 0, $timeZone = null)
+    {
         $timeZone = ($timeZone === null) ? self::getDefaultTimezone() : self::validateTimeZone($timeZone);
         if (self::$excelCalendar == self::CALENDAR_WINDOWS_1900) {
             $baseDate = ($excelTimestamp < 60) ? new \DateTime('1899-12-31', $timeZone) : new \DateTime('1899-12-30', $timeZone);
         } else {
             $baseDate = new \DateTime('1904-01-01', $timeZone);
         }
-		$days = floor($excelTimestamp);
+        $days = floor($excelTimestamp);
         $partDay = $excelTimestamp - $days;
         $hours = floor($partDay * 24);
         $partDay = $partDay * 24 - $hours;
@@ -147,9 +182,9 @@ class Date
 //        $fraction = $partDay - $seconds;
 
         $interval = '+' . $days . ' days';
-		return $baseDate->modify($interval)
+        return $baseDate->modify($interval)
             ->setTime($hours, $minutes, $seconds);
-	}
+    }
 
     /**
      * Convert a MS serialized datetime value from Excel to a unix timestamp
@@ -158,10 +193,11 @@ class Date
      * @return    integer                            Unix timetamp for this date/time
      * @throws    \Exception
      */
-	public static function excelToTimestamp($excelTimestamp = 0, $timeZone = null) {
-	    return self::excelToDateTimeObject($excelTimestamp, $timeZone)
+    public static function excelToTimestamp($excelTimestamp = 0, $timeZone = null)
+    {
+        return self::excelToDateTimeObject($excelTimestamp, $timeZone)
             ->format('U');
-	}
+    }
 
 
     /**

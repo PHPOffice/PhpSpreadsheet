@@ -151,7 +151,6 @@ class Xf
         $this->rightBorderColor    = 0x40;
         $this->_diag_color     = 0x40;
         $this->_style = $style;
-
     }
 
 

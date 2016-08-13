@@ -25,5 +25,4 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
         $result = call_user_func(array('PHPExcel\\Settings','getLibXmlLoaderOptions'));
         $this->assertTrue((bool) ((LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_DTDVALID) & $result));
     }
-
 }

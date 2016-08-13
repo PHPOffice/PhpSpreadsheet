@@ -59,6 +59,5 @@ class RelsVBA extends WriterPart
         $objWriter->endElement();
 
         return $objWriter->getData();
-
     }
 }

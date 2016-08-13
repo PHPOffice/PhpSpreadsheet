@@ -563,7 +563,6 @@ class Spreadsheet
             ($pIndex > count($this->workSheetCollection) - 1)) {
             --$this->activeSheetIndex;
         }
-
     }
 
     /**

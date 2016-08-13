@@ -215,7 +215,6 @@ class TextData
         }
 
         return \PHPExcel\Style\NumberFormat::toFormattedString($value, $mask);
-
     }
 
 

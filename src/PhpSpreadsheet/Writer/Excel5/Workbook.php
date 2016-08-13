@@ -232,7 +232,6 @@ class Workbook extends BIFFwriter
                 $this->addColor($phpSheet->getTabColor()->getRGB());
             }
         }
-
     }
 
     /**
