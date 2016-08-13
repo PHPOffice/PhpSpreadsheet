@@ -158,7 +158,7 @@ class Date
      * @return    integer                            Unix timetamp for this date/time
      * @throws    \Exception
      */
-	public static function excelToTimestamp($excelTimestampexcelTimestamp = 0, $timeZone = null) {
+	public static function excelToTimestamp($excelTimestamp = 0, $timeZone = null) {
 	    return self::excelToDateTimeObject($excelTimestamp, $timeZone)
             ->format('U');
 	}
