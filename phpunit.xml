@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="./tests/bootstrap.php"
+    backupGlobals="true"
+    colors="true"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+    processIsolation="false"
+    syntaxCheck="true"
+    verbose="true"
+    reportUselessTests="true"
+    strictCoverage="true"
+    disallowTestOutput="true"
+    stopOnError="false"
+    stopOnFailure="false"
+    stopOnIncomplete="false"
+    stopOnSkipped="false">
+    <php>
+        <ini name="memory_limit" value="2048M"/>
+    </php>
+    <testsuite name="PHPExcel Unit Test Suite">
+        <directory suffix="Test.php">./tests/PhpSpreadsheet</directory>
+    </testsuite>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./src</directory>
+            <exclude>
+                <directory>./src/PhpSpreadsheet/Shared/PCLZip</directory>
+                <directory>./src/PhpSpreadsheet/Shared/JAMA</directory>
+                <directory>./src/PhpSpreadsheet/Writer/PDF</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>
