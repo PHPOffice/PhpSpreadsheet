@@ -4,6 +4,7 @@ namespace PhpSpreadsheet\Tests\Style;
 
 use PHPExcel\Shared\StringHelper;
 use PHPExcel\Style\NumberFormat;
+
 class NumberFormatTest extends \PHPUnit_Framework_TestCase
 {
 
