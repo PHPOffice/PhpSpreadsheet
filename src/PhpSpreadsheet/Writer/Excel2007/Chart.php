@@ -86,15 +86,15 @@ class Chart extends WriterPart
 
         $objWriter->startElement('c:chart');
 
-        $this->writeTitle($pChart->getTitle(), $objWriter);
+        $this->writeTitle($objWriter, $pChart->getTitle());
 
         $objWriter->startElement('c:autoTitleDeleted');
         $objWriter->writeAttribute('val', 0);
         $objWriter->endElement();
 
-        $this->writePlotArea($pChart->getPlotArea(), $pChart->getXAxisLabel(), $pChart->getYAxisLabel(), $objWriter, $pChart->getWorksheet(), $pChart->getChartAxisX(), $pChart->getChartAxisY(), $pChart->getMajorGridlines(), $pChart->getMinorGridlines());
+        $this->writePlotArea($objWriter, $pChart->getWorksheet(), $pChart->getPlotArea(), $pChart->getXAxisLabel(), $pChart->getYAxisLabel(), $pChart->getChartAxisX(), $pChart->getChartAxisY(), $pChart->getMajorGridlines(), $pChart->getMinorGridlines());
 
-        $this->writeLegend($pChart->getLegend(), $objWriter);
+        $this->writeLegend($objWriter, $pChart->getLegend());
 
         $objWriter->startElement('c:plotVisOnly');
         $objWriter->writeAttribute('val', 1);
@@ -121,12 +121,12 @@ class Chart extends WriterPart
     /**
      * Write Chart Title
      *
-     * @param  Title $title
      * @param  \PHPExcel\Shared\XMLWriter $objWriter XML Writer
+     * @param  Title $title
      *
      * @throws  \PHPExcel\Writer\Exception
      */
-    private function writeTitle(Title $title = null, $objWriter)
+    private function writeTitle(\PHPExcel\Shared\XMLWriter $objWriter, Title $title = null)
     {
         if (is_null($title)) {
             return;
@@ -154,7 +154,7 @@ class Chart extends WriterPart
         $objWriter->endElement();
         $objWriter->endElement();
 
-        $this->writeLayout($title->getLayout(), $objWriter);
+        $this->writeLayout($objWriter, $title->getLayout());
 
         $objWriter->startElement('c:overlay');
         $objWriter->writeAttribute('val', 0);
@@ -166,12 +166,12 @@ class Chart extends WriterPart
     /**
      * Write Chart Legend
      *
-     * @param  Legend $legend
      * @param  \PHPExcel\Shared\XMLWriter $objWriter XML Writer
+     * @param  Legend $legend
      *
      * @throws  \PHPExcel\Writer\Exception
      */
-    private function writeLegend(Legend $legend = null, $objWriter)
+    private function writeLegend(\PHPExcel\Shared\XMLWriter $objWriter, Legend $legend = null)
     {
         if (is_null($legend)) {
             return;
@@ -183,7 +183,7 @@ class Chart extends WriterPart
         $objWriter->writeAttribute('val', $legend->getPosition());
         $objWriter->endElement();
 
-        $this->writeLayout($legend->getLayout(), $objWriter);
+        $this->writeLayout($objWriter, $legend->getLayout());
 
         $objWriter->startElement('c:overlay');
         $objWriter->writeAttribute('val', ($legend->getOverlay()) ? '1' : '0');
@@ -217,16 +217,17 @@ class Chart extends WriterPart
     /**
      * Write Chart Plot Area
      *
+     * @param  \PHPExcel\Shared\XMLWriter $objWriter XML Writer
+     * @param  \PHPExcel\Worksheet $pSheet
      * @param  PlotArea $plotArea
      * @param  Title $xAxisLabel
      * @param  Title $yAxisLabel
      * @param  Axis $xAxis
      * @param  Axis $yAxis
-     * @param  \PHPExcel\Shared\XMLWriter $objWriter XML Writer
      *
      * @throws  \PHPExcel\Writer\Exception
      */
-    private function writePlotArea(PlotArea $plotArea, Title $xAxisLabel = null, Title $yAxisLabel = null, $objWriter, \PHPExcel\Worksheet $pSheet, Axis $xAxis = null, Axis $yAxis = null, GridLines $majorGridlines = null, GridLines $minorGridlines = null)
+    private function writePlotArea(\PHPExcel\Shared\XMLWriter $objWriter, \PHPExcel\Worksheet $pSheet, PlotArea $plotArea, Title $xAxisLabel = null, Title $yAxisLabel = null, Axis $xAxis = null, Axis $yAxis = null, GridLines $majorGridlines = null, GridLines $minorGridlines = null)
     {
         if (is_null($plotArea)) {
             return;
@@ -238,7 +239,7 @@ class Chart extends WriterPart
 
         $layout = $plotArea->getLayout();
 
-        $this->writeLayout($layout, $objWriter);
+        $this->writeLayout($objWriter, $layout);
 
         $chartTypes = self::getChartType($plotArea);
         $catIsMultiLevelSeries = $valIsMultiLevelSeries = false;
@@ -469,7 +470,7 @@ class Chart extends WriterPart
             $objWriter->endElement();
 
             $layout = $xAxisLabel->getLayout();
-            $this->writeLayout($layout, $objWriter);
+            $this->writeLayout($objWriter, $layout);
 
             $objWriter->startElement('c:overlay');
             $objWriter->writeAttribute('val', 0);
@@ -820,7 +821,7 @@ class Chart extends WriterPart
 
             if ($groupType !== DataSeries::TYPE_BUBBLECHART) {
                 $layout = $yAxisLabel->getLayout();
-                $this->writeLayout($layout, $objWriter);
+                $this->writeLayout($objWriter, $layout);
             }
 
             $objWriter->startElement('c:overlay');
@@ -1399,12 +1400,12 @@ class Chart extends WriterPart
     /**
      * Write Layout
      *
-     * @param  Layout $layout
      * @param  \PHPExcel\Shared\XMLWriter $objWriter XML Writer
+     * @param  Layout $layout
      *
      * @throws  \PHPExcel\Writer\Exception
      */
-    private function writeLayout(Layout $layout = null, $objWriter)
+    private function writeLayout(\PHPExcel\Shared\XMLWriter $objWriter, Layout $layout = null)
     {
         $objWriter->startElement('c:layout');
 
