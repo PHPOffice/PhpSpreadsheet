@@ -196,6 +196,8 @@ class Date
      * Convert a MS serialized datetime value from Excel to a unix timestamp
      *
      * @param     integer|float    $dateValue        Excel date/time value
+     * @param     \DateTimeZone|string|null          $timezone            The timezone to assume for the Excel timestamp,
+     *                                                                        if you don't want to treat it as a UTC value
      * @return    integer                            Unix timetamp for this date/time
      * @throws    \Exception
      */
@@ -226,7 +228,7 @@ class Date
             0;
 
         $retValue = false;
-        if ((is_object($dateValue)) && ($dateValue instanceof \DateTime)) {
+        if ((is_object($dateValue)) && ($dateValue instanceof \DateTimeInterface)) {
             $dateValue->add(new \DateInterval('PT' . $timezoneAdjustment . 'S'));
             $retValue = self::formattedPHPToExcel($dateValue->format('Y'), $dateValue->format('m'), $dateValue->format('d'), $dateValue->format('H'), $dateValue->format('i'), $dateValue->format('s'));
         } elseif (is_numeric($dateValue)) {

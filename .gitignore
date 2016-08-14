@@ -1,5 +1,5 @@
 build/PHPExcel.phar
-unitTests/codeCoverage
+tests/codeCoverage
 analysis
 
 ## IDE support
