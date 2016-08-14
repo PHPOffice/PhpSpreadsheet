@@ -1,6 +1,8 @@
-build/PHPExcel.phar
-tests/codeCoverage
-analysis
+/build/PHPExcel.phar
+/tests/codeCoverage
+/analysis
+/vendor/
+/composer.lock
 
 ## IDE support
 *.buildpath
