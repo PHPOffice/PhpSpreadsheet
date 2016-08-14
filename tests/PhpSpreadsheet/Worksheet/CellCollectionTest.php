@@ -2,25 +2,23 @@
 
 namespace PhpSpreadsheet\Tests\Worksheet;
 
+use PHPExcel\CachedObjectStorageFactory;
+use PHPExcel\Spreadsheet;
+
 class CellCollectionTest extends \PHPUnit_Framework_TestCase
 {
-
-    public function setUp()
-    {
-    }
-
     public function testCacheLastCell()
     {
-        $methods = \PHPExcel\CachedObjectStorageFactory::getCacheStorageMethods();
+        $methods = CachedObjectStorageFactory::getCacheStorageMethods();
         foreach ($methods as $method) {
-            \PHPExcel\CachedObjectStorageFactory::initialize($method);
-            $workbook = new \PHPExcel\Spreadsheet();
+            CachedObjectStorageFactory::initialize($method);
+            $workbook = new Spreadsheet();
             $cells = ['A1', 'A2'];
             $worksheet = $workbook->getActiveSheet();
             $worksheet->setCellValue('A1', 1);
             $worksheet->setCellValue('A2', 2);
             $this->assertEquals($cells, $worksheet->getCellCollection(), "Cache method \"$method\".");
-            \PHPExcel\CachedObjectStorageFactory::finalize();
+            CachedObjectStorageFactory::finalize();
         }
     }
 }

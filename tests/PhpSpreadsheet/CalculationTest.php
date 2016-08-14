@@ -1,12 +1,15 @@
 <?php
 
-namespace PHPExcel;
+namespace PhpSpreadsheet\Tests;
+
+use PHPExcel\Calculation;
+use PHPExcel\Calculation\Functions;
 
 class CalculationTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        Calculation\Functions::setCompatibilityMode(Calculation\Functions::COMPATIBILITY_EXCEL);
+        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 
     /**
@@ -14,11 +17,11 @@ class CalculationTest extends \PHPUnit_Framework_TestCase
      */
     public function testBinaryComparisonOperation($formula, $expectedResultExcel, $expectedResultOpenOffice)
     {
-        Calculation\Functions::setCompatibilityMode(Calculation\Functions::COMPATIBILITY_EXCEL);
+        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
         $resultExcel = Calculation::getInstance()->_calculateFormulaValue($formula);
         $this->assertEquals($expectedResultExcel, $resultExcel, 'should be Excel compatible');
 
-        Calculation\Functions::setCompatibilityMode(Calculation\Functions::COMPATIBILITY_OPENOFFICE);
+        Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
         $resultOpenOffice = Calculation::getInstance()->_calculateFormulaValue($formula);
         $this->assertEquals($expectedResultOpenOffice, $resultOpenOffice, 'should be OpenOffice compatible');
     }

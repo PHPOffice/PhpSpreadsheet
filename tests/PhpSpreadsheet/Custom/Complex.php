@@ -2,6 +2,8 @@
 
 namespace PhpSpreadsheet\Tests\Custom;
 
+use PHPExcel\Exception;
+
 class Complex
 {
     private $realPart = 0;
@@ -33,7 +35,7 @@ class Complex
             //    Neither real nor imaginary part, so test to see if we actually have a suffix
             $validComplex = preg_match('/^([\-\+]?)([ij])$/ui', $complexNumber, $complexParts);
             if (!$validComplex) {
-                throw new \PHPExcel\Exception('COMPLEX: Invalid complex number');
+                throw new Exception('COMPLEX: Invalid complex number');
             }
             //    We have a suffix, so set the real to 0, the imaginary to either 1 or -1 (as defined by the sign)
             $imaginary = 1;

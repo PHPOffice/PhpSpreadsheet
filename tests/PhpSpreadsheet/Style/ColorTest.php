@@ -2,6 +2,8 @@
 
 namespace PhpSpreadsheet\Tests\Style;
 
+use PHPExcel\Style\Color;
+
 class ColorTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -11,7 +13,7 @@ class ColorTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\\PHPExcel\\Style\\Color','getRed'), $args);
+        $result = call_user_func_array(array(Color::class,'getRed'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -27,7 +29,7 @@ class ColorTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\\PHPExcel\\Style\\Color','getGreen'), $args);
+        $result = call_user_func_array(array(Color::class,'getGreen'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -43,7 +45,7 @@ class ColorTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\\PHPExcel\\Style\\Color','getBlue'), $args);
+        $result = call_user_func_array(array(Color::class,'getBlue'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -58,7 +60,7 @@ class ColorTest extends \PHPUnit_Framework_TestCase
     public function testChangeBrightness()
     {
         list($args, $expectedResult) = func_get_args();
-        $result = call_user_func_array(array('\\PHPExcel\\Style\\Color','changeBrightness'), $args);
+        $result = call_user_func_array(array(Color::class,'changeBrightness'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 

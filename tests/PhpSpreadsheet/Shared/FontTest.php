@@ -2,25 +2,27 @@
 
 namespace PhpSpreadsheet\Tests\Shared;
 
+use PHPExcel\Shared\Font;
+
 class FontTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetAutoSizeMethod()
     {
-        $expectedResult = \PHPExcel\Shared\Font::AUTOSIZE_METHOD_APPROX;
+        $expectedResult = Font::AUTOSIZE_METHOD_APPROX;
 
-        $result = call_user_func(array('\PHPExcel\Shared\Font','getAutoSizeMethod'));
+        $result = call_user_func(array(Font::class,'getAutoSizeMethod'));
         $this->assertEquals($expectedResult, $result);
     }
 
     public function testSetAutoSizeMethod()
     {
         $autosizeMethodValues = array(
-            \PHPExcel\Shared\Font::AUTOSIZE_METHOD_EXACT,
-            \PHPExcel\Shared\Font::AUTOSIZE_METHOD_APPROX,
+            Font::AUTOSIZE_METHOD_EXACT,
+            Font::AUTOSIZE_METHOD_APPROX,
         );
 
         foreach ($autosizeMethodValues as $autosizeMethodValue) {
-            $result = call_user_func(array('\PHPExcel\Shared\Font','setAutoSizeMethod'), $autosizeMethodValue);
+            $result = call_user_func(array(Font::class,'setAutoSizeMethod'), $autosizeMethodValue);
             $this->assertTrue($result);
         }
     }
@@ -29,7 +31,7 @@ class FontTest extends \PHPUnit_Framework_TestCase
     {
         $unsupportedAutosizeMethod = 'guess';
 
-        $result = call_user_func(array('\PHPExcel\Shared\Font','setAutoSizeMethod'), $unsupportedAutosizeMethod);
+        $result = call_user_func(array(Font::class,'setAutoSizeMethod'), $unsupportedAutosizeMethod);
         $this->assertFalse($result);
     }
 
@@ -40,7 +42,7 @@ class FontTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Shared\Font','fontSizeToPixels'), $args);
+        $result = call_user_func_array(array(Font::class,'fontSizeToPixels'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -56,7 +58,7 @@ class FontTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Shared\Font','inchSizeToPixels'), $args);
+        $result = call_user_func_array(array(Font::class,'inchSizeToPixels'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -72,7 +74,7 @@ class FontTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Shared\Font','centimeterSizeToPixels'), $args);
+        $result = call_user_func_array(array(Font::class,'centimeterSizeToPixels'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 

@@ -3,6 +3,8 @@
 namespace PhpSpreadsheet\Tests\Worksheet;
 
 use PHPExcel\Worksheet\ColumnCellIterator;
+use PHPExcel\Cell;
+use PHPExcel\Worksheet;
 
 class ColumnCellIteratorTest extends \PHPUnit_Framework_TestCase
 {
@@ -11,11 +13,11 @@ class ColumnCellIteratorTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->mockCell = $this->getMockBuilder('\\PHPExcel\\Cell')
+        $this->mockCell = $this->getMockBuilder(Cell::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->mockWorksheet = $this->getMockBuilder('\\PHPExcel\\Worksheet')
+        $this->mockWorksheet = $this->getMockBuilder(Worksheet::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -36,7 +38,7 @@ class ColumnCellIteratorTest extends \PHPUnit_Framework_TestCase
 
         foreach ($iterator as $key => $ColumnCell) {
             $this->assertEquals($ColumnCellIndexResult++, $key);
-            $this->assertInstanceOf('\\PHPExcel\\Cell', $ColumnCell);
+            $this->assertInstanceOf(Cell::class, $ColumnCell);
         }
     }
 
@@ -48,7 +50,7 @@ class ColumnCellIteratorTest extends \PHPUnit_Framework_TestCase
 
         foreach ($iterator as $key => $ColumnCell) {
             $this->assertEquals($ColumnCellIndexResult++, $key);
-            $this->assertInstanceOf('\\PHPExcel\\Cell', $ColumnCell);
+            $this->assertInstanceOf(Cell::class, $ColumnCell);
         }
     }
 

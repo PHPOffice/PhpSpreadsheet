@@ -2,6 +2,14 @@
 
 namespace PhpSpreadsheet\Tests\Cell;
 
+use PHPExcel\Worksheet;
+use PHPExcel\Style\NumberFormat;
+use PHPExcel\Shared\StringHelper;
+use PHPExcel\Cell;
+use PHPExcel\Cell\AdvancedValueBinder;
+use PHPExcel\Cell\DataType;
+use PHPExcel\CachedObjectStorage\Memory;
+
 class AdvancedValueBinderTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
@@ -14,14 +22,14 @@ class AdvancedValueBinderTest extends \PHPUnit_Framework_TestCase
 
     public function provider()
     {
-        if (!class_exists('\\PHPExcel\\Style\\NumberFormat')) {
+        if (!class_exists(NumberFormat::class)) {
             $this->setUp();
         }
-        $currencyUSD = \PHPExcel\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
-        $currencyEURO = str_replace('$', '€', \PHPExcel\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+        $currencyUSD = NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
+        $currencyEURO = str_replace('$', '€', NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
 
         return array(
-            array('10%', 0.1, \PHPExcel\Style\NumberFormat::FORMAT_PERCENTAGE_00, ',', '.', '$'),
+            array('10%', 0.1, NumberFormat::FORMAT_PERCENTAGE_00, ',', '.', '$'),
             array('$10.11', 10.11, $currencyUSD, ',', '.', '$'),
             array('$1,010.12', 1010.12, $currencyUSD, ',', '.', '$'),
             array('$20,20', 20.2, $currencyUSD, '.', ',', '$'),
@@ -38,10 +46,10 @@ class AdvancedValueBinderTest extends \PHPUnit_Framework_TestCase
     public function testCurrency($value, $valueBinded, $format, $thousandsSeparator, $decimalSeparator, $currencyCode)
     {
         $sheet = $this->getMock(
-            '\\PHPExcel\\Worksheet',
+            Worksheet::class,
             array('getStyle', 'getNumberFormat', 'setFormatCode','getCellCacheController')
         );
-        $cache = $this->getMockBuilder('\\PHPExcel\\CachedObjectStorage\\Memory')
+        $cache = $this->getMockBuilder(Memory::class)
             ->disableOriginalConstructor()
             ->getMock();
         $cache->expects($this->any())
@@ -62,13 +70,13 @@ class AdvancedValueBinderTest extends \PHPUnit_Framework_TestCase
                  ->method('getCellCacheController')
                  ->will($this->returnValue($cache));
 
-        \PHPExcel\Shared\StringHelper::setCurrencyCode($currencyCode);
-        \PHPExcel\Shared\StringHelper::setDecimalSeparator($decimalSeparator);
-        \PHPExcel\Shared\StringHelper::setThousandsSeparator($thousandsSeparator);
+        StringHelper::setCurrencyCode($currencyCode);
+        StringHelper::setDecimalSeparator($decimalSeparator);
+        StringHelper::setThousandsSeparator($thousandsSeparator);
 
-        $cell = new \PHPExcel\Cell(null, \PHPExcel\Cell\DataType::TYPE_STRING, $sheet);
+        $cell = new Cell(null, DataType::TYPE_STRING, $sheet);
 
-        $binder = new \PHPExcel\Cell\AdvancedValueBinder();
+        $binder = new AdvancedValueBinder();
         $binder->bindValue($cell, $value);
         $this->assertEquals($valueBinded, $cell->getValue());
     }

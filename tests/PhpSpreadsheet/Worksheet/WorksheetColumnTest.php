@@ -2,6 +2,10 @@
 
 namespace PhpSpreadsheet\Tests\Worksheet;
 
+use PHPExcel\Worksheet;
+use PHPExcel\Worksheet\Column;
+use PHPExcel\Worksheet\ColumnCellIterator;
+
 class WorksheetColumnTest extends \PHPUnit_Framework_TestCase
 {
     public $mockWorksheet;
@@ -9,7 +13,7 @@ class WorksheetColumnTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->mockWorksheet = $this->getMockBuilder('\PHPExcel\Worksheet')
+        $this->mockWorksheet = $this->getMockBuilder(Worksheet::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->mockWorksheet->expects($this->any())
@@ -20,24 +24,24 @@ class WorksheetColumnTest extends \PHPUnit_Framework_TestCase
 
     public function testInstantiateColumnDefault()
     {
-        $column = new \PHPExcel\Worksheet\Column($this->mockWorksheet);
-        $this->assertInstanceOf('\PHPExcel\Worksheet\Column', $column);
+        $column = new Column($this->mockWorksheet);
+        $this->assertInstanceOf(Column::class, $column);
         $columnIndex = $column->getColumnIndex();
         $this->assertEquals('A', $columnIndex);
     }
 
     public function testInstantiateColumnSpecified()
     {
-        $column = new \PHPExcel\Worksheet\Column($this->mockWorksheet, 'E');
-        $this->assertInstanceOf('\PHPExcel\Worksheet\Column', $column);
+        $column = new Column($this->mockWorksheet, 'E');
+        $this->assertInstanceOf(Column::class, $column);
         $columnIndex = $column->getColumnIndex();
         $this->assertEquals('E', $columnIndex);
     }
 
     public function testGetCellIterator()
     {
-        $column = new \PHPExcel\Worksheet\Column($this->mockWorksheet);
+        $column = new Column($this->mockWorksheet);
         $cellIterator = $column->getCellIterator();
-        $this->assertInstanceOf('\PHPExcel\Worksheet\ColumnCellIterator', $cellIterator);
+        $this->assertInstanceOf(ColumnCellIterator::class, $cellIterator);
     }
 }

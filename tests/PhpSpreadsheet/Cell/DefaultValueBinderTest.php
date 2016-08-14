@@ -2,6 +2,11 @@
 
 namespace PhpSpreadsheet\Tests\Cell;
 
+use PHPExcel\Cell\DefaultValueBinder;
+use PHPExcel\Cell;
+use PHPExcel\RichText;
+use PHPExcel\Cell\DataType;
+
 class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
 {
     protected $cellStub;
@@ -17,7 +22,7 @@ class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
     protected function createCellStub()
     {
         // Create a stub for the Cell class.
-        $this->cellStub = $this->getMockBuilder('\\PHPExcel\\Cell')
+        $this->cellStub = $this->getMockBuilder(Cell::class)
             ->disableOriginalConstructor()
             ->getMock();
         // Configure the stub.
@@ -32,7 +37,7 @@ class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
     public function testBindValue($value)
     {
         $this->createCellStub();
-        $binder = new \PHPExcel\Cell\DefaultValueBinder();
+        $binder = new DefaultValueBinder();
         $result = $binder->bindValue($this->cellStub, $value);
         $this->assertTrue($result);
     }
@@ -61,7 +66,7 @@ class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
     public function testDataTypeForValue()
     {
         list($args, $expectedResult) = func_get_args();
-        $result = call_user_func_array(array('\\PHPExcel\\Cell\\DefaultValueBinder','dataTypeForValue'), $args);
+        $result = call_user_func_array(array(DefaultValueBinder::class,'dataTypeForValue'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -72,11 +77,11 @@ class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
 
     public function testDataTypeForRichTextObject()
     {
-        $objRichText = new \PHPExcel\RichText();
+        $objRichText = new RichText();
         $objRichText->createText('Hello World');
 
-        $expectedResult = \PHPExcel\Cell\DataType::TYPE_INLINE;
-        $result = call_user_func(array('\\PHPExcel\\Cell\\DefaultValueBinder','dataTypeForValue'), $objRichText);
+        $expectedResult = DataType::TYPE_INLINE;
+        $result = call_user_func(array(DefaultValueBinder::class,'dataTypeForValue'), $objRichText);
         $this->assertEquals($expectedResult, $result);
     }
 }

@@ -2,6 +2,10 @@
 
 namespace PhpSpreadsheet\Tests\Worksheet;
 
+use PHPExcel\Worksheet\RowIterator;
+use PHPExcel\Worksheet;
+use PHPExcel\Worksheet\Row;
+
 class RowIteratorTest extends \PHPUnit_Framework_TestCase
 {
     public $mockWorksheet;
@@ -9,11 +13,11 @@ class RowIteratorTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->mockRow = $this->getMockBuilder('\PHPExcel\Worksheet\Row')
+        $this->mockRow = $this->getMockBuilder(Row::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->mockWorksheet = $this->getMockBuilder('\PHPExcel\Worksheet')
+        $this->mockWorksheet = $this->getMockBuilder(Worksheet::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -28,31 +32,31 @@ class RowIteratorTest extends \PHPUnit_Framework_TestCase
 
     public function testIteratorFullRange()
     {
-        $iterator = new \PHPExcel\Worksheet\RowIterator($this->mockWorksheet);
+        $iterator = new RowIterator($this->mockWorksheet);
         $rowIndexResult = 1;
         $this->assertEquals($rowIndexResult, $iterator->key());
-        
+
         foreach ($iterator as $key => $row) {
             $this->assertEquals($rowIndexResult++, $key);
-            $this->assertInstanceOf('\PHPExcel\Worksheet\Row', $row);
+            $this->assertInstanceOf(Row::class, $row);
         }
     }
 
     public function testIteratorStartEndRange()
     {
-        $iterator = new \PHPExcel\Worksheet\RowIterator($this->mockWorksheet, 2, 4);
+        $iterator = new RowIterator($this->mockWorksheet, 2, 4);
         $rowIndexResult = 2;
         $this->assertEquals($rowIndexResult, $iterator->key());
-        
+
         foreach ($iterator as $key => $row) {
             $this->assertEquals($rowIndexResult++, $key);
-            $this->assertInstanceOf('\PHPExcel\Worksheet\Row', $row);
+            $this->assertInstanceOf(Row::class, $row);
         }
     }
 
     public function testIteratorSeekAndPrev()
     {
-        $iterator = new \PHPExcel\Worksheet\RowIterator($this->mockWorksheet, 2, 4);
+        $iterator = new RowIterator($this->mockWorksheet, 2, 4);
         $columnIndexResult = 4;
         $iterator->seek(4);
         $this->assertEquals($columnIndexResult, $iterator->key());
@@ -68,7 +72,7 @@ class RowIteratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testSeekOutOfRange()
     {
-        $iterator = new \PHPExcel\Worksheet\RowIterator($this->mockWorksheet, 2, 4);
+        $iterator = new RowIterator($this->mockWorksheet, 2, 4);
         $iterator->seek(1);
     }
 
@@ -77,7 +81,7 @@ class RowIteratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testPrevOutOfRange()
     {
-        $iterator = new \PHPExcel\Worksheet\RowIterator($this->mockWorksheet, 2, 4);
+        $iterator = new RowIterator($this->mockWorksheet, 2, 4);
         $iterator->prev();
     }
 }

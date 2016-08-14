@@ -2,23 +2,25 @@
 
 namespace PhpSpreadsheet\Tests\Chart;
 
+use PHPExcel\Chart\Layout;
+
 class LayoutTest extends \PHPUnit_Framework_TestCase
 {
     public function testSetLayoutTarget()
     {
         $LayoutTargetValue = 'String';
 
-        $testInstance = new \PHPExcel\Chart\Layout;
+        $testInstance = new Layout;
 
         $result = $testInstance->setLayoutTarget($LayoutTargetValue);
-        $this->assertTrue($result instanceof \PHPExcel\Chart\Layout);
+        $this->assertTrue($result instanceof Layout);
     }
 
     public function testGetLayoutTarget()
     {
         $LayoutTargetValue = 'String';
 
-        $testInstance = new \PHPExcel\Chart\Layout;
+        $testInstance = new Layout;
         $setValue = $testInstance->setLayoutTarget($LayoutTargetValue);
 
         $result = $testInstance->getLayoutTarget();
