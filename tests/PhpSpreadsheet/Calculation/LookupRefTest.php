@@ -2,6 +2,9 @@
 
 namespace PhpSpreadsheet\Tests\Calculation;
 
+use PHPExcel\Calculation\Functions;
+use PHPExcel\Calculation\LookupRef;
+
 /**
  * Class LookupRefTest
  * @package PHPExcel\Calculation
@@ -11,7 +14,7 @@ class LookupRefTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        \PHPExcel\Calculation\Functions::setCompatibilityMode(\PHPExcel\Calculation\Functions::COMPATIBILITY_EXCEL);
+        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 
     /**
@@ -22,7 +25,7 @@ class LookupRefTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\LookupRef','HLOOKUP'), $args);
+        $result = call_user_func_array(array(LookupRef::class,'HLOOKUP'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -39,7 +42,7 @@ class LookupRefTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\LookupRef','VLOOKUP'), $args);
+        $result = call_user_func_array(array(LookupRef::class,'VLOOKUP'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 

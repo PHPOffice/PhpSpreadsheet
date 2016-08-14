@@ -2,12 +2,16 @@
 
 namespace PhpSpreadsheet\Tests\Calculation;
 
+use PHPExcel\Calculation;
+use PHPExcel\Calculation\Functions;
+use PHPExcel\Calculation\MathTrig;
+
 class MathTrigTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()
     {
-        \PHPExcel\Calculation\Functions::setCompatibilityMode(\PHPExcel\Calculation\Functions::COMPATIBILITY_EXCEL);
+        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 
     /**
@@ -17,7 +21,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','ATAN2'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'ATAN2'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -33,7 +37,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','CEILING'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'CEILING'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -49,7 +53,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','COMBIN'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'COMBIN'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -65,7 +69,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','EVEN'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'EVEN'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -81,7 +85,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','ODD'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'ODD'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -97,7 +101,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','FACT'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'FACT'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -113,7 +117,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','FACTDOUBLE'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'FACTDOUBLE'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -129,7 +133,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','FLOOR'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'FLOOR'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -145,7 +149,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','GCD'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'GCD'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -161,7 +165,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','LCM'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'LCM'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -177,7 +181,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','INT'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'INT'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -193,7 +197,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','SIGN'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'SIGN'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -209,7 +213,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','POWER'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'POWER'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -225,7 +229,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','logBase'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'logBase'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -241,7 +245,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','MOD'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'MOD'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -258,7 +262,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','MDETERM'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'MDETERM'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -275,7 +279,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','MINVERSE'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'MINVERSE'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -292,7 +296,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','MMULT'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'MMULT'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -308,7 +312,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','MULTINOMIAL'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'MULTINOMIAL'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -324,9 +328,9 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        \PHPExcel\Calculation::setArrayReturnType(\PHPExcel\Calculation::RETURN_ARRAY_AS_VALUE);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','MROUND'), $args);
-        \PHPExcel\Calculation::setArrayReturnType(\PHPExcel\Calculation::RETURN_ARRAY_AS_ARRAY);
+        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_VALUE);
+        $result = call_user_func_array(array(MathTrig::class,'MROUND'), $args);
+        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -342,7 +346,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','PRODUCT'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'PRODUCT'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -358,7 +362,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','QUOTIENT'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'QUOTIENT'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -374,7 +378,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','ROUNDUP'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'ROUNDUP'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -390,7 +394,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','ROUNDDOWN'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'ROUNDDOWN'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -406,7 +410,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','SERIESSUM'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'SERIESSUM'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -422,7 +426,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','SUMSQ'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'SUMSQ'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -438,7 +442,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','TRUNC'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'TRUNC'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -454,7 +458,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','ROMAN'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'ROMAN'), $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -470,7 +474,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig','SQRTPI'), $args);
+        $result = call_user_func_array(array(MathTrig::class,'SQRTPI'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -486,7 +490,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\MathTrig', 'SUMIF'), $args);
+        $result = call_user_func_array(array(MathTrig::class, 'SUMIF'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 

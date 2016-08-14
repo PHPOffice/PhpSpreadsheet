@@ -2,6 +2,8 @@
 
 namespace PhpSpreadsheet\Tests\Shared;
 
+use PHPExcel\Shared\TimeZone;
+
 class TimeZoneTest extends \PHPUnit_Framework_TestCase
 {
     public function testSetTimezone()
@@ -15,7 +17,7 @@ class TimeZoneTest extends \PHPUnit_Framework_TestCase
         );
 
         foreach ($timezoneValues as $timezoneValue) {
-            $result = call_user_func(array('\PHPExcel\Shared\TimeZone','setTimezone'), $timezoneValue);
+            $result = call_user_func(array(TimeZone::class,'setTimezone'), $timezoneValue);
             $this->assertTrue($result);
         }
     }
@@ -23,7 +25,7 @@ class TimeZoneTest extends \PHPUnit_Framework_TestCase
     public function testSetTimezoneWithInvalidValue()
     {
         $unsupportedTimezone = 'Etc/GMT+10';
-        $result = call_user_func(array('\PHPExcel\Shared\TimeZone','setTimezone'), $unsupportedTimezone);
+        $result = call_user_func(array(TimeZone::class,'setTimezone'), $unsupportedTimezone);
         $this->assertFalse($result);
     }
 }

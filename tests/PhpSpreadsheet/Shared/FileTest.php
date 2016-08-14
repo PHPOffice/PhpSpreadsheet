@@ -2,13 +2,15 @@
 
 namespace PhpSpreadsheet\Tests\Shared;
 
+use PHPExcel\Shared\File;
+
 class FileTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetUseUploadTempDirectory()
     {
         $expectedResult = false;
 
-        $result = call_user_func(array('\PHPExcel\Shared\File','getUseUploadTempDirectory'));
+        $result = call_user_func(array(File::class,'getUseUploadTempDirectory'));
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -20,9 +22,9 @@ class FileTest extends \PHPUnit_Framework_TestCase
         );
 
         foreach ($useUploadTempDirectoryValues as $useUploadTempDirectoryValue) {
-            call_user_func(array('\PHPExcel\Shared\File','setUseUploadTempDirectory'), $useUploadTempDirectoryValue);
+            call_user_func(array(File::class,'setUseUploadTempDirectory'), $useUploadTempDirectoryValue);
 
-            $result = call_user_func(array('\PHPExcel\Shared\File','getUseUploadTempDirectory'));
+            $result = call_user_func(array(File::class,'getUseUploadTempDirectory'));
             $this->assertEquals($useUploadTempDirectoryValue, $result);
         }
     }

@@ -1,6 +1,8 @@
 <?php
 
-namespace PHPExcel;
+namespace PhpSpreadsheet\Tests;
+
+use PHPExcel\ReferenceHelper;
 
 class ReferenceHelperTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,7 +26,7 @@ class ReferenceHelperTest extends \PHPUnit_Framework_TestCase
             'BZA','BZB','BZZ'
         ];
         shuffle($columnBase);
-        usort($columnBase, array('\\PHPExcel\\ReferenceHelper','columnSort'));
+        usort($columnBase, array(ReferenceHelper::class,'columnSort'));
         foreach ($columnBase as $key => $value) {
             $this->assertEquals($columnExpectedResult[$key], $value);
         }
@@ -46,7 +48,7 @@ class ReferenceHelperTest extends \PHPUnit_Framework_TestCase
         ];
         shuffle($columnBase);
         $columnExpectedResult = array_reverse($columnExpectedResult);
-        usort($columnBase, array('\\PHPExcel\\ReferenceHelper','columnReverseSort'));
+        usort($columnBase, array(ReferenceHelper::class,'columnReverseSort'));
         foreach ($columnBase as $key => $value) {
             $this->assertEquals($columnExpectedResult[$key], $value);
         }

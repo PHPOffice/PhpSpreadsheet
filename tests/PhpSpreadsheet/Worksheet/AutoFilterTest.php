@@ -3,6 +3,9 @@
 namespace PhpSpreadsheet\Tests\Worksheet;
 
 use PHPExcel\Worksheet\AutoFilter;
+use PHPExcel\Worksheet\AutoFilter\Column;
+use PHPExcel\Worksheet;
+use PHPExcel\CachedObjectStorage\Memory;
 
 class AutoFilterTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,17 +15,19 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
 
     private $mockWorksheetObject;
 
+    private $mockCacheController;
+
     public function setUp()
     {
-        $this->mockWorksheetObject = $this->getMockBuilder('\\PHPExcel\\Worksheet')
+        $this->mockWorksheetObject = $this->getMockBuilder(Worksheet::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->_mockCacheController = $this->getMockBuilder('\\PHPExcel\\CachedObjectStorage\\Memory')
+        $this->mockCacheController = $this->getMockBuilder(Memory::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->mockWorksheetObject->expects($this->any())
             ->method('getCellCacheController')
-            ->will($this->returnValue($this->_mockCacheController));
+            ->will($this->returnValue($this->mockCacheController));
 
         $this->testAutoFilterObject = new AutoFilter(
             $this->testInitialRange,
@@ -42,14 +47,14 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
     public function testGetParent()
     {
         $result = $this->testAutoFilterObject->getParent();
-        $this->assertInstanceOf('\\PHPExcel\\Worksheet', $result);
+        $this->assertInstanceOf(Worksheet::class, $result);
     }
 
     public function testSetParent()
     {
         //  Setters return the instance to implement the fluent interface
         $result = $this->testAutoFilterObject->setParent($this->mockWorksheetObject);
-        $this->assertInstanceOf('\\PHPExcel\\Worksheet\\AutoFilter', $result);
+        $this->assertInstanceOf(AutoFilter::class, $result);
     }
 
     public function testGetRange()
@@ -71,7 +76,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         foreach ($ranges as $actualRange => $fullRange) {
             //  Setters return the instance to implement the fluent interface
             $result = $this->testAutoFilterObject->setRange($fullRange);
-            $this->assertInstanceOf('\\PHPExcel\\Worksheet\\AutoFilter', $result);
+            $this->assertInstanceOf(AutoFilter::class, $result);
 
             //  Result should be the new autofilter range
             $result = $this->testAutoFilterObject->getRange();
@@ -85,7 +90,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
 
         //  Setters return the instance to implement the fluent interface
         $result = $this->testAutoFilterObject->setRange();
-        $this->assertInstanceOf('\\PHPExcel\\Worksheet\\AutoFilter', $result);
+        $this->assertInstanceOf(AutoFilter::class, $result);
 
         //  Result should be a clear range
         $result = $this->testAutoFilterObject->getRange();
@@ -142,7 +147,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
 
         //  Setters return the instance to implement the fluent interface
         $result = $this->testAutoFilterObject->setColumn($expectedResult);
-        $this->assertInstanceOf('\\PHPExcel\\Worksheet\\AutoFilter', $result);
+        $this->assertInstanceOf(AutoFilter::class, $result);
 
         $result = $this->testAutoFilterObject->getColumns();
         //  Result should be an array of \PHPExcel\Worksheet\AutoFilter\Column
@@ -150,7 +155,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $result);
         $this->assertEquals(1, count($result));
         $this->assertArrayHasKey($expectedResult, $result);
-        $this->assertInstanceOf('\\PHPExcel\\Worksheet\\AutoFilter\\Column', $result[$expectedResult]);
+        $this->assertInstanceOf(Column::class, $result[$expectedResult]);
     }
 
     /**
@@ -170,7 +175,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
 
         //  Setters return the instance to implement the fluent interface
         $result = $this->testAutoFilterObject->setColumn($columnObject);
-        $this->assertInstanceOf('\\PHPExcel\\Worksheet\\AutoFilter', $result);
+        $this->assertInstanceOf(AutoFilter::class, $result);
 
         $result = $this->testAutoFilterObject->getColumns();
         //  Result should be an array of \PHPExcel\Worksheet\AutoFilter\Column
@@ -178,7 +183,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $result);
         $this->assertEquals(1, count($result));
         $this->assertArrayHasKey($expectedResult, $result);
-        $this->assertInstanceOf('\\PHPExcel\\Worksheet\\AutoFilter\\Column', $result[$expectedResult]);
+        $this->assertInstanceOf(Column::class, $result[$expectedResult]);
     }
 
     /**
@@ -218,7 +223,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(count($columnIndexes), count($result));
         foreach ($columnIndexes as $columnIndex) {
             $this->assertArrayHasKey($columnIndex, $result);
-            $this->assertInstanceOf('\\PHPExcel\\Worksheet\\AutoFilter\\Column', $result[$columnIndex]);
+            $this->assertInstanceOf(Column::class, $result[$columnIndex]);
         }
     }
 
@@ -234,7 +239,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         //    get a \PHPExcel\Worksheet\AutoFilter\Column object returned
         foreach ($columnIndexes as $columnIndex) {
             $result = $this->testAutoFilterObject->getColumn($columnIndex);
-            $this->assertInstanceOf('\\PHPExcel\\Worksheet\\AutoFilter\\Column', $result);
+            $this->assertInstanceOf(Column::class, $result);
         }
     }
 
@@ -250,7 +255,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         //    get a \PHPExcel\Worksheet\AutoFilter\Column object returned
         foreach ($columnIndexes as $columnIndex => $columnID) {
             $result = $this->testAutoFilterObject->getColumnByOffset($columnIndex);
-            $this->assertInstanceOf('\\PHPExcel\\Worksheet\\AutoFilter\\Column', $result);
+            $this->assertInstanceOf(Column::class, $result);
             $this->assertEquals($result->getColumnIndex(), $columnID);
         }
     }
@@ -260,7 +265,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         //  If we request a specific column by its column ID, we should
         //    get a \PHPExcel\Worksheet\AutoFilter\Column object returned
         $result = $this->testAutoFilterObject->getColumn('K');
-        $this->assertInstanceOf('\\PHPExcel\\Worksheet\\AutoFilter\\Column', $result);
+        $this->assertInstanceOf(Column::class, $result);
     }
 
     /**
@@ -284,7 +289,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
 
         //  Setters return the instance to implement the fluent interface
         $result = $this->testAutoFilterObject->setRange();
-        $this->assertInstanceOf('\\PHPExcel\\Worksheet\\AutoFilter', $result);
+        $this->assertInstanceOf(AutoFilter::class, $result);
 
         //  Range should be cleared
         $result = $this->testAutoFilterObject->getRange();
@@ -313,7 +318,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
 
         //  Setters return the instance to implement the fluent interface
         $result = $this->testAutoFilterObject->setRange($expectedResult);
-        $this->assertInstanceOf('\\PHPExcel\\Worksheet\\AutoFilter', $result);
+        $this->assertInstanceOf(AutoFilter::class, $result);
 
         //  Range should be correctly set
         $result = $this->testAutoFilterObject->getRange();
@@ -335,6 +340,6 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         }
 
         $result = clone $this->testAutoFilterObject;
-        $this->assertInstanceOf('\\PHPExcel\\Worksheet\\AutoFilter', $result);
+        $this->assertInstanceOf(AutoFilter::class, $result);
     }
 }

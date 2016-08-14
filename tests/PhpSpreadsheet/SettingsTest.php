@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPExcel;
+namespace PhpSpreadsheet\Tests;
 
 class SettingsTest extends \PHPUnit_Framework_TestCase
 {

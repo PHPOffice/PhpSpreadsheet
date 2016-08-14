@@ -2,6 +2,8 @@
 
 namespace PhpSpreadsheet\Tests\Cell;
 
+use PHPExcel\Cell\DataType;
+
 class DataTypeTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -15,7 +17,7 @@ class DataTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testGetErrorCodes()
     {
-        $result = call_user_func(array('\\PHPExcel\\Cell\\DataType','getErrorCodes'));
+        $result = call_user_func(array(DataType::class,'getErrorCodes'));
         $this->assertInternalType('array', $result);
         $this->assertGreaterThan(0, count($result));
         $this->assertArrayHasKey('#NULL!', $result);

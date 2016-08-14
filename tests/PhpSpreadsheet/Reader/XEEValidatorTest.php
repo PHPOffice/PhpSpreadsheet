@@ -2,6 +2,8 @@
 
 namespace PhpSpreadsheet\Tests\Reader;
 
+use PHPExcel\Reader\BaseReader;
+
 class XEEValidatorTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -10,7 +12,7 @@ class XEEValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidXML($filename)
     {
-        $reader = $this->getMockForAbstractClass('\PHPExcel\Reader\BaseReader');
+        $reader = $this->getMockForAbstractClass(BaseReader::class);
         $expectedResult = 'FAILURE: Should throw an Exception rather than return a value';
         $result = $reader->securityScanFile($filename);
         $this->assertEquals($expectedResult, $result);
@@ -30,7 +32,7 @@ class XEEValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidXML($filename, $expectedResult)
     {
-        $reader = $this->getMockForAbstractClass('\PHPExcel\Reader\BaseReader');
+        $reader = $this->getMockForAbstractClass(BaseReader::class);
         $result = $reader->securityScanFile($filename);
         $this->assertEquals($expectedResult, $result);
     }

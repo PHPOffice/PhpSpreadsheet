@@ -2,42 +2,44 @@
 
 namespace PhpSpreadsheet\Tests\Worksheet\AutoFilter\Column;
 
+use PHPExcel\Worksheet\AutoFilter\Column;
+
 class RuleTest extends \PHPUnit_Framework_TestCase
 {
-    private $_testAutoFilterRuleObject;
+    private $testAutoFilterRuleObject;
 
-    private $_mockAutoFilterColumnObject;
+    private $mockAutoFilterColumnObject;
 
     public function setUp()
     {
-        $this->_mockAutoFilterColumnObject = $this->getMockBuilder('\PHPExcel\Worksheet\AutoFilter\Column')
+        $this->mockAutoFilterColumnObject = $this->getMockBuilder(Column::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->_mockAutoFilterColumnObject->expects($this->any())
+        $this->mockAutoFilterColumnObject->expects($this->any())
             ->method('testColumnInRange')
             ->will($this->returnValue(3));
 
-        $this->_testAutoFilterRuleObject = new \PHPExcel\Worksheet\AutoFilter\Column\Rule(
-            $this->_mockAutoFilterColumnObject
+        $this->testAutoFilterRuleObject = new Column\Rule(
+            $this->mockAutoFilterColumnObject
         );
     }
 
     public function testGetRuleType()
     {
-        $result = $this->_testAutoFilterRuleObject->getRuleType();
-        $this->assertEquals(\PHPExcel\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_FILTER, $result);
+        $result = $this->testAutoFilterRuleObject->getRuleType();
+        $this->assertEquals(Column\Rule::AUTOFILTER_RULETYPE_FILTER, $result);
     }
 
     public function testSetRuleType()
     {
-        $expectedResult = \PHPExcel\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DATEGROUP;
+        $expectedResult = Column\Rule::AUTOFILTER_RULETYPE_DATEGROUP;
 
         //    Setters return the instance to implement the fluent interface
-        $result = $this->_testAutoFilterRuleObject->setRuleType($expectedResult);
-        $this->assertInstanceOf('\PHPExcel\Worksheet\AutoFilter\Column\Rule', $result);
+        $result = $this->testAutoFilterRuleObject->setRuleType($expectedResult);
+        $this->assertInstanceOf(Column\Rule::class, $result);
 
-        $result = $this->_testAutoFilterRuleObject->getRuleType();
+        $result = $this->testAutoFilterRuleObject->getRuleType();
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -46,59 +48,59 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $expectedResult = 100;
 
         //    Setters return the instance to implement the fluent interface
-        $result = $this->_testAutoFilterRuleObject->setValue($expectedResult);
-        $this->assertInstanceOf('\PHPExcel\Worksheet\AutoFilter\Column\Rule', $result);
+        $result = $this->testAutoFilterRuleObject->setValue($expectedResult);
+        $this->assertInstanceOf(Column\Rule::class, $result);
 
-        $result = $this->_testAutoFilterRuleObject->getValue();
+        $result = $this->testAutoFilterRuleObject->getValue();
         $this->assertEquals($expectedResult, $result);
     }
 
     public function testGetOperator()
     {
-        $result = $this->_testAutoFilterRuleObject->getOperator();
-        $this->assertEquals(\PHPExcel\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL, $result);
+        $result = $this->testAutoFilterRuleObject->getOperator();
+        $this->assertEquals(Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL, $result);
     }
 
     public function testSetOperator()
     {
-        $expectedResult = \PHPExcel\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_LESSTHAN;
+        $expectedResult = Column\Rule::AUTOFILTER_COLUMN_RULE_LESSTHAN;
 
         //    Setters return the instance to implement the fluent interface
-        $result = $this->_testAutoFilterRuleObject->setOperator($expectedResult);
-        $this->assertInstanceOf('\PHPExcel\Worksheet\AutoFilter\Column\Rule', $result);
+        $result = $this->testAutoFilterRuleObject->setOperator($expectedResult);
+        $this->assertInstanceOf(Column\Rule::class, $result);
 
-        $result = $this->_testAutoFilterRuleObject->getOperator();
+        $result = $this->testAutoFilterRuleObject->getOperator();
         $this->assertEquals($expectedResult, $result);
     }
 
     public function testSetGrouping()
     {
-        $expectedResult = \PHPExcel\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DATEGROUP_MONTH;
+        $expectedResult = Column\Rule::AUTOFILTER_RULETYPE_DATEGROUP_MONTH;
 
         //    Setters return the instance to implement the fluent interface
-        $result = $this->_testAutoFilterRuleObject->setGrouping($expectedResult);
-        $this->assertInstanceOf('\PHPExcel\Worksheet\AutoFilter\Column\Rule', $result);
+        $result = $this->testAutoFilterRuleObject->setGrouping($expectedResult);
+        $this->assertInstanceOf(Column\Rule::class, $result);
 
-        $result = $this->_testAutoFilterRuleObject->getGrouping();
+        $result = $this->testAutoFilterRuleObject->getGrouping();
         $this->assertEquals($expectedResult, $result);
     }
 
     public function testGetParent()
     {
-        $result = $this->_testAutoFilterRuleObject->getParent();
-        $this->assertInstanceOf('\PHPExcel\Worksheet\AutoFilter\Column', $result);
+        $result = $this->testAutoFilterRuleObject->getParent();
+        $this->assertInstanceOf(Column::class, $result);
     }
 
     public function testSetParent()
     {
         //    Setters return the instance to implement the fluent interface
-        $result = $this->_testAutoFilterRuleObject->setParent($this->_mockAutoFilterColumnObject);
-        $this->assertInstanceOf('\PHPExcel\Worksheet\AutoFilter\Column\Rule', $result);
+        $result = $this->testAutoFilterRuleObject->setParent($this->mockAutoFilterColumnObject);
+        $this->assertInstanceOf(Column\Rule::class, $result);
     }
 
     public function testClone()
     {
-        $result = clone $this->_testAutoFilterRuleObject;
-        $this->assertInstanceOf('\PHPExcel\Worksheet\AutoFilter\Column\Rule', $result);
+        $result = clone $this->testAutoFilterRuleObject;
+        $this->assertInstanceOf(Column\Rule::class, $result);
     }
 }

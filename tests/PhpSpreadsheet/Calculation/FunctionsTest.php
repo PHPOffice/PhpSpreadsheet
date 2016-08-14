@@ -2,59 +2,61 @@
 
 namespace PhpSpreadsheet\Tests\Calculation;
 
+use PHPExcel\Calculation\Functions;
+
 class FunctionsTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()
     {
-        \PHPExcel\Calculation\Functions::setCompatibilityMode(\PHPExcel\Calculation\Functions::COMPATIBILITY_EXCEL);
+        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 
     public function testDUMMY()
     {
-        $result = \PHPExcel\Calculation\Functions::DUMMY();
+        $result = Functions::DUMMY();
         $this->assertEquals('#Not Yet Implemented', $result);
     }
 
     public function testDIV0()
     {
-        $result = \PHPExcel\Calculation\Functions::DIV0();
+        $result = Functions::DIV0();
         $this->assertEquals('#DIV/0!', $result);
     }
 
     public function testNA()
     {
-        $result = \PHPExcel\Calculation\Functions::NA();
+        $result = Functions::NA();
         $this->assertEquals('#N/A', $result);
     }
 
     public function testNAN()
     {
-        $result = \PHPExcel\Calculation\Functions::NAN();
+        $result = Functions::NAN();
         $this->assertEquals('#NUM!', $result);
     }
 
     public function testNAME()
     {
-        $result = \PHPExcel\Calculation\Functions::NAME();
+        $result = Functions::NAME();
         $this->assertEquals('#NAME?', $result);
     }
 
     public function testREF()
     {
-        $result = \PHPExcel\Calculation\Functions::REF();
+        $result = Functions::REF();
         $this->assertEquals('#REF!', $result);
     }
 
     public function testNULL()
     {
-        $result = \PHPExcel\Calculation\Functions::null();
+        $result = Functions::null();
         $this->assertEquals('#NULL!', $result);
     }
 
     public function testVALUE()
     {
-        $result = \PHPExcel\Calculation\Functions::VALUE();
+        $result = Functions::VALUE();
         $this->assertEquals('#VALUE!', $result);
     }
 
@@ -65,7 +67,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\Functions','isBlank'), $args);
+        $result = call_user_func_array(array(Functions::class,'isBlank'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -81,7 +83,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\Functions','isErr'), $args);
+        $result = call_user_func_array(array(Functions::class,'isErr'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -97,7 +99,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\Functions','isError'), $args);
+        $result = call_user_func_array(array(Functions::class,'isError'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -113,7 +115,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\Functions','errorType'), $args);
+        $result = call_user_func_array(array(Functions::class,'errorType'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -129,7 +131,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\Functions','isLogical'), $args);
+        $result = call_user_func_array(array(Functions::class,'isLogical'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -145,7 +147,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\Functions','isNa'), $args);
+        $result = call_user_func_array(array(Functions::class,'isNa'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -161,7 +163,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\Functions','isNumber'), $args);
+        $result = call_user_func_array(array(Functions::class,'isNumber'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -177,7 +179,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\Functions','isText'), $args);
+        $result = call_user_func_array(array(Functions::class,'isText'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -193,7 +195,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\Functions','isNonText'), $args);
+        $result = call_user_func_array(array(Functions::class,'isNonText'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -209,7 +211,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\Functions','isEven'), $args);
+        $result = call_user_func_array(array(Functions::class,'isEven'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -225,7 +227,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\Functions','isOdd'), $args);
+        $result = call_user_func_array(array(Functions::class,'isOdd'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -241,7 +243,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\Functions','TYPE'), $args);
+        $result = call_user_func_array(array(Functions::class,'TYPE'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -257,7 +259,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array('\PHPExcel\Calculation\Functions','n'), $args);
+        $result = call_user_func_array(array(Functions::class,'n'), $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 

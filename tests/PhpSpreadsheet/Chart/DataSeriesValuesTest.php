@@ -2,6 +2,9 @@
 
 namespace PhpSpreadsheet\Tests\Chart;
 
+use PHPExcel\Chart\DataSeriesValues;
+use PHPExcel\Exception;
+
 class DataSeriesValuesTest extends \PHPUnit_Framework_TestCase
 {
     public function testSetDataType()
@@ -11,21 +14,21 @@ class DataSeriesValuesTest extends \PHPUnit_Framework_TestCase
             'String'
         );
 
-        $testInstance = new \PHPExcel\Chart\DataSeriesValues;
+        $testInstance = new DataSeriesValues;
 
         foreach ($dataTypeValues as $dataTypeValue) {
             $result = $testInstance->setDataType($dataTypeValue);
-            $this->assertTrue($result instanceof \PHPExcel\Chart\DataSeriesValues);
+            $this->assertTrue($result instanceof DataSeriesValues);
         }
     }
 
     public function testSetInvalidDataTypeThrowsException()
     {
-        $testInstance = new \PHPExcel\Chart\DataSeriesValues;
+        $testInstance = new DataSeriesValues;
 
         try {
             $result = $testInstance->setDataType('BOOLEAN');
-        } catch (\PHPExcel\Exception $e) {
+        } catch (Exception $e) {
             $this->assertEquals($e->getMessage(), 'Invalid datatype for chart data series values');
             return;
         }
@@ -36,7 +39,7 @@ class DataSeriesValuesTest extends \PHPUnit_Framework_TestCase
     {
         $dataTypeValue = 'String';
 
-        $testInstance = new \PHPExcel\Chart\DataSeriesValues;
+        $testInstance = new DataSeriesValues;
         $setValue = $testInstance->setDataType($dataTypeValue);
 
         $result = $testInstance->getDataType();
