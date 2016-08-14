@@ -1,35 +1,39 @@
-# PHPSpreadsheet - OpenXML - Read, Write and Create spreadsheet documents in PHP - Spreadsheet engine
-PHPSpreadsheet is a library written in pure PHP and providing a set of classes that allow you to write to and read from different spreadsheet file formats, like Excel (BIFF) .xls, Excel 2007 (OfficeOpenXML) .xlsx, CSV, Libre/OpenOffice Calc .ods, Gnumeric, PDF, HTML, ... This project is built around Microsoft's OpenXML standard and PHP.
+# PhpSpreadsheet - OpenXML - Read, Write and Create spreadsheet documents in PHP - Spreadsheet engine
 
-Master: [![Build Status](https://travis-ci.org/PHPOffice/PhpSpreadsheet.png?branch=master)](http://travis-ci.org/PHPOffice/PhpSpreadsheet)
-
-Develop: [![Build Status](https://travis-ci.org/PHPOffice/PhpSpreadsheet.png?branch=develop)](http://travis-ci.org/PHPOffice/PhpSpreadsheet)
-
+Master:
+[![Build Status](https://travis-ci.org/PHPOffice/PhpSpreadsheet.svg?branch=master)](https://travis-ci.org/PHPOffice/PhpSpreadsheet)
+[![Code Quality](https://scrutinizer-ci.com/g/PHPOffice/PhpSpreadsheet/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/PHPOffice/PhpSpreadsheet/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/PHPOffice/PhpSpreadsheet/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/PHPOffice/PhpSpreadsheet/?branch=master)
+[![Total Downloads](https://poser.pugx.org/phpoffice/phpspreadsheet/downloads.png)](https://packagist.org/packages/phpoffice/phpspreadsheet)
+[![Latest Stable Version](https://poser.pugx.org/phpoffice/phpspreadsheet/v/stable.png)](https://packagist.org/packages/phpoffice/phpspreadsheet)
+[![License](https://poser.pugx.org/phpoffice/phpspreadsheet/license.png)](https://packagist.org/packages/phpoffice/phpspreadsheet)
 [![Join the chat at https://gitter.im/PHPOffice/PhpSpreadsheet](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/PHPOffice/PhpSpreadsheet)
+
+Develop:
+[![Build Status](https://travis-ci.org/PHPOffice/PhpSpreadsheet.png?branch=develop)](http://travis-ci.org/PHPOffice/PhpSpreadsheet)
+[![Code Quality](https://scrutinizer-ci.com/g/PHPOffice/PhpSpreadsheet/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/PHPOffice/PhpSpreadsheet/?branch=develop)
+[![Code Coverage](https://scrutinizer-ci.com/g/PHPOffice/PhpSpreadsheet/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/PHPOffice/PhpSpreadsheet/?branch=develop)
+
+PhpSpreadsheet is a library written in pure PHP and providing a set of classes that allow you to write to and read from different spreadsheet file formats, like Excel (BIFF) .xls, Excel 2007 (OfficeOpenXML) .xlsx, CSV, Libre/OpenOffice Calc .ods, Gnumeric, PDF, HTML, ... This project is built around Microsoft's OpenXML standard and PHP.
 
 ## File Formats supported
 
-### Reading
- * BIFF 5-8 (.xls) Excel 95 and above
- * Office Open XML (.xlsx) Excel 2007 and above
- * SpreadsheetML (.xml) Excel 2003
- * Open Document Format/OASIS (.ods)
- * Gnumeric
- * HTML
- * SYLK
- * CSV
-
-### Writing
- * BIFF 8 (.xls) Excel 95 and above
- * Office Open XML (.xlsx) Excel 2007 and above
- * HTML
- * CSV
- * PDF (using either the tcPDF, DomPDF or mPDF libraries, which need to be installed separately)
-
+|Format                                      |Reading|Writing|
+|--------------------------------------------|:-----:|:-----:|
+|Open Document Format/OASIS (.ods)           |   ✓   |   ✓   |
+|Office Open XML (.xlsx) Excel 2007 and above|   ✓   |   ✓   |
+|BIFF 8 (.xls) Excel 97 and above            |   ✓   |   ✓   |
+|BIFF 5 (.xls) Excel 95                      |   ✓   |       |
+|SpreadsheetML (.xml) Excel 2003             |   ✓   |       |
+|Gnumeric                                    |   ✓   |       |
+|HTML                                        |   ✓   |   ✓   |
+|SYLK                                        |   ✓   |       |
+|CSV                                         |   ✓   |   ✓   |
+|PDF (using either the tcPDF, DomPDF or mPDF libraries, which need to be installed separately)|       |   ✓   |
 
 ## Requirements
  * PHP version 5.5.0 or higher
- * PHP extension php_zip enabled (required if you need PHPSpreadsheet to handle .xlsx .ods or .gnumeric files)
+ * PHP extension php_zip enabled (required if you need PhpSpreadsheet to handle .xlsx .ods or .gnumeric files)
  * PHP extension php_xml enabled
  * PHP extension php_gd2 enabled (optional, but required for exact column width autocalculation)
 
@@ -46,4 +50,4 @@ If you would like to contribute, here are some notes and guidlines:
 
 
 ## License
-PHPSpreadsheet is licensed under [LGPL (GNU LESSER GENERAL PUBLIC LICENSE)](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/license.md)
+PhpSpreadsheet is licensed under [LGPL (GNU LESSER GENERAL PUBLIC LICENSE)](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/license.md)
