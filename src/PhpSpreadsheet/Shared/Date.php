@@ -209,41 +209,57 @@ class Date
             ->format('U');
     }
 
-
     /**
-     *    Convert a date from PHP to Excel
+     *    Convert a date from PHP to an MS Excel serialized date/time value
      *
-     *    @param    mixed        $dateValue            PHP serialized date/time or date object
-     *    @param    boolean        $adjustToTimezone    Flag indicating whether $dateValue should be treated as
-     *                                                    a UST timestamp, or adjusted to UST
-     *    @param    string         $timezone            The timezone for finding the adjustment from UST
-     *    @return    mixed        Excel date/time value
-     *                            or boolean FALSE on failure
+     *    @param    mixed            $dateValue            PHP serialized date/time or date object
+     *    @return   float|boolean    Excel date/time value
+     *                                  or boolean FALSE on failure
      */
-    public static function PHPToExcel($dateValue = 0, $adjustToTimezone = false, $timezone = null)
+    public static function PHPToExcel($dateValue = 0)
     {
-        $saveTimeZone = date_default_timezone_get();
-        date_default_timezone_set('UTC');
-
-        $timezoneAdjustment = ($adjustToTimezone) ?
-            PHPExcel_Shared_TimeZone::getTimezoneAdjustment($timezone ? $timezone : $saveTimeZone, $dateValue) :
-            0;
-
-        $retValue = false;
         if ((is_object($dateValue)) && ($dateValue instanceof \DateTimeInterface)) {
-            $dateValue->add(new \DateInterval('PT' . $timezoneAdjustment . 'S'));
-            $retValue = self::formattedPHPToExcel($dateValue->format('Y'), $dateValue->format('m'), $dateValue->format('d'), $dateValue->format('H'), $dateValue->format('i'), $dateValue->format('s'));
+            return self::DateTimeToExcel($dateValue);
         } elseif (is_numeric($dateValue)) {
-            $dateValue += $timezoneAdjustment;
-            $retValue = self::formattedPHPToExcel(date('Y', $dateValue), date('m', $dateValue), date('d', $dateValue), date('H', $dateValue), date('i', $dateValue), date('s', $dateValue));
+            return self::TimestampToExcel($dateValue);
         } elseif (is_string($dateValue)) {
-            $retValue = self::stringToExcel($dateValue);
+            return self::stringToExcel($dateValue);
         }
-        date_default_timezone_set($saveTimeZone);
 
-        return $retValue;
+        return false;
     }
 
+    /**
+     *    Convert a DateTime object to an MS Excel serialized date/time value
+     *
+     *    @param    \DateTimeInterface    $dateValue            PHP DateTime object
+     *    @return   float                 MS Excel serialized date/time value
+     */
+    public static function dateTimeToExcel(\DateTimeInterface $dateValue = null)
+    {
+        return self::formattedPHPToExcel(
+            $dateValue->format('Y'),
+            $dateValue->format('m'),
+            $dateValue->format('d'),
+            $dateValue->format('H'),
+            $dateValue->format('i'),
+            $dateValue->format('s')
+        );
+    }
+
+    /**
+     *    Convert a Unix timestamp to an MS Excel serialized date/time value
+     *
+     *    @param    \DateTimeInterface    $dateValue            PHP DateTime object
+     *    @return   float                 MS Excel serialized date/time value
+     */
+    public static function timestampToExcel($dateValue = 0)
+    {
+        if (!is_numeric($dateValue)) {
+            return false;
+        }
+        return self::DateTimeToExcel(new \DateTime('@' . $dateValue));
+    }
 
     /**
      * formattedPHPToExcel
