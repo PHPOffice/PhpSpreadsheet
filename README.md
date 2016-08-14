@@ -37,13 +37,15 @@ PhpSpreadsheet is a library written in pure PHP and providing a set of classes t
  * PHP extension php_xml enabled
  * PHP extension php_gd2 enabled (optional, but required for exact column width autocalculation)
 
+## PHP Version Support
+ * Support for PHP versions will only be maintained for a period of six months beyond the end-of-life of that PHP version
 
 ## Want to contribute?
 
 If you would like to contribute, here are some notes and guidlines:
- - All new development happens on the 1.9 branch, so it is always the most up-to-date
+ - All new development happens on feature/fix branches referenced with the github issue number, and are then merged to the develop branch; so the develop branch is always the most up-to-date, working code
  - The master branch only contains tagged releases
- - If you are going to be submitting a pull request, please fork from 1.9, and submit your pull request back to that 1.9 branch
+ - If you are going to be submitting a pull request, please fork from develop, and submit your pull request back as a fix/feature branch referencing the github issue number
  - Wherever possible, code changes should conform to PSR-2 standards
  - [Helpful article about forking](https://help.github.com/articles/fork-a-repo/ "Forking a Github repository")
  - [Helpful article about pull requests](https://help.github.com/articles/using-pull-requests/ "Pull Requests")
