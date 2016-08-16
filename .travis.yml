@@ -28,7 +28,7 @@ script:
   ## PHP_CodeSniffer
   - ./vendor/bin/phpcs --report-width=200 --report-summary  --report-full src/ tests/ --standard=PSR2 -n
   ## PHP-CS-Fixer
-  - ./vendor/bin/php-cs-fixer fix . --diff
+  - ./vendor/bin/php-cs-fixer fix --diff --verbose
   ## PHPUnit
   - ./vendor/bin/phpunit --coverage-clover coverage-clover.xml
 
