@@ -1,8 +1,8 @@
 <?php
 /**
- * PHPExcel
+ * PhpSpreadsheet
  *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2015 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,9 +18,9 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @package    PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -34,64 +34,74 @@ define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 date_default_timezone_set('Europe/London');
 
-/** Include PHPExcel */
+/** Include PhpSpreadsheet */
 require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 
-// Create new PHPExcel object
-echo date('H:i:s') , " Create new PHPExcel object" , EOL;
-$objPHPExcel = new \PHPExcel\Spreadsheet();
+// Create new PhpSpreadsheet object
+echo date('H:i:s') , " Create new PhpSpreadsheet object" , EOL;
+$objPhpSpreadsheet = new \PhpSpreadsheet\Spreadsheet();
 
 // Set document properties
 echo date('H:i:s') , " Set document properties" , EOL;
-$objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
-							 ->setLastModifiedBy("Maarten Balliauw")
-							 ->setTitle("Office 2007 XLSX Test Document")
-							 ->setSubject("Office 2007 XLSX Test Document")
-							 ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
-							 ->setKeywords("office 2007 openxml php")
-							 ->setCategory("Test result file");
+$objPhpSpreadsheet->getProperties()->setCreator("Maarten Balliauw")
+    ->setLastModifiedBy("Maarten Balliauw")
+	->setTitle("Office 2007 XLSX Test Document")
+	->setSubject("Office 2007 XLSX Test Document")
+	->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
+	->setKeywords("office 2007 openxml php")
+	->setCategory("Test result file");
 
 
 // Add some data, we will use printing features
 echo date('H:i:s') , " Add some data" , EOL;
 for ($i = 1; $i < 200; $i++) {
-	$objPHPExcel->getActiveSheet()->setCellValue('A' . $i, $i);
-	$objPHPExcel->getActiveSheet()->setCellValue('B' . $i, 'Test value');
+	$objPhpSpreadsheet->getActiveSheet()->setCellValue('A' . $i, $i);
+	$objPhpSpreadsheet->getActiveSheet()->setCellValue('B' . $i, 'Test value');
 }
 
 // Set header and footer. When no different headers for odd/even are used, odd header is assumed.
 echo date('H:i:s') , " Set header/footer" , EOL;
-$objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddHeader('&L&G&C&HPlease treat this document as confidential!');
-$objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&L&B' . $objPHPExcel->getProperties()->getTitle() . '&RPage &P of &N');
+$objPhpSpreadsheet->getActiveSheet()
+    ->getHeaderFooter()
+    ->setOddHeader('&L&G&C&HPlease treat this document as confidential!');
+$objPhpSpreadsheet->getActiveSheet()
+    ->getHeaderFooter()
+    ->setOddFooter('&L&B' . $objPhpSpreadsheet->getProperties()->getTitle() . '&RPage &P of &N');
 
 // Add a drawing to the header
 echo date('H:i:s') , " Add a drawing to the header" , EOL;
-$objDrawing = new \PHPExcel\Worksheet\HeaderFooterDrawing();
-$objDrawing->setName('PHPExcel logo');
-$objDrawing->setPath('./images/phpexcel_logo.gif');
+$objDrawing = new \PhpSpreadsheet\Worksheet\HeaderFooterDrawing();
+$objDrawing->setName('PhpSpreadsheet logo');
+$objDrawing->setPath('./images/PhpSpreadsheet_logo.gif');
 $objDrawing->setHeight(36);
-$objPHPExcel->getActiveSheet()->getHeaderFooter()->addImage($objDrawing, \PHPExcel\Worksheet\HeaderFooter::IMAGE_HEADER_LEFT);
+$objPhpSpreadsheet->getActiveSheet()
+    ->getHeaderFooter()
+    ->addImage($objDrawing, \PhpSpreadsheet\Worksheet\HeaderFooter::IMAGE_HEADER_LEFT);
 
 // Set page orientation and size
 echo date('H:i:s') , " Set page orientation and size" , EOL;
-$objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(\PHPExcel\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
-$objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(\PHPExcel\Worksheet\PageSetup::PAPERSIZE_A4);
+$objPhpSpreadsheet->getActiveSheet()
+    ->getPageSetup()
+    ->setOrientation(\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+$objPhpSpreadsheet->getActiveSheet()
+    ->getPageSetup()
+    ->setPaperSize(\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
 
 // Rename worksheet
 echo date('H:i:s') , " Rename worksheet" , EOL;
-$objPHPExcel->getActiveSheet()->setTitle('Printing');
+$objPhpSpreadsheet->getActiveSheet()->setTitle('Printing');
 
 
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
-$objPHPExcel->setActiveSheetIndex(0);
+$objPhpSpreadsheet->setActiveSheetIndex(0);
 
 
 // Save Excel 2007 file
 echo date('H:i:s') , " Write to Excel2007 format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PhpSpreadsheet\IOFactory::createWriter($objPhpSpreadsheet, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;
@@ -106,7 +116,7 @@ echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 
 echo date('H:i:s') , " Write to Excel5 format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter = \PhpSpreadsheet\IOFactory::createWriter($objPhpSpreadsheet, 'Excel5');
 $objWriter->save(str_replace('.php', '.xls', __FILE__));
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;

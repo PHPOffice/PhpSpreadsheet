@@ -1,8 +1,8 @@
 <?php
 /**
- * PHPExcel
+ * PhpSpreadsheet
  *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,32 +18,31 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
 
 /** Error reporting */
 error_reporting(E_ALL);
 ini_set('display_errors', TRUE); 
-ini_set('display_startup_errors', TRUE); 
+ini_set('display_startup_errors', TRUE);
 date_default_timezone_set('Europe/London');
 
 define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
-/** Include PHPExcel */
+/** Include PhpSpreadsheet */
 require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 
-// Create new PHPExcel object
-echo date('H:i:s') , " Create new PHPExcel object" , EOL;
-$objPHPExcel = new \PHPExcel\Spreadsheet();
+// Create new PhpSpreadsheet object
+echo date('H:i:s') , " Create new PhpSpreadsheet object" , EOL;
+$objPhpSpreadsheet = new \PhpSpreadsheet\Spreadsheet();
 
 // Set document properties
 echo date('H:i:s') , " Set document properties" , EOL;
-$objPHPExcel->getProperties()
+$objPhpSpreadsheet->getProperties()
     ->setCreator("Maarten Balliauw")
 	->setLastModifiedBy("Maarten Balliauw")
 	->setTitle("Office 2007 XLSX Test Document")
@@ -54,144 +53,149 @@ $objPHPExcel->getProperties()
 
 // Set default font
 echo date('H:i:s') , " Set default font" , EOL;
-$objPHPExcel->getDefaultStyle()
+$objPhpSpreadsheet->getDefaultStyle()
     ->getFont()
     ->setName('Arial')
     ->setSize(10);
 
 // Add some data, resembling some different data types
 echo date('H:i:s') , " Add some data" , EOL;
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->setCellValue('A1', 'String')
     ->setCellValue('B1', 'Simple')
-    ->setCellValue('C1', 'PHPExcel');
+    ->setCellValue('C1', 'PhpSpreadsheet');
 
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->setCellValue('A2', 'String')
     ->setCellValue('B2', 'Symbols')
     ->setCellValue('C2', '!+&=()~§±æþ');
 
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->setCellValue('A3', 'String')
     ->setCellValue('B3', 'UTF-8')
     ->setCellValue('C3', 'Создать MS Excel Книги из PHP скриптов');
 
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->setCellValue('A4', 'Number')
     ->setCellValue('B4', 'Integer')
     ->setCellValue('C4', 12);
 
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->setCellValue('A5', 'Number')
     ->setCellValue('B5', 'Float')
     ->setCellValue('C5', 34.56);
 
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->setCellValue('A6', 'Number')
     ->setCellValue('B6', 'Negative')
     ->setCellValue('C6', -7.89);
 
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->setCellValue('A7', 'Boolean')
     ->setCellValue('B7', 'True')
     ->setCellValue('C7', true);
 
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->setCellValue('A8', 'Boolean')
     ->setCellValue('B8', 'False')
     ->setCellValue('C8', false);
 
 $dateTimeNow = time();
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->setCellValue('A9', 'Date/Time')
     ->setCellValue('B9', 'Date')
-    ->setCellValue('C9', \PHPExcel\Shared\Date::PHPToExcel( $dateTimeNow ));
-$objPHPExcel->getActiveSheet()
+    ->setCellValue('C9', \PhpSpreadsheet\Shared\Date::PHPToExcel( $dateTimeNow ));
+$objPhpSpreadsheet->getActiveSheet()
     ->getStyle('C9')
     ->getNumberFormat()
-    ->setFormatCode(\PHPExcel\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2);
+    ->setFormatCode(\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2);
 
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->setCellValue('A10', 'Date/Time')
     ->setCellValue('B10', 'Time')
-    ->setCellValue('C10', \PHPExcel\Shared\Date::PHPToExcel( $dateTimeNow ));
-$objPHPExcel->getActiveSheet()
+    ->setCellValue('C10', \PhpSpreadsheet\Shared\Date::PHPToExcel( $dateTimeNow ));
+$objPhpSpreadsheet->getActiveSheet()
     ->getStyle('C10')
     ->getNumberFormat()
-    ->setFormatCode(\PHPExcel\Style\NumberFormat::FORMAT_DATE_TIME4);
+    ->setFormatCode(\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4);
 
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->setCellValue('A11', 'Date/Time')
     ->setCellValue('B11', 'Date and Time')
-    ->setCellValue('C11', \PHPExcel\Shared\Date::PHPToExcel( $dateTimeNow ));
-$objPHPExcel->getActiveSheet()
+    ->setCellValue('C11', \PhpSpreadsheet\Shared\Date::PHPToExcel( $dateTimeNow ));
+$objPhpSpreadsheet->getActiveSheet()
     ->getStyle('C11')
     ->getNumberFormat()
-    ->setFormatCode(\PHPExcel\Style\NumberFormat::FORMAT_DATE_DATETIME);
+    ->setFormatCode(\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DATETIME);
 
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->setCellValue('A12', 'NULL')
     ->setCellValue('C12', NULL);
 
-$objRichText = new \PHPExcel\RichText();
+$objRichText = new \PhpSpreadsheet\RichText();
 $objRichText->createText('你好 ');
 
 $objPayable = $objRichText->createTextRun('你 好 吗？');
 $objPayable->getFont()->setBold(true);
 $objPayable->getFont()->setItalic(true);
-$objPayable->getFont()->setColor( new \PHPExcel\Style\Color( \PHPExcel\Style\Color::COLOR_DARKGREEN ) );
+$objPayable->getFont()->setColor( new \PhpSpreadsheet\Style\Color( \PhpSpreadsheet\Style\Color::COLOR_DARKGREEN ) );
 
 $objRichText->createText(', unless specified otherwise on the invoice.');
 
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->setCellValue('A13', 'Rich Text')
     ->setCellValue('C13', $objRichText);
 
 
-$objRichText2 = new \PHPExcel\RichText();
+$objRichText2 = new \PhpSpreadsheet\RichText();
 $objRichText2->createText("black text\n");
 
 $objRed = $objRichText2->createTextRun("red text");
-$objRed->getFont()->setColor( new \PHPExcel\Style\Color(\PHPExcel\Style\Color::COLOR_RED  ) );
+$objRed->getFont()->setColor( new \PhpSpreadsheet\Style\Color(\PhpSpreadsheet\Style\Color::COLOR_RED ) );
 
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->getCell("C14")
     ->setValue($objRichText2);
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->getStyle("C14")
     ->getAlignment()->setWrapText(true);
 
 
-$objPHPExcel->getActiveSheet()->setCellValue('A17', 'Hyperlink');
+$objPhpSpreadsheet->getActiveSheet()->setCellValue('A17', 'Hyperlink');
 
-$objPHPExcel->getActiveSheet()->setCellValue('C17', 'www.phpexcel.net');
-$objPHPExcel->getActiveSheet()->getCell('C17')->getHyperlink()->setUrl('http://www.phpexcel.net');
-$objPHPExcel->getActiveSheet()->getCell('C17')->getHyperlink()->setTooltip('Navigate to website');
+$objPhpSpreadsheet->getActiveSheet()
+    ->setCellValue('C17', 'PhpSpreadsheet Web Site');
+$objPhpSpreadsheet->getActiveSheet()
+    ->getCell('C17')
+    ->getHyperlink()
+    ->setUrl('https://github.com/PHPOffice/PhpSpreadsheet')
+    ->setTooltip('Navigate to PhpSpreadsheet website');
 
-$objPHPExcel->getActiveSheet()->setCellValue('C18', '=HYPERLINK("mailto:abc@def.com","abc@def.com")');
+$objPhpSpreadsheet->getActiveSheet()
+    ->setCellValue('C18', '=HYPERLINK("mailto:abc@def.com","abc@def.com")');
 
 
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->getColumnDimension('B')
     ->setAutoSize(true);
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->getColumnDimension('C')
     ->setAutoSize(true);
 
 // Rename worksheet
 echo date('H:i:s') , " Rename worksheet" , EOL;
-$objPHPExcel->getActiveSheet()->setTitle('Datatypes');
+$objPhpSpreadsheet->getActiveSheet()->setTitle('Datatypes');
 
 
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
-$objPHPExcel->setActiveSheetIndex(0);
+$objPhpSpreadsheet->setActiveSheetIndex(0);
 
 
 // Save Excel 2007 file
 echo date('H:i:s') , " Write to Excel2007 format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PhpSpreadsheet\IOFactory::createWriter($objPhpSpreadsheet, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;
@@ -202,19 +206,19 @@ echo 'Call time to write Workbook was ' , sprintf('%.4f',$callTime) , " seconds"
 echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 / 1024) , " MB" , EOL;
 
 
-echo date('H:i:s') , " Reload workbook from saved file" , EOL;
+// Save Excel 5 file
+echo date('H:i:s') , " Write to Excel5 format" , EOL;
 $callStartTime = microtime(true);
 
-$objPHPExcel = \PHPExcel\IOFactory::load(str_replace('.php', '.xlsx', __FILE__));
-
+$objWriter = \PhpSpreadsheet\IOFactory::createWriter($objPhpSpreadsheet, 'Excel5');
+$objWriter->save(str_replace('.php', '.xls', __FILE__));
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;
-echo 'Call time to reload Workbook was ' , sprintf('%.4f',$callTime) , " seconds" , EOL;
+
+echo date('H:i:s') , " File written to " , str_replace('.php', '.xls', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
+echo 'Call time to write Workbook was ' , sprintf('%.4f',$callTime) , " seconds" , EOL;
 // Echo memory usage
 echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 / 1024) , " MB" , EOL;
-
-
-var_dump($objPHPExcel->getActiveSheet()->toArray());
 
 
 // Echo memory peak usage
@@ -222,4 +226,4 @@ echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 102
 
 // Echo done
 echo date('H:i:s') , " Done testing file" , EOL;
-echo 'File has been created in ' , getcwd() , EOL;
+echo 'Files have been created in ' , getcwd() , EOL;

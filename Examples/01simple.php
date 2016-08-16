@@ -1,8 +1,8 @@
 <?php
 /**
- * PHPExcel
+ * PhpSpreadsheet
  *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,10 +18,9 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
 
@@ -33,81 +32,81 @@ date_default_timezone_set('Europe/London');
 
 define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
-/** Include PHPExcel */
+/** Include PhpSpreadsheet */
 require_once dirname(__FILE__) . '/../src/Bootstrap.php';
 
 
-// Create new PHPExcel object
-echo date('H:i:s') , " Create new PHPExcel object" , EOL;
-$objPHPExcel = new \PHPExcel\Spreadsheet();
+// Create new Spreadsheet object
+echo date('H:i:s') , " Create new Spreadsheet object" , EOL;
+$objPhpSpreadsheet = new \PhpSpreadsheet\Spreadsheet();
 
 // Set document properties
 echo date('H:i:s') , " Set document properties" , EOL;
-$objPHPExcel->getProperties()
+$objPhpSpreadsheet->getProperties()
     ->setCreator("Maarten Balliauw")
 	->setLastModifiedBy("Maarten Balliauw")
-	->setTitle("PHPExcel Test Document")
-	->setSubject("PHPExcel Test Document")
-	->setDescription("Test document for PHPExcel, generated using PHP classes.")
-	->setKeywords("office PHPExcel php")
+	->setTitle("PhpSpreadsheet Test Document")
+	->setSubject("PhpSpreadsheet Test Document")
+	->setDescription("Test document for PhpSpreadsheet, generated using PHP classes.")
+	->setKeywords("office PhpSpreadsheet php")
 	->setCategory("Test result file");
 
 
 // Add some data
 echo date('H:i:s') , " Add some data" , EOL;
-$objPHPExcel->setActiveSheetIndex(0)
+$objPhpSpreadsheet->setActiveSheetIndex(0)
     ->setCellValue('A1', 'Hello')
     ->setCellValue('B2', 'world!')
     ->setCellValue('C1', 'Hello')
     ->setCellValue('D2', 'world!');
 
 // Miscellaneous glyphs, UTF-8
-$objPHPExcel->setActiveSheetIndex(0)
+$objPhpSpreadsheet->setActiveSheetIndex(0)
     ->setCellValue('A4', 'Miscellaneous glyphs')
     ->setCellValue('A5', 'éàèùâêîôûëïüÿäöüç');
 
 
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->setCellValue('A8',"Hello\nWorld");
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->getRowDimension(8)
     ->setRowHeight(-1);
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->getStyle('A8')
     ->getAlignment()
     ->setWrapText(true);
 
 
 $value = "-ValueA\n-Value B\n-Value C";
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->setCellValue('A10', $value);
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->getRowDimension(10)
     ->setRowHeight(-1);
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->getStyle('A10')
     ->getAlignment()
     ->setWrapText(true);
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->getStyle('A10')
     ->setQuotePrefix(true);
 
 
 // Rename worksheet
 echo date('H:i:s') , " Rename worksheet" , EOL;
-$objPHPExcel->getActiveSheet()
+$objPhpSpreadsheet->getActiveSheet()
     ->setTitle('Simple');
 
 
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
-$objPHPExcel->setActiveSheetIndex(0);
+$objPhpSpreadsheet->setActiveSheetIndex(0);
 
 
 // Save Excel 2007 file
 echo date('H:i:s') , " Write to Excel2007 format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PhpSpreadsheet\IOFactory::createWriter($objPhpSpreadsheet, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;
@@ -122,7 +121,7 @@ echo date('H:i:s') , ' Current memory usage: ' , (memory_get_usage(true) / 1024 
 echo date('H:i:s') , " Write to Excel5 format" , EOL;
 $callStartTime = microtime(true);
 
-$objWriter = \PHPExcel\IOFactory::createWriter($objPHPExcel, 'Excel5');
+$objWriter = \PhpSpreadsheet\IOFactory::createWriter($objPhpSpreadsheet, 'Excel5');
 $objWriter->save(str_replace('.php', '.xls', __FILE__));
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;
