@@ -44,7 +44,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 
     public function providerDateTimeExcelToTimestamp1900()
     {
-        return include 'rawTestData/Shared/Date/ExcelToTimestamp1900.php';
+        return require 'data/Shared/Date/ExcelToTimestamp1900.php';
     }
 
     /**
@@ -65,7 +65,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 
     public function providerDateTimeTimestampToExcel1900()
     {
-        return include 'rawTestData/Shared/Date/TimestampToExcel1900.php';
+        return require 'data/Shared/Date/TimestampToExcel1900.php';
     }
 
     /**
@@ -86,7 +86,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 
     public function providerDateTimeDateTimeToExcel()
     {
-        return include 'rawTestData/Shared/Date/DateTimeToExcel.php';
+        return require 'data/Shared/Date/DateTimeToExcel.php';
     }
 
     /**
@@ -107,7 +107,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 
     public function providerDateTimeFormattedPHPToExcel1900()
     {
-        return include 'rawTestData/Shared/Date/FormattedPHPToExcel1900.php';
+        return require 'data/Shared/Date/FormattedPHPToExcel1900.php';
     }
 
     /**
@@ -128,7 +128,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 
     public function providerDateTimeExcelToTimestamp1904()
     {
-        return include 'rawTestData/Shared/Date/ExcelToTimestamp1904.php';
+        return require 'data/Shared/Date/ExcelToTimestamp1904.php';
     }
 
     /**
@@ -149,7 +149,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 
     public function providerDateTimeTimestampToExcel1904()
     {
-        return include 'rawTestData/Shared/Date/TimestampToExcel1904.php';
+        return require 'data/Shared/Date/TimestampToExcel1904.php';
     }
 
     /**
@@ -165,7 +165,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
 
     public function providerIsDateTimeFormatCode()
     {
-        return include 'rawTestData/Shared/Date/FormatCodes.php';
+        return require 'data/Shared/Date/FormatCodes.php';
     }
 
     /**
@@ -186,6 +186,6 @@ class DateTest extends \PHPUnit_Framework_TestCase
 
     public function providerDateTimeExcelToTimestamp1900Timezone()
     {
-        return include 'rawTestData/Shared/Date/ExcelToTimestamp1900Timezone.php';
+        return require 'data/Shared/Date/ExcelToTimestamp1900Timezone.php';
     }
 }

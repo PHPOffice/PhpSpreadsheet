@@ -73,7 +73,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerIsBlank()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Functions/IS_BLANK.data');
+        return require 'data/Calculation/Functions/IS_BLANK.php';
     }
 
     /**
@@ -89,7 +89,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerIsErr()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Functions/IS_ERR.data');
+        return require 'data/Calculation/Functions/IS_ERR.php';
     }
 
     /**
@@ -105,7 +105,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerIsError()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Functions/IS_ERROR.data');
+        return require 'data/Calculation/Functions/IS_ERROR.php';
     }
 
     /**
@@ -121,7 +121,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerErrorType()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Functions/ERROR_TYPE.data');
+        return require 'data/Calculation/Functions/ERROR_TYPE.php';
     }
 
     /**
@@ -137,7 +137,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerIsLogical()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Functions/IS_LOGICAL.data');
+        return require 'data/Calculation/Functions/IS_LOGICAL.php';
     }
 
     /**
@@ -153,7 +153,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerIsNa()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Functions/IS_NA.data');
+        return require 'data/Calculation/Functions/IS_NA.php';
     }
 
     /**
@@ -169,7 +169,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerIsNumber()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Functions/IS_NUMBER.data');
+        return require 'data/Calculation/Functions/IS_NUMBER.php';
     }
 
     /**
@@ -185,7 +185,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerIsText()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Functions/IS_TEXT.data');
+        return require 'data/Calculation/Functions/IS_TEXT.php';
     }
 
     /**
@@ -201,7 +201,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerIsNonText()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Functions/IS_NONTEXT.data');
+        return require 'data/Calculation/Functions/IS_NONTEXT.php';
     }
 
     /**
@@ -217,7 +217,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerIsEven()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Functions/IS_EVEN.data');
+        return require 'data/Calculation/Functions/IS_EVEN.php';
     }
 
     /**
@@ -233,7 +233,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerIsOdd()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Functions/IS_ODD.data');
+        return require 'data/Calculation/Functions/IS_ODD.php';
     }
 
     /**
@@ -249,7 +249,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerTYPE()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Functions/TYPE.data');
+        return require 'data/Calculation/Functions/TYPE.php';
     }
 
     /**
@@ -265,6 +265,6 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function providerN()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Functions/N.data');
+        return require 'data/Calculation/Functions/N.php';
     }
 }

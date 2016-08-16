@@ -20,7 +20,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
 
     public function providerColumnString()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/ColumnString.data');
+        return require 'data/ColumnString.php';
     }
 
     public function testColumnIndexFromStringTooLong()
@@ -62,7 +62,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
 
     public function providerColumnIndex()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/ColumnIndex.data');
+        return require 'data/ColumnIndex.php';
     }
 
     /**
@@ -78,7 +78,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
 
     public function providerCoordinates()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/CellCoordinates.data');
+        return require 'data/CellCoordinates.php';
     }
 
     public function testCoordinateFromStringWithRangeAddress()
@@ -133,7 +133,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
 
     public function providerAbsoluteCoordinates()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/CellAbsoluteCoordinate.data');
+        return require 'data/CellAbsoluteCoordinate.php';
     }
 
     public function testAbsoluteCoordinateFromStringWithRangeAddress()
@@ -162,7 +162,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
 
     public function providerAbsoluteReferences()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/CellAbsoluteReference.data');
+        return require 'data/CellAbsoluteReference.php';
     }
 
     public function testAbsoluteReferenceFromStringWithRangeAddress()
@@ -197,7 +197,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
 
     public function providerSplitRange()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/CellSplitRange.data');
+        return require 'data/CellSplitRange.php';
     }
 
     /**
@@ -213,7 +213,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
 
     public function providerBuildRange()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/CellBuildRange.data');
+        return require 'data/CellBuildRange.php';
     }
 
     public function testBuildRangeInvalid()
@@ -242,7 +242,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
 
     public function providerRangeBoundaries()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/CellRangeBoundaries.data');
+        return require 'data/CellRangeBoundaries.php';
     }
 
     /**
@@ -258,7 +258,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
 
     public function providerRangeDimension()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/CellRangeDimension.data');
+        return require 'data/CellRangeDimension.php';
     }
 
     /**
@@ -274,7 +274,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
 
     public function providerGetRangeBoundaries()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/CellGetRangeBoundaries.data');
+        return require 'data/CellGetRangeBoundaries.php';
     }
 
     /**
@@ -290,6 +290,6 @@ class CellTest extends \PHPUnit_Framework_TestCase
 
     public function providerExtractAllCellReferencesInRange()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/CellExtractAllCellReferencesInRange.data');
+        return require 'data/CellExtractAllCellReferencesInRange.php';
     }
 }

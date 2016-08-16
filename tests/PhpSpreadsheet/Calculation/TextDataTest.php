@@ -27,7 +27,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
 
     public function providerCHAR()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/TextData/CHAR.data');
+        return require 'data/Calculation/TextData/CHAR.php';
     }
 
     /**
@@ -43,7 +43,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
 
     public function providerCODE()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/TextData/CODE.data');
+        return require 'data/Calculation/TextData/CODE.php';
     }
 
     /**
@@ -59,7 +59,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
 
     public function providerCONCATENATE()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/TextData/CONCATENATE.data');
+        return require 'data/Calculation/TextData/CONCATENATE.php';
     }
 
     /**
@@ -75,7 +75,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
 
     public function providerLEFT()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/TextData/LEFT.data');
+        return require 'data/Calculation/TextData/LEFT.php';
     }
 
     /**
@@ -91,7 +91,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
 
     public function providerMID()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/TextData/MID.data');
+        return require 'data/Calculation/TextData/MID.php';
     }
 
     /**
@@ -107,7 +107,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
 
     public function providerRIGHT()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/TextData/RIGHT.data');
+        return require 'data/Calculation/TextData/RIGHT.php';
     }
 
     /**
@@ -123,7 +123,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
 
     public function providerLOWER()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/TextData/LOWER.data');
+        return require 'data/Calculation/TextData/LOWER.php';
     }
 
     /**
@@ -139,7 +139,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
 
     public function providerUPPER()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/TextData/UPPER.data');
+        return require 'data/Calculation/TextData/UPPER.php';
     }
 
     /**
@@ -155,7 +155,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
 
     public function providerPROPER()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/TextData/PROPER.data');
+        return require 'data/Calculation/TextData/PROPER.php';
     }
 
     /**
@@ -171,7 +171,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
 
     public function providerLEN()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/TextData/LEN.data');
+        return require 'data/Calculation/TextData/LEN.php';
     }
 
     /**
@@ -187,7 +187,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
 
     public function providerSEARCH()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/TextData/SEARCH.data');
+        return require 'data/Calculation/TextData/SEARCH.php';
     }
 
     /**
@@ -203,7 +203,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
 
     public function providerFIND()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/TextData/FIND.data');
+        return require 'data/Calculation/TextData/FIND.php';
     }
 
     /**
@@ -219,7 +219,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
 
     public function providerREPLACE()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/TextData/REPLACE.data');
+        return require 'data/Calculation/TextData/REPLACE.php';
     }
 
     /**
@@ -235,7 +235,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
 
     public function providerSUBSTITUTE()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/TextData/SUBSTITUTE.data');
+        return require 'data/Calculation/TextData/SUBSTITUTE.php';
     }
 
     /**
@@ -251,7 +251,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
 
     public function providerTRIM()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/TextData/TRIM.data');
+        return require 'data/Calculation/TextData/TRIM.php';
     }
 
     /**
@@ -267,7 +267,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
 
     public function providerCLEAN()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/TextData/CLEAN.data');
+        return require 'data/Calculation/TextData/CLEAN.php';
     }
 
     /**
@@ -283,7 +283,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
 
     public function providerDOLLAR()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/TextData/DOLLAR.data');
+        return require 'data/Calculation/TextData/DOLLAR.php';
     }
 
     /**
@@ -299,7 +299,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
 
     public function providerFIXED()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/TextData/FIXED.data');
+        return require 'data/Calculation/TextData/FIXED.php';
     }
 
     /**
@@ -315,7 +315,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
 
     public function providerT()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/TextData/T.data');
+        return require 'data/Calculation/TextData/T.php';
     }
 
     /**
@@ -336,7 +336,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
 
     public function providerTEXT()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/TextData/TEXT.data');
+        return require 'data/Calculation/TextData/TEXT.php';
     }
 
     /**
@@ -356,6 +356,6 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
 
     public function providerVALUE()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/TextData/VALUE.data');
+        return require 'data/Calculation/TextData/VALUE.php';
     }
 }

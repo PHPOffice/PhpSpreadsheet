@@ -27,6 +27,6 @@ class NumberFormatTest extends \PHPUnit_Framework_TestCase
 
     public function providerNumberFormat()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Style/NumberFormat.data');
+        return require 'data/Style/NumberFormat.php';
     }
 }

@@ -37,7 +37,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerBESSELI()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/BESSELI.data');
+        return require 'data/Calculation/Engineering/BESSELI.php';
     }
 
     /**
@@ -53,7 +53,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerBESSELJ()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/BESSELJ.data');
+        return require 'data/Calculation/Engineering/BESSELJ.php';
     }
 
     /**
@@ -69,7 +69,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerBESSELK()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/BESSELK.data');
+        return require 'data/Calculation/Engineering/BESSELK.php';
     }
 
     /**
@@ -85,7 +85,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerBESSELY()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/BESSELY.data');
+        return require 'data/Calculation/Engineering/BESSELY.php';
     }
 
     /**
@@ -101,7 +101,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerCOMPLEX()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/COMPLEX.data');
+        return require 'data/Calculation/Engineering/COMPLEX.php';
     }
 
     /**
@@ -117,7 +117,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerIMAGINARY()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMAGINARY.data');
+        return require 'data/Calculation/Engineering/IMAGINARY.php';
     }
 
     /**
@@ -133,7 +133,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerIMREAL()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMREAL.data');
+        return require 'data/Calculation/Engineering/IMREAL.php';
     }
 
     /**
@@ -149,7 +149,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerIMABS()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMABS.data');
+        return require 'data/Calculation/Engineering/IMABS.php';
     }
 
     /**
@@ -166,7 +166,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerIMARGUMENT()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMARGUMENT.data');
+        return require 'data/Calculation/Engineering/IMARGUMENT.php';
     }
 
     /**
@@ -182,7 +182,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerIMCONJUGATE()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMCONJUGATE.data');
+        return require 'data/Calculation/Engineering/IMCONJUGATE.php';
     }
 
     /**
@@ -198,7 +198,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerIMCOS()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMCOS.data');
+        return require 'data/Calculation/Engineering/IMCOS.php';
     }
 
     /**
@@ -217,7 +217,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerIMDIV()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMDIV.data');
+        return require 'data/Calculation/Engineering/IMDIV.php';
     }
 
     /**
@@ -233,7 +233,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerIMEXP()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMEXP.data');
+        return require 'data/Calculation/Engineering/IMEXP.php';
     }
 
     /**
@@ -249,7 +249,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerIMLN()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMLN.data');
+        return require 'data/Calculation/Engineering/IMLN.php';
     }
 
     /**
@@ -265,7 +265,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerIMLOG2()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMLOG2.data');
+        return require 'data/Calculation/Engineering/IMLOG2.php';
     }
 
     /**
@@ -281,7 +281,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerIMLOG10()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMLOG10.data');
+        return require 'data/Calculation/Engineering/IMLOG10.php';
     }
 
     /**
@@ -300,7 +300,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerIMPOWER()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMPOWER.data');
+        return require 'data/Calculation/Engineering/IMPOWER.php';
     }
 
     /**
@@ -316,7 +316,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerIMPRODUCT()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMPRODUCT.data');
+        return require 'data/Calculation/Engineering/IMPRODUCT.php';
     }
 
     /**
@@ -332,7 +332,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerIMSIN()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMSIN.data');
+        return require 'data/Calculation/Engineering/IMSIN.php';
     }
 
     /**
@@ -348,7 +348,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerIMSQRT()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMSQRT.data');
+        return require 'data/Calculation/Engineering/IMSQRT.php';
     }
 
     /**
@@ -367,7 +367,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerIMSUB()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMSUB.data');
+        return require 'data/Calculation/Engineering/IMSUB.php';
     }
 
     /**
@@ -384,7 +384,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerIMSUM()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/IMSUM.data');
+        return require 'data/Calculation/Engineering/IMSUM.php';
     }
 
     /**
@@ -400,7 +400,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerERF()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/ERF.data');
+        return require 'data/Calculation/Engineering/ERF.php';
     }
 
     /**
@@ -416,7 +416,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerERFC()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/ERFC.data');
+        return require 'data/Calculation/Engineering/ERFC.php';
     }
 
     /**
@@ -432,7 +432,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerBIN2DEC()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/BIN2DEC.data');
+        return require 'data/Calculation/Engineering/BIN2DEC.php';
     }
 
     /**
@@ -448,7 +448,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerBIN2HEX()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/BIN2HEX.data');
+        return require 'data/Calculation/Engineering/BIN2HEX.php';
     }
 
     /**
@@ -464,7 +464,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerBIN2OCT()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/BIN2OCT.data');
+        return require 'data/Calculation/Engineering/BIN2OCT.php';
     }
 
     /**
@@ -480,7 +480,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerDEC2BIN()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/DEC2BIN.data');
+        return require 'data/Calculation/Engineering/DEC2BIN.php';
     }
 
     /**
@@ -496,7 +496,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerDEC2HEX()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/DEC2HEX.data');
+        return require 'data/Calculation/Engineering/DEC2HEX.php';
     }
 
     /**
@@ -512,7 +512,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerDEC2OCT()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/DEC2OCT.data');
+        return require 'data/Calculation/Engineering/DEC2OCT.php';
     }
 
     /**
@@ -528,7 +528,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerHEX2BIN()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/HEX2BIN.data');
+        return require 'data/Calculation/Engineering/HEX2BIN.php';
     }
 
     /**
@@ -544,7 +544,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerHEX2DEC()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/HEX2DEC.data');
+        return require 'data/Calculation/Engineering/HEX2DEC.php';
     }
 
     /**
@@ -560,7 +560,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerHEX2OCT()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/HEX2OCT.data');
+        return require 'data/Calculation/Engineering/HEX2OCT.php';
     }
 
     /**
@@ -576,7 +576,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerOCT2BIN()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/OCT2BIN.data');
+        return require 'data/Calculation/Engineering/OCT2BIN.php';
     }
 
     /**
@@ -592,7 +592,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerOCT2DEC()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/OCT2DEC.data');
+        return require 'data/Calculation/Engineering/OCT2DEC.php';
     }
 
     /**
@@ -608,7 +608,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerOCT2HEX()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/OCT2HEX.data');
+        return require 'data/Calculation/Engineering/OCT2HEX.php';
     }
 
     /**
@@ -624,7 +624,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerDELTA()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/DELTA.data');
+        return require 'data/Calculation/Engineering/DELTA.php';
     }
 
     /**
@@ -640,7 +640,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerGESTEP()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/GESTEP.data');
+        return require 'data/Calculation/Engineering/GESTEP.php';
     }
 
     public function testGetConversionGroups()
@@ -680,6 +680,6 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
     public function providerCONVERTUOM()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Engineering/CONVERTUOM.data');
+        return require 'data/Calculation/Engineering/CONVERTUOM.php';
     }
 }

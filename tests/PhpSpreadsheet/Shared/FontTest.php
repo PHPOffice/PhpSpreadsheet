@@ -48,7 +48,7 @@ class FontTest extends \PHPUnit_Framework_TestCase
 
     public function providerFontSizeToPixels()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Shared/FontSizeToPixels.data');
+        return require 'data/Shared/FontSizeToPixels.php';
     }
 
     /**
@@ -64,7 +64,7 @@ class FontTest extends \PHPUnit_Framework_TestCase
 
     public function providerInchSizeToPixels()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Shared/InchSizeToPixels.data');
+        return require 'data/Shared/InchSizeToPixels.php';
     }
 
     /**
@@ -80,6 +80,6 @@ class FontTest extends \PHPUnit_Framework_TestCase
 
     public function providerCentimeterSizeToPixels()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Shared/CentimeterSizeToPixels.data');
+        return require 'data/Shared/CentimeterSizeToPixels.php';
     }
 }

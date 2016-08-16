@@ -27,7 +27,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerATAN2()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/ATAN2.data');
+        return require 'data/Calculation/MathTrig/ATAN2.php';
     }
 
     /**
@@ -43,7 +43,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerCEILING()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/CEILING.data');
+        return require 'data/Calculation/MathTrig/CEILING.php';
     }
 
     /**
@@ -59,7 +59,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerCOMBIN()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/COMBIN.data');
+        return require 'data/Calculation/MathTrig/COMBIN.php';
     }
 
     /**
@@ -75,7 +75,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerEVEN()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/EVEN.data');
+        return require 'data/Calculation/MathTrig/EVEN.php';
     }
 
     /**
@@ -91,7 +91,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerODD()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/ODD.data');
+        return require 'data/Calculation/MathTrig/ODD.php';
     }
 
     /**
@@ -107,7 +107,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerFACT()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/FACT.data');
+        return require 'data/Calculation/MathTrig/FACT.php';
     }
 
     /**
@@ -123,7 +123,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerFACTDOUBLE()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/FACTDOUBLE.data');
+        return require 'data/Calculation/MathTrig/FACTDOUBLE.php';
     }
 
     /**
@@ -139,7 +139,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerFLOOR()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/FLOOR.data');
+        return require 'data/Calculation/MathTrig/FLOOR.php';
     }
 
     /**
@@ -155,7 +155,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerGCD()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/GCD.data');
+        return require 'data/Calculation/MathTrig/GCD.php';
     }
 
     /**
@@ -171,7 +171,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerLCM()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/LCM.data');
+        return require 'data/Calculation/MathTrig/LCM.php';
     }
 
     /**
@@ -187,7 +187,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerINT()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/INT.data');
+        return require 'data/Calculation/MathTrig/INT.php';
     }
 
     /**
@@ -203,7 +203,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerSIGN()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/SIGN.data');
+        return require 'data/Calculation/MathTrig/SIGN.php';
     }
 
     /**
@@ -219,7 +219,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerPOWER()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/POWER.data');
+        return require 'data/Calculation/MathTrig/POWER.php';
     }
 
     /**
@@ -235,7 +235,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerLOG()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/LOG.data');
+        return require 'data/Calculation/MathTrig/LOG.php';
     }
 
     /**
@@ -251,7 +251,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerMOD()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/MOD.data');
+        return require 'data/Calculation/MathTrig/MOD.php';
     }
 
     /**
@@ -270,7 +270,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerMDETERM()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/MDETERM.data');
+        return require 'data/Calculation/MathTrig/MDETERM.php';
     }
 
     /**
@@ -289,7 +289,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerMINVERSE()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/MINVERSE.data');
+        return require 'data/Calculation/MathTrig/MINVERSE.php';
     }
 
     /**
@@ -308,7 +308,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerMMULT()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/MMULT.data');
+        return require 'data/Calculation/MathTrig/MMULT.php';
     }
 
     /**
@@ -324,7 +324,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerMULTINOMIAL()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/MULTINOMIAL.data');
+        return require 'data/Calculation/MathTrig/MULTINOMIAL.php';
     }
 
     /**
@@ -342,7 +342,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerMROUND()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/MROUND.data');
+        return require 'data/Calculation/MathTrig/MROUND.php';
     }
 
     /**
@@ -358,7 +358,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerPRODUCT()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/PRODUCT.data');
+        return require 'data/Calculation/MathTrig/PRODUCT.php';
     }
 
     /**
@@ -374,7 +374,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerQUOTIENT()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/QUOTIENT.data');
+        return require 'data/Calculation/MathTrig/QUOTIENT.php';
     }
 
     /**
@@ -390,7 +390,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerROUNDUP()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/ROUNDUP.data');
+        return require 'data/Calculation/MathTrig/ROUNDUP.php';
     }
 
     /**
@@ -406,7 +406,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerROUNDDOWN()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/ROUNDDOWN.data');
+        return require 'data/Calculation/MathTrig/ROUNDDOWN.php';
     }
 
     /**
@@ -422,7 +422,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerSERIESSUM()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/SERIESSUM.data');
+        return require 'data/Calculation/MathTrig/SERIESSUM.php';
     }
 
     /**
@@ -438,7 +438,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerSUMSQ()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/SUMSQ.data');
+        return require 'data/Calculation/MathTrig/SUMSQ.php';
     }
 
     /**
@@ -454,7 +454,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerTRUNC()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/TRUNC.data');
+        return require 'data/Calculation/MathTrig/TRUNC.php';
     }
 
     /**
@@ -470,7 +470,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerROMAN()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/ROMAN.data');
+        return require 'data/Calculation/MathTrig/ROMAN.php';
     }
 
     /**
@@ -486,7 +486,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     public function providerSQRTPI()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/MathTrig/SQRTPI.data');
+        return require 'data/Calculation/MathTrig/SQRTPI.php';
     }
 
     /**

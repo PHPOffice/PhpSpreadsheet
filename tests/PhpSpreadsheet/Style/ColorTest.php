@@ -19,7 +19,7 @@ class ColorTest extends \PHPUnit_Framework_TestCase
 
     public function providerColorGetRed()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Style/ColorGetRed.data');
+        return require 'data/Style/ColorGetRed.php';
     }
 
     /**
@@ -35,7 +35,7 @@ class ColorTest extends \PHPUnit_Framework_TestCase
 
     public function providerColorGetGreen()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Style/ColorGetGreen.data');
+        return require 'data/Style/ColorGetGreen.php';
     }
 
     /**
@@ -51,7 +51,7 @@ class ColorTest extends \PHPUnit_Framework_TestCase
 
     public function providerColorGetBlue()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Style/ColorGetBlue.data');
+        return require 'data/Style/ColorGetBlue.php';
     }
 
     /**
@@ -66,6 +66,6 @@ class ColorTest extends \PHPUnit_Framework_TestCase
 
     public function providerColorChangeBrightness()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIteratorJson('rawTestData/Style/ColorChangeBrightness.json');
+        return require 'data/Style/ColorChangeBrightness.php';
     }
 }

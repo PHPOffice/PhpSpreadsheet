@@ -20,6 +20,6 @@ class PasswordHasherTest extends \PHPUnit_Framework_TestCase
 
     public function providerHashPassword()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Shared/PasswordHashes.data');
+        return require 'data/Shared/PasswordHashes.php';
     }
 }

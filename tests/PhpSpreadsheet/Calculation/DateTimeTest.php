@@ -2,7 +2,6 @@
 
 namespace PhpSpreadsheet\Tests\Calculation;
 
-use PhpSpreadsheet\Tests\TestDataFileIterator;
 use PHPExcel\Shared\Date;
 use PHPExcel\Calculation\Functions;
 use PHPExcel\Calculation\DateTime;
@@ -32,7 +31,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerDATE()
     {
-        return new TestDataFileIterator('rawTestData/Calculation/DateTime/DATE.data');
+        return require 'data/Calculation/DateTime/DATE.php';
     }
 
     public function testDATEtoPHP()
@@ -85,7 +84,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerDATEVALUE()
     {
-        return new TestDataFileIterator('rawTestData/Calculation/DateTime/DATEVALUE.data');
+        return require 'data/Calculation/DateTime/DATEVALUE.php';
     }
 
     public function testDATEVALUEtoPHP()
@@ -122,7 +121,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerYEAR()
     {
-        return new TestDataFileIterator('rawTestData/Calculation/DateTime/YEAR.data');
+        return require 'data/Calculation/DateTime/YEAR.php';
     }
 
     /**
@@ -138,7 +137,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerMONTH()
     {
-        return new TestDataFileIterator('rawTestData/Calculation/DateTime/MONTH.data');
+        return require 'data/Calculation/DateTime/MONTH.php';
     }
 
     /**
@@ -157,7 +156,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerWEEKNUM()
     {
-        return new TestDataFileIterator('rawTestData/Calculation/DateTime/WEEKNUM.data');
+        return require 'data/Calculation/DateTime/WEEKNUM.php';
     }
 
     /**
@@ -176,7 +175,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerWEEKDAY()
     {
-        return new TestDataFileIterator('rawTestData/Calculation/DateTime/WEEKDAY.data');
+        return require 'data/Calculation/DateTime/WEEKDAY.php';
     }
 
     /**
@@ -192,7 +191,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerDAY()
     {
-        return new TestDataFileIterator('rawTestData/Calculation/DateTime/DAY.data');
+        return require 'data/Calculation/DateTime/DAY.php';
     }
 
     /**
@@ -208,7 +207,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerTIME()
     {
-        return new TestDataFileIterator('rawTestData/Calculation/DateTime/TIME.data');
+        return require 'data/Calculation/DateTime/TIME.php';
     }
 
     public function testTIMEtoPHP()
@@ -247,7 +246,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerTIMEVALUE()
     {
-        return new TestDataFileIterator('rawTestData/Calculation/DateTime/TIMEVALUE.data');
+        return require 'data/Calculation/DateTime/TIMEVALUE.php';
     }
 
     public function testTIMEVALUEtoPHP()
@@ -286,7 +285,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerHOUR()
     {
-        return new TestDataFileIterator('rawTestData/Calculation/DateTime/HOUR.data');
+        return require 'data/Calculation/DateTime/HOUR.php';
     }
 
     /**
@@ -304,7 +303,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerMINUTE()
     {
-        return new TestDataFileIterator('rawTestData/Calculation/DateTime/MINUTE.data');
+        return require 'data/Calculation/DateTime/MINUTE.php';
     }
 
     /**
@@ -322,7 +321,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerSECOND()
     {
-        return new TestDataFileIterator('rawTestData/Calculation/DateTime/SECOND.data');
+        return require 'data/Calculation/DateTime/SECOND.php';
     }
 
     /**
@@ -338,7 +337,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerNETWORKDAYS()
     {
-        return new TestDataFileIterator('rawTestData/Calculation/DateTime/NETWORKDAYS.data');
+        return require 'data/Calculation/DateTime/NETWORKDAYS.php';
     }
 
     /**
@@ -354,7 +353,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerWORKDAY()
     {
-        return new TestDataFileIterator('rawTestData/Calculation/DateTime/WORKDAY.data');
+        return require 'data/Calculation/DateTime/WORKDAY.php';
     }
 
     /**
@@ -370,7 +369,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerEDATE()
     {
-        return new TestDataFileIterator('rawTestData/Calculation/DateTime/EDATE.data');
+        return require 'data/Calculation/DateTime/EDATE.php';
     }
 
     public function testEDATEtoPHP()
@@ -407,7 +406,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerEOMONTH()
     {
-        return new TestDataFileIterator('rawTestData/Calculation/DateTime/EOMONTH.data');
+        return require 'data/Calculation/DateTime/EOMONTH.php';
     }
 
     public function testEOMONTHtoPHP()
@@ -447,7 +446,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerDATEDIF()
     {
-        return new TestDataFileIterator('rawTestData/Calculation/DateTime/DATEDIF.data');
+        return require 'data/Calculation/DateTime/DATEDIF.php';
     }
 
     /**
@@ -463,7 +462,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerDAYS360()
     {
-        return new TestDataFileIterator('rawTestData/Calculation/DateTime/DAYS360.data');
+        return require 'data/Calculation/DateTime/DAYS360.php';
     }
 
     /**
@@ -482,6 +481,6 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function providerYEARFRAC()
     {
-        return new TestDataFileIterator('rawTestData/Calculation/DateTime/YEARFRAC.data');
+        return require 'data/Calculation/DateTime/YEARFRAC.php';
     }
 }

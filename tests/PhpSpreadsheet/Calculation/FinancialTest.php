@@ -27,7 +27,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerACCRINT()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/ACCRINT.data');
+        return require 'data/Calculation/Financial/ACCRINT.php';
     }
 
     /**
@@ -43,7 +43,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerACCRINTM()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/ACCRINTM.data');
+        return require 'data/Calculation/Financial/ACCRINTM.php';
     }
 
     /**
@@ -59,7 +59,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerAMORDEGRC()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/AMORDEGRC.data');
+        return require 'data/Calculation/Financial/AMORDEGRC.php';
     }
 
     /**
@@ -75,7 +75,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerAMORLINC()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/AMORLINC.data');
+        return require 'data/Calculation/Financial/AMORLINC.php';
     }
 
     /**
@@ -91,7 +91,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerCOUPDAYBS()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/COUPDAYBS.data');
+        return require 'data/Calculation/Financial/COUPDAYBS.php';
     }
 
     /**
@@ -107,7 +107,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerCOUPDAYS()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/COUPDAYS.data');
+        return require 'data/Calculation/Financial/COUPDAYS.php';
     }
 
     /**
@@ -123,7 +123,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerCOUPDAYSNC()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/COUPDAYSNC.data');
+        return require 'data/Calculation/Financial/COUPDAYSNC.php';
     }
 
     /**
@@ -139,7 +139,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerCOUPNCD()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/COUPNCD.data');
+        return require 'data/Calculation/Financial/COUPNCD.php';
     }
 
     /**
@@ -155,7 +155,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerCOUPNUM()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/COUPNUM.data');
+        return require 'data/Calculation/Financial/COUPNUM.php';
     }
 
     /**
@@ -171,7 +171,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerCOUPPCD()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/COUPPCD.data');
+        return require 'data/Calculation/Financial/COUPPCD.php';
     }
 
     /**
@@ -187,7 +187,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerCUMIPMT()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/CUMIPMT.data');
+        return require 'data/Calculation/Financial/CUMIPMT.php';
     }
 
     /**
@@ -203,7 +203,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerCUMPRINC()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/CUMPRINC.data');
+        return require 'data/Calculation/Financial/CUMPRINC.php';
     }
 
     /**
@@ -219,7 +219,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerDB()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/DB.data');
+        return require 'data/Calculation/Financial/DB.php';
     }
 
     /**
@@ -235,7 +235,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerDDB()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/DDB.data');
+        return require 'data/Calculation/Financial/DDB.php';
     }
 
     /**
@@ -251,7 +251,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerDISC()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/DISC.data');
+        return require 'data/Calculation/Financial/DISC.php';
     }
 
     /**
@@ -267,7 +267,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerDOLLARDE()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/DOLLARDE.data');
+        return require 'data/Calculation/Financial/DOLLARDE.php';
     }
 
     /**
@@ -283,7 +283,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerDOLLARFR()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/DOLLARFR.data');
+        return require 'data/Calculation/Financial/DOLLARFR.php';
     }
 
     /**
@@ -299,7 +299,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerEFFECT()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/EFFECT.data');
+        return require 'data/Calculation/Financial/EFFECT.php';
     }
 
     /**
@@ -315,7 +315,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerFV()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/FV.data');
+        return require 'data/Calculation/Financial/FV.php';
     }
 
     /**
@@ -331,7 +331,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerFVSCHEDULE()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/FVSCHEDULE.data');
+        return require 'data/Calculation/Financial/FVSCHEDULE.php';
     }
 
     /**
@@ -347,7 +347,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerINTRATE()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/INTRATE.data');
+        return require 'data/Calculation/Financial/INTRATE.php';
     }
 
     /**
@@ -363,7 +363,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerIPMT()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/IPMT.data');
+        return require 'data/Calculation/Financial/IPMT.php';
     }
 
     /**
@@ -379,7 +379,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerIRR()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/IRR.data');
+        return require 'data/Calculation/Financial/IRR.php';
     }
 
     /**
@@ -395,7 +395,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerISPMT()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/ISPMT.data');
+        return require 'data/Calculation/Financial/ISPMT.php';
     }
 
     /**
@@ -411,7 +411,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerMIRR()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/MIRR.data');
+        return require 'data/Calculation/Financial/MIRR.php';
     }
 
     /**
@@ -427,7 +427,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerNOMINAL()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/NOMINAL.data');
+        return require 'data/Calculation/Financial/NOMINAL.php';
     }
 
     /**
@@ -443,7 +443,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerNPER()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/NPER.data');
+        return require 'data/Calculation/Financial/NPER.php';
     }
 
     /**
@@ -459,7 +459,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerNPV()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/NPV.data');
+        return require 'data/Calculation/Financial/NPV.php';
     }
 
     /**
@@ -478,7 +478,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerPRICE()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/PRICE.data');
+        return require 'data/Calculation/Financial/PRICE.php';
     }
 
     /**
@@ -497,7 +497,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerRATE()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/RATE.data');
+        return require 'data/Calculation/Financial/RATE.php';
     }
 
     /**
@@ -516,6 +516,6 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     public function providerXIRR()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Financial/XIRR.data');
+        return require 'data/Calculation/Financial/XIRR.php';
     }
 }

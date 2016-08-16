@@ -72,7 +72,7 @@ class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
 
     public function providerDataTypeForValue()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIteratorJson('rawTestData/Cell/DefaultValueBinder.json');
+        return require 'data/Cell/DefaultValueBinder.php';
     }
 
     public function testDataTypeForRichTextObject()

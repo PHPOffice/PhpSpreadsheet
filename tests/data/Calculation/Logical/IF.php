@@ -1,0 +1,37 @@
+<?php
+
+return [
+    [
+        0,
+    ],
+    [
+        true,
+        0,
+    ],
+    [
+        false,
+        false,
+    ],
+    [
+        true,
+        'ABC',
+        'ABC',
+    ],
+    [
+        false,
+        'ABC',
+        false,
+    ],
+    [
+        true,
+        'ABC',
+        'XYZ',
+        'ABC',
+    ],
+    [
+        false,
+        'ABC',
+        'XYZ',
+        'XYZ',
+    ],
+];

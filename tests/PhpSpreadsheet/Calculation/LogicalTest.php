@@ -38,7 +38,7 @@ class LogicalTest extends \PHPUnit_Framework_TestCase
 
     public function providerAND()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Logical/AND.data');
+        return require 'data/Calculation/Logical/AND.php';
     }
 
     /**
@@ -54,7 +54,7 @@ class LogicalTest extends \PHPUnit_Framework_TestCase
 
     public function providerOR()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Logical/OR.data');
+        return require 'data/Calculation/Logical/OR.php';
     }
 
     /**
@@ -70,7 +70,7 @@ class LogicalTest extends \PHPUnit_Framework_TestCase
 
     public function providerNOT()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Logical/NOT.data');
+        return require 'data/Calculation/Logical/NOT.php';
     }
 
     /**
@@ -86,7 +86,7 @@ class LogicalTest extends \PHPUnit_Framework_TestCase
 
     public function providerIF()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Logical/IF.data');
+        return require 'data/Calculation/Logical/IF.php';
     }
 
     /**
@@ -102,6 +102,6 @@ class LogicalTest extends \PHPUnit_Framework_TestCase
 
     public function providerIFERROR()
     {
-        return new \PhpSpreadsheet\Tests\TestDataFileIterator('rawTestData/Calculation/Logical/IFERROR.data');
+        return require 'data/Calculation/Logical/IFERROR.php';
     }
 }
