@@ -27,29 +27,29 @@ namespace PhpSpreadsheet\Cell;
 class DataValidation
 {
     /* Data validation types */
-    const TYPE_NONE        = 'none';
-    const TYPE_CUSTOM      = 'custom';
-    const TYPE_DATE        = 'date';
-    const TYPE_DECIMAL     = 'decimal';
-    const TYPE_LIST        = 'list';
-    const TYPE_TEXTLENGTH  = 'textLength';
-    const TYPE_TIME        = 'time';
-    const TYPE_WHOLE       = 'whole';
+    const TYPE_NONE = 'none';
+    const TYPE_CUSTOM = 'custom';
+    const TYPE_DATE = 'date';
+    const TYPE_DECIMAL = 'decimal';
+    const TYPE_LIST = 'list';
+    const TYPE_TEXTLENGTH = 'textLength';
+    const TYPE_TIME = 'time';
+    const TYPE_WHOLE = 'whole';
 
     /* Data validation error styles */
-    const STYLE_STOP         = 'stop';
-    const STYLE_WARNING      = 'warning';
-    const STYLE_INFORMATION  = 'information';
+    const STYLE_STOP = 'stop';
+    const STYLE_WARNING = 'warning';
+    const STYLE_INFORMATION = 'information';
 
     /* Data validation operators */
-    const OPERATOR_BETWEEN             = 'between';
-    const OPERATOR_EQUAL               = 'equal';
-    const OPERATOR_GREATERTHAN         = 'greaterThan';
-    const OPERATOR_GREATERTHANOREQUAL  = 'greaterThanOrEqual';
-    const OPERATOR_LESSTHAN            = 'lessThan';
-    const OPERATOR_LESSTHANOREQUAL     = 'lessThanOrEqual';
-    const OPERATOR_NOTBETWEEN          = 'notBetween';
-    const OPERATOR_NOTEQUAL            = 'notEqual';
+    const OPERATOR_BETWEEN = 'between';
+    const OPERATOR_EQUAL = 'equal';
+    const OPERATOR_GREATERTHAN = 'greaterThan';
+    const OPERATOR_GREATERTHANOREQUAL = 'greaterThanOrEqual';
+    const OPERATOR_LESSTHAN = 'lessThan';
+    const OPERATOR_LESSTHANOREQUAL = 'lessThanOrEqual';
+    const OPERATOR_NOTBETWEEN = 'notBetween';
+    const OPERATOR_NOTEQUAL = 'notEqual';
 
     /**
      * Formula 1
@@ -70,14 +70,14 @@ class DataValidation
      *
      * @var string
      */
-    private $type = DataValidation::TYPE_NONE;
+    private $type = self::TYPE_NONE;
 
     /**
      * Error style
      *
      * @var string
      */
-    private $errorStyle = DataValidation::STYLE_STOP;
+    private $errorStyle = self::STYLE_STOP;
 
     /**
      * Operator
@@ -89,28 +89,28 @@ class DataValidation
     /**
      * Allow Blank
      *
-     * @var boolean
+     * @var bool
      */
     private $allowBlank = false;
 
     /**
      * Show DropDown
      *
-     * @var boolean
+     * @var bool
      */
     private $showDropDown = false;
 
     /**
      * Show InputMessage
      *
-     * @var boolean
+     * @var bool
      */
     private $showInputMessage = false;
 
     /**
      * Show ErrorMessage
      *
-     * @var boolean
+     * @var bool
      */
     private $showErrorMessage = false;
 
@@ -168,6 +168,7 @@ class DataValidation
     public function setFormula1($value = '')
     {
         $this->formula1 = $value;
+
         return $this;
     }
 
@@ -190,6 +191,7 @@ class DataValidation
     public function setFormula2($value = '')
     {
         $this->formula2 = $value;
+
         return $this;
     }
 
@@ -212,6 +214,7 @@ class DataValidation
     public function setType($value = self::TYPE_NONE)
     {
         $this->type = $value;
+
         return $this;
     }
 
@@ -234,6 +237,7 @@ class DataValidation
     public function setErrorStyle($value = self::STYLE_STOP)
     {
         $this->errorStyle = $value;
+
         return $this;
     }
 
@@ -256,13 +260,14 @@ class DataValidation
     public function setOperator($value = '')
     {
         $this->operator = $value;
+
         return $this;
     }
 
     /**
      * Get Allow Blank
      *
-     * @return boolean
+     * @return bool
      */
     public function getAllowBlank()
     {
@@ -272,19 +277,20 @@ class DataValidation
     /**
      * Set Allow Blank
      *
-     * @param  boolean    $value
+     * @param  bool    $value
      * @return DataValidation
      */
     public function setAllowBlank($value = false)
     {
         $this->allowBlank = $value;
+
         return $this;
     }
 
     /**
      * Get Show DropDown
      *
-     * @return boolean
+     * @return bool
      */
     public function getShowDropDown()
     {
@@ -294,19 +300,20 @@ class DataValidation
     /**
      * Set Show DropDown
      *
-     * @param  boolean    $value
+     * @param  bool    $value
      * @return DataValidation
      */
     public function setShowDropDown($value = false)
     {
         $this->showDropDown = $value;
+
         return $this;
     }
 
     /**
      * Get Show InputMessage
      *
-     * @return boolean
+     * @return bool
      */
     public function getShowInputMessage()
     {
@@ -316,19 +323,20 @@ class DataValidation
     /**
      * Set Show InputMessage
      *
-     * @param  boolean    $value
+     * @param  bool    $value
      * @return DataValidation
      */
     public function setShowInputMessage($value = false)
     {
         $this->showInputMessage = $value;
+
         return $this;
     }
 
     /**
      * Get Show ErrorMessage
      *
-     * @return boolean
+     * @return bool
      */
     public function getShowErrorMessage()
     {
@@ -338,12 +346,13 @@ class DataValidation
     /**
      * Set Show ErrorMessage
      *
-     * @param  boolean    $value
+     * @param  bool    $value
      * @return DataValidation
      */
     public function setShowErrorMessage($value = false)
     {
         $this->showErrorMessage = $value;
+
         return $this;
     }
 
@@ -366,6 +375,7 @@ class DataValidation
     public function setErrorTitle($value = '')
     {
         $this->errorTitle = $value;
+
         return $this;
     }
 
@@ -388,6 +398,7 @@ class DataValidation
     public function setError($value = '')
     {
         $this->error = $value;
+
         return $this;
     }
 
@@ -410,6 +421,7 @@ class DataValidation
     public function setPromptTitle($value = '')
     {
         $this->promptTitle = $value;
+
         return $this;
     }
 
@@ -432,6 +444,7 @@ class DataValidation
     public function setPrompt($value = '')
     {
         $this->prompt = $value;
+
         return $this;
     }
 

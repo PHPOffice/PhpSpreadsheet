@@ -1,6 +1,5 @@
 <?php
 /**
- *
  *    Pythagorean Theorem:
  *
  *    a = 3
@@ -21,11 +20,11 @@ function hypo($a, $b)
     } else {
         $r = 0.0;
     }
+
     return $r;
 }    //    function hypo()
 
-
-/**
+/*
  *    Mike Bommarito's version.
  *    Compute n-dimensional hyotheneuse.
  *

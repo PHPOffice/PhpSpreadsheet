@@ -22,44 +22,40 @@ namespace PhpSpreadsheet\Shared\OLE\PPS;
 //
 // $Id: File.php,v 1.11 2007/02/13 21:00:42 schmidt Exp $
 
-
 /**
-* Class for creating File PPS's for OLE containers
-*
-* @author   Xavier Noguer <xnoguer@php.net>
-* @category PhpSpreadsheet
-*/
+ * Class for creating File PPS's for OLE containers
+ *
+ * @author   Xavier Noguer <xnoguer@php.net>
+ * @category PhpSpreadsheet
+ */
 class File extends \PhpSpreadsheet\Shared\OLE\PPS
 {
     /**
-    * The constructor
-    *
-    * @access public
-    * @param string $name The name of the file (in Unicode)
-    * @see OLE::ascToUcs()
-    */
+     * The constructor
+     *
+     * @param string $name The name of the file (in Unicode)
+     * @see OLE::ascToUcs()
+     */
     public function __construct($name)
     {
-        parent::__construct(null, $name, \PhpSpreadsheet\Shared\OLE::OLE_PPS_TYPE_FILE, null, null, null, null, null, '', array());
+        parent::__construct(null, $name, \PhpSpreadsheet\Shared\OLE::OLE_PPS_TYPE_FILE, null, null, null, null, null, '', []);
     }
 
     /**
-    * Initialization method. Has to be called right after OLE_PPS_File().
-    *
-    * @access public
-    * @return mixed true on success
-    */
+     * Initialization method. Has to be called right after OLE_PPS_File().
+     *
+     * @return mixed true on success
+     */
     public function init()
     {
         return true;
     }
 
     /**
-    * Append data to PPS
-    *
-    * @access public
-    * @param string $data The data to append
-    */
+     * Append data to PPS
+     *
+     * @param string $data The data to append
+     */
     public function append($data)
     {
         $this->_data .= $data;

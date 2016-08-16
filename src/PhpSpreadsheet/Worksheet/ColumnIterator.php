@@ -52,14 +52,12 @@ class ColumnIterator implements \Iterator
      */
     private $startColumn = 0;
 
-
     /**
      * End position
      *
      * @var int
      */
     private $endColumn = 0;
-
 
     /**
      * Create a new column iterator
@@ -87,9 +85,9 @@ class ColumnIterator implements \Iterator
     /**
      * (Re)Set the start column and the current column pointer
      *
-     * @param integer    $startColumn    The column address at which to start iterating
-     * @return ColumnIterator
+     * @param int    $startColumn    The column address at which to start iterating
      * @throws Exception
+     * @return ColumnIterator
      */
     public function resetStart($startColumn = 'A')
     {
@@ -125,8 +123,8 @@ class ColumnIterator implements \Iterator
      * Set the column pointer to the selected column
      *
      * @param   string    $column    The column address to set the current pointer at
-     * @return  ColumnIterator
      * @throws  \PhpSpreadsheet\Exception
+     * @return  ColumnIterator
      */
     public function seek($column = 'A')
     {
@@ -184,9 +182,9 @@ class ColumnIterator implements \Iterator
     {
         if ($this->position <= $this->startColumn) {
             throw new \PhpSpreadsheet\Exception(
-                "Column is already at the beginning of range (" .
-                \PhpSpreadsheet\Cell::stringFromColumnIndex($this->endColumn) . " - " .
-                \PhpSpreadsheet\Cell::stringFromColumnIndex($this->endColumn) . ")"
+                'Column is already at the beginning of range (' .
+                \PhpSpreadsheet\Cell::stringFromColumnIndex($this->endColumn) . ' - ' .
+                \PhpSpreadsheet\Cell::stringFromColumnIndex($this->endColumn) . ')'
             );
         }
 
@@ -196,7 +194,7 @@ class ColumnIterator implements \Iterator
     /**
      * Indicate if more columns exist in the worksheet range of columns that we're iterating
      *
-     * @return boolean
+     * @return bool
      */
     public function valid()
     {

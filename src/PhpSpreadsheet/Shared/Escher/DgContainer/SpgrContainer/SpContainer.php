@@ -36,7 +36,7 @@ class SpContainer
     /**
      * Is this a group shape?
      *
-     * @var boolean
+     * @var bool
      */
     private $spgr = false;
 
@@ -57,7 +57,7 @@ class SpContainer
     /**
      * Shape index (usually group shape has index 0, and the rest: 1,2,3...)
      *
-     * @var boolean
+     * @var bool
      */
     private $spId;
 
@@ -133,7 +133,7 @@ class SpContainer
     /**
      * Set whether this is a group shape
      *
-     * @param boolean $value
+     * @param bool $value
      */
     public function setSpgr($value = false)
     {
@@ -143,7 +143,7 @@ class SpContainer
     /**
      * Get whether this is a group shape
      *
-     * @return boolean
+     * @return bool
      */
     public function getSpgr()
     {
@@ -232,6 +232,7 @@ class SpContainer
         if (isset($this->OPT[$property])) {
             return $this->OPT[$property];
         }
+
         return null;
     }
 

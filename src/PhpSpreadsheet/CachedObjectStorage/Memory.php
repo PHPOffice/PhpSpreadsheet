@@ -28,8 +28,6 @@ class Memory extends CacheBase implements ICache
 {
     /**
      * Dummy method callable from CacheBase, but unused by Memory cache
-     *
-     * @return    void
      */
     protected function storeData()
     {
@@ -40,8 +38,8 @@ class Memory extends CacheBase implements ICache
      *
      * @param   string            $pCoord        Coordinate address of the cell to update
      * @param   \PhpSpreadsheet\Cell    $cell        Cell to update
-     * @return  \PhpSpreadsheet\Cell
      * @throws  \PhpSpreadsheet\Exception
+     * @return  \PhpSpreadsheet\Cell
      */
     public function addCacheData($pCoord, \PhpSpreadsheet\Cell $cell)
     {
@@ -52,7 +50,6 @@ class Memory extends CacheBase implements ICache
 
         return $cell;
     }
-
 
     /**
      * Get cell at a specific coordinate
@@ -77,7 +74,6 @@ class Memory extends CacheBase implements ICache
         return $this->cellCache[$pCoord];
     }
 
-
     /**
      * Clone the cell collection
      *
@@ -87,7 +83,7 @@ class Memory extends CacheBase implements ICache
     {
         parent::copyCellCollection($parent);
 
-        $newCollection = array();
+        $newCollection = [];
         foreach ($this->cellCache as $k => &$cell) {
             $newCollection[$k] = clone $cell;
             $newCollection[$k]->attach($this);
@@ -98,7 +94,6 @@ class Memory extends CacheBase implements ICache
 
     /**
      * Clear the cell collection and disconnect from our parent
-     *
      */
     public function unsetWorksheetCells()
     {
@@ -109,7 +104,7 @@ class Memory extends CacheBase implements ICache
         }
         unset($cell);
 
-        $this->cellCache = array();
+        $this->cellCache = [];
 
         //    detach ourself from the worksheet, so that it can then delete this object successfully
         $this->parent = null;

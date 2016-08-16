@@ -67,6 +67,7 @@ class ChainedBlockStream
             if ($options & STREAM_REPORT_ERRORS) {
                 trigger_error('Only reading is supported', E_USER_WARNING);
             }
+
             return false;
         }
 
@@ -76,6 +77,7 @@ class ChainedBlockStream
             if ($options & STREAM_REPORT_ERRORS) {
                 trigger_error('OLE stream not found', E_USER_WARNING);
             }
+
             return false;
         }
         $this->ole = $GLOBALS['_OLE_INSTANCES'][$this->params['oleInstanceId']];
@@ -113,7 +115,6 @@ class ChainedBlockStream
 
     /**
      * Implements support for fclose().
-     *
      */
     public function stream_close() // @codingStandardsIgnoreLine
     {
@@ -134,6 +135,7 @@ class ChainedBlockStream
         }
         $s = substr($this->data, $this->pos, $count);
         $this->pos += $count;
+
         return $s;
     }
 
@@ -176,6 +178,7 @@ class ChainedBlockStream
         } else {
             return false;
         }
+
         return true;
     }
 
@@ -186,9 +189,9 @@ class ChainedBlockStream
      */
     public function stream_stat() // @codingStandardsIgnoreLine
     {
-        return array(
+        return [
             'size' => strlen($this->data),
-            );
+            ];
     }
 
     // Methods used by stream_wrapper_register() that are not implemented:

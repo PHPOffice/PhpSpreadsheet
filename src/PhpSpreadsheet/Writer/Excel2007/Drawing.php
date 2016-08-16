@@ -1,4 +1,5 @@
 <?php
+
 namespace PhpSpreadsheet\Writer\Excel2007;
 
 use PhpSpreadsheet\Chart;
@@ -32,9 +33,9 @@ class Drawing extends WriterPart
      *
      * @param     \PhpSpreadsheet\Worksheet    $pWorksheet
      * @param    int                    &$chartRef        Chart ID
-     * @param    boolean                $includeCharts    Flag indicating if we should include drawing details for charts
-     * @return string          XML Output
+     * @param    bool                $includeCharts    Flag indicating if we should include drawing details for charts
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return string          XML Output
      */
     public function writeDrawings(\PhpSpreadsheet\Worksheet $pWorksheet, &$chartRef, $includeCharts = false)
     {
@@ -69,7 +70,7 @@ class Drawing extends WriterPart
             // Loop through charts and write the chart position
             if ($chartCount > 0) {
                 for ($c = 0; $c < $chartCount; ++$c) {
-                    $this->writeChart($objWriter, $pWorksheet->getChartByIndex($c), $c+$i);
+                    $this->writeChart($objWriter, $pWorksheet->getChartByIndex($c), $c + $i);
                 }
             }
         }
@@ -97,57 +98,57 @@ class Drawing extends WriterPart
 
         $objWriter->startElement('xdr:twoCellAnchor');
 
-            $objWriter->startElement('xdr:from');
-                $objWriter->writeElement('xdr:col', \PhpSpreadsheet\Cell::columnIndexFromString($tl['colRow'][0]) - 1);
-                $objWriter->writeElement('xdr:colOff', \PhpSpreadsheet\Shared\Drawing::pixelsToEMU($tl['xOffset']));
-                $objWriter->writeElement('xdr:row', $tl['colRow'][1] - 1);
-                $objWriter->writeElement('xdr:rowOff', \PhpSpreadsheet\Shared\Drawing::pixelsToEMU($tl['yOffset']));
-            $objWriter->endElement();
-            $objWriter->startElement('xdr:to');
-                $objWriter->writeElement('xdr:col', \PhpSpreadsheet\Cell::columnIndexFromString($br['colRow'][0]) - 1);
-                $objWriter->writeElement('xdr:colOff', \PhpSpreadsheet\Shared\Drawing::pixelsToEMU($br['xOffset']));
-                $objWriter->writeElement('xdr:row', $br['colRow'][1] - 1);
-                $objWriter->writeElement('xdr:rowOff', \PhpSpreadsheet\Shared\Drawing::pixelsToEMU($br['yOffset']));
-            $objWriter->endElement();
+        $objWriter->startElement('xdr:from');
+        $objWriter->writeElement('xdr:col', \PhpSpreadsheet\Cell::columnIndexFromString($tl['colRow'][0]) - 1);
+        $objWriter->writeElement('xdr:colOff', \PhpSpreadsheet\Shared\Drawing::pixelsToEMU($tl['xOffset']));
+        $objWriter->writeElement('xdr:row', $tl['colRow'][1] - 1);
+        $objWriter->writeElement('xdr:rowOff', \PhpSpreadsheet\Shared\Drawing::pixelsToEMU($tl['yOffset']));
+        $objWriter->endElement();
+        $objWriter->startElement('xdr:to');
+        $objWriter->writeElement('xdr:col', \PhpSpreadsheet\Cell::columnIndexFromString($br['colRow'][0]) - 1);
+        $objWriter->writeElement('xdr:colOff', \PhpSpreadsheet\Shared\Drawing::pixelsToEMU($br['xOffset']));
+        $objWriter->writeElement('xdr:row', $br['colRow'][1] - 1);
+        $objWriter->writeElement('xdr:rowOff', \PhpSpreadsheet\Shared\Drawing::pixelsToEMU($br['yOffset']));
+        $objWriter->endElement();
 
-            $objWriter->startElement('xdr:graphicFrame');
-                $objWriter->writeAttribute('macro', '');
-                $objWriter->startElement('xdr:nvGraphicFramePr');
-                    $objWriter->startElement('xdr:cNvPr');
-                        $objWriter->writeAttribute('name', 'Chart '.$pRelationId);
-                        $objWriter->writeAttribute('id', 1025 * $pRelationId);
-                    $objWriter->endElement();
-                    $objWriter->startElement('xdr:cNvGraphicFramePr');
-                        $objWriter->startElement('a:graphicFrameLocks');
-                        $objWriter->endElement();
-                    $objWriter->endElement();
-                $objWriter->endElement();
+        $objWriter->startElement('xdr:graphicFrame');
+        $objWriter->writeAttribute('macro', '');
+        $objWriter->startElement('xdr:nvGraphicFramePr');
+        $objWriter->startElement('xdr:cNvPr');
+        $objWriter->writeAttribute('name', 'Chart ' . $pRelationId);
+        $objWriter->writeAttribute('id', 1025 * $pRelationId);
+        $objWriter->endElement();
+        $objWriter->startElement('xdr:cNvGraphicFramePr');
+        $objWriter->startElement('a:graphicFrameLocks');
+        $objWriter->endElement();
+        $objWriter->endElement();
+        $objWriter->endElement();
 
-                $objWriter->startElement('xdr:xfrm');
-                    $objWriter->startElement('a:off');
-                        $objWriter->writeAttribute('x', '0');
-                        $objWriter->writeAttribute('y', '0');
-                    $objWriter->endElement();
-                    $objWriter->startElement('a:ext');
-                        $objWriter->writeAttribute('cx', '0');
-                        $objWriter->writeAttribute('cy', '0');
-                    $objWriter->endElement();
-                $objWriter->endElement();
+        $objWriter->startElement('xdr:xfrm');
+        $objWriter->startElement('a:off');
+        $objWriter->writeAttribute('x', '0');
+        $objWriter->writeAttribute('y', '0');
+        $objWriter->endElement();
+        $objWriter->startElement('a:ext');
+        $objWriter->writeAttribute('cx', '0');
+        $objWriter->writeAttribute('cy', '0');
+        $objWriter->endElement();
+        $objWriter->endElement();
 
-                $objWriter->startElement('a:graphic');
-                    $objWriter->startElement('a:graphicData');
-                        $objWriter->writeAttribute('uri', 'http://schemas.openxmlformats.org/drawingml/2006/chart');
-                        $objWriter->startElement('c:chart');
-                            $objWriter->writeAttribute('xmlns:c', 'http://schemas.openxmlformats.org/drawingml/2006/chart');
-                            $objWriter->writeAttribute('xmlns:r', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships');
-                            $objWriter->writeAttribute('r:id', 'rId'.$pRelationId);
-                        $objWriter->endElement();
-                    $objWriter->endElement();
-                $objWriter->endElement();
-            $objWriter->endElement();
+        $objWriter->startElement('a:graphic');
+        $objWriter->startElement('a:graphicData');
+        $objWriter->writeAttribute('uri', 'http://schemas.openxmlformats.org/drawingml/2006/chart');
+        $objWriter->startElement('c:chart');
+        $objWriter->writeAttribute('xmlns:c', 'http://schemas.openxmlformats.org/drawingml/2006/chart');
+        $objWriter->writeAttribute('xmlns:r', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships');
+        $objWriter->writeAttribute('r:id', 'rId' . $pRelationId);
+        $objWriter->endElement();
+        $objWriter->endElement();
+        $objWriter->endElement();
+        $objWriter->endElement();
 
-            $objWriter->startElement('xdr:clientData');
-            $objWriter->endElement();
+        $objWriter->startElement('xdr:clientData');
+        $objWriter->endElement();
 
         $objWriter->endElement();
     }
@@ -166,8 +167,8 @@ class Drawing extends WriterPart
             // xdr:oneCellAnchor
             $objWriter->startElement('xdr:oneCellAnchor');
             // Image location
-            $aCoordinates         = \PhpSpreadsheet\Cell::coordinateFromString($pDrawing->getCoordinates());
-            $aCoordinates[0]     = \PhpSpreadsheet\Cell::columnIndexFromString($aCoordinates[0]);
+            $aCoordinates = \PhpSpreadsheet\Cell::coordinateFromString($pDrawing->getCoordinates());
+            $aCoordinates[0] = \PhpSpreadsheet\Cell::columnIndexFromString($aCoordinates[0]);
 
             // xdr:from
             $objWriter->startElement('xdr:from');
@@ -219,7 +220,7 @@ class Drawing extends WriterPart
 
             // a:stretch
             $objWriter->startElement('a:stretch');
-                $objWriter->writeElement('a:fillRect', null);
+            $objWriter->writeElement('a:fillRect', null);
             $objWriter->endElement();
 
             $objWriter->endElement();
@@ -366,7 +367,7 @@ class Drawing extends WriterPart
 
             $objWriter->endElement();
         } else {
-            throw new \PhpSpreadsheet\Writer\Exception("Invalid parameters passed.");
+            throw new \PhpSpreadsheet\Writer\Exception('Invalid parameters passed.');
         }
     }
 
@@ -374,8 +375,8 @@ class Drawing extends WriterPart
      * Write VML header/footer images to XML format
      *
      * @param     \PhpSpreadsheet\Worksheet                $pWorksheet
-     * @return string                          XML Output
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return string                          XML Output
      */
     public function writeVMLHeaderFooterImages(\PhpSpreadsheet\Worksheet $pWorksheet = null)
     {
@@ -559,18 +560,17 @@ class Drawing extends WriterPart
         $objWriter->endElement();
     }
 
-
     /**
      * Get an array of all drawings
      *
      * @param      \PhpSpreadsheet\SpreadSheet                $spreadsheet
-     * @return     \PhpSpreadsheet\Worksheet\Drawing[]        All drawings in PhpSpreadsheet
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return     \PhpSpreadsheet\Worksheet\Drawing[]        All drawings in PhpSpreadsheet
      */
     public function allDrawings(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         // Get an array of all drawings
-        $aDrawings    = array();
+        $aDrawings = [];
 
         // Loop through PhpSpreadsheet
         $sheetCount = $spreadsheet->getSheetCount();
@@ -580,7 +580,7 @@ class Drawing extends WriterPart
             while ($iterator->valid()) {
                 $aDrawings[] = $iterator->current();
 
-                  $iterator->next();
+                $iterator->next();
             }
         }
 

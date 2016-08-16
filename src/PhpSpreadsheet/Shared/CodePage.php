@@ -32,9 +32,9 @@ class CodePage
      * Convert Microsoft Code Page Identifier to Code Page Name which iconv
      * and mbstring understands
      *
-     * @param integer $codePage Microsoft Code Page Indentifier
-     * @return string Code Page Name
+     * @param int $codePage Microsoft Code Page Indentifier
      * @throws \PhpSpreadsheet\Exception
+     * @return string Code Page Name
      */
     public static function numberToName($codePage = 1252)
     {

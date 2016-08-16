@@ -30,15 +30,15 @@ class MemoryDrawing extends BaseDrawing implements \PhpSpreadsheet\IComparable
 {
     /* Rendering functions */
     const RENDERING_DEFAULT = 'imagepng';
-    const RENDERING_PNG     = 'imagepng';
-    const RENDERING_GIF     = 'imagegif';
-    const RENDERING_JPEG    = 'imagejpeg';
+    const RENDERING_PNG = 'imagepng';
+    const RENDERING_GIF = 'imagegif';
+    const RENDERING_JPEG = 'imagejpeg';
 
     /* MIME types */
-    const MIMETYPE_DEFAULT  = 'image/png';
-    const MIMETYPE_PNG      = 'image/png';
-    const MIMETYPE_GIF      = 'image/gif';
-    const MIMETYPE_JPEG     = 'image/jpeg';
+    const MIMETYPE_DEFAULT = 'image/png';
+    const MIMETYPE_PNG = 'image/png';
+    const MIMETYPE_GIF = 'image/gif';
+    const MIMETYPE_JPEG = 'image/jpeg';
 
     /**
      * Image resource
@@ -74,10 +74,10 @@ class MemoryDrawing extends BaseDrawing implements \PhpSpreadsheet\IComparable
     public function __construct()
     {
         // Initialise values
-        $this->imageResource     = null;
+        $this->imageResource = null;
         $this->renderingFunction = self::RENDERING_DEFAULT;
-        $this->mimeType          = self::MIMETYPE_DEFAULT;
-        $this->uniqueName        = md5(rand(0, 9999). time() . rand(0, 9999));
+        $this->mimeType = self::MIMETYPE_DEFAULT;
+        $this->uniqueName = md5(rand(0, 9999) . time() . rand(0, 9999));
 
         // Initialize parent
         parent::__construct();
@@ -105,9 +105,10 @@ class MemoryDrawing extends BaseDrawing implements \PhpSpreadsheet\IComparable
 
         if (!is_null($this->imageResource)) {
             // Get width/height
-            $this->width  = imagesx($this->imageResource);
+            $this->width = imagesx($this->imageResource);
             $this->height = imagesy($this->imageResource);
         }
+
         return $this;
     }
 
@@ -130,6 +131,7 @@ class MemoryDrawing extends BaseDrawing implements \PhpSpreadsheet\IComparable
     public function setRenderingFunction($value = self::RENDERING_DEFAULT)
     {
         $this->renderingFunction = $value;
+
         return $this;
     }
 
@@ -152,6 +154,7 @@ class MemoryDrawing extends BaseDrawing implements \PhpSpreadsheet\IComparable
     public function setMimeType($value = self::MIMETYPE_DEFAULT)
     {
         $this->mimeType = $value;
+
         return $this;
     }
 

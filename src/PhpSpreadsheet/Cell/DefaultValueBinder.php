@@ -31,7 +31,7 @@ class DefaultValueBinder implements IValueBinder
      *
      * @param  \PhpSpreadsheet\Cell  $cell   Cell to bind value to
      * @param  mixed          $value  Value to bind in cell
-     * @return boolean
+     * @return bool
      */
     public function bindValue(\PhpSpreadsheet\Cell $cell, $value = null)
     {
@@ -82,6 +82,7 @@ class DefaultValueBinder implements IValueBinder
             } elseif ((strpos($pValue, '.') === false) && ($pValue > PHP_INT_MAX)) {
                 return DataType::TYPE_STRING;
             }
+
             return DataType::TYPE_NUMERIC;
         } elseif (is_string($pValue) && array_key_exists($pValue, DataType::getErrorCodes())) {
             return DataType::TYPE_ERROR;

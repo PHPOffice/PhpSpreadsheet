@@ -1,4 +1,5 @@
 <?php
+
 namespace PhpSpreadsheet\Writer\Excel2007;
 
 /**
@@ -29,9 +30,9 @@ class ContentTypes extends WriterPart
      * Write content types to XML format
      *
      * @param     \PhpSpreadsheet\Spreadsheet    $spreadsheet
-     * @param    boolean        $includeCharts    Flag indicating if we should include drawing details for charts
-     * @return string                  XML Output
+     * @param    bool        $includeCharts    Flag indicating if we should include drawing details for charts
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return string                  XML Output
      */
     public function writeContentTypes(\PhpSpreadsheet\Spreadsheet $spreadsheet = null, $includeCharts = false)
     {
@@ -71,11 +72,13 @@ class ContentTypes extends WriterPart
             $this->writeOverrideContentType($objWriter, '/xl/workbook.xml', 'application/vnd.ms-excel.sheet.macroEnabled.main+xml');
             //... and define a new type for the VBA project
             $this->writeDefaultContentType($objWriter, 'bin', 'application/vnd.ms-office.vbaProject');
-            if ($spreadsheet->hasMacrosCertificate()) {// signed macros ?
+            if ($spreadsheet->hasMacrosCertificate()) {
+                // signed macros ?
                 // Yes : add needed information
                 $this->writeOverrideContentType($objWriter, '/xl/vbaProjectSignature.bin', 'application/vnd.ms-office.vbaProjectSignature');
             }
-        } else {// no macros in workbook, so standard type
+        } else {
+            // no macros in workbook, so standard type
             $this->writeOverrideContentType($objWriter, '/xl/workbook.xml', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml');
         }
 
@@ -126,11 +129,11 @@ class ContentTypes extends WriterPart
         }
 
         // Add media content-types
-        $aMediaContentTypes = array();
+        $aMediaContentTypes = [];
         $mediaCount = $this->getParentWriter()->getDrawingHashTable()->count();
         for ($i = 0; $i < $mediaCount; ++$i) {
-            $extension     = '';
-            $mimeType     = '';
+            $extension = '';
+            $mimeType = '';
 
             if ($this->getParentWriter()->getDrawingHashTable()->getByIndex($i) instanceof \PhpSpreadsheet\Worksheet\Drawing) {
                 $extension = strtolower($this->getParentWriter()->getDrawingHashTable()->getByIndex($i)->getExtension());
@@ -152,9 +155,9 @@ class ContentTypes extends WriterPart
         if ($spreadsheet->hasRibbonBinObjects()) {
             // Some additional objects in the ribbon ?
             // we need to write "Extension" but not already write for media content
-            $tabRibbonTypes=array_diff($spreadsheet->getRibbonBinObjects('types'), array_keys($aMediaContentTypes));
+            $tabRibbonTypes = array_diff($spreadsheet->getRibbonBinObjects('types'), array_keys($aMediaContentTypes));
             foreach ($tabRibbonTypes as $aRibbonType) {
-                $mimeType='image/.'.$aRibbonType;//we wrote $mimeType like customUI Editor
+                $mimeType = 'image/.' . $aRibbonType;//we wrote $mimeType like customUI Editor
                 $this->writeDefaultContentType($objWriter, $aRibbonType, $mimeType);
             }
         }
@@ -181,13 +184,14 @@ class ContentTypes extends WriterPart
      * Get image mime type
      *
      * @param     string    $pFile    Filename
-     * @return     string    Mime Type
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return     string    Mime Type
      */
     private function getImageMimeType($pFile = '')
     {
         if (\PhpSpreadsheet\Shared\File::fileExists($pFile)) {
             $image = getimagesize($pFile);
+
             return image_type_to_mime_type($image[2]);
         } else {
             throw new \PhpSpreadsheet\Writer\Exception("File $pFile does not exist");
@@ -211,7 +215,7 @@ class ContentTypes extends WriterPart
             $objWriter->writeAttribute('ContentType', $pContentType);
             $objWriter->endElement();
         } else {
-            throw new \PhpSpreadsheet\Writer\Exception("Invalid parameters passed.");
+            throw new \PhpSpreadsheet\Writer\Exception('Invalid parameters passed.');
         }
     }
 
@@ -232,7 +236,7 @@ class ContentTypes extends WriterPart
             $objWriter->writeAttribute('ContentType', $pContentType);
             $objWriter->endElement();
         } else {
-            throw new \PhpSpreadsheet\Writer\Exception("Invalid parameters passed.");
+            throw new \PhpSpreadsheet\Writer\Exception('Invalid parameters passed.');
         }
     }
 }

@@ -31,8 +31,8 @@ interface ICache
      *
      * @param    string            $pCoord        Coordinate address of the cell to update
      * @param    \PhpSpreadsheet\Cell    $cell        Cell to update
-     * @return   \PhpSpreadsheet\Cell
      * @throws   \PhpSpreadsheet\Exception
+     * @return   \PhpSpreadsheet\Cell
      */
     public function addCacheData($pCoord, \PhpSpreadsheet\Cell $cell);
 
@@ -40,8 +40,8 @@ interface ICache
      * Add or Update a cell in cache
      *
      * @param    \PhpSpreadsheet\Cell    $cell        Cell to update
-     * @return   \PhpSpreadsheet\Cell
      * @throws   \PhpSpreadsheet\Exception
+     * @return   \PhpSpreadsheet\Cell
      */
     public function updateCacheData(\PhpSpreadsheet\Cell $cell);
 
@@ -49,8 +49,8 @@ interface ICache
      * Fetch a cell from cache identified by coordinate address
      *
      * @param   string            $pCoord        Coordinate address of the cell to retrieve
-     * @return  \PhpSpreadsheet\Cell     Cell that was found, or null if not found
      * @throws  \PhpSpreadsheet\Exception
+     * @return  \PhpSpreadsheet\Cell     Cell that was found, or null if not found
      */
     public function getCacheData($pCoord);
 
@@ -66,7 +66,7 @@ interface ICache
      * Is a value set in the current \PhpSpreadsheet\CachedObjectStorage\ICache for an indexed cell?
      *
      * @param    string        $pCoord        Coordinate address of the cell to check
-     * @return    boolean
+     * @return    bool
      */
     public function isDataSet($pCoord);
 
@@ -95,7 +95,7 @@ interface ICache
      * Identify whether the caching method is currently available
      * Some methods are dependent on the availability of certain extensions being enabled in the PHP build
      *
-     * @return    boolean
+     * @return    bool
      */
     public static function cacheMethodIsAvailable();
 }

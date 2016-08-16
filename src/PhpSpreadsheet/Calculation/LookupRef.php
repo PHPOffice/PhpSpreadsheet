@@ -49,10 +49,10 @@ class LookupRef
      */
     public static function cellAddress($row, $column, $relativity = 1, $referenceStyle = true, $sheetText = '')
     {
-        $row        = Functions::flattenSingleValue($row);
-        $column     = Functions::flattenSingleValue($column);
+        $row = Functions::flattenSingleValue($row);
+        $column = Functions::flattenSingleValue($column);
         $relativity = Functions::flattenSingleValue($relativity);
-        $sheetText  = Functions::flattenSingleValue($sheetText);
+        $sheetText = Functions::flattenSingleValue($sheetText);
 
         if (($row < 1) || ($column < 1)) {
             return Functions::VALUE();
@@ -60,31 +60,32 @@ class LookupRef
 
         if ($sheetText > '') {
             if (strpos($sheetText, ' ') !== false) {
-                $sheetText = "'".$sheetText."'";
+                $sheetText = "'" . $sheetText . "'";
             }
-            $sheetText .='!';
+            $sheetText .= '!';
         }
         if ((!is_bool($referenceStyle)) || $referenceStyle) {
             $rowRelative = $columnRelative = '$';
-            $column = \PhpSpreadsheet\Cell::stringFromColumnIndex($column-1);
+            $column = \PhpSpreadsheet\Cell::stringFromColumnIndex($column - 1);
             if (($relativity == 2) || ($relativity == 4)) {
                 $columnRelative = '';
             }
             if (($relativity == 3) || ($relativity == 4)) {
                 $rowRelative = '';
             }
-            return $sheetText.$columnRelative.$column.$rowRelative.$row;
+
+            return $sheetText . $columnRelative . $column . $rowRelative . $row;
         } else {
             if (($relativity == 2) || ($relativity == 4)) {
-                $column = '['.$column.']';
+                $column = '[' . $column . ']';
             }
             if (($relativity == 3) || ($relativity == 4)) {
-                $row = '['.$row.']';
+                $row = '[' . $row . ']';
             }
-            return $sheetText.'R'.$row.'C'.$column;
+
+            return $sheetText . 'R' . $row . 'C' . $column;
         }
     }
-
 
     /**
      * COLUMN
@@ -98,7 +99,7 @@ class LookupRef
      *        =COLUMN([cellAddress])
      *
      * @param    cellAddress        A reference to a range of cells for which you want the column numbers
-     * @return    integer or array of integer
+     * @return    int or array of integer
      */
     public static function COLUMN($cellAddress = null)
     {
@@ -109,6 +110,7 @@ class LookupRef
         if (is_array($cellAddress)) {
             foreach ($cellAddress as $columnKey => $value) {
                 $columnKey = preg_replace('/[^a-z]/i', '', $columnKey);
+
                 return (integer) \PhpSpreadsheet\Cell::columnIndexFromString($columnKey);
             }
         } else {
@@ -119,18 +121,19 @@ class LookupRef
                 list($startAddress, $endAddress) = explode(':', $cellAddress);
                 $startAddress = preg_replace('/[^a-z]/i', '', $startAddress);
                 $endAddress = preg_replace('/[^a-z]/i', '', $endAddress);
-                $returnValue = array();
+                $returnValue = [];
                 do {
                     $returnValue[] = (integer) \PhpSpreadsheet\Cell::columnIndexFromString($startAddress);
                 } while ($startAddress++ != $endAddress);
+
                 return $returnValue;
             } else {
                 $cellAddress = preg_replace('/[^a-z]/i', '', $cellAddress);
+
                 return (integer) \PhpSpreadsheet\Cell::columnIndexFromString($cellAddress);
             }
         }
     }
-
 
     /**
      * COLUMNS
@@ -141,7 +144,7 @@ class LookupRef
      *        =COLUMNS(cellAddress)
      *
      * @param    cellAddress        An array or array formula, or a reference to a range of cells for which you want the number of columns
-     * @return    integer            The number of columns in cellAddress
+     * @return    int            The number of columns in cellAddress
      */
     public static function COLUMNS($cellAddress = null)
     {
@@ -162,7 +165,6 @@ class LookupRef
         }
     }
 
-
     /**
      * ROW
      *
@@ -175,7 +177,7 @@ class LookupRef
      *        =ROW([cellAddress])
      *
      * @param    cellAddress        A reference to a range of cells for which you want the row numbers
-     * @return    integer or array of integer
+     * @return    int or array of integer
      */
     public static function ROW($cellAddress = null)
     {
@@ -197,18 +199,19 @@ class LookupRef
                 list($startAddress, $endAddress) = explode(':', $cellAddress);
                 $startAddress = preg_replace('/[^0-9]/', '', $startAddress);
                 $endAddress = preg_replace('/[^0-9]/', '', $endAddress);
-                $returnValue = array();
+                $returnValue = [];
                 do {
                     $returnValue[][] = (integer) $startAddress;
                 } while ($startAddress++ != $endAddress);
+
                 return $returnValue;
             } else {
                 list($cellAddress) = explode(':', $cellAddress);
+
                 return (integer) preg_replace('/[^0-9]/', '', $cellAddress);
             }
         }
     }
-
 
     /**
      * ROWS
@@ -219,7 +222,7 @@ class LookupRef
      *        =ROWS(cellAddress)
      *
      * @param    cellAddress        An array or array formula, or a reference to a range of cells for which you want the number of rows
-     * @return    integer            The number of rows in cellAddress
+     * @return    int            The number of rows in cellAddress
      */
     public static function ROWS($cellAddress = null)
     {
@@ -240,14 +243,12 @@ class LookupRef
         }
     }
 
-
     /**
      * HYPERLINK
      *
      * Excel Function:
      *        =HYPERLINK(linkURL,displayName)
      *
-     * @access    public
      * @category Logical Functions
      * @param    string            $linkURL        Value to check, is also the value returned when no error
      * @param    string            $displayName    Value to return when testValue is an error condition
@@ -259,7 +260,7 @@ class LookupRef
         $args = func_get_args();
         $pCell = array_pop($args);
 
-        $linkURL     = (is_null($linkURL))     ? '' : Functions::flattenSingleValue($linkURL);
+        $linkURL = (is_null($linkURL))     ? '' : Functions::flattenSingleValue($linkURL);
         $displayName = (is_null($displayName)) ? '' : Functions::flattenSingleValue($displayName);
 
         if ((!is_object($pCell)) || (trim($linkURL) == '')) {
@@ -275,7 +276,6 @@ class LookupRef
 
         return $displayName;
     }
-
 
     /**
      * INDIRECT
@@ -293,11 +293,10 @@ class LookupRef
      * @return   mixed            The cells referenced by cellAddress
      *
      * @todo    Support for the optional a1 parameter introduced in Excel 2010
-     *
      */
     public static function INDIRECT($cellAddress = null, \PhpSpreadsheet\Cell $pCell = null)
     {
-        $cellAddress    = Functions::flattenSingleValue($cellAddress);
+        $cellAddress = Functions::flattenSingleValue($cellAddress);
         if (is_null($cellAddress) || $cellAddress === '') {
             return Functions::REF();
         }
@@ -308,9 +307,9 @@ class LookupRef
             list($cellAddress1, $cellAddress2) = explode(':', $cellAddress);
         }
 
-        if ((!preg_match('/^'.\PhpSpreadsheet\Calculation::CALCULATION_REGEXP_CELLREF.'$/i', $cellAddress1, $matches)) ||
-            ((!is_null($cellAddress2)) && (!preg_match('/^'.\PhpSpreadsheet\Calculation::CALCULATION_REGEXP_CELLREF.'$/i', $cellAddress2, $matches)))) {
-            if (!preg_match('/^'.\PhpSpreadsheet\Calculation::CALCULATION_REGEXP_NAMEDRANGE.'$/i', $cellAddress1, $matches)) {
+        if ((!preg_match('/^' . \PhpSpreadsheet\Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress1, $matches)) ||
+            ((!is_null($cellAddress2)) && (!preg_match('/^' . \PhpSpreadsheet\Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress2, $matches)))) {
+            if (!preg_match('/^' . \PhpSpreadsheet\Calculation::CALCULATION_REGEXP_NAMEDRANGE . '$/i', $cellAddress1, $matches)) {
                 return Functions::REF();
             }
 
@@ -335,7 +334,6 @@ class LookupRef
 
         return \PhpSpreadsheet\Calculation::getInstance()->extractCellRange($cellAddress, $pSheet, false);
     }
-
 
     /**
      * OFFSET
@@ -364,10 +362,10 @@ class LookupRef
      */
     public static function OFFSET($cellAddress = null, $rows = 0, $columns = 0, $height = null, $width = null)
     {
-        $rows    = Functions::flattenSingleValue($rows);
+        $rows = Functions::flattenSingleValue($rows);
         $columns = Functions::flattenSingleValue($columns);
-        $height  = Functions::flattenSingleValue($height);
-        $width   = Functions::flattenSingleValue($width);
+        $height = Functions::flattenSingleValue($height);
+        $width = Functions::flattenSingleValue($width);
         if ($cellAddress == null) {
             return 0;
         }
@@ -379,12 +377,12 @@ class LookupRef
         }
 
         $sheetName = null;
-        if (strpos($cellAddress, "!")) {
-            list($sheetName, $cellAddress) = explode("!", $cellAddress);
+        if (strpos($cellAddress, '!')) {
+            list($sheetName, $cellAddress) = explode('!', $cellAddress);
             $sheetName = trim($sheetName, "'");
         }
-        if (strpos($cellAddress, ":")) {
-            list($startCell, $endCell) = explode(":", $cellAddress);
+        if (strpos($cellAddress, ':')) {
+            list($startCell, $endCell) = explode(':', $cellAddress);
         } else {
             $startCell = $endCell = $cellAddress;
         }
@@ -417,9 +415,9 @@ class LookupRef
         }
         $endCellColumn = \PhpSpreadsheet\Cell::stringFromColumnIndex($endCellColumn);
 
-        $cellAddress = $startCellColumn.$startCellRow;
+        $cellAddress = $startCellColumn . $startCellRow;
         if (($startCellColumn != $endCellColumn) || ($startCellRow != $endCellRow)) {
-            $cellAddress .= ':'.$endCellColumn.$endCellRow;
+            $cellAddress .= ':' . $endCellColumn . $endCellRow;
         }
 
         if ($sheetName !== null) {
@@ -430,7 +428,6 @@ class LookupRef
 
         return \PhpSpreadsheet\Calculation::getInstance()->extractCellRange($cellAddress, $pSheet, false);
     }
-
 
     /**
      * CHOOSE
@@ -476,7 +473,6 @@ class LookupRef
         }
     }
 
-
     /**
      * MATCH
      *
@@ -488,13 +484,13 @@ class LookupRef
      * @param    lookup_value    The value that you want to match in lookup_array
      * @param    lookup_array    The range of cells being searched
      * @param    match_type        The number -1, 0, or 1. -1 means above, 0 means exact match, 1 means below. If match_type is 1 or -1, the list has to be ordered.
-     * @return    integer            The relative position of the found item
+     * @return    int            The relative position of the found item
      */
     public static function MATCH($lookup_value, $lookup_array, $match_type = 1)
     {
         $lookup_array = Functions::flattenArray($lookup_array);
         $lookup_value = Functions::flattenSingleValue($lookup_value);
-        $match_type    = (is_null($match_type)) ? 1 : (int) Functions::flattenSingleValue($match_type);
+        $match_type = (is_null($match_type)) ? 1 : (int) Functions::flattenSingleValue($match_type);
         //    MATCH is not case sensitive
         $lookup_value = strtolower($lookup_value);
 
@@ -526,7 +522,7 @@ class LookupRef
                 $lookup_array[$i] = strtolower($lookupArrayValue);
             }
             if ((is_null($lookupArrayValue)) && (($match_type == 1) || ($match_type == -1))) {
-                $lookup_array = array_slice($lookup_array, 0, $i-1);
+                $lookup_array = array_slice($lookup_array, 0, $i - 1);
             }
         }
 
@@ -554,7 +550,7 @@ class LookupRef
                     break;
                 } else {
                     // the previous cell was the match
-                    return $keySet[$i-1]+1;
+                    return $keySet[$i - 1] + 1;
                 }
             } elseif (($match_type == 1) && ($lookupArrayValue >= $lookup_value)) {
                 $i = array_search($i, $keySet);
@@ -564,7 +560,7 @@ class LookupRef
                     break;
                 } else {
                     // the previous cell was the match
-                    return $keySet[$i-1]+1;
+                    return $keySet[$i - 1] + 1;
                 }
             }
         }
@@ -572,7 +568,6 @@ class LookupRef
         //    unsuccessful in finding a match, return #N/A error value
         return Functions::NA();
     }
-
 
     /**
      * INDEX
@@ -607,7 +602,7 @@ class LookupRef
                 return $arrayValues;
             }
             $rowNum = $rowKeys[--$rowNum];
-            $returnArray = array();
+            $returnArray = [];
             foreach ($arrayValues as $arrayColumn) {
                 if (is_array($arrayColumn)) {
                     if (isset($arrayColumn[$rowNum])) {
@@ -619,6 +614,7 @@ class LookupRef
                     return $arrayValues[$rowNum];
                 }
             }
+
             return $returnArray;
         }
         $columnNum = $columnKeys[--$columnNum];
@@ -632,7 +628,6 @@ class LookupRef
         return $arrayValues[$rowNum][$columnNum];
     }
 
-
     /**
      * TRANSPOSE
      *
@@ -643,9 +638,9 @@ class LookupRef
      */
     public static function TRANSPOSE($matrixData)
     {
-        $returnMatrix = array();
+        $returnMatrix = [];
         if (!is_array($matrixData)) {
-            $matrixData = array(array($matrixData));
+            $matrixData = [[$matrixData]];
         }
 
         $column = 0;
@@ -657,9 +652,9 @@ class LookupRef
             }
             ++$column;
         }
+
         return $returnMatrix;
     }
-
 
     private static function vlookupSort($a, $b)
     {
@@ -668,9 +663,9 @@ class LookupRef
         if (($aLower = strtolower($a[$firstColumn])) == ($bLower = strtolower($b[$firstColumn]))) {
             return 0;
         }
+
         return ($aLower < $bLower) ? -1 : 1;
     }
-
 
     /**
      * VLOOKUP
@@ -683,8 +678,8 @@ class LookupRef
      */
     public static function VLOOKUP($lookup_value, $lookup_array, $index_number, $not_exact_match = true)
     {
-        $lookup_value    = Functions::flattenSingleValue($lookup_value);
-        $index_number    = Functions::flattenSingleValue($index_number);
+        $lookup_value = Functions::flattenSingleValue($lookup_value);
+        $index_number = Functions::flattenSingleValue($index_number);
         $not_exact_match = Functions::flattenSingleValue($not_exact_match);
 
         // index_number must be greater than or equal to 1
@@ -708,7 +703,7 @@ class LookupRef
         }
 
         if (!$not_exact_match) {
-            uasort($lookup_array, array('self', 'vlookupSort'));
+            uasort($lookup_array, ['self', 'vlookupSort']);
         }
 
         $rowNumber = $rowValue = false;
@@ -738,7 +733,6 @@ class LookupRef
         return Functions::NA();
     }
 
-
     /**
      * HLOOKUP
      * The HLOOKUP function searches for value in the top-most row of lookup_array and returns the value in the same column based on the index_number.
@@ -750,9 +744,9 @@ class LookupRef
      */
     public static function HLOOKUP($lookup_value, $lookup_array, $index_number, $not_exact_match = true)
     {
-        $lookup_value   = Functions::flattenSingleValue($lookup_value);
-        $index_number   = Functions::flattenSingleValue($index_number);
-        $not_exact_match    = Functions::flattenSingleValue($not_exact_match);
+        $lookup_value = Functions::flattenSingleValue($lookup_value);
+        $index_number = Functions::flattenSingleValue($index_number);
+        $not_exact_match = Functions::flattenSingleValue($not_exact_match);
 
         // index_number must be greater than or equal to 1
         if ($index_number < 1) {
@@ -769,7 +763,7 @@ class LookupRef
                 return Functions::REF();
             } else {
                 $columnKeys = array_keys($lookup_array[$firstRow]);
-                                $firstkey = $f[0] - 1;
+                $firstkey = $f[0] - 1;
                 $returnColumn = $firstkey + $index_number;
                 $firstColumn = array_shift($f);
             }
@@ -800,7 +794,6 @@ class LookupRef
 
         return Functions::NA();
     }
-
 
     /**
      * LOOKUP
@@ -851,7 +844,7 @@ class LookupRef
                 if (is_array($value)) {
                     $k = array_keys($value);
                     $key1 = $key2 = array_shift($k);
-                    $key2++;
+                    ++$key2;
                     $dataValue1 = $value[$key1];
                 } else {
                     $key1 = 0;
@@ -862,7 +855,7 @@ class LookupRef
                 if (is_array($dataValue2)) {
                     $dataValue2 = array_shift($dataValue2);
                 }
-                $value = array($key1 => $dataValue1, $key2 => $dataValue2);
+                $value = [$key1 => $dataValue1, $key2 => $dataValue2];
             }
             unset($value);
         }

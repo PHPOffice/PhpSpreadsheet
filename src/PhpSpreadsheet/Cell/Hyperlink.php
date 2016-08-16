@@ -49,7 +49,7 @@ class Hyperlink
     public function __construct($pUrl = '', $pTooltip = '')
     {
         // Initialise member variables
-        $this->url     = $pUrl;
+        $this->url = $pUrl;
         $this->tooltip = $pTooltip;
     }
 
@@ -72,6 +72,7 @@ class Hyperlink
     public function setUrl($value = '')
     {
         $this->url = $value;
+
         return $this;
     }
 
@@ -94,13 +95,14 @@ class Hyperlink
     public function setTooltip($value = '')
     {
         $this->tooltip = $value;
+
         return $this;
     }
 
     /**
      * Is this hyperlink internal? (to another worksheet)
      *
-     * @return boolean
+     * @return bool
      */
     public function isInternal()
     {

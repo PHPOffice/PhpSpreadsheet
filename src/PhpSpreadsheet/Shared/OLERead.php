@@ -2,7 +2,7 @@
 
 namespace PhpSpreadsheet\Shared;
 
-/**
+/*
  * PhpSpreadsheet
  *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -35,40 +35,37 @@ class OLERead
     private $data = '';
 
     // OLE identifier
-    const IDENTIFIER_OLE                    = IDENTIFIER_OLE;
+    const IDENTIFIER_OLE = IDENTIFIER_OLE;
 
     // Size of a sector = 512 bytes
-    const BIG_BLOCK_SIZE                    = 0x200;
+    const BIG_BLOCK_SIZE = 0x200;
 
     // Size of a short sector = 64 bytes
-    const SMALL_BLOCK_SIZE                  = 0x40;
+    const SMALL_BLOCK_SIZE = 0x40;
 
     // Size of a directory entry always = 128 bytes
-    const PROPERTY_STORAGE_BLOCK_SIZE       = 0x80;
+    const PROPERTY_STORAGE_BLOCK_SIZE = 0x80;
 
     // Minimum size of a standard stream = 4096 bytes, streams smaller than this are stored as short streams
-    const SMALL_BLOCK_THRESHOLD             = 0x1000;
+    const SMALL_BLOCK_THRESHOLD = 0x1000;
 
     // header offsets
-    const NUM_BIG_BLOCK_DEPOT_BLOCKS_POS    = 0x2c;
-    const ROOT_START_BLOCK_POS              = 0x30;
-    const SMALL_BLOCK_DEPOT_BLOCK_POS       = 0x3c;
-    const EXTENSION_BLOCK_POS               = 0x44;
-    const NUM_EXTENSION_BLOCK_POS           = 0x48;
-    const BIG_BLOCK_DEPOT_BLOCKS_POS        = 0x4c;
+    const NUM_BIG_BLOCK_DEPOT_BLOCKS_POS = 0x2c;
+    const ROOT_START_BLOCK_POS = 0x30;
+    const SMALL_BLOCK_DEPOT_BLOCK_POS = 0x3c;
+    const EXTENSION_BLOCK_POS = 0x44;
+    const NUM_EXTENSION_BLOCK_POS = 0x48;
+    const BIG_BLOCK_DEPOT_BLOCKS_POS = 0x4c;
 
     // property storage offsets (directory offsets)
-    const SIZE_OF_NAME_POS                  = 0x40;
-    const TYPE_POS                          = 0x42;
-    const START_BLOCK_POS                   = 0x74;
-    const SIZE_POS                          = 0x78;
+    const SIZE_OF_NAME_POS = 0x40;
+    const TYPE_POS = 0x42;
+    const START_BLOCK_POS = 0x74;
+    const SIZE_POS = 0x78;
 
-
-
-    public $wrkbook                         = null;
-    public $summaryInformation              = null;
-    public $documentSummaryInformation      = null;
-
+    public $wrkbook = null;
+    public $summaryInformation = null;
+    public $documentSummaryInformation = null;
 
     /**
      * Read the file
@@ -80,7 +77,7 @@ class OLERead
     {
         // Check if file exists and is readable
         if (!is_readable($sFileName)) {
-            throw new \PhpSpreadsheet\Reader\Exception("Could not open " . $sFileName . " for reading! File does not exist, or it is not readable.");
+            throw new \PhpSpreadsheet\Reader\Exception('Could not open ' . $sFileName . ' for reading! File does not exist, or it is not readable.');
         }
 
         // Get the file identifier
@@ -110,18 +107,18 @@ class OLERead
         // Total number of sectors used by MSAT
         $this->numExtensionBlocks = self::getInt4d($this->data, self::NUM_EXTENSION_BLOCK_POS);
 
-        $bigBlockDepotBlocks = array();
+        $bigBlockDepotBlocks = [];
         $pos = self::BIG_BLOCK_DEPOT_BLOCKS_POS;
 
         $bbdBlocks = $this->numBigBlockDepotBlocks;
 
         if ($this->numExtensionBlocks != 0) {
-            $bbdBlocks = (self::BIG_BLOCK_SIZE - self::BIG_BLOCK_DEPOT_BLOCKS_POS)/4;
+            $bbdBlocks = (self::BIG_BLOCK_SIZE - self::BIG_BLOCK_DEPOT_BLOCKS_POS) / 4;
         }
 
         for ($i = 0; $i < $bbdBlocks; ++$i) {
-              $bigBlockDepotBlocks[$i] = self::getInt4d($this->data, $pos);
-              $pos += 4;
+            $bigBlockDepotBlocks[$i] = self::getInt4d($this->data, $pos);
+            $pos += 4;
         }
 
         for ($j = 0; $j < $this->numExtensionBlocks; ++$j) {
@@ -145,8 +142,8 @@ class OLERead
         for ($i = 0; $i < $this->numBigBlockDepotBlocks; ++$i) {
             $pos = ($bigBlockDepotBlocks[$i] + 1) * self::BIG_BLOCK_SIZE;
 
-            $this->bigBlockChain .= substr($this->data, $pos, 4*$bbs);
-            $pos += 4*$bbs;
+            $this->bigBlockChain .= substr($this->data, $pos, 4 * $bbs);
+            $pos += 4 * $bbs;
         }
 
         $pos = 0;
@@ -155,10 +152,10 @@ class OLERead
         while ($sbdBlock != -2) {
             $pos = ($sbdBlock + 1) * self::BIG_BLOCK_SIZE;
 
-            $this->smallBlockChain .= substr($this->data, $pos, 4*$bbs);
-            $pos += 4*$bbs;
+            $this->smallBlockChain .= substr($this->data, $pos, 4 * $bbs);
+            $pos += 4 * $bbs;
 
-            $sbdBlock = self::getInt4d($this->bigBlockChain, $sbdBlock*4);
+            $sbdBlock = self::getInt4d($this->bigBlockChain, $sbdBlock * 4);
         }
 
         // read the directory stream
@@ -187,10 +184,10 @@ class OLERead
             $block = $this->props[$stream]['startBlock'];
 
             while ($block != -2) {
-                  $pos = $block * self::SMALL_BLOCK_SIZE;
+                $pos = $block * self::SMALL_BLOCK_SIZE;
                 $streamData .= substr($rootdata, $pos, self::SMALL_BLOCK_SIZE);
 
-                $block = self::getInt4d($this->smallBlockChain, $block*4);
+                $block = self::getInt4d($this->smallBlockChain, $block * 4);
             }
 
             return $streamData;
@@ -209,7 +206,7 @@ class OLERead
             while ($block != -2) {
                 $pos = ($block + 1) * self::BIG_BLOCK_SIZE;
                 $streamData .= substr($this->data, $pos, self::BIG_BLOCK_SIZE);
-                $block = self::getInt4d($this->bigBlockChain, $block*4);
+                $block = self::getInt4d($this->bigBlockChain, $block * 4);
             }
 
             return $streamData;
@@ -230,8 +227,9 @@ class OLERead
         while ($block != -2) {
             $pos = ($block + 1) * self::BIG_BLOCK_SIZE;
             $data .= substr($this->data, $pos, self::BIG_BLOCK_SIZE);
-            $block = self::getInt4d($this->bigBlockChain, $block*4);
+            $block = self::getInt4d($this->bigBlockChain, $block * 4);
         }
+
         return $data;
     }
 
@@ -249,7 +247,7 @@ class OLERead
             $d = substr($this->entry, $offset, self::PROPERTY_STORAGE_BLOCK_SIZE);
 
             // size in bytes of name
-            $nameSize = ord($d[self::SIZE_OF_NAME_POS]) | (ord($d[self::SIZE_OF_NAME_POS+1]) << 8);
+            $nameSize = ord($d[self::SIZE_OF_NAME_POS]) | (ord($d[self::SIZE_OF_NAME_POS + 1]) << 8);
 
             // type of entry
             $type = ord($d[self::TYPE_POS]);
@@ -260,14 +258,14 @@ class OLERead
 
             $size = self::getInt4d($d, self::SIZE_POS);
 
-            $name = str_replace("\x00", "", substr($d, 0, $nameSize));
+            $name = str_replace("\x00", '', substr($d, 0, $nameSize));
 
-            $this->props[] = array(
+            $this->props[] = [
                 'name' => $name,
                 'type' => $type,
                 'startBlock' => $startBlock,
-                'size' => $size
-            );
+                'size' => $size,
+            ];
 
             // tmp helper to simplify checks
             $upName = strtoupper($name);
@@ -282,13 +280,13 @@ class OLERead
 
             // Summary information
             if ($name == chr(5) . 'SummaryInformation') {
-//                echo 'Summary Information<br />';
+                //                echo 'Summary Information<br />';
                 $this->summaryInformation = count($this->props) - 1;
             }
 
             // Additional Document Summary information
             if ($name == chr(5) . 'DocumentSummaryInformation') {
-//                echo 'Document Summary Information<br />';
+                //                echo 'Document Summary Information<br />';
                 $this->documentSummaryInformation = count($this->props) - 1;
             }
 
@@ -315,6 +313,7 @@ class OLERead
         } else {
             $_ord_24 = ($_or_24 & 127) << 24;
         }
+
         return ord($data[$pos]) | (ord($data[$pos + 1]) << 8) | (ord($data[$pos + 2]) << 16) | $_ord_24;
     }
 }

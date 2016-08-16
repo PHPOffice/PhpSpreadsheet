@@ -49,7 +49,6 @@ class RowIterator implements \Iterator
      */
     private $startRow = 1;
 
-
     /**
      * End position
      *
@@ -57,13 +56,12 @@ class RowIterator implements \Iterator
      */
     private $endRow = 1;
 
-
     /**
      * Create a new row iterator
      *
      * @param    \PhpSpreadsheet\Worksheet    $subject    The worksheet to iterate over
-     * @param    integer                $startRow   The row number at which to start iterating
-     * @param    integer                $endRow     Optionally, the row number at which to stop iterating
+     * @param    int                $startRow   The row number at which to start iterating
+     * @param    int                $endRow     Optionally, the row number at which to stop iterating
      */
     public function __construct(\PhpSpreadsheet\Worksheet $subject, $startRow = 1, $endRow = null)
     {
@@ -84,9 +82,9 @@ class RowIterator implements \Iterator
     /**
      * (Re)Set the start row and the current row pointer
      *
-     * @param integer    $startRow    The row number at which to start iterating
-     * @return RowIterator
+     * @param int    $startRow    The row number at which to start iterating
      * @throws \PhpSpreadsheet\Exception
+     * @return RowIterator
      */
     public function resetStart($startRow = 1)
     {
@@ -106,7 +104,7 @@ class RowIterator implements \Iterator
     /**
      * (Re)Set the end row
      *
-     * @param integer    $endRow    The row number at which to stop iterating
+     * @param int    $endRow    The row number at which to stop iterating
      * @return RowIterator
      */
     public function resetEnd($endRow = null)
@@ -119,9 +117,9 @@ class RowIterator implements \Iterator
     /**
      * Set the row pointer to the selected row
      *
-     * @param integer    $row    The row number to set the current pointer at
-     * @return RowIterator
+     * @param int    $row    The row number to set the current pointer at
      * @throws \PhpSpreadsheet\Exception
+     * @return RowIterator
      */
     public function seek($row = 1)
     {
@@ -186,7 +184,7 @@ class RowIterator implements \Iterator
     /**
      * Indicate if more rows exist in the worksheet range of rows that we're iterating
      *
-     * @return boolean
+     * @return bool
      */
     public function valid()
     {

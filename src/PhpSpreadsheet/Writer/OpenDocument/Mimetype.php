@@ -28,8 +28,8 @@ class Mimetype extends WriterPart
      * Write mimetype to plain text format
      *
      * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @return     string         XML Output
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return     string         XML Output
      */
     public function write(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {

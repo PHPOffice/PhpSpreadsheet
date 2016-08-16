@@ -31,14 +31,14 @@ class Gnumeric extends BaseReader implements IReader
      *
      * @var array
      */
-    private $styles = array();
+    private $styles = [];
 
     /**
      * Shared Expressions
      *
      * @var array
      */
-    private $expressions = array();
+    private $expressions = [];
 
     private $referenceHelper = null;
 
@@ -47,7 +47,7 @@ class Gnumeric extends BaseReader implements IReader
      */
     public function __construct()
     {
-        $this->readFilter     = new DefaultReadFilter();
+        $this->readFilter = new DefaultReadFilter();
         $this->referenceHelper = \PhpSpreadsheet\ReferenceHelper::getInstance();
     }
 
@@ -55,19 +55,19 @@ class Gnumeric extends BaseReader implements IReader
      * Can the current IReader read the file?
      *
      * @param     string         $pFilename
-     * @return     boolean
      * @throws Exception
+     * @return     bool
      */
     public function canRead($pFilename)
     {
         // Check if file exists
         if (!file_exists($pFilename)) {
-            throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
         }
 
         // Check if gzlib functions are available
         if (!function_exists('gzread')) {
-            throw new Exception("gzlib library is not enabled");
+            throw new Exception('gzlib library is not enabled');
         }
 
         // Read signature data (first 3 bytes)
@@ -75,7 +75,7 @@ class Gnumeric extends BaseReader implements IReader
         $data = fread($fh, 2);
         fclose($fh);
 
-        if ($data != chr(0x1F).chr(0x8B)) {
+        if ($data != chr(0x1F) . chr(0x8B)) {
             return false;
         }
 
@@ -92,14 +92,14 @@ class Gnumeric extends BaseReader implements IReader
     {
         // Check if file exists
         if (!file_exists($pFilename)) {
-            throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
         }
 
         $xml = new XMLReader();
-        $xml->xml($this->securityScanFile('compress.zlib://'.realpath($pFilename)), null, \PhpSpreadsheet\Settings::getLibXmlLoaderOptions());
+        $xml->xml($this->securityScanFile('compress.zlib://' . realpath($pFilename)), null, \PhpSpreadsheet\Settings::getLibXmlLoaderOptions());
         $xml->setParserProperty(2, true);
 
-        $worksheetNames = array();
+        $worksheetNames = [];
         while ($xml->read()) {
             if ($xml->name == 'gnm:SheetName' && $xml->nodeType == XMLReader::ELEMENT) {
                 $xml->read();    //    Move onto the value node
@@ -123,23 +123,23 @@ class Gnumeric extends BaseReader implements IReader
     {
         // Check if file exists
         if (!file_exists($pFilename)) {
-            throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
         }
 
         $xml = new XMLReader();
-        $xml->xml($this->securityScanFile('compress.zlib://'.realpath($pFilename)), null, \PhpSpreadsheet\Settings::getLibXmlLoaderOptions());
+        $xml->xml($this->securityScanFile('compress.zlib://' . realpath($pFilename)), null, \PhpSpreadsheet\Settings::getLibXmlLoaderOptions());
         $xml->setParserProperty(2, true);
 
-        $worksheetInfo = array();
+        $worksheetInfo = [];
         while ($xml->read()) {
             if ($xml->name == 'gnm:Sheet' && $xml->nodeType == XMLReader::ELEMENT) {
-                $tmpInfo = array(
+                $tmpInfo = [
                     'worksheetName' => '',
                     'lastColumnLetter' => 'A',
                     'lastColumnIndex' => 0,
                     'totalRows' => 0,
                     'totalColumns' => 0,
-                );
+                ];
 
                 while ($xml->read()) {
                     if ($xml->name == 'gnm:Name' && $xml->nodeType == XMLReader::ELEMENT) {
@@ -173,6 +173,7 @@ class Gnumeric extends BaseReader implements IReader
             }
             gzclose($file);
         }
+
         return $data;
     }
 
@@ -180,8 +181,8 @@ class Gnumeric extends BaseReader implements IReader
      * Loads PhpSpreadsheet from file
      *
      * @param     string         $pFilename
-     * @return     PhpSpreadsheet
      * @throws     Exception
+     * @return     PhpSpreadsheet
      */
     public function load($pFilename)
     {
@@ -197,14 +198,14 @@ class Gnumeric extends BaseReader implements IReader
      *
      * @param     string         $pFilename
      * @param    \PhpSpreadsheet\Spreadsheet    $spreadsheet
-     * @return     PhpSpreadsheet
      * @throws     Exception
+     * @return     PhpSpreadsheet
      */
     public function loadIntoExisting($pFilename, \PhpSpreadsheet\Spreadsheet $spreadsheet)
     {
         // Check if file exists
         if (!file_exists($pFilename)) {
-            throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
         }
 
         $timezoneObj = new DateTimeZone('Europe/London');
@@ -231,7 +232,7 @@ class Gnumeric extends BaseReader implements IReader
             $officeDocMetaXML = $officeDocXML->meta;
 
             foreach ($officeDocMetaXML as $officePropertyData) {
-                $officePropertyDC = array();
+                $officePropertyDC = [];
                 if (isset($namespacesMeta['dc'])) {
                     $officePropertyDC = $officePropertyData->children($namespacesMeta['dc']);
                 }
@@ -258,7 +259,7 @@ class Gnumeric extends BaseReader implements IReader
                             break;
                     }
                 }
-                $officePropertyMeta = array();
+                $officePropertyMeta = [];
                 if (isset($namespacesMeta['meta'])) {
                     $officePropertyMeta = $officePropertyData->children($namespacesMeta['meta']);
                 }
@@ -407,11 +408,11 @@ class Gnumeric extends BaseReader implements IReader
                 $type = \PhpSpreadsheet\Cell\DataType::TYPE_FORMULA;
                 if ($ExprID > '') {
                     if (((string) $cell) > '') {
-                        $this->expressions[$ExprID] = array(
-                            'column'    => $cellAttributes->Col,
-                            'row'        => $cellAttributes->Row,
-                            'formula'    => (string) $cell
-                        );
+                        $this->expressions[$ExprID] = [
+                            'column' => $cellAttributes->Col,
+                            'row' => $cellAttributes->Row,
+                            'formula' => (string) $cell,
+                        ];
 //                        echo 'NEW EXPRESSION ', $ExprID,'<br />';
                     } else {
                         $expression = $this->expressions[$ExprID];
@@ -452,7 +453,7 @@ class Gnumeric extends BaseReader implements IReader
                         case '80':        //    Array
                     }
                 }
-                $spreadsheet->getActiveSheet()->getCell($column.$row)->setValueExplicit($cell, $type);
+                $spreadsheet->getActiveSheet()->getCell($column . $row)->setValueExplicit($cell, $type);
             }
 
             if ((!$this->readDataOnly) && (isset($sheet->Objects))) {
@@ -460,7 +461,7 @@ class Gnumeric extends BaseReader implements IReader
                     $commentAttributes = $comment->attributes();
                     //    Only comment objects are handled at the moment
                     if ($commentAttributes->Text) {
-                        $spreadsheet->getActiveSheet()->getComment((string)$commentAttributes->ObjectBound)->setAuthor((string)$commentAttributes->Author)->setText($this->parseRichText((string)$commentAttributes->Text));
+                        $spreadsheet->getActiveSheet()->getComment((string) $commentAttributes->ObjectBound)->setAuthor((string) $commentAttributes->Author)->setText($this->parseRichText((string) $commentAttributes->Text));
                     }
                 }
             }
@@ -477,7 +478,7 @@ class Gnumeric extends BaseReader implements IReader
                     $endColumn = \PhpSpreadsheet\Cell::stringFromColumnIndex($endColumn);
                     $endRow = ($styleAttributes['endRow'] > $maxRow) ? $maxRow : $styleAttributes['endRow'];
                     $endRow += 1;
-                    $cellRange = $startColumn.$startRow.':'.$endColumn.$endRow;
+                    $cellRange = $startColumn . $startRow . ':' . $endColumn . $endRow;
 //                    echo $cellRange,'<br />';
 
                     $styleAttributes = $styleRegion->Style->attributes();
@@ -487,7 +488,7 @@ class Gnumeric extends BaseReader implements IReader
                     //    We still set the number format mask for date/time values, even if readDataOnly is true
                     if ((!$this->readDataOnly) ||
                         (\PhpSpreadsheet\Shared\Date::isDateTimeFormatCode((string) $styleAttributes['Format']))) {
-                        $styleArray = array();
+                        $styleArray = [];
                         $styleArray['numberformat']['code'] = (string) $styleAttributes['Format'];
                         //    If readDataOnly is false, we set all formatting information
                         if (!$this->readDataOnly) {
@@ -530,15 +531,15 @@ class Gnumeric extends BaseReader implements IReader
 
                             $styleArray['alignment']['wrap'] = ($styleAttributes['WrapText'] == '1') ? true : false;
                             $styleArray['alignment']['shrinkToFit'] = ($styleAttributes['ShrinkToFit'] == '1') ? true : false;
-                            $styleArray['alignment']['indent'] = (intval($styleAttributes["Indent"]) > 0) ? $styleAttributes["indent"] : 0;
+                            $styleArray['alignment']['indent'] = (intval($styleAttributes['Indent']) > 0) ? $styleAttributes['indent'] : 0;
 
-                            $RGB = self::parseGnumericColour($styleAttributes["Fore"]);
+                            $RGB = self::parseGnumericColour($styleAttributes['Fore']);
                             $styleArray['font']['color']['rgb'] = $RGB;
-                            $RGB = self::parseGnumericColour($styleAttributes["Back"]);
-                            $shade = $styleAttributes["Shade"];
+                            $RGB = self::parseGnumericColour($styleAttributes['Back']);
+                            $shade = $styleAttributes['Shade'];
                             if (($RGB != '000000') || ($shade != '0')) {
                                 $styleArray['fill']['color']['rgb'] = $styleArray['fill']['startcolor']['rgb'] = $RGB;
-                                $RGB2 = self::parseGnumericColour($styleAttributes["PatternColor"]);
+                                $RGB2 = self::parseGnumericColour($styleAttributes['PatternColor']);
                                 $styleArray['fill']['endcolor']['rgb'] = $RGB2;
                                 switch ($shade) {
                                     case '1':
@@ -677,19 +678,19 @@ class Gnumeric extends BaseReader implements IReader
             if ((!$this->readDataOnly) && (isset($sheet->Cols))) {
                 //    Column Widths
                 $columnAttributes = $sheet->Cols->attributes();
-                $defaultWidth = $columnAttributes['DefaultSizePts']  / 5.4;
+                $defaultWidth = $columnAttributes['DefaultSizePts'] / 5.4;
                 $c = 0;
                 foreach ($sheet->Cols->ColInfo as $columnOverride) {
                     $columnAttributes = $columnOverride->attributes();
                     $column = $columnAttributes['No'];
-                    $columnWidth = $columnAttributes['Unit']  / 5.4;
+                    $columnWidth = $columnAttributes['Unit'] / 5.4;
                     $hidden = ((isset($columnAttributes['Hidden'])) && ($columnAttributes['Hidden'] == '1')) ? true : false;
                     $columnCount = (isset($columnAttributes['Count'])) ? $columnAttributes['Count'] : 1;
                     while ($c < $column) {
                         $spreadsheet->getActiveSheet()->getColumnDimension(\PhpSpreadsheet\Cell::stringFromColumnIndex($c))->setWidth($defaultWidth);
                         ++$c;
                     }
-                    while (($c < ($column+$columnCount)) && ($c <= $maxCol)) {
+                    while (($c < ($column + $columnCount)) && ($c <= $maxCol)) {
                         $spreadsheet->getActiveSheet()->getColumnDimension(\PhpSpreadsheet\Cell::stringFromColumnIndex($c))->setWidth($columnWidth);
                         if ($hidden) {
                             $spreadsheet->getActiveSheet()->getColumnDimension(\PhpSpreadsheet\Cell::stringFromColumnIndex($c))->setVisible(false);
@@ -719,7 +720,7 @@ class Gnumeric extends BaseReader implements IReader
                         ++$r;
                         $spreadsheet->getActiveSheet()->getRowDimension($r)->setRowHeight($defaultHeight);
                     }
-                    while (($r < ($row+$rowCount)) && ($r < $maxRow)) {
+                    while (($r < ($row + $rowCount)) && ($r < $maxRow)) {
                         ++$r;
                         $spreadsheet->getActiveSheet()->getRowDimension($r)->setRowHeight($rowHeight);
                         if ($hidden) {
@@ -742,7 +743,7 @@ class Gnumeric extends BaseReader implements IReader
                 }
             }
 
-            $worksheetID++;
+            ++$worksheetID;
         }
 
         //    Loop through definedNames (global named ranges)
@@ -769,12 +770,12 @@ class Gnumeric extends BaseReader implements IReader
 
     private static function parseBorderAttributes($borderAttributes)
     {
-        $styleArray = array();
-        if (isset($borderAttributes["Color"])) {
-            $styleArray['color']['rgb'] = self::parseGnumericColour($borderAttributes["Color"]);
+        $styleArray = [];
+        if (isset($borderAttributes['Color'])) {
+            $styleArray['color']['rgb'] = self::parseGnumericColour($borderAttributes['Color']);
         }
 
-        switch ($borderAttributes["Style"]) {
+        switch ($borderAttributes['Style']) {
             case '0':
                 $styleArray['style'] = \PhpSpreadsheet\Style\Border::BORDER_NONE;
                 break;
@@ -818,6 +819,7 @@ class Gnumeric extends BaseReader implements IReader
                 $styleArray['style'] = \PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOTDOT;
                 break;
         }
+
         return $styleArray;
     }
 
@@ -835,6 +837,7 @@ class Gnumeric extends BaseReader implements IReader
         $gnmR = substr(str_pad($gnmR, 4, '0', STR_PAD_RIGHT), 0, 2);
         $gnmG = substr(str_pad($gnmG, 4, '0', STR_PAD_RIGHT), 0, 2);
         $gnmB = substr(str_pad($gnmB, 4, '0', STR_PAD_RIGHT), 0, 2);
+
         return $gnmR . $gnmG . $gnmB;
     }
 }

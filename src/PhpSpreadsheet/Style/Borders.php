@@ -28,7 +28,7 @@ class Borders extends Supervisor implements \PhpSpreadsheet\IComparable
 {
     /* Diagonal directions */
     const DIAGONAL_NONE = 0;
-    const DIAGONAL_UP   = 1;
+    const DIAGONAL_UP = 1;
     const DIAGONAL_DOWN = 2;
     const DIAGONAL_BOTH = 3;
 
@@ -112,10 +112,10 @@ class Borders extends Supervisor implements \PhpSpreadsheet\IComparable
     /**
      * Create a new Borders
      *
-     * @param    boolean    $isSupervisor    Flag indicating if this is a supervisor or not
+     * @param    bool    $isSupervisor    Flag indicating if this is a supervisor or not
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
-     * @param    boolean    $isConditional    Flag indicating if this is a conditional style or not
+     * @param    bool    $isConditional    Flag indicating if this is a conditional style or not
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
      */
@@ -174,7 +174,7 @@ class Borders extends Supervisor implements \PhpSpreadsheet\IComparable
      */
     public function getStyleArray($array)
     {
-        return array('borders' => $array);
+        return ['borders' => $array];
     }
 
     /**
@@ -247,8 +247,9 @@ class Borders extends Supervisor implements \PhpSpreadsheet\IComparable
                 }
             }
         } else {
-            throw new \PhpSpreadsheet\Exception("Invalid style array passed.");
+            throw new \PhpSpreadsheet\Exception('Invalid style array passed.');
         }
+
         return $this;
     }
 
@@ -305,70 +306,75 @@ class Borders extends Supervisor implements \PhpSpreadsheet\IComparable
     /**
      * Get AllBorders (pseudo-border). Only applies to supervisor.
      *
-     * @return  Border
      * @throws  \PhpSpreadsheet\Exception
+     * @return  Border
      */
     public function getAllBorders()
     {
         if (!$this->isSupervisor) {
             throw new \PhpSpreadsheet\Exception('Can only get pseudo-border for supervisor.');
         }
+
         return $this->allBorders;
     }
 
     /**
      * Get Outline (pseudo-border). Only applies to supervisor.
      *
-     * @return boolean
      * @throws \PhpSpreadsheet\Exception
+     * @return bool
      */
     public function getOutline()
     {
         if (!$this->isSupervisor) {
             throw new \PhpSpreadsheet\Exception('Can only get pseudo-border for supervisor.');
         }
+
         return $this->outline;
     }
 
     /**
      * Get Inside (pseudo-border). Only applies to supervisor.
      *
-     * @return boolean
      * @throws \PhpSpreadsheet\Exception
+     * @return bool
      */
     public function getInside()
     {
         if (!$this->isSupervisor) {
             throw new \PhpSpreadsheet\Exception('Can only get pseudo-border for supervisor.');
         }
+
         return $this->inside;
     }
 
     /**
      * Get Vertical (pseudo-border). Only applies to supervisor.
      *
-     * @return Border
      * @throws \PhpSpreadsheet\Exception
+     * @return Border
      */
     public function getVertical()
     {
         if (!$this->isSupervisor) {
             throw new \PhpSpreadsheet\Exception('Can only get pseudo-border for supervisor.');
         }
+
         return $this->vertical;
     }
 
     /**
      * Get Horizontal (pseudo-border). Only applies to supervisor.
      *
-     * @return Border
      * @throws \PhpSpreadsheet\Exception
+     * @return Border
      */
     public function getHorizontal()
     {
         if (!$this->isSupervisor) {
             throw new \PhpSpreadsheet\Exception('Can only get pseudo-border for supervisor.');
         }
+
         return $this->horizontal;
     }
 
@@ -382,6 +388,7 @@ class Borders extends Supervisor implements \PhpSpreadsheet\IComparable
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getDiagonalDirection();
         }
+
         return $this->diagonalDirection;
     }
 
@@ -397,11 +404,12 @@ class Borders extends Supervisor implements \PhpSpreadsheet\IComparable
             $pValue = self::DIAGONAL_NONE;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(array('diagonaldirection' => $pValue));
+            $styleArray = $this->getStyleArray(['diagonaldirection' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->diagonalDirection = $pValue;
         }
+
         return $this;
     }
 
@@ -415,6 +423,7 @@ class Borders extends Supervisor implements \PhpSpreadsheet\IComparable
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getHashcode();
         }
+
         return md5(
             $this->getLeft()->getHashCode() .
             $this->getRight()->getHashCode() .

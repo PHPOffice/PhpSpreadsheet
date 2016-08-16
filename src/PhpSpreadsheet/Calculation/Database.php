@@ -31,7 +31,6 @@ class Database
      *
      * Extracts the column ID to use for the data field.
      *
-     * @access    private
      * @param    mixed[]        $database        The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
@@ -41,8 +40,7 @@ class Database
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
      *                                        the first column, 2 for the second column, and so on.
-     * @return    string|NULL
-     *
+     * @return    string|null
      */
     private static function fieldExtract($database, $field)
     {
@@ -51,9 +49,11 @@ class Database
 
         if (is_numeric($field)) {
             $keys = array_keys($fieldNames);
-            return $keys[$field-1];
+
+            return $keys[$field - 1];
         }
         $key = array_search($field, $fieldNames);
+
         return ($key) ? $key : null;
     }
 
@@ -63,7 +63,6 @@ class Database
      * Parses the selection criteria, extracts the database rows that match those criteria, and
      * returns that subset of rows.
      *
-     * @access    private
      * @param    mixed[]        $database        The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
@@ -74,7 +73,6 @@ class Database
      *                                        the column label in which you specify a condition for the
      *                                        column.
      * @return    array of mixed
-     *
      */
     private static function filter($database, $criteria)
     {
@@ -82,23 +80,23 @@ class Database
         $criteriaNames = array_shift($criteria);
 
         //    Convert the criteria into a set of AND/OR conditions with [:placeholders]
-        $testConditions = $testValues = array();
+        $testConditions = $testValues = [];
         $testConditionsCount = 0;
         foreach ($criteriaNames as $key => $criteriaName) {
-            $testCondition = array();
+            $testCondition = [];
             $testConditionCount = 0;
             foreach ($criteria as $row => $criterion) {
                 if ($criterion[$key] > '') {
-                    $testCondition[] = '[:'.$criteriaName.']'.Functions::ifCondition($criterion[$key]);
-                    $testConditionCount++;
+                    $testCondition[] = '[:' . $criteriaName . ']' . Functions::ifCondition($criterion[$key]);
+                    ++$testConditionCount;
                 }
             }
             if ($testConditionCount > 1) {
                 $testConditions[] = 'OR(' . implode(',', $testCondition) . ')';
-                $testConditionsCount++;
+                ++$testConditionsCount;
             } elseif ($testConditionCount == 1) {
                 $testConditions[] = $testCondition[0];
-                $testConditionsCount++;
+                ++$testConditionsCount;
             }
         }
 
@@ -121,7 +119,7 @@ class Database
                 }
             }
             //    evaluate the criteria against the row data
-            $result = \PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue('='.$testConditionList);
+            $result = \PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue('=' . $testConditionList);
             //    If the row failed to meet the criteria, remove it from the database
             if (!$result) {
                 unset($database[$dataRow]);
@@ -131,13 +129,12 @@ class Database
         return $database;
     }
 
-
     private static function getFilteredColumn($database, $field, $criteria)
     {
         //    reduce the database to a set of rows that match all the criteria
         $database = self::filter($database, $criteria);
         //    extract an array of values for the requested column
-        $colData = array();
+        $colData = [];
         foreach ($database as $row) {
             $colData[] = $row[$field];
         }
@@ -153,13 +150,12 @@ class Database
      * Excel Function:
      *        DAVERAGE(database,field,criteria)
      *
-     * @access    public
      * @category Database Functions
      * @param    mixed[]            $database    The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param    string|integer    $field        Indicates which column is used in the function. Enter the
+     * @param    string|int    $field        Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -170,7 +166,6 @@ class Database
      *                                        the column label in which you specify a condition for the
      *                                        column.
      * @return    float
-     *
      */
     public static function DAVERAGE($database, $field, $criteria)
     {
@@ -185,7 +180,6 @@ class Database
         );
     }
 
-
     /**
      * DCOUNT
      *
@@ -198,13 +192,12 @@ class Database
      * Excel Function:
      *        DAVERAGE(database,field,criteria)
      *
-     * @access    public
      * @category Database Functions
      * @param    mixed[]            $database    The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param    string|integer    $field        Indicates which column is used in the function. Enter the
+     * @param    string|int    $field        Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -214,11 +207,10 @@ class Database
      *                                        includes at least one column label and at least one cell below
      *                                        the column label in which you specify a condition for the
      *                                        column.
-     * @return    integer
+     * @return    int
      *
      * @TODO    The field argument is optional. If field is omitted, DCOUNT counts all records in the
      *            database that match the criteria.
-     *
      */
     public static function DCOUNT($database, $field, $criteria)
     {
@@ -233,7 +225,6 @@ class Database
         );
     }
 
-
     /**
      * DCOUNTA
      *
@@ -242,13 +233,12 @@ class Database
      * Excel Function:
      *        DCOUNTA(database,[field],criteria)
      *
-     * @access    public
      * @category Database Functions
      * @param    mixed[]            $database    The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param    string|integer    $field        Indicates which column is used in the function. Enter the
+     * @param    string|int    $field        Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -258,11 +248,10 @@ class Database
      *                                        includes at least one column label and at least one cell below
      *                                        the column label in which you specify a condition for the
      *                                        column.
-     * @return    integer
+     * @return    int
      *
      * @TODO    The field argument is optional. If field is omitted, DCOUNTA counts all records in the
      *            database that match the criteria.
-     *
      */
     public static function DCOUNTA($database, $field, $criteria)
     {
@@ -274,7 +263,7 @@ class Database
         //    reduce the database to a set of rows that match all the criteria
         $database = self::filter($database, $criteria);
         //    extract an array of values for the requested column
-        $colData = array();
+        $colData = [];
         foreach ($database as $row) {
             $colData[] = $row[$field];
         }
@@ -285,7 +274,6 @@ class Database
         );
     }
 
-
     /**
      * DGET
      *
@@ -295,13 +283,12 @@ class Database
      * Excel Function:
      *        DGET(database,field,criteria)
      *
-     * @access    public
      * @category Database Functions
      * @param    mixed[]            $database    The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param    string|integer    $field        Indicates which column is used in the function. Enter the
+     * @param    string|int    $field        Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -312,7 +299,6 @@ class Database
      *                                        the column label in which you specify a condition for the
      *                                        column.
      * @return    mixed
-     *
      */
     public static function DGET($database, $field, $criteria)
     {
@@ -330,7 +316,6 @@ class Database
         return $colData[0];
     }
 
-
     /**
      * DMAX
      *
@@ -340,13 +325,12 @@ class Database
      * Excel Function:
      *        DMAX(database,field,criteria)
      *
-     * @access    public
      * @category Database Functions
      * @param    mixed[]            $database    The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param    string|integer    $field        Indicates which column is used in the function. Enter the
+     * @param    string|int    $field        Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -357,7 +341,6 @@ class Database
      *                                        the column label in which you specify a condition for the
      *                                        column.
      * @return    float
-     *
      */
     public static function DMAX($database, $field, $criteria)
     {
@@ -372,7 +355,6 @@ class Database
         );
     }
 
-
     /**
      * DMIN
      *
@@ -382,13 +364,12 @@ class Database
      * Excel Function:
      *        DMIN(database,field,criteria)
      *
-     * @access    public
      * @category Database Functions
      * @param    mixed[]            $database    The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param    string|integer    $field        Indicates which column is used in the function. Enter the
+     * @param    string|int    $field        Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -399,7 +380,6 @@ class Database
      *                                        the column label in which you specify a condition for the
      *                                        column.
      * @return    float
-     *
      */
     public static function DMIN($database, $field, $criteria)
     {
@@ -414,7 +394,6 @@ class Database
         );
     }
 
-
     /**
      * DPRODUCT
      *
@@ -423,13 +402,12 @@ class Database
      * Excel Function:
      *        DPRODUCT(database,field,criteria)
      *
-     * @access    public
      * @category Database Functions
      * @param    mixed[]            $database    The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param    string|integer    $field        Indicates which column is used in the function. Enter the
+     * @param    string|int    $field        Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -440,7 +418,6 @@ class Database
      *                                        the column label in which you specify a condition for the
      *                                        column.
      * @return    float
-     *
      */
     public static function DPRODUCT($database, $field, $criteria)
     {
@@ -455,7 +432,6 @@ class Database
         );
     }
 
-
     /**
      * DSTDEV
      *
@@ -465,13 +441,12 @@ class Database
      * Excel Function:
      *        DSTDEV(database,field,criteria)
      *
-     * @access    public
      * @category Database Functions
      * @param    mixed[]            $database    The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param    string|integer    $field        Indicates which column is used in the function. Enter the
+     * @param    string|int    $field        Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -482,7 +457,6 @@ class Database
      *                                        the column label in which you specify a condition for the
      *                                        column.
      * @return    float
-     *
      */
     public static function DSTDEV($database, $field, $criteria)
     {
@@ -497,7 +471,6 @@ class Database
         );
     }
 
-
     /**
      * DSTDEVP
      *
@@ -507,13 +480,12 @@ class Database
      * Excel Function:
      *        DSTDEVP(database,field,criteria)
      *
-     * @access    public
      * @category Database Functions
      * @param    mixed[]            $database    The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param    string|integer    $field        Indicates which column is used in the function. Enter the
+     * @param    string|int    $field        Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -524,7 +496,6 @@ class Database
      *                                        the column label in which you specify a condition for the
      *                                        column.
      * @return    float
-     *
      */
     public static function DSTDEVP($database, $field, $criteria)
     {
@@ -539,7 +510,6 @@ class Database
         );
     }
 
-
     /**
      * DSUM
      *
@@ -548,13 +518,12 @@ class Database
      * Excel Function:
      *        DSUM(database,field,criteria)
      *
-     * @access    public
      * @category Database Functions
      * @param    mixed[]            $database    The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param    string|integer    $field        Indicates which column is used in the function. Enter the
+     * @param    string|int    $field        Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -565,7 +534,6 @@ class Database
      *                                        the column label in which you specify a condition for the
      *                                        column.
      * @return    float
-     *
      */
     public static function DSUM($database, $field, $criteria)
     {
@@ -580,7 +548,6 @@ class Database
         );
     }
 
-
     /**
      * DVAR
      *
@@ -590,13 +557,12 @@ class Database
      * Excel Function:
      *        DVAR(database,field,criteria)
      *
-     * @access    public
      * @category Database Functions
      * @param    mixed[]            $database    The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param    string|integer    $field        Indicates which column is used in the function. Enter the
+     * @param    string|int    $field        Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -607,7 +573,6 @@ class Database
      *                                        the column label in which you specify a condition for the
      *                                        column.
      * @return    float
-     *
      */
     public static function DVAR($database, $field, $criteria)
     {
@@ -622,7 +587,6 @@ class Database
         );
     }
 
-
     /**
      * DVARP
      *
@@ -632,13 +596,12 @@ class Database
      * Excel Function:
      *        DVARP(database,field,criteria)
      *
-     * @access    public
      * @category Database Functions
      * @param    mixed[]            $database    The range of cells that makes up the list or database.
      *                                        A database is a list of related data in which rows of related
      *                                        information are records, and columns of data are fields. The
      *                                        first row of the list contains labels for each column.
-     * @param    string|integer    $field        Indicates which column is used in the function. Enter the
+     * @param    string|int    $field        Indicates which column is used in the function. Enter the
      *                                        column label enclosed between double quotation marks, such as
      *                                        "Age" or "Yield," or a number (without quotation marks) that
      *                                        represents the position of the column within the list: 1 for
@@ -649,7 +612,6 @@ class Database
      *                                        the column label in which you specify a condition for the
      *                                        column.
      * @return    float
-     *
      */
     public static function DVARP($database, $field, $criteria)
     {

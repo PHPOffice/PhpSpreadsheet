@@ -9,12 +9,12 @@ class DataSeriesValuesTest extends \PHPUnit_Framework_TestCase
 {
     public function testSetDataType()
     {
-        $dataTypeValues = array(
+        $dataTypeValues = [
             'Number',
-            'String'
-        );
+            'String',
+        ];
 
-        $testInstance = new DataSeriesValues;
+        $testInstance = new DataSeriesValues();
 
         foreach ($dataTypeValues as $dataTypeValue) {
             $result = $testInstance->setDataType($dataTypeValue);
@@ -24,12 +24,13 @@ class DataSeriesValuesTest extends \PHPUnit_Framework_TestCase
 
     public function testSetInvalidDataTypeThrowsException()
     {
-        $testInstance = new DataSeriesValues;
+        $testInstance = new DataSeriesValues();
 
         try {
             $result = $testInstance->setDataType('BOOLEAN');
         } catch (Exception $e) {
             $this->assertEquals($e->getMessage(), 'Invalid datatype for chart data series values');
+
             return;
         }
         $this->fail('An expected exception has not been raised.');
@@ -39,7 +40,7 @@ class DataSeriesValuesTest extends \PHPUnit_Framework_TestCase
     {
         $dataTypeValue = 'String';
 
-        $testInstance = new DataSeriesValues;
+        $testInstance = new DataSeriesValues();
         $setValue = $testInstance->setDataType($dataTypeValue);
 
         $result = $testInstance->getDataType();

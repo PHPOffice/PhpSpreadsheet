@@ -2,13 +2,13 @@
 
 namespace PhpSpreadsheet\Tests\Cell;
 
-use PhpSpreadsheet\Worksheet;
-use PhpSpreadsheet\Style\NumberFormat;
-use PhpSpreadsheet\Shared\StringHelper;
+use PhpSpreadsheet\CachedObjectStorage\Memory;
 use PhpSpreadsheet\Cell;
 use PhpSpreadsheet\Cell\AdvancedValueBinder;
 use PhpSpreadsheet\Cell\DataType;
-use PhpSpreadsheet\CachedObjectStorage\Memory;
+use PhpSpreadsheet\Shared\StringHelper;
+use PhpSpreadsheet\Style\NumberFormat;
+use PhpSpreadsheet\Worksheet;
 
 class AdvancedValueBinderTest extends \PHPUnit_Framework_TestCase
 {
@@ -17,7 +17,7 @@ class AdvancedValueBinderTest extends \PHPUnit_Framework_TestCase
         if (!defined('PHPSPREADSHEET_ROOT')) {
             define('PHPSPREADSHEET_ROOT', APPLICATION_PATH . '/');
         }
-        require_once(PHPSPREADSHEET_ROOT . '/Bootstrap.php');
+        require_once PHPSPREADSHEET_ROOT . '/Bootstrap.php';
     }
 
     public function provider()
@@ -28,16 +28,16 @@ class AdvancedValueBinderTest extends \PHPUnit_Framework_TestCase
         $currencyUSD = NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
         $currencyEURO = str_replace('$', '€', NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
 
-        return array(
-            array('10%', 0.1, NumberFormat::FORMAT_PERCENTAGE_00, ',', '.', '$'),
-            array('$10.11', 10.11, $currencyUSD, ',', '.', '$'),
-            array('$1,010.12', 1010.12, $currencyUSD, ',', '.', '$'),
-            array('$20,20', 20.2, $currencyUSD, '.', ',', '$'),
-            array('$2.020,20', 2020.2, $currencyUSD, '.', ',', '$'),
-            array('€2.020,20', 2020.2, $currencyEURO, '.', ',', '€'),
-            array('€ 2.020,20', 2020.2, $currencyEURO, '.', ',', '€'),
-            array('€2,020.22', 2020.22, $currencyEURO, ',', '.', '€'),
-        );
+        return [
+            ['10%', 0.1, NumberFormat::FORMAT_PERCENTAGE_00, ',', '.', '$'],
+            ['$10.11', 10.11, $currencyUSD, ',', '.', '$'],
+            ['$1,010.12', 1010.12, $currencyUSD, ',', '.', '$'],
+            ['$20,20', 20.2, $currencyUSD, '.', ',', '$'],
+            ['$2.020,20', 2020.2, $currencyUSD, '.', ',', '$'],
+            ['€2.020,20', 2020.2, $currencyEURO, '.', ',', '€'],
+            ['€ 2.020,20', 2020.2, $currencyEURO, '.', ',', '€'],
+            ['€2,020.22', 2020.22, $currencyEURO, ',', '.', '€'],
+        ];
     }
 
     /**
@@ -47,7 +47,7 @@ class AdvancedValueBinderTest extends \PHPUnit_Framework_TestCase
     {
         $sheet = $this->getMock(
             Worksheet::class,
-            array('getStyle', 'getNumberFormat', 'setFormatCode','getCellCacheController')
+            ['getStyle', 'getNumberFormat', 'setFormatCode', 'getCellCacheController']
         );
         $cache = $this->getMockBuilder(Memory::class)
             ->disableOriginalConstructor()

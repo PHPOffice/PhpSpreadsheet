@@ -66,6 +66,7 @@ class Drawing extends BaseDrawing implements \PhpSpreadsheet\IComparable
     {
         $fileName = $this->getFilename();
         $fileName = str_replace(' ', '_', $fileName);
+
         return str_replace('.' . $this->getExtension(), '', $fileName) . $this->getImageIndex() . '.' . $this->getExtension();
     }
 
@@ -76,7 +77,8 @@ class Drawing extends BaseDrawing implements \PhpSpreadsheet\IComparable
      */
     public function getExtension()
     {
-        $exploded = explode(".", basename($this->path));
+        $exploded = explode('.', basename($this->path));
+
         return $exploded[count($exploded) - 1];
     }
 
@@ -94,7 +96,7 @@ class Drawing extends BaseDrawing implements \PhpSpreadsheet\IComparable
      * Set Path
      *
      * @param   string         $pValue            File path
-     * @param   boolean        $pVerifyFile    Verify file
+     * @param   bool        $pVerifyFile    Verify file
      * @throws  \PhpSpreadsheet\Exception
      * @return  Drawing
      */
@@ -114,6 +116,7 @@ class Drawing extends BaseDrawing implements \PhpSpreadsheet\IComparable
         } else {
             $this->path = $pValue;
         }
+
         return $this;
     }
 

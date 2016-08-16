@@ -2,16 +2,15 @@
 
 namespace PhpSpreadsheet\Tests\Calculation;
 
-use PhpSpreadsheet\Shared\Date;
-use PhpSpreadsheet\Calculation\Functions;
 use PhpSpreadsheet\Calculation\DateTime;
+use PhpSpreadsheet\Calculation\Functions;
+use PhpSpreadsheet\Shared\Date;
 
 /**
  * Class DateTimeTest
  */
 class DateTimeTest extends \PHPUnit_Framework_TestCase
 {
-
     public function setUp()
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
@@ -24,7 +23,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(DateTime::class, 'DATE'), $args);
+        $result = call_user_func_array([DateTime::class, 'DATE'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -77,7 +76,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(DateTime::class, 'DATEVALUE'), $args);
+        $result = call_user_func_array([DateTime::class, 'DATEVALUE'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -114,7 +113,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(DateTime::class, 'YEAR'), $args);
+        $result = call_user_func_array([DateTime::class, 'YEAR'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -130,7 +129,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(DateTime::class, 'MONTHOFYEAR'), $args);
+        $result = call_user_func_array([DateTime::class, 'MONTHOFYEAR'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -149,7 +148,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(DateTime::class, 'WEEKOFYEAR'), $args);
+        $result = call_user_func_array([DateTime::class, 'WEEKOFYEAR'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -168,7 +167,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(DateTime::class, 'DAYOFWEEK'), $args);
+        $result = call_user_func_array([DateTime::class, 'DAYOFWEEK'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -184,7 +183,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(DateTime::class, 'DAYOFMONTH'), $args);
+        $result = call_user_func_array([DateTime::class, 'DAYOFMONTH'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -200,7 +199,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(DateTime::class, 'TIME'), $args);
+        $result = call_user_func_array([DateTime::class, 'TIME'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -239,7 +238,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(DateTime::class, 'TIMEVALUE'), $args);
+        $result = call_user_func_array([DateTime::class, 'TIMEVALUE'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -278,7 +277,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(DateTime::class, 'HOUROFDAY'), $args);
+        $result = call_user_func_array([DateTime::class, 'HOUROFDAY'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -296,7 +295,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(DateTime::class, 'MINUTEOFHOUR'), $args);
+        $result = call_user_func_array([DateTime::class, 'MINUTEOFHOUR'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -314,7 +313,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(DateTime::class, 'SECONDOFMINUTE'), $args);
+        $result = call_user_func_array([DateTime::class, 'SECONDOFMINUTE'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -330,7 +329,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(DateTime::class, 'NETWORKDAYS'), $args);
+        $result = call_user_func_array([DateTime::class, 'NETWORKDAYS'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -346,7 +345,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(DateTime::class, 'WORKDAY'), $args);
+        $result = call_user_func_array([DateTime::class, 'WORKDAY'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -362,7 +361,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(DateTime::class, 'EDATE'), $args);
+        $result = call_user_func_array([DateTime::class, 'EDATE'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -399,7 +398,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(DateTime::class, 'EOMONTH'), $args);
+        $result = call_user_func_array([DateTime::class, 'EOMONTH'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -439,7 +438,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(DateTime::class, 'DATEDIF'), $args);
+        $result = call_user_func_array([DateTime::class, 'DATEDIF'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -455,7 +454,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(DateTime::class, 'DAYS360'), $args);
+        $result = call_user_func_array([DateTime::class, 'DAYS360'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -474,7 +473,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(DateTime::class, 'YEARFRAC'), $args);
+        $result = call_user_func_array([DateTime::class, 'YEARFRAC'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 

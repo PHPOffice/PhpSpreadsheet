@@ -1,4 +1,5 @@
 <?php
+
 namespace PhpSpreadsheet\Writer\Excel2007;
 
 /**
@@ -29,8 +30,8 @@ class RelsVBA extends WriterPart
      * Write relationships for a signed VBA Project
      *
      * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @return string  XML Output
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return string  XML Output
      */
     public function writeVBARelationships(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {

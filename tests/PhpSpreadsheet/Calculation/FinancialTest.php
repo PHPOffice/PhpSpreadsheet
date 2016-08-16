@@ -7,7 +7,6 @@ use PhpSpreadsheet\Calculation\Functions;
 
 class FinancialTest extends \PHPUnit_Framework_TestCase
 {
-
     public function setUp()
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
@@ -21,7 +20,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'ACCRINT'), $args);
+        $result = call_user_func_array([Financial::class, 'ACCRINT'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -37,7 +36,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'ACCRINTM'), $args);
+        $result = call_user_func_array([Financial::class, 'ACCRINTM'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -53,7 +52,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'AMORDEGRC'), $args);
+        $result = call_user_func_array([Financial::class, 'AMORDEGRC'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -69,7 +68,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'AMORLINC'), $args);
+        $result = call_user_func_array([Financial::class, 'AMORLINC'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -85,7 +84,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'COUPDAYBS'), $args);
+        $result = call_user_func_array([Financial::class, 'COUPDAYBS'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -101,7 +100,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'COUPDAYS'), $args);
+        $result = call_user_func_array([Financial::class, 'COUPDAYS'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -117,7 +116,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'COUPDAYSNC'), $args);
+        $result = call_user_func_array([Financial::class, 'COUPDAYSNC'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -133,7 +132,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'COUPNCD'), $args);
+        $result = call_user_func_array([Financial::class, 'COUPNCD'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -149,7 +148,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'COUPNUM'), $args);
+        $result = call_user_func_array([Financial::class, 'COUPNUM'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -165,7 +164,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'COUPPCD'), $args);
+        $result = call_user_func_array([Financial::class, 'COUPPCD'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -181,7 +180,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'CUMIPMT'), $args);
+        $result = call_user_func_array([Financial::class, 'CUMIPMT'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -197,7 +196,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'CUMPRINC'), $args);
+        $result = call_user_func_array([Financial::class, 'CUMPRINC'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -213,7 +212,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'DB'), $args);
+        $result = call_user_func_array([Financial::class, 'DB'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -229,7 +228,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'DDB'), $args);
+        $result = call_user_func_array([Financial::class, 'DDB'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -245,7 +244,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'DISC'), $args);
+        $result = call_user_func_array([Financial::class, 'DISC'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -261,7 +260,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'DOLLARDE'), $args);
+        $result = call_user_func_array([Financial::class, 'DOLLARDE'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -277,7 +276,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'DOLLARFR'), $args);
+        $result = call_user_func_array([Financial::class, 'DOLLARFR'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -293,7 +292,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'EFFECT'), $args);
+        $result = call_user_func_array([Financial::class, 'EFFECT'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -309,7 +308,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'FV'), $args);
+        $result = call_user_func_array([Financial::class, 'FV'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -325,7 +324,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'FVSCHEDULE'), $args);
+        $result = call_user_func_array([Financial::class, 'FVSCHEDULE'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -341,7 +340,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'INTRATE'), $args);
+        $result = call_user_func_array([Financial::class, 'INTRATE'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -357,7 +356,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'IPMT'), $args);
+        $result = call_user_func_array([Financial::class, 'IPMT'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -373,7 +372,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'IRR'), $args);
+        $result = call_user_func_array([Financial::class, 'IRR'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -389,7 +388,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'ISPMT'), $args);
+        $result = call_user_func_array([Financial::class, 'ISPMT'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -405,7 +404,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'MIRR'), $args);
+        $result = call_user_func_array([Financial::class, 'MIRR'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -421,7 +420,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'NOMINAL'), $args);
+        $result = call_user_func_array([Financial::class, 'NOMINAL'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -437,7 +436,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'NPER'), $args);
+        $result = call_user_func_array([Financial::class, 'NPER'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -453,7 +452,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'NPV'), $args);
+        $result = call_user_func_array([Financial::class, 'NPV'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -472,7 +471,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'PRICE'), $args);
+        $result = call_user_func_array([Financial::class, 'PRICE'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -491,7 +490,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'RATE'), $args);
+        $result = call_user_func_array([Financial::class, 'RATE'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -510,7 +509,7 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Financial::class,'XIRR'), $args);
+        $result = call_user_func_array([Financial::class, 'XIRR'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace PhpSpreadsheet\Writer\Excel2007;
 
 /**
@@ -29,8 +30,8 @@ class DocProps extends WriterPart
      * Write docProps/app.xml to XML format
      *
      * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @return string  XML Output
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return string  XML Output
      */
     public function writeDocPropsApp(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
@@ -126,8 +127,8 @@ class DocProps extends WriterPart
      * Write docProps/core.xml to XML format
      *
      * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @return string  XML Output
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return string  XML Output
      */
     public function writeDocPropsCore(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
@@ -193,8 +194,8 @@ class DocProps extends WriterPart
      * Write docProps/custom.xml to XML format
      *
      * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @return string  XML Output
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return string  XML Output
      */
     public function writeDocPropsCustom(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
@@ -219,14 +220,13 @@ class DocProps extends WriterPart
         $objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/officeDocument/2006/custom-properties');
         $objWriter->writeAttribute('xmlns:vt', 'http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes');
 
-
         foreach ($customPropertyList as $key => $customProperty) {
             $propertyValue = $spreadsheet->getProperties()->getCustomPropertyValue($customProperty);
             $propertyType = $spreadsheet->getProperties()->getCustomPropertyType($customProperty);
 
             $objWriter->startElement('property');
             $objWriter->writeAttribute('fmtid', '{D5CDD505-2E9C-101B-9397-08002B2CF9AE}');
-            $objWriter->writeAttribute('pid', $key+2);
+            $objWriter->writeAttribute('pid', $key + 2);
             $objWriter->writeAttribute('name', $customProperty);
 
             switch ($propertyType) {
@@ -251,7 +251,6 @@ class DocProps extends WriterPart
 
             $objWriter->endElement();
         }
-
 
         $objWriter->endElement();
 

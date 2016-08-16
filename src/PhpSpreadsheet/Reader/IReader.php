@@ -30,7 +30,7 @@ interface IReader
      * Can the current IReader read the file?
      *
      * @param     string         $pFilename
-     * @return     boolean
+     * @return     bool
      */
     public function canRead($pFilename);
 
@@ -38,8 +38,8 @@ interface IReader
      * Loads PhpSpreadsheet from file
      *
      * @param     string         $pFilename
-     * @return  PhpSpreadsheet
      * @throws     Exception
+     * @return  PhpSpreadsheet
      */
     public function load($pFilename);
 }

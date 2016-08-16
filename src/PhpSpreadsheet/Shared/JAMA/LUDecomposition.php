@@ -3,7 +3,6 @@
 namespace PhpSpreadsheet\Shared\JAMA;
 
 /**
- *
  *    For an m-by-n matrix A with m >= n, the LU decomposition is an m-by-n
  *    unit lower triangular matrix L, an n-by-n upper triangular matrix U,
  *    and a permutation vector piv of length m so that A(piv,:) = L*U.
@@ -22,14 +21,14 @@ namespace PhpSpreadsheet\Shared\JAMA;
  */
 class LUDecomposition
 {
-    const MATRIX_SINGULAR_EXCEPTION    = "Can only perform operation on singular matrix.";
-    const MATRIX_SQUARE_EXCEPTION      = "Mismatched Row dimension";
+    const MATRIX_SINGULAR_EXCEPTION = 'Can only perform operation on singular matrix.';
+    const MATRIX_SQUARE_EXCEPTION = 'Mismatched Row dimension';
 
     /**
      *    Decomposition storage
      *    @var array
      */
-    private $LU = array();
+    private $LU = [];
 
     /**
      *    Row dimension.
@@ -53,7 +52,7 @@ class LUDecomposition
      *    Internal storage of pivot vector.
      *    @var array
      */
-    private $piv = array();
+    private $piv = [];
 
     /**
      *    LU Decomposition constructor.
@@ -66,13 +65,13 @@ class LUDecomposition
         if ($A instanceof Matrix) {
             // Use a "left-looking", dot-product, Crout/Doolittle algorithm.
             $this->LU = $A->getArray();
-            $this->m  = $A->getRowDimension();
-            $this->n  = $A->getColumnDimension();
+            $this->m = $A->getRowDimension();
+            $this->n = $A->getColumnDimension();
             for ($i = 0; $i < $this->m; ++$i) {
                 $this->piv[$i] = $i;
             }
             $this->pivsign = 1;
-            $LUrowi = $LUcolj = array();
+            $LUrowi = $LUcolj = [];
 
             // Outer loop.
             for ($j = 0; $j < $this->n; ++$j) {
@@ -93,7 +92,7 @@ class LUDecomposition
                 }
                 // Find pivot and exchange if necessary.
                 $p = $j;
-                for ($i = $j+1; $i < $this->m; ++$i) {
+                for ($i = $j + 1; $i < $this->m; ++$i) {
                     if (abs($LUcolj[$i]) > abs($LUcolj[$p])) {
                         $p = $i;
                     }
@@ -111,7 +110,7 @@ class LUDecomposition
                 }
                 // Compute multipliers.
                 if (($j < $this->m) && ($this->LU[$j][$j] != 0.0)) {
-                    for ($i = $j+1; $i < $this->m; ++$i) {
+                    for ($i = $j + 1; $i < $this->m; ++$i) {
                         $this->LU[$i][$j] /= $this->LU[$j][$j];
                     }
                 }
@@ -139,6 +138,7 @@ class LUDecomposition
                 }
             }
         }
+
         return new Matrix($L);
     }    //    function getL()
 
@@ -158,6 +158,7 @@ class LUDecomposition
                 }
             }
         }
+
         return new Matrix($U);
     }    //    function getU()
 
@@ -193,6 +194,7 @@ class LUDecomposition
                 return false;
             }
         }
+
         return true;
     }    //    function isNonsingular()
 
@@ -208,6 +210,7 @@ class LUDecomposition
             for ($j = 0; $j < $this->n; ++$j) {
                 $d *= $this->LU[$j][$j];
             }
+
             return $d;
         } else {
             throw new \PhpSpreadsheet\Calculation\Exception(Matrix::MATRIX_DIMENSION_EXCEPTION);
@@ -228,17 +231,17 @@ class LUDecomposition
             if ($this->isNonsingular()) {
                 // Copy right hand side with pivoting
                 $nx = $B->getColumnDimension();
-                $X  = $B->getMatrix($this->piv, 0, $nx-1);
+                $X = $B->getMatrix($this->piv, 0, $nx - 1);
                 // Solve L*Y = B(piv,:)
                 for ($k = 0; $k < $this->n; ++$k) {
-                    for ($i = $k+1; $i < $this->n; ++$i) {
+                    for ($i = $k + 1; $i < $this->n; ++$i) {
                         for ($j = 0; $j < $nx; ++$j) {
                             $X->A[$i][$j] -= $X->A[$k][$j] * $this->LU[$i][$k];
                         }
                     }
                 }
                 // Solve U*X = Y;
-                for ($k = $this->n-1; $k >= 0; --$k) {
+                for ($k = $this->n - 1; $k >= 0; --$k) {
                     for ($j = 0; $j < $nx; ++$j) {
                         $X->A[$k][$j] /= $this->LU[$k][$k];
                     }
@@ -248,6 +251,7 @@ class LUDecomposition
                         }
                     }
                 }
+
                 return $X;
             } else {
                 throw new \PhpSpreadsheet\Calculation\Exception(self::MATRIX_SINGULAR_EXCEPTION);

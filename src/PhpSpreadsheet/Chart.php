@@ -78,7 +78,7 @@ class Chart
     /**
      * Plot Visible Only
      *
-     * @var boolean
+     * @var bool
      */
     private $plotVisibleOnly = true;
 
@@ -124,22 +124,19 @@ class Chart
      */
     private $topLeftCellRef = 'A1';
 
-
     /**
      * Top-Left X-Offset
      *
-     * @var integer
+     * @var int
      */
     private $topLeftXOffset = 0;
-
 
     /**
      * Top-Left Y-Offset
      *
-     * @var integer
+     * @var int
      */
     private $topLeftYOffset = 0;
-
 
     /**
      * Bottom-Right Cell Position
@@ -148,22 +145,19 @@ class Chart
      */
     private $bottomRightCellRef = 'A1';
 
-
     /**
      * Bottom-Right X-Offset
      *
-     * @var integer
+     * @var int
      */
     private $bottomRightXOffset = 10;
-
 
     /**
      * Bottom-Right Y-Offset
      *
-     * @var integer
+     * @var int
      */
     private $bottomRightYOffset = 10;
-
 
     /**
      * Create a new Chart
@@ -323,7 +317,7 @@ class Chart
     /**
      * Get Plot Visible Only
      *
-     * @return boolean
+     * @return bool
      */
     public function getPlotVisibleOnly()
     {
@@ -333,7 +327,7 @@ class Chart
     /**
      * Set Plot Visible Only
      *
-     * @param boolean $plotVisibleOnly
+     * @param bool $plotVisibleOnly
      * @return Chart
      */
     public function setPlotVisibleOnly($plotVisibleOnly = true)
@@ -363,7 +357,6 @@ class Chart
     {
         $this->displayBlanksAs = $displayBlanksAs;
     }
-
 
     /**
      * Get yAxis
@@ -421,13 +414,12 @@ class Chart
         return new Chart\GridLines();
     }
 
-
     /**
      * Set the Top Left position for the chart
      *
      * @param    string    $cell
-     * @param    integer    $xOffset
-     * @param    integer    $yOffset
+     * @param    int    $xOffset
+     * @param    int    $yOffset
      * @return Chart
      */
     public function setTopLeftPosition($cell, $xOffset = null, $yOffset = null)
@@ -450,11 +442,11 @@ class Chart
      */
     public function getTopLeftPosition()
     {
-        return array(
-            'cell'    => $this->topLeftCellRef,
+        return [
+            'cell' => $this->topLeftCellRef,
             'xOffset' => $this->topLeftXOffset,
-            'yOffset' => $this->topLeftYOffset
-        );
+            'yOffset' => $this->topLeftYOffset,
+        ];
     }
 
     /**
@@ -483,8 +475,8 @@ class Chart
     /**
      * Set the offset position within the Top Left cell for the chart
      *
-     * @param    integer    $xOffset
-     * @param    integer    $yOffset
+     * @param    int    $xOffset
+     * @param    int    $yOffset
      * @return Chart
      */
     public function setTopLeftOffset($xOffset = null, $yOffset = null)
@@ -502,14 +494,14 @@ class Chart
     /**
      * Get the offset position within the Top Left cell for the chart
      *
-     * @return integer[]
+     * @return int[]
      */
     public function getTopLeftOffset()
     {
-        return array(
+        return [
             'X' => $this->topLeftXOffset,
-            'Y' => $this->topLeftYOffset
-        );
+            'Y' => $this->topLeftYOffset,
+        ];
     }
 
     public function setTopLeftXOffset($xOffset)
@@ -540,8 +532,8 @@ class Chart
      * Set the Bottom Right position of the chart
      *
      * @param    string    $cell
-     * @param    integer    $xOffset
-     * @param    integer    $yOffset
+     * @param    int    $xOffset
+     * @param    int    $yOffset
      * @return Chart
      */
     public function setBottomRightPosition($cell, $xOffset = null, $yOffset = null)
@@ -564,11 +556,11 @@ class Chart
      */
     public function getBottomRightPosition()
     {
-        return array(
-            'cell'    => $this->bottomRightCellRef,
+        return [
+            'cell' => $this->bottomRightCellRef,
             'xOffset' => $this->bottomRightXOffset,
-            'yOffset' => $this->bottomRightYOffset
-        );
+            'yOffset' => $this->bottomRightYOffset,
+        ];
     }
 
     public function setBottomRightCell($cell)
@@ -591,8 +583,8 @@ class Chart
     /**
      * Set the offset position within the Bottom Right cell for the chart
      *
-     * @param    integer    $xOffset
-     * @param    integer    $yOffset
+     * @param    int    $xOffset
+     * @param    int    $yOffset
      * @return Chart
      */
     public function setBottomRightOffset($xOffset = null, $yOffset = null)
@@ -610,14 +602,14 @@ class Chart
     /**
      * Get the offset position within the Bottom Right cell for the chart
      *
-     * @return integer[]
+     * @return int[]
      */
     public function getBottomRightOffset()
     {
-        return array(
+        return [
             'X' => $this->bottomRightXOffset,
-            'Y' => $this->bottomRightYOffset
-        );
+            'Y' => $this->bottomRightYOffset,
+        ];
     }
 
     public function setBottomRightXOffset($xOffset)
@@ -644,7 +636,6 @@ class Chart
         return $this->bottomRightYOffset;
     }
 
-
     public function refresh()
     {
         if ($this->worksheet !== null) {
@@ -668,12 +659,13 @@ class Chart
             set_include_path(get_include_path() . PATH_SEPARATOR . $libraryPath);
         }
 
-        $rendererName = '\\PhpSpreadsheet\\Chart\\Renderer\\'.$libraryName;
+        $rendererName = '\\PhpSpreadsheet\\Chart\\Renderer\\' . $libraryName;
         $renderer = new $rendererName($this);
 
         if ($outputDestination == 'php://output') {
             $outputDestination = null;
         }
+
         return $renderer->render($outputDestination);
     }
 }

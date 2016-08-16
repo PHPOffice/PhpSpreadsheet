@@ -30,22 +30,23 @@ class TextData
 
     private static function unicodeToOrd($c)
     {
-        if (ord($c{0}) >=0 && ord($c{0}) <= 127) {
+        if (ord($c{0}) >= 0 && ord($c{0}) <= 127) {
             return ord($c{0});
         } elseif (ord($c{0}) >= 192 && ord($c{0}) <= 223) {
-            return (ord($c{0})-192)*64 + (ord($c{1})-128);
+            return (ord($c{0}) - 192) * 64 + (ord($c{1}) - 128);
         } elseif (ord($c{0}) >= 224 && ord($c{0}) <= 239) {
-            return (ord($c{0})-224)*4096 + (ord($c{1})-128)*64 + (ord($c{2})-128);
+            return (ord($c{0}) - 224) * 4096 + (ord($c{1}) - 128) * 64 + (ord($c{2}) - 128);
         } elseif (ord($c{0}) >= 240 && ord($c{0}) <= 247) {
-            return (ord($c{0})-240)*262144 + (ord($c{1})-128)*4096 + (ord($c{2})-128)*64 + (ord($c{3})-128);
+            return (ord($c{0}) - 240) * 262144 + (ord($c{1}) - 128) * 4096 + (ord($c{2}) - 128) * 64 + (ord($c{3}) - 128);
         } elseif (ord($c{0}) >= 248 && ord($c{0}) <= 251) {
-            return (ord($c{0})-248)*16777216 + (ord($c{1})-128)*262144 + (ord($c{2})-128)*4096 + (ord($c{3})-128)*64 + (ord($c{4})-128);
+            return (ord($c{0}) - 248) * 16777216 + (ord($c{1}) - 128) * 262144 + (ord($c{2}) - 128) * 4096 + (ord($c{3}) - 128) * 64 + (ord($c{4}) - 128);
         } elseif (ord($c{0}) >= 252 && ord($c{0}) <= 253) {
-            return (ord($c{0})-252)*1073741824 + (ord($c{1})-128)*16777216 + (ord($c{2})-128)*262144 + (ord($c{3})-128)*4096 + (ord($c{4})-128)*64 + (ord($c{5})-128);
+            return (ord($c{0}) - 252) * 1073741824 + (ord($c{1}) - 128) * 16777216 + (ord($c{2}) - 128) * 262144 + (ord($c{3}) - 128) * 4096 + (ord($c{4}) - 128) * 64 + (ord($c{5}) - 128);
         } elseif (ord($c{0}) >= 254 && ord($c{0}) <= 255) {
             // error
             return Functions::VALUE();
         }
+
         return 0;
     }
 
@@ -64,12 +65,11 @@ class TextData
         }
 
         if (function_exists('mb_convert_encoding')) {
-            return mb_convert_encoding('&#'.intval($character).';', 'UTF-8', 'HTML-ENTITIES');
+            return mb_convert_encoding('&#' . intval($character) . ';', 'UTF-8', 'HTML-ENTITIES');
         } else {
             return chr(intval($character));
         }
     }
-
 
     /**
      * TRIMNONPRINTABLE
@@ -79,7 +79,7 @@ class TextData
      */
     public static function TRIMNONPRINTABLE($stringValue = '')
     {
-        $stringValue    = Functions::flattenSingleValue($stringValue);
+        $stringValue = Functions::flattenSingleValue($stringValue);
 
         if (is_bool($stringValue)) {
             return ($stringValue) ? \PhpSpreadsheet\Calculation::getTRUE() : \PhpSpreadsheet\Calculation::getFALSE();
@@ -92,9 +92,9 @@ class TextData
         if (is_string($stringValue) || is_numeric($stringValue)) {
             return str_replace(self::$invalidChars, '', trim($stringValue, "\x00..\x1F"));
         }
+
         return null;
     }
-
 
     /**
      * TRIMSPACES
@@ -112,9 +112,9 @@ class TextData
         if (is_string($stringValue) || is_numeric($stringValue)) {
             return trim(preg_replace('/ +/', ' ', trim($stringValue, ' ')), ' ');
         }
+
         return null;
     }
-
 
     /**
      * ASCIICODE
@@ -127,7 +127,7 @@ class TextData
         if (($characters === null) || ($characters === '')) {
             return Functions::VALUE();
         }
-        $characters    = Functions::flattenSingleValue($characters);
+        $characters = Functions::flattenSingleValue($characters);
         if (is_bool($characters)) {
             if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
                 $characters = (int) $characters;
@@ -141,15 +141,16 @@ class TextData
             if (mb_strlen($characters, 'UTF-8') > 1) {
                 $character = mb_substr($characters, 0, 1, 'UTF-8');
             }
+
             return self::unicodeToOrd($character);
         } else {
             if (strlen($characters) > 0) {
                 $character = substr($characters, 0, 1);
             }
+
             return ord($character);
         }
     }
-
 
     /**
      * CONCATENATE
@@ -176,7 +177,6 @@ class TextData
         return $returnValue;
     }
 
-
     /**
      * DOLLAR
      *
@@ -191,8 +191,8 @@ class TextData
      */
     public static function DOLLAR($value = 0, $decimals = 2)
     {
-        $value        = Functions::flattenSingleValue($value);
-        $decimals    = is_null($decimals) ? 0 : Functions::flattenSingleValue($decimals);
+        $value = Functions::flattenSingleValue($value);
+        $decimals = is_null($decimals) ? 0 : Functions::flattenSingleValue($decimals);
 
         // Validate parameters
         if (!is_numeric($value) || !is_numeric($decimals)) {
@@ -206,14 +206,13 @@ class TextData
         } else {
             $round = pow(10, abs($decimals));
             if ($value < 0) {
-                $round = 0-$round;
+                $round = 0 - $round;
             }
             $value = MathTrig::MROUND($value, $round);
         }
 
         return \PhpSpreadsheet\Style\NumberFormat::toFormattedString($value, $mask);
     }
-
 
     /**
      * SEARCHSENSITIVE
@@ -225,9 +224,9 @@ class TextData
      */
     public static function SEARCHSENSITIVE($needle, $haystack, $offset = 1)
     {
-        $needle   = Functions::flattenSingleValue($needle);
+        $needle = Functions::flattenSingleValue($needle);
         $haystack = Functions::flattenSingleValue($haystack);
-        $offset   = Functions::flattenSingleValue($offset);
+        $offset = Functions::flattenSingleValue($offset);
 
         if (!is_bool($needle)) {
             if (is_bool($haystack)) {
@@ -248,9 +247,9 @@ class TextData
                 }
             }
         }
+
         return Functions::VALUE();
     }
-
 
     /**
      * SEARCHINSENSITIVE
@@ -262,9 +261,9 @@ class TextData
      */
     public static function SEARCHINSENSITIVE($needle, $haystack, $offset = 1)
     {
-        $needle   = Functions::flattenSingleValue($needle);
+        $needle = Functions::flattenSingleValue($needle);
         $haystack = Functions::flattenSingleValue($haystack);
-        $offset   = Functions::flattenSingleValue($offset);
+        $offset = Functions::flattenSingleValue($offset);
 
         if (!is_bool($needle)) {
             if (is_bool($haystack)) {
@@ -285,22 +284,22 @@ class TextData
                 }
             }
         }
+
         return Functions::VALUE();
     }
-
 
     /**
      * FIXEDFORMAT
      *
      * @param    mixed        $value    Value to check
-     * @param    integer        $decimals
-     * @param    boolean        $no_commas
-     * @return    boolean
+     * @param    int        $decimals
+     * @param    bool        $no_commas
+     * @return    bool
      */
     public static function FIXEDFORMAT($value, $decimals = 2, $no_commas = false)
     {
-        $value     = Functions::flattenSingleValue($value);
-        $decimals  = Functions::flattenSingleValue($decimals);
+        $value = Functions::flattenSingleValue($value);
+        $decimals = Functions::flattenSingleValue($decimals);
         $no_commas = Functions::flattenSingleValue($no_commas);
 
         // Validate parameters
@@ -319,7 +318,6 @@ class TextData
 
         return (string) $valueResult;
     }
-
 
     /**
      * LEFT
@@ -347,7 +345,6 @@ class TextData
             return substr($value, 0, $chars);
         }
     }
-
 
     /**
      * MID
@@ -381,7 +378,6 @@ class TextData
         }
     }
 
-
     /**
      * RIGHT
      *
@@ -409,7 +405,6 @@ class TextData
         }
     }
 
-
     /**
      * STRINGLENGTH
      *
@@ -431,7 +426,6 @@ class TextData
         }
     }
 
-
     /**
      * LOWERCASE
      *
@@ -450,7 +444,6 @@ class TextData
 
         return \PhpSpreadsheet\Shared\StringHelper::strToLower($mixedCaseString);
     }
-
 
     /**
      * UPPERCASE
@@ -471,7 +464,6 @@ class TextData
         return \PhpSpreadsheet\Shared\StringHelper::strToUpper($mixedCaseString);
     }
 
-
     /**
      * PROPERCASE
      *
@@ -491,7 +483,6 @@ class TextData
         return \PhpSpreadsheet\Shared\StringHelper::strToTitle($mixedCaseString);
     }
 
-
     /**
      * REPLACE
      *
@@ -504,16 +495,15 @@ class TextData
     public static function REPLACE($oldText, $start, $chars, $newText)
     {
         $oldText = Functions::flattenSingleValue($oldText);
-        $start   = Functions::flattenSingleValue($start);
-        $chars   = Functions::flattenSingleValue($chars);
+        $start = Functions::flattenSingleValue($start);
+        $chars = Functions::flattenSingleValue($chars);
         $newText = Functions::flattenSingleValue($newText);
 
-        $left = self::LEFT($oldText, $start-1);
-        $right = self::RIGHT($oldText, self::STRINGLENGTH($oldText)-($start+$chars)+1);
+        $left = self::LEFT($oldText, $start - 1);
+        $right = self::RIGHT($oldText, self::STRINGLENGTH($oldText) - ($start + $chars) + 1);
 
-        return $left.$newText.$right;
+        return $left . $newText . $right;
     }
-
 
     /**
      * SUBSTITUTE
@@ -521,14 +511,14 @@ class TextData
      * @param    string    $text        Value
      * @param    string    $fromText    From Value
      * @param    string    $toText        To Value
-     * @param    integer    $instance    Instance Number
+     * @param    int    $instance    Instance Number
      * @return    string
      */
     public static function SUBSTITUTE($text = '', $fromText = '', $toText = '', $instance = 0)
     {
-        $text     = Functions::flattenSingleValue($text);
+        $text = Functions::flattenSingleValue($text);
         $fromText = Functions::flattenSingleValue($fromText);
-        $toText   = Functions::flattenSingleValue($toText);
+        $toText = Functions::flattenSingleValue($toText);
         $instance = floor(Functions::flattenSingleValue($instance));
 
         if ($instance == 0) {
@@ -541,9 +531,9 @@ class TextData
             $pos = -1;
             while ($instance > 0) {
                 if (function_exists('mb_strpos')) {
-                    $pos = mb_strpos($text, $fromText, $pos+1, 'UTF-8');
+                    $pos = mb_strpos($text, $fromText, $pos + 1, 'UTF-8');
                 } else {
-                    $pos = strpos($text, $fromText, $pos+1);
+                    $pos = strpos($text, $fromText, $pos + 1);
                 }
                 if ($pos === false) {
                     break;
@@ -562,12 +552,11 @@ class TextData
         return $text;
     }
 
-
     /**
      * RETURNSTRING
      *
      * @param    mixed    $testValue    Value to check
-     * @return    boolean
+     * @return    bool
      */
     public static function RETURNSTRING($testValue = '')
     {
@@ -576,20 +565,20 @@ class TextData
         if (is_string($testValue)) {
             return $testValue;
         }
+
         return null;
     }
-
 
     /**
      * TEXTFORMAT
      *
      * @param    mixed    $value    Value to check
      * @param    string    $format    Format mask to use
-     * @return    boolean
+     * @return    bool
      */
     public static function TEXTFORMAT($value, $format)
     {
-        $value  = Functions::flattenSingleValue($value);
+        $value = Functions::flattenSingleValue($value);
         $format = Functions::flattenSingleValue($format);
 
         if ((is_string($value)) && (!is_numeric($value)) && \PhpSpreadsheet\Shared\Date::isDateTimeFormatCode($format)) {
@@ -603,7 +592,7 @@ class TextData
      * VALUE
      *
      * @param    mixed    $value    Value to check
-     * @return    boolean
+     * @return    bool
      */
     public static function VALUE($value = '')
     {
@@ -626,18 +615,21 @@ class TextData
                 $timeValue = DateTime::TIMEVALUE($value);
                 if ($timeValue !== Functions::VALUE()) {
                     Functions::setReturnDateType($dateSetting);
+
                     return $timeValue;
                 }
             }
             $dateValue = DateTime::DATEVALUE($value);
             if ($dateValue !== Functions::VALUE()) {
                 Functions::setReturnDateType($dateSetting);
+
                 return $dateValue;
             }
             Functions::setReturnDateType($dateSetting);
 
             return Functions::VALUE();
         }
+
         return (float) $value;
     }
 }

@@ -7,7 +7,6 @@ use PhpSpreadsheet\Style\NumberFormat;
 
 class NumberFormatDateTest extends \PHPUnit_Framework_TestCase
 {
-
     public function setUp()
     {
         StringHelper::setDecimalSeparator('.');
@@ -23,7 +22,7 @@ class NumberFormatDateTest extends \PHPUnit_Framework_TestCase
 
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(NumberFormat::class,'toFormattedString'), $args);
+        $result = call_user_func_array([NumberFormat::class, 'toFormattedString'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 

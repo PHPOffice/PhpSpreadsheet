@@ -31,7 +31,7 @@ interface IValueBinder
      *
      * @param  \PhpSpreadsheet\Cell $cell    Cell to bind value to
      * @param  mixed $value           Value to bind in cell
-     * @return boolean
+     * @return bool
      */
     public function bindValue(\PhpSpreadsheet\Cell $cell, $value = null);
 }

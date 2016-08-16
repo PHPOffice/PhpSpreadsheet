@@ -28,14 +28,13 @@ namespace PhpSpreadsheet\Chart;
  */
 class DataSeriesValues
 {
+    const DATASERIES_TYPE_STRING = 'String';
+    const DATASERIES_TYPE_NUMBER = 'Number';
 
-    const DATASERIES_TYPE_STRING    = 'String';
-    const DATASERIES_TYPE_NUMBER    = 'Number';
-
-    private static $dataTypeValues = array(
+    private static $dataTypeValues = [
         self::DATASERIES_TYPE_STRING,
         self::DATASERIES_TYPE_NUMBER,
-    );
+    ];
 
     /**
      * Series Data Type
@@ -68,7 +67,7 @@ class DataSeriesValues
     /**
      * Point Count (The number of datapoints in the dataseries)
      *
-     * @var    integer
+     * @var    int
      */
     private $pointCount = 0;
 
@@ -77,12 +76,12 @@ class DataSeriesValues
      *
      * @var    array of mixed
      */
-    private $dataValues = array();
+    private $dataValues = [];
 
     /**
      * Create a new DataSeriesValues object
      */
-    public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = array(), $marker = null)
+    public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = [], $marker = null)
     {
         $this->setDataType($dataType);
         $this->dataSource = $dataSource;
@@ -111,8 +110,8 @@ class DataSeriesValues
      *                                        Normally used for axis point values
      *                                    \PhpSpreadsheet\Chart\DataSeriesValues::DATASERIES_TYPE_NUMBER
      *                                        Normally used for chart data values
-     * @return    DataSeriesValues
      * @throws    Exception
+     * @return    DataSeriesValues
      */
     public function setDataType($dataType = self::DATASERIES_TYPE_NUMBER)
     {
@@ -200,7 +199,7 @@ class DataSeriesValues
     /**
      * Get Series Point Count
      *
-     * @return    integer
+     * @return    int
      */
     public function getPointCount()
     {
@@ -210,20 +209,21 @@ class DataSeriesValues
     /**
      * Identify if the Data Series is a multi-level or a simple series
      *
-     * @return    boolean
+     * @return    bool
      */
     public function isMultiLevelSeries()
     {
         if (count($this->dataValues) > 0) {
             return is_array($this->dataValues[0]);
         }
+
         return null;
     }
 
     /**
      * Return the level count of a multi-level Data Series
      *
-     * @return    boolean
+     * @return    bool
      */
     public function multiLevelCount()
     {
@@ -231,6 +231,7 @@ class DataSeriesValues
         foreach ($this->dataValues as $dataValueSet) {
             $levelCount = max($levelCount, count($dataValueSet));
         }
+
         return $levelCount;
     }
 
@@ -257,6 +258,7 @@ class DataSeriesValues
         } elseif ($count == 1) {
             return $this->dataValues[0];
         }
+
         return $this->dataValues;
     }
 
@@ -264,12 +266,12 @@ class DataSeriesValues
      * Set Series Data Values
      *
      * @param    array    $dataValues
-     * @param    boolean    $refreshDataSource
+     * @param    bool    $refreshDataSource
      *                    TRUE - refresh the value of dataSource based on the values of $dataValues
      *                    FALSE - don't change the value of dataSource
      * @return    DataSeriesValues
      */
-    public function setDataValues($dataValues = array(), $refreshDataSource = true)
+    public function setDataValues($dataValues = [], $refreshDataSource = true)
     {
         $this->dataValues = \PhpSpreadsheet\Calculation\Functions::flattenArray($dataValues);
         $this->pointCount = count($dataValues);
@@ -292,7 +294,7 @@ class DataSeriesValues
             $calcEngine = \PhpSpreadsheet\Calculation::getInstance($worksheet->getParent());
             $newDataValues = \PhpSpreadsheet\Calculation::unwrapResult(
                 $calcEngine->_calculateFormulaValue(
-                    '='.$this->dataSource,
+                    '=' . $this->dataSource,
                     null,
                     $worksheet->getCell('A1')
                 )
@@ -317,7 +319,7 @@ class DataSeriesValues
                 } else {
                     $newArray = array_values(array_shift($newDataValues));
                     foreach ($newArray as $i => $newDataSet) {
-                        $newArray[$i] = array($newDataSet);
+                        $newArray[$i] = [$newDataSet];
                     }
 
                     foreach ($newDataValues as $newDataSet) {

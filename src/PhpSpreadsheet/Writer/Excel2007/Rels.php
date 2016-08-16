@@ -1,4 +1,5 @@
 <?php
+
 namespace PhpSpreadsheet\Writer\Excel2007;
 
 /**
@@ -29,8 +30,8 @@ class Rels extends WriterPart
      * Write relationships to XML format
      *
      * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @return string  XML Output
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return string  XML Output
      */
     public function writeRelationships(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
@@ -102,8 +103,8 @@ class Rels extends WriterPart
      * Write workbook relationships to XML format
      *
      * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @return string  XML Output
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return string  XML Output
      */
     public function writeWorkbookRelationships(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
@@ -182,9 +183,9 @@ class Rels extends WriterPart
      *
      * @param     \PhpSpreadsheet\Worksheet    $pWorksheet
      * @param     int                    $pWorksheetId
-     * @param    boolean                $includeCharts    Flag indicating if we should write charts
-     * @return string          XML Output
+     * @param    bool                $includeCharts    Flag indicating if we should write charts
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return string          XML Output
      */
     public function writeWorksheetRelationships(\PhpSpreadsheet\Worksheet $pWorksheet = null, $pWorksheetId = 1, $includeCharts = false)
     {
@@ -208,7 +209,7 @@ class Rels extends WriterPart
         if ($includeCharts) {
             $charts = $pWorksheet->getChartCollection();
         } else {
-            $charts = array();
+            $charts = [];
         }
         if (($pWorksheet->getDrawingCollection()->count() > 0) ||
             (count($charts) > 0)) {
@@ -290,9 +291,9 @@ class Rels extends WriterPart
      *
      * @param     \PhpSpreadsheet\Worksheet    $pWorksheet
      * @param    int                    &$chartRef        Chart ID
-     * @param    boolean                $includeCharts    Flag indicating if we should write charts
-     * @return string          XML Output
+     * @param    bool                $includeCharts    Flag indicating if we should write charts
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return string          XML Output
      */
     public function writeDrawingRelationships(\PhpSpreadsheet\Worksheet $pWorksheet, &$chartRef, $includeCharts = false)
     {
@@ -354,8 +355,8 @@ class Rels extends WriterPart
      * Write header/footer drawing relationships to XML format
      *
      * @param     \PhpSpreadsheet\Worksheet            $pWorksheet
-     * @return string                  XML Output
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return string                  XML Output
      */
     public function writeHeaderFooterDrawingRelationships(\PhpSpreadsheet\Worksheet $pWorksheet = null)
     {
@@ -415,7 +416,7 @@ class Rels extends WriterPart
 
             $objWriter->endElement();
         } else {
-            throw new \PhpSpreadsheet\Writer\Exception("Invalid parameters passed.");
+            throw new \PhpSpreadsheet\Writer\Exception('Invalid parameters passed.');
         }
     }
 }

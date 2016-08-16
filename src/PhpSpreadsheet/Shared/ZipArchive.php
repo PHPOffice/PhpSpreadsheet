@@ -32,11 +32,9 @@ use PhpSpreadsheet\Shared\PCLZip\PclZip;
  */
 class ZipArchive
 {
-
     /**    constants */
     const OVERWRITE = 'OVERWRITE';
-    const CREATE    = 'CREATE';
-
+    const CREATE = 'CREATE';
 
     /**
      * Temporary storage directory
@@ -52,12 +50,11 @@ class ZipArchive
      */
     private $zip;
 
-
     /**
      * Open a new zip archive
      *
      * @param    string    $fileName    Filename for the zip archive
-     * @return    boolean
+     * @return    bool
      */
     public function open($fileName)
     {
@@ -67,15 +64,12 @@ class ZipArchive
         return true;
     }
 
-
     /**
      * Close this zip archive
-     *
      */
     public function close()
     {
     }
-
 
     /**
      * Add a new file to the zip archive from a string of raw data.
@@ -88,23 +82,23 @@ class ZipArchive
     {
         $filenameParts = pathinfo($localname);
 
-        $handle = fopen($this->tempDir.'/'.$filenameParts["basename"], "wb");
+        $handle = fopen($this->tempDir . '/' . $filenameParts['basename'], 'wb');
         fwrite($handle, $contents);
         fclose($handle);
 
-        $res = $this->zip->add($this->tempDir.'/'.$filenameParts["basename"], PCLZIP_OPT_REMOVE_PATH, $this->tempDir, PCLZIP_OPT_ADD_PATH, $filenameParts["dirname"]);
+        $res = $this->zip->add($this->tempDir . '/' . $filenameParts['basename'], PCLZIP_OPT_REMOVE_PATH, $this->tempDir, PCLZIP_OPT_ADD_PATH, $filenameParts['dirname']);
         if ($res == 0) {
-            throw new \PhpSpreadsheet\Writer\Exception("Error zipping files : " . $this->zip->errorInfo(true));
+            throw new \PhpSpreadsheet\Writer\Exception('Error zipping files : ' . $this->zip->errorInfo(true));
         }
 
-        unlink($this->tempDir.'/'.$filenameParts["basename"]);
+        unlink($this->tempDir . '/' . $filenameParts['basename']);
     }
 
     /**
      * Find if given fileName exist in archive (Emulate ZipArchive locateName())
      *
      * @param        string        $fileName        Filename for the file in zip archive
-     * @return        boolean
+     * @return        bool
      */
     public function locateName($fileName)
     {
@@ -114,12 +108,13 @@ class ZipArchive
         $listCount = count($list);
         $index = -1;
         for ($i = 0; $i < $listCount; ++$i) {
-            if (strtolower($list[$i]["filename"]) == strtolower($fileName) ||
-                strtolower($list[$i]["stored_filename"]) == strtolower($fileName)) {
+            if (strtolower($list[$i]['filename']) == strtolower($fileName) ||
+                strtolower($list[$i]['stored_filename']) == strtolower($fileName)) {
                 $index = $i;
                 break;
             }
         }
+
         return ($index > -1) ? $index : false;
     }
 
@@ -146,7 +141,7 @@ class ZipArchive
 
         $contents = $extracted;
         if ((is_array($extracted)) && ($extracted != 0)) {
-            $contents = $extracted[0]["content"];
+            $contents = $extracted[0]['content'];
         }
 
         return $contents;
@@ -157,7 +152,7 @@ class ZipArchive
         $extracted = $this->zip->extractByIndex($index, PCLZIP_OPT_EXTRACT_AS_STRING);
         $contents = '';
         if ((is_array($extracted)) && ($extracted != 0)) {
-             $contents = $extracted[0]["content"];
+            $contents = $extracted[0]['content'];
         }
     }
 }

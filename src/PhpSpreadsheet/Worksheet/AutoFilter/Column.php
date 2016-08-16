@@ -28,21 +28,21 @@ namespace PhpSpreadsheet\Worksheet\AutoFilter;
  */
 class Column
 {
-    const AUTOFILTER_FILTERTYPE_FILTER         = 'filters';
-    const AUTOFILTER_FILTERTYPE_CUSTOMFILTER   = 'customFilters';
+    const AUTOFILTER_FILTERTYPE_FILTER = 'filters';
+    const AUTOFILTER_FILTERTYPE_CUSTOMFILTER = 'customFilters';
     //    Supports no more than 2 rules, with an And/Or join criteria
     //        if more than 1 rule is defined
-    const AUTOFILTER_FILTERTYPE_DYNAMICFILTER  = 'dynamicFilter';
+    const AUTOFILTER_FILTERTYPE_DYNAMICFILTER = 'dynamicFilter';
     //    Even though the filter rule is constant, the filtered data can vary
     //        e.g. filtered by date = TODAY
-    const AUTOFILTER_FILTERTYPE_TOPTENFILTER   = 'top10';
+    const AUTOFILTER_FILTERTYPE_TOPTENFILTER = 'top10';
 
     /**
      * Types of autofilter rules
      *
      * @var string[]
      */
-    private static $filterTypes = array(
+    private static $filterTypes = [
         //    Currently we're not handling
         //        colorFilter
         //        extLst
@@ -51,21 +51,21 @@ class Column
         self::AUTOFILTER_FILTERTYPE_CUSTOMFILTER,
         self::AUTOFILTER_FILTERTYPE_DYNAMICFILTER,
         self::AUTOFILTER_FILTERTYPE_TOPTENFILTER,
-    );
+    ];
 
     /* Multiple Rule Connections */
     const AUTOFILTER_COLUMN_JOIN_AND = 'and';
-    const AUTOFILTER_COLUMN_JOIN_OR  = 'or';
+    const AUTOFILTER_COLUMN_JOIN_OR = 'or';
 
     /**
      * Join options for autofilter rules
      *
      * @var string[]
      */
-    private static $ruleJoins = array(
+    private static $ruleJoins = [
         self::AUTOFILTER_COLUMN_JOIN_AND,
         self::AUTOFILTER_COLUMN_JOIN_OR,
-    );
+    ];
 
     /**
      * Autofilter
@@ -74,14 +74,12 @@ class Column
      */
     private $parent;
 
-
     /**
      * Autofilter Column Index
      *
      * @var string
      */
     private $columnIndex = '';
-
 
     /**
      * Autofilter Column Filter Type
@@ -90,7 +88,6 @@ class Column
      */
     private $filterType = self::AUTOFILTER_FILTERTYPE_FILTER;
 
-
     /**
      * Autofilter Multiple Rules And/Or
      *
@@ -98,22 +95,19 @@ class Column
      */
     private $join = self::AUTOFILTER_COLUMN_JOIN_OR;
 
-
     /**
      * Autofilter Column Rules
      *
      * @var array of Column\Rule
      */
-    private $ruleset = array();
-
+    private $ruleset = [];
 
     /**
      * Autofilter Column Dynamic Attributes
      *
      * @var array of mixed
      */
-    private $attributes = array();
-
+    private $attributes = [];
 
     /**
      * Create a new Column
@@ -245,7 +239,7 @@ class Column
      *    @throws   \PhpSpreadsheet\Exception
      *    @return   Column
      */
-    public function setAttributes($pAttributes = array())
+    public function setAttributes($pAttributes = [])
     {
         $this->attributes = $pAttributes;
 
@@ -288,6 +282,7 @@ class Column
         if (isset($this->attributes[$pName])) {
             return $this->attributes[$pName];
         }
+
         return null;
     }
 
@@ -305,7 +300,7 @@ class Column
     /**
      * Get a specified AutoFilter Column Rule
      *
-     * @param    integer    $pIndex        Rule index in the ruleset array
+     * @param    int    $pIndex        Rule index in the ruleset array
      * @return    Column\Rule
      */
     public function getRule($pIndex)
@@ -313,6 +308,7 @@ class Column
         if (!isset($this->ruleset[$pIndex])) {
             $this->ruleset[$pIndex] = new Column\Rule($this);
         }
+
         return $this->ruleset[$pIndex];
     }
 
@@ -332,7 +328,7 @@ class Column
      * Add a new AutoFilter Column Rule to the ruleset
      *
      * @param    Column\Rule    $pRule
-     * @param    boolean    $returnRule     Flag indicating whether the rule object or the column object should be returned
+     * @param    bool    $returnRule     Flag indicating whether the rule object or the column object should be returned
      * @return   Column|Column\Rule
      */
     public function addRule(Column\Rule $pRule, $returnRule = true)
@@ -347,7 +343,7 @@ class Column
      * Delete a specified AutoFilter Column Rule
      *    If the number of rules is reduced to 1, then we reset And/Or logic to Or
      *
-     * @param    integer    $pIndex        Rule index in the ruleset array
+     * @param    int    $pIndex        Rule index in the ruleset array
      * @return    Column
      */
     public function deleteRule($pIndex)
@@ -370,7 +366,7 @@ class Column
      */
     public function clearRules()
     {
-        $this->ruleset = array();
+        $this->ruleset = [];
         $this->setJoin(self::AUTOFILTER_COLUMN_JOIN_OR);
 
         return $this;
@@ -392,7 +388,7 @@ class Column
                 }
             } elseif ((is_array($value)) && ($key == 'ruleset')) {
                 //    The columns array of \PhpSpreadsheet\Worksheet\AutoFilter objects
-                $this->$key = array();
+                $this->$key = [];
                 foreach ($value as $k => $v) {
                     $this->$key[$k] = clone $v;
                     // attach the new cloned Rule to this new cloned Autofilter Cloned object

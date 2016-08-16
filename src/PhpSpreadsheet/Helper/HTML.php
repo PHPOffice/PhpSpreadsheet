@@ -557,7 +557,7 @@ class HTML
     protected $subscript = false;
     protected $strikethrough = false;
 
-    protected $startTagCallbacks = array(
+    protected $startTagCallbacks = [
         'font' => 'startFontTag',
         'b' => 'startBoldTag',
         'strong' => 'startBoldTag',
@@ -568,9 +568,9 @@ class HTML
         'del' => 'startStrikethruTag',
         'sup' => 'startSuperscriptTag',
         'sub' => 'startSubscriptTag',
-    );
+    ];
 
-    protected $endTagCallbacks = array(
+    protected $endTagCallbacks = [
         'font' => 'endFontTag',
         'b' => 'endBoldTag',
         'strong' => 'endBoldTag',
@@ -589,9 +589,9 @@ class HTML
         'h4' => 'breakTag',
         'h5' => 'breakTag',
         'h6' => 'breakTag',
-    );
+    ];
 
-    protected $stack = array();
+    protected $stack = [];
 
     protected $stringData = '';
 
@@ -602,7 +602,7 @@ class HTML
         $this->face = $this->size = $this->color = null;
         $this->bold = $this->italic = $this->underline = $this->superscript = $this->subscript = $this->strikethrough = false;
 
-        $this->stack = array();
+        $this->stack = [];
 
         $this->stringData = '';
     }
@@ -612,7 +612,7 @@ class HTML
         $this->initialise();
 
         //    Create a new DOM object
-        $dom = new \DOMDocument;
+        $dom = new \DOMDocument();
         //    Load the HTML file into the DOM object
         //  Note the use of error suppression, because typically this will be an html fragment, so not fully valid markup
         $loaded = @$dom->loadHTML($html);
@@ -687,6 +687,7 @@ class HTML
         foreach ($values[0] as &$value) {
             $value = str_pad(dechex($value), 2, '0', STR_PAD_LEFT);
         }
+
         return implode($values[0]);
     }
 
@@ -801,7 +802,7 @@ class HTML
         if (isset($callbacks[$callbackTag])) {
             $elementHandler = $callbacks[$callbackTag];
             if (method_exists($this, $elementHandler)) {
-                call_user_func(array($this, $elementHandler), $element);
+                call_user_func([$this, $elementHandler], $element);
             }
         }
     }

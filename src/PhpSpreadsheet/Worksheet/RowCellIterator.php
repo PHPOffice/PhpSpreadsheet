@@ -53,7 +53,7 @@ class RowCellIterator extends CellIterator implements \Iterator
      * Create a new column iterator
      *
      * @param  \PhpSpreadsheet\Worksheet   $subject        The worksheet to iterate over
-     * @param  integer               $rowIndex       The row that we want to iterate
+     * @param  int               $rowIndex       The row that we want to iterate
      * @param  string                $startColumn    The column address at which to start iterating
      * @param  string                $endColumn      Optionally, the column address at which to stop iterating
      */
@@ -77,9 +77,9 @@ class RowCellIterator extends CellIterator implements \Iterator
     /**
      * (Re)Set the start column and the current column pointer
      *
-     * @param integer    $startColumn    The column address at which to start iterating
-     * @return RowCellIterator
+     * @param int    $startColumn    The column address at which to start iterating
      * @throws \PhpSpreadsheet\Exception
+     * @return RowCellIterator
      */
     public function resetStart($startColumn = 'A')
     {
@@ -95,8 +95,8 @@ class RowCellIterator extends CellIterator implements \Iterator
      * (Re)Set the end column
      *
      * @param string    $endColumn    The column address at which to stop iterating
-     * @return RowCellIterator
      * @throws \PhpSpreadsheet\Exception
+     * @return RowCellIterator
      */
     public function resetEnd($endColumn = null)
     {
@@ -111,8 +111,8 @@ class RowCellIterator extends CellIterator implements \Iterator
      * Set the column pointer to the selected column
      *
      * @param string    $column    The column address to set the current pointer at
-     * @return RowCellIterator
      * @throws \PhpSpreadsheet\Exception
+     * @return RowCellIterator
      */
     public function seek($column = 'A')
     {
@@ -176,9 +176,9 @@ class RowCellIterator extends CellIterator implements \Iterator
     {
         if ($this->position <= $this->startColumn) {
             throw new \PhpSpreadsheet\Exception(
-                "Column is already at the beginning of range (" .
-                \PhpSpreadsheet\Cell::stringFromColumnIndex($this->endColumn) . " - " .
-                \PhpSpreadsheet\Cell::stringFromColumnIndex($this->endColumn) . ")"
+                'Column is already at the beginning of range (' .
+                \PhpSpreadsheet\Cell::stringFromColumnIndex($this->endColumn) . ' - ' .
+                \PhpSpreadsheet\Cell::stringFromColumnIndex($this->endColumn) . ')'
             );
         }
 
@@ -192,7 +192,7 @@ class RowCellIterator extends CellIterator implements \Iterator
     /**
      * Indicate if more columns exist in the worksheet range of columns that we're iterating
      *
-     * @return boolean
+     * @return bool
      */
     public function valid()
     {

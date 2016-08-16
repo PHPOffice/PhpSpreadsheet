@@ -8,7 +8,6 @@ use PhpSpreadsheet\Calculation\MathTrig;
 
 class MathTrigTest extends \PHPUnit_Framework_TestCase
 {
-
     public function setUp()
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
@@ -21,7 +20,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'ATAN2'), $args);
+        $result = call_user_func_array([MathTrig::class, 'ATAN2'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -37,7 +36,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'CEILING'), $args);
+        $result = call_user_func_array([MathTrig::class, 'CEILING'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -53,7 +52,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'COMBIN'), $args);
+        $result = call_user_func_array([MathTrig::class, 'COMBIN'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -69,7 +68,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'EVEN'), $args);
+        $result = call_user_func_array([MathTrig::class, 'EVEN'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -85,7 +84,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'ODD'), $args);
+        $result = call_user_func_array([MathTrig::class, 'ODD'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -101,7 +100,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'FACT'), $args);
+        $result = call_user_func_array([MathTrig::class, 'FACT'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -117,7 +116,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'FACTDOUBLE'), $args);
+        $result = call_user_func_array([MathTrig::class, 'FACTDOUBLE'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -133,7 +132,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'FLOOR'), $args);
+        $result = call_user_func_array([MathTrig::class, 'FLOOR'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -149,7 +148,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'GCD'), $args);
+        $result = call_user_func_array([MathTrig::class, 'GCD'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -165,7 +164,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'LCM'), $args);
+        $result = call_user_func_array([MathTrig::class, 'LCM'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -181,7 +180,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'INT'), $args);
+        $result = call_user_func_array([MathTrig::class, 'INT'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -197,7 +196,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'SIGN'), $args);
+        $result = call_user_func_array([MathTrig::class, 'SIGN'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -213,7 +212,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'POWER'), $args);
+        $result = call_user_func_array([MathTrig::class, 'POWER'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -229,7 +228,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'logBase'), $args);
+        $result = call_user_func_array([MathTrig::class, 'logBase'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -245,7 +244,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'MOD'), $args);
+        $result = call_user_func_array([MathTrig::class, 'MOD'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -264,7 +263,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'MDETERM'), $args);
+        $result = call_user_func_array([MathTrig::class, 'MDETERM'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -283,7 +282,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'MINVERSE'), $args);
+        $result = call_user_func_array([MathTrig::class, 'MINVERSE'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -302,7 +301,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'MMULT'), $args);
+        $result = call_user_func_array([MathTrig::class, 'MMULT'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -318,7 +317,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'MULTINOMIAL'), $args);
+        $result = call_user_func_array([MathTrig::class, 'MULTINOMIAL'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -335,7 +334,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
         $args = func_get_args();
         $expectedResult = array_pop($args);
         Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_VALUE);
-        $result = call_user_func_array(array(MathTrig::class,'MROUND'), $args);
+        $result = call_user_func_array([MathTrig::class, 'MROUND'], $args);
         Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
@@ -352,7 +351,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'PRODUCT'), $args);
+        $result = call_user_func_array([MathTrig::class, 'PRODUCT'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -368,7 +367,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'QUOTIENT'), $args);
+        $result = call_user_func_array([MathTrig::class, 'QUOTIENT'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -384,7 +383,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'ROUNDUP'), $args);
+        $result = call_user_func_array([MathTrig::class, 'ROUNDUP'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -400,7 +399,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'ROUNDDOWN'), $args);
+        $result = call_user_func_array([MathTrig::class, 'ROUNDDOWN'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -416,7 +415,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'SERIESSUM'), $args);
+        $result = call_user_func_array([MathTrig::class, 'SERIESSUM'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -432,7 +431,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'SUMSQ'), $args);
+        $result = call_user_func_array([MathTrig::class, 'SUMSQ'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -448,7 +447,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'TRUNC'), $args);
+        $result = call_user_func_array([MathTrig::class, 'TRUNC'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -464,7 +463,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'ROMAN'), $args);
+        $result = call_user_func_array([MathTrig::class, 'ROMAN'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -480,7 +479,7 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class,'SQRTPI'), $args);
+        $result = call_user_func_array([MathTrig::class, 'SQRTPI'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -496,70 +495,70 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(MathTrig::class, 'SUMIF'), $args);
+        $result = call_user_func_array([MathTrig::class, 'SUMIF'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerSUMIF()
     {
-        return array(
-            array(
-                array(
-                    array(1),
-                    array(5),
-                    array(10),
-                ),
+        return [
+            [
+                [
+                    [1],
+                    [5],
+                    [10],
+                ],
                 '>=5',
                 15,
-            ),
-            array(
-                array(
-                    array('text'),
-                    array(2),
-                ),
+            ],
+            [
+                [
+                    ['text'],
+                    [2],
+                ],
                 '=text',
-                array(
-                    array(10),
-                    array(100),
-                ),
+                [
+                    [10],
+                    [100],
+                ],
                 10,
-            ),
-            array(
-                array(
-                    array('"text with quotes"'),
-                    array(2),
-                ),
+            ],
+            [
+                [
+                    ['"text with quotes"'],
+                    [2],
+                ],
                 '="text with quotes"',
-                array(
-                    array(10),
-                    array(100),
-                ),
+                [
+                    [10],
+                    [100],
+                ],
                 10,
-            ),
-            array(
-                array(
-                    array('"text with quotes"'),
-                    array(''),
-                ),
+            ],
+            [
+                [
+                    ['"text with quotes"'],
+                    [''],
+                ],
                 '>"', // Compare to the single characater " (double quote)
-                array(
-                    array(10),
-                    array(100),
-                ),
-                10
-            ),
-            array(
-                array(
-                    array(''),
-                    array('anything'),
-                ),
+                [
+                    [10],
+                    [100],
+                ],
+                10,
+            ],
+            [
+                [
+                    [''],
+                    ['anything'],
+                ],
                 '>"', // Compare to the single characater " (double quote)
-                array(
-                    array(10),
-                    array(100),
-                ),
-                100
-            ),
-        );
+                [
+                    [10],
+                    [100],
+                ],
+                100,
+            ],
+        ];
     }
 }

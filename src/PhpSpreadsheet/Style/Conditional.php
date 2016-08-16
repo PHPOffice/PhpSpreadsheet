@@ -27,24 +27,24 @@ namespace PhpSpreadsheet\Style;
 class Conditional implements \PhpSpreadsheet\IComparable
 {
     /* Condition types */
-    const CONDITION_NONE         = 'none';
-    const CONDITION_CELLIS       = 'cellIs';
+    const CONDITION_NONE = 'none';
+    const CONDITION_CELLIS = 'cellIs';
     const CONDITION_CONTAINSTEXT = 'containsText';
-    const CONDITION_EXPRESSION   = 'expression';
+    const CONDITION_EXPRESSION = 'expression';
 
     /* Operator types */
-    const OPERATOR_NONE               = '';
-    const OPERATOR_BEGINSWITH         = 'beginsWith';
-    const OPERATOR_ENDSWITH           = 'endsWith';
-    const OPERATOR_EQUAL              = 'equal';
-    const OPERATOR_GREATERTHAN        = 'greaterThan';
+    const OPERATOR_NONE = '';
+    const OPERATOR_BEGINSWITH = 'beginsWith';
+    const OPERATOR_ENDSWITH = 'endsWith';
+    const OPERATOR_EQUAL = 'equal';
+    const OPERATOR_GREATERTHAN = 'greaterThan';
     const OPERATOR_GREATERTHANOREQUAL = 'greaterThanOrEqual';
-    const OPERATOR_LESSTHAN           = 'lessThan';
-    const OPERATOR_LESSTHANOREQUAL    = 'lessThanOrEqual';
-    const OPERATOR_NOTEQUAL           = 'notEqual';
-    const OPERATOR_CONTAINSTEXT       = 'containsText';
-    const OPERATOR_NOTCONTAINS        = 'notContains';
-    const OPERATOR_BETWEEN            = 'between';
+    const OPERATOR_LESSTHAN = 'lessThan';
+    const OPERATOR_LESSTHANOREQUAL = 'lessThanOrEqual';
+    const OPERATOR_NOTEQUAL = 'notEqual';
+    const OPERATOR_CONTAINSTEXT = 'containsText';
+    const OPERATOR_NOTCONTAINS = 'notContains';
+    const OPERATOR_BETWEEN = 'between';
 
     /**
      * Condition type
@@ -72,7 +72,7 @@ class Conditional implements \PhpSpreadsheet\IComparable
      *
      * @var string[]
      */
-    private $condition = array();
+    private $condition = [];
 
     /**
      * Style
@@ -88,10 +88,10 @@ class Conditional implements \PhpSpreadsheet\IComparable
     {
         // Initialise values
         $this->conditionType = self::CONDITION_NONE;
-        $this->operatorType  = self::OPERATOR_NONE;
-        $this->text          = null;
-        $this->condition     = array();
-        $this->style         = new \PhpSpreadsheet\Style(false, true);
+        $this->operatorType = self::OPERATOR_NONE;
+        $this->text = null;
+        $this->condition = [];
+        $this->style = new \PhpSpreadsheet\Style(false, true);
     }
 
     /**
@@ -113,6 +113,7 @@ class Conditional implements \PhpSpreadsheet\IComparable
     public function setConditionType($pValue = self::CONDITION_NONE)
     {
         $this->conditionType = $pValue;
+
         return $this;
     }
 
@@ -135,6 +136,7 @@ class Conditional implements \PhpSpreadsheet\IComparable
     public function setOperatorType($pValue = self::OPERATOR_NONE)
     {
         $this->operatorType = $pValue;
+
         return $this;
     }
 
@@ -157,6 +159,7 @@ class Conditional implements \PhpSpreadsheet\IComparable
     public function setText($value = null)
     {
         $this->text = $value;
+
         return $this;
     }
 
@@ -185,7 +188,7 @@ class Conditional implements \PhpSpreadsheet\IComparable
     public function setCondition($pValue = '')
     {
         if (!is_array($pValue)) {
-            $pValue = array($pValue);
+            $pValue = [$pValue];
         }
 
         return $this->setConditions($pValue);
@@ -210,9 +213,10 @@ class Conditional implements \PhpSpreadsheet\IComparable
     public function setConditions($pValue)
     {
         if (!is_array($pValue)) {
-            $pValue = array($pValue);
+            $pValue = [$pValue];
         }
         $this->condition = $pValue;
+
         return $this;
     }
 
@@ -225,6 +229,7 @@ class Conditional implements \PhpSpreadsheet\IComparable
     public function addCondition($pValue = '')
     {
         $this->condition[] = $pValue;
+
         return $this;
     }
 
@@ -247,8 +252,9 @@ class Conditional implements \PhpSpreadsheet\IComparable
      */
     public function setStyle(\PhpSpreadsheet\Style $pValue = null)
     {
-           $this->style = $pValue;
-           return $this;
+        $this->style = $pValue;
+
+        return $this;
     }
 
     /**

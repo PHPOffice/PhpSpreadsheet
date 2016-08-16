@@ -51,7 +51,7 @@ class Column
     public function __construct(\PhpSpreadsheet\Worksheet $parent = null, $columnIndex = 'A')
     {
         // Set parent and column index
-        $this->parent         = $parent;
+        $this->parent = $parent;
         $this->columnIndex = $columnIndex;
     }
 
@@ -76,8 +76,8 @@ class Column
     /**
      * Get cell iterator
      *
-     * @param    integer                $startRow        The row number at which to start iterating
-     * @param    integer                $endRow            Optionally, the row number at which to stop iterating
+     * @param    int                $startRow        The row number at which to start iterating
+     * @param    int                $endRow            Optionally, the row number at which to stop iterating
      * @return ColumnCellIterator
      */
     public function getCellIterator($startRow = 1, $endRow = null)

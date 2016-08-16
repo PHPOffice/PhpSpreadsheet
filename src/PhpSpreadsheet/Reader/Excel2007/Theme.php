@@ -47,7 +47,6 @@ class Theme
      */
     private $colourMapValues;
 
-
     /**
      * Colour Map
      *
@@ -55,17 +54,15 @@ class Theme
      */
     private $colourMap;
 
-
     /**
      * Create a new Theme
-     *
      */
     public function __construct($themeName, $colourSchemeName, $colourMap)
     {
         // Initialise values
-        $this->themeName        = $themeName;
+        $this->themeName = $themeName;
         $this->colourSchemeName = $colourSchemeName;
-        $this->colourMap        = $colourMap;
+        $this->colourMap = $colourMap;
     }
 
     /**
@@ -98,6 +95,7 @@ class Theme
         if (isset($this->colourMap[$index])) {
             return $this->colourMap[$index];
         }
+
         return null;
     }
 

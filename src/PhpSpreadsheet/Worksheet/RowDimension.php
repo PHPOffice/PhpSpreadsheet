@@ -40,11 +40,11 @@ class RowDimension extends Dimension
      *
      * When this is set to a negative value, the row height should be ignored by IWriter
      *
-     * @var double
+     * @var float
      */
     private $height = -1;
 
-     /**
+    /**
      * ZeroHeight for Row?
      *
      * @var bool
@@ -84,13 +84,14 @@ class RowDimension extends Dimension
     public function setRowIndex($pValue)
     {
         $this->rowIndex = $pValue;
+
         return $this;
     }
 
     /**
      * Get Row Height
      *
-     * @return double
+     * @return float
      */
     public function getRowHeight()
     {
@@ -100,12 +101,13 @@ class RowDimension extends Dimension
     /**
      * Set Row Height
      *
-     * @param double $pValue
+     * @param float $pValue
      * @return RowDimension
      */
     public function setRowHeight($pValue = -1)
     {
         $this->height = $pValue;
+
         return $this;
     }
 
@@ -128,6 +130,7 @@ class RowDimension extends Dimension
     public function setZeroHeight($pValue = false)
     {
         $this->zeroHeight = $pValue;
+
         return $this;
     }
 }

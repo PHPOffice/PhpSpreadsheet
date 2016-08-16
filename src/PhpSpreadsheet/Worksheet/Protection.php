@@ -31,121 +31,121 @@ class Protection
     /**
      * Sheet
      *
-     * @var boolean
+     * @var bool
      */
-    private $sheet                    = false;
+    private $sheet = false;
 
     /**
      * Objects
      *
-     * @var boolean
+     * @var bool
      */
-    private $objects                = false;
+    private $objects = false;
 
     /**
      * Scenarios
      *
-     * @var boolean
+     * @var bool
      */
-    private $scenarios                = false;
+    private $scenarios = false;
 
     /**
      * Format cells
      *
-     * @var boolean
+     * @var bool
      */
-    private $formatCells            = false;
+    private $formatCells = false;
 
     /**
      * Format columns
      *
-     * @var boolean
+     * @var bool
      */
-    private $formatColumns            = false;
+    private $formatColumns = false;
 
     /**
      * Format rows
      *
-     * @var boolean
+     * @var bool
      */
-    private $formatRows            = false;
+    private $formatRows = false;
 
     /**
      * Insert columns
      *
-     * @var boolean
+     * @var bool
      */
-    private $insertColumns            = false;
+    private $insertColumns = false;
 
     /**
      * Insert rows
      *
-     * @var boolean
+     * @var bool
      */
-    private $insertRows            = false;
+    private $insertRows = false;
 
     /**
      * Insert hyperlinks
      *
-     * @var boolean
+     * @var bool
      */
-    private $insertHyperlinks        = false;
+    private $insertHyperlinks = false;
 
     /**
      * Delete columns
      *
-     * @var boolean
+     * @var bool
      */
-    private $deleteColumns            = false;
+    private $deleteColumns = false;
 
     /**
      * Delete rows
      *
-     * @var boolean
+     * @var bool
      */
-    private $deleteRows            = false;
+    private $deleteRows = false;
 
     /**
      * Select locked cells
      *
-     * @var boolean
+     * @var bool
      */
-    private $selectLockedCells        = false;
+    private $selectLockedCells = false;
 
     /**
      * Sort
      *
-     * @var boolean
+     * @var bool
      */
-    private $sort                    = false;
+    private $sort = false;
 
     /**
      * AutoFilter
      *
-     * @var boolean
+     * @var bool
      */
-    private $autoFilter            = false;
+    private $autoFilter = false;
 
     /**
      * Pivot tables
      *
-     * @var boolean
+     * @var bool
      */
-    private $pivotTables            = false;
+    private $pivotTables = false;
 
     /**
      * Select unlocked cells
      *
-     * @var boolean
+     * @var bool
      */
-    private $selectUnlockedCells    = false;
+    private $selectUnlockedCells = false;
 
     /**
      * Password
      *
      * @var string
      */
-    private $password                = '';
+    private $password = '';
 
     /**
      * Create a new Protection
@@ -157,7 +157,7 @@ class Protection
     /**
      * Is some sort of protection enabled?
      *
-     * @return boolean
+     * @return bool
      */
     public function isProtectionEnabled()
     {
@@ -182,7 +182,7 @@ class Protection
     /**
      * Get Sheet
      *
-     * @return boolean
+     * @return bool
      */
     public function getSheet()
     {
@@ -192,19 +192,20 @@ class Protection
     /**
      * Set Sheet
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Protection
      */
     public function setSheet($pValue = false)
     {
         $this->sheet = $pValue;
+
         return $this;
     }
 
     /**
      * Get Objects
      *
-     * @return boolean
+     * @return bool
      */
     public function getObjects()
     {
@@ -214,19 +215,20 @@ class Protection
     /**
      * Set Objects
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Protection
      */
     public function setObjects($pValue = false)
     {
         $this->objects = $pValue;
+
         return $this;
     }
 
     /**
      * Get Scenarios
      *
-     * @return boolean
+     * @return bool
      */
     public function getScenarios()
     {
@@ -236,19 +238,20 @@ class Protection
     /**
      * Set Scenarios
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Protection
      */
     public function setScenarios($pValue = false)
     {
         $this->scenarios = $pValue;
+
         return $this;
     }
 
     /**
      * Get FormatCells
      *
-     * @return boolean
+     * @return bool
      */
     public function getFormatCells()
     {
@@ -258,19 +261,20 @@ class Protection
     /**
      * Set FormatCells
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Protection
      */
     public function setFormatCells($pValue = false)
     {
         $this->formatCells = $pValue;
+
         return $this;
     }
 
     /**
      * Get FormatColumns
      *
-     * @return boolean
+     * @return bool
      */
     public function getFormatColumns()
     {
@@ -280,19 +284,20 @@ class Protection
     /**
      * Set FormatColumns
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Protection
      */
     public function setFormatColumns($pValue = false)
     {
         $this->formatColumns = $pValue;
+
         return $this;
     }
 
     /**
      * Get FormatRows
      *
-     * @return boolean
+     * @return bool
      */
     public function getFormatRows()
     {
@@ -302,19 +307,20 @@ class Protection
     /**
      * Set FormatRows
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Protection
      */
     public function setFormatRows($pValue = false)
     {
         $this->formatRows = $pValue;
+
         return $this;
     }
 
     /**
      * Get InsertColumns
      *
-     * @return boolean
+     * @return bool
      */
     public function getInsertColumns()
     {
@@ -324,19 +330,20 @@ class Protection
     /**
      * Set InsertColumns
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Protection
      */
     public function setInsertColumns($pValue = false)
     {
         $this->insertColumns = $pValue;
+
         return $this;
     }
 
     /**
      * Get InsertRows
      *
-     * @return boolean
+     * @return bool
      */
     public function getInsertRows()
     {
@@ -346,19 +353,20 @@ class Protection
     /**
      * Set InsertRows
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Protection
      */
     public function setInsertRows($pValue = false)
     {
         $this->insertRows = $pValue;
+
         return $this;
     }
 
     /**
      * Get InsertHyperlinks
      *
-     * @return boolean
+     * @return bool
      */
     public function getInsertHyperlinks()
     {
@@ -368,19 +376,20 @@ class Protection
     /**
      * Set InsertHyperlinks
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Protection
      */
     public function setInsertHyperlinks($pValue = false)
     {
         $this->insertHyperlinks = $pValue;
+
         return $this;
     }
 
     /**
      * Get DeleteColumns
      *
-     * @return boolean
+     * @return bool
      */
     public function getDeleteColumns()
     {
@@ -390,19 +399,20 @@ class Protection
     /**
      * Set DeleteColumns
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Protection
      */
     public function setDeleteColumns($pValue = false)
     {
         $this->deleteColumns = $pValue;
+
         return $this;
     }
 
     /**
      * Get DeleteRows
      *
-     * @return boolean
+     * @return bool
      */
     public function getDeleteRows()
     {
@@ -412,19 +422,20 @@ class Protection
     /**
      * Set DeleteRows
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Protection
      */
     public function setDeleteRows($pValue = false)
     {
         $this->deleteRows = $pValue;
+
         return $this;
     }
 
     /**
      * Get SelectLockedCells
      *
-     * @return boolean
+     * @return bool
      */
     public function getSelectLockedCells()
     {
@@ -434,19 +445,20 @@ class Protection
     /**
      * Set SelectLockedCells
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Protection
      */
     public function setSelectLockedCells($pValue = false)
     {
         $this->selectLockedCells = $pValue;
+
         return $this;
     }
 
     /**
      * Get Sort
      *
-     * @return boolean
+     * @return bool
      */
     public function getSort()
     {
@@ -456,19 +468,20 @@ class Protection
     /**
      * Set Sort
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Protection
      */
     public function setSort($pValue = false)
     {
         $this->sort = $pValue;
+
         return $this;
     }
 
     /**
      * Get AutoFilter
      *
-     * @return boolean
+     * @return bool
      */
     public function getAutoFilter()
     {
@@ -478,19 +491,20 @@ class Protection
     /**
      * Set AutoFilter
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Protection
      */
     public function setAutoFilter($pValue = false)
     {
         $this->autoFilter = $pValue;
+
         return $this;
     }
 
     /**
      * Get PivotTables
      *
-     * @return boolean
+     * @return bool
      */
     public function getPivotTables()
     {
@@ -500,19 +514,20 @@ class Protection
     /**
      * Set PivotTables
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Protection
      */
     public function setPivotTables($pValue = false)
     {
         $this->pivotTables = $pValue;
+
         return $this;
     }
 
     /**
      * Get SelectUnlockedCells
      *
-     * @return boolean
+     * @return bool
      */
     public function getSelectUnlockedCells()
     {
@@ -522,12 +537,13 @@ class Protection
     /**
      * Set SelectUnlockedCells
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Protection
      */
     public function setSelectUnlockedCells($pValue = false)
     {
         $this->selectUnlockedCells = $pValue;
+
         return $this;
     }
 
@@ -545,7 +561,7 @@ class Protection
      * Set Password
      *
      * @param string     $pValue
-     * @param boolean     $pAlreadyHashed If the password has already been hashed, set this to true
+     * @param bool     $pAlreadyHashed If the password has already been hashed, set this to true
      * @return Protection
      */
     public function setPassword($pValue = '', $pAlreadyHashed = false)
@@ -554,6 +570,7 @@ class Protection
             $pValue = \PhpSpreadsheet\Shared\PasswordHasher::hashPassword($pValue);
         }
         $this->password = $pValue;
+
         return $this;
     }
 

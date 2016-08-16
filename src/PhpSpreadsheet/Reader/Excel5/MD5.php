@@ -59,7 +59,7 @@ class MD5
     public function getContext()
     {
         $s = '';
-        foreach (array('a', 'b', 'c', 'd') as $i) {
+        foreach (['a', 'b', 'c', 'd'] as $i) {
             $v = $this->{$i};
             $s .= chr($v & 0xff);
             $s .= chr(($v >> 8) & 0xff);
@@ -84,10 +84,10 @@ class MD5
         $C = $this->c;
         $D = $this->d;
 
-        $F = ['self','f'];
-        $G = ['self','g'];
-        $H = ['self','h'];
-        $I = ['self','i'];
+        $F = ['self', 'f'];
+        $G = ['self', 'g'];
+        $H = ['self', 'h'];
+        $I = ['self', 'i'];
 
         /* ROUND 1 */
         self::step($F, $A, $B, $C, $D, $words[0], 7, 0xd76aa478);
@@ -169,22 +169,22 @@ class MD5
 
     private static function f($X, $Y, $Z)
     {
-        return (($X & $Y) | ((~ $X) & $Z)); // X AND Y OR NOT X AND Z
+        return ($X & $Y) | ((~$X) & $Z); // X AND Y OR NOT X AND Z
     }
 
     private static function g($X, $Y, $Z)
     {
-        return (($X & $Z) | ($Y & (~ $Z))); // X AND Z OR Y AND NOT Z
+        return ($X & $Z) | ($Y & (~$Z)); // X AND Z OR Y AND NOT Z
     }
 
     private static function h($X, $Y, $Z)
     {
-        return ($X ^ $Y ^ $Z); // X XOR Y XOR Z
+        return $X ^ $Y ^ $Z; // X XOR Y XOR Z
     }
 
     private static function i($X, $Y, $Z)
     {
-        return ($Y ^ ($X | (~ $Z))) ; // Y XOR (X OR NOT Z)
+        return $Y ^ ($X | (~$Z)); // Y XOR (X OR NOT Z)
     }
 
     private static function step($func, &$A, $B, $C, $D, $M, $s, $t)
@@ -196,7 +196,8 @@ class MD5
 
     private static function rotate($decimal, $bits)
     {
-        $binary = str_pad(decbin($decimal), 32, "0", STR_PAD_LEFT);
-        return bindec(substr($binary, $bits).substr($binary, 0, $bits));
+        $binary = str_pad(decbin($decimal), 32, '0', STR_PAD_LEFT);
+
+        return bindec(substr($binary, $bits) . substr($binary, 0, $bits));
     }
 }

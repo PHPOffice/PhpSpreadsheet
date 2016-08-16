@@ -40,7 +40,7 @@ class ColumnDimension extends Dimension
      *
      * When this is set to a negative value, the column width should be ignored by IWriter
      *
-     * @var double
+     * @var float
      */
     private $width = -1;
 
@@ -84,13 +84,14 @@ class ColumnDimension extends Dimension
     public function setColumnIndex($pValue)
     {
         $this->columnIndex = $pValue;
+
         return $this;
     }
 
     /**
      * Get Width
      *
-     * @return double
+     * @return float
      */
     public function getWidth()
     {
@@ -100,12 +101,13 @@ class ColumnDimension extends Dimension
     /**
      * Set Width
      *
-     * @param double $pValue
+     * @param float $pValue
      * @return ColumnDimension
      */
     public function setWidth($pValue = -1)
     {
         $this->width = $pValue;
+
         return $this;
     }
 
@@ -128,6 +130,7 @@ class ColumnDimension extends Dimension
     public function setAutoSize($pValue = false)
     {
         $this->autoSize = $pValue;
+
         return $this;
     }
 }

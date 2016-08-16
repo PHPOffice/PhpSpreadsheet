@@ -26,40 +26,39 @@ namespace PhpSpreadsheet\Chart;
  */
 class DataSeries
 {
-    const TYPE_BARCHART        = 'barChart';
-    const TYPE_BARCHART_3D     = 'bar3DChart';
-    const TYPE_LINECHART       = 'lineChart';
-    const TYPE_LINECHART_3D    = 'line3DChart';
-    const TYPE_AREACHART       = 'areaChart';
-    const TYPE_AREACHART_3D    = 'area3DChart';
-    const TYPE_PIECHART        = 'pieChart';
-    const TYPE_PIECHART_3D     = 'pie3DChart';
-    const TYPE_DOUGHTNUTCHART  = 'doughnutChart';
-    const TYPE_DONUTCHART      = self::TYPE_DOUGHTNUTCHART;    //    Synonym
-    const TYPE_SCATTERCHART    = 'scatterChart';
-    const TYPE_SURFACECHART    = 'surfaceChart';
+    const TYPE_BARCHART = 'barChart';
+    const TYPE_BARCHART_3D = 'bar3DChart';
+    const TYPE_LINECHART = 'lineChart';
+    const TYPE_LINECHART_3D = 'line3DChart';
+    const TYPE_AREACHART = 'areaChart';
+    const TYPE_AREACHART_3D = 'area3DChart';
+    const TYPE_PIECHART = 'pieChart';
+    const TYPE_PIECHART_3D = 'pie3DChart';
+    const TYPE_DOUGHTNUTCHART = 'doughnutChart';
+    const TYPE_DONUTCHART = self::TYPE_DOUGHTNUTCHART;    //    Synonym
+    const TYPE_SCATTERCHART = 'scatterChart';
+    const TYPE_SURFACECHART = 'surfaceChart';
     const TYPE_SURFACECHART_3D = 'surface3DChart';
-    const TYPE_RADARCHART      = 'radarChart';
-    const TYPE_BUBBLECHART     = 'bubbleChart';
-    const TYPE_STOCKCHART      = 'stockChart';
-    const TYPE_CANDLECHART     = self::TYPE_STOCKCHART;       //    Synonym
+    const TYPE_RADARCHART = 'radarChart';
+    const TYPE_BUBBLECHART = 'bubbleChart';
+    const TYPE_STOCKCHART = 'stockChart';
+    const TYPE_CANDLECHART = self::TYPE_STOCKCHART;       //    Synonym
 
-    const GROUPING_CLUSTERED       = 'clustered';
-    const GROUPING_STACKED         = 'stacked';
+    const GROUPING_CLUSTERED = 'clustered';
+    const GROUPING_STACKED = 'stacked';
     const GROUPING_PERCENT_STACKED = 'percentStacked';
-    const GROUPING_STANDARD        = 'standard';
+    const GROUPING_STANDARD = 'standard';
 
-    const DIRECTION_BAR        = 'bar';
+    const DIRECTION_BAR = 'bar';
     const DIRECTION_HORIZONTAL = self::DIRECTION_BAR;
-    const DIRECTION_COL        = 'col';
-    const DIRECTION_COLUMN     = self::DIRECTION_COL;
-    const DIRECTION_VERTICAL   = self::DIRECTION_COL;
+    const DIRECTION_COL = 'col';
+    const DIRECTION_COLUMN = self::DIRECTION_COL;
+    const DIRECTION_VERTICAL = self::DIRECTION_COL;
 
-    const STYLE_LINEMARKER   = 'lineMarker';
+    const STYLE_LINEMARKER = 'lineMarker';
     const STYLE_SMOOTHMARKER = 'smoothMarker';
-    const STYLE_MARKER       = 'marker';
-    const STYLE_FILLED       = 'filled';
-
+    const STYLE_MARKER = 'marker';
+    const STYLE_FILLED = 'filled';
 
     /**
      * Series Plot Type
@@ -71,14 +70,14 @@ class DataSeries
     /**
      * Plot Grouping Type
      *
-     * @var boolean
+     * @var bool
      */
     private $plotGrouping;
 
     /**
      * Plot Direction
      *
-     * @var boolean
+     * @var bool
      */
     private $plotDirection;
 
@@ -94,21 +93,21 @@ class DataSeries
      *
      * @var array of integer
      */
-    private $plotOrder = array();
+    private $plotOrder = [];
 
     /**
      * Plot Label
      *
      * @var array of DataSeriesValues
      */
-    private $plotLabel = array();
+    private $plotLabel = [];
 
     /**
      * Plot Category
      *
      * @var array of DataSeriesValues
      */
-    private $plotCategory = array();
+    private $plotCategory = [];
 
     /**
      * Smooth Line
@@ -122,12 +121,12 @@ class DataSeries
      *
      * @var array of DataSeriesValues
      */
-    private $plotValues = array();
+    private $plotValues = [];
 
     /**
      * Create a new DataSeries
      */
-    public function __construct($plotType = null, $plotGrouping = null, $plotOrder = array(), $plotLabel = array(), $plotCategory = array(), $plotValues = array(), $plotDirection = null, $smoothLine = null, $plotStyle = null)
+    public function __construct($plotType = null, $plotGrouping = null, $plotOrder = [], $plotLabel = [], $plotCategory = [], $plotValues = [], $plotDirection = null, $smoothLine = null, $plotStyle = null)
     {
         $this->plotType = $plotType;
         $this->plotGrouping = $plotGrouping;
@@ -171,6 +170,7 @@ class DataSeries
     public function setPlotType($plotType = '')
     {
         $this->plotType = $plotType;
+
         return $this;
     }
 
@@ -193,6 +193,7 @@ class DataSeries
     public function setPlotGrouping($groupingType = null)
     {
         $this->plotGrouping = $groupingType;
+
         return $this;
     }
 
@@ -215,6 +216,7 @@ class DataSeries
     public function setPlotDirection($plotDirection = null)
     {
         $this->plotDirection = $plotDirection;
+
         return $this;
     }
 
@@ -251,6 +253,7 @@ class DataSeries
         } elseif (isset($keys[$index])) {
             return $this->plotLabel[$keys[$index]];
         }
+
         return false;
     }
 
@@ -277,6 +280,7 @@ class DataSeries
         } elseif (isset($keys[$index])) {
             return $this->plotCategory[$keys[$index]];
         }
+
         return false;
     }
 
@@ -299,6 +303,7 @@ class DataSeries
     public function setPlotStyle($plotStyle = null)
     {
         $this->plotStyle = $plotStyle;
+
         return $this;
     }
 
@@ -325,13 +330,14 @@ class DataSeries
         } elseif (isset($keys[$index])) {
             return $this->plotValues[$keys[$index]];
         }
+
         return false;
     }
 
     /**
      * Get Number of Plot Series
      *
-     * @return integer
+     * @return int
      */
     public function getPlotSeriesCount()
     {
@@ -341,7 +347,7 @@ class DataSeries
     /**
      * Get Smooth Line
      *
-     * @return boolean
+     * @return bool
      */
     public function getSmoothLine()
     {
@@ -351,12 +357,13 @@ class DataSeries
     /**
      * Set Smooth Line
      *
-     * @param boolean $smoothLine
+     * @param bool $smoothLine
      * @return DataSeries
      */
     public function setSmoothLine($smoothLine = true)
     {
         $this->smoothLine = $smoothLine;
+
         return $this;
     }
 

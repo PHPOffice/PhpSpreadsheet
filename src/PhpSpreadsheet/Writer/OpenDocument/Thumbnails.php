@@ -30,8 +30,8 @@ class Thumbnails extends WriterPart
      * Write Thumbnails/thumbnail.png to PNG format
      *
      * @param   \PhpSpreadsheet\Spreadsheet                   $spreadsheet
-     * @return  string                     XML Output
      * @throws  \PhpSpreadsheet\Writer\Exception
+     * @return  string                     XML Output
      */
     public function writeThumbnail(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {

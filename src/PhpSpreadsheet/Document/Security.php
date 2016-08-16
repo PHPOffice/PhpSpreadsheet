@@ -29,21 +29,21 @@ class Security
     /**
      * LockRevision
      *
-     * @var boolean
+     * @var bool
      */
     private $lockRevision = false;
 
     /**
      * LockStructure
      *
-     * @var boolean
+     * @var bool
      */
     private $lockStructure = false;
 
     /**
      * LockWindows
      *
-     * @var boolean
+     * @var bool
      */
     private $lockWindows = false;
 
@@ -71,7 +71,7 @@ class Security
     /**
      * Is some sort of document security enabled?
      *
-     * @return boolean
+     * @return bool
      */
     public function isSecurityEnabled()
     {
@@ -83,7 +83,7 @@ class Security
     /**
      * Get LockRevision
      *
-     * @return boolean
+     * @return bool
      */
     public function getLockRevision()
     {
@@ -93,19 +93,20 @@ class Security
     /**
      * Set LockRevision
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Security
      */
     public function setLockRevision($pValue = false)
     {
         $this->lockRevision = $pValue;
+
         return $this;
     }
 
     /**
      * Get LockStructure
      *
-     * @return boolean
+     * @return bool
      */
     public function getLockStructure()
     {
@@ -115,19 +116,20 @@ class Security
     /**
      * Set LockStructure
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Security
      */
     public function setLockStructure($pValue = false)
     {
         $this->lockStructure = $pValue;
+
         return $this;
     }
 
     /**
      * Get LockWindows
      *
-     * @return boolean
+     * @return bool
      */
     public function getLockWindows()
     {
@@ -137,12 +139,13 @@ class Security
     /**
      * Set LockWindows
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Security
      */
     public function setLockWindows($pValue = false)
     {
         $this->lockWindows = $pValue;
+
         return $this;
     }
 
@@ -160,7 +163,7 @@ class Security
      * Set RevisionsPassword
      *
      * @param string     $pValue
-     * @param boolean     $pAlreadyHashed If the password has already been hashed, set this to true
+     * @param bool     $pAlreadyHashed If the password has already been hashed, set this to true
      * @return Security
      */
     public function setRevisionsPassword($pValue = '', $pAlreadyHashed = false)
@@ -169,6 +172,7 @@ class Security
             $pValue = \PhpSpreadsheet\Shared\PasswordHasher::hashPassword($pValue);
         }
         $this->revisionsPassword = $pValue;
+
         return $this;
     }
 
@@ -186,7 +190,7 @@ class Security
      * Set WorkbookPassword
      *
      * @param string     $pValue
-     * @param boolean     $pAlreadyHashed If the password has already been hashed, set this to true
+     * @param bool     $pAlreadyHashed If the password has already been hashed, set this to true
      * @return Security
      */
     public function setWorkbookPassword($pValue = '', $pAlreadyHashed = false)
@@ -195,6 +199,7 @@ class Security
             $pValue = \PhpSpreadsheet\Shared\PasswordHasher::hashPassword($pValue);
         }
         $this->workbookPassword = $pValue;
+
         return $this;
     }
 

@@ -31,7 +31,7 @@ class OpenDocument extends BaseWriter implements IWriter
      *
      * @var OpenDocument\WriterPart[]
      */
-    private $writerParts = array();
+    private $writerParts = [];
 
     /**
      * Private PhpSpreadsheet
@@ -49,15 +49,15 @@ class OpenDocument extends BaseWriter implements IWriter
     {
         $this->setPhpSpreadsheet($spreadsheet);
 
-        $writerPartsArray = array(
-            'content'    => \PhpSpreadsheet\Writer\OpenDocument\Content::class,
-            'meta'       => \PhpSpreadsheet\Writer\OpenDocument\Meta::class,
-            'meta_inf'   => \PhpSpreadsheet\Writer\OpenDocument\MetaInf::class,
-            'mimetype'   => \PhpSpreadsheet\Writer\OpenDocument\Mimetype::class,
-            'settings'   => \PhpSpreadsheet\Writer\OpenDocument\Settings::class,
-            'styles'     => \PhpSpreadsheet\Writer\OpenDocument\Styles::class,
+        $writerPartsArray = [
+            'content' => \PhpSpreadsheet\Writer\OpenDocument\Content::class,
+            'meta' => \PhpSpreadsheet\Writer\OpenDocument\Meta::class,
+            'meta_inf' => \PhpSpreadsheet\Writer\OpenDocument\MetaInf::class,
+            'mimetype' => \PhpSpreadsheet\Writer\OpenDocument\Mimetype::class,
+            'settings' => \PhpSpreadsheet\Writer\OpenDocument\Settings::class,
+            'styles' => \PhpSpreadsheet\Writer\OpenDocument\Styles::class,
             'thumbnails' => \PhpSpreadsheet\Writer\OpenDocument\Thumbnails::class,
-        );
+        ];
 
         foreach ($writerPartsArray as $writer => $class) {
             $this->writerParts[$writer] = new $class($this);
@@ -162,8 +162,8 @@ class OpenDocument extends BaseWriter implements IWriter
     /**
      * Get PhpSpreadsheet object
      *
-     * @return PhpSpreadsheet
      * @throws \PhpSpreadsheet\Writer\Exception
+     * @return PhpSpreadsheet
      */
     public function getPhpSpreadsheet()
     {
@@ -184,6 +184,7 @@ class OpenDocument extends BaseWriter implements IWriter
     public function setPhpSpreadsheet(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         $this->spreadSheet = $spreadsheet;
+
         return $this;
     }
 }

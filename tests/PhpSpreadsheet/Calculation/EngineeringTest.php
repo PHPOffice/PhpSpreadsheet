@@ -7,7 +7,6 @@ use PhpSpreadsheet\Calculation\Functions;
 
 class EngineeringTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var \PhpSpreadsheet\Tests\Custom\ComplexAssert
      */
@@ -31,7 +30,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'BESSELI'), $args);
+        $result = call_user_func_array([Engineering::class, 'BESSELI'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -47,7 +46,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'BESSELJ'), $args);
+        $result = call_user_func_array([Engineering::class, 'BESSELJ'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -63,7 +62,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'BESSELK'), $args);
+        $result = call_user_func_array([Engineering::class, 'BESSELK'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -79,7 +78,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'BESSELY'), $args);
+        $result = call_user_func_array([Engineering::class, 'BESSELY'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -95,7 +94,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'COMPLEX'), $args);
+        $result = call_user_func_array([Engineering::class, 'COMPLEX'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -111,7 +110,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'IMAGINARY'), $args);
+        $result = call_user_func_array([Engineering::class, 'IMAGINARY'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -127,7 +126,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'IMREAL'), $args);
+        $result = call_user_func_array([Engineering::class, 'IMREAL'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -143,7 +142,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'IMABS'), $args);
+        $result = call_user_func_array([Engineering::class, 'IMABS'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -160,7 +159,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'IMARGUMENT'), $args);
+        $result = call_user_func_array([Engineering::class, 'IMARGUMENT'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -176,7 +175,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'IMCONJUGATE'), $args);
+        $result = call_user_func_array([Engineering::class, 'IMCONJUGATE'], $args);
         $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -192,7 +191,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'IMCOS'), $args);
+        $result = call_user_func_array([Engineering::class, 'IMCOS'], $args);
         $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -211,7 +210,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'IMDIV'), $args);
+        $result = call_user_func_array([Engineering::class, 'IMDIV'], $args);
         $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -227,7 +226,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'IMEXP'), $args);
+        $result = call_user_func_array([Engineering::class, 'IMEXP'], $args);
         $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -243,7 +242,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'IMLN'), $args);
+        $result = call_user_func_array([Engineering::class, 'IMLN'], $args);
         $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -259,7 +258,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'IMLOG2'), $args);
+        $result = call_user_func_array([Engineering::class, 'IMLOG2'], $args);
         $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -275,7 +274,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'IMLOG10'), $args);
+        $result = call_user_func_array([Engineering::class, 'IMLOG10'], $args);
         $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -294,7 +293,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'IMPOWER'), $args);
+        $result = call_user_func_array([Engineering::class, 'IMPOWER'], $args);
         $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -310,7 +309,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'IMPRODUCT'), $args);
+        $result = call_user_func_array([Engineering::class, 'IMPRODUCT'], $args);
         $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -326,7 +325,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'IMSIN'), $args);
+        $result = call_user_func_array([Engineering::class, 'IMSIN'], $args);
         $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -342,7 +341,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'IMSQRT'), $args);
+        $result = call_user_func_array([Engineering::class, 'IMSQRT'], $args);
         $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -361,7 +360,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
 
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'IMSUB'), $args);
+        $result = call_user_func_array([Engineering::class, 'IMSUB'], $args);
         $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -378,7 +377,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'IMSUM'), $args);
+        $result = call_user_func_array([Engineering::class, 'IMSUM'], $args);
         $this->assertTrue($this->complexAssert->assertComplexEquals($expectedResult, $result, 1E-8), $this->complexAssert->getErrorMessage());
     }
 
@@ -394,7 +393,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'ERF'), $args);
+        $result = call_user_func_array([Engineering::class, 'ERF'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -410,7 +409,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'ERFC'), $args);
+        $result = call_user_func_array([Engineering::class, 'ERFC'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -426,7 +425,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'BINTODEC'), $args);
+        $result = call_user_func_array([Engineering::class, 'BINTODEC'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -442,7 +441,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'BINTOHEX'), $args);
+        $result = call_user_func_array([Engineering::class, 'BINTOHEX'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -458,7 +457,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'BINTOOCT'), $args);
+        $result = call_user_func_array([Engineering::class, 'BINTOOCT'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -474,7 +473,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'DECTOBIN'), $args);
+        $result = call_user_func_array([Engineering::class, 'DECTOBIN'], $args);
         $this->assertEquals($expectedResult, $result, null);
     }
 
@@ -490,7 +489,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'DECTOHEX'), $args);
+        $result = call_user_func_array([Engineering::class, 'DECTOHEX'], $args);
         $this->assertEquals($expectedResult, $result, null);
     }
 
@@ -506,7 +505,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'DECTOOCT'), $args);
+        $result = call_user_func_array([Engineering::class, 'DECTOOCT'], $args);
         $this->assertEquals($expectedResult, $result, null);
     }
 
@@ -522,7 +521,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'HEXTOBIN'), $args);
+        $result = call_user_func_array([Engineering::class, 'HEXTOBIN'], $args);
         $this->assertEquals($expectedResult, $result, null);
     }
 
@@ -538,7 +537,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'HEXTODEC'), $args);
+        $result = call_user_func_array([Engineering::class, 'HEXTODEC'], $args);
         $this->assertEquals($expectedResult, $result, null);
     }
 
@@ -554,7 +553,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'HEXTOOCT'), $args);
+        $result = call_user_func_array([Engineering::class, 'HEXTOOCT'], $args);
         $this->assertEquals($expectedResult, $result, null);
     }
 
@@ -570,7 +569,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'OCTTOBIN'), $args);
+        $result = call_user_func_array([Engineering::class, 'OCTTOBIN'], $args);
         $this->assertEquals($expectedResult, $result, null);
     }
 
@@ -586,7 +585,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'OCTTODEC'), $args);
+        $result = call_user_func_array([Engineering::class, 'OCTTODEC'], $args);
         $this->assertEquals($expectedResult, $result, null);
     }
 
@@ -602,7 +601,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'OCTTOHEX'), $args);
+        $result = call_user_func_array([Engineering::class, 'OCTTOHEX'], $args);
         $this->assertEquals($expectedResult, $result, null);
     }
 
@@ -618,7 +617,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'DELTA'), $args);
+        $result = call_user_func_array([Engineering::class, 'DELTA'], $args);
         $this->assertEquals($expectedResult, $result, null);
     }
 
@@ -634,7 +633,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'GESTEP'), $args);
+        $result = call_user_func_array([Engineering::class, 'GESTEP'], $args);
         $this->assertEquals($expectedResult, $result, null);
     }
 
@@ -674,7 +673,7 @@ class EngineeringTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Engineering::class,'CONVERTUOM'), $args);
+        $result = call_user_func_array([Engineering::class, 'CONVERTUOM'], $args);
         $this->assertEquals($expectedResult, $result, null);
     }
 

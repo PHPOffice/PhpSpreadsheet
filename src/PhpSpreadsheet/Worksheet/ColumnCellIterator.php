@@ -54,8 +54,8 @@ class ColumnCellIterator extends CellIterator implements \Iterator
      *
      * @param    \PhpSpreadsheet\Worksheet    $subject        The worksheet to iterate over
      * @param    string              $columnIndex    The column that we want to iterate
-     * @param    integer                $startRow        The row number at which to start iterating
-     * @param    integer                $endRow            Optionally, the row number at which to stop iterating
+     * @param    int                $startRow        The row number at which to start iterating
+     * @param    int                $endRow            Optionally, the row number at which to stop iterating
      */
     public function __construct(\PhpSpreadsheet\Worksheet $subject = null, $columnIndex = 'A', $startRow = 1, $endRow = null)
     {
@@ -77,9 +77,9 @@ class ColumnCellIterator extends CellIterator implements \Iterator
     /**
      * (Re)Set the start row and the current row pointer
      *
-     * @param integer    $startRow    The row number at which to start iterating
-     * @return ColumnCellIterator
+     * @param int    $startRow    The row number at which to start iterating
      * @throws \PhpSpreadsheet\Exception
+     * @return ColumnCellIterator
      */
     public function resetStart($startRow = 1)
     {
@@ -93,9 +93,9 @@ class ColumnCellIterator extends CellIterator implements \Iterator
     /**
      * (Re)Set the end row
      *
-     * @param integer    $endRow    The row number at which to stop iterating
-     * @return ColumnCellIterator
+     * @param int    $endRow    The row number at which to stop iterating
      * @throws \PhpSpreadsheet\Exception
+     * @return ColumnCellIterator
      */
     public function resetEnd($endRow = null)
     {
@@ -108,9 +108,9 @@ class ColumnCellIterator extends CellIterator implements \Iterator
     /**
      * Set the row pointer to the selected row
      *
-     * @param integer    $row    The row number to set the current pointer at
-     * @return ColumnCellIterator
+     * @param int    $row    The row number to set the current pointer at
      * @throws \PhpSpreadsheet\Exception
+     * @return ColumnCellIterator
      */
     public function seek($row = 1)
     {
@@ -183,7 +183,7 @@ class ColumnCellIterator extends CellIterator implements \Iterator
     /**
      * Indicate if more rows exist in the worksheet range of rows that we're iterating
      *
-     * @return boolean
+     * @return bool
      */
     public function valid()
     {

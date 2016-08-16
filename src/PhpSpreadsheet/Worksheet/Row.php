@@ -51,7 +51,7 @@ class Row
     public function __construct(\PhpSpreadsheet\Worksheet $parent = null, $rowIndex = 1)
     {
         // Set parent and row index
-        $this->parent   = $parent;
+        $this->parent = $parent;
         $this->rowIndex = $rowIndex;
     }
 

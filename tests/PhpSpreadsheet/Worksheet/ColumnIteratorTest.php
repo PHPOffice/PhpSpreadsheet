@@ -3,8 +3,8 @@
 namespace PhpSpreadsheet\Tests\Worksheet;
 
 use PhpSpreadsheet\Worksheet;
-use PhpSpreadsheet\Worksheet\ColumnIterator;
 use PhpSpreadsheet\Worksheet\Column;
+use PhpSpreadsheet\Worksheet\ColumnIterator;
 
 class ColumnIteratorTest extends \PHPUnit_Framework_TestCase
 {
@@ -28,7 +28,6 @@ class ColumnIteratorTest extends \PHPUnit_Framework_TestCase
                  ->method('current')
                  ->will($this->returnValue($this->mockColumn));
     }
-
 
     public function testIteratorFullRange()
     {
@@ -62,7 +61,7 @@ class ColumnIteratorTest extends \PHPUnit_Framework_TestCase
         $iterator->seek('D');
         $this->assertEquals($columnIndexResult, $iterator->key());
 
-        for ($i = 1; $i < array_search($columnIndexResult, $ranges); $i++) {
+        for ($i = 1; $i < array_search($columnIndexResult, $ranges); ++$i) {
             $iterator->prev();
             $expectedResult = $ranges[array_search($columnIndexResult, $ranges) - $i];
             $this->assertEquals($expectedResult, $iterator->key());

@@ -70,8 +70,8 @@ class ZipStreamWrapper
      * @param    string    $mode            only "r" is supported
      * @param    int        $options        mask of STREAM_REPORT_ERRORS and STREAM_USE_PATH
      * @param    string  &$openedPath    absolute path of the opened stream (out parameter)
-     * @return   bool    true on success
      * @throws   \PhpSpreadsheet\Reader\Exception
+     * @return   bool    true on success
      */
     public function stream_open($path, $mode, $options, &$opened_path) // @codingStandardsIgnoreLine
     {
@@ -99,7 +99,7 @@ class ZipStreamWrapper
     /**
      * Implements support for fstat().
      *
-     * @return  boolean
+     * @return  bool
      */
     public function statName()
     {
@@ -109,7 +109,7 @@ class ZipStreamWrapper
     /**
      * Implements support for fstat().
      *
-     * @return  boolean
+     * @return  bool
      */
     public function url_stat() // @codingStandardsIgnoreLine
     {
@@ -119,7 +119,7 @@ class ZipStreamWrapper
     /**
      * Implements support for fstat().
      *
-     * @return  boolean
+     * @return  bool
      */
     public function stream_stat() // @codingStandardsIgnoreLine
     {
@@ -136,6 +136,7 @@ class ZipStreamWrapper
     {
         $ret = substr($this->data, $this->position, $count);
         $this->position += strlen($ret);
+
         return $ret;
     }
 
@@ -172,26 +173,29 @@ class ZipStreamWrapper
         switch ($whence) {
             case SEEK_SET:
                 if ($offset < strlen($this->data) && $offset >= 0) {
-                     $this->position = $offset;
-                     return true;
+                    $this->position = $offset;
+
+                    return true;
                 } else {
-                     return false;
+                    return false;
                 }
                 break;
             case SEEK_CUR:
                 if ($offset >= 0) {
-                     $this->position += $offset;
-                     return true;
+                    $this->position += $offset;
+
+                    return true;
                 } else {
-                     return false;
+                    return false;
                 }
                 break;
             case SEEK_END:
                 if (strlen($this->data) + $offset >= 0) {
-                     $this->position = strlen($this->data) + $offset;
-                     return true;
+                    $this->position = strlen($this->data) + $offset;
+
+                    return true;
                 } else {
-                     return false;
+                    return false;
                 }
                 break;
             default:

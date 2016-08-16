@@ -27,7 +27,6 @@ namespace PhpSpreadsheet\Reader;
 /** PhpSpreadsheet root directory */
 class HTML extends BaseReader implements IReader
 {
-
     /**
      * Input encoding
      *
@@ -47,64 +46,64 @@ class HTML extends BaseReader implements IReader
      *
      * @var array
      */
-    protected $formats = array(
-        'h1' => array(
-            'font' => array(
+    protected $formats = [
+        'h1' => [
+            'font' => [
                 'bold' => true,
                 'size' => 24,
-            ),
-        ), //    Bold, 24pt
-        'h2' => array(
-            'font' => array(
+            ],
+        ], //    Bold, 24pt
+        'h2' => [
+            'font' => [
                 'bold' => true,
                 'size' => 18,
-            ),
-        ), //    Bold, 18pt
-        'h3' => array(
-            'font' => array(
+            ],
+        ], //    Bold, 18pt
+        'h3' => [
+            'font' => [
                 'bold' => true,
                 'size' => 13.5,
-            ),
-        ), //    Bold, 13.5pt
-        'h4' => array(
-            'font' => array(
+            ],
+        ], //    Bold, 13.5pt
+        'h4' => [
+            'font' => [
                 'bold' => true,
                 'size' => 12,
-            ),
-        ), //    Bold, 12pt
-        'h5' => array(
-            'font' => array(
+            ],
+        ], //    Bold, 12pt
+        'h5' => [
+            'font' => [
                 'bold' => true,
                 'size' => 10,
-            ),
-        ), //    Bold, 10pt
-        'h6' => array(
-            'font' => array(
+            ],
+        ], //    Bold, 10pt
+        'h6' => [
+            'font' => [
                 'bold' => true,
                 'size' => 7.5,
-            ),
-        ), //    Bold, 7.5pt
-        'a' => array(
-            'font' => array(
+            ],
+        ], //    Bold, 7.5pt
+        'a' => [
+            'font' => [
                 'underline' => true,
-                'color' => array(
+                'color' => [
                     'argb' => \PhpSpreadsheet\Style\Color::COLOR_BLUE,
-                ),
-            ),
-        ), //    Blue underlined
-        'hr' => array(
-            'borders' => array(
-                'bottom' => array(
+                ],
+            ],
+        ], //    Blue underlined
+        'hr' => [
+            'borders' => [
+                'bottom' => [
                     'style' => \PhpSpreadsheet\Style\Border::BORDER_THIN,
-                    'color' => array(
+                    'color' => [
                         \PhpSpreadsheet\Style\Color::COLOR_BLACK,
-                    ),
-                ),
-            ),
-        ), //    Bottom border
-    );
+                    ],
+                ],
+            ],
+        ], //    Bottom border
+    ];
 
-    protected $rowspan = array();
+    protected $rowspan = [];
 
     /**
      * Create a new HTML Reader instance
@@ -117,7 +116,7 @@ class HTML extends BaseReader implements IReader
     /**
      * Validate that the current file is an HTML file
      *
-     * @return boolean
+     * @return bool
      */
     protected function isValidFormat()
     {
@@ -135,8 +134,8 @@ class HTML extends BaseReader implements IReader
      * Loads PhpSpreadsheet from file
      *
      * @param  string                    $pFilename
-     * @return PhpSpreadsheet
      * @throws Exception
+     * @return PhpSpreadsheet
      */
     public function load($pFilename)
     {
@@ -170,9 +169,9 @@ class HTML extends BaseReader implements IReader
     }
 
     //    Data Array used for testing only, should write to PhpSpreadsheet object on completion of tests
-    protected $dataArray = array();
+    protected $dataArray = [];
     protected $tableLevel = 0;
-    protected $nestedColumn = array('A');
+    protected $nestedColumn = ['A'];
 
     protected function setTableStartColumn($column)
     {
@@ -230,11 +229,11 @@ class HTML extends BaseReader implements IReader
                     //    TODO
                 }
             } elseif ($child instanceof DOMElement) {
-//                echo '<b>DOM ELEMENT: </b>' , strtoupper($child->nodeName) , '<br />';
+                //                echo '<b>DOM ELEMENT: </b>' , strtoupper($child->nodeName) , '<br />';
 
-                $attributeArray = array();
+                $attributeArray = [];
                 foreach ($child->attributes as $attribute) {
-//                    echo '<b>ATTRIBUTE: </b>' , $attribute->name , ' => ' , $attribute->value , '<br />';
+                    //                    echo '<b>ATTRIBUTE: </b>' , $attribute->name , ' => ' , $attribute->value , '<br />';
                     $attributeArray[$attribute->name] = $attribute->value;
                 }
 
@@ -329,7 +328,7 @@ class HTML extends BaseReader implements IReader
                         } else {
                             if ($cellContent > '') {
                                 $this->flushCell($sheet, $column, $row, $cellContent);
-                                $row++;
+                                ++$row;
                             }
 //                            echo 'START OF PARAGRAPH: ' , '<br />';
                             $this->processDomElement($child, $sheet, $row, $column, $cellContent);
@@ -340,7 +339,7 @@ class HTML extends BaseReader implements IReader
                                 $sheet->getStyle($column . $row)->applyFromArray($this->formats[$child->nodeName]);
                             }
 
-                            $row++;
+                            ++$row;
                             $column = 'A';
                         }
                         break;
@@ -414,7 +413,7 @@ class HTML extends BaseReader implements IReader
                         if (isset($attributeArray['rowspan']) && isset($attributeArray['colspan'])) {
                             //create merging rowspan and colspan
                             $columnTo = $column;
-                            for ($i = 0; $i < $attributeArray['colspan'] - 1; $i++) {
+                            for ($i = 0; $i < $attributeArray['colspan'] - 1; ++$i) {
                                 ++$columnTo;
                             }
                             $range = $column . $row . ':' . $columnTo . ($row + $attributeArray['rowspan'] - 1);
@@ -433,7 +432,7 @@ class HTML extends BaseReader implements IReader
                         } elseif (isset($attributeArray['colspan'])) {
                             //create merging colspan
                             $columnTo = $column;
-                            for ($i = 0; $i < $attributeArray['colspan'] - 1; $i++) {
+                            for ($i = 0; $i < $attributeArray['colspan'] - 1; ++$i) {
                                 ++$columnTo;
                             }
                             $sheet->mergeCells($column . $row . ':' . $columnTo . $row);
@@ -460,8 +459,8 @@ class HTML extends BaseReader implements IReader
      *
      * @param  string                    $pFilename
      * @param  \PhpSpreadsheet\Spreadsheet                  $spreadsheet
-     * @return \PhpSpreadsheet\Spreadsheet
      * @throws Exception
+     * @return \PhpSpreadsheet\Spreadsheet
      */
     public function loadIntoExisting($pFilename, \PhpSpreadsheet\Spreadsheet $spreadsheet)
     {
@@ -469,7 +468,7 @@ class HTML extends BaseReader implements IReader
         $this->openFile($pFilename);
         if (!$this->isValidFormat()) {
             fclose($this->fileHandle);
-            throw new Exception($pFilename . " is an Invalid HTML file.");
+            throw new Exception($pFilename . ' is an Invalid HTML file.');
         }
         //    Close after validating
         fclose($this->fileHandle);
@@ -481,7 +480,7 @@ class HTML extends BaseReader implements IReader
         $spreadsheet->setActiveSheetIndex($this->sheetIndex);
 
         //    Create a new DOM object
-        $dom = new domDocument;
+        $dom = new domDocument();
         //    Reload the HTML file into the DOM object
         $loaded = $dom->loadHTML(mb_convert_encoding($this->securityScanFile($pFilename), 'HTML-ENTITIES', 'UTF-8'));
         if ($loaded === false) {
@@ -535,6 +534,7 @@ class HTML extends BaseReader implements IReader
         if (preg_match($pattern, $xml)) {
             throw new Exception('Detected use of ENTITY in XML, spreadsheet file load() aborted to prevent XXE/XEE attacks');
         }
+
         return $xml;
     }
 }

@@ -27,7 +27,6 @@ namespace PhpSpreadsheet\Writer\OpenDocument\Cell;
  * @version    ##VERSION##, ##DATE##
  */
 
-
 /**
  * @category   PhpSpreadsheet
  * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
@@ -47,9 +46,9 @@ class Comment
             //$objWriter->writeAttribute('draw:style-name', 'gr1');
             //$objWriter->writeAttribute('draw:text-style-name', 'P1');
             $objWriter->writeAttribute('svg:width', $comment->getWidth());
-            $objWriter->writeAttribute('svg:height', $comment->getHeight());
-            $objWriter->writeAttribute('svg:x', $comment->getMarginLeft());
-            $objWriter->writeAttribute('svg:y', $comment->getMarginTop());
+        $objWriter->writeAttribute('svg:height', $comment->getHeight());
+        $objWriter->writeAttribute('svg:x', $comment->getMarginLeft());
+        $objWriter->writeAttribute('svg:y', $comment->getMarginTop());
             //$objWriter->writeAttribute('draw:caption-point-x', $comment->getMarginLeft());
             //$objWriter->writeAttribute('draw:caption-point-y', $comment->getMarginTop());
                 $objWriter->writeElement('dc:creator', $comment->getAuthor());

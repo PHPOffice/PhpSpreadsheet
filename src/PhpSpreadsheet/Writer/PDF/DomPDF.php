@@ -2,7 +2,7 @@
 
 namespace PhpSpreadsheet\Writer\PDF;
 
-/**  Require DomPDF library */
+/*  Require DomPDF library */
 $pdfRendererClassFile = \PhpSpreadsheet\Settings::getPdfRendererPath() . '/dompdf_config.inc.php';
 if (file_exists($pdfRendererClassFile)) {
     require_once $pdfRendererClassFile;
@@ -87,9 +87,8 @@ class DomPDF extends Core implements \PhpSpreadsheet\Writer\IWriter
             $paperSize = self::$paperSizes[$printPaperSize];
         }
 
-
         //  Create PDF
-        $pdf = new DOMPDF();
+        $pdf = new self();
         $pdf->set_paper(strtolower($paperSize), $orientation);
 
         $pdf->load_html(

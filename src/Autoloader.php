@@ -3,7 +3,6 @@
 namespace PhpSpreadsheet;
 
 /**
- *
  * Autoloader for PhpSpreadsheet classes
  *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -31,7 +30,6 @@ class Autoloader
 {
     /**
      * Register the Autoloader with SPL
-     *
      */
     public static function register()
     {
@@ -40,9 +38,8 @@ class Autoloader
             spl_autoload_register('__autoload');
         }
         // Register ourselves with SPL
-        return spl_autoload_register(array(\PhpSpreadsheet\Autoloader::class, 'load'));
+        return spl_autoload_register([\PhpSpreadsheet\Autoloader::class, 'load']);
     }
-
 
     /**
      * Autoload a class identified by name
@@ -65,6 +62,6 @@ class Autoloader
             // Can't load
             return false;
         }
-        require($classFilePath);
+        require $classFilePath;
     }
 }

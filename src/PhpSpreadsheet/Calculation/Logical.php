@@ -34,15 +34,13 @@ class Logical
      * Excel Function:
      *        =TRUE()
      *
-     * @access    public
      * @category Logical Functions
-     * @return    boolean        True
+     * @return    bool        True
      */
-    public static function TRUE()
+    public static function true()
     {
         return true;
     }
-
 
     /**
      * FALSE
@@ -52,15 +50,13 @@ class Logical
      * Excel Function:
      *        =FALSE()
      *
-     * @access    public
      * @category Logical Functions
-     * @return    boolean        False
+     * @return    bool        False
      */
-    public static function FALSE()
+    public static function false()
     {
         return false;
     }
-
 
     /**
      * LOGICAL_AND
@@ -78,10 +74,9 @@ class Logical
      *        If any argument value is a string, or a Null, the function returns a #VALUE! error, unless the string holds
      *            the value TRUE or FALSE, in which case it is evaluated as the corresponding boolean value
      *
-     * @access    public
      * @category Logical Functions
      * @param    mixed        $arg,...        Data values
-     * @return    boolean        The logical AND of the arguments.
+     * @return    bool        The logical AND of the arguments.
      */
     public static function logicalAnd()
     {
@@ -114,9 +109,9 @@ class Logical
         if ($argCount < 0) {
             return Functions::VALUE();
         }
+
         return $returnValue;
     }
-
 
     /**
      * LOGICAL_OR
@@ -134,10 +129,9 @@ class Logical
      *        If any argument value is a string, or a Null, the function returns a #VALUE! error, unless the string holds
      *            the value TRUE or FALSE, in which case it is evaluated as the corresponding boolean value
      *
-     * @access    public
      * @category Logical Functions
      * @param    mixed        $arg,...        Data values
-     * @return    boolean        The logical OR of the arguments.
+     * @return    bool        The logical OR of the arguments.
      */
     public static function logicalOr()
     {
@@ -170,9 +164,9 @@ class Logical
         if ($argCount < 0) {
             return Functions::VALUE();
         }
+
         return $returnValue;
     }
-
 
     /**
      * NOT
@@ -189,10 +183,9 @@ class Logical
      *        If any argument value is a string, or a Null, the function returns a #VALUE! error, unless the string holds
      *            the value TRUE or FALSE, in which case it is evaluated as the corresponding boolean value
      *
-     * @access    public
      * @category Logical Functions
      * @param    mixed        $logical    A value or expression that can be evaluated to TRUE or FALSE
-     * @return    boolean        The boolean inverse of the argument.
+     * @return    bool        The boolean inverse of the argument.
      */
     public static function NOT($logical = false)
     {
@@ -236,7 +229,6 @@ class Logical
      *            If condition is FALSE and ReturnIfFalse is blank, then the value 0 (zero) is returned.
      *            ReturnIfFalse can be another formula.
      *
-     * @access    public
      * @category Logical Functions
      * @param    mixed    $condition        Condition to evaluate
      * @param    mixed    $returnIfTrue    Value to return when condition is true
@@ -245,13 +237,12 @@ class Logical
      */
     public static function statementIf($condition = true, $returnIfTrue = 0, $returnIfFalse = false)
     {
-        $condition     = (is_null($condition))     ? true :  (boolean) Functions::flattenSingleValue($condition);
-        $returnIfTrue  = (is_null($returnIfTrue))  ? 0 :     Functions::flattenSingleValue($returnIfTrue);
+        $condition = (is_null($condition))     ? true :  (boolean) Functions::flattenSingleValue($condition);
+        $returnIfTrue = (is_null($returnIfTrue))  ? 0 :     Functions::flattenSingleValue($returnIfTrue);
         $returnIfFalse = (is_null($returnIfFalse)) ? false : Functions::flattenSingleValue($returnIfFalse);
 
         return ($condition) ? $returnIfTrue : $returnIfFalse;
     }
-
 
     /**
      * IFERROR
@@ -259,7 +250,6 @@ class Logical
      * Excel Function:
      *        =IFERROR(testValue,errorpart)
      *
-     * @access    public
      * @category Logical Functions
      * @param    mixed    $testValue    Value to check, is also the value returned when no error
      * @param    mixed    $errorpart    Value to return when testValue is an error condition

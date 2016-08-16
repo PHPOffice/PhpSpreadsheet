@@ -2,11 +2,11 @@
 
 namespace PhpSpreadsheet\Reader\Excel5\Style;
 
-use \PhpSpreadsheet\Style\Fill;
+use PhpSpreadsheet\Style\Fill;
 
 class FillPattern
 {
-    protected static $map = array(
+    protected static $map = [
         0x00 => Fill::FILL_NONE,
         0x01 => Fill::FILL_SOLID,
         0x02 => Fill::FILL_PATTERN_MEDIUMGRAY,
@@ -26,7 +26,7 @@ class FillPattern
         0x10 => Fill::FILL_PATTERN_LIGHTTRELLIS,
         0x11 => Fill::FILL_PATTERN_GRAY125,
         0x12 => Fill::FILL_PATTERN_GRAY0625,
-    );
+    ];
 
     /**
      * Get fill pattern from index
@@ -40,6 +40,7 @@ class FillPattern
         if (isset(self::$map[$index])) {
             return self::$map[$index];
         }
+
         return Fill::FILL_NONE;
     }
 }

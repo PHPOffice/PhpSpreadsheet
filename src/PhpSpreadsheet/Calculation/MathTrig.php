@@ -33,7 +33,7 @@ class MathTrig
     {
         $startVal = floor(sqrt($value));
 
-        $factorArray = array();
+        $factorArray = [];
         for ($i = $startVal; $i > 1; --$i) {
             if (($value % $i) == 0) {
                 $factorArray = array_merge($factorArray, self::factors($value / $i));
@@ -45,18 +45,17 @@ class MathTrig
         }
         if (!empty($factorArray)) {
             rsort($factorArray);
+
             return $factorArray;
         } else {
-            return array((integer) $value);
+            return [(integer) $value];
         }
     }
 
-
     private static function romanCut($num, $n)
     {
-        return ($num - ($num % $n ) ) / $n;
+        return ($num - ($num % $n)) / $n;
     }
-
 
     /**
      * ATAN2
@@ -74,7 +73,6 @@ class MathTrig
      * Excel Function:
      *        ATAN2(xCoordinate,yCoordinate)
      *
-     * @access    public
      * @category Mathematical and Trigonometric Functions
      * @param    float    $xCoordinate        The x-coordinate of the point.
      * @param    float    $yCoordinate        The y-coordinate of the point.
@@ -89,9 +87,9 @@ class MathTrig
         $yCoordinate = ($yCoordinate !== null) ? $yCoordinate : 0.0;
 
         if (((is_numeric($xCoordinate)) || (is_bool($xCoordinate))) &&
-            ((is_numeric($yCoordinate)))  || (is_bool($yCoordinate))) {
-            $xCoordinate    = (float) $xCoordinate;
-            $yCoordinate    = (float) $yCoordinate;
+            ((is_numeric($yCoordinate))) || (is_bool($yCoordinate))) {
+            $xCoordinate = (float) $xCoordinate;
+            $yCoordinate = (float) $yCoordinate;
 
             if (($xCoordinate == 0) && ($yCoordinate == 0)) {
                 return Functions::DIV0();
@@ -99,9 +97,9 @@ class MathTrig
 
             return atan2($yCoordinate, $xCoordinate);
         }
+
         return Functions::VALUE();
     }
-
 
     /**
      * CEILING
@@ -114,7 +112,6 @@ class MathTrig
      * Excel Function:
      *        CEILING(number[,significance])
      *
-     * @access    public
      * @category Mathematical and Trigonometric Functions
      * @param    float    $number            The number you want to round.
      * @param    float    $significance    The multiple to which you want to round.
@@ -122,7 +119,7 @@ class MathTrig
      */
     public static function CEILING($number, $significance = null)
     {
-        $number       = Functions::flattenSingleValue($number);
+        $number = Functions::flattenSingleValue($number);
         $significance = Functions::flattenSingleValue($significance);
 
         if ((is_null($significance)) &&
@@ -131,7 +128,7 @@ class MathTrig
         }
 
         if ((is_numeric($number)) && (is_numeric($significance))) {
-            if (($number == 0.0 ) || ($significance == 0.0)) {
+            if (($number == 0.0) || ($significance == 0.0)) {
                 return 0.0;
             } elseif (self::SIGN($number) == self::SIGN($significance)) {
                 return ceil($number / $significance) * $significance;
@@ -139,9 +136,9 @@ class MathTrig
                 return Functions::NAN();
             }
         }
+
         return Functions::VALUE();
     }
-
 
     /**
      * COMBIN
@@ -152,7 +149,6 @@ class MathTrig
      * Excel Function:
      *        COMBIN(numObjs,numInSet)
      *
-     * @access    public
      * @category Mathematical and Trigonometric Functions
      * @param    int        $numObjs    Number of different objects
      * @param    int        $numInSet    Number of objects in each combination
@@ -160,8 +156,8 @@ class MathTrig
      */
     public static function COMBIN($numObjs, $numInSet)
     {
-        $numObjs    = Functions::flattenSingleValue($numObjs);
-        $numInSet    = Functions::flattenSingleValue($numInSet);
+        $numObjs = Functions::flattenSingleValue($numObjs);
+        $numInSet = Functions::flattenSingleValue($numInSet);
 
         if ((is_numeric($numObjs)) && (is_numeric($numInSet))) {
             if ($numObjs < $numInSet) {
@@ -169,11 +165,12 @@ class MathTrig
             } elseif ($numInSet < 0) {
                 return Functions::NAN();
             }
+
             return round(self::FACT($numObjs) / self::FACT($numObjs - $numInSet)) / self::FACT($numInSet);
         }
+
         return Functions::VALUE();
     }
-
 
     /**
      * EVEN
@@ -187,7 +184,6 @@ class MathTrig
      * Excel Function:
      *        EVEN(number)
      *
-     * @access    public
      * @category Mathematical and Trigonometric Functions
      * @param    float    $number            Number to round
      * @return    int        Rounded Number
@@ -204,11 +200,12 @@ class MathTrig
 
         if (is_numeric($number)) {
             $significance = 2 * self::SIGN($number);
+
             return (int) self::CEILING($number, $significance);
         }
+
         return Functions::VALUE();
     }
-
 
     /**
      * FACT
@@ -219,14 +216,13 @@ class MathTrig
      * Excel Function:
      *        FACT(factVal)
      *
-     * @access    public
      * @category Mathematical and Trigonometric Functions
      * @param    float    $factVal    Factorial Value
      * @return    int        Factorial
      */
     public static function FACT($factVal)
     {
-        $factVal    = Functions::flattenSingleValue($factVal);
+        $factVal = Functions::flattenSingleValue($factVal);
 
         if (is_numeric($factVal)) {
             if ($factVal < 0) {
@@ -243,11 +239,12 @@ class MathTrig
             while ($factLoop > 1) {
                 $factorial *= $factLoop--;
             }
-            return $factorial ;
+
+            return $factorial;
         }
+
         return Functions::VALUE();
     }
-
 
     /**
      * FACTDOUBLE
@@ -257,17 +254,16 @@ class MathTrig
      * Excel Function:
      *        FACTDOUBLE(factVal)
      *
-     * @access    public
      * @category Mathematical and Trigonometric Functions
      * @param    float    $factVal    Factorial Value
      * @return    int        Double Factorial
      */
     public static function FACTDOUBLE($factVal)
     {
-        $factLoop    = Functions::flattenSingleValue($factVal);
+        $factLoop = Functions::flattenSingleValue($factVal);
 
         if (is_numeric($factLoop)) {
-            $factLoop    = floor($factLoop);
+            $factLoop = floor($factLoop);
             if ($factVal < 0) {
                 return Functions::NAN();
             }
@@ -276,11 +272,12 @@ class MathTrig
                 $factorial *= $factLoop--;
                 --$factLoop;
             }
-            return $factorial ;
+
+            return $factorial;
         }
+
         return Functions::VALUE();
     }
-
 
     /**
      * FLOOR
@@ -290,7 +287,6 @@ class MathTrig
      * Excel Function:
      *        FLOOR(number[,significance])
      *
-     * @access    public
      * @category Mathematical and Trigonometric Functions
      * @param    float    $number            Number to round
      * @param    float    $significance    Significance
@@ -298,12 +294,12 @@ class MathTrig
      */
     public static function FLOOR($number, $significance = null)
     {
-        $number            = Functions::flattenSingleValue($number);
-        $significance    = Functions::flattenSingleValue($significance);
+        $number = Functions::flattenSingleValue($number);
+        $significance = Functions::flattenSingleValue($significance);
 
         if ((is_null($significance)) &&
             (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC)) {
-            $significance = $number/abs($number);
+            $significance = $number / abs($number);
         }
 
         if ((is_numeric($number)) && (is_numeric($significance))) {
@@ -321,7 +317,6 @@ class MathTrig
         return Functions::VALUE();
     }
 
-
     /**
      * GCD
      *
@@ -332,15 +327,14 @@ class MathTrig
      * Excel Function:
      *        GCD(number1[,number2[, ...]])
      *
-     * @access    public
      * @category Mathematical and Trigonometric Functions
      * @param    mixed    $arg,...        Data values
-     * @return    integer                    Greatest Common Divisor
+     * @return    int                    Greatest Common Divisor
      */
     public static function GCD()
     {
         $returnValue = 1;
-        $allValuesFactors = array();
+        $allValuesFactors = [];
         // Loop through arguments
         foreach (Functions::flattenArray(func_get_args()) as $value) {
             if (!is_numeric($value)) {
@@ -360,7 +354,7 @@ class MathTrig
         }
 
         $mergedArray = $allValuesFactors[0];
-        for ($i=1; $i < $allValuesCount; ++$i) {
+        for ($i = 1; $i < $allValuesCount; ++$i) {
             $mergedArray = array_intersect_key($mergedArray, $allValuesFactors[$i]);
         }
         $mergedArrayValues = count($mergedArray);
@@ -382,6 +376,7 @@ class MathTrig
             foreach ($mergedArray as $key => $value) {
                 $returnValue *= pow($key, $value);
             }
+
             return $returnValue;
         } else {
             $keys = array_keys($mergedArray);
@@ -394,10 +389,10 @@ class MathTrig
                     }
                 }
             }
+
             return pow($key, $value);
         }
     }
-
 
     /**
      * INT
@@ -407,14 +402,13 @@ class MathTrig
      * Excel Function:
      *        INT(number)
      *
-     * @access    public
      * @category Mathematical and Trigonometric Functions
      * @param    float    $number            Number to cast to an integer
-     * @return    integer    Integer value
+     * @return    int    Integer value
      */
     public static function INT($number)
     {
-        $number    = Functions::flattenSingleValue($number);
+        $number = Functions::flattenSingleValue($number);
 
         if (is_null($number)) {
             return 0;
@@ -424,9 +418,9 @@ class MathTrig
         if (is_numeric($number)) {
             return (int) floor($number);
         }
+
         return Functions::VALUE();
     }
-
 
     /**
      * LCM
@@ -439,7 +433,6 @@ class MathTrig
      * Excel Function:
      *        LCM(number1[,number2[, ...]])
      *
-     * @access    public
      * @category Mathematical and Trigonometric Functions
      * @param    mixed    $arg,...        Data values
      * @return    int        Lowest Common Multiplier
@@ -447,7 +440,7 @@ class MathTrig
     public static function LCM()
     {
         $returnValue = 1;
-        $allPoweredFactors = array();
+        $allPoweredFactors = [];
         // Loop through arguments
         foreach (Functions::flattenArray(func_get_args()) as $value) {
             if (!is_numeric($value)) {
@@ -460,7 +453,7 @@ class MathTrig
             }
             $myFactors = self::factors(floor($value));
             $myCountedFactors = array_count_values($myFactors);
-            $myPoweredFactors = array();
+            $myPoweredFactors = [];
             foreach ($myCountedFactors as $myCountedFactor => $myCountedPower) {
                 $myPoweredFactors[$myCountedFactor] = pow($myCountedFactor, $myCountedPower);
             }
@@ -477,9 +470,9 @@ class MathTrig
         foreach ($allPoweredFactors as $allPoweredFactor) {
             $returnValue *= (integer) $allPoweredFactor;
         }
+
         return $returnValue;
     }
-
 
     /**
      * LOG_BASE
@@ -489,7 +482,6 @@ class MathTrig
      * Excel Function:
      *        LOG(number[,base])
      *
-     * @access    public
      * @category Mathematical and Trigonometric Functions
      * @param    float    $number        The positive real number for which you want the logarithm
      * @param    float    $base        The base of the logarithm. If base is omitted, it is assumed to be 10.
@@ -497,8 +489,8 @@ class MathTrig
      */
     public static function logBase($number = null, $base = 10)
     {
-        $number    = Functions::flattenSingleValue($number);
-        $base    = (is_null($base)) ? 10 : (float) Functions::flattenSingleValue($base);
+        $number = Functions::flattenSingleValue($number);
+        $base = (is_null($base)) ? 10 : (float) Functions::flattenSingleValue($base);
 
         if ((!is_numeric($base)) || (!is_numeric($number))) {
             return Functions::VALUE();
@@ -506,9 +498,9 @@ class MathTrig
         if (($base <= 0) || ($number <= 0)) {
             return Functions::NAN();
         }
+
         return log($number, $base);
     }
-
 
     /**
      * MDETERM
@@ -518,22 +510,21 @@ class MathTrig
      * Excel Function:
      *        MDETERM(array)
      *
-     * @access    public
      * @category Mathematical and Trigonometric Functions
      * @param    array    $matrixValues    A matrix of values
      * @return    float
      */
     public static function MDETERM($matrixValues)
     {
-        $matrixData = array();
+        $matrixData = [];
         if (!is_array($matrixValues)) {
-            $matrixValues = array(array($matrixValues));
+            $matrixValues = [[$matrixValues]];
         }
 
         $row = $maxColumn = 0;
         foreach ($matrixValues as $matrixRow) {
             if (!is_array($matrixRow)) {
-                $matrixRow = array($matrixRow);
+                $matrixRow = [$matrixRow];
             }
             $column = 0;
             foreach ($matrixRow as $matrixCell) {
@@ -554,12 +545,12 @@ class MathTrig
 
         try {
             $matrix = new \PhpSpreadsheet\Shared\JAMA\Matrix($matrixData);
+
             return $matrix->det();
         } catch (\PhpSpreadsheet\Exception $ex) {
             return Functions::VALUE();
         }
     }
-
 
     /**
      * MINVERSE
@@ -569,22 +560,21 @@ class MathTrig
      * Excel Function:
      *        MINVERSE(array)
      *
-     * @access    public
      * @category Mathematical and Trigonometric Functions
      * @param    array    $matrixValues    A matrix of values
      * @return    array
      */
     public static function MINVERSE($matrixValues)
     {
-        $matrixData = array();
+        $matrixData = [];
         if (!is_array($matrixValues)) {
-            $matrixValues = array(array($matrixValues));
+            $matrixValues = [[$matrixValues]];
         }
 
         $row = $maxColumn = 0;
         foreach ($matrixValues as $matrixRow) {
             if (!is_array($matrixRow)) {
-                $matrixRow = array($matrixRow);
+                $matrixRow = [$matrixRow];
             }
             $column = 0;
             foreach ($matrixRow as $matrixCell) {
@@ -607,12 +597,12 @@ class MathTrig
 
         try {
             $matrix = new \PhpSpreadsheet\Shared\JAMA\Matrix($matrixData);
+
             return $matrix->inverse()->getArray();
         } catch (\PhpSpreadsheet\Exception $ex) {
             return Functions::VALUE();
         }
     }
-
 
     /**
      * MMULT
@@ -623,19 +613,19 @@ class MathTrig
      */
     public static function MMULT($matrixData1, $matrixData2)
     {
-        $matrixAData = $matrixBData = array();
+        $matrixAData = $matrixBData = [];
         if (!is_array($matrixData1)) {
-            $matrixData1 = array(array($matrixData1));
+            $matrixData1 = [[$matrixData1]];
         }
         if (!is_array($matrixData2)) {
-            $matrixData2 = array(array($matrixData2));
+            $matrixData2 = [[$matrixData2]];
         }
 
         try {
             $rowA = 0;
             foreach ($matrixData1 as $matrixRow) {
                 if (!is_array($matrixRow)) {
-                    $matrixRow = array($matrixRow);
+                    $matrixRow = [$matrixRow];
                 }
                 $columnA = 0;
                 foreach ($matrixRow as $matrixCell) {
@@ -651,7 +641,7 @@ class MathTrig
             $rowB = 0;
             foreach ($matrixData2 as $matrixRow) {
                 if (!is_array($matrixRow)) {
-                    $matrixRow = array($matrixRow);
+                    $matrixRow = [$matrixRow];
                 }
                 $columnB = 0;
                 foreach ($matrixRow as $matrixCell) {
@@ -672,10 +662,10 @@ class MathTrig
             return $matrixA->times($matrixB)->getArray();
         } catch (\PhpSpreadsheet\Exception $ex) {
             var_dump($ex->getMessage());
+
             return Functions::VALUE();
         }
     }
-
 
     /**
      * MOD
@@ -700,7 +690,6 @@ class MathTrig
         return fmod($a, $b);
     }
 
-
     /**
      * MROUND
      *
@@ -712,7 +701,7 @@ class MathTrig
      */
     public static function MROUND($number, $multiple)
     {
-        $number   = Functions::flattenSingleValue($number);
+        $number = Functions::flattenSingleValue($number);
         $multiple = Functions::flattenSingleValue($multiple);
 
         if ((is_numeric($number)) && (is_numeric($multiple))) {
@@ -721,13 +710,15 @@ class MathTrig
             }
             if ((self::SIGN($number)) == (self::SIGN($multiple))) {
                 $multiplier = 1 / $multiple;
+
                 return round($number * $multiplier) / $multiplier;
             }
+
             return Functions::NAN();
         }
+
         return Functions::VALUE();
     }
-
 
     /**
      * MULTINOMIAL
@@ -758,11 +749,12 @@ class MathTrig
         // Return
         if ($summer > 0) {
             $summer = self::FACT($summer);
+
             return $summer / $divisor;
         }
+
         return 0;
     }
-
 
     /**
      * ODD
@@ -793,9 +785,9 @@ class MathTrig
 
             return (int) $result;
         }
+
         return Functions::VALUE();
     }
-
 
     /**
      * POWER
@@ -808,8 +800,8 @@ class MathTrig
      */
     public static function POWER($x = 0, $y = 2)
     {
-        $x    = Functions::flattenSingleValue($x);
-        $y    = Functions::flattenSingleValue($y);
+        $x = Functions::flattenSingleValue($x);
+        $y = Functions::flattenSingleValue($y);
 
         // Validate parameters
         if ($x == 0.0 && $y == 0.0) {
@@ -820,9 +812,9 @@ class MathTrig
 
         // Return
         $result = pow($x, $y);
+
         return (!is_nan($result) && !is_infinite($result)) ? $result : Functions::NAN();
     }
-
 
     /**
      * PRODUCT
@@ -832,7 +824,6 @@ class MathTrig
      * Excel Function:
      *        PRODUCT(value1[,value2[, ...]])
      *
-     * @access    public
      * @category Mathematical and Trigonometric Functions
      * @param    mixed        $arg,...        Data values
      * @return    float
@@ -858,9 +849,9 @@ class MathTrig
         if (is_null($returnValue)) {
             return 0;
         }
+
         return $returnValue;
     }
-
 
     /**
      * QUOTIENT
@@ -871,7 +862,6 @@ class MathTrig
      * Excel Function:
      *        QUOTIENT(value1[,value2[, ...]])
      *
-     * @access    public
      * @category Mathematical and Trigonometric Functions
      * @param    mixed        $arg,...        Data values
      * @return    float
@@ -901,7 +891,6 @@ class MathTrig
         return intval($returnValue);
     }
 
-
     /**
      * RAND
      *
@@ -921,11 +910,10 @@ class MathTrig
         }
     }
 
-
     public static function ROMAN($aValue, $style = 0)
     {
-        $aValue    = Functions::flattenSingleValue($aValue);
-        $style    = (is_null($style))    ? 0 :    (integer) Functions::flattenSingleValue($style);
+        $aValue = Functions::flattenSingleValue($aValue);
+        $style = (is_null($style))    ? 0 :    (integer) Functions::flattenSingleValue($style);
         if ((!is_numeric($aValue)) || ($aValue < 0) || ($aValue >= 4000)) {
             return Functions::VALUE();
         }
@@ -934,10 +922,10 @@ class MathTrig
             return '';
         }
 
-        $mill = array('', 'M', 'MM', 'MMM', 'MMMM', 'MMMMM');
-        $cent = array('', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM');
-        $tens = array('', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC');
-        $ones = array('', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX');
+        $mill = ['', 'M', 'MM', 'MMM', 'MMMM', 'MMMMM'];
+        $cent = ['', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM'];
+        $tens = ['', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC'];
+        $ones = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
 
         $roman = '';
         while ($aValue > 5999) {
@@ -951,9 +939,8 @@ class MathTrig
         $t = self::romanCut($aValue, 10);
         $aValue %= 10;
 
-        return $roman.$mill[$m].$cent[$c].$tens[$t].$ones[$aValue];
+        return $roman . $mill[$m] . $cent[$c] . $tens[$t] . $ones[$aValue];
     }
-
 
     /**
      * ROUNDUP
@@ -966,8 +953,8 @@ class MathTrig
      */
     public static function ROUNDUP($number, $digits)
     {
-        $number    = Functions::flattenSingleValue($number);
-        $digits    = Functions::flattenSingleValue($digits);
+        $number = Functions::flattenSingleValue($number);
+        $digits = Functions::flattenSingleValue($digits);
 
         if ((is_numeric($number)) && (is_numeric($digits))) {
             $significance = pow(10, (int) $digits);
@@ -977,9 +964,9 @@ class MathTrig
                 return ceil($number * $significance) / $significance;
             }
         }
+
         return Functions::VALUE();
     }
-
 
     /**
      * ROUNDDOWN
@@ -992,8 +979,8 @@ class MathTrig
      */
     public static function ROUNDDOWN($number, $digits)
     {
-        $number    = Functions::flattenSingleValue($number);
-        $digits    = Functions::flattenSingleValue($digits);
+        $number = Functions::flattenSingleValue($number);
+        $digits = Functions::flattenSingleValue($digits);
 
         if ((is_numeric($number)) && (is_numeric($digits))) {
             $significance = pow(10, (int) $digits);
@@ -1003,9 +990,9 @@ class MathTrig
                 return floor($number * $significance) / $significance;
             }
         }
+
         return Functions::VALUE();
     }
-
 
     /**
      * SERIESSUM
@@ -1040,11 +1027,12 @@ class MathTrig
                     return Functions::VALUE();
                 }
             }
+
             return $returnValue;
         }
+
         return Functions::VALUE();
     }
-
 
     /**
      * SIGN
@@ -1057,7 +1045,7 @@ class MathTrig
      */
     public static function SIGN($number)
     {
-        $number    = Functions::flattenSingleValue($number);
+        $number = Functions::flattenSingleValue($number);
 
         if (is_bool($number)) {
             return (int) $number;
@@ -1066,11 +1054,12 @@ class MathTrig
             if ($number == 0.0) {
                 return 0;
             }
+
             return $number / abs($number);
         }
+
         return Functions::VALUE();
     }
-
 
     /**
      * SQRTPI
@@ -1082,17 +1071,18 @@ class MathTrig
      */
     public static function SQRTPI($number)
     {
-        $number    = Functions::flattenSingleValue($number);
+        $number = Functions::flattenSingleValue($number);
 
         if (is_numeric($number)) {
             if ($number < 0) {
                 return Functions::NAN();
             }
-            return sqrt($number * M_PI) ;
+
+            return sqrt($number * M_PI);
         }
+
         return Functions::VALUE();
     }
-
 
     /**
      * SUBTOTAL
@@ -1137,9 +1127,9 @@ class MathTrig
                     return Statistical::VARP($aArgs);
             }
         }
+
         return Functions::VALUE();
     }
-
 
     /**
      * SUM
@@ -1149,7 +1139,6 @@ class MathTrig
      * Excel Function:
      *        SUM(value1[,value2[, ...]])
      *
-     * @access    public
      * @category Mathematical and Trigonometric Functions
      * @param    mixed        $arg,...        Data values
      * @return    float
@@ -1169,7 +1158,6 @@ class MathTrig
         return $returnValue;
     }
 
-
     /**
      * SUMIF
      *
@@ -1178,13 +1166,12 @@ class MathTrig
      * Excel Function:
      *        SUMIF(value1[,value2[, ...]],condition)
      *
-     * @access    public
      * @category Mathematical and Trigonometric Functions
      * @param    mixed        $arg,...        Data values
      * @param    string        $condition        The criteria that defines which cells will be summed.
      * @return    float
      */
-    public static function SUMIF($aArgs, $condition, $sumArgs = array())
+    public static function SUMIF($aArgs, $condition, $sumArgs = [])
     {
         $returnValue = 0;
 
@@ -1201,7 +1188,7 @@ class MathTrig
                 $arg = \PhpSpreadsheet\Calculation::wrapResult(strtoupper($arg));
             }
 
-            $testCondition = '='.$arg.$condition;
+            $testCondition = '=' . $arg . $condition;
             if (\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                 // Is it a value within our criteria
                 $returnValue += $sumArgs[$key];
@@ -1211,7 +1198,7 @@ class MathTrig
         return $returnValue;
     }
 
-     /**
+    /**
      *    SUMIFS
      *
      *    Counts the number of cells that contain numbers within the list of arguments
@@ -1219,7 +1206,6 @@ class MathTrig
      *    Excel Function:
      *        SUMIFS(value1[,value2[, ...]],condition)
      *
-     *    @access    public
      *    @category Mathematical and Trigonometric Functions
      *    @param    mixed        $arg,...        Data values
      *    @param    string        $condition        The criteria that defines which cells will be summed.
@@ -1248,7 +1234,7 @@ class MathTrig
                 if (!is_numeric($arg)) {
                     $arg = \PhpSpreadsheet\Calculation::wrapResult(strtoupper($arg));
                 }
-                $testCondition = '='.$arg.$condition;
+                $testCondition = '=' . $arg . $condition;
                 if (\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                     // Is it a value within our criteria
                     $returnValue += $sumArgs[$key];
@@ -1266,7 +1252,6 @@ class MathTrig
      * Excel Function:
      *        SUMPRODUCT(value1[,value2[, ...]])
      *
-     * @access    public
      * @category Mathematical and Trigonometric Functions
      * @param    mixed        $arg,...        Data values
      * @return    float
@@ -1278,7 +1263,7 @@ class MathTrig
         $wrkArray = Functions::flattenArray(array_shift($arrayList));
         $wrkCellCount = count($wrkArray);
 
-        for ($i=0; $i< $wrkCellCount; ++$i) {
+        for ($i = 0; $i < $wrkCellCount; ++$i) {
             if ((!is_numeric($wrkArray[$i])) || (is_string($wrkArray[$i]))) {
                 $wrkArray[$i] = 0;
             }
@@ -1302,7 +1287,6 @@ class MathTrig
         return array_sum($wrkArray);
     }
 
-
     /**
      * SUMSQ
      *
@@ -1311,7 +1295,6 @@ class MathTrig
      * Excel Function:
      *        SUMSQ(value1[,value2[, ...]])
      *
-     * @access    public
      * @category Mathematical and Trigonometric Functions
      * @param    mixed        $arg,...        Data values
      * @return    float
@@ -1330,7 +1313,6 @@ class MathTrig
 
         return $returnValue;
     }
-
 
     /**
      * SUMX2MY2
@@ -1356,7 +1338,6 @@ class MathTrig
         return $result;
     }
 
-
     /**
      * SUMX2PY2
      *
@@ -1380,7 +1361,6 @@ class MathTrig
 
         return $result;
     }
-
 
     /**
      * SUMXMY2
@@ -1406,7 +1386,6 @@ class MathTrig
         return $result;
     }
 
-
     /**
      * TRUNC
      *
@@ -1418,8 +1397,8 @@ class MathTrig
      */
     public static function TRUNC($value = 0, $digits = 0)
     {
-        $value    = Functions::flattenSingleValue($value);
-        $digits    = Functions::flattenSingleValue($digits);
+        $value = Functions::flattenSingleValue($value);
+        $digits = Functions::flattenSingleValue($digits);
 
         // Validate parameters
         if ((!is_numeric($value)) || (!is_numeric($digits))) {
@@ -1430,7 +1409,7 @@ class MathTrig
         // Truncate
         $adjust = pow(10, $digits);
 
-        if (($digits > 0) && (rtrim(intval((abs($value) - abs(intval($value))) * $adjust), '0') < $adjust/10)) {
+        if (($digits > 0) && (rtrim(intval((abs($value) - abs(intval($value))) * $adjust), '0') < $adjust / 10)) {
             return $value;
         }
 

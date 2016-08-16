@@ -32,7 +32,7 @@ class ExponentialBestFit extends BestFit
      *
      * @var    string
      **/
-    protected $bestFitType        = 'exponential';
+    protected $bestFitType = 'exponential';
 
     /**
      * Return the Y-Value for a specified value of X
@@ -81,6 +81,7 @@ class ExponentialBestFit extends BestFit
         if ($dp != 0) {
             return round(exp($this->_slope), $dp);
         }
+
         return exp($this->_slope);
     }
 
@@ -95,6 +96,7 @@ class ExponentialBestFit extends BestFit
         if ($dp != 0) {
             return round(exp($this->intersect), $dp);
         }
+
         return exp($this->intersect);
     }
 
@@ -103,7 +105,7 @@ class ExponentialBestFit extends BestFit
      *
      * @param     float[]    $yValues    The set of Y-values for this regression
      * @param     float[]    $xValues    The set of X-values for this regression
-     * @param     boolean    $const
+     * @param     bool    $const
      */
     private function exponentialRegression($yValues, $xValues, $const)
     {
@@ -124,9 +126,9 @@ class ExponentialBestFit extends BestFit
      *
      * @param    float[]        $yValues    The set of Y-values for this regression
      * @param    float[]        $xValues    The set of X-values for this regression
-     * @param    boolean        $const
+     * @param    bool        $const
      */
-    public function __construct($yValues, $xValues = array(), $const = true)
+    public function __construct($yValues, $xValues = [], $const = true)
     {
         if (parent::__construct($yValues, $xValues) !== false) {
             $this->exponentialRegression($yValues, $xValues, $const);

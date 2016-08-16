@@ -30,7 +30,6 @@ class MemoryGZip extends CacheBase implements ICache
      * Store cell data in cache for the current cell object if it's "dirty",
      *     and the 'nullify' the current cell object
      *
-     * @return  void
      * @throws  \PhpSpreadsheet\Exception
      */
     protected function storeData()
@@ -44,14 +43,13 @@ class MemoryGZip extends CacheBase implements ICache
         $this->currentObjectID = $this->currentObject = null;
     }
 
-
     /**
      * Add or Update a cell in cache identified by coordinate address
      *
      * @param   string            $pCoord        Coordinate address of the cell to update
      * @param   \PhpSpreadsheet\Cell    $cell        Cell to update
-     * @return  \PhpSpreadsheet\Cell
      * @throws  \PhpSpreadsheet\Exception
+     * @return  \PhpSpreadsheet\Cell
      */
     public function addCacheData($pCoord, \PhpSpreadsheet\Cell $cell)
     {
@@ -65,7 +63,6 @@ class MemoryGZip extends CacheBase implements ICache
 
         return $cell;
     }
-
 
     /**
      * Get cell at a specific coordinate
@@ -97,7 +94,6 @@ class MemoryGZip extends CacheBase implements ICache
         return $this->currentObject;
     }
 
-
     /**
      * Get a list of all cell addresses currently held in cache
      *
@@ -112,11 +108,8 @@ class MemoryGZip extends CacheBase implements ICache
         return parent::getCellList();
     }
 
-
     /**
      * Clear the cell collection and disconnect from our parent
-     *
-     * @return    void
      */
     public function unsetWorksheetCells()
     {
@@ -124,7 +117,7 @@ class MemoryGZip extends CacheBase implements ICache
             $this->currentObject->detach();
             $this->currentObject = $this->currentObjectID = null;
         }
-        $this->cellCache = array();
+        $this->cellCache = [];
 
         //    detach ourself from the worksheet, so that it can then delete this object successfully
         $this->parent = null;

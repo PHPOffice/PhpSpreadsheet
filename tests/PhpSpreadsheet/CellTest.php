@@ -14,7 +14,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Cell::class,'columnIndexFromString'), $args);
+        $result = call_user_func_array([Cell::class, 'columnIndexFromString'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -27,10 +27,11 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $cellAddress = 'ABCD';
         try {
-            $result = call_user_func(array(Cell::class,'columnIndexFromString'), $cellAddress);
+            $result = call_user_func([Cell::class, 'columnIndexFromString'], $cellAddress);
         } catch (\Exception $e) {
             $this->assertInstanceOf(Exception::class, $e);
             $this->assertEquals($e->getMessage(), 'Column string index can not be longer than 3 characters');
+
             return;
         }
         $this->fail('An expected exception has not been raised.');
@@ -40,10 +41,11 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $cellAddress = '';
         try {
-            $result = call_user_func(array(Cell::class,'columnIndexFromString'), $cellAddress);
+            $result = call_user_func([Cell::class, 'columnIndexFromString'], $cellAddress);
         } catch (\Exception $e) {
             $this->assertInstanceOf(Exception::class, $e);
             $this->assertEquals($e->getMessage(), 'Column string index can not be empty');
+
             return;
         }
         $this->fail('An expected exception has not been raised.');
@@ -56,7 +58,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Cell::class,'stringFromColumnIndex'), $args);
+        $result = call_user_func_array([Cell::class, 'stringFromColumnIndex'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -72,7 +74,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Cell::class,'coordinateFromString'), $args);
+        $result = call_user_func_array([Cell::class, 'coordinateFromString'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -85,10 +87,11 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $cellAddress = 'A1:AI2012';
         try {
-            $result = call_user_func(array(Cell::class,'coordinateFromString'), $cellAddress);
+            $result = call_user_func([Cell::class, 'coordinateFromString'], $cellAddress);
         } catch (\Exception $e) {
             $this->assertInstanceOf(Exception::class, $e);
             $this->assertEquals($e->getMessage(), 'Cell coordinate string can not be a range of cells');
+
             return;
         }
         $this->fail('An expected exception has not been raised.');
@@ -98,10 +101,11 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $cellAddress = '';
         try {
-            $result = call_user_func(array(Cell::class,'coordinateFromString'), $cellAddress);
+            $result = call_user_func([Cell::class, 'coordinateFromString'], $cellAddress);
         } catch (\Exception $e) {
             $this->assertInstanceOf(Exception::class, $e);
             $this->assertEquals($e->getMessage(), 'Cell coordinate can not be zero-length string');
+
             return;
         }
         $this->fail('An expected exception has not been raised.');
@@ -111,10 +115,11 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $cellAddress = 'AI';
         try {
-            $result = call_user_func(array(Cell::class,'coordinateFromString'), $cellAddress);
+            $result = call_user_func([Cell::class, 'coordinateFromString'], $cellAddress);
         } catch (\Exception $e) {
             $this->assertInstanceOf(Exception::class, $e);
-            $this->assertEquals($e->getMessage(), 'Invalid cell coordinate '.$cellAddress);
+            $this->assertEquals($e->getMessage(), 'Invalid cell coordinate ' . $cellAddress);
+
             return;
         }
         $this->fail('An expected exception has not been raised.');
@@ -127,7 +132,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Cell::class,'absoluteCoordinate'), $args);
+        $result = call_user_func_array([Cell::class, 'absoluteCoordinate'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -140,10 +145,11 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $cellAddress = 'A1:AI2012';
         try {
-            $result = call_user_func(array(Cell::class,'absoluteCoordinate'), $cellAddress);
+            $result = call_user_func([Cell::class, 'absoluteCoordinate'], $cellAddress);
         } catch (\Exception $e) {
             $this->assertInstanceOf(Exception::class, $e);
             $this->assertEquals($e->getMessage(), 'Cell coordinate string can not be a range of cells');
+
             return;
         }
         $this->fail('An expected exception has not been raised.');
@@ -156,7 +162,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Cell::class,'absoluteReference'), $args);
+        $result = call_user_func_array([Cell::class, 'absoluteReference'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -169,10 +175,11 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $cellAddress = 'A1:AI2012';
         try {
-            $result = call_user_func(array(Cell::class,'absoluteReference'), $cellAddress);
+            $result = call_user_func([Cell::class, 'absoluteReference'], $cellAddress);
         } catch (\Exception $e) {
             $this->assertInstanceOf(Exception::class, $e);
             $this->assertEquals($e->getMessage(), 'Cell coordinate string can not be a range of cells');
+
             return;
         }
         $this->fail('An expected exception has not been raised.');
@@ -185,7 +192,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Cell::class,'splitRange'), $args);
+        $result = call_user_func_array([Cell::class, 'splitRange'], $args);
         foreach ($result as $key => $split) {
             if (!is_array($expectedResult[$key])) {
                 $this->assertEquals($expectedResult[$key], $split[0]);
@@ -207,7 +214,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Cell::class,'buildRange'), $args);
+        $result = call_user_func_array([Cell::class, 'buildRange'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -220,10 +227,11 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $cellRange = '';
         try {
-            $result = call_user_func(array(Cell::class,'buildRange'), $cellRange);
+            $result = call_user_func([Cell::class, 'buildRange'], $cellRange);
         } catch (\Exception $e) {
             $this->assertInstanceOf(Exception::class, $e);
             $this->assertEquals($e->getMessage(), 'Range does not contain any information');
+
             return;
         }
         $this->fail('An expected exception has not been raised.');
@@ -236,7 +244,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Cell::class,'rangeBoundaries'), $args);
+        $result = call_user_func_array([Cell::class, 'rangeBoundaries'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -252,7 +260,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Cell::class,'rangeDimension'), $args);
+        $result = call_user_func_array([Cell::class, 'rangeDimension'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -268,7 +276,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Cell::class,'getRangeBoundaries'), $args);
+        $result = call_user_func_array([Cell::class, 'getRangeBoundaries'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -284,7 +292,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Cell::class,'extractAllCellReferencesInRange'), $args);
+        $result = call_user_func_array([Cell::class, 'extractAllCellReferencesInRange'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 

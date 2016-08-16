@@ -101,7 +101,7 @@ class Font
         }
 
         $data = pack(
-            "vvvvvCCCC",
+            'vvvvvCCCC',
             // Fontsize (in twips)
             $this->font->getSize() * 20,
             $grbit,
@@ -119,15 +119,15 @@ class Font
         $data .= \PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeShort($this->font->getName());
 
         $length = strlen($data);
-        $header = pack("vv", $record, $length);
+        $header = pack('vv', $record, $length);
 
-        return($header . $data);
+        return $header . $data;
     }
 
     /**
      * Map to BIFF5-BIFF8 codes for bold
      *
-     * @param boolean $bold
+     * @param bool $bold
      * @return int
      */
     private static function mapBold($bold)
@@ -135,21 +135,21 @@ class Font
         if ($bold) {
             return 0x2BC;  //  700 = Bold font weight
         }
+
         return 0x190;      //  400 = Normal font weight
     }
 
     /**
      * Map of BIFF2-BIFF8 codes for underline styles
      * @static    array of int
-     *
      */
-    private static $mapUnderline = array(
-        \PhpSpreadsheet\Style\Font::UNDERLINE_NONE              => 0x00,
-        \PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE            => 0x01,
-        \PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE            => 0x02,
-        \PhpSpreadsheet\Style\Font::UNDERLINE_SINGLEACCOUNTING  => 0x21,
-        \PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLEACCOUNTING  => 0x22,
-    );
+    private static $mapUnderline = [
+        \PhpSpreadsheet\Style\Font::UNDERLINE_NONE => 0x00,
+        \PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE => 0x01,
+        \PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE => 0x02,
+        \PhpSpreadsheet\Style\Font::UNDERLINE_SINGLEACCOUNTING => 0x21,
+        \PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLEACCOUNTING => 0x22,
+    ];
 
     /**
      * Map underline
@@ -162,6 +162,7 @@ class Font
         if (isset(self::$mapUnderline[$underline])) {
             return self::$mapUnderline[$underline];
         }
+
         return 0x00;
     }
 }

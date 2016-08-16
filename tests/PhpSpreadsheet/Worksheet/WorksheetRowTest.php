@@ -21,7 +21,6 @@ class WorksheetRowTest extends \PHPUnit_Framework_TestCase
                  ->will($this->returnValue('E'));
     }
 
-
     public function testInstantiateRowDefault()
     {
         $row = new Row($this->mockWorksheet);

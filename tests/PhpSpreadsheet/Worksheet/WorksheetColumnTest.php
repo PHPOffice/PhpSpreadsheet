@@ -21,7 +21,6 @@ class WorksheetColumnTest extends \PHPUnit_Framework_TestCase
                  ->will($this->returnValue(5));
     }
 
-
     public function testInstantiateColumnDefault()
     {
         $column = new Column($this->mockWorksheet);

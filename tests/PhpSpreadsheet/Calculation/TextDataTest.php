@@ -2,13 +2,12 @@
 
 namespace PhpSpreadsheet\Tests\Calculation;
 
-use PhpSpreadsheet\Shared\StringHelper;
 use PhpSpreadsheet\Calculation\Functions;
 use PhpSpreadsheet\Calculation\TextData;
+use PhpSpreadsheet\Shared\StringHelper;
 
 class TextDataTest extends \PHPUnit_Framework_TestCase
 {
-
     public function setUp()
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
@@ -21,7 +20,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(TextData::class,'CHARACTER'), $args);
+        $result = call_user_func_array([TextData::class, 'CHARACTER'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -37,7 +36,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(TextData::class,'ASCIICODE'), $args);
+        $result = call_user_func_array([TextData::class, 'ASCIICODE'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -53,7 +52,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(TextData::class,'CONCATENATE'), $args);
+        $result = call_user_func_array([TextData::class, 'CONCATENATE'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -69,7 +68,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(TextData::class,'LEFT'), $args);
+        $result = call_user_func_array([TextData::class, 'LEFT'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -85,7 +84,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(TextData::class,'MID'), $args);
+        $result = call_user_func_array([TextData::class, 'MID'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -101,7 +100,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(TextData::class,'RIGHT'), $args);
+        $result = call_user_func_array([TextData::class, 'RIGHT'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -117,7 +116,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(TextData::class,'LOWERCASE'), $args);
+        $result = call_user_func_array([TextData::class, 'LOWERCASE'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -133,7 +132,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(TextData::class,'UPPERCASE'), $args);
+        $result = call_user_func_array([TextData::class, 'UPPERCASE'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -149,7 +148,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(TextData::class,'PROPERCASE'), $args);
+        $result = call_user_func_array([TextData::class, 'PROPERCASE'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -165,7 +164,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(TextData::class,'STRINGLENGTH'), $args);
+        $result = call_user_func_array([TextData::class, 'STRINGLENGTH'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -181,7 +180,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(TextData::class,'SEARCHINSENSITIVE'), $args);
+        $result = call_user_func_array([TextData::class, 'SEARCHINSENSITIVE'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -197,7 +196,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(TextData::class,'SEARCHSENSITIVE'), $args);
+        $result = call_user_func_array([TextData::class, 'SEARCHSENSITIVE'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -213,7 +212,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(TextData::class,'REPLACE'), $args);
+        $result = call_user_func_array([TextData::class, 'REPLACE'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -229,7 +228,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(TextData::class,'SUBSTITUTE'), $args);
+        $result = call_user_func_array([TextData::class, 'SUBSTITUTE'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -245,7 +244,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(TextData::class,'TRIMSPACES'), $args);
+        $result = call_user_func_array([TextData::class, 'TRIMSPACES'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -261,7 +260,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(TextData::class,'TRIMNONPRINTABLE'), $args);
+        $result = call_user_func_array([TextData::class, 'TRIMNONPRINTABLE'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -277,7 +276,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(TextData::class,'DOLLAR'), $args);
+        $result = call_user_func_array([TextData::class, 'DOLLAR'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -293,7 +292,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(TextData::class,'FIXEDFORMAT'), $args);
+        $result = call_user_func_array([TextData::class, 'FIXEDFORMAT'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -309,7 +308,7 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(TextData::class,'RETURNSTRING'), $args);
+        $result = call_user_func_array([TextData::class, 'RETURNSTRING'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -324,13 +323,13 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
     public function testTEXT()
     {
         //    Enforce decimal and thousands separator values to UK/US, and currency code to USD
-        call_user_func(array(StringHelper::class, 'setDecimalSeparator'), '.');
-        call_user_func(array(StringHelper::class, 'setThousandsSeparator'), ',');
-        call_user_func(array(StringHelper::class, 'setCurrencyCode'), '$');
+        call_user_func([StringHelper::class, 'setDecimalSeparator'], '.');
+        call_user_func([StringHelper::class, 'setThousandsSeparator'], ',');
+        call_user_func([StringHelper::class, 'setCurrencyCode'], '$');
 
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(TextData::class, 'TEXTFORMAT'), $args);
+        $result = call_user_func_array([TextData::class, 'TEXTFORMAT'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -344,13 +343,13 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
      */
     public function testVALUE()
     {
-        call_user_func(array(StringHelper::class, 'setDecimalSeparator'), '.');
-        call_user_func(array(StringHelper::class, 'setThousandsSeparator'), ' ');
-        call_user_func(array(StringHelper::class, 'setCurrencyCode'), '$');
+        call_user_func([StringHelper::class, 'setDecimalSeparator'], '.');
+        call_user_func([StringHelper::class, 'setThousandsSeparator'], ' ');
+        call_user_func([StringHelper::class, 'setCurrencyCode'], '$');
 
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(TextData::class, 'VALUE'), $args);
+        $result = call_user_func_array([TextData::class, 'VALUE'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 

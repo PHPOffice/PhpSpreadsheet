@@ -35,15 +35,15 @@ if (!defined('DEBUGMODE_ENABLED')) {
 class XMLWriter extends \XMLWriter
 {
     /** Temporary storage method */
-    const STORAGE_MEMORY    = 1;
-    const STORAGE_DISK      = 2;
+    const STORAGE_MEMORY = 1;
+    const STORAGE_DISK = 2;
 
     /**
      * Temporary filename
      *
      * @var string
      */
-    private $tempFileName  = '';
+    private $tempFileName = '';
 
     /**
      * Create a new XMLWriter instance
@@ -98,6 +98,7 @@ class XMLWriter extends \XMLWriter
             return $this->outputMemory(true);
         } else {
             $this->flush();
+
             return file_get_contents($this->tempFileName);
         }
     }

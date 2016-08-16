@@ -29,19 +29,19 @@ namespace PhpSpreadsheet\Worksheet\Drawing;
 class Shadow implements \PhpSpreadsheet\IComparable
 {
     /* Shadow alignment */
-    const SHADOW_BOTTOM       = 'b';
-    const SHADOW_BOTTOM_LEFT  = 'bl';
+    const SHADOW_BOTTOM = 'b';
+    const SHADOW_BOTTOM_LEFT = 'bl';
     const SHADOW_BOTTOM_RIGHT = 'br';
-    const SHADOW_CENTER       = 'ctr';
-    const SHADOW_LEFT         = 'l';
-    const SHADOW_TOP          = 't';
-    const SHADOW_TOP_LEFT     = 'tl';
-    const SHADOW_TOP_RIGHT    = 'tr';
+    const SHADOW_CENTER = 'ctr';
+    const SHADOW_LEFT = 'l';
+    const SHADOW_TOP = 't';
+    const SHADOW_TOP_LEFT = 'tl';
+    const SHADOW_TOP_RIGHT = 'tr';
 
     /**
      * Visible
      *
-     * @var boolean
+     * @var bool
      */
     private $visible;
 
@@ -97,19 +97,19 @@ class Shadow implements \PhpSpreadsheet\IComparable
     public function __construct()
     {
         // Initialise values
-        $this->visible     = false;
-        $this->blurRadius  = 6;
-        $this->distance    = 2;
-        $this->direction   = 0;
-        $this->alignment   = self::SHADOW_BOTTOM_RIGHT;
-        $this->color       = new \PhpSpreadsheet\Style\Color(\PhpSpreadsheet\Style\Color::COLOR_BLACK);
-        $this->alpha       = 50;
+        $this->visible = false;
+        $this->blurRadius = 6;
+        $this->distance = 2;
+        $this->direction = 0;
+        $this->alignment = self::SHADOW_BOTTOM_RIGHT;
+        $this->color = new \PhpSpreadsheet\Style\Color(\PhpSpreadsheet\Style\Color::COLOR_BLACK);
+        $this->alpha = 50;
     }
 
     /**
      * Get Visible
      *
-     * @return boolean
+     * @return bool
      */
     public function getVisible()
     {
@@ -119,12 +119,13 @@ class Shadow implements \PhpSpreadsheet\IComparable
     /**
      * Set Visible
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Shadow
      */
     public function setVisible($pValue = false)
     {
         $this->visible = $pValue;
+
         return $this;
     }
 
@@ -147,6 +148,7 @@ class Shadow implements \PhpSpreadsheet\IComparable
     public function setBlurRadius($pValue = 6)
     {
         $this->blurRadius = $pValue;
+
         return $this;
     }
 
@@ -169,6 +171,7 @@ class Shadow implements \PhpSpreadsheet\IComparable
     public function setDistance($pValue = 2)
     {
         $this->distance = $pValue;
+
         return $this;
     }
 
@@ -191,10 +194,11 @@ class Shadow implements \PhpSpreadsheet\IComparable
     public function setDirection($pValue = 0)
     {
         $this->direction = $pValue;
+
         return $this;
     }
 
-   /**
+    /**
      * Get Shadow alignment
      *
      * @return int
@@ -213,10 +217,11 @@ class Shadow implements \PhpSpreadsheet\IComparable
     public function setAlignment($pValue = 0)
     {
         $this->alignment = $pValue;
+
         return $this;
     }
 
-   /**
+    /**
      * Get Color
      *
      * @return \PhpSpreadsheet\Style\Color
@@ -235,11 +240,12 @@ class Shadow implements \PhpSpreadsheet\IComparable
      */
     public function setColor(\PhpSpreadsheet\Style\Color $pValue = null)
     {
-           $this->color = $pValue;
-           return $this;
+        $this->color = $pValue;
+
+        return $this;
     }
 
-   /**
+    /**
      * Get Alpha
      *
      * @return int
@@ -258,6 +264,7 @@ class Shadow implements \PhpSpreadsheet\IComparable
     public function setAlpha($pValue = 0)
     {
         $this->alpha = $pValue;
+
         return $this;
     }
 

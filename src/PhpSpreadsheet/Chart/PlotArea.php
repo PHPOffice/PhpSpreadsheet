@@ -38,12 +38,12 @@ class PlotArea
      *
      * @var array of DataSeries
      */
-    private $plotSeries = array();
+    private $plotSeries = [];
 
     /**
      * Create a new PlotArea
      */
-    public function __construct(Layout $layout = null, $plotSeries = array())
+    public function __construct(Layout $layout = null, $plotSeries = [])
     {
         $this->layout = $layout;
         $this->plotSeries = $plotSeries;
@@ -72,7 +72,7 @@ class PlotArea
     /**
      * Get Number of Plot Series
      *
-     * @return integer
+     * @return int
      */
     public function getPlotSeriesCount()
     {
@@ -80,6 +80,7 @@ class PlotArea
         foreach ($this->plotSeries as $plot) {
             $seriesCount += $plot->getPlotSeriesCount();
         }
+
         return $seriesCount;
     }
 
@@ -109,7 +110,7 @@ class PlotArea
      * @param  DataSeries[]
      * @return PlotArea
      */
-    public function setPlotSeries($plotSeries = array())
+    public function setPlotSeries($plotSeries = [])
     {
         $this->plotSeries = $plotSeries;
 

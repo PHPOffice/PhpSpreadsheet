@@ -64,7 +64,7 @@ class Comment implements IComparable
     /**
      * Visible
      *
-     * @var boolean
+     * @var bool
      */
     private $visible = false;
 
@@ -97,8 +97,8 @@ class Comment implements IComparable
     public function __construct()
     {
         // Initialise variables
-        $this->author    = 'Author';
-        $this->text      = new RichText();
+        $this->author = 'Author';
+        $this->text = new RichText();
         $this->fillColor = new Style\Color('FFFFFFE1');
         $this->alignment = Style\Alignment::HORIZONTAL_GENERAL;
     }
@@ -122,6 +122,7 @@ class Comment implements IComparable
     public function setAuthor($pValue = '')
     {
         $this->author = $pValue;
+
         return $this;
     }
 
@@ -144,6 +145,7 @@ class Comment implements IComparable
     public function setText(RichText $pValue)
     {
         $this->text = $pValue;
+
         return $this;
     }
 
@@ -166,6 +168,7 @@ class Comment implements IComparable
     public function setWidth($value = '96pt')
     {
         $this->width = $value;
+
         return $this;
     }
 
@@ -188,6 +191,7 @@ class Comment implements IComparable
     public function setHeight($value = '55.5pt')
     {
         $this->height = $value;
+
         return $this;
     }
 
@@ -210,6 +214,7 @@ class Comment implements IComparable
     public function setMarginLeft($value = '59.25pt')
     {
         $this->marginLeft = $value;
+
         return $this;
     }
 
@@ -232,13 +237,14 @@ class Comment implements IComparable
     public function setMarginTop($value = '1.5pt')
     {
         $this->marginTop = $value;
+
         return $this;
     }
 
     /**
      * Is the comment visible by default?
      *
-     * @return boolean
+     * @return bool
      */
     public function getVisible()
     {
@@ -248,12 +254,13 @@ class Comment implements IComparable
     /**
      * Set comment default visibility
      *
-     * @param boolean $value
+     * @param bool $value
      * @return Comment
      */
     public function setVisible($value = false)
     {
         $this->visible = $value;
+
         return $this;
     }
 
@@ -276,6 +283,7 @@ class Comment implements IComparable
     public function setAlignment($pValue = Style\Alignment::HORIZONTAL_GENERAL)
     {
         $this->alignment = $pValue;
+
         return $this;
     }
 

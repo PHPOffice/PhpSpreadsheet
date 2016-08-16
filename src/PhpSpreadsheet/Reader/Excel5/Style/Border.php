@@ -2,11 +2,11 @@
 
 namespace PhpSpreadsheet\Reader\Excel5\Style;
 
-use \PhpSpreadsheet\Style\Border as StyleBorder;
+use PhpSpreadsheet\Style\Border as StyleBorder;
 
 class Border
 {
-    protected static $map = array(
+    protected static $map = [
         0x00 => StyleBorder::BORDER_NONE,
         0x01 => StyleBorder::BORDER_THIN,
         0x02 => StyleBorder::BORDER_MEDIUM,
@@ -21,7 +21,7 @@ class Border
         0x0B => StyleBorder::BORDER_DASHDOTDOT,
         0x0C => StyleBorder::BORDER_MEDIUMDASHDOTDOT,
         0x0D => StyleBorder::BORDER_SLANTDASHDOT,
-    );
+    ];
 
     /**
      * Map border style
@@ -35,6 +35,7 @@ class Border
         if (isset(self::$map[$index])) {
             return self::$map[$index];
         }
+
         return StyleBorder::BORDER_NONE;
     }
 }

@@ -85,17 +85,17 @@ class Style extends Style\Supervisor implements IComparable
     /**
      * Use Quote Prefix when displaying in cell editor. Only used for real style.
      *
-     * @var boolean
+     * @var bool
      */
     protected $quotePrefix = false;
 
     /**
      * Create a new Style
      *
-     * @param boolean $isSupervisor Flag indicating if this is a supervisor or not
+     * @param bool $isSupervisor Flag indicating if this is a supervisor or not
      *         Leave this value at default unless you understand exactly what
      *    its ramifications are
-     * @param boolean $isConditional Flag indicating if this is a conditional style or not
+     * @param bool $isConditional Flag indicating if this is a conditional style or not
      *       Leave this value at default unless you understand exactly what
      *    its ramifications are
      */
@@ -105,13 +105,13 @@ class Style extends Style\Supervisor implements IComparable
         $this->isSupervisor = $isSupervisor;
 
         // Initialise values
-        $this->conditionalStyles = array();
-        $this->font         = new Style\Font($isSupervisor, $isConditional);
-        $this->fill         = new Style\Fill($isSupervisor, $isConditional);
-        $this->borders      = new Style\Borders($isSupervisor, $isConditional);
-        $this->alignment    = new Style\Alignment($isSupervisor, $isConditional);
+        $this->conditionalStyles = [];
+        $this->font = new Style\Font($isSupervisor, $isConditional);
+        $this->fill = new Style\Fill($isSupervisor, $isConditional);
+        $this->borders = new Style\Borders($isSupervisor, $isConditional);
+        $this->alignment = new Style\Alignment($isSupervisor, $isConditional);
         $this->numberFormat = new Style\NumberFormat($isSupervisor, $isConditional);
-        $this->protection   = new Style\Protection($isSupervisor, $isConditional);
+        $this->protection = new Style\Protection($isSupervisor, $isConditional);
 
         // bind parent if we are a supervisor
         if ($isSupervisor) {
@@ -162,7 +162,7 @@ class Style extends Style\Supervisor implements IComparable
      */
     public function getStyleArray($array)
     {
-        return array('quotePrefix' => $array);
+        return ['quotePrefix' => $array];
     }
 
     /**
@@ -201,7 +201,7 @@ class Style extends Style\Supervisor implements IComparable
      * </code>
      *
      * @param   array    $pStyles    Array containing style information
-     * @param   boolean        $pAdvanced    Advanced mode for setting borders.
+     * @param   bool        $pAdvanced    Advanced mode for setting borders.
      * @throws  Exception
      * @return Style
      */
@@ -224,11 +224,11 @@ class Style extends Style\Supervisor implements IComparable
 
                 // Calculate range outer borders
                 $rangeStart = Cell::coordinateFromString($rangeA);
-                $rangeEnd   = Cell::coordinateFromString($rangeB);
+                $rangeEnd = Cell::coordinateFromString($rangeB);
 
                 // Translate column into index
                 $rangeStart[0] = Cell::columnIndexFromString($rangeStart[0]) - 1;
-                $rangeEnd[0]   = Cell::columnIndexFromString($rangeEnd[0]) - 1;
+                $rangeEnd[0] = Cell::columnIndexFromString($rangeEnd[0]) - 1;
 
                 // Make sure we can loop upwards on rows and columns
                 if ($rangeStart[0] > $rangeEnd[0] && $rangeStart[1] > $rangeEnd[1]) {
@@ -242,7 +242,7 @@ class Style extends Style\Supervisor implements IComparable
                     // 'allborders' is a shorthand property for 'outline' and 'inside' and
                     //        it applies to components that have not been set explicitly
                     if (isset($pStyles['borders']['allborders'])) {
-                        foreach (array('outline', 'inside') as $component) {
+                        foreach (['outline', 'inside'] as $component) {
                             if (!isset($pStyles['borders'][$component])) {
                                 $pStyles['borders'][$component] = $pStyles['borders']['allborders'];
                             }
@@ -252,7 +252,7 @@ class Style extends Style\Supervisor implements IComparable
                     // 'outline' is a shorthand property for 'top', 'right', 'bottom', 'left'
                     //        it applies to components that have not been set explicitly
                     if (isset($pStyles['borders']['outline'])) {
-                        foreach (array('top', 'right', 'bottom', 'left') as $component) {
+                        foreach (['top', 'right', 'bottom', 'left'] as $component) {
                             if (!isset($pStyles['borders'][$component])) {
                                 $pStyles['borders'][$component] = $pStyles['borders']['outline'];
                             }
@@ -262,7 +262,7 @@ class Style extends Style\Supervisor implements IComparable
                     // 'inside' is a shorthand property for 'vertical' and 'horizontal'
                     //        it applies to components that have not been set explicitly
                     if (isset($pStyles['borders']['inside'])) {
-                        foreach (array('vertical', 'horizontal') as $component) {
+                        foreach (['vertical', 'horizontal'] as $component) {
                             if (!isset($pStyles['borders'][$component])) {
                                 $pStyles['borders'][$component] = $pStyles['borders']['inside'];
                             }
@@ -286,7 +286,7 @@ class Style extends Style\Supervisor implements IComparable
 
                         for ($y = 1; $y <= $yMax; ++$y) {
                             // which edges are touching the region
-                            $edges = array();
+                            $edges = [];
                             if ($x == 1) {
                                 // are we at left edge
                                 $edges[] = 'left';
@@ -320,7 +320,7 @@ class Style extends Style\Supervisor implements IComparable
                             unset($regionStyles['borders']['inside']);
 
                             // what are the inner edges of the region when looking at the selection
-                            $innerEdges = array_diff(array('top', 'right', 'bottom', 'left'), $edges);
+                            $innerEdges = array_diff(['top', 'right', 'bottom', 'left'], $edges);
 
                             // inner edges that are not touching the region should take the 'inside' border properties if they have been set
                             foreach ($innerEdges as $innerEdge) {
@@ -350,6 +350,7 @@ class Style extends Style\Supervisor implements IComparable
                             $this->getActiveSheet()->getStyle($range)->applyFromArray($regionStyles, false);
                         }
                     }
+
                     return $this;
                 }
 
@@ -366,13 +367,13 @@ class Style extends Style\Supervisor implements IComparable
                 // First loop through columns, rows, or cells to find out which styles are affected by this operation
                 switch ($selectionType) {
                     case 'COLUMN':
-                        $oldXfIndexes = array();
+                        $oldXfIndexes = [];
                         for ($col = $rangeStart[0]; $col <= $rangeEnd[0]; ++$col) {
                             $oldXfIndexes[$this->getActiveSheet()->getColumnDimensionByColumn($col)->getXfIndex()] = true;
                         }
                         break;
                     case 'ROW':
-                        $oldXfIndexes = array();
+                        $oldXfIndexes = [];
                         for ($row = $rangeStart[1]; $row <= $rangeEnd[1]; ++$row) {
                             if ($this->getActiveSheet()->getRowDimension($row)->getXfIndex() == null) {
                                 $oldXfIndexes[0] = true; // row without explicit style should be formatted based on default style
@@ -382,7 +383,7 @@ class Style extends Style\Supervisor implements IComparable
                         }
                         break;
                     case 'CELL':
-                        $oldXfIndexes = array();
+                        $oldXfIndexes = [];
                         for ($col = $rangeStart[0]; $col <= $rangeEnd[0]; ++$col) {
                             for ($row = $rangeStart[1]; $row <= $rangeEnd[1]; ++$row) {
                                 $oldXfIndexes[$this->getActiveSheet()->getCellByColumnAndRow($col, $row)->getXfIndex()] = true;
@@ -462,8 +463,9 @@ class Style extends Style\Supervisor implements IComparable
                 }
             }
         } else {
-            throw new Exception("Invalid style array passed.");
+            throw new Exception('Invalid style array passed.');
         }
+
         return $this;
     }
 
@@ -496,6 +498,7 @@ class Style extends Style\Supervisor implements IComparable
     public function setFont(Style\Font $font)
     {
         $this->font = $font;
+
         return $this;
     }
 
@@ -550,6 +553,7 @@ class Style extends Style\Supervisor implements IComparable
         if (is_array($pValue)) {
             $this->getActiveSheet()->setConditionalStyles($this->getSelectedCells(), $pValue);
         }
+
         return $this;
     }
 
@@ -566,20 +570,21 @@ class Style extends Style\Supervisor implements IComparable
     /**
      * Get quote prefix
      *
-     * @return boolean
+     * @return bool
      */
     public function getQuotePrefix()
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getQuotePrefix();
         }
+
         return $this->quotePrefix;
     }
 
     /**
      * Set quote prefix
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      */
     public function setQuotePrefix($pValue)
     {
@@ -587,11 +592,12 @@ class Style extends Style\Supervisor implements IComparable
             $pValue = false;
         }
         if ($this->isSupervisor) {
-            $styleArray = array('quotePrefix' => $pValue);
+            $styleArray = ['quotePrefix' => $pValue];
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->quotePrefix = (boolean) $pValue;
         }
+
         return $this;
     }
 

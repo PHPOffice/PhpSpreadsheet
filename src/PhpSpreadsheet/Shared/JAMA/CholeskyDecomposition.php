@@ -3,7 +3,6 @@
 namespace PhpSpreadsheet\Shared\JAMA;
 
 /**
- *
  *    Cholesky decomposition class
  *
  *    For a symmetric, positive definite matrix A, the Cholesky decomposition
@@ -22,21 +21,18 @@ class CholeskyDecomposition
     /**
      *    Decomposition storage
      *    @var array
-     *    @access private
      */
-    private $L = array();
+    private $L = [];
 
     /**
      *    Matrix row and column dimension
      *    @var int
-     *    @access private
      */
     private $m;
 
     /**
      *    Symmetric positive definite flag
-     *    @var boolean
-     *    @access private
+     *    @var bool
      */
     private $isspd = true;
 
@@ -70,7 +66,7 @@ class CholeskyDecomposition
                     }
                 }
 
-                for ($k = $i+1; $k < $this->m; ++$k) {
+                for ($k = $i + 1; $k < $this->m; ++$k) {
                     $this->L[$i][$k] = 0.0;
                 }
             }
@@ -82,7 +78,7 @@ class CholeskyDecomposition
     /**
      *    Is the matrix symmetric and positive definite?
      *
-     *    @return boolean
+     *    @return bool
      */
     public function isSPD()
     {
@@ -111,7 +107,7 @@ class CholeskyDecomposition
         if ($B instanceof Matrix) {
             if ($B->getRowDimension() == $this->m) {
                 if ($this->isspd) {
-                    $X  = $B->getArrayCopy();
+                    $X = $B->getArrayCopy();
                     $nx = $B->getColumnDimension();
 
                     for ($k = 0; $k < $this->m; ++$k) {

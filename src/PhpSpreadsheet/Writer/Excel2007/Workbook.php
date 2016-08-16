@@ -1,4 +1,5 @@
 <?php
+
 namespace PhpSpreadsheet\Writer\Excel2007;
 
 /**
@@ -29,9 +30,9 @@ class Workbook extends WriterPart
      * Write workbook to XML format
      *
      * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @param    boolean        $recalcRequired    Indicate whether formulas should be recalculated before writing
-     * @return string  XML Output
+     * @param    bool        $recalcRequired    Indicate whether formulas should be recalculated before writing
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return string  XML Output
      */
     public function writeWorkbook(\PhpSpreadsheet\SpreadSheet $spreadsheet = null, $recalcRequired = false)
     {
@@ -176,7 +177,7 @@ class Workbook extends WriterPart
      * Write calcPr
      *
      * @param     \PhpSpreadsheet\Shared\XMLWriter    $objWriter        XML Writer
-     * @param    boolean                        $recalcRequired    Indicate whether formulas should be recalculated before writing
+     * @param    bool                        $recalcRequired    Indicate whether formulas should be recalculated before writing
      * @throws     \PhpSpreadsheet\Writer\Exception
      */
     private function writeCalcPr(\PhpSpreadsheet\Shared\XMLWriter $objWriter, $recalcRequired = true)
@@ -244,7 +245,7 @@ class Workbook extends WriterPart
             $objWriter->writeAttribute('r:id', 'rId' . $pRelId);
             $objWriter->endElement();
         } else {
-            throw new \PhpSpreadsheet\Writer\Exception("Invalid parameters passed.");
+            throw new \PhpSpreadsheet\Writer\Exception('Invalid parameters passed.');
         }
     }
 
@@ -316,7 +317,7 @@ class Workbook extends WriterPart
 
         // Create absolute coordinate and write as raw text
         $range = \PhpSpreadsheet\Cell::splitRange($pNamedRange->getRange());
-        for ($i = 0; $i < count($range); $i++) {
+        for ($i = 0; $i < count($range); ++$i) {
             $range[$i][0] = '\'' . str_replace("'", "''", $pNamedRange->getWorksheet()->getTitle()) . '\'!' . \PhpSpreadsheet\Cell::absoluteReference($range[$i][0]);
             if (isset($range[$i][1])) {
                 $range[$i][1] = \PhpSpreadsheet\Cell::absoluteReference($range[$i][1]);
@@ -430,7 +431,7 @@ class Workbook extends WriterPart
             // Print area
             $printArea = \PhpSpreadsheet\Cell::splitRange($pSheet->getPageSetup()->getPrintArea());
 
-            $chunks = array();
+            $chunks = [];
             foreach ($printArea as $printAreaRect) {
                 $printAreaRect[0] = \PhpSpreadsheet\Cell::absoluteReference($printAreaRect[0]);
                 $printAreaRect[1] = \PhpSpreadsheet\Cell::absoluteReference($printAreaRect[1]);

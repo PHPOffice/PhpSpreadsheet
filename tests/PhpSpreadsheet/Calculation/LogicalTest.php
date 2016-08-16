@@ -7,7 +7,6 @@ use PhpSpreadsheet\Calculation\Logical;
 
 class LogicalTest extends \PHPUnit_Framework_TestCase
 {
-
     public function setUp()
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
@@ -16,13 +15,13 @@ class LogicalTest extends \PHPUnit_Framework_TestCase
     public function testTRUE()
     {
         $result = Logical::TRUE();
-        $this->assertEquals(true, $result);
+        $this->assertTrue($result);
     }
 
     public function testFALSE()
     {
         $result = Logical::FALSE();
-        $this->assertEquals(false, $result);
+        $this->assertFalse($result);
     }
 
     /**
@@ -32,7 +31,7 @@ class LogicalTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Logical::class,'logicalAnd'), $args);
+        $result = call_user_func_array([Logical::class, 'logicalAnd'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -48,7 +47,7 @@ class LogicalTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Logical::class,'logicalOr'), $args);
+        $result = call_user_func_array([Logical::class, 'logicalOr'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -64,7 +63,7 @@ class LogicalTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Logical::class,'NOT'), $args);
+        $result = call_user_func_array([Logical::class, 'NOT'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -80,7 +79,7 @@ class LogicalTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Logical::class,'statementIf'), $args);
+        $result = call_user_func_array([Logical::class, 'statementIf'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -96,7 +95,7 @@ class LogicalTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Logical::class,'IFERROR'), $args);
+        $result = call_user_func_array([Logical::class, 'IFERROR'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 

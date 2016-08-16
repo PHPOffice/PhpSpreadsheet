@@ -3,7 +3,6 @@
 namespace PhpSpreadsheet\Shared\JAMA;
 
 /**
- *
  *    For an m-by-n matrix A with m >= n, the QR decomposition is an m-by-n
  *    orthogonal matrix Q and an n-by-n upper triangular matrix R so that
  *    A = Q*R.
@@ -20,32 +19,31 @@ namespace PhpSpreadsheet\Shared\JAMA;
  */
 class QRDecomposition
 {
-    const MATRIX_RANK_EXCEPTION  = "Can only perform operation on full-rank matrix.";
+    const MATRIX_RANK_EXCEPTION = 'Can only perform operation on full-rank matrix.';
 
     /**
      *    Array for internal storage of decomposition.
      *    @var array
      */
-    private $QR = array();
+    private $QR = [];
 
     /**
      *    Row dimension.
-     *    @var integer
+     *    @var int
      */
     private $m;
 
     /**
-    *    Column dimension.
-    *    @var integer
-    */
+     *    Column dimension.
+     *    @var int
+     */
     private $n;
 
     /**
      *    Array for internal storage of diagonal of R.
      *    @var  array
      */
-    private $Rdiag = array();
-
+    private $Rdiag = [];
 
     /**
      *    QR Decomposition computed by Householder reflections.
@@ -58,8 +56,8 @@ class QRDecomposition
         if ($A instanceof Matrix) {
             // Initialize.
             $this->QR = $A->getArrayCopy();
-            $this->m  = $A->getRowDimension();
-            $this->n  = $A->getColumnDimension();
+            $this->m = $A->getRowDimension();
+            $this->n = $A->getColumnDimension();
             // Main loop.
             for ($k = 0; $k < $this->n; ++$k) {
                 // Compute 2-norm of k-th column without under/overflow.
@@ -77,12 +75,12 @@ class QRDecomposition
                     }
                     $this->QR[$k][$k] += 1.0;
                     // Apply transformation to remaining columns.
-                    for ($j = $k+1; $j < $this->n; ++$j) {
+                    for ($j = $k + 1; $j < $this->n; ++$j) {
                         $s = 0.0;
                         for ($i = $k; $i < $this->m; ++$i) {
                             $s += $this->QR[$i][$k] * $this->QR[$i][$j];
                         }
-                        $s = -$s/$this->QR[$k][$k];
+                        $s = -$s / $this->QR[$k][$k];
                         for ($i = $k; $i < $this->m; ++$i) {
                             $this->QR[$i][$j] += $s * $this->QR[$i][$k];
                         }
@@ -95,11 +93,10 @@ class QRDecomposition
         }
     }    //    function __construct()
 
-
     /**
      *    Is the matrix full rank?
      *
-     *    @return boolean true if R, and hence A, has full rank, else false.
+     *    @return bool true if R, and hence A, has full rank, else false.
      */
     public function isFullRank()
     {
@@ -108,6 +105,7 @@ class QRDecomposition
                 return false;
             }
         }
+
         return true;
     }    //    function isFullRank()
 
@@ -127,6 +125,7 @@ class QRDecomposition
                 }
             }
         }
+
         return new Matrix($H);
     }    //    function getH()
 
@@ -148,6 +147,7 @@ class QRDecomposition
                 }
             }
         }
+
         return new Matrix($R);
     }    //    function getR()
 
@@ -158,7 +158,7 @@ class QRDecomposition
      */
     public function getQ()
     {
-        for ($k = $this->n-1; $k >= 0; --$k) {
+        for ($k = $this->n - 1; $k >= 0; --$k) {
             for ($i = 0; $i < $this->m; ++$i) {
                 $Q[$i][$k] = 0.0;
             }
@@ -169,7 +169,7 @@ class QRDecomposition
                     for ($i = $k; $i < $this->m; ++$i) {
                         $s += $this->QR[$i][$k] * $Q[$i][$j];
                     }
-                    $s = -$s/$this->QR[$k][$k];
+                    $s = -$s / $this->QR[$k][$k];
                     for ($i = $k; $i < $this->m; ++$i) {
                         $Q[$i][$j] += $s * $this->QR[$i][$k];
                     }
@@ -200,7 +200,7 @@ class QRDecomposition
             if ($this->isFullRank()) {
                 // Copy right hand side
                 $nx = $B->getColumnDimension();
-                $X  = $B->getArrayCopy();
+                $X = $B->getArrayCopy();
                 // Compute Y = transpose(Q)*B
                 for ($k = 0; $k < $this->n; ++$k) {
                     for ($j = 0; $j < $nx; ++$j) {
@@ -208,25 +208,26 @@ class QRDecomposition
                         for ($i = $k; $i < $this->m; ++$i) {
                             $s += $this->QR[$i][$k] * $X[$i][$j];
                         }
-                        $s = -$s/$this->QR[$k][$k];
+                        $s = -$s / $this->QR[$k][$k];
                         for ($i = $k; $i < $this->m; ++$i) {
                             $X[$i][$j] += $s * $this->QR[$i][$k];
                         }
                     }
                 }
                 // Solve R*X = Y;
-                for ($k = $this->n-1; $k >= 0; --$k) {
+                for ($k = $this->n - 1; $k >= 0; --$k) {
                     for ($j = 0; $j < $nx; ++$j) {
                         $X[$k][$j] /= $this->Rdiag[$k];
                     }
                     for ($i = 0; $i < $k; ++$i) {
                         for ($j = 0; $j < $nx; ++$j) {
-                            $X[$i][$j] -= $X[$k][$j]* $this->QR[$i][$k];
+                            $X[$i][$j] -= $X[$k][$j] * $this->QR[$i][$k];
                         }
                     }
                 }
                 $X = new Matrix($X);
-                return ($X->getMatrix(0, $this->n-1, 0, $nx));
+
+                return $X->getMatrix(0, $this->n - 1, 0, $nx);
             } else {
                 throw new \PhpSpreadsheet\Calculation\Exception(self::MATRIX_RANK_EXCEPTION);
             }

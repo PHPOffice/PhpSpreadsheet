@@ -29,7 +29,7 @@ abstract class Supervisor
     /**
      * Supervisor?
      *
-     * @var boolean
+     * @var bool
      */
     protected $isSupervisor;
 
@@ -43,7 +43,7 @@ abstract class Supervisor
     /**
      * Create a new Supervisor
      *
-     * @param    boolean    $isSupervisor    Flag indicating if this is a supervisor or not
+     * @param    bool    $isSupervisor    Flag indicating if this is a supervisor or not
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
      */
@@ -62,13 +62,14 @@ abstract class Supervisor
     public function bindParent($parent, $parentPropertyName = null)
     {
         $this->parent = $parent;
+
         return $this;
     }
 
     /**
      * Is this a supervisor or a cell style component?
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsSupervisor()
     {

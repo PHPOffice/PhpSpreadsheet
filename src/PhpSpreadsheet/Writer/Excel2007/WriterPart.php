@@ -49,15 +49,15 @@ abstract class WriterPart
     /**
      * Get parent IWriter object
      *
-     * @return \PhpSpreadsheet\Writer\IWriter
      * @throws \PhpSpreadsheet\Writer\Exception
+     * @return \PhpSpreadsheet\Writer\IWriter
      */
     public function getParentWriter()
     {
         if (!is_null($this->parentWriter)) {
             return $this->parentWriter;
         } else {
-            throw new \PhpSpreadsheet\Writer\Exception("No parent \\PhpSpreadsheet\\Writer\\IWriter assigned.");
+            throw new \PhpSpreadsheet\Writer\Exception('No parent \\PhpSpreadsheet\\Writer\\IWriter assigned.');
         }
     }
 

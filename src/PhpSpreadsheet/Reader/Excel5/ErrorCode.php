@@ -4,7 +4,7 @@ namespace PhpSpreadsheet\Reader\Excel5;
 
 class ErrorCode
 {
-    protected static $map = array(
+    protected static $map = [
         0x00 => '#NULL!',
         0x07 => '#DIV/0!',
         0x0F => '#VALUE!',
@@ -12,19 +12,20 @@ class ErrorCode
         0x1D => '#NAME?',
         0x24 => '#NUM!',
         0x2A => '#N/A',
-    );
+    ];
 
     /**
      * Map error code, e.g. '#N/A'
      *
      * @param int $code
-     * @return string|boolean
+     * @return string|bool
      */
     public static function lookup($code)
     {
         if (isset(self::$map[$code])) {
             return self::$map[$code];
         }
+
         return false;
     }
 }

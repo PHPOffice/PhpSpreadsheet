@@ -32,7 +32,7 @@ class LogarithmicBestFit extends BestFit
      *
      * @var    string
      **/
-    protected $bestFitType        = 'logarithmic';
+    protected $bestFitType = 'logarithmic';
 
     /**
      * Return the Y-Value for a specified value of X
@@ -67,7 +67,7 @@ class LogarithmicBestFit extends BestFit
         $slope = $this->getSlope($dp);
         $intersect = $this->getIntersect($dp);
 
-        return 'Y = '.$intersect.' + '.$slope.' * log(X)';
+        return 'Y = ' . $intersect . ' + ' . $slope . ' * log(X)';
     }
 
     /**
@@ -75,7 +75,7 @@ class LogarithmicBestFit extends BestFit
      *
      * @param     float[]    $yValues    The set of Y-values for this regression
      * @param     float[]    $xValues    The set of X-values for this regression
-     * @param     boolean    $const
+     * @param     bool    $const
      */
     private function logarithmicRegression($yValues, $xValues, $const)
     {
@@ -96,9 +96,9 @@ class LogarithmicBestFit extends BestFit
      *
      * @param    float[]        $yValues    The set of Y-values for this regression
      * @param    float[]        $xValues    The set of X-values for this regression
-     * @param    boolean        $const
+     * @param    bool        $const
      */
-    public function __construct($yValues, $xValues = array(), $const = true)
+    public function __construct($yValues, $xValues = [], $const = true)
     {
         if (parent::__construct($yValues, $xValues) !== false) {
             $this->logarithmicRegression($yValues, $xValues, $const);

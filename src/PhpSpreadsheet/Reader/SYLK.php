@@ -45,7 +45,7 @@ class SYLK extends BaseReader implements IReader
      *
      * @var array
      */
-    private $formats = array();
+    private $formats = [];
 
     /**
      * Format Count
@@ -65,7 +65,7 @@ class SYLK extends BaseReader implements IReader
     /**
      * Validate that the current file is a SYLK file
      *
-     * @return boolean
+     * @return bool
      */
     protected function isValidFormat()
     {
@@ -95,6 +95,7 @@ class SYLK extends BaseReader implements IReader
     public function setInputEncoding($pValue = 'ANSI')
     {
         $this->inputEncoding = $pValue;
+
         return $this;
     }
 
@@ -120,12 +121,12 @@ class SYLK extends BaseReader implements IReader
         $this->openFile($pFilename);
         if (!$this->isValidFormat()) {
             fclose($this->fileHandle);
-            throw new Exception($pFilename . " is an Invalid Spreadsheet file.");
+            throw new Exception($pFilename . ' is an Invalid Spreadsheet file.');
         }
         $fileHandle = $this->fileHandle;
         rewind($fileHandle);
 
-        $worksheetInfo = array();
+        $worksheetInfo = [];
         $worksheetInfo[0]['worksheetName'] = 'Worksheet';
         $worksheetInfo[0]['lastColumnLetter'] = 'A';
         $worksheetInfo[0]['lastColumnIndex'] = 0;
@@ -133,7 +134,7 @@ class SYLK extends BaseReader implements IReader
         $worksheetInfo[0]['totalColumns'] = 0;
 
         // Loop through file
-        $rowData = array();
+        $rowData = [];
 
         // loop through one row (line) at a time in the file
         $rowIndex = 0;
@@ -181,8 +182,8 @@ class SYLK extends BaseReader implements IReader
      * Loads PhpSpreadsheet from file
      *
      * @param     string         $pFilename
-     * @return     \PhpSpreadsheet\Spreadsheet
      * @throws     Exception
+     * @return     \PhpSpreadsheet\Spreadsheet
      */
     public function load($pFilename)
     {
@@ -198,8 +199,8 @@ class SYLK extends BaseReader implements IReader
      *
      * @param     string         $pFilename
      * @param     \PhpSpreadsheet\Spreadsheet    $spreadsheet
-     * @return    \PhpSpreadsheet\Spreadsheet
      * @throws    Exception
+     * @return    \PhpSpreadsheet\Spreadsheet
      */
     public function loadIntoExisting($pFilename, \PhpSpreadsheet\Spreadsheet $spreadsheet)
     {
@@ -207,7 +208,7 @@ class SYLK extends BaseReader implements IReader
         $this->openFile($pFilename);
         if (!$this->isValidFormat()) {
             fclose($this->fileHandle);
-            throw new Exception($pFilename . " is an Invalid Spreadsheet file.");
+            throw new Exception($pFilename . ' is an Invalid Spreadsheet file.');
         }
         $fileHandle = $this->fileHandle;
         rewind($fileHandle);
@@ -218,11 +219,11 @@ class SYLK extends BaseReader implements IReader
         }
         $spreadsheet->setActiveSheetIndex($this->sheetIndex);
 
-        $fromFormats    = array('\-',    '\ ');
-        $toFormats        = array('-',    ' ');
+        $fromFormats = ['\-',    '\ '];
+        $toFormats = ['-',    ' '];
 
         // Loop through file
-        $rowData = array();
+        $rowData = [];
         $column = $row = '';
 
         // loop through one row (line) at a time in the file
@@ -237,7 +238,7 @@ class SYLK extends BaseReader implements IReader
             $dataType = array_shift($rowData);
             //    Read shared styles
             if ($dataType == 'P') {
-                $formatArray = array();
+                $formatArray = [];
                 foreach ($rowData as $rowDatum) {
                     switch ($rowDatum{0}) {
                         case 'P':
@@ -252,7 +253,7 @@ class SYLK extends BaseReader implements IReader
                             break;
                         case 'S':
                             $styleSettings = substr($rowDatum, 1);
-                            for ($i=0; $i<strlen($styleSettings); ++$i) {
+                            for ($i = 0; $i < strlen($styleSettings); ++$i) {
                                 switch ($styleSettings{$i}) {
                                     case 'I':
                                         $formatArray['font']['italic'] = true;
@@ -277,7 +278,7 @@ class SYLK extends BaseReader implements IReader
                             break;
                     }
                 }
-                $this->formats['P'.$this->format++] = $formatArray;
+                $this->formats['P' . $this->format++] = $formatArray;
             //    Read cell value data
             } elseif ($dataType == 'C') {
                 $hasCalculatedValue = false;
@@ -296,14 +297,14 @@ class SYLK extends BaseReader implements IReader
                             $cellData = substr($rowDatum, 1);
                             break;
                         case 'E':
-                            $cellDataFormula = '='.substr($rowDatum, 1);
+                            $cellDataFormula = '=' . substr($rowDatum, 1);
                             //    Convert R1C1 style references to A1 style references (but only when not quoted)
                             $temp = explode('"', $cellDataFormula);
                             $key = false;
                             foreach ($temp as &$value) {
                                 //    Only count/replace in alternate array entries
                                 if ($key = !$key) {
-                                    preg_match_all('/(R(\[?-?\d*\]?))(C(\[?-?\d*\]?))/', $value, $cellReferences, PREG_SET_ORDER+PREG_OFFSET_CAPTURE);
+                                    preg_match_all('/(R(\[?-?\d*\]?))(C(\[?-?\d*\]?))/', $value, $cellReferences, PREG_SET_ORDER + PREG_OFFSET_CAPTURE);
                                     //    Reverse the matches array, otherwise all our offsets will become incorrect if we modify our way
                                     //        through the formula from left to right. Reversing means that we work right to left.through
                                     //        the formula
@@ -329,7 +330,7 @@ class SYLK extends BaseReader implements IReader
                                         if ($columnReference{0} == '[') {
                                             $columnReference = $column + trim($columnReference, '[]');
                                         }
-                                        $A1CellReference = \PhpSpreadsheet\Cell::stringFromColumnIndex($columnReference-1).$rowReference;
+                                        $A1CellReference = \PhpSpreadsheet\Cell::stringFromColumnIndex($columnReference - 1) . $rowReference;
 
                                         $value = substr_replace($value, $A1CellReference, $cellReference[0][1], strlen($cellReference[0][0]));
                                     }
@@ -342,19 +343,19 @@ class SYLK extends BaseReader implements IReader
                             break;
                     }
                 }
-                $columnLetter = \PhpSpreadsheet\Cell::stringFromColumnIndex($column-1);
+                $columnLetter = \PhpSpreadsheet\Cell::stringFromColumnIndex($column - 1);
                 $cellData = \PhpSpreadsheet\Calculation::unwrapResult($cellData);
 
                 // Set cell value
-                $spreadsheet->getActiveSheet()->getCell($columnLetter.$row)->setValue(($hasCalculatedValue) ? $cellDataFormula : $cellData);
+                $spreadsheet->getActiveSheet()->getCell($columnLetter . $row)->setValue(($hasCalculatedValue) ? $cellDataFormula : $cellData);
                 if ($hasCalculatedValue) {
                     $cellData = \PhpSpreadsheet\Calculation::unwrapResult($cellData);
-                    $spreadsheet->getActiveSheet()->getCell($columnLetter.$row)->setCalculatedValue($cellData);
+                    $spreadsheet->getActiveSheet()->getCell($columnLetter . $row)->setCalculatedValue($cellData);
                 }
             //    Read cell formatting
             } elseif ($dataType == 'F') {
                 $formatStyle = $columnWidth = $styleSettings = '';
-                $styleData = array();
+                $styleData = [];
                 foreach ($rowData as $rowDatum) {
                     switch ($rowDatum{0}) {
                         case 'C':
@@ -373,7 +374,7 @@ class SYLK extends BaseReader implements IReader
                             break;
                         case 'S':
                             $styleSettings = substr($rowDatum, 1);
-                            for ($i=0; $i<strlen($styleSettings); ++$i) {
+                            for ($i = 0; $i < strlen($styleSettings); ++$i) {
                                 switch ($styleSettings{$i}) {
                                     case 'I':
                                         $styleData['font']['italic'] = true;
@@ -399,22 +400,22 @@ class SYLK extends BaseReader implements IReader
                     }
                 }
                 if (($formatStyle > '') && ($column > '') && ($row > '')) {
-                    $columnLetter = \PhpSpreadsheet\Cell::stringFromColumnIndex($column-1);
+                    $columnLetter = \PhpSpreadsheet\Cell::stringFromColumnIndex($column - 1);
                     if (isset($this->formats[$formatStyle])) {
-                        $spreadsheet->getActiveSheet()->getStyle($columnLetter.$row)->applyFromArray($this->formats[$formatStyle]);
+                        $spreadsheet->getActiveSheet()->getStyle($columnLetter . $row)->applyFromArray($this->formats[$formatStyle]);
                     }
                 }
                 if ((!empty($styleData)) && ($column > '') && ($row > '')) {
-                    $columnLetter = \PhpSpreadsheet\Cell::stringFromColumnIndex($column-1);
-                    $spreadsheet->getActiveSheet()->getStyle($columnLetter.$row)->applyFromArray($styleData);
+                    $columnLetter = \PhpSpreadsheet\Cell::stringFromColumnIndex($column - 1);
+                    $spreadsheet->getActiveSheet()->getStyle($columnLetter . $row)->applyFromArray($styleData);
                 }
                 if ($columnWidth > '') {
                     if ($startCol == $endCol) {
-                        $startCol = \PhpSpreadsheet\Cell::stringFromColumnIndex($startCol-1);
+                        $startCol = \PhpSpreadsheet\Cell::stringFromColumnIndex($startCol - 1);
                         $spreadsheet->getActiveSheet()->getColumnDimension($startCol)->setWidth($columnWidth);
                     } else {
-                        $startCol = \PhpSpreadsheet\Cell::stringFromColumnIndex($startCol-1);
-                        $endCol = \PhpSpreadsheet\Cell::stringFromColumnIndex($endCol-1);
+                        $startCol = \PhpSpreadsheet\Cell::stringFromColumnIndex($startCol - 1);
+                        $endCol = \PhpSpreadsheet\Cell::stringFromColumnIndex($endCol - 1);
                         $spreadsheet->getActiveSheet()->getColumnDimension($startCol)->setWidth($columnWidth);
                         do {
                             $spreadsheet->getActiveSheet()->getColumnDimension(++$startCol)->setWidth($columnWidth);
@@ -463,6 +464,7 @@ class SYLK extends BaseReader implements IReader
     public function setSheetIndex($pValue = 0)
     {
         $this->sheetIndex = $pValue;
+
         return $this;
     }
 }

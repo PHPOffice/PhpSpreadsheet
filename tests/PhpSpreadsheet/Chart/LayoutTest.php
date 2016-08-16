@@ -10,7 +10,7 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
     {
         $LayoutTargetValue = 'String';
 
-        $testInstance = new Layout;
+        $testInstance = new Layout();
 
         $result = $testInstance->setLayoutTarget($LayoutTargetValue);
         $this->assertTrue($result instanceof Layout);
@@ -20,7 +20,7 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
     {
         $LayoutTargetValue = 'String';
 
-        $testInstance = new Layout;
+        $testInstance = new Layout();
         $setValue = $testInstance->setLayoutTarget($LayoutTargetValue);
 
         $result = $testInstance->getLayoutTarget();

@@ -31,19 +31,19 @@ class Stack
      *
      *  @var mixed[]
      */
-    private $stack = array();
+    private $stack = [];
 
     /**
      *  Count of entries in the parser stack
      *
-     *  @var integer
+     *  @var int
      */
     private $count = 0;
 
     /**
      * Return the number of entries on the stack
      *
-     * @return  integer
+     * @return  int
      */
     public function count()
     {
@@ -59,11 +59,11 @@ class Stack
      */
     public function push($type, $value, $reference = null)
     {
-        $this->stack[$this->count++] = array(
-            'type'      => $type,
-            'value'     => $value,
-            'reference' => $reference
-        );
+        $this->stack[$this->count++] = [
+            'type' => $type,
+            'value' => $value,
+            'reference' => $reference,
+        ];
         if ($type == 'Function') {
             $localeFunction = \PhpSpreadsheet\Calculation::localeFunc($value);
             if ($localeFunction != $value) {
@@ -82,13 +82,14 @@ class Stack
         if ($this->count > 0) {
             return $this->stack[--$this->count];
         }
+
         return null;
     }
 
     /**
      * Return an entry from the stack without removing it
      *
-     * @param   integer  $n  number indicating how far back in the stack we want to look
+     * @param   int  $n  number indicating how far back in the stack we want to look
      * @return  mixed
      */
     public function last($n = 1)
@@ -96,6 +97,7 @@ class Stack
         if ($this->count - $n < 0) {
             return null;
         }
+
         return $this->stack[$this->count - $n];
     }
 
@@ -104,7 +106,7 @@ class Stack
      */
     public function clear()
     {
-        $this->stack = array();
+        $this->stack = [];
         $this->count = 0;
     }
 }

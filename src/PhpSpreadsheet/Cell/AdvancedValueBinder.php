@@ -31,7 +31,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
      *
      * @param  \PhpSpreadsheet\Cell  $cell  Cell to bind value to
      * @param  mixed $value           Value to bind in cell
-     * @return boolean
+     * @return bool
      */
     public function bindValue(\PhpSpreadsheet\Cell $cell, $value = null)
     {
@@ -48,15 +48,18 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
             //    Test for booleans using locale-setting
             if ($value == \PhpSpreadsheet\Calculation::getTRUE()) {
                 $cell->setValueExplicit(true, DataType::TYPE_BOOL);
+
                 return true;
             } elseif ($value == \PhpSpreadsheet\Calculation::getFALSE()) {
                 $cell->setValueExplicit(false, DataType::TYPE_BOOL);
+
                 return true;
             }
 
             // Check for number in scientific format
-            if (preg_match('/^'.\PhpSpreadsheet\Calculation::CALCULATION_REGEXP_NUMBER.'$/', $value)) {
+            if (preg_match('/^' . \PhpSpreadsheet\Calculation::CALCULATION_REGEXP_NUMBER . '$/', $value)) {
                 $cell->setValueExplicit((float) $value, DataType::TYPE_NUMERIC);
+
                 return true;
             }
 
@@ -71,6 +74,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
                 // Set style
                 $cell->getWorksheet()->getStyle($cell->getCoordinate())
                     ->getNumberFormat()->setFormatCode('??/??');
+
                 return true;
             } elseif (preg_match('/^([+-]?)([0-9]*) +([0-9]*)\s?\/\s*([0-9]*)$/', $value, $matches)) {
                 // Convert value to number
@@ -82,6 +86,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
                 // Set style
                 $cell->getWorksheet()->getStyle($cell->getCoordinate())
                     ->getNumberFormat()->setFormatCode('# ??/??');
+
                 return true;
             }
 
@@ -93,6 +98,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
                 // Set style
                 $cell->getWorksheet()->getStyle($cell->getCoordinate())
                     ->getNumberFormat()->setFormatCode(\PhpSpreadsheet\Style\NumberFormat::FORMAT_PERCENTAGE_00);
+
                 return true;
             }
 
@@ -100,23 +106,25 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
             $currencyCode = \PhpSpreadsheet\Shared\StringHelper::getCurrencyCode();
             $decimalSeparator = \PhpSpreadsheet\Shared\StringHelper::getDecimalSeparator();
             $thousandsSeparator = \PhpSpreadsheet\Shared\StringHelper::getThousandsSeparator();
-            if (preg_match('/^'.preg_quote($currencyCode).' *(\d{1,3}('.preg_quote($thousandsSeparator).'\d{3})*|(\d+))('.preg_quote($decimalSeparator).'\d{2})?$/', $value)) {
+            if (preg_match('/^' . preg_quote($currencyCode) . ' *(\d{1,3}(' . preg_quote($thousandsSeparator) . '\d{3})*|(\d+))(' . preg_quote($decimalSeparator) . '\d{2})?$/', $value)) {
                 // Convert value to number
-                $value = (float) trim(str_replace(array($currencyCode, $thousandsSeparator, $decimalSeparator), array('', '', '.'), $value));
+                $value = (float) trim(str_replace([$currencyCode, $thousandsSeparator, $decimalSeparator], ['', '', '.'], $value));
                 $cell->setValueExplicit($value, DataType::TYPE_NUMERIC);
                 // Set style
                 $cell->getWorksheet()->getStyle($cell->getCoordinate())
                     ->getNumberFormat()->setFormatCode(
                         str_replace('$', $currencyCode, \PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE)
                     );
+
                 return true;
             } elseif (preg_match('/^\$ *(\d{1,3}(\,\d{3})*|(\d+))(\.\d{2})?$/', $value)) {
                 // Convert value to number
-                $value = (float) trim(str_replace(array('$',','), '', $value));
+                $value = (float) trim(str_replace(['$', ','], '', $value));
                 $cell->setValueExplicit($value, DataType::TYPE_NUMERIC);
                 // Set style
                 $cell->getWorksheet()->getStyle($cell->getCoordinate())
                     ->getNumberFormat()->setFormatCode(\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+
                 return true;
             }
 
@@ -129,6 +137,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
                 // Set style
                 $cell->getWorksheet()->getStyle($cell->getCoordinate())
                     ->getNumberFormat()->setFormatCode(\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME3);
+
                 return true;
             }
 
@@ -142,6 +151,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
                 // Set style
                 $cell->getWorksheet()->getStyle($cell->getCoordinate())
                     ->getNumberFormat()->setFormatCode(\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4);
+
                 return true;
             }
 
@@ -157,6 +167,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
                 }
                 $cell->getWorksheet()->getStyle($cell->getCoordinate())
                     ->getNumberFormat()->setFormatCode($formatCode);
+
                 return true;
             }
 
@@ -167,6 +178,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
                 // Set style
                 $cell->getWorksheet()->getStyle($cell->getCoordinate())
                     ->getAlignment()->setWrapText(true);
+
                 return true;
             }
         }

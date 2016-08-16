@@ -1,10 +1,8 @@
 <?php
 /**
  * @copyright   Copyright (C) 2011-2014 PhpSpreadsheet. All rights reserved.
- * @subpackage  PhpSpreadsheet Unit Tests
  * @author      Mark Baker
  */
-
 chdir(dirname(__FILE__));
 
 setlocale(LC_ALL, 'en_US.utf8');
@@ -24,20 +22,19 @@ defined('APPLICATION_TESTS_PATH')
 defined('APPLICATION_ENV') || define('APPLICATION_ENV', 'ci');
 
 // Ensure library/ is on include_path
-set_include_path(implode(PATH_SEPARATOR, array(
+set_include_path(implode(PATH_SEPARATOR, [
     realpath(APPLICATION_PATH . '/../src'),
     './',
     dirname(__FILE__),
     get_include_path(),
-)));
-
+]));
 
 if (!defined('PHPSPREADSHEET_ROOT')) {
     define('PHPSPREADSHEET_ROOT', APPLICATION_PATH . '/');
 }
-require_once(PHPSPREADSHEET_ROOT . 'Bootstrap.php');
+require_once PHPSPREADSHEET_ROOT . 'Bootstrap.php';
 
-/**
+/*
  * @todo Sort out xdebug in vagrant so that this works in all sandboxes
  * For now, it is safer to test for it rather then remove it.
  */

@@ -31,44 +31,44 @@ class PageMargins
     /**
      * Left
      *
-     * @var double
+     * @var float
      */
-    private $left        = 0.7;
+    private $left = 0.7;
 
     /**
      * Right
      *
-     * @var double
+     * @var float
      */
-    private $right        = 0.7;
+    private $right = 0.7;
 
     /**
      * Top
      *
-     * @var double
+     * @var float
      */
-    private $top        = 0.75;
+    private $top = 0.75;
 
     /**
      * Bottom
      *
-     * @var double
+     * @var float
      */
-    private $bottom    = 0.75;
+    private $bottom = 0.75;
 
     /**
      * Header
      *
-     * @var double
+     * @var float
      */
-    private $header     = 0.3;
+    private $header = 0.3;
 
     /**
      * Footer
      *
-     * @var double
+     * @var float
      */
-    private $footer     = 0.3;
+    private $footer = 0.3;
 
     /**
      * Create a new PageMargins
@@ -80,7 +80,7 @@ class PageMargins
     /**
      * Get Left
      *
-     * @return double
+     * @return float
      */
     public function getLeft()
     {
@@ -90,19 +90,20 @@ class PageMargins
     /**
      * Set Left
      *
-     * @param double $pValue
+     * @param float $pValue
      * @return PageMargins
      */
     public function setLeft($pValue)
     {
         $this->left = $pValue;
+
         return $this;
     }
 
     /**
      * Get Right
      *
-     * @return double
+     * @return float
      */
     public function getRight()
     {
@@ -112,19 +113,20 @@ class PageMargins
     /**
      * Set Right
      *
-     * @param double $pValue
+     * @param float $pValue
      * @return PageMargins
      */
     public function setRight($pValue)
     {
         $this->right = $pValue;
+
         return $this;
     }
 
     /**
      * Get Top
      *
-     * @return double
+     * @return float
      */
     public function getTop()
     {
@@ -134,19 +136,20 @@ class PageMargins
     /**
      * Set Top
      *
-     * @param double $pValue
+     * @param float $pValue
      * @return PageMargins
      */
     public function setTop($pValue)
     {
         $this->top = $pValue;
+
         return $this;
     }
 
     /**
      * Get Bottom
      *
-     * @return double
+     * @return float
      */
     public function getBottom()
     {
@@ -156,19 +159,20 @@ class PageMargins
     /**
      * Set Bottom
      *
-     * @param double $pValue
+     * @param float $pValue
      * @return PageMargins
      */
     public function setBottom($pValue)
     {
         $this->bottom = $pValue;
+
         return $this;
     }
 
     /**
      * Get Header
      *
-     * @return double
+     * @return float
      */
     public function getHeader()
     {
@@ -178,19 +182,20 @@ class PageMargins
     /**
      * Set Header
      *
-     * @param double $pValue
+     * @param float $pValue
      * @return PageMargins
      */
     public function setHeader($pValue)
     {
         $this->header = $pValue;
+
         return $this;
     }
 
     /**
      * Get Footer
      *
-     * @return double
+     * @return float
      */
     public function getFooter()
     {
@@ -200,12 +205,13 @@ class PageMargins
     /**
      * Set Footer
      *
-     * @param double $pValue
+     * @param float $pValue
      * @return PageMargins
      */
     public function setFooter($pValue)
     {
         $this->footer = $pValue;
+
         return $this;
     }
 

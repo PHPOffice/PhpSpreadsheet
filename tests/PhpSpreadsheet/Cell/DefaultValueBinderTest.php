@@ -2,10 +2,10 @@
 
 namespace PhpSpreadsheet\Tests\Cell;
 
-use PhpSpreadsheet\Cell\DefaultValueBinder;
 use PhpSpreadsheet\Cell;
-use PhpSpreadsheet\RichText;
 use PhpSpreadsheet\Cell\DataType;
+use PhpSpreadsheet\Cell\DefaultValueBinder;
+use PhpSpreadsheet\RichText;
 
 class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
 {
@@ -16,7 +16,7 @@ class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
         if (!defined('PHPSPREADSHEET_ROOT')) {
             define('PHPSPREADSHEET_ROOT', APPLICATION_PATH . '/');
         }
-        require_once(PHPSPREADSHEET_ROOT . '/Bootstrap.php');
+        require_once PHPSPREADSHEET_ROOT . '/Bootstrap.php';
     }
 
     protected function createCellStub()
@@ -44,20 +44,20 @@ class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
 
     public function binderProvider()
     {
-        return array(
-            array(null),
-            array(''),
-            array('ABC'),
-            array('=SUM(A1:B2)'),
-            array(true),
-            array(false),
-            array(123),
-            array(-123.456),
-            array('123'),
-            array('-123.456'),
-            array('#REF!'),
-            array(new \DateTime()),
-        );
+        return [
+            [null],
+            [''],
+            ['ABC'],
+            ['=SUM(A1:B2)'],
+            [true],
+            [false],
+            [123],
+            [-123.456],
+            ['123'],
+            ['-123.456'],
+            ['#REF!'],
+            [new \DateTime()],
+        ];
     }
 
     /**
@@ -66,7 +66,7 @@ class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
     public function testDataTypeForValue()
     {
         list($args, $expectedResult) = func_get_args();
-        $result = call_user_func_array(array(DefaultValueBinder::class,'dataTypeForValue'), $args);
+        $result = call_user_func_array([DefaultValueBinder::class, 'dataTypeForValue'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -81,7 +81,7 @@ class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
         $objRichText->createText('Hello World');
 
         $expectedResult = DataType::TYPE_INLINE;
-        $result = call_user_func(array(DefaultValueBinder::class,'dataTypeForValue'), $objRichText);
+        $result = call_user_func([DefaultValueBinder::class, 'dataTypeForValue'], $objRichText);
         $this->assertEquals($expectedResult, $result);
     }
 }

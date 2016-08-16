@@ -2,9 +2,9 @@
 
 namespace PhpSpreadsheet\Tests\Worksheet;
 
-use PhpSpreadsheet\Worksheet\ColumnCellIterator;
 use PhpSpreadsheet\Cell;
 use PhpSpreadsheet\Worksheet;
+use PhpSpreadsheet\Worksheet\ColumnCellIterator;
 
 class ColumnCellIteratorTest extends \PHPUnit_Framework_TestCase
 {
@@ -28,7 +28,6 @@ class ColumnCellIteratorTest extends \PHPUnit_Framework_TestCase
                  ->method('getCellByColumnAndRow')
                  ->will($this->returnValue($this->mockCell));
     }
-
 
     public function testIteratorFullRange()
     {
@@ -61,7 +60,7 @@ class ColumnCellIteratorTest extends \PHPUnit_Framework_TestCase
         $iterator->seek(4);
         $this->assertEquals($columnIndexResult, $iterator->key());
 
-        for ($i = 1; $i < $columnIndexResult-1; $i++) {
+        for ($i = 1; $i < $columnIndexResult - 1; ++$i) {
             $iterator->prev();
             $this->assertEquals($columnIndexResult - $i, $iterator->key());
         }

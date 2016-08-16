@@ -26,24 +26,24 @@ namespace PhpSpreadsheet\Reader\Excel5;
  */
 class Escher
 {
-    const DGGCONTAINER      = 0xF000;
-    const BSTORECONTAINER   = 0xF001;
-    const DGCONTAINER       = 0xF002;
-    const SPGRCONTAINER     = 0xF003;
-    const SPCONTAINER       = 0xF004;
-    const DGG               = 0xF006;
-    const BSE               = 0xF007;
-    const DG                = 0xF008;
-    const SPGR              = 0xF009;
-    const SP                = 0xF00A;
-    const OPT               = 0xF00B;
-    const CLIENTTEXTBOX     = 0xF00D;
-    const CLIENTANCHOR      = 0xF010;
-    const CLIENTDATA        = 0xF011;
-    const BLIPJPEG          = 0xF01D;
-    const BLIPPNG           = 0xF01E;
-    const SPLITMENUCOLORS   = 0xF11E;
-    const TERTIARYOPT       = 0xF122;
+    const DGGCONTAINER = 0xF000;
+    const BSTORECONTAINER = 0xF001;
+    const DGCONTAINER = 0xF002;
+    const SPGRCONTAINER = 0xF003;
+    const SPCONTAINER = 0xF004;
+    const DGG = 0xF006;
+    const BSE = 0xF007;
+    const DG = 0xF008;
+    const SPGR = 0xF009;
+    const SP = 0xF00A;
+    const OPT = 0xF00B;
+    const CLIENTTEXTBOX = 0xF00D;
+    const CLIENTANCHOR = 0xF010;
+    const CLIENTDATA = 0xF011;
+    const BLIPJPEG = 0xF01D;
+    const BLIPPNG = 0xF01E;
+    const SPLITMENUCOLORS = 0xF11E;
+    const TERTIARYOPT = 0xF122;
 
     /**
      * Escher stream data (binary)
@@ -201,7 +201,7 @@ class Escher
         // record is a container, read contents
         $dggContainer = new \PhpSpreadsheet\Shared\Escher\DggContainer();
         $this->object->setDggContainer($dggContainer);
-        $reader = new Escher($dggContainer);
+        $reader = new self($dggContainer);
         $reader->load($recordData);
     }
 
@@ -231,7 +231,7 @@ class Escher
         // record is a container, read contents
         $bstoreContainer = new \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer();
         $this->object->setBstoreContainer($bstoreContainer);
-        $reader = new Escher($bstoreContainer);
+        $reader = new self($bstoreContainer);
         $reader->load($recordData);
     }
 
@@ -324,7 +324,7 @@ class Escher
         $pos += 16;
 
         // offset: 16; size: 16; rgbUid2 (MD4 digest), only if $recInstance = 0x46B or 0x6E3
-        if (in_array($recInstance, array(0x046B, 0x06E3))) {
+        if (in_array($recInstance, [0x046B, 0x06E3])) {
             $rgbUid2 = substr($recordData, 16, 16);
             $pos += 16;
         }
@@ -485,7 +485,7 @@ class Escher
             $this->object->addChild($spgrContainer);
         }
 
-        $reader = new Escher($spgrContainer);
+        $reader = new self($spgrContainer);
         $escher = $reader->load($recordData);
     }
 
@@ -505,7 +505,7 @@ class Escher
         $this->pos += 8 + $length;
 
         // record is a container, read contents
-        $reader = new Escher($spContainer);
+        $reader = new self($spContainer);
         $escher = $reader->load($recordData);
     }
 

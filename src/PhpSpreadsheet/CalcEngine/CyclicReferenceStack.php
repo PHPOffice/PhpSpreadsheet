@@ -31,12 +31,12 @@ class CyclicReferenceStack
      *
      *  @var mixed[]
      */
-    private $stack = array();
+    private $stack = [];
 
     /**
      * Return the number of entries on the stack
      *
-     * @return  integer
+     * @return  int
      */
     public function count()
     {
@@ -78,7 +78,7 @@ class CyclicReferenceStack
      */
     public function clear()
     {
-        $this->stack = array();
+        $this->stack = [];
     }
 
     /**

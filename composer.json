@@ -31,7 +31,8 @@
     "require-dev": {
         "squizlabs/php_codesniffer": "2.*",
         "phpunit/phpunit": "4.6.*",
-        "mikey179/vfsStream": "1.5.*"
+        "mikey179/vfsStream": "1.5.*",
+        "friendsofphp/php-cs-fixer": "^1.11"
     },
     "suggest": {
         "ext-zip": "*",

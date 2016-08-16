@@ -26,7 +26,6 @@ namespace PhpSpreadsheet\Writer;
  */
 class PDF implements IWriter
 {
-
     /**
      * The wrapper for the requested PDF rendering engine
      *
@@ -44,12 +43,12 @@ class PDF implements IWriter
     {
         $pdfLibraryName = \PhpSpreadsheet\Settings::getPdfRendererName();
         if (is_null($pdfLibraryName)) {
-            throw new Exception("PDF Rendering library has not been defined.");
+            throw new Exception('PDF Rendering library has not been defined.');
         }
 
         $pdfLibraryPath = \PhpSpreadsheet\Settings::getPdfRendererPath();
         if (is_null($pdfLibraryName)) {
-            throw new Exception("PDF Rendering library path has not been defined.");
+            throw new Exception('PDF Rendering library path has not been defined.');
         }
         $includePath = str_replace('\\', '/', get_include_path());
         $rendererPath = str_replace('\\', '/', $pdfLibraryPath);
@@ -61,7 +60,6 @@ class PDF implements IWriter
         $this->renderer = new $rendererName($spreadsheet);
     }
 
-
     /**
      *  Magic method to handle direct calls to the configured PDF renderer wrapper class.
      *
@@ -72,10 +70,10 @@ class PDF implements IWriter
     public function __call($name, $arguments)
     {
         if ($this->renderer === null) {
-            throw new Exception("PDF Rendering library has not been defined.");
+            throw new Exception('PDF Rendering library has not been defined.');
         }
 
-        return call_user_func_array(array($this->renderer, $name), $arguments);
+        return call_user_func_array([$this->renderer, $name], $arguments);
     }
 
     /**

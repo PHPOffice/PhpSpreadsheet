@@ -29,7 +29,6 @@ class APC extends CacheBase implements ICache
     /**
      * Prefix used to uniquely identify cache data for this worksheet
      *
-     * @access    private
      * @var string
      */
     private $cachePrefix = null;
@@ -37,8 +36,7 @@ class APC extends CacheBase implements ICache
     /**
      * Cache timeout
      *
-     * @access    private
-     * @var integer
+     * @var int
      */
     private $cacheTime = 600;
 
@@ -46,7 +44,6 @@ class APC extends CacheBase implements ICache
      * Store cell data in cache for the current cell object if it's "dirty",
      *     and the 'nullify' the current cell object
      *
-     * @access  private
      * @throws  \PhpSpreadsheet\Exception
      */
     protected function storeData()
@@ -70,11 +67,10 @@ class APC extends CacheBase implements ICache
     /**
      * Add or Update a cell in cache identified by coordinate address
      *
-     * @access  public
      * @param   string         $pCoord  Coordinate address of the cell to update
      * @param   \PhpSpreadsheet\Cell  $cell    Cell to update
-     * @return  \PhpSpreadsheet\Cell
      * @throws  \PhpSpreadsheet\Exception
+     * @return  \PhpSpreadsheet\Cell
      */
     public function addCacheData($pCoord, \PhpSpreadsheet\Cell $cell)
     {
@@ -93,10 +89,9 @@ class APC extends CacheBase implements ICache
     /**
      * Is a value set in the current \PhpSpreadsheet\CachedObjectStorage\ICache for an indexed cell?
      *
-     * @access  public
      * @param   string  $pCoord  Coordinate address of the cell to check
      * @throws  \PhpSpreadsheet\Exception
-     * @return  boolean
+     * @return  bool
      */
     public function isDataSet($pCoord)
     {
@@ -106,21 +101,22 @@ class APC extends CacheBase implements ICache
                 return true;
             }
             //    Check if the requested entry still exists in apc
-            $success = apc_fetch($this->cachePrefix.$pCoord.'.cache');
+            $success = apc_fetch($this->cachePrefix . $pCoord . '.cache');
             if ($success === false) {
                 //    Entry no longer exists in APC, so clear it from the cache array
                 parent::deleteCacheData($pCoord);
-                throw new \PhpSpreadsheet\Exception('Cell entry '.$pCoord.' no longer exists in APC cache');
+                throw new \PhpSpreadsheet\Exception('Cell entry ' . $pCoord . ' no longer exists in APC cache');
             }
+
             return true;
         }
+
         return false;
     }
 
     /**
      * Get cell at a specific coordinate
      *
-     * @access  public
      * @param   string         $pCoord  Coordinate of the cell
      * @throws  \PhpSpreadsheet\Exception
      * @return  \PhpSpreadsheet\Cell  Cell that was found, or null if not found
@@ -138,7 +134,7 @@ class APC extends CacheBase implements ICache
             if ($obj === false) {
                 //    Entry no longer exists in APC, so clear it from the cache array
                 parent::deleteCacheData($pCoord);
-                throw new \PhpSpreadsheet\Exception('Cell entry '.$pCoord.' no longer exists in APC cache');
+                throw new \PhpSpreadsheet\Exception('Cell entry ' . $pCoord . ' no longer exists in APC cache');
             }
         } else {
             //    Return null if requested entry doesn't exist in cache
@@ -172,14 +168,13 @@ class APC extends CacheBase implements ICache
     /**
      * Delete a cell in cache identified by coordinate address
      *
-     * @access  public
      * @param   string  $pCoord  Coordinate address of the cell to delete
      * @throws  \PhpSpreadsheet\Exception
      */
     public function deleteCacheData($pCoord)
     {
         //    Delete the entry from APC
-        apc_delete($this->cachePrefix.$pCoord.'.cache');
+        apc_delete($this->cachePrefix . $pCoord . '.cache');
 
         //    Delete the entry from our cell address array
         parent::deleteCacheData($pCoord);
@@ -188,7 +183,6 @@ class APC extends CacheBase implements ICache
     /**
      * Clone the cell collection
      *
-     * @access  public
      * @param   \PhpSpreadsheet\Worksheet  $parent  The new worksheet that we're copying to
      * @throws  \PhpSpreadsheet\Exception
      */
@@ -218,8 +212,6 @@ class APC extends CacheBase implements ICache
 
     /**
      * Clear the cell collection and disconnect from our parent
-     *
-     * @return  void
      */
     public function unsetWorksheetCells()
     {
@@ -231,7 +223,7 @@ class APC extends CacheBase implements ICache
         //    Flush the APC cache
         $this->__destruct();
 
-        $this->cellCache = array();
+        $this->cellCache = [];
 
         //    detach ourself from the worksheet, so that it can then delete this object successfully
         $this->parent = null;
@@ -271,7 +263,7 @@ class APC extends CacheBase implements ICache
      * Identify whether the caching method is currently available
      * Some methods are dependent on the availability of certain extensions being enabled in the PHP build
      *
-     * @return  boolean
+     * @return  bool
      */
     public static function cacheMethodIsAvailable()
     {

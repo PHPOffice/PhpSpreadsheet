@@ -30,8 +30,8 @@ class Meta extends WriterPart
      * Write meta.xml to XML format
      *
      * @param   \PhpSpreadsheet\Spreadsheet                   $spreadsheet
-     * @return  string                     XML Output
      * @throws  \PhpSpreadsheet\Writer\Exception
+     * @return  string                     XML Output
      */
     public function write(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {

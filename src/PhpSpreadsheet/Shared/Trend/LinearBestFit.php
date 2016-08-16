@@ -32,7 +32,7 @@ class LinearBestFit extends BestFit
      *
      * @var    string
      **/
-    protected $bestFitType        = 'linear';
+    protected $bestFitType = 'linear';
 
     /**
      * Return the Y-Value for a specified value of X
@@ -56,7 +56,6 @@ class LinearBestFit extends BestFit
         return ($yValue - $this->getIntersect()) / $this->getSlope();
     }
 
-
     /**
      * Return the Equation of the best-fit line
      *
@@ -76,7 +75,7 @@ class LinearBestFit extends BestFit
      *
      * @param     float[]    $yValues    The set of Y-values for this regression
      * @param     float[]    $xValues    The set of X-values for this regression
-     * @param     boolean    $const
+     * @param     bool    $const
      */
     private function linearRegression($yValues, $xValues, $const)
     {
@@ -88,9 +87,9 @@ class LinearBestFit extends BestFit
      *
      * @param    float[]        $yValues    The set of Y-values for this regression
      * @param    float[]        $xValues    The set of X-values for this regression
-     * @param    boolean        $const
+     * @param    bool        $const
      */
-    public function __construct($yValues, $xValues = array(), $const = true)
+    public function __construct($yValues, $xValues = [], $const = true)
     {
         if (parent::__construct($yValues, $xValues) !== false) {
             $this->linearRegression($yValues, $xValues, $const);

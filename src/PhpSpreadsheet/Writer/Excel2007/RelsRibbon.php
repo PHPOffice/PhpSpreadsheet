@@ -1,4 +1,5 @@
 <?php
+
 namespace PhpSpreadsheet\Writer\Excel2007;
 
 /**
@@ -29,8 +30,8 @@ class RelsRibbon extends WriterPart
      * Write relationships for additional objects of custom UI (ribbon)
      *
      * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @return string XML Output
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return string XML Output
      */
     public function writeRibbonRelationships(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {

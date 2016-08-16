@@ -2,10 +2,10 @@
 
 namespace PhpSpreadsheet\Tests\Worksheet;
 
+use PhpSpreadsheet\CachedObjectStorage\Memory;
+use PhpSpreadsheet\Worksheet;
 use PhpSpreadsheet\Worksheet\AutoFilter;
 use PhpSpreadsheet\Worksheet\AutoFilter\Column;
-use PhpSpreadsheet\Worksheet;
-use PhpSpreadsheet\CachedObjectStorage\Memory;
 
 class AutoFilterTest extends \PHPUnit_Framework_TestCase
 {
@@ -70,7 +70,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
     {
         $ranges = [
             'G1:J512' => 'Worksheet1!G1:J512',
-            'K1:N20' => 'K1:N20'
+            'K1:N20' => 'K1:N20',
         ];
 
         foreach ($ranges as $actualRange => $fullRange) {
@@ -120,7 +120,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         $columnIndexes = [
             'H' => 0,
             'K' => 3,
-            'M' => 5
+            'M' => 5,
         ];
 
         //  If we request a specific column by its column ID, we should get an
@@ -210,7 +210,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
 
     public function testGetColumns()
     {
-        $columnIndexes = ['L','M'];
+        $columnIndexes = ['L', 'M'];
 
         foreach ($columnIndexes as $columnIndex) {
             $this->testAutoFilterObject->setColumn($columnIndex);
@@ -229,7 +229,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
 
     public function testGetColumn()
     {
-        $columnIndexes = array('L','M');
+        $columnIndexes = ['L', 'M'];
 
         foreach ($columnIndexes as $columnIndex) {
             $this->testAutoFilterObject->setColumn($columnIndex);
@@ -248,7 +248,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         $columnIndexes = [
             0 => 'H',
             3 => 'K',
-            5 => 'M'
+            5 => 'M',
         ];
 
         //  If we request a specific column by its offset, we should
@@ -282,7 +282,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
     {
         $expectedResult = '';
 
-        $columnIndexes = ['L','M','N'];
+        $columnIndexes = ['L', 'M', 'N'];
         foreach ($columnIndexes as $columnIndex) {
             $this->testAutoFilterObject->setColumn($columnIndex);
         }
@@ -306,12 +306,12 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         $expectedResult = 'G1:J512';
 
         //  These columns should be retained
-        $columnIndexes1 = ['I','J'];
+        $columnIndexes1 = ['I', 'J'];
         foreach ($columnIndexes1 as $columnIndex) {
             $this->testAutoFilterObject->setColumn($columnIndex);
         }
         //  These columns should be discarded
-        $columnIndexes2 = ['K','L','M'];
+        $columnIndexes2 = ['K', 'L', 'M'];
         foreach ($columnIndexes2 as $columnIndex) {
             $this->testAutoFilterObject->setColumn($columnIndex);
         }
@@ -333,7 +333,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
 
     public function testClone()
     {
-        $columnIndexes = ['L','M'];
+        $columnIndexes = ['L', 'M'];
 
         foreach ($columnIndexes as $columnIndex) {
             $this->testAutoFilterObject->setColumn($columnIndex);

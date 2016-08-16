@@ -119,12 +119,11 @@ class HashTable
 
     /**
      * Clear HashTable
-     *
      */
     public function clear()
     {
-        $this->items = array();
-        $this->keyMap = array();
+        $this->items = [];
+        $this->keyMap = [];
     }
 
     /**
@@ -153,7 +152,6 @@ class HashTable
      *
      * @param    int    $pIndex
      * @return   IComparable
-     *
      */
     public function getByIndex($pIndex = 0)
     {
@@ -169,7 +167,6 @@ class HashTable
      *
      * @param    string    $pHashCode
      * @return   IComparable
-     *
      */
     public function getByHashCode($pHashCode = '')
     {

@@ -31,7 +31,7 @@ class BestFit
     /**
      * Indicator flag for a calculation error
      *
-     * @var    boolean
+     * @var    bool
      **/
     protected $error = false;
 
@@ -54,19 +54,19 @@ class BestFit
      *
      * @var    float[]
      **/
-    protected $xValues = array();
+    protected $xValues = [];
 
     /**
      * Y-value dataseries of values
      *
      * @var    float[]
      **/
-    protected $yValues = array();
+    protected $yValues = [];
 
     /**
      * Flag indicating whether values should be adjusted to Y=0
      *
-     * @var    boolean
+     * @var    bool
      **/
     protected $adjustToZero = false;
 
@@ -75,7 +75,7 @@ class BestFit
      *
      * @var    float[]
      **/
-    protected $yBestFitValues = array();
+    protected $yBestFitValues = [];
 
     protected $goodnessOfFit = 1;
 
@@ -105,12 +105,10 @@ class BestFit
 
     protected $yOffset = 0;
 
-
     public function getError()
     {
         return $this->error;
     }
-
 
     public function getBestFitType()
     {
@@ -171,6 +169,7 @@ class BestFit
         if ($dp != 0) {
             return round($this->slope, $dp);
         }
+
         return $this->slope;
     }
 
@@ -185,6 +184,7 @@ class BestFit
         if ($dp != 0) {
             return round($this->slopeSE, $dp);
         }
+
         return $this->slopeSE;
     }
 
@@ -199,6 +199,7 @@ class BestFit
         if ($dp != 0) {
             return round($this->intersect, $dp);
         }
+
         return $this->intersect;
     }
 
@@ -213,6 +214,7 @@ class BestFit
         if ($dp != 0) {
             return round($this->intersectSE, $dp);
         }
+
         return $this->intersectSE;
     }
 
@@ -227,6 +229,7 @@ class BestFit
         if ($dp != 0) {
             return round($this->goodnessOfFit, $dp);
         }
+
         return $this->goodnessOfFit;
     }
 
@@ -235,6 +238,7 @@ class BestFit
         if ($dp != 0) {
             return round($this->goodnessOfFit * 100, $dp);
         }
+
         return $this->goodnessOfFit * 100;
     }
 
@@ -249,6 +253,7 @@ class BestFit
         if ($dp != 0) {
             return round($this->stdevOfResiduals, $dp);
         }
+
         return $this->stdevOfResiduals;
     }
 
@@ -257,6 +262,7 @@ class BestFit
         if ($dp != 0) {
             return round($this->SSRegression, $dp);
         }
+
         return $this->SSRegression;
     }
 
@@ -265,6 +271,7 @@ class BestFit
         if ($dp != 0) {
             return round($this->SSResiduals, $dp);
         }
+
         return $this->SSResiduals;
     }
 
@@ -273,6 +280,7 @@ class BestFit
         if ($dp != 0) {
             return round($this->DFResiduals, $dp);
         }
+
         return $this->DFResiduals;
     }
 
@@ -281,6 +289,7 @@ class BestFit
         if ($dp != 0) {
             return round($this->f, $dp);
         }
+
         return $this->f;
     }
 
@@ -289,6 +298,7 @@ class BestFit
         if ($dp != 0) {
             return round($this->covariance, $dp);
         }
+
         return $this->covariance;
     }
 
@@ -297,6 +307,7 @@ class BestFit
         if ($dp != 0) {
             return round($this->correlation, $dp);
         }
+
         return $this->correlation;
     }
 
@@ -401,9 +412,9 @@ class BestFit
      *
      * @param    float[]        $yValues    The set of Y-values for this regression
      * @param    float[]        $xValues    The set of X-values for this regression
-     * @param    boolean        $const
+     * @param    bool        $const
      */
-    public function __construct($yValues, $xValues = array(), $const = true)
+    public function __construct($yValues, $xValues = [], $const = true)
     {
         //    Calculate number of points
         $nY = count($yValues);
@@ -416,6 +427,7 @@ class BestFit
         } elseif ($nY != $nX) {
             //    Ensure both arrays of points are the same size
             $this->error = true;
+
             return false;
         }
 

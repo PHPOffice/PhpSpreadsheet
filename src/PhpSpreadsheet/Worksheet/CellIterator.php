@@ -45,7 +45,7 @@ abstract class CellIterator
     /**
      * Iterate only existing cells
      *
-     * @var boolean
+     * @var bool
      */
     protected $onlyExistingCells = false;
 
@@ -60,7 +60,7 @@ abstract class CellIterator
     /**
      * Get loop only existing cells
      *
-     * @return boolean
+     * @return bool
      */
     public function getIterateOnlyExistingCells()
     {
@@ -77,7 +77,7 @@ abstract class CellIterator
     /**
      * Set the iterator to loop only existing cells
      *
-     * @param    boolean        $value
+     * @param    bool        $value
      * @throws \PhpSpreadsheet\Exception
      */
     public function setIterateOnlyExistingCells($value = true)

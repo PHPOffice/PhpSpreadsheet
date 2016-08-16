@@ -2,7 +2,7 @@
 
 namespace PhpSpreadsheet\Writer\PDF;
 
-/**  Require tcPDF library */
+/*  Require tcPDF library */
 $pdfRendererClassFile = \PhpSpreadsheet\Settings::getPdfRendererPath() . '/tcpdf.php';
 if (file_exists($pdfRendererClassFile)) {
     $k_path_url = \PhpSpreadsheet\Settings::getPdfRendererPath();
@@ -86,9 +86,8 @@ class TcPDF extends Core implements \PhpSpreadsheet\Writer\IWriter
             $paperSize = self::$paperSizes[$printPaperSize];
         }
 
-
         //  Create PDF
-        $pdf = new TCPDF($orientation, 'pt', $paperSize);
+        $pdf = new self($orientation, 'pt', $paperSize);
         $pdf->setFontSubsetting(false);
         //    Set margins, converting inches to points (using 72 dpi)
         $pdf->SetMargins($printMargins->getLeft() * 72, $printMargins->getTop() * 72, $printMargins->getRight() * 72);

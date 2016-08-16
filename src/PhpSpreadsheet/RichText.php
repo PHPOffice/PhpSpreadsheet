@@ -42,12 +42,12 @@ class RichText implements IComparable
     public function __construct(Cell $pCell = null)
     {
         // Initialise variables
-        $this->richTextElements = array();
+        $this->richTextElements = [];
 
         // Rich-Text string attached to cell?
         if ($pCell !== null) {
             // Add cell text and style
-            if ($pCell->getValue() != "") {
+            if ($pCell->getValue() != '') {
                 $objRun = new RichText\Run($pCell->getValue());
                 $objRun->setFont(clone $pCell->getParent()->getStyle($pCell->getCoordinate())->getFont());
                 $this->addText($objRun);
@@ -68,6 +68,7 @@ class RichText implements IComparable
     public function addText(RichText\ITextElement $pText = null)
     {
         $this->richTextElements[] = $pText;
+
         return $this;
     }
 
@@ -75,13 +76,14 @@ class RichText implements IComparable
      * Create text
      *
      * @param string $pText Text
-     * @return RichText\TextElement
      * @throws Exception
+     * @return RichText\TextElement
      */
     public function createText($pText = '')
     {
         $objText = new RichText\TextElement($pText);
         $this->addText($objText);
+
         return $objText;
     }
 
@@ -89,13 +91,14 @@ class RichText implements IComparable
      * Create text run
      *
      * @param string $pText Text
-     * @return RichText\Run
      * @throws Exception
+     * @return RichText\Run
      */
     public function createTextRun($pText = '')
     {
         $objText = new RichText\Run($pText);
         $this->addText($objText);
+
         return $objText;
     }
 
@@ -151,6 +154,7 @@ class RichText implements IComparable
         } else {
             throw new Exception("Invalid \PhpSpreadsheet\RichText\ITextElement[] array passed.");
         }
+
         return $this;
     }
 

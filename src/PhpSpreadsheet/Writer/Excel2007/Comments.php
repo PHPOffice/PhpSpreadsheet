@@ -1,4 +1,5 @@
 <?php
+
 namespace PhpSpreadsheet\Writer\Excel2007;
 
 /**
@@ -29,8 +30,8 @@ class Comments extends WriterPart
      * Write comments to XML format
      *
      * @param     \PhpSpreadsheet\Worksheet                $pWorksheet
-     * @return string                          XML Output
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return string                          XML Output
      */
     public function writeComments(\PhpSpreadsheet\Worksheet $pWorksheet = null)
     {
@@ -46,11 +47,11 @@ class Comments extends WriterPart
         $objWriter->startDocument('1.0', 'UTF-8', 'yes');
 
           // Comments cache
-          $comments    = $pWorksheet->getComments();
+          $comments = $pWorksheet->getComments();
 
           // Authors cache
-          $authors    = array();
-          $authorId    = 0;
+          $authors = [];
+        $authorId = 0;
         foreach ($comments as $comment) {
             if (!isset($authors[$comment->getAuthor()])) {
                 $authors[$comment->getAuthor()] = $authorId++;
@@ -109,8 +110,8 @@ class Comments extends WriterPart
      * Write VML comments to XML format
      *
      * @param \PhpSpreadsheet\Worksheet $pWorksheet
-     * @return string XML Output
      * @throws \PhpSpreadsheet\Writer\Exception
+     * @return string XML Output
      */
     public function writeVMLComments(\PhpSpreadsheet\Worksheet $pWorksheet = null)
     {
@@ -126,7 +127,7 @@ class Comments extends WriterPart
         $objWriter->startDocument('1.0', 'UTF-8', 'yes');
 
           // Comments cache
-          $comments    = $pWorksheet->getComments();
+          $comments = $pWorksheet->getComments();
 
         // xml
         $objWriter->startElement('xml');
@@ -140,9 +141,9 @@ class Comments extends WriterPart
 
             // o:idmap
             $objWriter->startElement('o:idmap');
-            $objWriter->writeAttribute('v:ext', 'edit');
-            $objWriter->writeAttribute('data', '1');
-            $objWriter->endElement();
+        $objWriter->writeAttribute('v:ext', 'edit');
+        $objWriter->writeAttribute('data', '1');
+        $objWriter->endElement();
 
         $objWriter->endElement();
 
@@ -155,14 +156,14 @@ class Comments extends WriterPart
 
             // v:stroke
             $objWriter->startElement('v:stroke');
-            $objWriter->writeAttribute('joinstyle', 'miter');
-            $objWriter->endElement();
+        $objWriter->writeAttribute('joinstyle', 'miter');
+        $objWriter->endElement();
 
             // v:path
             $objWriter->startElement('v:path');
-            $objWriter->writeAttribute('gradientshapeok', 't');
-            $objWriter->writeAttribute('o:connecttype', 'rect');
-            $objWriter->endElement();
+        $objWriter->writeAttribute('gradientshapeok', 't');
+        $objWriter->writeAttribute('o:connecttype', 'rect');
+        $objWriter->endElement();
 
         $objWriter->endElement();
 
@@ -187,11 +188,11 @@ class Comments extends WriterPart
      */
     private function writeVMLComment(\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pCellReference = 'A1', \PhpSpreadsheet\Comment $pComment = null)
     {
-         // Metadata
+        // Metadata
          list($column, $row) = \PhpSpreadsheet\Cell::coordinateFromString($pCellReference);
-         $column = \PhpSpreadsheet\Cell::columnIndexFromString($column);
-         $id = 1024 + $column + $row;
-         $id = substr($id, 0, 4);
+        $column = \PhpSpreadsheet\Cell::columnIndexFromString($column);
+        $id = 1024 + $column + $row;
+        $id = substr($id, 0, 4);
 
         // v:shape
         $objWriter->startElement('v:shape');
@@ -203,35 +204,35 @@ class Comments extends WriterPart
 
             // v:fill
             $objWriter->startElement('v:fill');
-            $objWriter->writeAttribute('color2', '#' . $pComment->getFillColor()->getRGB());
-            $objWriter->endElement();
+        $objWriter->writeAttribute('color2', '#' . $pComment->getFillColor()->getRGB());
+        $objWriter->endElement();
 
             // v:shadow
             $objWriter->startElement('v:shadow');
-            $objWriter->writeAttribute('on', 't');
-            $objWriter->writeAttribute('color', 'black');
-            $objWriter->writeAttribute('obscured', 't');
-            $objWriter->endElement();
+        $objWriter->writeAttribute('on', 't');
+        $objWriter->writeAttribute('color', 'black');
+        $objWriter->writeAttribute('obscured', 't');
+        $objWriter->endElement();
 
             // v:path
             $objWriter->startElement('v:path');
-            $objWriter->writeAttribute('o:connecttype', 'none');
-            $objWriter->endElement();
+        $objWriter->writeAttribute('o:connecttype', 'none');
+        $objWriter->endElement();
 
             // v:textbox
             $objWriter->startElement('v:textbox');
-            $objWriter->writeAttribute('style', 'mso-direction-alt:auto');
+        $objWriter->writeAttribute('style', 'mso-direction-alt:auto');
 
                 // div
                 $objWriter->startElement('div');
-                $objWriter->writeAttribute('style', 'text-align:left');
-                $objWriter->endElement();
+        $objWriter->writeAttribute('style', 'text-align:left');
+        $objWriter->endElement();
 
-            $objWriter->endElement();
+        $objWriter->endElement();
 
             // x:ClientData
             $objWriter->startElement('x:ClientData');
-            $objWriter->writeAttribute('ObjectType', 'Note');
+        $objWriter->writeAttribute('ObjectType', 'Note');
 
                 // x:MoveWithCells
                 $objWriter->writeElement('x:MoveWithCells', '');
@@ -251,7 +252,7 @@ class Comments extends WriterPart
                 // x:Column
                 $objWriter->writeElement('x:Column', ($column - 1));
 
-            $objWriter->endElement();
+        $objWriter->endElement();
 
         $objWriter->endElement();
     }

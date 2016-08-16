@@ -31,7 +31,7 @@ class ExceptionHandler
      */
     public function __construct()
     {
-        set_error_handler(array('\\PhpSpreadsheet\\Calculation\\Exception', 'errorHandlerCallback'), E_ALL);
+        set_error_handler(['\\PhpSpreadsheet\\Calculation\\Exception', 'errorHandlerCallback'], E_ALL);
     }
 
     /**

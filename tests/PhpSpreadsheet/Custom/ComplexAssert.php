@@ -4,7 +4,7 @@ namespace PhpSpreadsheet\Tests\Custom;
 
 class ComplexAssert
 {
-    private $_errorMessage    = '';
+    private $_errorMessage = '';
 
     public function assertComplexEquals($expected, $actual, $delta = 0)
     {
@@ -14,6 +14,7 @@ class ComplexAssert
                 return true;
             }
             $this->_errorMessage = 'Expected Error: ' . $actual . ' !== ' . $expected;
+
             return false;
         }
 
@@ -23,25 +24,30 @@ class ComplexAssert
         if (!is_numeric($actualComplex->getReal()) || !is_numeric($expectedComplex->getReal())) {
             if ($actualComplex->getReal() !== $expectedComplex->getReal()) {
                 $this->_errorMessage = 'Mismatched String: ' . $actualComplex->getReal() . ' !== ' . $expectedComplex->getReal();
+
                 return false;
             }
+
             return true;
         }
 
         if ($actualComplex->getReal() < ($expectedComplex->getReal() - $delta) ||
             $actualComplex->getReal() > ($expectedComplex->getReal() + $delta)) {
             $this->_errorMessage = 'Mismatched Real part: ' . $actualComplex->getReal() . ' != ' . $expectedComplex->getReal();
+
             return false;
         }
 
         if ($actualComplex->getImaginary() < ($expectedComplex->getImaginary() - $delta) ||
             $actualComplex->getImaginary() > ($expectedComplex->getImaginary() + $delta)) {
             $this->_errorMessage = 'Mismatched Imaginary part: ' . $actualComplex->getImaginary() . ' != ' . $expectedComplex->getImaginary();
+
             return false;
         }
 
         if ($actualComplex->getSuffix() !== $actualComplex->getSuffix()) {
             $this->_errorMessage = 'Mismatched Suffix: ' . $actualComplex->getSuffix() . ' != ' . $expectedComplex->getSuffix();
+
             return false;
         }
 

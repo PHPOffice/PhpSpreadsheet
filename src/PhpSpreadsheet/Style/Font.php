@@ -27,10 +27,10 @@ namespace PhpSpreadsheet\Style;
 class Font extends Supervisor implements \PhpSpreadsheet\IComparable
 {
     /* Underline types */
-    const UNDERLINE_NONE             = 'none';
-    const UNDERLINE_DOUBLE           = 'double';
+    const UNDERLINE_NONE = 'none';
+    const UNDERLINE_DOUBLE = 'double';
     const UNDERLINE_DOUBLEACCOUNTING = 'doubleAccounting';
-    const UNDERLINE_SINGLE           = 'single';
+    const UNDERLINE_SINGLE = 'single';
     const UNDERLINE_SINGLEACCOUNTING = 'singleAccounting';
 
     /**
@@ -50,28 +50,28 @@ class Font extends Supervisor implements \PhpSpreadsheet\IComparable
     /**
      * Bold
      *
-     * @var boolean
+     * @var bool
      */
     protected $bold = false;
 
     /**
      * Italic
      *
-     * @var boolean
+     * @var bool
      */
     protected $italic = false;
 
     /**
      * Superscript
      *
-     * @var boolean
+     * @var bool
      */
     protected $superScript = false;
 
     /**
      * Subscript
      *
-     * @var boolean
+     * @var bool
      */
     protected $subScript = false;
 
@@ -85,7 +85,7 @@ class Font extends Supervisor implements \PhpSpreadsheet\IComparable
     /**
      * Strikethrough
      *
-     * @var boolean
+     * @var bool
      */
     protected $strikethrough = false;
 
@@ -99,10 +99,10 @@ class Font extends Supervisor implements \PhpSpreadsheet\IComparable
     /**
      * Create a new Font
      *
-     * @param    boolean    $isSupervisor    Flag indicating if this is a supervisor or not
+     * @param    bool    $isSupervisor    Flag indicating if this is a supervisor or not
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
-     * @param    boolean    $isConditional    Flag indicating if this is a conditional style or not
+     * @param    bool    $isConditional    Flag indicating if this is a conditional style or not
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
      */
@@ -150,7 +150,7 @@ class Font extends Supervisor implements \PhpSpreadsheet\IComparable
      */
     public function getStyleArray($array)
     {
-        return array('font' => $array);
+        return ['font' => $array];
     }
 
     /**
@@ -210,8 +210,9 @@ class Font extends Supervisor implements \PhpSpreadsheet\IComparable
                 }
             }
         } else {
-            throw new \PhpSpreadsheet\Exception("Invalid style array passed.");
+            throw new \PhpSpreadsheet\Exception('Invalid style array passed.');
         }
+
         return $this;
     }
 
@@ -225,6 +226,7 @@ class Font extends Supervisor implements \PhpSpreadsheet\IComparable
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getName();
         }
+
         return $this->name;
     }
 
@@ -240,31 +242,33 @@ class Font extends Supervisor implements \PhpSpreadsheet\IComparable
             $pValue = 'Calibri';
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(array('name' => $pValue));
+            $styleArray = $this->getStyleArray(['name' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->name = $pValue;
         }
+
         return $this;
     }
 
     /**
      * Get Size
      *
-     * @return double
+     * @return float
      */
     public function getSize()
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getSize();
         }
+
         return $this->size;
     }
 
     /**
      * Set Size
      *
-     * @param double $pValue
+     * @param float $pValue
      * @return Font
      */
     public function setSize($pValue = 10)
@@ -273,31 +277,33 @@ class Font extends Supervisor implements \PhpSpreadsheet\IComparable
             $pValue = 10;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(array('size' => $pValue));
+            $styleArray = $this->getStyleArray(['size' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->size = $pValue;
         }
+
         return $this;
     }
 
     /**
      * Get Bold
      *
-     * @return boolean
+     * @return bool
      */
     public function getBold()
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getBold();
         }
+
         return $this->bold;
     }
 
     /**
      * Set Bold
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Font
      */
     public function setBold($pValue = false)
@@ -306,31 +312,33 @@ class Font extends Supervisor implements \PhpSpreadsheet\IComparable
             $pValue = false;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(array('bold' => $pValue));
+            $styleArray = $this->getStyleArray(['bold' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->bold = $pValue;
         }
+
         return $this;
     }
 
     /**
      * Get Italic
      *
-     * @return boolean
+     * @return bool
      */
     public function getItalic()
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getItalic();
         }
+
         return $this->italic;
     }
 
     /**
      * Set Italic
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Font
      */
     public function setItalic($pValue = false)
@@ -339,31 +347,33 @@ class Font extends Supervisor implements \PhpSpreadsheet\IComparable
             $pValue = false;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(array('italic' => $pValue));
+            $styleArray = $this->getStyleArray(['italic' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->italic = $pValue;
         }
+
         return $this;
     }
 
     /**
      * Get SuperScript
      *
-     * @return boolean
+     * @return bool
      */
     public function getSuperScript()
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getSuperScript();
         }
+
         return $this->superScript;
     }
 
     /**
      * Set SuperScript
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Font
      */
     public function setSuperScript($pValue = false)
@@ -372,32 +382,34 @@ class Font extends Supervisor implements \PhpSpreadsheet\IComparable
             $pValue = false;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(array('superScript' => $pValue));
+            $styleArray = $this->getStyleArray(['superScript' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->superScript = $pValue;
             $this->subScript = !$pValue;
         }
+
         return $this;
     }
 
-        /**
+    /**
      * Get SubScript
      *
-     * @return boolean
+     * @return bool
      */
     public function getSubScript()
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getSubScript();
         }
+
         return $this->subScript;
     }
 
     /**
      * Set SubScript
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Font
      */
     public function setSubScript($pValue = false)
@@ -406,12 +418,13 @@ class Font extends Supervisor implements \PhpSpreadsheet\IComparable
             $pValue = false;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(array('subScript' => $pValue));
+            $styleArray = $this->getStyleArray(['subScript' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->subScript = $pValue;
             $this->superScript = !$pValue;
         }
+
         return $this;
     }
 
@@ -425,13 +438,14 @@ class Font extends Supervisor implements \PhpSpreadsheet\IComparable
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getUnderline();
         }
+
         return $this->underline;
     }
 
     /**
      * Set Underline
      *
-     * @param string|boolean $pValue    \PhpSpreadsheet\Style\Font underline type
+     * @param string|bool $pValue    \PhpSpreadsheet\Style\Font underline type
      *                                    If a boolean is passed, then TRUE equates to UNDERLINE_SINGLE,
      *                                        false equates to UNDERLINE_NONE
      * @return Font
@@ -444,31 +458,33 @@ class Font extends Supervisor implements \PhpSpreadsheet\IComparable
             $pValue = self::UNDERLINE_NONE;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(array('underline' => $pValue));
+            $styleArray = $this->getStyleArray(['underline' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->underline = $pValue;
         }
+
         return $this;
     }
 
     /**
      * Get Strikethrough
      *
-     * @return boolean
+     * @return bool
      */
     public function getStrikethrough()
     {
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getStrikethrough();
         }
+
         return $this->strikethrough;
     }
 
     /**
      * Set Strikethrough
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return Font
      */
     public function setStrikethrough($pValue = false)
@@ -477,11 +493,12 @@ class Font extends Supervisor implements \PhpSpreadsheet\IComparable
             $pValue = false;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(array('strike' => $pValue));
+            $styleArray = $this->getStyleArray(['strike' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->strikethrough = $pValue;
         }
+
         return $this;
     }
 
@@ -508,11 +525,12 @@ class Font extends Supervisor implements \PhpSpreadsheet\IComparable
         $color = $pValue->getIsSupervisor() ? $pValue->getSharedComponent() : $pValue;
 
         if ($this->isSupervisor) {
-            $styleArray = $this->getColor()->getStyleArray(array('argb' => $color->getARGB()));
+            $styleArray = $this->getColor()->getStyleArray(['argb' => $color->getARGB()]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->color = $color;
         }
+
         return $this;
     }
 
@@ -526,6 +544,7 @@ class Font extends Supervisor implements \PhpSpreadsheet\IComparable
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getHashCode();
         }
+
         return md5(
             $this->name .
             $this->size .

@@ -13,7 +13,7 @@ class ColorTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Color::class,'getRed'), $args);
+        $result = call_user_func_array([Color::class, 'getRed'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -29,7 +29,7 @@ class ColorTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Color::class,'getGreen'), $args);
+        $result = call_user_func_array([Color::class, 'getGreen'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -45,7 +45,7 @@ class ColorTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Color::class,'getBlue'), $args);
+        $result = call_user_func_array([Color::class, 'getBlue'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -60,7 +60,7 @@ class ColorTest extends \PHPUnit_Framework_TestCase
     public function testChangeBrightness()
     {
         list($args, $expectedResult) = func_get_args();
-        $result = call_user_func_array(array(Color::class,'changeBrightness'), $args);
+        $result = call_user_func_array([Color::class, 'changeBrightness'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 

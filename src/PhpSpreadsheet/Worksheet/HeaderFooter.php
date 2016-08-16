@@ -85,17 +85,16 @@ namespace PhpSpreadsheet\Worksheet;
  * &O - code for "outline style"
  * &H - code for "shadow style"
  * </code>
- *
  */
 class HeaderFooter
 {
     /* Header/footer image location */
-    const IMAGE_HEADER_LEFT   = 'LH';
+    const IMAGE_HEADER_LEFT = 'LH';
     const IMAGE_HEADER_CENTER = 'CH';
-    const IMAGE_HEADER_RIGHT  = 'RH';
-    const IMAGE_FOOTER_LEFT   = 'LF';
+    const IMAGE_HEADER_RIGHT = 'RH';
+    const IMAGE_FOOTER_LEFT = 'LF';
     const IMAGE_FOOTER_CENTER = 'CF';
-    const IMAGE_FOOTER_RIGHT  = 'RF';
+    const IMAGE_FOOTER_RIGHT = 'RF';
 
     /**
      * OddHeader
@@ -142,28 +141,28 @@ class HeaderFooter
     /**
      * Different header for Odd/Even, defaults to false
      *
-     * @var boolean
+     * @var bool
      */
     private $differentOddEven = false;
 
     /**
      * Different header for first page, defaults to false
      *
-     * @var boolean
+     * @var bool
      */
     private $differentFirst = false;
 
     /**
      * Scale with document, defaults to true
      *
-     * @var boolean
+     * @var bool
      */
     private $scaleWithDocument = true;
 
     /**
      * Align with margins, defaults to true
      *
-     * @var boolean
+     * @var bool
      */
     private $alignWithMargins = true;
 
@@ -172,7 +171,7 @@ class HeaderFooter
      *
      * @var HeaderFooterDrawing[]
      */
-    private $headerFooterImages = array();
+    private $headerFooterImages = [];
 
     /**
      * Create a new HeaderFooter
@@ -200,6 +199,7 @@ class HeaderFooter
     public function setOddHeader($pValue)
     {
         $this->oddHeader = $pValue;
+
         return $this;
     }
 
@@ -222,6 +222,7 @@ class HeaderFooter
     public function setOddFooter($pValue)
     {
         $this->oddFooter = $pValue;
+
         return $this;
     }
 
@@ -244,6 +245,7 @@ class HeaderFooter
     public function setEvenHeader($pValue)
     {
         $this->evenHeader = $pValue;
+
         return $this;
     }
 
@@ -266,6 +268,7 @@ class HeaderFooter
     public function setEvenFooter($pValue)
     {
         $this->evenFooter = $pValue;
+
         return $this;
     }
 
@@ -288,6 +291,7 @@ class HeaderFooter
     public function setFirstHeader($pValue)
     {
         $this->firstHeader = $pValue;
+
         return $this;
     }
 
@@ -310,13 +314,14 @@ class HeaderFooter
     public function setFirstFooter($pValue)
     {
         $this->firstFooter = $pValue;
+
         return $this;
     }
 
     /**
      * Get DifferentOddEven
      *
-     * @return boolean
+     * @return bool
      */
     public function getDifferentOddEven()
     {
@@ -326,19 +331,20 @@ class HeaderFooter
     /**
      * Set DifferentOddEven
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return HeaderFooter
      */
     public function setDifferentOddEven($pValue = false)
     {
         $this->differentOddEven = $pValue;
+
         return $this;
     }
 
     /**
      * Get DifferentFirst
      *
-     * @return boolean
+     * @return bool
      */
     public function getDifferentFirst()
     {
@@ -348,19 +354,20 @@ class HeaderFooter
     /**
      * Set DifferentFirst
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return HeaderFooter
      */
     public function setDifferentFirst($pValue = false)
     {
         $this->differentFirst = $pValue;
+
         return $this;
     }
 
     /**
      * Get ScaleWithDocument
      *
-     * @return boolean
+     * @return bool
      */
     public function getScaleWithDocument()
     {
@@ -370,19 +377,20 @@ class HeaderFooter
     /**
      * Set ScaleWithDocument
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return HeaderFooter
      */
     public function setScaleWithDocument($pValue = true)
     {
         $this->scaleWithDocument = $pValue;
+
         return $this;
     }
 
     /**
      * Get AlignWithMargins
      *
-     * @return boolean
+     * @return bool
      */
     public function getAlignWithMargins()
     {
@@ -392,12 +400,13 @@ class HeaderFooter
     /**
      * Set AlignWithMargins
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return HeaderFooter
      */
     public function setAlignWithMargins($pValue = true)
     {
         $this->alignWithMargins = $pValue;
+
         return $this;
     }
 
@@ -412,6 +421,7 @@ class HeaderFooter
     public function addImage(HeaderFooterDrawing $image = null, $location = self::IMAGE_HEADER_LEFT)
     {
         $this->headerFooterImages[$location] = $image;
+
         return $this;
     }
 
@@ -427,6 +437,7 @@ class HeaderFooter
         if (isset($this->headerFooterImages[$location])) {
             unset($this->headerFooterImages[$location]);
         }
+
         return $this;
     }
 
@@ -444,6 +455,7 @@ class HeaderFooter
         }
 
         $this->headerFooterImages = $images;
+
         return $this;
     }
 
@@ -455,24 +467,24 @@ class HeaderFooter
     public function getImages()
     {
         // Sort array
-        $images = array();
+        $images = [];
         if (isset($this->headerFooterImages[self::IMAGE_HEADER_LEFT])) {
-            $images[self::IMAGE_HEADER_LEFT] =         $this->headerFooterImages[self::IMAGE_HEADER_LEFT];
+            $images[self::IMAGE_HEADER_LEFT] = $this->headerFooterImages[self::IMAGE_HEADER_LEFT];
         }
         if (isset($this->headerFooterImages[self::IMAGE_HEADER_CENTER])) {
-            $images[self::IMAGE_HEADER_CENTER] =     $this->headerFooterImages[self::IMAGE_HEADER_CENTER];
+            $images[self::IMAGE_HEADER_CENTER] = $this->headerFooterImages[self::IMAGE_HEADER_CENTER];
         }
         if (isset($this->headerFooterImages[self::IMAGE_HEADER_RIGHT])) {
-            $images[self::IMAGE_HEADER_RIGHT] =     $this->headerFooterImages[self::IMAGE_HEADER_RIGHT];
+            $images[self::IMAGE_HEADER_RIGHT] = $this->headerFooterImages[self::IMAGE_HEADER_RIGHT];
         }
         if (isset($this->headerFooterImages[self::IMAGE_FOOTER_LEFT])) {
-            $images[self::IMAGE_FOOTER_LEFT] =         $this->headerFooterImages[self::IMAGE_FOOTER_LEFT];
+            $images[self::IMAGE_FOOTER_LEFT] = $this->headerFooterImages[self::IMAGE_FOOTER_LEFT];
         }
         if (isset($this->headerFooterImages[self::IMAGE_FOOTER_CENTER])) {
-            $images[self::IMAGE_FOOTER_CENTER] =     $this->headerFooterImages[self::IMAGE_FOOTER_CENTER];
+            $images[self::IMAGE_FOOTER_CENTER] = $this->headerFooterImages[self::IMAGE_FOOTER_CENTER];
         }
         if (isset($this->headerFooterImages[self::IMAGE_FOOTER_RIGHT])) {
-            $images[self::IMAGE_FOOTER_RIGHT] =     $this->headerFooterImages[self::IMAGE_FOOTER_RIGHT];
+            $images[self::IMAGE_FOOTER_RIGHT] = $this->headerFooterImages[self::IMAGE_FOOTER_RIGHT];
         }
         $this->headerFooterImages = $images;
 

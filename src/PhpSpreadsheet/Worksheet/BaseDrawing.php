@@ -101,7 +101,7 @@ class BaseDrawing implements \PhpSpreadsheet\IComparable
     /**
      * Proportional resize
      *
-     * @var boolean
+     * @var bool
      */
     protected $resizeProportional;
 
@@ -125,21 +125,21 @@ class BaseDrawing implements \PhpSpreadsheet\IComparable
     public function __construct()
     {
         // Initialise values
-        $this->name                = '';
-        $this->description        = '';
-        $this->worksheet          = null;
-        $this->coordinates        = 'A1';
-        $this->offsetX            = 0;
-        $this->offsetY            = 0;
-        $this->width              = 0;
-        $this->height             = 0;
+        $this->name = '';
+        $this->description = '';
+        $this->worksheet = null;
+        $this->coordinates = 'A1';
+        $this->offsetX = 0;
+        $this->offsetY = 0;
+        $this->width = 0;
+        $this->height = 0;
         $this->resizeProportional = true;
-        $this->rotation           = 0;
-        $this->shadow             = new Drawing\Shadow();
+        $this->rotation = 0;
+        $this->shadow = new Drawing\Shadow();
 
         // Set image index
-        self::$imageCounter++;
-        $this->imageIndex  = self::$imageCounter;
+        ++self::$imageCounter;
+        $this->imageIndex = self::$imageCounter;
     }
 
     /**
@@ -171,6 +171,7 @@ class BaseDrawing implements \PhpSpreadsheet\IComparable
     public function setName($pValue = '')
     {
         $this->name = $pValue;
+
         return $this;
     }
 
@@ -193,6 +194,7 @@ class BaseDrawing implements \PhpSpreadsheet\IComparable
     public function setDescription($pValue = '')
     {
         $this->description = $pValue;
+
         return $this;
     }
 
@@ -210,7 +212,7 @@ class BaseDrawing implements \PhpSpreadsheet\IComparable
      * Set Worksheet
      *
      * @param     \PhpSpreadsheet\Worksheet     $pValue
-     * @param     boolean                 $pOverrideOld    If a Worksheet has already been assigned, overwrite it and remove image from old Worksheet?
+     * @param     bool                 $pOverrideOld    If a Worksheet has already been assigned, overwrite it and remove image from old Worksheet?
      * @throws    \PhpSpreadsheet\Exception
      * @return    BaseDrawing
      */
@@ -240,6 +242,7 @@ class BaseDrawing implements \PhpSpreadsheet\IComparable
                 throw new \PhpSpreadsheet\Exception("A \PhpSpreadsheet\Worksheet has already been assigned. Drawings can only exist on one \PhpSpreadsheet\Worksheet.");
             }
         }
+
         return $this;
     }
 
@@ -262,6 +265,7 @@ class BaseDrawing implements \PhpSpreadsheet\IComparable
     public function setCoordinates($pValue = 'A1')
     {
         $this->coordinates = $pValue;
+
         return $this;
     }
 
@@ -284,6 +288,7 @@ class BaseDrawing implements \PhpSpreadsheet\IComparable
     public function setOffsetX($pValue = 0)
     {
         $this->offsetX = $pValue;
+
         return $this;
     }
 
@@ -306,6 +311,7 @@ class BaseDrawing implements \PhpSpreadsheet\IComparable
     public function setOffsetY($pValue = 0)
     {
         $this->offsetY = $pValue;
+
         return $this;
     }
 
@@ -389,10 +395,10 @@ class BaseDrawing implements \PhpSpreadsheet\IComparable
         if ($this->resizeProportional && !($width == 0 || $height == 0)) {
             if (($xratio * $this->height) < $height) {
                 $this->height = ceil($xratio * $this->height);
-                $this->width  = $width;
+                $this->width = $width;
             } else {
-                $this->width    = ceil($yratio * $this->width);
-                $this->height    = $height;
+                $this->width = ceil($yratio * $this->width);
+                $this->height = $height;
             }
         } else {
             $this->width = $width;
@@ -405,7 +411,7 @@ class BaseDrawing implements \PhpSpreadsheet\IComparable
     /**
      * Get ResizeProportional
      *
-     * @return boolean
+     * @return bool
      */
     public function getResizeProportional()
     {
@@ -415,12 +421,13 @@ class BaseDrawing implements \PhpSpreadsheet\IComparable
     /**
      * Set ResizeProportional
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return BaseDrawing
      */
     public function setResizeProportional($pValue = true)
     {
         $this->resizeProportional = $pValue;
+
         return $this;
     }
 
@@ -443,6 +450,7 @@ class BaseDrawing implements \PhpSpreadsheet\IComparable
     public function setRotation($pValue = 0)
     {
         $this->rotation = $pValue;
+
         return $this;
     }
 
@@ -465,8 +473,9 @@ class BaseDrawing implements \PhpSpreadsheet\IComparable
      */
     public function setShadow(Drawing\Shadow $pValue = null)
     {
-           $this->shadow = $pValue;
-           return $this;
+        $this->shadow = $pValue;
+
+        return $this;
     }
 
     /**

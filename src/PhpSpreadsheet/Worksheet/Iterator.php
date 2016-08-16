@@ -100,7 +100,7 @@ class Iterator implements \Iterator
     /**
      * Are there more Worksheet instances available?
      *
-     * @return boolean
+     * @return bool
      */
     public function valid()
     {

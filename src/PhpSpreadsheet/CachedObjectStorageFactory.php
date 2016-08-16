@@ -26,17 +26,17 @@ namespace PhpSpreadsheet;
  */
 class CachedObjectStorageFactory
 {
-    const CACHE_IN_MEMORY             = 'Memory';
-    const CACHE_IN_MEMORY_GZIP        = 'MemoryGZip';
-    const CACHE_IN_MEMORY_SERIALIZED  = 'MemorySerialized';
-    const CACHE_IGBINARY              = 'Igbinary';
-    const CACHE_TO_DISCISAM           = 'DiscISAM';
-    const CACHE_TO_APC                = 'APC';
-    const CACHE_TO_MEMCACHE           = 'Memcache';
-    const CACHE_TO_PHPTEMP            = 'PHPTemp';
-    const CACHE_TO_WINCACHE           = 'Wincache';
-    const CACHE_TO_SQLITE             = 'SQLite';
-    const CACHE_TO_SQLITE3            = 'SQLite3';
+    const CACHE_IN_MEMORY = 'Memory';
+    const CACHE_IN_MEMORY_GZIP = 'MemoryGZip';
+    const CACHE_IN_MEMORY_SERIALIZED = 'MemorySerialized';
+    const CACHE_IGBINARY = 'Igbinary';
+    const CACHE_TO_DISCISAM = 'DiscISAM';
+    const CACHE_TO_APC = 'APC';
+    const CACHE_TO_MEMCACHE = 'Memcache';
+    const CACHE_TO_PHPTEMP = 'PHPTemp';
+    const CACHE_TO_WINCACHE = 'Wincache';
+    const CACHE_TO_SQLITE = 'SQLite';
+    const CACHE_TO_SQLITE3 = 'SQLite3';
 
     /**
      * Name of the method used for cell cacheing
@@ -109,7 +109,6 @@ class CachedObjectStorageFactory
      */
     private static $storageMethodParameters = [];
 
-
     /**
      * Return the current cache storage method
      *
@@ -147,13 +146,14 @@ class CachedObjectStorageFactory
      **/
     public static function getCacheStorageMethods()
     {
-        $activeMethods = array();
+        $activeMethods = [];
         foreach (self::$storageMethods as $storageMethod) {
             $cacheStorageClass = '\\PhpSpreadsheet\\CachedObjectStorage\\' . $storageMethod;
-            if (call_user_func(array($cacheStorageClass, 'cacheMethodIsAvailable'))) {
+            if (call_user_func([$cacheStorageClass, 'cacheMethodIsAvailable'])) {
                 $activeMethods[] = $storageMethod;
             }
         }
+
         return $activeMethods;
     }
 
@@ -163,7 +163,7 @@ class CachedObjectStorageFactory
      * @param    string     $method       Name of the method to use for cell cacheing
      * @param    mixed[]    $arguments    Additional arguments to pass to the cell caching class
      *                                        when instantiating
-     * @return boolean
+     * @return bool
      **/
     public static function initialize($method = self::CACHE_IN_MEMORY, $arguments = [])
     {
@@ -171,7 +171,7 @@ class CachedObjectStorageFactory
             return false;
         }
 
-        $cacheStorageClass = '\\PhpSpreadsheet\\CachedObjectStorage\\'.$method;
+        $cacheStorageClass = '\\PhpSpreadsheet\\CachedObjectStorage\\' . $method;
         if (!call_user_func([$cacheStorageClass, 'cacheMethodIsAvailable'])) {
             return false;
         }
@@ -187,6 +187,7 @@ class CachedObjectStorageFactory
             self::$cacheStorageClass = '\\PhpSpreadsheet\\CachedObjectStorage\\' . $method;
             self::$cacheStorageMethod = $method;
         }
+
         return true;
     }
 
@@ -218,12 +219,11 @@ class CachedObjectStorageFactory
 
     /**
      * Clear the cache storage
-     *
      **/
     public static function finalize()
     {
         self::$cacheStorageMethod = null;
         self::$cacheStorageClass = null;
-        self::$storageMethodParameters = array();
+        self::$storageMethodParameters = [];
     }
 }

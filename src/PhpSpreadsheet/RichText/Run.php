@@ -63,6 +63,7 @@ class Run extends TextElement implements ITextElement
     public function setFont(\PhpSpreadsheet\Style\Font $pFont = null)
     {
         $this->font = $pFont;
+
         return $this;
     }
 

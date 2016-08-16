@@ -36,16 +36,14 @@ class Wincache extends CacheBase implements ICache
     /**
      * Cache timeout
      *
-     * @var integer
+     * @var int
      */
     private $cacheTime = 600;
-
 
     /**
      * Store cell data in cache for the current cell object if it's "dirty",
      *     and the 'nullify' the current cell object
      *
-     * @return    void
      * @throws    \PhpSpreadsheet\Exception
      */
     protected function storeData()
@@ -54,15 +52,15 @@ class Wincache extends CacheBase implements ICache
             $this->currentObject->detach();
 
             $obj = serialize($this->currentObject);
-            if (wincache_ucache_exists($this->cachePrefix.$this->currentObjectID.'.cache')) {
-                if (!wincache_ucache_set($this->cachePrefix.$this->currentObjectID.'.cache', $obj, $this->cacheTime)) {
+            if (wincache_ucache_exists($this->cachePrefix . $this->currentObjectID . '.cache')) {
+                if (!wincache_ucache_set($this->cachePrefix . $this->currentObjectID . '.cache', $obj, $this->cacheTime)) {
                     $this->__destruct();
-                    throw new \PhpSpreadsheet\Exception('Failed to store cell '.$this->currentObjectID.' in WinCache');
+                    throw new \PhpSpreadsheet\Exception('Failed to store cell ' . $this->currentObjectID . ' in WinCache');
                 }
             } else {
-                if (!wincache_ucache_add($this->cachePrefix.$this->currentObjectID.'.cache', $obj, $this->cacheTime)) {
+                if (!wincache_ucache_add($this->cachePrefix . $this->currentObjectID . '.cache', $obj, $this->cacheTime)) {
                     $this->__destruct();
-                    throw new \PhpSpreadsheet\Exception('Failed to store cell '.$this->currentObjectID.' in WinCache');
+                    throw new \PhpSpreadsheet\Exception('Failed to store cell ' . $this->currentObjectID . ' in WinCache');
                 }
             }
             $this->currentCellIsDirty = false;
@@ -76,8 +74,8 @@ class Wincache extends CacheBase implements ICache
      *
      * @param   string            $pCoord        Coordinate address of the cell to update
      * @param   \PhpSpreadsheet\Cell    $cell        Cell to update
-     * @return  \PhpSpreadsheet\Cell
      * @throws  \PhpSpreadsheet\Exception
+     * @return  \PhpSpreadsheet\Cell
      */
     public function addCacheData($pCoord, \PhpSpreadsheet\Cell $cell)
     {
@@ -97,8 +95,8 @@ class Wincache extends CacheBase implements ICache
      * Is a value set in the current \PhpSpreadsheet\CachedObjectStorage\ICache for an indexed cell?
      *
      * @param    string        $pCoord        Coordinate address of the cell to check
-     * @return    boolean
      * @throws  \PhpSpreadsheet\Exception
+     * @return    bool
      */
     public function isDataSet($pCoord)
     {
@@ -108,17 +106,18 @@ class Wincache extends CacheBase implements ICache
                 return true;
             }
             //    Check if the requested entry still exists in cache
-            $success = wincache_ucache_exists($this->cachePrefix.$pCoord.'.cache');
+            $success = wincache_ucache_exists($this->cachePrefix . $pCoord . '.cache');
             if ($success === false) {
                 //    Entry no longer exists in Wincache, so clear it from the cache array
                 parent::deleteCacheData($pCoord);
-                throw new \PhpSpreadsheet\Exception('Cell entry '.$pCoord.' no longer exists in WinCache');
+                throw new \PhpSpreadsheet\Exception('Cell entry ' . $pCoord . ' no longer exists in WinCache');
             }
+
             return true;
         }
+
         return false;
     }
-
 
     /**
      * Get cell at a specific coordinate
@@ -138,11 +137,11 @@ class Wincache extends CacheBase implements ICache
         $obj = null;
         if (parent::isDataSet($pCoord)) {
             $success = false;
-            $obj = wincache_ucache_get($this->cachePrefix.$pCoord.'.cache', $success);
+            $obj = wincache_ucache_get($this->cachePrefix . $pCoord . '.cache', $success);
             if ($success === false) {
                 //    Entry no longer exists in WinCache, so clear it from the cache array
                 parent::deleteCacheData($pCoord);
-                throw new \PhpSpreadsheet\Exception('Cell entry '.$pCoord.' no longer exists in WinCache');
+                throw new \PhpSpreadsheet\Exception('Cell entry ' . $pCoord . ' no longer exists in WinCache');
             }
         } else {
             //    Return null if requested entry doesn't exist in cache
@@ -158,7 +157,6 @@ class Wincache extends CacheBase implements ICache
         //    Return requested entry
         return $this->currentObject;
     }
-
 
     /**
      * Get a list of all cell addresses currently held in cache
@@ -183,7 +181,7 @@ class Wincache extends CacheBase implements ICache
     public function deleteCacheData($pCoord)
     {
         //    Delete the entry from Wincache
-        wincache_ucache_delete($this->cachePrefix.$pCoord.'.cache');
+        wincache_ucache_delete($this->cachePrefix . $pCoord . '.cache');
 
         //    Delete the entry from our cell address array
         parent::deleteCacheData($pCoord);
@@ -205,26 +203,23 @@ class Wincache extends CacheBase implements ICache
         foreach ($cacheList as $cellID) {
             if ($cellID != $this->currentObjectID) {
                 $success = false;
-                $obj = wincache_ucache_get($this->cachePrefix.$cellID.'.cache', $success);
+                $obj = wincache_ucache_get($this->cachePrefix . $cellID . '.cache', $success);
                 if ($success === false) {
                     //    Entry no longer exists in WinCache, so clear it from the cache array
                     parent::deleteCacheData($cellID);
-                    throw new \PhpSpreadsheet\Exception('Cell entry '.$cellID.' no longer exists in Wincache');
+                    throw new \PhpSpreadsheet\Exception('Cell entry ' . $cellID . ' no longer exists in Wincache');
                 }
-                if (!wincache_ucache_add($newCachePrefix.$cellID.'.cache', $obj, $this->cacheTime)) {
+                if (!wincache_ucache_add($newCachePrefix . $cellID . '.cache', $obj, $this->cacheTime)) {
                     $this->__destruct();
-                    throw new \PhpSpreadsheet\Exception('Failed to store cell '.$cellID.' in Wincache');
+                    throw new \PhpSpreadsheet\Exception('Failed to store cell ' . $cellID . ' in Wincache');
                 }
             }
         }
         $this->cachePrefix = $newCachePrefix;
     }
 
-
     /**
      * Clear the cell collection and disconnect from our parent
-     *
-     * @return    void
      */
     public function unsetWorksheetCells()
     {
@@ -236,7 +231,7 @@ class Wincache extends CacheBase implements ICache
         //    Flush the WinCache cache
         $this->__destruct();
 
-        $this->cellCache = array();
+        $this->cellCache = [];
 
         //    detach ourself from the worksheet, so that it can then delete this object successfully
         $this->parent = null;
@@ -250,11 +245,11 @@ class Wincache extends CacheBase implements ICache
      */
     public function __construct(\PhpSpreadsheet\Worksheet $parent, $arguments)
     {
-        $cacheTime    = (isset($arguments['cacheTime']))    ? $arguments['cacheTime']    : 600;
+        $cacheTime = (isset($arguments['cacheTime']))    ? $arguments['cacheTime']    : 600;
 
         if (is_null($this->cachePrefix)) {
             $baseUnique = $this->getUniqueID();
-            $this->cachePrefix = substr(md5($baseUnique), 0, 8).'.';
+            $this->cachePrefix = substr(md5($baseUnique), 0, 8) . '.';
             $this->cacheTime = $cacheTime;
 
             parent::__construct($parent);
@@ -268,7 +263,7 @@ class Wincache extends CacheBase implements ICache
     {
         $cacheList = $this->getCellList();
         foreach ($cacheList as $cellID) {
-            wincache_ucache_delete($this->cachePrefix.$cellID.'.cache');
+            wincache_ucache_delete($this->cachePrefix . $cellID . '.cache');
         }
     }
 
@@ -276,7 +271,7 @@ class Wincache extends CacheBase implements ICache
      * Identify whether the caching method is currently available
      * Some methods are dependent on the availability of certain extensions being enabled in the PHP build
      *
-     * @return    boolean
+     * @return    bool
      */
     public static function cacheMethodIsAvailable()
     {

@@ -1,4 +1,5 @@
 <?php
+
 namespace PhpSpreadsheet\Writer\Excel2007;
 
 /**
@@ -26,7 +27,6 @@ namespace PhpSpreadsheet\Writer\Excel2007;
  * @version    ##VERSION##, ##DATE##
  */
 
-
 /**
  * @category   PhpSpreadsheet
  * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
@@ -38,9 +38,9 @@ class Worksheet extends WriterPart
      *
      * @param    \PhpSpreadsheet\Worksheet        $pSheet
      * @param    string[]                $pStringTable
-     * @param    boolean                    $includeCharts    Flag indicating if we should write charts
-     * @return    string                    XML Output
+     * @param    bool                    $includeCharts    Flag indicating if we should write charts
      * @throws    \PhpSpreadsheet\Writer\Exception
+     * @return    string                    XML Output
      */
     public function writeWorksheet($pSheet = null, $pStringTable = null, $includeCharts = false)
     {
@@ -130,7 +130,7 @@ class Worksheet extends WriterPart
             // Return
             return $objWriter->getData();
         } else {
-            throw new \PhpSpreadsheet\Writer\Exception("Invalid \\PhpSpreadsheet\\Worksheet object passed.");
+            throw new \PhpSpreadsheet\Writer\Exception('Invalid \\PhpSpreadsheet\\Worksheet object passed.');
         }
     }
 
@@ -146,8 +146,9 @@ class Worksheet extends WriterPart
         // sheetPr
         $objWriter->startElement('sheetPr');
         //$objWriter->writeAttribute('codeName',        $pSheet->getTitle());
-        if ($pSheet->getParent()->hasMacros()) {//if the workbook have macros, we need to have codeName for the sheet
-            if ($pSheet->hasCodeName()==false) {
+        if ($pSheet->getParent()->hasMacros()) {
+            //if the workbook have macros, we need to have codeName for the sheet
+            if ($pSheet->hasCodeName() == false) {
                 $pSheet->setCodeName($pSheet->getTitle());
             }
             $objWriter->writeAttribute('codeName', $pSheet->getCodeName());
@@ -329,8 +330,8 @@ class Worksheet extends WriterPart
         }
 
         // Set Zero Height row
-        if ((string)$pSheet->getDefaultRowDimension()->getZeroHeight()  == '1' ||
-            strtolower((string)$pSheet->getDefaultRowDimension()->getZeroHeight()) == 'true') {
+        if ((string) $pSheet->getDefaultRowDimension()->getZeroHeight() == '1' ||
+            strtolower((string) $pSheet->getDefaultRowDimension()->getZeroHeight()) == 'true') {
             $objWriter->writeAttribute('zeroHeight', '1');
         }
 
@@ -346,7 +347,7 @@ class Worksheet extends WriterPart
                 $outlineLevelRow = $dimension->getOutlineLevel();
             }
         }
-        $objWriter->writeAttribute('outlineLevelRow', (int)$outlineLevelRow);
+        $objWriter->writeAttribute('outlineLevelRow', (int) $outlineLevelRow);
 
         // Outline level - column
         $outlineLevelCol = 0;
@@ -355,7 +356,7 @@ class Worksheet extends WriterPart
                 $outlineLevelCol = $dimension->getOutlineLevel();
             }
         }
-        $objWriter->writeAttribute('outlineLevelCol', (int)$outlineLevelCol);
+        $objWriter->writeAttribute('outlineLevelCol', (int) $outlineLevelCol);
 
         $objWriter->endElement();
     }
@@ -903,8 +904,8 @@ class Worksheet extends WriterPart
     private function writeBreaks(\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpSpreadsheet\Worksheet $pSheet = null)
     {
         // Get row and column breaks
-        $aRowBreaks = array();
-        $aColumnBreaks = array();
+        $aRowBreaks = [];
+        $aColumnBreaks = [];
         foreach ($pSheet->getBreaks() as $cell => $breakType) {
             if ($breakType == \PhpSpreadsheet\Worksheet::BREAK_ROW) {
                 $aRowBreaks[] = $cell;
@@ -974,7 +975,7 @@ class Worksheet extends WriterPart
             $highestRow = $pSheet->getHighestRow();
 
             // Loop through cells
-            $cellsByRow = array();
+            $cellsByRow = [];
             foreach ($pSheet->getCellCollection() as $cellID) {
                 $cellAddress = \PhpSpreadsheet\Cell::coordinateFromString($cellID);
                 $cellsByRow[$cellAddress[1]][] = $cellID;
@@ -1036,7 +1037,7 @@ class Worksheet extends WriterPart
 
             $objWriter->endElement();
         } else {
-            throw new \PhpSpreadsheet\Writer\Exception("Invalid parameters passed.");
+            throw new \PhpSpreadsheet\Writer\Exception('Invalid parameters passed.');
         }
     }
 
@@ -1091,7 +1092,7 @@ class Worksheet extends WriterPart
                 // Write data depending on its type
                 switch (strtolower($mappedType)) {
                     case 'inlinestr':    // Inline string
-                        if (! $cellValue instanceof \PhpSpreadsheet\RichText) {
+                        if (!$cellValue instanceof \PhpSpreadsheet\RichText) {
                             $objWriter->writeElement('t', \PhpSpreadsheet\Shared\StringHelper::controlCharacterPHP2OOXML(htmlspecialchars($cellValue)));
                         } elseif ($cellValue instanceof \PhpSpreadsheet\RichText) {
                             $objWriter->startElement('is');
@@ -1101,7 +1102,7 @@ class Worksheet extends WriterPart
 
                         break;
                     case 's':            // String
-                        if (! $cellValue instanceof \PhpSpreadsheet\RichText) {
+                        if (!$cellValue instanceof \PhpSpreadsheet\RichText) {
                             if (isset($pFlippedStringTable[$cellValue])) {
                                 $objWriter->writeElement('v', $pFlippedStringTable[$cellValue]);
                             }
@@ -1125,7 +1126,7 @@ class Worksheet extends WriterPart
                         }
                         if ($this->getParentWriter()->getOffice2003Compatibility() === false) {
                             if ($this->getParentWriter()->getPreCalculateFormulas()) {
-//                                $calculatedValue = $pCell->getCalculatedValue();
+                                //                                $calculatedValue = $pCell->getCalculatedValue();
                                 if (!is_array($calculatedValue) && substr($calculatedValue, 0, 1) != '#') {
                                     $objWriter->writeElement('v', \PhpSpreadsheet\Shared\StringHelper::formatNumber($calculatedValue));
                                 } else {
@@ -1157,7 +1158,7 @@ class Worksheet extends WriterPart
 
             $objWriter->endElement();
         } else {
-            throw new \PhpSpreadsheet\Writer\Exception("Invalid parameters passed.");
+            throw new \PhpSpreadsheet\Writer\Exception('Invalid parameters passed.');
         }
     }
 
@@ -1166,7 +1167,7 @@ class Worksheet extends WriterPart
      *
      * @param    \PhpSpreadsheet\Shared\XMLWriter    $objWriter        XML Writer
      * @param    \PhpSpreadsheet\Worksheet            $pSheet            Worksheet
-     * @param    boolean                        $includeCharts    Flag indicating if we should include drawing details for charts
+     * @param    bool                        $includeCharts    Flag indicating if we should include drawing details for charts
      * @throws    \PhpSpreadsheet\Writer\Exception
      */
     private function writeDrawings(\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpSpreadsheet\Worksheet $pSheet = null, $includeCharts = false)

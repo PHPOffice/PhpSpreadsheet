@@ -50,7 +50,7 @@ abstract class CacheBase
     /**
      * Flag indicating whether the currently active Cell requires saving
      *
-     * @var boolean
+     * @var bool
      */
     protected $currentCellIsDirty = true;
 
@@ -60,7 +60,7 @@ abstract class CacheBase
      *
      * @var array of mixed
      */
-    protected $cellCache = array();
+    protected $cellCache = [];
 
     /**
      * Initialise this new cell collection
@@ -89,7 +89,7 @@ abstract class CacheBase
      * Is a value set in the current \PhpSpreadsheet\CachedObjectStorage\ICache for an indexed cell?
      *
      * @param    string        $pCoord        Coordinate address of the cell to check
-     * @return    boolean
+     * @return    bool
      */
     public function isDataSet($pCoord)
     {
@@ -105,7 +105,7 @@ abstract class CacheBase
      *
      * @param    string        $fromAddress    Current address of the cell to move
      * @param    string        $toAddress        Destination address of the cell to move
-     * @return    boolean
+     * @return    bool
      */
     public function moveCell($fromAddress, $toAddress)
     {
@@ -125,8 +125,8 @@ abstract class CacheBase
      * Add or Update a cell in cache
      *
      * @param    \PhpSpreadsheet\Cell    $cell        Cell to update
-     * @return   \PhpSpreadsheet\Cell
      * @throws   \PhpSpreadsheet\Exception
+     * @return   \PhpSpreadsheet\Cell
      */
     public function updateCacheData(\PhpSpreadsheet\Cell $cell)
     {
@@ -170,7 +170,7 @@ abstract class CacheBase
      */
     public function getSortedCellList()
     {
-        $sortKeys = array();
+        $sortKeys = [];
         foreach ($this->getCellList() as $coord) {
             sscanf($coord, '%[A-Z]%d', $column, $row);
             $sortKeys[sprintf('%09d%3s', $row, $column)] = $coord;
@@ -188,12 +188,12 @@ abstract class CacheBase
     public function getHighestRowAndColumn()
     {
         // Lookup highest column and highest row
-        $col = array('A' => '1A');
-        $row = array(1);
+        $col = ['A' => '1A'];
+        $row = [1];
         foreach ($this->getCellList() as $coord) {
             sscanf($coord, '%[A-Z]%d', $c, $r);
             $row[$r] = $r;
-            $col[$c] = strlen($c).$c;
+            $col[$c] = strlen($c) . $c;
         }
         if (!empty($row)) {
             // Determine highest column and row
@@ -201,10 +201,10 @@ abstract class CacheBase
             $highestColumn = substr(max($col), 1);
         }
 
-        return array(
-            'row'    => $highestRow,
-            'column' => $highestColumn
-        );
+        return [
+            'row' => $highestRow,
+            'column' => $highestColumn,
+        ];
     }
 
     /**
@@ -225,17 +225,19 @@ abstract class CacheBase
     public function getCurrentColumn()
     {
         sscanf($this->currentObjectID, '%[A-Z]%d', $column, $row);
+
         return $column;
     }
 
     /**
      * Return the row address of the currently active cell object
      *
-     * @return    integer
+     * @return    int
      */
     public function getCurrentRow()
     {
         sscanf($this->currentObjectID, '%[A-Z]%d', $column, $row);
+
         return (integer) $row;
     }
 
@@ -250,10 +252,11 @@ abstract class CacheBase
     {
         if ($row == null) {
             $colRow = $this->getHighestRowAndColumn();
+
             return $colRow['column'];
         }
 
-        $columnList = array(1);
+        $columnList = [1];
         foreach ($this->getCellList() as $coord) {
             sscanf($coord, '%[A-Z]%d', $c, $r);
             if ($r != $row) {
@@ -261,6 +264,7 @@ abstract class CacheBase
             }
             $columnList[] = \PhpSpreadsheet\Cell::columnIndexFromString($c);
         }
+
         return \PhpSpreadsheet\Cell::stringFromColumnIndex(max($columnList) - 1);
     }
 
@@ -275,10 +279,11 @@ abstract class CacheBase
     {
         if ($column == null) {
             $colRow = $this->getHighestRowAndColumn();
+
             return $colRow['row'];
         }
 
-        $rowList = array(0);
+        $rowList = [0];
         foreach ($this->getCellList() as $coord) {
             sscanf($coord, '%[A-Z]%d', $c, $r);
             if ($c != $column) {
@@ -302,6 +307,7 @@ abstract class CacheBase
         } else {
             $baseUnique = mt_rand();
         }
+
         return uniqid($baseUnique, true);
     }
 
@@ -325,7 +331,6 @@ abstract class CacheBase
      * Remove a row, deleting all cells in that row
      *
      * @param string    $row    Row number to remove
-     * @return void
      */
     public function removeRow($row)
     {
@@ -341,7 +346,6 @@ abstract class CacheBase
      * Remove a column, deleting all cells in that column
      *
      * @param string    $column    Column ID to remove
-     * @return void
      */
     public function removeColumn($column)
     {
@@ -357,7 +361,7 @@ abstract class CacheBase
      * Identify whether the caching method is currently available
      * Some methods are dependent on the availability of certain extensions being enabled in the PHP build
      *
-     * @return    boolean
+     * @return    bool
      */
     public static function cacheMethodIsAvailable()
     {

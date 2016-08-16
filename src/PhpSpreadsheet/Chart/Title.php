@@ -26,7 +26,6 @@ namespace PhpSpreadsheet\Chart;
  */
 class Title
 {
-
     /**
      * Title Caption
      *

@@ -103,82 +103,81 @@ namespace PhpSpreadsheet\Worksheet;
 class PageSetup
 {
     /* Paper size */
-    const PAPERSIZE_LETTER                          = 1;
-    const PAPERSIZE_LETTER_SMALL                    = 2;
-    const PAPERSIZE_TABLOID                         = 3;
-    const PAPERSIZE_LEDGER                          = 4;
-    const PAPERSIZE_LEGAL                           = 5;
-    const PAPERSIZE_STATEMENT                       = 6;
-    const PAPERSIZE_EXECUTIVE                       = 7;
-    const PAPERSIZE_A3                              = 8;
-    const PAPERSIZE_A4                              = 9;
-    const PAPERSIZE_A4_SMALL                        = 10;
-    const PAPERSIZE_A5                              = 11;
-    const PAPERSIZE_B4                              = 12;
-    const PAPERSIZE_B5                              = 13;
-    const PAPERSIZE_FOLIO                           = 14;
-    const PAPERSIZE_QUARTO                          = 15;
-    const PAPERSIZE_STANDARD_1                      = 16;
-    const PAPERSIZE_STANDARD_2                      = 17;
-    const PAPERSIZE_NOTE                            = 18;
-    const PAPERSIZE_NO9_ENVELOPE                    = 19;
-    const PAPERSIZE_NO10_ENVELOPE                   = 20;
-    const PAPERSIZE_NO11_ENVELOPE                   = 21;
-    const PAPERSIZE_NO12_ENVELOPE                   = 22;
-    const PAPERSIZE_NO14_ENVELOPE                   = 23;
-    const PAPERSIZE_C                               = 24;
-    const PAPERSIZE_D                               = 25;
-    const PAPERSIZE_E                               = 26;
-    const PAPERSIZE_DL_ENVELOPE                     = 27;
-    const PAPERSIZE_C5_ENVELOPE                     = 28;
-    const PAPERSIZE_C3_ENVELOPE                     = 29;
-    const PAPERSIZE_C4_ENVELOPE                     = 30;
-    const PAPERSIZE_C6_ENVELOPE                     = 31;
-    const PAPERSIZE_C65_ENVELOPE                    = 32;
-    const PAPERSIZE_B4_ENVELOPE                     = 33;
-    const PAPERSIZE_B5_ENVELOPE                     = 34;
-    const PAPERSIZE_B6_ENVELOPE                     = 35;
-    const PAPERSIZE_ITALY_ENVELOPE                  = 36;
-    const PAPERSIZE_MONARCH_ENVELOPE                = 37;
-    const PAPERSIZE_6_3_4_ENVELOPE                  = 38;
-    const PAPERSIZE_US_STANDARD_FANFOLD             = 39;
-    const PAPERSIZE_GERMAN_STANDARD_FANFOLD         = 40;
-    const PAPERSIZE_GERMAN_LEGAL_FANFOLD            = 41;
-    const PAPERSIZE_ISO_B4                          = 42;
-    const PAPERSIZE_JAPANESE_DOUBLE_POSTCARD        = 43;
-    const PAPERSIZE_STANDARD_PAPER_1                = 44;
-    const PAPERSIZE_STANDARD_PAPER_2                = 45;
-    const PAPERSIZE_STANDARD_PAPER_3                = 46;
-    const PAPERSIZE_INVITE_ENVELOPE                 = 47;
-    const PAPERSIZE_LETTER_EXTRA_PAPER              = 48;
-    const PAPERSIZE_LEGAL_EXTRA_PAPER               = 49;
-    const PAPERSIZE_TABLOID_EXTRA_PAPER             = 50;
-    const PAPERSIZE_A4_EXTRA_PAPER                  = 51;
-    const PAPERSIZE_LETTER_TRANSVERSE_PAPER         = 52;
-    const PAPERSIZE_A4_TRANSVERSE_PAPER             = 53;
-    const PAPERSIZE_LETTER_EXTRA_TRANSVERSE_PAPER   = 54;
-    const PAPERSIZE_SUPERA_SUPERA_A4_PAPER          = 55;
-    const PAPERSIZE_SUPERB_SUPERB_A3_PAPER          = 56;
-    const PAPERSIZE_LETTER_PLUS_PAPER               = 57;
-    const PAPERSIZE_A4_PLUS_PAPER                   = 58;
-    const PAPERSIZE_A5_TRANSVERSE_PAPER             = 59;
-    const PAPERSIZE_JIS_B5_TRANSVERSE_PAPER         = 60;
-    const PAPERSIZE_A3_EXTRA_PAPER                  = 61;
-    const PAPERSIZE_A5_EXTRA_PAPER                  = 62;
-    const PAPERSIZE_ISO_B5_EXTRA_PAPER              = 63;
-    const PAPERSIZE_A2_PAPER                        = 64;
-    const PAPERSIZE_A3_TRANSVERSE_PAPER             = 65;
-    const PAPERSIZE_A3_EXTRA_TRANSVERSE_PAPER       = 66;
+    const PAPERSIZE_LETTER = 1;
+    const PAPERSIZE_LETTER_SMALL = 2;
+    const PAPERSIZE_TABLOID = 3;
+    const PAPERSIZE_LEDGER = 4;
+    const PAPERSIZE_LEGAL = 5;
+    const PAPERSIZE_STATEMENT = 6;
+    const PAPERSIZE_EXECUTIVE = 7;
+    const PAPERSIZE_A3 = 8;
+    const PAPERSIZE_A4 = 9;
+    const PAPERSIZE_A4_SMALL = 10;
+    const PAPERSIZE_A5 = 11;
+    const PAPERSIZE_B4 = 12;
+    const PAPERSIZE_B5 = 13;
+    const PAPERSIZE_FOLIO = 14;
+    const PAPERSIZE_QUARTO = 15;
+    const PAPERSIZE_STANDARD_1 = 16;
+    const PAPERSIZE_STANDARD_2 = 17;
+    const PAPERSIZE_NOTE = 18;
+    const PAPERSIZE_NO9_ENVELOPE = 19;
+    const PAPERSIZE_NO10_ENVELOPE = 20;
+    const PAPERSIZE_NO11_ENVELOPE = 21;
+    const PAPERSIZE_NO12_ENVELOPE = 22;
+    const PAPERSIZE_NO14_ENVELOPE = 23;
+    const PAPERSIZE_C = 24;
+    const PAPERSIZE_D = 25;
+    const PAPERSIZE_E = 26;
+    const PAPERSIZE_DL_ENVELOPE = 27;
+    const PAPERSIZE_C5_ENVELOPE = 28;
+    const PAPERSIZE_C3_ENVELOPE = 29;
+    const PAPERSIZE_C4_ENVELOPE = 30;
+    const PAPERSIZE_C6_ENVELOPE = 31;
+    const PAPERSIZE_C65_ENVELOPE = 32;
+    const PAPERSIZE_B4_ENVELOPE = 33;
+    const PAPERSIZE_B5_ENVELOPE = 34;
+    const PAPERSIZE_B6_ENVELOPE = 35;
+    const PAPERSIZE_ITALY_ENVELOPE = 36;
+    const PAPERSIZE_MONARCH_ENVELOPE = 37;
+    const PAPERSIZE_6_3_4_ENVELOPE = 38;
+    const PAPERSIZE_US_STANDARD_FANFOLD = 39;
+    const PAPERSIZE_GERMAN_STANDARD_FANFOLD = 40;
+    const PAPERSIZE_GERMAN_LEGAL_FANFOLD = 41;
+    const PAPERSIZE_ISO_B4 = 42;
+    const PAPERSIZE_JAPANESE_DOUBLE_POSTCARD = 43;
+    const PAPERSIZE_STANDARD_PAPER_1 = 44;
+    const PAPERSIZE_STANDARD_PAPER_2 = 45;
+    const PAPERSIZE_STANDARD_PAPER_3 = 46;
+    const PAPERSIZE_INVITE_ENVELOPE = 47;
+    const PAPERSIZE_LETTER_EXTRA_PAPER = 48;
+    const PAPERSIZE_LEGAL_EXTRA_PAPER = 49;
+    const PAPERSIZE_TABLOID_EXTRA_PAPER = 50;
+    const PAPERSIZE_A4_EXTRA_PAPER = 51;
+    const PAPERSIZE_LETTER_TRANSVERSE_PAPER = 52;
+    const PAPERSIZE_A4_TRANSVERSE_PAPER = 53;
+    const PAPERSIZE_LETTER_EXTRA_TRANSVERSE_PAPER = 54;
+    const PAPERSIZE_SUPERA_SUPERA_A4_PAPER = 55;
+    const PAPERSIZE_SUPERB_SUPERB_A3_PAPER = 56;
+    const PAPERSIZE_LETTER_PLUS_PAPER = 57;
+    const PAPERSIZE_A4_PLUS_PAPER = 58;
+    const PAPERSIZE_A5_TRANSVERSE_PAPER = 59;
+    const PAPERSIZE_JIS_B5_TRANSVERSE_PAPER = 60;
+    const PAPERSIZE_A3_EXTRA_PAPER = 61;
+    const PAPERSIZE_A5_EXTRA_PAPER = 62;
+    const PAPERSIZE_ISO_B5_EXTRA_PAPER = 63;
+    const PAPERSIZE_A2_PAPER = 64;
+    const PAPERSIZE_A3_TRANSVERSE_PAPER = 65;
+    const PAPERSIZE_A3_EXTRA_TRANSVERSE_PAPER = 66;
 
     /* Page orientation */
-    const ORIENTATION_DEFAULT                       = 'default';
-    const ORIENTATION_LANDSCAPE                     = 'landscape';
-    const ORIENTATION_PORTRAIT                      = 'portrait';
+    const ORIENTATION_DEFAULT = 'default';
+    const ORIENTATION_LANDSCAPE = 'landscape';
+    const ORIENTATION_PORTRAIT = 'portrait';
 
     /* Print Range Set Method */
-    const SETPRINTRANGE_OVERWRITE                   = 'O';
-    const SETPRINTRANGE_INSERT                      = 'I';
-
+    const SETPRINTRANGE_OVERWRITE = 'O';
+    const SETPRINTRANGE_INSERT = 'I';
 
     /**
      * Paper size
@@ -205,54 +204,54 @@ class PageSetup
     private $scale = 100;
 
     /**
-      * Fit To Page
-      * Whether scale or fitToWith / fitToHeight applies
-      *
-      * @var boolean
-      */
+     * Fit To Page
+     * Whether scale or fitToWith / fitToHeight applies
+     *
+     * @var bool
+     */
     private $fitToPage = false;
 
     /**
-      * Fit To Height
-      * Number of vertical pages to fit on
-      *
-      * @var int?
-      */
-    private $fitToHeight    = 1;
+     * Fit To Height
+     * Number of vertical pages to fit on
+     *
+     * @var int?
+     */
+    private $fitToHeight = 1;
 
     /**
-      * Fit To Width
-      * Number of horizontal pages to fit on
-      *
-      * @var int?
-      */
-    private $fitToWidth    = 1;
+     * Fit To Width
+     * Number of horizontal pages to fit on
+     *
+     * @var int?
+     */
+    private $fitToWidth = 1;
 
     /**
      * Columns to repeat at left
      *
      * @var array Containing start column and end column, empty array if option unset
      */
-    private $columnsToRepeatAtLeft = array('', '');
+    private $columnsToRepeatAtLeft = ['', ''];
 
     /**
      * Rows to repeat at top
      *
      * @var array Containing start row number and end row number, empty array if option unset
      */
-    private $rowsToRepeatAtTop = array(0, 0);
+    private $rowsToRepeatAtTop = [0, 0];
 
     /**
      * Center page horizontally
      *
-     * @var boolean
+     * @var bool
      */
     private $horizontalCentered = false;
 
     /**
      * Center page vertically
      *
-     * @var boolean
+     * @var bool
      */
     private $verticalCentered = false;
 
@@ -296,6 +295,7 @@ class PageSetup
     public function setPaperSize($pValue = self::PAPERSIZE_LETTER)
     {
         $this->paperSize = $pValue;
+
         return $this;
     }
 
@@ -318,6 +318,7 @@ class PageSetup
     public function setOrientation($pValue = self::ORIENTATION_DEFAULT)
     {
         $this->orientation = $pValue;
+
         return $this;
     }
 
@@ -338,9 +339,9 @@ class PageSetup
      * This setting is overridden when fitToWidth and/or fitToHeight are in use
      *
      * @param   int?    $pValue
-     * @param boolean    $pUpdate    Update fitToPage so scaling applies rather than fitToHeight / fitToWidth
-     * @return PageSetup
+     * @param bool    $pUpdate    Update fitToPage so scaling applies rather than fitToHeight / fitToWidth
      * @throws     \PhpSpreadsheet\Exception
+     * @return PageSetup
      */
     public function setScale($pValue = 100, $pUpdate = true)
     {
@@ -352,15 +353,16 @@ class PageSetup
                 $this->fitToPage = false;
             }
         } else {
-            throw new \PhpSpreadsheet\Exception("Scale must not be negative");
+            throw new \PhpSpreadsheet\Exception('Scale must not be negative');
         }
+
         return $this;
     }
 
     /**
      * Get Fit To Page
      *
-     * @return boolean
+     * @return bool
      */
     public function getFitToPage()
     {
@@ -370,12 +372,13 @@ class PageSetup
     /**
      * Set Fit To Page
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return PageSetup
      */
     public function setFitToPage($pValue = true)
     {
         $this->fitToPage = $pValue;
+
         return $this;
     }
 
@@ -393,7 +396,7 @@ class PageSetup
      * Set Fit To Height
      *
      * @param int? $pValue
-     * @param boolean $pUpdate Update fitToPage so it applies rather than scaling
+     * @param bool $pUpdate Update fitToPage so it applies rather than scaling
      * @return PageSetup
      */
     public function setFitToHeight($pValue = 1, $pUpdate = true)
@@ -402,6 +405,7 @@ class PageSetup
         if ($pUpdate) {
             $this->fitToPage = true;
         }
+
         return $this;
     }
 
@@ -419,7 +423,7 @@ class PageSetup
      * Set Fit To Width
      *
      * @param int? $pValue
-     * @param boolean $pUpdate Update fitToPage so it applies rather than scaling
+     * @param bool $pUpdate Update fitToPage so it applies rather than scaling
      * @return PageSetup
      */
     public function setFitToWidth($pValue = 1, $pUpdate = true)
@@ -428,13 +432,14 @@ class PageSetup
         if ($pUpdate) {
             $this->fitToPage = true;
         }
+
         return $this;
     }
 
     /**
      * Is Columns to repeat at left set?
      *
-     * @return boolean
+     * @return bool
      */
     public function isColumnsToRepeatAtLeftSet()
     {
@@ -468,6 +473,7 @@ class PageSetup
         if (is_array($pValue)) {
             $this->columnsToRepeatAtLeft = $pValue;
         }
+
         return $this;
     }
 
@@ -480,14 +486,15 @@ class PageSetup
      */
     public function setColumnsToRepeatAtLeftByStartAndEnd($pStart = 'A', $pEnd = 'A')
     {
-        $this->columnsToRepeatAtLeft = array($pStart, $pEnd);
+        $this->columnsToRepeatAtLeft = [$pStart, $pEnd];
+
         return $this;
     }
 
     /**
      * Is Rows to repeat at top set?
      *
-     * @return boolean
+     * @return bool
      */
     public function isRowsToRepeatAtTopSet()
     {
@@ -521,6 +528,7 @@ class PageSetup
         if (is_array($pValue)) {
             $this->rowsToRepeatAtTop = $pValue;
         }
+
         return $this;
     }
 
@@ -533,7 +541,8 @@ class PageSetup
      */
     public function setRowsToRepeatAtTopByStartAndEnd($pStart = 1, $pEnd = 1)
     {
-        $this->rowsToRepeatAtTop = array($pStart, $pEnd);
+        $this->rowsToRepeatAtTop = [$pStart, $pEnd];
+
         return $this;
     }
 
@@ -556,6 +565,7 @@ class PageSetup
     public function setHorizontalCentered($value = false)
     {
         $this->horizontalCentered = $value;
+
         return $this;
     }
 
@@ -578,6 +588,7 @@ class PageSetup
     public function setVerticalCentered($value = false)
     {
         $this->verticalCentered = $value;
+
         return $this;
     }
 
@@ -597,10 +608,10 @@ class PageSetup
             return $this->printArea;
         }
         $printAreas = explode(',', $this->printArea);
-        if (isset($printAreas[$index-1])) {
-            return $printAreas[$index-1];
+        if (isset($printAreas[$index - 1])) {
+            return $printAreas[$index - 1];
         }
-        throw new \PhpSpreadsheet\Exception("Requested Print Area does not exist");
+        throw new \PhpSpreadsheet\Exception('Requested Print Area does not exist');
     }
 
     /**
@@ -610,7 +621,7 @@ class PageSetup
      *                            Default behaviour, or an index value of 0, will identify whether any print range is set
      *                            Otherwise, existence of the range identified by the value of $index will be returned
      *                            Print areas are numbered from 1
-     * @return    boolean
+     * @return    bool
      */
     public function isPrintAreaSet($index = 0)
     {
@@ -618,7 +629,8 @@ class PageSetup
             return !is_null($this->printArea);
         }
         $printAreas = explode(',', $this->printArea);
-        return isset($printAreas[$index-1]);
+
+        return isset($printAreas[$index - 1]);
     }
 
     /**
@@ -636,8 +648,8 @@ class PageSetup
             $this->printArea = null;
         } else {
             $printAreas = explode(',', $this->printArea);
-            if (isset($printAreas[$index-1])) {
-                unset($printAreas[$index-1]);
+            if (isset($printAreas[$index - 1])) {
+                unset($printAreas[$index - 1]);
                 $this->printArea = implode(',', $printAreas);
             }
         }
@@ -662,8 +674,8 @@ class PageSetup
      * @param    string    $method    Determines the method used when setting multiple print areas
      *                            Default behaviour, or the "O" method, overwrites existing print area
      *                            The "I" method, inserts the new print area before any specified index, or at the end of the list
-     * @return    PageSetup
      * @throws    \PhpSpreadsheet\Exception
+     * @return    PageSetup
      */
     public function setPrintArea($value, $index = 0, $method = self::SETPRINTRANGE_OVERWRITE)
     {
@@ -687,12 +699,12 @@ class PageSetup
                 if (($index <= 0) || ($index > count($printAreas))) {
                     throw new \PhpSpreadsheet\Exception('Invalid index for setting print range.');
                 }
-                $printAreas[$index-1] = $value;
+                $printAreas[$index - 1] = $value;
                 $this->printArea = implode(',', $printAreas);
             }
         } elseif ($method == self::SETPRINTRANGE_INSERT) {
             if ($index == 0) {
-                $this->printArea .= ($this->printArea == '') ? $value : ','.$value;
+                $this->printArea .= ($this->printArea == '') ? $value : ',' . $value;
             } else {
                 $printAreas = explode(',', $this->printArea);
                 if ($index < 0) {
@@ -701,7 +713,7 @@ class PageSetup
                 if ($index > count($printAreas)) {
                     throw new \PhpSpreadsheet\Exception('Invalid index for setting print range.');
                 }
-                $printAreas = array_merge(array_slice($printAreas, 0, $index), array($value), array_slice($printAreas, $index));
+                $printAreas = array_merge(array_slice($printAreas, 0, $index), [$value], array_slice($printAreas, $index));
                 $this->printArea = implode(',', $printAreas);
             }
         } else {
@@ -721,8 +733,8 @@ class PageSetup
      *                                Specifying an index value of 0, will always append the new print range at the end of the
      *                                list.
      *                            Print areas are numbered from 1
-     * @return    PageSetup
      * @throws    \PhpSpreadsheet\Exception
+     * @return    PageSetup
      */
     public function addPrintArea($value, $index = -1)
     {
@@ -749,8 +761,8 @@ class PageSetup
      * @param    string    $method        Determines the method used when setting multiple print areas
      *                                Default behaviour, or the "O" method, overwrites existing print area
      *                                The "I" method, inserts the new print area before any specified index, or at the end of the list
-     * @return    PageSetup
      * @throws    \PhpSpreadsheet\Exception
+     * @return    PageSetup
      */
     public function setPrintAreaByColumnAndRow($column1, $row1, $column2, $row2, $index = 0, $method = self::SETPRINTRANGE_OVERWRITE)
     {
@@ -774,8 +786,8 @@ class PageSetup
      *                                    Specifying an index value of 0, will always append the new print range at the end of the
      *                                    list.
      *                                Print areas are numbered from 1
-     * @return    PageSetup
      * @throws    \PhpSpreadsheet\Exception
+     * @return    PageSetup
      */
     public function addPrintAreaByColumnAndRow($column1, $row1, $column2, $row2, $index = -1)
     {
@@ -805,6 +817,7 @@ class PageSetup
     public function setFirstPageNumber($value = null)
     {
         $this->firstPageNumber = $value;
+
         return $this;
     }
 

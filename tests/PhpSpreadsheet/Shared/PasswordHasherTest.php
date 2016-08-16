@@ -14,7 +14,7 @@ class PasswordHasherTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(PasswordHasher::class,'hashPassword'), $args);
+        $result = call_user_func_array([PasswordHasher::class, 'hashPassword'], $args);
         $this->assertEquals($expectedResult, $result);
     }
 

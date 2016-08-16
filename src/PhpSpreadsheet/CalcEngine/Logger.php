@@ -31,7 +31,7 @@ class Logger
      *        If true, then a debug log will be generated
      *        If false, then a debug log will not be generated
      *
-     * @var boolean
+     * @var bool
      */
     private $writeDebugLog = false;
 
@@ -41,7 +41,7 @@ class Logger
      *        If false, then a debug log will not be echoed
      * A debug log can only be echoed if it is generated
      *
-     * @var boolean
+     * @var bool
      */
     private $echoDebugLog = false;
 
@@ -50,7 +50,7 @@ class Logger
      *
      * @var string[]
      */
-    private $debugLog = array();
+    private $debugLog = [];
 
     /**
      * The calculation engine cell reference stack
@@ -72,7 +72,7 @@ class Logger
     /**
      * Enable/Disable Calculation engine logging
      *
-     * @param  boolean $pValue
+     * @param  bool $pValue
      */
     public function setWriteDebugLog($pValue = false)
     {
@@ -82,7 +82,7 @@ class Logger
     /**
      * Return whether calculation engine logging is enabled or disabled
      *
-     * @return  boolean
+     * @return  bool
      */
     public function getWriteDebugLog()
     {
@@ -92,7 +92,7 @@ class Logger
     /**
      * Enable/Disable echoing of debug log information
      *
-     * @param  boolean $pValue
+     * @param  bool $pValue
      */
     public function setEchoDebugLog($pValue = false)
     {
@@ -102,7 +102,7 @@ class Logger
     /**
      * Return whether echoing of debug log information is enabled or disabled
      *
-     * @return  boolean
+     * @return  bool
      */
     public function getEchoDebugLog()
     {
@@ -135,7 +135,7 @@ class Logger
      */
     public function clearLog()
     {
-        $this->debugLog = array();
+        $this->debugLog = [];
     }
 
     /**

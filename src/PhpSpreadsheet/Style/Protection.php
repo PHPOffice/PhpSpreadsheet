@@ -27,9 +27,9 @@ namespace PhpSpreadsheet\Style;
 class Protection extends Supervisor implements \PhpSpreadsheet\IComparable
 {
     /** Protection styles */
-    const PROTECTION_INHERIT      = 'inherit';
-    const PROTECTION_PROTECTED    = 'protected';
-    const PROTECTION_UNPROTECTED  = 'unprotected';
+    const PROTECTION_INHERIT = 'inherit';
+    const PROTECTION_PROTECTED = 'protected';
+    const PROTECTION_UNPROTECTED = 'unprotected';
 
     /**
      * Locked
@@ -48,10 +48,10 @@ class Protection extends Supervisor implements \PhpSpreadsheet\IComparable
     /**
      * Create a new Protection
      *
-     * @param    boolean    $isSupervisor    Flag indicating if this is a supervisor or not
+     * @param    bool    $isSupervisor    Flag indicating if this is a supervisor or not
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
-     * @param    boolean    $isConditional    Flag indicating if this is a conditional style or not
+     * @param    bool    $isConditional    Flag indicating if this is a conditional style or not
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
      */
@@ -86,7 +86,7 @@ class Protection extends Supervisor implements \PhpSpreadsheet\IComparable
      */
     public function getStyleArray($array)
     {
-        return array('protection' => $array);
+        return ['protection' => $array];
     }
 
     /**
@@ -119,8 +119,9 @@ class Protection extends Supervisor implements \PhpSpreadsheet\IComparable
                 }
             }
         } else {
-            throw new \PhpSpreadsheet\Exception("Invalid style array passed.");
+            throw new \PhpSpreadsheet\Exception('Invalid style array passed.');
         }
+
         return $this;
     }
 
@@ -134,6 +135,7 @@ class Protection extends Supervisor implements \PhpSpreadsheet\IComparable
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getLocked();
         }
+
         return $this->locked;
     }
 
@@ -146,11 +148,12 @@ class Protection extends Supervisor implements \PhpSpreadsheet\IComparable
     public function setLocked($pValue = self::PROTECTION_INHERIT)
     {
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(array('locked' => $pValue));
+            $styleArray = $this->getStyleArray(['locked' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->locked = $pValue;
         }
+
         return $this;
     }
 
@@ -164,6 +167,7 @@ class Protection extends Supervisor implements \PhpSpreadsheet\IComparable
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getHidden();
         }
+
         return $this->hidden;
     }
 
@@ -176,11 +180,12 @@ class Protection extends Supervisor implements \PhpSpreadsheet\IComparable
     public function setHidden($pValue = self::PROTECTION_INHERIT)
     {
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(array('hidden' => $pValue));
+            $styleArray = $this->getStyleArray(['hidden' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->hidden = $pValue;
         }
+
         return $this;
     }
 
@@ -194,6 +199,7 @@ class Protection extends Supervisor implements \PhpSpreadsheet\IComparable
         if ($this->isSupervisor) {
             return $this->getSharedComponent()->getHashCode();
         }
+
         return md5(
             $this->locked .
             $this->hidden .

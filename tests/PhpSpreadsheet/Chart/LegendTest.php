@@ -8,15 +8,15 @@ class LegendTest extends \PHPUnit_Framework_TestCase
 {
     public function testSetPosition()
     {
-        $positionValues = array(
+        $positionValues = [
             Legend::POSITION_RIGHT,
             Legend::POSITION_LEFT,
             Legend::POSITION_TOP,
             Legend::POSITION_BOTTOM,
             Legend::POSITION_TOPRIGHT,
-        );
+        ];
 
-        $testInstance = new Legend;
+        $testInstance = new Legend();
 
         foreach ($positionValues as $positionValue) {
             $result = $testInstance->setPosition($positionValue);
@@ -26,7 +26,7 @@ class LegendTest extends \PHPUnit_Framework_TestCase
 
     public function testSetInvalidPositionReturnsFalse()
     {
-        $testInstance = new Legend;
+        $testInstance = new Legend();
 
         $result = $testInstance->setPosition('BottomLeft');
         $this->assertFalse($result);
@@ -39,7 +39,7 @@ class LegendTest extends \PHPUnit_Framework_TestCase
     {
         $PositionValue = Legend::POSITION_BOTTOM;
 
-        $testInstance = new Legend;
+        $testInstance = new Legend();
         $setValue = $testInstance->setPosition($PositionValue);
 
         $result = $testInstance->getPosition();
@@ -48,16 +48,16 @@ class LegendTest extends \PHPUnit_Framework_TestCase
 
     public function testSetPositionXL()
     {
-        $positionValues = array(
+        $positionValues = [
             Legend::XL_LEGEND_POSITION_BOTTOM,
             Legend::XL_LEGEND_POSITION_CORNER,
             Legend::XL_LEGEND_POSITION_CUSTOM,
             Legend::XL_LEGEND_POSITION_LEFT,
             Legend::XL_LEGEND_POSITION_RIGHT,
             Legend::XL_LEGEND_POSITION_TOP,
-        );
+        ];
 
-        $testInstance = new Legend;
+        $testInstance = new Legend();
 
         foreach ($positionValues as $positionValue) {
             $result = $testInstance->setPositionXL($positionValue);
@@ -67,7 +67,7 @@ class LegendTest extends \PHPUnit_Framework_TestCase
 
     public function testSetInvalidXLPositionReturnsFalse()
     {
-        $testInstance = new Legend;
+        $testInstance = new Legend();
 
         $result = $testInstance->setPositionXL(999);
         $this->assertFalse($result);
@@ -80,7 +80,7 @@ class LegendTest extends \PHPUnit_Framework_TestCase
     {
         $PositionValue = Legend::XL_LEGEND_POSITION_CORNER;
 
-        $testInstance = new Legend;
+        $testInstance = new Legend();
         $setValue = $testInstance->setPositionXL($PositionValue);
 
         $result = $testInstance->getPositionXL();
@@ -89,12 +89,12 @@ class LegendTest extends \PHPUnit_Framework_TestCase
 
     public function testSetOverlay()
     {
-        $overlayValues = array(
+        $overlayValues = [
             true,
             false,
-        );
+        ];
 
-        $testInstance = new Legend;
+        $testInstance = new Legend();
 
         foreach ($overlayValues as $overlayValue) {
             $result = $testInstance->setOverlay($overlayValue);
@@ -104,7 +104,7 @@ class LegendTest extends \PHPUnit_Framework_TestCase
 
     public function testSetInvalidOverlayReturnsFalse()
     {
-        $testInstance = new Legend;
+        $testInstance = new Legend();
 
         $result = $testInstance->setOverlay('INVALID');
         $this->assertFalse($result);
@@ -117,7 +117,7 @@ class LegendTest extends \PHPUnit_Framework_TestCase
     {
         $OverlayValue = true;
 
-        $testInstance = new Legend;
+        $testInstance = new Legend();
         $setValue = $testInstance->setOverlay($OverlayValue);
 
         $result = $testInstance->getOverlay();

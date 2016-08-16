@@ -32,7 +32,7 @@ abstract class BaseWriter implements IWriter
      * Write charts that are defined in the workbook?
      * Identifies whether the Writer should write definitions for any charts that exist in the PhpSpreadsheet object;
      *
-     * @var    boolean
+     * @var    bool
      */
     protected $includeCharts = false;
 
@@ -41,14 +41,14 @@ abstract class BaseWriter implements IWriter
      * Forces PhpSpreadsheet to recalculate all formulae in a workbook when saving, so that the pre-calculated values are
      *    immediately available to MS Excel or other office spreadsheet viewer when opening the file
      *
-     * @var boolean
+     * @var bool
      */
     protected $preCalculateFormulas = true;
 
     /**
      * Use disk caching where possible?
      *
-     * @var boolean
+     * @var bool
      */
     protected $_useDiskCaching = false;
 
@@ -57,14 +57,14 @@ abstract class BaseWriter implements IWriter
      *
      * @var string
      */
-    protected $_diskCachingDirectory    = './';
+    protected $_diskCachingDirectory = './';
 
     /**
      * Write charts in workbook?
      *        If this is true, then the Writer will write definitions for any charts that exist in the PhpSpreadsheet object.
      *        If false (the default) it will ignore any charts defined in the PhpSpreadsheet object.
      *
-     * @return    boolean
+     * @return    bool
      */
     public function getIncludeCharts()
     {
@@ -76,12 +76,13 @@ abstract class BaseWriter implements IWriter
      *        Set to true, to advise the Writer to include any charts that exist in the PhpSpreadsheet object.
      *        Set to false (the default) to ignore charts.
      *
-     * @param    boolean    $pValue
+     * @param    bool    $pValue
      * @return   IWriter
      */
     public function setIncludeCharts($pValue = false)
     {
         $this->includeCharts = (boolean) $pValue;
+
         return $this;
     }
 
@@ -93,7 +94,7 @@ abstract class BaseWriter implements IWriter
      *     If false, then formulae are not calculated on save. This is faster for saving in PhpSpreadsheet, but slower
      *        when opening the resulting file in MS Excel, because Excel has to recalculate the formulae itself
      *
-     * @return boolean
+     * @return bool
      */
     public function getPreCalculateFormulas()
     {
@@ -105,19 +106,20 @@ abstract class BaseWriter implements IWriter
      *        Set to true (the default) to advise the Writer to calculate all formulae on save
      *        Set to false to prevent precalculation of formulae on save.
      *
-     * @param boolean $pValue    Pre-Calculate Formulas?
+     * @param bool $pValue    Pre-Calculate Formulas?
      * @return    IWriter
      */
     public function setPreCalculateFormulas($pValue = true)
     {
         $this->preCalculateFormulas = (boolean) $pValue;
+
         return $this;
     }
 
     /**
      * Get use disk caching where possible?
      *
-     * @return boolean
+     * @return bool
      */
     public function getUseDiskCaching()
     {
@@ -127,7 +129,7 @@ abstract class BaseWriter implements IWriter
     /**
      * Set use disk caching where possible?
      *
-     * @param    boolean     $pValue
+     * @param    bool     $pValue
      * @param    string        $pDirectory        Disk caching directory
      * @throws   Exception    when directory does not exist
      * @return   IWriter
@@ -143,6 +145,7 @@ abstract class BaseWriter implements IWriter
                 throw new Exception("Directory does not exist: $pDirectory");
             }
         }
+
         return $this;
     }
 

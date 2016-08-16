@@ -36,7 +36,7 @@ class Memcache extends CacheBase implements ICache
     /**
      * Cache timeout
      *
-     * @var integer
+     * @var int
      */
     private $cacheTime = 600;
 
@@ -46,7 +46,6 @@ class Memcache extends CacheBase implements ICache
      * @var resource
      */
     private $memcache = null;
-
 
     /**
      * Store cell data in cache for the current cell object if it's "dirty",
@@ -71,14 +70,13 @@ class Memcache extends CacheBase implements ICache
         $this->currentObjectID = $this->currentObject = null;
     }
 
-
     /**
      * Add or Update a cell in cache identified by coordinate address
      *
      * @param   string            $pCoord        Coordinate address of the cell to update
      * @param   \PhpSpreadsheet\Cell    $cell        Cell to update
-     * @return  \PhpSpreadsheet\Cell
      * @throws  \PhpSpreadsheet\Exception
+     * @return  \PhpSpreadsheet\Cell
      */
     public function addCacheData($pCoord, \PhpSpreadsheet\Cell $cell)
     {
@@ -94,13 +92,12 @@ class Memcache extends CacheBase implements ICache
         return $cell;
     }
 
-
     /**
      * Is a value set in the current \PhpSpreadsheet\CachedObjectStorage\ICache for an indexed cell?
      *
      * @param    string        $pCoord        Coordinate address of the cell to check
-     * @return   boolean
      * @throws   \PhpSpreadsheet\Exception
+     * @return   bool
      */
     public function isDataSet($pCoord)
     {
@@ -110,17 +107,18 @@ class Memcache extends CacheBase implements ICache
                 return true;
             }
             //    Check if the requested entry still exists in Memcache
-            $success = $this->memcache->get($this->cachePrefix.$pCoord.'.cache');
+            $success = $this->memcache->get($this->cachePrefix . $pCoord . '.cache');
             if ($success === false) {
                 //    Entry no longer exists in Memcache, so clear it from the cache array
                 parent::deleteCacheData($pCoord);
-                throw new \PhpSpreadsheet\Exception('Cell entry '.$pCoord.' no longer exists in MemCache');
+                throw new \PhpSpreadsheet\Exception('Cell entry ' . $pCoord . ' no longer exists in MemCache');
             }
+
             return true;
         }
+
         return false;
     }
-
 
     /**
      * Get cell at a specific coordinate
@@ -203,7 +201,7 @@ class Memcache extends CacheBase implements ICache
         $cacheList = $this->getCellList();
         foreach ($cacheList as $cellID) {
             if ($cellID != $this->currentObjectID) {
-                $obj = $this->memcache->get($this->cachePrefix.$cellID.'.cache');
+                $obj = $this->memcache->get($this->cachePrefix . $cellID . '.cache');
                 if ($obj === false) {
                     //    Entry no longer exists in Memcache, so clear it from the cache array
                     parent::deleteCacheData($cellID);
@@ -220,8 +218,6 @@ class Memcache extends CacheBase implements ICache
 
     /**
      * Clear the cell collection and disconnect from our parent
-     *
-     * @return    void
      */
     public function unsetWorksheetCells()
     {
@@ -233,7 +229,7 @@ class Memcache extends CacheBase implements ICache
         //    Flush the Memcache cache
         $this->__destruct();
 
-        $this->cellCache = array();
+        $this->cellCache = [];
 
         //    detach ourself from the worksheet, so that it can then delete this object successfully
         $this->parent = null;
@@ -257,8 +253,8 @@ class Memcache extends CacheBase implements ICache
             $this->cachePrefix = substr(md5($baseUnique), 0, 8) . '.';
 
             //    Set a new Memcache object and connect to the Memcache server
-            $this->memcache = new Memcache();
-            if (!$this->memcache->addServer($memcacheServer, $memcachePort, false, 50, 5, 5, true, array($this, 'failureCallback'))) {
+            $this->memcache = new self();
+            if (!$this->memcache->addServer($memcacheServer, $memcachePort, false, 50, 5, 5, true, [$this, 'failureCallback'])) {
                 throw new \PhpSpreadsheet\Exception("Could not connect to MemCache server at {$memcacheServer}:{$memcachePort}");
             }
             $this->cacheTime = $cacheTime;
@@ -271,7 +267,7 @@ class Memcache extends CacheBase implements ICache
      * Memcache error handler
      *
      * @param   string    $host        Memcache server
-     * @param   integer    $port        Memcache port
+     * @param   int    $port        Memcache port
      * @throws  \PhpSpreadsheet\Exception
      */
     public function failureCallback($host, $port)
@@ -286,7 +282,7 @@ class Memcache extends CacheBase implements ICache
     {
         $cacheList = $this->getCellList();
         foreach ($cacheList as $cellID) {
-            $this->memcache->delete($this->cachePrefix.$cellID . '.cache');
+            $this->memcache->delete($this->cachePrefix . $cellID . '.cache');
         }
     }
 
@@ -294,7 +290,7 @@ class Memcache extends CacheBase implements ICache
      * Identify whether the caching method is currently available
      * Some methods are dependent on the availability of certain extensions being enabled in the PHP build
      *
-     * @return    boolean
+     * @return    bool
      */
     public static function cacheMethodIsAvailable()
     {

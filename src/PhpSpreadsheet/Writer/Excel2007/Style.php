@@ -1,4 +1,5 @@
 <?php
+
 namespace PhpSpreadsheet\Writer\Excel2007;
 
 /**
@@ -29,8 +30,8 @@ class Style extends WriterPart
      * Write styles to XML format
      *
      * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @return string  XML Output
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return string  XML Output
      */
     public function writeStyles(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
@@ -386,19 +387,19 @@ class Style extends WriterPart
         // xf
         $objWriter->startElement('xf');
         $objWriter->writeAttribute('xfId', 0);
-        $objWriter->writeAttribute('fontId', (int)$this->getParentWriter()->getFontHashTable()->getIndexForHashCode($pStyle->getFont()->getHashCode()));
+        $objWriter->writeAttribute('fontId', (int) $this->getParentWriter()->getFontHashTable()->getIndexForHashCode($pStyle->getFont()->getHashCode()));
         if ($pStyle->getQuotePrefix()) {
             $objWriter->writeAttribute('quotePrefix', 1);
         }
 
         if ($pStyle->getNumberFormat()->getBuiltInFormatCode() === false) {
-            $objWriter->writeAttribute('numFmtId', (int)($this->getParentWriter()->getNumFmtHashTable()->getIndexForHashCode($pStyle->getNumberFormat()->getHashCode()) + 164));
+            $objWriter->writeAttribute('numFmtId', (int) ($this->getParentWriter()->getNumFmtHashTable()->getIndexForHashCode($pStyle->getNumberFormat()->getHashCode()) + 164));
         } else {
-            $objWriter->writeAttribute('numFmtId', (int)$pStyle->getNumberFormat()->getBuiltInFormatCode());
+            $objWriter->writeAttribute('numFmtId', (int) $pStyle->getNumberFormat()->getBuiltInFormatCode());
         }
 
-        $objWriter->writeAttribute('fillId', (int)$this->getParentWriter()->getFillHashTable()->getIndexForHashCode($pStyle->getFill()->getHashCode()));
-        $objWriter->writeAttribute('borderId', (int)$this->getParentWriter()->getBordersHashTable()->getIndexForHashCode($pStyle->getBorders()->getHashCode()));
+        $objWriter->writeAttribute('fillId', (int) $this->getParentWriter()->getFillHashTable()->getIndexForHashCode($pStyle->getFill()->getHashCode()));
+        $objWriter->writeAttribute('borderId', (int) $this->getParentWriter()->getBordersHashTable()->getIndexForHashCode($pStyle->getBorders()->getHashCode()));
 
         // Apply styles?
         $objWriter->writeAttribute('applyFont', ($spreadsheet->getDefaultStyle()->getFont()->getHashCode() != $pStyle->getFont()->getHashCode()) ? '1' : '0');
@@ -563,8 +564,8 @@ class Style extends WriterPart
      * Get an array of all styles
      *
      * @param     \PhpSpreadsheet\Spreadsheet                $spreadsheet
-     * @return     \PhpSpreadsheet\Style[]        All styles in PhpSpreadsheet
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return     \PhpSpreadsheet\Style[]        All styles in PhpSpreadsheet
      */
     public function allStyles(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
@@ -575,13 +576,13 @@ class Style extends WriterPart
      * Get an array of all conditional styles
      *
      * @param \PhpSpreadsheet\SpreadSheet     $spreadsheet
-     * @return     \PhpSpreadsheet\Style\Conditional[]        All conditional styles in PhpSpreadsheet
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return     \PhpSpreadsheet\Style\Conditional[]        All conditional styles in PhpSpreadsheet
      */
     public function allConditionalStyles(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         // Get an array of all styles
-        $aStyles = array();
+        $aStyles = [];
 
         $sheetCount = $spreadsheet->getSheetCount();
         for ($i = 0; $i < $sheetCount; ++$i) {
@@ -599,13 +600,13 @@ class Style extends WriterPart
      * Get an array of all fills
      *
      * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @return     \PhpSpreadsheet\Style\Fill[]        All fills in PhpSpreadsheet
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return     \PhpSpreadsheet\Style\Fill[]        All fills in PhpSpreadsheet
      */
     public function allFills(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         // Get an array of unique fills
-        $aFills = array();
+        $aFills = [];
 
         // Two first fills are predefined
         $fill0 = new \PhpSpreadsheet\Style\Fill();
@@ -631,13 +632,13 @@ class Style extends WriterPart
      * Get an array of all fonts
      *
      * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @return     \PhpSpreadsheet\Style\Font[]        All fonts in PhpSpreadsheet
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return     \PhpSpreadsheet\Style\Font[]        All fonts in PhpSpreadsheet
      */
     public function allFonts(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         // Get an array of unique fonts
-        $aFonts = array();
+        $aFonts = [];
         $aStyles = $this->allStyles($spreadsheet);
 
         /** @var \PhpSpreadsheet\Style $style */
@@ -654,13 +655,13 @@ class Style extends WriterPart
      * Get an array of all borders
      *
      * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @return     \PhpSpreadsheet\Style\Borders[]        All borders in PhpSpreadsheet
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return     \PhpSpreadsheet\Style\Borders[]        All borders in PhpSpreadsheet
      */
     public function allBorders(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         // Get an array of unique borders
-        $aBorders = array();
+        $aBorders = [];
         $aStyles = $this->allStyles($spreadsheet);
 
         /** @var \PhpSpreadsheet\Style $style */
@@ -677,13 +678,13 @@ class Style extends WriterPart
      * Get an array of all number formats
      *
      * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @return     \PhpSpreadsheet\Style\NumberFormat[]        All number formats in PhpSpreadsheet
      * @throws     \PhpSpreadsheet\Writer\Exception
+     * @return     \PhpSpreadsheet\Style\NumberFormat[]        All number formats in PhpSpreadsheet
      */
     public function allNumberFormats(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         // Get an array of unique number formats
-        $aNumFmts = array();
+        $aNumFmts = [];
         $aStyles = $this->allStyles($spreadsheet);
 
         /** @var \PhpSpreadsheet\Style $style */

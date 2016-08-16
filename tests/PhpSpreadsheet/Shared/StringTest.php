@@ -11,18 +11,18 @@ class StringTest extends \PHPUnit_Framework_TestCase
         parent::setUp();
 
         // Reset Currency Code
-        call_user_func(array(StringHelper::class,'setCurrencyCode'), null);
+        call_user_func([StringHelper::class, 'setCurrencyCode'], null);
     }
 
     public function testGetIsMbStringEnabled()
     {
-        $result = call_user_func(array(StringHelper::class,'getIsMbstringEnabled'));
+        $result = call_user_func([StringHelper::class, 'getIsMbstringEnabled']);
         $this->assertTrue($result);
     }
 
     public function testGetIsIconvEnabled()
     {
-        $result = call_user_func(array(StringHelper::class,'getIsIconvEnabled'));
+        $result = call_user_func([StringHelper::class, 'getIsIconvEnabled']);
         $this->assertTrue($result);
     }
 
@@ -31,16 +31,16 @@ class StringTest extends \PHPUnit_Framework_TestCase
         $localeconv = localeconv();
 
         $expectedResult = (!empty($localeconv['decimal_point'])) ? $localeconv['decimal_point'] : ',';
-        $result = call_user_func(array(StringHelper::class,'getDecimalSeparator'));
+        $result = call_user_func([StringHelper::class, 'getDecimalSeparator']);
         $this->assertEquals($expectedResult, $result);
     }
 
     public function testSetDecimalSeparator()
     {
         $expectedResult = ',';
-        call_user_func(array(StringHelper::class,'setDecimalSeparator'), $expectedResult);
+        call_user_func([StringHelper::class, 'setDecimalSeparator'], $expectedResult);
 
-        $result = call_user_func(array(StringHelper::class,'getDecimalSeparator'));
+        $result = call_user_func([StringHelper::class, 'getDecimalSeparator']);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -49,16 +49,16 @@ class StringTest extends \PHPUnit_Framework_TestCase
         $localeconv = localeconv();
 
         $expectedResult = (!empty($localeconv['thousands_sep'])) ? $localeconv['thousands_sep'] : ',';
-        $result = call_user_func(array(StringHelper::class,'getThousandsSeparator'));
+        $result = call_user_func([StringHelper::class, 'getThousandsSeparator']);
         $this->assertEquals($expectedResult, $result);
     }
 
     public function testSetThousandsSeparator()
     {
         $expectedResult = ' ';
-        call_user_func(array(StringHelper::class,'setThousandsSeparator'), $expectedResult);
+        call_user_func([StringHelper::class, 'setThousandsSeparator'], $expectedResult);
 
-        $result = call_user_func(array(StringHelper::class,'getThousandsSeparator'));
+        $result = call_user_func([StringHelper::class, 'getThousandsSeparator']);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -66,16 +66,16 @@ class StringTest extends \PHPUnit_Framework_TestCase
     {
         $localeconv = localeconv();
         $expectedResult = (!empty($localeconv['currency_symbol']) ? $localeconv['currency_symbol'] : (!empty($localeconv['int_curr_symbol']) ? $localeconv['int_curr_symbol']: '$'));
-        $result = call_user_func(array(StringHelper::class,'getCurrencyCode'));
+        $result = call_user_func([StringHelper::class, 'getCurrencyCode']);
         $this->assertEquals($expectedResult, $result);
     }
 
     public function testSetCurrencyCode()
     {
         $expectedResult = '£';
-        call_user_func(array(StringHelper::class,'setCurrencyCode'), $expectedResult);
+        call_user_func([StringHelper::class, 'setCurrencyCode'], $expectedResult);
 
-        $result = call_user_func(array(StringHelper::class,'getCurrencyCode'));
+        $result = call_user_func([StringHelper::class, 'getCurrencyCode']);
         $this->assertEquals($expectedResult, $result);
     }
 }

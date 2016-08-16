@@ -73,7 +73,7 @@ class HeaderFooterDrawing extends Drawing implements \PhpSpreadsheet\IComparable
     /**
      * Proportional resize
      *
-     * @var boolean
+     * @var bool
      */
     protected $resizeProportional;
 
@@ -83,13 +83,13 @@ class HeaderFooterDrawing extends Drawing implements \PhpSpreadsheet\IComparable
     public function __construct()
     {
         // Initialise values
-        $this->path                = '';
-        $this->name                = '';
-        $this->offsetX             = 0;
-        $this->offsetY             = 0;
-        $this->width               = 0;
-        $this->height              = 0;
-        $this->resizeProportional  = true;
+        $this->path = '';
+        $this->name = '';
+        $this->offsetX = 0;
+        $this->offsetY = 0;
+        $this->width = 0;
+        $this->height = 0;
+        $this->resizeProportional = true;
     }
 
     /**
@@ -111,6 +111,7 @@ class HeaderFooterDrawing extends Drawing implements \PhpSpreadsheet\IComparable
     public function setName($pValue = '')
     {
         $this->name = $pValue;
+
         return $this;
     }
 
@@ -133,6 +134,7 @@ class HeaderFooterDrawing extends Drawing implements \PhpSpreadsheet\IComparable
     public function setOffsetX($pValue = 0)
     {
         $this->offsetX = $pValue;
+
         return $this;
     }
 
@@ -155,6 +157,7 @@ class HeaderFooterDrawing extends Drawing implements \PhpSpreadsheet\IComparable
     public function setOffsetY($pValue = 0)
     {
         $this->offsetY = $pValue;
+
         return $this;
     }
 
@@ -238,19 +241,20 @@ class HeaderFooterDrawing extends Drawing implements \PhpSpreadsheet\IComparable
         if ($this->resizeProportional && !($width == 0 || $height == 0)) {
             if (($xratio * $this->height) < $height) {
                 $this->height = ceil($xratio * $this->height);
-                $this->width  = $width;
+                $this->width = $width;
             } else {
-                $this->width    = ceil($yratio * $this->width);
-                $this->height    = $height;
+                $this->width = ceil($yratio * $this->width);
+                $this->height = $height;
             }
         }
+
         return $this;
     }
 
     /**
      * Get ResizeProportional
      *
-     * @return boolean
+     * @return bool
      */
     public function getResizeProportional()
     {
@@ -260,12 +264,13 @@ class HeaderFooterDrawing extends Drawing implements \PhpSpreadsheet\IComparable
     /**
      * Set ResizeProportional
      *
-     * @param boolean $pValue
+     * @param bool $pValue
      * @return HeaderFooterDrawing
      */
     public function setResizeProportional($pValue = true)
     {
         $this->resizeProportional = $pValue;
+
         return $this;
     }
 
@@ -286,7 +291,8 @@ class HeaderFooterDrawing extends Drawing implements \PhpSpreadsheet\IComparable
      */
     public function getExtension()
     {
-        $parts = explode(".", basename($this->path));
+        $parts = explode('.', basename($this->path));
+
         return end($parts);
     }
 
@@ -304,7 +310,7 @@ class HeaderFooterDrawing extends Drawing implements \PhpSpreadsheet\IComparable
      * Set Path
      *
      * @param    string         $pValue            File path
-     * @param    boolean        $pVerifyFile    Verify file
+     * @param    bool        $pVerifyFile    Verify file
      * @throws   \PhpSpreadsheet\Exception
      * @return   HeaderFooterDrawing
      */
@@ -324,6 +330,7 @@ class HeaderFooterDrawing extends Drawing implements \PhpSpreadsheet\IComparable
         } else {
             $this->path = $pValue;
         }
+
         return $this;
     }
 

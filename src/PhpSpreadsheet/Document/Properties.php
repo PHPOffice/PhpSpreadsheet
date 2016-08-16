@@ -29,9 +29,9 @@ class Properties
     /** constants */
     const PROPERTY_TYPE_BOOLEAN = 'b';
     const PROPERTY_TYPE_INTEGER = 'i';
-    const PROPERTY_TYPE_FLOAT   = 'f';
-    const PROPERTY_TYPE_DATE    = 'd';
-    const PROPERTY_TYPE_STRING  = 's';
+    const PROPERTY_TYPE_FLOAT = 'f';
+    const PROPERTY_TYPE_DATE = 'd';
+    const PROPERTY_TYPE_STRING = 's';
     const PROPERTY_TYPE_UNKNOWN = 'u';
 
     /**
@@ -116,8 +116,7 @@ class Properties
      *
      * @var string
      */
-    private $customProperties = array();
-
+    private $customProperties = [];
 
     /**
      * Create a new Document Properties instance
@@ -126,7 +125,7 @@ class Properties
     {
         // Initialise values
         $this->lastModifiedBy = $this->creator;
-        $this->created  = time();
+        $this->created = time();
         $this->modified = time();
     }
 
@@ -149,6 +148,7 @@ class Properties
     public function setCreator($pValue = '')
     {
         $this->creator = $pValue;
+
         return $this;
     }
 
@@ -171,6 +171,7 @@ class Properties
     public function setLastModifiedBy($pValue = '')
     {
         $this->lastModifiedBy = $pValue;
+
         return $this;
     }
 
@@ -203,6 +204,7 @@ class Properties
         }
 
         $this->created = $pValue;
+
         return $this;
     }
 
@@ -235,6 +237,7 @@ class Properties
         }
 
         $this->modified = $pValue;
+
         return $this;
     }
 
@@ -257,6 +260,7 @@ class Properties
     public function setTitle($pValue = '')
     {
         $this->title = $pValue;
+
         return $this;
     }
 
@@ -279,6 +283,7 @@ class Properties
     public function setDescription($pValue = '')
     {
         $this->description = $pValue;
+
         return $this;
     }
 
@@ -301,6 +306,7 @@ class Properties
     public function setSubject($pValue = '')
     {
         $this->subject = $pValue;
+
         return $this;
     }
 
@@ -323,6 +329,7 @@ class Properties
     public function setKeywords($pValue = '')
     {
         $this->keywords = $pValue;
+
         return $this;
     }
 
@@ -345,6 +352,7 @@ class Properties
     public function setCategory($pValue = '')
     {
         $this->category = $pValue;
+
         return $this;
     }
 
@@ -367,6 +375,7 @@ class Properties
     public function setCompany($pValue = '')
     {
         $this->company = $pValue;
+
         return $this;
     }
 
@@ -389,6 +398,7 @@ class Properties
     public function setManager($pValue = '')
     {
         $this->manager = $pValue;
+
         return $this;
     }
 
@@ -406,7 +416,7 @@ class Properties
      * Check if a Custom Property is defined
      *
      * @param string $propertyName
-     * @return boolean
+     * @return bool
      */
     public function isCustomPropertySet($propertyName)
     {
@@ -454,11 +464,11 @@ class Properties
      */
     public function setCustomProperty($propertyName, $propertyValue = '', $propertyType = null)
     {
-        if (($propertyType === null) || (!in_array($propertyType, array(self::PROPERTY_TYPE_INTEGER,
+        if (($propertyType === null) || (!in_array($propertyType, [self::PROPERTY_TYPE_INTEGER,
                                                                         self::PROPERTY_TYPE_FLOAT,
                                                                         self::PROPERTY_TYPE_STRING,
                                                                         self::PROPERTY_TYPE_DATE,
-                                                                        self::PROPERTY_TYPE_BOOLEAN)))) {
+                                                                        self::PROPERTY_TYPE_BOOLEAN, ]))) {
             if ($propertyValue === null) {
                 $propertyType = self::PROPERTY_TYPE_STRING;
             } elseif (is_float($propertyValue)) {
@@ -472,10 +482,11 @@ class Properties
             }
         }
 
-        $this->customProperties[$propertyName] = array(
+        $this->customProperties[$propertyName] = [
             'value' => $propertyValue,
-            'type' => $propertyType
-        );
+            'type' => $propertyType,
+        ];
+
         return $this;
     }
 
@@ -550,6 +561,7 @@ class Properties
                 return $propertyValue;
                 break;
         }
+
         return $propertyValue;
     }
 
@@ -603,6 +615,7 @@ class Properties
                 return self::PROPERTY_TYPE_UNKNOWN;
                 break;
         }
+
         return self::PROPERTY_TYPE_UNKNOWN;
     }
 }

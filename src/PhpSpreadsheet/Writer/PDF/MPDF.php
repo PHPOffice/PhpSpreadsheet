@@ -2,7 +2,7 @@
 
 namespace PhpSpreadsheet\Writer\PDF;
 
-/**  Require mPDF library */
+/*  Require mPDF library */
 $pdfRendererClassFile = \PhpSpreadsheet\Settings::getPdfRendererPath() . '/mpdf.php';
 if (file_exists($pdfRendererClassFile)) {
     require_once $pdfRendererClassFile;
@@ -88,9 +88,8 @@ class MPDF extends Core implements \PhpSpreadsheet\Writer\IWriter
             $paperSize = self::$paperSizes[$printPaperSize];
         }
 
-
         //  Create PDF
-        $pdf = new mpdf();
+        $pdf = new self();
         $ortmp = $orientation;
         $pdf->_setPageSize(strtoupper($paperSize), $ortmp);
         $pdf->DefOrientation = $orientation;

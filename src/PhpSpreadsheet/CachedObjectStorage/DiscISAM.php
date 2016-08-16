@@ -51,7 +51,6 @@ class DiscISAM extends CacheBase implements ICache
      * Store cell data in cache for the current cell object if it's "dirty",
      *     and the 'nullify' the current cell object
      *
-     * @return    void
      * @throws    \PhpSpreadsheet\Exception
      */
     protected function storeData()
@@ -61,10 +60,10 @@ class DiscISAM extends CacheBase implements ICache
 
             fseek($this->fileHandle, 0, SEEK_END);
 
-            $this->cellCache[$this->currentObjectID] = array(
+            $this->cellCache[$this->currentObjectID] = [
                 'ptr' => ftell($this->fileHandle),
-                'sz'  => fwrite($this->fileHandle, serialize($this->currentObject))
-            );
+                'sz' => fwrite($this->fileHandle, serialize($this->currentObject)),
+            ];
             $this->currentCellIsDirty = false;
         }
         $this->currentObjectID = $this->currentObject = null;
@@ -75,8 +74,8 @@ class DiscISAM extends CacheBase implements ICache
      *
      * @param    string            $pCoord        Coordinate address of the cell to update
      * @param    \PhpSpreadsheet\Cell    $cell        Cell to update
-     * @return   \PhpSpreadsheet\Cell
      * @throws   \PhpSpreadsheet\Exception
+     * @return   \PhpSpreadsheet\Cell
      */
     public function addCacheData($pCoord, \PhpSpreadsheet\Cell $cell)
     {
@@ -146,7 +145,7 @@ class DiscISAM extends CacheBase implements ICache
         parent::copyCellCollection($parent);
         //    Get a new id for the new file name
         $baseUnique = $this->getUniqueID();
-        $newFileName = $this->cacheDirectory.'/PhpSpreadsheet.'.$baseUnique.'.cache';
+        $newFileName = $this->cacheDirectory . '/PhpSpreadsheet.' . $baseUnique . '.cache';
         //    Copy the existing cell cache file
         copy($this->fileName, $newFileName);
         $this->fileName = $newFileName;
@@ -156,7 +155,6 @@ class DiscISAM extends CacheBase implements ICache
 
     /**
      * Clear the cell collection and disconnect from our parent
-     *
      */
     public function unsetWorksheetCells()
     {
@@ -164,7 +162,7 @@ class DiscISAM extends CacheBase implements ICache
             $this->currentObject->detach();
             $this->currentObject = $this->currentObjectID = null;
         }
-        $this->cellCache = array();
+        $this->cellCache = [];
 
         //    detach ourself from the worksheet, so that it can then delete this object successfully
         $this->parent = null;
@@ -181,14 +179,14 @@ class DiscISAM extends CacheBase implements ICache
      */
     public function __construct(\PhpSpreadsheet\Worksheet $parent, $arguments)
     {
-        $this->cacheDirectory    = ((isset($arguments['dir'])) && ($arguments['dir'] !== null))
+        $this->cacheDirectory = ((isset($arguments['dir'])) && ($arguments['dir'] !== null))
                                     ? $arguments['dir']
                                     : \PhpSpreadsheet\Shared\File::sysGetTempDir();
 
         parent::__construct($parent);
         if (is_null($this->fileHandle)) {
             $baseUnique = $this->getUniqueID();
-            $this->fileName = $this->cacheDirectory.'/PhpSpreadsheet.'.$baseUnique.'.cache';
+            $this->fileName = $this->cacheDirectory . '/PhpSpreadsheet.' . $baseUnique . '.cache';
             $this->fileHandle = fopen($this->fileName, 'a+');
         }
     }

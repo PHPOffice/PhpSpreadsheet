@@ -61,6 +61,7 @@ class TextElement implements ITextElement
     public function setText($pText = '')
     {
         $this->text = $pText;
+
         return $this;
     }
 

@@ -2,7 +2,7 @@
 
 namespace PhpSpreadsheet\Calculation;
 
-/** EULER */
+/* EULER */
 define('EULER', 2.71828182845904523536);
 
 /**
@@ -34,145 +34,145 @@ class Engineering
      *
      * @var mixed[]
      */
-    private static $conversionUnits = array(
-        'g' => array('Group' => 'Mass', 'Unit Name' => 'Gram', 'AllowPrefix' => true),
-        'sg' => array('Group' => 'Mass', 'Unit Name' => 'Slug', 'AllowPrefix' => false),
-        'lbm' => array('Group' => 'Mass', 'Unit Name' => 'Pound mass (avoirdupois)', 'AllowPrefix' => false),
-        'u' => array('Group' => 'Mass', 'Unit Name' => 'U (atomic mass unit)', 'AllowPrefix' => true),
-        'ozm' => array('Group' => 'Mass', 'Unit Name' => 'Ounce mass (avoirdupois)', 'AllowPrefix' => false),
-        'm' => array('Group' => 'Distance', 'Unit Name' => 'Meter', 'AllowPrefix' => true),
-        'mi' => array('Group' => 'Distance', 'Unit Name' => 'Statute mile', 'AllowPrefix' => false),
-        'Nmi' => array('Group' => 'Distance', 'Unit Name' => 'Nautical mile', 'AllowPrefix' => false),
-        'in' => array('Group' => 'Distance', 'Unit Name' => 'Inch', 'AllowPrefix' => false),
-        'ft' => array('Group' => 'Distance', 'Unit Name' => 'Foot', 'AllowPrefix' => false),
-        'yd' => array('Group' => 'Distance', 'Unit Name' => 'Yard', 'AllowPrefix' => false),
-        'ang' => array('Group' => 'Distance', 'Unit Name' => 'Angstrom', 'AllowPrefix' => true),
-        'Pica' => array('Group' => 'Distance', 'Unit Name' => 'Pica (1/72 in)', 'AllowPrefix' => false),
-        'yr' => array('Group' => 'Time', 'Unit Name' => 'Year', 'AllowPrefix' => false),
-        'day' => array('Group' => 'Time', 'Unit Name' => 'Day', 'AllowPrefix' => false),
-        'hr' => array('Group' => 'Time', 'Unit Name' => 'Hour', 'AllowPrefix' => false),
-        'mn' => array('Group' => 'Time', 'Unit Name' => 'Minute', 'AllowPrefix' => false),
-        'sec' => array('Group' => 'Time', 'Unit Name' => 'Second', 'AllowPrefix' => true),
-        'Pa' => array('Group' => 'Pressure', 'Unit Name' => 'Pascal', 'AllowPrefix' => true),
-        'p' => array('Group' => 'Pressure', 'Unit Name' => 'Pascal', 'AllowPrefix' => true),
-        'atm' => array('Group' => 'Pressure', 'Unit Name' => 'Atmosphere', 'AllowPrefix' => true),
-        'at' => array('Group' => 'Pressure', 'Unit Name' => 'Atmosphere', 'AllowPrefix' => true),
-        'mmHg' => array('Group' => 'Pressure', 'Unit Name' => 'mm of Mercury', 'AllowPrefix' => true),
-        'N' => array('Group' => 'Force', 'Unit Name' => 'Newton', 'AllowPrefix' => true),
-        'dyn' => array('Group' => 'Force', 'Unit Name' => 'Dyne', 'AllowPrefix' => true),
-        'dy' => array('Group' => 'Force', 'Unit Name' => 'Dyne', 'AllowPrefix' => true),
-        'lbf' => array('Group' => 'Force', 'Unit Name' => 'Pound force', 'AllowPrefix' => false),
-        'J' => array('Group' => 'Energy', 'Unit Name' => 'Joule', 'AllowPrefix' => true),
-        'e' => array('Group' => 'Energy', 'Unit Name' => 'Erg', 'AllowPrefix' => true),
-        'c' => array('Group' => 'Energy', 'Unit Name' => 'Thermodynamic calorie', 'AllowPrefix' => true),
-        'cal' => array('Group' => 'Energy', 'Unit Name' => 'IT calorie', 'AllowPrefix' => true),
-        'eV' => array('Group' => 'Energy', 'Unit Name' => 'Electron volt', 'AllowPrefix' => true),
-        'ev' => array('Group' => 'Energy', 'Unit Name' => 'Electron volt', 'AllowPrefix' => true),
-        'HPh' => array('Group' => 'Energy', 'Unit Name' => 'Horsepower-hour', 'AllowPrefix' => false),
-        'hh' => array('Group' => 'Energy', 'Unit Name' => 'Horsepower-hour', 'AllowPrefix' => false),
-        'Wh' => array('Group' => 'Energy', 'Unit Name' => 'Watt-hour', 'AllowPrefix' => true),
-        'wh' => array('Group' => 'Energy', 'Unit Name' => 'Watt-hour', 'AllowPrefix' => true),
-        'flb' => array('Group' => 'Energy', 'Unit Name' => 'Foot-pound', 'AllowPrefix' => false),
-        'BTU' => array('Group' => 'Energy', 'Unit Name' => 'BTU', 'AllowPrefix' => false),
-        'btu' => array('Group' => 'Energy', 'Unit Name' => 'BTU', 'AllowPrefix' => false),
-        'HP' => array('Group' => 'Power', 'Unit Name' => 'Horsepower', 'AllowPrefix' => false),
-        'h' => array('Group' => 'Power', 'Unit Name' => 'Horsepower', 'AllowPrefix' => false),
-        'W' => array('Group' => 'Power', 'Unit Name' => 'Watt', 'AllowPrefix' => true),
-        'w' => array('Group' => 'Power', 'Unit Name' => 'Watt', 'AllowPrefix' => true),
-        'T' => array('Group' => 'Magnetism', 'Unit Name' => 'Tesla', 'AllowPrefix' => true),
-        'ga' => array('Group' => 'Magnetism', 'Unit Name' => 'Gauss', 'AllowPrefix' => true),
-        'C' => array('Group' => 'Temperature', 'Unit Name' => 'Celsius', 'AllowPrefix' => false),
-        'cel' => array('Group' => 'Temperature', 'Unit Name' => 'Celsius', 'AllowPrefix' => false),
-        'F' => array('Group' => 'Temperature', 'Unit Name' => 'Fahrenheit', 'AllowPrefix' => false),
-        'fah' => array('Group' => 'Temperature', 'Unit Name' => 'Fahrenheit', 'AllowPrefix' => false),
-        'K' => array('Group' => 'Temperature', 'Unit Name' => 'Kelvin', 'AllowPrefix' => false),
-        'kel' => array('Group' => 'Temperature', 'Unit Name' => 'Kelvin', 'AllowPrefix' => false),
-        'tsp' => array('Group' => 'Liquid', 'Unit Name' => 'Teaspoon', 'AllowPrefix' => false),
-        'tbs' => array('Group' => 'Liquid', 'Unit Name' => 'Tablespoon', 'AllowPrefix' => false),
-        'oz' => array('Group' => 'Liquid', 'Unit Name' => 'Fluid Ounce', 'AllowPrefix' => false),
-        'cup' => array('Group' => 'Liquid', 'Unit Name' => 'Cup', 'AllowPrefix' => false),
-        'pt' => array('Group' => 'Liquid', 'Unit Name' => 'U.S. Pint', 'AllowPrefix' => false),
-        'us_pt' => array('Group' => 'Liquid', 'Unit Name' => 'U.S. Pint', 'AllowPrefix' => false),
-        'uk_pt' => array('Group' => 'Liquid', 'Unit Name' => 'U.K. Pint', 'AllowPrefix' => false),
-        'qt' => array('Group' => 'Liquid', 'Unit Name' => 'Quart', 'AllowPrefix' => false),
-        'gal' => array('Group' => 'Liquid', 'Unit Name' => 'Gallon', 'AllowPrefix' => false),
-        'l' => array('Group' => 'Liquid', 'Unit Name' => 'Litre', 'AllowPrefix' => true),
-        'lt' => array('Group' => 'Liquid', 'Unit Name' => 'Litre', 'AllowPrefix' => true),
-    );
+    private static $conversionUnits = [
+        'g' => ['Group' => 'Mass', 'Unit Name' => 'Gram', 'AllowPrefix' => true],
+        'sg' => ['Group' => 'Mass', 'Unit Name' => 'Slug', 'AllowPrefix' => false],
+        'lbm' => ['Group' => 'Mass', 'Unit Name' => 'Pound mass (avoirdupois)', 'AllowPrefix' => false],
+        'u' => ['Group' => 'Mass', 'Unit Name' => 'U (atomic mass unit)', 'AllowPrefix' => true],
+        'ozm' => ['Group' => 'Mass', 'Unit Name' => 'Ounce mass (avoirdupois)', 'AllowPrefix' => false],
+        'm' => ['Group' => 'Distance', 'Unit Name' => 'Meter', 'AllowPrefix' => true],
+        'mi' => ['Group' => 'Distance', 'Unit Name' => 'Statute mile', 'AllowPrefix' => false],
+        'Nmi' => ['Group' => 'Distance', 'Unit Name' => 'Nautical mile', 'AllowPrefix' => false],
+        'in' => ['Group' => 'Distance', 'Unit Name' => 'Inch', 'AllowPrefix' => false],
+        'ft' => ['Group' => 'Distance', 'Unit Name' => 'Foot', 'AllowPrefix' => false],
+        'yd' => ['Group' => 'Distance', 'Unit Name' => 'Yard', 'AllowPrefix' => false],
+        'ang' => ['Group' => 'Distance', 'Unit Name' => 'Angstrom', 'AllowPrefix' => true],
+        'Pica' => ['Group' => 'Distance', 'Unit Name' => 'Pica (1/72 in)', 'AllowPrefix' => false],
+        'yr' => ['Group' => 'Time', 'Unit Name' => 'Year', 'AllowPrefix' => false],
+        'day' => ['Group' => 'Time', 'Unit Name' => 'Day', 'AllowPrefix' => false],
+        'hr' => ['Group' => 'Time', 'Unit Name' => 'Hour', 'AllowPrefix' => false],
+        'mn' => ['Group' => 'Time', 'Unit Name' => 'Minute', 'AllowPrefix' => false],
+        'sec' => ['Group' => 'Time', 'Unit Name' => 'Second', 'AllowPrefix' => true],
+        'Pa' => ['Group' => 'Pressure', 'Unit Name' => 'Pascal', 'AllowPrefix' => true],
+        'p' => ['Group' => 'Pressure', 'Unit Name' => 'Pascal', 'AllowPrefix' => true],
+        'atm' => ['Group' => 'Pressure', 'Unit Name' => 'Atmosphere', 'AllowPrefix' => true],
+        'at' => ['Group' => 'Pressure', 'Unit Name' => 'Atmosphere', 'AllowPrefix' => true],
+        'mmHg' => ['Group' => 'Pressure', 'Unit Name' => 'mm of Mercury', 'AllowPrefix' => true],
+        'N' => ['Group' => 'Force', 'Unit Name' => 'Newton', 'AllowPrefix' => true],
+        'dyn' => ['Group' => 'Force', 'Unit Name' => 'Dyne', 'AllowPrefix' => true],
+        'dy' => ['Group' => 'Force', 'Unit Name' => 'Dyne', 'AllowPrefix' => true],
+        'lbf' => ['Group' => 'Force', 'Unit Name' => 'Pound force', 'AllowPrefix' => false],
+        'J' => ['Group' => 'Energy', 'Unit Name' => 'Joule', 'AllowPrefix' => true],
+        'e' => ['Group' => 'Energy', 'Unit Name' => 'Erg', 'AllowPrefix' => true],
+        'c' => ['Group' => 'Energy', 'Unit Name' => 'Thermodynamic calorie', 'AllowPrefix' => true],
+        'cal' => ['Group' => 'Energy', 'Unit Name' => 'IT calorie', 'AllowPrefix' => true],
+        'eV' => ['Group' => 'Energy', 'Unit Name' => 'Electron volt', 'AllowPrefix' => true],
+        'ev' => ['Group' => 'Energy', 'Unit Name' => 'Electron volt', 'AllowPrefix' => true],
+        'HPh' => ['Group' => 'Energy', 'Unit Name' => 'Horsepower-hour', 'AllowPrefix' => false],
+        'hh' => ['Group' => 'Energy', 'Unit Name' => 'Horsepower-hour', 'AllowPrefix' => false],
+        'Wh' => ['Group' => 'Energy', 'Unit Name' => 'Watt-hour', 'AllowPrefix' => true],
+        'wh' => ['Group' => 'Energy', 'Unit Name' => 'Watt-hour', 'AllowPrefix' => true],
+        'flb' => ['Group' => 'Energy', 'Unit Name' => 'Foot-pound', 'AllowPrefix' => false],
+        'BTU' => ['Group' => 'Energy', 'Unit Name' => 'BTU', 'AllowPrefix' => false],
+        'btu' => ['Group' => 'Energy', 'Unit Name' => 'BTU', 'AllowPrefix' => false],
+        'HP' => ['Group' => 'Power', 'Unit Name' => 'Horsepower', 'AllowPrefix' => false],
+        'h' => ['Group' => 'Power', 'Unit Name' => 'Horsepower', 'AllowPrefix' => false],
+        'W' => ['Group' => 'Power', 'Unit Name' => 'Watt', 'AllowPrefix' => true],
+        'w' => ['Group' => 'Power', 'Unit Name' => 'Watt', 'AllowPrefix' => true],
+        'T' => ['Group' => 'Magnetism', 'Unit Name' => 'Tesla', 'AllowPrefix' => true],
+        'ga' => ['Group' => 'Magnetism', 'Unit Name' => 'Gauss', 'AllowPrefix' => true],
+        'C' => ['Group' => 'Temperature', 'Unit Name' => 'Celsius', 'AllowPrefix' => false],
+        'cel' => ['Group' => 'Temperature', 'Unit Name' => 'Celsius', 'AllowPrefix' => false],
+        'F' => ['Group' => 'Temperature', 'Unit Name' => 'Fahrenheit', 'AllowPrefix' => false],
+        'fah' => ['Group' => 'Temperature', 'Unit Name' => 'Fahrenheit', 'AllowPrefix' => false],
+        'K' => ['Group' => 'Temperature', 'Unit Name' => 'Kelvin', 'AllowPrefix' => false],
+        'kel' => ['Group' => 'Temperature', 'Unit Name' => 'Kelvin', 'AllowPrefix' => false],
+        'tsp' => ['Group' => 'Liquid', 'Unit Name' => 'Teaspoon', 'AllowPrefix' => false],
+        'tbs' => ['Group' => 'Liquid', 'Unit Name' => 'Tablespoon', 'AllowPrefix' => false],
+        'oz' => ['Group' => 'Liquid', 'Unit Name' => 'Fluid Ounce', 'AllowPrefix' => false],
+        'cup' => ['Group' => 'Liquid', 'Unit Name' => 'Cup', 'AllowPrefix' => false],
+        'pt' => ['Group' => 'Liquid', 'Unit Name' => 'U.S. Pint', 'AllowPrefix' => false],
+        'us_pt' => ['Group' => 'Liquid', 'Unit Name' => 'U.S. Pint', 'AllowPrefix' => false],
+        'uk_pt' => ['Group' => 'Liquid', 'Unit Name' => 'U.K. Pint', 'AllowPrefix' => false],
+        'qt' => ['Group' => 'Liquid', 'Unit Name' => 'Quart', 'AllowPrefix' => false],
+        'gal' => ['Group' => 'Liquid', 'Unit Name' => 'Gallon', 'AllowPrefix' => false],
+        'l' => ['Group' => 'Liquid', 'Unit Name' => 'Litre', 'AllowPrefix' => true],
+        'lt' => ['Group' => 'Liquid', 'Unit Name' => 'Litre', 'AllowPrefix' => true],
+    ];
 
     /**
      * Details of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM()
      *
      * @var mixed[]
      */
-    private static $conversionMultipliers = array(
-        'Y' => array('multiplier' => 1E24, 'name' => 'yotta'),
-        'Z' => array('multiplier' => 1E21, 'name' => 'zetta'),
-        'E' => array('multiplier' => 1E18, 'name' => 'exa'),
-        'P' => array('multiplier' => 1E15, 'name' => 'peta'),
-        'T' => array('multiplier' => 1E12, 'name' => 'tera'),
-        'G' => array('multiplier' => 1E9, 'name' => 'giga'),
-        'M' => array('multiplier' => 1E6, 'name' => 'mega'),
-        'k' => array('multiplier' => 1E3, 'name' => 'kilo'),
-        'h' => array('multiplier' => 1E2, 'name' => 'hecto'),
-        'e' => array('multiplier' => 1E1, 'name' => 'deka'),
-        'd' => array('multiplier' => 1E-1, 'name' => 'deci'),
-        'c' => array('multiplier' => 1E-2, 'name' => 'centi'),
-        'm' => array('multiplier' => 1E-3, 'name' => 'milli'),
-        'u' => array('multiplier' => 1E-6, 'name' => 'micro'),
-        'n' => array('multiplier' => 1E-9, 'name' => 'nano'),
-        'p' => array('multiplier' => 1E-12, 'name' => 'pico'),
-        'f' => array('multiplier' => 1E-15, 'name' => 'femto'),
-        'a' => array('multiplier' => 1E-18, 'name' => 'atto'),
-        'z' => array('multiplier' => 1E-21, 'name' => 'zepto'),
-        'y' => array('multiplier' => 1E-24, 'name' => 'yocto'),
-    );
+    private static $conversionMultipliers = [
+        'Y' => ['multiplier' => 1E24, 'name' => 'yotta'],
+        'Z' => ['multiplier' => 1E21, 'name' => 'zetta'],
+        'E' => ['multiplier' => 1E18, 'name' => 'exa'],
+        'P' => ['multiplier' => 1E15, 'name' => 'peta'],
+        'T' => ['multiplier' => 1E12, 'name' => 'tera'],
+        'G' => ['multiplier' => 1E9, 'name' => 'giga'],
+        'M' => ['multiplier' => 1E6, 'name' => 'mega'],
+        'k' => ['multiplier' => 1E3, 'name' => 'kilo'],
+        'h' => ['multiplier' => 1E2, 'name' => 'hecto'],
+        'e' => ['multiplier' => 1E1, 'name' => 'deka'],
+        'd' => ['multiplier' => 1E-1, 'name' => 'deci'],
+        'c' => ['multiplier' => 1E-2, 'name' => 'centi'],
+        'm' => ['multiplier' => 1E-3, 'name' => 'milli'],
+        'u' => ['multiplier' => 1E-6, 'name' => 'micro'],
+        'n' => ['multiplier' => 1E-9, 'name' => 'nano'],
+        'p' => ['multiplier' => 1E-12, 'name' => 'pico'],
+        'f' => ['multiplier' => 1E-15, 'name' => 'femto'],
+        'a' => ['multiplier' => 1E-18, 'name' => 'atto'],
+        'z' => ['multiplier' => 1E-21, 'name' => 'zepto'],
+        'y' => ['multiplier' => 1E-24, 'name' => 'yocto'],
+    ];
 
     /**
      * Details of the Units of measure conversion factors, organised by group
      *
      * @var mixed[]
      */
-    private static $unitConversions = array(
-        'Mass' => array(
-            'g' => array(
+    private static $unitConversions = [
+        'Mass' => [
+            'g' => [
                 'g' => 1.0,
                 'sg' => 6.85220500053478E-05,
                 'lbm' => 2.20462291469134E-03,
                 'u' => 6.02217000000000E+23,
                 'ozm' => 3.52739718003627E-02,
-            ),
-            'sg' => array(
+            ],
+            'sg' => [
                 'g' => 1.45938424189287E+04,
                 'sg' => 1.0,
                 'lbm' => 3.21739194101647E+01,
                 'u' => 8.78866000000000E+27,
                 'ozm' => 5.14782785944229E+02,
-            ),
-            'lbm' => array(
+            ],
+            'lbm' => [
                 'g' => 4.5359230974881148E+02,
                 'sg' => 3.10810749306493E-02,
                 'lbm' => 1.0,
                 'u' => 2.73161000000000E+26,
                 'ozm' => 1.60000023429410E+01,
-            ),
-            'u' => array(
+            ],
+            'u' => [
                 'g' => 1.66053100460465E-24,
                 'sg' => 1.13782988532950E-28,
                 'lbm' => 3.66084470330684E-27,
                 'u' => 1.0,
                 'ozm' => 5.85735238300524E-26,
-            ),
-            'ozm' => array(
+            ],
+            'ozm' => [
                 'g' => 2.83495152079732E+01,
                 'sg' => 1.94256689870811E-03,
                 'lbm' => 6.24999908478882E-02,
                 'u' => 1.70725600000000E+25,
                 'ozm' => 1.0,
-            ),
-        ),
-        'Distance' => array(
-            'm' => array(
+            ],
+        ],
+        'Distance' => [
+            'm' => [
                 'm' => 1.0,
                 'mi' => 6.21371192237334E-04,
                 'Nmi' => 5.39956803455724E-04,
@@ -181,8 +181,8 @@ class Engineering
                 'yd' => 1.09361329797891E+00,
                 'ang' => 1.00000000000000E+10,
                 'Pica' => 2.83464566929116E+03,
-            ),
-            'mi' => array(
+            ],
+            'mi' => [
                 'm' => 1.60934400000000E+03,
                 'mi' => 1.0,
                 'Nmi' => 8.68976241900648E-01,
@@ -191,8 +191,8 @@ class Engineering
                 'yd' => 1.76000000000000E+03,
                 'ang' => 1.60934400000000E+13,
                 'Pica' => 4.56191999999971E+06,
-            ),
-            'Nmi' => array(
+            ],
+            'Nmi' => [
                 'm' => 1.85200000000000E+03,
                 'mi' => 1.15077944802354E+00,
                 'Nmi' => 1.0,
@@ -201,8 +201,8 @@ class Engineering
                 'yd' => 2.02537182785694E+03,
                 'ang' => 1.85200000000000E+13,
                 'Pica' => 5.24976377952723E+06,
-            ),
-            'in' => array(
+            ],
+            'in' => [
                 'm' => 2.54000000000000E-02,
                 'mi' => 1.57828282828283E-05,
                 'Nmi' => 1.37149028077754E-05,
@@ -211,8 +211,8 @@ class Engineering
                 'yd' => 2.77777777686643E-02,
                 'ang' => 2.54000000000000E+08,
                 'Pica' => 7.19999999999955E+01,
-            ),
-            'ft' => array(
+            ],
+            'ft' => [
                 'm' => 3.04800000000000E-01,
                 'mi' => 1.89393939393939E-04,
                 'Nmi' => 1.64578833693305E-04,
@@ -221,8 +221,8 @@ class Engineering
                 'yd' => 3.33333333223972E-01,
                 'ang' => 3.04800000000000E+09,
                 'Pica' => 8.63999999999946E+02,
-            ),
-            'yd' => array(
+            ],
+            'yd' => [
                 'm' => 9.14400000300000E-01,
                 'mi' => 5.68181818368230E-04,
                 'Nmi' => 4.93736501241901E-04,
@@ -231,8 +231,8 @@ class Engineering
                 'yd' => 1.0,
                 'ang' => 9.14400000300000E+09,
                 'Pica' => 2.59200000085023E+03,
-            ),
-            'ang' => array(
+            ],
+            'ang' => [
                 'm' => 1.00000000000000E-10,
                 'mi' => 6.21371192237334E-14,
                 'Nmi' => 5.39956803455724E-14,
@@ -241,8 +241,8 @@ class Engineering
                 'yd' => 1.09361329797891E-10,
                 'ang' => 1.0,
                 'Pica' => 2.83464566929116E-07,
-            ),
-            'Pica' => array(
+            ],
+            'Pica' => [
                 'm' => 3.52777777777800E-04,
                 'mi' => 2.19205948372629E-07,
                 'Nmi' => 1.90484761219114E-07,
@@ -251,110 +251,110 @@ class Engineering
                 'yd' => 3.85802469009251E-04,
                 'ang' => 3.52777777777800E+06,
                 'Pica' => 1.0,
-            ),
-        ),
-        'Time' => array(
-            'yr' => array(
+            ],
+        ],
+        'Time' => [
+            'yr' => [
                 'yr' => 1.0,
                 'day' => 365.25,
                 'hr' => 8766.0,
                 'mn' => 525960.0,
                 'sec' => 31557600.0,
-            ),
-            'day' => array(
+            ],
+            'day' => [
                 'yr' => 2.73785078713210E-03,
                 'day' => 1.0,
                 'hr' => 24.0,
                 'mn' => 1440.0,
                 'sec' => 86400.0,
-            ),
-            'hr' => array(
+            ],
+            'hr' => [
                 'yr' => 1.14077116130504E-04,
                 'day' => 4.16666666666667E-02,
                 'hr' => 1.0,
                 'mn' => 60.0,
                 'sec' => 3600.0,
-            ),
-            'mn' => array(
+            ],
+            'mn' => [
                 'yr' => 1.90128526884174E-06,
                 'day' => 6.94444444444444E-04,
                 'hr' => 1.66666666666667E-02,
                 'mn' => 1.0,
                 'sec' => 60.0,
-            ),
-            'sec' => array(
+            ],
+            'sec' => [
                 'yr' => 3.16880878140289E-08,
                 'day' => 1.15740740740741E-05,
                 'hr' => 2.77777777777778E-04,
                 'mn' => 1.66666666666667E-02,
                 'sec' => 1.0,
-            ),
-        ),
-        'Pressure' => array(
-            'Pa' => array(
+            ],
+        ],
+        'Pressure' => [
+            'Pa' => [
                 'Pa' => 1.0,
                 'p' => 1.0,
                 'atm' => 9.86923299998193E-06,
                 'at' => 9.86923299998193E-06,
                 'mmHg' => 7.50061707998627E-03,
-            ),
-            'p' => array(
+            ],
+            'p' => [
                 'Pa' => 1.0,
                 'p' => 1.0,
                 'atm' => 9.86923299998193E-06,
                 'at' => 9.86923299998193E-06,
                 'mmHg' => 7.50061707998627E-03,
-            ),
-            'atm' => array(
+            ],
+            'atm' => [
                 'Pa' => 1.01324996583000E+05,
                 'p' => 1.01324996583000E+05,
                 'atm' => 1.0,
                 'at' => 1.0,
                 'mmHg' => 760.0,
-            ),
-            'at' => array(
+            ],
+            'at' => [
                 'Pa' => 1.01324996583000E+05,
                 'p' => 1.01324996583000E+05,
                 'atm' => 1.0,
                 'at' => 1.0,
                 'mmHg' => 760.0,
-            ),
-            'mmHg' => array(
+            ],
+            'mmHg' => [
                 'Pa' => 1.33322363925000E+02,
                 'p' => 1.33322363925000E+02,
                 'atm' => 1.31578947368421E-03,
                 'at' => 1.31578947368421E-03,
                 'mmHg' => 1.0,
-            ),
-        ),
-        'Force' => array(
-            'N' => array(
+            ],
+        ],
+        'Force' => [
+            'N' => [
                 'N' => 1.0,
                 'dyn' => 1.0E+5,
                 'dy' => 1.0E+5,
                 'lbf' => 2.24808923655339E-01,
-            ),
-            'dyn' => array(
+            ],
+            'dyn' => [
                 'N' => 1.0E-5,
                 'dyn' => 1.0,
                 'dy' => 1.0,
                 'lbf' => 2.24808923655339E-06,
-            ),
-            'dy' => array(
+            ],
+            'dy' => [
                 'N' => 1.0E-5,
                 'dyn' => 1.0,
                 'dy' => 1.0,
                 'lbf' => 2.24808923655339E-06,
-            ),
-            'lbf' => array(
+            ],
+            'lbf' => [
                 'N' => 4.448222,
                 'dyn' => 4.448222E+5,
                 'dy' => 4.448222E+5,
                 'lbf' => 1.0,
-            ),
-        ),
-        'Energy' => array(
-            'J' => array(
+            ],
+        ],
+        'Energy' => [
+            'J' => [
                 'J' => 1.0,
                 'e' => 9.99999519343231E+06,
                 'c' => 2.39006249473467E-01,
@@ -368,8 +368,8 @@ class Engineering
                 'flb' => 2.37304222192651E+01,
                 'BTU' => 9.47815067349015E-04,
                 'btu' => 9.47815067349015E-04,
-            ),
-            'e' => array(
+            ],
+            'e' => [
                 'J' => 1.00000048065700E-07,
                 'e' => 1.0,
                 'c' => 2.39006364353494E-08,
@@ -383,8 +383,8 @@ class Engineering
                 'flb' => 2.37304336254586E-06,
                 'BTU' => 9.47815522922962E-11,
                 'btu' => 9.47815522922962E-11,
-            ),
-            'c' => array(
+            ],
+            'c' => [
                 'J' => 4.18399101363672E+00,
                 'e' => 4.18398900257312E+07,
                 'c' => 1.0,
@@ -398,8 +398,8 @@ class Engineering
                 'flb' => 9.92878733152102E+01,
                 'BTU' => 3.96564972437776E-03,
                 'btu' => 3.96564972437776E-03,
-            ),
-            'cal' => array(
+            ],
+            'cal' => [
                 'J' => 4.18679484613929E+00,
                 'e' => 4.18679283372801E+07,
                 'c' => 1.00067013349059E+00,
@@ -413,8 +413,8 @@ class Engineering
                 'flb' => 9.93544094443283E+01,
                 'BTU' => 3.96830723907002E-03,
                 'btu' => 3.96830723907002E-03,
-            ),
-            'eV' => array(
+            ],
+            'eV' => [
                 'J' => 1.60219000146921E-19,
                 'e' => 1.60218923136574E-12,
                 'c' => 3.82933423195043E-20,
@@ -428,8 +428,8 @@ class Engineering
                 'flb' => 3.80206452103492E-18,
                 'BTU' => 1.51857982414846E-22,
                 'btu' => 1.51857982414846E-22,
-            ),
-            'ev' => array(
+            ],
+            'ev' => [
                 'J' => 1.60219000146921E-19,
                 'e' => 1.60218923136574E-12,
                 'c' => 3.82933423195043E-20,
@@ -443,8 +443,8 @@ class Engineering
                 'flb' => 3.80206452103492E-18,
                 'BTU' => 1.51857982414846E-22,
                 'btu' => 1.51857982414846E-22,
-            ),
-            'HPh' => array(
+            ],
+            'HPh' => [
                 'J' => 2.68451741316170E+06,
                 'e' => 2.68451612283024E+13,
                 'c' => 6.41616438565991E+05,
@@ -458,8 +458,8 @@ class Engineering
                 'flb' => 6.37047316692964E+07,
                 'BTU' => 2.54442605275546E+03,
                 'btu' => 2.54442605275546E+03,
-            ),
-            'hh' => array(
+            ],
+            'hh' => [
                 'J' => 2.68451741316170E+06,
                 'e' => 2.68451612283024E+13,
                 'c' => 6.41616438565991E+05,
@@ -473,8 +473,8 @@ class Engineering
                 'flb' => 6.37047316692964E+07,
                 'BTU' => 2.54442605275546E+03,
                 'btu' => 2.54442605275546E+03,
-            ),
-            'Wh' => array(
+            ],
+            'Wh' => [
                 'J' => 3.59999820554720E+03,
                 'e' => 3.59999647518369E+10,
                 'c' => 8.60422069219046E+02,
@@ -488,8 +488,8 @@ class Engineering
                 'flb' => 8.54294774062316E+04,
                 'BTU' => 3.41213254164705E+00,
                 'btu' => 3.41213254164705E+00,
-            ),
-            'wh' => array(
+            ],
+            'wh' => [
                 'J' => 3.59999820554720E+03,
                 'e' => 3.59999647518369E+10,
                 'c' => 8.60422069219046E+02,
@@ -503,8 +503,8 @@ class Engineering
                 'flb' => 8.54294774062316E+04,
                 'BTU' => 3.41213254164705E+00,
                 'btu' => 3.41213254164705E+00,
-            ),
-            'flb' => array(
+            ],
+            'flb' => [
                 'J' => 4.21400003236424E-02,
                 'e' => 4.21399800687660E+05,
                 'c' => 1.00717234301644E-02,
@@ -518,8 +518,8 @@ class Engineering
                 'flb' => 1.0,
                 'BTU' => 3.99409272448406E-05,
                 'btu' => 3.99409272448406E-05,
-            ),
-            'BTU' => array(
+            ],
+            'BTU' => [
                 'J' => 1.05505813786749E+03,
                 'e' => 1.05505763074665E+10,
                 'c' => 2.52165488508168E+02,
@@ -533,8 +533,8 @@ class Engineering
                 'flb' => 2.50369750774671E+04,
                 'BTU' => 1.0,
                 'btu' => 1.0,
-            ),
-            'btu' => array(
+            ],
+            'btu' => [
                 'J' => 1.05505813786749E+03,
                 'e' => 1.05505763074665E+10,
                 'c' => 2.52165488508168E+02,
@@ -548,46 +548,46 @@ class Engineering
                 'flb' => 2.50369750774671E+04,
                 'BTU' => 1.0,
                 'btu' => 1.0,
-            ),
-        ),
-        'Power' => array(
-            'HP' => array(
+            ],
+        ],
+        'Power' => [
+            'HP' => [
                 'HP' => 1.0,
                 'h' => 1.0,
                 'W' => 7.45701000000000E+02,
                 'w' => 7.45701000000000E+02,
-            ),
-            'h' => array(
+            ],
+            'h' => [
                 'HP' => 1.0,
                 'h' => 1.0,
                 'W' => 7.45701000000000E+02,
                 'w' => 7.45701000000000E+02,
-            ),
-            'W' => array(
+            ],
+            'W' => [
                 'HP' => 1.34102006031908E-03,
                 'h' => 1.34102006031908E-03,
                 'W' => 1.0,
                 'w' => 1.0,
-            ),
-            'w' => array(
+            ],
+            'w' => [
                 'HP' => 1.34102006031908E-03,
                 'h' => 1.34102006031908E-03,
                 'W' => 1.0,
                 'w' => 1.0,
-            ),
-        ),
-        'Magnetism' => array(
-            'T' => array(
+            ],
+        ],
+        'Magnetism' => [
+            'T' => [
                 'T' => 1.0,
                 'ga' => 10000.0,
-            ),
-            'ga' => array(
+            ],
+            'ga' => [
                 'T' => 0.0001,
                 'ga' => 1.0,
-            ),
-        ),
-        'Liquid' => array(
-            'tsp' => array(
+            ],
+        ],
+        'Liquid' => [
+            'tsp' => [
                 'tsp' => 1.0,
                 'tbs' => 3.33333333333333E-01,
                 'oz' => 1.66666666666667E-01,
@@ -599,8 +599,8 @@ class Engineering
                 'gal' => 1.30208333333333E-03,
                 'l' => 4.92999408400710E-03,
                 'lt' => 4.92999408400710E-03,
-            ),
-            'tbs' => array(
+            ],
+            'tbs' => [
                 'tsp' => 3.00000000000000E+00,
                 'tbs' => 1.0,
                 'oz' => 5.00000000000000E-01,
@@ -612,8 +612,8 @@ class Engineering
                 'gal' => 3.90625000000000E-03,
                 'l' => 1.47899822520213E-02,
                 'lt' => 1.47899822520213E-02,
-            ),
-            'oz' => array(
+            ],
+            'oz' => [
                 'tsp' => 6.00000000000000E+00,
                 'tbs' => 2.00000000000000E+00,
                 'oz' => 1.0,
@@ -625,8 +625,8 @@ class Engineering
                 'gal' => 7.81250000000000E-03,
                 'l' => 2.95799645040426E-02,
                 'lt' => 2.95799645040426E-02,
-            ),
-            'cup' => array(
+            ],
+            'cup' => [
                 'tsp' => 4.80000000000000E+01,
                 'tbs' => 1.60000000000000E+01,
                 'oz' => 8.00000000000000E+00,
@@ -638,8 +638,8 @@ class Engineering
                 'gal' => 6.25000000000000E-02,
                 'l' => 2.36639716032341E-01,
                 'lt' => 2.36639716032341E-01,
-            ),
-            'pt' => array(
+            ],
+            'pt' => [
                 'tsp' => 9.60000000000000E+01,
                 'tbs' => 3.20000000000000E+01,
                 'oz' => 1.60000000000000E+01,
@@ -651,8 +651,8 @@ class Engineering
                 'gal' => 1.25000000000000E-01,
                 'l' => 4.73279432064682E-01,
                 'lt' => 4.73279432064682E-01,
-            ),
-            'us_pt' => array(
+            ],
+            'us_pt' => [
                 'tsp' => 9.60000000000000E+01,
                 'tbs' => 3.20000000000000E+01,
                 'oz' => 1.60000000000000E+01,
@@ -664,8 +664,8 @@ class Engineering
                 'gal' => 1.25000000000000E-01,
                 'l' => 4.73279432064682E-01,
                 'lt' => 4.73279432064682E-01,
-            ),
-            'uk_pt' => array(
+            ],
+            'uk_pt' => [
                 'tsp' => 1.15266000000000E+02,
                 'tbs' => 3.84220000000000E+01,
                 'oz' => 1.92110000000000E+01,
@@ -677,8 +677,8 @@ class Engineering
                 'gal' => 1.50085937500000E-01,
                 'l' => 5.68260698087162E-01,
                 'lt' => 5.68260698087162E-01,
-            ),
-            'qt' => array(
+            ],
+            'qt' => [
                 'tsp' => 1.92000000000000E+02,
                 'tbs' => 6.40000000000000E+01,
                 'oz' => 3.20000000000000E+01,
@@ -690,8 +690,8 @@ class Engineering
                 'gal' => 2.50000000000000E-01,
                 'l' => 9.46558864129363E-01,
                 'lt' => 9.46558864129363E-01,
-            ),
-            'gal' => array(
+            ],
+            'gal' => [
                 'tsp' => 7.68000000000000E+02,
                 'tbs' => 2.56000000000000E+02,
                 'oz' => 1.28000000000000E+02,
@@ -703,8 +703,8 @@ class Engineering
                 'gal' => 1.0,
                 'l' => 3.78623545651745E+00,
                 'lt' => 3.78623545651745E+00,
-            ),
-            'l' => array(
+            ],
+            'l' => [
                 'tsp' => 2.02840000000000E+02,
                 'tbs' => 6.76133333333333E+01,
                 'oz' => 3.38066666666667E+01,
@@ -716,8 +716,8 @@ class Engineering
                 'gal' => 2.64114583333333E-01,
                 'l' => 1.0,
                 'lt' => 1.0,
-            ),
-            'lt' => array(
+            ],
+            'lt' => [
                 'tsp' => 2.02840000000000E+02,
                 'tbs' => 6.76133333333333E+01,
                 'oz' => 3.38066666666667E+01,
@@ -729,10 +729,9 @@ class Engineering
                 'gal' => 2.64114583333333E-01,
                 'l' => 1.0,
                 'lt' => 1.0,
-            ),
-        ),
-    );
-
+            ],
+        ],
+    ];
 
     /**
      * parseComplex
@@ -744,7 +743,7 @@ class Engineering
      */
     public static function parseComplex($complexNumber)
     {
-        $workString = (string)$complexNumber;
+        $workString = (string) $complexNumber;
 
         $realNumber = $imaginary = 0;
         //    Extract the suffix, if there is one
@@ -783,13 +782,12 @@ class Engineering
             }
         }
 
-        return array(
+        return [
             'real' => $realNumber,
             'imaginary' => $imaginary,
-            'suffix' => $suffix
-        );
+            'suffix' => $suffix,
+        ];
     }
-
 
     /**
      * Cleans the leading characters in a complex number string
@@ -811,6 +809,7 @@ class Engineering
         if ($complexNumber{0} == '+') {
             $complexNumber = substr($complexNumber, 1);
         }
+
         return $complexNumber;
     }
 
@@ -818,14 +817,14 @@ class Engineering
      * Formats a number base string value with leading zeroes
      *
      * @param    string $xVal The "number" to pad
-     * @param    integer $places The length that we want to pad this value
+     * @param    int $places The length that we want to pad this value
      * @return    string        The padded "number"
      */
     private static function nbrConversionFormat($xVal, $places)
     {
         if (!is_null($places)) {
             if (is_numeric($places)) {
-                $places = (int)$places;
+                $places = (int) $places;
             } else {
                 return Functions::VALUE();
             }
@@ -851,16 +850,14 @@ class Engineering
      *    Excel Function:
      *        BESSELI(x,ord)
      *
-     * @access    public
      * @category Engineering Functions
      * @param    float $x The value at which to evaluate the function.
      *                                If x is nonnumeric, BESSELI returns the #VALUE! error value.
-     * @param    integer $ord The order of the Bessel function.
+     * @param    int $ord The order of the Bessel function.
      *                                If ord is not an integer, it is truncated.
      *                                If $ord is nonnumeric, BESSELI returns the #VALUE! error value.
      *                                If $ord < 0, BESSELI returns the #NUM! error value.
      * @return    float
-     *
      */
     public static function BESSELI($x, $ord)
     {
@@ -891,11 +888,12 @@ class Engineering
                     $fResult = -$fResult;
                 }
             }
+
             return (is_nan($fResult)) ? Functions::NAN() : $fResult;
         }
+
         return Functions::VALUE();
     }
-
 
     /**
      *    BESSELJ
@@ -905,15 +903,13 @@ class Engineering
      *    Excel Function:
      *        BESSELJ(x,ord)
      *
-     * @access    public
      * @category Engineering Functions
      * @param    float $x The value at which to evaluate the function.
      *                                If x is nonnumeric, BESSELJ returns the #VALUE! error value.
-     * @param    integer $ord The order of the Bessel function. If n is not an integer, it is truncated.
+     * @param    int $ord The order of the Bessel function. If n is not an integer, it is truncated.
      *                                If $ord is nonnumeric, BESSELJ returns the #VALUE! error value.
      *                                If $ord < 0, BESSELJ returns the #NUM! error value.
      * @return    float
-     *
      */
     public static function BESSELJ($x, $ord)
     {
@@ -946,11 +942,12 @@ class Engineering
                     $fResult = -$fResult;
                 }
             }
+
             return (is_nan($fResult)) ? Functions::NAN() : $fResult;
         }
+
         return Functions::VALUE();
     }
-
 
     private static function besselK0($fNum)
     {
@@ -966,9 +963,9 @@ class Engineering
                 (1.25331414 + $y * (-0.7832358e-1 + $y * (0.2189568e-1 + $y * (-0.1062446e-1 + $y *
                                 (0.587872e-2 + $y * (-0.251540e-2 + $y * 0.53208e-3))))));
         }
+
         return $fRet;
     }
-
 
     private static function besselK1($fNum)
     {
@@ -984,9 +981,9 @@ class Engineering
                 (1.25331414 + $y * (0.23498619 + $y * (-0.3655620e-1 + $y * (0.1504268e-1 + $y * (-0.780353e-2 + $y *
                                     (0.325614e-2 + $y * (-0.68245e-3)))))));
         }
+
         return $fRet;
     }
-
 
     /**
      *    BESSELK
@@ -997,15 +994,13 @@ class Engineering
      *    Excel Function:
      *        BESSELK(x,ord)
      *
-     * @access    public
      * @category Engineering Functions
      * @param    float $x The value at which to evaluate the function.
      *                                If x is nonnumeric, BESSELK returns the #VALUE! error value.
-     * @param    integer $ord The order of the Bessel function. If n is not an integer, it is truncated.
+     * @param    int $ord The order of the Bessel function. If n is not an integer, it is truncated.
      *                                If $ord is nonnumeric, BESSELK returns the #VALUE! error value.
      *                                If $ord < 0, BESSELK returns the #NUM! error value.
      * @return    float
-     *
      */
     public static function BESSELK($x, $ord)
     {
@@ -1034,11 +1029,12 @@ class Engineering
                         $fBk = $fBkp;
                     }
             }
+
             return (is_nan($fBk)) ? Functions::NAN() : $fBk;
         }
+
         return Functions::VALUE();
     }
-
 
     private static function besselY0($fNum)
     {
@@ -1055,9 +1051,9 @@ class Engineering
             $f2 = -0.1562499995e-1 + $y * (0.1430488765e-3 + $y * (-0.6911147651e-5 + $y * (0.7621095161e-6 + $y * (-0.934945152e-7))));
             $fRet = sqrt(0.636619772 / $fNum) * (sin($xx) * $f1 + $z * cos($xx) * $f2);
         }
+
         return $fRet;
     }
-
 
     private static function besselY1($fNum)
     {
@@ -1071,9 +1067,9 @@ class Engineering
         } else {
             $fRet = sqrt(0.636619772 / $fNum) * sin($fNum - 2.356194491);
         }
+
         return $fRet;
     }
-
 
     /**
      *    BESSELY
@@ -1083,11 +1079,10 @@ class Engineering
      *    Excel Function:
      *        BESSELY(x,ord)
      *
-     * @access    public
      * @category Engineering Functions
      * @param    float $x The value at which to evaluate the function.
      *                                If x is nonnumeric, BESSELK returns the #VALUE! error value.
-     * @param    integer $ord The order of the Bessel function. If n is not an integer, it is truncated.
+     * @param    int $ord The order of the Bessel function. If n is not an integer, it is truncated.
      *                                If $ord is nonnumeric, BESSELK returns the #VALUE! error value.
      *                                If $ord < 0, BESSELK returns the #NUM! error value.
      *
@@ -1120,11 +1115,12 @@ class Engineering
                         $fBy = $fByp;
                     }
             }
+
             return (is_nan($fBy)) ? Functions::NAN() : $fBy;
         }
+
         return Functions::VALUE();
     }
-
 
     /**
      * BINTODEC
@@ -1134,7 +1130,6 @@ class Engineering
      * Excel Function:
      *        BIN2DEC(x)
      *
-     * @access    public
      * @category Engineering Functions
      * @param    string $x The binary number (as a string) that you want to convert. The number
      *                                cannot contain more than 10 characters (10 bits). The most significant
@@ -1150,7 +1145,7 @@ class Engineering
 
         if (is_bool($x)) {
             if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
-                $x = (int)$x;
+                $x = (int) $x;
             } else {
                 return Functions::VALUE();
             }
@@ -1158,7 +1153,7 @@ class Engineering
         if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
             $x = floor($x);
         }
-        $x = (string)$x;
+        $x = (string) $x;
         if (strlen($x) > preg_match_all('/[01]/', $x, $out)) {
             return Functions::NAN();
         }
@@ -1167,11 +1162,12 @@ class Engineering
         } elseif (strlen($x) == 10) {
             //    Two's Complement
             $x = substr($x, -9);
+
             return '-' . (512 - bindec($x));
         }
+
         return bindec($x);
     }
-
 
     /**
      * BINTOHEX
@@ -1181,7 +1177,6 @@ class Engineering
      * Excel Function:
      *        BIN2HEX(x[,places])
      *
-     * @access    public
      * @category Engineering Functions
      * @param    string $x The binary number (as a string) that you want to convert. The number
      *                                cannot contain more than 10 characters (10 bits). The most significant
@@ -1189,7 +1184,7 @@ class Engineering
      *                                Negative numbers are represented using two's-complement notation.
      *                                If number is not a valid binary number, or if number contains more than
      *                                10 characters (10 bits), BIN2HEX returns the #NUM! error value.
-     * @param    integer $places The number of characters to use. If places is omitted, BIN2HEX uses the
+     * @param    int $places The number of characters to use. If places is omitted, BIN2HEX uses the
      *                                minimum number of characters necessary. Places is useful for padding the
      *                                return value with leading 0s (zeros).
      *                                If places is not an integer, it is truncated.
@@ -1205,7 +1200,7 @@ class Engineering
         // Argument X
         if (is_bool($x)) {
             if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
-                $x = (int)$x;
+                $x = (int) $x;
             } else {
                 return Functions::VALUE();
             }
@@ -1213,7 +1208,7 @@ class Engineering
         if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
             $x = floor($x);
         }
-        $x = (string)$x;
+        $x = (string) $x;
         if (strlen($x) > preg_match_all('/[01]/', $x, $out)) {
             return Functions::NAN();
         }
@@ -1223,11 +1218,10 @@ class Engineering
             //    Two's Complement
             return str_repeat('F', 8) . substr(strtoupper(dechex(bindec(substr($x, -9)))), -2);
         }
-        $hexVal = (string)strtoupper(dechex(bindec($x)));
+        $hexVal = (string) strtoupper(dechex(bindec($x)));
 
         return self::nbrConversionFormat($hexVal, $places);
     }
-
 
     /**
      * BINTOOCT
@@ -1237,7 +1231,6 @@ class Engineering
      * Excel Function:
      *        BIN2OCT(x[,places])
      *
-     * @access    public
      * @category Engineering Functions
      * @param    string $x The binary number (as a string) that you want to convert. The number
      *                                cannot contain more than 10 characters (10 bits). The most significant
@@ -1245,7 +1238,7 @@ class Engineering
      *                                Negative numbers are represented using two's-complement notation.
      *                                If number is not a valid binary number, or if number contains more than
      *                                10 characters (10 bits), BIN2OCT returns the #NUM! error value.
-     * @param    integer $places The number of characters to use. If places is omitted, BIN2OCT uses the
+     * @param    int $places The number of characters to use. If places is omitted, BIN2OCT uses the
      *                                minimum number of characters necessary. Places is useful for padding the
      *                                return value with leading 0s (zeros).
      *                                If places is not an integer, it is truncated.
@@ -1260,7 +1253,7 @@ class Engineering
 
         if (is_bool($x)) {
             if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
-                $x = (int)$x;
+                $x = (int) $x;
             } else {
                 return Functions::VALUE();
             }
@@ -1268,7 +1261,7 @@ class Engineering
         if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_GNUMERIC) {
             $x = floor($x);
         }
-        $x = (string)$x;
+        $x = (string) $x;
         if (strlen($x) > preg_match_all('/[01]/', $x, $out)) {
             return Functions::NAN();
         }
@@ -1278,11 +1271,10 @@ class Engineering
             //    Two's Complement
             return str_repeat('7', 7) . substr(strtoupper(decoct(bindec(substr($x, -9)))), -3);
         }
-        $octVal = (string)decoct(bindec($x));
+        $octVal = (string) decoct(bindec($x));
 
         return self::nbrConversionFormat($octVal, $places);
     }
-
 
     /**
      * DECTOBIN
@@ -1292,7 +1284,6 @@ class Engineering
      * Excel Function:
      *        DEC2BIN(x[,places])
      *
-     * @access    public
      * @category Engineering Functions
      * @param    string $x The decimal integer you want to convert. If number is negative,
      *                                valid place values are ignored and DEC2BIN returns a 10-character
@@ -1304,7 +1295,7 @@ class Engineering
      *                                If number is nonnumeric, DEC2BIN returns the #VALUE! error value.
      *                                If DEC2BIN requires more than places characters, it returns the #NUM!
      *                                error value.
-     * @param    integer $places The number of characters to use. If places is omitted, DEC2BIN uses
+     * @param    int $places The number of characters to use. If places is omitted, DEC2BIN uses
      *                                the minimum number of characters necessary. Places is useful for
      *                                padding the return value with leading 0s (zeros).
      *                                If places is not an integer, it is truncated.
@@ -1319,17 +1310,17 @@ class Engineering
 
         if (is_bool($x)) {
             if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
-                $x = (int)$x;
+                $x = (int) $x;
             } else {
                 return Functions::VALUE();
             }
         }
-        $x = (string)$x;
+        $x = (string) $x;
         if (strlen($x) > preg_match_all('/[-0123456789.]/', $x, $out)) {
             return Functions::VALUE();
         }
 
-        $x = (string)floor($x);
+        $x = (string) floor($x);
         if ($x < -512 || $x > 511) {
             return Functions::NAN();
         }
@@ -1344,7 +1335,6 @@ class Engineering
         return self::nbrConversionFormat($r, $places);
     }
 
-
     /**
      * DECTOHEX
      *
@@ -1353,7 +1343,6 @@ class Engineering
      * Excel Function:
      *        DEC2HEX(x[,places])
      *
-     * @access    public
      * @category Engineering Functions
      * @param    string $x The decimal integer you want to convert. If number is negative,
      *                                places is ignored and DEC2HEX returns a 10-character (40-bit)
@@ -1365,7 +1354,7 @@ class Engineering
      *                                If number is nonnumeric, DEC2HEX returns the #VALUE! error value.
      *                                If DEC2HEX requires more than places characters, it returns the
      *                                #NUM! error value.
-     * @param    integer $places The number of characters to use. If places is omitted, DEC2HEX uses
+     * @param    int $places The number of characters to use. If places is omitted, DEC2HEX uses
      *                                the minimum number of characters necessary. Places is useful for
      *                                padding the return value with leading 0s (zeros).
      *                                If places is not an integer, it is truncated.
@@ -1380,16 +1369,16 @@ class Engineering
 
         if (is_bool($x)) {
             if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
-                $x = (int)$x;
+                $x = (int) $x;
             } else {
                 return Functions::VALUE();
             }
         }
-        $x = (string)$x;
+        $x = (string) $x;
         if (strlen($x) > preg_match_all('/[-0123456789.]/', $x, $out)) {
             return Functions::VALUE();
         }
-        $x = (string)floor($x);
+        $x = (string) floor($x);
         $r = strtoupper(dechex($x));
         if (strlen($r) == 8) {
             //    Two's Complement
@@ -1399,7 +1388,6 @@ class Engineering
         return self::nbrConversionFormat($r, $places);
     }
 
-
     /**
      * DECTOOCT
      *
@@ -1408,7 +1396,6 @@ class Engineering
      * Excel Function:
      *        DEC2OCT(x[,places])
      *
-     * @access    public
      * @category Engineering Functions
      * @param    string $x The decimal integer you want to convert. If number is negative,
      *                                places is ignored and DEC2OCT returns a 10-character (30-bit)
@@ -1420,7 +1407,7 @@ class Engineering
      *                                If number is nonnumeric, DEC2OCT returns the #VALUE! error value.
      *                                If DEC2OCT requires more than places characters, it returns the
      *                                #NUM! error value.
-     * @param    integer $places The number of characters to use. If places is omitted, DEC2OCT uses
+     * @param    int $places The number of characters to use. If places is omitted, DEC2OCT uses
      *                                the minimum number of characters necessary. Places is useful for
      *                                padding the return value with leading 0s (zeros).
      *                                If places is not an integer, it is truncated.
@@ -1436,16 +1423,16 @@ class Engineering
 
         if (is_bool($x)) {
             if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
-                $x = (int)$x;
+                $x = (int) $x;
             } else {
                 return Functions::VALUE();
             }
         }
-        $x = (string)$x;
+        $x = (string) $x;
         if (strlen($x) > preg_match_all('/[-0123456789.]/', $x, $out)) {
             return Functions::VALUE();
         }
-        $x = (string)floor($x);
+        $x = (string) floor($x);
         $r = decoct($x);
         if (strlen($r) == 11) {
             //    Two's Complement
@@ -1455,7 +1442,6 @@ class Engineering
         return self::nbrConversionFormat($r, $places);
     }
 
-
     /**
      * HEXTOBIN
      *
@@ -1464,7 +1450,6 @@ class Engineering
      * Excel Function:
      *        HEX2BIN(x[,places])
      *
-     * @access    public
      * @category Engineering Functions
      * @param    string $x the hexadecimal number you want to convert.
      *                  Number cannot contain more than 10 characters.
@@ -1476,7 +1461,7 @@ class Engineering
      *                      and if number is positive, it cannot be greater than 1FF.
      *                  If number is not a valid hexadecimal number, HEX2BIN returns the #NUM! error value.
      *                  If HEX2BIN requires more than places characters, it returns the #NUM! error value.
-     * @param    integer $places The number of characters to use. If places is omitted,
+     * @param    int $places The number of characters to use. If places is omitted,
      *                                    HEX2BIN uses the minimum number of characters necessary. Places
      *                                    is useful for padding the return value with leading 0s (zeros).
      *                                    If places is not an integer, it is truncated.
@@ -1492,14 +1477,13 @@ class Engineering
         if (is_bool($x)) {
             return Functions::VALUE();
         }
-        $x = (string)$x;
+        $x = (string) $x;
         if (strlen($x) > preg_match_all('/[0123456789ABCDEF]/', strtoupper($x), $out)) {
             return Functions::NAN();
         }
 
         return self::DECTOBIN(self::HEXTODEC($x), $places);
     }
-
 
     /**
      * HEXTODEC
@@ -1509,7 +1493,6 @@ class Engineering
      * Excel Function:
      *        HEX2DEC(x)
      *
-     * @access    public
      * @category Engineering Functions
      * @param    string $x The hexadecimal number you want to convert. This number cannot
      *                                contain more than 10 characters (40 bits). The most significant
@@ -1527,12 +1510,12 @@ class Engineering
         if (is_bool($x)) {
             return Functions::VALUE();
         }
-        $x = (string)$x;
+        $x = (string) $x;
         if (strlen($x) > preg_match_all('/[0123456789ABCDEF]/', strtoupper($x), $out)) {
             return Functions::NAN();
         }
 
-        if (strlen($x)> 10) {
+        if (strlen($x) > 10) {
             return Functions::NAN();
         }
 
@@ -1541,14 +1524,15 @@ class Engineering
             $binX .= str_pad(base_convert($char, 16, 2), 4, '0', STR_PAD_LEFT);
         }
         if (strlen($binX) == 40 && $binX[0] == '1') {
-            for ($i = 0; $i < 40; $i++) {
+            for ($i = 0; $i < 40; ++$i) {
                 $binX[$i] = ($binX[$i] == '1' ? '0' : '1');
             }
+
             return (bindec($binX) + 1) * -1;
         }
+
         return bindec($binX);
     }
-
 
     /**
      * HEXTOOCT
@@ -1558,7 +1542,6 @@ class Engineering
      * Excel Function:
      *        HEX2OCT(x[,places])
      *
-     * @access    public
      * @category Engineering Functions
      * @param    string $x The hexadecimal number you want to convert. Number cannot
      *                                    contain more than 10 characters. The most significant bit of
@@ -1573,7 +1556,7 @@ class Engineering
      *                                    the #NUM! error value.
      *                                    If HEX2OCT requires more than places characters, it returns
      *                                    the #NUM! error value.
-     * @param    integer $places The number of characters to use. If places is omitted, HEX2OCT
+     * @param    int $places The number of characters to use. If places is omitted, HEX2OCT
      *                                    uses the minimum number of characters necessary. Places is
      *                                    useful for padding the return value with leading 0s (zeros).
      *                                    If places is not an integer, it is truncated.
@@ -1590,7 +1573,7 @@ class Engineering
         if (is_bool($x)) {
             return Functions::VALUE();
         }
-        $x = (string)$x;
+        $x = (string) $x;
         if (strlen($x) > preg_match_all('/[0123456789ABCDEF]/', strtoupper($x), $out)) {
             return Functions::NAN();
         }
@@ -1611,7 +1594,6 @@ class Engineering
      * Excel Function:
      *        OCT2BIN(x[,places])
      *
-     * @access    public
      * @category Engineering Functions
      * @param    string $x The octal number you want to convert. Number may not
      *                                    contain more than 10 characters. The most significant
@@ -1626,7 +1608,7 @@ class Engineering
      *                                    the #NUM! error value.
      *                                    If OCT2BIN requires more than places characters, it
      *                                    returns the #NUM! error value.
-     * @param    integer $places The number of characters to use. If places is omitted,
+     * @param    int $places The number of characters to use. If places is omitted,
      *                                    OCT2BIN uses the minimum number of characters necessary.
      *                                    Places is useful for padding the return value with
      *                                    leading 0s (zeros).
@@ -1645,14 +1627,13 @@ class Engineering
         if (is_bool($x)) {
             return Functions::VALUE();
         }
-        $x = (string)$x;
+        $x = (string) $x;
         if (preg_match_all('/[01234567]/', $x, $out) != strlen($x)) {
             return Functions::NAN();
         }
 
         return self::DECTOBIN(self::OCTTODEC($x), $places);
     }
-
 
     /**
      * OCTTODEC
@@ -1662,7 +1643,6 @@ class Engineering
      * Excel Function:
      *        OCT2DEC(x)
      *
-     * @access    public
      * @category Engineering Functions
      * @param    string $x The octal number you want to convert. Number may not contain
      *                                more than 10 octal characters (30 bits). The most significant
@@ -1680,20 +1660,22 @@ class Engineering
         if (is_bool($x)) {
             return Functions::VALUE();
         }
-        $x = (string)$x;
+        $x = (string) $x;
         if (preg_match_all('/[01234567]/', $x, $out) != strlen($x)) {
             return Functions::NAN();
         }
         $binX = '';
         foreach (str_split($x) as $char) {
-            $binX .= str_pad(decbin((int)$char), 3, '0', STR_PAD_LEFT);
+            $binX .= str_pad(decbin((int) $char), 3, '0', STR_PAD_LEFT);
         }
         if (strlen($binX) == 30 && $binX[0] == '1') {
-            for ($i = 0; $i < 30; $i++) {
+            for ($i = 0; $i < 30; ++$i) {
                 $binX[$i] = ($binX[$i] == '1' ? '0' : '1');
             }
+
             return (bindec($binX) + 1) * -1;
         }
+
         return bindec($binX);
     }
 
@@ -1705,7 +1687,6 @@ class Engineering
      * Excel Function:
      *        OCT2HEX(x[,places])
      *
-     * @access    public
      * @category Engineering Functions
      * @param    string $x The octal number you want to convert. Number may not contain
      *                                    more than 10 octal characters (30 bits). The most significant
@@ -1718,7 +1699,7 @@ class Engineering
      *                                    #NUM! error value.
      *                                    If OCT2HEX requires more than places characters, it returns
      *                                    the #NUM! error value.
-     * @param    integer $places The number of characters to use. If places is omitted, OCT2HEX
+     * @param    int $places The number of characters to use. If places is omitted, OCT2HEX
      *                                    uses the minimum number of characters necessary. Places is useful
      *                                    for padding the return value with leading 0s (zeros).
      *                                    If places is not an integer, it is truncated.
@@ -1734,7 +1715,7 @@ class Engineering
         if (is_bool($x)) {
             return Functions::VALUE();
         }
-        $x = (string)$x;
+        $x = (string) $x;
         if (preg_match_all('/[01234567]/', $x, $out) != strlen($x)) {
             return Functions::NAN();
         }
@@ -1742,7 +1723,6 @@ class Engineering
 
         return self::nbrConversionFormat($hexVal, $places);
     }
-
 
     /**
      * COMPLEX
@@ -1752,7 +1732,6 @@ class Engineering
      * Excel Function:
      *        COMPLEX(realNumber,imaginary[,places])
      *
-     * @access    public
      * @category Engineering Functions
      * @param    float $realNumber The real coefficient of the complex number.
      * @param    float $imaginary The imaginary coefficient of the complex number.
@@ -1769,37 +1748,38 @@ class Engineering
         if (((is_numeric($realNumber)) && (is_numeric($imaginary))) &&
             (($suffix == 'i') || ($suffix == 'j') || ($suffix == ''))
         ) {
-            $realNumber = (float)$realNumber;
-            $imaginary = (float)$imaginary;
+            $realNumber = (float) $realNumber;
+            $imaginary = (float) $imaginary;
 
             if ($suffix == '') {
                 $suffix = 'i';
             }
             if ($realNumber == 0.0) {
                 if ($imaginary == 0.0) {
-                    return (string)'0';
+                    return (string) '0';
                 } elseif ($imaginary == 1.0) {
-                    return (string)$suffix;
+                    return (string) $suffix;
                 } elseif ($imaginary == -1.0) {
-                    return (string)'-' . $suffix;
+                    return (string) '-' . $suffix;
                 }
-                return (string)$imaginary . $suffix;
+
+                return (string) $imaginary . $suffix;
             } elseif ($imaginary == 0.0) {
-                return (string)$realNumber;
+                return (string) $realNumber;
             } elseif ($imaginary == 1.0) {
-                return (string)$realNumber . '+' . $suffix;
+                return (string) $realNumber . '+' . $suffix;
             } elseif ($imaginary == -1.0) {
-                return (string)$realNumber . '-' . $suffix;
+                return (string) $realNumber . '-' . $suffix;
             }
             if ($imaginary > 0) {
-                $imaginary = (string)'+' . $imaginary;
+                $imaginary = (string) '+' . $imaginary;
             }
-            return (string)$realNumber . $imaginary . $suffix;
+
+            return (string) $realNumber . $imaginary . $suffix;
         }
 
         return Functions::VALUE();
     }
-
 
     /**
      * IMAGINARY
@@ -1809,7 +1789,6 @@ class Engineering
      * Excel Function:
      *        IMAGINARY(complexNumber)
      *
-     * @access    public
      * @category Engineering Functions
      * @param    string $complexNumber The complex number for which you want the imaginary
      *                                         coefficient.
@@ -1820,9 +1799,9 @@ class Engineering
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
         $parsedComplex = self::parseComplex($complexNumber);
+
         return $parsedComplex['imaginary'];
     }
-
 
     /**
      * IMREAL
@@ -1832,7 +1811,6 @@ class Engineering
      * Excel Function:
      *        IMREAL(complexNumber)
      *
-     * @access    public
      * @category Engineering Functions
      * @param    string $complexNumber The complex number for which you want the real coefficient.
      * @return    float
@@ -1842,9 +1820,9 @@ class Engineering
         $complexNumber = Functions::flattenSingleValue($complexNumber);
 
         $parsedComplex = self::parseComplex($complexNumber);
+
         return $parsedComplex['real'];
     }
-
 
     /**
      * IMABS
@@ -1868,7 +1846,6 @@ class Engineering
             ($parsedComplex['imaginary'] * $parsedComplex['imaginary'])
         );
     }
-
 
     /**
      * IMARGUMENT
@@ -1903,7 +1880,6 @@ class Engineering
         }
     }
 
-
     /**
      * IMCONJUGATE
      *
@@ -1933,7 +1909,6 @@ class Engineering
             );
         }
     }
-
 
     /**
      * IMCOS
@@ -1965,7 +1940,6 @@ class Engineering
         }
     }
 
-
     /**
      * IMSIN
      *
@@ -1993,7 +1967,6 @@ class Engineering
             );
         }
     }
-
 
     /**
      * IMSQRT
@@ -2023,7 +1996,6 @@ class Engineering
             return self::COMPLEX($d1 * $r, $d2 * $r, $parsedComplex['suffix']);
         }
     }
-
 
     /**
      * IMLN
@@ -2056,7 +2028,6 @@ class Engineering
         }
     }
 
-
     /**
      * IMLOG10
      *
@@ -2083,7 +2054,6 @@ class Engineering
         return self::IMPRODUCT(log10(EULER), self::IMLN($complexNumber));
     }
 
-
     /**
      * IMLOG2
      *
@@ -2109,7 +2079,6 @@ class Engineering
 
         return self::IMPRODUCT(log(EULER, 2), self::IMLN($complexNumber));
     }
-
 
     /**
      * IMEXP
@@ -2142,7 +2111,6 @@ class Engineering
             return self::COMPLEX($eX, $eY, $parsedComplex['suffix']);
         }
     }
-
 
     /**
      * IMPOWER
@@ -2178,7 +2146,6 @@ class Engineering
             return self::COMPLEX($rPower * cos($theta), $rPower * sin($theta), $parsedComplex['suffix']);
         }
     }
-
 
     /**
      * IMDIV
@@ -2225,7 +2192,6 @@ class Engineering
         }
     }
 
-
     /**
      * IMSUB
      *
@@ -2259,7 +2225,6 @@ class Engineering
 
         return self::COMPLEX($d1, $d2, $parsedComplex1['suffix']);
     }
-
 
     /**
      * IMSUM
@@ -2296,9 +2261,9 @@ class Engineering
         if ($returnValue['imaginary'] == 0.0) {
             $activeSuffix = '';
         }
+
         return self::COMPLEX($returnValue['real'], $returnValue['imaginary'], $activeSuffix);
     }
-
 
     /**
      * IMPRODUCT
@@ -2335,9 +2300,9 @@ class Engineering
         if ($returnValue['imaginary'] == 0.0) {
             $activeSuffix = '';
         }
+
         return self::COMPLEX($returnValue['real'], $returnValue['imaginary'], $activeSuffix);
     }
-
 
     /**
      *    DELTA
@@ -2359,9 +2324,8 @@ class Engineering
         $a = Functions::flattenSingleValue($a);
         $b = Functions::flattenSingleValue($b);
 
-        return (int)($a == $b);
+        return (int) ($a == $b);
     }
-
 
     /**
      *    GESTEP
@@ -2383,9 +2347,8 @@ class Engineering
         $number = Functions::flattenSingleValue($number);
         $step = Functions::flattenSingleValue($step);
 
-        return (int)($number >= $step);
+        return (int) ($number >= $step);
     }
-
 
     //
     //    Private method to calculate the erf value
@@ -2411,9 +2374,9 @@ class Engineering
                 break;
             }
         } while (abs($term / $sum) > PRECISION);
+
         return self::$twoSqrtPi * $sum;
     }
-
 
     /**
      *    ERF
@@ -2446,9 +2409,9 @@ class Engineering
                 return self::erfVal($upper) - self::erfVal($lower);
             }
         }
+
         return Functions::VALUE();
     }
-
 
     //
     //    Private method to calculate the erfc value
@@ -2479,9 +2442,9 @@ class Engineering
             $q1 = $q2;
             $q2 = $b / $d;
         } while ((abs($q1 - $q2) / $q2) > PRECISION);
+
         return self::$oneSqrtPi * exp(-$x * $x) * $q2;
     }
-
 
     /**
      *    ERFC
@@ -2506,9 +2469,9 @@ class Engineering
         if (is_numeric($x)) {
             return self::erfcVal($x);
         }
+
         return Functions::VALUE();
     }
-
 
     /**
      *    getConversionGroups
@@ -2518,13 +2481,13 @@ class Engineering
      */
     public static function getConversionGroups()
     {
-        $conversionGroups = array();
+        $conversionGroups = [];
         foreach (self::$conversionUnits as $conversionUnit) {
             $conversionGroups[] = $conversionUnit['Group'];
         }
+
         return array_merge(array_unique($conversionGroups));
     }
-
 
     /**
      *    getConversionGroupUnits
@@ -2535,15 +2498,15 @@ class Engineering
      */
     public static function getConversionGroupUnits($group = null)
     {
-        $conversionGroups = array();
+        $conversionGroups = [];
         foreach (self::$conversionUnits as $conversionUnit => $conversionGroup) {
             if ((is_null($group)) || ($conversionGroup['Group'] == $group)) {
                 $conversionGroups[$conversionGroup['Group']][] = $conversionUnit;
             }
         }
+
         return $conversionGroups;
     }
-
 
     /**
      *    getConversionGroupUnitDetails
@@ -2553,18 +2516,18 @@ class Engineering
      */
     public static function getConversionGroupUnitDetails($group = null)
     {
-        $conversionGroups = array();
+        $conversionGroups = [];
         foreach (self::$conversionUnits as $conversionUnit => $conversionGroup) {
             if ((is_null($group)) || ($conversionGroup['Group'] == $group)) {
-                $conversionGroups[$conversionGroup['Group']][] = array(
+                $conversionGroups[$conversionGroup['Group']][] = [
                     'unit' => $conversionUnit,
-                    'description' => $conversionGroup['Unit Name']
-                );
+                    'description' => $conversionGroup['Unit Name'],
+                ];
             }
         }
+
         return $conversionGroups;
     }
-
 
     /**
      *    getConversionMultipliers
@@ -2576,7 +2539,6 @@ class Engineering
     {
         return self::$conversionMultipliers;
     }
-
 
     /**
      *    CONVERTUOM
@@ -2656,6 +2618,7 @@ class Engineering
                     if (($toUOM == 'K') || ($toUOM == 'kel')) {
                         $value += 273.15;
                     }
+
                     return $value;
                 }
             } elseif ((($fromUOM == 'K') || ($fromUOM == 'kel')) &&
@@ -2671,13 +2634,16 @@ class Engineering
                 if (($fromUOM == 'K') || ($fromUOM == 'kel')) {
                     $value -= 273.15;
                 }
+
                 return ($value * 1.8) + 32;
             }
             if (($toUOM == 'C') || ($toUOM == 'cel')) {
                 return $value - 273.15;
             }
+
             return $value + 273.15;
         }
+
         return ($value * self::$unitConversions[$unitGroup1][$fromUOM][$toUOM]) / $toMultiplier;
     }
 }

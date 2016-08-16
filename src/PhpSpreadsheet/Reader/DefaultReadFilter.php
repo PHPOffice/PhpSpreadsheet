@@ -32,7 +32,7 @@ class DefaultReadFilter implements IReadFilter
      * @param    $column           Column address (as a string value like "A", or "IV")
      * @param    $row              Row number
      * @param    $worksheetName    Optional worksheet name
-     * @return   boolean
+     * @return   bool
      */
     public function readCell($column, $row, $worksheetName = '')
     {

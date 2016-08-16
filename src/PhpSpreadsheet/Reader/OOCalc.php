@@ -31,28 +31,28 @@ class OOCalc extends BaseReader implements IReader
      *
      * @var array
      */
-    private $styles = array();
+    private $styles = [];
 
     /**
      * Create a new OOCalc Reader instance
      */
     public function __construct()
     {
-        $this->readFilter     = new DefaultReadFilter();
+        $this->readFilter = new DefaultReadFilter();
     }
 
     /**
      * Can the current IReader read the file?
      *
      * @param     string         $pFilename
-     * @return     boolean
      * @throws Exception
+     * @return     bool
      */
     public function canRead($pFilename)
     {
         // Check if file exists
         if (!file_exists($pFilename)) {
-            throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
         }
 
         $zipClass = \PhpSpreadsheet\Settings::getZipClass();
@@ -64,7 +64,7 @@ class OOCalc extends BaseReader implements IReader
 
         $mimeType = 'UNKNOWN';
         // Load file
-        $zip = new $zipClass;
+        $zip = new $zipClass();
         if ($zip->open($pFilename) === true) {
             // check if it is an OOXML archive
             $stat = $zip->statName('mimetype');
@@ -91,12 +91,11 @@ class OOCalc extends BaseReader implements IReader
 
             $zip->close();
 
-            return ($mimeType === 'application/vnd.oasis.opendocument.spreadsheet');
+            return $mimeType === 'application/vnd.oasis.opendocument.spreadsheet';
         }
 
         return false;
     }
-
 
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object
@@ -108,21 +107,21 @@ class OOCalc extends BaseReader implements IReader
     {
         // Check if file exists
         if (!file_exists($pFilename)) {
-            throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
         }
 
         $zipClass = \PhpSpreadsheet\Settings::getZipClass();
 
-        $zip = new $zipClass;
+        $zip = new $zipClass();
         if (!$zip->open($pFilename)) {
-            throw new Exception("Could not open " . $pFilename . " for reading! Error opening file.");
+            throw new Exception('Could not open ' . $pFilename . ' for reading! Error opening file.');
         }
 
-        $worksheetNames = array();
+        $worksheetNames = [];
 
         $xml = new XMLReader();
         $res = $xml->xml(
-            $this->securityScanFile('zip://'.realpath($pFilename).'#content.xml'),
+            $this->securityScanFile('zip://' . realpath($pFilename) . '#content.xml'),
             null,
             \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
         );
@@ -164,21 +163,21 @@ class OOCalc extends BaseReader implements IReader
     {
         // Check if file exists
         if (!file_exists($pFilename)) {
-            throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
         }
 
-        $worksheetInfo = array();
+        $worksheetInfo = [];
 
         $zipClass = \PhpSpreadsheet\Settings::getZipClass();
 
-        $zip = new $zipClass;
+        $zip = new $zipClass();
         if (!$zip->open($pFilename)) {
-            throw new Exception("Could not open " . $pFilename . " for reading! Error opening file.");
+            throw new Exception('Could not open ' . $pFilename . ' for reading! Error opening file.');
         }
 
         $xml = new XMLReader();
         $res = $xml->xml(
-            $this->securityScanFile('zip://'.realpath($pFilename).'#content.xml'),
+            $this->securityScanFile('zip://' . realpath($pFilename) . '#content.xml'),
             null,
             \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
         );
@@ -200,13 +199,13 @@ class OOCalc extends BaseReader implements IReader
                 if ($xml->name == 'table:table' && $xml->nodeType == XMLReader::ELEMENT) {
                     $worksheetNames[] = $xml->getAttribute('table:name');
 
-                    $tmpInfo = array(
+                    $tmpInfo = [
                         'worksheetName' => $xml->getAttribute('table:name'),
                         'lastColumnLetter' => 'A',
                         'lastColumnIndex' => 0,
                         'totalRows' => 0,
                         'totalColumns' => 0,
-                    );
+                    ];
 
                     //    Loop through each child node of the table:table element reading
                     $currCells = 0;
@@ -223,7 +222,7 @@ class OOCalc extends BaseReader implements IReader
                             do {
                                 if ($xml->name == 'table:table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
                                     if (!$xml->isEmptyElement) {
-                                        $currCells++;
+                                        ++$currCells;
                                         $xml->next();
                                     } else {
                                         $xml->read();
@@ -287,8 +286,8 @@ class OOCalc extends BaseReader implements IReader
      * Loads PhpSpreadsheet from file
      *
      * @param     string         $pFilename
-     * @return     \PhpSpreadsheet\Spreadsheet
      * @throws     Exception
+     * @return     \PhpSpreadsheet\Spreadsheet
      */
     public function load($pFilename)
     {
@@ -305,9 +304,11 @@ class OOCalc extends BaseReader implements IReader
         foreach ($styleList as $style) {
             if ($styleAttributeValue == strtolower($style)) {
                 $styleAttributeValue = $style;
+
                 return true;
             }
         }
+
         return false;
     }
 
@@ -316,14 +317,14 @@ class OOCalc extends BaseReader implements IReader
      *
      * @param     string         $pFilename
      * @param    \PhpSpreadsheet\Spreadsheet    $spreadsheet
-     * @return     \PhpSpreadsheet\Spreadsheet
      * @throws     Exception
+     * @return     \PhpSpreadsheet\Spreadsheet
      */
     public function loadIntoExisting($pFilename, \PhpSpreadsheet\Spreadsheet $spreadsheet)
     {
         // Check if file exists
         if (!file_exists($pFilename)) {
-            throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
+            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
         }
 
         $timezoneObj = new DateTimeZone('Europe/London');
@@ -331,14 +332,14 @@ class OOCalc extends BaseReader implements IReader
 
         $zipClass = \PhpSpreadsheet\Settings::getZipClass();
 
-        $zip = new $zipClass;
+        $zip = new $zipClass();
         if (!$zip->open($pFilename)) {
-            throw new Exception("Could not open " . $pFilename . " for reading! Error opening file.");
+            throw new Exception('Could not open ' . $pFilename . ' for reading! Error opening file.');
         }
 
 //        echo '<h1>Meta Information</h1>';
         $xml = simplexml_load_string(
-            $this->securityScan($zip->getFromName("meta.xml")),
+            $this->securityScan($zip->getFromName('meta.xml')),
             'SimpleXMLElement',
             \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
         );
@@ -350,7 +351,7 @@ class OOCalc extends BaseReader implements IReader
         $docProps = $spreadsheet->getProperties();
         $officeProperty = $xml->children($namespacesMeta['office']);
         foreach ($officeProperty as $officePropertyData) {
-            $officePropertyDC = array();
+            $officePropertyDC = [];
             if (isset($namespacesMeta['dc'])) {
                 $officePropertyDC = $officePropertyData->children($namespacesMeta['dc']);
             }
@@ -377,7 +378,7 @@ class OOCalc extends BaseReader implements IReader
                         break;
                 }
             }
-            $officePropertyMeta = array();
+            $officePropertyMeta = [];
             if (isset($namespacesMeta['dc'])) {
                 $officePropertyMeta = $officePropertyData->children($namespacesMeta['meta']);
             }
@@ -425,10 +426,9 @@ class OOCalc extends BaseReader implements IReader
             }
         }
 
-
 //        echo '<h1>Workbook Content</h1>';
         $xml = simplexml_load_string(
-            $this->securityScan($zip->getFromName("content.xml")),
+            $this->securityScan($zip->getFromName('content.xml')),
             'SimpleXMLElement',
             \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
         );
@@ -467,7 +467,7 @@ class OOCalc extends BaseReader implements IReader
 
                 $rowID = 1;
                 foreach ($worksheetData as $key => $rowData) {
-//                    echo '<b>'.$key.'</b><br />';
+                    //                    echo '<b>'.$key.'</b><br />';
                     switch ($key) {
                         case 'table-header-rows':
                             foreach ($rowData as $keyRowData => $cellData) {
@@ -509,13 +509,13 @@ class OOCalc extends BaseReader implements IReader
                                 }
 
                                 if (isset($cellDataOffice->annotation)) {
-//                                    echo 'Cell has comment<br />';
+                                    //                                    echo 'Cell has comment<br />';
                                     $annotationText = $cellDataOffice->annotation->children($namespacesContent['text']);
-                                    $textArray = array();
+                                    $textArray = [];
                                     foreach ($annotationText as $t) {
                                         if (isset($t->span)) {
                                             foreach ($t->span as $text) {
-                                                $textArray[] = (string)$text;
+                                                $textArray[] = (string) $text;
                                             }
                                         } else {
                                             $textArray[] = (string) $t;
@@ -523,13 +523,13 @@ class OOCalc extends BaseReader implements IReader
                                     }
                                     $text = implode("\n", $textArray);
 //                                    echo $text, '<br />';
-                                    $spreadsheet->getActiveSheet()->getComment($columnID.$rowID)->setText($this->parseRichText($text));
+                                    $spreadsheet->getActiveSheet()->getComment($columnID . $rowID)->setText($this->parseRichText($text));
 //                                                                    ->setAuthor( $author )
                                 }
 
                                 if (isset($cellDataText->p)) {
                                     // Consolidate if there are multiple p records (maybe with spans as well)
-                                    $dataArray = array();
+                                    $dataArray = [];
                                     // Text can have multiple text:p and within those, multiple text:span.
                                     // text:p newlines, but text:span does not.
                                     // Also, here we assume there is no text data is span fields are specified, since
@@ -537,7 +537,7 @@ class OOCalc extends BaseReader implements IReader
                                     foreach ($cellDataText->p as $pData) {
                                         if (isset($pData->span)) {
                                             // span sections do not newline, so we just create one large string here
-                                            $spanSection = "";
+                                            $spanSection = '';
                                             foreach ($pData->span as $spanData) {
                                                 $spanSection .= $spanData;
                                             }
@@ -597,14 +597,14 @@ class OOCalc extends BaseReader implements IReader
                                             list($year, $month, $day, $hour, $minute, $second) = explode(' ', $dateObj->format('Y m d H i s'));
                                             $dataValue = \PhpSpreadsheet\Shared\Date::formattedPHPToExcel($year, $month, $day, $hour, $minute, $second);
                                             if ($dataValue != floor($dataValue)) {
-                                                $formatting = \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX15.' '.\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4;
+                                                $formatting = \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX15 . ' ' . \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4;
                                             } else {
                                                 $formatting = \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX15;
                                             }
                                             break;
                                         case 'time':
                                             $type = \PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
-                                            $dataValue = \PhpSpreadsheet\Shared\Date::PHPToExcel(strtotime('01-01-1970 '.implode(':', sscanf($cellDataOfficeAttributes['time-value'], 'PT%dH%dM%dS'))));
+                                            $dataValue = \PhpSpreadsheet\Shared\Date::PHPToExcel(strtotime('01-01-1970 ' . implode(':', sscanf($cellDataOfficeAttributes['time-value'], 'PT%dH%dM%dS'))));
                                             $formatting = \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4;
                                             break;
                                     }
@@ -620,7 +620,7 @@ class OOCalc extends BaseReader implements IReader
                                 if ($hasCalculatedValue) {
                                     $type = \PhpSpreadsheet\Cell\DataType::TYPE_FORMULA;
 //                                    echo 'Formula: ', $cellDataFormula, PHP_EOL;
-                                    $cellDataFormula = substr($cellDataFormula, strpos($cellDataFormula, ':=')+1);
+                                    $cellDataFormula = substr($cellDataFormula, strpos($cellDataFormula, ':=') + 1);
                                     $temp = explode('"', $cellDataFormula);
                                     $tKey = false;
                                     foreach ($temp as &$value) {
@@ -648,18 +648,18 @@ class OOCalc extends BaseReader implements IReader
                                         if ($type !== \PhpSpreadsheet\Cell\DataType::TYPE_NULL) {
                                             for ($rowAdjust = 0; $rowAdjust < $rowRepeats; ++$rowAdjust) {
                                                 $rID = $rowID + $rowAdjust;
-                                                $spreadsheet->getActiveSheet()->getCell($columnID.$rID)->setValueExplicit((($hasCalculatedValue) ? $cellDataFormula : $dataValue), $type);
+                                                $spreadsheet->getActiveSheet()->getCell($columnID . $rID)->setValueExplicit((($hasCalculatedValue) ? $cellDataFormula : $dataValue), $type);
                                                 if ($hasCalculatedValue) {
-//                                                    echo 'Forumla result is '.$dataValue.'<br />';
-                                                    $spreadsheet->getActiveSheet()->getCell($columnID.$rID)->setCalculatedValue($dataValue);
+                                                    //                                                    echo 'Forumla result is '.$dataValue.'<br />';
+                                                    $spreadsheet->getActiveSheet()->getCell($columnID . $rID)->setCalculatedValue($dataValue);
                                                 }
                                                 if ($formatting !== null) {
-                                                    $spreadsheet->getActiveSheet()->getStyle($columnID.$rID)->getNumberFormat()->setFormatCode($formatting);
+                                                    $spreadsheet->getActiveSheet()->getStyle($columnID . $rID)->getNumberFormat()->setFormatCode($formatting);
                                                 } else {
-                                                    $spreadsheet->getActiveSheet()->getStyle($columnID.$rID)->getNumberFormat()->setFormatCode(\PhpSpreadsheet\Style\NumberFormat::FORMAT_GENERAL);
+                                                    $spreadsheet->getActiveSheet()->getStyle($columnID . $rID)->getNumberFormat()->setFormatCode(\PhpSpreadsheet\Style\NumberFormat::FORMAT_GENERAL);
                                                 }
                                                 if ($hyperlink !== null) {
-                                                    $spreadsheet->getActiveSheet()->getCell($columnID.$rID)->getHyperlink()->setUrl($hyperlink);
+                                                    $spreadsheet->getActiveSheet()->getCell($columnID . $rID)->getHyperlink()->setUrl($hyperlink);
                                                 }
                                             }
                                         }
@@ -671,13 +671,13 @@ class OOCalc extends BaseReader implements IReader
                                     if (($type !== \PhpSpreadsheet\Cell\DataType::TYPE_NULL) || (!$this->readDataOnly)) {
                                         $columnTo = $columnID;
                                         if (isset($cellDataTableAttributes['number-columns-spanned'])) {
-                                            $columnTo = \PhpSpreadsheet\Cell::stringFromColumnIndex(\PhpSpreadsheet\Cell::columnIndexFromString($columnID) + $cellDataTableAttributes['number-columns-spanned'] -2);
+                                            $columnTo = \PhpSpreadsheet\Cell::stringFromColumnIndex(\PhpSpreadsheet\Cell::columnIndexFromString($columnID) + $cellDataTableAttributes['number-columns-spanned'] - 2);
                                         }
                                         $rowTo = $rowID;
                                         if (isset($cellDataTableAttributes['number-rows-spanned'])) {
                                             $rowTo = $rowTo + $cellDataTableAttributes['number-rows-spanned'] - 1;
                                         }
-                                        $cellRange = $columnID.$rowID.':'.$columnTo.$rowTo;
+                                        $cellRange = $columnID . $rowID . ':' . $columnTo . $rowTo;
                                         $spreadsheet->getActiveSheet()->mergeCells($cellRange);
                                     }
                                 }

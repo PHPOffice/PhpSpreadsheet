@@ -31,7 +31,6 @@ class CSV extends BaseReader implements IReader
     /**
      * Input encoding
      *
-     * @access    private
      * @var    string
      */
     private $inputEncoding = 'UTF-8';
@@ -39,7 +38,6 @@ class CSV extends BaseReader implements IReader
     /**
      * Delimiter
      *
-     * @access    private
      * @var string
      */
     private $delimiter = ',';
@@ -47,7 +45,6 @@ class CSV extends BaseReader implements IReader
     /**
      * Enclosure
      *
-     * @access    private
      * @var    string
      */
     private $enclosure = '"';
@@ -55,7 +52,6 @@ class CSV extends BaseReader implements IReader
     /**
      * Sheet index to read
      *
-     * @access    private
      * @var    int
      */
     private $sheetIndex = 0;
@@ -63,7 +59,6 @@ class CSV extends BaseReader implements IReader
     /**
      * Load rows contiguously
      *
-     * @access    private
      * @var    int
      */
     private $contiguous = false;
@@ -74,7 +69,6 @@ class CSV extends BaseReader implements IReader
      * @var    int
      */
     private $contiguousRow = -1;
-
 
     /**
      * Create a new CSV Reader instance
@@ -87,7 +81,7 @@ class CSV extends BaseReader implements IReader
     /**
      * Validate that the current file is a CSV file
      *
-     * @return boolean
+     * @return bool
      */
     protected function isValidFormat()
     {
@@ -102,6 +96,7 @@ class CSV extends BaseReader implements IReader
     public function setInputEncoding($pValue = 'UTF-8')
     {
         $this->inputEncoding = $pValue;
+
         return $this;
     }
 
@@ -117,7 +112,6 @@ class CSV extends BaseReader implements IReader
 
     /**
      * Move filepointer past any BOM marker
-     *
      */
     protected function skipBOM()
     {
@@ -151,7 +145,6 @@ class CSV extends BaseReader implements IReader
 
     /**
      * Identify any separator that is explicitly set in the file
-     *
      */
     protected function checkSeparator()
     {
@@ -162,8 +155,10 @@ class CSV extends BaseReader implements IReader
 
         if ((strlen(trim($line, "\r\n")) == 5) && (stripos($line, 'sep=') === 0)) {
             $this->delimiter = substr($line, 4, 1);
+
             return;
         }
+
         return $this->skipBOM();
     }
 
@@ -179,7 +174,7 @@ class CSV extends BaseReader implements IReader
         $this->openFile($pFilename);
         if (!$this->isValidFormat()) {
             fclose($this->fileHandle);
-            throw new Exception($pFilename . " is an Invalid Spreadsheet file.");
+            throw new Exception($pFilename . ' is an Invalid Spreadsheet file.');
         }
         $fileHandle = $this->fileHandle;
 
@@ -187,9 +182,9 @@ class CSV extends BaseReader implements IReader
         $this->skipBOM();
         $this->checkSeparator();
 
-        $escapeEnclosures = array( "\\" . $this->enclosure, $this->enclosure . $this->enclosure );
+        $escapeEnclosures = ['\\' . $this->enclosure, $this->enclosure . $this->enclosure];
 
-        $worksheetInfo = array();
+        $worksheetInfo = [];
         $worksheetInfo[0]['worksheetName'] = 'Worksheet';
         $worksheetInfo[0]['lastColumnLetter'] = 'A';
         $worksheetInfo[0]['lastColumnIndex'] = 0;
@@ -198,7 +193,7 @@ class CSV extends BaseReader implements IReader
 
         // Loop through each line of the file in turn
         while (($rowData = fgetcsv($fileHandle, 0, $this->delimiter, $this->enclosure)) !== false) {
-            $worksheetInfo[0]['totalRows']++;
+            ++$worksheetInfo[0]['totalRows'];
             $worksheetInfo[0]['lastColumnIndex'] = max($worksheetInfo[0]['lastColumnIndex'], count($rowData) - 1);
         }
 
@@ -215,8 +210,8 @@ class CSV extends BaseReader implements IReader
      * Loads Spreadsheet from file
      *
      * @param     string         $pFilename
-     * @return \PhpSpreadsheet\Spreadsheet
      * @throws Exception
+     * @return \PhpSpreadsheet\Spreadsheet
      */
     public function load($pFilename)
     {
@@ -232,8 +227,8 @@ class CSV extends BaseReader implements IReader
      *
      * @param string $pFilename
      * @param Spreadsheet $spreadsheet
-     * @return Spreadsheet
      * @throws Exception
+     * @return Spreadsheet
      */
     public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
     {
@@ -244,7 +239,7 @@ class CSV extends BaseReader implements IReader
         $this->openFile($pFilename);
         if (!$this->isValidFormat()) {
             fclose($this->fileHandle);
-            throw new Exception($pFilename . " is an Invalid Spreadsheet file.");
+            throw new Exception($pFilename . ' is an Invalid Spreadsheet file.');
         }
         $fileHandle = $this->fileHandle;
 
@@ -258,9 +253,9 @@ class CSV extends BaseReader implements IReader
         }
         $sheet = $spreadsheet->setActiveSheetIndex($this->sheetIndex);
 
-        $escapeEnclosures = array( "\\" . $this->enclosure,
-                                   $this->enclosure . $this->enclosure
-                                 );
+        $escapeEnclosures = ['\\' . $this->enclosure,
+                                   $this->enclosure . $this->enclosure,
+                                 ];
 
         // Set our starting row based on whether we're in contiguous mode or not
         $currentRow = 1;
@@ -321,6 +316,7 @@ class CSV extends BaseReader implements IReader
     public function setDelimiter($pValue = ',')
     {
         $this->delimiter = $pValue;
+
         return $this;
     }
 
@@ -346,13 +342,14 @@ class CSV extends BaseReader implements IReader
             $pValue = '"';
         }
         $this->enclosure = $pValue;
+
         return $this;
     }
 
     /**
      * Get sheet index
      *
-     * @return integer
+     * @return int
      */
     public function getSheetIndex()
     {
@@ -362,19 +359,20 @@ class CSV extends BaseReader implements IReader
     /**
      * Set sheet index
      *
-     * @param    integer        $pValue        Sheet index
+     * @param    int        $pValue        Sheet index
      * @return   CSV
      */
     public function setSheetIndex($pValue = 0)
     {
         $this->sheetIndex = $pValue;
+
         return $this;
     }
 
     /**
      * Set Contiguous
      *
-     * @param boolean $contiguous
+     * @param bool $contiguous
      */
     public function setContiguous($contiguous = false)
     {
@@ -389,7 +387,7 @@ class CSV extends BaseReader implements IReader
     /**
      * Get Contiguous
      *
-     * @return boolean
+     * @return bool
      */
     public function getContiguous()
     {

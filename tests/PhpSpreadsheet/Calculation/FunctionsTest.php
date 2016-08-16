@@ -6,7 +6,6 @@ use PhpSpreadsheet\Calculation\Functions;
 
 class FunctionsTest extends \PHPUnit_Framework_TestCase
 {
-
     public function setUp()
     {
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
@@ -67,7 +66,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Functions::class,'isBlank'), $args);
+        $result = call_user_func_array([Functions::class, 'isBlank'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -83,7 +82,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Functions::class,'isErr'), $args);
+        $result = call_user_func_array([Functions::class, 'isErr'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -99,7 +98,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Functions::class,'isError'), $args);
+        $result = call_user_func_array([Functions::class, 'isError'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -115,7 +114,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Functions::class,'errorType'), $args);
+        $result = call_user_func_array([Functions::class, 'errorType'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -131,7 +130,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Functions::class,'isLogical'), $args);
+        $result = call_user_func_array([Functions::class, 'isLogical'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -147,7 +146,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Functions::class,'isNa'), $args);
+        $result = call_user_func_array([Functions::class, 'isNa'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -163,7 +162,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Functions::class,'isNumber'), $args);
+        $result = call_user_func_array([Functions::class, 'isNumber'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -179,7 +178,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Functions::class,'isText'), $args);
+        $result = call_user_func_array([Functions::class, 'isText'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -195,7 +194,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Functions::class,'isNonText'), $args);
+        $result = call_user_func_array([Functions::class, 'isNonText'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -211,7 +210,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Functions::class,'isEven'), $args);
+        $result = call_user_func_array([Functions::class, 'isEven'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -227,7 +226,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Functions::class,'isOdd'), $args);
+        $result = call_user_func_array([Functions::class, 'isOdd'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -243,7 +242,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Functions::class,'TYPE'), $args);
+        $result = call_user_func_array([Functions::class, 'TYPE'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -259,7 +258,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array(array(Functions::class,'n'), $args);
+        $result = call_user_func_array([Functions::class, 'n'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 

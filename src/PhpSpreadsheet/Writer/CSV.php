@@ -38,33 +38,33 @@ class CSV extends BaseWriter implements IWriter
      *
      * @var string
      */
-    private $delimiter    = ',';
+    private $delimiter = ',';
 
     /**
      * Enclosure
      *
      * @var string
      */
-    private $enclosure    = '"';
+    private $enclosure = '"';
 
     /**
      * Line ending
      *
      * @var string
      */
-    private $lineEnding    = PHP_EOL;
+    private $lineEnding = PHP_EOL;
 
     /**
      * Sheet index to write
      *
      * @var int
      */
-    private $sheetIndex    = 0;
+    private $sheetIndex = 0;
 
     /**
      * Whether to write a BOM (for UTF8).
      *
-     * @var boolean
+     * @var bool
      */
     private $useBOM = false;
 
@@ -72,14 +72,14 @@ class CSV extends BaseWriter implements IWriter
      * Whether to write a Separator line as the first line of the file
      *     sep=x
      *
-     * @var boolean
+     * @var bool
      */
     private $includeSeparatorLine = false;
 
     /**
      * Whether to write a fully Excel compatible CSV file.
      *
-     * @var boolean
+     * @var bool
      */
     private $excelCompatibility = false;
 
@@ -119,7 +119,7 @@ class CSV extends BaseWriter implements IWriter
             $this->setUseBOM(true);                //  Enforce UTF-8 BOM Header
             $this->setIncludeSeparatorLine(true);  //  Set separator line
             $this->setEnclosure('"');              //  Set enclosure to "
-            $this->setDelimiter(";");              //  Set delimiter to a semi-colon
+            $this->setDelimiter(';');              //  Set delimiter to a semi-colon
             $this->setLineEnding("\r\n");
         }
         if ($this->useBOM) {
@@ -138,7 +138,7 @@ class CSV extends BaseWriter implements IWriter
         // Write rows to file
         for ($row = 1; $row <= $maxRow; ++$row) {
             // Convert the row to an array...
-            $cellsArray = $sheet->rangeToArray('A'.$row.':'.$maxCol.$row, '', $this->preCalculateFormulas);
+            $cellsArray = $sheet->rangeToArray('A' . $row . ':' . $maxCol . $row, '', $this->preCalculateFormulas);
             // ... and write to the file
             $this->writeLine($fileHandle, $cellsArray[0]);
         }
@@ -169,6 +169,7 @@ class CSV extends BaseWriter implements IWriter
     public function setDelimiter($pValue = ',')
     {
         $this->delimiter = $pValue;
+
         return $this;
     }
 
@@ -194,6 +195,7 @@ class CSV extends BaseWriter implements IWriter
             $pValue = null;
         }
         $this->enclosure = $pValue;
+
         return $this;
     }
 
@@ -216,13 +218,14 @@ class CSV extends BaseWriter implements IWriter
     public function setLineEnding($pValue = PHP_EOL)
     {
         $this->lineEnding = $pValue;
+
         return $this;
     }
 
     /**
      * Get whether BOM should be used
      *
-     * @return boolean
+     * @return bool
      */
     public function getUseBOM()
     {
@@ -232,19 +235,20 @@ class CSV extends BaseWriter implements IWriter
     /**
      * Set whether BOM should be used
      *
-     * @param    boolean    $pValue        Use UTF-8 byte-order mark? Defaults to false
+     * @param    bool    $pValue        Use UTF-8 byte-order mark? Defaults to false
      * @return CSV
      */
     public function setUseBOM($pValue = false)
     {
         $this->useBOM = $pValue;
+
         return $this;
     }
 
     /**
      * Get whether a separator line should be included
      *
-     * @return boolean
+     * @return bool
      */
     public function getIncludeSeparatorLine()
     {
@@ -254,19 +258,20 @@ class CSV extends BaseWriter implements IWriter
     /**
      * Set whether a separator line should be included as the first line of the file
      *
-     * @param    boolean    $pValue        Use separator line? Defaults to false
+     * @param    bool    $pValue        Use separator line? Defaults to false
      * @return CSV
      */
     public function setIncludeSeparatorLine($pValue = false)
     {
         $this->includeSeparatorLine = $pValue;
+
         return $this;
     }
 
     /**
      * Get whether the file should be saved with full Excel Compatibility
      *
-     * @return boolean
+     * @return bool
      */
     public function getExcelCompatibility()
     {
@@ -276,13 +281,14 @@ class CSV extends BaseWriter implements IWriter
     /**
      * Set whether the file should be saved with full Excel Compatibility
      *
-     * @param    boolean    $pValue        Set the file to be written as a fully Excel compatible csv file
+     * @param    bool    $pValue        Set the file to be written as a fully Excel compatible csv file
      *                                Note that this overrides other settings such as useBOM, enclosure and delimiter
      * @return CSV
      */
     public function setExcelCompatibility($pValue = false)
     {
         $this->excelCompatibility = $pValue;
+
         return $this;
     }
 
@@ -305,6 +311,7 @@ class CSV extends BaseWriter implements IWriter
     public function setSheetIndex($pValue = 0)
     {
         $this->sheetIndex = $pValue;
+
         return $this;
     }
 
@@ -345,7 +352,7 @@ class CSV extends BaseWriter implements IWriter
             // Write to file
             fwrite($pFileHandle, $line);
         } else {
-            throw new Exception("Invalid data row passed to CSV writer.");
+            throw new Exception('Invalid data row passed to CSV writer.');
         }
     }
 }

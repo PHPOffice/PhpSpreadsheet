@@ -95,8 +95,8 @@ class SQLite3 extends CacheBase implements ICache
      *
      * @param   string            $pCoord        Coordinate address of the cell to update
      * @param   \PhpSpreadsheet\Cell    $cell        Cell to update
-     * @return  \PhpSpreadsheet\Cell
      * @throws  \PhpSpreadsheet\Exception
+     * @return  \PhpSpreadsheet\Cell
      */
     public function addCacheData($pCoord, \PhpSpreadsheet\Cell $cell)
     {
@@ -116,8 +116,8 @@ class SQLite3 extends CacheBase implements ICache
      *
      * @param   string             $pCoord        Coordinate of the cell
      * @throws  \PhpSpreadsheet\Exception
-     * @return  \PhpSpreadsheet\Cell     Cell that was found, or null if not found
      * @throws  \PhpSpreadsheet\Exception
+     * @return  \PhpSpreadsheet\Cell     Cell that was found, or null if not found
      */
     public function getCacheData($pCoord)
     {
@@ -152,8 +152,8 @@ class SQLite3 extends CacheBase implements ICache
      *    Is a value set for an indexed cell?
      *
      * @param    string        $pCoord        Coordinate address of the cell to check
-     * @return    boolean
      * @throws  \PhpSpreadsheet\Exception
+     * @return    bool
      */
     public function isDataSet($pCoord)
     {
@@ -200,8 +200,8 @@ class SQLite3 extends CacheBase implements ICache
      *
      * @param    string        $fromAddress    Current address of the cell to move
      * @param    string        $toAddress        Destination address of the cell to move
-     * @return    boolean
      * @throws  \PhpSpreadsheet\Exception
+     * @return    bool
      */
     public function moveCell($fromAddress, $toAddress)
     {
@@ -228,8 +228,8 @@ class SQLite3 extends CacheBase implements ICache
     /**
      * Get a list of all cell addresses currently held in cache
      *
-     * @return    string[]
      * @throws  \PhpSpreadsheet\Exception
+     * @return    string[]
      */
     public function getCellList()
     {
@@ -237,13 +237,13 @@ class SQLite3 extends CacheBase implements ICache
             $this->storeData();
         }
 
-        $query = "SELECT id FROM kvp_".$this->TableName;
+        $query = 'SELECT id FROM kvp_' . $this->TableName;
         $cellIdsResult = $this->DBHandle->query($query);
         if ($cellIdsResult === false) {
             throw new \PhpSpreadsheet\Exception($this->DBHandle->lastErrorMsg());
         }
 
-        $cellKeys = array();
+        $cellKeys = [];
         while ($row = $cellIdsResult->fetchArray(SQLITE3_ASSOC)) {
             $cellKeys[] = $row['id'];
         }
@@ -264,8 +264,8 @@ class SQLite3 extends CacheBase implements ICache
 
         //    Get a new id for the new table name
         $tableName = str_replace('.', '_', $this->getUniqueID());
-        if (!$this->DBHandle->exec('CREATE TABLE kvp_'.$tableName.' (id VARCHAR(12) PRIMARY KEY, value BLOB)
-            AS SELECT * FROM kvp_'.$this->TableName)
+        if (!$this->DBHandle->exec('CREATE TABLE kvp_' . $tableName . ' (id VARCHAR(12) PRIMARY KEY, value BLOB)
+            AS SELECT * FROM kvp_' . $this->TableName)
         ) {
             throw new \PhpSpreadsheet\Exception($this->DBHandle->lastErrorMsg());
         }
@@ -276,8 +276,6 @@ class SQLite3 extends CacheBase implements ICache
 
     /**
      * Clear the cell collection and disconnect from our parent
-     *
-     * @return    void
      */
     public function unsetWorksheetCells()
     {
@@ -309,15 +307,15 @@ class SQLite3 extends CacheBase implements ICache
             if ($this->DBHandle === false) {
                 throw new \PhpSpreadsheet\Exception($this->DBHandle->lastErrorMsg());
             }
-            if (!$this->DBHandle->exec('CREATE TABLE kvp_'.$this->TableName.' (id VARCHAR(12) PRIMARY KEY, value BLOB)')) {
+            if (!$this->DBHandle->exec('CREATE TABLE kvp_' . $this->TableName . ' (id VARCHAR(12) PRIMARY KEY, value BLOB)')) {
                 throw new \PhpSpreadsheet\Exception($this->DBHandle->lastErrorMsg());
             }
         }
 
-        $this->selectQuery = $this->DBHandle->prepare("SELECT value FROM kvp_".$this->TableName." WHERE id = :id");
-        $this->insertQuery = $this->DBHandle->prepare("INSERT OR REPLACE INTO kvp_".$this->TableName." VALUES(:id,:data)");
-        $this->updateQuery = $this->DBHandle->prepare("UPDATE kvp_".$this->TableName." SET id=:toId WHERE id=:fromId");
-        $this->deleteQuery = $this->DBHandle->prepare("DELETE FROM kvp_".$this->TableName." WHERE id = :id");
+        $this->selectQuery = $this->DBHandle->prepare('SELECT value FROM kvp_' . $this->TableName . ' WHERE id = :id');
+        $this->insertQuery = $this->DBHandle->prepare('INSERT OR REPLACE INTO kvp_' . $this->TableName . ' VALUES(:id,:data)');
+        $this->updateQuery = $this->DBHandle->prepare('UPDATE kvp_' . $this->TableName . ' SET id=:toId WHERE id=:fromId');
+        $this->deleteQuery = $this->DBHandle->prepare('DELETE FROM kvp_' . $this->TableName . ' WHERE id = :id');
     }
 
     /**
@@ -326,7 +324,7 @@ class SQLite3 extends CacheBase implements ICache
     public function __destruct()
     {
         if (!is_null($this->DBHandle)) {
-            $this->DBHandle->exec('DROP TABLE kvp_'.$this->TableName);
+            $this->DBHandle->exec('DROP TABLE kvp_' . $this->TableName);
             $this->DBHandle->close();
         }
         $this->DBHandle = null;
@@ -336,7 +334,7 @@ class SQLite3 extends CacheBase implements ICache
      * Identify whether the caching method is currently available
      * Some methods are dependent on the availability of certain extensions being enabled in the PHP build
      *
-     * @return    boolean
+     * @return    bool
      */
     public static function cacheMethodIsAvailable()
     {

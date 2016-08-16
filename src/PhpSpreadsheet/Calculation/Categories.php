@@ -27,17 +27,17 @@ namespace PhpSpreadsheet\Calculation;
 class Categories
 {
     /* Function categories */
-    const CATEGORY_CUBE                 = 'Cube';
-    const CATEGORY_DATABASE             = 'Database';
-    const CATEGORY_DATE_AND_TIME        = 'Date and Time';
-    const CATEGORY_ENGINEERING          = 'Engineering';
-    const CATEGORY_FINANCIAL            = 'Financial';
-    const CATEGORY_INFORMATION          = 'Information';
-    const CATEGORY_LOGICAL              = 'Logical';
+    const CATEGORY_CUBE = 'Cube';
+    const CATEGORY_DATABASE = 'Database';
+    const CATEGORY_DATE_AND_TIME = 'Date and Time';
+    const CATEGORY_ENGINEERING = 'Engineering';
+    const CATEGORY_FINANCIAL = 'Financial';
+    const CATEGORY_INFORMATION = 'Information';
+    const CATEGORY_LOGICAL = 'Logical';
     const CATEGORY_LOOKUP_AND_REFERENCE = 'Lookup and Reference';
-    const CATEGORY_MATH_AND_TRIG        = 'Math and Trig';
-    const CATEGORY_STATISTICAL          = 'Statistical';
-    const CATEGORY_TEXT_AND_DATA        = 'Text and Data';
+    const CATEGORY_MATH_AND_TRIG = 'Math and Trig';
+    const CATEGORY_STATISTICAL = 'Statistical';
+    const CATEGORY_TEXT_AND_DATA = 'Text and Data';
 
     /**
      * Category (represented by CATEGORY_*)
@@ -71,11 +71,11 @@ class Categories
     {
         if (($pCategory !== null) && ($pExcelName !== null) && ($spreadsheetName !== null)) {
             // Initialise values
-            $this->category     = $pCategory;
-            $this->excelName    = $pExcelName;
+            $this->category = $pCategory;
+            $this->excelName = $pExcelName;
             $this->spreadsheetName = $spreadsheetName;
         } else {
-            throw new Exception("Invalid parameters passed.");
+            throw new Exception('Invalid parameters passed.');
         }
     }
 
@@ -100,7 +100,7 @@ class Categories
         if (!is_null($value)) {
             $this->category = $value;
         } else {
-            throw new Exception("Invalid parameter passed.");
+            throw new Exception('Invalid parameter passed.');
         }
     }
 

@@ -81,11 +81,11 @@ class NamedRange
         }
 
         // Set local members
-        $this->name       = $pName;
-        $this->worksheet  = $pWorksheet;
-        $this->range      = $pRange;
-        $this->localOnly  = $pLocalOnly;
-        $this->scope      = ($pLocalOnly == true) ? (($pScope == null) ? $pWorksheet : $pScope) : null;
+        $this->name = $pName;
+        $this->worksheet = $pWorksheet;
+        $this->range = $pRange;
+        $this->localOnly = $pLocalOnly;
+        $this->scope = ($pLocalOnly == true) ? (($pScope == null) ? $pWorksheet : $pScope) : null;
     }
 
     /**
@@ -124,6 +124,7 @@ class NamedRange
             $newTitle = $this->name;
             ReferenceHelper::getInstance()->updateNamedFormulas($this->worksheet->getParent(), $oldTitle, $newTitle);
         }
+
         return $this;
     }
 
@@ -148,6 +149,7 @@ class NamedRange
         if ($value !== null) {
             $this->worksheet = $value;
         }
+
         return $this;
     }
 
@@ -172,6 +174,7 @@ class NamedRange
         if ($value !== null) {
             $this->range = $value;
         }
+
         return $this;
     }
 
@@ -195,6 +198,7 @@ class NamedRange
     {
         $this->localOnly = $value;
         $this->scope = $value ? $this->worksheet : null;
+
         return $this;
     }
 
@@ -218,6 +222,7 @@ class NamedRange
     {
         $this->scope = $value;
         $this->localOnly = ($value == null) ? false : true;
+
         return $this;
     }
 

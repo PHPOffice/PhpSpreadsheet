@@ -36,7 +36,7 @@ class PHPTemp extends CacheBase implements ICache
     /**
      * Memory limit to use before reverting to file cache
      *
-     * @var integer
+     * @var int
      */
     private $memoryCacheSize = null;
 
@@ -53,23 +53,22 @@ class PHPTemp extends CacheBase implements ICache
 
             fseek($this->fileHandle, 0, SEEK_END);
 
-            $this->cellCache[$this->currentObjectID] = array(
+            $this->cellCache[$this->currentObjectID] = [
                 'ptr' => ftell($this->fileHandle),
-                'sz'  => fwrite($this->fileHandle, serialize($this->currentObject))
-            );
+                'sz' => fwrite($this->fileHandle, serialize($this->currentObject)),
+            ];
             $this->currentCellIsDirty = false;
         }
         $this->currentObjectID = $this->currentObject = null;
     }
-
 
     /**
      * Add or Update a cell in cache identified by coordinate address
      *
      * @param   string            $pCoord        Coordinate address of the cell to update
      * @param   \PhpSpreadsheet\Cell    $cell        Cell to update
-     * @return  \PhpSpreadsheet\Cell
      * @throws  \PhpSpreadsheet\Exception
+     * @return  \PhpSpreadsheet\Cell
      */
     public function addCacheData($pCoord, \PhpSpreadsheet\Cell $cell)
     {
@@ -83,7 +82,6 @@ class PHPTemp extends CacheBase implements ICache
 
         return $cell;
     }
-
 
     /**
      * Get cell at a specific coordinate
@@ -150,8 +148,6 @@ class PHPTemp extends CacheBase implements ICache
 
     /**
      * Clear the cell collection and disconnect from our parent
-     *
-     * @return    void
      */
     public function unsetWorksheetCells()
     {
@@ -159,7 +155,7 @@ class PHPTemp extends CacheBase implements ICache
             $this->currentObject->detach();
             $this->currentObject = $this->currentObjectID = null;
         }
-        $this->cellCache = array();
+        $this->cellCache = [];
 
         //    detach ourself from the worksheet, so that it can then delete this object successfully
         $this->parent = null;

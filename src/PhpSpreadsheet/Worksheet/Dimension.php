@@ -86,6 +86,7 @@ abstract class Dimension
     public function setVisible($pValue = true)
     {
         $this->visible = $pValue;
+
         return $this;
     }
 
@@ -104,17 +105,18 @@ abstract class Dimension
      *
      * Value must be between 0 and 7
      *
-     * @param  integer $pValue
+     * @param  int $pValue
      * @throws \PhpSpreadsheet\Exception
      * @return Dimension
      */
     public function setOutlineLevel($pValue)
     {
         if ($pValue < 0 || $pValue > 7) {
-            throw new \PhpSpreadsheet\Exception("Outline level must range between 0 and 7.");
+            throw new \PhpSpreadsheet\Exception('Outline level must range between 0 and 7.');
         }
 
         $this->outlineLevel = $pValue;
+
         return $this;
     }
 
@@ -131,12 +133,13 @@ abstract class Dimension
     /**
      * Set Collapsed
      *
-     * @param  boolean  $pValue
+     * @param  bool  $pValue
      * @return Dimension
      */
     public function setCollapsed($pValue = true)
     {
         $this->collapsed = $pValue;
+
         return $this;
     }
 
@@ -153,12 +156,13 @@ abstract class Dimension
     /**
      * Set index to cellXf
      *
-     * @param  integer $pValue
+     * @param  int $pValue
      * @return Dimension
      */
     public function setXfIndex($pValue = 0)
     {
         $this->xfIndex = $pValue;
+
         return $this;
     }
 
