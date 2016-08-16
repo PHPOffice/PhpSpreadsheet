@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel\Writer\OpenDocument;
+namespace PhpSpreadsheet\Writer\OpenDocument;
 
 /**
- * PHPExcel_Writer_OpenDocument_Settings
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2015 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +19,8 @@ namespace PHPExcel\Writer\OpenDocument;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Writer_OpenDocument
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -32,21 +29,21 @@ class Settings extends WriterPart
     /**
      * Write settings.xml to XML format
      *
-     * @param   PHPExcel                   $pPHPExcel
+     * @param   \PhpSpreadsheet\Spreadsheet                   $spreadsheet
      * @return  string                     XML Output
-     * @throws  \PHPExcel\Writer\Exception
+     * @throws  \PhpSpreadsheet\Writer\Exception
      */
-    public function write(\PHPExcel\SpreadSheet $pPHPExcel = null)
+    public function write(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
-        if (!$pPHPExcel) {
-            $pPHPExcel = $this->getParentWriter()->getPHPExcel();
+        if (!$spreadsheet) {
+            $spreadsheet = $this->getParentWriter()->getPhpSpreadsheet();
         }
 
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header

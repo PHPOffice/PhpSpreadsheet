@@ -1,9 +1,8 @@
 <?php
 
-namespace PHPExcel\Shared\JAMA;
+namespace PhpSpreadsheet\Shared\JAMA;
 
 /**
- *    @package JAMA
  *
  *    Class to obtain eigenvalues and eigenvectors of a real matrix.
  *

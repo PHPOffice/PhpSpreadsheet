@@ -1,11 +1,11 @@
 <?php
 
-namespace PHPExcel;
+namespace PhpSpreadsheet;
 
 /**
- * PHPExcel\Worksheet
+ * PhpSpreadsheet\Worksheet
  *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +21,8 @@ namespace PHPExcel;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    \PHPExcel\Worksheet
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -329,7 +328,7 @@ class Worksheet implements IComparable
     /**
      * Create a new worksheet
      *
-     * @param PHPExcel        $pParent
+     * @param Spreadsheet        $Parent
      * @param string        $pTitle
      */
     public function __construct(Spreadsheet $parent = null, $pTitle = 'Worksheet')
@@ -768,7 +767,7 @@ class Worksheet implements IComparable
     /**
      * Get parent
      *
-     * @return PHPExcel
+     * @return PhpSpreadsheet
      */
     public function getParent()
     {
@@ -778,7 +777,7 @@ class Worksheet implements IComparable
     /**
      * Re-bind parent
      *
-     * @param PHPExcel $parent
+     * @param Spreadsheet $parent
      * @return Worksheet
      */
     public function rebindParent(Spreadsheet $parent)
@@ -1382,7 +1381,7 @@ class Worksheet implements IComparable
     }
 
     /**
-     * Set default style - should only be used by \PHPExcel\IReader implementations!
+     * Set default style - should only be used by \PhpSpreadsheet\IReader implementations!
      *
      * @deprecated
      * @param Style $pValue
@@ -1655,7 +1654,7 @@ class Worksheet implements IComparable
      *
      * @param integer $pColumn Numeric column coordinate of the cell
      * @param integer $pRow Numeric row coordinate of the cell
-     * @param  integer $pBreak Break type (type of \PHPExcel\Worksheet::BREAK_*)
+     * @param  integer $pBreak Break type (type of \PhpSpreadsheet\Worksheet::BREAK_*)
      * @return Worksheet
      */
     public function setBreakByColumnAndRow($pColumn = 0, $pRow = 1, $pBreak = Worksheet::BREAK_NONE)
@@ -2595,7 +2594,7 @@ class Worksheet implements IComparable
     }
 
     /**
-     * Run PHPExcel garabage collector.
+     * Run PhpSpreadsheet garabage collector.
      *
      * @return Worksheet
      */

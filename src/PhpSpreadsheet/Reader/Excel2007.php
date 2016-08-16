@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel\Reader;
+namespace PhpSpreadsheet\Reader;
 
 /**
- * PHPExcel_Reader_Excel2007
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +19,8 @@ namespace PHPExcel\Reader;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Reader
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -32,7 +29,7 @@ class Excel2007 extends BaseReader implements IReader
     /**
      * ReferenceHelper instance
      *
-     * @var \PHPExcel\ReferenceHelper
+     * @var \PhpSpreadsheet\ReferenceHelper
      */
     private $referenceHelper = null;
 
@@ -49,7 +46,7 @@ class Excel2007 extends BaseReader implements IReader
     public function __construct()
     {
         $this->readFilter = new DefaultReadFilter();
-        $this->referenceHelper = \PHPExcel\ReferenceHelper::getInstance();
+        $this->referenceHelper = \PhpSpreadsheet\ReferenceHelper::getInstance();
     }
 
     /**
@@ -66,7 +63,7 @@ class Excel2007 extends BaseReader implements IReader
             throw new Exception("Could not open " . $pFilename . " for reading! File does not exist.");
         }
 
-        $zipClass = \PHPExcel\Settings::getZipClass();
+        $zipClass = \PhpSpreadsheet\Settings::getZipClass();
 
         // Check if zip class exists
 //        if (!class_exists($zipClass, false)) {
@@ -83,7 +80,7 @@ class Excel2007 extends BaseReader implements IReader
                     $this->getFromZipArchive($zip, "_rels/.rels")
                 ),
                 'SimpleXMLElement',
-                \PHPExcel\Settings::getLibXmlLoaderOptions()
+                \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
             );
             if ($rels !== false) {
                 foreach ($rels->Relationship as $rel) {
@@ -118,7 +115,7 @@ class Excel2007 extends BaseReader implements IReader
 
         $worksheetNames = array();
 
-        $zipClass = \PHPExcel\Settings::getZipClass();
+        $zipClass = \PhpSpreadsheet\Settings::getZipClass();
 
         $zip = new $zipClass;
         $zip->open($pFilename);
@@ -128,7 +125,7 @@ class Excel2007 extends BaseReader implements IReader
             $this->securityScan(
                 $this->getFromZipArchive($zip, "_rels/.rels"),
                 'SimpleXMLElement',
-                \PHPExcel\Settings::getLibXmlLoaderOptions()
+                \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
             )
         ); //~ http://schemas.openxmlformats.org/package/2006/relationships");
         foreach ($rels->Relationship as $rel) {
@@ -138,7 +135,7 @@ class Excel2007 extends BaseReader implements IReader
                         $this->securityScan(
                             $this->getFromZipArchive($zip, "{$rel['Target']}"),
                             'SimpleXMLElement',
-                            \PHPExcel\Settings::getLibXmlLoaderOptions()
+                            \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                         )
                     );  //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 
@@ -172,7 +169,7 @@ class Excel2007 extends BaseReader implements IReader
 
         $worksheetInfo = array();
 
-        $zipClass = \PHPExcel\Settings::getZipClass();
+        $zipClass = \PhpSpreadsheet\Settings::getZipClass();
 
         $zip = new $zipClass;
         $zip->open($pFilename);
@@ -181,7 +178,7 @@ class Excel2007 extends BaseReader implements IReader
             //~ http://schemas.openxmlformats.org/package/2006/relationships"
             $this->securityScan($this->getFromZipArchive($zip, "_rels/.rels")),
             'SimpleXMLElement',
-            \PHPExcel\Settings::getLibXmlLoaderOptions()
+            \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
         );
         foreach ($rels->Relationship as $rel) {
             if ($rel["Type"] == "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument") {
@@ -192,7 +189,7 @@ class Excel2007 extends BaseReader implements IReader
                         $this->getFromZipArchive($zip, "$dir/_rels/" . basename($rel["Target"]) . ".rels")
                     ),
                     'SimpleXMLElement',
-                    \PHPExcel\Settings::getLibXmlLoaderOptions()
+                    \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                 );
                 $relsWorkbook->registerXPathNamespace("rel", "http://schemas.openxmlformats.org/package/2006/relationships");
 
@@ -209,7 +206,7 @@ class Excel2007 extends BaseReader implements IReader
                         $this->getFromZipArchive($zip, "{$rel['Target']}")
                     ),
                     'SimpleXMLElement',
-                    \PHPExcel\Settings::getLibXmlLoaderOptions()
+                    \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                 );
                 if ($xmlWorkbook->sheets) {
                     $dir = dirname($rel["Target"]);
@@ -227,10 +224,10 @@ class Excel2007 extends BaseReader implements IReader
                         $xml = new \XMLReader();
                         $res = $xml->xml(
                             $this->securityScanFile(
-                                'zip://'.\PHPExcel\Shared\File::realpath($pFilename).'#'."$dir/$fileWorksheet"
+                                'zip://'.\PhpSpreadsheet\Shared\File::realpath($pFilename).'#'."$dir/$fileWorksheet"
                             ),
                             null,
-                            \PHPExcel\Settings::getLibXmlLoaderOptions()
+                            \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                         );
                         $xml->setParserProperty(2, true);
 
@@ -249,7 +246,7 @@ class Excel2007 extends BaseReader implements IReader
                         $xml->close();
 
                         $tmpInfo['lastColumnIndex'] = $tmpInfo['totalColumns'] - 1;
-                        $tmpInfo['lastColumnLetter'] = \PHPExcel\Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
+                        $tmpInfo['lastColumnLetter'] = \PhpSpreadsheet\Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
 
                         $worksheetInfo[] = $tmpInfo;
                     }
@@ -316,11 +313,11 @@ class Excel2007 extends BaseReader implements IReader
 //                echo 'GETTING SHARED FORMULA', PHP_EOL;
 //                echo 'Master is ', $sharedFormulas[$instance]['master'], PHP_EOL;
 //                echo 'Formula is ', $sharedFormulas[$instance]['formula'], PHP_EOL;
-                $master = \PHPExcel\Cell::coordinateFromString($sharedFormulas[$instance]['master']);
-                $current = \PHPExcel\Cell::coordinateFromString($r);
+                $master = \PhpSpreadsheet\Cell::coordinateFromString($sharedFormulas[$instance]['master']);
+                $current = \PhpSpreadsheet\Cell::coordinateFromString($r);
 
                 $difference = array(0, 0);
-                $difference[0] = \PHPExcel\Cell::columnIndexFromString($current[0]) - \PHPExcel\Cell::columnIndexFromString($master[0]);
+                $difference[0] = \PhpSpreadsheet\Cell::columnIndexFromString($current[0]) - \PhpSpreadsheet\Cell::columnIndexFromString($master[0]);
                 $difference[1] = $current[1] - $master[1];
 
                 $value = $this->referenceHelper->updateFormulaReferences($sharedFormulas[$instance]['formula'], 'A1', $difference[0], $difference[1]);
@@ -336,7 +333,7 @@ class Excel2007 extends BaseReader implements IReader
         if (strpos($fileName, '//') !== false) {
             $fileName = substr($fileName, strpos($fileName, '//') + 1);
         }
-        $fileName = \PHPExcel\Shared\File::realpath($fileName);
+        $fileName = \PhpSpreadsheet\Shared\File::realpath($fileName);
 
         // Sadly, some 3rd party xlsx generators don't use consistent case for filenaming
         //    so we need to load case-insensitively from the zip file
@@ -370,14 +367,14 @@ class Excel2007 extends BaseReader implements IReader
         }
 
         // Initialisations
-        $excel = new \PHPExcel\Spreadsheet;
+        $excel = new \PhpSpreadsheet\Spreadsheet;
         $excel->removeSheetByIndex(0);
         if (!$this->readDataOnly) {
             $excel->removeCellStyleXfByIndex(0); // remove the default style
             $excel->removeCellXfByIndex(0); // remove the default style
         }
 
-        $zipClass = \PHPExcel\Settings::getZipClass();
+        $zipClass = \PhpSpreadsheet\Settings::getZipClass();
 
         $zip = new $zipClass;
         $zip->open($pFilename);
@@ -387,7 +384,7 @@ class Excel2007 extends BaseReader implements IReader
             //~ http://schemas.openxmlformats.org/package/2006/relationships"
             $this->securityScan($this->getFromZipArchive($zip, "xl/_rels/workbook.xml.rels")),
             'SimpleXMLElement',
-            \PHPExcel\Settings::getLibXmlLoaderOptions()
+            \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
         );
         foreach ($wbRels->Relationship as $rel) {
             switch ($rel["Type"]) {
@@ -398,7 +395,7 @@ class Excel2007 extends BaseReader implements IReader
                     $xmlTheme = simplexml_load_string(
                         $this->securityScan($this->getFromZipArchive($zip, "xl/{$rel['Target']}")),
                         'SimpleXMLElement',
-                        \PHPExcel\Settings::getLibXmlLoaderOptions()
+                        \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                     );
                     if (is_object($xmlTheme)) {
                         $xmlThemeName = $xmlTheme->attributes();
@@ -433,7 +430,7 @@ class Excel2007 extends BaseReader implements IReader
             //~ http://schemas.openxmlformats.org/package/2006/relationships"
             $this->securityScan($this->getFromZipArchive($zip, "_rels/.rels")),
             'SimpleXMLElement',
-            \PHPExcel\Settings::getLibXmlLoaderOptions()
+            \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
         );
         foreach ($rels->Relationship as $rel) {
             switch ($rel["Type"]) {
@@ -441,7 +438,7 @@ class Excel2007 extends BaseReader implements IReader
                     $xmlCore = simplexml_load_string(
                         $this->securityScan($this->getFromZipArchive($zip, "{$rel['Target']}")),
                         'SimpleXMLElement',
-                        \PHPExcel\Settings::getLibXmlLoaderOptions()
+                        \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                     );
                     if (is_object($xmlCore)) {
                         $xmlCore->registerXPathNamespace("dc", "http://purl.org/dc/elements/1.1/");
@@ -463,7 +460,7 @@ class Excel2007 extends BaseReader implements IReader
                     $xmlCore = simplexml_load_string(
                         $this->securityScan($this->getFromZipArchive($zip, "{$rel['Target']}")),
                         'SimpleXMLElement',
-                        \PHPExcel\Settings::getLibXmlLoaderOptions()
+                        \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                     );
                     if (is_object($xmlCore)) {
                         $docProps = $excel->getProperties();
@@ -479,7 +476,7 @@ class Excel2007 extends BaseReader implements IReader
                     $xmlCore = simplexml_load_string(
                         $this->securityScan($this->getFromZipArchive($zip, "{$rel['Target']}")),
                         'SimpleXMLElement',
-                        \PHPExcel\Settings::getLibXmlLoaderOptions()
+                        \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                     );
                     if (is_object($xmlCore)) {
                         $docProps = $excel->getProperties();
@@ -490,8 +487,8 @@ class Excel2007 extends BaseReader implements IReader
                                 $cellDataOfficeChildren = $xmlProperty->children('http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes');
                                 $attributeType = $cellDataOfficeChildren->getName();
                                 $attributeValue = (string) $cellDataOfficeChildren->{$attributeType};
-                                $attributeValue = \PHPExcel\Document\Properties::convertProperty($attributeValue, $attributeType);
-                                $attributeType = \PHPExcel\Document\Properties::convertPropertyType($attributeType);
+                                $attributeValue = \PhpSpreadsheet\Document\Properties::convertProperty($attributeValue, $attributeType);
+                                $attributeType = \PhpSpreadsheet\Document\Properties::convertPropertyType($attributeType);
                                 $docProps->setCustomProperty($propertyName, $attributeValue, $attributeType);
                             }
                         }
@@ -510,7 +507,7 @@ class Excel2007 extends BaseReader implements IReader
                         //~ http://schemas.openxmlformats.org/package/2006/relationships"
                         $this->securityScan($this->getFromZipArchive($zip, "$dir/_rels/" . basename($rel["Target"]) . ".rels")),
                         'SimpleXMLElement',
-                        \PHPExcel\Settings::getLibXmlLoaderOptions()
+                        \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                     );
                     $relsWorkbook->registerXPathNamespace("rel", "http://schemas.openxmlformats.org/package/2006/relationships");
 
@@ -520,12 +517,12 @@ class Excel2007 extends BaseReader implements IReader
                         //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
                         $this->securityScan($this->getFromZipArchive($zip, "$dir/$xpath[Target]")),
                         'SimpleXMLElement',
-                        \PHPExcel\Settings::getLibXmlLoaderOptions()
+                        \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                     );
                     if (isset($xmlStrings) && isset($xmlStrings->si)) {
                         foreach ($xmlStrings->si as $val) {
                             if (isset($val->t)) {
-                                $sharedStrings[] = \PHPExcel\Shared\StringHelper::controlCharacterOOXML2PHP((string) $val->t);
+                                $sharedStrings[] = \PhpSpreadsheet\Shared\StringHelper::controlCharacterOOXML2PHP((string) $val->t);
                             } elseif (isset($val->r)) {
                                 $sharedStrings[] = $this->parseRichText($val);
                             }
@@ -565,7 +562,7 @@ class Excel2007 extends BaseReader implements IReader
                         //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
                         $this->securityScan($this->getFromZipArchive($zip, "$dir/$xpath[Target]")),
                         'SimpleXMLElement',
-                        \PHPExcel\Settings::getLibXmlLoaderOptions()
+                        \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                     );
                     $numFmts = null;
                     if ($xmlStyles && $xmlStyles->numFmts[0]) {
@@ -576,7 +573,7 @@ class Excel2007 extends BaseReader implements IReader
                     }
                     if (!$this->readDataOnly && $xmlStyles) {
                         foreach ($xmlStyles->cellXfs->xf as $xf) {
-                            $numFmt = \PHPExcel\Style\NumberFormat::FORMAT_GENERAL;
+                            $numFmt = \PhpSpreadsheet\Style\NumberFormat::FORMAT_GENERAL;
 
                             if ($xf["numFmtId"]) {
                                 if (isset($numFmts)) {
@@ -591,8 +588,8 @@ class Excel2007 extends BaseReader implements IReader
                                 //  But there's a lot of naughty homebrew xlsx writers that do use "reserved" id values that aren't actually used
                                 //  So we make allowance for them rather than lose formatting masks
                                 if ((int)$xf["numFmtId"] < 164 &&
-                                    \PHPExcel\Style\NumberFormat::builtInFormatCode((int)$xf["numFmtId"]) !== '') {
-                                    $numFmt = \PHPExcel\Style\NumberFormat::builtInFormatCode((int)$xf["numFmtId"]);
+                                    \PhpSpreadsheet\Style\NumberFormat::builtInFormatCode((int)$xf["numFmtId"]) !== '') {
+                                    $numFmt = \PhpSpreadsheet\Style\NumberFormat::builtInFormatCode((int)$xf["numFmtId"]);
                                 }
                             }
                             $quotePrefix = false;
@@ -612,19 +609,19 @@ class Excel2007 extends BaseReader implements IReader
                             $styles[] = $style;
 
                             // add style to cellXf collection
-                            $objStyle = new \PHPExcel\Style;
+                            $objStyle = new \PhpSpreadsheet\Style;
                             self::readStyle($objStyle, $style);
                             $excel->addCellXf($objStyle);
                         }
 
                         foreach ($xmlStyles->cellStyleXfs->xf as $xf) {
-                            $numFmt = \PHPExcel\Style\NumberFormat::FORMAT_GENERAL;
+                            $numFmt = \PhpSpreadsheet\Style\NumberFormat::FORMAT_GENERAL;
                             if ($numFmts && $xf["numFmtId"]) {
                                 $tmpNumFmt = self::getArrayItem($numFmts->xpath("sml:numFmt[@numFmtId=$xf[numFmtId]]"));
                                 if (isset($tmpNumFmt["formatCode"])) {
                                     $numFmt = (string) $tmpNumFmt["formatCode"];
                                 } elseif ((int)$xf["numFmtId"] < 165) {
-                                    $numFmt = \PHPExcel\Style\NumberFormat::builtInFormatCode((int)$xf["numFmtId"]);
+                                    $numFmt = \PhpSpreadsheet\Style\NumberFormat::builtInFormatCode((int)$xf["numFmtId"]);
                                 }
                             }
 
@@ -640,7 +637,7 @@ class Excel2007 extends BaseReader implements IReader
                             $cellStyles[] = $cellStyle;
 
                             // add style to cellStyleXf collection
-                            $objStyle = new \PHPExcel\Style;
+                            $objStyle = new \PhpSpreadsheet\Style;
                             self::readStyle($objStyle, $cellStyle);
                             $excel->addCellStyleXf($objStyle);
                         }
@@ -651,7 +648,7 @@ class Excel2007 extends BaseReader implements IReader
                         //    Conditional Styles
                         if ($xmlStyles->dxfs) {
                             foreach ($xmlStyles->dxfs->dxf as $dxf) {
-                                $style = new \PHPExcel\Style(false, true);
+                                $style = new \PhpSpreadsheet\Style(false, true);
                                 self::readStyle($style, $dxf);
                                 $dxfs[] = $style;
                             }
@@ -662,7 +659,7 @@ class Excel2007 extends BaseReader implements IReader
                                 if (intval($cellStyle['builtinId']) == 0) {
                                     if (isset($cellStyles[intval($cellStyle['xfId'])])) {
                                         // Set default style
-                                        $style = new \PHPExcel\Style;
+                                        $style = new \PhpSpreadsheet\Style;
                                         self::readStyle($style, $cellStyles[intval($cellStyle['xfId'])]);
 
                                         // normal style, currently not using it for anything
@@ -676,15 +673,15 @@ class Excel2007 extends BaseReader implements IReader
                         //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
                         $this->securityScan($this->getFromZipArchive($zip, "{$rel['Target']}")),
                         'SimpleXMLElement',
-                        \PHPExcel\Settings::getLibXmlLoaderOptions()
+                        \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                     );
 
                     // Set base date
                     if ($xmlWorkbook->workbookPr) {
-                        \PHPExcel\Shared\Date::setExcelCalendar(\PHPExcel\Shared\Date::CALENDAR_WINDOWS_1900);
+                        \PhpSpreadsheet\Shared\Date::setExcelCalendar(\PhpSpreadsheet\Shared\Date::CALENDAR_WINDOWS_1900);
                         if (isset($xmlWorkbook->workbookPr['date1904'])) {
                             if (self::boolean((string) $xmlWorkbook->workbookPr['date1904'])) {
-                                \PHPExcel\Shared\Date::setExcelCalendar(\PHPExcel\Shared\Date::CALENDAR_MAC_1904);
+                                \PhpSpreadsheet\Shared\Date::setExcelCalendar(\PhpSpreadsheet\Shared\Date::CALENDAR_MAC_1904);
                             }
                         }
                     }
@@ -723,7 +720,7 @@ class Excel2007 extends BaseReader implements IReader
                                 //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
                                 $this->securityScan($this->getFromZipArchive($zip, "$dir/$fileWorksheet")),
                                 'SimpleXMLElement',
-                                \PHPExcel\Settings::getLibXmlLoaderOptions()
+                                \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                             );
 
                             $sharedFormulas = array();
@@ -832,22 +829,22 @@ class Excel2007 extends BaseReader implements IReader
                                 foreach ($xmlSheet->cols->col as $col) {
                                     for ($i = intval($col["min"]) - 1; $i < intval($col["max"]); ++$i) {
                                         if ($col["style"] && !$this->readDataOnly) {
-                                            $docSheet->getColumnDimension(\PHPExcel\Cell::stringFromColumnIndex($i))->setXfIndex(intval($col["style"]));
+                                            $docSheet->getColumnDimension(\PhpSpreadsheet\Cell::stringFromColumnIndex($i))->setXfIndex(intval($col["style"]));
                                         }
                                         if (self::boolean($col["bestFit"])) {
-                                            //$docSheet->getColumnDimension(\PHPExcel\Cell::stringFromColumnIndex($i))->setAutoSize(true);
+                                            //$docSheet->getColumnDimension(\PhpSpreadsheet\Cell::stringFromColumnIndex($i))->setAutoSize(true);
                                         }
                                         if (self::boolean($col["hidden"])) {
-                                            // echo \PHPExcel\Cell::stringFromColumnIndex($i), ': HIDDEN COLUMN',PHP_EOL;
-                                            $docSheet->getColumnDimension(\PHPExcel\Cell::stringFromColumnIndex($i))->setVisible(false);
+                                            // echo \PhpSpreadsheet\Cell::stringFromColumnIndex($i), ': HIDDEN COLUMN',PHP_EOL;
+                                            $docSheet->getColumnDimension(\PhpSpreadsheet\Cell::stringFromColumnIndex($i))->setVisible(false);
                                         }
                                         if (self::boolean($col["collapsed"])) {
-                                            $docSheet->getColumnDimension(\PHPExcel\Cell::stringFromColumnIndex($i))->setCollapsed(true);
+                                            $docSheet->getColumnDimension(\PhpSpreadsheet\Cell::stringFromColumnIndex($i))->setCollapsed(true);
                                         }
                                         if ($col["outlineLevel"] > 0) {
-                                            $docSheet->getColumnDimension(\PHPExcel\Cell::stringFromColumnIndex($i))->setOutlineLevel(intval($col["outlineLevel"]));
+                                            $docSheet->getColumnDimension(\PhpSpreadsheet\Cell::stringFromColumnIndex($i))->setOutlineLevel(intval($col["outlineLevel"]));
                                         }
-                                        $docSheet->getColumnDimension(\PHPExcel\Cell::stringFromColumnIndex($i))->setWidth(floatval($col["width"]));
+                                        $docSheet->getColumnDimension(\PhpSpreadsheet\Cell::stringFromColumnIndex($i))->setWidth(floatval($col["width"]));
 
                                         if (intval($col["max"]) == 16384) {
                                             break;
@@ -897,7 +894,7 @@ class Excel2007 extends BaseReader implements IReader
 
                                         // Read cell?
                                         if ($this->getReadFilter() !== null) {
-                                            $coordinates = \PHPExcel\Cell::coordinateFromString($r);
+                                            $coordinates = \PhpSpreadsheet\Cell::coordinateFromString($r);
 
                                             if (!$this->getReadFilter()->readCell($coordinates[0], $coordinates[1], $docSheet->getTitle())) {
                                                 continue;
@@ -916,7 +913,7 @@ class Excel2007 extends BaseReader implements IReader
                                                 if ((string)$c->v != '') {
                                                     $value = $sharedStrings[intval($c->v)];
 
-                                                    if ($value instanceof \PHPExcel\RichText) {
+                                                    if ($value instanceof \PhpSpreadsheet\RichText) {
                                                         $value = clone $value;
                                                     }
                                                 } else {
@@ -983,7 +980,7 @@ class Excel2007 extends BaseReader implements IReader
                                         }
 
                                         // Rich text?
-                                        if ($value instanceof \PHPExcel\RichText && $this->readDataOnly) {
+                                        if ($value instanceof \PhpSpreadsheet\RichText && $this->readDataOnly) {
                                             $value = $value->getPlainText();
                                         }
 
@@ -1012,7 +1009,7 @@ class Excel2007 extends BaseReader implements IReader
                             if (!$this->readDataOnly && $xmlSheet && $xmlSheet->conditionalFormatting) {
                                 foreach ($xmlSheet->conditionalFormatting as $conditional) {
                                     foreach ($conditional->cfRule as $cfRule) {
-                                        if (((string)$cfRule["type"] == \PHPExcel\Style\Conditional::CONDITION_NONE || (string)$cfRule["type"] == \PHPExcel\Style\Conditional::CONDITION_CELLIS || (string)$cfRule["type"] == \PHPExcel\Style\Conditional::CONDITION_CONTAINSTEXT || (string)$cfRule["type"] == \PHPExcel\Style\Conditional::CONDITION_EXPRESSION) && isset($dxfs[intval($cfRule["dxfId"])])) {
+                                        if (((string)$cfRule["type"] == \PhpSpreadsheet\Style\Conditional::CONDITION_NONE || (string)$cfRule["type"] == \PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS || (string)$cfRule["type"] == \PhpSpreadsheet\Style\Conditional::CONDITION_CONTAINSTEXT || (string)$cfRule["type"] == \PhpSpreadsheet\Style\Conditional::CONDITION_EXPRESSION) && isset($dxfs[intval($cfRule["dxfId"])])) {
                                             $conditionals[(string) $conditional["sqref"]][intval($cfRule["priority"])] = $cfRule;
                                         }
                                     }
@@ -1022,7 +1019,7 @@ class Excel2007 extends BaseReader implements IReader
                                     ksort($cfRules);
                                     $conditionalStyles = array();
                                     foreach ($cfRules as $cfRule) {
-                                        $objConditional = new \PHPExcel\Style\Conditional();
+                                        $objConditional = new \PhpSpreadsheet\Style\Conditional();
                                         $objConditional->setConditionType((string)$cfRule["type"]);
                                         $objConditional->setOperatorType((string)$cfRule["operator"]);
 
@@ -1076,17 +1073,17 @@ class Excel2007 extends BaseReader implements IReader
                                         $column = $autoFilter->getColumnByOffset((integer) $filterColumn["colId"]);
                                         //    Check for standard filters
                                         if ($filterColumn->filters) {
-                                            $column->setFilterType(\PHPExcel\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_FILTER);
+                                            $column->setFilterType(\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_FILTER);
                                             $filters = $filterColumn->filters;
                                             if ((isset($filters["blank"])) && ($filters["blank"] == 1)) {
                                                 //    Operator is undefined, but always treated as EQUAL
-                                                $column->createRule()->setRule(null, '')->setRuleType(\PHPExcel\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_FILTER);
+                                                $column->createRule()->setRule(null, '')->setRuleType(\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_FILTER);
                                             }
                                             //    Standard filters are always an OR join, so no join rule needs to be set
                                             //    Entries can be either filter elements
                                             foreach ($filters->filter as $filterRule) {
                                                 //    Operator is undefined, but always treated as EQUAL
-                                                $column->createRule()->setRule(null, (string) $filterRule["val"])->setRuleType(\PHPExcel\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_FILTER);
+                                                $column->createRule()->setRule(null, (string) $filterRule["val"])->setRuleType(\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_FILTER);
                                             }
                                             //    Or Date Group elements
                                             foreach ($filters->dateGroupItem as $dateGroupItem) {
@@ -1103,29 +1100,29 @@ class Excel2007 extends BaseReader implements IReader
                                                     ),
                                                     (string) $dateGroupItem["dateTimeGrouping"]
                                                 )
-                                                ->setRuleType(\PHPExcel\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DATEGROUP);
+                                                ->setRuleType(\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DATEGROUP);
                                             }
                                         }
                                         //    Check for custom filters
                                         if ($filterColumn->customFilters) {
-                                            $column->setFilterType(\PHPExcel\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER);
+                                            $column->setFilterType(\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER);
                                             $customFilters = $filterColumn->customFilters;
                                             //    Custom filters can an AND or an OR join;
                                             //        and there should only ever be one or two entries
                                             if ((isset($customFilters["and"])) && ($customFilters["and"] == 1)) {
-                                                $column->setJoin(\PHPExcel\Worksheet\AutoFilter\Column::AUTOFILTER_COLUMN_JOIN_AND);
+                                                $column->setJoin(\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_COLUMN_JOIN_AND);
                                             }
                                             foreach ($customFilters->customFilter as $filterRule) {
                                                 $column->createRule()->setRule(
                                                     (string) $filterRule["operator"],
                                                     (string) $filterRule["val"]
                                                 )
-                                                ->setRuleType(\PHPExcel\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
+                                                ->setRuleType(\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
                                             }
                                         }
                                         //    Check for dynamic filters
                                         if ($filterColumn->dynamicFilter) {
-                                            $column->setFilterType(\PHPExcel\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER);
+                                            $column->setFilterType(\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER);
                                             //    We should only ever have one dynamic filter
                                             foreach ($filterColumn->dynamicFilter as $filterRule) {
                                                 $column->createRule()->setRule(
@@ -1134,7 +1131,7 @@ class Excel2007 extends BaseReader implements IReader
                                                     (string) $filterRule["val"],
                                                     (string) $filterRule["type"]
                                                 )
-                                                ->setRuleType(\PHPExcel\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER);
+                                                ->setRuleType(\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER);
                                                 if (isset($filterRule["val"])) {
                                                     $column->setAttribute('val', (string) $filterRule["val"]);
                                                 }
@@ -1145,21 +1142,21 @@ class Excel2007 extends BaseReader implements IReader
                                         }
                                         //    Check for dynamic filters
                                         if ($filterColumn->top10) {
-                                            $column->setFilterType(\PHPExcel\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_TOPTENFILTER);
+                                            $column->setFilterType(\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_TOPTENFILTER);
                                             //    We should only ever have one top10 filter
                                             foreach ($filterColumn->top10 as $filterRule) {
                                                 $column->createRule()->setRule(
                                                     (((isset($filterRule["percent"])) && ($filterRule["percent"] == 1))
-                                                        ? \PHPExcel\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT
-                                                        : \PHPExcel\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE
+                                                        ? \PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT
+                                                        : \PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE
                                                     ),
                                                     (string) $filterRule["val"],
                                                     (((isset($filterRule["top"])) && ($filterRule["top"] == 1))
-                                                        ? \PHPExcel\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP
-                                                        : \PHPExcel\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM
+                                                        ? \PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP
+                                                        : \PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM
                                                     )
                                                 )
-                                                ->setRuleType(\PHPExcel\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_TOPTENFILTER);
+                                                ->setRuleType(\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_TOPTENFILTER);
                                             }
                                         }
                                     }
@@ -1248,14 +1245,14 @@ class Excel2007 extends BaseReader implements IReader
                             if ($xmlSheet && $xmlSheet->rowBreaks && $xmlSheet->rowBreaks->brk && !$this->readDataOnly) {
                                 foreach ($xmlSheet->rowBreaks->brk as $brk) {
                                     if ($brk["man"]) {
-                                        $docSheet->setBreak("A$brk[id]", \PHPExcel\Worksheet::BREAK_ROW);
+                                        $docSheet->setBreak("A$brk[id]", \PhpSpreadsheet\Worksheet::BREAK_ROW);
                                     }
                                 }
                             }
                             if ($xmlSheet && $xmlSheet->colBreaks && $xmlSheet->colBreaks->brk && !$this->readDataOnly) {
                                 foreach ($xmlSheet->colBreaks->brk as $brk) {
                                     if ($brk["man"]) {
-                                        $docSheet->setBreak(\PHPExcel\Cell::stringFromColumnIndex((string) $brk["id"]) . "1", \PHPExcel\Worksheet::BREAK_COLUMN);
+                                        $docSheet->setBreak(\PhpSpreadsheet\Cell::stringFromColumnIndex((string) $brk["id"]) . "1", \PhpSpreadsheet\Worksheet::BREAK_COLUMN);
                                     }
                                 }
                             }
@@ -1269,7 +1266,7 @@ class Excel2007 extends BaseReader implements IReader
                                         $stRange = $docSheet->shrinkRangeToFit($range);
 
                                         // Extract all cell references in $range
-                                        foreach (\PHPExcel\Cell::extractAllCellReferencesInRange($stRange) as $reference) {
+                                        foreach (\PhpSpreadsheet\Cell::extractAllCellReferencesInRange($stRange) as $reference) {
                                             // Create validation
                                             $docValidation = $docSheet->getCell($reference)->getDataValidation();
                                             $docValidation->setType((string) $dataValidation["type"]);
@@ -1301,7 +1298,7 @@ class Excel2007 extends BaseReader implements IReader
                                             $this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet") . "/_rels/" . basename($fileWorksheet) . ".rels")
                                         ),
                                         'SimpleXMLElement',
-                                        \PHPExcel\Settings::getLibXmlLoaderOptions()
+                                        \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                                     );
                                     foreach ($relsWorksheet->Relationship as $ele) {
                                         if ($ele["Type"] == "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink") {
@@ -1316,7 +1313,7 @@ class Excel2007 extends BaseReader implements IReader
                                         // Link url
                                         $linkRel = $hyperlink->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships');
 
-                                        foreach (\PHPExcel\Cell::extractAllCellReferencesInRange($hyperlink['ref']) as $cellReference) {
+                                        foreach (\PhpSpreadsheet\Cell::extractAllCellReferencesInRange($hyperlink['ref']) as $cellReference) {
                                             $cell = $docSheet->getCell($cellReference);
                                             if (isset($linkRel['id'])) {
                                                 $hyperlinkUrl = $hyperlinks[ (string)$linkRel['id'] ];
@@ -1349,7 +1346,7 @@ class Excel2007 extends BaseReader implements IReader
                                             $this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet") . "/_rels/" . basename($fileWorksheet) . ".rels")
                                         ),
                                         'SimpleXMLElement',
-                                        \PHPExcel\Settings::getLibXmlLoaderOptions()
+                                        \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                                     );
                                     foreach ($relsWorksheet->Relationship as $ele) {
                                         if ($ele["Type"] == "http://schemas.openxmlformats.org/officeDocument/2006/relationships/comments") {
@@ -1364,11 +1361,11 @@ class Excel2007 extends BaseReader implements IReader
                                 // Loop through comments
                                 foreach ($comments as $relName => $relPath) {
                                     // Load comments file
-                                    $relPath = \PHPExcel\Shared\File::realpath(dirname("$dir/$fileWorksheet") . "/" . $relPath);
+                                    $relPath = \PhpSpreadsheet\Shared\File::realpath(dirname("$dir/$fileWorksheet") . "/" . $relPath);
                                     $commentsFile = simplexml_load_string(
                                         $this->securityScan($this->getFromZipArchive($zip, $relPath)),
                                         'SimpleXMLElement',
-                                        \PHPExcel\Settings::getLibXmlLoaderOptions()
+                                        \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                                     );
 
                                     // Utility variables
@@ -1391,11 +1388,11 @@ class Excel2007 extends BaseReader implements IReader
                                 // Loop through VML comments
                                 foreach ($vmlComments as $relName => $relPath) {
                                     // Load VML comments file
-                                    $relPath = \PHPExcel\Shared\File::realpath(dirname("$dir/$fileWorksheet") . "/" . $relPath);
+                                    $relPath = \PhpSpreadsheet\Shared\File::realpath(dirname("$dir/$fileWorksheet") . "/" . $relPath);
                                     $vmlCommentsFile = simplexml_load_string(
                                         $this->securityScan($this->getFromZipArchive($zip, $relPath)),
                                         'SimpleXMLElement',
-                                        \PHPExcel\Settings::getLibXmlLoaderOptions()
+                                        \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                                     );
                                     $vmlCommentsFile->registerXPathNamespace('v', 'urn:schemas-microsoft-com:vml');
 
@@ -1466,7 +1463,7 @@ class Excel2007 extends BaseReader implements IReader
                                                 $this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet") . "/_rels/" . basename($fileWorksheet) . ".rels")
                                             ),
                                             'SimpleXMLElement',
-                                            \PHPExcel\Settings::getLibXmlLoaderOptions()
+                                            \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                                         );
                                         $vmlRelationship = '';
 
@@ -1484,7 +1481,7 @@ class Excel2007 extends BaseReader implements IReader
                                                     $this->getFromZipArchive($zip, dirname($vmlRelationship) . '/_rels/' . basename($vmlRelationship) . '.rels')
                                                 ),
                                                 'SimpleXMLElement',
-                                                \PHPExcel\Settings::getLibXmlLoaderOptions()
+                                                \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                                             );
                                             $drawings = array();
                                             foreach ($relsVML->Relationship as $ele) {
@@ -1497,7 +1494,7 @@ class Excel2007 extends BaseReader implements IReader
                                             $vmlDrawing = simplexml_load_string(
                                                 $this->securityScan($this->getFromZipArchive($zip, $vmlRelationship)),
                                                 'SimpleXMLElement',
-                                                \PHPExcel\Settings::getLibXmlLoaderOptions()
+                                                \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                                             );
                                             $vmlDrawing->registerXPathNamespace('v', 'urn:schemas-microsoft-com:vml');
 
@@ -1512,12 +1509,12 @@ class Excel2007 extends BaseReader implements IReader
                                                 $imageData = $imageData->attributes('urn:schemas-microsoft-com:office:office');
                                                 $style = self::toCSSArray((string)$shape['style']);
 
-                                                $hfImages[(string) $shape['id']] = new \PHPExcel\Worksheet\HeaderFooterDrawing();
+                                                $hfImages[(string) $shape['id']] = new \PhpSpreadsheet\Worksheet\HeaderFooterDrawing();
                                                 if (isset($imageData['title'])) {
                                                     $hfImages[(string) $shape['id']]->setName((string)$imageData['title']);
                                                 }
 
-                                                $hfImages[(string) $shape['id']]->setPath("zip://".\PHPExcel\Shared_File::realpath($pFilename)."#" . $drawings[(string)$imageData['relid']], false);
+                                                $hfImages[(string) $shape['id']]->setPath("zip://".\PhpSpreadsheet\Shared_File::realpath($pFilename)."#" . $drawings[(string)$imageData['relid']], false);
                                                 $hfImages[(string) $shape['id']]->setResizeProportional(false);
                                                 $hfImages[(string) $shape['id']]->setWidth($style['width']);
                                                 $hfImages[(string) $shape['id']]->setHeight($style['height']);
@@ -1542,7 +1539,7 @@ class Excel2007 extends BaseReader implements IReader
                                         $this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet") . "/_rels/" . basename($fileWorksheet) . ".rels")
                                     ),
                                     'SimpleXMLElement',
-                                    \PHPExcel\Settings::getLibXmlLoaderOptions()
+                                    \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                                 );
                                 $drawings = array();
                                 foreach ($relsWorksheet->Relationship as $ele) {
@@ -1559,7 +1556,7 @@ class Excel2007 extends BaseReader implements IReader
                                                 $this->getFromZipArchive($zip, dirname($fileDrawing) . "/_rels/" . basename($fileDrawing) . ".rels")
                                             ),
                                             'SimpleXMLElement',
-                                            \PHPExcel\Settings::getLibXmlLoaderOptions()
+                                            \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                                         );
                                         $images = array();
 
@@ -1580,7 +1577,7 @@ class Excel2007 extends BaseReader implements IReader
                                         $xmlDrawing = simplexml_load_string(
                                             $this->securityScan($this->getFromZipArchive($zip, $fileDrawing)),
                                             'SimpleXMLElement',
-                                            \PHPExcel\Settings::getLibXmlLoaderOptions()
+                                            \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                                         )->children("http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing");
 
                                         if ($xmlDrawing->oneCellAnchor) {
@@ -1589,32 +1586,32 @@ class Excel2007 extends BaseReader implements IReader
                                                     $blip = $oneCellAnchor->pic->blipFill->children("http://schemas.openxmlformats.org/drawingml/2006/main")->blip;
                                                     $xfrm = $oneCellAnchor->pic->spPr->children("http://schemas.openxmlformats.org/drawingml/2006/main")->xfrm;
                                                     $outerShdw = $oneCellAnchor->pic->spPr->children("http://schemas.openxmlformats.org/drawingml/2006/main")->effectLst->outerShdw;
-                                                    $objDrawing = new \PHPExcel\Worksheet\Drawing;
+                                                    $objDrawing = new \PhpSpreadsheet\Worksheet\Drawing;
                                                     $objDrawing->setName((string) self::getArrayItem($oneCellAnchor->pic->nvPicPr->cNvPr->attributes(), "name"));
                                                     $objDrawing->setDescription((string) self::getArrayItem($oneCellAnchor->pic->nvPicPr->cNvPr->attributes(), "descr"));
                                                     $objDrawing->setPath(
-                                                        "zip://".\PHPExcel\Shared\File::realpath($pFilename)."#" .
+                                                        "zip://".\PhpSpreadsheet\Shared\File::realpath($pFilename)."#" .
                                                         $images[(string) self::getArrayItem(
                                                             $blip->attributes("http://schemas.openxmlformats.org/officeDocument/2006/relationships"),
                                                             "embed"
                                                         )],
                                                         false
                                                     );
-                                                    $objDrawing->setCoordinates(\PHPExcel\Cell::stringFromColumnIndex((string) $oneCellAnchor->from->col) . ($oneCellAnchor->from->row + 1));
-                                                    $objDrawing->setOffsetX(\PHPExcel\Shared\Drawing::EMUToPixels($oneCellAnchor->from->colOff));
-                                                    $objDrawing->setOffsetY(\PHPExcel\Shared\Drawing::EMUToPixels($oneCellAnchor->from->rowOff));
+                                                    $objDrawing->setCoordinates(\PhpSpreadsheet\Cell::stringFromColumnIndex((string) $oneCellAnchor->from->col) . ($oneCellAnchor->from->row + 1));
+                                                    $objDrawing->setOffsetX(\PhpSpreadsheet\Shared\Drawing::EMUToPixels($oneCellAnchor->from->colOff));
+                                                    $objDrawing->setOffsetY(\PhpSpreadsheet\Shared\Drawing::EMUToPixels($oneCellAnchor->from->rowOff));
                                                     $objDrawing->setResizeProportional(false);
-                                                    $objDrawing->setWidth(\PHPExcel\Shared\Drawing::EMUToPixels(self::getArrayItem($oneCellAnchor->ext->attributes(), "cx")));
-                                                    $objDrawing->setHeight(\PHPExcel\Shared\Drawing::EMUToPixels(self::getArrayItem($oneCellAnchor->ext->attributes(), "cy")));
+                                                    $objDrawing->setWidth(\PhpSpreadsheet\Shared\Drawing::EMUToPixels(self::getArrayItem($oneCellAnchor->ext->attributes(), "cx")));
+                                                    $objDrawing->setHeight(\PhpSpreadsheet\Shared\Drawing::EMUToPixels(self::getArrayItem($oneCellAnchor->ext->attributes(), "cy")));
                                                     if ($xfrm) {
-                                                        $objDrawing->setRotation(\PHPExcel\Shared\Drawing::angleToDegrees(self::getArrayItem($xfrm->attributes(), "rot")));
+                                                        $objDrawing->setRotation(\PhpSpreadsheet\Shared\Drawing::angleToDegrees(self::getArrayItem($xfrm->attributes(), "rot")));
                                                     }
                                                     if ($outerShdw) {
                                                         $shadow = $objDrawing->getShadow();
                                                         $shadow->setVisible(true);
-                                                        $shadow->setBlurRadius(\PHPExcel\Shared\Drawing::EMUTopixels(self::getArrayItem($outerShdw->attributes(), "blurRad")));
-                                                        $shadow->setDistance(\PHPExcel\Shared\Drawing::EMUTopixels(self::getArrayItem($outerShdw->attributes(), "dist")));
-                                                        $shadow->setDirection(\PHPExcel\Shared\Drawing::angleToDegrees(self::getArrayItem($outerShdw->attributes(), "dir")));
+                                                        $shadow->setBlurRadius(\PhpSpreadsheet\Shared\Drawing::EMUTopixels(self::getArrayItem($outerShdw->attributes(), "blurRad")));
+                                                        $shadow->setDistance(\PhpSpreadsheet\Shared\Drawing::EMUTopixels(self::getArrayItem($outerShdw->attributes(), "dist")));
+                                                        $shadow->setDirection(\PhpSpreadsheet\Shared\Drawing::angleToDegrees(self::getArrayItem($outerShdw->attributes(), "dir")));
                                                         $shadow->setAlignment((string) self::getArrayItem($outerShdw->attributes(), "algn"));
                                                         $shadow->getColor()->setRGB(self::getArrayItem($outerShdw->srgbClr->attributes(), "val"));
                                                         $shadow->setAlpha(self::getArrayItem($outerShdw->srgbClr->alpha->attributes(), "val") / 1000);
@@ -1622,11 +1619,11 @@ class Excel2007 extends BaseReader implements IReader
                                                     $objDrawing->setWorksheet($docSheet);
                                                 } else {
                                                     //    ? Can charts be positioned with a oneCellAnchor ?
-                                                    $coordinates = \PHPExcel\Cell::stringFromColumnIndex((string) $oneCellAnchor->from->col) . ($oneCellAnchor->from->row + 1);
-                                                    $offsetX     = \PHPExcel\Shared\Drawing::EMUToPixels($oneCellAnchor->from->colOff);
-                                                    $offsetY     = \PHPExcel\Shared\Drawing::EMUToPixels($oneCellAnchor->from->rowOff);
-                                                    $width       = \PHPExcel\Shared\Drawing::EMUToPixels(self::getArrayItem($oneCellAnchor->ext->attributes(), "cx"));
-                                                    $height      = \PHPExcel\Shared\Drawing::EMUToPixels(self::getArrayItem($oneCellAnchor->ext->attributes(), "cy"));
+                                                    $coordinates = \PhpSpreadsheet\Cell::stringFromColumnIndex((string) $oneCellAnchor->from->col) . ($oneCellAnchor->from->row + 1);
+                                                    $offsetX     = \PhpSpreadsheet\Shared\Drawing::EMUToPixels($oneCellAnchor->from->colOff);
+                                                    $offsetY     = \PhpSpreadsheet\Shared\Drawing::EMUToPixels($oneCellAnchor->from->rowOff);
+                                                    $width       = \PhpSpreadsheet\Shared\Drawing::EMUToPixels(self::getArrayItem($oneCellAnchor->ext->attributes(), "cx"));
+                                                    $height      = \PhpSpreadsheet\Shared\Drawing::EMUToPixels(self::getArrayItem($oneCellAnchor->ext->attributes(), "cy"));
                                                 }
                                             }
                                         }
@@ -1636,45 +1633,45 @@ class Excel2007 extends BaseReader implements IReader
                                                     $blip = $twoCellAnchor->pic->blipFill->children("http://schemas.openxmlformats.org/drawingml/2006/main")->blip;
                                                     $xfrm = $twoCellAnchor->pic->spPr->children("http://schemas.openxmlformats.org/drawingml/2006/main")->xfrm;
                                                     $outerShdw = $twoCellAnchor->pic->spPr->children("http://schemas.openxmlformats.org/drawingml/2006/main")->effectLst->outerShdw;
-                                                    $objDrawing = new \PHPExcel\Worksheet\Drawing;
+                                                    $objDrawing = new \PhpSpreadsheet\Worksheet\Drawing;
                                                     $objDrawing->setName((string) self::getArrayItem($twoCellAnchor->pic->nvPicPr->cNvPr->attributes(), "name"));
                                                     $objDrawing->setDescription((string) self::getArrayItem($twoCellAnchor->pic->nvPicPr->cNvPr->attributes(), "descr"));
                                                     $objDrawing->setPath(
-                                                        "zip://".\PHPExcel\Shared\File::realpath($pFilename)."#" .
+                                                        "zip://".\PhpSpreadsheet\Shared\File::realpath($pFilename)."#" .
                                                         $images[(string) self::getArrayItem(
                                                             $blip->attributes("http://schemas.openxmlformats.org/officeDocument/2006/relationships"),
                                                             "embed"
                                                         )],
                                                         false
                                                     );
-                                                    $objDrawing->setCoordinates(\PHPExcel\Cell::stringFromColumnIndex((string) $twoCellAnchor->from->col) . ($twoCellAnchor->from->row + 1));
-                                                    $objDrawing->setOffsetX(\PHPExcel\Shared\Drawing::EMUToPixels($twoCellAnchor->from->colOff));
-                                                    $objDrawing->setOffsetY(\PHPExcel\Shared\Drawing::EMUToPixels($twoCellAnchor->from->rowOff));
+                                                    $objDrawing->setCoordinates(\PhpSpreadsheet\Cell::stringFromColumnIndex((string) $twoCellAnchor->from->col) . ($twoCellAnchor->from->row + 1));
+                                                    $objDrawing->setOffsetX(\PhpSpreadsheet\Shared\Drawing::EMUToPixels($twoCellAnchor->from->colOff));
+                                                    $objDrawing->setOffsetY(\PhpSpreadsheet\Shared\Drawing::EMUToPixels($twoCellAnchor->from->rowOff));
                                                     $objDrawing->setResizeProportional(false);
 
                                                     if ($xfrm) {
-                                                        $objDrawing->setWidth(\PHPExcel\Shared\Drawing::EMUToPixels(self::getArrayItem($xfrm->ext->attributes(), "cx")));
-                                                        $objDrawing->setHeight(\PHPExcel\Shared\Drawing::EMUToPixels(self::getArrayItem($xfrm->ext->attributes(), "cy")));
-                                                        $objDrawing->setRotation(\PHPExcel\Shared\Drawing::angleToDegrees(self::getArrayItem($xfrm->attributes(), "rot")));
+                                                        $objDrawing->setWidth(\PhpSpreadsheet\Shared\Drawing::EMUToPixels(self::getArrayItem($xfrm->ext->attributes(), "cx")));
+                                                        $objDrawing->setHeight(\PhpSpreadsheet\Shared\Drawing::EMUToPixels(self::getArrayItem($xfrm->ext->attributes(), "cy")));
+                                                        $objDrawing->setRotation(\PhpSpreadsheet\Shared\Drawing::angleToDegrees(self::getArrayItem($xfrm->attributes(), "rot")));
                                                     }
                                                     if ($outerShdw) {
                                                         $shadow = $objDrawing->getShadow();
                                                         $shadow->setVisible(true);
-                                                        $shadow->setBlurRadius(\PHPExcel\Shared\Drawing::EMUTopixels(self::getArrayItem($outerShdw->attributes(), "blurRad")));
-                                                        $shadow->setDistance(\PHPExcel\Shared\Drawing::EMUTopixels(self::getArrayItem($outerShdw->attributes(), "dist")));
-                                                        $shadow->setDirection(\PHPExcel\Shared\Drawing::angleToDegrees(self::getArrayItem($outerShdw->attributes(), "dir")));
+                                                        $shadow->setBlurRadius(\PhpSpreadsheet\Shared\Drawing::EMUTopixels(self::getArrayItem($outerShdw->attributes(), "blurRad")));
+                                                        $shadow->setDistance(\PhpSpreadsheet\Shared\Drawing::EMUTopixels(self::getArrayItem($outerShdw->attributes(), "dist")));
+                                                        $shadow->setDirection(\PhpSpreadsheet\Shared\Drawing::angleToDegrees(self::getArrayItem($outerShdw->attributes(), "dir")));
                                                         $shadow->setAlignment((string) self::getArrayItem($outerShdw->attributes(), "algn"));
                                                         $shadow->getColor()->setRGB(self::getArrayItem($outerShdw->srgbClr->attributes(), "val"));
                                                         $shadow->setAlpha(self::getArrayItem($outerShdw->srgbClr->alpha->attributes(), "val") / 1000);
                                                     }
                                                     $objDrawing->setWorksheet($docSheet);
                                                 } elseif (($this->includeCharts) && ($twoCellAnchor->graphicFrame)) {
-                                                    $fromCoordinate = \PHPExcel\Cell::stringFromColumnIndex((string) $twoCellAnchor->from->col) . ($twoCellAnchor->from->row + 1);
-                                                    $fromOffsetX    = \PHPExcel\Shared\Drawing::EMUToPixels($twoCellAnchor->from->colOff);
-                                                    $fromOffsetY    = \PHPExcel\Shared\Drawing::EMUToPixels($twoCellAnchor->from->rowOff);
-                                                    $toCoordinate   = \PHPExcel\Cell::stringFromColumnIndex((string) $twoCellAnchor->to->col) . ($twoCellAnchor->to->row + 1);
-                                                    $toOffsetX      = \PHPExcel\Shared\Drawing::EMUToPixels($twoCellAnchor->to->colOff);
-                                                    $toOffsetY      = \PHPExcel\Shared\Drawing::EMUToPixels($twoCellAnchor->to->rowOff);
+                                                    $fromCoordinate = \PhpSpreadsheet\Cell::stringFromColumnIndex((string) $twoCellAnchor->from->col) . ($twoCellAnchor->from->row + 1);
+                                                    $fromOffsetX    = \PhpSpreadsheet\Shared\Drawing::EMUToPixels($twoCellAnchor->from->colOff);
+                                                    $fromOffsetY    = \PhpSpreadsheet\Shared\Drawing::EMUToPixels($twoCellAnchor->from->rowOff);
+                                                    $toCoordinate   = \PhpSpreadsheet\Cell::stringFromColumnIndex((string) $twoCellAnchor->to->col) . ($twoCellAnchor->to->row + 1);
+                                                    $toOffsetX      = \PhpSpreadsheet\Shared\Drawing::EMUToPixels($twoCellAnchor->to->colOff);
+                                                    $toOffsetY      = \PhpSpreadsheet\Shared\Drawing::EMUToPixels($twoCellAnchor->to->rowOff);
                                                     $graphic        = $twoCellAnchor->graphicFrame->children("http://schemas.openxmlformats.org/drawingml/2006/main")->graphic;
                                                     $chartRef       = $graphic->graphicData->children("http://schemas.openxmlformats.org/drawingml/2006/chart")->chart;
                                                     $thisChart      = (string) $chartRef->attributes("http://schemas.openxmlformats.org/officeDocument/2006/relationships");
@@ -1805,7 +1802,7 @@ class Excel2007 extends BaseReader implements IReader
                                                     if ($worksheet = $docSheet->getParent()->getSheetByName($range[0])) {
                                                         $extractedRange = str_replace('$', '', $range[1]);
                                                         $scope = $docSheet->getParent()->getSheet($mapSheetId[(integer) $definedName['localSheetId']]);
-                                                        $excel->addNamedRange(new \PHPExcel\NamedRange((string)$definedName['name'], $worksheet, $extractedRange, true, $scope));
+                                                        $excel->addNamedRange(new \PhpSpreadsheet\NamedRange((string)$definedName['name'], $worksheet, $extractedRange, true, $scope));
                                                     }
                                                 }
                                             }
@@ -1817,7 +1814,7 @@ class Excel2007 extends BaseReader implements IReader
                                     $extractedSheetName = '';
                                     if (strpos((string)$definedName, '!') !== false) {
                                         // Extract sheet name
-                                        $extractedSheetName = \PHPExcel\Worksheet::extractSheetTitle((string)$definedName, true);
+                                        $extractedSheetName = \PhpSpreadsheet\Worksheet::extractSheetTitle((string)$definedName, true);
                                         $extractedSheetName = $extractedSheetName[0];
 
                                         // Locate sheet
@@ -1829,7 +1826,7 @@ class Excel2007 extends BaseReader implements IReader
                                     }
 
                                     if ($locatedSheet !== null) {
-                                        $excel->addNamedRange(new \PHPExcel\NamedRange((string)$definedName['name'], $locatedSheet, $extractedRange, false));
+                                        $excel->addNamedRange(new \PhpSpreadsheet\NamedRange((string)$definedName['name'], $locatedSheet, $extractedRange, false));
                                     }
                                 }
                             }
@@ -1860,7 +1857,7 @@ class Excel2007 extends BaseReader implements IReader
                     $this->getFromZipArchive($zip, "[Content_Types].xml")
                 ),
                 'SimpleXMLElement',
-                \PHPExcel\Settings::getLibXmlLoaderOptions()
+                \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
             );
             foreach ($contentTypes->Override as $contentType) {
                 switch ($contentType["ContentType"]) {
@@ -1872,9 +1869,9 @@ class Excel2007 extends BaseReader implements IReader
                                     $this->getFromZipArchive($zip, $chartEntryRef)
                                 ),
                                 'SimpleXMLElement',
-                                \PHPExcel\Settings::getLibXmlLoaderOptions()
+                                \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                             );
-                            $objChart = \PHPExcel\Reader\Excel2007\Chart::readChart($chartElements, basename($chartEntryRef, '.xml'));
+                            $objChart = \PhpSpreadsheet\Reader\Excel2007\Chart::readChart($chartElements, basename($chartEntryRef, '.xml'));
 
 //                            echo 'Chart ', $chartEntryRef, '<br />';
 //                            var_dump($charts[$chartEntryRef]);
@@ -1906,13 +1903,13 @@ class Excel2007 extends BaseReader implements IReader
         if (isset($color["rgb"])) {
             return (string)$color["rgb"];
         } elseif (isset($color["indexed"])) {
-            return \PHPExcel\Style\Color::indexedColor($color["indexed"]-7, $background)->getARGB();
+            return \PhpSpreadsheet\Style\Color::indexedColor($color["indexed"]-7, $background)->getARGB();
         } elseif (isset($color["theme"])) {
             if (self::$theme !== null) {
                 $returnColour = self::$theme->getColourByIndex((int)$color["theme"]);
                 if (isset($color["tint"])) {
                     $tintAdjust = (float) $color["tint"];
-                    $returnColour = \PHPExcel\Style\Color::changeBrightness($returnColour, $tintAdjust);
+                    $returnColour = \PhpSpreadsheet\Style\Color::changeBrightness($returnColour, $tintAdjust);
                 }
                 return 'FF'.$returnColour;
             }
@@ -1951,7 +1948,7 @@ class Excel2007 extends BaseReader implements IReader
             $docStyle->getFont()->getColor()->setARGB(self::readColor($style->font->color));
 
             if (isset($style->font->u) && !isset($style->font->u["val"])) {
-                $docStyle->getFont()->setUnderline(\PHPExcel\Style\Font::UNDERLINE_SINGLE);
+                $docStyle->getFont()->setUnderline(\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE);
             } elseif (isset($style->font->u) && isset($style->font->u["val"])) {
                 $docStyle->getFont()->setUnderline((string)$style->font->u["val"]);
             }
@@ -1997,13 +1994,13 @@ class Excel2007 extends BaseReader implements IReader
             $diagonalUp = self::boolean((string) $style->border["diagonalUp"]);
             $diagonalDown = self::boolean((string) $style->border["diagonalDown"]);
             if (!$diagonalUp && !$diagonalDown) {
-                $docStyle->getBorders()->setDiagonalDirection(\PHPExcel\Style\Borders::DIAGONAL_NONE);
+                $docStyle->getBorders()->setDiagonalDirection(\PhpSpreadsheet\Style\Borders::DIAGONAL_NONE);
             } elseif ($diagonalUp && !$diagonalDown) {
-                $docStyle->getBorders()->setDiagonalDirection(\PHPExcel\Style\Borders::DIAGONAL_UP);
+                $docStyle->getBorders()->setDiagonalDirection(\PhpSpreadsheet\Style\Borders::DIAGONAL_UP);
             } elseif (!$diagonalUp && $diagonalDown) {
-                $docStyle->getBorders()->setDiagonalDirection(\PHPExcel\Style\Borders::DIAGONAL_DOWN);
+                $docStyle->getBorders()->setDiagonalDirection(\PhpSpreadsheet\Style\Borders::DIAGONAL_DOWN);
             } else {
-                $docStyle->getBorders()->setDiagonalDirection(\PHPExcel\Style\Borders::DIAGONAL_BOTH);
+                $docStyle->getBorders()->setDiagonalDirection(\PhpSpreadsheet\Style\Borders::DIAGONAL_BOTH);
             }
             self::readBorder($docStyle->getBorders()->getLeft(), $style->border->left);
             self::readBorder($docStyle->getBorders()->getRight(), $style->border->right);
@@ -2035,17 +2032,17 @@ class Excel2007 extends BaseReader implements IReader
         if (isset($style->protection)) {
             if (isset($style->protection['locked'])) {
                 if (self::boolean((string) $style->protection['locked'])) {
-                    $docStyle->getProtection()->setLocked(\PHPExcel\Style\Protection::PROTECTION_PROTECTED);
+                    $docStyle->getProtection()->setLocked(\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
                 } else {
-                    $docStyle->getProtection()->setLocked(\PHPExcel\Style\Protection::PROTECTION_UNPROTECTED);
+                    $docStyle->getProtection()->setLocked(\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
                 }
             }
 
             if (isset($style->protection['hidden'])) {
                 if (self::boolean((string) $style->protection['hidden'])) {
-                    $docStyle->getProtection()->setHidden(\PHPExcel\Style\Protection::PROTECTION_PROTECTED);
+                    $docStyle->getProtection()->setHidden(\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
                 } else {
-                    $docStyle->getProtection()->setHidden(\PHPExcel\Style\Protection::PROTECTION_UNPROTECTED);
+                    $docStyle->getProtection()->setHidden(\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
                 }
             }
         }
@@ -2068,17 +2065,17 @@ class Excel2007 extends BaseReader implements IReader
 
     private function parseRichText($is = null)
     {
-        $value = new \PHPExcel\RichText();
+        $value = new \PhpSpreadsheet\RichText();
 
         if (isset($is->t)) {
-            $value->createText(\PHPExcel\Shared\StringHelper::controlCharacterOOXML2PHP((string) $is->t));
+            $value->createText(\PhpSpreadsheet\Shared\StringHelper::controlCharacterOOXML2PHP((string) $is->t));
         } else {
             if (is_object($is->r)) {
                 foreach ($is->r as $run) {
                     if (!isset($run->rPr)) {
-                        $objText = $value->createText(\PHPExcel\Shared\StringHelper::controlCharacterOOXML2PHP((string) $run->t));
+                        $objText = $value->createText(\PhpSpreadsheet\Shared\StringHelper::controlCharacterOOXML2PHP((string) $run->t));
                     } else {
-                        $objText = $value->createTextRun(\PHPExcel\Shared\StringHelper::controlCharacterOOXML2PHP((string) $run->t));
+                        $objText = $value->createTextRun(\PhpSpreadsheet\Shared\StringHelper::controlCharacterOOXML2PHP((string) $run->t));
 
                         if (isset($run->rPr->rFont["val"])) {
                             $objText->getFont()->setName((string) $run->rPr->rFont["val"]);
@@ -2087,7 +2084,7 @@ class Excel2007 extends BaseReader implements IReader
                             $objText->getFont()->setSize((string) $run->rPr->sz["val"]);
                         }
                         if (isset($run->rPr->color)) {
-                            $objText->getFont()->setColor(new \PHPExcel\Style\Color(self::readColor($run->rPr->color)));
+                            $objText->getFont()->setColor(new \PhpSpreadsheet\Style\Color(self::readColor($run->rPr->color)));
                         }
                         if ((isset($run->rPr->b["val"]) && self::boolean((string) $run->rPr->b["val"])) ||
                             (isset($run->rPr->b) && !isset($run->rPr->b["val"]))) {
@@ -2107,7 +2104,7 @@ class Excel2007 extends BaseReader implements IReader
                             }
                         }
                         if (isset($run->rPr->u) && !isset($run->rPr->u["val"])) {
-                            $objText->getFont()->setUnderline(\PHPExcel\Style\Font::UNDERLINE_SINGLE);
+                            $objText->getFont()->setUnderline(\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE);
                         } elseif (isset($run->rPr->u) && isset($run->rPr->u["val"])) {
                             $objText->getFont()->setUnderline((string)$run->rPr->u["val"]);
                         }
@@ -2139,7 +2136,7 @@ class Excel2007 extends BaseReader implements IReader
             $UIRels = simplexml_load_string(
                 $this->securityScan($dataRels),
                 'SimpleXMLElement',
-                \PHPExcel\Settings::getLibXmlLoaderOptions()
+                \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
             );
             if ($UIRels) {
                 // we need to save id and target to avoid parsing customUI.xml and "guess" if it's a pseudo callback who load the image
@@ -2189,15 +2186,15 @@ class Excel2007 extends BaseReader implements IReader
             }
             if (strpos($item[1], 'pt') !== false) {
                 $item[1] = str_replace('pt', '', $item[1]);
-                $item[1] = \PHPExcel\Shared\Font::fontSizeToPixels($item[1]);
+                $item[1] = \PhpSpreadsheet\Shared\Font::fontSizeToPixels($item[1]);
             }
             if (strpos($item[1], 'in') !== false) {
                 $item[1] = str_replace('in', '', $item[1]);
-                $item[1] = \PHPExcel\Shared\Font::inchSizeToPixels($item[1]);
+                $item[1] = \PhpSpreadsheet\Shared\Font::inchSizeToPixels($item[1]);
             }
             if (strpos($item[1], 'cm') !== false) {
                 $item[1] = str_replace('cm', '', $item[1]);
-                $item[1] = \PHPExcel\Shared\Font::centimeterSizeToPixels($item[1]);
+                $item[1] = \PhpSpreadsheet\Shared\Font::centimeterSizeToPixels($item[1]);
             }
 
             $style[$item[0]] = $item[1];

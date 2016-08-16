@@ -1,11 +1,11 @@
 <?php
 
-namespace PHPExcel\Writer\Excel5;
+namespace PhpSpreadsheet\Writer\Excel5;
 
 /**
- * \PHPExcel\Writer\Excel5\Workbook
+ * \PhpSpreadsheet\Writer\Excel5\Workbook
  *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2015 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +21,8 @@ namespace PHPExcel\Writer\Excel5;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Writer_Excel5
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -67,7 +66,7 @@ class Workbook extends BIFFwriter
     /**
      * Formula parser
      *
-     * @var \PHPExcel\Writer\Excel5\Parser
+     * @var \PhpSpreadsheet\Writer\Excel5\Parser
      */
     private $parser;
 
@@ -80,7 +79,7 @@ class Workbook extends BIFFwriter
 
     /**
      * XF Writers
-     * @var \PHPExcel\Writer\Excel5\Xf[]
+     * @var \PhpSpreadsheet\Writer\Excel5\Xf[]
      */
     private $xfWriters = array();
 
@@ -104,14 +103,14 @@ class Workbook extends BIFFwriter
 
     /**
      * Workbook
-     * @var PHPExcel
+     * @var \PhpSpreadsheet\Spreadsheet
      */
-    private $phpExcel;
+    private $spreadsheet;
 
     /**
      * Fonts writers
      *
-     * @var \PHPExcel\Writer\Excel5\Font[]
+     * @var \PhpSpreadsheet\Writer\Excel5\Font[]
      */
     private $fontWriters = array();
 
@@ -179,7 +178,7 @@ class Workbook extends BIFFwriter
     /**
      * Escher object corresponding to MSODRAWINGGROUP
      *
-     * @var \PHPExcel\Shared\Escher
+     * @var \PhpSpreadsheet\Shared\Escher
      */
     private $escher;
 
@@ -187,14 +186,14 @@ class Workbook extends BIFFwriter
     /**
      * Class constructor
      *
-     * @param \PHPExcel\Spreadsheet $phpExcel The Workbook
+     * @param \PhpSpreadsheet\Spreadsheet $spreadsheet The Workbook
      * @param int        &$str_total        Total number of strings
      * @param int        &$str_unique    Total number of unique strings
      * @param array        &$str_table        String Table
      * @param array        &$colors        Colour Table
      * @param mixed        $parser            The formula parser created for the Workbook
      */
-    public function __construct(\PHPExcel\Spreadsheet $phpExcel, &$str_total, &$str_unique, &$str_table, &$colors, $parser)
+    public function __construct(\PhpSpreadsheet\Spreadsheet $spreadsheet, &$str_total, &$str_unique, &$str_table, &$colors, $parser)
     {
         // It needs to call its parent's constructor explicitly
         parent::__construct();
@@ -210,16 +209,16 @@ class Workbook extends BIFFwriter
         $this->colors        = &$colors;
         $this->setPaletteXl97();
 
-        $this->phpExcel = $phpExcel;
+        $this->spreadsheet = $spreadsheet;
 
         // set BIFFwriter limit for CONTINUE records
         //        $this->_limit = 8224;
         $this->codepage = 0x04B0;
 
         // Add empty sheets and Build color cache
-        $countSheets = $phpExcel->getSheetCount();
+        $countSheets = $spreadsheet->getSheetCount();
         for ($i = 0; $i < $countSheets; ++$i) {
-            $phpSheet = $phpExcel->getSheet($i);
+            $phpSheet = $spreadsheet->getSheet($i);
 
             $this->parser->setExtSheet($phpSheet->getTitle(), $i);  // Register worksheet name with parser
 
@@ -237,7 +236,7 @@ class Workbook extends BIFFwriter
     /**
      * Add a new XF writer
      *
-     * @param \PHPExcel\Style
+     * @param \PhpSpreadsheet\Style
      * @param boolean Is it a style XF?
      * @return int Index to XF record
      */
@@ -288,10 +287,10 @@ class Workbook extends BIFFwriter
     /**
      * Add a font to added fonts
      *
-     * @param \PHPExcel\Style\Font $font
+     * @param \PhpSpreadsheet\Style\Font $font
      * @return int Index to FONT record
      */
-    public function addFont(\PHPExcel\Style\Font $font)
+    public function addFont(\PhpSpreadsheet\Style\Font $font)
     {
         $fontHashCode = $font->getHashCode();
         if (isset($this->addedFonts[$fontHashCode])) {
@@ -300,7 +299,7 @@ class Workbook extends BIFFwriter
             $countFonts = count($this->fontWriters);
             $fontIndex = ($countFonts < 4) ? $countFonts : $countFonts + 1;
 
-            $fontWriter = new \PHPExcel\Writer\Excel5\Font($font);
+            $fontWriter = new \PhpSpreadsheet\Writer\Excel5\Font($font);
             $fontWriter->setColorIndex($this->addColor($font->getColor()->getRGB()));
             $this->fontWriters[] = $fontWriter;
 
@@ -421,7 +420,7 @@ class Workbook extends BIFFwriter
 
         // Calculate the number of selected worksheet tabs and call the finalization
         // methods for each worksheet
-        $total_worksheets = $this->phpExcel->getSheetCount();
+        $total_worksheets = $this->spreadsheet->getSheetCount();
 
         // Add part 1 of the Workbook globals, what goes before the SHEET records
         $this->storeBof(0x0005);
@@ -455,7 +454,7 @@ class Workbook extends BIFFwriter
         // Add part 2 of the Workbook globals, the SHEET records
         $this->calcSheetOffsets();
         for ($i = 0; $i < $total_worksheets; ++$i) {
-            $this->writeBoundSheet($this->phpExcel->getSheet($i), $this->worksheetOffsets[$i]);
+            $this->writeBoundSheet($this->spreadsheet->getSheet($i), $this->worksheetOffsets[$i]);
         }
 
         // Add part 3 of the Workbook globals
@@ -477,9 +476,9 @@ class Workbook extends BIFFwriter
         $offset            = $this->_datasize;
 
         // add size of Workbook globals part 2, the length of the SHEET records
-        $total_worksheets = count($this->phpExcel->getAllSheets());
-        foreach ($this->phpExcel->getWorksheetIterator() as $sheet) {
-            $offset += $boundsheet_length + strlen(\PHPExcel\Shared\StringHelper::UTF8toBIFF8UnicodeShort($sheet->getTitle()));
+        $total_worksheets = count($this->spreadsheet->getAllSheets());
+        foreach ($this->spreadsheet->getWorksheetIterator() as $sheet) {
+            $offset += $boundsheet_length + strlen(\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeShort($sheet->getTitle()));
         }
 
         // add the sizes of each of the Sheet substreams, respectively
@@ -534,13 +533,13 @@ class Workbook extends BIFFwriter
      */
     private function writeExternals()
     {
-        $countSheets = $this->phpExcel->getSheetCount();
+        $countSheets = $this->spreadsheet->getSheetCount();
         // Create EXTERNCOUNT with number of worksheets
         $this->writeExternalCount($countSheets);
 
         // Create EXTERNSHEET for each worksheet
         for ($i = 0; $i < $countSheets; ++$i) {
-            $this->writeExternalSheet($this->phpExcel->getSheet($i)->getTitle());
+            $this->writeExternalSheet($this->spreadsheet->getSheet($i)->getTitle());
         }
     }
 
@@ -550,23 +549,23 @@ class Workbook extends BIFFwriter
     private function writeNames()
     {
         // total number of sheets
-        $total_worksheets = $this->phpExcel->getSheetCount();
+        $total_worksheets = $this->spreadsheet->getSheetCount();
 
         // Create the print area NAME records
         for ($i = 0; $i < $total_worksheets; ++$i) {
-            $sheetSetup = $this->phpExcel->getSheet($i)->getPageSetup();
+            $sheetSetup = $this->spreadsheet->getSheet($i)->getPageSetup();
             // Write a Name record if the print area has been defined
             if ($sheetSetup->isPrintAreaSet()) {
                 // Print area
-                $printArea = \PHPExcel\Cell::splitRange($sheetSetup->getPrintArea());
+                $printArea = \PhpSpreadsheet\Cell::splitRange($sheetSetup->getPrintArea());
                 $printArea = $printArea[0];
-                $printArea[0] = \PHPExcel\Cell::coordinateFromString($printArea[0]);
-                $printArea[1] = \PHPExcel\Cell::coordinateFromString($printArea[1]);
+                $printArea[0] = \PhpSpreadsheet\Cell::coordinateFromString($printArea[0]);
+                $printArea[1] = \PhpSpreadsheet\Cell::coordinateFromString($printArea[1]);
 
                 $print_rowmin = $printArea[0][1] - 1;
                 $print_rowmax = $printArea[1][1] - 1;
-                $print_colmin = \PHPExcel\Cell::columnIndexFromString($printArea[0][0]) - 1;
-                $print_colmax = \PHPExcel\Cell::columnIndexFromString($printArea[1][0]) - 1;
+                $print_colmin = \PhpSpreadsheet\Cell::columnIndexFromString($printArea[0][0]) - 1;
+                $print_colmax = \PhpSpreadsheet\Cell::columnIndexFromString($printArea[1][0]) - 1;
 
                 $this->writeNameShort(
                     $i, // sheet index
@@ -581,13 +580,13 @@ class Workbook extends BIFFwriter
 
         // Create the print title NAME records
         for ($i = 0; $i < $total_worksheets; ++$i) {
-            $sheetSetup = $this->phpExcel->getSheet($i)->getPageSetup();
+            $sheetSetup = $this->spreadsheet->getSheet($i)->getPageSetup();
 
             // simultaneous repeatColumns repeatRows
             if ($sheetSetup->isColumnsToRepeatAtLeftSet() && $sheetSetup->isRowsToRepeatAtTopSet()) {
                 $repeat = $sheetSetup->getColumnsToRepeatAtLeft();
-                $colmin = \PHPExcel\Cell::columnIndexFromString($repeat[0]) - 1;
-                $colmax = \PHPExcel\Cell::columnIndexFromString($repeat[1]) - 1;
+                $colmin = \PhpSpreadsheet\Cell::columnIndexFromString($repeat[0]) - 1;
+                $colmax = \PhpSpreadsheet\Cell::columnIndexFromString($repeat[1]) - 1;
 
                 $repeat = $sheetSetup->getRowsToRepeatAtTop();
                 $rowmin = $repeat[0] - 1;
@@ -607,8 +606,8 @@ class Workbook extends BIFFwriter
                 // Columns to repeat
                 if ($sheetSetup->isColumnsToRepeatAtLeftSet()) {
                     $repeat = $sheetSetup->getColumnsToRepeatAtLeft();
-                    $colmin = \PHPExcel\Cell::columnIndexFromString($repeat[0]) - 1;
-                    $colmax = \PHPExcel\Cell::columnIndexFromString($repeat[1]) - 1;
+                    $colmin = \PhpSpreadsheet\Cell::columnIndexFromString($repeat[0]) - 1;
+                    $colmax = \PhpSpreadsheet\Cell::columnIndexFromString($repeat[1]) - 1;
                 } else {
                     $colmin = 0;
                     $colmax = 255;
@@ -645,19 +644,19 @@ class Workbook extends BIFFwriter
         $chunk = '';
 
         // Named ranges
-        if (count($this->phpExcel->getNamedRanges()) > 0) {
+        if (count($this->spreadsheet->getNamedRanges()) > 0) {
             // Loop named ranges
-            $namedRanges = $this->phpExcel->getNamedRanges();
+            $namedRanges = $this->spreadsheet->getNamedRanges();
             foreach ($namedRanges as $namedRange) {
                 // Create absolute coordinate
-                $range = \PHPExcel\Cell::splitRange($namedRange->getRange());
+                $range = \PhpSpreadsheet\Cell::splitRange($namedRange->getRange());
                 for ($i = 0; $i < count($range); $i++) {
-                    $range[$i][0] = '\'' . str_replace("'", "''", $namedRange->getWorksheet()->getTitle()) . '\'!' . \PHPExcel\Cell::absoluteCoordinate($range[$i][0]);
+                    $range[$i][0] = '\'' . str_replace("'", "''", $namedRange->getWorksheet()->getTitle()) . '\'!' . \PhpSpreadsheet\Cell::absoluteCoordinate($range[$i][0]);
                     if (isset($range[$i][1])) {
-                        $range[$i][1] = \PHPExcel\Cell::absoluteCoordinate($range[$i][1]);
+                        $range[$i][1] = \PhpSpreadsheet\Cell::absoluteCoordinate($range[$i][1]);
                     }
                 }
-                $range = \PHPExcel\Cell::buildRange($range); // e.g. Sheet1!$A$1:$B$2
+                $range = \PhpSpreadsheet\Cell::buildRange($range); // e.g. Sheet1!$A$1:$B$2
 
                 // parse formula
                 try {
@@ -671,29 +670,29 @@ class Workbook extends BIFFwriter
 
                     if ($namedRange->getLocalOnly()) {
                         // local scope
-                        $scope = $this->phpExcel->getIndex($namedRange->getScope()) + 1;
+                        $scope = $this->spreadsheet->getIndex($namedRange->getScope()) + 1;
                     } else {
                         // global scope
                         $scope = 0;
                     }
                     $chunk .= $this->writeData($this->writeDefinedNameBiff8($namedRange->getName(), $formulaData, $scope, false));
-                } catch (\PHPExcel\Exception $e) {
+                } catch (\PhpSpreadsheet\Exception $e) {
                     // do nothing
                 }
             }
         }
 
         // total number of sheets
-        $total_worksheets = $this->phpExcel->getSheetCount();
+        $total_worksheets = $this->spreadsheet->getSheetCount();
 
         // write the print titles (repeating rows, columns), if any
         for ($i = 0; $i < $total_worksheets; ++$i) {
-            $sheetSetup = $this->phpExcel->getSheet($i)->getPageSetup();
+            $sheetSetup = $this->spreadsheet->getSheet($i)->getPageSetup();
             // simultaneous repeatColumns repeatRows
             if ($sheetSetup->isColumnsToRepeatAtLeftSet() && $sheetSetup->isRowsToRepeatAtTopSet()) {
                 $repeat = $sheetSetup->getColumnsToRepeatAtLeft();
-                $colmin = \PHPExcel\Cell::columnIndexFromString($repeat[0]) - 1;
-                $colmax = \PHPExcel\Cell::columnIndexFromString($repeat[1]) - 1;
+                $colmin = \PhpSpreadsheet\Cell::columnIndexFromString($repeat[0]) - 1;
+                $colmax = \PhpSpreadsheet\Cell::columnIndexFromString($repeat[1]) - 1;
 
                 $repeat = $sheetSetup->getRowsToRepeatAtTop();
                 $rowmin = $repeat[0] - 1;
@@ -713,8 +712,8 @@ class Workbook extends BIFFwriter
                 // Columns to repeat
                 if ($sheetSetup->isColumnsToRepeatAtLeftSet()) {
                     $repeat = $sheetSetup->getColumnsToRepeatAtLeft();
-                    $colmin = \PHPExcel\Cell::columnIndexFromString($repeat[0]) - 1;
-                    $colmax = \PHPExcel\Cell::columnIndexFromString($repeat[1]) - 1;
+                    $colmin = \PhpSpreadsheet\Cell::columnIndexFromString($repeat[0]) - 1;
+                    $colmax = \PhpSpreadsheet\Cell::columnIndexFromString($repeat[1]) - 1;
                 } else {
                     $colmin = 0;
                     $colmax = 255;
@@ -739,22 +738,22 @@ class Workbook extends BIFFwriter
 
         // write the print areas, if any
         for ($i = 0; $i < $total_worksheets; ++$i) {
-            $sheetSetup = $this->phpExcel->getSheet($i)->getPageSetup();
+            $sheetSetup = $this->spreadsheet->getSheet($i)->getPageSetup();
             if ($sheetSetup->isPrintAreaSet()) {
                 // Print area, e.g. A3:J6,H1:X20
-                $printArea = \PHPExcel\Cell::splitRange($sheetSetup->getPrintArea());
+                $printArea = \PhpSpreadsheet\Cell::splitRange($sheetSetup->getPrintArea());
                 $countPrintArea = count($printArea);
 
                 $formulaData = '';
                 for ($j = 0; $j < $countPrintArea; ++$j) {
                     $printAreaRect = $printArea[$j]; // e.g. A3:J6
-                    $printAreaRect[0] = \PHPExcel\Cell::coordinateFromString($printAreaRect[0]);
-                    $printAreaRect[1] = \PHPExcel\Cell::coordinateFromString($printAreaRect[1]);
+                    $printAreaRect[0] = \PhpSpreadsheet\Cell::coordinateFromString($printAreaRect[0]);
+                    $printAreaRect[1] = \PhpSpreadsheet\Cell::coordinateFromString($printAreaRect[1]);
 
                     $print_rowmin = $printAreaRect[0][1] - 1;
                     $print_rowmax = $printAreaRect[1][1] - 1;
-                    $print_colmin = \PHPExcel\Cell::columnIndexFromString($printAreaRect[0][0]) - 1;
-                    $print_colmax = \PHPExcel\Cell::columnIndexFromString($printAreaRect[1][0]) - 1;
+                    $print_colmin = \PhpSpreadsheet\Cell::columnIndexFromString($printAreaRect[0][0]) - 1;
+                    $print_colmax = \PhpSpreadsheet\Cell::columnIndexFromString($printAreaRect[1][0]) - 1;
 
                     // construct formula data manually because parser does not recognize absolute 3d cell references
                     $formulaData .= pack('Cvvvvv', 0x3B, $i, $print_rowmin, $print_rowmax, $print_colmin, $print_colmax);
@@ -771,10 +770,10 @@ class Workbook extends BIFFwriter
 
         // write autofilters, if any
         for ($i = 0; $i < $total_worksheets; ++$i) {
-            $sheetAutoFilter = $this->phpExcel->getSheet($i)->getAutoFilter();
+            $sheetAutoFilter = $this->spreadsheet->getSheet($i)->getAutoFilter();
             $autoFilterRange = $sheetAutoFilter->getRange();
             if (!empty($autoFilterRange)) {
-                $rangeBounds = \PHPExcel\Cell::rangeBoundaries($autoFilterRange);
+                $rangeBounds = \PhpSpreadsheet\Cell::rangeBoundaries($autoFilterRange);
 
                 //Autofilter built in name
                 $name = pack('C', 0x0D);
@@ -803,10 +802,10 @@ class Workbook extends BIFFwriter
         $options = $isBuiltIn ? 0x20 : 0x00;
 
         // length of the name, character count
-        $nlen = \PHPExcel\Shared\StringHelper::countCharacters($name);
+        $nlen = \PhpSpreadsheet\Shared\StringHelper::countCharacters($name);
 
         // name with stripped length field
-        $name = substr(\PHPExcel\Shared\StringHelper::UTF8toBIFF8UnicodeLong($name), 2);
+        $name = substr(\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong($name), 2);
 
         // size of the formula (in bytes)
         $sz = strlen($formulaData);
@@ -890,14 +889,14 @@ class Workbook extends BIFFwriter
 
         $grbit = 0x0038;    // Option flags
 
-        // not supported by PHPExcel, so there is only one selected sheet, the active
+        // not supported by PhpSpreadsheet, so there is only one selected sheet, the active
         $ctabsel = 1;       // Number of workbook tabs selected
 
         $wTabRatio = 0x0258;    // Tab to scrollbar ratio
 
-        // not supported by PHPExcel, set to 0
+        // not supported by PhpSpreadsheet, set to 0
         $itabFirst = 0;     // 1st displayed worksheet
-        $itabCur   = $this->phpExcel->getActiveSheetIndex();    // Active worksheet
+        $itabCur   = $this->spreadsheet->getActiveSheetIndex();    // Active worksheet
 
         $header = pack("vv", $record, $length);
         $data   = pack("vvvvvvvvv", $xWn, $yWn, $dxWn, $dyWn, $grbit, $itabCur, $itabFirst, $ctabsel, $wTabRatio);
@@ -907,7 +906,7 @@ class Workbook extends BIFFwriter
     /**
      * Writes Excel BIFF BOUNDSHEET record.
      *
-     * @param \PHPExcel\Worksheet  $sheet Worksheet name
+     * @param \PhpSpreadsheet\Worksheet  $sheet Worksheet name
      * @param integer $offset    Location of worksheet BOF
      */
     private function writeBoundSheet($sheet, $offset)
@@ -917,13 +916,13 @@ class Workbook extends BIFFwriter
 
         // sheet state
         switch ($sheet->getSheetState()) {
-            case \PHPExcel\Worksheet::SHEETSTATE_VISIBLE:
+            case \PhpSpreadsheet\Worksheet::SHEETSTATE_VISIBLE:
                 $ss = 0x00;
                 break;
-            case \PHPExcel\Worksheet::SHEETSTATE_HIDDEN:
+            case \PhpSpreadsheet\Worksheet::SHEETSTATE_HIDDEN:
                 $ss = 0x01;
                 break;
-            case \PHPExcel\Worksheet::SHEETSTATE_VERYHIDDEN:
+            case \PhpSpreadsheet\Worksheet::SHEETSTATE_VERYHIDDEN:
                 $ss = 0x02;
                 break;
             default:
@@ -937,7 +936,7 @@ class Workbook extends BIFFwriter
         $grbit = 0x0000;                    // Visibility and sheet type
 
         $data = pack("VCC", $offset, $ss, $st);
-        $data .= \PHPExcel\Shared\StringHelper::UTF8toBIFF8UnicodeShort($sheetname);
+        $data .= \PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeShort($sheetname);
 
         $length = strlen($data);
         $header = pack("vv", $record, $length);
@@ -953,7 +952,7 @@ class Workbook extends BIFFwriter
         $length    = 0x0004;   // Bytes to follow
 
         $header    = pack("vv", $record, $length);
-        $data      = pack("vv", $this->phpExcel->getSheetCount(), 0x0401);
+        $data      = pack("vv", $this->spreadsheet->getSheetCount(), 0x0401);
         return $this->writeData($header . $data);
     }
 
@@ -1004,7 +1003,7 @@ class Workbook extends BIFFwriter
     {
         $record = 0x041E;    // Record identifier
 
-        $numberFormatString = \PHPExcel\Shared\StringHelper::UTF8toBIFF8UnicodeLong($format);
+        $numberFormatString = \PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong($format);
         $length = 2 + strlen($numberFormatString);    // Number of bytes to follow
 
 
@@ -1021,7 +1020,7 @@ class Workbook extends BIFFwriter
         $record = 0x0022;   // Record identifier
         $length = 0x0002;   // Bytes to follow
 
-        $f1904  = (\PHPExcel\Shared\Date::getExcelCalendar() == \PHPExcel\Shared\Date::CALENDAR_MAC_1904)
+        $f1904  = (\PhpSpreadsheet\Shared\Date::getExcelCalendar() == \PhpSpreadsheet\Shared\Date::CALENDAR_MAC_1904)
             ? 1
             : 0;   // Flag for 1904 date system
 
@@ -1409,7 +1408,7 @@ class Workbook extends BIFFwriter
     {
         // write the Escher stream if necessary
         if (isset($this->escher)) {
-            $writer = new \PHPExcel\Writer\Excel5\Escher($this->escher);
+            $writer = new \PhpSpreadsheet\Writer\Excel5\Escher($this->escher);
             $data = $writer->close();
 
             $record = 0x00EB;
@@ -1425,7 +1424,7 @@ class Workbook extends BIFFwriter
     /**
      * Get Escher object
      *
-     * @return \PHPExcel\Shared\Escher
+     * @return \PhpSpreadsheet\Shared\Escher
      */
     public function getEscher()
     {
@@ -1435,9 +1434,9 @@ class Workbook extends BIFFwriter
     /**
      * Set Escher object
      *
-     * @param \PHPExcel\Shared\Escher $pValue
+     * @param \PhpSpreadsheet\Shared\Escher $pValue
      */
-    public function setEscher(\PHPExcel\Shared\Escher $pValue = null)
+    public function setEscher(\PhpSpreadsheet\Shared\Escher $pValue = null)
     {
         $this->escher = $pValue;
     }

@@ -1,9 +1,8 @@
 <?php
 
-namespace PHPExcel\Shared\JAMA;
+namespace PhpSpreadsheet\Shared\JAMA;
 
 /**
- *    @package JAMA
  *
  *    Cholesky decomposition class
  *
@@ -76,7 +75,7 @@ class CholeskyDecomposition
                 }
             }
         } else {
-            throw new \PHPExcel\Calculation\Exception(JAMAError(ARGUMENT_TYPE_EXCEPTION));
+            throw new \PhpSpreadsheet\Calculation\Exception(JAMAError(ARGUMENT_TYPE_EXCEPTION));
         }
     }    //    function __construct()
 
@@ -139,13 +138,13 @@ class CholeskyDecomposition
 
                     return new Matrix($X, $this->m, $nx);
                 } else {
-                    throw new \PHPExcel\Calculation\Exception(JAMAError(MatrixSPDException));
+                    throw new \PhpSpreadsheet\Calculation\Exception(JAMAError(MatrixSPDException));
                 }
             } else {
-                throw new \PHPExcel\Calculation\Exception(JAMAError(MATRIX_DIMENSION_EXCEPTION));
+                throw new \PhpSpreadsheet\Calculation\Exception(JAMAError(MATRIX_DIMENSION_EXCEPTION));
             }
         } else {
-            throw new \PHPExcel\Calculation\Exception(JAMAError(ARGUMENT_TYPE_EXCEPTION));
+            throw new \PhpSpreadsheet\Calculation\Exception(JAMAError(ARGUMENT_TYPE_EXCEPTION));
         }
     }    //    function solve()
 }

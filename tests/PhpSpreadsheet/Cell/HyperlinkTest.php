@@ -2,17 +2,17 @@
 
 namespace PhpSpreadsheet\Tests\Cell;
 
-use PHPExcel\Cell\Hyperlink;
+use PhpSpreadsheet\Cell\Hyperlink;
 
 class HyperlinkTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()
     {
-        if (!defined('PHPEXCEL_ROOT')) {
-            define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
+        if (!defined('PHPSPREADSHEET_ROOT')) {
+            define('PHPSPREADSHEET_ROOT', APPLICATION_PATH . '/');
         }
-        require_once(PHPEXCEL_ROOT . '/Bootstrap.php');
+        require_once(PHPSPREADSHEET_ROOT . '/Bootstrap.php');
     }
 
     public function testGetUrl()
@@ -28,7 +28,7 @@ class HyperlinkTest extends \PHPUnit_Framework_TestCase
     public function testSetUrl()
     {
         $initialUrlValue = 'http://www.phpexcel.net';
-        $newUrlValue = 'http://github.com/PHPOffice/PHPExcel';
+        $newUrlValue = 'http://github.com/PHPOffice/PhpSpreadsheet';
 
         $testInstance = new Hyperlink($initialUrlValue);
         $result = $testInstance->setUrl($newUrlValue);
@@ -40,7 +40,7 @@ class HyperlinkTest extends \PHPUnit_Framework_TestCase
 
     public function testGetTooltip()
     {
-        $tooltipValue = 'PHPExcel Web Site';
+        $tooltipValue = 'PhpSpreadsheet Web Site';
 
         $testInstance = new Hyperlink(null, $tooltipValue);
 
@@ -50,8 +50,8 @@ class HyperlinkTest extends \PHPUnit_Framework_TestCase
 
     public function testSetTooltip()
     {
-        $initialTooltipValue = 'PHPExcel Web Site';
-        $newTooltipValue = 'PHPExcel Repository on Github';
+        $initialTooltipValue = 'PhpSpreadsheet Web Site';
+        $newTooltipValue = 'PhpSpreadsheet Repository on Github';
 
         $testInstance = new Hyperlink(null, $initialTooltipValue);
         $result = $testInstance->setTooltip($newTooltipValue);
@@ -78,8 +78,8 @@ class HyperlinkTest extends \PHPUnit_Framework_TestCase
     public function testGetHashCode()
     {
         $urlValue = 'http://www.phpexcel.net';
-        $tooltipValue = 'PHPExcel Web Site';
-        $initialExpectedHash = '176f1ec64e84084db814481bd710b6b3';
+        $tooltipValue = 'PhpSpreadsheet Web Site';
+        $initialExpectedHash = '4c923947ffe2695a2e1750b7e1c6724e';
 
         $testInstance = new Hyperlink($urlValue, $tooltipValue);
 

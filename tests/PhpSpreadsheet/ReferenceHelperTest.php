@@ -2,7 +2,7 @@
 
 namespace PhpSpreadsheet\Tests;
 
-use PHPExcel\ReferenceHelper;
+use PhpSpreadsheet\ReferenceHelper;
 
 class ReferenceHelperTest extends \PHPUnit_Framework_TestCase
 {

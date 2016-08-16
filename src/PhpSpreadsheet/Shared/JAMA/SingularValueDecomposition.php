@@ -1,9 +1,8 @@
 <?php
 
-namespace PHPExcel\Shared\JAMA;
+namespace PhpSpreadsheet\Shared\JAMA;
 
 /**
- *    @package JAMA
  *
  *    For an m-by-n matrix A with m >= n, the singular value decomposition is
  *    an m-by-n orthogonal matrix U, an n-by-n diagonal matrix S, and

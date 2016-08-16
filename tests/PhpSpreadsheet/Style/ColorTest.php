@@ -2,7 +2,7 @@
 
 namespace PhpSpreadsheet\Tests\Style;
 
-use PHPExcel\Style\Color;
+use PhpSpreadsheet\Style\Color;
 
 class ColorTest extends \PHPUnit_Framework_TestCase
 {

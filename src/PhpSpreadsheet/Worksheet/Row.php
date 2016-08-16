@@ -1,11 +1,11 @@
 <?php
 
-namespace PHPExcel\Worksheet;
+namespace PhpSpreadsheet\Worksheet;
 
 /**
- * \PHPExcel\Worksheet\Row
+ * \PhpSpreadsheet\Worksheet\Row
  *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,18 +21,17 @@ namespace PHPExcel\Worksheet;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    \PHPExcel\Worksheet
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
 class Row
 {
     /**
-     * \PHPExcel\Worksheet
+     * \PhpSpreadsheet\Worksheet
      *
-     * @var \PHPExcel\Worksheet
+     * @var \PhpSpreadsheet\Worksheet
      */
     private $parent;
 
@@ -46,10 +45,10 @@ class Row
     /**
      * Create a new row
      *
-     * @param \PHPExcel\Worksheet         $parent
+     * @param \PhpSpreadsheet\Worksheet         $parent
      * @param int                        $rowIndex
      */
-    public function __construct(\PHPExcel\Worksheet $parent = null, $rowIndex = 1)
+    public function __construct(\PhpSpreadsheet\Worksheet $parent = null, $rowIndex = 1)
     {
         // Set parent and row index
         $this->parent   = $parent;

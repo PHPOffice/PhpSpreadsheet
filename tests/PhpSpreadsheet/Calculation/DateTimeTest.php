@@ -2,13 +2,12 @@
 
 namespace PhpSpreadsheet\Tests\Calculation;
 
-use PHPExcel\Shared\Date;
-use PHPExcel\Calculation\Functions;
-use PHPExcel\Calculation\DateTime;
+use PhpSpreadsheet\Shared\Date;
+use PhpSpreadsheet\Calculation\Functions;
+use PhpSpreadsheet\Calculation\DateTime;
 
 /**
  * Class DateTimeTest
- * @package PHPExcel\Calculation
  */
 class DateTimeTest extends \PHPUnit_Framework_TestCase
 {

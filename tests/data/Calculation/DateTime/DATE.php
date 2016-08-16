@@ -447,21 +447,21 @@ return [
         31,
         40329,
     ],
-    // MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
+    // MS Excel will fail with a #VALUE return, but PhpSpreadsheet can parse this date
     [
         2010,
         1,
         '21st',
         40199,
     ],
-    // MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
+    // MS Excel will fail with a #VALUE return, but PhpSpreadsheet can parse this date
     [
         2010,
         'March',
         '21st',
         40258,
     ],
-    // MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
+    // MS Excel will fail with a #VALUE return, but PhpSpreadsheet can parse this date
     [
         2010,
         'March',

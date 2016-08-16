@@ -2,8 +2,8 @@
 
 namespace PhpSpreadsheet\Tests\Calculation;
 
-use PHPExcel\Calculation\Engineering;
-use PHPExcel\Calculation\Functions;
+use PhpSpreadsheet\Calculation\Engineering;
+use PhpSpreadsheet\Calculation\Functions;
 
 class EngineeringTest extends \PHPUnit_Framework_TestCase
 {

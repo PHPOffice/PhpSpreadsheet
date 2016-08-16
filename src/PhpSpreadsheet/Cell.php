@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel;
+namespace PhpSpreadsheet;
 
 /**
- *    PHPExcel_Cell
- *
- *    Copyright (c) 2006 - 2015 PHPExcel
+ *    Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  *    This library is free software; you can redistribute it and/or
  *    modify it under the terms of the GNU Lesser General Public
@@ -21,9 +19,8 @@ namespace PHPExcel;
  *    License along with this library; if not, write to the Free Software
  *    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- *    @category    PHPExcel
- *    @package    PHPExcel_Cell
- *    @copyright    Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ *    @category    PhpSpreadsheet
+ *    @copyright    Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  *    @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  *    @version    ##VERSION##, ##DATE##
  */
@@ -961,7 +958,7 @@ class Cell
     public static function setValueBinder(Cell\IValueBinder $binder = null)
     {
         if ($binder === null) {
-            throw new Exception("A \\PHPExcel\\Cell\\IValueBinder is required for PHPExcel to function correctly.");
+            throw new Exception("A \\PhpSpreadsheet\\Cell\\IValueBinder is required for PhpSpreadsheet to function correctly.");
         }
 
         self::$valueBinder = $binder;

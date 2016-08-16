@@ -2,7 +2,7 @@
 
 namespace PhpSpreadsheet\Tests\Calculation;
 
-use PHPExcel\Calculation\Functions;
+use PhpSpreadsheet\Calculation\Functions;
 
 class FunctionsTest extends \PHPUnit_Framework_TestCase
 {

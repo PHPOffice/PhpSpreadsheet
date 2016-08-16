@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel;
+namespace PhpSpreadsheet;
 
 /**
- * PHPExcel_Style
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +19,8 @@ namespace PHPExcel;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Style
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -150,7 +147,7 @@ class Style extends Style\Supervisor implements IComparable
     /**
      * Get parent. Only used for style supervisor
      *
-     * @return PHPExcel
+     * @return PhpSpreadsheet
      */
     public function getParent()
     {
@@ -172,13 +169,13 @@ class Style extends Style\Supervisor implements IComparable
      * Apply styles from array
      *
      * <code>
-     * $objPHPExcel->getActiveSheet()->getStyle('B2')->applyFromArray(
+     * $spreadsheet->getActiveSheet()->getStyle('B2')->applyFromArray(
      *         array(
      *             'font'    => array(
      *                 'name'      => 'Arial',
      *                 'bold'      => true,
      *                 'italic'    => false,
-     *                 'underline' => \PHPExcel\Style\Font::UNDERLINE_DOUBLE,
+     *                 'underline' => \PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE,
      *                 'strike'    => false,
      *                 'color'     => array(
      *                     'rgb' => '808080'
@@ -186,13 +183,13 @@ class Style extends Style\Supervisor implements IComparable
      *             ),
      *             'borders' => array(
      *                 'bottom'     => array(
-     *                     'style' => \PHPExcel\Style\Border::BORDER_DASHDOT,
+     *                     'style' => \PhpSpreadsheet\Style\Border::BORDER_DASHDOT,
      *                     'color' => array(
      *                         'rgb' => '808080'
      *                     )
      *                 ),
      *                 'top'     => array(
-     *                     'style' => \PHPExcel\Style\Border::BORDER_DASHDOT,
+     *                     'style' => \PhpSpreadsheet\Style\Border::BORDER_DASHDOT,
      *                     'color' => array(
      *                         'rgb' => '808080'
      *                     )

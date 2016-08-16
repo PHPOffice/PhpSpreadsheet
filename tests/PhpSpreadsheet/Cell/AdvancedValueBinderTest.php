@@ -2,22 +2,22 @@
 
 namespace PhpSpreadsheet\Tests\Cell;
 
-use PHPExcel\Worksheet;
-use PHPExcel\Style\NumberFormat;
-use PHPExcel\Shared\StringHelper;
-use PHPExcel\Cell;
-use PHPExcel\Cell\AdvancedValueBinder;
-use PHPExcel\Cell\DataType;
-use PHPExcel\CachedObjectStorage\Memory;
+use PhpSpreadsheet\Worksheet;
+use PhpSpreadsheet\Style\NumberFormat;
+use PhpSpreadsheet\Shared\StringHelper;
+use PhpSpreadsheet\Cell;
+use PhpSpreadsheet\Cell\AdvancedValueBinder;
+use PhpSpreadsheet\Cell\DataType;
+use PhpSpreadsheet\CachedObjectStorage\Memory;
 
 class AdvancedValueBinderTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        if (!defined('PHPEXCEL_ROOT')) {
-            define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
+        if (!defined('PHPSPREADSHEET_ROOT')) {
+            define('PHPSPREADSHEET_ROOT', APPLICATION_PATH . '/');
         }
-        require_once(PHPEXCEL_ROOT . '/Bootstrap.php');
+        require_once(PHPSPREADSHEET_ROOT . '/Bootstrap.php');
     }
 
     public function provider()

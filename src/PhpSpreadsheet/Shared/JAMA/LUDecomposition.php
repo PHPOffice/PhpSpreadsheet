@@ -1,9 +1,8 @@
 <?php
 
-namespace PHPExcel\Shared\JAMA;
+namespace PhpSpreadsheet\Shared\JAMA;
 
 /**
- *    @package JAMA
  *
  *    For an m-by-n matrix A with m >= n, the LU decomposition is an m-by-n
  *    unit lower triangular matrix L, an n-by-n upper triangular matrix U,
@@ -118,7 +117,7 @@ class LUDecomposition
                 }
             }
         } else {
-            throw new \PHPExcel\Calculation\Exception(Matrix::ARGUMENT_TYPE_EXCEPTION);
+            throw new \PhpSpreadsheet\Calculation\Exception(Matrix::ARGUMENT_TYPE_EXCEPTION);
         }
     }    //    function __construct()
 
@@ -211,7 +210,7 @@ class LUDecomposition
             }
             return $d;
         } else {
-            throw new \PHPExcel\Calculation\Exception(Matrix::MATRIX_DIMENSION_EXCEPTION);
+            throw new \PhpSpreadsheet\Calculation\Exception(Matrix::MATRIX_DIMENSION_EXCEPTION);
         }
     }    //    function det()
 
@@ -220,8 +219,8 @@ class LUDecomposition
      *
      *    @param  $B  A Matrix with as many rows as A and any number of columns.
      *    @return  X so that L*U*X = B(piv,:)
-     *    @\PHPExcel\Calculation\Exception  IllegalArgumentException Matrix row dimensions must agree.
-     *    @\PHPExcel\Calculation\Exception  RuntimeException  Matrix is singular.
+     *    @\PhpSpreadsheet\Calculation\Exception  IllegalArgumentException Matrix row dimensions must agree.
+     *    @\PhpSpreadsheet\Calculation\Exception  RuntimeException  Matrix is singular.
      */
     public function solve($B)
     {
@@ -251,10 +250,10 @@ class LUDecomposition
                 }
                 return $X;
             } else {
-                throw new \PHPExcel\Calculation\Exception(self::MATRIX_SINGULAR_EXCEPTION);
+                throw new \PhpSpreadsheet\Calculation\Exception(self::MATRIX_SINGULAR_EXCEPTION);
             }
         } else {
-            throw new \PHPExcel\Calculation\Exception(self::MATRIX_SQUARE_EXCEPTION);
+            throw new \PhpSpreadsheet\Calculation\Exception(self::MATRIX_SQUARE_EXCEPTION);
         }
     }
 }

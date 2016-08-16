@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel\Cell;
+namespace PhpSpreadsheet\Cell;
 
 /**
- * PHPExcel_Cell_DefaultValueBinder
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +19,8 @@ namespace PHPExcel\Cell;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Cell
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -32,20 +29,20 @@ class DefaultValueBinder implements IValueBinder
     /**
      * Bind value to a cell
      *
-     * @param  \PHPExcel\Cell  $cell   Cell to bind value to
+     * @param  \PhpSpreadsheet\Cell  $cell   Cell to bind value to
      * @param  mixed          $value  Value to bind in cell
      * @return boolean
      */
-    public function bindValue(\PHPExcel\Cell $cell, $value = null)
+    public function bindValue(\PhpSpreadsheet\Cell $cell, $value = null)
     {
         // sanitize UTF-8 strings
         if (is_string($value)) {
-            $value = \PHPExcel\Shared\StringHelper::sanitizeUTF8($value);
+            $value = \PhpSpreadsheet\Shared\StringHelper::sanitizeUTF8($value);
         } elseif (is_object($value)) {
             // Handle any objects that might be injected
             if ($value instanceof \DateTime) {
                 $value = $value->format('Y-m-d H:i:s');
-            } elseif (!($value instanceof \PHPExcel\RichText)) {
+            } elseif (!($value instanceof \PhpSpreadsheet\RichText)) {
                 $value = (string) $value;
             }
         }
@@ -70,7 +67,7 @@ class DefaultValueBinder implements IValueBinder
             return DataType::TYPE_NULL;
         } elseif ($pValue === '') {
             return DataType::TYPE_STRING;
-        } elseif ($pValue instanceof \PHPExcel\RichText) {
+        } elseif ($pValue instanceof \PhpSpreadsheet\RichText) {
             return DataType::TYPE_INLINE;
         } elseif ($pValue{0} === '=' && strlen($pValue) > 1) {
             return DataType::TYPE_FORMULA;

@@ -2,7 +2,7 @@
 
 namespace PhpSpreadsheet\Tests\Shared;
 
-use PHPExcel\Shared\Font;
+use PhpSpreadsheet\Shared\Font;
 
 class FontTest extends \PHPUnit_Framework_TestCase
 {

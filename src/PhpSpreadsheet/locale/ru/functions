@@ -1,7 +1,8 @@
 ##
-## PHPExcel
-##
-## Copyright (c) 2006 - 2013 PHPExcel
+## PhpSpreadsheet
+##
+
+## Copyright (c) 2006 - 2013 PhpSpreadsheet
 ##
 ## This library is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU Lesser General Public
@@ -17,9 +18,8 @@
 ## License along with this library; if not, write to the Free Software
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 ##
-## @category   PHPExcel
-## @package    PHPExcel_Calculation
-## @copyright  Copyright (c) 2006 - 2013 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+## @category   PhpSpreadsheet
+## @copyright  Copyright (c) 2006 - 2013 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
 ## @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
 ## @version    ##VERSION##, ##DATE##
 ##
@@ -300,7 +300,7 @@ SQRTPI			= КОРЕНЬПИ				##	Возвращает квадратный ко
 SUBTOTAL		= ПРОМЕЖУТОЧНЫЕ.ИТОГИ			##	Возвращает промежуточный итог в списке или базе данных.
 SUM			= СУММ					##	Суммирует аргументы.
 SUMIF			= СУММЕСЛИ				##	Суммирует ячейки, удовлетворяющие заданному условию.
-SUMIFS			= СУММЕСЛИМН				##	Суммирует диапазон ячеек, удовлетворяющих нескольким условиям. 
+SUMIFS			= СУММЕСЛИМН				##	Суммирует диапазон ячеек, удовлетворяющих нескольким условиям.
 SUMPRODUCT		= СУММПРОИЗВ				##	Возвращает сумму произведений соответствующих элементов массивов.
 SUMSQ			= СУММКВ				##	Возвращает сумму квадратов аргументов.
 SUMX2MY2		= СУММРАЗНКВ				##	Возвращает сумму разностей квадратов соответствующих значений в двух массивах.
@@ -318,7 +318,7 @@ AVEDEV			= СРОТКЛ				##	Возвращает среднее арифмет
 AVERAGE			= СРЗНАЧ				##	Возвращает среднее арифметическое аргументов.
 AVERAGEA		= СРЗНАЧА				##	Возвращает среднее арифметическое аргументов, включая числа, текст и логические значения.
 AVERAGEIF		= СРЗНАЧЕСЛИ 				##	Возвращает среднее значение (среднее арифметическое) всех ячеек в диапазоне, которые удовлетворяют данному условию.
-AVERAGEIFS		= СРЗНАЧЕСЛИМН 				##	Возвращает среднее значение (среднее арифметическое) всех ячеек, которые удовлетворяют нескольким условиям. 
+AVERAGEIFS		= СРЗНАЧЕСЛИМН 				##	Возвращает среднее значение (среднее арифметическое) всех ячеек, которые удовлетворяют нескольким условиям.
 BETADIST		= БЕТАРАСП				##	Возвращает интегральную функцию бета-распределения.
 BETAINV			= БЕТАОБР				##	Возвращает обратную интегральную функцию указанного бета-распределения.
 BINOMDIST		= БИНОМРАСП				##	Возвращает отдельное значение биномиального распределения.

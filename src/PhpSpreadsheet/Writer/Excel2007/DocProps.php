@@ -1,10 +1,8 @@
 <?php
-namespace PHPExcel\Writer\Excel2007;
+namespace PhpSpreadsheet\Writer\Excel2007;
 
 /**
- * PHPExcel_Writer_Excel2007_DocProps
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,9 +18,8 @@ namespace PHPExcel\Writer\Excel2007;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Writer_Excel2007
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -31,18 +28,18 @@ class DocProps extends WriterPart
     /**
      * Write docProps/app.xml to XML format
      *
-     * @param \PHPExcel\SpreadSheet $pPHPExcel
+     * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
      * @return string  XML Output
-     * @throws     \PHPExcel\Writer\Exception
+     * @throws     \PhpSpreadsheet\Writer\Exception
      */
-    public function writeDocPropsApp(\PHPExcel\SpreadSheet $pPHPExcel = null)
+    public function writeDocPropsApp(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -77,7 +74,7 @@ class DocProps extends WriterPart
 
         // Variant
         $objWriter->startElement('vt:variant');
-        $objWriter->writeElement('vt:i4', $pPHPExcel->getSheetCount());
+        $objWriter->writeElement('vt:i4', $spreadsheet->getSheetCount());
         $objWriter->endElement();
 
         $objWriter->endElement();
@@ -89,12 +86,12 @@ class DocProps extends WriterPart
 
         // Vector
         $objWriter->startElement('vt:vector');
-        $objWriter->writeAttribute('size', $pPHPExcel->getSheetCount());
+        $objWriter->writeAttribute('size', $spreadsheet->getSheetCount());
         $objWriter->writeAttribute('baseType', 'lpstr');
 
-        $sheetCount = $pPHPExcel->getSheetCount();
+        $sheetCount = $spreadsheet->getSheetCount();
         for ($i = 0; $i < $sheetCount; ++$i) {
-            $objWriter->writeElement('vt:lpstr', $pPHPExcel->getSheet($i)->getTitle());
+            $objWriter->writeElement('vt:lpstr', $spreadsheet->getSheet($i)->getTitle());
         }
 
         $objWriter->endElement();
@@ -102,10 +99,10 @@ class DocProps extends WriterPart
         $objWriter->endElement();
 
         // Company
-        $objWriter->writeElement('Company', $pPHPExcel->getProperties()->getCompany());
+        $objWriter->writeElement('Company', $spreadsheet->getProperties()->getCompany());
 
         // Company
-        $objWriter->writeElement('Manager', $pPHPExcel->getProperties()->getManager());
+        $objWriter->writeElement('Manager', $spreadsheet->getProperties()->getManager());
 
         // LinksUpToDate
         $objWriter->writeElement('LinksUpToDate', 'false');
@@ -128,18 +125,18 @@ class DocProps extends WriterPart
     /**
      * Write docProps/core.xml to XML format
      *
-     * @param \PHPExcel\SpreadSheet $pPHPExcel
+     * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
      * @return string  XML Output
-     * @throws     \PHPExcel\Writer\Exception
+     * @throws     \PhpSpreadsheet\Writer\Exception
      */
-    public function writeDocPropsCore(\PHPExcel\SpreadSheet $pPHPExcel = null)
+    public function writeDocPropsCore(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -154,37 +151,37 @@ class DocProps extends WriterPart
         $objWriter->writeAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
 
         // dc:creator
-        $objWriter->writeElement('dc:creator', $pPHPExcel->getProperties()->getCreator());
+        $objWriter->writeElement('dc:creator', $spreadsheet->getProperties()->getCreator());
 
         // cp:lastModifiedBy
-        $objWriter->writeElement('cp:lastModifiedBy', $pPHPExcel->getProperties()->getLastModifiedBy());
+        $objWriter->writeElement('cp:lastModifiedBy', $spreadsheet->getProperties()->getLastModifiedBy());
 
         // dcterms:created
         $objWriter->startElement('dcterms:created');
         $objWriter->writeAttribute('xsi:type', 'dcterms:W3CDTF');
-        $objWriter->writeRawData(date(DATE_W3C, $pPHPExcel->getProperties()->getCreated()));
+        $objWriter->writeRawData(date(DATE_W3C, $spreadsheet->getProperties()->getCreated()));
         $objWriter->endElement();
 
         // dcterms:modified
         $objWriter->startElement('dcterms:modified');
         $objWriter->writeAttribute('xsi:type', 'dcterms:W3CDTF');
-        $objWriter->writeRawData(date(DATE_W3C, $pPHPExcel->getProperties()->getModified()));
+        $objWriter->writeRawData(date(DATE_W3C, $spreadsheet->getProperties()->getModified()));
         $objWriter->endElement();
 
         // dc:title
-        $objWriter->writeElement('dc:title', $pPHPExcel->getProperties()->getTitle());
+        $objWriter->writeElement('dc:title', $spreadsheet->getProperties()->getTitle());
 
         // dc:description
-        $objWriter->writeElement('dc:description', $pPHPExcel->getProperties()->getDescription());
+        $objWriter->writeElement('dc:description', $spreadsheet->getProperties()->getDescription());
 
         // dc:subject
-        $objWriter->writeElement('dc:subject', $pPHPExcel->getProperties()->getSubject());
+        $objWriter->writeElement('dc:subject', $spreadsheet->getProperties()->getSubject());
 
         // cp:keywords
-        $objWriter->writeElement('cp:keywords', $pPHPExcel->getProperties()->getKeywords());
+        $objWriter->writeElement('cp:keywords', $spreadsheet->getProperties()->getKeywords());
 
         // cp:category
-        $objWriter->writeElement('cp:category', $pPHPExcel->getProperties()->getCategory());
+        $objWriter->writeElement('cp:category', $spreadsheet->getProperties()->getCategory());
 
         $objWriter->endElement();
 
@@ -195,13 +192,13 @@ class DocProps extends WriterPart
     /**
      * Write docProps/custom.xml to XML format
      *
-     * @param \PHPExcel\SpreadSheet $pPHPExcel
+     * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
      * @return string  XML Output
-     * @throws     \PHPExcel\Writer\Exception
+     * @throws     \PhpSpreadsheet\Writer\Exception
      */
-    public function writeDocPropsCustom(\PHPExcel\SpreadSheet $pPHPExcel = null)
+    public function writeDocPropsCustom(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
-        $customPropertyList = $pPHPExcel->getProperties()->getCustomProperties();
+        $customPropertyList = $spreadsheet->getProperties()->getCustomProperties();
         if (empty($customPropertyList)) {
             return;
         }
@@ -209,9 +206,9 @@ class DocProps extends WriterPart
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -224,8 +221,8 @@ class DocProps extends WriterPart
 
 
         foreach ($customPropertyList as $key => $customProperty) {
-            $propertyValue = $pPHPExcel->getProperties()->getCustomPropertyValue($customProperty);
-            $propertyType = $pPHPExcel->getProperties()->getCustomPropertyType($customProperty);
+            $propertyValue = $spreadsheet->getProperties()->getCustomPropertyValue($customProperty);
+            $propertyType = $spreadsheet->getProperties()->getCustomPropertyType($customProperty);
 
             $objWriter->startElement('property');
             $objWriter->writeAttribute('fmtid', '{D5CDD505-2E9C-101B-9397-08002B2CF9AE}');

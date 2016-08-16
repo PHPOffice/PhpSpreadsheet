@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel\Writer;
+namespace PhpSpreadsheet\Writer;
 
 /**
- * PHPExcel_Writer_CSV
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,20 +19,19 @@ namespace PHPExcel\Writer;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Writer_CSV
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
 class CSV extends BaseWriter implements IWriter
 {
     /**
-     * PHPExcel object
+     * PhpSpreadsheet object
      *
-     * @var PHPExcel
+     * @var PhpSpreadsheet
      */
-    private $phpExcel;
+    private $spreadsheet;
 
     /**
      * Delimiter
@@ -89,15 +86,15 @@ class CSV extends BaseWriter implements IWriter
     /**
      * Create a new CSV
      *
-     * @param    \PHPExcel\Spreadsheet    $phpExcel    Spreadsheet object
+     * @param    \PhpSpreadsheet\Spreadsheet    $spreadsheet    Spreadsheet object
      */
-    public function __construct(\PHPExcel\Spreadsheet $phpExcel)
+    public function __construct(\PhpSpreadsheet\Spreadsheet $spreadsheet)
     {
-        $this->phpExcel = $phpExcel;
+        $this->spreadsheet = $spreadsheet;
     }
 
     /**
-     * Save PHPExcel to file
+     * Save PhpSpreadsheet to file
      *
      * @param    string        $pFilename
      * @throws    Exception
@@ -105,12 +102,12 @@ class CSV extends BaseWriter implements IWriter
     public function save($pFilename = null)
     {
         // Fetch sheet
-        $sheet = $this->phpExcel->getSheet($this->sheetIndex);
+        $sheet = $this->spreadsheet->getSheet($this->sheetIndex);
 
-        $saveDebugLog = \PHPExcel\Calculation::getInstance($this->phpExcel)->getDebugLog()->getWriteDebugLog();
-        \PHPExcel\Calculation::getInstance($this->phpExcel)->getDebugLog()->setWriteDebugLog(false);
-        $saveArrayReturnType = \PHPExcel\Calculation::getArrayReturnType();
-        \PHPExcel\Calculation::setArrayReturnType(\PHPExcel\Calculation::RETURN_ARRAY_AS_VALUE);
+        $saveDebugLog = \PhpSpreadsheet\Calculation::getInstance($this->spreadsheet)->getDebugLog()->getWriteDebugLog();
+        \PhpSpreadsheet\Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog(false);
+        $saveArrayReturnType = \PhpSpreadsheet\Calculation::getArrayReturnType();
+        \PhpSpreadsheet\Calculation::setArrayReturnType(\PhpSpreadsheet\Calculation::RETURN_ARRAY_AS_VALUE);
 
         // Open file
         $fileHandle = fopen($pFilename, 'wb+');
@@ -149,8 +146,8 @@ class CSV extends BaseWriter implements IWriter
         // Close file
         fclose($fileHandle);
 
-        \PHPExcel\Calculation::setArrayReturnType($saveArrayReturnType);
-        \PHPExcel\Calculation::getInstance($this->phpExcel)->getDebugLog()->setWriteDebugLog($saveDebugLog);
+        \PhpSpreadsheet\Calculation::setArrayReturnType($saveArrayReturnType);
+        \PhpSpreadsheet\Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
     }
 
     /**
@@ -258,7 +255,7 @@ class CSV extends BaseWriter implements IWriter
      * Set whether a separator line should be included as the first line of the file
      *
      * @param    boolean    $pValue        Use separator line? Defaults to false
-     * @return PHPExcel_Writer_CSV
+     * @return CSV
      */
     public function setIncludeSeparatorLine($pValue = false)
     {

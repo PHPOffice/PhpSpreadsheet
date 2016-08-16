@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel\Writer;
+namespace PhpSpreadsheet\Writer;
 
 /**
- *  PHPExcel_Writer_PDF
- *
- *  Copyright (c) 2006 - 2015 PHPExcel
+ *  Copyright (c) 2006 - 2015 PhpSpreadsheet
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -21,9 +19,8 @@ namespace PHPExcel\Writer;
  *  License along with this library; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- *  @category    PHPExcel
- *  @package     PHPExcel_Writer_PDF
- *  @copyright   Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ *  @category    PhpSpreadsheet
+ *  @copyright   Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  *  @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  *  @version     ##VERSION##, ##DATE##
  */
@@ -40,17 +37,17 @@ class PDF implements IWriter
     /**
      *  Instantiate a new renderer of the configured type within this container class
      *
-     *  @param  PHPExcel   $phpExcel         PHPExcel object
+     *  @param  \PhpSpreadsheet\Spreadsheet   $spreadsheet         PhpSpreadsheet object
      *  @throws Exception    when PDF library is not configured
      */
-    public function __construct(PHPExcel $phpExcel)
+    public function __construct(PhpSpreadsheet $spreadsheet)
     {
-        $pdfLibraryName = \PHPExcel\Settings::getPdfRendererName();
+        $pdfLibraryName = \PhpSpreadsheet\Settings::getPdfRendererName();
         if (is_null($pdfLibraryName)) {
             throw new Exception("PDF Rendering library has not been defined.");
         }
 
-        $pdfLibraryPath = \PHPExcel\Settings::getPdfRendererPath();
+        $pdfLibraryPath = \PhpSpreadsheet\Settings::getPdfRendererPath();
         if (is_null($pdfLibraryName)) {
             throw new Exception("PDF Rendering library path has not been defined.");
         }
@@ -61,7 +58,7 @@ class PDF implements IWriter
         }
 
         $rendererName = 'PDF\\' . $pdfLibraryName;
-        $this->renderer = new $rendererName($phpExcel);
+        $this->renderer = new $rendererName($spreadsheet);
     }
 
 

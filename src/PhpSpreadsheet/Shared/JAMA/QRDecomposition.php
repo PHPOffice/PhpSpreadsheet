@@ -1,9 +1,8 @@
 <?php
 
-namespace PHPExcel\Shared\JAMA;
+namespace PhpSpreadsheet\Shared\JAMA;
 
 /**
- *    @package JAMA
  *
  *    For an m-by-n matrix A with m >= n, the QR decomposition is an m-by-n
  *    orthogonal matrix Q and an n-by-n upper triangular matrix R so that
@@ -92,7 +91,7 @@ class QRDecomposition
                 $this->Rdiag[$k] = -$nrm;
             }
         } else {
-            throw new \PHPExcel\Calculation\Exception(Matrix::ARGUMENT_TYPE_EXCEPTION);
+            throw new \PhpSpreadsheet\Calculation\Exception(Matrix::ARGUMENT_TYPE_EXCEPTION);
         }
     }    //    function __construct()
 
@@ -229,10 +228,10 @@ class QRDecomposition
                 $X = new Matrix($X);
                 return ($X->getMatrix(0, $this->n-1, 0, $nx));
             } else {
-                throw new \PHPExcel\Calculation\Exception(self::MATRIX_RANK_EXCEPTION);
+                throw new \PhpSpreadsheet\Calculation\Exception(self::MATRIX_RANK_EXCEPTION);
             }
         } else {
-            throw new \PHPExcel\Calculation\Exception(Matrix::MATRIX_DIMENSION_EXCEPTION);
+            throw new \PhpSpreadsheet\Calculation\Exception(Matrix::MATRIX_DIMENSION_EXCEPTION);
         }
     }
 }

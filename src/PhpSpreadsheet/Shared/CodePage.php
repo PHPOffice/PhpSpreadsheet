@@ -1,11 +1,11 @@
 <?php
 
-namespace PHPExcel\Shared;
+namespace PhpSpreadsheet\Shared;
 
 /**
- * \PHPExcel\Shared\CodePage
+ * \PhpSpreadsheet\Shared\CodePage
  *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +21,8 @@ namespace PHPExcel\Shared;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Shared
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -35,7 +34,7 @@ class CodePage
      *
      * @param integer $codePage Microsoft Code Page Indentifier
      * @return string Code Page Name
-     * @throws \PHPExcel\Exception
+     * @throws \PhpSpreadsheet\Exception
      */
     public static function numberToName($codePage = 1252)
     {
@@ -45,7 +44,7 @@ class CodePage
             case 437:
                 return 'CP437';    //    OEM US
             case 720:
-                throw new \PHPExcel\Exception('Code page 720 not supported.');    //    OEM Arabic
+                throw new \PhpSpreadsheet\Exception('Code page 720 not supported.');    //    OEM Arabic
             case 737:
                 return 'CP737';    //    OEM Greek
             case 775:
@@ -147,12 +146,12 @@ class CodePage
             case 32768:
                 return 'MAC';      //    Apple Roman
             case 32769:
-                throw new \PHPExcel\Exception('Code page 32769 not supported.');  //    ANSI Latin I (BIFF2-BIFF3)
+                throw new \PhpSpreadsheet\Exception('Code page 32769 not supported.');  //    ANSI Latin I (BIFF2-BIFF3)
             case 65000:
                 return 'UTF-7';    //    Unicode (UTF-7)
             case 65001:
                 return 'UTF-8';    //    Unicode (UTF-8)
         }
-        throw new \PHPExcel\Exception('Unknown codepage: ' . $codePage);
+        throw new \PhpSpreadsheet\Exception('Unknown codepage: ' . $codePage);
     }
 }

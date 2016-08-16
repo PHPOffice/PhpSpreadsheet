@@ -26,7 +26,7 @@ return [
         68,
     ],
     [
-        'PHPExcel',
+        'PhpSpreadsheet',
         80,
     ],
     [

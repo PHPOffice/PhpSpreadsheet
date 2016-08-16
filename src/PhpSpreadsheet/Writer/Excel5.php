@@ -1,11 +1,11 @@
 <?php
 
-namespace PHPExcel\Writer;
+namespace PhpSpreadsheet\Writer;
 
 /**
- * \PHPExcel\Writer\Excel5
+ * \PhpSpreadsheet\Writer\Excel5
  *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2015 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,20 +21,19 @@ namespace PHPExcel\Writer;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Writer_Excel5
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
 class Excel5 extends BaseWriter implements IWriter
 {
     /**
-     * PHPExcel object
+     * PhpSpreadsheet object
      *
-     * @var PHPExcel
+     * @var \PhpSpreadsheet\Spreadsheet
      */
-    private $phpExcel;
+    private $spreadsheet;
 
     /**
      * Total number of shared strings in workbook
@@ -67,7 +66,7 @@ class Excel5 extends BaseWriter implements IWriter
     /**
      * Formula parser
      *
-     * @var \PHPExcel\Writer\Excel5\Parser
+     * @var \PhpSpreadsheet\Writer\Excel5\Parser
      */
     private $parser;
 
@@ -95,11 +94,11 @@ class Excel5 extends BaseWriter implements IWriter
     /**
      * Create a new Excel5 Writer
      *
-     * @param    \PHPExcel\Spreadsheet    $phpExcel    PHPExcel object
+     * @param    \PhpSpreadsheet\Spreadsheet    $spreadsheet    PhpSpreadsheet object
      */
-    public function __construct(\PHPExcel\Spreadsheet $phpExcel)
+    public function __construct(\PhpSpreadsheet\Spreadsheet $spreadsheet)
     {
-        $this->phpExcel = $phpExcel;
+        $this->spreadsheet = $spreadsheet;
 
         $this->parser   = new Excel5\Parser();
     }
@@ -108,29 +107,29 @@ class Excel5 extends BaseWriter implements IWriter
      * Save Spreadsheet to file
      *
      * @param    string        $pFilename
-     * @throws    \PHPExcel\Writer\Exception
+     * @throws    \PhpSpreadsheet\Writer\Exception
      */
     public function save($pFilename = null)
     {
 
         // garbage collect
-        $this->phpExcel->garbageCollect();
+        $this->spreadsheet->garbageCollect();
 
-        $saveDebugLog = \PHPExcel\Calculation::getInstance($this->phpExcel)->getDebugLog()->getWriteDebugLog();
-        \PHPExcel\Calculation::getInstance($this->phpExcel)->getDebugLog()->setWriteDebugLog(false);
-        $saveDateReturnType = \PHPExcel\Calculation\Functions::getReturnDateType();
-        \PHPExcel\Calculation\Functions::setReturnDateType(\PHPExcel\Calculation\Functions::RETURNDATE_EXCEL);
+        $saveDebugLog = \PhpSpreadsheet\Calculation::getInstance($this->spreadsheet)->getDebugLog()->getWriteDebugLog();
+        \PhpSpreadsheet\Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog(false);
+        $saveDateReturnType = \PhpSpreadsheet\Calculation\Functions::getReturnDateType();
+        \PhpSpreadsheet\Calculation\Functions::setReturnDateType(\PhpSpreadsheet\Calculation\Functions::RETURNDATE_EXCEL);
 
         // initialize colors array
         $this->colors = array();
 
         // Initialise workbook writer
-        $this->writerWorkbook = new Excel5\Workbook($this->phpExcel, $this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser);
+        $this->writerWorkbook = new Excel5\Workbook($this->spreadsheet, $this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser);
 
         // Initialise worksheet writers
-        $countSheets = $this->phpExcel->getSheetCount();
+        $countSheets = $this->spreadsheet->getSheetCount();
         for ($i = 0; $i < $countSheets; ++$i) {
-            $this->writerWorksheets[$i] = new Excel5\Worksheet($this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser, $this->preCalculateFormulas, $this->phpExcel->getSheet($i));
+            $this->writerWorksheets[$i] = new Excel5\Worksheet($this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser, $this->preCalculateFormulas, $this->spreadsheet->getSheet($i));
         }
 
         // build Escher objects. Escher objects for workbooks needs to be build before Escher object for workbook.
@@ -139,13 +138,13 @@ class Excel5 extends BaseWriter implements IWriter
 
         // add 15 identical cell style Xfs
         // for now, we use the first cellXf instead of cellStyleXf
-        $cellXfCollection = $this->phpExcel->getCellXfCollection();
+        $cellXfCollection = $this->spreadsheet->getCellXfCollection();
         for ($i = 0; $i < 15; ++$i) {
             $this->writerWorkbook->addXfWriter($cellXfCollection[0], true);
         }
 
         // add all the cell Xfs
-        foreach ($this->phpExcel->getCellXfCollection() as $style) {
+        foreach ($this->spreadsheet->getCellXfCollection() as $style) {
             $this->writerWorkbook->addXfWriter($style, false);
         }
 
@@ -154,10 +153,10 @@ class Excel5 extends BaseWriter implements IWriter
             foreach ($this->writerWorksheets[$i]->phpSheet->getCellCollection() as $cellID) {
                 $cell = $this->writerWorksheets[$i]->phpSheet->getCell($cellID);
                 $cVal = $cell->getValue();
-                if ($cVal instanceof \PHPExcel\RichText) {
+                if ($cVal instanceof \PhpSpreadsheet\RichText) {
                     $elements = $cVal->getRichTextElements();
                     foreach ($elements as $element) {
-                        if ($element instanceof \PHPExcel\RichText\Run) {
+                        if ($element instanceof \PhpSpreadsheet\RichText\Run) {
                             $font = $element->getFont();
                             $this->writerWorksheets[$i]->fontHashIndex[$font->getHashCode()] = $this->writerWorkbook->addFont($font);
                         }
@@ -168,7 +167,7 @@ class Excel5 extends BaseWriter implements IWriter
 
         // initialize OLE file
         $workbookStreamName = 'Workbook';
-        $OLE = new \PHPExcel\Shared\OLE\PPS\File(\PHPExcel\Shared\OLE::ascToUcs($workbookStreamName));
+        $OLE = new \PhpSpreadsheet\Shared\OLE\PPS\File(\PhpSpreadsheet\Shared\OLE::ascToUcs($workbookStreamName));
 
         // Write the worksheet streams before the global workbook stream,
         // because the byte sizes of these are needed in the global workbook stream
@@ -189,14 +188,14 @@ class Excel5 extends BaseWriter implements IWriter
         $this->documentSummaryInformation = $this->writeDocumentSummaryInformation();
         // initialize OLE Document Summary Information
         if (isset($this->documentSummaryInformation) && !empty($this->documentSummaryInformation)) {
-            $OLE_DocumentSummaryInformation = new \PHPExcel\Shared\OLE\PPS\File(\PHPExcel\Shared\OLE::ascToUcs(chr(5) . 'DocumentSummaryInformation'));
+            $OLE_DocumentSummaryInformation = new \PhpSpreadsheet\Shared\OLE\PPS\File(\PhpSpreadsheet\Shared\OLE::ascToUcs(chr(5) . 'DocumentSummaryInformation'));
             $OLE_DocumentSummaryInformation->append($this->documentSummaryInformation);
         }
 
         $this->summaryInformation = $this->writeSummaryInformation();
         // initialize OLE Summary Information
         if (isset($this->summaryInformation) && !empty($this->summaryInformation)) {
-            $OLE_SummaryInformation = new \PHPExcel\Shared\OLE\PPS\File(\PHPExcel\Shared\OLE::ascToUcs(chr(5) . 'SummaryInformation'));
+            $OLE_SummaryInformation = new \PhpSpreadsheet\Shared\OLE\PPS\File(\PhpSpreadsheet\Shared\OLE::ascToUcs(chr(5) . 'SummaryInformation'));
             $OLE_SummaryInformation->append($this->summaryInformation);
         }
 
@@ -211,12 +210,12 @@ class Excel5 extends BaseWriter implements IWriter
             $arrRootData[] = $OLE_DocumentSummaryInformation;
         }
 
-        $root = new \PHPExcel\Shared\OLE\PPS\Root(time(), time(), $arrRootData);
+        $root = new \PhpSpreadsheet\Shared\OLE\PPS\Root(time(), time(), $arrRootData);
         // save the OLE file
         $res = $root->save($pFilename);
 
-        \PHPExcel\Calculation\Functions::setReturnDateType($saveDateReturnType);
-        \PHPExcel\Calculation::getInstance($this->phpExcel)->getDebugLog()->setWriteDebugLog($saveDebugLog);
+        \PhpSpreadsheet\Calculation\Functions::setReturnDateType($saveDateReturnType);
+        \PhpSpreadsheet\Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
     }
 
     /**
@@ -224,8 +223,8 @@ class Excel5 extends BaseWriter implements IWriter
      *
      * @deprecated
      * @param    string    $pValue        Temporary storage directory
-     * @throws    \PHPExcel\Writer\Exception    when directory does not exist
-     * @return \PHPExcel\Writer\Excel5
+     * @throws    \PhpSpreadsheet\Writer\Exception    when directory does not exist
+     * @return \PhpSpreadsheet\Writer\Excel5
      */
     public function setTempDir($pValue = '')
     {
@@ -243,7 +242,7 @@ class Excel5 extends BaseWriter implements IWriter
         $lastReducedSpId = 0;
         $lastSpId = 0;
 
-        foreach ($this->phpExcel->getAllsheets() as $sheet) {
+        foreach ($this->spreadsheet->getAllsheets() as $sheet) {
             // sheet index
             $sheetIndex = $sheet->getParent()->getIndex($sheet);
 
@@ -256,10 +255,10 @@ class Excel5 extends BaseWriter implements IWriter
             }
 
             // create intermediate Escher object
-            $escher = new \PHPExcel\Shared\Escher();
+            $escher = new \PhpSpreadsheet\Shared\Escher();
 
             // dgContainer
-            $dgContainer = new \PHPExcel\Shared\Escher\DgContainer();
+            $dgContainer = new \PhpSpreadsheet\Shared\Escher\DgContainer();
 
             // set the drawing index (we use sheet index + 1)
             $dgId = $sheet->getParent()->getIndex($sheet) + 1;
@@ -267,11 +266,11 @@ class Excel5 extends BaseWriter implements IWriter
             $escher->setDgContainer($dgContainer);
 
             // spgrContainer
-            $spgrContainer = new \PHPExcel\Shared\Escher\DgContainer\SpgrContainer();
+            $spgrContainer = new \PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer();
             $dgContainer->setSpgrContainer($spgrContainer);
 
             // add one shape which is the group shape
-            $spContainer = new \PHPExcel\Shared\Escher\DgContainer\SpgrContainer\SpContainer();
+            $spContainer = new \PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer();
             $spContainer->setSpgr(true);
             $spContainer->setSpType(0);
             $spContainer->setSpId(($sheet->getParent()->getIndex($sheet) + 1) << 10);
@@ -287,7 +286,7 @@ class Excel5 extends BaseWriter implements IWriter
                 ++$countShapes[$sheetIndex];
 
                 // add the shape
-                $spContainer = new \PHPExcel\Shared\Escher\DgContainer\SpgrContainer\SpContainer();
+                $spContainer = new \PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer();
 
                 // set the shape type
                 $spContainer->setSpType(0x004B);
@@ -316,7 +315,7 @@ class Excel5 extends BaseWriter implements IWriter
                 $width = $drawing->getWidth();
                 $height = $drawing->getHeight();
 
-                $twoAnchor = \PHPExcel\Shared\Excel5::oneAnchor2twoAnchor($sheet, $coordinates, $offsetX, $offsetY, $width, $height);
+                $twoAnchor = \PhpSpreadsheet\Shared\Excel5::oneAnchor2twoAnchor($sheet, $coordinates, $offsetX, $offsetY, $width, $height);
 
                 $spContainer->setStartCoordinates($twoAnchor['startCoordinates']);
                 $spContainer->setStartOffsetX($twoAnchor['startOffsetX']);
@@ -330,7 +329,7 @@ class Excel5 extends BaseWriter implements IWriter
 
             // AutoFilters
             if (!empty($filterRange)) {
-                $rangeBounds = \PHPExcel\Cell::rangeBoundaries($filterRange);
+                $rangeBounds = \PhpSpreadsheet\Cell::rangeBoundaries($filterRange);
                 $iNumColStart = $rangeBounds[0][0];
                 $iNumColEnd = $rangeBounds[1][0];
 
@@ -339,14 +338,14 @@ class Excel5 extends BaseWriter implements IWriter
                     ++$countShapes[$sheetIndex];
 
                     // create an Drawing Object for the dropdown
-                    $oDrawing  = new \PHPExcel\Worksheet\BaseDrawing();
+                    $oDrawing  = new \PhpSpreadsheet\Worksheet\BaseDrawing();
                     // get the coordinates of drawing
-                    $cDrawing   = \PHPExcel\Cell::stringFromColumnIndex($iInc - 1) . $rangeBounds[0][1];
+                    $cDrawing   = \PhpSpreadsheet\Cell::stringFromColumnIndex($iInc - 1) . $rangeBounds[0][1];
                     $oDrawing->setCoordinates($cDrawing);
                     $oDrawing->setWorksheet($sheet);
 
                     // add the shape
-                    $spContainer = new \PHPExcel\Shared\Escher\DgContainer\SpgrContainer\SpContainer();
+                    $spContainer = new \PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer();
                     // set the shape type
                     $spContainer->setSpType(0x00C9);
                     // set the shape flag
@@ -371,7 +370,7 @@ class Excel5 extends BaseWriter implements IWriter
                     $spContainer->setOPT(0x03BF, 0x000A0000); // Group Shape -> fPrint
 
                     // set coordinates and offsets, client anchor
-                    $endCoordinates = \PHPExcel\Cell::stringFromColumnIndex($iInc - 1);
+                    $endCoordinates = \PhpSpreadsheet\Cell::stringFromColumnIndex($iInc - 1);
                     $endCoordinates .= $rangeBounds[0][1] + 1;
 
                     $spContainer->setStartCoordinates($cDrawing);
@@ -406,7 +405,7 @@ class Excel5 extends BaseWriter implements IWriter
 
         // any drawings in this workbook?
         $found = false;
-        foreach ($this->phpExcel->getAllSheets() as $sheet) {
+        foreach ($this->spreadsheet->getAllSheets() as $sheet) {
             if (count($sheet->getDrawingCollection()) > 0) {
                 $found = true;
                 break;
@@ -419,10 +418,10 @@ class Excel5 extends BaseWriter implements IWriter
         }
 
         // if we reach here, then there are drawings in the workbook
-        $escher = new \PHPExcel\Shared\Escher();
+        $escher = new \PhpSpreadsheet\Shared\Escher();
 
         // dggContainer
-        $dggContainer = new \PHPExcel\Shared\Escher\DggContainer();
+        $dggContainer = new \PhpSpreadsheet\Shared\Escher\DggContainer();
         $escher->setDggContainer($dggContainer);
 
         // set IDCLs (identifier clusters)
@@ -433,7 +432,7 @@ class Excel5 extends BaseWriter implements IWriter
         $totalCountShapes = 0;
         $countDrawings = 0;
 
-        foreach ($this->phpExcel->getAllsheets() as $sheet) {
+        foreach ($this->spreadsheet->getAllsheets() as $sheet) {
             $sheetCountShapes = 0; // count number of shapes (minus group shape), in sheet
 
             if (count($sheet->getDrawingCollection()) > 0) {
@@ -443,7 +442,7 @@ class Excel5 extends BaseWriter implements IWriter
                     ++$sheetCountShapes;
                     ++$totalCountShapes;
 
-                    $spId = $sheetCountShapes | ($this->phpExcel->getIndex($sheet) + 1) << 10;
+                    $spId = $sheetCountShapes | ($this->spreadsheet->getIndex($sheet) + 1) << 10;
                     $spIdMax = max($spId, $spIdMax);
                 }
             }
@@ -454,37 +453,37 @@ class Excel5 extends BaseWriter implements IWriter
         $dggContainer->setCSpSaved($totalCountShapes + $countDrawings); // total number of shapes incl. one group shapes per drawing
 
         // bstoreContainer
-        $bstoreContainer = new \PHPExcel\Shared\Escher\DggContainer\BstoreContainer();
+        $bstoreContainer = new \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer();
         $dggContainer->setBstoreContainer($bstoreContainer);
 
         // the BSE's (all the images)
-        foreach ($this->phpExcel->getAllsheets() as $sheet) {
+        foreach ($this->spreadsheet->getAllsheets() as $sheet) {
             foreach ($sheet->getDrawingCollection() as $drawing) {
-                if ($drawing instanceof \PHPExcel\Worksheet\Drawing) {
+                if ($drawing instanceof \PhpSpreadsheet\Worksheet\Drawing) {
                     $filename = $drawing->getPath();
 
                     list($imagesx, $imagesy, $imageFormat) = getimagesize($filename);
 
                     switch ($imageFormat) {
                         case 1: // GIF, not supported by BIFF8, we convert to PNG
-                            $blipType = \PHPExcel\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_PNG;
+                            $blipType = \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_PNG;
                             ob_start();
                             imagepng(imagecreatefromgif($filename));
                             $blipData = ob_get_contents();
                             ob_end_clean();
                             break;
                         case 2: // JPEG
-                            $blipType = \PHPExcel\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_JPEG;
+                            $blipType = \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_JPEG;
                             $blipData = file_get_contents($filename);
                             break;
                         case 3: // PNG
-                            $blipType = \PHPExcel\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_PNG;
+                            $blipType = \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_PNG;
                             $blipData = file_get_contents($filename);
                             break;
                         case 6: // Windows DIB (BMP), we convert to PNG
-                            $blipType = \PHPExcel\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_PNG;
+                            $blipType = \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_PNG;
                             ob_start();
-                            imagepng(\PHPExcel\Shared\Drawing::imagecreatefrombmp($filename));
+                            imagepng(\PhpSpreadsheet\Shared\Drawing::imagecreatefrombmp($filename));
                             $blipData = ob_get_contents();
                             ob_end_clean();
                             break;
@@ -492,24 +491,24 @@ class Excel5 extends BaseWriter implements IWriter
                             continue 2;
                     }
 
-                    $blip = new \PHPExcel\Shared\Escher\DggContainer\BstoreContainer\BSE\Blip();
+                    $blip = new \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE\Blip();
                     $blip->setData($blipData);
 
-                    $BSE = new \PHPExcel\Shared\Escher\DggContainer\BstoreContainer\BSE();
+                    $BSE = new \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE();
                     $BSE->setBlipType($blipType);
                     $BSE->setBlip($blip);
 
                     $bstoreContainer->addBSE($BSE);
-                } elseif ($drawing instanceof \PHPExcel\Worksheet\MemoryDrawing) {
+                } elseif ($drawing instanceof \PhpSpreadsheet\Worksheet\MemoryDrawing) {
                     switch ($drawing->getRenderingFunction()) {
-                        case \PHPExcel\Worksheet\MemoryDrawing::RENDERING_JPEG:
-                            $blipType = \PHPExcel\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_JPEG;
+                        case \PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_JPEG:
+                            $blipType = \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_JPEG;
                             $renderingFunction = 'imagejpeg';
                             break;
-                        case \PHPExcel\Worksheet\MemoryDrawing::RENDERING_GIF:
-                        case \PHPExcel\Worksheet\MemoryDrawing::RENDERING_PNG:
-                        case \PHPExcel\Worksheet\MemoryDrawing::RENDERING_DEFAULT:
-                            $blipType = \PHPExcel\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_PNG;
+                        case \PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_GIF:
+                        case \PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_PNG:
+                        case \PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_DEFAULT:
+                            $blipType = \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_PNG;
                             $renderingFunction = 'imagepng';
                             break;
                     }
@@ -519,10 +518,10 @@ class Excel5 extends BaseWriter implements IWriter
                     $blipData = ob_get_contents();
                     ob_end_clean();
 
-                    $blip = new \PHPExcel\Shared\Escher\DggContainer\BstoreContainer\BSE\Blip();
+                    $blip = new \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE\Blip();
                     $blip->setData($blipData);
 
-                    $BSE = new \PHPExcel\Shared\Escher\DggContainer\BstoreContainer\BSE();
+                    $BSE = new \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE();
                     $BSE->setBlipType($blipType);
                     $BSE->setBlip($blip);
 
@@ -573,8 +572,8 @@ class Excel5 extends BaseWriter implements IWriter
         $dataSection_NumProps++;
 
         // GKPIDDSI_CATEGORY : Category
-        if ($this->phpExcel->getProperties()->getCategory()) {
-            $dataProp = $this->phpExcel->getProperties()->getCategory();
+        if ($this->spreadsheet->getProperties()->getCategory()) {
+            $dataProp = $this->spreadsheet->getProperties()->getCategory();
             $dataSection[] = array('summary'=> array('pack' => 'V', 'data' => 0x02),
                                    'offset' => array('pack' => 'V'),
                                    'type'     => array('pack' => 'V', 'data' => 0x1E),
@@ -769,8 +768,8 @@ class Excel5 extends BaseWriter implements IWriter
         $dataSection_NumProps++;
 
         //    Title
-        if ($this->phpExcel->getProperties()->getTitle()) {
-            $dataProp = $this->phpExcel->getProperties()->getTitle();
+        if ($this->spreadsheet->getProperties()->getTitle()) {
+            $dataProp = $this->spreadsheet->getProperties()->getTitle();
             $dataSection[] = array('summary'=> array('pack' => 'V', 'data' => 0x02),
                                    'offset' => array('pack' => 'V'),
                                    'type'     => array('pack' => 'V', 'data' => 0x1E), // null-terminated string prepended by dword string length
@@ -778,8 +777,8 @@ class Excel5 extends BaseWriter implements IWriter
             $dataSection_NumProps++;
         }
         //    Subject
-        if ($this->phpExcel->getProperties()->getSubject()) {
-            $dataProp = $this->phpExcel->getProperties()->getSubject();
+        if ($this->spreadsheet->getProperties()->getSubject()) {
+            $dataProp = $this->spreadsheet->getProperties()->getSubject();
             $dataSection[] = array('summary'=> array('pack' => 'V', 'data' => 0x03),
                                    'offset' => array('pack' => 'V'),
                                    'type'     => array('pack' => 'V', 'data' => 0x1E), // null-terminated string prepended by dword string length
@@ -787,8 +786,8 @@ class Excel5 extends BaseWriter implements IWriter
             $dataSection_NumProps++;
         }
         //    Author (Creator)
-        if ($this->phpExcel->getProperties()->getCreator()) {
-            $dataProp = $this->phpExcel->getProperties()->getCreator();
+        if ($this->spreadsheet->getProperties()->getCreator()) {
+            $dataProp = $this->spreadsheet->getProperties()->getCreator();
             $dataSection[] = array('summary'=> array('pack' => 'V', 'data' => 0x04),
                                    'offset' => array('pack' => 'V'),
                                    'type'     => array('pack' => 'V', 'data' => 0x1E), // null-terminated string prepended by dword string length
@@ -796,8 +795,8 @@ class Excel5 extends BaseWriter implements IWriter
             $dataSection_NumProps++;
         }
         //    Keywords
-        if ($this->phpExcel->getProperties()->getKeywords()) {
-            $dataProp = $this->phpExcel->getProperties()->getKeywords();
+        if ($this->spreadsheet->getProperties()->getKeywords()) {
+            $dataProp = $this->spreadsheet->getProperties()->getKeywords();
             $dataSection[] = array('summary'=> array('pack' => 'V', 'data' => 0x05),
                                    'offset' => array('pack' => 'V'),
                                    'type'     => array('pack' => 'V', 'data' => 0x1E), // null-terminated string prepended by dword string length
@@ -805,8 +804,8 @@ class Excel5 extends BaseWriter implements IWriter
             $dataSection_NumProps++;
         }
         //    Comments (Description)
-        if ($this->phpExcel->getProperties()->getDescription()) {
-            $dataProp = $this->phpExcel->getProperties()->getDescription();
+        if ($this->spreadsheet->getProperties()->getDescription()) {
+            $dataProp = $this->spreadsheet->getProperties()->getDescription();
             $dataSection[] = array('summary'=> array('pack' => 'V', 'data' => 0x06),
                                    'offset' => array('pack' => 'V'),
                                    'type'     => array('pack' => 'V', 'data' => 0x1E), // null-terminated string prepended by dword string length
@@ -814,8 +813,8 @@ class Excel5 extends BaseWriter implements IWriter
             $dataSection_NumProps++;
         }
         //    Last Saved By (LastModifiedBy)
-        if ($this->phpExcel->getProperties()->getLastModifiedBy()) {
-            $dataProp = $this->phpExcel->getProperties()->getLastModifiedBy();
+        if ($this->spreadsheet->getProperties()->getLastModifiedBy()) {
+            $dataProp = $this->spreadsheet->getProperties()->getLastModifiedBy();
             $dataSection[] = array('summary'=> array('pack' => 'V', 'data' => 0x08),
                                    'offset' => array('pack' => 'V'),
                                    'type'     => array('pack' => 'V', 'data' => 0x1E), // null-terminated string prepended by dword string length
@@ -823,21 +822,21 @@ class Excel5 extends BaseWriter implements IWriter
             $dataSection_NumProps++;
         }
         //    Created Date/Time
-        if ($this->phpExcel->getProperties()->getCreated()) {
-            $dataProp = $this->phpExcel->getProperties()->getCreated();
+        if ($this->spreadsheet->getProperties()->getCreated()) {
+            $dataProp = $this->spreadsheet->getProperties()->getCreated();
             $dataSection[] = array('summary'=> array('pack' => 'V', 'data' => 0x0C),
                                    'offset' => array('pack' => 'V'),
                                    'type'     => array('pack' => 'V', 'data' => 0x40), // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
-                                   'data'    => array('data' => \PHPExcel\Shared\OLE::localDateToOLE($dataProp)));
+                                   'data'    => array('data' => \PhpSpreadsheet\Shared\OLE::localDateToOLE($dataProp)));
             $dataSection_NumProps++;
         }
         //    Modified Date/Time
-        if ($this->phpExcel->getProperties()->getModified()) {
-            $dataProp = $this->phpExcel->getProperties()->getModified();
+        if ($this->spreadsheet->getProperties()->getModified()) {
+            $dataProp = $this->spreadsheet->getProperties()->getModified();
             $dataSection[] = array('summary'=> array('pack' => 'V', 'data' => 0x0D),
                                    'offset' => array('pack' => 'V'),
                                    'type'     => array('pack' => 'V', 'data' => 0x40), // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
-                                   'data'    => array('data' => \PHPExcel\Shared\OLE::localDateToOLE($dataProp)));
+                                   'data'    => array('data' => \PhpSpreadsheet\Shared\OLE::localDateToOLE($dataProp)));
             $dataSection_NumProps++;
         }
         //    Security

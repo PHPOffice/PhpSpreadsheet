@@ -1,11 +1,11 @@
 <?php
 
-namespace PHPExcel\Worksheet;
+namespace PhpSpreadsheet\Worksheet;
 
 /**
- * PHPExcel\Worksheet\Iterator
+ * PhpSpreadsheet\Worksheet\Iterator
  *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +21,8 @@ namespace PHPExcel\Worksheet;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -32,7 +31,7 @@ class Iterator implements \Iterator
     /**
      * Spreadsheet to iterate
      *
-     * @var \PHPExcel\Spreadsheet
+     * @var \PhpSpreadsheet\Spreadsheet
      */
     private $subject;
 
@@ -46,9 +45,9 @@ class Iterator implements \Iterator
     /**
      * Create a new worksheet iterator
      *
-     * @param \PHPExcel\Spreadsheet    $subject
+     * @param \PhpSpreadsheet\Spreadsheet    $subject
      */
-    public function __construct(\PHPExcel\Spreadsheet $subject = null)
+    public function __construct(\PhpSpreadsheet\Spreadsheet $subject = null)
     {
         // Set subject
         $this->subject = $subject;
@@ -73,7 +72,7 @@ class Iterator implements \Iterator
     /**
      * Current Worksheet
      *
-     * @return \PHPExcel\Worksheet
+     * @return \PhpSpreadsheet\Worksheet
      */
     public function current()
     {

@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel\CachedObjectStorage;
+namespace PhpSpreadsheet\CachedObjectStorage;
 
 /**
- * PHPExcel_CachedObjectStorage_CacheBase
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +19,8 @@ namespace PHPExcel\CachedObjectStorage;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_CachedObjectStorage
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -32,14 +29,14 @@ abstract class CacheBase
     /**
      * Parent worksheet
      *
-     * @var \PHPExcel\Worksheet
+     * @var \PhpSpreadsheet\Worksheet
      */
     protected $parent;
 
     /**
      * The currently active Cell
      *
-     * @var \PHPExcel\Cell
+     * @var \PhpSpreadsheet\Cell
      */
     protected $currentObject = null;
 
@@ -68,12 +65,12 @@ abstract class CacheBase
     /**
      * Initialise this new cell collection
      *
-     * @param    \PHPExcel\Worksheet    $parent        The worksheet for this cell collection
+     * @param    \PhpSpreadsheet\Worksheet    $parent        The worksheet for this cell collection
      */
-    public function __construct(\PHPExcel\Worksheet $parent)
+    public function __construct(\PhpSpreadsheet\Worksheet $parent)
     {
         //    Set our parent worksheet.
-        //    This is maintained within the cache controller to facilitate re-attaching it to \PHPExcel\Cell objects when
+        //    This is maintained within the cache controller to facilitate re-attaching it to \PhpSpreadsheet\Cell objects when
         //        they are woken from a serialized state
         $this->parent = $parent;
     }
@@ -81,7 +78,7 @@ abstract class CacheBase
     /**
      * Return the parent worksheet for this cell collection
      *
-     * @return    \PHPExcel\Worksheet
+     * @return    \PhpSpreadsheet\Worksheet
      */
     public function getParent()
     {
@@ -89,7 +86,7 @@ abstract class CacheBase
     }
 
     /**
-     * Is a value set in the current \PHPExcel\CachedObjectStorage\ICache for an indexed cell?
+     * Is a value set in the current \PhpSpreadsheet\CachedObjectStorage\ICache for an indexed cell?
      *
      * @param    string        $pCoord        Coordinate address of the cell to check
      * @return    boolean
@@ -127,11 +124,11 @@ abstract class CacheBase
     /**
      * Add or Update a cell in cache
      *
-     * @param    \PHPExcel\Cell    $cell        Cell to update
-     * @return   \PHPExcel\Cell
-     * @throws   \PHPExcel\Exception
+     * @param    \PhpSpreadsheet\Cell    $cell        Cell to update
+     * @return   \PhpSpreadsheet\Cell
+     * @throws   \PhpSpreadsheet\Exception
      */
-    public function updateCacheData(\PHPExcel\Cell $cell)
+    public function updateCacheData(\PhpSpreadsheet\Cell $cell)
     {
         return $this->addCacheData($cell->getCoordinate(), $cell);
     }
@@ -140,7 +137,7 @@ abstract class CacheBase
      * Delete a cell in cache identified by coordinate address
      *
      * @param    string            $pCoord        Coordinate address of the cell to delete
-     * @throws   \PHPExcel\Exception
+     * @throws   \PhpSpreadsheet\Exception
      */
     public function deleteCacheData($pCoord)
     {
@@ -262,9 +259,9 @@ abstract class CacheBase
             if ($r != $row) {
                 continue;
             }
-            $columnList[] = \PHPExcel\Cell::columnIndexFromString($c);
+            $columnList[] = \PhpSpreadsheet\Cell::columnIndexFromString($c);
         }
-        return \PHPExcel\Cell::stringFromColumnIndex(max($columnList) - 1);
+        return \PhpSpreadsheet\Cell::stringFromColumnIndex(max($columnList) - 1);
     }
 
     /**
@@ -311,9 +308,9 @@ abstract class CacheBase
     /**
      * Clone the cell collection
      *
-     * @param  \PHPExcel\Worksheet    $parent        The new worksheet that we're copying to
+     * @param  \PhpSpreadsheet\Worksheet    $parent        The new worksheet that we're copying to
      */
-    public function copyCellCollection(\PHPExcel\Worksheet $parent)
+    public function copyCellCollection(\PhpSpreadsheet\Worksheet $parent)
     {
         $this->currentCellIsDirty;
         $this->storeData();

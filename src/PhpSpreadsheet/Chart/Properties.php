@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPExcel\Chart;
+namespace PhpSpreadsheet\Chart;
 
 /**
  * Created by PhpStorm.

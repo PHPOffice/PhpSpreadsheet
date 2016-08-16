@@ -1,11 +1,11 @@
 <?php
 
-namespace PHPExcel\Writer;
+namespace PhpSpreadsheet\Writer;
 
 /**
- * \PHPExcel\Writer\BaseWriter
+ * \PhpSpreadsheet\Writer\BaseWriter
  *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +21,8 @@ namespace PHPExcel\Writer;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Writer
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -31,7 +30,7 @@ abstract class BaseWriter implements IWriter
 {
     /**
      * Write charts that are defined in the workbook?
-     * Identifies whether the Writer should write definitions for any charts that exist in the PHPExcel object;
+     * Identifies whether the Writer should write definitions for any charts that exist in the PhpSpreadsheet object;
      *
      * @var    boolean
      */
@@ -39,7 +38,7 @@ abstract class BaseWriter implements IWriter
 
     /**
      * Pre-calculate formulas
-     * Forces PHPExcel to recalculate all formulae in a workbook when saving, so that the pre-calculated values are
+     * Forces PhpSpreadsheet to recalculate all formulae in a workbook when saving, so that the pre-calculated values are
      *    immediately available to MS Excel or other office spreadsheet viewer when opening the file
      *
      * @var boolean
@@ -62,8 +61,8 @@ abstract class BaseWriter implements IWriter
 
     /**
      * Write charts in workbook?
-     *        If this is true, then the Writer will write definitions for any charts that exist in the PHPExcel object.
-     *        If false (the default) it will ignore any charts defined in the PHPExcel object.
+     *        If this is true, then the Writer will write definitions for any charts that exist in the PhpSpreadsheet object.
+     *        If false (the default) it will ignore any charts defined in the PhpSpreadsheet object.
      *
      * @return    boolean
      */
@@ -74,7 +73,7 @@ abstract class BaseWriter implements IWriter
 
     /**
      * Set write charts in workbook
-     *        Set to true, to advise the Writer to include any charts that exist in the PHPExcel object.
+     *        Set to true, to advise the Writer to include any charts that exist in the PhpSpreadsheet object.
      *        Set to false (the default) to ignore charts.
      *
      * @param    boolean    $pValue
@@ -91,7 +90,7 @@ abstract class BaseWriter implements IWriter
      *     If this is true (the default), then the writer will recalculate all formulae in a workbook when saving,
      *        so that the pre-calculated values are immediately available to MS Excel or other office spreadsheet
      *        viewer when opening the file
-     *     If false, then formulae are not calculated on save. This is faster for saving in PHPExcel, but slower
+     *     If false, then formulae are not calculated on save. This is faster for saving in PhpSpreadsheet, but slower
      *        when opening the resulting file in MS Excel, because Excel has to recalculate the formulae itself
      *
      * @return boolean

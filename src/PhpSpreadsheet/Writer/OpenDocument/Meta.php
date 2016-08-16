@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel\Writer\OpenDocument;
+namespace PhpSpreadsheet\Writer\OpenDocument;
 
 /**
- * PHPExcel_Writer_OpenDocument_Meta
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2015 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +19,8 @@ namespace PHPExcel\Writer\OpenDocument;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Writer_OpenDocument
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -32,21 +29,21 @@ class Meta extends WriterPart
     /**
      * Write meta.xml to XML format
      *
-     * @param   PHPExcel                   $pPHPExcel
+     * @param   \PhpSpreadsheet\Spreadsheet                   $spreadsheet
      * @return  string                     XML Output
-     * @throws  \PHPExcel\Writer\Exception
+     * @throws  \PhpSpreadsheet\Writer\Exception
      */
-    public function write(\PHPExcel\SpreadSheet $pPHPExcel = null)
+    public function write(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
-        if (!$pPHPExcel) {
-            $pPHPExcel = $this->getParentWriter()->getPHPExcel();
+        if (!$spreadsheet) {
+            $spreadsheet = $this->getParentWriter()->getPhpSpreadsheet();
         }
 
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new PHPExcel_Shared_XMLWriter(PHPExcel_Shared_XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -65,14 +62,14 @@ class Meta extends WriterPart
 
         $objWriter->startElement('office:meta');
 
-        $objWriter->writeElement('meta:initial-creator', $pPHPExcel->getProperties()->getCreator());
-        $objWriter->writeElement('dc:creator', $pPHPExcel->getProperties()->getCreator());
-        $objWriter->writeElement('meta:creation-date', date(DATE_W3C, $pPHPExcel->getProperties()->getCreated()));
-        $objWriter->writeElement('dc:date', date(DATE_W3C, $pPHPExcel->getProperties()->getCreated()));
-        $objWriter->writeElement('dc:title', $pPHPExcel->getProperties()->getTitle());
-        $objWriter->writeElement('dc:description', $pPHPExcel->getProperties()->getDescription());
-        $objWriter->writeElement('dc:subject', $pPHPExcel->getProperties()->getSubject());
-        $keywords = explode(' ', $pPHPExcel->getProperties()->getKeywords());
+        $objWriter->writeElement('meta:initial-creator', $spreadsheet->getProperties()->getCreator());
+        $objWriter->writeElement('dc:creator', $spreadsheet->getProperties()->getCreator());
+        $objWriter->writeElement('meta:creation-date', date(DATE_W3C, $spreadsheet->getProperties()->getCreated()));
+        $objWriter->writeElement('dc:date', date(DATE_W3C, $spreadsheet->getProperties()->getCreated()));
+        $objWriter->writeElement('dc:title', $spreadsheet->getProperties()->getTitle());
+        $objWriter->writeElement('dc:description', $spreadsheet->getProperties()->getDescription());
+        $objWriter->writeElement('dc:subject', $spreadsheet->getProperties()->getSubject());
+        $keywords = explode(' ', $spreadsheet->getProperties()->getKeywords());
         foreach ($keywords as $keyword) {
             $objWriter->writeElement('meta:keyword', $keyword);
         }
@@ -80,12 +77,12 @@ class Meta extends WriterPart
         //<meta:document-statistic meta:table-count="XXX" meta:cell-count="XXX" meta:object-count="XXX"/>
         $objWriter->startElement('meta:user-defined');
         $objWriter->writeAttribute('meta:name', 'Company');
-        $objWriter->writeRaw($pPHPExcel->getProperties()->getCompany());
+        $objWriter->writeRaw($spreadsheet->getProperties()->getCompany());
         $objWriter->endElement();
 
         $objWriter->startElement('meta:user-defined');
         $objWriter->writeAttribute('meta:name', 'category');
-        $objWriter->writeRaw($pPHPExcel->getProperties()->getCategory());
+        $objWriter->writeRaw($spreadsheet->getProperties()->getCategory());
         $objWriter->endElement();
 
         $objWriter->endElement();

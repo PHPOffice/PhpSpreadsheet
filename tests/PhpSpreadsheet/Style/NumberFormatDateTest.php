@@ -2,8 +2,8 @@
 
 namespace PhpSpreadsheet\Tests\Style;
 
-use PHPExcel\Shared\StringHelper;
-use PHPExcel\Style\NumberFormat;
+use PhpSpreadsheet\Shared\StringHelper;
+use PhpSpreadsheet\Style\NumberFormat;
 
 class NumberFormatDateTest extends \PHPUnit_Framework_TestCase
 {

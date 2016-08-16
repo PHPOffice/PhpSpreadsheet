@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel\Writer;
+namespace PhpSpreadsheet\Writer;
 
 /**
- *  PHPExcel_Writer_IWriter
- *
- *  Copyright (c) 2006 - 2015 PHPExcel
+ *  Copyright (c) 2006 - 2015 PhpSpreadsheet
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -21,19 +19,18 @@ namespace PHPExcel\Writer;
  *  License along with this library; if not, write to the Free Software
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- *  @category   PHPExcel
- *  @package    PHPExcel_Writer
- *  @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ *  @category   PhpSpreadsheet
+ *  @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  *  @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  *  @version    ##VERSION##, ##DATE##
  */
 interface IWriter
 {
     /**
-     *  Save PHPExcel to file
+     *  Save PhpSpreadsheet to file
      *
      *  @param   string       $pFilename  Name of the file to save
-     *  @throws  \PHPExcel\Writer\Exception
+     *  @throws  \PhpSpreadsheet\Writer\Exception
      */
     public function save($pFilename = null);
 }

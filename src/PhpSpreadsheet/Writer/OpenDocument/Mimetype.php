@@ -1,12 +1,8 @@
 <?php
 
-namespace PHPExcel\Writer\OpenDocument;
+namespace PhpSpreadsheet\Writer\OpenDocument;
 
 /**
- * PHPExcel
- *
- * PHPExcel_Writer_OpenDocument_Mimetype
- *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -21,9 +17,8 @@ namespace PHPExcel\Writer\OpenDocument;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Writer_OpenDocument
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -32,11 +27,11 @@ class Mimetype extends WriterPart
     /**
      * Write mimetype to plain text format
      *
-     * @param \PHPExcel\SpreadSheet $pPHPExcel
+     * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
      * @return     string         XML Output
-     * @throws     \PHPExcel\Writer\Exception
+     * @throws     \PhpSpreadsheet\Writer\Exception
      */
-    public function write(\PHPExcel\SpreadSheet $pPHPExcel = null)
+    public function write(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         return 'application/vnd.oasis.opendocument.spreadsheet';
     }

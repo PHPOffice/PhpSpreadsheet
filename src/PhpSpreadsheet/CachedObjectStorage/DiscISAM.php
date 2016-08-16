@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel\CachedObjectStorage;
+namespace PhpSpreadsheet\CachedObjectStorage;
 
 /**
- * PHPExcel_CachedObjectStorage_DiscISAM
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +19,8 @@ namespace PHPExcel\CachedObjectStorage;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_CachedObjectStorage
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -55,7 +52,7 @@ class DiscISAM extends CacheBase implements ICache
      *     and the 'nullify' the current cell object
      *
      * @return    void
-     * @throws    \PHPExcel\Exception
+     * @throws    \PhpSpreadsheet\Exception
      */
     protected function storeData()
     {
@@ -77,11 +74,11 @@ class DiscISAM extends CacheBase implements ICache
      * Add or Update a cell in cache identified by coordinate address
      *
      * @param    string            $pCoord        Coordinate address of the cell to update
-     * @param    \PHPExcel\Cell    $cell        Cell to update
-     * @return   \PHPExcel\Cell
-     * @throws   \PHPExcel\Exception
+     * @param    \PhpSpreadsheet\Cell    $cell        Cell to update
+     * @return   \PhpSpreadsheet\Cell
+     * @throws   \PhpSpreadsheet\Exception
      */
-    public function addCacheData($pCoord, \PHPExcel\Cell $cell)
+    public function addCacheData($pCoord, \PhpSpreadsheet\Cell $cell)
     {
         if (($pCoord !== $this->currentObjectID) && ($this->currentObjectID !== null)) {
             $this->storeData();
@@ -98,8 +95,8 @@ class DiscISAM extends CacheBase implements ICache
      * Get cell at a specific coordinate
      *
      * @param     string             $pCoord        Coordinate of the cell
-     * @throws     \PHPExcel\Exception
-     * @return     \PHPExcel\Cell     Cell that was found, or null if not found
+     * @throws     \PhpSpreadsheet\Exception
+     * @return     \PhpSpreadsheet\Cell     Cell that was found, or null if not found
      */
     public function getCacheData($pCoord)
     {
@@ -142,14 +139,14 @@ class DiscISAM extends CacheBase implements ICache
     /**
      * Clone the cell collection
      *
-     * @param  \PHPExcel\Worksheet    $parent        The new worksheet that we're copying to
+     * @param  \PhpSpreadsheet\Worksheet    $parent        The new worksheet that we're copying to
      */
-    public function copyCellCollection(\PHPExcel\Worksheet $parent)
+    public function copyCellCollection(\PhpSpreadsheet\Worksheet $parent)
     {
         parent::copyCellCollection($parent);
         //    Get a new id for the new file name
         $baseUnique = $this->getUniqueID();
-        $newFileName = $this->cacheDirectory.'/PHPExcel.'.$baseUnique.'.cache';
+        $newFileName = $this->cacheDirectory.'/PhpSpreadsheet.'.$baseUnique.'.cache';
         //    Copy the existing cell cache file
         copy($this->fileName, $newFileName);
         $this->fileName = $newFileName;
@@ -179,19 +176,19 @@ class DiscISAM extends CacheBase implements ICache
     /**
      * Initialise this new cell collection
      *
-     * @param    \PHPExcel\Worksheet    $parent        The worksheet for this cell collection
+     * @param    \PhpSpreadsheet\Worksheet    $parent        The worksheet for this cell collection
      * @param    array of mixed        $arguments    Additional initialisation arguments
      */
-    public function __construct(\PHPExcel\Worksheet $parent, $arguments)
+    public function __construct(\PhpSpreadsheet\Worksheet $parent, $arguments)
     {
         $this->cacheDirectory    = ((isset($arguments['dir'])) && ($arguments['dir'] !== null))
                                     ? $arguments['dir']
-                                    : \PHPExcel\Shared\File::sysGetTempDir();
+                                    : \PhpSpreadsheet\Shared\File::sysGetTempDir();
 
         parent::__construct($parent);
         if (is_null($this->fileHandle)) {
             $baseUnique = $this->getUniqueID();
-            $this->fileName = $this->cacheDirectory.'/PHPExcel.'.$baseUnique.'.cache';
+            $this->fileName = $this->cacheDirectory.'/PhpSpreadsheet.'.$baseUnique.'.cache';
             $this->fileHandle = fopen($this->fileName, 'a+');
         }
     }

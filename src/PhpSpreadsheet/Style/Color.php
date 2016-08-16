@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel\Style;
+namespace PhpSpreadsheet\Style;
 
 /**
- * PHPExcel_Style_Color
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,13 +19,12 @@ namespace PHPExcel\Style;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Style
- * @copyright Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version ##VERSION##, ##DATE##
  */
-class Color extends Supervisor implements \PHPExcel\IComparable
+class Color extends Supervisor implements \PhpSpreadsheet\IComparable
 {
     /* Colors */
     const COLOR_BLACK      = 'FF000000';
@@ -143,11 +140,11 @@ class Color extends Supervisor implements \PHPExcel\IComparable
      * Apply styles from array
      *
      * <code>
-     * $objPHPExcel->getActiveSheet()->getStyle('B2')->getFont()->getColor()->applyFromArray( array('rgb' => '808080') );
+     * $spreadsheet->getActiveSheet()->getStyle('B2')->getFont()->getColor()->applyFromArray( array('rgb' => '808080') );
      * </code>
      *
      * @param    array    $pStyles    Array containing style information
-     * @throws    \PHPExcel\Exception
+     * @throws    \PhpSpreadsheet\Exception
      * @return Color
      */
     public function applyFromArray($pStyles = null)
@@ -164,7 +161,7 @@ class Color extends Supervisor implements \PHPExcel\IComparable
                 }
             }
         } else {
-            throw new \PHPExcel\Exception("Invalid style array passed.");
+            throw new \PhpSpreadsheet\Exception("Invalid style array passed.");
         }
         return $this;
     }

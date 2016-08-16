@@ -2,7 +2,7 @@
 
 namespace PhpSpreadsheet\Tests\Shared;
 
-use PHPExcel\Shared\StringHelper;
+use PhpSpreadsheet\Shared\StringHelper;
 
 class StringTest extends \PHPUnit_Framework_TestCase
 {

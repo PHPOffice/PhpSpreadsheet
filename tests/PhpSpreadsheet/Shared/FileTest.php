@@ -2,7 +2,7 @@
 
 namespace PhpSpreadsheet\Tests\Shared;
 
-use PHPExcel\Shared\File;
+use PhpSpreadsheet\Shared\File;
 
 class FileTest extends \PHPUnit_Framework_TestCase
 {

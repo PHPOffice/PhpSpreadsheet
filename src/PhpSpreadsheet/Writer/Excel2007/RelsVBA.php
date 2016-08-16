@@ -1,10 +1,8 @@
 <?php
-namespace PHPExcel\Writer\Excel2007;
+namespace PhpSpreadsheet\Writer\Excel2007;
 
 /**
- * PHPExcel_Writer_Excel2007_RelsVBA
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,9 +18,8 @@ namespace PHPExcel\Writer\Excel2007;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Writer_Excel2007
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version     ##VERSION##, ##DATE##
  */
@@ -31,18 +28,18 @@ class RelsVBA extends WriterPart
     /**
      * Write relationships for a signed VBA Project
      *
-     * @param \PHPExcel\SpreadSheet $pPHPExcel
+     * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
      * @return string  XML Output
-     * @throws     \PHPExcel\Writer\Exception
+     * @throws     \PhpSpreadsheet\Writer\Exception
      */
-    public function writeVBARelationships(\PHPExcel\SpreadSheet $pPHPExcel = null)
+    public function writeVBARelationships(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new \PHPExcel\Shared\XMLWriter(\PHPExcel\Shared\XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header

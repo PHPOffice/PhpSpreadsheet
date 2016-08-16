@@ -2,8 +2,8 @@
 
 namespace PhpSpreadsheet\Tests;
 
-use PHPExcel\Calculation;
-use PHPExcel\Calculation\Functions;
+use PhpSpreadsheet\Calculation;
+use PhpSpreadsheet\Calculation\Functions;
 
 class CalculationTest extends \PHPUnit_Framework_TestCase
 {

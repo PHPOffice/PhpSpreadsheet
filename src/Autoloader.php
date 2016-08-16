@@ -1,12 +1,12 @@
 <?php
 
-namespace PHPExcel;
+namespace PhpSpreadsheet;
 
 /**
  *
- * Autoloader for PHPExcel classes
+ * Autoloader for PhpSpreadsheet classes
  *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,9 +22,8 @@ namespace PHPExcel;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -41,7 +40,7 @@ class Autoloader
             spl_autoload_register('__autoload');
         }
         // Register ourselves with SPL
-        return spl_autoload_register(array('PHPExcel\Autoloader', 'load'));
+        return spl_autoload_register(array(\PhpSpreadsheet\Autoloader::class, 'load'));
     }
 
 
@@ -52,14 +51,14 @@ class Autoloader
      */
     public static function load($className)
     {
-        if ((class_exists($className, false)) || (strpos($className, 'PHPExcel\\') !== 0)) {
-            // Either already loaded, or not a PHPExcel class request
+        if ((class_exists($className, false)) || (strpos($className, 'PhpSpreadsheet\\') !== 0)) {
+            // Either already loaded, or not a PhpSpreadsheet class request
             return false;
         }
 
         $classFilePath = __DIR__ . DIRECTORY_SEPARATOR .
             'PhpSpreadsheet' . DIRECTORY_SEPARATOR .
-            str_replace(['PHPExcel\\', '\\'], ['', '/'], $className) .
+            str_replace(['PhpSpreadsheet\\', '\\'], ['', '/'], $className) .
             '.php';
 
         if ((file_exists($classFilePath) === false) || (is_readable($classFilePath) === false)) {

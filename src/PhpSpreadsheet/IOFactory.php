@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel;
+namespace PhpSpreadsheet;
 
 /**
- * PHPExcel_IOFactory
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +19,8 @@ namespace PHPExcel;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -37,8 +34,8 @@ class IOFactory
      * @static
      */
     private static $searchLocations = array(
-        array( 'type' => 'IWriter', 'path' => 'PHPExcel/Writer/{0}.php', 'class' => '\\PHPExcel\\Writer\\{0}' ),
-        array( 'type' => 'IReader', 'path' => 'PHPExcel/Reader/{0}.php', 'class' => '\\PHPExcel\\Reader\\{0}' )
+        array( 'type' => 'IWriter', 'path' => 'PhpSpreadsheet/Writer/{0}.php', 'class' => '\\PhpSpreadsheet\\Writer\\{0}' ),
+        array( 'type' => 'IReader', 'path' => 'PhpSpreadsheet/Reader/{0}.php', 'class' => '\\PhpSpreadsheet\\Reader\\{0}' )
     );
 
     /**
@@ -101,7 +98,7 @@ class IOFactory
      * @static
      * @access    public
      * @param    string $type        Example: IWriter
-     * @param    string $location    Example: PHPExcel/Writer/{0}.php
+     * @param    string $location    Example: PhpSpreadsheet/Writer/{0}.php
      * @param    string $classname     Example: Writer\{0}
      */
     public static function addSearchLocation($type = '', $location = '', $classname = '')
@@ -114,12 +111,12 @@ class IOFactory
      *
      * @static
      * @access    public
-     * @param    Spreadsheet $phpExcel
+     * @param    Spreadsheet $spreadsheet
      * @param    string  $writerType    Example: Excel2007
      * @return    Writer\IWriter
      * @throws    Writer\Exception
      */
-    public static function createWriter(Spreadsheet $phpExcel, $writerType = '')
+    public static function createWriter(Spreadsheet $spreadsheet, $writerType = '')
     {
         // Search type
         $searchType = 'IWriter';
@@ -129,7 +126,7 @@ class IOFactory
             if ($searchLocation['type'] == $searchType) {
                 $className = str_replace('{0}', $writerType, $searchLocation['class']);
 
-                $instance = new $className($phpExcel);
+                $instance = new $className($spreadsheet);
                 if ($instance !== null) {
                     return $instance;
                 }

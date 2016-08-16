@@ -2,8 +2,8 @@
 
 namespace PhpSpreadsheet\Tests;
 
-use PHPExcel\Cell;
-use PHPExcel\Exception;
+use PhpSpreadsheet\Cell;
+use PhpSpreadsheet\Exception;
 
 class CellTest extends \PHPUnit_Framework_TestCase
 {

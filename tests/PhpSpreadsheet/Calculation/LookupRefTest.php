@@ -2,12 +2,11 @@
 
 namespace PhpSpreadsheet\Tests\Calculation;
 
-use PHPExcel\Calculation\Functions;
-use PHPExcel\Calculation\LookupRef;
+use PhpSpreadsheet\Calculation\Functions;
+use PhpSpreadsheet\Calculation\LookupRef;
 
 /**
  * Class LookupRefTest
- * @package PHPExcel\Calculation
  */
 class LookupRefTest extends \PHPUnit_Framework_TestCase
 {

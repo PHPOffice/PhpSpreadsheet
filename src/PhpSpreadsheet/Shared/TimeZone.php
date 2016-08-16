@@ -1,11 +1,11 @@
 <?php
 
-namespace PHPExcel\Shared;
+namespace PhpSpreadsheet\Shared;
 
 /**
- * \PHPExcel\Shared\TimeZone
+ * \PhpSpreadsheet\Shared\TimeZone
  *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +21,8 @@ namespace PHPExcel\Shared;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Shared
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -109,13 +108,13 @@ class TimeZone
      *    @param    string             $timezone         The timezone for finding the adjustment to UST
      *    @param    integer            $timestamp        PHP date/time value
      *    @return   integer            Number of seconds for timezone adjustment
-     *    @throws   \PHPExcel\Exception
+     *    @throws   \PhpSpreadsheet\Exception
      */
     public static function getTimeZoneAdjustment($timezone, $timestamp)
     {
         if ($timezone !== null) {
             if (!self::validateTimezone($timezone)) {
-                throw new \PHPExcel\Exception("Invalid timezone " . $timezone);
+                throw new \PhpSpreadsheet\Exception("Invalid timezone " . $timezone);
             }
         } else {
             $timezone = self::$timezone;

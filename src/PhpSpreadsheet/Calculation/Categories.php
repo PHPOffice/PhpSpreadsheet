@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel\Calculation;
+namespace PhpSpreadsheet\Calculation;
 
 /**
- * PHPExcel_Calculation_Categories
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +19,8 @@ namespace PHPExcel\Calculation;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Calculation
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -57,26 +54,26 @@ class Categories
     private $excelName;
 
     /**
-     * PHPExcel function name
+     * Spreadsheet function name
      *
      * @var string
      */
-    private $phpExcelName;
+    private $spreadsheetName;
 
     /**
      * Create a new Categories
      * @param     string        $pCategory         Category (represented by CATEGORY_*)
      * @param     string        $pExcelName        Excel function name
-     * @param     string        $pPHPExcelName     PHPExcel internal function name
+     * @param     string        $spreadsheetName     Spreadsheet internal function name
      * @throws    Exception
      */
-    public function __construct($pCategory = null, $pExcelName = null, $pPHPExcelName = null)
+    public function __construct($pCategory = null, $pExcelName = null, $spreadsheetName = null)
     {
-        if (($pCategory !== null) && ($pExcelName !== null) && ($pPHPExcelName !== null)) {
+        if (($pCategory !== null) && ($pExcelName !== null) && ($spreadsheetName !== null)) {
             // Initialise values
             $this->category     = $pCategory;
             $this->excelName    = $pExcelName;
-            $this->phpExcelName = $pPHPExcelName;
+            $this->spreadsheetName = $spreadsheetName;
         } else {
             throw new Exception("Invalid parameters passed.");
         }
@@ -128,22 +125,22 @@ class Categories
     }
 
     /**
-     * Get PHPExcel function name
+     * Get PhpSpreadsheet function name
      *
      * @return string
      */
-    public function getPHPExcelName()
+    public function getPhpSpreadsheetName()
     {
-        return $this->phpExcelName;
+        return $this->spreadsheetName;
     }
 
     /**
-     * Set PHPExcel function  name
+     * Set PhpSpreadsheet function  name
      *
      * @param string    $value
      */
-    public function setPHPExcelName($value)
+    public function setPhpSpreadsheetName($value)
     {
-        $this->phpExcelName = $value;
+        $this->spreadsheetName = $value;
     }
 }

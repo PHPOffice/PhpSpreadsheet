@@ -2,7 +2,7 @@
 
 namespace PhpSpreadsheet\Tests\Worksheet\AutoFilter;
 
-use PHPExcel\Worksheet\AutoFilter;
+use PhpSpreadsheet\Worksheet\AutoFilter;
 
 class AutofilterColumnTest extends \PHPUnit_Framework_TestCase
 {
@@ -75,7 +75,7 @@ class AutofilterColumnTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \PHPExcel\Exception
+     * @expectedException \PhpSpreadsheet\Exception
      */
     public function testSetInvalidFilterTypeThrowsException()
     {
@@ -100,7 +100,7 @@ class AutofilterColumnTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \PHPExcel\Exception
+     * @expectedException \PhpSpreadsheet\Exception
      */
     public function testSetInvalidJoinThrowsException()
     {

@@ -1,11 +1,11 @@
 <?php
 
-namespace PHPExcel\Writer\Excel5;
+namespace PhpSpreadsheet\Writer\Excel5;
 
 /**
- * \PHPExcel\Writer\Excel5\Xf
+ * \PhpSpreadsheet\Writer\Excel5\Xf
  *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2015 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +21,8 @@ namespace PHPExcel\Writer\Excel5;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Writer_Excel5
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -129,9 +128,9 @@ class Xf
      * Constructor
      *
      * @access public
-     * @param \PHPExcel\Style    The XF format
+     * @param \PhpSpreadsheet\Style    The XF format
      */
-    public function __construct(\PHPExcel\Style $style = null)
+    public function __construct(\PhpSpreadsheet\Style $style = null)
     {
         $this->isStyleXf =     false;
         $this->fontIndex = 0;
@@ -229,10 +228,10 @@ class Xf
         $border1 |= $this->rightBorderColor   << 23;
 
         $diagonalDirection = $this->_style->getBorders()->getDiagonalDirection();
-        $diag_tl_to_rb = $diagonalDirection == \PHPExcel\Style\Borders::DIAGONAL_BOTH
-                            || $diagonalDirection == \PHPExcel\Style\Borders::DIAGONAL_DOWN;
-        $diag_tr_to_lb = $diagonalDirection == \PHPExcel\Style\Borders::DIAGONAL_BOTH
-                            || $diagonalDirection == \PHPExcel\Style\Borders::DIAGONAL_UP;
+        $diag_tl_to_rb = $diagonalDirection == \PhpSpreadsheet\Style\Borders::DIAGONAL_BOTH
+                            || $diagonalDirection == \PhpSpreadsheet\Style\Borders::DIAGONAL_DOWN;
+        $diag_tr_to_lb = $diagonalDirection == \PhpSpreadsheet\Style\Borders::DIAGONAL_BOTH
+                            || $diagonalDirection == \PhpSpreadsheet\Style\Borders::DIAGONAL_UP;
         $border1 |= $diag_tl_to_rb        << 30;
         $border1 |= $diag_tr_to_lb        << 31;
 
@@ -371,20 +370,20 @@ class Xf
      *
      */
     private static $mapBorderStyles = array(
-        \PHPExcel\Style\Border::BORDER_NONE             => 0x00,
-        \PHPExcel\Style\Border::BORDER_THIN             => 0x01,
-        \PHPExcel\Style\Border::BORDER_MEDIUM           => 0x02,
-        \PHPExcel\Style\Border::BORDER_DASHED           => 0x03,
-        \PHPExcel\Style\Border::BORDER_DOTTED           => 0x04,
-        \PHPExcel\Style\Border::BORDER_THICK            => 0x05,
-        \PHPExcel\Style\Border::BORDER_DOUBLE           => 0x06,
-        \PHPExcel\Style\Border::BORDER_HAIR             => 0x07,
-        \PHPExcel\Style\Border::BORDER_MEDIUMDASHED     => 0x08,
-        \PHPExcel\Style\Border::BORDER_DASHDOT          => 0x09,
-        \PHPExcel\Style\Border::BORDER_MEDIUMDASHDOT    => 0x0A,
-        \PHPExcel\Style\Border::BORDER_DASHDOTDOT       => 0x0B,
-        \PHPExcel\Style\Border::BORDER_MEDIUMDASHDOTDOT => 0x0C,
-        \PHPExcel\Style\Border::BORDER_SLANTDASHDOT     => 0x0D,
+        \PhpSpreadsheet\Style\Border::BORDER_NONE             => 0x00,
+        \PhpSpreadsheet\Style\Border::BORDER_THIN             => 0x01,
+        \PhpSpreadsheet\Style\Border::BORDER_MEDIUM           => 0x02,
+        \PhpSpreadsheet\Style\Border::BORDER_DASHED           => 0x03,
+        \PhpSpreadsheet\Style\Border::BORDER_DOTTED           => 0x04,
+        \PhpSpreadsheet\Style\Border::BORDER_THICK            => 0x05,
+        \PhpSpreadsheet\Style\Border::BORDER_DOUBLE           => 0x06,
+        \PhpSpreadsheet\Style\Border::BORDER_HAIR             => 0x07,
+        \PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED     => 0x08,
+        \PhpSpreadsheet\Style\Border::BORDER_DASHDOT          => 0x09,
+        \PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOT    => 0x0A,
+        \PhpSpreadsheet\Style\Border::BORDER_DASHDOTDOT       => 0x0B,
+        \PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOTDOT => 0x0C,
+        \PhpSpreadsheet\Style\Border::BORDER_SLANTDASHDOT     => 0x0D,
     );
 
     /**
@@ -407,27 +406,27 @@ class Xf
      *
      */
     private static $mapFillTypes = array(
-        \PHPExcel\Style\Fill::FILL_NONE                    => 0x00,
-        \PHPExcel\Style\Fill::FILL_SOLID                   => 0x01,
-        \PHPExcel\Style\Fill::FILL_PATTERN_MEDIUMGRAY      => 0x02,
-        \PHPExcel\Style\Fill::FILL_PATTERN_DARKGRAY        => 0x03,
-        \PHPExcel\Style\Fill::FILL_PATTERN_LIGHTGRAY       => 0x04,
-        \PHPExcel\Style\Fill::FILL_PATTERN_DARKHORIZONTAL  => 0x05,
-        \PHPExcel\Style\Fill::FILL_PATTERN_DARKVERTICAL    => 0x06,
-        \PHPExcel\Style\Fill::FILL_PATTERN_DARKDOWN        => 0x07,
-        \PHPExcel\Style\Fill::FILL_PATTERN_DARKUP          => 0x08,
-        \PHPExcel\Style\Fill::FILL_PATTERN_DARKGRID        => 0x09,
-        \PHPExcel\Style\Fill::FILL_PATTERN_DARKTRELLIS     => 0x0A,
-        \PHPExcel\Style\Fill::FILL_PATTERN_LIGHTHORIZONTAL => 0x0B,
-        \PHPExcel\Style\Fill::FILL_PATTERN_LIGHTVERTICAL   => 0x0C,
-        \PHPExcel\Style\Fill::FILL_PATTERN_LIGHTDOWN       => 0x0D,
-        \PHPExcel\Style\Fill::FILL_PATTERN_LIGHTUP         => 0x0E,
-        \PHPExcel\Style\Fill::FILL_PATTERN_LIGHTGRID       => 0x0F,
-        \PHPExcel\Style\Fill::FILL_PATTERN_LIGHTTRELLIS    => 0x10,
-        \PHPExcel\Style\Fill::FILL_PATTERN_GRAY125         => 0x11,
-        \PHPExcel\Style\Fill::FILL_PATTERN_GRAY0625        => 0x12,
-        \PHPExcel\Style\Fill::FILL_GRADIENT_LINEAR         => 0x00,    // does not exist in BIFF8
-        \PHPExcel\Style\Fill::FILL_GRADIENT_PATH           => 0x00,    // does not exist in BIFF8
+        \PhpSpreadsheet\Style\Fill::FILL_NONE                    => 0x00,
+        \PhpSpreadsheet\Style\Fill::FILL_SOLID                   => 0x01,
+        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_MEDIUMGRAY      => 0x02,
+        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKGRAY        => 0x03,
+        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTGRAY       => 0x04,
+        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKHORIZONTAL  => 0x05,
+        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKVERTICAL    => 0x06,
+        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKDOWN        => 0x07,
+        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKUP          => 0x08,
+        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKGRID        => 0x09,
+        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKTRELLIS     => 0x0A,
+        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTHORIZONTAL => 0x0B,
+        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTVERTICAL   => 0x0C,
+        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTDOWN       => 0x0D,
+        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTUP         => 0x0E,
+        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTGRID       => 0x0F,
+        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTTRELLIS    => 0x10,
+        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_GRAY125         => 0x11,
+        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_GRAY0625        => 0x12,
+        \PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR         => 0x00,    // does not exist in BIFF8
+        \PhpSpreadsheet\Style\Fill::FILL_GRADIENT_PATH           => 0x00,    // does not exist in BIFF8
     );
 
     /**
@@ -450,13 +449,13 @@ class Xf
      *
      */
     private static $mapHAlignments = array(
-        \PHPExcel\Style\Alignment::HORIZONTAL_GENERAL           => 0,
-        \PHPExcel\Style\Alignment::HORIZONTAL_LEFT              => 1,
-        \PHPExcel\Style\Alignment::HORIZONTAL_CENTER            => 2,
-        \PHPExcel\Style\Alignment::HORIZONTAL_RIGHT             => 3,
-        \PHPExcel\Style\Alignment::HORIZONTAL_FILL              => 4,
-        \PHPExcel\Style\Alignment::HORIZONTAL_JUSTIFY           => 5,
-        \PHPExcel\Style\Alignment::HORIZONTAL_CENTER_CONTINUOUS => 6,
+        \PhpSpreadsheet\Style\Alignment::HORIZONTAL_GENERAL           => 0,
+        \PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT              => 1,
+        \PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER            => 2,
+        \PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT             => 3,
+        \PhpSpreadsheet\Style\Alignment::HORIZONTAL_FILL              => 4,
+        \PhpSpreadsheet\Style\Alignment::HORIZONTAL_JUSTIFY           => 5,
+        \PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER_CONTINUOUS => 6,
     );
 
     /**
@@ -479,10 +478,10 @@ class Xf
      *
      */
     private static $mapVAlignments = array(
-        \PHPExcel\Style\Alignment::VERTICAL_TOP     => 0,
-        \PHPExcel\Style\Alignment::VERTICAL_CENTER  => 1,
-        \PHPExcel\Style\Alignment::VERTICAL_BOTTOM  => 2,
-        \PHPExcel\Style\Alignment::VERTICAL_JUSTIFY => 3,
+        \PhpSpreadsheet\Style\Alignment::VERTICAL_TOP     => 0,
+        \PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER  => 1,
+        \PhpSpreadsheet\Style\Alignment::VERTICAL_BOTTOM  => 2,
+        \PhpSpreadsheet\Style\Alignment::VERTICAL_JUSTIFY => 3,
     );
 
     /**
@@ -525,11 +524,11 @@ class Xf
     private static function mapLocked($locked)
     {
         switch ($locked) {
-            case \PHPExcel\Style\Protection::PROTECTION_INHERIT:
+            case \PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT:
                 return 1;
-            case \PHPExcel\Style\Protection::PROTECTION_PROTECTED:
+            case \PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED:
                 return 1;
-            case \PHPExcel\Style\Protection::PROTECTION_UNPROTECTED:
+            case \PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED:
                 return 0;
             default:
                 return 1;
@@ -545,11 +544,11 @@ class Xf
     private static function mapHidden($hidden)
     {
         switch ($hidden) {
-            case \PHPExcel\Style\Protection::PROTECTION_INHERIT:
+            case \PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT:
                 return 0;
-            case \PHPExcel\Style\Protection::PROTECTION_PROTECTED:
+            case \PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED:
                 return 1;
-            case \PHPExcel\Style\Protection::PROTECTION_UNPROTECTED:
+            case \PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED:
                 return 0;
             default:
                 return 0;

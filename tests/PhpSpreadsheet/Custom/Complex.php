@@ -2,7 +2,7 @@
 
 namespace PhpSpreadsheet\Tests\Custom;
 
-use PHPExcel\Exception;
+use PhpSpreadsheet\Exception;
 
 class Complex
 {

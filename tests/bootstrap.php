@@ -1,10 +1,7 @@
 <?php
 /**
- * $Id: bootstrap.php 2892 2011-08-14 15:11:50Z markbaker@phpexcel.net $
- *
- * @copyright   Copyright (C) 2011-2014 PHPExcel. All rights reserved.
- * @package     PHPExcel
- * @subpackage  PHPExcel Unit Tests
+ * @copyright   Copyright (C) 2011-2014 PhpSpreadsheet. All rights reserved.
+ * @subpackage  PhpSpreadsheet Unit Tests
  * @author      Mark Baker
  */
 
@@ -35,16 +32,16 @@ set_include_path(implode(PATH_SEPARATOR, array(
 )));
 
 
-if (!defined('PHPEXCEL_ROOT')) {
-    define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
+if (!defined('PHPSPREADSHEET_ROOT')) {
+    define('PHPSPREADSHEET_ROOT', APPLICATION_PATH . '/');
 }
-require_once(PHPEXCEL_ROOT . 'Bootstrap.php');
+require_once(PHPSPREADSHEET_ROOT . 'Bootstrap.php');
 
 /**
  * @todo Sort out xdebug in vagrant so that this works in all sandboxes
  * For now, it is safer to test for it rather then remove it.
  */
-echo "PHPExcel tests beginning\n";
+echo "PhpSpreadsheet tests beginning\n";
 
 if (extension_loaded('xdebug')) {
     echo "Xdebug extension loaded and running\n";

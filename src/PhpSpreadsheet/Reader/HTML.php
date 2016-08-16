@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel\Reader;
+namespace PhpSpreadsheet\Reader;
 
 /**
- * PHPExcel_Reader_HTML
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,13 +19,12 @@ namespace PHPExcel\Reader;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Reader
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-/** PHPExcel root directory */
+/** PhpSpreadsheet root directory */
 class HTML extends BaseReader implements IReader
 {
 
@@ -91,16 +88,16 @@ class HTML extends BaseReader implements IReader
             'font' => array(
                 'underline' => true,
                 'color' => array(
-                    'argb' => \PHPExcel\Style\Color::COLOR_BLUE,
+                    'argb' => \PhpSpreadsheet\Style\Color::COLOR_BLUE,
                 ),
             ),
         ), //    Blue underlined
         'hr' => array(
             'borders' => array(
                 'bottom' => array(
-                    'style' => \PHPExcel\Style\Border::BORDER_THIN,
+                    'style' => \PhpSpreadsheet\Style\Border::BORDER_THIN,
                     'color' => array(
-                        \PHPExcel\Style\Color::COLOR_BLACK,
+                        \PhpSpreadsheet\Style\Color::COLOR_BLACK,
                     ),
                 ),
             ),
@@ -135,19 +132,19 @@ class HTML extends BaseReader implements IReader
     }
 
     /**
-     * Loads PHPExcel from file
+     * Loads PhpSpreadsheet from file
      *
      * @param  string                    $pFilename
-     * @return PHPExcel
+     * @return PhpSpreadsheet
      * @throws Exception
      */
     public function load($pFilename)
     {
-        // Create new PHPExcel
-        $objPHPExcel = new PHPExcel();
+        // Create new PhpSpreadsheet
+        $spreadsheet = new PhpSpreadsheet();
 
         // Load into this instance
-        return $this->loadIntoExisting($pFilename, $objPHPExcel);
+        return $this->loadIntoExisting($pFilename, $spreadsheet);
     }
 
     /**
@@ -172,7 +169,7 @@ class HTML extends BaseReader implements IReader
         return $this->inputEncoding;
     }
 
-    //    Data Array used for testing only, should write to PHPExcel object on completion of tests
+    //    Data Array used for testing only, should write to PhpSpreadsheet object on completion of tests
     protected $dataArray = array();
     protected $tableLevel = 0;
     protected $nestedColumn = array('A');
@@ -407,7 +404,7 @@ class HTML extends BaseReader implements IReader
                         $this->flushCell($sheet, $column, $row, $cellContent);
 
 //                        if (isset($attributeArray['style']) && !empty($attributeArray['style'])) {
-//                            $styleAry = $this->getPhpExcelStyleArray($attributeArray['style']);
+//                            $styleAry = $this->getPhpSpreadsheetStyleArray($attributeArray['style']);
 //
 //                            if (!empty($styleAry)) {
 //                                $sheet->getStyle($column . $row)->applyFromArray($styleAry);
@@ -421,7 +418,7 @@ class HTML extends BaseReader implements IReader
                                 ++$columnTo;
                             }
                             $range = $column . $row . ':' . $columnTo . ($row + $attributeArray['rowspan'] - 1);
-                            foreach (\PHPExcel\Cell::extractAllCellReferencesInRange($range) as $value) {
+                            foreach (\PhpSpreadsheet\Cell::extractAllCellReferencesInRange($range) as $value) {
                                 $this->rowspan[$value] = true;
                             }
                             $sheet->mergeCells($range);
@@ -429,7 +426,7 @@ class HTML extends BaseReader implements IReader
                         } elseif (isset($attributeArray['rowspan'])) {
                             //create merging rowspan
                             $range = $column . $row . ':' . $column . ($row + $attributeArray['rowspan'] - 1);
-                            foreach (\PHPExcel\Cell::extractAllCellReferencesInRange($range) as $value) {
+                            foreach (\PhpSpreadsheet\Cell::extractAllCellReferencesInRange($range) as $value) {
                                 $this->rowspan[$value] = true;
                             }
                             $sheet->mergeCells($range);
@@ -459,14 +456,14 @@ class HTML extends BaseReader implements IReader
     }
 
     /**
-     * Loads PHPExcel from file into PHPExcel instance
+     * Loads PhpSpreadsheet from file into PhpSpreadsheet instance
      *
      * @param  string                    $pFilename
-     * @param  PHPExcel                  $objPHPExcel
-     * @return PHPExcel
+     * @param  \PhpSpreadsheet\Spreadsheet                  $spreadsheet
+     * @return \PhpSpreadsheet\Spreadsheet
      * @throws Exception
      */
-    public function loadIntoExisting($pFilename, PHPExcel $objPHPExcel)
+    public function loadIntoExisting($pFilename, \PhpSpreadsheet\Spreadsheet $spreadsheet)
     {
         // Open file to validate
         $this->openFile($pFilename);
@@ -477,11 +474,11 @@ class HTML extends BaseReader implements IReader
         //    Close after validating
         fclose($this->fileHandle);
 
-        // Create new PHPExcel
-        while ($objPHPExcel->getSheetCount() <= $this->sheetIndex) {
-            $objPHPExcel->createSheet();
+        // Create new PhpSpreadsheet
+        while ($spreadsheet->getSheetCount() <= $this->sheetIndex) {
+            $spreadsheet->createSheet();
         }
-        $objPHPExcel->setActiveSheetIndex($this->sheetIndex);
+        $spreadsheet->setActiveSheetIndex($this->sheetIndex);
 
         //    Create a new DOM object
         $dom = new domDocument;
@@ -497,10 +494,10 @@ class HTML extends BaseReader implements IReader
         $row = 0;
         $column = 'A';
         $content = '';
-        $this->processDomElement($dom, $objPHPExcel->getActiveSheet(), $row, $column, $content);
+        $this->processDomElement($dom, $spreadsheet->getActiveSheet(), $row, $column, $content);
 
         // Return
-        return $objPHPExcel;
+        return $spreadsheet;
     }
 
     /**

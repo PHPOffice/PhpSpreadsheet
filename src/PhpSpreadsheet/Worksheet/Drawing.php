@@ -1,11 +1,11 @@
 <?php
 
-namespace PHPExcel\Worksheet;
+namespace PhpSpreadsheet\Worksheet;
 
 /**
- * \PHPExcel\Worksheet_Drawing
+ * \PhpSpreadsheet\Worksheet_Drawing
  *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,13 +21,12 @@ namespace PHPExcel\Worksheet;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    \PHPExcel\Worksheet_Drawing
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class Drawing extends BaseDrawing implements \PHPExcel\IComparable
+class Drawing extends BaseDrawing implements \PhpSpreadsheet\IComparable
 {
     /**
      * Path
@@ -96,7 +95,7 @@ class Drawing extends BaseDrawing implements \PHPExcel\IComparable
      *
      * @param   string         $pValue            File path
      * @param   boolean        $pVerifyFile    Verify file
-     * @throws  \PHPExcel\Exception
+     * @throws  \PhpSpreadsheet\Exception
      * @return  Drawing
      */
     public function setPath($pValue = '', $pVerifyFile = true)
@@ -110,7 +109,7 @@ class Drawing extends BaseDrawing implements \PHPExcel\IComparable
                     list($this->width, $this->height) = getimagesize($pValue);
                 }
             } else {
-                throw new \PHPExcel\Exception("File $pValue not found!");
+                throw new \PhpSpreadsheet\Exception("File $pValue not found!");
             }
         } else {
             $this->path = $pValue;

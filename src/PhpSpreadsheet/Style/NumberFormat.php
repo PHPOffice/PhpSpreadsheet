@@ -1,11 +1,11 @@
 <?php
 
-namespace PHPExcel\Style;
+namespace PhpSpreadsheet\Style;
 
 /**
- * \PHPExcel\Style\NumberFormat
+ * \PhpSpreadsheet\Style\NumberFormat
  *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,13 +21,12 @@ namespace PHPExcel\Style;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Style
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class NumberFormat extends Supervisor implements \PHPExcel\IComparable
+class NumberFormat extends Supervisor implements \PhpSpreadsheet\IComparable
 {
     /* Pre-defined formats */
     const FORMAT_GENERAL                 = 'General';
@@ -144,15 +143,15 @@ class NumberFormat extends Supervisor implements \PHPExcel\IComparable
      * Apply styles from array
      *
      * <code>
-     * $objPHPExcel->getActiveSheet()->getStyle('B2')->getNumberFormat()->applyFromArray(
+     * $spreadsheet->getActiveSheet()->getStyle('B2')->getNumberFormat()->applyFromArray(
      *        array(
-     *            'code' => \PHPExcel\Style\NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE
+     *            'code' => \PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE
      *        )
      * );
      * </code>
      *
      * @param    array    $pStyles    Array containing style information
-     * @throws    \PHPExcel\Exception
+     * @throws    \PhpSpreadsheet\Exception
      * @return NumberFormat
      */
     public function applyFromArray($pStyles = null)
@@ -166,7 +165,7 @@ class NumberFormat extends Supervisor implements \PHPExcel\IComparable
                 }
             }
         } else {
-            throw new \PHPExcel\Exception("Invalid style array passed.");
+            throw new \PhpSpreadsheet\Exception("Invalid style array passed.");
         }
         return $this;
     }
@@ -487,7 +486,7 @@ class NumberFormat extends Supervisor implements \PHPExcel\IComparable
         // escape any quoted characters so that DateTime format() will render them correctly
         $format = preg_replace_callback('/"(.*)"/U', ['self', 'escapeQuotesCallback'], $format);
 
-        $dateObj = \PHPExcel\Shared\Date::excelToDateTimeObject($value);
+        $dateObj = \PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value);
         $value = $dateObj->format($format);
     }
 
@@ -518,7 +517,7 @@ class NumberFormat extends Supervisor implements \PHPExcel\IComparable
         $decimalLength = strlen($decimalPart);
         $decimalDivisor = pow(10, $decimalLength);
 
-        $GCD = \PHPExcel\Calculation\MathTrig::GCD($decimalPart, $decimalDivisor);
+        $GCD = \PhpSpreadsheet\Calculation\MathTrig::GCD($decimalPart, $decimalDivisor);
 
         $adjustedDecimalPart = $decimalPart/$GCD;
         $adjustedDecimalDivisor = $decimalDivisor/$GCD;
@@ -710,8 +709,8 @@ class NumberFormat extends Supervisor implements \PHPExcel\IComparable
                             $value = number_format(
                                 $value,
                                 strlen($right),
-                                \PHPExcel\Shared\StringHelper::getDecimalSeparator(),
-                                \PHPExcel\Shared\StringHelper::getThousandsSeparator()
+                                \PhpSpreadsheet\Shared\StringHelper::getDecimalSeparator(),
+                                \PhpSpreadsheet\Shared\StringHelper::getThousandsSeparator()
                             );
                             $value = preg_replace($number_regex, $value, $format);
                         } else {
@@ -734,7 +733,7 @@ class NumberFormat extends Supervisor implements \PHPExcel\IComparable
                     $currencyCode = $m[1];
                     list($currencyCode) = explode('-', $currencyCode);
                     if ($currencyCode == '') {
-                        $currencyCode = \PHPExcel\Shared\StringHelper::getCurrencyCode();
+                        $currencyCode = \PhpSpreadsheet\Shared\StringHelper::getCurrencyCode();
                     }
                     $value = preg_replace('/\[\$([^\]]*)\]/u', $currencyCode, $value);
                 }

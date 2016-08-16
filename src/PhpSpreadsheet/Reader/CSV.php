@@ -1,13 +1,11 @@
 <?php
 
-namespace PHPExcel\Reader;
+namespace PhpSpreadsheet\Reader;
 
-use PHPExcel\Spreadsheet;
+use PhpSpreadsheet\Spreadsheet;
 
 /**
- * PHPExcel_Reader_CSV
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,9 +21,8 @@ use PHPExcel\Spreadsheet;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Reader
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -205,7 +202,7 @@ class CSV extends BaseReader implements IReader
             $worksheetInfo[0]['lastColumnIndex'] = max($worksheetInfo[0]['lastColumnIndex'], count($rowData) - 1);
         }
 
-        $worksheetInfo[0]['lastColumnLetter'] = \PHPExcel\Cell::stringFromColumnIndex($worksheetInfo[0]['lastColumnIndex']);
+        $worksheetInfo[0]['lastColumnLetter'] = \PhpSpreadsheet\Cell::stringFromColumnIndex($worksheetInfo[0]['lastColumnIndex']);
         $worksheetInfo[0]['totalColumns'] = $worksheetInfo[0]['lastColumnIndex'] + 1;
 
         // Close file
@@ -218,27 +215,27 @@ class CSV extends BaseReader implements IReader
      * Loads Spreadsheet from file
      *
      * @param     string         $pFilename
-     * @return \PHPExcel\Spreadsheet
+     * @return \PhpSpreadsheet\Spreadsheet
      * @throws Exception
      */
     public function load($pFilename)
     {
         // Create new Spreadsheet
-        $objPHPExcel = new \PHPExcel\Spreadsheet();
+        $spreadsheet = new \PhpSpreadsheet\Spreadsheet();
 
         // Load into this instance
-        return $this->loadIntoExisting($pFilename, $objPHPExcel);
+        return $this->loadIntoExisting($pFilename, $spreadsheet);
     }
 
     /**
-     * Loads PHPExcel from file into PHPExcel instance
+     * Loads PhpSpreadsheet from file into PhpSpreadsheet instance
      *
      * @param string $pFilename
-     * @param Spreadsheet $objPHPExcel
+     * @param Spreadsheet $spreadsheet
      * @return Spreadsheet
      * @throws Exception
      */
-    public function loadIntoExisting($pFilename, Spreadsheet $objPHPExcel)
+    public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
     {
         $lineEnding = ini_get('auto_detect_line_endings');
         ini_set('auto_detect_line_endings', true);
@@ -255,11 +252,11 @@ class CSV extends BaseReader implements IReader
         $this->skipBOM();
         $this->checkSeparator();
 
-        // Create new PHPExcel object
-        while ($objPHPExcel->getSheetCount() <= $this->sheetIndex) {
-            $objPHPExcel->createSheet();
+        // Create new PhpSpreadsheet object
+        while ($spreadsheet->getSheetCount() <= $this->sheetIndex) {
+            $spreadsheet->createSheet();
         }
-        $sheet = $objPHPExcel->setActiveSheetIndex($this->sheetIndex);
+        $sheet = $spreadsheet->setActiveSheetIndex($this->sheetIndex);
 
         $escapeEnclosures = array( "\\" . $this->enclosure,
                                    $this->enclosure . $this->enclosure
@@ -281,7 +278,7 @@ class CSV extends BaseReader implements IReader
 
                     // Convert encoding if necessary
                     if ($this->inputEncoding !== 'UTF-8') {
-                        $rowDatum = \PHPExcel\Shared\StringHelper::convertEncoding($rowDatum, 'UTF-8', $this->inputEncoding);
+                        $rowDatum = \PhpSpreadsheet\Shared\StringHelper::convertEncoding($rowDatum, 'UTF-8', $this->inputEncoding);
                     }
 
                     // Set cell value
@@ -302,7 +299,7 @@ class CSV extends BaseReader implements IReader
         ini_set('auto_detect_line_endings', $lineEnding);
 
         // Return
-        return $objPHPExcel;
+        return $spreadsheet;
     }
 
     /**

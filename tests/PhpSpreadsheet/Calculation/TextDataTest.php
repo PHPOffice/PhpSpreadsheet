@@ -2,9 +2,9 @@
 
 namespace PhpSpreadsheet\Tests\Calculation;
 
-use PHPExcel\Shared\StringHelper;
-use PHPExcel\Calculation\Functions;
-use PHPExcel\Calculation\TextData;
+use PhpSpreadsheet\Shared\StringHelper;
+use PhpSpreadsheet\Calculation\Functions;
+use PhpSpreadsheet\Calculation\TextData;
 
 class TextDataTest extends \PHPUnit_Framework_TestCase
 {

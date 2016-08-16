@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel\Calculation;
+namespace PhpSpreadsheet\Calculation;
 
 /**
- * PHPExcel_Calculation_MathTrig
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +19,8 @@ namespace PHPExcel\Calculation;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
- * @category    PHPExcel
- * @package     PHPExcel_Calculation
- * @copyright   Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category    PhpSpreadsheet
+ * @copyright   Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version     ##VERSION##, ##DATE##
  */
@@ -556,9 +553,9 @@ class MathTrig
         }
 
         try {
-            $matrix = new \PHPExcel\Shared\JAMA\Matrix($matrixData);
+            $matrix = new \PhpSpreadsheet\Shared\JAMA\Matrix($matrixData);
             return $matrix->det();
-        } catch (\PHPExcel\Exception $ex) {
+        } catch (\PhpSpreadsheet\Exception $ex) {
             return Functions::VALUE();
         }
     }
@@ -609,9 +606,9 @@ class MathTrig
         }
 
         try {
-            $matrix = new \PHPExcel\Shared\JAMA\Matrix($matrixData);
+            $matrix = new \PhpSpreadsheet\Shared\JAMA\Matrix($matrixData);
             return $matrix->inverse()->getArray();
-        } catch (\PHPExcel\Exception $ex) {
+        } catch (\PhpSpreadsheet\Exception $ex) {
             return Functions::VALUE();
         }
     }
@@ -650,7 +647,7 @@ class MathTrig
                 }
                 ++$rowA;
             }
-            $matrixA = new \PHPExcel\Shared\JAMA\Matrix($matrixAData);
+            $matrixA = new \PhpSpreadsheet\Shared\JAMA\Matrix($matrixAData);
             $rowB = 0;
             foreach ($matrixData2 as $matrixRow) {
                 if (!is_array($matrixRow)) {
@@ -666,14 +663,14 @@ class MathTrig
                 }
                 ++$rowB;
             }
-            $matrixB = new \PHPExcel\Shared\JAMA\Matrix($matrixBData);
+            $matrixB = new \PhpSpreadsheet\Shared\JAMA\Matrix($matrixBData);
 
             if ($columnA != $rowB) {
                 return Functions::VALUE();
             }
 
             return $matrixA->times($matrixB)->getArray();
-        } catch (\PHPExcel\Exception $ex) {
+        } catch (\PhpSpreadsheet\Exception $ex) {
             var_dump($ex->getMessage());
             return Functions::VALUE();
         }
@@ -1201,11 +1198,11 @@ class MathTrig
         foreach ($aArgs as $key => $arg) {
             if (!is_numeric($arg)) {
                 $arg = str_replace('"', '""', $arg);
-                $arg = \PHPExcel\Calculation::wrapResult(strtoupper($arg));
+                $arg = \PhpSpreadsheet\Calculation::wrapResult(strtoupper($arg));
             }
 
             $testCondition = '='.$arg.$condition;
-            if (\PHPExcel\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+            if (\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                 // Is it a value within our criteria
                 $returnValue += $sumArgs[$key];
             }
@@ -1249,10 +1246,10 @@ class MathTrig
             // Loop through arguments
             foreach ($aArgs as $key => $arg) {
                 if (!is_numeric($arg)) {
-                    $arg = \PHPExcel\Calculation::wrapResult(strtoupper($arg));
+                    $arg = \PhpSpreadsheet\Calculation::wrapResult(strtoupper($arg));
                 }
                 $testCondition = '='.$arg.$condition;
-                if (\PHPExcel\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+                if (\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                     // Is it a value within our criteria
                     $returnValue += $sumArgs[$key];
                 }

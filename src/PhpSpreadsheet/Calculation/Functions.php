@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPExcel\Calculation;
+namespace PhpSpreadsheet\Calculation;
 
 /** MAX_VALUE */
 define('MAX_VALUE', 1.2e308);
@@ -16,9 +16,7 @@ define('PRECISION', 8.88E-016);
 
 
 /**
- * PHPExcel_Calculation_Functions
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -34,9 +32,8 @@ define('PRECISION', 8.88E-016);
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
- * @category    PHPExcel
- * @package     PHPExcel_Calculation
- * @copyright   Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category    PhpSpreadsheet
+ * @copyright   Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version     ##VERSION##, ##DATE##
  */
@@ -316,7 +313,7 @@ class Functions
         }
         if (!in_array($condition{0}, array('>', '<', '='))) {
             if (!is_numeric($condition)) {
-                $condition = \PHPExcel\Calculation::wrapResult(strtoupper($condition));
+                $condition = \PhpSpreadsheet\Calculation::wrapResult(strtoupper($condition));
             }
             return '=' . $condition;
         } else {
@@ -325,7 +322,7 @@ class Functions
 
             if (!is_numeric($operand)) {
                 $operand = str_replace('"', '""', $operand);
-                $operand = \PHPExcel\Calculation::wrapResult(strtoupper($operand));
+                $operand = \PhpSpreadsheet\Calculation::wrapResult(strtoupper($operand));
             }
 
             return $operator . $operand;
@@ -518,7 +515,7 @@ class Functions
      */
     public static function VERSION()
     {
-        return 'PHPExcel ##VERSION##, ##DATE##';
+        return 'PhpSpreadsheet ##VERSION##, ##DATE##';
     }
 
 

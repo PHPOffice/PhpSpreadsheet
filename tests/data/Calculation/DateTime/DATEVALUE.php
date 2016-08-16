@@ -23,7 +23,7 @@ return [
         '29-02-1900',
         '#VALUE!',
     ],
-    // MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
+    // MS Excel will fail with a #VALUE return, but PhpSpreadsheet can parse this date
     [
         '29th February 1900',
         '#VALUE!',
@@ -48,7 +48,7 @@ return [
         '1-Jan-1904',
         1462,
     ],
-    // MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
+    // MS Excel will fail with a #VALUE return, but PhpSpreadsheet can parse this date
     [
         '2nd-Jan-1904',
         1463,
@@ -57,7 +57,7 @@ return [
         '19-12-1960',
         22269,
     ],
-    // MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
+    // MS Excel will fail with a #VALUE return, but PhpSpreadsheet can parse this date
     [
         '1st January 1970',
         25569,
@@ -78,7 +78,7 @@ return [
         '2-6-2008',
         39601,
     ],
-    // MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
+    // MS Excel will fail with a #VALUE return, but PhpSpreadsheet can parse this date
     [
         'December 25th 2008',
         39807,
@@ -92,7 +92,7 @@ return [
         '12-31-2008',
         39813,
     ],
-    // PHPExcel tries to handle both US and UK formats, irrespective of country settings
+    // PhpSpreadsheet tries to handle both US and UK formats, irrespective of country settings
     [
         '31-12-2008',
         39813,
@@ -102,7 +102,7 @@ return [
         '8/22/2008',
         39682,
     ],
-    // PHPExcel tries to handle both US and UK formats, irrespective of country settings
+    // PhpSpreadsheet tries to handle both US and UK formats, irrespective of country settings
     [
         '22/8/2008',
         39682,
@@ -128,12 +128,12 @@ return [
         '28-2-2007',
         39141,
     ],
-    // PHPExcel tries to handle both US and UK formats, irrespective of country settings
+    // PhpSpreadsheet tries to handle both US and UK formats, irrespective of country settings
     [
         '2-28-2007',
         39141,
     ],
-    // Should fail because it's an invalid date, but PHPExcel currently adjusts to 1-3-2007 - FIX NEEDED
+    // Should fail because it's an invalid date, but PhpSpreadsheet currently adjusts to 1-3-2007 - FIX NEEDED
     [
         '29-2-2007',
         '#VALUE!',
@@ -150,7 +150,7 @@ return [
         '22 August 98',
         36029,
     ],
-    // MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
+    // MS Excel will fail with a #VALUE return, but PhpSpreadsheet can parse this date
     [
         '1st March 2007',
         39142,
@@ -220,17 +220,17 @@ return [
         '12-Feb-2010',
         40221,
     ],
-    // MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
+    // MS Excel will fail with a #VALUE return, but PhpSpreadsheet can parse this date
     [
         'Feb-12-2010',
         40221,
     ],
-    // MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
+    // MS Excel will fail with a #VALUE return, but PhpSpreadsheet can parse this date
     [
         'February-12-2010',
         40221,
     ],
-    // MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
+    // MS Excel will fail with a #VALUE return, but PhpSpreadsheet can parse this date
     [
         'February 12 2010',
         40221,
@@ -239,22 +239,22 @@ return [
         '18 Feb 2010',
         40227,
     ],
-    // MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
+    // MS Excel will fail with a #VALUE return, but PhpSpreadsheet can parse this date
     [
         '17th 3rd 2010',
         40254,
     ],
-    // MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
+    // MS Excel will fail with a #VALUE return, but PhpSpreadsheet can parse this date
     [
         'Feb 18th 2010',
         40227,
     ],
-    // MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
+    // MS Excel will fail with a #VALUE return, but PhpSpreadsheet can parse this date
     [
         '1st Feb 2010',
         40210,
     ],
-    // MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
+    // MS Excel will fail with a #VALUE return, but PhpSpreadsheet can parse this date
     [
         '1st-Feb-2010',
         40210,
@@ -263,12 +263,12 @@ return [
         '1me Fev 2010',
         '#VALUE!',
     ],
-    // MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
+    // MS Excel will fail with a #VALUE return, but PhpSpreadsheet can parse this date
     [
         'February 1st 2010',
         40210,
     ],
-    // MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
+    // MS Excel will fail with a #VALUE return, but PhpSpreadsheet can parse this date
     [
         '2nd Feb 2010',
         40211,
@@ -281,7 +281,7 @@ return [
         'First August 2010',
         '#VALUE!',
     ],
-    // MS Excel will fail with a #VALUE return, but PHPExcel can parse this date
+    // MS Excel will fail with a #VALUE return, but PhpSpreadsheet can parse this date
     [
         '1st August 2010',
         40391,

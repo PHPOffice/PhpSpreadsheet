@@ -2,7 +2,7 @@
 
 namespace PhpSpreadsheet\Tests\Chart;
 
-use PHPExcel\Chart\Layout;
+use PhpSpreadsheet\Chart\Layout;
 
 class LayoutTest extends \PHPUnit_Framework_TestCase
 {

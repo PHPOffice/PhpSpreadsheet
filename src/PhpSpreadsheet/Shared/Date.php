@@ -1,11 +1,11 @@
 <?php
 
-namespace PHPExcel\Shared;
+namespace PhpSpreadsheet\Shared;
 
 /**
- * \PHPExcel\Shared\Date
+ * \PhpSpreadsheet\Shared\Date
  *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +21,8 @@ namespace PHPExcel\Shared;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Shared
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -311,10 +310,10 @@ class Date
     /**
      * Is a given cell a date/time?
      *
-     * @param   \PHPExcel\Cell    $pCell
+     * @param   \PhpSpreadsheet\Cell    $pCell
      * @return  boolean
      */
-    public static function isDateTime(\PHPExcel\Cell $pCell)
+    public static function isDateTime(\PhpSpreadsheet\Cell $pCell)
     {
         return self::isDateTimeFormat(
             $pCell->getWorksheet()->getStyle(
@@ -327,10 +326,10 @@ class Date
     /**
      * Is a given number format a date/time?
      *
-     * @param   \PHPExcel\Style\NumberFormat    $pFormat
+     * @param   \PhpSpreadsheet\Style\NumberFormat    $pFormat
      * @return  boolean
      */
-    public static function isDateTimeFormat(\PHPExcel\Style\NumberFormat $pFormat)
+    public static function isDateTimeFormat(\PhpSpreadsheet\Style\NumberFormat $pFormat)
     {
         return self::isDateTimeFormatCode($pFormat->getFormatCode());
     }
@@ -346,7 +345,7 @@ class Date
      */
     public static function isDateTimeFormatCode($pFormatCode = '')
     {
-        if (strtolower($pFormatCode) === strtolower(\PHPExcel\Style\NumberFormat::FORMAT_GENERAL)) {
+        if (strtolower($pFormatCode) === strtolower(\PhpSpreadsheet\Style\NumberFormat::FORMAT_GENERAL)) {
             //    "General" contains an epoch letter 'e', so we trap for it explicitly here (case-insensitive check)
             return false;
         }
@@ -358,28 +357,28 @@ class Date
         // Switch on formatcode
         switch ($pFormatCode) {
             //    Explicitly defined date formats
-            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_YYYYMMDD:
-            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2:
-            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_DDMMYYYY:
-            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_DMYSLASH:
-            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_DMYMINUS:
-            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_DMMINUS:
-            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_MYMINUS:
-            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_DATETIME:
-            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_TIME1:
-            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_TIME2:
-            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_TIME3:
-            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_TIME4:
-            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_TIME5:
-            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_TIME6:
-            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_TIME7:
-            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_TIME8:
-            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH:
-            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_XLSX14:
-            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_XLSX15:
-            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_XLSX16:
-            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_XLSX17:
-            case \PHPExcel\Style\NumberFormat::FORMAT_DATE_XLSX22:
+            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD:
+            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2:
+            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DDMMYYYY:
+            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DMYSLASH:
+            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DMYMINUS:
+            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DMMINUS:
+            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_MYMINUS:
+            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DATETIME:
+            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME1:
+            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME2:
+            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME3:
+            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4:
+            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME5:
+            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME6:
+            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME7:
+            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME8:
+            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH:
+            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX14:
+            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX15:
+            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX16:
+            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX17:
+            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX22:
                 return true;
         }
 
@@ -425,15 +424,15 @@ class Date
             return false;
         }
 
-        $dateValueNew = \PHPExcel\Calculation\DateTime::DATEVALUE($dateValue);
+        $dateValueNew = \PhpSpreadsheet\Calculation\DateTime::DATEVALUE($dateValue);
 
-        if ($dateValueNew === \PHPExcel\Calculation\Functions::VALUE()) {
+        if ($dateValueNew === \PhpSpreadsheet\Calculation\Functions::VALUE()) {
             return false;
         }
 
         if (strpos($dateValue, ':') !== false) {
-            $timeValue = \PHPExcel\Calculation\DateTime::TIMEVALUE($dateValue);
-            if ($timeValue === \PHPExcel\Calculation\Functions::VALUE()) {
+            $timeValue = \PhpSpreadsheet\Calculation\DateTime::TIMEVALUE($dateValue);
+            if ($timeValue === \PhpSpreadsheet\Calculation\Functions::VALUE()) {
                 return false;
             }
             $dateValueNew += $timeValue;

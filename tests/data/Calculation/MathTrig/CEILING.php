@@ -68,7 +68,7 @@ return [
         '#VALUE!',
     ],
     [
-        'PHPExcel',
+        'PhpSpreadsheet',
         '#VALUE!',
     ],
     [

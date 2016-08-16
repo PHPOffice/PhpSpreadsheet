@@ -2,8 +2,8 @@
 
 namespace PhpSpreadsheet\Tests\Calculation;
 
-use PHPExcel\Calculation\Functions;
-use PHPExcel\Calculation\Logical;
+use PhpSpreadsheet\Calculation\Functions;
+use PhpSpreadsheet\Calculation\Logical;
 
 class LogicalTest extends \PHPUnit_Framework_TestCase
 {

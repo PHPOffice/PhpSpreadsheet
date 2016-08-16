@@ -2,7 +2,7 @@
 
 namespace PhpSpreadsheet\Tests\Worksheet\AutoFilter\Column;
 
-use PHPExcel\Worksheet\AutoFilter\Column;
+use PhpSpreadsheet\Worksheet\AutoFilter\Column;
 
 class RuleTest extends \PHPUnit_Framework_TestCase
 {

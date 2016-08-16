@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel\Style;
+namespace PhpSpreadsheet\Style;
 
 /**
- * PHPExcel_Style_Conditional
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,13 +19,12 @@ namespace PHPExcel\Style;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Style
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class Conditional implements \PHPExcel\IComparable
+class Conditional implements \PhpSpreadsheet\IComparable
 {
     /* Condition types */
     const CONDITION_NONE         = 'none';
@@ -80,7 +77,7 @@ class Conditional implements \PHPExcel\IComparable
     /**
      * Style
      *
-     * @var \PHPExcel\Style
+     * @var \PhpSpreadsheet\Style
      */
     private $style;
 
@@ -94,7 +91,7 @@ class Conditional implements \PHPExcel\IComparable
         $this->operatorType  = self::OPERATOR_NONE;
         $this->text          = null;
         $this->condition     = array();
-        $this->style         = new \PHPExcel\Style(false, true);
+        $this->style         = new \PhpSpreadsheet\Style(false, true);
     }
 
     /**
@@ -234,7 +231,7 @@ class Conditional implements \PHPExcel\IComparable
     /**
      * Get Style
      *
-     * @return \PHPExcel\Style
+     * @return \PhpSpreadsheet\Style
      */
     public function getStyle()
     {
@@ -244,11 +241,11 @@ class Conditional implements \PHPExcel\IComparable
     /**
      * Set Style
      *
-     * @param   \PHPExcel\Style $pValue
-     * @throws  \PHPExcel\Exception
+     * @param   \PhpSpreadsheet\Style $pValue
+     * @throws  \PhpSpreadsheet\Exception
      * @return  Conditional
      */
-    public function setStyle(\PHPExcel\Style $pValue = null)
+    public function setStyle(\PhpSpreadsheet\Style $pValue = null)
     {
            $this->style = $pValue;
            return $this;

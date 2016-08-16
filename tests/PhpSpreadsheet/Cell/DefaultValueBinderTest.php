@@ -2,10 +2,10 @@
 
 namespace PhpSpreadsheet\Tests\Cell;
 
-use PHPExcel\Cell\DefaultValueBinder;
-use PHPExcel\Cell;
-use PHPExcel\RichText;
-use PHPExcel\Cell\DataType;
+use PhpSpreadsheet\Cell\DefaultValueBinder;
+use PhpSpreadsheet\Cell;
+use PhpSpreadsheet\RichText;
+use PhpSpreadsheet\Cell\DataType;
 
 class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
 {
@@ -13,10 +13,10 @@ class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (!defined('PHPEXCEL_ROOT')) {
-            define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
+        if (!defined('PHPSPREADSHEET_ROOT')) {
+            define('PHPSPREADSHEET_ROOT', APPLICATION_PATH . '/');
         }
-        require_once(PHPEXCEL_ROOT . '/Bootstrap.php');
+        require_once(PHPSPREADSHEET_ROOT . '/Bootstrap.php');
     }
 
     protected function createCellStub()

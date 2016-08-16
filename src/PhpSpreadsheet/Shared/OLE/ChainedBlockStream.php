@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel\Shared\OLE;
+namespace PhpSpreadsheet\Shared\OLE;
 
 /**
- * PHPExcel_Shared_OLE_ChainedBlockStream
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,8 +19,7 @@ namespace PHPExcel\Shared\OLE;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Shared_OLE
+ * @category   PhpSpreadsheet
  * @copyright  Copyright (c) 2006 - 2007 Christian Schmidt
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version ##VERSION##, ##DATE##

@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPExcel\Calculation;
+namespace PhpSpreadsheet\Calculation;
 
 /** FINANCIAL_MAX_ITERATIONS */
 define('FINANCIAL_MAX_ITERATIONS', 128);
@@ -9,9 +9,7 @@ define('FINANCIAL_MAX_ITERATIONS', 128);
 define('FINANCIAL_PRECISION', 1.0e-08);
 
 /**
- * PHPExcel_Calculation_Financial
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -27,9 +25,8 @@ define('FINANCIAL_PRECISION', 1.0e-08);
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
- * @category    PHPExcel
- * @package        PHPExcel_Calculation
- * @copyright    Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category    PhpSpreadsheet
+ * @copyright    Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version        ##VERSION##, ##DATE##
  */
@@ -67,10 +64,10 @@ class Financial
     {
         $months = 12 / $frequency;
 
-        $result = \PHPExcel\Shared\Date::excelToDateTimeObject($maturity);
+        $result = \PhpSpreadsheet\Shared\Date::excelToDateTimeObject($maturity);
         $eom = self::isLastDayOfMonth($result);
 
-        while ($settlement < \PHPExcel\Shared\Date::PHPToExcel($result)) {
+        while ($settlement < \PhpSpreadsheet\Shared\Date::PHPToExcel($result)) {
             $result->modify('-'.$months.' months');
         }
         if ($next) {
@@ -81,7 +78,7 @@ class Financial
             $result->modify('-1 day');
         }
 
-        return \PHPExcel\Shared\Date::PHPToExcel($result);
+        return \PhpSpreadsheet\Shared\Date::PHPToExcel($result);
     }
 
 

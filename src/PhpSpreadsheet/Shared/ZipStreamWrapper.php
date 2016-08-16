@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel\Shared;
+namespace PhpSpreadsheet\Shared;
 
 /**
- * PHPExcel_Shared_ZipStreamWrapper
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +19,8 @@ namespace PHPExcel\Shared;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Shared
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -74,13 +71,13 @@ class ZipStreamWrapper
      * @param    int        $options        mask of STREAM_REPORT_ERRORS and STREAM_USE_PATH
      * @param    string  &$openedPath    absolute path of the opened stream (out parameter)
      * @return   bool    true on success
-     * @throws   \PHPExcel\Reader\Exception
+     * @throws   \PhpSpreadsheet\Reader\Exception
      */
     public function stream_open($path, $mode, $options, &$opened_path) // @codingStandardsIgnoreLine
     {
         // Check for mode
         if ($mode{0} != 'r') {
-            throw new \PHPExcel\Reader\Exception('Mode ' . $mode . ' is not supported. Only read mode is supported.');
+            throw new \PhpSpreadsheet\Reader\Exception('Mode ' . $mode . ' is not supported. Only read mode is supported.');
         }
 
         $pos = strrpos($path, '#');
@@ -88,7 +85,7 @@ class ZipStreamWrapper
         $url['fragment'] = substr($path, $pos + 1);
 
         // Open archive
-        $zipClass = \PHPExcel\Settings::getZipClass();
+        $zipClass = \PhpSpreadsheet\Settings::getZipClass();
         $this->archive = new $zipClass();
         $this->archive->open($url['host']);
 

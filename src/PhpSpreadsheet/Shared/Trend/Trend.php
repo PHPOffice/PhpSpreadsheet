@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel\Shared\Trend;
+namespace PhpSpreadsheet\Shared\Trend;
 
 /**
- * PHPExcel_\PHPExcel\Shared\Trend\Trend
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +19,8 @@ namespace PHPExcel\Shared\Trend;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Shared_Trend
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -98,7 +95,7 @@ class Trend
             case self::TREND_EXPONENTIAL:
             case self::TREND_POWER:
                 if (!isset(self::$trendCache[$key])) {
-                    $className = '\PHPExcel\Shared\Trend\\'.$trendType.'BestFit';
+                    $className = '\PhpSpreadsheet\Shared\Trend\\'.$trendType.'BestFit';
                     self::$trendCache[$key] = new $className($yValues, $xValues, $const);
                 }
                 return self::$trendCache[$key];
@@ -117,7 +114,7 @@ class Trend
                 //    If the request is to determine the best fit regression, then we test each Trend line in turn
                 //    Start by generating an instance of each available Trend method
                 foreach (self::$trendTypes as $trendMethod) {
-                    $className = '\PHPExcel\Shared\Trend\\'.$trendType.'BestFit';
+                    $className = '\PhpSpreadsheet\Shared\Trend\\'.$trendType.'BestFit';
                     $bestFit[$trendMethod] = new $className($yValues, $xValues, $const);
                     $bestFitValue[$trendMethod] = $bestFit[$trendMethod]->getGoodnessOfFit();
                 }

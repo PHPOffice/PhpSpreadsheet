@@ -2,9 +2,9 @@
 
 namespace PhpSpreadsheet\Tests\Calculation;
 
-use PHPExcel\Calculation;
-use PHPExcel\Calculation\Functions;
-use PHPExcel\Calculation\MathTrig;
+use PhpSpreadsheet\Calculation;
+use PhpSpreadsheet\Calculation\Functions;
+use PhpSpreadsheet\Calculation\MathTrig;
 
 class MathTrigTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel\Reader;
+namespace PhpSpreadsheet\Reader;
 
 /**
- * PHPExcel_Reader_Excel5
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +19,8 @@ namespace PHPExcel\Reader;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Reader_Excel5
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -146,7 +143,7 @@ class Excel5 extends BaseReader implements IReader
     const MS_BIFF_CRYPTO_NONE           = 0;
     const MS_BIFF_CRYPTO_XOR            = 1;
     const MS_BIFF_CRYPTO_RC4            = 2;
-    
+
     // Size of stream blocks when using RC4 encryption
     const REKEY_BLOCK                   = 0x400;
 
@@ -195,9 +192,9 @@ class Excel5 extends BaseReader implements IReader
     /**
      * Workbook to be returned by the reader.
      *
-     * @var \PHPExcel\Spreadsheet
+     * @var \PhpSpreadsheet\Spreadsheet
      */
-    private $phpExcel;
+    private $spreadsheet;
 
     /**
      * Worksheet that is currently being built by the reader.
@@ -375,7 +372,7 @@ class Excel5 extends BaseReader implements IReader
      * @var int
      */
     private $encryption = 0;
-    
+
     /**
      * The position in the stream after which contents are encrypted
      *
@@ -428,18 +425,18 @@ class Excel5 extends BaseReader implements IReader
 
         try {
             // Use ParseXL for the hard work.
-            $ole = new \PHPExcel\Shared\OLERead();
+            $ole = new \PhpSpreadsheet\Shared\OLERead();
 
             // get excel data
             $res = $ole->read($pFilename);
             return true;
-        } catch (\PHPExcel\Exception $e) {
+        } catch (\PhpSpreadsheet\Exception $e) {
             return false;
         }
     }
 
     /**
-     * Reads names of the worksheets from a file, without parsing the whole file to a PHPExcel object
+     * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object
      *
      * @param     string         $pFilename
      * @throws     Exception
@@ -592,7 +589,7 @@ class Excel5 extends BaseReader implements IReader
                 }
             }
 
-            $tmpInfo['lastColumnLetter'] = \PHPExcel\Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
+            $tmpInfo['lastColumnLetter'] = \PhpSpreadsheet\Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
             $tmpInfo['totalColumns'] = $tmpInfo['lastColumnIndex'] + 1;
 
             $worksheetInfo[] = $tmpInfo;
@@ -603,10 +600,10 @@ class Excel5 extends BaseReader implements IReader
 
 
     /**
-     * Loads PHPExcel from file
+     * Loads PhpSpreadsheet from file
      *
      * @param     string         $pFilename
-     * @return    \PHPExcel\Spreadsheet
+     * @return    \PhpSpreadsheet\Spreadsheet
      * @throws    Exception
      */
     public function load($pFilename)
@@ -615,11 +612,11 @@ class Excel5 extends BaseReader implements IReader
         $this->loadOLE($pFilename);
 
         // Initialisations
-        $this->phpExcel = new \PHPExcel\Spreadsheet();
-        $this->phpExcel->removeSheetByIndex(0); // remove 1st sheet
+        $this->spreadsheet = new \PhpSpreadsheet\Spreadsheet();
+        $this->spreadsheet->removeSheetByIndex(0); // remove 1st sheet
         if (!$this->readDataOnly) {
-            $this->phpExcel->removeCellStyleXfByIndex(0); // remove the default style
-            $this->phpExcel->removeCellXfByIndex(0); // remove the default style
+            $this->spreadsheet->removeCellStyleXfByIndex(0); // remove the default style
+            $this->spreadsheet->removeCellXfByIndex(0); // remove the default style
         }
 
         // Read the summary information stream (containing meta data)
@@ -722,7 +719,7 @@ class Excel5 extends BaseReader implements IReader
                 }
             }
 
-            foreach ($this->phpExcel->getCellXfCollection() as $objStyle) {
+            foreach ($this->spreadsheet->getCellXfCollection() as $objStyle) {
                 // fill start and end color
                 $fill = $objStyle->getFill();
 
@@ -767,7 +764,7 @@ class Excel5 extends BaseReader implements IReader
 
         // treat MSODRAWINGGROUP records, workbook-level Escher
         if (!$this->readDataOnly && $this->drawingGroupData) {
-            $escherWorkbook = new \PHPExcel\Shared\Escher();
+            $escherWorkbook = new \PhpSpreadsheet\Shared\Escher();
             $reader = new Excel5\Escher($escherWorkbook);
             $escherWorkbook = $reader->load($this->drawingGroupData);
         }
@@ -784,8 +781,8 @@ class Excel5 extends BaseReader implements IReader
                 continue;
             }
 
-            // add sheet to PHPExcel object
-            $this->phpSheet = $this->phpExcel->createSheet();
+            // add sheet to PhpSpreadsheet object
+            $this->phpSheet = $this->spreadsheet->createSheet();
             //    Use false for $updateFormulaCellReferences to prevent adjustment of worksheet references in formula
             //        cells... during the load, all formulae should be correct, and we're simply bringing the worksheet
             //        name in line with the formula, not the reverse
@@ -985,7 +982,7 @@ class Excel5 extends BaseReader implements IReader
 
             // treat MSODRAWING records, sheet-level Escher
             if (!$this->readDataOnly && $this->drawingData) {
-                $escherWorksheet = new \PHPExcel\Shared\Escher();
+                $escherWorksheet = new \PhpSpreadsheet\Shared\Escher();
                 $reader = new Excel5\Escher($escherWorksheet);
                 $escherWorksheet = $reader->load($this->drawingData);
 
@@ -1009,20 +1006,20 @@ class Excel5 extends BaseReader implements IReader
                     }
 
                     // calculate the width and height of the shape
-                    list($startColumn, $startRow) = \PHPExcel\Cell::coordinateFromString($spContainer->getStartCoordinates());
-                    list($endColumn, $endRow) = \PHPExcel\Cell::coordinateFromString($spContainer->getEndCoordinates());
+                    list($startColumn, $startRow) = \PhpSpreadsheet\Cell::coordinateFromString($spContainer->getStartCoordinates());
+                    list($endColumn, $endRow) = \PhpSpreadsheet\Cell::coordinateFromString($spContainer->getEndCoordinates());
 
                     $startOffsetX = $spContainer->getStartOffsetX();
                     $startOffsetY = $spContainer->getStartOffsetY();
                     $endOffsetX = $spContainer->getEndOffsetX();
                     $endOffsetY = $spContainer->getEndOffsetY();
 
-                    $width = \PHPExcel\Shared\Excel5::getDistanceX($this->phpSheet, $startColumn, $startOffsetX, $endColumn, $endOffsetX);
-                    $height = \PHPExcel\Shared\Excel5::getDistanceY($this->phpSheet, $startRow, $startOffsetY, $endRow, $endOffsetY);
+                    $width = \PhpSpreadsheet\Shared\Excel5::getDistanceX($this->phpSheet, $startColumn, $startOffsetX, $endColumn, $endOffsetX);
+                    $height = \PhpSpreadsheet\Shared\Excel5::getDistanceY($this->phpSheet, $startRow, $startOffsetY, $endRow, $endOffsetY);
 
                     // calculate offsetX and offsetY of the shape
-                    $offsetX = $startOffsetX * \PHPExcel\Shared\Excel5::sizeCol($this->phpSheet, $startColumn) / 1024;
-                    $offsetY = $startOffsetY * \PHPExcel\Shared\Excel5::sizeRow($this->phpSheet, $startRow) / 256;
+                    $offsetX = $startOffsetX * \PhpSpreadsheet\Shared\Excel5::sizeCol($this->phpSheet, $startColumn) / 1024;
+                    $offsetY = $startOffsetY * \PhpSpreadsheet\Shared\Excel5::sizeRow($this->phpSheet, $startRow) / 256;
 
                     switch ($obj['otObjType']) {
                         case 0x19:
@@ -1050,7 +1047,7 @@ class Excel5 extends BaseReader implements IReader
                             // need check because some blip types are not supported by Escher reader such as EMF
                             if ($blip = $BSE->getBlip()) {
                                 $ih = imagecreatefromstring($blip->getData());
-                                $drawing = new \PHPExcel\Worksheet\MemoryDrawing();
+                                $drawing = new \PhpSpreadsheet\Worksheet\MemoryDrawing();
                                 $drawing->setImageResource($ih);
 
                                 // width, height, offsetX, offsetY
@@ -1061,13 +1058,13 @@ class Excel5 extends BaseReader implements IReader
                                 $drawing->setOffsetY($offsetY);
 
                                 switch ($blipType) {
-                                    case \PHPExcel\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_JPEG:
-                                        $drawing->setRenderingFunction(\PHPExcel\Worksheet\MemoryDrawing::RENDERING_JPEG);
-                                        $drawing->setMimeType(\PHPExcel\Worksheet\MemoryDrawing::MIMETYPE_JPEG);
+                                    case \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_JPEG:
+                                        $drawing->setRenderingFunction(\PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_JPEG);
+                                        $drawing->setMimeType(\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_JPEG);
                                         break;
-                                    case \PHPExcel\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_PNG:
-                                        $drawing->setRenderingFunction(\PHPExcel\Worksheet\MemoryDrawing::RENDERING_PNG);
-                                        $drawing->setMimeType(\PHPExcel\Worksheet\MemoryDrawing::MIMETYPE_PNG);
+                                    case \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_PNG:
+                                        $drawing->setRenderingFunction(\PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_PNG);
+                                        $drawing->setMimeType(\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_PNG);
                                         break;
                                 }
 
@@ -1085,10 +1082,10 @@ class Excel5 extends BaseReader implements IReader
             // treat SHAREDFMLA records
             if ($this->version == self::XLS_BIFF8) {
                 foreach ($this->sharedFormulaParts as $cell => $baseCell) {
-                    list($column, $row) = \PHPExcel\Cell::coordinateFromString($cell);
+                    list($column, $row) = \PhpSpreadsheet\Cell::coordinateFromString($cell);
                     if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($column, $row, $this->phpSheet->getTitle())) {
                         $formula = $this->getFormulaFromStructure($this->sharedFormulas[$baseCell], $cell);
-                        $this->phpSheet->getCell($cell)->setValueExplicit('=' . $formula, \PHPExcel\Cell\DataType::TYPE_FORMULA);
+                        $this->phpSheet->getCell($cell)->setValueExplicit('=' . $formula, \PhpSpreadsheet\Cell\DataType::TYPE_FORMULA);
                     }
                 }
             }
@@ -1135,7 +1132,7 @@ class Excel5 extends BaseReader implements IReader
                                 $extractedRanges[] = str_replace('$', '', $explodes[1]); // C7:J66
                             }
                         }
-                        if ($docSheet = $this->phpExcel->getSheetByName($sheetName)) {
+                        if ($docSheet = $this->spreadsheet->getSheetByName($sheetName)) {
                             $docSheet->getPageSetup()->setPrintArea(implode(',', $extractedRanges)); // C7:J66,A1:IV2
                         }
                         break;
@@ -1157,14 +1154,14 @@ class Excel5 extends BaseReader implements IReader
                             //        Sheet!$A$1:$IV$2
                             $explodes = explode('!', $range);
                             if (count($explodes) == 2) {
-                                if ($docSheet = $this->phpExcel->getSheetByName($explodes[0])) {
+                                if ($docSheet = $this->spreadsheet->getSheetByName($explodes[0])) {
                                     $extractedRange = $explodes[1];
                                     $extractedRange = str_replace('$', '', $extractedRange);
 
                                     $coordinateStrings = explode(':', $extractedRange);
                                     if (count($coordinateStrings) == 2) {
-                                        list($firstColumn, $firstRow) = \PHPExcel\Cell::coordinateFromString($coordinateStrings[0]);
-                                        list($lastColumn, $lastRow) = \PHPExcel\Cell::coordinateFromString($coordinateStrings[1]);
+                                        list($firstColumn, $firstRow) = \PhpSpreadsheet\Cell::coordinateFromString($coordinateStrings[0]);
+                                        list($lastColumn, $lastRow) = \PhpSpreadsheet\Cell::coordinateFromString($coordinateStrings[1]);
 
                                         if ($firstColumn == 'A' and $lastColumn == 'IV') {
                                             // then we have repeating rows
@@ -1184,16 +1181,16 @@ class Excel5 extends BaseReader implements IReader
                 $explodes = explode('!', $definedName['formula']);
 
                 if (count($explodes) == 2) {
-                    if (($docSheet = $this->phpExcel->getSheetByName($explodes[0])) ||
-                        ($docSheet = $this->phpExcel->getSheetByName(trim($explodes[0], "'")))) {
+                    if (($docSheet = $this->spreadsheet->getSheetByName($explodes[0])) ||
+                        ($docSheet = $this->spreadsheet->getSheetByName(trim($explodes[0], "'")))) {
                         $extractedRange = $explodes[1];
                         $extractedRange = str_replace('$', '', $extractedRange);
 
                         $localOnly = ($definedName['scope'] == 0) ? false : true;
 
-                        $scope = ($definedName['scope'] == 0) ? null : $this->phpExcel->getSheetByName($this->sheets[$definedName['scope'] - 1]['name']);
+                        $scope = ($definedName['scope'] == 0) ? null : $this->spreadsheet->getSheetByName($this->sheets[$definedName['scope'] - 1]['name']);
 
-                        $this->phpExcel->addNamedRange(new \PHPExcel\NamedRange((string) $definedName['name'], $docSheet, $extractedRange, $localOnly, $scope));
+                        $this->spreadsheet->addNamedRange(new \PhpSpreadsheet\NamedRange((string) $definedName['name'], $docSheet, $extractedRange, $localOnly, $scope));
                     }
                 } else {
                     //    Named Value
@@ -1203,9 +1200,9 @@ class Excel5 extends BaseReader implements IReader
         }
         $this->data = null;
 
-        return $this->phpExcel;
+        return $this->spreadsheet;
     }
-    
+
     /**
      * Read record data from stream, decrypting as required
      *
@@ -1218,12 +1215,12 @@ class Excel5 extends BaseReader implements IReader
     private function readRecordData($data, $pos, $len)
     {
         $data = substr($data, $pos, $len);
-        
+
         // File not encrypted, or record before encryption start point
         if ($this->encryption == self::MS_BIFF_CRYPTO_NONE || $pos < $this->encryptionStartPos) {
             return $data;
         }
-    
+
         $recordData = '';
         if ($this->encryption == self::MS_BIFF_CRYPTO_RC4) {
             $oldBlock = floor($this->rc4Pos / self::REKEY_BLOCK);
@@ -1269,7 +1266,7 @@ class Excel5 extends BaseReader implements IReader
     private function loadOLE($pFilename)
     {
         // OLE reader
-        $ole = new \PHPExcel\Shared\OLERead();
+        $ole = new \PhpSpreadsheet\Shared\OLERead();
         // get excel data,
         $res = $ole->read($pFilename);
         // Get workbook data: workbook stream + sheet streams
@@ -1343,12 +1340,12 @@ class Excel5 extends BaseReader implements IReader
                 case 0x1E: // null-terminated string prepended by dword string length
                     $byteLength = self::getInt4d($this->summaryInformation, $secOffset + 4 + $offset);
                     $value = substr($this->summaryInformation, $secOffset + 8 + $offset, $byteLength);
-                    $value = \PHPExcel\Shared\StringHelper::convertEncoding($value, 'UTF-8', $codePage);
+                    $value = \PhpSpreadsheet\Shared\StringHelper::convertEncoding($value, 'UTF-8', $codePage);
                     $value = rtrim($value);
                     break;
                 case 0x40: // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
                     // PHP-time
-                    $value = \PHPExcel\Shared\OLE::OLE2LocalDate(substr($this->summaryInformation, $secOffset + 4 + $offset, 8));
+                    $value = \PhpSpreadsheet\Shared\OLE::OLE2LocalDate(substr($this->summaryInformation, $secOffset + 4 + $offset, 8));
                     break;
                 case 0x47: // Clipboard format
                     // not needed yet, fix later if necessary
@@ -1357,61 +1354,61 @@ class Excel5 extends BaseReader implements IReader
 
             switch ($id) {
                 case 0x01:    //    Code Page
-                    $codePage = \PHPExcel\Shared\CodePage::numberToName($value);
+                    $codePage = \PhpSpreadsheet\Shared\CodePage::numberToName($value);
                     break;
                 case 0x02:    //    Title
-                    $this->phpExcel->getProperties()->setTitle($value);
+                    $this->spreadsheet->getProperties()->setTitle($value);
                     break;
                 case 0x03:    //    Subject
-                    $this->phpExcel->getProperties()->setSubject($value);
+                    $this->spreadsheet->getProperties()->setSubject($value);
                     break;
                 case 0x04:    //    Author (Creator)
-                    $this->phpExcel->getProperties()->setCreator($value);
+                    $this->spreadsheet->getProperties()->setCreator($value);
                     break;
                 case 0x05:    //    Keywords
-                    $this->phpExcel->getProperties()->setKeywords($value);
+                    $this->spreadsheet->getProperties()->setKeywords($value);
                     break;
                 case 0x06:    //    Comments (Description)
-                    $this->phpExcel->getProperties()->setDescription($value);
+                    $this->spreadsheet->getProperties()->setDescription($value);
                     break;
                 case 0x07:    //    Template
-                    //    Not supported by PHPExcel
+                    //    Not supported by PhpSpreadsheet
                     break;
                 case 0x08:    //    Last Saved By (LastModifiedBy)
-                    $this->phpExcel->getProperties()->setLastModifiedBy($value);
+                    $this->spreadsheet->getProperties()->setLastModifiedBy($value);
                     break;
                 case 0x09:    //    Revision
-                    //    Not supported by PHPExcel
+                    //    Not supported by PhpSpreadsheet
                     break;
                 case 0x0A:    //    Total Editing Time
-                    //    Not supported by PHPExcel
+                    //    Not supported by PhpSpreadsheet
                     break;
                 case 0x0B:    //    Last Printed
-                    //    Not supported by PHPExcel
+                    //    Not supported by PhpSpreadsheet
                     break;
                 case 0x0C:    //    Created Date/Time
-                    $this->phpExcel->getProperties()->setCreated($value);
+                    $this->spreadsheet->getProperties()->setCreated($value);
                     break;
                 case 0x0D:    //    Modified Date/Time
-                    $this->phpExcel->getProperties()->setModified($value);
+                    $this->spreadsheet->getProperties()->setModified($value);
                     break;
                 case 0x0E:    //    Number of Pages
-                    //    Not supported by PHPExcel
+                    //    Not supported by PhpSpreadsheet
                     break;
                 case 0x0F:    //    Number of Words
-                    //    Not supported by PHPExcel
+                    //    Not supported by PhpSpreadsheet
                     break;
                 case 0x10:    //    Number of Characters
-                    //    Not supported by PHPExcel
+                    //    Not supported by PhpSpreadsheet
                     break;
                 case 0x11:    //    Thumbnail
-                    //    Not supported by PHPExcel
+                    //    Not supported by PhpSpreadsheet
                     break;
                 case 0x12:    //    Name of creating application
-                    //    Not supported by PHPExcel
+                    //    Not supported by PhpSpreadsheet
                     break;
                 case 0x13:    //    Security
-                    //    Not supported by PHPExcel
+                    //    Not supported by PhpSpreadsheet
                     break;
             }
         }
@@ -1489,12 +1486,12 @@ class Excel5 extends BaseReader implements IReader
                 case 0x1E:    //    null-terminated string prepended by dword string length
                     $byteLength = self::getInt4d($this->documentSummaryInformation, $secOffset + 4 + $offset);
                     $value = substr($this->documentSummaryInformation, $secOffset + 8 + $offset, $byteLength);
-                    $value = \PHPExcel\Shared\StringHelper::convertEncoding($value, 'UTF-8', $codePage);
+                    $value = \PhpSpreadsheet\Shared\StringHelper::convertEncoding($value, 'UTF-8', $codePage);
                     $value = rtrim($value);
                     break;
                 case 0x40:    //    Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
                     // PHP-Time
-                    $value = \PHPExcel\Shared\OLE::OLE2LocalDate(substr($this->documentSummaryInformation, $secOffset + 4 + $offset, 8));
+                    $value = \PhpSpreadsheet\Shared\OLE::OLE2LocalDate(substr($this->documentSummaryInformation, $secOffset + 4 + $offset, 8));
                     break;
                 case 0x47:    //    Clipboard format
                     // not needed yet, fix later if necessary
@@ -1503,52 +1500,52 @@ class Excel5 extends BaseReader implements IReader
 
             switch ($id) {
                 case 0x01:    //    Code Page
-                    $codePage = \PHPExcel\Shared\CodePage::numberToName($value);
+                    $codePage = \PhpSpreadsheet\Shared\CodePage::numberToName($value);
                     break;
                 case 0x02:    //    Category
-                    $this->phpExcel->getProperties()->setCategory($value);
+                    $this->spreadsheet->getProperties()->setCategory($value);
                     break;
                 case 0x03:    //    Presentation Target
-                    //    Not supported by PHPExcel
+                    //    Not supported by PhpSpreadsheet
                     break;
                 case 0x04:    //    Bytes
-                    //    Not supported by PHPExcel
+                    //    Not supported by PhpSpreadsheet
                     break;
                 case 0x05:    //    Lines
-                    //    Not supported by PHPExcel
+                    //    Not supported by PhpSpreadsheet
                     break;
                 case 0x06:    //    Paragraphs
-                    //    Not supported by PHPExcel
+                    //    Not supported by PhpSpreadsheet
                     break;
                 case 0x07:    //    Slides
-                    //    Not supported by PHPExcel
+                    //    Not supported by PhpSpreadsheet
                     break;
                 case 0x08:    //    Notes
-                    //    Not supported by PHPExcel
+                    //    Not supported by PhpSpreadsheet
                     break;
                 case 0x09:    //    Hidden Slides
-                    //    Not supported by PHPExcel
+                    //    Not supported by PhpSpreadsheet
                     break;
                 case 0x0A:    //    MM Clips
-                    //    Not supported by PHPExcel
+                    //    Not supported by PhpSpreadsheet
                     break;
                 case 0x0B:    //    Scale Crop
-                    //    Not supported by PHPExcel
+                    //    Not supported by PhpSpreadsheet
                     break;
                 case 0x0C:    //    Heading Pairs
-                    //    Not supported by PHPExcel
+                    //    Not supported by PhpSpreadsheet
                     break;
                 case 0x0D:    //    Titles of Parts
-                    //    Not supported by PHPExcel
+                    //    Not supported by PhpSpreadsheet
                     break;
                 case 0x0E:    //    Manager
-                    $this->phpExcel->getProperties()->setManager($value);
+                    $this->spreadsheet->getProperties()->setManager($value);
                     break;
                 case 0x0F:    //    Company
-                    $this->phpExcel->getProperties()->setCompany($value);
+                    $this->spreadsheet->getProperties()->setCompany($value);
                     break;
                 case 0x10:    //    Links up-to-date
-                    //    Not supported by PHPExcel
+                    //    Not supported by PhpSpreadsheet
                     break;
             }
         }
@@ -1762,7 +1759,7 @@ class Excel5 extends BaseReader implements IReader
         for ($i = 0; $i < 5; $i++) {
             $pwarray[$i] = $valContext[$i];
         }
-        
+
         $pwarray[5] = chr($block & 0xff);
         $pwarray[6] = chr(($block >> 8) & 0xff);
         $pwarray[7] = chr(($block >> 16) & 0xff);
@@ -1851,7 +1848,7 @@ class Excel5 extends BaseReader implements IReader
 
         $salt = $key->RC4($salt_data);
         $hashedsalt = $key->RC4($hashedsalt_data);
-        
+
         $salt .= "\x80" . str_repeat("\0", 47);
         $salt[56] = "\x80";
 
@@ -1882,7 +1879,7 @@ class Excel5 extends BaseReader implements IReader
         // offset: 0; size: 2; code page identifier
         $codepage = self::getInt2d($recordData, 0);
 
-        $this->codepage = \PHPExcel\Shared\CodePage::numberToName($codepage);
+        $this->codepage = \PhpSpreadsheet\Shared\CodePage::numberToName($codepage);
     }
 
 
@@ -1907,9 +1904,9 @@ class Excel5 extends BaseReader implements IReader
         $this->pos += 4 + $length;
 
         // offset: 0; size: 2; 0 = base 1900, 1 = base 1904
-        \PHPExcel\Shared\Date::setExcelCalendar(\PHPExcel\Shared\Date::CALENDAR_WINDOWS_1900);
+        \PhpSpreadsheet\Shared\Date::setExcelCalendar(\PhpSpreadsheet\Shared\Date::CALENDAR_WINDOWS_1900);
         if (ord($recordData{0}) == 1) {
-            \PHPExcel\Shared\Date::setExcelCalendar(\PHPExcel\Shared\Date::CALENDAR_MAC_1904);
+            \PhpSpreadsheet\Shared\Date::setExcelCalendar(\PhpSpreadsheet\Shared\Date::CALENDAR_MAC_1904);
         }
     }
 
@@ -1926,7 +1923,7 @@ class Excel5 extends BaseReader implements IReader
         $this->pos += 4 + $length;
 
         if (!$this->readDataOnly) {
-            $objFont = new \PHPExcel\Style\Font();
+            $objFont = new \PhpSpreadsheet\Style\Font();
 
             // offset: 0; size: 2; height of the font (in twips = 1/20 of a point)
             $size = self::getInt2d($recordData, 0);
@@ -1976,16 +1973,16 @@ class Excel5 extends BaseReader implements IReader
                 case 0x00:
                     break; // no underline
                 case 0x01:
-                    $objFont->setUnderline(\PHPExcel\Style\Font::UNDERLINE_SINGLE);
+                    $objFont->setUnderline(\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE);
                     break;
                 case 0x02:
-                    $objFont->setUnderline(\PHPExcel\Style\Font::UNDERLINE_DOUBLE);
+                    $objFont->setUnderline(\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE);
                     break;
                 case 0x21:
-                    $objFont->setUnderline(\PHPExcel\Style\Font::UNDERLINE_SINGLEACCOUNTING);
+                    $objFont->setUnderline(\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLEACCOUNTING);
                     break;
                 case 0x22:
-                    $objFont->setUnderline(\PHPExcel\Style\Font::UNDERLINE_DOUBLEACCOUNTING);
+                    $objFont->setUnderline(\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLEACCOUNTING);
                     break;
             }
 
@@ -2065,7 +2062,7 @@ class Excel5 extends BaseReader implements IReader
         // move stream pointer to next record
         $this->pos += 4 + $length;
 
-        $objStyle = new \PHPExcel\Style();
+        $objStyle = new \PhpSpreadsheet\Style();
 
         if (!$this->readDataOnly) {
             // offset:  0; size: 2; Index to FONT record
@@ -2083,7 +2080,7 @@ class Excel5 extends BaseReader implements IReader
             if (isset($this->formats[$numberFormatIndex])) {
                 // then we have user-defined format code
                 $numberformat = array('code' => $this->formats[$numberFormatIndex]);
-            } elseif (($code = \PHPExcel\Style\NumberFormat::builtInFormatCode($numberFormatIndex)) !== '') {
+            } elseif (($code = \PhpSpreadsheet\Style\NumberFormat::builtInFormatCode($numberFormatIndex)) !== '') {
                 // then we have built-in format code
                 $numberformat = array('code' => $code);
             } else {
@@ -2097,11 +2094,11 @@ class Excel5 extends BaseReader implements IReader
             $xfTypeProt = self::getInt2d($recordData, 4);
             // bit 0; mask 0x01; 1 = cell is locked
             $isLocked = (0x01 & $xfTypeProt) >> 0;
-            $objStyle->getProtection()->setLocked($isLocked ? \PHPExcel\Style\Protection::PROTECTION_INHERIT : \PHPExcel\Style\Protection::PROTECTION_UNPROTECTED);
+            $objStyle->getProtection()->setLocked($isLocked ? \PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT : \PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
 
             // bit 1; mask 0x02; 1 = Formula is hidden
             $isHidden = (0x02 & $xfTypeProt) >> 1;
-            $objStyle->getProtection()->setHidden($isHidden ? \PHPExcel\Style\Protection::PROTECTION_PROTECTED : \PHPExcel\Style\Protection::PROTECTION_UNPROTECTED);
+            $objStyle->getProtection()->setHidden($isHidden ? \PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED : \PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
 
             // bit 2; mask 0x04; 0 = Cell XF, 1 = Cell Style XF
             $isCellStyleXf = (0x04 & $xfTypeProt) >> 2;
@@ -2111,25 +2108,25 @@ class Excel5 extends BaseReader implements IReader
             $horAlign = (0x07 & ord($recordData{6})) >> 0;
             switch ($horAlign) {
                 case 0:
-                    $objStyle->getAlignment()->setHorizontal(\PHPExcel\Style\Alignment::HORIZONTAL_GENERAL);
+                    $objStyle->getAlignment()->setHorizontal(\PhpSpreadsheet\Style\Alignment::HORIZONTAL_GENERAL);
                     break;
                 case 1:
-                    $objStyle->getAlignment()->setHorizontal(\PHPExcel\Style\Alignment::HORIZONTAL_LEFT);
+                    $objStyle->getAlignment()->setHorizontal(\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
                     break;
                 case 2:
-                    $objStyle->getAlignment()->setHorizontal(\PHPExcel\Style\Alignment::HORIZONTAL_CENTER);
+                    $objStyle->getAlignment()->setHorizontal(\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                     break;
                 case 3:
-                    $objStyle->getAlignment()->setHorizontal(\PHPExcel\Style\Alignment::HORIZONTAL_RIGHT);
+                    $objStyle->getAlignment()->setHorizontal(\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
                     break;
                 case 4:
-                    $objStyle->getAlignment()->setHorizontal(\PHPExcel\Style\Alignment::HORIZONTAL_FILL);
+                    $objStyle->getAlignment()->setHorizontal(\PhpSpreadsheet\Style\Alignment::HORIZONTAL_FILL);
                     break;
                 case 5:
-                    $objStyle->getAlignment()->setHorizontal(\PHPExcel\Style\Alignment::HORIZONTAL_JUSTIFY);
+                    $objStyle->getAlignment()->setHorizontal(\PhpSpreadsheet\Style\Alignment::HORIZONTAL_JUSTIFY);
                     break;
                 case 6:
-                    $objStyle->getAlignment()->setHorizontal(\PHPExcel\Style\Alignment::HORIZONTAL_CENTER_CONTINUOUS);
+                    $objStyle->getAlignment()->setHorizontal(\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER_CONTINUOUS);
                     break;
             }
             // bit 3, mask 0x08; wrap text
@@ -2146,16 +2143,16 @@ class Excel5 extends BaseReader implements IReader
             $vertAlign = (0x70 & ord($recordData{6})) >> 4;
             switch ($vertAlign) {
                 case 0:
-                    $objStyle->getAlignment()->setVertical(\PHPExcel\Style\Alignment::VERTICAL_TOP);
+                    $objStyle->getAlignment()->setVertical(\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
                     break;
                 case 1:
-                    $objStyle->getAlignment()->setVertical(\PHPExcel\Style\Alignment::VERTICAL_CENTER);
+                    $objStyle->getAlignment()->setVertical(\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
                     break;
                 case 2:
-                    $objStyle->getAlignment()->setVertical(\PHPExcel\Style\Alignment::VERTICAL_BOTTOM);
+                    $objStyle->getAlignment()->setVertical(\PhpSpreadsheet\Style\Alignment::VERTICAL_BOTTOM);
                     break;
                 case 3:
-                    $objStyle->getAlignment()->setVertical(\PHPExcel\Style\Alignment::VERTICAL_JUSTIFY);
+                    $objStyle->getAlignment()->setVertical(\PhpSpreadsheet\Style\Alignment::VERTICAL_JUSTIFY);
                     break;
             }
 
@@ -2220,13 +2217,13 @@ class Excel5 extends BaseReader implements IReader
                 $diagonalUp = (0x80000000 & self::getInt4d($recordData, 10)) >> 31 ? true : false;
 
                 if ($diagonalUp == false && $diagonalDown == false) {
-                    $objStyle->getBorders()->setDiagonalDirection(\PHPExcel\Style\Borders::DIAGONAL_NONE);
+                    $objStyle->getBorders()->setDiagonalDirection(\PhpSpreadsheet\Style\Borders::DIAGONAL_NONE);
                 } elseif ($diagonalUp == true && $diagonalDown == false) {
-                    $objStyle->getBorders()->setDiagonalDirection(\PHPExcel\Style\Borders::DIAGONAL_UP);
+                    $objStyle->getBorders()->setDiagonalDirection(\PhpSpreadsheet\Style\Borders::DIAGONAL_UP);
                 } elseif ($diagonalUp == false && $diagonalDown == true) {
-                    $objStyle->getBorders()->setDiagonalDirection(\PHPExcel\Style\Borders::DIAGONAL_DOWN);
+                    $objStyle->getBorders()->setDiagonalDirection(\PhpSpreadsheet\Style\Borders::DIAGONAL_DOWN);
                 } elseif ($diagonalUp == true && $diagonalDown == true) {
-                    $objStyle->getBorders()->setDiagonalDirection(\PHPExcel\Style\Borders::DIAGONAL_BOTH);
+                    $objStyle->getBorders()->setDiagonalDirection(\PhpSpreadsheet\Style\Borders::DIAGONAL_BOTH);
                 }
 
                 // offset: 14; size: 4;
@@ -2321,13 +2318,13 @@ class Excel5 extends BaseReader implements IReader
             if ($isCellStyleXf) {
                 // we only read one style XF record which is always the first
                 if ($this->xfIndex == 0) {
-                    $this->phpExcel->addCellStyleXf($objStyle);
+                    $this->spreadsheet->addCellStyleXf($objStyle);
                     $this->mapCellStyleXfIndex[$this->xfIndex] = 0;
                 }
             } else {
                 // we read all cell XF records
-                $this->phpExcel->addCellXf($objStyle);
-                $this->mapCellXfIndex[$this->xfIndex] = count($this->phpExcel->getCellXfCollection()) - 1;
+                $this->spreadsheet->addCellXf($objStyle);
+                $this->mapCellXfIndex[$this->xfIndex] = count($this->spreadsheet->getCellXfCollection()) - 1;
             }
 
             // update XF index for when we read next record
@@ -2386,7 +2383,7 @@ class Excel5 extends BaseReader implements IReader
 
                             // modify the relevant style property
                             if (isset($this->mapCellXfIndex[$ixfe])) {
-                                $fill = $this->phpExcel->getCellXfByIndex($this->mapCellXfIndex[$ixfe])->getFill();
+                                $fill = $this->spreadsheet->getCellXfByIndex($this->mapCellXfIndex[$ixfe])->getFill();
                                 $fill->getStartColor()->setRGB($rgb);
                                 unset($fill->startcolorIndex); // normal color index does not apply, discard
                             }
@@ -2401,7 +2398,7 @@ class Excel5 extends BaseReader implements IReader
 
                             // modify the relevant style property
                             if (isset($this->mapCellXfIndex[$ixfe])) {
-                                $fill = $this->phpExcel->getCellXfByIndex($this->mapCellXfIndex[$ixfe])->getFill();
+                                $fill = $this->spreadsheet->getCellXfByIndex($this->mapCellXfIndex[$ixfe])->getFill();
                                 $fill->getEndColor()->setRGB($rgb);
                                 unset($fill->endcolorIndex); // normal color index does not apply, discard
                             }
@@ -2416,7 +2413,7 @@ class Excel5 extends BaseReader implements IReader
 
                             // modify the relevant style property
                             if (isset($this->mapCellXfIndex[$ixfe])) {
-                                $top = $this->phpExcel->getCellXfByIndex($this->mapCellXfIndex[$ixfe])->getBorders()->getTop();
+                                $top = $this->spreadsheet->getCellXfByIndex($this->mapCellXfIndex[$ixfe])->getBorders()->getTop();
                                 $top->getColor()->setRGB($rgb);
                                 unset($top->colorIndex); // normal color index does not apply, discard
                             }
@@ -2431,7 +2428,7 @@ class Excel5 extends BaseReader implements IReader
 
                             // modify the relevant style property
                             if (isset($this->mapCellXfIndex[$ixfe])) {
-                                $bottom = $this->phpExcel->getCellXfByIndex($this->mapCellXfIndex[$ixfe])->getBorders()->getBottom();
+                                $bottom = $this->spreadsheet->getCellXfByIndex($this->mapCellXfIndex[$ixfe])->getBorders()->getBottom();
                                 $bottom->getColor()->setRGB($rgb);
                                 unset($bottom->colorIndex); // normal color index does not apply, discard
                             }
@@ -2446,7 +2443,7 @@ class Excel5 extends BaseReader implements IReader
 
                             // modify the relevant style property
                             if (isset($this->mapCellXfIndex[$ixfe])) {
-                                $left = $this->phpExcel->getCellXfByIndex($this->mapCellXfIndex[$ixfe])->getBorders()->getLeft();
+                                $left = $this->spreadsheet->getCellXfByIndex($this->mapCellXfIndex[$ixfe])->getBorders()->getLeft();
                                 $left->getColor()->setRGB($rgb);
                                 unset($left->colorIndex); // normal color index does not apply, discard
                             }
@@ -2461,7 +2458,7 @@ class Excel5 extends BaseReader implements IReader
 
                             // modify the relevant style property
                             if (isset($this->mapCellXfIndex[$ixfe])) {
-                                $right = $this->phpExcel->getCellXfByIndex($this->mapCellXfIndex[$ixfe])->getBorders()->getRight();
+                                $right = $this->spreadsheet->getCellXfByIndex($this->mapCellXfIndex[$ixfe])->getBorders()->getRight();
                                 $right->getColor()->setRGB($rgb);
                                 unset($right->colorIndex); // normal color index does not apply, discard
                             }
@@ -2476,7 +2473,7 @@ class Excel5 extends BaseReader implements IReader
 
                             // modify the relevant style property
                             if (isset($this->mapCellXfIndex[$ixfe])) {
-                                $diagonal = $this->phpExcel->getCellXfByIndex($this->mapCellXfIndex[$ixfe])->getBorders()->getDiagonal();
+                                $diagonal = $this->spreadsheet->getCellXfByIndex($this->mapCellXfIndex[$ixfe])->getBorders()->getDiagonal();
                                 $diagonal->getColor()->setRGB($rgb);
                                 unset($diagonal->colorIndex); // normal color index does not apply, discard
                             }
@@ -2491,7 +2488,7 @@ class Excel5 extends BaseReader implements IReader
 
                             // modify the relevant style property
                             if (isset($this->mapCellXfIndex[$ixfe])) {
-                                $font = $this->phpExcel->getCellXfByIndex($this->mapCellXfIndex[$ixfe])->getFont();
+                                $font = $this->spreadsheet->getCellXfByIndex($this->mapCellXfIndex[$ixfe])->getFont();
                                 $font->getColor()->setRGB($rgb);
                                 unset($font->colorIndex); // normal color index does not apply, discard
                             }
@@ -2538,7 +2535,7 @@ class Excel5 extends BaseReader implements IReader
                         break;
                 }
             } else {
-                // user-defined; not supported by PHPExcel
+                // user-defined; not supported by PhpSpreadsheet
             }
         }
     }
@@ -2595,16 +2592,16 @@ class Excel5 extends BaseReader implements IReader
         // offset: 4; size: 1; sheet state
         switch (ord($recordData{4})) {
             case 0x00:
-                $sheetState = \PHPExcel\Worksheet::SHEETSTATE_VISIBLE;
+                $sheetState = \PhpSpreadsheet\Worksheet::SHEETSTATE_VISIBLE;
                 break;
             case 0x01:
-                $sheetState = \PHPExcel\Worksheet::SHEETSTATE_HIDDEN;
+                $sheetState = \PhpSpreadsheet\Worksheet::SHEETSTATE_HIDDEN;
                 break;
             case 0x02:
-                $sheetState = \PHPExcel\Worksheet::SHEETSTATE_VERYHIDDEN;
+                $sheetState = \PhpSpreadsheet\Worksheet::SHEETSTATE_VERYHIDDEN;
                 break;
             default:
-                $sheetState = \PHPExcel\Worksheet::SHEETSTATE_VISIBLE;
+                $sheetState = \PhpSpreadsheet\Worksheet::SHEETSTATE_VISIBLE;
                 break;
         }
 
@@ -2805,7 +2802,7 @@ class Excel5 extends BaseReader implements IReader
 
             try {
                 $formula = $this->getFormulaFromStructure($formulaStructure);
-            } catch (\PHPExcel\Exception $e) {
+            } catch (\PhpSpreadsheet\Exception $e) {
                 $formula = '';
             }
 
@@ -3106,7 +3103,7 @@ class Excel5 extends BaseReader implements IReader
                 $cl = self::getInt2d($recordData, 2 + 6 * $i + 4);
 
                 // not sure why two column indexes are necessary?
-                $this->phpSheet->setBreakByColumnAndRow($cf, $r, \PHPExcel\Worksheet::BREAK_ROW);
+                $this->phpSheet->setBreakByColumnAndRow($cf, $r, \PhpSpreadsheet\Worksheet::BREAK_ROW);
             }
         }
     }
@@ -3134,7 +3131,7 @@ class Excel5 extends BaseReader implements IReader
                 $rl = self::getInt2d($recordData, 2 + 6 * $i + 4);
 
                 // not sure why two row indexes are necessary?
-                $this->phpSheet->setBreakByColumnAndRow($c, $rf, \PHPExcel\Worksheet::BREAK_COLUMN);
+                $this->phpSheet->setBreakByColumnAndRow($c, $rf, \PhpSpreadsheet\Worksheet::BREAK_COLUMN);
             }
         }
     }
@@ -3344,10 +3341,10 @@ class Excel5 extends BaseReader implements IReader
                 $this->phpSheet->getPageSetup()->setPaperSize($paperSize);
                 switch ($isPortrait) {
                     case 0:
-                        $this->phpSheet->getPageSetup()->setOrientation(\PHPExcel\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+                        $this->phpSheet->getPageSetup()->setOrientation(\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
                         break;
                     case 1:
-                        $this->phpSheet->getPageSetup()->setOrientation(\PHPExcel\Worksheet\PageSetup::ORIENTATION_PORTRAIT);
+                        $this->phpSheet->getPageSetup()->setOrientation(\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_PORTRAIT);
                         break;
                 }
 
@@ -3622,7 +3619,7 @@ class Excel5 extends BaseReader implements IReader
 
         // offset: 2; size: 2; index to column
         $column = self::getInt2d($recordData, 2);
-        $columnString = \PHPExcel\Cell::stringFromColumnIndex($column);
+        $columnString = \PhpSpreadsheet\Cell::stringFromColumnIndex($column);
 
         // Read cell?
         if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
@@ -3640,7 +3637,7 @@ class Excel5 extends BaseReader implements IReader
             }
 
             // add cell
-            $cell->setValueExplicit($numValue, \PHPExcel\Cell\DataType::TYPE_NUMERIC);
+            $cell->setValueExplicit($numValue, \PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC);
         }
     }
 
@@ -3667,7 +3664,7 @@ class Excel5 extends BaseReader implements IReader
 
         // offset: 2; size: 2; index to column
         $column = self::getInt2d($recordData, 2);
-        $columnString = \PHPExcel\Cell::stringFromColumnIndex($column);
+        $columnString = \PhpSpreadsheet\Cell::stringFromColumnIndex($column);
 
         $emptyCell = true;
         // Read cell?
@@ -3681,18 +3678,18 @@ class Excel5 extends BaseReader implements IReader
             // add cell
             if (($fmtRuns = $this->sst[$index]['fmtRuns']) && !$this->readDataOnly) {
                 // then we should treat as rich text
-                $richText = new \PHPExcel\RichText();
+                $richText = new \PhpSpreadsheet\RichText();
                 $charPos = 0;
                 $sstCount = count($this->sst[$index]['fmtRuns']);
                 for ($i = 0; $i <= $sstCount; ++$i) {
                     if (isset($fmtRuns[$i])) {
-                        $text = \PHPExcel\Shared\StringHelper::substring($this->sst[$index]['value'], $charPos, $fmtRuns[$i]['charPos'] - $charPos);
+                        $text = \PhpSpreadsheet\Shared\StringHelper::substring($this->sst[$index]['value'], $charPos, $fmtRuns[$i]['charPos'] - $charPos);
                         $charPos = $fmtRuns[$i]['charPos'];
                     } else {
-                        $text = \PHPExcel\Shared\StringHelper::substring($this->sst[$index]['value'], $charPos, \PHPExcel\Shared\StringHelper::countCharacters($this->sst[$index]['value']));
+                        $text = \PhpSpreadsheet\Shared\StringHelper::substring($this->sst[$index]['value'], $charPos, \PhpSpreadsheet\Shared\StringHelper::countCharacters($this->sst[$index]['value']));
                     }
 
-                    if (\PHPExcel\Shared\StringHelper::countCharacters($text) > 0) {
+                    if (\PhpSpreadsheet\Shared\StringHelper::countCharacters($text) > 0) {
                         if ($i == 0) { // first text run, no style
                             $richText->createText($text);
                         } else {
@@ -3712,13 +3709,13 @@ class Excel5 extends BaseReader implements IReader
                 }
                 if ($this->readEmptyCells || trim($richText->getPlainText()) !== '') {
                     $cell = $this->phpSheet->getCell($columnString . ($row + 1));
-                    $cell->setValueExplicit($richText, \PHPExcel\Cell\DataType::TYPE_STRING);
+                    $cell->setValueExplicit($richText, \PhpSpreadsheet\Cell\DataType::TYPE_STRING);
                     $emptyCell = false;
                 }
             } else {
                 if ($this->readEmptyCells || trim($this->sst[$index]['value']) !== '') {
                     $cell = $this->phpSheet->getCell($columnString . ($row + 1));
-                    $cell->setValueExplicit($this->sst[$index]['value'], \PHPExcel\Cell\DataType::TYPE_STRING);
+                    $cell->setValueExplicit($this->sst[$index]['value'], \PhpSpreadsheet\Cell\DataType::TYPE_STRING);
                     $emptyCell = false;
                 }
             }
@@ -3761,7 +3758,7 @@ class Excel5 extends BaseReader implements IReader
         $offset = 4;
 
         for ($i = 0; $i < $columns; ++$i) {
-            $columnString = \PHPExcel\Cell::stringFromColumnIndex($colFirst + $i);
+            $columnString = \PhpSpreadsheet\Cell::stringFromColumnIndex($colFirst + $i);
 
             // Read cell?
             if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
@@ -3777,7 +3774,7 @@ class Excel5 extends BaseReader implements IReader
                 }
 
                 // add cell value
-                $cell->setValueExplicit($numValue, \PHPExcel\Cell\DataType::TYPE_NUMERIC);
+                $cell->setValueExplicit($numValue, \PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC);
             }
 
             $offset += 6;
@@ -3806,7 +3803,7 @@ class Excel5 extends BaseReader implements IReader
 
         // offset: 2; size 2; index to column
         $column = self::getInt2d($recordData, 2);
-        $columnString = \PHPExcel\Cell::stringFromColumnIndex($column);
+        $columnString = \PhpSpreadsheet\Cell::stringFromColumnIndex($column);
 
         // Read cell?
         if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
@@ -3822,7 +3819,7 @@ class Excel5 extends BaseReader implements IReader
             }
 
             // add cell value
-            $cell->setValueExplicit($numValue, \PHPExcel\Cell\DataType::TYPE_NUMERIC);
+            $cell->setValueExplicit($numValue, \PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC);
         }
     }
 
@@ -3848,7 +3845,7 @@ class Excel5 extends BaseReader implements IReader
 
         // offset: 2; size: 2; col index
         $column = self::getInt2d($recordData, 2);
-        $columnString = \PHPExcel\Cell::stringFromColumnIndex($column);
+        $columnString = \PhpSpreadsheet\Cell::stringFromColumnIndex($column);
 
         // offset: 20: size: variable; formula structure
         $formulaStructure = substr($recordData, 20);
@@ -3872,7 +3869,7 @@ class Excel5 extends BaseReader implements IReader
             // get the base cell, grab tExp token
             $baseRow = self::getInt2d($formulaStructure, 3);
             $baseCol = self::getInt2d($formulaStructure, 5);
-            $this->_baseCell = \PHPExcel\Cell::stringFromColumnIndex($baseCol). ($baseRow + 1);
+            $this->_baseCell = \PhpSpreadsheet\Cell::stringFromColumnIndex($baseCol). ($baseRow + 1);
         }
 
         // Read cell?
@@ -3890,7 +3887,7 @@ class Excel5 extends BaseReader implements IReader
             // offset: 6; size: 8; result of the formula
             if ((ord($recordData{6}) == 0) && (ord($recordData{12}) == 255) && (ord($recordData{13}) == 255)) {
                 // String formula. Result follows in appended STRING record
-                $dataType = \PHPExcel\Cell\DataType::TYPE_STRING;
+                $dataType = \PhpSpreadsheet\Cell\DataType::TYPE_STRING;
 
                 // read possible SHAREDFMLA record
                 $code = self::getInt2d($this->data, $this->pos);
@@ -3904,23 +3901,23 @@ class Excel5 extends BaseReader implements IReader
                 && (ord($recordData{12}) == 255)
                 && (ord($recordData{13}) == 255)) {
                 // Boolean formula. Result is in +2; 0=false, 1=true
-                $dataType = \PHPExcel\Cell\DataType::TYPE_BOOL;
+                $dataType = \PhpSpreadsheet\Cell\DataType::TYPE_BOOL;
                 $value = (bool) ord($recordData{8});
             } elseif ((ord($recordData{6}) == 2)
                 && (ord($recordData{12}) == 255)
                 && (ord($recordData{13}) == 255)) {
                 // Error formula. Error code is in +2
-                $dataType = \PHPExcel\Cell\DataType::TYPE_ERROR;
+                $dataType = \PhpSpreadsheet\Cell\DataType::TYPE_ERROR;
                 $value = Excel5\ErrorCode::lookup(ord($recordData{8}));
             } elseif ((ord($recordData{6}) == 3)
                 && (ord($recordData{12}) == 255)
                 && (ord($recordData{13}) == 255)) {
                 // Formula result is a null string
-                $dataType = \PHPExcel\Cell\DataType::TYPE_NULL;
+                $dataType = \PhpSpreadsheet\Cell\DataType::TYPE_NULL;
                 $value = '';
             } else {
                 // forumla result is a number, first 14 bytes like _NUMBER record
-                $dataType = \PHPExcel\Cell\DataType::TYPE_NUMERIC;
+                $dataType = \PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
                 $value = self::extractNumber(substr($recordData, 6, 8));
             }
 
@@ -3939,8 +3936,8 @@ class Excel5 extends BaseReader implements IReader
                         throw new Exception('Not BIFF8. Can only read BIFF8 formulas');
                     }
                     $formula = $this->getFormulaFromStructure($formulaStructure); // get formula in human language
-                    $cell->setValueExplicit('=' . $formula, \PHPExcel\Cell\DataType::TYPE_FORMULA);
-                } catch (\PHPExcel\Exception $e) {
+                    $cell->setValueExplicit('=' . $formula, \PhpSpreadsheet\Cell\DataType::TYPE_FORMULA);
+                } catch (\PhpSpreadsheet\Exception $e) {
                     $cell->setValueExplicit($value, $dataType);
                 }
             } else {
@@ -4035,7 +4032,7 @@ class Excel5 extends BaseReader implements IReader
 
         // offset: 2; size: 2; column index
         $column = self::getInt2d($recordData, 2);
-        $columnString = \PHPExcel\Cell::stringFromColumnIndex($column);
+        $columnString = \PhpSpreadsheet\Cell::stringFromColumnIndex($column);
 
         // Read cell?
         if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
@@ -4054,13 +4051,13 @@ class Excel5 extends BaseReader implements IReader
                     $value = (bool) $boolErr;
 
                     // add cell value
-                    $cell->setValueExplicit($value, \PHPExcel\Cell\DataType::TYPE_BOOL);
+                    $cell->setValueExplicit($value, \PhpSpreadsheet\Cell\DataType::TYPE_BOOL);
                     break;
                 case 1: // error type
                     $value = Excel5\ErrorCode::lookup($boolErr);
 
                     // add cell value
-                    $cell->setValueExplicit($value, \PHPExcel\Cell\DataType::TYPE_ERROR);
+                    $cell->setValueExplicit($value, \PhpSpreadsheet\Cell\DataType::TYPE_ERROR);
                     break;
             }
 
@@ -4098,7 +4095,7 @@ class Excel5 extends BaseReader implements IReader
         // add style information
         if (!$this->readDataOnly && $this->readEmptyCells) {
             for ($i = 0; $i < $length / 2 - 3; ++$i) {
-                $columnString = \PHPExcel\Cell::stringFromColumnIndex($fc + $i);
+                $columnString = \PhpSpreadsheet\Cell::stringFromColumnIndex($fc + $i);
 
                 // Read cell?
                 if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
@@ -4135,7 +4132,7 @@ class Excel5 extends BaseReader implements IReader
 
         // offset: 2; size: 2; index to column
         $column = self::getInt2d($recordData, 2);
-        $columnString = \PHPExcel\Cell::stringFromColumnIndex($column);
+        $columnString = \PhpSpreadsheet\Cell::stringFromColumnIndex($column);
 
         // Read cell?
         if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
@@ -4153,7 +4150,7 @@ class Excel5 extends BaseReader implements IReader
             }
             if ($this->readEmptyCells || trim($value) !== '') {
                 $cell = $this->phpSheet->getCell($columnString . ($row + 1));
-                $cell->setValueExplicit($value, \PHPExcel\Cell\DataType::TYPE_STRING);
+                $cell->setValueExplicit($value, \PhpSpreadsheet\Cell\DataType::TYPE_STRING);
 
                 if (!$this->readDataOnly) {
                     // add cell style
@@ -4180,7 +4177,7 @@ class Excel5 extends BaseReader implements IReader
 
         // offset: 2; size: 2; col index
         $col = self::getInt2d($recordData, 2);
-        $columnString = \PHPExcel\Cell::stringFromColumnIndex($col);
+        $columnString = \PhpSpreadsheet\Cell::stringFromColumnIndex($col);
 
         // Read cell?
         if (($this->getReadFilter() !== null) && $this->getReadFilter()->readCell($columnString, $row + 1, $this->phpSheet->getTitle())) {
@@ -4306,7 +4303,7 @@ class Excel5 extends BaseReader implements IReader
         // bit: 10; mask: 0x0400; 0 = sheet not active, 1 = sheet active
         $isActive = (bool) ((0x0400 & $options) >> 10);
         if ($isActive) {
-            $this->phpExcel->setActiveSheetIndex($this->phpExcel->getIndex($this->phpSheet));
+            $this->spreadsheet->setActiveSheetIndex($this->spreadsheet->getIndex($this->phpSheet));
         }
 
         // bit: 11; mask: 0x0800; 0 = normal view, 1 = page break view
@@ -4314,9 +4311,9 @@ class Excel5 extends BaseReader implements IReader
 
         //FIXME: set $firstVisibleRow and $firstVisibleColumn
 
-        if ($this->phpSheet->getSheetView()->getView() !== \PHPExcel\Worksheet\SheetView::SHEETVIEW_PAGE_LAYOUT) {
+        if ($this->phpSheet->getSheetView()->getView() !== \PhpSpreadsheet\Worksheet\SheetView::SHEETVIEW_PAGE_LAYOUT) {
             //NOTE: this setting is inferior to page layout view(Excel2007-)
-            $view = $isPageBreakPreview ? \PHPExcel\Worksheet\SheetView::SHEETVIEW_PAGE_BREAK_PREVIEW : \PHPExcel\Worksheet\SheetView::SHEETVIEW_NORMAL;
+            $view = $isPageBreakPreview ? \PhpSpreadsheet\Worksheet\SheetView::SHEETVIEW_PAGE_BREAK_PREVIEW : \PhpSpreadsheet\Worksheet\SheetView::SHEETVIEW_NORMAL;
             $this->phpSheet->getSheetView()->setView($view);
             if ($this->version === self::XLS_BIFF8) {
                 $zoomScale = $isPageBreakPreview ? $zoomscaleInPageBreakPreview : $zoomscaleInNormalView;
@@ -4359,7 +4356,7 @@ class Excel5 extends BaseReader implements IReader
         $fWhitespaceHidden = ($grbit >> 3) & 0x01; //no support
 
         if ($fPageLayoutView === 1) {
-            $this->phpSheet->getSheetView()->setView(\PHPExcel\Worksheet\SheetView::SHEETVIEW_PAGE_LAYOUT);
+            $this->phpSheet->getSheetView()->setView(\PhpSpreadsheet\Worksheet\SheetView::SHEETVIEW_PAGE_LAYOUT);
             $this->phpSheet->getSheetView()->setZoomScale($wScalePLV); //set by Excel2007 only if SHEETVIEW_PAGE_LAYOUT
         }
         //otherwise, we cannot know whether SHEETVIEW_PAGE_LAYOUT or SHEETVIEW_PAGE_BREAK_PREVIEW.
@@ -4407,9 +4404,9 @@ class Excel5 extends BaseReader implements IReader
 
             if ($this->frozen) {
                 // frozen panes
-                $this->phpSheet->freezePane(\PHPExcel\Cell::stringFromColumnIndex($px) . ($py + 1));
+                $this->phpSheet->freezePane(\PhpSpreadsheet\Cell::stringFromColumnIndex($px) . ($py + 1));
             } else {
-                // unfrozen panes; split windows; not supported by PHPExcel core
+                // unfrozen panes; split windows; not supported by PhpSpreadsheet core
             }
         }
     }
@@ -4471,7 +4468,7 @@ class Excel5 extends BaseReader implements IReader
         $includeCellRange = true;
         if ($this->getReadFilter() !== null) {
             $includeCellRange = false;
-            $rangeBoundaries = \PHPExcel\Cell::getRangeBoundaries($cellRangeAddress);
+            $rangeBoundaries = \PhpSpreadsheet\Cell::getRangeBoundaries($cellRangeAddress);
             $rangeBoundaries[1][0]++;
             for ($row = $rangeBoundaries[0][1]; $row <= $rangeBoundaries[1][1]; $row++) {
                 for ($column = $rangeBoundaries[0][0]; $column != $rangeBoundaries[1][0]; $column++) {
@@ -4530,7 +4527,7 @@ class Excel5 extends BaseReader implements IReader
             // offset: 0; size: 8; cell range address of all cells containing this hyperlink
             try {
                 $cellRange = $this->readBIFF8CellRangeAddressFixed($recordData, 0, 8);
-            } catch (\PHPExcel\Exception $e) {
+            } catch (\PhpSpreadsheet\Exception $e) {
                 return;
             }
 
@@ -4680,7 +4677,7 @@ class Excel5 extends BaseReader implements IReader
             }
 
             // apply the hyperlink to all the relevant cells
-            foreach (\PHPExcel\Cell::extractAllCellReferencesInRange($cellRange) as $coordinate) {
+            foreach (\PhpSpreadsheet\Cell::extractAllCellReferencesInRange($cellRange) as $coordinate) {
                 $this->phpSheet->getCell($coordinate)->getHyperLink()->setUrl($url);
             }
         }
@@ -4722,28 +4719,28 @@ class Excel5 extends BaseReader implements IReader
         $type = (0x0000000F & $options) >> 0;
         switch ($type) {
             case 0x00:
-                $type = \PHPExcel\Cell\DataValidation::TYPE_NONE;
+                $type = \PhpSpreadsheet\Cell\DataValidation::TYPE_NONE;
                 break;
             case 0x01:
-                $type = \PHPExcel\Cell\DataValidation::TYPE_WHOLE;
+                $type = \PhpSpreadsheet\Cell\DataValidation::TYPE_WHOLE;
                 break;
             case 0x02:
-                $type = \PHPExcel\Cell\DataValidation::TYPE_DECIMAL;
+                $type = \PhpSpreadsheet\Cell\DataValidation::TYPE_DECIMAL;
                 break;
             case 0x03:
-                $type = \PHPExcel\Cell\DataValidation::TYPE_LIST;
+                $type = \PhpSpreadsheet\Cell\DataValidation::TYPE_LIST;
                 break;
             case 0x04:
-                $type = \PHPExcel\Cell\DataValidation::TYPE_DATE;
+                $type = \PhpSpreadsheet\Cell\DataValidation::TYPE_DATE;
                 break;
             case 0x05:
-                $type = \PHPExcel\Cell\DataValidation::TYPE_TIME;
+                $type = \PhpSpreadsheet\Cell\DataValidation::TYPE_TIME;
                 break;
             case 0x06:
-                $type = \PHPExcel\Cell\DataValidation::TYPE_TEXTLENGTH;
+                $type = \PhpSpreadsheet\Cell\DataValidation::TYPE_TEXTLENGTH;
                 break;
             case 0x07:
-                $type = \PHPExcel\Cell\DataValidation::TYPE_CUSTOM;
+                $type = \PhpSpreadsheet\Cell\DataValidation::TYPE_CUSTOM;
                 break;
         }
 
@@ -4751,13 +4748,13 @@ class Excel5 extends BaseReader implements IReader
         $errorStyle = (0x00000070 & $options) >> 4;
         switch ($errorStyle) {
             case 0x00:
-                $errorStyle = \PHPExcel\Cell\DataValidation::STYLE_STOP;
+                $errorStyle = \PhpSpreadsheet\Cell\DataValidation::STYLE_STOP;
                 break;
             case 0x01:
-                $errorStyle = \PHPExcel\Cell\DataValidation::STYLE_WARNING;
+                $errorStyle = \PhpSpreadsheet\Cell\DataValidation::STYLE_WARNING;
                 break;
             case 0x02:
-                $errorStyle = \PHPExcel\Cell\DataValidation::STYLE_INFORMATION;
+                $errorStyle = \PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION;
                 break;
         }
 
@@ -4781,28 +4778,28 @@ class Excel5 extends BaseReader implements IReader
         $operator = (0x00F00000 & $options) >> 20;
         switch ($operator) {
             case 0x00:
-                $operator = \PHPExcel\Cell\DataValidation::OPERATOR_BETWEEN;
+                $operator = \PhpSpreadsheet\Cell\DataValidation::OPERATOR_BETWEEN;
                 break;
             case 0x01:
-                $operator = \PHPExcel\Cell\DataValidation::OPERATOR_NOTBETWEEN;
+                $operator = \PhpSpreadsheet\Cell\DataValidation::OPERATOR_NOTBETWEEN;
                 break;
             case 0x02:
-                $operator = \PHPExcel\Cell\DataValidation::OPERATOR_EQUAL;
+                $operator = \PhpSpreadsheet\Cell\DataValidation::OPERATOR_EQUAL;
                 break;
             case 0x03:
-                $operator = \PHPExcel\Cell\DataValidation::OPERATOR_NOTEQUAL;
+                $operator = \PhpSpreadsheet\Cell\DataValidation::OPERATOR_NOTEQUAL;
                 break;
             case 0x04:
-                $operator = \PHPExcel\Cell\DataValidation::OPERATOR_GREATERTHAN;
+                $operator = \PhpSpreadsheet\Cell\DataValidation::OPERATOR_GREATERTHAN;
                 break;
             case 0x05:
-                $operator = \PHPExcel\Cell\DataValidation::OPERATOR_LESSTHAN;
+                $operator = \PhpSpreadsheet\Cell\DataValidation::OPERATOR_LESSTHAN;
                 break;
             case 0x06:
-                $operator = \PHPExcel\Cell\DataValidation::OPERATOR_GREATERTHANOREQUAL;
+                $operator = \PhpSpreadsheet\Cell\DataValidation::OPERATOR_GREATERTHANOREQUAL;
                 break;
             case 0x07:
-                $operator = \PHPExcel\Cell\DataValidation::OPERATOR_LESSTHANOREQUAL;
+                $operator = \PhpSpreadsheet\Cell\DataValidation::OPERATOR_LESSTHANOREQUAL;
                 break;
         }
 
@@ -4841,10 +4838,10 @@ class Excel5 extends BaseReader implements IReader
             $formula1 = $this->getFormulaFromStructure($formula1);
 
             // in list type validity, null characters are used as item separators
-            if ($type == \PHPExcel\Cell\DataValidation::TYPE_LIST) {
+            if ($type == \PhpSpreadsheet\Cell\DataValidation::TYPE_LIST) {
                 $formula1 = str_replace(chr(0), ',', $formula1);
             }
-        } catch (\PHPExcel\Exception $e) {
+        } catch (\PhpSpreadsheet\Exception $e) {
             return;
         }
         $offset += $sz1;
@@ -4861,7 +4858,7 @@ class Excel5 extends BaseReader implements IReader
         $formula2 = pack('v', $sz2) . $formula2; // prepend the length
         try {
             $formula2 = $this->getFormulaFromStructure($formula2);
-        } catch (\PHPExcel\Exception $e) {
+        } catch (\PhpSpreadsheet\Exception $e) {
             return;
         }
         $offset += $sz2;
@@ -4872,7 +4869,7 @@ class Excel5 extends BaseReader implements IReader
 
         foreach ($cellRangeAddresses as $cellRange) {
             $stRange = $this->phpSheet->shrinkRangeToFit($cellRange);
-            foreach (\PHPExcel\Cell::extractAllCellReferencesInRange($stRange) as $coordinate) {
+            foreach (\PhpSpreadsheet\Cell::extractAllCellReferencesInRange($stRange) as $coordinate) {
                 $objValidation = $this->phpSheet->getCell($coordinate)->getDataValidation();
                 $objValidation->setType($type);
                 $objValidation->setErrorStyle($errorStyle);
@@ -5069,7 +5066,7 @@ class Excel5 extends BaseReader implements IReader
             for ($i = 0; $i < $cref; ++$i) {
                 try {
                     $cellRange = $this->readBIFF8CellRangeAddressFixed(substr($recordData, 27 + 8 * $i, 8));
-                } catch (\PHPExcel\Exception $e) {
+                } catch (\PhpSpreadsheet\Exception $e) {
                     return;
                 }
                 $cellRanges[] = $cellRange;
@@ -5156,7 +5153,7 @@ class Excel5 extends BaseReader implements IReader
                 }
                 //imagepng($ih, 'image.png');
 
-                $drawing = new \PHPExcel\Worksheet\Drawing();
+                $drawing = new \PhpSpreadsheet\Worksheet\Drawing();
                 $drawing->setPath($filename);
                 $drawing->setWorksheet($this->phpSheet);
                 break;
@@ -6738,7 +6735,7 @@ class Excel5 extends BaseReader implements IReader
                     $cellAddress = $this->readBIFF8CellAddress(substr($formulaData, 3, 4));
 
                     $data = "$sheetRange!$cellAddress";
-                } catch (\PHPExcel\Exception $e) {
+                } catch (\PhpSpreadsheet\Exception $e) {
                     // deleted sheet reference
                     $data = '#REF!';
                 }
@@ -6756,7 +6753,7 @@ class Excel5 extends BaseReader implements IReader
                     $cellRangeAddress = $this->readBIFF8CellRangeAddress(substr($formulaData, 3, 8));
 
                     $data = "$sheetRange!$cellRangeAddress";
-                } catch (\PHPExcel\Exception $e) {
+                } catch (\PhpSpreadsheet\Exception $e) {
                     // deleted sheet reference
                     $data = '#REF!';
                 }
@@ -6790,7 +6787,7 @@ class Excel5 extends BaseReader implements IReader
 
         // offset: 2; size: 2; index to column or column offset + relative flags
         // bit: 7-0; mask 0x00FF; column index
-        $column = \PHPExcel\Cell::stringFromColumnIndex(0x00FF & self::getInt2d($cellAddressStructure, 2));
+        $column = \PhpSpreadsheet\Cell::stringFromColumnIndex(0x00FF & self::getInt2d($cellAddressStructure, 2));
 
         // bit: 14; mask 0x4000; (1 = relative column index, 0 = absolute column index)
         if (!(0x4000 & self::getInt2d($cellAddressStructure, 2))) {
@@ -6816,8 +6813,8 @@ class Excel5 extends BaseReader implements IReader
      */
     private function readBIFF8CellAddressB($cellAddressStructure, $baseCell = 'A1')
     {
-        list($baseCol, $baseRow) = \PHPExcel\Cell::coordinateFromString($baseCell);
-        $baseCol = \PHPExcel\Cell::columnIndexFromString($baseCol) - 1;
+        list($baseCol, $baseRow) = \PhpSpreadsheet\Cell::coordinateFromString($baseCell);
+        $baseCol = \PhpSpreadsheet\Cell::columnIndexFromString($baseCol) - 1;
 
         // offset: 0; size: 2; index to row (0... 65535) (or offset (-32768... 32767))
         $rowIndex = self::getInt2d($cellAddressStructure, 0);
@@ -6829,11 +6826,11 @@ class Excel5 extends BaseReader implements IReader
 
         // bit: 14; mask 0x4000; (1 = relative column index, 0 = absolute column index)
         if (!(0x4000 & self::getInt2d($cellAddressStructure, 2))) {
-            $column = \PHPExcel\Cell::stringFromColumnIndex($colIndex);
+            $column = \PhpSpreadsheet\Cell::stringFromColumnIndex($colIndex);
             $column = '$' . $column;
         } else {
             $colIndex = ($colIndex <= 127) ? $colIndex : $colIndex - 256;
-            $column = \PHPExcel\Cell::stringFromColumnIndex($baseCol + $colIndex);
+            $column = \PhpSpreadsheet\Cell::stringFromColumnIndex($baseCol + $colIndex);
         }
 
         // bit: 15; mask 0x8000; (1 = relative row index, 0 = absolute row index)
@@ -6877,8 +6874,8 @@ class Excel5 extends BaseReader implements IReader
         }
 
         // column index to letter
-        $fc = \PHPExcel\Cell::stringFromColumnIndex($fc);
-        $lc = \PHPExcel\Cell::stringFromColumnIndex($lc);
+        $fc = \PhpSpreadsheet\Cell::stringFromColumnIndex($fc);
+        $lc = \PhpSpreadsheet\Cell::stringFromColumnIndex($lc);
 
         if ($fr == $lr and $fc == $lc) {
             return "$fc$fr";
@@ -6916,8 +6913,8 @@ class Excel5 extends BaseReader implements IReader
         }
 
         // column index to letter
-        $fc = \PHPExcel\Cell::stringFromColumnIndex($fc);
-        $lc = \PHPExcel\Cell::stringFromColumnIndex($lc);
+        $fc = \PhpSpreadsheet\Cell::stringFromColumnIndex($fc);
+        $lc = \PhpSpreadsheet\Cell::stringFromColumnIndex($lc);
 
         if ($fr == $lr and $fc == $lc) {
             return "$fc$fr";
@@ -6948,7 +6945,7 @@ class Excel5 extends BaseReader implements IReader
         // offset: 4; size: 2; index to first column or column offset + relative flags
 
         // bit: 7-0; mask 0x00FF; column index
-        $fc = \PHPExcel\Cell::stringFromColumnIndex(0x00FF & self::getInt2d($subData, 4));
+        $fc = \PhpSpreadsheet\Cell::stringFromColumnIndex(0x00FF & self::getInt2d($subData, 4));
 
         // bit: 14; mask 0x4000; (1 = relative column index, 0 = absolute column index)
         if (!(0x4000 & self::getInt2d($subData, 4))) {
@@ -6963,7 +6960,7 @@ class Excel5 extends BaseReader implements IReader
         // offset: 6; size: 2; index to last column or column offset + relative flags
 
         // bit: 7-0; mask 0x00FF; column index
-        $lc = \PHPExcel\Cell::stringFromColumnIndex(0x00FF & self::getInt2d($subData, 6));
+        $lc = \PhpSpreadsheet\Cell::stringFromColumnIndex(0x00FF & self::getInt2d($subData, 6));
 
         // bit: 14; mask 0x4000; (1 = relative column index, 0 = absolute column index)
         if (!(0x4000 & self::getInt2d($subData, 6))) {
@@ -6990,8 +6987,8 @@ class Excel5 extends BaseReader implements IReader
      */
     private function readBIFF8CellRangeAddressB($subData, $baseCell = 'A1')
     {
-        list($baseCol, $baseRow) = \PHPExcel\Cell::coordinateFromString($baseCell);
-        $baseCol = \PHPExcel\Cell::columnIndexFromString($baseCol) - 1;
+        list($baseCol, $baseRow) = \PhpSpreadsheet\Cell::coordinateFromString($baseCell);
+        $baseCol = \PhpSpreadsheet\Cell::columnIndexFromString($baseCol) - 1;
 
         // TODO: if cell range is just a single cell, should this funciton
         // not just return e.g. 'A1' and not 'A1:A1' ?
@@ -7010,12 +7007,12 @@ class Excel5 extends BaseReader implements IReader
         // bit: 14; mask 0x4000; (1 = relative column index, 0 = absolute column index)
         if (!(0x4000 & self::getInt2d($subData, 4))) {
             // absolute column index
-            $fc = \PHPExcel\Cell::stringFromColumnIndex($fcIndex);
+            $fc = \PhpSpreadsheet\Cell::stringFromColumnIndex($fcIndex);
             $fc = '$' . $fc;
         } else {
             // column offset
             $fcIndex = ($fcIndex <= 127) ? $fcIndex : $fcIndex - 256;
-            $fc = \PHPExcel\Cell::stringFromColumnIndex($baseCol + $fcIndex);
+            $fc = \PhpSpreadsheet\Cell::stringFromColumnIndex($baseCol + $fcIndex);
         }
 
         // bit: 15; mask 0x8000; (1 = relative row index, 0 = absolute row index)
@@ -7034,17 +7031,17 @@ class Excel5 extends BaseReader implements IReader
         // bit: 7-0; mask 0x00FF; column index
         $lcIndex = 0x00FF & self::getInt2d($subData, 6);
         $lcIndex = ($lcIndex <= 127) ? $lcIndex : $lcIndex - 256;
-        $lc = \PHPExcel\Cell::stringFromColumnIndex($baseCol + $lcIndex);
+        $lc = \PhpSpreadsheet\Cell::stringFromColumnIndex($baseCol + $lcIndex);
 
         // bit: 14; mask 0x4000; (1 = relative column index, 0 = absolute column index)
         if (!(0x4000 & self::getInt2d($subData, 6))) {
             // absolute column index
-            $lc = \PHPExcel\Cell::stringFromColumnIndex($lcIndex);
+            $lc = \PhpSpreadsheet\Cell::stringFromColumnIndex($lcIndex);
             $lc = '$' . $lc;
         } else {
             // column offset
             $lcIndex = ($lcIndex <= 127) ? $lcIndex : $lcIndex - 256;
-            $lc = \PHPExcel\Cell::stringFromColumnIndex($baseCol + $lcIndex);
+            $lc = \PhpSpreadsheet\Cell::stringFromColumnIndex($baseCol + $lcIndex);
         }
 
         // bit: 15; mask 0x8000; (1 = relative row index, 0 = absolute row index)
@@ -7499,7 +7496,7 @@ class Excel5 extends BaseReader implements IReader
             $string = self::uncompressByteString($string);
         }
 
-        return \PHPExcel\Shared\StringHelper::convertEncoding($string, 'UTF-8', 'UTF-16LE');
+        return \PhpSpreadsheet\Shared\StringHelper::convertEncoding($string, 'UTF-8', 'UTF-16LE');
     }
 
 
@@ -7529,7 +7526,7 @@ class Excel5 extends BaseReader implements IReader
      */
     private function decodeCodepage($string)
     {
-        return \PHPExcel\Shared\StringHelper::convertEncoding($string, 'UTF-8', $this->codepage);
+        return \PhpSpreadsheet\Shared\StringHelper::convertEncoding($string, 'UTF-8', $this->codepage);
     }
 
 
@@ -7571,7 +7568,7 @@ class Excel5 extends BaseReader implements IReader
 
     private function parseRichText($is = '')
     {
-        $value = new \PHPExcel\RichText();
+        $value = new \PhpSpreadsheet\RichText();
         $value->createText($is);
 
         return $value;

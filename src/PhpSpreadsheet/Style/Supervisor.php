@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel\Style;
+namespace PhpSpreadsheet\Style;
 
 /**
- * PHPExcel_Style_Supervisor
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +19,8 @@ namespace PHPExcel\Style;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Style
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -39,7 +36,7 @@ abstract class Supervisor
     /**
      * Parent. Only used for supervisor
      *
-     * @var \PHPExcel\Style
+     * @var \PhpSpreadsheet\Style
      */
     protected $parent;
 
@@ -59,7 +56,7 @@ abstract class Supervisor
     /**
      * Bind parent. Only used for supervisor
      *
-     * @param PHPExcel $parent
+     * @param \PhpSpreadsheet\Style $parent
      * @return Supervisor
      */
     public function bindParent($parent, $parentPropertyName = null)
@@ -81,7 +78,7 @@ abstract class Supervisor
     /**
      * Get the currently active sheet. Only used for supervisor
      *
-     * @return \PHPExcel\Worksheet
+     * @return \PhpSpreadsheet\Worksheet
      */
     public function getActiveSheet()
     {

@@ -1,10 +1,8 @@
 <?php
 
-namespace PHPExcel\RichText;
+namespace PhpSpreadsheet\RichText;
 
 /**
- * PHPExcel_RichText_Run
- *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -19,9 +17,8 @@ namespace PHPExcel\RichText;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_RichText
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -30,7 +27,7 @@ class Run extends TextElement implements ITextElement
     /**
      * Font
      *
-     * @var \PHPExcel\Style\Font
+     * @var \PhpSpreadsheet\Style\Font
      */
     private $font;
 
@@ -43,13 +40,13 @@ class Run extends TextElement implements ITextElement
     {
         // Initialise variables
         $this->setText($pText);
-        $this->font = new \PHPExcel\Style\Font();
+        $this->font = new \PhpSpreadsheet\Style\Font();
     }
 
     /**
      * Get font
      *
-     * @return \PHPExcel\Style\Font
+     * @return \PhpSpreadsheet\Style\Font
      */
     public function getFont()
     {
@@ -59,11 +56,11 @@ class Run extends TextElement implements ITextElement
     /**
      * Set font
      *
-     * @param   \PHPExcel\Style\Font        $pFont        Font
-     * @throws  \PHPExcel\Exception
+     * @param   \PhpSpreadsheet\Style\Font        $pFont        Font
+     * @throws  \PhpSpreadsheet\Exception
      * @return  ITextElement
      */
-    public function setFont(\PHPExcel\Style\Font $pFont = null)
+    public function setFont(\PhpSpreadsheet\Style\Font $pFont = null)
     {
         $this->font = $pFont;
         return $this;

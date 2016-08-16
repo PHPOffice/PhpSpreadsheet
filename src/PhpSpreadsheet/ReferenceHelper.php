@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel;
+namespace PhpSpreadsheet;
 
 /**
- * PHPExcel_ReferenceHelper (Singleton)
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +19,8 @@ namespace PHPExcel;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -258,7 +255,7 @@ class ReferenceHelper
         ($pNumCols > 0 || $pNumRows > 0) ?
             uksort($aDataValidationCollection, array('self','cellReverseSort')) :
             uksort($aDataValidationCollection, array('self','cellSort'));
-        
+
         foreach ($aDataValidationCollection as $key => $value) {
             $newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
             if ($key != $newReference) {
@@ -802,17 +799,17 @@ class ReferenceHelper
     /**
      * Update named formulas (i.e. containing worksheet references / named ranges)
      *
-     * @param PHPExcel $pPhpExcel    Object to update
+     * @param \PhpSpreadsheet\Spreadsheet $spreadsheet    Object to update
      * @param string $oldName        Old name (name to replace)
      * @param string $newName        New name
      */
-    public function updateNamedFormulas(Spreadsheet $pPhpExcel, $oldName = '', $newName = '')
+    public function updateNamedFormulas(Spreadsheet $spreadsheet, $oldName = '', $newName = '')
     {
         if ($oldName == '') {
             return;
         }
 
-        foreach ($pPhpExcel->getWorksheetIterator() as $sheet) {
+        foreach ($spreadsheet->getWorksheetIterator() as $sheet) {
             foreach ($sheet->getCellCollection(false) as $cellID) {
                 $cell = $sheet->getCell($cellID);
                 if (($cell !== null) && ($cell->getDataType() == Cell\DataType::TYPE_FORMULA)) {

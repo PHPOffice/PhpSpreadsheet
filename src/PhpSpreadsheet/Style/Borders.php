@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel\Style;
+namespace PhpSpreadsheet\Style;
 
 /**
- * PHPExcel_Style_Borders
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,13 +19,12 @@ namespace PHPExcel\Style;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Style
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class Borders extends Supervisor implements \PHPExcel\IComparable
+class Borders extends Supervisor implements \PhpSpreadsheet\IComparable
 {
     /* Diagonal directions */
     const DIAGONAL_NONE = 0;
@@ -184,16 +181,16 @@ class Borders extends Supervisor implements \PHPExcel\IComparable
      * Apply styles from array
      *
      * <code>
-     * $objPHPExcel->getActiveSheet()->getStyle('B2')->getBorders()->applyFromArray(
+     * $spreadsheet->getActiveSheet()->getStyle('B2')->getBorders()->applyFromArray(
      *         array(
      *             'bottom'     => array(
-     *                 'style' => \PHPExcel\Style\Border::BORDER_DASHDOT,
+     *                 'style' => \PhpSpreadsheet\Style\Border::BORDER_DASHDOT,
      *                 'color' => array(
      *                     'rgb' => '808080'
      *                 )
      *             ),
      *             'top'     => array(
-     *                 'style' => \PHPExcel\Style\Border::BORDER_DASHDOT,
+     *                 'style' => \PhpSpreadsheet\Style\Border::BORDER_DASHDOT,
      *                 'color' => array(
      *                     'rgb' => '808080'
      *                 )
@@ -202,10 +199,10 @@ class Borders extends Supervisor implements \PHPExcel\IComparable
      * );
      * </code>
      * <code>
-     * $objPHPExcel->getActiveSheet()->getStyle('B2')->getBorders()->applyFromArray(
+     * $spreadsheet->getActiveSheet()->getStyle('B2')->getBorders()->applyFromArray(
      *         array(
      *             'allborders' => array(
-     *                 'style' => \PHPExcel\Style\Border::BORDER_DASHDOT,
+     *                 'style' => \PhpSpreadsheet\Style\Border::BORDER_DASHDOT,
      *                 'color' => array(
      *                     'rgb' => '808080'
      *                 )
@@ -215,7 +212,7 @@ class Borders extends Supervisor implements \PHPExcel\IComparable
      * </code>
      *
      * @param   array    $pStyles    Array containing style information
-     * @throws  \PHPExcel\Exception
+     * @throws  \PhpSpreadsheet\Exception
      * @return  Borders
      */
     public function applyFromArray($pStyles = null)
@@ -250,7 +247,7 @@ class Borders extends Supervisor implements \PHPExcel\IComparable
                 }
             }
         } else {
-            throw new \PHPExcel\Exception("Invalid style array passed.");
+            throw new \PhpSpreadsheet\Exception("Invalid style array passed.");
         }
         return $this;
     }
@@ -309,12 +306,12 @@ class Borders extends Supervisor implements \PHPExcel\IComparable
      * Get AllBorders (pseudo-border). Only applies to supervisor.
      *
      * @return  Border
-     * @throws  \PHPExcel\Exception
+     * @throws  \PhpSpreadsheet\Exception
      */
     public function getAllBorders()
     {
         if (!$this->isSupervisor) {
-            throw new \PHPExcel\Exception('Can only get pseudo-border for supervisor.');
+            throw new \PhpSpreadsheet\Exception('Can only get pseudo-border for supervisor.');
         }
         return $this->allBorders;
     }
@@ -323,12 +320,12 @@ class Borders extends Supervisor implements \PHPExcel\IComparable
      * Get Outline (pseudo-border). Only applies to supervisor.
      *
      * @return boolean
-     * @throws \PHPExcel\Exception
+     * @throws \PhpSpreadsheet\Exception
      */
     public function getOutline()
     {
         if (!$this->isSupervisor) {
-            throw new \PHPExcel\Exception('Can only get pseudo-border for supervisor.');
+            throw new \PhpSpreadsheet\Exception('Can only get pseudo-border for supervisor.');
         }
         return $this->outline;
     }
@@ -337,12 +334,12 @@ class Borders extends Supervisor implements \PHPExcel\IComparable
      * Get Inside (pseudo-border). Only applies to supervisor.
      *
      * @return boolean
-     * @throws \PHPExcel\Exception
+     * @throws \PhpSpreadsheet\Exception
      */
     public function getInside()
     {
         if (!$this->isSupervisor) {
-            throw new \PHPExcel\Exception('Can only get pseudo-border for supervisor.');
+            throw new \PhpSpreadsheet\Exception('Can only get pseudo-border for supervisor.');
         }
         return $this->inside;
     }
@@ -351,12 +348,12 @@ class Borders extends Supervisor implements \PHPExcel\IComparable
      * Get Vertical (pseudo-border). Only applies to supervisor.
      *
      * @return Border
-     * @throws \PHPExcel\Exception
+     * @throws \PhpSpreadsheet\Exception
      */
     public function getVertical()
     {
         if (!$this->isSupervisor) {
-            throw new \PHPExcel\Exception('Can only get pseudo-border for supervisor.');
+            throw new \PhpSpreadsheet\Exception('Can only get pseudo-border for supervisor.');
         }
         return $this->vertical;
     }
@@ -365,12 +362,12 @@ class Borders extends Supervisor implements \PHPExcel\IComparable
      * Get Horizontal (pseudo-border). Only applies to supervisor.
      *
      * @return Border
-     * @throws \PHPExcel\Exception
+     * @throws \PhpSpreadsheet\Exception
      */
     public function getHorizontal()
     {
         if (!$this->isSupervisor) {
-            throw new \PHPExcel\Exception('Can only get pseudo-border for supervisor.');
+            throw new \PhpSpreadsheet\Exception('Can only get pseudo-border for supervisor.');
         }
         return $this->horizontal;
     }

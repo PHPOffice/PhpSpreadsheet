@@ -1,6 +1,5 @@
 <?php
 /**
- *    @package JAMA
  *
  *    Error handling
  *    @author Michael Bommarito

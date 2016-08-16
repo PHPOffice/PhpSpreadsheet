@@ -2,8 +2,8 @@
 
 namespace PhpSpreadsheet\Tests\Calculation;
 
-use PHPExcel\Calculation\Financial;
-use PHPExcel\Calculation\Functions;
+use PhpSpreadsheet\Calculation\Financial;
+use PhpSpreadsheet\Calculation\Functions;
 
 class FinancialTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPExcel\Reader\Excel5\Color;
+namespace PhpSpreadsheet\Reader\Excel5\Color;
 
 class BuiltIn
 {

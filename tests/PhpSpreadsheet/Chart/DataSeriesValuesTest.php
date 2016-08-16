@@ -2,8 +2,8 @@
 
 namespace PhpSpreadsheet\Tests\Chart;
 
-use PHPExcel\Chart\DataSeriesValues;
-use PHPExcel\Exception;
+use PhpSpreadsheet\Chart\DataSeriesValues;
+use PhpSpreadsheet\Exception;
 
 class DataSeriesValuesTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPExcel\Calculation;
+namespace PhpSpreadsheet\Calculation;
 
 /** LOG_GAMMA_X_MAX_VALUE */
 define('LOG_GAMMA_X_MAX_VALUE', 2.55e305);
@@ -15,9 +15,7 @@ define('EPS', 2.22e-16);
 define('SQRT2PI', 2.5066282746310005024157652848110452530069867406099);
 
 /**
- * PHPExcel_Calculation_Statistical
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -33,9 +31,8 @@ define('SQRT2PI', 2.5066282746310005024157652848110452530069867406099);
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
- * @category    PHPExcel
- * @package     PHPExcel_Calculation
- * @copyright   Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category    PhpSpreadsheet
+ * @copyright   Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version     ##VERSION##, ##DATE##
  */
@@ -866,10 +863,10 @@ class Statistical
         $aCount = 0;
         foreach ($aArgs as $key => $arg) {
             if (!is_numeric($arg)) {
-                $arg = \PHPExcel\Calculation::wrapResult(strtoupper($arg));
+                $arg = \PhpSpreadsheet\Calculation::wrapResult(strtoupper($arg));
             }
             $testCondition = '='.$arg.$condition;
-            if (\PHPExcel\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+            if (\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                 if ((is_null($returnValue)) || ($arg > $returnValue)) {
                     $returnValue += $arg;
                     ++$aCount;
@@ -1165,7 +1162,7 @@ class Statistical
             return Functions::DIV0();
         }
 
-        $bestFitLinear = \PHPExcel\Shared\trend\trend::calculate(\PHPExcel\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
+        $bestFitLinear = \PhpSpreadsheet\Shared\trend\trend::calculate(\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
         return $bestFitLinear->getCorrelation();
     }
 
@@ -1287,10 +1284,10 @@ class Statistical
         // Loop through arguments
         foreach ($aArgs as $arg) {
             if (!is_numeric($arg)) {
-                $arg = \PHPExcel\Calculation::wrapResult(strtoupper($arg));
+                $arg = \PhpSpreadsheet\Calculation::wrapResult(strtoupper($arg));
             }
             $testCondition = '='.$arg.$condition;
-            if (\PHPExcel\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+            if (\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                 // Is it a value within our criteria
                 ++$returnValue;
             }
@@ -1323,7 +1320,7 @@ class Statistical
             return Functions::DIV0();
         }
 
-        $bestFitLinear = \PHPExcel\Shared\trend\trend::calculate(\PHPExcel\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
+        $bestFitLinear = \PhpSpreadsheet\Shared\trend\trend::calculate(\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
         return $bestFitLinear->getCovariance();
     }
 
@@ -1609,7 +1606,7 @@ class Statistical
             return Functions::DIV0();
         }
 
-        $bestFitLinear = \PHPExcel\Shared\trend\trend::calculate(\PHPExcel\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
+        $bestFitLinear = \PhpSpreadsheet\Shared\trend\trend::calculate(\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
         return $bestFitLinear->getValueOfYForX($xValue);
     }
 
@@ -1780,7 +1777,7 @@ class Statistical
         $newValues = Functions::flattenArray($newValues);
         $const = (is_null($const)) ? true : (boolean) Functions::flattenSingleValue($const);
 
-        $bestFitExponential = \PHPExcel\Shared\trend\trend::calculate(\PHPExcel\Shared\trend\trend::TREND_EXPONENTIAL, $yValues, $xValues, $const);
+        $bestFitExponential = \PhpSpreadsheet\Shared\trend\trend::calculate(\PhpSpreadsheet\Shared\trend\trend::TREND_EXPONENTIAL, $yValues, $xValues, $const);
         if (empty($newValues)) {
             $newValues = $bestFitExponential->getXValues();
         }
@@ -1904,7 +1901,7 @@ class Statistical
             return Functions::DIV0();
         }
 
-        $bestFitLinear = \PHPExcel\Shared\trend\trend::calculate(\PHPExcel\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
+        $bestFitLinear = \PhpSpreadsheet\Shared\trend\trend::calculate(\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
         return $bestFitLinear->getIntersect();
     }
 
@@ -2026,7 +2023,7 @@ class Statistical
             return 0;
         }
 
-        $bestFitLinear = \PHPExcel\Shared\trend\trend::calculate(\PHPExcel\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues, $const);
+        $bestFitLinear = \PhpSpreadsheet\Shared\trend\trend::calculate(\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues, $const);
         if ($stats) {
             return array(
                 array(
@@ -2092,7 +2089,7 @@ class Statistical
             return 1;
         }
 
-        $bestFitExponential = \PHPExcel\Shared\trend\trend::calculate(\PHPExcel\Shared\trend\trend::TREND_EXPONENTIAL, $yValues, $xValues, $const);
+        $bestFitExponential = \PhpSpreadsheet\Shared\trend\trend::calculate(\PhpSpreadsheet\Shared\trend\trend::TREND_EXPONENTIAL, $yValues, $xValues, $const);
         if ($stats) {
             return array(
                 array(
@@ -2279,10 +2276,10 @@ class Statistical
         // Loop through arguments
         foreach ($aArgs as $key => $arg) {
             if (!is_numeric($arg)) {
-                $arg = \PHPExcel\Calculation::wrapResult(strtoupper($arg));
+                $arg = \PhpSpreadsheet\Calculation::wrapResult(strtoupper($arg));
             }
             $testCondition = '='.$arg.$condition;
-            if (\PHPExcel\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+            if (\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                 if ((is_null($returnValue)) || ($arg > $returnValue)) {
                     $returnValue = $arg;
                 }
@@ -2438,10 +2435,10 @@ class Statistical
         // Loop through arguments
         foreach ($aArgs as $key => $arg) {
             if (!is_numeric($arg)) {
-                $arg = \PHPExcel\Calculation::wrapResult(strtoupper($arg));
+                $arg = \PhpSpreadsheet\Calculation::wrapResult(strtoupper($arg));
             }
             $testCondition = '='.$arg.$condition;
-            if (\PHPExcel\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+            if (\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                 if ((is_null($returnValue)) || ($arg < $returnValue)) {
                     $returnValue = $arg;
                 }
@@ -2917,7 +2914,7 @@ class Statistical
             return Functions::DIV0();
         }
 
-        $bestFitLinear = \PHPExcel\Shared\trend\trend::calculate(\PHPExcel\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
+        $bestFitLinear = \PhpSpreadsheet\Shared\trend\trend::calculate(\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
         return $bestFitLinear->getGoodnessOfFit();
     }
 
@@ -2983,7 +2980,7 @@ class Statistical
             return Functions::DIV0();
         }
 
-        $bestFitLinear = \PHPExcel\Shared\trend\trend::calculate(\PHPExcel\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
+        $bestFitLinear = \PhpSpreadsheet\Shared\trend\trend::calculate(\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
         return $bestFitLinear->getSlope();
     }
 
@@ -3276,7 +3273,7 @@ class Statistical
             return Functions::DIV0();
         }
 
-        $bestFitLinear = \PHPExcel\Shared\trend\trend::calculate(\PHPExcel\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
+        $bestFitLinear = \PhpSpreadsheet\Shared\trend\trend::calculate(\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
         return $bestFitLinear->getStdevOfResiduals();
     }
 
@@ -3419,7 +3416,7 @@ class Statistical
         $newValues = Functions::flattenArray($newValues);
         $const = (is_null($const)) ? true : (boolean) Functions::flattenSingleValue($const);
 
-        $bestFitLinear = \PHPExcel\Shared\trend\trend::calculate(\PHPExcel\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues, $const);
+        $bestFitLinear = \PhpSpreadsheet\Shared\trend\trend::calculate(\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues, $const);
         if (empty($newValues)) {
             $newValues = $bestFitLinear->getXValues();
         }

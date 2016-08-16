@@ -2,8 +2,8 @@
 
 namespace PhpSpreadsheet\Tests\Worksheet;
 
-use PHPExcel\CachedObjectStorageFactory;
-use PHPExcel\Spreadsheet;
+use PhpSpreadsheet\CachedObjectStorageFactory;
+use PhpSpreadsheet\Spreadsheet;
 
 class CellCollectionTest extends \PHPUnit_Framework_TestCase
 {

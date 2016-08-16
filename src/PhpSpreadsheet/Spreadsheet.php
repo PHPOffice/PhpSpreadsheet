@@ -1,11 +1,11 @@
 <?php
 
-namespace PHPExcel;
+namespace PhpSpreadsheet;
 
 /**
- * PHPExcel
+ * PhpSpreadsheet
  *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,7 +22,6 @@ namespace PHPExcel;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PHPSpreadsheet
- * @package    PHPSpreadsheet
  * @copyright  Copyright (c) 2006 PHPOffice (http://www.github.com/PHPOffice)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
@@ -355,7 +354,7 @@ class Spreadsheet
     }
 
      /**
-     * Create a new PHPExcel with one Worksheet
+     * Create a new PhpSpreadsheet with one Worksheet
      */
     public function __construct()
     {
@@ -396,8 +395,8 @@ class Spreadsheet
     }
 
     /**
-     * Disconnect all worksheets from this PHPExcel workbook object,
-     *    typically so that the PHPExcel object can be unset
+     * Disconnect all worksheets from this PhpSpreadsheet workbook object,
+     *    typically so that the PhpSpreadsheet object can be unset
      *
      */
     public function disconnectWorksheets()
@@ -777,7 +776,7 @@ class Spreadsheet
      * Add named range
      *
      * @param  NamedRange $namedRange
-     * @return PHPExcel
+     * @return PhpSpreadsheet
      */
     public function addNamedRange(NamedRange $namedRange)
     {
@@ -822,7 +821,7 @@ class Spreadsheet
      *
      * @param  string  $namedRange
      * @param  Worksheet|null  $pSheet  Scope: use null for global scope.
-     * @return PHPExcel
+     * @return PhpSpreadsheet
      */
     public function removeNamedRange($namedRange, Worksheet $pSheet = null)
     {
@@ -851,7 +850,7 @@ class Spreadsheet
     /**
      * Copy workbook (!= clone!)
      *
-     * @return PHPExcel
+     * @return PhpSpreadsheet
      */
     public function copy()
     {

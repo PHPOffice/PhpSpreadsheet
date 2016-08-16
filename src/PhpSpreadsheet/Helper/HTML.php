@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel\Helper;
+namespace PhpSpreadsheet\Helper;
 
 /**
- * PHPExcel_Helper_HTML
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +19,8 @@ namespace PHPExcel\Helper;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -623,7 +620,7 @@ class HTML
         //    Discard excess white space
         $dom->preserveWhiteSpace = false;
 
-        $this->richTextObject = new \PHPExcel\RichText();
+        $this->richTextObject = new \PhpSpreadsheet\RichText();
         $this->parseElements($dom);
 
         // Clean any further spurious whitespace
@@ -661,7 +658,7 @@ class HTML
             $richtextRun->getFont()->setSize($this->size);
         }
         if ($this->color) {
-            $richtextRun->getFont()->setColor(new \PHPExcel\Style\Color('ff' . $this->color));
+            $richtextRun->getFont()->setColor(new \PhpSpreadsheet\Style\Color('ff' . $this->color));
         }
         if ($this->bold) {
             $richtextRun->getFont()->setBold(true);
@@ -670,7 +667,7 @@ class HTML
             $richtextRun->getFont()->setItalic(true);
         }
         if ($this->underline) {
-            $richtextRun->getFont()->setUnderline(\PHPExcel\Style\Font::UNDERLINE_SINGLE);
+            $richtextRun->getFont()->setUnderline(\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE);
         }
         if ($this->superscript) {
             $richtextRun->getFont()->setSuperScript(true);

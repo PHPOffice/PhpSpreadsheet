@@ -2,7 +2,7 @@
 
 namespace PhpSpreadsheet\Tests\Chart;
 
-use PHPExcel\Chart\Legend;
+use PhpSpreadsheet\Chart\Legend;
 
 class LegendTest extends \PHPUnit_Framework_TestCase
 {

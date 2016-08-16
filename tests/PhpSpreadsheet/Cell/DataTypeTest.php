@@ -2,17 +2,17 @@
 
 namespace PhpSpreadsheet\Tests\Cell;
 
-use PHPExcel\Cell\DataType;
+use PhpSpreadsheet\Cell\DataType;
 
 class DataTypeTest extends \PHPUnit_Framework_TestCase
 {
 
     public function setUp()
     {
-        if (!defined('PHPEXCEL_ROOT')) {
-            define('PHPEXCEL_ROOT', APPLICATION_PATH . '/');
+        if (!defined('PHPSPREADSHEET_ROOT')) {
+            define('PHPSPREADSHEET_ROOT', APPLICATION_PATH . '/');
         }
-        require_once(PHPEXCEL_ROOT . '/Bootstrap.php');
+        require_once(PHPSPREADSHEET_ROOT . '/Bootstrap.php');
     }
 
     public function testGetErrorCodes()

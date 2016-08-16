@@ -1,11 +1,9 @@
 <?php
 
-namespace PHPExcel\Style;
+namespace PhpSpreadsheet\Style;
 
 /**
- * PHPExcel_Style_Protection
- *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,13 +19,12 @@ namespace PHPExcel\Style;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   PHPExcel
- * @package    PHPExcel_Style
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
+ * @category   PhpSpreadsheet
+ * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class Protection extends Supervisor implements \PHPExcel\IComparable
+class Protection extends Supervisor implements \PhpSpreadsheet\IComparable
 {
     /** Protection styles */
     const PROTECTION_INHERIT      = 'inherit';
@@ -96,7 +93,7 @@ class Protection extends Supervisor implements \PHPExcel\IComparable
      * Apply styles from array
      *
      * <code>
-     * $objPHPExcel->getActiveSheet()->getStyle('B2')->getLocked()->applyFromArray(
+     * $spreadsheet->getActiveSheet()->getStyle('B2')->getLocked()->applyFromArray(
      *        array(
      *            'locked' => TRUE,
      *            'hidden' => FALSE
@@ -105,7 +102,7 @@ class Protection extends Supervisor implements \PHPExcel\IComparable
      * </code>
      *
      * @param    array    $pStyles    Array containing style information
-     * @throws    \PHPExcel\Exception
+     * @throws    \PhpSpreadsheet\Exception
      * @return Protection
      */
     public function applyFromArray($pStyles = null)
@@ -122,7 +119,7 @@ class Protection extends Supervisor implements \PHPExcel\IComparable
                 }
             }
         } else {
-            throw new \PHPExcel\Exception("Invalid style array passed.");
+            throw new \PhpSpreadsheet\Exception("Invalid style array passed.");
         }
         return $this;
     }
