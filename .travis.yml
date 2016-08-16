@@ -28,4 +28,7 @@ script:
   ## PHP_CodeSniffer
   - ./vendor/bin/phpcs --report-width=200 --report-summary  --report-full src/ tests/ --standard=PSR2 -n
   ## PHPUnit
-  - ./vendor/bin/phpunit
+  - ./vendor/bin/phpunit --coverage-clover coverage-clover.xml
+
+after_script:
+  - if [ "$TRAVIS_PHP_VERSION" = "7.0" ]; then wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover tests/coverage-clover.xml ; fi

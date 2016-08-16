@@ -3,6 +3,7 @@
 /analysis
 /vendor/
 /composer.lock
+/phpunit.xml
 
 ## IDE support
 *.buildpath
