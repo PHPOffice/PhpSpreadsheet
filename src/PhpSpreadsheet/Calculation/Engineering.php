@@ -26,7 +26,7 @@ define('EULER', 2.71828182845904523536);
  *
  * @category    PHPExcel
  * @package        PHPExcel_Calculation
- * @copyright    Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright    Copyright (c) 2006 - 2015 PHPExcel (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version        ##VERSION##, ##DATE##
  */
