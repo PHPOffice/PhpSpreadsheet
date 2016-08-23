@@ -147,8 +147,8 @@ abstract class CacheBase
 
         if (is_object($this->cellCache[$pCoord])) {
             $this->cellCache[$pCoord]->detach();
-            unset($this->cellCache[$pCoord]);
         }
+        unset($this->cellCache[$pCoord]);
         $this->currentCellIsDirty = false;
     }
 
