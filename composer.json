@@ -37,6 +37,7 @@
     "suggest": {
         "ext-zip": "*",
         "ext-gd": "*",
+        "ext-dom": "Option to read and write HTML files",
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
         "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
         "tecnick.com/tcpdf": "Option for rendering PDF with PDF Writer",

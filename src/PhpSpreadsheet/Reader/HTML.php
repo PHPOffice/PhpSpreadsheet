@@ -2,6 +2,12 @@
 
 namespace PhpSpreadsheet\Reader;
 
+use DOMDocument;
+use DOMElement;
+use DOMNode;
+use DOMText;
+use PhpSpreadsheet\Spreadsheet;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
@@ -131,16 +137,16 @@ class HTML extends BaseReader implements IReader
     }
 
     /**
-     * Loads PhpSpreadsheet from file
+     * Loads Spreadsheet from file
      *
      * @param  string                    $pFilename
      * @throws Exception
-     * @return PhpSpreadsheet
+     * @return Spreadsheet
      */
     public function load($pFilename)
     {
-        // Create new PhpSpreadsheet
-        $spreadsheet = new PhpSpreadsheet();
+        // Create new Spreadsheet
+        $spreadsheet = new Spreadsheet();
 
         // Load into this instance
         return $this->loadIntoExisting($pFilename, $spreadsheet);
@@ -168,7 +174,7 @@ class HTML extends BaseReader implements IReader
         return $this->inputEncoding;
     }
 
-    //    Data Array used for testing only, should write to PhpSpreadsheet object on completion of tests
+    //    Data Array used for testing only, should write to Spreadsheet object on completion of tests
     protected $dataArray = [];
     protected $tableLevel = 0;
     protected $nestedColumn = ['A'];
@@ -458,11 +464,11 @@ class HTML extends BaseReader implements IReader
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance
      *
      * @param  string                    $pFilename
-     * @param  \PhpSpreadsheet\Spreadsheet                  $spreadsheet
+     * @param  Spreadsheet                  $spreadsheet
      * @throws Exception
-     * @return \PhpSpreadsheet\Spreadsheet
+     * @return Spreadsheet
      */
-    public function loadIntoExisting($pFilename, \PhpSpreadsheet\Spreadsheet $spreadsheet)
+    public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
     {
         // Open file to validate
         $this->openFile($pFilename);
@@ -473,14 +479,14 @@ class HTML extends BaseReader implements IReader
         //    Close after validating
         fclose($this->fileHandle);
 
-        // Create new PhpSpreadsheet
+        // Create new sheet
         while ($spreadsheet->getSheetCount() <= $this->sheetIndex) {
             $spreadsheet->createSheet();
         }
         $spreadsheet->setActiveSheetIndex($this->sheetIndex);
 
         //    Create a new DOM object
-        $dom = new domDocument();
+        $dom = new DOMDocument();
         //    Reload the HTML file into the DOM object
         $loaded = $dom->loadHTML(mb_convert_encoding($this->securityScanFile($pFilename), 'HTML-ENTITIES', 'UTF-8'));
         if ($loaded === false) {
