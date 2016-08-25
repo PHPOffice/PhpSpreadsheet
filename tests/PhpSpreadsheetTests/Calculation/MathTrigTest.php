@@ -255,12 +255,9 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerMDETERM
-     * @group fail19
      */
     public function testMDETERM()
     {
-        $this->markTestIncomplete('TODO: This test should be fixed');
-
         $args = func_get_args();
         $expectedResult = array_pop($args);
         $result = call_user_func_array([MathTrig::class, 'MDETERM'], $args);
