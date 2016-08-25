@@ -8,8 +8,6 @@ use Spreadsheet\Shared\StringHelper;
 use Spreadsheet\Spreadsheet;
 
 /**
- * Spreadsheet_Writer_HTML
- *
  * Copyright (c) 2006 - 2015 Spreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -132,7 +130,7 @@ class HTML extends BaseWriter implements IWriter
     private $generateSheetNavigationBlock = true;
 
     /**
-     * Create a new Spreadsheet_Writer_HTML
+     * Create a new HTML
      *
      * @param    Spreadsheet    $spreadsheet
      */
@@ -560,7 +558,7 @@ class HTML extends BaseWriter implements IWriter
         $colMax = 'A';
         if ($this->includeCharts) {
             foreach ($pSheet->getChartCollection() as $chart) {
-                if ($chart instanceof Spreadsheet_Chart) {
+                if ($chart instanceof \PhpSpreadsheet\Chart) {
                     $chartCoordinates = $chart->getTopLeftPosition();
                     $chartTL = \Spreadsheet\Cell::coordinateFromString($chartCoordinates['cell']);
                     $chartCol = \Spreadsheet\Cell::columnIndexFromString($chartTL[0]);
@@ -701,7 +699,7 @@ class HTML extends BaseWriter implements IWriter
 
         // Write charts
         foreach ($pSheet->getChartCollection() as $chart) {
-            if ($chart instanceof Spreadsheet_Chart) {
+            if ($chart instanceof \PhpSpreadsheet\Chart) {
                 $chartCoordinates = $chart->getTopLeftPosition();
                 if ($chartCoordinates['cell'] == $coordinates) {
                     $chartFileName = \Spreadsheet\Shared\File::sysGetTempDir() . '/' . uniqid() . '.png';
@@ -933,7 +931,7 @@ class HTML extends BaseWriter implements IWriter
     /**
      * Create CSS style
      *
-     * @param    \Spreadsheet\Style        $pStyle            Spreadsheet_Style
+     * @param    \Spreadsheet\Style        $pStyle
      * @return    array
      */
     private function createCSSStyle(\Spreadsheet\Style $pStyle)
@@ -1329,7 +1327,7 @@ class HTML extends BaseWriter implements IWriter
                     if (!$this->useInlineCss) {
                         $html .= ' class="' . $cssClass . '"';
                     } else {
-                        //** Necessary redundant code for the sake of Spreadsheet_Writer_PDF **
+                        //** Necessary redundant code for the sake of PhpSpreadsheet\Writer\PDF **
                         // We must explicitly write the width of the <td> element because TCPDF
                         // does not recognize e.g. <col style="width:42pt">
                         $width = 0;
@@ -1420,7 +1418,7 @@ class HTML extends BaseWriter implements IWriter
      * Set images root
      *
      * @param string $pValue
-     * @return Spreadsheet_Writer_HTML
+     * @return HTML
      */
     public function setImagesRoot($pValue = '.')
     {
@@ -1443,7 +1441,7 @@ class HTML extends BaseWriter implements IWriter
      * Set embed images
      *
      * @param bool $pValue
-     * @return Spreadsheet_Writer_HTML
+     * @return HTML
      */
     public function setEmbedImages($pValue = '.')
     {
@@ -1466,7 +1464,7 @@ class HTML extends BaseWriter implements IWriter
      * Set use inline CSS?
      *
      * @param bool $pValue
-     * @return Spreadsheet_Writer_HTML
+     * @return HTML
      */
     public function setUseInlineCss($pValue = false)
     {
