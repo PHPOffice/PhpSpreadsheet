@@ -46,11 +46,11 @@ class Comments extends WriterPart
         // XML header
         $objWriter->startDocument('1.0', 'UTF-8', 'yes');
 
-          // Comments cache
-          $comments = $pWorksheet->getComments();
+        // Comments cache
+        $comments = $pWorksheet->getComments();
 
-          // Authors cache
-          $authors = [];
+        // Authors cache
+        $authors = [];
         $authorId = 0;
         foreach ($comments as $comment) {
             if (!isset($authors[$comment->getAuthor()])) {
@@ -126,8 +126,8 @@ class Comments extends WriterPart
         // XML header
         $objWriter->startDocument('1.0', 'UTF-8', 'yes');
 
-          // Comments cache
-          $comments = $pWorksheet->getComments();
+        // Comments cache
+        $comments = $pWorksheet->getComments();
 
         // xml
         $objWriter->startElement('xml');
@@ -189,7 +189,7 @@ class Comments extends WriterPart
     private function writeVMLComment(\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pCellReference = 'A1', \PhpSpreadsheet\Comment $pComment = null)
     {
         // Metadata
-         list($column, $row) = \PhpSpreadsheet\Cell::coordinateFromString($pCellReference);
+        list($column, $row) = \PhpSpreadsheet\Cell::coordinateFromString($pCellReference);
         $column = \PhpSpreadsheet\Cell::columnIndexFromString($column);
         $id = 1024 + $column + $row;
         $id = substr($id, 0, 4);

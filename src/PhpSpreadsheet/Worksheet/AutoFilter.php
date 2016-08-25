@@ -706,9 +706,10 @@ class AutoFilter
                             $operator = ($dynamicRuleType === AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_ABOVEAVERAGE)
                                 ? AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_GREATERTHAN
                                 : AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_LESSTHAN;
-                            $ruleValues[] = ['operator' => $operator,
-                                                   'value' => $average,
-                                                 ];
+                            $ruleValues[] = [
+                                'operator' => $operator,
+                                'value' => $average,
+                            ];
                             $columnFilterTests[$columnID] = [
                                 'method' => 'filterTestInCustomDataSet',
                                 'arguments' => ['filterRules' => $ruleValues, 'join' => AutoFilter\Column::AUTOFILTER_COLUMN_JOIN_OR],

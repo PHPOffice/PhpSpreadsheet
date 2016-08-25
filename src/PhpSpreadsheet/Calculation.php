@@ -232,7 +232,7 @@ class Calculation
         'NULL' => null,
     ];
 
-     //    PhpSpreadsheet functions
+    // PhpSpreadsheet functions
     private static $phpSpreadsheetFunctions = [
         'ABS' => [
             'category' => Calculation\Categories::CATEGORY_MATH_AND_TRIG,
@@ -3073,13 +3073,13 @@ class Calculation
         $pCellParent = ($pCell !== null) ? $pCell->getWorksheet() : null;
 
         $regexpMatchString = '/^(' . self::CALCULATION_REGEXP_FUNCTION .
-                               '|' . self::CALCULATION_REGEXP_CELLREF .
-                               '|' . self::CALCULATION_REGEXP_NUMBER .
-                               '|' . self::CALCULATION_REGEXP_STRING .
-                               '|' . self::CALCULATION_REGEXP_OPENBRACE .
-                               '|' . self::CALCULATION_REGEXP_NAMEDRANGE .
-                               '|' . self::CALCULATION_REGEXP_ERROR .
-                             ')/si';
+                                '|' . self::CALCULATION_REGEXP_CELLREF .
+                                '|' . self::CALCULATION_REGEXP_NUMBER .
+                                '|' . self::CALCULATION_REGEXP_STRING .
+                                '|' . self::CALCULATION_REGEXP_OPENBRACE .
+                                '|' . self::CALCULATION_REGEXP_NAMEDRANGE .
+                                '|' . self::CALCULATION_REGEXP_ERROR .
+                                ')/si';
 
         //    Start with initialisation
         $index = 0;

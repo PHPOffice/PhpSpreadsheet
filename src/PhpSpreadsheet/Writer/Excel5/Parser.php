@@ -666,7 +666,7 @@ class Parser
             list($row1, $col1) = $this->cellToPackedRowcol($cell1);
             list($row2, $col2) = $this->cellToPackedRowcol($cell2);
         } else { // It's a rows range (like 26:27)
-             list($row1, $col1, $row2, $col2) = $this->rangeToPackedRange($cell1 . ':' . $cell2);
+            list($row1, $col1, $row2, $col2) = $this->rangeToPackedRange($cell1 . ':' . $cell2);
         }
 
         // The ptg value depends on the class of the ptg.

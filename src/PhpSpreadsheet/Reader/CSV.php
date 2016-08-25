@@ -253,9 +253,10 @@ class CSV extends BaseReader implements IReader
         }
         $sheet = $spreadsheet->setActiveSheetIndex($this->sheetIndex);
 
-        $escapeEnclosures = ['\\' . $this->enclosure,
-                                   $this->enclosure . $this->enclosure,
-                                 ];
+        $escapeEnclosures = [
+            '\\' . $this->enclosure,
+            $this->enclosure . $this->enclosure,
+        ];
 
         // Set our starting row based on whether we're in contiguous mode or not
         $currentRow = 1;

@@ -294,8 +294,7 @@ class Excel5 extends BaseWriter implements IWriter
 
                 // set the shape index (we combine 1-based sheet index and $countShapes to create unique shape index)
                 $reducedSpId = $countShapes[$sheetIndex];
-                $spId = $reducedSpId
-                    | ($sheet->getParent()->getIndex($sheet) + 1) << 10;
+                $spId = $reducedSpId | ($sheet->getParent()->getIndex($sheet) + 1) << 10;
                 $spContainer->setSpId($spId);
 
                 // keep track of last reducedSpId
@@ -352,8 +351,7 @@ class Excel5 extends BaseWriter implements IWriter
 
                     // set the shape index (we combine 1-based sheet index and $countShapes to create unique shape index)
                     $reducedSpId = $countShapes[$sheetIndex];
-                    $spId = $reducedSpId
-                        | ($sheet->getParent()->getIndex($sheet) + 1) << 10;
+                    $spId = $reducedSpId | ($sheet->getParent()->getIndex($sheet) + 1) << 10;
                     $spContainer->setSpId($spId);
 
                     // keep track of last reducedSpId
@@ -564,50 +562,64 @@ class Excel5 extends BaseWriter implements IWriter
         $dataSection_Content = '';
 
         // GKPIDDSI_CODEPAGE: CodePage
-        $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x01],
-                               'offset' => ['pack' => 'V'],
-                               'type' => ['pack' => 'V', 'data' => 0x02], // 2 byte signed integer
-                               'data' => ['data' => 1252], ];
+        $dataSection[] = [
+            'summary' => ['pack' => 'V', 'data' => 0x01],
+            'offset' => ['pack' => 'V'],
+            'type' => ['pack' => 'V', 'data' => 0x02], // 2 byte signed integer
+            'data' => ['data' => 1252],
+        ];
         ++$dataSection_NumProps;
 
         // GKPIDDSI_CATEGORY : Category
         if ($this->spreadsheet->getProperties()->getCategory()) {
             $dataProp = $this->spreadsheet->getProperties()->getCategory();
-            $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x02],
-                                   'offset' => ['pack' => 'V'],
-                                   'type' => ['pack' => 'V', 'data' => 0x1E],
-                                   'data' => ['data' => $dataProp, 'length' => strlen($dataProp)], ];
+            $dataSection[] = [
+                'summary' => ['pack' => 'V', 'data' => 0x02],
+                'offset' => ['pack' => 'V'],
+                'type' => ['pack' => 'V', 'data' => 0x1E],
+                'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+            ];
             ++$dataSection_NumProps;
         }
         // GKPIDDSI_VERSION :Version of the application that wrote the property storage
-        $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x17],
-                               'offset' => ['pack' => 'V'],
-                               'type' => ['pack' => 'V', 'data' => 0x03],
-                               'data' => ['pack' => 'V', 'data' => 0x000C0000], ];
+        $dataSection[] = [
+            'summary' => ['pack' => 'V', 'data' => 0x17],
+            'offset' => ['pack' => 'V'],
+            'type' => ['pack' => 'V', 'data' => 0x03],
+            'data' => ['pack' => 'V', 'data' => 0x000C0000],
+        ];
         ++$dataSection_NumProps;
         // GKPIDDSI_SCALE : FALSE
-        $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x0B],
-                               'offset' => ['pack' => 'V'],
-                               'type' => ['pack' => 'V', 'data' => 0x0B],
-                               'data' => ['data' => false], ];
+        $dataSection[] = [
+            'summary' => ['pack' => 'V', 'data' => 0x0B],
+            'offset' => ['pack' => 'V'],
+            'type' => ['pack' => 'V', 'data' => 0x0B],
+            'data' => ['data' => false],
+        ];
         ++$dataSection_NumProps;
         // GKPIDDSI_LINKSDIRTY : True if any of the values for the linked properties have changed outside of the application
-        $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x10],
-                               'offset' => ['pack' => 'V'],
-                               'type' => ['pack' => 'V', 'data' => 0x0B],
-                               'data' => ['data' => false], ];
+        $dataSection[] = [
+            'summary' => ['pack' => 'V', 'data' => 0x10],
+            'offset' => ['pack' => 'V'],
+            'type' => ['pack' => 'V', 'data' => 0x0B],
+            'data' => ['data' => false],
+        ];
         ++$dataSection_NumProps;
         // GKPIDDSI_SHAREDOC : FALSE
-        $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x13],
-                               'offset' => ['pack' => 'V'],
-                               'type' => ['pack' => 'V', 'data' => 0x0B],
-                               'data' => ['data' => false], ];
+        $dataSection[] = [
+            'summary' => ['pack' => 'V', 'data' => 0x13],
+            'offset' => ['pack' => 'V'],
+            'type' => ['pack' => 'V', 'data' => 0x0B],
+            'data' => ['data' => false],
+        ];
         ++$dataSection_NumProps;
         // GKPIDDSI_HYPERLINKSCHANGED : True if any of the values for the _PID_LINKS (hyperlink text) have changed outside of the application
-        $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x16],
-                               'offset' => ['pack' => 'V'],
-                               'type' => ['pack' => 'V', 'data' => 0x0B],
-                               'data' => ['data' => false], ];
+        $dataSection[] = [
+            'summary' => ['pack' => 'V', 'data' => 0x16],
+            'offset' => ['pack' => 'V'],
+            'type' => ['pack' => 'V', 'data' => 0x0B],
+            'data' => ['data' => false],
+        ];
         ++$dataSection_NumProps;
 
         // GKPIDDSI_DOCSPARTS
@@ -617,50 +629,54 @@ class Excel5 extends BaseWriter implements IWriter
         $dataProp = pack('v', 0x0001);
         $dataProp .= pack('v', 0x0000);
         // array of UnalignedLpstr
-          // cch
-          $dataProp .= pack('v', 0x000A);
+        // cch
+        $dataProp .= pack('v', 0x000A);
         $dataProp .= pack('v', 0x0000);
-          // value
-          $dataProp .= 'Worksheet' . chr(0);
+        // value
+        $dataProp .= 'Worksheet' . chr(0);
 
-        $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x0D],
-                               'offset' => ['pack' => 'V'],
-                               'type' => ['pack' => 'V', 'data' => 0x101E],
-                               'data' => ['data' => $dataProp, 'length' => strlen($dataProp)], ];
+        $dataSection[] = [
+            'summary' => ['pack' => 'V', 'data' => 0x0D],
+            'offset' => ['pack' => 'V'],
+            'type' => ['pack' => 'V', 'data' => 0x101E],
+            'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+        ];
         ++$dataSection_NumProps;
 
         // GKPIDDSI_HEADINGPAIR
         // VtVecHeadingPairValue
-          // cElements
-          $dataProp = pack('v', 0x0002);
+        // cElements
+        $dataProp = pack('v', 0x0002);
         $dataProp .= pack('v', 0x0000);
-          // Array of vtHeadingPair
-            // vtUnalignedString - headingString
-              // stringType
-              $dataProp .= pack('v', 0x001E);
-              // padding
-              $dataProp .= pack('v', 0x0000);
-              // UnalignedLpstr
-                // cch
-                $dataProp .= pack('v', 0x0013);
+        // Array of vtHeadingPair
+        // vtUnalignedString - headingString
+        // stringType
+        $dataProp .= pack('v', 0x001E);
+        // padding
         $dataProp .= pack('v', 0x0000);
-                // value
-                $dataProp .= 'Feuilles de calcul';
-            // vtUnalignedString - headingParts
-              // wType : 0x0003 = 32 bit signed integer
-              $dataProp .= pack('v', 0x0300);
-              // padding
-              $dataProp .= pack('v', 0x0000);
-              // value
-              $dataProp .= pack('v', 0x0100);
+        // UnalignedLpstr
+        // cch
+        $dataProp .= pack('v', 0x0013);
+        $dataProp .= pack('v', 0x0000);
+        // value
+        $dataProp .= 'Feuilles de calcul';
+        // vtUnalignedString - headingParts
+        // wType : 0x0003 = 32 bit signed integer
+        $dataProp .= pack('v', 0x0300);
+        // padding
+        $dataProp .= pack('v', 0x0000);
+        // value
+        $dataProp .= pack('v', 0x0100);
         $dataProp .= pack('v', 0x0000);
         $dataProp .= pack('v', 0x0000);
         $dataProp .= pack('v', 0x0000);
 
-        $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x0C],
-                               'offset' => ['pack' => 'V'],
-                               'type' => ['pack' => 'V', 'data' => 0x100C],
-                               'data' => ['data' => $dataProp, 'length' => strlen($dataProp)], ];
+        $dataSection[] = [
+            'summary' => ['pack' => 'V', 'data' => 0x0C],
+            'offset' => ['pack' => 'V'],
+            'type' => ['pack' => 'V', 'data' => 0x100C],
+            'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+        ];
         ++$dataSection_NumProps;
 
         //         4     Section Length
@@ -760,89 +776,109 @@ class Excel5 extends BaseWriter implements IWriter
         $dataSection_Content = '';
 
         // CodePage : CP-1252
-        $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x01],
-                               'offset' => ['pack' => 'V'],
-                               'type' => ['pack' => 'V', 'data' => 0x02], // 2 byte signed integer
-                               'data' => ['data' => 1252], ];
+        $dataSection[] = [
+            'summary' => ['pack' => 'V', 'data' => 0x01],
+            'offset' => ['pack' => 'V'],
+            'type' => ['pack' => 'V', 'data' => 0x02], // 2 byte signed integer
+            'data' => ['data' => 1252],
+        ];
         ++$dataSection_NumProps;
 
         //    Title
         if ($this->spreadsheet->getProperties()->getTitle()) {
             $dataProp = $this->spreadsheet->getProperties()->getTitle();
-            $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x02],
-                                   'offset' => ['pack' => 'V'],
-                                   'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
-                                   'data' => ['data' => $dataProp, 'length' => strlen($dataProp)], ];
+            $dataSection[] = [
+                'summary' => ['pack' => 'V', 'data' => 0x02],
+                'offset' => ['pack' => 'V'],
+                'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
+                'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+            ];
             ++$dataSection_NumProps;
         }
         //    Subject
         if ($this->spreadsheet->getProperties()->getSubject()) {
             $dataProp = $this->spreadsheet->getProperties()->getSubject();
-            $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x03],
-                                   'offset' => ['pack' => 'V'],
-                                   'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
-                                   'data' => ['data' => $dataProp, 'length' => strlen($dataProp)], ];
+            $dataSection[] = [
+                'summary' => ['pack' => 'V', 'data' => 0x03],
+                'offset' => ['pack' => 'V'],
+                'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
+                'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+            ];
             ++$dataSection_NumProps;
         }
         //    Author (Creator)
         if ($this->spreadsheet->getProperties()->getCreator()) {
             $dataProp = $this->spreadsheet->getProperties()->getCreator();
-            $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x04],
-                                   'offset' => ['pack' => 'V'],
-                                   'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
-                                   'data' => ['data' => $dataProp, 'length' => strlen($dataProp)], ];
+            $dataSection[] = [
+                'summary' => ['pack' => 'V', 'data' => 0x04],
+                'offset' => ['pack' => 'V'],
+                'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
+                'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+            ];
             ++$dataSection_NumProps;
         }
         //    Keywords
         if ($this->spreadsheet->getProperties()->getKeywords()) {
             $dataProp = $this->spreadsheet->getProperties()->getKeywords();
-            $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x05],
-                                   'offset' => ['pack' => 'V'],
-                                   'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
-                                   'data' => ['data' => $dataProp, 'length' => strlen($dataProp)], ];
+            $dataSection[] = [
+                'summary' => ['pack' => 'V', 'data' => 0x05],
+                'offset' => ['pack' => 'V'],
+                'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
+                'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+            ];
             ++$dataSection_NumProps;
         }
         //    Comments (Description)
         if ($this->spreadsheet->getProperties()->getDescription()) {
             $dataProp = $this->spreadsheet->getProperties()->getDescription();
-            $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x06],
-                                   'offset' => ['pack' => 'V'],
-                                   'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
-                                   'data' => ['data' => $dataProp, 'length' => strlen($dataProp)], ];
+            $dataSection[] = [
+                'summary' => ['pack' => 'V', 'data' => 0x06],
+                'offset' => ['pack' => 'V'],
+                'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
+                'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+            ];
             ++$dataSection_NumProps;
         }
         //    Last Saved By (LastModifiedBy)
         if ($this->spreadsheet->getProperties()->getLastModifiedBy()) {
             $dataProp = $this->spreadsheet->getProperties()->getLastModifiedBy();
-            $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x08],
-                                   'offset' => ['pack' => 'V'],
-                                   'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
-                                   'data' => ['data' => $dataProp, 'length' => strlen($dataProp)], ];
+            $dataSection[] = [
+                'summary' => ['pack' => 'V', 'data' => 0x08],
+                'offset' => ['pack' => 'V'],
+                'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
+                'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+            ];
             ++$dataSection_NumProps;
         }
         //    Created Date/Time
         if ($this->spreadsheet->getProperties()->getCreated()) {
             $dataProp = $this->spreadsheet->getProperties()->getCreated();
-            $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x0C],
-                                   'offset' => ['pack' => 'V'],
-                                   'type' => ['pack' => 'V', 'data' => 0x40], // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
-                                   'data' => ['data' => \PhpSpreadsheet\Shared\OLE::localDateToOLE($dataProp)], ];
+            $dataSection[] = [
+                'summary' => ['pack' => 'V', 'data' => 0x0C],
+                'offset' => ['pack' => 'V'],
+                'type' => ['pack' => 'V', 'data' => 0x40], // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
+                'data' => ['data' => \PhpSpreadsheet\Shared\OLE::localDateToOLE($dataProp)],
+            ];
             ++$dataSection_NumProps;
         }
         //    Modified Date/Time
         if ($this->spreadsheet->getProperties()->getModified()) {
             $dataProp = $this->spreadsheet->getProperties()->getModified();
-            $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x0D],
-                                   'offset' => ['pack' => 'V'],
-                                   'type' => ['pack' => 'V', 'data' => 0x40], // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
-                                   'data' => ['data' => \PhpSpreadsheet\Shared\OLE::localDateToOLE($dataProp)], ];
+            $dataSection[] = [
+                'summary' => ['pack' => 'V', 'data' => 0x0D],
+                'offset' => ['pack' => 'V'],
+                'type' => ['pack' => 'V', 'data' => 0x40], // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
+                'data' => ['data' => \PhpSpreadsheet\Shared\OLE::localDateToOLE($dataProp)],
+            ];
             ++$dataSection_NumProps;
         }
         //    Security
-        $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x13],
-                               'offset' => ['pack' => 'V'],
-                               'type' => ['pack' => 'V', 'data' => 0x03], // 4 byte signed integer
-                               'data' => ['data' => 0x00], ];
+        $dataSection[] = [
+            'summary' => ['pack' => 'V', 'data' => 0x13],
+            'offset' => ['pack' => 'V'],
+            'type' => ['pack' => 'V', 'data' => 0x03], // 4 byte signed integer
+            'data' => ['data' => 0x00],
+        ];
         ++$dataSection_NumProps;
 
         //         4     Section Length

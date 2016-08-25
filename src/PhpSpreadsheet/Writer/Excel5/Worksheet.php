@@ -1019,9 +1019,7 @@ class Worksheet extends BIFFwriter
         $data = pack('vvvv', $row1, $row2, $col1, $col2);
 
         // Write the packed data
-        $this->append($header . $data .
-                       $unknown1 . $options .
-                       $unknown2 . $url_len . $url);
+        $this->append($header . $data . $unknown1 . $options . $unknown2 . $url_len . $url);
 
         return 0;
     }
@@ -1068,9 +1066,7 @@ class Worksheet extends BIFFwriter
         $data = pack('vvvv', $row1, $row2, $col1, $col2);
 
         // Write the packed data
-        $this->append($header . $data .
-                       $unknown1 . $options .
-                       $url_len . $url);
+        $this->append($header . $data . $unknown1 . $options . $url_len . $url);
 
         return 0;
     }
