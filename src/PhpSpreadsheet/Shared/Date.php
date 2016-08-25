@@ -114,8 +114,8 @@ class Date
      * Set the Default timezone to use for dates
      *
      * @param     string|\DateTimeZone    $timeZone    The timezone to set for all Excel datetimestamp to PHP DateTime Object conversions
-     * @return    boolean                              Success or failure
      * @throws    \Exception
+     * @return    bool                              Success or failure
      * @return    bool                              Success or failure
      */
     public static function setDefaultTimezone($timeZone)
@@ -147,8 +147,8 @@ class Date
      * Validate a timezone
      *
      * @param     string|\DateTimeZone    $timeZone    The timezone to validate, either as a timezone string or object
-     * @return    \DateTimeZone                        The timezone as a timezone object
      * @throws    \Exception
+     * @return    \DateTimeZone                        The timezone as a timezone object
      * @return    \DateTimeZone                        The timezone as a timezone object
      */
     protected static function validateTimeZone($timeZone)
@@ -164,7 +164,7 @@ class Date
     /**
      * Convert a MS serialized datetime value from Excel to a PHP Date/Time object
      *
-     * @param     integer|float                      $excelTimestamp      MS Excel serialized date/time value
+     * @param     int|float                      $excelTimestamp      MS Excel serialized date/time value
      * @param     \DateTimeZone|string|null          $timeZone            The timezone to assume for the Excel timestamp,
      *                                                                        if you don't want to treat it as a UTC value
      *                                                                    Use the default (UST) unless you absolutely need a conversion
@@ -203,7 +203,7 @@ class Date
     /**
      * Convert a MS serialized datetime value from Excel to a unix timestamp
      *
-     * @param     integer|float                      $excelTimestamp        MS Excel serialized date/time value
+     * @param     int|float                      $excelTimestamp        MS Excel serialized date/time value
      * @param     \DateTimeZone|string|null          $timeZone            The timezone to assume for the Excel timestamp,
      *                                                                        if you don't want to treat it as a UTC value
      *                                                                    Use the default (UST) unless you absolutely need a conversion
@@ -220,7 +220,7 @@ class Date
      *    Convert a date from PHP to an MS Excel serialized date/time value
      *
      *    @param    mixed            $dateValue            Unix Timestamp or PHP DateTime object or a string
-     *    @return   float|boolean    Excel date/time value
+     *    @return   float|bool    Excel date/time value
      *                                  or boolean FALSE on failure
      */
     public static function PHPToExcel($dateValue = 0)
@@ -265,6 +265,7 @@ class Date
         if (!is_numeric($dateValue)) {
             return false;
         }
+
         return self::dateTimeToExcel(new \DateTime('@' . $dateValue));
     }
 
