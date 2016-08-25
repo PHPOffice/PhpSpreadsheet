@@ -36,7 +36,7 @@ class Meta extends WriterPart
     public function write(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         if (!$spreadsheet) {
-            $spreadsheet = $this->getParentWriter()->getPhpSpreadsheet();
+            $spreadsheet = $this->getParentWriter()->getSpreadsheet();
         }
 
         $objWriter = null;

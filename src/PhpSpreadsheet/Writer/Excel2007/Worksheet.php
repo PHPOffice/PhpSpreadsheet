@@ -211,7 +211,7 @@ class Worksheet extends WriterPart
 
         // Sheet selected?
         $sheetSelected = false;
-        if ($this->getParentWriter()->getPhpSpreadsheet()->getIndex($pSheet) == $this->getParentWriter()->getPhpSpreadsheet()->getActiveSheetIndex()) {
+        if ($this->getParentWriter()->getSpreadsheet()->getIndex($pSheet) == $this->getParentWriter()->getSpreadsheet()->getActiveSheetIndex()) {
             $sheetSelected = true;
         }
 

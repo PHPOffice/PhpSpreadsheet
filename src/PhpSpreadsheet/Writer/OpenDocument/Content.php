@@ -47,7 +47,7 @@ class Content extends WriterPart
     public function write(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         if (!$spreadsheet) {
-            $spreadsheet = $this->getParentWriter()->getPhpSpreadsheet(); /* @var $spreadsheet PhpSpreadsheet */
+            $spreadsheet = $this->getParentWriter()->getSpreadsheet(); /* @var $spreadsheet PhpSpreadsheet */
         }
 
         $objWriter = null;
@@ -119,7 +119,7 @@ class Content extends WriterPart
      */
     private function writeSheets(\PhpSpreadsheet\Shared\XMLWriter $objWriter)
     {
-        $spreadsheet = $this->getParentWriter()->getPhpSpreadsheet(); /* @var $spreadsheet PhpSpreadsheet */
+        $spreadsheet = $this->getParentWriter()->getSpreadsheet(); /* @var $spreadsheet PhpSpreadsheet */
 
         $sheet_count = $spreadsheet->getSheetCount();
         for ($i = 0; $i < $sheet_count; ++$i) {

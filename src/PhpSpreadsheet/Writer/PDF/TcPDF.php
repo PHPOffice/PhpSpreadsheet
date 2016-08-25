@@ -60,15 +60,15 @@ class TcPDF extends Core implements \PhpSpreadsheet\Writer\IWriter
 
         //  Check for paper size and page orientation
         if (is_null($this->getSheetIndex())) {
-            $orientation = ($this->phpSpreadsheet->getSheet(0)->getPageSetup()->getOrientation()
+            $orientation = ($this->spreadsheet->getSheet(0)->getPageSetup()->getOrientation()
                 == \PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
-            $printPaperSize = $this->phpSpreadsheet->getSheet(0)->getPageSetup()->getPaperSize();
-            $printMargins = $this->phpSpreadsheet->getSheet(0)->getPageMargins();
+            $printPaperSize = $this->spreadsheet->getSheet(0)->getPageSetup()->getPaperSize();
+            $printMargins = $this->spreadsheet->getSheet(0)->getPageMargins();
         } else {
-            $orientation = ($this->phpSpreadsheet->getSheet($this->getSheetIndex())->getPageSetup()->getOrientation()
+            $orientation = ($this->spreadsheet->getSheet($this->getSheetIndex())->getPageSetup()->getOrientation()
                 == \PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
-            $printPaperSize = $this->phpSpreadsheet->getSheet($this->getSheetIndex())->getPageSetup()->getPaperSize();
-            $printMargins = $this->phpSpreadsheet->getSheet($this->getSheetIndex())->getPageMargins();
+            $printPaperSize = $this->spreadsheet->getSheet($this->getSheetIndex())->getPageSetup()->getPaperSize();
+            $printMargins = $this->spreadsheet->getSheet($this->getSheetIndex())->getPageMargins();
         }
 
         //  Override Page Orientation
@@ -107,11 +107,11 @@ class TcPDF extends Core implements \PhpSpreadsheet\Writer\IWriter
         );
 
         //  Document info
-        $pdf->SetTitle($this->phpSpreadsheet->getProperties()->getTitle());
-        $pdf->SetAuthor($this->phpSpreadsheet->getProperties()->getCreator());
-        $pdf->SetSubject($this->phpSpreadsheet->getProperties()->getSubject());
-        $pdf->SetKeywords($this->phpSpreadsheet->getProperties()->getKeywords());
-        $pdf->SetCreator($this->phpSpreadsheet->getProperties()->getCreator());
+        $pdf->SetTitle($this->spreadsheet->getProperties()->getTitle());
+        $pdf->SetAuthor($this->spreadsheet->getProperties()->getCreator());
+        $pdf->SetSubject($this->spreadsheet->getProperties()->getSubject());
+        $pdf->SetKeywords($this->spreadsheet->getProperties()->getKeywords());
+        $pdf->SetCreator($this->spreadsheet->getProperties()->getCreator());
 
         //  Write to file
         fwrite($fileHandle, $pdf->output($pFilename, 'S'));

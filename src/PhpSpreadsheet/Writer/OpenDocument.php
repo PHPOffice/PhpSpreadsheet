@@ -2,6 +2,8 @@
 
 namespace PhpSpreadsheet\Writer;
 
+use PhpSpreadsheet\Spreadsheet;
+
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet
  *
@@ -47,7 +49,7 @@ class OpenDocument extends BaseWriter implements IWriter
      */
     public function __construct(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
-        $this->setPhpSpreadsheet($spreadsheet);
+        $this->setSpreadsheet($spreadsheet);
 
         $writerPartsArray = [
             'content' => \PhpSpreadsheet\Writer\OpenDocument\Content::class,
@@ -160,12 +162,12 @@ class OpenDocument extends BaseWriter implements IWriter
     }
 
     /**
-     * Get PhpSpreadsheet object
+     * Get Spreadsheet object
      *
      * @throws \PhpSpreadsheet\Writer\Exception
-     * @return PhpSpreadsheet
+     * @return Spreadsheet
      */
-    public function getPhpSpreadsheet()
+    public function getSpreadsheet()
     {
         if ($this->spreadSheet !== null) {
             return $this->spreadSheet;
@@ -181,7 +183,7 @@ class OpenDocument extends BaseWriter implements IWriter
      * @throws \PhpSpreadsheet\Writer\Exception
      * @return Excel2007
      */
-    public function setPhpSpreadsheet(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function setSpreadsheet(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         $this->spreadSheet = $spreadsheet;
 

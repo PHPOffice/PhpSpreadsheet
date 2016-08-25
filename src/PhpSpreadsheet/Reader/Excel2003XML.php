@@ -2,6 +2,8 @@
 
 namespace PhpSpreadsheet\Reader;
 
+use PhpSpreadsheet\Spreadsheet;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
@@ -100,7 +102,7 @@ class Excel2003XML extends BaseReader implements IReader
     }
 
     /**
-     * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object
+     * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object
      *
      * @param     string         $pFilename
      * @throws     Exception
@@ -208,7 +210,7 @@ class Excel2003XML extends BaseReader implements IReader
     }
 
     /**
-     * Loads PhpSpreadsheet from file
+     * Loads Spreadsheet from file
      *
      * @param     string         $pFilename
      * @throws     Exception
@@ -216,8 +218,8 @@ class Excel2003XML extends BaseReader implements IReader
      */
     public function load($pFilename)
     {
-        // Create new PhpSpreadsheet
-        $spreadsheet = new PhpSpreadsheet();
+        // Create new Spreadsheet
+        $spreadsheet = new Spreadsheet();
         $spreadsheet->removeSheetByIndex(0);
 
         // Load into this instance
@@ -273,7 +275,7 @@ class Excel2003XML extends BaseReader implements IReader
     }
 
     /**
-     * Loads PhpSpreadsheet from file into PhpSpreadsheet instance
+     * Loads from file into Spreadsheet instance
      *
      * @param     string         $pFilename
      * @param     \PhpSpreadsheet\Spreadsheet    $spreadsheet
@@ -371,7 +373,7 @@ class Excel2003XML extends BaseReader implements IReader
         if (isset($xml->CustomDocumentProperties)) {
             foreach ($xml->CustomDocumentProperties[0] as $propertyName => $propertyValue) {
                 $propertyAttributes = $propertyValue->attributes($namespaces['dt']);
-                $propertyName = preg_replace_callback('/_x([0-9a-z]{4})_/', '\\PhpSpreadsheet\\Reader\\Excel2003XML::hex2str', $propertyName);
+                $propertyName = preg_replace_callback('/_x([0-9a-z]{4})_/', ['self', 'hex2str'], $propertyName);
                 $propertyType = \PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_UNKNOWN;
                 switch ((string) $propertyAttributes) {
                     case 'string':

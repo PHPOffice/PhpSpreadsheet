@@ -2,6 +2,8 @@
 
 namespace PhpSpreadsheet\Reader;
 
+use PhpSpreadsheet\Spreadsheet;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
@@ -83,7 +85,7 @@ class Gnumeric extends BaseReader implements IReader
     }
 
     /**
-     * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object
+     * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object
      *
      * @param   string         $pFilename
      * @throws  Exception
@@ -178,30 +180,30 @@ class Gnumeric extends BaseReader implements IReader
     }
 
     /**
-     * Loads PhpSpreadsheet from file
+     * Loads Spreadsheet from file
      *
      * @param     string         $pFilename
      * @throws     Exception
-     * @return     PhpSpreadsheet
+     * @return     Spreadsheet
      */
     public function load($pFilename)
     {
-        // Create new PhpSpreadsheet
-        $spreadsheet = new PhpSpreadsheet();
+        // Create new Spreadsheet
+        $spreadsheet = new Spreadsheet();
 
         // Load into this instance
         return $this->loadIntoExisting($pFilename, $spreadsheet);
     }
 
     /**
-     * Loads PhpSpreadsheet from file into PhpSpreadsheet instance
+     * Loads from file into Spreadsheet instance
      *
      * @param     string         $pFilename
-     * @param    \PhpSpreadsheet\Spreadsheet    $spreadsheet
+     * @param    Spreadsheet    $spreadsheet
      * @throws     Exception
      * @return     PhpSpreadsheet
      */
-    public function loadIntoExisting($pFilename, \PhpSpreadsheet\Spreadsheet $spreadsheet)
+    public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
     {
         // Check if file exists
         if (!file_exists($pFilename)) {

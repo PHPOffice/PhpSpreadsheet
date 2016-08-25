@@ -2,6 +2,8 @@
 
 namespace PhpSpreadsheet\Writer;
 
+use PhpSpreadsheet\Spreadsheet;
+
 /**
  * PhpSpreadsheet\Writer\Excel2007
  *
@@ -113,7 +115,7 @@ class Excel2007 extends BaseWriter implements IWriter
     public function __construct(\PhpSpreadsheet\Spreadsheet $spreadsheet = null)
     {
         // Assign PhpSpreadsheet
-        $this->setPhpSpreadsheet($spreadsheet);
+        $this->setSpreadsheet($spreadsheet);
 
         $writerPartsArray = [
             'stringtable' => '\\PhpSpreadsheet\\Writer\\Excel2007\\StringTable',
@@ -397,28 +399,28 @@ class Excel2007 extends BaseWriter implements IWriter
     }
 
     /**
-     * Get PhpSpreadsheet object
+     * Get Spreadsheet object
      *
      * @throws \PhpSpreadsheet\Writer\Exception
-     * @return PhpSpreadsheet
+     * @return Spreadsheet
      */
-    public function getPhpSpreadsheet()
+    public function getSpreadsheet()
     {
         if ($this->spreadSheet !== null) {
             return $this->spreadSheet;
         } else {
-            throw new \PhpSpreadsheet\Writer\Exception('No PhpSpreadsheet object assigned.');
+            throw new \PhpSpreadsheet\Writer\Exception('No Spreadsheet object assigned.');
         }
     }
 
     /**
-     * Set PhpSpreadsheet object
+     * Set Spreadsheet object
      *
      * @param     \PhpSpreadsheet\Spreadsheet     $spreadsheet    PhpSpreadsheet object
      * @throws    Exception
      * @return    Excel2007
      */
-    public function setPhpSpreadsheet(\PhpSpreadsheet\Spreadsheet $spreadsheet = null)
+    public function setSpreadsheet(Spreadsheet $spreadsheet = null)
     {
         $this->spreadSheet = $spreadsheet;
 

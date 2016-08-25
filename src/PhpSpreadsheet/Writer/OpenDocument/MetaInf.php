@@ -36,7 +36,7 @@ class MetaInf extends WriterPart
     public function writeManifest(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         if (!$spreadsheet) {
-            $spreadsheet = $this->getParentWriter()->getPhpSpreadsheet();
+            $spreadsheet = $this->getParentWriter()->getSpreadsheet();
         }
 
         $objWriter = null;

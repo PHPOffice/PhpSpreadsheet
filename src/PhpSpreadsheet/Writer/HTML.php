@@ -1,6 +1,6 @@
 <?php
 
-namespace Spreadsheet\Writer;
+namespace PhpSpreadsheet\Writer;
 
 use Spreadsheet\Calculation;
 use Spreadsheet\Shared\Font;
