@@ -50,7 +50,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "PhpSpreadsheet\\Tests\\": "tests/PhpSpreadsheet"
+            "PhpSpreadsheetTests\\": "tests/PhpSpreadsheetTests"
         }
     }
 }
