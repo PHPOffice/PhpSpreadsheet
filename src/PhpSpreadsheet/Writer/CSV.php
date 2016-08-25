@@ -116,10 +116,10 @@ class CSV extends BaseWriter implements IWriter
         }
 
         if ($this->excelCompatibility) {
-            $this->setUseBOM(true);                //  Enforce UTF-8 BOM Header
-            $this->setIncludeSeparatorLine(true);  //  Set separator line
-            $this->setEnclosure('"');              //  Set enclosure to "
-            $this->setDelimiter(';');              //  Set delimiter to a semi-colon
+            $this->setUseBOM(true); //  Enforce UTF-8 BOM Header
+            $this->setIncludeSeparatorLine(true); //  Set separator line
+            $this->setEnclosure('"'); //  Set enclosure to "
+            $this->setDelimiter(';'); //  Set delimiter to a semi-colon
             $this->setLineEnding("\r\n");
         }
         if ($this->useBOM) {

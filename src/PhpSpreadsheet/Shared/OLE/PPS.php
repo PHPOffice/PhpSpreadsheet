@@ -184,7 +184,7 @@ class PPS
               . \PhpSpreadsheet\Shared\OLE::localDateToOLE($this->Time2nd)          // 116
               . pack('V', isset($this->startBlock) ? $this->startBlock : 0)  // 120
               . pack('V', $this->Size)               // 124
-              . pack('V', 0);                        // 128
+              . pack('V', 0); // 128
         return $ret;
     }
 

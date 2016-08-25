@@ -424,7 +424,7 @@ class DateTime
 
                 return (float) \PhpSpreadsheet\Shared\Date::formattedPHPToExcel($calendar, 1, $date, $hour, $minute, $second);
             case Functions::RETURNDATE_PHP_NUMERIC:
-                return (integer) \PhpSpreadsheet\Shared\Date::excelToTimestamp(\PhpSpreadsheet\Shared\Date::formattedPHPToExcel(1970, 1, 1, $hour, $minute, $second));    // -2147468400; //    -2147472000 + 3600
+                return (integer) \PhpSpreadsheet\Shared\Date::excelToTimestamp(\PhpSpreadsheet\Shared\Date::formattedPHPToExcel(1970, 1, 1, $hour, $minute, $second)); // -2147468400; //    -2147472000 + 3600
             case Functions::RETURNDATE_PHP_OBJECT:
                 $dayAdjust = 0;
                 if ($hour < 0) {
@@ -1036,7 +1036,7 @@ class DateTime
 
         $startDoW = self::DAYOFWEEK($startDate, 3);
         if (self::DAYOFWEEK($startDate, 3) >= 5) {
-            $startDate += ($decrementing) ? -$startDoW + 4: 7 - $startDoW;
+            $startDate += ($decrementing) ? -$startDoW + 4 : 7 - $startDoW;
             ($decrementing) ? $endDays++ : $endDays--;
         }
 
@@ -1046,7 +1046,7 @@ class DateTime
         //    Adjust the calculated end date if it falls over a weekend
         $endDoW = self::DAYOFWEEK($endDate, 3);
         if ($endDoW >= 5) {
-            $endDate += ($decrementing) ? -$endDoW + 4: 7 - $endDoW;
+            $endDate += ($decrementing) ? -$endDoW + 4 : 7 - $endDoW;
         }
 
         //    Test any extra holiday parameters

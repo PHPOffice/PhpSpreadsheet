@@ -34,14 +34,14 @@ class Alignment extends Supervisor implements \PhpSpreadsheet\IComparable
     const HORIZONTAL_CENTER_CONTINUOUS = 'centerContinuous';
     const HORIZONTAL_JUSTIFY = 'justify';
     const HORIZONTAL_FILL = 'fill';
-    const HORIZONTAL_DISTRIBUTED = 'distributed';        // Excel2007 only
+    const HORIZONTAL_DISTRIBUTED = 'distributed'; // Excel2007 only
 
     /* Vertical alignment styles */
     const VERTICAL_BOTTOM = 'bottom';
     const VERTICAL_TOP = 'top';
     const VERTICAL_CENTER = 'center';
     const VERTICAL_JUSTIFY = 'justify';
-    const VERTICAL_DISTRIBUTED = 'distributed';        // Excel2007 only
+    const VERTICAL_DISTRIBUTED = 'distributed'; // Excel2007 only
 
     /* Read order */
     const READORDER_CONTEXT = 0;

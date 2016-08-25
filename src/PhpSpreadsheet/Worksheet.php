@@ -2962,7 +2962,7 @@ class Worksheet implements IComparable
         if ($this->getCodeName() == $pValue) {
             return $this;
         }
-        $pValue = str_replace(' ', '_', $pValue);//Excel does this automatically without flinching, we are doing the same
+        $pValue = str_replace(' ', '_', $pValue); //Excel does this automatically without flinching, we are doing the same
         // Syntax check
         // throw an exception if not valid
         self::checkSheetCodeName($pValue);
@@ -2991,7 +2991,7 @@ class Worksheet implements IComparable
                     }
                 }
 
-                $pValue = $pValue . '_' . $i;// ok, we have a valid name
+                $pValue = $pValue . '_' . $i; // ok, we have a valid name
                 //codeName is'nt used in formula : no need to call for an update
                 //return $this->setTitle($altTitle, $updateFormulaCellReferences);
             }

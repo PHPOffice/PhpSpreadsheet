@@ -104,7 +104,7 @@ class Gnumeric extends BaseReader implements IReader
         $worksheetNames = [];
         while ($xml->read()) {
             if ($xml->name == 'gnm:SheetName' && $xml->nodeType == XMLReader::ELEMENT) {
-                $xml->read();    //    Move onto the value node
+                $xml->read(); //    Move onto the value node
                 $worksheetNames[] = (string) $xml->value;
             } elseif ($xml->name == 'gnm:Sheets') {
                 //    break out of the loop once we've got our sheet names rather than parse the entire file
@@ -145,14 +145,14 @@ class Gnumeric extends BaseReader implements IReader
 
                 while ($xml->read()) {
                     if ($xml->name == 'gnm:Name' && $xml->nodeType == XMLReader::ELEMENT) {
-                        $xml->read();    //    Move onto the value node
+                        $xml->read(); //    Move onto the value node
                         $tmpInfo['worksheetName'] = (string) $xml->value;
                     } elseif ($xml->name == 'gnm:MaxCol' && $xml->nodeType == XMLReader::ELEMENT) {
-                        $xml->read();    //    Move onto the value node
+                        $xml->read(); //    Move onto the value node
                         $tmpInfo['lastColumnIndex'] = (int) $xml->value;
                         $tmpInfo['totalColumns'] = (int) $xml->value + 1;
                     } elseif ($xml->name == 'gnm:MaxRow' && $xml->nodeType == XMLReader::ELEMENT) {
-                        $xml->read();    //    Move onto the value node
+                        $xml->read(); //    Move onto the value node
                         $tmpInfo['totalRows'] = (int) $xml->value + 1;
                         break;
                     }
@@ -351,7 +351,7 @@ class Gnumeric extends BaseReader implements IReader
                 if (isset($sheet->PrintInformation->Margins)) {
                     foreach ($sheet->PrintInformation->Margins->children('gnm', true) as $key => $margin) {
                         $marginAttributes = $margin->attributes();
-                        $marginSize = 72 / 100;    //    Default
+                        $marginSize = 72 / 100; //    Default
                         switch ($marginAttributes['PrefUnit']) {
                             case 'mm':
                                 $marginSize = intval($marginAttributes['Points']) / 100;
@@ -437,7 +437,7 @@ class Gnumeric extends BaseReader implements IReader
                             break;
                         case '20':        //    Boolean
                             $type = \PhpSpreadsheet\Cell\DataType::TYPE_BOOL;
-                            $cell = ($cell == 'TRUE') ? true: false;
+                            $cell = ($cell == 'TRUE') ? true : false;
                             break;
                         case '30':        //    Integer
                             $cell = intval($cell);

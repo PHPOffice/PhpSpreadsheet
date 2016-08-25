@@ -166,7 +166,7 @@ class Rels extends WriterPart
                 'http://schemas.microsoft.com/office/2006/relationships/vbaProject',
                 'vbaProject.bin'
             );
-            ++$i;//increment i if needed for an another relation
+            ++$i; //increment i if needed for an another relation
         }
 
         $objWriter->endElement();

@@ -157,7 +157,7 @@ class ContentTypes extends WriterPart
             // we need to write "Extension" but not already write for media content
             $tabRibbonTypes = array_diff($spreadsheet->getRibbonBinObjects('types'), array_keys($aMediaContentTypes));
             foreach ($tabRibbonTypes as $aRibbonType) {
-                $mimeType = 'image/.' . $aRibbonType;//we wrote $mimeType like customUI Editor
+                $mimeType = 'image/.' . $aRibbonType; //we wrote $mimeType like customUI Editor
                 $this->writeDefaultContentType($objWriter, $aRibbonType, $mimeType);
             }
         }

@@ -542,7 +542,7 @@ class Worksheet extends BIFFwriter
         }
 
         $firstCellCoordinates = \PhpSpreadsheet\Cell::coordinateFromString($firstCell); // e.g. array(0, 1)
-        $lastCellCoordinates = \PhpSpreadsheet\Cell::coordinateFromString($lastCell);  // e.g. array(1, 6)
+        $lastCellCoordinates = \PhpSpreadsheet\Cell::coordinateFromString($lastCell); // e.g. array(1, 6)
 
         return pack('vvvv', $firstCellCoordinates[1] - 1, $lastCellCoordinates[1] - 1, \PhpSpreadsheet\Cell::columnIndexFromString($firstCellCoordinates[0]) - 1, \PhpSpreadsheet\Cell::columnIndexFromString($lastCellCoordinates[0]) - 1);
     }
@@ -616,8 +616,8 @@ class Worksheet extends BIFFwriter
      */
     private function writeNumber($row, $col, $num, $xfIndex)
     {
-        $record = 0x0203;                 // Record identifier
-        $length = 0x000E;                 // Number of bytes to follow
+        $record = 0x0203; // Record identifier
+        $length = 0x000E; // Number of bytes to follow
 
         $header = pack('vv', $record, $length);
         $data = pack('vvv', $row, $col, $xfIndex);
@@ -655,8 +655,8 @@ class Worksheet extends BIFFwriter
      */
     private function writeRichTextString($row, $col, $str, $xfIndex, $arrcRun)
     {
-        $record = 0x00FD;                   // Record identifier
-        $length = 0x000A;                   // Bytes to follow
+        $record = 0x00FD; // Record identifier
+        $length = 0x000A; // Bytes to follow
         $str = \PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeShort($str, $arrcRun);
 
         /* check if string is already present */
@@ -687,8 +687,8 @@ class Worksheet extends BIFFwriter
     private function writeLabel($row, $col, $str, $xfIndex)
     {
         $strlen = strlen($str);
-        $record = 0x0204;                   // Record identifier
-        $length = 0x0008 + $strlen;         // Bytes to follow
+        $record = 0x0204; // Record identifier
+        $length = 0x0008 + $strlen; // Bytes to follow
 
         $str_error = 0;
 
@@ -722,8 +722,8 @@ class Worksheet extends BIFFwriter
      */
     private function writeLabelSst($row, $col, $str, $xfIndex)
     {
-        $record = 0x00FD;                   // Record identifier
-        $length = 0x000A;                   // Bytes to follow
+        $record = 0x00FD; // Record identifier
+        $length = 0x000A; // Bytes to follow
 
         $str = \PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong($str);
 
@@ -749,8 +749,8 @@ class Worksheet extends BIFFwriter
     private function writeNote($row, $col, $note)
     {
         $note_length = strlen($note);
-        $record = 0x001C;            // Record identifier
-        $max_length = 2048;                // Maximun length for a NOTE record
+        $record = 0x001C; // Record identifier
+        $max_length = 2048; // Maximun length for a NOTE record
 
         // Length for this record is no more than 2048 + 6
         $length = 0x0006 + min($note_length, 2048);
@@ -787,8 +787,8 @@ class Worksheet extends BIFFwriter
      */
     public function writeBlank($row, $col, $xfIndex)
     {
-        $record = 0x0201;                 // Record identifier
-        $length = 0x0006;                 // Number of bytes to follow
+        $record = 0x0201; // Record identifier
+        $length = 0x0006; // Number of bytes to follow
 
         $header = pack('vv', $record, $length);
         $data = pack('vvv', $row, $col, $xfIndex);
@@ -836,7 +836,7 @@ class Worksheet extends BIFFwriter
      */
     private function writeFormula($row, $col, $formula, $xfIndex, $calculatedValue)
     {
-        $record = 0x0006;     // Record identifier
+        $record = 0x0006; // Record identifier
 
         // Initialize possible additional value for STRING record that should be written after the FORMULA record?
         $stringValue = null;
@@ -871,8 +871,8 @@ class Worksheet extends BIFFwriter
             $num = pack('d', 0x00);
         }
 
-        $grbit = 0x03;                // Option flags
-        $unknown = 0x0000;            // Must be zero
+        $grbit = 0x03; // Option flags
+        $unknown = 0x0000; // Must be zero
 
         // Strip the '=' or '@' sign at the beginning of the formula string
         if ($formula{0} == '=') {
@@ -889,8 +889,8 @@ class Worksheet extends BIFFwriter
             $error = $this->parser->parse($formula);
             $formula = $this->parser->toReversePolish();
 
-            $formlen = strlen($formula);    // Length of the binary string
-            $length = 0x16 + $formlen;     // Length of the record data
+            $formlen = strlen($formula); // Length of the binary string
+            $length = 0x16 + $formlen; // Length of the record data
 
             $header = pack('vv', $record, $length);
 
@@ -917,7 +917,7 @@ class Worksheet extends BIFFwriter
      */
     private function writeStringRecord($stringValue)
     {
-        $record = 0x0207;     // Record identifier
+        $record = 0x0207; // Record identifier
         $data = \PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong($stringValue);
 
         $length = strlen($data);
@@ -994,8 +994,8 @@ class Worksheet extends BIFFwriter
      */
     public function writeUrlWeb($row1, $col1, $row2, $col2, $url)
     {
-        $record = 0x01B8;                       // Record identifier
-        $length = 0x00000;                      // Bytes to follow
+        $record = 0x01B8; // Record identifier
+        $length = 0x00000; // Bytes to follow
 
         // Pack the undocumented parts of the hyperlink stream
         $unknown1 = pack('H*', 'D0C9EA79F9BACE118C8200AA004BA90B02000000');
@@ -1039,8 +1039,8 @@ class Worksheet extends BIFFwriter
      */
     public function writeUrlInternal($row1, $col1, $row2, $col2, $url)
     {
-        $record = 0x01B8;                       // Record identifier
-        $length = 0x00000;                      // Bytes to follow
+        $record = 0x01B8; // Record identifier
+        $length = 0x00000; // Bytes to follow
 
         // Strip URL type
         $url = preg_replace('/^internal:/', '', $url);
@@ -1098,8 +1098,8 @@ class Worksheet extends BIFFwriter
             return; //($this->writeUrlExternal_net($row1, $col1, $row2, $col2, $url, $str, $format));
         }
 
-        $record = 0x01B8;                       // Record identifier
-        $length = 0x00000;                      // Bytes to follow
+        $record = 0x01B8; // Record identifier
+        $length = 0x00000; // Bytes to follow
 
         // Strip URL type and change Unix dir separator to Dos style (if needed)
         //
@@ -1158,7 +1158,7 @@ class Worksheet extends BIFFwriter
                           $dir_short_len .
                           $dir_short .
                           $unknown3 .
-                          $stream_len;/*.
+                          $stream_len; /*.
                           $dir_long_len .
                           $unknown4     .
                           $dir_long     .
@@ -1187,14 +1187,14 @@ class Worksheet extends BIFFwriter
      */
     private function writeRow($row, $height, $xfIndex, $hidden = false, $level = 0)
     {
-        $record = 0x0208;               // Record identifier
-        $length = 0x0010;               // Number of bytes to follow
+        $record = 0x0208; // Record identifier
+        $length = 0x0010; // Number of bytes to follow
 
-        $colMic = 0x0000;               // First defined column
-        $colMac = 0x0000;               // Last defined column
-        $irwMac = 0x0000;               // Used by Excel to optimise loading
-        $reserved = 0x0000;               // Reserved
-        $grbit = 0x0000;               // Option flags
+        $colMic = 0x0000; // First defined column
+        $colMac = 0x0000; // Last defined column
+        $irwMac = 0x0000; // Used by Excel to optimise loading
+        $reserved = 0x0000; // Reserved
+        $grbit = 0x0000; // Option flags
         $ixfe = $xfIndex;
 
         if ($height < 0) {
@@ -1203,9 +1203,9 @@ class Worksheet extends BIFFwriter
 
         // Use writeRow($row, null, $XF) to set XF format without setting height
         if ($height != null) {
-            $miyRw = $height * 20;  // row height
+            $miyRw = $height * 20; // row height
         } else {
-            $miyRw = 0xff;          // default row height is 256
+            $miyRw = 0xff; // default row height is 256
         }
 
         // Set the options flags. fUnsynced is used to show that the font and row
@@ -1250,26 +1250,26 @@ class Worksheet extends BIFFwriter
      */
     private function writeWindow2()
     {
-        $record = 0x023E;     // Record identifier
+        $record = 0x023E; // Record identifier
         $length = 0x0012;
 
-        $grbit = 0x00B6;     // Option flags
-        $rwTop = 0x0000;     // Top row visible in window
-        $colLeft = 0x0000;     // Leftmost column visible in window
+        $grbit = 0x00B6; // Option flags
+        $rwTop = 0x0000; // Top row visible in window
+        $colLeft = 0x0000; // Leftmost column visible in window
 
         // The options flags that comprise $grbit
-        $fDspFmla = 0;                     // 0 - bit
+        $fDspFmla = 0; // 0 - bit
         $fDspGrid = $this->phpSheet->getShowGridlines() ? 1 : 0; // 1
         $fDspRwCol = $this->phpSheet->getShowRowColHeaders() ? 1 : 0; // 2
-        $fFrozen = $this->phpSheet->getFreezePane() ? 1 : 0;        // 3
-        $fDspZeros = 1;                     // 4
-        $fDefaultHdr = 1;                     // 5
+        $fFrozen = $this->phpSheet->getFreezePane() ? 1 : 0; // 3
+        $fDspZeros = 1; // 4
+        $fDefaultHdr = 1; // 5
         $fArabic = $this->phpSheet->getRightToLeft() ? 1 : 0; // 6
-        $fDspGuts = $this->outlineOn;    // 7
-        $fFrozenNoSplit = 0;                     // 0 - bit
+        $fDspGuts = $this->outlineOn; // 7
+        $fFrozenNoSplit = 0; // 0 - bit
         // no support in PhpSpreadsheet for selected sheet, therefore sheet is only selected if it is the active sheet
         $fSelected = ($this->phpSheet === $this->phpSheet->getParent()->getActiveSheet()) ? 1 : 0;
-        $fPaged = 1;                     // 2
+        $fPaged = 1; // 2
         $fPageBreakPreview = $this->phpSheet->getSheetView()->getView() === \PhpSpreadsheet\Worksheet\SheetView::SHEETVIEW_PAGE_BREAK_PREVIEW;
 
         $grbit = $fDspFmla;
@@ -1312,8 +1312,8 @@ class Worksheet extends BIFFwriter
         // convert to twips
         $defaultRowHeight = (int) 20 * $defaultRowHeight;
 
-        $record = 0x0225;      // Record identifier
-        $length = 0x0004;      // Number of bytes to follow
+        $record = 0x0225; // Record identifier
+        $length = 0x0004; // Number of bytes to follow
 
         $header = pack('vv', $record, $length);
         $data = pack('vv', 1, $defaultRowHeight);
@@ -1327,8 +1327,8 @@ class Worksheet extends BIFFwriter
     {
         $defaultColWidth = 8;
 
-        $record = 0x0055;      // Record identifier
-        $length = 0x0002;      // Number of bytes to follow
+        $record = 0x0055; // Record identifier
+        $length = 0x0002; // Number of bytes to follow
 
         $header = pack('vv', $record, $length);
         $data = pack('v', $defaultColWidth);
@@ -1377,13 +1377,13 @@ class Worksheet extends BIFFwriter
         } else {
             $level = 0;
         }
-        $record = 0x007D;          // Record identifier
-        $length = 0x000C;          // Number of bytes to follow
+        $record = 0x007D; // Record identifier
+        $length = 0x000C; // Number of bytes to follow
 
-        $coldx *= 256;             // Convert to units of 1/256 of a char
+        $coldx *= 256; // Convert to units of 1/256 of a char
 
         $ixfe = $xfIndex;
-        $reserved = 0x0000;            // Reserved
+        $reserved = 0x0000; // Reserved
 
         $level = max(0, min($level, 7));
         $grbit |= $level << 8;
@@ -1424,20 +1424,20 @@ class Worksheet extends BIFFwriter
         $rwFirst = min($rwFirst, 65535);
         $rwLast = min($rwLast, 65535);
 
-        $record = 0x001D;                  // Record identifier
-        $length = 0x000F;                  // Number of bytes to follow
+        $record = 0x001D; // Record identifier
+        $length = 0x000F; // Number of bytes to follow
 
-        $pnn = $this->activePane;     // Pane position
-        $rwAct = $rwFirst;                // Active row
-        $colAct = $colFirst;               // Active column
-        $irefAct = 0;                       // Active cell ref
-        $cref = 1;                       // Number of refs
+        $pnn = $this->activePane; // Pane position
+        $rwAct = $rwFirst; // Active row
+        $colAct = $colFirst; // Active column
+        $irefAct = 0; // Active cell ref
+        $cref = 1; // Number of refs
 
         if (!isset($rwLast)) {
-            $rwLast = $rwFirst;       // Last  row in reference
+            $rwLast = $rwFirst; // Last  row in reference
         }
         if (!isset($colLast)) {
-            $colLast = $colFirst;      // Last  col in reference
+            $colLast = $colFirst; // Last  col in reference
         }
 
         // Swap last row/col for first row/col as necessary
@@ -1621,7 +1621,7 @@ class Worksheet extends BIFFwriter
 
             $length = strlen($recordData);
 
-            $record = 0x0868;        // Record identifier
+            $record = 0x0868; // Record identifier
             $header = pack('vv', $record, $length);
             $this->append($header . $recordData);
         }
@@ -1641,8 +1641,8 @@ class Worksheet extends BIFFwriter
      */
     private function writeExterncount($count)
     {
-        $record = 0x0016;          // Record identifier
-        $length = 0x0002;          // Number of bytes to follow
+        $record = 0x0016; // Record identifier
+        $length = 0x0002; // Number of bytes to follow
 
         $header = pack('vv', $record, $length);
         $data = pack('v', $count);
@@ -1659,20 +1659,20 @@ class Worksheet extends BIFFwriter
      */
     private function writeExternsheet($sheetname)
     {
-        $record = 0x0017;         // Record identifier
+        $record = 0x0017; // Record identifier
 
         // References to the current sheet are encoded differently to references to
         // external sheets.
         //
         if ($this->phpSheet->getTitle() == $sheetname) {
             $sheetname = '';
-            $length = 0x02;  // The following 2 bytes
-            $cch = 1;     // The following byte
-            $rgch = 0x02;  // Self reference
+            $length = 0x02; // The following 2 bytes
+            $cch = 1; // The following byte
+            $rgch = 0x02; // Self reference
         } else {
             $length = 0x02 + strlen($sheetname);
             $cch = strlen($sheetname);
-            $rgch = 0x03;  // Reference to a sheet in the current workbook
+            $rgch = 0x03; // Reference to a sheet in the current workbook
         }
 
         $header = pack('vv', $record, $length);
@@ -1707,8 +1707,8 @@ class Worksheet extends BIFFwriter
         } else {
             $pnnAct = null;
         }
-        $record = 0x0041;       // Record identifier
-        $length = 0x000A;       // Number of bytes to follow
+        $record = 0x0041; // Record identifier
+        $length = 0x000A; // Number of bytes to follow
 
         // Code specific to frozen or thawed panes.
         if ($this->phpSheet->getFreezePane()) {
@@ -1767,38 +1767,38 @@ class Worksheet extends BIFFwriter
      */
     private function writeSetup()
     {
-        $record = 0x00A1;                  // Record identifier
-        $length = 0x0022;                  // Number of bytes to follow
+        $record = 0x00A1; // Record identifier
+        $length = 0x0022; // Number of bytes to follow
 
-        $iPaperSize = $this->phpSheet->getPageSetup()->getPaperSize();    // Paper size
+        $iPaperSize = $this->phpSheet->getPageSetup()->getPaperSize(); // Paper size
 
         $iScale = $this->phpSheet->getPageSetup()->getScale() ?
-            $this->phpSheet->getPageSetup()->getScale() : 100;   // Print scaling factor
+            $this->phpSheet->getPageSetup()->getScale() : 100; // Print scaling factor
 
-        $iPageStart = 0x01;                 // Starting page number
-        $iFitWidth = (int) $this->phpSheet->getPageSetup()->getFitToWidth();    // Fit to number of pages wide
-        $iFitHeight = (int) $this->phpSheet->getPageSetup()->getFitToHeight();    // Fit to number of pages high
-        $grbit = 0x00;                 // Option flags
-        $iRes = 0x0258;               // Print resolution
-        $iVRes = 0x0258;               // Vertical print resolution
+        $iPageStart = 0x01; // Starting page number
+        $iFitWidth = (int) $this->phpSheet->getPageSetup()->getFitToWidth(); // Fit to number of pages wide
+        $iFitHeight = (int) $this->phpSheet->getPageSetup()->getFitToHeight(); // Fit to number of pages high
+        $grbit = 0x00; // Option flags
+        $iRes = 0x0258; // Print resolution
+        $iVRes = 0x0258; // Vertical print resolution
 
-        $numHdr = $this->phpSheet->getPageMargins()->getHeader();  // Header Margin
+        $numHdr = $this->phpSheet->getPageMargins()->getHeader(); // Header Margin
 
-        $numFtr = $this->phpSheet->getPageMargins()->getFooter();   // Footer Margin
-        $iCopies = 0x01;                 // Number of copies
+        $numFtr = $this->phpSheet->getPageMargins()->getFooter(); // Footer Margin
+        $iCopies = 0x01; // Number of copies
 
-        $fLeftToRight = 0x0;                     // Print over then down
+        $fLeftToRight = 0x0; // Print over then down
 
         // Page orientation
         $fLandscape = ($this->phpSheet->getPageSetup()->getOrientation() == \PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE) ?
             0x0 : 0x1;
 
-        $fNoPls = 0x0;                     // Setup not read from printer
-        $fNoColor = 0x0;                     // Print black and white
-        $fDraft = 0x0;                     // Print draft quality
-        $fNotes = 0x0;                     // Print notes
-        $fNoOrient = 0x0;                     // Orientation not set
-        $fUsePage = 0x0;                     // Use custom starting page
+        $fNoPls = 0x0; // Setup not read from printer
+        $fNoColor = 0x0; // Print black and white
+        $fDraft = 0x0; // Print draft quality
+        $fNotes = 0x0; // Print notes
+        $fNoOrient = 0x0; // Orientation not set
+        $fUsePage = 0x0; // Use custom starting page
 
         $grbit = $fLeftToRight;
         $grbit |= $fLandscape << 1;
@@ -1828,7 +1828,7 @@ class Worksheet extends BIFFwriter
      */
     private function writeHeader()
     {
-        $record = 0x0014;               // Record identifier
+        $record = 0x0014; // Record identifier
 
         /* removing for now
         // need to fix character count (multibyte!)
@@ -1852,7 +1852,7 @@ class Worksheet extends BIFFwriter
      */
     private function writeFooter()
     {
-        $record = 0x0015;               // Record identifier
+        $record = 0x0015; // Record identifier
 
         /* removing for now
         // need to fix character count (multibyte!)
@@ -1876,10 +1876,10 @@ class Worksheet extends BIFFwriter
      */
     private function writeHcenter()
     {
-        $record = 0x0083;              // Record identifier
-        $length = 0x0002;              // Bytes to follow
+        $record = 0x0083; // Record identifier
+        $length = 0x0002; // Bytes to follow
 
-        $fHCenter = $this->phpSheet->getPageSetup()->getHorizontalCentered() ? 1 : 0;     // Horizontal centering
+        $fHCenter = $this->phpSheet->getPageSetup()->getHorizontalCentered() ? 1 : 0; // Horizontal centering
 
         $header = pack('vv', $record, $length);
         $data = pack('v', $fHCenter);
@@ -1892,10 +1892,10 @@ class Worksheet extends BIFFwriter
      */
     private function writeVcenter()
     {
-        $record = 0x0084;              // Record identifier
-        $length = 0x0002;              // Bytes to follow
+        $record = 0x0084; // Record identifier
+        $length = 0x0002; // Bytes to follow
 
-        $fVCenter = $this->phpSheet->getPageSetup()->getVerticalCentered() ? 1 : 0;     // Horizontal centering
+        $fVCenter = $this->phpSheet->getPageSetup()->getVerticalCentered() ? 1 : 0; // Horizontal centering
 
         $header = pack('vv', $record, $length);
         $data = pack('v', $fVCenter);
@@ -1907,10 +1907,10 @@ class Worksheet extends BIFFwriter
      */
     private function writeMarginLeft()
     {
-        $record = 0x0026;                   // Record identifier
-        $length = 0x0008;                   // Bytes to follow
+        $record = 0x0026; // Record identifier
+        $length = 0x0008; // Bytes to follow
 
-        $margin = $this->phpSheet->getPageMargins()->getLeft();     // Margin in inches
+        $margin = $this->phpSheet->getPageMargins()->getLeft(); // Margin in inches
 
         $header = pack('vv', $record, $length);
         $data = pack('d', $margin);
@@ -1926,10 +1926,10 @@ class Worksheet extends BIFFwriter
      */
     private function writeMarginRight()
     {
-        $record = 0x0027;                   // Record identifier
-        $length = 0x0008;                   // Bytes to follow
+        $record = 0x0027; // Record identifier
+        $length = 0x0008; // Bytes to follow
 
-        $margin = $this->phpSheet->getPageMargins()->getRight();     // Margin in inches
+        $margin = $this->phpSheet->getPageMargins()->getRight(); // Margin in inches
 
         $header = pack('vv', $record, $length);
         $data = pack('d', $margin);
@@ -1945,10 +1945,10 @@ class Worksheet extends BIFFwriter
      */
     private function writeMarginTop()
     {
-        $record = 0x0028;                   // Record identifier
-        $length = 0x0008;                   // Bytes to follow
+        $record = 0x0028; // Record identifier
+        $length = 0x0008; // Bytes to follow
 
-        $margin = $this->phpSheet->getPageMargins()->getTop();     // Margin in inches
+        $margin = $this->phpSheet->getPageMargins()->getTop(); // Margin in inches
 
         $header = pack('vv', $record, $length);
         $data = pack('d', $margin);
@@ -1964,10 +1964,10 @@ class Worksheet extends BIFFwriter
      */
     private function writeMarginBottom()
     {
-        $record = 0x0029;                   // Record identifier
-        $length = 0x0008;                   // Bytes to follow
+        $record = 0x0029; // Record identifier
+        $length = 0x0008; // Bytes to follow
 
-        $margin = $this->phpSheet->getPageMargins()->getBottom();     // Margin in inches
+        $margin = $this->phpSheet->getPageMargins()->getBottom(); // Margin in inches
 
         $header = pack('vv', $record, $length);
         $data = pack('d', $margin);
@@ -1983,10 +1983,10 @@ class Worksheet extends BIFFwriter
      */
     private function writePrintHeaders()
     {
-        $record = 0x002a;                   // Record identifier
-        $length = 0x0002;                   // Bytes to follow
+        $record = 0x002a; // Record identifier
+        $length = 0x0002; // Bytes to follow
 
-        $fPrintRwCol = $this->_print_headers;     // Boolean flag
+        $fPrintRwCol = $this->_print_headers; // Boolean flag
 
         $header = pack('vv', $record, $length);
         $data = pack('v', $fPrintRwCol);
@@ -1999,10 +1999,10 @@ class Worksheet extends BIFFwriter
      */
     private function writePrintGridlines()
     {
-        $record = 0x002b;                    // Record identifier
-        $length = 0x0002;                    // Bytes to follow
+        $record = 0x002b; // Record identifier
+        $length = 0x0002; // Bytes to follow
 
-        $fPrintGrid = $this->phpSheet->getPrintGridlines() ? 1 : 0;    // Boolean flag
+        $fPrintGrid = $this->phpSheet->getPrintGridlines() ? 1 : 0; // Boolean flag
 
         $header = pack('vv', $record, $length);
         $data = pack('v', $fPrintGrid);
@@ -2015,10 +2015,10 @@ class Worksheet extends BIFFwriter
      */
     private function writeGridset()
     {
-        $record = 0x0082;                        // Record identifier
-        $length = 0x0002;                        // Bytes to follow
+        $record = 0x0082; // Record identifier
+        $length = 0x0002; // Bytes to follow
 
-        $fGridSet = !$this->phpSheet->getPrintGridlines();     // Boolean flag
+        $fGridSet = !$this->phpSheet->getPrintGridlines(); // Boolean flag
 
         $header = pack('vv', $record, $length);
         $data = pack('v', $fGridSet);
@@ -2030,8 +2030,8 @@ class Worksheet extends BIFFwriter
      */
     private function writeAutoFilterInfo()
     {
-        $record = 0x009D;                        // Record identifier
-        $length = 0x0002;                        // Bytes to follow
+        $record = 0x009D; // Record identifier
+        $length = 0x0002; // Bytes to follow
 
         $rangeBounds = \PhpSpreadsheet\Cell::rangeBoundaries($this->phpSheet->getAutoFilter()->getRange());
         $iNumFilters = 1 + $rangeBounds[1][0] - $rangeBounds[0][0];
@@ -2050,11 +2050,11 @@ class Worksheet extends BIFFwriter
      */
     private function writeGuts()
     {
-        $record = 0x0080;   // Record identifier
-        $length = 0x0008;   // Bytes to follow
+        $record = 0x0080; // Record identifier
+        $length = 0x0008; // Bytes to follow
 
-        $dxRwGut = 0x0000;   // Size of row gutter
-        $dxColGut = 0x0000;   // Size of col gutter
+        $dxRwGut = 0x0000; // Size of row gutter
+        $dxColGut = 0x0000; // Size of col gutter
 
         // determine maximum row outline level
         $maxRowOutlineLevel = 0;
@@ -2094,15 +2094,15 @@ class Worksheet extends BIFFwriter
      */
     private function writeWsbool()
     {
-        $record = 0x0081;   // Record identifier
-        $length = 0x0002;   // Bytes to follow
+        $record = 0x0081; // Record identifier
+        $length = 0x0002; // Bytes to follow
         $grbit = 0x0000;
 
         // The only option that is of interest is the flag for fit to page. So we
         // set all the options in one go.
         //
         // Set the option flags
-        $grbit |= 0x0001;                           // Auto page breaks visible
+        $grbit |= 0x0001; // Auto page breaks visible
         if ($this->outlineStyle) {
             $grbit |= 0x0020; // Auto outline styles
         }
@@ -2162,9 +2162,9 @@ class Worksheet extends BIFFwriter
                 array_shift($hbreaks);
             }
 
-            $record = 0x001b;               // Record identifier
-            $cbrk = count($hbreaks);       // Number of page breaks
-            $length = 2 + 6 * $cbrk;      // Bytes to follow
+            $record = 0x001b; // Record identifier
+            $cbrk = count($hbreaks); // Number of page breaks
+            $length = 2 + 6 * $cbrk; // Bytes to follow
 
             $header = pack('vv', $record, $length);
             $data = pack('v', $cbrk);
@@ -2189,9 +2189,9 @@ class Worksheet extends BIFFwriter
                 array_shift($vbreaks);
             }
 
-            $record = 0x001a;               // Record identifier
-            $cbrk = count($vbreaks);       // Number of page breaks
-            $length = 2 + 6 * $cbrk;      // Bytes to follow
+            $record = 0x001a; // Record identifier
+            $cbrk = count($vbreaks); // Number of page breaks
+            $length = 2 + 6 * $cbrk; // Bytes to follow
 
             $header = pack('vv', $record, $length);
             $data = pack('v', $cbrk);
@@ -2215,10 +2215,10 @@ class Worksheet extends BIFFwriter
             return;
         }
 
-        $record = 0x0012;             // Record identifier
-        $length = 0x0002;             // Bytes to follow
+        $record = 0x0012; // Record identifier
+        $length = 0x0002; // Bytes to follow
 
-        $fLock = 1;    // Worksheet is protected
+        $fLock = 1; // Worksheet is protected
 
         $header = pack('vv', $record, $length);
         $data = pack('v', $fLock);
@@ -2284,10 +2284,10 @@ class Worksheet extends BIFFwriter
             return;
         }
 
-        $record = 0x0013;               // Record identifier
-        $length = 0x0002;               // Bytes to follow
+        $record = 0x0013; // Record identifier
+        $length = 0x0002; // Bytes to follow
 
-        $wPassword = hexdec($this->phpSheet->getProtection()->getPassword());     // Encoded password
+        $wPassword = hexdec($this->phpSheet->getProtection()->getPassword()); // Encoded password
 
         $header = pack('vv', $record, $length);
         $data = pack('v', $wPassword);
@@ -2382,8 +2382,8 @@ class Worksheet extends BIFFwriter
     public function positionImage($col_start, $row_start, $x1, $y1, $width, $height)
     {
         // Initialise end cell to the same as the start cell
-        $col_end = $col_start;  // Col containing lower right corner of object
-        $row_end = $row_start;  // Row containing bottom right corner of object
+        $col_end = $col_start; // Col containing lower right corner of object
+        $row_end = $row_start; // Row containing bottom right corner of object
 
         // Zero the specified offset if greater than the cell dimensions
         if ($x1 >= \PhpSpreadsheet\Shared\Excel5::sizeCol($this->phpSheet, \PhpSpreadsheet\Cell::stringFromColumnIndex($col_start))) {
@@ -2448,33 +2448,33 @@ class Worksheet extends BIFFwriter
      */
     private function writeObjPicture($colL, $dxL, $rwT, $dyT, $colR, $dxR, $rwB, $dyB)
     {
-        $record = 0x005d;   // Record identifier
-        $length = 0x003c;   // Bytes to follow
+        $record = 0x005d; // Record identifier
+        $length = 0x003c; // Bytes to follow
 
-        $cObj = 0x0001;   // Count of objects in file (set to 1)
-        $OT = 0x0008;   // Object type. 8 = Picture
-        $id = 0x0001;   // Object ID
-        $grbit = 0x0614;   // Option flags
+        $cObj = 0x0001; // Count of objects in file (set to 1)
+        $OT = 0x0008; // Object type. 8 = Picture
+        $id = 0x0001; // Object ID
+        $grbit = 0x0614; // Option flags
 
-        $cbMacro = 0x0000;   // Length of FMLA structure
-        $Reserved1 = 0x0000;   // Reserved
-        $Reserved2 = 0x0000;   // Reserved
+        $cbMacro = 0x0000; // Length of FMLA structure
+        $Reserved1 = 0x0000; // Reserved
+        $Reserved2 = 0x0000; // Reserved
 
-        $icvBack = 0x09;     // Background colour
-        $icvFore = 0x09;     // Foreground colour
-        $fls = 0x00;     // Fill pattern
-        $fAuto = 0x00;     // Automatic fill
-        $icv = 0x08;     // Line colour
-        $lns = 0xff;     // Line style
-        $lnw = 0x01;     // Line weight
-        $fAutoB = 0x00;     // Automatic border
-        $frs = 0x0000;   // Frame style
-        $cf = 0x0009;   // Image format, 9 = bitmap
-        $Reserved3 = 0x0000;   // Reserved
-        $cbPictFmla = 0x0000;   // Length of FMLA structure
-        $Reserved4 = 0x0000;   // Reserved
-        $grbit2 = 0x0001;   // Option flags
-        $Reserved5 = 0x0000;   // Reserved
+        $icvBack = 0x09; // Background colour
+        $icvFore = 0x09; // Foreground colour
+        $fls = 0x00; // Fill pattern
+        $fAuto = 0x00; // Automatic fill
+        $icv = 0x08; // Line colour
+        $lns = 0xff; // Line style
+        $lnw = 0x01; // Line weight
+        $fAutoB = 0x00; // Automatic border
+        $frs = 0x0000; // Frame style
+        $cf = 0x0009; // Image format, 9 = bitmap
+        $Reserved3 = 0x0000; // Reserved
+        $cbPictFmla = 0x0000; // Length of FMLA structure
+        $Reserved4 = 0x0000; // Reserved
+        $grbit2 = 0x0001; // Option flags
+        $Reserved5 = 0x0000; // Reserved
 
         $header = pack('vv', $record, $length);
         $data = pack('V', $cObj);
@@ -2636,8 +2636,8 @@ class Worksheet extends BIFFwriter
             return;
         }
 
-        $record = 0x00A0;               // Record identifier
-        $length = 0x0004;               // Bytes to follow
+        $record = 0x00A0; // Record identifier
+        $length = 0x0004; // Bytes to follow
 
         $header = pack('vv', $record, $length);
         $data = pack('vv', $this->phpSheet->getSheetView()->getZoomScale(), 100);
@@ -2682,7 +2682,7 @@ class Worksheet extends BIFFwriter
             $nm = count($spOffsets) - 1; // number of shapes excluding first shape
             for ($i = 1; $i <= $nm; ++$i) {
                 // MSODRAWING record
-                $record = 0x00EC;            // Record identifier
+                $record = 0x00EC; // Record identifier
 
                 // chunk of Escher stream for one shape
                 $dataChunk = substr($data, $spOffsets[$i - 1], $spOffsets[$i] - $spOffsets[$i - 1]);
@@ -2760,20 +2760,20 @@ class Worksheet extends BIFFwriter
         // Write data validations?
         if (!empty($dataValidationCollection)) {
             // DATAVALIDATIONS record
-            $record = 0x01B2;      // Record identifier
-            $length = 0x0012;      // Bytes to follow
+            $record = 0x01B2; // Record identifier
+            $length = 0x0012; // Bytes to follow
 
-            $grbit = 0x0000;       // Prompt box at cell, no cached validity data at DV records
-            $horPos = 0x00000000;  // Horizontal position of prompt box, if fixed position
-            $verPos = 0x00000000;  // Vertical position of prompt box, if fixed position
-            $objId = 0xFFFFFFFF;  // Object identifier of drop down arrow object, or -1 if not visible
+            $grbit = 0x0000; // Prompt box at cell, no cached validity data at DV records
+            $horPos = 0x00000000; // Horizontal position of prompt box, if fixed position
+            $verPos = 0x00000000; // Vertical position of prompt box, if fixed position
+            $objId = 0xFFFFFFFF; // Object identifier of drop down arrow object, or -1 if not visible
 
             $header = pack('vv', $record, $length);
             $data = pack('vVVVV', $grbit, $horPos, $verPos, $objId, count($dataValidationCollection));
             $this->append($header . $data);
 
             // DATAVALIDATION records
-            $record = 0x01BE;              // Record identifier
+            $record = 0x01BE; // Record identifier
 
             foreach ($dataValidationCollection as $cellCoordinate => $dataValidation) {
                 // initialize record data
@@ -2973,8 +2973,8 @@ class Worksheet extends BIFFwriter
      */
     private function writePageLayoutView()
     {
-        $record = 0x088B;               // Record identifier
-        $length = 0x0010;               // Bytes to follow
+        $record = 0x088B; // Record identifier
+        $length = 0x0010; // Bytes to follow
 
         $rt = 0x088B; // 2
         $grbitFrt = 0x0000; // 2
@@ -3005,7 +3005,7 @@ class Worksheet extends BIFFwriter
      */
     private function writeCFRule(\PhpSpreadsheet\Style\Conditional $conditional)
     {
-        $record = 0x01B1;               // Record identifier
+        $record = 0x01B1; // Record identifier
 
         // $type : Type of the CF
         // $operatorType : Comparison operator
@@ -3125,43 +3125,43 @@ class Worksheet extends BIFFwriter
         }
         // Alignment
         $flags = 0;
-        $flags |= (1 == $bAlignHz      ? 0x00000001 : 0);
-        $flags |= (1 == $bAlignVt      ? 0x00000002 : 0);
-        $flags |= (1 == $bAlignWrapTx  ? 0x00000004 : 0);
-        $flags |= (1 == $bTxRotation   ? 0x00000008 : 0);
+        $flags |= (1 == $bAlignHz ? 0x00000001 : 0);
+        $flags |= (1 == $bAlignVt ? 0x00000002 : 0);
+        $flags |= (1 == $bAlignWrapTx ? 0x00000004 : 0);
+        $flags |= (1 == $bTxRotation ? 0x00000008 : 0);
         // Justify last line flag
-        $flags |= (1 == 1              ? 0x00000010 : 0);
-        $flags |= (1 == $bIndent       ? 0x00000020 : 0);
-        $flags |= (1 == $bShrinkToFit  ? 0x00000040 : 0);
+        $flags |= (1 == 1 ? 0x00000010 : 0);
+        $flags |= (1 == $bIndent ? 0x00000020 : 0);
+        $flags |= (1 == $bShrinkToFit ? 0x00000040 : 0);
         // Default
-        $flags |= (1 == 1              ? 0x00000080 : 0);
+        $flags |= (1 == 1 ? 0x00000080 : 0);
         // Protection
-        $flags |= (1 == $bProtLocked   ? 0x00000100 : 0);
-        $flags |= (1 == $bProtHidden   ? 0x00000200 : 0);
+        $flags |= (1 == $bProtLocked ? 0x00000100 : 0);
+        $flags |= (1 == $bProtHidden ? 0x00000200 : 0);
         // Border
-        $flags |= (1 == $bBorderLeft   ? 0x00000400 : 0);
-        $flags |= (1 == $bBorderRight  ? 0x00000800 : 0);
-        $flags |= (1 == $bBorderTop    ? 0x00001000 : 0);
+        $flags |= (1 == $bBorderLeft ? 0x00000400 : 0);
+        $flags |= (1 == $bBorderRight ? 0x00000800 : 0);
+        $flags |= (1 == $bBorderTop ? 0x00001000 : 0);
         $flags |= (1 == $bBorderBottom ? 0x00002000 : 0);
-        $flags |= (1 == 1              ? 0x00004000 : 0); // Top left to Bottom right border
-        $flags |= (1 == 1              ? 0x00008000 : 0); // Bottom left to Top right border
+        $flags |= (1 == 1 ? 0x00004000 : 0); // Top left to Bottom right border
+        $flags |= (1 == 1 ? 0x00008000 : 0); // Bottom left to Top right border
         // Pattern
-        $flags |= (1 == $bFillStyle    ? 0x00010000 : 0);
-        $flags |= (1 == $bFillColor    ? 0x00020000 : 0);
-        $flags |= (1 == $bFillColorBg  ? 0x00040000 : 0);
-        $flags |= (1 == 1              ? 0x00380000 : 0);
+        $flags |= (1 == $bFillStyle ? 0x00010000 : 0);
+        $flags |= (1 == $bFillColor ? 0x00020000 : 0);
+        $flags |= (1 == $bFillColorBg ? 0x00040000 : 0);
+        $flags |= (1 == 1 ? 0x00380000 : 0);
         // Font
-        $flags |= (1 == $bFormatFont   ? 0x04000000 : 0);
+        $flags |= (1 == $bFormatFont ? 0x04000000 : 0);
         // Alignment:
-        $flags |= (1 == $bFormatAlign  ? 0x08000000 : 0);
+        $flags |= (1 == $bFormatAlign ? 0x08000000 : 0);
         // Border
         $flags |= (1 == $bFormatBorder ? 0x10000000 : 0);
         // Pattern
-        $flags |= (1 == $bFormatFill   ? 0x20000000 : 0);
+        $flags |= (1 == $bFormatFill ? 0x20000000 : 0);
         // Protection
-        $flags |= (1 == $bFormatProt   ? 0x40000000 : 0);
+        $flags |= (1 == $bFormatProt ? 0x40000000 : 0);
         // Text direction
-        $flags |= (1 == 0              ? 0x80000000 : 0);
+        $flags |= (1 == 0 ? 0x80000000 : 0);
 
         // Data Blocks
         if ($bFormatFont == 1) {
@@ -3406,11 +3406,11 @@ class Worksheet extends BIFFwriter
             // Options flags for modified font attributes
             $optionsFlags = 0;
             $optionsFlagsBold = ($conditional->getStyle()->getFont()->getBold() == null ? 1 : 0);
-            $optionsFlags |= (1 == $optionsFlagsBold  ? 0x00000002 : 0);
-            $optionsFlags |= (1 == 1                  ? 0x00000008 : 0);
-            $optionsFlags |= (1 == 1                  ? 0x00000010 : 0);
-            $optionsFlags |= (1 == 0                  ? 0x00000020 : 0);
-            $optionsFlags |= (1 == 1                  ? 0x00000080 : 0);
+            $optionsFlags |= (1 == $optionsFlagsBold ? 0x00000002 : 0);
+            $optionsFlags |= (1 == 1 ? 0x00000008 : 0);
+            $optionsFlags |= (1 == 1 ? 0x00000010 : 0);
+            $optionsFlags |= (1 == 0 ? 0x00000020 : 0);
+            $optionsFlags |= (1 == 1 ? 0x00000080 : 0);
             $dataBlockFont .= pack('V', $optionsFlags);
             // Escapement type
             $dataBlockFont .= pack('V', $fontEscapement);
@@ -3781,10 +3781,10 @@ class Worksheet extends BIFFwriter
                     break;
                 case \PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR:
                     $blockFillPatternStyle = 0x00;
-                    break;    // does not exist in BIFF8
+                    break; // does not exist in BIFF8
                 case \PhpSpreadsheet\Style\Fill::FILL_GRADIENT_PATH:
                     $blockFillPatternStyle = 0x00;
-                    break;    // does not exist in BIFF8
+                    break; // does not exist in BIFF8
                 default:
                     $blockFillPatternStyle = 0x00;
                     break;
@@ -4181,8 +4181,8 @@ class Worksheet extends BIFFwriter
      */
     private function writeCFHeader()
     {
-        $record = 0x01B0;               // Record identifier
-        $length = 0x0016;               // Bytes to follow
+        $record = 0x01B0; // Record identifier
+        $length = 0x0016; // Bytes to follow
 
         $numColumnMin = null;
         $numColumnMax = null;

@@ -566,10 +566,10 @@ class Worksheet extends WriterPart
                     $objWriter->writeAttribute('operator', $dv->getOperator());
                 }
 
-                $objWriter->writeAttribute('allowBlank', ($dv->getAllowBlank() ? '1'  : '0'));
-                $objWriter->writeAttribute('showDropDown', (!$dv->getShowDropDown() ? '1'  : '0'));
-                $objWriter->writeAttribute('showInputMessage', ($dv->getShowInputMessage() ? '1'  : '0'));
-                $objWriter->writeAttribute('showErrorMessage', ($dv->getShowErrorMessage() ? '1'  : '0'));
+                $objWriter->writeAttribute('allowBlank', ($dv->getAllowBlank() ? '1' : '0'));
+                $objWriter->writeAttribute('showDropDown', (!$dv->getShowDropDown() ? '1' : '0'));
+                $objWriter->writeAttribute('showInputMessage', ($dv->getShowInputMessage() ? '1' : '0'));
+                $objWriter->writeAttribute('showErrorMessage', ($dv->getShowErrorMessage() ? '1' : '0'));
 
                 if ($dv->getErrorTitle() !== '') {
                     $objWriter->writeAttribute('errorTitle', $dv->getErrorTitle());
@@ -707,7 +707,7 @@ class Worksheet extends WriterPart
         // printOptions
         $objWriter->startElement('printOptions');
 
-        $objWriter->writeAttribute('gridLines', ($pSheet->getPrintGridlines() ? 'true': 'false'));
+        $objWriter->writeAttribute('gridLines', ($pSheet->getPrintGridlines() ? 'true' : 'false'));
         $objWriter->writeAttribute('gridLinesSet', 'true');
 
         if ($pSheet->getPageSetup()->getHorizontalCentered()) {
@@ -800,7 +800,7 @@ class Worksheet extends WriterPart
                                 //    Top 10 Filter Rule
                                 $objWriter->writeAttribute('val', $rule->getValue());
                                 $objWriter->writeAttribute('percent', (($rule->getOperator() === \PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT) ? '1' : '0'));
-                                $objWriter->writeAttribute('top', (($rule->getGrouping() === \PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP) ? '1': '0'));
+                                $objWriter->writeAttribute('top', (($rule->getGrouping() === \PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP) ? '1' : '0'));
                             } else {
                                 //    Filter, DateGroupItem or CustomFilter
                                 $objWriter->startElement($rule->getRuleType());
@@ -1079,8 +1079,7 @@ class Worksheet extends WriterPart
                         break;
                     case 'f':            // Formula
                         $calculatedValue = ($this->getParentWriter()->getPreCalculateFormulas()) ?
-                            $pCell->getCalculatedValue() :
-                            $cellValue;
+                            $pCell->getCalculatedValue() : $cellValue;
                         if (is_string($calculatedValue)) {
                             $objWriter->writeAttribute('t', 'str');
                         }

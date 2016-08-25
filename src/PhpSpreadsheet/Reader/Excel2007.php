@@ -136,7 +136,7 @@ class Excel2007 extends BaseReader implements IReader
                             'SimpleXMLElement',
                             \PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                         )
-                    );  //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
+                    ); //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 
                     if ($xmlWorkbook->sheets) {
                         foreach ($xmlWorkbook->sheets->sheet as $eleSheet) {
@@ -541,7 +541,7 @@ class Excel2007 extends BaseReader implements IReader
                     }
 
                     if (!is_null($macros)) {
-                        $macrosCode = $this->getFromZipArchive($zip, 'xl/vbaProject.bin');//vbaProject.bin always in 'xl' dir and always named vbaProject.bin
+                        $macrosCode = $this->getFromZipArchive($zip, 'xl/vbaProject.bin'); //vbaProject.bin always in 'xl' dir and always named vbaProject.bin
                         if ($macrosCode !== false) {
                             $excel->setMacrosCode($macrosCode);
                             $excel->setHasMacros(true);
@@ -1313,7 +1313,7 @@ class Excel2007 extends BaseReader implements IReader
                                         foreach (\PhpSpreadsheet\Cell::extractAllCellReferencesInRange($hyperlink['ref']) as $cellReference) {
                                             $cell = $docSheet->getCell($cellReference);
                                             if (isset($linkRel['id'])) {
-                                                $hyperlinkUrl = $hyperlinks[ (string) $linkRel['id'] ];
+                                                $hyperlinkUrl = $hyperlinks[(string) $linkRel['id']];
                                                 if (isset($hyperlink['location'])) {
                                                     $hyperlinkUrl .= '#' . (string) $hyperlink['location'];
                                                 }
@@ -1740,10 +1740,10 @@ class Excel2007 extends BaseReader implements IReader
                                                 }
                                                 break;
                                             case '_xlnm.Print_Area':
-                                                $rangeSets = explode(',', $extractedRange);        // FIXME: what if sheetname contains comma?
+                                                $rangeSets = explode(',', $extractedRange); // FIXME: what if sheetname contains comma?
                                                 $newRangeSets = [];
                                                 foreach ($rangeSets as $rangeSet) {
-                                                    $range = explode('!', $rangeSet);    // FIXME: what if sheetname contains exclamation mark?
+                                                    $range = explode('!', $rangeSet); // FIXME: what if sheetname contains exclamation mark?
                                                     $rangeSet = isset($range[1]) ? $range[1] : $range[0];
                                                     if (strpos($rangeSet, ':') === false) {
                                                         $rangeSet = $rangeSet . ':' . $rangeSet;

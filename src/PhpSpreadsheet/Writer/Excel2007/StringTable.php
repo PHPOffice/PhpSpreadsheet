@@ -40,7 +40,7 @@ class StringTable extends WriterPart
             // Create string lookup table
             $aStringTable = [];
             $cellCollection = null;
-            $aFlippedStringTable = null;    // For faster lookup
+            $aFlippedStringTable = null; // For faster lookup
 
             // Is an existing table given?
             if (($pExistingTable !== null) && is_array($pExistingTable)) {

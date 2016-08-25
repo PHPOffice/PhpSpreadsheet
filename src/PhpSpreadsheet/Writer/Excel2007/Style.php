@@ -621,7 +621,7 @@ class Style extends WriterPart
         /** @var \PhpSpreadsheet\Style $style */
         foreach ($aStyles as $style) {
             if (!array_key_exists($style->getFill()->getHashCode(), $aFills)) {
-                $aFills[ $style->getFill()->getHashCode() ] = $style->getFill();
+                $aFills[$style->getFill()->getHashCode()] = $style->getFill();
             }
         }
 
@@ -644,7 +644,7 @@ class Style extends WriterPart
         /** @var \PhpSpreadsheet\Style $style */
         foreach ($aStyles as $style) {
             if (!array_key_exists($style->getFont()->getHashCode(), $aFonts)) {
-                $aFonts[ $style->getFont()->getHashCode() ] = $style->getFont();
+                $aFonts[$style->getFont()->getHashCode()] = $style->getFont();
             }
         }
 
@@ -667,7 +667,7 @@ class Style extends WriterPart
         /** @var \PhpSpreadsheet\Style $style */
         foreach ($aStyles as $style) {
             if (!array_key_exists($style->getBorders()->getHashCode(), $aBorders)) {
-                $aBorders[ $style->getBorders()->getHashCode() ] = $style->getBorders();
+                $aBorders[$style->getBorders()->getHashCode()] = $style->getBorders();
             }
         }
 
@@ -690,7 +690,7 @@ class Style extends WriterPart
         /** @var \PhpSpreadsheet\Style $style */
         foreach ($aStyles as $style) {
             if ($style->getNumberFormat()->getBuiltInFormatCode() === false && !array_key_exists($style->getNumberFormat()->getHashCode(), $aNumFmts)) {
-                $aNumFmts[ $style->getNumberFormat()->getHashCode() ] = $style->getNumberFormat();
+                $aNumFmts[$style->getNumberFormat()->getHashCode()] = $style->getNumberFormat();
             }
         }
 

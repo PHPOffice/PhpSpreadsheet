@@ -29,8 +29,8 @@ namespace PhpSpreadsheet\Shared;
 class Date
 {
     /** constants */
-    const CALENDAR_WINDOWS_1900 = 1900;        //    Base date of 1st Jan 1900 = 1.0
-    const CALENDAR_MAC_1904 = 1904;            //    Base date of 2nd Jan 1904 = 1.0
+    const CALENDAR_WINDOWS_1900 = 1900; //    Base date of 1st Jan 1900 = 1.0
+    const CALENDAR_MAC_1904 = 1904; //    Base date of 2nd Jan 1904 = 1.0
 
     /*
      * Names of the months of the year, indexed by shortname

@@ -260,7 +260,7 @@ class LookupRef
         $args = func_get_args();
         $pCell = array_pop($args);
 
-        $linkURL = (is_null($linkURL))     ? '' : Functions::flattenSingleValue($linkURL);
+        $linkURL = (is_null($linkURL)) ? '' : Functions::flattenSingleValue($linkURL);
         $displayName = (is_null($displayName)) ? '' : Functions::flattenSingleValue($displayName);
 
         if ((!is_object($pCell)) || (trim($linkURL) == '')) {

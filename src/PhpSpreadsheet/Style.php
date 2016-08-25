@@ -621,7 +621,7 @@ class Style extends Style\Supervisor implements IComparable
             $this->numberFormat->getHashCode() .
             $hashConditionals .
             $this->protection->getHashCode() .
-            ($this->quotePrefix  ? 't' : 'f') .
+            ($this->quotePrefix ? 't' : 'f') .
             __CLASS__
         );
     }

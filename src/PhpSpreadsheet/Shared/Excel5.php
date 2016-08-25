@@ -233,8 +233,8 @@ class Excel5
         $y1 = $offsetY;
 
         // Initialise end cell to the same as the start cell
-        $col_end = $col_start;  // Col containing lower right corner of object
-        $row_end = $row_start;  // Row containing bottom right corner of object
+        $col_end = $col_start; // Col containing lower right corner of object
+        $row_end = $row_start; // Row containing bottom right corner of object
 
         // Zero the specified offset if greater than the cell dimensions
         if ($x1 >= self::sizeCol($sheet, \PhpSpreadsheet\Cell::stringFromColumnIndex($col_start))) {

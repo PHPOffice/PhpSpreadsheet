@@ -29,12 +29,12 @@ namespace PhpSpreadsheet\Chart;
 class Legend
 {
     /** Legend positions */
-    const XL_LEGEND_POSITION_BOTTOM = -4107;    //    Below the chart.
-    const XL_LEGEND_POSITION_CORNER = 2;        //    In the upper right-hand corner of the chart border.
-    const XL_LEGEND_POSITION_CUSTOM = -4161;    //    A custom position.
-    const XL_LEGEND_POSITION_LEFT = -4131;    //    Left of the chart.
-    const XL_LEGEND_POSITION_RIGHT = -4152;    //    Right of the chart.
-    const XL_LEGEND_POSITION_TOP = -4160;    //    Above the chart.
+    const XL_LEGEND_POSITION_BOTTOM = -4107; //    Below the chart.
+    const XL_LEGEND_POSITION_CORNER = 2; //    In the upper right-hand corner of the chart border.
+    const XL_LEGEND_POSITION_CUSTOM = -4161; //    A custom position.
+    const XL_LEGEND_POSITION_LEFT = -4131; //    Left of the chart.
+    const XL_LEGEND_POSITION_RIGHT = -4152; //    Right of the chart.
+    const XL_LEGEND_POSITION_TOP = -4160; //    Above the chart.
 
     const POSITION_RIGHT = 'r';
     const POSITION_LEFT = 'l';

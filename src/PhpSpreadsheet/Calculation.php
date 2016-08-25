@@ -109,10 +109,10 @@ class Calculation
      * @var array
      */
     private static $operators = [
-        '+' => true,    '-' => true,    '*' => true,    '/' => true,
-        '^' => true,    '&' => true,    '%' => false,    '~' => false,
-        '>' => true,    '<' => true,    '=' => true,    '>=' => true,
-        '<=' => true,    '<>' => true,    '|' => true,    ':' => true,
+        '+' => true, '-' => true, '*' => true, '/' => true,
+        '^' => true, '&' => true, '%' => false, '~' => false,
+        '>' => true, '<' => true, '=' => true, '>=' => true,
+        '<=' => true, '<>' => true, '|' => true, ':' => true,
     ];
 
     /**
@@ -121,10 +121,10 @@ class Calculation
      * @var array
      */
     private static $binaryOperators = [
-        '+' => true,    '-' => true,    '*' => true,    '/' => true,
-        '^' => true,    '&' => true,    '>' => true,    '<' => true,
-        '=' => true,    '>=' => true,    '<=' => true,    '<>' => true,
-        '|' => true,    ':' => true,
+        '+' => true, '-' => true, '*' => true, '/' => true,
+        '^' => true, '&' => true, '>' => true, '<' => true,
+        '=' => true, '>=' => true, '<=' => true, '<>' => true,
+        '|' => true, ':' => true,
     ];
 
     /**
@@ -189,7 +189,7 @@ class Calculation
      *
      * @var string
      */
-    private static $localeLanguage = 'en_us';                    //    US English    (default locale)
+    private static $localeLanguage = 'en_us'; //    US English    (default locale)
 
     /**
      * List of available locale settings
@@ -198,7 +198,7 @@ class Calculation
      * @var string[]
      */
     private static $validLocaleLanguages = [
-        'en',        //    English        (default language)
+        'en', //    English        (default language)
     ];
 
     /**
@@ -2279,7 +2279,7 @@ class Calculation
                 //    Retrieve the list of locale or language specific function names
                 $localeFunctions = file($functionNamesFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
                 foreach ($localeFunctions as $localeFunction) {
-                    list($localeFunction) = explode('##', $localeFunction);    //    Strip out comments
+                    list($localeFunction) = explode('##', $localeFunction); //    Strip out comments
                     if (strpos($localeFunction, '=') !== false) {
                         list($fName, $lfName) = explode('=', $localeFunction);
                         $fName = trim($fName);
@@ -2304,7 +2304,7 @@ class Calculation
                 if (file_exists($configFile)) {
                     $localeSettings = file($configFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
                     foreach ($localeSettings as $localeSetting) {
-                        list($localeSetting) = explode('##', $localeSetting);    //    Strip out comments
+                        list($localeSetting) = explode('##', $localeSetting); //    Strip out comments
                         if (strpos($localeSetting, '=') !== false) {
                             list($settingName, $settingValue) = explode('=', $localeSetting);
                             $settingName = strtoupper(trim($settingName));
@@ -3034,12 +3034,12 @@ class Calculation
     //    These operators always work on two values
     //    Array key is the operator, the value indicates whether this is a left or right associative operator
     private static $operatorAssociativity = [
-        '^' => 0,                                                            //    Exponentiation
-        '*' => 0, '/' => 0,                                                 //    Multiplication and Division
-        '+' => 0, '-' => 0,                                                    //    Addition and Subtraction
-        '&' => 0,                                                            //    Concatenation
-        '|' => 0, ':' => 0,                                                    //    Intersect and Range
-        '>' => 0, '<' => 0, '=' => 0, '>=' => 0, '<=' => 0, '<>' => 0,        //    Comparison
+        '^' => 0, //    Exponentiation
+        '*' => 0, '/' => 0, //    Multiplication and Division
+        '+' => 0, '-' => 0, //    Addition and Subtraction
+        '&' => 0, //    Concatenation
+        '|' => 0, ':' => 0, //    Intersect and Range
+        '>' => 0, '<' => 0, '=' => 0, '>=' => 0, '<=' => 0, '<>' => 0, //    Comparison
     ];
 
     //    Comparison (Boolean) Operators
@@ -3050,15 +3050,15 @@ class Calculation
     //    This list includes all valid operators, whether binary (including boolean) or unary (such as %)
     //    Array key is the operator, the value is its precedence
     private static $operatorPrecedence = [
-        ':' => 8,                                                                //    Range
-        '|' => 7,                                                                //    Intersect
-        '~' => 6,                                                                //    Negation
-        '%' => 5,                                                                //    Percentage
-        '^' => 4,                                                                //    Exponentiation
-        '*' => 3, '/' => 3,                                                     //    Multiplication and Division
-        '+' => 2, '-' => 2,                                                        //    Addition and Subtraction
-        '&' => 1,                                                                //    Concatenation
-        '>' => 0, '<' => 0, '=' => 0, '>=' => 0, '<=' => 0, '<>' => 0,            //    Comparison
+        ':' => 8, //    Range
+        '|' => 7, //    Intersect
+        '~' => 6, //    Negation
+        '%' => 5, //    Percentage
+        '^' => 4, //    Exponentiation
+        '*' => 3, '/' => 3, //    Multiplication and Division
+        '+' => 2, '-' => 2, //    Addition and Subtraction
+        '&' => 1, //    Concatenation
+        '>' => 0, '<' => 0, '=' => 0, '>=' => 0, '<=' => 0, '<>' => 0, //    Comparison
     ];
 
     // Convert infix to postfix notation
@@ -3085,9 +3085,9 @@ class Calculation
         $index = 0;
         $stack = new Calculation\Token\Stack();
         $output = [];
-        $expectingOperator = false;                    //    We use this test in syntax-checking the expression to determine when a
+        $expectingOperator = false; //    We use this test in syntax-checking the expression to determine when a
                                                     //        - is a negation or + is a positive operator rather than an operation
-        $expectingOperand = false;                    //    We use this test in syntax-checking the expression to determine whether an operand
+        $expectingOperand = false; //    We use this test in syntax-checking the expression to determine whether an operand
                                                     //        should be null in a function call
         //    The guts of the lexical parser
         //    Loop through the formula extracting each operator and operand in turn
@@ -3107,26 +3107,26 @@ class Calculation
 
             if ($opCharacter == '-' && !$expectingOperator) {                //    Is it a negation instead of a minus?
 //echo 'Element is a Negation operator', PHP_EOL;
-                $stack->push('Unary Operator', '~');                            //    Put a negation on the stack
-                ++$index;                                                    //        and drop the negation symbol
+                $stack->push('Unary Operator', '~'); //    Put a negation on the stack
+                ++$index; //        and drop the negation symbol
             } elseif ($opCharacter == '%' && $expectingOperator) {
                 //echo 'Element is a Percentage operator', PHP_EOL;
-                $stack->push('Unary Operator', '%');                            //    Put a percentage on the stack
+                $stack->push('Unary Operator', '%'); //    Put a percentage on the stack
                 ++$index;
             } elseif ($opCharacter == '+' && !$expectingOperator) {            //    Positive (unary plus rather than binary operator plus) can be discarded?
 //echo 'Element is a Positive number, not Plus operator', PHP_EOL;
-                ++$index;                                                    //    Drop the redundant plus symbol
+                ++$index; //    Drop the redundant plus symbol
             } elseif ((($opCharacter == '~') || ($opCharacter == '|')) && (!$isOperandOrFunction)) {    //    We have to explicitly deny a tilde or pipe, because they are legal
-                return $this->raiseFormulaError("Formula Error: Illegal character '~'");                //        on the stack but not in the input expression
+                return $this->raiseFormulaError("Formula Error: Illegal character '~'"); //        on the stack but not in the input expression
             } elseif ((isset(self::$operators[$opCharacter]) or $isOperandOrFunction) && $expectingOperator) {    //    Are we putting an operator on the stack?
 //echo 'Element with value '.$opCharacter.' is an Operator', PHP_EOL;
                 while ($stack->count() > 0 &&
                     ($o2 = $stack->last()) &&
                     isset(self::$operators[$o2['value']]) &&
                     @(self::$operatorAssociativity[$opCharacter] ? self::$operatorPrecedence[$opCharacter] < self::$operatorPrecedence[$o2['value']] : self::$operatorPrecedence[$opCharacter] <= self::$operatorPrecedence[$o2['value']])) {
-                    $output[] = $stack->pop();                                //    Swap operands and higher precedence operators from the stack to the output
+                    $output[] = $stack->pop(); //    Swap operands and higher precedence operators from the stack to the output
                 }
-                $stack->push('Binary Operator', $opCharacter);    //    Finally put our current operator onto the stack
+                $stack->push('Binary Operator', $opCharacter); //    Finally put our current operator onto the stack
                 ++$index;
                 $expectingOperator = false;
             } elseif ($opCharacter == ')' && $expectingOperator) {            //    Are we expecting to close a parenthesis?
@@ -3141,10 +3141,10 @@ class Calculation
                 }
                 $d = $stack->last(2);
                 if (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/i', $d['value'], $matches)) {    //    Did this parenthesis just close a function?
-                    $functionName = $matches[1];                                        //    Get the function name
+                    $functionName = $matches[1]; //    Get the function name
 //echo 'Closed Function is '.$functionName, PHP_EOL;
                     $d = $stack->pop();
-                    $argumentCount = $d['value'];        //    See how many arguments there were (argument count is the next value stored on the stack)
+                    $argumentCount = $d['value']; //    See how many arguments there were (argument count is the next value stored on the stack)
 //if ($argumentCount == 0) {
 //    echo 'With no arguments', PHP_EOL;
 //} elseif ($argumentCount == 1) {
@@ -3152,8 +3152,8 @@ class Calculation
 //} else {
 //    echo 'With '.$argumentCount.' arguments', PHP_EOL;
 //}
-                    $output[] = $d;                        //    Dump the argument count on the output
-                    $output[] = $stack->pop();            //    Pop the function and push onto the output
+                    $output[] = $d; //    Dump the argument count on the output
+                    $output[] = $stack->pop(); //    Pop the function and push onto the output
                     if (isset(self::$controlFunctions[$functionName])) {
                         //echo 'Built-in function '.$functionName, PHP_EOL;
                         $expectedArgumentCount = self::$controlFunctions[$functionName]['argumentCount'];
@@ -3217,7 +3217,7 @@ class Calculation
                     if ($o2 === null) {
                         return $this->raiseFormulaError('Formula Error: Unexpected ,');
                     } else {
-                        $output[] = $o2;    // pop the argument expression stuff and push onto the output
+                        $output[] = $o2; // pop the argument expression stuff and push onto the output
                     }
                 }
                 //    If we've a comma when we're expecting an operand, then what we actually have is a null operand;
@@ -3231,8 +3231,8 @@ class Calculation
                     return $this->raiseFormulaError('Formula Error: Unexpected ,');
                 }
                 $d = $stack->pop();
-                $stack->push($d['type'], ++$d['value'], $d['reference']);    // increment the argument count
-                $stack->push('Brace', '(');    // put the ( back on, we'll need to pop back to it again
+                $stack->push($d['type'], ++$d['value'], $d['reference']); // increment the argument count
+                $stack->push('Brace', '('); // put the ( back on, we'll need to pop back to it again
                 $expectingOperator = false;
                 $expectingOperand = true;
                 ++$index;
@@ -3311,13 +3311,13 @@ class Calculation
                         if ((is_integer($startRowColRef)) && (ctype_digit($val)) &&
                             ($startRowColRef <= 1048576) && ($val <= 1048576)) {
                             //    Row range
-                            $endRowColRef = ($pCellParent !== null) ? $pCellParent->getHighestColumn() : 'XFD';    //    Max 16,384 columns for Excel2007
+                            $endRowColRef = ($pCellParent !== null) ? $pCellParent->getHighestColumn() : 'XFD'; //    Max 16,384 columns for Excel2007
                             $output[count($output) - 1]['value'] = $rangeWS1 . 'A' . $startRowColRef;
                             $val = $rangeWS2 . $endRowColRef . $val;
                         } elseif ((ctype_alpha($startRowColRef)) && (ctype_alpha($val)) &&
                             (strlen($startRowColRef) <= 3) && (strlen($val) <= 3)) {
                             //    Column range
-                            $endRowColRef = ($pCellParent !== null) ? $pCellParent->getHighestRow() : 1048576;        //    Max 1,048,576 rows for Excel2007
+                            $endRowColRef = ($pCellParent !== null) ? $pCellParent->getHighestRow() : 1048576; //    Max 1,048,576 rows for Excel2007
                             $output[count($output) - 1]['value'] = $rangeWS1 . strtoupper($startRowColRef) . '1';
                             $val = $rangeWS2 . $val . $endRowColRef;
                         }
@@ -3395,9 +3395,9 @@ class Calculation
                         ($o2 = $stack->last()) &&
                         isset(self::$operators[$o2['value']]) &&
                         @(self::$operatorAssociativity[$opCharacter] ? self::$operatorPrecedence[$opCharacter] < self::$operatorPrecedence[$o2['value']] : self::$operatorPrecedence[$opCharacter] <= self::$operatorPrecedence[$o2['value']])) {
-                        $output[] = $stack->pop();                                //    Swap operands and higher precedence operators from the stack to the output
+                        $output[] = $stack->pop(); //    Swap operands and higher precedence operators from the stack to the output
                     }
-                    $stack->push('Binary Operator', '|');    //    Put an Intersect Operator on the stack
+                    $stack->push('Binary Operator', '|'); //    Put an Intersect Operator on the stack
                     $expectingOperator = false;
                 }
             }
@@ -3405,7 +3405,7 @@ class Calculation
 
         while (($op = $stack->pop()) !== null) {    // pop everything off the stack and push onto output
             if ((is_array($op) && $op['value'] == '(') || ($op === '(')) {
-                return $this->raiseFormulaError("Formula Error: Expecting ')'");    // if there are any opening braces on the stack, then braces were unbalanced
+                return $this->raiseFormulaError("Formula Error: Expecting ')'"); // if there are any opening braces on the stack, then braces were unbalanced
             }
             $output[] = $op;
         }

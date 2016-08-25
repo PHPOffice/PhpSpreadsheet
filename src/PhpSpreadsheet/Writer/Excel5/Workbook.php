@@ -219,11 +219,11 @@ class Workbook extends BIFFwriter
         for ($i = 0; $i < $countSheets; ++$i) {
             $phpSheet = $spreadsheet->getSheet($i);
 
-            $this->parser->setExtSheet($phpSheet->getTitle(), $i);  // Register worksheet name with parser
+            $this->parser->setExtSheet($phpSheet->getTitle(), $i); // Register worksheet name with parser
 
             $supbook_index = 0x00;
             $ref = pack('vvv', $supbook_index, $i, $i);
-            $this->parser->references[] = $ref;  // Register reference with parser
+            $this->parser->references[] = $ref; // Register reference with parser
 
             // Sheet tab colors?
             if ($phpSheet->isTabColorSet()) {
@@ -467,7 +467,7 @@ class Workbook extends BIFFwriter
      */
     private function calcSheetOffsets()
     {
-        $boundsheet_length = 10;  // fixed length for a BOUNDSHEET record
+        $boundsheet_length = 10; // fixed length for a BOUNDSHEET record
 
         // size of Workbook globals part 1 + 3
         $offset = $this->_datasize;
@@ -831,7 +831,7 @@ class Workbook extends BIFFwriter
         $record = 0x0018;
 
         // option flags
-        $options = ($isHidden  ? 0x21 : 0x00);
+        $options = ($isHidden ? 0x21 : 0x00);
 
         $extra = pack(
             'Cvvvvv',
@@ -861,9 +861,9 @@ class Workbook extends BIFFwriter
      */
     private function writeCodepage()
     {
-        $record = 0x0042;             // Record identifier
-        $length = 0x0002;             // Number of bytes to follow
-        $cv = $this->codepage;   // The code page
+        $record = 0x0042; // Record identifier
+        $length = 0x0002; // Number of bytes to follow
+        $cv = $this->codepage; // The code page
 
         $header = pack('vv', $record, $length);
         $data = pack('v', $cv);
@@ -876,24 +876,24 @@ class Workbook extends BIFFwriter
      */
     private function writeWindow1()
     {
-        $record = 0x003D;   // Record identifier
-        $length = 0x0012;   // Number of bytes to follow
+        $record = 0x003D; // Record identifier
+        $length = 0x0012; // Number of bytes to follow
 
-        $xWn = 0x0000;     // Horizontal position of window
-        $yWn = 0x0000;     // Vertical position of window
-        $dxWn = 0x25BC;     // Width of window
-        $dyWn = 0x1572;     // Height of window
+        $xWn = 0x0000; // Horizontal position of window
+        $yWn = 0x0000; // Vertical position of window
+        $dxWn = 0x25BC; // Width of window
+        $dyWn = 0x1572; // Height of window
 
-        $grbit = 0x0038;    // Option flags
+        $grbit = 0x0038; // Option flags
 
         // not supported by PhpSpreadsheet, so there is only one selected sheet, the active
-        $ctabsel = 1;       // Number of workbook tabs selected
+        $ctabsel = 1; // Number of workbook tabs selected
 
-        $wTabRatio = 0x0258;    // Tab to scrollbar ratio
+        $wTabRatio = 0x0258; // Tab to scrollbar ratio
 
         // not supported by PhpSpreadsheet, set to 0
-        $itabFirst = 0;     // 1st displayed worksheet
-        $itabCur = $this->spreadsheet->getActiveSheetIndex();    // Active worksheet
+        $itabFirst = 0; // 1st displayed worksheet
+        $itabCur = $this->spreadsheet->getActiveSheetIndex(); // Active worksheet
 
         $header = pack('vv', $record, $length);
         $data = pack('vvvvvvvvv', $xWn, $yWn, $dxWn, $dyWn, $grbit, $itabCur, $itabFirst, $ctabsel, $wTabRatio);
@@ -909,7 +909,7 @@ class Workbook extends BIFFwriter
     private function writeBoundSheet($sheet, $offset)
     {
         $sheetname = $sheet->getTitle();
-        $record = 0x0085;                    // Record identifier
+        $record = 0x0085; // Record identifier
 
         // sheet state
         switch ($sheet->getSheetState()) {
@@ -930,7 +930,7 @@ class Workbook extends BIFFwriter
         // sheet type
         $st = 0x00;
 
-        $grbit = 0x0000;                    // Visibility and sheet type
+        $grbit = 0x0000; // Visibility and sheet type
 
         $data = pack('VCC', $offset, $ss, $st);
         $data .= \PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeShort($sheetname);
@@ -945,8 +945,8 @@ class Workbook extends BIFFwriter
      */
     private function writeSupbookInternal()
     {
-        $record = 0x01AE;   // Record identifier
-        $length = 0x0004;   // Bytes to follow
+        $record = 0x01AE; // Record identifier
+        $length = 0x0004; // Bytes to follow
 
         $header = pack('vv', $record, $length);
         $data = pack('vv', $this->spreadsheet->getSheetCount(), 0x0401);
@@ -961,10 +961,10 @@ class Workbook extends BIFFwriter
     private function writeExternalsheetBiff8()
     {
         $totalReferences = count($this->parser->references);
-        $record = 0x0017;                     // Record identifier
-        $length = 2 + 6 * $totalReferences;  // Number of bytes to follow
+        $record = 0x0017; // Record identifier
+        $length = 2 + 6 * $totalReferences; // Number of bytes to follow
 
-        $supbook_index = 0;           // FIXME: only using internal SUPBOOK record
+        $supbook_index = 0; // FIXME: only using internal SUPBOOK record
         $header = pack('vv', $record, $length);
         $data = pack('v', $totalReferences);
         for ($i = 0; $i < $totalReferences; ++$i) {
@@ -979,12 +979,12 @@ class Workbook extends BIFFwriter
      */
     private function writeStyle()
     {
-        $record = 0x0293;   // Record identifier
-        $length = 0x0004;   // Bytes to follow
+        $record = 0x0293; // Record identifier
+        $length = 0x0004; // Bytes to follow
 
-        $ixfe = 0x8000;  // Index to cell style XF
-        $BuiltIn = 0x00;     // Built-in style
-        $iLevel = 0xff;     // Outline style level
+        $ixfe = 0x8000; // Index to cell style XF
+        $BuiltIn = 0x00; // Built-in style
+        $iLevel = 0xff; // Outline style level
 
         $header = pack('vv', $record, $length);
         $data = pack('vCC', $ixfe, $BuiltIn, $iLevel);
@@ -999,10 +999,10 @@ class Workbook extends BIFFwriter
      */
     private function writeNumberFormat($format, $ifmt)
     {
-        $record = 0x041E;    // Record identifier
+        $record = 0x041E; // Record identifier
 
         $numberFormatString = \PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong($format);
-        $length = 2 + strlen($numberFormatString);    // Number of bytes to follow
+        $length = 2 + strlen($numberFormatString); // Number of bytes to follow
 
         $header = pack('vv', $record, $length);
         $data = pack('v', $ifmt) . $numberFormatString;
@@ -1014,12 +1014,12 @@ class Workbook extends BIFFwriter
      */
     private function writeDateMode()
     {
-        $record = 0x0022;   // Record identifier
-        $length = 0x0002;   // Bytes to follow
+        $record = 0x0022; // Record identifier
+        $length = 0x0002; // Bytes to follow
 
         $f1904 = (\PhpSpreadsheet\Shared\Date::getExcelCalendar() == \PhpSpreadsheet\Shared\Date::CALENDAR_MAC_1904)
             ? 1
-            : 0;   // Flag for 1904 date system
+            : 0; // Flag for 1904 date system
 
         $header = pack('vv', $record, $length);
         $data = pack('v', $f1904);
@@ -1040,8 +1040,8 @@ class Workbook extends BIFFwriter
      */
     private function writeExternalCount($cxals)
     {
-        $record = 0x0016;   // Record identifier
-        $length = 0x0002;   // Number of bytes to follow
+        $record = 0x0016; // Record identifier
+        $length = 0x0002; // Number of bytes to follow
 
         $header = pack('vv', $record, $length);
         $data = pack('v', $cxals);
@@ -1059,11 +1059,11 @@ class Workbook extends BIFFwriter
      */
     private function writeExternalSheet($sheetname)
     {
-        $record = 0x0017;                     // Record identifier
-        $length = 0x02 + strlen($sheetname);  // Number of bytes to follow
+        $record = 0x0017; // Record identifier
+        $length = 0x02 + strlen($sheetname); // Number of bytes to follow
 
-        $cch = strlen($sheetname);         // Length of sheet name
-        $rgch = 0x03;                       // Filename encoding
+        $cch = strlen($sheetname); // Length of sheet name
+        $rgch = 0x03; // Filename encoding
 
         $header = pack('vv', $record, $length);
         $data = pack('CC', $cch, $rgch);
@@ -1083,20 +1083,20 @@ class Workbook extends BIFFwriter
      */
     private function writeNameShort($index, $type, $rowmin, $rowmax, $colmin, $colmax)
     {
-        $record = 0x0018;       // Record identifier
-        $length = 0x0024;       // Number of bytes to follow
+        $record = 0x0018; // Record identifier
+        $length = 0x0024; // Number of bytes to follow
 
-        $grbit = 0x0020;       // Option flags
-        $chKey = 0x00;         // Keyboard shortcut
-        $cch = 0x01;         // Length of text name
-        $cce = 0x0015;       // Length of text definition
-        $ixals = $index + 1;   // Sheet index
-        $itab = $ixals;       // Equal to ixals
-        $cchCustMenu = 0x00;         // Length of cust menu text
-        $cchDescription = 0x00;         // Length of description text
-        $cchHelptopic = 0x00;         // Length of help topic text
-        $cchStatustext = 0x00;         // Length of status bar text
-        $rgch = $type;        // Built-in name type
+        $grbit = 0x0020; // Option flags
+        $chKey = 0x00; // Keyboard shortcut
+        $cch = 0x01; // Length of text name
+        $cce = 0x0015; // Length of text definition
+        $ixals = $index + 1; // Sheet index
+        $itab = $ixals; // Equal to ixals
+        $cchCustMenu = 0x00; // Length of cust menu text
+        $cchDescription = 0x00; // Length of description text
+        $cchHelptopic = 0x00; // Length of help topic text
+        $cchStatustext = 0x00; // Length of status bar text
+        $rgch = $type; // Built-in name type
 
         $unknown03 = 0x3b;
         $unknown04 = 0xffff - $index;
@@ -1147,19 +1147,19 @@ class Workbook extends BIFFwriter
      */
     private function writeNameLong($index, $type, $rowmin, $rowmax, $colmin, $colmax)
     {
-        $record = 0x0018;       // Record identifier
-        $length = 0x003d;       // Number of bytes to follow
-        $grbit = 0x0020;       // Option flags
-        $chKey = 0x00;         // Keyboard shortcut
-        $cch = 0x01;         // Length of text name
-        $cce = 0x002e;       // Length of text definition
-        $ixals = $index + 1;   // Sheet index
-        $itab = $ixals;       // Equal to ixals
-        $cchCustMenu = 0x00;         // Length of cust menu text
-        $cchDescription = 0x00;         // Length of description text
-        $cchHelptopic = 0x00;         // Length of help topic text
-        $cchStatustext = 0x00;         // Length of status bar text
-        $rgch = $type;        // Built-in name type
+        $record = 0x0018; // Record identifier
+        $length = 0x003d; // Number of bytes to follow
+        $grbit = 0x0020; // Option flags
+        $chKey = 0x00; // Keyboard shortcut
+        $cch = 0x01; // Length of text name
+        $cce = 0x002e; // Length of text definition
+        $ixals = $index + 1; // Sheet index
+        $itab = $ixals; // Equal to ixals
+        $cchCustMenu = 0x00; // Length of cust menu text
+        $cchDescription = 0x00; // Length of description text
+        $cchHelptopic = 0x00; // Length of help topic text
+        $cchStatustext = 0x00; // Length of status bar text
+        $rgch = $type; // Built-in name type
 
         $unknown01 = 0x29;
         $unknown02 = 0x002b;
@@ -1222,8 +1222,8 @@ class Workbook extends BIFFwriter
      */
     private function writeCountry()
     {
-        $record = 0x008C;    // Record identifier
-        $length = 4;         // Number of bytes to follow
+        $record = 0x008C; // Record identifier
+        $length = 4; // Number of bytes to follow
 
         $header = pack('vv', $record, $length);
         /* using the same country code always for simplicity */
@@ -1239,8 +1239,8 @@ class Workbook extends BIFFwriter
      */
     private function writeRecalcId()
     {
-        $record = 0x01C1;    // Record identifier
-        $length = 8;         // Number of bytes to follow
+        $record = 0x01C1; // Record identifier
+        $length = 8; // Number of bytes to follow
 
         $header = pack('vv', $record, $length);
 
@@ -1257,10 +1257,10 @@ class Workbook extends BIFFwriter
     {
         $aref = $this->palette;
 
-        $record = 0x0092;                // Record identifier
-        $length = 2 + 4 * count($aref);  // Number of bytes to follow
-        $ccv = count($aref);          // Number of RGB values to follow
-        $data = '';                      // The RGB data
+        $record = 0x0092; // Record identifier
+        $length = 2 + 4 * count($aref); // Number of bytes to follow
+        $ccv = count($aref); // Number of RGB values to follow
+        $data = ''; // The RGB data
 
         // Pack the RGB data
         foreach ($aref as $color) {

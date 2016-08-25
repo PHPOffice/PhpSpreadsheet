@@ -219,8 +219,8 @@ class SYLK extends BaseReader implements IReader
         }
         $spreadsheet->setActiveSheetIndex($this->sheetIndex);
 
-        $fromFormats = ['\-',    '\ '];
-        $toFormats = ['-',    ' '];
+        $fromFormats = ['\-', '\ '];
+        $toFormats = ['-', ' '];
 
         // Loop through file
         $rowData = [];

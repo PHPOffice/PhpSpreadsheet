@@ -913,7 +913,7 @@ class MathTrig
     public static function ROMAN($aValue, $style = 0)
     {
         $aValue = Functions::flattenSingleValue($aValue);
-        $style = (is_null($style))    ? 0 :    (integer) Functions::flattenSingleValue($style);
+        $style = (is_null($style)) ? 0 : (integer) Functions::flattenSingleValue($style);
         if ((!is_numeric($aValue)) || ($aValue < 0) || ($aValue >= 4000)) {
             return Functions::VALUE();
         }

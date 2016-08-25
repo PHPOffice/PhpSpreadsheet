@@ -2592,7 +2592,7 @@ class PclZip
                 // ----- Set the file properties
                 $p_header['size'] = 0;
                 //$p_header['external'] = 0x41FF0010;     // Value for a folder : to be checked
-                $p_header['external'] = 0x00000010;     // Value for a folder : to be checked
+                $p_header['external'] = 0x00000010; // Value for a folder : to be checked
 
                 // ----- Call the header generation
                 if (($v_result = $this->privWriteFileHeader($p_header)) != 1) {
@@ -4980,7 +4980,7 @@ function PclZipUtilPathReduction($p_dir)
                 if ($v_skip > 0) {
                     --$v_skip;
                 } else {
-                    $v_result = $v_list[$i] . ($i != (sizeof($v_list) - 1)?'/' . $v_result:'');
+                    $v_result = $v_list[$i] . ($i != (sizeof($v_list) - 1) ? '/' . $v_result : '');
                 }
             }
         }

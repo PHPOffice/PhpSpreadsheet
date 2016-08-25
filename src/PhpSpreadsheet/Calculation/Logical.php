@@ -237,8 +237,8 @@ class Logical
      */
     public static function statementIf($condition = true, $returnIfTrue = 0, $returnIfFalse = false)
     {
-        $condition = (is_null($condition))     ? true :  (boolean) Functions::flattenSingleValue($condition);
-        $returnIfTrue = (is_null($returnIfTrue))  ? 0 :     Functions::flattenSingleValue($returnIfTrue);
+        $condition = (is_null($condition)) ? true : (boolean) Functions::flattenSingleValue($condition);
+        $returnIfTrue = (is_null($returnIfTrue)) ? 0 : Functions::flattenSingleValue($returnIfTrue);
         $returnIfFalse = (is_null($returnIfFalse)) ? false : Functions::flattenSingleValue($returnIfFalse);
 
         return ($condition) ? $returnIfTrue : $returnIfFalse;

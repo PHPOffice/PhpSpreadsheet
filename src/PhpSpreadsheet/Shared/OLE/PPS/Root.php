@@ -63,11 +63,11 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
         // Initial Setting for saving
         $this->_BIG_BLOCK_SIZE = pow(
             2,
-            (isset($this->_BIG_BLOCK_SIZE))? self::adjust2($this->_BIG_BLOCK_SIZE) : 9
+            (isset($this->_BIG_BLOCK_SIZE)) ? self::adjust2($this->_BIG_BLOCK_SIZE) : 9
         );
         $this->_SMALL_BLOCK_SIZE = pow(
             2,
-            (isset($this->_SMALL_BLOCK_SIZE))?  self::adjust2($this->_SMALL_BLOCK_SIZE) : 6
+            (isset($this->_SMALL_BLOCK_SIZE)) ? self::adjust2($this->_SMALL_BLOCK_SIZE) : 6
         );
 
         if (is_resource($filename)) {
@@ -130,21 +130,21 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
                 $raList[$i]->Size = $raList[$i]->getDataLen();
                 if ($raList[$i]->Size < \PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL) {
                     $iSBcnt += floor($raList[$i]->Size / $this->_SMALL_BLOCK_SIZE)
-                                  + (($raList[$i]->Size % $this->_SMALL_BLOCK_SIZE)? 1: 0);
+                                  + (($raList[$i]->Size % $this->_SMALL_BLOCK_SIZE) ? 1 : 0);
                 } else {
                     $iBBcnt += (floor($raList[$i]->Size / $this->_BIG_BLOCK_SIZE) +
-                        (($raList[$i]->Size % $this->_BIG_BLOCK_SIZE)? 1: 0));
+                        (($raList[$i]->Size % $this->_BIG_BLOCK_SIZE) ? 1 : 0));
                 }
             }
         }
         $iSmallLen = $iSBcnt * $this->_SMALL_BLOCK_SIZE;
         $iSlCnt = floor($this->_BIG_BLOCK_SIZE / \PhpSpreadsheet\Shared\OLE::OLE_LONG_INT_SIZE);
-        $iSBDcnt = floor($iSBcnt / $iSlCnt) + (($iSBcnt % $iSlCnt)? 1:0);
+        $iSBDcnt = floor($iSBcnt / $iSlCnt) + (($iSBcnt % $iSlCnt) ? 1 : 0);
         $iBBcnt += (floor($iSmallLen / $this->_BIG_BLOCK_SIZE) +
-                      (($iSmallLen % $this->_BIG_BLOCK_SIZE)? 1: 0));
+                      (($iSmallLen % $this->_BIG_BLOCK_SIZE) ? 1 : 0));
         $iCnt = count($raList);
         $iBdCnt = $this->_BIG_BLOCK_SIZE / \PhpSpreadsheet\Shared\OLE::OLE_PPS_SIZE;
-        $iPPScnt = (floor($iCnt / $iBdCnt) + (($iCnt % $iBdCnt)? 1: 0));
+        $iPPScnt = (floor($iCnt / $iBdCnt) + (($iCnt % $iBdCnt) ? 1 : 0));
 
         return [$iSBDcnt, $iBBcnt, $iPPScnt];
     }
@@ -160,7 +160,7 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
     {
         $iWk = log($i2) / log(2);
 
-        return ($iWk > floor($iWk))? floor($iWk) + 1:$iWk;
+        return ($iWk > floor($iWk)) ? floor($iWk) + 1 : $iWk;
     }
 
     /**
@@ -181,16 +181,16 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
         $iBdExL = 0;
         $iAll = $iBBcnt + $iPPScnt + $iSBDcnt;
         $iAllW = $iAll;
-        $iBdCntW = floor($iAllW / $iBlCnt) + (($iAllW % $iBlCnt)? 1: 0);
-        $iBdCnt = floor(($iAll + $iBdCntW) / $iBlCnt) + ((($iAllW + $iBdCntW) % $iBlCnt)? 1: 0);
+        $iBdCntW = floor($iAllW / $iBlCnt) + (($iAllW % $iBlCnt) ? 1 : 0);
+        $iBdCnt = floor(($iAll + $iBdCntW) / $iBlCnt) + ((($iAllW + $iBdCntW) % $iBlCnt) ? 1 : 0);
 
         // Calculate BD count
         if ($iBdCnt > $i1stBdL) {
             while (1) {
                 ++$iBdExL;
                 ++$iAllW;
-                $iBdCntW = floor($iAllW / $iBlCnt) + (($iAllW % $iBlCnt)? 1: 0);
-                $iBdCnt = floor(($iAllW + $iBdCntW) / $iBlCnt) + ((($iAllW + $iBdCntW) % $iBlCnt)? 1: 0);
+                $iBdCntW = floor($iAllW / $iBlCnt) + (($iAllW % $iBlCnt) ? 1 : 0);
+                $iBdCnt = floor(($iAllW + $iBdCntW) / $iBlCnt) + ((($iAllW + $iBdCntW) % $iBlCnt) ? 1 : 0);
                 if ($iBdCnt <= ($iBdExL * $iBlCnt + $i1stBdL)) {
                     break;
                 }
@@ -278,7 +278,7 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
                     $raList[$i]->startBlock = $iStBlk;
                     $iStBlk +=
                             (floor($raList[$i]->Size / $this->_BIG_BLOCK_SIZE) +
-                                (($raList[$i]->Size % $this->_BIG_BLOCK_SIZE)? 1: 0));
+                                (($raList[$i]->Size % $this->_BIG_BLOCK_SIZE) ? 1 : 0));
                 }
                 // Close file for each PPS, and unlink it
                 //if (isset($raList[$i]->_PPS_FILE)) {
@@ -310,7 +310,7 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
                 }
                 if ($raList[$i]->Size < \PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL) {
                     $iSmbCnt = floor($raList[$i]->Size / $this->_SMALL_BLOCK_SIZE)
-                                  + (($raList[$i]->Size % $this->_SMALL_BLOCK_SIZE)? 1: 0);
+                                  + (($raList[$i]->Size % $this->_SMALL_BLOCK_SIZE) ? 1 : 0);
                     // Add to SBD
                     $jB = $iSmbCnt - 1;
                     for ($j = 0; $j < $jB; ++$j) {
@@ -384,15 +384,15 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
         $iBdExL = 0;
         $iAll = $iBsize + $iPpsCnt + $iSbdSize;
         $iAllW = $iAll;
-        $iBdCntW = floor($iAllW / $iBbCnt) + (($iAllW % $iBbCnt)? 1: 0);
-        $iBdCnt = floor(($iAll + $iBdCntW) / $iBbCnt) + ((($iAllW + $iBdCntW) % $iBbCnt)? 1: 0);
+        $iBdCntW = floor($iAllW / $iBbCnt) + (($iAllW % $iBbCnt) ? 1 : 0);
+        $iBdCnt = floor(($iAll + $iBdCntW) / $iBbCnt) + ((($iAllW + $iBdCntW) % $iBbCnt) ? 1 : 0);
         // Calculate BD count
         if ($iBdCnt > $i1stBdL) {
             while (1) {
                 ++$iBdExL;
                 ++$iAllW;
-                $iBdCntW = floor($iAllW / $iBbCnt) + (($iAllW % $iBbCnt)? 1: 0);
-                $iBdCnt = floor(($iAllW + $iBdCntW) / $iBbCnt) + ((($iAllW + $iBdCntW) % $iBbCnt)? 1: 0);
+                $iBdCntW = floor($iAllW / $iBbCnt) + (($iAllW % $iBbCnt) ? 1 : 0);
+                $iBdCnt = floor(($iAllW + $iBdCntW) / $iBbCnt) + ((($iAllW + $iBdCntW) % $iBbCnt) ? 1 : 0);
                 if ($iBdCnt <= ($iBdExL * $iBbCnt + $i1stBdL)) {
                     break;
                 }

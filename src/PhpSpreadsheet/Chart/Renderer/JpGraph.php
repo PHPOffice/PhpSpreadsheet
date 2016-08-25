@@ -33,10 +33,10 @@ class JpGraph
     private static $height = 480;
 
     private static $colourSet = [
-        'mediumpurple1',    'palegreen3',     'gold1',          'cadetblue1',
-        'darkmagenta',      'coral',          'dodgerblue3',    'eggplant',
-        'mediumblue',       'magenta',        'sandybrown',     'cyan',
-        'firebrick1',       'forestgreen',    'deeppink4',      'darkolivegreen',
+        'mediumpurple1', 'palegreen3', 'gold1', 'cadetblue1',
+        'darkmagenta', 'coral', 'dodgerblue3', 'eggplant',
+        'mediumblue', 'magenta', 'sandybrown', 'cyan',
+        'firebrick1', 'forestgreen', 'deeppink4', 'darkolivegreen',
         'goldenrod2',
     ];
 
@@ -178,21 +178,21 @@ class JpGraph
             $legendOverlay = $legend->getOverlay();
             switch ($legendPosition) {
                 case 'r':
-                    $this->graph->legend->SetPos(0.01, 0.5, 'right', 'center');    //    right
+                    $this->graph->legend->SetPos(0.01, 0.5, 'right', 'center'); //    right
                     $this->graph->legend->SetColumns(1);
                     break;
                 case 'l':
-                    $this->graph->legend->SetPos(0.01, 0.5, 'left', 'center');    //    left
+                    $this->graph->legend->SetPos(0.01, 0.5, 'left', 'center'); //    left
                     $this->graph->legend->SetColumns(1);
                     break;
                 case 't':
-                    $this->graph->legend->SetPos(0.5, 0.01, 'center', 'top');    //    top
+                    $this->graph->legend->SetPos(0.5, 0.01, 'center', 'top'); //    top
                     break;
                 case 'b':
-                    $this->graph->legend->SetPos(0.5, 0.99, 'center', 'bottom');    //    bottom
+                    $this->graph->legend->SetPos(0.5, 0.99, 'center', 'bottom'); //    bottom
                     break;
                 default:
-                    $this->graph->legend->SetPos(0.01, 0.01, 'right', 'top');    //    top-right
+                    $this->graph->legend->SetPos(0.01, 0.01, 'right', 'top'); //    top-right
                     $this->graph->legend->SetColumns(1);
                     break;
             }

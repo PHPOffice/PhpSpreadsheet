@@ -286,7 +286,7 @@ class NumberFormat extends Supervisor implements \PhpSpreadsheet\IComparable
             self::$builtInFormats[11] = '0.00E+00';
             self::$builtInFormats[12] = '# ?/?';
             self::$builtInFormats[13] = '# ??/??';
-            self::$builtInFormats[14] = 'm/d/yyyy';                     // Despite ECMA 'mm-dd-yy';
+            self::$builtInFormats[14] = 'm/d/yyyy'; // Despite ECMA 'mm-dd-yy';
             self::$builtInFormats[15] = 'd-mmm-yy';
             self::$builtInFormats[16] = 'd-mmm';
             self::$builtInFormats[17] = 'mmm-yy';
@@ -294,17 +294,17 @@ class NumberFormat extends Supervisor implements \PhpSpreadsheet\IComparable
             self::$builtInFormats[19] = 'h:mm:ss AM/PM';
             self::$builtInFormats[20] = 'h:mm';
             self::$builtInFormats[21] = 'h:mm:ss';
-            self::$builtInFormats[22] = 'm/d/yyyy h:mm';                // Despite ECMA 'm/d/yy h:mm';
+            self::$builtInFormats[22] = 'm/d/yyyy h:mm'; // Despite ECMA 'm/d/yy h:mm';
 
-            self::$builtInFormats[37] = '#,##0_);(#,##0)';              //  Despite ECMA '#,##0 ;(#,##0)';
-            self::$builtInFormats[38] = '#,##0_);[Red](#,##0)';         //  Despite ECMA '#,##0 ;[Red](#,##0)';
-            self::$builtInFormats[39] = '#,##0.00_);(#,##0.00)';        //  Despite ECMA '#,##0.00;(#,##0.00)';
-            self::$builtInFormats[40] = '#,##0.00_);[Red](#,##0.00)';   //  Despite ECMA '#,##0.00;[Red](#,##0.00)';
+            self::$builtInFormats[37] = '#,##0_);(#,##0)'; //  Despite ECMA '#,##0 ;(#,##0)';
+            self::$builtInFormats[38] = '#,##0_);[Red](#,##0)'; //  Despite ECMA '#,##0 ;[Red](#,##0)';
+            self::$builtInFormats[39] = '#,##0.00_);(#,##0.00)'; //  Despite ECMA '#,##0.00;(#,##0.00)';
+            self::$builtInFormats[40] = '#,##0.00_);[Red](#,##0.00)'; //  Despite ECMA '#,##0.00;[Red](#,##0.00)';
 
             self::$builtInFormats[44] = '_("$"* #,##0.00_);_("$"* \(#,##0.00\);_("$"* "-"??_);_(@_)';
             self::$builtInFormats[45] = 'mm:ss';
             self::$builtInFormats[46] = '[h]:mm:ss';
-            self::$builtInFormats[47] = 'mm:ss.0';                      //  Despite ECMA 'mmss.0';
+            self::$builtInFormats[47] = 'mm:ss.0'; //  Despite ECMA 'mmss.0';
             self::$builtInFormats[48] = '##0.0E+0';
             self::$builtInFormats[49] = '@';
 

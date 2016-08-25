@@ -456,7 +456,7 @@ class AutoFilter
      *    @var    array
      */
     private static $fromReplace = ['\*', '\?', '~~', '~.*', '~.?'];
-    private static $toReplace = ['.*', '.',  '~',  '\*',  '\?'];
+    private static $toReplace = ['.*', '.', '~', '\*', '\?'];
 
     /**
      *    Convert a dynamic rule daterange to a custom filter range expression for ease of calculation

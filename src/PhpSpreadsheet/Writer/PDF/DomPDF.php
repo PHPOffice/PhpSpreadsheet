@@ -55,7 +55,7 @@ class DomPDF extends Core implements \PhpSpreadsheet\Writer\IWriter
         $fileHandle = parent::prepareForSave($pFilename);
 
         //  Default PDF paper size
-        $paperSize = 'LETTER';    //    Letter    (8.5 in. by 11 in.)
+        $paperSize = 'LETTER'; //    Letter    (8.5 in. by 11 in.)
 
         //  Check for paper size and page orientation
         if (is_null($this->getSheetIndex())) {

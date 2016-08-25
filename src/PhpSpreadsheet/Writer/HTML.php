@@ -666,10 +666,10 @@ class HTML extends BaseWriter implements IWriter
                 if ($drawing->getCoordinates() != $coordinates) {
                     continue;
                 }
-                ob_start();                                //  Let's start output buffering.
-                imagepng($drawing->getImageResource());    //  This will normally output the image, but because of ob_start(), it won't.
-                $contents = ob_get_contents();             //  Instead, output above is saved to $contents
-                ob_end_clean();                            //  End the output buffer.
+                ob_start(); //  Let's start output buffering.
+                imagepng($drawing->getImageResource()); //  This will normally output the image, but because of ob_start(), it won't.
+                $contents = ob_get_contents(); //  Instead, output above is saved to $contents
+                ob_end_clean(); //  End the output buffer.
 
                 $dataUri = 'data:image/jpeg;base64,' . base64_encode($contents);
 
@@ -1580,7 +1580,7 @@ class HTML extends BaseWriter implements IWriter
 
                         if (!in_array($baseCell, $adjustedBaseCells)) {
                             // subtract rowspan by 1
-                            --$this->isBaseCell[$sheetIndex][ $baseCell[0] ][ $baseCell[1] ]['rowspan'];
+                            --$this->isBaseCell[$sheetIndex][$baseCell[0]][$baseCell[1]]['rowspan'];
                             $adjustedBaseCells[] = $baseCell;
                         }
                     }

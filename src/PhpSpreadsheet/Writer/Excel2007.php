@@ -139,8 +139,8 @@ class Excel2007 extends BaseWriter implements IWriter
             $this->writerParts[$writer] = new $class($this);
         }
 
-        $hashTablesArray = ['stylesConditionalHashTable',    'fillHashTable',        'fontHashTable',
-                                  'bordersHashTable',                'numFmtHashTable',        'drawingHashTable',
+        $hashTablesArray = ['stylesConditionalHashTable', 'fillHashTable', 'fontHashTable',
+                                  'bordersHashTable', 'numFmtHashTable', 'drawingHashTable',
                                   'styleHashTable',
                                 ];
 
@@ -237,7 +237,7 @@ class Excel2007 extends BaseWriter implements IWriter
                 $macrosCode = $this->spreadSheet->getMacrosCode();
                 if (!is_null($macrosCode)) {
                     // we have the code ?
-                    $objZip->addFromString('xl/vbaProject.bin', $macrosCode);//allways in 'xl', allways named vbaProject.bin
+                    $objZip->addFromString('xl/vbaProject.bin', $macrosCode); //allways in 'xl', allways named vbaProject.bin
                     if ($this->spreadSheet->hasMacrosCertificate()) {
                         //signed macros ?
                         // Yes : add the certificate file and the related rels file
@@ -252,7 +252,7 @@ class Excel2007 extends BaseWriter implements IWriter
                 $objZip->addFromString($tmpRibbonTarget, $this->spreadSheet->getRibbonXMLData('data'));
                 if ($this->spreadSheet->hasRibbonBinObjects()) {
                     $tmpRootPath = dirname($tmpRibbonTarget) . '/';
-                    $ribbonBinObjects = $this->spreadSheet->getRibbonBinObjects('data');//the files to write
+                    $ribbonBinObjects = $this->spreadSheet->getRibbonBinObjects('data'); //the files to write
                     foreach ($ribbonBinObjects as $aPath => $aContent) {
                         $objZip->addFromString($tmpRootPath . $aPath, $aContent);
                     }

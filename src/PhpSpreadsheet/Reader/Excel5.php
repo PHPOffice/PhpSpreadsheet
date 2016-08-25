@@ -1122,7 +1122,7 @@ class Excel5 extends BaseReader implements IReader
                             // $range should look like one of these
                             //        Foo!$C$7:$J$66
                             //        Bar!$A$1:$IV$2
-                            $explodes = explode('!', $range);    // FIXME: what if sheetname contains exclamation mark?
+                            $explodes = explode('!', $range); // FIXME: what if sheetname contains exclamation mark?
                             $sheetName = trim($explodes[0], "'");
                             if (count($explodes) == 2) {
                                 if (strpos($explodes[1], ':') === false) {

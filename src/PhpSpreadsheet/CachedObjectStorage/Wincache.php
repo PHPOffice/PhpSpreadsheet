@@ -245,7 +245,7 @@ class Wincache extends CacheBase implements ICache
      */
     public function __construct(\PhpSpreadsheet\Worksheet $parent, $arguments)
     {
-        $cacheTime = (isset($arguments['cacheTime']))    ? $arguments['cacheTime']    : 600;
+        $cacheTime = (isset($arguments['cacheTime'])) ? $arguments['cacheTime'] : 600;
 
         if (is_null($this->cachePrefix)) {
             $baseUnique = $this->getUniqueID();

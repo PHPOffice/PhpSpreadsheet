@@ -35,14 +35,14 @@ class DataSeries
     const TYPE_PIECHART = 'pieChart';
     const TYPE_PIECHART_3D = 'pie3DChart';
     const TYPE_DOUGHTNUTCHART = 'doughnutChart';
-    const TYPE_DONUTCHART = self::TYPE_DOUGHTNUTCHART;    //    Synonym
+    const TYPE_DONUTCHART = self::TYPE_DOUGHTNUTCHART; //    Synonym
     const TYPE_SCATTERCHART = 'scatterChart';
     const TYPE_SURFACECHART = 'surfaceChart';
     const TYPE_SURFACECHART_3D = 'surface3DChart';
     const TYPE_RADARCHART = 'radarChart';
     const TYPE_BUBBLECHART = 'bubbleChart';
     const TYPE_STOCKCHART = 'stockChart';
-    const TYPE_CANDLECHART = self::TYPE_STOCKCHART;       //    Synonym
+    const TYPE_CANDLECHART = self::TYPE_STOCKCHART; //    Synonym
 
     const GROUPING_CLUSTERED = 'clustered';
     const GROUPING_STACKED = 'stacked';

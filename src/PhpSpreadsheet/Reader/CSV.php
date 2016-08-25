@@ -260,7 +260,7 @@ class CSV extends BaseReader implements IReader
         // Set our starting row based on whether we're in contiguous mode or not
         $currentRow = 1;
         if ($this->contiguous) {
-            $currentRow = ($this->contiguousRow == -1) ? $sheet->getHighestRow(): $this->contiguousRow;
+            $currentRow = ($this->contiguousRow == -1) ? $sheet->getHighestRow() : $this->contiguousRow;
         }
 
         // Loop through each line of the file in turn
