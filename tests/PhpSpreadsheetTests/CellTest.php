@@ -27,7 +27,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $cellAddress = 'ABCD';
         try {
-            $result = call_user_func([Cell::class, 'columnIndexFromString'], $cellAddress);
+            call_user_func([Cell::class, 'columnIndexFromString'], $cellAddress);
         } catch (\Exception $e) {
             $this->assertInstanceOf(Exception::class, $e);
             $this->assertEquals($e->getMessage(), 'Column string index can not be longer than 3 characters');
@@ -41,7 +41,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $cellAddress = '';
         try {
-            $result = call_user_func([Cell::class, 'columnIndexFromString'], $cellAddress);
+            call_user_func([Cell::class, 'columnIndexFromString'], $cellAddress);
         } catch (\Exception $e) {
             $this->assertInstanceOf(Exception::class, $e);
             $this->assertEquals($e->getMessage(), 'Column string index can not be empty');
@@ -87,7 +87,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $cellAddress = 'A1:AI2012';
         try {
-            $result = call_user_func([Cell::class, 'coordinateFromString'], $cellAddress);
+            call_user_func([Cell::class, 'coordinateFromString'], $cellAddress);
         } catch (\Exception $e) {
             $this->assertInstanceOf(Exception::class, $e);
             $this->assertEquals($e->getMessage(), 'Cell coordinate string can not be a range of cells');
@@ -101,7 +101,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $cellAddress = '';
         try {
-            $result = call_user_func([Cell::class, 'coordinateFromString'], $cellAddress);
+            call_user_func([Cell::class, 'coordinateFromString'], $cellAddress);
         } catch (\Exception $e) {
             $this->assertInstanceOf(Exception::class, $e);
             $this->assertEquals($e->getMessage(), 'Cell coordinate can not be zero-length string');
@@ -115,7 +115,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $cellAddress = 'AI';
         try {
-            $result = call_user_func([Cell::class, 'coordinateFromString'], $cellAddress);
+            call_user_func([Cell::class, 'coordinateFromString'], $cellAddress);
         } catch (\Exception $e) {
             $this->assertInstanceOf(Exception::class, $e);
             $this->assertEquals($e->getMessage(), 'Invalid cell coordinate ' . $cellAddress);
@@ -145,7 +145,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $cellAddress = 'A1:AI2012';
         try {
-            $result = call_user_func([Cell::class, 'absoluteCoordinate'], $cellAddress);
+            call_user_func([Cell::class, 'absoluteCoordinate'], $cellAddress);
         } catch (\Exception $e) {
             $this->assertInstanceOf(Exception::class, $e);
             $this->assertEquals($e->getMessage(), 'Cell coordinate string can not be a range of cells');
@@ -175,7 +175,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $cellAddress = 'A1:AI2012';
         try {
-            $result = call_user_func([Cell::class, 'absoluteReference'], $cellAddress);
+            call_user_func([Cell::class, 'absoluteReference'], $cellAddress);
         } catch (\Exception $e) {
             $this->assertInstanceOf(Exception::class, $e);
             $this->assertEquals($e->getMessage(), 'Cell coordinate string can not be a range of cells');
@@ -227,7 +227,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
     {
         $cellRange = '';
         try {
-            $result = call_user_func([Cell::class, 'buildRange'], $cellRange);
+            call_user_func([Cell::class, 'buildRange'], $cellRange);
         } catch (\Exception $e) {
             $this->assertInstanceOf(Exception::class, $e);
             $this->assertEquals($e->getMessage(), 'Range does not contain any information');

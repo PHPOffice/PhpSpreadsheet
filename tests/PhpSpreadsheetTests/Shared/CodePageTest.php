@@ -27,7 +27,7 @@ class CodePageTest extends \PHPUnit_Framework_TestCase
     {
         $invalidCodePage = 12345;
         try {
-            $result = call_user_func([CodePage::class, 'numberToName'], $invalidCodePage);
+            call_user_func([CodePage::class, 'numberToName'], $invalidCodePage);
         } catch (Exception $e) {
             $this->assertEquals($e->getMessage(), 'Unknown codepage: 12345');
 
@@ -40,7 +40,7 @@ class CodePageTest extends \PHPUnit_Framework_TestCase
     {
         $unsupportedCodePage = 720;
         try {
-            $result = call_user_func([CodePage::class, 'numberToName'], $unsupportedCodePage);
+            call_user_func([CodePage::class, 'numberToName'], $unsupportedCodePage);
         } catch (Exception $e) {
             $this->assertEquals($e->getMessage(), 'Code page 720 not supported.');
 

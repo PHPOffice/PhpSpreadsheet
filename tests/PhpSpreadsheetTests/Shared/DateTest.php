@@ -31,7 +31,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
      */
     public function testDateTimeExcelToTimestamp1900()
     {
-        $result = call_user_func(
+        call_user_func(
             [Date::class, 'setExcelCalendar'],
             Date::CALENDAR_WINDOWS_1900
         );
@@ -52,7 +52,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
      */
     public function testDateTimeTimestampToExcel1900()
     {
-        $result = call_user_func(
+        call_user_func(
             [Date::class, 'setExcelCalendar'],
             Date::CALENDAR_WINDOWS_1900
         );
@@ -73,7 +73,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
      */
     public function testDateTimeDateTimeToExcel()
     {
-        $result = call_user_func(
+        call_user_func(
             [Date::class, 'setExcelCalendar'],
             Date::CALENDAR_WINDOWS_1900
         );
@@ -94,7 +94,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
      */
     public function testDateTimeFormattedPHPToExcel1900()
     {
-        $result = call_user_func(
+        call_user_func(
             [Date::class, 'setExcelCalendar'],
             Date::CALENDAR_WINDOWS_1900
         );
@@ -115,7 +115,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
      */
     public function testDateTimeExcelToTimestamp1904()
     {
-        $result = call_user_func(
+        call_user_func(
             [Date::class, 'setExcelCalendar'],
             Date::CALENDAR_MAC_1904
         );
@@ -136,7 +136,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
      */
     public function testDateTimeTimestampToExcel1904()
     {
-        $result = call_user_func(
+        call_user_func(
             [Date::class, 'setExcelCalendar'],
             Date::CALENDAR_MAC_1904
         );
@@ -173,7 +173,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
      */
     public function testDateTimeExcelToTimestamp1900Timezone()
     {
-        $result = call_user_func(
+        call_user_func(
             [Date::class, 'setExcelCalendar'],
             Date::CALENDAR_WINDOWS_1900
         );

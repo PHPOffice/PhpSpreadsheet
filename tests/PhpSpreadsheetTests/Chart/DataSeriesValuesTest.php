@@ -27,7 +27,7 @@ class DataSeriesValuesTest extends \PHPUnit_Framework_TestCase
         $testInstance = new DataSeriesValues();
 
         try {
-            $result = $testInstance->setDataType('BOOLEAN');
+            $testInstance->setDataType('BOOLEAN');
         } catch (Exception $e) {
             $this->assertEquals($e->getMessage(), 'Invalid datatype for chart data series values');
 
@@ -41,7 +41,7 @@ class DataSeriesValuesTest extends \PHPUnit_Framework_TestCase
         $dataTypeValue = 'String';
 
         $testInstance = new DataSeriesValues();
-        $setValue = $testInstance->setDataType($dataTypeValue);
+        $testInstance->setDataType($dataTypeValue);
 
         $result = $testInstance->getDataType();
         $this->assertEquals($dataTypeValue, $result);

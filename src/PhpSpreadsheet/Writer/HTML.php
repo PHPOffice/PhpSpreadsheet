@@ -1565,7 +1565,7 @@ class HTML extends BaseWriter implements IWriter
                 if (isset($this->isSpannedCell[$sheetIndex][$rowIndex])) {
                     if (count($this->isSpannedCell[$sheetIndex][$rowIndex]) == $countColumns) {
                         $this->isSpannedRow[$sheetIndex][$rowIndex] = $rowIndex;
-                    };
+                    }
                 }
             }
 
