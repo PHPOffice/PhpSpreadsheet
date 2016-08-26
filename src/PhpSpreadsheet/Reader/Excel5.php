@@ -1207,7 +1207,7 @@ class Excel5 extends BaseReader implements IReader
      *
      * @param string $data   Data stream to read from
      * @param int    $pos    Position to start reading from
-     * @param int    $length Record data length
+     * @param int    $len    Record data length
      *
      * @return string Record data
      */
@@ -1740,8 +1740,8 @@ class Excel5 extends BaseReader implements IReader
     /**
      * Make an RC4 decryptor for the given block
      *
-     * @var int         Block for which to create decrypto
-     * @var string $valContext MD5 context state
+     * @param int         Block for which to create decrypto
+     * @param string $valContext MD5 context state
      *
      * @return Excel5\RC4
      */
@@ -1772,11 +1772,11 @@ class Excel5 extends BaseReader implements IReader
     /**
      * Verify RC4 file password
      *
-     * @var string        Password to check
-     * @var string $docid           Document id
-     * @var string $salt_data       Salt data
-     * @var string $hashedsalt_data Hashed salt data
-     * @var string &$valContext     Set to the MD5 context of the value
+     * @param string $password        Password to check
+     * @param string $docid           Document id
+     * @param string $salt_data       Salt data
+     * @param string $hashedsalt_data Hashed salt data
+     * @param string $valContext     Set to the MD5 context of the value
      *
      * @return bool Success
      */
@@ -5257,8 +5257,7 @@ class Excel5 extends BaseReader implements IReader
      * Take array of tokens together with additional data for formula and return human readable formula
      *
      * @param array $tokens
-     * @param array $additionalData Additional binary data going with the formula
-     * @param string $baseCell Base cell, only needed when formula contains tRefN tokens, e.g. with shared formulas
+     * @param string $additionalData Additional binary data going with the formula
      * @return string Human readable formula
      */
     private function createFormulaFromTokens($tokens, $additionalData)
@@ -5374,7 +5373,7 @@ class Excel5 extends BaseReader implements IReader
                     unset($space2, $space3, $space4, $space5);
                     break;
                 case 'tArray': // array constant
-                    $constantArray = self::_readBIFF8ConstantArray($additionalData);
+                    $constantArray = self::readBIFF8ConstantArray($additionalData);
                     $formulaStrings[] = $space1 . $space0 . $constantArray['value'];
                     $additionalData = substr($additionalData, $constantArray['size']); // bite of chunk of additional data
                     unset($space0, $space1);
@@ -5419,7 +5418,7 @@ class Excel5 extends BaseReader implements IReader
     /**
      * Fetch next token from binary formula data
      *
-     * @param string Formula data
+     * @param string $formulaData Formula data
      * @param string $baseCell Base cell, only needed when formula contains tRefN tokens, e.g. with shared formulas
      * @throws Exception
      * @return array
@@ -7118,7 +7117,7 @@ class Excel5 extends BaseReader implements IReader
         for ($r = 1; $r <= $nr + 1; ++$r) {
             $items = [];
             for ($c = 1; $c <= $nc + 1; ++$c) {
-                $constant = self::_readBIFF8Constant($arrayData);
+                $constant = self::readBIFF8Constant($arrayData);
                 $items[] = $constant['value'];
                 $arrayData = substr($arrayData, $constant['size']);
                 $size += $constant['size'];
@@ -7372,6 +7371,9 @@ class Excel5 extends BaseReader implements IReader
         return $value;
     }
 
+    /**
+     * @param int $rknum
+     */
     private static function getIEEE754($rknum)
     {
         if (($rknum & 0x02) != 0) {
@@ -7405,7 +7407,7 @@ class Excel5 extends BaseReader implements IReader
      * @param bool $compressed
      * @return string
      */
-    private static function encodeUTF16($string, $compressed = '')
+    private static function encodeUTF16($string, $compressed = false)
     {
         if ($compressed) {
             $string = self::uncompressByteString($string);

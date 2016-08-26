@@ -59,7 +59,7 @@ class CSV extends BaseReader implements IReader
     /**
      * Load rows contiguously
      *
-     * @var    int
+     * @var    bool
      */
     private $contiguous = false;
 

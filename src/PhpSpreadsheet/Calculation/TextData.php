@@ -54,7 +54,7 @@ class TextData
      * CHARACTER
      *
      * @param    string    $character    Value
-     * @return    int
+     * @return    string
      */
     public static function CHARACTER($character)
     {
@@ -294,7 +294,7 @@ class TextData
      * @param    mixed        $value    Value to check
      * @param    int        $decimals
      * @param    bool        $no_commas
-     * @return    bool
+     * @return    string
      */
     public static function FIXEDFORMAT($value, $decimals = 2, $no_commas = false)
     {
@@ -409,7 +409,7 @@ class TextData
      * STRINGLENGTH
      *
      * @param    string    $value    Value
-     * @return    string
+     * @return    int
      */
     public static function STRINGLENGTH($value = '')
     {
@@ -556,7 +556,7 @@ class TextData
      * RETURNSTRING
      *
      * @param    mixed    $testValue    Value to check
-     * @return    bool
+     * @return    string|null
      */
     public static function RETURNSTRING($testValue = '')
     {
@@ -574,7 +574,7 @@ class TextData
      *
      * @param    mixed    $value    Value to check
      * @param    string    $format    Format mask to use
-     * @return    bool
+     * @return    string
      */
     public static function TEXTFORMAT($value, $format)
     {

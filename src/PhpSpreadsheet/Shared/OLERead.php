@@ -168,6 +168,7 @@ class OLERead
     /**
      * Extract binary stream data
      *
+     * @param int $stream
      * @return string
      */
     public function getStream($stream)

@@ -2350,6 +2350,10 @@ class Calculation
         return $formula;
     }
 
+    /**
+     * @param string $fromSeparator
+     * @param string $toSeparator
+     */
     private static function translateFormula($from, $to, $formula, $fromSeparator, $toSeparator)
     {
         //    Convert any Excel function names to the required language
@@ -2670,6 +2674,9 @@ class Calculation
         return false;
     }
 
+    /**
+     * @param string $cellReference
+     */
     public function saveValueToCache($cellReference, $cellValue)
     {
         if ($this->calculationCacheEnabled) {
@@ -2790,7 +2797,7 @@ class Calculation
      * Read the dimensions of a matrix, and re-index it with straight numeric keys starting from row 0, column 0
      *
      * @param    mixed        &$matrix        matrix operand
-     * @return    array        An array comprising the number of rows, and number of columns
+     * @return    int[]        An array comprising the number of rows, and number of columns
      */
     private static function getMatrixDimensions(&$matrix)
     {
@@ -2940,7 +2947,7 @@ class Calculation
      * Format type and details of an operand for display in the log (based on operand type)
      *
      * @param    mixed        $value    First matrix operand
-     * @return    mixed
+     * @return    string|null
      */
     private function showTypeDetails($value)
     {
@@ -3430,6 +3437,10 @@ class Calculation
     }
 
     // evaluate postfix notation
+
+    /**
+     * @param string $cellID
+     */
     private function processTokenStack($tokens, $cellID = null, Cell $pCell = null)
     {
         if ($tokens == false) {
@@ -4016,6 +4027,9 @@ class Calculation
         return strcmp($inversedStr1, $inversedStr2);
     }
 
+    /**
+     * @param string $matrixFunction
+     */
     private function executeNumericBinaryOperation($cellID, $operand1, $operand2, $operation, $matrixFunction, &$stack)
     {
         //    Validate the two operands

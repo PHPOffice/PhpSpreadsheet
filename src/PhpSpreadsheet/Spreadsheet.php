@@ -136,7 +136,7 @@ class Spreadsheet
     /**
      * The workbook has macros ?
      *
-     * @return true if workbook has macros, false if not
+     * @return bool
      */
     public function hasMacros()
     {
@@ -177,7 +177,7 @@ class Spreadsheet
     /**
      * Set the macros certificate
      *
-     * @param string|null $Certificate
+     * @param string|null $certificate
      */
     public function setMacrosCertificate($certificate = null)
     {
@@ -230,6 +230,7 @@ class Spreadsheet
      * retrieve ribbon XML Data
      *
      * return string|null|array
+     * @return string
      */
     public function getRibbonXMLData($what = 'all') //we need some constants here...
     {
@@ -303,7 +304,7 @@ class Spreadsheet
     /**
      * This workbook have a custom UI ?
      *
-     * @return true|false
+     * @return bool
      */
     public function hasRibbon()
     {
@@ -313,7 +314,7 @@ class Spreadsheet
     /**
      * This workbook have additionnal object for the ribbon ?
      *
-     * @return true|false
+     * @return bool
      */
     public function hasRibbonBinObjects()
     {
@@ -609,7 +610,7 @@ class Spreadsheet
      *
      * @param  Worksheet $pSheet
      * @throws Exception
-     * @return Sheet index
+     * @return int index
      */
     public function getIndex(Worksheet $pSheet)
     {
@@ -628,7 +629,7 @@ class Spreadsheet
      * @param  string $sheetName Sheet name to modify index for
      * @param  int $newIndex New index for the sheet
      * @throws Exception
-     * @return New sheet index
+     * @return int New sheet index
      */
     public function setIndexByName($sheetName, $newIndex)
     {
@@ -772,7 +773,7 @@ class Spreadsheet
      * Add named range
      *
      * @param  NamedRange $namedRange
-     * @return PhpSpreadsheet
+     * @return bool
      */
     public function addNamedRange(NamedRange $namedRange)
     {
@@ -818,7 +819,7 @@ class Spreadsheet
      *
      * @param  string  $namedRange
      * @param  Worksheet|null  $pSheet  Scope: use null for global scope.
-     * @return PhpSpreadsheet
+     * @return Spreadsheet
      */
     public function removeNamedRange($namedRange, Worksheet $pSheet = null)
     {
@@ -838,7 +839,7 @@ class Spreadsheet
     /**
      * Get worksheet iterator
      *
-     * @return WorksheetIterator
+     * @return Worksheet\Iterator
      */
     public function getWorksheetIterator()
     {
@@ -848,7 +849,7 @@ class Spreadsheet
     /**
      * Copy workbook (!= clone!)
      *
-     * @return PhpSpreadsheet
+     * @return Spreadsheet
      */
     public function copy()
     {

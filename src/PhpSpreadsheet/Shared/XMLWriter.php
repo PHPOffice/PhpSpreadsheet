@@ -107,7 +107,7 @@ class XMLWriter extends \XMLWriter
      * Fallback method for writeRaw, introduced in PHP 5.2
      *
      * @param string $text
-     * @return string
+     * @return bool
      */
     public function writeRawData($text)
     {

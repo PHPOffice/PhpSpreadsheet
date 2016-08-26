@@ -51,14 +51,14 @@ class Properties
     /**
      * Created
      *
-     * @var datetime
+     * @var int
      */
     private $created;
 
     /**
      * Modified
      *
-     * @var datetime
+     * @var int
      */
     private $modified;
 
@@ -178,7 +178,7 @@ class Properties
     /**
      * Get Created
      *
-     * @return datetime
+     * @return int
      */
     public function getCreated()
     {
@@ -211,7 +211,7 @@ class Properties
     /**
      * Get Modified
      *
-     * @return datetime
+     * @return int
      */
     public function getModified()
     {

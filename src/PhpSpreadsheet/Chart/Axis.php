@@ -326,7 +326,7 @@ class Axis extends Properties
     /**
      * Set Shadow Properties
      *
-     * @param int $shadow_presets
+     * @param int $sh_presets
      * @param string $sh_color_value
      * @param string $sh_color_type
      * @param string $sh_color_alpha
@@ -458,12 +458,7 @@ class Axis extends Properties
     }
 
     /**
-     * Get Glow Property
-     *
-     * @param float $size
-     * @param string $color_value
-     * @param int $color_alpha
-     * @param string $color_type
+     * Get Shadow Property
      */
     public function getShadowProperty($elements)
     {

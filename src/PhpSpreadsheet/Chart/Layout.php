@@ -174,6 +174,7 @@ class Layout
      * Set Layout Target
      *
      * @param Layout Target $value
+     * @param string $value
      * @return Layout
      */
     public function setLayoutTarget($value)

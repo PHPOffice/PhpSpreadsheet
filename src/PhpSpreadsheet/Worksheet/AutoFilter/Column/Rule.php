@@ -281,7 +281,7 @@ class Rule
      *
      *    @param   string        $pRuleType
      *    @throws  \PhpSpreadsheet\Exception
-     *    @return  \PhpSpreadsheet\Worksheet\AutoFilter\Column
+     *    @return  Rule
      */
     public function setRuleType($pRuleType = self::AUTOFILTER_RULETYPE_FILTER)
     {

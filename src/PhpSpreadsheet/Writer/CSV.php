@@ -318,7 +318,7 @@ class CSV extends BaseWriter implements IWriter
     /**
      * Write line to CSV file
      *
-     * @param    mixed    $pFileHandle    PHP filehandle
+     * @param    resource    $pFileHandle    PHP filehandle
      * @param    array    $pValues        Array containing values in a row
      * @throws    Exception
      */

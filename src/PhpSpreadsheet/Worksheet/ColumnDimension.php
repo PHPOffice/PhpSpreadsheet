@@ -31,7 +31,7 @@ class ColumnDimension extends Dimension
     /**
      * Column index
      *
-     * @var int
+     * @var string
      */
     private $columnIndex;
 

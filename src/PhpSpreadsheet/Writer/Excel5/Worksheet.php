@@ -650,7 +650,7 @@ class Worksheet extends BIFFwriter
      * @param int $row Row index (0-based)
      * @param int $col Column index (0-based)
      * @param string $str The string
-     * @param mixed   $xfIndex The XF format index for the cell
+     * @param int   $xfIndex The XF format index for the cell
      * @param array $arrcRun Index to Font record and characters beginning
      */
     private function writeRichTextString($row, $col, $str, $xfIndex, $arrcRun)

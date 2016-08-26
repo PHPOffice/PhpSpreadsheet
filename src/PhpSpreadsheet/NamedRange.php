@@ -233,7 +233,7 @@ class NamedRange
      * @param Worksheet|null $pSheet Scope. Use null for global scope
      * @return NamedRange
      */
-    public static function resolveRange($pNamedRange, Worksheet $pSheet)
+    public static function resolveRange($pNamedRange, Worksheet $pSheet = null)
     {
         return $pSheet->getParent()->getNamedRange($pNamedRange, $pSheet);
     }

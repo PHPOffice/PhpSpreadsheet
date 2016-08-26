@@ -1920,7 +1920,10 @@ class Excel2007 extends BaseReader implements IReader
         return 'FF000000';
     }
 
-    private static function readStyle($docStyle, $style)
+    /**
+     * @param \PhpSpreadsheet\Style $docStyle
+     */
+    private static function readStyle($docStyle, \PhpSpreadsheet\Style $style)
     {
         // format code
 //        if (isset($style->numFmt)) {
@@ -2119,7 +2122,10 @@ class Excel2007 extends BaseReader implements IReader
         return $value;
     }
 
-    private function readRibbon($excel, $customUITarget, $zip)
+    /**
+     * @param \PhpSpreadsheet\Spreadsheet $excel
+     */
+    private function readRibbon(\PhpSpreadsheet\Spreadsheet $excel, $customUITarget, $zip)
     {
         $baseDir = dirname($customUITarget);
         $nameCustomUI = basename($customUITarget);

@@ -122,7 +122,7 @@ class CachedObjectStorageFactory
     /**
      * Return the current cache storage class
      *
-     * @return \CachedObjectStorage\ICache|null
+     * @return string
      **/
     public static function getCacheStorageClass()
     {

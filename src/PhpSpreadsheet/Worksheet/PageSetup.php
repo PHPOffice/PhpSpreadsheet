@@ -812,7 +812,7 @@ class PageSetup
      * Set first page number
      *
      * @param int $value
-     * @return HeaderFooter
+     * @return PageSetup
      */
     public function setFirstPageNumber($value = null)
     {
@@ -824,7 +824,7 @@ class PageSetup
     /**
      * Reset first page number
      *
-     * @return HeaderFooter
+     * @return PageSetup
      */
     public function resetFirstPageNumber()
     {

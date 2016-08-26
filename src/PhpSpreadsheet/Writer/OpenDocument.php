@@ -70,7 +70,7 @@ class OpenDocument extends BaseWriter implements IWriter
      * Get writer part
      *
      * @param  string  $pPartName  Writer part name
-     * @return \PhpSpreadsheet\Writer\Excel2007\WriterPart
+     * @return OpenDocument\WriterPart|null
      */
     public function getWriterPart($pPartName = '')
     {

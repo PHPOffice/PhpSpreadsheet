@@ -93,7 +93,7 @@ class OLE
      * @acces public
      * @param string $file
      * @throws \PhpSpreadsheet\Reader\Exception
-     * @return mixed true on success, PEAR_Error on failure
+     * @return bool true on success, PEAR_Error on failure
      */
     public function read($file)
     {
@@ -222,7 +222,7 @@ class OLE
 
     /**
      * Reads a signed char.
-     * @param   resource  file handle
+     * @param   resource  $fh file handle
      * @return  int
      */
     private static function _readInt1($fh)
@@ -234,7 +234,7 @@ class OLE
 
     /**
      * Reads an unsigned short (2 octets).
-     * @param   resource  file handle
+     * @param   resource $fh file handle
      * @return  int
      */
     private static function _readInt2($fh)
@@ -246,7 +246,7 @@ class OLE
 
     /**
      * Reads an unsigned long (4 octets).
-     * @param   resource  file handle
+     * @param   resource $fh file handle
      * @return  int
      */
     private static function _readInt4($fh)
@@ -260,8 +260,8 @@ class OLE
      * Gets information about all PPS's on the OLE container from the PPS WK's
      * creates an OLE_PPS object for each one.
      *
-     * @param  int  the block id of the first block
-     * @return mixed true on success, PEAR_Error on failure
+     * @param  int $blockId the block id of the first block
+     * @return bool true on success, PEAR_Error on failure
      */
     public function _readPpsWks($blockId)
     {

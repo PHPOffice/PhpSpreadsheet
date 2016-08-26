@@ -882,7 +882,6 @@ class Statistical
      * @param    float        $value            Value at which you want to evaluate the distribution
      * @param    float        $alpha            Parameter to the distribution
      * @param    float        $beta            Parameter to the distribution
-     * @param    bool        $cumulative
      * @return    float
      */
     public static function BETADIST($value, $alpha, $beta, $rMin = 0, $rMax = 1)
@@ -921,7 +920,6 @@ class Statistical
      * @param    float        $beta            Parameter to the distribution
      * @param    float        $rMin            Minimum value
      * @param    float        $rMax            Maximum value
-     * @param    bool        $cumulative
      * @return    float
      */
     public static function BETAINV($probability, $alpha, $beta, $rMin = 0, $rMax = 1)
@@ -2569,7 +2567,7 @@ class Statistical
      *
      * Returns the inverse of the normal cumulative distribution for the specified mean and standard deviation.
      *
-     * @param    float        $value
+     * @param    float        $probability
      * @param    float        $mean        Mean Value
      * @param    float        $stdDev        Standard Deviation
      * @return    float
@@ -3668,7 +3666,6 @@ class Statistical
      * @param    float        $dataSet
      * @param    float        $m0        Alpha Parameter
      * @param    float        $sigma    Beta Parameter
-     * @param    bool        $cumulative
      * @return    float
      */
     public static function ZTEST($dataSet, $m0, $sigma = null)

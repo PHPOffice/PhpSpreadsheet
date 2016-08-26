@@ -59,7 +59,7 @@ abstract class Dimension
     /**
      * Create a new Dimension
      *
-     * @param int $pIndex Numeric row index
+     * @param int $initialValue Numeric row index
      */
     public function __construct($initialValue = null)
     {

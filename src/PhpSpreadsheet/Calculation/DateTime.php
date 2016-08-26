@@ -918,10 +918,6 @@ class DateTime
      *                                            PHP DateTime object, or a standard date string
      * @param    mixed            $endDate        Excel date serial value (float), PHP date timestamp (integer),
      *                                            PHP DateTime object, or a standard date string
-     * @param    mixed            $holidays,...    Optional series of Excel date serial value (float), PHP date
-     *                                            timestamp (integer), PHP DateTime object, or a standard date
-     *                                            strings that will be excluded from the working calendar, such
-     *                                            as state and federal holidays and floating holidays.
      * @return    int            Interval between the dates
      */
     public static function NETWORKDAYS($startDate, $endDate)
@@ -1003,10 +999,6 @@ class DateTime
      * @param    int        $endDays        The number of nonweekend and nonholiday days before or after
      *                                        startDate. A positive value for days yields a future date; a
      *                                        negative value yields a past date.
-     * @param    mixed        $holidays,...    Optional series of Excel date serial value (float), PHP date
-     *                                        timestamp (integer), PHP DateTime object, or a standard date
-     *                                        strings that will be excluded from the working calendar, such
-     *                                        as state and federal holidays and floating holidays.
      * @return    mixed    Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
@@ -1143,7 +1135,7 @@ class DateTime
      * Excel Function:
      *        WEEKDAY(dateValue[,style])
      *
-     * @param    mixed    $dateValue        Excel date serial value (float), PHP date timestamp (integer),
+     * @param    int    $dateValue        Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard date string
      * @param    int        $style            A number that determines the type of return value
      *                                        1 or omitted    Numbers 1 (Sunday) through 7 (Saturday).
@@ -1221,7 +1213,7 @@ class DateTime
      *
      * @param    mixed    $dateValue        Excel date serial value (float), PHP date timestamp (integer),
      *                                    PHP DateTime object, or a standard date string
-     * @param    bool    $method            Week begins on Sunday or Monday
+     * @param    int    $method            Week begins on Sunday or Monday
      *                                        1 or omitted    Week begins on Sunday.
      *                                        2                Week begins on Monday.
      * @return    int        Week Number

@@ -99,7 +99,7 @@ class ZipStreamWrapper
     /**
      * Implements support for fstat().
      *
-     * @return  bool
+     * @return  string
      */
     public function statName()
     {
@@ -109,7 +109,7 @@ class ZipStreamWrapper
     /**
      * Implements support for fstat().
      *
-     * @return  bool
+     * @return  string
      */
     public function url_stat() // @codingStandardsIgnoreLine
     {

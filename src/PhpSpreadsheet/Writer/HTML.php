@@ -132,7 +132,7 @@ class HTML extends BaseWriter implements IWriter
     /**
      * Create a new HTML
      *
-     * @param    Spreadsheet    $spreadsheet
+     * @param    \PhpSpreadsheet\Spreadsheet    $spreadsheet
      */
     public function __construct(Spreadsheet $spreadsheet)
     {
@@ -1443,7 +1443,7 @@ class HTML extends BaseWriter implements IWriter
      * @param bool $pValue
      * @return HTML
      */
-    public function setEmbedImages($pValue = '.')
+    public function setEmbedImages($pValue = true)
     {
         $this->embedImages = $pValue;
 

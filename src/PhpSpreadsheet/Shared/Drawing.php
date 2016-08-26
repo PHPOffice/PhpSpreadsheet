@@ -111,7 +111,7 @@ class Drawing
      * Convert pixels to points
      *
      * @param     int $pValue    Value in pixels
-     * @return     int            Value in points
+     * @return     float            Value in points
      */
     public static function pixelsToPoints($pValue = 0)
     {
@@ -163,7 +163,7 @@ class Drawing
      * Create a new image from file. By alexander at alexauto dot nl
      *
      * @link http://www.php.net/manual/en/function.imagecreatefromwbmp.php#86214
-     * @param string $filename Path to Windows DIB (BMP) image
+     * @param string $p_sFile Path to Windows DIB (BMP) image
      * @return resource
      */
     public static function imagecreatefrombmp($p_sFile)

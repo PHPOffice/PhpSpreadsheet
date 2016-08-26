@@ -57,7 +57,7 @@ class SpContainer
     /**
      * Shape index (usually group shape has index 0, and the rest: 1,2,3...)
      *
-     * @var bool
+     * @var int
      */
     private $spId;
 
@@ -329,7 +329,7 @@ class SpContainer
     /**
      * Set offset in x-direction of bottom-right corner of shape measured in 1/1024 of column width
      *
-     * @param int $startOffsetX
+     * @param int $endOffsetX
      */
     public function setEndOffsetX($endOffsetX = 0)
     {

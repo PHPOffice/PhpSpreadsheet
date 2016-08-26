@@ -57,7 +57,7 @@ class LUDecomposition
     /**
      *    LU Decomposition constructor.
      *
-     *    @param $A Rectangular matrix
+     *    @param Matrix $A Rectangular matrix
      *    @return Structure to access L, U and piv.
      */
     public function __construct($A)
@@ -123,7 +123,7 @@ class LUDecomposition
     /**
      *    Get lower triangular factor.
      *
-     *    @return array Lower triangular factor
+     *    @return Matrix Lower triangular factor
      */
     public function getL()
     {
@@ -145,7 +145,7 @@ class LUDecomposition
     /**
      *    Get upper triangular factor.
      *
-     *    @return array Upper triangular factor
+     *    @return Matrix Upper triangular factor
      */
     public function getU()
     {
@@ -185,7 +185,7 @@ class LUDecomposition
     /**
      *    Is the matrix nonsingular?
      *
-     *    @return true if U, and hence A, is nonsingular.
+     *    @return bool true if U, and hence A, is nonsingular.
      */
     public function isNonsingular()
     {

@@ -80,6 +80,7 @@ class DataSeriesValues
 
     /**
      * Create a new DataSeriesValues object
+     * @param string $dataSource
      */
     public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = [], $marker = null)
     {
@@ -209,7 +210,7 @@ class DataSeriesValues
     /**
      * Identify if the Data Series is a multi-level or a simple series
      *
-     * @return    bool
+     * @return    bool|null
      */
     public function isMultiLevelSeries()
     {
@@ -223,7 +224,7 @@ class DataSeriesValues
     /**
      * Return the level count of a multi-level Data Series
      *
-     * @return    bool
+     * @return    int
      */
     public function multiLevelCount()
     {

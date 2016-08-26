@@ -26,7 +26,12 @@ namespace PhpSpreadsheet\Reader\Excel2007;
  */
 class Chart
 {
-    private static function getAttribute($component, $name, $format)
+    /**
+     * @param \SimpleXMLElement $component
+     * @param string $name
+     * @param string $format
+     */
+    private static function getAttribute(\SimpleXMLElement $component, $name, $format)
     {
         $attributes = $component->attributes();
         if (isset($attributes[$name])) {
@@ -53,7 +58,11 @@ class Chart
         }
     }
 
-    public static function readChart($chartElements, $chartName)
+    /**
+     * @param \SimpleXMLElement $chartElements
+     * @param string $chartName
+     */
+    public static function readChart(\SimpleXMLElement $chartElements, $chartName)
     {
         $namespacesChartMeta = $chartElements->getNamespaces(true);
         $chartElementsC = $chartElements->children($namespacesChartMeta['c']);
@@ -482,7 +491,10 @@ class Chart
         return $plotAttributes;
     }
 
-    private static function setChartAttributes($plotArea, $plotAttributes)
+    /**
+     * @param \PhpSpreadsheet\Chart\Layout $plotArea
+     */
+    private static function setChartAttributes(\PhpSpreadsheet\Chart\Layout $plotArea, $plotAttributes)
     {
         foreach ($plotAttributes as $plotAttributeKey => $plotAttributeValue) {
             switch ($plotAttributeKey) {

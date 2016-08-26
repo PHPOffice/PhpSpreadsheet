@@ -147,7 +147,7 @@ class Style extends Style\Supervisor implements IComparable
     /**
      * Get parent. Only used for style supervisor
      *
-     * @return PhpSpreadsheet
+     * @return Spreadsheet
      */
     public function getParent()
     {

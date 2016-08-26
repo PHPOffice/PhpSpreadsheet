@@ -278,7 +278,7 @@ class Date
      * @param    int    $hours
      * @param    int    $minutes
      * @param    int    $seconds
-     * @return   int    Excel date/time value
+     * @return   float    Excel date/time value
      */
     public static function formattedPHPToExcel($year, $month, $day, $hours = 0, $minutes = 0, $seconds = 0)
     {

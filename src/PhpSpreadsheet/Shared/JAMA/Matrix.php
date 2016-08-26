@@ -392,8 +392,8 @@ class Matrix
      *    getMatrixByCol
      *
      *    Get a submatrix by column index/range
-     *    @param int $i0 Initial column index
-     *    @param int $iF Final column index
+     *    @param int $j0 Initial column index
+     *    @param int $jF Final column index
      *    @return Matrix Submatrix
      */
     public function getMatrixByCol($j0 = null, $jF = null)

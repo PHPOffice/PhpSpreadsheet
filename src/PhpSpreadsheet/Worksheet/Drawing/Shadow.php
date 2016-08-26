@@ -234,7 +234,7 @@ class Shadow implements \PhpSpreadsheet\IComparable
     /**
      * Set Color
      *
-     * @param    \PhpSpreadsheet\Style_Color $pValue
+     * @param    \PhpSpreadsheet\Style\Color $pValue
      * @throws   \PhpSpreadsheet\Exception
      * @return   Shadow
      */

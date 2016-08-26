@@ -384,7 +384,7 @@ class Functions
      * IS_EVEN
      *
      * @param    mixed $value Value to check
-     * @return    bool
+     * @return    string|bool
      */
     public static function isEven($value = null)
     {
@@ -403,7 +403,7 @@ class Functions
      * IS_ODD
      *
      * @param    mixed $value Value to check
-     * @return    bool
+     * @return    string|bool
      */
     public static function isOdd($value = null)
     {

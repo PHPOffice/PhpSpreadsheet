@@ -76,7 +76,7 @@ class PowerBestFit extends BestFit
      * Return the Value of X where it intersects Y = 0
      *
      * @param     int        $dp        Number of places of decimal precision to display
-     * @return     string
+     * @return     float
      **/
     public function getIntersect($dp = 0)
     {

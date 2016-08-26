@@ -328,7 +328,7 @@ class Worksheet implements IComparable
     /**
      * Create a new worksheet
      *
-     * @param Spreadsheet        $Parent
+     * @param Spreadsheet        $parent
      * @param string        $pTitle
      */
     public function __construct(Spreadsheet $parent = null, $pTitle = 'Worksheet')
@@ -767,7 +767,7 @@ class Worksheet implements IComparable
     /**
      * Get parent
      *
-     * @return PhpSpreadsheet
+     * @return Spreadsheet
      */
     public function getParent()
     {
@@ -1099,8 +1099,8 @@ class Worksheet implements IComparable
     /**
      * Set a cell value by using numeric cell coordinates
      *
-     * @param string $pColumn Numeric column coordinate of the cell (A = 0)
-     * @param string $pRow Numeric row coordinate of the cell
+     * @param int $pColumn Numeric column coordinate of the cell (A = 0)
+     * @param int $pRow Numeric row coordinate of the cell
      * @param mixed $pValue Value of the cell
      * @param bool $returnCell Return the worksheet (false, default) or the cell (true)
      * @return Worksheet|Cell    Depending on the last parameter being specified
@@ -1132,8 +1132,8 @@ class Worksheet implements IComparable
     /**
      * Set a cell value by using numeric cell coordinates
      *
-     * @param string $pColumn Numeric column coordinate of the cell
-     * @param string $pRow Numeric row coordinate of the cell
+     * @param int $pColumn Numeric column coordinate of the cell
+     * @param int $pRow Numeric row coordinate of the cell
      * @param mixed $pValue Value of the cell
      * @param string $pDataType Explicit data type
      * @param bool $returnCell Return the worksheet (false, default) or the cell (true)
@@ -1367,7 +1367,7 @@ class Worksheet implements IComparable
     /**
      * Get column dimension at a specific column by using numeric cell coordinates
      *
-     * @param string $pColumn Numeric column coordinate of the cell
+     * @param int $pColumn Numeric column coordinate of the cell
      * @return Worksheet\ColumnDimension
      */
     public function getColumnDimensionByColumn($pColumn = 0)
@@ -1492,7 +1492,7 @@ class Worksheet implements IComparable
     /**
      * Set conditional styles
      *
-     * @param $pCoordinate string E.g. 'A1'
+     * @param string $pCoordinate eg: 'A1'
      * @param $pValue Style\Conditional[]
      * @return Worksheet
      */

@@ -70,14 +70,14 @@ class DataSeries
     /**
      * Plot Grouping Type
      *
-     * @var bool
+     * @var string
      */
     private $plotGrouping;
 
     /**
      * Plot Direction
      *
-     * @var bool
+     * @var string
      */
     private $plotDirection;
 
@@ -112,7 +112,7 @@ class DataSeries
     /**
      * Smooth Line
      *
-     * @var string
+     * @var bool
      */
     private $smoothLine;
 

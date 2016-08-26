@@ -222,7 +222,14 @@ class HTML extends BaseReader implements IReader
         $cellContent = (string) '';
     }
 
-    protected function processDomElement(DOMNode $element, $sheet, &$row, &$column, &$cellContent, $format = null)
+    /**
+     * @param DOMNode $element
+     * @param \PhpSpreadsheet\Worksheet $sheet
+     * @param int $row
+     * @param string $column
+     * @param string $cellContent
+     */
+    protected function processDomElement(DOMNode $element, \PhpSpreadsheet\Worksheet $sheet, &$row, &$column, &$cellContent)
     {
         foreach ($element->childNodes as $child) {
             if ($child instanceof DOMText) {

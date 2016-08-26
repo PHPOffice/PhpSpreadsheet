@@ -49,14 +49,14 @@ class Conditional implements \PhpSpreadsheet\IComparable
     /**
      * Condition type
      *
-     * @var int
+     * @var string
      */
     private $conditionType;
 
     /**
      * Operator type
      *
-     * @var int
+     * @var string
      */
     private $operatorType;
 

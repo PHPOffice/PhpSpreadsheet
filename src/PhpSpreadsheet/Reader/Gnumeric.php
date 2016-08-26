@@ -165,6 +165,9 @@ class Gnumeric extends BaseReader implements IReader
         return $worksheetInfo;
     }
 
+    /**
+     * @param string $filename
+     */
     private function gzfileGetContents($filename)
     {
         $file = @gzopen($filename, 'rb');
@@ -201,7 +204,7 @@ class Gnumeric extends BaseReader implements IReader
      * @param     string         $pFilename
      * @param    Spreadsheet    $spreadsheet
      * @throws     Exception
-     * @return     PhpSpreadsheet
+     * @return     Spreadsheet
      */
     public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
     {

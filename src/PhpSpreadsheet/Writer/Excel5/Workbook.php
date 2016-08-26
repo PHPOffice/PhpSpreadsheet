@@ -186,13 +186,13 @@ class Workbook extends BIFFwriter
      * Class constructor
      *
      * @param \PhpSpreadsheet\Spreadsheet $spreadsheet The Workbook
-     * @param int        &$str_total        Total number of strings
-     * @param int        &$str_unique    Total number of unique strings
-     * @param array        &$str_table        String Table
-     * @param array        &$colors        Colour Table
-     * @param mixed        $parser            The formula parser created for the Workbook
+     * @param int        $str_total        Total number of strings
+     * @param int        $str_unique    Total number of unique strings
+     * @param array        $str_table        String Table
+     * @param array        $colors        Colour Table
+     * @param Parser        $parser            The formula parser created for the Workbook
      */
-    public function __construct(\PhpSpreadsheet\Spreadsheet $spreadsheet, &$str_total, &$str_unique, &$str_table, &$colors, $parser)
+    public function __construct(\PhpSpreadsheet\Spreadsheet $spreadsheet, &$str_total, &$str_unique, &$str_table, &$colors, Parser $parser)
     {
         // It needs to call its parent's constructor explicitly
         parent::__construct();

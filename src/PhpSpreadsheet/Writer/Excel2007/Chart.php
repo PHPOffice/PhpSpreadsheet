@@ -1260,11 +1260,10 @@ class Chart extends WriterPart
      * @param  \PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
      * @param  string $groupType Type of plot for dataseries
      * @param  string $dataType Datatype of series values
-     * @param  \PhpSpreadsheet\Worksheet $pSheet
      *
      * @throws  \PhpSpreadsheet\Writer\Exception
      */
-    private function writePlotSeriesValues($plotSeriesValues, $objWriter, $groupType, $dataType = 'str')
+    private function writePlotSeriesValues($plotSeriesValues, \PhpSpreadsheet\Shared\XMLWriter $objWriter, $groupType, $dataType = 'str')
     {
         if (is_null($plotSeriesValues)) {
             return;

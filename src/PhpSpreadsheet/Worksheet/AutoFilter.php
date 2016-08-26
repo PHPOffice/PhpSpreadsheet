@@ -462,7 +462,7 @@ class AutoFilter
      *    Convert a dynamic rule daterange to a custom filter range expression for ease of calculation
      *
      *    @param    string                   $dynamicRuleType
-     *    @param    AutoFilter\Column        &$filterColumn
+     *    @param    AutoFilter\Column        $filterColumn
      *    @return mixed[]
      */
     private function dynamicFilterDateRange($dynamicRuleType, &$filterColumn)

@@ -135,7 +135,7 @@ class ColumnCellIterator extends CellIterator implements \Iterator
     /**
      * Return the current cell in this worksheet column
      *
-     * @return Row
+     * @return null|\PhpSpreadsheet\Cell
      */
     public function current()
     {

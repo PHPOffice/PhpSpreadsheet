@@ -64,6 +64,7 @@ class Escher
 
     /**
      * Process the object to be written
+     * @return string
      */
     public function close()
     {

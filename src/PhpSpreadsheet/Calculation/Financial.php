@@ -406,7 +406,7 @@ class Financial
      *                                date when the security is traded to the buyer.
      * @param    mixed    maturity    The security's maturity date.
      *                                The maturity date is the date when the security expires.
-     * @param    mixed    frequency    the number of coupon payments per year.
+     * @param    int    frequency    the number of coupon payments per year.
      *                                    Valid frequency values are:
      *                                        1    Annual
      *                                        2    Semi-Annual
@@ -478,6 +478,7 @@ class Financial
      *                                        2                Actual/360
      *                                        3                Actual/365
      *                                        4                European 30/360
+     * @param int $frequency
      * @return    float
      */
     public static function COUPDAYS($settlement, $maturity, $frequency, $basis = 0)

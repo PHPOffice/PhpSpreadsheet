@@ -407,7 +407,7 @@ class Font
      * Calculate an (approximate) pixel size, based on centimeter size
      *
      * @param     int        $sizeInCm    Font size (in centimeters)
-     * @return     int        Size (in pixels)
+     * @return     float        Size (in pixels)
      */
     public static function centimeterSizeToPixels($sizeInCm = 1)
     {
@@ -417,7 +417,7 @@ class Font
     /**
      * Returns the font path given the font
      *
-     * @param \PhpSpreadsheet\Style\Font
+     * @param \PhpSpreadsheet\Style\Font $font
      * @return string Path to TrueType font file
      */
     public static function getTrueTypeFontFileFromFont($font)

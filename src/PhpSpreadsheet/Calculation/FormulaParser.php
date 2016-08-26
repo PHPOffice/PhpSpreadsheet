@@ -128,7 +128,7 @@ class FormulaParser
     /**
      * Get Token count
      *
-     * @return string
+     * @return int
      */
     public function getTokenCount()
     {

@@ -76,7 +76,7 @@ class Logical
      *
      * @category Logical Functions
      * @param    mixed        $arg,...        Data values
-     * @return    bool        The logical AND of the arguments.
+     * @return    string|bool        The logical AND of the arguments.
      */
     public static function logicalAnd()
     {
@@ -131,7 +131,7 @@ class Logical
      *
      * @category Logical Functions
      * @param    mixed        $arg,...        Data values
-     * @return    bool        The logical OR of the arguments.
+     * @return    string|bool        The logical OR of the arguments.
      */
     public static function logicalOr()
     {
@@ -185,7 +185,7 @@ class Logical
      *
      * @category Logical Functions
      * @param    mixed        $logical    A value or expression that can be evaluated to TRUE or FALSE
-     * @return    bool        The boolean inverse of the argument.
+     * @return    bool|string        The boolean inverse of the argument.
      */
     public static function NOT($logical = false)
     {

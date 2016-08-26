@@ -215,6 +215,10 @@ class PclZip
     //     Note that no real action is taken, if the archive does not exist it is not
     //     created. Use create() for that.
     // --------------------------------------------------------------------------------
+
+    /**
+     * @param string $p_zipname
+     */
     public function __construct($p_zipname)
     {
 

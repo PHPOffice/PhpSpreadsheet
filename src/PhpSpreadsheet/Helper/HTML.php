@@ -802,7 +802,12 @@ class HTML
         $this->buildTextRun();
     }
 
-    protected function handleCallback($element, $callbackTag, $callbacks)
+    /**
+     * @param DOMElement $element
+     * @param string $callbackTag
+     * @param array $callbacks
+     */
+    protected function handleCallback(DOMElement $element, $callbackTag, array $callbacks)
     {
         if (isset($callbacks[$callbackTag])) {
             $elementHandler = $callbacks[$callbackTag];

@@ -39,6 +39,7 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
     /**
      * @param int $time_1st A timestamp
      * @param int $time_2nd A timestamp
+     * @param File[] $raChild
      */
     public function __construct($time_1st, $time_2nd, $raChild)
     {
@@ -56,7 +57,7 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
      *
      * @param string|resource $filename The name of the file or stream where to save the OLE container.
      * @throws \PhpSpreadsheet\Writer\Exception
-     * @return mixed true on success
+     * @return bool true on success
      */
     public function save($filename)
     {
@@ -116,7 +117,7 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
      * Calculate some numbers
      *
      * @param array $raList Reference to an array of PPS's
-     * @return array The array of numbers
+     * @return float[] The array of numbers
      */
     public function _calcSize(&$raList)
     {
@@ -154,7 +155,7 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
      *
      * @param int $i2 The argument
      * @see save()
-     * @return int
+     * @return float
      */
     private static function adjust2($i2)
     {

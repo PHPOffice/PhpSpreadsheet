@@ -575,7 +575,7 @@ class Cell
      *
      *    @param    string    $pCoordinateString
      *    @throws    Exception
-     *    @return    array    Array containing column and row (indexes 0 and 1)
+     *    @return    string[]    Array containing column and row (indexes 0 and 1)
      */
     public static function coordinateFromString($pCoordinateString = 'A1')
     {
