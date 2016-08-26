@@ -37,7 +37,7 @@ class MemoryGZip extends CacheBase implements ICache
         if ($this->currentCellIsDirty && !empty($this->currentObjectID)) {
             $this->currentObject->detach();
 
-            $this->cellCache[$this->currentObjectID] = gzdeflate(serialize($this->currentObject));
+            $this->cellCache[$this->currentObjectID] = gzdeflate(serialize($this->currentObject), 9);
             $this->currentCellIsDirty = false;
         }
         $this->currentObjectID = $this->currentObject = null;
