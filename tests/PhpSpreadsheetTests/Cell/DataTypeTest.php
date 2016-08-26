@@ -16,7 +16,7 @@ class DataTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testGetErrorCodes()
     {
-        $result = call_user_func([DataType::class, 'getErrorCodes']);
+        $result = DataType::getErrorCodes();
         $this->assertInternalType('array', $result);
         $this->assertGreaterThan(0, count($result));
         $this->assertArrayHasKey('#NULL!', $result);

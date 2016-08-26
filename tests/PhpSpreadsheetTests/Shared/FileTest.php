@@ -10,7 +10,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
     {
         $expectedResult = false;
 
-        $result = call_user_func([File::class, 'getUseUploadTempDirectory']);
+        $result = File::getUseUploadTempDirectory();
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -22,9 +22,9 @@ class FileTest extends \PHPUnit_Framework_TestCase
         ];
 
         foreach ($useUploadTempDirectoryValues as $useUploadTempDirectoryValue) {
-            call_user_func([File::class, 'setUseUploadTempDirectory'], $useUploadTempDirectoryValue);
+            File::setUseUploadTempDirectory($useUploadTempDirectoryValue);
 
-            $result = call_user_func([File::class, 'getUseUploadTempDirectory']);
+            $result = File::getUseUploadTempDirectory();
             $this->assertEquals($useUploadTempDirectoryValue, $result);
         }
     }

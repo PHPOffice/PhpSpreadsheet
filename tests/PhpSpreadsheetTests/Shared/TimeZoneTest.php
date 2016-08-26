@@ -17,7 +17,7 @@ class TimeZoneTest extends \PHPUnit_Framework_TestCase
         ];
 
         foreach ($timezoneValues as $timezoneValue) {
-            $result = call_user_func([TimeZone::class, 'setTimezone'], $timezoneValue);
+            $result = TimeZone::setTimezone($timezoneValue);
             $this->assertTrue($result);
         }
     }
@@ -25,7 +25,7 @@ class TimeZoneTest extends \PHPUnit_Framework_TestCase
     public function testSetTimezoneWithInvalidValue()
     {
         $unsupportedTimezone = 'Etc/GMT+10';
-        $result = call_user_func([TimeZone::class, 'setTimezone'], $unsupportedTimezone);
+        $result = TimeZone::setTimezone($unsupportedTimezone);
         $this->assertFalse($result);
     }
 }

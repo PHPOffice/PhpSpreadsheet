@@ -81,7 +81,7 @@ class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
         $objRichText->createText('Hello World');
 
         $expectedResult = DataType::TYPE_INLINE;
-        $result = call_user_func([DefaultValueBinder::class, 'dataTypeForValue'], $objRichText);
+        $result = DefaultValueBinder::dataTypeForValue($objRichText);
         $this->assertEquals($expectedResult, $result);
     }
 }

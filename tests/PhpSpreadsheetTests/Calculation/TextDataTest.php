@@ -323,9 +323,9 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
     public function testTEXT()
     {
         //    Enforce decimal and thousands separator values to UK/US, and currency code to USD
-        call_user_func([StringHelper::class, 'setDecimalSeparator'], '.');
-        call_user_func([StringHelper::class, 'setThousandsSeparator'], ',');
-        call_user_func([StringHelper::class, 'setCurrencyCode'], '$');
+        StringHelper::setDecimalSeparator('.');
+        StringHelper::setThousandsSeparator(',');
+        StringHelper::setCurrencyCode('$');
 
         $args = func_get_args();
         $expectedResult = array_pop($args);
@@ -343,9 +343,9 @@ class TextDataTest extends \PHPUnit_Framework_TestCase
      */
     public function testVALUE()
     {
-        call_user_func([StringHelper::class, 'setDecimalSeparator'], '.');
-        call_user_func([StringHelper::class, 'setThousandsSeparator'], ' ');
-        call_user_func([StringHelper::class, 'setCurrencyCode'], '$');
+        StringHelper::setDecimalSeparator('.');
+        StringHelper::setThousandsSeparator(' ');
+        StringHelper::setCurrencyCode('$');
 
         $args = func_get_args();
         $expectedResult = array_pop($args);

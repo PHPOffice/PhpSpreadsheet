@@ -10,7 +10,7 @@ class FontTest extends \PHPUnit_Framework_TestCase
     {
         $expectedResult = Font::AUTOSIZE_METHOD_APPROX;
 
-        $result = call_user_func([Font::class, 'getAutoSizeMethod']);
+        $result = Font::getAutoSizeMethod();
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -22,7 +22,7 @@ class FontTest extends \PHPUnit_Framework_TestCase
         ];
 
         foreach ($autosizeMethodValues as $autosizeMethodValue) {
-            $result = call_user_func([Font::class, 'setAutoSizeMethod'], $autosizeMethodValue);
+            $result = Font::setAutoSizeMethod($autosizeMethodValue);
             $this->assertTrue($result);
         }
     }
@@ -31,7 +31,7 @@ class FontTest extends \PHPUnit_Framework_TestCase
     {
         $unsupportedAutosizeMethod = 'guess';
 
-        $result = call_user_func([Font::class, 'setAutoSizeMethod'], $unsupportedAutosizeMethod);
+        $result = Font::setAutoSizeMethod($unsupportedAutosizeMethod);
         $this->assertFalse($result);
     }
 

@@ -12,7 +12,7 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetXMLSettings()
     {
-        $result = call_user_func([\PhpSpreadsheet\Settings::class, 'getLibXmlLoaderOptions']);
+        $result = \PhpSpreadsheet\Settings::getLibXmlLoaderOptions();
         $this->assertTrue((bool) ((LIBXML_DTDLOAD | LIBXML_DTDATTR) & $result));
     }
 
@@ -21,7 +21,7 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
     public function testSetXMLSettings()
     {
         call_user_func_array([\PhpSpreadsheet\Settings::class, 'setLibXmlLoaderOptions'], [LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_DTDVALID]);
-        $result = call_user_func([\PhpSpreadsheet\Settings::class, 'getLibXmlLoaderOptions']);
+        $result = \PhpSpreadsheet\Settings::getLibXmlLoaderOptions();
         $this->assertTrue((bool) ((LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_DTDVALID) & $result));
     }
 }
