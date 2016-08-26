@@ -3,8 +3,6 @@
 namespace PhpSpreadsheet\Shared;
 
 /**
- * \PhpSpreadsheet\Shared\Font
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -309,13 +307,9 @@ class Font
 
         // Get corners positions
         $lowerLeftCornerX = $textBox[0];
-//        $lowerLeftCornerY  = $textBox[1];
         $lowerRightCornerX = $textBox[2];
-//        $lowerRightCornerY = $textBox[3];
         $upperRightCornerX = $textBox[4];
-//        $upperRightCornerY = $textBox[5];
         $upperLeftCornerX = $textBox[6];
-//        $upperLeftCornerY  = $textBox[7];
 
         // Consider the rotation when calculating the width
         $textWidth = max($lowerRightCornerX - $upperLeftCornerX, $upperRightCornerX - $lowerLeftCornerX);
@@ -345,8 +339,6 @@ class Font
                 break;
 
             case 'Arial':
-                // value 7 was found via interpolation by inspecting real Excel files with Arial 10 font.
-//                $columnWidth = (int) (7 * String::countCharacters($columnText));
                 // value 8 was set because of experience in different exports at Arial 10 font.
                 $columnWidth = (int) (8 * StringHelper::countCharacters($columnText));
                 $columnWidth = $columnWidth * $fontSize / 10; // extrapolate from font size

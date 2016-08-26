@@ -20,7 +20,6 @@ namespace PhpSpreadsheet\Shared;
 // | Based on OLE::Storage_Lite by Kawai, Takanori                        |
 // +----------------------------------------------------------------------+
 //
-// $Id: OLE.php,v 1.13 2007/03/07 14:38:25 schmidt Exp $
 
 /*
 * Array for storing OLE instances that are accessed from
@@ -156,8 +155,7 @@ class OLE
             $pos = $this->_getBlockOffset(self::_readInt4($fh));
         }
 
-        // Read Big Block Allocation Table according to chain specified by
-        // $mbatBlocks
+        // Read Big Block Allocation Table according to chain specified by $mbatBlocks
         for ($i = 0; $i < $bbatBlockCount; ++$i) {
             $pos = $this->_getBlockOffset($mbatBlocks[$i]);
             fseek($fh, $pos);

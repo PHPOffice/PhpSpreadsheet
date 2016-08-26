@@ -1409,7 +1409,6 @@ class Statistical
             $PGuess = $UnscaledPGuess / $TotalUnscaledProbability;
             $CumPGuess = $UnscaledCumPGuess / $TotalUnscaledProbability;
 
-//            $CumPGuessMinus1 = $CumPGuess - $PGuess;
             $CumPGuessMinus1 = $CumPGuess - 1;
 
             while (true) {

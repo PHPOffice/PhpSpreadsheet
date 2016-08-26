@@ -20,7 +20,6 @@ namespace PhpSpreadsheet\Shared\OLE\PPS;
 // | Based on OLE::Storage_Lite by Kawai, Takanori                        |
 // +----------------------------------------------------------------------+
 //
-// $Id: Root.php,v 1.9 2005/04/23 21:53:49 dufuz Exp $
 
 /**
  * Class for creating Root PPS's for OLE containers
@@ -260,17 +259,7 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
             if ($raList[$i]->Type != \PhpSpreadsheet\Shared\OLE::OLE_PPS_TYPE_DIR) {
                 $raList[$i]->Size = $raList[$i]->getDataLen();
                 if (($raList[$i]->Size >= \PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL) || (($raList[$i]->Type == \PhpSpreadsheet\Shared\OLE::OLE_PPS_TYPE_ROOT) && isset($raList[$i]->_data))) {
-                    // Write Data
-                    //if (isset($raList[$i]->_PPS_FILE)) {
-                    //    $iLen = 0;
-                    //    fseek($raList[$i]->_PPS_FILE, 0); // To The Top
-                    //    while ($sBuff = fread($raList[$i]->_PPS_FILE, 4096)) {
-                    //        $iLen += strlen($sBuff);
-                    //        fwrite($FILE, $sBuff);
-                    //    }
-                    //} else {
-                        fwrite($FILE, $raList[$i]->_data);
-                    //}
+                    fwrite($FILE, $raList[$i]->_data);
 
                     if ($raList[$i]->Size % $this->_BIG_BLOCK_SIZE) {
                         fwrite($FILE, str_repeat("\x00", $this->_BIG_BLOCK_SIZE - ($raList[$i]->Size % $this->_BIG_BLOCK_SIZE)));
@@ -281,12 +270,6 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
                             (floor($raList[$i]->Size / $this->_BIG_BLOCK_SIZE) +
                                 (($raList[$i]->Size % $this->_BIG_BLOCK_SIZE) ? 1 : 0));
                 }
-                // Close file for each PPS, and unlink it
-                //if (isset($raList[$i]->_PPS_FILE)) {
-                //    fclose($raList[$i]->_PPS_FILE);
-                //    $raList[$i]->_PPS_FILE = null;
-                //    unlink($raList[$i]->_tmp_filename);
-                //}
             }
         }
     }
@@ -319,15 +302,8 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
                     }
                     fwrite($FILE, pack('V', -2));
 
-                    //// Add to Data String(this will be written for RootEntry)
-                    //if ($raList[$i]->_PPS_FILE) {
-                    //    fseek($raList[$i]->_PPS_FILE, 0); // To The Top
-                    //    while ($sBuff = fread($raList[$i]->_PPS_FILE, 4096)) {
-                    //        $sRes .= $sBuff;
-                    //    }
-                    //} else {
-                        $sRes .= $raList[$i]->_data;
-                    //}
+                    // Add to Data String(this will be written for RootEntry)
+                    $sRes .= $raList[$i]->_data;
                     if ($raList[$i]->Size % $this->_SMALL_BLOCK_SIZE) {
                         $sRes .= str_repeat("\x00", $this->_SMALL_BLOCK_SIZE - ($raList[$i]->Size % $this->_SMALL_BLOCK_SIZE));
                     }

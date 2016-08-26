@@ -96,7 +96,6 @@ class Excel2003XML extends BaseReader implements IReader
         if (preg_match('/<?xml.*encoding=[\'"](.*?)[\'"].*?>/um', $data, $matches)) {
             $this->charSet = strtoupper($matches[1]);
         }
-//        echo 'Character Set is ', $this->charSet,'<br />';
 
         return $valid;
     }
@@ -404,15 +403,12 @@ class Excel2003XML extends BaseReader implements IReader
         foreach ($xml->Styles[0] as $style) {
             $style_ss = $style->attributes($namespaces['ss']);
             $styleID = (string) $style_ss['ID'];
-//            echo 'Style ID = '.$styleID.'<br />';
             $this->styles[$styleID] = (isset($this->styles['Default'])) ? $this->styles['Default'] : [];
             foreach ($style as $styleType => $styleData) {
                 $styleAttributes = $styleData->attributes($namespaces['ss']);
-//                echo $styleType.'<br />';
                 switch ($styleType) {
                     case 'Alignment':
                         foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
-                            //                                echo $styleAttributeKey.' = '.$styleAttributeValue.'<br />';
                             $styleAttributeValue = (string) $styleAttributeValue;
                             switch ($styleAttributeKey) {
                                 case 'Vertical':
@@ -436,14 +432,11 @@ class Excel2003XML extends BaseReader implements IReader
                             $borderAttributes = $borderStyle->attributes($namespaces['ss']);
                             $thisBorder = [];
                             foreach ($borderAttributes as $borderStyleKey => $borderStyleValue) {
-                                //                                    echo $borderStyleKey.' = '.$borderStyleValue.'<br />';
                                 switch ($borderStyleKey) {
                                     case 'LineStyle':
                                         $thisBorder['style'] = \PhpSpreadsheet\Style\Border::BORDER_MEDIUM;
-//                                                $thisBorder['style'] = $borderStyleValue;
                                         break;
                                     case 'Weight':
-//                                                $thisBorder['style'] = $borderStyleValue;
                                         break;
                                     case 'Position':
                                         $borderPosition = strtolower($borderStyleValue);
@@ -463,7 +456,6 @@ class Excel2003XML extends BaseReader implements IReader
                         break;
                     case 'Font':
                         foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
-                            //                                echo $styleAttributeKey.' = '.$styleAttributeValue.'<br />';
                             $styleAttributeValue = (string) $styleAttributeValue;
                             switch ($styleAttributeKey) {
                                 case 'FontName':
@@ -491,7 +483,6 @@ class Excel2003XML extends BaseReader implements IReader
                         break;
                     case 'Interior':
                         foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
-                            //                                echo $styleAttributeKey.' = '.$styleAttributeValue.'<br />';
                             switch ($styleAttributeKey) {
                                 case 'Color':
                                     $this->styles[$styleID]['fill']['color']['rgb'] = substr($styleAttributeValue, 1);
@@ -501,7 +492,6 @@ class Excel2003XML extends BaseReader implements IReader
                         break;
                     case 'NumberFormat':
                         foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
-                            //                                echo $styleAttributeKey.' = '.$styleAttributeValue.'<br />';
                             $styleAttributeValue = str_replace($fromFormats, $toFormats, $styleAttributeValue);
                             switch ($styleAttributeValue) {
                                 case 'Short Date':
@@ -515,15 +505,11 @@ class Excel2003XML extends BaseReader implements IReader
                         break;
                     case 'Protection':
                         foreach ($styleAttributes as $styleAttributeKey => $styleAttributeValue) {
-                            //                                echo $styleAttributeKey.' = '.$styleAttributeValue.'<br />';
                         }
                         break;
                 }
             }
-//            print_r($this->styles[$styleID]);
-//            echo '<hr />';
         }
-//        echo '<hr />';
 
         $worksheetID = 0;
         $xml_ss = $xml->children($namespaces['ss']);
@@ -536,8 +522,6 @@ class Excel2003XML extends BaseReader implements IReader
                 continue;
             }
 
-//            echo '<h3>Worksheet: ', $worksheet_ss['Name'],'<h3>';
-//
             // Create new Worksheet
             $spreadsheet->createSheet();
             $spreadsheet->setActiveSheetIndex($worksheetID);
@@ -558,7 +542,6 @@ class Excel2003XML extends BaseReader implements IReader
                     }
                     if (isset($columnData_ss['Width'])) {
                         $columnWidth = $columnData_ss['Width'];
-//                        echo '<b>Setting column width for '.$columnID.' to '.$columnWidth.'</b><br />';
                         $spreadsheet->getActiveSheet()->getColumnDimension($columnID)->setWidth($columnWidth / 5.4);
                     }
                     ++$columnID;
@@ -574,7 +557,6 @@ class Excel2003XML extends BaseReader implements IReader
                     if (isset($row_ss['Index'])) {
                         $rowID = (integer) $row_ss['Index'];
                     }
-//                    echo '<b>Row '.$rowID.'</b><br />';
 
                     $columnID = 'A';
                     foreach ($rowData->Cell as $cell) {
@@ -611,7 +593,6 @@ class Excel2003XML extends BaseReader implements IReader
                             // added this as a check for array formulas
                             if (isset($cell_ss['ArrayRange'])) {
                                 $cellDataCSEFormula = $cell_ss['ArrayRange'];
-//                                echo "found an array formula at ".$columnID.$rowID."<br />";
                             }
                             $hasCalculatedValue = true;
                         }
@@ -657,12 +638,10 @@ class Excel2003XML extends BaseReader implements IReader
                             }
 
                             if ($hasCalculatedValue) {
-                                //                                echo 'FORMULA<br />';
                                 $type = \PhpSpreadsheet\Cell\DataType::TYPE_FORMULA;
                                 $columnNumber = \PhpSpreadsheet\Cell::columnIndexFromString($columnID);
                                 if (substr($cellDataFormula, 0, 3) == 'of:') {
                                     $cellDataFormula = substr($cellDataFormula, 3);
-//                                    echo 'Before: ', $cellDataFormula,'<br />';
                                     $temp = explode('"', $cellDataFormula);
                                     $key = false;
                                     foreach ($temp as &$value) {
@@ -673,7 +652,6 @@ class Excel2003XML extends BaseReader implements IReader
                                     }
                                 } else {
                                     //    Convert R1C1 style references to A1 style references (but only when not quoted)
-//                                    echo 'Before: ', $cellDataFormula,'<br />';
                                     $temp = explode('"', $cellDataFormula);
                                     $key = false;
                                     foreach ($temp as &$value) {
@@ -714,42 +692,29 @@ class Excel2003XML extends BaseReader implements IReader
                                 unset($value);
                                 //    Then rebuild the formula string
                                 $cellDataFormula = implode('"', $temp);
-//                                echo 'After: ', $cellDataFormula,'<br />';
                             }
 
-//                            echo 'Cell '.$columnID.$rowID.' is a '.$type.' with a value of '.(($hasCalculatedValue) ? $cellDataFormula : $cellValue).'<br />';
-//
                             $spreadsheet->getActiveSheet()->getCell($columnID . $rowID)->setValueExplicit((($hasCalculatedValue) ? $cellDataFormula : $cellValue), $type);
                             if ($hasCalculatedValue) {
-                                //                                echo 'Formula result is '.$cellValue.'<br />';
                                 $spreadsheet->getActiveSheet()->getCell($columnID . $rowID)->setCalculatedValue($cellValue);
                             }
                             $cellIsSet = $rowHasData = true;
                         }
 
                         if (isset($cell->Comment)) {
-                            //                            echo '<b>comment found</b><br />';
                             $commentAttributes = $cell->Comment->attributes($namespaces['ss']);
                             $author = 'unknown';
                             if (isset($commentAttributes->Author)) {
                                 $author = (string) $commentAttributes->Author;
-//                                echo 'Author: ', $author,'<br />';
                             }
                             $node = $cell->Comment->Data->asXML();
-//                            $annotation = str_replace('html:','',substr($node,49,-10));
-//                            echo $annotation,'<br />';
                             $annotation = strip_tags($node);
-//                            echo 'Annotation: ', $annotation,'<br />';
                             $spreadsheet->getActiveSheet()->getComment($columnID . $rowID)->setAuthor(self::convertStringEncoding($author, $this->charSet))->setText($this->parseRichText($annotation));
                         }
 
                         if (($cellIsSet) && (isset($cell_ss['StyleID']))) {
                             $style = (string) $cell_ss['StyleID'];
-//                            echo 'Cell style for '.$columnID.$rowID.' is '.$style.'<br />';
                             if ((isset($this->styles[$style])) && (!empty($this->styles[$style]))) {
-                                //                                echo 'Cell '.$columnID.$rowID.'<br />';
-//                                print_r($this->styles[$style]);
-//                                echo '<br />';
                                 if (!$spreadsheet->getActiveSheet()->cellExists($columnID . $rowID)) {
                                     $spreadsheet->getActiveSheet()->getCell($columnID . $rowID)->setValue(null);
                                 }
@@ -769,7 +734,6 @@ class Excel2003XML extends BaseReader implements IReader
                         }
                         if (isset($row_ss['Height'])) {
                             $rowHeight = $row_ss['Height'];
-//                            echo '<b>Setting row height to '.$rowHeight.'</b><br />';
                             $spreadsheet->getActiveSheet()->getRowDimension($rowID)->setRowHeight($rowHeight);
                         }
                     }

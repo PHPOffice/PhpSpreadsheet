@@ -661,8 +661,6 @@ class MathTrig
 
             return $matrixA->times($matrixB)->getArray();
         } catch (\PhpSpreadsheet\Exception $ex) {
-            var_dump($ex->getMessage());
-
             return Functions::VALUE();
         }
     }

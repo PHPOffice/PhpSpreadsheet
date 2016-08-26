@@ -262,14 +262,11 @@ class Cell
      */
     public function getCalculatedValue($resetLog = true)
     {
-        //echo 'Cell '.$this->getCoordinate().' value is a '.$this->dataType.' with a value of '.$this->getValue().PHP_EOL;
         if ($this->dataType == Cell\DataType::TYPE_FORMULA) {
             try {
-                //echo 'Cell value for '.$this->getCoordinate().' is a formula: Calculating value'.PHP_EOL;
                 $result = Calculation::getInstance(
                     $this->getWorksheet()->getParent()
                 )->calculateCellValue($this, $resetLog);
-//echo $this->getCoordinate().' calculation result is '.$result.PHP_EOL;
                 //    We don't yet handle array returns
                 if (is_array($result)) {
                     while (is_array($result)) {
@@ -278,10 +275,8 @@ class Cell
                 }
             } catch (Exception $ex) {
                 if (($ex->getMessage() === 'Unable to access External Workbook') && ($this->calculatedValue !== null)) {
-                    //echo 'Returning fallback value of '.$this->calculatedValue.' for cell '.$this->getCoordinate().PHP_EOL;
                     return $this->calculatedValue; // Fallback for calculations referencing external files.
                 }
-//echo 'Calculation Exception: '.$ex->getMessage().PHP_EOL;
                 $result = '#N/A';
                 throw new Calculation\Exception(
                     $this->getWorksheet()->getTitle() . '!' . $this->getCoordinate() . ' -> ' . $ex->getMessage()
@@ -289,16 +284,14 @@ class Cell
             }
 
             if ($result === '#Not Yet Implemented') {
-                //echo 'Returning fallback value of '.$this->calculatedValue.' for cell '.$this->getCoordinate().PHP_EOL;
                 return $this->calculatedValue; // Fallback if calculation engine does not support the formula.
             }
-//echo 'Returning calculated value of '.$result.' for cell '.$this->getCoordinate().PHP_EOL;
+
             return $result;
         } elseif ($this->value instanceof RichText) {
-            //        echo 'Cell value for '.$this->getCoordinate().' is rich text: Returning data value of '.$this->value.'<br />';
             return $this->value->getPlainText();
         }
-//        echo 'Cell value for '.$this->getCoordinate().' is not a formula: Returning data value of '.$this->value.'<br />';
+
         return $this->value;
     }
 

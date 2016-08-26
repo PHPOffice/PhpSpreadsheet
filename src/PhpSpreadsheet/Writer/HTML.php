@@ -1035,8 +1035,6 @@ class HTML extends BaseWriter implements IWriter
      */
     private function createCSSStyleBorder(\Spreadsheet\Style\Border $pStyle)
     {
-        // Create CSS
-//        $css = $this->mapBorderStyle($pStyle->getBorderStyle()) . ' #' . $pStyle->getColor()->getRGB();
         //    Create CSS - add !important to non-none border styles for merged cells
         $borderStyle = $this->mapBorderStyle($pStyle->getBorderStyle());
         $css = $borderStyle . ' #' . $pStyle->getColor()->getRGB() . (($borderStyle == 'none') ? '' : ' !important');

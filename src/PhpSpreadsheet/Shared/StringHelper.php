@@ -3,8 +3,6 @@
 namespace PhpSpreadsheet\Shared;
 
 /**
- * \PhpSpreadsheet\Shared\StringHelper
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -43,7 +41,7 @@ class StringHelper
     /**
      * SYLK Characters array
      *
-     * $var array
+     * @var array
      */
     private static $SYLKCharacters = [];
 

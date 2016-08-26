@@ -240,9 +240,6 @@ class Comments extends WriterPart
                 // x:SizeWithCells
                 $objWriter->writeElement('x:SizeWithCells', '');
 
-                // x:Anchor
-                //$objWriter->writeElement('x:Anchor', $column . ', 15, ' . ($row - 2) . ', 10, ' . ($column + 4) . ', 15, ' . ($row + 5) . ', 18');
-
                 // x:AutoFill
                 $objWriter->writeElement('x:AutoFill', 'False');
 

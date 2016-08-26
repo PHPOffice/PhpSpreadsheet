@@ -242,47 +242,6 @@ class Drawing extends WriterPart
 
             $objWriter->endElement();
 
-//                        // a:solidFill
-//                        $objWriter->startElement('a:solidFill');
-
-//                            // a:srgbClr
-//                            $objWriter->startElement('a:srgbClr');
-//                            $objWriter->writeAttribute('val', 'FFFFFF');
-
-///* SHADE
-//                                // a:shade
-//                                $objWriter->startElement('a:shade');
-//                                $objWriter->writeAttribute('val', '85000');
-//                                $objWriter->endElement();
-//*/
-
-//                            $objWriter->endElement();
-
-//                        $objWriter->endElement();
-/*
-            // a:ln
-            $objWriter->startElement('a:ln');
-            $objWriter->writeAttribute('w', '88900');
-            $objWriter->writeAttribute('cap', 'sq');
-
-                // a:solidFill
-                $objWriter->startElement('a:solidFill');
-
-                    // a:srgbClr
-                    $objWriter->startElement('a:srgbClr');
-                    $objWriter->writeAttribute('val', 'FFFFFF');
-                    $objWriter->endElement();
-
-                $objWriter->endElement();
-
-                // a:miter
-                $objWriter->startElement('a:miter');
-                $objWriter->writeAttribute('lim', '800000');
-                $objWriter->endElement();
-
-            $objWriter->endElement();
-*/
-
             if ($pDrawing->getShadow()->getVisible()) {
                 // a:effectLst
                 $objWriter->startElement('a:effectLst');

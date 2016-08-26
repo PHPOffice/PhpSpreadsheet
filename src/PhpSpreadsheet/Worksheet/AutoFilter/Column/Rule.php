@@ -3,8 +3,6 @@
 namespace PhpSpreadsheet\Worksheet\AutoFilter\Column;
 
 /**
- * \PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or

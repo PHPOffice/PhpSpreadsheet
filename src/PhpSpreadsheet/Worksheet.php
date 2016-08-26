@@ -2647,15 +2647,7 @@ class Worksheet implements IComparable
     {
         // Flush cache
         $this->cellCollection->getCacheData('A1');
-        // Build a reference table from images
-//        $imageCoordinates = array();
-//        $iterator = $this->getDrawingCollection()->getIterator();
-//        while ($iterator->valid()) {
-//            $imageCoordinates[$iterator->current()->getCoordinates()] = true;
-//
-//            $iterator->next();
-//        }
-//
+
         // Lookup highest column and highest row if cells are cleaned
         $colRow = $this->cellCollection->getHighestRowAndColumn();
         $highestRow = $colRow['row'];

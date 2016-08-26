@@ -20,7 +20,6 @@ namespace PhpSpreadsheet\Shared\OLE;
 // | Based on OLE::Storage_Lite by Kawai, Takanori                        |
 // +----------------------------------------------------------------------+
 //
-// $Id: PPS.php,v 1.7 2007/02/13 21:00:42 schmidt Exp $
 
 /**
  * Class for creating PPS's for OLE containers
@@ -151,13 +150,8 @@ class PPS
         if (!isset($this->_data)) {
             return 0;
         }
-        //if (isset($this->_PPS_FILE)) {
-        //    fseek($this->_PPS_FILE, 0);
-        //    $stats = fstat($this->_PPS_FILE);
-        //    return $stats[7];
-        //} else {
-            return strlen($this->_data);
-        //}
+
+        return strlen($this->_data);
     }
 
     /**

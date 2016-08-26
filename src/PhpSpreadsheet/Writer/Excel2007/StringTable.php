@@ -264,22 +264,10 @@ class StringTable extends WriterPart
             $objWriter->writeAttribute('typeface', $element->getFont()->getName());
             $objWriter->endElement();
 
-                // Superscript / subscript
-//                    if ($element->getFont()->getSuperScript() || $element->getFont()->getSubScript()) {
-//                        $objWriter->startElement($prefix.'vertAlign');
-//                        if ($element->getFont()->getSuperScript()) {
-//                            $objWriter->writeAttribute('val', 'superscript');
-//                        } elseif ($element->getFont()->getSubScript()) {
-//                            $objWriter->writeAttribute('val', 'subscript');
-//                        }
-//                        $objWriter->endElement();
-//                    }
-//
             $objWriter->endElement();
 
             // t
             $objWriter->startElement($prefix . 't');
-//                    $objWriter->writeAttribute('xml:space', 'preserve');    //    Excel2010 accepts, Excel2007 complains
             $objWriter->writeRawData(\PhpSpreadsheet\Shared\StringHelper::controlCharacterPHP2OOXML($element->getText()));
             $objWriter->endElement();
 

@@ -3,8 +3,6 @@
 namespace PhpSpreadsheet\Style;
 
 /**
- * \PhpSpreadsheet\Style\NumberFormat
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -688,7 +686,6 @@ class NumberFormat extends Supervisor implements \PhpSpreadsheet\IComparable
                 }
 
                 if (preg_match('/#?.*\?\/\?/', $format, $m)) {
-                    //echo 'Format mask is fractional '.$format.' <br />';
                     if ($value != (int) $value) {
                         self::formatAsFraction($value, $format);
                     }

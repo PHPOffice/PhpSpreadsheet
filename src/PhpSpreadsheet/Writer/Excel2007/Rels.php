@@ -221,21 +221,6 @@ class Rels extends WriterPart
             );
         }
 
-        // Write chart relationships?
-//            $chartCount = 0;
-//            $charts = $pWorksheet->getChartCollection();
-//            echo 'Chart Rels: ' , count($charts) , '<br />';
-//            if (count($charts) > 0) {
-//                foreach ($charts as $chart) {
-//                    $this->writeRelationship(
-//                        $objWriter,
-//                        ++$d,
-//                        'http://schemas.openxmlformats.org/officeDocument/2006/relationships/chart',
-//                        '../charts/chart' . ++$chartCount . '.xml'
-//                    );
-//                }
-//            }
-//
         // Write hyperlink relationships?
         $i = 1;
         foreach ($pWorksheet->getHyperlinkCollection() as $hyperlink) {

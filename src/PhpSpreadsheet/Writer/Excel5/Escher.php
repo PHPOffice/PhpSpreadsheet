@@ -3,8 +3,6 @@
 namespace PhpSpreadsheet\Writer\Excel5;
 
 /**
- * \PhpSpreadsheet\Writer\Excel5\Escher
- *
  * Copyright (c) 2006 - 2015 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -292,7 +290,6 @@ class Escher
                 // number of shapes in this drawing (including group shape)
                 $countShapes = count($this->object->getSpgrContainer()->getChildren());
                 $innerData .= $header . pack('VV', $countShapes, $this->object->getLastSpId());
-                //$innerData .= $header . pack('VV', 0, 0);
 
                 // write the spgrContainer
                 if ($spgrContainer = $this->object->getSpgrContainer()) {

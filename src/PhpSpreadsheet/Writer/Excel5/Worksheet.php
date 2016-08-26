@@ -3,8 +3,6 @@
 namespace PhpSpreadsheet\Writer\Excel5;
 
 /**
- * \PhpSpreadsheet\Writer\Excel5\Worksheet
- *
  * Copyright (c) 2006 - 2015 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -209,9 +207,6 @@ class Worksheet extends BIFFwriter
         // It needs to call its parent's constructor explicitly
         parent::__construct();
 
-        // change BIFFwriter limit for CONTINUE records
-//        $this->_limit = 8224;
-
         $this->_preCalculateFormulas = $preCalculateFormulas;
         $this->stringTotal = &$str_total;
         $this->stringUnique = &$str_unique;
@@ -221,8 +216,6 @@ class Worksheet extends BIFFwriter
 
         $this->phpSheet = $phpSheet;
 
-        //$this->ext_sheets        = array();
-        //$this->offset            = 0;
         $this->xlsStringMaxLength = 255;
         $this->columnInfo = [];
         $this->selection = [0, 0, 0, 0];
@@ -245,7 +238,6 @@ class Worksheet extends BIFFwriter
         $maxC = $this->phpSheet->getHighestColumn();
 
         // Determine lowest and highest column and row
-//        $this->firstRowIndex = ($minR > 65535) ? 65535 : $minR;
         $this->lastRowIndex = ($maxR > 65535) ? 65535 : $maxR;
 
         $this->firstColumnIndex = \PhpSpreadsheet\Cell::columnIndexFromString($minC);
@@ -398,7 +390,6 @@ class Worksheet extends BIFFwriter
 
             $cVal = $cell->getValue();
             if ($cVal instanceof \PhpSpreadsheet\RichText) {
-                // $this->writeString($row, $column, $cVal->getPlainText(), $xfIndex);
                 $arrcRun = [];
                 $str_len = \PhpSpreadsheet\Shared\StringHelper::countCharacters($cVal->getPlainText(), 'UTF-8');
                 $str_pos = 0;
@@ -479,7 +470,6 @@ class Worksheet extends BIFFwriter
                 $url = str_replace('sheet://', 'internal:', $url);
             } elseif (preg_match('/^(http:|https:|ftp:|mailto:)/', $url)) {
                 // URL
-                // $url = $url;
             } else {
                 // external (local file)
                 $url = 'external:' . $url;
@@ -2305,7 +2295,7 @@ class Worksheet extends BIFFwriter
     public function insertBitmap($row, $col, $bitmap, $x = 0, $y = 0, $scale_x = 1, $scale_y = 1)
     {
         $bitmap_array = (is_resource($bitmap) ? $this->processBitmapGd($bitmap) : $this->processBitmap($bitmap));
-        list($width, $height, $size, $data) = $bitmap_array; //$this->processBitmap($bitmap);
+        list($width, $height, $size, $data) = $bitmap_array;
 
         // Scale the frame of the image.
         $width *= $scale_x;
@@ -2606,7 +2596,6 @@ class Worksheet extends BIFFwriter
         $compression = unpack('Vcomp', substr($data, 0, 4));
         $data = substr($data, 4);
 
-        //$compression = 0;
         if ($compression['comp'] != 0) {
             throw new \PhpSpreadsheet\Writer\Exception("$bitmap: compression not supported in bitmap image.\n");
         }

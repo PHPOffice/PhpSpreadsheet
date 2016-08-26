@@ -240,7 +240,6 @@ class Chart
         }
         $layout = [];
         foreach ($details as $detailKey => $detail) {
-            //            echo $detailKey, ' => ',self::getAttribute($detail, 'val', 'string'),PHP_EOL;
             $layout[$detailKey] = self::getAttribute($detail, 'val', 'string');
         }
 

@@ -25,8 +25,6 @@ namespace PhpSpreadsheet\Shared\PCLZip;
 //     The use of this software is at the risk of the user.
 //
 // --------------------------------------------------------------------------------
-// $Id: PclZip.php,v 1.60 2009/09/30 21:01:04 vblavet Exp $
-// --------------------------------------------------------------------------------
 
 // ----- Constants
 if (!defined('PCLZIP_READ_BLOCK_SIZE')) {
@@ -688,7 +686,6 @@ class PclZip
 
         // ----- Set default values
         $v_options = [];
-    //        $v_path = "./";
         $v_path = '';
         $v_remove_path = '';
         $v_remove_all_path = false;
@@ -839,7 +836,6 @@ class PclZip
 
         // ----- Set default values
         $v_options = [];
-    //        $v_path = "./";
         $v_path = '';
         $v_remove_path = '';
         $v_remove_all_path = false;
@@ -2726,7 +2722,6 @@ class PclZip
         while ($v_size != 0) {
             $v_read_size = ($v_size < PCLZIP_READ_BLOCK_SIZE ? $v_size : PCLZIP_READ_BLOCK_SIZE);
             $v_buffer = @fread($v_file_compressed, $v_read_size);
-            //$v_binary_data = pack('a'.$v_read_size, $v_buffer);
             @fwrite($this->zip_fd, $v_buffer, $v_read_size);
             $v_size -= $v_read_size;
         }
@@ -3690,7 +3685,6 @@ class PclZip
         while ($v_size != 0) {
             $v_read_size = ($v_size < PCLZIP_READ_BLOCK_SIZE ? $v_size : PCLZIP_READ_BLOCK_SIZE);
             $v_buffer = @gzread($v_src_file, $v_read_size);
-            //$v_binary_data = pack('a'.$v_read_size, $v_buffer);
             @fwrite($v_dest_file, $v_buffer, $v_read_size);
             $v_size -= $v_read_size;
         }

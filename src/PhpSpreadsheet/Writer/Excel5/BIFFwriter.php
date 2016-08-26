@@ -3,8 +3,6 @@
 namespace PhpSpreadsheet\Writer\Excel5;
 
 /**
- * \PhpSpreadsheet\Writer\Excel5\BIFFwriter
- *
  * Copyright (c) 2006 - 2015 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -94,7 +92,6 @@ class BIFFwriter
     {
         $this->_data = '';
         $this->_datasize = 0;
-//        $this->limit      = 8224;
     }
 
     /**

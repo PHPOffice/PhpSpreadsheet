@@ -6,8 +6,6 @@ use PhpSpreadsheet\Cell;
 use PhpSpreadsheet\Exception;
 
 /**
- * \PhpSpreadsheet\Worksheet\ColumnIterator
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or

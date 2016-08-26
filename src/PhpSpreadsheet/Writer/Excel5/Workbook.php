@@ -3,8 +3,6 @@
 namespace PhpSpreadsheet\Writer\Excel5;
 
 /**
- * \PhpSpreadsheet\Writer\Excel5\Workbook
- *
  * Copyright (c) 2006 - 2015 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -210,8 +208,6 @@ class Workbook extends BIFFwriter
 
         $this->spreadsheet = $spreadsheet;
 
-        // set BIFFwriter limit for CONTINUE records
-        //        $this->_limit = 8224;
         $this->codepage = 0x04B0;
 
         // Add empty sheets and Build color cache
@@ -1228,7 +1224,7 @@ class Workbook extends BIFFwriter
         $header = pack('vv', $record, $length);
         /* using the same country code always for simplicity */
         $data = pack('vv', $this->countryCode, $this->countryCode);
-        //$this->append($header . $data);
+
         return $this->writeData($header . $data);
     }
 

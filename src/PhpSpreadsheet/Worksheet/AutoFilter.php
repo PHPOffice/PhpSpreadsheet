@@ -3,8 +3,6 @@
 namespace PhpSpreadsheet\Worksheet;
 
 /**
- * \PhpSpreadsheet\Worksheet\AutoFilter
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -593,7 +591,6 @@ class AutoFilter
         list($rangeStart, $rangeEnd) = \PhpSpreadsheet\Cell::rangeBoundaries($this->range);
 
         //    The heading row should always be visible
-//        echo 'AutoFilter Heading Row ', $rangeStart[1],' is always SHOWN',PHP_EOL;
         $this->workSheet->getRowDimension($rangeStart[1])->setVisible(true);
 
         $columnFilterTests = [];
@@ -774,31 +771,23 @@ class AutoFilter
             }
         }
 
-//        echo 'Column Filter Test CRITERIA',PHP_EOL;
-//        var_dump($columnFilterTests);
-//
         //    Execute the column tests for each row in the autoFilter range to determine show/hide,
         for ($row = $rangeStart[1] + 1; $row <= $rangeEnd[1]; ++$row) {
-            //            echo 'Testing Row = ', $row,PHP_EOL;
             $result = true;
             foreach ($columnFilterTests as $columnID => $columnFilterTest) {
-                //                echo 'Testing cell ', $columnID.$row,PHP_EOL;
                 $cellValue = $this->workSheet->getCell($columnID . $row)->getCalculatedValue();
-//                echo 'Value is ', $cellValue,PHP_EOL;
                 //    Execute the filter test
                 $result = $result &&
                     call_user_func_array(
                         ['\\PhpSpreadsheet\\Worksheet\\AutoFilter', $columnFilterTest['method']],
                         [$cellValue, $columnFilterTest['arguments']]
                     );
-//                echo (($result) ? 'VALID' : 'INVALID'),PHP_EOL;
                 //    If filter test has resulted in FALSE, exit the loop straightaway rather than running any more tests
                 if (!$result) {
                     break;
                 }
             }
             //    Set show/hide for the row based on the result of the autoFilter result
-//            echo (($result) ? 'SHOW' : 'HIDE'),PHP_EOL;
             $this->workSheet->getRowDimension($row)->setVisible($result);
         }
 

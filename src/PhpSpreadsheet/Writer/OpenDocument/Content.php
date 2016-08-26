@@ -123,7 +123,6 @@ class Content extends WriterPart
 
         $sheet_count = $spreadsheet->getSheetCount();
         for ($i = 0; $i < $sheet_count; ++$i) {
-            //$this->getWriterPart('Worksheet')->writeWorksheet());
             $objWriter->startElement('table:table');
             $objWriter->writeAttribute('table:name', $spreadsheet->getSheet($i)->getTitle());
             $objWriter->writeElement('office:forms');

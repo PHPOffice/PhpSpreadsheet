@@ -3,8 +3,6 @@
 namespace PhpSpreadsheet\Writer\Excel5;
 
 /**
- * \PhpSpreadsheet\Writer\Excel5\Parser
- *
  * Copyright (c) 2006 - 2015 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -592,7 +590,6 @@ class Parser
     private function convertFunction($token, $num_args)
     {
         $args = $this->functions[$token][1];
-//        $volatile = $this->functions[$token][3];
 
         // Fixed number of args eg. TIME($i, $j, $k).
         if ($args >= 0) {
@@ -650,8 +647,6 @@ class Parser
      */
     private function convertRange3d($token)
     {
-        //        $class = 0; // formulas like Sheet1!$A$1:$A$2 in list type data validation need this class (0x3B)
-
         // Split the ref at the ! symbol
         list($ext_ref, $range) = explode('!', $token);
 
@@ -670,15 +665,7 @@ class Parser
         }
 
         // The ptg value depends on the class of the ptg.
-//        if ($class == 0) {
-            $ptgArea = pack('C', $this->ptg['ptgArea3d']);
-//        } elseif ($class == 1) {
-//            $ptgArea = pack("C", $this->ptg['ptgArea3dV']);
-//        } elseif ($class == 2) {
-//            $ptgArea = pack("C", $this->ptg['ptgArea3dA']);
-//        } else {
-//            throw new \PhpSpreadsheet\Writer\Exception("Unknown class $class");
-//        }
+        $ptgArea = pack('C', $this->ptg['ptgArea3d']);
 
         return $ptgArea . $ext_ref . $row1 . $row2 . $col1 . $col2;
     }
@@ -691,23 +678,13 @@ class Parser
      */
     private function convertRef2d($cell)
     {
-        //        $class = 2; // as far as I know, this is magick.
-
         // Convert the cell reference
         $cell_array = $this->cellToPackedRowcol($cell);
         list($row, $col) = $cell_array;
 
         // The ptg value depends on the class of the ptg.
-//        if ($class == 0) {
-//            $ptgRef = pack("C", $this->ptg['ptgRef']);
-//        } elseif ($class == 1) {
-//            $ptgRef = pack("C", $this->ptg['ptgRefV']);
-//        } elseif ($class == 2) {
-            $ptgRef = pack('C', $this->ptg['ptgRefA']);
-//        } else {
-//            // TODO: use real error codes
-//            throw new \PhpSpreadsheet\Writer\Exception("Unknown class $class");
-//        }
+        $ptgRef = pack('C', $this->ptg['ptgRefA']);
+
         return $ptgRef . $row . $col;
     }
 
@@ -720,8 +697,6 @@ class Parser
      */
     private function convertRef3d($cell)
     {
-        //        $class = 2; // as far as I know, this is magick.
-
         // Split the ref at the ! symbol
         list($ext_ref, $cell) = explode('!', $cell);
 
@@ -732,15 +707,7 @@ class Parser
         list($row, $col) = $this->cellToPackedRowcol($cell);
 
         // The ptg value depends on the class of the ptg.
-//        if ($class == 0) {
-//            $ptgRef = pack("C", $this->ptg['ptgRef3d']);
-//        } elseif ($class == 1) {
-//            $ptgRef = pack("C", $this->ptg['ptgRef3dV']);
-//        } elseif ($class == 2) {
-            $ptgRef = pack('C', $this->ptg['ptgRef3dA']);
-//        } else {
-//            throw new \PhpSpreadsheet\Writer\Exception("Unknown class $class");
-//        }
+        $ptgRef = pack('C', $this->ptg['ptgRef3dA']);
 
         return $ptgRef . $ext_ref . $row . $col;
     }
@@ -1034,9 +1001,6 @@ class Parser
             }
 
             if ($this->match($token) != '') {
-                //if ($i < strlen($this->formula) - 1) {
-                //    $this->lookAhead = $this->formula{$i+1};
-                //}
                 $this->currentCharacter = $i + 1;
                 $this->currentToken = $token;
 
@@ -1355,7 +1319,6 @@ class Parser
         } elseif (preg_match('/^' . self::REGEX_SHEET_TITLE_UNQUOTED . "(\:" . self::REGEX_SHEET_TITLE_UNQUOTED . ")?\!\\$?([A-Ia-i]?[A-Za-z])?\\$?[0-9]+:\\$?([A-Ia-i]?[A-Za-z])?\\$?[0-9]+$/u", $this->currentToken)) {
             // If it's an external range (Sheet1!A1:B2 or Sheet1:Sheet2!A1:B2 or Sheet1!$A$1:$B$2 or Sheet1:Sheet2!$A$1:$B$2)
             // must be an error?
-            //$result = $this->currentToken;
             $result = $this->createTree($this->currentToken, '', '');
             $this->advance();
 
@@ -1363,7 +1326,6 @@ class Parser
         } elseif (preg_match("/^'" . self::REGEX_SHEET_TITLE_QUOTED . "(\:" . self::REGEX_SHEET_TITLE_QUOTED . ")?'\!\\$?([A-Ia-i]?[A-Za-z])?\\$?[0-9]+:\\$?([A-Ia-i]?[A-Za-z])?\\$?[0-9]+$/u", $this->currentToken)) {
             // If it's an external range ('Sheet1'!A1:B2 or 'Sheet1'!A1:B2 or 'Sheet1'!$A$1:$B$2 or 'Sheet1'!$A$1:$B$2)
             // must be an error?
-            //$result = $this->currentToken;
             $result = $this->createTree($this->currentToken, '', '');
             $this->advance();
 

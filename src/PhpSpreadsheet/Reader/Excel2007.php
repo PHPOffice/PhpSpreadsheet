@@ -259,7 +259,6 @@ class Excel2007 extends BaseReader implements IReader
 
     private static function castToBoolean($c)
     {
-        //        echo 'Initial Cast to Boolean', PHP_EOL;
         $value = isset($c->v) ? (string) $c->v : null;
         if ($value == '0') {
             return false;
@@ -274,44 +273,27 @@ class Excel2007 extends BaseReader implements IReader
 
     private static function castToError($c)
     {
-        //        echo 'Initial Cast to Error', PHP_EOL;
         return isset($c->v) ? (string) $c->v : null;
     }
 
     private static function castToString($c)
     {
-        //        echo 'Initial Cast to String, PHP_EOL;
         return isset($c->v) ? (string) $c->v : null;
     }
 
     private function castToFormula($c, $r, &$cellDataType, &$value, &$calculatedValue, &$sharedFormulas, $castBaseType)
     {
-        //        echo 'Formula', PHP_EOL;
-//        echo '$c->f is ', $c->f, PHP_EOL;
         $cellDataType = 'f';
         $value = "={$c->f}";
         $calculatedValue = self::$castBaseType($c);
 
         // Shared formula?
         if (isset($c->f['t']) && strtolower((string) $c->f['t']) == 'shared') {
-            //            echo 'SHARED FORMULA', PHP_EOL;
             $instance = (string) $c->f['si'];
 
-//            echo 'Instance ID = ', $instance, PHP_EOL;
-//
-//            echo 'Shared Formula Array:', PHP_EOL;
-//            print_r($sharedFormulas);
             if (!isset($sharedFormulas[(string) $c->f['si']])) {
-                //                echo 'SETTING NEW SHARED FORMULA', PHP_EOL;
-//                echo 'Master is ', $r, PHP_EOL;
-//                echo 'Formula is ', $value, PHP_EOL;
                 $sharedFormulas[$instance] = ['master' => $r, 'formula' => $value];
-//                echo 'New Shared Formula Array:', PHP_EOL;
-//                print_r($sharedFormulas);
             } else {
-                //                echo 'GETTING SHARED FORMULA', PHP_EOL;
-//                echo 'Master is ', $sharedFormulas[$instance]['master'], PHP_EOL;
-//                echo 'Formula is ', $sharedFormulas[$instance]['formula'], PHP_EOL;
                 $master = \PhpSpreadsheet\Cell::coordinateFromString($sharedFormulas[$instance]['master']);
                 $current = \PhpSpreadsheet\Cell::coordinateFromString($r);
 
@@ -320,7 +302,6 @@ class Excel2007 extends BaseReader implements IReader
                 $difference[1] = $current[1] - $master[1];
 
                 $value = $this->referenceHelper->updateFormulaReferences($sharedFormulas[$instance]['formula'], 'A1', $difference[0], $difference[1]);
-//                echo 'Adjusted Formula is ', $value, PHP_EOL;
             }
         }
     }
@@ -828,11 +809,7 @@ class Excel2007 extends BaseReader implements IReader
                                         if ($col['style'] && !$this->readDataOnly) {
                                             $docSheet->getColumnDimension(\PhpSpreadsheet\Cell::stringFromColumnIndex($i))->setXfIndex(intval($col['style']));
                                         }
-                                        if (self::boolean($col['bestFit'])) {
-                                            //$docSheet->getColumnDimension(\PhpSpreadsheet\Cell::stringFromColumnIndex($i))->setAutoSize(true);
-                                        }
                                         if (self::boolean($col['hidden'])) {
-                                            // echo \PhpSpreadsheet\Cell::stringFromColumnIndex($i), ': HIDDEN COLUMN',PHP_EOL;
                                             $docSheet->getColumnDimension(\PhpSpreadsheet\Cell::stringFromColumnIndex($i))->setVisible(false);
                                         }
                                         if (self::boolean($col['collapsed'])) {
@@ -898,15 +875,9 @@ class Excel2007 extends BaseReader implements IReader
                                             }
                                         }
 
-    //                                    echo 'Reading cell ', $coordinates[0], $coordinates[1], PHP_EOL;
-    //                                    print_r($c);
-    //                                    echo PHP_EOL;
-    //                                    echo 'Cell Data Type is ', $cellDataType, ': ';
-    //
                                         // Read cell!
                                         switch ($cellDataType) {
                                             case 's':
-    //                                            echo 'String', PHP_EOL;
                                                 if ((string) $c->v != '') {
                                                     $value = $sharedStrings[intval($c->v)];
 
@@ -918,7 +889,6 @@ class Excel2007 extends BaseReader implements IReader
                                                 }
                                                 break;
                                             case 'b':
-    //                                            echo 'Boolean', PHP_EOL;
                                                 if (!isset($c->f)) {
                                                     $value = self::castToBoolean($c);
                                                 } else {
@@ -929,11 +899,9 @@ class Excel2007 extends BaseReader implements IReader
                                                         $att = $c->f;
                                                         $docSheet->getCell($r)->setFormulaAttributes($att);
                                                     }
-    //                                                echo '$calculatedValue = ', $calculatedValue, PHP_EOL;
                                                 }
                                                 break;
                                             case 'inlineStr':
-//                                                echo 'Inline String', PHP_EOL;
                                                 if (isset($c->f)) {
                                                     $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToError');
                                                 } else {
@@ -941,29 +909,22 @@ class Excel2007 extends BaseReader implements IReader
                                                 }
                                                 break;
                                             case 'e':
-    //                                            echo 'Error', PHP_EOL;
                                                 if (!isset($c->f)) {
                                                     $value = self::castToError($c);
                                                 } else {
                                                     // Formula
                                                     $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToError');
-    //                                                echo '$calculatedValue = ', $calculatedValue, PHP_EOL;
                                                 }
                                                 break;
                                             default:
-//                                                echo 'Default', PHP_EOL;
                                                 if (!isset($c->f)) {
-                                                    //                                                echo 'Not a Formula', PHP_EOL;
                                                     $value = self::castToString($c);
                                                 } else {
-                                                    //                                                echo 'Treat as Formula', PHP_EOL;
                                                     // Formula
                                                     $this->castToFormula($c, $r, $cellDataType, $value, $calculatedValue, $sharedFormulas, 'castToString');
-    //                                                echo '$calculatedValue = ', $calculatedValue, PHP_EOL;
                                                 }
                                                 break;
                                         }
-    //                                    echo 'Value is ', $value, PHP_EOL;
 
                                         // Check for numeric values
                                         if (is_numeric($value) && $cellDataType != 's') {
@@ -1870,15 +1831,10 @@ class Excel2007 extends BaseReader implements IReader
                             );
                             $objChart = \PhpSpreadsheet\Reader\Excel2007\Chart::readChart($chartElements, basename($chartEntryRef, '.xml'));
 
-//                            echo 'Chart ', $chartEntryRef, '<br />';
-//                            var_dump($charts[$chartEntryRef]);
 //
                             if (isset($charts[$chartEntryRef])) {
                                 $chartPositionRef = $charts[$chartEntryRef]['sheet'] . '!' . $charts[$chartEntryRef]['id'];
-//                                echo 'Position Ref ', $chartPositionRef, '<br />';
                                 if (isset($chartDetails[$chartPositionRef])) {
-                                    //                                    var_dump($chartDetails[$chartPositionRef]);
-
                                     $excel->getSheetByName($charts[$chartEntryRef]['sheet'])->addChart($objChart);
                                     $objChart->setWorksheet($excel->getSheetByName($charts[$chartEntryRef]['sheet']));
                                     $objChart->setTopLeftPosition($chartDetails[$chartPositionRef]['fromCoordinate'], $chartDetails[$chartPositionRef]['fromOffsetX'], $chartDetails[$chartPositionRef]['fromOffsetY']);
@@ -1925,14 +1881,7 @@ class Excel2007 extends BaseReader implements IReader
      */
     private static function readStyle($docStyle, \PhpSpreadsheet\Style $style)
     {
-        // format code
-//        if (isset($style->numFmt)) {
-//            if (isset($style->numFmt['formatCode'])) {
-//                $docStyle->getNumberFormat()->setFormatCode((string) $style->numFmt['formatCode']);
-//            } else {
-                $docStyle->getNumberFormat()->setFormatCode($style->numFmt);
-//            }
-//        }
+        $docStyle->getNumberFormat()->setFormatCode($style->numFmt);
 
         // font
         if (isset($style->font)) {

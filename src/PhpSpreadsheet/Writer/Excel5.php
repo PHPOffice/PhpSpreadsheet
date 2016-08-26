@@ -3,8 +3,6 @@
 namespace PhpSpreadsheet\Writer;
 
 /**
- * \PhpSpreadsheet\Writer\Excel5
- *
  * Copyright (c) 2006 - 2015 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or

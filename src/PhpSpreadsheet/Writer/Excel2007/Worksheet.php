@@ -145,7 +145,6 @@ class Worksheet extends WriterPart
     {
         // sheetPr
         $objWriter->startElement('sheetPr');
-        //$objWriter->writeAttribute('codeName',        $pSheet->getTitle());
         if ($pSheet->getParent()->hasMacros()) {
             //if the workbook have macros, we need to have codeName for the sheet
             if ($pSheet->hasCodeName() == false) {
@@ -1125,7 +1124,6 @@ class Worksheet extends WriterPart
                         }
                         if ($this->getParentWriter()->getOffice2003Compatibility() === false) {
                             if ($this->getParentWriter()->getPreCalculateFormulas()) {
-                                //                                $calculatedValue = $pCell->getCalculatedValue();
                                 if (!is_array($calculatedValue) && substr($calculatedValue, 0, 1) != '#') {
                                     $objWriter->writeElement('v', \PhpSpreadsheet\Shared\StringHelper::formatNumber($calculatedValue));
                                 } else {

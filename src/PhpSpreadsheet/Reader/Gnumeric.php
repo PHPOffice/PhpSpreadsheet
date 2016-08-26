@@ -218,15 +218,9 @@ class Gnumeric extends BaseReader implements IReader
 
         $gFileData = $this->gzfileGetContents($pFilename);
 
-//        echo '<pre>';
-//        echo htmlentities($gFileData,ENT_QUOTES,'UTF-8');
-//        echo '</pre><hr />';
-//
         $xml = simplexml_load_string($this->securityScan($gFileData), 'SimpleXMLElement', \PhpSpreadsheet\Settings::getLibXmlLoaderOptions());
         $namespacesMeta = $xml->getNamespaces(true);
 
-//        var_dump($namespacesMeta);
-//
         $gnmXML = $xml->children($namespacesMeta['gnm']);
 
         $docProps = $spreadsheet->getProperties();
@@ -335,7 +329,6 @@ class Gnumeric extends BaseReader implements IReader
         $worksheetID = 0;
         foreach ($gnmXML->Sheets->Sheet as $sheet) {
             $worksheetName = (string) $sheet->Name;
-//            echo '<b>Worksheet: ', $worksheetName,'</b><br />';
             if ((isset($this->loadSheetsOnly)) && (!in_array($worksheetName, $this->loadSheetsOnly))) {
                 continue;
             }
@@ -407,9 +400,6 @@ class Gnumeric extends BaseReader implements IReader
 
                 $ValueType = $cellAttributes->ValueType;
                 $ExprID = (string) $cellAttributes->ExprID;
-//                echo 'Cell ', $column, $row,'<br />';
-//                echo 'Type is ', $ValueType,'<br />';
-//                echo 'Value is ', $cell,'<br />';
                 $type = \PhpSpreadsheet\Cell\DataType::TYPE_FORMULA;
                 if ($ExprID > '') {
                     if (((string) $cell) > '') {
@@ -418,7 +408,6 @@ class Gnumeric extends BaseReader implements IReader
                             'row' => $cellAttributes->Row,
                             'formula' => (string) $cell,
                         ];
-//                        echo 'NEW EXPRESSION ', $ExprID,'<br />';
                     } else {
                         $expression = $this->expressions[$ExprID];
 
@@ -429,8 +418,6 @@ class Gnumeric extends BaseReader implements IReader
                             $cellAttributes->Row - $expression['row'],
                             $worksheetName
                         );
-//                        echo 'SHARED EXPRESSION ', $ExprID,'<br />';
-//                        echo 'New Value is ', $cell,'<br />';
                     }
                     $type = \PhpSpreadsheet\Cell\DataType::TYPE_FORMULA;
                 } else {
@@ -470,8 +457,6 @@ class Gnumeric extends BaseReader implements IReader
                     }
                 }
             }
-//            echo '$maxCol=', $maxCol,'; $maxRow=', $maxRow,'<br />';
-//
             foreach ($sheet->Styles->StyleRegion as $styleRegion) {
                 $styleAttributes = $styleRegion->attributes();
                 if (($styleAttributes['startRow'] <= $maxRow) &&
@@ -484,11 +469,8 @@ class Gnumeric extends BaseReader implements IReader
                     $endRow = ($styleAttributes['endRow'] > $maxRow) ? $maxRow : $styleAttributes['endRow'];
                     $endRow += 1;
                     $cellRange = $startColumn . $startRow . ':' . $endColumn . $endRow;
-//                    echo $cellRange,'<br />';
 
                     $styleAttributes = $styleRegion->Style->attributes();
-//                    var_dump($styleAttributes);
-//                    echo '<br />';
 
                     //    We still set the number format mask for date/time values, even if readDataOnly is true
                     if ((!$this->readDataOnly) ||
@@ -611,8 +593,6 @@ class Gnumeric extends BaseReader implements IReader
                             }
 
                             $fontAttributes = $styleRegion->Style->Font->attributes();
-//                            var_dump($fontAttributes);
-//                            echo '<br />';
                             $styleArray['font']['name'] = (string) $styleRegion->Style->Font;
                             $styleArray['font']['size'] = intval($fontAttributes['Unit']);
                             $styleArray['font']['bold'] = ($fontAttributes['Bold'] == '1') ? true : false;
@@ -673,8 +653,6 @@ class Gnumeric extends BaseReader implements IReader
                                 $hyperlink = $styleRegion->Style->HyperLink->attributes();
                             }
                         }
-//                        var_dump($styleArray);
-//                        echo '<br />';
                         $spreadsheet->getActiveSheet()->getStyle($cellRange)->applyFromArray($styleArray);
                     }
                 }

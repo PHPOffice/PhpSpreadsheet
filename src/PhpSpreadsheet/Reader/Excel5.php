@@ -991,10 +991,6 @@ class Excel5 extends BaseReader implements IReader
 
             // treat OBJ records
             foreach ($this->objs as $n => $obj) {
-                //                echo '<hr /><b>Object</b> reference is ', $n,'<br />';
-//                var_dump($obj);
-//                echo '<br />';
-
                 // the first shape container never has a corresponding OBJ record, hence $n + 1
                 if (isset($allSpContainers[$n + 1]) && is_object($allSpContainers[$n + 1])) {
                     $spContainer = $allSpContainers[$n + 1];
@@ -1023,8 +1019,6 @@ class Excel5 extends BaseReader implements IReader
                     switch ($obj['otObjType']) {
                         case 0x19:
                             // Note
-//                            echo 'Cell Annotation Object<br />';
-//                            echo 'Object ID is ', $obj['idObjID'],'<br />';
                             if (isset($this->cellNotes[$obj['idObjID']])) {
                                 $cellNote = $this->cellNotes[$obj['idObjID']];
 
@@ -1035,7 +1029,6 @@ class Excel5 extends BaseReader implements IReader
                             }
                             break;
                         case 0x08:
-//                            echo 'Picture Object<br />';
                             // picture
                             // get index to BSE entry (1-based)
                             $BSEindex = $spContainer->getOPT(0x0104);
@@ -1099,9 +1092,6 @@ class Excel5 extends BaseReader implements IReader
                             $noteDetails['objTextData']['text'] = '';
                         }
                     }
-//                    echo '<b>Cell annotation ', $note,'</b><br />';
-//                    var_dump($noteDetails);
-//                    echo '<br />';
                     $cellAddress = str_replace('$', '', $noteDetails['cellRef']);
                     $this->phpSheet->getComment($cellAddress)->setAuthor($noteDetails['author'])->setText($this->parseRichText($noteDetails['objTextData']['text']));
                 }
@@ -1275,8 +1265,6 @@ class Excel5 extends BaseReader implements IReader
         $this->summaryInformation = $ole->getStream($ole->summaryInformation);
         // Get additional document summary information data
         $this->documentSummaryInformation = $ole->getStream($ole->documentSummaryInformation);
-        // Get user-defined property data
-//        $this->userDefinedProperties = $ole->getUserDefinedProperties();
     }
 
     /**
@@ -1429,21 +1417,17 @@ class Excel5 extends BaseReader implements IReader
         //    offset: 8;    size: 16
         //    offset: 24;    size: 4;    section count
         $secCount = self::getInt4d($this->documentSummaryInformation, 24);
-//        echo '$secCount = ', $secCount,'<br />';
 
         // offset: 28;    size: 16;    first section's class id: 02 d5 cd d5 9c 2e 1b 10 93 97 08 00 2b 2c f9 ae
         // offset: 44;    size: 4;    first section offset
         $secOffset = self::getInt4d($this->documentSummaryInformation, 44);
-//        echo '$secOffset = ', $secOffset,'<br />';
 
         //    section header
         //    offset: $secOffset;    size: 4;    section length
         $secLength = self::getInt4d($this->documentSummaryInformation, $secOffset);
-//        echo '$secLength = ', $secLength,'<br />';
 
         //    offset: $secOffset+4;    size: 4;    property count
         $countProperties = self::getInt4d($this->documentSummaryInformation, $secOffset + 4);
-//        echo '$countProperties = ', $countProperties,'<br />';
 
         // initialize code page (used to resolve string values)
         $codePage = 'CP1252';
@@ -1451,17 +1435,14 @@ class Excel5 extends BaseReader implements IReader
         //    offset: ($secOffset+8);    size: var
         //    loop through property decarations and properties
         for ($i = 0; $i < $countProperties; ++$i) {
-            //            echo 'Property ', $i,'<br />';
             //    offset: ($secOffset+8) + (8 * $i);    size: 4;    property ID
             $id = self::getInt4d($this->documentSummaryInformation, ($secOffset + 8) + (8 * $i));
-//            echo 'ID is ', $id,'<br />';
 
             // Use value of property id as appropriate
             // offset: 60 + 8 * $i;    size: 4;    offset from beginning of section (48)
             $offset = self::getInt4d($this->documentSummaryInformation, ($secOffset + 12) + (8 * $i));
 
             $type = self::getInt4d($this->documentSummaryInformation, $secOffset + $offset);
-//            echo 'Type is ', $type,', ';
 
             // initialize property value
             $value = null;
@@ -1555,7 +1536,6 @@ class Excel5 extends BaseReader implements IReader
     private function readDefault()
     {
         $length = self::getInt2d($this->data, $this->pos + 2);
-//        $recordData = $this->readRecordData($this->data, $this->pos + 4, $length);
 
         // move stream pointer to next record
         $this->pos += 4 + $length;
@@ -1567,7 +1547,6 @@ class Excel5 extends BaseReader implements IReader
      */
     private function readNote()
     {
-        //        echo '<b>Read Cell Annotation</b><br />';
         $length = self::getInt2d($this->data, $this->pos + 2);
         $recordData = $this->readRecordData($this->data, $this->pos + 4, $length);
 
@@ -1583,10 +1562,6 @@ class Excel5 extends BaseReader implements IReader
             $noteObjID = self::getInt2d($recordData, 6);
             $noteAuthor = self::readUnicodeStringLong(substr($recordData, 8));
             $noteAuthor = $noteAuthor['value'];
-//            echo 'Note Address=', $cellAddress,'<br />';
-//            echo 'Note Object ID=', $noteObjID,'<br />';
-//            echo 'Note Author=', $noteAuthor,'<hr />';
-//
             $this->cellNotes[$noteObjID] = [
                 'cellRef' => $cellAddress,
                 'objectID' => $noteObjID,
@@ -1602,13 +1577,10 @@ class Excel5 extends BaseReader implements IReader
                 $extension = true;
                 $cellAddress = array_pop(array_keys($this->phpSheet->getComments()));
             }
-//            echo 'Note Address=', $cellAddress,'<br />';
 
             $cellAddress = str_replace('$', '', $cellAddress);
             $noteLength = self::getInt2d($recordData, 4);
             $noteText = trim(substr($recordData, 6));
-//            echo 'Note Length=', $noteLength,'<br />';
-//            echo 'Note Text=', $noteText,'<br />';
 
             if ($extension) {
                 //    Concatenate this extension with the currently set comment for the cell
@@ -1656,10 +1628,6 @@ class Excel5 extends BaseReader implements IReader
             'alignment' => $grbitOpts,
             'rotation' => $rot,
         ];
-
-//        echo '<b>_readTextObject()</b><br />';
-//        var_dump($this->textObjects[$this->textObjRef]);
-//        echo '<br />';
     }
 
     /**
@@ -4192,10 +4160,6 @@ class Excel5 extends BaseReader implements IReader
             'grbitOpts' => $grbitOpts,
         ];
         $this->textObjRef = $idObjID;
-
-//        echo '<b>_readObj()</b><br />';
-//        var_dump(end($this->objs));
-//        echo '<br />';
     }
 
     /**
@@ -4279,8 +4243,6 @@ class Excel5 extends BaseReader implements IReader
 
         // move stream pointer to next record
         $this->pos += 4 + $length;
-
-        //var_dump(unpack("vrt/vgrbitFrt/V2reserved/vwScalePLV/vgrbit", $recordData));
 
         // offset: 0; size: 2; rt
         //->ignore
@@ -5057,22 +5019,18 @@ class Excel5 extends BaseReader implements IReader
                 // 1. BITMAPCOREHEADER
                 // offset: 0; size: 4; bcSize, Specifies the number of bytes required by the structure
                 $bcSize = self::getInt4d($iData, 0);
-    //            var_dump($bcSize);
 
                 // offset: 4; size: 2; bcWidth, specifies the width of the bitmap, in pixels
                 $bcWidth = self::getInt2d($iData, 4);
-    //            var_dump($bcWidth);
 
                 // offset: 6; size: 2; bcHeight, specifies the height of the bitmap, in pixels.
                 $bcHeight = self::getInt2d($iData, 6);
-    //            var_dump($bcHeight);
                 $ih = imagecreatetruecolor($bcWidth, $bcHeight);
 
                 // offset: 8; size: 2; bcPlanes, specifies the number of planes for the target device. This value must be 1
 
                 // offset: 10; size: 2; bcBitCount specifies the number of bits-per-pixel. This value must be 1, 4, 8, or 24
                 $bcBitCount = self::getInt2d($iData, 10);
-    //            var_dump($bcBitCount);
 
                 $rgbString = substr($iData, 12);
                 $rgbTriples = [];
@@ -5205,21 +5163,9 @@ class Excel5 extends BaseReader implements IReader
         // offset: 2; size: sz
         $formulaData = substr($formulaStructure, 2, $sz);
 
-        // for debug: dump the formula data
-        //echo '<xmp>';
-        //echo 'size: ' . $sz . "\n";
-        //echo 'the entire formula data: ';
-        //Debug::dump($formulaData);
-        //echo "\n----\n";
-
         // offset: 2 + sz; size: variable (optional)
         if (strlen($formulaStructure) > 2 + $sz) {
             $additionalData = substr($formulaStructure, 2 + $sz);
-
-            // for debug: dump the additional data
-            //echo 'the entire additional data: ';
-            //Debug::dump($additionalData);
-            //echo "\n----\n";
         } else {
             $additionalData = '';
         }
@@ -5243,9 +5189,6 @@ class Excel5 extends BaseReader implements IReader
         while (strlen($formulaData) > 0 and $token = $this->getNextToken($formulaData, $baseCell)) {
             $tokens[] = $token;
             $formulaData = substr($formulaData, $token['size']);
-
-            // for debug: dump the token
-            //var_dump($token);
         }
 
         $formulaString = $this->createFormulaFromTokens($tokens, $additionalData);
@@ -5407,10 +5350,6 @@ class Excel5 extends BaseReader implements IReader
             }
         }
         $formulaString = $formulaStrings[0];
-
-        // for debug: dump the human readable formula
-        //echo '----' . "\n";
-        //echo 'Formula: ' . $formulaString;
 
         return $formulaString;
     }

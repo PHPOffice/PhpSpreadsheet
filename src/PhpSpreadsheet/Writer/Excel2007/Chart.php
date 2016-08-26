@@ -310,10 +310,6 @@ class Chart extends WriterPart
             }
 
             //    Generate 2 unique numbers to use for axId values
-            //                    $id1 = $id2 = rand(10000000,99999999);
-            //                    do {
-            //                        $id2 = rand(10000000,99999999);
-            //                    } while ($id1 == $id2);
             $id1 = '75091328';
             $id2 = '75089408';
 
@@ -458,7 +454,6 @@ class Chart extends WriterPart
                 $caption = $caption[0];
             }
             $objWriter->startElement('a:t');
-            //                                        $objWriter->writeAttribute('xml:space', 'preserve');
             $objWriter->writeRawData(\PhpSpreadsheet\Shared\StringHelper::controlCharacterPHP2OOXML($caption));
             $objWriter->endElement();
 
@@ -808,7 +803,6 @@ class Chart extends WriterPart
             }
 
             $objWriter->startElement('a:t');
-            //                                        $objWriter->writeAttribute('xml:space', 'preserve');
             $objWriter->writeRawData(\PhpSpreadsheet\Shared\StringHelper::controlCharacterPHP2OOXML($caption));
             $objWriter->endElement();
 
