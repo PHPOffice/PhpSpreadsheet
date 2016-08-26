@@ -172,7 +172,7 @@ class PHPTemp extends CacheBase implements ICache
      */
     public function __construct(\PhpSpreadsheet\Worksheet $parent, $arguments)
     {
-        $this->memoryCacheSize = (isset($arguments['memoryCacheSize'])) ? $arguments['memoryCacheSize'] : '1MB';
+        $this->memoryCacheSize = (isset($arguments['memoryCacheSize'])) ? $arguments['memoryCacheSize'] : 1 * 1024 * 1024;
 
         parent::__construct($parent);
         if (is_null($this->fileHandle)) {
