@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Worksheet;
+namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -27,9 +27,9 @@ namespace PhpSpreadsheet\Worksheet;
 class Column
 {
     /**
-     * \PhpSpreadsheet\Worksheet
+     * \PhpOffice\PhpSpreadsheet\Worksheet
      *
-     * @var \PhpSpreadsheet\Worksheet
+     * @var \PhpOffice\PhpSpreadsheet\Worksheet
      */
     private $parent;
 
@@ -43,10 +43,10 @@ class Column
     /**
      * Create a new column
      *
-     * @param \PhpSpreadsheet\Worksheet     $parent
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet     $parent
      * @param string                $columnIndex
      */
-    public function __construct(\PhpSpreadsheet\Worksheet $parent = null, $columnIndex = 'A')
+    public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $parent = null, $columnIndex = 'A')
     {
         // Set parent and column index
         $this->parent = $parent;

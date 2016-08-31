@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared\Trend;
+namespace PhpOffice\PhpSpreadsheet\Shared\Trend;
 
 /**
  * bestFit

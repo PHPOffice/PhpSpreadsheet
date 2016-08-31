@@ -1,8 +1,8 @@
 <?php
 
-namespace PhpSpreadsheetTests\Shared;
+namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
-use PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Shared\File;
 
 class FileTest extends \PHPUnit_Framework_TestCase
 {

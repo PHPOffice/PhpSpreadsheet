@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Reader\Excel2007;
+namespace PhpOffice\PhpSpreadsheet\Reader\Excel2007;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -54,7 +54,7 @@ class Chart
         if (isset($color['rgb'])) {
             return (string) $color['rgb'];
         } elseif (isset($color['indexed'])) {
-            return \PhpSpreadsheet\Style\Color::indexedColor($color['indexed'] - 7, $background)->getARGB();
+            return \PhpOffice\PhpSpreadsheet\Style\Color::indexedColor($color['indexed'] - 7, $background)->getARGB();
         }
     }
 
@@ -162,9 +162,9 @@ class Chart
                                     }
                                 }
                                 if ($plotAreaLayout == null) {
-                                    $plotAreaLayout = new \PhpSpreadsheet\Chart\Layout();
+                                    $plotAreaLayout = new \PhpOffice\PhpSpreadsheet\Chart\Layout();
                                 }
-                                $plotArea = new \PhpSpreadsheet\Chart\PlotArea($plotAreaLayout, $plotSeries);
+                                $plotArea = new \PhpOffice\PhpSpreadsheet\Chart\PlotArea($plotAreaLayout, $plotSeries);
                                 self::setChartAttributes($plotAreaLayout, $plotAttributes);
                                 break;
                             case 'plotVisOnly':
@@ -193,13 +193,13 @@ class Chart
                                             break;
                                     }
                                 }
-                                $legend = new \PhpSpreadsheet\Chart\Legend($legendPos, $legendLayout, $legendOverlay);
+                                $legend = new \PhpOffice\PhpSpreadsheet\Chart\Legend($legendPos, $legendLayout, $legendOverlay);
                                 break;
                         }
                     }
             }
         }
-        $chart = new \PhpSpreadsheet\Chart($chartName, $title, $legend, $plotArea, $plotVisOnly, $dispBlanksAs, $XaxisLabel, $YaxisLabel);
+        $chart = new \PhpOffice\PhpSpreadsheet\Chart($chartName, $title, $legend, $plotArea, $plotVisOnly, $dispBlanksAs, $XaxisLabel, $YaxisLabel);
 
         return $chart;
     }
@@ -226,7 +226,7 @@ class Chart
             }
         }
 
-        return new \PhpSpreadsheet\Chart\Title($caption, $titleLayout);
+        return new \PhpOffice\PhpSpreadsheet\Chart\Title($caption, $titleLayout);
     }
 
     private static function chartLayoutDetails($chartDetail, $namespacesChartMeta)
@@ -243,7 +243,7 @@ class Chart
             $layout[$detailKey] = self::getAttribute($detail, 'val', 'string');
         }
 
-        return new \PhpSpreadsheet\Chart\Layout($layout);
+        return new \PhpOffice\PhpSpreadsheet\Chart\Layout($layout);
     }
 
     private static function chartDataSeries($chartDetail, $namespacesChartMeta, $plotType)
@@ -295,7 +295,7 @@ class Chart
             }
         }
 
-        return new \PhpSpreadsheet\Chart\DataSeries($plotType, $multiSeriesType, $plotOrder, $seriesLabel, $seriesCategory, $seriesValues, $smoothLine);
+        return new \PhpOffice\PhpSpreadsheet\Chart\DataSeries($plotType, $multiSeriesType, $plotOrder, $seriesLabel, $seriesCategory, $seriesValues, $smoothLine);
     }
 
     private static function chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, $marker = null, $smoothLine = false)
@@ -304,24 +304,24 @@ class Chart
             $seriesSource = (string) $seriesDetail->strRef->f;
             $seriesData = self::chartDataSeriesValues($seriesDetail->strRef->strCache->children($namespacesChartMeta['c']), 's');
 
-            return new \PhpSpreadsheet\Chart\DataSeriesValues('String', $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker, $smoothLine);
+            return new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker, $smoothLine);
         } elseif (isset($seriesDetail->numRef)) {
             $seriesSource = (string) $seriesDetail->numRef->f;
             $seriesData = self::chartDataSeriesValues($seriesDetail->numRef->numCache->children($namespacesChartMeta['c']));
 
-            return new \PhpSpreadsheet\Chart\DataSeriesValues('Number', $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker, $smoothLine);
+            return new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker, $smoothLine);
         } elseif (isset($seriesDetail->multiLvlStrRef)) {
             $seriesSource = (string) $seriesDetail->multiLvlStrRef->f;
             $seriesData = self::chartDataSeriesValuesMultiLevel($seriesDetail->multiLvlStrRef->multiLvlStrCache->children($namespacesChartMeta['c']), 's');
             $seriesData['pointCount'] = count($seriesData['dataValues']);
 
-            return new \PhpSpreadsheet\Chart\DataSeriesValues('String', $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker, $smoothLine);
+            return new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker, $smoothLine);
         } elseif (isset($seriesDetail->multiLvlNumRef)) {
             $seriesSource = (string) $seriesDetail->multiLvlNumRef->f;
             $seriesData = self::chartDataSeriesValuesMultiLevel($seriesDetail->multiLvlNumRef->multiLvlNumCache->children($namespacesChartMeta['c']), 's');
             $seriesData['pointCount'] = count($seriesData['dataValues']);
 
-            return new \PhpSpreadsheet\Chart\DataSeriesValues('String', $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker, $smoothLine);
+            return new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker, $smoothLine);
         }
 
         return null;
@@ -395,7 +395,7 @@ class Chart
 
     private static function parseRichText($titleDetailPart = null)
     {
-        $value = new \PhpSpreadsheet\RichText();
+        $value = new \PhpOffice\PhpSpreadsheet\RichText();
 
         foreach ($titleDetailPart as $titleDetailElementKey => $titleDetailElement) {
             if (isset($titleDetailElement->t)) {
@@ -413,7 +413,7 @@ class Chart
 
                 $fontColor = (self::getAttribute($titleDetailElement->rPr, 'color', 'string'));
                 if (!is_null($fontColor)) {
-                    $objText->getFont()->setColor(new \PhpSpreadsheet\Style\Color(self::readColor($fontColor)));
+                    $objText->getFont()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color(self::readColor($fontColor)));
                 }
 
                 $bold = self::getAttribute($titleDetailElement->rPr, 'b', 'boolean');
@@ -438,11 +438,11 @@ class Chart
                 $underscore = (self::getAttribute($titleDetailElement->rPr, 'u', 'string'));
                 if (!is_null($underscore)) {
                     if ($underscore == 'sng') {
-                        $objText->getFont()->setUnderline(\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE);
+                        $objText->getFont()->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE);
                     } elseif ($underscore == 'dbl') {
-                        $objText->getFont()->setUnderline(\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE);
+                        $objText->getFont()->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE);
                     } else {
-                        $objText->getFont()->setUnderline(\PhpSpreadsheet\Style\Font::UNDERLINE_NONE);
+                        $objText->getFont()->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_NONE);
                     }
                 }
 
@@ -491,9 +491,9 @@ class Chart
     }
 
     /**
-     * @param \PhpSpreadsheet\Chart\Layout $plotArea
+     * @param \PhpOffice\PhpSpreadsheet\Chart\Layout $plotArea
      */
-    private static function setChartAttributes(\PhpSpreadsheet\Chart\Layout $plotArea, $plotAttributes)
+    private static function setChartAttributes(\PhpOffice\PhpSpreadsheet\Chart\Layout $plotArea, $plotAttributes)
     {
         foreach ($plotAttributes as $plotAttributeKey => $plotAttributeValue) {
             switch ($plotAttributeKey) {

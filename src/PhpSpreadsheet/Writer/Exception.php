@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Writer;
+namespace PhpOffice\PhpSpreadsheet\Writer;
 
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet
@@ -24,7 +24,7 @@ namespace PhpSpreadsheet\Writer;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class Exception extends \PhpSpreadsheet\Exception
+class Exception extends \PhpOffice\PhpSpreadsheet\Exception
 {
     /**
      * Error handler callback

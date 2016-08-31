@@ -4,7 +4,7 @@ require __DIR__ . '/Header.php';
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
-$spreadsheet = new \PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
 // Set document properties
 $helper->log('Set document properties');
@@ -28,8 +28,8 @@ $spreadsheet->getActiveSheet()->setCellValue('A1', 'Firstname:')
 
 // Define named ranges
 $helper->log('Define named ranges');
-$spreadsheet->addNamedRange(new \PhpSpreadsheet\NamedRange('PersonName', $spreadsheet->getActiveSheet(), 'B1'));
-$spreadsheet->addNamedRange(new \PhpSpreadsheet\NamedRange('PersonLN', $spreadsheet->getActiveSheet(), 'B2'));
+$spreadsheet->addNamedRange(new \PhpOffice\PhpSpreadsheet\NamedRange('PersonName', $spreadsheet->getActiveSheet(), 'B1'));
+$spreadsheet->addNamedRange(new \PhpOffice\PhpSpreadsheet\NamedRange('PersonLN', $spreadsheet->getActiveSheet(), 'B2'));
 
 // Rename named ranges
 $helper->log('Rename named ranges');

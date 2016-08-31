@@ -34,7 +34,7 @@ function hypot() {
         if (is_numeric($d)) {
             $s += pow($d, 2);
         } else {
-            throw new \PhpSpreadsheet\Calculation\Exception(JAMAError(ARGUMENT_TYPE_EXCEPTION));
+            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(ARGUMENT_TYPE_EXCEPTION));
         }
     }
     return sqrt($s);

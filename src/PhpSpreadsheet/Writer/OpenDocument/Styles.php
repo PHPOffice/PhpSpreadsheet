@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Writer\OpenDocument;
+namespace PhpOffice\PhpSpreadsheet\Writer\OpenDocument;
 
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet
@@ -29,11 +29,11 @@ class Styles extends WriterPart
     /**
      * Write styles.xml to XML format
      *
-     * @param   \PhpSpreadsheet\Spreadsheet                   $spreadsheet
-     * @throws  \PhpSpreadsheet\Writer\Exception
+     * @param   \PhpOffice\PhpSpreadsheet\Spreadsheet                   $spreadsheet
+     * @throws  \PhpOffice\PhpSpreadsheet\Writer\Exception
      * @return  string                     XML Output
      */
-    public function write(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function write(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         if (!$spreadsheet) {
             $spreadsheet = $this->getParentWriter()->getSpreadsheet();
@@ -41,9 +41,9 @@ class Styles extends WriterPart
 
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header

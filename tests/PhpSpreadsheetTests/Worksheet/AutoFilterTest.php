@@ -1,11 +1,11 @@
 <?php
 
-namespace PhpSpreadsheetTests\Worksheet;
+namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
-use PhpSpreadsheet\CachedObjectStorage\Memory;
-use PhpSpreadsheet\Worksheet;
-use PhpSpreadsheet\Worksheet\AutoFilter;
-use PhpSpreadsheet\Worksheet\AutoFilter\Column;
+use PhpOffice\PhpSpreadsheet\CachedObjectStorage\Memory;
+use PhpOffice\PhpSpreadsheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
+use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 
 class AutoFilterTest extends \PHPUnit_Framework_TestCase
 {
@@ -98,7 +98,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \PhpSpreadsheet\Exception
+     * @expectedException \PhpOffice\PhpSpreadsheet\Exception
      */
     public function testSetRangeInvalidRange()
     {
@@ -132,7 +132,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \PhpSpreadsheet\Exception
+     * @expectedException \PhpOffice\PhpSpreadsheet\Exception
      */
     public function testGetInvalidColumnOffset()
     {
@@ -150,7 +150,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(AutoFilter::class, $result);
 
         $result = $this->testAutoFilterObject->getColumns();
-        //  Result should be an array of \PhpSpreadsheet\Worksheet\AutoFilter\Column
+        //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column
         //    objects for each column we set indexed by the column ID
         $this->assertInternalType('array', $result);
         $this->assertEquals(1, count($result));
@@ -159,7 +159,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \PhpSpreadsheet\Exception
+     * @expectedException \PhpOffice\PhpSpreadsheet\Exception
      */
     public function testSetInvalidColumnWithString()
     {
@@ -178,7 +178,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(AutoFilter::class, $result);
 
         $result = $this->testAutoFilterObject->getColumns();
-        //  Result should be an array of \PhpSpreadsheet\Worksheet\AutoFilter\Column
+        //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column
         //    objects for each column we set indexed by the column ID
         $this->assertInternalType('array', $result);
         $this->assertEquals(1, count($result));
@@ -187,7 +187,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \PhpSpreadsheet\Exception
+     * @expectedException \PhpOffice\PhpSpreadsheet\Exception
      */
     public function testSetInvalidColumnWithObject()
     {
@@ -198,7 +198,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \PhpSpreadsheet\Exception
+     * @expectedException \PhpOffice\PhpSpreadsheet\Exception
      */
     public function testSetColumnWithInvalidDataType()
     {
@@ -217,7 +217,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         }
 
         $result = $this->testAutoFilterObject->getColumns();
-        //  Result should be an array of \PhpSpreadsheet\Worksheet\AutoFilter\Column
+        //  Result should be an array of \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column
         //    objects for each column we set indexed by the column ID
         $this->assertInternalType('array', $result);
         $this->assertEquals(count($columnIndexes), count($result));
@@ -236,7 +236,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         }
 
         //  If we request a specific column by its column ID, we should
-        //    get a \PhpSpreadsheet\Worksheet\AutoFilter\Column object returned
+        //    get a \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column object returned
         foreach ($columnIndexes as $columnIndex) {
             $result = $this->testAutoFilterObject->getColumn($columnIndex);
             $this->assertInstanceOf(Column::class, $result);
@@ -252,7 +252,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         ];
 
         //  If we request a specific column by its offset, we should
-        //    get a \PhpSpreadsheet\Worksheet\AutoFilter\Column object returned
+        //    get a \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column object returned
         foreach ($columnIndexes as $columnIndex => $columnID) {
             $result = $this->testAutoFilterObject->getColumnByOffset($columnIndex);
             $this->assertInstanceOf(Column::class, $result);
@@ -263,13 +263,13 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
     public function testGetColumnIfNotSet()
     {
         //  If we request a specific column by its column ID, we should
-        //    get a \PhpSpreadsheet\Worksheet\AutoFilter\Column object returned
+        //    get a \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column object returned
         $result = $this->testAutoFilterObject->getColumn('K');
         $this->assertInstanceOf(Column::class, $result);
     }
 
     /**
-     * @expectedException \PhpSpreadsheet\Exception
+     * @expectedException \PhpOffice\PhpSpreadsheet\Exception
      */
     public function testGetColumnWithoutRangeSet()
     {

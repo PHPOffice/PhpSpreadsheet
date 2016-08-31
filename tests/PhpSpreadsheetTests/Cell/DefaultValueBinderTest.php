@@ -1,11 +1,11 @@
 <?php
 
-namespace PhpSpreadsheetTests\Cell;
+namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
-use PhpSpreadsheet\Cell;
-use PhpSpreadsheet\Cell\DataType;
-use PhpSpreadsheet\Cell\DefaultValueBinder;
-use PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
+use PhpOffice\PhpSpreadsheet\RichText;
 
 class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
 {

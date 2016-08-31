@@ -4,7 +4,7 @@ require __DIR__ . '/Header.php';
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
-$spreadsheet = new \PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
 // Set document properties
 $helper->log('Set document properties');
@@ -37,7 +37,7 @@ $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
 $spreadsheet->getActiveSheet()
         ->getStyle('A2:B2')
         ->getProtection()->setLocked(
-            \PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED
+            \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED
         );
 
 // Save

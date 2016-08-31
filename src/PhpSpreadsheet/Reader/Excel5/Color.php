@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Reader\Excel5;
+namespace PhpOffice\PhpSpreadsheet\Reader\Excel5;
 
 class Color
 {
@@ -22,7 +22,7 @@ class Color
             return $palette[$color - 8];
         } else {
             // default color table
-            if ($version == \PhpSpreadsheet\Reader\Excel5::XLS_BIFF8) {
+            if ($version == \PhpOffice\PhpSpreadsheet\Reader\Excel5::XLS_BIFF8) {
                 return Color\BIFF8::lookup($color);
             } else {
                 // BIFF5

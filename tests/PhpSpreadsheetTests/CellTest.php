@@ -1,9 +1,9 @@
 <?php
 
-namespace PhpSpreadsheetTests;
+namespace PhpOffice\PhpSpreadsheetTests;
 
-use PhpSpreadsheet\Cell;
-use PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Exception;
 
 class CellTest extends \PHPUnit_Framework_TestCase
 {

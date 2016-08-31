@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet;
+namespace PhpOffice\PhpSpreadsheet;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -33,8 +33,8 @@ class IOFactory
      * @static
      */
     private static $searchLocations = [
-        ['type' => 'IWriter', 'path' => 'PhpSpreadsheet/Writer/{0}.php', 'class' => '\\PhpSpreadsheet\\Writer\\{0}'],
-        ['type' => 'IReader', 'path' => 'PhpSpreadsheet/Reader/{0}.php', 'class' => '\\PhpSpreadsheet\\Reader\\{0}'],
+        ['type' => 'IWriter', 'path' => 'PhpSpreadsheet/Writer/{0}.php', 'class' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\{0}'],
+        ['type' => 'IReader', 'path' => 'PhpSpreadsheet/Reader/{0}.php', 'class' => '\\PhpOffice\\PhpSpreadsheet\\Reader\\{0}'],
     ];
 
     /**

@@ -1,8 +1,8 @@
 <?php
 
-namespace PhpSpreadsheetTests\Shared;
+namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
-use PhpSpreadsheet\Shared\Font;
+use PhpOffice\PhpSpreadsheet\Shared\Font;
 
 class FontTest extends \PHPUnit_Framework_TestCase
 {

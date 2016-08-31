@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Style;
+namespace PhpOffice\PhpSpreadsheet\Style;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -36,7 +36,7 @@ abstract class Supervisor
     /**
      * Parent. Only used for supervisor
      *
-     * @var \PhpSpreadsheet\Style
+     * @var \PhpOffice\PhpSpreadsheet\Style
      */
     protected $parent;
 
@@ -56,7 +56,7 @@ abstract class Supervisor
     /**
      * Bind parent. Only used for supervisor
      *
-     * @param \PhpSpreadsheet\Style $parent
+     * @param \PhpOffice\PhpSpreadsheet\Style $parent
      * @return Supervisor
      */
     public function bindParent($parent, $parentPropertyName = null)
@@ -79,7 +79,7 @@ abstract class Supervisor
     /**
      * Get the currently active sheet. Only used for supervisor
      *
-     * @return \PhpSpreadsheet\Worksheet
+     * @return \PhpOffice\PhpSpreadsheet\Worksheet
      */
     public function getActiveSheet()
     {

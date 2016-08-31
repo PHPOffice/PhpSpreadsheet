@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Writer\Excel2007;
+namespace PhpOffice\PhpSpreadsheet\Writer\Excel2007;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -29,18 +29,18 @@ class Style extends WriterPart
     /**
      * Write styles to XML format
      *
-     * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      * @return string  XML Output
      */
-    public function writeStyles(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function writeStyles(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -159,15 +159,15 @@ class Style extends WriterPart
     /**
      * Write Fill
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter     $objWriter         XML Writer
-     * @param     \PhpSpreadsheet\Style\Fill            $pFill            Fill style
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter     $objWriter         XML Writer
+     * @param     \PhpOffice\PhpSpreadsheet\Style\Fill            $pFill            Fill style
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeFill(\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpSpreadsheet\Style\Fill $pFill = null)
+    private function writeFill(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpOffice\PhpSpreadsheet\Style\Fill $pFill = null)
     {
         // Check if this is a pattern type or gradient type
-        if ($pFill->getFillType() === \PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR ||
-            $pFill->getFillType() === \PhpSpreadsheet\Style\Fill::FILL_GRADIENT_PATH) {
+        if ($pFill->getFillType() === \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR ||
+            $pFill->getFillType() === \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_PATH) {
             // Gradient fill
             $this->writeGradientFill($objWriter, $pFill);
         } elseif ($pFill->getFillType() !== null) {
@@ -179,11 +179,11 @@ class Style extends WriterPart
     /**
      * Write Gradient Fill
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter     $objWriter         XML Writer
-     * @param     \PhpSpreadsheet\Style\Fill            $pFill            Fill style
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter     $objWriter         XML Writer
+     * @param     \PhpOffice\PhpSpreadsheet\Style\Fill            $pFill            Fill style
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeGradientFill(\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpSpreadsheet\Style\Fill $pFill = null)
+    private function writeGradientFill(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpOffice\PhpSpreadsheet\Style\Fill $pFill = null)
     {
         // fill
         $objWriter->startElement('fill');
@@ -223,11 +223,11 @@ class Style extends WriterPart
     /**
      * Write Pattern Fill
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter            $objWriter         XML Writer
-     * @param     \PhpSpreadsheet\Style\Fill                    $pFill            Fill style
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter            $objWriter         XML Writer
+     * @param     \PhpOffice\PhpSpreadsheet\Style\Fill                    $pFill            Fill style
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writePatternFill(\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpSpreadsheet\Style\Fill $pFill = null)
+    private function writePatternFill(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpOffice\PhpSpreadsheet\Style\Fill $pFill = null)
     {
         // fill
         $objWriter->startElement('fill');
@@ -236,7 +236,7 @@ class Style extends WriterPart
         $objWriter->startElement('patternFill');
         $objWriter->writeAttribute('patternType', $pFill->getFillType());
 
-        if ($pFill->getFillType() !== \PhpSpreadsheet\Style\Fill::FILL_NONE) {
+        if ($pFill->getFillType() !== \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_NONE) {
             // fgColor
             if ($pFill->getStartColor()->getARGB()) {
                 $objWriter->startElement('fgColor');
@@ -244,7 +244,7 @@ class Style extends WriterPart
                 $objWriter->endElement();
             }
         }
-        if ($pFill->getFillType() !== \PhpSpreadsheet\Style\Fill::FILL_NONE) {
+        if ($pFill->getFillType() !== \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_NONE) {
             // bgColor
             if ($pFill->getEndColor()->getARGB()) {
                 $objWriter->startElement('bgColor');
@@ -261,11 +261,11 @@ class Style extends WriterPart
     /**
      * Write Font
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter        $objWriter         XML Writer
-     * @param     \PhpSpreadsheet\Style\Font                $pFont            Font style
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter        $objWriter         XML Writer
+     * @param     \PhpOffice\PhpSpreadsheet\Style\Font                $pFont            Font style
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeFont(\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpSpreadsheet\Style\Font $pFont = null)
+    private function writeFont(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpOffice\PhpSpreadsheet\Style\Font $pFont = null)
     {
         // font
         $objWriter->startElement('font');
@@ -341,25 +341,25 @@ class Style extends WriterPart
     /**
      * Write Border
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter            $objWriter         XML Writer
-     * @param     \PhpSpreadsheet\Style\Borders                $pBorders        Borders style
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter            $objWriter         XML Writer
+     * @param     \PhpOffice\PhpSpreadsheet\Style\Borders                $pBorders        Borders style
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeBorder(\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpSpreadsheet\Style\Borders $pBorders = null)
+    private function writeBorder(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpOffice\PhpSpreadsheet\Style\Borders $pBorders = null)
     {
         // Write border
         $objWriter->startElement('border');
         // Diagonal?
         switch ($pBorders->getDiagonalDirection()) {
-            case \PhpSpreadsheet\Style\Borders::DIAGONAL_UP:
+            case \PhpOffice\PhpSpreadsheet\Style\Borders::DIAGONAL_UP:
                 $objWriter->writeAttribute('diagonalUp', 'true');
                 $objWriter->writeAttribute('diagonalDown', 'false');
                 break;
-            case \PhpSpreadsheet\Style\Borders::DIAGONAL_DOWN:
+            case \PhpOffice\PhpSpreadsheet\Style\Borders::DIAGONAL_DOWN:
                 $objWriter->writeAttribute('diagonalUp', 'false');
                 $objWriter->writeAttribute('diagonalDown', 'true');
                 break;
-            case \PhpSpreadsheet\Style\Borders::DIAGONAL_BOTH:
+            case \PhpOffice\PhpSpreadsheet\Style\Borders::DIAGONAL_BOTH:
                 $objWriter->writeAttribute('diagonalUp', 'true');
                 $objWriter->writeAttribute('diagonalDown', 'true');
                 break;
@@ -377,12 +377,12 @@ class Style extends WriterPart
     /**
      * Write Cell Style Xf
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter            $objWriter         XML Writer
-     * @param     \PhpSpreadsheet\Style                        $pStyle            Style
-     * @param \PhpSpreadsheet\SpreadSheet     $spreadsheet        Workbook
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter            $objWriter         XML Writer
+     * @param     \PhpOffice\PhpSpreadsheet\Style                        $pStyle            Style
+     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet     $spreadsheet        Workbook
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeCellStyleXf(\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpSpreadsheet\Style $pStyle = null, \PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    private function writeCellStyleXf(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpOffice\PhpSpreadsheet\Style $pStyle = null, \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         // xf
         $objWriter->startElement('xf');
@@ -407,7 +407,7 @@ class Style extends WriterPart
         $objWriter->writeAttribute('applyFill', ($spreadsheet->getDefaultStyle()->getFill()->getHashCode() != $pStyle->getFill()->getHashCode()) ? '1' : '0');
         $objWriter->writeAttribute('applyBorder', ($spreadsheet->getDefaultStyle()->getBorders()->getHashCode() != $pStyle->getBorders()->getHashCode()) ? '1' : '0');
         $objWriter->writeAttribute('applyAlignment', ($spreadsheet->getDefaultStyle()->getAlignment()->getHashCode() != $pStyle->getAlignment()->getHashCode()) ? '1' : '0');
-        if ($pStyle->getProtection()->getLocked() != \PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT || $pStyle->getProtection()->getHidden() != \PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT) {
+        if ($pStyle->getProtection()->getLocked() != \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT || $pStyle->getProtection()->getHidden() != \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT) {
             $objWriter->writeAttribute('applyProtection', 'true');
         }
 
@@ -436,13 +436,13 @@ class Style extends WriterPart
         $objWriter->endElement();
 
         // protection
-        if ($pStyle->getProtection()->getLocked() != \PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT || $pStyle->getProtection()->getHidden() != \PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT) {
+        if ($pStyle->getProtection()->getLocked() != \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT || $pStyle->getProtection()->getHidden() != \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT) {
             $objWriter->startElement('protection');
-            if ($pStyle->getProtection()->getLocked() != \PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT) {
-                $objWriter->writeAttribute('locked', ($pStyle->getProtection()->getLocked() == \PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED ? 'true' : 'false'));
+            if ($pStyle->getProtection()->getLocked() != \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT) {
+                $objWriter->writeAttribute('locked', ($pStyle->getProtection()->getLocked() == \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED ? 'true' : 'false'));
             }
-            if ($pStyle->getProtection()->getHidden() != \PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT) {
-                $objWriter->writeAttribute('hidden', ($pStyle->getProtection()->getHidden() == \PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED ? 'true' : 'false'));
+            if ($pStyle->getProtection()->getHidden() != \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT) {
+                $objWriter->writeAttribute('hidden', ($pStyle->getProtection()->getHidden() == \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED ? 'true' : 'false'));
             }
             $objWriter->endElement();
         }
@@ -453,11 +453,11 @@ class Style extends WriterPart
     /**
      * Write Cell Style Dxf
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter         $objWriter         XML Writer
-     * @param     \PhpSpreadsheet\Style                    $pStyle            Style
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter         $objWriter         XML Writer
+     * @param     \PhpOffice\PhpSpreadsheet\Style                    $pStyle            Style
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeCellStyleDxf(\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpSpreadsheet\Style $pStyle = null)
+    private function writeCellStyleDxf(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpOffice\PhpSpreadsheet\Style $pStyle = null)
     {
         // dxf
         $objWriter->startElement('dxf');
@@ -496,16 +496,16 @@ class Style extends WriterPart
 
         // protection
         if (($pStyle->getProtection()->getLocked() !== null) || ($pStyle->getProtection()->getHidden() !== null)) {
-            if ($pStyle->getProtection()->getLocked() !== \PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT ||
-                $pStyle->getProtection()->getHidden() !== \PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT) {
+            if ($pStyle->getProtection()->getLocked() !== \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT ||
+                $pStyle->getProtection()->getHidden() !== \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT) {
                 $objWriter->startElement('protection');
                 if (($pStyle->getProtection()->getLocked() !== null) &&
-                    ($pStyle->getProtection()->getLocked() !== \PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT)) {
-                    $objWriter->writeAttribute('locked', ($pStyle->getProtection()->getLocked() == \PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED ? 'true' : 'false'));
+                    ($pStyle->getProtection()->getLocked() !== \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT)) {
+                    $objWriter->writeAttribute('locked', ($pStyle->getProtection()->getLocked() == \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED ? 'true' : 'false'));
                 }
                 if (($pStyle->getProtection()->getHidden() !== null) &&
-                    ($pStyle->getProtection()->getHidden() !== \PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT)) {
-                    $objWriter->writeAttribute('hidden', ($pStyle->getProtection()->getHidden() == \PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED ? 'true' : 'false'));
+                    ($pStyle->getProtection()->getHidden() !== \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT)) {
+                    $objWriter->writeAttribute('hidden', ($pStyle->getProtection()->getHidden() == \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED ? 'true' : 'false'));
                 }
                 $objWriter->endElement();
             }
@@ -517,15 +517,15 @@ class Style extends WriterPart
     /**
      * Write BorderPr
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter        $objWriter         XML Writer
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter        $objWriter         XML Writer
      * @param     string                            $pName            Element name
-     * @param     \PhpSpreadsheet\Style\Border            $pBorder        Border style
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param     \PhpOffice\PhpSpreadsheet\Style\Border            $pBorder        Border style
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeBorderPr(\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pName = 'left', \PhpSpreadsheet\Style\Border $pBorder = null)
+    private function writeBorderPr(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pName = 'left', \PhpOffice\PhpSpreadsheet\Style\Border $pBorder = null)
     {
         // Write BorderPr
-        if ($pBorder->getBorderStyle() != \PhpSpreadsheet\Style\Border::BORDER_NONE) {
+        if ($pBorder->getBorderStyle() != \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE) {
             $objWriter->startElement($pName);
             $objWriter->writeAttribute('style', $pBorder->getBorderStyle());
 
@@ -541,12 +541,12 @@ class Style extends WriterPart
     /**
      * Write NumberFormat
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter            $objWriter         XML Writer
-     * @param     \PhpSpreadsheet\Style\NumberFormat            $pNumberFormat    Number Format
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter            $objWriter         XML Writer
+     * @param     \PhpOffice\PhpSpreadsheet\Style\NumberFormat            $pNumberFormat    Number Format
      * @param     int                                    $pId            Number Format identifier
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeNumFmt(\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpSpreadsheet\Style\NumberFormat $pNumberFormat = null, $pId = 0)
+    private function writeNumFmt(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpOffice\PhpSpreadsheet\Style\NumberFormat $pNumberFormat = null, $pId = 0)
     {
         // Translate formatcode
         $formatCode = $pNumberFormat->getFormatCode();
@@ -563,11 +563,11 @@ class Style extends WriterPart
     /**
      * Get an array of all styles
      *
-     * @param     \PhpSpreadsheet\Spreadsheet                $spreadsheet
-     * @throws     \PhpSpreadsheet\Writer\Exception
-     * @return     \PhpSpreadsheet\Style[]        All styles in PhpSpreadsheet
+     * @param     \PhpOffice\PhpSpreadsheet\Spreadsheet                $spreadsheet
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @return     \PhpOffice\PhpSpreadsheet\Style[]        All styles in PhpSpreadsheet
      */
-    public function allStyles(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function allStyles(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         return $spreadsheet->getCellXfCollection();
     }
@@ -575,11 +575,11 @@ class Style extends WriterPart
     /**
      * Get an array of all conditional styles
      *
-     * @param \PhpSpreadsheet\SpreadSheet     $spreadsheet
-     * @throws     \PhpSpreadsheet\Writer\Exception
-     * @return     \PhpSpreadsheet\Style\Conditional[]        All conditional styles in PhpSpreadsheet
+     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet     $spreadsheet
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @return     \PhpOffice\PhpSpreadsheet\Style\Conditional[]        All conditional styles in PhpSpreadsheet
      */
-    public function allConditionalStyles(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function allConditionalStyles(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         // Get an array of all styles
         $aStyles = [];
@@ -599,26 +599,26 @@ class Style extends WriterPart
     /**
      * Get an array of all fills
      *
-     * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @throws     \PhpSpreadsheet\Writer\Exception
-     * @return     \PhpSpreadsheet\Style\Fill[]        All fills in PhpSpreadsheet
+     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @return     \PhpOffice\PhpSpreadsheet\Style\Fill[]        All fills in PhpSpreadsheet
      */
-    public function allFills(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function allFills(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         // Get an array of unique fills
         $aFills = [];
 
         // Two first fills are predefined
-        $fill0 = new \PhpSpreadsheet\Style\Fill();
-        $fill0->setFillType(\PhpSpreadsheet\Style\Fill::FILL_NONE);
+        $fill0 = new \PhpOffice\PhpSpreadsheet\Style\Fill();
+        $fill0->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_NONE);
         $aFills[] = $fill0;
 
-        $fill1 = new \PhpSpreadsheet\Style\Fill();
-        $fill1->setFillType(\PhpSpreadsheet\Style\Fill::FILL_PATTERN_GRAY125);
+        $fill1 = new \PhpOffice\PhpSpreadsheet\Style\Fill();
+        $fill1->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_GRAY125);
         $aFills[] = $fill1;
         // The remaining fills
         $aStyles = $this->allStyles($spreadsheet);
-        /** @var \PhpSpreadsheet\Style $style */
+        /** @var \PhpOffice\PhpSpreadsheet\Style $style */
         foreach ($aStyles as $style) {
             if (!array_key_exists($style->getFill()->getHashCode(), $aFills)) {
                 $aFills[$style->getFill()->getHashCode()] = $style->getFill();
@@ -631,17 +631,17 @@ class Style extends WriterPart
     /**
      * Get an array of all fonts
      *
-     * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @throws     \PhpSpreadsheet\Writer\Exception
-     * @return     \PhpSpreadsheet\Style\Font[]        All fonts in PhpSpreadsheet
+     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @return     \PhpOffice\PhpSpreadsheet\Style\Font[]        All fonts in PhpSpreadsheet
      */
-    public function allFonts(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function allFonts(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         // Get an array of unique fonts
         $aFonts = [];
         $aStyles = $this->allStyles($spreadsheet);
 
-        /** @var \PhpSpreadsheet\Style $style */
+        /** @var \PhpOffice\PhpSpreadsheet\Style $style */
         foreach ($aStyles as $style) {
             if (!array_key_exists($style->getFont()->getHashCode(), $aFonts)) {
                 $aFonts[$style->getFont()->getHashCode()] = $style->getFont();
@@ -654,17 +654,17 @@ class Style extends WriterPart
     /**
      * Get an array of all borders
      *
-     * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @throws     \PhpSpreadsheet\Writer\Exception
-     * @return     \PhpSpreadsheet\Style\Borders[]        All borders in PhpSpreadsheet
+     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @return     \PhpOffice\PhpSpreadsheet\Style\Borders[]        All borders in PhpSpreadsheet
      */
-    public function allBorders(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function allBorders(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         // Get an array of unique borders
         $aBorders = [];
         $aStyles = $this->allStyles($spreadsheet);
 
-        /** @var \PhpSpreadsheet\Style $style */
+        /** @var \PhpOffice\PhpSpreadsheet\Style $style */
         foreach ($aStyles as $style) {
             if (!array_key_exists($style->getBorders()->getHashCode(), $aBorders)) {
                 $aBorders[$style->getBorders()->getHashCode()] = $style->getBorders();
@@ -677,17 +677,17 @@ class Style extends WriterPart
     /**
      * Get an array of all number formats
      *
-     * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @throws     \PhpSpreadsheet\Writer\Exception
-     * @return     \PhpSpreadsheet\Style\NumberFormat[]        All number formats in PhpSpreadsheet
+     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @return     \PhpOffice\PhpSpreadsheet\Style\NumberFormat[]        All number formats in PhpSpreadsheet
      */
-    public function allNumberFormats(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function allNumberFormats(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         // Get an array of unique number formats
         $aNumFmts = [];
         $aStyles = $this->allStyles($spreadsheet);
 
-        /** @var \PhpSpreadsheet\Style $style */
+        /** @var \PhpOffice\PhpSpreadsheet\Style $style */
         foreach ($aStyles as $style) {
             if ($style->getNumberFormat()->getBuiltInFormatCode() === false && !array_key_exists($style->getNumberFormat()->getHashCode(), $aNumFmts)) {
                 $aNumFmts[$style->getNumberFormat()->getHashCode()] = $style->getNumberFormat();

@@ -1,9 +1,9 @@
 <?php
 
-namespace PhpSpreadsheetTests\Calculation;
+namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
-use PhpSpreadsheet\Calculation\Financial;
-use PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class FinancialTest extends \PHPUnit_Framework_TestCase
 {

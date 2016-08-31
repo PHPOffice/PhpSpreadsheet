@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Chart;
+namespace PhpOffice\PhpSpreadsheet\Chart;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -24,7 +24,7 @@ namespace PhpSpreadsheet\Chart;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class Exception extends \PhpSpreadsheet\Exception
+class Exception extends \PhpOffice\PhpSpreadsheet\Exception
 {
     /**
      * Error handler callback

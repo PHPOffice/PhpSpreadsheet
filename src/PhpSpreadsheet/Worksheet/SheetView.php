@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Worksheet;
+namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -87,7 +87,7 @@ class SheetView
      * Valid values range from 10 to 400.
      *
      * @param   int     $pValue
-     * @throws  \PhpSpreadsheet\Exception
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
      * @return  SheetView
      */
     public function setZoomScale($pValue = 100)
@@ -97,7 +97,7 @@ class SheetView
         if (($pValue >= 1) || is_null($pValue)) {
             $this->zoomScale = $pValue;
         } else {
-            throw new \PhpSpreadsheet\Exception('Scale must be greater than or equal to 1.');
+            throw new \PhpOffice\PhpSpreadsheet\Exception('Scale must be greater than or equal to 1.');
         }
 
         return $this;
@@ -119,7 +119,7 @@ class SheetView
      * Valid values range from 10 to 400.
      *
      * @param   int     $pValue
-     * @throws  \PhpSpreadsheet\Exception
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
      * @return  SheetView
      */
     public function setZoomScaleNormal($pValue = 100)
@@ -127,7 +127,7 @@ class SheetView
         if (($pValue >= 1) || is_null($pValue)) {
             $this->zoomScaleNormal = $pValue;
         } else {
-            throw new \PhpSpreadsheet\Exception('Scale must be greater than or equal to 1.');
+            throw new \PhpOffice\PhpSpreadsheet\Exception('Scale must be greater than or equal to 1.');
         }
 
         return $this;
@@ -152,7 +152,7 @@ class SheetView
      *        'pageBreakPreview'  self::SHEETVIEW_PAGE_BREAK_PREVIEW
      *
      * @param    string     $pValue
-     * @throws   \PhpSpreadsheet\Exception
+     * @throws   \PhpOffice\PhpSpreadsheet\Exception
      * @return   SheetView
      */
     public function setView($pValue = null)
@@ -164,7 +164,7 @@ class SheetView
         if (in_array($pValue, self::$sheetViewTypes)) {
             $this->sheetviewType = $pValue;
         } else {
-            throw new \PhpSpreadsheet\Exception('Invalid sheetview layout type.');
+            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid sheetview layout type.');
         }
 
         return $this;

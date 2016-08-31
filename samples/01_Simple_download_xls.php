@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../src/Bootstrap.php';
 
-$helper = new \PhpSpreadsheet\Helper\Sample();
+$helper = new \PhpOffice\PhpSpreadsheet\Helper\Sample();
 if ($helper->isCli()) {
     echo 'This example should only be run from a Web Browser' . PHP_EOL;
 
@@ -10,7 +10,7 @@ if ($helper->isCli()) {
 }
 
 // Create new Spreadsheet object
-$spreadsheet = new \PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
 // Set document properties
 $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
@@ -52,6 +52,6 @@ header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modifie
 header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
 header('Pragma: public'); // HTTP/1.0
 
-$writer = \PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Excel5');
+$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Excel5');
 $writer->save('php://output');
 exit;

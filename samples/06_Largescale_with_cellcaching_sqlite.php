@@ -2,8 +2,8 @@
 
 require __DIR__ . '/Header.php';
 
-$cacheMethod = \PhpSpreadsheet\CachedObjectStorageFactory::CACHE_TO_SQLITE;
-if (\PhpSpreadsheet\Settings::setCacheStorageMethod($cacheMethod)) {
+$cacheMethod = \PhpOffice\PhpSpreadsheet\CachedObjectStorageFactory::CACHE_TO_SQLITE;
+if (\PhpOffice\PhpSpreadsheet\Settings::setCacheStorageMethod($cacheMethod)) {
     $helper->log('Enable Cell Caching using ' . $cacheMethod . ' method');
 } else {
     $helper->log('ERROR: Unable to set Cell Caching using ' . $cacheMethod . ' method, reverting to memory');

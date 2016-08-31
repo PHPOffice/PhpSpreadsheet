@@ -1,8 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet\Writer;
+namespace PhpOffice\PhpSpreadsheet\Writer;
 
-use PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet
@@ -45,20 +45,20 @@ class OpenDocument extends BaseWriter implements IWriter
     /**
      * Create a new OpenDocument
      *
-     * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
      */
-    public function __construct(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function __construct(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         $this->setSpreadsheet($spreadsheet);
 
         $writerPartsArray = [
-            'content' => \PhpSpreadsheet\Writer\OpenDocument\Content::class,
-            'meta' => \PhpSpreadsheet\Writer\OpenDocument\Meta::class,
-            'meta_inf' => \PhpSpreadsheet\Writer\OpenDocument\MetaInf::class,
-            'mimetype' => \PhpSpreadsheet\Writer\OpenDocument\Mimetype::class,
-            'settings' => \PhpSpreadsheet\Writer\OpenDocument\Settings::class,
-            'styles' => \PhpSpreadsheet\Writer\OpenDocument\Styles::class,
-            'thumbnails' => \PhpSpreadsheet\Writer\OpenDocument\Thumbnails::class,
+            'content' => \PhpOffice\PhpSpreadsheet\Writer\OpenDocument\Content::class,
+            'meta' => \PhpOffice\PhpSpreadsheet\Writer\OpenDocument\Meta::class,
+            'meta_inf' => \PhpOffice\PhpSpreadsheet\Writer\OpenDocument\MetaInf::class,
+            'mimetype' => \PhpOffice\PhpSpreadsheet\Writer\OpenDocument\Mimetype::class,
+            'settings' => \PhpOffice\PhpSpreadsheet\Writer\OpenDocument\Settings::class,
+            'styles' => \PhpOffice\PhpSpreadsheet\Writer\OpenDocument\Styles::class,
+            'thumbnails' => \PhpOffice\PhpSpreadsheet\Writer\OpenDocument\Thumbnails::class,
         ];
 
         foreach ($writerPartsArray as $writer => $class) {
@@ -85,12 +85,12 @@ class OpenDocument extends BaseWriter implements IWriter
      * Save PhpSpreadsheet to file
      *
      * @param  string  $pFilename
-     * @throws \PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function save($pFilename = null)
     {
         if (!$this->spreadSheet) {
-            throw new \PhpSpreadsheet\Writer\Exception('PhpSpreadsheet object unassigned.');
+            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('PhpSpreadsheet object unassigned.');
         }
 
         // garbage collect
@@ -99,7 +99,7 @@ class OpenDocument extends BaseWriter implements IWriter
         // If $pFilename is php://output or php://stdout, make it a temporary file...
         $originalFilename = $pFilename;
         if (strtolower($pFilename) == 'php://output' || strtolower($pFilename) == 'php://stdout') {
-            $pFilename = @tempnam(\PhpSpreadsheet\Shared\File::sysGetTempDir(), 'phpxltmp');
+            $pFilename = @tempnam(\PhpOffice\PhpSpreadsheet\Shared\File::sysGetTempDir(), 'phpxltmp');
             if ($pFilename == '') {
                 $pFilename = $originalFilename;
             }
@@ -117,13 +117,13 @@ class OpenDocument extends BaseWriter implements IWriter
 
         // Close file
         if ($objZip->close() === false) {
-            throw new \PhpSpreadsheet\Writer\Exception("Could not close zip file $pFilename.");
+            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Could not close zip file $pFilename.");
         }
 
         // If a temporary file was used, copy it to the correct file stream
         if ($originalFilename != $pFilename) {
             if (copy($pFilename, $originalFilename) === false) {
-                throw new \PhpSpreadsheet\Writer\Exception("Could not copy temporary zip file $pFilename to $originalFilename.");
+                throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Could not copy temporary zip file $pFilename to $originalFilename.");
             }
             @unlink($pFilename);
         }
@@ -133,13 +133,13 @@ class OpenDocument extends BaseWriter implements IWriter
      * Create zip object
      *
      * @param string $pFilename
-     * @throws \PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      * @return ZipArchive
      */
     private function createZip($pFilename)
     {
         // Create new ZIP file and open it for writing
-        $zipClass = \PhpSpreadsheet\Settings::getZipClass();
+        $zipClass = \PhpOffice\PhpSpreadsheet\Settings::getZipClass();
         $objZip = new $zipClass();
 
         // Retrieve OVERWRITE and CREATE constants from the instantiated zip class
@@ -154,7 +154,7 @@ class OpenDocument extends BaseWriter implements IWriter
         // Try opening the ZIP file
         if ($objZip->open($pFilename, $zipOverWrite) !== true) {
             if ($objZip->open($pFilename, $zipCreate) !== true) {
-                throw new \PhpSpreadsheet\Writer\Exception("Could not open $pFilename for writing.");
+                throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Could not open $pFilename for writing.");
             }
         }
 
@@ -164,7 +164,7 @@ class OpenDocument extends BaseWriter implements IWriter
     /**
      * Get Spreadsheet object
      *
-     * @throws \PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      * @return Spreadsheet
      */
     public function getSpreadsheet()
@@ -172,18 +172,18 @@ class OpenDocument extends BaseWriter implements IWriter
         if ($this->spreadSheet !== null) {
             return $this->spreadSheet;
         } else {
-            throw new \PhpSpreadsheet\Writer\Exception('No PhpSpreadsheet assigned.');
+            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('No PhpSpreadsheet assigned.');
         }
     }
 
     /**
      * Set PhpSpreadsheet object
      *
-     * @param  \PhpSpreadsheet\Spreadsheet $spreadsheet  PhpSpreadsheet object
-     * @throws \PhpSpreadsheet\Writer\Exception
+     * @param  \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet  PhpSpreadsheet object
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      * @return Excel2007
      */
-    public function setSpreadsheet(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function setSpreadsheet(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         $this->spreadSheet = $spreadsheet;
 

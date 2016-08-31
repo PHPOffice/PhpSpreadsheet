@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Calculation;
+namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -94,9 +94,9 @@ class Logical
                 $returnValue = $returnValue && ($arg != 0);
             } elseif (is_string($arg)) {
                 $arg = strtoupper($arg);
-                if (($arg == 'TRUE') || ($arg == \PhpSpreadsheet\Calculation::getTRUE())) {
+                if (($arg == 'TRUE') || ($arg == \PhpOffice\PhpSpreadsheet\Calculation::getTRUE())) {
                     $arg = true;
-                } elseif (($arg == 'FALSE') || ($arg == \PhpSpreadsheet\Calculation::getFALSE())) {
+                } elseif (($arg == 'FALSE') || ($arg == \PhpOffice\PhpSpreadsheet\Calculation::getFALSE())) {
                     $arg = false;
                 } else {
                     return Functions::VALUE();
@@ -149,9 +149,9 @@ class Logical
                 $returnValue = $returnValue || ($arg != 0);
             } elseif (is_string($arg)) {
                 $arg = strtoupper($arg);
-                if (($arg == 'TRUE') || ($arg == \PhpSpreadsheet\Calculation::getTRUE())) {
+                if (($arg == 'TRUE') || ($arg == \PhpOffice\PhpSpreadsheet\Calculation::getTRUE())) {
                     $arg = true;
-                } elseif (($arg == 'FALSE') || ($arg == \PhpSpreadsheet\Calculation::getFALSE())) {
+                } elseif (($arg == 'FALSE') || ($arg == \PhpOffice\PhpSpreadsheet\Calculation::getFALSE())) {
                     $arg = false;
                 } else {
                     return Functions::VALUE();
@@ -192,9 +192,9 @@ class Logical
         $logical = Functions::flattenSingleValue($logical);
         if (is_string($logical)) {
             $logical = strtoupper($logical);
-            if (($logical == 'TRUE') || ($logical == \PhpSpreadsheet\Calculation::getTRUE())) {
+            if (($logical == 'TRUE') || ($logical == \PhpOffice\PhpSpreadsheet\Calculation::getTRUE())) {
                 return false;
-            } elseif (($logical == 'FALSE') || ($logical == \PhpSpreadsheet\Calculation::getFALSE())) {
+            } elseif (($logical == 'FALSE') || ($logical == \PhpOffice\PhpSpreadsheet\Calculation::getFALSE())) {
                 return true;
             } else {
                 return Functions::VALUE();

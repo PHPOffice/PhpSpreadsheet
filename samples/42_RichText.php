@@ -4,7 +4,7 @@ require __DIR__ . '/Header.php';
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
-$spreadsheet = new \PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
 // Set document properties
 $helper->log('Set document properties');
@@ -48,7 +48,7 @@ $html4 = 'H<sub>2</sub>SO<sub>4</sub> is the chemical formula for Sulphuric acid
 
 $html5 = '<strong>bold</strong>, <em>italic</em>, <strong><em>bold+italic</em></strong>';
 
-$wizard = new \PhpSpreadsheet\Helper\HTML();
+$wizard = new \PhpOffice\PhpSpreadsheet\Helper\HTML();
 $richText = $wizard->toRichTextObject($html1);
 
 $spreadsheet->getActiveSheet()

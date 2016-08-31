@@ -4,7 +4,7 @@ require __DIR__ . '/Header.php';
 $spreadsheet = require __DIR__ . '/templates/sampleSpreadsheet.php';
 
 $helper->log('Write to CSV format');
-$writer = \PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'CSV')->setDelimiter(',')
+$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'CSV')->setDelimiter(',')
         ->setEnclosure('"')
         ->setSheetIndex(0);
 
@@ -15,7 +15,7 @@ $helper->logWrite($writer, $filename, $callStartTime);
 
 $helper->log('Read from CSV format');
 
-$reader = \PhpSpreadsheet\IOFactory::createReader('CSV')->setDelimiter(',')
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('CSV')->setDelimiter(',')
         ->setEnclosure('"')
         ->setSheetIndex(0);
 
@@ -28,7 +28,7 @@ $helper->write($spreadsheetFromCSV, __FILE__, ['Excel2007' => 'xlsx']);
 
 // Write CSV
 $filenameCSV = $helper->getFilename(__FILE__, 'csv');
-$writerCSV = \PhpSpreadsheet\IOFactory::createWriter($spreadsheetFromCSV, 'CSV');
+$writerCSV = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheetFromCSV, 'CSV');
 $writerCSV->setExcelCompatibility(true);
 
 $callStartTime = microtime(true);

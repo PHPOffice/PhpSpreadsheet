@@ -1,9 +1,9 @@
 <?php
 
-namespace PhpSpreadsheetTests;
+namespace PhpOffice\PhpSpreadsheetTests;
 
-use PhpSpreadsheet\Calculation;
-use PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class CalculationTest extends \PHPUnit_Framework_TestCase
 {

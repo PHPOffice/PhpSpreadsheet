@@ -4,7 +4,7 @@ require __DIR__ . '/Header.php';
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
-$spreadsheet = new \PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
 // Set document properties
 $helper->log('Set document properties');
@@ -44,7 +44,7 @@ $spreadsheet->setActiveSheetIndex(0);
 $helper->log('Write to Excel2007 format');
 
 // Use PCLZip rather than ZipArchive to create the Excel2007 OfficeOpenXML file
-PhpSpreadsheet\Settings::setZipClass(PhpSpreadsheet\Settings::PCLZIP);
+\PhpOffice\PhpSpreadsheet\Settings::setZipClass(\PhpOffice\PhpSpreadsheet\Settings::PCLZIP);
 
 // Save
 $helper->write($spreadsheet, __FILE__, ['Excel2007' => 'xlsx']);

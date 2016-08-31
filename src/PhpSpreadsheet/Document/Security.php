@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Document;
+namespace PhpOffice\PhpSpreadsheet\Document;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -169,7 +169,7 @@ class Security
     public function setRevisionsPassword($pValue = '', $pAlreadyHashed = false)
     {
         if (!$pAlreadyHashed) {
-            $pValue = \PhpSpreadsheet\Shared\PasswordHasher::hashPassword($pValue);
+            $pValue = \PhpOffice\PhpSpreadsheet\Shared\PasswordHasher::hashPassword($pValue);
         }
         $this->revisionsPassword = $pValue;
 
@@ -196,7 +196,7 @@ class Security
     public function setWorkbookPassword($pValue = '', $pAlreadyHashed = false)
     {
         if (!$pAlreadyHashed) {
-            $pValue = \PhpSpreadsheet\Shared\PasswordHasher::hashPassword($pValue);
+            $pValue = \PhpOffice\PhpSpreadsheet\Shared\PasswordHasher::hashPassword($pValue);
         }
         $this->workbookPassword = $pValue;
 

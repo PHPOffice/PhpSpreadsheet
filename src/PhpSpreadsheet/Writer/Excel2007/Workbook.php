@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Writer\Excel2007;
+namespace PhpOffice\PhpSpreadsheet\Writer\Excel2007;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -29,18 +29,18 @@ class Workbook extends WriterPart
     /**
      * Write workbook to XML format
      *
-     * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
      * @param    bool        $recalcRequired    Indicate whether formulas should be recalculated before writing
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      * @return string  XML Output
      */
-    public function writeWorkbook(\PhpSpreadsheet\SpreadSheet $spreadsheet = null, $recalcRequired = false)
+    public function writeWorkbook(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null, $recalcRequired = false)
     {
         // Create XML writer
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -84,10 +84,10 @@ class Workbook extends WriterPart
     /**
      * Write file version
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter $objWriter         XML Writer
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter         XML Writer
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeFileVersion(\PhpSpreadsheet\Shared\XMLWriter $objWriter)
+    private function writeFileVersion(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter)
     {
         $objWriter->startElement('fileVersion');
         $objWriter->writeAttribute('appName', 'xl');
@@ -100,14 +100,14 @@ class Workbook extends WriterPart
     /**
      * Write WorkbookPr
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter $objWriter         XML Writer
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter         XML Writer
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeWorkbookPr(\PhpSpreadsheet\Shared\XMLWriter $objWriter)
+    private function writeWorkbookPr(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter)
     {
         $objWriter->startElement('workbookPr');
 
-        if (\PhpSpreadsheet\Shared\Date::getExcelCalendar() == \PhpSpreadsheet\Shared\Date::CALENDAR_MAC_1904) {
+        if (\PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar() == \PhpOffice\PhpSpreadsheet\Shared\Date::CALENDAR_MAC_1904) {
             $objWriter->writeAttribute('date1904', '1');
         }
 
@@ -119,11 +119,11 @@ class Workbook extends WriterPart
     /**
      * Write BookViews
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter     $objWriter         XML Writer
-     * @param     \PhpSpreadsheet\Spreadsheet                    $spreadsheet
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter     $objWriter         XML Writer
+     * @param     \PhpOffice\PhpSpreadsheet\Spreadsheet                    $spreadsheet
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeBookViews(\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    private function writeBookViews(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         // bookViews
         $objWriter->startElement('bookViews');
@@ -149,11 +149,11 @@ class Workbook extends WriterPart
     /**
      * Write WorkbookProtection
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter     $objWriter         XML Writer
-     * @param     \PhpSpreadsheet\Spreadsheet                    $spreadsheet
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter     $objWriter         XML Writer
+     * @param     \PhpOffice\PhpSpreadsheet\Spreadsheet                    $spreadsheet
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeWorkbookProtection(\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    private function writeWorkbookProtection(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         if ($spreadsheet->getSecurity()->isSecurityEnabled()) {
             $objWriter->startElement('workbookProtection');
@@ -176,11 +176,11 @@ class Workbook extends WriterPart
     /**
      * Write calcPr
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter    $objWriter        XML Writer
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter    $objWriter        XML Writer
      * @param    bool                        $recalcRequired    Indicate whether formulas should be recalculated before writing
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeCalcPr(\PhpSpreadsheet\Shared\XMLWriter $objWriter, $recalcRequired = true)
+    private function writeCalcPr(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, $recalcRequired = true)
     {
         $objWriter->startElement('calcPr');
 
@@ -199,11 +199,11 @@ class Workbook extends WriterPart
     /**
      * Write sheets
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter     $objWriter         XML Writer
-     * @param     \PhpSpreadsheet\Spreadsheet                    $spreadsheet
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter     $objWriter         XML Writer
+     * @param     \PhpOffice\PhpSpreadsheet\Spreadsheet                    $spreadsheet
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeSheets(\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    private function writeSheets(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         // Write sheets
         $objWriter->startElement('sheets');
@@ -225,14 +225,14 @@ class Workbook extends WriterPart
     /**
      * Write sheet
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter     $objWriter         XML Writer
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter     $objWriter         XML Writer
      * @param     string                         $pSheetname         Sheet name
      * @param     int                            $pSheetId             Sheet id
      * @param     int                            $pRelId                Relationship ID
      * @param   string                      $sheetState         Sheet state (visible, hidden, veryHidden)
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeSheet(\PhpSpreadsheet\Shared\XMLWriter $objWriter, $pSheetname = '', $pSheetId = 1, $pRelId = 1, $sheetState = 'visible')
+    private function writeSheet(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, $pSheetname = '', $pSheetId = 1, $pRelId = 1, $sheetState = 'visible')
     {
         if ($pSheetname != '') {
             // Write sheet
@@ -245,18 +245,18 @@ class Workbook extends WriterPart
             $objWriter->writeAttribute('r:id', 'rId' . $pRelId);
             $objWriter->endElement();
         } else {
-            throw new \PhpSpreadsheet\Writer\Exception('Invalid parameters passed.');
+            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Invalid parameters passed.');
         }
     }
 
     /**
      * Write Defined Names
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter    $objWriter         XML Writer
-     * @param     \PhpSpreadsheet\Spreadsheet                    $spreadsheet
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter    $objWriter         XML Writer
+     * @param     \PhpOffice\PhpSpreadsheet\Spreadsheet                    $spreadsheet
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeDefinedNames(\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    private function writeDefinedNames(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         // Write defined names
         $objWriter->startElement('definedNames');
@@ -286,11 +286,11 @@ class Workbook extends WriterPart
     /**
      * Write named ranges
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter    $objWriter         XML Writer
-     * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter    $objWriter         XML Writer
+     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeNamedRanges(\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpSpreadsheet\SpreadSheet $spreadsheet)
+    private function writeNamedRanges(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
     {
         // Loop named ranges
         $namedRanges = $spreadsheet->getNamedRanges();
@@ -302,11 +302,11 @@ class Workbook extends WriterPart
     /**
      * Write Defined Name for named range
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter    $objWriter         XML Writer
-     * @param     \PhpSpreadsheet\NamedRange            $pNamedRange
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter    $objWriter         XML Writer
+     * @param     \PhpOffice\PhpSpreadsheet\NamedRange            $pNamedRange
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeDefinedNameForNamedRange(\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpSpreadsheet\NamedRange $pNamedRange)
+    private function writeDefinedNameForNamedRange(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\NamedRange $pNamedRange)
     {
         // definedName for named range
         $objWriter->startElement('definedName');
@@ -316,14 +316,14 @@ class Workbook extends WriterPart
         }
 
         // Create absolute coordinate and write as raw text
-        $range = \PhpSpreadsheet\Cell::splitRange($pNamedRange->getRange());
+        $range = \PhpOffice\PhpSpreadsheet\Cell::splitRange($pNamedRange->getRange());
         for ($i = 0; $i < count($range); ++$i) {
-            $range[$i][0] = '\'' . str_replace("'", "''", $pNamedRange->getWorksheet()->getTitle()) . '\'!' . \PhpSpreadsheet\Cell::absoluteReference($range[$i][0]);
+            $range[$i][0] = '\'' . str_replace("'", "''", $pNamedRange->getWorksheet()->getTitle()) . '\'!' . \PhpOffice\PhpSpreadsheet\Cell::absoluteReference($range[$i][0]);
             if (isset($range[$i][1])) {
-                $range[$i][1] = \PhpSpreadsheet\Cell::absoluteReference($range[$i][1]);
+                $range[$i][1] = \PhpOffice\PhpSpreadsheet\Cell::absoluteReference($range[$i][1]);
             }
         }
-        $range = \PhpSpreadsheet\Cell::buildRange($range);
+        $range = \PhpOffice\PhpSpreadsheet\Cell::buildRange($range);
 
         $objWriter->writeRawData($range);
 
@@ -333,12 +333,12 @@ class Workbook extends WriterPart
     /**
      * Write Defined Name for autoFilter
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter    $objWriter         XML Writer
-     * @param     \PhpSpreadsheet\Worksheet            $pSheet
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter    $objWriter         XML Writer
+     * @param     \PhpOffice\PhpSpreadsheet\Worksheet            $pSheet
      * @param     int                            $pSheetId
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeDefinedNameForAutofilter(\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpSpreadsheet\Worksheet $pSheet = null, $pSheetId = 0)
+    private function writeDefinedNameForAutofilter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Worksheet $pSheet = null, $pSheetId = 0)
     {
         // definedName for autoFilter
         $autoFilterRange = $pSheet->getAutoFilter()->getRange();
@@ -349,15 +349,15 @@ class Workbook extends WriterPart
             $objWriter->writeAttribute('hidden', '1');
 
             // Create absolute coordinate and write as raw text
-            $range = \PhpSpreadsheet\Cell::splitRange($autoFilterRange);
+            $range = \PhpOffice\PhpSpreadsheet\Cell::splitRange($autoFilterRange);
             $range = $range[0];
             //    Strip any worksheet ref so we can make the cell ref absolute
             if (strpos($range[0], '!') !== false) {
                 list($ws, $range[0]) = explode('!', $range[0]);
             }
 
-            $range[0] = \PhpSpreadsheet\Cell::absoluteCoordinate($range[0]);
-            $range[1] = \PhpSpreadsheet\Cell::absoluteCoordinate($range[1]);
+            $range[0] = \PhpOffice\PhpSpreadsheet\Cell::absoluteCoordinate($range[0]);
+            $range[1] = \PhpOffice\PhpSpreadsheet\Cell::absoluteCoordinate($range[1]);
             $range = implode(':', $range);
 
             $objWriter->writeRawData('\'' . str_replace("'", "''", $pSheet->getTitle()) . '\'!' . $range);
@@ -369,12 +369,12 @@ class Workbook extends WriterPart
     /**
      * Write Defined Name for PrintTitles
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter    $objWriter         XML Writer
-     * @param     \PhpSpreadsheet\Worksheet            $pSheet
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter    $objWriter         XML Writer
+     * @param     \PhpOffice\PhpSpreadsheet\Worksheet            $pSheet
      * @param     int                            $pSheetId
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeDefinedNameForPrintTitles(\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpSpreadsheet\Worksheet $pSheet = null, $pSheetId = 0)
+    private function writeDefinedNameForPrintTitles(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Worksheet $pSheet = null, $pSheetId = 0)
     {
         // definedName for PrintTitles
         if ($pSheet->getPageSetup()->isColumnsToRepeatAtLeftSet() || $pSheet->getPageSetup()->isRowsToRepeatAtTopSet()) {
@@ -412,12 +412,12 @@ class Workbook extends WriterPart
     /**
      * Write Defined Name for PrintTitles
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter    $objWriter         XML Writer
-     * @param     \PhpSpreadsheet\Worksheet            $pSheet
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter    $objWriter         XML Writer
+     * @param     \PhpOffice\PhpSpreadsheet\Worksheet            $pSheet
      * @param     int                            $pSheetId
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeDefinedNameForPrintArea(\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpSpreadsheet\Worksheet $pSheet = null, $pSheetId = 0)
+    private function writeDefinedNameForPrintArea(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Worksheet $pSheet = null, $pSheetId = 0)
     {
         // definedName for PrintArea
         if ($pSheet->getPageSetup()->isPrintAreaSet()) {
@@ -429,12 +429,12 @@ class Workbook extends WriterPart
             $settingString = '';
 
             // Print area
-            $printArea = \PhpSpreadsheet\Cell::splitRange($pSheet->getPageSetup()->getPrintArea());
+            $printArea = \PhpOffice\PhpSpreadsheet\Cell::splitRange($pSheet->getPageSetup()->getPrintArea());
 
             $chunks = [];
             foreach ($printArea as $printAreaRect) {
-                $printAreaRect[0] = \PhpSpreadsheet\Cell::absoluteReference($printAreaRect[0]);
-                $printAreaRect[1] = \PhpSpreadsheet\Cell::absoluteReference($printAreaRect[1]);
+                $printAreaRect[0] = \PhpOffice\PhpSpreadsheet\Cell::absoluteReference($printAreaRect[0]);
+                $printAreaRect[1] = \PhpOffice\PhpSpreadsheet\Cell::absoluteReference($printAreaRect[1]);
                 $chunks[] = '\'' . str_replace("'", "''", $pSheet->getTitle()) . '\'!' . implode(':', $printAreaRect);
             }
 

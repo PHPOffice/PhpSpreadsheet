@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared\Escher\DggContainer;
+namespace PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet

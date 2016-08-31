@@ -1,13 +1,13 @@
 <?php
 
-namespace PhpSpreadsheet\Writer\PDF;
+namespace PhpOffice\PhpSpreadsheet\Writer\PDF;
 
 /*  Require mPDF library */
-$pdfRendererClassFile = \PhpSpreadsheet\Settings::getPdfRendererPath() . '/mpdf.php';
+$pdfRendererClassFile = \PhpOffice\PhpSpreadsheet\Settings::getPdfRendererPath() . '/mpdf.php';
 if (file_exists($pdfRendererClassFile)) {
     require_once $pdfRendererClassFile;
 } else {
-    throw new \PhpSpreadsheet\Writer\Exception('Unable to load PDF Rendering library');
+    throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Unable to load PDF Rendering library');
 }
 
 /**
@@ -32,14 +32,14 @@ if (file_exists($pdfRendererClassFile)) {
  *  @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  *  @version     ##VERSION##, ##DATE##
  */
-class MPDF extends Core implements \PhpSpreadsheet\Writer\IWriter
+class MPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
 {
     /**
      *  Create a mPDF Writer instance
      *
-     *  @param  \PhpSpreadsheet\Spreadsheet  $spreadsheet  Spreadsheet object
+     *  @param  \PhpOffice\PhpSpreadsheet\Spreadsheet  $spreadsheet  Spreadsheet object
      */
-    public function __construct(\PhpSpreadsheet\Spreadsheet $spreadsheet)
+    public function __construct(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
     {
         parent::__construct($spreadsheet);
     }
@@ -48,7 +48,7 @@ class MPDF extends Core implements \PhpSpreadsheet\Writer\IWriter
      *  Save Spreadsheet to file
      *
      *  @param     string     $pFilename   Name of the file to save as
-     *  @throws    \PhpSpreadsheet\Writer\Exception
+     *  @throws    \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function save($pFilename = null)
     {
@@ -60,12 +60,12 @@ class MPDF extends Core implements \PhpSpreadsheet\Writer\IWriter
         //  Check for paper size and page orientation
         if (is_null($this->getSheetIndex())) {
             $orientation = ($this->spreadsheet->getSheet(0)->getPageSetup()->getOrientation()
-                == \PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
+                == \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
             $printPaperSize = $this->spreadsheet->getSheet(0)->getPageSetup()->getPaperSize();
             $printMargins = $this->spreadsheet->getSheet(0)->getPageMargins();
         } else {
             $orientation = ($this->spreadsheet->getSheet($this->getSheetIndex())->getPageSetup()->getOrientation()
-                == \PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
+                == \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
             $printPaperSize = $this->spreadsheet->getSheet($this->getSheetIndex())->getPageSetup()->getPaperSize();
             $printMargins = $this->spreadsheet->getSheet($this->getSheetIndex())->getPageMargins();
         }
@@ -73,8 +73,8 @@ class MPDF extends Core implements \PhpSpreadsheet\Writer\IWriter
 
         //  Override Page Orientation
         if (!is_null($this->getOrientation())) {
-            $orientation = ($this->getOrientation() == \PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_DEFAULT)
-                ? \PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_PORTRAIT
+            $orientation = ($this->getOrientation() == \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_DEFAULT)
+                ? \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_PORTRAIT
                 : $this->getOrientation();
         }
         $orientation = strtoupper($orientation);

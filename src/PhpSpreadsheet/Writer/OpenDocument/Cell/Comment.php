@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Writer\OpenDocument\Cell;
+namespace PhpOffice\PhpSpreadsheet\Writer\OpenDocument\Cell;
 
 /**
  * PhpSpreadsheet
@@ -34,7 +34,7 @@ namespace PhpSpreadsheet\Writer\OpenDocument\Cell;
  */
 class Comment
 {
-    public static function write(\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpSpreadsheet\Cell $cell)
+    public static function write(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Cell $cell)
     {
         $comments = $cell->getWorksheet()->getComments();
         if (!isset($comments[$cell->getCoordinate()])) {

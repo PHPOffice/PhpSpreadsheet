@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared\Escher;
+namespace PhpOffice\PhpSpreadsheet\Shared\Escher;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet

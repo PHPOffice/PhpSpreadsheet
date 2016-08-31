@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Worksheet;
+namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -565,7 +565,7 @@ class Protection
     public function setPassword($pValue = '', $pAlreadyHashed = false)
     {
         if (!$pAlreadyHashed) {
-            $pValue = \PhpSpreadsheet\Shared\PasswordHasher::hashPassword($pValue);
+            $pValue = \PhpOffice\PhpSpreadsheet\Shared\PasswordHasher::hashPassword($pValue);
         }
         $this->password = $pValue;
 

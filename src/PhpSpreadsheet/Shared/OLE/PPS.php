@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared\OLE;
+namespace PhpOffice\PhpSpreadsheet\Shared\OLE;
 
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
 // +----------------------------------------------------------------------+
@@ -174,8 +174,8 @@ class PPS
               . "\xc0\x00\x00\x00"                  // 92
               . "\x00\x00\x00\x46"                  // 96 // Seems to be ok only for Root
               . "\x00\x00\x00\x00"                  // 100
-              . \PhpSpreadsheet\Shared\OLE::localDateToOLE($this->Time1st)          // 108
-              . \PhpSpreadsheet\Shared\OLE::localDateToOLE($this->Time2nd)          // 116
+              . \PhpOffice\PhpSpreadsheet\Shared\OLE::localDateToOLE($this->Time1st)          // 108
+              . \PhpOffice\PhpSpreadsheet\Shared\OLE::localDateToOLE($this->Time2nd)          // 116
               . pack('V', isset($this->startBlock) ? $this->startBlock : 0)  // 120
               . pack('V', $this->Size)               // 124
               . pack('V', 0); // 128

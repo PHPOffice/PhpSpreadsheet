@@ -1,8 +1,8 @@
 <?php
 
-namespace PhpSpreadsheetTests\Custom;
+namespace PhpOffice\PhpSpreadsheetTests\Custom;
 
-use PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Exception;
 
 class Complex
 {

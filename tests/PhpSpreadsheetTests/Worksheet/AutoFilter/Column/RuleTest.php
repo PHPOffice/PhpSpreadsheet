@@ -1,8 +1,8 @@
 <?php
 
-namespace PhpSpreadsheetTests\Worksheet\AutoFilter\Column;
+namespace PhpOffice\PhpSpreadsheetTests\Worksheet\AutoFilter\Column;
 
-use PhpSpreadsheet\Worksheet\AutoFilter\Column;
+use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 
 class RuleTest extends \PHPUnit_Framework_TestCase
 {

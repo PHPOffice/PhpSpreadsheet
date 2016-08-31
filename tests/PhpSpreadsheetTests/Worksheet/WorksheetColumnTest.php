@@ -1,10 +1,10 @@
 <?php
 
-namespace PhpSpreadsheetTests\Worksheet;
+namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
-use PhpSpreadsheet\Worksheet;
-use PhpSpreadsheet\Worksheet\Column;
-use PhpSpreadsheet\Worksheet\ColumnCellIterator;
+use PhpOffice\PhpSpreadsheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Column;
+use PhpOffice\PhpSpreadsheet\Worksheet\ColumnCellIterator;
 
 class WorksheetColumnTest extends \PHPUnit_Framework_TestCase
 {

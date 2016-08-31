@@ -1,8 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet\Reader\Excel5\Style;
+namespace PhpOffice\PhpSpreadsheet\Reader\Excel5\Style;
 
-use PhpSpreadsheet\Style\Border as StyleBorder;
+use PhpOffice\PhpSpreadsheet\Style\Border as StyleBorder;
 
 class Border
 {

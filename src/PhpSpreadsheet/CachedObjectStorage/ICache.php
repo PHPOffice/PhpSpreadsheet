@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\CachedObjectStorage;
+namespace PhpOffice\PhpSpreadsheet\CachedObjectStorage;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -30,27 +30,27 @@ interface ICache
      * Add or Update a cell in cache identified by coordinate address
      *
      * @param    string            $pCoord        Coordinate address of the cell to update
-     * @param    \PhpSpreadsheet\Cell    $cell        Cell to update
-     * @throws   \PhpSpreadsheet\Exception
-     * @return   \PhpSpreadsheet\Cell
+     * @param    \PhpOffice\PhpSpreadsheet\Cell    $cell        Cell to update
+     * @throws   \PhpOffice\PhpSpreadsheet\Exception
+     * @return   \PhpOffice\PhpSpreadsheet\Cell
      */
-    public function addCacheData($pCoord, \PhpSpreadsheet\Cell $cell);
+    public function addCacheData($pCoord, \PhpOffice\PhpSpreadsheet\Cell $cell);
 
     /**
      * Add or Update a cell in cache
      *
-     * @param    \PhpSpreadsheet\Cell    $cell        Cell to update
-     * @throws   \PhpSpreadsheet\Exception
-     * @return   \PhpSpreadsheet\Cell
+     * @param    \PhpOffice\PhpSpreadsheet\Cell    $cell        Cell to update
+     * @throws   \PhpOffice\PhpSpreadsheet\Exception
+     * @return   \PhpOffice\PhpSpreadsheet\Cell
      */
-    public function updateCacheData(\PhpSpreadsheet\Cell $cell);
+    public function updateCacheData(\PhpOffice\PhpSpreadsheet\Cell $cell);
 
     /**
      * Fetch a cell from cache identified by coordinate address
      *
      * @param   string            $pCoord        Coordinate address of the cell to retrieve
-     * @throws  \PhpSpreadsheet\Exception
-     * @return  \PhpSpreadsheet\Cell     Cell that was found, or null if not found
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @return  \PhpOffice\PhpSpreadsheet\Cell     Cell that was found, or null if not found
      */
     public function getCacheData($pCoord);
 
@@ -58,12 +58,12 @@ interface ICache
      * Delete a cell in cache identified by coordinate address
      *
      * @param    string            $pCoord        Coordinate address of the cell to delete
-     * @throws   \PhpSpreadsheet\Exception
+     * @throws   \PhpOffice\PhpSpreadsheet\Exception
      */
     public function deleteCacheData($pCoord);
 
     /**
-     * Is a value set in the current \PhpSpreadsheet\CachedObjectStorage\ICache for an indexed cell?
+     * Is a value set in the current \PhpOffice\PhpSpreadsheet\CachedObjectStorage\ICache for an indexed cell?
      *
      * @param    string        $pCoord        Coordinate address of the cell to check
      * @return    bool
@@ -87,9 +87,9 @@ interface ICache
     /**
      * Clone the cell collection
      *
-     * @param  \PhpSpreadsheet\Worksheet    $parent        The new worksheet that we're copying to
+     * @param  \PhpOffice\PhpSpreadsheet\Worksheet    $parent        The new worksheet that we're copying to
      */
-    public function copyCellCollection(\PhpSpreadsheet\Worksheet $parent);
+    public function copyCellCollection(\PhpOffice\PhpSpreadsheet\Worksheet $parent);
 
     /**
      * Identify whether the caching method is currently available

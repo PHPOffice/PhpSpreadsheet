@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Reader;
+namespace PhpOffice\PhpSpreadsheet\Reader;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet

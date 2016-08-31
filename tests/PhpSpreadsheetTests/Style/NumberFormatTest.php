@@ -1,9 +1,9 @@
 <?php
 
-namespace PhpSpreadsheetTests\Style;
+namespace PhpOffice\PhpSpreadsheetTests\Style;
 
-use PhpSpreadsheet\Shared\StringHelper;
-use PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 class NumberFormatTest extends \PHPUnit_Framework_TestCase
 {

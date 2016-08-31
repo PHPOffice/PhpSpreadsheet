@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\CachedObjectStorage;
+namespace PhpOffice\PhpSpreadsheet\CachedObjectStorage;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -44,7 +44,7 @@ class SQLite extends CacheBase implements ICache
      * Store cell data in cache for the current cell object if it's "dirty",
      *     and the 'nullify' the current cell object
      *
-     * @throws   \PhpSpreadsheet\Exception
+     * @throws   \PhpOffice\PhpSpreadsheet\Exception
      */
     protected function storeData()
     {
@@ -52,7 +52,7 @@ class SQLite extends CacheBase implements ICache
             $this->currentObject->detach();
 
             if (!$this->DBHandle->queryExec('INSERT OR REPLACE INTO kvp_' . $this->TableName . " VALUES('" . $this->currentObjectID . "','" . sqlite_escape_string(serialize($this->currentObject)) . "')")) {
-                throw new \PhpSpreadsheet\Exception(sqlite_error_string($this->DBHandle->lastError()));
+                throw new \PhpOffice\PhpSpreadsheet\Exception(sqlite_error_string($this->DBHandle->lastError()));
             }
             $this->currentCellIsDirty = false;
         }
@@ -63,11 +63,11 @@ class SQLite extends CacheBase implements ICache
      * Add or Update a cell in cache identified by coordinate address
      *
      * @param   string            $pCoord        Coordinate address of the cell to update
-     * @param   \PhpSpreadsheet\Cell    $cell        Cell to update
-     * @throws  \PhpSpreadsheet\Exception
-     * @return  \PhpSpreadsheet\Cell
+     * @param   \PhpOffice\PhpSpreadsheet\Cell    $cell        Cell to update
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @return  \PhpOffice\PhpSpreadsheet\Cell
      */
-    public function addCacheData($pCoord, \PhpSpreadsheet\Cell $cell)
+    public function addCacheData($pCoord, \PhpOffice\PhpSpreadsheet\Cell $cell)
     {
         if (($pCoord !== $this->currentObjectID) && ($this->currentObjectID !== null)) {
             $this->storeData();
@@ -84,8 +84,8 @@ class SQLite extends CacheBase implements ICache
      * Get cell at a specific coordinate
      *
      * @param   string             $pCoord        Coordinate of the cell
-     * @throws  \PhpSpreadsheet\Exception
-     * @return  \PhpSpreadsheet\Cell     Cell that was found, or null if not found
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @return  \PhpOffice\PhpSpreadsheet\Cell     Cell that was found, or null if not found
      */
     public function getCacheData($pCoord)
     {
@@ -97,7 +97,7 @@ class SQLite extends CacheBase implements ICache
         $query = 'SELECT value FROM kvp_' . $this->TableName . " WHERE id='" . $pCoord . "'";
         $cellResultSet = $this->DBHandle->query($query, SQLITE_ASSOC);
         if ($cellResultSet === false) {
-            throw new \PhpSpreadsheet\Exception(sqlite_error_string($this->DBHandle->lastError()));
+            throw new \PhpOffice\PhpSpreadsheet\Exception(sqlite_error_string($this->DBHandle->lastError()));
         } elseif ($cellResultSet->numRows() == 0) {
             //    Return null if requested entry doesn't exist in cache
             return null;
@@ -119,7 +119,7 @@ class SQLite extends CacheBase implements ICache
      * Is a value set for an indexed cell?
      *
      * @param   string        $pCoord        Coordinate address of the cell to check
-     * @throws  \PhpSpreadsheet\Exception
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
      * @return  bool
      */
     public function isDataSet($pCoord)
@@ -132,7 +132,7 @@ class SQLite extends CacheBase implements ICache
         $query = 'SELECT id FROM kvp_' . $this->TableName . " WHERE id='" . $pCoord . "'";
         $cellResultSet = $this->DBHandle->query($query, SQLITE_ASSOC);
         if ($cellResultSet === false) {
-            throw new \PhpSpreadsheet\Exception(sqlite_error_string($this->DBHandle->lastError()));
+            throw new \PhpOffice\PhpSpreadsheet\Exception(sqlite_error_string($this->DBHandle->lastError()));
         } elseif ($cellResultSet->numRows() == 0) {
             //    Return null if requested entry doesn't exist in cache
             return false;
@@ -145,7 +145,7 @@ class SQLite extends CacheBase implements ICache
      * Delete a cell in cache identified by coordinate address
      *
      * @param   string            $pCoord        Coordinate address of the cell to delete
-     * @throws  \PhpSpreadsheet\Exception
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
      */
     public function deleteCacheData($pCoord)
     {
@@ -157,7 +157,7 @@ class SQLite extends CacheBase implements ICache
         //    Check if the requested entry exists in the cache
         $query = 'DELETE FROM kvp_' . $this->TableName . " WHERE id='" . $pCoord . "'";
         if (!$this->DBHandle->queryExec($query)) {
-            throw new \PhpSpreadsheet\Exception(sqlite_error_string($this->DBHandle->lastError()));
+            throw new \PhpOffice\PhpSpreadsheet\Exception(sqlite_error_string($this->DBHandle->lastError()));
         }
 
         $this->currentCellIsDirty = false;
@@ -168,7 +168,7 @@ class SQLite extends CacheBase implements ICache
      *
      * @param    string        $fromAddress    Current address of the cell to move
      * @param    string        $toAddress        Destination address of the cell to move
-     * @throws  \PhpSpreadsheet\Exception
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
      * @return    bool
      */
     public function moveCell($fromAddress, $toAddress)
@@ -180,13 +180,13 @@ class SQLite extends CacheBase implements ICache
         $query = 'DELETE FROM kvp_' . $this->TableName . " WHERE id='" . $toAddress . "'";
         $result = $this->DBHandle->exec($query);
         if ($result === false) {
-            throw new \PhpSpreadsheet\Exception($this->DBHandle->lastErrorMsg());
+            throw new \PhpOffice\PhpSpreadsheet\Exception($this->DBHandle->lastErrorMsg());
         }
 
         $query = 'UPDATE kvp_' . $this->TableName . " SET id='" . $toAddress . "' WHERE id='" . $fromAddress . "'";
         $result = $this->DBHandle->exec($query);
         if ($result === false) {
-            throw new \PhpSpreadsheet\Exception($this->DBHandle->lastErrorMsg());
+            throw new \PhpOffice\PhpSpreadsheet\Exception($this->DBHandle->lastErrorMsg());
         }
 
         return true;
@@ -195,7 +195,7 @@ class SQLite extends CacheBase implements ICache
     /**
      * Get a list of all cell addresses currently held in cache
      *
-     * @throws  \PhpSpreadsheet\Exception
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
      * @return    string[]
      */
     public function getCellList()
@@ -207,7 +207,7 @@ class SQLite extends CacheBase implements ICache
         $query = 'SELECT id FROM kvp_' . $this->TableName;
         $cellIdsResult = $this->DBHandle->unbufferedQuery($query, SQLITE_ASSOC);
         if ($cellIdsResult === false) {
-            throw new \PhpSpreadsheet\Exception(sqlite_error_string($this->DBHandle->lastError()));
+            throw new \PhpOffice\PhpSpreadsheet\Exception(sqlite_error_string($this->DBHandle->lastError()));
         }
 
         $cellKeys = [];
@@ -221,10 +221,10 @@ class SQLite extends CacheBase implements ICache
     /**
      * Clone the cell collection
      *
-     * @param  \PhpSpreadsheet\Worksheet    $parent        The new worksheet that we're copying to
-     * @throws  \PhpSpreadsheet\Exception
+     * @param  \PhpOffice\PhpSpreadsheet\Worksheet    $parent        The new worksheet that we're copying to
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
      */
-    public function copyCellCollection(\PhpSpreadsheet\Worksheet $parent)
+    public function copyCellCollection(\PhpOffice\PhpSpreadsheet\Worksheet $parent)
     {
         $this->currentCellIsDirty;
         $this->storeData();
@@ -234,7 +234,7 @@ class SQLite extends CacheBase implements ICache
         if (!$this->DBHandle->queryExec('CREATE TABLE kvp_' . $tableName . ' (id VARCHAR(12) PRIMARY KEY, value BLOB)
             AS SELECT * FROM kvp_' . $this->TableName)
         ) {
-            throw new \PhpSpreadsheet\Exception(sqlite_error_string($this->DBHandle->lastError()));
+            throw new \PhpOffice\PhpSpreadsheet\Exception(sqlite_error_string($this->DBHandle->lastError()));
         }
 
         //    Copy the existing cell cache file
@@ -260,10 +260,10 @@ class SQLite extends CacheBase implements ICache
     /**
      * Initialise this new cell collection
      *
-     * @param    \PhpSpreadsheet\Worksheet    $parent        The worksheet for this cell collection
-     * @throws  \PhpSpreadsheet\Exception
+     * @param    \PhpOffice\PhpSpreadsheet\Worksheet    $parent        The worksheet for this cell collection
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
      */
-    public function __construct(\PhpSpreadsheet\Worksheet $parent)
+    public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $parent)
     {
         parent::__construct($parent);
         if (is_null($this->DBHandle)) {
@@ -272,10 +272,10 @@ class SQLite extends CacheBase implements ICache
 
             $this->DBHandle = new SQLiteDatabase($_DBName);
             if ($this->DBHandle === false) {
-                throw new \PhpSpreadsheet\Exception(sqlite_error_string($this->DBHandle->lastError()));
+                throw new \PhpOffice\PhpSpreadsheet\Exception(sqlite_error_string($this->DBHandle->lastError()));
             }
             if (!$this->DBHandle->queryExec('CREATE TABLE kvp_' . $this->TableName . ' (id VARCHAR(12) PRIMARY KEY, value BLOB)')) {
-                throw new \PhpSpreadsheet\Exception(sqlite_error_string($this->DBHandle->lastError()));
+                throw new \PhpOffice\PhpSpreadsheet\Exception(sqlite_error_string($this->DBHandle->lastError()));
             }
         }
     }

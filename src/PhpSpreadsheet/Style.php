@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet;
+namespace PhpOffice\PhpSpreadsheet;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -175,7 +175,7 @@ class Style extends Style\Supervisor implements IComparable
      *                 'name'      => 'Arial',
      *                 'bold'      => true,
      *                 'italic'    => false,
-     *                 'underline' => \PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE,
+     *                 'underline' => \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE,
      *                 'strike'    => false,
      *                 'color'     => array(
      *                     'rgb' => '808080'
@@ -183,13 +183,13 @@ class Style extends Style\Supervisor implements IComparable
      *             ),
      *             'borders' => array(
      *                 'bottom'     => array(
-     *                     'style' => \PhpSpreadsheet\Style\Border::BORDER_DASHDOT,
+     *                     'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT,
      *                     'color' => array(
      *                         'rgb' => '808080'
      *                     )
      *                 ),
      *                 'top'     => array(
-     *                     'style' => \PhpSpreadsheet\Style\Border::BORDER_DASHDOT,
+     *                     'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT,
      *                     'color' => array(
      *                         'rgb' => '808080'
      *                     )

@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Style;
+namespace PhpOffice\PhpSpreadsheet\Style;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -24,7 +24,7 @@ namespace PhpSpreadsheet\Style;
  * @license http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version ##VERSION##, ##DATE##
  */
-class Color extends Supervisor implements \PhpSpreadsheet\IComparable
+class Color extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
 {
     /* Colors */
     const COLOR_BLACK = 'FF000000';
@@ -145,7 +145,7 @@ class Color extends Supervisor implements \PhpSpreadsheet\IComparable
      * </code>
      *
      * @param    array    $pStyles    Array containing style information
-     * @throws    \PhpSpreadsheet\Exception
+     * @throws    \PhpOffice\PhpSpreadsheet\Exception
      * @return Color
      */
     public function applyFromArray($pStyles = null)
@@ -162,7 +162,7 @@ class Color extends Supervisor implements \PhpSpreadsheet\IComparable
                 }
             }
         } else {
-            throw new \PhpSpreadsheet\Exception('Invalid style array passed.');
+            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid style array passed.');
         }
 
         return $this;

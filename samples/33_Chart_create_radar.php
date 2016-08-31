@@ -1,9 +1,9 @@
 <?php
 
-/** PhpSpreadsheet */
+
 require __DIR__ . '/Header.php';
 
-$spreadsheet = new \PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 $worksheet = $spreadsheet->getActiveSheet();
 $worksheet->fromArray(
     [
@@ -31,8 +31,8 @@ $worksheet->fromArray(
 //		Data values
 //		Data Marker
 $dataSeriesLabels = [
-    new \PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$C$1', null, 1), //	2011
-    new \PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$D$1', null, 1), //	2012
+    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$C$1', null, 1), //	2011
+    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$D$1', null, 1), //	2012
 ];
 //	Set the X-Axis Labels
 //		Datatype
@@ -42,8 +42,8 @@ $dataSeriesLabels = [
 //		Data values
 //		Data Marker
 $xAxisTickValues = [
-    new \PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$A$2:$A$13', null, 12), //	Jan to Dec
-    new \PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$A$2:$A$13', null, 12), //	Jan to Dec
+    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$A$2:$A$13', null, 12), //	Jan to Dec
+    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$A$2:$A$13', null, 12), //	Jan to Dec
 ];
 //	Set the Data values for each data series we want to plot
 //		Datatype
@@ -53,13 +53,13 @@ $xAxisTickValues = [
 //		Data values
 //		Data Marker
 $dataSeriesValues = [
-    new \PhpSpreadsheet\Chart\DataSeriesValues('Number', 'Worksheet!$C$2:$C$13', null, 12),
-    new \PhpSpreadsheet\Chart\DataSeriesValues('Number', 'Worksheet!$D$2:$D$13', null, 12),
+    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'Worksheet!$C$2:$C$13', null, 12),
+    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'Worksheet!$D$2:$D$13', null, 12),
 ];
 
 //	Build the dataseries
-$series = new \PhpSpreadsheet\Chart\DataSeries(
-    \PhpSpreadsheet\Chart\DataSeries::TYPE_RADARCHART, // plotType
+$series = new \PhpOffice\PhpSpreadsheet\Chart\DataSeries(
+    \PhpOffice\PhpSpreadsheet\Chart\DataSeries::TYPE_RADARCHART, // plotType
     null, // plotGrouping (Radar charts don't have any grouping)
     range(0, count($dataSeriesValues) - 1), // plotOrder
     $dataSeriesLabels, // plotLabel
@@ -67,21 +67,21 @@ $series = new \PhpSpreadsheet\Chart\DataSeries(
     $dataSeriesValues, // plotValues
     null, // plotDirection
     null, // smooth line
-    \PhpSpreadsheet\Chart\DataSeries::STYLE_MARKER  // plotStyle
+    \PhpOffice\PhpSpreadsheet\Chart\DataSeries::STYLE_MARKER  // plotStyle
 );
 
 //	Set up a layout object for the Pie chart
-$layout = new \PhpSpreadsheet\Chart\Layout();
+$layout = new \PhpOffice\PhpSpreadsheet\Chart\Layout();
 
 //	Set the series in the plot area
-$plotArea = new \PhpSpreadsheet\Chart\PlotArea($layout, [$series]);
+$plotArea = new \PhpOffice\PhpSpreadsheet\Chart\PlotArea($layout, [$series]);
 //	Set the chart legend
-$legend = new \PhpSpreadsheet\Chart\Legend(\PhpSpreadsheet\Chart\Legend::POSITION_RIGHT, null, false);
+$legend = new \PhpOffice\PhpSpreadsheet\Chart\Legend(\PhpOffice\PhpSpreadsheet\Chart\Legend::POSITION_RIGHT, null, false);
 
-$title = new \PhpSpreadsheet\Chart\Title('Test Radar Chart');
+$title = new \PhpOffice\PhpSpreadsheet\Chart\Title('Test Radar Chart');
 
 //	Create the chart
-$chart = new \PhpSpreadsheet\Chart(
+$chart = new \PhpOffice\PhpSpreadsheet\Chart(
     'chart1', // name
     $title, // title
     $legend, // legend
@@ -101,7 +101,7 @@ $worksheet->addChart($chart);
 
 // Save Excel 2007 file
 $filename = $helper->getFilename(__FILE__);
-$writer = \PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Excel2007');
+$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Excel2007');
 $writer->setIncludeCharts(true);
 $callStartTime = microtime(true);
 $writer->save($filename);

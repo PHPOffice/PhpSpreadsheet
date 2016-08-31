@@ -6,14 +6,14 @@ $spreadsheet = require __DIR__ . '/templates/sampleSpreadsheet.php';
 
 // Write temporary file
 $filename = $helper->getTemporaryFilename('xls');
-$writer = \PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Excel5');
+$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Excel5');
 $callStartTime = microtime(true);
 $writer->save($filename);
 $helper->logWrite($writer, $filename, $callStartTime);
 
 // Read Excel5 file
 $callStartTime = microtime(true);
-$spreadsheet = \PhpSpreadsheet\IOFactory::load($filename);
+$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filename);
 $helper->logRead('Excel5', $filename, $callStartTime);
 
 // Save

@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Worksheet;
+namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -24,7 +24,7 @@ namespace PhpSpreadsheet\Worksheet;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class BaseDrawing implements \PhpSpreadsheet\IComparable
+class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
 {
     /**
      * Image counter
@@ -57,7 +57,7 @@ class BaseDrawing implements \PhpSpreadsheet\IComparable
     /**
      * Worksheet
      *
-     * @var \PhpSpreadsheet\Worksheet
+     * @var \PhpOffice\PhpSpreadsheet\Worksheet
      */
     protected $worksheet;
 
@@ -198,7 +198,7 @@ class BaseDrawing implements \PhpSpreadsheet\IComparable
     /**
      * Get Worksheet
      *
-     * @return \PhpSpreadsheet\Worksheet
+     * @return \PhpOffice\PhpSpreadsheet\Worksheet
      */
     public function getWorksheet()
     {
@@ -208,21 +208,21 @@ class BaseDrawing implements \PhpSpreadsheet\IComparable
     /**
      * Set Worksheet
      *
-     * @param     \PhpSpreadsheet\Worksheet     $pValue
+     * @param     \PhpOffice\PhpSpreadsheet\Worksheet     $pValue
      * @param     bool                 $pOverrideOld    If a Worksheet has already been assigned, overwrite it and remove image from old Worksheet?
-     * @throws    \PhpSpreadsheet\Exception
+     * @throws    \PhpOffice\PhpSpreadsheet\Exception
      * @return    BaseDrawing
      */
-    public function setWorksheet(\PhpSpreadsheet\Worksheet $pValue = null, $pOverrideOld = false)
+    public function setWorksheet(\PhpOffice\PhpSpreadsheet\Worksheet $pValue = null, $pOverrideOld = false)
     {
         if (is_null($this->worksheet)) {
-            // Add drawing to \PhpSpreadsheet\Worksheet
+            // Add drawing to \PhpOffice\PhpSpreadsheet\Worksheet
             $this->worksheet = $pValue;
             $this->worksheet->getCell($this->coordinates);
             $this->worksheet->getDrawingCollection()->append($this);
         } else {
             if ($pOverrideOld) {
-                // Remove drawing from old \PhpSpreadsheet\Worksheet
+                // Remove drawing from old \PhpOffice\PhpSpreadsheet\Worksheet
                 $iterator = $this->worksheet->getDrawingCollection()->getIterator();
 
                 while ($iterator->valid()) {
@@ -233,10 +233,10 @@ class BaseDrawing implements \PhpSpreadsheet\IComparable
                     }
                 }
 
-                // Set new \PhpSpreadsheet\Worksheet
+                // Set new \PhpOffice\PhpSpreadsheet\Worksheet
                 $this->setWorksheet($pValue);
             } else {
-                throw new \PhpSpreadsheet\Exception("A \PhpSpreadsheet\Worksheet has already been assigned. Drawings can only exist on one \PhpSpreadsheet\Worksheet.");
+                throw new \PhpOffice\PhpSpreadsheet\Exception("A \PhpOffice\PhpSpreadsheet\Worksheet has already been assigned. Drawings can only exist on one \PhpOffice\PhpSpreadsheet\Worksheet.");
             }
         }
 
@@ -465,7 +465,7 @@ class BaseDrawing implements \PhpSpreadsheet\IComparable
      * Set Shadow
      *
      * @param     Drawing\Shadow $pValue
-     * @throws    \PhpSpreadsheet\Exception
+     * @throws    \PhpOffice\PhpSpreadsheet\Exception
      * @return    BaseDrawing
      */
     public function setShadow(Drawing\Shadow $pValue = null)

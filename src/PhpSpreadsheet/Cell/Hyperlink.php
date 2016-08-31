@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Cell;
+namespace PhpOffice\PhpSpreadsheet\Cell;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet

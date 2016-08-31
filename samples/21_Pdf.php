@@ -5,9 +5,9 @@ $spreadsheet = require __DIR__ . '/templates/sampleSpreadsheet.php';
 
 // Change these values to select the Rendering library that you wish to use
 // and its directory location on your server
-//$rendererName = \PhpSpreadsheet\Settings::PDF_RENDERER_TCPDF;
-//$rendererName = \PhpSpreadsheet\Settings::PDF_RENDERER_MPDF;
-$rendererName = \PhpSpreadsheet\Settings::PDF_RENDERER_DOMPDF;
+//$rendererName = \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_TCPDF;
+//$rendererName = \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_MPDF;
+$rendererName = \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_DOMPDF;
 //$rendererLibrary = 'tcPDF5.9';
 //$rendererLibrary = 'mPDF5.4';
 $rendererLibrary = 'domPDF0.6.0beta3';
@@ -17,11 +17,11 @@ $helper->log('Hide grid lines');
 $spreadsheet->getActiveSheet()->setShowGridLines(false);
 
 $helper->log('Set orientation to landscape');
-$spreadsheet->getActiveSheet()->getPageSetup()->setOrientation(\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+$spreadsheet->getActiveSheet()->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
 
 $helper->log("Write to PDF format using {$rendererName}");
 
-if (!\PhpSpreadsheet\Settings::setPdfRenderer($rendererName, $rendererLibraryPath)) {
+if (!\PhpOffice\PhpSpreadsheet\Settings::setPdfRenderer($rendererName, $rendererLibraryPath)) {
     $helper->log('NOTICE: Please set the $rendererName and $rendererLibraryPath values at the top of this script as appropriate for your directory structure');
 }
 

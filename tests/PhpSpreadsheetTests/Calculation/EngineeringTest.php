@@ -1,20 +1,20 @@
 <?php
 
-namespace PhpSpreadsheetTests\Calculation;
+namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
-use PhpSpreadsheet\Calculation\Engineering;
-use PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 class EngineeringTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \PhpSpreadsheetTests\Custom\ComplexAssert
+     * @var \PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert
      */
     protected $complexAssert;
 
     public function setUp()
     {
-        $this->complexAssert = new \PhpSpreadsheetTests\Custom\ComplexAssert();
+        $this->complexAssert = new \PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert();
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 

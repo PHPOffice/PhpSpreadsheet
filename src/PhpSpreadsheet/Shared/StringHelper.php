@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared;
+namespace PhpOffice\PhpSpreadsheet\Shared;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -692,7 +692,7 @@ class StringHelper
         if (preg_match('/^' . self::STRING_REGEXP_FRACTION . '$/i', $operand, $match)) {
             $sign = ($match[1] == '-') ? '-' : '+';
             $fractionFormula = '=' . $sign . $match[2] . $sign . $match[3];
-            $operand = \PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($fractionFormula);
+            $operand = \PhpOffice\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($fractionFormula);
 
             return true;
         }
@@ -723,8 +723,8 @@ class StringHelper
     }
 
     /**
-     * Set the decimal separator. Only used by \PhpSpreadsheet\Style\NumberFormat::toFormattedString()
-     * to format output by \PhpSpreadsheet\Writer\HTML and \PhpSpreadsheet\Writer\PDF
+     * Set the decimal separator. Only used by \PhpOffice\PhpSpreadsheet\Style\NumberFormat::toFormattedString()
+     * to format output by \PhpOffice\PhpSpreadsheet\Writer\HTML and \PhpOffice\PhpSpreadsheet\Writer\PDF
      *
      * @param string $pValue Character for decimal separator
      */
@@ -756,8 +756,8 @@ class StringHelper
     }
 
     /**
-     * Set the thousands separator. Only used by \PhpSpreadsheet\Style\NumberFormat::toFormattedString()
-     * to format output by \PhpSpreadsheet\Writer\HTML and \PhpSpreadsheet\Writer\PDF
+     * Set the thousands separator. Only used by \PhpOffice\PhpSpreadsheet\Style\NumberFormat::toFormattedString()
+     * to format output by \PhpOffice\PhpSpreadsheet\Writer\HTML and \PhpOffice\PhpSpreadsheet\Writer\PDF
      *
      * @param string $pValue Character for thousands separator
      */
@@ -794,8 +794,8 @@ class StringHelper
     }
 
     /**
-     * Set the currency code. Only used by \PhpSpreadsheet\Style\NumberFormat::toFormattedString()
-     *        to format output by \PhpSpreadsheet\Writer\HTML and \PhpSpreadsheet\Writer\PDF
+     * Set the currency code. Only used by \PhpOffice\PhpSpreadsheet\Style\NumberFormat::toFormattedString()
+     *        to format output by \PhpOffice\PhpSpreadsheet\Writer\HTML and \PhpOffice\PhpSpreadsheet\Writer\PDF
      *
      * @param string $pValue Character for currency code
      */

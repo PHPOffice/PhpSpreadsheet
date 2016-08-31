@@ -1,8 +1,8 @@
 <?php
 
-namespace PhpSpreadsheetTests\Cell;
+namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
-use PhpSpreadsheet\Cell\Hyperlink;
+use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
 
 class HyperlinkTest extends \PHPUnit_Framework_TestCase
 {
@@ -78,7 +78,7 @@ class HyperlinkTest extends \PHPUnit_Framework_TestCase
     {
         $urlValue = 'http://www.phpexcel.net';
         $tooltipValue = 'PhpSpreadsheet Web Site';
-        $initialExpectedHash = '4c923947ffe2695a2e1750b7e1c6724e';
+        $initialExpectedHash = '6f1d4cbf40034b9ddc3fbf6019506e91';
 
         $testInstance = new Hyperlink($urlValue, $tooltipValue);
 

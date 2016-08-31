@@ -1,8 +1,8 @@
 <?php
 
-namespace PhpSpreadsheetTests\Style;
+namespace PhpOffice\PhpSpreadsheetTests\Style;
 
-use PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Color;
 
 class ColorTest extends \PHPUnit_Framework_TestCase
 {

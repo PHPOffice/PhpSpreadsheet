@@ -1,14 +1,14 @@
 <?php
 
-namespace PhpSpreadsheetTests\Reader;
+namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
-use PhpSpreadsheet\Reader\BaseReader;
+use PhpOffice\PhpSpreadsheet\Reader\BaseReader;
 
 class XEEValidatorTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider providerInvalidXML
-     * @expectedException \PhpSpreadsheet\Reader\Exception
+     * @expectedException \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
     public function testInvalidXML($filename)
     {

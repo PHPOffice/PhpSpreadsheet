@@ -4,13 +4,13 @@ require __DIR__ . '/Header.php';
 
 $sampleSpreadsheet = require __DIR__ . '/templates/sampleSpreadsheet.php';
 $filename = $helper->getTemporaryFilename();
-$writer = new \PhpSpreadsheet\Writer\Excel2007($sampleSpreadsheet);
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Excel2007($sampleSpreadsheet);
 $callStartTime = microtime(true);
 $writer->save($filename);
 $helper->logWrite($writer, $filename, $callStartTime);
 
 $callStartTime = microtime(true);
-$reader = \PhpSpreadsheet\IOFactory::createReader('Excel2007');
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Excel2007');
 $spreadsheet = $reader->load($filename);
 $helper->logRead('Excel2007', $filename, $callStartTime);
 $helper->log('Iterate worksheets');

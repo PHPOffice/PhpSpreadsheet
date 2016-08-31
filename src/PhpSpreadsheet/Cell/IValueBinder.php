@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Cell;
+namespace PhpOffice\PhpSpreadsheet\Cell;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -29,9 +29,9 @@ interface IValueBinder
     /**
      * Bind value to a cell
      *
-     * @param  \PhpSpreadsheet\Cell $cell    Cell to bind value to
+     * @param  \PhpOffice\PhpSpreadsheet\Cell $cell    Cell to bind value to
      * @param  mixed $value           Value to bind in cell
      * @return bool
      */
-    public function bindValue(\PhpSpreadsheet\Cell $cell, $value = null);
+    public function bindValue(\PhpOffice\PhpSpreadsheet\Cell $cell, $value = null);
 }

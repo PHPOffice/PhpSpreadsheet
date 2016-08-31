@@ -1,10 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet;
+namespace PhpOffice\PhpSpreadsheet;
 
 /**
- * PhpSpreadsheet\Worksheet
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -1398,7 +1396,7 @@ class Worksheet implements IComparable
     }
 
     /**
-     * Set default style - should only be used by \PhpSpreadsheet\IReader implementations!
+     * Set default style - should only be used by \PhpOffice\PhpSpreadsheet\IReader implementations!
      *
      * @deprecated
      * @param Style $pValue
@@ -1679,7 +1677,7 @@ class Worksheet implements IComparable
      *
      * @param int $pColumn Numeric column coordinate of the cell
      * @param int $pRow Numeric row coordinate of the cell
-     * @param  int $pBreak Break type (type of \PhpSpreadsheet\Worksheet::BREAK_*)
+     * @param  int $pBreak Break type (type of \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_*)
      * @return Worksheet
      */
     public function setBreakByColumnAndRow($pColumn = 0, $pRow = 1, $pBreak = self::BREAK_NONE)

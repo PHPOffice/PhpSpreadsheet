@@ -4,7 +4,7 @@ require __DIR__ . '/Header.php';
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
-$spreadsheet = new \PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
 // Set document properties
 $helper->log('Set document properties');
@@ -20,29 +20,29 @@ $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
 $helper->log('Add some data');
 $spreadsheet->setActiveSheetIndex(0);
 
-$sharedStyle1 = new \PhpSpreadsheet\Style();
-$sharedStyle2 = new \PhpSpreadsheet\Style();
+$sharedStyle1 = new \PhpOffice\PhpSpreadsheet\Style();
+$sharedStyle2 = new \PhpOffice\PhpSpreadsheet\Style();
 
 $sharedStyle1->applyFromArray(
     ['fill' => [
-                'type' => \PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                'type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                 'color' => ['argb' => 'FFCCFFCC'],
             ],
             'borders' => [
-                'bottom' => ['style' => \PhpSpreadsheet\Style\Border::BORDER_THIN],
-                'right' => ['style' => \PhpSpreadsheet\Style\Border::BORDER_MEDIUM],
+                'bottom' => ['style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
+                'right' => ['style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM],
             ],
         ]
 );
 
 $sharedStyle2->applyFromArray(
     ['fill' => [
-                'type' => \PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                'type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                 'color' => ['argb' => 'FFFFFF00'],
             ],
             'borders' => [
-                'bottom' => ['style' => \PhpSpreadsheet\Style\Border::BORDER_THIN],
-                'right' => ['style' => \PhpSpreadsheet\Style\Border::BORDER_MEDIUM],
+                'bottom' => ['style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
+                'right' => ['style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM],
             ],
         ]
 );

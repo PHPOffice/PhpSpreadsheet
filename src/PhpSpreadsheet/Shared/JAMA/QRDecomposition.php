@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared\JAMA;
+namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
 
 /**
  *    For an m-by-n matrix A with m >= n, the QR decomposition is an m-by-n
@@ -89,7 +89,7 @@ class QRDecomposition
                 $this->Rdiag[$k] = -$nrm;
             }
         } else {
-            throw new \PhpSpreadsheet\Calculation\Exception(Matrix::ARGUMENT_TYPE_EXCEPTION);
+            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(Matrix::ARGUMENT_TYPE_EXCEPTION);
         }
     }    //    function __construct()
 
@@ -229,10 +229,10 @@ class QRDecomposition
 
                 return $X->getMatrix(0, $this->n - 1, 0, $nx);
             } else {
-                throw new \PhpSpreadsheet\Calculation\Exception(self::MATRIX_RANK_EXCEPTION);
+                throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::MATRIX_RANK_EXCEPTION);
             }
         } else {
-            throw new \PhpSpreadsheet\Calculation\Exception(Matrix::MATRIX_DIMENSION_EXCEPTION);
+            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(Matrix::MATRIX_DIMENSION_EXCEPTION);
         }
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Reader\Excel5;
+namespace PhpOffice\PhpSpreadsheet\Reader\Excel5;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet

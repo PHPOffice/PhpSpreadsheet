@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet;
+namespace PhpOffice\PhpSpreadsheet;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -798,7 +798,7 @@ class ReferenceHelper
     /**
      * Update named formulas (i.e. containing worksheet references / named ranges)
      *
-     * @param \PhpSpreadsheet\Spreadsheet $spreadsheet    Object to update
+     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet    Object to update
      * @param string $oldName        Old name (name to replace)
      * @param string $newName        New name
      */

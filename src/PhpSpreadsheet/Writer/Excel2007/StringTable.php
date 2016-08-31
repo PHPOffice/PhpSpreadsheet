@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Writer\Excel2007;
+namespace PhpOffice\PhpSpreadsheet\Writer\Excel2007;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -29,9 +29,9 @@ class StringTable extends WriterPart
     /**
      * Create worksheet stringtable
      *
-     * @param     \PhpSpreadsheet\Worksheet     $pSheet                Worksheet
+     * @param     \PhpOffice\PhpSpreadsheet\Worksheet     $pSheet                Worksheet
      * @param     string[]                 $pExistingTable     Existing table to eventually merge with
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      * @return     string[]                 String table for worksheet
      */
     public function createStringTable($pSheet = null, $pExistingTable = null)
@@ -58,10 +58,10 @@ class StringTable extends WriterPart
                     ($cellValue !== null) &&
                     $cellValue !== '' &&
                     !isset($aFlippedStringTable[$cellValue]) &&
-                    ($cell->getDataType() == \PhpSpreadsheet\Cell\DataType::TYPE_STRING || $cell->getDataType() == \PhpSpreadsheet\Cell\DataType::TYPE_STRING2 || $cell->getDataType() == \PhpSpreadsheet\Cell\DataType::TYPE_NULL)) {
+                    ($cell->getDataType() == \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING || $cell->getDataType() == \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING2 || $cell->getDataType() == \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NULL)) {
                     $aStringTable[] = $cellValue;
                     $aFlippedStringTable[$cellValue] = true;
-                } elseif ($cellValue instanceof \PhpSpreadsheet\RichText &&
+                } elseif ($cellValue instanceof \PhpOffice\PhpSpreadsheet\RichText &&
                           ($cellValue !== null) &&
                           !isset($aFlippedStringTable[$cellValue->getHashCode()])) {
                     $aStringTable[] = $cellValue;
@@ -71,7 +71,7 @@ class StringTable extends WriterPart
 
             return $aStringTable;
         } else {
-            throw new \PhpSpreadsheet\Writer\Exception("Invalid \PhpSpreadsheet\Worksheet object passed.");
+            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Invalid \PhpOffice\PhpSpreadsheet\Worksheet object passed.");
         }
     }
 
@@ -79,7 +79,7 @@ class StringTable extends WriterPart
      * Write string table to XML format
      *
      * @param     string[]     $pStringTable
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      * @return string  XML Output
      */
     public function writeStringTable($pStringTable = null)
@@ -88,9 +88,9 @@ class StringTable extends WriterPart
             // Create XML writer
             $objWriter = null;
             if ($this->getParentWriter()->getUseDiskCaching()) {
-                $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+                $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
             } else {
-                $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
+                $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
             }
 
             // XML header
@@ -105,15 +105,15 @@ class StringTable extends WriterPart
             foreach ($pStringTable as $textElement) {
                 $objWriter->startElement('si');
 
-                if (!$textElement instanceof \PhpSpreadsheet\RichText) {
-                    $textToWrite = \PhpSpreadsheet\Shared\StringHelper::controlCharacterPHP2OOXML($textElement);
+                if (!$textElement instanceof \PhpOffice\PhpSpreadsheet\RichText) {
+                    $textToWrite = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::controlCharacterPHP2OOXML($textElement);
                     $objWriter->startElement('t');
                     if ($textToWrite !== trim($textToWrite)) {
                         $objWriter->writeAttribute('xml:space', 'preserve');
                     }
                     $objWriter->writeRawData($textToWrite);
                     $objWriter->endElement();
-                } elseif ($textElement instanceof \PhpSpreadsheet\RichText) {
+                } elseif ($textElement instanceof \PhpOffice\PhpSpreadsheet\RichText) {
                     $this->writeRichText($objWriter, $textElement);
                 }
 
@@ -124,19 +124,19 @@ class StringTable extends WriterPart
 
             return $objWriter->getData();
         } else {
-            throw new \PhpSpreadsheet\Writer\Exception('Invalid string table array passed.');
+            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Invalid string table array passed.');
         }
     }
 
     /**
      * Write Rich Text
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter    $objWriter         XML Writer
-     * @param     \PhpSpreadsheet\RichText            $pRichText        Rich text
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter    $objWriter         XML Writer
+     * @param     \PhpOffice\PhpSpreadsheet\RichText            $pRichText        Rich text
      * @param     string                        $prefix            Optional Namespace prefix
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function writeRichText(\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpSpreadsheet\RichText $pRichText = null, $prefix = null)
+    public function writeRichText(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpOffice\PhpSpreadsheet\RichText $pRichText = null, $prefix = null)
     {
         if ($prefix !== null) {
             $prefix .= ':';
@@ -149,7 +149,7 @@ class StringTable extends WriterPart
             $objWriter->startElement($prefix . 'r');
 
             // rPr
-            if ($element instanceof \PhpSpreadsheet\RichText\Run) {
+            if ($element instanceof \PhpOffice\PhpSpreadsheet\RichText\Run) {
                 // rPr
                 $objWriter->startElement($prefix . 'rPr');
 
@@ -205,7 +205,7 @@ class StringTable extends WriterPart
             // t
             $objWriter->startElement($prefix . 't');
             $objWriter->writeAttribute('xml:space', 'preserve');
-            $objWriter->writeRawData(\PhpSpreadsheet\Shared\StringHelper::controlCharacterPHP2OOXML($element->getText()));
+            $objWriter->writeRawData(\PhpOffice\PhpSpreadsheet\Shared\StringHelper::controlCharacterPHP2OOXML($element->getText()));
             $objWriter->endElement();
 
             $objWriter->endElement();
@@ -215,16 +215,16 @@ class StringTable extends WriterPart
     /**
      * Write Rich Text
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter    $objWriter         XML Writer
-     * @param     string|\PhpSpreadsheet\RichText    $pRichText        text string or Rich text
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter    $objWriter         XML Writer
+     * @param     string|\PhpOffice\PhpSpreadsheet\RichText    $pRichText        text string or Rich text
      * @param     string                        $prefix            Optional Namespace prefix
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function writeRichTextForCharts(\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pRichText = null, $prefix = null)
+    public function writeRichTextForCharts(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pRichText = null, $prefix = null)
     {
-        if (!$pRichText instanceof \PhpSpreadsheet\RichText) {
+        if (!$pRichText instanceof \PhpOffice\PhpSpreadsheet\RichText) {
             $textRun = $pRichText;
-            $pRichText = new \PhpSpreadsheet\RichText();
+            $pRichText = new \PhpOffice\PhpSpreadsheet\RichText();
             $pRichText->createTextRun($textRun);
         }
 
@@ -268,7 +268,7 @@ class StringTable extends WriterPart
 
             // t
             $objWriter->startElement($prefix . 't');
-            $objWriter->writeRawData(\PhpSpreadsheet\Shared\StringHelper::controlCharacterPHP2OOXML($element->getText()));
+            $objWriter->writeRawData(\PhpOffice\PhpSpreadsheet\Shared\StringHelper::controlCharacterPHP2OOXML($element->getText()));
             $objWriter->endElement();
 
             $objWriter->endElement();
@@ -288,9 +288,9 @@ class StringTable extends WriterPart
 
         // Loop through stringtable and add flipped items to $returnValue
         foreach ($stringTable as $key => $value) {
-            if (!$value instanceof \PhpSpreadsheet\RichText) {
+            if (!$value instanceof \PhpOffice\PhpSpreadsheet\RichText) {
                 $returnValue[$value] = $key;
-            } elseif ($value instanceof \PhpSpreadsheet\RichText) {
+            } elseif ($value instanceof \PhpOffice\PhpSpreadsheet\RichText) {
                 $returnValue[$value->getHashCode()] = $key;
             }
         }

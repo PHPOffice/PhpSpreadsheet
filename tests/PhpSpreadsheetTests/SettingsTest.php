@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheetTests;
+namespace PhpOffice\PhpSpreadsheetTests;
 
 class SettingsTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,7 +12,7 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetXMLSettings()
     {
-        $result = \PhpSpreadsheet\Settings::getLibXmlLoaderOptions();
+        $result = \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions();
         $this->assertTrue((bool) ((LIBXML_DTDLOAD | LIBXML_DTDATTR) & $result));
     }
 
@@ -20,8 +20,8 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetXMLSettings()
     {
-        call_user_func_array([\PhpSpreadsheet\Settings::class, 'setLibXmlLoaderOptions'], [LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_DTDVALID]);
-        $result = \PhpSpreadsheet\Settings::getLibXmlLoaderOptions();
+        call_user_func_array([\PhpOffice\PhpSpreadsheet\Settings::class, 'setLibXmlLoaderOptions'], [LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_DTDVALID]);
+        $result = \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions();
         $this->assertTrue((bool) ((LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_DTDVALID) & $result));
     }
 }

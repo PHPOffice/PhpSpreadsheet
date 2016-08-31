@@ -4,7 +4,7 @@ require __DIR__ . '/Header.php';
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
-$spreadsheet = new \PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
 // Set document properties
 $helper->log('Set document properties');
@@ -70,41 +70,41 @@ $dateTimeNow = time();
 $spreadsheet->getActiveSheet()
         ->setCellValue('A9', 'Date/Time')
         ->setCellValue('B9', 'Date')
-        ->setCellValue('C9', \PhpSpreadsheet\Shared\Date::PHPToExcel($dateTimeNow));
+        ->setCellValue('C9', \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($dateTimeNow));
 $spreadsheet->getActiveSheet()
         ->getStyle('C9')
         ->getNumberFormat()
-        ->setFormatCode(\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2);
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2);
 
 $spreadsheet->getActiveSheet()
         ->setCellValue('A10', 'Date/Time')
         ->setCellValue('B10', 'Time')
-        ->setCellValue('C10', \PhpSpreadsheet\Shared\Date::PHPToExcel($dateTimeNow));
+        ->setCellValue('C10', \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($dateTimeNow));
 $spreadsheet->getActiveSheet()
         ->getStyle('C10')
         ->getNumberFormat()
-        ->setFormatCode(\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4);
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4);
 
 $spreadsheet->getActiveSheet()
         ->setCellValue('A11', 'Date/Time')
         ->setCellValue('B11', 'Date and Time')
-        ->setCellValue('C11', \PhpSpreadsheet\Shared\Date::PHPToExcel($dateTimeNow));
+        ->setCellValue('C11', \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($dateTimeNow));
 $spreadsheet->getActiveSheet()
         ->getStyle('C11')
         ->getNumberFormat()
-        ->setFormatCode(\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DATETIME);
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DATETIME);
 
 $spreadsheet->getActiveSheet()
         ->setCellValue('A12', 'NULL')
         ->setCellValue('C12', null);
 
-$richText = new \PhpSpreadsheet\RichText();
+$richText = new \PhpOffice\PhpSpreadsheet\RichText();
 $richText->createText('你好 ');
 
 $payable = $richText->createTextRun('你 好 吗？');
 $payable->getFont()->setBold(true);
 $payable->getFont()->setItalic(true);
-$payable->getFont()->setColor(new \PhpSpreadsheet\Style\Color(\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN));
+$payable->getFont()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN));
 
 $richText->createText(', unless specified otherwise on the invoice.');
 
@@ -112,11 +112,11 @@ $spreadsheet->getActiveSheet()
         ->setCellValue('A13', 'Rich Text')
         ->setCellValue('C13', $richText);
 
-$richText2 = new \PhpSpreadsheet\RichText();
+$richText2 = new \PhpOffice\PhpSpreadsheet\RichText();
 $richText2->createText("black text\n");
 
 $red = $richText2->createTextRun('red text');
-$red->getFont()->setColor(new \PhpSpreadsheet\Style\Color(\PhpSpreadsheet\Style\Color::COLOR_RED));
+$red->getFont()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED));
 
 $spreadsheet->getActiveSheet()
         ->getCell('C14')

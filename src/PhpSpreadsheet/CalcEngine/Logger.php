@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\CalcEngine;
+namespace PhpOffice\PhpSpreadsheet\CalcEngine;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet

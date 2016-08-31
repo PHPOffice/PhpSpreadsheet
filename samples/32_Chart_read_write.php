@@ -20,7 +20,7 @@ foreach ($inputFileNames as $inputFileName) {
         $helper->log('File ' . $inputFileNameShort . ' does not exist');
         continue;
     }
-    $reader = \PhpSpreadsheet\IOFactory::createReader($inputFileType);
+    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
     $reader->setIncludeCharts(true);
     $callStartTime = microtime(true);
     $spreadsheet = $reader->load($inputFileName);
@@ -69,7 +69,7 @@ foreach ($inputFileNames as $inputFileName) {
     }
 
     $outputFileName = $helper->getFilename($inputFileName);
-    $writer = \PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Excel2007');
+    $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Excel2007');
     $writer->setIncludeCharts(true);
     $callStartTime = microtime(true);
     $writer->save($outputFileName);

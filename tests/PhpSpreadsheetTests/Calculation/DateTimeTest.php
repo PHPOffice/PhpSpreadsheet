@@ -1,10 +1,10 @@
 <?php
 
-namespace PhpSpreadsheetTests\Calculation;
+namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
-use PhpSpreadsheet\Calculation\DateTime;
-use PhpSpreadsheet\Calculation\Functions;
-use PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 /**
  * Class DateTimeTest

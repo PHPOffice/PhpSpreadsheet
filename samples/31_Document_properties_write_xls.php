@@ -5,7 +5,7 @@ require __DIR__ . '/Header.php';
 $inputFileType = 'Excel5';
 $inputFileName = __DIR__ . '/templates/31docproperties.xls';
 
-$spreadsheetReader = \PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$spreadsheetReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 $callStartTime = microtime(true);
 $spreadsheet = $spreadsheetReader->load($inputFileName);
 $helper->logRead($inputFileType, $inputFileName, $callStartTime);
@@ -18,7 +18,7 @@ $spreadsheet->getProperties()->setTitle('Office 95 XLS Test Document')
 
 // Save Excel 95 file
 $filename = $helper->getFilename(__FILE__, 'xls');
-$writer = \PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Excel5');
+$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Excel5');
 $callStartTime = microtime(true);
 $writer->save($filename);
 $helper->logWrite($writer, $filename, $callStartTime);
@@ -28,7 +28,7 @@ $helper->logEndingNotes();
 
 // Reread File
 $helper->log('Reread Excel5 file');
-$spreadsheetRead = \PhpSpreadsheet\IOFactory::load($filename);
+$spreadsheetRead = \PhpOffice\PhpSpreadsheet\IOFactory::load($filename);
 
 // Set properties
 $helper->log('Get properties');
@@ -53,9 +53,9 @@ $customProperties = $spreadsheet->getProperties()->getCustomProperties();
 foreach ($customProperties as $customProperty) {
     $propertyValue = $spreadsheet->getProperties()->getCustomPropertyValue($customProperty);
     $propertyType = $spreadsheet->getProperties()->getCustomPropertyType($customProperty);
-    if ($propertyType == \PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_DATE) {
+    if ($propertyType == \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_DATE) {
         $formattedValue = date('d-M-Y H:i:s', $propertyValue);
-    } elseif ($propertyType == \PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_BOOLEAN) {
+    } elseif ($propertyType == \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_BOOLEAN) {
         $formattedValue = $propertyValue ? 'TRUE' : 'FALSE';
     } else {
         $formattedValue = $propertyValue;

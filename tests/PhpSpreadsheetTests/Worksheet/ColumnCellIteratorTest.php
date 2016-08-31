@@ -1,10 +1,10 @@
 <?php
 
-namespace PhpSpreadsheetTests\Worksheet;
+namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
-use PhpSpreadsheet\Cell;
-use PhpSpreadsheet\Worksheet;
-use PhpSpreadsheet\Worksheet\ColumnCellIterator;
+use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\ColumnCellIterator;
 
 class ColumnCellIteratorTest extends \PHPUnit_Framework_TestCase
 {
@@ -67,7 +67,7 @@ class ColumnCellIteratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \PhpSpreadsheet\Exception
+     * @expectedException \PhpOffice\PhpSpreadsheet\Exception
      */
     public function testSeekOutOfRange()
     {
@@ -76,7 +76,7 @@ class ColumnCellIteratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \PhpSpreadsheet\Exception
+     * @expectedException \PhpOffice\PhpSpreadsheet\Exception
      */
     public function testPrevOutOfRange()
     {

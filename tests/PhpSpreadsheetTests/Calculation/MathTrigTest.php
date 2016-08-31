@@ -1,10 +1,10 @@
 <?php
 
-namespace PhpSpreadsheetTests\Calculation;
+namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
-use PhpSpreadsheet\Calculation;
-use PhpSpreadsheet\Calculation\Functions;
-use PhpSpreadsheet\Calculation\MathTrig;
+use PhpOffice\PhpSpreadsheet\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 
 class MathTrigTest extends \PHPUnit_Framework_TestCase
 {

@@ -3,7 +3,7 @@
 require __DIR__ . '/Header.php';
 
 $helper->log('Load from Excel5 template');
-$reader = \PhpSpreadsheet\IOFactory::createReader('Excel5');
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Excel5');
 $spreadsheet = $reader->load(__DIR__ . '/templates/30template.xls');
 
 $helper->log('Add new data to the template');
@@ -21,7 +21,7 @@ $data = [['title' => 'Excel for dummies',
     ],
 ];
 
-$spreadsheet->getActiveSheet()->setCellValue('D1', \PhpSpreadsheet\Shared\Date::PHPToExcel(time()));
+$spreadsheet->getActiveSheet()->setCellValue('D1', \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(time()));
 
 $baseRow = 5;
 foreach ($data as $r => $dataRow) {

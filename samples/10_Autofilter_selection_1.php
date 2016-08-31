@@ -4,7 +4,7 @@ require __DIR__ . '/Header.php';
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
-$spreadsheet = new \PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
 // Set document properties
 $helper->log('Set document properties');
@@ -48,7 +48,7 @@ foreach ($years as $year) {
         foreach ($countries as $country) {
             $endDays = date('t', mktime(0, 0, 0, $period, 1, $year));
             for ($i = 1; $i <= $endDays; ++$i) {
-                $eDate = \PhpSpreadsheet\Shared\Date::formattedPHPToExcel(
+                $eDate = \PhpOffice\PhpSpreadsheet\Shared\Date::formattedPHPToExcel(
                     $year,
                     $period,
                     $i
@@ -86,8 +86,8 @@ $spreadsheet->getActiveSheet()->getStyle('A1:F1')->getFont()->setBold(true);
 $spreadsheet->getActiveSheet()->getStyle('A1:F1')->getAlignment()->setWrapText(true);
 $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(12.5);
 $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(10.5);
-$spreadsheet->getActiveSheet()->getStyle('D2:D' . $row)->getNumberFormat()->setFormatCode(\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2);
-$spreadsheet->getActiveSheet()->getStyle('E2:F' . $row)->getNumberFormat()->setFormatCode(\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+$spreadsheet->getActiveSheet()->getStyle('D2:D' . $row)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2);
+$spreadsheet->getActiveSheet()->getStyle('E2:F' . $row)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
 $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(14);
 $spreadsheet->getActiveSheet()->freezePane('A2');
 
@@ -104,45 +104,45 @@ $helper->log('Set active filters');
 // Filter the Country column on a filter value of countries beginning with the letter U (or Japan)
 //     We use * as a wildcard, so specify as U* and using a wildcard requires customFilter
 $autoFilter->getColumn('C')
-        ->setFilterType(\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER)
+        ->setFilterType(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER)
         ->createRule()
         ->setRule(
-            \PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+            \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
             'u*'
         )
-        ->setRuleType(\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
+        ->setRuleType(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
 $autoFilter->getColumn('C')
         ->createRule()
         ->setRule(
-            \PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+            \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
             'japan'
         )
-        ->setRuleType(\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
+        ->setRuleType(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
 // Filter the Date column on a filter value of the first day of every period of the current year
 //	We us a dateGroup ruletype for this, although it is still a standard filter
 foreach ($periods as $period) {
     $endDate = date('t', mktime(0, 0, 0, $period, 1, $currentYear));
 
     $autoFilter->getColumn('D')
-            ->setFilterType(\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_FILTER)
+            ->setFilterType(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_FILTER)
             ->createRule()
             ->setRule(
-                \PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+                \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
                 [
                 'year' => $currentYear,
                 'month' => $period,
                 'day' => $endDate,
                     ]
             )
-            ->setRuleType(\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DATEGROUP);
+            ->setRuleType(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DATEGROUP);
 }
 // Display only sales values that are blank
 //     Standard filter, operator equals, and value of NULL
 $autoFilter->getColumn('E')
-        ->setFilterType(\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_FILTER)
+        ->setFilterType(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_FILTER)
         ->createRule()
         ->setRule(
-            \PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+            \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
             ''
         );
 

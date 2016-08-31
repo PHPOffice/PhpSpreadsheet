@@ -1,16 +1,16 @@
 <?php
 
-/** PhpSpreadsheet */
+
 require __DIR__ . '/Header.php';
 
 // List functions
 $helper->log('List implemented functions');
-$calc = \PhpSpreadsheet\Calculation::getInstance();
+$calc = \PhpOffice\PhpSpreadsheet\Calculation::getInstance();
 print_r($calc->listFunctionNames());
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
-$spreadsheet = new \PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
 // Add some data, we will use some formulas here
 $helper->log('Add some data');

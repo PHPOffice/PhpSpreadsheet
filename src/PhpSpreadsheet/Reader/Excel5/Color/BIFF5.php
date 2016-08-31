@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Reader\Excel5\Color;
+namespace PhpOffice\PhpSpreadsheet\Reader\Excel5\Color;
 
 class BIFF5
 {

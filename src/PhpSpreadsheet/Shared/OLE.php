@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared;
+namespace PhpOffice\PhpSpreadsheet\Shared;
 
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
 // +----------------------------------------------------------------------+
@@ -91,25 +91,25 @@ class OLE
      *
      * @acces public
      * @param string $file
-     * @throws \PhpSpreadsheet\Reader\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      * @return bool true on success, PEAR_Error on failure
      */
     public function read($file)
     {
         $fh = fopen($file, 'r');
         if (!$fh) {
-            throw new \PhpSpreadsheet\Reader\Exception("Can't open file $file");
+            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception("Can't open file $file");
         }
         $this->_file_handle = $fh;
 
         $signature = fread($fh, 8);
         if ("\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1" != $signature) {
-            throw new \PhpSpreadsheet\Reader\Exception("File doesn't seem to be an OLE container.");
+            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception("File doesn't seem to be an OLE container.");
         }
         fseek($fh, 28);
         if (fread($fh, 2) != "\xFE\xFF") {
             // This shouldn't be a problem in practice
-            throw new \PhpSpreadsheet\Reader\Exception('Only Little-Endian encoding is supported.');
+            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('Only Little-Endian encoding is supported.');
         }
         // Size of blocks and short blocks in bytes
         $this->bigBlockSize = pow(2, self::_readInt2($fh));
@@ -189,7 +189,7 @@ class OLE
 
     /**
      * Returns a stream for use with fread() etc. External callers should
-     * use \PhpSpreadsheet\Shared\OLE\PPS\File::getStream().
+     * use \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\File::getStream().
      * @param   int|PPS   block id or PPS
      * @return  resource  read-only stream
      */
@@ -197,7 +197,7 @@ class OLE
     {
         static $isRegistered = false;
         if (!$isRegistered) {
-            stream_wrapper_register('ole-chainedblockstream', '\\PhpSpreadsheet\\Shared\\OLE\\ChainedBlockStream');
+            stream_wrapper_register('ole-chainedblockstream', '\\PhpOffice\\PhpSpreadsheet\\Shared\\OLE\\ChainedBlockStream');
             $isRegistered = true;
         }
 

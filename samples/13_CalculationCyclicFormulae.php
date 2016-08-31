@@ -4,7 +4,7 @@ require __DIR__ . '/Header.php';
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
-$spreadsheet = new \PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
 // Add some data, we will use some formulas here
 $helper->log('Add some data and formulas');
@@ -13,7 +13,7 @@ $spreadsheet->getActiveSheet()->setCellValue('A1', '=B1')
         ->setCellValue('B1', '=A1+1')
         ->setCellValue('B2', '=A2');
 
-\PhpSpreadsheet\Calculation::getInstance($spreadsheet)->cyclicFormulaCount = 100;
+\PhpOffice\PhpSpreadsheet\Calculation::getInstance($spreadsheet)->cyclicFormulaCount = 100;
 
 // Calculated data
 $helper->log('Calculated data');

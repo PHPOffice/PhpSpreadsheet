@@ -1,18 +1,18 @@
 <?php
 
-namespace PhpSpreadsheet;
+namespace PhpOffice\PhpSpreadsheet;
 
 require __DIR__ . '/Header.php';
 
 // Write temporary file
 $largeSpreadsheet = require __DIR__ . '/templates/largeSpreadsheet.php';
-$writer = new \PhpSpreadsheet\Writer\Excel2007($largeSpreadsheet);
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Excel2007($largeSpreadsheet);
 $filename = $helper->getTemporaryFilename();
 $callStartTime = microtime(true);
 $writer->save($filename);
 $helper->logWrite($writer, $filename, $callStartTime);
 
-class MyReadFilter implements \PhpSpreadsheet\Reader\IReadFilter
+class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 {
     public function readCell($column, $row, $worksheetName = '')
     {
@@ -26,7 +26,7 @@ class MyReadFilter implements \PhpSpreadsheet\Reader\IReadFilter
 }
 
 $helper->log('Load from Excel2007 file');
-$reader = \PhpSpreadsheet\IOFactory::createReader('Excel2007');
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Excel2007');
 $reader->setReadFilter(new MyReadFilter());
 $callStartTime = microtime(true);
 $spreadsheet = $reader->load($filename);

@@ -1,8 +1,8 @@
 <?php
 
-namespace PhpSpreadsheetTests\Chart;
+namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
-use PhpSpreadsheet\Chart\Legend;
+use PhpOffice\PhpSpreadsheet\Chart\Legend;
 
 class LegendTest extends \PHPUnit_Framework_TestCase
 {

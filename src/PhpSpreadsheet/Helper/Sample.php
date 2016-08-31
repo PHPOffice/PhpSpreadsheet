@@ -1,9 +1,9 @@
 <?php
 
-namespace PhpSpreadsheet\Helper;
+namespace PhpOffice\PhpSpreadsheet\Helper;
 
-use PhpSpreadsheet\IOFactory;
-use PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class Sample
 {
@@ -153,11 +153,11 @@ class Sample
 
     /**
      * Log a line about the write operation
-     * @param \PhpSpreadsheet\Writer\IWriter $writer
+     * @param \PhpOffice\PhpSpreadsheet\Writer\IWriter $writer
      * @param string $path
      * @param float $callStartTime
      */
-    public function logWrite(\PhpSpreadsheet\Writer\IWriter $writer, $path, $callStartTime)
+    public function logWrite(\PhpOffice\PhpSpreadsheet\Writer\IWriter $writer, $path, $callStartTime)
     {
         $callEndTime = microtime(true);
         $callTime = $callEndTime - $callStartTime;

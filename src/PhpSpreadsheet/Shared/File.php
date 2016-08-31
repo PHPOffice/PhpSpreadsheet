@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared;
+namespace PhpOffice\PhpSpreadsheet\Shared;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -70,7 +70,7 @@ class File
             $zipFile = substr($pFilename, 6, strpos($pFilename, '#') - 6);
             $archiveFile = substr($pFilename, strpos($pFilename, '#') + 1);
 
-            $zipClass = \PhpSpreadsheet\Settings::getZipClass();
+            $zipClass = \PhpOffice\PhpSpreadsheet\Settings::getZipClass();
             $zip = new $zipClass();
             if ($zip->open($zipFile) === true) {
                 $returnValue = ($zip->getFromName($archiveFile) !== false);

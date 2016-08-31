@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared\Escher\DgContainer;
+namespace PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -29,7 +29,7 @@ class SpgrContainer
     /**
      * Parent Shape Group Container
      *
-     * @var \PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer
+     * @var \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer
      */
     private $parent;
 
@@ -43,7 +43,7 @@ class SpgrContainer
     /**
      * Set parent Shape Group Container
      *
-     * @param \PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer $parent
+     * @param \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer $parent
      */
     public function setParent($parent)
     {
@@ -53,7 +53,7 @@ class SpgrContainer
     /**
      * Get the parent Shape Group Container if any
      *
-     * @return \PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer|null
+     * @return \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer|null
      */
     public function getParent()
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Style;
+namespace PhpOffice\PhpSpreadsheet\Style;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -24,7 +24,7 @@ namespace PhpSpreadsheet\Style;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class Conditional implements \PhpSpreadsheet\IComparable
+class Conditional implements \PhpOffice\PhpSpreadsheet\IComparable
 {
     /* Condition types */
     const CONDITION_NONE = 'none';
@@ -77,7 +77,7 @@ class Conditional implements \PhpSpreadsheet\IComparable
     /**
      * Style
      *
-     * @var \PhpSpreadsheet\Style
+     * @var \PhpOffice\PhpSpreadsheet\Style
      */
     private $style;
 
@@ -91,7 +91,7 @@ class Conditional implements \PhpSpreadsheet\IComparable
         $this->operatorType = self::OPERATOR_NONE;
         $this->text = null;
         $this->condition = [];
-        $this->style = new \PhpSpreadsheet\Style(false, true);
+        $this->style = new \PhpOffice\PhpSpreadsheet\Style(false, true);
     }
 
     /**
@@ -236,7 +236,7 @@ class Conditional implements \PhpSpreadsheet\IComparable
     /**
      * Get Style
      *
-     * @return \PhpSpreadsheet\Style
+     * @return \PhpOffice\PhpSpreadsheet\Style
      */
     public function getStyle()
     {
@@ -246,11 +246,11 @@ class Conditional implements \PhpSpreadsheet\IComparable
     /**
      * Set Style
      *
-     * @param   \PhpSpreadsheet\Style $pValue
-     * @throws  \PhpSpreadsheet\Exception
+     * @param   \PhpOffice\PhpSpreadsheet\Style $pValue
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
      * @return  Conditional
      */
-    public function setStyle(\PhpSpreadsheet\Style $pValue = null)
+    public function setStyle(\PhpOffice\PhpSpreadsheet\Style $pValue = null)
     {
         $this->style = $pValue;
 

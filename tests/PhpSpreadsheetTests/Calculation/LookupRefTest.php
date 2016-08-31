@@ -1,9 +1,9 @@
 <?php
 
-namespace PhpSpreadsheetTests\Calculation;
+namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
-use PhpSpreadsheet\Calculation\Functions;
-use PhpSpreadsheet\Calculation\LookupRef;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 /**
  * Class LookupRefTest

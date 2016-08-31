@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Worksheet;
+namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -413,7 +413,7 @@ class HeaderFooter
      *
      * @param   HeaderFooterDrawing $image
      * @param   string $location
-     * @throws  \PhpSpreadsheet\Exception
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
      * @return  HeaderFooter
      */
     public function addImage(HeaderFooterDrawing $image = null, $location = self::IMAGE_HEADER_LEFT)
@@ -427,7 +427,7 @@ class HeaderFooter
      * Remove header/footer image
      *
      * @param string $location
-     * @throws \PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @return HeaderFooter
      */
     public function removeImage($location = self::IMAGE_HEADER_LEFT)
@@ -443,13 +443,13 @@ class HeaderFooter
      * Set header/footer images
      *
      * @param  HeaderFooterDrawing[] $images
-     * @throws \PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @return HeaderFooter
      */
     public function setImages($images)
     {
         if (!is_array($images)) {
-            throw new \PhpSpreadsheet\Exception('Invalid parameter!');
+            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid parameter!');
         }
 
         $this->headerFooterImages = $images;

@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheetTests\Custom;
+namespace PhpOffice\PhpSpreadsheetTests\Custom;
 
 class ComplexAssert
 {

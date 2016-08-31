@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Writer\OpenDocument;
+namespace PhpOffice\PhpSpreadsheet\Writer\OpenDocument;
 
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet
@@ -24,6 +24,6 @@ namespace PhpSpreadsheet\Writer\OpenDocument;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-abstract class WriterPart extends \PhpSpreadsheet\Writer\Excel2007\WriterPart
+abstract class WriterPart extends \PhpOffice\PhpSpreadsheet\Writer\Excel2007\WriterPart
 {
 }

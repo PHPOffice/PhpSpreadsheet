@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared\PCLZip;
+namespace PhpOffice\PhpSpreadsheet\Shared\PCLZip;
 
 // --------------------------------------------------------------------------------
 // PhpConcept Library - Zip Module 2.8.2

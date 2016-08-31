@@ -1,8 +1,8 @@
 <?php
 
-namespace PhpSpreadsheetTests\Worksheet\AutoFilter;
+namespace PhpOffice\PhpSpreadsheetTests\Worksheet\AutoFilter;
 
-use PhpSpreadsheet\Worksheet\AutoFilter;
+use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 
 class ColumnTest extends \PHPUnit_Framework_TestCase
 {
@@ -75,7 +75,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \PhpSpreadsheet\Exception
+     * @expectedException \PhpOffice\PhpSpreadsheet\Exception
      */
     public function testSetInvalidFilterTypeThrowsException()
     {
@@ -100,7 +100,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \PhpSpreadsheet\Exception
+     * @expectedException \PhpOffice\PhpSpreadsheet\Exception
      */
     public function testSetInvalidJoinThrowsException()
     {

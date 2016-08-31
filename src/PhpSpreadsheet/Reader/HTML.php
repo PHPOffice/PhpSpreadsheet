@@ -1,12 +1,12 @@
 <?php
 
-namespace PhpSpreadsheet\Reader;
+namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use DOMDocument;
 use DOMElement;
 use DOMNode;
 use DOMText;
-use PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -93,16 +93,16 @@ class HTML extends BaseReader implements IReader
             'font' => [
                 'underline' => true,
                 'color' => [
-                    'argb' => \PhpSpreadsheet\Style\Color::COLOR_BLUE,
+                    'argb' => \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLUE,
                 ],
             ],
         ], //    Blue underlined
         'hr' => [
             'borders' => [
                 'bottom' => [
-                    'style' => \PhpSpreadsheet\Style\Border::BORDER_THIN,
+                    'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
                     'color' => [
-                        \PhpSpreadsheet\Style\Color::COLOR_BLACK,
+                        \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK,
                     ],
                 ],
             ],
@@ -223,12 +223,12 @@ class HTML extends BaseReader implements IReader
 
     /**
      * @param DOMNode $element
-     * @param \PhpSpreadsheet\Worksheet $sheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $sheet
      * @param int $row
      * @param string $column
      * @param string $cellContent
      */
-    protected function processDomElement(DOMNode $element, \PhpSpreadsheet\Worksheet $sheet, &$row, &$column, &$cellContent)
+    protected function processDomElement(DOMNode $element, \PhpOffice\PhpSpreadsheet\Worksheet $sheet, &$row, &$column, &$cellContent)
     {
         foreach ($element->childNodes as $child) {
             if ($child instanceof DOMText) {
@@ -398,7 +398,7 @@ class HTML extends BaseReader implements IReader
                                 ++$columnTo;
                             }
                             $range = $column . $row . ':' . $columnTo . ($row + $attributeArray['rowspan'] - 1);
-                            foreach (\PhpSpreadsheet\Cell::extractAllCellReferencesInRange($range) as $value) {
+                            foreach (\PhpOffice\PhpSpreadsheet\Cell::extractAllCellReferencesInRange($range) as $value) {
                                 $this->rowspan[$value] = true;
                             }
                             $sheet->mergeCells($range);
@@ -406,7 +406,7 @@ class HTML extends BaseReader implements IReader
                         } elseif (isset($attributeArray['rowspan'])) {
                             //create merging rowspan
                             $range = $column . $row . ':' . $column . ($row + $attributeArray['rowspan'] - 1);
-                            foreach (\PhpSpreadsheet\Cell::extractAllCellReferencesInRange($range) as $value) {
+                            foreach (\PhpOffice\PhpSpreadsheet\Cell::extractAllCellReferencesInRange($range) as $value) {
                                 $this->rowspan[$value] = true;
                             }
                             $sheet->mergeCells($range);

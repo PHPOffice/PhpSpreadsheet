@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Writer\Excel5;
+namespace PhpOffice\PhpSpreadsheet\Writer\Excel5;
 
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet
@@ -112,7 +112,7 @@ class BIFFwriter
                 $byte_order = 1; // Big Endian
             } else {
                 // Give up. I'll fix this in a later version.
-                throw new \PhpSpreadsheet\Writer\Exception('Required floating point format not supported on this platform.');
+                throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Required floating point format not supported on this platform.');
             }
             self::$byteOrder = $byte_order;
         }

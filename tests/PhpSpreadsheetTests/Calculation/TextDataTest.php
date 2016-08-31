@@ -1,10 +1,10 @@
 <?php
 
-namespace PhpSpreadsheetTests\Calculation;
+namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
-use PhpSpreadsheet\Calculation\Functions;
-use PhpSpreadsheet\Calculation\TextData;
-use PhpSpreadsheet\Shared\StringHelper;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\TextData;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class TextDataTest extends \PHPUnit_Framework_TestCase
 {

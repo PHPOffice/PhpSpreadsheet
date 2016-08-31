@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Style;
+namespace PhpOffice\PhpSpreadsheet\Style;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -24,7 +24,7 @@ namespace PhpSpreadsheet\Style;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class Alignment extends Supervisor implements \PhpSpreadsheet\IComparable
+class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
 {
     /* Horizontal alignment styles */
     const HORIZONTAL_GENERAL = 'general';
@@ -147,8 +147,8 @@ class Alignment extends Supervisor implements \PhpSpreadsheet\IComparable
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getAlignment()->applyFromArray(
      *        array(
-     *            'horizontal' => \PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-     *            'vertical'   => \PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+     *            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+     *            'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
      *            'rotation'   => 0,
      *            'wrap'            => TRUE
      *        )
@@ -156,7 +156,7 @@ class Alignment extends Supervisor implements \PhpSpreadsheet\IComparable
      * </code>
      *
      * @param   array    $pStyles    Array containing style information
-     * @throws  \PhpSpreadsheet\Exception
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
      * @return  Alignment
      */
     public function applyFromArray($pStyles = null)
@@ -189,7 +189,7 @@ class Alignment extends Supervisor implements \PhpSpreadsheet\IComparable
                 }
             }
         } else {
-            throw new \PhpSpreadsheet\Exception('Invalid style array passed.');
+            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid style array passed.');
         }
 
         return $this;
@@ -285,7 +285,7 @@ class Alignment extends Supervisor implements \PhpSpreadsheet\IComparable
      * Set TextRotation
      *
      * @param int $pValue
-     * @throws \PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @return Alignment
      */
     public function setTextRotation($pValue = 0)
@@ -304,7 +304,7 @@ class Alignment extends Supervisor implements \PhpSpreadsheet\IComparable
                 $this->textRotation = $pValue;
             }
         } else {
-            throw new \PhpSpreadsheet\Exception('Text rotation should be a value between -90 and 90.');
+            throw new \PhpOffice\PhpSpreadsheet\Exception('Text rotation should be a value between -90 and 90.');
         }
 
         return $this;

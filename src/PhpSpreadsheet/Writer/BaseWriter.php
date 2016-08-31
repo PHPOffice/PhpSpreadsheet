@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Writer;
+namespace PhpOffice\PhpSpreadsheet\Writer;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet

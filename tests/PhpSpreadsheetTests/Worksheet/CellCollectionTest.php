@@ -1,9 +1,9 @@
 <?php
 
-namespace PhpSpreadsheetTests\Worksheet;
+namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
-use PhpSpreadsheet\CachedObjectStorageFactory;
-use PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\CachedObjectStorageFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class CellCollectionTest extends \PHPUnit_Framework_TestCase
 {

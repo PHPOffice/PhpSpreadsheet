@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared\JAMA;
+namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
 
 /**
  *    Class to obtain eigenvalues and eigenvectors of a real matrix.

@@ -1,8 +1,8 @@
 <?php
 
-namespace PhpSpreadsheetTests\Chart;
+namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
-use PhpSpreadsheet\Chart\Layout;
+use PhpOffice\PhpSpreadsheet\Chart\Layout;
 
 class LayoutTest extends \PHPUnit_Framework_TestCase
 {
