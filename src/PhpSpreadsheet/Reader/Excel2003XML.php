@@ -598,7 +598,7 @@ class Excel2003XML extends BaseReader implements IReader
                         }
                         if (isset($cell->Data)) {
                             $cellValue = $cellData = $cell->Data;
-                            $type = \PhpSpreadsheet\Cell_DataType::TYPE_NULL;
+                            $type = \PhpSpreadsheet\Cell\DataType::TYPE_NULL;
                             $cellData_ss = $cellData->attributes($namespaces['ss']);
                             if (isset($cellData_ss['Type'])) {
                                 $cellDataType = $cellData_ss['Type'];

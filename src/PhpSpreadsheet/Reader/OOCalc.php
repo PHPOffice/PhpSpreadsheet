@@ -2,6 +2,9 @@
 
 namespace PhpSpreadsheet\Reader;
 
+use DateTime;
+use DateTimeZone;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *

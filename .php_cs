@@ -2,6 +2,7 @@
 
 $finder = Symfony\CS\Finder\DefaultFinder::create()
         ->exclude('vendor')
+        ->in('samples')
         ->in('src')
         ->in('tests');
 

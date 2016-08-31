@@ -2,6 +2,7 @@
 
 namespace PhpSpreadsheet\Reader;
 
+use DateTimeZone;
 use PhpSpreadsheet\Spreadsheet;
 
 /**

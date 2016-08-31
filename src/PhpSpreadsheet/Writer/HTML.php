@@ -2,10 +2,10 @@
 
 namespace PhpSpreadsheet\Writer;
 
-use Spreadsheet\Calculation;
-use Spreadsheet\Shared\Font;
-use Spreadsheet\Shared\StringHelper;
-use Spreadsheet\Spreadsheet;
+use PhpSpreadsheet\Calculation;
+use PhpSpreadsheet\Shared\Font;
+use PhpSpreadsheet\Shared\StringHelper;
+use PhpSpreadsheet\Spreadsheet;
 
 /**
  * Copyright (c) 2006 - 2015 Spreadsheet
@@ -83,7 +83,7 @@ class HTML extends BaseWriter implements IWriter
     /**
      * Default font
      *
-     * @var \Spreadsheet\Style\Font
+     * @var \PhpSpreadsheet\Style\Font
      */
     private $defaultFont;
 
@@ -144,7 +144,7 @@ class HTML extends BaseWriter implements IWriter
      * Save Spreadsheet to file
      *
      * @param    string        $pFilename
-     * @throws    \Spreadsheet\Writer\Exception
+     * @throws    \PhpSpreadsheet\Writer\Exception
      */
     public function save($pFilename = null)
     {
@@ -162,7 +162,7 @@ class HTML extends BaseWriter implements IWriter
         // Open file
         $fileHandle = fopen($pFilename, 'wb+');
         if ($fileHandle === false) {
-            throw new \Spreadsheet\Writer\Exception("Could not open file $pFilename for writing.");
+            throw new \PhpSpreadsheet\Writer\Exception("Could not open file $pFilename for writing.");
         }
 
         // Write headers
@@ -195,12 +195,12 @@ class HTML extends BaseWriter implements IWriter
     private function mapVAlign($vAlign)
     {
         switch ($vAlign) {
-            case \Spreadsheet\Style\Alignment::VERTICAL_BOTTOM:
+            case \PhpSpreadsheet\Style\Alignment::VERTICAL_BOTTOM:
                 return 'bottom';
-            case \Spreadsheet\Style\Alignment::VERTICAL_TOP:
+            case \PhpSpreadsheet\Style\Alignment::VERTICAL_TOP:
                 return 'top';
-            case \Spreadsheet\Style\Alignment::VERTICAL_CENTER:
-            case \Spreadsheet\Style\Alignment::VERTICAL_JUSTIFY:
+            case \PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER:
+            case \PhpSpreadsheet\Style\Alignment::VERTICAL_JUSTIFY:
                 return 'middle';
             default:
                 return 'baseline';
@@ -216,16 +216,16 @@ class HTML extends BaseWriter implements IWriter
     private function mapHAlign($hAlign)
     {
         switch ($hAlign) {
-            case \Spreadsheet\Style\Alignment::HORIZONTAL_GENERAL:
+            case \PhpSpreadsheet\Style\Alignment::HORIZONTAL_GENERAL:
                 return false;
-            case \Spreadsheet\Style\Alignment::HORIZONTAL_LEFT:
+            case \PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT:
                 return 'left';
-            case \Spreadsheet\Style\Alignment::HORIZONTAL_RIGHT:
+            case \PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT:
                 return 'right';
-            case \Spreadsheet\Style\Alignment::HORIZONTAL_CENTER:
-            case \Spreadsheet\Style\Alignment::HORIZONTAL_CENTER_CONTINUOUS:
+            case \PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER:
+            case \PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER_CONTINUOUS:
                 return 'center';
-            case \Spreadsheet\Style\Alignment::HORIZONTAL_JUSTIFY:
+            case \PhpSpreadsheet\Style\Alignment::HORIZONTAL_JUSTIFY:
                 return 'justify';
             default:
                 return false;
@@ -241,33 +241,33 @@ class HTML extends BaseWriter implements IWriter
     private function mapBorderStyle($borderStyle)
     {
         switch ($borderStyle) {
-            case \Spreadsheet\Style\Border::BORDER_NONE:
+            case \PhpSpreadsheet\Style\Border::BORDER_NONE:
                 return 'none';
-            case \Spreadsheet\Style\Border::BORDER_DASHDOT:
+            case \PhpSpreadsheet\Style\Border::BORDER_DASHDOT:
                 return '1px dashed';
-            case \Spreadsheet\Style\Border::BORDER_DASHDOTDOT:
+            case \PhpSpreadsheet\Style\Border::BORDER_DASHDOTDOT:
                 return '1px dotted';
-            case \Spreadsheet\Style\Border::BORDER_DASHED:
+            case \PhpSpreadsheet\Style\Border::BORDER_DASHED:
                 return '1px dashed';
-            case \Spreadsheet\Style\Border::BORDER_DOTTED:
+            case \PhpSpreadsheet\Style\Border::BORDER_DOTTED:
                 return '1px dotted';
-            case \Spreadsheet\Style\Border::BORDER_DOUBLE:
+            case \PhpSpreadsheet\Style\Border::BORDER_DOUBLE:
                 return '3px double';
-            case \Spreadsheet\Style\Border::BORDER_HAIR:
+            case \PhpSpreadsheet\Style\Border::BORDER_HAIR:
                 return '1px solid';
-            case \Spreadsheet\Style\Border::BORDER_MEDIUM:
+            case \PhpSpreadsheet\Style\Border::BORDER_MEDIUM:
                 return '2px solid';
-            case \Spreadsheet\Style\Border::BORDER_MEDIUMDASHDOT:
+            case \PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOT:
                 return '2px dashed';
-            case \Spreadsheet\Style\Border::BORDER_MEDIUMDASHDOTDOT:
+            case \PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOTDOT:
                 return '2px dotted';
-            case \Spreadsheet\Style\Border::BORDER_MEDIUMDASHED:
+            case \PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED:
                 return '2px dashed';
-            case \Spreadsheet\Style\Border::BORDER_SLANTDASHDOT:
+            case \PhpSpreadsheet\Style\Border::BORDER_SLANTDASHDOT:
                 return '2px dashed';
-            case \Spreadsheet\Style\Border::BORDER_THICK:
+            case \PhpSpreadsheet\Style\Border::BORDER_THICK:
                 return '3px solid';
-            case \Spreadsheet\Style\Border::BORDER_THIN:
+            case \PhpSpreadsheet\Style\Border::BORDER_THIN:
                 return '1px solid';
             default:
                 // map others to thin
@@ -335,14 +335,14 @@ class HTML extends BaseWriter implements IWriter
      * Generate HTML header
      *
      * @param    bool        $pIncludeStyles        Include styles?
-     * @throws \Spreadsheet\Writer\Exception
+     * @throws \PhpSpreadsheet\Writer\Exception
      * @return    string
      */
     public function generateHTMLHeader($pIncludeStyles = false)
     {
         // Spreadsheet object known?
         if (is_null($this->spreadsheet)) {
-            throw new \Spreadsheet\Writer\Exception('Internal Spreadsheet object not set to an instance of an object.');
+            throw new \PhpSpreadsheet\Writer\Exception('Internal Spreadsheet object not set to an instance of an object.');
         }
 
         // Construct HTML
@@ -394,14 +394,14 @@ class HTML extends BaseWriter implements IWriter
     /**
      * Generate sheet data
      *
-     * @throws \Spreadsheet\Writer\Exception
+     * @throws \PhpSpreadsheet\Writer\Exception
      * @return    string
      */
     public function generateSheetData()
     {
         // Spreadsheet object known?
         if (is_null($this->spreadsheet)) {
-            throw new \Spreadsheet\Writer\Exception('Internal Spreadsheet object not set to an instance of an object.');
+            throw new \PhpSpreadsheet\Writer\Exception('Internal Spreadsheet object not set to an instance of an object.');
         }
 
         // Ensure that Spans have been calculated?
@@ -428,10 +428,10 @@ class HTML extends BaseWriter implements IWriter
 
             // Get worksheet dimension
             $dimension = explode(':', $sheet->calculateWorksheetDimension());
-            $dimension[0] = \Spreadsheet\Cell::coordinateFromString($dimension[0]);
-            $dimension[0][0] = \Spreadsheet\Cell::columnIndexFromString($dimension[0][0]) - 1;
-            $dimension[1] = \Spreadsheet\Cell::coordinateFromString($dimension[1]);
-            $dimension[1][0] = \Spreadsheet\Cell::columnIndexFromString($dimension[1][0]) - 1;
+            $dimension[0] = \PhpSpreadsheet\Cell::coordinateFromString($dimension[0]);
+            $dimension[0][0] = \PhpSpreadsheet\Cell::columnIndexFromString($dimension[0][0]) - 1;
+            $dimension[1] = \PhpSpreadsheet\Cell::coordinateFromString($dimension[1]);
+            $dimension[1][0] = \PhpSpreadsheet\Cell::columnIndexFromString($dimension[1][0]) - 1;
 
             // row min,max
             $rowMin = $dimension[0][1];
@@ -475,7 +475,7 @@ class HTML extends BaseWriter implements IWriter
                     while ($column++ < $dimension[1][0]) {
                         // Cell exists?
                         if ($sheet->cellExistsByColumnAndRow($column, $row)) {
-                            $rowData[$column] = \Spreadsheet\Cell::stringFromColumnIndex($column) . $row;
+                            $rowData[$column] = \PhpSpreadsheet\Cell::stringFromColumnIndex($column) . $row;
                         } else {
                             $rowData[$column] = '';
                         }
@@ -513,14 +513,14 @@ class HTML extends BaseWriter implements IWriter
     /**
      * Generate sheet tabs
      *
-     * @throws \Spreadsheet\Writer\Exception
+     * @throws \PhpSpreadsheet\Writer\Exception
      * @return    string
      */
     public function generateNavigation()
     {
         // Spreadsheet object known?
         if (is_null($this->spreadsheet)) {
-            throw new \Spreadsheet\Writer\Exception('Internal Spreadsheet object not set to an instance of an object.');
+            throw new \PhpSpreadsheet\Writer\Exception('Internal Spreadsheet object not set to an instance of an object.');
         }
 
         // Fetch sheets
@@ -552,7 +552,7 @@ class HTML extends BaseWriter implements IWriter
         return $html;
     }
 
-    private function extendRowsForChartsAndImages(\Spreadsheet\Worksheet $pSheet, $row)
+    private function extendRowsForChartsAndImages(\PhpSpreadsheet\Worksheet $pSheet, $row)
     {
         $rowMax = $row;
         $colMax = 'A';
@@ -560,11 +560,11 @@ class HTML extends BaseWriter implements IWriter
             foreach ($pSheet->getChartCollection() as $chart) {
                 if ($chart instanceof \PhpSpreadsheet\Chart) {
                     $chartCoordinates = $chart->getTopLeftPosition();
-                    $chartTL = \Spreadsheet\Cell::coordinateFromString($chartCoordinates['cell']);
-                    $chartCol = \Spreadsheet\Cell::columnIndexFromString($chartTL[0]);
+                    $chartTL = \PhpSpreadsheet\Cell::coordinateFromString($chartCoordinates['cell']);
+                    $chartCol = \PhpSpreadsheet\Cell::columnIndexFromString($chartTL[0]);
                     if ($chartTL[1] > $rowMax) {
                         $rowMax = $chartTL[1];
-                        if ($chartCol > \Spreadsheet\Cell::columnIndexFromString($colMax)) {
+                        if ($chartCol > \PhpSpreadsheet\Cell::columnIndexFromString($colMax)) {
                             $colMax = $chartTL[0];
                         }
                     }
@@ -573,12 +573,12 @@ class HTML extends BaseWriter implements IWriter
         }
 
         foreach ($pSheet->getDrawingCollection() as $drawing) {
-            if ($drawing instanceof \Spreadsheet\Worksheet\Drawing) {
-                $imageTL = \Spreadsheet\Cell::coordinateFromString($drawing->getCoordinates());
-                $imageCol = \Spreadsheet\Cell::columnIndexFromString($imageTL[0]);
+            if ($drawing instanceof \PhpSpreadsheet\Worksheet\Drawing) {
+                $imageTL = \PhpSpreadsheet\Cell::coordinateFromString($drawing->getCoordinates());
+                $imageCol = \PhpSpreadsheet\Cell::columnIndexFromString($imageTL[0]);
                 if ($imageTL[1] > $rowMax) {
                     $rowMax = $imageTL[1];
-                    if ($imageCol > \Spreadsheet\Cell::columnIndexFromString($colMax)) {
+                    if ($imageCol > \PhpSpreadsheet\Cell::columnIndexFromString($colMax)) {
                         $colMax = $imageTL[0];
                     }
                 }
@@ -606,19 +606,19 @@ class HTML extends BaseWriter implements IWriter
     /**
      * Generate image tag in cell
      *
-     * @param    \Spreadsheet\Worksheet    $pSheet            \Spreadsheet\Worksheet
+     * @param    \PhpSpreadsheet\Worksheet    $pSheet            \PhpSpreadsheet\Worksheet
      * @param    string                $coordinates    Cell coordinates
-     * @throws    \Spreadsheet\Writer\Exception
+     * @throws    \PhpSpreadsheet\Writer\Exception
      * @return    string
      */
-    private function writeImageInCell(\Spreadsheet\Worksheet $pSheet, $coordinates)
+    private function writeImageInCell(\PhpSpreadsheet\Worksheet $pSheet, $coordinates)
     {
         // Construct HTML
         $html = '';
 
         // Write images
         foreach ($pSheet->getDrawingCollection() as $drawing) {
-            if ($drawing instanceof \Spreadsheet\Worksheet\Drawing) {
+            if ($drawing instanceof \PhpSpreadsheet\Worksheet\Drawing) {
                 if ($drawing->getCoordinates() == $coordinates) {
                     $filename = $drawing->getPath();
 
@@ -662,7 +662,7 @@ class HTML extends BaseWriter implements IWriter
                         $imageData . '" border="0" />';
                     $html .= '</div>';
                 }
-            } elseif ($drawing instanceof \Spreadsheet\Worksheet\MemoryDrawing) {
+            } elseif ($drawing instanceof \PhpSpreadsheet\Worksheet\MemoryDrawing) {
                 if ($drawing->getCoordinates() != $coordinates) {
                     continue;
                 }
@@ -687,12 +687,12 @@ class HTML extends BaseWriter implements IWriter
     /**
      * Generate chart tag in cell
      *
-     * @param    \Spreadsheet\Worksheet    $pSheet            \Spreadsheet\Worksheet
+     * @param    \PhpSpreadsheet\Worksheet    $pSheet            \PhpSpreadsheet\Worksheet
      * @param    string                $coordinates    Cell coordinates
-     * @throws    \Spreadsheet\Writer\Exception
+     * @throws    \PhpSpreadsheet\Writer\Exception
      * @return    string
      */
-    private function writeChartInCell(\Spreadsheet\Worksheet $pSheet, $coordinates)
+    private function writeChartInCell(\PhpSpreadsheet\Worksheet $pSheet, $coordinates)
     {
         // Construct HTML
         $html = '';
@@ -702,7 +702,7 @@ class HTML extends BaseWriter implements IWriter
             if ($chart instanceof \PhpSpreadsheet\Chart) {
                 $chartCoordinates = $chart->getTopLeftPosition();
                 if ($chartCoordinates['cell'] == $coordinates) {
-                    $chartFileName = \Spreadsheet\Shared\File::sysGetTempDir() . '/' . uniqid() . '.png';
+                    $chartFileName = \PhpSpreadsheet\Shared\File::sysGetTempDir() . '/' . uniqid() . '.png';
                     if (!$chart->render($chartFileName)) {
                         return;
                     }
@@ -735,14 +735,14 @@ class HTML extends BaseWriter implements IWriter
      * Generate CSS styles
      *
      * @param    bool    $generateSurroundingHTML    Generate surrounding HTML tags? (&lt;style&gt; and &lt;/style&gt;)
-     * @throws    \Spreadsheet\Writer\Exception
+     * @throws    \PhpSpreadsheet\Writer\Exception
      * @return    string
      */
     public function generateStyles($generateSurroundingHTML = true)
     {
         // Spreadsheet object known?
         if (is_null($this->spreadsheet)) {
-            throw new \Spreadsheet\Writer\Exception('Internal Spreadsheet object not set to an instance of an object.');
+            throw new \PhpSpreadsheet\Writer\Exception('Internal Spreadsheet object not set to an instance of an object.');
         }
 
         // Build CSS
@@ -777,14 +777,14 @@ class HTML extends BaseWriter implements IWriter
      * Build CSS styles
      *
      * @param    bool    $generateSurroundingHTML    Generate surrounding HTML style? (html { })
-     * @throws    \Spreadsheet\Writer\Exception
+     * @throws    \PhpSpreadsheet\Writer\Exception
      * @return    array
      */
     public function buildCSS($generateSurroundingHTML = true)
     {
         // Spreadsheet object known?
         if (is_null($this->spreadsheet)) {
-            throw new \Spreadsheet\Writer\Exception('Internal Spreadsheet object not set to an instance of an object.');
+            throw new \PhpSpreadsheet\Writer\Exception('Internal Spreadsheet object not set to an instance of an object.');
         }
 
         // Cached?
@@ -860,7 +860,7 @@ class HTML extends BaseWriter implements IWriter
             $sheet->calculateColumnWidths();
 
             // col elements, initialize
-            $highestColumnIndex = \Spreadsheet\Cell::columnIndexFromString($sheet->getHighestColumn()) - 1;
+            $highestColumnIndex = \PhpSpreadsheet\Cell::columnIndexFromString($sheet->getHighestColumn()) - 1;
             $column = -1;
             while ($column++ < $highestColumnIndex) {
                 $this->columnWidths[$sheetIndex][$column] = 42; // approximation
@@ -869,9 +869,9 @@ class HTML extends BaseWriter implements IWriter
 
             // col elements, loop through columnDimensions and set width
             foreach ($sheet->getColumnDimensions() as $columnDimension) {
-                if (($width = \Spreadsheet\Shared\Drawing::cellDimensionToPixels($columnDimension->getWidth(), $this->defaultFont)) >= 0) {
-                    $width = \Spreadsheet\Shared\Drawing::pixelsToPoints($width);
-                    $column = \Spreadsheet\Cell::columnIndexFromString($columnDimension->getColumnIndex()) - 1;
+                if (($width = \PhpSpreadsheet\Shared\Drawing::cellDimensionToPixels($columnDimension->getWidth(), $this->defaultFont)) >= 0) {
+                    $width = \PhpSpreadsheet\Shared\Drawing::pixelsToPoints($width);
+                    $column = \PhpSpreadsheet\Cell::columnIndexFromString($columnDimension->getColumnIndex()) - 1;
                     $this->columnWidths[$sheetIndex][$column] = $width;
                     $css['table.sheet' . $sheetIndex . ' col.col' . $column]['width'] = $width . 'pt';
 
@@ -931,10 +931,10 @@ class HTML extends BaseWriter implements IWriter
     /**
      * Create CSS style
      *
-     * @param    \Spreadsheet\Style        $pStyle
+     * @param    \PhpSpreadsheet\Style        $pStyle
      * @return    array
      */
-    private function createCSSStyle(\Spreadsheet\Style $pStyle)
+    private function createCSSStyle(\PhpSpreadsheet\Style $pStyle)
     {
         // Construct CSS
         $css = '';
@@ -952,12 +952,12 @@ class HTML extends BaseWriter implements IWriter
     }
 
     /**
-     * Create CSS style (\Spreadsheet\Style\Alignment)
+     * Create CSS style (\PhpSpreadsheet\Style\Alignment)
      *
-     * @param    \Spreadsheet\Style\Alignment        $pStyle            \Spreadsheet\Style\Alignment
+     * @param    \PhpSpreadsheet\Style\Alignment        $pStyle            \PhpSpreadsheet\Style\Alignment
      * @return    array
      */
-    private function createCSSStyleAlignment(\Spreadsheet\Style\Alignment $pStyle)
+    private function createCSSStyleAlignment(\PhpSpreadsheet\Style\Alignment $pStyle)
     {
         // Construct CSS
         $css = [];
@@ -975,12 +975,12 @@ class HTML extends BaseWriter implements IWriter
     }
 
     /**
-     * Create CSS style (\Spreadsheet\Style\Font)
+     * Create CSS style (\PhpSpreadsheet\Style\Font)
      *
-     * @param    \Spreadsheet\Style\Font        $pStyle            \Spreadsheet\Style\Font
+     * @param    \PhpSpreadsheet\Style\Font        $pStyle            \PhpSpreadsheet\Style\Font
      * @return    array
      */
-    private function createCSSStyleFont(\Spreadsheet\Style\Font $pStyle)
+    private function createCSSStyleFont(\PhpSpreadsheet\Style\Font $pStyle)
     {
         // Construct CSS
         $css = [];
@@ -989,9 +989,9 @@ class HTML extends BaseWriter implements IWriter
         if ($pStyle->getBold()) {
             $css['font-weight'] = 'bold';
         }
-        if ($pStyle->getUnderline() != \Spreadsheet\Style\Font::UNDERLINE_NONE && $pStyle->getStrikethrough()) {
+        if ($pStyle->getUnderline() != \PhpSpreadsheet\Style\Font::UNDERLINE_NONE && $pStyle->getStrikethrough()) {
             $css['text-decoration'] = 'underline line-through';
-        } elseif ($pStyle->getUnderline() != \Spreadsheet\Style\Font::UNDERLINE_NONE) {
+        } elseif ($pStyle->getUnderline() != \PhpSpreadsheet\Style\Font::UNDERLINE_NONE) {
             $css['text-decoration'] = 'underline';
         } elseif ($pStyle->getStrikethrough()) {
             $css['text-decoration'] = 'line-through';
@@ -1008,12 +1008,12 @@ class HTML extends BaseWriter implements IWriter
     }
 
     /**
-     * Create CSS style (\Spreadsheet\Style\Borders)
+     * Create CSS style (\PhpSpreadsheet\Style\Borders)
      *
-     * @param    \Spreadsheet\Style\Borders        $pStyle            \Spreadsheet\Style\Borders
+     * @param    \PhpSpreadsheet\Style\Borders        $pStyle            \PhpSpreadsheet\Style\Borders
      * @return    array
      */
-    private function createCSSStyleBorders(\Spreadsheet\Style\Borders $pStyle)
+    private function createCSSStyleBorders(\PhpSpreadsheet\Style\Borders $pStyle)
     {
         // Construct CSS
         $css = [];
@@ -1028,12 +1028,12 @@ class HTML extends BaseWriter implements IWriter
     }
 
     /**
-     * Create CSS style (\Spreadsheet\Style\Border)
+     * Create CSS style (\PhpSpreadsheet\Style\Border)
      *
-     * @param    \Spreadsheet\Style\Border        $pStyle            \Spreadsheet\Style\Border
+     * @param    \PhpSpreadsheet\Style\Border        $pStyle            \PhpSpreadsheet\Style\Border
      * @return    string
      */
-    private function createCSSStyleBorder(\Spreadsheet\Style\Border $pStyle)
+    private function createCSSStyleBorder(\PhpSpreadsheet\Style\Border $pStyle)
     {
         //    Create CSS - add !important to non-none border styles for merged cells
         $borderStyle = $this->mapBorderStyle($pStyle->getBorderStyle());
@@ -1043,18 +1043,18 @@ class HTML extends BaseWriter implements IWriter
     }
 
     /**
-     * Create CSS style (\Spreadsheet\Style\Fill)
+     * Create CSS style (\PhpSpreadsheet\Style\Fill)
      *
-     * @param    \Spreadsheet\Style\Fill        $pStyle            \Spreadsheet\Style\Fill
+     * @param    \PhpSpreadsheet\Style\Fill        $pStyle            \PhpSpreadsheet\Style\Fill
      * @return    array
      */
-    private function createCSSStyleFill(\Spreadsheet\Style\Fill $pStyle)
+    private function createCSSStyleFill(\PhpSpreadsheet\Style\Fill $pStyle)
     {
         // Construct HTML
         $css = [];
 
         // Create CSS
-        $value = $pStyle->getFillType() == \Spreadsheet\Style\Fill::FILL_NONE ?
+        $value = $pStyle->getFillType() == \PhpSpreadsheet\Style\Fill::FILL_NONE ?
             'white' : '#' . $pStyle->getStartColor()->getRGB();
         $css['background-color'] = $value;
 
@@ -1077,8 +1077,8 @@ class HTML extends BaseWriter implements IWriter
     /**
      * Generate table header
      *
-     * @param    \Spreadsheet\Worksheet    $pSheet        The worksheet for the table we are writing
-     * @throws    \Spreadsheet\Writer\Exception
+     * @param    \PhpSpreadsheet\Worksheet    $pSheet        The worksheet for the table we are writing
+     * @throws    \PhpSpreadsheet\Writer\Exception
      * @return    string
      */
     private function generateTableHeader($pSheet)
@@ -1104,7 +1104,7 @@ class HTML extends BaseWriter implements IWriter
         }
 
         // Write <col> elements
-        $highestColumnIndex = \Spreadsheet\Cell::columnIndexFromString($pSheet->getHighestColumn()) - 1;
+        $highestColumnIndex = \PhpSpreadsheet\Cell::columnIndexFromString($pSheet->getHighestColumn()) - 1;
         $i = -1;
         while ($i++ < $highestColumnIndex) {
             if (!$this->isPdf) {
@@ -1124,7 +1124,7 @@ class HTML extends BaseWriter implements IWriter
     /**
      * Generate table footer
      *
-     * @throws    \Spreadsheet\Writer\Exception
+     * @throws    \PhpSpreadsheet\Writer\Exception
      */
     private function generateTableFooter()
     {
@@ -1136,13 +1136,13 @@ class HTML extends BaseWriter implements IWriter
     /**
      * Generate row
      *
-     * @param    \Spreadsheet\Worksheet    $pSheet            \Spreadsheet\Worksheet
+     * @param    \PhpSpreadsheet\Worksheet    $pSheet            \PhpSpreadsheet\Worksheet
      * @param    array                $pValues        Array containing cells in a row
      * @param    int                    $pRow            Row number (0-based)
-     * @throws    \Spreadsheet\Writer\Exception
+     * @throws    \PhpSpreadsheet\Writer\Exception
      * @return    string
      */
-    private function generateRow(\Spreadsheet\Worksheet $pSheet, $pValues = null, $pRow = 0, $cellType = 'td')
+    private function generateRow(\PhpSpreadsheet\Worksheet $pSheet, $pValues = null, $pRow = 0, $cellType = 'td')
     {
         if (is_array($pValues)) {
             // Construct HTML
@@ -1182,7 +1182,7 @@ class HTML extends BaseWriter implements IWriter
             $colNum = 0;
             foreach ($pValues as $cellAddress) {
                 $cell = ($cellAddress > '') ? $pSheet->getCell($cellAddress) : '';
-                $coordinate = \Spreadsheet\Cell::stringFromColumnIndex($colNum) . ($pRow + 1);
+                $coordinate = \PhpSpreadsheet\Cell::stringFromColumnIndex($colNum) . ($pRow + 1);
                 if (!$this->useInlineCss) {
                     $cssClass = '';
                     $cssClass = 'column' . $colNum;
@@ -1204,19 +1204,19 @@ class HTML extends BaseWriter implements IWriter
                 // initialize
                 $cellData = '&nbsp;';
 
-                // \Spreadsheet\Cell
-                if ($cell instanceof \Spreadsheet\Cell) {
+                // \PhpSpreadsheet\Cell
+                if ($cell instanceof \PhpSpreadsheet\Cell) {
                     $cellData = '';
                     if (is_null($cell->getParent())) {
                         $cell->attach($pSheet);
                     }
                     // Value
-                    if ($cell->getValue() instanceof \Spreadsheet\RichText) {
+                    if ($cell->getValue() instanceof \PhpSpreadsheet\RichText) {
                         // Loop through rich text elements
                         $elements = $cell->getValue()->getRichTextElements();
                         foreach ($elements as $element) {
                             // Rich text start?
-                            if ($element instanceof \Spreadsheet\RichText\Run) {
+                            if ($element instanceof \PhpSpreadsheet\RichText\Run) {
                                 $cellData .= '<span style="' . $this->assembleCSS($this->createCSSStyleFont($element->getFont())) . '">';
 
                                 if ($element->getFont()->getSuperScript()) {
@@ -1230,7 +1230,7 @@ class HTML extends BaseWriter implements IWriter
                             $cellText = $element->getText();
                             $cellData .= htmlspecialchars($cellText);
 
-                            if ($element instanceof \Spreadsheet\RichText\Run) {
+                            if ($element instanceof \PhpSpreadsheet\RichText\Run) {
                                 if ($element->getFont()->getSuperScript()) {
                                     $cellData .= '</sup>';
                                 } elseif ($element->getFont()->getSubScript()) {
@@ -1242,13 +1242,13 @@ class HTML extends BaseWriter implements IWriter
                         }
                     } else {
                         if ($this->preCalculateFormulas) {
-                            $cellData = \Spreadsheet\Style\NumberFormat::toFormattedString(
+                            $cellData = \PhpSpreadsheet\Style\NumberFormat::toFormattedString(
                                 $cell->getCalculatedValue(),
                                 $pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode(),
                                 [$this, 'formatColor']
                             );
                         } else {
-                            $cellData = \Spreadsheet\Style\NumberFormat::toFormattedString(
+                            $cellData = \PhpSpreadsheet\Style\NumberFormat::toFormattedString(
                                 $cell->getValue(),
                                 $pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode(),
                                 [$this, 'formatColor']
@@ -1286,7 +1286,7 @@ class HTML extends BaseWriter implements IWriter
 
                         // General horizontal alignment: Actual horizontal alignment depends on dataType
                         $sharedStyle = $pSheet->getParent()->getCellXfByIndex($cell->getXfIndex());
-                        if ($sharedStyle->getAlignment()->getHorizontal() == \Spreadsheet\Style\Alignment::HORIZONTAL_GENERAL
+                        if ($sharedStyle->getAlignment()->getHorizontal() == \PhpSpreadsheet\Style\Alignment::HORIZONTAL_GENERAL
                             && isset($this->cssStyles['.' . $cell->getDataType()]['text-align'])) {
                             $cssClass['text-align'] = $this->cssStyles['.' . $cell->getDataType()]['text-align'];
                         }
@@ -1312,7 +1312,7 @@ class HTML extends BaseWriter implements IWriter
 
                     //    Also apply style from last cell in merge to fix borders -
                     //        relies on !important for non-none border declarations in createCSSStyleBorder
-                    $endCellCoord = \Spreadsheet\Cell::stringFromColumnIndex($colNum + $colSpan - 1) . ($pRow + $rowSpan);
+                    $endCellCoord = \PhpSpreadsheet\Cell::stringFromColumnIndex($colNum + $colSpan - 1) . ($pRow + $rowSpan);
                     if (!$this->useInlineCss) {
                         $cssClass .= ' style' . $pSheet->getCell($endCellCoord)->getXfIndex();
                     }
@@ -1381,7 +1381,7 @@ class HTML extends BaseWriter implements IWriter
             // Return
             return $html;
         } else {
-            throw new \Spreadsheet\Writer\Exception('Invalid parameters passed.');
+            throw new \PhpSpreadsheet\Writer\Exception('Invalid parameters passed.');
         }
     }
 
@@ -1520,15 +1520,15 @@ class HTML extends BaseWriter implements IWriter
 
             // loop through all Excel merged cells
             foreach ($sheet->getMergeCells() as $cells) {
-                list($cells) = \Spreadsheet\Cell::splitRange($cells);
+                list($cells) = \PhpSpreadsheet\Cell::splitRange($cells);
                 $first = $cells[0];
                 $last = $cells[1];
 
-                list($fc, $fr) = \Spreadsheet\Cell::coordinateFromString($first);
-                $fc = \Spreadsheet\Cell::columnIndexFromString($fc) - 1;
+                list($fc, $fr) = \PhpSpreadsheet\Cell::coordinateFromString($first);
+                $fc = \PhpSpreadsheet\Cell::columnIndexFromString($fc) - 1;
 
-                list($lc, $lr) = \Spreadsheet\Cell::coordinateFromString($last);
-                $lc = \Spreadsheet\Cell::columnIndexFromString($lc) - 1;
+                list($lc, $lr) = \PhpSpreadsheet\Cell::coordinateFromString($last);
+                $lc = \PhpSpreadsheet\Cell::columnIndexFromString($lc) - 1;
 
                 // loop through the individual cells in the individual merge
                 $r = $fr - 1;
@@ -1558,7 +1558,7 @@ class HTML extends BaseWriter implements IWriter
 
             // Identify which rows should be omitted in HTML. These are the rows where all the cells
             //   participate in a merge and the where base cells are somewhere above.
-            $countColumns = \Spreadsheet\Cell::columnIndexFromString($sheet->getHighestColumn());
+            $countColumns = \PhpSpreadsheet\Cell::columnIndexFromString($sheet->getHighestColumn());
             foreach ($candidateSpannedRow as $rowIndex) {
                 if (isset($this->isSpannedCell[$sheetIndex][$rowIndex])) {
                     if (count($this->isSpannedCell[$sheetIndex][$rowIndex]) == $countColumns) {
@@ -1592,7 +1592,7 @@ class HTML extends BaseWriter implements IWriter
         $this->spansAreCalculated = true;
     }
 
-    private function setMargins(\Spreadsheet\Worksheet $pSheet)
+    private function setMargins(\PhpSpreadsheet\Worksheet $pSheet)
     {
         $htmlPage = '@page { ';
         $htmlBody = 'body { ';

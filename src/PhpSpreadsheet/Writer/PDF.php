@@ -2,6 +2,8 @@
 
 namespace PhpSpreadsheet\Writer;
 
+use PhpSpreadsheet\Spreadsheet;
+
 /**
  *  Copyright (c) 2006 - 2015 PhpSpreadsheet
  *
@@ -39,7 +41,7 @@ class PDF implements IWriter
      *  @param  \PhpSpreadsheet\Spreadsheet   $spreadsheet         PhpSpreadsheet object
      *  @throws Exception    when PDF library is not configured
      */
-    public function __construct(PhpSpreadsheet $spreadsheet)
+    public function __construct(Spreadsheet $spreadsheet)
     {
         $pdfLibraryName = \PhpSpreadsheet\Settings::getPdfRendererName();
         if (is_null($pdfLibraryName)) {
@@ -56,7 +58,7 @@ class PDF implements IWriter
             set_include_path(get_include_path() . PATH_SEPARATOR . $pdfLibraryPath);
         }
 
-        $rendererName = 'PDF\\' . $pdfLibraryName;
+        $rendererName = '\\PhpSpreadsheet\\Writer\\PDF\\' . $pdfLibraryName;
         $this->renderer = new $rendererName($spreadsheet);
     }
 

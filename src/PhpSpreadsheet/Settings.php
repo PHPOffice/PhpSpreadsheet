@@ -28,8 +28,8 @@ class Settings
 {
     /**    constants */
     /**    Available Zip library classes */
-    const PCLZIP = '\\PhpSpreadsheet\\Shared\\ZipArchive';
-    const ZIPARCHIVE = '\\ZipArchive';
+    const PCLZIP = \PhpSpreadsheet\Shared\ZipArchive::class;
+    const ZIPARCHIVE = \ZipArchive::class;
 
     /**    Optional Chart Rendering libraries */
     const CHART_RENDERER_JPGRAPH = 'JpGraph';
