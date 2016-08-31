@@ -38,7 +38,7 @@ class Autoloader
             spl_autoload_register('__autoload');
         }
         // Register ourselves with SPL
-        return spl_autoload_register([\PhpSpreadsheet\Autoloader::class, 'load']);
+        return spl_autoload_register([\PhpSpreadsheet\Autoloader::class, 'load'], true, true);
     }
 
     /**
