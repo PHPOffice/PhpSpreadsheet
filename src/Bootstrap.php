@@ -26,4 +26,4 @@
  */
 include_once __DIR__ . '/Autoloader.php';
 
-\PhpSpreadsheet\Autoloader::register();
+\PhpOffice\PhpSpreadsheet\Autoloader::register();

@@ -1,8 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet\Reader;
+namespace PhpOffice\PhpSpreadsheet\Reader;
 
-use PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -59,7 +59,7 @@ class CSV extends BaseReader implements IReader
     /**
      * Load rows contiguously
      *
-     * @var    int
+     * @var    bool
      */
     private $contiguous = false;
 
@@ -197,7 +197,7 @@ class CSV extends BaseReader implements IReader
             $worksheetInfo[0]['lastColumnIndex'] = max($worksheetInfo[0]['lastColumnIndex'], count($rowData) - 1);
         }
 
-        $worksheetInfo[0]['lastColumnLetter'] = \PhpSpreadsheet\Cell::stringFromColumnIndex($worksheetInfo[0]['lastColumnIndex']);
+        $worksheetInfo[0]['lastColumnLetter'] = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($worksheetInfo[0]['lastColumnIndex']);
         $worksheetInfo[0]['totalColumns'] = $worksheetInfo[0]['lastColumnIndex'] + 1;
 
         // Close file
@@ -211,12 +211,12 @@ class CSV extends BaseReader implements IReader
      *
      * @param     string         $pFilename
      * @throws Exception
-     * @return \PhpSpreadsheet\Spreadsheet
+     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     public function load($pFilename)
     {
         // Create new Spreadsheet
-        $spreadsheet = new \PhpSpreadsheet\Spreadsheet();
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
         // Load into this instance
         return $this->loadIntoExisting($pFilename, $spreadsheet);
@@ -253,14 +253,15 @@ class CSV extends BaseReader implements IReader
         }
         $sheet = $spreadsheet->setActiveSheetIndex($this->sheetIndex);
 
-        $escapeEnclosures = ['\\' . $this->enclosure,
-                                   $this->enclosure . $this->enclosure,
-                                 ];
+        $escapeEnclosures = [
+            '\\' . $this->enclosure,
+            $this->enclosure . $this->enclosure,
+        ];
 
         // Set our starting row based on whether we're in contiguous mode or not
         $currentRow = 1;
         if ($this->contiguous) {
-            $currentRow = ($this->contiguousRow == -1) ? $sheet->getHighestRow(): $this->contiguousRow;
+            $currentRow = ($this->contiguousRow == -1) ? $sheet->getHighestRow() : $this->contiguousRow;
         }
 
         // Loop through each line of the file in turn
@@ -273,7 +274,7 @@ class CSV extends BaseReader implements IReader
 
                     // Convert encoding if necessary
                     if ($this->inputEncoding !== 'UTF-8') {
-                        $rowDatum = \PhpSpreadsheet\Shared\StringHelper::convertEncoding($rowDatum, 'UTF-8', $this->inputEncoding);
+                        $rowDatum = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertEncoding($rowDatum, 'UTF-8', $this->inputEncoding);
                     }
 
                     // Set cell value

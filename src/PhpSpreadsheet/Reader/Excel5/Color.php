@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Reader\Excel5;
+namespace PhpOffice\PhpSpreadsheet\Reader\Excel5;
 
 class Color
 {
@@ -9,6 +9,7 @@ class Color
      *
      * @param int $color Indexed color
      * @param array $palette Color palette
+     * @param int $version
      * @return array RGB color value, example: array('rgb' => 'FF0000')
      */
     public static function map($color, $palette, $version)
@@ -21,7 +22,7 @@ class Color
             return $palette[$color - 8];
         } else {
             // default color table
-            if ($version == \PhpSpreadsheet\Reader\Excel5::XLS_BIFF8) {
+            if ($version == \PhpOffice\PhpSpreadsheet\Reader\Excel5::XLS_BIFF8) {
                 return Color\BIFF8::lookup($color);
             } else {
                 // BIFF5

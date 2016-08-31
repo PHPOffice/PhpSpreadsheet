@@ -1,10 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet;
+namespace PhpOffice\PhpSpreadsheet;
 
 /**
- * PhpSpreadsheet\HashTable
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -43,7 +41,7 @@ class HashTable
     protected $keyMap = [];
 
     /**
-     * Create a new \PhpSpreadsheet\HashTable
+     * Create a new \PhpOffice\PhpSpreadsheet\HashTable
      *
      * @param    IComparable[] $pSource    Optional source array to create HashTable from
      * @throws   Exception

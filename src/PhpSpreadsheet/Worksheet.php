@@ -1,10 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet;
+namespace PhpOffice\PhpSpreadsheet;
 
 /**
- * PhpSpreadsheet\Worksheet
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -328,7 +326,7 @@ class Worksheet implements IComparable
     /**
      * Create a new worksheet
      *
-     * @param Spreadsheet        $Parent
+     * @param Spreadsheet        $parent
      * @param string        $pTitle
      */
     public function __construct(Spreadsheet $parent = null, $pTitle = 'Worksheet')
@@ -767,7 +765,7 @@ class Worksheet implements IComparable
     /**
      * Get parent
      *
-     * @return PhpSpreadsheet
+     * @return Spreadsheet
      */
     public function getParent()
     {
@@ -1099,8 +1097,8 @@ class Worksheet implements IComparable
     /**
      * Set a cell value by using numeric cell coordinates
      *
-     * @param string $pColumn Numeric column coordinate of the cell (A = 0)
-     * @param string $pRow Numeric row coordinate of the cell
+     * @param int $pColumn Numeric column coordinate of the cell (A = 0)
+     * @param int $pRow Numeric row coordinate of the cell
      * @param mixed $pValue Value of the cell
      * @param bool $returnCell Return the worksheet (false, default) or the cell (true)
      * @return Worksheet|Cell    Depending on the last parameter being specified
@@ -1132,8 +1130,8 @@ class Worksheet implements IComparable
     /**
      * Set a cell value by using numeric cell coordinates
      *
-     * @param string $pColumn Numeric column coordinate of the cell
-     * @param string $pRow Numeric row coordinate of the cell
+     * @param int $pColumn Numeric column coordinate of the cell
+     * @param int $pRow Numeric row coordinate of the cell
      * @param mixed $pValue Value of the cell
      * @param string $pDataType Explicit data type
      * @param bool $returnCell Return the worksheet (false, default) or the cell (true)
@@ -1367,7 +1365,7 @@ class Worksheet implements IComparable
     /**
      * Get column dimension at a specific column by using numeric cell coordinates
      *
-     * @param string $pColumn Numeric column coordinate of the cell
+     * @param int $pColumn Numeric column coordinate of the cell
      * @return Worksheet\ColumnDimension
      */
     public function getColumnDimensionByColumn($pColumn = 0)
@@ -1398,7 +1396,7 @@ class Worksheet implements IComparable
     }
 
     /**
-     * Set default style - should only be used by \PhpSpreadsheet\IReader implementations!
+     * Set default style - should only be used by \PhpOffice\PhpSpreadsheet\IReader implementations!
      *
      * @deprecated
      * @param Style $pValue
@@ -1492,7 +1490,7 @@ class Worksheet implements IComparable
     /**
      * Set conditional styles
      *
-     * @param $pCoordinate string E.g. 'A1'
+     * @param string $pCoordinate eg: 'A1'
      * @param $pValue Style\Conditional[]
      * @return Worksheet
      */
@@ -1679,7 +1677,7 @@ class Worksheet implements IComparable
      *
      * @param int $pColumn Numeric column coordinate of the cell
      * @param int $pRow Numeric row coordinate of the cell
-     * @param  int $pBreak Break type (type of \PhpSpreadsheet\Worksheet::BREAK_*)
+     * @param  int $pBreak Break type (type of \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_*)
      * @return Worksheet
      */
     public function setBreakByColumnAndRow($pColumn = 0, $pRow = 1, $pBreak = self::BREAK_NONE)
@@ -2647,15 +2645,7 @@ class Worksheet implements IComparable
     {
         // Flush cache
         $this->cellCollection->getCacheData('A1');
-        // Build a reference table from images
-//        $imageCoordinates = array();
-//        $iterator = $this->getDrawingCollection()->getIterator();
-//        while ($iterator->valid()) {
-//            $imageCoordinates[$iterator->current()->getCoordinates()] = true;
-//
-//            $iterator->next();
-//        }
-//
+
         // Lookup highest column and highest row if cells are cleaned
         $colRow = $this->cellCollection->getHighestRowAndColumn();
         $highestRow = $colRow['row'];
@@ -2962,7 +2952,7 @@ class Worksheet implements IComparable
         if ($this->getCodeName() == $pValue) {
             return $this;
         }
-        $pValue = str_replace(' ', '_', $pValue);//Excel does this automatically without flinching, we are doing the same
+        $pValue = str_replace(' ', '_', $pValue); //Excel does this automatically without flinching, we are doing the same
         // Syntax check
         // throw an exception if not valid
         self::checkSheetCodeName($pValue);
@@ -2991,7 +2981,7 @@ class Worksheet implements IComparable
                     }
                 }
 
-                $pValue = $pValue . '_' . $i;// ok, we have a valid name
+                $pValue = $pValue . '_' . $i; // ok, we have a valid name
                 //codeName is'nt used in formula : no need to call for an update
                 //return $this->setTitle($altTitle, $updateFormulaCellReferences);
             }

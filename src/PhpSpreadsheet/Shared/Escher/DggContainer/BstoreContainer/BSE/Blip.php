@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE;
+namespace PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -29,7 +29,7 @@ class Blip
     /**
      * The parent BSE
      *
-     * @var \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE
+     * @var \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE
      */
     private $parent;
 
@@ -63,7 +63,7 @@ class Blip
     /**
      * Set parent BSE
      *
-     * @param \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE $parent
+     * @param \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE $parent
      */
     public function setParent($parent)
     {
@@ -73,7 +73,7 @@ class Blip
     /**
      * Get parent BSE
      *
-     * @return \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE $parent
+     * @return \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE $parent
      */
     public function getParent()
     {

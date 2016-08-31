@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Style;
+namespace PhpOffice\PhpSpreadsheet\Style;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -24,7 +24,7 @@ namespace PhpSpreadsheet\Style;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class Font extends Supervisor implements \PhpSpreadsheet\IComparable
+class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
 {
     /* Underline types */
     const UNDERLINE_NONE = 'none';
@@ -162,7 +162,7 @@ class Font extends Supervisor implements \PhpSpreadsheet\IComparable
      *            'name'      => 'Arial',
      *            'bold'      => TRUE,
      *            'italic'    => FALSE,
-     *            'underline' => \PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE,
+     *            'underline' => \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE,
      *            'strike'    => FALSE,
      *            'color'     => array(
      *                'rgb' => '808080'
@@ -172,7 +172,7 @@ class Font extends Supervisor implements \PhpSpreadsheet\IComparable
      * </code>
      *
      * @param   array    $pStyles    Array containing style information
-     * @throws  \PhpSpreadsheet\Exception
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
      * @return Font
      */
     public function applyFromArray($pStyles = null)
@@ -210,7 +210,7 @@ class Font extends Supervisor implements \PhpSpreadsheet\IComparable
                 }
             }
         } else {
-            throw new \PhpSpreadsheet\Exception('Invalid style array passed.');
+            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid style array passed.');
         }
 
         return $this;
@@ -445,7 +445,7 @@ class Font extends Supervisor implements \PhpSpreadsheet\IComparable
     /**
      * Set Underline
      *
-     * @param string|bool $pValue    \PhpSpreadsheet\Style\Font underline type
+     * @param string|bool $pValue    \PhpOffice\PhpSpreadsheet\Style\Font underline type
      *                                    If a boolean is passed, then TRUE equates to UNDERLINE_SINGLE,
      *                                        false equates to UNDERLINE_NONE
      * @return Font
@@ -516,7 +516,7 @@ class Font extends Supervisor implements \PhpSpreadsheet\IComparable
      * Set Color
      *
      * @param    Color $pValue
-     * @throws   \PhpSpreadsheet\Exception
+     * @throws   \PhpOffice\PhpSpreadsheet\Exception
      * @return Font
      */
     public function setColor(Color $pValue = null)

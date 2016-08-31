@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Reader;
+namespace PhpOffice\PhpSpreadsheet\Reader;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -142,7 +142,7 @@ class SYLK extends BaseReader implements IReader
             $columnIndex = 0;
 
             // convert SYLK encoded $rowData to UTF-8
-            $rowData = \PhpSpreadsheet\Shared\StringHelper::SYLKtoUTF8($rowData);
+            $rowData = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::SYLKtoUTF8($rowData);
 
             // explode each row at semicolons while taking into account that literal semicolon (;)
             // is escaped like this (;;)
@@ -169,7 +169,7 @@ class SYLK extends BaseReader implements IReader
             }
         }
 
-        $worksheetInfo[0]['lastColumnLetter'] = \PhpSpreadsheet\Cell::stringFromColumnIndex($worksheetInfo[0]['lastColumnIndex']);
+        $worksheetInfo[0]['lastColumnLetter'] = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($worksheetInfo[0]['lastColumnIndex']);
         $worksheetInfo[0]['totalColumns'] = $worksheetInfo[0]['lastColumnIndex'] + 1;
 
         // Close file
@@ -183,12 +183,12 @@ class SYLK extends BaseReader implements IReader
      *
      * @param     string         $pFilename
      * @throws     Exception
-     * @return     \PhpSpreadsheet\Spreadsheet
+     * @return     \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     public function load($pFilename)
     {
         // Create new Spreadsheet
-        $spreadsheet = new \PhpSpreadsheet\Spreadsheet();
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
         // Load into this instance
         return $this->loadIntoExisting($pFilename, $spreadsheet);
@@ -198,11 +198,11 @@ class SYLK extends BaseReader implements IReader
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance
      *
      * @param     string         $pFilename
-     * @param     \PhpSpreadsheet\Spreadsheet    $spreadsheet
+     * @param     \PhpOffice\PhpSpreadsheet\Spreadsheet    $spreadsheet
      * @throws    Exception
-     * @return    \PhpSpreadsheet\Spreadsheet
+     * @return    \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
-    public function loadIntoExisting($pFilename, \PhpSpreadsheet\Spreadsheet $spreadsheet)
+    public function loadIntoExisting($pFilename, \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
     {
         // Open file
         $this->openFile($pFilename);
@@ -219,8 +219,8 @@ class SYLK extends BaseReader implements IReader
         }
         $spreadsheet->setActiveSheetIndex($this->sheetIndex);
 
-        $fromFormats = ['\-',    '\ '];
-        $toFormats = ['-',    ' '];
+        $fromFormats = ['\-', '\ '];
+        $toFormats = ['-', ' '];
 
         // Loop through file
         $rowData = [];
@@ -229,7 +229,7 @@ class SYLK extends BaseReader implements IReader
         // loop through one row (line) at a time in the file
         while (($rowData = fgets($fileHandle)) !== false) {
             // convert SYLK encoded $rowData to UTF-8
-            $rowData = \PhpSpreadsheet\Shared\StringHelper::SYLKtoUTF8($rowData);
+            $rowData = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::SYLKtoUTF8($rowData);
 
             // explode each row at semicolons while taking into account that literal semicolon (;)
             // is escaped like this (;;)
@@ -262,16 +262,16 @@ class SYLK extends BaseReader implements IReader
                                         $formatArray['font']['bold'] = true;
                                         break;
                                     case 'T':
-                                        $formatArray['borders']['top']['style'] = \PhpSpreadsheet\Style\Border::BORDER_THIN;
+                                        $formatArray['borders']['top']['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN;
                                         break;
                                     case 'B':
-                                        $formatArray['borders']['bottom']['style'] = \PhpSpreadsheet\Style\Border::BORDER_THIN;
+                                        $formatArray['borders']['bottom']['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN;
                                         break;
                                     case 'L':
-                                        $formatArray['borders']['left']['style'] = \PhpSpreadsheet\Style\Border::BORDER_THIN;
+                                        $formatArray['borders']['left']['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN;
                                         break;
                                     case 'R':
-                                        $formatArray['borders']['right']['style'] = \PhpSpreadsheet\Style\Border::BORDER_THIN;
+                                        $formatArray['borders']['right']['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN;
                                         break;
                                 }
                             }
@@ -330,7 +330,7 @@ class SYLK extends BaseReader implements IReader
                                         if ($columnReference{0} == '[') {
                                             $columnReference = $column + trim($columnReference, '[]');
                                         }
-                                        $A1CellReference = \PhpSpreadsheet\Cell::stringFromColumnIndex($columnReference - 1) . $rowReference;
+                                        $A1CellReference = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($columnReference - 1) . $rowReference;
 
                                         $value = substr_replace($value, $A1CellReference, $cellReference[0][1], strlen($cellReference[0][0]));
                                     }
@@ -343,13 +343,13 @@ class SYLK extends BaseReader implements IReader
                             break;
                     }
                 }
-                $columnLetter = \PhpSpreadsheet\Cell::stringFromColumnIndex($column - 1);
-                $cellData = \PhpSpreadsheet\Calculation::unwrapResult($cellData);
+                $columnLetter = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($column - 1);
+                $cellData = \PhpOffice\PhpSpreadsheet\Calculation::unwrapResult($cellData);
 
                 // Set cell value
                 $spreadsheet->getActiveSheet()->getCell($columnLetter . $row)->setValue(($hasCalculatedValue) ? $cellDataFormula : $cellData);
                 if ($hasCalculatedValue) {
-                    $cellData = \PhpSpreadsheet\Calculation::unwrapResult($cellData);
+                    $cellData = \PhpOffice\PhpSpreadsheet\Calculation::unwrapResult($cellData);
                     $spreadsheet->getActiveSheet()->getCell($columnLetter . $row)->setCalculatedValue($cellData);
                 }
             //    Read cell formatting
@@ -383,16 +383,16 @@ class SYLK extends BaseReader implements IReader
                                         $styleData['font']['bold'] = true;
                                         break;
                                     case 'T':
-                                        $styleData['borders']['top']['style'] = \PhpSpreadsheet\Style\Border::BORDER_THIN;
+                                        $styleData['borders']['top']['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN;
                                         break;
                                     case 'B':
-                                        $styleData['borders']['bottom']['style'] = \PhpSpreadsheet\Style\Border::BORDER_THIN;
+                                        $styleData['borders']['bottom']['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN;
                                         break;
                                     case 'L':
-                                        $styleData['borders']['left']['style'] = \PhpSpreadsheet\Style\Border::BORDER_THIN;
+                                        $styleData['borders']['left']['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN;
                                         break;
                                     case 'R':
-                                        $styleData['borders']['right']['style'] = \PhpSpreadsheet\Style\Border::BORDER_THIN;
+                                        $styleData['borders']['right']['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN;
                                         break;
                                 }
                             }
@@ -400,22 +400,22 @@ class SYLK extends BaseReader implements IReader
                     }
                 }
                 if (($formatStyle > '') && ($column > '') && ($row > '')) {
-                    $columnLetter = \PhpSpreadsheet\Cell::stringFromColumnIndex($column - 1);
+                    $columnLetter = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($column - 1);
                     if (isset($this->formats[$formatStyle])) {
                         $spreadsheet->getActiveSheet()->getStyle($columnLetter . $row)->applyFromArray($this->formats[$formatStyle]);
                     }
                 }
                 if ((!empty($styleData)) && ($column > '') && ($row > '')) {
-                    $columnLetter = \PhpSpreadsheet\Cell::stringFromColumnIndex($column - 1);
+                    $columnLetter = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($column - 1);
                     $spreadsheet->getActiveSheet()->getStyle($columnLetter . $row)->applyFromArray($styleData);
                 }
                 if ($columnWidth > '') {
                     if ($startCol == $endCol) {
-                        $startCol = \PhpSpreadsheet\Cell::stringFromColumnIndex($startCol - 1);
+                        $startCol = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($startCol - 1);
                         $spreadsheet->getActiveSheet()->getColumnDimension($startCol)->setWidth($columnWidth);
                     } else {
-                        $startCol = \PhpSpreadsheet\Cell::stringFromColumnIndex($startCol - 1);
-                        $endCol = \PhpSpreadsheet\Cell::stringFromColumnIndex($endCol - 1);
+                        $startCol = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($startCol - 1);
+                        $endCol = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($endCol - 1);
                         $spreadsheet->getActiveSheet()->getColumnDimension($startCol)->setWidth($columnWidth);
                         do {
                             $spreadsheet->getActiveSheet()->getColumnDimension(++$startCol)->setWidth($columnWidth);

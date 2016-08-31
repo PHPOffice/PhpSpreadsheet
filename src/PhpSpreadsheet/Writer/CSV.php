@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Writer;
+namespace PhpOffice\PhpSpreadsheet\Writer;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -86,9 +86,9 @@ class CSV extends BaseWriter implements IWriter
     /**
      * Create a new CSV
      *
-     * @param    \PhpSpreadsheet\Spreadsheet    $spreadsheet    Spreadsheet object
+     * @param    \PhpOffice\PhpSpreadsheet\Spreadsheet    $spreadsheet    Spreadsheet object
      */
-    public function __construct(\PhpSpreadsheet\Spreadsheet $spreadsheet)
+    public function __construct(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
     {
         $this->spreadsheet = $spreadsheet;
     }
@@ -104,10 +104,10 @@ class CSV extends BaseWriter implements IWriter
         // Fetch sheet
         $sheet = $this->spreadsheet->getSheet($this->sheetIndex);
 
-        $saveDebugLog = \PhpSpreadsheet\Calculation::getInstance($this->spreadsheet)->getDebugLog()->getWriteDebugLog();
-        \PhpSpreadsheet\Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog(false);
-        $saveArrayReturnType = \PhpSpreadsheet\Calculation::getArrayReturnType();
-        \PhpSpreadsheet\Calculation::setArrayReturnType(\PhpSpreadsheet\Calculation::RETURN_ARRAY_AS_VALUE);
+        $saveDebugLog = \PhpOffice\PhpSpreadsheet\Calculation::getInstance($this->spreadsheet)->getDebugLog()->getWriteDebugLog();
+        \PhpOffice\PhpSpreadsheet\Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog(false);
+        $saveArrayReturnType = \PhpOffice\PhpSpreadsheet\Calculation::getArrayReturnType();
+        \PhpOffice\PhpSpreadsheet\Calculation::setArrayReturnType(\PhpOffice\PhpSpreadsheet\Calculation::RETURN_ARRAY_AS_VALUE);
 
         // Open file
         $fileHandle = fopen($pFilename, 'wb+');
@@ -116,10 +116,10 @@ class CSV extends BaseWriter implements IWriter
         }
 
         if ($this->excelCompatibility) {
-            $this->setUseBOM(true);                //  Enforce UTF-8 BOM Header
-            $this->setIncludeSeparatorLine(true);  //  Set separator line
-            $this->setEnclosure('"');              //  Set enclosure to "
-            $this->setDelimiter(';');              //  Set delimiter to a semi-colon
+            $this->setUseBOM(true); //  Enforce UTF-8 BOM Header
+            $this->setIncludeSeparatorLine(true); //  Set separator line
+            $this->setEnclosure('"'); //  Set enclosure to "
+            $this->setDelimiter(';'); //  Set delimiter to a semi-colon
             $this->setLineEnding("\r\n");
         }
         if ($this->useBOM) {
@@ -146,8 +146,8 @@ class CSV extends BaseWriter implements IWriter
         // Close file
         fclose($fileHandle);
 
-        \PhpSpreadsheet\Calculation::setArrayReturnType($saveArrayReturnType);
-        \PhpSpreadsheet\Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
+        \PhpOffice\PhpSpreadsheet\Calculation::setArrayReturnType($saveArrayReturnType);
+        \PhpOffice\PhpSpreadsheet\Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
     }
 
     /**
@@ -318,7 +318,7 @@ class CSV extends BaseWriter implements IWriter
     /**
      * Write line to CSV file
      *
-     * @param    mixed    $pFileHandle    PHP filehandle
+     * @param    resource    $pFileHandle    PHP filehandle
      * @param    array    $pValues        Array containing values in a row
      * @throws    Exception
      */

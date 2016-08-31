@@ -1,10 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet\Writer\Excel5;
+namespace PhpOffice\PhpSpreadsheet\Writer\Excel5;
 
 /**
- * \PhpSpreadsheet\Writer\Excel5\Xf
- *
  * Copyright (c) 2006 - 2015 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -127,9 +125,9 @@ class Xf
     /**
      * Constructor
      *
-     * @param \PhpSpreadsheet\Style    The XF format
+     * @param \PhpOffice\PhpSpreadsheet\Style    The XF format
      */
-    public function __construct(\PhpSpreadsheet\Style $style = null)
+    public function __construct(\PhpOffice\PhpSpreadsheet\Style $style = null)
     {
         $this->isStyleXf = false;
         $this->fontIndex = 0;
@@ -167,16 +165,16 @@ class Xf
         }
 
         // Flags to indicate if attributes have been set.
-        $atr_num = ($this->numberFormatIndex != 0)?1:0;
-        $atr_fnt = ($this->fontIndex != 0)?1:0;
+        $atr_num = ($this->numberFormatIndex != 0) ? 1 : 0;
+        $atr_fnt = ($this->fontIndex != 0) ? 1 : 0;
         $atr_alc = ((int) $this->_style->getAlignment()->getWrapText()) ? 1 : 0;
         $atr_bdr = (self::mapBorderStyle($this->_style->getBorders()->getBottom()->getBorderStyle()) ||
                         self::mapBorderStyle($this->_style->getBorders()->getTop()->getBorderStyle()) ||
                         self::mapBorderStyle($this->_style->getBorders()->getLeft()->getBorderStyle()) ||
-                        self::mapBorderStyle($this->_style->getBorders()->getRight()->getBorderStyle()))?1:0;
+                        self::mapBorderStyle($this->_style->getBorders()->getRight()->getBorderStyle())) ? 1 : 0;
         $atr_pat = (($this->foregroundColor != 0x40) ||
                         ($this->backgroundColor != 0x41) ||
-                        self::mapFillType($this->_style->getFill()->getFillType()))?1:0;
+                        self::mapFillType($this->_style->getFill()->getFillType())) ? 1 : 0;
         $atr_prot = self::mapLocked($this->_style->getProtection()->getLocked())
                         | self::mapHidden($this->_style->getProtection()->getHidden());
 
@@ -197,13 +195,13 @@ class Xf
             $this->_diag_color = 0;
         }
 
-        $record = 0x00E0;              // Record identifier
-        $length = 0x0014;              // Number of bytes to follow
+        $record = 0x00E0; // Record identifier
+        $length = 0x0014; // Number of bytes to follow
 
-        $ifnt = $this->fontIndex;   // Index to FONT record
-        $ifmt = $this->numberFormatIndex;  // Index to FORMAT record
+        $ifnt = $this->fontIndex; // Index to FONT record
+        $ifmt = $this->numberFormatIndex; // Index to FORMAT record
 
-        $align = $this->mapHAlign($this->_style->getAlignment()->getHorizontal());       // Alignment
+        $align = $this->mapHAlign($this->_style->getAlignment()->getHorizontal()); // Alignment
         $align |= (int) $this->_style->getAlignment()->getWrapText() << 3;
         $align |= self::mapVAlign($this->_style->getAlignment()->getVertical()) << 4;
         $align |= $this->textJustLast << 7;
@@ -215,10 +213,10 @@ class Xf
         $used_attrib |= $atr_pat << 6;
         $used_attrib |= $atr_prot << 7;
 
-        $icv = $this->foregroundColor;      // fg and bg pattern colors
+        $icv = $this->foregroundColor; // fg and bg pattern colors
         $icv |= $this->backgroundColor << 7;
 
-        $border1 = self::mapBorderStyle($this->_style->getBorders()->getLeft()->getBorderStyle());          // Border line style and color
+        $border1 = self::mapBorderStyle($this->_style->getBorders()->getLeft()->getBorderStyle()); // Border line style and color
         $border1 |= self::mapBorderStyle($this->_style->getBorders()->getRight()->getBorderStyle()) << 4;
         $border1 |= self::mapBorderStyle($this->_style->getBorders()->getTop()->getBorderStyle()) << 8;
         $border1 |= self::mapBorderStyle($this->_style->getBorders()->getBottom()->getBorderStyle()) << 12;
@@ -226,14 +224,14 @@ class Xf
         $border1 |= $this->rightBorderColor << 23;
 
         $diagonalDirection = $this->_style->getBorders()->getDiagonalDirection();
-        $diag_tl_to_rb = $diagonalDirection == \PhpSpreadsheet\Style\Borders::DIAGONAL_BOTH
-                            || $diagonalDirection == \PhpSpreadsheet\Style\Borders::DIAGONAL_DOWN;
-        $diag_tr_to_lb = $diagonalDirection == \PhpSpreadsheet\Style\Borders::DIAGONAL_BOTH
-                            || $diagonalDirection == \PhpSpreadsheet\Style\Borders::DIAGONAL_UP;
+        $diag_tl_to_rb = $diagonalDirection == \PhpOffice\PhpSpreadsheet\Style\Borders::DIAGONAL_BOTH
+                            || $diagonalDirection == \PhpOffice\PhpSpreadsheet\Style\Borders::DIAGONAL_DOWN;
+        $diag_tr_to_lb = $diagonalDirection == \PhpOffice\PhpSpreadsheet\Style\Borders::DIAGONAL_BOTH
+                            || $diagonalDirection == \PhpOffice\PhpSpreadsheet\Style\Borders::DIAGONAL_UP;
         $border1 |= $diag_tl_to_rb << 30;
         $border1 |= $diag_tr_to_lb << 31;
 
-        $border2 = $this->topBorderColor;    // Border color
+        $border2 = $this->topBorderColor; // Border color
         $border2 |= $this->bottomBorderColor << 7;
         $border2 |= $this->_diag_color << 14;
         $border2 |= self::mapBorderStyle($this->_style->getBorders()->getDiagonal()->getBorderStyle()) << 21;
@@ -358,20 +356,20 @@ class Xf
      * @static    array of int
      */
     private static $mapBorderStyles = [
-        \PhpSpreadsheet\Style\Border::BORDER_NONE => 0x00,
-        \PhpSpreadsheet\Style\Border::BORDER_THIN => 0x01,
-        \PhpSpreadsheet\Style\Border::BORDER_MEDIUM => 0x02,
-        \PhpSpreadsheet\Style\Border::BORDER_DASHED => 0x03,
-        \PhpSpreadsheet\Style\Border::BORDER_DOTTED => 0x04,
-        \PhpSpreadsheet\Style\Border::BORDER_THICK => 0x05,
-        \PhpSpreadsheet\Style\Border::BORDER_DOUBLE => 0x06,
-        \PhpSpreadsheet\Style\Border::BORDER_HAIR => 0x07,
-        \PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED => 0x08,
-        \PhpSpreadsheet\Style\Border::BORDER_DASHDOT => 0x09,
-        \PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOT => 0x0A,
-        \PhpSpreadsheet\Style\Border::BORDER_DASHDOTDOT => 0x0B,
-        \PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOTDOT => 0x0C,
-        \PhpSpreadsheet\Style\Border::BORDER_SLANTDASHDOT => 0x0D,
+        \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE => 0x00,
+        \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN => 0x01,
+        \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM => 0x02,
+        \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHED => 0x03,
+        \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOTTED => 0x04,
+        \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK => 0x05,
+        \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOUBLE => 0x06,
+        \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_HAIR => 0x07,
+        \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED => 0x08,
+        \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT => 0x09,
+        \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOT => 0x0A,
+        \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOTDOT => 0x0B,
+        \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOTDOT => 0x0C,
+        \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_SLANTDASHDOT => 0x0D,
     ];
 
     /**
@@ -394,27 +392,27 @@ class Xf
      * @static    array of int
      */
     private static $mapFillTypes = [
-        \PhpSpreadsheet\Style\Fill::FILL_NONE => 0x00,
-        \PhpSpreadsheet\Style\Fill::FILL_SOLID => 0x01,
-        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_MEDIUMGRAY => 0x02,
-        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKGRAY => 0x03,
-        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTGRAY => 0x04,
-        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKHORIZONTAL => 0x05,
-        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKVERTICAL => 0x06,
-        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKDOWN => 0x07,
-        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKUP => 0x08,
-        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKGRID => 0x09,
-        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKTRELLIS => 0x0A,
-        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTHORIZONTAL => 0x0B,
-        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTVERTICAL => 0x0C,
-        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTDOWN => 0x0D,
-        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTUP => 0x0E,
-        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTGRID => 0x0F,
-        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTTRELLIS => 0x10,
-        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_GRAY125 => 0x11,
-        \PhpSpreadsheet\Style\Fill::FILL_PATTERN_GRAY0625 => 0x12,
-        \PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR => 0x00,    // does not exist in BIFF8
-        \PhpSpreadsheet\Style\Fill::FILL_GRADIENT_PATH => 0x00,    // does not exist in BIFF8
+        \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_NONE => 0x00,
+        \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID => 0x01,
+        \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_MEDIUMGRAY => 0x02,
+        \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKGRAY => 0x03,
+        \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTGRAY => 0x04,
+        \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKHORIZONTAL => 0x05,
+        \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKVERTICAL => 0x06,
+        \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKDOWN => 0x07,
+        \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKUP => 0x08,
+        \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKGRID => 0x09,
+        \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKTRELLIS => 0x0A,
+        \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTHORIZONTAL => 0x0B,
+        \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTVERTICAL => 0x0C,
+        \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTDOWN => 0x0D,
+        \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTUP => 0x0E,
+        \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTGRID => 0x0F,
+        \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTTRELLIS => 0x10,
+        \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_GRAY125 => 0x11,
+        \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_GRAY0625 => 0x12,
+        \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR => 0x00, // does not exist in BIFF8
+        \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_PATH => 0x00, // does not exist in BIFF8
     ];
 
     /**
@@ -437,13 +435,13 @@ class Xf
      * @static    array of int
      */
     private static $mapHAlignments = [
-        \PhpSpreadsheet\Style\Alignment::HORIZONTAL_GENERAL => 0,
-        \PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT => 1,
-        \PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER => 2,
-        \PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT => 3,
-        \PhpSpreadsheet\Style\Alignment::HORIZONTAL_FILL => 4,
-        \PhpSpreadsheet\Style\Alignment::HORIZONTAL_JUSTIFY => 5,
-        \PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER_CONTINUOUS => 6,
+        \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_GENERAL => 0,
+        \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT => 1,
+        \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER => 2,
+        \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT => 3,
+        \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_FILL => 4,
+        \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_JUSTIFY => 5,
+        \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER_CONTINUOUS => 6,
     ];
 
     /**
@@ -466,10 +464,10 @@ class Xf
      * @static    array of int
      */
     private static $mapVAlignments = [
-        \PhpSpreadsheet\Style\Alignment::VERTICAL_TOP => 0,
-        \PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER => 1,
-        \PhpSpreadsheet\Style\Alignment::VERTICAL_BOTTOM => 2,
-        \PhpSpreadsheet\Style\Alignment::VERTICAL_JUSTIFY => 3,
+        \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP => 0,
+        \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER => 1,
+        \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_BOTTOM => 2,
+        \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_JUSTIFY => 3,
     ];
 
     /**
@@ -513,11 +511,11 @@ class Xf
     private static function mapLocked($locked)
     {
         switch ($locked) {
-            case \PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT:
+            case \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT:
                 return 1;
-            case \PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED:
+            case \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED:
                 return 1;
-            case \PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED:
+            case \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED:
                 return 0;
             default:
                 return 1;
@@ -533,11 +531,11 @@ class Xf
     private static function mapHidden($hidden)
     {
         switch ($hidden) {
-            case \PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT:
+            case \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT:
                 return 0;
-            case \PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED:
+            case \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED:
                 return 1;
-            case \PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED:
+            case \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED:
                 return 0;
             default:
                 return 0;

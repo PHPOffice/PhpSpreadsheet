@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Chart;
+namespace PhpOffice\PhpSpreadsheet\Chart;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -35,14 +35,14 @@ class DataSeries
     const TYPE_PIECHART = 'pieChart';
     const TYPE_PIECHART_3D = 'pie3DChart';
     const TYPE_DOUGHTNUTCHART = 'doughnutChart';
-    const TYPE_DONUTCHART = self::TYPE_DOUGHTNUTCHART;    //    Synonym
+    const TYPE_DONUTCHART = self::TYPE_DOUGHTNUTCHART; //    Synonym
     const TYPE_SCATTERCHART = 'scatterChart';
     const TYPE_SURFACECHART = 'surfaceChart';
     const TYPE_SURFACECHART_3D = 'surface3DChart';
     const TYPE_RADARCHART = 'radarChart';
     const TYPE_BUBBLECHART = 'bubbleChart';
     const TYPE_STOCKCHART = 'stockChart';
-    const TYPE_CANDLECHART = self::TYPE_STOCKCHART;       //    Synonym
+    const TYPE_CANDLECHART = self::TYPE_STOCKCHART; //    Synonym
 
     const GROUPING_CLUSTERED = 'clustered';
     const GROUPING_STACKED = 'stacked';
@@ -70,14 +70,14 @@ class DataSeries
     /**
      * Plot Grouping Type
      *
-     * @var bool
+     * @var string
      */
     private $plotGrouping;
 
     /**
      * Plot Direction
      *
-     * @var bool
+     * @var string
      */
     private $plotDirection;
 
@@ -112,7 +112,7 @@ class DataSeries
     /**
      * Smooth Line
      *
-     * @var string
+     * @var bool
      */
     private $smoothLine;
 
@@ -367,7 +367,7 @@ class DataSeries
         return $this;
     }
 
-    public function refresh(\PhpSpreadsheet\Worksheet $worksheet)
+    public function refresh(\PhpOffice\PhpSpreadsheet\Worksheet $worksheet)
     {
         foreach ($this->plotValues as $plotValues) {
             if ($plotValues !== null) {

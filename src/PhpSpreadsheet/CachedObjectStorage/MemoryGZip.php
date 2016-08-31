@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\CachedObjectStorage;
+namespace PhpOffice\PhpSpreadsheet\CachedObjectStorage;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -30,14 +30,14 @@ class MemoryGZip extends CacheBase implements ICache
      * Store cell data in cache for the current cell object if it's "dirty",
      *     and the 'nullify' the current cell object
      *
-     * @throws  \PhpSpreadsheet\Exception
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
      */
     protected function storeData()
     {
         if ($this->currentCellIsDirty && !empty($this->currentObjectID)) {
             $this->currentObject->detach();
 
-            $this->cellCache[$this->currentObjectID] = gzdeflate(serialize($this->currentObject));
+            $this->cellCache[$this->currentObjectID] = gzdeflate(serialize($this->currentObject), 9);
             $this->currentCellIsDirty = false;
         }
         $this->currentObjectID = $this->currentObject = null;
@@ -47,11 +47,11 @@ class MemoryGZip extends CacheBase implements ICache
      * Add or Update a cell in cache identified by coordinate address
      *
      * @param   string            $pCoord        Coordinate address of the cell to update
-     * @param   \PhpSpreadsheet\Cell    $cell        Cell to update
-     * @throws  \PhpSpreadsheet\Exception
-     * @return  \PhpSpreadsheet\Cell
+     * @param   \PhpOffice\PhpSpreadsheet\Cell    $cell        Cell to update
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @return  \PhpOffice\PhpSpreadsheet\Cell
      */
-    public function addCacheData($pCoord, \PhpSpreadsheet\Cell $cell)
+    public function addCacheData($pCoord, \PhpOffice\PhpSpreadsheet\Cell $cell)
     {
         if (($pCoord !== $this->currentObjectID) && ($this->currentObjectID !== null)) {
             $this->storeData();
@@ -68,8 +68,8 @@ class MemoryGZip extends CacheBase implements ICache
      * Get cell at a specific coordinate
      *
      * @param   string             $pCoord        Coordinate of the cell
-     * @throws  \PhpSpreadsheet\Exception
-     * @return  \PhpSpreadsheet\Cell     Cell that was found, or null if not found
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @return  \PhpOffice\PhpSpreadsheet\Cell     Cell that was found, or null if not found
      */
     public function getCacheData($pCoord)
     {

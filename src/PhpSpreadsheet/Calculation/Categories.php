@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Calculation;
+namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -125,21 +125,21 @@ class Categories
     }
 
     /**
-     * Get PhpSpreadsheet function name
+     * Get Spreadsheet function name
      *
      * @return string
      */
-    public function getPhpSpreadsheetName()
+    public function getSpreadsheetName()
     {
         return $this->spreadsheetName;
     }
 
     /**
-     * Set PhpSpreadsheet function  name
+     * Set Spreadsheet function  name
      *
      * @param string    $value
      */
-    public function setPhpSpreadsheetName($value)
+    public function setSpreadsheetName($value)
     {
         $this->spreadsheetName = $value;
     }

@@ -1,10 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet\Worksheet;
+namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
- * \PhpSpreadsheet\Worksheet_MemoryDrawing
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -26,7 +24,7 @@ namespace PhpSpreadsheet\Worksheet;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class MemoryDrawing extends BaseDrawing implements \PhpSpreadsheet\IComparable
+class MemoryDrawing extends BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
 {
     /* Rendering functions */
     const RENDERING_DEFAULT = 'imagepng';

@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Style;
+namespace PhpOffice\PhpSpreadsheet\Style;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -24,7 +24,7 @@ namespace PhpSpreadsheet\Style;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class Fill extends Supervisor implements \PhpSpreadsheet\IComparable
+class Fill extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
 {
     /* Fill types */
     const FILL_NONE = 'none';
@@ -134,7 +134,7 @@ class Fill extends Supervisor implements \PhpSpreadsheet\IComparable
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getFill()->applyFromArray(
      *        array(
-     *            'type'       => \PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
+     *            'type'       => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
      *            'rotation'   => 0,
      *            'startcolor' => array(
      *                'rgb' => '000000'
@@ -147,7 +147,7 @@ class Fill extends Supervisor implements \PhpSpreadsheet\IComparable
      * </code>
      *
      * @param   array    $pStyles    Array containing style information
-     * @throws  \PhpSpreadsheet\Exception
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
      * @return Fill
      */
     public function applyFromArray($pStyles = null)
@@ -173,7 +173,7 @@ class Fill extends Supervisor implements \PhpSpreadsheet\IComparable
                 }
             }
         } else {
-            throw new \PhpSpreadsheet\Exception('Invalid style array passed.');
+            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid style array passed.');
         }
 
         return $this;
@@ -257,7 +257,7 @@ class Fill extends Supervisor implements \PhpSpreadsheet\IComparable
      * Set Start Color
      *
      * @param   Color $pValue
-     * @throws  \PhpSpreadsheet\Exception
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
      * @return Fill
      */
     public function setStartColor(Color $pValue = null)
@@ -289,7 +289,7 @@ class Fill extends Supervisor implements \PhpSpreadsheet\IComparable
      * Set End Color
      *
      * @param    Color $pValue
-     * @throws   \PhpSpreadsheet\Exception
+     * @throws   \PhpOffice\PhpSpreadsheet\Exception
      * @return Fill
      */
     public function setEndColor(Color $pValue = null)

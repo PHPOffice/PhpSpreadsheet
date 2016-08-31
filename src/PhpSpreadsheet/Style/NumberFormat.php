@@ -1,10 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet\Style;
+namespace PhpOffice\PhpSpreadsheet\Style;
 
 /**
- * \PhpSpreadsheet\Style\NumberFormat
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -26,7 +24,7 @@ namespace PhpSpreadsheet\Style;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class NumberFormat extends Supervisor implements \PhpSpreadsheet\IComparable
+class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
 {
     /* Pre-defined formats */
     const FORMAT_GENERAL = 'General';
@@ -145,13 +143,13 @@ class NumberFormat extends Supervisor implements \PhpSpreadsheet\IComparable
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getNumberFormat()->applyFromArray(
      *        array(
-     *            'code' => \PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE
+     *            'code' => \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE
      *        )
      * );
      * </code>
      *
      * @param    array    $pStyles    Array containing style information
-     * @throws    \PhpSpreadsheet\Exception
+     * @throws    \PhpOffice\PhpSpreadsheet\Exception
      * @return NumberFormat
      */
     public function applyFromArray($pStyles = null)
@@ -165,7 +163,7 @@ class NumberFormat extends Supervisor implements \PhpSpreadsheet\IComparable
                 }
             }
         } else {
-            throw new \PhpSpreadsheet\Exception('Invalid style array passed.');
+            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid style array passed.');
         }
 
         return $this;
@@ -286,7 +284,7 @@ class NumberFormat extends Supervisor implements \PhpSpreadsheet\IComparable
             self::$builtInFormats[11] = '0.00E+00';
             self::$builtInFormats[12] = '# ?/?';
             self::$builtInFormats[13] = '# ??/??';
-            self::$builtInFormats[14] = 'm/d/yyyy';                     // Despite ECMA 'mm-dd-yy';
+            self::$builtInFormats[14] = 'm/d/yyyy'; // Despite ECMA 'mm-dd-yy';
             self::$builtInFormats[15] = 'd-mmm-yy';
             self::$builtInFormats[16] = 'd-mmm';
             self::$builtInFormats[17] = 'mmm-yy';
@@ -294,17 +292,17 @@ class NumberFormat extends Supervisor implements \PhpSpreadsheet\IComparable
             self::$builtInFormats[19] = 'h:mm:ss AM/PM';
             self::$builtInFormats[20] = 'h:mm';
             self::$builtInFormats[21] = 'h:mm:ss';
-            self::$builtInFormats[22] = 'm/d/yyyy h:mm';                // Despite ECMA 'm/d/yy h:mm';
+            self::$builtInFormats[22] = 'm/d/yyyy h:mm'; // Despite ECMA 'm/d/yy h:mm';
 
-            self::$builtInFormats[37] = '#,##0_);(#,##0)';              //  Despite ECMA '#,##0 ;(#,##0)';
-            self::$builtInFormats[38] = '#,##0_);[Red](#,##0)';         //  Despite ECMA '#,##0 ;[Red](#,##0)';
-            self::$builtInFormats[39] = '#,##0.00_);(#,##0.00)';        //  Despite ECMA '#,##0.00;(#,##0.00)';
-            self::$builtInFormats[40] = '#,##0.00_);[Red](#,##0.00)';   //  Despite ECMA '#,##0.00;[Red](#,##0.00)';
+            self::$builtInFormats[37] = '#,##0_);(#,##0)'; //  Despite ECMA '#,##0 ;(#,##0)';
+            self::$builtInFormats[38] = '#,##0_);[Red](#,##0)'; //  Despite ECMA '#,##0 ;[Red](#,##0)';
+            self::$builtInFormats[39] = '#,##0.00_);(#,##0.00)'; //  Despite ECMA '#,##0.00;(#,##0.00)';
+            self::$builtInFormats[40] = '#,##0.00_);[Red](#,##0.00)'; //  Despite ECMA '#,##0.00;[Red](#,##0.00)';
 
             self::$builtInFormats[44] = '_("$"* #,##0.00_);_("$"* \(#,##0.00\);_("$"* "-"??_);_(@_)';
             self::$builtInFormats[45] = 'mm:ss';
             self::$builtInFormats[46] = '[h]:mm:ss';
-            self::$builtInFormats[47] = 'mm:ss.0';                      //  Despite ECMA 'mmss.0';
+            self::$builtInFormats[47] = 'mm:ss.0'; //  Despite ECMA 'mmss.0';
             self::$builtInFormats[48] = '##0.0E+0';
             self::$builtInFormats[49] = '@';
 
@@ -491,7 +489,7 @@ class NumberFormat extends Supervisor implements \PhpSpreadsheet\IComparable
         // escape any quoted characters so that DateTime format() will render them correctly
         $format = preg_replace_callback('/"(.*)"/U', ['self', 'escapeQuotesCallback'], $format);
 
-        $dateObj = \PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value);
+        $dateObj = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value);
         $value = $dateObj->format($format);
     }
 
@@ -522,7 +520,7 @@ class NumberFormat extends Supervisor implements \PhpSpreadsheet\IComparable
         $decimalLength = strlen($decimalPart);
         $decimalDivisor = pow(10, $decimalLength);
 
-        $GCD = \PhpSpreadsheet\Calculation\MathTrig::GCD($decimalPart, $decimalDivisor);
+        $GCD = \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::GCD($decimalPart, $decimalDivisor);
 
         $adjustedDecimalPart = $decimalPart / $GCD;
         $adjustedDecimalDivisor = $decimalDivisor / $GCD;
@@ -688,7 +686,6 @@ class NumberFormat extends Supervisor implements \PhpSpreadsheet\IComparable
                 }
 
                 if (preg_match('/#?.*\?\/\?/', $format, $m)) {
-                    //echo 'Format mask is fractional '.$format.' <br />';
                     if ($value != (int) $value) {
                         self::formatAsFraction($value, $format);
                     }
@@ -715,8 +712,8 @@ class NumberFormat extends Supervisor implements \PhpSpreadsheet\IComparable
                             $value = number_format(
                                 $value,
                                 strlen($right),
-                                \PhpSpreadsheet\Shared\StringHelper::getDecimalSeparator(),
-                                \PhpSpreadsheet\Shared\StringHelper::getThousandsSeparator()
+                                \PhpOffice\PhpSpreadsheet\Shared\StringHelper::getDecimalSeparator(),
+                                \PhpOffice\PhpSpreadsheet\Shared\StringHelper::getThousandsSeparator()
                             );
                             $value = preg_replace($number_regex, $value, $format);
                         } else {
@@ -739,7 +736,7 @@ class NumberFormat extends Supervisor implements \PhpSpreadsheet\IComparable
                     $currencyCode = $m[1];
                     list($currencyCode) = explode('-', $currencyCode);
                     if ($currencyCode == '') {
-                        $currencyCode = \PhpSpreadsheet\Shared\StringHelper::getCurrencyCode();
+                        $currencyCode = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::getCurrencyCode();
                     }
                     $value = preg_replace('/\[\$([^\]]*)\]/u', $currencyCode, $value);
                 }

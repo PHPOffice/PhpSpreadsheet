@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet;
+namespace PhpOffice\PhpSpreadsheet;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -122,7 +122,7 @@ class CachedObjectStorageFactory
     /**
      * Return the current cache storage class
      *
-     * @return \CachedObjectStorage\ICache|null
+     * @return string
      **/
     public static function getCacheStorageClass()
     {
@@ -148,7 +148,7 @@ class CachedObjectStorageFactory
     {
         $activeMethods = [];
         foreach (self::$storageMethods as $storageMethod) {
-            $cacheStorageClass = '\\PhpSpreadsheet\\CachedObjectStorage\\' . $storageMethod;
+            $cacheStorageClass = '\\PhpOffice\\PhpSpreadsheet\\CachedObjectStorage\\' . $storageMethod;
             if (call_user_func([$cacheStorageClass, 'cacheMethodIsAvailable'])) {
                 $activeMethods[] = $storageMethod;
             }
@@ -171,7 +171,7 @@ class CachedObjectStorageFactory
             return false;
         }
 
-        $cacheStorageClass = '\\PhpSpreadsheet\\CachedObjectStorage\\' . $method;
+        $cacheStorageClass = '\\PhpOffice\\PhpSpreadsheet\\CachedObjectStorage\\' . $method;
         if (!call_user_func([$cacheStorageClass, 'cacheMethodIsAvailable'])) {
             return false;
         }
@@ -184,7 +184,7 @@ class CachedObjectStorageFactory
         }
 
         if (self::$cacheStorageMethod === null) {
-            self::$cacheStorageClass = '\\PhpSpreadsheet\\CachedObjectStorage\\' . $method;
+            self::$cacheStorageClass = '\\PhpOffice\\PhpSpreadsheet\\CachedObjectStorage\\' . $method;
             self::$cacheStorageMethod = $method;
         }
 

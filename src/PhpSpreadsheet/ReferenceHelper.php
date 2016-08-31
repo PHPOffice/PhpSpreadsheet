@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet;
+namespace PhpOffice\PhpSpreadsheet;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -169,8 +169,7 @@ class ReferenceHelper
     {
         $aBreaks = $pSheet->getBreaks();
         ($pNumCols > 0 || $pNumRows > 0) ?
-            uksort($aBreaks, ['self', 'cellReverseSort']) :
-            uksort($aBreaks, ['self', 'cellSort']);
+            uksort($aBreaks, ['self', 'cellReverseSort']) : uksort($aBreaks, ['self', 'cellSort']);
 
         foreach ($aBreaks as $key => $value) {
             if (self::cellAddressInDeleteRange($key, $beforeRow, $pNumRows, $beforeColumnIndex, $pNumCols)) {
@@ -230,8 +229,7 @@ class ReferenceHelper
     {
         $aHyperlinkCollection = $pSheet->getHyperlinkCollection();
         ($pNumCols > 0 || $pNumRows > 0) ?
-            uksort($aHyperlinkCollection, ['self', 'cellReverseSort']) :
-            uksort($aHyperlinkCollection, ['self', 'cellSort']);
+            uksort($aHyperlinkCollection, ['self', 'cellReverseSort']) : uksort($aHyperlinkCollection, ['self', 'cellSort']);
 
         foreach ($aHyperlinkCollection as $key => $value) {
             $newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
@@ -256,8 +254,7 @@ class ReferenceHelper
     {
         $aDataValidationCollection = $pSheet->getDataValidationCollection();
         ($pNumCols > 0 || $pNumRows > 0) ?
-            uksort($aDataValidationCollection, ['self', 'cellReverseSort']) :
-            uksort($aDataValidationCollection, ['self', 'cellSort']);
+            uksort($aDataValidationCollection, ['self', 'cellReverseSort']) : uksort($aDataValidationCollection, ['self', 'cellSort']);
 
         foreach ($aDataValidationCollection as $key => $value) {
             $newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
@@ -303,8 +300,7 @@ class ReferenceHelper
     {
         $aProtectedCells = $pSheet->getProtectedCells();
         ($pNumCols > 0 || $pNumRows > 0) ?
-            uksort($aProtectedCells, ['self', 'cellReverseSort']) :
-            uksort($aProtectedCells, ['self', 'cellSort']);
+            uksort($aProtectedCells, ['self', 'cellReverseSort']) : uksort($aProtectedCells, ['self', 'cellSort']);
         foreach ($aProtectedCells as $key => $value) {
             $newReference = $this->updateCellReference($key, $pBefore, $pNumCols, $pNumRows);
             if ($key != $newReference) {
@@ -450,7 +446,7 @@ class ReferenceHelper
                 if ($cell->getDataType() == Cell\DataType::TYPE_FORMULA) {
                     // Formula should be adjusted
                     $pSheet->getCell($newCoordinates)
-                           ->setValue($this->updateFormulaReferences($cell->getValue(), $pBefore, $pNumCols, $pNumRows, $pSheet->getTitle()));
+                            ->setValue($this->updateFormulaReferences($cell->getValue(), $pBefore, $pNumCols, $pNumRows, $pSheet->getTitle()));
                 } else {
                     // Formula should not be adjusted
                     $pSheet->getCell($newCoordinates)->setValue($cell->getValue());
@@ -802,7 +798,7 @@ class ReferenceHelper
     /**
      * Update named formulas (i.e. containing worksheet references / named ranges)
      *
-     * @param \PhpSpreadsheet\Spreadsheet $spreadsheet    Object to update
+     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet    Object to update
      * @param string $oldName        Old name (name to replace)
      * @param string $newName        New name
      */

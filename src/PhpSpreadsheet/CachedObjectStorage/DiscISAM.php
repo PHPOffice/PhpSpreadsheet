@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\CachedObjectStorage;
+namespace PhpOffice\PhpSpreadsheet\CachedObjectStorage;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -51,7 +51,7 @@ class DiscISAM extends CacheBase implements ICache
      * Store cell data in cache for the current cell object if it's "dirty",
      *     and the 'nullify' the current cell object
      *
-     * @throws    \PhpSpreadsheet\Exception
+     * @throws    \PhpOffice\PhpSpreadsheet\Exception
      */
     protected function storeData()
     {
@@ -73,11 +73,11 @@ class DiscISAM extends CacheBase implements ICache
      * Add or Update a cell in cache identified by coordinate address
      *
      * @param    string            $pCoord        Coordinate address of the cell to update
-     * @param    \PhpSpreadsheet\Cell    $cell        Cell to update
-     * @throws   \PhpSpreadsheet\Exception
-     * @return   \PhpSpreadsheet\Cell
+     * @param    \PhpOffice\PhpSpreadsheet\Cell    $cell        Cell to update
+     * @throws   \PhpOffice\PhpSpreadsheet\Exception
+     * @return   \PhpOffice\PhpSpreadsheet\Cell
      */
-    public function addCacheData($pCoord, \PhpSpreadsheet\Cell $cell)
+    public function addCacheData($pCoord, \PhpOffice\PhpSpreadsheet\Cell $cell)
     {
         if (($pCoord !== $this->currentObjectID) && ($this->currentObjectID !== null)) {
             $this->storeData();
@@ -94,8 +94,8 @@ class DiscISAM extends CacheBase implements ICache
      * Get cell at a specific coordinate
      *
      * @param     string             $pCoord        Coordinate of the cell
-     * @throws     \PhpSpreadsheet\Exception
-     * @return     \PhpSpreadsheet\Cell     Cell that was found, or null if not found
+     * @throws     \PhpOffice\PhpSpreadsheet\Exception
+     * @return     \PhpOffice\PhpSpreadsheet\Cell     Cell that was found, or null if not found
      */
     public function getCacheData($pCoord)
     {
@@ -138,9 +138,9 @@ class DiscISAM extends CacheBase implements ICache
     /**
      * Clone the cell collection
      *
-     * @param  \PhpSpreadsheet\Worksheet    $parent        The new worksheet that we're copying to
+     * @param  \PhpOffice\PhpSpreadsheet\Worksheet    $parent        The new worksheet that we're copying to
      */
-    public function copyCellCollection(\PhpSpreadsheet\Worksheet $parent)
+    public function copyCellCollection(\PhpOffice\PhpSpreadsheet\Worksheet $parent)
     {
         parent::copyCellCollection($parent);
         //    Get a new id for the new file name
@@ -174,14 +174,14 @@ class DiscISAM extends CacheBase implements ICache
     /**
      * Initialise this new cell collection
      *
-     * @param    \PhpSpreadsheet\Worksheet    $parent        The worksheet for this cell collection
+     * @param    \PhpOffice\PhpSpreadsheet\Worksheet    $parent        The worksheet for this cell collection
      * @param    array of mixed        $arguments    Additional initialisation arguments
      */
-    public function __construct(\PhpSpreadsheet\Worksheet $parent, $arguments)
+    public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $parent, $arguments)
     {
         $this->cacheDirectory = ((isset($arguments['dir'])) && ($arguments['dir'] !== null))
                                     ? $arguments['dir']
-                                    : \PhpSpreadsheet\Shared\File::sysGetTempDir();
+                                    : \PhpOffice\PhpSpreadsheet\Shared\File::sysGetTempDir();
 
         parent::__construct($parent);
         if (is_null($this->fileHandle)) {

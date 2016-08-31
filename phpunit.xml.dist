@@ -8,7 +8,7 @@
         <ini name="memory_limit" value="2048M"/>
     </php>
     <testsuite name="PhpSpreadsheet Unit Test Suite">
-        <directory suffix="Test.php">./tests/PhpSpreadsheet</directory>
+        <directory suffix="Test.php">./tests/PhpSpreadsheetTests</directory>
     </testsuite>
     <filter>
         <whitelist>

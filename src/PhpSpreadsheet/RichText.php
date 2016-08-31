@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet;
+namespace PhpOffice\PhpSpreadsheet;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -152,7 +152,7 @@ class RichText implements IComparable
         if (is_array($pElements)) {
             $this->richTextElements = $pElements;
         } else {
-            throw new Exception("Invalid \PhpSpreadsheet\RichText\ITextElement[] array passed.");
+            throw new Exception("Invalid \PhpOffice\PhpSpreadsheet\RichText\ITextElement[] array passed.");
         }
 
         return $this;

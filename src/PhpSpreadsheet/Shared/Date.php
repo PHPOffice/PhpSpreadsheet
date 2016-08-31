@@ -1,10 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet\Shared;
+namespace PhpOffice\PhpSpreadsheet\Shared;
 
 /**
- * \PhpSpreadsheet\Shared\Date
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -29,8 +27,8 @@ namespace PhpSpreadsheet\Shared;
 class Date
 {
     /** constants */
-    const CALENDAR_WINDOWS_1900 = 1900;        //    Base date of 1st Jan 1900 = 1.0
-    const CALENDAR_MAC_1904 = 1904;            //    Base date of 2nd Jan 1904 = 1.0
+    const CALENDAR_WINDOWS_1900 = 1900; //    Base date of 1st Jan 1900 = 1.0
+    const CALENDAR_MAC_1904 = 1904; //    Base date of 2nd Jan 1904 = 1.0
 
     /*
      * Names of the months of the year, indexed by shortname
@@ -114,8 +112,8 @@ class Date
      * Set the Default timezone to use for dates
      *
      * @param     string|\DateTimeZone    $timeZone    The timezone to set for all Excel datetimestamp to PHP DateTime Object conversions
-     * @return    boolean                              Success or failure
      * @throws    \Exception
+     * @return    bool                              Success or failure
      * @return    bool                              Success or failure
      */
     public static function setDefaultTimezone($timeZone)
@@ -147,8 +145,8 @@ class Date
      * Validate a timezone
      *
      * @param     string|\DateTimeZone    $timeZone    The timezone to validate, either as a timezone string or object
-     * @return    \DateTimeZone                        The timezone as a timezone object
      * @throws    \Exception
+     * @return    \DateTimeZone                        The timezone as a timezone object
      * @return    \DateTimeZone                        The timezone as a timezone object
      */
     protected static function validateTimeZone($timeZone)
@@ -164,7 +162,7 @@ class Date
     /**
      * Convert a MS serialized datetime value from Excel to a PHP Date/Time object
      *
-     * @param     integer|float                      $excelTimestamp      MS Excel serialized date/time value
+     * @param     int|float                      $excelTimestamp      MS Excel serialized date/time value
      * @param     \DateTimeZone|string|null          $timeZone            The timezone to assume for the Excel timestamp,
      *                                                                        if you don't want to treat it as a UTC value
      *                                                                    Use the default (UST) unless you absolutely need a conversion
@@ -203,7 +201,7 @@ class Date
     /**
      * Convert a MS serialized datetime value from Excel to a unix timestamp
      *
-     * @param     integer|float                      $excelTimestamp        MS Excel serialized date/time value
+     * @param     int|float                      $excelTimestamp        MS Excel serialized date/time value
      * @param     \DateTimeZone|string|null          $timeZone            The timezone to assume for the Excel timestamp,
      *                                                                        if you don't want to treat it as a UTC value
      *                                                                    Use the default (UST) unless you absolutely need a conversion
@@ -220,7 +218,7 @@ class Date
      *    Convert a date from PHP to an MS Excel serialized date/time value
      *
      *    @param    mixed            $dateValue            Unix Timestamp or PHP DateTime object or a string
-     *    @return   float|boolean    Excel date/time value
+     *    @return   float|bool    Excel date/time value
      *                                  or boolean FALSE on failure
      */
     public static function PHPToExcel($dateValue = 0)
@@ -265,6 +263,7 @@ class Date
         if (!is_numeric($dateValue)) {
             return false;
         }
+
         return self::dateTimeToExcel(new \DateTime('@' . $dateValue));
     }
 
@@ -277,7 +276,7 @@ class Date
      * @param    int    $hours
      * @param    int    $minutes
      * @param    int    $seconds
-     * @return   int    Excel date/time value
+     * @return   float    Excel date/time value
      */
     public static function formattedPHPToExcel($year, $month, $day, $hours = 0, $minutes = 0, $seconds = 0)
     {
@@ -317,10 +316,10 @@ class Date
     /**
      * Is a given cell a date/time?
      *
-     * @param   \PhpSpreadsheet\Cell    $pCell
+     * @param   \PhpOffice\PhpSpreadsheet\Cell    $pCell
      * @return  bool
      */
-    public static function isDateTime(\PhpSpreadsheet\Cell $pCell)
+    public static function isDateTime(\PhpOffice\PhpSpreadsheet\Cell $pCell)
     {
         return self::isDateTimeFormat(
             $pCell->getWorksheet()->getStyle(
@@ -332,10 +331,10 @@ class Date
     /**
      * Is a given number format a date/time?
      *
-     * @param   \PhpSpreadsheet\Style\NumberFormat    $pFormat
+     * @param   \PhpOffice\PhpSpreadsheet\Style\NumberFormat    $pFormat
      * @return  bool
      */
-    public static function isDateTimeFormat(\PhpSpreadsheet\Style\NumberFormat $pFormat)
+    public static function isDateTimeFormat(\PhpOffice\PhpSpreadsheet\Style\NumberFormat $pFormat)
     {
         return self::isDateTimeFormatCode($pFormat->getFormatCode());
     }
@@ -350,7 +349,7 @@ class Date
      */
     public static function isDateTimeFormatCode($pFormatCode = '')
     {
-        if (strtolower($pFormatCode) === strtolower(\PhpSpreadsheet\Style\NumberFormat::FORMAT_GENERAL)) {
+        if (strtolower($pFormatCode) === strtolower(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_GENERAL)) {
             //    "General" contains an epoch letter 'e', so we trap for it explicitly here (case-insensitive check)
             return false;
         }
@@ -362,28 +361,28 @@ class Date
         // Switch on formatcode
         switch ($pFormatCode) {
             //    Explicitly defined date formats
-            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD:
-            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2:
-            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DDMMYYYY:
-            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DMYSLASH:
-            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DMYMINUS:
-            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DMMINUS:
-            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_MYMINUS:
-            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DATETIME:
-            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME1:
-            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME2:
-            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME3:
-            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4:
-            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME5:
-            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME6:
-            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME7:
-            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME8:
-            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH:
-            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX14:
-            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX15:
-            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX16:
-            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX17:
-            case \PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX22:
+            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD:
+            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2:
+            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DDMMYYYY:
+            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DMYSLASH:
+            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DMYMINUS:
+            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DMMINUS:
+            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_MYMINUS:
+            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DATETIME:
+            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME1:
+            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME2:
+            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME3:
+            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4:
+            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME5:
+            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME6:
+            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME7:
+            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME8:
+            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH:
+            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX14:
+            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX15:
+            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX16:
+            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX17:
+            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX22:
                 return true;
         }
 
@@ -430,15 +429,15 @@ class Date
             return false;
         }
 
-        $dateValueNew = \PhpSpreadsheet\Calculation\DateTime::DATEVALUE($dateValue);
+        $dateValueNew = \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DATEVALUE($dateValue);
 
-        if ($dateValueNew === \PhpSpreadsheet\Calculation\Functions::VALUE()) {
+        if ($dateValueNew === \PhpOffice\PhpSpreadsheet\Calculation\Functions::VALUE()) {
             return false;
         }
 
         if (strpos($dateValue, ':') !== false) {
-            $timeValue = \PhpSpreadsheet\Calculation\DateTime::TIMEVALUE($dateValue);
-            if ($timeValue === \PhpSpreadsheet\Calculation\Functions::VALUE()) {
+            $timeValue = \PhpOffice\PhpSpreadsheet\Calculation\DateTime::TIMEVALUE($dateValue);
+            if ($timeValue === \PhpOffice\PhpSpreadsheet\Calculation\Functions::VALUE()) {
                 return false;
             }
             $dateValueNew += $timeValue;

@@ -1,10 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet\Worksheet;
+namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
- * \PhpSpreadsheet\Worksheet_CellIterator
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -29,9 +27,9 @@ namespace PhpSpreadsheet\Worksheet;
 abstract class CellIterator
 {
     /**
-     * \PhpSpreadsheet\Worksheet to iterate
+     * \PhpOffice\PhpSpreadsheet\Worksheet to iterate
      *
-     * @var \PhpSpreadsheet\Worksheet
+     * @var \PhpOffice\PhpSpreadsheet\Worksheet
      */
     protected $subject;
 
@@ -70,7 +68,7 @@ abstract class CellIterator
     /**
      * Validate start/end values for "IterateOnlyExistingCells" mode, and adjust if necessary
      *
-     * @throws \PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     abstract protected function adjustForExistingOnlyRange();
 
@@ -78,7 +76,7 @@ abstract class CellIterator
      * Set the iterator to loop only existing cells
      *
      * @param    bool        $value
-     * @throws \PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     public function setIterateOnlyExistingCells($value = true)
     {

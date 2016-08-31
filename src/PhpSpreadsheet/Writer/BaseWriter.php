@@ -1,10 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet\Writer;
+namespace PhpOffice\PhpSpreadsheet\Writer;
 
 /**
- * \PhpSpreadsheet\Writer\BaseWriter
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or

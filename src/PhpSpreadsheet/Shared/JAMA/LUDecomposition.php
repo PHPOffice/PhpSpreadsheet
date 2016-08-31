@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared\JAMA;
+namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
 
 /**
  *    For an m-by-n matrix A with m >= n, the LU decomposition is an m-by-n
@@ -57,7 +57,7 @@ class LUDecomposition
     /**
      *    LU Decomposition constructor.
      *
-     *    @param $A Rectangular matrix
+     *    @param Matrix $A Rectangular matrix
      *    @return Structure to access L, U and piv.
      */
     public function __construct($A)
@@ -116,14 +116,14 @@ class LUDecomposition
                 }
             }
         } else {
-            throw new \PhpSpreadsheet\Calculation\Exception(Matrix::ARGUMENT_TYPE_EXCEPTION);
+            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(Matrix::ARGUMENT_TYPE_EXCEPTION);
         }
     }    //    function __construct()
 
     /**
      *    Get lower triangular factor.
      *
-     *    @return array Lower triangular factor
+     *    @return Matrix Lower triangular factor
      */
     public function getL()
     {
@@ -145,7 +145,7 @@ class LUDecomposition
     /**
      *    Get upper triangular factor.
      *
-     *    @return array Upper triangular factor
+     *    @return Matrix Upper triangular factor
      */
     public function getU()
     {
@@ -185,7 +185,7 @@ class LUDecomposition
     /**
      *    Is the matrix nonsingular?
      *
-     *    @return true if U, and hence A, is nonsingular.
+     *    @return bool true if U, and hence A, is nonsingular.
      */
     public function isNonsingular()
     {
@@ -213,7 +213,7 @@ class LUDecomposition
 
             return $d;
         } else {
-            throw new \PhpSpreadsheet\Calculation\Exception(Matrix::MATRIX_DIMENSION_EXCEPTION);
+            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(Matrix::MATRIX_DIMENSION_EXCEPTION);
         }
     }    //    function det()
 
@@ -221,9 +221,9 @@ class LUDecomposition
      *    Solve A*X = B
      *
      *    @param  $B  A Matrix with as many rows as A and any number of columns.
+     *    @throws \PhpOffice\PhpSpreadsheet\Calculation\Exception  IllegalArgumentException Matrix row dimensions must agree.
+     *    @throws \PhpOffice\PhpSpreadsheet\Calculation\Exception  RuntimeException  Matrix is singular.
      *    @return  X so that L*U*X = B(piv,:)
-     *    @\PhpSpreadsheet\Calculation\Exception  IllegalArgumentException Matrix row dimensions must agree.
-     *    @\PhpSpreadsheet\Calculation\Exception  RuntimeException  Matrix is singular.
      */
     public function solve($B)
     {
@@ -254,10 +254,10 @@ class LUDecomposition
 
                 return $X;
             } else {
-                throw new \PhpSpreadsheet\Calculation\Exception(self::MATRIX_SINGULAR_EXCEPTION);
+                throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::MATRIX_SINGULAR_EXCEPTION);
             }
         } else {
-            throw new \PhpSpreadsheet\Calculation\Exception(self::MATRIX_SQUARE_EXCEPTION);
+            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::MATRIX_SQUARE_EXCEPTION);
         }
     }
 }

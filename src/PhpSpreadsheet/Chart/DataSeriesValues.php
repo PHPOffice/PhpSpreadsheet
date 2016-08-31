@@ -1,10 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet\Chart;
+namespace PhpOffice\PhpSpreadsheet\Chart;
 
 /**
- * \PhpSpreadsheet\Chart\DataSeriesValues
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -80,6 +78,7 @@ class DataSeriesValues
 
     /**
      * Create a new DataSeriesValues object
+     * @param string $dataSource
      */
     public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = [], $marker = null)
     {
@@ -106,9 +105,9 @@ class DataSeriesValues
      *
      * @param    string    $dataType    Datatype of this data series
      *                                Typical values are:
-     *                                    \PhpSpreadsheet\Chart\DataSeriesValues::DATASERIES_TYPE_STRING
+     *                                    \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues::DATASERIES_TYPE_STRING
      *                                        Normally used for axis point values
-     *                                    \PhpSpreadsheet\Chart\DataSeriesValues::DATASERIES_TYPE_NUMBER
+     *                                    \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues::DATASERIES_TYPE_NUMBER
      *                                        Normally used for chart data values
      * @throws    Exception
      * @return    DataSeriesValues
@@ -209,7 +208,7 @@ class DataSeriesValues
     /**
      * Identify if the Data Series is a multi-level or a simple series
      *
-     * @return    bool
+     * @return    bool|null
      */
     public function isMultiLevelSeries()
     {
@@ -223,7 +222,7 @@ class DataSeriesValues
     /**
      * Return the level count of a multi-level Data Series
      *
-     * @return    bool
+     * @return    int
      */
     public function multiLevelCount()
     {
@@ -273,7 +272,7 @@ class DataSeriesValues
      */
     public function setDataValues($dataValues = [], $refreshDataSource = true)
     {
-        $this->dataValues = \PhpSpreadsheet\Calculation\Functions::flattenArray($dataValues);
+        $this->dataValues = \PhpOffice\PhpSpreadsheet\Calculation\Functions::flattenArray($dataValues);
         $this->pointCount = count($dataValues);
 
         if ($refreshDataSource) {
@@ -288,11 +287,11 @@ class DataSeriesValues
         return $var !== null;
     }
 
-    public function refresh(\PhpSpreadsheet\Worksheet $worksheet, $flatten = true)
+    public function refresh(\PhpOffice\PhpSpreadsheet\Worksheet $worksheet, $flatten = true)
     {
         if ($this->dataSource !== null) {
-            $calcEngine = \PhpSpreadsheet\Calculation::getInstance($worksheet->getParent());
-            $newDataValues = \PhpSpreadsheet\Calculation::unwrapResult(
+            $calcEngine = \PhpOffice\PhpSpreadsheet\Calculation::getInstance($worksheet->getParent());
+            $newDataValues = \PhpOffice\PhpSpreadsheet\Calculation::unwrapResult(
                 $calcEngine->_calculateFormulaValue(
                     '=' . $this->dataSource,
                     null,
@@ -300,7 +299,7 @@ class DataSeriesValues
                 )
             );
             if ($flatten) {
-                $this->dataValues = \PhpSpreadsheet\Calculation\Functions::flattenArray($newDataValues);
+                $this->dataValues = \PhpOffice\PhpSpreadsheet\Calculation\Functions::flattenArray($newDataValues);
                 foreach ($this->dataValues as &$dataValue) {
                     if ((!empty($dataValue)) && ($dataValue[0] == '#')) {
                         $dataValue = 0.0;
@@ -313,9 +312,9 @@ class DataSeriesValues
                     list(, $cellRange) = $cellRange;
                 }
 
-                $dimensions = \PhpSpreadsheet\Cell::rangeDimension(str_replace('$', '', $cellRange));
+                $dimensions = \PhpOffice\PhpSpreadsheet\Cell::rangeDimension(str_replace('$', '', $cellRange));
                 if (($dimensions[0] == 1) || ($dimensions[1] == 1)) {
-                    $this->dataValues = \PhpSpreadsheet\Calculation\Functions::flattenArray($newDataValues);
+                    $this->dataValues = \PhpOffice\PhpSpreadsheet\Calculation\Functions::flattenArray($newDataValues);
                 } else {
                     $newArray = array_values(array_shift($newDataValues));
                     foreach ($newArray as $i => $newDataSet) {

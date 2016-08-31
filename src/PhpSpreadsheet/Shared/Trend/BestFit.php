@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared\Trend;
+namespace PhpOffice\PhpSpreadsheet\Shared\Trend;
 
 /**
  * bestFit
@@ -119,7 +119,7 @@ class BestFit
      * Return the Y-Value for a specified value of X
      *
      * @param     float        $xValue            X-Value
-     * @return     float                        Y-Value
+     * @return     bool                        Y-Value
      */
     public function getValueOfYForX($xValue)
     {
@@ -130,7 +130,7 @@ class BestFit
      * Return the X-Value for a specified value of Y
      *
      * @param     float        $yValue            Y-Value
-     * @return     float                        X-Value
+     * @return     bool                        X-Value
      */
     public function getValueOfXForY($yValue)
     {
@@ -151,7 +151,7 @@ class BestFit
      * Return the Equation of the best-fit line
      *
      * @param     int        $dp        Number of places of decimal precision to display
-     * @return     string
+     * @return     bool
      */
     public function getEquation($dp = 0)
     {
@@ -370,7 +370,12 @@ class BestFit
         }
     }
 
-    protected function leastSquareFit($yValues, $xValues, $const)
+    /**
+     * @param float[] $yValues
+     * @param float[] $xValues
+     * @param bool $const
+     */
+    protected function leastSquareFit(array $yValues, array $xValues, $const)
     {
         // calculate sums
         $x_sum = array_sum($xValues);
@@ -393,11 +398,9 @@ class BestFit
         }
 
         // calculate slope
-//        $this->slope = (($this->valueCount * $xy_sum) - ($x_sum * $y_sum)) / (($this->valueCount * $xx_sum) - ($x_sum * $x_sum));
         $this->slope = $mBase / $mDivisor;
 
         // calculate intersect
-//        $this->intersect = ($y_sum - ($this->slope * $x_sum)) / $this->valueCount;
         if ($const) {
             $this->intersect = $meanY - ($this->slope * $meanX);
         } else {

@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Writer\Excel2007;
+namespace PhpOffice\PhpSpreadsheet\Writer\Excel2007;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -29,18 +29,18 @@ class Rels extends WriterPart
     /**
      * Write relationships to XML format
      *
-     * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      * @return string  XML Output
      */
-    public function writeRelationships(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function writeRelationships(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -102,18 +102,18 @@ class Rels extends WriterPart
     /**
      * Write workbook relationships to XML format
      *
-     * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      * @return string  XML Output
      */
-    public function writeWorkbookRelationships(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function writeWorkbookRelationships(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -166,7 +166,7 @@ class Rels extends WriterPart
                 'http://schemas.microsoft.com/office/2006/relationships/vbaProject',
                 'vbaProject.bin'
             );
-            ++$i;//increment i if needed for an another relation
+            ++$i; //increment i if needed for an another relation
         }
 
         $objWriter->endElement();
@@ -181,20 +181,20 @@ class Rels extends WriterPart
      *     rId1                 - Drawings
      *  rId_hyperlink_x     - Hyperlinks
      *
-     * @param     \PhpSpreadsheet\Worksheet    $pWorksheet
+     * @param     \PhpOffice\PhpSpreadsheet\Worksheet    $pWorksheet
      * @param     int                    $pWorksheetId
      * @param    bool                $includeCharts    Flag indicating if we should write charts
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      * @return string          XML Output
      */
-    public function writeWorksheetRelationships(\PhpSpreadsheet\Worksheet $pWorksheet = null, $pWorksheetId = 1, $includeCharts = false)
+    public function writeWorksheetRelationships(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet = null, $pWorksheetId = 1, $includeCharts = false)
     {
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -221,21 +221,6 @@ class Rels extends WriterPart
             );
         }
 
-        // Write chart relationships?
-//            $chartCount = 0;
-//            $charts = $pWorksheet->getChartCollection();
-//            echo 'Chart Rels: ' , count($charts) , '<br />';
-//            if (count($charts) > 0) {
-//                foreach ($charts as $chart) {
-//                    $this->writeRelationship(
-//                        $objWriter,
-//                        ++$d,
-//                        'http://schemas.openxmlformats.org/officeDocument/2006/relationships/chart',
-//                        '../charts/chart' . ++$chartCount . '.xml'
-//                    );
-//                }
-//            }
-//
         // Write hyperlink relationships?
         $i = 1;
         foreach ($pWorksheet->getHyperlinkCollection() as $hyperlink) {
@@ -289,20 +274,20 @@ class Rels extends WriterPart
     /**
      * Write drawing relationships to XML format
      *
-     * @param     \PhpSpreadsheet\Worksheet    $pWorksheet
+     * @param     \PhpOffice\PhpSpreadsheet\Worksheet    $pWorksheet
      * @param    int                    &$chartRef        Chart ID
      * @param    bool                $includeCharts    Flag indicating if we should write charts
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      * @return string          XML Output
      */
-    public function writeDrawingRelationships(\PhpSpreadsheet\Worksheet $pWorksheet, &$chartRef, $includeCharts = false)
+    public function writeDrawingRelationships(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet, &$chartRef, $includeCharts = false)
     {
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -316,8 +301,8 @@ class Rels extends WriterPart
         $i = 1;
         $iterator = $pWorksheet->getDrawingCollection()->getIterator();
         while ($iterator->valid()) {
-            if ($iterator->current() instanceof \PhpSpreadsheet\Worksheet\Drawing
-                || $iterator->current() instanceof \PhpSpreadsheet\Worksheet\MemoryDrawing) {
+            if ($iterator->current() instanceof \PhpOffice\PhpSpreadsheet\Worksheet\Drawing
+                || $iterator->current() instanceof \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing) {
                 // Write relationship for image drawing
                 $this->writeRelationship(
                     $objWriter,
@@ -354,18 +339,18 @@ class Rels extends WriterPart
     /**
      * Write header/footer drawing relationships to XML format
      *
-     * @param     \PhpSpreadsheet\Worksheet            $pWorksheet
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param     \PhpOffice\PhpSpreadsheet\Worksheet            $pWorksheet
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      * @return string                  XML Output
      */
-    public function writeHeaderFooterDrawingRelationships(\PhpSpreadsheet\Worksheet $pWorksheet = null)
+    public function writeHeaderFooterDrawingRelationships(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet = null)
     {
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -394,14 +379,14 @@ class Rels extends WriterPart
     /**
      * Write Override content type
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter     $objWriter         XML Writer
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter     $objWriter         XML Writer
      * @param     int                            $pId            Relationship ID. rId will be prepended!
      * @param     string                        $pType            Relationship type
      * @param     string                         $pTarget        Relationship target
      * @param     string                         $pTargetMode    Relationship target mode
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeRelationship(\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pId = 1, $pType = '', $pTarget = '', $pTargetMode = '')
+    private function writeRelationship(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pId = 1, $pType = '', $pTarget = '', $pTargetMode = '')
     {
         if ($pType != '' && $pTarget != '') {
             // Write relationship
@@ -416,7 +401,7 @@ class Rels extends WriterPart
 
             $objWriter->endElement();
         } else {
-            throw new \PhpSpreadsheet\Writer\Exception('Invalid parameters passed.');
+            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Invalid parameters passed.');
         }
     }
 }

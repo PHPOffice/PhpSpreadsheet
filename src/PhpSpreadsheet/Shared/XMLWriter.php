@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared;
+namespace PhpOffice\PhpSpreadsheet\Shared;
 
 if (!defined('DATE_W3C')) {
     define('DATE_W3C', 'Y-m-d\TH:i:sP');
@@ -107,7 +107,7 @@ class XMLWriter extends \XMLWriter
      * Fallback method for writeRaw, introduced in PHP 5.2
      *
      * @param string $text
-     * @return string
+     * @return bool
      */
     public function writeRawData($text)
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\RichText;
+namespace PhpOffice\PhpSpreadsheet\RichText;
 
 /**
  * This library is free software; you can redistribute it and/or
@@ -27,7 +27,7 @@ class Run extends TextElement implements ITextElement
     /**
      * Font
      *
-     * @var \PhpSpreadsheet\Style\Font
+     * @var \PhpOffice\PhpSpreadsheet\Style\Font
      */
     private $font;
 
@@ -40,13 +40,13 @@ class Run extends TextElement implements ITextElement
     {
         // Initialise variables
         $this->setText($pText);
-        $this->font = new \PhpSpreadsheet\Style\Font();
+        $this->font = new \PhpOffice\PhpSpreadsheet\Style\Font();
     }
 
     /**
      * Get font
      *
-     * @return \PhpSpreadsheet\Style\Font
+     * @return \PhpOffice\PhpSpreadsheet\Style\Font
      */
     public function getFont()
     {
@@ -56,11 +56,11 @@ class Run extends TextElement implements ITextElement
     /**
      * Set font
      *
-     * @param   \PhpSpreadsheet\Style\Font        $pFont        Font
-     * @throws  \PhpSpreadsheet\Exception
+     * @param   \PhpOffice\PhpSpreadsheet\Style\Font        $pFont        Font
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
      * @return  ITextElement
      */
-    public function setFont(\PhpSpreadsheet\Style\Font $pFont = null)
+    public function setFont(\PhpOffice\PhpSpreadsheet\Style\Font $pFont = null)
     {
         $this->font = $pFont;
 

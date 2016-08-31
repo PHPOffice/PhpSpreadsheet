@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet;
+namespace PhpOffice\PhpSpreadsheet;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet

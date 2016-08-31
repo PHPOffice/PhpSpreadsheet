@@ -1,8 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet\Chart\Renderer;
+namespace PhpOffice\PhpSpreadsheet\Chart\Renderer;
 
-require_once \PhpSpreadsheet\Settings::getChartRendererPath() . '/jpgraph.php';
+require_once \PhpOffice\PhpSpreadsheet\Settings::getChartRendererPath() . '/jpgraph.php';
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -33,10 +33,10 @@ class JpGraph
     private static $height = 480;
 
     private static $colourSet = [
-        'mediumpurple1',    'palegreen3',     'gold1',          'cadetblue1',
-        'darkmagenta',      'coral',          'dodgerblue3',    'eggplant',
-        'mediumblue',       'magenta',        'sandybrown',     'cyan',
-        'firebrick1',       'forestgreen',    'deeppink4',      'darkolivegreen',
+        'mediumpurple1', 'palegreen3', 'gold1', 'cadetblue1',
+        'darkmagenta', 'coral', 'dodgerblue3', 'eggplant',
+        'mediumblue', 'magenta', 'sandybrown', 'cyan',
+        'firebrick1', 'forestgreen', 'deeppink4', 'darkolivegreen',
         'goldenrod2',
     ];
 
@@ -107,7 +107,7 @@ class JpGraph
             } else {
                 //    Format labels according to any formatting code
                 if (!is_null($datasetLabelFormatCode)) {
-                    $datasetLabels[$i] = \PhpSpreadsheet\Style\NumberFormat::toFormattedString($datasetLabel, $datasetLabelFormatCode);
+                    $datasetLabels[$i] = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::toFormattedString($datasetLabel, $datasetLabelFormatCode);
                 }
             }
             ++$testCurrentIndex;
@@ -178,21 +178,21 @@ class JpGraph
             $legendOverlay = $legend->getOverlay();
             switch ($legendPosition) {
                 case 'r':
-                    $this->graph->legend->SetPos(0.01, 0.5, 'right', 'center');    //    right
+                    $this->graph->legend->SetPos(0.01, 0.5, 'right', 'center'); //    right
                     $this->graph->legend->SetColumns(1);
                     break;
                 case 'l':
-                    $this->graph->legend->SetPos(0.01, 0.5, 'left', 'center');    //    left
+                    $this->graph->legend->SetPos(0.01, 0.5, 'left', 'center'); //    left
                     $this->graph->legend->SetColumns(1);
                     break;
                 case 't':
-                    $this->graph->legend->SetPos(0.5, 0.01, 'center', 'top');    //    top
+                    $this->graph->legend->SetPos(0.5, 0.01, 'center', 'top'); //    top
                     break;
                 case 'b':
-                    $this->graph->legend->SetPos(0.5, 0.99, 'center', 'bottom');    //    bottom
+                    $this->graph->legend->SetPos(0.5, 0.99, 'center', 'bottom'); //    bottom
                     break;
                 default:
-                    $this->graph->legend->SetPos(0.01, 0.01, 'right', 'top');    //    top-right
+                    $this->graph->legend->SetPos(0.01, 0.01, 'right', 'top'); //    top-right
                     $this->graph->legend->SetColumns(1);
                     break;
             }
@@ -544,7 +544,7 @@ class JpGraph
 
     private function renderAreaChart($groupCount, $dimensions = '2d')
     {
-        require_once \PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_line.php';
+        require_once \PhpOffice\PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_line.php';
 
         $this->renderCartesianPlotArea();
 
@@ -555,7 +555,7 @@ class JpGraph
 
     private function renderLineChart($groupCount, $dimensions = '2d')
     {
-        require_once \PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_line.php';
+        require_once \PhpOffice\PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_line.php';
 
         $this->renderCartesianPlotArea();
 
@@ -566,7 +566,7 @@ class JpGraph
 
     private function renderBarChart($groupCount, $dimensions = '2d')
     {
-        require_once \PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_bar.php';
+        require_once \PhpOffice\PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_bar.php';
 
         $this->renderCartesianPlotArea();
 
@@ -577,9 +577,9 @@ class JpGraph
 
     private function renderScatterChart($groupCount)
     {
-        require_once \PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_scatter.php';
-        require_once \PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_regstat.php';
-        require_once \PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_line.php';
+        require_once \PhpOffice\PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_scatter.php';
+        require_once \PhpOffice\PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_regstat.php';
+        require_once \PhpOffice\PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_line.php';
 
         $this->renderCartesianPlotArea('linlin');
 
@@ -590,7 +590,7 @@ class JpGraph
 
     private function renderBubbleChart($groupCount)
     {
-        require_once \PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_scatter.php';
+        require_once \PhpOffice\PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_scatter.php';
 
         $this->renderCartesianPlotArea('linlin');
 
@@ -601,9 +601,9 @@ class JpGraph
 
     private function renderPieChart($groupCount, $dimensions = '2d', $doughnut = false, $multiplePlots = false)
     {
-        require_once \PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_pie.php';
+        require_once \PhpOffice\PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_pie.php';
         if ($dimensions == '3d') {
-            require_once \PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_pie3d.php';
+            require_once \PhpOffice\PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_pie3d.php';
         }
 
         $this->renderPiePlotArea($doughnut);
@@ -677,7 +677,7 @@ class JpGraph
 
     private function renderRadarChart($groupCount)
     {
-        require_once \PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_radar.php';
+        require_once \PhpOffice\PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_radar.php';
 
         $this->renderRadarPlotArea();
 
@@ -688,7 +688,7 @@ class JpGraph
 
     private function renderStockChart($groupCount)
     {
-        require_once \PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_stock.php';
+        require_once \PhpOffice\PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_stock.php';
 
         $this->renderCartesianPlotArea('intint');
 
@@ -699,7 +699,7 @@ class JpGraph
 
     private function renderContourChart($groupCount, $dimensions)
     {
-        require_once \PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_contour.php';
+        require_once \PhpOffice\PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_contour.php';
 
         $this->renderCartesianPlotArea('intint');
 
@@ -710,11 +710,11 @@ class JpGraph
 
     private function renderCombinationChart($groupCount, $dimensions, $outputDestination)
     {
-        require_once \PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_line.php';
-        require_once \PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_bar.php';
-        require_once \PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_scatter.php';
-        require_once \PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_regstat.php';
-        require_once \PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_line.php';
+        require_once \PhpOffice\PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_line.php';
+        require_once \PhpOffice\PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_bar.php';
+        require_once \PhpOffice\PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_scatter.php';
+        require_once \PhpOffice\PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_regstat.php';
+        require_once \PhpOffice\PhpSpreadsheet\Settings::getChartRendererPath() . 'jpgraph_line.php';
 
         $this->renderCartesianPlotArea();
 
@@ -850,7 +850,7 @@ class JpGraph
     /**
      * Create a new jpgraph
      */
-    public function __construct(\PhpSpreadsheet\Chart $chart)
+    public function __construct(\PhpOffice\PhpSpreadsheet\Chart $chart)
     {
         $this->graph = null;
         $this->chart = $chart;

@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Writer\OpenDocument;
+namespace PhpOffice\PhpSpreadsheet\Writer\OpenDocument;
 
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet
@@ -29,21 +29,21 @@ class MetaInf extends WriterPart
     /**
      * Write META-INF/manifest.xml to XML format
      *
-     * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      * @return     string         XML Output
      */
-    public function writeManifest(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function writeManifest(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         if (!$spreadsheet) {
-            $spreadsheet = $this->getParentWriter()->getPhpSpreadsheet();
+            $spreadsheet = $this->getParentWriter()->getSpreadsheet();
         }
 
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header

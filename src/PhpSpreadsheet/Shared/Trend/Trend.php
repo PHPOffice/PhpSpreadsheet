@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared\Trend;
+namespace PhpOffice\PhpSpreadsheet\Shared\Trend;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -94,7 +94,7 @@ class Trend
             case self::TREND_EXPONENTIAL:
             case self::TREND_POWER:
                 if (!isset(self::$trendCache[$key])) {
-                    $className = '\PhpSpreadsheet\Shared\Trend\\' . $trendType . 'BestFit';
+                    $className = '\PhpOffice\PhpSpreadsheet\Shared\Trend\\' . $trendType . 'BestFit';
                     self::$trendCache[$key] = new $className($yValues, $xValues, $const);
                 }
 
@@ -115,7 +115,7 @@ class Trend
                 //    If the request is to determine the best fit regression, then we test each Trend line in turn
                 //    Start by generating an instance of each available Trend method
                 foreach (self::$trendTypes as $trendMethod) {
-                    $className = '\PhpSpreadsheet\Shared\Trend\\' . $trendType . 'BestFit';
+                    $className = '\PhpOffice\PhpSpreadsheet\Shared\Trend\\' . $trendType . 'BestFit';
                     $bestFit[$trendMethod] = new $className($yValues, $xValues, $const);
                     $bestFitValue[$trendMethod] = $bestFit[$trendMethod]->getGoodnessOfFit();
                 }

@@ -1,6 +1,9 @@
 <?php
 
-namespace PhpSpreadsheet\Reader;
+namespace PhpOffice\PhpSpreadsheet\Reader;
+
+use DateTimeZone;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -48,7 +51,7 @@ class Gnumeric extends BaseReader implements IReader
     public function __construct()
     {
         $this->readFilter = new DefaultReadFilter();
-        $this->referenceHelper = \PhpSpreadsheet\ReferenceHelper::getInstance();
+        $this->referenceHelper = \PhpOffice\PhpSpreadsheet\ReferenceHelper::getInstance();
     }
 
     /**
@@ -83,7 +86,7 @@ class Gnumeric extends BaseReader implements IReader
     }
 
     /**
-     * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object
+     * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object
      *
      * @param   string         $pFilename
      * @throws  Exception
@@ -96,13 +99,13 @@ class Gnumeric extends BaseReader implements IReader
         }
 
         $xml = new XMLReader();
-        $xml->xml($this->securityScanFile('compress.zlib://' . realpath($pFilename)), null, \PhpSpreadsheet\Settings::getLibXmlLoaderOptions());
+        $xml->xml($this->securityScanFile('compress.zlib://' . realpath($pFilename)), null, \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions());
         $xml->setParserProperty(2, true);
 
         $worksheetNames = [];
         while ($xml->read()) {
             if ($xml->name == 'gnm:SheetName' && $xml->nodeType == XMLReader::ELEMENT) {
-                $xml->read();    //    Move onto the value node
+                $xml->read(); //    Move onto the value node
                 $worksheetNames[] = (string) $xml->value;
             } elseif ($xml->name == 'gnm:Sheets') {
                 //    break out of the loop once we've got our sheet names rather than parse the entire file
@@ -127,7 +130,7 @@ class Gnumeric extends BaseReader implements IReader
         }
 
         $xml = new XMLReader();
-        $xml->xml($this->securityScanFile('compress.zlib://' . realpath($pFilename)), null, \PhpSpreadsheet\Settings::getLibXmlLoaderOptions());
+        $xml->xml($this->securityScanFile('compress.zlib://' . realpath($pFilename)), null, \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions());
         $xml->setParserProperty(2, true);
 
         $worksheetInfo = [];
@@ -143,19 +146,19 @@ class Gnumeric extends BaseReader implements IReader
 
                 while ($xml->read()) {
                     if ($xml->name == 'gnm:Name' && $xml->nodeType == XMLReader::ELEMENT) {
-                        $xml->read();    //    Move onto the value node
+                        $xml->read(); //    Move onto the value node
                         $tmpInfo['worksheetName'] = (string) $xml->value;
                     } elseif ($xml->name == 'gnm:MaxCol' && $xml->nodeType == XMLReader::ELEMENT) {
-                        $xml->read();    //    Move onto the value node
+                        $xml->read(); //    Move onto the value node
                         $tmpInfo['lastColumnIndex'] = (int) $xml->value;
                         $tmpInfo['totalColumns'] = (int) $xml->value + 1;
                     } elseif ($xml->name == 'gnm:MaxRow' && $xml->nodeType == XMLReader::ELEMENT) {
-                        $xml->read();    //    Move onto the value node
+                        $xml->read(); //    Move onto the value node
                         $tmpInfo['totalRows'] = (int) $xml->value + 1;
                         break;
                     }
                 }
-                $tmpInfo['lastColumnLetter'] = \PhpSpreadsheet\Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
+                $tmpInfo['lastColumnLetter'] = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
                 $worksheetInfo[] = $tmpInfo;
             }
         }
@@ -163,6 +166,9 @@ class Gnumeric extends BaseReader implements IReader
         return $worksheetInfo;
     }
 
+    /**
+     * @param string $filename
+     */
     private function gzfileGetContents($filename)
     {
         $file = @gzopen($filename, 'rb');
@@ -178,30 +184,30 @@ class Gnumeric extends BaseReader implements IReader
     }
 
     /**
-     * Loads PhpSpreadsheet from file
+     * Loads Spreadsheet from file
      *
      * @param     string         $pFilename
      * @throws     Exception
-     * @return     PhpSpreadsheet
+     * @return     Spreadsheet
      */
     public function load($pFilename)
     {
-        // Create new PhpSpreadsheet
-        $spreadsheet = new PhpSpreadsheet();
+        // Create new Spreadsheet
+        $spreadsheet = new Spreadsheet();
 
         // Load into this instance
         return $this->loadIntoExisting($pFilename, $spreadsheet);
     }
 
     /**
-     * Loads PhpSpreadsheet from file into PhpSpreadsheet instance
+     * Loads from file into Spreadsheet instance
      *
      * @param     string         $pFilename
-     * @param    \PhpSpreadsheet\Spreadsheet    $spreadsheet
+     * @param    Spreadsheet    $spreadsheet
      * @throws     Exception
-     * @return     PhpSpreadsheet
+     * @return     Spreadsheet
      */
-    public function loadIntoExisting($pFilename, \PhpSpreadsheet\Spreadsheet $spreadsheet)
+    public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
     {
         // Check if file exists
         if (!file_exists($pFilename)) {
@@ -213,15 +219,9 @@ class Gnumeric extends BaseReader implements IReader
 
         $gFileData = $this->gzfileGetContents($pFilename);
 
-//        echo '<pre>';
-//        echo htmlentities($gFileData,ENT_QUOTES,'UTF-8');
-//        echo '</pre><hr />';
-//
-        $xml = simplexml_load_string($this->securityScan($gFileData), 'SimpleXMLElement', \PhpSpreadsheet\Settings::getLibXmlLoaderOptions());
+        $xml = simplexml_load_string($this->securityScan($gFileData), 'SimpleXMLElement', \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions());
         $namespacesMeta = $xml->getNamespaces(true);
 
-//        var_dump($namespacesMeta);
-//
         $gnmXML = $xml->children($namespacesMeta['gnm']);
 
         $docProps = $spreadsheet->getProperties();
@@ -330,7 +330,6 @@ class Gnumeric extends BaseReader implements IReader
         $worksheetID = 0;
         foreach ($gnmXML->Sheets->Sheet as $sheet) {
             $worksheetName = (string) $sheet->Name;
-//            echo '<b>Worksheet: ', $worksheetName,'</b><br />';
             if ((isset($this->loadSheetsOnly)) && (!in_array($worksheetName, $this->loadSheetsOnly))) {
                 continue;
             }
@@ -349,7 +348,7 @@ class Gnumeric extends BaseReader implements IReader
                 if (isset($sheet->PrintInformation->Margins)) {
                     foreach ($sheet->PrintInformation->Margins->children('gnm', true) as $key => $margin) {
                         $marginAttributes = $margin->attributes();
-                        $marginSize = 72 / 100;    //    Default
+                        $marginSize = 72 / 100; //    Default
                         switch ($marginAttributes['PrefUnit']) {
                             case 'mm':
                                 $marginSize = intval($marginAttributes['Points']) / 100;
@@ -391,7 +390,7 @@ class Gnumeric extends BaseReader implements IReader
                     $maxCol = $column;
                 }
 
-                $column = \PhpSpreadsheet\Cell::stringFromColumnIndex($column);
+                $column = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($column);
 
                 // Read cell?
                 if ($this->getReadFilter() !== null) {
@@ -402,10 +401,7 @@ class Gnumeric extends BaseReader implements IReader
 
                 $ValueType = $cellAttributes->ValueType;
                 $ExprID = (string) $cellAttributes->ExprID;
-//                echo 'Cell ', $column, $row,'<br />';
-//                echo 'Type is ', $ValueType,'<br />';
-//                echo 'Value is ', $cell,'<br />';
-                $type = \PhpSpreadsheet\Cell\DataType::TYPE_FORMULA;
+                $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_FORMULA;
                 if ($ExprID > '') {
                     if (((string) $cell) > '') {
                         $this->expressions[$ExprID] = [
@@ -413,7 +409,6 @@ class Gnumeric extends BaseReader implements IReader
                             'row' => $cellAttributes->Row,
                             'formula' => (string) $cell,
                         ];
-//                        echo 'NEW EXPRESSION ', $ExprID,'<br />';
                     } else {
                         $expression = $this->expressions[$ExprID];
 
@@ -424,30 +419,28 @@ class Gnumeric extends BaseReader implements IReader
                             $cellAttributes->Row - $expression['row'],
                             $worksheetName
                         );
-//                        echo 'SHARED EXPRESSION ', $ExprID,'<br />';
-//                        echo 'New Value is ', $cell,'<br />';
                     }
-                    $type = \PhpSpreadsheet\Cell\DataType::TYPE_FORMULA;
+                    $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_FORMULA;
                 } else {
                     switch ($ValueType) {
                         case '10':        //    NULL
-                            $type = \PhpSpreadsheet\Cell\DataType::TYPE_NULL;
+                            $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NULL;
                             break;
                         case '20':        //    Boolean
-                            $type = \PhpSpreadsheet\Cell\DataType::TYPE_BOOL;
-                            $cell = ($cell == 'TRUE') ? true: false;
+                            $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_BOOL;
+                            $cell = ($cell == 'TRUE') ? true : false;
                             break;
                         case '30':        //    Integer
                             $cell = intval($cell);
                             // Excel 2007+ doesn't differentiate between integer and float, so set the value and dropthru to the next (numeric) case
                         case '40':        //    Float
-                            $type = \PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
+                            $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
                             break;
                         case '50':        //    Error
-                            $type = \PhpSpreadsheet\Cell\DataType::TYPE_ERROR;
+                            $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_ERROR;
                             break;
                         case '60':        //    String
-                            $type = \PhpSpreadsheet\Cell\DataType::TYPE_STRING;
+                            $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING;
                             break;
                         case '70':        //    Cell Range
                         case '80':        //    Array
@@ -465,67 +458,62 @@ class Gnumeric extends BaseReader implements IReader
                     }
                 }
             }
-//            echo '$maxCol=', $maxCol,'; $maxRow=', $maxRow,'<br />';
-//
             foreach ($sheet->Styles->StyleRegion as $styleRegion) {
                 $styleAttributes = $styleRegion->attributes();
                 if (($styleAttributes['startRow'] <= $maxRow) &&
                     ($styleAttributes['startCol'] <= $maxCol)) {
-                    $startColumn = \PhpSpreadsheet\Cell::stringFromColumnIndex((int) $styleAttributes['startCol']);
+                    $startColumn = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex((int) $styleAttributes['startCol']);
                     $startRow = $styleAttributes['startRow'] + 1;
 
                     $endColumn = ($styleAttributes['endCol'] > $maxCol) ? $maxCol : (int) $styleAttributes['endCol'];
-                    $endColumn = \PhpSpreadsheet\Cell::stringFromColumnIndex($endColumn);
+                    $endColumn = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($endColumn);
                     $endRow = ($styleAttributes['endRow'] > $maxRow) ? $maxRow : $styleAttributes['endRow'];
                     $endRow += 1;
                     $cellRange = $startColumn . $startRow . ':' . $endColumn . $endRow;
-//                    echo $cellRange,'<br />';
 
                     $styleAttributes = $styleRegion->Style->attributes();
-//                    var_dump($styleAttributes);
-//                    echo '<br />';
 
                     //    We still set the number format mask for date/time values, even if readDataOnly is true
                     if ((!$this->readDataOnly) ||
-                        (\PhpSpreadsheet\Shared\Date::isDateTimeFormatCode((string) $styleAttributes['Format']))) {
+                        (\PhpOffice\PhpSpreadsheet\Shared\Date::isDateTimeFormatCode((string) $styleAttributes['Format']))) {
                         $styleArray = [];
                         $styleArray['numberformat']['code'] = (string) $styleAttributes['Format'];
                         //    If readDataOnly is false, we set all formatting information
                         if (!$this->readDataOnly) {
                             switch ($styleAttributes['HAlign']) {
                                 case '1':
-                                    $styleArray['alignment']['horizontal'] = \PhpSpreadsheet\Style\Alignment::HORIZONTAL_GENERAL;
+                                    $styleArray['alignment']['horizontal'] = \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_GENERAL;
                                     break;
                                 case '2':
-                                    $styleArray['alignment']['horizontal'] = \PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT;
+                                    $styleArray['alignment']['horizontal'] = \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT;
                                     break;
                                 case '4':
-                                    $styleArray['alignment']['horizontal'] = \PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT;
+                                    $styleArray['alignment']['horizontal'] = \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT;
                                     break;
                                 case '8':
-                                    $styleArray['alignment']['horizontal'] = \PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER;
+                                    $styleArray['alignment']['horizontal'] = \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER;
                                     break;
                                 case '16':
                                 case '64':
-                                    $styleArray['alignment']['horizontal'] = \PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER_CONTINUOUS;
+                                    $styleArray['alignment']['horizontal'] = \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER_CONTINUOUS;
                                     break;
                                 case '32':
-                                    $styleArray['alignment']['horizontal'] = \PhpSpreadsheet\Style\Alignment::HORIZONTAL_JUSTIFY;
+                                    $styleArray['alignment']['horizontal'] = \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_JUSTIFY;
                                     break;
                             }
 
                             switch ($styleAttributes['VAlign']) {
                                 case '1':
-                                    $styleArray['alignment']['vertical'] = \PhpSpreadsheet\Style\Alignment::VERTICAL_TOP;
+                                    $styleArray['alignment']['vertical'] = \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP;
                                     break;
                                 case '2':
-                                    $styleArray['alignment']['vertical'] = \PhpSpreadsheet\Style\Alignment::VERTICAL_BOTTOM;
+                                    $styleArray['alignment']['vertical'] = \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_BOTTOM;
                                     break;
                                 case '4':
-                                    $styleArray['alignment']['vertical'] = \PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER;
+                                    $styleArray['alignment']['vertical'] = \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER;
                                     break;
                                 case '8':
-                                    $styleArray['alignment']['vertical'] = \PhpSpreadsheet\Style\Alignment::VERTICAL_JUSTIFY;
+                                    $styleArray['alignment']['vertical'] = \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_JUSTIFY;
                                     break;
                             }
 
@@ -543,71 +531,69 @@ class Gnumeric extends BaseReader implements IReader
                                 $styleArray['fill']['endcolor']['rgb'] = $RGB2;
                                 switch ($shade) {
                                     case '1':
-                                        $styleArray['fill']['type'] = \PhpSpreadsheet\Style\Fill::FILL_SOLID;
+                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID;
                                         break;
                                     case '2':
-                                        $styleArray['fill']['type'] = \PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR;
+                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR;
                                         break;
                                     case '3':
-                                        $styleArray['fill']['type'] = \PhpSpreadsheet\Style\Fill::FILL_GRADIENT_PATH;
+                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_PATH;
                                         break;
                                     case '4':
-                                        $styleArray['fill']['type'] = \PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKDOWN;
+                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKDOWN;
                                         break;
                                     case '5':
-                                        $styleArray['fill']['type'] = \PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKGRAY;
+                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKGRAY;
                                         break;
                                     case '6':
-                                        $styleArray['fill']['type'] = \PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKGRID;
+                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKGRID;
                                         break;
                                     case '7':
-                                        $styleArray['fill']['type'] = \PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKHORIZONTAL;
+                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKHORIZONTAL;
                                         break;
                                     case '8':
-                                        $styleArray['fill']['type'] = \PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKTRELLIS;
+                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKTRELLIS;
                                         break;
                                     case '9':
-                                        $styleArray['fill']['type'] = \PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKUP;
+                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKUP;
                                         break;
                                     case '10':
-                                        $styleArray['fill']['type'] = \PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKVERTICAL;
+                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKVERTICAL;
                                         break;
                                     case '11':
-                                        $styleArray['fill']['type'] = \PhpSpreadsheet\Style\Fill::FILL_PATTERN_GRAY0625;
+                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_GRAY0625;
                                         break;
                                     case '12':
-                                        $styleArray['fill']['type'] = \PhpSpreadsheet\Style\Fill::FILL_PATTERN_GRAY125;
+                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_GRAY125;
                                         break;
                                     case '13':
-                                        $styleArray['fill']['type'] = \PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTDOWN;
+                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTDOWN;
                                         break;
                                     case '14':
-                                        $styleArray['fill']['type'] = \PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTGRAY;
+                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTGRAY;
                                         break;
                                     case '15':
-                                        $styleArray['fill']['type'] = \PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTGRID;
+                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTGRID;
                                         break;
                                     case '16':
-                                        $styleArray['fill']['type'] = \PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTHORIZONTAL;
+                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTHORIZONTAL;
                                         break;
                                     case '17':
-                                        $styleArray['fill']['type'] = \PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTTRELLIS;
+                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTTRELLIS;
                                         break;
                                     case '18':
-                                        $styleArray['fill']['type'] = \PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTUP;
+                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTUP;
                                         break;
                                     case '19':
-                                        $styleArray['fill']['type'] = \PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTVERTICAL;
+                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTVERTICAL;
                                         break;
                                     case '20':
-                                        $styleArray['fill']['type'] = \PhpSpreadsheet\Style\Fill::FILL_PATTERN_MEDIUMGRAY;
+                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_MEDIUMGRAY;
                                         break;
                                 }
                             }
 
                             $fontAttributes = $styleRegion->Style->Font->attributes();
-//                            var_dump($fontAttributes);
-//                            echo '<br />';
                             $styleArray['font']['name'] = (string) $styleRegion->Style->Font;
                             $styleArray['font']['size'] = intval($fontAttributes['Unit']);
                             $styleArray['font']['bold'] = ($fontAttributes['Bold'] == '1') ? true : false;
@@ -615,19 +601,19 @@ class Gnumeric extends BaseReader implements IReader
                             $styleArray['font']['strike'] = ($fontAttributes['StrikeThrough'] == '1') ? true : false;
                             switch ($fontAttributes['Underline']) {
                                 case '1':
-                                    $styleArray['font']['underline'] = \PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE;
+                                    $styleArray['font']['underline'] = \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE;
                                     break;
                                 case '2':
-                                    $styleArray['font']['underline'] = \PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE;
+                                    $styleArray['font']['underline'] = \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE;
                                     break;
                                 case '3':
-                                    $styleArray['font']['underline'] = \PhpSpreadsheet\Style\Font::UNDERLINE_SINGLEACCOUNTING;
+                                    $styleArray['font']['underline'] = \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLEACCOUNTING;
                                     break;
                                 case '4':
-                                    $styleArray['font']['underline'] = \PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLEACCOUNTING;
+                                    $styleArray['font']['underline'] = \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLEACCOUNTING;
                                     break;
                                 default:
-                                    $styleArray['font']['underline'] = \PhpSpreadsheet\Style\Font::UNDERLINE_NONE;
+                                    $styleArray['font']['underline'] = \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_NONE;
                                     break;
                             }
                             switch ($fontAttributes['Script']) {
@@ -654,13 +640,13 @@ class Gnumeric extends BaseReader implements IReader
                                 }
                                 if ((isset($styleRegion->Style->StyleBorder->Diagonal)) && (isset($styleRegion->Style->StyleBorder->{'Rev-Diagonal'}))) {
                                     $styleArray['borders']['diagonal'] = self::parseBorderAttributes($styleRegion->Style->StyleBorder->Diagonal->attributes());
-                                    $styleArray['borders']['diagonaldirection'] = \PhpSpreadsheet\Style\Borders::DIAGONAL_BOTH;
+                                    $styleArray['borders']['diagonaldirection'] = \PhpOffice\PhpSpreadsheet\Style\Borders::DIAGONAL_BOTH;
                                 } elseif (isset($styleRegion->Style->StyleBorder->Diagonal)) {
                                     $styleArray['borders']['diagonal'] = self::parseBorderAttributes($styleRegion->Style->StyleBorder->Diagonal->attributes());
-                                    $styleArray['borders']['diagonaldirection'] = \PhpSpreadsheet\Style\Borders::DIAGONAL_UP;
+                                    $styleArray['borders']['diagonaldirection'] = \PhpOffice\PhpSpreadsheet\Style\Borders::DIAGONAL_UP;
                                 } elseif (isset($styleRegion->Style->StyleBorder->{'Rev-Diagonal'})) {
                                     $styleArray['borders']['diagonal'] = self::parseBorderAttributes($styleRegion->Style->StyleBorder->{'Rev-Diagonal'}->attributes());
-                                    $styleArray['borders']['diagonaldirection'] = \PhpSpreadsheet\Style\Borders::DIAGONAL_DOWN;
+                                    $styleArray['borders']['diagonaldirection'] = \PhpOffice\PhpSpreadsheet\Style\Borders::DIAGONAL_DOWN;
                                 }
                             }
                             if (isset($styleRegion->Style->HyperLink)) {
@@ -668,8 +654,6 @@ class Gnumeric extends BaseReader implements IReader
                                 $hyperlink = $styleRegion->Style->HyperLink->attributes();
                             }
                         }
-//                        var_dump($styleArray);
-//                        echo '<br />';
                         $spreadsheet->getActiveSheet()->getStyle($cellRange)->applyFromArray($styleArray);
                     }
                 }
@@ -687,19 +671,19 @@ class Gnumeric extends BaseReader implements IReader
                     $hidden = ((isset($columnAttributes['Hidden'])) && ($columnAttributes['Hidden'] == '1')) ? true : false;
                     $columnCount = (isset($columnAttributes['Count'])) ? $columnAttributes['Count'] : 1;
                     while ($c < $column) {
-                        $spreadsheet->getActiveSheet()->getColumnDimension(\PhpSpreadsheet\Cell::stringFromColumnIndex($c))->setWidth($defaultWidth);
+                        $spreadsheet->getActiveSheet()->getColumnDimension(\PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($c))->setWidth($defaultWidth);
                         ++$c;
                     }
                     while (($c < ($column + $columnCount)) && ($c <= $maxCol)) {
-                        $spreadsheet->getActiveSheet()->getColumnDimension(\PhpSpreadsheet\Cell::stringFromColumnIndex($c))->setWidth($columnWidth);
+                        $spreadsheet->getActiveSheet()->getColumnDimension(\PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($c))->setWidth($columnWidth);
                         if ($hidden) {
-                            $spreadsheet->getActiveSheet()->getColumnDimension(\PhpSpreadsheet\Cell::stringFromColumnIndex($c))->setVisible(false);
+                            $spreadsheet->getActiveSheet()->getColumnDimension(\PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($c))->setVisible(false);
                         }
                         ++$c;
                     }
                 }
                 while ($c <= $maxCol) {
-                    $spreadsheet->getActiveSheet()->getColumnDimension(\PhpSpreadsheet\Cell::stringFromColumnIndex($c))->setWidth($defaultWidth);
+                    $spreadsheet->getActiveSheet()->getColumnDimension(\PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($c))->setWidth($defaultWidth);
                     ++$c;
                 }
             }
@@ -759,7 +743,7 @@ class Gnumeric extends BaseReader implements IReader
                 $range[0] = trim($range[0], "'");
                 if ($worksheet = $spreadsheet->getSheetByName($range[0])) {
                     $extractedRange = str_replace('$', '', $range[1]);
-                    $spreadsheet->addNamedRange(new \PhpSpreadsheet\NamedRange($name, $worksheet, $extractedRange));
+                    $spreadsheet->addNamedRange(new \PhpOffice\PhpSpreadsheet\NamedRange($name, $worksheet, $extractedRange));
                 }
             }
         }
@@ -777,46 +761,46 @@ class Gnumeric extends BaseReader implements IReader
 
         switch ($borderAttributes['Style']) {
             case '0':
-                $styleArray['style'] = \PhpSpreadsheet\Style\Border::BORDER_NONE;
+                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE;
                 break;
             case '1':
-                $styleArray['style'] = \PhpSpreadsheet\Style\Border::BORDER_THIN;
+                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN;
                 break;
             case '2':
-                $styleArray['style'] = \PhpSpreadsheet\Style\Border::BORDER_MEDIUM;
+                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM;
                 break;
             case '3':
-                $styleArray['style'] = \PhpSpreadsheet\Style\Border::BORDER_SLANTDASHDOT;
+                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_SLANTDASHDOT;
                 break;
             case '4':
-                $styleArray['style'] = \PhpSpreadsheet\Style\Border::BORDER_DASHED;
+                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHED;
                 break;
             case '5':
-                $styleArray['style'] = \PhpSpreadsheet\Style\Border::BORDER_THICK;
+                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK;
                 break;
             case '6':
-                $styleArray['style'] = \PhpSpreadsheet\Style\Border::BORDER_DOUBLE;
+                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOUBLE;
                 break;
             case '7':
-                $styleArray['style'] = \PhpSpreadsheet\Style\Border::BORDER_DOTTED;
+                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOTTED;
                 break;
             case '8':
-                $styleArray['style'] = \PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED;
+                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED;
                 break;
             case '9':
-                $styleArray['style'] = \PhpSpreadsheet\Style\Border::BORDER_DASHDOT;
+                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT;
                 break;
             case '10':
-                $styleArray['style'] = \PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOT;
+                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOT;
                 break;
             case '11':
-                $styleArray['style'] = \PhpSpreadsheet\Style\Border::BORDER_DASHDOTDOT;
+                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOTDOT;
                 break;
             case '12':
-                $styleArray['style'] = \PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOTDOT;
+                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOTDOT;
                 break;
             case '13':
-                $styleArray['style'] = \PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOTDOT;
+                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOTDOT;
                 break;
         }
 
@@ -825,7 +809,7 @@ class Gnumeric extends BaseReader implements IReader
 
     private function parseRichText($is = '')
     {
-        $value = new \PhpSpreadsheet\RichText();
+        $value = new \PhpOffice\PhpSpreadsheet\RichText();
         $value->createText($is);
 
         return $value;

@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared\PCLZip;
+namespace PhpOffice\PhpSpreadsheet\Shared\PCLZip;
 
 // --------------------------------------------------------------------------------
 // PhpConcept Library - Zip Module 2.8.2
@@ -24,8 +24,6 @@ namespace PhpSpreadsheet\Shared\PCLZip;
 //     this software the author can not be responsible.
 //     The use of this software is at the risk of the user.
 //
-// --------------------------------------------------------------------------------
-// $Id: PclZip.php,v 1.60 2009/09/30 21:01:04 vblavet Exp $
 // --------------------------------------------------------------------------------
 
 // ----- Constants
@@ -215,6 +213,10 @@ class PclZip
     //     Note that no real action is taken, if the archive does not exist it is not
     //     created. Use create() for that.
     // --------------------------------------------------------------------------------
+
+    /**
+     * @param string $p_zipname
+     */
     public function __construct($p_zipname)
     {
 
@@ -541,12 +543,12 @@ class PclZip
 
         // ----- For each file in the list check the attributes
         $v_supported_attributes = [
-          PCLZIP_ATT_FILE_NAME => 'mandatory',
-          PCLZIP_ATT_FILE_NEW_SHORT_NAME => 'optional',
-          PCLZIP_ATT_FILE_NEW_FULL_NAME => 'optional',
-          PCLZIP_ATT_FILE_MTIME => 'optional',
-          PCLZIP_ATT_FILE_CONTENT => 'optional',
-          PCLZIP_ATT_FILE_COMMENT => 'optional',
+            PCLZIP_ATT_FILE_NAME => 'mandatory',
+            PCLZIP_ATT_FILE_NEW_SHORT_NAME => 'optional',
+            PCLZIP_ATT_FILE_NEW_FULL_NAME => 'optional',
+            PCLZIP_ATT_FILE_MTIME => 'optional',
+            PCLZIP_ATT_FILE_CONTENT => 'optional',
+            PCLZIP_ATT_FILE_COMMENT => 'optional',
         ];
         foreach ($v_att_list as $v_entry) {
             $v_result = $this->privFileDescrParseAtt($v_entry, $v_filedescr_list[], $v_options, $v_supported_attributes);
@@ -684,7 +686,6 @@ class PclZip
 
         // ----- Set default values
         $v_options = [];
-    //        $v_path = "./";
         $v_path = '';
         $v_remove_path = '';
         $v_remove_all_path = false;
@@ -704,25 +705,25 @@ class PclZip
             if ((is_integer($v_arg_list[0])) && ($v_arg_list[0] > 77000)) {
                 // ----- Parse the options
                 $v_result = $this->privParseOptions($v_arg_list, $v_size, $v_options, [
-                  PCLZIP_OPT_PATH => 'optional',
-                  PCLZIP_OPT_REMOVE_PATH => 'optional',
-                  PCLZIP_OPT_REMOVE_ALL_PATH => 'optional',
-                  PCLZIP_OPT_ADD_PATH => 'optional',
-                  PCLZIP_CB_PRE_EXTRACT => 'optional',
-                  PCLZIP_CB_POST_EXTRACT => 'optional',
-                  PCLZIP_OPT_SET_CHMOD => 'optional',
-                  PCLZIP_OPT_BY_NAME => 'optional',
-                  PCLZIP_OPT_BY_EREG => 'optional',
-                  PCLZIP_OPT_BY_PREG => 'optional',
-                  PCLZIP_OPT_BY_INDEX => 'optional',
-                  PCLZIP_OPT_EXTRACT_AS_STRING => 'optional',
-                  PCLZIP_OPT_EXTRACT_IN_OUTPUT => 'optional',
-                  PCLZIP_OPT_REPLACE_NEWER => 'optional',
-                  PCLZIP_OPT_STOP_ON_ERROR => 'optional',
-                  PCLZIP_OPT_EXTRACT_DIR_RESTRICTION => 'optional',
-                  PCLZIP_OPT_TEMP_FILE_THRESHOLD => 'optional',
-                  PCLZIP_OPT_TEMP_FILE_ON => 'optional',
-                  PCLZIP_OPT_TEMP_FILE_OFF => 'optional',
+                    PCLZIP_OPT_PATH => 'optional',
+                    PCLZIP_OPT_REMOVE_PATH => 'optional',
+                    PCLZIP_OPT_REMOVE_ALL_PATH => 'optional',
+                    PCLZIP_OPT_ADD_PATH => 'optional',
+                    PCLZIP_CB_PRE_EXTRACT => 'optional',
+                    PCLZIP_CB_POST_EXTRACT => 'optional',
+                    PCLZIP_OPT_SET_CHMOD => 'optional',
+                    PCLZIP_OPT_BY_NAME => 'optional',
+                    PCLZIP_OPT_BY_EREG => 'optional',
+                    PCLZIP_OPT_BY_PREG => 'optional',
+                    PCLZIP_OPT_BY_INDEX => 'optional',
+                    PCLZIP_OPT_EXTRACT_AS_STRING => 'optional',
+                    PCLZIP_OPT_EXTRACT_IN_OUTPUT => 'optional',
+                    PCLZIP_OPT_REPLACE_NEWER => 'optional',
+                    PCLZIP_OPT_STOP_ON_ERROR => 'optional',
+                    PCLZIP_OPT_EXTRACT_DIR_RESTRICTION => 'optional',
+                    PCLZIP_OPT_TEMP_FILE_THRESHOLD => 'optional',
+                    PCLZIP_OPT_TEMP_FILE_ON => 'optional',
+                    PCLZIP_OPT_TEMP_FILE_OFF => 'optional',
                 ]);
                 if ($v_result != 1) {
                     return 0;
@@ -835,7 +836,6 @@ class PclZip
 
         // ----- Set default values
         $v_options = [];
-    //        $v_path = "./";
         $v_path = '';
         $v_remove_path = '';
         $v_remove_all_path = false;
@@ -2592,7 +2592,7 @@ class PclZip
                 // ----- Set the file properties
                 $p_header['size'] = 0;
                 //$p_header['external'] = 0x41FF0010;     // Value for a folder : to be checked
-                $p_header['external'] = 0x00000010;     // Value for a folder : to be checked
+                $p_header['external'] = 0x00000010; // Value for a folder : to be checked
 
                 // ----- Call the header generation
                 if (($v_result = $this->privWriteFileHeader($p_header)) != 1) {
@@ -2722,7 +2722,6 @@ class PclZip
         while ($v_size != 0) {
             $v_read_size = ($v_size < PCLZIP_READ_BLOCK_SIZE ? $v_size : PCLZIP_READ_BLOCK_SIZE);
             $v_buffer = @fread($v_file_compressed, $v_read_size);
-            //$v_binary_data = pack('a'.$v_read_size, $v_buffer);
             @fwrite($this->zip_fd, $v_buffer, $v_read_size);
             $v_size -= $v_read_size;
         }
@@ -3686,7 +3685,6 @@ class PclZip
         while ($v_size != 0) {
             $v_read_size = ($v_size < PCLZIP_READ_BLOCK_SIZE ? $v_size : PCLZIP_READ_BLOCK_SIZE);
             $v_buffer = @gzread($v_src_file, $v_read_size);
-            //$v_binary_data = pack('a'.$v_read_size, $v_buffer);
             @fwrite($v_dest_file, $v_buffer, $v_read_size);
             $v_size -= $v_read_size;
         }
@@ -4980,7 +4978,7 @@ function PclZipUtilPathReduction($p_dir)
                 if ($v_skip > 0) {
                     --$v_skip;
                 } else {
-                    $v_result = $v_list[$i] . ($i != (sizeof($v_list) - 1)?'/' . $v_result:'');
+                    $v_result = $v_list[$i] . ($i != (sizeof($v_list) - 1) ? '/' . $v_result : '');
                 }
             }
         }

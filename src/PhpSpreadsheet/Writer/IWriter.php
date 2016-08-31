@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Writer;
+namespace PhpOffice\PhpSpreadsheet\Writer;
 
 /**
  *  Copyright (c) 2006 - 2015 PhpSpreadsheet
@@ -30,7 +30,7 @@ interface IWriter
      *  Save PhpSpreadsheet to file
      *
      *  @param   string       $pFilename  Name of the file to save
-     *  @throws  \PhpSpreadsheet\Writer\Exception
+     *  @throws  \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function save($pFilename = null);
 }

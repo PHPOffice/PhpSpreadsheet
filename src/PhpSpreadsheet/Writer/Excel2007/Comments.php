@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Writer\Excel2007;
+namespace PhpOffice\PhpSpreadsheet\Writer\Excel2007;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -29,28 +29,28 @@ class Comments extends WriterPart
     /**
      * Write comments to XML format
      *
-     * @param     \PhpSpreadsheet\Worksheet                $pWorksheet
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param     \PhpOffice\PhpSpreadsheet\Worksheet                $pWorksheet
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      * @return string                          XML Output
      */
-    public function writeComments(\PhpSpreadsheet\Worksheet $pWorksheet = null)
+    public function writeComments(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet = null)
     {
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
         $objWriter->startDocument('1.0', 'UTF-8', 'yes');
 
-          // Comments cache
-          $comments = $pWorksheet->getComments();
+        // Comments cache
+        $comments = $pWorksheet->getComments();
 
-          // Authors cache
-          $authors = [];
+        // Authors cache
+        $authors = [];
         $authorId = 0;
         foreach ($comments as $comment) {
             if (!isset($authors[$comment->getAuthor()])) {
@@ -85,13 +85,13 @@ class Comments extends WriterPart
     /**
      * Write comment to XML format
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter        $objWriter             XML Writer
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter        $objWriter             XML Writer
      * @param    string                            $pCellReference        Cell reference
-     * @param     \PhpSpreadsheet\Comment                $pComment            Comment
+     * @param     \PhpOffice\PhpSpreadsheet\Comment                $pComment            Comment
      * @param    array                            $pAuthors            Array of authors
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeComment(\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pCellReference = 'A1', \PhpSpreadsheet\Comment $pComment = null, $pAuthors = null)
+    private function writeComment(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pCellReference = 'A1', \PhpOffice\PhpSpreadsheet\Comment $pComment = null, $pAuthors = null)
     {
         // comment
         $objWriter->startElement('comment');
@@ -109,25 +109,25 @@ class Comments extends WriterPart
     /**
      * Write VML comments to XML format
      *
-     * @param \PhpSpreadsheet\Worksheet $pWorksheet
-     * @throws \PhpSpreadsheet\Writer\Exception
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      * @return string XML Output
      */
-    public function writeVMLComments(\PhpSpreadsheet\Worksheet $pWorksheet = null)
+    public function writeVMLComments(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet = null)
     {
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
         $objWriter->startDocument('1.0', 'UTF-8', 'yes');
 
-          // Comments cache
-          $comments = $pWorksheet->getComments();
+        // Comments cache
+        $comments = $pWorksheet->getComments();
 
         // xml
         $objWriter->startElement('xml');
@@ -181,16 +181,16 @@ class Comments extends WriterPart
     /**
      * Write VML comment to XML format
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter        $objWriter             XML Writer
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter        $objWriter             XML Writer
      * @param    string                            $pCellReference        Cell reference
-     * @param     \PhpSpreadsheet\Comment                $pComment            Comment
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param     \PhpOffice\PhpSpreadsheet\Comment                $pComment            Comment
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeVMLComment(\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pCellReference = 'A1', \PhpSpreadsheet\Comment $pComment = null)
+    private function writeVMLComment(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pCellReference = 'A1', \PhpOffice\PhpSpreadsheet\Comment $pComment = null)
     {
         // Metadata
-         list($column, $row) = \PhpSpreadsheet\Cell::coordinateFromString($pCellReference);
-        $column = \PhpSpreadsheet\Cell::columnIndexFromString($column);
+        list($column, $row) = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($pCellReference);
+        $column = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($column);
         $id = 1024 + $column + $row;
         $id = substr($id, 0, 4);
 
@@ -239,9 +239,6 @@ class Comments extends WriterPart
 
                 // x:SizeWithCells
                 $objWriter->writeElement('x:SizeWithCells', '');
-
-                // x:Anchor
-                //$objWriter->writeElement('x:Anchor', $column . ', 15, ' . ($row - 2) . ', 10, ' . ($column + 4) . ', 15, ' . ($row + 5) . ', 18');
 
                 // x:AutoFill
                 $objWriter->writeElement('x:AutoFill', 'False');

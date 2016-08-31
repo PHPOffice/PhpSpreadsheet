@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet;
+namespace PhpOffice\PhpSpreadsheet;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -28,8 +28,8 @@ class Settings
 {
     /**    constants */
     /**    Available Zip library classes */
-    const PCLZIP = '\\PhpSpreadsheet\\Shared\\ZipArchive';
-    const ZIPARCHIVE = '\\ZipArchive';
+    const PCLZIP = \PhpOffice\PhpSpreadsheet\Shared\ZipArchive::class;
+    const ZIPARCHIVE = \ZipArchive::class;
 
     /**    Optional Chart Rendering libraries */
     const CHART_RENDERER_JPGRAPH = 'JpGraph';
@@ -101,7 +101,7 @@ class Settings
      * Set the Zip handler Class that PhpSpreadsheet should use for Zip file management (PCLZip or ZipArchive)
      *
      * @param string $zipClass    The Zip handler class that PhpSpreadsheet should use for Zip file management
-     *      e.g. \PhpSpreadsheet\Settings::PCLZip or \PhpSpreadsheet\Settings::ZipArchive
+     *      e.g. \PhpOffice\PhpSpreadsheet\Settings::PCLZip or \PhpOffice\PhpSpreadsheet\Settings::ZipArchive
      * @return    bool    Success or failure
      */
     public static function setZipClass($zipClass)
@@ -122,7 +122,7 @@ class Settings
      *
      * @return string Name of the Zip handler Class that PhpSpreadsheet is configured to use
      *    for Zip file management
-     *    e.g. \PhpSpreadsheet\Settings::PCLZip or \PhpSpreadsheet\Settings::ZipArchive
+     *    e.g. \PhpOffice\PhpSpreadsheet\Settings::PCLZip or \PhpOffice\PhpSpreadsheet\Settings::ZipArchive
      */
     public static function getZipClass()
     {
@@ -176,7 +176,7 @@ class Settings
      * Set details of the external library that PhpSpreadsheet should use for rendering charts
      *
      * @param string $libraryName    Internal reference name of the library
-     *    e.g. \PhpSpreadsheet\Settings::CHART_RENDERER_JPGRAPH
+     *    e.g. \PhpOffice\PhpSpreadsheet\Settings::CHART_RENDERER_JPGRAPH
      * @param string $libraryBaseDir Directory path to the library's base folder
      *
      * @return    bool    Success or failure
@@ -194,7 +194,7 @@ class Settings
      * Identify to PhpSpreadsheet the external library to use for rendering charts
      *
      * @param string $libraryName    Internal reference name of the library
-     *    e.g. \PhpSpreadsheet\Settings::CHART_RENDERER_JPGRAPH
+     *    e.g. \PhpOffice\PhpSpreadsheet\Settings::CHART_RENDERER_JPGRAPH
      *
      * @return    bool    Success or failure
      */
@@ -229,7 +229,7 @@ class Settings
      *
      * @return string|null Internal reference name of the Chart Rendering Library that PhpSpreadsheet is
      *    currently configured to use
-     *    e.g. \PhpSpreadsheet\Settings::CHART_RENDERER_JPGRAPH
+     *    e.g. \PhpOffice\PhpSpreadsheet\Settings::CHART_RENDERER_JPGRAPH
      */
     public static function getChartRendererName()
     {
@@ -251,9 +251,9 @@ class Settings
      * Set details of the external library that PhpSpreadsheet should use for rendering PDF files
      *
      * @param string $libraryName Internal reference name of the library
-     *     e.g. \PhpSpreadsheet\Settings::PDF_RENDERER_TCPDF,
-     *          \PhpSpreadsheet\Settings::PDF_RENDERER_DOMPDF
-     *       or \PhpSpreadsheet\Settings::PDF_RENDERER_MPDF
+     *     e.g. \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_TCPDF,
+     *          \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_DOMPDF
+     *       or \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_MPDF
      * @param string $libraryBaseDir Directory path to the library's base folder
      *
      * @return bool Success or failure
@@ -271,9 +271,9 @@ class Settings
      * Identify to PhpSpreadsheet the external library to use for rendering PDF files
      *
      * @param string $libraryName Internal reference name of the library
-     *     e.g. \PhpSpreadsheet\Settings::PDF_RENDERER_TCPDF,
-     *          \PhpSpreadsheet\Settings::PDF_RENDERER_DOMPDF
-     *       or \PhpSpreadsheet\Settings::PDF_RENDERER_MPDF
+     *     e.g. \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_TCPDF,
+     *          \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_DOMPDF
+     *       or \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_MPDF
      *
      * @return bool Success or failure
      */
@@ -308,9 +308,9 @@ class Settings
      *
      * @return string|null Internal reference name of the PDF Rendering Library that PhpSpreadsheet is
      *     currently configured to use
-     *  e.g. \PhpSpreadsheet\Settings::PDF_RENDERER_TCPDF,
-     *       \PhpSpreadsheet\Settings::PDF_RENDERER_DOMPDF
-     *    or \PhpSpreadsheet\Settings::PDF_RENDERER_MPDF
+     *  e.g. \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_TCPDF,
+     *       \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_DOMPDF
+     *    or \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_MPDF
      */
     public static function getPdfRendererName()
     {

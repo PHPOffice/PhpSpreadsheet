@@ -1,10 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet\Writer;
+namespace PhpOffice\PhpSpreadsheet\Writer;
 
 /**
- * \PhpSpreadsheet\Writer\Excel5
- *
  * Copyright (c) 2006 - 2015 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -31,7 +29,7 @@ class Excel5 extends BaseWriter implements IWriter
     /**
      * PhpSpreadsheet object
      *
-     * @var \PhpSpreadsheet\Spreadsheet
+     * @var \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     private $spreadsheet;
 
@@ -66,7 +64,7 @@ class Excel5 extends BaseWriter implements IWriter
     /**
      * Formula parser
      *
-     * @var \PhpSpreadsheet\Writer\Excel5\Parser
+     * @var \PhpOffice\PhpSpreadsheet\Writer\Excel5\Parser
      */
     private $parser;
 
@@ -94,9 +92,9 @@ class Excel5 extends BaseWriter implements IWriter
     /**
      * Create a new Excel5 Writer
      *
-     * @param    \PhpSpreadsheet\Spreadsheet    $spreadsheet    PhpSpreadsheet object
+     * @param    \PhpOffice\PhpSpreadsheet\Spreadsheet    $spreadsheet    PhpSpreadsheet object
      */
-    public function __construct(\PhpSpreadsheet\Spreadsheet $spreadsheet)
+    public function __construct(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
     {
         $this->spreadsheet = $spreadsheet;
 
@@ -107,7 +105,7 @@ class Excel5 extends BaseWriter implements IWriter
      * Save Spreadsheet to file
      *
      * @param    string        $pFilename
-     * @throws    \PhpSpreadsheet\Writer\Exception
+     * @throws    \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function save($pFilename = null)
     {
@@ -115,10 +113,10 @@ class Excel5 extends BaseWriter implements IWriter
         // garbage collect
         $this->spreadsheet->garbageCollect();
 
-        $saveDebugLog = \PhpSpreadsheet\Calculation::getInstance($this->spreadsheet)->getDebugLog()->getWriteDebugLog();
-        \PhpSpreadsheet\Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog(false);
-        $saveDateReturnType = \PhpSpreadsheet\Calculation\Functions::getReturnDateType();
-        \PhpSpreadsheet\Calculation\Functions::setReturnDateType(\PhpSpreadsheet\Calculation\Functions::RETURNDATE_EXCEL);
+        $saveDebugLog = \PhpOffice\PhpSpreadsheet\Calculation::getInstance($this->spreadsheet)->getDebugLog()->getWriteDebugLog();
+        \PhpOffice\PhpSpreadsheet\Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog(false);
+        $saveDateReturnType = \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType();
+        \PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType(\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_EXCEL);
 
         // initialize colors array
         $this->colors = [];
@@ -153,10 +151,10 @@ class Excel5 extends BaseWriter implements IWriter
             foreach ($this->writerWorksheets[$i]->phpSheet->getCellCollection() as $cellID) {
                 $cell = $this->writerWorksheets[$i]->phpSheet->getCell($cellID);
                 $cVal = $cell->getValue();
-                if ($cVal instanceof \PhpSpreadsheet\RichText) {
+                if ($cVal instanceof \PhpOffice\PhpSpreadsheet\RichText) {
                     $elements = $cVal->getRichTextElements();
                     foreach ($elements as $element) {
-                        if ($element instanceof \PhpSpreadsheet\RichText\Run) {
+                        if ($element instanceof \PhpOffice\PhpSpreadsheet\RichText\Run) {
                             $font = $element->getFont();
                             $this->writerWorksheets[$i]->fontHashIndex[$font->getHashCode()] = $this->writerWorkbook->addFont($font);
                         }
@@ -167,7 +165,7 @@ class Excel5 extends BaseWriter implements IWriter
 
         // initialize OLE file
         $workbookStreamName = 'Workbook';
-        $OLE = new \PhpSpreadsheet\Shared\OLE\PPS\File(\PhpSpreadsheet\Shared\OLE::ascToUcs($workbookStreamName));
+        $OLE = new \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\File(\PhpOffice\PhpSpreadsheet\Shared\OLE::ascToUcs($workbookStreamName));
 
         // Write the worksheet streams before the global workbook stream,
         // because the byte sizes of these are needed in the global workbook stream
@@ -188,14 +186,14 @@ class Excel5 extends BaseWriter implements IWriter
         $this->documentSummaryInformation = $this->writeDocumentSummaryInformation();
         // initialize OLE Document Summary Information
         if (isset($this->documentSummaryInformation) && !empty($this->documentSummaryInformation)) {
-            $OLE_DocumentSummaryInformation = new \PhpSpreadsheet\Shared\OLE\PPS\File(\PhpSpreadsheet\Shared\OLE::ascToUcs(chr(5) . 'DocumentSummaryInformation'));
+            $OLE_DocumentSummaryInformation = new \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\File(\PhpOffice\PhpSpreadsheet\Shared\OLE::ascToUcs(chr(5) . 'DocumentSummaryInformation'));
             $OLE_DocumentSummaryInformation->append($this->documentSummaryInformation);
         }
 
         $this->summaryInformation = $this->writeSummaryInformation();
         // initialize OLE Summary Information
         if (isset($this->summaryInformation) && !empty($this->summaryInformation)) {
-            $OLE_SummaryInformation = new \PhpSpreadsheet\Shared\OLE\PPS\File(\PhpSpreadsheet\Shared\OLE::ascToUcs(chr(5) . 'SummaryInformation'));
+            $OLE_SummaryInformation = new \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\File(\PhpOffice\PhpSpreadsheet\Shared\OLE::ascToUcs(chr(5) . 'SummaryInformation'));
             $OLE_SummaryInformation->append($this->summaryInformation);
         }
 
@@ -210,12 +208,12 @@ class Excel5 extends BaseWriter implements IWriter
             $arrRootData[] = $OLE_DocumentSummaryInformation;
         }
 
-        $root = new \PhpSpreadsheet\Shared\OLE\PPS\Root(time(), time(), $arrRootData);
+        $root = new \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\Root(time(), time(), $arrRootData);
         // save the OLE file
         $res = $root->save($pFilename);
 
-        \PhpSpreadsheet\Calculation\Functions::setReturnDateType($saveDateReturnType);
-        \PhpSpreadsheet\Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
+        \PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType($saveDateReturnType);
+        \PhpOffice\PhpSpreadsheet\Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
     }
 
     /**
@@ -223,8 +221,8 @@ class Excel5 extends BaseWriter implements IWriter
      *
      * @deprecated
      * @param    string    $pValue        Temporary storage directory
-     * @throws    \PhpSpreadsheet\Writer\Exception    when directory does not exist
-     * @return \PhpSpreadsheet\Writer\Excel5
+     * @throws    \PhpOffice\PhpSpreadsheet\Writer\Exception    when directory does not exist
+     * @return \PhpOffice\PhpSpreadsheet\Writer\Excel5
      */
     public function setTempDir($pValue = '')
     {
@@ -254,10 +252,10 @@ class Excel5 extends BaseWriter implements IWriter
             }
 
             // create intermediate Escher object
-            $escher = new \PhpSpreadsheet\Shared\Escher();
+            $escher = new \PhpOffice\PhpSpreadsheet\Shared\Escher();
 
             // dgContainer
-            $dgContainer = new \PhpSpreadsheet\Shared\Escher\DgContainer();
+            $dgContainer = new \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer();
 
             // set the drawing index (we use sheet index + 1)
             $dgId = $sheet->getParent()->getIndex($sheet) + 1;
@@ -265,11 +263,11 @@ class Excel5 extends BaseWriter implements IWriter
             $escher->setDgContainer($dgContainer);
 
             // spgrContainer
-            $spgrContainer = new \PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer();
+            $spgrContainer = new \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer();
             $dgContainer->setSpgrContainer($spgrContainer);
 
             // add one shape which is the group shape
-            $spContainer = new \PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer();
+            $spContainer = new \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer();
             $spContainer->setSpgr(true);
             $spContainer->setSpType(0);
             $spContainer->setSpId(($sheet->getParent()->getIndex($sheet) + 1) << 10);
@@ -285,7 +283,7 @@ class Excel5 extends BaseWriter implements IWriter
                 ++$countShapes[$sheetIndex];
 
                 // add the shape
-                $spContainer = new \PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer();
+                $spContainer = new \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer();
 
                 // set the shape type
                 $spContainer->setSpType(0x004B);
@@ -294,8 +292,7 @@ class Excel5 extends BaseWriter implements IWriter
 
                 // set the shape index (we combine 1-based sheet index and $countShapes to create unique shape index)
                 $reducedSpId = $countShapes[$sheetIndex];
-                $spId = $reducedSpId
-                    | ($sheet->getParent()->getIndex($sheet) + 1) << 10;
+                $spId = $reducedSpId | ($sheet->getParent()->getIndex($sheet) + 1) << 10;
                 $spContainer->setSpId($spId);
 
                 // keep track of last reducedSpId
@@ -314,7 +311,7 @@ class Excel5 extends BaseWriter implements IWriter
                 $width = $drawing->getWidth();
                 $height = $drawing->getHeight();
 
-                $twoAnchor = \PhpSpreadsheet\Shared\Excel5::oneAnchor2twoAnchor($sheet, $coordinates, $offsetX, $offsetY, $width, $height);
+                $twoAnchor = \PhpOffice\PhpSpreadsheet\Shared\Excel5::oneAnchor2twoAnchor($sheet, $coordinates, $offsetX, $offsetY, $width, $height);
 
                 $spContainer->setStartCoordinates($twoAnchor['startCoordinates']);
                 $spContainer->setStartOffsetX($twoAnchor['startOffsetX']);
@@ -328,7 +325,7 @@ class Excel5 extends BaseWriter implements IWriter
 
             // AutoFilters
             if (!empty($filterRange)) {
-                $rangeBounds = \PhpSpreadsheet\Cell::rangeBoundaries($filterRange);
+                $rangeBounds = \PhpOffice\PhpSpreadsheet\Cell::rangeBoundaries($filterRange);
                 $iNumColStart = $rangeBounds[0][0];
                 $iNumColEnd = $rangeBounds[1][0];
 
@@ -337,14 +334,14 @@ class Excel5 extends BaseWriter implements IWriter
                     ++$countShapes[$sheetIndex];
 
                     // create an Drawing Object for the dropdown
-                    $oDrawing = new \PhpSpreadsheet\Worksheet\BaseDrawing();
+                    $oDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing();
                     // get the coordinates of drawing
-                    $cDrawing = \PhpSpreadsheet\Cell::stringFromColumnIndex($iInc - 1) . $rangeBounds[0][1];
+                    $cDrawing = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($iInc - 1) . $rangeBounds[0][1];
                     $oDrawing->setCoordinates($cDrawing);
                     $oDrawing->setWorksheet($sheet);
 
                     // add the shape
-                    $spContainer = new \PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer();
+                    $spContainer = new \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer();
                     // set the shape type
                     $spContainer->setSpType(0x00C9);
                     // set the shape flag
@@ -352,8 +349,7 @@ class Excel5 extends BaseWriter implements IWriter
 
                     // set the shape index (we combine 1-based sheet index and $countShapes to create unique shape index)
                     $reducedSpId = $countShapes[$sheetIndex];
-                    $spId = $reducedSpId
-                        | ($sheet->getParent()->getIndex($sheet) + 1) << 10;
+                    $spId = $reducedSpId | ($sheet->getParent()->getIndex($sheet) + 1) << 10;
                     $spContainer->setSpId($spId);
 
                     // keep track of last reducedSpId
@@ -369,7 +365,7 @@ class Excel5 extends BaseWriter implements IWriter
                     $spContainer->setOPT(0x03BF, 0x000A0000); // Group Shape -> fPrint
 
                     // set coordinates and offsets, client anchor
-                    $endCoordinates = \PhpSpreadsheet\Cell::stringFromColumnIndex($iInc - 1);
+                    $endCoordinates = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($iInc - 1);
                     $endCoordinates .= $rangeBounds[0][1] + 1;
 
                     $spContainer->setStartCoordinates($cDrawing);
@@ -417,10 +413,10 @@ class Excel5 extends BaseWriter implements IWriter
         }
 
         // if we reach here, then there are drawings in the workbook
-        $escher = new \PhpSpreadsheet\Shared\Escher();
+        $escher = new \PhpOffice\PhpSpreadsheet\Shared\Escher();
 
         // dggContainer
-        $dggContainer = new \PhpSpreadsheet\Shared\Escher\DggContainer();
+        $dggContainer = new \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer();
         $escher->setDggContainer($dggContainer);
 
         // set IDCLs (identifier clusters)
@@ -452,37 +448,37 @@ class Excel5 extends BaseWriter implements IWriter
         $dggContainer->setCSpSaved($totalCountShapes + $countDrawings); // total number of shapes incl. one group shapes per drawing
 
         // bstoreContainer
-        $bstoreContainer = new \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer();
+        $bstoreContainer = new \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer();
         $dggContainer->setBstoreContainer($bstoreContainer);
 
         // the BSE's (all the images)
         foreach ($this->spreadsheet->getAllsheets() as $sheet) {
             foreach ($sheet->getDrawingCollection() as $drawing) {
-                if ($drawing instanceof \PhpSpreadsheet\Worksheet\Drawing) {
+                if ($drawing instanceof \PhpOffice\PhpSpreadsheet\Worksheet\Drawing) {
                     $filename = $drawing->getPath();
 
                     list($imagesx, $imagesy, $imageFormat) = getimagesize($filename);
 
                     switch ($imageFormat) {
                         case 1: // GIF, not supported by BIFF8, we convert to PNG
-                            $blipType = \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_PNG;
+                            $blipType = \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_PNG;
                             ob_start();
                             imagepng(imagecreatefromgif($filename));
                             $blipData = ob_get_contents();
                             ob_end_clean();
                             break;
                         case 2: // JPEG
-                            $blipType = \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_JPEG;
+                            $blipType = \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_JPEG;
                             $blipData = file_get_contents($filename);
                             break;
                         case 3: // PNG
-                            $blipType = \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_PNG;
+                            $blipType = \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_PNG;
                             $blipData = file_get_contents($filename);
                             break;
                         case 6: // Windows DIB (BMP), we convert to PNG
-                            $blipType = \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_PNG;
+                            $blipType = \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_PNG;
                             ob_start();
-                            imagepng(\PhpSpreadsheet\Shared\Drawing::imagecreatefrombmp($filename));
+                            imagepng(\PhpOffice\PhpSpreadsheet\Shared\Drawing::imagecreatefrombmp($filename));
                             $blipData = ob_get_contents();
                             ob_end_clean();
                             break;
@@ -490,24 +486,24 @@ class Excel5 extends BaseWriter implements IWriter
                             continue 2;
                     }
 
-                    $blip = new \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE\Blip();
+                    $blip = new \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE\Blip();
                     $blip->setData($blipData);
 
-                    $BSE = new \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE();
+                    $BSE = new \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE();
                     $BSE->setBlipType($blipType);
                     $BSE->setBlip($blip);
 
                     $bstoreContainer->addBSE($BSE);
-                } elseif ($drawing instanceof \PhpSpreadsheet\Worksheet\MemoryDrawing) {
+                } elseif ($drawing instanceof \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing) {
                     switch ($drawing->getRenderingFunction()) {
-                        case \PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_JPEG:
-                            $blipType = \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_JPEG;
+                        case \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_JPEG:
+                            $blipType = \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_JPEG;
                             $renderingFunction = 'imagejpeg';
                             break;
-                        case \PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_GIF:
-                        case \PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_PNG:
-                        case \PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_DEFAULT:
-                            $blipType = \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_PNG;
+                        case \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_GIF:
+                        case \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_PNG:
+                        case \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_DEFAULT:
+                            $blipType = \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_PNG;
                             $renderingFunction = 'imagepng';
                             break;
                     }
@@ -517,10 +513,10 @@ class Excel5 extends BaseWriter implements IWriter
                     $blipData = ob_get_contents();
                     ob_end_clean();
 
-                    $blip = new \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE\Blip();
+                    $blip = new \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE\Blip();
                     $blip->setData($blipData);
 
-                    $BSE = new \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE();
+                    $BSE = new \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE();
                     $BSE->setBlipType($blipType);
                     $BSE->setBlip($blip);
 
@@ -564,50 +560,64 @@ class Excel5 extends BaseWriter implements IWriter
         $dataSection_Content = '';
 
         // GKPIDDSI_CODEPAGE: CodePage
-        $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x01],
-                               'offset' => ['pack' => 'V'],
-                               'type' => ['pack' => 'V', 'data' => 0x02], // 2 byte signed integer
-                               'data' => ['data' => 1252], ];
+        $dataSection[] = [
+            'summary' => ['pack' => 'V', 'data' => 0x01],
+            'offset' => ['pack' => 'V'],
+            'type' => ['pack' => 'V', 'data' => 0x02], // 2 byte signed integer
+            'data' => ['data' => 1252],
+        ];
         ++$dataSection_NumProps;
 
         // GKPIDDSI_CATEGORY : Category
         if ($this->spreadsheet->getProperties()->getCategory()) {
             $dataProp = $this->spreadsheet->getProperties()->getCategory();
-            $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x02],
-                                   'offset' => ['pack' => 'V'],
-                                   'type' => ['pack' => 'V', 'data' => 0x1E],
-                                   'data' => ['data' => $dataProp, 'length' => strlen($dataProp)], ];
+            $dataSection[] = [
+                'summary' => ['pack' => 'V', 'data' => 0x02],
+                'offset' => ['pack' => 'V'],
+                'type' => ['pack' => 'V', 'data' => 0x1E],
+                'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+            ];
             ++$dataSection_NumProps;
         }
         // GKPIDDSI_VERSION :Version of the application that wrote the property storage
-        $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x17],
-                               'offset' => ['pack' => 'V'],
-                               'type' => ['pack' => 'V', 'data' => 0x03],
-                               'data' => ['pack' => 'V', 'data' => 0x000C0000], ];
+        $dataSection[] = [
+            'summary' => ['pack' => 'V', 'data' => 0x17],
+            'offset' => ['pack' => 'V'],
+            'type' => ['pack' => 'V', 'data' => 0x03],
+            'data' => ['pack' => 'V', 'data' => 0x000C0000],
+        ];
         ++$dataSection_NumProps;
         // GKPIDDSI_SCALE : FALSE
-        $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x0B],
-                               'offset' => ['pack' => 'V'],
-                               'type' => ['pack' => 'V', 'data' => 0x0B],
-                               'data' => ['data' => false], ];
+        $dataSection[] = [
+            'summary' => ['pack' => 'V', 'data' => 0x0B],
+            'offset' => ['pack' => 'V'],
+            'type' => ['pack' => 'V', 'data' => 0x0B],
+            'data' => ['data' => false],
+        ];
         ++$dataSection_NumProps;
         // GKPIDDSI_LINKSDIRTY : True if any of the values for the linked properties have changed outside of the application
-        $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x10],
-                               'offset' => ['pack' => 'V'],
-                               'type' => ['pack' => 'V', 'data' => 0x0B],
-                               'data' => ['data' => false], ];
+        $dataSection[] = [
+            'summary' => ['pack' => 'V', 'data' => 0x10],
+            'offset' => ['pack' => 'V'],
+            'type' => ['pack' => 'V', 'data' => 0x0B],
+            'data' => ['data' => false],
+        ];
         ++$dataSection_NumProps;
         // GKPIDDSI_SHAREDOC : FALSE
-        $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x13],
-                               'offset' => ['pack' => 'V'],
-                               'type' => ['pack' => 'V', 'data' => 0x0B],
-                               'data' => ['data' => false], ];
+        $dataSection[] = [
+            'summary' => ['pack' => 'V', 'data' => 0x13],
+            'offset' => ['pack' => 'V'],
+            'type' => ['pack' => 'V', 'data' => 0x0B],
+            'data' => ['data' => false],
+        ];
         ++$dataSection_NumProps;
         // GKPIDDSI_HYPERLINKSCHANGED : True if any of the values for the _PID_LINKS (hyperlink text) have changed outside of the application
-        $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x16],
-                               'offset' => ['pack' => 'V'],
-                               'type' => ['pack' => 'V', 'data' => 0x0B],
-                               'data' => ['data' => false], ];
+        $dataSection[] = [
+            'summary' => ['pack' => 'V', 'data' => 0x16],
+            'offset' => ['pack' => 'V'],
+            'type' => ['pack' => 'V', 'data' => 0x0B],
+            'data' => ['data' => false],
+        ];
         ++$dataSection_NumProps;
 
         // GKPIDDSI_DOCSPARTS
@@ -617,50 +627,54 @@ class Excel5 extends BaseWriter implements IWriter
         $dataProp = pack('v', 0x0001);
         $dataProp .= pack('v', 0x0000);
         // array of UnalignedLpstr
-          // cch
-          $dataProp .= pack('v', 0x000A);
+        // cch
+        $dataProp .= pack('v', 0x000A);
         $dataProp .= pack('v', 0x0000);
-          // value
-          $dataProp .= 'Worksheet' . chr(0);
+        // value
+        $dataProp .= 'Worksheet' . chr(0);
 
-        $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x0D],
-                               'offset' => ['pack' => 'V'],
-                               'type' => ['pack' => 'V', 'data' => 0x101E],
-                               'data' => ['data' => $dataProp, 'length' => strlen($dataProp)], ];
+        $dataSection[] = [
+            'summary' => ['pack' => 'V', 'data' => 0x0D],
+            'offset' => ['pack' => 'V'],
+            'type' => ['pack' => 'V', 'data' => 0x101E],
+            'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+        ];
         ++$dataSection_NumProps;
 
         // GKPIDDSI_HEADINGPAIR
         // VtVecHeadingPairValue
-          // cElements
-          $dataProp = pack('v', 0x0002);
+        // cElements
+        $dataProp = pack('v', 0x0002);
         $dataProp .= pack('v', 0x0000);
-          // Array of vtHeadingPair
-            // vtUnalignedString - headingString
-              // stringType
-              $dataProp .= pack('v', 0x001E);
-              // padding
-              $dataProp .= pack('v', 0x0000);
-              // UnalignedLpstr
-                // cch
-                $dataProp .= pack('v', 0x0013);
+        // Array of vtHeadingPair
+        // vtUnalignedString - headingString
+        // stringType
+        $dataProp .= pack('v', 0x001E);
+        // padding
         $dataProp .= pack('v', 0x0000);
-                // value
-                $dataProp .= 'Feuilles de calcul';
-            // vtUnalignedString - headingParts
-              // wType : 0x0003 = 32 bit signed integer
-              $dataProp .= pack('v', 0x0300);
-              // padding
-              $dataProp .= pack('v', 0x0000);
-              // value
-              $dataProp .= pack('v', 0x0100);
+        // UnalignedLpstr
+        // cch
+        $dataProp .= pack('v', 0x0013);
+        $dataProp .= pack('v', 0x0000);
+        // value
+        $dataProp .= 'Feuilles de calcul';
+        // vtUnalignedString - headingParts
+        // wType : 0x0003 = 32 bit signed integer
+        $dataProp .= pack('v', 0x0300);
+        // padding
+        $dataProp .= pack('v', 0x0000);
+        // value
+        $dataProp .= pack('v', 0x0100);
         $dataProp .= pack('v', 0x0000);
         $dataProp .= pack('v', 0x0000);
         $dataProp .= pack('v', 0x0000);
 
-        $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x0C],
-                               'offset' => ['pack' => 'V'],
-                               'type' => ['pack' => 'V', 'data' => 0x100C],
-                               'data' => ['data' => $dataProp, 'length' => strlen($dataProp)], ];
+        $dataSection[] = [
+            'summary' => ['pack' => 'V', 'data' => 0x0C],
+            'offset' => ['pack' => 'V'],
+            'type' => ['pack' => 'V', 'data' => 0x100C],
+            'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+        ];
         ++$dataSection_NumProps;
 
         //         4     Section Length
@@ -760,89 +774,109 @@ class Excel5 extends BaseWriter implements IWriter
         $dataSection_Content = '';
 
         // CodePage : CP-1252
-        $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x01],
-                               'offset' => ['pack' => 'V'],
-                               'type' => ['pack' => 'V', 'data' => 0x02], // 2 byte signed integer
-                               'data' => ['data' => 1252], ];
+        $dataSection[] = [
+            'summary' => ['pack' => 'V', 'data' => 0x01],
+            'offset' => ['pack' => 'V'],
+            'type' => ['pack' => 'V', 'data' => 0x02], // 2 byte signed integer
+            'data' => ['data' => 1252],
+        ];
         ++$dataSection_NumProps;
 
         //    Title
         if ($this->spreadsheet->getProperties()->getTitle()) {
             $dataProp = $this->spreadsheet->getProperties()->getTitle();
-            $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x02],
-                                   'offset' => ['pack' => 'V'],
-                                   'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
-                                   'data' => ['data' => $dataProp, 'length' => strlen($dataProp)], ];
+            $dataSection[] = [
+                'summary' => ['pack' => 'V', 'data' => 0x02],
+                'offset' => ['pack' => 'V'],
+                'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
+                'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+            ];
             ++$dataSection_NumProps;
         }
         //    Subject
         if ($this->spreadsheet->getProperties()->getSubject()) {
             $dataProp = $this->spreadsheet->getProperties()->getSubject();
-            $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x03],
-                                   'offset' => ['pack' => 'V'],
-                                   'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
-                                   'data' => ['data' => $dataProp, 'length' => strlen($dataProp)], ];
+            $dataSection[] = [
+                'summary' => ['pack' => 'V', 'data' => 0x03],
+                'offset' => ['pack' => 'V'],
+                'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
+                'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+            ];
             ++$dataSection_NumProps;
         }
         //    Author (Creator)
         if ($this->spreadsheet->getProperties()->getCreator()) {
             $dataProp = $this->spreadsheet->getProperties()->getCreator();
-            $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x04],
-                                   'offset' => ['pack' => 'V'],
-                                   'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
-                                   'data' => ['data' => $dataProp, 'length' => strlen($dataProp)], ];
+            $dataSection[] = [
+                'summary' => ['pack' => 'V', 'data' => 0x04],
+                'offset' => ['pack' => 'V'],
+                'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
+                'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+            ];
             ++$dataSection_NumProps;
         }
         //    Keywords
         if ($this->spreadsheet->getProperties()->getKeywords()) {
             $dataProp = $this->spreadsheet->getProperties()->getKeywords();
-            $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x05],
-                                   'offset' => ['pack' => 'V'],
-                                   'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
-                                   'data' => ['data' => $dataProp, 'length' => strlen($dataProp)], ];
+            $dataSection[] = [
+                'summary' => ['pack' => 'V', 'data' => 0x05],
+                'offset' => ['pack' => 'V'],
+                'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
+                'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+            ];
             ++$dataSection_NumProps;
         }
         //    Comments (Description)
         if ($this->spreadsheet->getProperties()->getDescription()) {
             $dataProp = $this->spreadsheet->getProperties()->getDescription();
-            $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x06],
-                                   'offset' => ['pack' => 'V'],
-                                   'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
-                                   'data' => ['data' => $dataProp, 'length' => strlen($dataProp)], ];
+            $dataSection[] = [
+                'summary' => ['pack' => 'V', 'data' => 0x06],
+                'offset' => ['pack' => 'V'],
+                'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
+                'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+            ];
             ++$dataSection_NumProps;
         }
         //    Last Saved By (LastModifiedBy)
         if ($this->spreadsheet->getProperties()->getLastModifiedBy()) {
             $dataProp = $this->spreadsheet->getProperties()->getLastModifiedBy();
-            $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x08],
-                                   'offset' => ['pack' => 'V'],
-                                   'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
-                                   'data' => ['data' => $dataProp, 'length' => strlen($dataProp)], ];
+            $dataSection[] = [
+                'summary' => ['pack' => 'V', 'data' => 0x08],
+                'offset' => ['pack' => 'V'],
+                'type' => ['pack' => 'V', 'data' => 0x1E], // null-terminated string prepended by dword string length
+                'data' => ['data' => $dataProp, 'length' => strlen($dataProp)],
+            ];
             ++$dataSection_NumProps;
         }
         //    Created Date/Time
         if ($this->spreadsheet->getProperties()->getCreated()) {
             $dataProp = $this->spreadsheet->getProperties()->getCreated();
-            $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x0C],
-                                   'offset' => ['pack' => 'V'],
-                                   'type' => ['pack' => 'V', 'data' => 0x40], // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
-                                   'data' => ['data' => \PhpSpreadsheet\Shared\OLE::localDateToOLE($dataProp)], ];
+            $dataSection[] = [
+                'summary' => ['pack' => 'V', 'data' => 0x0C],
+                'offset' => ['pack' => 'V'],
+                'type' => ['pack' => 'V', 'data' => 0x40], // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
+                'data' => ['data' => \PhpOffice\PhpSpreadsheet\Shared\OLE::localDateToOLE($dataProp)],
+            ];
             ++$dataSection_NumProps;
         }
         //    Modified Date/Time
         if ($this->spreadsheet->getProperties()->getModified()) {
             $dataProp = $this->spreadsheet->getProperties()->getModified();
-            $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x0D],
-                                   'offset' => ['pack' => 'V'],
-                                   'type' => ['pack' => 'V', 'data' => 0x40], // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
-                                   'data' => ['data' => \PhpSpreadsheet\Shared\OLE::localDateToOLE($dataProp)], ];
+            $dataSection[] = [
+                'summary' => ['pack' => 'V', 'data' => 0x0D],
+                'offset' => ['pack' => 'V'],
+                'type' => ['pack' => 'V', 'data' => 0x40], // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
+                'data' => ['data' => \PhpOffice\PhpSpreadsheet\Shared\OLE::localDateToOLE($dataProp)],
+            ];
             ++$dataSection_NumProps;
         }
         //    Security
-        $dataSection[] = ['summary' => ['pack' => 'V', 'data' => 0x13],
-                               'offset' => ['pack' => 'V'],
-                               'type' => ['pack' => 'V', 'data' => 0x03], // 4 byte signed integer
-                               'data' => ['data' => 0x00], ];
+        $dataSection[] = [
+            'summary' => ['pack' => 'V', 'data' => 0x13],
+            'offset' => ['pack' => 'V'],
+            'type' => ['pack' => 'V', 'data' => 0x03], // 4 byte signed integer
+            'data' => ['data' => 0x00],
+        ];
         ++$dataSection_NumProps;
 
         //         4     Section Length

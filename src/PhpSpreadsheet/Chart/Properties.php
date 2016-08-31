@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Chart;
+namespace PhpOffice\PhpSpreadsheet\Chart;
 
 /**
  * Created by PhpStorm.
@@ -115,11 +115,17 @@ abstract class Properties
         SHADOW_PRESETS_PERSPECTIVE_LOWER_RIGHT = 22,
         SHADOW_PRESETS_PERSPECTIVE_LOWER_LEFT = 23;
 
+    /**
+     * @param float $width
+     */
     protected function getExcelPointsWidth($width)
     {
         return $width * 12700;
     }
 
+    /**
+     * @param float $angle
+     */
     protected function getExcelPointsAngle($angle)
     {
         return $angle * 60000;

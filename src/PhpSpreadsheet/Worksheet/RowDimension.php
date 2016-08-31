@@ -1,10 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet\Worksheet;
+namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
- * \PhpSpreadsheet\Worksheet\RowDimension
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or

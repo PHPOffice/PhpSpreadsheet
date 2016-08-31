@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Writer\OpenDocument;
+namespace PhpOffice\PhpSpreadsheet\Writer\OpenDocument;
 
 /**
  * This library is free software; you can redistribute it and/or
@@ -27,11 +27,11 @@ class Mimetype extends WriterPart
     /**
      * Write mimetype to plain text format
      *
-     * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      * @return     string         XML Output
      */
-    public function write(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function write(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         return 'application/vnd.oasis.opendocument.spreadsheet';
     }

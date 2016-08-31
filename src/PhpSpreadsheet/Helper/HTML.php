@@ -1,6 +1,11 @@
 <?php
 
-namespace PhpSpreadsheet\Helper;
+namespace PhpOffice\PhpSpreadsheet\Helper;
+
+use DOMDocument;
+use DOMElement;
+use DOMNode;
+use DOMText;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -612,7 +617,7 @@ class HTML
         $this->initialise();
 
         //    Create a new DOM object
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         //    Load the HTML file into the DOM object
         //  Note the use of error suppression, because typically this will be an html fragment, so not fully valid markup
         $loaded = @$dom->loadHTML($html);
@@ -620,7 +625,7 @@ class HTML
         //    Discard excess white space
         $dom->preserveWhiteSpace = false;
 
-        $this->richTextObject = new \PhpSpreadsheet\RichText();
+        $this->richTextObject = new \PhpOffice\PhpSpreadsheet\RichText();
         $this->parseElements($dom);
 
         // Clean any further spurious whitespace
@@ -658,7 +663,7 @@ class HTML
             $richtextRun->getFont()->setSize($this->size);
         }
         if ($this->color) {
-            $richtextRun->getFont()->setColor(new \PhpSpreadsheet\Style\Color('ff' . $this->color));
+            $richtextRun->getFont()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color('ff' . $this->color));
         }
         if ($this->bold) {
             $richtextRun->getFont()->setBold(true);
@@ -667,7 +672,7 @@ class HTML
             $richtextRun->getFont()->setItalic(true);
         }
         if ($this->underline) {
-            $richtextRun->getFont()->setUnderline(\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE);
+            $richtextRun->getFont()->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE);
         }
         if ($this->superscript) {
             $richtextRun->getFont()->setSuperScript(true);
@@ -786,7 +791,7 @@ class HTML
         $this->stringData .= "\n";
     }
 
-    protected function parseTextNode(\DOMText $textNode)
+    protected function parseTextNode(DOMText $textNode)
     {
         $domText = preg_replace(
             '/\s+/u',
@@ -797,7 +802,12 @@ class HTML
         $this->buildTextRun();
     }
 
-    protected function handleCallback($element, $callbackTag, $callbacks)
+    /**
+     * @param DOMElement $element
+     * @param string $callbackTag
+     * @param array $callbacks
+     */
+    protected function handleCallback(DOMElement $element, $callbackTag, array $callbacks)
     {
         if (isset($callbacks[$callbackTag])) {
             $elementHandler = $callbacks[$callbackTag];
@@ -807,7 +817,7 @@ class HTML
         }
     }
 
-    protected function parseElementNode(\DOMElement $element)
+    protected function parseElementNode(DOMElement $element)
     {
         $callbackTag = strtolower($element->nodeName);
         $this->stack[] = $callbackTag;
@@ -820,12 +830,12 @@ class HTML
         $this->handleCallback($element, $callbackTag, $this->endTagCallbacks);
     }
 
-    protected function parseElements(\DOMNode $element)
+    protected function parseElements(DOMNode $element)
     {
         foreach ($element->childNodes as $child) {
-            if ($child instanceof \DOMText) {
+            if ($child instanceof DOMText) {
                 $this->parseTextNode($child);
-            } elseif ($child instanceof \DOMElement) {
+            } elseif ($child instanceof DOMElement) {
                 $this->parseElementNode($child);
             }
         }

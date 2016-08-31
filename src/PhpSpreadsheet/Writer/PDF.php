@@ -1,6 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet\Writer;
+namespace PhpOffice\PhpSpreadsheet\Writer;
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
  *  Copyright (c) 2006 - 2015 PhpSpreadsheet
@@ -36,17 +38,17 @@ class PDF implements IWriter
     /**
      *  Instantiate a new renderer of the configured type within this container class
      *
-     *  @param  \PhpSpreadsheet\Spreadsheet   $spreadsheet         PhpSpreadsheet object
+     *  @param  \PhpOffice\PhpSpreadsheet\Spreadsheet   $spreadsheet         PhpSpreadsheet object
      *  @throws Exception    when PDF library is not configured
      */
-    public function __construct(PhpSpreadsheet $spreadsheet)
+    public function __construct(Spreadsheet $spreadsheet)
     {
-        $pdfLibraryName = \PhpSpreadsheet\Settings::getPdfRendererName();
+        $pdfLibraryName = \PhpOffice\PhpSpreadsheet\Settings::getPdfRendererName();
         if (is_null($pdfLibraryName)) {
             throw new Exception('PDF Rendering library has not been defined.');
         }
 
-        $pdfLibraryPath = \PhpSpreadsheet\Settings::getPdfRendererPath();
+        $pdfLibraryPath = \PhpOffice\PhpSpreadsheet\Settings::getPdfRendererPath();
         if (is_null($pdfLibraryName)) {
             throw new Exception('PDF Rendering library path has not been defined.');
         }
@@ -56,7 +58,7 @@ class PDF implements IWriter
             set_include_path(get_include_path() . PATH_SEPARATOR . $pdfLibraryPath);
         }
 
-        $rendererName = 'PDF\\' . $pdfLibraryName;
+        $rendererName = '\\PhpOffice\\PhpSpreadsheet\\Writer\\PDF\\' . $pdfLibraryName;
         $this->renderer = new $rendererName($spreadsheet);
     }
 

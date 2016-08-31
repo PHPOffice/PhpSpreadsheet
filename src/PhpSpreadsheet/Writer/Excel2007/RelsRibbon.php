@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Writer\Excel2007;
+namespace PhpOffice\PhpSpreadsheet\Writer\Excel2007;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -29,18 +29,18 @@ class RelsRibbon extends WriterPart
     /**
      * Write relationships for additional objects of custom UI (ribbon)
      *
-     * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      * @return string XML Output
      */
-    public function writeRibbonRelationships(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function writeRibbonRelationships(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header

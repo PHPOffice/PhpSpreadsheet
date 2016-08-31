@@ -38,6 +38,7 @@
     "suggest": {
         "ext-zip": "*",
         "ext-gd": "*",
+        "ext-dom": "Option to read and write HTML files",
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
         "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
         "tecnick.com/tcpdf": "Option for rendering PDF with PDF Writer",
@@ -45,12 +46,12 @@
     },
     "autoload": {
         "psr-4": {
-            "PhpSpreadsheet\\": "src/PhpSpreadsheet"
+            "PhpOffice\\PhpSpreadsheet\\": "src/PhpSpreadsheet"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "PhpSpreadsheet\\Tests\\": "tests/PhpSpreadsheet"
+            "PhpOffice\\PhpSpreadsheetTests\\": "tests/PhpSpreadsheetTests"
         }
     }
 }

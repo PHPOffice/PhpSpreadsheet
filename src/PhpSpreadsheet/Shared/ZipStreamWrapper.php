@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared;
+namespace PhpOffice\PhpSpreadsheet\Shared;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -70,14 +70,14 @@ class ZipStreamWrapper
      * @param    string    $mode            only "r" is supported
      * @param    int        $options        mask of STREAM_REPORT_ERRORS and STREAM_USE_PATH
      * @param    string  &$openedPath    absolute path of the opened stream (out parameter)
-     * @throws   \PhpSpreadsheet\Reader\Exception
+     * @throws   \PhpOffice\PhpSpreadsheet\Reader\Exception
      * @return   bool    true on success
      */
     public function stream_open($path, $mode, $options, &$opened_path) // @codingStandardsIgnoreLine
     {
         // Check for mode
         if ($mode{0} != 'r') {
-            throw new \PhpSpreadsheet\Reader\Exception('Mode ' . $mode . ' is not supported. Only read mode is supported.');
+            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('Mode ' . $mode . ' is not supported. Only read mode is supported.');
         }
 
         $pos = strrpos($path, '#');
@@ -85,7 +85,7 @@ class ZipStreamWrapper
         $url['fragment'] = substr($path, $pos + 1);
 
         // Open archive
-        $zipClass = \PhpSpreadsheet\Settings::getZipClass();
+        $zipClass = \PhpOffice\PhpSpreadsheet\Settings::getZipClass();
         $this->archive = new $zipClass();
         $this->archive->open($url['host']);
 
@@ -99,7 +99,7 @@ class ZipStreamWrapper
     /**
      * Implements support for fstat().
      *
-     * @return  bool
+     * @return  string
      */
     public function statName()
     {
@@ -109,7 +109,7 @@ class ZipStreamWrapper
     /**
      * Implements support for fstat().
      *
-     * @return  bool
+     * @return  string
      */
     public function url_stat() // @codingStandardsIgnoreLine
     {

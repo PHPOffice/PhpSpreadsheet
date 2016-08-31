@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared\OLE;
+namespace PhpOffice\PhpSpreadsheet\Shared\OLE;
 
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
 // +----------------------------------------------------------------------+
@@ -20,7 +20,6 @@ namespace PhpSpreadsheet\Shared\OLE;
 // | Based on OLE::Storage_Lite by Kawai, Takanori                        |
 // +----------------------------------------------------------------------+
 //
-// $Id: PPS.php,v 1.7 2007/02/13 21:00:42 schmidt Exp $
 
 /**
  * Class for creating PPS's for OLE containers
@@ -151,13 +150,8 @@ class PPS
         if (!isset($this->_data)) {
             return 0;
         }
-        //if (isset($this->_PPS_FILE)) {
-        //    fseek($this->_PPS_FILE, 0);
-        //    $stats = fstat($this->_PPS_FILE);
-        //    return $stats[7];
-        //} else {
-            return strlen($this->_data);
-        //}
+
+        return strlen($this->_data);
     }
 
     /**
@@ -180,11 +174,11 @@ class PPS
               . "\xc0\x00\x00\x00"                  // 92
               . "\x00\x00\x00\x46"                  // 96 // Seems to be ok only for Root
               . "\x00\x00\x00\x00"                  // 100
-              . \PhpSpreadsheet\Shared\OLE::localDateToOLE($this->Time1st)          // 108
-              . \PhpSpreadsheet\Shared\OLE::localDateToOLE($this->Time2nd)          // 116
+              . \PhpOffice\PhpSpreadsheet\Shared\OLE::localDateToOLE($this->Time1st)          // 108
+              . \PhpOffice\PhpSpreadsheet\Shared\OLE::localDateToOLE($this->Time2nd)          // 116
               . pack('V', isset($this->startBlock) ? $this->startBlock : 0)  // 120
               . pack('V', $this->Size)               // 124
-              . pack('V', 0);                        // 128
+              . pack('V', 0); // 128
         return $ret;
     }
 

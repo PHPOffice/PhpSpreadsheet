@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Cell;
+namespace PhpOffice\PhpSpreadsheet\Cell;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -64,7 +64,7 @@ class DataType
     /**
      * DataType for value
      *
-     * @deprecated  Replaced by \PhpSpreadsheet\Cell\IValueBinder infrastructure, will be removed in version 1.8.0
+     * @deprecated  Replaced by \PhpOffice\PhpSpreadsheet\Cell\IValueBinder infrastructure, will be removed in version 1.8.0
      * @param       mixed  $pValue
      * @return      string
      */
@@ -81,13 +81,13 @@ class DataType
      */
     public static function checkString($pValue = null)
     {
-        if ($pValue instanceof \PhpSpreadsheet\RichText) {
+        if ($pValue instanceof \PhpOffice\PhpSpreadsheet\RichText) {
             // TODO: Sanitize Rich-Text string (max. character count is 32,767)
             return $pValue;
         }
 
         // string must never be longer than 32,767 characters, truncate if necessary
-        $pValue = \PhpSpreadsheet\Shared\StringHelper::substring($pValue, 0, 32767);
+        $pValue = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::substring($pValue, 0, 32767);
 
         // we require that newline is represented as "\n" in core, not as "\r\n" or "\r"
         $pValue = str_replace(["\r\n", "\r"], "\n", $pValue);

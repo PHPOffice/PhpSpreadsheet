@@ -1,10 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet\Shared\Trend;
+namespace PhpOffice\PhpSpreadsheet\Shared\Trend;
 
 /**
- * \PhpSpreadsheet\Shared\Trend\powerBestFit
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -76,7 +74,7 @@ class PowerBestFit extends BestFit
      * Return the Value of X where it intersects Y = 0
      *
      * @param     int        $dp        Number of places of decimal precision to display
-     * @return     string
+     * @return     float
      **/
     public function getIntersect($dp = 0)
     {

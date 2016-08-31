@@ -1,10 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet\Shared;
+namespace PhpOffice\PhpSpreadsheet\Shared;
 
 /**
- * \PhpSpreadsheet\Shared\StringHelper
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -43,7 +41,7 @@ class StringHelper
     /**
      * SYLK Characters array
      *
-     * $var array
+     * @var array
      */
     private static $SYLKCharacters = [];
 
@@ -115,7 +113,7 @@ class StringHelper
             "\x1B :" => chr(10),
             "\x1B ;" => chr(11),
             "\x1B <" => chr(12),
-            "\x1B :" => chr(13),
+            "\x1B =" => chr(13),
             "\x1B >" => chr(14),
             "\x1B ?" => chr(15),
             "\x1B!0" => chr(16),
@@ -497,7 +495,7 @@ class StringHelper
     public static function convertEncoding($value, $to, $from)
     {
         if (self::getIsIconvEnabled()) {
-            return iconv($from, $to, $value);
+            return iconv($from, $to . '//IGNORE//TRANSLIT', $value);
         }
 
         if (self::getIsMbstringEnabled()) {
@@ -694,7 +692,7 @@ class StringHelper
         if (preg_match('/^' . self::STRING_REGEXP_FRACTION . '$/i', $operand, $match)) {
             $sign = ($match[1] == '-') ? '-' : '+';
             $fractionFormula = '=' . $sign . $match[2] . $sign . $match[3];
-            $operand = \PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($fractionFormula);
+            $operand = \PhpOffice\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($fractionFormula);
 
             return true;
         }
@@ -725,8 +723,8 @@ class StringHelper
     }
 
     /**
-     * Set the decimal separator. Only used by \PhpSpreadsheet\Style\NumberFormat::toFormattedString()
-     * to format output by \PhpSpreadsheet\Writer\HTML and \PhpSpreadsheet\Writer\PDF
+     * Set the decimal separator. Only used by \PhpOffice\PhpSpreadsheet\Style\NumberFormat::toFormattedString()
+     * to format output by \PhpOffice\PhpSpreadsheet\Writer\HTML and \PhpOffice\PhpSpreadsheet\Writer\PDF
      *
      * @param string $pValue Character for decimal separator
      */
@@ -758,8 +756,8 @@ class StringHelper
     }
 
     /**
-     * Set the thousands separator. Only used by \PhpSpreadsheet\Style\NumberFormat::toFormattedString()
-     * to format output by \PhpSpreadsheet\Writer\HTML and \PhpSpreadsheet\Writer\PDF
+     * Set the thousands separator. Only used by \PhpOffice\PhpSpreadsheet\Style\NumberFormat::toFormattedString()
+     * to format output by \PhpOffice\PhpSpreadsheet\Writer\HTML and \PhpOffice\PhpSpreadsheet\Writer\PDF
      *
      * @param string $pValue Character for thousands separator
      */
@@ -796,8 +794,8 @@ class StringHelper
     }
 
     /**
-     * Set the currency code. Only used by \PhpSpreadsheet\Style\NumberFormat::toFormattedString()
-     *        to format output by \PhpSpreadsheet\Writer\HTML and \PhpSpreadsheet\Writer\PDF
+     * Set the currency code. Only used by \PhpOffice\PhpSpreadsheet\Style\NumberFormat::toFormattedString()
+     *        to format output by \PhpOffice\PhpSpreadsheet\Writer\HTML and \PhpOffice\PhpSpreadsheet\Writer\PDF
      *
      * @param string $pValue Character for currency code
      */

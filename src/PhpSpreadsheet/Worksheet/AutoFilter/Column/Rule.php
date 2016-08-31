@@ -1,10 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet\Worksheet\AutoFilter\Column;
+namespace PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 
 /**
- * \PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -224,7 +222,7 @@ class Rule
     /**
      * Autofilter Column
      *
-     * @var \PhpSpreadsheet\Worksheet\AutoFilter\Column
+     * @var \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column
      */
     private $parent = null;
 
@@ -259,9 +257,9 @@ class Rule
     /**
      * Create a new Rule
      *
-     * @param \PhpSpreadsheet\Worksheet\AutoFilter\Column $pParent
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column $pParent
      */
-    public function __construct(\PhpSpreadsheet\Worksheet\AutoFilter\Column $pParent = null)
+    public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column $pParent = null)
     {
         $this->parent = $pParent;
     }
@@ -280,13 +278,13 @@ class Rule
      *    Set AutoFilter Rule Type
      *
      *    @param   string        $pRuleType
-     *    @throws  \PhpSpreadsheet\Exception
-     *    @return  \PhpSpreadsheet\Worksheet\AutoFilter\Column
+     *    @throws  \PhpOffice\PhpSpreadsheet\Exception
+     *    @return  Rule
      */
     public function setRuleType($pRuleType = self::AUTOFILTER_RULETYPE_FILTER)
     {
         if (!in_array($pRuleType, self::$ruleTypes)) {
-            throw new \PhpSpreadsheet\Exception('Invalid rule type for column AutoFilter Rule.');
+            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid rule type for column AutoFilter Rule.');
         }
 
         $this->ruleType = $pRuleType;
@@ -308,7 +306,7 @@ class Rule
      *    Set AutoFilter Rule Value
      *
      *    @param    string|string[]        $pValue
-     *    @throws   \PhpSpreadsheet\Exception
+     *    @throws   \PhpOffice\PhpSpreadsheet\Exception
      *    @return Rule
      */
     public function setValue($pValue = '')
@@ -326,7 +324,7 @@ class Rule
                 }
             }
             if (count($pValue) == 0) {
-                throw new \PhpSpreadsheet\Exception('Invalid rule value for column AutoFilter Rule.');
+                throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid rule value for column AutoFilter Rule.');
             }
             //    Set the dateTime grouping that we've anticipated
             $this->setGrouping(self::$dateTimeGroups[$grouping]);
@@ -350,7 +348,7 @@ class Rule
      *    Set AutoFilter Rule Operator
      *
      *    @param    string        $pOperator
-     *    @throws   \PhpSpreadsheet\Exception
+     *    @throws   \PhpOffice\PhpSpreadsheet\Exception
      *    @return   Rule
      */
     public function setOperator($pOperator = self::AUTOFILTER_COLUMN_RULE_EQUAL)
@@ -360,7 +358,7 @@ class Rule
         }
         if ((!in_array($pOperator, self::$operators)) &&
             (!in_array($pOperator, self::$topTenValue))) {
-            throw new \PhpSpreadsheet\Exception('Invalid operator for column AutoFilter Rule.');
+            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid operator for column AutoFilter Rule.');
         }
         $this->operator = $pOperator;
 
@@ -381,7 +379,7 @@ class Rule
      *    Set AutoFilter Rule Grouping
      *
      *    @param    string        $pGrouping
-     *    @throws   \PhpSpreadsheet\Exception
+     *    @throws   \PhpOffice\PhpSpreadsheet\Exception
      *    @return   Rule
      */
     public function setGrouping($pGrouping = null)
@@ -390,7 +388,7 @@ class Rule
             (!in_array($pGrouping, self::$dateTimeGroups)) &&
             (!in_array($pGrouping, self::$dynamicTypes)) &&
             (!in_array($pGrouping, self::$topTenType))) {
-            throw new \PhpSpreadsheet\Exception('Invalid rule type for column AutoFilter Rule.');
+            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid rule type for column AutoFilter Rule.');
         }
         $this->grouping = $pGrouping;
 
@@ -403,7 +401,7 @@ class Rule
      *    @param    string                $pOperator
      *    @param    string|string[]        $pValue
      *    @param    string                $pGrouping
-     *    @throws   \PhpSpreadsheet\Exception
+     *    @throws   \PhpOffice\PhpSpreadsheet\Exception
      *    @return   Rule
      */
     public function setRule($pOperator = self::AUTOFILTER_COLUMN_RULE_EQUAL, $pValue = '', $pGrouping = null)
@@ -423,7 +421,7 @@ class Rule
     /**
      * Get this Rule's AutoFilter Column Parent
      *
-     * @return \PhpSpreadsheet\Worksheet\AutoFilter\Column
+     * @return \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column
      */
     public function getParent()
     {
@@ -433,10 +431,10 @@ class Rule
     /**
      * Set this Rule's AutoFilter Column Parent
      *
-     * @param  \PhpSpreadsheet\Worksheet\AutoFilter\Column
+     * @param  \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column
      * @return Rule
      */
-    public function setParent(\PhpSpreadsheet\Worksheet\AutoFilter\Column $pParent = null)
+    public function setParent(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column $pParent = null)
     {
         $this->parent = $pParent;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared\OLE\PPS;
+namespace PhpOffice\PhpSpreadsheet\Shared\OLE\PPS;
 
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
 // +----------------------------------------------------------------------+
@@ -20,7 +20,6 @@ namespace PhpSpreadsheet\Shared\OLE\PPS;
 // | Based on OLE::Storage_Lite by Kawai, Takanori                        |
 // +----------------------------------------------------------------------+
 //
-// $Id: File.php,v 1.11 2007/02/13 21:00:42 schmidt Exp $
 
 /**
  * Class for creating File PPS's for OLE containers
@@ -28,7 +27,7 @@ namespace PhpSpreadsheet\Shared\OLE\PPS;
  * @author   Xavier Noguer <xnoguer@php.net>
  * @category PhpSpreadsheet
  */
-class File extends \PhpSpreadsheet\Shared\OLE\PPS
+class File extends \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS
 {
     /**
      * The constructor
@@ -38,7 +37,7 @@ class File extends \PhpSpreadsheet\Shared\OLE\PPS
      */
     public function __construct($name)
     {
-        parent::__construct(null, $name, \PhpSpreadsheet\Shared\OLE::OLE_PPS_TYPE_FILE, null, null, null, null, null, '', []);
+        parent::__construct(null, $name, \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_PPS_TYPE_FILE, null, null, null, null, null, '', []);
     }
 
     /**

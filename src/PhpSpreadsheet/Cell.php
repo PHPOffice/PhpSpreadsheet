@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet;
+namespace PhpOffice\PhpSpreadsheet;
 
 /**
  *    Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -262,14 +262,11 @@ class Cell
      */
     public function getCalculatedValue($resetLog = true)
     {
-        //echo 'Cell '.$this->getCoordinate().' value is a '.$this->dataType.' with a value of '.$this->getValue().PHP_EOL;
         if ($this->dataType == Cell\DataType::TYPE_FORMULA) {
             try {
-                //echo 'Cell value for '.$this->getCoordinate().' is a formula: Calculating value'.PHP_EOL;
                 $result = Calculation::getInstance(
                     $this->getWorksheet()->getParent()
                 )->calculateCellValue($this, $resetLog);
-//echo $this->getCoordinate().' calculation result is '.$result.PHP_EOL;
                 //    We don't yet handle array returns
                 if (is_array($result)) {
                     while (is_array($result)) {
@@ -278,10 +275,8 @@ class Cell
                 }
             } catch (Exception $ex) {
                 if (($ex->getMessage() === 'Unable to access External Workbook') && ($this->calculatedValue !== null)) {
-                    //echo 'Returning fallback value of '.$this->calculatedValue.' for cell '.$this->getCoordinate().PHP_EOL;
                     return $this->calculatedValue; // Fallback for calculations referencing external files.
                 }
-//echo 'Calculation Exception: '.$ex->getMessage().PHP_EOL;
                 $result = '#N/A';
                 throw new Calculation\Exception(
                     $this->getWorksheet()->getTitle() . '!' . $this->getCoordinate() . ' -> ' . $ex->getMessage()
@@ -289,16 +284,14 @@ class Cell
             }
 
             if ($result === '#Not Yet Implemented') {
-                //echo 'Returning fallback value of '.$this->calculatedValue.' for cell '.$this->getCoordinate().PHP_EOL;
                 return $this->calculatedValue; // Fallback if calculation engine does not support the formula.
             }
-//echo 'Returning calculated value of '.$result.' for cell '.$this->getCoordinate().PHP_EOL;
+
             return $result;
         } elseif ($this->value instanceof RichText) {
-            //        echo 'Cell value for '.$this->getCoordinate().' is rich text: Returning data value of '.$this->value.'<br />';
             return $this->value->getPlainText();
         }
-//        echo 'Cell value for '.$this->getCoordinate().' is not a formula: Returning data value of '.$this->value.'<br />';
+
         return $this->value;
     }
 
@@ -575,7 +568,7 @@ class Cell
      *
      *    @param    string    $pCoordinateString
      *    @throws    Exception
-     *    @return    array    Array containing column and row (indexes 0 and 1)
+     *    @return    string[]    Array containing column and row (indexes 0 and 1)
      */
     public static function coordinateFromString($pCoordinateString = 'A1')
     {
@@ -845,11 +838,11 @@ class Cell
                 $_indexCache[$pColumnIndex] = chr(65 + $pColumnIndex);
             } elseif ($pColumnIndex < 702) {
                 $_indexCache[$pColumnIndex] = chr(64 + ($pColumnIndex / 26)) .
-                                              chr(65 + $pColumnIndex % 26);
+                                                chr(65 + $pColumnIndex % 26);
             } else {
                 $_indexCache[$pColumnIndex] = chr(64 + (($pColumnIndex - 26) / 676)) .
-                                              chr(65 + ((($pColumnIndex - 26) % 676) / 26)) .
-                                              chr(65 + $pColumnIndex % 26);
+                                                chr(65 + ((($pColumnIndex - 26) % 676) / 26)) .
+                                                chr(65 + $pColumnIndex % 26);
             }
         }
 
@@ -962,7 +955,7 @@ class Cell
     public static function setValueBinder(Cell\IValueBinder $binder = null)
     {
         if ($binder === null) {
-            throw new Exception('A \\PhpSpreadsheet\\Cell\\IValueBinder is required for PhpSpreadsheet to function correctly.');
+            throw new Exception('A \\PhpOffice\\PhpSpreadsheet\\Cell\\IValueBinder is required for PhpSpreadsheet to function correctly.');
         }
 
         self::$valueBinder = $binder;

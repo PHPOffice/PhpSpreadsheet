@@ -1,10 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet\Worksheet;
+namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
- * \PhpSpreadsheet\Worksheet\ColumnDimension
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -31,7 +29,7 @@ class ColumnDimension extends Dimension
     /**
      * Column index
      *
-     * @var int
+     * @var string
      */
     private $columnIndex;
 

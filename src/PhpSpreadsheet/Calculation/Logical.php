@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Calculation;
+namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -76,7 +76,7 @@ class Logical
      *
      * @category Logical Functions
      * @param    mixed        $arg,...        Data values
-     * @return    bool        The logical AND of the arguments.
+     * @return    string|bool        The logical AND of the arguments.
      */
     public static function logicalAnd()
     {
@@ -94,9 +94,9 @@ class Logical
                 $returnValue = $returnValue && ($arg != 0);
             } elseif (is_string($arg)) {
                 $arg = strtoupper($arg);
-                if (($arg == 'TRUE') || ($arg == \PhpSpreadsheet\Calculation::getTRUE())) {
+                if (($arg == 'TRUE') || ($arg == \PhpOffice\PhpSpreadsheet\Calculation::getTRUE())) {
                     $arg = true;
-                } elseif (($arg == 'FALSE') || ($arg == \PhpSpreadsheet\Calculation::getFALSE())) {
+                } elseif (($arg == 'FALSE') || ($arg == \PhpOffice\PhpSpreadsheet\Calculation::getFALSE())) {
                     $arg = false;
                 } else {
                     return Functions::VALUE();
@@ -131,7 +131,7 @@ class Logical
      *
      * @category Logical Functions
      * @param    mixed        $arg,...        Data values
-     * @return    bool        The logical OR of the arguments.
+     * @return    string|bool        The logical OR of the arguments.
      */
     public static function logicalOr()
     {
@@ -149,9 +149,9 @@ class Logical
                 $returnValue = $returnValue || ($arg != 0);
             } elseif (is_string($arg)) {
                 $arg = strtoupper($arg);
-                if (($arg == 'TRUE') || ($arg == \PhpSpreadsheet\Calculation::getTRUE())) {
+                if (($arg == 'TRUE') || ($arg == \PhpOffice\PhpSpreadsheet\Calculation::getTRUE())) {
                     $arg = true;
-                } elseif (($arg == 'FALSE') || ($arg == \PhpSpreadsheet\Calculation::getFALSE())) {
+                } elseif (($arg == 'FALSE') || ($arg == \PhpOffice\PhpSpreadsheet\Calculation::getFALSE())) {
                     $arg = false;
                 } else {
                     return Functions::VALUE();
@@ -185,16 +185,16 @@ class Logical
      *
      * @category Logical Functions
      * @param    mixed        $logical    A value or expression that can be evaluated to TRUE or FALSE
-     * @return    bool        The boolean inverse of the argument.
+     * @return    bool|string        The boolean inverse of the argument.
      */
     public static function NOT($logical = false)
     {
         $logical = Functions::flattenSingleValue($logical);
         if (is_string($logical)) {
             $logical = strtoupper($logical);
-            if (($logical == 'TRUE') || ($logical == \PhpSpreadsheet\Calculation::getTRUE())) {
+            if (($logical == 'TRUE') || ($logical == \PhpOffice\PhpSpreadsheet\Calculation::getTRUE())) {
                 return false;
-            } elseif (($logical == 'FALSE') || ($logical == \PhpSpreadsheet\Calculation::getFALSE())) {
+            } elseif (($logical == 'FALSE') || ($logical == \PhpOffice\PhpSpreadsheet\Calculation::getFALSE())) {
                 return true;
             } else {
                 return Functions::VALUE();
@@ -237,8 +237,8 @@ class Logical
      */
     public static function statementIf($condition = true, $returnIfTrue = 0, $returnIfFalse = false)
     {
-        $condition = (is_null($condition))     ? true :  (boolean) Functions::flattenSingleValue($condition);
-        $returnIfTrue = (is_null($returnIfTrue))  ? 0 :     Functions::flattenSingleValue($returnIfTrue);
+        $condition = (is_null($condition)) ? true : (boolean) Functions::flattenSingleValue($condition);
+        $returnIfTrue = (is_null($returnIfTrue)) ? 0 : Functions::flattenSingleValue($returnIfTrue);
         $returnIfFalse = (is_null($returnIfFalse)) ? false : Functions::flattenSingleValue($returnIfFalse);
 
         return ($condition) ? $returnIfTrue : $returnIfFalse;

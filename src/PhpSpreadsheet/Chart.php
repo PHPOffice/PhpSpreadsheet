@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet;
+namespace PhpOffice\PhpSpreadsheet;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -659,7 +659,7 @@ class Chart
             set_include_path(get_include_path() . PATH_SEPARATOR . $libraryPath);
         }
 
-        $rendererName = '\\PhpSpreadsheet\\Chart\\Renderer\\' . $libraryName;
+        $rendererName = '\\PhpOffice\\PhpSpreadsheet\\Chart\\Renderer\\' . $libraryName;
         $renderer = new $rendererName($this);
 
         if ($outputDestination == 'php://output') {

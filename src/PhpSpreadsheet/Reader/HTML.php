@@ -1,6 +1,12 @@
 <?php
 
-namespace PhpSpreadsheet\Reader;
+namespace PhpOffice\PhpSpreadsheet\Reader;
+
+use DOMDocument;
+use DOMElement;
+use DOMNode;
+use DOMText;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -87,16 +93,16 @@ class HTML extends BaseReader implements IReader
             'font' => [
                 'underline' => true,
                 'color' => [
-                    'argb' => \PhpSpreadsheet\Style\Color::COLOR_BLUE,
+                    'argb' => \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLUE,
                 ],
             ],
         ], //    Blue underlined
         'hr' => [
             'borders' => [
                 'bottom' => [
-                    'style' => \PhpSpreadsheet\Style\Border::BORDER_THIN,
+                    'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
                     'color' => [
-                        \PhpSpreadsheet\Style\Color::COLOR_BLACK,
+                        \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK,
                     ],
                 ],
             ],
@@ -131,16 +137,16 @@ class HTML extends BaseReader implements IReader
     }
 
     /**
-     * Loads PhpSpreadsheet from file
+     * Loads Spreadsheet from file
      *
      * @param  string                    $pFilename
      * @throws Exception
-     * @return PhpSpreadsheet
+     * @return Spreadsheet
      */
     public function load($pFilename)
     {
-        // Create new PhpSpreadsheet
-        $spreadsheet = new PhpSpreadsheet();
+        // Create new Spreadsheet
+        $spreadsheet = new Spreadsheet();
 
         // Load into this instance
         return $this->loadIntoExisting($pFilename, $spreadsheet);
@@ -168,7 +174,7 @@ class HTML extends BaseReader implements IReader
         return $this->inputEncoding;
     }
 
-    //    Data Array used for testing only, should write to PhpSpreadsheet object on completion of tests
+    //    Data Array used for testing only, should write to Spreadsheet object on completion of tests
     protected $dataArray = [];
     protected $tableLevel = 0;
     protected $nestedColumn = ['A'];
@@ -202,7 +208,6 @@ class HTML extends BaseReader implements IReader
             //    Simple String content
             if (trim($cellContent) > '') {
                 //    Only actually write it if there's content in the string
-//                echo 'FLUSH CELL: ' , $column , $row , ' => ' , $cellContent , '<br />';
                 //    Write to worksheet to be done here...
                 //    ... we return the cell so we can mess about with styles more easily
                 $sheet->setCellValue($column . $row, $cellContent, true);
@@ -216,7 +221,14 @@ class HTML extends BaseReader implements IReader
         $cellContent = (string) '';
     }
 
-    protected function processDomElement(DOMNode $element, $sheet, &$row, &$column, &$cellContent, $format = null)
+    /**
+     * @param DOMNode $element
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $sheet
+     * @param int $row
+     * @param string $column
+     * @param string $cellContent
+     */
+    protected function processDomElement(DOMNode $element, \PhpOffice\PhpSpreadsheet\Worksheet $sheet, &$row, &$column, &$cellContent)
     {
         foreach ($element->childNodes as $child) {
             if ($child instanceof DOMText) {
@@ -229,11 +241,8 @@ class HTML extends BaseReader implements IReader
                     //    TODO
                 }
             } elseif ($child instanceof DOMElement) {
-                //                echo '<b>DOM ELEMENT: </b>' , strtoupper($child->nodeName) , '<br />';
-
                 $attributeArray = [];
                 foreach ($child->attributes as $attribute) {
-                    //                    echo '<b>ATTRIBUTE: </b>' , $attribute->name , ' => ' , $attribute->value , '<br />';
                     $attributeArray[$attribute->name] = $attribute->value;
                 }
 
@@ -261,7 +270,6 @@ class HTML extends BaseReader implements IReader
                     case 'em':
                     case 'strong':
                     case 'b':
-//                        echo 'STYLING, SPAN OR DIV<br />';
                         if ($cellContent > '') {
                             $cellContent .= ' ';
                         }
@@ -269,7 +277,6 @@ class HTML extends BaseReader implements IReader
                         if ($cellContent > '') {
                             $cellContent .= ' ';
                         }
-//                        echo 'END OF STYLING, SPAN OR DIV<br />';
                         break;
                     case 'hr':
                         $this->flushCell($sheet, $column, $row, $cellContent);
@@ -291,14 +298,11 @@ class HTML extends BaseReader implements IReader
                             $this->flushCell($sheet, $column, $row, $cellContent);
                             ++$row;
                         }
-//                        echo 'HARD LINE BREAK: ' , '<br />';
                         break;
                     case 'a':
-//                        echo 'START OF HYPERLINK: ' , '<br />';
                         foreach ($attributeArray as $attributeName => $attributeValue) {
                             switch ($attributeName) {
                                 case 'href':
-//                                    echo 'Link to ' , $attributeValue , '<br />';
                                     $sheet->getCell($column . $row)->getHyperlink()->setUrl($attributeValue);
                                     if (isset($this->formats[$child->nodeName])) {
                                         $sheet->getStyle($column . $row)->applyFromArray($this->formats[$child->nodeName]);
@@ -308,7 +312,6 @@ class HTML extends BaseReader implements IReader
                         }
                         $cellContent .= ' ';
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
-//                        echo 'END OF HYPERLINK:' , '<br />';
                         break;
                     case 'h1':
                     case 'h2':
@@ -322,17 +325,13 @@ class HTML extends BaseReader implements IReader
                         if ($this->tableLevel > 0) {
                             //    If we're inside a table, replace with a \n
                             $cellContent .= "\n";
-//                            echo 'LIST ENTRY: ' , '<br />';
                             $this->processDomElement($child, $sheet, $row, $column, $cellContent);
-//                            echo 'END OF LIST ENTRY:' , '<br />';
                         } else {
                             if ($cellContent > '') {
                                 $this->flushCell($sheet, $column, $row, $cellContent);
                                 ++$row;
                             }
-//                            echo 'START OF PARAGRAPH: ' , '<br />';
                             $this->processDomElement($child, $sheet, $row, $column, $cellContent);
-//                            echo 'END OF PARAGRAPH:' , '<br />';
                             $this->flushCell($sheet, $column, $row, $cellContent);
 
                             if (isset($this->formats[$child->nodeName])) {
@@ -347,17 +346,13 @@ class HTML extends BaseReader implements IReader
                         if ($this->tableLevel > 0) {
                             //    If we're inside a table, replace with a \n
                             $cellContent .= "\n";
-//                            echo 'LIST ENTRY: ' , '<br />';
                             $this->processDomElement($child, $sheet, $row, $column, $cellContent);
-//                            echo 'END OF LIST ENTRY:' , '<br />';
                         } else {
                             if ($cellContent > '') {
                                 $this->flushCell($sheet, $column, $row, $cellContent);
                             }
                             ++$row;
-//                            echo 'LIST ENTRY: ' , '<br />';
                             $this->processDomElement($child, $sheet, $row, $column, $cellContent);
-//                            echo 'END OF LIST ENTRY:' , '<br />';
                             $this->flushCell($sheet, $column, $row, $cellContent);
                             $column = 'A';
                         }
@@ -365,12 +360,10 @@ class HTML extends BaseReader implements IReader
                     case 'table':
                         $this->flushCell($sheet, $column, $row, $cellContent);
                         $column = $this->setTableStartColumn($column);
-//                        echo 'START OF TABLE LEVEL ' , $this->tableLevel , '<br />';
                         if ($this->tableLevel > 1) {
                             --$row;
                         }
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
-//                        echo 'END OF TABLE LEVEL ' , $this->tableLevel , '<br />';
                         $column = $this->releaseTableStartColumn();
                         if ($this->tableLevel > 1) {
                             ++$column;
@@ -385,30 +378,18 @@ class HTML extends BaseReader implements IReader
                     case 'tr':
                         $column = $this->getTableStartColumn();
                         $cellContent = '';
-//                        echo 'START OF TABLE ' , $this->tableLevel , ' ROW<br />';
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
                         ++$row;
-//                        echo 'END OF TABLE ' , $this->tableLevel , ' ROW<br />';
                         break;
                     case 'th':
                     case 'td':
-//                        echo 'START OF TABLE ' , $this->tableLevel , ' CELL<br />';
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
-//                        echo 'END OF TABLE ' , $this->tableLevel , ' CELL<br />';
 
                         while (isset($this->rowspan[$column . $row])) {
                             ++$column;
                         }
 
                         $this->flushCell($sheet, $column, $row, $cellContent);
-
-//                        if (isset($attributeArray['style']) && !empty($attributeArray['style'])) {
-//                            $styleAry = $this->getPhpSpreadsheetStyleArray($attributeArray['style']);
-//
-//                            if (!empty($styleAry)) {
-//                                $sheet->getStyle($column . $row)->applyFromArray($styleAry);
-//                            }
-//                        }
 
                         if (isset($attributeArray['rowspan']) && isset($attributeArray['colspan'])) {
                             //create merging rowspan and colspan
@@ -417,7 +398,7 @@ class HTML extends BaseReader implements IReader
                                 ++$columnTo;
                             }
                             $range = $column . $row . ':' . $columnTo . ($row + $attributeArray['rowspan'] - 1);
-                            foreach (\PhpSpreadsheet\Cell::extractAllCellReferencesInRange($range) as $value) {
+                            foreach (\PhpOffice\PhpSpreadsheet\Cell::extractAllCellReferencesInRange($range) as $value) {
                                 $this->rowspan[$value] = true;
                             }
                             $sheet->mergeCells($range);
@@ -425,7 +406,7 @@ class HTML extends BaseReader implements IReader
                         } elseif (isset($attributeArray['rowspan'])) {
                             //create merging rowspan
                             $range = $column . $row . ':' . $column . ($row + $attributeArray['rowspan'] - 1);
-                            foreach (\PhpSpreadsheet\Cell::extractAllCellReferencesInRange($range) as $value) {
+                            foreach (\PhpOffice\PhpSpreadsheet\Cell::extractAllCellReferencesInRange($range) as $value) {
                                 $this->rowspan[$value] = true;
                             }
                             $sheet->mergeCells($range);
@@ -458,11 +439,11 @@ class HTML extends BaseReader implements IReader
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance
      *
      * @param  string                    $pFilename
-     * @param  \PhpSpreadsheet\Spreadsheet                  $spreadsheet
+     * @param  Spreadsheet                  $spreadsheet
      * @throws Exception
-     * @return \PhpSpreadsheet\Spreadsheet
+     * @return Spreadsheet
      */
-    public function loadIntoExisting($pFilename, \PhpSpreadsheet\Spreadsheet $spreadsheet)
+    public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
     {
         // Open file to validate
         $this->openFile($pFilename);
@@ -473,14 +454,14 @@ class HTML extends BaseReader implements IReader
         //    Close after validating
         fclose($this->fileHandle);
 
-        // Create new PhpSpreadsheet
+        // Create new sheet
         while ($spreadsheet->getSheetCount() <= $this->sheetIndex) {
             $spreadsheet->createSheet();
         }
         $spreadsheet->setActiveSheetIndex($this->sheetIndex);
 
         //    Create a new DOM object
-        $dom = new domDocument();
+        $dom = new DOMDocument();
         //    Reload the HTML file into the DOM object
         $loaded = $dom->loadHTML(mb_convert_encoding($this->securityScanFile($pFilename), 'HTML-ENTITIES', 'UTF-8'));
         if ($loaded === false) {

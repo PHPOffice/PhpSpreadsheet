@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\RichText;
+namespace PhpOffice\PhpSpreadsheet\RichText;
 
 /**
  * This library is free software; you can redistribute it and/or
@@ -42,7 +42,7 @@ interface ITextElement
     /**
      * Get font
      *
-     * @return \PhpSpreadsheet\Style\Font
+     * @return \PhpOffice\PhpSpreadsheet\Style\Font
      */
     public function getFont();
 

@@ -1,10 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet\Writer\Excel5;
+namespace PhpOffice\PhpSpreadsheet\Writer\Excel5;
 
 /**
- * \PhpSpreadsheet\Writer\Excel5\Escher
- *
  * Copyright (c) 2006 - 2015 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -64,6 +62,7 @@ class Escher
 
     /**
      * Process the object to be written
+     * @return string
      */
     public function close()
     {
@@ -71,7 +70,7 @@ class Escher
         $this->data = '';
 
         switch (get_class($this->object)) {
-            case '\\PhpSpreadsheet\\Shared\\Escher':
+            case '\\PhpOffice\\PhpSpreadsheet\\Shared\\Escher':
                 if ($dggContainer = $this->object->getDggContainer()) {
                     $writer = new self($dggContainer);
                     $this->data = $writer->close();
@@ -82,7 +81,7 @@ class Escher
                     $this->spTypes = $writer->getSpTypes();
                 }
                 break;
-            case '\\PhpSpreadsheet\\Shared\\Escher\\DggContainer':
+            case '\\PhpOffice\\PhpSpreadsheet\\Shared\\Escher\\DggContainer':
                 // this is a container record
 
                 // initialize
@@ -135,7 +134,7 @@ class Escher
 
                 $this->data = $header . $innerData;
                 break;
-            case '\\PhpSpreadsheet\\Shared\\Escher\\DggContainer\\BstoreContainer':
+            case '\\PhpOffice\\PhpSpreadsheet\\Shared\\Escher\\DggContainer\\BstoreContainer':
                 // this is a container record
 
                 // initialize
@@ -162,7 +161,7 @@ class Escher
 
                 $this->data = $header . $innerData;
                 break;
-            case '\\PhpSpreadsheet\\Shared\\Escher\\DggContainer\\BstoreContainer\\BSE':
+            case '\\PhpOffice\\PhpSpreadsheet\\Shared\\Escher\\DggContainer\\BstoreContainer\\BSE':
                 // this is a semi-container record
 
                 // initialize
@@ -211,12 +210,12 @@ class Escher
 
                 $this->data .= $data;
                 break;
-            case '\\PhpSpreadsheet\\Shared\\Escher\\DggContainer\\BstoreContainer\\BSE\\Blip':
+            case '\\PhpOffice\\PhpSpreadsheet\\Shared\\Escher\\DggContainer\\BstoreContainer\\BSE\\Blip':
                 // this is an atom record
 
                 // write the record
                 switch ($this->object->getParent()->getBlipType()) {
-                    case \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_JPEG:
+                    case \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_JPEG:
                         // initialize
                         $innerData = '';
 
@@ -243,7 +242,7 @@ class Escher
                         $this->data .= $innerData;
                         break;
 
-                    case \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_PNG:
+                    case \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_PNG:
                         // initialize
                         $innerData = '';
 
@@ -271,7 +270,7 @@ class Escher
                         break;
                 }
                 break;
-            case '\\PhpSpreadsheet\\Shared\\Escher\\DgContainer':
+            case '\\PhpOffice\\PhpSpreadsheet\\Shared\\Escher\\DgContainer':
                 // this is a container record
 
                 // initialize
@@ -291,7 +290,6 @@ class Escher
                 // number of shapes in this drawing (including group shape)
                 $countShapes = count($this->object->getSpgrContainer()->getChildren());
                 $innerData .= $header . pack('VV', $countShapes, $this->object->getLastSpId());
-                //$innerData .= $header . pack('VV', 0, 0);
 
                 // write the spgrContainer
                 if ($spgrContainer = $this->object->getSpgrContainer()) {
@@ -324,7 +322,7 @@ class Escher
 
                 $this->data = $header . $innerData;
                 break;
-            case '\\PhpSpreadsheet\\Shared\\Escher\\DgContainer\\SpgrContainer':
+            case '\\PhpOffice\\PhpSpreadsheet\\Shared\\Escher\\DgContainer\\SpgrContainer':
                 // this is a container record
 
                 // initialize
@@ -363,7 +361,7 @@ class Escher
                 $this->spOffsets = $spOffsets;
                 $this->spTypes = $spTypes;
                 break;
-            case '\\PhpSpreadsheet\\Shared\\Escher\\DgContainer\\SpgrContainer\\SpContainer':
+            case '\\PhpOffice\\PhpSpreadsheet\\Shared\\Escher\\DgContainer\\SpgrContainer\\SpContainer':
                 // initialize
                 $data = '';
 
@@ -426,8 +424,8 @@ class Escher
                     $recType = 0xF010;
 
                     // start coordinates
-                    list($column, $row) = \PhpSpreadsheet\Cell::coordinateFromString($this->object->getStartCoordinates());
-                    $c1 = \PhpSpreadsheet\Cell::columnIndexFromString($column) - 1;
+                    list($column, $row) = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($this->object->getStartCoordinates());
+                    $c1 = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($column) - 1;
                     $r1 = $row - 1;
 
                     // start offsetX
@@ -437,8 +435,8 @@ class Escher
                     $startOffsetY = $this->object->getStartOffsetY();
 
                     // end coordinates
-                    list($column, $row) = \PhpSpreadsheet\Cell::coordinateFromString($this->object->getEndCoordinates());
-                    $c2 = \PhpSpreadsheet\Cell::columnIndexFromString($column) - 1;
+                    list($column, $row) = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($this->object->getEndCoordinates());
+                    $c2 = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($column) - 1;
                     $r2 = $row - 1;
 
                     // end offsetX

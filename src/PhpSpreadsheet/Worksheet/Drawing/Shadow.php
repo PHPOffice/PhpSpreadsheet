@@ -1,10 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet\Worksheet\Drawing;
+namespace PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
 /**
- * \PhpSpreadsheet\Worksheet_Drawing_Shadow
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -26,7 +24,7 @@ namespace PhpSpreadsheet\Worksheet\Drawing;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class Shadow implements \PhpSpreadsheet\IComparable
+class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
 {
     /* Shadow alignment */
     const SHADOW_BOTTOM = 'b';
@@ -80,7 +78,7 @@ class Shadow implements \PhpSpreadsheet\IComparable
     /**
      * Color
      *
-     * @var \PhpSpreadsheet\Style\Color
+     * @var \PhpOffice\PhpSpreadsheet\Style\Color
      */
     private $color;
 
@@ -102,7 +100,7 @@ class Shadow implements \PhpSpreadsheet\IComparable
         $this->distance = 2;
         $this->direction = 0;
         $this->alignment = self::SHADOW_BOTTOM_RIGHT;
-        $this->color = new \PhpSpreadsheet\Style\Color(\PhpSpreadsheet\Style\Color::COLOR_BLACK);
+        $this->color = new \PhpOffice\PhpSpreadsheet\Style\Color(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK);
         $this->alpha = 50;
     }
 
@@ -224,7 +222,7 @@ class Shadow implements \PhpSpreadsheet\IComparable
     /**
      * Get Color
      *
-     * @return \PhpSpreadsheet\Style\Color
+     * @return \PhpOffice\PhpSpreadsheet\Style\Color
      */
     public function getColor()
     {
@@ -234,11 +232,11 @@ class Shadow implements \PhpSpreadsheet\IComparable
     /**
      * Set Color
      *
-     * @param    \PhpSpreadsheet\Style_Color $pValue
-     * @throws   \PhpSpreadsheet\Exception
+     * @param    \PhpOffice\PhpSpreadsheet\Style\Color $pValue
+     * @throws   \PhpOffice\PhpSpreadsheet\Exception
      * @return   Shadow
      */
-    public function setColor(\PhpSpreadsheet\Style\Color $pValue = null)
+    public function setColor(\PhpOffice\PhpSpreadsheet\Style\Color $pValue = null)
     {
         $this->color = $pValue;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\CachedObjectStorage;
+namespace PhpOffice\PhpSpreadsheet\CachedObjectStorage;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -29,14 +29,14 @@ abstract class CacheBase
     /**
      * Parent worksheet
      *
-     * @var \PhpSpreadsheet\Worksheet
+     * @var \PhpOffice\PhpSpreadsheet\Worksheet
      */
     protected $parent;
 
     /**
      * The currently active Cell
      *
-     * @var \PhpSpreadsheet\Cell
+     * @var \PhpOffice\PhpSpreadsheet\Cell
      */
     protected $currentObject = null;
 
@@ -65,12 +65,12 @@ abstract class CacheBase
     /**
      * Initialise this new cell collection
      *
-     * @param    \PhpSpreadsheet\Worksheet    $parent        The worksheet for this cell collection
+     * @param    \PhpOffice\PhpSpreadsheet\Worksheet    $parent        The worksheet for this cell collection
      */
-    public function __construct(\PhpSpreadsheet\Worksheet $parent)
+    public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $parent)
     {
         //    Set our parent worksheet.
-        //    This is maintained within the cache controller to facilitate re-attaching it to \PhpSpreadsheet\Cell objects when
+        //    This is maintained within the cache controller to facilitate re-attaching it to \PhpOffice\PhpSpreadsheet\Cell objects when
         //        they are woken from a serialized state
         $this->parent = $parent;
     }
@@ -78,7 +78,7 @@ abstract class CacheBase
     /**
      * Return the parent worksheet for this cell collection
      *
-     * @return    \PhpSpreadsheet\Worksheet
+     * @return    \PhpOffice\PhpSpreadsheet\Worksheet
      */
     public function getParent()
     {
@@ -86,7 +86,7 @@ abstract class CacheBase
     }
 
     /**
-     * Is a value set in the current \PhpSpreadsheet\CachedObjectStorage\ICache for an indexed cell?
+     * Is a value set in the current \PhpOffice\PhpSpreadsheet\CachedObjectStorage\ICache for an indexed cell?
      *
      * @param    string        $pCoord        Coordinate address of the cell to check
      * @return    bool
@@ -124,11 +124,11 @@ abstract class CacheBase
     /**
      * Add or Update a cell in cache
      *
-     * @param    \PhpSpreadsheet\Cell    $cell        Cell to update
-     * @throws   \PhpSpreadsheet\Exception
-     * @return   \PhpSpreadsheet\Cell
+     * @param    \PhpOffice\PhpSpreadsheet\Cell    $cell        Cell to update
+     * @throws   \PhpOffice\PhpSpreadsheet\Exception
+     * @return   \PhpOffice\PhpSpreadsheet\Cell
      */
-    public function updateCacheData(\PhpSpreadsheet\Cell $cell)
+    public function updateCacheData(\PhpOffice\PhpSpreadsheet\Cell $cell)
     {
         return $this->addCacheData($cell->getCoordinate(), $cell);
     }
@@ -137,7 +137,7 @@ abstract class CacheBase
      * Delete a cell in cache identified by coordinate address
      *
      * @param    string            $pCoord        Coordinate address of the cell to delete
-     * @throws   \PhpSpreadsheet\Exception
+     * @throws   \PhpOffice\PhpSpreadsheet\Exception
      */
     public function deleteCacheData($pCoord)
     {
@@ -262,10 +262,10 @@ abstract class CacheBase
             if ($r != $row) {
                 continue;
             }
-            $columnList[] = \PhpSpreadsheet\Cell::columnIndexFromString($c);
+            $columnList[] = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($c);
         }
 
-        return \PhpSpreadsheet\Cell::stringFromColumnIndex(max($columnList) - 1);
+        return \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex(max($columnList) - 1);
     }
 
     /**
@@ -314,9 +314,9 @@ abstract class CacheBase
     /**
      * Clone the cell collection
      *
-     * @param  \PhpSpreadsheet\Worksheet    $parent        The new worksheet that we're copying to
+     * @param  \PhpOffice\PhpSpreadsheet\Worksheet    $parent        The new worksheet that we're copying to
      */
-    public function copyCellCollection(\PhpSpreadsheet\Worksheet $parent)
+    public function copyCellCollection(\PhpOffice\PhpSpreadsheet\Worksheet $parent)
     {
         $this->currentCellIsDirty;
         $this->storeData();

@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Reader\Excel5;
+namespace PhpOffice\PhpSpreadsheet\Reader\Excel5;
 
 class ErrorCode
 {

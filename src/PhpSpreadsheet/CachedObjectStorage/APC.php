@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\CachedObjectStorage;
+namespace PhpOffice\PhpSpreadsheet\CachedObjectStorage;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -44,7 +44,7 @@ class APC extends CacheBase implements ICache
      * Store cell data in cache for the current cell object if it's "dirty",
      *     and the 'nullify' the current cell object
      *
-     * @throws  \PhpSpreadsheet\Exception
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
      */
     protected function storeData()
     {
@@ -57,7 +57,7 @@ class APC extends CacheBase implements ICache
                 $this->cacheTime
             )) {
                 $this->__destruct();
-                throw new \PhpSpreadsheet\Exception('Failed to store cell ' . $this->currentObjectID . ' in APC');
+                throw new \PhpOffice\PhpSpreadsheet\Exception('Failed to store cell ' . $this->currentObjectID . ' in APC');
             }
             $this->currentCellIsDirty = false;
         }
@@ -68,11 +68,11 @@ class APC extends CacheBase implements ICache
      * Add or Update a cell in cache identified by coordinate address
      *
      * @param   string         $pCoord  Coordinate address of the cell to update
-     * @param   \PhpSpreadsheet\Cell  $cell    Cell to update
-     * @throws  \PhpSpreadsheet\Exception
-     * @return  \PhpSpreadsheet\Cell
+     * @param   \PhpOffice\PhpSpreadsheet\Cell  $cell    Cell to update
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @return  \PhpOffice\PhpSpreadsheet\Cell
      */
-    public function addCacheData($pCoord, \PhpSpreadsheet\Cell $cell)
+    public function addCacheData($pCoord, \PhpOffice\PhpSpreadsheet\Cell $cell)
     {
         if (($pCoord !== $this->currentObjectID) && ($this->currentObjectID !== null)) {
             $this->storeData();
@@ -87,10 +87,10 @@ class APC extends CacheBase implements ICache
     }
 
     /**
-     * Is a value set in the current \PhpSpreadsheet\CachedObjectStorage\ICache for an indexed cell?
+     * Is a value set in the current \PhpOffice\PhpSpreadsheet\CachedObjectStorage\ICache for an indexed cell?
      *
      * @param   string  $pCoord  Coordinate address of the cell to check
-     * @throws  \PhpSpreadsheet\Exception
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
      * @return  bool
      */
     public function isDataSet($pCoord)
@@ -105,7 +105,7 @@ class APC extends CacheBase implements ICache
             if ($success === false) {
                 //    Entry no longer exists in APC, so clear it from the cache array
                 parent::deleteCacheData($pCoord);
-                throw new \PhpSpreadsheet\Exception('Cell entry ' . $pCoord . ' no longer exists in APC cache');
+                throw new \PhpOffice\PhpSpreadsheet\Exception('Cell entry ' . $pCoord . ' no longer exists in APC cache');
             }
 
             return true;
@@ -118,8 +118,8 @@ class APC extends CacheBase implements ICache
      * Get cell at a specific coordinate
      *
      * @param   string         $pCoord  Coordinate of the cell
-     * @throws  \PhpSpreadsheet\Exception
-     * @return  \PhpSpreadsheet\Cell  Cell that was found, or null if not found
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @return  \PhpOffice\PhpSpreadsheet\Cell  Cell that was found, or null if not found
      */
     public function getCacheData($pCoord)
     {
@@ -134,7 +134,7 @@ class APC extends CacheBase implements ICache
             if ($obj === false) {
                 //    Entry no longer exists in APC, so clear it from the cache array
                 parent::deleteCacheData($pCoord);
-                throw new \PhpSpreadsheet\Exception('Cell entry ' . $pCoord . ' no longer exists in APC cache');
+                throw new \PhpOffice\PhpSpreadsheet\Exception('Cell entry ' . $pCoord . ' no longer exists in APC cache');
             }
         } else {
             //    Return null if requested entry doesn't exist in cache
@@ -169,7 +169,7 @@ class APC extends CacheBase implements ICache
      * Delete a cell in cache identified by coordinate address
      *
      * @param   string  $pCoord  Coordinate address of the cell to delete
-     * @throws  \PhpSpreadsheet\Exception
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
      */
     public function deleteCacheData($pCoord)
     {
@@ -183,10 +183,10 @@ class APC extends CacheBase implements ICache
     /**
      * Clone the cell collection
      *
-     * @param   \PhpSpreadsheet\Worksheet  $parent  The new worksheet that we're copying to
-     * @throws  \PhpSpreadsheet\Exception
+     * @param   \PhpOffice\PhpSpreadsheet\Worksheet  $parent  The new worksheet that we're copying to
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
      */
-    public function copyCellCollection(\PhpSpreadsheet\Worksheet $parent)
+    public function copyCellCollection(\PhpOffice\PhpSpreadsheet\Worksheet $parent)
     {
         parent::copyCellCollection($parent);
         //    Get a new id for the new file name
@@ -199,11 +199,11 @@ class APC extends CacheBase implements ICache
                 if ($obj === false) {
                     //    Entry no longer exists in APC, so clear it from the cache array
                     parent::deleteCacheData($cellID);
-                    throw new \PhpSpreadsheet\Exception('Cell entry ' . $cellID . ' no longer exists in APC');
+                    throw new \PhpOffice\PhpSpreadsheet\Exception('Cell entry ' . $cellID . ' no longer exists in APC');
                 }
                 if (!apc_store($newCachePrefix . $cellID . '.cache', $obj, $this->cacheTime)) {
                     $this->__destruct();
-                    throw new \PhpSpreadsheet\Exception('Failed to store cell ' . $cellID . ' in APC');
+                    throw new \PhpOffice\PhpSpreadsheet\Exception('Failed to store cell ' . $cellID . ' in APC');
                 }
             }
         }
@@ -232,10 +232,10 @@ class APC extends CacheBase implements ICache
     /**
      * Initialise this new cell collection
      *
-     * @param  \PhpSpreadsheet\Worksheet  $parent     The worksheet for this cell collection
+     * @param  \PhpOffice\PhpSpreadsheet\Worksheet  $parent     The worksheet for this cell collection
      * @param  array of mixed      $arguments  Additional initialisation arguments
      */
-    public function __construct(\PhpSpreadsheet\Worksheet $parent, $arguments)
+    public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $parent, $arguments)
     {
         $cacheTime = (isset($arguments['cacheTime'])) ? $arguments['cacheTime'] : 600;
 

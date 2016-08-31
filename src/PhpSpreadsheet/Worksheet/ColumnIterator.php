@@ -1,13 +1,11 @@
 <?php
 
-namespace PhpSpreadsheet\Worksheet;
+namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
-use PhpSpreadsheet\Cell;
-use PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Exception;
 
 /**
- * \PhpSpreadsheet\Worksheet\ColumnIterator
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -32,9 +30,9 @@ use PhpSpreadsheet\Exception;
 class ColumnIterator implements \Iterator
 {
     /**
-     * \PhpSpreadsheet\Worksheet to iterate
+     * \PhpOffice\PhpSpreadsheet\Worksheet to iterate
      *
-     * @var \PhpSpreadsheet\Worksheet
+     * @var \PhpOffice\PhpSpreadsheet\Worksheet
      */
     private $subject;
 
@@ -62,11 +60,11 @@ class ColumnIterator implements \Iterator
     /**
      * Create a new column iterator
      *
-     * @param    \PhpSpreadsheet\Worksheet   $subject       The worksheet to iterate over
+     * @param    \PhpOffice\PhpSpreadsheet\Worksheet   $subject       The worksheet to iterate over
      * @param    string                $startColumn   The column address at which to start iterating
      * @param    string                $endColumn     Optionally, the column address at which to stop iterating
      */
-    public function __construct(\PhpSpreadsheet\Worksheet $subject, $startColumn = 'A', $endColumn = null)
+    public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $subject, $startColumn = 'A', $endColumn = null)
     {
         // Set subject
         $this->subject = $subject;
@@ -91,7 +89,7 @@ class ColumnIterator implements \Iterator
      */
     public function resetStart($startColumn = 'A')
     {
-        $startColumnIndex = \PhpSpreadsheet\Cell::columnIndexFromString($startColumn) - 1;
+        $startColumnIndex = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($startColumn) - 1;
         if ($startColumnIndex > Cell::columnIndexFromString($this->subject->getHighestColumn()) - 1) {
             throw new Exception("Start column ({$startColumn}) is beyond highest column ({$this->subject->getHighestColumn()})");
         }
@@ -114,7 +112,7 @@ class ColumnIterator implements \Iterator
     public function resetEnd($endColumn = null)
     {
         $endColumn = ($endColumn) ? $endColumn : $this->subject->getHighestColumn();
-        $this->endColumn = \PhpSpreadsheet\Cell::columnIndexFromString($endColumn) - 1;
+        $this->endColumn = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($endColumn) - 1;
 
         return $this;
     }
@@ -123,14 +121,14 @@ class ColumnIterator implements \Iterator
      * Set the column pointer to the selected column
      *
      * @param   string    $column    The column address to set the current pointer at
-     * @throws  \PhpSpreadsheet\Exception
+     * @throws  \PhpOffice\PhpSpreadsheet\Exception
      * @return  ColumnIterator
      */
     public function seek($column = 'A')
     {
-        $column = \PhpSpreadsheet\Cell::columnIndexFromString($column) - 1;
+        $column = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($column) - 1;
         if (($column < $this->startColumn) || ($column > $this->endColumn)) {
-            throw new \PhpSpreadsheet\Exception("Column $column is out of range ({$this->startColumn} - {$this->endColumn})");
+            throw new \PhpOffice\PhpSpreadsheet\Exception("Column $column is out of range ({$this->startColumn} - {$this->endColumn})");
         }
         $this->position = $column;
 
@@ -152,7 +150,7 @@ class ColumnIterator implements \Iterator
      */
     public function current()
     {
-        return new Column($this->subject, \PhpSpreadsheet\Cell::stringFromColumnIndex($this->position));
+        return new Column($this->subject, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($this->position));
     }
 
     /**
@@ -162,7 +160,7 @@ class ColumnIterator implements \Iterator
      */
     public function key()
     {
-        return \PhpSpreadsheet\Cell::stringFromColumnIndex($this->position);
+        return \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($this->position);
     }
 
     /**
@@ -176,15 +174,15 @@ class ColumnIterator implements \Iterator
     /**
      * Set the iterator to its previous value
      *
-     * @throws \PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     public function prev()
     {
         if ($this->position <= $this->startColumn) {
-            throw new \PhpSpreadsheet\Exception(
+            throw new \PhpOffice\PhpSpreadsheet\Exception(
                 'Column is already at the beginning of range (' .
-                \PhpSpreadsheet\Cell::stringFromColumnIndex($this->endColumn) . ' - ' .
-                \PhpSpreadsheet\Cell::stringFromColumnIndex($this->endColumn) . ')'
+                \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($this->endColumn) . ' - ' .
+                \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($this->endColumn) . ')'
             );
         }
 

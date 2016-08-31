@@ -1,10 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet\Chart;
+namespace PhpOffice\PhpSpreadsheet\Chart;
 
 /**
- * \PhpSpreadsheet\Chart\Layout
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -174,6 +172,7 @@ class Layout
      * Set Layout Target
      *
      * @param Layout Target $value
+     * @param string $value
      * @return Layout
      */
     public function setLayoutTarget($value)

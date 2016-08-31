@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared;
+namespace PhpOffice\PhpSpreadsheet\Shared;
 
 /*
  * PhpSpreadsheet
@@ -71,13 +71,13 @@ class OLERead
      * Read the file
      *
      * @param $sFileName string Filename
-     * @throws \PhpSpreadsheet\Reader\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
     public function read($sFileName)
     {
         // Check if file exists and is readable
         if (!is_readable($sFileName)) {
-            throw new \PhpSpreadsheet\Reader\Exception('Could not open ' . $sFileName . ' for reading! File does not exist, or it is not readable.');
+            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('Could not open ' . $sFileName . ' for reading! File does not exist, or it is not readable.');
         }
 
         // Get the file identifier
@@ -86,7 +86,7 @@ class OLERead
 
         // Check OLE identifier
         if ($this->data != self::IDENTIFIER_OLE) {
-            throw new \PhpSpreadsheet\Reader\Exception('The filename ' . $sFileName . ' is not recognised as an OLE file');
+            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('The filename ' . $sFileName . ' is not recognised as an OLE file');
         }
 
         // Get the file data
@@ -168,6 +168,7 @@ class OLERead
     /**
      * Extract binary stream data
      *
+     * @param int $stream
      * @return string
      */
     public function getStream($stream)
@@ -280,13 +281,11 @@ class OLERead
 
             // Summary information
             if ($name == chr(5) . 'SummaryInformation') {
-                //                echo 'Summary Information<br />';
                 $this->summaryInformation = count($this->props) - 1;
             }
 
             // Additional Document Summary information
             if ($name == chr(5) . 'DocumentSummaryInformation') {
-                //                echo 'Document Summary Information<br />';
                 $this->documentSummaryInformation = count($this->props) - 1;
             }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer;
+namespace PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -40,7 +40,7 @@ class BSE
     /**
      * The parent BLIP Store Entry Container
      *
-     * @var \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer
+     * @var \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer
      */
     private $parent;
 
@@ -61,7 +61,7 @@ class BSE
     /**
      * Set parent BLIP Store Entry Container
      *
-     * @param \PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer $parent
+     * @param \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer $parent
      */
     public function setParent($parent)
     {

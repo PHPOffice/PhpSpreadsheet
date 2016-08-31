@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Writer\Excel2007;
+namespace PhpOffice\PhpSpreadsheet\Writer\Excel2007;
 
 /**
  * PhpSpreadsheet
@@ -127,18 +127,18 @@ class Theme extends WriterPart
     /**
      * Write theme to XML format
      *
-     * @param \PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      * @return string  XML Output
      */
-    public function writeTheme(\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function writeTheme(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new \PhpSpreadsheet\Shared\XMLWriter(\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
+            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -809,10 +809,10 @@ class Theme extends WriterPart
     /**
      * Write fonts to XML format
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter    $objWriter
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter    $objWriter
      * @param     string                        $latinFont
      * @param     array of string                $fontSet
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      * @return string                  XML Output
      */
     private function writeFonts($objWriter, $latinFont, $fontSet)
@@ -843,8 +843,8 @@ class Theme extends WriterPart
     /**
      * Write colour scheme to XML format
      *
-     * @param     \PhpSpreadsheet\Shared\XMLWriter    $objWriter
-     * @throws     \PhpSpreadsheet\Writer\Exception
+     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter    $objWriter
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      * @return string                  XML Output
      */
     private function writeColourScheme($objWriter)

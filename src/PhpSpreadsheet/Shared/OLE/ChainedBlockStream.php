@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared\OLE;
+namespace PhpOffice\PhpSpreadsheet\Shared\OLE;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet

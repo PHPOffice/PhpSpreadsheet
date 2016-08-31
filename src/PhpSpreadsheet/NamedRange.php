@@ -1,10 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet;
+namespace PhpOffice\PhpSpreadsheet;
 
 /**
- * PhpSpreadsheet\NamedRange
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -233,7 +231,7 @@ class NamedRange
      * @param Worksheet|null $pSheet Scope. Use null for global scope
      * @return NamedRange
      */
-    public static function resolveRange($pNamedRange, Worksheet $pSheet)
+    public static function resolveRange($pNamedRange, Worksheet $pSheet = null)
     {
         return $pSheet->getParent()->getNamedRange($pNamedRange, $pSheet);
     }

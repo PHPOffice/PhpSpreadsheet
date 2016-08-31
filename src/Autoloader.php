@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet;
+namespace PhpOffice\PhpSpreadsheet;
 
 /**
  * Autoloader for PhpSpreadsheet classes
@@ -38,7 +38,7 @@ class Autoloader
             spl_autoload_register('__autoload');
         }
         // Register ourselves with SPL
-        return spl_autoload_register([\PhpSpreadsheet\Autoloader::class, 'load'], true, true);
+        return spl_autoload_register([\PhpOffice\PhpSpreadsheet\Autoloader::class, 'load'], true, true);
     }
 
     /**
@@ -48,14 +48,15 @@ class Autoloader
      */
     public static function load($className)
     {
-        if ((class_exists($className, false)) || (strpos($className, 'PhpSpreadsheet\\') !== 0)) {
+        $prefix = 'PhpOffice\\PhpSpreadsheet\\';
+        if ((class_exists($className, false)) || (strpos($className, $prefix) !== 0)) {
             // Either already loaded, or not a PhpSpreadsheet class request
             return false;
         }
 
         $classFilePath = __DIR__ . DIRECTORY_SEPARATOR .
             'PhpSpreadsheet' . DIRECTORY_SEPARATOR .
-            str_replace(['PhpSpreadsheet\\', '\\'], ['', '/'], $className) .
+            str_replace([$prefix, '\\'], ['', '/'], $className) .
             '.php';
 
         if ((file_exists($classFilePath) === false) || (is_readable($classFilePath) === false)) {

@@ -1,10 +1,8 @@
 <?php
 
-namespace PhpSpreadsheet\Shared;
+namespace PhpOffice\PhpSpreadsheet\Shared;
 
 /**
- * \PhpSpreadsheet\Shared\TimeZone
- *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
  * This library is free software; you can redistribute it and/or
@@ -108,14 +106,14 @@ class TimeZone
      *
      *    @param    string             $timezone         The timezone for finding the adjustment to UST
      *    @param    int            $timestamp        PHP date/time value
-     *    @throws   \PhpSpreadsheet\Exception
+     *    @throws   \PhpOffice\PhpSpreadsheet\Exception
      *    @return   int            Number of seconds for timezone adjustment
      */
     public static function getTimeZoneAdjustment($timezone, $timestamp)
     {
         if ($timezone !== null) {
             if (!self::validateTimezone($timezone)) {
-                throw new \PhpSpreadsheet\Exception('Invalid timezone ' . $timezone);
+                throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid timezone ' . $timezone);
             }
         } else {
             $timezone = self::$timezone;

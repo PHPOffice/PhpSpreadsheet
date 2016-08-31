@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Calculation;
+namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 /* MAX_VALUE */
 define('MAX_VALUE', 1.2e308);
@@ -284,7 +284,7 @@ class Functions
         }
         if (!in_array($condition{0}, ['>', '<', '='])) {
             if (!is_numeric($condition)) {
-                $condition = \PhpSpreadsheet\Calculation::wrapResult(strtoupper($condition));
+                $condition = \PhpOffice\PhpSpreadsheet\Calculation::wrapResult(strtoupper($condition));
             }
 
             return '=' . $condition;
@@ -294,7 +294,7 @@ class Functions
 
             if (!is_numeric($operand)) {
                 $operand = str_replace('"', '""', $operand);
-                $operand = \PhpSpreadsheet\Calculation::wrapResult(strtoupper($operand));
+                $operand = \PhpOffice\PhpSpreadsheet\Calculation::wrapResult(strtoupper($operand));
             }
 
             return $operator . $operand;
@@ -384,7 +384,7 @@ class Functions
      * IS_EVEN
      *
      * @param    mixed $value Value to check
-     * @return    bool
+     * @return    string|bool
      */
     public static function isEven($value = null)
     {
@@ -403,7 +403,7 @@ class Functions
      * IS_ODD
      *
      * @param    mixed $value Value to check
-     * @return    bool
+     * @return    string|bool
      */
     public static function isOdd($value = null)
     {

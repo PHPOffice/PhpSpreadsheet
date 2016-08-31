@@ -1,12 +1,12 @@
 <?php
 
-namespace PhpSpreadsheet\Shared;
+namespace PhpOffice\PhpSpreadsheet\Shared;
 
 if (!defined('PCLZIP_TEMPORARY_DIR')) {
     define('PCLZIP_TEMPORARY_DIR', File::sysGetTempDir() . DIRECTORY_SEPARATOR);
 }
 
-use PhpSpreadsheet\Shared\PCLZip\PclZip;
+use PhpOffice\PhpSpreadsheet\Shared\PCLZip\PclZip;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -76,7 +76,7 @@ class ZipArchive
      *
      * @param    string    $localname        Directory/Name of the file to add to the zip archive
      * @param    string    $contents        String of data to add to the zip archive
-     * @throws   \PhpSpreadsheet\Writer\Exception
+     * @throws   \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function addFromString($localname, $contents)
     {
@@ -88,7 +88,7 @@ class ZipArchive
 
         $res = $this->zip->add($this->tempDir . '/' . $filenameParts['basename'], PCLZIP_OPT_REMOVE_PATH, $this->tempDir, PCLZIP_OPT_ADD_PATH, $filenameParts['dirname']);
         if ($res == 0) {
-            throw new \PhpSpreadsheet\Writer\Exception('Error zipping files : ' . $this->zip->errorInfo(true));
+            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Error zipping files : ' . $this->zip->errorInfo(true));
         }
 
         unlink($this->tempDir . '/' . $filenameParts['basename']);
@@ -147,6 +147,9 @@ class ZipArchive
         return $contents;
     }
 
+    /**
+     * @param int $index
+     */
     public function getFromIndex($index)
     {
         $extracted = $this->zip->extractByIndex($index, PCLZIP_OPT_EXTRACT_AS_STRING);

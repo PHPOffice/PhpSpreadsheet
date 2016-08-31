@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared;
+namespace PhpOffice\PhpSpreadsheet\Shared;
 
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
 // +----------------------------------------------------------------------+
@@ -20,7 +20,6 @@ namespace PhpSpreadsheet\Shared;
 // | Based on OLE::Storage_Lite by Kawai, Takanori                        |
 // +----------------------------------------------------------------------+
 //
-// $Id: OLE.php,v 1.13 2007/03/07 14:38:25 schmidt Exp $
 
 /*
 * Array for storing OLE instances that are accessed from
@@ -92,25 +91,25 @@ class OLE
      *
      * @acces public
      * @param string $file
-     * @throws \PhpSpreadsheet\Reader\Exception
-     * @return mixed true on success, PEAR_Error on failure
+     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
+     * @return bool true on success, PEAR_Error on failure
      */
     public function read($file)
     {
         $fh = fopen($file, 'r');
         if (!$fh) {
-            throw new \PhpSpreadsheet\Reader\Exception("Can't open file $file");
+            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception("Can't open file $file");
         }
         $this->_file_handle = $fh;
 
         $signature = fread($fh, 8);
         if ("\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1" != $signature) {
-            throw new \PhpSpreadsheet\Reader\Exception("File doesn't seem to be an OLE container.");
+            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception("File doesn't seem to be an OLE container.");
         }
         fseek($fh, 28);
         if (fread($fh, 2) != "\xFE\xFF") {
             // This shouldn't be a problem in practice
-            throw new \PhpSpreadsheet\Reader\Exception('Only Little-Endian encoding is supported.');
+            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('Only Little-Endian encoding is supported.');
         }
         // Size of blocks and short blocks in bytes
         $this->bigBlockSize = pow(2, self::_readInt2($fh));
@@ -156,8 +155,7 @@ class OLE
             $pos = $this->_getBlockOffset(self::_readInt4($fh));
         }
 
-        // Read Big Block Allocation Table according to chain specified by
-        // $mbatBlocks
+        // Read Big Block Allocation Table according to chain specified by $mbatBlocks
         for ($i = 0; $i < $bbatBlockCount; ++$i) {
             $pos = $this->_getBlockOffset($mbatBlocks[$i]);
             fseek($fh, $pos);
@@ -191,7 +189,7 @@ class OLE
 
     /**
      * Returns a stream for use with fread() etc. External callers should
-     * use \PhpSpreadsheet\Shared\OLE\PPS\File::getStream().
+     * use \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\File::getStream().
      * @param   int|PPS   block id or PPS
      * @return  resource  read-only stream
      */
@@ -199,7 +197,7 @@ class OLE
     {
         static $isRegistered = false;
         if (!$isRegistered) {
-            stream_wrapper_register('ole-chainedblockstream', '\\PhpSpreadsheet\\Shared\\OLE\\ChainedBlockStream');
+            stream_wrapper_register('ole-chainedblockstream', '\\PhpOffice\\PhpSpreadsheet\\Shared\\OLE\\ChainedBlockStream');
             $isRegistered = true;
         }
 
@@ -222,7 +220,7 @@ class OLE
 
     /**
      * Reads a signed char.
-     * @param   resource  file handle
+     * @param   resource  $fh file handle
      * @return  int
      */
     private static function _readInt1($fh)
@@ -234,7 +232,7 @@ class OLE
 
     /**
      * Reads an unsigned short (2 octets).
-     * @param   resource  file handle
+     * @param   resource $fh file handle
      * @return  int
      */
     private static function _readInt2($fh)
@@ -246,7 +244,7 @@ class OLE
 
     /**
      * Reads an unsigned long (4 octets).
-     * @param   resource  file handle
+     * @param   resource $fh file handle
      * @return  int
      */
     private static function _readInt4($fh)
@@ -260,8 +258,8 @@ class OLE
      * Gets information about all PPS's on the OLE container from the PPS WK's
      * creates an OLE_PPS object for each one.
      *
-     * @param  int  the block id of the first block
-     * @return mixed true on success, PEAR_Error on failure
+     * @param  int $blockId the block id of the first block
+     * @return bool true on success, PEAR_Error on failure
      */
     public function _readPpsWks($blockId)
     {

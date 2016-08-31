@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared\OLE\PPS;
+namespace PhpOffice\PhpSpreadsheet\Shared\OLE\PPS;
 
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
 // +----------------------------------------------------------------------+
@@ -20,7 +20,6 @@ namespace PhpSpreadsheet\Shared\OLE\PPS;
 // | Based on OLE::Storage_Lite by Kawai, Takanori                        |
 // +----------------------------------------------------------------------+
 //
-// $Id: Root.php,v 1.9 2005/04/23 21:53:49 dufuz Exp $
 
 /**
  * Class for creating Root PPS's for OLE containers
@@ -28,7 +27,7 @@ namespace PhpSpreadsheet\Shared\OLE\PPS;
  * @author   Xavier Noguer <xnoguer@php.net>
  * @category PhpSpreadsheet
  */
-class Root extends \PhpSpreadsheet\Shared\OLE\PPS
+class Root extends \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS
 {
     /**
      * Directory for temporary files
@@ -39,12 +38,13 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
     /**
      * @param int $time_1st A timestamp
      * @param int $time_2nd A timestamp
+     * @param File[] $raChild
      */
     public function __construct($time_1st, $time_2nd, $raChild)
     {
-        $this->_tempDir = \PhpSpreadsheet\Shared\File::sysGetTempDir();
+        $this->_tempDir = \PhpOffice\PhpSpreadsheet\Shared\File::sysGetTempDir();
 
-        parent::__construct(null, \PhpSpreadsheet\Shared\OLE::ascToUcs('Root Entry'), \PhpSpreadsheet\Shared\OLE::OLE_PPS_TYPE_ROOT, null, null, null, $time_1st, $time_2nd, null, $raChild);
+        parent::__construct(null, \PhpOffice\PhpSpreadsheet\Shared\OLE::ascToUcs('Root Entry'), \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_PPS_TYPE_ROOT, null, null, null, $time_1st, $time_2nd, null, $raChild);
     }
 
     /**
@@ -55,41 +55,41 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
      * it will be used, but you have to close such stream by yourself.
      *
      * @param string|resource $filename The name of the file or stream where to save the OLE container.
-     * @throws \PhpSpreadsheet\Writer\Exception
-     * @return mixed true on success
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @return bool true on success
      */
     public function save($filename)
     {
         // Initial Setting for saving
         $this->_BIG_BLOCK_SIZE = pow(
             2,
-            (isset($this->_BIG_BLOCK_SIZE))? self::adjust2($this->_BIG_BLOCK_SIZE) : 9
+            (isset($this->_BIG_BLOCK_SIZE)) ? self::adjust2($this->_BIG_BLOCK_SIZE) : 9
         );
         $this->_SMALL_BLOCK_SIZE = pow(
             2,
-            (isset($this->_SMALL_BLOCK_SIZE))?  self::adjust2($this->_SMALL_BLOCK_SIZE) : 6
+            (isset($this->_SMALL_BLOCK_SIZE)) ? self::adjust2($this->_SMALL_BLOCK_SIZE) : 6
         );
 
         if (is_resource($filename)) {
             $this->_FILEH_ = $filename;
         } elseif ($filename == '-' || $filename == '') {
             if ($this->tempDirectory === null) {
-                $this->tempDirectory = \PhpSpreadsheet\Shared\File::sysGetTempDir();
+                $this->tempDirectory = \PhpOffice\PhpSpreadsheet\Shared\File::sysGetTempDir();
             }
             $this->_tmp_filename = tempnam($this->tempDirectory, 'OLE_PPS_Root');
             $this->_FILEH_ = fopen($this->_tmp_filename, 'w+b');
             if ($this->_FILEH_ == false) {
-                throw new \PhpSpreadsheet\Writer\Exception("Can't create temporary file.");
+                throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Can't create temporary file.");
             }
         } else {
             $this->_FILEH_ = fopen($filename, 'wb');
         }
         if ($this->_FILEH_ == false) {
-            throw new \PhpSpreadsheet\Writer\Exception("Can't open $filename. It may be in use or protected.");
+            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Can't open $filename. It may be in use or protected.");
         }
         // Make an array of PPS's (for Save)
         $aList = [];
-        \PhpSpreadsheet\Shared\OLE\PPS::_savePpsSetPnt($aList, [$this]);
+        \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS::_savePpsSetPnt($aList, [$this]);
         // calculate values for header
         list($iSBDcnt, $iBBcnt, $iPPScnt) = $this->_calcSize($aList); //, $rhInfo);
         // Save Header
@@ -116,7 +116,7 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
      * Calculate some numbers
      *
      * @param array $raList Reference to an array of PPS's
-     * @return array The array of numbers
+     * @return float[] The array of numbers
      */
     public function _calcSize(&$raList)
     {
@@ -126,25 +126,25 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
         $iSBcnt = 0;
         $iCount = count($raList);
         for ($i = 0; $i < $iCount; ++$i) {
-            if ($raList[$i]->Type == \PhpSpreadsheet\Shared\OLE::OLE_PPS_TYPE_FILE) {
+            if ($raList[$i]->Type == \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_PPS_TYPE_FILE) {
                 $raList[$i]->Size = $raList[$i]->getDataLen();
-                if ($raList[$i]->Size < \PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL) {
+                if ($raList[$i]->Size < \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL) {
                     $iSBcnt += floor($raList[$i]->Size / $this->_SMALL_BLOCK_SIZE)
-                                  + (($raList[$i]->Size % $this->_SMALL_BLOCK_SIZE)? 1: 0);
+                                  + (($raList[$i]->Size % $this->_SMALL_BLOCK_SIZE) ? 1 : 0);
                 } else {
                     $iBBcnt += (floor($raList[$i]->Size / $this->_BIG_BLOCK_SIZE) +
-                        (($raList[$i]->Size % $this->_BIG_BLOCK_SIZE)? 1: 0));
+                        (($raList[$i]->Size % $this->_BIG_BLOCK_SIZE) ? 1 : 0));
                 }
             }
         }
         $iSmallLen = $iSBcnt * $this->_SMALL_BLOCK_SIZE;
-        $iSlCnt = floor($this->_BIG_BLOCK_SIZE / \PhpSpreadsheet\Shared\OLE::OLE_LONG_INT_SIZE);
-        $iSBDcnt = floor($iSBcnt / $iSlCnt) + (($iSBcnt % $iSlCnt)? 1:0);
+        $iSlCnt = floor($this->_BIG_BLOCK_SIZE / \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_LONG_INT_SIZE);
+        $iSBDcnt = floor($iSBcnt / $iSlCnt) + (($iSBcnt % $iSlCnt) ? 1 : 0);
         $iBBcnt += (floor($iSmallLen / $this->_BIG_BLOCK_SIZE) +
-                      (($iSmallLen % $this->_BIG_BLOCK_SIZE)? 1: 0));
+                      (($iSmallLen % $this->_BIG_BLOCK_SIZE) ? 1 : 0));
         $iCnt = count($raList);
-        $iBdCnt = $this->_BIG_BLOCK_SIZE / \PhpSpreadsheet\Shared\OLE::OLE_PPS_SIZE;
-        $iPPScnt = (floor($iCnt / $iBdCnt) + (($iCnt % $iBdCnt)? 1: 0));
+        $iBdCnt = $this->_BIG_BLOCK_SIZE / \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_PPS_SIZE;
+        $iPPScnt = (floor($iCnt / $iBdCnt) + (($iCnt % $iBdCnt) ? 1 : 0));
 
         return [$iSBDcnt, $iBBcnt, $iPPScnt];
     }
@@ -154,13 +154,13 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
      *
      * @param int $i2 The argument
      * @see save()
-     * @return int
+     * @return float
      */
     private static function adjust2($i2)
     {
         $iWk = log($i2) / log(2);
 
-        return ($iWk > floor($iWk))? floor($iWk) + 1:$iWk;
+        return ($iWk > floor($iWk)) ? floor($iWk) + 1 : $iWk;
     }
 
     /**
@@ -175,22 +175,22 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
         $FILE = $this->_FILEH_;
 
         // Calculate Basic Setting
-        $iBlCnt = $this->_BIG_BLOCK_SIZE / \PhpSpreadsheet\Shared\OLE::OLE_LONG_INT_SIZE;
-        $i1stBdL = ($this->_BIG_BLOCK_SIZE - 0x4C) / \PhpSpreadsheet\Shared\OLE::OLE_LONG_INT_SIZE;
+        $iBlCnt = $this->_BIG_BLOCK_SIZE / \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_LONG_INT_SIZE;
+        $i1stBdL = ($this->_BIG_BLOCK_SIZE - 0x4C) / \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_LONG_INT_SIZE;
 
         $iBdExL = 0;
         $iAll = $iBBcnt + $iPPScnt + $iSBDcnt;
         $iAllW = $iAll;
-        $iBdCntW = floor($iAllW / $iBlCnt) + (($iAllW % $iBlCnt)? 1: 0);
-        $iBdCnt = floor(($iAll + $iBdCntW) / $iBlCnt) + ((($iAllW + $iBdCntW) % $iBlCnt)? 1: 0);
+        $iBdCntW = floor($iAllW / $iBlCnt) + (($iAllW % $iBlCnt) ? 1 : 0);
+        $iBdCnt = floor(($iAll + $iBdCntW) / $iBlCnt) + ((($iAllW + $iBdCntW) % $iBlCnt) ? 1 : 0);
 
         // Calculate BD count
         if ($iBdCnt > $i1stBdL) {
             while (1) {
                 ++$iBdExL;
                 ++$iAllW;
-                $iBdCntW = floor($iAllW / $iBlCnt) + (($iAllW % $iBlCnt)? 1: 0);
-                $iBdCnt = floor(($iAllW + $iBdCntW) / $iBlCnt) + ((($iAllW + $iBdCntW) % $iBlCnt)? 1: 0);
+                $iBdCntW = floor($iAllW / $iBlCnt) + (($iAllW % $iBlCnt) ? 1 : 0);
+                $iBdCnt = floor(($iAllW + $iBdCntW) / $iBlCnt) + ((($iAllW + $iBdCntW) % $iBlCnt) ? 1 : 0);
                 if ($iBdCnt <= ($iBdExL * $iBlCnt + $i1stBdL)) {
                     break;
                 }
@@ -244,7 +244,7 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
     }
 
     /**
-     * Saving big data (PPS's with data bigger than \PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL)
+     * Saving big data (PPS's with data bigger than \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL)
      *
      * @param int $iStBlk
      * @param array &$raList Reference to array of PPS's
@@ -256,20 +256,10 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
         // cycle through PPS's
         $iCount = count($raList);
         for ($i = 0; $i < $iCount; ++$i) {
-            if ($raList[$i]->Type != \PhpSpreadsheet\Shared\OLE::OLE_PPS_TYPE_DIR) {
+            if ($raList[$i]->Type != \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_PPS_TYPE_DIR) {
                 $raList[$i]->Size = $raList[$i]->getDataLen();
-                if (($raList[$i]->Size >= \PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL) || (($raList[$i]->Type == \PhpSpreadsheet\Shared\OLE::OLE_PPS_TYPE_ROOT) && isset($raList[$i]->_data))) {
-                    // Write Data
-                    //if (isset($raList[$i]->_PPS_FILE)) {
-                    //    $iLen = 0;
-                    //    fseek($raList[$i]->_PPS_FILE, 0); // To The Top
-                    //    while ($sBuff = fread($raList[$i]->_PPS_FILE, 4096)) {
-                    //        $iLen += strlen($sBuff);
-                    //        fwrite($FILE, $sBuff);
-                    //    }
-                    //} else {
-                        fwrite($FILE, $raList[$i]->_data);
-                    //}
+                if (($raList[$i]->Size >= \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL) || (($raList[$i]->Type == \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_PPS_TYPE_ROOT) && isset($raList[$i]->_data))) {
+                    fwrite($FILE, $raList[$i]->_data);
 
                     if ($raList[$i]->Size % $this->_BIG_BLOCK_SIZE) {
                         fwrite($FILE, str_repeat("\x00", $this->_BIG_BLOCK_SIZE - ($raList[$i]->Size % $this->_BIG_BLOCK_SIZE)));
@@ -278,20 +268,14 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
                     $raList[$i]->startBlock = $iStBlk;
                     $iStBlk +=
                             (floor($raList[$i]->Size / $this->_BIG_BLOCK_SIZE) +
-                                (($raList[$i]->Size % $this->_BIG_BLOCK_SIZE)? 1: 0));
+                                (($raList[$i]->Size % $this->_BIG_BLOCK_SIZE) ? 1 : 0));
                 }
-                // Close file for each PPS, and unlink it
-                //if (isset($raList[$i]->_PPS_FILE)) {
-                //    fclose($raList[$i]->_PPS_FILE);
-                //    $raList[$i]->_PPS_FILE = null;
-                //    unlink($raList[$i]->_tmp_filename);
-                //}
             }
         }
     }
 
     /**
-     * get small data (PPS's with data smaller than \PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL)
+     * get small data (PPS's with data smaller than \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL)
      *
      * @param array &$raList Reference to array of PPS's
      */
@@ -304,13 +288,13 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
         $iCount = count($raList);
         for ($i = 0; $i < $iCount; ++$i) {
             // Make SBD, small data string
-            if ($raList[$i]->Type == \PhpSpreadsheet\Shared\OLE::OLE_PPS_TYPE_FILE) {
+            if ($raList[$i]->Type == \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_PPS_TYPE_FILE) {
                 if ($raList[$i]->Size <= 0) {
                     continue;
                 }
-                if ($raList[$i]->Size < \PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL) {
+                if ($raList[$i]->Size < \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL) {
                     $iSmbCnt = floor($raList[$i]->Size / $this->_SMALL_BLOCK_SIZE)
-                                  + (($raList[$i]->Size % $this->_SMALL_BLOCK_SIZE)? 1: 0);
+                                  + (($raList[$i]->Size % $this->_SMALL_BLOCK_SIZE) ? 1 : 0);
                     // Add to SBD
                     $jB = $iSmbCnt - 1;
                     for ($j = 0; $j < $jB; ++$j) {
@@ -318,15 +302,8 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
                     }
                     fwrite($FILE, pack('V', -2));
 
-                    //// Add to Data String(this will be written for RootEntry)
-                    //if ($raList[$i]->_PPS_FILE) {
-                    //    fseek($raList[$i]->_PPS_FILE, 0); // To The Top
-                    //    while ($sBuff = fread($raList[$i]->_PPS_FILE, 4096)) {
-                    //        $sRes .= $sBuff;
-                    //    }
-                    //} else {
-                        $sRes .= $raList[$i]->_data;
-                    //}
+                    // Add to Data String(this will be written for RootEntry)
+                    $sRes .= $raList[$i]->_data;
                     if ($raList[$i]->Size % $this->_SMALL_BLOCK_SIZE) {
                         $sRes .= str_repeat("\x00", $this->_SMALL_BLOCK_SIZE - ($raList[$i]->Size % $this->_SMALL_BLOCK_SIZE));
                     }
@@ -336,7 +313,7 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
                 }
             }
         }
-        $iSbCnt = floor($this->_BIG_BLOCK_SIZE / \PhpSpreadsheet\Shared\OLE::OLE_LONG_INT_SIZE);
+        $iSbCnt = floor($this->_BIG_BLOCK_SIZE / \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_LONG_INT_SIZE);
         if ($iSmBlk % $iSbCnt) {
             $iB = $iSbCnt - ($iSmBlk % $iSbCnt);
             for ($i = 0; $i < $iB; ++$i) {
@@ -361,9 +338,9 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
         }
         // Adjust for Block
         $iCnt = count($raList);
-        $iBCnt = $this->_BIG_BLOCK_SIZE / \PhpSpreadsheet\Shared\OLE::OLE_PPS_SIZE;
+        $iBCnt = $this->_BIG_BLOCK_SIZE / \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_PPS_SIZE;
         if ($iCnt % $iBCnt) {
-            fwrite($this->_FILEH_, str_repeat("\x00", ($iBCnt - ($iCnt % $iBCnt)) * \PhpSpreadsheet\Shared\OLE::OLE_PPS_SIZE));
+            fwrite($this->_FILEH_, str_repeat("\x00", ($iBCnt - ($iCnt % $iBCnt)) * \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_PPS_SIZE));
         }
     }
 
@@ -378,21 +355,21 @@ class Root extends \PhpSpreadsheet\Shared\OLE\PPS
     {
         $FILE = $this->_FILEH_;
         // Calculate Basic Setting
-        $iBbCnt = $this->_BIG_BLOCK_SIZE / \PhpSpreadsheet\Shared\OLE::OLE_LONG_INT_SIZE;
-        $i1stBdL = ($this->_BIG_BLOCK_SIZE - 0x4C) / \PhpSpreadsheet\Shared\OLE::OLE_LONG_INT_SIZE;
+        $iBbCnt = $this->_BIG_BLOCK_SIZE / \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_LONG_INT_SIZE;
+        $i1stBdL = ($this->_BIG_BLOCK_SIZE - 0x4C) / \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_LONG_INT_SIZE;
 
         $iBdExL = 0;
         $iAll = $iBsize + $iPpsCnt + $iSbdSize;
         $iAllW = $iAll;
-        $iBdCntW = floor($iAllW / $iBbCnt) + (($iAllW % $iBbCnt)? 1: 0);
-        $iBdCnt = floor(($iAll + $iBdCntW) / $iBbCnt) + ((($iAllW + $iBdCntW) % $iBbCnt)? 1: 0);
+        $iBdCntW = floor($iAllW / $iBbCnt) + (($iAllW % $iBbCnt) ? 1 : 0);
+        $iBdCnt = floor(($iAll + $iBdCntW) / $iBbCnt) + ((($iAllW + $iBdCntW) % $iBbCnt) ? 1 : 0);
         // Calculate BD count
         if ($iBdCnt > $i1stBdL) {
             while (1) {
                 ++$iBdExL;
                 ++$iAllW;
-                $iBdCntW = floor($iAllW / $iBbCnt) + (($iAllW % $iBbCnt)? 1: 0);
-                $iBdCnt = floor(($iAllW + $iBdCntW) / $iBbCnt) + ((($iAllW + $iBdCntW) % $iBbCnt)? 1: 0);
+                $iBdCntW = floor($iAllW / $iBbCnt) + (($iAllW % $iBbCnt) ? 1 : 0);
+                $iBdCnt = floor(($iAllW + $iBdCntW) / $iBbCnt) + ((($iAllW + $iBdCntW) % $iBbCnt) ? 1 : 0);
                 if ($iBdCnt <= ($iBdExL * $iBbCnt + $i1stBdL)) {
                     break;
                 }

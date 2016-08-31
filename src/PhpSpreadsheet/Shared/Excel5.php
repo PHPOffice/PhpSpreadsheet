@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Shared;
+namespace PhpOffice\PhpSpreadsheet\Shared;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -31,7 +31,7 @@ class Excel5
      * x is the width in intrinsic Excel units (measuring width in number of normal characters)
      * This holds for Arial 10
      *
-     * @param \PhpSpreadsheet\Worksheet $sheet The sheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $sheet The sheet
      * @param string $col The column
      * @return int The width in pixels
      */
@@ -47,15 +47,15 @@ class Excel5
             // then we have column dimension with explicit width
             $columnDimension = $columnDimensions[$col];
             $width = $columnDimension->getWidth();
-            $pixelWidth = \PhpSpreadsheet\Shared\Drawing::cellDimensionToPixels($width, $font);
+            $pixelWidth = \PhpOffice\PhpSpreadsheet\Shared\Drawing::cellDimensionToPixels($width, $font);
         } elseif ($sheet->getDefaultColumnDimension()->getWidth() != -1) {
             // then we have default column dimension with explicit width
             $defaultColumnDimension = $sheet->getDefaultColumnDimension();
             $width = $defaultColumnDimension->getWidth();
-            $pixelWidth = \PhpSpreadsheet\Shared\Drawing::cellDimensionToPixels($width, $font);
+            $pixelWidth = \PhpOffice\PhpSpreadsheet\Shared\Drawing::cellDimensionToPixels($width, $font);
         } else {
             // we don't even have any default column dimension. Width depends on default font
-            $pixelWidth = \PhpSpreadsheet\Shared\Font::getDefaultColumnWidthByFont($font, true);
+            $pixelWidth = \PhpOffice\PhpSpreadsheet\Shared\Font::getDefaultColumnWidthByFont($font, true);
         }
 
         // now find the effective column width in pixels
@@ -73,7 +73,7 @@ class Excel5
      * the relationship is: y = 4/3x. If the height hasn't been set by the user we
      * use the default value. If the row is hidden we use a value of zero.
      *
-     * @param \PhpSpreadsheet\Worksheet $sheet The sheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $sheet The sheet
      * @param int $row The row index (1-based)
      * @return int The width in pixels
      */
@@ -94,11 +94,11 @@ class Excel5
             // then we have a default row dimension with explicit height
             $defaultRowDimension = $sheet->getDefaultRowDimension();
             $rowHeight = $defaultRowDimension->getRowHeight();
-            $pixelRowHeight = \PhpSpreadsheet\Shared\Drawing::pointsToPixels($rowHeight);
+            $pixelRowHeight = \PhpOffice\PhpSpreadsheet\Shared\Drawing::pointsToPixels($rowHeight);
         } else {
             // we don't even have any default row dimension. Height depends on default font
-            $pointRowHeight = \PhpSpreadsheet\Shared\Font::getDefaultRowHeightByFont($font);
-            $pixelRowHeight = \PhpSpreadsheet\Shared\Font::fontSizeToPixels($pointRowHeight);
+            $pointRowHeight = \PhpOffice\PhpSpreadsheet\Shared\Font::getDefaultRowHeightByFont($font);
+            $pixelRowHeight = \PhpOffice\PhpSpreadsheet\Shared\Font::fontSizeToPixels($pointRowHeight);
         }
 
         // now find the effective row height in pixels
@@ -115,22 +115,22 @@ class Excel5
      * Get the horizontal distance in pixels between two anchors
      * The distanceX is found as sum of all the spanning columns widths minus correction for the two offsets
      *
-     * @param \PhpSpreadsheet\Worksheet $sheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $sheet
      * @param string $startColumn
      * @param int $startOffsetX Offset within start cell measured in 1/1024 of the cell width
      * @param string $endColumn
      * @param int $endOffsetX Offset within end cell measured in 1/1024 of the cell width
      * @return int Horizontal measured in pixels
      */
-    public static function getDistanceX(\PhpSpreadsheet\Worksheet $sheet, $startColumn = 'A', $startOffsetX = 0, $endColumn = 'A', $endOffsetX = 0)
+    public static function getDistanceX(\PhpOffice\PhpSpreadsheet\Worksheet $sheet, $startColumn = 'A', $startOffsetX = 0, $endColumn = 'A', $endOffsetX = 0)
     {
         $distanceX = 0;
 
         // add the widths of the spanning columns
-        $startColumnIndex = \PhpSpreadsheet\Cell::columnIndexFromString($startColumn) - 1; // 1-based
-        $endColumnIndex = \PhpSpreadsheet\Cell::columnIndexFromString($endColumn) - 1; // 1-based
+        $startColumnIndex = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($startColumn) - 1; // 1-based
+        $endColumnIndex = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($endColumn) - 1; // 1-based
         for ($i = $startColumnIndex; $i <= $endColumnIndex; ++$i) {
-            $distanceX += self::sizeCol($sheet, \PhpSpreadsheet\Cell::stringFromColumnIndex($i));
+            $distanceX += self::sizeCol($sheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($i));
         }
 
         // correct for offsetX in startcell
@@ -146,14 +146,14 @@ class Excel5
      * Get the vertical distance in pixels between two anchors
      * The distanceY is found as sum of all the spanning rows minus two offsets
      *
-     * @param \PhpSpreadsheet\Worksheet $sheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $sheet
      * @param int $startRow (1-based)
      * @param int $startOffsetY Offset within start cell measured in 1/256 of the cell height
      * @param int $endRow (1-based)
      * @param int $endOffsetY Offset within end cell measured in 1/256 of the cell height
      * @return int Vertical distance measured in pixels
      */
-    public static function getDistanceY(\PhpSpreadsheet\Worksheet $sheet, $startRow = 1, $startOffsetY = 0, $endRow = 1, $endOffsetY = 0)
+    public static function getDistanceY(\PhpOffice\PhpSpreadsheet\Worksheet $sheet, $startRow = 1, $startOffsetY = 0, $endRow = 1, $endOffsetY = 0)
     {
         $distanceY = 0;
 
@@ -215,7 +215,7 @@ class Excel5
      *               W is the width of the cell
      *               H is the height of the cell
      *
-     * @param \PhpSpreadsheet\Worksheet $sheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $sheet
      * @param string $coordinates E.g. 'A1'
      * @param int $offsetX Horizontal offset in pixels
      * @param int $offsetY Vertical offset in pixels
@@ -225,19 +225,19 @@ class Excel5
      */
     public static function oneAnchor2twoAnchor($sheet, $coordinates, $offsetX, $offsetY, $width, $height)
     {
-        list($column, $row) = \PhpSpreadsheet\Cell::coordinateFromString($coordinates);
-        $col_start = \PhpSpreadsheet\Cell::columnIndexFromString($column) - 1;
+        list($column, $row) = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($coordinates);
+        $col_start = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($column) - 1;
         $row_start = $row - 1;
 
         $x1 = $offsetX;
         $y1 = $offsetY;
 
         // Initialise end cell to the same as the start cell
-        $col_end = $col_start;  // Col containing lower right corner of object
-        $row_end = $row_start;  // Row containing bottom right corner of object
+        $col_end = $col_start; // Col containing lower right corner of object
+        $row_end = $row_start; // Row containing bottom right corner of object
 
         // Zero the specified offset if greater than the cell dimensions
-        if ($x1 >= self::sizeCol($sheet, \PhpSpreadsheet\Cell::stringFromColumnIndex($col_start))) {
+        if ($x1 >= self::sizeCol($sheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_start))) {
             $x1 = 0;
         }
         if ($y1 >= self::sizeRow($sheet, $row_start + 1)) {
@@ -248,8 +248,8 @@ class Excel5
         $height = $height + $y1 - 1;
 
         // Subtract the underlying cell widths to find the end cell of the image
-        while ($width >= self::sizeCol($sheet, \PhpSpreadsheet\Cell::stringFromColumnIndex($col_end))) {
-            $width -= self::sizeCol($sheet, \PhpSpreadsheet\Cell::stringFromColumnIndex($col_end));
+        while ($width >= self::sizeCol($sheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_end))) {
+            $width -= self::sizeCol($sheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_end));
             ++$col_end;
         }
 
@@ -261,10 +261,10 @@ class Excel5
 
         // Bitmap isn't allowed to start or finish in a hidden cell, i.e. a cell
         // with zero height or width.
-        if (self::sizeCol($sheet, \PhpSpreadsheet\Cell::stringFromColumnIndex($col_start)) == 0) {
+        if (self::sizeCol($sheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_start)) == 0) {
             return;
         }
-        if (self::sizeCol($sheet, \PhpSpreadsheet\Cell::stringFromColumnIndex($col_end)) == 0) {
+        if (self::sizeCol($sheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_end)) == 0) {
             return;
         }
         if (self::sizeRow($sheet, $row_start + 1) == 0) {
@@ -275,13 +275,13 @@ class Excel5
         }
 
         // Convert the pixel values to the percentage value expected by Excel
-        $x1 = $x1 / self::sizeCol($sheet, \PhpSpreadsheet\Cell::stringFromColumnIndex($col_start)) * 1024;
+        $x1 = $x1 / self::sizeCol($sheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_start)) * 1024;
         $y1 = $y1 / self::sizeRow($sheet, $row_start + 1) * 256;
-        $x2 = ($width + 1) / self::sizeCol($sheet, \PhpSpreadsheet\Cell::stringFromColumnIndex($col_end)) * 1024; // Distance to right side of object
+        $x2 = ($width + 1) / self::sizeCol($sheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_end)) * 1024; // Distance to right side of object
         $y2 = ($height + 1) / self::sizeRow($sheet, $row_end + 1) * 256; // Distance to bottom of object
 
-        $startCoordinates = \PhpSpreadsheet\Cell::stringFromColumnIndex($col_start) . ($row_start + 1);
-        $endCoordinates = \PhpSpreadsheet\Cell::stringFromColumnIndex($col_end) . ($row_end + 1);
+        $startCoordinates = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_start) . ($row_start + 1);
+        $endCoordinates = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_end) . ($row_end + 1);
 
         $twoAnchor = [
             'startCoordinates' => $startCoordinates,

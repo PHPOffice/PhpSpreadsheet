@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Chart;
+namespace PhpOffice\PhpSpreadsheet\Chart;
 
 /**
  * Created by PhpStorm.
@@ -76,7 +76,7 @@ class GridLines extends Properties
 
     private $softEdges = [
         'size' => null,
-     ];
+    ];
 
     /**
      * Get Object State

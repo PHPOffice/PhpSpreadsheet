@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Calculation;
+namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -31,7 +31,7 @@ class ExceptionHandler
      */
     public function __construct()
     {
-        set_error_handler(['\\PhpSpreadsheet\\Calculation\\Exception', 'errorHandlerCallback'], E_ALL);
+        set_error_handler(['\\PhpOffice\\PhpSpreadsheet\\Calculation\\Exception', 'errorHandlerCallback'], E_ALL);
     }
 
     /**

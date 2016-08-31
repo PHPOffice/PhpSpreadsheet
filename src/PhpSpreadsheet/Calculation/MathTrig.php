@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Calculation;
+namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -544,10 +544,10 @@ class MathTrig
         }
 
         try {
-            $matrix = new \PhpSpreadsheet\Shared\JAMA\Matrix($matrixData);
+            $matrix = new \PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix($matrixData);
 
             return $matrix->det();
-        } catch (\PhpSpreadsheet\Exception $ex) {
+        } catch (\PhpOffice\PhpSpreadsheet\Exception $ex) {
             return Functions::VALUE();
         }
     }
@@ -596,10 +596,10 @@ class MathTrig
         }
 
         try {
-            $matrix = new \PhpSpreadsheet\Shared\JAMA\Matrix($matrixData);
+            $matrix = new \PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix($matrixData);
 
             return $matrix->inverse()->getArray();
-        } catch (\PhpSpreadsheet\Exception $ex) {
+        } catch (\PhpOffice\PhpSpreadsheet\Exception $ex) {
             return Functions::VALUE();
         }
     }
@@ -637,7 +637,7 @@ class MathTrig
                 }
                 ++$rowA;
             }
-            $matrixA = new \PhpSpreadsheet\Shared\JAMA\Matrix($matrixAData);
+            $matrixA = new \PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix($matrixAData);
             $rowB = 0;
             foreach ($matrixData2 as $matrixRow) {
                 if (!is_array($matrixRow)) {
@@ -653,16 +653,14 @@ class MathTrig
                 }
                 ++$rowB;
             }
-            $matrixB = new \PhpSpreadsheet\Shared\JAMA\Matrix($matrixBData);
+            $matrixB = new \PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix($matrixBData);
 
             if ($columnA != $rowB) {
                 return Functions::VALUE();
             }
 
             return $matrixA->times($matrixB)->getArray();
-        } catch (\PhpSpreadsheet\Exception $ex) {
-            var_dump($ex->getMessage());
-
+        } catch (\PhpOffice\PhpSpreadsheet\Exception $ex) {
             return Functions::VALUE();
         }
     }
@@ -913,7 +911,7 @@ class MathTrig
     public static function ROMAN($aValue, $style = 0)
     {
         $aValue = Functions::flattenSingleValue($aValue);
-        $style = (is_null($style))    ? 0 :    (integer) Functions::flattenSingleValue($style);
+        $style = (is_null($style)) ? 0 : (integer) Functions::flattenSingleValue($style);
         if ((!is_numeric($aValue)) || ($aValue < 0) || ($aValue >= 4000)) {
             return Functions::VALUE();
         }
@@ -1185,11 +1183,11 @@ class MathTrig
         foreach ($aArgs as $key => $arg) {
             if (!is_numeric($arg)) {
                 $arg = str_replace('"', '""', $arg);
-                $arg = \PhpSpreadsheet\Calculation::wrapResult(strtoupper($arg));
+                $arg = \PhpOffice\PhpSpreadsheet\Calculation::wrapResult(strtoupper($arg));
             }
 
             $testCondition = '=' . $arg . $condition;
-            if (\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+            if (\PhpOffice\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                 // Is it a value within our criteria
                 $returnValue += $sumArgs[$key];
             }
@@ -1232,10 +1230,10 @@ class MathTrig
             // Loop through arguments
             foreach ($aArgs as $key => $arg) {
                 if (!is_numeric($arg)) {
-                    $arg = \PhpSpreadsheet\Calculation::wrapResult(strtoupper($arg));
+                    $arg = \PhpOffice\PhpSpreadsheet\Calculation::wrapResult(strtoupper($arg));
                 }
                 $testCondition = '=' . $arg . $condition;
-                if (\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+                if (\PhpOffice\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                     // Is it a value within our criteria
                     $returnValue += $sumArgs[$key];
                 }

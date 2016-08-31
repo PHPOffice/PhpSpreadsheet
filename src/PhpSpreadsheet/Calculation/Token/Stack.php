@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpreadsheet\Calculation\Token;
+namespace PhpOffice\PhpSpreadsheet\Calculation\Token;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -65,7 +65,7 @@ class Stack
             'reference' => $reference,
         ];
         if ($type == 'Function') {
-            $localeFunction = \PhpSpreadsheet\Calculation::localeFunc($value);
+            $localeFunction = \PhpOffice\PhpSpreadsheet\Calculation::localeFunc($value);
             if ($localeFunction != $value) {
                 $this->stack[($this->count - 1)]['localeValue'] = $localeFunction;
             }
