@@ -30,7 +30,7 @@ script:
   ## PHP-CS-Fixer
   - ./vendor/bin/php-cs-fixer fix --diff --verbose
   ## PHPUnit
-  - travis_wait 30 ./vendor/bin/phpunit --coverage-clover coverage-clover.xml
+  - ./vendor/bin/phpunit --debug --coverage-clover coverage-clover.xml
 
 after_script:
   - if [ "$TRAVIS_PHP_VERSION" = "7.0" ]; then wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover tests/coverage-clover.xml ; fi
