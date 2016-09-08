@@ -25,6 +25,20 @@ class SampleTest extends \PHPUnit_Framework_TestCase
             '20 Read OOCalc with PCLZip', // Crash: Call to undefined method \PhpOffice\PhpSpreadsheet\Shared\ZipArchive::statName()
             '21 Pdf', // for now we don't have 3rdparty libs to tests PDF, but it should be added
         ];
+
+        // Unfortunately some tests are too long be ran with code-coverage
+        // analysis on Travis, so we need to exclude them
+        global $argv;
+        if (in_array('--coverage-clover', $argv)) {
+            $tooLongToBeCovered = [
+                '06 Largescale',
+                '06 Largescale with cellcaching',
+                '06 Largescale with cellcaching sqlite',
+                '06 Largescale with cellcaching sqlite3',
+            ];
+            $skipped = array_merge($skipped, $tooLongToBeCovered);
+        }
+
         $helper = new \PhpOffice\PhpSpreadsheet\Helper\Sample();
         $samples = [];
         foreach ($helper->getSamples() as $name => $sample) {
