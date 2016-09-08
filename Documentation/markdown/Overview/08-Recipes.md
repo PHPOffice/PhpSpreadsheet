@@ -15,7 +15,7 @@ Setting spreadsheet metadata is done as follows:
 ```php
 $objPHPExcel->getProperties()
     ->setCreator("Maarten Balliauw")
-    ->setLastModifiedBy("Maarten Balliauw");
+    ->setLastModifiedBy("Maarten Balliauw")
     ->setTitle("Office 2007 XLSX Test Document")
     ->setSubject("Office 2007 XLSX Test Document")
     ->setDescription(
