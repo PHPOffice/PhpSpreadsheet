@@ -35,6 +35,7 @@ class SampleTest extends \PHPUnit_Framework_TestCase
                 '06 Largescale with cellcaching',
                 '06 Largescale with cellcaching sqlite',
                 '06 Largescale with cellcaching sqlite3',
+                '13 CalculationCyclicFormulae',
             ];
             $skipped = array_merge($skipped, $tooLongToBeCovered);
         }
