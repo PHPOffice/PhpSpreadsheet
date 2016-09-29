@@ -3516,7 +3516,7 @@ class Excel5 extends BaseReader implements IReader
             // bit: 27-16; mask: 0x0FFF0000; only applies when hasExplicitFormat = 1; index to XF record
             $xfIndex = (0x0FFF0000 & self::getInt4d($recordData, 12)) >> 16;
 
-            if ($hasExplicitFormat && $this->mapCellXfIndex[$xfIndex]) {
+            if ($hasExplicitFormat && isset($this->mapCellXfIndex[$xfIndex])) {
                 $this->phpSheet->getRowDimension($r + 1)->setXfIndex($this->mapCellXfIndex[$xfIndex]);
             }
         }
