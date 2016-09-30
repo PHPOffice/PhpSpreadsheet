@@ -82,6 +82,7 @@ class Excel2003XML extends BaseReader implements IReader
         // Read sample data (first 2 KB will do)
         $data = fread($fileHandle, 2048);
         fclose($fileHandle);
+        $data = strtr($data, "'", '"'); // fix headers with single quote
 
         $valid = true;
         foreach ($signature as $match) {
