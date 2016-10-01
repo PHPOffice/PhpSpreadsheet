@@ -48,7 +48,7 @@
 	TIMEVALUE           | PHPExcel_Calculation_DateTime::TIMEVALUE
 	TODAY               | PHPExcel_Calculation_DateTime::DATENOW
 	WEEKDAY             | PHPExcel_Calculation_DateTime::DAYOFWEEK
-	WEEKNUM             | PHPExcel_Calculation_DateTime::WEEKOFYEAR
+	WEEKNUM             | PHPExcel_Calculation_DateTime::WEEKNUM
 	WORKDAY             | PHPExcel_Calculation_DateTime::WORKDAY
 	YEAR                | PHPExcel_Calculation_DateTime::YEAR
 	YEARFRAC            | PHPExcel_Calculation_DateTime::YEARFRAC

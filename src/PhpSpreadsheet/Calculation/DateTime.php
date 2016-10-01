@@ -1199,7 +1199,7 @@ class DateTime
     }
 
     /**
-     * WEEKOFYEAR
+     * WEEKNUM
      *
      * Returns the week of the year for a specified date.
      * The WEEKNUM function considers the week containing January 1 to be the first week of the year.
@@ -1218,7 +1218,7 @@ class DateTime
      *                                        2                Week begins on Monday.
      * @return    int        Week Number
      */
-    public static function WEEKOFYEAR($dateValue = 1, $method = 1)
+    public static function WEEKNUM($dateValue = 1, $method = 1)
     {
         $dateValue = Functions::flattenSingleValue($dateValue);
         $method = Functions::flattenSingleValue($method);

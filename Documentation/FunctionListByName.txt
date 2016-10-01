@@ -365,7 +365,7 @@ VERSION                 CATEGORY_INFORMATION            PHPExcel_Calculation_Fun
 VLOOKUP                 CATEGORY_LOOKUP_AND_REFERENCE   PHPExcel_Calculation_LookupRef::VLOOKUP
 
 WEEKDAY                 CATEGORY_DATE_AND_TIME          PHPExcel_Calculation_DateTime::DAYOFWEEK
-WEEKNUM                 CATEGORY_DATE_AND_TIME          PHPExcel_Calculation_DateTime::WEEKOFYEAR
+WEEKNUM                 CATEGORY_DATE_AND_TIME          PHPExcel_Calculation_DateTime::WEEKNUM
 WEIBULL                 CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::WEIBULL
 WORKDAY                 CATEGORY_DATE_AND_TIME          PHPExcel_Calculation_DateTime::WORKDAY
 

@@ -1965,7 +1965,7 @@ class Calculation
         ],
         'WEEKNUM' => [
             'category' => Calculation\Categories::CATEGORY_DATE_AND_TIME,
-            'functionCall' => '\\PhpOffice\\PhpSpreadsheet\\Calculation\\DateTime::WEEKOFYEAR',
+            'functionCall' => '\\PhpOffice\\PhpSpreadsheet\\Calculation\\DateTime::WEEKNUM',
             'argumentCount' => '1,2',
         ],
         'WEIBULL' => [
