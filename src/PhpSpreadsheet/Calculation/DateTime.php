@@ -1242,10 +1242,14 @@ class DateTime
         $PHPDateObject = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($dateValue);
         $dayOfYear = $PHPDateObject->format('z');
         $PHPDateObject->modify('-' . $dayOfYear . ' days');
-        $dow = $PHPDateObject->format('w');
-        $daysInFirstWeek = 7 - (($dow + (2 - $method)) % 7);
-        $dayOfYear -= $daysInFirstWeek;
-        $weekOfYear = ceil($dayOfYear / 7) + 1;
+        $firstDayOfFirstWeek = $PHPDateObject->format('w');
+        $daysInFirstWeek = (6 - $firstDayOfFirstWeek + $method) % 7;
+        $interval = $dayOfYear - $daysInFirstWeek;
+        $weekOfYear = floor($interval / 7) + 1;
+
+        if ($daysInFirstWeek) {
+            ++$weekOfYear;
+        }
 
         return (int) $weekOfYear;
     }
