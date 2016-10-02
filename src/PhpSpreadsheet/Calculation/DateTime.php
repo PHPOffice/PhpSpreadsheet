@@ -729,13 +729,24 @@ class DateTime
             case 'YD':
                 $retVal = intval($difference);
                 if ($endYears > $startYears) {
-                    while ($endYears > $startYears) {
+                    $isLeapStartYear = $PHPStartDateObject->format('L');
+                    $wasLeapEndYear = $PHPEndDateObject->format('L');
+
+                    // Adjust end year to be as close as possible as start year
+                    while ($PHPEndDateObject >= $PHPStartDateObject) {
                         $PHPEndDateObject->modify('-1 year');
                         $endYears = $PHPEndDateObject->format('Y');
                     }
-                    $retVal = $PHPEndDateObject->format('z') - $PHPStartDateObject->format('z');
-                    if ($retVal < 0) {
-                        $retVal += 365;
+                    $PHPEndDateObject->modify('+1 year');
+
+                    // Get the result
+                    $retVal =  $PHPEndDateObject->diff($PHPStartDateObject)->days;
+
+                    // Adjust for leap years cases
+                    $isLeapEndYear = $PHPEndDateObject->format('L');
+                    $limit = new \DateTime($PHPEndDateObject->format('Y-02-29'));
+                    if (!$isLeapStartYear && !$wasLeapEndYear && $isLeapEndYear && $PHPEndDateObject >= $limit ) {
+                        $retVal--;
                     }
                 }
                 break;

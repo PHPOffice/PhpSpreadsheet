@@ -416,12 +416,9 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerDATEDIF
-     * @group fail19
      */
     public function testDATEDIF()
     {
-        $this->markTestIncomplete('TODO: This test should be fixed');
-
         $args = func_get_args();
         $expectedResult = array_pop($args);
         $result = call_user_func_array([DateTime::class, 'DATEDIF'], $args);
