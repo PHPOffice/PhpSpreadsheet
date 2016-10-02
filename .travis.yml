@@ -8,6 +8,9 @@ php:
   - hhvm
 
 matrix:
+  include:
+    - php: 7.0
+      env: COVERAGE=1
   allow_failures:
     - php: 7.1
     - php: hhvm
@@ -18,19 +21,17 @@ cache:
     - $HOME/.composer/cache
 
 before_script:
-  ## Packages
-  - sudo apt-get -qq update > /dev/null
-  ## Composer
-  - composer self-update
+  # Deactivate xdebug if we don't do code coverage
+  - if [ -z "$COVERAGE" ]; then rm -rfv /home/travis/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ; fi
   - composer install
 
 script:
-  ## PHP_CodeSniffer
-  - ./vendor/bin/phpcs --report-width=200 --report-summary  --report-full samples/ src/ tests/ --standard=PSR2 -n
-  ## PHP-CS-Fixer
-  - ./vendor/bin/php-cs-fixer fix --diff --verbose
-  ## PHPUnit
-  - ./vendor/bin/phpunit --coverage-clover coverage-clover.xml
+  # PHP_CodeSniffer
+  - if [ -z "$COVERAGE" ]; then ./vendor/bin/phpcs --report-width=200 --report-summary  --report-full samples/ src/ tests/ --standard=PSR2 -n ; fi
+  # PHP-CS-Fixer
+  - if [ -z "$COVERAGE" ]; then ./vendor/bin/php-cs-fixer fix --diff --verbose ; fi
+  # PHPUnit
+  - ./vendor/bin/phpunit $(if [ -n "$COVERAGE" ]; then echo --debug --coverage-clover coverage-clover.xml ; fi)
 
 after_script:
-  - if [ "$TRAVIS_PHP_VERSION" = "7.0" ]; then wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover tests/coverage-clover.xml ; fi
+  - if [ -n "$COVERAGE" ]; then wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover tests/coverage-clover.xml ; fi
