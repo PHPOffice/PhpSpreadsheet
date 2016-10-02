@@ -485,6 +485,9 @@ class OOCalc extends BaseReader implements IReader
                                                 $spanSection .= $spanData;
                                             }
                                             array_push($dataArray, $spanSection);
+                                        } elseif (isset($pData->a)) {
+                                            //Reading the hyperlinks in p
+                                            array_push($dataArray, $pData->a);
                                         } else {
                                             array_push($dataArray, $pData);
                                         }
