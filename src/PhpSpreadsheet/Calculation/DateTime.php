@@ -740,13 +740,13 @@ class DateTime
                     $PHPEndDateObject->modify('+1 year');
 
                     // Get the result
-                    $retVal =  $PHPEndDateObject->diff($PHPStartDateObject)->days;
+                    $retVal = $PHPEndDateObject->diff($PHPStartDateObject)->days;
 
                     // Adjust for leap years cases
                     $isLeapEndYear = $PHPEndDateObject->format('L');
                     $limit = new \DateTime($PHPEndDateObject->format('Y-02-29'));
-                    if (!$isLeapStartYear && !$wasLeapEndYear && $isLeapEndYear && $PHPEndDateObject >= $limit ) {
-                        $retVal--;
+                    if (!$isLeapStartYear && !$wasLeapEndYear && $isLeapEndYear && $PHPEndDateObject >= $limit) {
+                        --$retVal;
                     }
                 }
                 break;
