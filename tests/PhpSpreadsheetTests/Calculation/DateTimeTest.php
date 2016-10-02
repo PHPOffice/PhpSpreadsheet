@@ -204,8 +204,6 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function testTIMEtoPHP()
     {
-        $this->markTestIncomplete('TODO: This test should be fixed');
-
         Functions::setReturnDateType(Functions::RETURNDATE_PHP_NUMERIC);
         $result = DateTime::TIME(7, 30, 20);
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
