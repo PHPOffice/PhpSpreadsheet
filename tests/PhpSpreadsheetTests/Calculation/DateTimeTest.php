@@ -281,8 +281,6 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
      */
     public function testMINUTE()
     {
-        $this->markTestIncomplete('TODO: This test should be fixed');
-
         $args = func_get_args();
         $expectedResult = array_pop($args);
         $result = call_user_func_array([DateTime::class, 'MINUTEOFHOUR'], $args);
