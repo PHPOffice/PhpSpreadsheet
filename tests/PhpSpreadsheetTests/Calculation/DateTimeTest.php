@@ -156,12 +156,9 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerWEEKDAY
-     * @group fail19
      */
     public function testWEEKDAY()
     {
-        $this->markTestIncomplete('TODO: This test should be fixed');
-
         $args = func_get_args();
         $expectedResult = array_pop($args);
         $result = call_user_func_array([DateTime::class, 'DAYOFWEEK'], $args);
