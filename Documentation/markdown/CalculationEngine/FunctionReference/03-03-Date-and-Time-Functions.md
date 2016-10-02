@@ -663,7 +663,7 @@ $retVal = $worksheet->getCell('B4')->getCalculatedValue();
 
 ```php
 $retVal = call_user_func_array(
-    array('PHPExcel_Calculation_Functions', 'MINUTEOFHOUR'),
+    array('PHPExcel_Calculation_Functions', 'MINUTE'),
     array('09:30')
 );
 // $retVal = 30
@@ -671,7 +671,7 @@ $retVal = call_user_func_array(
 
 ##### Notes
 
-Note that the PHPExcel function is PHPExcel_Calculation_Functions::MINUTEOFHOUR() when the method is called statically.
+Note that the PHPExcel function is PHPExcel_Calculation_Functions::MINUTE() when the method is called statically.
 
 #### MONTH
 

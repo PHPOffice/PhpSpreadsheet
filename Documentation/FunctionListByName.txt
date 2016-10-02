@@ -224,7 +224,7 @@ MIDB                    CATEGORY_TEXT_AND_DATA          PHPExcel_Calculation_Tex
 MIN                     CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::MIN
 MINA                    CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::MINA
 MINIF                   CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::MINIF
-MINUTE                  CATEGORY_DATE_AND_TIME          PHPExcel_Calculation_DateTime::MINUTEOFHOUR
+MINUTE                  CATEGORY_DATE_AND_TIME          PHPExcel_Calculation_DateTime::MINUTE
 MINVERSE                CATEGORY_MATH_AND_TRIG          PHPExcel_Calculation_MathTrig::MINVERSE
 MIRR                    CATEGORY_FINANCIAL              PHPExcel_Calculation_Financial::MIRR
 MMULT                   CATEGORY_MATH_AND_TRIG          PHPExcel_Calculation_MathTrig::MMULT

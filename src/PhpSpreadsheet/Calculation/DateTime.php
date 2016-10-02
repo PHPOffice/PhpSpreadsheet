@@ -1358,7 +1358,7 @@ class DateTime
     }
 
     /**
-     * MINUTEOFHOUR
+     * MINUTE
      *
      * Returns the minutes of a time value.
      * The minute is given as an integer, ranging from 0 to 59.
@@ -1370,7 +1370,7 @@ class DateTime
      *                                    PHP DateTime object, or a standard time string
      * @return    int        Minute
      */
-    public static function MINUTEOFHOUR($timeValue = 0)
+    public static function MINUTE($timeValue = 0)
     {
         $timeValue = $timeTester = Functions::flattenSingleValue($timeValue);
 

@@ -1307,7 +1307,7 @@ class Calculation
         ],
         'MINUTE' => [
             'category' => Calculation\Categories::CATEGORY_DATE_AND_TIME,
-            'functionCall' => '\\PhpOffice\\PhpSpreadsheet\\Calculation\\DateTime::MINUTEOFHOUR',
+            'functionCall' => '\\PhpOffice\\PhpSpreadsheet\\Calculation\\DateTime::MINUTE',
             'argumentCount' => '1',
         ],
         'MINVERSE' => [

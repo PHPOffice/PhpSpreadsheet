@@ -39,7 +39,7 @@
 	EDATE               | PHPExcel_Calculation_DateTime::EDATE
 	EOMONTH             | PHPExcel_Calculation_DateTime::EOMONTH
 	HOUR                | PHPExcel_Calculation_DateTime::HOUROFDAY
-	MINUTE              | PHPExcel_Calculation_DateTime::MINUTEOFHOUR
+	MINUTE              | PHPExcel_Calculation_DateTime::MINUTE
 	MONTH               | PHPExcel_Calculation_DateTime::MONTHOFYEAR
 	NETWORKDAYS         | PHPExcel_Calculation_DateTime::NETWORKDAYS
 	NOW                 | PHPExcel_Calculation_DateTime::DATETIMENOW
