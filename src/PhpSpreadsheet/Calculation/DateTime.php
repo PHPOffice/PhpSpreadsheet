@@ -946,11 +946,11 @@ class DateTime
         }
 
         // Execute function
-        $startDoW = 6 - self::DAYOFWEEK($startDate, 2);
+        $startDoW = 6 - self::WEEKDAY($startDate, 2);
         if ($startDoW < 0) {
             $startDoW = 0;
         }
-        $endDoW = self::DAYOFWEEK($endDate, 2);
+        $endDoW = self::WEEKDAY($endDate, 2);
         if ($endDoW >= 6) {
             $endDoW = 0;
         }
@@ -968,7 +968,7 @@ class DateTime
                 return Functions::VALUE();
             }
             if (($holidayDate >= $startDate) && ($holidayDate <= $endDate)) {
-                if ((self::DAYOFWEEK($holidayDate, 2) < 6) && (!in_array($holidayDate, $holidayCountedArray))) {
+                if ((self::WEEKDAY($holidayDate, 2) < 6) && (!in_array($holidayDate, $holidayCountedArray))) {
                     --$partWeekDays;
                     $holidayCountedArray[] = $holidayDate;
                 }
@@ -1026,8 +1026,8 @@ class DateTime
 
         //    Adjust the start date if it falls over a weekend
 
-        $startDoW = self::DAYOFWEEK($startDate, 3);
-        if (self::DAYOFWEEK($startDate, 3) >= 5) {
+        $startDoW = self::WEEKDAY($startDate, 3);
+        if (self::WEEKDAY($startDate, 3) >= 5) {
             $startDate += ($decrementing) ? -$startDoW + 4 : 7 - $startDoW;
             ($decrementing) ? $endDays++ : $endDays--;
         }
@@ -1036,7 +1036,7 @@ class DateTime
         $endDate = (float) $startDate + (intval($endDays / 5) * 7) + ($endDays % 5);
 
         //    Adjust the calculated end date if it falls over a weekend
-        $endDoW = self::DAYOFWEEK($endDate, 3);
+        $endDoW = self::WEEKDAY($endDate, 3);
         if ($endDoW >= 5) {
             $endDate += ($decrementing) ? -$endDoW + 4 : 7 - $endDoW;
         }
@@ -1049,7 +1049,7 @@ class DateTime
                     if (is_string($holidayDate = self::getDateValue($holidayDate))) {
                         return Functions::VALUE();
                     }
-                    if (self::DAYOFWEEK($holidayDate, 3) < 5) {
+                    if (self::WEEKDAY($holidayDate, 3) < 5) {
                         $holidayDates[] = $holidayDate;
                     }
                 }
@@ -1076,7 +1076,7 @@ class DateTime
                     }
                 }
                 //    Adjust the calculated end date if it falls over a weekend
-                $endDoW = self::DAYOFWEEK($endDate, 3);
+                $endDoW = self::WEEKDAY($endDate, 3);
                 if ($endDoW >= 5) {
                     $endDate += ($decrementing) ? -$endDoW + 4 : 7 - $endDoW;
                 }
@@ -1127,7 +1127,7 @@ class DateTime
     }
 
     /**
-     * DAYOFWEEK
+     * WEEKDAY
      *
      * Returns the day of the week for a specified date. The day is given as an integer
      * ranging from 0 to 7 (dependent on the requested style).
@@ -1143,7 +1143,7 @@ class DateTime
      *                                        3                Numbers 0 (Monday) through 6 (Sunday).
      * @return    int        Day of the week value
      */
-    public static function DAYOFWEEK($dateValue = 1, $style = 1)
+    public static function WEEKDAY($dateValue = 1, $style = 1)
     {
         $dateValue = Functions::flattenSingleValue($dateValue);
         $style = Functions::flattenSingleValue($style);

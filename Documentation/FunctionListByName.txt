@@ -364,7 +364,7 @@ VDB                     CATEGORY_FINANCIAL              ***  Not yet Implemented
 VERSION                 CATEGORY_INFORMATION            PHPExcel_Calculation_Functions::VERSION
 VLOOKUP                 CATEGORY_LOOKUP_AND_REFERENCE   PHPExcel_Calculation_LookupRef::VLOOKUP
 
-WEEKDAY                 CATEGORY_DATE_AND_TIME          PHPExcel_Calculation_DateTime::DAYOFWEEK
+WEEKDAY                 CATEGORY_DATE_AND_TIME          PHPExcel_Calculation_DateTime::WEEKDAY
 WEEKNUM                 CATEGORY_DATE_AND_TIME          PHPExcel_Calculation_DateTime::WEEKNUM
 WEIBULL                 CATEGORY_STATISTICAL            PHPExcel_Calculation_Statistical::WEIBULL
 WORKDAY                 CATEGORY_DATE_AND_TIME          PHPExcel_Calculation_DateTime::WORKDAY

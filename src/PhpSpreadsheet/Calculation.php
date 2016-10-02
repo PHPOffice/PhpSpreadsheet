@@ -1960,7 +1960,7 @@ class Calculation
         ],
         'WEEKDAY' => [
             'category' => Calculation\Categories::CATEGORY_DATE_AND_TIME,
-            'functionCall' => '\\PhpOffice\\PhpSpreadsheet\\Calculation\\DateTime::DAYOFWEEK',
+            'functionCall' => '\\PhpOffice\\PhpSpreadsheet\\Calculation\\DateTime::WEEKDAY',
             'argumentCount' => '1,2',
         ],
         'WEEKNUM' => [

@@ -456,7 +456,7 @@
 
     Excel Function      | Category                       | PHPExcel Function
     --------------------|--------------------------------|-------------------------------------------
-    WEEKDAY             | CATEGORY_DATE_AND_TIME         | PHPExcel_Calculation_DateTime::DAYOFWEEK
+    WEEKDAY             | CATEGORY_DATE_AND_TIME         | PHPExcel_Calculation_DateTime::WEEKDAY
     WEEKNUM             | CATEGORY_DATE_AND_TIME         | PHPExcel_Calculation_DateTime::WEEKNUM
     WEIBULL             | CATEGORY_STATISTICAL           | PHPExcel_Calculation_Statistical::WEIBULL
     WORKDAY             | CATEGORY_DATE_AND_TIME         | PHPExcel_Calculation_DateTime::WORKDAY

@@ -925,7 +925,7 @@ $retVal = $worksheet->getCell('B4')->getCalculatedValue();
 
 ```php
 $retVal = call_user_func_array(
-    array('PHPExcel_Calculation_Functions', 'DAYOFWEEK'),
+    array('PHPExcel_Calculation_Functions', 'WEEKDAY'),
     array('14-July-2008')
 );
 // $retVal = 7
@@ -933,7 +933,7 @@ $retVal = call_user_func_array(
 
 ##### Notes
 
-Note that the PHPExcel function is PHPExcel_Calculation_Functions::DAYOFWEEK() when the method is called statically.
+Note that the PHPExcel function is PHPExcel_Calculation_Functions::WEEKDAY() when the method is called statically.
 
 #### WEEKNUM
 
