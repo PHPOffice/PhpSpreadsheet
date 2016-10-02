@@ -1670,7 +1670,7 @@ class Calculation
         ],
         'SECOND' => [
             'category' => Calculation\Categories::CATEGORY_DATE_AND_TIME,
-            'functionCall' => '\\PhpOffice\\PhpSpreadsheet\\Calculation\\DateTime::SECONDOFMINUTE',
+            'functionCall' => '\\PhpOffice\\PhpSpreadsheet\\Calculation\\DateTime::SECOND',
             'argumentCount' => '1',
         ],
         'SERIESSUM' => [

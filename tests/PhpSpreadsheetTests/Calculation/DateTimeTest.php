@@ -299,7 +299,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     {
         $args = func_get_args();
         $expectedResult = array_pop($args);
-        $result = call_user_func_array([DateTime::class, 'SECONDOFMINUTE'], $args);
+        $result = call_user_func_array([DateTime::class, 'SECOND'], $args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 

@@ -846,7 +846,7 @@ $retVal = $worksheet->getCell('B4')->getCalculatedValue();
 
 ```php
 $retVal = call_user_func_array(
-    array('PHPExcel_Calculation_Functions', 'SECONDOFMINUTE'),
+    array('PHPExcel_Calculation_Functions', 'SECOND'),
     array('09:30:17')
 );
 // $retVal = 17
@@ -854,7 +854,7 @@ $retVal = call_user_func_array(
 
 ##### Notes
 
-Note that the PHPExcel function is PHPExcel_Calculation_Functions::SECONDOFMINUTE() when the method is called statically.
+Note that the PHPExcel function is PHPExcel_Calculation_Functions::SECOND() when the method is called statically.
 
 #### TIME
 

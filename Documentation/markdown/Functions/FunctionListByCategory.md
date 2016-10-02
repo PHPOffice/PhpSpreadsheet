@@ -43,7 +43,7 @@
 	MONTH               | PHPExcel_Calculation_DateTime::MONTHOFYEAR
 	NETWORKDAYS         | PHPExcel_Calculation_DateTime::NETWORKDAYS
 	NOW                 | PHPExcel_Calculation_DateTime::DATETIMENOW
-	SECOND              | PHPExcel_Calculation_DateTime::SECONDOFMINUTE
+	SECOND              | PHPExcel_Calculation_DateTime::SECOND
 	TIME                | PHPExcel_Calculation_DateTime::TIME
 	TIMEVALUE           | PHPExcel_Calculation_DateTime::TIMEVALUE
 	TODAY               | PHPExcel_Calculation_DateTime::DATENOW

@@ -1398,7 +1398,7 @@ class DateTime
     }
 
     /**
-     * SECONDOFMINUTE
+     * SECOND
      *
      * Returns the seconds of a time value.
      * The second is given as an integer in the range 0 (zero) to 59.
@@ -1410,7 +1410,7 @@ class DateTime
      *                                    PHP DateTime object, or a standard time string
      * @return    int        Second
      */
-    public static function SECONDOFMINUTE($timeValue = 0)
+    public static function SECOND($timeValue = 0)
     {
         $timeValue = Functions::flattenSingleValue($timeValue);
 

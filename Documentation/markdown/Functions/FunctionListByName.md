@@ -378,7 +378,7 @@
     --------------------|--------------------------------|-------------------------------------------
     SEARCH              | CATEGORY_TEXT_AND_DATA         | PHPExcel_Calculation_TextData::SEARCHINSENSITIVE
     SEARCHB             | CATEGORY_TEXT_AND_DATA         | PHPExcel_Calculation_TextData::SEARCHINSENSITIVE
-    SECOND              | CATEGORY_DATE_AND_TIME         | PHPExcel_Calculation_DateTime::SECONDOFMINUTE
+    SECOND              | CATEGORY_DATE_AND_TIME         | PHPExcel_Calculation_DateTime::SECOND
     SERIESSUM           | CATEGORY_MATH_AND_TRIG         | PHPExcel_Calculation_MathTrig::SERIESSUM
     SIGN                | CATEGORY_MATH_AND_TRIG         | PHPExcel_Calculation_MathTrig::SIGN
     SIN                 | CATEGORY_MATH_AND_TRIG         | sin
