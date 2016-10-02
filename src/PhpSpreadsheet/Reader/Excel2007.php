@@ -1655,7 +1655,6 @@ class Excel2007 extends BaseReader implements IReader
                                 foreach ($xmlWorkbook->definedNames->definedName as $definedName) {
                                     // Extract range
                                     $extractedRange = (string) $definedName;
-                                    $extractedRange = preg_replace('/\'(\w+)\'\!/', '', $extractedRange);
                                     if (($spos = strpos($extractedRange, '!')) !== false) {
                                         $extractedRange = substr($extractedRange, 0, $spos) . str_replace('$', '', substr($extractedRange, $spos));
                                     } else {
@@ -1730,7 +1729,6 @@ class Excel2007 extends BaseReader implements IReader
                             foreach ($xmlWorkbook->definedNames->definedName as $definedName) {
                                 // Extract range
                                 $extractedRange = (string) $definedName;
-                                $extractedRange = preg_replace('/\'(\w+)\'\!/', '', $extractedRange);
                                 if (($spos = strpos($extractedRange, '!')) !== false) {
                                     $extractedRange = substr($extractedRange, 0, $spos) . str_replace('$', '', substr($extractedRange, $spos));
                                 } else {
