@@ -1700,7 +1700,7 @@ class Excel2007 extends BaseReader implements IReader
                                                 }
                                                 break;
                                             case '_xlnm.Print_Area':
-                                                $rangeSets = explode(',', $extractedRange); // FIXME: what if sheetname contains comma?
+                                                $rangeSets = preg_split("/'(.*?)'(?:![A-Z0-9]+:[A-Z0-9]+,?)/", $extractedRange, PREG_SPLIT_NO_EMPTY);
                                                 $newRangeSets = [];
                                                 foreach ($rangeSets as $rangeSet) {
                                                     $range = explode('!', $rangeSet); // FIXME: what if sheetname contains exclamation mark?
@@ -1829,7 +1829,6 @@ class Excel2007 extends BaseReader implements IReader
                             );
                             $objChart = \PhpOffice\PhpSpreadsheet\Reader\Excel2007\Chart::readChart($chartElements, basename($chartEntryRef, '.xml'));
 
-//
                             if (isset($charts[$chartEntryRef])) {
                                 $chartPositionRef = $charts[$chartEntryRef]['sheet'] . '!' . $charts[$chartEntryRef]['id'];
                                 if (isset($chartDetails[$chartPositionRef])) {
