@@ -1875,9 +1875,9 @@ class Excel2007 extends BaseReader implements IReader
 
     /**
      * @param \PhpOffice\PhpSpreadsheet\Style $docStyle
-     * @param \stdClass $style
+     * @param \stdClass|\SimpleXMLElement $style
      */
-    private static function readStyle($docStyle, \stdClass $style)
+    private static function readStyle(\PhpOffice\PhpSpreadsheet\Style $docStyle, $style)
     {
         $docStyle->getNumberFormat()->setFormatCode($style->numFmt);
 
