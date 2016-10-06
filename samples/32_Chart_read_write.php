@@ -2,7 +2,7 @@
 
 require __DIR__ . '/Header.php';
 
-$inputFileType = 'Excel2007';
+$inputFileType = 'Xlsx';
 $inputFileNames = __DIR__ . '/templates/32readwrite*[0-9].xlsx';
 
 if ((isset($argc)) && ($argc > 1)) {
@@ -69,7 +69,7 @@ foreach ($inputFileNames as $inputFileName) {
     }
 
     $outputFileName = $helper->getFilename($inputFileName);
-    $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Excel2007');
+    $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
     $writer->setIncludeCharts(true);
     $callStartTime = microtime(true);
     $writer->save($outputFileName);

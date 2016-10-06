@@ -71,7 +71,7 @@ $spreadsheet->getActiveSheet()
 //  If we set Pre Calculated Formulas to true then PhpSpreadsheet will calculate all formulae in the
 //    workbook before saving. This adds time and memory overhead, and can cause some problems with formulae
 //    using functions or features (such as array formulae) that aren't yet supported by the calculation engine
-//  If the value is false (the default) for the Excel2007 Writer, then MS Excel (or the application used to
+//  If the value is false (the default) for the Xlsx Writer, then MS Excel (or the application used to
 //    open the file) will need to recalculate values itself to guarantee that the correct results are available.
 //
 //$writer->setPreCalculateFormulas(true);

@@ -6,7 +6,7 @@ require __DIR__ . '/Header.php';
 
 // Write temporary file
 $largeSpreadsheet = require __DIR__ . '/templates/largeSpreadsheet.php';
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\Excel2007($largeSpreadsheet);
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($largeSpreadsheet);
 $filename = $helper->getTemporaryFilename();
 $callStartTime = microtime(true);
 $writer->save($filename);
@@ -25,12 +25,12 @@ class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
     }
 }
 
-$helper->log('Load from Excel2007 file');
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Excel2007');
+$helper->log('Load from Xlsx file');
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
 $reader->setReadFilter(new MyReadFilter());
 $callStartTime = microtime(true);
 $spreadsheet = $reader->load($filename);
-$helper->logRead('Excel2007', $filename, $callStartTime);
+$helper->logRead('Xlsx', $filename, $callStartTime);
 $helper->log('Remove unnecessary rows');
 $spreadsheet->getActiveSheet()->removeRow(2, 18);
 

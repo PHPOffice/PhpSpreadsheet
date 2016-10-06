@@ -27,7 +27,7 @@ include 'PHPExcel/IOFactory.php';
 
 
 $inputFileType = 'Excel5';
-//	$inputFileType = 'Excel2007';
+//	$inputFileType = 'Xlsx';
 //	$inputFileType = 'Excel2003XML';
 //	$inputFileType = 'OOCalc';
 //	$inputFileType = 'SYLK';

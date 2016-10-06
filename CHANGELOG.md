@@ -29,6 +29,26 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - c:max and c:min elements shall NOT be inside c:orientation elements - @vitalyrepin [#869](https://github.com/PHPOffice/PHPExcel/pull/869)
 - Implement actual timezone adjustment into PHPExcel_Shared_Date::PHPToExcel - @sim642 [#489](https://github.com/PHPOffice/PHPExcel/pull/489)
 
+### BREAKING CHANGE
+
+- Introduction of namespaces for all classes, eg: `PHPExcel_Calculation_Function` becomes `PhpOffice\PhpSpreadsheet\Calculation\Functions`
+- Some classes were renamed for clarity and/or consistency:
+
+| Before                          | After                                     |
+|---------------------------------|-------------------------------------------|
+| `PHPExcel`                      | `PhpOffice\PhpSpreadsheet\Spreadsheet`    |
+| `PHPExcel_Reader_Excel2007`     | `PhpOffice\PhpSpreadsheet\Reader\Xlsx`    |
+| `PHPExcel_Writer_Excel2007`     | `PhpOffice\PhpSpreadsheet\Writer\Xlsx`    |
+
+- Some methods were renamed for clarity and/or consistency:
+
+| Before                                           | After                                                      |
+|--------------------------------------------------|------------------------------------------------------------|
+| `PHPExcel_Calculation_DateTime::DAYOFWEEK()`     | `PhpOffice\PhpSpreadsheet\Calculation\DateTime::WEEKDAY()` |
+| `PHPExcel_Calculation_DateTime::WEEKOFYEAR()`    | `PhpOffice\PhpSpreadsheet\Calculation\DateTime::WEEKNUM()` |
+| `PHPExcel_Calculation_DateTime::MINUTEOFHOUR()`  | `PhpOffice\PhpSpreadsheet\Calculation\DateTime::MINUTE()`  |
+| `PHPExcel_Calculation_DateTime::SECONDOFMINUTE()`| `PhpOffice\PhpSpreadsheet\Calculation\DateTime::SECOND()`  |
+
 
 ## [1.8.1] - 2015-04-30
 

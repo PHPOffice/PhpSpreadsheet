@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Writer\Excel2007;
+namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -269,7 +269,7 @@ class Style extends WriterPart
     {
         // font
         $objWriter->startElement('font');
-        //    Weird! The order of these elements actually makes a difference when opening Excel2007
+        //    Weird! The order of these elements actually makes a difference when opening Xlsx
         //        files in Excel2003 with the compatibility pack. It's not documented behaviour,
         //        and makes for a real WTF!
 

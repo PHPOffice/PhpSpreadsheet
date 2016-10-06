@@ -44,7 +44,7 @@ class IOFactory
      * @static
      */
     private static $autoResolveClasses = [
-        'Excel2007',
+        'Xlsx',
         'Excel5',
         'Excel2003XML',
         'OOCalc',
@@ -106,7 +106,7 @@ class IOFactory
      *
      * @static
      * @param    Spreadsheet $spreadsheet
-     * @param    string  $writerType    Example: Excel2007
+     * @param    string  $writerType    Example: Xlsx
      * @throws    Writer\Exception
      * @return    Writer\IWriter
      */
@@ -135,7 +135,7 @@ class IOFactory
      * Create Reader\IReader
      *
      * @static
-     * @param    string $readerType    Example: Excel2007
+     * @param    string $readerType    Example: Xlsx
      * @throws    Reader\Exception
      * @return    Reader\IReader
      */
@@ -213,7 +213,7 @@ class IOFactory
                 case 'xlsm':            //    Excel (OfficeOpenXML) Macro Spreadsheet (macros will be discarded)
                 case 'xltx':            //    Excel (OfficeOpenXML) Template
                 case 'xltm':            //    Excel (OfficeOpenXML) Macro Template (macros will be discarded)
-                    $extensionType = 'Excel2007';
+                    $extensionType = 'Xlsx';
                     break;
                 case 'xls':                //    Excel (BIFF) Spreadsheet
                 case 'xlt':                //    Excel (BIFF) Template

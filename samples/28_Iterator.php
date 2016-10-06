@@ -4,15 +4,15 @@ require __DIR__ . '/Header.php';
 
 $sampleSpreadsheet = require __DIR__ . '/templates/sampleSpreadsheet.php';
 $filename = $helper->getTemporaryFilename();
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\Excel2007($sampleSpreadsheet);
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($sampleSpreadsheet);
 $callStartTime = microtime(true);
 $writer->save($filename);
 $helper->logWrite($writer, $filename, $callStartTime);
 
 $callStartTime = microtime(true);
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Excel2007');
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
 $spreadsheet = $reader->load($filename);
-$helper->logRead('Excel2007', $filename, $callStartTime);
+$helper->logRead('Xlsx', $filename, $callStartTime);
 $helper->log('Iterate worksheets');
 foreach ($spreadsheet->getWorksheetIterator() as $worksheet) {
     $helper->log('Worksheet - ' . $worksheet->getTitle());

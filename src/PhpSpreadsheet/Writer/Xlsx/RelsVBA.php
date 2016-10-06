@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Writer\Excel2007;
+namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -24,16 +24,16 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Excel2007;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version     ##VERSION##, ##DATE##
  */
-class RelsRibbon extends WriterPart
+class RelsVBA extends WriterPart
 {
     /**
-     * Write relationships for additional objects of custom UI (ribbon)
+     * Write relationships for a signed VBA Project
      *
      * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
      * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
-     * @return string XML Output
+     * @return string  XML Output
      */
-    public function writeRibbonRelationships(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function writeVBARelationships(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
         // Create XML writer
         $objWriter = null;
@@ -49,16 +49,11 @@ class RelsRibbon extends WriterPart
         // Relationships
         $objWriter->startElement('Relationships');
         $objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/package/2006/relationships');
-        $localRels = $spreadsheet->getRibbonBinObjects('names');
-        if (is_array($localRels)) {
-            foreach ($localRels as $aId => $aTarget) {
-                $objWriter->startElement('Relationship');
-                $objWriter->writeAttribute('Id', $aId);
-                $objWriter->writeAttribute('Type', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image');
-                $objWriter->writeAttribute('Target', $aTarget);
-                $objWriter->endElement();
-            }
-        }
+        $objWriter->startElement('Relationship');
+        $objWriter->writeAttribute('Id', 'rId1');
+        $objWriter->writeAttribute('Type', 'http://schemas.microsoft.com/office/2006/relationships/vbaProjectSignature');
+        $objWriter->writeAttribute('Target', 'vbaProjectSignature.bin');
+        $objWriter->endElement();
         $objWriter->endElement();
 
         return $objWriter->getData();

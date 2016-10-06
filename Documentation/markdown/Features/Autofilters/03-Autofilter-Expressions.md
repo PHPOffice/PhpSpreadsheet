@@ -3,7 +3,7 @@
 
 ## Autofilter Expressions
 
-PHPEXcel 1.7.8 introduced the ability to actually create, read and write filter expressions; initially only for Excel2007 files, but later releases will extend this to other formats.
+PHPEXcel 1.7.8 introduced the ability to actually create, read and write filter expressions; initially only for Xlsx files, but later releases will extend this to other formats.
 
 To apply a filter expression to an autoFilter range, you first need to identify which column you're going to be applying this filter to.
 

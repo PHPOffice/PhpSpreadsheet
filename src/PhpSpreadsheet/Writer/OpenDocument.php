@@ -177,11 +177,11 @@ class OpenDocument extends BaseWriter implements IWriter
     }
 
     /**
-     * Set PhpSpreadsheet object
+     * Set Spreadsheet object
      *
      * @param  \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet  PhpSpreadsheet object
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     * @return Excel2007
+     * @return self
      */
     public function setSpreadsheet(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {

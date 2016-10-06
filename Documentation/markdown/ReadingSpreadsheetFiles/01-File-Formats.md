@@ -15,7 +15,7 @@ The Microsoft Excel™ Binary file format (BIFF5 and BIFF8) is a binary file for
 
 Microsoft Excel™ 2003 included options for a file format called SpreadsheetML. This file is a zipped XML document. It is not very common, but its core features are supported. Documentation for the format can be found at [http://msdn.microsoft.com/en-us/library/aa140066%28office.10%29.aspx][3] though it’s sadly rather sparse in its detail.
 
-### Excel2007
+### Xlsx
 
 Microsoft Excel™ 2007 shipped with a new file format, namely Microsoft Office Open XML SpreadsheetML, and Excel 2010 extended this still further with its new features such as sparklines. These files typically have an extension of .xlsx. This format is based around a zipped collection of eXtensible Markup Language (XML) files. Microsoft Office Open XML SpreadsheetML is mostly standardized in ECMA 376 ([http://www.ecma-international.org/news/TC45_current_work/TC45_available_docs.htm][4]) and ISO 29500.
 

@@ -26,7 +26,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class Excel2007 extends BaseWriter implements IWriter
+class Xlsx extends BaseWriter implements IWriter
 {
     /**
      * Office2003 compatibility
@@ -38,7 +38,7 @@ class Excel2007 extends BaseWriter implements IWriter
     /**
      * Private writer parts
      *
-     * @var Excel2007\WriterPart[]
+     * @var Xlsx\WriterPart[]
      */
     private $writerParts = [];
 
@@ -106,7 +106,7 @@ class Excel2007 extends BaseWriter implements IWriter
     private $drawingHashTable;
 
     /**
-     * Create a new Excel2007 Writer
+     * Create a new Xlsx Writer
      *
      * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
      */
@@ -116,19 +116,19 @@ class Excel2007 extends BaseWriter implements IWriter
         $this->setSpreadsheet($spreadsheet);
 
         $writerPartsArray = [
-            'stringtable' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Excel2007\\StringTable',
-            'contenttypes' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Excel2007\\ContentTypes',
-            'docprops' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Excel2007\\DocProps',
-            'rels' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Excel2007\\Rels',
-            'theme' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Excel2007\\Theme',
-            'style' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Excel2007\\Style',
-            'workbook' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Excel2007\\Workbook',
-            'worksheet' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Excel2007\\Worksheet',
-            'drawing' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Excel2007\\Drawing',
-            'comments' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Excel2007\\Comments',
-            'chart' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Excel2007\\Chart',
-            'relsvba' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Excel2007\\RelsVBA',
-            'relsribbonobjects' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Excel2007\\RelsRibbon',
+            'stringtable' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\StringTable',
+            'contenttypes' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\ContentTypes',
+            'docprops' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\DocProps',
+            'rels' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\Rels',
+            'theme' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\Theme',
+            'style' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\Style',
+            'workbook' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\Workbook',
+            'worksheet' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\Worksheet',
+            'drawing' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\Drawing',
+            'comments' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\Comments',
+            'chart' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\Chart',
+            'relsvba' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\RelsVBA',
+            'relsribbonobjects' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\RelsRibbon',
         ];
 
         //    Initialise writer parts
@@ -152,7 +152,7 @@ class Excel2007 extends BaseWriter implements IWriter
      * Get writer part
      *
      * @param     string     $pPartName        Writer part name
-     * @return     \PhpOffice\PhpSpreadsheet\Writer\Excel2007\WriterPart
+     * @return     \PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart
      */
     public function getWriterPart($pPartName = '')
     {
@@ -416,7 +416,7 @@ class Excel2007 extends BaseWriter implements IWriter
      *
      * @param     \PhpOffice\PhpSpreadsheet\Spreadsheet     $spreadsheet    PhpSpreadsheet object
      * @throws    Exception
-     * @return    Excel2007
+     * @return    Xlsx
      */
     public function setSpreadsheet(Spreadsheet $spreadsheet = null)
     {
@@ -519,7 +519,7 @@ class Excel2007 extends BaseWriter implements IWriter
      * Set Office2003 compatibility
      *
      * @param bool $pValue    Office2003 compatibility?
-     * @return Excel2007
+     * @return Xlsx
      */
     public function setOffice2003Compatibility($pValue = false)
     {

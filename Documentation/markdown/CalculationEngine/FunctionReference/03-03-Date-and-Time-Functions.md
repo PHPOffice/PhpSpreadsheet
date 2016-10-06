@@ -299,7 +299,7 @@ DATEVALUE uses the php date/time object implementation of strtotime() (which can
 
 __WARNING:-__ PHPExcel accepts a wider range of date formats than MS Excel, so it is entirely possible that Excel will return a #VALUE! error when passed a date string that it can’t interpret, while PHPExcel is able to translate that same string into a correct date value.
 
-Care should be taken in workbooks that use string formatted dates in calculations when writing to Excel5 or Excel2007.
+Care should be taken in workbooks that use string formatted dates in calculations when writing to Excel5 or Xlsx.
 
 #### DAY
 

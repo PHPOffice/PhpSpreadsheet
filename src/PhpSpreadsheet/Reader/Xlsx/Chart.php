@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Reader\Excel2007;
+namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet

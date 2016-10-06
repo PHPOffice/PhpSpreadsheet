@@ -14,7 +14,7 @@ if (!\PhpOffice\PhpSpreadsheet\Settings::setChartRenderer($rendererName, $render
     return;
 }
 
-$inputFileType = 'Excel2007';
+$inputFileType = 'Xlsx';
 $inputFileNames = __DIR__ . '/templates/32readwrite*[0-9].xlsx';
 
 if ((isset($argc)) && ($argc > 1)) {

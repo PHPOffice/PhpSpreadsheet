@@ -127,7 +127,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A10')
 ![07-simple-example-1.png](./images/07-simple-example-1.png "")
 
 
-**Note** that not all complex format masks such as this one will work when retrieving a formatted value to display "on screen", or for certain writers such as HTML or PDF, but it will work with the true spreadsheet writers (Excel2007 and Excel5).
+**Note** that not all complex format masks such as this one will work when retrieving a formatted value to display "on screen", or for certain writers such as HTML or PDF, but it will work with the true spreadsheet writers (Xlsx and Excel5).
 
 ### Setting a range of cells from an array
 
@@ -266,7 +266,7 @@ The easiest way to loop cells is by using iterators. Using iterators, one can us
 Below is an example where we read all the values in a worksheet and display them in a table.
 
 ```php
-$objReader = PHPExcel_IOFactory::createReader('Excel2007');
+$objReader = PHPExcel_IOFactory::createReader('Xlsx');
 $objReader->setReadDataOnly(TRUE);
 $objPHPExcel = $objReader->load("test.xlsx");
 
@@ -304,7 +304,7 @@ Note: In PHPExcel column index is 0-based while row index is 1-based. That means
 Below is an example where we read all the values in a worksheet and display them in a table.
 
 ```php
-$objReader = PHPExcel_IOFactory::createReader('Excel2007');
+$objReader = PHPExcel_IOFactory::createReader('Xlsx');
 $objReader->setReadDataOnly(TRUE);
 $objPHPExcel = $objReader->load("test.xlsx");
 
@@ -331,7 +331,7 @@ echo '</table>' . PHP_EOL;
 Alternatively, you can take advantage of PHP's "Perl-style" character incrementors to loop through the cells by coordinate:
 
 ```php
-$objReader = PHPExcel_IOFactory::createReader('Excel2007');
+$objReader = PHPExcel_IOFactory::createReader('Xlsx');
 $objReader->setReadDataOnly(TRUE);
 $objPHPExcel = $objReader->load("test.xlsx");
 

@@ -12,13 +12,13 @@ $rendererName = \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_DOMPDF;
 $rendererLibrary = 'domPDF0.6.0beta3';
 $rendererLibraryPath = '/php/libraries/PDF/' . $rendererLibrary;
 
-// Read from Excel2007 (.xlsx) template
-$helper->log('Load Excel2007 template file');
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Excel2007');
+// Read from Xlsx (.xlsx) template
+$helper->log('Load Xlsx template file');
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
 $spreadsheet = $reader->load(__DIR__ . '/templates/26template.xlsx');
 
 /* at this point, we could do some manipulations with the template, but we skip this step */
-$helper->write($spreadsheet, __FILE__, ['Excel2007' => 'xlsx', 'Excel5' => 'xls', 'HTML' => 'html']);
+$helper->write($spreadsheet, __FILE__, ['Xlsx' => 'xlsx', 'Excel5' => 'xls', 'HTML' => 'html']);
 
 // Export to PDF (.pdf)
 $helper->log('Write to PDF format');

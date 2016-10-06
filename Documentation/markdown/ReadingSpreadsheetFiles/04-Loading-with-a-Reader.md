@@ -25,7 +25,7 @@ Alternatively, you can use the IO Factory's createReader() method to instantiate
 
 ```php
 $inputFileType = 'Excel5';
-//    $inputFileType = 'Excel2007';
+//    $inputFileType = 'Xlsx';
 //    $inputFileType = 'Excel2003XML';
 //    $inputFileType = 'OOCalc';
 //    $inputFileType = 'SYLK';

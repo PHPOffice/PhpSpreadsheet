@@ -24,7 +24,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class Excel2007 extends BaseReader implements IReader
+class Xlsx extends BaseReader implements IReader
 {
     /**
      * ReferenceHelper instance
@@ -34,14 +34,14 @@ class Excel2007 extends BaseReader implements IReader
     private $referenceHelper = null;
 
     /**
-     * Excel2007\Theme instance
+     * Xlsx\Theme instance
      *
-     * @var Excel2007\Theme
+     * @var Xlsx\Theme
      */
     private static $theme = null;
 
     /**
-     * Create a new Excel2007 Reader instance
+     * Create a new Xlsx Reader instance
      */
     public function __construct()
     {
@@ -398,7 +398,7 @@ class Excel2007 extends BaseReader implements IReader
                                 $themeColours[$themePos] = $xmlColourData['val'];
                             }
                         }
-                        self::$theme = new Excel2007\Theme($themeName, $colourSchemeName, $themeColours);
+                        self::$theme = new Xlsx\Theme($themeName, $colourSchemeName, $themeColours);
                     }
                     break;
             }
@@ -1827,7 +1827,7 @@ class Excel2007 extends BaseReader implements IReader
                                 'SimpleXMLElement',
                                 \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                             );
-                            $objChart = \PhpOffice\PhpSpreadsheet\Reader\Excel2007\Chart::readChart($chartElements, basename($chartEntryRef, '.xml'));
+                            $objChart = \PhpOffice\PhpSpreadsheet\Reader\Xlsx\Chart::readChart($chartElements, basename($chartEntryRef, '.xml'));
 
                             if (isset($charts[$chartEntryRef])) {
                                 $chartPositionRef = $charts[$chartEntryRef]['sheet'] . '!' . $charts[$chartEntryRef]['id'];

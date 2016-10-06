@@ -41,10 +41,10 @@ $spreadsheet->getActiveSheet()->setTitle('Simple');
 $spreadsheet->setActiveSheetIndex(0);
 
 // Save Excel 2007 file
-$helper->log('Write to Excel2007 format');
+$helper->log('Write to Xlsx format');
 
-// Use PCLZip rather than ZipArchive to create the Excel2007 OfficeOpenXML file
+// Use PCLZip rather than ZipArchive to create the Xlsx OfficeOpenXML file
 \PhpOffice\PhpSpreadsheet\Settings::setZipClass(\PhpOffice\PhpSpreadsheet\Settings::PCLZIP);
 
 // Save
-$helper->write($spreadsheet, __FILE__, ['Excel2007' => 'xlsx']);
+$helper->write($spreadsheet, __FILE__, ['Xlsx' => 'xlsx']);

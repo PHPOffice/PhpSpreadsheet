@@ -328,7 +328,7 @@ The first occurrence of the following codes turns the formatting ON, the second 
 
 Superscript and subscript cannot both be ON at same time. Whichever comes first wins and the other is ignored, while the first is ON.
 
-The following codes are supported by Excel2007:
+The following codes are supported by Xlsx:
 
 Code                   | Meaning
 -----------------------|-----------
@@ -545,10 +545,10 @@ $objPHPExcel->getActiveSheet()->getStyle('A1')->getNumberFormat()
 __Tip__
 The rules for composing a number format code in Excel can be rather complicated. Sometimes you know how to create some number format in Microsoft Office Excel, but don't know what the underlying number format code looks like. How do you find it?
 
-The readers shipped with PHPExcel come to the rescue. Load your template workbook using e.g. Excel2007 reader to reveal the number format code. Example how read a number format code for cell A1:
+The readers shipped with PHPExcel come to the rescue. Load your template workbook using e.g. Xlsx reader to reveal the number format code. Example how read a number format code for cell A1:
 
 ```php
-$objReader = PHPExcel_IOFactory::createReader('Excel2007');
+$objReader = PHPExcel_IOFactory::createReader('Xlsx');
 $objPHPExcel = $objReader->load('template.xlsx');
 var_dump($objPHPExcel->getActiveSheet()->getStyle('A1')->getNumberFormat()->getFormatCode());
 ```
@@ -745,7 +745,7 @@ $objPHPExcel->getActiveSheet()->getProtection()->setSheet(true);
 
 ### Setting data validation on a cell
 
-Data validation is a powerful feature of Excel2007. It allows to specify an input filter on the data that can be inserted in a specific cell. This filter can be a range (i.e. value must be between 0 and 10), a list (i.e. value must be picked from a list), ...
+Data validation is a powerful feature of Xlsx. It allows to specify an input filter on the data that can be inserted in a specific cell. This filter can be a range (i.e. value must be between 0 and 10), a list (i.e. value must be picked from a list), ...
 
 The following piece of code only allows numbers between 10 and 20 to be entered in cell B3:
 
@@ -1078,7 +1078,7 @@ header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetm
 header('Content-Disposition: attachment;filename="myfile.xlsx"');
 header('Cache-Control: max-age=0');
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Xlsx');
 $objWriter->save('php://output');
 ```
 

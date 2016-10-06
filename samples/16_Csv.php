@@ -23,8 +23,8 @@ $callStartTime = microtime(true);
 $spreadsheetFromCSV = $reader->load($filename);
 $helper->logRead('CSV', $filename, $callStartTime);
 
-// Write Excel2007
-$helper->write($spreadsheetFromCSV, __FILE__, ['Excel2007' => 'xlsx']);
+// Write Xlsx
+$helper->write($spreadsheetFromCSV, __FILE__, ['Xlsx' => 'xlsx']);
 
 // Write CSV
 $filenameCSV = $helper->getFilename(__FILE__, 'csv');

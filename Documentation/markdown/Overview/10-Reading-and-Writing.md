@@ -35,7 +35,7 @@ $objReader->load("05featuredemo.xlsx");
 You can create a PHPExcel_Reader_IReader instance using PHPExcel_IOFactory in explicit mode using the following code sample:
 
 ```php
-$objReader = PHPExcel_IOFactory::createReader("Excel2007");
+$objReader = PHPExcel_IOFactory::createReader("Xlsx");
 $objPHPExcel = $objReader->load("05featuredemo.xlsx");
 ```
 
@@ -46,13 +46,13 @@ Note that automatic type resolving mode is slightly slower than explicit mode.
 You can create a PHPExcel_Writer_Iwriter instance using PHPExcel_IOFactory:
 
 ```php
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007");
+$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, "Xlsx");
 $objWriter->save("05featuredemo.xlsx");
 ```
 
 ### Excel 2007 (SpreadsheetML) file format
 
-Excel2007 file format is the main file format of PHPExcel. It allows outputting the in-memory spreadsheet to a .xlsx file.
+Xlsx file format is the main file format of PHPExcel. It allows outputting the in-memory spreadsheet to a .xlsx file.
 
 #### PHPExcel_Reader_Excel2007
 
@@ -131,7 +131,7 @@ $objWriter->save("05featuredemo.xlsx");
 
 ##### Office 2003 compatibility pack
 
-Because of a bug in the Office2003 compatibility pack, there can be some small issues when opening Excel2007 spreadsheets (mostly related to formula calculation). You can enable Office2003 compatibility with the following code:
+Because of a bug in the Office2003 compatibility pack, there can be some small issues when opening Xlsx spreadsheets (mostly related to formula calculation). You can enable Office2003 compatibility with the following code:
 
 ```
 $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
