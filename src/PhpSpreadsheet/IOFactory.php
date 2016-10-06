@@ -47,7 +47,7 @@ class IOFactory
         'Xlsx',
         'Xls',
         'Excel2003XML',
-        'OOCalc',
+        'Ods',
         'SYLK',
         'Gnumeric',
         'HTML',
@@ -221,7 +221,7 @@ class IOFactory
                     break;
                 case 'ods':                //    Open/Libre Offic Calc
                 case 'ots':                //    Open/Libre Offic Calc Template
-                    $extensionType = 'OOCalc';
+                    $extensionType = 'Ods';
                     break;
                 case 'slk':
                     $extensionType = 'SYLK';

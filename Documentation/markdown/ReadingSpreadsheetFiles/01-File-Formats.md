@@ -19,7 +19,7 @@ Microsoft Excel™ 2003 included options for a file format called SpreadsheetML.
 
 Microsoft Excel™ 2007 shipped with a new file format, namely Microsoft Office Open XML SpreadsheetML, and Excel 2010 extended this still further with its new features such as sparklines. These files typically have an extension of .xlsx. This format is based around a zipped collection of eXtensible Markup Language (XML) files. Microsoft Office Open XML SpreadsheetML is mostly standardized in ECMA 376 ([http://www.ecma-international.org/news/TC45_current_work/TC45_available_docs.htm][4]) and ISO 29500.
 
-### OOCalc
+### Ods
 
 aka Open Document Format (ODF) or OASIS, this is the OpenOffice.org XML File Format for spreadsheets. It comprises a zip archive including several components all of which are text files, most of these with markup in the eXtensible Markup Language (XML). It is the standard file format for OpenOffice.org Calc and StarCalc, and files typically have an extension of .ods. The published specification for the file format is available from the OASIS Open Office XML Format Technical Committee web page ([http://www.oasis-open.org/committees/tc_home.php?wg_abbrev=office#technical][5]). Other information is available from the OpenOffice.org XML File Format web page ([http://xml.openoffice.org/general.html][6]), part of the OpenOffice.org project.
 

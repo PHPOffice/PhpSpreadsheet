@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Writer\OpenDocument\Cell;
+namespace PhpOffice\PhpSpreadsheet\Writer\Ods\Cell;
 
 /**
  * PhpSpreadsheet

@@ -26,12 +26,12 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class OpenDocument extends BaseWriter implements IWriter
+class Ods extends BaseWriter implements IWriter
 {
     /**
      * Private writer parts
      *
-     * @var OpenDocument\WriterPart[]
+     * @var Ods\WriterPart[]
      */
     private $writerParts = [];
 
@@ -43,7 +43,7 @@ class OpenDocument extends BaseWriter implements IWriter
     private $spreadSheet;
 
     /**
-     * Create a new OpenDocument
+     * Create a new Ods
      *
      * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
      */
@@ -52,13 +52,13 @@ class OpenDocument extends BaseWriter implements IWriter
         $this->setSpreadsheet($spreadsheet);
 
         $writerPartsArray = [
-            'content' => \PhpOffice\PhpSpreadsheet\Writer\OpenDocument\Content::class,
-            'meta' => \PhpOffice\PhpSpreadsheet\Writer\OpenDocument\Meta::class,
-            'meta_inf' => \PhpOffice\PhpSpreadsheet\Writer\OpenDocument\MetaInf::class,
-            'mimetype' => \PhpOffice\PhpSpreadsheet\Writer\OpenDocument\Mimetype::class,
-            'settings' => \PhpOffice\PhpSpreadsheet\Writer\OpenDocument\Settings::class,
-            'styles' => \PhpOffice\PhpSpreadsheet\Writer\OpenDocument\Styles::class,
-            'thumbnails' => \PhpOffice\PhpSpreadsheet\Writer\OpenDocument\Thumbnails::class,
+            'content' => \PhpOffice\PhpSpreadsheet\Writer\Ods\Content::class,
+            'meta' => \PhpOffice\PhpSpreadsheet\Writer\Ods\Meta::class,
+            'meta_inf' => \PhpOffice\PhpSpreadsheet\Writer\Ods\MetaInf::class,
+            'mimetype' => \PhpOffice\PhpSpreadsheet\Writer\Ods\Mimetype::class,
+            'settings' => \PhpOffice\PhpSpreadsheet\Writer\Ods\Settings::class,
+            'styles' => \PhpOffice\PhpSpreadsheet\Writer\Ods\Styles::class,
+            'thumbnails' => \PhpOffice\PhpSpreadsheet\Writer\Ods\Thumbnails::class,
         ];
 
         foreach ($writerPartsArray as $writer => $class) {
@@ -70,7 +70,7 @@ class OpenDocument extends BaseWriter implements IWriter
      * Get writer part
      *
      * @param  string  $pPartName  Writer part name
-     * @return OpenDocument\WriterPart|null
+     * @return Ods\WriterPart|null
      */
     public function getWriterPart($pPartName = '')
     {

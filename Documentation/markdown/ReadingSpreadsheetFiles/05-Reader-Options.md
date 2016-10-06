@@ -30,7 +30,7 @@ Reading Only Data from a Spreadsheet File applies to Readers:
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
 Xlsx      | YES | Xls | YES | Excel2003XML | YES |
-OOCalc    | YES | SYLK   | NO  | Gnumeric     | YES |
+Ods    | YES | SYLK   | NO  | Gnumeric     | YES |
 CSV       | NO  | HTML   | NO
 
 ### Reading Only Named WorkSheets from a File
@@ -89,7 +89,7 @@ Reading Only Named WorkSheets from a File applies to Readers:
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
 Xlsx      | YES | Xls | YES | Excel2003XML | YES |
-OOCalc    | YES | SYLK   | NO  | Gnumeric     | YES |
+Ods    | YES | SYLK   | NO  | Gnumeric     | YES |
 CSV       | NO  | HTML   | NO
 
 ### Reading Only Specific Columns and Rows from a File (Read Filters)
@@ -218,7 +218,7 @@ Using Read Filters applies to:
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
 Xlsx      | YES | Xls | YES | Excel2003XML | YES |
-OOCalc    | YES | SYLK   | NO  | Gnumeric     | YES |
+Ods    | YES | SYLK   | NO  | Gnumeric     | YES |
 CSV       | YES | HTML   | NO
 
 ### Combining Multiple Files into a Single PHPExcel Object
@@ -265,7 +265,7 @@ Combining Multiple Files into a Single PHPExcel Object applies to:
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
 Xlsx      | NO  | Xls | NO  | Excel2003XML | NO  |
-OOCalc    | NO  | SYLK   | YES | Gnumeric     | NO  |
+Ods    | NO  | SYLK   | YES | Gnumeric     | NO  |
 CSV       | YES | HTML   | NO
 
 ###  Combining Read Filters with the setSheetIndex() method to split a large CSV file across multiple Worksheets
@@ -326,7 +326,7 @@ Splitting a single loaded file across multiple worksheets applies to:
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
 Xlsx      | NO  | Xls | NO  | Excel2003XML | NO  |
-OOCalc    | NO  | SYLK   | NO  | Gnumeric     | NO  |
+Ods    | NO  | SYLK   | NO  | Gnumeric     | NO  |
 CSV       | YES | HTML   | NO
 
 ### Pipe or Tab Separated Value Files
@@ -358,7 +358,7 @@ Setting CSV delimiter applies to:
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
 Xlsx      | NO  | Xls | NO  | Excel2003XML | NO  |
-OOCalc    | NO  | SYLK   | NO  | Gnumeric     | NO  |
+Ods    | NO  | SYLK   | NO  | Gnumeric     | NO  |
 CSV       | YES | HTML   | NO
 
 ### A Brief Word about the Advanced Value Binder
@@ -387,6 +387,6 @@ Loading using a Value Binder applies to:
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
 Xlsx      | NO  | Xls | NO  | Excel2003XML | NO  |
-OOCalc    | NO  | SYLK   | NO  | Gnumeric     | NO  |
+Ods    | NO  | SYLK   | NO  | Gnumeric     | NO  |
 CSV       | YES | HTML   | YES
 

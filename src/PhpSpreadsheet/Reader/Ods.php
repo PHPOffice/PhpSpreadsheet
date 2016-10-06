@@ -27,7 +27,7 @@ use DateTimeZone;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class OOCalc extends BaseReader implements IReader
+class Ods extends BaseReader implements IReader
 {
     /**
      * Formats
@@ -37,7 +37,7 @@ class OOCalc extends BaseReader implements IReader
     private $styles = [];
 
     /**
-     * Create a new OOCalc Reader instance
+     * Create a new Ods Reader instance
      */
     public function __construct()
     {

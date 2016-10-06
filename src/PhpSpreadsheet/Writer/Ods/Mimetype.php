@@ -1,10 +1,8 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Writer\OpenDocument;
+namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
 /**
- * Copyright (c) 2006 - 2015 PhpSpreadsheet
- *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -24,17 +22,17 @@ namespace PhpOffice\PhpSpreadsheet\Writer\OpenDocument;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class Thumbnails extends WriterPart
+class Mimetype extends WriterPart
 {
     /**
-     * Write Thumbnails/thumbnail.png to PNG format
+     * Write mimetype to plain text format
      *
-     * @param   \PhpOffice\PhpSpreadsheet\Spreadsheet                   $spreadsheet
-     * @throws  \PhpOffice\PhpSpreadsheet\Writer\Exception
-     * @return  string                     XML Output
+     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @return     string         XML Output
      */
-    public function writeThumbnail(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function write(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
-        return '';
+        return 'application/vnd.oasis.opendocument.spreadsheet';
     }
 }

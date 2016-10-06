@@ -39,8 +39,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 | `PHPExcel`                      | `PhpOffice\PhpSpreadsheet\Spreadsheet`    |
 | `PHPExcel_Reader_Excel2007`     | `PhpOffice\PhpSpreadsheet\Reader\Xlsx`    |
 | `PHPExcel_Reader_Excel5`        | `PhpOffice\PhpSpreadsheet\Reader\Xls`     |
+| `PHPExcel_Reader_OOcalc`        | `PhpOffice\PhpSpreadsheet\Reader\Ods`     |
 | `PHPExcel_Writer_Excel2007`     | `PhpOffice\PhpSpreadsheet\Writer\Xlsx`    |
 | `PHPExcel_Writer_Excel5`        | `PhpOffice\PhpSpreadsheet\Writer\Xls`     |
+| `PHPExcel_Writer_OpenOffice`    | `PhpOffice\PhpSpreadsheet\Writer\Ods`     |
 
 - Some methods were renamed for clarity and/or consistency:
 

@@ -29,7 +29,7 @@ include 'PHPExcel/IOFactory.php';
 $inputFileType = 'Xls';
 //	$inputFileType = 'Xlsx';
 //	$inputFileType = 'Excel2003XML';
-//	$inputFileType = 'OOCalc';
+//	$inputFileType = 'Ods';
 //	$inputFileType = 'Gnumeric';
 $inputFileName = './sampleData/example1.xls';
 

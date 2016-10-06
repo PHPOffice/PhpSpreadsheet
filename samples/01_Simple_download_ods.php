@@ -39,7 +39,7 @@ $spreadsheet->getActiveSheet()->setTitle('Simple');
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
 $spreadsheet->setActiveSheetIndex(0);
 
-// Redirect output to a client’s web browser (OpenDocument)
+// Redirect output to a client’s web browser (Ods)
 header('Content-Type: application/vnd.oasis.opendocument.spreadsheet');
 header('Content-Disposition: attachment;filename="01simple.ods"');
 header('Cache-Control: max-age=0');
@@ -52,6 +52,6 @@ header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modifie
 header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
 header('Pragma: public'); // HTTP/1.0
 
-$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'OpenDocument');
+$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Ods');
 $writer->save('php://output');
 exit;
