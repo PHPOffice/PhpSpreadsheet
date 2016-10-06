@@ -8,7 +8,7 @@ If you know the file type of the spreadsheet file that you need to load, you can
 ```php
 $inputFileName = './sampleData/example1.xls';
 
-/** Create a new Excel5 Reader  **/
+/** Create a new Xls Reader  **/
 $objReader = new PHPExcel_Reader_Excel5();
 //    $objReader = new PHPExcel_Reader_Excel2007();
 //    $objReader = new PHPExcel_Reader_Excel2003XML();
@@ -24,7 +24,7 @@ $objPHPExcel = $objReader->load($inputFileName);
 Alternatively, you can use the IO Factory's createReader() method to instantiate the reader object for you, simply telling it the file type of the reader that you want instantiating.
 
 ```php
-$inputFileType = 'Excel5';
+$inputFileType = 'Xls';
 //    $inputFileType = 'Xlsx';
 //    $inputFileType = 'Excel2003XML';
 //    $inputFileType = 'OOCalc';

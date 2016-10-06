@@ -9,7 +9,7 @@ Once you have created a reader object for the workbook that you want to load, yo
 If you're only interested in the cell values in a workbook, but don't need any of the cell formatting information, then you can set the reader to read only the data values and any formulae from each cell using the setReadDataOnly() method.
 
 ```php
-$inputFileType = 'Excel5';
+$inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
@@ -29,7 +29,7 @@ Reading Only Data from a Spreadsheet File applies to Readers:
 
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
-Xlsx      | YES | Excel5 | YES | Excel2003XML | YES |
+Xlsx      | YES | Xls | YES | Excel2003XML | YES |
 OOCalc    | YES | SYLK   | NO  | Gnumeric     | YES |
 CSV       | NO  | HTML   | NO
 
@@ -40,7 +40,7 @@ If your workbook contains a number of worksheets, but you are only interested in
 To read a single sheet, you can pass that sheet name as a parameter to the setLoadSheetsOnly() method.
 
 ```php
-$inputFileType = 'Excel5';
+$inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 $sheetname = 'Data Sheet #2';
 
@@ -56,7 +56,7 @@ $objPHPExcel = $objReader->load($inputFileName);
 If you want to read more than just a single sheet, you can pass a list of sheet names as an array parameter to the setLoadSheetsOnly() method.
 
 ```php
-$inputFileType = 'Excel5';
+$inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 $sheetnames = array('Data Sheet #1','Data Sheet #3');
 
@@ -72,7 +72,7 @@ $objPHPExcel = $objReader->load($inputFileName);
 To reset this option to the default, you can call the setLoadAllSheets() method.
 
 ```php
-$inputFileType = 'Excel5';
+$inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
@@ -88,7 +88,7 @@ Reading Only Named WorkSheets from a File applies to Readers:
 
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
-Xlsx      | YES | Excel5 | YES | Excel2003XML | YES |
+Xlsx      | YES | Xls | YES | Excel2003XML | YES |
 OOCalc    | YES | SYLK   | NO  | Gnumeric     | YES |
 CSV       | NO  | HTML   | NO
 
@@ -97,7 +97,7 @@ CSV       | NO  | HTML   | NO
 If you are only interested in reading part of a worksheet, then you can write a filter class that identifies whether or not individual cells should be read by the loader. A read filter must implement the PHPExcel_Reader_IReadFilter interface, and contain a readCell() method that accepts arguments of $column, $row and $worksheetName, and return a boolean true or false that indicates whether a workbook cell identified by those arguments should be read or not.
 
 ```php
-$inputFileType = 'Excel5';
+$inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 $sheetname = 'Data Sheet #3';
 
@@ -164,7 +164,7 @@ $filterSubset = new MyReadFilter(9,15,range('G','K'));
 This can be particularly useful for conserving memory, by allowing you to read and process a large workbook in “chunks”: an example of this usage might be when transferring data from an Excel worksheet to a database.
 
 ```php
-$inputFileType = 'Excel5';
+$inputFileType = 'Xls';
 $inputFileName = './sampleData/example2.xls';
 
 
@@ -217,7 +217,7 @@ Using Read Filters applies to:
 
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
-Xlsx      | YES | Excel5 | YES | Excel2003XML | YES |
+Xlsx      | YES | Xls | YES | Excel2003XML | YES |
 OOCalc    | YES | SYLK   | NO  | Gnumeric     | YES |
 CSV       | YES | HTML   | NO
 
@@ -264,13 +264,13 @@ Combining Multiple Files into a Single PHPExcel Object applies to:
 
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
-Xlsx      | NO  | Excel5 | NO  | Excel2003XML | NO  |
+Xlsx      | NO  | Xls | NO  | Excel2003XML | NO  |
 OOCalc    | NO  | SYLK   | YES | Gnumeric     | NO  |
 CSV       | YES | HTML   | NO
 
 ###  Combining Read Filters with the setSheetIndex() method to split a large CSV file across multiple Worksheets
 
-An Excel5 BIFF .xls file is limited to 65536 rows in a worksheet, while the Xlsx Microsoft Office Open XML SpreadsheetML .xlsx file is limited to 1,048,576 rows in a worksheet; but a CSV file is not limited other than by available disk space. This means that we wouldn’t ordinarily be able to read all the rows from a very large CSV file that exceeded those limits, and save it as an Excel5 or Xlsx file. However, by using Read Filters to read the CSV file in “chunks” (using the chunkReadFilter Class that we defined in section  REF _Ref275604563 \r \p 5.3 above), and the setSheetIndex() method of the $objReader, we can split the CSV file across several individual worksheets.
+An Xls BIFF .xls file is limited to 65536 rows in a worksheet, while the Xlsx Microsoft Office Open XML SpreadsheetML .xlsx file is limited to 1,048,576 rows in a worksheet; but a CSV file is not limited other than by available disk space. This means that we wouldn’t ordinarily be able to read all the rows from a very large CSV file that exceeded those limits, and save it as an Xls or Xlsx file. However, by using Read Filters to read the CSV file in “chunks” (using the chunkReadFilter Class that we defined in section  REF _Ref275604563 \r \p 5.3 above), and the setSheetIndex() method of the $objReader, we can split the CSV file across several individual worksheets.
 
 ```php
 $inputFileType = 'CSV';
@@ -325,7 +325,7 @@ Splitting a single loaded file across multiple worksheets applies to:
 
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
-Xlsx      | NO  | Excel5 | NO  | Excel2003XML | NO  |
+Xlsx      | NO  | Xls | NO  | Excel2003XML | NO  |
 OOCalc    | NO  | SYLK   | NO  | Gnumeric     | NO  |
 CSV       | YES | HTML   | NO
 
@@ -357,7 +357,7 @@ Setting CSV delimiter applies to:
 
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
-Xlsx      | NO  | Excel5 | NO  | Excel2003XML | NO  |
+Xlsx      | NO  | Xls | NO  | Excel2003XML | NO  |
 OOCalc    | NO  | SYLK   | NO  | Gnumeric     | NO  |
 CSV       | YES | HTML   | NO
 
@@ -386,7 +386,7 @@ Loading using a Value Binder applies to:
 
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
-Xlsx      | NO  | Excel5 | NO  | Excel2003XML | NO  |
+Xlsx      | NO  | Xls | NO  | Excel2003XML | NO  |
 OOCalc    | NO  | SYLK   | NO  | Gnumeric     | NO  |
 CSV       | YES | HTML   | YES
 

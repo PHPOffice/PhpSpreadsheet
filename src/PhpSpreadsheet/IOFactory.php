@@ -45,7 +45,7 @@ class IOFactory
      */
     private static $autoResolveClasses = [
         'Xlsx',
-        'Excel5',
+        'Xls',
         'Excel2003XML',
         'OOCalc',
         'SYLK',
@@ -217,7 +217,7 @@ class IOFactory
                     break;
                 case 'xls':                //    Excel (BIFF) Spreadsheet
                 case 'xlt':                //    Excel (BIFF) Template
-                    $extensionType = 'Excel5';
+                    $extensionType = 'Xls';
                     break;
                 case 'ods':                //    Open/Libre Offic Calc
                 case 'ots':                //    Open/Libre Offic Calc Template

@@ -127,7 +127,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A10')
 ![07-simple-example-1.png](./images/07-simple-example-1.png "")
 
 
-**Note** that not all complex format masks such as this one will work when retrieving a formatted value to display "on screen", or for certain writers such as HTML or PDF, but it will work with the true spreadsheet writers (Xlsx and Excel5).
+**Note** that not all complex format masks such as this one will work when retrieving a formatted value to display "on screen", or for certain writers such as HTML or PDF, but it will work with the true spreadsheet writers (Xlsx and Xls).
 
 ### Setting a range of cells from an array
 

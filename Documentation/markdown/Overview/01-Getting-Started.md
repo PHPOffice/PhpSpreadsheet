@@ -116,7 +116,7 @@ $objPHPExcel->getActiveSheet()->getProtection()->setSheet(true);
 
 Not all features of PHPExcel are implemented in all of the Reader / Writer classes. This is mostly due to underlying libraries not supporting a specific feature or not having implemented a specific feature.
 
-For example autofilter is not implemented in PEAR Spreadsheet_Excel_writer, which is the base of our Excel5 writer.
+For example autofilter is not implemented in PEAR Spreadsheet_Excel_writer, which is the base of our Xls writer.
 
 We are slowly building up a list of features, together with the different readers and writers that support them, in the "Functionality Cross-Reference.xls" file in the /Documentation folder.
 

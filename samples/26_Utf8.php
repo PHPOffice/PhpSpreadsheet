@@ -18,7 +18,7 @@ $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
 $spreadsheet = $reader->load(__DIR__ . '/templates/26template.xlsx');
 
 /* at this point, we could do some manipulations with the template, but we skip this step */
-$helper->write($spreadsheet, __FILE__, ['Xlsx' => 'xlsx', 'Excel5' => 'xls', 'HTML' => 'html']);
+$helper->write($spreadsheet, __FILE__, ['Xlsx' => 'xlsx', 'Xls' => 'xls', 'HTML' => 'html']);
 
 // Export to PDF (.pdf)
 $helper->log('Write to PDF format');

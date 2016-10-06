@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Writer\Excel5;
+namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet
@@ -64,7 +64,7 @@ class Workbook extends BIFFwriter
     /**
      * Formula parser
      *
-     * @var \PhpOffice\PhpSpreadsheet\Writer\Excel5\Parser
+     * @var \PhpOffice\PhpSpreadsheet\Writer\Xls\Parser
      */
     private $parser;
 
@@ -77,7 +77,7 @@ class Workbook extends BIFFwriter
 
     /**
      * XF Writers
-     * @var \PhpOffice\PhpSpreadsheet\Writer\Excel5\Xf[]
+     * @var \PhpOffice\PhpSpreadsheet\Writer\Xls\Xf[]
      */
     private $xfWriters = [];
 
@@ -108,7 +108,7 @@ class Workbook extends BIFFwriter
     /**
      * Fonts writers
      *
-     * @var \PhpOffice\PhpSpreadsheet\Writer\Excel5\Font[]
+     * @var \PhpOffice\PhpSpreadsheet\Writer\Xls\Font[]
      */
     private $fontWriters = [];
 
@@ -295,7 +295,7 @@ class Workbook extends BIFFwriter
             $countFonts = count($this->fontWriters);
             $fontIndex = ($countFonts < 4) ? $countFonts : $countFonts + 1;
 
-            $fontWriter = new \PhpOffice\PhpSpreadsheet\Writer\Excel5\Font($font);
+            $fontWriter = new \PhpOffice\PhpSpreadsheet\Writer\Xls\Font($font);
             $fontWriter->setColorIndex($this->addColor($font->getColor()->getRGB()));
             $this->fontWriters[] = $fontWriter;
 
@@ -1401,7 +1401,7 @@ class Workbook extends BIFFwriter
     {
         // write the Escher stream if necessary
         if (isset($this->escher)) {
-            $writer = new \PhpOffice\PhpSpreadsheet\Writer\Excel5\Escher($this->escher);
+            $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xls\Escher($this->escher);
             $data = $writer->close();
 
             $record = 0x00EB;

@@ -2,9 +2,9 @@
 
 ## General Introduction
 
-### Function that are not Supported in Excel5
+### Function that are not Supported in Xls
 
-Not all functions are supported by the Excel 5 Writer. Use of these functions within your workbooks will result in an error when trying to write to Excel5.
+Not all functions are supported by the Excel 5 Writer. Use of these functions within your workbooks will result in an error when trying to write to Xls.
 
 The following is the list of those functions that are implemented within PHPExcel, but that cannot currently be written to Excel 5.
 

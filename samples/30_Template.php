@@ -2,8 +2,8 @@
 
 require __DIR__ . '/Header.php';
 
-$helper->log('Load from Excel5 template');
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Excel5');
+$helper->log('Load from Xls template');
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xls');
 $spreadsheet = $reader->load(__DIR__ . '/templates/30template.xls');
 
 $helper->log('Add new data to the template');

@@ -26,7 +26,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../../../Classes/');
 include 'PHPExcel/IOFactory.php';
 
 
-$inputFileType = 'Excel5';
+$inputFileType = 'Xls';
 $inputFileName = './sampleData/example2.xls';
 
 /**  Create a new Reader of the type defined in $inputFileType  **/

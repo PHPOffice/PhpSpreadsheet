@@ -24,7 +24,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
  */
-class Excel5 extends BaseWriter implements IWriter
+class Xls extends BaseWriter implements IWriter
 {
     /**
      * PhpSpreadsheet object
@@ -64,7 +64,7 @@ class Excel5 extends BaseWriter implements IWriter
     /**
      * Formula parser
      *
-     * @var \PhpOffice\PhpSpreadsheet\Writer\Excel5\Parser
+     * @var \PhpOffice\PhpSpreadsheet\Writer\Xls\Parser
      */
     private $parser;
 
@@ -90,7 +90,7 @@ class Excel5 extends BaseWriter implements IWriter
     private $documentSummaryInformation;
 
     /**
-     * Create a new Excel5 Writer
+     * Create a new Xls Writer
      *
      * @param    \PhpOffice\PhpSpreadsheet\Spreadsheet    $spreadsheet    PhpSpreadsheet object
      */
@@ -98,7 +98,7 @@ class Excel5 extends BaseWriter implements IWriter
     {
         $this->spreadsheet = $spreadsheet;
 
-        $this->parser = new Excel5\Parser();
+        $this->parser = new Xls\Parser();
     }
 
     /**
@@ -122,12 +122,12 @@ class Excel5 extends BaseWriter implements IWriter
         $this->colors = [];
 
         // Initialise workbook writer
-        $this->writerWorkbook = new Excel5\Workbook($this->spreadsheet, $this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser);
+        $this->writerWorkbook = new Xls\Workbook($this->spreadsheet, $this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser);
 
         // Initialise worksheet writers
         $countSheets = $this->spreadsheet->getSheetCount();
         for ($i = 0; $i < $countSheets; ++$i) {
-            $this->writerWorksheets[$i] = new Excel5\Worksheet($this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser, $this->preCalculateFormulas, $this->spreadsheet->getSheet($i));
+            $this->writerWorksheets[$i] = new Xls\Worksheet($this->strTotal, $this->strUnique, $this->strTable, $this->colors, $this->parser, $this->preCalculateFormulas, $this->spreadsheet->getSheet($i));
         }
 
         // build Escher objects. Escher objects for workbooks needs to be build before Escher object for workbook.
@@ -222,7 +222,7 @@ class Excel5 extends BaseWriter implements IWriter
      * @deprecated
      * @param    string    $pValue        Temporary storage directory
      * @throws    \PhpOffice\PhpSpreadsheet\Writer\Exception    when directory does not exist
-     * @return \PhpOffice\PhpSpreadsheet\Writer\Excel5
+     * @return \PhpOffice\PhpSpreadsheet\Writer\Xls
      */
     public function setTempDir($pValue = '')
     {
@@ -311,7 +311,7 @@ class Excel5 extends BaseWriter implements IWriter
                 $width = $drawing->getWidth();
                 $height = $drawing->getHeight();
 
-                $twoAnchor = \PhpOffice\PhpSpreadsheet\Shared\Excel5::oneAnchor2twoAnchor($sheet, $coordinates, $offsetX, $offsetY, $width, $height);
+                $twoAnchor = \PhpOffice\PhpSpreadsheet\Shared\Xls::oneAnchor2twoAnchor($sheet, $coordinates, $offsetX, $offsetY, $width, $height);
 
                 $spContainer->setStartCoordinates($twoAnchor['startCoordinates']);
                 $spContainer->setStartOffsetX($twoAnchor['startOffsetX']);

@@ -299,7 +299,7 @@ DATEVALUE uses the php date/time object implementation of strtotime() (which can
 
 __WARNING:-__ PHPExcel accepts a wider range of date formats than MS Excel, so it is entirely possible that Excel will return a #VALUE! error when passed a date string that it can’t interpret, while PHPExcel is able to translate that same string into a correct date value.
 
-Care should be taken in workbooks that use string formatted dates in calculations when writing to Excel5 or Xlsx.
+Care should be taken in workbooks that use string formatted dates in calculations when writing to Xls or Xlsx.
 
 #### DAY
 
@@ -435,7 +435,7 @@ $retVal = call_user_func_array(
 
 ##### Notes
 
-__WARNING:-__ This function does not currently work with the Excel5 Writer when a PHP Boolean is used for the third (optional) parameter (as shown in the example above), and the writer will generate and error. It will work if a numeric 0 or 1 is used for the method parameter; or if the Excel TRUE() and FALSE() functions are used instead.
+__WARNING:-__ This function does not currently work with the Xls Writer when a PHP Boolean is used for the third (optional) parameter (as shown in the example above), and the writer will generate and error. It will work if a numeric 0 or 1 is used for the method parameter; or if the Excel TRUE() and FALSE() functions are used instead.
 
 #### EDATE
 
@@ -498,7 +498,7 @@ $retVal = call_user_func_array(
 
 ###### Notes
 
-__WARNING:-__ This function is currently not supported by the Excel5 Writer because it is not a standard function within Excel 5, but an add-in from the Analysis ToolPak.
+__WARNING:-__ This function is currently not supported by the Xls Writer because it is not a standard function within Excel 5, but an add-in from the Analysis ToolPak.
 
 #### EOMONTH
 
@@ -559,7 +559,7 @@ $retVal = call_user_func_array(
 
 ##### Notes
 
-__WARNING:-__ This function is currently not supported by the Excel5 Writer because it is not a standard function within Excel 5, but an add-in from the Analysis ToolPak.
+__WARNING:-__ This function is currently not supported by the Xls Writer because it is not a standard function within Excel 5, but an add-in from the Analysis ToolPak.
 
 #### HOUR
 

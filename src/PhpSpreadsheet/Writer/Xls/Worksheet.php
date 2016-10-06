@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Writer\Excel5;
+namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet
@@ -64,7 +64,7 @@ class Worksheet extends BIFFwriter
     /**
      * Formula parser
      *
-     * @var \PhpOffice\PhpSpreadsheet\Writer\Excel5\Parser
+     * @var \PhpOffice\PhpSpreadsheet\Writer\Xls\Parser
      */
     private $parser;
 
@@ -255,7 +255,7 @@ class Worksheet extends BIFFwriter
      * Add data to the beginning of the workbook (note the reverse order)
      * and to the end of the workbook.
      *
-     * @see \PhpOffice\PhpSpreadsheet\Writer\Excel5\Workbook::storeWorkbook()
+     * @see \PhpOffice\PhpSpreadsheet\Writer\Xls\Workbook::storeWorkbook()
      */
     public function close()
     {
@@ -2372,10 +2372,10 @@ class Worksheet extends BIFFwriter
         $row_end = $row_start; // Row containing bottom right corner of object
 
         // Zero the specified offset if greater than the cell dimensions
-        if ($x1 >= \PhpOffice\PhpSpreadsheet\Shared\Excel5::sizeCol($this->phpSheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_start))) {
+        if ($x1 >= \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeCol($this->phpSheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_start))) {
             $x1 = 0;
         }
-        if ($y1 >= \PhpOffice\PhpSpreadsheet\Shared\Excel5::sizeRow($this->phpSheet, $row_start + 1)) {
+        if ($y1 >= \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeRow($this->phpSheet, $row_start + 1)) {
             $y1 = 0;
         }
 
@@ -2383,38 +2383,38 @@ class Worksheet extends BIFFwriter
         $height = $height + $y1 - 1;
 
         // Subtract the underlying cell widths to find the end cell of the image
-        while ($width >= \PhpOffice\PhpSpreadsheet\Shared\Excel5::sizeCol($this->phpSheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_end))) {
-            $width -= \PhpOffice\PhpSpreadsheet\Shared\Excel5::sizeCol($this->phpSheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_end));
+        while ($width >= \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeCol($this->phpSheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_end))) {
+            $width -= \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeCol($this->phpSheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_end));
             ++$col_end;
         }
 
         // Subtract the underlying cell heights to find the end cell of the image
-        while ($height >= \PhpOffice\PhpSpreadsheet\Shared\Excel5::sizeRow($this->phpSheet, $row_end + 1)) {
-            $height -= \PhpOffice\PhpSpreadsheet\Shared\Excel5::sizeRow($this->phpSheet, $row_end + 1);
+        while ($height >= \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeRow($this->phpSheet, $row_end + 1)) {
+            $height -= \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeRow($this->phpSheet, $row_end + 1);
             ++$row_end;
         }
 
         // Bitmap isn't allowed to start or finish in a hidden cell, i.e. a cell
         // with zero eight or width.
         //
-        if (\PhpOffice\PhpSpreadsheet\Shared\Excel5::sizeCol($this->phpSheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_start)) == 0) {
+        if (\PhpOffice\PhpSpreadsheet\Shared\Xls::sizeCol($this->phpSheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_start)) == 0) {
             return;
         }
-        if (\PhpOffice\PhpSpreadsheet\Shared\Excel5::sizeCol($this->phpSheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_end)) == 0) {
+        if (\PhpOffice\PhpSpreadsheet\Shared\Xls::sizeCol($this->phpSheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_end)) == 0) {
             return;
         }
-        if (\PhpOffice\PhpSpreadsheet\Shared\Excel5::sizeRow($this->phpSheet, $row_start + 1) == 0) {
+        if (\PhpOffice\PhpSpreadsheet\Shared\Xls::sizeRow($this->phpSheet, $row_start + 1) == 0) {
             return;
         }
-        if (\PhpOffice\PhpSpreadsheet\Shared\Excel5::sizeRow($this->phpSheet, $row_end + 1) == 0) {
+        if (\PhpOffice\PhpSpreadsheet\Shared\Xls::sizeRow($this->phpSheet, $row_end + 1) == 0) {
             return;
         }
 
         // Convert the pixel values to the percentage value expected by Excel
-        $x1 = $x1 / \PhpOffice\PhpSpreadsheet\Shared\Excel5::sizeCol($this->phpSheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_start)) * 1024;
-        $y1 = $y1 / \PhpOffice\PhpSpreadsheet\Shared\Excel5::sizeRow($this->phpSheet, $row_start + 1) * 256;
-        $x2 = $width / \PhpOffice\PhpSpreadsheet\Shared\Excel5::sizeCol($this->phpSheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_end)) * 1024; // Distance to right side of object
-        $y2 = $height / \PhpOffice\PhpSpreadsheet\Shared\Excel5::sizeRow($this->phpSheet, $row_end + 1) * 256; // Distance to bottom of object
+        $x1 = $x1 / \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeCol($this->phpSheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_start)) * 1024;
+        $y1 = $y1 / \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeRow($this->phpSheet, $row_start + 1) * 256;
+        $x2 = $width / \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeCol($this->phpSheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_end)) * 1024; // Distance to right side of object
+        $y2 = $height / \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeRow($this->phpSheet, $row_end + 1) * 256; // Distance to bottom of object
 
         $this->writeObjPicture($col_start, $x1, $row_start, $y1, $col_end, $x2, $row_end, $y2);
     }
@@ -2656,7 +2656,7 @@ class Worksheet extends BIFFwriter
     {
         // write the Escher stream if necessary
         if (isset($this->escher)) {
-            $writer = new \PhpOffice\PhpSpreadsheet\Writer\Excel5\Escher($this->escher);
+            $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xls\Escher($this->escher);
             $data = $writer->close();
             $spOffsets = $writer->getSpOffsets();
             $spTypes = $writer->getSpTypes();

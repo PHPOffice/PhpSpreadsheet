@@ -144,9 +144,9 @@ Office2003 compatibility option should only be used when needed. This option dis
 
 ### Excel 5 (BIFF) file format
 
-Excel5 file format is the old Excel file format, implemented in PHPExcel to provide a uniform manner to create both .xlsx and .xls files. It is basically a modified version of [PEAR Spreadsheet_Excel_Writer][21], although it has been extended and has fewer limitations and more features than the old PEAR library. This can read all BIFF versions that use OLE2: BIFF5 (introduced with office 95) through BIFF8, but cannot read earlier versions.
+Xls file format is the old Excel file format, implemented in PHPExcel to provide a uniform manner to create both .xlsx and .xls files. It is basically a modified version of [PEAR Spreadsheet_Excel_Writer][21], although it has been extended and has fewer limitations and more features than the old PEAR library. This can read all BIFF versions that use OLE2: BIFF5 (introduced with office 95) through BIFF8, but cannot read earlier versions.
 
-Excel5 file format will not be developed any further, it just provides an additional file format for PHPExcel.
+Xls file format will not be developed any further, it just provides an additional file format for PHPExcel.
 
 __Excel5 (BIFF) limitations__
 Please note that BIFF file format has some limits regarding to styling cells and handling large spreadsheets via PHP.
@@ -704,7 +704,7 @@ $objWorksheet = $objPHPexcel->getActiveSheet();
 $objWorksheet->getCell('A1')->setValue('John');
 $objWorksheet->getCell('A2')->setValue('Smith');
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPexcel, 'Excel5');
+$objWriter = PHPExcel_IOFactory::createWriter($objPHPexcel, 'Xls');
 $objWriter->save('write.xls');
 ```
 

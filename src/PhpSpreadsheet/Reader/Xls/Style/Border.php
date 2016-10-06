@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Reader\Excel5\Style;
+namespace PhpOffice\PhpSpreadsheet\Reader\Xls\Style;
 
 use PhpOffice\PhpSpreadsheet\Style\Border as StyleBorder;
 

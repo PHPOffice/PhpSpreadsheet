@@ -55,7 +55,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 //         Patch code for user-defined named cells supports single cells only.
 //         NOTE: this patch only works for BIFF8 as BIFF5-7 use a different
 //         external sheet reference structure
-class Excel5 extends BaseReader implements IReader
+class Xls extends BaseReader implements IReader
 {
     // ParseXL definitions
     const XLS_BIFF8 = 0x0600;
@@ -383,7 +383,7 @@ class Excel5 extends BaseReader implements IReader
     /**
      * The current RC4 decryption object
      *
-     * @var Excel5\RC4
+     * @var Xls\RC4
      */
     private $rc4Key = null;
 
@@ -402,7 +402,7 @@ class Excel5 extends BaseReader implements IReader
     private $md5Ctxt = null;
 
     /**
-     * Create a new Excel5 Reader instance
+     * Create a new Xls Reader instance
      */
     public function __construct()
     {
@@ -713,7 +713,7 @@ class Excel5 extends BaseReader implements IReader
         if (!$this->readDataOnly) {
             foreach ($this->objFonts as $objFont) {
                 if (isset($objFont->colorIndex)) {
-                    $color = Excel5\Color::map($objFont->colorIndex, $this->palette, $this->version);
+                    $color = Xls\Color::map($objFont->colorIndex, $this->palette, $this->version);
                     $objFont->getColor()->setRGB($color['rgb']);
                 }
             }
@@ -723,11 +723,11 @@ class Excel5 extends BaseReader implements IReader
                 $fill = $objStyle->getFill();
 
                 if (isset($fill->startcolorIndex)) {
-                    $startColor = Excel5\Color::map($fill->startcolorIndex, $this->palette, $this->version);
+                    $startColor = Xls\Color::map($fill->startcolorIndex, $this->palette, $this->version);
                     $fill->getStartColor()->setRGB($startColor['rgb']);
                 }
                 if (isset($fill->endcolorIndex)) {
-                    $endColor = Excel5\Color::map($fill->endcolorIndex, $this->palette, $this->version);
+                    $endColor = Xls\Color::map($fill->endcolorIndex, $this->palette, $this->version);
                     $fill->getEndColor()->setRGB($endColor['rgb']);
                 }
 
@@ -739,23 +739,23 @@ class Excel5 extends BaseReader implements IReader
                 $diagonal = $objStyle->getBorders()->getDiagonal();
 
                 if (isset($top->colorIndex)) {
-                    $borderTopColor = Excel5\Color::map($top->colorIndex, $this->palette, $this->version);
+                    $borderTopColor = Xls\Color::map($top->colorIndex, $this->palette, $this->version);
                     $top->getColor()->setRGB($borderTopColor['rgb']);
                 }
                 if (isset($right->colorIndex)) {
-                    $borderRightColor = Excel5\Color::map($right->colorIndex, $this->palette, $this->version);
+                    $borderRightColor = Xls\Color::map($right->colorIndex, $this->palette, $this->version);
                     $right->getColor()->setRGB($borderRightColor['rgb']);
                 }
                 if (isset($bottom->colorIndex)) {
-                    $borderBottomColor = Excel5\Color::map($bottom->colorIndex, $this->palette, $this->version);
+                    $borderBottomColor = Xls\Color::map($bottom->colorIndex, $this->palette, $this->version);
                     $bottom->getColor()->setRGB($borderBottomColor['rgb']);
                 }
                 if (isset($left->colorIndex)) {
-                    $borderLeftColor = Excel5\Color::map($left->colorIndex, $this->palette, $this->version);
+                    $borderLeftColor = Xls\Color::map($left->colorIndex, $this->palette, $this->version);
                     $left->getColor()->setRGB($borderLeftColor['rgb']);
                 }
                 if (isset($diagonal->colorIndex)) {
-                    $borderDiagonalColor = Excel5\Color::map($diagonal->colorIndex, $this->palette, $this->version);
+                    $borderDiagonalColor = Xls\Color::map($diagonal->colorIndex, $this->palette, $this->version);
                     $diagonal->getColor()->setRGB($borderDiagonalColor['rgb']);
                 }
             }
@@ -764,7 +764,7 @@ class Excel5 extends BaseReader implements IReader
         // treat MSODRAWINGGROUP records, workbook-level Escher
         if (!$this->readDataOnly && $this->drawingGroupData) {
             $escherWorkbook = new \PhpOffice\PhpSpreadsheet\Shared\Escher();
-            $reader = new Excel5\Escher($escherWorkbook);
+            $reader = new Xls\Escher($escherWorkbook);
             $escherWorkbook = $reader->load($this->drawingGroupData);
         }
 
@@ -982,7 +982,7 @@ class Excel5 extends BaseReader implements IReader
             // treat MSODRAWING records, sheet-level Escher
             if (!$this->readDataOnly && $this->drawingData) {
                 $escherWorksheet = new \PhpOffice\PhpSpreadsheet\Shared\Escher();
-                $reader = new Excel5\Escher($escherWorksheet);
+                $reader = new Xls\Escher($escherWorksheet);
                 $escherWorksheet = $reader->load($this->drawingData);
 
                 // get all spContainers in one long array, so they can be mapped to OBJ records
@@ -1009,12 +1009,12 @@ class Excel5 extends BaseReader implements IReader
                     $endOffsetX = $spContainer->getEndOffsetX();
                     $endOffsetY = $spContainer->getEndOffsetY();
 
-                    $width = \PhpOffice\PhpSpreadsheet\Shared\Excel5::getDistanceX($this->phpSheet, $startColumn, $startOffsetX, $endColumn, $endOffsetX);
-                    $height = \PhpOffice\PhpSpreadsheet\Shared\Excel5::getDistanceY($this->phpSheet, $startRow, $startOffsetY, $endRow, $endOffsetY);
+                    $width = \PhpOffice\PhpSpreadsheet\Shared\Xls::getDistanceX($this->phpSheet, $startColumn, $startOffsetX, $endColumn, $endOffsetX);
+                    $height = \PhpOffice\PhpSpreadsheet\Shared\Xls::getDistanceY($this->phpSheet, $startRow, $startOffsetY, $endRow, $endOffsetY);
 
                     // calculate offsetX and offsetY of the shape
-                    $offsetX = $startOffsetX * \PhpOffice\PhpSpreadsheet\Shared\Excel5::sizeCol($this->phpSheet, $startColumn) / 1024;
-                    $offsetY = $startOffsetY * \PhpOffice\PhpSpreadsheet\Shared\Excel5::sizeRow($this->phpSheet, $startRow) / 256;
+                    $offsetX = $startOffsetX * \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeCol($this->phpSheet, $startColumn) / 1024;
+                    $offsetY = $startOffsetY * \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeRow($this->phpSheet, $startRow) / 256;
 
                     switch ($obj['otObjType']) {
                         case 0x19:
@@ -1711,7 +1711,7 @@ class Excel5 extends BaseReader implements IReader
      * @param int         Block for which to create decrypto
      * @param string $valContext MD5 context state
      *
-     * @return Excel5\RC4
+     * @return Xls\RC4
      */
     private function makeKey($block, $valContext)
     {
@@ -1729,12 +1729,12 @@ class Excel5 extends BaseReader implements IReader
         $pwarray[9] = "\x80";
         $pwarray[56] = "\x48";
 
-        $md5 = new Excel5\MD5();
+        $md5 = new Xls\MD5();
         $md5->add($pwarray);
 
         $s = $md5->getContext();
 
-        return new Excel5\RC4($s);
+        return new Xls\RC4($s);
     }
 
     /**
@@ -1760,7 +1760,7 @@ class Excel5 extends BaseReader implements IReader
         $pwarray[2 * $i] = chr(0x80);
         $pwarray[56] = chr(($i << 4) & 0xff);
 
-        $md5 = new Excel5\MD5();
+        $md5 = new Xls\MD5();
         $md5->add($pwarray);
 
         $mdContext1 = $md5->getContext();
@@ -2147,19 +2147,19 @@ class Excel5 extends BaseReader implements IReader
 
                 // offset: 10; size: 4; Cell border lines and background area
                 // bit: 3-0; mask: 0x0000000F; left style
-                if ($bordersLeftStyle = Excel5\Style\Border::lookup((0x0000000F & self::getInt4d($recordData, 10)) >> 0)) {
+                if ($bordersLeftStyle = Xls\Style\Border::lookup((0x0000000F & self::getInt4d($recordData, 10)) >> 0)) {
                     $objStyle->getBorders()->getLeft()->setBorderStyle($bordersLeftStyle);
                 }
                 // bit: 7-4; mask: 0x000000F0; right style
-                if ($bordersRightStyle = Excel5\Style\Border::lookup((0x000000F0 & self::getInt4d($recordData, 10)) >> 4)) {
+                if ($bordersRightStyle = Xls\Style\Border::lookup((0x000000F0 & self::getInt4d($recordData, 10)) >> 4)) {
                     $objStyle->getBorders()->getRight()->setBorderStyle($bordersRightStyle);
                 }
                 // bit: 11-8; mask: 0x00000F00; top style
-                if ($bordersTopStyle = Excel5\Style\Border::lookup((0x00000F00 & self::getInt4d($recordData, 10)) >> 8)) {
+                if ($bordersTopStyle = Xls\Style\Border::lookup((0x00000F00 & self::getInt4d($recordData, 10)) >> 8)) {
                     $objStyle->getBorders()->getTop()->setBorderStyle($bordersTopStyle);
                 }
                 // bit: 15-12; mask: 0x0000F000; bottom style
-                if ($bordersBottomStyle = Excel5\Style\Border::lookup((0x0000F000 & self::getInt4d($recordData, 10)) >> 12)) {
+                if ($bordersBottomStyle = Xls\Style\Border::lookup((0x0000F000 & self::getInt4d($recordData, 10)) >> 12)) {
                     $objStyle->getBorders()->getBottom()->setBorderStyle($bordersBottomStyle);
                 }
                 // bit: 22-16; mask: 0x007F0000; left color
@@ -2195,12 +2195,12 @@ class Excel5 extends BaseReader implements IReader
                 $objStyle->getBorders()->getDiagonal()->colorIndex = (0x001FC000 & self::getInt4d($recordData, 14)) >> 14;
 
                 // bit: 24-21; mask: 0x01E00000; diagonal style
-                if ($bordersDiagonalStyle = Excel5\Style\Border::lookup((0x01E00000 & self::getInt4d($recordData, 14)) >> 21)) {
+                if ($bordersDiagonalStyle = Xls\Style\Border::lookup((0x01E00000 & self::getInt4d($recordData, 14)) >> 21)) {
                     $objStyle->getBorders()->getDiagonal()->setBorderStyle($bordersDiagonalStyle);
                 }
 
                 // bit: 31-26; mask: 0xFC000000 fill pattern
-                if ($fillType = Excel5\Style\FillPattern::lookup((0xFC000000 & self::getInt4d($recordData, 14)) >> 26)) {
+                if ($fillType = Xls\Style\FillPattern::lookup((0xFC000000 & self::getInt4d($recordData, 14)) >> 26)) {
                     $objStyle->getFill()->setFillType($fillType);
                 }
                 // offset: 18; size: 2; pattern and background colour
@@ -2242,10 +2242,10 @@ class Excel5 extends BaseReader implements IReader
                 $objStyle->getFill()->endcolorIndex = (0x00003F80 & $borderAndBackground) >> 7;
 
                 // bit: 21-16; mask: 0x003F0000; fill pattern
-                $objStyle->getFill()->setFillType(Excel5\Style\FillPattern::lookup((0x003F0000 & $borderAndBackground) >> 16));
+                $objStyle->getFill()->setFillType(Xls\Style\FillPattern::lookup((0x003F0000 & $borderAndBackground) >> 16));
 
                 // bit: 24-22; mask: 0x01C00000; bottom line style
-                $objStyle->getBorders()->getBottom()->setBorderStyle(Excel5\Style\Border::lookup((0x01C00000 & $borderAndBackground) >> 22));
+                $objStyle->getBorders()->getBottom()->setBorderStyle(Xls\Style\Border::lookup((0x01C00000 & $borderAndBackground) >> 22));
 
                 // bit: 31-25; mask: 0xFE000000; bottom line color
                 $objStyle->getBorders()->getBottom()->colorIndex = (0xFE000000 & $borderAndBackground) >> 25;
@@ -2254,13 +2254,13 @@ class Excel5 extends BaseReader implements IReader
                 $borderLines = self::getInt4d($recordData, 12);
 
                 // bit: 2-0; mask: 0x00000007; top line style
-                $objStyle->getBorders()->getTop()->setBorderStyle(Excel5\Style\Border::lookup((0x00000007 & $borderLines) >> 0));
+                $objStyle->getBorders()->getTop()->setBorderStyle(Xls\Style\Border::lookup((0x00000007 & $borderLines) >> 0));
 
                 // bit: 5-3; mask: 0x00000038; left line style
-                $objStyle->getBorders()->getLeft()->setBorderStyle(Excel5\Style\Border::lookup((0x00000038 & $borderLines) >> 3));
+                $objStyle->getBorders()->getLeft()->setBorderStyle(Xls\Style\Border::lookup((0x00000038 & $borderLines) >> 3));
 
                 // bit: 8-6; mask: 0x000001C0; right line style
-                $objStyle->getBorders()->getRight()->setBorderStyle(Excel5\Style\Border::lookup((0x000001C0 & $borderLines) >> 6));
+                $objStyle->getBorders()->getRight()->setBorderStyle(Xls\Style\Border::lookup((0x000001C0 & $borderLines) >> 6));
 
                 // bit: 15-9; mask: 0x0000FE00; top line color index
                 $objStyle->getBorders()->getTop()->colorIndex = (0x0000FE00 & $borderLines) >> 9;
@@ -3831,7 +3831,7 @@ class Excel5 extends BaseReader implements IReader
                 && (ord($recordData{13}) == 255)) {
                 // Error formula. Error code is in +2
                 $dataType = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_ERROR;
-                $value = Excel5\ErrorCode::lookup(ord($recordData{8}));
+                $value = Xls\ErrorCode::lookup(ord($recordData{8}));
             } elseif ((ord($recordData{6}) == 3)
                 && (ord($recordData{12}) == 255)
                 && (ord($recordData{13}) == 255)) {
@@ -3974,7 +3974,7 @@ class Excel5 extends BaseReader implements IReader
                     $cell->setValueExplicit($value, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_BOOL);
                     break;
                 case 1: // error type
-                    $value = Excel5\ErrorCode::lookup($boolErr);
+                    $value = Xls\ErrorCode::lookup($boolErr);
 
                     // add cell value
                     $cell->setValueExplicit($value, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_ERROR);
@@ -4817,7 +4817,7 @@ class Excel5 extends BaseReader implements IReader
                 case 0x14:
                     // offset: 16; size: 2; color index for sheet tab
                     $colorIndex = self::getInt2d($recordData, 16);
-                    $color = Excel5\Color::map($colorIndex, $this->palette, $this->version);
+                    $color = Xls\Color::map($colorIndex, $this->palette, $this->version);
                     $this->phpSheet->getTabColor()->setRGB($color['rgb']);
                     break;
                 case 0x28:
@@ -5550,7 +5550,7 @@ class Excel5 extends BaseReader implements IReader
                 // offset: 1; size: 1; error code
                 $name = 'tErr';
                 $size = 2;
-                $data = Excel5\ErrorCode::lookup(ord($formulaData[1]));
+                $data = Xls\ErrorCode::lookup(ord($formulaData[1]));
                 break;
             case 0x1D:    //    boolean
                 // offset: 1; size: 1; 0 = false, 1 = true;
@@ -7025,7 +7025,7 @@ class Excel5 extends BaseReader implements IReader
                     break;
                 default:
                     // TODO: external sheet support
-                    throw new Exception('Excel5 reader only supports internal sheets in fomulas');
+                    throw new Exception('Xls reader only supports internal sheets in fomulas');
                     break;
             }
         }
@@ -7111,7 +7111,7 @@ class Excel5 extends BaseReader implements IReader
                 break;
             case 0x10: // error code
                 // offset: 1; size: 1; error code
-                $value = Excel5\ErrorCode::lookup(ord($valueData[1]));
+                $value = Xls\ErrorCode::lookup(ord($valueData[1]));
                 $size = 9;
                 break;
         }

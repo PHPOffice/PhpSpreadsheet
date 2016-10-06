@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Writer\Excel5;
+namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet
@@ -845,7 +845,7 @@ class Parser
     /**
      * Look up the index that corresponds to an external sheet name. The hash of
      * sheet names is updated by the addworksheet() method of the
-     * \PhpOffice\PhpSpreadsheet\Writer\Excel5\Workbook class.
+     * \PhpOffice\PhpSpreadsheet\Writer\Xls\Workbook class.
      *
      * @param    string    $sheet_name        Sheet name
      * @return    int                    The sheet index, -1 if the sheet was not found
@@ -862,9 +862,9 @@ class Parser
     /**
      * This method is used to update the array of sheet names. It is
      * called by the addWorksheet() method of the
-     * \PhpOffice\PhpSpreadsheet\Writer\Excel5\Workbook class.
+     * \PhpOffice\PhpSpreadsheet\Writer\Xls\Workbook class.
      *
-     * @see \PhpOffice\PhpSpreadsheet\Writer\Excel5\Workbook::addWorksheet()
+     * @see \PhpOffice\PhpSpreadsheet\Writer\Xls\Workbook::addWorksheet()
      * @param string  $name  The name of the worksheet being added
      * @param int $index The index of the worksheet being added
      */

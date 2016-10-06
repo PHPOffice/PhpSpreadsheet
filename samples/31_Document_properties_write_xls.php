@@ -2,7 +2,7 @@
 
 require __DIR__ . '/Header.php';
 
-$inputFileType = 'Excel5';
+$inputFileType = 'Xls';
 $inputFileName = __DIR__ . '/templates/31docproperties.xls';
 
 $spreadsheetReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
@@ -18,7 +18,7 @@ $spreadsheet->getProperties()->setTitle('Office 95 XLS Test Document')
 
 // Save Excel 95 file
 $filename = $helper->getFilename(__FILE__, 'xls');
-$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Excel5');
+$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
 $callStartTime = microtime(true);
 $writer->save($filename);
 $helper->logWrite($writer, $filename, $callStartTime);
@@ -27,7 +27,7 @@ $helper->logWrite($writer, $filename, $callStartTime);
 $helper->logEndingNotes();
 
 // Reread File
-$helper->log('Reread Excel5 file');
+$helper->log('Reread Xls file');
 $spreadsheetRead = \PhpOffice\PhpSpreadsheet\IOFactory::load($filename);
 
 // Set properties

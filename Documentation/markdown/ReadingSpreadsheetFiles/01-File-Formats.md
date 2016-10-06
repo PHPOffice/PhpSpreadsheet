@@ -7,7 +7,7 @@ PHPExcel can read a number of different spreadsheet and file formats, although n
 
 Currently, PHPExcel supports the following File Types for Reading:
 
-### Excel5
+### Xls
 
 The Microsoft Excel™ Binary file format (BIFF5 and BIFF8) is a binary file format that was used by Microsoft Excel™ between versions 95 and 2003. The format is supported (to various extents) by most spreadsheet programs. BIFF files normally have an extension of .xls. Documentation describing the format can be found online at [http://msdn.microsoft.com/en-us/library/cc313154(v=office.12).aspx][1] or from [http://download.microsoft.com/download/2/4/8/24862317-78F0-4C4B-B355-C7B2C1D997DB/[MS-XLS].pdf][2] (as a downloadable PDF).
 

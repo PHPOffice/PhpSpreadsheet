@@ -26,7 +26,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../../../Classes/');
 include 'PHPExcel/IOFactory.php';
 
 
-$inputFileType = 'Excel5';
+$inputFileType = 'Xls';
 //	$inputFileType = 'Xlsx';
 //	$inputFileType = 'Excel2003XML';
 //	$inputFileType = 'OOCalc';

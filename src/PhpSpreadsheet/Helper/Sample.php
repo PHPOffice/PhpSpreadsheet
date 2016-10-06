@@ -78,7 +78,7 @@ class Sample
      * @param string $filename
      * @param array $writers
      */
-    public function write(Spreadsheet $spreadsheet, $filename, array $writers = ['Xlsx' => 'xlsx', 'Excel5' => 'xls'])
+    public function write(Spreadsheet $spreadsheet, $filename, array $writers = ['Xlsx' => 'xlsx', 'Xls' => 'xls'])
     {
         // Set active sheet index to the first sheet, so Excel opens this as the first sheet
         $spreadsheet->setActiveSheetIndex(0);
