@@ -150,13 +150,13 @@ class Settings
     }
 
     /**
-     * Set the method that should be used for cell cacheing
+     * Set the method that should be used for cell caching
      *
-     * @param string $method Name of the cacheing method
-     * @param array $arguments Optional configuration arguments for the cacheing method
+     * @param string $method Name of the caching method
+     * @param array $arguments Optional configuration arguments for the caching method
      * @return bool Success or failure
      */
-    public static function setCacheStorageMethod($method = CachedObjectStorageFactory::cache_in_memory, $arguments = [])
+    public static function setCacheStorageMethod($method = CachedObjectStorageFactory::CACHE_IN_MEMORY, $arguments = [])
     {
         return CachedObjectStorageFactory::initialize($method, $arguments);
     }
