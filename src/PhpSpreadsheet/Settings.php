@@ -101,7 +101,7 @@ class Settings
      * Set the Zip handler Class that PhpSpreadsheet should use for Zip file management (PCLZip or ZipArchive)
      *
      * @param string $zipClass    The Zip handler class that PhpSpreadsheet should use for Zip file management
-     *      e.g. \PhpOffice\PhpSpreadsheet\Settings::PCLZip or \PhpOffice\PhpSpreadsheet\Settings::ZipArchive
+     *      e.g. \PhpOffice\PhpSpreadsheet\Settings::PCLZIP or \PhpOffice\PhpSpreadsheet\Settings::ZIPARCHIVE
      * @return    bool    Success or failure
      */
     public static function setZipClass($zipClass)
@@ -122,7 +122,7 @@ class Settings
      *
      * @return string Name of the Zip handler Class that PhpSpreadsheet is configured to use
      *    for Zip file management
-     *    e.g. \PhpOffice\PhpSpreadsheet\Settings::PCLZip or \PhpOffice\PhpSpreadsheet\Settings::ZipArchive
+     *    e.g. \PhpOffice\PhpSpreadsheet\Settings::PCLZIP or \PhpOffice\PhpSpreadsheet\Settings::ZIPARCHIVE
      */
     public static function getZipClass()
     {
