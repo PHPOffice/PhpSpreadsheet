@@ -419,6 +419,7 @@ class Ods extends BaseReader implements IReader
                             foreach ($rowData as $key => $cellData) {
                                 if ($this->getReadFilter() !== null) {
                                     if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
+                                        ++$columnID;
                                         continue;
                                     }
                                 }

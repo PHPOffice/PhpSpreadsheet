@@ -562,6 +562,7 @@ class Excel2003XML extends BaseReader implements IReader
 
                         if ($this->getReadFilter() !== null) {
                             if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
+                                ++$columnID;
                                 continue;
                             }
                         }
