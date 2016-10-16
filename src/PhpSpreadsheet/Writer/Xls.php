@@ -454,6 +454,9 @@ class Xls extends BaseWriter implements IWriter
         // the BSE's (all the images)
         foreach ($this->spreadsheet->getAllsheets() as $sheet) {
             foreach ($sheet->getDrawingCollection() as $drawing) {
+                if (!extension_loaded('gd')) {
+                    throw new \RuntimeException('Saving images in xls requires gd extension');
+                }
                 if ($drawing instanceof \PhpOffice\PhpSpreadsheet\Worksheet\Drawing) {
                     $filename = $drawing->getPath();
 
