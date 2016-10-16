@@ -22,7 +22,7 @@ class XEEValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $tests = [];
         foreach (glob(__DIR__ . '/../../data/Reader/XEE/XEETestInvalid*.xml') as $file) {
-            $tests[] = [realpath($file), true];
+            $tests[] = [realpath($file)];
         }
 
         return $tests;
