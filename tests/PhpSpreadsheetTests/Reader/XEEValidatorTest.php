@@ -21,7 +21,7 @@ class XEEValidatorTest extends \PHPUnit_Framework_TestCase
     public function providerInvalidXML()
     {
         $tests = [];
-        foreach (glob('data/Reader/XEETestInvalid*.xml') as $file) {
+        foreach (glob(__DIR__ . '/../../data/Reader/XEE/XEETestInvalid*.xml') as $file) {
             $tests[] = [realpath($file), true];
         }
 
@@ -41,7 +41,7 @@ class XEEValidatorTest extends \PHPUnit_Framework_TestCase
     public function providerValidXML()
     {
         $tests = [];
-        foreach (glob('data/Reader/XEETestValid*.xml') as $file) {
+        foreach (glob(__DIR__ . '/../../data/Reader/XEE/XEETestValid*.xml') as $file) {
             $tests[] = [realpath($file), file_get_contents($file)];
         }
 
