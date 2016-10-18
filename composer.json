@@ -36,8 +36,8 @@
         "friendsofphp/php-cs-fixer": "^1.11"
     },
     "suggest": {
-        "ext-zip": "*",
-        "ext-gd": "*",
+        "ext-zip": "Required to handle .xlsx .ods or .gnumeric files",
+        "ext-gd": "Required for exact column width autocalculation",
         "ext-dom": "Option to read and write HTML files",
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
         "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
