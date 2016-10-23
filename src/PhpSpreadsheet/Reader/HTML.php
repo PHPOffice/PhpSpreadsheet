@@ -34,6 +34,11 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 class HTML extends BaseReader implements IReader
 {
     /**
+     * Sample size to read to determine if it's HTML or not
+     */
+    const TEST_SAMPLE_SIZE = 2048;
+
+    /**
      * Input encoding
      *
      * @var string
@@ -126,14 +131,56 @@ class HTML extends BaseReader implements IReader
      */
     protected function isValidFormat()
     {
-        //    Reading 2048 bytes should be enough to validate that the format is HTML
-        $data = fread($this->fileHandle, 2048);
-        if ((strpos($data, '<') !== false) &&
-                (strlen($data) !== strlen(strip_tags($data)))) {
-            return true;
+        $beginning = $this->readBeginning();
+
+        if (!self::startsWithTag($beginning)) {
+            return false;
         }
 
-        return false;
+        if (!self::containsTags($beginning)) {
+            return false;
+        }
+
+        if (!self::endsWithTag($this->readEnding())) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function readBeginning()
+    {
+        fseek($this->fileHandle, 0);
+
+        return fread($this->fileHandle, self::TEST_SAMPLE_SIZE);
+    }
+
+    private function readEnding()
+    {
+        $meta = stream_get_meta_data($this->fileHandle);
+        $filename = $meta['uri'];
+
+        $size = filesize($filename);
+        $blockSize = self::TEST_SAMPLE_SIZE;
+
+        fseek($this->fileHandle, $size - $blockSize);
+
+        return fread($this->fileHandle, $blockSize);
+    }
+
+    private static function startsWithTag($data)
+    {
+        return '<' === substr(trim($data), 0, 1);
+    }
+
+    private static function endsWithTag($data)
+    {
+        return '>' === substr(trim($data), -1, 1);
+    }
+
+    private static function containsTags($data)
+    {
+        return strlen($data) !== strlen(strip_tags($data));
     }
 
     /**
