@@ -22,7 +22,7 @@ class XEEValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $tests = [];
         foreach (glob(__DIR__ . '/../../data/Reader/XEE/XEETestInvalid*.xml') as $file) {
-            $tests[] = [realpath($file)];
+            $tests[basename($file)] = [realpath($file)];
         }
 
         return $tests;
@@ -42,7 +42,7 @@ class XEEValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $tests = [];
         foreach (glob(__DIR__ . '/../../data/Reader/XEE/XEETestValid*.xml') as $file) {
-            $tests[] = [realpath($file), file_get_contents($file)];
+            $tests[basename($file)] = [realpath($file), file_get_contents($file)];
         }
 
         return $tests;
