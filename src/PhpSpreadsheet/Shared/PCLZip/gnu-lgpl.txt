@@ -146,7 +146,7 @@ such a program is covered only if its contents constitute a work based
 on the Library (independent of the use of the Library in a tool for
 writing it).  Whether that is true depends on what the Library does
 and what the program that uses the Library does.
-  
+
   1. You may copy and distribute verbatim copies of the Library's
 complete source code as you receive it, in any medium, provided that
 you conspicuously and appropriately publish on each copy an
@@ -494,7 +494,7 @@ school, if any, to sign a "copyright disclaimer" for the library, if
 necessary.  Here is a sample; alter the names:
 
   Yoyodyne, Inc., hereby disclaims all copyright interest in the
-  library `Frob' (a library for tweaking knobs) written by James Random Hacker.
+  library `Frob' (a library for tweaking knobs) written by John Doe.
 
   <signature of Ty Coon>, 1 April 1990
   Ty Coon, President of Vice

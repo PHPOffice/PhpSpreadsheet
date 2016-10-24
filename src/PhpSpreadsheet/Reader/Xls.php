@@ -7406,7 +7406,7 @@ class Xls extends BaseReader implements IReader
     {
         // FIX: represent numbers correctly on 64-bit system
         // http://sourceforge.net/tracker/index.php?func=detail&aid=1487372&group_id=99160&atid=623334
-        // Hacked by Andreas Rehm 2006 to ensure correct result of the <<24 block on 32 and 64bit systems
+        // Changed by Andreas Rehm 2006 to ensure correct result of the <<24 block on 32 and 64bit systems
         $_or_24 = ord($data[$pos + 3]);
         if ($_or_24 >= 128) {
             // negative number

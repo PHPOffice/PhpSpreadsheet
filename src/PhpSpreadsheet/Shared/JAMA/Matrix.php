@@ -45,7 +45,7 @@ class Matrix
     /**
      *    Polymorphic constructor
      *
-     *    As PHP has no support for polymorphic constructors, we hack our own sort of polymorphism using func_num_args, func_get_arg, and gettype. In essence, we're just implementing a simple RTTI filter and calling the appropriate constructor.
+     *    As PHP has no support for polymorphic constructors, we use tricks to make our own sort of polymorphism using func_num_args, func_get_arg, and gettype. In essence, we're just implementing a simple RTTI filter and calling the appropriate constructor.
      */
     public function __construct()
     {
