@@ -221,25 +221,25 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
             if ($this->isSupervisor) {
                 $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
             } else {
-                if (array_key_exists('left', $pStyles)) {
+                if (isset($pStyles['left'])) {
                     $this->getLeft()->applyFromArray($pStyles['left']);
                 }
-                if (array_key_exists('right', $pStyles)) {
+                if (isset($pStyles['right'])) {
                     $this->getRight()->applyFromArray($pStyles['right']);
                 }
-                if (array_key_exists('top', $pStyles)) {
+                if (isset($pStyles['top'])) {
                     $this->getTop()->applyFromArray($pStyles['top']);
                 }
-                if (array_key_exists('bottom', $pStyles)) {
+                if (isset($pStyles['bottom'])) {
                     $this->getBottom()->applyFromArray($pStyles['bottom']);
                 }
-                if (array_key_exists('diagonal', $pStyles)) {
+                if (isset($pStyles['diagonal'])) {
                     $this->getDiagonal()->applyFromArray($pStyles['diagonal']);
                 }
-                if (array_key_exists('diagonaldirection', $pStyles)) {
+                if (isset($pStyles['diagonaldirection'])) {
                     $this->setDiagonalDirection($pStyles['diagonaldirection']);
                 }
-                if (array_key_exists('allborders', $pStyles)) {
+                if (isset($pStyles['allborders'])) {
                     $this->getLeft()->applyFromArray($pStyles['allborders']);
                     $this->getRight()->applyFromArray($pStyles['allborders']);
                     $this->getTop()->applyFromArray($pStyles['allborders']);

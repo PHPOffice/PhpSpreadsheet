@@ -842,7 +842,8 @@ class Worksheet extends BIFFwriter
                 // Numeric value
                 $num = pack('d', $calculatedValue);
             } elseif (is_string($calculatedValue)) {
-                if (array_key_exists($calculatedValue, \PhpOffice\PhpSpreadsheet\Cell\DataType::getErrorCodes())) {
+                $errorCodes = \PhpOffice\PhpSpreadsheet\Cell\DataType::getErrorCodes();
+                if (isset($errorCodes[$calculatedValue])) {
                     // Error value
                     $num = pack('CCCvCv', 0x02, 0x00, self::mapErrorCode($calculatedValue), 0x00, 0x00, 0xFFFF);
                 } elseif ($calculatedValue === '') {

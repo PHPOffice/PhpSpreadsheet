@@ -242,7 +242,7 @@ class Spreadsheet
                 break;
             case 'target':
             case 'data':
-                if (is_array($this->ribbonXMLData) && array_key_exists($what, $this->ribbonXMLData)) {
+                if (is_array($this->ribbonXMLData) && isset($this->ribbonXMLData[$what])) {
                     $returnData = $this->ribbonXMLData[$what];
                 }
                 break;
@@ -283,13 +283,13 @@ class Spreadsheet
                 break;
             case 'names':
             case 'data':
-                if (is_array($this->ribbonBinObjects) && array_key_exists($What, $this->ribbonBinObjects)) {
+                if (is_array($this->ribbonBinObjects) && isset($this->ribbonBinObjects[$What])) {
                     $ReturnData = $this->ribbonBinObjects[$What];
                 }
                 break;
             case 'types':
                 if (is_array($this->ribbonBinObjects) &&
-                    array_key_exists('data', $this->ribbonBinObjects) && is_array($this->ribbonBinObjects['data'])) {
+                    isset($this->ribbonBinObjects['data']) && is_array($this->ribbonBinObjects['data'])) {
                     $tmpTypes = array_keys($this->ribbonBinObjects['data']);
                     $ReturnData = array_unique(array_map([$this, 'getExtensionOnly'], $tmpTypes));
                 } else {

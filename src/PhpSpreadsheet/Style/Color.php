@@ -154,10 +154,10 @@ class Color extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
             if ($this->isSupervisor) {
                 $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
             } else {
-                if (array_key_exists('rgb', $pStyles)) {
+                if (isset($pStyles['rgb'])) {
                     $this->setRGB($pStyles['rgb']);
                 }
-                if (array_key_exists('argb', $pStyles)) {
+                if (isset($pStyles['argb'])) {
                     $this->setARGB($pStyles['argb']);
                 }
             }
@@ -421,7 +421,7 @@ class Color extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
             ];
         }
 
-        if (array_key_exists($pIndex, self::$indexedColors)) {
+        if (isset(self::$indexedColors[$pIndex])) {
             return new self(self::$indexedColors[$pIndex]);
         }
 

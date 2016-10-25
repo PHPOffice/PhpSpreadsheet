@@ -84,8 +84,11 @@ class DefaultValueBinder implements IValueBinder
             }
 
             return DataType::TYPE_NUMERIC;
-        } elseif (is_string($pValue) && array_key_exists($pValue, DataType::getErrorCodes())) {
-            return DataType::TYPE_ERROR;
+        } elseif (is_string($pValue)) {
+            $errorCodes = DataType::getErrorCodes();
+            if (isset($errorCodes[$pValue])) {
+                return DataType::TYPE_ERROR;
+            }
         }
 
         return DataType::TYPE_STRING;

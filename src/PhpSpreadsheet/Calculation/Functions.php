@@ -700,7 +700,7 @@ if ((!function_exists('mb_str_replace')) &&
             if ($s == '' && $s !== 0) {
                 continue;
             }
-            $r = !is_array($replace) ? $replace : (array_key_exists($key, $replace) ? $replace[$key] : '');
+            $r = !is_array($replace) ? $replace : (isset($replace[$key]) ? $replace[$key] : '');
             $pos = mb_strpos($subject, $s, 0, 'UTF-8');
             while ($pos !== false) {
                 $subject = mb_substr($subject, 0, $pos, 'UTF-8') . $r . mb_substr($subject, $pos + mb_strlen($s, 'UTF-8'), null, 'UTF-8');
