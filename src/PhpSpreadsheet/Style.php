@@ -440,25 +440,25 @@ class Style extends Style\Supervisor implements IComparable
                 }
             } else {
                 // not a supervisor, just apply the style array directly on style object
-                if (array_key_exists('fill', $pStyles)) {
+                if (isset($pStyles['fill'])) {
                     $this->getFill()->applyFromArray($pStyles['fill']);
                 }
-                if (array_key_exists('font', $pStyles)) {
+                if (isset($pStyles['font'])) {
                     $this->getFont()->applyFromArray($pStyles['font']);
                 }
-                if (array_key_exists('borders', $pStyles)) {
+                if (isset($pStyles['borders'])) {
                     $this->getBorders()->applyFromArray($pStyles['borders']);
                 }
-                if (array_key_exists('alignment', $pStyles)) {
+                if (isset($pStyles['alignment'])) {
                     $this->getAlignment()->applyFromArray($pStyles['alignment']);
                 }
-                if (array_key_exists('numberformat', $pStyles)) {
+                if (isset($pStyles['numberformat'])) {
                     $this->getNumberFormat()->applyFromArray($pStyles['numberformat']);
                 }
-                if (array_key_exists('protection', $pStyles)) {
+                if (isset($pStyles['protection'])) {
                     $this->getProtection()->applyFromArray($pStyles['protection']);
                 }
-                if (array_key_exists('quotePrefix', $pStyles)) {
+                if (isset($pStyles['quotePrefix'])) {
                     $this->quotePrefix = $pStyles['quotePrefix'];
                 }
             }

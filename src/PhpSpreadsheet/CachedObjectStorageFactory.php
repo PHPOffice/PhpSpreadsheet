@@ -178,7 +178,7 @@ class CachedObjectStorageFactory
 
         self::$storageMethodParameters[$method] = self::$storageMethodDefaultParameters[$method];
         foreach ($arguments as $argument => $value) {
-            if (array_key_exists($argument, self::$storageMethodParameters[$method])) {
+            if (isset(self::$storageMethodParameters[$method][$argument])) {
                 self::$storageMethodParameters[$method][$argument] = $value;
             }
         }

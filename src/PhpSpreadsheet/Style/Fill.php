@@ -156,19 +156,19 @@ class Fill extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
             if ($this->isSupervisor) {
                 $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
             } else {
-                if (array_key_exists('type', $pStyles)) {
+                if (isset($pStyles['type'])) {
                     $this->setFillType($pStyles['type']);
                 }
-                if (array_key_exists('rotation', $pStyles)) {
+                if (isset($pStyles['rotation'])) {
                     $this->setRotation($pStyles['rotation']);
                 }
-                if (array_key_exists('startcolor', $pStyles)) {
+                if (isset($pStyles['startcolor'])) {
                     $this->getStartColor()->applyFromArray($pStyles['startcolor']);
                 }
-                if (array_key_exists('endcolor', $pStyles)) {
+                if (isset($pStyles['endcolor'])) {
                     $this->getEndColor()->applyFromArray($pStyles['endcolor']);
                 }
-                if (array_key_exists('color', $pStyles)) {
+                if (isset($pStyles['color'])) {
                     $this->getStartColor()->applyFromArray($pStyles['color']);
                 }
             }

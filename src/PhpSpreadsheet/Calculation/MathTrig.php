@@ -458,7 +458,7 @@ class MathTrig
                 $myPoweredFactors[$myCountedFactor] = pow($myCountedFactor, $myCountedPower);
             }
             foreach ($myPoweredFactors as $myPoweredValue => $myPoweredFactor) {
-                if (array_key_exists($myPoweredValue, $allPoweredFactors)) {
+                if (isset($allPoweredFactors[$myPoweredValue])) {
                     if ($allPoweredFactors[$myPoweredValue] < $myPoweredFactor) {
                         $allPoweredFactors[$myPoweredValue] = $myPoweredFactor;
                     }

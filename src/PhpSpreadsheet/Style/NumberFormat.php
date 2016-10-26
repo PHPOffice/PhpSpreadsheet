@@ -158,7 +158,7 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
             if ($this->isSupervisor) {
                 $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
             } else {
-                if (array_key_exists('code', $pStyles)) {
+                if (isset($pStyles['code'])) {
                     $this->setFormatCode($pStyles['code']);
                 }
             }

@@ -123,7 +123,7 @@ class Legend
      */
     public function setPositionXL($positionXL = self::XL_LEGEND_POSITION_RIGHT)
     {
-        if (!array_key_exists($positionXL, self::$positionXLref)) {
+        if (!isset(self::$positionXLref[$positionXL])) {
             return false;
         }
 
