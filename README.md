@@ -58,6 +58,8 @@ PhpSpreadsheet is the next version of PHPExcel. It breaks compatibility to drama
 
 Because all efforts have shifted to PhpSpreadsheet, PHPExcel will no longer be maintained. All contributions for PHPExcel, patches and new features, should target PhpSpreadsheet develop branch.
 
+However PhpSpreadsheet is still unstable and not yet released. So if you need stability stick to PHPExcel until this project is released. If you prefer to live on the edge you can try install to this project [manually via composer](https://getcomposer.org/doc/05-repositories.md#loading-a-package-from-a-vcs-repository), but there is no guarantee and it will likely break again before an official release.
+
 ## License
 
 PhpSpreadsheet is licensed under [LGPL (GNU LESSER GENERAL PUBLIC LICENSE)](https://github.com/PHPOffice/PhpSpreadsheet/blob/master/license.md)
