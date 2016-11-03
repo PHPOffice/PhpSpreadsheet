@@ -302,6 +302,14 @@ class OLERead
      */
     private static function getInt4d($data, $pos)
     {
+        if (trim($data) == '') {
+            // No data provided
+            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('Parameter data is empty.');
+        } elseif ($pos < 0) {
+            // Invalid position
+            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('Parameter pos=' . $pos . ' is invalid.');
+        }
+
         $len = strlen($data);
         if ($len < $pos + 4) {
             $data .= str_repeat("\0", $pos + 4 - $len);
