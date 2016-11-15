@@ -894,6 +894,9 @@ class Spreadsheet
      */
     public function getCellXfByIndex($pIndex = 0)
     {
+        if(!$pIndex){
+            return $this->cellXfCollection[0];
+        }
         return $this->cellXfCollection[$pIndex];
     }
 
