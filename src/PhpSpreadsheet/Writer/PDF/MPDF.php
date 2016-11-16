@@ -89,7 +89,7 @@ class MPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
         }
 
         //  Create PDF
-        $pdf = new self();
+        $pdf = new \Mpdf\Mpdf();
         $ortmp = $orientation;
         $pdf->_setPageSize(strtoupper($paperSize), $ortmp);
         $pdf->DefOrientation = $orientation;

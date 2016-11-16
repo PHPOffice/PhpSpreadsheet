@@ -253,7 +253,7 @@ class Memcache extends CacheBase implements ICache
             $this->cachePrefix = substr(md5($baseUnique), 0, 8) . '.';
 
             //    Set a new Memcache object and connect to the Memcache server
-            $this->memcache = new self();
+            $this->memcache = new \Memcache();
             if (!$this->memcache->addServer($memcacheServer, $memcachePort, false, 50, 5, 5, true, [$this, 'failureCallback'])) {
                 throw new \PhpOffice\PhpSpreadsheet\Exception("Could not connect to MemCache server at {$memcacheServer}:{$memcachePort}");
             }

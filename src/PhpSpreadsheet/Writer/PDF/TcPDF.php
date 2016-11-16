@@ -87,7 +87,7 @@ class TcPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
         }
 
         //  Create PDF
-        $pdf = new self($orientation, 'pt', $paperSize);
+        $pdf = new \TCPDF($orientation, 'pt', $paperSize);
         $pdf->setFontSubsetting(false);
         //    Set margins, converting inches to points (using 72 dpi)
         $pdf->SetMargins($printMargins->getLeft() * 72, $printMargins->getTop() * 72, $printMargins->getRight() * 72);

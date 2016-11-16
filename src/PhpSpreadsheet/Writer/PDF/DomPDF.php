@@ -88,7 +88,7 @@ class DomPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
         }
 
         //  Create PDF
-        $pdf = new self();
+        $pdf = new \DOMPDF();
         $pdf->set_paper(strtolower($paperSize), $orientation);
 
         $pdf->load_html(
