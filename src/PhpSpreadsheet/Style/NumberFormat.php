@@ -464,7 +464,8 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
         // strip off first part containing e.g. [$-F800] or [$USD-409]
         // general syntax: [$<Currency string>-<language info>]
         // language info is in hexadecimal
-        $format = preg_replace('/^(\[\$[A-Z]*-[0-9A-F]*\])/i', '', $format);
+        // strip off chinese part like [DBNum1][$-804]
+        $format = preg_replace('/^(\[[0-9A-Za-z]*\])*(\[\$[A-Z]*-[0-9A-F]*\])/i', '', $format);
 
         // OpenOffice.org uses upper-case number formats, e.g. 'YYYY', convert to lower-case;
         //    but we don't want to change any quoted strings
