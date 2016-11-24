@@ -701,10 +701,9 @@ class Worksheet implements IComparable
     /**
      * Calculate widths for auto-size columns
      *
-     * @param  bool  $calculateMergeCells  Calculate merge cell width
      * @return Worksheet;
      */
-    public function calculateColumnWidths($calculateMergeCells = false)
+    public function calculateColumnWidths()
     {
         // initialize $autoSizes array
         $autoSizes = [];
@@ -728,8 +727,23 @@ class Worksheet implements IComparable
             foreach ($this->getCellCollection(false) as $cellID) {
                 $cell = $this->getCell($cellID, false);
                 if ($cell !== null && isset($autoSizes[$this->cellCollection->getCurrentColumn()])) {
-                    // Determine width if cell does not participate in a merge
-                    if (!isset($isMergeCell[$this->cellCollection->getCurrentAddress()])) {
+                    //Determine if cell is in merge range
+                    $isMerged = isset($isMergeCell[$this->cellCollection->getCurrentAddress()]);
+
+                    //By default merged cells should be ignored
+                    $isMergedButProceed = false;
+
+                    //The only exception is if it's a merge range value cell of a 'vertical' randge (1 column wide)
+                    if ($isMerged && $cell->isMergeRangeValueCell()) {
+                        $range = $cell->getMergeRange();
+                        $rangeBoundaries = Cell::rangeDimension($range);
+                        if ($rangeBoundaries[0] == 1) {
+                            $isMergedButProceed = true;
+                        }
+                    }
+
+                    // Determine width if cell does not participate in a merge or does and is a value cell of 1-column wide range
+                    if (!$isMerged || $isMergedButProceed) {
                         // Calculated value
                         // To formatted string
                         $cellValue = Style\NumberFormat::toFormattedString(
