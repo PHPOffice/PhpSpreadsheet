@@ -7,7 +7,7 @@
 
 The following software is required to develop using PHPExcel:
 
- - PHP version 5.2.0 or newer
+ - PHP version 5.5 or newer
  - PHP extension php_zip enabled [^phpzip_footnote]
  - PHP extension php_xml enabled
  - PHP extension php_gd2 enabled (if not compiled in)
@@ -21,26 +21,26 @@ Installation is quite easy: copy the contents of the Classes folder to any locat
 
 If your web root folder is /var/www/ you may want to create a subfolder called /var/www/Classes/ and copy the files into that folder so you end up with files:
 
-    /var/www/Classes/PHPExcel.php  
-    /var/www/Classes/PHPExcel/Calculation.php  
-    /var/www/Classes/PHPExcel/Cell.php  
-    ...  
+    /var/www/Classes/PHPExcel.php
+    /var/www/Classes/PHPExcel/Calculation.php
+    /var/www/Classes/PHPExcel/Cell.php
+    ...
 
 
 ### Getting started
 
-A good way to get started is to run some of the tests included in the download.  
+A good way to get started is to run some of the tests included in the download.
 Copy the "Examples" folder next to your "Classes" folder from above so you end up with:
 
-    /var/www/Examples/01simple.php  
-    /var/www/Examples/02types.php  
-    ...  
+    /var/www/Examples/01simple.php
+    /var/www/Examples/02types.php
+    ...
 
 Start running the tests by pointing your browser to the test scripts:
 
-http://example.com/Tests/01simple.php  
-http://example.com/Tests/02types.php  
-...  
+http://example.com/Tests/01simple.php
+http://example.com/Tests/02types.php
+...
 
 **Note:** It may be necessary to modify the include/require statements at the beginning of each of the test scripts if your "Classes" folder from above is named differently.
 
@@ -51,13 +51,13 @@ There are some links and tools which are very useful when developing using PHPEx
 
 #### OpenXML / SpreadsheetML
 
- - __File format documentation__  
+ - __File format documentation__
 [http://www.ecma-international.org/news/TC45_current_work/TC45_available_docs.htm][3]
- - __OpenXML Explained e-book__  
-[http://openxmldeveloper.org/articles/1970.aspx][4] 
- - __Microsoft Office Compatibility Pack for Word, Excel, and PowerPoint 2007 File Formats__  
+ - __OpenXML Explained e-book__
+[http://openxmldeveloper.org/articles/1970.aspx][4]
+ - __Microsoft Office Compatibility Pack for Word, Excel, and PowerPoint 2007 File Formats__
 [http://www.microsoft.com/downloads/details.aspx?familyid=941b3470-3ae9-4aee-8f43-c6bb74cd1466&displaylang=en][5]
- - __OpenXML Package Explorer__  
+ - __OpenXML Package Explorer__
 [http://www.codeplex.com/PackageExplorer/][6]
 
 
@@ -145,13 +145,13 @@ Thanks to peterrlynch for the following advice on resolving issues between the [
 
 #### Tutorials
 
- - __English PHPExcel tutorial__  
+ - __English PHPExcel tutorial__
    [http://openxmldeveloper.org][18]
- - __French PHPExcel tutorial__  
+ - __French PHPExcel tutorial__
    [http://g-ernaelsten.developpez.com/tutoriels/excel2007/][19]
- - __Russian PHPExcel Blog Postings__  
+ - __Russian PHPExcel Blog Postings__
    [http://www.web-junior.net/sozdanie-excel-fajjlov-s-pomoshhyu-phpexcel/][20]
- - __A Japanese-language introduction to PHPExcel__  
+ - __A Japanese-language introduction to PHPExcel__
   [http://journal.mycom.co.jp/articles/2009/03/06/phpexcel/index.html][21]
 
 
