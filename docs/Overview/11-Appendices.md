@@ -6,7 +6,7 @@ Please refer to the internet page [http://www.codeplex.com/PHPExcel/Wiki/View.as
 
 ## Valid array keys for style applyFromArray()
 
-The following table lists the valid array keys for PHPExcel_Style applyFromArray() classes. If the "Maps to property"ù column maps a key to a setter, the value provided for that key will be applied directly. If the "Maps to property" column maps a key to a getter, the value provided for that key will be applied as another style array.
+The following table lists the valid array keys for PHPExcel_Style applyFromArray() classes. If the "Maps to property" column maps a key to a setter, the value provided for that key will be applied directly. If the "Maps to property" column maps a key to a getter, the value provided for that key will be applied as another style array.
 
 __PHPExcel_Style__
 
