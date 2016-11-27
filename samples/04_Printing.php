@@ -36,7 +36,7 @@ $spreadsheet->getActiveSheet()
 $helper->log('Add a drawing to the header');
 $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing();
 $drawing->setName('PhpSpreadsheet logo');
-$drawing->setPath(__DIR__ . '/images/PhpSpreadsheet_logo.gif');
+$drawing->setPath(__DIR__ . '/images/PhpSpreadsheet_logo.png');
 $drawing->setHeight(36);
 $spreadsheet->getActiveSheet()
         ->getHeaderFooter()
