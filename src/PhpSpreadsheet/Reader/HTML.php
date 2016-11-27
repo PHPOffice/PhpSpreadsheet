@@ -127,25 +127,27 @@ class HTML extends BaseReader implements IReader
     /**
      * Validate that the current file is an HTML file
      *
+     * @param     string         $pFilename
+     * @throws Exception
      * @return bool
      */
-    protected function isValidFormat()
+    public function canRead($pFilename)
     {
+        // Check if file exists
+        try {
+            $this->openFile($pFilename);
+        } catch (Exception $e) {
+            return false;
+        }
+
         $beginning = $this->readBeginning();
+        $startWithTag = self::startsWithTag($beginning);
+        $containsTags = self::containsTags($beginning);
+        $endsWithTag = self::endsWithTag($this->readEnding());
 
-        if (!self::startsWithTag($beginning)) {
-            return false;
-        }
+        fclose($this->fileHandle);
 
-        if (!self::containsTags($beginning)) {
-            return false;
-        }
-
-        if (!self::endsWithTag($this->readEnding())) {
-            return false;
-        }
-
-        return true;
+        return $startWithTag && $containsTags && $endsWithTag;
     }
 
     private function readBeginning()
@@ -492,14 +494,10 @@ class HTML extends BaseReader implements IReader
      */
     public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
     {
-        // Open file to validate
-        $this->openFile($pFilename);
-        if (!$this->isValidFormat()) {
-            fclose($this->fileHandle);
+        // Validate
+        if (!$this->canRead($pFilename)) {
             throw new Exception($pFilename . ' is an Invalid HTML file.');
         }
-        //    Close after validating
-        fclose($this->fileHandle);
 
         // Create new sheet
         while ($spreadsheet->getSheetCount() <= $this->sheetIndex) {
