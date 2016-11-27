@@ -6,7 +6,7 @@ A worksheet is a collection of cells, formulae, images, graphs, etc. It holds al
 
 When you load a workbook from a spreadsheet file, it will be loaded with all its existing worksheets (unless you specified that only certain sheets should be loaded). When you load from non-spreadsheet files (such as a CSV or HTML file) or from spreadsheet formats that don't identify worksheets by name (such as SYLK), then a single worksheet called "WorkSheet1" will be created containing the data from that file.
 
-When you instantiate a new workbook, PHPExcel will create it with a single worksheet called "WorkSheet1"ù.
+When you instantiate a new workbook, PHPExcel will create it with a single worksheet called "WorkSheet1".
 
 The `getSheetCount()` method will tell you the number of worksheets in the workbook; while the `getSheetNames()` method will return a list of all worksheets in the workbook, indexed by the order in which their "tabs" would appear when opened in MS Excel (or other appropriate Spreadsheet program).
 
@@ -40,13 +40,13 @@ You can change the currently active sheet by index or by name using the `setActi
 
 ### Adding a new Worksheet
 
-You can add a new worksheet to the workbook using the `createSheet()` method of the PHPExcel object. By default, this will be created as a new "lastù" sheet; but you can also specify an index position as an argument, and the worksheet will be inserted at that position, shuffling all subsequent worksheets in the collection down a place.
+You can add a new worksheet to the workbook using the `createSheet()` method of the PHPExcel object. By default, this will be created as a new "last" sheet; but you can also specify an index position as an argument, and the worksheet will be inserted at that position, shuffling all subsequent worksheets in the collection down a place.
 
 ```php
 $objPHPExcel->createSheet();
 ```
 
-A new worksheet created using this method will be called "Worksheet\<n\>"ù where "\<n\>"ù is the lowest number possible to guarantee that the title is unique.
+A new worksheet created using this method will be called "Worksheet\<n\>" where "\<n\>" is the lowest number possible to guarantee that the title is unique.
 
 Alternatively, you can instantiate a new worksheet (setting the title to whatever you choose) and then insert it into your workbook using the addSheet() method.
 

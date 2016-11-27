@@ -25,7 +25,6 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../../../Classes/');
 /** PHPExcel_IOFactory */
 include 'PHPExcel/IOFactory.php';
 
-
 $inputFileType = 'Xls';
 //	$inputFileType = 'Xlsx';
 //	$inputFileType = 'Excel2003XML';
@@ -33,7 +32,7 @@ $inputFileType = 'Xls';
 //	$inputFileType = 'Gnumeric';
 $inputFileName = './sampleData/example1.xls';
 
-echo 'Loading file ',pathinfo($inputFileName,PATHINFO_BASENAME),' information using IOFactory with a defined reader type of ',$inputFileType,'<br />';
+echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' information using IOFactory with a defined reader type of ',$inputFileType,'<br />';
 
 $objReader = PHPExcel_IOFactory::createReader($inputFileType);
 $worksheetNames = $objReader->listWorksheetNames($inputFileName);
@@ -41,7 +40,7 @@ $worksheetNames = $objReader->listWorksheetNames($inputFileName);
 echo '<h3>Worksheet Names</h3>';
 echo '<ol>';
 foreach ($worksheetNames as $worksheetName) {
-	echo '<li>', $worksheetName, '</li>';
+    echo '<li>', $worksheetName, '</li>';
 }
 echo '</ol>';
 

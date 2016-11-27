@@ -25,30 +25,27 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../../../Classes/');
 /** PHPExcel_IOFactory */
 include 'PHPExcel/IOFactory.php';
 
-
 $inputFileType = 'Xls';
 $inputFileName = './sampleData/example2.xls';
 
-/**  Create a new Reader of the type defined in $inputFileType  **/
+/*  Create a new Reader of the type defined in $inputFileType  **/
 $objReader = PHPExcel_IOFactory::createReader($inputFileType);
-/**  Load $inputFileName to a PHPExcel Object  **/
+/*  Load $inputFileName to a PHPExcel Object  **/
 $objPHPExcel = $objReader->load($inputFileName);
-
 
 echo '<hr />';
 
 echo 'Reading the number of Worksheets in the WorkBook<br />';
-/**  Use the PHPExcel object's getSheetCount() method to get a count of the number of WorkSheets in the WorkBook  */
+/*  Use the PHPExcel object's getSheetCount() method to get a count of the number of WorkSheets in the WorkBook  */
 $sheetCount = $objPHPExcel->getSheetCount();
 echo 'There ',(($sheetCount == 1) ? 'is' : 'are'),' ',$sheetCount,' WorkSheet',(($sheetCount == 1) ? '' : 's'),' in the WorkBook<br /><br />';
 
 echo 'Reading the names of Worksheets in the WorkBook<br />';
-/**  Use the PHPExcel object's getSheetNames() method to get an array listing the names/titles of the WorkSheets in the WorkBook  */
+/*  Use the PHPExcel object's getSheetNames() method to get an array listing the names/titles of the WorkSheets in the WorkBook  */
 $sheetNames = $objPHPExcel->getSheetNames();
-foreach($sheetNames as $sheetIndex => $sheetName) {
-	echo 'WorkSheet #',$sheetIndex,' is named "',$sheetName,'"<br />';
+foreach ($sheetNames as $sheetIndex => $sheetName) {
+    echo 'WorkSheet #',$sheetIndex,' is named "',$sheetName,'"<br />';
 }
-
 
 ?>
 <body>

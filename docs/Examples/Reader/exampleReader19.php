@@ -25,7 +25,6 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../../../Classes/');
 /** PHPExcel_IOFactory */
 include 'PHPExcel/IOFactory.php';
 
-
 $inputFileType = 'Xls';
 //	$inputFileType = 'Xlsx';
 //	$inputFileType = 'Excel2003XML';
@@ -33,7 +32,7 @@ $inputFileType = 'Xls';
 //	$inputFileType = 'Gnumeric';
 $inputFileName = './sampleData/example1.xls';
 
-echo 'Loading file ',pathinfo($inputFileName,PATHINFO_BASENAME),' information using IOFactory with a defined reader type of ',$inputFileType,'<br />';
+echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' information using IOFactory with a defined reader type of ',$inputFileType,'<br />';
 
 $objReader = PHPExcel_IOFactory::createReader($inputFileType);
 $worksheetData = $objReader->listWorksheetInfo($inputFileName);
@@ -41,10 +40,10 @@ $worksheetData = $objReader->listWorksheetInfo($inputFileName);
 echo '<h3>Worksheet Information</h3>';
 echo '<ol>';
 foreach ($worksheetData as $worksheet) {
-	echo '<li>', $worksheet['worksheetName'], '<br />';
-	echo 'Rows: ', $worksheet['totalRows'], ' Columns: ', $worksheet['totalColumns'], '<br />';
-	echo 'Cell Range: A1:', $worksheet['lastColumnLetter'], $worksheet['totalRows'];
-	echo '</li>';
+    echo '<li>', $worksheet['worksheetName'], '<br />';
+    echo 'Rows: ', $worksheet['totalRows'], ' Columns: ', $worksheet['totalColumns'], '<br />';
+    echo 'Cell Range: A1:', $worksheet['lastColumnLetter'], $worksheet['totalRows'];
+    echo '</li>';
 }
 echo '</ol>';
 
