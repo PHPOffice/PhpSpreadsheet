@@ -17,14 +17,14 @@
 /** Include path **/
 set_include_path(get_include_path() . PATH_SEPARATOR . '../../../Classes/');
 
-/** PHPExcel_IOFactory */
+/** \PhpOffice\PhpSpreadsheet\IOFactory */
 include 'PHPExcel/IOFactory.php';
 
 $inputFileType = 'CSV';
 $inputFileName = './sampleData/example2.csv';
 
-/**  Define a Read Filter class implementing PHPExcel_Reader_IReadFilter  */
-class chunkReadFilter implements PHPExcel_Reader_IReadFilter
+/**  Define a Read Filter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
+class chunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 {
     private $_startRow = 0;
 
@@ -50,7 +50,7 @@ class chunkReadFilter implements PHPExcel_Reader_IReadFilter
 
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using IOFactory with a defined reader type of ',$inputFileType,'<br />';
 /*  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 
 echo '<hr />';
 
@@ -65,7 +65,7 @@ $objReader->setReadFilter($chunkFilter)
           ->setContiguous(true);
 
 /*  Instantiate a new PHPExcel object manually  **/
-$objPHPExcel = new PHPExcel();
+$spreadsheet = new PHPExcel();
 
 /*  Set a sheet index  **/
 $sheet = 0;
@@ -79,20 +79,20 @@ for ($startRow = 2; $startRow <= 240; $startRow += $chunkSize) {
     /*  Increment the worksheet index pointer for the Reader  **/
     $objReader->setSheetIndex($sheet);
     /*  Load only the rows that match our filter into a new worksheet in the PHPExcel Object  **/
-    $objReader->loadIntoExisting($inputFileName, $objPHPExcel);
+    $objReader->loadIntoExisting($inputFileName, $spreadsheet);
     /*  Set the worksheet title (to reference the "sheet" of data that we've loaded)  **/
     /*    and increment the sheet index as well  **/
-    $objPHPExcel->getActiveSheet()->setTitle('Country Data #' . (++$sheet));
+    $spreadsheet->getActiveSheet()->setTitle('Country Data #' . (++$sheet));
 }
 
 echo '<hr />';
 
-echo $objPHPExcel->getSheetCount(),' worksheet',(($objPHPExcel->getSheetCount() == 1) ? '' : 's'),' loaded<br /><br />';
-$loadedSheetNames = $objPHPExcel->getSheetNames();
+echo $spreadsheet->getSheetCount(),' worksheet',(($spreadsheet->getSheetCount() == 1) ? '' : 's'),' loaded<br /><br />';
+$loadedSheetNames = $spreadsheet->getSheetNames();
 foreach ($loadedSheetNames as $sheetIndex => $loadedSheetName) {
     echo '<b>Worksheet #',$sheetIndex,' -> ',$loadedSheetName,'</b><br />';
-    $objPHPExcel->setActiveSheetIndexByName($loadedSheetName);
-    $sheetData = $objPHPExcel->getActiveSheet()->toArray(null, false, false, true);
+    $spreadsheet->setActiveSheetIndexByName($loadedSheetName);
+    $sheetData = $spreadsheet->getActiveSheet()->toArray(null, false, false, true);
     var_dump($sheetData);
     echo '<br />';
 }

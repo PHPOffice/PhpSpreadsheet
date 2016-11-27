@@ -10,7 +10,7 @@ date_default_timezone_set('Europe/London');
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>PHPExcel Calculation Examples</title>
+<title>PhpSpreadsheet Calculation Examples</title>
 
 </head>
 <body>
@@ -22,12 +22,12 @@ date_default_timezone_set('Europe/London');
 /** Include path **/
 set_include_path(get_include_path() . PATH_SEPARATOR . '../../../../Classes/');
 
-/** Include PHPExcel */
+/** Include PhpSpreadsheet */
 include 'PHPExcel.php';
 
-// Create new PHPExcel object
-$objPHPExcel = new PHPExcel();
-$worksheet = $objPHPExcel->getActiveSheet();
+// Create new PhpSpreadsheet object
+$spreadsheet = new PHPExcel();
+$worksheet = $spreadsheet->getActiveSheet();
 
 // Add some data
 $database = [['Tree',  'Height', 'Age', 'Yield', 'Profit'],

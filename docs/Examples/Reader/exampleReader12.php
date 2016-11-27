@@ -22,7 +22,7 @@ date_default_timezone_set('Europe/London');
 /**  Set Include path to point at the PHPExcel Classes folder  **/
 set_include_path(get_include_path() . PATH_SEPARATOR . '../../../Classes/');
 
-/**  Include PHPExcel_IOFactory  **/
+/**  Include \PhpOffice\PhpSpreadsheet\IOFactory  **/
 include 'PHPExcel/IOFactory.php';
 
 $inputFileType = 'Xls';
@@ -32,8 +32,8 @@ $inputFileType = 'Xls';
 //	$inputFileType = 'Gnumeric';
 $inputFileName = './sampleData/example2.xls';
 
-/**  Define a Read Filter class implementing PHPExcel_Reader_IReadFilter  */
-class chunkReadFilter implements PHPExcel_Reader_IReadFilter
+/**  Define a Read Filter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
+class chunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 {
     private $_startRow = 0;
 
@@ -59,7 +59,7 @@ class chunkReadFilter implements PHPExcel_Reader_IReadFilter
 
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using IOFactory with a defined reader type of ',$inputFileType,'<br />';
 /*  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 
 echo '<hr />';
 
@@ -77,11 +77,11 @@ for ($startRow = 2; $startRow <= 240; $startRow += $chunkSize) {
     /*  Tell the Read Filter, the limits on which rows we want to read this iteration  **/
     $chunkFilter->setRows($startRow, $chunkSize);
     /*  Load only the rows that match our filter from $inputFileName to a PHPExcel Object  **/
-    $objPHPExcel = $objReader->load($inputFileName);
+    $spreadsheet = $objReader->load($inputFileName);
 
     //	Do some processing here
 
-    $sheetData = $objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
+    $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
     var_dump($sheetData);
     echo '<br /><br />';
 }

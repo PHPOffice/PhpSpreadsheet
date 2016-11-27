@@ -22,7 +22,7 @@ date_default_timezone_set('Europe/London');
 /** Include path **/
 set_include_path(get_include_path() . PATH_SEPARATOR . '../../../Classes/');
 
-/** PHPExcel_IOFactory */
+/** \PhpOffice\PhpSpreadsheet\IOFactory */
 include 'PHPExcel/IOFactory.php';
 
 $inputFileType = 'Xls';
@@ -33,7 +33,7 @@ $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 $sheetname = 'Data Sheet #3';
 
-class MyReadFilter implements PHPExcel_Reader_IReadFilter
+class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 {
     private $_startRow = 0;
 
@@ -63,16 +63,16 @@ class MyReadFilter implements PHPExcel_Reader_IReadFilter
 $filterSubset = new MyReadFilter(9, 15, range('G', 'K'));
 
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using IOFactory with a defined reader type of ',$inputFileType,'<br />';
-$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 echo 'Loading Sheet "',$sheetname,'" only<br />';
 $objReader->setLoadSheetsOnly($sheetname);
 echo 'Loading Sheet using configurable filter<br />';
 $objReader->setReadFilter($filterSubset);
-$objPHPExcel = $objReader->load($inputFileName);
+$spreadsheet = $objReader->load($inputFileName);
 
 echo '<hr />';
 
-$sheetData = $objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
+$sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
 var_dump($sheetData);
 
 ?>

@@ -22,20 +22,20 @@ date_default_timezone_set('Europe/London');
 /** Include path **/
 set_include_path(get_include_path() . PATH_SEPARATOR . '../../../Classes/');
 
-/** PHPExcel_IOFactory */
+/** \PhpOffice\PhpSpreadsheet\IOFactory */
 include 'PHPExcel/IOFactory.php';
 
 $inputFileName = './sampleData/example_1.xls';
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using IOFactory to identify the format<br />';
 try {
-    $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
+    $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($inputFileName);
 } catch (\PHPExcel\Reader\Exception $e) {
     die('Error loading file "' . pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
 }
 
 echo '<hr />';
 
-$sheetData = $objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
+$sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
 var_dump($sheetData);
 
 ?>

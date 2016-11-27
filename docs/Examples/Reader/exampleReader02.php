@@ -8,7 +8,7 @@ date_default_timezone_set('Europe/London');
 /* Include path **/
 set_include_path(get_include_path() . PATH_SEPARATOR . '../../../Classes/');
 
-/** PHPExcel_IOFactory */
+/** \PhpOffice\PhpSpreadsheet\IOFactory */
 include 'PHPExcel/IOFactory.php';
 
 ?>
@@ -27,19 +27,19 @@ include 'PHPExcel/IOFactory.php';
 
 $inputFileName = './sampleData/example1.xls';
 
-echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using PHPExcel_Reader_Excel5<br />';
-$objReader = new PHPExcel_Reader_Excel5();
-//	$objReader = new PHPExcel_Reader_Excel2007();
-//	$objReader = new PHPExcel_Reader_Excel2003XML();
-//	$objReader = new PHPExcel_Reader_OOCalc();
-//	$objReader = new PHPExcel_Reader_SYLK();
-//	$objReader = new PHPExcel_Reader_Gnumeric();
-//	$objReader = new PHPExcel_Reader_CSV();
-$objPHPExcel = $objReader->load($inputFileName);
+echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using \PhpOffice\PhpSpreadsheet\Reader\Xls<br />';
+$objReader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+//	$objReader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+//	$objReader = new \PhpOffice\PhpSpreadsheet\Reader\Excel2003XML();
+//	$objReader = new \PhpOffice\PhpSpreadsheet\Reader\Ods();
+//	$objReader = new \PhpOffice\PhpSpreadsheet\Reader\SYLK();
+//	$objReader = new \PhpOffice\PhpSpreadsheet\Reader\Gnumeric();
+//	$objReader = new \PhpOffice\PhpSpreadsheet\Reader\CSV();
+$spreadsheet = $objReader->load($inputFileName);
 
 echo '<hr />';
 
-$sheetData = $objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
+$sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
 var_dump($sheetData);
 
 ?>

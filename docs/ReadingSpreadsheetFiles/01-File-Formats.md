@@ -1,11 +1,11 @@
-# PHPExcel User Documentation – Reading Spreadsheet Files
+# PhpSpreadsheet User Documentation – Reading Spreadsheet Files
 
 
 ## Spreadsheet File Formats
 
-PHPExcel can read a number of different spreadsheet and file formats, although not all features are supported by all of the readers. Check the Functionality Cross-Reference document (Functionality Cross-Reference.xls) for a list that identifies which features are supported by which readers.
+PhpSpreadsheet can read a number of different spreadsheet and file formats, although not all features are supported by all of the readers. Check the Functionality Cross-Reference document (Functionality Cross-Reference.xls) for a list that identifies which features are supported by which readers.
 
-Currently, PHPExcel supports the following File Types for Reading:
+Currently, PhpSpreadsheet supports the following File Types for Reading:
 
 ### Xls
 

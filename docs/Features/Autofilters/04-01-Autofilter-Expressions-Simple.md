@@ -1,4 +1,4 @@
-# PHPExcel AutoFilter Reference 
+# PhpSpreadsheet AutoFilter Reference
 
 
 ## Autofilter Expressions
@@ -13,24 +13,24 @@ To create a filter expression, we need to start by identifying the filter type. 
 
 ```php
 $columnFilter->setFilterType(
-    PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_FILTERTYPE_FILTER
+    \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_FILTER
 );
 ```
 
 Now we've identified the filter type, we can create a filter rule and set the filter values:
 
-When creating a simple filter in PHPExcel, you only need to specify the values for "checked" columns: you do this by creating a filter rule for each value.
+When creating a simple filter in PhpSpreadsheet, you only need to specify the values for "checked" columns: you do this by creating a filter rule for each value.
 
 ```php
 $columnFilter->createRule()
     ->setRule(
-        PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
         'France'
     );
 
 $columnFilter->createRule()
     ->setRule(
-        PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
         'Germany'
     );
 ```
@@ -46,7 +46,7 @@ If you want to create a filter to select blank cells, you would use:
 ```php
 $columnFilter->createRule()
     ->setRule(
-        PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
         ''
     );
 ```

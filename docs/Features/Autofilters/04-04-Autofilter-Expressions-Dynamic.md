@@ -1,4 +1,4 @@
-# PHPExcel AutoFilter Reference 
+# PhpSpreadsheet AutoFilter Reference
 
 
 ## Autofilter Expressions
@@ -13,7 +13,7 @@ Again, we start by specifying a Filter type, this time a DYNAMICFILTER.
 
 ```php
 $columnFilter->setFilterType(
-    PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER
+    \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER
 );
 ```
 
@@ -22,18 +22,18 @@ When defining the rule for a dynamic filter, we don't define a value (we can sim
 ```php
 $columnFilter->createRule()
     ->setRule(
-        PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
         NULL,
-        PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_DYNAMIC_YEARTODATE
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_YEARTODATE
     )
     ->setRuleType(
-        PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER
     );
 ```
 
 We also set the rule type to DYNAMICFILTER.
 
-The valid set of dynamic filter categories is defined in the PHPExcel_Worksheet_AutoFilter_Column_Rule class, and comprises:
+The valid set of dynamic filter categories is defined in the \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule class, and comprises:
 
     Operator Constant                        | Value          |
     -----------------------------------------|----------------|

@@ -1,4 +1,4 @@
-# PHPExcel AutoFilter Reference 
+# PhpSpreadsheet AutoFilter Reference
 
 
 ## Autofilter Expressions
@@ -17,7 +17,7 @@ We start by specifying a Filter type, this time a CUSTOMFILTER.
 
 ```php
 $columnFilter->setFilterType(
-    PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER
+    \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER
 );
 ```
 
@@ -28,11 +28,11 @@ The following shows a simple wildcard filter to show all column entries beginnin
 ```php
 $columnFilter->createRule()
     ->setRule(
-        PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
         'U*'
     )
     ->setRuleType(
-        PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER
     );
 ```
 
@@ -45,19 +45,19 @@ To create a "between" condition, we need to define two rules:
 ```php
 $columnFilter->createRule()
     ->setRule(
-        PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL,
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL,
         -20
     )
     ->setRuleType(
-        PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER
     );
 $columnFilter->createRule()
     ->setRule(
-        PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL,
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL,
         20
     )
     ->setRuleType(
-        PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER
     );
 ```
 
@@ -67,11 +67,11 @@ This defined two rules, filtering numbers that are >= -20 OR <= 20, so we also n
 
 ```php
 $columnFilter->setAndOr(
-    PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_COLUMN_ANDOR_AND
+    \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_COLUMN_ANDOR_AND
 );
 ```
 
-The valid set of operators for Custom Filters are defined in the PHPExcel_Worksheet_AutoFilter_Column_Rule class, and comprise:
+The valid set of operators for Custom Filters are defined in the \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule class, and comprise:
 
     Operator Constant                         | Value                |
     ------------------------------------------|----------------------|

@@ -1,28 +1,28 @@
-# PHPExcel Developer Documentation
+# PhpSpreadsheet Developer Documentation
 
-## Using the PHPExcel calculation engine
+## Using the PhpSpreadsheet calculation engine
 
 ### Performing formula calculations
 
-As PHPExcel represents an in-memory spreadsheet, it also offers formula calculation capabilities. A cell can be of a value type (containing a number or text), or a formula type (containing a formula which can be evaluated). For example, the formula "=SUM(A1:A10)" evaluates to the sum of values in A1, A2, ..., A10.
+As PhpSpreadsheet represents an in-memory spreadsheet, it also offers formula calculation capabilities. A cell can be of a value type (containing a number or text), or a formula type (containing a formula which can be evaluated). For example, the formula "=SUM(A1:A10)" evaluates to the sum of values in A1, A2, ..., A10.
 
 To calculate a formula, you can call the cell containing the formula’s method getCalculatedValue(), for example:
 
 ```php
-$objPHPExcel->getActiveSheet()->getCell('E11')->getCalculatedValue();
+$spreadsheet->getActiveSheet()->getCell('E11')->getCalculatedValue();
 ```
-If you write the following line of code in the invoice demo included with PHPExcel, it evaluates to the value "64":
+If you write the following line of code in the invoice demo included with PhpSpreadsheet, it evaluates to the value "64":
 
 ![09-command-line-calculation.png](./images/09-command-line-calculation.png "")
 
-Another nice feature of PHPExcel's formula parser, is that it can automatically adjust a formula when inserting/removing rows/columns. Here's an example:
+Another nice feature of PhpSpreadsheet's formula parser, is that it can automatically adjust a formula when inserting/removing rows/columns. Here's an example:
 
 ![09-formula-in-cell-1.png](./images/09-formula-in-cell-1.png "")
 
 You see that the formula contained in cell E11 is "SUM(E4:E9)". Now, when I write the following line of code, two new product lines are added:
 
 ```php
-$objPHPExcel->getActiveSheet()->insertNewRowBefore(7, 2);
+$spreadsheet->getActiveSheet()->insertNewRowBefore(7, 2);
 ```
 
 ![09-formula-in-cell-2.png](./images/09-formula-in-cell-2.png "")
@@ -31,11 +31,11 @@ Did you notice? The formula in the former cell E11 (now E13, as I inserted 2 new
 
 ### Known limitations
 
-There are some known limitations to the PHPExcel calculation engine. Most of them are due to the fact that an Excel formula is converted into PHP code before being executed. This means that Excel formula calculation is subject to PHP's language characteristics.
+There are some known limitations to the PhpSpreadsheet calculation engine. Most of them are due to the fact that an Excel formula is converted into PHP code before being executed. This means that Excel formula calculation is subject to PHP's language characteristics.
 
 #### Operator precedence
 
-In Excel '+' wins over '&', just like '*' wins over '+' in ordinary algebra. The former rule is not what one finds using the calculation engine shipped with PHPExcel.
+In Excel '+' wins over '&', just like '*' wins over '+' in ordinary algebra. The former rule is not what one finds using the calculation engine shipped with PhpSpreadsheet.
 
 Reference for operator precedence in Excel: [http://support.microsoft.com/kb/25189][18]
 
