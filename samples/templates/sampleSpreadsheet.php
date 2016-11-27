@@ -270,7 +270,7 @@ $helper->log('Add a drawing to the worksheet');
 $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
 $drawing->setName('PhpSpreadsheet logo');
 $drawing->setDescription('PhpSpreadsheet logo');
-$drawing->setPath(__DIR__ . '/../images/PhpSpreadsheet_logo.gif');
+$drawing->setPath(__DIR__ . '/../images/PhpSpreadsheet_logo.png');
 $drawing->setHeight(36);
 $drawing->setCoordinates('D24');
 $drawing->setOffsetX(10);
