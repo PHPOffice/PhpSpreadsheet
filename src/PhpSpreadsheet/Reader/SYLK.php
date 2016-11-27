@@ -65,26 +65,33 @@ class SYLK extends BaseReader implements IReader
     /**
      * Validate that the current file is a SYLK file
      *
+     * @param     string         $pFilename
+     * @throws Exception
      * @return bool
      */
-    protected function isValidFormat()
+    public function canRead($pFilename)
     {
+        // Check if file exists
+        try {
+            $this->openFile($pFilename);
+        } catch (Exception $e) {
+            return false;
+        }
+
         // Read sample data (first 2 KB will do)
         $data = fread($this->fileHandle, 2048);
 
         // Count delimiters in file
         $delimiterCount = substr_count($data, ';');
-        if ($delimiterCount < 1) {
-            return false;
-        }
+        $hasDelimiter = $delimiterCount > 0;
 
         // Analyze first line looking for ID; signature
         $lines = explode("\n", $data);
-        if (substr($lines[0], 0, 4) != 'ID;P') {
-            return false;
-        }
+        $hasId = substr($lines[0], 0, 4) === 'ID;P';
 
-        return true;
+        fclose($this->fileHandle);
+
+        return $hasDelimiter && $hasId;
     }
 
     /**
@@ -118,11 +125,10 @@ class SYLK extends BaseReader implements IReader
     public function listWorksheetInfo($pFilename)
     {
         // Open file
-        $this->openFile($pFilename);
-        if (!$this->isValidFormat()) {
-            fclose($this->fileHandle);
+        if (!$this->canRead($pFilename)) {
             throw new Exception($pFilename . ' is an Invalid Spreadsheet file.');
         }
+        $this->openFile($pFilename);
         $fileHandle = $this->fileHandle;
         rewind($fileHandle);
 
@@ -205,11 +211,10 @@ class SYLK extends BaseReader implements IReader
     public function loadIntoExisting($pFilename, \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
     {
         // Open file
-        $this->openFile($pFilename);
-        if (!$this->isValidFormat()) {
-            fclose($this->fileHandle);
+        if (!$this->canRead($pFilename)) {
             throw new Exception($pFilename . ' is an Invalid Spreadsheet file.');
         }
+        $this->openFile($pFilename);
         $fileHandle = $this->fileHandle;
         rewind($fileHandle);
 

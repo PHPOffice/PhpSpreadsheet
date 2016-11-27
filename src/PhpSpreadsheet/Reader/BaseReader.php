@@ -245,28 +245,6 @@ abstract class BaseReader implements IReader
     }
 
     /**
-     * Can the current IReader read the file?
-     *
-     * @param     string         $pFilename
-     * @throws Exception
-     * @return bool
-     */
-    public function canRead($pFilename)
-    {
-        // Check if file exists
-        try {
-            $this->openFile($pFilename);
-        } catch (Exception $e) {
-            return false;
-        }
-
-        $readable = $this->isValidFormat();
-        fclose($this->fileHandle);
-
-        return $readable;
-    }
-
-    /**
      * Scan theXML for use of <!ENTITY to prevent XXE/XEE attacks
      *
      * @param     string         $xml

@@ -79,16 +79,6 @@ class CSV extends BaseReader implements IReader
     }
 
     /**
-     * Validate that the current file is a CSV file
-     *
-     * @return bool
-     */
-    protected function isValidFormat()
-    {
-        return true;
-    }
-
-    /**
      * Set input encoding
      *
      * @param string $pValue Input encoding
@@ -171,11 +161,10 @@ class CSV extends BaseReader implements IReader
     public function listWorksheetInfo($pFilename)
     {
         // Open file
-        $this->openFile($pFilename);
-        if (!$this->isValidFormat()) {
-            fclose($this->fileHandle);
+        if (!$this->canRead($pFilename)) {
             throw new Exception($pFilename . ' is an Invalid Spreadsheet file.');
         }
+        $this->openFile($pFilename);
         $fileHandle = $this->fileHandle;
 
         // Skip BOM, if any
@@ -236,11 +225,10 @@ class CSV extends BaseReader implements IReader
         ini_set('auto_detect_line_endings', true);
 
         // Open file
-        $this->openFile($pFilename);
-        if (!$this->isValidFormat()) {
-            fclose($this->fileHandle);
+        if (!$this->canRead($pFilename)) {
             throw new Exception($pFilename . ' is an Invalid Spreadsheet file.');
         }
+        $this->openFile($pFilename);
         $fileHandle = $this->fileHandle;
 
         // Skip BOM, if any
@@ -393,5 +381,26 @@ class CSV extends BaseReader implements IReader
     public function getContiguous()
     {
         return $this->contiguous;
+    }
+
+    /**
+     * Can the current IReader read the file?
+     *
+     * @param     string         $pFilename
+     * @throws Exception
+     * @return bool
+     */
+    public function canRead($pFilename)
+    {
+        // Check if file exists
+        try {
+            $this->openFile($pFilename);
+        } catch (Exception $e) {
+            return false;
+        }
+
+        fclose($this->fileHandle);
+
+        return true;
     }
 }
