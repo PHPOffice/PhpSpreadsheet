@@ -2,8 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-use PhpOffice\PhpSpreadsheet\Chart;
-
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
@@ -85,11 +83,11 @@ class Drawing extends WriterPart
      * Write drawings to XML format
      *
      * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter    $objWriter         XML Writer
-     * @param     Chart                $pChart
+     * @param     \PhpOffice\PhpSpreadsheet\Chart                $pChart
      * @param     int                            $pRelationId
      * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function writeChart(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, Chart $pChart = null, $pRelationId = -1)
+    public function writeChart(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpOffice\PhpSpreadsheet\Chart $pChart = null, $pRelationId = -1)
     {
         $tl = $pChart->getTopLeftPosition();
         $tl['colRow'] = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($tl['cell']);
