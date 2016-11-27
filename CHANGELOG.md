@@ -34,25 +34,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Introduction of namespaces for all classes, eg: `PHPExcel_Calculation_Function` becomes `PhpOffice\PhpSpreadsheet\Calculation\Functions`
 - Some classes were renamed for clarity and/or consistency:
 
-| Before                          | After                                     |
-|---------------------------------|-------------------------------------------|
-| `PHPExcel`                      | `PhpOffice\PhpSpreadsheet\Spreadsheet`    |
-| `PHPExcel_Reader_Excel2007`     | `PhpOffice\PhpSpreadsheet\Reader\Xlsx`    |
-| `PHPExcel_Reader_Excel5`        | `PhpOffice\PhpSpreadsheet\Reader\Xls`     |
-| `PHPExcel_Reader_OOcalc`        | `PhpOffice\PhpSpreadsheet\Reader\Ods`     |
-| `PHPExcel_Writer_Excel2007`     | `PhpOffice\PhpSpreadsheet\Writer\Xlsx`    |
-| `PHPExcel_Writer_Excel5`        | `PhpOffice\PhpSpreadsheet\Writer\Xls`     |
-| `PHPExcel_Writer_OpenOffice`    | `PhpOffice\PhpSpreadsheet\Writer\Ods`     |
-
-- Some methods were renamed for clarity and/or consistency:
-
-| Before                                           | After                                                      |
-|--------------------------------------------------|------------------------------------------------------------|
-| `PHPExcel_Calculation_DateTime::DAYOFWEEK()`     | `PhpOffice\PhpSpreadsheet\Calculation\DateTime::WEEKDAY()` |
-| `PHPExcel_Calculation_DateTime::WEEKOFYEAR()`    | `PhpOffice\PhpSpreadsheet\Calculation\DateTime::WEEKNUM()` |
-| `PHPExcel_Calculation_DateTime::MINUTEOFHOUR()`  | `PhpOffice\PhpSpreadsheet\Calculation\DateTime::MINUTE()`  |
-| `PHPExcel_Calculation_DateTime::SECONDOFMINUTE()`| `PhpOffice\PhpSpreadsheet\Calculation\DateTime::SECOND()`  |
-
+For a comprehensive list of all class changes, and a semi-automated migration path, read the [migration guide](./docs/Migration-from-PHPExcel.md).
 
 ## [1.8.1] - 2015-04-30
 
