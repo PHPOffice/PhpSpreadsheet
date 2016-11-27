@@ -2,8 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Chart\Renderer;
 
-require_once \PhpOffice\PhpSpreadsheet\Settings::getChartRendererPath() . '/jpgraph.php';
-
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
@@ -854,5 +852,7 @@ class JpGraph
     {
         $this->graph = null;
         $this->chart = $chart;
+
+        require_once \PhpOffice\PhpSpreadsheet\Settings::getChartRendererPath() . '/jpgraph.php';
     }
 }

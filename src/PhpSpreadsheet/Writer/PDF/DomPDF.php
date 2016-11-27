@@ -2,14 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\PDF;
 
-/*  Require DomPDF library */
-$pdfRendererClassFile = \PhpOffice\PhpSpreadsheet\Settings::getPdfRendererPath() . '/dompdf_config.inc.php';
-if (file_exists($pdfRendererClassFile)) {
-    require_once $pdfRendererClassFile;
-} else {
-    throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Unable to load PDF Rendering library');
-}
-
 /**
  *  Copyright (c) 2006 - 2015 PhpSpreadsheet
  *
@@ -42,6 +34,14 @@ class DomPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
     public function __construct(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
     {
         parent::__construct($spreadsheet);
+
+        /*  Require DomPDF library */
+        $pdfRendererClassFile = \PhpOffice\PhpSpreadsheet\Settings::getPdfRendererPath() . '/dompdf_config.inc.php';
+        if (file_exists($pdfRendererClassFile)) {
+            require_once $pdfRendererClassFile;
+        } else {
+            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Unable to load PDF Rendering library');
+        }
     }
 
     /**
