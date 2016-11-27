@@ -16,13 +16,13 @@ date_default_timezone_set('Europe/London');
 <body>
 
 <h1>PHPExcel Reader Example #03</h1>
-<h2>Simple File Reader using the PHPExcel_IOFactory to Return a Reader</h2>
+<h2>Simple File Reader using the \PhpOffice\PhpSpreadsheet\IOFactory to Return a Reader</h2>
 <?php
 
 /** Include path **/
 set_include_path(get_include_path() . PATH_SEPARATOR . '../../../Classes/');
 
-/** PHPExcel_IOFactory */
+/** \PhpOffice\PhpSpreadsheet\IOFactory */
 include 'PHPExcel/IOFactory.php';
 
 $inputFileType = 'Xls';
@@ -35,12 +35,12 @@ $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using IOFactory with a defined reader type of ',$inputFileType,'<br />';
-$objReader = PHPExcel_IOFactory::createReader($inputFileType);
-$objPHPExcel = $objReader->load($inputFileName);
+$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$spreadsheet = $objReader->load($inputFileName);
 
 echo '<hr />';
 
-$sheetData = $objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
+$sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
 var_dump($sheetData);
 
 ?>

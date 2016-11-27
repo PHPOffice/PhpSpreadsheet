@@ -1,4 +1,4 @@
-# PHPExcel User Documentation – Reading Spreadsheet Files
+# PhpSpreadsheet User Documentation – Reading Spreadsheet Files
 
 ## Spreadsheet Reader Options
 
@@ -13,15 +13,15 @@ $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 /**  Advise the Reader that we only want to load cell data  **/
 $objReader->setReadDataOnly(true);
-/**  Load $inputFileName to a PHPExcel Object  **/
-$objPHPExcel = $objReader->load($inputFileName);
+/**  Load $inputFileName to a Spreadsheet Object  **/
+$spreadsheet = $objReader->load($inputFileName);
 ```
  > See Examples/Reader/exampleReader05.php for a working example of this code.
 
-It is important to note that Workbooks (and PHPExcel) store dates and times as simple numeric values: they can only be distinguished from other numeric values by the format mask that is applied to that cell. When setting read data only to true, PHPExcel doesn't read the cell format masks, so it is not possible to differentiate between dates/times and numbers.
+It is important to note that Workbooks (and PhpSpreadsheet) store dates and times as simple numeric values: they can only be distinguished from other numeric values by the format mask that is applied to that cell. When setting read data only to true, PhpSpreadsheet doesn't read the cell format masks, so it is not possible to differentiate between dates/times and numbers.
 
 The Gnumeric loader has been written to read the format masks for date values even when read data only has been set to true, so it can differentiate between dates/times and numbers; but this change hasn't yet been implemented for the other readers.
 
@@ -45,11 +45,11 @@ $inputFileName = './sampleData/example1.xls';
 $sheetname = 'Data Sheet #2';
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 /**  Advise the Reader of which WorkSheets we want to load  **/
 $objReader->setLoadSheetsOnly($sheetname);
-/**  Load $inputFileName to a PHPExcel Object  **/
-$objPHPExcel = $objReader->load($inputFileName);
+/**  Load $inputFileName to a Spreadsheet Object  **/
+$spreadsheet = $objReader->load($inputFileName);
 ```
  > See Examples/Reader/exampleReader07.php for a working example of this code.
 
@@ -61,11 +61,11 @@ $inputFileName = './sampleData/example1.xls';
 $sheetnames = array('Data Sheet #1','Data Sheet #3');
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 /**  Advise the Reader of which WorkSheets we want to load  **/
 $objReader->setLoadSheetsOnly($sheetnames);
-/**  Load $inputFileName to a PHPExcel Object  **/
-$objPHPExcel = $objReader->load($inputFileName);
+/**  Load $inputFileName to a Spreadsheet Object  **/
+$spreadsheet = $objReader->load($inputFileName);
 ```
  > See Examples/Reader/exampleReader08.php for a working example of this code.
 
@@ -76,11 +76,11 @@ $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 /**  Advise the Reader to load all Worksheets  **/
 $objReader->setLoadAllSheets();
-/**  Load $inputFileName to a PHPExcel Object  **/
-$objPHPExcel = $objReader->load($inputFileName);
+/**  Load $inputFileName to a Spreadsheet Object  **/
+$spreadsheet = $objReader->load($inputFileName);
 ```
  > See Examples/Reader/exampleReader06.php for a working example of this code.
 
@@ -94,7 +94,7 @@ CSV       | NO  | HTML   | NO
 
 ### Reading Only Specific Columns and Rows from a File (Read Filters)
 
-If you are only interested in reading part of a worksheet, then you can write a filter class that identifies whether or not individual cells should be read by the loader. A read filter must implement the PHPExcel_Reader_IReadFilter interface, and contain a readCell() method that accepts arguments of $column, $row and $worksheetName, and return a boolean true or false that indicates whether a workbook cell identified by those arguments should be read or not.
+If you are only interested in reading part of a worksheet, then you can write a filter class that identifies whether or not individual cells should be read by the loader. A read filter must implement the \PhpOffice\PhpSpreadsheet\Reader\IReadFilter interface, and contain a readCell() method that accepts arguments of $column, $row and $worksheetName, and return a boolean true or false that indicates whether a workbook cell identified by those arguments should be read or not.
 
 ```php
 $inputFileType = 'Xls';
@@ -102,8 +102,8 @@ $inputFileName = './sampleData/example1.xls';
 $sheetname = 'Data Sheet #3';
 
 
-/**  Define a Read Filter class implementing PHPExcel_Reader_IReadFilter  */
-class MyReadFilter implements PHPExcel_Reader_IReadFilter
+/**  Define a Read Filter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
+class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 {
     public function readCell($column, $row, $worksheetName = '') {
         //  Read rows 1 to 7 and columns A to E only
@@ -120,19 +120,19 @@ class MyReadFilter implements PHPExcel_Reader_IReadFilter
 $filterSubset = new MyReadFilter();
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 /**  Tell the Reader that we want to use the Read Filter  **/
 $objReader->setReadFilter($filterSubset);
-/**  Load only the rows and columns that match our filter to PHPExcel  **/
-$objPHPExcel = $objReader->load($inputFileName);
+/**  Load only the rows and columns that match our filter to Spreadsheet  **/
+$spreadsheet = $objReader->load($inputFileName);
 ```
  > See Examples/Reader/exampleReader09.php for a working example of this code.
 
 This example is not particularly useful, because it can only be used in a very specific circumstance (when you only want cells in the range A1:E7 from your worksheet. A generic Read Filter would probably be more useful:
 
 ```php
-/**  Define a Read Filter class implementing PHPExcel_Reader_IReadFilter  */
-class MyReadFilter implements PHPExcel_Reader_IReadFilter
+/**  Define a Read Filter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
+class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 {
     private $_startRow = 0;
     private $_endRow   = 0;
@@ -168,8 +168,8 @@ $inputFileType = 'Xls';
 $inputFileName = './sampleData/example2.xls';
 
 
-/**  Define a Read Filter class implementing PHPExcel_Reader_IReadFilter  */
-class chunkReadFilter implements PHPExcel_Reader_IReadFilter
+/**  Define a Read Filter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
+class chunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 {
     private $_startRow = 0;
     private $_endRow   = 0;
@@ -191,7 +191,7 @@ class chunkReadFilter implements PHPExcel_Reader_IReadFilter
 
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 
 
 /**  Define how many rows we want to read for each "chunk"  **/
@@ -207,7 +207,7 @@ for ($startRow = 2; $startRow <= 65536; $startRow += $chunkSize) {
     /**  Tell the Read Filter which rows we want this iteration  **/
     $chunkFilter->setRows($startRow,$chunkSize);
     /**  Load only the rows that match our filter  **/
-    $objPHPExcel = $objReader->load($inputFileName);
+    $spreadsheet = $objReader->load($inputFileName);
     //    Do some processing here
 }
 ```
@@ -221,9 +221,9 @@ Xlsx      | YES | Xls | YES | Excel2003XML | YES |
 Ods    | YES | SYLK   | NO  | Gnumeric     | YES |
 CSV       | YES | HTML   | NO
 
-### Combining Multiple Files into a Single PHPExcel Object
+### Combining Multiple Files into a Single Spreadsheet Object
 
-While you can limit the number of worksheets that are read from a workbook file using the setLoadSheetsOnly() method, certain readers also allow you to combine several individual "sheets" from different files into a single PHPExcel object, where each individual file is a single worksheet within that workbook. For each file that you read, you need to indicate which worksheet index it should be loaded into using the setSheetIndex() method of the $objReader, then use the loadIntoExisting() method rather than the load() method to actually read the file into that worksheet.
+While you can limit the number of worksheets that are read from a workbook file using the setLoadSheetsOnly() method, certain readers also allow you to combine several individual "sheets" from different files into a single `Spreadsheet` object, where each individual file is a single worksheet within that workbook. For each file that you read, you need to indicate which worksheet index it should be loaded into using the setSheetIndex() method of the $objReader, then use the loadIntoExisting() method rather than the load() method to actually read the file into that worksheet.
 
 ```php
 $inputFileType = 'CSV';
@@ -233,15 +233,15 @@ $inputFileNames = array('./sampleData/example1.csv',
 );
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 
 
 /**  Extract the first named file from the array list  **/
 $inputFileName = array_shift($inputFileNames);
-/**  Load the initial file to the first worksheet in a PHPExcel Object  **/
-$objPHPExcel = $objReader->load($inputFileName);
+/**  Load the initial file to the first worksheet in a `Spreadsheet` Object  **/
+$spreadsheet = $objReader->load($inputFileName);
 /**  Set the worksheet title (to the filename that we've loaded)  **/
-$objPHPExcel->getActiveSheet()
+$spreadsheet->getActiveSheet()
     ->setTitle(pathinfo($inputFileName,PATHINFO_BASENAME));
 
 
@@ -249,10 +249,10 @@ $objPHPExcel->getActiveSheet()
 foreach($inputFileNames as $sheet => $inputFileName) {
     /**  Increment the worksheet index pointer for the Reader  **/
     $objReader->setSheetIndex($sheet+1);
-    /**  Load the current file into a new worksheet in PHPExcel  **/
-    $objReader->loadIntoExisting($inputFileName,$objPHPExcel);
+    /**  Load the current file into a new worksheet in Spreadsheet  **/
+    $objReader->loadIntoExisting($inputFileName,$spreadsheet);
     /**  Set the worksheet title (to the filename that we've loaded)  **/
-    $objPHPExcel->getActiveSheet()
+    $spreadsheet->getActiveSheet()
         ->setTitle(pathinfo($inputFileName,PATHINFO_BASENAME));
 }
 ```
@@ -260,7 +260,7 @@ foreach($inputFileNames as $sheet => $inputFileName) {
 
 Note that using the same sheet index for multiple sheets won't append files into the same sheet, but overwrite the results of the previous load. You cannot load multiple CSV files into the same worksheet.
 
-Combining Multiple Files into a Single PHPExcel Object applies to:
+Combining Multiple Files into a Single Spreadsheet Object applies to:
 
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
@@ -279,7 +279,7 @@ $inputFileName = './sampleData/example2.csv';
 
 echo 'Loading file ',pathinfo($inputFileName,PATHINFO_BASENAME),' using IOFactory with a defined reader type of ',$inputFileType,'<br />';
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 
 
 /**  Define how many rows we want to read for each "chunk"  **/
@@ -293,8 +293,8 @@ $chunkFilter = new chunkReadFilter();
 $objReader->setReadFilter($chunkFilter)
     ->setContiguous(true);
 
-/**  Instantiate a new PHPExcel object manually  **/
-$objPHPExcel = new PHPExcel();
+/**  Instantiate a new Spreadsheet object manually  **/
+$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
 /**  Set a sheet index  **/
 $sheet = 0;
@@ -307,10 +307,10 @@ for ($startRow = 2; $startRow <= 1000000; $startRow += $chunkSize) {
     /**  Increment the worksheet index pointer for the Reader  **/
     $objReader->setSheetIndex($sheet);
     /**  Load only the rows that match our filter into a new worksheet  **/
-    $objReader->loadIntoExisting($inputFileName,$objPHPExcel);
+    $objReader->loadIntoExisting($inputFileName,$spreadsheet);
     /**  Set the worksheet title for the sheet that we've justloaded)  **/
     /**    and increment the sheet index as well  **/
-    $objPHPExcel->getActiveSheet()->setTitle('Country Data #'.(++$sheet));
+    $spreadsheet->getActiveSheet()->setTitle('Country Data #'.(++$sheet));
 }
 ```
  > See Examples/Reader/exampleReader14.php for a working example of this code.
@@ -319,7 +319,7 @@ This code will read 65,530 rows at a time from the CSV file that we’re loading
 
 The setContiguous() method for the Reader is important here. It is applicable only when working with a Read Filter, and identifies whether or not the cells should be stored by their position within the CSV file, or their position relative to the filter.
 
-For example, if the filter returned true for cells in the range B2:C3, then with setContiguous set to false (the default) these would be loaded as B2:C3 in the PHPExcel object; but with setContiguous set to true, they would be loaded as A1:B2.
+For example, if the filter returned true for cells in the range B2:C3, then with setContiguous set to false (the default) these would be loaded as B2:C3 in the `Spreadsheet` object; but with setContiguous set to true, they would be loaded as A1:B2.
 
 Splitting a single loaded file across multiple worksheets applies to:
 
@@ -337,13 +337,13 @@ The CSV loader defaults to loading a file where comma is used as the separator, 
 $inputFileType = 'CSV';
 $inputFileName = './sampleData/example1.tsv';
 
-/**  Create a new Reader of the type defined in $inputFileType  **/ $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+/**  Create a new Reader of the type defined in $inputFileType  **/ $objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 /**  Set the delimiter to a TAB character  **/
 $objReader->setDelimiter("\t");
 //    $objReader->setDelimiter('|');
 
-/**  Load the file to a PHPExcel Object  **/
-$objPHPExcel = $objReader->load($inputFileName);
+/**  Load the file to a Spreadsheet Object  **/
+$spreadsheet = $objReader->load($inputFileName);
 ```
  > See Examples/Reader/exampleReader15.php for a working example of this code.
 
@@ -363,22 +363,22 @@ CSV       | YES | HTML   | NO
 
 ### A Brief Word about the Advanced Value Binder
 
-When loading data from a file that contains no formatting information, such as a CSV file, then data is read either as strings or numbers (float or integer). This means that PHPExcel does not automatically recognise dates/times (such as "16-Apr-2009" or "13:30"), booleans ("TRUE" or "FALSE"), percentages ("75%"), hyperlinks ("http://www.phpexcel.net"), etc as anything other than simple strings. However, you can apply additional processing that is executed against these values during the load process within a Value Binder.
+When loading data from a file that contains no formatting information, such as a CSV file, then data is read either as strings or numbers (float or integer). This means that PhpSpreadsheet does not automatically recognise dates/times (such as "16-Apr-2009" or "13:30"), booleans ("TRUE" or "FALSE"), percentages ("75%"), hyperlinks ("http://www.phpexcel.net"), etc as anything other than simple strings. However, you can apply additional processing that is executed against these values during the load process within a Value Binder.
 
-A Value Binder is a class that implement the PHPExcel_Cell_IValueBinder interface. It must contain a bindValue() method that accepts a PHPExcel_Cell and a value as arguments, and return a boolean true or false that indicates whether the workbook cell has been populated with the value or not. The Advanced Value Binder implements such a class: amongst other tests, it identifies a string comprising "TRUE" or "FALSE" (based on locale settings) and sets it to a boolean; or a number in scientific format (e.g. "1.234e-5") and converts it to a float; or dates and times, converting them to their Excel timestamp value – before storing the value in the cell object. It also sets formatting for strings that are identified as dates, times or percentages. It could easily be extended to provide additional handling (including text or cell formatting) when it encountered a hyperlink, or HTML markup within a CSV file.
+A Value Binder is a class that implement the \PhpOffice\PhpSpreadsheet\Cell\IValueBinder interface. It must contain a bindValue() method that accepts a \PhpOffice\PhpSpreadsheet\Cell and a value as arguments, and return a boolean true or false that indicates whether the workbook cell has been populated with the value or not. The Advanced Value Binder implements such a class: amongst other tests, it identifies a string comprising "TRUE" or "FALSE" (based on locale settings) and sets it to a boolean; or a number in scientific format (e.g. "1.234e-5") and converts it to a float; or dates and times, converting them to their Excel timestamp value – before storing the value in the cell object. It also sets formatting for strings that are identified as dates, times or percentages. It could easily be extended to provide additional handling (including text or cell formatting) when it encountered a hyperlink, or HTML markup within a CSV file.
 
 So using a Value Binder allows a great deal more flexibility in the loader logic when reading unformatted text files.
 
 ```php
-/**  Tell PHPExcel that we want to use the Advanced Value Binder  **/
-PHPExcel_Cell::setValueBinder( new PHPExcel_Cell_AdvancedValueBinder() );
+/**  Tell PhpSpreadsheet that we want to use the Advanced Value Binder  **/
+\PhpOffice\PhpSpreadsheet\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
 
 $inputFileType = 'CSV';
 $inputFileName = './sampleData/example1.tsv';
 
-$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 $objReader->setDelimiter("\t");
-$objPHPExcel = $objReader->load($inputFileName);
+$spreadsheet = $objReader->load($inputFileName);
 ```
  > See Examples/Reader/exampleReader15.php for a working example of this code.
 

@@ -1,4 +1,4 @@
-# PHPExcel AutoFilter Reference 
+# PhpSpreadsheet AutoFilter Reference
 
 
 ## Autofilter Expressions
@@ -19,7 +19,7 @@ We start by specifying a Filter type, this time a DYNAMICFILTER.
 
 ```php
 $columnFilter->setFilterType(
-    PHPExcel_Worksheet_AutoFilter_Column::AUTOFILTER_FILTERTYPE_TOPTENFILTER
+    \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_TOPTENFILTER
 );
 ```
 
@@ -28,12 +28,12 @@ Then we create the rule:
 ```php
 $columnFilter->createRule()
     ->setRule(
-        PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT,
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT,
         5,
-        PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP
     )
     ->setRuleType(
-        PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_TOPTENFILTER
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_TOPTENFILTER
     );
 ```
 
@@ -44,16 +44,16 @@ To specify the lowest (bottom 2 values), we would specify a rule of:
 ```php
 $columnFilter->createRule()
     ->setRule(
-        PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE,
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE,
         5,
-        PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM
     )
     ->setRuleType(
-        PHPExcel_Worksheet_AutoFilter_Column_Rule::AUTOFILTER_RULETYPE_TOPTENFILTER
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_TOPTENFILTER
     );
 ```
 
-The option values for TopTen Filters top/bottom value/percent are all defined in the PHPExcel_Worksheet_AutoFilter_Column_Rule class, and comprise:
+The option values for TopTen Filters top/bottom value/percent are all defined in the \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule class, and comprise:
 
     Operator Constant                      | Value       |
     ---------------------------------------|-------------|

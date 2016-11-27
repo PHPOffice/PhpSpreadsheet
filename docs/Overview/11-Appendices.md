@@ -1,4 +1,4 @@
-# PHPExcel Developer Documentation
+# PhpSpreadsheet Developer Documentation
 
 ## Credits
 
@@ -6,9 +6,9 @@ Please refer to the internet page [http://www.codeplex.com/PHPExcel/Wiki/View.as
 
 ## Valid array keys for style applyFromArray()
 
-The following table lists the valid array keys for PHPExcel_Style applyFromArray() classes. If the "Maps to property" column maps a key to a setter, the value provided for that key will be applied directly. If the "Maps to property" column maps a key to a getter, the value provided for that key will be applied as another style array.
+The following table lists the valid array keys for \PhpOffice\PhpSpreadsheet\Style applyFromArray() classes. If the "Maps to property" column maps a key to a setter, the value provided for that key will be applied directly. If the "Maps to property" column maps a key to a getter, the value provided for that key will be applied as another style array.
 
-__PHPExcel_Style__
+__\PhpOffice\PhpSpreadsheet\Style__
 
     Array key    | Maps to property
     -------------|-------------------
@@ -20,7 +20,7 @@ __PHPExcel_Style__
     protection   | getProtection()
 
 
-__PHPExcel_Style_Fill__
+__\PhpOffice\PhpSpreadsheet\Style\Fill__
 
     Array key  | Maps to property
     -----------|-------------------
@@ -31,7 +31,7 @@ __PHPExcel_Style_Fill__
     color      | getStartColor()
 
 
-__PHPExcel_Style_Font__
+__\PhpOffice\PhpSpreadsheet\Style\Font__
 
     Array key   | Maps to property
     ------------|-------------------
@@ -46,7 +46,7 @@ __PHPExcel_Style_Font__
     subScript   | setSubScript()
 
 
-__PHPExcel_Style_Borders__
+__\PhpOffice\PhpSpreadsheet\Style\Borders__
 
     Array key         | Maps to property
     ------------------|-------------------
@@ -62,7 +62,7 @@ __PHPExcel_Style_Borders__
     outline           | setOutline()
 
 
-__PHPExcel_Style_Border__
+__\PhpOffice\PhpSpreadsheet\Style\Border__
 
     Array key | Maps to property
     ----------|-------------------
@@ -70,7 +70,7 @@ __PHPExcel_Style_Border__
     color     | getColor()
 
 
-__PHPExcel_Style_Alignment__
+__\PhpOffice\PhpSpreadsheet\Style\Alignment__
 
     Array key   | Maps to property
     ------------|-------------------
@@ -82,14 +82,14 @@ __PHPExcel_Style_Alignment__
     indent      | setIndent()
 
 
-__PHPExcel_Style_NumberFormat__
+__\PhpOffice\PhpSpreadsheet\Style\NumberFormat__
 
     Array key | Maps to property
     ----------|-------------------
     code      | setFormatCode()
 
 
-__PHPExcel_Style_Protection__
+__\PhpOffice\PhpSpreadsheet\Style\Protection__
 
     Array key | Maps to property
     ----------|-------------------

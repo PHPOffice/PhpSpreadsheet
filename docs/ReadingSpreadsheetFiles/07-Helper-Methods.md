@@ -1,4 +1,4 @@
-# PHPExcel User Documentation – Reading Spreadsheet Files
+# PhpSpreadsheet User Documentation – Reading Spreadsheet Files
 
 
 ## Helper Methods
@@ -10,7 +10,7 @@ You can retrieve a list of worksheet names contained in a file without loading t
 The `listWorksheetNames()` method returns a simple array listing each worksheet name within the workbook:
 
 ```php
-$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 
 $worksheetNames = $objReader->listWorksheetNames($inputFileName);
 
@@ -28,7 +28,7 @@ echo '</ol>';
 The `listWorksheetInfo()` method returns a nested array, with each entry listing the name and dimensions for a worksheet:
 
 ```php
-$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 
 $worksheetData = $objReader->listWorksheetInfo($inputFileName);
 

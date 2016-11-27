@@ -26,8 +26,8 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../../../../Classes/');
 include 'PHPExcel.php';
 
 // Create new PHPExcel object
-$objPHPExcel = new PHPExcel();
-$worksheet = $objPHPExcel->getActiveSheet();
+$spreadsheet = new PHPExcel();
+$worksheet = $spreadsheet->getActiveSheet();
 
 // Add some data
 $testDates = [[2012, 3, 26],    [2012, 2, 29],    [2012, 4, 1],    [2012, 12, 25],

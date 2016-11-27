@@ -1,11 +1,11 @@
-# PHPExcel Developer Documentation
+# PhpSpreadsheet Developer Documentation
 
 
 ## Prerequisites, Installation, FAQ and Links
 
 ### Software requirements
 
-The following software is required to develop using PHPExcel:
+The following software is required to develop using PhpSpreadsheet:
 
  - PHP version 5.5 or newer
  - PHP extension php_zip enabled [^phpzip_footnote]
@@ -47,7 +47,7 @@ http://example.com/Tests/02types.php
 
 ### Useful links and tools
 
-There are some links and tools which are very useful when developing using PHPExcel. Please refer to the [PHPExcel CodePlex pages][2] for an update version of the list below.
+There are some links and tools which are very useful when developing using PhpSpreadsheet. Please refer to the [PHPExcel CodePlex pages][2] for an update version of the list below.
 
 #### OpenXML / SpreadsheetML
 
@@ -67,23 +67,23 @@ The up-to-date F.A.Q. page for PHPExcel can be found on [http://www.codeplex.com
 
 ##### There seems to be a problem with character encoding...
 
-It is necessary to use UTF-8 encoding for all texts in PHPExcel. If the script uses different encoding then you can convert those texts with PHP's iconv() or mb_convert_encoding() functions.
+It is necessary to use UTF-8 encoding for all texts in PhpSpreadsheet. If the script uses different encoding then you can convert those texts with PHP's iconv() or mb_convert_encoding() functions.
 
 ##### PHP complains about ZipArchive not being found
 
 Make sure you meet all requirements, especially php_zip extension should be enabled.
 
-The ZipArchive class is only required when reading or writing formats that use Zip compression (Xlsx and Ods). Since version 1.7.6 the PCLZip library has been bundled with PHPExcel as an alternative to the ZipArchive class.
+The ZipArchive class is only required when reading or writing formats that use Zip compression (Xlsx and Ods). Since version 1.7.6 the PCLZip library has been bundled with PhpSpreadsheet as an alternative to the ZipArchive class.
 
 This can be enabled by calling:
 ```php
-PHPExcel_Settings::setZipClass(PHPExcel_Settings::PCLZIP);
+\PhpOffice\PhpSpreadsheet\Settings::setZipClass(\PhpOffice\PhpSpreadsheet\Settings::PCLZIP);
 ```
 *before* calling the save method of the Xlsx Writer.
 
 You can revert to using ZipArchive by calling:
 ```php
-PHPExcel_Settings::setZipClass(PHPExcel_Settings::ZIPARCHIVE);
+\PhpOffice\PhpSpreadsheet\Settings::setZipClass(\PhpOffice\PhpSpreadsheet\Settings::ZIPARCHIVE);
 ```
 At present, this only allows you to write Xlsx files without the need for ZipArchive (not to read Xlsx or Ods)
 
@@ -99,22 +99,22 @@ If you can't locate a clean copy of ZipArchive, then you can use the PCLZip libr
 
 ##### Fatal error: Allowed memory size of xxx bytes exhausted (tried to allocate yyy bytes) in zzz on line aaa
 
-PHPExcel holds an "in memory" representation of a spreadsheet, so it is susceptible to PHP's memory limitations. The memory made available to PHP can be increased by editing the value of the memory_limit directive in your php.ini file, or by using ini_set('memory_limit', '128M') within your code (ISP permitting).
+PhpSpreadsheet holds an "in memory" representation of a spreadsheet, so it is susceptible to PHP's memory limitations. The memory made available to PHP can be increased by editing the value of the memory_limit directive in your php.ini file, or by using ini_set('memory_limit', '128M') within your code (ISP permitting).
 
-Some Readers and Writers are faster than others, and they also use differing amounts of memory. You can find some indication of the relative performance and memory usage for the different Readers and Writers, over the different versions of PHPExcel, on the [discussion board][9].
+Some Readers and Writers are faster than others, and they also use differing amounts of memory. You can find some indication of the relative performance and memory usage for the different Readers and Writers, over the different versions of PhpSpreadsheet, on the [discussion board][9].
 
-If you've already increased memory to a maximum, or can't change your memory limit, then [this discussion][10] on the board describes some of the methods that can be applied to reduce the memory usage of your scripts using PHPExcel.
+If you've already increased memory to a maximum, or can't change your memory limit, then [this discussion][10] on the board describes some of the methods that can be applied to reduce the memory usage of your scripts using PhpSpreadsheet.
 
 ##### Protection on my worksheet is not working?
 
 When you make use of any of the worksheet protection features (e.g. cell range protection, prohibiting deleting rows, ...), make sure you enable worksheet security. This can for example be done like this:
 ```php
-$objPHPExcel->getActiveSheet()->getProtection()->setSheet(true);
+$spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
 ```
 
-##### Feature X is not working with PHPExcel_Reader_Y / PHPExcel_Writer_Z
+##### Feature X is not working with Reader_Y / Writer_Z
 
-Not all features of PHPExcel are implemented in all of the Reader / Writer classes. This is mostly due to underlying libraries not supporting a specific feature or not having implemented a specific feature.
+Not all features of PhpSpreadsheet are implemented in all of the Reader / Writer classes. This is mostly due to underlying libraries not supporting a specific feature or not having implemented a specific feature.
 
 For example autofilter is not implemented in PEAR Spreadsheet_Excel_writer, which is the base of our Xls writer.
 
@@ -122,25 +122,25 @@ We are slowly building up a list of features, together with the different reader
 
 ##### Formulas don't seem to be calculated in Excel2003 using compatibility pack?
 
-This is normal behaviour of the compatibility pack, Xlsx displays this correctly. Use PHPExcel_Writer_Excel5 if you really need calculated values, or force recalculation in Excel2003.
+This is normal behaviour of the compatibility pack, Xlsx displays this correctly. Use \PhpOffice\PhpSpreadsheet\Writer\Xls if you really need calculated values, or force recalculation in Excel2003.
 
 ##### Setting column width is not 100% accurate
 
 Trying to set column width, I experience one problem. When I open the file in Excel, the actual width is 0.71 less than it should be.
 
-The short answer is that PHPExcel uses a measure where padding is included. See section: "Setting a column's width" for more details.
+The short answer is that PhpSpreadsheet uses a measure where padding is included. See section: "Setting a column's width" for more details.
 
-##### How do I use PHPExcel with my framework
+##### How do I use PhpSpreadsheet with my framework
 
- - There are some instructions for using PHPExcel with Joomla on the [Joomla message board][11]
- - A page of advice on using [PHPExcel in the Yii framework][12]
- - [The Bakery][13] has some helper classes for reading and writing with PHPExcel within CakePHP
- - Integrating [PHPExcel into Kohana 3][14] and [?????????? PHPExcel ? Kohana Framework][15]
- - Using [PHPExcel with Typo3][16]
+ - There are some instructions for using PhpSpreadsheet with Joomla on the [Joomla message board][11]
+ - A page of advice on using [PhpSpreadsheet in the Yii framework][12]
+ - [The Bakery][13] has some helper classes for reading and writing with PhpSpreadsheet within CakePHP
+ - Integrating [PhpSpreadsheet into Kohana 3][14] and [?????????? PHPExcel ? Kohana Framework][15]
+ - Using [PhpSpreadsheet with TYPO3][16]
 
-##### Joomla Autoloader interferes with PHPExcel Autoloader
+##### Joomla Autoloader interferes with PhpSpreadsheet Autoloader
 
-Thanks to peterrlynch for the following advice on resolving issues between the [PHPExcel autoloader and Joomla Autoloader][17]
+Thanks to peterrlynch for the following advice on resolving issues between the [PhpSpreadsheet autoloader and Joomla Autoloader][17]
 
 
 #### Tutorials
@@ -177,5 +177,5 @@ Thanks to peterrlynch for the following advice on resolving issues between the [
   [21]: http://journal.mycom.co.jp/articles/2009/03/06/phpexcel/index.html
 
 
-[^phpzip_footnote]: __php_zip__ is only needed by __PHPExcel_Reader_Excel2007__, __PHPExcel_Writer_Excel2007__ and __PHPExcel_Reader_OOCalc__. In other words, if you need PHPExcel to handle .xlsx or .ods files you will need the zip extension, but otherwise not.<br />You can remove this dependency for writing Xlsx files (though not yet for reading) by using the PCLZip library that is bundled with PHPExcel. See the FAQ section of this document for details about this. PCLZip does have a dependency on PHP's zlib extension being enabled.
+[^phpzip_footnote]: __php_zip__ is only needed by __\PhpOffice\PhpSpreadsheet\Reader\Xlsx__, __\PhpOffice\PhpSpreadsheet\Writer\Xlsx__ and __\PhpOffice\PhpSpreadsheet\Reader\Ods__. In other words, if you need PhpSpreadsheet to handle .xlsx or .ods files you will need the zip extension, but otherwise not.<br />You can remove this dependency for writing Xlsx files (though not yet for reading) by using the PCLZip library that is bundled with PhpSpreadsheet. See the FAQ section of this document for details about this. PCLZip does have a dependency on PHP's zlib extension being enabled.
 

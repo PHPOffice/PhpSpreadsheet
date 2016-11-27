@@ -1,4 +1,4 @@
-# PHPExcel AutoFilter Reference 
+# PhpSpreadsheet AutoFilter Reference
 
 
 ## Autofilter Expressions
@@ -8,7 +8,7 @@ PHPEXcel 1.7.8 introduced the ability to actually create, read and write filter 
 To apply a filter expression to an autoFilter range, you first need to identify which column you're going to be applying this filter to.
 
 ```php
-$autoFilter = $objPHPExcel->getActiveSheet()->getAutoFilter();
+$autoFilter = $spreadsheet->getActiveSheet()->getAutoFilter();
 $columnFilter = $autoFilter->getColumn('C');
 ```
 
@@ -22,6 +22,6 @@ There are a number of different types of autofilter expressions. The most common
  - Dynamic Filters
  - Top Ten Filters
 
-These different types are mutually exclusive within any single column. You should not mix the different types of filter in the same column. PHPExcel will not actively prevent you from doing this, but the results are unpredictable.
+These different types are mutually exclusive within any single column. You should not mix the different types of filter in the same column. PhpSpreadsheet will not actively prevent you from doing this, but the results are unpredictable.
 
 Other filter expression types (such as cell colour filters) are not yet supported.

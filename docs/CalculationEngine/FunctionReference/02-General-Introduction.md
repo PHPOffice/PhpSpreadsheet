@@ -6,7 +6,7 @@
 
 Not all functions are supported by the Excel 5 Writer. Use of these functions within your workbooks will result in an error when trying to write to Xls.
 
-The following is the list of those functions that are implemented within PHPExcel, but that cannot currently be written to Excel 5.
+The following is the list of those functions that are implemented within PhpSpreadsheet, but that cannot currently be written to Excel 5.
 
 #### Cube Functions
 
@@ -31,6 +31,6 @@ The following is the list of those functions that are implemented within PHPExce
 
     Excel Function | Notes
     ---------------|---------
-    EDATE          | Not a standard function within Excel 5, but an add-in from the Analysis ToolPak.  
+    EDATE          | Not a standard function within Excel 5, but an add-in from the Analysis ToolPak.
     EOMONTH        | Not a standard function within Excel 5, but an add-in from the Analysis ToolPak.
 

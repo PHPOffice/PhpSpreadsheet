@@ -1,4 +1,4 @@
-# PHPExcel User Documentation – Reading Spreadsheet Files
+# PhpSpreadsheet User Documentation – Reading Spreadsheet Files
 
 
 ## Security
@@ -8,6 +8,6 @@ XML-based formats such as OfficeOpen XML, Excel2003 XML, OASIS and Gnumeric are 
  - Disclosure whether a file is existent
  - Server Side Request Forgery
  - Command Execution (depending on the installed PHP wrappers)
- 
 
-To prevent this, PHPExcel sets `libxml_disable_entity_loader` to `true` for the XML-based Readers by default. 
+
+To prevent this, PhpSpreadsheet sets `libxml_disable_entity_loader` to `true` for the XML-based Readers by default.

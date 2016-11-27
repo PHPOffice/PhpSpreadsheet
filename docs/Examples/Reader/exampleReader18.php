@@ -22,7 +22,7 @@ date_default_timezone_set('Europe/London');
 /** Include path **/
 set_include_path(get_include_path() . PATH_SEPARATOR . '../../../Classes/');
 
-/** PHPExcel_IOFactory */
+/** \PhpOffice\PhpSpreadsheet\IOFactory */
 include 'PHPExcel/IOFactory.php';
 
 $inputFileType = 'Xls';
@@ -34,7 +34,7 @@ $inputFileName = './sampleData/example1.xls';
 
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' information using IOFactory with a defined reader type of ',$inputFileType,'<br />';
 
-$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 $worksheetNames = $objReader->listWorksheetNames($inputFileName);
 
 echo '<h3>Worksheet Names</h3>';

@@ -16,15 +16,15 @@ DAVERAGE (database, field, criteria)
 
 ##### Parameters
 
-**database** The range of cells that makes up the list or database.  
+**database** The range of cells that makes up the list or database.
 
 A database is a list of related data in which rows of related information are records, and columns of data are fields. The first row of the list contains labels for each column.
 
-**field** Indicates which column of the database is used in the function.  
+**field** Indicates which column of the database is used in the function.
 
 Enter the column label as a string (enclosed between double quotation marks), such as "Age" or "Yield," or as a number (without quotation marks) that represents the position of the column within the list: 1 for the first column, 2 for the second column, and so on.
 
-**criteria** The range of cells that contains the conditions you specify.  
+**criteria** The range of cells that contains the conditions you specify.
 
 You can use any range for the criteria argument, as long as it includes at least one column label and at least one cell below the column label in which you specify a condition for the column.
 
@@ -37,7 +37,7 @@ This is the statistical mean.
 ##### Examples
 
 ```php
-$database = array( 
+$database = array(
     array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
     array( 'Apple',  18,       20,    14,      105.00  ),
     array( 'Pear',   12,       12,    10,       96.00  ),
@@ -47,7 +47,7 @@ $database = array(
     array( 'Apple',   8,        9,     6,       45.00  ),
 );
 
-$criteria = array( 
+$criteria = array(
     array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
     array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
     array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
@@ -78,15 +78,15 @@ DCOUNT(database, [field], criteria)
 
 ##### Parameters
 
-**database** The range of cells that makes up the list or database.  
+**database** The range of cells that makes up the list or database.
 
 A database is a list of related data in which rows of related information are records, and columns of data are fields. The first row of the list contains labels for each column.
 
-**field** Indicates which column of the database is used in the function.  
+**field** Indicates which column of the database is used in the function.
 
 Enter the column label as a string (enclosed between double quotation marks), such as "Age" or "Yield," or as a number (without quotation marks) that represents the position of the column within the list: 1 for the first column, 2 for the second column, and so on.
 
-**criteria** The range of cells that contains the conditions you specify.  
+**criteria** The range of cells that contains the conditions you specify.
 
 You can use any range for the criteria argument, as long as it includes at least one column label and at least one cell below the column label in which you specify a condition for the column.
 
@@ -97,7 +97,7 @@ You can use any range for the criteria argument, as long as it includes at least
 ##### Examples
 
 ```php
-$database = array( 
+$database = array(
     array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
     array( 'Apple',  18,       20,    14,      105.00  ),
     array( 'Pear',   12,       12,    10,       96.00  ),
@@ -107,7 +107,7 @@ $database = array(
     array( 'Apple',   8,        9,     6,       45.00  ),
 );
 
-$criteria = array( 
+$criteria = array(
     array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
     array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
     array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
@@ -125,7 +125,7 @@ $retVal = $worksheet->getCell('A12')->getCalculatedValue();
 
 ##### Notes
 
-In MS Excel, The field argument is optional. If field is omitted, DCOUNT counts all records in the database that match the criteria. This logic has not yet been implemented in PHPExcel.
+In MS Excel, The field argument is optional. If field is omitted, DCOUNT counts all records in the database that match the criteria. This logic has not yet been implemented in PhpSpreadsheet.
 
 #### DCOUNTA
 
@@ -139,15 +139,15 @@ DCOUNTA(database, [field], criteria)
 
 ##### Parameters
 
-**database** The range of cells that makes up the list or database.  
+**database** The range of cells that makes up the list or database.
 
 A database is a list of related data in which rows of related information are records, and columns of data are fields. The first row of the list contains labels for each column.
 
-**field** Indicates which column of the database is used in the function.  
+**field** Indicates which column of the database is used in the function.
 
 Enter the column label as a string (enclosed between double quotation marks), such as "Age" or "Yield," or as a number (without quotation marks) that represents the position of the column within the list: 1 for the first column, 2 for the second column, and so on.
 
-**criteria** The range of cells that contains the conditions you specify.  
+**criteria** The range of cells that contains the conditions you specify.
 
 You can use any range for the criteria argument, as long as it includes at least one column label and at least one cell below the column label in which you specify a condition for the column.
 
@@ -158,7 +158,7 @@ You can use any range for the criteria argument, as long as it includes at least
 ##### Examples
 
 ```php
-$database = array( 
+$database = array(
     array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
     array( 'Apple',  18,       20,    14,      105.00  ),
     array( 'Pear',   12,       12,    10,       96.00  ),
@@ -168,7 +168,7 @@ $database = array(
     array( 'Apple',   8,        9,     6,       45.00  ),
 );
 
-$criteria = array( 
+$criteria = array(
     array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
     array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
     array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
@@ -186,7 +186,7 @@ $retVal = $worksheet->getCell('A12')->getCalculatedValue();
 
 ##### Notes
 
-In MS Excel, The field argument is optional. If field is omitted, DCOUNTA counts all records in the database that match the criteria. This logic has not yet been implemented in PHPExcel.
+In MS Excel, The field argument is optional. If field is omitted, DCOUNTA counts all records in the database that match the criteria. This logic has not yet been implemented in PhpSpreadsheet.
 
 #### DGET
 
@@ -200,15 +200,15 @@ DGET(database, field, criteria)
 
 ##### Parameters
 
-**database** The range of cells that makes up the list or database.  
+**database** The range of cells that makes up the list or database.
 
 A database is a list of related data in which rows of related information are records, and columns of data are fields. The first row of the list contains labels for each column.
 
-**field** Indicates which column of the database is used in the function.  
+**field** Indicates which column of the database is used in the function.
 
 Enter the column label as a string (enclosed between double quotation marks), such as "Age" or "Yield," or as a number (without quotation marks) that represents the position of the column within the list: 1 for the first column, 2 for the second column, and so on.
 
-**criteria** The range of cells that contains the conditions you specify.  
+**criteria** The range of cells that contains the conditions you specify.
 
 You can use any range for the criteria argument, as long as it includes at least one column label and at least one cell below the column label in which you specify a condition for the column.
 
@@ -219,7 +219,7 @@ You can use any range for the criteria argument, as long as it includes at least
 #### Examples
 
 ```php
-$database = array( 
+$database = array(
     array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
     array( 'Apple',  18,       20,    14,      105.00  ),
     array( 'Pear',   12,       12,    10,       96.00  ),
@@ -229,7 +229,7 @@ $database = array(
     array( 'Apple',   8,        9,     6,       45.00  ),
 );
 
-$criteria = array( 
+$criteria = array(
     array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
     array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
     array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
@@ -260,15 +260,15 @@ DMAX(database, field, criteria)
 
 ##### Parameters
 
-**database** The range of cells that makes up the list or database.  
+**database** The range of cells that makes up the list or database.
 
 A database is a list of related data in which rows of related information are records, and columns of data are fields. The first row of the list contains labels for each column.
 
-**field** Indicates which column of the database is used in the function.  
+**field** Indicates which column of the database is used in the function.
 
 Enter the column label as a string (enclosed between double quotation marks), such as "Age" or "Yield," or as a number (without quotation marks) that represents the position of the column within the list: 1 for the first column, 2 for the second column, and so on.
 
-**criteria** The range of cells that contains the conditions you specify.  
+**criteria** The range of cells that contains the conditions you specify.
 
 You can use any range for the criteria argument, as long as it includes at least one column label and at least one cell below the column label in which you specify a condition for the column.
 
@@ -279,7 +279,7 @@ You can use any range for the criteria argument, as long as it includes at least
 ##### Examples
 
 ```php
-$database = array( 
+$database = array(
     array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
     array( 'Apple',  18,       20,    14,      105.00  ),
     array( 'Pear',   12,       12,    10,       96.00  ),
@@ -289,7 +289,7 @@ $database = array(
     array( 'Apple',   8,        9,     6,       45.00  ),
 );
 
-$criteria = array( 
+$criteria = array(
     array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
     array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
     array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
@@ -320,15 +320,15 @@ DMIN(database, field, criteria)
 
 ##### Parameters
 
-**database** The range of cells that makes up the list or database.  
+**database** The range of cells that makes up the list or database.
 
 A database is a list of related data in which rows of related information are records, and columns of data are fields. The first row of the list contains labels for each column.
 
-**field** Indicates which column of the database is used in the function.  
+**field** Indicates which column of the database is used in the function.
 
 Enter the column label as a string (enclosed between double quotation marks), such as "Age" or "Yield," or as a number (without quotation marks) that represents the position of the column within the list: 1 for the first column, 2 for the second column, and so on.
 
-**criteria**  The range of cells that contains the conditions you specify.  
+**criteria**  The range of cells that contains the conditions you specify.
 
 You can use any range for the criteria argument, as long as it includes at least one column label and at least one cell below the column label in which you specify a condition for the column.
 
@@ -339,7 +339,7 @@ You can use any range for the criteria argument, as long as it includes at least
 ##### Examples
 
 ```php
-$database = array( 
+$database = array(
     array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
     array( 'Apple',  18,       20,    14,      105.00  ),
     array( 'Pear',   12,       12,    10,       96.00  ),
@@ -349,7 +349,7 @@ $database = array(
     array( 'Apple',   8,        9,     6,       45.00  ),
 );
 
-$criteria = array( 
+$criteria = array(
     array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
     array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
     array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
@@ -380,15 +380,15 @@ DPRODUCT(database, field, criteria)
 
 ##### Parameters
 
-**database** The range of cells that makes up the list or database.  
+**database** The range of cells that makes up the list or database.
 
 A database is a list of related data in which rows of related information are records, and columns of data are fields. The first row of the list contains labels for each column.
 
-**field** Indicates which column of the database is used in the function.  
+**field** Indicates which column of the database is used in the function.
 
 Enter the column label as a string (enclosed between double quotation marks), such as "Age" or "Yield," or as a number (without quotation marks) that represents the position of the column within the list: 1 for the first column, 2 for the second column, and so on.
 
-**criteria** The range of cells that contains the conditions you specify.  
+**criteria** The range of cells that contains the conditions you specify.
 
 You can use any range for the criteria argument, as long as it includes at least one column label and at least one cell below the column label in which you specify a condition for the column.
 
@@ -399,7 +399,7 @@ You can use any range for the criteria argument, as long as it includes at least
 ##### Examples
 
 ```php
-$database = array( 
+$database = array(
     array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
     array( 'Apple',  18,       20,    14,      105.00  ),
     array( 'Pear',   12,       12,    10,       96.00  ),
@@ -409,7 +409,7 @@ $database = array(
     array( 'Apple',   8,        9,     6,       45.00  ),
 );
 
-$criteria = array( 
+$criteria = array(
     array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
     array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
     array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
@@ -440,15 +440,15 @@ DSTDEV(database, field, criteria)
 
 ##### Parameters
 
-**database** The range of cells that makes up the list or database.  
+**database** The range of cells that makes up the list or database.
 
 A database is a list of related data in which rows of related information are records, and columns of data are fields. The first row of the list contains labels for each column.
 
-**field** Indicates which column of the database is used in the function.  
+**field** Indicates which column of the database is used in the function.
 
 Enter the column label as a string (enclosed between double quotation marks), such as "Age" or "Yield," or as a number (without quotation marks) that represents the position of the column within the list: 1 for the first column, 2 for the second column, and so on.
 
-**criteria** The range of cells that contains the conditions you specify.  
+**criteria** The range of cells that contains the conditions you specify.
 
 You can use any range for the criteria argument, as long as it includes at least one column label and at least one cell below the column label in which you specify a condition for the column.
 
@@ -459,7 +459,7 @@ You can use any range for the criteria argument, as long as it includes at least
 ##### Examples
 
 ```php
-$database = array( 
+$database = array(
     array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
     array( 'Apple',  18,       20,    14,      105.00  ),
     array( 'Pear',   12,       12,    10,       96.00  ),
@@ -469,7 +469,7 @@ $database = array(
     array( 'Apple',   8,        9,     6,       45.00  ),
 );
 
-$criteria = array( 
+$criteria = array(
     array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
     array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
     array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
@@ -500,15 +500,15 @@ DSTDEVP(database, field, criteria)
 
 ##### Parameters
 
-**database** The range of cells that makes up the list or database.  
+**database** The range of cells that makes up the list or database.
 
 A database is a list of related data in which rows of related information are records, and columns of data are fields. The first row of the list contains labels for each column.
 
-**field** Indicates which column of the database is used in the function.  
+**field** Indicates which column of the database is used in the function.
 
 Enter the column label as a string (enclosed between double quotation marks), such as "Age" or "Yield," or as a number (without quotation marks) that represents the position of the column within the list: 1 for the first column, 2 for the second column, and so on.
 
-**criteria** The range of cells that contains the conditions you specify.  
+**criteria** The range of cells that contains the conditions you specify.
 
 You can use any range for the criteria argument, as long as it includes at least one column label and at least one cell below the column label in which you specify a condition for the column.
 
@@ -519,7 +519,7 @@ You can use any range for the criteria argument, as long as it includes at least
 ##### Examples
 
 ```php
-$database = array( 
+$database = array(
     array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
     array( 'Apple',  18,       20,    14,      105.00  ),
     array( 'Pear',   12,       12,    10,       96.00  ),
@@ -529,7 +529,7 @@ $database = array(
     array( 'Apple',   8,        9,     6,       45.00  ),
 );
 
-$criteria = array( 
+$criteria = array(
     array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
     array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
     array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
@@ -560,15 +560,15 @@ DSUM(database, field, criteria)
 
 ##### Parameters
 
-**database** The range of cells that makes up the list or database.  
+**database** The range of cells that makes up the list or database.
 
 A database is a list of related data in which rows of related information are records, and columns of data are fields. The first row of the list contains labels for each column.
 
-**field** Indicates which column of the database is used in the function.  
+**field** Indicates which column of the database is used in the function.
 
 Enter the column label as a string (enclosed between double quotation marks), such as "Age" or "Yield," or as a number (without quotation marks) that represents the position of the column within the list: 1 for the first column, 2 for the second column, and so on.
 
-**criteria** The range of cells that contains the conditions you specify.  
+**criteria** The range of cells that contains the conditions you specify.
 
 You can use any range for the criteria argument, as long as it includes at least one column label and at least one cell below the column label in which you specify a condition for the column.
 
@@ -579,7 +579,7 @@ You can use any range for the criteria argument, as long as it includes at least
 ##### Examples
 
 ```php
-$database = array( 
+$database = array(
     array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
     array( 'Apple',  18,       20,    14,      105.00  ),
     array( 'Pear',   12,       12,    10,       96.00  ),
@@ -589,7 +589,7 @@ $database = array(
     array( 'Apple',   8,        9,     6,       45.00  ),
 );
 
-$criteria = array( 
+$criteria = array(
     array( 'Tree',      'Height', 'Age', 'Yield', 'Profit', 'Height' ),
     array( '="=Apple"', '>10',    NULL,  NULL,    NULL,     '<16'    ),
     array( '="=Pear"',  NULL,     NULL,  NULL,    NULL,     NULL     ),
