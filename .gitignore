@@ -10,3 +10,4 @@
 *.project
 /.settings
 /.idea
+/nbproject/private/

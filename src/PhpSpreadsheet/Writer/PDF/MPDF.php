@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\PDF;
 
 /**
- *  Copyright (c) 2006 - 2015 PhpSpreadsheet
+ *  Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -20,14 +20,16 @@ namespace PhpOffice\PhpSpreadsheet\Writer\PDF;
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  *  @category    PhpSpreadsheet
+ *
  *  @copyright   Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  *  @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  *  @version     ##VERSION##, ##DATE##
  */
 class MPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
 {
     /**
-     *  Create a mPDF Writer instance
+     *  Create a mPDF Writer instance.
      *
      *  @param  \PhpOffice\PhpSpreadsheet\Spreadsheet  $spreadsheet  Spreadsheet object
      */
@@ -36,19 +38,20 @@ class MPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
         parent::__construct($spreadsheet);
 
         /*  Require mPDF library */
-        $pdfRendererClassFile = \PhpOffice\PhpSpreadsheet\Settings::getPdfRendererPath() . '/mpdf.php';
+        $pdfRendererClassFile = \PhpOffice\PhpSpreadsheet\Settings::getPdfRendererPath().'/mpdf.php';
         if (file_exists($pdfRendererClassFile)) {
             require_once $pdfRendererClassFile;
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Unable to load PDF Rendering library');
+            throw new \PhpOffice\PhpSpreadsheet\Writer\WriteException('Unable to load PDF Rendering library');
         }
     }
 
     /**
-     *  Save Spreadsheet to file
+     *  Save Spreadsheet to file.
      *
      *  @param     string     $pFilename   Name of the file to save as
-     *  @throws    \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
+     *  @throws    \PhpOffice\PhpSpreadsheet\Writer\WriteException
      */
     public function save($pFilename = null)
     {
@@ -103,8 +106,8 @@ class MPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
         $pdf->SetCreator($this->spreadsheet->getProperties()->getCreator());
 
         $pdf->WriteHTML(
-            $this->generateHTMLHeader(false) .
-            $this->generateSheetData() .
+            $this->generateHTMLHeader(false).
+            $this->generateSheetData().
             $this->generateHTMLFooter()
         );
 

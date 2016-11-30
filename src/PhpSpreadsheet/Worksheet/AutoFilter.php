@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,38 +20,40 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class AutoFilter
 {
     /**
-     * Autofilter Worksheet
+     * Autofilter Worksheet.
      *
      * @var \PhpOffice\PhpSpreadsheet\Worksheet
      */
     private $workSheet;
 
     /**
-     * Autofilter Range
+     * Autofilter Range.
      *
      * @var string
      */
     private $range = '';
 
     /**
-     * Autofilter Column Ruleset
+     * Autofilter Column Ruleset.
      *
      * @var AutoFilter\Column[]
      */
     private $columns = [];
 
     /**
-     * Create a new AutoFilter
+     * Create a new AutoFilter.
      *
-     * @param   string        $pRange        Cell range (i.e. A1:E10)
-     * @param   \PhpOffice\PhpSpreadsheet\Worksheet $pSheet
+     * @param string                              $pRange Cell range (i.e. A1:E10)
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pSheet
      */
     public function __construct($pRange = '', \PhpOffice\PhpSpreadsheet\Worksheet $pSheet = null)
     {
@@ -60,7 +62,7 @@ class AutoFilter
     }
 
     /**
-     * Get AutoFilter Parent Worksheet
+     * Get AutoFilter Parent Worksheet.
      *
      * @return \PhpOffice\PhpSpreadsheet\Worksheet
      */
@@ -70,9 +72,10 @@ class AutoFilter
     }
 
     /**
-     * Set AutoFilter Parent Worksheet
+     * Set AutoFilter Parent Worksheet.
      *
-     * @param  \PhpOffice\PhpSpreadsheet\Worksheet $pSheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pSheet
+     *
      * @return AutoFilter
      */
     public function setParent(\PhpOffice\PhpSpreadsheet\Worksheet $pSheet = null)
@@ -83,7 +86,7 @@ class AutoFilter
     }
 
     /**
-     * Get AutoFilter Range
+     * Get AutoFilter Range.
      *
      * @return string
      */
@@ -93,10 +96,12 @@ class AutoFilter
     }
 
     /**
-     *    Set AutoFilter Range
+     *    Set AutoFilter Range.
      *
      *    @param   string        $pRange        Cell range (i.e. A1:E10)
+     *
      *    @throws  \PhpOffice\PhpSpreadsheet\Exception
+     *
      *    @return  AutoFilter
      */
     public function setRange($pRange = '')
@@ -133,9 +138,10 @@ class AutoFilter
     }
 
     /**
-     * Get all AutoFilter Columns
+     * Get all AutoFilter Columns.
      *
-     * @throws    \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return AutoFilter\Column[]
      */
     public function getColumns()
@@ -144,11 +150,13 @@ class AutoFilter
     }
 
     /**
-     * Validate that the specified column is in the AutoFilter range
+     * Validate that the specified column is in the AutoFilter range.
      *
-     * @param     string    $column            Column name (e.g. A)
-     * @throws    \PhpOffice\PhpSpreadsheet\Exception
-     * @return    int    The column offset within the autofilter range
+     * @param string $column Column name (e.g. A)
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
+     * @return int The column offset within the autofilter range
      */
     public function testColumnInRange($column)
     {
@@ -166,11 +174,13 @@ class AutoFilter
     }
 
     /**
-     * Get a specified AutoFilter Column Offset within the defined AutoFilter range
+     * Get a specified AutoFilter Column Offset within the defined AutoFilter range.
      *
-     * @param    string    $pColumn        Column name (e.g. A)
-     * @throws    \PhpOffice\PhpSpreadsheet\Exception
-     * @return int    The offset of the specified column within the autofilter range
+     * @param string $pColumn Column name (e.g. A)
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
+     * @return int The offset of the specified column within the autofilter range
      */
     public function getColumnOffset($pColumn)
     {
@@ -178,11 +188,13 @@ class AutoFilter
     }
 
     /**
-     * Get a specified AutoFilter Column
+     * Get a specified AutoFilter Column.
      *
-     * @param    string    $pColumn        Column name (e.g. A)
-     * @throws   \PhpOffice\PhpSpreadsheet\Exception
-     * @return   AutoFilter\Column
+     * @param string $pColumn Column name (e.g. A)
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
+     * @return AutoFilter\Column
      */
     public function getColumn($pColumn)
     {
@@ -196,11 +208,13 @@ class AutoFilter
     }
 
     /**
-     * Get a specified AutoFilter Column by it's offset
+     * Get a specified AutoFilter Column by it's offset.
      *
-     * @param    int    $pColumnOffset        Column offset within range (starting from 0)
-     * @throws   \PhpOffice\PhpSpreadsheet\Exception
-     * @return   AutoFilter\Column
+     * @param int $pColumnOffset Column offset within range (starting from 0)
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
+     * @return AutoFilter\Column
      */
     public function getColumnByOffset($pColumnOffset = 0)
     {
@@ -211,11 +225,13 @@ class AutoFilter
     }
 
     /**
-     *    Set AutoFilter
+     *    Set AutoFilter.
      *
      *    @param    AutoFilter\Column|string        $pColumn
      *            A simple string containing a Column ID like 'A' is permitted
+     *
      *    @throws  \PhpOffice\PhpSpreadsheet\Exception
+     *
      *    @return  AutoFilter
      */
     public function setColumn($pColumn)
@@ -241,11 +257,13 @@ class AutoFilter
     }
 
     /**
-     * Clear a specified AutoFilter Column
+     * Clear a specified AutoFilter Column.
      *
-     * @param   string  $pColumn    Column name (e.g. A)
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
-     * @return  AutoFilter
+     * @param string $pColumn Column name (e.g. A)
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
+     * @return AutoFilter
      */
     public function clearColumn($pColumn)
     {
@@ -259,7 +277,7 @@ class AutoFilter
     }
 
     /**
-     *    Shift an AutoFilter Column Rule to a different column
+     *    Shift an AutoFilter Column Rule to a different column.
      *
      *    Note: This method bypasses validation of the destination column to ensure it is within this AutoFilter range.
      *        Nor does it verify whether any column rule already exists at $toColumn, but will simply overrideany existing value.
@@ -267,6 +285,7 @@ class AutoFilter
      *
      *    @param    string    $fromColumn        Column name (e.g. A)
      *    @param    string    $toColumn        Column name (e.g. B)
+     *
      *    @return   AutoFilter
      */
     public function shiftColumn($fromColumn = null, $toColumn = null)
@@ -288,10 +307,11 @@ class AutoFilter
     }
 
     /**
-     *    Test if cell value is in the defined set of values
+     *    Test if cell value is in the defined set of values.
      *
      *    @param    mixed        $cellValue
      *    @param    mixed[]        $dataSet
+     *
      *    @return bool
      */
     private static function filterTestInSimpleDataSet($cellValue, $dataSet)
@@ -306,10 +326,11 @@ class AutoFilter
     }
 
     /**
-     *    Test if cell value is in the defined set of Excel date values
+     *    Test if cell value is in the defined set of Excel date values.
      *
      *    @param    mixed        $cellValue
      *    @param    mixed[]        $dataSet
+     *
      *    @return bool
      */
     private static function filterTestInDateGroupSet($cellValue, $dataSet)
@@ -347,10 +368,11 @@ class AutoFilter
     }
 
     /**
-     *    Test if cell value is within a set of values defined by a ruleset
+     *    Test if cell value is within a set of values defined by a ruleset.
      *
      *    @param    mixed        $cellValue
      *    @param    mixed[]        $ruleSet
+     *
      *    @return bool
      */
     private static function filterTestInCustomDataSet($cellValue, $ruleSet)
@@ -403,7 +425,7 @@ class AutoFilter
                 }
             } else {
                 //    String values are always tested for equality, factoring in for wildcards (hence a regexp test)
-                $retVal = preg_match('/^' . $rule['value'] . '$/i', $cellValue);
+                $retVal = preg_match('/^'.$rule['value'].'$/i', $cellValue);
             }
             //    If there are multiple conditions, then we need to test both using the appropriate join operator
             switch ($join) {
@@ -425,10 +447,11 @@ class AutoFilter
     }
 
     /**
-     *    Test if cell date value is matches a set of values defined by a set of months
+     *    Test if cell date value is matches a set of values defined by a set of months.
      *
      *    @param    mixed        $cellValue
      *    @param    mixed[]        $monthSet
+     *
      *    @return bool
      */
     private static function filterTestInPeriodDateSet($cellValue, $monthSet)
@@ -449,7 +472,7 @@ class AutoFilter
     }
 
     /**
-     *    Search/Replace arrays to convert Excel wildcard syntax to a regexp syntax for preg_matching
+     *    Search/Replace arrays to convert Excel wildcard syntax to a regexp syntax for preg_matching.
      *
      *    @var    array
      */
@@ -457,10 +480,11 @@ class AutoFilter
     private static $toReplace = ['.*', '.', '~', '\*', '\?'];
 
     /**
-     *    Convert a dynamic rule daterange to a custom filter range expression for ease of calculation
+     *    Convert a dynamic rule daterange to a custom filter range expression for ease of calculation.
      *
      *    @param    string                   $dynamicRuleType
      *    @param    AutoFilter\Column        $filterColumn
+     *
      *    @return mixed[]
      */
     private function dynamicFilterDateRange($dynamicRuleType, &$filterColumn)
@@ -567,7 +591,7 @@ class AutoFilter
 
     private function calculateTopTenValue($columnID, $startRow, $endRow, $ruleType, $ruleValue)
     {
-        $range = $columnID . $startRow . ':' . $columnID . $endRow;
+        $range = $columnID.$startRow.':'.$columnID.$endRow;
         $dataValues = \PhpOffice\PhpSpreadsheet\Calculation\Functions::flattenArray($this->workSheet->rangeToArray($range, null, true, false));
 
         $dataValues = array_filter($dataValues);
@@ -581,9 +605,10 @@ class AutoFilter
     }
 
     /**
-     *    Apply the AutoFilter rules to the AutoFilter Range
+     *    Apply the AutoFilter rules to the AutoFilter Range.
      *
      *    @throws   \PhpOffice\PhpSpreadsheet\Exception
+     *
      *    @return   AutoFilter
      */
     public function showHideRows()
@@ -649,7 +674,7 @@ class AutoFilter
                                 ($ruleValue[AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DATEGROUP_SECOND] !== '')) {
                                 $time .= sprintf('%02d', $ruleValue[AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DATEGROUP_SECOND]);
                             }
-                            $dateTime = $date . $time;
+                            $dateTime = $date.$time;
                             $arguments['date'][] = $date;
                             $arguments['time'][] = $time;
                             $arguments['dateTime'][] = $dateTime;
@@ -697,7 +722,7 @@ class AutoFilter
                             ($dynamicRuleType == AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_BELOWAVERAGE)) {
                             //    Number (Average) based
                             //    Calculate the average
-                            $averageFormula = '=AVERAGE(' . $columnID . ($rangeStart[1] + 1) . ':' . $columnID . $rangeEnd[1] . ')';
+                            $averageFormula = '=AVERAGE('.$columnID.($rangeStart[1] + 1).':'.$columnID.$rangeEnd[1].')';
                             $average = \PhpOffice\PhpSpreadsheet\Calculation::getInstance()->calculateFormula($averageFormula, null, $this->workSheet->getCell('A1'));
                             //    Set above/below rule based on greaterThan or LessTan
                             $operator = ($dynamicRuleType === AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_ABOVEAVERAGE)
@@ -775,7 +800,7 @@ class AutoFilter
         for ($row = $rangeStart[1] + 1; $row <= $rangeEnd[1]; ++$row) {
             $result = true;
             foreach ($columnFilterTests as $columnID => $columnFilterTest) {
-                $cellValue = $this->workSheet->getCell($columnID . $row)->getCalculatedValue();
+                $cellValue = $this->workSheet->getCell($columnID.$row)->getCalculatedValue();
                 //    Execute the filter test
                 $result = $result &&
                     call_user_func_array(

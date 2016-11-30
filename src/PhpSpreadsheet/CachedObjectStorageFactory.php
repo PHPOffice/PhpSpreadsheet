@@ -2,8 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\CachedObjectStorage\ICache;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet;
+
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,8 +23,10 @@ namespace PhpOffice\PhpSpreadsheet;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class CachedObjectStorageFactory
@@ -39,21 +44,21 @@ class CachedObjectStorageFactory
     const CACHE_TO_SQLITE3 = 'SQLite3';
 
     /**
-     * Name of the method used for cell cacheing
+     * Name of the method used for cell cacheing.
      *
      * @var string
      */
     private static $cacheStorageMethod;
 
     /**
-     * Name of the class used for cell cacheing
+     * Name of the class used for cell cacheing.
      *
      * @var string
      */
     private static $cacheStorageClass;
 
     /**
-     * List of all possible cache storage methods
+     * List of all possible cache storage methods.
      *
      * @var string[]
      */
@@ -72,7 +77,7 @@ class CachedObjectStorageFactory
     ];
 
     /**
-     * Default arguments for each cache storage method
+     * Default arguments for each cache storage method.
      *
      * @var array of mixed array
      */
@@ -103,14 +108,14 @@ class CachedObjectStorageFactory
     ];
 
     /**
-     * Arguments for the active cache storage method
+     * Arguments for the active cache storage method.
      *
      * @var mixed[]
      */
     private static $storageMethodParameters = [];
 
     /**
-     * Return the current cache storage method
+     * Return the current cache storage method.
      *
      * @return string|null
      **/
@@ -120,7 +125,7 @@ class CachedObjectStorageFactory
     }
 
     /**
-     * Return the current cache storage class
+     * Return the current cache storage class.
      *
      * @return string
      **/
@@ -130,7 +135,7 @@ class CachedObjectStorageFactory
     }
 
     /**
-     * Return the list of all possible cache storage methods
+     * Return the list of all possible cache storage methods.
      *
      * @return string[]
      **/
@@ -140,7 +145,7 @@ class CachedObjectStorageFactory
     }
 
     /**
-     * Return the list of all available cache storage methods
+     * Return the list of all available cache storage methods.
      *
      * @return string[]
      **/
@@ -148,7 +153,7 @@ class CachedObjectStorageFactory
     {
         $activeMethods = [];
         foreach (self::$storageMethods as $storageMethod) {
-            $cacheStorageClass = '\\PhpOffice\\PhpSpreadsheet\\CachedObjectStorage\\' . $storageMethod;
+            $cacheStorageClass = '\\PhpOffice\\PhpSpreadsheet\\CachedObjectStorage\\'.$storageMethod;
             if (call_user_func([$cacheStorageClass, 'cacheMethodIsAvailable'])) {
                 $activeMethods[] = $storageMethod;
             }
@@ -158,11 +163,12 @@ class CachedObjectStorageFactory
     }
 
     /**
-     * Identify the cache storage method to use
+     * Identify the cache storage method to use.
      *
-     * @param    string     $method       Name of the method to use for cell cacheing
-     * @param    mixed[]    $arguments    Additional arguments to pass to the cell caching class
-     *                                        when instantiating
+     * @param string  $method    Name of the method to use for cell cacheing
+     * @param mixed[] $arguments Additional arguments to pass to the cell caching class
+     *                           when instantiating
+     *
      * @return bool
      **/
     public static function initialize($method = self::CACHE_IN_MEMORY, $arguments = [])
@@ -171,7 +177,7 @@ class CachedObjectStorageFactory
             return false;
         }
 
-        $cacheStorageClass = '\\PhpOffice\\PhpSpreadsheet\\CachedObjectStorage\\' . $method;
+        $cacheStorageClass = '\\PhpOffice\\PhpSpreadsheet\\CachedObjectStorage\\'.$method;
         if (!call_user_func([$cacheStorageClass, 'cacheMethodIsAvailable'])) {
             return false;
         }
@@ -184,7 +190,7 @@ class CachedObjectStorageFactory
         }
 
         if (self::$cacheStorageMethod === null) {
-            self::$cacheStorageClass = '\\PhpOffice\\PhpSpreadsheet\\CachedObjectStorage\\' . $method;
+            self::$cacheStorageClass = '\\PhpOffice\\PhpSpreadsheet\\CachedObjectStorage\\'.$method;
             self::$cacheStorageMethod = $method;
         }
 
@@ -192,10 +198,11 @@ class CachedObjectStorageFactory
     }
 
     /**
-     * Initialise the cache storage
+     * Initialise the cache storage.
      *
-     * @param    Worksheet     $parent    Enable cell caching for this worksheet
-     * @return   CachedObjectStorage\ICache
+     * @param Worksheet $parent Enable cell caching for this worksheet
+     *
+     * @return ICache
      **/
     public static function getInstance(Worksheet $parent)
     {
@@ -218,7 +225,7 @@ class CachedObjectStorageFactory
     }
 
     /**
-     * Clear the cache storage
+     * Clear the cache storage.
      **/
     public static function finalize()
     {

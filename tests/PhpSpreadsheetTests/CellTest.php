@@ -29,7 +29,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
         try {
             Cell::columnIndexFromString($cellAddress);
         } catch (\Exception $e) {
-            $this->assertInstanceOf(Exception::class, $e);
+            $this->assertInstanceOf(WriteException::class, $e);
             $this->assertEquals($e->getMessage(), 'Column string index can not be longer than 3 characters');
 
             return;
@@ -43,7 +43,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
         try {
             Cell::columnIndexFromString($cellAddress);
         } catch (\Exception $e) {
-            $this->assertInstanceOf(Exception::class, $e);
+            $this->assertInstanceOf(WriteException::class, $e);
             $this->assertEquals($e->getMessage(), 'Column string index can not be empty');
 
             return;
@@ -89,7 +89,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
         try {
             Cell::coordinateFromString($cellAddress);
         } catch (\Exception $e) {
-            $this->assertInstanceOf(Exception::class, $e);
+            $this->assertInstanceOf(WriteException::class, $e);
             $this->assertEquals($e->getMessage(), 'Cell coordinate string can not be a range of cells');
 
             return;
@@ -103,7 +103,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
         try {
             Cell::coordinateFromString($cellAddress);
         } catch (\Exception $e) {
-            $this->assertInstanceOf(Exception::class, $e);
+            $this->assertInstanceOf(WriteException::class, $e);
             $this->assertEquals($e->getMessage(), 'Cell coordinate can not be zero-length string');
 
             return;
@@ -117,7 +117,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
         try {
             Cell::coordinateFromString($cellAddress);
         } catch (\Exception $e) {
-            $this->assertInstanceOf(Exception::class, $e);
+            $this->assertInstanceOf(WriteException::class, $e);
             $this->assertEquals($e->getMessage(), 'Invalid cell coordinate ' . $cellAddress);
 
             return;
@@ -147,7 +147,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
         try {
             Cell::absoluteCoordinate($cellAddress);
         } catch (\Exception $e) {
-            $this->assertInstanceOf(Exception::class, $e);
+            $this->assertInstanceOf(WriteException::class, $e);
             $this->assertEquals($e->getMessage(), 'Cell coordinate string can not be a range of cells');
 
             return;
@@ -177,7 +177,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
         try {
             Cell::absoluteReference($cellAddress);
         } catch (\Exception $e) {
-            $this->assertInstanceOf(Exception::class, $e);
+            $this->assertInstanceOf(WriteException::class, $e);
             $this->assertEquals($e->getMessage(), 'Cell coordinate string can not be a range of cells');
 
             return;
@@ -229,7 +229,7 @@ class CellTest extends \PHPUnit_Framework_TestCase
         try {
             Cell::buildRange($cellRange);
         } catch (\Exception $e) {
-            $this->assertInstanceOf(Exception::class, $e);
+            $this->assertInstanceOf(WriteException::class, $e);
             $this->assertEquals($e->getMessage(), 'Range does not contain any information');
 
             return;

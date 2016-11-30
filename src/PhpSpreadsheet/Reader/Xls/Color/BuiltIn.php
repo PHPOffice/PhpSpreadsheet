@@ -18,9 +18,10 @@ class BuiltIn
     ];
 
     /**
-     * Map built-in color to RGB value
+     * Map built-in color to RGB value.
      *
      * @param int $color Indexed color
+     *
      * @return array
      */
     public static function lookup($color)

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet;
 
 /**
- * Autoloader for PhpSpreadsheet classes
+ * Autoloader for PhpSpreadsheet classes.
  *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
@@ -22,14 +22,16 @@ namespace PhpOffice\PhpSpreadsheet;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class Autoloader
 {
     /**
-     * Register the Autoloader with SPL
+     * Register the Autoloader with SPL.
      */
     public static function register()
     {
@@ -38,13 +40,13 @@ class Autoloader
             spl_autoload_register('__autoload');
         }
         // Register ourselves with SPL
-        return spl_autoload_register([\PhpOffice\PhpSpreadsheet\Autoloader::class, 'load'], true, true);
+        return spl_autoload_register([self::class, 'load'], true, true);
     }
 
     /**
-     * Autoload a class identified by name
+     * Autoload a class identified by name.
      *
-     * @param  string  $className  Name of the object to load
+     * @param string $className Name of the object to load
      */
     public static function load($className)
     {
@@ -54,9 +56,9 @@ class Autoloader
             return false;
         }
 
-        $classFilePath = __DIR__ . DIRECTORY_SEPARATOR .
-            'PhpSpreadsheet' . DIRECTORY_SEPARATOR .
-            str_replace([$prefix, '\\'], ['', '/'], $className) .
+        $classFilePath = __DIR__.DIRECTORY_SEPARATOR.
+            'PhpSpreadsheet'.DIRECTORY_SEPARATOR.
+            str_replace([$prefix, '\\'], ['', '/'], $className).
             '.php';
 
         if ((file_exists($classFilePath) === false) || (is_readable($classFilePath) === false)) {

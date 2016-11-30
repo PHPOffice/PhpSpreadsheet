@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,10 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class Categories
@@ -40,32 +42,34 @@ class Categories
     const CATEGORY_TEXT_AND_DATA = 'Text and Data';
 
     /**
-     * Category (represented by CATEGORY_*)
+     * Category (represented by CATEGORY_*).
      *
      * @var string
      */
     private $category;
 
     /**
-     * Excel function name
+     * Excel function name.
      *
      * @var string
      */
     private $excelName;
 
     /**
-     * Spreadsheet function name
+     * Spreadsheet function name.
      *
      * @var string
      */
     private $spreadsheetName;
 
     /**
-     * Create a new Categories
-     * @param     string        $pCategory         Category (represented by CATEGORY_*)
-     * @param     string        $pExcelName        Excel function name
-     * @param     string        $spreadsheetName     Spreadsheet internal function name
-     * @throws    Exception
+     * Create a new Categories.
+     *
+     * @param string $pCategory       Category (represented by CATEGORY_*)
+     * @param string $pExcelName      Excel function name
+     * @param string $spreadsheetName Spreadsheet internal function name
+     *
+     * @throws Exception
      */
     public function __construct($pCategory = null, $pExcelName = null, $spreadsheetName = null)
     {
@@ -80,7 +84,7 @@ class Categories
     }
 
     /**
-     * Get Category (represented by CATEGORY_*)
+     * Get Category (represented by CATEGORY_*).
      *
      * @return string
      */
@@ -90,10 +94,11 @@ class Categories
     }
 
     /**
-     * Set Category (represented by CATEGORY_*)
+     * Set Category (represented by CATEGORY_*).
      *
-     * @param   string        $value
-     * @throws  Exception
+     * @param string $value
+     *
+     * @throws Exception
      */
     public function setCategory($value = null)
     {
@@ -105,7 +110,7 @@ class Categories
     }
 
     /**
-     * Get Excel function name
+     * Get Excel function name.
      *
      * @return string
      */
@@ -115,9 +120,9 @@ class Categories
     }
 
     /**
-     * Set Excel function name
+     * Set Excel function name.
      *
-     * @param string    $value
+     * @param string $value
      */
     public function setExcelName($value)
     {
@@ -125,7 +130,7 @@ class Categories
     }
 
     /**
-     * Get Spreadsheet function name
+     * Get Spreadsheet function name.
      *
      * @return string
      */
@@ -135,9 +140,9 @@ class Categories
     }
 
     /**
-     * Set Spreadsheet function  name
+     * Set Spreadsheet function  name.
      *
-     * @param string    $value
+     * @param string $value
      */
     public function setSpreadsheetName($value)
     {

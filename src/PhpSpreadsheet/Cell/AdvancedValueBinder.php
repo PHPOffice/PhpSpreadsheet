@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,17 +20,20 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
 {
     /**
-     * Bind value to a cell
+     * Bind value to a cell.
      *
-     * @param  \PhpOffice\PhpSpreadsheet\Cell  $cell  Cell to bind value to
-     * @param  mixed $value           Value to bind in cell
+     * @param \PhpOffice\PhpSpreadsheet\Cell $cell  Cell to bind value to
+     * @param mixed                          $value Value to bind in cell
+     *
      * @return bool
      */
     public function bindValue(\PhpOffice\PhpSpreadsheet\Cell $cell, $value = null)
@@ -57,7 +60,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
             }
 
             // Check for number in scientific format
-            if (preg_match('/^' . \PhpOffice\PhpSpreadsheet\Calculation::CALCULATION_REGEXP_NUMBER . '$/', $value)) {
+            if (preg_match('/^'.\PhpOffice\PhpSpreadsheet\Calculation::CALCULATION_REGEXP_NUMBER.'$/', $value)) {
                 $cell->setValueExplicit((float) $value, DataType::TYPE_NUMERIC);
 
                 return true;
@@ -106,7 +109,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
             $currencyCode = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::getCurrencyCode();
             $decimalSeparator = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::getDecimalSeparator();
             $thousandsSeparator = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::getThousandsSeparator();
-            if (preg_match('/^' . preg_quote($currencyCode) . ' *(\d{1,3}(' . preg_quote($thousandsSeparator) . '\d{3})*|(\d+))(' . preg_quote($decimalSeparator) . '\d{2})?$/', $value)) {
+            if (preg_match('/^'.preg_quote($currencyCode).' *(\d{1,3}('.preg_quote($thousandsSeparator).'\d{3})*|(\d+))('.preg_quote($decimalSeparator).'\d{2})?$/', $value)) {
                 // Convert value to number
                 $value = (float) trim(str_replace([$currencyCode, $thousandsSeparator, $decimalSeparator], ['', '', '.'], $value));
                 $cell->setValueExplicit($value, DataType::TYPE_NUMERIC);

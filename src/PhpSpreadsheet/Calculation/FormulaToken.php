@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,10 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 /*
@@ -76,32 +78,32 @@ class FormulaToken
     const TOKEN_SUBTYPE_UNION = 'Union';
 
     /**
-     * Value
+     * Value.
      *
      * @var string
      */
     private $value;
 
     /**
-     * Token Type (represented by TOKEN_TYPE_*)
+     * Token Type (represented by TOKEN_TYPE_*).
      *
      * @var string
      */
     private $tokenType;
 
     /**
-     * Token SubType (represented by TOKEN_SUBTYPE_*)
+     * Token SubType (represented by TOKEN_SUBTYPE_*).
      *
      * @var string
      */
     private $tokenSubType;
 
     /**
-     * Create a new FormulaToken
+     * Create a new FormulaToken.
      *
-     * @param string    $pValue
-     * @param string    $pTokenType     Token type (represented by TOKEN_TYPE_*)
-     * @param string    $pTokenSubType     Token Subtype (represented by TOKEN_SUBTYPE_*)
+     * @param string $pValue
+     * @param string $pTokenType    Token type (represented by TOKEN_TYPE_*)
+     * @param string $pTokenSubType Token Subtype (represented by TOKEN_SUBTYPE_*)
      */
     public function __construct($pValue, $pTokenType = self::TOKEN_TYPE_UNKNOWN, $pTokenSubType = self::TOKEN_SUBTYPE_NOTHING)
     {
@@ -112,7 +114,7 @@ class FormulaToken
     }
 
     /**
-     * Get Value
+     * Get Value.
      *
      * @return string
      */
@@ -122,9 +124,9 @@ class FormulaToken
     }
 
     /**
-     * Set Value
+     * Set Value.
      *
-     * @param string    $value
+     * @param string $value
      */
     public function setValue($value)
     {
@@ -132,7 +134,7 @@ class FormulaToken
     }
 
     /**
-     * Get Token Type (represented by TOKEN_TYPE_*)
+     * Get Token Type (represented by TOKEN_TYPE_*).
      *
      * @return string
      */
@@ -142,9 +144,9 @@ class FormulaToken
     }
 
     /**
-     * Set Token Type
+     * Set Token Type.
      *
-     * @param string    $value
+     * @param string $value
      */
     public function setTokenType($value = self::TOKEN_TYPE_UNKNOWN)
     {
@@ -152,7 +154,7 @@ class FormulaToken
     }
 
     /**
-     * Get Token SubType (represented by TOKEN_SUBTYPE_*)
+     * Get Token SubType (represented by TOKEN_SUBTYPE_*).
      *
      * @return string
      */
@@ -162,9 +164,9 @@ class FormulaToken
     }
 
     /**
-     * Set Token SubType
+     * Set Token SubType.
      *
-     * @param string    $value
+     * @param string $value
      */
     public function setTokenSubType($value = self::TOKEN_SUBTYPE_NOTHING)
     {

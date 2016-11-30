@@ -1,6 +1,6 @@
 <?php
 /**
- *    Pythagorean Theorem:
+ *    Pythagorean Theorem:.
  *
  *    a = 3
  *    b = 4

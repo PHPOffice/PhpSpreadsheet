@@ -19,20 +19,21 @@ namespace PhpOffice\PhpSpreadsheet\Shared\OLE\PPS;
 // | Author: Xavier Noguer <xnoguer@php.net>                              |
 // | Based on OLE::Storage_Lite by Kawai, Takanori                        |
 // +----------------------------------------------------------------------+
-//
 
 /**
- * Class for creating File PPS's for OLE containers
+ * Class for creating File PPS's for OLE containers.
  *
  * @author   Xavier Noguer <xnoguer@php.net>
+ *
  * @category PhpSpreadsheet
  */
 class File extends \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS
 {
     /**
-     * The constructor
+     * The constructor.
      *
      * @param string $name The name of the file (in Unicode)
+     *
      * @see OLE::ascToUcs()
      */
     public function __construct($name)
@@ -51,7 +52,7 @@ class File extends \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS
     }
 
     /**
-     * Append data to PPS
+     * Append data to PPS.
      *
      * @param string $data The data to append
      */
@@ -62,7 +63,8 @@ class File extends \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS
 
     /**
      * Returns a stream for reading this file using fread() etc.
-     * @return  resource  a read-only stream
+     *
+     * @return resource a read-only stream
      */
     public function getStream()
     {

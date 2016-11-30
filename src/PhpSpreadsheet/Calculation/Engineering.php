@@ -6,7 +6,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 define('EULER', 2.71828182845904523536);
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,14 +23,16 @@ define('EULER', 2.71828182845904523536);
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category    PhpSpreadsheet
+ *
  * @copyright    Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version        ##VERSION##, ##DATE##
  */
 class Engineering
 {
     /**
-     * Details of the Units of measure that can be used in CONVERTUOM()
+     * Details of the Units of measure that can be used in CONVERTUOM().
      *
      * @var mixed[]
      */
@@ -101,7 +103,7 @@ class Engineering
     ];
 
     /**
-     * Details of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM()
+     * Details of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().
      *
      * @var mixed[]
      */
@@ -129,7 +131,7 @@ class Engineering
     ];
 
     /**
-     * Details of the Units of measure conversion factors, organised by group
+     * Details of the Units of measure conversion factors, organised by group.
      *
      * @var mixed[]
      */
@@ -734,12 +736,13 @@ class Engineering
     ];
 
     /**
-     * parseComplex
+     * parseComplex.
      *
      * Parses a complex number into its real and imaginary parts, and an I or J suffix
      *
-     * @param    string $complexNumber The complex number
-     * @return    string[]    Indexed on "real", "imaginary" and "suffix"
+     * @param string $complexNumber The complex number
+     *
+     * @return string[] Indexed on "real", "imaginary" and "suffix"
      */
     public static function parseComplex($complexNumber)
     {
@@ -772,7 +775,7 @@ class Engineering
             $imaginary = substr($workString, strlen($realNumber));
 
             if (($imaginary == '') && (($realNumber == '') || ($realNumber == '+') || ($realNumber == '-'))) {
-                $imaginary = $realNumber . '1';
+                $imaginary = $realNumber.'1';
                 $realNumber = '0';
             } elseif ($imaginary == '') {
                 $imaginary = $realNumber;
@@ -790,10 +793,11 @@ class Engineering
     }
 
     /**
-     * Cleans the leading characters in a complex number string
+     * Cleans the leading characters in a complex number string.
      *
-     * @param    string $complexNumber The complex number to clean
-     * @return    string        The "cleaned" complex number
+     * @param string $complexNumber The complex number to clean
+     *
+     * @return string The "cleaned" complex number
      */
     private static function cleanComplex($complexNumber)
     {
@@ -804,7 +808,7 @@ class Engineering
             $complexNumber = substr($complexNumber, 1);
         }
         if ($complexNumber{0} == '.') {
-            $complexNumber = '0' . $complexNumber;
+            $complexNumber = '0'.$complexNumber;
         }
         if ($complexNumber{0} == '+') {
             $complexNumber = substr($complexNumber, 1);
@@ -814,11 +818,12 @@ class Engineering
     }
 
     /**
-     * Formats a number base string value with leading zeroes
+     * Formats a number base string value with leading zeroes.
      *
-     * @param    string $xVal The "number" to pad
-     * @param    int $places The length that we want to pad this value
-     * @return    string        The padded "number"
+     * @param string $xVal   The "number" to pad
+     * @param int    $places The length that we want to pad this value
+     *
+     * @return string The padded "number"
      */
     private static function nbrConversionFormat($xVal, $places)
     {
@@ -842,7 +847,7 @@ class Engineering
     }
 
     /**
-     *    BESSELI
+     *    BESSELI.
      *
      *    Returns the modified Bessel function In(x), which is equivalent to the Bessel function evaluated
      *        for purely imaginary arguments
@@ -851,13 +856,15 @@ class Engineering
      *        BESSELI(x,ord)
      *
      * @category Engineering Functions
-     * @param    float $x The value at which to evaluate the function.
-     *                                If x is nonnumeric, BESSELI returns the #VALUE! error value.
-     * @param    int $ord The order of the Bessel function.
-     *                                If ord is not an integer, it is truncated.
-     *                                If $ord is nonnumeric, BESSELI returns the #VALUE! error value.
-     *                                If $ord < 0, BESSELI returns the #NUM! error value.
-     * @return    float
+     *
+     * @param float $x   The value at which to evaluate the function.
+     *                   If x is nonnumeric, BESSELI returns the #VALUE! error value
+     * @param int   $ord The order of the Bessel function.
+     *                   If ord is not an integer, it is truncated.
+     *                   If $ord is nonnumeric, BESSELI returns the #VALUE! error value.
+     *                   If $ord < 0, BESSELI returns the #NUM! error value
+     *
+     * @return float
      */
     public static function BESSELI($x, $ord)
     {
@@ -896,7 +903,7 @@ class Engineering
     }
 
     /**
-     *    BESSELJ
+     *    BESSELJ.
      *
      *    Returns the Bessel function
      *
@@ -904,12 +911,14 @@ class Engineering
      *        BESSELJ(x,ord)
      *
      * @category Engineering Functions
-     * @param    float $x The value at which to evaluate the function.
-     *                                If x is nonnumeric, BESSELJ returns the #VALUE! error value.
-     * @param    int $ord The order of the Bessel function. If n is not an integer, it is truncated.
-     *                                If $ord is nonnumeric, BESSELJ returns the #VALUE! error value.
-     *                                If $ord < 0, BESSELJ returns the #NUM! error value.
-     * @return    float
+     *
+     * @param float $x   The value at which to evaluate the function.
+     *                   If x is nonnumeric, BESSELJ returns the #VALUE! error value
+     * @param int   $ord The order of the Bessel function. If n is not an integer, it is truncated.
+     *                   If $ord is nonnumeric, BESSELJ returns the #VALUE! error value.
+     *                   If $ord < 0, BESSELJ returns the #NUM! error value
+     *
+     * @return float
      */
     public static function BESSELJ($x, $ord)
     {
@@ -986,7 +995,7 @@ class Engineering
     }
 
     /**
-     *    BESSELK
+     *    BESSELK.
      *
      *    Returns the modified Bessel function Kn(x), which is equivalent to the Bessel functions evaluated
      *        for purely imaginary arguments.
@@ -995,12 +1004,14 @@ class Engineering
      *        BESSELK(x,ord)
      *
      * @category Engineering Functions
-     * @param    float $x The value at which to evaluate the function.
-     *                                If x is nonnumeric, BESSELK returns the #VALUE! error value.
-     * @param    int $ord The order of the Bessel function. If n is not an integer, it is truncated.
-     *                                If $ord is nonnumeric, BESSELK returns the #VALUE! error value.
-     *                                If $ord < 0, BESSELK returns the #NUM! error value.
-     * @return    float
+     *
+     * @param float $x   The value at which to evaluate the function.
+     *                   If x is nonnumeric, BESSELK returns the #VALUE! error value
+     * @param int   $ord The order of the Bessel function. If n is not an integer, it is truncated.
+     *                   If $ord is nonnumeric, BESSELK returns the #VALUE! error value.
+     *                   If $ord < 0, BESSELK returns the #NUM! error value
+     *
+     * @return float
      */
     public static function BESSELK($x, $ord)
     {
@@ -1072,7 +1083,7 @@ class Engineering
     }
 
     /**
-     *    BESSELY
+     *    BESSELY.
      *
      *    Returns the Bessel function, which is also called the Weber function or the Neumann function.
      *
@@ -1080,13 +1091,14 @@ class Engineering
      *        BESSELY(x,ord)
      *
      * @category Engineering Functions
-     * @param    float $x The value at which to evaluate the function.
-     *                                If x is nonnumeric, BESSELK returns the #VALUE! error value.
-     * @param    int $ord The order of the Bessel function. If n is not an integer, it is truncated.
-     *                                If $ord is nonnumeric, BESSELK returns the #VALUE! error value.
-     *                                If $ord < 0, BESSELK returns the #NUM! error value.
      *
-     * @return    float
+     * @param float $x   The value at which to evaluate the function.
+     *                   If x is nonnumeric, BESSELK returns the #VALUE! error value
+     * @param int   $ord The order of the Bessel function. If n is not an integer, it is truncated.
+     *                   If $ord is nonnumeric, BESSELK returns the #VALUE! error value.
+     *                   If $ord < 0, BESSELK returns the #NUM! error value
+     *
+     * @return float
      */
     public static function BESSELY($x, $ord)
     {
@@ -1123,7 +1135,7 @@ class Engineering
     }
 
     /**
-     * BINTODEC
+     * BINTODEC.
      *
      * Return a binary value as decimal.
      *
@@ -1131,13 +1143,15 @@ class Engineering
      *        BIN2DEC(x)
      *
      * @category Engineering Functions
-     * @param    string $x The binary number (as a string) that you want to convert. The number
-     *                                cannot contain more than 10 characters (10 bits). The most significant
-     *                                bit of number is the sign bit. The remaining 9 bits are magnitude bits.
-     *                                Negative numbers are represented using two's-complement notation.
-     *                                If number is not a valid binary number, or if number contains more than
-     *                                10 characters (10 bits), BIN2DEC returns the #NUM! error value.
-     * @return    string
+     *
+     * @param string $x The binary number (as a string) that you want to convert. The number
+     *                  cannot contain more than 10 characters (10 bits). The most significant
+     *                  bit of number is the sign bit. The remaining 9 bits are magnitude bits.
+     *                  Negative numbers are represented using two's-complement notation.
+     *                  If number is not a valid binary number, or if number contains more than
+     *                  10 characters (10 bits), BIN2DEC returns the #NUM! error value
+     *
+     * @return string
      */
     public static function BINTODEC($x)
     {
@@ -1163,14 +1177,14 @@ class Engineering
             //    Two's Complement
             $x = substr($x, -9);
 
-            return '-' . (512 - bindec($x));
+            return '-'.(512 - bindec($x));
         }
 
         return bindec($x);
     }
 
     /**
-     * BINTOHEX
+     * BINTOHEX.
      *
      * Return a binary value as hex.
      *
@@ -1178,19 +1192,21 @@ class Engineering
      *        BIN2HEX(x[,places])
      *
      * @category Engineering Functions
-     * @param    string $x The binary number (as a string) that you want to convert. The number
-     *                                cannot contain more than 10 characters (10 bits). The most significant
-     *                                bit of number is the sign bit. The remaining 9 bits are magnitude bits.
-     *                                Negative numbers are represented using two's-complement notation.
-     *                                If number is not a valid binary number, or if number contains more than
-     *                                10 characters (10 bits), BIN2HEX returns the #NUM! error value.
-     * @param    int $places The number of characters to use. If places is omitted, BIN2HEX uses the
-     *                                minimum number of characters necessary. Places is useful for padding the
-     *                                return value with leading 0s (zeros).
-     *                                If places is not an integer, it is truncated.
-     *                                If places is nonnumeric, BIN2HEX returns the #VALUE! error value.
-     *                                If places is negative, BIN2HEX returns the #NUM! error value.
-     * @return    string
+     *
+     * @param string $x      The binary number (as a string) that you want to convert. The number
+     *                       cannot contain more than 10 characters (10 bits). The most significant
+     *                       bit of number is the sign bit. The remaining 9 bits are magnitude bits.
+     *                       Negative numbers are represented using two's-complement notation.
+     *                       If number is not a valid binary number, or if number contains more than
+     *                       10 characters (10 bits), BIN2HEX returns the #NUM! error value
+     * @param int    $places The number of characters to use. If places is omitted, BIN2HEX uses the
+     *                       minimum number of characters necessary. Places is useful for padding the
+     *                       return value with leading 0s (zeros).
+     *                       If places is not an integer, it is truncated.
+     *                       If places is nonnumeric, BIN2HEX returns the #VALUE! error value.
+     *                       If places is negative, BIN2HEX returns the #NUM! error value
+     *
+     * @return string
      */
     public static function BINTOHEX($x, $places = null)
     {
@@ -1216,7 +1232,7 @@ class Engineering
             return Functions::NAN();
         } elseif (strlen($x) == 10) {
             //    Two's Complement
-            return str_repeat('F', 8) . substr(strtoupper(dechex(bindec(substr($x, -9)))), -2);
+            return str_repeat('F', 8).substr(strtoupper(dechex(bindec(substr($x, -9)))), -2);
         }
         $hexVal = (string) strtoupper(dechex(bindec($x)));
 
@@ -1224,7 +1240,7 @@ class Engineering
     }
 
     /**
-     * BINTOOCT
+     * BINTOOCT.
      *
      * Return a binary value as octal.
      *
@@ -1232,19 +1248,21 @@ class Engineering
      *        BIN2OCT(x[,places])
      *
      * @category Engineering Functions
-     * @param    string $x The binary number (as a string) that you want to convert. The number
-     *                                cannot contain more than 10 characters (10 bits). The most significant
-     *                                bit of number is the sign bit. The remaining 9 bits are magnitude bits.
-     *                                Negative numbers are represented using two's-complement notation.
-     *                                If number is not a valid binary number, or if number contains more than
-     *                                10 characters (10 bits), BIN2OCT returns the #NUM! error value.
-     * @param    int $places The number of characters to use. If places is omitted, BIN2OCT uses the
-     *                                minimum number of characters necessary. Places is useful for padding the
-     *                                return value with leading 0s (zeros).
-     *                                If places is not an integer, it is truncated.
-     *                                If places is nonnumeric, BIN2OCT returns the #VALUE! error value.
-     *                                If places is negative, BIN2OCT returns the #NUM! error value.
-     * @return    string
+     *
+     * @param string $x      The binary number (as a string) that you want to convert. The number
+     *                       cannot contain more than 10 characters (10 bits). The most significant
+     *                       bit of number is the sign bit. The remaining 9 bits are magnitude bits.
+     *                       Negative numbers are represented using two's-complement notation.
+     *                       If number is not a valid binary number, or if number contains more than
+     *                       10 characters (10 bits), BIN2OCT returns the #NUM! error value
+     * @param int    $places The number of characters to use. If places is omitted, BIN2OCT uses the
+     *                       minimum number of characters necessary. Places is useful for padding the
+     *                       return value with leading 0s (zeros).
+     *                       If places is not an integer, it is truncated.
+     *                       If places is nonnumeric, BIN2OCT returns the #VALUE! error value.
+     *                       If places is negative, BIN2OCT returns the #NUM! error value
+     *
+     * @return string
      */
     public static function BINTOOCT($x, $places = null)
     {
@@ -1269,7 +1287,7 @@ class Engineering
             return Functions::NAN();
         } elseif (strlen($x) == 10) {
             //    Two's Complement
-            return str_repeat('7', 7) . substr(strtoupper(decoct(bindec(substr($x, -9)))), -3);
+            return str_repeat('7', 7).substr(strtoupper(decoct(bindec(substr($x, -9)))), -3);
         }
         $octVal = (string) decoct(bindec($x));
 
@@ -1277,7 +1295,7 @@ class Engineering
     }
 
     /**
-     * DECTOBIN
+     * DECTOBIN.
      *
      * Return a decimal value as binary.
      *
@@ -1285,23 +1303,25 @@ class Engineering
      *        DEC2BIN(x[,places])
      *
      * @category Engineering Functions
-     * @param    string $x The decimal integer you want to convert. If number is negative,
-     *                                valid place values are ignored and DEC2BIN returns a 10-character
-     *                                (10-bit) binary number in which the most significant bit is the sign
-     *                                bit. The remaining 9 bits are magnitude bits. Negative numbers are
-     *                                represented using two's-complement notation.
-     *                                If number < -512 or if number > 511, DEC2BIN returns the #NUM! error
-     *                                value.
-     *                                If number is nonnumeric, DEC2BIN returns the #VALUE! error value.
-     *                                If DEC2BIN requires more than places characters, it returns the #NUM!
-     *                                error value.
-     * @param    int $places The number of characters to use. If places is omitted, DEC2BIN uses
-     *                                the minimum number of characters necessary. Places is useful for
-     *                                padding the return value with leading 0s (zeros).
-     *                                If places is not an integer, it is truncated.
-     *                                If places is nonnumeric, DEC2BIN returns the #VALUE! error value.
-     *                                If places is zero or negative, DEC2BIN returns the #NUM! error value.
-     * @return    string
+     *
+     * @param string $x      The decimal integer you want to convert. If number is negative,
+     *                       valid place values are ignored and DEC2BIN returns a 10-character
+     *                       (10-bit) binary number in which the most significant bit is the sign
+     *                       bit. The remaining 9 bits are magnitude bits. Negative numbers are
+     *                       represented using two's-complement notation.
+     *                       If number < -512 or if number > 511, DEC2BIN returns the #NUM! error
+     *                       value.
+     *                       If number is nonnumeric, DEC2BIN returns the #VALUE! error value.
+     *                       If DEC2BIN requires more than places characters, it returns the #NUM!
+     *                       error value
+     * @param int    $places The number of characters to use. If places is omitted, DEC2BIN uses
+     *                       the minimum number of characters necessary. Places is useful for
+     *                       padding the return value with leading 0s (zeros).
+     *                       If places is not an integer, it is truncated.
+     *                       If places is nonnumeric, DEC2BIN returns the #VALUE! error value.
+     *                       If places is zero or negative, DEC2BIN returns the #NUM! error value
+     *
+     * @return string
      */
     public static function DECTOBIN($x, $places = null)
     {
@@ -1336,7 +1356,7 @@ class Engineering
     }
 
     /**
-     * DECTOHEX
+     * DECTOHEX.
      *
      * Return a decimal value as hex.
      *
@@ -1344,23 +1364,25 @@ class Engineering
      *        DEC2HEX(x[,places])
      *
      * @category Engineering Functions
-     * @param    string $x The decimal integer you want to convert. If number is negative,
-     *                                places is ignored and DEC2HEX returns a 10-character (40-bit)
-     *                                hexadecimal number in which the most significant bit is the sign
-     *                                bit. The remaining 39 bits are magnitude bits. Negative numbers
-     *                                are represented using two's-complement notation.
-     *                                If number < -549,755,813,888 or if number > 549,755,813,887,
-     *                                DEC2HEX returns the #NUM! error value.
-     *                                If number is nonnumeric, DEC2HEX returns the #VALUE! error value.
-     *                                If DEC2HEX requires more than places characters, it returns the
-     *                                #NUM! error value.
-     * @param    int $places The number of characters to use. If places is omitted, DEC2HEX uses
-     *                                the minimum number of characters necessary. Places is useful for
-     *                                padding the return value with leading 0s (zeros).
-     *                                If places is not an integer, it is truncated.
-     *                                If places is nonnumeric, DEC2HEX returns the #VALUE! error value.
-     *                                If places is zero or negative, DEC2HEX returns the #NUM! error value.
-     * @return    string
+     *
+     * @param string $x      The decimal integer you want to convert. If number is negative,
+     *                       places is ignored and DEC2HEX returns a 10-character (40-bit)
+     *                       hexadecimal number in which the most significant bit is the sign
+     *                       bit. The remaining 39 bits are magnitude bits. Negative numbers
+     *                       are represented using two's-complement notation.
+     *                       If number < -549,755,813,888 or if number > 549,755,813,887,
+     *                       DEC2HEX returns the #NUM! error value.
+     *                       If number is nonnumeric, DEC2HEX returns the #VALUE! error value.
+     *                       If DEC2HEX requires more than places characters, it returns the
+     *                       #NUM! error value
+     * @param int    $places The number of characters to use. If places is omitted, DEC2HEX uses
+     *                       the minimum number of characters necessary. Places is useful for
+     *                       padding the return value with leading 0s (zeros).
+     *                       If places is not an integer, it is truncated.
+     *                       If places is nonnumeric, DEC2HEX returns the #VALUE! error value.
+     *                       If places is zero or negative, DEC2HEX returns the #NUM! error value
+     *
+     * @return string
      */
     public static function DECTOHEX($x, $places = null)
     {
@@ -1382,14 +1404,14 @@ class Engineering
         $r = strtoupper(dechex($x));
         if (strlen($r) == 8) {
             //    Two's Complement
-            $r = 'FF' . $r;
+            $r = 'FF'.$r;
         }
 
         return self::nbrConversionFormat($r, $places);
     }
 
     /**
-     * DECTOOCT
+     * DECTOOCT.
      *
      * Return an decimal value as octal.
      *
@@ -1397,23 +1419,25 @@ class Engineering
      *        DEC2OCT(x[,places])
      *
      * @category Engineering Functions
-     * @param    string $x The decimal integer you want to convert. If number is negative,
-     *                                places is ignored and DEC2OCT returns a 10-character (30-bit)
-     *                                octal number in which the most significant bit is the sign bit.
-     *                                The remaining 29 bits are magnitude bits. Negative numbers are
-     *                                represented using two's-complement notation.
-     *                                If number < -536,870,912 or if number > 536,870,911, DEC2OCT
-     *                                returns the #NUM! error value.
-     *                                If number is nonnumeric, DEC2OCT returns the #VALUE! error value.
-     *                                If DEC2OCT requires more than places characters, it returns the
-     *                                #NUM! error value.
-     * @param    int $places The number of characters to use. If places is omitted, DEC2OCT uses
-     *                                the minimum number of characters necessary. Places is useful for
-     *                                padding the return value with leading 0s (zeros).
-     *                                If places is not an integer, it is truncated.
-     *                                If places is nonnumeric, DEC2OCT returns the #VALUE! error value.
-     *                                If places is zero or negative, DEC2OCT returns the #NUM! error value.
-     * @return    string
+     *
+     * @param string $x      The decimal integer you want to convert. If number is negative,
+     *                       places is ignored and DEC2OCT returns a 10-character (30-bit)
+     *                       octal number in which the most significant bit is the sign bit.
+     *                       The remaining 29 bits are magnitude bits. Negative numbers are
+     *                       represented using two's-complement notation.
+     *                       If number < -536,870,912 or if number > 536,870,911, DEC2OCT
+     *                       returns the #NUM! error value.
+     *                       If number is nonnumeric, DEC2OCT returns the #VALUE! error value.
+     *                       If DEC2OCT requires more than places characters, it returns the
+     *                       #NUM! error value
+     * @param int    $places The number of characters to use. If places is omitted, DEC2OCT uses
+     *                       the minimum number of characters necessary. Places is useful for
+     *                       padding the return value with leading 0s (zeros).
+     *                       If places is not an integer, it is truncated.
+     *                       If places is nonnumeric, DEC2OCT returns the #VALUE! error value.
+     *                       If places is zero or negative, DEC2OCT returns the #NUM! error value
+     *
+     * @return string
      */
     public static function DECTOOCT($x, $places = null)
     {
@@ -1443,7 +1467,7 @@ class Engineering
     }
 
     /**
-     * HEXTOBIN
+     * HEXTOBIN.
      *
      * Return a hex value as binary.
      *
@@ -1451,23 +1475,25 @@ class Engineering
      *        HEX2BIN(x[,places])
      *
      * @category Engineering Functions
-     * @param    string $x the hexadecimal number you want to convert.
-     *                  Number cannot contain more than 10 characters.
-     *                  The most significant bit of number is the sign bit (40th bit from the right).
-     *                  The remaining 9 bits are magnitude bits.
-     *                  Negative numbers are represented using two's-complement notation.
-     *                  If number is negative, HEX2BIN ignores places and returns a 10-character binary number.
-     *                  If number is negative, it cannot be less than FFFFFFFE00,
-     *                      and if number is positive, it cannot be greater than 1FF.
-     *                  If number is not a valid hexadecimal number, HEX2BIN returns the #NUM! error value.
-     *                  If HEX2BIN requires more than places characters, it returns the #NUM! error value.
-     * @param    int $places The number of characters to use. If places is omitted,
-     *                                    HEX2BIN uses the minimum number of characters necessary. Places
-     *                                    is useful for padding the return value with leading 0s (zeros).
-     *                                    If places is not an integer, it is truncated.
-     *                                    If places is nonnumeric, HEX2BIN returns the #VALUE! error value.
-     *                                    If places is negative, HEX2BIN returns the #NUM! error value.
-     * @return    string
+     *
+     * @param string $x      the hexadecimal number you want to convert.
+     *                       Number cannot contain more than 10 characters.
+     *                       The most significant bit of number is the sign bit (40th bit from the right).
+     *                       The remaining 9 bits are magnitude bits.
+     *                       Negative numbers are represented using two's-complement notation.
+     *                       If number is negative, HEX2BIN ignores places and returns a 10-character binary number.
+     *                       If number is negative, it cannot be less than FFFFFFFE00,
+     *                       and if number is positive, it cannot be greater than 1FF.
+     *                       If number is not a valid hexadecimal number, HEX2BIN returns the #NUM! error value.
+     *                       If HEX2BIN requires more than places characters, it returns the #NUM! error value
+     * @param int    $places The number of characters to use. If places is omitted,
+     *                       HEX2BIN uses the minimum number of characters necessary. Places
+     *                       is useful for padding the return value with leading 0s (zeros).
+     *                       If places is not an integer, it is truncated.
+     *                       If places is nonnumeric, HEX2BIN returns the #VALUE! error value.
+     *                       If places is negative, HEX2BIN returns the #NUM! error value
+     *
+     * @return string
      */
     public static function HEXTOBIN($x, $places = null)
     {
@@ -1486,7 +1512,7 @@ class Engineering
     }
 
     /**
-     * HEXTODEC
+     * HEXTODEC.
      *
      * Return a hex value as decimal.
      *
@@ -1494,14 +1520,16 @@ class Engineering
      *        HEX2DEC(x)
      *
      * @category Engineering Functions
-     * @param    string $x The hexadecimal number you want to convert. This number cannot
-     *                                contain more than 10 characters (40 bits). The most significant
-     *                                bit of number is the sign bit. The remaining 39 bits are magnitude
-     *                                bits. Negative numbers are represented using two's-complement
-     *                                notation.
-     *                                If number is not a valid hexadecimal number, HEX2DEC returns the
-     *                                #NUM! error value.
-     * @return    string
+     *
+     * @param string $x The hexadecimal number you want to convert. This number cannot
+     *                  contain more than 10 characters (40 bits). The most significant
+     *                  bit of number is the sign bit. The remaining 39 bits are magnitude
+     *                  bits. Negative numbers are represented using two's-complement
+     *                  notation.
+     *                  If number is not a valid hexadecimal number, HEX2DEC returns the
+     *                  #NUM! error value
+     *
+     * @return string
      */
     public static function HEXTODEC($x)
     {
@@ -1535,7 +1563,7 @@ class Engineering
     }
 
     /**
-     * HEXTOOCT
+     * HEXTOOCT.
      *
      * Return a hex value as octal.
      *
@@ -1543,27 +1571,29 @@ class Engineering
      *        HEX2OCT(x[,places])
      *
      * @category Engineering Functions
-     * @param    string $x The hexadecimal number you want to convert. Number cannot
-     *                                    contain more than 10 characters. The most significant bit of
-     *                                    number is the sign bit. The remaining 39 bits are magnitude
-     *                                    bits. Negative numbers are represented using two's-complement
-     *                                    notation.
-     *                                    If number is negative, HEX2OCT ignores places and returns a
-     *                                    10-character octal number.
-     *                                    If number is negative, it cannot be less than FFE0000000, and
-     *                                    if number is positive, it cannot be greater than 1FFFFFFF.
-     *                                    If number is not a valid hexadecimal number, HEX2OCT returns
-     *                                    the #NUM! error value.
-     *                                    If HEX2OCT requires more than places characters, it returns
-     *                                    the #NUM! error value.
-     * @param    int $places The number of characters to use. If places is omitted, HEX2OCT
-     *                                    uses the minimum number of characters necessary. Places is
-     *                                    useful for padding the return value with leading 0s (zeros).
-     *                                    If places is not an integer, it is truncated.
-     *                                    If places is nonnumeric, HEX2OCT returns the #VALUE! error
-     *                                    value.
-     *                                    If places is negative, HEX2OCT returns the #NUM! error value.
-     * @return    string
+     *
+     * @param string $x      The hexadecimal number you want to convert. Number cannot
+     *                       contain more than 10 characters. The most significant bit of
+     *                       number is the sign bit. The remaining 39 bits are magnitude
+     *                       bits. Negative numbers are represented using two's-complement
+     *                       notation.
+     *                       If number is negative, HEX2OCT ignores places and returns a
+     *                       10-character octal number.
+     *                       If number is negative, it cannot be less than FFE0000000, and
+     *                       if number is positive, it cannot be greater than 1FFFFFFF.
+     *                       If number is not a valid hexadecimal number, HEX2OCT returns
+     *                       the #NUM! error value.
+     *                       If HEX2OCT requires more than places characters, it returns
+     *                       the #NUM! error value
+     * @param int    $places The number of characters to use. If places is omitted, HEX2OCT
+     *                       uses the minimum number of characters necessary. Places is
+     *                       useful for padding the return value with leading 0s (zeros).
+     *                       If places is not an integer, it is truncated.
+     *                       If places is nonnumeric, HEX2OCT returns the #VALUE! error
+     *                       value.
+     *                       If places is negative, HEX2OCT returns the #NUM! error value
+     *
+     * @return string
      */
     public static function HEXTOOCT($x, $places = null)
     {
@@ -1587,7 +1617,7 @@ class Engineering
     }
 
     /**
-     * OCTTOBIN
+     * OCTTOBIN.
      *
      * Return an octal value as binary.
      *
@@ -1595,29 +1625,31 @@ class Engineering
      *        OCT2BIN(x[,places])
      *
      * @category Engineering Functions
-     * @param    string $x The octal number you want to convert. Number may not
-     *                                    contain more than 10 characters. The most significant
-     *                                    bit of number is the sign bit. The remaining 29 bits
-     *                                    are magnitude bits. Negative numbers are represented
-     *                                    using two's-complement notation.
-     *                                    If number is negative, OCT2BIN ignores places and returns
-     *                                    a 10-character binary number.
-     *                                    If number is negative, it cannot be less than 7777777000,
-     *                                    and if number is positive, it cannot be greater than 777.
-     *                                    If number is not a valid octal number, OCT2BIN returns
-     *                                    the #NUM! error value.
-     *                                    If OCT2BIN requires more than places characters, it
-     *                                    returns the #NUM! error value.
-     * @param    int $places The number of characters to use. If places is omitted,
-     *                                    OCT2BIN uses the minimum number of characters necessary.
-     *                                    Places is useful for padding the return value with
-     *                                    leading 0s (zeros).
-     *                                    If places is not an integer, it is truncated.
-     *                                    If places is nonnumeric, OCT2BIN returns the #VALUE!
-     *                                    error value.
-     *                                    If places is negative, OCT2BIN returns the #NUM! error
-     *                                    value.
-     * @return    string
+     *
+     * @param string $x      The octal number you want to convert. Number may not
+     *                       contain more than 10 characters. The most significant
+     *                       bit of number is the sign bit. The remaining 29 bits
+     *                       are magnitude bits. Negative numbers are represented
+     *                       using two's-complement notation.
+     *                       If number is negative, OCT2BIN ignores places and returns
+     *                       a 10-character binary number.
+     *                       If number is negative, it cannot be less than 7777777000,
+     *                       and if number is positive, it cannot be greater than 777.
+     *                       If number is not a valid octal number, OCT2BIN returns
+     *                       the #NUM! error value.
+     *                       If OCT2BIN requires more than places characters, it
+     *                       returns the #NUM! error value
+     * @param int    $places The number of characters to use. If places is omitted,
+     *                       OCT2BIN uses the minimum number of characters necessary.
+     *                       Places is useful for padding the return value with
+     *                       leading 0s (zeros).
+     *                       If places is not an integer, it is truncated.
+     *                       If places is nonnumeric, OCT2BIN returns the #VALUE!
+     *                       error value.
+     *                       If places is negative, OCT2BIN returns the #NUM! error
+     *                       value
+     *
+     * @return string
      */
     public static function OCTTOBIN($x, $places = null)
     {
@@ -1636,7 +1668,7 @@ class Engineering
     }
 
     /**
-     * OCTTODEC
+     * OCTTODEC.
      *
      * Return an octal value as decimal.
      *
@@ -1644,14 +1676,16 @@ class Engineering
      *        OCT2DEC(x)
      *
      * @category Engineering Functions
-     * @param    string $x The octal number you want to convert. Number may not contain
-     *                                more than 10 octal characters (30 bits). The most significant
-     *                                bit of number is the sign bit. The remaining 29 bits are
-     *                                magnitude bits. Negative numbers are represented using
-     *                                two's-complement notation.
-     *                                If number is not a valid octal number, OCT2DEC returns the
-     *                                #NUM! error value.
-     * @return    string
+     *
+     * @param string $x The octal number you want to convert. Number may not contain
+     *                  more than 10 octal characters (30 bits). The most significant
+     *                  bit of number is the sign bit. The remaining 29 bits are
+     *                  magnitude bits. Negative numbers are represented using
+     *                  two's-complement notation.
+     *                  If number is not a valid octal number, OCT2DEC returns the
+     *                  #NUM! error value
+     *
+     * @return string
      */
     public static function OCTTODEC($x)
     {
@@ -1680,7 +1714,7 @@ class Engineering
     }
 
     /**
-     * OCTTOHEX
+     * OCTTOHEX.
      *
      * Return an octal value as hex.
      *
@@ -1688,24 +1722,26 @@ class Engineering
      *        OCT2HEX(x[,places])
      *
      * @category Engineering Functions
-     * @param    string $x The octal number you want to convert. Number may not contain
-     *                                    more than 10 octal characters (30 bits). The most significant
-     *                                    bit of number is the sign bit. The remaining 29 bits are
-     *                                    magnitude bits. Negative numbers are represented using
-     *                                    two's-complement notation.
-     *                                    If number is negative, OCT2HEX ignores places and returns a
-     *                                    10-character hexadecimal number.
-     *                                    If number is not a valid octal number, OCT2HEX returns the
-     *                                    #NUM! error value.
-     *                                    If OCT2HEX requires more than places characters, it returns
-     *                                    the #NUM! error value.
-     * @param    int $places The number of characters to use. If places is omitted, OCT2HEX
-     *                                    uses the minimum number of characters necessary. Places is useful
-     *                                    for padding the return value with leading 0s (zeros).
-     *                                    If places is not an integer, it is truncated.
-     *                                    If places is nonnumeric, OCT2HEX returns the #VALUE! error value.
-     *                                    If places is negative, OCT2HEX returns the #NUM! error value.
-     * @return    string
+     *
+     * @param string $x      The octal number you want to convert. Number may not contain
+     *                       more than 10 octal characters (30 bits). The most significant
+     *                       bit of number is the sign bit. The remaining 29 bits are
+     *                       magnitude bits. Negative numbers are represented using
+     *                       two's-complement notation.
+     *                       If number is negative, OCT2HEX ignores places and returns a
+     *                       10-character hexadecimal number.
+     *                       If number is not a valid octal number, OCT2HEX returns the
+     *                       #NUM! error value.
+     *                       If OCT2HEX requires more than places characters, it returns
+     *                       the #NUM! error value
+     * @param int    $places The number of characters to use. If places is omitted, OCT2HEX
+     *                       uses the minimum number of characters necessary. Places is useful
+     *                       for padding the return value with leading 0s (zeros).
+     *                       If places is not an integer, it is truncated.
+     *                       If places is nonnumeric, OCT2HEX returns the #VALUE! error value.
+     *                       If places is negative, OCT2HEX returns the #NUM! error value
+     *
+     * @return string
      */
     public static function OCTTOHEX($x, $places = null)
     {
@@ -1725,7 +1761,7 @@ class Engineering
     }
 
     /**
-     * COMPLEX
+     * COMPLEX.
      *
      * Converts real and imaginary coefficients into a complex number of the form x + yi or x + yj.
      *
@@ -1733,11 +1769,13 @@ class Engineering
      *        COMPLEX(realNumber,imaginary[,places])
      *
      * @category Engineering Functions
-     * @param    float $realNumber The real coefficient of the complex number.
-     * @param    float $imaginary The imaginary coefficient of the complex number.
-     * @param    string $suffix The suffix for the imaginary component of the complex number.
-     *                                        If omitted, the suffix is assumed to be "i".
-     * @return    string
+     *
+     * @param float  $realNumber The real coefficient of the complex number
+     * @param float  $imaginary  The imaginary coefficient of the complex number
+     * @param string $suffix     The suffix for the imaginary component of the complex number.
+     *                           If omitted, the suffix is assumed to be "i"
+     *
+     * @return string
      */
     public static function COMPLEX($realNumber = 0.0, $imaginary = 0.0, $suffix = 'i')
     {
@@ -1760,29 +1798,29 @@ class Engineering
                 } elseif ($imaginary == 1.0) {
                     return (string) $suffix;
                 } elseif ($imaginary == -1.0) {
-                    return (string) '-' . $suffix;
+                    return (string) '-'.$suffix;
                 }
 
-                return (string) $imaginary . $suffix;
+                return (string) $imaginary.$suffix;
             } elseif ($imaginary == 0.0) {
                 return (string) $realNumber;
             } elseif ($imaginary == 1.0) {
-                return (string) $realNumber . '+' . $suffix;
+                return (string) $realNumber.'+'.$suffix;
             } elseif ($imaginary == -1.0) {
-                return (string) $realNumber . '-' . $suffix;
+                return (string) $realNumber.'-'.$suffix;
             }
             if ($imaginary > 0) {
-                $imaginary = (string) '+' . $imaginary;
+                $imaginary = (string) '+'.$imaginary;
             }
 
-            return (string) $realNumber . $imaginary . $suffix;
+            return (string) $realNumber.$imaginary.$suffix;
         }
 
         return Functions::VALUE();
     }
 
     /**
-     * IMAGINARY
+     * IMAGINARY.
      *
      * Returns the imaginary coefficient of a complex number in x + yi or x + yj text format.
      *
@@ -1790,9 +1828,11 @@ class Engineering
      *        IMAGINARY(complexNumber)
      *
      * @category Engineering Functions
-     * @param    string $complexNumber The complex number for which you want the imaginary
-     *                                         coefficient.
-     * @return    float
+     *
+     * @param string $complexNumber The complex number for which you want the imaginary
+     *                              coefficient
+     *
+     * @return float
      */
     public static function IMAGINARY($complexNumber)
     {
@@ -1804,7 +1844,7 @@ class Engineering
     }
 
     /**
-     * IMREAL
+     * IMREAL.
      *
      * Returns the real coefficient of a complex number in x + yi or x + yj text format.
      *
@@ -1812,8 +1852,10 @@ class Engineering
      *        IMREAL(complexNumber)
      *
      * @category Engineering Functions
-     * @param    string $complexNumber The complex number for which you want the real coefficient.
-     * @return    float
+     *
+     * @param string $complexNumber The complex number for which you want the real coefficient
+     *
+     * @return float
      */
     public static function IMREAL($complexNumber)
     {
@@ -1825,15 +1867,16 @@ class Engineering
     }
 
     /**
-     * IMABS
+     * IMABS.
      *
      * Returns the absolute value (modulus) of a complex number in x + yi or x + yj text format.
      *
      * Excel Function:
      *        IMABS(complexNumber)
      *
-     * @param    string $complexNumber The complex number for which you want the absolute value.
-     * @return    float
+     * @param string $complexNumber The complex number for which you want the absolute value
+     *
+     * @return float
      */
     public static function IMABS($complexNumber)
     {
@@ -1848,7 +1891,7 @@ class Engineering
     }
 
     /**
-     * IMARGUMENT
+     * IMARGUMENT.
      *
      * Returns the argument theta of a complex number, i.e. the angle in radians from the real
      * axis to the representation of the number in polar coordinates.
@@ -1856,8 +1899,9 @@ class Engineering
      * Excel Function:
      *        IMARGUMENT(complexNumber)
      *
-     * @param    string $complexNumber The complex number for which you want the argument theta.
-     * @return    float
+     * @param string $complexNumber The complex number for which you want the argument theta
+     *
+     * @return float
      */
     public static function IMARGUMENT($complexNumber)
     {
@@ -1881,15 +1925,16 @@ class Engineering
     }
 
     /**
-     * IMCONJUGATE
+     * IMCONJUGATE.
      *
      * Returns the complex conjugate of a complex number in x + yi or x + yj text format.
      *
      * Excel Function:
      *        IMCONJUGATE(complexNumber)
      *
-     * @param    string $complexNumber The complex number for which you want the conjugate.
-     * @return    string
+     * @param string $complexNumber The complex number for which you want the conjugate
+     *
+     * @return string
      */
     public static function IMCONJUGATE($complexNumber)
     {
@@ -1911,15 +1956,16 @@ class Engineering
     }
 
     /**
-     * IMCOS
+     * IMCOS.
      *
      * Returns the cosine of a complex number in x + yi or x + yj text format.
      *
      * Excel Function:
      *        IMCOS(complexNumber)
      *
-     * @param    string $complexNumber The complex number for which you want the cosine.
-     * @return    string|float
+     * @param string $complexNumber The complex number for which you want the cosine
+     *
+     * @return string|float
      */
     public static function IMCOS($complexNumber)
     {
@@ -1941,15 +1987,16 @@ class Engineering
     }
 
     /**
-     * IMSIN
+     * IMSIN.
      *
      * Returns the sine of a complex number in x + yi or x + yj text format.
      *
      * Excel Function:
      *        IMSIN(complexNumber)
      *
-     * @param    string $complexNumber The complex number for which you want the sine.
-     * @return    string|float
+     * @param string $complexNumber The complex number for which you want the sine
+     *
+     * @return string|float
      */
     public static function IMSIN($complexNumber)
     {
@@ -1969,15 +2016,16 @@ class Engineering
     }
 
     /**
-     * IMSQRT
+     * IMSQRT.
      *
      * Returns the square root of a complex number in x + yi or x + yj text format.
      *
      * Excel Function:
      *        IMSQRT(complexNumber)
      *
-     * @param    string $complexNumber The complex number for which you want the square root.
-     * @return    string
+     * @param string $complexNumber The complex number for which you want the square root
+     *
+     * @return string
      */
     public static function IMSQRT($complexNumber)
     {
@@ -1998,15 +2046,16 @@ class Engineering
     }
 
     /**
-     * IMLN
+     * IMLN.
      *
      * Returns the natural logarithm of a complex number in x + yi or x + yj text format.
      *
      * Excel Function:
      *        IMLN(complexNumber)
      *
-     * @param    string $complexNumber The complex number for which you want the natural logarithm.
-     * @return    string
+     * @param string $complexNumber The complex number for which you want the natural logarithm
+     *
+     * @return string
      */
     public static function IMLN($complexNumber)
     {
@@ -2029,15 +2078,16 @@ class Engineering
     }
 
     /**
-     * IMLOG10
+     * IMLOG10.
      *
      * Returns the common logarithm (base 10) of a complex number in x + yi or x + yj text format.
      *
      * Excel Function:
      *        IMLOG10(complexNumber)
      *
-     * @param    string $complexNumber The complex number for which you want the common logarithm.
-     * @return    string
+     * @param string $complexNumber The complex number for which you want the common logarithm
+     *
+     * @return string
      */
     public static function IMLOG10($complexNumber)
     {
@@ -2055,15 +2105,16 @@ class Engineering
     }
 
     /**
-     * IMLOG2
+     * IMLOG2.
      *
      * Returns the base-2 logarithm of a complex number in x + yi or x + yj text format.
      *
      * Excel Function:
      *        IMLOG2(complexNumber)
      *
-     * @param    string $complexNumber The complex number for which you want the base-2 logarithm.
-     * @return    string
+     * @param string $complexNumber The complex number for which you want the base-2 logarithm
+     *
+     * @return string
      */
     public static function IMLOG2($complexNumber)
     {
@@ -2081,15 +2132,16 @@ class Engineering
     }
 
     /**
-     * IMEXP
+     * IMEXP.
      *
      * Returns the exponential of a complex number in x + yi or x + yj text format.
      *
      * Excel Function:
      *        IMEXP(complexNumber)
      *
-     * @param    string $complexNumber The complex number for which you want the exponential.
-     * @return    string
+     * @param string $complexNumber The complex number for which you want the exponential
+     *
+     * @return string
      */
     public static function IMEXP($complexNumber)
     {
@@ -2113,16 +2165,17 @@ class Engineering
     }
 
     /**
-     * IMPOWER
+     * IMPOWER.
      *
      * Returns a complex number in x + yi or x + yj text format raised to a power.
      *
      * Excel Function:
      *        IMPOWER(complexNumber,realNumber)
      *
-     * @param    string $complexNumber The complex number you want to raise to a power.
-     * @param    float $realNumber The power to which you want to raise the complex number.
-     * @return    string
+     * @param string $complexNumber The complex number you want to raise to a power
+     * @param float  $realNumber    The power to which you want to raise the complex number
+     *
+     * @return string
      */
     public static function IMPOWER($complexNumber, $realNumber)
     {
@@ -2148,16 +2201,17 @@ class Engineering
     }
 
     /**
-     * IMDIV
+     * IMDIV.
      *
      * Returns the quotient of two complex numbers in x + yi or x + yj text format.
      *
      * Excel Function:
      *        IMDIV(complexDividend,complexDivisor)
      *
-     * @param    string $complexDividend The complex numerator or dividend.
-     * @param    string $complexDivisor The complex denominator or divisor.
-     * @return    string
+     * @param string $complexDividend The complex numerator or dividend
+     * @param string $complexDivisor  The complex denominator or divisor
+     *
+     * @return string
      */
     public static function IMDIV($complexDividend, $complexDivisor)
     {
@@ -2184,25 +2238,26 @@ class Engineering
         $i = $d2 / $d3;
 
         if ($i > 0.0) {
-            return self::cleanComplex($r . '+' . $i . $parsedComplexDivisor['suffix']);
+            return self::cleanComplex($r.'+'.$i.$parsedComplexDivisor['suffix']);
         } elseif ($i < 0.0) {
-            return self::cleanComplex($r . $i . $parsedComplexDivisor['suffix']);
+            return self::cleanComplex($r.$i.$parsedComplexDivisor['suffix']);
         } else {
             return $r;
         }
     }
 
     /**
-     * IMSUB
+     * IMSUB.
      *
      * Returns the difference of two complex numbers in x + yi or x + yj text format.
      *
      * Excel Function:
      *        IMSUB(complexNumber1,complexNumber2)
      *
-     * @param    string $complexNumber1 The complex number from which to subtract complexNumber2.
-     * @param    string $complexNumber2 The complex number to subtract from complexNumber1.
-     * @return    string
+     * @param string $complexNumber1 The complex number from which to subtract complexNumber2
+     * @param string $complexNumber2 The complex number to subtract from complexNumber1
+     *
+     * @return string
      */
     public static function IMSUB($complexNumber1, $complexNumber2)
     {
@@ -2227,15 +2282,16 @@ class Engineering
     }
 
     /**
-     * IMSUM
+     * IMSUM.
      *
      * Returns the sum of two or more complex numbers in x + yi or x + yj text format.
      *
      * Excel Function:
      *        IMSUM(complexNumber[,complexNumber[,...]])
      *
-     * @param    string $complexNumber,... Series of complex numbers to add
-     * @return    string
+     * @param string $complexNumber,... Series of complex numbers to add
+     *
+     * @return string
      */
     public static function IMSUM()
     {
@@ -2266,15 +2322,16 @@ class Engineering
     }
 
     /**
-     * IMPRODUCT
+     * IMPRODUCT.
      *
      * Returns the product of two or more complex numbers in x + yi or x + yj text format.
      *
      * Excel Function:
      *        IMPRODUCT(complexNumber[,complexNumber[,...]])
      *
-     * @param    string $complexNumber,... Series of complex numbers to multiply
-     * @return    string
+     * @param string $complexNumber,... Series of complex numbers to multiply
+     *
+     * @return string
      */
     public static function IMPRODUCT()
     {
@@ -2305,7 +2362,7 @@ class Engineering
     }
 
     /**
-     *    DELTA
+     *    DELTA.
      *
      *    Tests whether two values are equal. Returns 1 if number1 = number2; returns 0 otherwise.
      *    Use this function to filter a set of values. For example, by summing several DELTA
@@ -2315,9 +2372,10 @@ class Engineering
      *    Excel Function:
      *        DELTA(a[,b])
      *
-     * @param    float $a The first number.
-     * @param    float $b The second number. If omitted, b is assumed to be zero.
-     * @return    int
+     * @param float $a The first number
+     * @param float $b The second number. If omitted, b is assumed to be zero
+     *
+     * @return int
      */
     public static function DELTA($a, $b = 0)
     {
@@ -2328,7 +2386,7 @@ class Engineering
     }
 
     /**
-     *    GESTEP
+     *    GESTEP.
      *
      *    Excel Function:
      *        GESTEP(number[,step])
@@ -2337,10 +2395,11 @@ class Engineering
      *    Use this function to filter a set of values. For example, by summing several GESTEP
      *    functions you calculate the count of values that exceed a threshold.
      *
-     * @param    float $number The value to test against step.
-     * @param    float $step The threshold value.
-     *                                    If you omit a value for step, GESTEP uses zero.
-     * @return    int
+     * @param float $number The value to test against step
+     * @param float $step   The threshold value.
+     *                      If you omit a value for step, GESTEP uses zero
+     *
+     * @return int
      */
     public static function GESTEP($number, $step = 0)
     {
@@ -2350,9 +2409,8 @@ class Engineering
         return (int) ($number >= $step);
     }
 
-    //
     //    Private method to calculate the erf value
-    //
+
     private static $twoSqrtPi = 1.128379167095512574;
 
     public static function erfVal($x)
@@ -2379,7 +2437,7 @@ class Engineering
     }
 
     /**
-     *    ERF
+     *    ERF.
      *
      *    Returns the error function integrated between the lower and upper bound arguments.
      *
@@ -2391,10 +2449,11 @@ class Engineering
      *    Excel Function:
      *        ERF(lower[,upper])
      *
-     * @param    float $lower lower bound for integrating ERF
-     * @param    float $upper upper bound for integrating ERF.
-     *                                If omitted, ERF integrates between zero and lower_limit
-     * @return    float
+     * @param float $lower lower bound for integrating ERF
+     * @param float $upper upper bound for integrating ERF.
+     *                     If omitted, ERF integrates between zero and lower_limit
+     *
+     * @return float
      */
     public static function ERF($lower, $upper = null)
     {
@@ -2413,9 +2472,8 @@ class Engineering
         return Functions::VALUE();
     }
 
-    //
     //    Private method to calculate the erfc value
-    //
+
     private static $oneSqrtPi = 0.564189583547756287;
 
     private static function erfcVal($x)
@@ -2447,7 +2505,7 @@ class Engineering
     }
 
     /**
-     *    ERFC
+     *    ERFC.
      *
      *    Returns the complementary ERF function integrated between x and infinity
      *
@@ -2459,8 +2517,9 @@ class Engineering
      *    Excel Function:
      *        ERFC(x)
      *
-     * @param    float $x The lower bound for integrating ERFC
-     * @return    float
+     * @param float $x The lower bound for integrating ERFC
+     *
+     * @return float
      */
     public static function ERFC($x)
     {
@@ -2475,9 +2534,9 @@ class Engineering
 
     /**
      *    getConversionGroups
-     *    Returns a list of the different conversion groups for UOM conversions
+     *    Returns a list of the different conversion groups for UOM conversions.
      *
-     * @return    array
+     * @return array
      */
     public static function getConversionGroups()
     {
@@ -2491,10 +2550,11 @@ class Engineering
 
     /**
      *    getConversionGroupUnits
-     *    Returns an array of units of measure, for a specified conversion group, or for all groups
+     *    Returns an array of units of measure, for a specified conversion group, or for all groups.
      *
-     * @param    string $group The group whose units of measure you want to retrieve
-     * @return    array
+     * @param string $group The group whose units of measure you want to retrieve
+     *
+     * @return array
      */
     public static function getConversionGroupUnits($group = null)
     {
@@ -2509,10 +2569,11 @@ class Engineering
     }
 
     /**
-     *    getConversionGroupUnitDetails
+     *    getConversionGroupUnitDetails.
      *
-     * @param    string $group The group whose units of measure you want to retrieve
-     * @return    array
+     * @param string $group The group whose units of measure you want to retrieve
+     *
+     * @return array
      */
     public static function getConversionGroupUnitDetails($group = null)
     {
@@ -2531,9 +2592,9 @@ class Engineering
 
     /**
      *    getConversionMultipliers
-     *    Returns an array of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM()
+     *    Returns an array of the Multiplier prefixes that can be used with Units of Measure in CONVERTUOM().
      *
-     * @return    array of mixed
+     * @return array of mixed
      */
     public static function getConversionMultipliers()
     {
@@ -2541,7 +2602,7 @@ class Engineering
     }
 
     /**
-     *    CONVERTUOM
+     *    CONVERTUOM.
      *
      *    Converts a number from one measurement system to another.
      *    For example, CONVERT can translate a table of distances in miles to a table of distances
@@ -2550,11 +2611,11 @@ class Engineering
      *    Excel Function:
      *        CONVERT(value,fromUOM,toUOM)
      *
-     * @param    float $value The value in fromUOM to convert.
-     * @param    string $fromUOM The units for value.
-     * @param    string $toUOM The units for the result.
+     * @param float  $value   The value in fromUOM to convert
+     * @param string $fromUOM The units for value
+     * @param string $toUOM   The units for the result
      *
-     * @return    float
+     * @return float
      */
     public static function CONVERTUOM($value, $fromUOM, $toUOM)
     {

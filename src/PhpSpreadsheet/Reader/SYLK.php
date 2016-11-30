@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,42 +20,44 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class SYLK extends BaseReader implements IReader
 {
     /**
-     * Input encoding
+     * Input encoding.
      *
      * @var string
      */
     private $inputEncoding = 'ANSI';
 
     /**
-     * Sheet index to read
+     * Sheet index to read.
      *
      * @var int
      */
     private $sheetIndex = 0;
 
     /**
-     * Formats
+     * Formats.
      *
      * @var array
      */
     private $formats = [];
 
     /**
-     * Format Count
+     * Format Count.
      *
      * @var int
      */
     private $format = 0;
 
     /**
-     * Create a new SYLK Reader instance
+     * Create a new SYLK Reader instance.
      */
     public function __construct()
     {
@@ -63,10 +65,12 @@ class SYLK extends BaseReader implements IReader
     }
 
     /**
-     * Validate that the current file is a SYLK file
+     * Validate that the current file is a SYLK file.
      *
-     * @param     string         $pFilename
+     * @param string $pFilename
+     *
      * @throws Exception
+     *
      * @return bool
      */
     public function canRead($pFilename)
@@ -95,7 +99,7 @@ class SYLK extends BaseReader implements IReader
     }
 
     /**
-     * Set input encoding
+     * Set input encoding.
      *
      * @param string $pValue Input encoding
      */
@@ -107,7 +111,7 @@ class SYLK extends BaseReader implements IReader
     }
 
     /**
-     * Get input encoding
+     * Get input encoding.
      *
      * @return string
      */
@@ -117,16 +121,17 @@ class SYLK extends BaseReader implements IReader
     }
 
     /**
-     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns)
+     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
-     * @param    string     $pFilename
-     * @throws   Exception
+     * @param string $pFilename
+     *
+     * @throws Exception
      */
     public function listWorksheetInfo($pFilename)
     {
         // Open file
         if (!$this->canRead($pFilename)) {
-            throw new Exception($pFilename . ' is an Invalid Spreadsheet file.');
+            throw new Exception($pFilename.' is an Invalid Spreadsheet file.');
         }
         $this->openFile($pFilename);
         $fileHandle = $this->fileHandle;
@@ -185,11 +190,13 @@ class SYLK extends BaseReader implements IReader
     }
 
     /**
-     * Loads PhpSpreadsheet from file
+     * Loads PhpSpreadsheet from file.
      *
-     * @param     string         $pFilename
-     * @throws     Exception
-     * @return     \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @param string $pFilename
+     *
+     * @throws Exception
+     *
+     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     public function load($pFilename)
     {
@@ -201,18 +208,20 @@ class SYLK extends BaseReader implements IReader
     }
 
     /**
-     * Loads PhpSpreadsheet from file into PhpSpreadsheet instance
+     * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      *
-     * @param     string         $pFilename
-     * @param     \PhpOffice\PhpSpreadsheet\Spreadsheet    $spreadsheet
-     * @throws    Exception
-     * @return    \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @param string                                $pFilename
+     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
+     *
+     * @throws Exception
+     *
+     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     public function loadIntoExisting($pFilename, \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
     {
         // Open file
         if (!$this->canRead($pFilename)) {
-            throw new Exception($pFilename . ' is an Invalid Spreadsheet file.');
+            throw new Exception($pFilename.' is an Invalid Spreadsheet file.');
         }
         $this->openFile($pFilename);
         $fileHandle = $this->fileHandle;
@@ -283,7 +292,7 @@ class SYLK extends BaseReader implements IReader
                             break;
                     }
                 }
-                $this->formats['P' . $this->format++] = $formatArray;
+                $this->formats['P'.$this->format++] = $formatArray;
             //    Read cell value data
             } elseif ($dataType == 'C') {
                 $hasCalculatedValue = false;
@@ -302,7 +311,7 @@ class SYLK extends BaseReader implements IReader
                             $cellData = substr($rowDatum, 1);
                             break;
                         case 'E':
-                            $cellDataFormula = '=' . substr($rowDatum, 1);
+                            $cellDataFormula = '='.substr($rowDatum, 1);
                             //    Convert R1C1 style references to A1 style references (but only when not quoted)
                             $temp = explode('"', $cellDataFormula);
                             $key = false;
@@ -335,7 +344,7 @@ class SYLK extends BaseReader implements IReader
                                         if ($columnReference{0} == '[') {
                                             $columnReference = $column + trim($columnReference, '[]');
                                         }
-                                        $A1CellReference = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($columnReference - 1) . $rowReference;
+                                        $A1CellReference = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($columnReference - 1).$rowReference;
 
                                         $value = substr_replace($value, $A1CellReference, $cellReference[0][1], strlen($cellReference[0][0]));
                                     }
@@ -352,10 +361,10 @@ class SYLK extends BaseReader implements IReader
                 $cellData = \PhpOffice\PhpSpreadsheet\Calculation::unwrapResult($cellData);
 
                 // Set cell value
-                $spreadsheet->getActiveSheet()->getCell($columnLetter . $row)->setValue(($hasCalculatedValue) ? $cellDataFormula : $cellData);
+                $spreadsheet->getActiveSheet()->getCell($columnLetter.$row)->setValue(($hasCalculatedValue) ? $cellDataFormula : $cellData);
                 if ($hasCalculatedValue) {
                     $cellData = \PhpOffice\PhpSpreadsheet\Calculation::unwrapResult($cellData);
-                    $spreadsheet->getActiveSheet()->getCell($columnLetter . $row)->setCalculatedValue($cellData);
+                    $spreadsheet->getActiveSheet()->getCell($columnLetter.$row)->setCalculatedValue($cellData);
                 }
             //    Read cell formatting
             } elseif ($dataType == 'F') {
@@ -407,12 +416,12 @@ class SYLK extends BaseReader implements IReader
                 if (($formatStyle > '') && ($column > '') && ($row > '')) {
                     $columnLetter = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($column - 1);
                     if (isset($this->formats[$formatStyle])) {
-                        $spreadsheet->getActiveSheet()->getStyle($columnLetter . $row)->applyFromArray($this->formats[$formatStyle]);
+                        $spreadsheet->getActiveSheet()->getStyle($columnLetter.$row)->applyFromArray($this->formats[$formatStyle]);
                     }
                 }
                 if ((!empty($styleData)) && ($column > '') && ($row > '')) {
                     $columnLetter = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($column - 1);
-                    $spreadsheet->getActiveSheet()->getStyle($columnLetter . $row)->applyFromArray($styleData);
+                    $spreadsheet->getActiveSheet()->getStyle($columnLetter.$row)->applyFromArray($styleData);
                 }
                 if ($columnWidth > '') {
                     if ($startCol == $endCol) {
@@ -451,7 +460,7 @@ class SYLK extends BaseReader implements IReader
     }
 
     /**
-     * Get sheet index
+     * Get sheet index.
      *
      * @return int
      */
@@ -461,9 +470,10 @@ class SYLK extends BaseReader implements IReader
     }
 
     /**
-     * Set sheet index
+     * Set sheet index.
      *
-     * @param    int        $pValue        Sheet index
+     * @param int $pValue Sheet index
+     *
      * @return SYLK
      */
     public function setSheetIndex($pValue = 0)

@@ -8,7 +8,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 class Sample
 {
     /**
-     * Returns wether we run on CLI or browser
+     * Returns wether we run on CLI or browser.
+     *
      * @return bool
      */
     public function isCli()
@@ -17,7 +18,8 @@ class Sample
     }
 
     /**
-     * Return the filename currently being executed
+     * Return the filename currently being executed.
+     *
      * @return string
      */
     public function getScriptFilename()
@@ -26,7 +28,8 @@ class Sample
     }
 
     /**
-     * Wether we are executing the index page
+     * Wether we are executing the index page.
+     *
      * @return bool
      */
     public function isIndex()
@@ -35,7 +38,8 @@ class Sample
     }
 
     /**
-     * Return the page title
+     * Return the page title.
+     *
      * @return string
      */
     public function getPageTitle()
@@ -44,23 +48,25 @@ class Sample
     }
 
     /**
-     * Return the page heading
+     * Return the page heading.
+     *
      * @return string
      */
     public function getPageHeading()
     {
-        return $this->isIndex() ? '' : '<h1>' . str_replace('_', ' ', $this->getScriptFilename()) . '</h1>';
+        return $this->isIndex() ? '' : '<h1>'.str_replace('_', ' ', $this->getScriptFilename()).'</h1>';
     }
 
     /**
-     * Returns an array of all known samples
+     * Returns an array of all known samples.
+     *
      * @return string[] [$name => $path]
      */
     public function getSamples()
     {
         // Populate samples
         $files = [];
-        foreach (glob(realpath(__DIR__ . '/../../../samples') . '/*.php') as $file) {
+        foreach (glob(realpath(__DIR__.'/../../../samples').'/*.php') as $file) {
             $info = pathinfo($file);
             $name = str_replace('_', ' ', preg_replace('/(|\.php)/', '', $info['filename']));
             if (preg_match('/^\d+/', $name)) {
@@ -72,11 +78,11 @@ class Sample
     }
 
     /**
-     * Write documents
+     * Write documents.
      *
      * @param Spreadsheet $spreadsheet
-     * @param string $filename
-     * @param array $writers
+     * @param string      $filename
+     * @param array       $writers
      */
     public function write(Spreadsheet $spreadsheet, $filename, array $writers = ['Xlsx' => 'xlsx', 'Xls' => 'xls'])
     {
@@ -100,12 +106,13 @@ class Sample
     }
 
     /**
-     * Returns the temporary directory and make sure it exists
+     * Returns the temporary directory and make sure it exists.
+     *
      * @return string
      */
     private function getTemporaryFolder()
     {
-        $tempFolder = sys_get_temp_dir() . '/phpspreadsheet';
+        $tempFolder = sys_get_temp_dir().'/phpspreadsheet';
         if (!is_dir($tempFolder)) {
             mkdir($tempFolder);
         }
@@ -114,19 +121,23 @@ class Sample
     }
 
     /**
-     * Returns the filename that should be used for sample output
+     * Returns the filename that should be used for sample output.
+     *
      * @param string $filename
      * @param string $extension
+     *
      * @return string
      */
     public function getFilename($filename, $extension = 'xlsx')
     {
-        return $this->getTemporaryFolder() . '/' . str_replace('.php', '.' . $extension, basename($filename));
+        return $this->getTemporaryFolder().'/'.str_replace('.php', '.'.$extension, basename($filename));
     }
 
     /**
-     * Return a random temporary file name
+     * Return a random temporary file name.
+     *
      * @param string $extension
+     *
      * @return string
      */
     public function getTemporaryFilename($extension = 'xlsx')
@@ -134,7 +145,7 @@ class Sample
         $temporaryFilename = tempnam($this->getTemporaryFolder(), 'phpspreadsheet-');
         unlink($temporaryFilename);
 
-        return $temporaryFilename . '.' . $extension;
+        return $temporaryFilename.'.'.$extension;
     }
 
     public function log($message)
@@ -143,19 +154,20 @@ class Sample
     }
 
     /**
-     * Log ending notes
+     * Log ending notes.
      */
     public function logEndingNotes()
     {
         // Do not show execution time for index
-        $this->log('Peak memory usage: ' . (memory_get_peak_usage(true) / 1024 / 1024) . 'MB');
+        $this->log('Peak memory usage: '.(memory_get_peak_usage(true) / 1024 / 1024).'MB');
     }
 
     /**
-     * Log a line about the write operation
+     * Log a line about the write operation.
+     *
      * @param \PhpOffice\PhpSpreadsheet\Writer\IWriter $writer
-     * @param string $path
-     * @param float $callStartTime
+     * @param string                                   $path
+     * @param float                                    $callStartTime
      */
     public function logWrite(\PhpOffice\PhpSpreadsheet\Writer\IWriter $writer, $path, $callStartTime)
     {
@@ -163,22 +175,23 @@ class Sample
         $callTime = $callEndTime - $callStartTime;
         $reflection = new \ReflectionClass($writer);
         $format = $reflection->getShortName();
-        $message = "Write {$format} format to <code>{$path}</code>  in " . sprintf('%.4f', $callTime) . ' seconds';
+        $message = "Write {$format} format to <code>{$path}</code>  in ".sprintf('%.4f', $callTime).' seconds';
 
         $this->log($message);
     }
 
     /**
-     * Log a line about the read operation
+     * Log a line about the read operation.
+     *
      * @param string $format
      * @param string $path
-     * @param float $callStartTime
+     * @param float  $callStartTime
      */
     public function logRead($format, $path, $callStartTime)
     {
         $callEndTime = microtime(true);
         $callTime = $callEndTime - $callStartTime;
-        $message = "Read {$format} format from <code>{$path}</code>  in " . sprintf('%.4f', $callTime) . ' seconds';
+        $message = "Read {$format} format from <code>{$path}</code>  in ".sprintf('%.4f', $callTime).' seconds';
 
         $this->log($message);
     }

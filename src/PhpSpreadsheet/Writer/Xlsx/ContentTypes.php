@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,19 +20,23 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class ContentTypes extends WriterPart
 {
     /**
-     * Write content types to XML format
+     * Write content types to XML format.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Spreadsheet    $spreadsheet
-     * @param    bool        $includeCharts    Flag indicating if we should include drawing details for charts
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
-     * @return string                  XML Output
+     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
+     * @param bool                                  $includeCharts Flag indicating if we should include drawing details for charts
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\WriteException
+     *
+     * @return string XML Output
      */
     public function writeContentTypes(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet = null, $includeCharts = false)
     {
@@ -95,7 +99,7 @@ class ContentTypes extends WriterPart
         // Worksheets
         $sheetCount = $spreadsheet->getSheetCount();
         for ($i = 0; $i < $sheetCount; ++$i) {
-            $this->writeOverrideContentType($objWriter, '/xl/worksheets/sheet' . ($i + 1) . '.xml', 'application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml');
+            $this->writeOverrideContentType($objWriter, '/xl/worksheets/sheet'.($i + 1).'.xml', 'application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml');
         }
 
         // Shared strings
@@ -110,13 +114,13 @@ class ContentTypes extends WriterPart
 
             //    We need a drawing relationship for the worksheet if we have either drawings or charts
             if (($drawingCount > 0) || ($chartCount > 0)) {
-                $this->writeOverrideContentType($objWriter, '/xl/drawings/drawing' . ($i + 1) . '.xml', 'application/vnd.openxmlformats-officedocument.drawing+xml');
+                $this->writeOverrideContentType($objWriter, '/xl/drawings/drawing'.($i + 1).'.xml', 'application/vnd.openxmlformats-officedocument.drawing+xml');
             }
 
             //    If we have charts, then we need a chart relationship for every individual chart
             if ($chartCount > 0) {
                 for ($c = 0; $c < $chartCount; ++$c) {
-                    $this->writeOverrideContentType($objWriter, '/xl/charts/chart' . $chart++ . '.xml', 'application/vnd.openxmlformats-officedocument.drawingml.chart+xml');
+                    $this->writeOverrideContentType($objWriter, '/xl/charts/chart'.$chart++.'.xml', 'application/vnd.openxmlformats-officedocument.drawingml.chart+xml');
                 }
             }
         }
@@ -124,7 +128,7 @@ class ContentTypes extends WriterPart
         // Comments
         for ($i = 0; $i < $sheetCount; ++$i) {
             if (count($spreadsheet->getSheet($i)->getComments()) > 0) {
-                $this->writeOverrideContentType($objWriter, '/xl/comments' . ($i + 1) . '.xml', 'application/vnd.openxmlformats-officedocument.spreadsheetml.comments+xml');
+                $this->writeOverrideContentType($objWriter, '/xl/comments'.($i + 1).'.xml', 'application/vnd.openxmlformats-officedocument.spreadsheetml.comments+xml');
             }
         }
 
@@ -157,7 +161,7 @@ class ContentTypes extends WriterPart
             // we need to write "Extension" but not already write for media content
             $tabRibbonTypes = array_diff($spreadsheet->getRibbonBinObjects('types'), array_keys($aMediaContentTypes));
             foreach ($tabRibbonTypes as $aRibbonType) {
-                $mimeType = 'image/.' . $aRibbonType; //we wrote $mimeType like customUI Editor
+                $mimeType = 'image/.'.$aRibbonType; //we wrote $mimeType like customUI Editor
                 $this->writeDefaultContentType($objWriter, $aRibbonType, $mimeType);
             }
         }
@@ -181,11 +185,13 @@ class ContentTypes extends WriterPart
     }
 
     /**
-     * Get image mime type
+     * Get image mime type.
      *
-     * @param     string    $pFile    Filename
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
-     * @return     string    Mime Type
+     * @param string $pFile Filename
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\WriteException
+     *
+     * @return string Mime Type
      */
     private function getImageMimeType($pFile = '')
     {
@@ -194,17 +200,18 @@ class ContentTypes extends WriterPart
 
             return image_type_to_mime_type($image[2]);
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("File $pFile does not exist");
+            throw new \PhpOffice\PhpSpreadsheet\Writer\WriteException("File $pFile does not exist");
         }
     }
 
     /**
-     * Write Default content type
+     * Write Default content type.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter     $objWriter         XML Writer
-     * @param     string                         $pPartname         Part name
-     * @param     string                         $pContentType     Content type
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter    XML Writer
+     * @param string                                     $pPartname    Part name
+     * @param string                                     $pContentType Content type
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\WriteException
      */
     private function writeDefaultContentType(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pPartname = '', $pContentType = '')
     {
@@ -215,17 +222,18 @@ class ContentTypes extends WriterPart
             $objWriter->writeAttribute('ContentType', $pContentType);
             $objWriter->endElement();
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Invalid parameters passed.');
+            throw new \PhpOffice\PhpSpreadsheet\Writer\WriteException('Invalid parameters passed.');
         }
     }
 
     /**
-     * Write Override content type
+     * Write Override content type.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter     $objWriter         XML Writer
-     * @param     string                         $pPartname         Part name
-     * @param     string                         $pContentType     Content type
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter    XML Writer
+     * @param string                                     $pPartname    Part name
+     * @param string                                     $pContentType Content type
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\WriteException
      */
     private function writeOverrideContentType(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pPartname = '', $pContentType = '')
     {
@@ -236,7 +244,7 @@ class ContentTypes extends WriterPart
             $objWriter->writeAttribute('ContentType', $pContentType);
             $objWriter->endElement();
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Invalid parameters passed.');
+            throw new \PhpOffice\PhpSpreadsheet\Writer\WriteException('Invalid parameters passed.');
         }
     }
 }

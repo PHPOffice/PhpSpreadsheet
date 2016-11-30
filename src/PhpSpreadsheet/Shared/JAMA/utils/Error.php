@@ -1,7 +1,9 @@
 <?php
 /**
- *    Error handling
+ *    Error handling.
+ *
  *    @author Michael Bommarito
+ *
  *    @version 01292005
  */
 
@@ -20,7 +22,7 @@ Feel free to correct anything that looks amiss to you.
 
 define('POLYMORPHIC_ARGUMENT_EXCEPTION', -1);
 $error['EN'][POLYMORPHIC_ARGUMENT_EXCEPTION] = 'Invalid argument pattern for polymorphic function.';
-$error['FR'][POLYMORPHIC_ARGUMENT_EXCEPTION] = "Modèle inadmissible d'argument pour la fonction polymorphe." .
+$error['FR'][POLYMORPHIC_ARGUMENT_EXCEPTION] = "Modèle inadmissible d'argument pour la fonction polymorphe.".
 $error['DE'][POLYMORPHIC_ARGUMENT_EXCEPTION] = 'Unzulässiges Argumentmuster für polymorphe Funktion.';
 
 define('ARGUMENT_TYPE_EXCEPTION', -2);
@@ -61,7 +63,8 @@ define('ROW_LENGTH_EXCEPTION', -10);
 $error['EN'][ROW_LENGTH_EXCEPTION] = 'All rows must have the same length.';
 
 /**
- *    Custom error handler
+ *    Custom error handler.
+ *
  *    @param int $errorNumber Error number
  */
 function JAMAError($errorNumber = null)

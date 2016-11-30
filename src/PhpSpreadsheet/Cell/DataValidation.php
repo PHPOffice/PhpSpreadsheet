@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,10 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class DataValidation
@@ -52,105 +54,105 @@ class DataValidation
     const OPERATOR_NOTEQUAL = 'notEqual';
 
     /**
-     * Formula 1
+     * Formula 1.
      *
      * @var string
      */
     private $formula1 = '';
 
     /**
-     * Formula 2
+     * Formula 2.
      *
      * @var string
      */
     private $formula2 = '';
 
     /**
-     * Type
+     * Type.
      *
      * @var string
      */
     private $type = self::TYPE_NONE;
 
     /**
-     * Error style
+     * Error style.
      *
      * @var string
      */
     private $errorStyle = self::STYLE_STOP;
 
     /**
-     * Operator
+     * Operator.
      *
      * @var string
      */
     private $operator = '';
 
     /**
-     * Allow Blank
+     * Allow Blank.
      *
      * @var bool
      */
     private $allowBlank = false;
 
     /**
-     * Show DropDown
+     * Show DropDown.
      *
      * @var bool
      */
     private $showDropDown = false;
 
     /**
-     * Show InputMessage
+     * Show InputMessage.
      *
      * @var bool
      */
     private $showInputMessage = false;
 
     /**
-     * Show ErrorMessage
+     * Show ErrorMessage.
      *
      * @var bool
      */
     private $showErrorMessage = false;
 
     /**
-     * Error title
+     * Error title.
      *
      * @var string
      */
     private $errorTitle = '';
 
     /**
-     * Error
+     * Error.
      *
      * @var string
      */
     private $error = '';
 
     /**
-     * Prompt title
+     * Prompt title.
      *
      * @var string
      */
     private $promptTitle = '';
 
     /**
-     * Prompt
+     * Prompt.
      *
      * @var string
      */
     private $prompt = '';
 
     /**
-     * Create a new DataValidation
+     * Create a new DataValidation.
      */
     public function __construct()
     {
     }
 
     /**
-     * Get Formula 1
+     * Get Formula 1.
      *
      * @return string
      */
@@ -160,9 +162,10 @@ class DataValidation
     }
 
     /**
-     * Set Formula 1
+     * Set Formula 1.
      *
-     * @param  string    $value
+     * @param string $value
+     *
      * @return DataValidation
      */
     public function setFormula1($value = '')
@@ -173,7 +176,7 @@ class DataValidation
     }
 
     /**
-     * Get Formula 2
+     * Get Formula 2.
      *
      * @return string
      */
@@ -183,9 +186,10 @@ class DataValidation
     }
 
     /**
-     * Set Formula 2
+     * Set Formula 2.
      *
-     * @param  string    $value
+     * @param string $value
+     *
      * @return DataValidation
      */
     public function setFormula2($value = '')
@@ -196,7 +200,7 @@ class DataValidation
     }
 
     /**
-     * Get Type
+     * Get Type.
      *
      * @return string
      */
@@ -206,9 +210,10 @@ class DataValidation
     }
 
     /**
-     * Set Type
+     * Set Type.
      *
-     * @param  string    $value
+     * @param string $value
+     *
      * @return DataValidation
      */
     public function setType($value = self::TYPE_NONE)
@@ -219,7 +224,7 @@ class DataValidation
     }
 
     /**
-     * Get Error style
+     * Get Error style.
      *
      * @return string
      */
@@ -229,9 +234,10 @@ class DataValidation
     }
 
     /**
-     * Set Error style
+     * Set Error style.
      *
-     * @param  string    $value
+     * @param string $value
+     *
      * @return DataValidation
      */
     public function setErrorStyle($value = self::STYLE_STOP)
@@ -242,7 +248,7 @@ class DataValidation
     }
 
     /**
-     * Get Operator
+     * Get Operator.
      *
      * @return string
      */
@@ -252,9 +258,10 @@ class DataValidation
     }
 
     /**
-     * Set Operator
+     * Set Operator.
      *
-     * @param  string    $value
+     * @param string $value
+     *
      * @return DataValidation
      */
     public function setOperator($value = '')
@@ -265,7 +272,7 @@ class DataValidation
     }
 
     /**
-     * Get Allow Blank
+     * Get Allow Blank.
      *
      * @return bool
      */
@@ -275,9 +282,10 @@ class DataValidation
     }
 
     /**
-     * Set Allow Blank
+     * Set Allow Blank.
      *
-     * @param  bool    $value
+     * @param bool $value
+     *
      * @return DataValidation
      */
     public function setAllowBlank($value = false)
@@ -288,7 +296,7 @@ class DataValidation
     }
 
     /**
-     * Get Show DropDown
+     * Get Show DropDown.
      *
      * @return bool
      */
@@ -298,9 +306,10 @@ class DataValidation
     }
 
     /**
-     * Set Show DropDown
+     * Set Show DropDown.
      *
-     * @param  bool    $value
+     * @param bool $value
+     *
      * @return DataValidation
      */
     public function setShowDropDown($value = false)
@@ -311,7 +320,7 @@ class DataValidation
     }
 
     /**
-     * Get Show InputMessage
+     * Get Show InputMessage.
      *
      * @return bool
      */
@@ -321,9 +330,10 @@ class DataValidation
     }
 
     /**
-     * Set Show InputMessage
+     * Set Show InputMessage.
      *
-     * @param  bool    $value
+     * @param bool $value
+     *
      * @return DataValidation
      */
     public function setShowInputMessage($value = false)
@@ -334,7 +344,7 @@ class DataValidation
     }
 
     /**
-     * Get Show ErrorMessage
+     * Get Show ErrorMessage.
      *
      * @return bool
      */
@@ -344,9 +354,10 @@ class DataValidation
     }
 
     /**
-     * Set Show ErrorMessage
+     * Set Show ErrorMessage.
      *
-     * @param  bool    $value
+     * @param bool $value
+     *
      * @return DataValidation
      */
     public function setShowErrorMessage($value = false)
@@ -357,7 +368,7 @@ class DataValidation
     }
 
     /**
-     * Get Error title
+     * Get Error title.
      *
      * @return string
      */
@@ -367,9 +378,10 @@ class DataValidation
     }
 
     /**
-     * Set Error title
+     * Set Error title.
      *
-     * @param  string    $value
+     * @param string $value
+     *
      * @return DataValidation
      */
     public function setErrorTitle($value = '')
@@ -380,7 +392,7 @@ class DataValidation
     }
 
     /**
-     * Get Error
+     * Get Error.
      *
      * @return string
      */
@@ -390,9 +402,10 @@ class DataValidation
     }
 
     /**
-     * Set Error
+     * Set Error.
      *
-     * @param  string    $value
+     * @param string $value
+     *
      * @return DataValidation
      */
     public function setError($value = '')
@@ -403,7 +416,7 @@ class DataValidation
     }
 
     /**
-     * Get Prompt title
+     * Get Prompt title.
      *
      * @return string
      */
@@ -413,9 +426,10 @@ class DataValidation
     }
 
     /**
-     * Set Prompt title
+     * Set Prompt title.
      *
-     * @param  string    $value
+     * @param string $value
+     *
      * @return DataValidation
      */
     public function setPromptTitle($value = '')
@@ -426,7 +440,7 @@ class DataValidation
     }
 
     /**
-     * Get Prompt
+     * Get Prompt.
      *
      * @return string
      */
@@ -436,9 +450,10 @@ class DataValidation
     }
 
     /**
-     * Set Prompt
+     * Set Prompt.
      *
-     * @param  string    $value
+     * @param string $value
+     *
      * @return DataValidation
      */
     public function setPrompt($value = '')
@@ -449,26 +464,26 @@ class DataValidation
     }
 
     /**
-     * Get hash code
+     * Get hash code.
      *
-     * @return string    Hash code
+     * @return string Hash code
      */
     public function getHashCode()
     {
         return md5(
-            $this->formula1 .
-            $this->formula2 .
-            $this->type = self::TYPE_NONE .
-            $this->errorStyle = self::STYLE_STOP .
-            $this->operator .
-            ($this->allowBlank ? 't' : 'f') .
-            ($this->showDropDown ? 't' : 'f') .
-            ($this->showInputMessage ? 't' : 'f') .
-            ($this->showErrorMessage ? 't' : 'f') .
-            $this->errorTitle .
-            $this->error .
-            $this->promptTitle .
-            $this->prompt .
+            $this->formula1.
+            $this->formula2.
+            $this->type = self::TYPE_NONE.
+            $this->errorStyle = self::STYLE_STOP.
+            $this->operator.
+            ($this->allowBlank ? 't' : 'f').
+            ($this->showDropDown ? 't' : 'f').
+            ($this->showInputMessage ? 't' : 'f').
+            ($this->showErrorMessage ? 't' : 'f').
+            $this->errorTitle.
+            $this->error.
+            $this->promptTitle.
+            $this->prompt.
             __CLASS__
         );
     }

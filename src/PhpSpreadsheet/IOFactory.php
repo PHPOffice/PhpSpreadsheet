@@ -2,8 +2,13 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
+use PhpOffice\PhpSpreadsheet\Reader\IReader;
+use PhpOffice\PhpSpreadsheet\Writer\WriteException;
+use PhpOffice\PhpSpreadsheet\Writer\IWriter;
+
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,16 +25,18 @@ namespace PhpOffice\PhpSpreadsheet;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class IOFactory
 {
     /**
-     * Search locations
+     * Search locations.
      *
-     * @var    array
+     * @var array
      * @static
      */
     private static $searchLocations = [
@@ -38,9 +45,9 @@ class IOFactory
     ];
 
     /**
-     * Autoresolve classes
+     * Autoresolve classes.
      *
-     * @var    array
+     * @var array
      * @static
      */
     private static $autoResolveClasses = [
@@ -55,17 +62,18 @@ class IOFactory
     ];
 
     /**
-     *    Private constructor for IOFactory
+     *    Private constructor for IOFactory.
      */
     private function __construct()
     {
     }
 
     /**
-     * Get search locations
+     * Get search locations.
      *
      * @static
-     * @return    array
+     *
+     * @return array
      */
     public static function getSearchLocations()
     {
@@ -73,28 +81,31 @@ class IOFactory
     }
 
     /**
-     * Set search locations
+     * Set search locations.
      *
      * @static
-     * @param    array $value
-     * @throws    Reader\Exception
+     *
+     * @param array $value
+     *
+     * @throws ReaderException
      */
     public static function setSearchLocations($value)
     {
         if (is_array($value)) {
             self::$searchLocations = $value;
         } else {
-            throw new Reader\Exception('Invalid parameter passed.');
+            throw new ReaderException('Invalid parameter passed.');
         }
     }
 
     /**
-     * Add search location
+     * Add search location.
      *
      * @static
-     * @param    string $type        Example: IWriter
-     * @param    string $location    Example: PhpSpreadsheet/Writer/{0}.php
-     * @param    string $classname     Example: Writer\{0}
+     *
+     * @param string $type      Example: IWriter
+     * @param string $location  Example: PhpSpreadsheet/Writer/{0}.php
+     * @param string $classname Example: Writer\{0}
      */
     public static function addSearchLocation($type = '', $location = '', $classname = '')
     {
@@ -102,13 +113,16 @@ class IOFactory
     }
 
     /**
-     * Create Writer\IWriter
+     * Create Writer\IWriter.
      *
      * @static
-     * @param    Spreadsheet $spreadsheet
-     * @param    string  $writerType    Example: Xlsx
-     * @throws    Writer\Exception
-     * @return    Writer\IWriter
+     *
+     * @param Spreadsheet $spreadsheet
+     * @param string      $writerType  Example: Xlsx
+     *
+     * @throws WriteException
+     *
+     * @return IWriter
      */
     public static function createWriter(Spreadsheet $spreadsheet, $writerType = '')
     {
@@ -128,16 +142,19 @@ class IOFactory
         }
 
         // Nothing found...
-        throw new Writer\Exception("No $searchType found for type $writerType");
+        throw new WriteException("No $searchType found for type $writerType");
     }
 
     /**
-     * Create Reader\IReader
+     * Create Reader\IReader.
      *
      * @static
-     * @param    string $readerType    Example: Xlsx
-     * @throws    Reader\Exception
-     * @return    Reader\IReader
+     *
+     * @param string $readerType Example: Xlsx
+     *
+     * @throws ReaderException
+     *
+     * @return IReader
      */
     public static function createReader($readerType = '')
     {
@@ -157,16 +174,19 @@ class IOFactory
         }
 
         // Nothing found...
-        throw new Reader\Exception("No $searchType found for type $readerType");
+        throw new ReaderException("No $searchType found for type $readerType");
     }
 
     /**
-     * Loads Spreadsheet from file using automatic Reader\IReader resolution
+     * Loads Spreadsheet from file using automatic Reader\IReader resolution.
      *
      * @static
-     * @param     string         $pFilename        The name of the spreadsheet file
-     * @throws    Reader\Exception
-     * @return    Spreadsheet
+     *
+     * @param string $pFilename The name of the spreadsheet file
+     *
+     * @throws ReaderException
+     *
+     * @return Spreadsheet
      */
     public static function load($pFilename)
     {
@@ -176,12 +196,15 @@ class IOFactory
     }
 
     /**
-     * Identify file type using automatic Reader\IReader resolution
+     * Identify file type using automatic Reader\IReader resolution.
      *
      * @static
-     * @param     string         $pFilename        The name of the spreadsheet file to identify
-     * @throws    Reader\Exception
-     * @return    string
+     *
+     * @param string $pFilename The name of the spreadsheet file to identify
+     *
+     * @throws ReaderException
+     *
+     * @return string
      */
     public static function identify($pFilename)
     {
@@ -194,12 +217,15 @@ class IOFactory
     }
 
     /**
-     * Create Reader\IReader for file using automatic Reader\IReader resolution
+     * Create Reader\IReader for file using automatic Reader\IReader resolution.
      *
      * @static
-     * @param     string         $pFilename        The name of the spreadsheet file
-     * @throws    Reader\Exception
-     * @return    Reader\IReader
+     *
+     * @param string $pFilename The name of the spreadsheet file
+     *
+     * @throws ReaderException
+     *
+     * @return IReader
      */
     public static function createReaderForFile($pFilename)
     {
@@ -266,6 +292,6 @@ class IOFactory
             }
         }
 
-        throw new Reader\Exception('Unable to identify a reader for this file');
+        throw new ReaderException('Unable to identify a reader for this file');
     }
 }

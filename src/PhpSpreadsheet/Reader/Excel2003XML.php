@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,28 +22,30 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class Excel2003XML extends BaseReader implements IReader
 {
     /**
-     * Formats
+     * Formats.
      *
      * @var array
      */
     protected $styles = [];
 
     /**
-     * Character set used in the file
+     * Character set used in the file.
      *
      * @var string
      */
     protected $charSet = 'UTF-8';
 
     /**
-     * Create a new Excel2003XML Reader instance
+     * Create a new Excel2003XML Reader instance.
      */
     public function __construct()
     {
@@ -53,9 +55,11 @@ class Excel2003XML extends BaseReader implements IReader
     /**
      * Can the current IReader read the file?
      *
-     * @param     string         $pFilename
+     * @param string $pFilename
+     *
      * @throws Exception
-     * @return     bool
+     *
+     * @return bool
      */
     public function canRead($pFilename)
     {
@@ -68,7 +72,6 @@ class Excel2003XML extends BaseReader implements IReader
         //    XML data type            xmlns:dt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
         //    MS-persist recordset    xmlns:rs="urn:schemas-microsoft-com:rowset"
         //    Rowset                    xmlns:z="#RowsetSchema"
-        //
 
         $signature = [
                 '<?xml version="1.0"',
@@ -102,19 +105,20 @@ class Excel2003XML extends BaseReader implements IReader
     }
 
     /**
-     * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object
+     * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object.
      *
-     * @param     string         $pFilename
-     * @throws     Exception
+     * @param string $pFilename
+     *
+     * @throws Exception
      */
     public function listWorksheetNames($pFilename)
     {
         // Check if file exists
         if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
+            throw new Exception('Could not open '.$pFilename.' for reading! File does not exist.');
         }
         if (!$this->canRead($pFilename)) {
-            throw new Exception($pFilename . ' is an Invalid Spreadsheet file.');
+            throw new Exception($pFilename.' is an Invalid Spreadsheet file.');
         }
 
         $worksheetNames = [];
@@ -136,16 +140,17 @@ class Excel2003XML extends BaseReader implements IReader
     }
 
     /**
-     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns)
+     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
-     * @param   string     $pFilename
-     * @throws   Exception
+     * @param string $pFilename
+     *
+     * @throws Exception
      */
     public function listWorksheetInfo($pFilename)
     {
         // Check if file exists
         if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
+            throw new Exception('Could not open '.$pFilename.' for reading! File does not exist.');
         }
 
         $worksheetInfo = [];
@@ -210,11 +215,13 @@ class Excel2003XML extends BaseReader implements IReader
     }
 
     /**
-     * Loads Spreadsheet from file
+     * Loads Spreadsheet from file.
      *
-     * @param     string         $pFilename
-     * @throws     Exception
-     * @return     \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @param string $pFilename
+     *
+     * @throws Exception
+     *
+     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     public function load($pFilename)
     {
@@ -241,8 +248,10 @@ class Excel2003XML extends BaseReader implements IReader
     }
 
     /**
-     * pixel units to excel width units(units of 1/256th of a character width)
+     * pixel units to excel width units(units of 1/256th of a character width).
+     *
      * @param pxs
+     *
      * @return
      */
     protected static function pixel2WidthUnits($pxs)
@@ -256,8 +265,10 @@ class Excel2003XML extends BaseReader implements IReader
     }
 
     /**
-     * excel width units(units of 1/256th of a character width) to pixel units
+     * excel width units(units of 1/256th of a character width) to pixel units.
+     *
      * @param widthUnits
+     *
      * @return
      */
     protected static function widthUnits2Pixel($widthUnits)
@@ -275,12 +286,14 @@ class Excel2003XML extends BaseReader implements IReader
     }
 
     /**
-     * Loads from file into Spreadsheet instance
+     * Loads from file into Spreadsheet instance.
      *
-     * @param     string         $pFilename
-     * @param     \PhpOffice\PhpSpreadsheet\Spreadsheet    $spreadsheet
-     * @throws    Exception
-     * @return    \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @param string                                $pFilename
+     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
+     *
+     * @throws Exception
+     *
+     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     public function loadIntoExisting($pFilename, \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
     {
@@ -314,11 +327,11 @@ class Excel2003XML extends BaseReader implements IReader
 
         // Check if file exists
         if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
+            throw new Exception('Could not open '.$pFilename.' for reading! File does not exist.');
         }
 
         if (!$this->canRead($pFilename)) {
-            throw new Exception($pFilename . ' is an Invalid Spreadsheet file.');
+            throw new Exception($pFilename.' is an Invalid Spreadsheet file.');
         }
 
         $xml = simplexml_load_string(
@@ -556,7 +569,7 @@ class Excel2003XML extends BaseReader implements IReader
                     $rowHasData = false;
                     $row_ss = $rowData->attributes($namespaces['ss']);
                     if (isset($row_ss['Index'])) {
-                        $rowID = (integer) $row_ss['Index'];
+                        $rowID = (int) $row_ss['Index'];
                     }
 
                     $columnID = 'A';
@@ -565,7 +578,7 @@ class Excel2003XML extends BaseReader implements IReader
                         if (isset($cell_ss['Index'])) {
                             $columnID = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($cell_ss['Index'] - 1);
                         }
-                        $cellRange = $columnID . $rowID;
+                        $cellRange = $columnID.$rowID;
 
                         if ($this->getReadFilter() !== null) {
                             if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
@@ -583,7 +596,7 @@ class Excel2003XML extends BaseReader implements IReader
                             if (isset($cell_ss['MergeDown'])) {
                                 $rowTo = $rowTo + $cell_ss['MergeDown'];
                             }
-                            $cellRange .= ':' . $columnTo . $rowTo;
+                            $cellRange .= ':'.$columnTo.$rowTo;
                             $spreadsheet->getActiveSheet()->mergeCells($cellRange);
                         }
 
@@ -621,7 +634,7 @@ class Excel2003XML extends BaseReader implements IReader
                                         $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
                                         $cellValue = (float) $cellValue;
                                         if (floor($cellValue) == $cellValue) {
-                                            $cellValue = (integer) $cellValue;
+                                            $cellValue = (int) $cellValue;
                                         }
                                         break;
                                     case 'Boolean':
@@ -684,7 +697,7 @@ class Excel2003XML extends BaseReader implements IReader
                                                 if ($columnReference{0} == '[') {
                                                     $columnReference = $columnNumber + trim($columnReference, '[]');
                                                 }
-                                                $A1CellReference = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($columnReference - 1) . $rowReference;
+                                                $A1CellReference = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($columnReference - 1).$rowReference;
                                                 $value = substr_replace($value, $A1CellReference, $cellReference[0][1], strlen($cellReference[0][0]));
                                             }
                                         }
@@ -695,9 +708,9 @@ class Excel2003XML extends BaseReader implements IReader
                                 $cellDataFormula = implode('"', $temp);
                             }
 
-                            $spreadsheet->getActiveSheet()->getCell($columnID . $rowID)->setValueExplicit((($hasCalculatedValue) ? $cellDataFormula : $cellValue), $type);
+                            $spreadsheet->getActiveSheet()->getCell($columnID.$rowID)->setValueExplicit((($hasCalculatedValue) ? $cellDataFormula : $cellValue), $type);
                             if ($hasCalculatedValue) {
-                                $spreadsheet->getActiveSheet()->getCell($columnID . $rowID)->setCalculatedValue($cellValue);
+                                $spreadsheet->getActiveSheet()->getCell($columnID.$rowID)->setCalculatedValue($cellValue);
                             }
                             $cellIsSet = $rowHasData = true;
                         }
@@ -710,14 +723,14 @@ class Excel2003XML extends BaseReader implements IReader
                             }
                             $node = $cell->Comment->Data->asXML();
                             $annotation = strip_tags($node);
-                            $spreadsheet->getActiveSheet()->getComment($columnID . $rowID)->setAuthor(self::convertStringEncoding($author, $this->charSet))->setText($this->parseRichText($annotation));
+                            $spreadsheet->getActiveSheet()->getComment($columnID.$rowID)->setAuthor(self::convertStringEncoding($author, $this->charSet))->setText($this->parseRichText($annotation));
                         }
 
                         if (($cellIsSet) && (isset($cell_ss['StyleID']))) {
                             $style = (string) $cell_ss['StyleID'];
                             if ((isset($this->styles[$style])) && (!empty($this->styles[$style]))) {
-                                if (!$spreadsheet->getActiveSheet()->cellExists($columnID . $rowID)) {
-                                    $spreadsheet->getActiveSheet()->getCell($columnID . $rowID)->setValue(null);
+                                if (!$spreadsheet->getActiveSheet()->cellExists($columnID.$rowID)) {
+                                    $spreadsheet->getActiveSheet()->getCell($columnID.$rowID)->setValue(null);
                                 }
                                 $spreadsheet->getActiveSheet()->getStyle($cellRange)->applyFromArray($this->styles[$style]);
                             }

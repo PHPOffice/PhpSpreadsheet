@@ -5,7 +5,8 @@ namespace PhpOffice\PhpSpreadsheet\Helper;
 class Migrator
 {
     /**
-     * Return the ordered mapping from old PHPExcel class names to new PhpSpreadsheet one
+     * Return the ordered mapping from old PHPExcel class names to new PhpSpreadsheet one.
+     *
      * @return string[]
      */
     public function getMapping()
@@ -231,7 +232,8 @@ class Migrator
     }
 
     /**
-     * Search in all files in given directory
+     * Search in all files in given directory.
+     *
      * @param string $path
      */
     private function recursiveReplace($path)
@@ -247,20 +249,20 @@ class Migrator
         $to = array_values($this->getMapping());
 
         foreach ($patterns as $pattern) {
-            foreach (glob($path . $pattern) as $file) {
+            foreach (glob($path.$pattern) as $file) {
                 $original = file_get_contents($file);
                 $converted = str_replace($from, $to, $original);
 
                 if ($original !== $converted) {
-                    echo $file . " converted\n";
+                    echo $file." converted\n";
                     file_put_contents($file, $converted);
                 }
             }
         }
 
         // Do the recursion in subdirectory
-        foreach (glob($path . '/*', GLOB_ONLYDIR) as $subpath) {
-            if (strpos($subpath, $path . '/') === 0) {
+        foreach (glob($path.'/*', GLOB_ONLYDIR) as $subpath) {
+            if (strpos($subpath, $path.'/') === 0) {
                 $this->recursiveReplace($subpath);
             }
         }
@@ -269,8 +271,8 @@ class Migrator
     public function migrate()
     {
         $path = realpath(getcwd());
-        echo 'This will search and replace recursively in ' . $path . PHP_EOL;
-        echo 'You MUST backup your files first, or you risk losing data.' . PHP_EOL;
+        echo 'This will search and replace recursively in '.$path.PHP_EOL;
+        echo 'You MUST backup your files first, or you risk losing data.'.PHP_EOL;
         echo 'Are you sure ? (y/n)';
 
         $confirm = fread(STDIN, 1);

@@ -2,6 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\IComparable;
+use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Writer\Ods\Cell\Comment;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
@@ -78,7 +84,7 @@ class Comment implements IComparable
     /**
      * Comment fill color
      *
-     * @var Style\Color
+     * @var Color
      */
     private $fillColor;
 
@@ -99,8 +105,8 @@ class Comment implements IComparable
         // Initialise variables
         $this->author = 'Author';
         $this->text = new RichText();
-        $this->fillColor = new Style\Color('FFFFFFE1');
-        $this->alignment = Style\Alignment::HORIZONTAL_GENERAL;
+        $this->fillColor = new Color('FFFFFFE1');
+        $this->alignment = Alignment::HORIZONTAL_GENERAL;
     }
 
     /**
@@ -267,7 +273,7 @@ class Comment implements IComparable
     /**
      * Get fill color
      *
-     * @return Style\Color
+     * @return Color
      */
     public function getFillColor()
     {
@@ -280,7 +286,7 @@ class Comment implements IComparable
      * @param string $pValue
      * @return Comment
      */
-    public function setAlignment($pValue = Style\Alignment::HORIZONTAL_GENERAL)
+    public function setAlignment($pValue = Alignment::HORIZONTAL_GENERAL)
     {
         $this->alignment = $pValue;
 

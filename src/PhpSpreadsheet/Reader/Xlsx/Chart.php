@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,16 +20,18 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category    PhpSpreadsheet
+ *
  * @copyright   Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version     ##VERSION##, ##DATE##
  */
 class Chart
 {
     /**
      * @param \SimpleXMLElement $component
-     * @param string $name
-     * @param string $format
+     * @param string            $name
+     * @param string            $format
      */
     private static function getAttribute(\SimpleXMLElement $component, $name, $format)
     {
@@ -38,9 +40,9 @@ class Chart
             if ($format == 'string') {
                 return (string) $attributes[$name];
             } elseif ($format == 'integer') {
-                return (integer) $attributes[$name];
+                return (int) $attributes[$name];
             } elseif ($format == 'boolean') {
-                return (boolean) ($attributes[$name] === '0' || $attributes[$name] !== 'true') ? false : true;
+                return (bool) ($attributes[$name] === '0' || $attributes[$name] !== 'true') ? false : true;
             } else {
                 return (float) $attributes[$name];
             }
@@ -60,7 +62,7 @@ class Chart
 
     /**
      * @param \SimpleXMLElement $chartElements
-     * @param string $chartName
+     * @param string            $chartName
      */
     public static function readChart(\SimpleXMLElement $chartElements, $chartName)
     {

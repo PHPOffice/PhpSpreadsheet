@@ -2,6 +2,16 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\Chart\Axis;
+use PhpOffice\PhpSpreadsheet\Chart\Exception;
+use PhpOffice\PhpSpreadsheet\Chart\GridLines;
+use PhpOffice\PhpSpreadsheet\Chart\Legend;
+use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
+use PhpOffice\PhpSpreadsheet\Chart\Title;
+use PhpOffice\PhpSpreadsheet\Writer\Ods\Settings;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Chart;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
@@ -43,35 +53,35 @@ class Chart
     /**
      * Chart Title
      *
-     * @var Chart\Title
+     * @var Title
      */
     private $title;
 
     /**
      * Chart Legend
      *
-     * @var Chart\Legend
+     * @var Legend
      */
     private $legend;
 
     /**
      * X-Axis Label
      *
-     * @var Chart\Title
+     * @var Title
      */
     private $xAxisLabel;
 
     /**
      * Y-Axis Label
      *
-     * @var Chart\Title
+     * @var Title
      */
     private $yAxisLabel;
 
     /**
      * Chart Plot Area
      *
-     * @var Chart\PlotArea
+     * @var PlotArea
      */
     private $plotArea;
 
@@ -92,28 +102,28 @@ class Chart
     /**
      * Chart Asix Y as
      *
-     * @var Chart\Axis
+     * @var Axis
      */
     private $yAxis;
 
     /**
      * Chart Asix X as
      *
-     * @var Chart\Axis
+     * @var Axis
      */
     private $xAxis;
 
     /**
      * Chart Major Gridlines as
      *
-     * @var Chart\GridLines
+     * @var GridLines
      */
     private $majorGridlines;
 
     /**
      * Chart Minor Gridlines as
      *
-     * @var Chart\GridLines
+     * @var GridLines
      */
     private $minorGridlines;
 
@@ -162,7 +172,7 @@ class Chart
     /**
      * Create a new Chart
      */
-    public function __construct($name, Chart\Title $title = null, Chart\Legend $legend = null, Chart\PlotArea $plotArea = null, $plotVisibleOnly = true, $displayBlanksAs = '0', Chart\Title $xAxisLabel = null, Chart\Title $yAxisLabel = null, Chart\Axis $xAxis = null, Chart\Axis $yAxis = null, Chart\GridLines $majorGridlines = null, Chart\GridLines $minorGridlines = null)
+    public function __construct($name, Title $title = null, Legend $legend = null, PlotArea $plotArea = null, $plotVisibleOnly = true, $displayBlanksAs = '0', Title $xAxisLabel = null, Title $yAxisLabel = null, Axis $xAxis = null, Axis $yAxis = null, GridLines $majorGridlines = null, GridLines $minorGridlines = null)
     {
         $this->name = $name;
         $this->title = $title;
@@ -202,7 +212,7 @@ class Chart
      * Set Worksheet
      *
      * @param    Worksheet    $pValue
-     * @throws   Chart\Exception
+     * @throws   Exception
      * @return   Chart
      */
     public function setWorksheet(Worksheet $pValue = null)
@@ -215,7 +225,7 @@ class Chart
     /**
      * Get Title
      *
-     * @return Chart\Title
+     * @return Title
      */
     public function getTitle()
     {
@@ -225,10 +235,10 @@ class Chart
     /**
      * Set Title
      *
-     * @param    Chart\Title $title
+     * @param    Title $title
      * @return   Chart
      */
-    public function setTitle(Chart\Title $title)
+    public function setTitle(Title $title)
     {
         $this->title = $title;
 
@@ -238,7 +248,7 @@ class Chart
     /**
      * Get Legend
      *
-     * @return Chart\Legend
+     * @return Legend
      */
     public function getLegend()
     {
@@ -248,10 +258,10 @@ class Chart
     /**
      * Set Legend
      *
-     * @param    Chart\Legend $legend
+     * @param    Legend $legend
      * @return   Chart
      */
-    public function setLegend(Chart\Legend $legend)
+    public function setLegend(Legend $legend)
     {
         $this->legend = $legend;
 
@@ -261,7 +271,7 @@ class Chart
     /**
      * Get X-Axis Label
      *
-     * @return Chart\Title
+     * @return Title
      */
     public function getXAxisLabel()
     {
@@ -271,10 +281,10 @@ class Chart
     /**
      * Set X-Axis Label
      *
-     * @param    Chart\Title $label
+     * @param    Title $label
      * @return   Chart
      */
-    public function setXAxisLabel(Chart\Title $label)
+    public function setXAxisLabel(Title $label)
     {
         $this->xAxisLabel = $label;
 
@@ -284,7 +294,7 @@ class Chart
     /**
      * Get Y-Axis Label
      *
-     * @return Chart\Title
+     * @return Title
      */
     public function getYAxisLabel()
     {
@@ -294,10 +304,10 @@ class Chart
     /**
      * Set Y-Axis Label
      *
-     * @param    Chart\Title $label
+     * @param    Title $label
      * @return   Chart
      */
-    public function setYAxisLabel(Chart\Title $label)
+    public function setYAxisLabel(Title $label)
     {
         $this->yAxisLabel = $label;
 
@@ -307,7 +317,7 @@ class Chart
     /**
      * Get Plot Area
      *
-     * @return Chart\PlotArea
+     * @return PlotArea
      */
     public function getPlotArea()
     {
@@ -361,7 +371,7 @@ class Chart
     /**
      * Get yAxis
      *
-     * @return Chart\Axis
+     * @return Axis
      */
     public function getChartAxisY()
     {
@@ -369,13 +379,13 @@ class Chart
             return $this->yAxis;
         }
 
-        return new Chart\Axis();
+        return new Axis();
     }
 
     /**
      * Get xAxis
      *
-     * @return Chart\Axis
+     * @return Axis
      */
     public function getChartAxisX()
     {
@@ -383,13 +393,13 @@ class Chart
             return $this->xAxis;
         }
 
-        return new Chart\Axis();
+        return new Axis();
     }
 
     /**
      * Get Major Gridlines
      *
-     * @return Chart\GridLines
+     * @return GridLines
      */
     public function getMajorGridlines()
     {
@@ -397,13 +407,13 @@ class Chart
             return $this->majorGridlines;
         }
 
-        return new Chart\GridLines();
+        return new GridLines();
     }
 
     /**
      * Get Minor Gridlines
      *
-     * @return Chart\GridLines
+     * @return GridLines
      */
     public function getMinorGridlines()
     {
@@ -411,7 +421,7 @@ class Chart
             return $this->minorGridlines;
         }
 
-        return new Chart\GridLines();
+        return new GridLines();
     }
 
     /**

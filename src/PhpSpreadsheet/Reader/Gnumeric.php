@@ -6,7 +6,7 @@ use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,21 +23,23 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class Gnumeric extends BaseReader implements IReader
 {
     /**
-     * Formats
+     * Formats.
      *
      * @var array
      */
     private $styles = [];
 
     /**
-     * Shared Expressions
+     * Shared Expressions.
      *
      * @var array
      */
@@ -46,7 +48,7 @@ class Gnumeric extends BaseReader implements IReader
     private $referenceHelper = null;
 
     /**
-     * Create a new Gnumeric
+     * Create a new Gnumeric.
      */
     public function __construct()
     {
@@ -57,15 +59,17 @@ class Gnumeric extends BaseReader implements IReader
     /**
      * Can the current IReader read the file?
      *
-     * @param     string         $pFilename
+     * @param string $pFilename
+     *
      * @throws Exception
-     * @return     bool
+     *
+     * @return bool
      */
     public function canRead($pFilename)
     {
         // Check if file exists
         if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
+            throw new Exception('Could not open '.$pFilename.' for reading! File does not exist.');
         }
 
         // Check if gzlib functions are available
@@ -78,7 +82,7 @@ class Gnumeric extends BaseReader implements IReader
         $data = fread($fh, 2);
         fclose($fh);
 
-        if ($data != chr(0x1F) . chr(0x8B)) {
+        if ($data != chr(0x1F).chr(0x8B)) {
             return false;
         }
 
@@ -86,20 +90,21 @@ class Gnumeric extends BaseReader implements IReader
     }
 
     /**
-     * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object
+     * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object.
      *
-     * @param   string         $pFilename
-     * @throws  Exception
+     * @param string $pFilename
+     *
+     * @throws Exception
      */
     public function listWorksheetNames($pFilename)
     {
         // Check if file exists
         if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
+            throw new Exception('Could not open '.$pFilename.' for reading! File does not exist.');
         }
 
         $xml = new XMLReader();
-        $xml->xml($this->securityScanFile('compress.zlib://' . realpath($pFilename)), null, \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions());
+        $xml->xml($this->securityScanFile('compress.zlib://'.realpath($pFilename)), null, \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions());
         $xml->setParserProperty(2, true);
 
         $worksheetNames = [];
@@ -117,20 +122,21 @@ class Gnumeric extends BaseReader implements IReader
     }
 
     /**
-     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns)
+     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
-     * @param   string     $pFilename
-     * @throws   Exception
+     * @param string $pFilename
+     *
+     * @throws Exception
      */
     public function listWorksheetInfo($pFilename)
     {
         // Check if file exists
         if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
+            throw new Exception('Could not open '.$pFilename.' for reading! File does not exist.');
         }
 
         $xml = new XMLReader();
-        $xml->xml($this->securityScanFile('compress.zlib://' . realpath($pFilename)), null, \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions());
+        $xml->xml($this->securityScanFile('compress.zlib://'.realpath($pFilename)), null, \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions());
         $xml->setParserProperty(2, true);
 
         $worksheetInfo = [];
@@ -184,11 +190,13 @@ class Gnumeric extends BaseReader implements IReader
     }
 
     /**
-     * Loads Spreadsheet from file
+     * Loads Spreadsheet from file.
      *
-     * @param     string         $pFilename
-     * @throws     Exception
-     * @return     Spreadsheet
+     * @param string $pFilename
+     *
+     * @throws Exception
+     *
+     * @return Spreadsheet
      */
     public function load($pFilename)
     {
@@ -200,18 +208,20 @@ class Gnumeric extends BaseReader implements IReader
     }
 
     /**
-     * Loads from file into Spreadsheet instance
+     * Loads from file into Spreadsheet instance.
      *
-     * @param     string         $pFilename
-     * @param    Spreadsheet    $spreadsheet
-     * @throws     Exception
-     * @return     Spreadsheet
+     * @param string      $pFilename
+     * @param Spreadsheet $spreadsheet
+     *
+     * @throws Exception
+     *
+     * @return Spreadsheet
      */
     public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
     {
         // Check if file exists
         if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
+            throw new Exception('Could not open '.$pFilename.' for reading! File does not exist.');
         }
 
         $timezoneObj = new DateTimeZone('Europe/London');
@@ -446,7 +456,7 @@ class Gnumeric extends BaseReader implements IReader
                         case '80':        //    Array
                     }
                 }
-                $spreadsheet->getActiveSheet()->getCell($column . $row)->setValueExplicit($cell, $type);
+                $spreadsheet->getActiveSheet()->getCell($column.$row)->setValueExplicit($cell, $type);
             }
 
             if ((!$this->readDataOnly) && (isset($sheet->Objects))) {
@@ -469,7 +479,7 @@ class Gnumeric extends BaseReader implements IReader
                     $endColumn = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($endColumn);
                     $endRow = ($styleAttributes['endRow'] > $maxRow) ? $maxRow : $styleAttributes['endRow'];
                     $endRow += 1;
-                    $cellRange = $startColumn . $startRow . ':' . $endColumn . $endRow;
+                    $cellRange = $startColumn.$startRow.':'.$endColumn.$endRow;
 
                     $styleAttributes = $styleRegion->Style->attributes();
 
@@ -822,6 +832,6 @@ class Gnumeric extends BaseReader implements IReader
         $gnmG = substr(str_pad($gnmG, 4, '0', STR_PAD_RIGHT), 0, 2);
         $gnmB = substr(str_pad($gnmB, 4, '0', STR_PAD_RIGHT), 0, 2);
 
-        return $gnmR . $gnmG . $gnmB;
+        return $gnmR.$gnmG.$gnmB;
     }
 }

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,21 +20,23 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class ColumnDimension extends Dimension
 {
     /**
-     * Column index
+     * Column index.
      *
      * @var string
      */
     private $columnIndex;
 
     /**
-     * Column width
+     * Column width.
      *
      * When this is set to a negative value, the column width should be ignored by IWriter
      *
@@ -50,7 +52,7 @@ class ColumnDimension extends Dimension
     private $autoSize = false;
 
     /**
-     * Create a new ColumnDimension
+     * Create a new ColumnDimension.
      *
      * @param string $pIndex Character column index
      */
@@ -64,7 +66,7 @@ class ColumnDimension extends Dimension
     }
 
     /**
-     * Get ColumnIndex
+     * Get ColumnIndex.
      *
      * @return string
      */
@@ -74,9 +76,10 @@ class ColumnDimension extends Dimension
     }
 
     /**
-     * Set ColumnIndex
+     * Set ColumnIndex.
      *
      * @param string $pValue
+     *
      * @return ColumnDimension
      */
     public function setColumnIndex($pValue)
@@ -87,7 +90,7 @@ class ColumnDimension extends Dimension
     }
 
     /**
-     * Get Width
+     * Get Width.
      *
      * @return float
      */
@@ -97,9 +100,10 @@ class ColumnDimension extends Dimension
     }
 
     /**
-     * Set Width
+     * Set Width.
      *
      * @param float $pValue
+     *
      * @return ColumnDimension
      */
     public function setWidth($pValue = -1)
@@ -110,7 +114,7 @@ class ColumnDimension extends Dimension
     }
 
     /**
-     * Get Auto Size
+     * Get Auto Size.
      *
      * @return bool
      */
@@ -120,9 +124,10 @@ class ColumnDimension extends Dimension
     }
 
     /**
-     * Set Auto Size
+     * Set Auto Size.
      *
      * @param bool $pValue
+     *
      * @return ColumnDimension
      */
     public function setAutoSize($pValue = false)

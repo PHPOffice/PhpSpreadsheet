@@ -16,7 +16,9 @@ namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
  *    @author Paul Meagher
  *    @author Bartosz Matosiuk
  *    @author Michael Bommarito
+ *
  *    @version 1.1
+ *
  *    @license PHP v3.0
  */
 class LUDecomposition
@@ -25,31 +27,36 @@ class LUDecomposition
     const MATRIX_SQUARE_EXCEPTION = 'Mismatched Row dimension';
 
     /**
-     *    Decomposition storage
+     *    Decomposition storage.
+     *
      *    @var array
      */
     private $LU = [];
 
     /**
      *    Row dimension.
+     *
      *    @var int
      */
     private $m;
 
     /**
      *    Column dimension.
+     *
      *    @var int
      */
     private $n;
 
     /**
      *    Pivot sign.
+     *
      *    @var int
      */
     private $pivsign;
 
     /**
      *    Internal storage of pivot vector.
+     *
      *    @var array
      */
     private $piv = [];
@@ -58,7 +65,8 @@ class LUDecomposition
      *    LU Decomposition constructor.
      *
      *    @param Matrix $A Rectangular matrix
-     *    @return Structure to access L, U and piv.
+     *
+     *    @return Structure to access L, U and piv
      */
     public function __construct($A)
     {
@@ -173,7 +181,7 @@ class LUDecomposition
     }    //    function getPivot()
 
     /**
-     *    Alias for getPivot
+     *    Alias for getPivot.
      *
      *    @see getPivot
      */
@@ -185,7 +193,7 @@ class LUDecomposition
     /**
      *    Is the matrix nonsingular?
      *
-     *    @return bool true if U, and hence A, is nonsingular.
+     *    @return bool true if U, and hence A, is nonsingular
      */
     public function isNonsingular()
     {
@@ -199,7 +207,7 @@ class LUDecomposition
     }    //    function isNonsingular()
 
     /**
-     *    Count determinants
+     *    Count determinants.
      *
      *    @return array d matrix deterninat
      */
@@ -218,11 +226,13 @@ class LUDecomposition
     }    //    function det()
 
     /**
-     *    Solve A*X = B
+     *    Solve A*X = B.
      *
-     *    @param  $B  A Matrix with as many rows as A and any number of columns.
-     *    @throws \PhpOffice\PhpSpreadsheet\Calculation\Exception  IllegalArgumentException Matrix row dimensions must agree.
-     *    @throws \PhpOffice\PhpSpreadsheet\Calculation\Exception  RuntimeException  Matrix is singular.
+     *    @param  $B  A Matrix with as many rows as A and any number of columns
+     *
+     *    @throws \PhpOffice\PhpSpreadsheet\Calculation\Exception  IllegalArgumentException Matrix row dimensions must agree
+     *    @throws \PhpOffice\PhpSpreadsheet\Calculation\Exception  RuntimeException  Matrix is singular
+     *
      *    @return  X so that L*U*X = B(piv,:)
      */
     public function solve($B)

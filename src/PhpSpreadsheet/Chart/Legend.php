@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Chart;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,10 @@ namespace PhpOffice\PhpSpreadsheet\Chart;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category    PhpSpreadsheet
+ *
  * @copyright   Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version     ##VERSION##, ##DATE##
  */
 class Legend
@@ -50,28 +52,28 @@ class Legend
     ];
 
     /**
-     * Legend position
+     * Legend position.
      *
-     * @var    string
+     * @var string
      */
     private $position = self::POSITION_RIGHT;
 
     /**
      * Allow overlay of other elements?
      *
-     * @var    bool
+     * @var bool
      */
     private $overlay = true;
 
     /**
-     * Legend Layout
+     * Legend Layout.
      *
-     * @var    Layout
+     * @var Layout
      */
     private $layout = null;
 
     /**
-     *    Create a new Legend
+     *    Create a new Legend.
      */
     public function __construct($position = self::POSITION_RIGHT, Layout $layout = null, $overlay = false)
     {
@@ -81,9 +83,9 @@ class Legend
     }
 
     /**
-     * Get legend position as an excel string value
+     * Get legend position as an excel string value.
      *
-     * @return    string
+     * @return string
      */
     public function getPosition()
     {
@@ -91,9 +93,9 @@ class Legend
     }
 
     /**
-     * Get legend position using an excel string value
+     * Get legend position using an excel string value.
      *
-     * @param    string    $position
+     * @param string $position
      */
     public function setPosition($position = self::POSITION_RIGHT)
     {
@@ -107,9 +109,9 @@ class Legend
     }
 
     /**
-     * Get legend position as an Excel internal numeric value
+     * Get legend position as an Excel internal numeric value.
      *
-     * @return    number
+     * @return number
      */
     public function getPositionXL()
     {
@@ -117,9 +119,9 @@ class Legend
     }
 
     /**
-     * Set legend position using an Excel internal numeric value
+     * Set legend position using an Excel internal numeric value.
      *
-     * @param    number    $positionXL
+     * @param number $positionXL
      */
     public function setPositionXL($positionXL = self::XL_LEGEND_POSITION_RIGHT)
     {
@@ -135,7 +137,7 @@ class Legend
     /**
      * Get allow overlay of other elements?
      *
-     * @return    bool
+     * @return bool
      */
     public function getOverlay()
     {
@@ -145,8 +147,9 @@ class Legend
     /**
      * Set allow overlay of other elements?
      *
-     * @param    bool    $overlay
-     * @return    bool
+     * @param bool $overlay
+     *
+     * @return bool
      */
     public function setOverlay($overlay = false)
     {
@@ -160,7 +163,7 @@ class Legend
     }
 
     /**
-     * Get Layout
+     * Get Layout.
      *
      * @return Layout
      */

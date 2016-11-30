@@ -6,7 +6,7 @@ use DateTime;
 use DateTimeZone;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,21 +23,23 @@ use DateTimeZone;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class Ods extends BaseReader implements IReader
 {
     /**
-     * Formats
+     * Formats.
      *
      * @var array
      */
     private $styles = [];
 
     /**
-     * Create a new Ods Reader instance
+     * Create a new Ods Reader instance.
      */
     public function __construct()
     {
@@ -47,15 +49,17 @@ class Ods extends BaseReader implements IReader
     /**
      * Can the current IReader read the file?
      *
-     * @param     string         $pFilename
+     * @param string $pFilename
+     *
      * @throws Exception
-     * @return     bool
+     *
+     * @return bool
      */
     public function canRead($pFilename)
     {
         // Check if file exists
         if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
+            throw new Exception('Could not open '.$pFilename.' for reading! File does not exist.');
         }
 
         $zipClass = \PhpOffice\PhpSpreadsheet\Settings::getZipClass();
@@ -101,30 +105,31 @@ class Ods extends BaseReader implements IReader
     }
 
     /**
-     * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object
+     * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object.
      *
-     * @param     string         $pFilename
-     * @throws     Exception
+     * @param string $pFilename
+     *
+     * @throws Exception
      */
     public function listWorksheetNames($pFilename)
     {
         // Check if file exists
         if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
+            throw new Exception('Could not open '.$pFilename.' for reading! File does not exist.');
         }
 
         $zipClass = \PhpOffice\PhpSpreadsheet\Settings::getZipClass();
 
         $zip = new $zipClass();
         if (!$zip->open($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! Error opening file.');
+            throw new Exception('Could not open '.$pFilename.' for reading! Error opening file.');
         }
 
         $worksheetNames = [];
 
         $xml = new XMLReader();
         $res = $xml->xml(
-            $this->securityScanFile('zip://' . realpath($pFilename) . '#content.xml'),
+            $this->securityScanFile('zip://'.realpath($pFilename).'#content.xml'),
             null,
             \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
         );
@@ -157,16 +162,17 @@ class Ods extends BaseReader implements IReader
     }
 
     /**
-     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns)
+     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
-     * @param   string     $pFilename
-     * @throws   Exception
+     * @param string $pFilename
+     *
+     * @throws Exception
      */
     public function listWorksheetInfo($pFilename)
     {
         // Check if file exists
         if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
+            throw new Exception('Could not open '.$pFilename.' for reading! File does not exist.');
         }
 
         $worksheetInfo = [];
@@ -175,12 +181,12 @@ class Ods extends BaseReader implements IReader
 
         $zip = new $zipClass();
         if (!$zip->open($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! Error opening file.');
+            throw new Exception('Could not open '.$pFilename.' for reading! Error opening file.');
         }
 
         $xml = new XMLReader();
         $res = $xml->xml(
-            $this->securityScanFile('zip://' . realpath($pFilename) . '#content.xml'),
+            $this->securityScanFile('zip://'.realpath($pFilename).'#content.xml'),
             null,
             \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
         );
@@ -251,11 +257,13 @@ class Ods extends BaseReader implements IReader
     }
 
     /**
-     * Loads PhpSpreadsheet from file
+     * Loads PhpSpreadsheet from file.
      *
-     * @param     string         $pFilename
-     * @throws     Exception
-     * @return     \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @param string $pFilename
+     *
+     * @throws Exception
+     *
+     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     public function load($pFilename)
     {
@@ -281,18 +289,20 @@ class Ods extends BaseReader implements IReader
     }
 
     /**
-     * Loads PhpSpreadsheet from file into PhpSpreadsheet instance
+     * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      *
-     * @param     string         $pFilename
-     * @param    \PhpOffice\PhpSpreadsheet\Spreadsheet    $spreadsheet
-     * @throws     Exception
-     * @return     \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @param string                                $pFilename
+     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
+     *
+     * @throws Exception
+     *
+     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     public function loadIntoExisting($pFilename, \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
     {
         // Check if file exists
         if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
+            throw new Exception('Could not open '.$pFilename.' for reading! File does not exist.');
         }
 
         $timezoneObj = new DateTimeZone('Europe/London');
@@ -302,7 +312,7 @@ class Ods extends BaseReader implements IReader
 
         $zip = new $zipClass();
         if (!$zip->open($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! Error opening file.');
+            throw new Exception('Could not open '.$pFilename.' for reading! Error opening file.');
         }
 
         $xml = simplexml_load_string(
@@ -466,7 +476,7 @@ class Ods extends BaseReader implements IReader
                                         }
                                     }
                                     $text = implode("\n", $textArray);
-                                    $spreadsheet->getActiveSheet()->getComment($columnID . $rowID)->setText($this->parseRichText($text));
+                                    $spreadsheet->getActiveSheet()->getComment($columnID.$rowID)->setText($this->parseRichText($text));
 //                                                                    ->setAuthor( $author )
                                 }
 
@@ -512,7 +522,7 @@ class Ods extends BaseReader implements IReader
                                             $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
                                             $dataValue = (float) $cellDataOfficeAttributes['value'];
                                             if (floor($dataValue) == $dataValue) {
-                                                $dataValue = (integer) $dataValue;
+                                                $dataValue = (int) $dataValue;
                                             }
                                             $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_PERCENTAGE_00;
                                             break;
@@ -520,7 +530,7 @@ class Ods extends BaseReader implements IReader
                                             $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
                                             $dataValue = (float) $cellDataOfficeAttributes['value'];
                                             if (floor($dataValue) == $dataValue) {
-                                                $dataValue = (integer) $dataValue;
+                                                $dataValue = (int) $dataValue;
                                             }
                                             $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
                                             break;
@@ -528,8 +538,8 @@ class Ods extends BaseReader implements IReader
                                             $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
                                             $dataValue = (float) $cellDataOfficeAttributes['value'];
                                             if (floor($dataValue) == $dataValue) {
-                                                if ($dataValue == (integer) $dataValue) {
-                                                    $dataValue = (integer) $dataValue;
+                                                if ($dataValue == (int) $dataValue) {
+                                                    $dataValue = (int) $dataValue;
                                                 } else {
                                                     $dataValue = (float) $dataValue;
                                                 }
@@ -542,14 +552,14 @@ class Ods extends BaseReader implements IReader
                                             list($year, $month, $day, $hour, $minute, $second) = explode(' ', $dateObj->format('Y m d H i s'));
                                             $dataValue = \PhpOffice\PhpSpreadsheet\Shared\Date::formattedPHPToExcel($year, $month, $day, $hour, $minute, $second);
                                             if ($dataValue != floor($dataValue)) {
-                                                $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX15 . ' ' . \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4;
+                                                $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX15.' '.\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4;
                                             } else {
                                                 $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX15;
                                             }
                                             break;
                                         case 'time':
                                             $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
-                                            $dataValue = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(strtotime('01-01-1970 ' . implode(':', sscanf($cellDataOfficeAttributes['time-value'], 'PT%dH%dM%dS'))));
+                                            $dataValue = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(strtotime('01-01-1970 '.implode(':', sscanf($cellDataOfficeAttributes['time-value'], 'PT%dH%dM%dS'))));
                                             $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4;
                                             break;
                                     }
@@ -587,17 +597,17 @@ class Ods extends BaseReader implements IReader
                                         if ($type !== \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NULL) {
                                             for ($rowAdjust = 0; $rowAdjust < $rowRepeats; ++$rowAdjust) {
                                                 $rID = $rowID + $rowAdjust;
-                                                $spreadsheet->getActiveSheet()->getCell($columnID . $rID)->setValueExplicit((($hasCalculatedValue) ? $cellDataFormula : $dataValue), $type);
+                                                $spreadsheet->getActiveSheet()->getCell($columnID.$rID)->setValueExplicit((($hasCalculatedValue) ? $cellDataFormula : $dataValue), $type);
                                                 if ($hasCalculatedValue) {
-                                                    $spreadsheet->getActiveSheet()->getCell($columnID . $rID)->setCalculatedValue($dataValue);
+                                                    $spreadsheet->getActiveSheet()->getCell($columnID.$rID)->setCalculatedValue($dataValue);
                                                 }
                                                 if ($formatting !== null) {
-                                                    $spreadsheet->getActiveSheet()->getStyle($columnID . $rID)->getNumberFormat()->setFormatCode($formatting);
+                                                    $spreadsheet->getActiveSheet()->getStyle($columnID.$rID)->getNumberFormat()->setFormatCode($formatting);
                                                 } else {
-                                                    $spreadsheet->getActiveSheet()->getStyle($columnID . $rID)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_GENERAL);
+                                                    $spreadsheet->getActiveSheet()->getStyle($columnID.$rID)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_GENERAL);
                                                 }
                                                 if ($hyperlink !== null) {
-                                                    $spreadsheet->getActiveSheet()->getCell($columnID . $rID)->getHyperlink()->setUrl($hyperlink);
+                                                    $spreadsheet->getActiveSheet()->getCell($columnID.$rID)->getHyperlink()->setUrl($hyperlink);
                                                 }
                                             }
                                         }
@@ -615,7 +625,7 @@ class Ods extends BaseReader implements IReader
                                         if (isset($cellDataTableAttributes['number-rows-spanned'])) {
                                             $rowTo = $rowTo + $cellDataTableAttributes['number-rows-spanned'] - 1;
                                         }
-                                        $cellRange = $columnID . $rowID . ':' . $columnTo . $rowTo;
+                                        $cellRange = $columnID.$rowID.':'.$columnTo.$rowTo;
                                         $spreadsheet->getActiveSheet()->mergeCells($cellRange);
                                     }
                                 }

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 /**
- * Copyright (c) 2006 - 2015 PhpSpreadsheet
+ * Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,10 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 
@@ -62,7 +64,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 class Workbook extends BIFFwriter
 {
     /**
-     * Formula parser
+     * Formula parser.
      *
      * @var \PhpOffice\PhpSpreadsheet\Writer\Xls\Parser
      */
@@ -70,125 +72,132 @@ class Workbook extends BIFFwriter
 
     /**
      * The BIFF file size for the workbook.
+     *
      * @var int
+     *
      * @see calcSheetOffsets()
      */
     private $biffSize;
 
     /**
-     * XF Writers
+     * XF Writers.
+     *
      * @var \PhpOffice\PhpSpreadsheet\Writer\Xls\Xf[]
      */
     private $xfWriters = [];
 
     /**
-     * Array containing the colour palette
+     * Array containing the colour palette.
+     *
      * @var array
      */
     private $palette;
 
     /**
-     * The codepage indicates the text encoding used for strings
+     * The codepage indicates the text encoding used for strings.
+     *
      * @var int
      */
     private $codepage;
 
     /**
-     * The country code used for localization
+     * The country code used for localization.
+     *
      * @var int
      */
     private $countryCode;
 
     /**
-     * Workbook
+     * Workbook.
+     *
      * @var \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     private $spreadsheet;
 
     /**
-     * Fonts writers
+     * Fonts writers.
      *
      * @var \PhpOffice\PhpSpreadsheet\Writer\Xls\Font[]
      */
     private $fontWriters = [];
 
     /**
-     * Added fonts. Maps from font's hash => index in workbook
+     * Added fonts. Maps from font's hash => index in workbook.
      *
      * @var array
      */
     private $addedFonts = [];
 
     /**
-     * Shared number formats
+     * Shared number formats.
      *
      * @var array
      */
     private $numberFormats = [];
 
     /**
-     * Added number formats. Maps from numberFormat's hash => index in workbook
+     * Added number formats. Maps from numberFormat's hash => index in workbook.
      *
      * @var array
      */
     private $addedNumberFormats = [];
 
     /**
-     * Sizes of the binary worksheet streams
+     * Sizes of the binary worksheet streams.
      *
      * @var array
      */
     private $worksheetSizes = [];
 
     /**
-     * Offsets of the binary worksheet streams relative to the start of the global workbook stream
+     * Offsets of the binary worksheet streams relative to the start of the global workbook stream.
      *
      * @var array
      */
     private $worksheetOffsets = [];
 
     /**
-     * Total number of shared strings in workbook
+     * Total number of shared strings in workbook.
      *
      * @var int
      */
     private $stringTotal;
 
     /**
-     * Number of unique shared strings in workbook
+     * Number of unique shared strings in workbook.
      *
      * @var int
      */
     private $stringUnique;
 
     /**
-     * Array of unique shared strings in workbook
+     * Array of unique shared strings in workbook.
      *
      * @var array
      */
     private $stringTable;
 
     /**
-     * Color cache
+     * Color cache.
      */
     private $colors;
 
     /**
-     * Escher object corresponding to MSODRAWINGGROUP
+     * Escher object corresponding to MSODRAWINGGROUP.
      *
      * @var \PhpOffice\PhpSpreadsheet\Shared\Escher
      */
     private $escher;
 
     /**
-     * Class constructor
+     * Class constructor.
      *
      * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet The Workbook
-     * @param int        $str_total        Total number of strings
-     * @param int        $str_unique    Total number of unique strings
-     * @param array        $str_table        String Table
-     * @param array        $colors        Colour Table
-     * @param Parser        $parser            The formula parser created for the Workbook
+     * @param int                                   $str_total   Total number of strings
+     * @param int                                   $str_unique  Total number of unique strings
+     * @param array                                 $str_table   String Table
+     * @param array                                 $colors      Colour Table
+     * @param Parser                                $parser      The formula parser created for the Workbook
      */
     public function __construct(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet, &$str_total, &$str_unique, &$str_table, &$colors, Parser $parser)
     {
@@ -229,10 +238,11 @@ class Workbook extends BIFFwriter
     }
 
     /**
-     * Add a new XF writer
+     * Add a new XF writer.
      *
      * @param \PhpOffice\PhpSpreadsheet\Style
      * @param bool Is it a style XF?
+     *
      * @return int Index to XF record
      */
     public function addXfWriter($style, $isStyleXf = false)
@@ -281,9 +291,10 @@ class Workbook extends BIFFwriter
     }
 
     /**
-     * Add a font to added fonts
+     * Add a font to added fonts.
      *
      * @param \PhpOffice\PhpSpreadsheet\Style\Font $font
+     *
      * @return int Index to FONT record
      */
     public function addFont(\PhpOffice\PhpSpreadsheet\Style\Font $font)
@@ -306,9 +317,10 @@ class Workbook extends BIFFwriter
     }
 
     /**
-     * Alter color palette adding a custom color
+     * Alter color palette adding a custom color.
      *
      * @param string $rgb E.g. 'FF00AA'
+     *
      * @return int Color index
      */
     private function addColor($rgb)
@@ -406,8 +418,9 @@ class Workbook extends BIFFwriter
      * Assemble worksheets into a workbook and send the BIFF data to an OLE
      * storage.
      *
-     * @param    array    $pWorksheetSizes    The sizes in bytes of the binary worksheet streams
-     * @return    string    Binary data for workbook stream
+     * @param array $pWorksheetSizes The sizes in bytes of the binary worksheet streams
+     *
+     * @return string Binary data for workbook stream
      */
     public function writeWorkbook($pWorksheetSizes = null)
     {
@@ -493,7 +506,7 @@ class Workbook extends BIFFwriter
     }
 
     /**
-     * Store user defined numerical formats i.e. FORMAT records
+     * Store user defined numerical formats i.e. FORMAT records.
      */
     private function writeAllNumberFormats()
     {
@@ -630,7 +643,7 @@ class Workbook extends BIFFwriter
 
     /**
      * Writes all the DEFINEDNAME records (BIFF8).
-     * So far this is only used for repeating rows/columns (print titles) and print areas
+     * So far this is only used for repeating rows/columns (print titles) and print areas.
      */
     private function writeAllDefinedNamesBiff8()
     {
@@ -644,7 +657,7 @@ class Workbook extends BIFFwriter
                 // Create absolute coordinate
                 $range = \PhpOffice\PhpSpreadsheet\Cell::splitRange($namedRange->getRange());
                 for ($i = 0; $i < count($range); ++$i) {
-                    $range[$i][0] = '\'' . str_replace("'", "''", $namedRange->getWorksheet()->getTitle()) . '\'!' . \PhpOffice\PhpSpreadsheet\Cell::absoluteCoordinate($range[$i][0]);
+                    $range[$i][0] = '\''.str_replace("'", "''", $namedRange->getWorksheet()->getTitle()).'\'!'.\PhpOffice\PhpSpreadsheet\Cell::absoluteCoordinate($range[$i][0]);
                     if (isset($range[$i][1])) {
                         $range[$i][1] = \PhpOffice\PhpSpreadsheet\Cell::absoluteCoordinate($range[$i][1]);
                     }
@@ -658,7 +671,7 @@ class Workbook extends BIFFwriter
 
                     // make sure tRef3d is of type tRef3dR (0x3A)
                     if (isset($formulaData{0}) and ($formulaData{0} == "\x7A" or $formulaData{0} == "\x5A")) {
-                        $formulaData = "\x3A" . substr($formulaData, 1);
+                        $formulaData = "\x3A".substr($formulaData, 1);
                     }
 
                     if ($namedRange->getLocalOnly()) {
@@ -779,13 +792,14 @@ class Workbook extends BIFFwriter
     }
 
     /**
-     * Write a DEFINEDNAME record for BIFF8 using explicit binary formula data
+     * Write a DEFINEDNAME record for BIFF8 using explicit binary formula data.
      *
-     * @param    string        $name            The name in UTF-8
-     * @param    string        $formulaData    The binary formula data
-     * @param    string        $sheetIndex        1-based sheet index the defined name applies to. 0 = global
-     * @param    bool        $isBuiltIn        Built-in name?
-     * @return    string    Complete binary record data
+     * @param string $name        The name in UTF-8
+     * @param string $formulaData The binary formula data
+     * @param string $sheetIndex  1-based sheet index the defined name applies to. 0 = global
+     * @param bool   $isBuiltIn   Built-in name?
+     *
+     * @return string Complete binary record data
      */
     private function writeDefinedNameBiff8($name, $formulaData, $sheetIndex = 0, $isBuiltIn = false)
     {
@@ -805,22 +819,23 @@ class Workbook extends BIFFwriter
 
         // combine the parts
         $data = pack('vCCvvvCCCC', $options, 0, $nlen, $sz, 0, $sheetIndex, 0, 0, 0, 0)
-            . $name . $formulaData;
+            .$name.$formulaData;
         $length = strlen($data);
 
         $header = pack('vv', $record, $length);
 
-        return $header . $data;
+        return $header.$data;
     }
 
     /**
-     * Write a short NAME record
+     * Write a short NAME record.
      *
-     * @param    string         $name
-     * @param    string         $sheetIndex        1-based sheet index the defined name applies to. 0 = global
-     * @param    integer[][]  $rangeBounds    range boundaries
-     * @param    bool      $isHidden
-     * @return    string    Complete binary record data
+     * @param string      $name
+     * @param string      $sheetIndex  1-based sheet index the defined name applies to. 0 = global
+     * @param integer[][] $rangeBounds range boundaries
+     * @param bool        $isHidden
+     *
+     * @return string Complete binary record data
      * */
     private function writeShortNameBiff8($name, $sheetIndex, $rangeBounds, $isHidden = false)
     {
@@ -844,12 +859,12 @@ class Workbook extends BIFFwriter
 
         // combine the parts
         $data = pack('vCCvvvCCCCC', $options, 0, 1, $sz, 0, $sheetIndex, 0, 0, 0, 0, 0)
-            . $name . $extra;
+            .$name.$extra;
         $length = strlen($data);
 
         $header = pack('vv', $record, $length);
 
-        return $header . $data;
+        return $header.$data;
     }
 
     /**
@@ -864,7 +879,7 @@ class Workbook extends BIFFwriter
         $header = pack('vv', $record, $length);
         $data = pack('v', $cv);
 
-        $this->append($header . $data);
+        $this->append($header.$data);
     }
 
     /**
@@ -893,14 +908,14 @@ class Workbook extends BIFFwriter
 
         $header = pack('vv', $record, $length);
         $data = pack('vvvvvvvvv', $xWn, $yWn, $dxWn, $dyWn, $grbit, $itabCur, $itabFirst, $ctabsel, $wTabRatio);
-        $this->append($header . $data);
+        $this->append($header.$data);
     }
 
     /**
      * Writes Excel BIFF BOUNDSHEET record.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet  $sheet Worksheet name
-     * @param int $offset    Location of worksheet BOF
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $sheet  Worksheet name
+     * @param int                                 $offset Location of worksheet BOF
      */
     private function writeBoundSheet($sheet, $offset)
     {
@@ -933,11 +948,11 @@ class Workbook extends BIFFwriter
 
         $length = strlen($data);
         $header = pack('vv', $record, $length);
-        $this->append($header . $data);
+        $this->append($header.$data);
     }
 
     /**
-     * Write Internal SUPBOOK record
+     * Write Internal SUPBOOK record.
      */
     private function writeSupbookInternal()
     {
@@ -947,7 +962,7 @@ class Workbook extends BIFFwriter
         $header = pack('vv', $record, $length);
         $data = pack('vv', $this->spreadsheet->getSheetCount(), 0x0401);
 
-        return $this->writeData($header . $data);
+        return $this->writeData($header.$data);
     }
 
     /**
@@ -967,7 +982,7 @@ class Workbook extends BIFFwriter
             $data .= $this->parser->references[$i];
         }
 
-        return $this->writeData($header . $data);
+        return $this->writeData($header.$data);
     }
 
     /**
@@ -984,14 +999,14 @@ class Workbook extends BIFFwriter
 
         $header = pack('vv', $record, $length);
         $data = pack('vCC', $ixfe, $BuiltIn, $iLevel);
-        $this->append($header . $data);
+        $this->append($header.$data);
     }
 
     /**
      * Writes Excel FORMAT record for non "built-in" numerical formats.
      *
-     * @param string  $format Custom format string
-     * @param int $ifmt   Format index code
+     * @param string $format Custom format string
+     * @param int    $ifmt   Format index code
      */
     private function writeNumberFormat($format, $ifmt)
     {
@@ -1001,8 +1016,8 @@ class Workbook extends BIFFwriter
         $length = 2 + strlen($numberFormatString); // Number of bytes to follow
 
         $header = pack('vv', $record, $length);
-        $data = pack('v', $ifmt) . $numberFormatString;
-        $this->append($header . $data);
+        $data = pack('v', $ifmt).$numberFormatString;
+        $this->append($header.$data);
     }
 
     /**
@@ -1019,7 +1034,7 @@ class Workbook extends BIFFwriter
 
         $header = pack('vv', $record, $length);
         $data = pack('v', $f1904);
-        $this->append($header . $data);
+        $this->append($header.$data);
     }
 
     /**
@@ -1041,7 +1056,7 @@ class Workbook extends BIFFwriter
 
         $header = pack('vv', $record, $length);
         $data = pack('v', $cxals);
-        $this->append($header . $data);
+        $this->append($header.$data);
     }
 
     /**
@@ -1063,7 +1078,7 @@ class Workbook extends BIFFwriter
 
         $header = pack('vv', $record, $length);
         $data = pack('CC', $cch, $rgch);
-        $this->append($header . $data . $sheetname);
+        $this->append($header.$data.$sheetname);
     }
 
     /**
@@ -1125,17 +1140,17 @@ class Workbook extends BIFFwriter
         $data .= pack('v', $rowmax);
         $data .= pack('C', $colmin);
         $data .= pack('C', $colmax);
-        $this->append($header . $data);
+        $this->append($header.$data);
     }
 
     /**
      * Store the NAME record in the long format that is used for storing the repeat
      * rows and columns when both are specified. This shares a lot of code with
      * writeNameShort() but we use a separate method to keep the code clean.
-     * Code abstraction for reuse can be carried too far, and I should know. ;-)
+     * Code abstraction for reuse can be carried too far, and I should know. ;-).
      *
-     * @param int $index Sheet index
-     * @param int $type  Built-in name type
+     * @param int $index  Sheet index
+     * @param int $type   Built-in name type
      * @param int $rowmin Start row
      * @param int $rowmax End row
      * @param int $colmin Start colum
@@ -1208,11 +1223,11 @@ class Workbook extends BIFFwriter
         $data .= pack('C', 0xff);
         // End of data
         $data .= pack('C', 0x10);
-        $this->append($header . $data);
+        $this->append($header.$data);
     }
 
     /**
-     * Stores the COUNTRY record for localization
+     * Stores the COUNTRY record for localization.
      *
      * @return string
      */
@@ -1225,11 +1240,11 @@ class Workbook extends BIFFwriter
         /* using the same country code always for simplicity */
         $data = pack('vv', $this->countryCode, $this->countryCode);
 
-        return $this->writeData($header . $data);
+        return $this->writeData($header.$data);
     }
 
     /**
-     * Write the RECALCID record
+     * Write the RECALCID record.
      *
      * @return string
      */
@@ -1243,7 +1258,7 @@ class Workbook extends BIFFwriter
         // by inspection of real Excel files, MS Office Excel 2007 writes this
         $data = pack('VV', 0x000001C1, 0x00001E667);
 
-        return $this->writeData($header . $data);
+        return $this->writeData($header.$data);
     }
 
     /**
@@ -1266,7 +1281,7 @@ class Workbook extends BIFFwriter
         }
 
         $header = pack('vvv', $record, $length, $ccv);
-        $this->append($header . $data);
+        $this->append($header.$data);
     }
 
     /**
@@ -1386,7 +1401,7 @@ class Workbook extends BIFFwriter
             $record = ($i == 0) ? 0x00FC : 0x003C;
 
             $header = pack('vv', $record, strlen($recordData));
-            $data = $header . $recordData;
+            $data = $header.$recordData;
 
             $chunk .= $this->writeData($data);
         }
@@ -1408,14 +1423,14 @@ class Workbook extends BIFFwriter
             $length = strlen($data);
             $header = pack('vv', $record, $length);
 
-            return $this->writeData($header . $data);
+            return $this->writeData($header.$data);
         } else {
             return '';
         }
     }
 
     /**
-     * Get Escher object
+     * Get Escher object.
      *
      * @return \PhpOffice\PhpSpreadsheet\Shared\Escher
      */
@@ -1425,7 +1440,7 @@ class Workbook extends BIFFwriter
     }
 
     /**
-     * Set Escher object
+     * Set Escher object.
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\Escher $pValue
      */

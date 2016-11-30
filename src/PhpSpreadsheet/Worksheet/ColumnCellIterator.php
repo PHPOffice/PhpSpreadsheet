@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,40 +20,42 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class ColumnCellIterator extends CellIterator implements \Iterator
 {
     /**
-     * Column index
+     * Column index.
      *
      * @var string
      */
     protected $columnIndex;
 
     /**
-     * Start position
+     * Start position.
      *
      * @var int
      */
     protected $startRow = 1;
 
     /**
-     * End position
+     * End position.
      *
      * @var int
      */
     protected $endRow = 1;
 
     /**
-     * Create a new row iterator
+     * Create a new row iterator.
      *
-     * @param    \PhpOffice\PhpSpreadsheet\Worksheet    $subject        The worksheet to iterate over
-     * @param    string              $columnIndex    The column that we want to iterate
-     * @param    int                $startRow        The row number at which to start iterating
-     * @param    int                $endRow            Optionally, the row number at which to stop iterating
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $subject     The worksheet to iterate over
+     * @param string                              $columnIndex The column that we want to iterate
+     * @param int                                 $startRow    The row number at which to start iterating
+     * @param int                                 $endRow      Optionally, the row number at which to stop iterating
      */
     public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $subject = null, $columnIndex = 'A', $startRow = 1, $endRow = null)
     {
@@ -65,7 +67,7 @@ class ColumnCellIterator extends CellIterator implements \Iterator
     }
 
     /**
-     * Destructor
+     * Destructor.
      */
     public function __destruct()
     {
@@ -73,10 +75,12 @@ class ColumnCellIterator extends CellIterator implements \Iterator
     }
 
     /**
-     * (Re)Set the start row and the current row pointer
+     * (Re)Set the start row and the current row pointer.
      *
-     * @param int    $startRow    The row number at which to start iterating
+     * @param int $startRow The row number at which to start iterating
+     *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return ColumnCellIterator
      */
     public function resetStart($startRow = 1)
@@ -89,10 +93,12 @@ class ColumnCellIterator extends CellIterator implements \Iterator
     }
 
     /**
-     * (Re)Set the end row
+     * (Re)Set the end row.
      *
-     * @param int    $endRow    The row number at which to stop iterating
+     * @param int $endRow The row number at which to stop iterating
+     *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return ColumnCellIterator
      */
     public function resetEnd($endRow = null)
@@ -104,10 +110,12 @@ class ColumnCellIterator extends CellIterator implements \Iterator
     }
 
     /**
-     * Set the row pointer to the selected row
+     * Set the row pointer to the selected row.
      *
-     * @param int    $row    The row number to set the current pointer at
+     * @param int $row The row number to set the current pointer at
+     *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return ColumnCellIterator
      */
     public function seek($row = 1)
@@ -123,7 +131,7 @@ class ColumnCellIterator extends CellIterator implements \Iterator
     }
 
     /**
-     * Rewind the iterator to the starting row
+     * Rewind the iterator to the starting row.
      */
     public function rewind()
     {
@@ -131,7 +139,7 @@ class ColumnCellIterator extends CellIterator implements \Iterator
     }
 
     /**
-     * Return the current cell in this worksheet column
+     * Return the current cell in this worksheet column.
      *
      * @return null|\PhpOffice\PhpSpreadsheet\Cell
      */
@@ -141,7 +149,7 @@ class ColumnCellIterator extends CellIterator implements \Iterator
     }
 
     /**
-     * Return the current iterator key
+     * Return the current iterator key.
      *
      * @return int
      */
@@ -151,7 +159,7 @@ class ColumnCellIterator extends CellIterator implements \Iterator
     }
 
     /**
-     * Set the iterator to its next value
+     * Set the iterator to its next value.
      */
     public function next()
     {
@@ -163,7 +171,7 @@ class ColumnCellIterator extends CellIterator implements \Iterator
     }
 
     /**
-     * Set the iterator to its previous value
+     * Set the iterator to its previous value.
      */
     public function prev()
     {
@@ -179,7 +187,7 @@ class ColumnCellIterator extends CellIterator implements \Iterator
     }
 
     /**
-     * Indicate if more rows exist in the worksheet range of rows that we're iterating
+     * Indicate if more rows exist in the worksheet range of rows that we're iterating.
      *
      * @return bool
      */
@@ -189,7 +197,7 @@ class ColumnCellIterator extends CellIterator implements \Iterator
     }
 
     /**
-     * Validate start/end values for "IterateOnlyExistingCells" mode, and adjust if necessary
+     * Validate start/end values for "IterateOnlyExistingCells" mode, and adjust if necessary.
      *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
