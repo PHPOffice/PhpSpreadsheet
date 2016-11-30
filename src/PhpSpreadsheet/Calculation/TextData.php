@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,10 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class TextData
@@ -34,10 +36,11 @@ class TextData
     }
 
     /**
-     * CHARACTER
+     * CHARACTER.
      *
-     * @param    string    $character    Value
-     * @return    string
+     * @param string $character Value
+     *
+     * @return string
      */
     public static function CHARACTER($character)
     {
@@ -51,14 +54,15 @@ class TextData
             return iconv('UCS-4LE', 'UTF-8', pack('V', $character));
         }
 
-        return mb_convert_encoding('&#' . intval($character) . ';', 'UTF-8', 'HTML-ENTITIES');
+        return mb_convert_encoding('&#'.intval($character).';', 'UTF-8', 'HTML-ENTITIES');
     }
 
     /**
-     * TRIMNONPRINTABLE
+     * TRIMNONPRINTABLE.
      *
-     * @param    mixed    $stringValue    Value to check
-     * @return    string
+     * @param mixed $stringValue Value to check
+     *
+     * @return string
      */
     public static function TRIMNONPRINTABLE($stringValue = '')
     {
@@ -80,10 +84,11 @@ class TextData
     }
 
     /**
-     * TRIMSPACES
+     * TRIMSPACES.
      *
-     * @param    mixed    $stringValue    Value to check
-     * @return    string
+     * @param mixed $stringValue Value to check
+     *
+     * @return string
      */
     public static function TRIMSPACES($stringValue = '')
     {
@@ -100,10 +105,11 @@ class TextData
     }
 
     /**
-     * ASCIICODE
+     * ASCIICODE.
      *
-     * @param    string    $characters        Value
-     * @return    int
+     * @param string $characters Value
+     *
+     * @return int
      */
     public static function ASCIICODE($characters)
     {
@@ -136,9 +142,9 @@ class TextData
     }
 
     /**
-     * CONCATENATE
+     * CONCATENATE.
      *
-     * @return    string
+     * @return string
      */
     public static function CONCATENATE()
     {
@@ -161,16 +167,17 @@ class TextData
     }
 
     /**
-     * DOLLAR
+     * DOLLAR.
      *
      * This function converts a number to text using currency format, with the decimals rounded to the specified place.
      * The format used is $#,##0.00_);($#,##0.00)..
      *
-     * @param    float    $value            The value to format
-     * @param    int        $decimals        The number of digits to display to the right of the decimal point.
-     *                                    If decimals is negative, number is rounded to the left of the decimal point.
-     *                                    If you omit decimals, it is assumed to be 2
-     * @return    string
+     * @param float $value    The value to format
+     * @param int   $decimals The number of digits to display to the right of the decimal point.
+     *                        If decimals is negative, number is rounded to the left of the decimal point.
+     *                        If you omit decimals, it is assumed to be 2
+     *
+     * @return string
      */
     public static function DOLLAR($value = 0, $decimals = 2)
     {
@@ -185,7 +192,7 @@ class TextData
 
         $mask = '$#,##0';
         if ($decimals > 0) {
-            $mask .= '.' . str_repeat('0', $decimals);
+            $mask .= '.'.str_repeat('0', $decimals);
         } else {
             $round = pow(10, abs($decimals));
             if ($value < 0) {
@@ -198,12 +205,13 @@ class TextData
     }
 
     /**
-     * SEARCHSENSITIVE
+     * SEARCHSENSITIVE.
      *
-     * @param    string    $needle        The string to look for
-     * @param    string    $haystack    The string in which to look
-     * @param    int        $offset        Offset within $haystack
-     * @return    string
+     * @param string $needle   The string to look for
+     * @param string $haystack The string in which to look
+     * @param int    $offset   Offset within $haystack
+     *
+     * @return string
      */
     public static function SEARCHSENSITIVE($needle, $haystack, $offset = 1)
     {
@@ -235,12 +243,13 @@ class TextData
     }
 
     /**
-     * SEARCHINSENSITIVE
+     * SEARCHINSENSITIVE.
      *
-     * @param    string    $needle        The string to look for
-     * @param    string    $haystack    The string in which to look
-     * @param    int        $offset        Offset within $haystack
-     * @return    string
+     * @param string $needle   The string to look for
+     * @param string $haystack The string in which to look
+     * @param int    $offset   Offset within $haystack
+     *
+     * @return string
      */
     public static function SEARCHINSENSITIVE($needle, $haystack, $offset = 1)
     {
@@ -272,12 +281,13 @@ class TextData
     }
 
     /**
-     * FIXEDFORMAT
+     * FIXEDFORMAT.
      *
-     * @param    mixed        $value    Value to check
-     * @param    int        $decimals
-     * @param    bool        $no_commas
-     * @return    string
+     * @param mixed $value     Value to check
+     * @param int   $decimals
+     * @param bool  $no_commas
+     *
+     * @return string
      */
     public static function FIXEDFORMAT($value, $decimals = 2, $no_commas = false)
     {
@@ -303,11 +313,12 @@ class TextData
     }
 
     /**
-     * LEFT
+     * LEFT.
      *
-     * @param    string    $value    Value
-     * @param    int        $chars    Number of characters
-     * @return    string
+     * @param string $value Value
+     * @param int    $chars Number of characters
+     *
+     * @return string
      */
     public static function LEFT($value = '', $chars = 1)
     {
@@ -330,12 +341,13 @@ class TextData
     }
 
     /**
-     * MID
+     * MID.
      *
-     * @param    string    $value    Value
-     * @param    int        $start    Start character
-     * @param    int        $chars    Number of characters
-     * @return    string
+     * @param string $value Value
+     * @param int    $start Start character
+     * @param int    $chars Number of characters
+     *
+     * @return string
      */
     public static function MID($value = '', $start = 1, $chars = null)
     {
@@ -362,11 +374,12 @@ class TextData
     }
 
     /**
-     * RIGHT
+     * RIGHT.
      *
-     * @param    string    $value    Value
-     * @param    int        $chars    Number of characters
-     * @return    string
+     * @param string $value Value
+     * @param int    $chars Number of characters
+     *
+     * @return string
      */
     public static function RIGHT($value = '', $chars = 1)
     {
@@ -389,10 +402,11 @@ class TextData
     }
 
     /**
-     * STRINGLENGTH
+     * STRINGLENGTH.
      *
-     * @param    string    $value    Value
-     * @return    int
+     * @param string $value Value
+     *
+     * @return int
      */
     public static function STRINGLENGTH($value = '')
     {
@@ -410,12 +424,13 @@ class TextData
     }
 
     /**
-     * LOWERCASE
+     * LOWERCASE.
      *
      * Converts a string value to upper case.
      *
-     * @param    string        $mixedCaseString
-     * @return    string
+     * @param string $mixedCaseString
+     *
+     * @return string
      */
     public static function LOWERCASE($mixedCaseString)
     {
@@ -429,12 +444,13 @@ class TextData
     }
 
     /**
-     * UPPERCASE
+     * UPPERCASE.
      *
      * Converts a string value to upper case.
      *
-     * @param    string        $mixedCaseString
-     * @return    string
+     * @param string $mixedCaseString
+     *
+     * @return string
      */
     public static function UPPERCASE($mixedCaseString)
     {
@@ -448,12 +464,13 @@ class TextData
     }
 
     /**
-     * PROPERCASE
+     * PROPERCASE.
      *
      * Converts a string value to upper case.
      *
-     * @param    string        $mixedCaseString
-     * @return    string
+     * @param string $mixedCaseString
+     *
+     * @return string
      */
     public static function PROPERCASE($mixedCaseString)
     {
@@ -467,13 +484,14 @@ class TextData
     }
 
     /**
-     * REPLACE
+     * REPLACE.
      *
-     * @param    string    $oldText    String to modify
-     * @param    int        $start        Start character
-     * @param    int        $chars        Number of characters
-     * @param    string    $newText    String to replace in defined position
-     * @return    string
+     * @param string $oldText String to modify
+     * @param int    $start   Start character
+     * @param int    $chars   Number of characters
+     * @param string $newText String to replace in defined position
+     *
+     * @return string
      */
     public static function REPLACE($oldText, $start, $chars, $newText)
     {
@@ -485,17 +503,18 @@ class TextData
         $left = self::LEFT($oldText, $start - 1);
         $right = self::RIGHT($oldText, self::STRINGLENGTH($oldText) - ($start + $chars) + 1);
 
-        return $left . $newText . $right;
+        return $left.$newText.$right;
     }
 
     /**
-     * SUBSTITUTE
+     * SUBSTITUTE.
      *
-     * @param    string    $text        Value
-     * @param    string    $fromText    From Value
-     * @param    string    $toText        To Value
-     * @param    int    $instance    Instance Number
-     * @return    string
+     * @param string $text     Value
+     * @param string $fromText From Value
+     * @param string $toText   To Value
+     * @param int    $instance Instance Number
+     *
+     * @return string
      */
     public static function SUBSTITUTE($text = '', $fromText = '', $toText = '', $instance = 0)
     {
@@ -536,10 +555,11 @@ class TextData
     }
 
     /**
-     * RETURNSTRING
+     * RETURNSTRING.
      *
-     * @param    mixed    $testValue    Value to check
-     * @return    string|null
+     * @param mixed $testValue Value to check
+     *
+     * @return string|null
      */
     public static function RETURNSTRING($testValue = '')
     {
@@ -553,11 +573,12 @@ class TextData
     }
 
     /**
-     * TEXTFORMAT
+     * TEXTFORMAT.
      *
-     * @param    mixed    $value    Value to check
-     * @param    string    $format    Format mask to use
-     * @return    string
+     * @param mixed  $value  Value to check
+     * @param string $format Format mask to use
+     *
+     * @return string
      */
     public static function TEXTFORMAT($value, $format)
     {
@@ -572,10 +593,11 @@ class TextData
     }
 
     /**
-     * VALUE
+     * VALUE.
      *
-     * @param    mixed    $value    Value to check
-     * @return    bool
+     * @param mixed $value Value to check
+     *
+     * @return bool
      */
     public static function VALUE($value = '')
     {
@@ -585,7 +607,7 @@ class TextData
             $numberValue = str_replace(
                 \PhpOffice\PhpSpreadsheet\Shared\StringHelper::getThousandsSeparator(),
                 '',
-                trim($value, " \t\n\r\0\x0B" . \PhpOffice\PhpSpreadsheet\Shared\StringHelper::getCurrencyCode())
+                trim($value, " \t\n\r\0\x0B".\PhpOffice\PhpSpreadsheet\Shared\StringHelper::getCurrencyCode())
             );
             if (is_numeric($numberValue)) {
                 return (float) $numberValue;

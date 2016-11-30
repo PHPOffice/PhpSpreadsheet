@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,24 +20,26 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 abstract class BaseWriter implements IWriter
 {
     /**
      * Write charts that are defined in the workbook?
-     * Identifies whether the Writer should write definitions for any charts that exist in the PhpSpreadsheet object;
+     * Identifies whether the Writer should write definitions for any charts that exist in the PhpSpreadsheet object;.
      *
-     * @var    bool
+     * @var bool
      */
     protected $includeCharts = false;
 
     /**
      * Pre-calculate formulas
      * Forces PhpSpreadsheet to recalculate all formulae in a workbook when saving, so that the pre-calculated values are
-     *    immediately available to MS Excel or other office spreadsheet viewer when opening the file
+     *    immediately available to MS Excel or other office spreadsheet viewer when opening the file.
      *
      * @var bool
      */
@@ -51,7 +53,7 @@ abstract class BaseWriter implements IWriter
     protected $_useDiskCaching = false;
 
     /**
-     * Disk caching directory
+     * Disk caching directory.
      *
      * @var string
      */
@@ -62,7 +64,7 @@ abstract class BaseWriter implements IWriter
      *        If this is true, then the Writer will write definitions for any charts that exist in the PhpSpreadsheet object.
      *        If false (the default) it will ignore any charts defined in the PhpSpreadsheet object.
      *
-     * @return    bool
+     * @return bool
      */
     public function getIncludeCharts()
     {
@@ -74,12 +76,13 @@ abstract class BaseWriter implements IWriter
      *        Set to true, to advise the Writer to include any charts that exist in the PhpSpreadsheet object.
      *        Set to false (the default) to ignore charts.
      *
-     * @param    bool    $pValue
-     * @return   IWriter
+     * @param bool $pValue
+     *
+     * @return IWriter
      */
     public function setIncludeCharts($pValue = false)
     {
-        $this->includeCharts = (boolean) $pValue;
+        $this->includeCharts = (bool) $pValue;
 
         return $this;
     }
@@ -90,7 +93,7 @@ abstract class BaseWriter implements IWriter
      *        so that the pre-calculated values are immediately available to MS Excel or other office spreadsheet
      *        viewer when opening the file
      *     If false, then formulae are not calculated on save. This is faster for saving in PhpSpreadsheet, but slower
-     *        when opening the resulting file in MS Excel, because Excel has to recalculate the formulae itself
+     *        when opening the resulting file in MS Excel, because Excel has to recalculate the formulae itself.
      *
      * @return bool
      */
@@ -104,12 +107,13 @@ abstract class BaseWriter implements IWriter
      *        Set to true (the default) to advise the Writer to calculate all formulae on save
      *        Set to false to prevent precalculation of formulae on save.
      *
-     * @param bool $pValue    Pre-Calculate Formulas?
-     * @return    IWriter
+     * @param bool $pValue Pre-Calculate Formulas?
+     *
+     * @return IWriter
      */
     public function setPreCalculateFormulas($pValue = true)
     {
-        $this->preCalculateFormulas = (boolean) $pValue;
+        $this->preCalculateFormulas = (bool) $pValue;
 
         return $this;
     }
@@ -127,10 +131,12 @@ abstract class BaseWriter implements IWriter
     /**
      * Set use disk caching where possible?
      *
-     * @param    bool     $pValue
-     * @param    string        $pDirectory        Disk caching directory
-     * @throws   Exception    when directory does not exist
-     * @return   IWriter
+     * @param bool   $pValue
+     * @param string $pDirectory Disk caching directory
+     *
+     * @throws WriteException when directory does not exist
+     *
+     * @return IWriter
      */
     public function setUseDiskCaching($pValue = false, $pDirectory = null)
     {
@@ -140,7 +146,7 @@ abstract class BaseWriter implements IWriter
             if (is_dir($pDirectory)) {
                 $this->_diskCachingDirectory = $pDirectory;
             } else {
-                throw new Exception("Directory does not exist: $pDirectory");
+                throw new WriteException("Directory does not exist: $pDirectory");
             }
         }
 
@@ -148,7 +154,7 @@ abstract class BaseWriter implements IWriter
     }
 
     /**
-     * Get disk caching directory
+     * Get disk caching directory.
      *
      * @return string
      */

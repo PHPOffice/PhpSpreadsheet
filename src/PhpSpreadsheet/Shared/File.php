@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,10 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class File
@@ -35,19 +37,19 @@ class File
     protected static $useUploadTempDirectory = false;
 
     /**
-     * Set the flag indicating whether the File Upload Temp directory should be used for temporary files
+     * Set the flag indicating whether the File Upload Temp directory should be used for temporary files.
      *
-     * @param     bool    $useUploadTempDir        Use File Upload Temporary directory (true or false)
+     * @param bool $useUploadTempDir Use File Upload Temporary directory (true or false)
      */
     public static function setUseUploadTempDirectory($useUploadTempDir = false)
     {
-        self::$useUploadTempDirectory = (boolean) $useUploadTempDir;
+        self::$useUploadTempDirectory = (bool) $useUploadTempDir;
     }
 
     /**
-     * Get the flag indicating whether the File Upload Temp directory should be used for temporary files
+     * Get the flag indicating whether the File Upload Temp directory should be used for temporary files.
      *
-     * @return     bool    Use File Upload Temporary directory (true or false)
+     * @return bool Use File Upload Temporary directory (true or false)
      */
     public static function getUseUploadTempDirectory()
     {
@@ -55,9 +57,10 @@ class File
     }
 
     /**
-     * Verify if a file exists
+     * Verify if a file exists.
      *
-     * @param     string    $pFilename    Filename
+     * @param string $pFilename Filename
+     *
      * @return bool
      */
     public static function fileExists($pFilename)
@@ -87,9 +90,10 @@ class File
     }
 
     /**
-     * Returns canonicalized absolute pathname, also for ZIP archives
+     * Returns canonicalized absolute pathname, also for ZIP archives.
      *
      * @param string $pFilename
+     *
      * @return string
      */
     public static function realpath($pFilename)

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Document;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,49 +20,51 @@ namespace PhpOffice\PhpSpreadsheet\Document;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class Security
 {
     /**
-     * LockRevision
+     * LockRevision.
      *
      * @var bool
      */
     private $lockRevision = false;
 
     /**
-     * LockStructure
+     * LockStructure.
      *
      * @var bool
      */
     private $lockStructure = false;
 
     /**
-     * LockWindows
+     * LockWindows.
      *
      * @var bool
      */
     private $lockWindows = false;
 
     /**
-     * RevisionsPassword
+     * RevisionsPassword.
      *
      * @var string
      */
     private $revisionsPassword = '';
 
     /**
-     * WorkbookPassword
+     * WorkbookPassword.
      *
      * @var string
      */
     private $workbookPassword = '';
 
     /**
-     * Create a new Document Security instance
+     * Create a new Document Security instance.
      */
     public function __construct()
     {
@@ -81,7 +83,7 @@ class Security
     }
 
     /**
-     * Get LockRevision
+     * Get LockRevision.
      *
      * @return bool
      */
@@ -91,9 +93,10 @@ class Security
     }
 
     /**
-     * Set LockRevision
+     * Set LockRevision.
      *
      * @param bool $pValue
+     *
      * @return Security
      */
     public function setLockRevision($pValue = false)
@@ -104,7 +107,7 @@ class Security
     }
 
     /**
-     * Get LockStructure
+     * Get LockStructure.
      *
      * @return bool
      */
@@ -114,9 +117,10 @@ class Security
     }
 
     /**
-     * Set LockStructure
+     * Set LockStructure.
      *
      * @param bool $pValue
+     *
      * @return Security
      */
     public function setLockStructure($pValue = false)
@@ -127,7 +131,7 @@ class Security
     }
 
     /**
-     * Get LockWindows
+     * Get LockWindows.
      *
      * @return bool
      */
@@ -137,9 +141,10 @@ class Security
     }
 
     /**
-     * Set LockWindows
+     * Set LockWindows.
      *
      * @param bool $pValue
+     *
      * @return Security
      */
     public function setLockWindows($pValue = false)
@@ -150,7 +155,7 @@ class Security
     }
 
     /**
-     * Get RevisionsPassword (hashed)
+     * Get RevisionsPassword (hashed).
      *
      * @return string
      */
@@ -160,10 +165,11 @@ class Security
     }
 
     /**
-     * Set RevisionsPassword
+     * Set RevisionsPassword.
      *
-     * @param string     $pValue
-     * @param bool     $pAlreadyHashed If the password has already been hashed, set this to true
+     * @param string $pValue
+     * @param bool   $pAlreadyHashed If the password has already been hashed, set this to true
+     *
      * @return Security
      */
     public function setRevisionsPassword($pValue = '', $pAlreadyHashed = false)
@@ -177,7 +183,7 @@ class Security
     }
 
     /**
-     * Get WorkbookPassword (hashed)
+     * Get WorkbookPassword (hashed).
      *
      * @return string
      */
@@ -187,10 +193,11 @@ class Security
     }
 
     /**
-     * Set WorkbookPassword
+     * Set WorkbookPassword.
      *
-     * @param string     $pValue
-     * @param bool     $pAlreadyHashed If the password has already been hashed, set this to true
+     * @param string $pValue
+     * @param bool   $pAlreadyHashed If the password has already been hashed, set this to true
+     *
      * @return Security
      */
     public function setWorkbookPassword($pValue = '', $pAlreadyHashed = false)

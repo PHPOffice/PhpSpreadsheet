@@ -19,25 +19,26 @@ namespace PhpOffice\PhpSpreadsheet\Shared\OLE\PPS;
 // | Author: Xavier Noguer <xnoguer@php.net>                              |
 // | Based on OLE::Storage_Lite by Kawai, Takanori                        |
 // +----------------------------------------------------------------------+
-//
 
 /**
- * Class for creating Root PPS's for OLE containers
+ * Class for creating Root PPS's for OLE containers.
  *
  * @author   Xavier Noguer <xnoguer@php.net>
+ *
  * @category PhpSpreadsheet
  */
 class Root extends \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS
 {
     /**
-     * Directory for temporary files
+     * Directory for temporary files.
+     *
      * @var string
      */
     protected $tempDirectory = null;
 
     /**
-     * @param int $time_1st A timestamp
-     * @param int $time_2nd A timestamp
+     * @param int    $time_1st A timestamp
+     * @param int    $time_2nd A timestamp
      * @param File[] $raChild
      */
     public function __construct($time_1st, $time_2nd, $raChild)
@@ -54,8 +55,10 @@ class Root extends \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS
      * If a resource pointer to a stream created by fopen() is passed
      * it will be used, but you have to close such stream by yourself.
      *
-     * @param string|resource $filename The name of the file or stream where to save the OLE container.
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @param string|resource $filename The name of the file or stream where to save the OLE container
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\WriteException
+     *
      * @return bool true on success
      */
     public function save($filename)
@@ -79,13 +82,13 @@ class Root extends \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS
             $this->_tmp_filename = tempnam($this->tempDirectory, 'OLE_PPS_Root');
             $this->_FILEH_ = fopen($this->_tmp_filename, 'w+b');
             if ($this->_FILEH_ == false) {
-                throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Can't create temporary file.");
+                throw new \PhpOffice\PhpSpreadsheet\Writer\WriteException("Can't create temporary file.");
             }
         } else {
             $this->_FILEH_ = fopen($filename, 'wb');
         }
         if ($this->_FILEH_ == false) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Can't open $filename. It may be in use or protected.");
+            throw new \PhpOffice\PhpSpreadsheet\Writer\WriteException("Can't open $filename. It may be in use or protected.");
         }
         // Make an array of PPS's (for Save)
         $aList = [];
@@ -113,9 +116,10 @@ class Root extends \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS
     }
 
     /**
-     * Calculate some numbers
+     * Calculate some numbers.
      *
      * @param array $raList Reference to an array of PPS's
+     *
      * @return float[] The array of numbers
      */
     public function _calcSize(&$raList)
@@ -150,10 +154,12 @@ class Root extends \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS
     }
 
     /**
-     * Helper function for caculating a magic value for block sizes
+     * Helper function for caculating a magic value for block sizes.
      *
      * @param int $i2 The argument
+     *
      * @see save()
+     *
      * @return float
      */
     private static function adjust2($i2)
@@ -164,7 +170,7 @@ class Root extends \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS
     }
 
     /**
-     * Save OLE header
+     * Save OLE header.
      *
      * @param int $iSBDcnt
      * @param int $iBBcnt
@@ -201,34 +207,34 @@ class Root extends \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS
         fwrite(
             $FILE,
             "\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1"
-            . "\x00\x00\x00\x00"
-            . "\x00\x00\x00\x00"
-            . "\x00\x00\x00\x00"
-            . "\x00\x00\x00\x00"
-            . pack('v', 0x3b)
-            . pack('v', 0x03)
-            . pack('v', -2)
-            . pack('v', 9)
-            . pack('v', 6)
-            . pack('v', 0)
-            . "\x00\x00\x00\x00"
-            . "\x00\x00\x00\x00"
-            . pack('V', $iBdCnt)
-            . pack('V', $iBBcnt + $iSBDcnt) //ROOT START
-            . pack('V', 0)
-            . pack('V', 0x1000)
-            . pack('V', $iSBDcnt ? 0 : -2) //Small Block Depot
-            . pack('V', $iSBDcnt)
+            ."\x00\x00\x00\x00"
+            ."\x00\x00\x00\x00"
+            ."\x00\x00\x00\x00"
+            ."\x00\x00\x00\x00"
+            .pack('v', 0x3b)
+            .pack('v', 0x03)
+            .pack('v', -2)
+            .pack('v', 9)
+            .pack('v', 6)
+            .pack('v', 0)
+            ."\x00\x00\x00\x00"
+            ."\x00\x00\x00\x00"
+            .pack('V', $iBdCnt)
+            .pack('V', $iBBcnt + $iSBDcnt) //ROOT START
+            .pack('V', 0)
+            .pack('V', 0x1000)
+            .pack('V', $iSBDcnt ? 0 : -2) //Small Block Depot
+            .pack('V', $iSBDcnt)
         );
         // Extra BDList Start, Count
         if ($iBdCnt < $i1stBdL) {
             fwrite(
                 $FILE,
                 pack('V', -2) // Extra BDList Start
-                . pack('V', 0)// Extra BDList Count
+                .pack('V', 0)// Extra BDList Count
             );
         } else {
-            fwrite($FILE, pack('V', $iAll + $iBdCnt) . pack('V', $iBdExL));
+            fwrite($FILE, pack('V', $iAll + $iBdCnt).pack('V', $iBdExL));
         }
 
         // BDList
@@ -244,9 +250,9 @@ class Root extends \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS
     }
 
     /**
-     * Saving big data (PPS's with data bigger than \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL)
+     * Saving big data (PPS's with data bigger than \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL).
      *
-     * @param int $iStBlk
+     * @param int   $iStBlk
      * @param array &$raList Reference to array of PPS's
      */
     public function _saveBigData($iStBlk, &$raList)
@@ -275,7 +281,7 @@ class Root extends \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS
     }
 
     /**
-     * get small data (PPS's with data smaller than \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL)
+     * get small data (PPS's with data smaller than \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_DATA_SIZE_SMALL).
      *
      * @param array &$raList Reference to array of PPS's
      */
@@ -325,7 +331,7 @@ class Root extends \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS
     }
 
     /**
-     * Saves all the PPS's WKs
+     * Saves all the PPS's WKs.
      *
      * @param array $raList Reference to an array with all PPS's
      */
@@ -345,7 +351,7 @@ class Root extends \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS
     }
 
     /**
-     * Saving Big Block Depot
+     * Saving Big Block Depot.
      *
      * @param int $iSbdSize
      * @param int $iBsize

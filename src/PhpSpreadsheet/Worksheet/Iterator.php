@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,30 +20,32 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class Iterator implements \Iterator
 {
     /**
-     * Spreadsheet to iterate
+     * Spreadsheet to iterate.
      *
      * @var \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     private $subject;
 
     /**
-     * Current iterator position
+     * Current iterator position.
      *
      * @var int
      */
     private $position = 0;
 
     /**
-     * Create a new worksheet iterator
+     * Create a new worksheet iterator.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet    $subject
+     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $subject
      */
     public function __construct(\PhpOffice\PhpSpreadsheet\Spreadsheet $subject = null)
     {
@@ -52,7 +54,7 @@ class Iterator implements \Iterator
     }
 
     /**
-     * Destructor
+     * Destructor.
      */
     public function __destruct()
     {
@@ -60,7 +62,7 @@ class Iterator implements \Iterator
     }
 
     /**
-     * Rewind iterator
+     * Rewind iterator.
      */
     public function rewind()
     {
@@ -68,7 +70,7 @@ class Iterator implements \Iterator
     }
 
     /**
-     * Current Worksheet
+     * Current Worksheet.
      *
      * @return \PhpOffice\PhpSpreadsheet\Worksheet
      */
@@ -78,7 +80,7 @@ class Iterator implements \Iterator
     }
 
     /**
-     * Current key
+     * Current key.
      *
      * @return int
      */
@@ -88,7 +90,7 @@ class Iterator implements \Iterator
     }
 
     /**
-     * Next value
+     * Next value.
      */
     public function next()
     {

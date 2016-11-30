@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,10 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class PasswordHasher
@@ -33,8 +35,9 @@ class PasswordHasher
      * Daniel Rentz of OpenOffice and the PEAR package
      * Spreadsheet_Excel_Writer by Xavier Noguer <xnoguer@rezebra.com>.
      *
-     * @param     string    $pPassword    Password to hash
-     * @return     string                Hashed password
+     * @param string $pPassword Password to hash
+     *
+     * @return string Hashed password
      */
     public static function hashPassword($pPassword = '')
     {

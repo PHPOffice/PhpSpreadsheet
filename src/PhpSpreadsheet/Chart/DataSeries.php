@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Chart;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,10 @@ namespace PhpOffice\PhpSpreadsheet\Chart;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category    PhpSpreadsheet
+ *
  * @copyright    Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class DataSeries
@@ -61,70 +63,70 @@ class DataSeries
     const STYLE_FILLED = 'filled';
 
     /**
-     * Series Plot Type
+     * Series Plot Type.
      *
      * @var string
      */
     private $plotType;
 
     /**
-     * Plot Grouping Type
+     * Plot Grouping Type.
      *
      * @var string
      */
     private $plotGrouping;
 
     /**
-     * Plot Direction
+     * Plot Direction.
      *
      * @var string
      */
     private $plotDirection;
 
     /**
-     * Plot Style
+     * Plot Style.
      *
      * @var string
      */
     private $plotStyle;
 
     /**
-     * Order of plots in Series
+     * Order of plots in Series.
      *
      * @var array of integer
      */
     private $plotOrder = [];
 
     /**
-     * Plot Label
+     * Plot Label.
      *
      * @var array of DataSeriesValues
      */
     private $plotLabel = [];
 
     /**
-     * Plot Category
+     * Plot Category.
      *
      * @var array of DataSeriesValues
      */
     private $plotCategory = [];
 
     /**
-     * Smooth Line
+     * Smooth Line.
      *
      * @var bool
      */
     private $smoothLine;
 
     /**
-     * Plot Values
+     * Plot Values.
      *
      * @var array of DataSeriesValues
      */
     private $plotValues = [];
 
     /**
-     * Create a new DataSeries
+     * Create a new DataSeries.
      */
     public function __construct($plotType = null, $plotGrouping = null, $plotOrder = [], $plotLabel = [], $plotCategory = [], $plotValues = [], $plotDirection = null, $smoothLine = null, $plotStyle = null)
     {
@@ -152,7 +154,7 @@ class DataSeries
     }
 
     /**
-     * Get Plot Type
+     * Get Plot Type.
      *
      * @return string
      */
@@ -162,9 +164,10 @@ class DataSeries
     }
 
     /**
-     * Set Plot Type
+     * Set Plot Type.
      *
      * @param string $plotType
+     *
      * @return DataSeries
      */
     public function setPlotType($plotType = '')
@@ -175,7 +178,7 @@ class DataSeries
     }
 
     /**
-     * Get Plot Grouping Type
+     * Get Plot Grouping Type.
      *
      * @return string
      */
@@ -185,9 +188,10 @@ class DataSeries
     }
 
     /**
-     * Set Plot Grouping Type
+     * Set Plot Grouping Type.
      *
      * @param string $groupingType
+     *
      * @return DataSeries
      */
     public function setPlotGrouping($groupingType = null)
@@ -198,7 +202,7 @@ class DataSeries
     }
 
     /**
-     * Get Plot Direction
+     * Get Plot Direction.
      *
      * @return string
      */
@@ -208,9 +212,10 @@ class DataSeries
     }
 
     /**
-     * Set Plot Direction
+     * Set Plot Direction.
      *
      * @param string $plotDirection
+     *
      * @return DataSeries
      */
     public function setPlotDirection($plotDirection = null)
@@ -221,7 +226,7 @@ class DataSeries
     }
 
     /**
-     * Get Plot Order
+     * Get Plot Order.
      *
      * @return string
      */
@@ -231,7 +236,7 @@ class DataSeries
     }
 
     /**
-     * Get Plot Labels
+     * Get Plot Labels.
      *
      * @return array of DataSeriesValues
      */
@@ -241,7 +246,7 @@ class DataSeries
     }
 
     /**
-     * Get Plot Label by Index
+     * Get Plot Label by Index.
      *
      * @return DataSeriesValues
      */
@@ -258,7 +263,7 @@ class DataSeries
     }
 
     /**
-     * Get Plot Categories
+     * Get Plot Categories.
      *
      * @return array of DataSeriesValues
      */
@@ -268,7 +273,7 @@ class DataSeries
     }
 
     /**
-     * Get Plot Category by Index
+     * Get Plot Category by Index.
      *
      * @return DataSeriesValues
      */
@@ -285,7 +290,7 @@ class DataSeries
     }
 
     /**
-     * Get Plot Style
+     * Get Plot Style.
      *
      * @return string
      */
@@ -295,9 +300,10 @@ class DataSeries
     }
 
     /**
-     * Set Plot Style
+     * Set Plot Style.
      *
      * @param string $plotStyle
+     *
      * @return DataSeries
      */
     public function setPlotStyle($plotStyle = null)
@@ -308,7 +314,7 @@ class DataSeries
     }
 
     /**
-     * Get Plot Values
+     * Get Plot Values.
      *
      * @return array of DataSeriesValues
      */
@@ -318,7 +324,7 @@ class DataSeries
     }
 
     /**
-     * Get Plot Values by Index
+     * Get Plot Values by Index.
      *
      * @return DataSeriesValues
      */
@@ -335,7 +341,7 @@ class DataSeries
     }
 
     /**
-     * Get Number of Plot Series
+     * Get Number of Plot Series.
      *
      * @return int
      */
@@ -345,7 +351,7 @@ class DataSeries
     }
 
     /**
-     * Get Smooth Line
+     * Get Smooth Line.
      *
      * @return bool
      */
@@ -355,9 +361,10 @@ class DataSeries
     }
 
     /**
-     * Set Smooth Line
+     * Set Smooth Line.
      *
      * @param bool $smoothLine
+     *
      * @return DataSeries
      */
     public function setSmoothLine($smoothLine = true)

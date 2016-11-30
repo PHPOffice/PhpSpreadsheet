@@ -16,47 +16,54 @@ namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
  *
  *    @author  Paul Meagher
  *    @license PHP v3.0
+ *
  *    @version 1.1
  */
 class SingularValueDecomposition
 {
     /**
      *    Internal storage of U.
+     *
      *    @var array
      */
     private $U = [];
 
     /**
      *    Internal storage of V.
+     *
      *    @var array
      */
     private $V = [];
 
     /**
      *    Internal storage of singular values.
+     *
      *    @var array
      */
     private $s = [];
 
     /**
      *    Row dimension.
+     *
      *    @var int
      */
     private $m;
 
     /**
      *    Column dimension.
+     *
      *    @var int
      */
     private $n;
 
     /**
-     *    Construct the singular value decomposition
+     *    Construct the singular value decomposition.
      *
      *    Derived from LINPACK code.
      *
      *    @param $A Rectangular matrix
-     *    @return Structure to access U, S and V.
+     *
+     *    @return Structure to access U, S and V
      */
     public function __construct($Arg)
     {
@@ -429,7 +436,7 @@ class SingularValueDecomposition
     } // end constructor
 
     /**
-     *    Return the left singular vectors
+     *    Return the left singular vectors.
      *
      *    @return U
      */
@@ -439,7 +446,7 @@ class SingularValueDecomposition
     }
 
     /**
-     *    Return the right singular vectors
+     *    Return the right singular vectors.
      *
      *    @return V
      */
@@ -449,9 +456,9 @@ class SingularValueDecomposition
     }
 
     /**
-     *    Return the one-dimensional array of singular values
+     *    Return the one-dimensional array of singular values.
      *
-     *    @return diagonal of S.
+     *    @return diagonal of S
      */
     public function getSingularValues()
     {
@@ -459,7 +466,7 @@ class SingularValueDecomposition
     }
 
     /**
-     *    Return the diagonal matrix of singular values
+     *    Return the diagonal matrix of singular values.
      *
      *    @return S
      */
@@ -476,7 +483,7 @@ class SingularValueDecomposition
     }
 
     /**
-     *    Two norm
+     *    Two norm.
      *
      *    @return max(S)
      */
@@ -486,7 +493,7 @@ class SingularValueDecomposition
     }
 
     /**
-     *    Two norm condition number
+     *    Two norm condition number.
      *
      *    @return max(S)/min(S)
      */
@@ -496,9 +503,9 @@ class SingularValueDecomposition
     }
 
     /**
-     *    Effective numerical matrix rank
+     *    Effective numerical matrix rank.
      *
-     *    @return Number of nonnegligible singular values.
+     *    @return Number of nonnegligible singular values
      */
     public function rank()
     {

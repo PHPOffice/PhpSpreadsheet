@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,18 +20,22 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class CodePage
 {
     /**
      * Convert Microsoft Code Page Identifier to Code Page Name which iconv
-     * and mbstring understands
+     * and mbstring understands.
      *
      * @param int $codePage Microsoft Code Page Indentifier
+     *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return string Code Page Name
      */
     public static function numberToName($codePage = 1252)
@@ -150,6 +154,6 @@ class CodePage
             case 65001:
                 return 'UTF-8'; //    Unicode (UTF-8)
         }
-        throw new \PhpOffice\PhpSpreadsheet\Exception('Unknown codepage: ' . $codePage);
+        throw new \PhpOffice\PhpSpreadsheet\Exception('Unknown codepage: '.$codePage);
     }
 }

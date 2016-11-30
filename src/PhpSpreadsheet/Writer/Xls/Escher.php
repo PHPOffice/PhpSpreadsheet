@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 /**
- * Copyright (c) 2006 - 2015 PhpSpreadsheet
+ * Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,24 +20,26 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class Escher
 {
     /**
-     * The object we are writing
+     * The object we are writing.
      */
     private $object;
 
     /**
-     * The written binary data
+     * The written binary data.
      */
     private $data;
 
     /**
-     * Shape offsets. Positions in binary stream where a new shape record begins
+     * Shape offsets. Positions in binary stream where a new shape record begins.
      *
      * @var array
      */
@@ -51,7 +53,7 @@ class Escher
     private $spTypes;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param mixed
      */
@@ -61,7 +63,8 @@ class Escher
     }
 
     /**
-     * Process the object to be written
+     * Process the object to be written.
+     *
      * @return string
      */
     public function close()
@@ -113,7 +116,7 @@ class Escher
                 }
 
                 $header = pack('vvV', $recVerInstance, $recType, strlen($dggData));
-                $innerData .= $header . $dggData;
+                $innerData .= $header.$dggData;
 
                 // write the bstoreContainer
                 if ($bstoreContainer = $this->object->getBstoreContainer()) {
@@ -132,7 +135,7 @@ class Escher
 
                 $header = pack('vvV', $recVerInstance, $recType, $length);
 
-                $this->data = $header . $innerData;
+                $this->data = $header.$innerData;
                 break;
             case '\\PhpOffice\\PhpSpreadsheet\\Shared\\Escher\\DggContainer\\BstoreContainer':
                 // this is a container record
@@ -159,7 +162,7 @@ class Escher
 
                 $header = pack('vvV', $recVerInstance, $recType, $length);
 
-                $this->data = $header . $innerData;
+                $this->data = $header.$innerData;
                 break;
             case '\\PhpOffice\\PhpSpreadsheet\\Shared\\Escher\\DggContainer\\BstoreContainer\\BSE':
                 // this is a semi-container record
@@ -289,7 +292,7 @@ class Escher
 
                 // number of shapes in this drawing (including group shape)
                 $countShapes = count($this->object->getSpgrContainer()->getChildren());
-                $innerData .= $header . pack('VV', $countShapes, $this->object->getLastSpId());
+                $innerData .= $header.pack('VV', $countShapes, $this->object->getLastSpId());
 
                 // write the spgrContainer
                 if ($spgrContainer = $this->object->getSpgrContainer()) {
@@ -320,7 +323,7 @@ class Escher
 
                 $header = pack('vvV', $recVerInstance, $recType, $length);
 
-                $this->data = $header . $innerData;
+                $this->data = $header.$innerData;
                 break;
             case '\\PhpOffice\\PhpSpreadsheet\\Shared\\Escher\\DgContainer\\SpgrContainer':
                 // this is a container record
@@ -357,7 +360,7 @@ class Escher
 
                 $header = pack('vvV', $recVerInstance, $recType, $length);
 
-                $this->data = $header . $innerData;
+                $this->data = $header.$innerData;
                 $this->spOffsets = $spOffsets;
                 $this->spTypes = $spTypes;
                 break;
@@ -379,7 +382,7 @@ class Escher
 
                     $header = pack('vvV', $recVerInstance, $recType, $length);
 
-                    $data .= $header . pack('VVVV', 0, 0, 0, 0);
+                    $data .= $header.pack('VVVV', 0, 0, 0, 0);
                 }
                 $this->spTypes[] = ($this->object->getSpType());
 
@@ -394,7 +397,7 @@ class Escher
 
                 $header = pack('vvV', $recVerInstance, $recType, $length);
 
-                $data .= $header . pack('VV', $this->object->getSpId(), $this->object->getSpgr() ? 0x0005 : 0x0A00);
+                $data .= $header.pack('VV', $this->object->getSpId(), $this->object->getSpgr() ? 0x0005 : 0x0A00);
 
                 // the options
                 if ($this->object->getOPTCollection()) {
@@ -412,7 +415,7 @@ class Escher
                     $recVerInstance |= $recInstance << 4;
 
                     $header = pack('vvV', $recVerInstance, $recType, $length);
-                    $data .= $header . $optData;
+                    $data .= $header.$optData;
                 }
 
                 // the client anchor
@@ -453,7 +456,7 @@ class Escher
                     $recVerInstance |= $recInstance << 4;
 
                     $header = pack('vvV', $recVerInstance, $recType, $length);
-                    $data .= $header . $clientAnchorData;
+                    $data .= $header.$clientAnchorData;
                 }
 
                 // the client data, just empty for now
@@ -470,7 +473,7 @@ class Escher
                     $recVerInstance |= $recInstance << 4;
 
                     $header = pack('vvV', $recVerInstance, $recType, $length);
-                    $data .= $header . $clientDataData;
+                    $data .= $header.$clientDataData;
                 }
 
                 // write the record
@@ -484,7 +487,7 @@ class Escher
 
                 $header = pack('vvV', $recVerInstance, $recType, $length);
 
-                $this->data = $header . $data;
+                $this->data = $header.$data;
                 break;
         }
 
@@ -492,7 +495,7 @@ class Escher
     }
 
     /**
-     * Gets the shape offsets
+     * Gets the shape offsets.
      *
      * @return array
      */
@@ -502,7 +505,7 @@ class Escher
     }
 
     /**
-     * Gets the shape types
+     * Gets the shape types.
      *
      * @return array
      */

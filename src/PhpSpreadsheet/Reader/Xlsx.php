@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,28 +20,30 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class Xlsx extends BaseReader implements IReader
 {
     /**
-     * ReferenceHelper instance
+     * ReferenceHelper instance.
      *
      * @var \PhpOffice\PhpSpreadsheet\ReferenceHelper
      */
     private $referenceHelper = null;
 
     /**
-     * Xlsx\Theme instance
+     * Xlsx\Theme instance.
      *
      * @var Xlsx\Theme
      */
     private static $theme = null;
 
     /**
-     * Create a new Xlsx Reader instance
+     * Create a new Xlsx Reader instance.
      */
     public function __construct()
     {
@@ -52,15 +54,17 @@ class Xlsx extends BaseReader implements IReader
     /**
      * Can the current IReader read the file?
      *
-     * @param    string         $pFilename
-     * @throws   Exception
-     * @return   bool
+     * @param string $pFilename
+     *
+     * @throws Exception
+     *
+     * @return bool
      */
     public function canRead($pFilename)
     {
         // Check if file exists
         if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
+            throw new Exception('Could not open '.$pFilename.' for reading! File does not exist.');
         }
 
         $zipClass = \PhpOffice\PhpSpreadsheet\Settings::getZipClass();
@@ -100,16 +104,17 @@ class Xlsx extends BaseReader implements IReader
     }
 
     /**
-     * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object
+     * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object.
      *
-     * @param    string         $pFilename
-     * @throws   Exception
+     * @param string $pFilename
+     *
+     * @throws Exception
      */
     public function listWorksheetNames($pFilename)
     {
         // Check if file exists
         if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
+            throw new Exception('Could not open '.$pFilename.' for reading! File does not exist.');
         }
 
         $worksheetNames = [];
@@ -153,16 +158,17 @@ class Xlsx extends BaseReader implements IReader
     }
 
     /**
-     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns)
+     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
-     * @param   string     $pFilename
-     * @throws  Exception
+     * @param string $pFilename
+     *
+     * @throws Exception
      */
     public function listWorksheetInfo($pFilename)
     {
         // Check if file exists
         if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
+            throw new Exception('Could not open '.$pFilename.' for reading! File does not exist.');
         }
 
         $worksheetInfo = [];
@@ -184,7 +190,7 @@ class Xlsx extends BaseReader implements IReader
                 $relsWorkbook = simplexml_load_string(
                     //~ http://schemas.openxmlformats.org/package/2006/relationships"
                     $this->securityScan(
-                        $this->getFromZipArchive($zip, "$dir/_rels/" . basename($rel['Target']) . '.rels')
+                        $this->getFromZipArchive($zip, "$dir/_rels/".basename($rel['Target']).'.rels')
                     ),
                     'SimpleXMLElement',
                     \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
@@ -222,7 +228,7 @@ class Xlsx extends BaseReader implements IReader
                         $xml = new \XMLReader();
                         $res = $xml->xml(
                             $this->securityScanFile(
-                                'zip://' . \PhpOffice\PhpSpreadsheet\Shared\File::realpath($pFilename) . '#' . "$dir/$fileWorksheet"
+                                'zip://'.\PhpOffice\PhpSpreadsheet\Shared\File::realpath($pFilename).'#'."$dir/$fileWorksheet"
                             ),
                             null,
                             \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
@@ -331,17 +337,19 @@ class Xlsx extends BaseReader implements IReader
     }
 
     /**
-     * Loads Spreadsheet from file
+     * Loads Spreadsheet from file.
      *
-     * @param     string         $pFilename
-     * @throws    Exception
-     * @return    Spreadsheet
+     * @param string $pFilename
+     *
+     * @throws Exception
+     *
+     * @return Spreadsheet
      */
     public function load($pFilename)
     {
         // Check if file exists
         if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
+            throw new Exception('Could not open '.$pFilename.' for reading! File does not exist.');
         }
 
         // Initialisations
@@ -483,7 +491,7 @@ class Xlsx extends BaseReader implements IReader
                     $dir = dirname($rel['Target']);
                     $relsWorkbook = simplexml_load_string(
                         //~ http://schemas.openxmlformats.org/package/2006/relationships"
-                        $this->securityScan($this->getFromZipArchive($zip, "$dir/_rels/" . basename($rel['Target']) . '.rels')),
+                        $this->securityScan($this->getFromZipArchive($zip, "$dir/_rels/".basename($rel['Target']).'.rels')),
                         'SimpleXMLElement',
                         \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
                     );
@@ -572,7 +580,7 @@ class Xlsx extends BaseReader implements IReader
                             }
                             $quotePrefix = false;
                             if (isset($xf['quotePrefix'])) {
-                                $quotePrefix = (boolean) $xf['quotePrefix'];
+                                $quotePrefix = (bool) $xf['quotePrefix'];
                             }
 
                             $style = (object) [
@@ -932,8 +940,8 @@ class Xlsx extends BaseReader implements IReader
                                                 $value = (int) $value;
                                             } elseif ($value == (float) $value) {
                                                 $value = (float) $value;
-                                            } elseif ($value == (double) $value) {
-                                                $value = (double) $value;
+                                            } elseif ($value == (float) $value) {
+                                                $value = (float) $value;
                                             }
                                         }
 
@@ -1007,7 +1015,7 @@ class Xlsx extends BaseReader implements IReader
                             $aKeys = ['sheet', 'objects', 'scenarios', 'formatCells', 'formatColumns', 'formatRows', 'insertColumns', 'insertRows', 'insertHyperlinks', 'deleteColumns', 'deleteRows', 'selectLockedCells', 'sort', 'autoFilter', 'pivotTables', 'selectUnlockedCells'];
                             if (!$this->readDataOnly && $xmlSheet && $xmlSheet->sheetProtection) {
                                 foreach ($aKeys as $key) {
-                                    $method = 'set' . ucfirst($key);
+                                    $method = 'set'.ucfirst($key);
                                     $docSheet->getProtection()->$method(self::boolean((string) $xmlSheet->sheetProtection[$key]));
                                 }
                             }
@@ -1028,7 +1036,7 @@ class Xlsx extends BaseReader implements IReader
                                     $autoFilter->setRange($autoFilterRange);
 
                                     foreach ($xmlSheet->autoFilter->filterColumn as $filterColumn) {
-                                        $column = $autoFilter->getColumnByOffset((integer) $filterColumn['colId']);
+                                        $column = $autoFilter->getColumnByOffset((int) $filterColumn['colId']);
                                         //    Check for standard filters
                                         if ($filterColumn->filters) {
                                             $column->setFilterType(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_FILTER);
@@ -1210,7 +1218,7 @@ class Xlsx extends BaseReader implements IReader
                             if ($xmlSheet && $xmlSheet->colBreaks && $xmlSheet->colBreaks->brk && !$this->readDataOnly) {
                                 foreach ($xmlSheet->colBreaks->brk as $brk) {
                                     if ($brk['man']) {
-                                        $docSheet->setBreak(\PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex((string) $brk['id']) . '1', \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_COLUMN);
+                                        $docSheet->setBreak(\PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex((string) $brk['id']).'1', \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_COLUMN);
                                     }
                                 }
                             }
@@ -1249,11 +1257,11 @@ class Xlsx extends BaseReader implements IReader
                             $hyperlinks = [];
                             if (!$this->readDataOnly) {
                                 // Locate hyperlink relations
-                                if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
+                                if ($zip->locateName(dirname("$dir/$fileWorksheet").'/_rels/'.basename($fileWorksheet).'.rels')) {
                                     $relsWorksheet = simplexml_load_string(
                                         //~ http://schemas.openxmlformats.org/package/2006/relationships"
                                         $this->securityScan(
-                                            $this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')
+                                            $this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet").'/_rels/'.basename($fileWorksheet).'.rels')
                                         ),
                                         'SimpleXMLElement',
                                         \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
@@ -1276,11 +1284,11 @@ class Xlsx extends BaseReader implements IReader
                                             if (isset($linkRel['id'])) {
                                                 $hyperlinkUrl = $hyperlinks[(string) $linkRel['id']];
                                                 if (isset($hyperlink['location'])) {
-                                                    $hyperlinkUrl .= '#' . (string) $hyperlink['location'];
+                                                    $hyperlinkUrl .= '#'.(string) $hyperlink['location'];
                                                 }
                                                 $cell->getHyperlink()->setUrl($hyperlinkUrl);
                                             } elseif (isset($hyperlink['location'])) {
-                                                $cell->getHyperlink()->setUrl('sheet://' . (string) $hyperlink['location']);
+                                                $cell->getHyperlink()->setUrl('sheet://'.(string) $hyperlink['location']);
                                             }
 
                                             // Tooltip
@@ -1297,11 +1305,11 @@ class Xlsx extends BaseReader implements IReader
                             $vmlComments = [];
                             if (!$this->readDataOnly) {
                                 // Locate comment relations
-                                if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
+                                if ($zip->locateName(dirname("$dir/$fileWorksheet").'/_rels/'.basename($fileWorksheet).'.rels')) {
                                     $relsWorksheet = simplexml_load_string(
                                         //~ http://schemas.openxmlformats.org/package/2006/relationships"
                                         $this->securityScan(
-                                            $this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')
+                                            $this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet").'/_rels/'.basename($fileWorksheet).'.rels')
                                         ),
                                         'SimpleXMLElement',
                                         \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
@@ -1319,7 +1327,7 @@ class Xlsx extends BaseReader implements IReader
                                 // Loop through comments
                                 foreach ($comments as $relName => $relPath) {
                                     // Load comments file
-                                    $relPath = \PhpOffice\PhpSpreadsheet\Shared\File::realpath(dirname("$dir/$fileWorksheet") . '/' . $relPath);
+                                    $relPath = \PhpOffice\PhpSpreadsheet\Shared\File::realpath(dirname("$dir/$fileWorksheet").'/'.$relPath);
                                     $commentsFile = simplexml_load_string(
                                         $this->securityScan($this->getFromZipArchive($zip, $relPath)),
                                         'SimpleXMLElement',
@@ -1346,7 +1354,7 @@ class Xlsx extends BaseReader implements IReader
                                 // Loop through VML comments
                                 foreach ($vmlComments as $relName => $relPath) {
                                     // Load VML comments file
-                                    $relPath = \PhpOffice\PhpSpreadsheet\Shared\File::realpath(dirname("$dir/$fileWorksheet") . '/' . $relPath);
+                                    $relPath = \PhpOffice\PhpSpreadsheet\Shared\File::realpath(dirname("$dir/$fileWorksheet").'/'.$relPath);
                                     $vmlCommentsFile = simplexml_load_string(
                                         $this->securityScan($this->getFromZipArchive($zip, $relPath)),
                                         'SimpleXMLElement',
@@ -1414,11 +1422,11 @@ class Xlsx extends BaseReader implements IReader
 
                                 // Header/footer images
                                 if ($xmlSheet && $xmlSheet->legacyDrawingHF && !$this->readDataOnly) {
-                                    if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
+                                    if ($zip->locateName(dirname("$dir/$fileWorksheet").'/_rels/'.basename($fileWorksheet).'.rels')) {
                                         $relsWorksheet = simplexml_load_string(
                                             //~ http://schemas.openxmlformats.org/package/2006/relationships"
                                             $this->securityScan(
-                                                $this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')
+                                                $this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet").'/_rels/'.basename($fileWorksheet).'.rels')
                                             ),
                                             'SimpleXMLElement',
                                             \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
@@ -1436,7 +1444,7 @@ class Xlsx extends BaseReader implements IReader
                                             $relsVML = simplexml_load_string(
                                                 //~ http://schemas.openxmlformats.org/package/2006/relationships"
                                                 $this->securityScan(
-                                                    $this->getFromZipArchive($zip, dirname($vmlRelationship) . '/_rels/' . basename($vmlRelationship) . '.rels')
+                                                    $this->getFromZipArchive($zip, dirname($vmlRelationship).'/_rels/'.basename($vmlRelationship).'.rels')
                                                 ),
                                                 'SimpleXMLElement',
                                                 \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
@@ -1472,7 +1480,7 @@ class Xlsx extends BaseReader implements IReader
                                                     $hfImages[(string) $shape['id']]->setName((string) $imageData['title']);
                                                 }
 
-                                                $hfImages[(string) $shape['id']]->setPath('zip://' . \PhpOffice\PhpSpreadsheet\Shared_File::realpath($pFilename) . '#' . $drawings[(string) $imageData['relid']], false);
+                                                $hfImages[(string) $shape['id']]->setPath('zip://'.\PhpOffice\PhpSpreadsheet\Shared_File::realpath($pFilename).'#'.$drawings[(string) $imageData['relid']], false);
                                                 $hfImages[(string) $shape['id']]->setResizeProportional(false);
                                                 $hfImages[(string) $shape['id']]->setWidth($style['width']);
                                                 $hfImages[(string) $shape['id']]->setHeight($style['height']);
@@ -1490,11 +1498,11 @@ class Xlsx extends BaseReader implements IReader
                             }
 
                             // TODO: Autoshapes from twoCellAnchors!
-                            if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
+                            if ($zip->locateName(dirname("$dir/$fileWorksheet").'/_rels/'.basename($fileWorksheet).'.rels')) {
                                 $relsWorksheet = simplexml_load_string(
                                     //~ http://schemas.openxmlformats.org/package/2006/relationships"
                                     $this->securityScan(
-                                        $this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')
+                                        $this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet").'/_rels/'.basename($fileWorksheet).'.rels')
                                     ),
                                     'SimpleXMLElement',
                                     \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
@@ -1511,7 +1519,7 @@ class Xlsx extends BaseReader implements IReader
                                         $relsDrawing = simplexml_load_string(
                                             //~ http://schemas.openxmlformats.org/package/2006/relationships"
                                             $this->securityScan(
-                                                $this->getFromZipArchive($zip, dirname($fileDrawing) . '/_rels/' . basename($fileDrawing) . '.rels')
+                                                $this->getFromZipArchive($zip, dirname($fileDrawing).'/_rels/'.basename($fileDrawing).'.rels')
                                             ),
                                             'SimpleXMLElement',
                                             \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
@@ -1548,14 +1556,14 @@ class Xlsx extends BaseReader implements IReader
                                                     $objDrawing->setName((string) self::getArrayItem($oneCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name'));
                                                     $objDrawing->setDescription((string) self::getArrayItem($oneCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'descr'));
                                                     $objDrawing->setPath(
-                                                        'zip://' . \PhpOffice\PhpSpreadsheet\Shared\File::realpath($pFilename) . '#' .
+                                                        'zip://'.\PhpOffice\PhpSpreadsheet\Shared\File::realpath($pFilename).'#'.
                                                         $images[(string) self::getArrayItem(
                                                             $blip->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'),
                                                             'embed'
                                                         )],
                                                         false
                                                     );
-                                                    $objDrawing->setCoordinates(\PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex((string) $oneCellAnchor->from->col) . ($oneCellAnchor->from->row + 1));
+                                                    $objDrawing->setCoordinates(\PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex((string) $oneCellAnchor->from->col).($oneCellAnchor->from->row + 1));
                                                     $objDrawing->setOffsetX(\PhpOffice\PhpSpreadsheet\Shared\Drawing::EMUToPixels($oneCellAnchor->from->colOff));
                                                     $objDrawing->setOffsetY(\PhpOffice\PhpSpreadsheet\Shared\Drawing::EMUToPixels($oneCellAnchor->from->rowOff));
                                                     $objDrawing->setResizeProportional(false);
@@ -1577,7 +1585,7 @@ class Xlsx extends BaseReader implements IReader
                                                     $objDrawing->setWorksheet($docSheet);
                                                 } else {
                                                     //    ? Can charts be positioned with a oneCellAnchor ?
-                                                    $coordinates = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex((string) $oneCellAnchor->from->col) . ($oneCellAnchor->from->row + 1);
+                                                    $coordinates = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex((string) $oneCellAnchor->from->col).($oneCellAnchor->from->row + 1);
                                                     $offsetX = \PhpOffice\PhpSpreadsheet\Shared\Drawing::EMUToPixels($oneCellAnchor->from->colOff);
                                                     $offsetY = \PhpOffice\PhpSpreadsheet\Shared\Drawing::EMUToPixels($oneCellAnchor->from->rowOff);
                                                     $width = \PhpOffice\PhpSpreadsheet\Shared\Drawing::EMUToPixels(self::getArrayItem($oneCellAnchor->ext->attributes(), 'cx'));
@@ -1595,14 +1603,14 @@ class Xlsx extends BaseReader implements IReader
                                                     $objDrawing->setName((string) self::getArrayItem($twoCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name'));
                                                     $objDrawing->setDescription((string) self::getArrayItem($twoCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'descr'));
                                                     $objDrawing->setPath(
-                                                        'zip://' . \PhpOffice\PhpSpreadsheet\Shared\File::realpath($pFilename) . '#' .
+                                                        'zip://'.\PhpOffice\PhpSpreadsheet\Shared\File::realpath($pFilename).'#'.
                                                         $images[(string) self::getArrayItem(
                                                             $blip->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'),
                                                             'embed'
                                                         )],
                                                         false
                                                     );
-                                                    $objDrawing->setCoordinates(\PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex((string) $twoCellAnchor->from->col) . ($twoCellAnchor->from->row + 1));
+                                                    $objDrawing->setCoordinates(\PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex((string) $twoCellAnchor->from->col).($twoCellAnchor->from->row + 1));
                                                     $objDrawing->setOffsetX(\PhpOffice\PhpSpreadsheet\Shared\Drawing::EMUToPixels($twoCellAnchor->from->colOff));
                                                     $objDrawing->setOffsetY(\PhpOffice\PhpSpreadsheet\Shared\Drawing::EMUToPixels($twoCellAnchor->from->rowOff));
                                                     $objDrawing->setResizeProportional(false);
@@ -1624,17 +1632,17 @@ class Xlsx extends BaseReader implements IReader
                                                     }
                                                     $objDrawing->setWorksheet($docSheet);
                                                 } elseif (($this->includeCharts) && ($twoCellAnchor->graphicFrame)) {
-                                                    $fromCoordinate = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex((string) $twoCellAnchor->from->col) . ($twoCellAnchor->from->row + 1);
+                                                    $fromCoordinate = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex((string) $twoCellAnchor->from->col).($twoCellAnchor->from->row + 1);
                                                     $fromOffsetX = \PhpOffice\PhpSpreadsheet\Shared\Drawing::EMUToPixels($twoCellAnchor->from->colOff);
                                                     $fromOffsetY = \PhpOffice\PhpSpreadsheet\Shared\Drawing::EMUToPixels($twoCellAnchor->from->rowOff);
-                                                    $toCoordinate = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex((string) $twoCellAnchor->to->col) . ($twoCellAnchor->to->row + 1);
+                                                    $toCoordinate = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex((string) $twoCellAnchor->to->col).($twoCellAnchor->to->row + 1);
                                                     $toOffsetX = \PhpOffice\PhpSpreadsheet\Shared\Drawing::EMUToPixels($twoCellAnchor->to->colOff);
                                                     $toOffsetY = \PhpOffice\PhpSpreadsheet\Shared\Drawing::EMUToPixels($twoCellAnchor->to->rowOff);
                                                     $graphic = $twoCellAnchor->graphicFrame->children('http://schemas.openxmlformats.org/drawingml/2006/main')->graphic;
                                                     $chartRef = $graphic->graphicData->children('http://schemas.openxmlformats.org/drawingml/2006/chart')->chart;
                                                     $thisChart = (string) $chartRef->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships');
 
-                                                    $chartDetails[$docSheet->getTitle() . '!' . $thisChart] = [
+                                                    $chartDetails[$docSheet->getTitle().'!'.$thisChart] = [
                                                         'fromCoordinate' => $fromCoordinate,
                                                         'fromOffsetX' => $fromOffsetX,
                                                         'fromOffsetY' => $fromOffsetY,
@@ -1656,7 +1664,7 @@ class Xlsx extends BaseReader implements IReader
                                     // Extract range
                                     $extractedRange = (string) $definedName;
                                     if (($spos = strpos($extractedRange, '!')) !== false) {
-                                        $extractedRange = substr($extractedRange, 0, $spos) . str_replace('$', '', substr($extractedRange, $spos));
+                                        $extractedRange = substr($extractedRange, 0, $spos).str_replace('$', '', substr($extractedRange, $spos));
                                     } else {
                                         $extractedRange = str_replace('$', '', $extractedRange);
                                     }
@@ -1706,7 +1714,7 @@ class Xlsx extends BaseReader implements IReader
                                                     $range = explode('!', $rangeSet); // FIXME: what if sheetname contains exclamation mark?
                                                     $rangeSet = isset($range[1]) ? $range[1] : $range[0];
                                                     if (strpos($rangeSet, ':') === false) {
-                                                        $rangeSet = $rangeSet . ':' . $rangeSet;
+                                                        $rangeSet = $rangeSet.':'.$rangeSet;
                                                     }
                                                     $newRangeSets[] = str_replace('$', '', $rangeSet);
                                                 }
@@ -1730,7 +1738,7 @@ class Xlsx extends BaseReader implements IReader
                                 // Extract range
                                 $extractedRange = (string) $definedName;
                                 if (($spos = strpos($extractedRange, '!')) !== false) {
-                                    $extractedRange = substr($extractedRange, 0, $spos) . str_replace('$', '', substr($extractedRange, $spos));
+                                    $extractedRange = substr($extractedRange, 0, $spos).str_replace('$', '', substr($extractedRange, $spos));
                                 } else {
                                     $extractedRange = str_replace('$', '', $extractedRange);
                                 }
@@ -1750,14 +1758,14 @@ class Xlsx extends BaseReader implements IReader
                                         case '_xlnm.Print_Area':
                                             break;
                                         default:
-                                            if ($mapSheetId[(integer) $definedName['localSheetId']] !== null) {
+                                            if ($mapSheetId[(int) $definedName['localSheetId']] !== null) {
                                                 $range = explode('!', (string) $definedName);
                                                 if (count($range) == 2) {
                                                     $range[0] = str_replace("''", "'", $range[0]);
                                                     $range[0] = str_replace("'", '', $range[0]);
                                                     if ($worksheet = $docSheet->getParent()->getSheetByName($range[0])) {
                                                         $extractedRange = str_replace('$', '', $range[1]);
-                                                        $scope = $docSheet->getParent()->getSheet($mapSheetId[(integer) $definedName['localSheetId']]);
+                                                        $scope = $docSheet->getParent()->getSheet($mapSheetId[(int) $definedName['localSheetId']]);
                                                         $excel->addNamedRange(new \PhpOffice\PhpSpreadsheet\NamedRange((string) $definedName['name'], $worksheet, $extractedRange, true, $scope));
                                                     }
                                                 }
@@ -1830,7 +1838,7 @@ class Xlsx extends BaseReader implements IReader
                             $objChart = \PhpOffice\PhpSpreadsheet\Reader\Xlsx\Chart::readChart($chartElements, basename($chartEntryRef, '.xml'));
 
                             if (isset($charts[$chartEntryRef])) {
-                                $chartPositionRef = $charts[$chartEntryRef]['sheet'] . '!' . $charts[$chartEntryRef]['id'];
+                                $chartPositionRef = $charts[$chartEntryRef]['sheet'].'!'.$charts[$chartEntryRef]['id'];
                                 if (isset($chartDetails[$chartPositionRef])) {
                                     $excel->getSheetByName($charts[$chartEntryRef]['sheet'])->addChart($objChart);
                                     $objChart->setWorksheet($excel->getSheetByName($charts[$chartEntryRef]['sheet']));
@@ -1862,7 +1870,7 @@ class Xlsx extends BaseReader implements IReader
                     $returnColour = \PhpOffice\PhpSpreadsheet\Style\Color::changeBrightness($returnColour, $tintAdjust);
                 }
 
-                return 'FF' . $returnColour;
+                return 'FF'.$returnColour;
             }
         }
 
@@ -1875,7 +1883,7 @@ class Xlsx extends BaseReader implements IReader
 
     /**
      * @param \PhpOffice\PhpSpreadsheet\Style $docStyle
-     * @param \stdClass|\SimpleXMLElement $style
+     * @param \stdClass|\SimpleXMLElement     $style
      */
     private static function readStyle(\PhpOffice\PhpSpreadsheet\Style $docStyle, $style)
     {
@@ -2081,7 +2089,7 @@ class Xlsx extends BaseReader implements IReader
         $customUIImagesNames = [];
         $customUIImagesBinaries = [];
         // something like customUI/_rels/customUI.xml.rels
-        $pathRels = $baseDir . '/_rels/' . $nameCustomUI . '.rels';
+        $pathRels = $baseDir.'/_rels/'.$nameCustomUI.'.rels';
         $dataRels = $this->getFromZipArchive($zip, $pathRels);
         if ($dataRels) {
             // exists and not empty if the ribbon have some pictures (other than internal MSO)
@@ -2096,7 +2104,7 @@ class Xlsx extends BaseReader implements IReader
                     if ($ele['Type'] == 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image') {
                         // an image ?
                         $customUIImagesNames[(string) $ele['Id']] = (string) $ele['Target'];
-                        $customUIImagesBinaries[(string) $ele['Target']] = $this->getFromZipArchive($zip, $baseDir . '/' . (string) $ele['Target']);
+                        $customUIImagesBinaries[(string) $ele['Target']] = $this->getFromZipArchive($zip, $baseDir.'/'.(string) $ele['Target']);
                     }
                 }
             }
@@ -2121,7 +2129,7 @@ class Xlsx extends BaseReader implements IReader
 
     private static function dirAdd($base, $add)
     {
-        return preg_replace('~[^/]+/\.\./~', '', dirname($base) . "/$add");
+        return preg_replace('~[^/]+/\.\./~', '', dirname($base)."/$add");
     }
 
     private static function toCSSArray($style)

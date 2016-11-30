@@ -68,16 +68,17 @@ class OLERead
     public $documentSummaryInformation = null;
 
     /**
-     * Read the file
+     * Read the file.
      *
      * @param $sFileName string Filename
+     *
      * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
     public function read($sFileName)
     {
         // Check if file exists and is readable
         if (!is_readable($sFileName)) {
-            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('Could not open ' . $sFileName . ' for reading! File does not exist, or it is not readable.');
+            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('Could not open '.$sFileName.' for reading! File does not exist, or it is not readable.');
         }
 
         // Get the file identifier
@@ -86,7 +87,7 @@ class OLERead
 
         // Check OLE identifier
         if ($this->data != self::IDENTIFIER_OLE) {
-            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('The filename ' . $sFileName . ' is not recognised as an OLE file');
+            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('The filename '.$sFileName.' is not recognised as an OLE file');
         }
 
         // Get the file data
@@ -166,9 +167,10 @@ class OLERead
     }
 
     /**
-     * Extract binary stream data
+     * Extract binary stream data.
      *
      * @param int $stream
+     *
      * @return string
      */
     public function getStream($stream)
@@ -215,9 +217,10 @@ class OLERead
     }
 
     /**
-     * Read a standard stream (by joining sectors using information from SAT)
+     * Read a standard stream (by joining sectors using information from SAT).
      *
      * @param int $bl Sector ID where the stream starts
+     *
      * @return string Data for standard stream
      */
     private function _readData($bl)
@@ -280,12 +283,12 @@ class OLERead
             }
 
             // Summary information
-            if ($name == chr(5) . 'SummaryInformation') {
+            if ($name == chr(5).'SummaryInformation') {
                 $this->summaryInformation = count($this->props) - 1;
             }
 
             // Additional Document Summary information
-            if ($name == chr(5) . 'DocumentSummaryInformation') {
+            if ($name == chr(5).'DocumentSummaryInformation') {
                 $this->documentSummaryInformation = count($this->props) - 1;
             }
 
@@ -294,10 +297,11 @@ class OLERead
     }
 
     /**
-     * Read 4 bytes of data at specified position
+     * Read 4 bytes of data at specified position.
      *
      * @param string $data
-     * @param int $pos
+     * @param int    $pos
+     *
      * @return int
      */
     private static function getInt4d($data, $pos)
@@ -307,7 +311,7 @@ class OLERead
             throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('Parameter data is empty.');
         } elseif ($pos < 0) {
             // Invalid position
-            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('Parameter pos=' . $pos . ' is invalid.');
+            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('Parameter pos='.$pos.' is invalid.');
         }
 
         $len = strlen($data);

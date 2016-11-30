@@ -15,6 +15,7 @@ namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
  *
  *    @author  Paul Meagher
  *    @license PHP v3.0
+ *
  *    @version 1.1
  */
 class QRDecomposition
@@ -23,24 +24,28 @@ class QRDecomposition
 
     /**
      *    Array for internal storage of decomposition.
+     *
      *    @var array
      */
     private $QR = [];
 
     /**
      *    Row dimension.
+     *
      *    @var int
      */
     private $m;
 
     /**
      *    Column dimension.
+     *
      *    @var int
      */
     private $n;
 
     /**
      *    Array for internal storage of diagonal of R.
+     *
      *    @var  array
      */
     private $Rdiag = [];
@@ -49,7 +54,8 @@ class QRDecomposition
      *    QR Decomposition computed by Householder reflections.
      *
      *    @param matrix $A Rectangular matrix
-     *    @return Structure to access R and the Householder vectors and compute Q.
+     *
+     *    @return Structure to access R and the Householder vectors and compute Q
      */
     public function __construct($A)
     {
@@ -96,7 +102,7 @@ class QRDecomposition
     /**
      *    Is the matrix full rank?
      *
-     *    @return bool true if R, and hence A, has full rank, else false.
+     *    @return bool true if R, and hence A, has full rank, else false
      */
     public function isFullRank()
     {
@@ -110,7 +116,7 @@ class QRDecomposition
     }    //    function isFullRank()
 
     /**
-     *    Return the Householder vectors
+     *    Return the Householder vectors.
      *
      *    @return Matrix Lower trapezoidal matrix whose columns define the reflections
      */
@@ -130,7 +136,7 @@ class QRDecomposition
     }    //    function getH()
 
     /**
-     *    Return the upper triangular factor
+     *    Return the upper triangular factor.
      *
      *    @return Matrix upper triangular factor
      */
@@ -152,7 +158,7 @@ class QRDecomposition
     }    //    function getR()
 
     /**
-     *    Generate and return the (economy-sized) orthogonal factor
+     *    Generate and return the (economy-sized) orthogonal factor.
      *
      *    @return Matrix orthogonal factor
      */
@@ -189,10 +195,11 @@ class QRDecomposition
     }    //    function getQ()
 
     /**
-     *    Least squares solution of A*X = B
+     *    Least squares solution of A*X = B.
      *
-     *    @param Matrix $B A Matrix with as many rows as A and any number of columns.
-     *    @return Matrix Matrix that minimizes the two norm of Q*R*X-B.
+     *    @param Matrix $B A Matrix with as many rows as A and any number of columns
+     *
+     *    @return Matrix Matrix that minimizes the two norm of Q*R*X-B
      */
     public function solve($B)
     {

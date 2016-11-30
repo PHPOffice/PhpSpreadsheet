@@ -5,11 +5,12 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xls;
 class Color
 {
     /**
-     * Read color
+     * Read color.
      *
-     * @param int $color Indexed color
+     * @param int   $color   Indexed color
      * @param array $palette Color palette
-     * @param int $version
+     * @param int   $version
+     *
      * @return array RGB color value, example: array('rgb' => 'FF0000')
      */
     public static function map($color, $palette, $version)

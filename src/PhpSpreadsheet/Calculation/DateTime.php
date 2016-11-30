@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,17 +20,20 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category    PhpSpreadsheet
+ *
  * @copyright    Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version        ##VERSION##, ##DATE##
  */
 class DateTime
 {
     /**
-     * Identify if a year is a leap year or not
+     * Identify if a year is a leap year or not.
      *
-     * @param    int    $year    The year to test
-     * @return    bool            TRUE if the year is a leap year, otherwise FALSE
+     * @param int $year The year to test
+     *
+     * @return bool TRUE if the year is a leap year, otherwise FALSE
      */
     public static function isLeapYear($year)
     {
@@ -38,16 +41,17 @@ class DateTime
     }
 
     /**
-     * Return the number of days between two dates based on a 360 day calendar
+     * Return the number of days between two dates based on a 360 day calendar.
      *
-     * @param    int    $startDay        Day of month of the start date
-     * @param    int    $startMonth        Month of the start date
-     * @param    int    $startYear        Year of the start date
-     * @param    int    $endDay            Day of month of the start date
-     * @param    int    $endMonth        Month of the start date
-     * @param    int    $endYear        Year of the start date
-     * @param    bool $methodUS        Whether to use the US method or the European method of calculation
-     * @return    int    Number of days between the start date and the end date
+     * @param int  $startDay   Day of month of the start date
+     * @param int  $startMonth Month of the start date
+     * @param int  $startYear  Year of the start date
+     * @param int  $endDay     Day of month of the start date
+     * @param int  $endMonth   Month of the start date
+     * @param int  $endYear    Year of the start date
+     * @param bool $methodUS   Whether to use the US method or the European method of calculation
+     *
+     * @return int Number of days between the start date and the end date
      */
     private static function dateDiff360($startDay, $startMonth, $startYear, $endDay, $endMonth, $endYear, $methodUS)
     {
@@ -74,10 +78,11 @@ class DateTime
     }
 
     /**
-     * getDateValue
+     * getDateValue.
      *
-     * @param    string    $dateValue
-     * @return    mixed    Excel date/time serial value, or string if error
+     * @param string $dateValue
+     *
+     * @return mixed Excel date/time serial value, or string if error
      */
     public static function getDateValue($dateValue)
     {
@@ -100,10 +105,11 @@ class DateTime
     }
 
     /**
-     * getTimeValue
+     * getTimeValue.
      *
-     * @param    string    $timeValue
-     * @return    mixed    Excel date/time serial value, or string if error
+     * @param string $timeValue
+     *
+     * @return mixed Excel date/time serial value, or string if error
      */
     private static function getTimeValue($timeValue)
     {
@@ -124,10 +130,10 @@ class DateTime
 
         $adjustmentMonthsString = (string) $adjustmentMonths;
         if ($adjustmentMonths > 0) {
-            $adjustmentMonthsString = '+' . $adjustmentMonths;
+            $adjustmentMonthsString = '+'.$adjustmentMonths;
         }
         if ($adjustmentMonths != 0) {
-            $PHPDateObject->modify($adjustmentMonthsString . ' months');
+            $PHPDateObject->modify($adjustmentMonthsString.' months');
         }
         $nMonth = (int) $PHPDateObject->format('m');
         $nYear = (int) $PHPDateObject->format('Y');
@@ -135,7 +141,7 @@ class DateTime
         $monthDiff = ($nMonth - $oMonth) + (($nYear - $oYear) * 12);
         if ($monthDiff != $adjustmentMonths) {
             $adjustDays = (int) $PHPDateObject->format('d');
-            $adjustDaysString = '-' . $adjustDays . ' days';
+            $adjustDaysString = '-'.$adjustDays.' days';
             $PHPDateObject->modify($adjustDaysString);
         }
 
@@ -143,7 +149,7 @@ class DateTime
     }
 
     /**
-     * DATETIMENOW
+     * DATETIMENOW.
      *
      * Returns the current date and time.
      * The NOW function is useful when you need to display the current date and time on a worksheet or
@@ -157,8 +163,9 @@ class DateTime
      *        NOW()
      *
      * @category Date/Time Functions
-     * @return    mixed    Excel date/time serial value, PHP date/time serial value or PHP date/time object,
-     *                        depending on the value of the ReturnDateType flag
+     *
+     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     *               depending on the value of the ReturnDateType flag
      */
     public static function DATETIMENOW()
     {
@@ -170,7 +177,7 @@ class DateTime
                 $retValue = (float) \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(time());
                 break;
             case Functions::RETURNDATE_PHP_NUMERIC:
-                $retValue = (integer) time();
+                $retValue = (int) time();
                 break;
             case Functions::RETURNDATE_PHP_OBJECT:
                 $retValue = new \DateTime();
@@ -182,7 +189,7 @@ class DateTime
     }
 
     /**
-     * DATENOW
+     * DATENOW.
      *
      * Returns the current date.
      * The NOW function is useful when you need to display the current date and time on a worksheet or
@@ -196,8 +203,9 @@ class DateTime
      *        TODAY()
      *
      * @category Date/Time Functions
-     * @return    mixed    Excel date/time serial value, PHP date/time serial value or PHP date/time object,
-     *                        depending on the value of the ReturnDateType flag
+     *
+     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     *               depending on the value of the ReturnDateType flag
      */
     public static function DATENOW()
     {
@@ -210,7 +218,7 @@ class DateTime
                 $retValue = (float) $excelDateTime;
                 break;
             case Functions::RETURNDATE_PHP_NUMERIC:
-                $retValue = (integer) \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($excelDateTime);
+                $retValue = (int) \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($excelDateTime);
                 break;
             case Functions::RETURNDATE_PHP_OBJECT:
                 $retValue = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($excelDateTime);
@@ -222,7 +230,7 @@ class DateTime
     }
 
     /**
-     * DATE
+     * DATE.
      *
      * The DATE function returns a value that represents a particular date.
      *
@@ -237,38 +245,40 @@ class DateTime
      *     as will a day value with a suffix (e.g. '21st' rather than simply 21); again only English language.
      *
      * @category Date/Time Functions
-     * @param    int        $year    The value of the year argument can include one to four digits.
-     *                                Excel interprets the year argument according to the configured
-     *                                date system: 1900 or 1904.
-     *                                If year is between 0 (zero) and 1899 (inclusive), Excel adds that
-     *                                value to 1900 to calculate the year. For example, DATE(108,1,2)
-     *                                returns January 2, 2008 (1900+108).
-     *                                If year is between 1900 and 9999 (inclusive), Excel uses that
-     *                                value as the year. For example, DATE(2008,1,2) returns January 2,
-     *                                2008.
-     *                                If year is less than 0 or is 10000 or greater, Excel returns the
-     *                                #NUM! error value.
-     * @param    int        $month    A positive or negative integer representing the month of the year
-     *                                from 1 to 12 (January to December).
-     *                                If month is greater than 12, month adds that number of months to
-     *                                the first month in the year specified. For example, DATE(2008,14,2)
-     *                                returns the serial number representing February 2, 2009.
-     *                                If month is less than 1, month subtracts the magnitude of that
-     *                                number of months, plus 1, from the first month in the year
-     *                                specified. For example, DATE(2008,-3,2) returns the serial number
-     *                                representing September 2, 2007.
-     * @param    int        $day    A positive or negative integer representing the day of the month
-     *                                from 1 to 31.
-     *                                If day is greater than the number of days in the month specified,
-     *                                day adds that number of days to the first day in the month. For
-     *                                example, DATE(2008,1,35) returns the serial number representing
-     *                                February 4, 2008.
-     *                                If day is less than 1, day subtracts the magnitude that number of
-     *                                days, plus one, from the first day of the month specified. For
-     *                                example, DATE(2008,1,-15) returns the serial number representing
-     *                                December 16, 2007.
-     * @return    mixed    Excel date/time serial value, PHP date/time serial value or PHP date/time object,
-     *                        depending on the value of the ReturnDateType flag
+     *
+     * @param int $year  The value of the year argument can include one to four digits.
+     *                   Excel interprets the year argument according to the configured
+     *                   date system: 1900 or 1904.
+     *                   If year is between 0 (zero) and 1899 (inclusive), Excel adds that
+     *                   value to 1900 to calculate the year. For example, DATE(108,1,2)
+     *                   returns January 2, 2008 (1900+108).
+     *                   If year is between 1900 and 9999 (inclusive), Excel uses that
+     *                   value as the year. For example, DATE(2008,1,2) returns January 2,
+     *                   2008.
+     *                   If year is less than 0 or is 10000 or greater, Excel returns the
+     *                   #NUM! error value
+     * @param int $month A positive or negative integer representing the month of the year
+     *                   from 1 to 12 (January to December).
+     *                   If month is greater than 12, month adds that number of months to
+     *                   the first month in the year specified. For example, DATE(2008,14,2)
+     *                   returns the serial number representing February 2, 2009.
+     *                   If month is less than 1, month subtracts the magnitude of that
+     *                   number of months, plus 1, from the first month in the year
+     *                   specified. For example, DATE(2008,-3,2) returns the serial number
+     *                   representing September 2, 2007
+     * @param int $day   A positive or negative integer representing the day of the month
+     *                   from 1 to 31.
+     *                   If day is greater than the number of days in the month specified,
+     *                   day adds that number of days to the first day in the month. For
+     *                   example, DATE(2008,1,35) returns the serial number representing
+     *                   February 4, 2008.
+     *                   If day is less than 1, day subtracts the magnitude that number of
+     *                   days, plus one, from the first day of the month specified. For
+     *                   example, DATE(2008,1,-15) returns the serial number representing
+     *                   December 16, 2007
+     *
+     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     *               depending on the value of the ReturnDateType flag
      */
     public static function DATE($year = 0, $month = 1, $day = 1)
     {
@@ -292,9 +302,9 @@ class DateTime
             (!is_numeric($day))) {
             return Functions::VALUE();
         }
-        $year = (integer) $year;
-        $month = (integer) $month;
-        $day = (integer) $day;
+        $year = (int) $year;
+        $month = (int) $month;
+        $day = (int) $day;
 
         $baseYear = \PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar();
         // Validate parameters
@@ -331,14 +341,14 @@ class DateTime
             case Functions::RETURNDATE_EXCEL:
                 return (float) $excelDateValue;
             case Functions::RETURNDATE_PHP_NUMERIC:
-                return (integer) \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($excelDateValue);
+                return (int) \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($excelDateValue);
             case Functions::RETURNDATE_PHP_OBJECT:
                 return \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($excelDateValue);
         }
     }
 
     /**
-     * TIME
+     * TIME.
      *
      * The TIME function returns a value that represents a particular time.
      *
@@ -349,19 +359,21 @@ class DateTime
      *        TIME(hour,minute,second)
      *
      * @category Date/Time Functions
-     * @param    int        $hour        A number from 0 (zero) to 32767 representing the hour.
-     *                                    Any value greater than 23 will be divided by 24 and the remainder
-     *                                    will be treated as the hour value. For example, TIME(27,0,0) =
-     *                                    TIME(3,0,0) = .125 or 3:00 AM.
-     * @param    int        $minute        A number from 0 to 32767 representing the minute.
-     *                                    Any value greater than 59 will be converted to hours and minutes.
-     *                                    For example, TIME(0,750,0) = TIME(12,30,0) = .520833 or 12:30 PM.
-     * @param    int        $second        A number from 0 to 32767 representing the second.
-     *                                    Any value greater than 59 will be converted to hours, minutes,
-     *                                    and seconds. For example, TIME(0,0,2000) = TIME(0,33,22) = .023148
-     *                                    or 12:33:20 AM
-     * @return    mixed    Excel date/time serial value, PHP date/time serial value or PHP date/time object,
-     *                        depending on the value of the ReturnDateType flag
+     *
+     * @param int $hour   A number from 0 (zero) to 32767 representing the hour.
+     *                    Any value greater than 23 will be divided by 24 and the remainder
+     *                    will be treated as the hour value. For example, TIME(27,0,0) =
+     *                    TIME(3,0,0) = .125 or 3:00 AM
+     * @param int $minute A number from 0 to 32767 representing the minute.
+     *                    Any value greater than 59 will be converted to hours and minutes.
+     *                    For example, TIME(0,750,0) = TIME(12,30,0) = .520833 or 12:30 PM
+     * @param int $second A number from 0 to 32767 representing the second.
+     *                    Any value greater than 59 will be converted to hours, minutes,
+     *                    and seconds. For example, TIME(0,0,2000) = TIME(0,33,22) = .023148
+     *                    or 12:33:20 AM
+     *
+     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     *               depending on the value of the ReturnDateType flag
      */
     public static function TIME($hour = 0, $minute = 0, $second = 0)
     {
@@ -382,9 +394,9 @@ class DateTime
         if ((!is_numeric($hour)) || (!is_numeric($minute)) || (!is_numeric($second))) {
             return Functions::VALUE();
         }
-        $hour = (integer) $hour;
-        $minute = (integer) $minute;
-        $second = (integer) $second;
+        $hour = (int) $hour;
+        $minute = (int) $minute;
+        $second = (int) $second;
 
         if ($second < 0) {
             $minute += floor($second / 60);
@@ -424,7 +436,7 @@ class DateTime
 
                 return (float) \PhpOffice\PhpSpreadsheet\Shared\Date::formattedPHPToExcel($calendar, 1, $date, $hour, $minute, $second);
             case Functions::RETURNDATE_PHP_NUMERIC:
-                return (integer) \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp(\PhpOffice\PhpSpreadsheet\Shared\Date::formattedPHPToExcel(1970, 1, 1, $hour, $minute, $second)); // -2147468400; //    -2147472000 + 3600
+                return (int) \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp(\PhpOffice\PhpSpreadsheet\Shared\Date::formattedPHPToExcel(1970, 1, 1, $hour, $minute, $second)); // -2147468400; //    -2147472000 + 3600
             case Functions::RETURNDATE_PHP_OBJECT:
                 $dayAdjust = 0;
                 if ($hour < 0) {
@@ -437,9 +449,9 @@ class DateTime
                     $dayAdjust = floor($hour / 24);
                     $hour = $hour % 24;
                 }
-                $phpDateObject = new \DateTime('1900-01-01 ' . $hour . ':' . $minute . ':' . $second);
+                $phpDateObject = new \DateTime('1900-01-01 '.$hour.':'.$minute.':'.$second);
                 if ($dayAdjust != 0) {
-                    $phpDateObject->modify($dayAdjust . ' days');
+                    $phpDateObject->modify($dayAdjust.' days');
                 }
 
                 return $phpDateObject;
@@ -447,7 +459,7 @@ class DateTime
     }
 
     /**
-     * DATEVALUE
+     * DATEVALUE.
      *
      * Returns a value that represents a particular date.
      * Use DATEVALUE to convert a date represented by a text string to an Excel or PHP date/time stamp
@@ -460,16 +472,18 @@ class DateTime
      *        DATEVALUE(dateValue)
      *
      * @category Date/Time Functions
-     * @param    string    $dateValue        Text that represents a date in a Microsoft Excel date format.
-     *                                    For example, "1/30/2008" or "30-Jan-2008" are text strings within
-     *                                    quotation marks that represent dates. Using the default date
-     *                                    system in Excel for Windows, date_text must represent a date from
-     *                                    January 1, 1900, to December 31, 9999. Using the default date
-     *                                    system in Excel for the Macintosh, date_text must represent a date
-     *                                    from January 1, 1904, to December 31, 9999. DATEVALUE returns the
-     *                                    #VALUE! error value if date_text is out of this range.
-     * @return    mixed    Excel date/time serial value, PHP date/time serial value or PHP date/time object,
-     *                        depending on the value of the ReturnDateType flag
+     *
+     * @param string $dateValue Text that represents a date in a Microsoft Excel date format.
+     *                          For example, "1/30/2008" or "30-Jan-2008" are text strings within
+     *                          quotation marks that represent dates. Using the default date
+     *                          system in Excel for Windows, date_text must represent a date from
+     *                          January 1, 1900, to December 31, 9999. Using the default date
+     *                          system in Excel for the Macintosh, date_text must represent a date
+     *                          from January 1, 1904, to December 31, 9999. DATEVALUE returns the
+     *                          #VALUE! error value if date_text is out of this range
+     *
+     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     *               depending on the value of the ReturnDateType flag
      */
     public static function DATEVALUE($dateValue = 1)
     {
@@ -532,9 +546,9 @@ class DateTime
             if ($testVal1 < 31 && $testVal2 < 12 && $testVal3 < 12 && strlen($testVal3) == 2) {
                 $testVal3 += 2000;
             }
-            $PHPDateArray = date_parse($testVal1 . '-' . $testVal2 . '-' . $testVal3);
+            $PHPDateArray = date_parse($testVal1.'-'.$testVal2.'-'.$testVal3);
             if (($PHPDateArray === false) || ($PHPDateArray['error_count'] > 0)) {
-                $PHPDateArray = date_parse($testVal2 . '-' . $testVal1 . '-' . $testVal3);
+                $PHPDateArray = date_parse($testVal2.'-'.$testVal1.'-'.$testVal3);
                 if (($PHPDateArray === false) || ($PHPDateArray['error_count'] > 0)) {
                     return Functions::VALUE();
                 }
@@ -572,9 +586,9 @@ class DateTime
                 case Functions::RETURNDATE_EXCEL:
                     return (float) $excelDateValue;
                 case Functions::RETURNDATE_PHP_NUMERIC:
-                    return (integer) \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($excelDateValue);
+                    return (int) \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($excelDateValue);
                 case Functions::RETURNDATE_PHP_OBJECT:
-                    return new \DateTime($PHPDateArray['year'] . '-' . $PHPDateArray['month'] . '-' . $PHPDateArray['day'] . ' 00:00:00');
+                    return new \DateTime($PHPDateArray['year'].'-'.$PHPDateArray['month'].'-'.$PHPDateArray['day'].' 00:00:00');
             }
         }
 
@@ -582,7 +596,7 @@ class DateTime
     }
 
     /**
-     * TIMEVALUE
+     * TIMEVALUE.
      *
      * Returns a value that represents a particular time.
      * Use TIMEVALUE to convert a time represented by a text string to an Excel or PHP date/time stamp
@@ -595,12 +609,14 @@ class DateTime
      *        TIMEVALUE(timeValue)
      *
      * @category Date/Time Functions
-     * @param    string    $timeValue        A text string that represents a time in any one of the Microsoft
-     *                                    Excel time formats; for example, "6:45 PM" and "18:45" text strings
-     *                                    within quotation marks that represent time.
-     *                                    Date information in time_text is ignored.
-     * @return    mixed    Excel date/time serial value, PHP date/time serial value or PHP date/time object,
-     *                        depending on the value of the ReturnDateType flag
+     *
+     * @param string $timeValue A text string that represents a time in any one of the Microsoft
+     *                          Excel time formats; for example, "6:45 PM" and "18:45" text strings
+     *                          within quotation marks that represent time.
+     *                          Date information in time_text is ignored
+     *
+     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     *               depending on the value of the ReturnDateType flag
      */
     public static function TIMEVALUE($timeValue)
     {
@@ -632,9 +648,9 @@ class DateTime
                 case Functions::RETURNDATE_EXCEL:
                     return (float) $excelDateValue;
                 case Functions::RETURNDATE_PHP_NUMERIC:
-                    return (integer) $phpDateValue = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($excelDateValue + 25569) - 3600;
+                    return (int) $phpDateValue = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($excelDateValue + 25569) - 3600;
                 case Functions::RETURNDATE_PHP_OBJECT:
-                    return new \DateTime('1900-01-01 ' . $PHPDateArray['hour'] . ':' . $PHPDateArray['minute'] . ':' . $PHPDateArray['second']);
+                    return new \DateTime('1900-01-01 '.$PHPDateArray['hour'].':'.$PHPDateArray['minute'].':'.$PHPDateArray['second']);
             }
         }
 
@@ -642,14 +658,15 @@ class DateTime
     }
 
     /**
-     * DATEDIF
+     * DATEDIF.
      *
-     * @param    mixed    $startDate        Excel date serial value, PHP date/time stamp, PHP DateTime object
-     *                                    or a standard date string
-     * @param    mixed    $endDate        Excel date serial value, PHP date/time stamp, PHP DateTime object
-     *                                    or a standard date string
-     * @param    string    $unit
-     * @return    int    Interval between the dates
+     * @param mixed  $startDate Excel date serial value, PHP date/time stamp, PHP DateTime object
+     *                          or a standard date string
+     * @param mixed  $endDate   Excel date serial value, PHP date/time stamp, PHP DateTime object
+     *                          or a standard date string
+     * @param string $unit
+     *
+     * @return int Interval between the dates
      */
     public static function DATEDIF($startDate = 0, $endDate = 0, $unit = 'D')
     {
@@ -709,7 +726,7 @@ class DateTime
             case 'MD':
                 if ($endDays < $startDays) {
                     $retVal = $endDays;
-                    $PHPEndDateObject->modify('-' . $endDays . ' days');
+                    $PHPEndDateObject->modify('-'.$endDays.' days');
                     $adjustDays = $PHPEndDateObject->format('j');
                     $retVal += ($adjustDays - $startDays);
                 } else {
@@ -758,7 +775,7 @@ class DateTime
     }
 
     /**
-     * DAYS360
+     * DAYS360.
      *
      * Returns the number of days between two dates based on a 360-day year (twelve 30-day months),
      * which is used in some accounting calculations. Use this function to help compute payments if
@@ -768,22 +785,24 @@ class DateTime
      *        DAYS360(startDate,endDate[,method])
      *
      * @category Date/Time Functions
-     * @param    mixed        $startDate        Excel date serial value (float), PHP date timestamp (integer),
-     *                                        PHP DateTime object, or a standard date string
-     * @param    mixed        $endDate        Excel date serial value (float), PHP date timestamp (integer),
-     *                                        PHP DateTime object, or a standard date string
-     * @param    bool        $method            US or European Method
-     *                                        FALSE or omitted: U.S. (NASD) method. If the starting date is
-     *                                        the last day of a month, it becomes equal to the 30th of the
-     *                                        same month. If the ending date is the last day of a month and
-     *                                        the starting date is earlier than the 30th of a month, the
-     *                                        ending date becomes equal to the 1st of the next month;
-     *                                        otherwise the ending date becomes equal to the 30th of the
-     *                                        same month.
-     *                                        TRUE: European method. Starting dates and ending dates that
-     *                                        occur on the 31st of a month become equal to the 30th of the
-     *                                        same month.
-     * @return    int        Number of days between start date and end date
+     *
+     * @param mixed $startDate Excel date serial value (float), PHP date timestamp (integer),
+     *                         PHP DateTime object, or a standard date string
+     * @param mixed $endDate   Excel date serial value (float), PHP date timestamp (integer),
+     *                         PHP DateTime object, or a standard date string
+     * @param bool  $method    US or European Method
+     *                         FALSE or omitted: U.S. (NASD) method. If the starting date is
+     *                         the last day of a month, it becomes equal to the 30th of the
+     *                         same month. If the ending date is the last day of a month and
+     *                         the starting date is earlier than the 30th of a month, the
+     *                         ending date becomes equal to the 1st of the next month;
+     *                         otherwise the ending date becomes equal to the 30th of the
+     *                         same month.
+     *                         TRUE: European method. Starting dates and ending dates that
+     *                         occur on the 31st of a month become equal to the 30th of the
+     *                         same month
+     *
+     * @return int Number of days between start date and end date
      */
     public static function DAYS360($startDate = 0, $endDate = 0, $method = false)
     {
@@ -816,7 +835,7 @@ class DateTime
     }
 
     /**
-     * YEARFRAC
+     * YEARFRAC.
      *
      * Calculates the fraction of the year represented by the number of whole days between two dates
      * (the start_date and the end_date).
@@ -827,17 +846,19 @@ class DateTime
      *        YEARFRAC(startDate,endDate[,method])
      *
      * @category Date/Time Functions
-     * @param    mixed    $startDate        Excel date serial value (float), PHP date timestamp (integer),
-     *                                    PHP DateTime object, or a standard date string
-     * @param    mixed    $endDate        Excel date serial value (float), PHP date timestamp (integer),
-     *                                    PHP DateTime object, or a standard date string
-     * @param    int    $method            Method used for the calculation
-     *                                        0 or omitted    US (NASD) 30/360
-     *                                        1                Actual/actual
-     *                                        2                Actual/360
-     *                                        3                Actual/365
-     *                                        4                European 30/360
-     * @return    float    fraction of the year
+     *
+     * @param mixed $startDate Excel date serial value (float), PHP date timestamp (integer),
+     *                         PHP DateTime object, or a standard date string
+     * @param mixed $endDate   Excel date serial value (float), PHP date timestamp (integer),
+     *                         PHP DateTime object, or a standard date string
+     * @param int   $method    Method used for the calculation
+     *                         0 or omitted    US (NASD) 30/360
+     *                         1                Actual/actual
+     *                         2                Actual/360
+     *                         3                Actual/365
+     *                         4                European 30/360
+     *
+     * @return float fraction of the year
      */
     public static function YEARFRAC($startDate = 0, $endDate = 0, $method = 0)
     {
@@ -914,7 +935,7 @@ class DateTime
     }
 
     /**
-     * NETWORKDAYS
+     * NETWORKDAYS.
      *
      * Returns the number of whole working days between start_date and end_date. Working days
      * exclude weekends and any dates identified in holidays.
@@ -925,11 +946,13 @@ class DateTime
      *        NETWORKDAYS(startDate,endDate[,holidays[,holiday[,...]]])
      *
      * @category Date/Time Functions
-     * @param    mixed            $startDate        Excel date serial value (float), PHP date timestamp (integer),
-     *                                            PHP DateTime object, or a standard date string
-     * @param    mixed            $endDate        Excel date serial value (float), PHP date timestamp (integer),
-     *                                            PHP DateTime object, or a standard date string
-     * @return    int            Interval between the dates
+     *
+     * @param mixed $startDate Excel date serial value (float), PHP date timestamp (integer),
+     *                         PHP DateTime object, or a standard date string
+     * @param mixed $endDate   Excel date serial value (float), PHP date timestamp (integer),
+     *                         PHP DateTime object, or a standard date string
+     *
+     * @return int Interval between the dates
      */
     public static function NETWORKDAYS($startDate, $endDate)
     {
@@ -994,7 +1017,7 @@ class DateTime
     }
 
     /**
-     * WORKDAY
+     * WORKDAY.
      *
      * Returns the date that is the indicated number of working days before or after a date (the
      * starting date). Working days exclude weekends and any dates identified as holidays.
@@ -1005,13 +1028,15 @@ class DateTime
      *        WORKDAY(startDate,endDays[,holidays[,holiday[,...]]])
      *
      * @category Date/Time Functions
-     * @param    mixed        $startDate        Excel date serial value (float), PHP date timestamp (integer),
-     *                                        PHP DateTime object, or a standard date string
-     * @param    int        $endDays        The number of nonweekend and nonholiday days before or after
-     *                                        startDate. A positive value for days yields a future date; a
-     *                                        negative value yields a past date.
-     * @return    mixed    Excel date/time serial value, PHP date/time serial value or PHP date/time object,
-     *                        depending on the value of the ReturnDateType flag
+     *
+     * @param mixed $startDate Excel date serial value (float), PHP date timestamp (integer),
+     *                         PHP DateTime object, or a standard date string
+     * @param int   $endDays   The number of nonweekend and nonholiday days before or after
+     *                         startDate. A positive value for days yields a future date; a
+     *                         negative value yields a past date
+     *
+     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     *               depending on the value of the ReturnDateType flag
      */
     public static function WORKDAY($startDate, $endDays)
     {
@@ -1098,14 +1123,14 @@ class DateTime
             case Functions::RETURNDATE_EXCEL:
                 return (float) $endDate;
             case Functions::RETURNDATE_PHP_NUMERIC:
-                return (integer) \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($endDate);
+                return (int) \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($endDate);
             case Functions::RETURNDATE_PHP_OBJECT:
                 return \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($endDate);
         }
     }
 
     /**
-     * DAYOFMONTH
+     * DAYOFMONTH.
      *
      * Returns the day of the month, for a specified date. The day is given as an integer
      * ranging from 1 to 31.
@@ -1113,9 +1138,10 @@ class DateTime
      * Excel Function:
      *        DAY(dateValue)
      *
-     * @param    mixed    $dateValue        Excel date serial value (float), PHP date timestamp (integer),
-     *                                    PHP DateTime object, or a standard date string
-     * @return    int        Day of the month
+     * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
+     *                         PHP DateTime object, or a standard date string
+     *
+     * @return int Day of the month
      */
     public static function DAYOFMONTH($dateValue = 1)
     {
@@ -1138,7 +1164,7 @@ class DateTime
     }
 
     /**
-     * WEEKDAY
+     * WEEKDAY.
      *
      * Returns the day of the week for a specified date. The day is given as an integer
      * ranging from 0 to 7 (dependent on the requested style).
@@ -1146,13 +1172,14 @@ class DateTime
      * Excel Function:
      *        WEEKDAY(dateValue[,style])
      *
-     * @param    int    $dateValue        Excel date serial value (float), PHP date timestamp (integer),
-     *                                    PHP DateTime object, or a standard date string
-     * @param    int        $style            A number that determines the type of return value
-     *                                        1 or omitted    Numbers 1 (Sunday) through 7 (Saturday).
-     *                                        2                Numbers 1 (Monday) through 7 (Sunday).
-     *                                        3                Numbers 0 (Monday) through 6 (Sunday).
-     * @return    int        Day of the week value
+     * @param int $dateValue Excel date serial value (float), PHP date timestamp (integer),
+     *                       PHP DateTime object, or a standard date string
+     * @param int $style     A number that determines the type of return value
+     *                       1 or omitted    Numbers 1 (Sunday) through 7 (Saturday).
+     *                       2                Numbers 1 (Monday) through 7 (Sunday).
+     *                       3                Numbers 0 (Monday) through 6 (Sunday)
+     *
+     * @return int Day of the week value
      */
     public static function WEEKDAY($dateValue = 1, $style = 1)
     {
@@ -1210,7 +1237,7 @@ class DateTime
     }
 
     /**
-     * WEEKNUM
+     * WEEKNUM.
      *
      * Returns the week of the year for a specified date.
      * The WEEKNUM function considers the week containing January 1 to be the first week of the year.
@@ -1222,12 +1249,13 @@ class DateTime
      * Excel Function:
      *        WEEKNUM(dateValue[,style])
      *
-     * @param    mixed    $dateValue        Excel date serial value (float), PHP date timestamp (integer),
-     *                                    PHP DateTime object, or a standard date string
-     * @param    int    $method            Week begins on Sunday or Monday
-     *                                        1 or omitted    Week begins on Sunday.
-     *                                        2                Week begins on Monday.
-     * @return    int        Week Number
+     * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
+     *                         PHP DateTime object, or a standard date string
+     * @param int   $method    Week begins on Sunday or Monday
+     *                         1 or omitted    Week begins on Sunday.
+     *                         2                Week begins on Monday
+     *
+     * @return int Week Number
      */
     public static function WEEKNUM($dateValue = 1, $method = 1)
     {
@@ -1252,7 +1280,7 @@ class DateTime
         // Execute function
         $PHPDateObject = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($dateValue);
         $dayOfYear = $PHPDateObject->format('z');
-        $PHPDateObject->modify('-' . $dayOfYear . ' days');
+        $PHPDateObject->modify('-'.$dayOfYear.' days');
         $firstDayOfFirstWeek = $PHPDateObject->format('w');
         $daysInFirstWeek = (6 - $firstDayOfFirstWeek + $method) % 7;
         $interval = $dayOfYear - $daysInFirstWeek;
@@ -1266,7 +1294,7 @@ class DateTime
     }
 
     /**
-     * MONTHOFYEAR
+     * MONTHOFYEAR.
      *
      * Returns the month of a date represented by a serial number.
      * The month is given as an integer, ranging from 1 (January) to 12 (December).
@@ -1274,9 +1302,10 @@ class DateTime
      * Excel Function:
      *        MONTH(dateValue)
      *
-     * @param    mixed    $dateValue        Excel date serial value (float), PHP date timestamp (integer),
-     *                                    PHP DateTime object, or a standard date string
-     * @return    int        Month of the year
+     * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
+     *                         PHP DateTime object, or a standard date string
+     *
+     * @return int Month of the year
      */
     public static function MONTHOFYEAR($dateValue = 1)
     {
@@ -1298,7 +1327,7 @@ class DateTime
     }
 
     /**
-     * YEAR
+     * YEAR.
      *
      * Returns the year corresponding to a date.
      * The year is returned as an integer in the range 1900-9999.
@@ -1306,9 +1335,10 @@ class DateTime
      * Excel Function:
      *        YEAR(dateValue)
      *
-     * @param    mixed    $dateValue        Excel date serial value (float), PHP date timestamp (integer),
-     *                                    PHP DateTime object, or a standard date string
-     * @return    int        Year
+     * @param mixed $dateValue Excel date serial value (float), PHP date timestamp (integer),
+     *                         PHP DateTime object, or a standard date string
+     *
+     * @return int Year
      */
     public static function YEAR($dateValue = 1)
     {
@@ -1329,7 +1359,7 @@ class DateTime
     }
 
     /**
-     * HOUROFDAY
+     * HOUROFDAY.
      *
      * Returns the hour of a time value.
      * The hour is given as an integer, ranging from 0 (12:00 A.M.) to 23 (11:00 P.M.).
@@ -1337,9 +1367,10 @@ class DateTime
      * Excel Function:
      *        HOUR(timeValue)
      *
-     * @param    mixed    $timeValue        Excel date serial value (float), PHP date timestamp (integer),
-     *                                    PHP DateTime object, or a standard time string
-     * @return    int        Hour
+     * @param mixed $timeValue Excel date serial value (float), PHP date timestamp (integer),
+     *                         PHP DateTime object, or a standard time string
+     *
+     * @return int Hour
      */
     public static function HOUROFDAY($timeValue = 0)
     {
@@ -1369,7 +1400,7 @@ class DateTime
     }
 
     /**
-     * MINUTE
+     * MINUTE.
      *
      * Returns the minutes of a time value.
      * The minute is given as an integer, ranging from 0 to 59.
@@ -1377,9 +1408,10 @@ class DateTime
      * Excel Function:
      *        MINUTE(timeValue)
      *
-     * @param    mixed    $timeValue        Excel date serial value (float), PHP date timestamp (integer),
-     *                                    PHP DateTime object, or a standard time string
-     * @return    int        Minute
+     * @param mixed $timeValue Excel date serial value (float), PHP date timestamp (integer),
+     *                         PHP DateTime object, or a standard time string
+     *
+     * @return int Minute
      */
     public static function MINUTE($timeValue = 0)
     {
@@ -1409,7 +1441,7 @@ class DateTime
     }
 
     /**
-     * SECOND
+     * SECOND.
      *
      * Returns the seconds of a time value.
      * The second is given as an integer in the range 0 (zero) to 59.
@@ -1417,9 +1449,10 @@ class DateTime
      * Excel Function:
      *        SECOND(timeValue)
      *
-     * @param    mixed    $timeValue        Excel date serial value (float), PHP date timestamp (integer),
-     *                                    PHP DateTime object, or a standard time string
-     * @return    int        Second
+     * @param mixed $timeValue Excel date serial value (float), PHP date timestamp (integer),
+     *                         PHP DateTime object, or a standard time string
+     *
+     * @return int Second
      */
     public static function SECOND($timeValue = 0)
     {
@@ -1449,7 +1482,7 @@ class DateTime
     }
 
     /**
-     * EDATE
+     * EDATE.
      *
      * Returns the serial number that represents the date that is the indicated number of months
      * before or after a specified date (the start_date).
@@ -1459,13 +1492,14 @@ class DateTime
      * Excel Function:
      *        EDATE(dateValue,adjustmentMonths)
      *
-     * @param    mixed    $dateValue            Excel date serial value (float), PHP date timestamp (integer),
-     *                                        PHP DateTime object, or a standard date string
-     * @param    int        $adjustmentMonths    The number of months before or after start_date.
-     *                                        A positive value for months yields a future date;
-     *                                        a negative value yields a past date.
-     * @return    mixed    Excel date/time serial value, PHP date/time serial value or PHP date/time object,
-     *                        depending on the value of the ReturnDateType flag
+     * @param mixed $dateValue        Excel date serial value (float), PHP date timestamp (integer),
+     *                                PHP DateTime object, or a standard date string
+     * @param int   $adjustmentMonths The number of months before or after start_date.
+     *                                A positive value for months yields a future date;
+     *                                a negative value yields a past date
+     *
+     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     *               depending on the value of the ReturnDateType flag
      */
     public static function EDATE($dateValue = 1, $adjustmentMonths = 0)
     {
@@ -1488,14 +1522,14 @@ class DateTime
             case Functions::RETURNDATE_EXCEL:
                 return (float) \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($PHPDateObject);
             case Functions::RETURNDATE_PHP_NUMERIC:
-                return (integer) \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp(\PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($PHPDateObject));
+                return (int) \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp(\PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($PHPDateObject));
             case Functions::RETURNDATE_PHP_OBJECT:
                 return $PHPDateObject;
         }
     }
 
     /**
-     * EOMONTH
+     * EOMONTH.
      *
      * Returns the date value for the last day of the month that is the indicated number of months
      * before or after start_date.
@@ -1504,13 +1538,14 @@ class DateTime
      * Excel Function:
      *        EOMONTH(dateValue,adjustmentMonths)
      *
-     * @param    mixed    $dateValue            Excel date serial value (float), PHP date timestamp (integer),
-     *                                        PHP DateTime object, or a standard date string
-     * @param    int        $adjustmentMonths    The number of months before or after start_date.
-     *                                        A positive value for months yields a future date;
-     *                                        a negative value yields a past date.
-     * @return    mixed    Excel date/time serial value, PHP date/time serial value or PHP date/time object,
-     *                        depending on the value of the ReturnDateType flag
+     * @param mixed $dateValue        Excel date serial value (float), PHP date timestamp (integer),
+     *                                PHP DateTime object, or a standard date string
+     * @param int   $adjustmentMonths The number of months before or after start_date.
+     *                                A positive value for months yields a future date;
+     *                                a negative value yields a past date
+     *
+     * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
+     *               depending on the value of the ReturnDateType flag
      */
     public static function EOMONTH($dateValue = 1, $adjustmentMonths = 0)
     {
@@ -1529,14 +1564,14 @@ class DateTime
         // Execute function
         $PHPDateObject = self::adjustDateByMonths($dateValue, $adjustmentMonths + 1);
         $adjustDays = (int) $PHPDateObject->format('d');
-        $adjustDaysString = '-' . $adjustDays . ' days';
+        $adjustDaysString = '-'.$adjustDays.' days';
         $PHPDateObject->modify($adjustDaysString);
 
         switch (Functions::getReturnDateType()) {
             case Functions::RETURNDATE_EXCEL:
                 return (float) \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($PHPDateObject);
             case Functions::RETURNDATE_PHP_NUMERIC:
-                return (integer) \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp(\PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($PHPDateObject));
+                return (int) \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp(\PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($PHPDateObject));
             case Functions::RETURNDATE_PHP_OBJECT:
                 return $PHPDateObject;
         }

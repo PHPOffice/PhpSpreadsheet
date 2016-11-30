@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Chart;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,28 +20,30 @@ namespace PhpOffice\PhpSpreadsheet\Chart;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class Title
 {
     /**
-     * Title Caption
+     * Title Caption.
      *
      * @var string
      */
     private $caption = null;
 
     /**
-     * Title Layout
+     * Title Layout.
      *
      * @var Layout
      */
     private $layout = null;
 
     /**
-     * Create a new Title
+     * Create a new Title.
      */
     public function __construct($caption = null, Layout $layout = null)
     {
@@ -50,7 +52,7 @@ class Title
     }
 
     /**
-     * Get caption
+     * Get caption.
      *
      * @return string
      */
@@ -60,9 +62,10 @@ class Title
     }
 
     /**
-     * Set caption
+     * Set caption.
      *
      * @param string $caption
+     *
      * @return Title
      */
     public function setCaption($caption = null)
@@ -73,7 +76,7 @@ class Title
     }
 
     /**
-     * Get Layout
+     * Get Layout.
      *
      * @return Layout
      */

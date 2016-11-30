@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,18 +20,22 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class Rels extends WriterPart
 {
     /**
-     * Write relationships to XML format
+     * Write relationships to XML format.
      *
      * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
-     * @return string  XML Output
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\WriteException
+     *
+     * @return string XML Output
      */
     public function writeRelationships(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
@@ -100,11 +104,13 @@ class Rels extends WriterPart
     }
 
     /**
-     * Write workbook relationships to XML format
+     * Write workbook relationships to XML format.
      *
      * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
-     * @return string  XML Output
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\WriteException
+     *
+     * @return string XML Output
      */
     public function writeWorkbookRelationships(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
@@ -154,7 +160,7 @@ class Rels extends WriterPart
                 $objWriter,
                 ($i + 1 + 3),
                 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet',
-                'worksheets/sheet' . ($i + 1) . '.xml'
+                'worksheets/sheet'.($i + 1).'.xml'
             );
         }
         // Relationships for vbaProject if needed
@@ -175,17 +181,19 @@ class Rels extends WriterPart
     }
 
     /**
-     * Write worksheet relationships to XML format
+     * Write worksheet relationships to XML format.
      *
      * Numbering is as follows:
      *     rId1                 - Drawings
      *  rId_hyperlink_x     - Hyperlinks
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Worksheet    $pWorksheet
-     * @param     int                    $pWorksheetId
-     * @param    bool                $includeCharts    Flag indicating if we should write charts
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
-     * @return string          XML Output
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet
+     * @param int                                 $pWorksheetId
+     * @param bool                                $includeCharts Flag indicating if we should write charts
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\WriteException
+     *
+     * @return string XML Output
      */
     public function writeWorksheetRelationships(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet = null, $pWorksheetId = 1, $includeCharts = false)
     {
@@ -217,7 +225,7 @@ class Rels extends WriterPart
                 $objWriter,
                 ++$d,
                 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/drawing',
-                '../drawings/drawing' . $pWorksheetId . '.xml'
+                '../drawings/drawing'.$pWorksheetId.'.xml'
             );
         }
 
@@ -227,7 +235,7 @@ class Rels extends WriterPart
             if (!$hyperlink->isInternal()) {
                 $this->writeRelationship(
                     $objWriter,
-                    '_hyperlink_' . $i,
+                    '_hyperlink_'.$i,
                     'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink',
                     $hyperlink->getUrl(),
                     'External'
@@ -242,16 +250,16 @@ class Rels extends WriterPart
         if (count($pWorksheet->getComments()) > 0) {
             $this->writeRelationship(
                 $objWriter,
-                '_comments_vml' . $i,
+                '_comments_vml'.$i,
                 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/vmlDrawing',
-                '../drawings/vmlDrawing' . $pWorksheetId . '.vml'
+                '../drawings/vmlDrawing'.$pWorksheetId.'.vml'
             );
 
             $this->writeRelationship(
                 $objWriter,
-                '_comments' . $i,
+                '_comments'.$i,
                 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/comments',
-                '../comments' . $pWorksheetId . '.xml'
+                '../comments'.$pWorksheetId.'.xml'
             );
         }
 
@@ -260,9 +268,9 @@ class Rels extends WriterPart
         if (count($pWorksheet->getHeaderFooter()->getImages()) > 0) {
             $this->writeRelationship(
                 $objWriter,
-                '_headerfooter_vml' . $i,
+                '_headerfooter_vml'.$i,
                 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/vmlDrawing',
-                '../drawings/vmlDrawingHF' . $pWorksheetId . '.vml'
+                '../drawings/vmlDrawingHF'.$pWorksheetId.'.vml'
             );
         }
 
@@ -272,13 +280,15 @@ class Rels extends WriterPart
     }
 
     /**
-     * Write drawing relationships to XML format
+     * Write drawing relationships to XML format.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Worksheet    $pWorksheet
-     * @param    int                    &$chartRef        Chart ID
-     * @param    bool                $includeCharts    Flag indicating if we should write charts
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
-     * @return string          XML Output
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet
+     * @param int                                 &$chartRef     Chart ID
+     * @param bool                                $includeCharts Flag indicating if we should write charts
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\WriteException
+     *
+     * @return string XML Output
      */
     public function writeDrawingRelationships(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet, &$chartRef, $includeCharts = false)
     {
@@ -308,7 +318,7 @@ class Rels extends WriterPart
                     $objWriter,
                     $i,
                     'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image',
-                    '../media/' . str_replace(' ', '', $iterator->current()->getIndexedFilename())
+                    '../media/'.str_replace(' ', '', $iterator->current()->getIndexedFilename())
                 );
             }
 
@@ -325,7 +335,7 @@ class Rels extends WriterPart
                         $objWriter,
                         $i++,
                         'http://schemas.openxmlformats.org/officeDocument/2006/relationships/chart',
-                        '../charts/chart' . ++$chartRef . '.xml'
+                        '../charts/chart'.++$chartRef.'.xml'
                     );
                 }
             }
@@ -337,11 +347,13 @@ class Rels extends WriterPart
     }
 
     /**
-     * Write header/footer drawing relationships to XML format
+     * Write header/footer drawing relationships to XML format.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Worksheet            $pWorksheet
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
-     * @return string                  XML Output
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\WriteException
+     *
+     * @return string XML Output
      */
     public function writeHeaderFooterDrawingRelationships(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet = null)
     {
@@ -367,7 +379,7 @@ class Rels extends WriterPart
                 $objWriter,
                 $key,
                 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image',
-                '../media/' . $value->getIndexedFilename()
+                '../media/'.$value->getIndexedFilename()
             );
         }
 
@@ -377,21 +389,22 @@ class Rels extends WriterPart
     }
 
     /**
-     * Write Override content type
+     * Write Override content type.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter     $objWriter         XML Writer
-     * @param     int                            $pId            Relationship ID. rId will be prepended!
-     * @param     string                        $pType            Relationship type
-     * @param     string                         $pTarget        Relationship target
-     * @param     string                         $pTargetMode    Relationship target mode
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter   XML Writer
+     * @param int                                        $pId         Relationship ID. rId will be prepended!
+     * @param string                                     $pType       Relationship type
+     * @param string                                     $pTarget     Relationship target
+     * @param string                                     $pTargetMode Relationship target mode
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\WriteException
      */
     private function writeRelationship(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pId = 1, $pType = '', $pTarget = '', $pTargetMode = '')
     {
         if ($pType != '' && $pTarget != '') {
             // Write relationship
             $objWriter->startElement('Relationship');
-            $objWriter->writeAttribute('Id', 'rId' . $pId);
+            $objWriter->writeAttribute('Id', 'rId'.$pId);
             $objWriter->writeAttribute('Type', $pType);
             $objWriter->writeAttribute('Target', $pTarget);
 
@@ -401,7 +414,7 @@ class Rels extends WriterPart
 
             $objWriter->endElement();
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Invalid parameters passed.');
+            throw new \PhpOffice\PhpSpreadsheet\Writer\WriteException('Invalid parameters passed.');
         }
     }
 }

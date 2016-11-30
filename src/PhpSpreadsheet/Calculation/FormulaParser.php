@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,10 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 /*
@@ -67,24 +69,25 @@ class FormulaParser
     const OPERATORS_POSTFIX = '%';
 
     /**
-     * Formula
+     * Formula.
      *
      * @var string
      */
     private $formula;
 
     /**
-     * Tokens
+     * Tokens.
      *
      * @var FormulaToken[]
      */
     private $tokens = [];
 
     /**
-     * Create a new FormulaParser
+     * Create a new FormulaParser.
      *
-     * @param     string        $pFormula    Formula to parse
-     * @throws     Exception
+     * @param string $pFormula Formula to parse
+     *
+     * @throws Exception
      */
     public function __construct($pFormula = '')
     {
@@ -100,7 +103,7 @@ class FormulaParser
     }
 
     /**
-     * Get Formula
+     * Get Formula.
      *
      * @return string
      */
@@ -110,11 +113,13 @@ class FormulaParser
     }
 
     /**
-     * Get Token
+     * Get Token.
      *
-     * @param     int        $pId    Token id
-     * @throws  Exception
-     * @return    string
+     * @param int $pId Token id
+     *
+     * @throws Exception
+     *
+     * @return string
      */
     public function getToken($pId = 0)
     {
@@ -126,7 +131,7 @@ class FormulaParser
     }
 
     /**
-     * Get Token count
+     * Get Token count.
      *
      * @return int
      */
@@ -136,7 +141,7 @@ class FormulaParser
     }
 
     /**
-     * Get Tokens
+     * Get Tokens.
      *
      * @return FormulaToken[]
      */
@@ -146,7 +151,7 @@ class FormulaParser
     }
 
     /**
-     * Parse to tokens
+     * Parse to tokens.
      */
     private function parseToTokens()
     {

@@ -6,7 +6,7 @@ namespace PhpOffice\PhpSpreadsheet\Chart;
  * Created by PhpStorm.
  * User: nhw2h8s
  * Date: 7/2/14
- * Time: 5:45 PM
+ * Time: 5:45 PM.
  */
 abstract class Properties
 {
@@ -133,7 +133,7 @@ abstract class Properties
 
     protected function getTrueAlpha($alpha)
     {
-        return (string) 100 - $alpha . '000';
+        return (string) 100 - $alpha.'000';
     }
 
     protected function setColorProperties($color, $alpha, $type)

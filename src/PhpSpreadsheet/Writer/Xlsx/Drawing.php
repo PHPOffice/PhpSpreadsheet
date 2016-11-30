@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,20 +20,24 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class Drawing extends WriterPart
 {
     /**
-     * Write drawings to XML format
+     * Write drawings to XML format.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Worksheet    $pWorksheet
-     * @param    int                    &$chartRef        Chart ID
-     * @param    bool                $includeCharts    Flag indicating if we should include drawing details for charts
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
-     * @return string          XML Output
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet
+     * @param int                                 &$chartRef     Chart ID
+     * @param bool                                $includeCharts Flag indicating if we should include drawing details for charts
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\WriteException
+     *
+     * @return string XML Output
      */
     public function writeDrawings(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet, &$chartRef, $includeCharts = false)
     {
@@ -80,12 +84,13 @@ class Drawing extends WriterPart
     }
 
     /**
-     * Write drawings to XML format
+     * Write drawings to XML format.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter    $objWriter         XML Writer
-     * @param     \PhpOffice\PhpSpreadsheet\Chart                $pChart
-     * @param     int                            $pRelationId
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter   XML Writer
+     * @param \PhpOffice\PhpSpreadsheet\Chart            $pChart
+     * @param int                                        $pRelationId
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\WriteException
      */
     public function writeChart(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpOffice\PhpSpreadsheet\Chart $pChart = null, $pRelationId = -1)
     {
@@ -113,7 +118,7 @@ class Drawing extends WriterPart
         $objWriter->writeAttribute('macro', '');
         $objWriter->startElement('xdr:nvGraphicFramePr');
         $objWriter->startElement('xdr:cNvPr');
-        $objWriter->writeAttribute('name', 'Chart ' . $pRelationId);
+        $objWriter->writeAttribute('name', 'Chart '.$pRelationId);
         $objWriter->writeAttribute('id', 1025 * $pRelationId);
         $objWriter->endElement();
         $objWriter->startElement('xdr:cNvGraphicFramePr');
@@ -139,7 +144,7 @@ class Drawing extends WriterPart
         $objWriter->startElement('c:chart');
         $objWriter->writeAttribute('xmlns:c', 'http://schemas.openxmlformats.org/drawingml/2006/chart');
         $objWriter->writeAttribute('xmlns:r', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships');
-        $objWriter->writeAttribute('r:id', 'rId' . $pRelationId);
+        $objWriter->writeAttribute('r:id', 'rId'.$pRelationId);
         $objWriter->endElement();
         $objWriter->endElement();
         $objWriter->endElement();
@@ -152,12 +157,13 @@ class Drawing extends WriterPart
     }
 
     /**
-     * Write drawings to XML format
+     * Write drawings to XML format.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter            $objWriter         XML Writer
-     * @param     \PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing        $pDrawing
-     * @param     int                                    $pRelationId
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter      $objWriter   XML Writer
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing $pDrawing
+     * @param int                                             $pRelationId
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\WriteException
      */
     public function writeDrawing(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing $pDrawing = null, $pRelationId = -1)
     {
@@ -213,7 +219,7 @@ class Drawing extends WriterPart
             // a:blip
             $objWriter->startElement('a:blip');
             $objWriter->writeAttribute('xmlns:r', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships');
-            $objWriter->writeAttribute('r:embed', 'rId' . $pRelationId);
+            $objWriter->writeAttribute('r:embed', 'rId'.$pRelationId);
             $objWriter->endElement();
 
             // a:stretch
@@ -324,16 +330,18 @@ class Drawing extends WriterPart
 
             $objWriter->endElement();
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Invalid parameters passed.');
+            throw new \PhpOffice\PhpSpreadsheet\Writer\WriteException('Invalid parameters passed.');
         }
     }
 
     /**
-     * Write VML header/footer images to XML format
+     * Write VML header/footer images to XML format.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Worksheet                $pWorksheet
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
-     * @return string                          XML Output
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\WriteException
+     *
+     * @return string XML Output
      */
     public function writeVMLHeaderFooterImages(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet = null)
     {
@@ -476,12 +484,13 @@ class Drawing extends WriterPart
     }
 
     /**
-     * Write VML comment to XML format
+     * Write VML comment to XML format.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter        $objWriter             XML Writer
-     * @param    string                            $pReference            Reference
-     * @param     \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing    $pImage        Image
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter              $objWriter  XML Writer
+     * @param string                                                  $pReference Reference
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing $pImage     Image
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\WriteException
      */
     private function writeVMLHeaderFooterImage(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pReference = '', \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing $pImage = null)
     {
@@ -498,13 +507,13 @@ class Drawing extends WriterPart
         // v:shape
         $objWriter->startElement('v:shape');
         $objWriter->writeAttribute('id', $pReference);
-        $objWriter->writeAttribute('o:spid', '_x0000_s' . $id);
+        $objWriter->writeAttribute('o:spid', '_x0000_s'.$id);
         $objWriter->writeAttribute('type', '#_x0000_t75');
         $objWriter->writeAttribute('style', "position:absolute;margin-left:{$marginLeft}px;margin-top:{$marginTop}px;width:{$width}px;height:{$height}px;z-index:1");
 
         // v:imagedata
         $objWriter->startElement('v:imagedata');
-        $objWriter->writeAttribute('o:relid', 'rId' . $pReference);
+        $objWriter->writeAttribute('o:relid', 'rId'.$pReference);
         $objWriter->writeAttribute('o:title', $pImage->getName());
         $objWriter->endElement();
 
@@ -518,11 +527,13 @@ class Drawing extends WriterPart
     }
 
     /**
-     * Get an array of all drawings
+     * Get an array of all drawings.
      *
-     * @param      \PhpOffice\PhpSpreadsheet\SpreadSheet                $spreadsheet
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
-     * @return     \PhpOffice\PhpSpreadsheet\Worksheet\Drawing[]        All drawings in PhpSpreadsheet
+     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\WriteException
+     *
+     * @return \PhpOffice\PhpSpreadsheet\Worksheet\Drawing[] All drawings in PhpSpreadsheet
      */
     public function allDrawings(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {

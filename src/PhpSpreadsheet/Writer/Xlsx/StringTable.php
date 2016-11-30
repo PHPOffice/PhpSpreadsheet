@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,19 +20,23 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class StringTable extends WriterPart
 {
     /**
-     * Create worksheet stringtable
+     * Create worksheet stringtable.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Worksheet     $pSheet                Worksheet
-     * @param     string[]                 $pExistingTable     Existing table to eventually merge with
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
-     * @return     string[]                 String table for worksheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pSheet         Worksheet
+     * @param string[]                            $pExistingTable Existing table to eventually merge with
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\WriteException
+     *
+     * @return string[] String table for worksheet
      */
     public function createStringTable($pSheet = null, $pExistingTable = null)
     {
@@ -71,16 +75,18 @@ class StringTable extends WriterPart
 
             return $aStringTable;
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Invalid \PhpOffice\PhpSpreadsheet\Worksheet object passed.");
+            throw new \PhpOffice\PhpSpreadsheet\Writer\WriteException("Invalid \PhpOffice\PhpSpreadsheet\Worksheet object passed.");
         }
     }
 
     /**
-     * Write string table to XML format
+     * Write string table to XML format.
      *
-     * @param     string[]     $pStringTable
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
-     * @return string  XML Output
+     * @param string[] $pStringTable
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\WriteException
+     *
+     * @return string XML Output
      */
     public function writeStringTable($pStringTable = null)
     {
@@ -124,17 +130,18 @@ class StringTable extends WriterPart
 
             return $objWriter->getData();
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Invalid string table array passed.');
+            throw new \PhpOffice\PhpSpreadsheet\Writer\WriteException('Invalid string table array passed.');
         }
     }
 
     /**
-     * Write Rich Text
+     * Write Rich Text.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter    $objWriter         XML Writer
-     * @param     \PhpOffice\PhpSpreadsheet\RichText            $pRichText        Rich text
-     * @param     string                        $prefix            Optional Namespace prefix
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
+     * @param \PhpOffice\PhpSpreadsheet\RichText         $pRichText Rich text
+     * @param string                                     $prefix    Optional Namespace prefix
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\WriteException
      */
     public function writeRichText(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpOffice\PhpSpreadsheet\RichText $pRichText = null, $prefix = null)
     {
@@ -146,31 +153,31 @@ class StringTable extends WriterPart
         $elements = $pRichText->getRichTextElements();
         foreach ($elements as $element) {
             // r
-            $objWriter->startElement($prefix . 'r');
+            $objWriter->startElement($prefix.'r');
 
             // rPr
             if ($element instanceof \PhpOffice\PhpSpreadsheet\RichText\Run) {
                 // rPr
-                $objWriter->startElement($prefix . 'rPr');
+                $objWriter->startElement($prefix.'rPr');
 
                 // rFont
-                $objWriter->startElement($prefix . 'rFont');
+                $objWriter->startElement($prefix.'rFont');
                 $objWriter->writeAttribute('val', $element->getFont()->getName());
                 $objWriter->endElement();
 
                 // Bold
-                $objWriter->startElement($prefix . 'b');
+                $objWriter->startElement($prefix.'b');
                 $objWriter->writeAttribute('val', ($element->getFont()->getBold() ? 'true' : 'false'));
                 $objWriter->endElement();
 
                 // Italic
-                $objWriter->startElement($prefix . 'i');
+                $objWriter->startElement($prefix.'i');
                 $objWriter->writeAttribute('val', ($element->getFont()->getItalic() ? 'true' : 'false'));
                 $objWriter->endElement();
 
                 // Superscript / subscript
                 if ($element->getFont()->getSuperScript() || $element->getFont()->getSubScript()) {
-                    $objWriter->startElement($prefix . 'vertAlign');
+                    $objWriter->startElement($prefix.'vertAlign');
                     if ($element->getFont()->getSuperScript()) {
                         $objWriter->writeAttribute('val', 'superscript');
                     } elseif ($element->getFont()->getSubScript()) {
@@ -180,22 +187,22 @@ class StringTable extends WriterPart
                 }
 
                 // Strikethrough
-                $objWriter->startElement($prefix . 'strike');
+                $objWriter->startElement($prefix.'strike');
                 $objWriter->writeAttribute('val', ($element->getFont()->getStrikethrough() ? 'true' : 'false'));
                 $objWriter->endElement();
 
                 // Color
-                $objWriter->startElement($prefix . 'color');
+                $objWriter->startElement($prefix.'color');
                 $objWriter->writeAttribute('rgb', $element->getFont()->getColor()->getARGB());
                 $objWriter->endElement();
 
                 // Size
-                $objWriter->startElement($prefix . 'sz');
+                $objWriter->startElement($prefix.'sz');
                 $objWriter->writeAttribute('val', $element->getFont()->getSize());
                 $objWriter->endElement();
 
                 // Underline
-                $objWriter->startElement($prefix . 'u');
+                $objWriter->startElement($prefix.'u');
                 $objWriter->writeAttribute('val', $element->getFont()->getUnderline());
                 $objWriter->endElement();
 
@@ -203,7 +210,7 @@ class StringTable extends WriterPart
             }
 
             // t
-            $objWriter->startElement($prefix . 't');
+            $objWriter->startElement($prefix.'t');
             $objWriter->writeAttribute('xml:space', 'preserve');
             $objWriter->writeRawData(\PhpOffice\PhpSpreadsheet\Shared\StringHelper::controlCharacterPHP2OOXML($element->getText()));
             $objWriter->endElement();
@@ -213,12 +220,13 @@ class StringTable extends WriterPart
     }
 
     /**
-     * Write Rich Text
+     * Write Rich Text.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter    $objWriter         XML Writer
-     * @param     string|\PhpOffice\PhpSpreadsheet\RichText    $pRichText        text string or Rich text
-     * @param     string                        $prefix            Optional Namespace prefix
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
+     * @param string|\PhpOffice\PhpSpreadsheet\RichText  $pRichText text string or Rich text
+     * @param string                                     $prefix    Optional Namespace prefix
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\WriteException
      */
     public function writeRichTextForCharts(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pRichText = null, $prefix = null)
     {
@@ -236,10 +244,10 @@ class StringTable extends WriterPart
         $elements = $pRichText->getRichTextElements();
         foreach ($elements as $element) {
             // r
-            $objWriter->startElement($prefix . 'r');
+            $objWriter->startElement($prefix.'r');
 
             // rPr
-            $objWriter->startElement($prefix . 'rPr');
+            $objWriter->startElement($prefix.'rPr');
 
             // Bold
             $objWriter->writeAttribute('b', ($element->getFont()->getBold() ? 1 : 0));
@@ -260,14 +268,14 @@ class StringTable extends WriterPart
             $objWriter->writeAttribute('strike', ($element->getFont()->getStrikethrough() ? 'sngStrike' : 'noStrike'));
 
             // rFont
-            $objWriter->startElement($prefix . 'latin');
+            $objWriter->startElement($prefix.'latin');
             $objWriter->writeAttribute('typeface', $element->getFont()->getName());
             $objWriter->endElement();
 
             $objWriter->endElement();
 
             // t
-            $objWriter->startElement($prefix . 't');
+            $objWriter->startElement($prefix.'t');
             $objWriter->writeRawData(\PhpOffice\PhpSpreadsheet\Shared\StringHelper::controlCharacterPHP2OOXML($element->getText()));
             $objWriter->endElement();
 
@@ -276,10 +284,11 @@ class StringTable extends WriterPart
     }
 
     /**
-     * Flip string table (for index searching)
+     * Flip string table (for index searching).
      *
-     * @param     array    $stringTable    Stringtable
-     * @return     array
+     * @param array $stringTable Stringtable
+     *
+     * @return array
      */
     public function flipStringTable($stringTable = [])
     {

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Xls;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,10 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xls;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class Escher
@@ -46,21 +48,21 @@ class Escher
     const TERTIARYOPT = 0xF122;
 
     /**
-     * Escher stream data (binary)
+     * Escher stream data (binary).
      *
      * @var string
      */
     private $data;
 
     /**
-     * Size in bytes of the Escher stream data
+     * Size in bytes of the Escher stream data.
      *
      * @var int
      */
     private $dataSize;
 
     /**
-     * Current position of stream pointer in Escher stream data
+     * Current position of stream pointer in Escher stream data.
      *
      * @var int
      */
@@ -74,7 +76,7 @@ class Escher
     private $object;
 
     /**
-     * Create a new Escher instance
+     * Create a new Escher instance.
      *
      * @param mixed $object
      */
@@ -167,7 +169,7 @@ class Escher
     }
 
     /**
-     * Read a generic record
+     * Read a generic record.
      */
     private function readDefault()
     {
@@ -188,7 +190,7 @@ class Escher
     }
 
     /**
-     * Read DggContainer record (Drawing Group Container)
+     * Read DggContainer record (Drawing Group Container).
      */
     private function readDggContainer()
     {
@@ -206,7 +208,7 @@ class Escher
     }
 
     /**
-     * Read Dgg record (Drawing Group)
+     * Read Dgg record (Drawing Group).
      */
     private function readDgg()
     {
@@ -218,7 +220,7 @@ class Escher
     }
 
     /**
-     * Read BstoreContainer record (Blip Store Container)
+     * Read BstoreContainer record (Blip Store Container).
      */
     private function readBstoreContainer()
     {
@@ -236,7 +238,7 @@ class Escher
     }
 
     /**
-     * Read BSE record
+     * Read BSE record.
      */
     private function readBSE()
     {
@@ -302,7 +304,7 @@ class Escher
     }
 
     /**
-     * Read BlipJPEG record. Holds raw JPEG image data
+     * Read BlipJPEG record. Holds raw JPEG image data.
      */
     private function readBlipJPEG()
     {
@@ -343,7 +345,7 @@ class Escher
     }
 
     /**
-     * Read BlipPNG record. Holds raw PNG image data
+     * Read BlipPNG record. Holds raw PNG image data.
      */
     private function readBlipPNG()
     {
@@ -384,7 +386,7 @@ class Escher
     }
 
     /**
-     * Read OPT record. This record may occur within DggContainer record or SpContainer
+     * Read OPT record. This record may occur within DggContainer record or SpContainer.
      */
     private function readOPT()
     {
@@ -403,7 +405,7 @@ class Escher
     }
 
     /**
-     * Read TertiaryOPT record
+     * Read TertiaryOPT record.
      */
     private function readTertiaryOPT()
     {
@@ -420,7 +422,7 @@ class Escher
     }
 
     /**
-     * Read SplitMenuColors record
+     * Read SplitMenuColors record.
      */
     private function readSplitMenuColors()
     {
@@ -432,7 +434,7 @@ class Escher
     }
 
     /**
-     * Read DgContainer record (Drawing Container)
+     * Read DgContainer record (Drawing Container).
      */
     private function readDgContainer()
     {
@@ -450,7 +452,7 @@ class Escher
     }
 
     /**
-     * Read Dg record (Drawing)
+     * Read Dg record (Drawing).
      */
     private function readDg()
     {
@@ -462,7 +464,7 @@ class Escher
     }
 
     /**
-     * Read SpgrContainer record (Shape Group Container)
+     * Read SpgrContainer record (Shape Group Container).
      */
     private function readSpgrContainer()
     {
@@ -490,7 +492,7 @@ class Escher
     }
 
     /**
-     * Read SpContainer record (Shape Container)
+     * Read SpContainer record (Shape Container).
      */
     private function readSpContainer()
     {
@@ -510,7 +512,7 @@ class Escher
     }
 
     /**
-     * Read Spgr record (Shape Group)
+     * Read Spgr record (Shape Group).
      */
     private function readSpgr()
     {
@@ -522,7 +524,7 @@ class Escher
     }
 
     /**
-     * Read Sp record (Shape)
+     * Read Sp record (Shape).
      */
     private function readSp()
     {
@@ -539,7 +541,7 @@ class Escher
     }
 
     /**
-     * Read ClientTextbox record
+     * Read ClientTextbox record.
      */
     private function readClientTextbox()
     {
@@ -556,7 +558,7 @@ class Escher
     }
 
     /**
-     * Read ClientAnchor record. This record holds information about where the shape is anchored in worksheet
+     * Read ClientAnchor record. This record holds information about where the shape is anchored in worksheet.
      */
     private function readClientAnchor()
     {
@@ -591,7 +593,7 @@ class Escher
         $endOffsetY = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt2d($recordData, 16);
 
         // set the start coordinates
-        $this->object->setStartCoordinates(\PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($c1) . ($r1 + 1));
+        $this->object->setStartCoordinates(\PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($c1).($r1 + 1));
 
         // set the start offsetX
         $this->object->setStartOffsetX($startOffsetX);
@@ -600,7 +602,7 @@ class Escher
         $this->object->setStartOffsetY($startOffsetY);
 
         // set the end coordinates
-        $this->object->setEndCoordinates(\PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($c2) . ($r2 + 1));
+        $this->object->setEndCoordinates(\PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($c2).($r2 + 1));
 
         // set the end offsetX
         $this->object->setEndOffsetX($endOffsetX);
@@ -610,7 +612,7 @@ class Escher
     }
 
     /**
-     * Read ClientData record
+     * Read ClientData record.
      */
     private function readClientData()
     {
@@ -622,10 +624,10 @@ class Escher
     }
 
     /**
-     * Read OfficeArtRGFOPTE table of property-value pairs
+     * Read OfficeArtRGFOPTE table of property-value pairs.
      *
      * @param string $data Binary data
-     * @param int $n Number of properties
+     * @param int    $n    Number of properties
      */
     private function readOfficeArtRGFOPTE($data, $n)
     {

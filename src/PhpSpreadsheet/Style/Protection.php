@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,10 @@ namespace PhpOffice\PhpSpreadsheet\Style;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class Protection extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
@@ -32,28 +34,28 @@ class Protection extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompar
     const PROTECTION_UNPROTECTED = 'unprotected';
 
     /**
-     * Locked
+     * Locked.
      *
      * @var string
      */
     protected $locked;
 
     /**
-     * Hidden
+     * Hidden.
      *
      * @var string
      */
     protected $hidden;
 
     /**
-     * Create a new Protection
+     * Create a new Protection.
      *
-     * @param    bool    $isSupervisor    Flag indicating if this is a supervisor or not
-     *                                    Leave this value at default unless you understand exactly what
-     *                                        its ramifications are
-     * @param    bool    $isConditional    Flag indicating if this is a conditional style or not
-     *                                    Leave this value at default unless you understand exactly what
-     *                                        its ramifications are
+     * @param bool $isSupervisor  Flag indicating if this is a supervisor or not
+     *                            Leave this value at default unless you understand exactly what
+     *                            its ramifications are
+     * @param bool $isConditional Flag indicating if this is a conditional style or not
+     *                            Leave this value at default unless you understand exactly what
+     *                            its ramifications are
      */
     public function __construct($isSupervisor = false, $isConditional = false)
     {
@@ -69,7 +71,7 @@ class Protection extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompar
 
     /**
      * Get the shared style component for the currently active cell in currently active sheet.
-     * Only used for style supervisor
+     * Only used for style supervisor.
      *
      * @return Protection
      */
@@ -79,9 +81,10 @@ class Protection extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompar
     }
 
     /**
-     * Build style array from subcomponents
+     * Build style array from subcomponents.
      *
      * @param array $array
+     *
      * @return array
      */
     public function getStyleArray($array)
@@ -90,7 +93,7 @@ class Protection extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompar
     }
 
     /**
-     * Apply styles from array
+     * Apply styles from array.
      *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getLocked()->applyFromArray(
@@ -101,8 +104,10 @@ class Protection extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompar
      * );
      * </code>
      *
-     * @param    array    $pStyles    Array containing style information
-     * @throws    \PhpOffice\PhpSpreadsheet\Exception
+     * @param array $pStyles Array containing style information
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return Protection
      */
     public function applyFromArray($pStyles = null)
@@ -126,7 +131,7 @@ class Protection extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompar
     }
 
     /**
-     * Get locked
+     * Get locked.
      *
      * @return string
      */
@@ -140,9 +145,10 @@ class Protection extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompar
     }
 
     /**
-     * Set locked
+     * Set locked.
      *
      * @param string $pValue
+     *
      * @return Protection
      */
     public function setLocked($pValue = self::PROTECTION_INHERIT)
@@ -158,7 +164,7 @@ class Protection extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompar
     }
 
     /**
-     * Get hidden
+     * Get hidden.
      *
      * @return string
      */
@@ -172,9 +178,10 @@ class Protection extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompar
     }
 
     /**
-     * Set hidden
+     * Set hidden.
      *
      * @param string $pValue
+     *
      * @return Protection
      */
     public function setHidden($pValue = self::PROTECTION_INHERIT)
@@ -190,9 +197,9 @@ class Protection extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompar
     }
 
     /**
-     * Get hash code
+     * Get hash code.
      *
-     * @return string    Hash code
+     * @return string Hash code
      */
     public function getHashCode()
     {
@@ -201,8 +208,8 @@ class Protection extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompar
         }
 
         return md5(
-            $this->locked .
-            $this->hidden .
+            $this->locked.
+            $this->hidden.
             __CLASS__
         );
     }

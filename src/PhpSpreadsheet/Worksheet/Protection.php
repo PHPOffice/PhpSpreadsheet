@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,133 +20,135 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class Protection
 {
     /**
-     * Sheet
+     * Sheet.
      *
      * @var bool
      */
     private $sheet = false;
 
     /**
-     * Objects
+     * Objects.
      *
      * @var bool
      */
     private $objects = false;
 
     /**
-     * Scenarios
+     * Scenarios.
      *
      * @var bool
      */
     private $scenarios = false;
 
     /**
-     * Format cells
+     * Format cells.
      *
      * @var bool
      */
     private $formatCells = false;
 
     /**
-     * Format columns
+     * Format columns.
      *
      * @var bool
      */
     private $formatColumns = false;
 
     /**
-     * Format rows
+     * Format rows.
      *
      * @var bool
      */
     private $formatRows = false;
 
     /**
-     * Insert columns
+     * Insert columns.
      *
      * @var bool
      */
     private $insertColumns = false;
 
     /**
-     * Insert rows
+     * Insert rows.
      *
      * @var bool
      */
     private $insertRows = false;
 
     /**
-     * Insert hyperlinks
+     * Insert hyperlinks.
      *
      * @var bool
      */
     private $insertHyperlinks = false;
 
     /**
-     * Delete columns
+     * Delete columns.
      *
      * @var bool
      */
     private $deleteColumns = false;
 
     /**
-     * Delete rows
+     * Delete rows.
      *
      * @var bool
      */
     private $deleteRows = false;
 
     /**
-     * Select locked cells
+     * Select locked cells.
      *
      * @var bool
      */
     private $selectLockedCells = false;
 
     /**
-     * Sort
+     * Sort.
      *
      * @var bool
      */
     private $sort = false;
 
     /**
-     * AutoFilter
+     * AutoFilter.
      *
      * @var bool
      */
     private $autoFilter = false;
 
     /**
-     * Pivot tables
+     * Pivot tables.
      *
      * @var bool
      */
     private $pivotTables = false;
 
     /**
-     * Select unlocked cells
+     * Select unlocked cells.
      *
      * @var bool
      */
     private $selectUnlockedCells = false;
 
     /**
-     * Password
+     * Password.
      *
      * @var string
      */
     private $password = '';
 
     /**
-     * Create a new Protection
+     * Create a new Protection.
      */
     public function __construct()
     {
@@ -178,7 +180,7 @@ class Protection
     }
 
     /**
-     * Get Sheet
+     * Get Sheet.
      *
      * @return bool
      */
@@ -188,9 +190,10 @@ class Protection
     }
 
     /**
-     * Set Sheet
+     * Set Sheet.
      *
      * @param bool $pValue
+     *
      * @return Protection
      */
     public function setSheet($pValue = false)
@@ -201,7 +204,7 @@ class Protection
     }
 
     /**
-     * Get Objects
+     * Get Objects.
      *
      * @return bool
      */
@@ -211,9 +214,10 @@ class Protection
     }
 
     /**
-     * Set Objects
+     * Set Objects.
      *
      * @param bool $pValue
+     *
      * @return Protection
      */
     public function setObjects($pValue = false)
@@ -224,7 +228,7 @@ class Protection
     }
 
     /**
-     * Get Scenarios
+     * Get Scenarios.
      *
      * @return bool
      */
@@ -234,9 +238,10 @@ class Protection
     }
 
     /**
-     * Set Scenarios
+     * Set Scenarios.
      *
      * @param bool $pValue
+     *
      * @return Protection
      */
     public function setScenarios($pValue = false)
@@ -247,7 +252,7 @@ class Protection
     }
 
     /**
-     * Get FormatCells
+     * Get FormatCells.
      *
      * @return bool
      */
@@ -257,9 +262,10 @@ class Protection
     }
 
     /**
-     * Set FormatCells
+     * Set FormatCells.
      *
      * @param bool $pValue
+     *
      * @return Protection
      */
     public function setFormatCells($pValue = false)
@@ -270,7 +276,7 @@ class Protection
     }
 
     /**
-     * Get FormatColumns
+     * Get FormatColumns.
      *
      * @return bool
      */
@@ -280,9 +286,10 @@ class Protection
     }
 
     /**
-     * Set FormatColumns
+     * Set FormatColumns.
      *
      * @param bool $pValue
+     *
      * @return Protection
      */
     public function setFormatColumns($pValue = false)
@@ -293,7 +300,7 @@ class Protection
     }
 
     /**
-     * Get FormatRows
+     * Get FormatRows.
      *
      * @return bool
      */
@@ -303,9 +310,10 @@ class Protection
     }
 
     /**
-     * Set FormatRows
+     * Set FormatRows.
      *
      * @param bool $pValue
+     *
      * @return Protection
      */
     public function setFormatRows($pValue = false)
@@ -316,7 +324,7 @@ class Protection
     }
 
     /**
-     * Get InsertColumns
+     * Get InsertColumns.
      *
      * @return bool
      */
@@ -326,9 +334,10 @@ class Protection
     }
 
     /**
-     * Set InsertColumns
+     * Set InsertColumns.
      *
      * @param bool $pValue
+     *
      * @return Protection
      */
     public function setInsertColumns($pValue = false)
@@ -339,7 +348,7 @@ class Protection
     }
 
     /**
-     * Get InsertRows
+     * Get InsertRows.
      *
      * @return bool
      */
@@ -349,9 +358,10 @@ class Protection
     }
 
     /**
-     * Set InsertRows
+     * Set InsertRows.
      *
      * @param bool $pValue
+     *
      * @return Protection
      */
     public function setInsertRows($pValue = false)
@@ -362,7 +372,7 @@ class Protection
     }
 
     /**
-     * Get InsertHyperlinks
+     * Get InsertHyperlinks.
      *
      * @return bool
      */
@@ -372,9 +382,10 @@ class Protection
     }
 
     /**
-     * Set InsertHyperlinks
+     * Set InsertHyperlinks.
      *
      * @param bool $pValue
+     *
      * @return Protection
      */
     public function setInsertHyperlinks($pValue = false)
@@ -385,7 +396,7 @@ class Protection
     }
 
     /**
-     * Get DeleteColumns
+     * Get DeleteColumns.
      *
      * @return bool
      */
@@ -395,9 +406,10 @@ class Protection
     }
 
     /**
-     * Set DeleteColumns
+     * Set DeleteColumns.
      *
      * @param bool $pValue
+     *
      * @return Protection
      */
     public function setDeleteColumns($pValue = false)
@@ -408,7 +420,7 @@ class Protection
     }
 
     /**
-     * Get DeleteRows
+     * Get DeleteRows.
      *
      * @return bool
      */
@@ -418,9 +430,10 @@ class Protection
     }
 
     /**
-     * Set DeleteRows
+     * Set DeleteRows.
      *
      * @param bool $pValue
+     *
      * @return Protection
      */
     public function setDeleteRows($pValue = false)
@@ -431,7 +444,7 @@ class Protection
     }
 
     /**
-     * Get SelectLockedCells
+     * Get SelectLockedCells.
      *
      * @return bool
      */
@@ -441,9 +454,10 @@ class Protection
     }
 
     /**
-     * Set SelectLockedCells
+     * Set SelectLockedCells.
      *
      * @param bool $pValue
+     *
      * @return Protection
      */
     public function setSelectLockedCells($pValue = false)
@@ -454,7 +468,7 @@ class Protection
     }
 
     /**
-     * Get Sort
+     * Get Sort.
      *
      * @return bool
      */
@@ -464,9 +478,10 @@ class Protection
     }
 
     /**
-     * Set Sort
+     * Set Sort.
      *
      * @param bool $pValue
+     *
      * @return Protection
      */
     public function setSort($pValue = false)
@@ -477,7 +492,7 @@ class Protection
     }
 
     /**
-     * Get AutoFilter
+     * Get AutoFilter.
      *
      * @return bool
      */
@@ -487,9 +502,10 @@ class Protection
     }
 
     /**
-     * Set AutoFilter
+     * Set AutoFilter.
      *
      * @param bool $pValue
+     *
      * @return Protection
      */
     public function setAutoFilter($pValue = false)
@@ -500,7 +516,7 @@ class Protection
     }
 
     /**
-     * Get PivotTables
+     * Get PivotTables.
      *
      * @return bool
      */
@@ -510,9 +526,10 @@ class Protection
     }
 
     /**
-     * Set PivotTables
+     * Set PivotTables.
      *
      * @param bool $pValue
+     *
      * @return Protection
      */
     public function setPivotTables($pValue = false)
@@ -523,7 +540,7 @@ class Protection
     }
 
     /**
-     * Get SelectUnlockedCells
+     * Get SelectUnlockedCells.
      *
      * @return bool
      */
@@ -533,9 +550,10 @@ class Protection
     }
 
     /**
-     * Set SelectUnlockedCells
+     * Set SelectUnlockedCells.
      *
      * @param bool $pValue
+     *
      * @return Protection
      */
     public function setSelectUnlockedCells($pValue = false)
@@ -546,7 +564,7 @@ class Protection
     }
 
     /**
-     * Get Password (hashed)
+     * Get Password (hashed).
      *
      * @return string
      */
@@ -556,10 +574,11 @@ class Protection
     }
 
     /**
-     * Set Password
+     * Set Password.
      *
-     * @param string     $pValue
-     * @param bool     $pAlreadyHashed If the password has already been hashed, set this to true
+     * @param string $pValue
+     * @param bool   $pAlreadyHashed If the password has already been hashed, set this to true
+     *
      * @return Protection
      */
     public function setPassword($pValue = '', $pAlreadyHashed = false)

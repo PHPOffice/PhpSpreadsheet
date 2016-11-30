@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,28 +20,30 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ *
  * @version    ##VERSION##, ##DATE##
  */
 class Escher
 {
     /**
-     * Drawing Group Container
+     * Drawing Group Container.
      *
      * @var \DggContainer
      */
     private $dggContainer;
 
     /**
-     * Drawing Container
+     * Drawing Container.
      *
      * @var Escher\DgContainer
      */
     private $dgContainer;
 
     /**
-     * Get Drawing Group Container
+     * Get Drawing Group Container.
      *
      * @return Escher\DgContainer
      */
@@ -51,7 +53,7 @@ class Escher
     }
 
     /**
-     * Set Drawing Group Container
+     * Set Drawing Group Container.
      *
      * @param Escher\DggContainer $dggContainer
      */
@@ -61,7 +63,7 @@ class Escher
     }
 
     /**
-     * Get Drawing Container
+     * Get Drawing Container.
      *
      * @return Escher\DgContainer
      */
@@ -71,7 +73,7 @@ class Escher
     }
 
     /**
-     * Set Drawing Container
+     * Set Drawing Container.
      *
      * @param Escher\DgContainer $dgContainer
      */
