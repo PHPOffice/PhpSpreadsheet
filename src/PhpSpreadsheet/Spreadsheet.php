@@ -24,7 +24,6 @@ namespace PhpOffice\PhpSpreadsheet;
  * @category   PHPSpreadsheet
  * @copyright  Copyright (c) 2006 PHPOffice (http://www.github.com/PHPOffice)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version    ##VERSION##, ##DATE##
  */
 class Spreadsheet
 {
