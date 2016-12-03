@@ -1,12 +1,10 @@
-# PhpSpreadsheet Developer Documentation
-
-## PhpSpreadsheet recipes
+# Recipes
 
 The following pages offer you some widely-used PhpSpreadsheet recipes. Please note that these do NOT offer complete documentation on specific PhpSpreadsheet API functions, but just a bump to get you started. If you need specific API functions, please refer to the API documentation.
 
 For example,  REF _Ref191885321 \w \h 4.4.7  REF _Ref191885321 \h Setting a worksheet's page orientation and size covers setting a page orientation to A4. Other paper formats, like US Letter, are not covered in this document, but in the PhpSpreadsheet API documentation.
 
-### Setting a spreadsheet's metadata
+## Setting a spreadsheet's metadata
 
 PhpSpreadsheet allows an easy way to set a spreadsheet's metadata, using document property accessors. Spreadsheet metadata can be useful for finding a specific document in a file repository or a document management system. For example Microsoft Sharepoint uses document metadata to search for a specific document in its document lists.
 
@@ -25,7 +23,7 @@ $spreadsheet->getProperties()
     ->setCategory("Test result file");
 ```
 
-### Setting a spreadsheet's active sheet
+## Setting a spreadsheet's active sheet
 
 The following line of code sets the active sheet index to the first sheet:
 
@@ -41,7 +39,7 @@ $spreadsheet->setActiveSheetIndexByName('DataSheet')
 
 will change the currently active sheet to the worksheet called "DataSheet".
 
-### Write a date or time into a cell
+## Write a date or time into a cell
 
 In Excel, dates and Times are stored as numeric values counting the number of days elapsed since 1900-01-01. For example, the date '2008-12-31' is represented as 39813. You can verify this in Microsoft Office Excel by entering that date in a cell and afterwards changing the number format to 'General' so the true numeric value is revealed. Likewise, '3:15 AM' is represented as 0.135417.
 
@@ -87,7 +85,7 @@ __Notes:__
 See section "Using value binders to facilitate data entry" to learn more about the AdvancedValueBinder used in the first example.
 Excel can also operate in a 1904-based calendar (default for workbooks saved on Mac). Normally, you do not have to worry about this when using PhpSpreadsheet.
 
-### Write a formula into a cell
+## Write a formula into a cell
 
 Inside the Excel file, formulas are always stored as they would appear in an English version of Microsoft Office Excel, and PhpSpreadsheet handles all formulae internally in this format. This means that the following rules hold:
 
@@ -129,7 +127,7 @@ If you need the calculated value of a cell, use the following code. This is furt
 $value = $spreadsheet->getActiveSheet()->getCell('B8')->getCalculatedValue();
 ```
 
-### Locale Settings for Formulae
+## Locale Settings for Formulae
 
 Some localisation elements have been included in PhpSpreadsheet. You can set a locale by changing the settings. To set the locale to Russian you would use:
 
@@ -162,26 +160,26 @@ Currently, formula translation only translates the function names, the constants
 
 At present, the following locale settings are supported:
 
-    Language             |                      | Locale Code
-    ---------------------|----------------------|-------------
-    Czech                | Ceština              | cs
-    Danish               | Dansk                | da
-    German               | Deutsch              | de
-    Spanish              | Español              | es
-    Finnish              | Suomi                | fi
-    French               | Français             | fr
-    Hungarian            | Magyar               | hu
-    Italian              | Italiano             | it
-    Dutch                | Nederlands           | nl
-    Norwegian            | Norsk                | no
-    Polish               | Jezyk polski         | pl
-    Portuguese           | Português            | pt
-    Brazilian Portuguese | Português Brasileiro | pt_br
-    Russian              | ??????? ????         | ru
-    Swedish              | Svenska              | sv
-    Turkish              | Türkçe               | tr
+Language             |                      | Locale Code
+---------------------|----------------------|-------------
+Czech                | Ceština              | cs
+Danish               | Dansk                | da
+German               | Deutsch              | de
+Spanish              | Español              | es
+Finnish              | Suomi                | fi
+French               | Français             | fr
+Hungarian            | Magyar               | hu
+Italian              | Italiano             | it
+Dutch                | Nederlands           | nl
+Norwegian            | Norsk                | no
+Polish               | Jezyk polski         | pl
+Portuguese           | Português            | pt
+Brazilian Portuguese | Português Brasileiro | pt_br
+Russian              | ??????? ????         | ru
+Swedish              | Svenska              | sv
+Turkish              | Türkçe               | tr
 
-### Write a newline character "\n" in a cell (ALT+"Enter")
+## Write a newline character "\n" in a cell (ALT+"Enter")
 
 In Microsoft Office Excel you get a line break in a cell by hitting ALT+"Enter". When you do that, it automatically turns on "wrap text" for the cell.
 
@@ -208,7 +206,7 @@ $spreadsheet->getActiveSheet()->getCell('A1')->setValue("hello\nworld");
 
 Read more about AdvancedValueBinder.php elsewhere.
 
-### Explicitly set a cell's datatype
+## Explicitly set a cell's datatype
 
 You can set a cell's datatype explicitly by using the cell's setValueExplicit method, or the setCellValueExplicit method of a worksheet. Here's an example:
 
@@ -220,7 +218,7 @@ $spreadsheet->getActiveSheet()->getCell('A1')
     );
 ```
 
-### Change a cell into a clickable URL
+## Change a cell into a clickable URL
 
 You can make a cell a clickable URL by setting its hyperlink property:
 
@@ -236,9 +234,9 @@ $spreadsheet->getActiveSheet()->setCellValue('E26', 'www.phpexcel.net');
 $spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl("sheet://'Sheetname'!A1");
 ```
 
-### Setting Printer Options for Excel files
+## Setting Printer Options for Excel files
 
-#### Setting a worksheet's page orientation and size
+### Setting a worksheet's page orientation and size
 
 Setting a worksheet's page orientation and size can be done using the following lines of code:
 
@@ -251,7 +249,7 @@ $spreadsheet->getActiveSheet()->getPageSetup()
 
 Note that there are additional page settings available. Please refer to the API documentation for all possible options.
 
-#### Page Setup: Scaling options
+### Page Setup: Scaling options
 
 The page setup scaling options in PhpSpreadsheet relate directly to the scaling options in the "Page Setup" dialog as shown in the illustration.
 
@@ -259,14 +257,14 @@ Default values in PhpSpreadsheet correspond to default values in MS Office Excel
 
 ![08-page-setup-scaling-options.png](./images/08-page-setup-scaling-options.png "")
 
-    method              | initial value | calling method will trigger | Note
-    --------------------|:-------------:|-----------------------------|------
-    setFitToPage(...)   | FALSE         | -                           |
-    setScale(...)       | 100           | setFitToPage(FALSE)         |
-    setFitToWidth(...)  | 1             | setFitToPage(TRUE)          | value 0 means do-not-fit-to-width
-    setFitToHeight(...) | 1             | setFitToPage(TRUE)          | value 0 means do-not-fit-to-height
+method              | initial value | calling method will trigger | Note
+--------------------|:-------------:|-----------------------------|------
+setFitToPage(...)   | FALSE         | -                           |
+setScale(...)       | 100           | setFitToPage(FALSE)         |
+setFitToWidth(...)  | 1             | setFitToPage(TRUE)          | value 0 means do-not-fit-to-width
+setFitToHeight(...) | 1             | setFitToPage(TRUE)          | value 0 means do-not-fit-to-height
 
-##### Example
+#### Example
 
 Here is how to fit to 1 page wide by infinite pages tall:
 
@@ -279,7 +277,7 @@ As you can see, it is not necessary to call setFitToPage(TRUE) since setFitToWid
 
 If you use setFitToWidth() you should in general also specify setFitToHeight() explicitly like in the example. Be careful relying on the initial values.
 
-#### Page margins
+### Page margins
 
 To set page margins for a worksheet, use this code:
 
@@ -294,7 +292,7 @@ Note that the margin values are specified in inches.
 
 ![08-page-setup-margins.png](./images/08-page-setup-margins.png "")
 
-#### Center a page horizontally/vertically
+### Center a page horizontally/vertically
 
 To center a page horizontally/vertically, you can use the following code:
 
@@ -303,7 +301,7 @@ $spreadsheet->getActiveSheet()->getPageSetup()->setHorizontalCentered(true);
 $spreadsheet->getActiveSheet()->getPageSetup()->setVerticalCentered(false);
 ```
 
-#### Setting the print header and footer of a worksheet
+### Setting the print header and footer of a worksheet
 
 Setting a worksheet's print header and footer can be done using the following lines of code:
 
@@ -383,7 +381,7 @@ var_dump($objWorksheet->getHeaderFooter()->getEvenHeader());
 
 That reveals the codes for the even/odd header and footer. Experienced users may find it easier to rename test.xlsx to test.zip, unzip it, and inspect directly the contents of the relevant xl/worksheets/sheetX.xml to find the codes for header/footer.
 
-#### Setting printing breaks on a row or column
+### Setting printing breaks on a row or column
 
 To set a print break, use the following code, which sets a row break on row 10.
 
@@ -397,13 +395,13 @@ The following line of code sets a print break on column D:
 $spreadsheet->getActiveSheet()->setBreak( 'D10' , \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_COLUMN );
 ```
 
-#### Show/hide gridlines when printing
+### Show/hide gridlines when printing
 
 To show/hide gridlines when printing, use the following code:
 
 $spreadsheet->getActiveSheet()->setShowGridlines(true);
 
-#### Setting rows/columns to repeat at top/left
+### Setting rows/columns to repeat at top/left
 
 PhpSpreadsheet can repeat specific rows/cells at top/left of a page. The following code is an example of how to repeat row 1 to 5 on each printed page of a specific worksheet:
 
@@ -411,7 +409,7 @@ PhpSpreadsheet can repeat specific rows/cells at top/left of a page. The followi
 $spreadsheet->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 5);
 ```
 
-#### Specify printing area
+### Specify printing area
 
 To specify a worksheet's printing area, use the following code:
 
@@ -425,9 +423,9 @@ There can also be multiple printing areas in a single worksheet:
 $spreadsheet->getActiveSheet()->getPageSetup()->setPrintArea('A1:E5,G4:M20');
 ```
 
-### Styles
+## Styles
 
-#### Formatting cells
+### Formatting cells
 
 A cell can be formatted with font, border, fill, ... style information. For example, one can set the  foreground colour of a cell to red, aligned to the right, and the border to black and thick border style. Let's do that on cell B2:
 
@@ -501,7 +499,7 @@ This alternative method using arrays should be faster in terms of execution when
 
 Prior to PHPExcel 1.7.0 duplicateStyleArray() was the recommended method for styling a cell range, but this method has now been deprecated since getStyle() has started to accept a cell range.
 
-#### Number formats
+### Number formats
 
 You often want to format numbers in Excel. For example you may want a thousands separator plus a fixed number of decimals after the decimal separator. Or perhaps you want some numbers to be zero-padded.
 
@@ -551,7 +549,7 @@ var_dump($spreadsheet->getActiveSheet()->getStyle('A1')->getNumberFormat()->getF
 
 Advanced users may find it faster to inspect the number format code directly by renaming template.xlsx to template.zip, unzipping, and looking for the relevant piece of XML code holding the number format code in *xl/styles.xml*.
 
-#### Alignment and wrap text
+### Alignment and wrap text
 
 Let's set vertical alignment to the top for cells A1:D4
 
@@ -567,7 +565,7 @@ $spreadsheet->getActiveSheet()->getStyle('A1:D4')
     ->getAlignment()->setWrapText(true);
 ```
 
-#### Setting the default style of a workbook
+### Setting the default style of a workbook
 
 It is possible to set the default style of a workbook. Let's set the default font to Arial size 8:
 
@@ -576,7 +574,7 @@ $spreadsheet->getDefaultStyle()->getFont()->setName('Arial');
 $spreadsheet->getDefaultStyle()->getFont()->setSize(8);
 ```
 
-#### Styling cell borders
+### Styling cell borders
 
 In PhpSpreadsheet it is easy to apply various borders on a rectangular selection. Here is how to apply a thick red border outline around cells B2:G8.
 
@@ -599,23 +597,19 @@ Note that the border outline is applied to the rectangular selection B2:G8 as a 
 
 You can achieve any border effect by using just the 5 basic borders and operating on a single cell at a time:
 
-    Array key | Maps to property
-    ----------|------------------
-    left      | getLeft()
-    right     | getRight()
-    top       | getTop()
-    bottom    | getBottom()
-    diagonal  | getDiagonal()
+- left
+- right
+- top
+- bottom
+- diagonal
 
 Additional shortcut borders come in handy like in the example above. These are the shortcut borders available:
 
-    Array key  | Maps to property
-    -----------|------------------
-    allborders | getAllBorders()
-    outline    | getOutline()
-    inside     | getInside()
-    vertical   | getVertical()
-    horizontal | getHorizontal()
+- allborders
+- outline
+- inside
+- vertical
+- horizontal
 
 
 
@@ -627,7 +621,101 @@ If you simultaneously set e.g. allborders and vertical, then we have "overlappin
 
 This border hierarchy can be utilized to achieve various effects in an easy manner.
 
-### Conditional formatting a cell
+### Valid array keys for style applyFromArray()
+
+The following table lists the valid array keys for \PhpOffice\PhpSpreadsheet\Style applyFromArray() classes. If the "Maps to property" column maps a key to a setter, the value provided for that key will be applied directly. If the "Maps to property" column maps a key to a getter, the value provided for that key will be applied as another style array.
+
+__\PhpOffice\PhpSpreadsheet\Style__
+
+Array key    | Maps to property
+-------------|-------------------
+fill         | getFill()
+font         | getFont()
+borders      | getBorders()
+alignment    | getAlignment()
+numberformat | getNumberFormat()
+protection   | getProtection()
+
+
+__\PhpOffice\PhpSpreadsheet\Style\Fill__
+
+Array key  | Maps to property
+-----------|-------------------
+type       | setFillType()
+rotation   | setRotation()
+startcolor | getStartColor()
+endcolor   | getEndColor()
+color      | getStartColor()
+
+
+__\PhpOffice\PhpSpreadsheet\Style\Font__
+
+Array key   | Maps to property
+------------|-------------------
+name        | setName()
+bold        | setBold()
+italic      | setItalic()
+underline   | setUnderline()
+strike      | setStrikethrough()
+color       | getColor()
+size        | setSize()
+superScript | setSuperScript()
+subScript   | setSubScript()
+
+
+__\PhpOffice\PhpSpreadsheet\Style\Borders__
+
+Array key         | Maps to property
+------------------|-------------------
+allborders        | getLeft(); getRight(); getTop(); getBottom()
+left              | getLeft()
+right             | getRight()
+top               | getTop()
+bottom            | getBottom()
+diagonal          | getDiagonal()
+vertical          | getVertical()
+horizontal        | getHorizontal()
+diagonaldirection | setDiagonalDirection()
+outline           | setOutline()
+
+
+__\PhpOffice\PhpSpreadsheet\Style\Border__
+
+Array key | Maps to property
+----------|-------------------
+style     | setBorderStyle()
+color     | getColor()
+
+
+__\PhpOffice\PhpSpreadsheet\Style\Alignment__
+
+Array key   | Maps to property
+------------|-------------------
+horizontal  | setHorizontal()
+vertical    | setVertical()
+rotation    | setTextRotation()
+wrap        | setWrapText()
+shrinkToFit | setShrinkToFit()
+indent      | setIndent()
+
+
+__\PhpOffice\PhpSpreadsheet\Style\NumberFormat__
+
+Array key | Maps to property
+----------|-------------------
+code      | setFormatCode()
+
+
+__\PhpOffice\PhpSpreadsheet\Style\Protection__
+
+Array key | Maps to property
+----------|-------------------
+locked    | setLocked()
+hidden    | setHidden()
+
+
+
+## Conditional formatting a cell
 
 A cell can be formatted conditionally, based on a specific rule. For example, one can set the foreground colour of a cell to red if its value is below zero, and to green if its value is zero or more.
 
@@ -665,7 +753,7 @@ $spreadsheet->getActiveSheet()
     );
 ```
 
-### Add a comment to a cell
+## Add a comment to a cell
 
 To add a comment to a cell, use the following code. The example below adds a comment to cell E11:
 
@@ -687,7 +775,7 @@ $spreadsheet->getActiveSheet()
 
 ![08-cell-comment.png](./images/08-cell-comment.png "")
 
-### Apply autofilter to a range of cells
+## Apply autofilter to a range of cells
 
 To apply an autofilter to a range of cells, use the following code:
 
@@ -698,7 +786,7 @@ $spreadsheet->getActiveSheet()->setAutoFilter('A1:C9');
 __Make sure that you always include the complete filter range!__
 Excel does support setting only the captionrow, but that's __not__ a best practice...
 
-### Setting security on a spreadsheet
+## Setting security on a spreadsheet
 
 Excel offers 3 levels of "protection": document security, sheet security and cell security.
 
@@ -739,7 +827,7 @@ __Make sure you enable worksheet protection if you need any of the worksheet pro
 $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
 ```
 
-### Setting data validation on a cell
+## Setting data validation on a cell
 
 Data validation is a powerful feature of Xlsx. It allows to specify an input filter on the data that can be inserted in a specific cell. This filter can be a range (i.e. value must be between 0 and 10), a list (i.e. value must be picked from a list), ...
 
@@ -789,7 +877,7 @@ If you need data validation on multiple cells, one can clone the ruleset:
 $spreadsheet->getActiveSheet()->getCell('B8')->setDataValidation(clone $objValidation);
 ```
 
-### Setting a column's width
+## Setting a column's width
 
 A column's width can be set using the following code:
 
@@ -807,7 +895,7 @@ $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
 
 The measure for column width in PhpSpreadsheet does __not__ correspond exactly to the measure you may be used to in Microsoft Office Excel. Column widths are difficult to deal with in Excel, and there are several measures for the column width.1) __Inner width in character units__ (e.g. 8.43 this is probably what you are familiar with in Excel)2) __Full width in pixels__ (e.g. 64 pixels)3) __Full width in character units__ (e.g. 9.140625, value -1 indicates unset width)__PHPExcel always operates with 3) "Full width in character units"__ which is in fact the only value that is stored in any Excel file, hence the most reliable measure. Unfortunately, __Microsoft ____Office ____Excel does not present you with this ____measure__. Instead measures 1) and 2) are computed by the application when the file is opened and these values are presented in various dialogues and tool tips.The character width unit is the width of a '0' (zero) glyph in the workbooks default font. Therefore column widths measured in character units in two different workbooks can only be compared if they have the same default workbook font.If you have some Excel file and need to know the column widths in measure 3), you can read the Excel file with PhpSpreadsheet and echo the retrieved values.
 
-### Show/hide a column
+## Show/hide a column
 
 To set a worksheet's column visibility, you can use the following code. The first line explicitly shows the column C, the second line hides column D.
 
@@ -816,7 +904,7 @@ $spreadsheet->getActiveSheet()->getColumnDimension('C')->setVisible(true);
 $spreadsheet->getActiveSheet()->getColumnDimension('D')->setVisible(false);
 ```
 
-### Group/outline a column
+## Group/outline a column
 
 To group/outline a column, you can use the following code:
 
@@ -839,7 +927,7 @@ You can instruct PhpSpreadsheet to add a summary to the right (default), or to t
 $spreadsheet->getActiveSheet()->setShowSummaryRight(false);
 ```
 
-### Setting a row's height
+## Setting a row's height
 
 A row's height can be set using the following code:
 
@@ -849,7 +937,7 @@ $spreadsheet->getActiveSheet()->getRowDimension('10')->setRowHeight(100);
 
 Excel measures row height in points, where 1 pt is 1/72 of an inch (or about 0.35mm). The default value is 12.75 pts; and the permitted range of values is between 0 and 409 pts, where 0 pts is a hidden row.
 
-### Show/hide a row
+## Show/hide a row
 
 To set a worksheet''s row visibility, you can use the following code. The following example hides row number 10.
 
@@ -859,7 +947,7 @@ $spreadsheet->getActiveSheet()->getRowDimension('10')->setVisible(false);
 
 Note that if you apply active filters using an AutoFilter, then this will override any rows that you hide or unhide manually within that AutoFilter range if you save the file.
 
-### Group/outline a row
+## Group/outline a row
 
 To group/outline a row, you can use the following code:
 
@@ -896,7 +984,7 @@ You can instruct PhpSpreadsheet to add a summary below the collapsible rows (def
 $spreadsheet->getActiveSheet()->setShowSummaryBelow(false);
 ```
 
-### Merge/unmerge cells
+## Merge/unmerge cells
 
 If you have a big piece of data you want to display in a worksheet, you can merge two or more cells together, to become one cell. This can be done using the following code:
 
@@ -910,7 +998,7 @@ Removing a merge can be done using the unmergeCells method:
 $spreadsheet->getActiveSheet()->unmergeCells('A18:E22');
 ```
 
-### Inserting rows/columns
+## Inserting rows/columns
 
 You can insert/remove rows/columns at a specific position. The following code inserts 2 new rows, right before row 7:
 
@@ -918,7 +1006,7 @@ You can insert/remove rows/columns at a specific position. The following code in
 $spreadsheet->getActiveSheet()->insertNewRowBefore(7, 2);
 ```
 
-### Add a drawing to a worksheet
+## Add a drawing to a worksheet
 
 A drawing is always represented as a separate object, which can be added to a worksheet. Therefore, you must first instantiate a new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing, and assign its properties a meaningful value:
 
@@ -971,7 +1059,7 @@ $objDrawing->setHeight(36);
 $objDrawing->setWorksheet($spreadsheet->getActiveSheet());
 ```
 
-### Reading Images from a worksheet
+## Reading Images from a worksheet
 
 A commonly asked question is how to retrieve the images from a workbook that has been loaded, and save them as individual image files to disk.
 
@@ -1013,7 +1101,7 @@ foreach ($spreadsheet->getActiveSheet()->getDrawingCollection() as $drawing) {
 }
 ```
 
-### Add rich text to a cell
+## Add rich text to a cell
 
 Adding rich text to a cell can be done using \PhpOffice\PhpSpreadsheet\RichText instances. Here''s an example, which creates the following rich text string:
 
@@ -1030,7 +1118,7 @@ $objRichText->createText(', unless specified otherwise on the invoice.');
 $spreadsheet->getActiveSheet()->getCell('A18')->setValue($objRichText);
 ```
 
-### Define a named range
+## Define a named range
 
 PhpSpreadsheet supports the definition of named ranges. These can be defined using the following code:
 
@@ -1049,20 +1137,20 @@ $spreadsheet->addNamedRange( new \PhpOffice\PhpSpreadsheet\NamedRange('PersonLN'
 
 Optionally, a fourth parameter can be passed defining the named range local (i.e. only usable on the current worksheet). Named ranges are global by default.
 
-### Redirect output to a client's web browser
+## Redirect output to a client's web browser
 
 Sometimes, one really wants to output a file to a client''s browser, especially when creating spreadsheets on-the-fly. There are some easy steps that can be followed to do this:
 
  1. Create your PhpSpreadsheet spreadsheet
  2. Output HTTP headers for the type of document you wish to output
- 3. Use the PHPExcel_Writer_* of your choice, and save to "php://output"
+ 3. Use the \PhpOffice\PhpSpreadsheet\Writer\* of your choice, and save to "php://output"
 
-\PhpOffice\PhpSpreadsheet\Writer\Xlsx uses temporary storage when writing to php://output. By default, temporary files are stored in the script's working directory. When there is no access, it falls back to the operating system's temporary files location.
+\PhpOffice\PhpSpreadsheet\Writer\Xlsx uses temporary storage when writing to php://output. By default, temporary files are stored in the script's working directory. When there is no access, it falls back to the operating system's temporary files location.
 
 __This may not be safe for unauthorized viewing!__
 Depending on the configuration of your operating system, temporary storage can be read by anyone using the same temporary storage folder. When confidentiality of your document is needed, it is recommended not to use php://output.
 
-#### HTTP headers
+### HTTP headers
 
 Example of a script redirecting an Excel 2007 file to the client's browser:
 
@@ -1094,10 +1182,10 @@ $objWriter->save('php://output');
 
 **Caution:**
 
-Make sure not to include any echo statements or output any other contents than the Excel file. There should be no whitespace before the opening <?php tag and at most one line break after the closing ?> tag (which can also be omitted to avoid problems). Make sure that your script is saved without a BOM (Byte-order mark) because this counts as echoing output. The same things apply to all included files.
+Make sure not to include any echo statements or output any other contents than the Excel file. There should be no whitespace before the opening `<?php` tag and at most one line break after the closing `?>` tag (which can also be omitted to avoid problems). Make sure that your script is saved without a BOM (Byte-order mark) because this counts as echoing output. The same things apply to all included files.
 Failing to follow the above guidelines may result in corrupt Excel files arriving at the client browser, and/or that headers cannot be set by PHP (resulting in warning messages).
 
-### Setting the default column width
+## Setting the default column width
 
 Default column width can be set using the following code:
 
@@ -1105,7 +1193,7 @@ Default column width can be set using the following code:
 $spreadsheet->getActiveSheet()->getDefaultColumnDimension()->setWidth(12);
 ```
 
-### Setting the default row height
+## Setting the default row height
 
 Default row height can be set using the following code:
 
@@ -1113,7 +1201,7 @@ Default row height can be set using the following code:
 $spreadsheet->getActiveSheet()->getDefaultRowDimension()->setRowHeight(15);
 ```
 
-### Add a GD drawing to a worksheet
+## Add a GD drawing to a worksheet
 
 There might be a situation where you want to generate an in-memory image using GD and add it to a `Spreadsheet` without first having to save this file to a temporary location.
 
@@ -1136,7 +1224,7 @@ $objDrawing->setHeight(36);
 $objDrawing->setWorksheet($spreadsheet->getActiveSheet());
 ```
 
-### Setting worksheet zoom level
+## Setting worksheet zoom level
 
 To set a worksheet's zoom level, the following code can be used:
 
@@ -1144,9 +1232,9 @@ To set a worksheet's zoom level, the following code can be used:
 $spreadsheet->getActiveSheet()->getSheetView()->setZoomScale(75);
 ```
 
-Note that zoom level should be in range 10 â€“ 400.
+Note that zoom level should be in range 10 - 400.
 
-### Sheet tab color
+## Sheet tab color
 
 Sometimes you want to set a color for sheet tab. For example you can have a red sheet tab:
 
@@ -1154,7 +1242,7 @@ Sometimes you want to set a color for sheet tab. For example you can have a red 
 $objWorksheet->getTabColor()->setRGB('FF0000');
 ```
 
-### Creating worksheets in a workbook
+## Creating worksheets in a workbook
 
 If you need to create more worksheets in the workbook, here is how:
 
@@ -1165,7 +1253,7 @@ $objWorksheet1->setTitle('Another sheet');
 
 Think of createSheet() as the "Insert sheet" button in Excel. When you hit that button a new sheet is appended to the existing collection of worksheets in the workbook.
 
-### Hidden worksheets (Sheet states)
+## Hidden worksheets (Sheet states)
 
 Set a worksheet to be __hidden__ using this code:
 
@@ -1176,19 +1264,18 @@ $spreadsheet->getActiveSheet()
 
 Sometimes you may even want the worksheet to be __"very hidden"__. The available sheet states are :
 
- - \PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VISIBLE
- - \PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_HIDDEN
- - \PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VERYHIDDEN
+ - `\PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VISIBLE`
+ - `\PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_HIDDEN`
+ - `\PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VERYHIDDEN`
 
 In Excel the sheet state "very hidden" can only be set programmatically, e.g. with Visual Basic Macro. It is not possible to make such a sheet visible via the user interface.
 
-### Right-to-left worksheet
+## Right-to-left worksheet
 
 Worksheets can be set individually whether column "A" should start at left or right side. Default is left. Here is how to set columns from right-to-left.
 
 ```php
 // right-to-left worksheet
-$spreadsheet->getActiveSheet()
-    ->setRightToLeft(true);
+$spreadsheet->getActiveSheet()->setRightToLeft(true);
 ```
 
