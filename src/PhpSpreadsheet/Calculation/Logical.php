@@ -22,7 +22,6 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
  * @category    PhpSpreadsheet
  * @copyright    Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version        ##VERSION##, ##DATE##
  */
 class Logical
 {

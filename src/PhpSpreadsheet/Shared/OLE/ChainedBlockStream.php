@@ -22,7 +22,6 @@ namespace PhpOffice\PhpSpreadsheet\Shared\OLE;
  * @category   PhpSpreadsheet
  * @copyright  Copyright (c) 2006 - 2007 Christian Schmidt
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
- * @version ##VERSION##, ##DATE##
  */
 class ChainedBlockStream
 {
