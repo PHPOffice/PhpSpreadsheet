@@ -4,177 +4,267 @@
 
 ### Performing formula calculations
 
-As PhpSpreadsheet represents an in-memory spreadsheet, it also offers formula calculation capabilities. A cell can be of a value type (containing a number or text), or a formula type (containing a formula which can be evaluated). For example, the formula "=SUM(A1:A10)" evaluates to the sum of values in A1, A2, ..., A10.
+As PhpSpreadsheet represents an in-memory spreadsheet, it also offers
+formula calculation capabilities. A cell can be of a value type
+(containing a number or text), or a formula type (containing a formula
+which can be evaluated). For example, the formula "=SUM(A1:A10)"
+evaluates to the sum of values in A1, A2, ..., A10.
 
-To calculate a formula, you can call the cell containing the formula’s method getCalculatedValue(), for example:
+To calculate a formula, you can call the cell containing the formula’s
+method getCalculatedValue(), for example:
 
-```php
+``` php
 $spreadsheet->getActiveSheet()->getCell('E11')->getCalculatedValue();
 ```
-If you write the following line of code in the invoice demo included with PhpSpreadsheet, it evaluates to the value "64":
 
-![09-command-line-calculation.png](./images/09-command-line-calculation.png "")
+If you write the following line of code in the invoice demo included
+with PhpSpreadsheet, it evaluates to the value "64":
 
-Another nice feature of PhpSpreadsheet's formula parser, is that it can automatically adjust a formula when inserting/removing rows/columns. Here's an example:
+![09-command-line-calculation.png](./images/09-command-line-calculation.png)
 
-![09-formula-in-cell-1.png](./images/09-formula-in-cell-1.png "")
+Another nice feature of PhpSpreadsheet's formula parser, is that it can
+automatically adjust a formula when inserting/removing rows/columns.
+Here's an example:
 
-You see that the formula contained in cell E11 is "SUM(E4:E9)". Now, when I write the following line of code, two new product lines are added:
+![09-formula-in-cell-1.png](./images/09-formula-in-cell-1.png)
 
-```php
+You see that the formula contained in cell E11 is "SUM(E4:E9)". Now,
+when I write the following line of code, two new product lines are
+added:
+
+``` php
 $spreadsheet->getActiveSheet()->insertNewRowBefore(7, 2);
 ```
 
-![09-formula-in-cell-2.png](./images/09-formula-in-cell-2.png "")
+![09-formula-in-cell-2.png](./images/09-formula-in-cell-2.png)
 
-Did you notice? The formula in the former cell E11 (now E13, as I inserted 2 new rows), changed to "SUM(E4:E11)". Also, the inserted cells duplicate style information of the previous cell, just like Excel's behaviour. Note that you can both insert rows and columns.
+Did you notice? The formula in the former cell E11 (now E13, as I
+inserted 2 new rows), changed to "SUM(E4:E11)". Also, the inserted cells
+duplicate style information of the previous cell, just like Excel's
+behaviour. Note that you can both insert rows and columns.
 
 ## Known limitations
 
-There are some known limitations to the PhpSpreadsheet calculation engine. Most of them are due to the fact that an Excel formula is converted into PHP code before being executed. This means that Excel formula calculation is subject to PHP's language characteristics.
+There are some known limitations to the PhpSpreadsheet calculation
+engine. Most of them are due to the fact that an Excel formula is
+converted into PHP code before being executed. This means that Excel
+formula calculation is subject to PHP's language characteristics.
 
 ### Function that are not Supported in Xls
 
-Not all functions are supported, for a comprehensive list, read the [function list by name](../references/function-list-by-name.md).
+Not all functions are supported, for a comprehensive list, read the
+[function list by name](../references/function-list-by-name.md).
 
 #### Operator precedence
 
-In Excel '+' wins over '&', just like '*' wins over '+' in ordinary algebra. The former rule is not what one finds using the calculation engine shipped with PhpSpreadsheet.
+In Excel '+' wins over '&', just like '\*' wins over '+' in ordinary
+algebra. The former rule is not what one finds using the calculation
+engine shipped with PhpSpreadsheet.
 
-Reference for operator precedence in Excel: [http://support.microsoft.com/kb/25189](http://support.microsoft.com/kb/25189)
+Reference for operator precedence in Excel:
+<http://support.microsoft.com/kb/25189>
 
-Reference for operator precedence in PHP: [http://www.php.net/operators](http://www.php.net/operators)
+Reference for operator precedence in PHP: <http://www.php.net/operators>
 
 #### Formulas involving numbers and text
 
-Formulas involving numbers and text may produce unexpected results or even unreadable file contents. For example, the formula '=3+"Hello "' is expected to produce an error in Excel (#VALUE!). Due to the fact that PHP converts “Hello” to a numeric value (zero), the result of this formula is evaluated as 3 instead of evaluating as an error. This also causes the Excel document being generated as containing unreadable content.
+Formulas involving numbers and text may produce unexpected results or
+even unreadable file contents. For example, the formula '=3+"Hello "' is
+expected to produce an error in Excel (\#VALUE!). Due to the fact that
+PHP converts “Hello” to a numeric value (zero), the result of this
+formula is evaluated as 3 instead of evaluating as an error. This also
+causes the Excel document being generated as containing unreadable
+content.
 
-Reference for this behaviour in PHP: [http://php.net/manual/en/language.types.string.php#language.types.string.conversion](http://php.net/manual/en/language.types.string.php#language.types.string.conversion)
+Reference for this behaviour in PHP:
+<http://php.net/manual/en/language.types.string.php#language.types.string.conversion>
 
 #### Formulas don’t seem to be calculated in Excel2003 using compatibility pack?
 
-This is normal behaviour of the compatibility pack, Xlsx displays this correctly. Use \PhpOffice\PhpSpreadsheet\Writer\Xls if you really need calculated values, or force recalculation in Excel2003.
-
+This is normal behaviour of the compatibility pack, Xlsx displays this
+correctly. Use \PhpOffice\PhpSpreadsheet\Writer\Xls if you really need
+calculated values, or force recalculation in Excel2003.
 
 ## Handling Date and Time Values
 
 ### Excel functions that return a Date and Time value
 
-Any of the Date and Time functions that return a date value in Excel can return either an Excel timestamp or a PHP timestamp or date object.
+Any of the Date and Time functions that return a date value in Excel can
+return either an Excel timestamp or a PHP timestamp or date object.
 
-It is possible for scripts to change the data type used for returning date values by calling the \PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType() method:
+It is possible for scripts to change the data type used for returning
+date values by calling the
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType()
+method:
 
-```php
+``` php
 \PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType($returnDateType);
 ```
 
-where the following constants can be used for $returnDateType
+where the following constants can be used for \$returnDateType
 
- - `\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_PHP_NUMERIC`
- - `\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_PHP_OBJECT`
- - `\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_EXCEL`
+-   `\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_PHP_NUMERIC`
+-   `\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_PHP_OBJECT`
+-   `\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_EXCEL`
 
-The method will return a Boolean True on success, False on failure (e.g. if an invalid value is passed in for the return date type).
+The method will return a Boolean True on success, False on failure (e.g.
+if an invalid value is passed in for the return date type).
 
-The \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType() method can be used to determine the current value of this setting:
+The \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType()
+method can be used to determine the current value of this setting:
 
-```php
+``` php
 $returnDateType = \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType();
 ```
 
-The default is RETURNDATE_PHP_NUMERIC.
+The default is RETURNDATE\_PHP\_NUMERIC.
 
 #### PHP Timestamps
 
-If RETURNDATE_PHP_NUMERIC is set for the Return Date Type, then any date value returned to the calling script by any access to the Date and Time functions in Excel will be an integer value that represents the number of seconds from the PHP/Unix base date. The PHP/Unix base date (0) is 00:00 UST on 1st January 1970. This value can be positive or negative: so a value of -3600 would be 23:00 hrs on 31st December 1969; while a value of +3600 would be 01:00 hrs on 1st January 1970. This gives PHP a date range of between 14th December 1901 and 19th January 2038.
+If RETURNDATE\_PHP\_NUMERIC is set for the Return Date Type, then any
+date value returned to the calling script by any access to the Date and
+Time functions in Excel will be an integer value that represents the
+number of seconds from the PHP/Unix base date. The PHP/Unix base date
+(0) is 00:00 UST on 1st January 1970. This value can be positive or
+negative: so a value of -3600 would be 23:00 hrs on 31st December 1969;
+while a value of +3600 would be 01:00 hrs on 1st January 1970. This
+gives PHP a date range of between 14th December 1901 and 19th January
+2038.
 
 #### PHP DateTime Objects
 
-If the Return Date Type is set for RETURNDATE_PHP_NUMERIC, then any date value returned to the calling script by any access to the Date and Time functions in Excel will be a PHP date/time object.
+If the Return Date Type is set for RETURNDATE\_PHP\_NUMERIC, then any
+date value returned to the calling script by any access to the Date and
+Time functions in Excel will be a PHP date/time object.
 
 #### Excel Timestamps
 
-If RETURNDATE_EXCEL is set for the Return Date Type, then the returned date value by any access to the Date and Time functions in Excel will be a floating point value that represents a number of days from the Excel base date. The Excel base date is determined by which calendar Excel uses: the Windows 1900 or the Mac 1904 calendar. 1st January 1900 is the base date for the Windows 1900 calendar while 1st January 1904 is the base date for the Mac 1904 calendar.
+If RETURNDATE\_EXCEL is set for the Return Date Type, then the returned
+date value by any access to the Date and Time functions in Excel will be
+a floating point value that represents a number of days from the Excel
+base date. The Excel base date is determined by which calendar Excel
+uses: the Windows 1900 or the Mac 1904 calendar. 1st January 1900 is the
+base date for the Windows 1900 calendar while 1st January 1904 is the
+base date for the Mac 1904 calendar.
 
-It is possible for scripts to change the calendar used for calculating Excel date values by calling the \PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar() method:
+It is possible for scripts to change the calendar used for calculating
+Excel date values by calling the
+\PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar() method:
 
-```php
+``` php
 \PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar($baseDate);
 ```
 
-where the following constants can be used for $baseDate
+where the following constants can be used for \$baseDate
 
- - \PhpOffice\PhpSpreadsheet\Shared\Date::CALENDAR_WINDOWS_1900
- - \PhpOffice\PhpSpreadsheet\Shared\Date::CALENDAR_MAC_1904
+-   \PhpOffice\PhpSpreadsheet\Shared\Date::CALENDAR\_WINDOWS\_1900
+-   \PhpOffice\PhpSpreadsheet\Shared\Date::CALENDAR\_MAC\_1904
 
-The method will return a Boolean True on success, False on failure (e.g. if an invalid value is passed in).
+The method will return a Boolean True on success, False on failure (e.g.
+if an invalid value is passed in).
 
-The \PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar() method can be used to determine the current value of this setting:
+The \PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar() method can
+be used to determine the current value of this setting:
 
-```php
+``` php
 $baseDate = \PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar();
 ```
-The default is CALENDAR_WINDOWS_1900.
+
+The default is CALENDAR\_WINDOWS\_1900.
 
 #### Functions that return a Date/Time Value
 
- - DATE
- - DATEVALUE
- - EDATE
- - EOMONTH
- - NOW
- - TIME
- - TIMEVALUE
- - TODAY
+-   DATE
+-   DATEVALUE
+-   EDATE
+-   EOMONTH
+-   NOW
+-   TIME
+-   TIMEVALUE
+-   TODAY
 
 ### Excel functions that accept Date and Time values as parameters
 
-Date values passed in as parameters to a function can be an Excel timestamp or a PHP timestamp; or date object; or a string containing a date value (e.g. '1-Jan-2009'). PhpSpreadsheet will attempt to identify their type based on the PHP datatype:
+Date values passed in as parameters to a function can be an Excel
+timestamp or a PHP timestamp; or date object; or a string containing a
+date value (e.g. '1-Jan-2009'). PhpSpreadsheet will attempt to identify
+their type based on the PHP datatype:
 
-An integer numeric value will be treated as a PHP/Unix timestamp. A real (floating point) numeric value will be treated as an Excel date/timestamp. Any PHP DateTime object will be treated as a DateTime object. Any string value (even one containing straight numeric data) will be converted to a date/time object for validation as a date value based on the server locale settings, so passing through an ambiguous value of '07/08/2008' will be treated as 7th August 2008 if your server settings are UK, but as 8th July 2008 if your server settings are US. However, if you pass through a value such as '31/12/2008' that would be considered an error by a US-based server, but which is not ambiguous, then PhpSpreadsheet will attempt to correct this to 31st December 2008. If the content of the string doesn’t match any of the formats recognised by the php date/time object implementation of strtotime() (which can handle a wider range of formats than the normal strtotime() function), then the function will return a '#VALUE' error. However, Excel recommends that you should always use date/timestamps for your date functions, and the recommendation for PhpSpreadsheet is the same: avoid strings because the result is not predictable.
+An integer numeric value will be treated as a PHP/Unix timestamp. A real
+(floating point) numeric value will be treated as an Excel
+date/timestamp. Any PHP DateTime object will be treated as a DateTime
+object. Any string value (even one containing straight numeric data)
+will be converted to a date/time object for validation as a date value
+based on the server locale settings, so passing through an ambiguous
+value of '07/08/2008' will be treated as 7th August 2008 if your server
+settings are UK, but as 8th July 2008 if your server settings are US.
+However, if you pass through a value such as '31/12/2008' that would be
+considered an error by a US-based server, but which is not ambiguous,
+then PhpSpreadsheet will attempt to correct this to 31st December 2008.
+If the content of the string doesn’t match any of the formats recognised
+by the php date/time object implementation of strtotime() (which can
+handle a wider range of formats than the normal strtotime() function),
+then the function will return a '\#VALUE' error. However, Excel
+recommends that you should always use date/timestamps for your date
+functions, and the recommendation for PhpSpreadsheet is the same: avoid
+strings because the result is not predictable.
 
-The same principle applies when data is being written to Excel. Cells containing date actual values (rather than Excel functions that return a date value) are always written as Excel dates, converting where necessary. If a cell formatted as a date contains an integer or date/time object value, then it is converted to an Excel value for writing: if a cell formatted as a date contains a real value, then no conversion is required. Note that string values are written as strings rather than converted to Excel date timestamp values.
+The same principle applies when data is being written to Excel. Cells
+containing date actual values (rather than Excel functions that return a
+date value) are always written as Excel dates, converting where
+necessary. If a cell formatted as a date contains an integer or
+date/time object value, then it is converted to an Excel value for
+writing: if a cell formatted as a date contains a real value, then no
+conversion is required. Note that string values are written as strings
+rather than converted to Excel date timestamp values.
 
 #### Functions that expect a Date/Time Value
 
- - DATEDIF
- - DAY
- - DAYS360
- - EDATE
- - EOMONTH
- - HOUR
- - MINUTE
- - MONTH
- - NETWORKDAYS
- - SECOND
- - WEEKDAY
- - WEEKNUM
- - WORKDAY
- - YEAR
- - YEARFRAC
+-   DATEDIF
+-   DAY
+-   DAYS360
+-   EDATE
+-   EOMONTH
+-   HOUR
+-   MINUTE
+-   MONTH
+-   NETWORKDAYS
+-   SECOND
+-   WEEKDAY
+-   WEEKNUM
+-   WORKDAY
+-   YEAR
+-   YEARFRAC
 
 ### Helper Methods
 
-In addition to the setExcelCalendar() and getExcelCalendar() methods, a number of other methods are available in the \PhpOffice\PhpSpreadsheet\Shared\Date class that can help when working with dates:
+In addition to the setExcelCalendar() and getExcelCalendar() methods, a
+number of other methods are available in the
+\PhpOffice\PhpSpreadsheet\Shared\Date class that can help when working
+with dates:
 
-#### \PhpOffice\PhpSpreadsheet\Shared\Date::ExcelToPHP($excelDate)
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::ExcelToPHP(\$excelDate)
 
-Converts a date/time from an Excel date timestamp to return a PHP serialized date/timestamp.
+Converts a date/time from an Excel date timestamp to return a PHP
+serialized date/timestamp.
 
-Note that this method does not trap for Excel dates that fall outside of the valid range for a PHP date timestamp.
+Note that this method does not trap for Excel dates that fall outside of
+the valid range for a PHP date timestamp.
 
-#### \PhpOffice\PhpSpreadsheet\Shared\Date::ExcelToPHPObject($excelDate)
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::ExcelToPHPObject(\$excelDate)
 
-Converts a date from an Excel date/timestamp to return a PHP DateTime object.
+Converts a date from an Excel date/timestamp to return a PHP DateTime
+object.
 
-#### \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($PHPDate)
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(\$PHPDate)
 
-Converts a PHP serialized date/timestamp or a PHP DateTime object to return an Excel date timestamp.
+Converts a PHP serialized date/timestamp or a PHP DateTime object to
+return an Excel date timestamp.
 
-#### \PhpOffice\PhpSpreadsheet\Shared\Date::FormattedPHPToExcel($year, $month, $day, $hours=0, $minutes=0, $seconds=0)
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::FormattedPHPToExcel(\$year, \$month, \$day, \$hours=0, \$minutes=0, \$seconds=0)
 
-Takes year, month and day values (and optional hour, minute and second values) and returns an Excel date timestamp value.
-
+Takes year, month and day values (and optional hour, minute and second
+values) and returns an Excel date timestamp value.
 
 ## Function Reference
 
@@ -182,27 +272,35 @@ Takes year, month and day values (and optional hour, minute and second values) a
 
 #### DAVERAGE
 
-The DAVERAGE function returns the average value of the cells in a column of a list or database that match conditions you specify.
+The DAVERAGE function returns the average value of the cells in a column
+of a list or database that match conditions you specify.
 
 ##### Syntax
 
-```
-DAVERAGE (database, field, criteria)
-```
+    DAVERAGE (database, field, criteria)
 
 ##### Parameters
 
 **database** The range of cells that makes up the list or database.
 
-A database is a list of related data in which rows of related information are records, and columns of data are fields. The first row of the list contains labels for each column.
+A database is a list of related data in which rows of related
+information are records, and columns of data are fields. The first row
+of the list contains labels for each column.
 
-**field** Indicates which column of the database is used in the function.
+**field** Indicates which column of the database is used in the
+function.
 
-Enter the column label as a string (enclosed between double quotation marks), such as "Age" or "Yield," or as a number (without quotation marks) that represents the position of the column within the list: 1 for the first column, 2 for the second column, and so on.
+Enter the column label as a string (enclosed between double quotation
+marks), such as "Age" or "Yield," or as a number (without quotation
+marks) that represents the position of the column within the list: 1 for
+the first column, 2 for the second column, and so on.
 
-**criteria** The range of cells that contains the conditions you specify.
+**criteria** The range of cells that contains the conditions you
+specify.
 
-You can use any range for the criteria argument, as long as it includes at least one column label and at least one cell below the column label in which you specify a condition for the column.
+You can use any range for the criteria argument, as long as it includes
+at least one column label and at least one cell below the column label
+in which you specify a condition for the column.
 
 ##### Return Value
 
@@ -212,7 +310,7 @@ This is the statistical mean.
 
 ##### Examples
 
-```php
+``` php
 $database = array(
     array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
     array( 'Apple',  18,       20,    14,      105.00  ),
@@ -244,35 +342,43 @@ There are no additional notes on this function
 
 #### DCOUNT
 
-The DCOUNT function returns the count of cells that contain a number in a column of a list or database matching conditions that you specify.
+The DCOUNT function returns the count of cells that contain a number in
+a column of a list or database matching conditions that you specify.
 
 ##### Syntax
 
-```
-DCOUNT(database, [field], criteria)
-```
+    DCOUNT(database, [field], criteria)
 
 ##### Parameters
 
 **database** The range of cells that makes up the list or database.
 
-A database is a list of related data in which rows of related information are records, and columns of data are fields. The first row of the list contains labels for each column.
+A database is a list of related data in which rows of related
+information are records, and columns of data are fields. The first row
+of the list contains labels for each column.
 
-**field** Indicates which column of the database is used in the function.
+**field** Indicates which column of the database is used in the
+function.
 
-Enter the column label as a string (enclosed between double quotation marks), such as "Age" or "Yield," or as a number (without quotation marks) that represents the position of the column within the list: 1 for the first column, 2 for the second column, and so on.
+Enter the column label as a string (enclosed between double quotation
+marks), such as "Age" or "Yield," or as a number (without quotation
+marks) that represents the position of the column within the list: 1 for
+the first column, 2 for the second column, and so on.
 
-**criteria** The range of cells that contains the conditions you specify.
+**criteria** The range of cells that contains the conditions you
+specify.
 
-You can use any range for the criteria argument, as long as it includes at least one column label and at least one cell below the column label in which you specify a condition for the column.
+You can use any range for the criteria argument, as long as it includes
+at least one column label and at least one cell below the column label
+in which you specify a condition for the column.
 
 ##### Return Value
 
-**float**  The count of the matching cells.
+**float** The count of the matching cells.
 
 ##### Examples
 
-```php
+``` php
 $database = array(
     array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
     array( 'Apple',  18,       20,    14,      105.00  ),
@@ -301,31 +407,41 @@ $retVal = $worksheet->getCell('A12')->getCalculatedValue();
 
 ##### Notes
 
-In MS Excel, The field argument is optional. If field is omitted, DCOUNT counts all records in the database that match the criteria. This logic has not yet been implemented in PhpSpreadsheet.
+In MS Excel, The field argument is optional. If field is omitted, DCOUNT
+counts all records in the database that match the criteria. This logic
+has not yet been implemented in PhpSpreadsheet.
 
 #### DCOUNTA
 
-The DCOUNT function returns the count of cells that aren’t blank in a column of a list or database and that match conditions that you specify.
+The DCOUNT function returns the count of cells that aren’t blank in a
+column of a list or database and that match conditions that you specify.
 
 ##### Syntax
 
-```
-DCOUNTA(database, [field], criteria)
-```
+    DCOUNTA(database, [field], criteria)
 
 ##### Parameters
 
 **database** The range of cells that makes up the list or database.
 
-A database is a list of related data in which rows of related information are records, and columns of data are fields. The first row of the list contains labels for each column.
+A database is a list of related data in which rows of related
+information are records, and columns of data are fields. The first row
+of the list contains labels for each column.
 
-**field** Indicates which column of the database is used in the function.
+**field** Indicates which column of the database is used in the
+function.
 
-Enter the column label as a string (enclosed between double quotation marks), such as "Age" or "Yield," or as a number (without quotation marks) that represents the position of the column within the list: 1 for the first column, 2 for the second column, and so on.
+Enter the column label as a string (enclosed between double quotation
+marks), such as "Age" or "Yield," or as a number (without quotation
+marks) that represents the position of the column within the list: 1 for
+the first column, 2 for the second column, and so on.
 
-**criteria** The range of cells that contains the conditions you specify.
+**criteria** The range of cells that contains the conditions you
+specify.
 
-You can use any range for the criteria argument, as long as it includes at least one column label and at least one cell below the column label in which you specify a condition for the column.
+You can use any range for the criteria argument, as long as it includes
+at least one column label and at least one cell below the column label
+in which you specify a condition for the column.
 
 ##### Return Value
 
@@ -333,7 +449,7 @@ You can use any range for the criteria argument, as long as it includes at least
 
 ##### Examples
 
-```php
+``` php
 $database = array(
     array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
     array( 'Apple',  18,       20,    14,      105.00  ),
@@ -362,31 +478,41 @@ $retVal = $worksheet->getCell('A12')->getCalculatedValue();
 
 ##### Notes
 
-In MS Excel, The field argument is optional. If field is omitted, DCOUNTA counts all records in the database that match the criteria. This logic has not yet been implemented in PhpSpreadsheet.
+In MS Excel, The field argument is optional. If field is omitted,
+DCOUNTA counts all records in the database that match the criteria. This
+logic has not yet been implemented in PhpSpreadsheet.
 
 #### DGET
 
-The DGET function extracts a single value from a column of a list or database that matches conditions that you specify.
+The DGET function extracts a single value from a column of a list or
+database that matches conditions that you specify.
 
 ##### Syntax
 
-```
-DGET(database, field, criteria)
-```
+    DGET(database, field, criteria)
 
 ##### Parameters
 
 **database** The range of cells that makes up the list or database.
 
-A database is a list of related data in which rows of related information are records, and columns of data are fields. The first row of the list contains labels for each column.
+A database is a list of related data in which rows of related
+information are records, and columns of data are fields. The first row
+of the list contains labels for each column.
 
-**field** Indicates which column of the database is used in the function.
+**field** Indicates which column of the database is used in the
+function.
 
-Enter the column label as a string (enclosed between double quotation marks), such as "Age" or "Yield," or as a number (without quotation marks) that represents the position of the column within the list: 1 for the first column, 2 for the second column, and so on.
+Enter the column label as a string (enclosed between double quotation
+marks), such as "Age" or "Yield," or as a number (without quotation
+marks) that represents the position of the column within the list: 1 for
+the first column, 2 for the second column, and so on.
 
-**criteria** The range of cells that contains the conditions you specify.
+**criteria** The range of cells that contains the conditions you
+specify.
 
-You can use any range for the criteria argument, as long as it includes at least one column label and at least one cell below the column label in which you specify a condition for the column.
+You can use any range for the criteria argument, as long as it includes
+at least one column label and at least one cell below the column label
+in which you specify a condition for the column.
 
 ##### Return Value
 
@@ -394,7 +520,7 @@ You can use any range for the criteria argument, as long as it includes at least
 
 #### Examples
 
-```php
+``` php
 $database = array(
     array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
     array( 'Apple',  18,       20,    14,      105.00  ),
@@ -426,27 +552,35 @@ There are no additional notes on this function
 
 #### DMAX
 
-The DMAX function returns the largest number in a column of a list or database that matches conditions you specify.
+The DMAX function returns the largest number in a column of a list or
+database that matches conditions you specify.
 
 ##### Syntax
 
-```
-DMAX(database, field, criteria)
-```
+    DMAX(database, field, criteria)
 
 ##### Parameters
 
 **database** The range of cells that makes up the list or database.
 
-A database is a list of related data in which rows of related information are records, and columns of data are fields. The first row of the list contains labels for each column.
+A database is a list of related data in which rows of related
+information are records, and columns of data are fields. The first row
+of the list contains labels for each column.
 
-**field** Indicates which column of the database is used in the function.
+**field** Indicates which column of the database is used in the
+function.
 
-Enter the column label as a string (enclosed between double quotation marks), such as "Age" or "Yield," or as a number (without quotation marks) that represents the position of the column within the list: 1 for the first column, 2 for the second column, and so on.
+Enter the column label as a string (enclosed between double quotation
+marks), such as "Age" or "Yield," or as a number (without quotation
+marks) that represents the position of the column within the list: 1 for
+the first column, 2 for the second column, and so on.
 
-**criteria** The range of cells that contains the conditions you specify.
+**criteria** The range of cells that contains the conditions you
+specify.
 
-You can use any range for the criteria argument, as long as it includes at least one column label and at least one cell below the column label in which you specify a condition for the column.
+You can use any range for the criteria argument, as long as it includes
+at least one column label and at least one cell below the column label
+in which you specify a condition for the column.
 
 ##### Return Value
 
@@ -454,7 +588,7 @@ You can use any range for the criteria argument, as long as it includes at least
 
 ##### Examples
 
-```php
+``` php
 $database = array(
     array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
     array( 'Apple',  18,       20,    14,      105.00  ),
@@ -486,27 +620,35 @@ There are no additional notes on this function
 
 #### DMIN
 
-The DMIN function returns the smallest number in a column of a list or database that matches conditions you specify.
+The DMIN function returns the smallest number in a column of a list or
+database that matches conditions you specify.
 
 ##### Syntax
 
-```
-DMIN(database, field, criteria)
-```
+    DMIN(database, field, criteria)
 
 ##### Parameters
 
 **database** The range of cells that makes up the list or database.
 
-A database is a list of related data in which rows of related information are records, and columns of data are fields. The first row of the list contains labels for each column.
+A database is a list of related data in which rows of related
+information are records, and columns of data are fields. The first row
+of the list contains labels for each column.
 
-**field** Indicates which column of the database is used in the function.
+**field** Indicates which column of the database is used in the
+function.
 
-Enter the column label as a string (enclosed between double quotation marks), such as "Age" or "Yield," or as a number (without quotation marks) that represents the position of the column within the list: 1 for the first column, 2 for the second column, and so on.
+Enter the column label as a string (enclosed between double quotation
+marks), such as "Age" or "Yield," or as a number (without quotation
+marks) that represents the position of the column within the list: 1 for
+the first column, 2 for the second column, and so on.
 
-**criteria**  The range of cells that contains the conditions you specify.
+**criteria** The range of cells that contains the conditions you
+specify.
 
-You can use any range for the criteria argument, as long as it includes at least one column label and at least one cell below the column label in which you specify a condition for the column.
+You can use any range for the criteria argument, as long as it includes
+at least one column label and at least one cell below the column label
+in which you specify a condition for the column.
 
 ##### Return Value
 
@@ -514,7 +656,7 @@ You can use any range for the criteria argument, as long as it includes at least
 
 ##### Examples
 
-```php
+``` php
 $database = array(
     array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
     array( 'Apple',  18,       20,    14,      105.00  ),
@@ -546,27 +688,35 @@ There are no additional notes on this function
 
 #### DPRODUCT
 
-The DPRODUCT function multiplies the values in a column of a list or database that match conditions that you specify.
+The DPRODUCT function multiplies the values in a column of a list or
+database that match conditions that you specify.
 
 ##### Syntax
 
-```
-DPRODUCT(database, field, criteria)
-```
+    DPRODUCT(database, field, criteria)
 
 ##### Parameters
 
 **database** The range of cells that makes up the list or database.
 
-A database is a list of related data in which rows of related information are records, and columns of data are fields. The first row of the list contains labels for each column.
+A database is a list of related data in which rows of related
+information are records, and columns of data are fields. The first row
+of the list contains labels for each column.
 
-**field** Indicates which column of the database is used in the function.
+**field** Indicates which column of the database is used in the
+function.
 
-Enter the column label as a string (enclosed between double quotation marks), such as "Age" or "Yield," or as a number (without quotation marks) that represents the position of the column within the list: 1 for the first column, 2 for the second column, and so on.
+Enter the column label as a string (enclosed between double quotation
+marks), such as "Age" or "Yield," or as a number (without quotation
+marks) that represents the position of the column within the list: 1 for
+the first column, 2 for the second column, and so on.
 
-**criteria** The range of cells that contains the conditions you specify.
+**criteria** The range of cells that contains the conditions you
+specify.
 
-You can use any range for the criteria argument, as long as it includes at least one column label and at least one cell below the column label in which you specify a condition for the column.
+You can use any range for the criteria argument, as long as it includes
+at least one column label and at least one cell below the column label
+in which you specify a condition for the column.
 
 ##### Return Value
 
@@ -574,7 +724,7 @@ You can use any range for the criteria argument, as long as it includes at least
 
 ##### Examples
 
-```php
+``` php
 $database = array(
     array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
     array( 'Apple',  18,       20,    14,      105.00  ),
@@ -606,27 +756,36 @@ There are no additional notes on this function
 
 #### DSTDEV
 
-The DSTDEV function estimates the standard deviation of a population based on a sample by using the numbers in a column of a list or database that match conditions that you specify.
+The DSTDEV function estimates the standard deviation of a population
+based on a sample by using the numbers in a column of a list or database
+that match conditions that you specify.
 
 ##### Syntax
 
-```
-DSTDEV(database, field, criteria)
-```
+    DSTDEV(database, field, criteria)
 
 ##### Parameters
 
 **database** The range of cells that makes up the list or database.
 
-A database is a list of related data in which rows of related information are records, and columns of data are fields. The first row of the list contains labels for each column.
+A database is a list of related data in which rows of related
+information are records, and columns of data are fields. The first row
+of the list contains labels for each column.
 
-**field** Indicates which column of the database is used in the function.
+**field** Indicates which column of the database is used in the
+function.
 
-Enter the column label as a string (enclosed between double quotation marks), such as "Age" or "Yield," or as a number (without quotation marks) that represents the position of the column within the list: 1 for the first column, 2 for the second column, and so on.
+Enter the column label as a string (enclosed between double quotation
+marks), such as "Age" or "Yield," or as a number (without quotation
+marks) that represents the position of the column within the list: 1 for
+the first column, 2 for the second column, and so on.
 
-**criteria** The range of cells that contains the conditions you specify.
+**criteria** The range of cells that contains the conditions you
+specify.
 
-You can use any range for the criteria argument, as long as it includes at least one column label and at least one cell below the column label in which you specify a condition for the column.
+You can use any range for the criteria argument, as long as it includes
+at least one column label and at least one cell below the column label
+in which you specify a condition for the column.
 
 ##### Return Value
 
@@ -634,7 +793,7 @@ You can use any range for the criteria argument, as long as it includes at least
 
 ##### Examples
 
-```php
+``` php
 $database = array(
     array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
     array( 'Apple',  18,       20,    14,      105.00  ),
@@ -666,27 +825,36 @@ There are no additional notes on this function
 
 #### DSTDEVP
 
-The DSTDEVP function calculates the standard deviation of a population based on the entire population by using the numbers in a column of a list or database that match conditions that you specify.
+The DSTDEVP function calculates the standard deviation of a population
+based on the entire population by using the numbers in a column of a
+list or database that match conditions that you specify.
 
 ##### Syntax
 
-```
-DSTDEVP(database, field, criteria)
-```
+    DSTDEVP(database, field, criteria)
 
 ##### Parameters
 
 **database** The range of cells that makes up the list or database.
 
-A database is a list of related data in which rows of related information are records, and columns of data are fields. The first row of the list contains labels for each column.
+A database is a list of related data in which rows of related
+information are records, and columns of data are fields. The first row
+of the list contains labels for each column.
 
-**field** Indicates which column of the database is used in the function.
+**field** Indicates which column of the database is used in the
+function.
 
-Enter the column label as a string (enclosed between double quotation marks), such as "Age" or "Yield," or as a number (without quotation marks) that represents the position of the column within the list: 1 for the first column, 2 for the second column, and so on.
+Enter the column label as a string (enclosed between double quotation
+marks), such as "Age" or "Yield," or as a number (without quotation
+marks) that represents the position of the column within the list: 1 for
+the first column, 2 for the second column, and so on.
 
-**criteria** The range of cells that contains the conditions you specify.
+**criteria** The range of cells that contains the conditions you
+specify.
 
-You can use any range for the criteria argument, as long as it includes at least one column label and at least one cell below the column label in which you specify a condition for the column.
+You can use any range for the criteria argument, as long as it includes
+at least one column label and at least one cell below the column label
+in which you specify a condition for the column.
 
 ##### Return Value
 
@@ -694,7 +862,7 @@ You can use any range for the criteria argument, as long as it includes at least
 
 ##### Examples
 
-```php
+``` php
 $database = array(
     array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
     array( 'Apple',  18,       20,    14,      105.00  ),
@@ -726,27 +894,35 @@ There are no additional notes on this function
 
 #### DSUM
 
-The DSUM function adds the numbers in a column of a list or database that matches conditions you specify.
+The DSUM function adds the numbers in a column of a list or database
+that matches conditions you specify.
 
 ##### Syntax
 
-```
-DSUM(database, field, criteria)
-```
+    DSUM(database, field, criteria)
 
 ##### Parameters
 
 **database** The range of cells that makes up the list or database.
 
-A database is a list of related data in which rows of related information are records, and columns of data are fields. The first row of the list contains labels for each column.
+A database is a list of related data in which rows of related
+information are records, and columns of data are fields. The first row
+of the list contains labels for each column.
 
-**field** Indicates which column of the database is used in the function.
+**field** Indicates which column of the database is used in the
+function.
 
-Enter the column label as a string (enclosed between double quotation marks), such as "Age" or "Yield," or as a number (without quotation marks) that represents the position of the column within the list: 1 for the first column, 2 for the second column, and so on.
+Enter the column label as a string (enclosed between double quotation
+marks), such as "Age" or "Yield," or as a number (without quotation
+marks) that represents the position of the column within the list: 1 for
+the first column, 2 for the second column, and so on.
 
-**criteria** The range of cells that contains the conditions you specify.
+**criteria** The range of cells that contains the conditions you
+specify.
 
-You can use any range for the criteria argument, as long as it includes at least one column label and at least one cell below the column label in which you specify a condition for the column.
+You can use any range for the criteria argument, as long as it includes
+at least one column label and at least one cell below the column label
+in which you specify a condition for the column.
 
 ##### Return Value
 
@@ -754,7 +930,7 @@ You can use any range for the criteria argument, as long as it includes at least
 
 ##### Examples
 
-```php
+``` php
 $database = array(
     array( 'Tree',  'Height', 'Age', 'Yield', 'Profit' ),
     array( 'Apple',  18,       20,    14,      105.00  ),
@@ -792,49 +968,70 @@ Not yet documented.
 
 Not yet documented.
 
-
-
 ### Date and Time Functions
 
-Excel provides a number of functions for the manipulation of dates and times, and calculations based on date/time values. it is worth spending some time reading the section titled "Date and Time Values" on passing date parameters and returning date values to understand how PhpSpreadsheet reconciles the differences between dates and times in Excel and in PHP.
+Excel provides a number of functions for the manipulation of dates and
+times, and calculations based on date/time values. it is worth spending
+some time reading the section titled "Date and Time Values" on passing
+date parameters and returning date values to understand how
+PhpSpreadsheet reconciles the differences between dates and times in
+Excel and in PHP.
 
 #### DATE
 
-The DATE function returns an Excel timestamp or a PHP timestamp or date object representing the date that is referenced by the parameters.
+The DATE function returns an Excel timestamp or a PHP timestamp or date
+object representing the date that is referenced by the parameters.
 
 ##### Syntax
 
-```
-DATE(year, month, day)
-```
+    DATE(year, month, day)
 
 ##### Parameters
 
 **year** The year number.
 
-If this value is between 0 (zero) and 1899 inclusive (for the Windows 1900 calendar), or between 4 and 1903 inclusive (for the Mac 1904), then PhpSpreadsheet adds it to the Calendar base year, so a value of 108 will interpret the year as 2008 when using the Windows 1900 calendar, or 2012 when using the Mac 1904 calendar.
+If this value is between 0 (zero) and 1899 inclusive (for the Windows
+1900 calendar), or between 4 and 1903 inclusive (for the Mac 1904), then
+PhpSpreadsheet adds it to the Calendar base year, so a value of 108 will
+interpret the year as 2008 when using the Windows 1900 calendar, or 2012
+when using the Mac 1904 calendar.
 
 **month** The month number.
 
-If this value is greater than 12, the DATE function adds that number of months to the first month in the year specified. For example, DATE(2008,14,2) returns a value representing February 2, 2009.
+If this value is greater than 12, the DATE function adds that number of
+months to the first month in the year specified. For example,
+DATE(2008,14,2) returns a value representing February 2, 2009.
 
-If the value of __month__ is less than 1, then that value will be adjusted by -1, and that will then be subtracted from the first month of the year specified. For example, DATE(2008,0,2) returns a value representing December 2, 2007; while DATE(2008,-1,2) returns a value representing November 2, 2007.
+If the value of **month** is less than 1, then that value will be
+adjusted by -1, and that will then be subtracted from the first month of
+the year specified. For example, DATE(2008,0,2) returns a value
+representing December 2, 2007; while DATE(2008,-1,2) returns a value
+representing November 2, 2007.
 
 **day** The day number.
 
-If this value is greater than the number of days in the month (and year) specified, the DATE function adds that number of days to the first day in the month. For example, DATE(2008,1,35) returns a value representing February 4, 2008.
+If this value is greater than the number of days in the month (and year)
+specified, the DATE function adds that number of days to the first day
+in the month. For example, DATE(2008,1,35) returns a value representing
+February 4, 2008.
 
-If the value of __day__ is less than 1, then that value will be adjusted by -1, and that will then be subtracted from the first month of the year specified. For example, DATE(2008,3,0) returns a value representing February 29, 2008; while DATE(2008,3,-2) returns a value representing February 27, 2008.
+If the value of **day** is less than 1, then that value will be adjusted
+by -1, and that will then be subtracted from the first month of the year
+specified. For example, DATE(2008,3,0) returns a value representing
+February 29, 2008; while DATE(2008,3,-2) returns a value representing
+February 27, 2008.
 
 ##### Return Value
 
 **mixed** A date/time stamp that corresponds to the given date.
 
-This could be a PHP timestamp value (integer), a PHP date/time object, or an Excel timestamp value (real), depending on the value of \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
+This could be a PHP timestamp value (integer), a PHP date/time object,
+or an Excel timestamp value (real), depending on the value of
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
 
 ##### Examples
 
-```php
+``` php
 $worksheet->setCellValue('A1', 'Year')
     ->setCellValue('A2', 'Month')
     ->setCellValue('A3', 'Day');
@@ -849,7 +1046,7 @@ $retVal = $worksheet->getCell('D1')->getCalculatedValue();
 // $retVal = 1230681600
 ```
 
-```php
+``` php
 // We're going to be calling the same cell calculation multiple times,
 //    and expecting different return values, so disable calculation cacheing
 \PhpOffice\PhpSpreadsheet\Calculation::getInstance()->setCalculationCacheEnabled(FALSE);
@@ -885,23 +1082,24 @@ There are no additional notes on this function
 
 #### DATEDIF
 
-The DATEDIF function computes the difference between two dates in a variety of different intervals, such number of years, months, or days.
+The DATEDIF function computes the difference between two dates in a
+variety of different intervals, such number of years, months, or days.
 
 ##### Syntax
 
-```
-DATEDIF(date1, date2 [, unit])
-```
+    DATEDIF(date1, date2 [, unit])
 
 ##### Parameters
 
 **date1** First Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date represented as a string.
+An Excel date value, PHP date timestamp, PHP date object, or a date
+represented as a string.
 
 **date2** Second Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date represented as a string.
+An Excel date value, PHP date timestamp, PHP date object, or a date
+represented as a string.
 
 **unit** The interval type to use for the calculation
 
@@ -920,13 +1118,16 @@ The unit value is not case sensitive, and defaults to "d".
 
 ##### Return Value
 
-**integer** An integer value that reflects the difference between the two dates.
+**integer** An integer value that reflects the difference between the
+two dates.
 
-This could be the number of full days, months or years between the two dates, depending on the interval unit value passed into the function as the third parameter.
+This could be the number of full days, months or years between the two
+dates, depending on the interval unit value passed into the function as
+the third parameter.
 
 ##### Examples
 
-```php
+``` php
 $worksheet->setCellValue('A1', 'Year')
     ->setCellValue('A2', 'Month')
     ->setCellValue('A3', 'Day');
@@ -964,7 +1165,7 @@ $retVal = $worksheet->getCell('D6')->getCalculatedValue();
 // $retVal = 30
 ```
 
-```php
+``` php
 $date1 = 1193317015; // PHP timestamp for 25-Oct-2007
 $date2 = 1449579415; // PHP timestamp for 8-Dec-2015
 
@@ -1007,17 +1208,17 @@ $retVal = call_user_func_array(
 
 ##### Notes
 
-If Date1 is later than Date2, DATEDIF will return a #NUM! error.
+If Date1 is later than Date2, DATEDIF will return a \#NUM! error.
 
 #### DATEVALUE
 
-The DATEVALUE function returns the date represented by a date formatted as a text string. Use DATEVALUE to convert a date represented by text to a serial number.
+The DATEVALUE function returns the date represented by a date formatted
+as a text string. Use DATEVALUE to convert a date represented by text to
+a serial number.
 
 ##### Syntax
 
-```
-DATEVALUE(dateString)
-```
+    DATEVALUE(dateString)
 
 ##### Parameters
 
@@ -1029,11 +1230,13 @@ A string, representing a date value.
 
 **mixed** A date/time stamp that corresponds to the given date.
 
-This could be a PHP timestamp value (integer), a PHP date/time object, or an Excel timestamp value (real), depending on the value of \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
+This could be a PHP timestamp value (integer), a PHP date/time object,
+or an Excel timestamp value (real), depending on the value of
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
 
 ##### Examples
 
-```php
+``` php
 $worksheet->setCellValue('A1', 'Date String');
     ->setCellValue('A2', '31-Dec-2008')
     ->setCellValue('A3', '31/12/2008')
@@ -1055,7 +1258,7 @@ $retVal = $worksheet->getCell('B4')->getCalculatedValue();
 // $retVal = 39813.0 for all cases
 ```
 
-```php
+``` php
 // We're going to be calling the same cell calculation multiple times,
 //    and expecting different return values, so disable calculation cacheing
 \PhpOffice\PhpSpreadsheet\Calculation::getInstance()->setCalculationCacheEnabled(FALSE);
@@ -1087,27 +1290,35 @@ $retVal = call_user_func_array(
 
 ##### Notes
 
-DATEVALUE uses the php date/time object implementation of strtotime() (which can handle a wider range of formats than the normal strtotime() function), and it is also called for any date parameter passed to other date functions (such as DATEDIF) when the parameter value is a string.
+DATEVALUE uses the php date/time object implementation of strtotime()
+(which can handle a wider range of formats than the normal strtotime()
+function), and it is also called for any date parameter passed to other
+date functions (such as DATEDIF) when the parameter value is a string.
 
-__WARNING:-__ PhpSpreadsheet accepts a wider range of date formats than MS Excel, so it is entirely possible that Excel will return a #VALUE! error when passed a date string that it can’t interpret, while PhpSpreadsheet is able to translate that same string into a correct date value.
+**WARNING:-** PhpSpreadsheet accepts a wider range of date formats than
+MS Excel, so it is entirely possible that Excel will return a \#VALUE!
+error when passed a date string that it can’t interpret, while
+PhpSpreadsheet is able to translate that same string into a correct date
+value.
 
-Care should be taken in workbooks that use string formatted dates in calculations when writing to Xls or Xlsx.
+Care should be taken in workbooks that use string formatted dates in
+calculations when writing to Xls or Xlsx.
 
 #### DAY
 
-The DAY function returns the day of a date. The day is given as an integer ranging from 1 to 31.
+The DAY function returns the day of a date. The day is given as an
+integer ranging from 1 to 31.
 
 ##### Syntax
 
-```
-DAY(datetime)
-```
+    DAY(datetime)
 
 ##### Parameters
 
 **datetime** Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date represented as a string.
+An Excel date value, PHP date timestamp, PHP date object, or a date
+represented as a string.
 
 ##### Return Value
 
@@ -1117,7 +1328,7 @@ This is an integer ranging from 1 to 31.
 
 ##### Examples
 
-```php
+``` php
 $worksheet->setCellValue('A1', 'Date String')
     ->setCellValue('A2', '31-Dec-2008')
     ->setCellValue('A3', '14-Feb-2008');
@@ -1132,7 +1343,7 @@ $retVal = $worksheet->getCell('B3')->getCalculatedValue();
 // $retVal = 14
 ```
 
-```php
+``` php
 $retVal = call_user_func_array(
     array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DAYOFMONTH'),
     array('25-Dec-2008')
@@ -1142,31 +1353,36 @@ $retVal = call_user_func_array(
 
 ##### Notes
 
-Note that the PhpSpreadsheet function is \PhpOffice\PhpSpreadsheet\Calculation\Functions::DAYOFMONTH() when the method is called statically.
+Note that the PhpSpreadsheet function is
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::DAYOFMONTH() when the
+method is called statically.
 
 #### DAYS360
 
-The DAYS360 function computes the difference between two dates based on a 360 day year (12 equal periods of 30 days each) used by some accounting systems.
+The DAYS360 function computes the difference between two dates based on
+a 360 day year (12 equal periods of 30 days each) used by some
+accounting systems.
 
 ##### Syntax
 
-```
-DAYS360(date1, date2 [, method])
-```
+    DAYS360(date1, date2 [, method])
 
 #### Parameters
 
 **date1** First Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date represented as a string.
+An Excel date value, PHP date timestamp, PHP date object, or a date
+represented as a string.
 
 **date2** Second Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date represented as a string.
+An Excel date value, PHP date timestamp, PHP date object, or a date
+represented as a string.
 
 **method** A boolean flag (TRUE or FALSE)
 
-This is a flag that determines which method to use in the calculation, based on the values listed below:
+This is a flag that determines which method to use in the calculation,
+based on the values listed below:
 
 method | Description
 -------|------------
@@ -1177,13 +1393,15 @@ The method value defaults to FALSE.
 
 ##### Return Value
 
-**integer** An integer value that reflects the difference between the two dates.
+**integer** An integer value that reflects the difference between the
+two dates.
 
-This is the number of full days between the two dates, based on a 360 day year.
+This is the number of full days between the two dates, based on a 360
+day year.
 
 ##### Examples
 
-```php
+``` php
 $worksheet->setCellValue('B1', 'Start Date')
     ->setCellValue('C1', 'End Date')
     ->setCellValue('A2', 'Year')
@@ -1208,7 +1426,7 @@ $retVal = $worksheet->getCell('E4')->getCalculatedValue();
 // $retVal = 1557
 ```
 
-```php
+``` php
 $date1 = 37655.0; // Excel timestamp for 25-Oct-2007
 $date2 = 39233.0; // Excel timestamp for 8-Dec-2015
 
@@ -1227,37 +1445,48 @@ $retVal = call_user_func_array(
 
 ##### Notes
 
-__WARNING:-__ This function does not currently work with the Xls Writer when a PHP Boolean is used for the third (optional) parameter (as shown in the example above), and the writer will generate and error. It will work if a numeric 0 or 1 is used for the method parameter; or if the Excel TRUE() and FALSE() functions are used instead.
+**WARNING:-** This function does not currently work with the Xls Writer
+when a PHP Boolean is used for the third (optional) parameter (as shown
+in the example above), and the writer will generate and error. It will
+work if a numeric 0 or 1 is used for the method parameter; or if the
+Excel TRUE() and FALSE() functions are used instead.
 
 #### EDATE
 
-The EDATE function returns an Excel timestamp or a PHP timestamp or date object representing the date that is the indicated number of months before or after a specified date (the start_date). Use EDATE to calculate maturity dates or due dates that fall on the same day of the month as the date of issue.
+The EDATE function returns an Excel timestamp or a PHP timestamp or date
+object representing the date that is the indicated number of months
+before or after a specified date (the start\_date). Use EDATE to
+calculate maturity dates or due dates that fall on the same day of the
+month as the date of issue.
 
 ##### Syntax
 
-```
-EDATE(baseDate, months)
-```
+    EDATE(baseDate, months)
 
 ##### Parameters
 
 **baseDate** Start Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date represented as a string.
+An Excel date value, PHP date timestamp, PHP date object, or a date
+represented as a string.
 
 **months** Number of months to add.
 
-An integer value indicating the number of months before or after baseDate. A positive value for months yields a future date; a negative value yields a past date.
+An integer value indicating the number of months before or after
+baseDate. A positive value for months yields a future date; a negative
+value yields a past date.
 
 ##### Return Value
 
 **mixed** A date/time stamp that corresponds to the basedate + months.
 
-This could be a PHP timestamp value (integer), a PHP date/time object, or an Excel timestamp value (real), depending on the value of \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
+This could be a PHP timestamp value (integer), a PHP date/time object,
+or an Excel timestamp value (real), depending on the value of
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
 
 ##### Examples
 
-```php
+``` php
 $worksheet->setCellValue('A1', 'Date String')
     ->setCellValue('A2', '1-Jan-2008')
     ->setCellValue('A3', '29-Feb-2008');
@@ -1276,7 +1505,7 @@ $retVal = $worksheet->getCell('B3')->getCalculatedValue();
 // $retVal = 39141.0 (28-Feb-2007)
 ```
 
-```php
+``` php
 \PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType(
     \PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_EXCEL
 );
@@ -1290,37 +1519,47 @@ $retVal = call_user_func_array(
 
 ###### Notes
 
-__WARNING:-__ This function is currently not supported by the Xls Writer because it is not a standard function within Excel 5, but an add-in from the Analysis ToolPak.
+**WARNING:-** This function is currently not supported by the Xls Writer
+because it is not a standard function within Excel 5, but an add-in from
+the Analysis ToolPak.
 
 #### EOMONTH
 
-The EOMONTH function returns an Excel timestamp or a PHP timestamp or date object representing the date of the last day of the month that is the indicated number of months before or after a specified date (the start_date). Use EOMONTH to calculate maturity dates or due dates that fall on the last day of the month.
+The EOMONTH function returns an Excel timestamp or a PHP timestamp or
+date object representing the date of the last day of the month that is
+the indicated number of months before or after a specified date (the
+start\_date). Use EOMONTH to calculate maturity dates or due dates that
+fall on the last day of the month.
 
 ##### Syntax
 
-```
-EOMONTH(baseDate, months)
-```
+    EOMONTH(baseDate, months)
 
 ##### Parameters
 
 **baseDate** Start Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date represented as a string.
+An Excel date value, PHP date timestamp, PHP date object, or a date
+represented as a string.
 
 **months** Number of months to add.
 
-An integer value indicating the number of months before or after baseDate. A positive value for months yields a future date; a negative value yields a past date.
+An integer value indicating the number of months before or after
+baseDate. A positive value for months yields a future date; a negative
+value yields a past date.
 
 ##### Return Value
 
-**mixed** A date/time stamp that corresponds to the last day of basedate + months.
+**mixed** A date/time stamp that corresponds to the last day of basedate
++ months.
 
-This could be a PHP timestamp value (integer), a PHP date/time object, or an Excel timestamp value (real), depending on the value of \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
+This could be a PHP timestamp value (integer), a PHP date/time object,
+or an Excel timestamp value (real), depending on the value of
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
 
 ##### Examples
 
-```php
+``` php
 $worksheet->setCellValue('A1', 'Date String')
     ->setCellValue('A2', '1-Jan-2000')
     ->setCellValue('A3', '14-Feb-2009');
@@ -1337,7 +1576,7 @@ $retVal = $worksheet->getCell('B3')->getCalculatedValue();
 // $retVal = 39507.0 (29-Feb-2008)
 ```
 
-```php
+``` php
 \PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType(
     \PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_EXCEL
 );
@@ -1351,23 +1590,25 @@ $retVal = call_user_func_array(
 
 ##### Notes
 
-__WARNING:-__ This function is currently not supported by the Xls Writer because it is not a standard function within Excel 5, but an add-in from the Analysis ToolPak.
+**WARNING:-** This function is currently not supported by the Xls Writer
+because it is not a standard function within Excel 5, but an add-in from
+the Analysis ToolPak.
 
 #### HOUR
 
-The HOUR function returns the hour of a time value. The hour is given as an integer, ranging from 0 (12:00 A.M.) to 23 (11:00 P.M.).
+The HOUR function returns the hour of a time value. The hour is given as
+an integer, ranging from 0 (12:00 A.M.) to 23 (11:00 P.M.).
 
 ##### Syntax
 
-```
-HOUR(datetime)
-```
+    HOUR(datetime)
 
 ##### Parameters
 
 **datetime** Time.
 
-An Excel date/time value, PHP date timestamp, PHP date object, or a date/time represented as a string.
+An Excel date/time value, PHP date timestamp, PHP date object, or a
+date/time represented as a string.
 
 ##### Return Value
 
@@ -1377,7 +1618,7 @@ This is an integer ranging from 0 to 23.
 
 ##### Examples
 
-```php
+``` php
 $worksheet->setCellValue('A1', 'Time String')
     ->setCellValue('A2', '31-Dec-2008 17:30')
     ->setCellValue('A3', '14-Feb-2008 4:20 AM')
@@ -1397,7 +1638,7 @@ $retVal = $worksheet->getCell('B4')->getCalculatedValue();
 // $retVal = 16
 ```
 
-```php
+``` php
 $retVal = call_user_func_array(
     array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'HOUROFDAY'),
     array('09:30')
@@ -1407,23 +1648,25 @@ $retVal = call_user_func_array(
 
 ##### Notes
 
-Note that the PhpSpreadsheet function is \PhpOffice\PhpSpreadsheet\Calculation\Functions::HOUROFDAY() when the method is called statically.
+Note that the PhpSpreadsheet function is
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::HOUROFDAY() when the
+method is called statically.
 
 #### MINUTE
 
-The MINUTE function returns the minutes of a time value. The minute is given as an integer, ranging from 0 to 59.
+The MINUTE function returns the minutes of a time value. The minute is
+given as an integer, ranging from 0 to 59.
 
 ##### Syntax
 
-```
-MINUTE(datetime)
-```
+    MINUTE(datetime)
 
 ##### Parameters
 
 **datetime** Time.
 
-An Excel date/time value, PHP date timestamp, PHP date object, or a date/time represented as a string.
+An Excel date/time value, PHP date timestamp, PHP date object, or a
+date/time represented as a string.
 
 ##### Return Value
 
@@ -1433,7 +1676,7 @@ This is an integer ranging from 0 to 59.
 
 ##### Examples
 
-```php
+``` php
 $worksheet->setCellValue('A1', 'Time String')
     ->setCellValue('A2', '31-Dec-2008 17:30')
     ->setCellValue('A3', '14-Feb-2008 4:20 AM')
@@ -1453,7 +1696,7 @@ $retVal = $worksheet->getCell('B4')->getCalculatedValue();
 // $retVal = 45
 ```
 
-```php
+``` php
 $retVal = call_user_func_array(
     array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'MINUTE'),
     array('09:30')
@@ -1463,23 +1706,25 @@ $retVal = call_user_func_array(
 
 ##### Notes
 
-Note that the PhpSpreadsheet function is \PhpOffice\PhpSpreadsheet\Calculation\Functions::MINUTE() when the method is called statically.
+Note that the PhpSpreadsheet function is
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::MINUTE() when the
+method is called statically.
 
 #### MONTH
 
-The MONTH function returns the month of a date. The month is given as an integer ranging from 1 to 12.
+The MONTH function returns the month of a date. The month is given as an
+integer ranging from 1 to 12.
 
 ##### Syntax
 
-```
-MONTH(datetime)
-```
+    MONTH(datetime)
 
 ##### Parameters
 
 **datetime** Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date represented as a string.
+An Excel date value, PHP date timestamp, PHP date object, or a date
+represented as a string.
 
 ##### Return Value
 
@@ -1489,7 +1734,7 @@ This is an integer ranging from 1 to 12.
 
 ##### Examples
 
-```php
+``` php
 $worksheet->setCellValue('A1', 'Date String');
 $worksheet->setCellValue('A2', '31-Dec-2008');
 $worksheet->setCellValue('A3', '14-Feb-2008');
@@ -1504,7 +1749,7 @@ $retVal = $worksheet->getCell('B3')->getCalculatedValue();
 // $retVal = 2
 ```
 
-```php
+``` php
 $retVal = call_user_func_array(
     array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'MONTHOFYEAR'),
     array('14-July-2008')
@@ -1514,33 +1759,42 @@ $retVal = call_user_func_array(
 
 #### Notes
 
-Note that the PhpSpreadsheet function is \PhpOffice\PhpSpreadsheet\Calculation\Functions::MONTHOFYEAR() when the method is called statically.
+Note that the PhpSpreadsheet function is
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::MONTHOFYEAR() when the
+method is called statically.
 
 #### NETWORKDAYS
 
-The NETWORKDAYS function returns the number of whole working days between a *start date* and an *end date*. Working days exclude weekends and any dates identified in *holidays*. Use NETWORKDAYS to calculate employee benefits that accrue based on the number of days worked during a specific term.
+The NETWORKDAYS function returns the number of whole working days
+between a *start date* and an *end date*. Working days exclude weekends
+and any dates identified in *holidays*. Use NETWORKDAYS to calculate
+employee benefits that accrue based on the number of days worked during
+a specific term.
 
 ##### Syntax
 
-```
-NETWORKDAYS(startDate, endDate [, holidays])
-```
+    NETWORKDAYS(startDate, endDate [, holidays])
 
 ##### Parameters
 
 **startDate** Start Date of the period.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date represented as a string.
+An Excel date value, PHP date timestamp, PHP date object, or a date
+represented as a string.
 
 **endDate** End Date of the period.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date represented as a string.
+An Excel date value, PHP date timestamp, PHP date object, or a date
+represented as a string.
 
 **holidays** Optional array of Holiday dates.
 
-An optional range of one or more dates to exclude from the working calendar, such as state and federal holidays and floating holidays.
+An optional range of one or more dates to exclude from the working
+calendar, such as state and federal holidays and floating holidays.
 
-The list can be either a range of cells that contains the dates or an array constant of Excel date values, PHP date timestamps, PHP date objects, or dates represented as strings.
+The list can be either a range of cells that contains the dates or an
+array constant of Excel date values, PHP date timestamps, PHP date
+objects, or dates represented as strings.
 
 ##### Return Value
 
@@ -1550,10 +1804,10 @@ The number of working days between startDate and endDate.
 
 ##### Examples
 
-```php
+``` php
 ```
 
-```php
+``` php
 ```
 
 ##### Notes
@@ -1566,9 +1820,7 @@ The NOW function returns the current date and time.
 
 ##### Syntax
 
-```
-NOW()
-```
+    NOW()
 
 ##### Parameters
 
@@ -1576,47 +1828,53 @@ There are now parameters for the NOW() function.
 
 ##### Return Value
 
-**mixed** A date/time stamp that corresponds to the current date and time.
+**mixed** A date/time stamp that corresponds to the current date and
+time.
 
-This could be a PHP timestamp value (integer), a PHP date/time object, or an Excel timestamp value (real), depending on the value of \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
+This could be a PHP timestamp value (integer), a PHP date/time object,
+or an Excel timestamp value (real), depending on the value of
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
 
 ##### Examples
 
-```php
+``` php
 ```
 
-```php
+``` php
 ```
 
 ##### Notes
 
-Note that the PhpSpreadsheet function is \PhpOffice\PhpSpreadsheet\Calculation\Functions::DATETIMENOW() when the method is called statically.
+Note that the PhpSpreadsheet function is
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::DATETIMENOW() when the
+method is called statically.
 
 #### SECOND
 
-The SECOND function returns the seconds of a time value. The second is given as an integer, ranging from 0 to 59.
+The SECOND function returns the seconds of a time value. The second is
+given as an integer, ranging from 0 to 59.
 
 ##### Syntax
 
-```
-SECOND(datetime)
-```
+    SECOND(datetime)
 
 ##### Parameters
 
 **datetime** Time.
 
-An Excel date/time value, PHP date timestamp, PHP date object, or a date/time represented as a string.
+An Excel date/time value, PHP date timestamp, PHP date object, or a
+date/time represented as a string.
 
 ##### Return Value
 
-**integer** An integer value that reflects the seconds within the minute.
+**integer** An integer value that reflects the seconds within the
+minute.
 
 This is an integer ranging from 0 to 59.
 
 ##### Examples
 
-```php
+``` php
 $worksheet->setCellValue('A1', 'Time String')
     ->setCellValue('A2', '31-Dec-2008 17:30:20')
     ->setCellValue('A3', '14-Feb-2008 4:20 AM')
@@ -1636,7 +1894,7 @@ $retVal = $worksheet->getCell('B4')->getCalculatedValue();
 // $retVal = 59
 ```
 
-```php
+``` php
 $retVal = call_user_func_array(
     array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'SECOND'),
     array('09:30:17')
@@ -1646,7 +1904,9 @@ $retVal = call_user_func_array(
 
 ##### Notes
 
-Note that the PhpSpreadsheet function is \PhpOffice\PhpSpreadsheet\Calculation\Functions::SECOND() when the method is called statically.
+Note that the PhpSpreadsheet function is
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::SECOND() when the
+method is called statically.
 
 #### TIME
 
@@ -1662,23 +1922,25 @@ Not yet documented.
 
 #### WEEKDAY
 
-The WEEKDAY function returns the day of the week for a given date. The day is given as an integer ranging from 1 to 7, although this can be modified to return a value between 0 and 6.
+The WEEKDAY function returns the day of the week for a given date. The
+day is given as an integer ranging from 1 to 7, although this can be
+modified to return a value between 0 and 6.
 
 ##### Syntax
 
-```
-WEEKDAY(datetime [, method])
-```
+    WEEKDAY(datetime [, method])
 
 ##### Parameters
 
 **datetime** Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date represented as a string.
+An Excel date value, PHP date timestamp, PHP date object, or a date
+represented as a string.
 
 **method** An integer flag (values 0, 1 or 2)
 
-This is a flag that determines which method to use in the calculation, based on the values listed below:
+This is a flag that determines which method to use in the calculation,
+based on the values listed below:
 
     method | Description
     :-----:|------------------------------------------
@@ -1692,11 +1954,12 @@ The method value defaults to 1.
 
 **integer** An integer value that reflects the day of the week.
 
-This is an integer ranging from 1 to 7, or 0 to 6, depending on the value of method.
+This is an integer ranging from 1 to 7, or 0 to 6, depending on the
+value of method.
 
 ##### Examples
 
-```php
+``` php
 $worksheet->setCellValue('A1', 'Date String')
     ->setCellValue('A2', '31-Dec-2008')
     ->setCellValue('A3', '14-Feb-2008');
@@ -1715,7 +1978,7 @@ $retVal = $worksheet->getCell('B4')->getCalculatedValue();
 // $retVal = 2
 ```
 
-```php
+``` php
 $retVal = call_user_func_array(
     array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'WEEKDAY'),
     array('14-July-2008')
@@ -1725,7 +1988,9 @@ $retVal = call_user_func_array(
 
 ##### Notes
 
-Note that the PhpSpreadsheet function is \PhpOffice\PhpSpreadsheet\Calculation\Functions::WEEKDAY() when the method is called statically.
+Note that the PhpSpreadsheet function is
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::WEEKDAY() when the
+method is called statically.
 
 #### WEEKNUM
 
@@ -1741,15 +2006,14 @@ The YEAR function returns the year of a date.
 
 ##### Syntax
 
-```
-YEAR(datetime)
-```
+    YEAR(datetime)
 
 ##### Parameters
 
 **datetime** Date.
 
-An Excel date value, PHP date timestamp, PHP date object, or a date represented as a string.
+An Excel date value, PHP date timestamp, PHP date object, or a date
+represented as a string.
 
 ##### Return Value
 
@@ -1759,7 +2023,7 @@ This is an integer year value.
 
 ##### Examples
 
-```php
+``` php
 $worksheet->setCellValue('A1', 'Date String')
     ->setCellValue('A2', '17-Jul-1982')
     ->setCellValue('A3', '16-Apr-2009');
@@ -1774,7 +2038,7 @@ $retVal = $worksheet->getCell('B3')->getCalculatedValue();
 // $retVal = 2009
 ```
 
-```php
+``` php
 $retVal = call_user_func_array(
     array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'YEAR'),
     array('14-July-2001')
@@ -1789,4 +2053,3 @@ There are no additional notes on this function
 ### YEARFRAC
 
 Not yet documented.
-
