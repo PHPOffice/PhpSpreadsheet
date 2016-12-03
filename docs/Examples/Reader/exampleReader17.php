@@ -33,11 +33,11 @@ $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using IOFactory with a defined reader type of ',$inputFileType,'<br />';
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 
 /*  Read the list of Worksheet Names from the Workbook file  **/
 echo 'Read the list of Worksheets in the WorkBook<br />';
-$worksheetNames = $objReader->listWorksheetNames($inputFileName);
+$worksheetNames = $reader->listWorksheetNames($inputFileName);
 
 echo 'There are ',count($worksheetNames),' worksheet',((count($worksheetNames) == 1) ? '' : 's'),' in the workbook<br /><br />';
 foreach ($worksheetNames as $worksheetName) {

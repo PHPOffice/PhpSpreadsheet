@@ -29,9 +29,9 @@ $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 
 /*  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 /*  Load $inputFileName to a PHPExcel Object  **/
-$spreadsheet = $objReader->load($inputFileName);
+$spreadsheet = $reader->load($inputFileName);
 
 echo '<hr />';
 

@@ -31,8 +31,8 @@ $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName);
 echo 'File ',pathinfo($inputFileName, PATHINFO_BASENAME),' has been identified as an ',$inputFileType,' file<br />';
 
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using IOFactory with the identified reader type<br />';
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
-$spreadsheet = $objReader->load($inputFileName);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$spreadsheet = $reader->load($inputFileName);
 
 echo '<hr />';
 

@@ -28,14 +28,14 @@ include 'PHPExcel/IOFactory.php';
 $inputFileName = './sampleData/example1.xls';
 
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using \PhpOffice\PhpSpreadsheet\Reader\Xls<br />';
-$objReader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
-//	$objReader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-//	$objReader = new \PhpOffice\PhpSpreadsheet\Reader\Excel2003XML();
-//	$objReader = new \PhpOffice\PhpSpreadsheet\Reader\Ods();
-//	$objReader = new \PhpOffice\PhpSpreadsheet\Reader\SYLK();
-//	$objReader = new \PhpOffice\PhpSpreadsheet\Reader\Gnumeric();
-//	$objReader = new \PhpOffice\PhpSpreadsheet\Reader\CSV();
-$spreadsheet = $objReader->load($inputFileName);
+$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+//	$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+//	$reader = new \PhpOffice\PhpSpreadsheet\Reader\Excel2003XML();
+//	$reader = new \PhpOffice\PhpSpreadsheet\Reader\Ods();
+//	$reader = new \PhpOffice\PhpSpreadsheet\Reader\SYLK();
+//	$reader = new \PhpOffice\PhpSpreadsheet\Reader\Gnumeric();
+//	$reader = new \PhpOffice\PhpSpreadsheet\Reader\CSV();
+$spreadsheet = $reader->load($inputFileName);
 
 echo '<hr />';
 

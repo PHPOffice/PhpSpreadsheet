@@ -39,15 +39,15 @@ If you know the file type of the spreadsheet file that you need to load, you can
 $inputFileName = './sampleData/example1.xls';
 
 /** Create a new Xls Reader  **/
-$objReader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
-//    $objReader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-//    $objReader = new \PhpOffice\PhpSpreadsheet\Reader\Excel2003XML();
-//    $objReader = new \PhpOffice\PhpSpreadsheet\Reader\Ods();
-//    $objReader = new \PhpOffice\PhpSpreadsheet\Reader\SYLK();
-//    $objReader = new \PhpOffice\PhpSpreadsheet\Reader\Gnumeric();
-//    $objReader = new \PhpOffice\PhpSpreadsheet\Reader\CSV();
+$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+//    $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+//    $reader = new \PhpOffice\PhpSpreadsheet\Reader\Excel2003XML();
+//    $reader = new \PhpOffice\PhpSpreadsheet\Reader\Ods();
+//    $reader = new \PhpOffice\PhpSpreadsheet\Reader\SYLK();
+//    $reader = new \PhpOffice\PhpSpreadsheet\Reader\Gnumeric();
+//    $reader = new \PhpOffice\PhpSpreadsheet\Reader\CSV();
 /** Load $inputFileName to a Spreadsheet Object  **/
-$spreadsheet = $objReader->load($inputFileName);
+$spreadsheet = $reader->load($inputFileName);
 ```
  > See Examples/Reader/exampleReader02.php for a working example of this code.
 
@@ -64,9 +64,9 @@ $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 /**  Load $inputFileName to a Spreadsheet Object  **/
-$spreadsheet = $objReader->load($inputFileName);
+$spreadsheet = $reader->load($inputFileName);
 ```
  > See Examples/Reader/exampleReader03.php for a working example of this code.
 
@@ -78,9 +78,9 @@ $inputFileName = './sampleData/example1.xls';
 /**  Identify the type of $inputFileName  **/
 $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName);
 /**  Create a new Reader of the type that has been identified  **/
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 /**  Load $inputFileName to a Spreadsheet Object  **/
-$spreadsheet = $objReader->load($inputFileName);
+$spreadsheet = $reader->load($inputFileName);
 ```
  > See Examples/Reader/exampleReader04.php for a working example of this code.
 
@@ -97,11 +97,11 @@ $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 /**  Advise the Reader that we only want to load cell data  **/
-$objReader->setReadDataOnly(true);
+$reader->setReadDataOnly(true);
 /**  Load $inputFileName to a Spreadsheet Object  **/
-$spreadsheet = $objReader->load($inputFileName);
+$spreadsheet = $reader->load($inputFileName);
 ```
  > See Examples/Reader/exampleReader05.php for a working example of this code.
 
@@ -129,11 +129,11 @@ $inputFileName = './sampleData/example1.xls';
 $sheetname = 'Data Sheet #2';
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 /**  Advise the Reader of which WorkSheets we want to load  **/
-$objReader->setLoadSheetsOnly($sheetname);
+$reader->setLoadSheetsOnly($sheetname);
 /**  Load $inputFileName to a Spreadsheet Object  **/
-$spreadsheet = $objReader->load($inputFileName);
+$spreadsheet = $reader->load($inputFileName);
 ```
  > See Examples/Reader/exampleReader07.php for a working example of this code.
 
@@ -145,11 +145,11 @@ $inputFileName = './sampleData/example1.xls';
 $sheetnames = array('Data Sheet #1','Data Sheet #3');
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 /**  Advise the Reader of which WorkSheets we want to load  **/
-$objReader->setLoadSheetsOnly($sheetnames);
+$reader->setLoadSheetsOnly($sheetnames);
 /**  Load $inputFileName to a Spreadsheet Object  **/
-$spreadsheet = $objReader->load($inputFileName);
+$spreadsheet = $reader->load($inputFileName);
 ```
  > See Examples/Reader/exampleReader08.php for a working example of this code.
 
@@ -160,11 +160,11 @@ $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 /**  Advise the Reader to load all Worksheets  **/
-$objReader->setLoadAllSheets();
+$reader->setLoadAllSheets();
 /**  Load $inputFileName to a Spreadsheet Object  **/
-$spreadsheet = $objReader->load($inputFileName);
+$spreadsheet = $reader->load($inputFileName);
 ```
  > See Examples/Reader/exampleReader06.php for a working example of this code.
 
@@ -204,11 +204,11 @@ class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 $filterSubset = new MyReadFilter();
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 /**  Tell the Reader that we want to use the Read Filter  **/
-$objReader->setReadFilter($filterSubset);
+$reader->setReadFilter($filterSubset);
 /**  Load only the rows and columns that match our filter to Spreadsheet  **/
-$spreadsheet = $objReader->load($inputFileName);
+$spreadsheet = $reader->load($inputFileName);
 ```
  > See Examples/Reader/exampleReader09.php for a working example of this code.
 
@@ -275,7 +275,7 @@ class chunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 
 
 /**  Define how many rows we want to read for each "chunk"  **/
@@ -284,14 +284,14 @@ $chunkSize = 2048;
 $chunkFilter = new chunkReadFilter();
 
 /**  Tell the Reader that we want to use the Read Filter  **/
-$objReader->setReadFilter($chunkFilter);
+$reader->setReadFilter($chunkFilter);
 
 /**  Loop to read our worksheet in "chunk size" blocks  **/
 for ($startRow = 2; $startRow <= 65536; $startRow += $chunkSize) {
     /**  Tell the Read Filter which rows we want this iteration  **/
     $chunkFilter->setRows($startRow,$chunkSize);
     /**  Load only the rows that match our filter  **/
-    $spreadsheet = $objReader->load($inputFileName);
+    $spreadsheet = $reader->load($inputFileName);
     //    Do some processing here
 }
 ```
@@ -307,7 +307,7 @@ CSV       | YES | HTML   | NO
 
 ### Combining Multiple Files into a Single Spreadsheet Object
 
-While you can limit the number of worksheets that are read from a workbook file using the setLoadSheetsOnly() method, certain readers also allow you to combine several individual "sheets" from different files into a single `Spreadsheet` object, where each individual file is a single worksheet within that workbook. For each file that you read, you need to indicate which worksheet index it should be loaded into using the setSheetIndex() method of the $objReader, then use the loadIntoExisting() method rather than the load() method to actually read the file into that worksheet.
+While you can limit the number of worksheets that are read from a workbook file using the setLoadSheetsOnly() method, certain readers also allow you to combine several individual "sheets" from different files into a single `Spreadsheet` object, where each individual file is a single worksheet within that workbook. For each file that you read, you need to indicate which worksheet index it should be loaded into using the setSheetIndex() method of the $reader, then use the loadIntoExisting() method rather than the load() method to actually read the file into that worksheet.
 
 ```php
 $inputFileType = 'CSV';
@@ -317,13 +317,13 @@ $inputFileNames = array('./sampleData/example1.csv',
 );
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 
 
 /**  Extract the first named file from the array list  **/
 $inputFileName = array_shift($inputFileNames);
 /**  Load the initial file to the first worksheet in a `Spreadsheet` Object  **/
-$spreadsheet = $objReader->load($inputFileName);
+$spreadsheet = $reader->load($inputFileName);
 /**  Set the worksheet title (to the filename that we've loaded)  **/
 $spreadsheet->getActiveSheet()
     ->setTitle(pathinfo($inputFileName,PATHINFO_BASENAME));
@@ -332,9 +332,9 @@ $spreadsheet->getActiveSheet()
 /**  Loop through all the remaining files in the list  **/
 foreach($inputFileNames as $sheet => $inputFileName) {
     /**  Increment the worksheet index pointer for the Reader  **/
-    $objReader->setSheetIndex($sheet+1);
+    $reader->setSheetIndex($sheet+1);
     /**  Load the current file into a new worksheet in Spreadsheet  **/
-    $objReader->loadIntoExisting($inputFileName,$spreadsheet);
+    $reader->loadIntoExisting($inputFileName,$spreadsheet);
     /**  Set the worksheet title (to the filename that we've loaded)  **/
     $spreadsheet->getActiveSheet()
         ->setTitle(pathinfo($inputFileName,PATHINFO_BASENAME));
@@ -354,7 +354,7 @@ CSV       | YES | HTML   | NO
 
 ###  Combining Read Filters with the setSheetIndex() method to split a large CSV file across multiple Worksheets
 
-An Xls BIFF .xls file is limited to 65536 rows in a worksheet, while the Xlsx Microsoft Office Open XML SpreadsheetML .xlsx file is limited to 1,048,576 rows in a worksheet; but a CSV file is not limited other than by available disk space. This means that we wouldn’t ordinarily be able to read all the rows from a very large CSV file that exceeded those limits, and save it as an Xls or Xlsx file. However, by using Read Filters to read the CSV file in “chunks” (using the chunkReadFilter Class that we defined in section  REF _Ref275604563 \r \p 5.3 above), and the setSheetIndex() method of the $objReader, we can split the CSV file across several individual worksheets.
+An Xls BIFF .xls file is limited to 65536 rows in a worksheet, while the Xlsx Microsoft Office Open XML SpreadsheetML .xlsx file is limited to 1,048,576 rows in a worksheet; but a CSV file is not limited other than by available disk space. This means that we wouldn’t ordinarily be able to read all the rows from a very large CSV file that exceeded those limits, and save it as an Xls or Xlsx file. However, by using Read Filters to read the CSV file in “chunks” (using the chunkReadFilter Class that we defined in section  REF _Ref275604563 \r \p 5.3 above), and the setSheetIndex() method of the $reader, we can split the CSV file across several individual worksheets.
 
 ```php
 $inputFileType = 'CSV';
@@ -363,7 +363,7 @@ $inputFileName = './sampleData/example2.csv';
 
 echo 'Loading file ',pathinfo($inputFileName,PATHINFO_BASENAME),' using IOFactory with a defined reader type of ',$inputFileType,'<br />';
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 
 
 /**  Define how many rows we want to read for each "chunk"  **/
@@ -374,7 +374,7 @@ $chunkFilter = new chunkReadFilter();
 /**  Tell the Reader that we want to use the Read Filter  **/
 /**    and that we want to store it in contiguous rows/columns  **/
 
-$objReader->setReadFilter($chunkFilter)
+$reader->setReadFilter($chunkFilter)
     ->setContiguous(true);
 
 /**  Instantiate a new Spreadsheet object manually  **/
@@ -389,9 +389,9 @@ for ($startRow = 2; $startRow <= 1000000; $startRow += $chunkSize) {
     $chunkFilter->setRows($startRow,$chunkSize);
 
     /**  Increment the worksheet index pointer for the Reader  **/
-    $objReader->setSheetIndex($sheet);
+    $reader->setSheetIndex($sheet);
     /**  Load only the rows that match our filter into a new worksheet  **/
-    $objReader->loadIntoExisting($inputFileName,$spreadsheet);
+    $reader->loadIntoExisting($inputFileName,$spreadsheet);
     /**  Set the worksheet title for the sheet that we've justloaded)  **/
     /**    and increment the sheet index as well  **/
     $spreadsheet->getActiveSheet()->setTitle('Country Data #'.(++$sheet));
@@ -421,13 +421,13 @@ The CSV loader defaults to loading a file where comma is used as the separator, 
 $inputFileType = 'CSV';
 $inputFileName = './sampleData/example1.tsv';
 
-/**  Create a new Reader of the type defined in $inputFileType  **/ $objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+/**  Create a new Reader of the type defined in $inputFileType  **/ $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 /**  Set the delimiter to a TAB character  **/
-$objReader->setDelimiter("\t");
-//    $objReader->setDelimiter('|');
+$reader->setDelimiter("\t");
+//    $reader->setDelimiter('|');
 
 /**  Load the file to a Spreadsheet Object  **/
-$spreadsheet = $objReader->load($inputFileName);
+$spreadsheet = $reader->load($inputFileName);
 ```
  > See Examples/Reader/exampleReader15.php for a working example of this code.
 
@@ -460,9 +460,9 @@ So using a Value Binder allows a great deal more flexibility in the loader logic
 $inputFileType = 'CSV';
 $inputFileName = './sampleData/example1.tsv';
 
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
-$objReader->setDelimiter("\t");
-$spreadsheet = $objReader->load($inputFileName);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader->setDelimiter("\t");
+$spreadsheet = $reader->load($inputFileName);
 ```
  > See Examples/Reader/exampleReader15.php for a working example of this code.
 
@@ -489,11 +489,11 @@ $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 /**  Advise the Reader that we only want to load cell data  **/
-$objReader->setReadDataOnly(true);
+$reader->setReadDataOnly(true);
 /**  Load $inputFileName to a Spreadsheet Object  **/
-$spreadsheet = $objReader->load($inputFileName);
+$spreadsheet = $reader->load($inputFileName);
 ```
  > See Examples/Reader/exampleReader05.php for a working example of this code.
 
@@ -521,11 +521,11 @@ $inputFileName = './sampleData/example1.xls';
 $sheetname = 'Data Sheet #2';
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 /**  Advise the Reader of which WorkSheets we want to load  **/
-$objReader->setLoadSheetsOnly($sheetname);
+$reader->setLoadSheetsOnly($sheetname);
 /**  Load $inputFileName to a Spreadsheet Object  **/
-$spreadsheet = $objReader->load($inputFileName);
+$spreadsheet = $reader->load($inputFileName);
 ```
  > See Examples/Reader/exampleReader07.php for a working example of this code.
 
@@ -537,11 +537,11 @@ $inputFileName = './sampleData/example1.xls';
 $sheetnames = array('Data Sheet #1','Data Sheet #3');
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 /**  Advise the Reader of which WorkSheets we want to load  **/
-$objReader->setLoadSheetsOnly($sheetnames);
+$reader->setLoadSheetsOnly($sheetnames);
 /**  Load $inputFileName to a Spreadsheet Object  **/
-$spreadsheet = $objReader->load($inputFileName);
+$spreadsheet = $reader->load($inputFileName);
 ```
  > See Examples/Reader/exampleReader08.php for a working example of this code.
 
@@ -552,11 +552,11 @@ $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 /**  Advise the Reader to load all Worksheets  **/
-$objReader->setLoadAllSheets();
+$reader->setLoadAllSheets();
 /**  Load $inputFileName to a Spreadsheet Object  **/
-$spreadsheet = $objReader->load($inputFileName);
+$spreadsheet = $reader->load($inputFileName);
 ```
  > See Examples/Reader/exampleReader06.php for a working example of this code.
 
@@ -596,11 +596,11 @@ class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 $filterSubset = new MyReadFilter();
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 /**  Tell the Reader that we want to use the Read Filter  **/
-$objReader->setReadFilter($filterSubset);
+$reader->setReadFilter($filterSubset);
 /**  Load only the rows and columns that match our filter to Spreadsheet  **/
-$spreadsheet = $objReader->load($inputFileName);
+$spreadsheet = $reader->load($inputFileName);
 ```
  > See Examples/Reader/exampleReader09.php for a working example of this code.
 
@@ -667,7 +667,7 @@ class chunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 
 
 /**  Define how many rows we want to read for each "chunk"  **/
@@ -676,14 +676,14 @@ $chunkSize = 2048;
 $chunkFilter = new chunkReadFilter();
 
 /**  Tell the Reader that we want to use the Read Filter  **/
-$objReader->setReadFilter($chunkFilter);
+$reader->setReadFilter($chunkFilter);
 
 /**  Loop to read our worksheet in "chunk size" blocks  **/
 for ($startRow = 2; $startRow <= 65536; $startRow += $chunkSize) {
     /**  Tell the Read Filter which rows we want this iteration  **/
     $chunkFilter->setRows($startRow,$chunkSize);
     /**  Load only the rows that match our filter  **/
-    $spreadsheet = $objReader->load($inputFileName);
+    $spreadsheet = $reader->load($inputFileName);
     //    Do some processing here
 }
 ```
@@ -699,7 +699,7 @@ CSV       | YES | HTML   | NO
 
 ### Combining Multiple Files into a Single Spreadsheet Object
 
-While you can limit the number of worksheets that are read from a workbook file using the setLoadSheetsOnly() method, certain readers also allow you to combine several individual "sheets" from different files into a single `Spreadsheet` object, where each individual file is a single worksheet within that workbook. For each file that you read, you need to indicate which worksheet index it should be loaded into using the setSheetIndex() method of the $objReader, then use the loadIntoExisting() method rather than the load() method to actually read the file into that worksheet.
+While you can limit the number of worksheets that are read from a workbook file using the setLoadSheetsOnly() method, certain readers also allow you to combine several individual "sheets" from different files into a single `Spreadsheet` object, where each individual file is a single worksheet within that workbook. For each file that you read, you need to indicate which worksheet index it should be loaded into using the setSheetIndex() method of the $reader, then use the loadIntoExisting() method rather than the load() method to actually read the file into that worksheet.
 
 ```php
 $inputFileType = 'CSV';
@@ -709,13 +709,13 @@ $inputFileNames = array('./sampleData/example1.csv',
 );
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 
 
 /**  Extract the first named file from the array list  **/
 $inputFileName = array_shift($inputFileNames);
 /**  Load the initial file to the first worksheet in a `Spreadsheet` Object  **/
-$spreadsheet = $objReader->load($inputFileName);
+$spreadsheet = $reader->load($inputFileName);
 /**  Set the worksheet title (to the filename that we've loaded)  **/
 $spreadsheet->getActiveSheet()
     ->setTitle(pathinfo($inputFileName,PATHINFO_BASENAME));
@@ -724,9 +724,9 @@ $spreadsheet->getActiveSheet()
 /**  Loop through all the remaining files in the list  **/
 foreach($inputFileNames as $sheet => $inputFileName) {
     /**  Increment the worksheet index pointer for the Reader  **/
-    $objReader->setSheetIndex($sheet+1);
+    $reader->setSheetIndex($sheet+1);
     /**  Load the current file into a new worksheet in Spreadsheet  **/
-    $objReader->loadIntoExisting($inputFileName,$spreadsheet);
+    $reader->loadIntoExisting($inputFileName,$spreadsheet);
     /**  Set the worksheet title (to the filename that we've loaded)  **/
     $spreadsheet->getActiveSheet()
         ->setTitle(pathinfo($inputFileName,PATHINFO_BASENAME));
@@ -746,7 +746,7 @@ CSV       | YES | HTML   | NO
 
 ###  Combining Read Filters with the setSheetIndex() method to split a large CSV file across multiple Worksheets
 
-An Xls BIFF .xls file is limited to 65536 rows in a worksheet, while the Xlsx Microsoft Office Open XML SpreadsheetML .xlsx file is limited to 1,048,576 rows in a worksheet; but a CSV file is not limited other than by available disk space. This means that we wouldn’t ordinarily be able to read all the rows from a very large CSV file that exceeded those limits, and save it as an Xls or Xlsx file. However, by using Read Filters to read the CSV file in “chunks” (using the chunkReadFilter Class that we defined in section  REF _Ref275604563 \r \p 5.3 above), and the setSheetIndex() method of the $objReader, we can split the CSV file across several individual worksheets.
+An Xls BIFF .xls file is limited to 65536 rows in a worksheet, while the Xlsx Microsoft Office Open XML SpreadsheetML .xlsx file is limited to 1,048,576 rows in a worksheet; but a CSV file is not limited other than by available disk space. This means that we wouldn’t ordinarily be able to read all the rows from a very large CSV file that exceeded those limits, and save it as an Xls or Xlsx file. However, by using Read Filters to read the CSV file in “chunks” (using the chunkReadFilter Class that we defined in section  REF _Ref275604563 \r \p 5.3 above), and the setSheetIndex() method of the $reader, we can split the CSV file across several individual worksheets.
 
 ```php
 $inputFileType = 'CSV';
@@ -755,7 +755,7 @@ $inputFileName = './sampleData/example2.csv';
 
 echo 'Loading file ',pathinfo($inputFileName,PATHINFO_BASENAME),' using IOFactory with a defined reader type of ',$inputFileType,'<br />';
 /**  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 
 
 /**  Define how many rows we want to read for each "chunk"  **/
@@ -766,7 +766,7 @@ $chunkFilter = new chunkReadFilter();
 /**  Tell the Reader that we want to use the Read Filter  **/
 /**    and that we want to store it in contiguous rows/columns  **/
 
-$objReader->setReadFilter($chunkFilter)
+$reader->setReadFilter($chunkFilter)
     ->setContiguous(true);
 
 /**  Instantiate a new Spreadsheet object manually  **/
@@ -781,9 +781,9 @@ for ($startRow = 2; $startRow <= 1000000; $startRow += $chunkSize) {
     $chunkFilter->setRows($startRow,$chunkSize);
 
     /**  Increment the worksheet index pointer for the Reader  **/
-    $objReader->setSheetIndex($sheet);
+    $reader->setSheetIndex($sheet);
     /**  Load only the rows that match our filter into a new worksheet  **/
-    $objReader->loadIntoExisting($inputFileName,$spreadsheet);
+    $reader->loadIntoExisting($inputFileName,$spreadsheet);
     /**  Set the worksheet title for the sheet that we've justloaded)  **/
     /**    and increment the sheet index as well  **/
     $spreadsheet->getActiveSheet()->setTitle('Country Data #'.(++$sheet));
@@ -813,13 +813,13 @@ The CSV loader defaults to loading a file where comma is used as the separator, 
 $inputFileType = 'CSV';
 $inputFileName = './sampleData/example1.tsv';
 
-/**  Create a new Reader of the type defined in $inputFileType  **/ $objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+/**  Create a new Reader of the type defined in $inputFileType  **/ $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 /**  Set the delimiter to a TAB character  **/
-$objReader->setDelimiter("\t");
-//    $objReader->setDelimiter('|');
+$reader->setDelimiter("\t");
+//    $reader->setDelimiter('|');
 
 /**  Load the file to a Spreadsheet Object  **/
-$spreadsheet = $objReader->load($inputFileName);
+$spreadsheet = $reader->load($inputFileName);
 ```
  > See Examples/Reader/exampleReader15.php for a working example of this code.
 
@@ -852,9 +852,9 @@ So using a Value Binder allows a great deal more flexibility in the loader logic
 $inputFileType = 'CSV';
 $inputFileName = './sampleData/example1.tsv';
 
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
-$objReader->setDelimiter("\t");
-$spreadsheet = $objReader->load($inputFileName);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader->setDelimiter("\t");
+$spreadsheet = $reader->load($inputFileName);
 ```
  > See Examples/Reader/exampleReader15.php for a working example of this code.
 
@@ -897,9 +897,9 @@ You can retrieve a list of worksheet names contained in a file without loading t
 The `listWorksheetNames()` method returns a simple array listing each worksheet name within the workbook:
 
 ```php
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 
-$worksheetNames = $objReader->listWorksheetNames($inputFileName);
+$worksheetNames = $reader->listWorksheetNames($inputFileName);
 
 echo '<h3>Worksheet Names</h3>';
 echo '<ol>';
@@ -915,9 +915,9 @@ echo '</ol>';
 The `listWorksheetInfo()` method returns a nested array, with each entry listing the name and dimensions for a worksheet:
 
 ```php
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 
-$worksheetData = $objReader->listWorksheetInfo($inputFileName);
+$worksheetData = $reader->listWorksheetInfo($inputFileName);
 
 echo '<h3>Worksheet Information</h3>';
 echo '<ol>';

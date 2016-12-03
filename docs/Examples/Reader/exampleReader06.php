@@ -33,10 +33,10 @@ $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using IOFactory with a defined reader type of ',$inputFileType,'<br />';
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 echo 'Loading all WorkSheets<br />';
-$objReader->setLoadAllSheets();
-$spreadsheet = $objReader->load($inputFileName);
+$reader->setLoadAllSheets();
+$spreadsheet = $reader->load($inputFileName);
 
 echo '<hr />';
 

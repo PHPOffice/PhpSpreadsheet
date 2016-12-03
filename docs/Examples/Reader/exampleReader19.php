@@ -34,8 +34,8 @@ $inputFileName = './sampleData/example1.xls';
 
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' information using IOFactory with a defined reader type of ',$inputFileType,'<br />';
 
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
-$worksheetData = $objReader->listWorksheetInfo($inputFileName);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$worksheetData = $reader->listWorksheetInfo($inputFileName);
 
 echo '<h3>Worksheet Information</h3>';
 echo '<ol>';
