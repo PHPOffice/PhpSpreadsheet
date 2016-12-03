@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
@@ -345,6 +347,8 @@ class Chart
                     $pointVal = self::getAttribute($seriesValue, 'idx', 'integer');
                     if ($dataType == 's') {
                         $seriesVal[$pointVal] = (string) $seriesValue->v;
+                    } elseif ($seriesValue->v === Functions::NA()) {
+                        $seriesVal[$pointVal] = null;
                     } else {
                         $seriesVal[$pointVal] = (float) $seriesValue->v;
                     }
@@ -378,6 +382,8 @@ class Chart
                         $pointVal = self::getAttribute($seriesValue, 'idx', 'integer');
                         if ($dataType == 's') {
                             $seriesVal[$pointVal][] = (string) $seriesValue->v;
+                        } elseif ($seriesValue->v === Functions::NA()) {
+                            $seriesVal[$pointVal] = null;
                         } else {
                             $seriesVal[$pointVal][] = (float) $seriesValue->v;
                         }
