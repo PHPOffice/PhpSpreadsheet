@@ -76,30 +76,6 @@ class TimeZone
     }
 
     /**
-     *    Return the Timezone transition for the specified timezone and timestamp
-     *
-     *    @param        DateTimeZone         $objTimezone    The timezone for finding the transitions
-     *    @param        int                 $timestamp        PHP date/time value for finding the current transition
-     *    @return         array                The current transition details
-     */
-    private static function getTimezoneTransitions($objTimezone, $timestamp)
-    {
-        $allTransitions = $objTimezone->getTransitions();
-        $transitions = [];
-        foreach ($allTransitions as $key => $transition) {
-            if ($transition['ts'] > $timestamp) {
-                $transitions[] = ($key > 0) ? $allTransitions[$key - 1] : $transition;
-                break;
-            }
-            if (empty($transitions)) {
-                $transitions[] = end($allTransitions);
-            }
-        }
-
-        return $transitions;
-    }
-
-    /**
      *    Return the Timezone offset used for date/time conversions to/from UST
      *    This requires both the timezone and the calculated date/time to allow for local DST
      *
@@ -123,11 +99,7 @@ class TimeZone
         }
 
         $objTimezone = new \DateTimeZone($timezone);
-        if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
-            $transitions = $objTimezone->getTransitions($timestamp, $timestamp);
-        } else {
-            $transitions = self::getTimezoneTransitions($objTimezone, $timestamp);
-        }
+        $transitions = $objTimezone->getTransitions($timestamp, $timestamp);
 
         return (count($transitions) > 0) ? $transitions[0]['offset'] : 0;
     }
