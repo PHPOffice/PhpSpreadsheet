@@ -451,7 +451,6 @@ VARA                | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet
 VARP                | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::VARP
 VARPA               | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::VARPA
 VDB                 | CATEGORY_FINANCIAL             | **Not yet Implemented**
-VERSION             | CATEGORY_INFORMATION           | \PhpOffice\PhpSpreadsheet\Calculation\Functions::VERSION
 VLOOKUP             | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::VLOOKUP
 
 ## W

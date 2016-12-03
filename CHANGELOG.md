@@ -36,6 +36,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 For a comprehensive list of all class changes, and a semi-automated migration path, read the [migration guide](./docs/Migration-from-PHPExcel.md).
 
+- Dropped `\PHPExcel_Calculation_Functions::VERSION()`. Composer or git should be used to know the version.
+
 ## [1.8.1] - 2015-04-30
 
 ### Bugfixes

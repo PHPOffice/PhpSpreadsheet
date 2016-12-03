@@ -1948,11 +1948,6 @@ class Calculation
             'functionCall' => 'Calculation\Categories::DUMMY',
             'argumentCount' => '5-7',
         ],
-        'VERSION' => [
-            'category' => Calculation\Categories::CATEGORY_INFORMATION,
-            'functionCall' => 'Calculation\Categories::VERSION',
-            'argumentCount' => '0',
-        ],
         'VLOOKUP' => [
             'category' => Calculation\Categories::CATEGORY_LOOKUP_AND_REFERENCE,
             'functionCall' => '\\PhpOffice\\PhpSpreadsheet\\Calculation\\LookupRef::VLOOKUP',

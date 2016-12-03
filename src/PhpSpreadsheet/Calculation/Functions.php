@@ -473,16 +473,6 @@ class Functions
     }
 
     /**
-     * VERSION
-     *
-     * @return    string    Version information
-     */
-    public static function VERSION()
-    {
-        return 'PhpSpreadsheet ##VERSION##, ##DATE##';
-    }
-
-    /**
      * N
      *
      * Returns a value converted to a number
