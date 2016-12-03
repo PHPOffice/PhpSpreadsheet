@@ -50,7 +50,7 @@ class chunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using IOFactory with a defined reader type of ',$inputFileType,'<br />';
 /*  Create a new Reader of the type defined in $inputFileType  **/
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 
 echo '<hr />';
 
@@ -61,7 +61,7 @@ $chunkFilter = new chunkReadFilter();
 
 /*  Tell the Reader that we want to use the Read Filter that we've Instantiated  **/
 /*    and that we want to store it in contiguous rows/columns  **/
-$objReader->setReadFilter($chunkFilter)
+$reader->setReadFilter($chunkFilter)
           ->setContiguous(true);
 
 /*  Instantiate a new PHPExcel object manually  **/
@@ -77,9 +77,9 @@ for ($startRow = 2; $startRow <= 240; $startRow += $chunkSize) {
     $chunkFilter->setRows($startRow, $chunkSize);
 
     /*  Increment the worksheet index pointer for the Reader  **/
-    $objReader->setSheetIndex($sheet);
+    $reader->setSheetIndex($sheet);
     /*  Load only the rows that match our filter into a new worksheet in the PHPExcel Object  **/
-    $objReader->loadIntoExisting($inputFileName, $spreadsheet);
+    $reader->loadIntoExisting($inputFileName, $spreadsheet);
     /*  Set the worksheet title (to reference the "sheet" of data that we've loaded)  **/
     /*    and increment the sheet index as well  **/
     $spreadsheet->getActiveSheet()->setTitle('Country Data #' . (++$sheet));

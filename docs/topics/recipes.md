@@ -358,11 +358,11 @@ Code                   | Meaning
 
  [^print-footer-image-footnote]: z
 ```php
-$objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing();
-$objDrawing->setName('PhpSpreadsheet logo');
-$objDrawing->setPath('./images/PhpSpreadsheet_logo.png');
-$objDrawing->setHeight(36);
-$spreadsheet->getActiveSheet()->getHeaderFooter()->addImage($objDrawing, \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooter::IMAGE_HEADER_LEFT);
+$drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing();
+$drawing->setName('PhpSpreadsheet logo');
+$drawing->setPath('./images/PhpSpreadsheet_logo.png');
+$drawing->setHeight(36);
+$spreadsheet->getActiveSheet()->getHeaderFooter()->addImage($drawing, \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooter::IMAGE_HEADER_LEFT);
 ```
 
 __Tip__
@@ -371,12 +371,12 @@ The above table of codes may seem overwhelming first time you are trying to figu
 
 ```php
 $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load('test.xlsx');
-$objWorksheet = $spreadsheet->getActiveSheet();
+$worksheet = $spreadsheet->getActiveSheet();
 
-var_dump($objWorksheet->getHeaderFooter()->getOddFooter());
-var_dump($objWorksheet->getHeaderFooter()->getEvenFooter());
-var_dump($objWorksheet->getHeaderFooter()->getOddHeader());
-var_dump($objWorksheet->getHeaderFooter()->getEvenHeader());
+var_dump($worksheet->getHeaderFooter()->getOddFooter());
+var_dump($worksheet->getHeaderFooter()->getEvenFooter());
+var_dump($worksheet->getHeaderFooter()->getOddHeader());
+var_dump($worksheet->getHeaderFooter()->getEvenHeader());
 ```
 
 That reveals the codes for the even/odd header and footer. Experienced users may find it easier to rename test.xlsx to test.zip, unzip it, and inspect directly the contents of the relevant xl/worksheets/sheetX.xml to find the codes for header/footer.
@@ -542,8 +542,8 @@ The rules for composing a number format code in Excel can be rather complicated.
 The readers shipped with PhpSpreadsheet come to the rescue. Load your template workbook using e.g. Xlsx reader to reveal the number format code. Example how read a number format code for cell A1:
 
 ```php
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
-$spreadsheet = $objReader->load('template.xlsx');
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
+$spreadsheet = $reader->load('template.xlsx');
 var_dump($spreadsheet->getActiveSheet()->getStyle('A1')->getNumberFormat()->getFormatCode());
 ```
 
@@ -588,7 +588,7 @@ $styleArray = array(
     ),
 );
 
-$objWorksheet->getStyle('B2:G8')->applyFromArray($styleArray);
+$worksheet->getStyle('B2:G8')->applyFromArray($styleArray);
 ```
 
 In Microsoft Office Excel, the above operation would correspond to selecting the cells B2:G8, launching the style dialog, choosing a thick red border, and clicking on the "Outline" border component.
@@ -722,23 +722,23 @@ A cell can be formatted conditionally, based on a specific rule. For example, on
 One can set a conditional style ruleset to a cell using the following code:
 
 ```php
-$objConditional1 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
-$objConditional1->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS);
-$objConditional1->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_LESSTHAN);
-$objConditional1->addCondition('0');
-$objConditional1->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
-$objConditional1->getStyle()->getFont()->setBold(true);
+$conditional1 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
+$conditional1->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS);
+$conditional1->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_LESSTHAN);
+$conditional1->addCondition('0');
+$conditional1->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
+$conditional1->getStyle()->getFont()->setBold(true);
 
-$objConditional2 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
-$objConditional2->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS);
-$objConditional2->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_GREATERTHANOREQUAL);
-$objConditional2->addCondition('0');
-$objConditional2->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_GREEN);
-$objConditional2->getStyle()->getFont()->setBold(true);
+$conditional2 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
+$conditional2->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS);
+$conditional2->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_GREATERTHANOREQUAL);
+$conditional2->addCondition('0');
+$conditional2->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_GREEN);
+$conditional2->getStyle()->getFont()->setBold(true);
 
 $conditionalStyles = $spreadsheet->getActiveSheet()->getStyle('B2')->getConditionalStyles();
-array_push($conditionalStyles, $objConditional1);
-array_push($conditionalStyles, $objConditional2);
+array_push($conditionalStyles, $conditional1);
+array_push($conditionalStyles, $conditional2);
 
 $spreadsheet->getActiveSheet()->getStyle('B2')->setConditionalStyles($conditionalStyles);
 ```
@@ -761,10 +761,10 @@ To add a comment to a cell, use the following code. The example below adds a com
 $spreadsheet->getActiveSheet()
     ->getComment('E11')
     ->setAuthor('Mark Baker');
-$objCommentRichText = $spreadsheet->getActiveSheet()
+$commentRichText = $spreadsheet->getActiveSheet()
     ->getComment('E11')
     ->getText()->createTextRun('PhpSpreadsheet:');
-$objCommentRichText->getFont()->setBold(true);
+$commentRichText->getFont()->setBold(true);
 $spreadsheet->getActiveSheet()
     ->getComment('E11')
     ->getText()->createTextRun("\r\n");
@@ -834,47 +834,47 @@ Data validation is a powerful feature of Xlsx. It allows to specify an input fil
 The following piece of code only allows numbers between 10 and 20 to be entered in cell B3:
 
 ```php
-$objValidation = $spreadsheet->getActiveSheet()->getCell('B3')
+$validation = $spreadsheet->getActiveSheet()->getCell('B3')
     ->getDataValidation();
-$objValidation->setType( \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_WHOLE );
-$objValidation->setErrorStyle( \PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_STOP );
-$objValidation->setAllowBlank(true);
-$objValidation->setShowInputMessage(true);
-$objValidation->setShowErrorMessage(true);
-$objValidation->setErrorTitle('Input error');
-$objValidation->setError('Number is not allowed!');
-$objValidation->setPromptTitle('Allowed input');
-$objValidation->setPrompt('Only numbers between 10 and 20 are allowed.');
-$objValidation->setFormula1(10);
-$objValidation->setFormula2(20);
+$validation->setType( \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_WHOLE );
+$validation->setErrorStyle( \PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_STOP );
+$validation->setAllowBlank(true);
+$validation->setShowInputMessage(true);
+$validation->setShowErrorMessage(true);
+$validation->setErrorTitle('Input error');
+$validation->setError('Number is not allowed!');
+$validation->setPromptTitle('Allowed input');
+$validation->setPrompt('Only numbers between 10 and 20 are allowed.');
+$validation->setFormula1(10);
+$validation->setFormula2(20);
 ```
 
 The following piece of code only allows an item picked from a list of data to be entered in cell B3:
 
 ```php
-$objValidation = $spreadsheet->getActiveSheet()->getCell('B5')
+$validation = $spreadsheet->getActiveSheet()->getCell('B5')
     ->getDataValidation();
-$objValidation->setType( \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST );
-$objValidation->setErrorStyle( \PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION );
-$objValidation->setAllowBlank(false);
-$objValidation->setShowInputMessage(true);
-$objValidation->setShowErrorMessage(true);
-$objValidation->setShowDropDown(true);
-$objValidation->setErrorTitle('Input error');
-$objValidation->setError('Value is not in list.');
-$objValidation->setPromptTitle('Pick from list');
-$objValidation->setPrompt('Please pick a value from the drop-down list.');
-$objValidation->setFormula1('"Item A,Item B,Item C"');
+$validation->setType( \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST );
+$validation->setErrorStyle( \PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION );
+$validation->setAllowBlank(false);
+$validation->setShowInputMessage(true);
+$validation->setShowErrorMessage(true);
+$validation->setShowDropDown(true);
+$validation->setErrorTitle('Input error');
+$validation->setError('Value is not in list.');
+$validation->setPromptTitle('Pick from list');
+$validation->setPrompt('Please pick a value from the drop-down list.');
+$validation->setFormula1('"Item A,Item B,Item C"');
 ```
 
 When using a data validation list like above, make sure you put the list between " and " and that you split the items with a comma (,).
 
-It is important to remember that any string participating in an Excel formula is allowed to be maximum 255 characters (not bytes). This sets a limit on how many items you can have in the string "Item A,Item B,Item C". Therefore it is normally a better idea to type the item values directly in some cell range, say A1:A3, and instead use, say, $objValidation->setFormula1('Sheet!$A$1:$A$3');. Another benefit is that the item values themselves can contain the comma "," character itself.
+It is important to remember that any string participating in an Excel formula is allowed to be maximum 255 characters (not bytes). This sets a limit on how many items you can have in the string "Item A,Item B,Item C". Therefore it is normally a better idea to type the item values directly in some cell range, say A1:A3, and instead use, say, $validation->setFormula1('Sheet!$A$1:$A$3');. Another benefit is that the item values themselves can contain the comma "," character itself.
 
 If you need data validation on multiple cells, one can clone the ruleset:
 
 ```php
-$spreadsheet->getActiveSheet()->getCell('B8')->setDataValidation(clone $objValidation);
+$spreadsheet->getActiveSheet()->getCell('B8')->setDataValidation(clone $validation);
 ```
 
 ## Setting a column's width
@@ -1011,30 +1011,30 @@ $spreadsheet->getActiveSheet()->insertNewRowBefore(7, 2);
 A drawing is always represented as a separate object, which can be added to a worksheet. Therefore, you must first instantiate a new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing, and assign its properties a meaningful value:
 
 ```php
-$objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
-$objDrawing->setName('Logo');
-$objDrawing->setDescription('Logo');
-$objDrawing->setPath('./images/officelogo.jpg');
-$objDrawing->setHeight(36);
+$drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+$drawing->setName('Logo');
+$drawing->setDescription('Logo');
+$drawing->setPath('./images/officelogo.jpg');
+$drawing->setHeight(36);
 ```
 
 To add the above drawing to the worksheet, use the following snippet of code. PhpSpreadsheet creates the link between the drawing and the worksheet:
 
 ```php
-$objDrawing->setWorksheet($spreadsheet->getActiveSheet());
+$drawing->setWorksheet($spreadsheet->getActiveSheet());
 ```
 
 You can set numerous properties on a drawing, here are some examples:
 
 ```php
-$objDrawing->setName('Paid');
-$objDrawing->setDescription('Paid');
-$objDrawing->setPath('./images/paid.png');
-$objDrawing->setCoordinates('B15');
-$objDrawing->setOffsetX(110);
-$objDrawing->setRotation(25);
-$objDrawing->getShadow()->setVisible(true);
-$objDrawing->getShadow()->setDirection(45);
+$drawing->setName('Paid');
+$drawing->setDescription('Paid');
+$drawing->setPath('./images/paid.png');
+$drawing->setCoordinates('B15');
+$drawing->setOffsetX(110);
+$drawing->setRotation(25);
+$drawing->getShadow()->setVisible(true);
+$drawing->getShadow()->setDirection(45);
 ```
 
 You can also add images created using GD functions without needing to save them to disk first as In-Memory drawings.
@@ -1046,17 +1046,17 @@ $textColor = imagecolorallocate($gdImage, 255, 255, 255);
 imagestring($gdImage, 1, 5, 5,  'Created with PhpSpreadsheet', $textColor);
 
 //  Add the In-Memory image to a worksheet
-$objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing();
-$objDrawing->setName('In-Memory image 1');
-$objDrawing->setDescription('In-Memory image 1');
-$objDrawing->setCoordinates('A1');
-$objDrawing->setImageResource($gdImage);
-$objDrawing->setRenderingFunction(
+$drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing();
+$drawing->setName('In-Memory image 1');
+$drawing->setDescription('In-Memory image 1');
+$drawing->setCoordinates('A1');
+$drawing->setImageResource($gdImage);
+$drawing->setRenderingFunction(
     \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_JPEG
 );
-$objDrawing->setMimeType(\PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_DEFAULT);
-$objDrawing->setHeight(36);
-$objDrawing->setWorksheet($spreadsheet->getActiveSheet());
+$drawing->setMimeType(\PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_DEFAULT);
+$drawing->setHeight(36);
+$drawing->setWorksheet($spreadsheet->getActiveSheet());
 ```
 
 ## Reading Images from a worksheet
@@ -1108,14 +1108,14 @@ Adding rich text to a cell can be done using \PhpOffice\PhpSpreadsheet\RichText 
  > This invoice is *__payable within thirty days after the end of the month__* unless specified otherwise on the invoice.
 
 ```php
-$objRichText = new \PhpOffice\PhpSpreadsheet\RichText();
-$objRichText->createText('This invoice is ');
-$objPayable = $objRichText->createTextRun('payable within thirty days after the end of the month');
-$objPayable->getFont()->setBold(true);
-$objPayable->getFont()->setItalic(true);
-$objPayable->getFont()->setColor( new \PhpOffice\PhpSpreadsheet\Style\Color( \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN ) );
-$objRichText->createText(', unless specified otherwise on the invoice.');
-$spreadsheet->getActiveSheet()->getCell('A18')->setValue($objRichText);
+$richText = new \PhpOffice\PhpSpreadsheet\RichText();
+$richText->createText('This invoice is ');
+$payable = $richText->createTextRun('payable within thirty days after the end of the month');
+$payable->getFont()->setBold(true);
+$payable->getFont()->setItalic(true);
+$payable->getFont()->setColor( new \PhpOffice\PhpSpreadsheet\Style\Color( \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN ) );
+$richText->createText(', unless specified otherwise on the invoice.');
+$spreadsheet->getActiveSheet()->getCell('A18')->setValue($richText);
 ```
 
 ## Define a named range
@@ -1162,8 +1162,8 @@ header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetm
 header('Content-Disposition: attachment;filename="myfile.xlsx"');
 header('Cache-Control: max-age=0');
 
-$objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
-$objWriter->save('php://output');
+$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+$writer->save('php://output');
 ```
 
 Example of a script redirecting an Xls file to the client's browser:
@@ -1176,8 +1176,8 @@ header('Content-Type: application/vnd.ms-excel');
 header('Content-Disposition: attachment;filename="myfile.xls"');
 header('Cache-Control: max-age=0');
 
-$objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
-$objWriter->save('php://output');
+$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
+$writer->save('php://output');
 ```
 
 **Caution:**
@@ -1214,14 +1214,14 @@ $textColor = imagecolorallocate($gdImage, 255, 255, 255);
 imagestring($gdImage, 1, 5, 5,  'Created with PhpSpreadsheet', $textColor);
 
 // Add a drawing to the worksheet
-$objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing();
-$objDrawing->setName('Sample image');
-$objDrawing->setDescription('Sample image');
-$objDrawing->setImageResource($gdImage);
-$objDrawing->setRenderingFunction(\PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_JPEG);
-$objDrawing->setMimeType(\PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_DEFAULT);
-$objDrawing->setHeight(36);
-$objDrawing->setWorksheet($spreadsheet->getActiveSheet());
+$drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing();
+$drawing->setName('Sample image');
+$drawing->setDescription('Sample image');
+$drawing->setImageResource($gdImage);
+$drawing->setRenderingFunction(\PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_JPEG);
+$drawing->setMimeType(\PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_DEFAULT);
+$drawing->setHeight(36);
+$drawing->setWorksheet($spreadsheet->getActiveSheet());
 ```
 
 ## Setting worksheet zoom level
@@ -1239,7 +1239,7 @@ Note that zoom level should be in range 10 - 400.
 Sometimes you want to set a color for sheet tab. For example you can have a red sheet tab:
 
 ```php
-$objWorksheet->getTabColor()->setRGB('FF0000');
+$worksheet->getTabColor()->setRGB('FF0000');
 ```
 
 ## Creating worksheets in a workbook
@@ -1247,8 +1247,8 @@ $objWorksheet->getTabColor()->setRGB('FF0000');
 If you need to create more worksheets in the workbook, here is how:
 
 ```php
-$objWorksheet1 = $spreadsheet->createSheet();
-$objWorksheet1->setTitle('Another sheet');
+$worksheet1 = $spreadsheet->createSheet();
+$worksheet1->setTitle('Another sheet');
 ```
 
 Think of createSheet() as the "Insert sheet" button in Excel. When you hit that button a new sheet is appended to the existing collection of worksheets in the workbook.

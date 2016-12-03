@@ -25,10 +25,10 @@ include 'PHPExcel/IOFactory.php';
 $inputFileType = 'CSV';
 $inputFileName = './sampleData/example1.tsv';
 
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' into WorkSheet #1 using IOFactory with a defined reader type of ',$inputFileType,'<br />';
-$objReader->setDelimiter("\t");
-$spreadsheet = $objReader->load($inputFileName);
+$reader->setDelimiter("\t");
+$spreadsheet = $reader->load($inputFileName);
 $spreadsheet->getActiveSheet()->setTitle(pathinfo($inputFileName, PATHINFO_BASENAME));
 
 echo '<hr />';

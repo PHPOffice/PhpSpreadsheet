@@ -34,10 +34,10 @@ $inputFileName = './sampleData/example1.xls';
 $sheetnames = ['Data Sheet #1', 'Data Sheet #3'];
 
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using IOFactory with a defined reader type of ',$inputFileType,'<br />';
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 echo 'Loading Sheet',((count($sheetnames) == 1) ? '' : 's'),' "',implode('" and "', $sheetnames),'" only<br />';
-$objReader->setLoadSheetsOnly($sheetnames);
-$spreadsheet = $objReader->load($inputFileName);
+$reader->setLoadSheetsOnly($sheetnames);
+$spreadsheet = $reader->load($inputFileName);
 
 echo '<hr />';
 

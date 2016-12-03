@@ -51,12 +51,12 @@ class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 $filterSubset = new MyReadFilter();
 
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using IOFactory with a defined reader type of ',$inputFileType,'<br />';
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 echo 'Loading Sheet "',$sheetname,'" only<br />';
-$objReader->setLoadSheetsOnly($sheetname);
+$reader->setLoadSheetsOnly($sheetname);
 echo 'Loading Sheet using filter<br />';
-$objReader->setReadFilter($filterSubset);
-$spreadsheet = $objReader->load($inputFileName);
+$reader->setReadFilter($filterSubset);
+$spreadsheet = $reader->load($inputFileName);
 
 echo '<hr />';
 

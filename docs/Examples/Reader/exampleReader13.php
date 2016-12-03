@@ -28,15 +28,15 @@ include 'PHPExcel/IOFactory.php';
 $inputFileType = 'CSV';
 $inputFileNames = ['./sampleData/example1.csv', './sampleData/example2.csv'];
 
-$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 $inputFileName = array_shift($inputFileNames);
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' into WorkSheet #1 using IOFactory with a defined reader type of ',$inputFileType,'<br />';
-$spreadsheet = $objReader->load($inputFileName);
+$spreadsheet = $reader->load($inputFileName);
 $spreadsheet->getActiveSheet()->setTitle(pathinfo($inputFileName, PATHINFO_BASENAME));
 foreach ($inputFileNames as $sheet => $inputFileName) {
     echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' into WorkSheet #',($sheet + 2),' using IOFactory with a defined reader type of ',$inputFileType,'<br />';
-    $objReader->setSheetIndex($sheet + 1);
-    $objReader->loadIntoExisting($inputFileName, $spreadsheet);
+    $reader->setSheetIndex($sheet + 1);
+    $reader->loadIntoExisting($inputFileName, $spreadsheet);
     $spreadsheet->getActiveSheet()->setTitle(pathinfo($inputFileName, PATHINFO_BASENAME));
 }
 
