@@ -31,7 +31,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### BREAKING CHANGE
 
-- Introduction of namespaces for all classes, eg: `PHPExcel_Calculation_Function` becomes `PhpOffice\PhpSpreadsheet\Calculation\Functions`
+- Introduction of namespaces for all classes, eg: `PHPExcel_Calculation_Functions` becomes `PhpOffice\PhpSpreadsheet\Calculation\Functions`
 - Some classes were renamed for clarity and/or consistency:
 
 For a comprehensive list of all class changes, and a semi-automated migration path, read the [migration guide](./docs/Migration-from-PHPExcel.md).

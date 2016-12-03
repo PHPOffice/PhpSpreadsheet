@@ -30,4 +30,17 @@ class CalculationTest extends \PHPUnit_Framework_TestCase
     {
         return require 'data/CalculationBinaryComparisonOperation.php';
     }
+
+    /**
+     * @dataProvider providerGetFunctions
+     */
+    public function testGetFunctions($category, $functionCall, $argumentCount)
+    {
+        $this->assertTrue(is_callable($functionCall));
+    }
+
+    public function providerGetFunctions()
+    {
+        return Calculation::getInstance()->getFunctions();
+    }
 }

@@ -100,7 +100,7 @@ class Migrator
             'PHPExcel_CalcEngine_CyclicReferenceStack' => '\\PhpOffice\\PhpSpreadsheet\\CalcEngine\\CyclicReferenceStack',
             'PHPExcel_CalcEngine_Logger' => '\\PhpOffice\\PhpSpreadsheet\\CalcEngine\\Logger',
             'PHPExcel_Calculation_Functions' => '\\PhpOffice\\PhpSpreadsheet\\Calculation\\Functions',
-            'PHPExcel_Calculation_Function' => '\\PhpOffice\\PhpSpreadsheet\\Calculation\\Categories',
+            'PHPExcel_Calculation_Function' => '\\PhpOffice\\PhpSpreadsheet\\Calculation\\Category',
             'PHPExcel_Calculation_Database' => '\\PhpOffice\\PhpSpreadsheet\\Calculation\\Database',
             'PHPExcel_Calculation_DateTime' => '\\PhpOffice\\PhpSpreadsheet\\Calculation\\DateTime',
             'PHPExcel_Calculation_Engineering' => '\\PhpOffice\\PhpSpreadsheet\\Calculation\\Engineering',
