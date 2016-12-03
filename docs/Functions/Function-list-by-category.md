@@ -179,7 +179,6 @@ ISTEXT              | \PhpOffice\PhpSpreadsheet\Calculation\Functions::IS_TEXT
 N                   | \PhpOffice\PhpSpreadsheet\Calculation\Functions::N
 NA                  | \PhpOffice\PhpSpreadsheet\Calculation\Functions::NA
 TYPE                | \PhpOffice\PhpSpreadsheet\Calculation\Functions::TYPE
-VERSION             | \PhpOffice\PhpSpreadsheet\Calculation\Functions::VERSION
 
 ## CATEGORY_LOGICAL
 
