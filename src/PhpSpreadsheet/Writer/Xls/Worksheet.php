@@ -190,6 +190,16 @@ class Worksheet extends BIFFwriter
     public $fontHashIndex;
 
     /**
+     * @var bool
+     */
+    private $preCalculateFormulas;
+
+    /**
+     * @var int
+     */
+    private $printHeaders;
+
+    /**
      * Constructor
      *
      * @param int        &$str_total        Total number of strings
@@ -206,7 +216,7 @@ class Worksheet extends BIFFwriter
         // It needs to call its parent's constructor explicitly
         parent::__construct();
 
-        $this->_preCalculateFormulas = $preCalculateFormulas;
+        $this->preCalculateFormulas = $preCalculateFormulas;
         $this->stringTotal = &$str_total;
         $this->stringUnique = &$str_unique;
         $this->stringTable = &$str_table;
@@ -220,7 +230,7 @@ class Worksheet extends BIFFwriter
         $this->selection = [0, 0, 0, 0];
         $this->activePane = 3;
 
-        $this->_print_headers = 0;
+        $this->printHeaders = 0;
 
         $this->outlineStyle = 0;
         $this->outlineBelow = 1;
@@ -421,7 +431,7 @@ class Worksheet extends BIFFwriter
                         break;
 
                     case \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_FORMULA:
-                        $calculatedValue = $this->_preCalculateFormulas ?
+                        $calculatedValue = $this->preCalculateFormulas ?
                             $cell->getCalculatedValue() : null;
                         $this->writeFormula($row, $column, $cVal, $xfIndex, $calculatedValue);
                         break;
@@ -564,7 +574,7 @@ class Worksheet extends BIFFwriter
      */
     public function printRowColHeaders($print = 1)
     {
-        $this->_print_headers = $print;
+        $this->printHeaders = $print;
     }
 
     /**
@@ -1972,7 +1982,7 @@ class Worksheet extends BIFFwriter
         $record = 0x002a; // Record identifier
         $length = 0x0002; // Bytes to follow
 
-        $fPrintRwCol = $this->_print_headers; // Boolean flag
+        $fPrintRwCol = $this->printHeaders; // Boolean flag
 
         $header = pack('vv', $record, $length);
         $data = pack('v', $fPrintRwCol);
