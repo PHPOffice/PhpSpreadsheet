@@ -756,7 +756,7 @@ class Worksheet implements IComparable
                                 $this->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont(),
                                 $cellValue,
                                 $this->getParent()->getCellXfByIndex($cell->getXfIndex())->getAlignment()->getTextRotation(),
-                                $this->getDefaultStyle()->getFont()
+                                $this->getParent()->getDefaultStyle()->getFont()
                             )
                         );
                     }
@@ -1397,38 +1397,6 @@ class Worksheet implements IComparable
     }
 
     /**
-     * Get default style of workbook.
-     *
-     * @deprecated
-     * @throws Exception
-     * @return Style
-     */
-    public function getDefaultStyle()
-    {
-        return $this->parent->getDefaultStyle();
-    }
-
-    /**
-     * Set default style - should only be used by \PhpOffice\PhpSpreadsheet\IReader implementations!
-     *
-     * @deprecated
-     * @param Style $pValue
-     * @throws Exception
-     * @return Worksheet
-     */
-    public function setDefaultStyle(Style $pValue)
-    {
-        $this->parent->getDefaultStyle()->applyFromArray([
-            'font' => [
-                'name' => $pValue->getFont()->getName(),
-                'size' => $pValue->getFont()->getSize(),
-            ],
-        ]);
-
-        return $this;
-    }
-
-    /**
      * Get style for cell
      *
      * @param string $pCellCoordinate Cell coordinate (or range) to get style for
@@ -1535,24 +1503,6 @@ class Worksheet implements IComparable
     }
 
     /**
-     * Set shared cell style to a range of cells
-     *
-     * Please note that this will overwrite existing cell styles for cells in range!
-     *
-     * @deprecated duplicateStyle
-     * @param Style $pSharedCellStyle Cell style to share
-     * @param string $pRange Range of cells (i.e. "A1:B10"), or just one cell (i.e. "A1")
-     * @throws Exception
-     * @return Worksheet
-     */
-    public function setSharedStyle(Style $pSharedCellStyle = null, $pRange = '')
-    {
-        $this->duplicateStyle($pSharedCellStyle, $pRange);
-
-        return $this;
-    }
-
-    /**
      * Duplicate cell style to a range of cells
      *
      * Please note that this will overwrite existing cell styles for cells in range!
@@ -1632,27 +1582,6 @@ class Worksheet implements IComparable
                 $this->setConditionalStyles(Cell::stringFromColumnIndex($col - 1) . $row, $pCellStyle);
             }
         }
-
-        return $this;
-    }
-
-    /**
-     * Duplicate cell style array to a range of cells
-     *
-     * Please note that this will overwrite existing cell styles for cells in range,
-     * if they are in the styles array. For example, if you decide to set a range of
-     * cells to font bold, only include font bold in the styles array.
-     *
-     * @deprecated
-     * @param array $pStyles Array containing style information
-     * @param string $pRange Range of cells (i.e. "A1:B10"), or just one cell (i.e. "A1")
-     * @param bool $pAdvanced Advanced mode for setting borders.
-     * @throws Exception
-     * @return Worksheet
-     */
-    public function duplicateStyleArray($pStyles = null, $pRange = '', $pAdvanced = true)
-    {
-        $this->getStyle($pRange)->applyFromArray($pStyles, $pAdvanced);
 
         return $this;
     }
@@ -2345,17 +2274,6 @@ class Worksheet implements IComparable
     public function getCommentByColumnAndRow($pColumn = 0, $pRow = 1)
     {
         return $this->getComment(Cell::stringFromColumnIndex($pColumn) . $pRow);
-    }
-
-    /**
-     * Get selected cell
-     *
-     * @deprecated
-     * @return string
-     */
-    public function getSelectedCell()
-    {
-        return $this->getSelectedCells();
     }
 
     /**

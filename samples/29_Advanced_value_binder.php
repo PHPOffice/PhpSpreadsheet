@@ -27,8 +27,8 @@ $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
 
 // Set default font
 $helper->log('Set default font');
-$spreadsheet->getActiveSheet()->getDefaultStyle()->getFont()->setName('Arial');
-$spreadsheet->getActiveSheet()->getDefaultStyle()->getFont()->setSize(10);
+$spreadsheet->getDefaultStyle()->getFont()->setName('Arial');
+$spreadsheet->getDefaultStyle()->getFont()->setSize(10);
 
 // Set column widths
 $helper->log('Set column widths');

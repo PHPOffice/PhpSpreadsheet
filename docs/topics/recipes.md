@@ -585,10 +585,6 @@ execution whenever you are setting more than one style property. But the
 difference may barely be measurable unless you have many different
 styles in your workbook.
 
-Prior to PHPExcel 1.7.0 duplicateStyleArray() was the recommended method
-for styling a cell range, but this method has now been deprecated since
-getStyle() has started to accept a cell range.
-
 ### Number formats
 
 You often want to format numbers in Excel. For example you may want a

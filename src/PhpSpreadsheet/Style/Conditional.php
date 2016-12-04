@@ -163,37 +163,6 @@ class Conditional implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Condition
-     *
-     * @deprecated Deprecated, use getConditions instead
-     * @return string
-     */
-    public function getCondition()
-    {
-        if (isset($this->condition[0])) {
-            return $this->condition[0];
-        }
-
-        return '';
-    }
-
-    /**
-     * Set Condition
-     *
-     * @deprecated Deprecated, use setConditions instead
-     * @param string $pValue    Condition
-     * @return Conditional
-     */
-    public function setCondition($pValue = '')
-    {
-        if (!is_array($pValue)) {
-            $pValue = [$pValue];
-        }
-
-        return $this->setConditions($pValue);
-    }
-
-    /**
      * Get Conditions
      *
      * @return string[]
