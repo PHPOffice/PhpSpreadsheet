@@ -48,7 +48,7 @@ class PDF implements IWriter
         }
 
         $pdfLibraryPath = \PhpOffice\PhpSpreadsheet\Settings::getPdfRendererPath();
-        if (is_null($pdfLibraryName)) {
+        if (is_null($pdfLibraryPath)) {
             throw new Exception('PDF Rendering library path has not been defined.');
         }
         $includePath = str_replace('\\', '/', get_include_path());
