@@ -673,8 +673,8 @@ class MathTrig
      */
     public static function MOD($a = 1, $b = 1)
     {
-        $a = Functions::flattenSingleValue($a);
-        $b = Functions::flattenSingleValue($b);
+        $a = (float) Functions::flattenSingleValue($a);
+        $b = (float) Functions::flattenSingleValue($b);
 
         if ($b == 0.0) {
             return Functions::DIV0();
