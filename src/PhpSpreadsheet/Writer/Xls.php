@@ -216,19 +216,6 @@ class Xls extends BaseWriter implements IWriter
     }
 
     /**
-     * Set temporary storage directory
-     *
-     * @deprecated
-     * @param    string    $pValue        Temporary storage directory
-     * @throws    \PhpOffice\PhpSpreadsheet\Writer\Exception    when directory does not exist
-     * @return \PhpOffice\PhpSpreadsheet\Writer\Xls
-     */
-    public function setTempDir($pValue = '')
-    {
-        return $this;
-    }
-
-    /**
      * Build the Worksheet Escher objects
      */
     private function buildWorksheetEschers()

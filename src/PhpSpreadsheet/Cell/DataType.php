@@ -61,18 +61,6 @@ class DataType
     }
 
     /**
-     * DataType for value
-     *
-     * @deprecated  Replaced by \PhpOffice\PhpSpreadsheet\Cell\IValueBinder infrastructure, will be removed in version 1.8.0
-     * @param       mixed  $pValue
-     * @return      string
-     */
-    public static function dataTypeForValue($pValue = null)
-    {
-        return DefaultValueBinder::dataTypeForValue($pValue);
-    }
-
-    /**
      * Check a string that it satisfies Excel requirements
      *
      * @param  mixed  Value to sanitize to an Excel string
