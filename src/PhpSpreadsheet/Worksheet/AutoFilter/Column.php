@@ -376,21 +376,19 @@ class Column
     {
         $vars = get_object_vars($this);
         foreach ($vars as $key => $value) {
-            if (is_object($value)) {
-                if ($key == 'parent') {
-                    //    Detach from autofilter parent
-                    $this->$key = null;
-                } else {
-                    $this->$key = clone $value;
-                }
-            } elseif ((is_array($value)) && ($key == 'ruleset')) {
-                //    The columns array of \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter objects
-                $this->$key = [];
+            if ($key === 'parent') {
+                // Detach from autofilter parent
+                $this->parent = null;
+            } elseif ($key === 'ruleset') {
+                // The columns array of \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter objects
+                $this->ruleset = [];
                 foreach ($value as $k => $v) {
-                    $this->$key[$k] = clone $v;
-                    // attach the new cloned Rule to this new cloned Autofilter Cloned object
-                    $this->$key[$k]->setParent($this);
+                    $cloned = clone $v;
+                    $cloned->setParent($this); // attach the new cloned Rule to this new cloned Autofilter Cloned object
+                    $this->ruleset[$k] = $cloned;
                 }
+            } elseif (is_object($value)) {
+                $this->$key = clone $value;
             } else {
                 $this->$key = $value;
             }

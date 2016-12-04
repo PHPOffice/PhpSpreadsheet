@@ -7,9 +7,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 class ColumnTest extends \PHPUnit_Framework_TestCase
 {
     private $testInitialColumn = 'H';
-
     private $testAutoFilterColumnObject;
-
     private $mockAutoFilterObject;
 
     public function setUp()
@@ -111,9 +109,10 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
 
     public function testSetAttributes()
     {
-        $attributeSet = ['val' => 100,
-                                'maxVal' => 200,
-                             ];
+        $attributeSet = [
+            'val' => 100,
+            'maxVal' => 200,
+        ];
 
         //    Setters return the instance to implement the fluent interface
         $result = $this->testAutoFilterColumnObject->setAttributes($attributeSet);
@@ -122,9 +121,10 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
 
     public function testGetAttributes()
     {
-        $attributeSet = ['val' => 100,
-                                'maxVal' => 200,
-                             ];
+        $attributeSet = [
+            'val' => 100,
+            'maxVal' => 200,
+        ];
 
         $this->testAutoFilterColumnObject->setAttributes($attributeSet);
 
@@ -135,9 +135,10 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
 
     public function testSetAttribute()
     {
-        $attributeSet = ['val' => 100,
-                                'maxVal' => 200,
-                             ];
+        $attributeSet = [
+            'val' => 100,
+            'maxVal' => 200,
+        ];
 
         foreach ($attributeSet as $attributeName => $attributeValue) {
             //    Setters return the instance to implement the fluent interface
@@ -148,9 +149,10 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
 
     public function testGetAttribute()
     {
-        $attributeSet = ['val' => 100,
-                                'maxVal' => 200,
-                             ];
+        $attributeSet = [
+            'val' => 100,
+            'maxVal' => 200,
+        ];
 
         $this->testAutoFilterColumnObject->setAttributes($attributeSet);
 
@@ -164,7 +166,13 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
 
     public function testClone()
     {
+        $originalRule = $this->testAutoFilterColumnObject->createRule();
         $result = clone $this->testAutoFilterColumnObject;
         $this->assertInstanceOf(AutoFilter\Column::class, $result);
+        $this->assertCount(1, $result->getRules());
+        $this->assertContainsOnlyInstancesOf(AutoFilter\Column\Rule::class, $result->getRules());
+        $clonedRule = $result->getRules()[0];
+        $this->assertNotSame($originalRule, $clonedRule);
+        $this->assertSame($result, $clonedRule->getParent());
     }
 }
