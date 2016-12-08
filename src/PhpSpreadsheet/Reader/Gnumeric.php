@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use DateTimeZone;
+use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
@@ -62,10 +63,7 @@ class Gnumeric extends BaseReader implements IReader
      */
     public function canRead($pFilename)
     {
-        // Check if file exists
-        if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
-        }
+        File::assertFile($pFilename);
 
         // Check if gzlib functions are available
         if (!function_exists('gzread')) {
@@ -92,10 +90,7 @@ class Gnumeric extends BaseReader implements IReader
      */
     public function listWorksheetNames($pFilename)
     {
-        // Check if file exists
-        if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
-        }
+        File::assertFile($pFilename);
 
         $xml = new XMLReader();
         $xml->xml($this->securityScanFile('compress.zlib://' . realpath($pFilename)), null, \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions());
@@ -123,10 +118,7 @@ class Gnumeric extends BaseReader implements IReader
      */
     public function listWorksheetInfo($pFilename)
     {
-        // Check if file exists
-        if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
-        }
+        File::assertFile($pFilename);
 
         $xml = new XMLReader();
         $xml->xml($this->securityScanFile('compress.zlib://' . realpath($pFilename)), null, \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions());
@@ -208,10 +200,7 @@ class Gnumeric extends BaseReader implements IReader
      */
     public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
     {
-        // Check if file exists
-        if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
-        }
+        File::assertFile($pFilename);
 
         $timezoneObj = new DateTimeZone('Europe/London');
         $GMT = new DateTimeZone('UTC');

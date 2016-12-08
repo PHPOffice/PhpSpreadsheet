@@ -69,27 +69,24 @@ class OLERead
     /**
      * Read the file
      *
-     * @param $sFileName string Filename
+     * @param $pFilename string Filename
      * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
-    public function read($sFileName)
+    public function read($pFilename)
     {
-        // Check if file exists and is readable
-        if (!is_readable($sFileName)) {
-            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('Could not open ' . $sFileName . ' for reading! File does not exist, or it is not readable.');
-        }
+        File::assertFile($pFilename);
 
         // Get the file identifier
         // Don't bother reading the whole file until we know it's a valid OLE file
-        $this->data = file_get_contents($sFileName, false, null, 0, 8);
+        $this->data = file_get_contents($pFilename, false, null, 0, 8);
 
         // Check OLE identifier
         if ($this->data != self::IDENTIFIER_OLE) {
-            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('The filename ' . $sFileName . ' is not recognised as an OLE file');
+            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('The filename ' . $pFilename . ' is not recognised as an OLE file');
         }
 
         // Get the file data
-        $this->data = file_get_contents($sFileName);
+        $this->data = file_get_contents($pFilename);
 
         // Total number of sectors used for the SAT
         $this->numBigBlockDepotBlocks = self::getInt4d($this->data, self::NUM_BIG_BLOCK_DEPOT_BLOCKS_POS);

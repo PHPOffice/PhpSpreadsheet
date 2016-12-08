@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use PhpOffice\PhpSpreadsheet\Shared\File;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
@@ -57,10 +59,7 @@ class Xlsx extends BaseReader implements IReader
      */
     public function canRead($pFilename)
     {
-        // Check if file exists
-        if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
-        }
+        File::assertFile($pFilename);
 
         $zipClass = \PhpOffice\PhpSpreadsheet\Settings::getZipClass();
 
@@ -106,10 +105,7 @@ class Xlsx extends BaseReader implements IReader
      */
     public function listWorksheetNames($pFilename)
     {
-        // Check if file exists
-        if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
-        }
+        File::assertFile($pFilename);
 
         $worksheetNames = [];
 
@@ -159,10 +155,7 @@ class Xlsx extends BaseReader implements IReader
      */
     public function listWorksheetInfo($pFilename)
     {
-        // Check if file exists
-        if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
-        }
+        File::assertFile($pFilename);
 
         $worksheetInfo = [];
 
@@ -338,10 +331,7 @@ class Xlsx extends BaseReader implements IReader
      */
     public function load($pFilename)
     {
-        // Check if file exists
-        if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
-        }
+        File::assertFile($pFilename);
 
         // Initialisations
         $excel = new \PhpOffice\PhpSpreadsheet\Spreadsheet();

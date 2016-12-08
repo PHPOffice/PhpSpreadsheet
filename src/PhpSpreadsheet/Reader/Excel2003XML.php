@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
@@ -108,10 +109,7 @@ class Excel2003XML extends BaseReader implements IReader
      */
     public function listWorksheetNames($pFilename)
     {
-        // Check if file exists
-        if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
-        }
+        File::assertFile($pFilename);
         if (!$this->canRead($pFilename)) {
             throw new Exception($pFilename . ' is an Invalid Spreadsheet file.');
         }
@@ -142,10 +140,7 @@ class Excel2003XML extends BaseReader implements IReader
      */
     public function listWorksheetInfo($pFilename)
     {
-        // Check if file exists
-        if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
-        }
+        File::assertFile($pFilename);
 
         $worksheetInfo = [];
 
@@ -311,11 +306,7 @@ class Excel2003XML extends BaseReader implements IReader
         $timezoneObj = new \DateTimeZone('Europe/London');
         $GMT = new \DateTimeZone('UTC');
 
-        // Check if file exists
-        if (!file_exists($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
-        }
-
+        File::assertFile($pFilename);
         if (!$this->canRead($pFilename)) {
             throw new Exception($pFilename . ' is an Invalid Spreadsheet file.');
         }
