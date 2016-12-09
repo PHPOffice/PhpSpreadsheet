@@ -31,6 +31,7 @@ class File
      * @protected
      * @var    boolean
      */
+
     protected static $useUploadTempDirectory = false;
 
     /**
@@ -174,5 +175,21 @@ class File
         //    There should be no problem with the 5.2.4 Suhosin realpath() bug, because this line should only
         //        be called if we're running 5.2.1 or earlier
         return realpath(sys_get_temp_dir());
+    }
+
+    /**
+     * Assert that given path is an existing file and is readable, otherwise throw exception
+     * @param string $filename
+     * @throws \InvalidArgumentException
+     */
+    public static function assertFile($filename)
+    {
+        if (!is_file($filename)) {
+            throw new \InvalidArgumentException('File "' . $filename . '" does not exist.');
+        }
+
+        if (!is_readable($filename)) {
+            throw new \InvalidArgumentException('Could not open "' . $filename . '" for reading.');
+        }
     }
 }

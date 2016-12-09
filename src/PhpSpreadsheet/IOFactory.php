@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\Shared\File;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
@@ -202,6 +204,8 @@ class IOFactory
      */
     public static function createReaderForFile($pFilename)
     {
+        File::assertFile($pFilename);
+
         // First, lucky guess by inspecting file extension
         $pathinfo = pathinfo($pFilename);
 

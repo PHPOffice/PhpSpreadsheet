@@ -112,7 +112,7 @@ class ZipStreamWrapper
      */
     public function url_stat() // @codingStandardsIgnoreLine
     {
-        return $this->statName($this->fileNameInArchive);
+        return $this->statName();
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use PhpOffice\PhpSpreadsheet\Shared\File;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
  *
@@ -231,10 +233,7 @@ abstract class BaseReader implements IReader
      */
     protected function openFile($pFilename)
     {
-        // Check if file exists
-        if (!file_exists($pFilename) || !is_readable($pFilename)) {
-            throw new Exception('Could not open ' . $pFilename . ' for reading! File does not exist.');
-        }
+        File::assertFile($pFilename);
 
         // Open file
         $this->fileHandle = fopen($pFilename, 'r');
