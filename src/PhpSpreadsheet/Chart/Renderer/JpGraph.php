@@ -830,7 +830,7 @@ class JpGraph
                 $this->renderContourChart($groupCount, $dimensions);
                 break;
             case 'stockChart':
-                $this->renderStockChart($groupCount, $dimensions);
+                $this->renderStockChart($groupCount);
                 break;
             default:
                 echo $chartType . ' is not yet implemented<br />';
