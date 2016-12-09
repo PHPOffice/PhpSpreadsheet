@@ -83,7 +83,7 @@ class Chart
                                 foreach ($chartDetails as $chartDetailKey => $chartDetail) {
                                     switch ($chartDetailKey) {
                                         case 'layout':
-                                            $plotAreaLayout = self::chartLayoutDetails($chartDetail, $namespacesChartMeta, 'plotArea');
+                                            $plotAreaLayout = self::chartLayoutDetails($chartDetail, $namespacesChartMeta);
                                             break;
                                         case 'catAx':
                                             if (isset($chartDetail->title)) {
@@ -190,7 +190,7 @@ class Chart
                                             $legendOverlay = self::getAttribute($chartDetail, 'val', 'boolean');
                                             break;
                                         case 'layout':
-                                            $legendLayout = self::chartLayoutDetails($chartDetail, $namespacesChartMeta, 'legend');
+                                            $legendLayout = self::chartLayoutDetails($chartDetail, $namespacesChartMeta);
                                             break;
                                     }
                                 }

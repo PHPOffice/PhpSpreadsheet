@@ -4431,7 +4431,7 @@ class Xls extends BaseReader implements IReader
         if (!$this->readDataOnly) {
             // offset: 0; size: 8; cell range address of all cells containing this hyperlink
             try {
-                $cellRange = $this->readBIFF8CellRangeAddressFixed($recordData, 0, 8);
+                $cellRange = $this->readBIFF8CellRangeAddressFixed($recordData);
             } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
                 return;
             }

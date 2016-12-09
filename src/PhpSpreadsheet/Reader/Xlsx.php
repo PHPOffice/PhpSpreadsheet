@@ -116,21 +116,13 @@ class Xlsx extends BaseReader implements IReader
 
         //    The files we're looking at here are small enough that simpleXML is more efficient than XMLReader
         $rels = simplexml_load_string(
-            $this->securityScan(
-                $this->getFromZipArchive($zip, '_rels/.rels'),
-                'SimpleXMLElement',
-                \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
-            )
+            $this->securityScan($this->getFromZipArchive($zip, '_rels/.rels'))
         ); //~ http://schemas.openxmlformats.org/package/2006/relationships");
         foreach ($rels->Relationship as $rel) {
             switch ($rel['Type']) {
                 case 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument':
                     $xmlWorkbook = simplexml_load_string(
-                        $this->securityScan(
-                            $this->getFromZipArchive($zip, "{$rel['Target']}"),
-                            'SimpleXMLElement',
-                            \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
-                        )
+                        $this->securityScan($this->getFromZipArchive($zip, "{$rel['Target']}"))
                     ); //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 
                     if ($xmlWorkbook->sheets) {
