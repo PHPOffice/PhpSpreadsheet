@@ -1,0 +1,6 @@
+#!/usr/bin/env php
+<?php
+require_once __DIR__ . '/../src/Bootstrap.php';
+
+$migrator = new \PhpOffice\PhpSpreadsheet\Helper\Migrator();
+$migrator->migrate();
