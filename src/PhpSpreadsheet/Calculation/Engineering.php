@@ -1985,6 +1985,10 @@ class Engineering
         $parsedComplex = self::parseComplex($complexNumber);
 
         $theta = self::IMARGUMENT($complexNumber);
+        if ($theta === functions::DIV0()) {
+            return '0';
+        }
+
         $d1 = cos($theta / 2);
         $d2 = sin($theta / 2);
         $r = sqrt(sqrt(($parsedComplex['real'] * $parsedComplex['real']) + ($parsedComplex['imaginary'] * $parsedComplex['imaginary'])));
