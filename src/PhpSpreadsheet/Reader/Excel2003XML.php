@@ -479,7 +479,7 @@ class Excel2003XML extends BaseReader implements IReader
                                     $this->styles[$styleID]['fill']['color']['rgb'] = substr($styleAttributeValue, 1);
                                     break;
                                 case 'Pattern':
-                                    $this->styles[$styleID]['fill']['type'] = substr($styleAttributeValue, 1);
+                                    $this->styles[$styleID]['fill']['type'] = strtolower($styleAttributeValue);
                                     break;
                             }
                         }
