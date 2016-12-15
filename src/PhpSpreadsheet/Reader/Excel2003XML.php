@@ -478,6 +478,9 @@ class Excel2003XML extends BaseReader implements IReader
                                 case 'Color':
                                     $this->styles[$styleID]['fill']['color']['rgb'] = substr($styleAttributeValue, 1);
                                     break;
+                                case 'Pattern':
+                                    $this->styles[$styleID]['fill']['type'] = strtolower($styleAttributeValue);
+                                    break;
                             }
                         }
                         break;
@@ -559,6 +562,7 @@ class Excel2003XML extends BaseReader implements IReader
 
                         if ($this->getReadFilter() !== null) {
                             if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
+                                ++$columnID;
                                 continue;
                             }
                         }

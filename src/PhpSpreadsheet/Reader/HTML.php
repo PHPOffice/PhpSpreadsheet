@@ -466,6 +466,15 @@ class HTML extends BaseReader implements IReader
                             }
                             $sheet->mergeCells($column . $row . ':' . $columnTo . $row);
                             $column = $columnTo;
+                        } elseif (isset($attributeArray['bgcolor'])) {
+                            $sheet->getStyle($column . $row)->applyFromArray(
+                                [
+                                    'fill' => [
+                                        'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                                        'color' => ['rgb' => $attributeArray['bgcolor']],
+                                    ],
+                                ]
+                            );
                         }
                         ++$column;
                         break;
