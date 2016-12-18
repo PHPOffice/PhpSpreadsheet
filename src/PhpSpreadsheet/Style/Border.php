@@ -140,7 +140,7 @@ class Border extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     public function getStyleArray($array)
     {
         switch ($this->parentPropertyName) {
-            case 'allBorders':
+            case 'allborders':
             case 'bottom':
             case 'diagonal':
             case 'horizontal':
@@ -150,7 +150,7 @@ class Border extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
             case 'right':
             case 'top':
             case 'vertical':
-                $key = strtolower('vertical');
+                $key = strtolower($this->parentPropertyName);
                 break;
         }
 
