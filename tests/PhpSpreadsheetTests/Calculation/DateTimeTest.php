@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 /**
- * Class DateTimeTest
+ * Class DateTimeTest.
  */
 class DateTimeTest extends \PHPUnit_Framework_TestCase
 {
@@ -46,7 +46,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
         $result = DateTime::DATE(2012, 1, 31);
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
         //    Must return an object...
-        $this->assertTrue(is_object($result));
+        $this->assertInternalType('object', $result);
         //    ... of the correct type
         $this->assertTrue(is_a($result, 'DateTime'));
         //    ... with the correct value
@@ -99,7 +99,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
         $result = DateTime::DATEVALUE('2012-1-31');
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
         //    Must return an object...
-        $this->assertTrue(is_object($result));
+        $this->assertInternalType('object', $result);
         //    ... of the correct type
         $this->assertTrue(is_a($result, 'DateTime'));
         //    ... with the correct value
@@ -216,7 +216,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
         $result = DateTime::TIME(7, 30, 20);
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
         //    Must return an object...
-        $this->assertTrue(is_object($result));
+        $this->assertInternalType('object', $result);
         //    ... of the correct type
         $this->assertTrue(is_a($result, 'DateTime'));
         //    ... with the correct value
@@ -253,7 +253,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
         $result = DateTime::TIMEVALUE('7:30:20');
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
         //    Must return an object...
-        $this->assertTrue(is_object($result));
+        $this->assertInternalType('object', $result);
         //    ... of the correct type
         $this->assertTrue(is_a($result, 'DateTime'));
         //    ... with the correct value
@@ -370,7 +370,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
         $result = DateTime::EDATE('2012-1-26', -1);
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
         //    Must return an object...
-        $this->assertTrue(is_object($result));
+        $this->assertInternalType('object', $result);
         //    ... of the correct type
         $this->assertTrue(is_a($result, 'DateTime'));
         //    ... with the correct value
@@ -407,7 +407,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
         $result = DateTime::EOMONTH('2012-1-26', -1);
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
         //    Must return an object...
-        $this->assertTrue(is_object($result));
+        $this->assertInternalType('object', $result);
         //    ... of the correct type
         $this->assertTrue(is_a($result, 'DateTime'));
         //    ... with the correct value

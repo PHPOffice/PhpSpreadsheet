@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 /**
- * Copyright (c) 2006 - 2015 PhpSpreadsheet
+ * Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -68,61 +69,70 @@ class Xf
     private $isStyleXf;
 
     /**
-     * Index to the FONT record. Index 4 does not exist
+     * Index to the FONT record. Index 4 does not exist.
+     *
      * @var int
      */
     private $fontIndex;
 
     /**
      * An index (2 bytes) to a FORMAT record (number format).
+     *
      * @var int
      */
     private $numberFormatIndex;
 
     /**
      * 1 bit, apparently not used.
+     *
      * @var int
      */
     private $textJustLast;
 
     /**
      * The cell's foreground color.
+     *
      * @var int
      */
     private $foregroundColor;
 
     /**
      * The cell's background color.
+     *
      * @var int
      */
     private $backgroundColor;
 
     /**
      * Color of the bottom border of the cell.
+     *
      * @var int
      */
     private $bottomBorderColor;
 
     /**
      * Color of the top border of the cell.
+     *
      * @var int
      */
     private $topBorderColor;
 
     /**
      * Color of the left border of the cell.
+     *
      * @var int
      */
     private $leftBorderColor;
 
     /**
      * Color of the right border of the cell.
+     *
      * @var int
      */
     private $rightBorderColor;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param \PhpOffice\PhpSpreadsheet\Style    The XF format
      */
@@ -260,7 +270,7 @@ class Xf
     }
 
     /**
-     * Sets the cell's bottom border color
+     * Sets the cell's bottom border color.
      *
      * @param int $colorIndex Color index
      */
@@ -270,7 +280,7 @@ class Xf
     }
 
     /**
-     * Sets the cell's top border color
+     * Sets the cell's top border color.
      *
      * @param int $colorIndex Color index
      */
@@ -280,7 +290,7 @@ class Xf
     }
 
     /**
-     * Sets the cell's left border color
+     * Sets the cell's left border color.
      *
      * @param int $colorIndex Color index
      */
@@ -290,7 +300,7 @@ class Xf
     }
 
     /**
-     * Sets the cell's right border color
+     * Sets the cell's right border color.
      *
      * @param int $colorIndex Color index
      */
@@ -300,7 +310,7 @@ class Xf
     }
 
     /**
-     * Sets the cell's diagonal border color
+     * Sets the cell's diagonal border color.
      *
      * @param int $colorIndex Color index
      */
@@ -310,7 +320,7 @@ class Xf
     }
 
     /**
-     * Sets the cell's foreground color
+     * Sets the cell's foreground color.
      *
      * @param int $colorIndex Color index
      */
@@ -320,7 +330,7 @@ class Xf
     }
 
     /**
-     * Sets the cell's background color
+     * Sets the cell's background color.
      *
      * @param int $colorIndex Color index
      */
@@ -351,7 +361,8 @@ class Xf
     }
 
     /**
-     * Map of BIFF2-BIFF8 codes for border styles
+     * Map of BIFF2-BIFF8 codes for border styles.
+     *
      * @static    array of int
      */
     private static $mapBorderStyles = [
@@ -372,9 +383,10 @@ class Xf
     ];
 
     /**
-     * Map border style
+     * Map border style.
      *
      * @param string $borderStyle
+     *
      * @return int
      */
     private static function mapBorderStyle($borderStyle)
@@ -387,7 +399,8 @@ class Xf
     }
 
     /**
-     * Map of BIFF2-BIFF8 codes for fill types
+     * Map of BIFF2-BIFF8 codes for fill types.
+     *
      * @static    array of int
      */
     private static $mapFillTypes = [
@@ -415,9 +428,10 @@ class Xf
     ];
 
     /**
-     * Map fill type
+     * Map fill type.
      *
      * @param string $fillType
+     *
      * @return int
      */
     private static function mapFillType($fillType)
@@ -430,7 +444,8 @@ class Xf
     }
 
     /**
-     * Map of BIFF2-BIFF8 codes for horizontal alignment
+     * Map of BIFF2-BIFF8 codes for horizontal alignment.
+     *
      * @static    array of int
      */
     private static $mapHAlignments = [
@@ -444,9 +459,10 @@ class Xf
     ];
 
     /**
-     * Map to BIFF2-BIFF8 codes for horizontal alignment
+     * Map to BIFF2-BIFF8 codes for horizontal alignment.
      *
      * @param string $hAlign
+     *
      * @return int
      */
     private function mapHAlign($hAlign)
@@ -459,7 +475,8 @@ class Xf
     }
 
     /**
-     * Map of BIFF2-BIFF8 codes for vertical alignment
+     * Map of BIFF2-BIFF8 codes for vertical alignment.
+     *
      * @static    array of int
      */
     private static $mapVAlignments = [
@@ -470,9 +487,10 @@ class Xf
     ];
 
     /**
-     * Map to BIFF2-BIFF8 codes for vertical alignment
+     * Map to BIFF2-BIFF8 codes for vertical alignment.
      *
      * @param string $vAlign
+     *
      * @return int
      */
     private static function mapVAlign($vAlign)
@@ -485,9 +503,10 @@ class Xf
     }
 
     /**
-     * Map to BIFF8 codes for text rotation angle
+     * Map to BIFF8 codes for text rotation angle.
      *
      * @param int $textRotation
+     *
      * @return int
      */
     private static function mapTextRotation($textRotation)
@@ -502,9 +521,11 @@ class Xf
     }
 
     /**
-     * Map locked
+     * Map locked.
      *
      * @param string
+     * @param mixed $locked
+     *
      * @return int
      */
     private static function mapLocked($locked)
@@ -522,9 +543,11 @@ class Xf
     }
 
     /**
-     * Map hidden
+     * Map hidden.
      *
      * @param string
+     * @param mixed $hidden
+     *
      * @return int
      */
     private static function mapHidden($hidden)

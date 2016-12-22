@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,34 +20,35 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 abstract class CellIterator
 {
     /**
-     * \PhpOffice\PhpSpreadsheet\Worksheet to iterate
+     * \PhpOffice\PhpSpreadsheet\Worksheet to iterate.
      *
      * @var \PhpOffice\PhpSpreadsheet\Worksheet
      */
     protected $subject;
 
     /**
-     * Current iterator position
+     * Current iterator position.
      *
      * @var mixed
      */
     protected $position = null;
 
     /**
-     * Iterate only existing cells
+     * Iterate only existing cells.
      *
      * @var bool
      */
     protected $onlyExistingCells = false;
 
     /**
-     * Destructor
+     * Destructor.
      */
     public function __destruct()
     {
@@ -55,7 +56,7 @@ abstract class CellIterator
     }
 
     /**
-     * Get loop only existing cells
+     * Get loop only existing cells.
      *
      * @return bool
      */
@@ -65,21 +66,22 @@ abstract class CellIterator
     }
 
     /**
-     * Validate start/end values for "IterateOnlyExistingCells" mode, and adjust if necessary
+     * Validate start/end values for "IterateOnlyExistingCells" mode, and adjust if necessary.
      *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     abstract protected function adjustForExistingOnlyRange();
 
     /**
-     * Set the iterator to loop only existing cells
+     * Set the iterator to loop only existing cells.
      *
      * @param    bool        $value
+     *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     public function setIterateOnlyExistingCells($value = true)
     {
-        $this->onlyExistingCells = (boolean) $value;
+        $this->onlyExistingCells = (bool) $value;
 
         $this->adjustForExistingOnlyRange();
     }

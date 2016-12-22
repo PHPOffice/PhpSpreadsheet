@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category    PhpSpreadsheet
+ *
  * @copyright    Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license        http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -35,7 +36,7 @@ class Column
     const AUTOFILTER_FILTERTYPE_TOPTENFILTER = 'top10';
 
     /**
-     * Types of autofilter rules
+     * Types of autofilter rules.
      *
      * @var string[]
      */
@@ -55,7 +56,7 @@ class Column
     const AUTOFILTER_COLUMN_JOIN_OR = 'or';
 
     /**
-     * Join options for autofilter rules
+     * Join options for autofilter rules.
      *
      * @var string[]
      */
@@ -65,49 +66,49 @@ class Column
     ];
 
     /**
-     * Autofilter
+     * Autofilter.
      *
      * @var \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter
      */
     private $parent;
 
     /**
-     * Autofilter Column Index
+     * Autofilter Column Index.
      *
      * @var string
      */
     private $columnIndex = '';
 
     /**
-     * Autofilter Column Filter Type
+     * Autofilter Column Filter Type.
      *
      * @var string
      */
     private $filterType = self::AUTOFILTER_FILTERTYPE_FILTER;
 
     /**
-     * Autofilter Multiple Rules And/Or
+     * Autofilter Multiple Rules And/Or.
      *
      * @var string
      */
     private $join = self::AUTOFILTER_COLUMN_JOIN_OR;
 
     /**
-     * Autofilter Column Rules
+     * Autofilter Column Rules.
      *
      * @var array of Column\Rule
      */
     private $ruleset = [];
 
     /**
-     * Autofilter Column Dynamic Attributes
+     * Autofilter Column Dynamic Attributes.
      *
      * @var array of mixed
      */
     private $attributes = [];
 
     /**
-     * Create a new Column
+     * Create a new Column.
      *
      *    @param    string                           $pColumn        Column (e.g. A)
      *    @param    \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter  $pParent        Autofilter for this column
@@ -119,7 +120,7 @@ class Column
     }
 
     /**
-     * Get AutoFilter Column Index
+     * Get AutoFilter Column Index.
      *
      * @return string
      */
@@ -129,10 +130,12 @@ class Column
     }
 
     /**
-     *    Set AutoFilter Column Index
+     *    Set AutoFilter Column Index.
      *
      *    @param    string        $pColumn        Column (e.g. A)
+     *
      *    @throws    \PhpOffice\PhpSpreadsheet\Exception
+     *
      *    @return Column
      */
     public function setColumnIndex($pColumn)
@@ -149,7 +152,7 @@ class Column
     }
 
     /**
-     * Get this Column's AutoFilter Parent
+     * Get this Column's AutoFilter Parent.
      *
      * @return \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter
      */
@@ -159,9 +162,10 @@ class Column
     }
 
     /**
-     * Set this Column's AutoFilter Parent
+     * Set this Column's AutoFilter Parent.
      *
      * @param \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter
+     *
      * @return Column
      */
     public function setParent(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter $pParent = null)
@@ -172,7 +176,7 @@ class Column
     }
 
     /**
-     * Get AutoFilter Type
+     * Get AutoFilter Type.
      *
      * @return string
      */
@@ -182,10 +186,12 @@ class Column
     }
 
     /**
-     *    Set AutoFilter Type
+     *    Set AutoFilter Type.
      *
      *    @param    string        $pFilterType
+     *
      *    @throws    \PhpOffice\PhpSpreadsheet\Exception
+     *
      *    @return Column
      */
     public function setFilterType($pFilterType = self::AUTOFILTER_FILTERTYPE_FILTER)
@@ -200,7 +206,7 @@ class Column
     }
 
     /**
-     * Get AutoFilter Multiple Rules And/Or Join
+     * Get AutoFilter Multiple Rules And/Or Join.
      *
      * @return string
      */
@@ -210,10 +216,12 @@ class Column
     }
 
     /**
-     *    Set AutoFilter Multiple Rules And/Or
+     *    Set AutoFilter Multiple Rules And/Or.
      *
      *    @param   string        $pJoin        And/Or
+     *
      *    @throws  \PhpOffice\PhpSpreadsheet\Exception
+     *
      *    @return  Column
      */
     public function setJoin($pJoin = self::AUTOFILTER_COLUMN_JOIN_OR)
@@ -230,10 +238,12 @@ class Column
     }
 
     /**
-     *    Set AutoFilter Attributes
+     *    Set AutoFilter Attributes.
      *
      *    @param    string[]        $pAttributes
+     *
      *    @throws   \PhpOffice\PhpSpreadsheet\Exception
+     *
      *    @return   Column
      */
     public function setAttributes($pAttributes = [])
@@ -244,11 +254,13 @@ class Column
     }
 
     /**
-     *    Set An AutoFilter Attribute
+     *    Set An AutoFilter Attribute.
      *
      *    @param    string        $pName        Attribute Name
      *    @param    string        $pValue        Attribute Value
+     *
      *    @throws   \PhpOffice\PhpSpreadsheet\Exception
+     *
      *    @return   Column
      */
     public function setAttribute($pName, $pValue)
@@ -259,7 +271,7 @@ class Column
     }
 
     /**
-     * Get AutoFilter Column Attributes
+     * Get AutoFilter Column Attributes.
      *
      * @return string
      */
@@ -269,9 +281,10 @@ class Column
     }
 
     /**
-     * Get specific AutoFilter Column Attribute
+     * Get specific AutoFilter Column Attribute.
      *
      *    @param    string        $pName        Attribute Name
+     *
      * @return string
      */
     public function getAttribute($pName)
@@ -284,9 +297,10 @@ class Column
     }
 
     /**
-     * Get all AutoFilter Column Rules
+     * Get all AutoFilter Column Rules.
      *
      * @throws   \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return   Column\Rule[]
      */
     public function getRules()
@@ -295,9 +309,10 @@ class Column
     }
 
     /**
-     * Get a specified AutoFilter Column Rule
+     * Get a specified AutoFilter Column Rule.
      *
      * @param    int    $pIndex        Rule index in the ruleset array
+     *
      * @return    Column\Rule
      */
     public function getRule($pIndex)
@@ -310,7 +325,7 @@ class Column
     }
 
     /**
-     * Create a new AutoFilter Column Rule in the ruleset
+     * Create a new AutoFilter Column Rule in the ruleset.
      *
      * @return    Column\Rule
      */
@@ -322,10 +337,11 @@ class Column
     }
 
     /**
-     * Add a new AutoFilter Column Rule to the ruleset
+     * Add a new AutoFilter Column Rule to the ruleset.
      *
      * @param    Column\Rule    $pRule
      * @param    bool    $returnRule     Flag indicating whether the rule object or the column object should be returned
+     *
      * @return   Column|Column\Rule
      */
     public function addRule(Column\Rule $pRule, $returnRule = true)
@@ -338,9 +354,10 @@ class Column
 
     /**
      * Delete a specified AutoFilter Column Rule
-     *    If the number of rules is reduced to 1, then we reset And/Or logic to Or
+     *    If the number of rules is reduced to 1, then we reset And/Or logic to Or.
      *
      * @param    int    $pIndex        Rule index in the ruleset array
+     *
      * @return    Column
      */
     public function deleteRule($pIndex)
@@ -357,7 +374,7 @@ class Column
     }
 
     /**
-     * Delete all AutoFilter Column Rules
+     * Delete all AutoFilter Column Rules.
      *
      * @return    Column
      */

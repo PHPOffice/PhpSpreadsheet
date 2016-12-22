@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\CachedObjectStorage;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,24 +20,27 @@ namespace PhpOffice\PhpSpreadsheet\CachedObjectStorage;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class Memory extends CacheBase implements ICache
 {
     /**
-     * Dummy method callable from CacheBase, but unused by Memory cache
+     * Dummy method callable from CacheBase, but unused by Memory cache.
      */
     protected function storeData()
     {
     }
 
     /**
-     * Add or Update a cell in cache identified by coordinate address
+     * Add or Update a cell in cache identified by coordinate address.
      *
      * @param   string            $pCoord        Coordinate address of the cell to update
      * @param   \PhpOffice\PhpSpreadsheet\Cell    $cell        Cell to update
+     *
      * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return  \PhpOffice\PhpSpreadsheet\Cell
      */
     public function addCacheData($pCoord, \PhpOffice\PhpSpreadsheet\Cell $cell)
@@ -51,10 +54,12 @@ class Memory extends CacheBase implements ICache
     }
 
     /**
-     * Get cell at a specific coordinate
+     * Get cell at a specific coordinate.
      *
      * @param   string             $pCoord        Coordinate of the cell
+     *
      * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return  \PhpOffice\PhpSpreadsheet\Cell     Cell that was found, or null if not found
      */
     public function getCacheData($pCoord)
@@ -74,7 +79,7 @@ class Memory extends CacheBase implements ICache
     }
 
     /**
-     * Clone the cell collection
+     * Clone the cell collection.
      *
      * @param  \PhpOffice\PhpSpreadsheet\Worksheet    $parent        The new worksheet that we're copying to
      */
@@ -92,7 +97,7 @@ class Memory extends CacheBase implements ICache
     }
 
     /**
-     * Clear the cell collection and disconnect from our parent
+     * Clear the cell collection and disconnect from our parent.
      */
     public function unsetWorksheetCells()
     {

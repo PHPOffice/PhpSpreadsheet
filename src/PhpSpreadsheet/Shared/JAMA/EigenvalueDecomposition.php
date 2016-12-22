@@ -20,24 +20,28 @@ namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
  *
  *    @author  Paul Meagher
  *    @license PHP v3.0
+ *
  *    @version 1.1
  */
 class EigenvalueDecomposition
 {
     /**
      *    Row and column dimension (square matrix).
+     *
      *    @var int
      */
     private $n;
 
     /**
      *    Internal symmetry flag.
+     *
      *    @var int
      */
     private $issymmetric;
 
     /**
      *    Arrays for internal storage of eigenvalues.
+     *
      *    @var array
      */
     private $d = [];
@@ -45,24 +49,28 @@ class EigenvalueDecomposition
 
     /**
      *    Array for internal storage of eigenvectors.
+     *
      *    @var array
      */
     private $V = [];
 
     /**
      *    Array for internal storage of nonsymmetric Hessenberg form.
+     *
      *    @var array
      */
     private $H = [];
 
     /**
      *    Working storage for nonsymmetric algorithm.
+     *
      *    @var array
      */
     private $ort;
 
     /**
      *    Used for complex scalar division.
+     *
      *    @var float
      */
     private $cdivr;
@@ -364,6 +372,11 @@ class EigenvalueDecomposition
 
     /**
      *    Performs complex division.
+     *
+     * @param mixed $xr
+     * @param mixed $xi
+     * @param mixed $yr
+     * @param mixed $yi
      */
     private function cdiv($xr, $xi, $yr, $yi)
     {
@@ -763,13 +776,17 @@ class EigenvalueDecomposition
                 $this->V[$i][$j] = $z;
             }
         }
-    } // end hqr2
+    }
+
+ // end hqr2
 
     /**
-     *    Constructor: Check for symmetry, then construct the eigenvalue decomposition
+     *    Constructor: Check for symmetry, then construct the eigenvalue decomposition.
      *
      *    @param A  Square matrix
-     *    @return Structure to access D and V.
+     * @param mixed $Arg
+     *
+     *    @return Structure to access D and V
      */
     public function __construct($Arg)
     {
@@ -800,7 +817,7 @@ class EigenvalueDecomposition
     }
 
     /**
-     *    Return the eigenvector matrix
+     *    Return the eigenvector matrix.
      *
      *    @return V
      */
@@ -810,7 +827,7 @@ class EigenvalueDecomposition
     }
 
     /**
-     *    Return the real parts of the eigenvalues
+     *    Return the real parts of the eigenvalues.
      *
      *    @return real(diag(D))
      */
@@ -820,7 +837,7 @@ class EigenvalueDecomposition
     }
 
     /**
-     *    Return the imaginary parts of the eigenvalues
+     *    Return the imaginary parts of the eigenvalues.
      *
      *    @return imag(diag(D))
      */
@@ -830,7 +847,7 @@ class EigenvalueDecomposition
     }
 
     /**
-     *    Return the block diagonal eigenvalue matrix
+     *    Return the block diagonal eigenvalue matrix.
      *
      *    @return D
      */

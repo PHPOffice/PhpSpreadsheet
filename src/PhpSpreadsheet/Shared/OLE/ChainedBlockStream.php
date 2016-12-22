@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Shared\OLE;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@ namespace PhpOffice\PhpSpreadsheet\Shared\OLE;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2007 Christian Schmidt
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -27,24 +28,28 @@ class ChainedBlockStream
 {
     /**
      * The OLE container of the file that is being read.
+     *
      * @var OLE
      */
     public $ole;
 
     /**
      * Parameters specified by fopen().
+     *
      * @var array
      */
     public $params;
 
     /**
      * The binary data of the file.
+     *
      * @var  string
      */
     public $data;
 
     /**
      * The file pointer.
+     *
      * @var  int  byte offset
      */
     public $pos;
@@ -58,6 +63,7 @@ class ChainedBlockStream
      * @param    string    $mode            only "r" is supported
      * @param    int        $options        mask of STREAM_REPORT_ERRORS and STREAM_USE_PATH
      * @param    string  &$openedPath    absolute path of the opened stream (out parameter)
+     *
      * @return    bool    true on success
      */
     public function stream_open($path, $mode, $options, &$openedPath) // @codingStandardsIgnoreLine
@@ -125,6 +131,7 @@ class ChainedBlockStream
      * Implements support for fread(), fgets() etc.
      *
      * @param   int        $count    maximum number of bytes to read
+     *
      * @return  string
      */
     public function stream_read($count) // @codingStandardsIgnoreLine
@@ -164,6 +171,7 @@ class ChainedBlockStream
      *
      * @param    int        $offset    byte offset
      * @param    int        $whence    SEEK_SET, SEEK_CUR or SEEK_END
+     *
      * @return    bool
      */
     public function stream_seek($offset, $whence) // @codingStandardsIgnoreLine
@@ -172,7 +180,7 @@ class ChainedBlockStream
             $this->pos = $offset;
         } elseif ($whence == SEEK_CUR && -$offset <= $this->pos) {
             $this->pos += $offset;
-        } elseif ($whence == SEEK_END && -$offset <= sizeof($this->data)) {
+        } elseif ($whence == SEEK_END && -$offset <= count($this->data)) {
             $this->pos = strlen($this->data) + $offset;
         } else {
             return false;
@@ -184,6 +192,7 @@ class ChainedBlockStream
     /**
      * Implements support for fstat(). Currently the only supported field is
      * "size".
+     *
      * @return  array
      */
     public function stream_stat() // @codingStandardsIgnoreLine

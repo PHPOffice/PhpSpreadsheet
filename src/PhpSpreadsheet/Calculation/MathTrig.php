@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category    PhpSpreadsheet
+ *
  * @copyright   Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -46,9 +47,9 @@ class MathTrig
             rsort($factorArray);
 
             return $factorArray;
-        } else {
-            return [(integer) $value];
         }
+
+        return [(int) $value];
     }
 
     private static function romanCut($num, $n)
@@ -57,7 +58,7 @@ class MathTrig
     }
 
     /**
-     * ATAN2
+     * ATAN2.
      *
      * This function calculates the arc tangent of the two variables x and y. It is similar to
      *        calculating the arc tangent of y ÷ x, except that the signs of both arguments are used
@@ -73,9 +74,11 @@ class MathTrig
      *        ATAN2(xCoordinate,yCoordinate)
      *
      * @category Mathematical and Trigonometric Functions
-     * @param    float    $xCoordinate        The x-coordinate of the point.
-     * @param    float    $yCoordinate        The y-coordinate of the point.
-     * @return    float    The inverse tangent of the specified x- and y-coordinates.
+     *
+     * @param    float    $xCoordinate        the x-coordinate of the point
+     * @param    float    $yCoordinate        the y-coordinate of the point
+     *
+     * @return    float    the inverse tangent of the specified x- and y-coordinates
      */
     public static function ATAN2($xCoordinate = null, $yCoordinate = null)
     {
@@ -101,7 +104,7 @@ class MathTrig
     }
 
     /**
-     * CEILING
+     * CEILING.
      *
      * Returns number rounded up, away from zero, to the nearest multiple of significance.
      *        For example, if you want to avoid using pennies in your prices and your product is
@@ -112,8 +115,10 @@ class MathTrig
      *        CEILING(number[,significance])
      *
      * @category Mathematical and Trigonometric Functions
-     * @param    float    $number            The number you want to round.
-     * @param    float    $significance    The multiple to which you want to round.
+     *
+     * @param    float    $number            the number you want to round
+     * @param    float    $significance    the multiple to which you want to round
+     *
      * @return    float    Rounded Number
      */
     public static function CEILING($number, $significance = null)
@@ -131,16 +136,16 @@ class MathTrig
                 return 0.0;
             } elseif (self::SIGN($number) == self::SIGN($significance)) {
                 return ceil($number / $significance) * $significance;
-            } else {
-                return Functions::NAN();
             }
+
+            return Functions::NAN();
         }
 
         return Functions::VALUE();
     }
 
     /**
-     * COMBIN
+     * COMBIN.
      *
      * Returns the number of combinations for a given number of items. Use COMBIN to
      *        determine the total possible number of groups for a given number of items.
@@ -149,8 +154,10 @@ class MathTrig
      *        COMBIN(numObjs,numInSet)
      *
      * @category Mathematical and Trigonometric Functions
+     *
      * @param    int        $numObjs    Number of different objects
      * @param    int        $numInSet    Number of objects in each combination
+     *
      * @return    int        Number of combinations
      */
     public static function COMBIN($numObjs, $numInSet)
@@ -172,7 +179,7 @@ class MathTrig
     }
 
     /**
-     * EVEN
+     * EVEN.
      *
      * Returns number rounded up to the nearest even integer.
      * You can use this function for processing items that come in twos. For example,
@@ -184,7 +191,9 @@ class MathTrig
      *        EVEN(number)
      *
      * @category Mathematical and Trigonometric Functions
+     *
      * @param    float    $number            Number to round
+     *
      * @return    int        Rounded Number
      */
     public static function EVEN($number)
@@ -207,7 +216,7 @@ class MathTrig
     }
 
     /**
-     * FACT
+     * FACT.
      *
      * Returns the factorial of a number.
      * The factorial of a number is equal to 1*2*3*...* number.
@@ -216,7 +225,9 @@ class MathTrig
      *        FACT(factVal)
      *
      * @category Mathematical and Trigonometric Functions
+     *
      * @param    float    $factVal    Factorial Value
+     *
      * @return    int        Factorial
      */
     public static function FACT($factVal)
@@ -246,7 +257,7 @@ class MathTrig
     }
 
     /**
-     * FACTDOUBLE
+     * FACTDOUBLE.
      *
      * Returns the double factorial of a number.
      *
@@ -254,7 +265,9 @@ class MathTrig
      *        FACTDOUBLE(factVal)
      *
      * @category Mathematical and Trigonometric Functions
+     *
      * @param    float    $factVal    Factorial Value
+     *
      * @return    int        Double Factorial
      */
     public static function FACTDOUBLE($factVal)
@@ -279,7 +292,7 @@ class MathTrig
     }
 
     /**
-     * FLOOR
+     * FLOOR.
      *
      * Rounds number down, toward zero, to the nearest multiple of significance.
      *
@@ -287,8 +300,10 @@ class MathTrig
      *        FLOOR(number[,significance])
      *
      * @category Mathematical and Trigonometric Functions
+     *
      * @param    float    $number            Number to round
      * @param    float    $significance    Significance
+     *
      * @return    float    Rounded Number
      */
     public static function FLOOR($number, $significance = null)
@@ -308,16 +323,16 @@ class MathTrig
                 return 0.0;
             } elseif (self::SIGN($number) == self::SIGN($significance)) {
                 return floor($number / $significance) * $significance;
-            } else {
-                return Functions::NAN();
             }
+
+            return Functions::NAN();
         }
 
         return Functions::VALUE();
     }
 
     /**
-     * GCD
+     * GCD.
      *
      * Returns the greatest common divisor of a series of numbers.
      * The greatest common divisor is the largest integer that divides both
@@ -327,7 +342,9 @@ class MathTrig
      *        GCD(number1[,number2[, ...]])
      *
      * @category Mathematical and Trigonometric Functions
+     *
      * @param    mixed    $arg,...        Data values
+     *
      * @return    int                    Greatest Common Divisor
      */
     public static function GCD()
@@ -377,24 +394,23 @@ class MathTrig
             }
 
             return $returnValue;
-        } else {
-            $keys = array_keys($mergedArray);
-            $key = $keys[0];
-            $value = $mergedArray[$key];
-            foreach ($allValuesFactors as $testValue) {
-                foreach ($testValue as $mergedKey => $mergedValue) {
-                    if (($mergedKey == $key) && ($mergedValue < $value)) {
-                        $value = $mergedValue;
-                    }
+        }
+        $keys = array_keys($mergedArray);
+        $key = $keys[0];
+        $value = $mergedArray[$key];
+        foreach ($allValuesFactors as $testValue) {
+            foreach ($testValue as $mergedKey => $mergedValue) {
+                if (($mergedKey == $key) && ($mergedValue < $value)) {
+                    $value = $mergedValue;
                 }
             }
-
-            return pow($key, $value);
         }
+
+        return pow($key, $value);
     }
 
     /**
-     * INT
+     * INT.
      *
      * Casts a floating point value to an integer
      *
@@ -402,7 +418,9 @@ class MathTrig
      *        INT(number)
      *
      * @category Mathematical and Trigonometric Functions
+     *
      * @param    float    $number            Number to cast to an integer
+     *
      * @return    int    Integer value
      */
     public static function INT($number)
@@ -422,7 +440,7 @@ class MathTrig
     }
 
     /**
-     * LCM
+     * LCM.
      *
      * Returns the lowest common multiplier of a series of numbers
      * The least common multiple is the smallest positive integer that is a multiple
@@ -433,7 +451,9 @@ class MathTrig
      *        LCM(number1[,number2[, ...]])
      *
      * @category Mathematical and Trigonometric Functions
+     *
      * @param    mixed    $arg,...        Data values
+     *
      * @return    int        Lowest Common Multiplier
      */
     public static function LCM()
@@ -467,14 +487,14 @@ class MathTrig
             }
         }
         foreach ($allPoweredFactors as $allPoweredFactor) {
-            $returnValue *= (integer) $allPoweredFactor;
+            $returnValue *= (int) $allPoweredFactor;
         }
 
         return $returnValue;
     }
 
     /**
-     * LOG_BASE
+     * LOG_BASE.
      *
      * Returns the logarithm of a number to a specified base. The default base is 10.
      *
@@ -482,8 +502,10 @@ class MathTrig
      *        LOG(number[,base])
      *
      * @category Mathematical and Trigonometric Functions
+     *
      * @param    float    $number        The positive real number for which you want the logarithm
      * @param    float    $base        The base of the logarithm. If base is omitted, it is assumed to be 10.
+     *
      * @return    float
      */
     public static function logBase($number = null, $base = 10)
@@ -502,7 +524,7 @@ class MathTrig
     }
 
     /**
-     * MDETERM
+     * MDETERM.
      *
      * Returns the matrix determinant of an array.
      *
@@ -510,7 +532,9 @@ class MathTrig
      *        MDETERM(array)
      *
      * @category Mathematical and Trigonometric Functions
+     *
      * @param    array    $matrixValues    A matrix of values
+     *
      * @return    float
      */
     public static function MDETERM($matrixValues)
@@ -552,7 +576,7 @@ class MathTrig
     }
 
     /**
-     * MINVERSE
+     * MINVERSE.
      *
      * Returns the inverse matrix for the matrix stored in an array.
      *
@@ -560,7 +584,9 @@ class MathTrig
      *        MINVERSE(array)
      *
      * @category Mathematical and Trigonometric Functions
+     *
      * @param    array    $matrixValues    A matrix of values
+     *
      * @return    array
      */
     public static function MINVERSE($matrixValues)
@@ -604,10 +630,11 @@ class MathTrig
     }
 
     /**
-     * MMULT
+     * MMULT.
      *
      * @param    array    $matrixData1    A matrix of values
      * @param    array    $matrixData2    A matrix of values
+     *
      * @return    array
      */
     public static function MMULT($matrixData1, $matrixData2)
@@ -665,10 +692,11 @@ class MathTrig
     }
 
     /**
-     * MOD
+     * MOD.
      *
      * @param    int        $a        Dividend
      * @param    int        $b        Divisor
+     *
      * @return    int        Remainder
      */
     public static function MOD($a = 1, $b = 1)
@@ -688,12 +716,13 @@ class MathTrig
     }
 
     /**
-     * MROUND
+     * MROUND.
      *
      * Rounds a number to the nearest multiple of a specified value
      *
      * @param    float    $number            Number to round
      * @param    int        $multiple        Multiple to which you want to round $number
+     *
      * @return    float    Rounded Number
      */
     public static function MROUND($number, $multiple)
@@ -718,11 +747,12 @@ class MathTrig
     }
 
     /**
-     * MULTINOMIAL
+     * MULTINOMIAL.
      *
      * Returns the ratio of the factorial of a sum of values to the product of factorials.
      *
      * @param    array of mixed        Data Series
+     *
      * @return    float
      */
     public static function MULTINOMIAL()
@@ -754,11 +784,12 @@ class MathTrig
     }
 
     /**
-     * ODD
+     * ODD.
      *
      * Returns number rounded up to the nearest odd integer.
      *
      * @param    float    $number            Number to round
+     *
      * @return    int        Rounded Number
      */
     public static function ODD($number)
@@ -787,12 +818,13 @@ class MathTrig
     }
 
     /**
-     * POWER
+     * POWER.
      *
      * Computes x raised to the power y.
      *
      * @param    float        $x
      * @param    float        $y
+     *
      * @return    float
      */
     public static function POWER($x = 0, $y = 2)
@@ -814,7 +846,7 @@ class MathTrig
     }
 
     /**
-     * PRODUCT
+     * PRODUCT.
      *
      * PRODUCT returns the product of all the values and cells referenced in the argument list.
      *
@@ -822,7 +854,9 @@ class MathTrig
      *        PRODUCT(value1[,value2[, ...]])
      *
      * @category Mathematical and Trigonometric Functions
+     *
      * @param    mixed        $arg,...        Data values
+     *
      * @return    float
      */
     public static function PRODUCT()
@@ -851,7 +885,7 @@ class MathTrig
     }
 
     /**
-     * QUOTIENT
+     * QUOTIENT.
      *
      * QUOTIENT function returns the integer portion of a division. Numerator is the divided number
      *        and denominator is the divisor.
@@ -860,7 +894,9 @@ class MathTrig
      *        QUOTIENT(value1[,value2[, ...]])
      *
      * @category Mathematical and Trigonometric Functions
+     *
      * @param    mixed        $arg,...        Data values
+     *
      * @return    float
      */
     public static function QUOTIENT()
@@ -885,14 +921,15 @@ class MathTrig
         }
 
         // Return
-        return intval($returnValue);
+        return (int) $returnValue;
     }
 
     /**
-     * RAND
+     * RAND.
      *
      * @param    int        $min    Minimal value
      * @param    int        $max    Maximal value
+     *
      * @return    int        Random number
      */
     public static function RAND($min = 0, $max = 0)
@@ -902,19 +939,19 @@ class MathTrig
 
         if ($min == 0 && $max == 0) {
             return (mt_rand(0, 10000000)) / 10000000;
-        } else {
-            return mt_rand($min, $max);
         }
+
+        return mt_rand($min, $max);
     }
 
     public static function ROMAN($aValue, $style = 0)
     {
         $aValue = Functions::flattenSingleValue($aValue);
-        $style = (is_null($style)) ? 0 : (integer) Functions::flattenSingleValue($style);
+        $style = (is_null($style)) ? 0 : (int) Functions::flattenSingleValue($style);
         if ((!is_numeric($aValue)) || ($aValue < 0) || ($aValue >= 4000)) {
             return Functions::VALUE();
         }
-        $aValue = (integer) $aValue;
+        $aValue = (int) $aValue;
         if ($aValue == 0) {
             return '';
         }
@@ -940,12 +977,13 @@ class MathTrig
     }
 
     /**
-     * ROUNDUP
+     * ROUNDUP.
      *
      * Rounds a number up to a specified number of decimal places
      *
      * @param    float    $number            Number to round
      * @param    int        $digits            Number of digits to which you want to round $number
+     *
      * @return    float    Rounded Number
      */
     public static function ROUNDUP($number, $digits)
@@ -957,21 +995,22 @@ class MathTrig
             $significance = pow(10, (int) $digits);
             if ($number < 0.0) {
                 return floor($number * $significance) / $significance;
-            } else {
-                return ceil($number * $significance) / $significance;
             }
+
+            return ceil($number * $significance) / $significance;
         }
 
         return Functions::VALUE();
     }
 
     /**
-     * ROUNDDOWN
+     * ROUNDDOWN.
      *
      * Rounds a number down to a specified number of decimal places
      *
      * @param    float    $number            Number to round
      * @param    int        $digits            Number of digits to which you want to round $number
+     *
      * @return    float    Rounded Number
      */
     public static function ROUNDDOWN($number, $digits)
@@ -983,16 +1022,16 @@ class MathTrig
             $significance = pow(10, (int) $digits);
             if ($number < 0.0) {
                 return ceil($number * $significance) / $significance;
-            } else {
-                return floor($number * $significance) / $significance;
             }
+
+            return floor($number * $significance) / $significance;
         }
 
         return Functions::VALUE();
     }
 
     /**
-     * SERIESSUM
+     * SERIESSUM.
      *
      * Returns the sum of a power series
      *
@@ -1000,6 +1039,7 @@ class MathTrig
      * @param    float            $n    Initial power to which you want to raise $x
      * @param    float            $m    Step by which to increase $n for each term in the series
      * @param    array of mixed        Data Series
+     *
      * @return    float
      */
     public static function SERIESSUM()
@@ -1032,12 +1072,13 @@ class MathTrig
     }
 
     /**
-     * SIGN
+     * SIGN.
      *
      * Determines the sign of a number. Returns 1 if the number is positive, zero (0)
      *        if the number is 0, and -1 if the number is negative.
      *
      * @param    float    $number            Number to round
+     *
      * @return    int        sign value
      */
     public static function SIGN($number)
@@ -1059,11 +1100,12 @@ class MathTrig
     }
 
     /**
-     * SQRTPI
+     * SQRTPI.
      *
      * Returns the square root of (number * pi).
      *
      * @param    float    $number        Number
+     *
      * @return    float    Square Root of Number * Pi
      */
     public static function SQRTPI($number)
@@ -1082,13 +1124,14 @@ class MathTrig
     }
 
     /**
-     * SUBTOTAL
+     * SUBTOTAL.
      *
      * Returns a subtotal in a list or database.
      *
      * @param    int        the number 1 to 11 that specifies which function to
-     *                    use in calculating subtotals within a list.
+     *                    use in calculating subtotals within a list
      * @param    array of mixed        Data Series
+     *
      * @return    float
      */
     public static function SUBTOTAL()
@@ -1129,7 +1172,7 @@ class MathTrig
     }
 
     /**
-     * SUM
+     * SUM.
      *
      * SUM computes the sum of all the values and cells referenced in the argument list.
      *
@@ -1137,7 +1180,9 @@ class MathTrig
      *        SUM(value1[,value2[, ...]])
      *
      * @category Mathematical and Trigonometric Functions
+     *
      * @param    mixed        $arg,...        Data values
+     *
      * @return    float
      */
     public static function SUM()
@@ -1156,7 +1201,7 @@ class MathTrig
     }
 
     /**
-     * SUMIF
+     * SUMIF.
      *
      * Counts the number of cells that contain numbers within the list of arguments
      *
@@ -1164,8 +1209,12 @@ class MathTrig
      *        SUMIF(value1[,value2[, ...]],condition)
      *
      * @category Mathematical and Trigonometric Functions
+     *
      * @param    mixed        $arg,...        Data values
-     * @param    string        $condition        The criteria that defines which cells will be summed.
+     * @param    string        $condition        the criteria that defines which cells will be summed
+     * @param mixed $aArgs
+     * @param mixed $sumArgs
+     *
      * @return    float
      */
     public static function SUMIF($aArgs, $condition, $sumArgs = [])
@@ -1196,7 +1245,7 @@ class MathTrig
     }
 
     /**
-     *    SUMIFS
+     *    SUMIFS.
      *
      *    Counts the number of cells that contain numbers within the list of arguments
      *
@@ -1204,8 +1253,10 @@ class MathTrig
      *        SUMIFS(value1[,value2[, ...]],condition)
      *
      *    @category Mathematical and Trigonometric Functions
+     *
      *    @param    mixed        $arg,...        Data values
-     *    @param    string        $condition        The criteria that defines which cells will be summed.
+     *    @param    string        $condition        the criteria that defines which cells will be summed
+     *
      *    @return    float
      */
     public static function SUMIFS()
@@ -1244,13 +1295,15 @@ class MathTrig
     }
 
     /**
-     * SUMPRODUCT
+     * SUMPRODUCT.
      *
      * Excel Function:
      *        SUMPRODUCT(value1[,value2[, ...]])
      *
      * @category Mathematical and Trigonometric Functions
+     *
      * @param    mixed        $arg,...        Data values
+     *
      * @return    float
      */
     public static function SUMPRODUCT()
@@ -1285,7 +1338,7 @@ class MathTrig
     }
 
     /**
-     * SUMSQ
+     * SUMSQ.
      *
      * SUMSQ returns the sum of the squares of the arguments
      *
@@ -1293,7 +1346,9 @@ class MathTrig
      *        SUMSQ(value1[,value2[, ...]])
      *
      * @category Mathematical and Trigonometric Functions
+     *
      * @param    mixed        $arg,...        Data values
+     *
      * @return    float
      */
     public static function SUMSQ()
@@ -1312,10 +1367,11 @@ class MathTrig
     }
 
     /**
-     * SUMX2MY2
+     * SUMX2MY2.
      *
      * @param    mixed[]    $matrixData1    Matrix #1
      * @param    mixed[]    $matrixData2    Matrix #2
+     *
      * @return    float
      */
     public static function SUMX2MY2($matrixData1, $matrixData2)
@@ -1336,10 +1392,11 @@ class MathTrig
     }
 
     /**
-     * SUMX2PY2
+     * SUMX2PY2.
      *
      * @param    mixed[]    $matrixData1    Matrix #1
      * @param    mixed[]    $matrixData2    Matrix #2
+     *
      * @return    float
      */
     public static function SUMX2PY2($matrixData1, $matrixData2)
@@ -1360,10 +1417,11 @@ class MathTrig
     }
 
     /**
-     * SUMXMY2
+     * SUMXMY2.
      *
      * @param    mixed[]    $matrixData1    Matrix #1
      * @param    mixed[]    $matrixData2    Matrix #2
+     *
      * @return    float
      */
     public static function SUMXMY2($matrixData1, $matrixData2)
@@ -1384,12 +1442,13 @@ class MathTrig
     }
 
     /**
-     * TRUNC
+     * TRUNC.
      *
      * Truncates value to the number of fractional digits by number_digits.
      *
      * @param    float        $value
      * @param    int            $digits
+     *
      * @return    float        Truncated value
      */
     public static function TRUNC($value = 0, $digits = 0)
@@ -1406,10 +1465,10 @@ class MathTrig
         // Truncate
         $adjust = pow(10, $digits);
 
-        if (($digits > 0) && (rtrim(intval((abs($value) - abs(intval($value))) * $adjust), '0') < $adjust / 10)) {
+        if (($digits > 0) && (rtrim((int) ((abs($value) - abs((int) $value)) * $adjust), '0') < $adjust / 10)) {
             return $value;
         }
 
-        return (intval($value * $adjust)) / $adjust;
+        return ((int) ($value * $adjust)) / $adjust;
     }
 }

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -35,17 +36,17 @@ class File
     protected static $useUploadTempDirectory = false;
 
     /**
-     * Set the flag indicating whether the File Upload Temp directory should be used for temporary files
+     * Set the flag indicating whether the File Upload Temp directory should be used for temporary files.
      *
      * @param     bool    $useUploadTempDir        Use File Upload Temporary directory (true or false)
      */
     public static function setUseUploadTempDirectory($useUploadTempDir = false)
     {
-        self::$useUploadTempDirectory = (boolean) $useUploadTempDir;
+        self::$useUploadTempDirectory = (bool) $useUploadTempDir;
     }
 
     /**
-     * Get the flag indicating whether the File Upload Temp directory should be used for temporary files
+     * Get the flag indicating whether the File Upload Temp directory should be used for temporary files.
      *
      * @return     bool    Use File Upload Temporary directory (true or false)
      */
@@ -55,9 +56,10 @@ class File
     }
 
     /**
-     * Verify if a file exists
+     * Verify if a file exists.
      *
      * @param     string    $pFilename    Filename
+     *
      * @return bool
      */
     public static function fileExists($pFilename)
@@ -77,19 +79,19 @@ class File
                 $zip->close();
 
                 return $returnValue;
-            } else {
-                return false;
             }
-        } else {
+
+            return false;
+        }
             // Regular file_exists
             return file_exists($pFilename);
-        }
     }
 
     /**
-     * Returns canonicalized absolute pathname, also for ZIP archives
+     * Returns canonicalized absolute pathname, also for ZIP archives.
      *
      * @param string $pFilename
+     *
      * @return string
      */
     public static function realpath($pFilename)
@@ -108,8 +110,8 @@ class File
             while (in_array('..', $pathArray) && $pathArray[0] != '..') {
                 for ($i = 0; $i < count($pathArray); ++$i) {
                     if ($pathArray[$i] == '..' && $i > 0) {
-                        unset($pathArray[$i]);
-                        unset($pathArray[$i - 1]);
+                        unset($pathArray[$i], $pathArray[$i - 1]);
+
                         break;
                     }
                 }
@@ -178,8 +180,10 @@ class File
     }
 
     /**
-     * Assert that given path is an existing file and is readable, otherwise throw exception
+     * Assert that given path is an existing file and is readable, otherwise throw exception.
+     *
      * @param string $filename
+     *
      * @throws \InvalidArgumentException
      */
     public static function assertFile($filename)

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,17 +20,20 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class ContentTypes extends WriterPart
 {
     /**
-     * Write content types to XML format
+     * Write content types to XML format.
      *
      * @param     \PhpOffice\PhpSpreadsheet\Spreadsheet    $spreadsheet
      * @param    bool        $includeCharts    Flag indicating if we should include drawing details for charts
+     *
      * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      * @return string                  XML Output
      */
     public function writeContentTypes(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet = null, $includeCharts = false)
@@ -180,10 +183,12 @@ class ContentTypes extends WriterPart
     }
 
     /**
-     * Get image mime type
+     * Get image mime type.
      *
      * @param     string    $pFile    Filename
+     *
      * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      * @return     string    Mime Type
      */
     private function getImageMimeType($pFile = '')
@@ -192,17 +197,17 @@ class ContentTypes extends WriterPart
             $image = getimagesize($pFile);
 
             return image_type_to_mime_type($image[2]);
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("File $pFile does not exist");
         }
+        throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("File $pFile does not exist");
     }
 
     /**
-     * Write Default content type
+     * Write Default content type.
      *
      * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter     $objWriter         XML Writer
      * @param     string                         $pPartname         Part name
      * @param     string                         $pContentType     Content type
+     *
      * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeDefaultContentType(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pPartname = '', $pContentType = '')
@@ -219,11 +224,12 @@ class ContentTypes extends WriterPart
     }
 
     /**
-     * Write Override content type
+     * Write Override content type.
      *
      * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter     $objWriter         XML Writer
      * @param     string                         $pPartname         Part name
      * @param     string                         $pContentType     Content type
+     *
      * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeOverrideContentType(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pPartname = '', $pContentType = '')

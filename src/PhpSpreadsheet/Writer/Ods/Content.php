@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
 /**
- * PhpSpreadsheet
+ * PhpSpreadsheet.
  *
  * Copyright (c) 2006 - 2015 PhpSpreadsheet
  *
@@ -22,12 +22,14 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 
 /**
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @author     Alexander Pervakov <frost-nzcr4@jagmort.com>
  */
@@ -37,10 +39,12 @@ class Content extends WriterPart
     const NUMBER_ROWS_REPEATED_MAX = 1048576;
 
     /**
-     * Write content.xml to XML format
+     * Write content.xml to XML format.
      *
      * @param   \PhpOffice\PhpSpreadsheet\Spreadsheet                   $spreadsheet
+     *
      * @throws  \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      * @return  string                     XML Output
      */
     public function write(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
@@ -112,7 +116,7 @@ class Content extends WriterPart
     }
 
     /**
-     * Write sheets
+     * Write sheets.
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter
      */
@@ -134,7 +138,7 @@ class Content extends WriterPart
     }
 
     /**
-     * Write rows of the specified sheet
+     * Write rows of the specified sheet.
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter
      * @param \PhpOffice\PhpSpreadsheet\Worksheet $sheet
@@ -170,10 +174,11 @@ class Content extends WriterPart
     }
 
     /**
-     * Write cells of the specified row
+     * Write cells of the specified row.
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter
      * @param \PhpOffice\PhpSpreadsheet\Worksheet\Row $row
+     *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeCells(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Worksheet\Row $row)
@@ -194,11 +199,9 @@ class Content extends WriterPart
                     $objWriter->writeAttribute('office:value', $cell->getValue());
                     $objWriter->writeElement('text:p', $cell->getValue());
                     break;
-
                 case \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_ERROR:
                     throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Writing of error not implemented yet.');
                     break;
-
                 case \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_FORMULA:
                     try {
                         $formula_value = $cell->getCalculatedValue();
@@ -214,17 +217,14 @@ class Content extends WriterPart
                     $objWriter->writeAttribute('office:value', $formula_value);
                     $objWriter->writeElement('text:p', $formula_value);
                     break;
-
                 case \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_INLINE:
                     throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Writing of inline not implemented yet.');
                     break;
-
                 case \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC:
                     $objWriter->writeAttribute('office:value-type', 'float');
                     $objWriter->writeAttribute('office:value', $cell->getValue());
                     $objWriter->writeElement('text:p', $cell->getValue());
                     break;
-
                 case \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING:
                     $objWriter->writeAttribute('office:value-type', 'string');
                     $objWriter->writeElement('text:p', $cell->getValue());
@@ -248,7 +248,7 @@ class Content extends WriterPart
     }
 
     /**
-     * Write span
+     * Write span.
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter
      * @param int $curColumn

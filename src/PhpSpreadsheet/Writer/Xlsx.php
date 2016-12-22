@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
- * Copyright (c) 2006 - 2015 PhpSpreadsheet
+ * Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,90 +22,91 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class Xlsx extends BaseWriter implements IWriter
 {
     /**
-     * Office2003 compatibility
+     * Office2003 compatibility.
      *
      * @var bool
      */
     private $office2003compatibility = false;
 
     /**
-     * Private writer parts
+     * Private writer parts.
      *
      * @var Xlsx\WriterPart[]
      */
     private $writerParts = [];
 
     /**
-     * Private Spreadsheet
+     * Private Spreadsheet.
      *
      * @var \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     private $spreadSheet;
 
     /**
-     * Private string table
+     * Private string table.
      *
      * @var string[]
      */
     private $stringTable = [];
 
     /**
-     * Private unique \PhpOffice\PhpSpreadsheet\Style\Conditional HashTable
+     * Private unique \PhpOffice\PhpSpreadsheet\Style\Conditional HashTable.
      *
      * @var \PhpOffice\PhpSpreadsheet\HashTable
      */
     private $stylesConditionalHashTable;
 
     /**
-     * Private unique \PhpOffice\PhpSpreadsheet\Style HashTable
+     * Private unique \PhpOffice\PhpSpreadsheet\Style HashTable.
      *
      * @var \PhpOffice\PhpSpreadsheet\HashTable
      */
     private $styleHashTable;
 
     /**
-     * Private unique \PhpOffice\PhpSpreadsheet\Style\Fill HashTable
+     * Private unique \PhpOffice\PhpSpreadsheet\Style\Fill HashTable.
      *
      * @var \PhpOffice\PhpSpreadsheet\HashTable
      */
     private $fillHashTable;
 
     /**
-     * Private unique \PhpOffice\PhpSpreadsheet\Style\Font HashTable
+     * Private unique \PhpOffice\PhpSpreadsheet\Style\Font HashTable.
      *
      * @var \PhpOffice\PhpSpreadsheet\HashTable
      */
     private $fontHashTable;
 
     /**
-     * Private unique \PhpOffice\PhpSpreadsheet\Style\Borders HashTable
+     * Private unique \PhpOffice\PhpSpreadsheet\Style\Borders HashTable.
      *
      * @var \PhpOffice\PhpSpreadsheet\HashTable
      */
     private $bordersHashTable;
 
     /**
-     * Private unique \PhpOffice\PhpSpreadsheet\Style\NumberFormat HashTable
+     * Private unique \PhpOffice\PhpSpreadsheet\Style\NumberFormat HashTable.
      *
      * @var \PhpOffice\PhpSpreadsheet\HashTable
      */
     private $numFmtHashTable;
 
     /**
-     * Private unique \PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing HashTable
+     * Private unique \PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing HashTable.
      *
      * @var \PhpOffice\PhpSpreadsheet\HashTable
      */
     private $drawingHashTable;
 
     /**
-     * Create a new Xlsx Writer
+     * Create a new Xlsx Writer.
      *
      * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
      */
@@ -148,24 +149,26 @@ class Xlsx extends BaseWriter implements IWriter
     }
 
     /**
-     * Get writer part
+     * Get writer part.
      *
      * @param     string     $pPartName        Writer part name
+     *
      * @return     \PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart
      */
     public function getWriterPart($pPartName = '')
     {
         if ($pPartName != '' && isset($this->writerParts[strtolower($pPartName)])) {
             return $this->writerParts[strtolower($pPartName)];
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
-     * Save PhpSpreadsheet to file
+     * Save PhpSpreadsheet to file.
      *
      * @param     string         $pFilename
+     *
      * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function save($pFilename = null)
@@ -396,25 +399,25 @@ class Xlsx extends BaseWriter implements IWriter
     }
 
     /**
-     * Get Spreadsheet object
+     * Get Spreadsheet object.
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      * @return Spreadsheet
      */
     public function getSpreadsheet()
     {
         if ($this->spreadSheet !== null) {
             return $this->spreadSheet;
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('No Spreadsheet object assigned.');
         }
+        throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('No Spreadsheet object assigned.');
     }
 
     /**
-     * Set Spreadsheet object
+     * Set Spreadsheet object.
      *
      * @param     \PhpOffice\PhpSpreadsheet\Spreadsheet     $spreadsheet    PhpSpreadsheet object
-     * @throws    Exception
+     *
      * @return    Xlsx
      */
     public function setSpreadsheet(Spreadsheet $spreadsheet = null)
@@ -425,7 +428,7 @@ class Xlsx extends BaseWriter implements IWriter
     }
 
     /**
-     * Get string table
+     * Get string table.
      *
      * @return string[]
      */
@@ -435,7 +438,7 @@ class Xlsx extends BaseWriter implements IWriter
     }
 
     /**
-     * Get \PhpOffice\PhpSpreadsheet\Style HashTable
+     * Get \PhpOffice\PhpSpreadsheet\Style HashTable.
      *
      * @return \PhpOffice\PhpSpreadsheet\HashTable
      */
@@ -445,7 +448,7 @@ class Xlsx extends BaseWriter implements IWriter
     }
 
     /**
-     * Get \PhpOffice\PhpSpreadsheet\Style\Conditional HashTable
+     * Get \PhpOffice\PhpSpreadsheet\Style\Conditional HashTable.
      *
      * @return \PhpOffice\PhpSpreadsheet\HashTable
      */
@@ -455,7 +458,7 @@ class Xlsx extends BaseWriter implements IWriter
     }
 
     /**
-     * Get \PhpOffice\PhpSpreadsheet\Style\Fill HashTable
+     * Get \PhpOffice\PhpSpreadsheet\Style\Fill HashTable.
      *
      * @return \PhpOffice\PhpSpreadsheet\HashTable
      */
@@ -465,7 +468,7 @@ class Xlsx extends BaseWriter implements IWriter
     }
 
     /**
-     * Get \PhpOffice\PhpSpreadsheet\Style\Font HashTable
+     * Get \PhpOffice\PhpSpreadsheet\Style\Font HashTable.
      *
      * @return \PhpOffice\PhpSpreadsheet\HashTable
      */
@@ -475,7 +478,7 @@ class Xlsx extends BaseWriter implements IWriter
     }
 
     /**
-     * Get \PhpOffice\PhpSpreadsheet\Style\Borders HashTable
+     * Get \PhpOffice\PhpSpreadsheet\Style\Borders HashTable.
      *
      * @return \PhpOffice\PhpSpreadsheet\HashTable
      */
@@ -485,7 +488,7 @@ class Xlsx extends BaseWriter implements IWriter
     }
 
     /**
-     * Get \PhpOffice\PhpSpreadsheet\Style\NumberFormat HashTable
+     * Get \PhpOffice\PhpSpreadsheet\Style\NumberFormat HashTable.
      *
      * @return \PhpOffice\PhpSpreadsheet\HashTable
      */
@@ -495,7 +498,7 @@ class Xlsx extends BaseWriter implements IWriter
     }
 
     /**
-     * Get \PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing HashTable
+     * Get \PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing HashTable.
      *
      * @return \PhpOffice\PhpSpreadsheet\HashTable
      */
@@ -505,7 +508,7 @@ class Xlsx extends BaseWriter implements IWriter
     }
 
     /**
-     * Get Office2003 compatibility
+     * Get Office2003 compatibility.
      *
      * @return bool
      */
@@ -515,9 +518,10 @@ class Xlsx extends BaseWriter implements IWriter
     }
 
     /**
-     * Set Office2003 compatibility
+     * Set Office2003 compatibility.
      *
      * @param bool $pValue    Office2003 compatibility?
+     *
      * @return Xlsx
      */
     public function setOffice2003Compatibility($pValue = false)

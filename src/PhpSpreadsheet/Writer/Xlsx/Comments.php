@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,16 +20,19 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class Comments extends WriterPart
 {
     /**
-     * Write comments to XML format
+     * Write comments to XML format.
      *
      * @param     \PhpOffice\PhpSpreadsheet\Worksheet                $pWorksheet
+     *
      * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      * @return string                          XML Output
      */
     public function writeComments(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet = null)
@@ -82,12 +85,13 @@ class Comments extends WriterPart
     }
 
     /**
-     * Write comment to XML format
+     * Write comment to XML format.
      *
      * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter        $objWriter             XML Writer
      * @param    string                            $pCellReference        Cell reference
      * @param     \PhpOffice\PhpSpreadsheet\Comment                $pComment            Comment
      * @param    array                            $pAuthors            Array of authors
+     *
      * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeComment(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pCellReference = 'A1', \PhpOffice\PhpSpreadsheet\Comment $pComment = null, $pAuthors = null)
@@ -106,10 +110,12 @@ class Comments extends WriterPart
     }
 
     /**
-     * Write VML comments to XML format
+     * Write VML comments to XML format.
      *
      * @param \PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet
+     *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      * @return string XML Output
      */
     public function writeVMLComments(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet = null)
@@ -178,11 +184,12 @@ class Comments extends WriterPart
     }
 
     /**
-     * Write VML comment to XML format
+     * Write VML comment to XML format.
      *
      * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter        $objWriter             XML Writer
      * @param    string                            $pCellReference        Cell reference
      * @param     \PhpOffice\PhpSpreadsheet\Comment                $pComment            Comment
+     *
      * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeVMLComment(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pCellReference = 'A1', \PhpOffice\PhpSpreadsheet\Comment $pComment = null)

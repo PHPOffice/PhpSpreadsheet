@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -34,9 +35,10 @@ class TimeZone
     protected static $timezone = 'UTC';
 
     /**
-     * Validate a Timezone name
+     * Validate a Timezone name.
      *
      * @param     string        $timezone            Time zone (e.g. 'Europe/London')
+     *
      * @return     bool                        Success or failure
      */
     private static function validateTimeZone($timezone)
@@ -49,9 +51,10 @@ class TimeZone
     }
 
     /**
-     * Set the Default Timezone used for date/time conversions
+     * Set the Default Timezone used for date/time conversions.
      *
      * @param     string        $timezone            Time zone (e.g. 'Europe/London')
+     *
      * @return     bool                        Success or failure
      */
     public static function setTimeZone($timezone)
@@ -66,7 +69,7 @@ class TimeZone
     }
 
     /**
-     * Return the Default Timezone used for date/time conversions
+     * Return the Default Timezone used for date/time conversions.
      *
      * @return     string        Timezone (e.g. 'Europe/London')
      */
@@ -77,11 +80,13 @@ class TimeZone
 
     /**
      *    Return the Timezone offset used for date/time conversions to/from UST
-     *    This requires both the timezone and the calculated date/time to allow for local DST
+     *    This requires both the timezone and the calculated date/time to allow for local DST.
      *
      *    @param    string             $timezone         The timezone for finding the adjustment to UST
      *    @param    int            $timestamp        PHP date/time value
+     *
      *    @throws   \PhpOffice\PhpSpreadsheet\Exception
+     *
      *    @return   int            Number of seconds for timezone adjustment
      */
     public static function getTimeZoneAdjustment($timezone, $timestamp)

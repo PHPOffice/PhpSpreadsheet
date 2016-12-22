@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\PDF;
 
 /**
- *  Copyright (c) 2006 - 2015 PhpSpreadsheet
+ *  Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -20,13 +20,14 @@ namespace PhpOffice\PhpSpreadsheet\Writer\PDF;
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  *  @category    PhpSpreadsheet
+ *
  *  @copyright   Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  *  @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class TcPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
 {
     /**
-     *  Create a new tcPDF Writer instance
+     *  Create a new tcPDF Writer instance.
      *
      *  @param  \PhpOffice\PhpSpreadsheet\Spreadsheet  $spreadsheet  Spreadsheet object
      */
@@ -45,9 +46,10 @@ class TcPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
     }
 
     /**
-     *  Save Spreadsheet to file
+     *  Save Spreadsheet to file.
      *
      *  @param     string     $pFilename   Name of the file to save as
+     *
      *  @throws    \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function save($pFilename = null)

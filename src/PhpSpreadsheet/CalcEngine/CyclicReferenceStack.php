@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\CalcEngine;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,20 +20,21 @@ namespace PhpOffice\PhpSpreadsheet\CalcEngine;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class CyclicReferenceStack
 {
     /**
-     *  The call stack for calculated cells
+     *  The call stack for calculated cells.
      *
      *  @var mixed[]
      */
     private $stack = [];
 
     /**
-     * Return the number of entries on the stack
+     * Return the number of entries on the stack.
      *
      * @return  int
      */
@@ -43,7 +44,7 @@ class CyclicReferenceStack
     }
 
     /**
-     * Push a new entry onto the stack
+     * Push a new entry onto the stack.
      *
      * @param  mixed  $value
      */
@@ -53,7 +54,7 @@ class CyclicReferenceStack
     }
 
     /**
-     * Pop the last entry from the stack
+     * Pop the last entry from the stack.
      *
      * @return  mixed
      */
@@ -63,7 +64,7 @@ class CyclicReferenceStack
     }
 
     /**
-     * Test to see if a specified entry exists on the stack
+     * Test to see if a specified entry exists on the stack.
      *
      * @param  mixed  $value  The value to test
      */
@@ -73,7 +74,7 @@ class CyclicReferenceStack
     }
 
     /**
-     * Clear the stack
+     * Clear the stack.
      */
     public function clear()
     {
@@ -81,7 +82,7 @@ class CyclicReferenceStack
     }
 
     /**
-     * Return an array of all entries on the stack
+     * Return an array of all entries on the stack.
      *
      * @return  mixed[]
      */

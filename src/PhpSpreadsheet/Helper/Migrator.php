@@ -5,7 +5,8 @@ namespace PhpOffice\PhpSpreadsheet\Helper;
 class Migrator
 {
     /**
-     * Return the ordered mapping from old PHPExcel class names to new PhpSpreadsheet one
+     * Return the ordered mapping from old PHPExcel class names to new PhpSpreadsheet one.
+     *
      * @return string[]
      */
     public function getMapping()
@@ -231,7 +232,8 @@ class Migrator
     }
 
     /**
-     * Search in all files in given directory
+     * Search in all files in given directory.
+     *
      * @param string $path
      */
     private function recursiveReplace($path)

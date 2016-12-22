@@ -62,7 +62,9 @@ class Complex
 
         //    Return real and imaginary parts and suffix as an array, and set a default suffix if user input lazily
         return [$complexParts[1], $complexParts[4], !empty($complexParts[9]) ? $complexParts[9] : 'i'];
-    }    //    function _parseComplex()
+    }
+
+    //    function _parseComplex()
 
     public function __construct($realPart, $imaginaryPart = null, $suffix = 'i')
     {

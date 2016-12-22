@@ -15,7 +15,7 @@ define('MAX_ITERATIONS', 256);
 define('PRECISION', 8.88E-016);
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -32,6 +32,7 @@ define('PRECISION', 8.88E-016);
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category    PhpSpreadsheet
+ *
  * @copyright   Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -47,21 +48,21 @@ class Functions
     const RETURNDATE_EXCEL = 'E';
 
     /**
-     * Compatibility mode to use for error checking and responses
+     * Compatibility mode to use for error checking and responses.
      *
      * @var string
      */
     protected static $compatibilityMode = self::COMPATIBILITY_EXCEL;
 
     /**
-     * Data Type to use when returning date values
+     * Data Type to use when returning date values.
      *
      * @var string
      */
     protected static $returnDateType = self::RETURNDATE_EXCEL;
 
     /**
-     * List of error codes
+     * List of error codes.
      *
      * @var array
      */
@@ -77,14 +78,16 @@ class Functions
     ];
 
     /**
-     * Set the Compatibility Mode
+     * Set the Compatibility Mode.
      *
      * @category Function Configuration
+     *
      * @param     string $compatibilityMode Compatibility Mode
      *                                                Permitted values are:
      *                                                    Functions::COMPATIBILITY_EXCEL            'Excel'
      *                                                    Functions::COMPATIBILITY_GNUMERIC        'Gnumeric'
      *                                                    Functions::COMPATIBILITY_OPENOFFICE    'OpenOfficeCalc'
+     *
      * @return     bool    (Success or Failure)
      */
     public static function setCompatibilityMode($compatibilityMode)
@@ -102,9 +105,10 @@ class Functions
     }
 
     /**
-     * Return the current Compatibility Mode
+     * Return the current Compatibility Mode.
      *
      * @category Function Configuration
+     *
      * @return     string        Compatibility Mode
      *                            Possible Return values are:
      *                                Functions::COMPATIBILITY_EXCEL            'Excel'
@@ -117,14 +121,16 @@ class Functions
     }
 
     /**
-     * Set the Return Date Format used by functions that return a date/time (Excel, PHP Serialized Numeric or PHP Object)
+     * Set the Return Date Format used by functions that return a date/time (Excel, PHP Serialized Numeric or PHP Object).
      *
      * @category Function Configuration
+     *
      * @param     string $returnDateType Return Date Format
      *                                                Permitted values are:
      *                                                    Functions::RETURNDATE_PHP_NUMERIC        'P'
      *                                                    Functions::RETURNDATE_PHP_OBJECT        'O'
      *                                                    Functions::RETURNDATE_EXCEL            'E'
+     *
      * @return     bool                            Success or failure
      */
     public static function setReturnDateType($returnDateType)
@@ -142,9 +148,10 @@ class Functions
     }
 
     /**
-     * Return the current Return Date Format for functions that return a date/time (Excel, PHP Serialized Numeric or PHP Object)
+     * Return the current Return Date Format for functions that return a date/time (Excel, PHP Serialized Numeric or PHP Object).
      *
      * @category Function Configuration
+     *
      * @return     string        Return Date Format
      *                            Possible Return values are:
      *                                Functions::RETURNDATE_PHP_NUMERIC        'P'
@@ -157,9 +164,10 @@ class Functions
     }
 
     /**
-     * DUMMY
+     * DUMMY.
      *
      * @category Error Returns
+     *
      * @return    string    #Not Yet Implemented
      */
     public static function DUMMY()
@@ -168,9 +176,10 @@ class Functions
     }
 
     /**
-     * DIV0
+     * DIV0.
      *
      * @category Error Returns
+     *
      * @return    string    #Not Yet Implemented
      */
     public static function DIV0()
@@ -179,7 +188,7 @@ class Functions
     }
 
     /**
-     * NA
+     * NA.
      *
      * Excel Function:
      *        =NA()
@@ -188,6 +197,7 @@ class Functions
      *        #N/A is the error value that means "no value is available."
      *
      * @category Logical Functions
+     *
      * @return    string    #N/A!
      */
     public static function NA()
@@ -196,11 +206,12 @@ class Functions
     }
 
     /**
-     * NaN
+     * NaN.
      *
      * Returns the error value #NUM!
      *
      * @category Error Returns
+     *
      * @return    string    #NUM!
      */
     public static function NAN()
@@ -209,11 +220,12 @@ class Functions
     }
 
     /**
-     * NAME
+     * NAME.
      *
      * Returns the error value #NAME?
      *
      * @category Error Returns
+     *
      * @return    string    #NAME?
      */
     public static function NAME()
@@ -222,11 +234,12 @@ class Functions
     }
 
     /**
-     * REF
+     * REF.
      *
      * Returns the error value #REF!
      *
      * @category Error Returns
+     *
      * @return    string    #REF!
      */
     public static function REF()
@@ -235,11 +248,12 @@ class Functions
     }
 
     /**
-     * NULL
+     * NULL.
      *
      * Returns the error value #NULL!
      *
      * @category Error Returns
+     *
      * @return    string    #NULL!
      */
     public static function null()
@@ -248,11 +262,12 @@ class Functions
     }
 
     /**
-     * VALUE
+     * VALUE.
      *
      * Returns the error value #VALUE!
      *
      * @category Error Returns
+     *
      * @return    string    #VALUE!
      */
     public static function VALUE()
@@ -278,32 +293,32 @@ class Functions
     public static function ifCondition($condition)
     {
         $condition = self::flattenSingleValue($condition);
-        if (!isset($condition{0})) {
+        if (!isset($condition[0])) {
             $condition = '=""';
         }
-        if (!in_array($condition{0}, ['>', '<', '='])) {
+        if (!in_array($condition[0], ['>', '<', '='])) {
             if (!is_numeric($condition)) {
                 $condition = \PhpOffice\PhpSpreadsheet\Calculation::wrapResult(strtoupper($condition));
             }
 
             return '=' . $condition;
-        } else {
-            preg_match('/([<>=]+)(.*)/', $condition, $matches);
-            list(, $operator, $operand) = $matches;
-
-            if (!is_numeric($operand)) {
-                $operand = str_replace('"', '""', $operand);
-                $operand = \PhpOffice\PhpSpreadsheet\Calculation::wrapResult(strtoupper($operand));
-            }
-
-            return $operator . $operand;
         }
+        preg_match('/([<>=]+)(.*)/', $condition, $matches);
+        list(, $operator, $operand) = $matches;
+
+        if (!is_numeric($operand)) {
+            $operand = str_replace('"', '""', $operand);
+            $operand = \PhpOffice\PhpSpreadsheet\Calculation::wrapResult(strtoupper($operand));
+        }
+
+        return $operator . $operand;
     }
 
     /**
-     * ERROR_TYPE
+     * ERROR_TYPE.
      *
      * @param    mixed $value Value to check
+     *
      * @return    bool
      */
     public static function errorType($value = '')
@@ -322,9 +337,10 @@ class Functions
     }
 
     /**
-     * IS_BLANK
+     * IS_BLANK.
      *
      * @param    mixed $value Value to check
+     *
      * @return    bool
      */
     public static function isBlank($value = null)
@@ -337,9 +353,10 @@ class Functions
     }
 
     /**
-     * IS_ERR
+     * IS_ERR.
      *
      * @param    mixed $value Value to check
+     *
      * @return    bool
      */
     public static function isErr($value = '')
@@ -350,9 +367,10 @@ class Functions
     }
 
     /**
-     * IS_ERROR
+     * IS_ERROR.
      *
      * @param    mixed $value Value to check
+     *
      * @return    bool
      */
     public static function isError($value = '')
@@ -367,9 +385,10 @@ class Functions
     }
 
     /**
-     * IS_NA
+     * IS_NA.
      *
      * @param    mixed $value Value to check
+     *
      * @return    bool
      */
     public static function isNa($value = '')
@@ -380,9 +399,10 @@ class Functions
     }
 
     /**
-     * IS_EVEN
+     * IS_EVEN.
      *
      * @param    mixed $value Value to check
+     *
      * @return    string|bool
      */
     public static function isEven($value = null)
@@ -399,9 +419,10 @@ class Functions
     }
 
     /**
-     * IS_ODD
+     * IS_ODD.
      *
      * @param    mixed $value Value to check
+     *
      * @return    string|bool
      */
     public static function isOdd($value = null)
@@ -418,9 +439,10 @@ class Functions
     }
 
     /**
-     * IS_NUMBER
+     * IS_NUMBER.
      *
      * @param    mixed $value Value to check
+     *
      * @return    bool
      */
     public static function isNumber($value = null)
@@ -435,9 +457,10 @@ class Functions
     }
 
     /**
-     * IS_LOGICAL
+     * IS_LOGICAL.
      *
      * @param    mixed $value Value to check
+     *
      * @return    bool
      */
     public static function isLogical($value = null)
@@ -448,9 +471,10 @@ class Functions
     }
 
     /**
-     * IS_TEXT
+     * IS_TEXT.
      *
      * @param    mixed $value Value to check
+     *
      * @return    bool
      */
     public static function isText($value = null)
@@ -461,9 +485,10 @@ class Functions
     }
 
     /**
-     * IS_NONTEXT
+     * IS_NONTEXT.
      *
      * @param    mixed $value Value to check
+     *
      * @return    bool
      */
     public static function isNonText($value = null)
@@ -472,11 +497,13 @@ class Functions
     }
 
     /**
-     * N
+     * N.
      *
      * Returns a value converted to a number
      *
      * @param    value        The value you want converted
+     * @param null|mixed $value
+     *
      * @return    number        N converts values listed in the following table
      *        If value is or refers to N returns
      *        A number            That number
@@ -498,10 +525,10 @@ class Functions
             case 'integer':
                 return $value;
             case 'boolean':
-                return (integer) $value;
+                return (int) $value;
             case 'string':
                 //    Errors
-                if ((strlen($value) > 0) && ($value{0} == '#')) {
+                if ((strlen($value) > 0) && ($value[0] == '#')) {
                     return $value;
                 }
                 break;
@@ -511,11 +538,13 @@ class Functions
     }
 
     /**
-     * TYPE
+     * TYPE.
      *
      * Returns a number that identifies the type of a value
      *
      * @param    value        The value you want tested
+     * @param null|mixed $value
+     *
      * @return    number        N converts values listed in the following table
      *        If value is or refers to N returns
      *        A number            1
@@ -551,7 +580,7 @@ class Functions
             return 64;
         } elseif (is_string($value)) {
             //    Errors
-            if ((strlen($value) > 0) && ($value{0} == '#')) {
+            if ((strlen($value) > 0) && ($value[0] == '#')) {
                 return 16;
             }
 
@@ -562,9 +591,10 @@ class Functions
     }
 
     /**
-     * Convert a multi-dimensional array to a simple 1-dimensional array
+     * Convert a multi-dimensional array to a simple 1-dimensional array.
      *
      * @param    array $array Array to be flattened
+     *
      * @return    array    Flattened array
      */
     public static function flattenArray($array)
@@ -594,9 +624,10 @@ class Functions
     }
 
     /**
-     * Convert a multi-dimensional array to a simple 1-dimensional array, but retain an element of indexing
+     * Convert a multi-dimensional array to a simple 1-dimensional array, but retain an element of indexing.
      *
      * @param    array $array Array to be flattened
+     *
      * @return    array    Flattened array
      */
     public static function flattenArrayIndexed($array)
@@ -626,9 +657,10 @@ class Functions
     }
 
     /**
-     * Convert an array to a single scalar value by extracting the first element
+     * Convert an array to a single scalar value by extracting the first element.
      *
      * @param    mixed $value Array or scalar value
+     *
      * @return    mixed
      */
     public static function flattenSingleValue($value = '')

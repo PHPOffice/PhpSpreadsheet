@@ -65,7 +65,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     public function testGetCurrencyCode()
     {
         $localeconv = localeconv();
-        $expectedResult = (!empty($localeconv['currency_symbol']) ? $localeconv['currency_symbol'] : (!empty($localeconv['int_curr_symbol']) ? $localeconv['int_curr_symbol']: '$'));
+        $expectedResult = (!empty($localeconv['currency_symbol']) ? $localeconv['currency_symbol'] : (!empty($localeconv['int_curr_symbol']) ? $localeconv['int_curr_symbol'] : '$'));
         $result = StringHelper::getCurrencyCode();
         $this->assertEquals($expectedResult, $result);
     }

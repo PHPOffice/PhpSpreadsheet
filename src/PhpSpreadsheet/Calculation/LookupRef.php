@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,13 +20,14 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category    PhpSpreadsheet
+ *
  * @copyright   Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class LookupRef
 {
     /**
-     * CELL_ADDRESS
+     * CELL_ADDRESS.
      *
      * Creates a cell address as text, given specified row and column numbers.
      *
@@ -44,6 +45,12 @@ class LookupRef
      *                                TRUE or omitted        CELL_ADDRESS returns an A1-style reference
      *                                FALSE                CELL_ADDRESS returns an R1C1-style reference
      * @param    sheetText        Optional Name of worksheet to use
+     * @param mixed $row
+     * @param mixed $column
+     * @param mixed $relativity
+     * @param mixed $referenceStyle
+     * @param mixed $sheetText
+     *
      * @return    string
      */
     public static function cellAddress($row, $column, $relativity = 1, $referenceStyle = true, $sheetText = '')
@@ -74,20 +81,19 @@ class LookupRef
             }
 
             return $sheetText . $columnRelative . $column . $rowRelative . $row;
-        } else {
-            if (($relativity == 2) || ($relativity == 4)) {
-                $column = '[' . $column . ']';
-            }
-            if (($relativity == 3) || ($relativity == 4)) {
-                $row = '[' . $row . ']';
-            }
-
-            return $sheetText . 'R' . $row . 'C' . $column;
         }
+        if (($relativity == 2) || ($relativity == 4)) {
+            $column = '[' . $column . ']';
+        }
+        if (($relativity == 3) || ($relativity == 4)) {
+            $row = '[' . $row . ']';
+        }
+
+        return $sheetText . 'R' . $row . 'C' . $column;
     }
 
     /**
-     * COLUMN
+     * COLUMN.
      *
      * Returns the column number of the given cell reference
      * If the cell reference is a range of cells, COLUMN returns the column numbers of each column in the reference as a horizontal array.
@@ -98,6 +104,8 @@ class LookupRef
      *        =COLUMN([cellAddress])
      *
      * @param    cellAddress        A reference to a range of cells for which you want the column numbers
+     * @param null|mixed $cellAddress
+     *
      * @return    int or array of integer
      */
     public static function COLUMN($cellAddress = null)
@@ -110,7 +118,7 @@ class LookupRef
             foreach ($cellAddress as $columnKey => $value) {
                 $columnKey = preg_replace('/[^a-z]/i', '', $columnKey);
 
-                return (integer) \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($columnKey);
+                return (int) \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($columnKey);
             }
         } else {
             if (strpos($cellAddress, '!') !== false) {
@@ -122,20 +130,19 @@ class LookupRef
                 $endAddress = preg_replace('/[^a-z]/i', '', $endAddress);
                 $returnValue = [];
                 do {
-                    $returnValue[] = (integer) \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($startAddress);
+                    $returnValue[] = (int) \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($startAddress);
                 } while ($startAddress++ != $endAddress);
 
                 return $returnValue;
-            } else {
-                $cellAddress = preg_replace('/[^a-z]/i', '', $cellAddress);
-
-                return (integer) \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($cellAddress);
             }
+            $cellAddress = preg_replace('/[^a-z]/i', '', $cellAddress);
+
+            return (int) \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($cellAddress);
         }
     }
 
     /**
-     * COLUMNS
+     * COLUMNS.
      *
      * Returns the number of columns in an array or reference.
      *
@@ -143,6 +150,8 @@ class LookupRef
      *        =COLUMNS(cellAddress)
      *
      * @param    cellAddress        An array or array formula, or a reference to a range of cells for which you want the number of columns
+     * @param null|mixed $cellAddress
+     *
      * @return    int            The number of columns in cellAddress
      */
     public static function COLUMNS($cellAddress = null)
@@ -159,13 +168,13 @@ class LookupRef
 
         if ($isMatrix) {
             return $rows;
-        } else {
-            return $columns;
         }
+
+        return $columns;
     }
 
     /**
-     * ROW
+     * ROW.
      *
      * Returns the row number of the given cell reference
      * If the cell reference is a range of cells, ROW returns the row numbers of each row in the reference as a vertical array.
@@ -176,6 +185,8 @@ class LookupRef
      *        =ROW([cellAddress])
      *
      * @param    cellAddress        A reference to a range of cells for which you want the row numbers
+     * @param null|mixed $cellAddress
+     *
      * @return    int or array of integer
      */
     public static function ROW($cellAddress = null)
@@ -187,7 +198,7 @@ class LookupRef
         if (is_array($cellAddress)) {
             foreach ($cellAddress as $columnKey => $rowValue) {
                 foreach ($rowValue as $rowKey => $cellValue) {
-                    return (integer) preg_replace('/[^0-9]/i', '', $rowKey);
+                    return (int) preg_replace('/[^0-9]/i', '', $rowKey);
                 }
             }
         } else {
@@ -200,20 +211,19 @@ class LookupRef
                 $endAddress = preg_replace('/[^0-9]/', '', $endAddress);
                 $returnValue = [];
                 do {
-                    $returnValue[][] = (integer) $startAddress;
+                    $returnValue[][] = (int) $startAddress;
                 } while ($startAddress++ != $endAddress);
 
                 return $returnValue;
-            } else {
-                list($cellAddress) = explode(':', $cellAddress);
-
-                return (integer) preg_replace('/[^0-9]/', '', $cellAddress);
             }
+            list($cellAddress) = explode(':', $cellAddress);
+
+            return (int) preg_replace('/[^0-9]/', '', $cellAddress);
         }
     }
 
     /**
-     * ROWS
+     * ROWS.
      *
      * Returns the number of rows in an array or reference.
      *
@@ -221,6 +231,8 @@ class LookupRef
      *        =ROWS(cellAddress)
      *
      * @param    cellAddress        An array or array formula, or a reference to a range of cells for which you want the number of rows
+     * @param null|mixed $cellAddress
+     *
      * @return    int            The number of rows in cellAddress
      */
     public static function ROWS($cellAddress = null)
@@ -237,21 +249,23 @@ class LookupRef
 
         if ($isMatrix) {
             return $columns;
-        } else {
-            return $rows;
         }
+
+        return $rows;
     }
 
     /**
-     * HYPERLINK
+     * HYPERLINK.
      *
      * Excel Function:
      *        =HYPERLINK(linkURL,displayName)
      *
      * @category Logical Functions
+     *
      * @param    string            $linkURL        Value to check, is also the value returned when no error
      * @param    string            $displayName    Value to return when testValue is an error condition
      * @param    \PhpOffice\PhpSpreadsheet\Cell    $pCell            The cell to set the hyperlink in
+     *
      * @return   mixed    The value of $displayName (or $linkURL if $displayName was blank)
      */
     public static function HYPERLINK($linkURL = '', $displayName = null, \PhpOffice\PhpSpreadsheet\Cell $pCell = null)
@@ -277,7 +291,7 @@ class LookupRef
     }
 
     /**
-     * INDIRECT
+     * INDIRECT.
      *
      * Returns the reference specified by a text string.
      * References are immediately evaluated to display their contents.
@@ -289,6 +303,7 @@ class LookupRef
      *
      * @param    cellAddress        $cellAddress    The cell address of the current cell (containing this formula)
      * @param    \PhpOffice\PhpSpreadsheet\Cell    $pCell            The current cell (containing this formula)
+     *
      * @return   mixed            The cells referenced by cellAddress
      *
      * @todo    Support for the optional a1 parameter introduced in Excel 2010
@@ -335,7 +350,7 @@ class LookupRef
     }
 
     /**
-     * OFFSET
+     * OFFSET.
      *
      * Returns a reference to a range that is a specified number of rows and columns from a cell or range of cells.
      * The reference that is returned can be a single cell or a range of cells. You can specify the number of rows and
@@ -357,6 +372,12 @@ class LookupRef
      *                                starting reference).
      * @param    height            The height, in number of rows, that you want the returned reference to be. Height must be a positive number.
      * @param    width            The width, in number of columns, that you want the returned reference to be. Width must be a positive number.
+     * @param null|mixed $cellAddress
+     * @param mixed $rows
+     * @param mixed $columns
+     * @param null|mixed $height
+     * @param null|mixed $width
+     *
      * @return    string            A reference to a cell or range of cells
      */
     public static function OFFSET($cellAddress = null, $rows = 0, $columns = 0, $height = null, $width = null)
@@ -429,7 +450,7 @@ class LookupRef
     }
 
     /**
-     * CHOOSE
+     * CHOOSE.
      *
      * Uses lookup_value to return a value from the list of value arguments.
      * Use CHOOSE to select one of up to 254 values based on the lookup_value.
@@ -444,6 +465,7 @@ class LookupRef
      *                            Between 1 to 254 value arguments from which CHOOSE selects a value or an action to perform based on
      *                                index_num. The arguments can be numbers, cell references, defined names, formulas, functions, or
      *                                text.
+     *
      * @return    mixed            The selected value
      */
     public static function CHOOSE()
@@ -467,13 +489,13 @@ class LookupRef
 
         if (is_array($chooseArgs[$chosenEntry])) {
             return Functions::flattenArray($chooseArgs[$chosenEntry]);
-        } else {
-            return $chooseArgs[$chosenEntry];
         }
+
+        return $chooseArgs[$chosenEntry];
     }
 
     /**
-     * MATCH
+     * MATCH.
      *
      * The MATCH function searches for a specified item in a range of cells
      *
@@ -483,6 +505,10 @@ class LookupRef
      * @param    lookup_value    The value that you want to match in lookup_array
      * @param    lookup_array    The range of cells being searched
      * @param    match_type        The number -1, 0, or 1. -1 means above, 0 means exact match, 1 means below. If match_type is 1 or -1, the list has to be ordered.
+     * @param mixed $lookup_value
+     * @param mixed $lookup_array
+     * @param mixed $match_type
+     *
      * @return    int            The relative position of the found item
      */
     public static function MATCH($lookup_value, $lookup_array, $match_type = 1)
@@ -547,20 +573,18 @@ class LookupRef
                 if ($i < 1) {
                     // 1st cell was already smaller than the lookup_value
                     break;
-                } else {
+                }
                     // the previous cell was the match
                     return $keySet[$i - 1] + 1;
-                }
             } elseif (($match_type == 1) && ($lookupArrayValue >= $lookup_value)) {
                 $i = array_search($i, $keySet);
                 // if match_type is 1 <=> find the largest value that is less than or equal to lookup_value
                 if ($i < 1) {
                     // 1st cell was already bigger than the lookup_value
                     break;
-                } else {
+                }
                     // the previous cell was the match
                     return $keySet[$i - 1] + 1;
-                }
             }
         }
 
@@ -569,7 +593,7 @@ class LookupRef
     }
 
     /**
-     * INDEX
+     * INDEX.
      *
      * Uses an index to choose a value from a reference or array
      *
@@ -579,6 +603,10 @@ class LookupRef
      * @param    range_array        A range of cells or an array constant
      * @param    row_num            The row in array from which to return a value. If row_num is omitted, column_num is required.
      * @param    column_num        The column in array from which to return a value. If column_num is omitted, row_num is required.
+     * @param mixed $arrayValues
+     * @param mixed $rowNum
+     * @param mixed $columnNum
+     *
      * @return    mixed            the value of a specified cell or array of cells
      */
     public static function INDEX($arrayValues, $rowNum = 0, $columnNum = 0)
@@ -628,12 +656,13 @@ class LookupRef
     }
 
     /**
-     * TRANSPOSE
+     * TRANSPOSE.
      *
      * @param    array    $matrixData    A matrix of values
+     *
      * @return    array
      *
-     * Unlike the Excel TRANSPOSE function, which will only work on a single row or column, this function will transpose a full matrix.
+     * Unlike the Excel TRANSPOSE function, which will only work on a single row or column, this function will transpose a full matrix
      */
     public static function TRANSPOSE($matrixData)
     {
@@ -669,10 +698,16 @@ class LookupRef
     /**
      * VLOOKUP
      * The VLOOKUP function searches for value in the left-most column of lookup_array and returns the value in the same row based on the index_number.
+     *
      * @param    lookup_value    The value that you want to match in lookup_array
      * @param    lookup_array    The range of cells being searched
      * @param    index_number    The column number in table_array from which the matching value must be returned. The first column is 1.
-     * @param    not_exact_match    Determines if you are looking for an exact match based on lookup_value.
+     * @param    not_exact_match    determines if you are looking for an exact match based on lookup_value
+     * @param mixed $lookup_value
+     * @param mixed $lookup_array
+     * @param mixed $index_number
+     * @param mixed $not_exact_match
+     *
      * @return    mixed            The value of the found cell
      */
     public static function VLOOKUP($lookup_value, $lookup_array, $index_number, $not_exact_match = true)
@@ -689,17 +724,15 @@ class LookupRef
         // index_number must be less than or equal to the number of columns in lookup_array
         if ((!is_array($lookup_array)) || (empty($lookup_array))) {
             return Functions::REF();
-        } else {
-            $f = array_keys($lookup_array);
-            $firstRow = array_pop($f);
-            if ((!is_array($lookup_array[$firstRow])) || ($index_number > count($lookup_array[$firstRow]))) {
-                return Functions::REF();
-            } else {
-                $columnKeys = array_keys($lookup_array[$firstRow]);
-                $returnColumn = $columnKeys[--$index_number];
-                $firstColumn = array_shift($columnKeys);
-            }
         }
+        $f = array_keys($lookup_array);
+        $firstRow = array_pop($f);
+        if ((!is_array($lookup_array[$firstRow])) || ($index_number > count($lookup_array[$firstRow]))) {
+            return Functions::REF();
+        }
+        $columnKeys = array_keys($lookup_array[$firstRow]);
+        $returnColumn = $columnKeys[--$index_number];
+        $firstColumn = array_shift($columnKeys);
 
         if (!$not_exact_match) {
             uasort($lookup_array, ['self', 'vlookupSort']);
@@ -723,10 +756,9 @@ class LookupRef
             if ((!$not_exact_match) && ($rowValue != $lookup_value)) {
                 //    if an exact match is required, we have what we need to return an appropriate response
                 return Functions::NA();
-            } else {
+            }
                 //    otherwise return the appropriate value
                 return $lookup_array[$rowNumber][$returnColumn];
-            }
         }
 
         return Functions::NA();
@@ -735,10 +767,16 @@ class LookupRef
     /**
      * HLOOKUP
      * The HLOOKUP function searches for value in the top-most row of lookup_array and returns the value in the same column based on the index_number.
+     *
      * @param    lookup_value    The value that you want to match in lookup_array
      * @param    lookup_array    The range of cells being searched
      * @param    index_number    The row number in table_array from which the matching value must be returned. The first row is 1.
-     * @param    not_exact_match Determines if you are looking for an exact match based on lookup_value.
+     * @param    not_exact_match determines if you are looking for an exact match based on lookup_value
+     * @param mixed $lookup_value
+     * @param mixed $lookup_array
+     * @param mixed $index_number
+     * @param mixed $not_exact_match
+     *
      * @return   mixed           The value of the found cell
      */
     public static function HLOOKUP($lookup_value, $lookup_array, $index_number, $not_exact_match = true)
@@ -755,18 +793,16 @@ class LookupRef
         // index_number must be less than or equal to the number of columns in lookup_array
         if ((!is_array($lookup_array)) || (empty($lookup_array))) {
             return Functions::REF();
-        } else {
-            $f = array_keys($lookup_array);
-            $firstRow = array_pop($f);
-            if ((!is_array($lookup_array[$firstRow])) || ($index_number - 1 > count($lookup_array[$firstRow]))) {
-                return Functions::REF();
-            } else {
-                $columnKeys = array_keys($lookup_array[$firstRow]);
-                $firstkey = $f[0] - 1;
-                $returnColumn = $firstkey + $index_number;
-                $firstColumn = array_shift($f);
-            }
         }
+        $f = array_keys($lookup_array);
+        $firstRow = array_pop($f);
+        if ((!is_array($lookup_array[$firstRow])) || ($index_number - 1 > count($lookup_array[$firstRow]))) {
+            return Functions::REF();
+        }
+        $columnKeys = array_keys($lookup_array[$firstRow]);
+        $firstkey = $f[0] - 1;
+        $returnColumn = $firstkey + $index_number;
+        $firstColumn = array_shift($f);
 
         if (!$not_exact_match) {
             $firstRowH = asort($lookup_array[$firstColumn]);
@@ -785,10 +821,9 @@ class LookupRef
             if ((!$not_exact_match) && ($rowValue != $lookup_value)) {
                 //  if an exact match is required, we have what we need to return an appropriate response
                 return Functions::NA();
-            } else {
+            }
                 //  otherwise return the appropriate value
                 return $lookup_array[$returnColumn][$rowNumber];
-            }
         }
 
         return Functions::NA();
@@ -797,9 +832,14 @@ class LookupRef
     /**
      * LOOKUP
      * The LOOKUP function searches for value either from a one-row or one-column range or from an array.
+     *
      * @param    lookup_value    The value that you want to match in lookup_array
      * @param    lookup_vector    The range of cells being searched
      * @param    result_vector    The column from which the matching value must be returned
+     * @param mixed $lookup_value
+     * @param mixed $lookup_vector
+     * @param null|mixed $result_vector
+     *
      * @return    mixed            The value of the found cell
      */
     public static function LOOKUP($lookup_value, $lookup_vector, $result_vector = null)

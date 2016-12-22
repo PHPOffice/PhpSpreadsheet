@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,6 +22,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category    PhpSpreadsheet
+ *
  * @copyright   Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -39,12 +40,12 @@ class Chart
             if ($format == 'string') {
                 return (string) $attributes[$name];
             } elseif ($format == 'integer') {
-                return (integer) $attributes[$name];
+                return (int) $attributes[$name];
             } elseif ($format == 'boolean') {
-                return (boolean) ($attributes[$name] === '0' || $attributes[$name] !== 'true') ? false : true;
-            } else {
-                return (float) $attributes[$name];
+                return (bool) ($attributes[$name] === '0' || $attributes[$name] !== 'true') ? false : true;
             }
+
+            return (float) $attributes[$name];
         }
 
         return null;
@@ -497,6 +498,7 @@ class Chart
 
     /**
      * @param \PhpOffice\PhpSpreadsheet\Chart\Layout $plotArea
+     * @param mixed $plotAttributes
      */
     private static function setChartAttributes(\PhpOffice\PhpSpreadsheet\Chart\Layout $plotArea, $plotAttributes)
     {

@@ -9,7 +9,7 @@ if (!defined('PCLZIP_TEMPORARY_DIR')) {
 use PhpOffice\PhpSpreadsheet\Shared\PCLZip\PclZip;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -26,6 +26,7 @@ use PhpOffice\PhpSpreadsheet\Shared\PCLZip\PclZip;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -36,23 +37,24 @@ class ZipArchive
     const CREATE = 'CREATE';
 
     /**
-     * Temporary storage directory
+     * Temporary storage directory.
      *
      * @var string
      */
     private $tempDir;
 
     /**
-     * Zip Archive Stream Handle
+     * Zip Archive Stream Handle.
      *
      * @var string
      */
     private $zip;
 
     /**
-     * Open a new zip archive
+     * Open a new zip archive.
      *
      * @param    string    $fileName    Filename for the zip archive
+     *
      * @return    bool
      */
     public function open($fileName)
@@ -64,7 +66,7 @@ class ZipArchive
     }
 
     /**
-     * Close this zip archive
+     * Close this zip archive.
      */
     public function close()
     {
@@ -75,6 +77,7 @@ class ZipArchive
      *
      * @param    string    $localname        Directory/Name of the file to add to the zip archive
      * @param    string    $contents        String of data to add to the zip archive
+     *
      * @throws   \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function addFromString($localname, $contents)
@@ -94,9 +97,10 @@ class ZipArchive
     }
 
     /**
-     * Find if given fileName exist in archive (Emulate ZipArchive locateName())
+     * Find if given fileName exist in archive (Emulate ZipArchive locateName()).
      *
      * @param        string        $fileName        Filename for the file in zip archive
+     *
      * @return        bool
      */
     public function locateName($fileName)
@@ -118,9 +122,10 @@ class ZipArchive
     }
 
     /**
-     * Extract file from archive by given fileName (Emulate ZipArchive getFromName())
+     * Extract file from archive by given fileName (Emulate ZipArchive getFromName()).
      *
      * @param        string        $fileName        Filename for the file in zip archive
+     *
      * @return        string  $contents        File string contents
      */
     public function getFromName($fileName)

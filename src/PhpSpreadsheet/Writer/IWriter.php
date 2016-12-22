@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
 /**
- *  Copyright (c) 2006 - 2015 PhpSpreadsheet
+ *  Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -20,15 +20,17 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  *  @category   PhpSpreadsheet
+ *
  *  @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  *  @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 interface IWriter
 {
     /**
-     *  Save PhpSpreadsheet to file
+     *  Save PhpSpreadsheet to file.
      *
      *  @param   string       $pFilename  Name of the file to save
+     *
      *  @throws  \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function save($pFilename = null);

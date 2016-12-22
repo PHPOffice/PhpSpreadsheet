@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@ namespace PhpOffice\PhpSpreadsheet\Style;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -33,70 +34,70 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     const UNDERLINE_SINGLEACCOUNTING = 'singleAccounting';
 
     /**
-     * Font Name
+     * Font Name.
      *
      * @var string
      */
     protected $name = 'Calibri';
 
     /**
-     * Font Size
+     * Font Size.
      *
      * @var float
      */
     protected $size = 11;
 
     /**
-     * Bold
+     * Bold.
      *
      * @var bool
      */
     protected $bold = false;
 
     /**
-     * Italic
+     * Italic.
      *
      * @var bool
      */
     protected $italic = false;
 
     /**
-     * Superscript
+     * Superscript.
      *
      * @var bool
      */
     protected $superScript = false;
 
     /**
-     * Subscript
+     * Subscript.
      *
      * @var bool
      */
     protected $subScript = false;
 
     /**
-     * Underline
+     * Underline.
      *
      * @var string
      */
     protected $underline = self::UNDERLINE_NONE;
 
     /**
-     * Strikethrough
+     * Strikethrough.
      *
      * @var bool
      */
     protected $strikethrough = false;
 
     /**
-     * Foreground color
+     * Foreground color.
      *
      * @var Color
      */
     protected $color;
 
     /**
-     * Create a new Font
+     * Create a new Font.
      *
      * @param    bool    $isSupervisor    Flag indicating if this is a supervisor or not
      *                                    Leave this value at default unless you understand exactly what
@@ -132,7 +133,7 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
 
     /**
      * Get the shared style component for the currently active cell in currently active sheet.
-     * Only used for style supervisor
+     * Only used for style supervisor.
      *
      * @return Font
      */
@@ -142,9 +143,10 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Build style array from subcomponents
+     * Build style array from subcomponents.
      *
      * @param array $array
+     *
      * @return array
      */
     public function getStyleArray($array)
@@ -153,7 +155,7 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Apply styles from array
+     * Apply styles from array.
      *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getFont()->applyFromArray(
@@ -171,7 +173,9 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      * </code>
      *
      * @param   array    $pStyles    Array containing style information
+     *
      * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return Font
      */
     public function applyFromArray($pStyles = null)
@@ -216,7 +220,7 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Name
+     * Get Name.
      *
      * @return string
      */
@@ -230,9 +234,10 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Name
+     * Set Name.
      *
      * @param string $pValue
+     *
      * @return Font
      */
     public function setName($pValue = 'Calibri')
@@ -251,7 +256,7 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Size
+     * Get Size.
      *
      * @return float
      */
@@ -265,9 +270,10 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Size
+     * Set Size.
      *
      * @param float $pValue
+     *
      * @return Font
      */
     public function setSize($pValue = 10)
@@ -286,7 +292,7 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Bold
+     * Get Bold.
      *
      * @return bool
      */
@@ -300,9 +306,10 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Bold
+     * Set Bold.
      *
      * @param bool $pValue
+     *
      * @return Font
      */
     public function setBold($pValue = false)
@@ -321,7 +328,7 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Italic
+     * Get Italic.
      *
      * @return bool
      */
@@ -335,9 +342,10 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Italic
+     * Set Italic.
      *
      * @param bool $pValue
+     *
      * @return Font
      */
     public function setItalic($pValue = false)
@@ -356,7 +364,7 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get SuperScript
+     * Get SuperScript.
      *
      * @return bool
      */
@@ -370,9 +378,10 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set SuperScript
+     * Set SuperScript.
      *
      * @param bool $pValue
+     *
      * @return Font
      */
     public function setSuperScript($pValue = false)
@@ -392,7 +401,7 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get SubScript
+     * Get SubScript.
      *
      * @return bool
      */
@@ -406,9 +415,10 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set SubScript
+     * Set SubScript.
      *
      * @param bool $pValue
+     *
      * @return Font
      */
     public function setSubScript($pValue = false)
@@ -428,7 +438,7 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Underline
+     * Get Underline.
      *
      * @return string
      */
@@ -442,11 +452,12 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Underline
+     * Set Underline.
      *
      * @param string|bool $pValue    \PhpOffice\PhpSpreadsheet\Style\Font underline type
      *                                    If a boolean is passed, then TRUE equates to UNDERLINE_SINGLE,
      *                                        false equates to UNDERLINE_NONE
+     *
      * @return Font
      */
     public function setUnderline($pValue = self::UNDERLINE_NONE)
@@ -467,7 +478,7 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Strikethrough
+     * Get Strikethrough.
      *
      * @return bool
      */
@@ -481,9 +492,10 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Strikethrough
+     * Set Strikethrough.
      *
      * @param bool $pValue
+     *
      * @return Font
      */
     public function setStrikethrough($pValue = false)
@@ -502,7 +514,7 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Color
+     * Get Color.
      *
      * @return Color
      */
@@ -512,10 +524,12 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Color
+     * Set Color.
      *
      * @param    Color $pValue
+     *
      * @throws   \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return Font
      */
     public function setColor(Color $pValue = null)
@@ -534,7 +548,7 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get hash code
+     * Get hash code.
      *
      * @return string    Hash code
      */

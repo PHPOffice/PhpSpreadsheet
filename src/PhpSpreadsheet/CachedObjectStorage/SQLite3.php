@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\CachedObjectStorage;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,48 +20,49 @@ namespace PhpOffice\PhpSpreadsheet\CachedObjectStorage;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class SQLite3 extends CacheBase implements ICache
 {
     /**
-     * Database table name
+     * Database table name.
      *
      * @var string
      */
     private $TableName = null;
 
     /**
-     * Database handle
+     * Database handle.
      *
      * @var resource
      */
     private $DBHandle = null;
 
     /**
-     * Prepared statement for a SQLite3 select query
+     * Prepared statement for a SQLite3 select query.
      *
      * @var SQLite3Stmt
      */
     private $selectQuery;
 
     /**
-     * Prepared statement for a SQLite3 insert query
+     * Prepared statement for a SQLite3 insert query.
      *
      * @var SQLite3Stmt
      */
     private $insertQuery;
 
     /**
-     * Prepared statement for a SQLite3 update query
+     * Prepared statement for a SQLite3 update query.
      *
      * @var SQLite3Stmt
      */
     private $updateQuery;
 
     /**
-     * Prepared statement for a SQLite3 delete query
+     * Prepared statement for a SQLite3 delete query.
      *
      * @var SQLite3Stmt
      */
@@ -69,7 +70,7 @@ class SQLite3 extends CacheBase implements ICache
 
     /**
      * Store cell data in cache for the current cell object if it's "dirty",
-     *     and the 'nullify' the current cell object
+     *     and the 'nullify' the current cell object.
      *
      * @throws  \PhpOffice\PhpSpreadsheet\Exception
      */
@@ -90,11 +91,13 @@ class SQLite3 extends CacheBase implements ICache
     }
 
     /**
-     * Add or Update a cell in cache identified by coordinate address
+     * Add or Update a cell in cache identified by coordinate address.
      *
      * @param   string            $pCoord        Coordinate address of the cell to update
      * @param   \PhpOffice\PhpSpreadsheet\Cell    $cell        Cell to update
+     *
      * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return  \PhpOffice\PhpSpreadsheet\Cell
      */
     public function addCacheData($pCoord, \PhpOffice\PhpSpreadsheet\Cell $cell)
@@ -111,11 +114,13 @@ class SQLite3 extends CacheBase implements ICache
     }
 
     /**
-     * Get cell at a specific coordinate
+     * Get cell at a specific coordinate.
      *
      * @param   string             $pCoord        Coordinate of the cell
+     *
      * @throws  \PhpOffice\PhpSpreadsheet\Exception
      * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return  \PhpOffice\PhpSpreadsheet\Cell     Cell that was found, or null if not found
      */
     public function getCacheData($pCoord)
@@ -151,7 +156,9 @@ class SQLite3 extends CacheBase implements ICache
      *    Is a value set for an indexed cell?
      *
      * @param    string        $pCoord        Coordinate address of the cell to check
+     *
      * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return    bool
      */
     public function isDataSet($pCoord)
@@ -172,9 +179,10 @@ class SQLite3 extends CacheBase implements ICache
     }
 
     /**
-     *    Delete a cell in cache identified by coordinate address
+     *    Delete a cell in cache identified by coordinate address.
      *
      * @param   string            $pCoord        Coordinate address of the cell to delete
+     *
      * @throws  \PhpOffice\PhpSpreadsheet\Exception
      */
     public function deleteCacheData($pCoord)
@@ -195,11 +203,13 @@ class SQLite3 extends CacheBase implements ICache
     }
 
     /**
-     * Move a cell object from one address to another
+     * Move a cell object from one address to another.
      *
      * @param    string        $fromAddress    Current address of the cell to move
      * @param    string        $toAddress        Destination address of the cell to move
+     *
      * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return    bool
      */
     public function moveCell($fromAddress, $toAddress)
@@ -225,9 +235,10 @@ class SQLite3 extends CacheBase implements ICache
     }
 
     /**
-     * Get a list of all cell addresses currently held in cache
+     * Get a list of all cell addresses currently held in cache.
      *
      * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return    string[]
      */
     public function getCellList()
@@ -251,9 +262,10 @@ class SQLite3 extends CacheBase implements ICache
     }
 
     /**
-     * Clone the cell collection
+     * Clone the cell collection.
      *
      * @param  \PhpOffice\PhpSpreadsheet\Worksheet    $parent        The new worksheet that we're copying to
+     *
      * @throws  \PhpOffice\PhpSpreadsheet\Exception
      */
     public function copyCellCollection(\PhpOffice\PhpSpreadsheet\Worksheet $parent)
@@ -274,7 +286,7 @@ class SQLite3 extends CacheBase implements ICache
     }
 
     /**
-     * Clear the cell collection and disconnect from our parent
+     * Clear the cell collection and disconnect from our parent.
      */
     public function unsetWorksheetCells()
     {
@@ -290,9 +302,10 @@ class SQLite3 extends CacheBase implements ICache
     }
 
     /**
-     * Initialise this new cell collection
+     * Initialise this new cell collection.
      *
      * @param    \PhpOffice\PhpSpreadsheet\Worksheet    $parent        The worksheet for this cell collection
+     *
      * @throws  \PhpOffice\PhpSpreadsheet\Exception
      */
     public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $parent)
@@ -318,7 +331,7 @@ class SQLite3 extends CacheBase implements ICache
     }
 
     /**
-     * Destroy this cell collection
+     * Destroy this cell collection.
      */
     public function __destruct()
     {
@@ -331,7 +344,7 @@ class SQLite3 extends CacheBase implements ICache
 
     /**
      * Identify whether the caching method is currently available
-     * Some methods are dependent on the availability of certain extensions being enabled in the PHP build
+     * Some methods are dependent on the availability of certain extensions being enabled in the PHP build.
      *
      * @return    bool
      */

@@ -33,6 +33,8 @@ class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider binderProvider
+     *
+     * @param mixed $value
      */
     public function testBindValue($value)
     {

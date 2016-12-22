@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation\Token;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,27 +20,28 @@ namespace PhpOffice\PhpSpreadsheet\Calculation\Token;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class Stack
 {
     /**
-     *  The parser stack for formulae
+     *  The parser stack for formulae.
      *
      *  @var mixed[]
      */
     private $stack = [];
 
     /**
-     *  Count of entries in the parser stack
+     *  Count of entries in the parser stack.
      *
      *  @var int
      */
     private $count = 0;
 
     /**
-     * Return the number of entries on the stack
+     * Return the number of entries on the stack.
      *
      * @return  int
      */
@@ -50,7 +51,7 @@ class Stack
     }
 
     /**
-     * Push a new entry onto the stack
+     * Push a new entry onto the stack.
      *
      * @param  mixed  $type
      * @param  mixed  $value
@@ -72,7 +73,7 @@ class Stack
     }
 
     /**
-     * Pop the last entry from the stack
+     * Pop the last entry from the stack.
      *
      * @return  mixed
      */
@@ -86,9 +87,10 @@ class Stack
     }
 
     /**
-     * Return an entry from the stack without removing it
+     * Return an entry from the stack without removing it.
      *
      * @param   int  $n  number indicating how far back in the stack we want to look
+     *
      * @return  mixed
      */
     public function last($n = 1)
@@ -101,7 +103,7 @@ class Stack
     }
 
     /**
-     * Clear the stack
+     * Clear the stack.
      */
     public function clear()
     {

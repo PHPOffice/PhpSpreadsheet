@@ -1,9 +1,8 @@
-/build/PHPExcel.phar
 /tests/codeCoverage
 /analysis
 /vendor/
-/composer.lock
 /phpunit.xml
+/.php_cs.cache
 
 ## IDE support
 *.buildpath

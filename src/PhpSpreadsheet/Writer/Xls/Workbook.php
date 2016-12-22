@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 /**
- * Copyright (c) 2006 - 2015 PhpSpreadsheet
+ * Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -61,7 +62,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 class Workbook extends BIFFwriter
 {
     /**
-     * Formula parser
+     * Formula parser.
      *
      * @var \PhpOffice\PhpSpreadsheet\Writer\Xls\Parser
      */
@@ -69,118 +70,125 @@ class Workbook extends BIFFwriter
 
     /**
      * The BIFF file size for the workbook.
+     *
      * @var int
+     *
      * @see calcSheetOffsets()
      */
     private $biffSize;
 
     /**
-     * XF Writers
+     * XF Writers.
+     *
      * @var \PhpOffice\PhpSpreadsheet\Writer\Xls\Xf[]
      */
     private $xfWriters = [];
 
     /**
-     * Array containing the colour palette
+     * Array containing the colour palette.
+     *
      * @var array
      */
     private $palette;
 
     /**
-     * The codepage indicates the text encoding used for strings
+     * The codepage indicates the text encoding used for strings.
+     *
      * @var int
      */
     private $codepage;
 
     /**
-     * The country code used for localization
+     * The country code used for localization.
+     *
      * @var int
      */
     private $countryCode;
 
     /**
-     * Workbook
+     * Workbook.
+     *
      * @var \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     private $spreadsheet;
 
     /**
-     * Fonts writers
+     * Fonts writers.
      *
      * @var \PhpOffice\PhpSpreadsheet\Writer\Xls\Font[]
      */
     private $fontWriters = [];
 
     /**
-     * Added fonts. Maps from font's hash => index in workbook
+     * Added fonts. Maps from font's hash => index in workbook.
      *
      * @var array
      */
     private $addedFonts = [];
 
     /**
-     * Shared number formats
+     * Shared number formats.
      *
      * @var array
      */
     private $numberFormats = [];
 
     /**
-     * Added number formats. Maps from numberFormat's hash => index in workbook
+     * Added number formats. Maps from numberFormat's hash => index in workbook.
      *
      * @var array
      */
     private $addedNumberFormats = [];
 
     /**
-     * Sizes of the binary worksheet streams
+     * Sizes of the binary worksheet streams.
      *
      * @var array
      */
     private $worksheetSizes = [];
 
     /**
-     * Offsets of the binary worksheet streams relative to the start of the global workbook stream
+     * Offsets of the binary worksheet streams relative to the start of the global workbook stream.
      *
      * @var array
      */
     private $worksheetOffsets = [];
 
     /**
-     * Total number of shared strings in workbook
+     * Total number of shared strings in workbook.
      *
      * @var int
      */
     private $stringTotal;
 
     /**
-     * Number of unique shared strings in workbook
+     * Number of unique shared strings in workbook.
      *
      * @var int
      */
     private $stringUnique;
 
     /**
-     * Array of unique shared strings in workbook
+     * Array of unique shared strings in workbook.
      *
      * @var array
      */
     private $stringTable;
 
     /**
-     * Color cache
+     * Color cache.
      */
     private $colors;
 
     /**
-     * Escher object corresponding to MSODRAWINGGROUP
+     * Escher object corresponding to MSODRAWINGGROUP.
      *
      * @var \PhpOffice\PhpSpreadsheet\Shared\Escher
      */
     private $escher;
 
     /**
-     * Class constructor
+     * Class constructor.
      *
      * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet The Workbook
      * @param int        $str_total        Total number of strings
@@ -228,10 +236,13 @@ class Workbook extends BIFFwriter
     }
 
     /**
-     * Add a new XF writer
+     * Add a new XF writer.
      *
      * @param \PhpOffice\PhpSpreadsheet\Style
      * @param bool Is it a style XF?
+     * @param mixed $style
+     * @param mixed $isStyleXf
+     *
      * @return int Index to XF record
      */
     public function addXfWriter($style, $isStyleXf = false)
@@ -280,9 +291,10 @@ class Workbook extends BIFFwriter
     }
 
     /**
-     * Add a font to added fonts
+     * Add a font to added fonts.
      *
      * @param \PhpOffice\PhpSpreadsheet\Style\Font $font
+     *
      * @return int Index to FONT record
      */
     public function addFont(\PhpOffice\PhpSpreadsheet\Style\Font $font)
@@ -305,9 +317,10 @@ class Workbook extends BIFFwriter
     }
 
     /**
-     * Alter color palette adding a custom color
+     * Alter color palette adding a custom color.
      *
      * @param string $rgb E.g. 'FF00AA'
+     *
      * @return int Color index
      */
     private function addColor($rgb)
@@ -406,6 +419,7 @@ class Workbook extends BIFFwriter
      * storage.
      *
      * @param    array    $pWorksheetSizes    The sizes in bytes of the binary worksheet streams
+     *
      * @return    string    Binary data for workbook stream
      */
     public function writeWorkbook($pWorksheetSizes = null)
@@ -492,7 +506,7 @@ class Workbook extends BIFFwriter
     }
 
     /**
-     * Store user defined numerical formats i.e. FORMAT records
+     * Store user defined numerical formats i.e. FORMAT records.
      */
     private function writeAllNumberFormats()
     {
@@ -629,7 +643,7 @@ class Workbook extends BIFFwriter
 
     /**
      * Writes all the DEFINEDNAME records (BIFF8).
-     * So far this is only used for repeating rows/columns (print titles) and print areas
+     * So far this is only used for repeating rows/columns (print titles) and print areas.
      */
     private function writeAllDefinedNamesBiff8()
     {
@@ -656,7 +670,7 @@ class Workbook extends BIFFwriter
                     $formulaData = $this->parser->toReversePolish();
 
                     // make sure tRef3d is of type tRef3dR (0x3A)
-                    if (isset($formulaData{0}) and ($formulaData{0} == "\x7A" or $formulaData{0} == "\x5A")) {
+                    if (isset($formulaData[0]) and ($formulaData[0] == "\x7A" or $formulaData[0] == "\x5A")) {
                         $formulaData = "\x3A" . substr($formulaData, 1);
                     }
 
@@ -778,12 +792,13 @@ class Workbook extends BIFFwriter
     }
 
     /**
-     * Write a DEFINEDNAME record for BIFF8 using explicit binary formula data
+     * Write a DEFINEDNAME record for BIFF8 using explicit binary formula data.
      *
      * @param    string        $name            The name in UTF-8
      * @param    string        $formulaData    The binary formula data
      * @param    string        $sheetIndex        1-based sheet index the defined name applies to. 0 = global
      * @param    bool        $isBuiltIn        Built-in name?
+     *
      * @return    string    Complete binary record data
      */
     private function writeDefinedNameBiff8($name, $formulaData, $sheetIndex = 0, $isBuiltIn = false)
@@ -813,12 +828,13 @@ class Workbook extends BIFFwriter
     }
 
     /**
-     * Write a short NAME record
+     * Write a short NAME record.
      *
      * @param    string         $name
      * @param    string         $sheetIndex        1-based sheet index the defined name applies to. 0 = global
      * @param    integer[][]  $rangeBounds    range boundaries
      * @param    bool      $isHidden
+     *
      * @return    string    Complete binary record data
      * */
     private function writeShortNameBiff8($name, $sheetIndex, $rangeBounds, $isHidden = false)
@@ -936,7 +952,7 @@ class Workbook extends BIFFwriter
     }
 
     /**
-     * Write Internal SUPBOOK record
+     * Write Internal SUPBOOK record.
      */
     private function writeSupbookInternal()
     {
@@ -1131,7 +1147,7 @@ class Workbook extends BIFFwriter
      * Store the NAME record in the long format that is used for storing the repeat
      * rows and columns when both are specified. This shares a lot of code with
      * writeNameShort() but we use a separate method to keep the code clean.
-     * Code abstraction for reuse can be carried too far, and I should know. ;-)
+     * Code abstraction for reuse can be carried too far, and I should know. ;-).
      *
      * @param int $index Sheet index
      * @param int $type  Built-in name type
@@ -1211,7 +1227,7 @@ class Workbook extends BIFFwriter
     }
 
     /**
-     * Stores the COUNTRY record for localization
+     * Stores the COUNTRY record for localization.
      *
      * @return string
      */
@@ -1228,7 +1244,7 @@ class Workbook extends BIFFwriter
     }
 
     /**
-     * Write the RECALCID record
+     * Write the RECALCID record.
      *
      * @return string
      */
@@ -1408,13 +1424,13 @@ class Workbook extends BIFFwriter
             $header = pack('vv', $record, $length);
 
             return $this->writeData($header . $data);
-        } else {
-            return '';
         }
+
+        return '';
     }
 
     /**
-     * Get Escher object
+     * Get Escher object.
      *
      * @return \PhpOffice\PhpSpreadsheet\Shared\Escher
      */
@@ -1424,7 +1440,7 @@ class Workbook extends BIFFwriter
     }
 
     /**
-     * Set Escher object
+     * Set Escher object.
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\Escher $pValue
      */

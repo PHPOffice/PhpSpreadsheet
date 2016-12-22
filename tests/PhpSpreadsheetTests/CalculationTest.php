@@ -14,6 +14,10 @@ class CalculationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerBinaryComparisonOperation
+     *
+     * @param mixed $formula
+     * @param mixed $expectedResultExcel
+     * @param mixed $expectedResultOpenOffice
      */
     public function testBinaryComparisonOperation($formula, $expectedResultExcel, $expectedResultOpenOffice)
     {
@@ -33,10 +37,14 @@ class CalculationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerGetFunctions
+     *
+     * @param mixed $category
+     * @param mixed $functionCall
+     * @param mixed $argumentCount
      */
     public function testGetFunctions($category, $functionCall, $argumentCount)
     {
-        $this->assertTrue(is_callable($functionCall));
+        $this->assertInternalType('callable', $functionCall);
     }
 
     public function providerGetFunctions()

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,41 +20,42 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class CSV extends BaseWriter implements IWriter
 {
     /**
-     * PhpSpreadsheet object
+     * PhpSpreadsheet object.
      *
      * @var PhpSpreadsheet
      */
     private $spreadsheet;
 
     /**
-     * Delimiter
+     * Delimiter.
      *
      * @var string
      */
     private $delimiter = ',';
 
     /**
-     * Enclosure
+     * Enclosure.
      *
      * @var string
      */
     private $enclosure = '"';
 
     /**
-     * Line ending
+     * Line ending.
      *
      * @var string
      */
     private $lineEnding = PHP_EOL;
 
     /**
-     * Sheet index to write
+     * Sheet index to write.
      *
      * @var int
      */
@@ -69,7 +70,7 @@ class CSV extends BaseWriter implements IWriter
 
     /**
      * Whether to write a Separator line as the first line of the file
-     *     sep=x
+     *     sep=x.
      *
      * @var bool
      */
@@ -83,7 +84,7 @@ class CSV extends BaseWriter implements IWriter
     private $excelCompatibility = false;
 
     /**
-     * Create a new CSV
+     * Create a new CSV.
      *
      * @param    \PhpOffice\PhpSpreadsheet\Spreadsheet    $spreadsheet    Spreadsheet object
      */
@@ -93,9 +94,10 @@ class CSV extends BaseWriter implements IWriter
     }
 
     /**
-     * Save PhpSpreadsheet to file
+     * Save PhpSpreadsheet to file.
      *
      * @param    string        $pFilename
+     *
      * @throws    Exception
      */
     public function save($pFilename = null)
@@ -150,7 +152,7 @@ class CSV extends BaseWriter implements IWriter
     }
 
     /**
-     * Get delimiter
+     * Get delimiter.
      *
      * @return string
      */
@@ -160,9 +162,10 @@ class CSV extends BaseWriter implements IWriter
     }
 
     /**
-     * Set delimiter
+     * Set delimiter.
      *
      * @param    string    $pValue        Delimiter, defaults to ,
+     *
      * @return CSV
      */
     public function setDelimiter($pValue = ',')
@@ -173,7 +176,7 @@ class CSV extends BaseWriter implements IWriter
     }
 
     /**
-     * Get enclosure
+     * Get enclosure.
      *
      * @return string
      */
@@ -183,9 +186,10 @@ class CSV extends BaseWriter implements IWriter
     }
 
     /**
-     * Set enclosure
+     * Set enclosure.
      *
      * @param    string    $pValue        Enclosure, defaults to "
+     *
      * @return CSV
      */
     public function setEnclosure($pValue = '"')
@@ -199,7 +203,7 @@ class CSV extends BaseWriter implements IWriter
     }
 
     /**
-     * Get line ending
+     * Get line ending.
      *
      * @return string
      */
@@ -209,9 +213,10 @@ class CSV extends BaseWriter implements IWriter
     }
 
     /**
-     * Set line ending
+     * Set line ending.
      *
      * @param    string    $pValue        Line ending, defaults to OS line ending (PHP_EOL)
+     *
      * @return CSV
      */
     public function setLineEnding($pValue = PHP_EOL)
@@ -222,7 +227,7 @@ class CSV extends BaseWriter implements IWriter
     }
 
     /**
-     * Get whether BOM should be used
+     * Get whether BOM should be used.
      *
      * @return bool
      */
@@ -232,9 +237,10 @@ class CSV extends BaseWriter implements IWriter
     }
 
     /**
-     * Set whether BOM should be used
+     * Set whether BOM should be used.
      *
      * @param    bool    $pValue        Use UTF-8 byte-order mark? Defaults to false
+     *
      * @return CSV
      */
     public function setUseBOM($pValue = false)
@@ -245,7 +251,7 @@ class CSV extends BaseWriter implements IWriter
     }
 
     /**
-     * Get whether a separator line should be included
+     * Get whether a separator line should be included.
      *
      * @return bool
      */
@@ -255,9 +261,10 @@ class CSV extends BaseWriter implements IWriter
     }
 
     /**
-     * Set whether a separator line should be included as the first line of the file
+     * Set whether a separator line should be included as the first line of the file.
      *
      * @param    bool    $pValue        Use separator line? Defaults to false
+     *
      * @return CSV
      */
     public function setIncludeSeparatorLine($pValue = false)
@@ -268,7 +275,7 @@ class CSV extends BaseWriter implements IWriter
     }
 
     /**
-     * Get whether the file should be saved with full Excel Compatibility
+     * Get whether the file should be saved with full Excel Compatibility.
      *
      * @return bool
      */
@@ -278,10 +285,11 @@ class CSV extends BaseWriter implements IWriter
     }
 
     /**
-     * Set whether the file should be saved with full Excel Compatibility
+     * Set whether the file should be saved with full Excel Compatibility.
      *
      * @param    bool    $pValue        Set the file to be written as a fully Excel compatible csv file
      *                                Note that this overrides other settings such as useBOM, enclosure and delimiter
+     *
      * @return CSV
      */
     public function setExcelCompatibility($pValue = false)
@@ -292,7 +300,7 @@ class CSV extends BaseWriter implements IWriter
     }
 
     /**
-     * Get sheet index
+     * Get sheet index.
      *
      * @return int
      */
@@ -302,9 +310,10 @@ class CSV extends BaseWriter implements IWriter
     }
 
     /**
-     * Set sheet index
+     * Set sheet index.
      *
      * @param    int        $pValue        Sheet index
+     *
      * @return CSV
      */
     public function setSheetIndex($pValue = 0)
@@ -315,10 +324,11 @@ class CSV extends BaseWriter implements IWriter
     }
 
     /**
-     * Write line to CSV file
+     * Write line to CSV file.
      *
      * @param    resource    $pFileHandle    PHP filehandle
      * @param    array    $pValues        Array containing values in a row
+     *
      * @throws    Exception
      */
     private function writeLine($pFileHandle = null, $pValues = null)

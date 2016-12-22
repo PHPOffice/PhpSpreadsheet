@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,41 +20,42 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class ZipStreamWrapper
 {
     /**
-     * Internal ZipAcrhive
+     * Internal ZipAcrhive.
      *
      * @var ZipArchive
      */
     private $archive;
 
     /**
-     * Filename in ZipAcrhive
+     * Filename in ZipAcrhive.
      *
      * @var string
      */
     private $fileNameInArchive = '';
 
     /**
-     * Position in file
+     * Position in file.
      *
      * @var int
      */
     private $position = 0;
 
     /**
-     * Data
+     * Data.
      *
      * @var mixed
      */
     private $data = '';
 
     /**
-     * Register wrapper
+     * Register wrapper.
      */
     public static function register()
     {
@@ -69,13 +70,15 @@ class ZipStreamWrapper
      * @param    string    $mode            only "r" is supported
      * @param    int        $options        mask of STREAM_REPORT_ERRORS and STREAM_USE_PATH
      * @param    string  &$openedPath    absolute path of the opened stream (out parameter)
+     *
      * @throws   \PhpOffice\PhpSpreadsheet\Reader\Exception
+     *
      * @return   bool    true on success
      */
     public function stream_open($path, $mode, $options, &$opened_path) // @codingStandardsIgnoreLine
     {
         // Check for mode
-        if ($mode{0} != 'r') {
+        if ($mode[0] != 'r') {
             throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('Mode ' . $mode . ' is not supported. Only read mode is supported.');
         }
 
@@ -129,6 +132,7 @@ class ZipStreamWrapper
      * Implements support for fread(), fgets() etc.
      *
      * @param   int        $count    maximum number of bytes to read
+     *
      * @return  string
      */
     public function stream_read($count) // @codingStandardsIgnoreLine
@@ -151,7 +155,7 @@ class ZipStreamWrapper
     }
 
     /**
-     * EOF stream
+     * EOF stream.
      *
      * @return    bool
      */
@@ -161,10 +165,11 @@ class ZipStreamWrapper
     }
 
     /**
-     * Seek stream
+     * Seek stream.
      *
      * @param    int        $offset    byte offset
      * @param    int        $whence    SEEK_SET, SEEK_CUR or SEEK_END
+     *
      * @return    bool
      */
     public function stream_seek($offset, $whence) // @codingStandardsIgnoreLine
@@ -175,27 +180,27 @@ class ZipStreamWrapper
                     $this->position = $offset;
 
                     return true;
-                } else {
-                    return false;
                 }
+
+                    return false;
                 break;
             case SEEK_CUR:
                 if ($offset >= 0) {
                     $this->position += $offset;
 
                     return true;
-                } else {
-                    return false;
                 }
+
+                    return false;
                 break;
             case SEEK_END:
                 if (strlen($this->data) + $offset >= 0) {
                     $this->position = strlen($this->data) + $offset;
 
                     return true;
-                } else {
-                    return false;
                 }
+
+                    return false;
                 break;
             default:
                 return false;

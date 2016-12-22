@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@ namespace PhpOffice\PhpSpreadsheet\Style;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -66,35 +67,35 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
     const FORMAT_CURRENCY_EUR_SIMPLE = '[$EUR ]#,##0.00_-';
 
     /**
-     * Excel built-in number formats
+     * Excel built-in number formats.
      *
      * @var array
      */
     protected static $builtInFormats;
 
     /**
-     * Excel built-in number formats (flipped, for faster lookups)
+     * Excel built-in number formats (flipped, for faster lookups).
      *
      * @var array
      */
     protected static $flippedBuiltInFormats;
 
     /**
-     * Format Code
+     * Format Code.
      *
      * @var string
      */
     protected $formatCode = self::FORMAT_GENERAL;
 
     /**
-     * Built-in format Code
+     * Built-in format Code.
      *
      * @var string
      */
     protected $builtInFormatCode = 0;
 
     /**
-     * Create a new NumberFormat
+     * Create a new NumberFormat.
      *
      * @param    bool    $isSupervisor    Flag indicating if this is a supervisor or not
      *                                    Leave this value at default unless you understand exactly what
@@ -116,7 +117,7 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
 
     /**
      * Get the shared style component for the currently active cell in currently active sheet.
-     * Only used for style supervisor
+     * Only used for style supervisor.
      *
      * @return NumberFormat
      */
@@ -126,9 +127,10 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
     }
 
     /**
-     * Build style array from subcomponents
+     * Build style array from subcomponents.
      *
      * @param array $array
+     *
      * @return array
      */
     public function getStyleArray($array)
@@ -137,7 +139,7 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
     }
 
     /**
-     * Apply styles from array
+     * Apply styles from array.
      *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getNumberFormat()->applyFromArray(
@@ -148,7 +150,9 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
      * </code>
      *
      * @param    array    $pStyles    Array containing style information
+     *
      * @throws    \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return NumberFormat
      */
     public function applyFromArray($pStyles = null)
@@ -169,7 +173,7 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
     }
 
     /**
-     * Get Format Code
+     * Get Format Code.
      *
      * @return string
      */
@@ -186,9 +190,10 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
     }
 
     /**
-     * Set Format Code
+     * Set Format Code.
      *
      * @param string $pValue
+     *
      * @return NumberFormat
      */
     public function setFormatCode($pValue = self::FORMAT_GENERAL)
@@ -208,7 +213,7 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
     }
 
     /**
-     * Get Built-In Format Code
+     * Get Built-In Format Code.
      *
      * @return int
      */
@@ -222,9 +227,10 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
     }
 
     /**
-     * Set Built-In Format Code
+     * Set Built-In Format Code.
      *
      * @param int $pValue
+     *
      * @return NumberFormat
      */
     public function setBuiltInFormatCode($pValue = 0)
@@ -241,7 +247,7 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
     }
 
     /**
-     * Fill built-in format codes
+     * Fill built-in format codes.
      */
     private static function fillBuiltInFormatCodes()
     {
@@ -328,15 +334,16 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
     }
 
     /**
-     * Get built-in format code
+     * Get built-in format code.
      *
      * @param    int        $pIndex
+     *
      * @return    string
      */
     public static function builtInFormatCode($pIndex)
     {
         // Clean parameter
-        $pIndex = intval($pIndex);
+        $pIndex = (int) $pIndex;
 
         // Ensure built-in format codes are available
         self::fillBuiltInFormatCodes();
@@ -350,9 +357,10 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
     }
 
     /**
-     * Get built-in format code index
+     * Get built-in format code index.
      *
      * @param    string        $formatCode
+     *
      * @return    int|bool
      */
     public static function builtInFormatCodeIndex($formatCode)
@@ -369,7 +377,7 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
     }
 
     /**
-     * Get hash code
+     * Get hash code.
      *
      * @return string    Hash code
      */
@@ -387,7 +395,7 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
     }
 
     /**
-     * Search/replace values to convert Excel date/time format masks to PHP format masks
+     * Search/replace values to convert Excel date/time format masks to PHP format masks.
      *
      * @var array
      */
@@ -430,7 +438,7 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
             '.s' => '',
         ];
     /**
-     * Search/replace values to convert Excel date/time format masks hours to PHP format masks (24 hr clock)
+     * Search/replace values to convert Excel date/time format masks hours to PHP format masks (24 hr clock).
      *
      * @var array
      */
@@ -439,7 +447,7 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
             'h' => 'G',
         ];
     /**
-     * Search/replace values to convert Excel date/time format masks hours to PHP format masks (12 hr clock)
+     * Search/replace values to convert Excel date/time format masks hours to PHP format masks (12 hr clock).
      *
      * @var array
      */
@@ -577,11 +585,12 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
     }
 
     /**
-     * Convert a value in a pre-defined format to a PHP string
+     * Convert a value in a pre-defined format to a PHP string.
      *
      * @param mixed    $value        Value to format
      * @param string    $format        Format code
      * @param array        $callBack    Callback function for additional formatting of string
+     *
      * @return string    Formatted string
      */
     public static function toFormattedString($value = '0', $format = self::FORMAT_GENERAL, $callBack = null)

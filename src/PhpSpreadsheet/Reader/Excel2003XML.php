@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,27 +23,28 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class Excel2003XML extends BaseReader implements IReader
 {
     /**
-     * Formats
+     * Formats.
      *
      * @var array
      */
     protected $styles = [];
 
     /**
-     * Character set used in the file
+     * Character set used in the file.
      *
      * @var string
      */
     protected $charSet = 'UTF-8';
 
     /**
-     * Create a new Excel2003XML Reader instance
+     * Create a new Excel2003XML Reader instance.
      */
     public function __construct()
     {
@@ -54,12 +55,13 @@ class Excel2003XML extends BaseReader implements IReader
      * Can the current IReader read the file?
      *
      * @param     string         $pFilename
+     *
      * @throws Exception
+     *
      * @return     bool
      */
     public function canRead($pFilename)
     {
-
         //    Office                    xmlns:o="urn:schemas-microsoft-com:office:office"
         //    Excel                    xmlns:x="urn:schemas-microsoft-com:office:excel"
         //    XML Spreadsheet            xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
@@ -102,9 +104,10 @@ class Excel2003XML extends BaseReader implements IReader
     }
 
     /**
-     * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object
+     * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object.
      *
      * @param     string         $pFilename
+     *
      * @throws     Exception
      */
     public function listWorksheetNames($pFilename)
@@ -133,9 +136,10 @@ class Excel2003XML extends BaseReader implements IReader
     }
 
     /**
-     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns)
+     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
      * @param   string     $pFilename
+     *
      * @throws   Exception
      */
     public function listWorksheetInfo($pFilename)
@@ -204,10 +208,12 @@ class Excel2003XML extends BaseReader implements IReader
     }
 
     /**
-     * Loads Spreadsheet from file
+     * Loads Spreadsheet from file.
      *
      * @param     string         $pFilename
+     *
      * @throws     Exception
+     *
      * @return     \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     public function load($pFilename)
@@ -235,8 +241,11 @@ class Excel2003XML extends BaseReader implements IReader
     }
 
     /**
-     * pixel units to excel width units(units of 1/256th of a character width)
+     * pixel units to excel width units(units of 1/256th of a character width).
+     *
      * @param pxs
+     * @param mixed $pxs
+     *
      * @return
      */
     protected static function pixel2WidthUnits($pxs)
@@ -250,8 +259,11 @@ class Excel2003XML extends BaseReader implements IReader
     }
 
     /**
-     * excel width units(units of 1/256th of a character width) to pixel units
+     * excel width units(units of 1/256th of a character width) to pixel units.
+     *
      * @param widthUnits
+     * @param mixed $widthUnits
+     *
      * @return
      */
     protected static function widthUnits2Pixel($widthUnits)
@@ -269,11 +281,13 @@ class Excel2003XML extends BaseReader implements IReader
     }
 
     /**
-     * Loads from file into Spreadsheet instance
+     * Loads from file into Spreadsheet instance.
      *
      * @param     string         $pFilename
      * @param     \PhpOffice\PhpSpreadsheet\Spreadsheet    $spreadsheet
+     *
      * @throws    Exception
+     *
      * @return    \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     public function loadIntoExisting($pFilename, \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
@@ -376,11 +390,11 @@ class Excel2003XML extends BaseReader implements IReader
                         break;
                     case 'integer':
                         $propertyType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_INTEGER;
-                        $propertyValue = intval($propertyValue);
+                        $propertyValue = (int) $propertyValue;
                         break;
                     case 'float':
                         $propertyType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_FLOAT;
-                        $propertyValue = floatval($propertyValue);
+                        $propertyValue = (float) $propertyValue;
                         break;
                     case 'dateTime.tz':
                         $propertyType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_DATE;
@@ -549,7 +563,7 @@ class Excel2003XML extends BaseReader implements IReader
                     $rowHasData = false;
                     $row_ss = $rowData->attributes($namespaces['ss']);
                     if (isset($row_ss['Index'])) {
-                        $rowID = (integer) $row_ss['Index'];
+                        $rowID = (int) $row_ss['Index'];
                     }
 
                     $columnID = 'A';
@@ -615,7 +629,7 @@ class Excel2003XML extends BaseReader implements IReader
                                         $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
                                         $cellValue = (float) $cellValue;
                                         if (floor($cellValue) == $cellValue) {
-                                            $cellValue = (integer) $cellValue;
+                                            $cellValue = (int) $cellValue;
                                         }
                                         break;
                                     case 'Boolean':
@@ -666,7 +680,7 @@ class Excel2003XML extends BaseReader implements IReader
                                                     $rowReference = $rowID;
                                                 }
                                                 //    Bracketed R references are relative to the current row
-                                                if ($rowReference{0} == '[') {
+                                                if ($rowReference[0] == '[') {
                                                     $rowReference = $rowID + trim($rowReference, '[]');
                                                 }
                                                 $columnReference = $cellReference[4][0];
@@ -675,7 +689,7 @@ class Excel2003XML extends BaseReader implements IReader
                                                     $columnReference = $columnNumber;
                                                 }
                                                 //    Bracketed C references are relative to the current column
-                                                if ($columnReference{0} == '[') {
+                                                if ($columnReference[0] == '[') {
                                                     $columnReference = $columnNumber + trim($columnReference, '[]');
                                                 }
                                                 $A1CellReference = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($columnReference - 1) . $rowReference;

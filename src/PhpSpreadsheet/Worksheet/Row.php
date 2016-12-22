@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,27 +20,28 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class Row
 {
     /**
-     * \PhpOffice\PhpSpreadsheet\Worksheet
+     * \PhpOffice\PhpSpreadsheet\Worksheet.
      *
      * @var \PhpOffice\PhpSpreadsheet\Worksheet
      */
     private $parent;
 
     /**
-     * Row index
+     * Row index.
      *
      * @var int
      */
     private $rowIndex = 0;
 
     /**
-     * Create a new row
+     * Create a new row.
      *
      * @param \PhpOffice\PhpSpreadsheet\Worksheet         $parent
      * @param int                        $rowIndex
@@ -53,7 +54,7 @@ class Row
     }
 
     /**
-     * Destructor
+     * Destructor.
      */
     public function __destruct()
     {
@@ -61,7 +62,7 @@ class Row
     }
 
     /**
-     * Get row index
+     * Get row index.
      *
      * @return int
      */
@@ -71,10 +72,11 @@ class Row
     }
 
     /**
-     * Get cell iterator
+     * Get cell iterator.
      *
      * @param    string                $startColumn    The column address at which to start iterating
      * @param    string                $endColumn        Optionally, the column address at which to stop iterating
+     *
      * @return RowCellIterator
      */
     public function getCellIterator($startColumn = 'A', $endColumn = null)

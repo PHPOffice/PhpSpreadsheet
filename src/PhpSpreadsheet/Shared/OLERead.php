@@ -67,9 +67,10 @@ class OLERead
     public $documentSummaryInformation = null;
 
     /**
-     * Read the file
+     * Read the file.
      *
      * @param $pFilename string Filename
+     *
      * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
     public function read($pFilename)
@@ -162,9 +163,10 @@ class OLERead
     }
 
     /**
-     * Extract binary stream data
+     * Extract binary stream data.
      *
      * @param int $stream
+     *
      * @return string
      */
     public function getStream($stream)
@@ -188,32 +190,32 @@ class OLERead
             }
 
             return $streamData;
-        } else {
-            $numBlocks = $this->props[$stream]['size'] / self::BIG_BLOCK_SIZE;
-            if ($this->props[$stream]['size'] % self::BIG_BLOCK_SIZE != 0) {
-                ++$numBlocks;
-            }
-
-            if ($numBlocks == 0) {
-                return '';
-            }
-
-            $block = $this->props[$stream]['startBlock'];
-
-            while ($block != -2) {
-                $pos = ($block + 1) * self::BIG_BLOCK_SIZE;
-                $streamData .= substr($this->data, $pos, self::BIG_BLOCK_SIZE);
-                $block = self::getInt4d($this->bigBlockChain, $block * 4);
-            }
-
-            return $streamData;
         }
+        $numBlocks = $this->props[$stream]['size'] / self::BIG_BLOCK_SIZE;
+        if ($this->props[$stream]['size'] % self::BIG_BLOCK_SIZE != 0) {
+            ++$numBlocks;
+        }
+
+        if ($numBlocks == 0) {
+            return '';
+        }
+
+        $block = $this->props[$stream]['startBlock'];
+
+        while ($block != -2) {
+            $pos = ($block + 1) * self::BIG_BLOCK_SIZE;
+            $streamData .= substr($this->data, $pos, self::BIG_BLOCK_SIZE);
+            $block = self::getInt4d($this->bigBlockChain, $block * 4);
+        }
+
+        return $streamData;
     }
 
     /**
-     * Read a standard stream (by joining sectors using information from SAT)
+     * Read a standard stream (by joining sectors using information from SAT).
      *
      * @param int $bl Sector ID where the stream starts
+     *
      * @return string Data for standard stream
      */
     private function _readData($bl)
@@ -290,10 +292,11 @@ class OLERead
     }
 
     /**
-     * Read 4 bytes of data at specified position
+     * Read 4 bytes of data at specified position.
      *
      * @param string $data
      * @param int $pos
+     *
      * @return int
      */
     private static function getInt4d($data, $pos)

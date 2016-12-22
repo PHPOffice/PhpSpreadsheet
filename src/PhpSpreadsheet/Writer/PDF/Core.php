@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\PDF;
 
 /**
- *  Copyright (c) 2006 - 2015 PhpSpreadsheet
+ *  Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -20,48 +20,49 @@ namespace PhpOffice\PhpSpreadsheet\Writer\PDF;
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  *  @category    PhpSpreadsheet
+ *
  *  @copyright   Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  *  @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\HTML
 {
     /**
-     * Temporary storage directory
+     * Temporary storage directory.
      *
      * @var string
      */
     protected $tempDir = '';
 
     /**
-     * Font
+     * Font.
      *
      * @var string
      */
     protected $font = 'freesans';
 
     /**
-     * Orientation (Over-ride)
+     * Orientation (Over-ride).
      *
      * @var string
      */
     protected $orientation;
 
     /**
-     * Paper size (Over-ride)
+     * Paper size (Over-ride).
      *
      * @var int
      */
     protected $paperSize;
 
     /**
-     * Temporary storage for Save Array Return type
+     * Temporary storage for Save Array Return type.
      *
      * @var string
      */
     private $saveArrayReturnType;
 
     /**
-     * Paper Sizes xRef List
+     * Paper Sizes xRef List.
      *
      * @var array
      */
@@ -135,7 +136,7 @@ abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\HTML
     ];
 
     /**
-     *  Create a new PDF Writer instance
+     *  Create a new PDF Writer instance.
      *
      *  @param     \PhpOffice\PhpSpreadsheet\Spreadsheet    $spreadsheet    Spreadsheet object
      */
@@ -147,7 +148,7 @@ abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\HTML
     }
 
     /**
-     *  Get Font
+     *  Get Font.
      *
      *  @return string
      */
@@ -161,7 +162,7 @@ abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\HTML
      *      'arialunicid0-chinese-simplified'
      *      'arialunicid0-chinese-traditional'
      *      'arialunicid0-korean'
-     *      'arialunicid0-japanese'
+     *      'arialunicid0-japanese'.
      *
      *  @param    string    $fontName
      */
@@ -173,7 +174,7 @@ abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\HTML
     }
 
     /**
-     *  Get Paper Size
+     *  Get Paper Size.
      *
      *  @return int
      */
@@ -183,9 +184,10 @@ abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\HTML
     }
 
     /**
-     *  Set Paper Size
+     *  Set Paper Size.
      *
      *  @param  string  $pValue Paper size
+     *
      *  @return self
      */
     public function setPaperSize($pValue = \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_LETTER)
@@ -196,7 +198,7 @@ abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\HTML
     }
 
     /**
-     *  Get Orientation
+     *  Get Orientation.
      *
      *  @return string
      */
@@ -206,9 +208,10 @@ abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\HTML
     }
 
     /**
-     *  Set Orientation
+     *  Set Orientation.
      *
      *  @param string $pValue  Page orientation
+     *
      *  @return self
      */
     public function setOrientation($pValue = \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_DEFAULT)
@@ -219,7 +222,7 @@ abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\HTML
     }
 
     /**
-     *  Get temporary storage directory
+     *  Get temporary storage directory.
      *
      *  @return string
      */
@@ -229,10 +232,12 @@ abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\HTML
     }
 
     /**
-     *  Set temporary storage directory
+     *  Set temporary storage directory.
      *
      *  @param     string        $pValue        Temporary storage directory
+     *
      *  @throws    \PhpOffice\PhpSpreadsheet\Writer\Exception    when directory does not exist
+     *
      *  @return    self
      */
     public function setTempDir($pValue = '')
@@ -247,9 +252,10 @@ abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\HTML
     }
 
     /**
-     *  Save Spreadsheet to PDF file, pre-save
+     *  Save Spreadsheet to PDF file, pre-save.
      *
      *  @param     string     $pFilename   Name of the file to save as
+     *
      *  @throws    \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     protected function prepareForSave($pFilename = null)
@@ -275,9 +281,10 @@ abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\HTML
     }
 
     /**
-     *  Save PhpSpreadsheet to PDF file, post-save
+     *  Save PhpSpreadsheet to PDF file, post-save.
      *
      *  @param     resource      $fileHandle
+     *
      *  @throws    \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     protected function restoreStateAfterSave($fileHandle)

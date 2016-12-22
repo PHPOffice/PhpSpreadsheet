@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -33,14 +34,14 @@ abstract class Dimension
     private $visible = true;
 
     /**
-     * Outline level
+     * Outline level.
      *
      * @var int
      */
     private $outlineLevel = 0;
 
     /**
-     * Collapsed
+     * Collapsed.
      *
      * @var bool
      */
@@ -54,7 +55,7 @@ abstract class Dimension
     private $xfIndex;
 
     /**
-     * Create a new Dimension
+     * Create a new Dimension.
      *
      * @param int $initialValue Numeric row index
      */
@@ -65,7 +66,7 @@ abstract class Dimension
     }
 
     /**
-     * Get Visible
+     * Get Visible.
      *
      * @return bool
      */
@@ -75,9 +76,10 @@ abstract class Dimension
     }
 
     /**
-     * Set Visible
+     * Set Visible.
      *
      * @param bool $pValue
+     *
      * @return Dimension
      */
     public function setVisible($pValue = true)
@@ -88,7 +90,7 @@ abstract class Dimension
     }
 
     /**
-     * Get Outline Level
+     * Get Outline Level.
      *
      * @return int
      */
@@ -98,12 +100,14 @@ abstract class Dimension
     }
 
     /**
-     * Set Outline Level
+     * Set Outline Level.
      *
      * Value must be between 0 and 7
      *
      * @param  int $pValue
+     *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return Dimension
      */
     public function setOutlineLevel($pValue)
@@ -118,7 +122,7 @@ abstract class Dimension
     }
 
     /**
-     * Get Collapsed
+     * Get Collapsed.
      *
      * @return bool
      */
@@ -128,9 +132,10 @@ abstract class Dimension
     }
 
     /**
-     * Set Collapsed
+     * Set Collapsed.
      *
      * @param  bool  $pValue
+     *
      * @return Dimension
      */
     public function setCollapsed($pValue = true)
@@ -141,7 +146,7 @@ abstract class Dimension
     }
 
     /**
-     * Get index to cellXf
+     * Get index to cellXf.
      *
      * @return int
      */
@@ -151,9 +156,10 @@ abstract class Dimension
     }
 
     /**
-     * Set index to cellXf
+     * Set index to cellXf.
      *
      * @param  int $pValue
+     *
      * @return Dimension
      */
     public function setXfIndex($pValue = 0)

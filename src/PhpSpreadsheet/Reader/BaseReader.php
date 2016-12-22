@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,6 +22,7 @@ use PhpOffice\PhpSpreadsheet\Shared\File;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -30,7 +31,7 @@ abstract class BaseReader implements IReader
     /**
      * Read data only?
      * Identifies whether the Reader should only read data values for cells, and ignore any formatting information;
-     *        or whether it should read both data and formatting
+     *        or whether it should read both data and formatting.
      *
      * @var    bool
      */
@@ -39,7 +40,7 @@ abstract class BaseReader implements IReader
     /**
      * Read empty cells?
      * Identifies whether the Reader should read data values for cells all cells, or should ignore cells containing
-     *         null value or empty string
+     *         null value or empty string.
      *
      * @var    bool
      */
@@ -47,7 +48,7 @@ abstract class BaseReader implements IReader
 
     /**
      * Read charts that are defined in the workbook?
-     * Identifies whether the Reader should read the definitions for any charts that exist in the workbook;
+     * Identifies whether the Reader should read the definitions for any charts that exist in the workbook;.
      *
      * @var    bool
      */
@@ -62,7 +63,7 @@ abstract class BaseReader implements IReader
     protected $loadSheetsOnly;
 
     /**
-     * IReadFilter instance
+     * IReadFilter instance.
      *
      * @var IReadFilter
      */
@@ -93,7 +94,7 @@ abstract class BaseReader implements IReader
      */
     public function setReadDataOnly($pValue = false)
     {
-        $this->readDataOnly = (boolean) $pValue;
+        $this->readDataOnly = (bool) $pValue;
 
         return $this;
     }
@@ -121,7 +122,7 @@ abstract class BaseReader implements IReader
      */
     public function setReadEmptyCells($pValue = true)
     {
-        $this->readEmptyCells = (boolean) $pValue;
+        $this->readEmptyCells = (bool) $pValue;
 
         return $this;
     }
@@ -151,7 +152,7 @@ abstract class BaseReader implements IReader
      */
     public function setIncludeCharts($pValue = false)
     {
-        $this->includeCharts = (boolean) $pValue;
+        $this->includeCharts = (bool) $pValue;
 
         return $this;
     }
@@ -169,7 +170,7 @@ abstract class BaseReader implements IReader
     }
 
     /**
-     * Set which sheets to load
+     * Set which sheets to load.
      *
      * @param mixed $value
      *        This should be either an array of worksheet names to be loaded, or a string containing a single worksheet name.
@@ -202,7 +203,7 @@ abstract class BaseReader implements IReader
     }
 
     /**
-     * Read filter
+     * Read filter.
      *
      * @return IReadFilter
      */
@@ -212,9 +213,10 @@ abstract class BaseReader implements IReader
     }
 
     /**
-     * Set read filter
+     * Set read filter.
      *
      * @param IReadFilter $pValue
+     *
      * @return IReader
      */
     public function setReadFilter(IReadFilter $pValue)
@@ -225,10 +227,12 @@ abstract class BaseReader implements IReader
     }
 
     /**
-     * Open file for reading
+     * Open file for reading.
      *
      * @param string $pFilename
+     *
      * @throws    Exception
+     *
      * @return resource
      */
     protected function openFile($pFilename)
@@ -243,9 +247,10 @@ abstract class BaseReader implements IReader
     }
 
     /**
-     * Scan theXML for use of <!ENTITY to prevent XXE/XEE attacks
+     * Scan theXML for use of <!ENTITY to prevent XXE/XEE attacks.
      *
      * @param     string         $xml
+     *
      * @throws Exception
      */
     public function securityScan($xml)
@@ -259,9 +264,10 @@ abstract class BaseReader implements IReader
     }
 
     /**
-     * Scan theXML for use of <!ENTITY to prevent XXE/XEE attacks
+     * Scan theXML for use of <!ENTITY to prevent XXE/XEE attacks.
      *
      * @param     string         $filestream
+     *
      * @throws Exception
      */
     public function securityScanFile($filestream)

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 /**
- * Copyright (c) 2006 - 2015 PhpSpreadsheet
+ * Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,27 +20,28 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class Font
 {
     /**
-     * Color index
+     * Color index.
      *
      * @var int
      */
     private $colorIndex;
 
     /**
-     * Font
+     * Font.
      *
      * @var \PhpOffice\PhpSpreadsheet\Style\Font
      */
     private $font;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param \PhpOffice\PhpSpreadsheet\Style\Font $font
      */
@@ -51,7 +52,7 @@ class Font
     }
 
     /**
-     * Set the color index
+     * Set the color index.
      *
      * @param int $colorIndex
      */
@@ -61,7 +62,7 @@ class Font
     }
 
     /**
-     * Get font record data
+     * Get font record data.
      *
      * @return string
      */
@@ -122,9 +123,10 @@ class Font
     }
 
     /**
-     * Map to BIFF5-BIFF8 codes for bold
+     * Map to BIFF5-BIFF8 codes for bold.
      *
      * @param bool $bold
+     *
      * @return int
      */
     private static function mapBold($bold)
@@ -137,7 +139,8 @@ class Font
     }
 
     /**
-     * Map of BIFF2-BIFF8 codes for underline styles
+     * Map of BIFF2-BIFF8 codes for underline styles.
+     *
      * @static    array of int
      */
     private static $mapUnderline = [
@@ -149,9 +152,11 @@ class Font
     ];
 
     /**
-     * Map underline
+     * Map underline.
      *
      * @param string
+     * @param mixed $underline
+     *
      * @return int
      */
     private static function mapUnderline($underline)
