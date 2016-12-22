@@ -81,4 +81,15 @@ class Row
     {
         return new RowCellIterator($this->parent, $this->rowIndex, $startColumn, $endColumn);
     }
+
+    /**
+     * Returns bound worksheet
+     *
+     * @return Worksheet
+     */
+    public function getWorksheet()
+    {
+        return $this->parent;
+    }
+
 }
