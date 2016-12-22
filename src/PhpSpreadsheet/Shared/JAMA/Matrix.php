@@ -980,8 +980,7 @@ class Matrix
 
                         return $C;
                     }
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(MatrixDimensionMismatch));
-                    break;
+                    throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(MatrixDimensionMismatch));
                 case 'array':
                     $B = new self($args[0]);
                     if ($this->n == $B->m) {
@@ -998,9 +997,7 @@ class Matrix
 
                         return $C;
                     }
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(MatrixDimensionMismatch));
-                    return $M;
-                    break;
+                    throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(MatrixDimensionMismatch));
                 case 'integer':
                     $C = new self($this->A);
                     for ($i = 0; $i < $C->m; ++$i) {
@@ -1010,7 +1007,6 @@ class Matrix
                     }
 
                     return $C;
-                    break;
                 case 'double':
                     $C = new self($this->m, $this->n);
                     for ($i = 0; $i < $C->m; ++$i) {
@@ -1020,7 +1016,6 @@ class Matrix
                     }
 
                     return $C;
-                    break;
                 case 'float':
                     $C = new self($this->A);
                     for ($i = 0; $i < $C->m; ++$i) {
@@ -1030,10 +1025,8 @@ class Matrix
                     }
 
                     return $C;
-                    break;
                 default:
                     throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
-                    break;
             }
         } else {
             throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);

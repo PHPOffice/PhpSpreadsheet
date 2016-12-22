@@ -2349,11 +2349,13 @@ class Worksheet implements IComparable
         } elseif ($pCellCoordinate == '') {
             throw new Exception('Cell coordinate can not be zero-length string.');
         }
-            // Check if we already have a comment for this cell.
-            // If not, create a new comment.
-            if (isset($this->comments[$pCellCoordinate])) {
-                return $this->comments[$pCellCoordinate];
-            }
+
+        // Check if we already have a comment for this cell.
+        if (isset($this->comments[$pCellCoordinate])) {
+            return $this->comments[$pCellCoordinate];
+        }
+
+        // If not, create a new comment.
         $newComment = new Comment();
         $this->comments[$pCellCoordinate] = $newComment;
 

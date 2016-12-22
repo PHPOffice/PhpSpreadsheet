@@ -561,10 +561,12 @@ class Parser
         // Integer in the range 0..2**16-1
         if ((preg_match("/^\d+$/", $num)) and ($num <= 65535)) {
             return pack('Cv', $this->ptg['ptgInt'], $num);
-        }   // A float
-            if (BIFFwriter::getByteOrder()) { // if it's Big Endian
-                $num = strrev($num);
-            }
+        }
+
+        // A float
+        if (BIFFwriter::getByteOrder()) { // if it's Big Endian
+            $num = strrev($num);
+        }
 
         return pack('Cd', $this->ptg['ptgNum'], $num);
     }

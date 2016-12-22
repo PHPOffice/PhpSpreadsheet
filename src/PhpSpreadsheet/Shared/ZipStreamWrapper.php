@@ -182,8 +182,7 @@ class ZipStreamWrapper
                     return true;
                 }
 
-                    return false;
-                break;
+                return false;
             case SEEK_CUR:
                 if ($offset >= 0) {
                     $this->position += $offset;
@@ -191,8 +190,7 @@ class ZipStreamWrapper
                     return true;
                 }
 
-                    return false;
-                break;
+                return false;
             case SEEK_END:
                 if (strlen($this->data) + $offset >= 0) {
                     $this->position = strlen($this->data) + $offset;
@@ -200,8 +198,7 @@ class ZipStreamWrapper
                     return true;
                 }
 
-                    return false;
-                break;
+                return false;
             default:
                 return false;
         }

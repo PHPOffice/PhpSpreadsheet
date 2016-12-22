@@ -286,7 +286,7 @@ class OLE
     public function _readPpsWks($blockId)
     {
         $fh = $this->getStream($blockId);
-        for ($pos = 0; ; $pos += 128) {
+        for ($pos = 0; true; $pos += 128) {
             fseek($fh, $pos, SEEK_SET);
             $nameUtf16 = fread($fh, 64);
             $nameLength = self::_readInt2($fh);

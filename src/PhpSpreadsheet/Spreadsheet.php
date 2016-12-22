@@ -1006,23 +1006,24 @@ class Spreadsheet
         if ($pIndex > count($this->cellXfCollection) - 1) {
             throw new Exception('CellXf index is out of bounds.');
         }
-            // first remove the cellXf
-            array_splice($this->cellXfCollection, $pIndex, 1);
 
-            // then update cellXf indexes for cells
-            foreach ($this->workSheetCollection as $worksheet) {
-                foreach ($worksheet->getCellCollection(false) as $cellID) {
-                    $cell = $worksheet->getCell($cellID);
-                    $xfIndex = $cell->getXfIndex();
-                    if ($xfIndex > $pIndex) {
-                        // decrease xf index by 1
-                        $cell->setXfIndex($xfIndex - 1);
-                    } elseif ($xfIndex == $pIndex) {
-                        // set to default xf index 0
-                        $cell->setXfIndex(0);
-                    }
+        // first remove the cellXf
+        array_splice($this->cellXfCollection, $pIndex, 1);
+
+        // then update cellXf indexes for cells
+        foreach ($this->workSheetCollection as $worksheet) {
+            foreach ($worksheet->getCellCollection(false) as $cellID) {
+                $cell = $worksheet->getCell($cellID);
+                $xfIndex = $cell->getXfIndex();
+                if ($xfIndex > $pIndex) {
+                    // decrease xf index by 1
+                    $cell->setXfIndex($xfIndex - 1);
+                } elseif ($xfIndex == $pIndex) {
+                    // set to default xf index 0
+                    $cell->setXfIndex(0);
                 }
             }
+        }
     }
 
     /**

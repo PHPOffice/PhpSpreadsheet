@@ -1945,12 +1945,12 @@ class Engineering
         }
 
         return self::cleanComplex(
-                self::COMPLEX(
-                    $parsedComplex['real'],
-                    0 - $parsedComplex['imaginary'],
-                    $parsedComplex['suffix']
-                )
-            );
+            self::COMPLEX(
+                $parsedComplex['real'],
+                0 - $parsedComplex['imaginary'],
+                $parsedComplex['suffix']
+            )
+        );
     }
 
     /**
@@ -1976,12 +1976,12 @@ class Engineering
         }
 
         return self::IMCONJUGATE(
-                self::COMPLEX(
-                    cos($parsedComplex['real']) * cosh($parsedComplex['imaginary']),
-                    sin($parsedComplex['real']) * sinh($parsedComplex['imaginary']),
-                    $parsedComplex['suffix']
-                )
-            );
+            self::COMPLEX(
+                cos($parsedComplex['real']) * cosh($parsedComplex['imaginary']),
+                sin($parsedComplex['real']) * sinh($parsedComplex['imaginary']),
+                $parsedComplex['suffix']
+            )
+        );
     }
 
     /**
@@ -2007,10 +2007,10 @@ class Engineering
         }
 
         return self::COMPLEX(
-                sin($parsedComplex['real']) * cosh($parsedComplex['imaginary']),
-                cos($parsedComplex['real']) * sinh($parsedComplex['imaginary']),
-                $parsedComplex['suffix']
-            );
+            sin($parsedComplex['real']) * cosh($parsedComplex['imaginary']),
+            cos($parsedComplex['real']) * sinh($parsedComplex['imaginary']),
+            $parsedComplex['suffix']
+        );
     }
 
     /**

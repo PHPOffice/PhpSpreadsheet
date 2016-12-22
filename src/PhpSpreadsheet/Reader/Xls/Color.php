@@ -22,12 +22,13 @@ class Color
             // palette color, color index 0x08 maps to pallete index 0
             return $palette[$color - 8];
         }
-            // default color table
-            if ($version == \PhpOffice\PhpSpreadsheet\Reader\Xls::XLS_BIFF8) {
-                return Color\BIFF8::lookup($color);
-            }
-                // BIFF5
-                return Color\BIFF5::lookup($color);
-        return $color;
+
+        // default color table
+        if ($version == \PhpOffice\PhpSpreadsheet\Reader\Xls::XLS_BIFF8) {
+            return Color\BIFF8::lookup($color);
+        }
+
+        // BIFF5
+        return Color\BIFF5::lookup($color);
     }
 }
