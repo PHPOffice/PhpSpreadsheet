@@ -18,16 +18,19 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class Mimetype extends WriterPart
 {
     /**
-     * Write mimetype to plain text format
+     * Write mimetype to plain text format.
      *
      * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     *
      * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      * @return     string         XML Output
      */
     public function write(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)

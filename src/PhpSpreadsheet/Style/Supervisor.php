@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@ namespace PhpOffice\PhpSpreadsheet\Style;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -33,14 +34,14 @@ abstract class Supervisor
     protected $isSupervisor;
 
     /**
-     * Parent. Only used for supervisor
+     * Parent. Only used for supervisor.
      *
      * @var \PhpOffice\PhpSpreadsheet\Style
      */
     protected $parent;
 
     /**
-     * Create a new Supervisor
+     * Create a new Supervisor.
      *
      * @param    bool    $isSupervisor    Flag indicating if this is a supervisor or not
      *                                    Leave this value at default unless you understand exactly what
@@ -53,9 +54,11 @@ abstract class Supervisor
     }
 
     /**
-     * Bind parent. Only used for supervisor
+     * Bind parent. Only used for supervisor.
      *
      * @param \PhpOffice\PhpSpreadsheet\Style $parent
+     * @param null|mixed $parentPropertyName
+     *
      * @return Supervisor
      */
     public function bindParent($parent, $parentPropertyName = null)
@@ -76,7 +79,7 @@ abstract class Supervisor
     }
 
     /**
-     * Get the currently active sheet. Only used for supervisor
+     * Get the currently active sheet. Only used for supervisor.
      *
      * @return \PhpOffice\PhpSpreadsheet\Worksheet
      */
@@ -87,7 +90,7 @@ abstract class Supervisor
 
     /**
      * Get the currently active cell coordinate in currently active sheet.
-     * Only used for supervisor
+     * Only used for supervisor.
      *
      * @return string E.g. 'A1'
      */
@@ -98,7 +101,7 @@ abstract class Supervisor
 
     /**
      * Get the currently active cell coordinate in currently active sheet.
-     * Only used for supervisor
+     * Only used for supervisor.
      *
      * @return string E.g. 'A1'
      */

@@ -12,7 +12,7 @@ use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,6 +29,7 @@ use PhpOffice\PhpSpreadsheet\Chart\Title;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -37,11 +38,13 @@ class Chart extends WriterPart
     protected $calculateCellValues;
 
     /**
-     * Write charts to XML format
+     * Write charts to XML format.
      *
      * @param  \PhpOffice\PhpSpreadsheet\Chart $pChart
+     * @param mixed $calculateCellValues
      *
      * @throws  \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      * @return  string            XML Output
      */
     public function writeChart(\PhpOffice\PhpSpreadsheet\Chart $pChart = null, $calculateCellValues = true)
@@ -116,7 +119,7 @@ class Chart extends WriterPart
     }
 
     /**
-     * Write Chart Title
+     * Write Chart Title.
      *
      * @param  \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
      * @param  Title $title
@@ -161,7 +164,7 @@ class Chart extends WriterPart
     }
 
     /**
-     * Write Chart Legend
+     * Write Chart Legend.
      *
      * @param  \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
      * @param  Legend $legend
@@ -212,7 +215,7 @@ class Chart extends WriterPart
     }
 
     /**
-     * Write Chart Plot Area
+     * Write Chart Plot Area.
      *
      * @param  \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
      * @param  \PhpOffice\PhpSpreadsheet\Worksheet $pSheet
@@ -269,7 +272,7 @@ class Chart extends WriterPart
             if ($chartType === DataSeries::TYPE_LINECHART) {
                 //    Line only, Line3D can't be smoothed
                 $objWriter->startElement('c:smooth');
-                $objWriter->writeAttribute('val', (integer) $plotGroup->getSmoothLine());
+                $objWriter->writeAttribute('val', (int) $plotGroup->getSmoothLine());
                 $objWriter->endElement();
             } elseif (($chartType === DataSeries::TYPE_BARCHART) || ($chartType === DataSeries::TYPE_BARCHART_3D)) {
                 $objWriter->startElement('c:gapWidth');
@@ -348,7 +351,7 @@ class Chart extends WriterPart
     }
 
     /**
-     * Write Data Labels
+     * Write Data Labels.
      *
      * @param  \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
      * @param  \PhpOffice\PhpSpreadsheet\Chart\Layout $chartLayout Chart layout
@@ -398,7 +401,7 @@ class Chart extends WriterPart
     }
 
     /**
-     * Write Category Axis
+     * Write Category Axis.
      *
      * @param  \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
      * @param  PlotArea $plotArea
@@ -407,6 +410,8 @@ class Chart extends WriterPart
      * @param  string $id1
      * @param  string $id2
      * @param  bool $isMultiLevelSeries
+     * @param mixed $xAxis
+     * @param mixed $yAxis
      *
      * @throws  \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
@@ -519,7 +524,7 @@ class Chart extends WriterPart
     }
 
     /**
-     * Write Value Axis
+     * Write Value Axis.
      *
      * @param  \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
      * @param  PlotArea $plotArea
@@ -528,6 +533,10 @@ class Chart extends WriterPart
      * @param  string $id1
      * @param  string $id2
      * @param  bool $isMultiLevelSeries
+     * @param mixed $xAxis
+     * @param mixed $yAxis
+     * @param mixed $majorGridlines
+     * @param mixed $minorGridlines
      *
      * @throws  \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
@@ -1005,11 +1014,12 @@ class Chart extends WriterPart
     }
 
     /**
-     * Get the data series type(s) for a chart plot series
+     * Get the data series type(s) for a chart plot series.
      *
      * @param  PlotArea $plotArea
      *
      * @throws  \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      * @return  string|array
      */
     private static function getChartType($plotArea)
@@ -1033,7 +1043,7 @@ class Chart extends WriterPart
     }
 
     /**
-     * Write Plot Group (series of related plots)
+     * Write Plot Group (series of related plots).
      *
      * @param  DataSeries $plotGroup
      * @param  string $groupType Type of plot for dataseries
@@ -1212,7 +1222,7 @@ class Chart extends WriterPart
     }
 
     /**
-     * Write Plot Series Label
+     * Write Plot Series Label.
      *
      * @param  DataSeriesValues $plotSeriesLabel
      * @param  \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
@@ -1247,7 +1257,7 @@ class Chart extends WriterPart
     }
 
     /**
-     * Write Plot Series Values
+     * Write Plot Series Values.
      *
      * @param  DataSeriesValues $plotSeriesValues
      * @param  \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
@@ -1341,7 +1351,7 @@ class Chart extends WriterPart
     }
 
     /**
-     * Write Bubble Chart Details
+     * Write Bubble Chart Details.
      *
      * @param  DataSeriesValues $plotSeriesValues
      * @param  \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
@@ -1388,7 +1398,7 @@ class Chart extends WriterPart
     }
 
     /**
-     * Write Layout
+     * Write Layout.
      *
      * @param  \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
      * @param  Layout $layout
@@ -1458,7 +1468,7 @@ class Chart extends WriterPart
     }
 
     /**
-     * Write Alternate Content block
+     * Write Alternate Content block.
      *
      * @param  \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
      *
@@ -1488,7 +1498,7 @@ class Chart extends WriterPart
     }
 
     /**
-     * Write Printer Settings
+     * Write Printer Settings.
      *
      * @param  \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
      *

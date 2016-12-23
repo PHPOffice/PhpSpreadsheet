@@ -18,20 +18,21 @@ namespace PhpOffice\PhpSpreadsheet\RichText;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class Run extends TextElement implements ITextElement
 {
     /**
-     * Font
+     * Font.
      *
      * @var \PhpOffice\PhpSpreadsheet\Style\Font
      */
     private $font;
 
     /**
-     * Create a new Run instance
+     * Create a new Run instance.
      *
      * @param     string        $pText        Text
      */
@@ -43,7 +44,7 @@ class Run extends TextElement implements ITextElement
     }
 
     /**
-     * Get font
+     * Get font.
      *
      * @return \PhpOffice\PhpSpreadsheet\Style\Font
      */
@@ -53,10 +54,12 @@ class Run extends TextElement implements ITextElement
     }
 
     /**
-     * Set font
+     * Set font.
      *
      * @param   \PhpOffice\PhpSpreadsheet\Style\Font        $pFont        Font
+     *
      * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return  ITextElement
      */
     public function setFont(\PhpOffice\PhpSpreadsheet\Style\Font $pFont = null)
@@ -67,7 +70,7 @@ class Run extends TextElement implements ITextElement
     }
 
     /**
-     * Get hash code
+     * Get hash code.
      *
      * @return string    Hash code
      */

@@ -15,9 +15,10 @@ class ErrorCode
     ];
 
     /**
-     * Map error code, e.g. '#N/A'
+     * Map error code, e.g. '#N/A'.
      *
      * @param int $code
+     *
      * @return string|bool
      */
     public static function lookup($code)

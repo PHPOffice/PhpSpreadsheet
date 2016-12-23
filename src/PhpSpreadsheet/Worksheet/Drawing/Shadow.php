@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -36,14 +37,14 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
     const SHADOW_TOP_RIGHT = 'tr';
 
     /**
-     * Visible
+     * Visible.
      *
      * @var bool
      */
     private $visible;
 
     /**
-     * Blur radius
+     * Blur radius.
      *
      * Defaults to 6
      *
@@ -52,7 +53,7 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
     private $blurRadius;
 
     /**
-     * Shadow distance
+     * Shadow distance.
      *
      * Defaults to 2
      *
@@ -61,35 +62,35 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
     private $distance;
 
     /**
-     * Shadow direction (in degrees)
+     * Shadow direction (in degrees).
      *
      * @var int
      */
     private $direction;
 
     /**
-     * Shadow alignment
+     * Shadow alignment.
      *
      * @var int
      */
     private $alignment;
 
     /**
-     * Color
+     * Color.
      *
      * @var \PhpOffice\PhpSpreadsheet\Style\Color
      */
     private $color;
 
     /**
-     * Alpha
+     * Alpha.
      *
      * @var int
      */
     private $alpha;
 
     /**
-     * Create a new Shadow
+     * Create a new Shadow.
      */
     public function __construct()
     {
@@ -104,7 +105,7 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Visible
+     * Get Visible.
      *
      * @return bool
      */
@@ -114,9 +115,10 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Visible
+     * Set Visible.
      *
      * @param bool $pValue
+     *
      * @return Shadow
      */
     public function setVisible($pValue = false)
@@ -127,7 +129,7 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Blur radius
+     * Get Blur radius.
      *
      * @return int
      */
@@ -137,9 +139,10 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Blur radius
+     * Set Blur radius.
      *
      * @param int $pValue
+     *
      * @return Shadow
      */
     public function setBlurRadius($pValue = 6)
@@ -150,7 +153,7 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Shadow distance
+     * Get Shadow distance.
      *
      * @return int
      */
@@ -160,9 +163,10 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Shadow distance
+     * Set Shadow distance.
      *
      * @param int $pValue
+     *
      * @return Shadow
      */
     public function setDistance($pValue = 2)
@@ -173,7 +177,7 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Shadow direction (in degrees)
+     * Get Shadow direction (in degrees).
      *
      * @return int
      */
@@ -183,9 +187,10 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Shadow direction (in degrees)
+     * Set Shadow direction (in degrees).
      *
      * @param int $pValue
+     *
      * @return Shadow
      */
     public function setDirection($pValue = 0)
@@ -196,7 +201,7 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Shadow alignment
+     * Get Shadow alignment.
      *
      * @return int
      */
@@ -206,9 +211,10 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Shadow alignment
+     * Set Shadow alignment.
      *
      * @param int $pValue
+     *
      * @return Shadow
      */
     public function setAlignment($pValue = 0)
@@ -219,7 +225,7 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Color
+     * Get Color.
      *
      * @return \PhpOffice\PhpSpreadsheet\Style\Color
      */
@@ -229,10 +235,12 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Color
+     * Set Color.
      *
      * @param    \PhpOffice\PhpSpreadsheet\Style\Color $pValue
+     *
      * @throws   \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return   Shadow
      */
     public function setColor(\PhpOffice\PhpSpreadsheet\Style\Color $pValue = null)
@@ -243,7 +251,7 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get Alpha
+     * Get Alpha.
      *
      * @return int
      */
@@ -253,9 +261,10 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Set Alpha
+     * Set Alpha.
      *
      * @param int $pValue
+     *
      * @return Shadow
      */
     public function setAlpha($pValue = 0)
@@ -266,7 +275,7 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
     }
 
     /**
-     * Get hash code
+     * Get hash code.
      *
      * @return string    Hash code
      */

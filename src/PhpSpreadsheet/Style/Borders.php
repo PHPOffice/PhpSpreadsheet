@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@ namespace PhpOffice\PhpSpreadsheet\Style;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -32,42 +33,42 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
     const DIAGONAL_BOTH = 3;
 
     /**
-     * Left
+     * Left.
      *
      * @var Border
      */
     protected $left;
 
     /**
-     * Right
+     * Right.
      *
      * @var Border
      */
     protected $right;
 
     /**
-     * Top
+     * Top.
      *
      * @var Border
      */
     protected $top;
 
     /**
-     * Bottom
+     * Bottom.
      *
      * @var Border
      */
     protected $bottom;
 
     /**
-     * Diagonal
+     * Diagonal.
      *
      * @var Border
      */
     protected $diagonal;
 
     /**
-     * DiagonalDirection
+     * DiagonalDirection.
      *
      * @var int
      */
@@ -109,7 +110,7 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
     protected $horizontal;
 
     /**
-     * Create a new Borders
+     * Create a new Borders.
      *
      * @param    bool    $isSupervisor    Flag indicating if this is a supervisor or not
      *                                    Leave this value at default unless you understand exactly what
@@ -156,7 +157,7 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
 
     /**
      * Get the shared style component for the currently active cell in currently active sheet.
-     * Only used for style supervisor
+     * Only used for style supervisor.
      *
      * @return Borders
      */
@@ -166,9 +167,10 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
     }
 
     /**
-     * Build style array from subcomponents
+     * Build style array from subcomponents.
      *
      * @param array $array
+     *
      * @return array
      */
     public function getStyleArray($array)
@@ -177,7 +179,7 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
     }
 
     /**
-     * Apply styles from array
+     * Apply styles from array.
      *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getBorders()->applyFromArray(
@@ -211,7 +213,9 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
      * </code>
      *
      * @param   array    $pStyles    Array containing style information
+     *
      * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return  Borders
      */
     public function applyFromArray($pStyles = null)
@@ -253,7 +257,7 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
     }
 
     /**
-     * Get Left
+     * Get Left.
      *
      * @return Border
      */
@@ -263,7 +267,7 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
     }
 
     /**
-     * Get Right
+     * Get Right.
      *
      * @return Border
      */
@@ -273,7 +277,7 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
     }
 
     /**
-     * Get Top
+     * Get Top.
      *
      * @return Border
      */
@@ -283,7 +287,7 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
     }
 
     /**
-     * Get Bottom
+     * Get Bottom.
      *
      * @return Border
      */
@@ -293,7 +297,7 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
     }
 
     /**
-     * Get Diagonal
+     * Get Diagonal.
      *
      * @return Border
      */
@@ -306,6 +310,7 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
      * Get AllBorders (pseudo-border). Only applies to supervisor.
      *
      * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return  Border
      */
     public function getAllBorders()
@@ -321,6 +326,7 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
      * Get Outline (pseudo-border). Only applies to supervisor.
      *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return bool
      */
     public function getOutline()
@@ -336,6 +342,7 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
      * Get Inside (pseudo-border). Only applies to supervisor.
      *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return bool
      */
     public function getInside()
@@ -351,6 +358,7 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
      * Get Vertical (pseudo-border). Only applies to supervisor.
      *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return Border
      */
     public function getVertical()
@@ -366,6 +374,7 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
      * Get Horizontal (pseudo-border). Only applies to supervisor.
      *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return Border
      */
     public function getHorizontal()
@@ -378,7 +387,7 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
     }
 
     /**
-     * Get DiagonalDirection
+     * Get DiagonalDirection.
      *
      * @return int
      */
@@ -392,9 +401,10 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
     }
 
     /**
-     * Set DiagonalDirection
+     * Set DiagonalDirection.
      *
      * @param int $pValue
+     *
      * @return Borders
      */
     public function setDiagonalDirection($pValue = self::DIAGONAL_NONE)
@@ -413,7 +423,7 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
     }
 
     /**
-     * Get hash code
+     * Get hash code.
      *
      * @return string    Hash code
      */

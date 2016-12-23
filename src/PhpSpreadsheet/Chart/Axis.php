@@ -6,12 +6,12 @@ namespace PhpOffice\PhpSpreadsheet\Chart;
  * Created by PhpStorm.
  * User: Wiktor Trzonkowski
  * Date: 6/17/14
- * Time: 12:11 PM
+ * Time: 12:11 PM.
  */
 class Axis extends Properties
 {
     /**
-     * Axis Number
+     * Axis Number.
      *
      * @var  array of mixed
      */
@@ -21,7 +21,7 @@ class Axis extends Properties
     ];
 
     /**
-     * Axis Options
+     * Axis Options.
      *
      * @var  array of mixed
      */
@@ -39,7 +39,7 @@ class Axis extends Properties
     ];
 
     /**
-     * Fill Properties
+     * Fill Properties.
      *
      * @var  array of mixed
      */
@@ -50,7 +50,7 @@ class Axis extends Properties
     ];
 
     /**
-     * Line Properties
+     * Line Properties.
      *
      * @var  array of mixed
      */
@@ -61,7 +61,7 @@ class Axis extends Properties
     ];
 
     /**
-     * Line Style Properties
+     * Line Style Properties.
      *
      * @var  array of mixed
      */
@@ -84,7 +84,7 @@ class Axis extends Properties
     ];
 
     /**
-     * Shadow Properties
+     * Shadow Properties.
      *
      * @var  array of mixed
      */
@@ -109,7 +109,7 @@ class Axis extends Properties
     ];
 
     /**
-     * Glow Properties
+     * Glow Properties.
      *
      * @var  array of mixed
      */
@@ -123,7 +123,7 @@ class Axis extends Properties
     ];
 
     /**
-     * Soft Edge Properties
+     * Soft Edge Properties.
      *
      * @var  array of mixed
      */
@@ -132,7 +132,9 @@ class Axis extends Properties
     ];
 
     /**
-     * Get Series Data Type
+     * Get Series Data Type.
+     *
+     * @param mixed $format_code
      *
      * @return  string
      */
@@ -143,7 +145,7 @@ class Axis extends Properties
     }
 
     /**
-     * Get Axis Number Format Data Type
+     * Get Axis Number Format Data Type.
      *
      * @return  string
      */
@@ -153,7 +155,7 @@ class Axis extends Properties
     }
 
     /**
-     * Get Axis Number Source Linked
+     * Get Axis Number Source Linked.
      *
      * @return  string
      */
@@ -163,7 +165,7 @@ class Axis extends Properties
     }
 
     /**
-     * Set Axis Options Properties
+     * Set Axis Options Properties.
      *
      * @param string $axis_labels
      * @param string $horizontal_crosses_value
@@ -192,7 +194,7 @@ class Axis extends Properties
     }
 
     /**
-     * Get Axis Options Property
+     * Get Axis Options Property.
      *
      * @param string $property
      *
@@ -204,7 +206,7 @@ class Axis extends Properties
     }
 
     /**
-     * Set Axis Orientation Property
+     * Set Axis Orientation Property.
      *
      * @param string $orientation
      */
@@ -214,7 +216,7 @@ class Axis extends Properties
     }
 
     /**
-     * Set Fill Property
+     * Set Fill Property.
      *
      * @param string $color
      * @param int $alpha
@@ -226,7 +228,7 @@ class Axis extends Properties
     }
 
     /**
-     * Set Line Property
+     * Set Line Property.
      *
      * @param string $color
      * @param int $alpha
@@ -238,7 +240,7 @@ class Axis extends Properties
     }
 
     /**
-     * Get Fill Property
+     * Get Fill Property.
      *
      * @param string $property
      *
@@ -250,7 +252,7 @@ class Axis extends Properties
     }
 
     /**
-     * Get Line Property
+     * Get Line Property.
      *
      * @param string $property
      *
@@ -262,7 +264,7 @@ class Axis extends Properties
     }
 
     /**
-     * Set Line Style Properties
+     * Set Line Style Properties.
      *
      * @param float $line_width
      * @param string $compound_type
@@ -288,7 +290,7 @@ class Axis extends Properties
     }
 
     /**
-     * Get Line Style Property
+     * Get Line Style Property.
      *
      * @param array|string $elements
      *
@@ -300,7 +302,7 @@ class Axis extends Properties
     }
 
     /**
-     * Get Line Style Arrow Excel Width
+     * Get Line Style Arrow Excel Width.
      *
      * @param string $arrow
      *
@@ -312,7 +314,7 @@ class Axis extends Properties
     }
 
     /**
-     * Get Line Style Arrow Excel Length
+     * Get Line Style Arrow Excel Length.
      *
      * @param string $arrow
      *
@@ -324,7 +326,7 @@ class Axis extends Properties
     }
 
     /**
-     * Set Shadow Properties
+     * Set Shadow Properties.
      *
      * @param int $sh_presets
      * @param string $sh_color_value
@@ -348,7 +350,7 @@ class Axis extends Properties
     }
 
     /**
-     * Set Shadow Color
+     * Set Shadow Color.
      *
      * @param int $shadow_presets
      *
@@ -363,7 +365,7 @@ class Axis extends Properties
     }
 
     /**
-     * Set Shadow Properties from Maped Values
+     * Set Shadow Properties from Maped Values.
      *
      * @param array $properties_map
      * @param * $reference
@@ -394,7 +396,7 @@ class Axis extends Properties
     }
 
     /**
-     * Set Shadow Color
+     * Set Shadow Color.
      *
      * @param string $color
      * @param int $alpha
@@ -410,7 +412,7 @@ class Axis extends Properties
     }
 
     /**
-     * Set Shadow Blur
+     * Set Shadow Blur.
      *
      * @param float $blur
      *
@@ -426,7 +428,7 @@ class Axis extends Properties
     }
 
     /**
-     * Set Shadow Angle
+     * Set Shadow Angle.
      *
      * @param int $angle
      *
@@ -442,7 +444,7 @@ class Axis extends Properties
     }
 
     /**
-     * Set Shadow Distance
+     * Set Shadow Distance.
      *
      * @param float $distance
      *
@@ -458,7 +460,9 @@ class Axis extends Properties
     }
 
     /**
-     * Get Shadow Property
+     * Get Shadow Property.
+     *
+     * @param mixed $elements
      */
     public function getShadowProperty($elements)
     {
@@ -466,7 +470,7 @@ class Axis extends Properties
     }
 
     /**
-     * Set Glow Properties
+     * Set Glow Properties.
      *
      * @param float $size
      * @param string $color_value
@@ -484,7 +488,7 @@ class Axis extends Properties
     }
 
     /**
-     * Get Glow Property
+     * Get Glow Property.
      *
      * @param array|string $property
      *
@@ -496,7 +500,7 @@ class Axis extends Properties
     }
 
     /**
-     * Set Glow Color
+     * Set Glow Color.
      *
      * @param float $size
      *
@@ -512,7 +516,7 @@ class Axis extends Properties
     }
 
     /**
-     * Set Glow Color
+     * Set Glow Color.
      *
      * @param string $color
      * @param int $alpha
@@ -528,7 +532,7 @@ class Axis extends Properties
     }
 
     /**
-     * Set Soft Edges Size
+     * Set Soft Edges Size.
      *
      * @param float $size
      */
@@ -540,7 +544,7 @@ class Axis extends Properties
     }
 
     /**
-     * Get Soft Edges Size
+     * Get Soft Edges Size.
      *
      * @return string
      */

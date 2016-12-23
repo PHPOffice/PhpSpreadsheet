@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Xls;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xls;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -31,7 +32,7 @@ class RC4
     protected $j = 0;
 
     /**
-     * RC4 stream decryption/encryption constrcutor
+     * RC4 stream decryption/encryption constrcutor.
      *
      * @param string $key Encryption key/passphrase
      */
@@ -54,7 +55,7 @@ class RC4
     }
 
     /**
-     * Symmetric decryption/encryption function
+     * Symmetric decryption/encryption function.
      *
      * @param string $data Data to encrypt/decrypt
      *

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods\Cell;
 
 /**
- * PhpSpreadsheet
+ * PhpSpreadsheet.
  *
  * Copyright (c) 2006 - 2015 PhpSpreadsheet
  *
@@ -22,12 +22,14 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Ods\Cell;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 
 /**
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @author     Alexander Pervakov <frost-nzcr4@jagmort.com>
  */

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
 
 /**
- *    Cholesky decomposition class
+ *    Cholesky decomposition class.
  *
  *    For a symmetric, positive definite matrix A, the Cholesky decomposition
  *    is an lower triangular matrix L so that A = L*L'.
@@ -14,33 +14,39 @@ namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
  *
  *    @author Paul Meagher
  *    @author Michael Bommarito
+ *
  *    @version 1.2
  */
 class CholeskyDecomposition
 {
     /**
-     *    Decomposition storage
+     *    Decomposition storage.
+     *
      *    @var array
      */
     private $L = [];
 
     /**
-     *    Matrix row and column dimension
+     *    Matrix row and column dimension.
+     *
      *    @var int
      */
     private $m;
 
     /**
-     *    Symmetric positive definite flag
+     *    Symmetric positive definite flag.
+     *
      *    @var bool
      */
     private $isspd = true;
 
     /**
-     *    CholeskyDecomposition
+     *    CholeskyDecomposition.
      *
      *    Class constructor - decomposes symmetric positive definite matrix
+     *
      *    @param mixed Matrix square symmetric positive definite matrix
+     * @param null|mixed $A
      */
     public function __construct($A = null)
     {
@@ -73,7 +79,9 @@ class CholeskyDecomposition
         } else {
             throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(ARGUMENT_TYPE_EXCEPTION));
         }
-    }    //    function __construct()
+    }
+
+    //    function __construct()
 
     /**
      *    Is the matrix symmetric and positive definite?
@@ -83,23 +91,29 @@ class CholeskyDecomposition
     public function isSPD()
     {
         return $this->isspd;
-    }    //    function isSPD()
+    }
+
+    //    function isSPD()
 
     /**
-     *    getL
+     *    getL.
      *
      *    Return triangular factor.
+     *
      *    @return Matrix Lower triangular matrix
      */
     public function getL()
     {
         return new Matrix($this->L);
-    }    //    function getL()
+    }
+
+    //    function getL()
 
     /**
-     *    Solve A*X = B
+     *    Solve A*X = B.
      *
      *    @param $B Row-equal matrix
+     *
      *    @return Matrix L * L' * X = B
      */
     public function solve($B = null)
@@ -133,14 +147,13 @@ class CholeskyDecomposition
                     }
 
                     return new Matrix($X, $this->m, $nx);
-                } else {
-                    throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(MatrixSPDException));
                 }
-            } else {
-                throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(MATRIX_DIMENSION_EXCEPTION));
+                throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(MatrixSPDException));
             }
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(ARGUMENT_TYPE_EXCEPTION));
+            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(MATRIX_DIMENSION_EXCEPTION));
         }
-    }    //    function solve()
+        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(ARGUMENT_TYPE_EXCEPTION));
+    }
+
+    //    function solve()
 }

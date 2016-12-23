@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,17 +20,20 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class StringTable extends WriterPart
 {
     /**
-     * Create worksheet stringtable
+     * Create worksheet stringtable.
      *
      * @param     \PhpOffice\PhpSpreadsheet\Worksheet     $pSheet                Worksheet
      * @param     string[]                 $pExistingTable     Existing table to eventually merge with
+     *
      * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      * @return     string[]                 String table for worksheet
      */
     public function createStringTable($pSheet = null, $pExistingTable = null)
@@ -69,16 +72,17 @@ class StringTable extends WriterPart
             }
 
             return $aStringTable;
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Invalid \PhpOffice\PhpSpreadsheet\Worksheet object passed.");
         }
+        throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Invalid \PhpOffice\PhpSpreadsheet\Worksheet object passed.");
     }
 
     /**
-     * Write string table to XML format
+     * Write string table to XML format.
      *
      * @param     string[]     $pStringTable
+     *
      * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      * @return string  XML Output
      */
     public function writeStringTable($pStringTable = null)
@@ -122,17 +126,17 @@ class StringTable extends WriterPart
             $objWriter->endElement();
 
             return $objWriter->getData();
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Invalid string table array passed.');
         }
+        throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Invalid string table array passed.');
     }
 
     /**
-     * Write Rich Text
+     * Write Rich Text.
      *
      * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter    $objWriter         XML Writer
      * @param     \PhpOffice\PhpSpreadsheet\RichText            $pRichText        Rich text
      * @param     string                        $prefix            Optional Namespace prefix
+     *
      * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function writeRichText(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpOffice\PhpSpreadsheet\RichText $pRichText = null, $prefix = null)
@@ -212,11 +216,12 @@ class StringTable extends WriterPart
     }
 
     /**
-     * Write Rich Text
+     * Write Rich Text.
      *
      * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter    $objWriter         XML Writer
      * @param     string|\PhpOffice\PhpSpreadsheet\RichText    $pRichText        text string or Rich text
      * @param     string                        $prefix            Optional Namespace prefix
+     *
      * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function writeRichTextForCharts(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pRichText = null, $prefix = null)
@@ -275,9 +280,10 @@ class StringTable extends WriterPart
     }
 
     /**
-     * Flip string table (for index searching)
+     * Flip string table (for index searching).
      *
      * @param     array    $stringTable    Stringtable
+     *
      * @return     array
      */
     public function flipStringTable($stringTable = [])

@@ -11,7 +11,7 @@ if (!defined('DEBUGMODE_ENABLED')) {
 }
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -28,6 +28,7 @@ if (!defined('DEBUGMODE_ENABLED')) {
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -38,14 +39,14 @@ class XMLWriter extends \XMLWriter
     const STORAGE_DISK = 2;
 
     /**
-     * Temporary filename
+     * Temporary filename.
      *
      * @var string
      */
     private $tempFileName = '';
 
     /**
-     * Create a new XMLWriter instance
+     * Create a new XMLWriter instance.
      *
      * @param int      $pTemporaryStorage        Temporary storage location
      * @param string   $pTemporaryStorageFolder  Temporary storage folder
@@ -76,7 +77,7 @@ class XMLWriter extends \XMLWriter
     }
 
     /**
-     * Destructor
+     * Destructor.
      */
     public function __destruct()
     {
@@ -87,7 +88,7 @@ class XMLWriter extends \XMLWriter
     }
 
     /**
-     * Get written data
+     * Get written data.
      *
      * @return $data
      */
@@ -95,17 +96,17 @@ class XMLWriter extends \XMLWriter
     {
         if ($this->tempFileName == '') {
             return $this->outputMemory(true);
-        } else {
-            $this->flush();
-
-            return file_get_contents($this->tempFileName);
         }
+        $this->flush();
+
+        return file_get_contents($this->tempFileName);
     }
 
     /**
-     * Fallback method for writeRaw, introduced in PHP 5.2
+     * Fallback method for writeRaw, introduced in PHP 5.2.
      *
      * @param string $text
+     *
      * @return bool
      */
     public function writeRawData($text)

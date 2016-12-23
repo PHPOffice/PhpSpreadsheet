@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Style;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@ namespace PhpOffice\PhpSpreadsheet\Style;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -48,56 +49,56 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
     const READORDER_RTL = 2;
 
     /**
-     * Horizontal alignment
+     * Horizontal alignment.
      *
      * @var string
      */
     protected $horizontal = self::HORIZONTAL_GENERAL;
 
     /**
-     * Vertical alignment
+     * Vertical alignment.
      *
      * @var string
      */
     protected $vertical = self::VERTICAL_BOTTOM;
 
     /**
-     * Text rotation
+     * Text rotation.
      *
      * @var int
      */
     protected $textRotation = 0;
 
     /**
-     * Wrap text
+     * Wrap text.
      *
      * @var bool
      */
     protected $wrapText = false;
 
     /**
-     * Shrink to fit
+     * Shrink to fit.
      *
      * @var bool
      */
     protected $shrinkToFit = false;
 
     /**
-     * Indent - only possible with horizontal alignment left and right
+     * Indent - only possible with horizontal alignment left and right.
      *
      * @var int
      */
     protected $indent = 0;
 
     /**
-     * Read order
+     * Read order.
      *
      * @var int
      */
     protected $readorder = 0;
 
     /**
-     * Create a new Alignment
+     * Create a new Alignment.
      *
      * @param    bool    $isSupervisor    Flag indicating if this is a supervisor or not
      *                                       Leave this value at default unless you understand exactly what
@@ -120,7 +121,7 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
 
     /**
      * Get the shared style component for the currently active cell in currently active sheet.
-     * Only used for style supervisor
+     * Only used for style supervisor.
      *
      * @return Alignment
      */
@@ -130,9 +131,10 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
     }
 
     /**
-     * Build style array from subcomponents
+     * Build style array from subcomponents.
      *
      * @param array $array
+     *
      * @return array
      */
     public function getStyleArray($array)
@@ -141,7 +143,7 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
     }
 
     /**
-     * Apply styles from array
+     * Apply styles from array.
      *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getAlignment()->applyFromArray(
@@ -155,7 +157,9 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
      * </code>
      *
      * @param   array    $pStyles    Array containing style information
+     *
      * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return  Alignment
      */
     public function applyFromArray($pStyles = null)
@@ -195,7 +199,7 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
     }
 
     /**
-     * Get Horizontal
+     * Get Horizontal.
      *
      * @return string
      */
@@ -209,9 +213,10 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
     }
 
     /**
-     * Set Horizontal
+     * Set Horizontal.
      *
      * @param string $pValue
+     *
      * @return Alignment
      */
     public function setHorizontal($pValue = self::HORIZONTAL_GENERAL)
@@ -231,7 +236,7 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
     }
 
     /**
-     * Get Vertical
+     * Get Vertical.
      *
      * @return string
      */
@@ -245,9 +250,10 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
     }
 
     /**
-     * Set Vertical
+     * Set Vertical.
      *
      * @param string $pValue
+     *
      * @return Alignment
      */
     public function setVertical($pValue = self::VERTICAL_BOTTOM)
@@ -267,7 +273,7 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
     }
 
     /**
-     * Get TextRotation
+     * Get TextRotation.
      *
      * @return int
      */
@@ -281,10 +287,12 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
     }
 
     /**
-     * Set TextRotation
+     * Set TextRotation.
      *
      * @param int $pValue
+     *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return Alignment
      */
     public function setTextRotation($pValue = 0)
@@ -310,7 +318,7 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
     }
 
     /**
-     * Get Wrap Text
+     * Get Wrap Text.
      *
      * @return bool
      */
@@ -324,9 +332,10 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
     }
 
     /**
-     * Set Wrap Text
+     * Set Wrap Text.
      *
      * @param bool $pValue
+     *
      * @return Alignment
      */
     public function setWrapText($pValue = false)
@@ -345,7 +354,7 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
     }
 
     /**
-     * Get Shrink to fit
+     * Get Shrink to fit.
      *
      * @return bool
      */
@@ -359,9 +368,10 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
     }
 
     /**
-     * Set Shrink to fit
+     * Set Shrink to fit.
      *
      * @param bool $pValue
+     *
      * @return Alignment
      */
     public function setShrinkToFit($pValue = false)
@@ -380,7 +390,7 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
     }
 
     /**
-     * Get indent
+     * Get indent.
      *
      * @return int
      */
@@ -394,9 +404,10 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
     }
 
     /**
-     * Set indent
+     * Set indent.
      *
      * @param int $pValue
+     *
      * @return Alignment
      */
     public function setIndent($pValue = 0)
@@ -419,7 +430,7 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
     }
 
     /**
-     * Get read order
+     * Get read order.
      *
      * @return int
      */
@@ -433,9 +444,10 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
     }
 
     /**
-     * Set read order
+     * Set read order.
      *
      * @param int $pValue
+     *
      * @return Alignment
      */
     public function setReadorder($pValue = 0)
@@ -454,7 +466,7 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
     }
 
     /**
-     * Get hash code
+     * Get hash code.
      *
      * @return string    Hash code
      */

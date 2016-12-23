@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -31,6 +32,7 @@ class DefaultReadFilter implements IReadFilter
      * @param    $column           Column address (as a string value like "A", or "IV")
      * @param    $row              Row number
      * @param    $worksheetName    Optional worksheet name
+     *
      * @return   bool
      */
     public function readCell($column, $row, $worksheetName = '')

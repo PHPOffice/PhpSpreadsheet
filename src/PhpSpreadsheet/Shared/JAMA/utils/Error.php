@@ -1,7 +1,9 @@
 <?php
 /**
- *    Error handling
+ *    Error handling.
+ *
  *    @author Michael Bommarito
+ *
  *    @version 01292005
  */
 
@@ -61,7 +63,8 @@ define('ROW_LENGTH_EXCEPTION', -10);
 $error['EN'][ROW_LENGTH_EXCEPTION] = 'All rows must have the same length.';
 
 /**
- *    Custom error handler
+ *    Custom error handler.
+ *
  *    @param int $errorNumber Error number
  */
 function JAMAError($errorNumber = null)
@@ -71,10 +74,10 @@ function JAMAError($errorNumber = null)
     if (isset($errorNumber)) {
         if (isset($error[JAMALANG][$errorNumber])) {
             return $error[JAMALANG][$errorNumber];
-        } else {
-            return $error['EN'][$errorNumber];
         }
-    } else {
-        return 'Invalid argument to JAMAError()';
+
+        return $error['EN'][$errorNumber];
     }
+
+    return 'Invalid argument to JAMAError()';
 }

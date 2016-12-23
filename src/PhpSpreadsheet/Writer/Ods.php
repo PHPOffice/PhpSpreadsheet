@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
- * Copyright (c) 2006 - 2015 PhpSpreadsheet
+ * Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,27 +22,28 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class Ods extends BaseWriter implements IWriter
 {
     /**
-     * Private writer parts
+     * Private writer parts.
      *
      * @var Ods\WriterPart[]
      */
     private $writerParts = [];
 
     /**
-     * Private PhpSpreadsheet
+     * Private PhpSpreadsheet.
      *
      * @var PhpSpreadsheet
      */
     private $spreadSheet;
 
     /**
-     * Create a new Ods
+     * Create a new Ods.
      *
      * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
      */
@@ -66,24 +67,26 @@ class Ods extends BaseWriter implements IWriter
     }
 
     /**
-     * Get writer part
+     * Get writer part.
      *
      * @param  string  $pPartName  Writer part name
+     *
      * @return Ods\WriterPart|null
      */
     public function getWriterPart($pPartName = '')
     {
         if ($pPartName != '' && isset($this->writerParts[strtolower($pPartName)])) {
             return $this->writerParts[strtolower($pPartName)];
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
-     * Save PhpSpreadsheet to file
+     * Save PhpSpreadsheet to file.
      *
      * @param  string  $pFilename
+     *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function save($pFilename = null)
@@ -129,10 +132,12 @@ class Ods extends BaseWriter implements IWriter
     }
 
     /**
-     * Create zip object
+     * Create zip object.
      *
      * @param string $pFilename
+     *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      * @return ZipArchive
      */
     private function createZip($pFilename)
@@ -161,25 +166,27 @@ class Ods extends BaseWriter implements IWriter
     }
 
     /**
-     * Get Spreadsheet object
+     * Get Spreadsheet object.
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      * @return Spreadsheet
      */
     public function getSpreadsheet()
     {
         if ($this->spreadSheet !== null) {
             return $this->spreadSheet;
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('No PhpSpreadsheet assigned.');
         }
+        throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('No PhpSpreadsheet assigned.');
     }
 
     /**
-     * Set Spreadsheet object
+     * Set Spreadsheet object.
      *
      * @param  \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet  PhpSpreadsheet object
+     *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      * @return self
      */
     public function setSpreadsheet(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)

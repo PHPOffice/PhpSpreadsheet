@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
- *  Copyright (c) 2006 - 2015 PhpSpreadsheet
+ *  Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -22,22 +22,24 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  *  @category    PhpSpreadsheet
+ *
  *  @copyright   Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  *  @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class PDF implements IWriter
 {
     /**
-     * The wrapper for the requested PDF rendering engine
+     * The wrapper for the requested PDF rendering engine.
      *
      * @var PDF\Core
      */
     private $renderer = null;
 
     /**
-     *  Instantiate a new renderer of the configured type within this container class
+     *  Instantiate a new renderer of the configured type within this container class.
      *
      *  @param  \PhpOffice\PhpSpreadsheet\Spreadsheet   $spreadsheet         PhpSpreadsheet object
+     *
      *  @throws Exception    when PDF library is not configured
      */
     public function __construct(Spreadsheet $spreadsheet)
@@ -66,6 +68,7 @@ class PDF implements IWriter
      *
      *  @param   string   $name        Renderer library method name
      *  @param   mixed[]  $arguments   Array of arguments to pass to the renderer method
+     *
      *  @return  mixed    Returned data from the PDF renderer wrapper method
      */
     public function __call($name, $arguments)

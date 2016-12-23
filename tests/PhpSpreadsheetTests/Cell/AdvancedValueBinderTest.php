@@ -42,6 +42,13 @@ class AdvancedValueBinderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider provider
+     *
+     * @param mixed $value
+     * @param mixed $valueBinded
+     * @param mixed $format
+     * @param mixed $thousandsSeparator
+     * @param mixed $decimalSeparator
+     * @param mixed $currencyCode
      */
     public function testCurrency($value, $valueBinded, $format, $thousandsSeparator, $decimalSeparator, $currencyCode)
     {

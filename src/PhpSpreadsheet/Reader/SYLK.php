@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,41 +20,42 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class SYLK extends BaseReader implements IReader
 {
     /**
-     * Input encoding
+     * Input encoding.
      *
      * @var string
      */
     private $inputEncoding = 'ANSI';
 
     /**
-     * Sheet index to read
+     * Sheet index to read.
      *
      * @var int
      */
     private $sheetIndex = 0;
 
     /**
-     * Formats
+     * Formats.
      *
      * @var array
      */
     private $formats = [];
 
     /**
-     * Format Count
+     * Format Count.
      *
      * @var int
      */
     private $format = 0;
 
     /**
-     * Create a new SYLK Reader instance
+     * Create a new SYLK Reader instance.
      */
     public function __construct()
     {
@@ -62,10 +63,12 @@ class SYLK extends BaseReader implements IReader
     }
 
     /**
-     * Validate that the current file is a SYLK file
+     * Validate that the current file is a SYLK file.
      *
      * @param     string         $pFilename
+     *
      * @throws Exception
+     *
      * @return bool
      */
     public function canRead($pFilename)
@@ -94,7 +97,7 @@ class SYLK extends BaseReader implements IReader
     }
 
     /**
-     * Set input encoding
+     * Set input encoding.
      *
      * @param string $pValue Input encoding
      */
@@ -106,7 +109,7 @@ class SYLK extends BaseReader implements IReader
     }
 
     /**
-     * Get input encoding
+     * Get input encoding.
      *
      * @return string
      */
@@ -116,9 +119,10 @@ class SYLK extends BaseReader implements IReader
     }
 
     /**
-     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns)
+     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
      * @param    string     $pFilename
+     *
      * @throws   Exception
      */
     public function listWorksheetInfo($pFilename)
@@ -157,7 +161,7 @@ class SYLK extends BaseReader implements IReader
             if ($dataType == 'C') {
                 //  Read cell value data
                 foreach ($rowData as $rowDatum) {
-                    switch ($rowDatum{0}) {
+                    switch ($rowDatum[0]) {
                         case 'C':
                         case 'X':
                             $columnIndex = substr($rowDatum, 1) - 1;
@@ -184,10 +188,12 @@ class SYLK extends BaseReader implements IReader
     }
 
     /**
-     * Loads PhpSpreadsheet from file
+     * Loads PhpSpreadsheet from file.
      *
      * @param     string         $pFilename
+     *
      * @throws     Exception
+     *
      * @return     \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     public function load($pFilename)
@@ -200,11 +206,13 @@ class SYLK extends BaseReader implements IReader
     }
 
     /**
-     * Loads PhpSpreadsheet from file into PhpSpreadsheet instance
+     * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      *
      * @param     string         $pFilename
      * @param     \PhpOffice\PhpSpreadsheet\Spreadsheet    $spreadsheet
+     *
      * @throws    Exception
+     *
      * @return    \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     public function loadIntoExisting($pFilename, \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
@@ -244,7 +252,7 @@ class SYLK extends BaseReader implements IReader
             if ($dataType == 'P') {
                 $formatArray = [];
                 foreach ($rowData as $rowDatum) {
-                    switch ($rowDatum{0}) {
+                    switch ($rowDatum[0]) {
                         case 'P':
                             $formatArray['numberformat']['code'] = str_replace($fromFormats, $toFormats, substr($rowDatum, 1));
                             break;
@@ -258,7 +266,7 @@ class SYLK extends BaseReader implements IReader
                         case 'S':
                             $styleSettings = substr($rowDatum, 1);
                             for ($i = 0; $i < strlen($styleSettings); ++$i) {
-                                switch ($styleSettings{$i}) {
+                                switch ($styleSettings[$i]) {
                                     case 'I':
                                         $formatArray['font']['italic'] = true;
                                         break;
@@ -288,7 +296,7 @@ class SYLK extends BaseReader implements IReader
                 $hasCalculatedValue = false;
                 $cellData = $cellDataFormula = '';
                 foreach ($rowData as $rowDatum) {
-                    switch ($rowDatum{0}) {
+                    switch ($rowDatum[0]) {
                         case 'C':
                         case 'X':
                             $column = substr($rowDatum, 1);
@@ -322,7 +330,7 @@ class SYLK extends BaseReader implements IReader
                                             $rowReference = $row;
                                         }
                                         //    Bracketed R references are relative to the current row
-                                        if ($rowReference{0} == '[') {
+                                        if ($rowReference[0] == '[') {
                                             $rowReference = $row + trim($rowReference, '[]');
                                         }
                                         $columnReference = $cellReference[4][0];
@@ -331,7 +339,7 @@ class SYLK extends BaseReader implements IReader
                                             $columnReference = $column;
                                         }
                                         //    Bracketed C references are relative to the current column
-                                        if ($columnReference{0} == '[') {
+                                        if ($columnReference[0] == '[') {
                                             $columnReference = $column + trim($columnReference, '[]');
                                         }
                                         $A1CellReference = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($columnReference - 1) . $rowReference;
@@ -361,7 +369,7 @@ class SYLK extends BaseReader implements IReader
                 $formatStyle = $columnWidth = $styleSettings = '';
                 $styleData = [];
                 foreach ($rowData as $rowDatum) {
-                    switch ($rowDatum{0}) {
+                    switch ($rowDatum[0]) {
                         case 'C':
                         case 'X':
                             $column = substr($rowDatum, 1);
@@ -379,7 +387,7 @@ class SYLK extends BaseReader implements IReader
                         case 'S':
                             $styleSettings = substr($rowDatum, 1);
                             for ($i = 0; $i < strlen($styleSettings); ++$i) {
-                                switch ($styleSettings{$i}) {
+                                switch ($styleSettings[$i]) {
                                     case 'I':
                                         $styleData['font']['italic'] = true;
                                         break;
@@ -428,7 +436,7 @@ class SYLK extends BaseReader implements IReader
                 }
             } else {
                 foreach ($rowData as $rowDatum) {
-                    switch ($rowDatum{0}) {
+                    switch ($rowDatum[0]) {
                         case 'C':
                         case 'X':
                             $column = substr($rowDatum, 1);
@@ -450,7 +458,7 @@ class SYLK extends BaseReader implements IReader
     }
 
     /**
-     * Get sheet index
+     * Get sheet index.
      *
      * @return int
      */
@@ -460,9 +468,10 @@ class SYLK extends BaseReader implements IReader
     }
 
     /**
-     * Set sheet index
+     * Set sheet index.
      *
      * @param    int        $pValue        Sheet index
+     *
      * @return SYLK
      */
     public function setSheetIndex($pValue = 0)

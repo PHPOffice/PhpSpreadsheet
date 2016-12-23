@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Shared\Trend;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@ namespace PhpOffice\PhpSpreadsheet\Shared\Trend;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -27,16 +28,17 @@ class LogarithmicBestFit extends BestFit
 {
     /**
      * Algorithm type to use for best-fit
-     * (Name of this Trend class)
+     * (Name of this Trend class).
      *
      * @var    string
      **/
     protected $bestFitType = 'logarithmic';
 
     /**
-     * Return the Y-Value for a specified value of X
+     * Return the Y-Value for a specified value of X.
      *
      * @param     float        $xValue            X-Value
+     *
      * @return     float                        Y-Value
      **/
     public function getValueOfYForX($xValue)
@@ -45,9 +47,10 @@ class LogarithmicBestFit extends BestFit
     }
 
     /**
-     * Return the X-Value for a specified value of Y
+     * Return the X-Value for a specified value of Y.
      *
      * @param     float        $yValue            Y-Value
+     *
      * @return     float                        X-Value
      **/
     public function getValueOfXForY($yValue)
@@ -56,9 +59,10 @@ class LogarithmicBestFit extends BestFit
     }
 
     /**
-     * Return the Equation of the best-fit line
+     * Return the Equation of the best-fit line.
      *
      * @param     int        $dp        Number of places of decimal precision to display
+     *
      * @return     string
      **/
     public function getEquation($dp = 0)
@@ -70,7 +74,7 @@ class LogarithmicBestFit extends BestFit
     }
 
     /**
-     * Execute the regression and calculate the goodness of fit for a set of X and Y data values
+     * Execute the regression and calculate the goodness of fit for a set of X and Y data values.
      *
      * @param     float[]    $yValues    The set of Y-values for this regression
      * @param     float[]    $xValues    The set of X-values for this regression
@@ -91,7 +95,7 @@ class LogarithmicBestFit extends BestFit
     }
 
     /**
-     * Define the regression and calculate the goodness of fit for a set of X and Y data values
+     * Define the regression and calculate the goodness of fit for a set of X and Y data values.
      *
      * @param    float[]        $yValues    The set of Y-values for this regression
      * @param    float[]        $xValues    The set of X-values for this regression

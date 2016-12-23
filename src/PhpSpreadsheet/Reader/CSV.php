@@ -5,7 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,55 +22,56 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class CSV extends BaseReader implements IReader
 {
     /**
-     * Input encoding
+     * Input encoding.
      *
      * @var    string
      */
     private $inputEncoding = 'UTF-8';
 
     /**
-     * Delimiter
+     * Delimiter.
      *
      * @var string
      */
     private $delimiter = ',';
 
     /**
-     * Enclosure
+     * Enclosure.
      *
      * @var    string
      */
     private $enclosure = '"';
 
     /**
-     * Sheet index to read
+     * Sheet index to read.
      *
      * @var    int
      */
     private $sheetIndex = 0;
 
     /**
-     * Load rows contiguously
+     * Load rows contiguously.
      *
      * @var    bool
      */
     private $contiguous = false;
 
     /**
-     * Row counter for loading rows contiguously
+     * Row counter for loading rows contiguously.
      *
      * @var    int
      */
     private $contiguousRow = -1;
 
     /**
-     * Create a new CSV Reader instance
+     * Create a new CSV Reader instance.
      */
     public function __construct()
     {
@@ -78,7 +79,7 @@ class CSV extends BaseReader implements IReader
     }
 
     /**
-     * Set input encoding
+     * Set input encoding.
      *
      * @param string $pValue Input encoding
      */
@@ -90,7 +91,7 @@ class CSV extends BaseReader implements IReader
     }
 
     /**
-     * Get input encoding
+     * Get input encoding.
      *
      * @return string
      */
@@ -100,7 +101,7 @@ class CSV extends BaseReader implements IReader
     }
 
     /**
-     * Move filepointer past any BOM marker
+     * Move filepointer past any BOM marker.
      */
     protected function skipBOM()
     {
@@ -133,7 +134,7 @@ class CSV extends BaseReader implements IReader
     }
 
     /**
-     * Identify any separator that is explicitly set in the file
+     * Identify any separator that is explicitly set in the file.
      */
     protected function checkSeparator()
     {
@@ -152,9 +153,10 @@ class CSV extends BaseReader implements IReader
     }
 
     /**
-     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns)
+     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
      * @param     string         $pFilename
+     *
      * @throws    Exception
      */
     public function listWorksheetInfo($pFilename)
@@ -195,10 +197,12 @@ class CSV extends BaseReader implements IReader
     }
 
     /**
-     * Loads Spreadsheet from file
+     * Loads Spreadsheet from file.
      *
      * @param     string         $pFilename
+     *
      * @throws Exception
+     *
      * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     public function load($pFilename)
@@ -211,11 +215,13 @@ class CSV extends BaseReader implements IReader
     }
 
     /**
-     * Loads PhpSpreadsheet from file into PhpSpreadsheet instance
+     * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      *
      * @param string $pFilename
      * @param Spreadsheet $spreadsheet
+     *
      * @throws Exception
+     *
      * @return Spreadsheet
      */
     public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
@@ -286,7 +292,7 @@ class CSV extends BaseReader implements IReader
     }
 
     /**
-     * Get delimiter
+     * Get delimiter.
      *
      * @return string
      */
@@ -296,9 +302,10 @@ class CSV extends BaseReader implements IReader
     }
 
     /**
-     * Set delimiter
+     * Set delimiter.
      *
      * @param    string    $pValue        Delimiter, defaults to ,
+     *
      * @return   CSV
      */
     public function setDelimiter($pValue = ',')
@@ -309,7 +316,7 @@ class CSV extends BaseReader implements IReader
     }
 
     /**
-     * Get enclosure
+     * Get enclosure.
      *
      * @return string
      */
@@ -319,9 +326,10 @@ class CSV extends BaseReader implements IReader
     }
 
     /**
-     * Set enclosure
+     * Set enclosure.
      *
      * @param    string    $pValue        Enclosure, defaults to "
+     *
      * @return   CSV
      */
     public function setEnclosure($pValue = '"')
@@ -335,7 +343,7 @@ class CSV extends BaseReader implements IReader
     }
 
     /**
-     * Get sheet index
+     * Get sheet index.
      *
      * @return int
      */
@@ -345,9 +353,10 @@ class CSV extends BaseReader implements IReader
     }
 
     /**
-     * Set sheet index
+     * Set sheet index.
      *
      * @param    int        $pValue        Sheet index
+     *
      * @return   CSV
      */
     public function setSheetIndex($pValue = 0)
@@ -358,7 +367,7 @@ class CSV extends BaseReader implements IReader
     }
 
     /**
-     * Set Contiguous
+     * Set Contiguous.
      *
      * @param bool $contiguous
      */
@@ -373,7 +382,7 @@ class CSV extends BaseReader implements IReader
     }
 
     /**
-     * Get Contiguous
+     * Get Contiguous.
      *
      * @return bool
      */
@@ -386,7 +395,9 @@ class CSV extends BaseReader implements IReader
      * Can the current IReader read the file?
      *
      * @param     string         $pFilename
+     *
      * @throws Exception
+     *
      * @return bool
      */
     public function canRead($pFilename)

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Chart;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@ namespace PhpOffice\PhpSpreadsheet\Chart;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category    PhpSpreadsheet
+ *
  * @copyright   Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -49,7 +50,7 @@ class Legend
     ];
 
     /**
-     * Legend position
+     * Legend position.
      *
      * @var    string
      */
@@ -63,14 +64,17 @@ class Legend
     private $overlay = true;
 
     /**
-     * Legend Layout
+     * Legend Layout.
      *
      * @var    Layout
      */
     private $layout = null;
 
     /**
-     *    Create a new Legend
+     *    Create a new Legend.
+     *
+     * @param mixed $position
+     * @param mixed $overlay
      */
     public function __construct($position = self::POSITION_RIGHT, Layout $layout = null, $overlay = false)
     {
@@ -80,7 +84,7 @@ class Legend
     }
 
     /**
-     * Get legend position as an excel string value
+     * Get legend position as an excel string value.
      *
      * @return    string
      */
@@ -90,7 +94,7 @@ class Legend
     }
 
     /**
-     * Get legend position using an excel string value
+     * Get legend position using an excel string value.
      *
      * @param    string    $position
      */
@@ -106,7 +110,7 @@ class Legend
     }
 
     /**
-     * Get legend position as an Excel internal numeric value
+     * Get legend position as an Excel internal numeric value.
      *
      * @return    number
      */
@@ -116,7 +120,7 @@ class Legend
     }
 
     /**
-     * Set legend position using an Excel internal numeric value
+     * Set legend position using an Excel internal numeric value.
      *
      * @param    number    $positionXL
      */
@@ -145,6 +149,7 @@ class Legend
      * Set allow overlay of other elements?
      *
      * @param    bool    $overlay
+     *
      * @return    bool
      */
     public function setOverlay($overlay = false)
@@ -159,7 +164,7 @@ class Legend
     }
 
     /**
-     * Get Layout
+     * Get Layout.
      *
      * @return Layout
      */

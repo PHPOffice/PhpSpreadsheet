@@ -18,13 +18,14 @@ namespace PhpOffice\PhpSpreadsheet;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 interface IComparable
 {
     /**
-     * Get hash code
+     * Get hash code.
      *
      * @return string    Hash code
      */

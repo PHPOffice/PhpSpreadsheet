@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,16 +20,18 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class DefaultValueBinder implements IValueBinder
 {
     /**
-     * Bind value to a cell
+     * Bind value to a cell.
      *
      * @param  \PhpOffice\PhpSpreadsheet\Cell  $cell   Cell to bind value to
      * @param  mixed          $value  Value to bind in cell
+     *
      * @return bool
      */
     public function bindValue(\PhpOffice\PhpSpreadsheet\Cell $cell, $value = null)
@@ -54,9 +56,10 @@ class DefaultValueBinder implements IValueBinder
     }
 
     /**
-     * DataType for value
+     * DataType for value.
      *
      * @param   mixed  $pValue
+     *
      * @return  string
      */
     public static function dataTypeForValue($pValue = null)
@@ -68,7 +71,7 @@ class DefaultValueBinder implements IValueBinder
             return DataType::TYPE_STRING;
         } elseif ($pValue instanceof \PhpOffice\PhpSpreadsheet\RichText) {
             return DataType::TYPE_INLINE;
-        } elseif ($pValue{0} === '=' && strlen($pValue) > 1) {
+        } elseif ($pValue[0] === '=' && strlen($pValue) > 1) {
             return DataType::TYPE_FORMULA;
         } elseif (is_bool($pValue)) {
             return DataType::TYPE_BOOL;
@@ -76,7 +79,7 @@ class DefaultValueBinder implements IValueBinder
             return DataType::TYPE_NUMERIC;
         } elseif (preg_match('/^[\+\-]?([0-9]+\\.?[0-9]*|[0-9]*\\.?[0-9]+)([Ee][\-\+]?[0-2]?\d{1,3})?$/', $pValue)) {
             $tValue = ltrim($pValue, '+-');
-            if (is_string($pValue) && $tValue{0} === '0' && strlen($tValue) > 1 && $tValue{1} !== '.') {
+            if (is_string($pValue) && $tValue[0] === '0' && strlen($tValue) > 1 && $tValue[1] !== '.') {
                 return DataType::TYPE_STRING;
             } elseif ((strpos($pValue, '.') === false) && ($pValue > PHP_INT_MAX)) {
                 return DataType::TYPE_STRING;

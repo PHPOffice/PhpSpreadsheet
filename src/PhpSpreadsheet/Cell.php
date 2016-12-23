@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet;
 
 /**
- *    Copyright (c) 2006 - 2016 PhpSpreadsheet
+ *    Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  *    This library is free software; you can redistribute it and/or
  *    modify it under the terms of the GNU Lesser General Public
@@ -20,27 +20,28 @@ namespace PhpOffice\PhpSpreadsheet;
  *    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  *    @category    PhpSpreadsheet
+ *
  *    @copyright    Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  *    @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class Cell
 {
     /**
-     *  Default range variable constant
+     *  Default range variable constant.
      *
      *  @var  string
      */
     const DEFAULT_RANGE = 'A1:A1';
 
     /**
-     *    Value binder to use
+     *    Value binder to use.
      *
      *    @var    Cell\IValueBinder
      */
     private static $valueBinder;
 
     /**
-     *    Value of the cell
+     *    Value of the cell.
      *
      *    @var    mixed
      */
@@ -59,33 +60,33 @@ class Cell
     private $calculatedValue;
 
     /**
-     *    Type of the cell data
+     *    Type of the cell data.
      *
      *    @var    string
      */
     private $dataType;
 
     /**
-     *    Parent worksheet
+     *    Parent worksheet.
      *
      *    @var    CachedObjectStorage\CacheBase
      */
     private $parent;
 
     /**
-     *    Index to cellXf
+     *    Index to cellXf.
      *
      *    @var    int
      */
     private $xfIndex = 0;
 
     /**
-     *    Attributes of the formula
+     *    Attributes of the formula.
      */
     private $formulaAttributes;
 
     /**
-     *    Send notification to the cache controller
+     *    Send notification to the cache controller.
      **/
     public function notifyCacheController()
     {
@@ -105,11 +106,12 @@ class Cell
     }
 
     /**
-     *    Create a new Cell
+     *    Create a new Cell.
      *
      *    @param    mixed                $pValue
      *    @param    string                $pDataType
      *    @param    Worksheet    $pSheet
+     *
      *    @throws    Exception
      */
     public function __construct($pValue = null, $pDataType = null, Worksheet $pSheet = null)
@@ -132,7 +134,7 @@ class Cell
     }
 
     /**
-     *    Get cell coordinate column
+     *    Get cell coordinate column.
      *
      *    @return    string
      */
@@ -142,7 +144,7 @@ class Cell
     }
 
     /**
-     *    Get cell coordinate row
+     *    Get cell coordinate row.
      *
      *    @return    int
      */
@@ -152,7 +154,7 @@ class Cell
     }
 
     /**
-     *    Get cell coordinate
+     *    Get cell coordinate.
      *
      *    @return    string
      */
@@ -162,7 +164,7 @@ class Cell
     }
 
     /**
-     *    Get cell value
+     *    Get cell value.
      *
      *    @return    mixed
      */
@@ -172,7 +174,7 @@ class Cell
     }
 
     /**
-     *    Get cell value with formatting
+     *    Get cell value with formatting.
      *
      *    @return    string
      */
@@ -186,12 +188,14 @@ class Cell
     }
 
     /**
-     *    Set cell value
+     *    Set cell value.
      *
      *    Sets the value for a cell, automatically determining the datatype using the value binder
      *
      *    @param    mixed    $pValue                    Value
+     *
      *    @throws    Exception
+     *
      *    @return    Cell
      */
     public function setValue($pValue = null)
@@ -204,11 +208,13 @@ class Cell
     }
 
     /**
-     *    Set the value for a cell, with the explicit data type passed to the method (bypassing any use of the value binder)
+     *    Set the value for a cell, with the explicit data type passed to the method (bypassing any use of the value binder).
      *
      *    @param    mixed    $pValue            Value
      *    @param    string    $pDataType        Explicit data type
+     *
      *    @throws    Exception
+     *
      *    @return    Cell
      */
     public function setValueExplicit($pValue = null, $pDataType = Cell\DataType::TYPE_STRING)
@@ -251,12 +257,14 @@ class Cell
     }
 
     /**
-     *    Get calculated cell value
+     *    Get calculated cell value.
      *
      *    @deprecated        Since version 1.7.8 for planned changes to cell for array formula handling
      *
      *    @param    bool $resetLog  Whether the calculation engine logger should be reset or not
+     *
      *    @throws    Exception
+     *
      *    @return    mixed
      */
     public function getCalculatedValue($resetLog = true)
@@ -295,9 +303,10 @@ class Cell
     }
 
     /**
-     *    Set old calculated value (cached)
+     *    Set old calculated value (cached).
      *
      *    @param    mixed $pValue    Value
+     *
      *    @return    Cell
      */
     public function setCalculatedValue($pValue = null)
@@ -325,7 +334,7 @@ class Cell
     }
 
     /**
-     *    Get cell data type
+     *    Get cell data type.
      *
      *    @return string
      */
@@ -335,9 +344,10 @@ class Cell
     }
 
     /**
-     *    Set cell data type
+     *    Set cell data type.
      *
      *    @param    string $pDataType
+     *
      *    @return    Cell
      */
     public function setDataType($pDataType = Cell\DataType::TYPE_STRING)
@@ -351,7 +361,7 @@ class Cell
     }
 
     /**
-     *  Identify if the cell contains a formula
+     *  Identify if the cell contains a formula.
      *
      *  @return bool
      */
@@ -364,6 +374,7 @@ class Cell
      *    Does this cell contain Data validation rules?
      *
      *    @throws    Exception
+     *
      *    @return    bool
      */
     public function hasDataValidation()
@@ -376,9 +387,10 @@ class Cell
     }
 
     /**
-     *    Get Data validation rules
+     *    Get Data validation rules.
      *
      *    @throws    Exception
+     *
      *    @return    Cell\DataValidation
      */
     public function getDataValidation()
@@ -391,10 +403,12 @@ class Cell
     }
 
     /**
-     *    Set Data validation rules
+     *    Set Data validation rules.
      *
      *    @param    Cell\DataValidation    $pDataValidation
+     *
      *    @throws    Exception
+     *
      *    @return    Cell
      */
     public function setDataValidation(Cell\DataValidation $pDataValidation = null)
@@ -412,6 +426,7 @@ class Cell
      *    Does this cell contain a Hyperlink?
      *
      *    @throws    Exception
+     *
      *    @return bool
      */
     public function hasHyperlink()
@@ -424,9 +439,10 @@ class Cell
     }
 
     /**
-     *    Get Hyperlink
+     *    Get Hyperlink.
      *
      *    @throws    Exception
+     *
      *    @return    Cell\Hyperlink
      */
     public function getHyperlink()
@@ -439,10 +455,12 @@ class Cell
     }
 
     /**
-     *    Set Hyperlink
+     *    Set Hyperlink.
      *
      *    @param    Cell\Hyperlink    $pHyperlink
+     *
      *    @throws    Exception
+     *
      *    @return    Cell
      */
     public function setHyperlink(Cell\Hyperlink $pHyperlink = null)
@@ -457,7 +475,7 @@ class Cell
     }
 
     /**
-     *    Get parent worksheet
+     *    Get parent worksheet.
      *
      *    @return CachedObjectStorage\CacheBase
      */
@@ -467,7 +485,7 @@ class Cell
     }
 
     /**
-     *    Get parent worksheet
+     *    Get parent worksheet.
      *
      *    @return Worksheet
      */
@@ -477,17 +495,17 @@ class Cell
     }
 
     /**
-     *    Is this cell in a merge range
+     *    Is this cell in a merge range.
      *
      *    @return bool
      */
     public function isInMergeRange()
     {
-        return (boolean) $this->getMergeRange();
+        return (bool) $this->getMergeRange();
     }
 
     /**
-     *    Is this cell the master (top left cell) in a merge range (that holds the actual data value)
+     *    Is this cell the master (top left cell) in a merge range (that holds the actual data value).
      *
      *    @return bool
      */
@@ -505,7 +523,7 @@ class Cell
     }
 
     /**
-     *    If this cell is in a merge range, then return the range
+     *    If this cell is in a merge range, then return the range.
      *
      *    @return string
      */
@@ -521,7 +539,7 @@ class Cell
     }
 
     /**
-     *    Get cell style
+     *    Get cell style.
      *
      *    @return    Style
      */
@@ -531,9 +549,10 @@ class Cell
     }
 
     /**
-     *    Re-bind parent
+     *    Re-bind parent.
      *
      *    @param    Worksheet $parent
+     *
      *    @return    Cell
      */
     public function rebindParent(Worksheet $parent)
@@ -547,6 +566,7 @@ class Cell
      *    Is cell in a specific range?
      *
      *    @param    string    $pRange        Cell range (e.g. A1:A1)
+     *
      *    @return    bool
      */
     public function isInRange($pRange = 'A1:A1')
@@ -563,10 +583,12 @@ class Cell
     }
 
     /**
-     *    Coordinate from string
+     *    Coordinate from string.
      *
      *    @param    string    $pCoordinateString
+     *
      *    @throws    Exception
+     *
      *    @return    string[]    Array containing column and row (indexes 0 and 1)
      */
     public static function coordinateFromString($pCoordinateString = 'A1')
@@ -583,11 +605,13 @@ class Cell
     }
 
     /**
-     *    Make string row, column or cell coordinate absolute
+     *    Make string row, column or cell coordinate absolute.
      *
      *    @param    string    $pCoordinateString        e.g. 'A' or '1' or 'A1'
      *                    Note that this value can be a row or column reference as well as a cell reference
+     *
      *    @throws    Exception
+     *
      *    @return    string    Absolute coordinate        e.g. '$A' or '$1' or '$A$1'
      */
     public static function absoluteReference($pCoordinateString = 'A1')
@@ -617,10 +641,12 @@ class Cell
     }
 
     /**
-     *    Make string coordinate absolute
+     *    Make string coordinate absolute.
      *
      *    @param    string    $pCoordinateString        e.g. 'A1'
+     *
      *    @throws    Exception
+     *
      *    @return    string    Absolute coordinate        e.g. '$A$1'
      */
     public static function absoluteCoordinate($pCoordinateString = 'A1')
@@ -648,9 +674,10 @@ class Cell
     }
 
     /**
-     *    Split range into coordinate strings
+     *    Split range into coordinate strings.
      *
      *    @param    string    $pRange        e.g. 'B4:D9' or 'B4:D9,H2:O11' or 'B4'
+     *
      *    @return    array    Array containg one or more arrays containing one or two coordinate strings
      *                                e.g. array('B4','D9') or array(array('B4','D9'),array('H2','O11'))
      *                                        or array('B4')
@@ -672,10 +699,12 @@ class Cell
     }
 
     /**
-     *    Build range from coordinate strings
+     *    Build range from coordinate strings.
      *
      *    @param    array    $pRange    Array containg one or more arrays containing one or two coordinate strings
+     *
      *    @throws    Exception
+     *
      *    @return    string    String representation of $pRange
      */
     public static function buildRange($pRange)
@@ -697,9 +726,10 @@ class Cell
     }
 
     /**
-     *    Calculate range boundaries
+     *    Calculate range boundaries.
      *
      *    @param    string    $pRange        Cell range (e.g. A1:A1)
+     *
      *    @return    array    Range coordinates array(Start Cell, End Cell)
      *                    where Start Cell and End Cell are arrays (Column Number, Row Number)
      */
@@ -732,9 +762,10 @@ class Cell
     }
 
     /**
-     *    Calculate range dimension
+     *    Calculate range dimension.
      *
      *    @param    string    $pRange        Cell range (e.g. A1:A1)
+     *
      *    @return    array    Range dimension (width, height)
      */
     public static function rangeDimension($pRange = 'A1:A1')
@@ -746,9 +777,10 @@ class Cell
     }
 
     /**
-     *    Calculate range boundaries
+     *    Calculate range boundaries.
      *
      *    @param    string    $pRange        Cell range (e.g. A1:A1)
+     *
      *    @return    array    Range coordinates array(Start Cell, End Cell)
      *                    where Start Cell and End Cell are arrays (Column ID, Row Number)
      */
@@ -773,9 +805,10 @@ class Cell
     }
 
     /**
-     *    Column index from string
+     *    Column index from string.
      *
      *    @param    string $pString
+     *
      *    @return    int Column index (base 1 !!!)
      */
     public static function columnIndexFromString($pString = 'A')
@@ -800,28 +833,29 @@ class Cell
 
         //    We also use the language construct isset() rather than the more costly strlen() function to match the length of $pString
         //        for improved performance
-        if (isset($pString{0})) {
-            if (!isset($pString{1})) {
+        if (isset($pString[0])) {
+            if (!isset($pString[1])) {
                 $_indexCache[$pString] = $_columnLookup[$pString];
 
                 return $_indexCache[$pString];
-            } elseif (!isset($pString{2})) {
-                $_indexCache[$pString] = $_columnLookup[$pString{0}] * 26 + $_columnLookup[$pString{1}];
+            } elseif (!isset($pString[2])) {
+                $_indexCache[$pString] = $_columnLookup[$pString[0]] * 26 + $_columnLookup[$pString[1]];
 
                 return $_indexCache[$pString];
-            } elseif (!isset($pString{3})) {
-                $_indexCache[$pString] = $_columnLookup[$pString{0}] * 676 + $_columnLookup[$pString{1}] * 26 + $_columnLookup[$pString{2}];
+            } elseif (!isset($pString[3])) {
+                $_indexCache[$pString] = $_columnLookup[$pString[0]] * 676 + $_columnLookup[$pString[1]] * 26 + $_columnLookup[$pString[2]];
 
                 return $_indexCache[$pString];
             }
         }
-        throw new Exception('Column string index can not be ' . ((isset($pString{0})) ? 'longer than 3 characters' : 'empty'));
+        throw new Exception('Column string index can not be ' . ((isset($pString[0])) ? 'longer than 3 characters' : 'empty'));
     }
 
     /**
-     *    String from columnindex
+     *    String from columnindex.
      *
      *    @param    int $pColumnIndex Column index (base 0 !!!)
+     *
      *    @return    string
      */
     public static function stringFromColumnIndex($pColumnIndex = 0)
@@ -849,9 +883,10 @@ class Cell
     }
 
     /**
-     *    Extract all cell references in range
+     *    Extract all cell references in range.
      *
      *    @param    string    $pRange        Range (e.g. A1 or A1:C10 or A1:E10 A20:E25)
+     *
      *    @return    array    Array containing single cell references
      */
     public static function extractAllCellReferencesInRange($pRange = 'A1')
@@ -912,10 +947,11 @@ class Cell
     }
 
     /**
-     * Compare 2 cells
+     * Compare 2 cells.
      *
      * @param    Cell    $a    Cell a
      * @param    Cell    $b    Cell b
+     *
      * @return    int        Result of comparison (always -1 or 1, never zero!)
      */
     public static function compareCells(Cell $a, Cell $b)
@@ -926,13 +962,13 @@ class Cell
             return 1;
         } elseif (self::columnIndexFromString($a->getColumn()) < self::columnIndexFromString($b->getColumn())) {
             return -1;
-        } else {
-            return 1;
         }
+
+        return 1;
     }
 
     /**
-     * Get value binder to use
+     * Get value binder to use.
      *
      * @return Cell\IValueBinder
      */
@@ -946,9 +982,10 @@ class Cell
     }
 
     /**
-     * Set value binder to use
+     * Set value binder to use.
      *
      * @param Cell\IValueBinder $binder
+     *
      * @throws Exception
      */
     public static function setValueBinder(Cell\IValueBinder $binder = null)
@@ -976,7 +1013,7 @@ class Cell
     }
 
     /**
-     * Get index to cellXf
+     * Get index to cellXf.
      *
      * @return int
      */
@@ -986,9 +1023,10 @@ class Cell
     }
 
     /**
-     * Set index to cellXf
+     * Set index to cellXf.
      *
      * @param int $pValue
+     *
      * @return Cell
      */
     public function setXfIndex($pValue = 0)
@@ -1000,6 +1038,8 @@ class Cell
 
     /**
      *    @deprecated        Since version 1.7.8 for planned changes to cell for array formula handling
+     *
+     * @param mixed $pAttributes
      */
     public function setFormulaAttributes($pAttributes)
     {
@@ -1017,7 +1057,7 @@ class Cell
     }
 
     /**
-     * Convert to string
+     * Convert to string.
      *
      * @return string
      */

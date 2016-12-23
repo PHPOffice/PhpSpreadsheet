@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
 /**
- * Copyright (c) 2006 - 2015 PhpSpreadsheet
+ * Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,34 +20,35 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class Xls extends BaseWriter implements IWriter
 {
     /**
-     * PhpSpreadsheet object
+     * PhpSpreadsheet object.
      *
      * @var \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     private $spreadsheet;
 
     /**
-     * Total number of shared strings in workbook
+     * Total number of shared strings in workbook.
      *
      * @var int
      */
     private $strTotal = 0;
 
     /**
-     * Number of unique shared strings in workbook
+     * Number of unique shared strings in workbook.
      *
      * @var int
      */
     private $strUnique = 0;
 
     /**
-     * Array of unique shared strings in workbook
+     * Array of unique shared strings in workbook.
      *
      * @var array
      */
@@ -61,7 +62,7 @@ class Xls extends BaseWriter implements IWriter
     private $colors;
 
     /**
-     * Formula parser
+     * Formula parser.
      *
      * @var \PhpOffice\PhpSpreadsheet\Writer\Xls\Parser
      */
@@ -75,21 +76,21 @@ class Xls extends BaseWriter implements IWriter
     private $IDCLs;
 
     /**
-     * Basic OLE object summary information
+     * Basic OLE object summary information.
      *
      * @var array
      */
     private $summaryInformation;
 
     /**
-     * Extended OLE object document summary information
+     * Extended OLE object document summary information.
      *
      * @var array
      */
     private $documentSummaryInformation;
 
     /**
-     * Create a new Xls Writer
+     * Create a new Xls Writer.
      *
      * @param    \PhpOffice\PhpSpreadsheet\Spreadsheet    $spreadsheet    PhpSpreadsheet object
      */
@@ -101,14 +102,14 @@ class Xls extends BaseWriter implements IWriter
     }
 
     /**
-     * Save Spreadsheet to file
+     * Save Spreadsheet to file.
      *
      * @param    string        $pFilename
+     *
      * @throws    \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function save($pFilename = null)
     {
-
         // garbage collect
         $this->spreadsheet->garbageCollect();
 
@@ -216,7 +217,7 @@ class Xls extends BaseWriter implements IWriter
     }
 
     /**
-     * Build the Worksheet Escher objects
+     * Build the Worksheet Escher objects.
      */
     private function buildWorksheetEschers()
     {
@@ -378,7 +379,7 @@ class Xls extends BaseWriter implements IWriter
     }
 
     /**
-     * Build the Escher object corresponding to the MSODRAWINGGROUP record
+     * Build the Escher object corresponding to the MSODRAWINGGROUP record.
      */
     private function buildWorkbookEscher()
     {
@@ -519,7 +520,8 @@ class Xls extends BaseWriter implements IWriter
     }
 
     /**
-     * Build the OLE Part for DocumentSummary Information
+     * Build the OLE Part for DocumentSummary Information.
+     *
      * @return string
      */
     private function writeDocumentSummaryInformation()
@@ -733,7 +735,8 @@ class Xls extends BaseWriter implements IWriter
     }
 
     /**
-     * Build the OLE Part for Summary Information
+     * Build the OLE Part for Summary Information.
+     *
      * @return string
      */
     private function writeSummaryInformation()
@@ -904,9 +907,8 @@ class Xls extends BaseWriter implements IWriter
                 $dataSection_Content .= $dataProp['data']['data'];
 
                 $dataSection_Content_Offset += 4 + 8;
-            } else {
-                // Data Type Not Used at the moment
             }
+                // Data Type Not Used at the moment
         }
         // Now $dataSection_Content_Offset contains the size of the content
 

@@ -7,7 +7,7 @@ use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -24,20 +24,21 @@ use PhpOffice\PhpSpreadsheet\Shared\File;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class Ods extends BaseReader implements IReader
 {
     /**
-     * Formats
+     * Formats.
      *
      * @var array
      */
     private $styles = [];
 
     /**
-     * Create a new Ods Reader instance
+     * Create a new Ods Reader instance.
      */
     public function __construct()
     {
@@ -48,7 +49,9 @@ class Ods extends BaseReader implements IReader
      * Can the current IReader read the file?
      *
      * @param     string         $pFilename
+     *
      * @throws Exception
+     *
      * @return     bool
      */
     public function canRead($pFilename)
@@ -93,9 +96,10 @@ class Ods extends BaseReader implements IReader
     }
 
     /**
-     * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object
+     * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object.
      *
      * @param     string         $pFilename
+     *
      * @throws     Exception
      */
     public function listWorksheetNames($pFilename)
@@ -146,9 +150,10 @@ class Ods extends BaseReader implements IReader
     }
 
     /**
-     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns)
+     * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
      * @param   string     $pFilename
+     *
      * @throws   Exception
      */
     public function listWorksheetInfo($pFilename)
@@ -237,10 +242,12 @@ class Ods extends BaseReader implements IReader
     }
 
     /**
-     * Loads PhpSpreadsheet from file
+     * Loads PhpSpreadsheet from file.
      *
      * @param     string         $pFilename
+     *
      * @throws     Exception
+     *
      * @return     \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     public function load($pFilename)
@@ -267,11 +274,13 @@ class Ods extends BaseReader implements IReader
     }
 
     /**
-     * Loads PhpSpreadsheet from file into PhpSpreadsheet instance
+     * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      *
      * @param     string         $pFilename
      * @param    \PhpOffice\PhpSpreadsheet\Spreadsheet    $spreadsheet
+     *
      * @throws     Exception
+     *
      * @return     \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     public function loadIntoExisting($pFilename, \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
@@ -496,7 +505,7 @@ class Ods extends BaseReader implements IReader
                                             $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
                                             $dataValue = (float) $cellDataOfficeAttributes['value'];
                                             if (floor($dataValue) == $dataValue) {
-                                                $dataValue = (integer) $dataValue;
+                                                $dataValue = (int) $dataValue;
                                             }
                                             $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_PERCENTAGE_00;
                                             break;
@@ -504,7 +513,7 @@ class Ods extends BaseReader implements IReader
                                             $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
                                             $dataValue = (float) $cellDataOfficeAttributes['value'];
                                             if (floor($dataValue) == $dataValue) {
-                                                $dataValue = (integer) $dataValue;
+                                                $dataValue = (int) $dataValue;
                                             }
                                             $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
                                             break;
@@ -512,8 +521,8 @@ class Ods extends BaseReader implements IReader
                                             $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
                                             $dataValue = (float) $cellDataOfficeAttributes['value'];
                                             if (floor($dataValue) == $dataValue) {
-                                                if ($dataValue == (integer) $dataValue) {
-                                                    $dataValue = (integer) $dataValue;
+                                                if ($dataValue == (int) $dataValue) {
+                                                    $dataValue = (int) $dataValue;
                                                 } else {
                                                     $dataValue = (float) $dataValue;
                                                 }

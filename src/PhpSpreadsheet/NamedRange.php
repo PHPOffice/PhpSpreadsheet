@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,54 +20,56 @@ namespace PhpOffice\PhpSpreadsheet;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class NamedRange
 {
     /**
-     * Range name
+     * Range name.
      *
      * @var string
      */
     private $name;
 
     /**
-     * Worksheet on which the named range can be resolved
+     * Worksheet on which the named range can be resolved.
      *
      * @var Worksheet
      */
     private $worksheet;
 
     /**
-     * Range of the referenced cells
+     * Range of the referenced cells.
      *
      * @var string
      */
     private $range;
 
     /**
-     * Is the named range local? (i.e. can only be used on $this->worksheet)
+     * Is the named range local? (i.e. can only be used on $this->worksheet).
      *
      * @var bool
      */
     private $localOnly;
 
     /**
-     * Scope
+     * Scope.
      *
      * @var Worksheet
      */
     private $scope;
 
     /**
-     * Create a new NamedRange
+     * Create a new NamedRange.
      *
      * @param string $pName
      * @param Worksheet $pWorksheet
      * @param string $pRange
      * @param bool $pLocalOnly
      * @param Worksheet|null $pScope    Scope. Only applies when $pLocalOnly = true. Null for global scope.
+     *
      * @throws Exception
      */
     public function __construct($pName, Worksheet $pWorksheet, $pRange = 'A1', $pLocalOnly = false, $pScope = null)
@@ -86,7 +88,7 @@ class NamedRange
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -96,9 +98,10 @@ class NamedRange
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $value
+     *
      * @return NamedRange
      */
     public function setName($value = null)
@@ -126,7 +129,7 @@ class NamedRange
     }
 
     /**
-     * Get worksheet
+     * Get worksheet.
      *
      * @return Worksheet
      */
@@ -136,9 +139,10 @@ class NamedRange
     }
 
     /**
-     * Set worksheet
+     * Set worksheet.
      *
      * @param Worksheet $value
+     *
      * @return NamedRange
      */
     public function setWorksheet(Worksheet $value = null)
@@ -151,7 +155,7 @@ class NamedRange
     }
 
     /**
-     * Get range
+     * Get range.
      *
      * @return string
      */
@@ -161,9 +165,10 @@ class NamedRange
     }
 
     /**
-     * Set range
+     * Set range.
      *
      * @param string $value
+     *
      * @return NamedRange
      */
     public function setRange($value = null)
@@ -176,7 +181,7 @@ class NamedRange
     }
 
     /**
-     * Get localOnly
+     * Get localOnly.
      *
      * @return bool
      */
@@ -186,9 +191,10 @@ class NamedRange
     }
 
     /**
-     * Set localOnly
+     * Set localOnly.
      *
      * @param bool $value
+     *
      * @return NamedRange
      */
     public function setLocalOnly($value = false)
@@ -200,7 +206,7 @@ class NamedRange
     }
 
     /**
-     * Get scope
+     * Get scope.
      *
      * @return Worksheet|null
      */
@@ -210,9 +216,10 @@ class NamedRange
     }
 
     /**
-     * Set scope
+     * Set scope.
      *
      * @param Worksheet|null $value
+     *
      * @return NamedRange
      */
     public function setScope(Worksheet $value = null)
@@ -224,10 +231,11 @@ class NamedRange
     }
 
     /**
-     * Resolve a named range to a regular cell range
+     * Resolve a named range to a regular cell range.
      *
      * @param string $pNamedRange Named range
      * @param Worksheet|null $pSheet Scope. Use null for global scope
+     *
      * @return NamedRange
      */
     public static function resolveRange($pNamedRange, Worksheet $pSheet = null)

@@ -16,7 +16,9 @@ namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
  *    @author Paul Meagher
  *    @author Bartosz Matosiuk
  *    @author Michael Bommarito
+ *
  *    @version 1.1
+ *
  *    @license PHP v3.0
  */
 class LUDecomposition
@@ -25,31 +27,36 @@ class LUDecomposition
     const MATRIX_SQUARE_EXCEPTION = 'Mismatched Row dimension';
 
     /**
-     *    Decomposition storage
+     *    Decomposition storage.
+     *
      *    @var array
      */
     private $LU = [];
 
     /**
      *    Row dimension.
+     *
      *    @var int
      */
     private $m;
 
     /**
      *    Column dimension.
+     *
      *    @var int
      */
     private $n;
 
     /**
      *    Pivot sign.
+     *
      *    @var int
      */
     private $pivsign;
 
     /**
      *    Internal storage of pivot vector.
+     *
      *    @var array
      */
     private $piv = [];
@@ -58,7 +65,8 @@ class LUDecomposition
      *    LU Decomposition constructor.
      *
      *    @param Matrix $A Rectangular matrix
-     *    @return Structure to access L, U and piv.
+     *
+     *    @return Structure to access L, U and piv
      */
     public function __construct($A)
     {
@@ -118,7 +126,9 @@ class LUDecomposition
         } else {
             throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(Matrix::ARGUMENT_TYPE_EXCEPTION);
         }
-    }    //    function __construct()
+    }
+
+    //    function __construct()
 
     /**
      *    Get lower triangular factor.
@@ -140,7 +150,9 @@ class LUDecomposition
         }
 
         return new Matrix($L);
-    }    //    function getL()
+    }
+
+    //    function getL()
 
     /**
      *    Get upper triangular factor.
@@ -160,7 +172,9 @@ class LUDecomposition
         }
 
         return new Matrix($U);
-    }    //    function getU()
+    }
+
+    //    function getU()
 
     /**
      *    Return pivot permutation vector.
@@ -170,22 +184,26 @@ class LUDecomposition
     public function getPivot()
     {
         return $this->piv;
-    }    //    function getPivot()
+    }
+
+    //    function getPivot()
 
     /**
-     *    Alias for getPivot
+     *    Alias for getPivot.
      *
      *    @see getPivot
      */
     public function getDoublePivot()
     {
         return $this->getPivot();
-    }    //    function getDoublePivot()
+    }
+
+    //    function getDoublePivot()
 
     /**
      *    Is the matrix nonsingular?
      *
-     *    @return bool true if U, and hence A, is nonsingular.
+     *    @return bool true if U, and hence A, is nonsingular
      */
     public function isNonsingular()
     {
@@ -196,10 +214,12 @@ class LUDecomposition
         }
 
         return true;
-    }    //    function isNonsingular()
+    }
+
+    //    function isNonsingular()
 
     /**
-     *    Count determinants
+     *    Count determinants.
      *
      *    @return array d matrix deterninat
      */
@@ -212,17 +232,20 @@ class LUDecomposition
             }
 
             return $d;
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(Matrix::MATRIX_DIMENSION_EXCEPTION);
         }
-    }    //    function det()
+        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(Matrix::MATRIX_DIMENSION_EXCEPTION);
+    }
+
+    //    function det()
 
     /**
-     *    Solve A*X = B
+     *    Solve A*X = B.
      *
-     *    @param  $B  A Matrix with as many rows as A and any number of columns.
-     *    @throws \PhpOffice\PhpSpreadsheet\Calculation\Exception  IllegalArgumentException Matrix row dimensions must agree.
-     *    @throws \PhpOffice\PhpSpreadsheet\Calculation\Exception  RuntimeException  Matrix is singular.
+     *    @param  $B  a Matrix with as many rows as A and any number of columns
+     *
+     *    @throws \PhpOffice\PhpSpreadsheet\Calculation\Exception  illegalArgumentException Matrix row dimensions must agree
+     *    @throws \PhpOffice\PhpSpreadsheet\Calculation\Exception  runtimeException  Matrix is singular
+     *
      *    @return  X so that L*U*X = B(piv,:)
      */
     public function solve($B)
@@ -253,11 +276,9 @@ class LUDecomposition
                 }
 
                 return $X;
-            } else {
-                throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::MATRIX_SINGULAR_EXCEPTION);
             }
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::MATRIX_SQUARE_EXCEPTION);
+            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::MATRIX_SINGULAR_EXCEPTION);
         }
+        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::MATRIX_SQUARE_EXCEPTION);
     }
 }

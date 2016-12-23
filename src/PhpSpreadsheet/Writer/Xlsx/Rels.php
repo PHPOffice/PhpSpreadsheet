@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,16 +20,19 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class Rels extends WriterPart
 {
     /**
-     * Write relationships to XML format
+     * Write relationships to XML format.
      *
      * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     *
      * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      * @return string  XML Output
      */
     public function writeRelationships(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
@@ -99,10 +102,12 @@ class Rels extends WriterPart
     }
 
     /**
-     * Write workbook relationships to XML format
+     * Write workbook relationships to XML format.
      *
      * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     *
      * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      * @return string  XML Output
      */
     public function writeWorkbookRelationships(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
@@ -174,7 +179,7 @@ class Rels extends WriterPart
     }
 
     /**
-     * Write worksheet relationships to XML format
+     * Write worksheet relationships to XML format.
      *
      * Numbering is as follows:
      *     rId1                 - Drawings
@@ -183,7 +188,9 @@ class Rels extends WriterPart
      * @param     \PhpOffice\PhpSpreadsheet\Worksheet    $pWorksheet
      * @param     int                    $pWorksheetId
      * @param    bool                $includeCharts    Flag indicating if we should write charts
+     *
      * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      * @return string          XML Output
      */
     public function writeWorksheetRelationships(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet = null, $pWorksheetId = 1, $includeCharts = false)
@@ -271,12 +278,14 @@ class Rels extends WriterPart
     }
 
     /**
-     * Write drawing relationships to XML format
+     * Write drawing relationships to XML format.
      *
      * @param     \PhpOffice\PhpSpreadsheet\Worksheet    $pWorksheet
      * @param    int                    &$chartRef        Chart ID
      * @param    bool                $includeCharts    Flag indicating if we should write charts
+     *
      * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      * @return string          XML Output
      */
     public function writeDrawingRelationships(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet, &$chartRef, $includeCharts = false)
@@ -336,10 +345,12 @@ class Rels extends WriterPart
     }
 
     /**
-     * Write header/footer drawing relationships to XML format
+     * Write header/footer drawing relationships to XML format.
      *
      * @param     \PhpOffice\PhpSpreadsheet\Worksheet            $pWorksheet
+     *
      * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      * @return string                  XML Output
      */
     public function writeHeaderFooterDrawingRelationships(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet = null)
@@ -376,13 +387,14 @@ class Rels extends WriterPart
     }
 
     /**
-     * Write Override content type
+     * Write Override content type.
      *
      * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter     $objWriter         XML Writer
      * @param     int                            $pId            Relationship ID. rId will be prepended!
      * @param     string                        $pType            Relationship type
      * @param     string                         $pTarget        Relationship target
      * @param     string                         $pTargetMode    Relationship target mode
+     *
      * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeRelationship(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pId = 1, $pType = '', $pTarget = '', $pTargetMode = '')

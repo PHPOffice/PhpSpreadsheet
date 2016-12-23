@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,27 +20,28 @@ namespace PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BS
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class Blip
 {
     /**
-     * The parent BSE
+     * The parent BSE.
      *
      * @var \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE
      */
     private $parent;
 
     /**
-     * Raw image data
+     * Raw image data.
      *
      * @var string
      */
     private $data;
 
     /**
-     * Get the raw image data
+     * Get the raw image data.
      *
      * @return string
      */
@@ -50,9 +51,10 @@ class Blip
     }
 
     /**
-     * Set the raw image data
+     * Set the raw image data.
      *
      * @param string
+     * @param mixed $data
      */
     public function setData($data)
     {
@@ -60,7 +62,7 @@ class Blip
     }
 
     /**
-     * Set parent BSE
+     * Set parent BSE.
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE $parent
      */
@@ -70,7 +72,7 @@ class Blip
     }
 
     /**
-     * Get parent BSE
+     * Get parent BSE.
      *
      * @return \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE $parent
      */

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@ namespace PhpOffice\PhpSpreadsheet;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -51,7 +52,7 @@ class Settings
     /**
      * Name of the class used for Zip file management
      *    e.g.
-     *        ZipArchive
+     *        ZipArchive.
      *
      * @var string
      */
@@ -60,14 +61,14 @@ class Settings
     /**
      * Name of the external Library used for rendering charts
      *    e.g.
-     *        jpgraph
+     *        jpgraph.
      *
      * @var string
      */
     private static $chartRendererName;
 
     /**
-     * Directory Path to the external Library used for rendering charts
+     * Directory Path to the external Library used for rendering charts.
      *
      * @var string
      */
@@ -76,31 +77,32 @@ class Settings
     /**
      * Name of the external Library used for rendering PDF files
      *    e.g.
-     *         mPDF
+     *         mPDF.
      *
      * @var string
      */
     private static $pdfRendererName;
 
     /**
-     * Directory Path to the external Library used for rendering PDF files
+     * Directory Path to the external Library used for rendering PDF files.
      *
      * @var string
      */
     private static $pdfRendererPath;
 
     /**
-     * Default options for libxml loader
+     * Default options for libxml loader.
      *
      * @var int
      */
     private static $libXmlLoaderOptions = null;
 
     /**
-     * Set the Zip handler Class that PhpSpreadsheet should use for Zip file management (PCLZip or ZipArchive)
+     * Set the Zip handler Class that PhpSpreadsheet should use for Zip file management (PCLZip or ZipArchive).
      *
      * @param string $zipClass    The Zip handler class that PhpSpreadsheet should use for Zip file management
      *      e.g. \PhpOffice\PhpSpreadsheet\Settings::PCLZIP or \PhpOffice\PhpSpreadsheet\Settings::ZIPARCHIVE
+     *
      * @return    bool    Success or failure
      */
     public static function setZipClass($zipClass)
@@ -117,7 +119,7 @@ class Settings
 
     /**
      * Return the name of the Zip handler Class that PhpSpreadsheet is configured to use (PCLZip or ZipArchive)
-     *    or Zip file management
+     *    or Zip file management.
      *
      * @return string Name of the Zip handler Class that PhpSpreadsheet is configured to use
      *    for Zip file management
@@ -129,7 +131,7 @@ class Settings
     }
 
     /**
-     * Return the name of the method that is currently configured for cell cacheing
+     * Return the name of the method that is currently configured for cell cacheing.
      *
      * @return string Name of the cacheing method
      */
@@ -139,7 +141,7 @@ class Settings
     }
 
     /**
-     * Return the name of the class that is currently being used for cell cacheing
+     * Return the name of the class that is currently being used for cell cacheing.
      *
      * @return string Name of the class currently being used for cacheing
      */
@@ -149,10 +151,11 @@ class Settings
     }
 
     /**
-     * Set the method that should be used for cell caching
+     * Set the method that should be used for cell caching.
      *
      * @param string $method Name of the caching method
      * @param array $arguments Optional configuration arguments for the caching method
+     *
      * @return bool Success or failure
      */
     public static function setCacheStorageMethod($method = CachedObjectStorageFactory::CACHE_IN_MEMORY, $arguments = [])
@@ -161,9 +164,10 @@ class Settings
     }
 
     /**
-     * Set the locale code to use for formula translations and any special formatting
+     * Set the locale code to use for formula translations and any special formatting.
      *
      * @param string $locale The locale code to use (e.g. "fr" or "pt_br" or "en_uk")
+     *
      * @return bool Success or failure
      */
     public static function setLocale($locale = 'en_us')
@@ -172,7 +176,7 @@ class Settings
     }
 
     /**
-     * Set details of the external library that PhpSpreadsheet should use for rendering charts
+     * Set details of the external library that PhpSpreadsheet should use for rendering charts.
      *
      * @param string $libraryName    Internal reference name of the library
      *    e.g. \PhpOffice\PhpSpreadsheet\Settings::CHART_RENDERER_JPGRAPH
@@ -190,7 +194,7 @@ class Settings
     }
 
     /**
-     * Identify to PhpSpreadsheet the external library to use for rendering charts
+     * Identify to PhpSpreadsheet the external library to use for rendering charts.
      *
      * @param string $libraryName    Internal reference name of the library
      *    e.g. \PhpOffice\PhpSpreadsheet\Settings::CHART_RENDERER_JPGRAPH
@@ -208,9 +212,10 @@ class Settings
     }
 
     /**
-     * Tell PhpSpreadsheet where to find the external library to use for rendering charts
+     * Tell PhpSpreadsheet where to find the external library to use for rendering charts.
      *
      * @param string $libraryBaseDir    Directory path to the library's base folder
+     *
      * @return    bool    Success or failure
      */
     public static function setChartRendererPath($libraryBaseDir)
@@ -224,7 +229,7 @@ class Settings
     }
 
     /**
-     * Return the Chart Rendering Library that PhpSpreadsheet is currently configured to use (e.g. jpgraph)
+     * Return the Chart Rendering Library that PhpSpreadsheet is currently configured to use (e.g. jpgraph).
      *
      * @return string|null Internal reference name of the Chart Rendering Library that PhpSpreadsheet is
      *    currently configured to use
@@ -236,7 +241,7 @@ class Settings
     }
 
     /**
-     * Return the directory path to the Chart Rendering Library that PhpSpreadsheet is currently configured to use
+     * Return the directory path to the Chart Rendering Library that PhpSpreadsheet is currently configured to use.
      *
      * @return string|null Directory Path to the Chart Rendering Library that PhpSpreadsheet is
      *     currently configured to use
@@ -247,7 +252,7 @@ class Settings
     }
 
     /**
-     * Set details of the external library that PhpSpreadsheet should use for rendering PDF files
+     * Set details of the external library that PhpSpreadsheet should use for rendering PDF files.
      *
      * @param string $libraryName Internal reference name of the library
      *     e.g. \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_TCPDF,
@@ -267,7 +272,7 @@ class Settings
     }
 
     /**
-     * Identify to PhpSpreadsheet the external library to use for rendering PDF files
+     * Identify to PhpSpreadsheet the external library to use for rendering PDF files.
      *
      * @param string $libraryName Internal reference name of the library
      *     e.g. \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_TCPDF,
@@ -287,9 +292,10 @@ class Settings
     }
 
     /**
-     * Tell PhpSpreadsheet where to find the external library to use for rendering PDF files
+     * Tell PhpSpreadsheet where to find the external library to use for rendering PDF files.
      *
      * @param string $libraryBaseDir Directory path to the library's base folder
+     *
      * @return bool Success or failure
      */
     public static function setPdfRendererPath($libraryBaseDir)
@@ -303,7 +309,7 @@ class Settings
     }
 
     /**
-     * Return the PDF Rendering Library that PhpSpreadsheet is currently configured to use (e.g. dompdf)
+     * Return the PDF Rendering Library that PhpSpreadsheet is currently configured to use (e.g. dompdf).
      *
      * @return string|null Internal reference name of the PDF Rendering Library that PhpSpreadsheet is
      *     currently configured to use
@@ -317,7 +323,7 @@ class Settings
     }
 
     /**
-     * Return the directory path to the PDF Rendering Library that PhpSpreadsheet is currently configured to use
+     * Return the directory path to the PDF Rendering Library that PhpSpreadsheet is currently configured to use.
      *
      * @return string|null Directory Path to the PDF Rendering Library that PhpSpreadsheet is
      *        currently configured to use
@@ -328,7 +334,7 @@ class Settings
     }
 
     /**
-     * Set default options for libxml loader
+     * Set default options for libxml loader.
      *
      * @param int $options Default options for libxml loader
      */

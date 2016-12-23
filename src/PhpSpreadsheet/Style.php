@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,55 +20,56 @@ namespace PhpOffice\PhpSpreadsheet;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class Style extends Style\Supervisor implements IComparable
 {
     /**
-     * Font
+     * Font.
      *
      * @var Style\Font
      */
     protected $font;
 
     /**
-     * Fill
+     * Fill.
      *
      * @var Style\Fill
      */
     protected $fill;
 
     /**
-     * Borders
+     * Borders.
      *
      * @var Style\Borders
      */
     protected $borders;
 
     /**
-     * Alignment
+     * Alignment.
      *
      * @var Style\Alignment
      */
     protected $alignment;
 
     /**
-     * Number Format
+     * Number Format.
      *
      * @var Style\NumberFormat
      */
     protected $numberFormat;
 
     /**
-     * Conditional styles
+     * Conditional styles.
      *
      * @var Style\Conditional[]
      */
     protected $conditionalStyles;
 
     /**
-     * Protection
+     * Protection.
      *
      * @var Style\Protection
      */
@@ -89,7 +90,7 @@ class Style extends Style\Supervisor implements IComparable
     protected $quotePrefix = false;
 
     /**
-     * Create a new Style
+     * Create a new Style.
      *
      * @param bool $isSupervisor Flag indicating if this is a supervisor or not
      *         Leave this value at default unless you understand exactly what
@@ -125,7 +126,7 @@ class Style extends Style\Supervisor implements IComparable
 
     /**
      * Get the shared style component for the currently active cell in currently active sheet.
-     * Only used for style supervisor
+     * Only used for style supervisor.
      *
      * @return Style
      */
@@ -144,7 +145,7 @@ class Style extends Style\Supervisor implements IComparable
     }
 
     /**
-     * Get parent. Only used for style supervisor
+     * Get parent. Only used for style supervisor.
      *
      * @return Spreadsheet
      */
@@ -154,9 +155,10 @@ class Style extends Style\Supervisor implements IComparable
     }
 
     /**
-     * Build style array from subcomponents
+     * Build style array from subcomponents.
      *
      * @param array $array
+     *
      * @return array
      */
     public function getStyleArray($array)
@@ -165,7 +167,7 @@ class Style extends Style\Supervisor implements IComparable
     }
 
     /**
-     * Apply styles from array
+     * Apply styles from array.
      *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->applyFromArray(
@@ -200,8 +202,10 @@ class Style extends Style\Supervisor implements IComparable
      * </code>
      *
      * @param   array    $pStyles    Array containing style information
-     * @param   bool        $pAdvanced    Advanced mode for setting borders.
+     * @param   bool        $pAdvanced    advanced mode for setting borders
+     *
      * @throws  Exception
+     *
      * @return Style
      */
     public function applyFromArray($pStyles = null, $pAdvanced = true)
@@ -417,7 +421,6 @@ class Style extends Style\Supervisor implements IComparable
                             $columnDimension->setXfIndex($newXfIndexes[$oldXfIndex]);
                         }
                         break;
-
                     case 'ROW':
                         for ($row = $rangeStart[1]; $row <= $rangeEnd[1]; ++$row) {
                             $rowDimension = $this->getActiveSheet()->getRowDimension($row);
@@ -426,7 +429,6 @@ class Style extends Style\Supervisor implements IComparable
                             $rowDimension->setXfIndex($newXfIndexes[$oldXfIndex]);
                         }
                         break;
-
                     case 'CELL':
                         for ($col = $rangeStart[0]; $col <= $rangeEnd[0]; ++$col) {
                             for ($row = $rangeStart[1]; $row <= $rangeEnd[1]; ++$row) {
@@ -469,7 +471,7 @@ class Style extends Style\Supervisor implements IComparable
     }
 
     /**
-     * Get Fill
+     * Get Fill.
      *
      * @return Style\Fill
      */
@@ -479,7 +481,7 @@ class Style extends Style\Supervisor implements IComparable
     }
 
     /**
-     * Get Font
+     * Get Font.
      *
      * @return Style\Font
      */
@@ -489,9 +491,10 @@ class Style extends Style\Supervisor implements IComparable
     }
 
     /**
-     * Set font
+     * Set font.
      *
      * @param Style\Font $font
+     *
      * @return Style
      */
     public function setFont(Style\Font $font)
@@ -502,7 +505,7 @@ class Style extends Style\Supervisor implements IComparable
     }
 
     /**
-     * Get Borders
+     * Get Borders.
      *
      * @return Style\Borders
      */
@@ -512,7 +515,7 @@ class Style extends Style\Supervisor implements IComparable
     }
 
     /**
-     * Get Alignment
+     * Get Alignment.
      *
      * @return Style\Alignment
      */
@@ -522,7 +525,7 @@ class Style extends Style\Supervisor implements IComparable
     }
 
     /**
-     * Get Number Format
+     * Get Number Format.
      *
      * @return Style\NumberFormat
      */
@@ -545,6 +548,7 @@ class Style extends Style\Supervisor implements IComparable
      * Set Conditional Styles. Only used on supervisor.
      *
      * @param Style\Conditional[] $pValue Array of condtional styles
+     *
      * @return Style
      */
     public function setConditionalStyles($pValue = null)
@@ -557,7 +561,7 @@ class Style extends Style\Supervisor implements IComparable
     }
 
     /**
-     * Get Protection
+     * Get Protection.
      *
      * @return Style\Protection
      */
@@ -567,7 +571,7 @@ class Style extends Style\Supervisor implements IComparable
     }
 
     /**
-     * Get quote prefix
+     * Get quote prefix.
      *
      * @return bool
      */
@@ -581,7 +585,7 @@ class Style extends Style\Supervisor implements IComparable
     }
 
     /**
-     * Set quote prefix
+     * Set quote prefix.
      *
      * @param bool $pValue
      */
@@ -594,14 +598,14 @@ class Style extends Style\Supervisor implements IComparable
             $styleArray = ['quotePrefix' => $pValue];
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->quotePrefix = (boolean) $pValue;
+            $this->quotePrefix = (bool) $pValue;
         }
 
         return $this;
     }
 
     /**
-     * Get hash code
+     * Get hash code.
      *
      * @return string Hash code
      */
@@ -626,7 +630,7 @@ class Style extends Style\Supervisor implements IComparable
     }
 
     /**
-     * Get own index in style collection
+     * Get own index in style collection.
      *
      * @return int
      */
@@ -636,7 +640,7 @@ class Style extends Style\Supervisor implements IComparable
     }
 
     /**
-     * Set own index in style collection
+     * Set own index in style collection.
      *
      * @param int $pValue
      */

@@ -8,6 +8,9 @@ class IOFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider providerIdentify
+     *
+     * @param mixed $file
+     * @param mixed $expected
      */
     public function testIdentify($file, $expected)
     {

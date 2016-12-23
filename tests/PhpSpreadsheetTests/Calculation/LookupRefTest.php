@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 
 /**
- * Class LookupRefTest
+ * Class LookupRefTest.
  */
 class LookupRefTest extends \PHPUnit_Framework_TestCase
 {

@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@ namespace PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
@@ -37,28 +38,28 @@ class BSE
     const BLIPTYPE_CMYKJPEG = 0x12;
 
     /**
-     * The parent BLIP Store Entry Container
+     * The parent BLIP Store Entry Container.
      *
      * @var \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer
      */
     private $parent;
 
     /**
-     * The BLIP (Big Large Image or Picture)
+     * The BLIP (Big Large Image or Picture).
      *
      * @var BSE\Blip
      */
     private $blip;
 
     /**
-     * The BLIP type
+     * The BLIP type.
      *
      * @var int
      */
     private $blipType;
 
     /**
-     * Set parent BLIP Store Entry Container
+     * Set parent BLIP Store Entry Container.
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer $parent
      */
@@ -68,7 +69,7 @@ class BSE
     }
 
     /**
-     * Get the BLIP
+     * Get the BLIP.
      *
      * @return BSE\Blip
      */
@@ -78,7 +79,7 @@ class BSE
     }
 
     /**
-     * Set the BLIP
+     * Set the BLIP.
      *
      * @param BSE\Blip $blip
      */
@@ -89,7 +90,7 @@ class BSE
     }
 
     /**
-     * Get the BLIP type
+     * Get the BLIP type.
      *
      * @return int
      */
@@ -99,9 +100,10 @@ class BSE
     }
 
     /**
-     * Set the BLIP type
+     * Set the BLIP type.
      *
      * @param int
+     * @param mixed $blipType
      */
     public function setBlipType($blipType)
     {

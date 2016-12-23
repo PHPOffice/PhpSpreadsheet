@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
 /**
- * Copyright (c) 2006 - 2015 PhpSpreadsheet
+ * Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,16 +20,19 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class MetaInf extends WriterPart
 {
     /**
-     * Write META-INF/manifest.xml to XML format
+     * Write META-INF/manifest.xml to XML format.
      *
      * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     *
      * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      * @return     string         XML Output
      */
     public function writeManifest(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)

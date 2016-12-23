@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,15 +20,17 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class Drawing
 {
     /**
-     * Convert pixels to EMU
+     * Convert pixels to EMU.
      *
      * @param     int $pValue    Value in pixels
+     *
      * @return     int            Value in EMU
      */
     public static function pixelsToEMU($pValue = 0)
@@ -37,18 +39,19 @@ class Drawing
     }
 
     /**
-     * Convert EMU to pixels
+     * Convert EMU to pixels.
      *
      * @param     int $pValue    Value in EMU
+     *
      * @return     int            Value in pixels
      */
     public static function EMUToPixels($pValue = 0)
     {
         if ($pValue != 0) {
             return round($pValue / 9525);
-        } else {
-            return 0;
         }
+
+        return 0;
     }
 
     /**
@@ -58,6 +61,7 @@ class Drawing
      *
      * @param    int $pValue    Value in pixels
      * @param    \PhpOffice\PhpSpreadsheet\Style\Font $pDefaultFont    Default font of the workbook
+     *
      * @return   int            Value in cell dimension
      */
     public static function pixelsToCellDimension($pValue, \PhpOffice\PhpSpreadsheet\Style\Font $pDefaultFont)
@@ -79,10 +83,11 @@ class Drawing
     }
 
     /**
-     * Convert column width from (intrinsic) Excel units to pixels
+     * Convert column width from (intrinsic) Excel units to pixels.
      *
      * @param   float    $pValue        Value in cell dimension
      * @param   \PhpOffice\PhpSpreadsheet\Style\Font $pDefaultFont    Default font of the workbook
+     *
      * @return  int        Value in pixels
      */
     public static function cellDimensionToPixels($pValue, \PhpOffice\PhpSpreadsheet\Style\Font $pDefaultFont)
@@ -107,9 +112,10 @@ class Drawing
     }
 
     /**
-     * Convert pixels to points
+     * Convert pixels to points.
      *
      * @param     int $pValue    Value in pixels
+     *
      * @return     float            Value in points
      */
     public static function pixelsToPoints($pValue = 0)
@@ -118,24 +124,26 @@ class Drawing
     }
 
     /**
-     * Convert points to pixels
+     * Convert points to pixels.
      *
      * @param     int $pValue    Value in points
+     *
      * @return     int            Value in pixels
      */
     public static function pointsToPixels($pValue = 0)
     {
         if ($pValue != 0) {
             return (int) ceil($pValue * 1.333333333);
-        } else {
-            return 0;
         }
+
+        return 0;
     }
 
     /**
-     * Convert degrees to angle
+     * Convert degrees to angle.
      *
      * @param     int $pValue    Degrees
+     *
      * @return     int            Angle
      */
     public static function degreesToAngle($pValue = 0)
@@ -144,25 +152,28 @@ class Drawing
     }
 
     /**
-     * Convert angle to degrees
+     * Convert angle to degrees.
      *
      * @param     int $pValue    Angle
+     *
      * @return     int            Degrees
      */
     public static function angleToDegrees($pValue = 0)
     {
         if ($pValue != 0) {
             return round($pValue / 60000);
-        } else {
-            return 0;
         }
+
+        return 0;
     }
 
     /**
-     * Create a new image from file. By alexander at alexauto dot nl
+     * Create a new image from file. By alexander at alexauto dot nl.
      *
-     * @link http://www.php.net/manual/en/function.imagecreatefromwbmp.php#86214
+     * @see http://www.php.net/manual/en/function.imagecreatefromwbmp.php#86214
+     *
      * @param string $p_sFile Path to Windows DIB (BMP) image
+     *
      * @return resource
      */
     public static function imagecreatefrombmp($p_sFile)

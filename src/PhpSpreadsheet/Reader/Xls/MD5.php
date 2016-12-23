@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Xls;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader\Xls;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt        LGPL
  */
@@ -32,7 +33,7 @@ class MD5
     private $d;
 
     /**
-     * MD5 stream constructor
+     * MD5 stream constructor.
      */
     public function __construct()
     {
@@ -40,7 +41,7 @@ class MD5
     }
 
     /**
-     * Reset the MD5 stream context
+     * Reset the MD5 stream context.
      */
     public function reset()
     {
@@ -51,7 +52,7 @@ class MD5
     }
 
     /**
-     * Get MD5 stream context
+     * Get MD5 stream context.
      *
      * @return string
      */
@@ -70,7 +71,7 @@ class MD5
     }
 
     /**
-     * Add data to context
+     * Add data to context.
      *
      * @param string $data Data to add
      */

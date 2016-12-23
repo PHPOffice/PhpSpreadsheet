@@ -8,6 +8,8 @@ class SampleTest extends \PHPUnit_Framework_TestCase
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider providerSample
+     *
+     * @param mixed $sample
      */
     public function testSample($sample)
     {

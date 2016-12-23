@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
- * Copyright (c) 2006 - 2016 PhpSpreadsheet
+ * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,62 +20,63 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class PageMargins
 {
     /**
-     * Left
+     * Left.
      *
      * @var float
      */
     private $left = 0.7;
 
     /**
-     * Right
+     * Right.
      *
      * @var float
      */
     private $right = 0.7;
 
     /**
-     * Top
+     * Top.
      *
      * @var float
      */
     private $top = 0.75;
 
     /**
-     * Bottom
+     * Bottom.
      *
      * @var float
      */
     private $bottom = 0.75;
 
     /**
-     * Header
+     * Header.
      *
      * @var float
      */
     private $header = 0.3;
 
     /**
-     * Footer
+     * Footer.
      *
      * @var float
      */
     private $footer = 0.3;
 
     /**
-     * Create a new PageMargins
+     * Create a new PageMargins.
      */
     public function __construct()
     {
     }
 
     /**
-     * Get Left
+     * Get Left.
      *
      * @return float
      */
@@ -85,9 +86,10 @@ class PageMargins
     }
 
     /**
-     * Set Left
+     * Set Left.
      *
      * @param float $pValue
+     *
      * @return PageMargins
      */
     public function setLeft($pValue)
@@ -98,7 +100,7 @@ class PageMargins
     }
 
     /**
-     * Get Right
+     * Get Right.
      *
      * @return float
      */
@@ -108,9 +110,10 @@ class PageMargins
     }
 
     /**
-     * Set Right
+     * Set Right.
      *
      * @param float $pValue
+     *
      * @return PageMargins
      */
     public function setRight($pValue)
@@ -121,7 +124,7 @@ class PageMargins
     }
 
     /**
-     * Get Top
+     * Get Top.
      *
      * @return float
      */
@@ -131,9 +134,10 @@ class PageMargins
     }
 
     /**
-     * Set Top
+     * Set Top.
      *
      * @param float $pValue
+     *
      * @return PageMargins
      */
     public function setTop($pValue)
@@ -144,7 +148,7 @@ class PageMargins
     }
 
     /**
-     * Get Bottom
+     * Get Bottom.
      *
      * @return float
      */
@@ -154,9 +158,10 @@ class PageMargins
     }
 
     /**
-     * Set Bottom
+     * Set Bottom.
      *
      * @param float $pValue
+     *
      * @return PageMargins
      */
     public function setBottom($pValue)
@@ -167,7 +172,7 @@ class PageMargins
     }
 
     /**
-     * Get Header
+     * Get Header.
      *
      * @return float
      */
@@ -177,9 +182,10 @@ class PageMargins
     }
 
     /**
-     * Set Header
+     * Set Header.
      *
      * @param float $pValue
+     *
      * @return PageMargins
      */
     public function setHeader($pValue)
@@ -190,7 +196,7 @@ class PageMargins
     }
 
     /**
-     * Get Footer
+     * Get Footer.
      *
      * @return float
      */
@@ -200,9 +206,10 @@ class PageMargins
     }
 
     /**
-     * Set Footer
+     * Set Footer.
      *
      * @param float $pValue
+     *
      * @return PageMargins
      */
     public function setFooter($pValue)

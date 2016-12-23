@@ -8,7 +8,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 class Sample
 {
     /**
-     * Returns wether we run on CLI or browser
+     * Returns wether we run on CLI or browser.
+     *
      * @return bool
      */
     public function isCli()
@@ -17,7 +18,8 @@ class Sample
     }
 
     /**
-     * Return the filename currently being executed
+     * Return the filename currently being executed.
+     *
      * @return string
      */
     public function getScriptFilename()
@@ -26,7 +28,8 @@ class Sample
     }
 
     /**
-     * Wether we are executing the index page
+     * Wether we are executing the index page.
+     *
      * @return bool
      */
     public function isIndex()
@@ -35,7 +38,8 @@ class Sample
     }
 
     /**
-     * Return the page title
+     * Return the page title.
+     *
      * @return string
      */
     public function getPageTitle()
@@ -44,7 +48,8 @@ class Sample
     }
 
     /**
-     * Return the page heading
+     * Return the page heading.
+     *
      * @return string
      */
     public function getPageHeading()
@@ -53,7 +58,8 @@ class Sample
     }
 
     /**
-     * Returns an array of all known samples
+     * Returns an array of all known samples.
+     *
      * @return string[] [$name => $path]
      */
     public function getSamples()
@@ -72,7 +78,7 @@ class Sample
     }
 
     /**
-     * Write documents
+     * Write documents.
      *
      * @param Spreadsheet $spreadsheet
      * @param string $filename
@@ -100,7 +106,8 @@ class Sample
     }
 
     /**
-     * Returns the temporary directory and make sure it exists
+     * Returns the temporary directory and make sure it exists.
+     *
      * @return string
      */
     private function getTemporaryFolder()
@@ -114,9 +121,11 @@ class Sample
     }
 
     /**
-     * Returns the filename that should be used for sample output
+     * Returns the filename that should be used for sample output.
+     *
      * @param string $filename
      * @param string $extension
+     *
      * @return string
      */
     public function getFilename($filename, $extension = 'xlsx')
@@ -125,8 +134,10 @@ class Sample
     }
 
     /**
-     * Return a random temporary file name
+     * Return a random temporary file name.
+     *
      * @param string $extension
+     *
      * @return string
      */
     public function getTemporaryFilename($extension = 'xlsx')
@@ -143,7 +154,7 @@ class Sample
     }
 
     /**
-     * Log ending notes
+     * Log ending notes.
      */
     public function logEndingNotes()
     {
@@ -152,7 +163,8 @@ class Sample
     }
 
     /**
-     * Log a line about the write operation
+     * Log a line about the write operation.
+     *
      * @param \PhpOffice\PhpSpreadsheet\Writer\IWriter $writer
      * @param string $path
      * @param float $callStartTime
@@ -169,7 +181,8 @@ class Sample
     }
 
     /**
-     * Log a line about the read operation
+     * Log a line about the read operation.
+     *
      * @param string $format
      * @param string $path
      * @param float $callStartTime

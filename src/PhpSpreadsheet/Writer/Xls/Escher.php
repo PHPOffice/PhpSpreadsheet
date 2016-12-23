@@ -3,7 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 /**
- * Copyright (c) 2006 - 2015 PhpSpreadsheet
+ * Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,23 +20,24 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category   PhpSpreadsheet
+ *
  * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 class Escher
 {
     /**
-     * The object we are writing
+     * The object we are writing.
      */
     private $object;
 
     /**
-     * The written binary data
+     * The written binary data.
      */
     private $data;
 
     /**
-     * Shape offsets. Positions in binary stream where a new shape record begins
+     * Shape offsets. Positions in binary stream where a new shape record begins.
      *
      * @var array
      */
@@ -50,9 +51,10 @@ class Escher
     private $spTypes;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param mixed
+     * @param mixed $object
      */
     public function __construct($object)
     {
@@ -60,7 +62,8 @@ class Escher
     }
 
     /**
-     * Process the object to be written
+     * Process the object to be written.
+     *
      * @return string
      */
     public function close()
@@ -240,7 +243,6 @@ class Escher
 
                         $this->data .= $innerData;
                         break;
-
                     case \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_PNG:
                         // initialize
                         $innerData = '';
@@ -491,7 +493,7 @@ class Escher
     }
 
     /**
-     * Gets the shape offsets
+     * Gets the shape offsets.
      *
      * @return array
      */
@@ -501,7 +503,7 @@ class Escher
     }
 
     /**
-     * Gets the shape types
+     * Gets the shape types.
      *
      * @return array
      */
