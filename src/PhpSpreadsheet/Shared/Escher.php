@@ -27,23 +27,23 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
 class Escher
 {
     /**
-     * Drawing Group Container.
+     * Drawing Group Container
      *
      * @var Escher\DggContainer
      */
     private $dggContainer;
 
     /**
-     * Drawing Container.
+     * Drawing Container
      *
      * @var Escher\DgContainer
      */
     private $dgContainer;
 
     /**
-     * Get Drawing Group Container.
+     * Get Drawing Group Container
      *
-     * @return Escher\DgContainer
+     * @return Escher\DggContainer
      */
     public function getDggContainer()
     {
@@ -51,9 +51,10 @@ class Escher
     }
 
     /**
-     * Set Drawing Group Container.
+     * Set Drawing Group Container
      *
      * @param Escher\DggContainer $dggContainer
+     * @return Escher\DggContainer
      */
     public function setDggContainer($dggContainer)
     {
@@ -61,7 +62,7 @@ class Escher
     }
 
     /**
-     * Get Drawing Container.
+     * Get Drawing Container
      *
      * @return Escher\DgContainer
      */
@@ -71,9 +72,10 @@ class Escher
     }
 
     /**
-     * Set Drawing Container.
+     * Set Drawing Container
      *
      * @param Escher\DgContainer $dgContainer
+     * @return Escher\DgContainer
      */
     public function setDgContainer($dgContainer)
     {
