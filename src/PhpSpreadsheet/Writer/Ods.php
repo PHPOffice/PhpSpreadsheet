@@ -148,7 +148,7 @@ class Ods extends BaseWriter implements IWriter
 
         // Retrieve OVERWRITE and CREATE constants from the instantiated zip class
         // This method of accessing constant values from a dynamic class should work with all appropriate versions of PHP
-        $ro = new ReflectionObject($objZip);
+        $ro = new \ReflectionObject($objZip);
         $zipOverWrite = $ro->getConstant('OVERWRITE');
         $zipCreate = $ro->getConstant('CREATE');
 
