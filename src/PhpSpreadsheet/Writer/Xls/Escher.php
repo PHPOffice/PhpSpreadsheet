@@ -72,7 +72,7 @@ class Escher
         $this->data = '';
 
         switch (get_class($this->object)) {
-            case '\\PhpOffice\\PhpSpreadsheet\\Shared\\Escher':
+            case \PhpOffice\PhpSpreadsheet\Shared\Escher::class:
                 if ($dggContainer = $this->object->getDggContainer()) {
                     $writer = new self($dggContainer);
                     $this->data = $writer->close();
@@ -83,7 +83,7 @@ class Escher
                     $this->spTypes = $writer->getSpTypes();
                 }
                 break;
-            case '\\PhpOffice\\PhpSpreadsheet\\Shared\\Escher\\DggContainer':
+            case \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer::class:
                 // this is a container record
 
                 // initialize
@@ -136,7 +136,7 @@ class Escher
 
                 $this->data = $header . $innerData;
                 break;
-            case '\\PhpOffice\\PhpSpreadsheet\\Shared\\Escher\\DggContainer\\BstoreContainer':
+            case \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer::class:
                 // this is a container record
 
                 // initialize
@@ -163,7 +163,7 @@ class Escher
 
                 $this->data = $header . $innerData;
                 break;
-            case '\\PhpOffice\\PhpSpreadsheet\\Shared\\Escher\\DggContainer\\BstoreContainer\\BSE':
+            case \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::class:
                 // this is a semi-container record
 
                 // initialize
@@ -212,7 +212,7 @@ class Escher
 
                 $this->data .= $data;
                 break;
-            case '\\PhpOffice\\PhpSpreadsheet\\Shared\\Escher\\DggContainer\\BstoreContainer\\BSE\\Blip':
+            case \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE\Blip::class:
                 // this is an atom record
 
                 // write the record
@@ -271,7 +271,7 @@ class Escher
                         break;
                 }
                 break;
-            case '\\PhpOffice\\PhpSpreadsheet\\Shared\\Escher\\DgContainer':
+            case \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer::class:
                 // this is a container record
 
                 // initialize
@@ -323,7 +323,7 @@ class Escher
 
                 $this->data = $header . $innerData;
                 break;
-            case '\\PhpOffice\\PhpSpreadsheet\\Shared\\Escher\\DgContainer\\SpgrContainer':
+            case \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer::class:
                 // this is a container record
 
                 // initialize
@@ -362,7 +362,7 @@ class Escher
                 $this->spOffsets = $spOffsets;
                 $this->spTypes = $spTypes;
                 break;
-            case '\\PhpOffice\\PhpSpreadsheet\\Shared\\Escher\\DgContainer\\SpgrContainer\\SpContainer':
+            case \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer::class:
                 // initialize
                 $data = '';
 
