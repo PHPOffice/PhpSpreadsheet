@@ -51,4 +51,13 @@ class CalculationTest extends \PHPUnit_Framework_TestCase
     {
         return Calculation::getInstance()->getFunctions();
     }
+
+    public function testIsImplemented()
+    {
+        $calculation = Calculation::getInstance();
+        $this->assertFalse($calculation->isImplemented('non-existing-function'));
+        $this->assertFalse($calculation->isImplemented('AREAS'));
+        $this->assertTrue($calculation->isImplemented('coUNt'));
+        $this->assertTrue($calculation->isImplemented('abs'));
+    }
 }

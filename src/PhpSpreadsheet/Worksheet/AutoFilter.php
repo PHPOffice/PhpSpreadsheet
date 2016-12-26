@@ -802,7 +802,7 @@ class AutoFilter
                 //    Execute the filter test
                 $result = $result &&
                     call_user_func_array(
-                        ['\\PhpOffice\\PhpSpreadsheet\\Worksheet\\AutoFilter', $columnFilterTest['method']],
+                        [self::class, $columnFilterTest['method']],
                         [$cellValue, $columnFilterTest['arguments']]
                     );
                 //    If filter test has resulted in FALSE, exit the loop straightaway rather than running any more tests

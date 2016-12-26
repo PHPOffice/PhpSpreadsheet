@@ -116,19 +116,19 @@ class Xlsx extends BaseWriter implements IWriter
         $this->setSpreadsheet($spreadsheet);
 
         $writerPartsArray = [
-            'stringtable' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\StringTable',
-            'contenttypes' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\ContentTypes',
-            'docprops' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\DocProps',
-            'rels' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\Rels',
-            'theme' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\Theme',
-            'style' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\Style',
-            'workbook' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\Workbook',
-            'worksheet' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\Worksheet',
-            'drawing' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\Drawing',
-            'comments' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\Comments',
-            'chart' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\Chart',
-            'relsvba' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\RelsVBA',
-            'relsribbonobjects' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx\\RelsRibbon',
+            'stringtable' => \PhpOffice\PhpSpreadsheet\Writer\Xlsx\StringTable::class,
+            'contenttypes' => \PhpOffice\PhpSpreadsheet\Writer\Xlsx\ContentTypes::class,
+            'docprops' => \PhpOffice\PhpSpreadsheet\Writer\Xlsx\DocProps::class,
+            'rels' => \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels::class,
+            'theme' => \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Theme::class,
+            'style' => \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Style::class,
+            'workbook' => \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Workbook::class,
+            'worksheet' => \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet::class,
+            'drawing' => \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Drawing::class,
+            'comments' => \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Comments::class,
+            'chart' => \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Chart::class,
+            'relsvba' => \PhpOffice\PhpSpreadsheet\Writer\Xlsx\RelsVBA::class,
+            'relsribbonobjects' => \PhpOffice\PhpSpreadsheet\Writer\Xlsx\RelsRibbon::class,
         ];
 
         //    Initialise writer parts
