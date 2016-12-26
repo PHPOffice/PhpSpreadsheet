@@ -4150,7 +4150,6 @@ class Calculation
             if (!isset($aReferences[1])) {
                 //    Single cell (or single column or row) in range
                 list($currentCol, $currentRow) = Cell::coordinateFromString($aReferences[0]);
-                $cellValue = null;
                 if ($pSheet->cellExists($aReferences[0])) {
                     $returnValue[$currentRow][$currentCol] = $pSheet->getCell($aReferences[0])->getCalculatedValue($resetLog);
                 } else {
@@ -4161,7 +4160,6 @@ class Calculation
                 foreach ($aReferences as $reference) {
                     // Extract range
                     list($currentCol, $currentRow) = Cell::coordinateFromString($reference);
-                    $cellValue = null;
                     if ($pSheet->cellExists($reference)) {
                         $returnValue[$currentRow][$currentCol] = $pSheet->getCell($reference)->getCalculatedValue($resetLog);
                     } else {
