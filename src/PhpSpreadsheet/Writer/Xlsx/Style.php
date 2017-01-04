@@ -323,7 +323,7 @@ class Style extends WriterPart
         // Size
         if ($pFont->getSize() !== null) {
             $objWriter->startElement('sz');
-            $objWriter->writeAttribute('val', $pFont->getSize());
+            $objWriter->writeAttribute('val', \PhpOffice\PhpSpreadsheet\Shared\StringHelper::formatNumber($pFont->getSize()));
             $objWriter->endElement();
         }
 
