@@ -29,7 +29,7 @@ class Escher
     /**
      * Drawing Group Container.
      *
-     * @var \DggContainer
+     * @var Escher\DggContainer
      */
     private $dggContainer;
 
@@ -43,7 +43,7 @@ class Escher
     /**
      * Get Drawing Group Container.
      *
-     * @return Escher\DgContainer
+     * @return Escher\DggContainer
      */
     public function getDggContainer()
     {
@@ -54,6 +54,8 @@ class Escher
      * Set Drawing Group Container.
      *
      * @param Escher\DggContainer $dggContainer
+     *
+     * @return Escher\DggContainer
      */
     public function setDggContainer($dggContainer)
     {
@@ -74,6 +76,8 @@ class Escher
      * Set Drawing Container.
      *
      * @param Escher\DgContainer $dgContainer
+     *
+     * @return Escher\DgContainer
      */
     public function setDgContainer($dgContainer)
     {

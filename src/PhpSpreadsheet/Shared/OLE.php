@@ -212,7 +212,7 @@ class OLE
     {
         static $isRegistered = false;
         if (!$isRegistered) {
-            stream_wrapper_register('ole-chainedblockstream', '\\PhpOffice\\PhpSpreadsheet\\Shared\\OLE\\ChainedBlockStream');
+            stream_wrapper_register('ole-chainedblockstream', \PhpOffice\PhpSpreadsheet\Shared\OLE\ChainedBlockStream::class);
             $isRegistered = true;
         }
 

@@ -29,7 +29,7 @@ script:
   # PHP_CodeSniffer
   - if [ -z "$COVERAGE" ]; then ./vendor/bin/phpcs --report-width=200 --report-summary  --report-full samples/ src/ tests/ --standard=PSR2 -n ; fi
   # PHP-CS-Fixer
-  - if [ -z "$COVERAGE" ]; then ./vendor/bin/php-cs-fixer fix --diff --verbose ; fi
+  - if [ -z "$COVERAGE" ]; then ./vendor/bin/php-cs-fixer fix --diff --verbose --dry-run ; fi
   # PHPUnit
   - ./vendor/bin/phpunit $(if [ -n "$COVERAGE" ]; then echo --debug --coverage-clover coverage-clover.xml ; fi)
 
