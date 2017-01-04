@@ -85,7 +85,7 @@ class Row
     }
 
     /**
-     * Returns bound worksheet
+     * Returns bound worksheet.
      *
      * @return Worksheet
      */
@@ -93,5 +93,4 @@ class Row
     {
         return $this->worksheet;
     }
-
 }
