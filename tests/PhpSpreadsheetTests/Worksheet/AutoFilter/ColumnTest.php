@@ -20,10 +20,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
             ->method('testColumnInRange')
             ->will($this->returnValue(3));
 
-        $this->testAutoFilterColumnObject = new AutoFilter\Column(
-            $this->testInitialColumn,
-            $this->mockAutoFilterObject
-        );
+        $this->testAutoFilterColumnObject = new AutoFilter\Column($this->testInitialColumn, $this->mockAutoFilterObject);
     }
 
     public function testGetColumnIndex()

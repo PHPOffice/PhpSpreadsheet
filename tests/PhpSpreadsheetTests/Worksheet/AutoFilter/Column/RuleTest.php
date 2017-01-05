@@ -7,7 +7,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 class RuleTest extends \PHPUnit_Framework_TestCase
 {
     private $testAutoFilterRuleObject;
-
     private $mockAutoFilterColumnObject;
 
     public function setUp()

@@ -17,8 +17,8 @@ class WorksheetRowTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->mockWorksheet->expects($this->any())
-                 ->method('getHighestColumn')
-                 ->will($this->returnValue('E'));
+            ->method('getHighestColumn')
+            ->will($this->returnValue('E'));
     }
 
     public function testInstantiateRowDefault()

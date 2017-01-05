@@ -17,8 +17,8 @@ class WorksheetColumnTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->mockWorksheet->expects($this->any())
-                 ->method('getHighestRow')
-                 ->will($this->returnValue(5));
+            ->method('getHighestRow')
+            ->will($this->returnValue(5));
     }
 
     public function testInstantiateColumnDefault()

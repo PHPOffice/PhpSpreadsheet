@@ -10,11 +10,8 @@ use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 class AutoFilterTest extends \PHPUnit_Framework_TestCase
 {
     private $testInitialRange = 'H2:O256';
-
     private $testAutoFilterObject;
-
     private $mockWorksheetObject;
-
     private $mockCacheController;
 
     public function setUp()
@@ -29,10 +26,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
             ->method('getCellCacheController')
             ->will($this->returnValue($this->mockCacheController));
 
-        $this->testAutoFilterObject = new AutoFilter(
-            $this->testInitialRange,
-            $this->mockWorksheetObject
-        );
+        $this->testAutoFilterObject = new AutoFilter($this->testInitialRange, $this->mockWorksheetObject);
     }
 
     public function testToString()

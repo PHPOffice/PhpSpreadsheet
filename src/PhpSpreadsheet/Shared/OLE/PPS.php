@@ -178,21 +178,21 @@ class PPS
         $ret = str_pad($this->Name, 64, "\x00");
 
         $ret .= pack('v', strlen($this->Name) + 2)  // 66
-              . pack('c', $this->Type)              // 67
-              . pack('c', 0x00) //UK                // 68
-              . pack('V', $this->PrevPps) //Prev    // 72
-              . pack('V', $this->NextPps) //Next    // 76
-              . pack('V', $this->DirPps)  //Dir     // 80
-              . "\x00\x09\x02\x00"                  // 84
-              . "\x00\x00\x00\x00"                  // 88
-              . "\xc0\x00\x00\x00"                  // 92
-              . "\x00\x00\x00\x46"                  // 96 // Seems to be ok only for Root
-              . "\x00\x00\x00\x00"                  // 100
-              . \PhpOffice\PhpSpreadsheet\Shared\OLE::localDateToOLE($this->Time1st)          // 108
-              . \PhpOffice\PhpSpreadsheet\Shared\OLE::localDateToOLE($this->Time2nd)          // 116
-              . pack('V', isset($this->startBlock) ? $this->startBlock : 0)  // 120
-              . pack('V', $this->Size)               // 124
-              . pack('V', 0); // 128
+            . pack('c', $this->Type)              // 67
+            . pack('c', 0x00) //UK                // 68
+            . pack('V', $this->PrevPps) //Prev    // 72
+            . pack('V', $this->NextPps) //Next    // 76
+            . pack('V', $this->DirPps)  //Dir     // 80
+            . "\x00\x09\x02\x00"                  // 84
+            . "\x00\x00\x00\x00"                  // 88
+            . "\xc0\x00\x00\x00"                  // 92
+            . "\x00\x00\x00\x46"                  // 96 // Seems to be ok only for Root
+            . "\x00\x00\x00\x00"                  // 100
+            . \PhpOffice\PhpSpreadsheet\Shared\OLE::localDateToOLE($this->Time1st)          // 108
+            . \PhpOffice\PhpSpreadsheet\Shared\OLE::localDateToOLE($this->Time2nd)          // 116
+            . pack('V', isset($this->startBlock) ? $this->startBlock : 0)  // 120
+            . pack('V', $this->Size)               // 124
+            . pack('V', 0); // 128
         return $ret;
     }
 

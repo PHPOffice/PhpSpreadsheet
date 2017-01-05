@@ -27,8 +27,8 @@ class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
             ->getMock();
         // Configure the stub.
         $this->cellStub->expects($this->any())
-             ->method('setValueExplicit')
-             ->will($this->returnValue(true));
+            ->method('setValueExplicit')
+            ->will($this->returnValue(true));
     }
 
     /**

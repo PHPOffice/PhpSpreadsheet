@@ -52,30 +52,27 @@ class AdvancedValueBinderTest extends \PHPUnit_Framework_TestCase
      */
     public function testCurrency($value, $valueBinded, $format, $thousandsSeparator, $decimalSeparator, $currencyCode)
     {
-        $sheet = $this->getMock(
-            Worksheet::class,
-            ['getStyle', 'getNumberFormat', 'setFormatCode', 'getCellCacheController']
-        );
+        $sheet = $this->getMock(Worksheet::class, ['getStyle', 'getNumberFormat', 'setFormatCode', 'getCellCacheController']);
         $cache = $this->getMockBuilder(Memory::class)
             ->disableOriginalConstructor()
             ->getMock();
         $cache->expects($this->any())
-                 ->method('getParent')
-                 ->will($this->returnValue($sheet));
+            ->method('getParent')
+            ->will($this->returnValue($sheet));
 
         $sheet->expects($this->once())
-                 ->method('getStyle')
-                 ->will($this->returnSelf());
+            ->method('getStyle')
+            ->will($this->returnSelf());
         $sheet->expects($this->once())
-                 ->method('getNumberFormat')
-                 ->will($this->returnSelf());
+            ->method('getNumberFormat')
+            ->will($this->returnSelf());
         $sheet->expects($this->once())
-                 ->method('setFormatCode')
-                 ->with($format)
-                 ->will($this->returnSelf());
+            ->method('setFormatCode')
+            ->with($format)
+            ->will($this->returnSelf());
         $sheet->expects($this->any())
-                 ->method('getCellCacheController')
-                 ->will($this->returnValue($cache));
+            ->method('getCellCacheController')
+            ->will($this->returnValue($cache));
 
         StringHelper::setCurrencyCode($currencyCode);
         StringHelper::setDecimalSeparator($decimalSeparator);
