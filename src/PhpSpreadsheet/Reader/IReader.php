@@ -42,7 +42,7 @@ interface IReader
      *
      * @throws     Exception
      *
-     * @return  PhpSpreadsheet
+     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     public function load($pFilename);
 }
