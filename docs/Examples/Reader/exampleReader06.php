@@ -40,10 +40,10 @@ $spreadsheet = $reader->load($inputFileName);
 
 echo '<hr />';
 
-echo $spreadsheet->getSheetCount(),' worksheet',(($spreadsheet->getSheetCount() == 1) ? '' : 's'),' loaded<br /><br />';
+echo $spreadsheet->getSheetCount(), ' worksheet', (($spreadsheet->getSheetCount() == 1) ? '' : 's'), ' loaded<br /><br />';
 $loadedSheetNames = $spreadsheet->getSheetNames();
 foreach ($loadedSheetNames as $sheetIndex => $loadedSheetName) {
-    echo $sheetIndex,' -> ',$loadedSheetName,'<br />';
+    echo $sheetIndex, ' -> ', $loadedSheetName, '<br />';
 }
 
 ?>

@@ -34,10 +34,10 @@ foreach ($exampleTypeList as $exampleType) {
             $h1Text = $out[1];
             $h2Text = (preg_match($h2Pattern, $fileData, $out)) ? $out[1] : '';
 
-            echo '<a href="',$exampleFile,'">',$h1Text,'</a><br />';
+            echo '<a href="', $exampleFile, '">', $h1Text, '</a><br />';
             if (($h2Text > '') &&
                 (pathinfo($exampleType, PATHINFO_BASENAME) != 'Calculations')) {
-                echo $h2Text,'<br />';
+                echo $h2Text, '<br />';
             }
         }
     }

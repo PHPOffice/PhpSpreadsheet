@@ -46,7 +46,7 @@ foreach ($loadedSheetNames as $sheetIndex => $loadedSheetName) {
 echo '<hr />';
 
 foreach ($loadedSheetNames as $sheetIndex => $loadedSheetName) {
-    echo '<b>Worksheet #',$sheetIndex,' -> ',$loadedSheetName,' (Unformatted)</b><br />';
+    echo '<b>Worksheet #', $sheetIndex, ' -> ', $loadedSheetName, ' (Unformatted)</b><br />';
     $spreadsheet->setActiveSheetIndexByName($loadedSheetName);
     $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, false, true);
     var_dump($sheetData);
@@ -56,7 +56,7 @@ foreach ($loadedSheetNames as $sheetIndex => $loadedSheetName) {
 echo '<hr />';
 
 foreach ($loadedSheetNames as $sheetIndex => $loadedSheetName) {
-    echo '<b>Worksheet #',$sheetIndex,' -> ',$loadedSheetName,' (Raw)</b><br />';
+    echo '<b>Worksheet #', $sheetIndex, ' -> ', $loadedSheetName, ' (Raw)</b><br />';
     $spreadsheet->setActiveSheetIndexByName($loadedSheetName);
     $sheetData = $spreadsheet->getActiveSheet()->toArray(null, false, false, true);
     var_dump($sheetData);

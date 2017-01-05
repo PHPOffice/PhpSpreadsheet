@@ -58,10 +58,10 @@ echo '<hr />';
 	<?php
     for ($row = 1; $row <= $testDateCount; ++$row) {
         echo '<tr>';
-        echo '<td>' , $worksheet->getCell('A' . $row)->getFormattedValue() , '</td>';
-        echo '<td>' , $worksheet->getCell('B' . $row)->getValue() , '</td>';
-        echo '<td>' , $worksheet->getCell('B' . $row)->getFormattedValue() , '</td>';
-        echo '<td>' , $worksheet->getCell('C' . $row)->getFormattedValue() , '</td>';
+        echo '<td>', $worksheet->getCell('A' . $row)->getFormattedValue(), '</td>';
+        echo '<td>', $worksheet->getCell('B' . $row)->getValue(), '</td>';
+        echo '<td>', $worksheet->getCell('B' . $row)->getFormattedValue(), '</td>';
+        echo '<td>', $worksheet->getCell('C' . $row)->getFormattedValue(), '</td>';
         echo '</tr>';
     }
     ?>

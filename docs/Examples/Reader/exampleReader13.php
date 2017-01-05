@@ -42,10 +42,10 @@ foreach ($inputFileNames as $sheet => $inputFileName) {
 
 echo '<hr />';
 
-echo $spreadsheet->getSheetCount(),' worksheet',(($spreadsheet->getSheetCount() == 1) ? '' : 's'),' loaded<br /><br />';
+echo $spreadsheet->getSheetCount(), ' worksheet', (($spreadsheet->getSheetCount() == 1) ? '' : 's'), ' loaded<br /><br />';
 $loadedSheetNames = $spreadsheet->getSheetNames();
 foreach ($loadedSheetNames as $sheetIndex => $loadedSheetName) {
-    echo '<b>Worksheet #',$sheetIndex,' -> ',$loadedSheetName,'</b><br />';
+    echo '<b>Worksheet #', $sheetIndex, ' -> ', $loadedSheetName, '</b><br />';
     $spreadsheet->setActiveSheetIndexByName($loadedSheetName);
     $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
     var_dump($sheetData);

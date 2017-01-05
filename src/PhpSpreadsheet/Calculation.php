@@ -3118,7 +3118,7 @@ class Calculation
         //    The guts of the lexical parser
         //    Loop through the formula extracting each operator and operand in turn
         while (true) {
-            $opCharacter = $formula[$index];    //    Get the first character of the value at the current index position
+            $opCharacter = $formula[$index]; //    Get the first character of the value at the current index position
             if ((isset(self::$comparisonOperators[$opCharacter])) && (strlen($formula) > $index) && (isset(self::$comparisonOperators[$formula[$index + 1]]))) {
                 $opCharacter .= $formula[++$index];
             }

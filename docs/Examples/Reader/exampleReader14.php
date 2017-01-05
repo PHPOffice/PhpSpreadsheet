@@ -30,7 +30,7 @@ class chunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 
     private $_endRow = 0;
 
-    /**  Set the list of rows that we want to read  */
+/**  Set the list of rows that we want to read  */
     public function setRows($startRow, $chunkSize)
     {
         $this->_startRow = $startRow;
@@ -72,7 +72,7 @@ $sheet = 0;
 /*  Loop to read our worksheet in "chunk size" blocks  **/
 /**  $startRow is set to 2 initially because we always read the headings in row #1  **/
 for ($startRow = 2; $startRow <= 240; $startRow += $chunkSize) {
-    echo 'Loading WorkSheet #',($sheet + 1),' using configurable filter for headings row 1 and for rows ',$startRow,' to ',($startRow + $chunkSize - 1),'<br />';
+    echo 'Loading WorkSheet #', ($sheet + 1), ' using configurable filter for headings row 1 and for rows ', $startRow, ' to ', ($startRow + $chunkSize - 1), '<br />';
     /*  Tell the Read Filter, the limits on which rows we want to read this iteration  **/
     $chunkFilter->setRows($startRow, $chunkSize);
 
@@ -87,10 +87,10 @@ for ($startRow = 2; $startRow <= 240; $startRow += $chunkSize) {
 
 echo '<hr />';
 
-echo $spreadsheet->getSheetCount(),' worksheet',(($spreadsheet->getSheetCount() == 1) ? '' : 's'),' loaded<br /><br />';
+echo $spreadsheet->getSheetCount(), ' worksheet', (($spreadsheet->getSheetCount() == 1) ? '' : 's'), ' loaded<br /><br />';
 $loadedSheetNames = $spreadsheet->getSheetNames();
 foreach ($loadedSheetNames as $sheetIndex => $loadedSheetName) {
-    echo '<b>Worksheet #',$sheetIndex,' -> ',$loadedSheetName,'</b><br />';
+    echo '<b>Worksheet #', $sheetIndex, ' -> ', $loadedSheetName, '</b><br />';
     $spreadsheet->setActiveSheetIndexByName($loadedSheetName);
     $sheetData = $spreadsheet->getActiveSheet()->toArray(null, false, false, true);
     var_dump($sheetData);

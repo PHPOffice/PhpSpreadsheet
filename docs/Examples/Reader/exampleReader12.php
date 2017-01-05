@@ -39,7 +39,7 @@ class chunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 
     private $_endRow = 0;
 
-    /**  Set the list of rows that we want to read  */
+/**  Set the list of rows that we want to read  */
     public function setRows($startRow, $chunkSize)
     {
         $this->_startRow = $startRow;
@@ -73,7 +73,7 @@ $reader->setReadFilter($chunkFilter);
 
 /*  Loop to read our worksheet in "chunk size" blocks  **/
 for ($startRow = 2; $startRow <= 240; $startRow += $chunkSize) {
-    echo 'Loading WorkSheet using configurable filter for headings row 1 and for rows ',$startRow,' to ',($startRow + $chunkSize - 1),'<br />';
+    echo 'Loading WorkSheet using configurable filter for headings row 1 and for rows ', $startRow, ' to ', ($startRow + $chunkSize - 1), '<br />';
     /*  Tell the Read Filter, the limits on which rows we want to read this iteration  **/
     $chunkFilter->setRows($startRow, $chunkSize);
     /*  Load only the rows that match our filter from $inputFileName to a PHPExcel Object  **/
