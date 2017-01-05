@@ -431,8 +431,6 @@ class Spreadsheet
         return $this->calculationEngine;
     }
 
-    //    function getCellCacheController()
-
     /**
      * Get properties.
      *
