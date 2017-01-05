@@ -31,7 +31,7 @@ class Row
      *
      * @var \PhpOffice\PhpSpreadsheet\Worksheet
      */
-    private $parent;
+    private $worksheet;
 
     /**
      * Row index.
@@ -46,10 +46,10 @@ class Row
      * @param \PhpOffice\PhpSpreadsheet\Worksheet         $parent
      * @param int                        $rowIndex
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $parent = null, $rowIndex = 1)
+    public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $worksheet = null, $rowIndex = 1)
     {
         // Set parent and row index
-        $this->parent = $parent;
+        $this->worksheet = $worksheet;
         $this->rowIndex = $rowIndex;
     }
 
@@ -58,7 +58,7 @@ class Row
      */
     public function __destruct()
     {
-        unset($this->parent);
+        unset($this->worksheet);
     }
 
     /**
@@ -81,6 +81,16 @@ class Row
      */
     public function getCellIterator($startColumn = 'A', $endColumn = null)
     {
-        return new RowCellIterator($this->parent, $this->rowIndex, $startColumn, $endColumn);
+        return new RowCellIterator($this->worksheet, $this->rowIndex, $startColumn, $endColumn);
+    }
+
+    /**
+     * Returns bound worksheet.
+     *
+     * @return Worksheet
+     */
+    public function getWorksheet()
+    {
+        return $this->worksheet;
     }
 }
