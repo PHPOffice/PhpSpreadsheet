@@ -322,6 +322,7 @@ class Xlsx extends BaseReader implements IReader
     /**
      * @param \ZipArchive | ZipArchive $archive
      * @param string $fileName
+     *
      * @return string
      */
     private function getFromZipArchive($archive, $fileName = '')
@@ -2043,6 +2044,7 @@ class Xlsx extends BaseReader implements IReader
 
     /**
      * @param \SimpleXMLElement | null $is
+     *
      * @return RichText
      */
     private function parseRichText($is = null)
