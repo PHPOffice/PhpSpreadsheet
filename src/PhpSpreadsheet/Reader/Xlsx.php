@@ -14,6 +14,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Drawing;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\Font;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use PhpOffice\PhpSpreadsheet\Shared\ZipArchive;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
@@ -89,6 +90,7 @@ class Xlsx extends BaseReader implements IReader
 
         $xl = false;
         // Load file
+        /** @var \ZipArchive | ZipArchive $zip */
         $zip = new $zipClass();
         if ($zip->open($pFilename) === true) {
             // check if it is an OOXML archive
@@ -122,6 +124,8 @@ class Xlsx extends BaseReader implements IReader
      * @param    string         $pFilename
      *
      * @throws   Exception
+     *
+     * @return   array
      */
     public function listWorksheetNames($pFilename)
     {
@@ -131,6 +135,7 @@ class Xlsx extends BaseReader implements IReader
 
         $zipClass = Settings::getZipClass();
 
+        /** @var \ZipArchive | ZipArchive $zip */
         $zip = new $zipClass();
         $zip->open($pFilename);
 
@@ -165,6 +170,8 @@ class Xlsx extends BaseReader implements IReader
      * @param   string     $pFilename
      *
      * @throws  Exception
+     *
+     * @return  array
      */
     public function listWorksheetInfo($pFilename)
     {
@@ -174,6 +181,7 @@ class Xlsx extends BaseReader implements IReader
 
         $zipClass = Settings::getZipClass();
 
+        /** @var \ZipArchive | ZipArchive $zip */
         $zip = new $zipClass();
         $zip->open($pFilename);
 
@@ -213,6 +221,7 @@ class Xlsx extends BaseReader implements IReader
                 );
                 if ($xmlWorkbook->sheets) {
                     $dir = dirname($rel['Target']);
+                    /** @var \SimpleXMLElement $eleSheet */
                     foreach ($xmlWorkbook->sheets->sheet as $eleSheet) {
                         $tmpInfo = [
                             'worksheetName' => (string) $eleSheet['name'],
@@ -310,6 +319,11 @@ class Xlsx extends BaseReader implements IReader
         }
     }
 
+    /**
+     * @param \ZipArchive | ZipArchive $archive
+     * @param string $fileName
+     * @return string
+     */
     private function getFromZipArchive($archive, $fileName = '')
     {
         // Root-relative paths
@@ -357,6 +371,7 @@ class Xlsx extends BaseReader implements IReader
 
         $zipClass = Settings::getZipClass();
 
+        /** @var \ZipArchive | ZipArchive $zip */
         $zip = new $zipClass();
         $zip->open($pFilename);
 
@@ -461,6 +476,7 @@ class Xlsx extends BaseReader implements IReader
                     );
                     if (is_object($xmlCore)) {
                         $docProps = $excel->getProperties();
+                        /** @var \SimpleXMLElement $xmlProperty */
                         foreach ($xmlCore as $xmlProperty) {
                             $cellDataOfficeAttributes = $xmlProperty->attributes();
                             if (isset($cellDataOfficeAttributes['name'])) {
@@ -675,6 +691,7 @@ class Xlsx extends BaseReader implements IReader
                     $charts = $chartDetails = [];
 
                     if ($xmlWorkbook->sheets) {
+                        /** @var \SimpleXMLElement $eleSheet */
                         foreach ($xmlWorkbook->sheets->sheet as $eleSheet) {
                             ++$oldSheetId;
 
@@ -1270,6 +1287,7 @@ class Xlsx extends BaseReader implements IReader
 
                                 // Loop through hyperlinks
                                 if ($xmlSheet && $xmlSheet->hyperlinks) {
+                                    /** @var \SimpleXMLElement $hyperlink */
                                     foreach ($xmlSheet->hyperlinks->hyperlink as $hyperlink) {
                                         // Link url
                                         $linkRel = $hyperlink->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships');
@@ -1544,8 +1562,11 @@ class Xlsx extends BaseReader implements IReader
                                         if ($xmlDrawing->oneCellAnchor) {
                                             foreach ($xmlDrawing->oneCellAnchor as $oneCellAnchor) {
                                                 if ($oneCellAnchor->pic->blipFill) {
+                                                    /** @var \SimpleXMLElement $blip */
                                                     $blip = $oneCellAnchor->pic->blipFill->children('http://schemas.openxmlformats.org/drawingml/2006/main')->blip;
+                                                    /** @var \SimpleXMLElement $xfrm */
                                                     $xfrm = $oneCellAnchor->pic->spPr->children('http://schemas.openxmlformats.org/drawingml/2006/main')->xfrm;
+                                                    /** @var \SimpleXMLElement $outerShdw */
                                                     $outerShdw = $oneCellAnchor->pic->spPr->children('http://schemas.openxmlformats.org/drawingml/2006/main')->effectLst->outerShdw;
                                                     $objDrawing = new Worksheet\Drawing();
                                                     $objDrawing->setName((string) self::getArrayItem($oneCellAnchor->pic->nvPicPr->cNvPr->attributes(), 'name'));
@@ -1634,6 +1655,7 @@ class Xlsx extends BaseReader implements IReader
                                                     $toOffsetX = Drawing::EMUToPixels($twoCellAnchor->to->colOff);
                                                     $toOffsetY = Drawing::EMUToPixels($twoCellAnchor->to->rowOff);
                                                     $graphic = $twoCellAnchor->graphicFrame->children('http://schemas.openxmlformats.org/drawingml/2006/main')->graphic;
+                                                    /** @var \SimpleXMLElement $chartRef */
                                                     $chartRef = $graphic->graphicData->children('http://schemas.openxmlformats.org/drawingml/2006/chart')->chart;
                                                     $thisChart = (string) $chartRef->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships');
 
@@ -1918,6 +1940,7 @@ class Xlsx extends BaseReader implements IReader
         // fill
         if (isset($style->fill)) {
             if ($style->fill->gradientFill) {
+                /** @var \SimpleXMLElement $gradientFill */
                 $gradientFill = $style->fill->gradientFill[0];
                 if (!empty($gradientFill['type'])) {
                     $docStyle->getFill()->setFillType((string) $gradientFill['type']);
@@ -2004,6 +2027,10 @@ class Xlsx extends BaseReader implements IReader
         }
     }
 
+    /**
+     * @param Style\Border $docBorder
+     * @param \SimpleXMLElement $eleBorder
+     */
     private static function readBorder($docBorder, $eleBorder)
     {
         if (isset($eleBorder['style'])) {
@@ -2014,6 +2041,10 @@ class Xlsx extends BaseReader implements IReader
         }
     }
 
+    /**
+     * @param \SimpleXMLElement | null $is
+     * @return RichText
+     */
     private function parseRichText($is = null)
     {
         $value = new RichText();
