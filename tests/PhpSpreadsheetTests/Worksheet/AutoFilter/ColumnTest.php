@@ -127,7 +127,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
 
         $result = $this->testAutoFilterColumnObject->getAttributes();
         $this->assertInternalType('array', $result);
-        $this->assertEquals(count($attributeSet), count($result));
+        $this->assertCount(count($attributeSet), $result);
     }
 
     public function testSetAttribute()
