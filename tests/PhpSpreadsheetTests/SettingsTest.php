@@ -20,4 +20,10 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
         $result = \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions();
         $this->assertTrue((bool) ((LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_DTDVALID) & $result));
     }
+
+    public function testReadingExternalXMLAfterGettingSettings()
+    {
+        \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions();
+        $this->assertInstanceOf(\SimpleXMLElement::class, simplexml_load_file('http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl'));
+    }
 }
