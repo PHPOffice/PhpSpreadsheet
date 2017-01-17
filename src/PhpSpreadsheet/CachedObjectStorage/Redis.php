@@ -152,7 +152,6 @@ class Redis extends CacheBase implements ICache
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
      * @return  string[]
-     *
      */
     public function getCellList()
     {
@@ -199,6 +198,7 @@ class Redis extends CacheBase implements ICache
      * @param   string $pCoord Coordinate of the cell
      *
      * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     *
      * @return  \PhpOffice\PhpSpreadsheet\Cell     Cell that was found, or null if not found
      */
     public function getCacheData($pCoord)
