@@ -37,6 +37,7 @@ class CachedObjectStorageFactory
     const CACHE_TO_WINCACHE = 'Wincache';
     const CACHE_TO_SQLITE = 'SQLite';
     const CACHE_TO_SQLITE3 = 'SQLite3';
+    const CACHE_TO_REDIS = 'Redis';
 
     /**
      * Name of the method used for cell cacheing.
@@ -69,6 +70,7 @@ class CachedObjectStorageFactory
         self::CACHE_TO_WINCACHE,
         self::CACHE_TO_SQLITE,
         self::CACHE_TO_SQLITE3,
+        self::CACHE_TO_REDIS,
     ];
 
     /**
@@ -100,6 +102,11 @@ class CachedObjectStorageFactory
         ],
         self::CACHE_TO_SQLITE => [],
         self::CACHE_TO_SQLITE3 => [],
+        self::CACHE_TO_REDIS => [
+            'redisServer' => 'localhost',
+            'redisPort' => 6379,
+            'cacheTime' => 600,
+        ],
     ];
 
     /**
