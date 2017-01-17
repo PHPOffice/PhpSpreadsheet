@@ -45,12 +45,13 @@ class Redis extends CacheBase implements ICache
      * @param   mixed[] $arguments Additional initialisation arguments
      * @throws  \PhpOffice\PhpSpreadsheet\Exception
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $parent, $arguments) {
+    public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $parent, $arguments)
+    {
         $redisServer = isset($arguments['redisServer']) ? $arguments['redisServer'] : 'localhost';
         $redisPort = isset($arguments['redisPort']) ? $arguments['redisPort'] : 6379;
         $cacheTime = isset($arguments['cacheTime']) ? $arguments['cacheTime'] : 600;
 
-        if (is_null($this->cachePrefix)) {
+        if (null === $this->cachePrefix) {
             $baseUnique = $this->getUniqueID();
             $this->cachePrefix = substr(md5($baseUnique), 0, 8) . '.';
 
@@ -70,7 +71,8 @@ class Redis extends CacheBase implements ICache
      * Some methods are dependent on the availability of certain extensions being enabled in the PHP build.
      * @return    bool
      */
-    public static function cacheMethodIsAvailable() {
+    public static function cacheMethodIsAvailable()
+    {
         if (!extension_loaded('redis')) {
             return false;
         }
@@ -85,7 +87,8 @@ class Redis extends CacheBase implements ICache
      * @throws  \PhpOffice\PhpSpreadsheet\Exception
      * @return  \PhpOffice\PhpSpreadsheet\Cell
      */
-    public function addCacheData($pCoord, \PhpOffice\PhpSpreadsheet\Cell $cell) {
+    public function addCacheData($pCoord, \PhpOffice\PhpSpreadsheet\Cell $cell)
+    {
         if (($pCoord !== $this->currentObjectID) && ($this->currentObjectID !== null)) {
             $this->storeData();
         }
@@ -103,7 +106,8 @@ class Redis extends CacheBase implements ICache
      *     and the 'nullify' the current cell object.
      * @throws  \PhpOffice\PhpSpreadsheet\Exception
      */
-    protected function storeData() {
+    protected function storeData()
+    {
         if ($this->currentCellIsDirty && !empty($this->currentObjectID)) {
             $this->currentObject->detach();
 
@@ -119,8 +123,10 @@ class Redis extends CacheBase implements ICache
 
     /**
      * Destroy this cell collection.
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
-    public function __destruct() {
+    public function __destruct()
+    {
         $cacheList = $this->getCellList();
         foreach ($cacheList as $cellID) {
             $this->redis->delete($this->cachePrefix . $cellID . '.cache');
@@ -132,7 +138,8 @@ class Redis extends CacheBase implements ICache
      * @return  string[]
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
-    public function getCellList() {
+    public function getCellList()
+    {
         if ($this->currentObjectID !== null) {
             $this->storeData();
         }
@@ -146,7 +153,8 @@ class Redis extends CacheBase implements ICache
      * @throws   \PhpOffice\PhpSpreadsheet\Exception
      * @return   bool
      */
-    public function isDataSet($pCoord) {
+    public function isDataSet($pCoord)
+    {
         //    Check if the requested entry is the current object, or exists in the cache
         if (parent::isDataSet($pCoord)) {
             if ($this->currentObjectID == $pCoord) {
@@ -172,7 +180,8 @@ class Redis extends CacheBase implements ICache
      * @throws  \PhpOffice\PhpSpreadsheet\Exception
      * @return  \PhpOffice\PhpSpreadsheet\Cell     Cell that was found, or null if not found
      */
-    public function getCacheData($pCoord) {
+    public function getCacheData($pCoord)
+    {
         if ($pCoord === $this->currentObjectID) {
             return $this->currentObject;
         }
@@ -206,7 +215,8 @@ class Redis extends CacheBase implements ICache
      * @param   string $pCoord Coordinate address of the cell to delete
      * @throws  \PhpOffice\PhpSpreadsheet\Exception
      */
-    public function deleteCacheData($pCoord) {
+    public function deleteCacheData($pCoord)
+    {
         //    Delete the entry from Redis
         $this->redis->delete($this->cachePrefix . $pCoord . '.cache');
 
@@ -219,7 +229,8 @@ class Redis extends CacheBase implements ICache
      * @param  \PhpOffice\PhpSpreadsheet\Worksheet $parent The new worksheet that we're copying to
      * @throws   \PhpOffice\PhpSpreadsheet\Exception
      */
-    public function copyCellCollection(\PhpOffice\PhpSpreadsheet\Worksheet $parent) {
+    public function copyCellCollection(\PhpOffice\PhpSpreadsheet\Worksheet $parent)
+    {
         parent::copyCellCollection($parent);
         //    Get a new id for the new file name
         $baseUnique = $this->getUniqueID();
@@ -244,9 +255,11 @@ class Redis extends CacheBase implements ICache
 
     /**
      * Clear the cell collection and disconnect from our parent.
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
-    public function unsetWorksheetCells() {
-        if (!is_null($this->currentObject)) {
+    public function unsetWorksheetCells()
+    {
+        if (null !== $this->currentObject) {
             $this->currentObject->detach();
             $this->currentObject = $this->currentObjectID = null;
         }
@@ -266,7 +279,8 @@ class Redis extends CacheBase implements ICache
      * @param   int $port Redis port
      * @throws  \PhpOffice\PhpSpreadsheet\Exception
      */
-    public function failureCallback($host, $port) {
+    public function failureCallback($host, $port)
+    {
         throw new \PhpOffice\PhpSpreadsheet\Exception("redis {$host}:{$port} failed");
     }
 }
