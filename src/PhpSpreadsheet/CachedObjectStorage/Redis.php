@@ -55,8 +55,8 @@ class Redis extends CacheBase implements ICache
     public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $parent, $arguments)
     {
         $redisServer = isset($arguments['redisServer']) ? $arguments['redisServer'] : 'localhost';
-        $redisPort = isset($arguments['redisPort']) ? (int)$arguments['redisPort'] : 6379;
-        $cacheTime = isset($arguments['cacheTime']) ? (int)$arguments['cacheTime'] : 600;
+        $redisPort = isset($arguments['redisPort']) ? (int) $arguments['redisPort'] : 6379;
+        $cacheTime = isset($arguments['cacheTime']) ? (int) $arguments['cacheTime'] : 600;
 
         if (null === $this->cachePrefix) {
             $baseUnique = $this->getUniqueID();
