@@ -218,9 +218,7 @@ class CachedObjectStorageFactory
                 $parent,
                 self::$storageMethodParameters[self::$cacheStorageMethod]
             );
-            if ($instance !== null) {
-                return $instance;
-            }
+            return $instance;
         }
 
         return false;
