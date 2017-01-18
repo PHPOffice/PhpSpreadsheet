@@ -218,6 +218,7 @@ class CachedObjectStorageFactory
                 $parent,
                 self::$storageMethodParameters[self::$cacheStorageMethod]
             );
+
             return $instance;
         }
 
