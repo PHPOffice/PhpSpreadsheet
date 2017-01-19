@@ -48,10 +48,10 @@ class MPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
 
     /**
      *  Save Spreadsheet to file.
+     *
      * @param     string $pFilename Name of the file to save as
      *
      * @throws    \PhpOffice\PhpSpreadsheet\Writer\Exception
-     *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     public function save($pFilename = null)
