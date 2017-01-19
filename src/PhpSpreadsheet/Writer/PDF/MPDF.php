@@ -29,7 +29,9 @@ class MPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
     /**
      *  Create a mPDF Writer instance.
      *
-     *  @param  \PhpOffice\PhpSpreadsheet\Spreadsheet  $spreadsheet  Spreadsheet object
+     * @param  \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet Spreadsheet object
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function __construct(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
     {
@@ -47,9 +49,10 @@ class MPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
     /**
      *  Save Spreadsheet to file.
      *
-     *  @param     string     $pFilename   Name of the file to save as
+     * @param     string $pFilename Name of the file to save as
      *
-     *  @throws    \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws    \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     public function save($pFilename = null)
     {
@@ -59,7 +62,7 @@ class MPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
         $paperSize = 'LETTER'; //    Letter    (8.5 in. by 11 in.)
 
         //  Check for paper size and page orientation
-        if (is_null($this->getSheetIndex())) {
+        if (null === $this->getSheetIndex()) {
             $orientation = ($this->spreadsheet->getSheet(0)->getPageSetup()->getOrientation()
                 == \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
             $printPaperSize = $this->spreadsheet->getSheet(0)->getPageSetup()->getPaperSize();
@@ -73,7 +76,7 @@ class MPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
         $this->setOrientation($orientation);
 
         //  Override Page Orientation
-        if (!is_null($this->getOrientation())) {
+        if (null !== $this->getOrientation()) {
             $orientation = ($this->getOrientation() == \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_DEFAULT)
                 ? \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_PORTRAIT
                 : $this->getOrientation();
@@ -81,7 +84,7 @@ class MPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
         $orientation = strtoupper($orientation);
 
         //  Override Paper Size
-        if (!is_null($this->getPaperSize())) {
+        if (null !== $this->getPaperSize()) {
             $printPaperSize = $this->getPaperSize();
         }
 
@@ -90,7 +93,7 @@ class MPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
         }
 
         //  Create PDF
-        $pdf = new \Mpdf\Mpdf();
+        $pdf = new \Mpdf();
         $ortmp = $orientation;
         $pdf->_setPageSize(strtoupper($paperSize), $ortmp);
         $pdf->DefOrientation = $orientation;
