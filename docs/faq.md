@@ -130,12 +130,6 @@ included. See section: "Setting a column's width" for more details.
 -   Using [PhpSpreadsheet with
     TYPO3](http://typo3.org/documentation/document-library/extension-manuals/phpexcel_library/1.1.1/view/toc/0/)
 
-## Joomla Autoloader interferes with PhpSpreadsheet Autoloader
-
-Thanks to peterrlynch for the following advice on resolving issues
-between the [PhpSpreadsheet autoloader and Joomla
-Autoloader](http://phpexcel.codeplex.com/discussions/211925)
-
 ### Tutorials
 
 -   [English PHPExcel tutorial](http://openxmldeveloper.org)

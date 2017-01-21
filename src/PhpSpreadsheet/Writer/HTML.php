@@ -50,7 +50,7 @@ class HTML extends BaseWriter implements IWriter
      *
      * @var string
      */
-    private $imagesRoot = '.';
+    private $imagesRoot = '';
 
     /**
      * embed images, or link to images.

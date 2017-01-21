@@ -75,39 +75,11 @@ using PhpSpreadsheet.
 
 ![01-schematic.png](./images/01-schematic.png "Basic Architecture Schematic")
 
-## Lazy Loader
+## AutoLoader
 
-PhpSpreadsheet implements an autoloader or "lazy loader", which means
-that it is not necessary to include every file within PhpSpreadsheet. It
-is only necessary to include the initial PhpSpreadsheet class file, then
-the autoloader will include other class files as and when required, so
-only those files that are actually required by your script will be
-loaded into PHP memory. The main benefit of this is that it reduces the
-memory footprint of PhpSpreadsheet itself, so that it uses less PHP
-memory.
-
-If your own scripts already define an autoload function, then this may
-be overwritten by the PhpSpreadsheet autoload function. For example, if
-you have:
-
-``` php
-function __autoload($class) {
-    ...
-}
-```
-
-Do this instead:
-
-``` php
-function myAutoload($class) {
-    ...
-}
-
-spl_autoload_register('myAutoload');
-```
-
-Your autoloader will then co-exist with the autoloader of
-PhpSpreadsheet.
+PhpSpreadsheet relies on Composer autoloader. So before working with
+PhpSpreadsheet in standalone, be sure to run `composer install`. Or add it to a
+pre-existing project with `composer require phpoffice/phpspreadsheet`.
 
 ## Spreadsheet in memory
 
@@ -1574,16 +1546,16 @@ regarding to styling cells, number formatting, ...
 
 PhpSpreadsheet’s PDF Writer is a wrapper for a 3rd-Party PDF Rendering
 library such as tcPDF, mPDF or DomPDF. You must now install a PDF
-Rendering library yourself; but PhpSpreadsheet will work with a number
+rendering library yourself; but PhpSpreadsheet will work with a number
 of different libraries.
 
 Currently, the following libraries are supported:
 
-Library | Version used for testing | Downloadable from                | PhpSpreadsheet Internal Constant
---------|--------------------------|----------------------------------|----------------------------
-tcPDF   | 5.9                      | http://www.tcpdf.org/            | PDF_RENDERER_TCPDF
-mPDF    | 5.4                      | http://www.mpdf1.com/mpdf/       | PDF_RENDERER_MPDF
-domPDF  | 0.6.0 beta 3             | http://code.google.com/p/dompdf/ | PDF_RENDERER_DOMPDF
+Library | Downloadable from                   | PhpSpreadsheet Internal Constant
+--------|-------------------------------------|---------------------------------
+tcPDF   | https://github.com/tecnickcom/tcpdf | PDF_RENDERER_TCPDF
+mPDF    | https://github.com/mpdf/mpdf        | PDF_RENDERER_MPDF
+domPDF  | https://github.com/dompdf/dompdf    | PDF_RENDERER_DOMPDF
 
 The different libraries have different strengths and weaknesses. Some
 generate better formatted output than others, some are faster or use
@@ -1592,23 +1564,11 @@ the developers choice which one they wish to use, appropriate to their
 own circumstances.
 
 Before instantiating a Writer to generate PDF output, you will need to
-indicate which Rendering library you are using, and where it is located.
+indicate which Rendering library you are using.
 
 ``` php
 $rendererName = \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_MPDF;
-$rendererLibrary = 'mPDF5.4';
-$rendererLibraryPath = dirname(__FILE__).'/../../../libraries/PDF/' . $rendererLibrary;
-
-if (!\PhpOffice\PhpSpreadsheet\Settings::setPdfRenderer(
-    $rendererName,
-    $rendererLibraryPath
-    )) {
-    die(
-        'Please set the $rendererName and $rendererLibraryPath values' .
-        PHP_EOL .
-        ' as appropriate for your directory structure'
-    );
-}
+\PhpOffice\PhpSpreadsheet\Settings::setPdfRendererName($rendererName);
 ```
 
 #### Writing a spreadsheet

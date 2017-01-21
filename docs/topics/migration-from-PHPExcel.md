@@ -116,3 +116,19 @@ $writer->setTempDir();
 
 // After, there is no way to set temporary storage directory anymore
 ```
+
+## Autoloader
+
+The class `PHPExcel_Autoloader` was removed entirely and is replaced by composer
+autoloading mechanism.
+
+## Writing PDF
+
+`PHPExcel_Settings::setPdfRenderer()` and `PHPExcel_Settings::setPdfRenderer()`
+were removed and PDF libraries must be installed via composer. So the only thing
+to do is to specify a renderer like so:
+
+```php
+$rendererName = \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_MPDF;
+\PhpOffice\PhpSpreadsheet\Settings::setPdfRendererName($rendererName);
+```

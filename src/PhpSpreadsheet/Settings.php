@@ -84,13 +84,6 @@ class Settings
     private static $pdfRendererName;
 
     /**
-     * Directory Path to the external Library used for rendering PDF files.
-     *
-     * @var string
-     */
-    private static $pdfRendererPath;
-
-    /**
      * Default options for libxml loader.
      *
      * @var int
@@ -252,60 +245,19 @@ class Settings
     }
 
     /**
-     * Set details of the external library that PhpSpreadsheet should use for rendering PDF files.
-     *
-     * @param string $libraryName Internal reference name of the library
-     *     e.g. \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_TCPDF,
-     *          \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_DOMPDF
-     *       or \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_MPDF
-     * @param string $libraryBaseDir Directory path to the library's base folder
-     *
-     * @return bool Success or failure
-     */
-    public static function setPdfRenderer($libraryName, $libraryBaseDir)
-    {
-        if (!self::setPdfRendererName($libraryName)) {
-            return false;
-        }
-
-        return self::setPdfRendererPath($libraryBaseDir);
-    }
-
-    /**
      * Identify to PhpSpreadsheet the external library to use for rendering PDF files.
      *
      * @param string $libraryName Internal reference name of the library
      *     e.g. \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_TCPDF,
      *          \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_DOMPDF
      *       or \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_MPDF
-     *
-     * @return bool Success or failure
      */
     public static function setPdfRendererName($libraryName)
     {
         if (!in_array($libraryName, self::$pdfRenderers)) {
-            return false;
+            throw new Exception('"' . $libraryName . '" is not a valid PDF library name');
         }
         self::$pdfRendererName = $libraryName;
-
-        return true;
-    }
-
-    /**
-     * Tell PhpSpreadsheet where to find the external library to use for rendering PDF files.
-     *
-     * @param string $libraryBaseDir Directory path to the library's base folder
-     *
-     * @return bool Success or failure
-     */
-    public static function setPdfRendererPath($libraryBaseDir)
-    {
-        if ((file_exists($libraryBaseDir) === false) || (is_readable($libraryBaseDir) === false)) {
-            return false;
-        }
-        self::$pdfRendererPath = $libraryBaseDir;
-
-        return true;
     }
 
     /**
@@ -320,17 +272,6 @@ class Settings
     public static function getPdfRendererName()
     {
         return self::$pdfRendererName;
-    }
-
-    /**
-     * Return the directory path to the PDF Rendering Library that PhpSpreadsheet is currently configured to use.
-     *
-     * @return string|null Directory Path to the PDF Rendering Library that PhpSpreadsheet is
-     *        currently configured to use
-     */
-    public static function getPdfRendererPath()
-    {
-        return self::$pdfRendererPath;
     }
 
     /**

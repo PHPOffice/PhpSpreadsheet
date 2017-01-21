@@ -27,24 +27,6 @@ namespace PhpOffice\PhpSpreadsheet\Writer\PDF;
 class DomPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
 {
     /**
-     *  Create a new DomPDF Writer instance.
-     *
-     *  @param   \PhpOffice\PhpSpreadsheet\Spreadsheet    $spreadsheet    Spreadsheet object
-     */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
-    {
-        parent::__construct($spreadsheet);
-
-        /*  Require DomPDF library */
-        $pdfRendererClassFile = \PhpOffice\PhpSpreadsheet\Settings::getPdfRendererPath() . '/dompdf_config.inc.php';
-        if (file_exists($pdfRendererClassFile)) {
-            require_once $pdfRendererClassFile;
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Unable to load PDF Rendering library');
-        }
-    }
-
-    /**
      *  Save Spreadsheet to file.
      *
      *  @param   string     $pFilename   Name of the file to save as
@@ -89,7 +71,7 @@ class DomPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
         }
 
         //  Create PDF
-        $pdf = new \DOMPDF();
+        $pdf = new \Dompdf\Dompdf();
         $pdf->set_paper(strtolower($paperSize), $orientation);
 
         $pdf->load_html(

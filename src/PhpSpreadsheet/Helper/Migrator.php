@@ -204,7 +204,6 @@ class Migrator
             'PHPExcel_Writer_PDF' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\PDF',
             'PHPExcel_Writer_Excel5' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xls',
             'PHPExcel_Writer_Excel2007' => '\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx',
-            'PHPExcel_Autoloader' => '\\PhpOffice\\PhpSpreadsheet\\Autoloader',
             'PHPExcel_CachedObjectStorageFactory' => '\\PhpOffice\\PhpSpreadsheet\\CachedObjectStorageFactory',
             'PHPExcel_Calculation' => '\\PhpOffice\\PhpSpreadsheet\\Calculation',
             'PHPExcel_Cell' => '\\PhpOffice\\PhpSpreadsheet\\Cell',

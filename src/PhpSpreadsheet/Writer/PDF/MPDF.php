@@ -27,26 +27,6 @@ namespace PhpOffice\PhpSpreadsheet\Writer\PDF;
 class MPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
 {
     /**
-     *  Create a mPDF Writer instance.
-     *
-     * @param  \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet Spreadsheet object
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
-    {
-        parent::__construct($spreadsheet);
-
-        /*  Require mPDF library */
-        $pdfRendererClassFile = \PhpOffice\PhpSpreadsheet\Settings::getPdfRendererPath() . '/mpdf.php';
-        if (file_exists($pdfRendererClassFile)) {
-            require_once $pdfRendererClassFile;
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Unable to load PDF Rendering library');
-        }
-    }
-
-    /**
      *  Save Spreadsheet to file.
      *
      * @param     string $pFilename Name of the file to save as
@@ -93,7 +73,7 @@ class MPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
         }
 
         //  Create PDF
-        $pdf = new \Mpdf();
+        $pdf = new \mPDF();
         $ortmp = $orientation;
         $pdf->_setPageSize(strtoupper($paperSize), $ortmp);
         $pdf->DefOrientation = $orientation;

@@ -27,25 +27,6 @@ namespace PhpOffice\PhpSpreadsheet\Writer\PDF;
 class TcPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
 {
     /**
-     *  Create a new tcPDF Writer instance.
-     *
-     *  @param  \PhpOffice\PhpSpreadsheet\Spreadsheet  $spreadsheet  Spreadsheet object
-     */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
-    {
-        parent::__construct($spreadsheet);
-
-        /*  Require tcPDF library */
-        $pdfRendererClassFile = \PhpOffice\PhpSpreadsheet\Settings::getPdfRendererPath() . '/tcpdf.php';
-        if (file_exists($pdfRendererClassFile)) {
-            $k_path_url = \PhpOffice\PhpSpreadsheet\Settings::getPdfRendererPath();
-            require_once $pdfRendererClassFile;
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Unable to load PDF Rendering library');
-        }
-    }
-
-    /**
      *  Save Spreadsheet to file.
      *
      *  @param     string     $pFilename   Name of the file to save as
