@@ -1542,7 +1542,7 @@ fast distribution of represented data.
 **PDF limitations** Please note that PDF file format has some limits
 regarding to styling cells, number formatting, ...
 
-### \PhpOffice\PhpSpreadsheet\Writer\PDF
+### \PhpOffice\PhpSpreadsheet\Writer\Pdf
 
 PhpSpreadsheet’s PDF Writer is a wrapper for a 3rd-Party PDF Rendering
 library such as tcPDF, mPDF or DomPDF. You must now install a PDF
@@ -1577,11 +1577,11 @@ Once you have identified the Renderer that you wish to use for PDF
 generation, you can write a .pdf file using the following code:
 
 ``` php
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\PDF($spreadsheet);
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf($spreadsheet);
 $writer->save("05featuredemo.pdf");
 ```
 
-Please note that \PhpOffice\PhpSpreadsheet\Writer\PDF only outputs the
+Please note that \PhpOffice\PhpSpreadsheet\Writer\Pdf only outputs the
 first worksheet by default.
 
 #### Write all worksheets
@@ -1609,7 +1609,7 @@ This can be slow on large spreadsheets, and maybe even unwanted. You can
 however disable formula pre-calculation:
 
 ``` php
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\PDF($spreadsheet);
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf($spreadsheet);
 $writer->setPreCalculateFormulas(false);
 
 $writer->save("05featuredemo.pdf");

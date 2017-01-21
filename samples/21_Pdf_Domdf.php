@@ -14,4 +14,4 @@ $helper->log("Write to PDF format using {$rendererName}");
 \PhpOffice\PhpSpreadsheet\Settings::setPdfRendererName($rendererName);
 
 // Save
-$helper->write($spreadsheet, __FILE__, ['PDF' => 'pdf']);
+$helper->write($spreadsheet, __FILE__, ['Pdf' => 'pdf']);

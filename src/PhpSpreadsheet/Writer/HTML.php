@@ -1354,7 +1354,7 @@ class HTML extends BaseWriter implements IWriter
                     if (!$this->useInlineCss) {
                         $html .= ' class="' . $cssClass . '"';
                     } else {
-                        //** Necessary redundant code for the sake of \PhpOffice\PhpSpreadsheet\Writer\PDF **
+                        //** Necessary redundant code for the sake of \PhpOffice\PhpSpreadsheet\Writer\Pdf **
                         // We must explicitly write the width of the <td> element because TCPDF
                         // does not recognize e.g. <col style="width:42pt">
                         $width = 0;

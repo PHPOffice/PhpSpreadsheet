@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Writer\PDF;
+namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
 /**
  *  Copyright (c) 2006 - 2015 PhpSpreadsheet.
@@ -24,14 +24,14 @@ namespace PhpOffice\PhpSpreadsheet\Writer\PDF;
  *  @copyright   Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  *  @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
-class DomPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
+class TcPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
 {
     /**
      *  Save Spreadsheet to file.
      *
-     *  @param   string     $pFilename   Name of the file to save as
+     *  @param     string     $pFilename   Name of the file to save as
      *
-     *  @throws  \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *  @throws    \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function save($pFilename = null)
     {
@@ -53,13 +53,11 @@ class DomPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
             $printMargins = $this->spreadsheet->getSheet($this->getSheetIndex())->getPageMargins();
         }
 
-        $orientation = ($orientation == 'L') ? 'landscape' : 'portrait';
-
         //  Override Page Orientation
         if (!is_null($this->getOrientation())) {
-            $orientation = ($this->getOrientation() == \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_DEFAULT)
-                ? \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_PORTRAIT
-                : $this->getOrientation();
+            $orientation = ($this->getOrientation() == \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE)
+                ? 'L'
+                : 'P';
         }
         //  Override Paper Size
         if (!is_null($this->getPaperSize())) {
@@ -71,18 +69,34 @@ class DomPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
         }
 
         //  Create PDF
-        $pdf = new \Dompdf\Dompdf();
-        $pdf->set_paper(strtolower($paperSize), $orientation);
+        $pdf = new \TCPDF($orientation, 'pt', $paperSize);
+        $pdf->setFontSubsetting(false);
+        //    Set margins, converting inches to points (using 72 dpi)
+        $pdf->SetMargins($printMargins->getLeft() * 72, $printMargins->getTop() * 72, $printMargins->getRight() * 72);
+        $pdf->SetAutoPageBreak(true, $printMargins->getBottom() * 72);
 
-        $pdf->load_html(
+        $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
+
+        $pdf->AddPage();
+
+        //  Set the appropriate font
+        $pdf->SetFont($this->getFont());
+        $pdf->writeHTML(
             $this->generateHTMLHeader(false) .
             $this->generateSheetData() .
             $this->generateHTMLFooter()
         );
-        $pdf->render();
+
+        //  Document info
+        $pdf->SetTitle($this->spreadsheet->getProperties()->getTitle());
+        $pdf->SetAuthor($this->spreadsheet->getProperties()->getCreator());
+        $pdf->SetSubject($this->spreadsheet->getProperties()->getSubject());
+        $pdf->SetKeywords($this->spreadsheet->getProperties()->getKeywords());
+        $pdf->SetCreator($this->spreadsheet->getProperties()->getCreator());
 
         //  Write to file
-        fwrite($fileHandle, $pdf->output());
+        fwrite($fileHandle, $pdf->output($pFilename, 'S'));
 
         parent::restoreStateAfterSave($fileHandle);
     }

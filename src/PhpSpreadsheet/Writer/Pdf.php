@@ -26,7 +26,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
  *  @copyright   Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  *  @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
-class PDF implements IWriter
+class Pdf implements IWriter
 {
     /**
      * The wrapper for the requested PDF rendering engine.
@@ -49,7 +49,7 @@ class PDF implements IWriter
             throw new Exception('PDF Rendering library has not been defined.');
         }
 
-        $rendererName = '\\PhpOffice\\PhpSpreadsheet\\Writer\\PDF\\' . $pdfLibraryName;
+        $rendererName = '\\PhpOffice\\PhpSpreadsheet\\Writer\\Pdf\\' . $pdfLibraryName;
         $this->renderer = new $rendererName($spreadsheet);
     }
 

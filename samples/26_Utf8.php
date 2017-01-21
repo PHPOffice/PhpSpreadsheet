@@ -19,7 +19,7 @@ $helper->write($spreadsheet, __FILE__, ['Xlsx' => 'xlsx', 'Xls' => 'xls', 'HTML'
 // Export to PDF (.pdf)
 $helper->log('Write to PDF format');
 \PhpOffice\PhpSpreadsheet\Settings::setPdfRendererName($rendererName);
-$helper->write($spreadsheet, __FILE__, ['PDF' => 'pdf']);
+$helper->write($spreadsheet, __FILE__, ['Pdf' => 'pdf']);
 
 // Remove first two rows with field headers before exporting to CSV
 $helper->log('Removing first two heading rows for CSV export');

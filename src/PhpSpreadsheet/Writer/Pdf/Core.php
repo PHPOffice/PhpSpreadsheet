@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Writer\PDF;
+namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
 /**
  *  Copyright (c) 2006 - 2015 PhpSpreadsheet.
