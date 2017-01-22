@@ -745,7 +745,7 @@ class StringHelper
 
     /**
      * Set the decimal separator. Only used by \PhpOffice\PhpSpreadsheet\Style\NumberFormat::toFormattedString()
-     * to format output by \PhpOffice\PhpSpreadsheet\Writer\HTML and \PhpOffice\PhpSpreadsheet\Writer\Pdf.
+     * to format output by \PhpOffice\PhpSpreadsheet\Writer\Html and \PhpOffice\PhpSpreadsheet\Writer\Pdf.
      *
      * @param string $pValue Character for decimal separator
      */
@@ -778,7 +778,7 @@ class StringHelper
 
     /**
      * Set the thousands separator. Only used by \PhpOffice\PhpSpreadsheet\Style\NumberFormat::toFormattedString()
-     * to format output by \PhpOffice\PhpSpreadsheet\Writer\HTML and \PhpOffice\PhpSpreadsheet\Writer\Pdf.
+     * to format output by \PhpOffice\PhpSpreadsheet\Writer\Html and \PhpOffice\PhpSpreadsheet\Writer\Pdf.
      *
      * @param string $pValue Character for thousands separator
      */
@@ -816,7 +816,7 @@ class StringHelper
 
     /**
      * Set the currency code. Only used by \PhpOffice\PhpSpreadsheet\Style\NumberFormat::toFormattedString()
-     *        to format output by \PhpOffice\PhpSpreadsheet\Writer\HTML and \PhpOffice\PhpSpreadsheet\Writer\Pdf.
+     *        to format output by \PhpOffice\PhpSpreadsheet\Writer\Html and \PhpOffice\PhpSpreadsheet\Writer\Pdf.
      *
      * @param string $pValue Character for currency code
      */

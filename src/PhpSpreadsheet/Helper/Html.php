@@ -29,7 +29,7 @@ use DOMText;
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
-class HTML
+class Html
 {
     protected static $colourMap = [
         'aliceblue' => 'f0f8ff',

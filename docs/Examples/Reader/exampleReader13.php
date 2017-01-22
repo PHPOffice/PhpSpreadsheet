@@ -25,7 +25,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../../../Classes/');
 /** \PhpOffice\PhpSpreadsheet\IOFactory */
 include 'PHPExcel/IOFactory.php';
 
-$inputFileType = 'CSV';
+$inputFileType = 'Csv';
 $inputFileNames = ['./sampleData/example1.csv', './sampleData/example2.csv'];
 
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);

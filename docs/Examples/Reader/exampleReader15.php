@@ -22,7 +22,7 @@ include 'PHPExcel/IOFactory.php';
 
 \PhpOffice\PhpSpreadsheet\Cell::setValueBinder(new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder());
 
-$inputFileType = 'CSV';
+$inputFileType = 'Csv';
 $inputFileName = './sampleData/example1.tsv';
 
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);

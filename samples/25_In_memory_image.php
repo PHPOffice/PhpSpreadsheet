@@ -34,4 +34,4 @@ $drawing->setHeight(36);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
 
 // Save
-$helper->write($spreadsheet, __FILE__, ['Xlsx' => 'xlsx', 'HTML' => 'html']);
+$helper->write($spreadsheet, __FILE__, ['Xlsx', 'Html']);

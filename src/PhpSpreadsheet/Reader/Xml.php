@@ -27,7 +27,11 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
-class Excel2003XML extends BaseReader implements IReader
+
+/**
+ * Reader for SpreadsheetML, the XML schema for Microsoft Office Excel 2003.
+ */
+class Xml extends BaseReader implements IReader
 {
     /**
      * Formats.

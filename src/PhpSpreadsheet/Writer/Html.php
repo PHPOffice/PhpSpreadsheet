@@ -29,7 +29,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
  * @copyright  Copyright (c) 2006 - 2015 Spreadsheet (https://github.com/PHPOffice/Spreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
-class HTML extends BaseWriter implements IWriter
+class Html extends BaseWriter implements IWriter
 {
     /**
      * Spreadsheet object.

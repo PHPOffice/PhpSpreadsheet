@@ -27,11 +27,11 @@ include 'PHPExcel/IOFactory.php';
 
 $inputFileType = 'Xls';
 //	$inputFileType = 'Xlsx';
-//	$inputFileType = 'Excel2003XML';
+//	$inputFileType = 'Xml';
 //	$inputFileType = 'Ods';
-//	$inputFileType = 'SYLK';
+//	$inputFileType = 'Slk';
 //	$inputFileType = 'Gnumeric';
-//	$inputFileType = 'CSV';
+//	$inputFileType = 'Csv';
 $inputFileName = './sampleData/example1.xls';
 
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using IOFactory with a defined reader type of ',$inputFileType,'<br />';

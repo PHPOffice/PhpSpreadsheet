@@ -27,7 +27,7 @@ include 'PHPExcel/IOFactory.php';
 
 $inputFileType = 'Xls';
 //	$inputFileType = 'Xlsx';
-//	$inputFileType = 'Excel2003XML';
+//	$inputFileType = 'Xml';
 //	$inputFileType = 'Ods';
 //	$inputFileType = 'Gnumeric';
 $inputFileName = './sampleData/example2.xls';
@@ -39,7 +39,12 @@ class chunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 
     private $_endRow = 0;
 
-/**  Set the list of rows that we want to read  */
+    /**
+     * Set the list of rows that we want to read.
+     *
+     * @param mixed $startRow
+     * @param mixed $chunkSize
+     */
     public function setRows($startRow, $chunkSize)
     {
         $this->_startRow = $startRow;

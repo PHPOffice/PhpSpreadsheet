@@ -14,12 +14,12 @@ $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
 $spreadsheet = $reader->load(__DIR__ . '/templates/26template.xlsx');
 
 /* at this point, we could do some manipulations with the template, but we skip this step */
-$helper->write($spreadsheet, __FILE__, ['Xlsx' => 'xlsx', 'Xls' => 'xls', 'HTML' => 'html']);
+$helper->write($spreadsheet, __FILE__, ['Xlsx', 'Xls', 'Html']);
 
 // Export to PDF (.pdf)
 $helper->log('Write to PDF format');
 \PhpOffice\PhpSpreadsheet\Settings::setPdfRendererName($rendererName);
-$helper->write($spreadsheet, __FILE__, ['Pdf' => 'pdf']);
+$helper->write($spreadsheet, __FILE__, ['Pdf']);
 
 // Remove first two rows with field headers before exporting to CSV
 $helper->log('Removing first two heading rows for CSV export');
@@ -28,7 +28,7 @@ $worksheet->removeRow(1, 2);
 
 // Export to CSV (.csv)
 $helper->log('Write to CSV format');
-$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'CSV');
+$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Csv');
 $filename = $helper->getFilename(__FILE__, 'csv');
 $callStartTime = microtime(true);
 $writer->save($filename);

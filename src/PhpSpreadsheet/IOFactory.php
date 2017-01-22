@@ -48,12 +48,12 @@ class IOFactory
     private static $autoResolveClasses = [
         'Xlsx',
         'Xls',
-        'Excel2003XML',
+        'Xml',
         'Ods',
-        'SYLK',
+        'Slk',
         'Gnumeric',
-        'HTML',
-        'CSV',
+        'Html',
+        'Csv',
     ];
 
     /**
@@ -119,7 +119,7 @@ class IOFactory
      *
      * @return    Writer\IWriter
      */
-    public static function createWriter(Spreadsheet $spreadsheet, $writerType = '')
+    public static function createWriter(Spreadsheet $spreadsheet, $writerType)
     {
         // Search type
         $searchType = 'IWriter';
@@ -247,17 +247,17 @@ class IOFactory
                     $extensionType = 'Ods';
                     break;
                 case 'slk':
-                    $extensionType = 'SYLK';
+                    $extensionType = 'Slk';
                     break;
                 case 'xml':                //    Excel 2003 SpreadSheetML
-                    $extensionType = 'Excel2003XML';
+                    $extensionType = 'Xml';
                     break;
                 case 'gnumeric':
                     $extensionType = 'Gnumeric';
                     break;
                 case 'htm':
                 case 'html':
-                    $extensionType = 'HTML';
+                    $extensionType = 'Html';
                     break;
                 case 'csv':
                     // Do nothing

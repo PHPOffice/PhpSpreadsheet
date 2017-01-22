@@ -31,7 +31,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 /** PhpSpreadsheet root directory */
-class HTML extends BaseReader implements IReader
+class Html extends BaseReader implements IReader
 {
     /**
      * Sample size to read to determine if it's HTML or not.
