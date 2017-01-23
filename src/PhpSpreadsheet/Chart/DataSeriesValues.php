@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Chart;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category    PhpSpreadsheet
  *
@@ -37,42 +37,42 @@ class DataSeriesValues
     /**
      * Series Data Type.
      *
-     * @var    string
+     * @var string
      */
     private $dataType;
 
     /**
      * Series Data Source.
      *
-     * @var    string
+     * @var string
      */
     private $dataSource;
 
     /**
      * Format Code.
      *
-     * @var    string
+     * @var string
      */
     private $formatCode;
 
     /**
      * Series Point Marker.
      *
-     * @var    string
+     * @var string
      */
     private $pointMarker;
 
     /**
      * Point Count (The number of datapoints in the dataseries).
      *
-     * @var    int
+     * @var int
      */
     private $pointCount = 0;
 
     /**
      * Data Values.
      *
-     * @var    array of mixed
+     * @var array of mixed
      */
     private $dataValues = [];
 
@@ -99,7 +99,7 @@ class DataSeriesValues
     /**
      * Get Series Data Type.
      *
-     * @return    string
+     * @return string
      */
     public function getDataType()
     {
@@ -109,16 +109,16 @@ class DataSeriesValues
     /**
      * Set Series Data Type.
      *
-     * @param    string    $dataType    Datatype of this data series
+     * @param string $dataType Datatype of this data series
      *                                Typical values are:
      *                                    \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues::DATASERIES_TYPE_STRING
      *                                        Normally used for axis point values
      *                                    \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues::DATASERIES_TYPE_NUMBER
      *                                        Normally used for chart data values
      *
-     * @throws    Exception
+     * @throws Exception
      *
-     * @return    DataSeriesValues
+     * @return DataSeriesValues
      */
     public function setDataType($dataType = self::DATASERIES_TYPE_NUMBER)
     {
@@ -133,7 +133,7 @@ class DataSeriesValues
     /**
      * Get Series Data Source (formula).
      *
-     * @return    string
+     * @return string
      */
     public function getDataSource()
     {
@@ -143,10 +143,10 @@ class DataSeriesValues
     /**
      * Set Series Data Source (formula).
      *
-     * @param    string    $dataSource
+     * @param string $dataSource
      * @param mixed $refreshDataValues
      *
-     * @return   DataSeriesValues
+     * @return DataSeriesValues
      */
     public function setDataSource($dataSource = null, $refreshDataValues = true)
     {
@@ -172,9 +172,9 @@ class DataSeriesValues
     /**
      * Set Point Marker.
      *
-     * @param    string    $marker
+     * @param string $marker
      *
-     * @return    DataSeriesValues
+     * @return DataSeriesValues
      */
     public function setPointMarker($marker = null)
     {
@@ -186,7 +186,7 @@ class DataSeriesValues
     /**
      * Get Series Format Code.
      *
-     * @return    string
+     * @return string
      */
     public function getFormatCode()
     {
@@ -196,9 +196,9 @@ class DataSeriesValues
     /**
      * Set Series Format Code.
      *
-     * @param    string    $formatCode
+     * @param string $formatCode
      *
-     * @return    DataSeriesValues
+     * @return DataSeriesValues
      */
     public function setFormatCode($formatCode = null)
     {
@@ -210,7 +210,7 @@ class DataSeriesValues
     /**
      * Get Series Point Count.
      *
-     * @return    int
+     * @return int
      */
     public function getPointCount()
     {
@@ -220,7 +220,7 @@ class DataSeriesValues
     /**
      * Identify if the Data Series is a multi-level or a simple series.
      *
-     * @return    bool|null
+     * @return bool|null
      */
     public function isMultiLevelSeries()
     {
@@ -234,7 +234,7 @@ class DataSeriesValues
     /**
      * Return the level count of a multi-level Data Series.
      *
-     * @return    int
+     * @return int
      */
     public function multiLevelCount()
     {
@@ -249,7 +249,7 @@ class DataSeriesValues
     /**
      * Get Series Data Values.
      *
-     * @return    array of mixed
+     * @return array of mixed
      */
     public function getDataValues()
     {
@@ -259,7 +259,7 @@ class DataSeriesValues
     /**
      * Get the first Series Data value.
      *
-     * @return    mixed
+     * @return mixed
      */
     public function getDataValue()
     {
@@ -276,12 +276,12 @@ class DataSeriesValues
     /**
      * Set Series Data Values.
      *
-     * @param    array    $dataValues
-     * @param    bool    $refreshDataSource
+     * @param array $dataValues
+     * @param bool $refreshDataSource
      *                    TRUE - refresh the value of dataSource based on the values of $dataValues
      *                    FALSE - don't change the value of dataSource
      *
-     * @return    DataSeriesValues
+     * @return DataSeriesValues
      */
     public function setDataValues($dataValues = [], $refreshDataSource = true)
     {

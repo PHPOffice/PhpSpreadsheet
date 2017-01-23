@@ -69,28 +69,28 @@ class OLE
     /**
      * Big Block Allocation Table.
      *
-     * @var array  (blockId => nextBlockId)
+     * @var array (blockId => nextBlockId)
      */
     public $bbat;
 
     /**
      * Short Block Allocation Table.
      *
-     * @var array  (blockId => nextBlockId)
+     * @var array (blockId => nextBlockId)
      */
     public $sbat;
 
     /**
      * Size of big blocks. This is usually 512.
      *
-     * @var  int  number of octets per block
+     * @var int number of octets per block
      */
     public $bigBlockSize;
 
     /**
      * Size of small blocks. This is usually 64.
      *
-     * @var  int  number of octets per block
+     * @var int number of octets per block
      */
     public $smallBlockSize;
 
@@ -190,8 +190,8 @@ class OLE
     }
 
     /**
-     * @param  int  block id
-     * @param  int  byte offset from beginning of file
+     * @param int block id
+     * @param int byte offset from beginning of file
      * @param mixed $blockId
      */
     public function _getBlockOffset($blockId)
@@ -203,10 +203,10 @@ class OLE
      * Returns a stream for use with fread() etc. External callers should
      * use \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS\File::getStream().
      *
-     * @param   int|PPS   block id or PPS
+     * @param int|PPS block id or PPS
      * @param mixed $blockIdOrPps
      *
-     * @return  resource  read-only stream
+     * @return resource read-only stream
      */
     public function getStream($blockIdOrPps)
     {
@@ -236,9 +236,9 @@ class OLE
     /**
      * Reads a signed char.
      *
-     * @param   resource  $fh file handle
+     * @param resource $fh file handle
      *
-     * @return  int
+     * @return int
      */
     private static function _readInt1($fh)
     {
@@ -250,9 +250,9 @@ class OLE
     /**
      * Reads an unsigned short (2 octets).
      *
-     * @param   resource $fh file handle
+     * @param resource $fh file handle
      *
-     * @return  int
+     * @return int
      */
     private static function _readInt2($fh)
     {
@@ -264,9 +264,9 @@ class OLE
     /**
      * Reads an unsigned long (4 octets).
      *
-     * @param   resource $fh file handle
+     * @param resource $fh file handle
      *
-     * @return  int
+     * @return int
      */
     private static function _readInt4($fh)
     {
@@ -279,7 +279,7 @@ class OLE
      * Gets information about all PPS's on the OLE container from the PPS WK's
      * creates an OLE_PPS object for each one.
      *
-     * @param  int $blockId the block id of the first block
+     * @param int $blockId the block id of the first block
      *
      * @return bool true on success, PEAR_Error on failure
      */
@@ -417,10 +417,10 @@ class OLE
      * Gets data from a PPS
      * If there is no PPS for the index given, it will return an empty string.
      *
-     * @param int $index    The index for the PPS
+     * @param int $index The index for the PPS
      * @param int $position The position from which to start reading
      *                          (relative to the PPS)
-     * @param int $length   The amount of bytes to read (at most)
+     * @param int $length The amount of bytes to read (at most)
      *
      * @return string The binary string containing the data requested
      *
@@ -443,7 +443,7 @@ class OLE
      * Gets the data length from a PPS
      * If there is no PPS for the index given, it will return 0.
      *
-     * @param int $index    The index for the PPS
+     * @param int $index The index for the PPS
      *
      * @return int The amount of bytes in data the PPS has
      */

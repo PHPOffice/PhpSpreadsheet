@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -29,12 +29,12 @@ class ContentTypes extends WriterPart
     /**
      * Write content types to XML format.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Spreadsheet    $spreadsheet
-     * @param    bool        $includeCharts    Flag indicating if we should include drawing details for charts
+     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
+     * @param bool $includeCharts Flag indicating if we should include drawing details for charts
      *
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
-     * @return string                  XML Output
+     * @return string XML Output
      */
     public function writeContentTypes(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet = null, $includeCharts = false)
     {
@@ -185,11 +185,11 @@ class ContentTypes extends WriterPart
     /**
      * Get image mime type.
      *
-     * @param     string    $pFile    Filename
+     * @param string $pFile Filename
      *
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
-     * @return     string    Mime Type
+     * @return string Mime Type
      */
     private function getImageMimeType($pFile = '')
     {
@@ -204,11 +204,11 @@ class ContentTypes extends WriterPart
     /**
      * Write Default content type.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter     $objWriter         XML Writer
-     * @param     string                         $pPartname         Part name
-     * @param     string                         $pContentType     Content type
+     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
+     * @param string $pPartname Part name
+     * @param string $pContentType Content type
      *
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeDefaultContentType(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pPartname = '', $pContentType = '')
     {
@@ -226,11 +226,11 @@ class ContentTypes extends WriterPart
     /**
      * Write Override content type.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter     $objWriter         XML Writer
-     * @param     string                         $pPartname         Part name
-     * @param     string                         $pContentType     Content type
+     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
+     * @param string $pPartname Part name
+     * @param string $pContentType Content type
      *
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeOverrideContentType(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pPartname = '', $pContentType = '')
     {

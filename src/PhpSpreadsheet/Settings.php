@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -51,7 +51,7 @@ class Settings
 
     /**
      * Name of the class used for Zip file management
-     *    e.g.
+     * e.g.
      *        ZipArchive.
      *
      * @var string
@@ -60,7 +60,7 @@ class Settings
 
     /**
      * Name of the external Library used for rendering charts
-     *    e.g.
+     * e.g.
      *        jpgraph.
      *
      * @var string
@@ -76,7 +76,7 @@ class Settings
 
     /**
      * Name of the external Library used for rendering PDF files
-     *    e.g.
+     * e.g.
      *         mPDF.
      *
      * @var string
@@ -93,10 +93,10 @@ class Settings
     /**
      * Set the Zip handler Class that PhpSpreadsheet should use for Zip file management (PCLZip or ZipArchive).
      *
-     * @param string $zipClass    The Zip handler class that PhpSpreadsheet should use for Zip file management
+     * @param string $zipClass The Zip handler class that PhpSpreadsheet should use for Zip file management
      *      e.g. \PhpOffice\PhpSpreadsheet\Settings::PCLZIP or \PhpOffice\PhpSpreadsheet\Settings::ZIPARCHIVE
      *
-     * @return    bool    Success or failure
+     * @return bool Success or failure
      */
     public static function setZipClass($zipClass)
     {
@@ -112,7 +112,7 @@ class Settings
 
     /**
      * Return the name of the Zip handler Class that PhpSpreadsheet is configured to use (PCLZip or ZipArchive)
-     *    or Zip file management.
+     * or Zip file management.
      *
      * @return string Name of the Zip handler Class that PhpSpreadsheet is configured to use
      *    for Zip file management
@@ -171,11 +171,11 @@ class Settings
     /**
      * Set details of the external library that PhpSpreadsheet should use for rendering charts.
      *
-     * @param string $libraryName    Internal reference name of the library
+     * @param string $libraryName Internal reference name of the library
      *    e.g. \PhpOffice\PhpSpreadsheet\Settings::CHART_RENDERER_JPGRAPH
      * @param string $libraryBaseDir Directory path to the library's base folder
      *
-     * @return    bool    Success or failure
+     * @return bool Success or failure
      */
     public static function setChartRenderer($libraryName, $libraryBaseDir)
     {
@@ -189,10 +189,10 @@ class Settings
     /**
      * Identify to PhpSpreadsheet the external library to use for rendering charts.
      *
-     * @param string $libraryName    Internal reference name of the library
+     * @param string $libraryName Internal reference name of the library
      *    e.g. \PhpOffice\PhpSpreadsheet\Settings::CHART_RENDERER_JPGRAPH
      *
-     * @return    bool    Success or failure
+     * @return bool Success or failure
      */
     public static function setChartRendererName($libraryName)
     {
@@ -207,9 +207,9 @@ class Settings
     /**
      * Tell PhpSpreadsheet where to find the external library to use for rendering charts.
      *
-     * @param string $libraryBaseDir    Directory path to the library's base folder
+     * @param string $libraryBaseDir Directory path to the library's base folder
      *
-     * @return    bool    Success or failure
+     * @return bool Success or failure
      */
     public static function setChartRendererPath($libraryBaseDir)
     {
@@ -265,7 +265,7 @@ class Settings
      *
      * @return string|null Internal reference name of the PDF Rendering Library that PhpSpreadsheet is
      *     currently configured to use
-     *  e.g. \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_TCPDF,
+     * e.g. \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_TCPDF,
      *       \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_DOMPDF
      *    or \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_MPDF
      */

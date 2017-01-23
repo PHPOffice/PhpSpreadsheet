@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -41,7 +41,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 // *
 // *    This library is distributed in the hope that it will be useful,
 // *    but WITHOUT ANY WARRANTY; without even the implied warranty of
-// *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // *    Lesser General Public License for more details.
 // *
 // *    You should have received a copy of the GNU Lesser General Public
@@ -593,7 +593,7 @@ class Parser
      * Convert a function to a ptgFunc or ptgFuncVarV depending on the number of
      * args that it takes.
      *
-     * @param string  $token    the name of the function for convertion to ptg value
+     * @param string $token the name of the function for convertion to ptg value
      * @param int $num_args the number of arguments the function receives
      *
      * @return string The packed ptg for the function
@@ -615,8 +615,8 @@ class Parser
     /**
      * Convert an Excel range such as A1:D4 to a ptgRefV.
      *
-     * @param string    $range    An Excel range in the A1:A2
-     * @param int        $class
+     * @param string $range An Excel range in the A1:A2
+     * @param int $class
      */
     private function convertRange2d($range, $class = 0)
     {
@@ -728,9 +728,9 @@ class Parser
     /**
      * Convert an error code to a ptgErr.
      *
-     * @param    string    $errorCode    The error code for conversion to its ptg value
+     * @param string $errorCode The error code for conversion to its ptg value
      *
-     * @return    string                The error code ptgErr
+     * @return string The error code ptgErr
      */
     private function convertError($errorCode)
     {
@@ -758,9 +758,9 @@ class Parser
      * Convert the sheet name part of an external reference, for example "Sheet1" or
      * "Sheet1:Sheet2", to a packed structure.
      *
-     * @param    string    $ext_ref    The name of the external reference
+     * @param string $ext_ref The name of the external reference
      *
-     * @return    string                The reference index in packed() format
+     * @return string The reference index in packed() format
      */
     private function packExtRef($ext_ref)
     {
@@ -863,9 +863,9 @@ class Parser
      * sheet names is updated by the addworksheet() method of the
      * \PhpOffice\PhpSpreadsheet\Writer\Xls\Workbook class.
      *
-     * @param    string    $sheet_name        Sheet name
+     * @param string $sheet_name Sheet name
      *
-     * @return    int                    The sheet index, -1 if the sheet was not found
+     * @return int The sheet index, -1 if the sheet was not found
      */
     private function getSheetIndex($sheet_name)
     {
@@ -883,7 +883,7 @@ class Parser
      *
      * @see \PhpOffice\PhpSpreadsheet\Writer\Xls\Workbook::addWorksheet()
      *
-     * @param string  $name  The name of the worksheet being added
+     * @param string $name The name of the worksheet being added
      * @param int $index The index of the worksheet being added
      */
     public function setExtSheet($name, $index)
@@ -1043,7 +1043,7 @@ class Parser
      *
      * @param mixed $token the token to check
      *
-     * @return mixed       The checked token or false on failure
+     * @return mixed The checked token or false on failure
      */
     private function match($token)
     {
@@ -1419,7 +1419,7 @@ class Parser
      * as elements.
      *
      * @param mixed $value the value of this node
-     * @param mixed $left  the left array (sub-tree) or a final node
+     * @param mixed $left the left array (sub-tree) or a final node
      * @param mixed $right the right array (sub-tree) or a final node
      *
      * @return array A tree

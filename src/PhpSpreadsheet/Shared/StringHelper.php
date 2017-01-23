@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -343,9 +343,9 @@ class StringHelper
      * So you could end up with something like _x0008_ in a string (either in a cell value (<v>)
      * element or in the shared string <t> element.
      *
-     * @param     string    $value    Value to unescape
+     * @param string $value Value to unescape
      *
-     * @return     string
+     * @return string
      */
     public static function controlCharacterOOXML2PHP($value = '')
     {
@@ -363,9 +363,9 @@ class StringHelper
      * So you could end up with something like _x0008_ in a string (either in a cell value (<v>)
      * element or in the shared string <t> element.
      *
-     * @param     string    $value    Value to escape
+     * @param string $value Value to escape
      *
-     * @return     string
+     * @return string
      */
     public static function controlCharacterPHP2OOXML($value = '')
     {
@@ -433,7 +433,7 @@ class StringHelper
      * although this will give wrong results for non-ASCII strings
      * see OpenOffice.org's Documentation of the Microsoft Excel File Format, sect. 2.5.3.
      *
-     * @param string  $value    UTF-8 encoded string
+     * @param string $value UTF-8 encoded string
      * @param mixed[] $arrcRuns Details of rich text runs in $value
      *
      * @return string
@@ -527,10 +527,10 @@ class StringHelper
      * This function was taken from http://php.net/manual/en/function.utf8-decode.php
      * and $bom_be parameter added.
      *
-     * @param   string  $str  uTF-16 encoded data to decode
+     * @param string $str uTF-16 encoded data to decode
      * @param mixed $bom_be
      *
-     * @return  string  uTF-8 / ISO encoded data
+     * @return string uTF-8 / ISO encoded data
      *
      * @version 0.2 / 2010-05-13
      *
@@ -645,7 +645,7 @@ class StringHelper
 
     /**
      * Convert a UTF-8 encoded string to title/proper case
-     *    (uppercase every first character in each word, lower case all other characters).
+     * (uppercase every first character in each word, lower case all other characters).
      *
      * @param string $pValue UTF-8 encoded string
      *
@@ -674,7 +674,7 @@ class StringHelper
 
     /**
      * Reverse the case of a string, so that all uppercase characters become lowercase
-     *    and all lowercase characters become uppercase.
+     * and all lowercase characters become uppercase.
      *
      * @param string $pValue UTF-8 encoded string
      *
@@ -700,7 +700,7 @@ class StringHelper
 
     /**
      * Identify whether a string contains a fractional numeric value,
-     *    and convert it to a numeric if it is.
+     * and convert it to a numeric if it is.
      *
      * @param string &$operand string value to test
      *
@@ -848,11 +848,11 @@ class StringHelper
 
     /**
      * Retrieve any leading numeric part of a string, or return the full string if no leading numeric
-     *    (handles basic integer or float, but not exponent or non decimal).
+     * (handles basic integer or float, but not exponent or non decimal).
      *
-     * @param    string    $value
+     * @param string $value
      *
-     * @return    mixed    string or only the leading numeric part of the string
+     * @return mixed string or only the leading numeric part of the string
      */
     public static function testStringAsNumeric($value)
     {

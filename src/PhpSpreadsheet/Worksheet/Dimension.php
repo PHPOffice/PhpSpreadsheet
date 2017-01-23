@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -104,7 +104,7 @@ abstract class Dimension
      *
      * Value must be between 0 and 7
      *
-     * @param  int $pValue
+     * @param int $pValue
      *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
@@ -134,7 +134,7 @@ abstract class Dimension
     /**
      * Set Collapsed.
      *
-     * @param  bool  $pValue
+     * @param bool $pValue
      *
      * @return Dimension
      */
@@ -158,7 +158,7 @@ abstract class Dimension
     /**
      * Set index to cellXf.
      *
-     * @param  int $pValue
+     * @param int $pValue
      *
      * @return Dimension
      */

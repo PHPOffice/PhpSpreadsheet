@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category    PhpSpreadsheet
  *
@@ -275,13 +275,13 @@ class Rule
     }
 
     /**
-     *    Set AutoFilter Rule Type.
+     * Set AutoFilter Rule Type.
      *
-     *    @param   string        $pRuleType
+     * @param string $pRuleType
      *
-     *    @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     *    @return  Rule
+     * @return Rule
      */
     public function setRuleType($pRuleType = self::AUTOFILTER_RULETYPE_FILTER)
     {
@@ -305,13 +305,13 @@ class Rule
     }
 
     /**
-     *    Set AutoFilter Rule Value.
+     * Set AutoFilter Rule Value.
      *
-     *    @param    string|string[]        $pValue
+     * @param string|string[] $pValue
      *
-     *    @throws   \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     *    @return Rule
+     * @return Rule
      */
     public function setValue($pValue = '')
     {
@@ -349,13 +349,13 @@ class Rule
     }
 
     /**
-     *    Set AutoFilter Rule Operator.
+     * Set AutoFilter Rule Operator.
      *
-     *    @param    string        $pOperator
+     * @param string $pOperator
      *
-     *    @throws   \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     *    @return   Rule
+     * @return Rule
      */
     public function setOperator($pOperator = self::AUTOFILTER_COLUMN_RULE_EQUAL)
     {
@@ -382,13 +382,13 @@ class Rule
     }
 
     /**
-     *    Set AutoFilter Rule Grouping.
+     * Set AutoFilter Rule Grouping.
      *
-     *    @param    string        $pGrouping
+     * @param string $pGrouping
      *
-     *    @throws   \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     *    @return   Rule
+     * @return Rule
      */
     public function setGrouping($pGrouping = null)
     {
@@ -404,15 +404,15 @@ class Rule
     }
 
     /**
-     *    Set AutoFilter Rule.
+     * Set AutoFilter Rule.
      *
-     *    @param    string                $pOperator
-     *    @param    string|string[]        $pValue
-     *    @param    string                $pGrouping
+     * @param string $pOperator
+     * @param string|string[] $pValue
+     * @param string $pGrouping
      *
-     *    @throws   \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     *    @return   Rule
+     * @return Rule
      */
     public function setRule($pOperator = self::AUTOFILTER_COLUMN_RULE_EQUAL, $pValue = '', $pGrouping = null)
     {
@@ -441,7 +441,7 @@ class Rule
     /**
      * Set this Rule's AutoFilter Column Parent.
      *
-     * @param  \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column
      *
      * @return Rule
      */

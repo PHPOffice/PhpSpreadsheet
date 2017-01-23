@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Chart;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category    PhpSpreadsheet
  *
@@ -343,7 +343,7 @@ class Layout
      * Set show legend key
      * Specifies that legend keys should be shown in data labels.
      *
-     * @param bool $value        Show legend key
+     * @param bool $value Show legend key
      *
      * @return Layout
      */
@@ -368,7 +368,7 @@ class Layout
      * Set show val
      * Specifies that the value should be shown in data labels.
      *
-     * @param bool $value        Show val
+     * @param bool $value Show val
      *
      * @return Layout
      */
@@ -393,7 +393,7 @@ class Layout
      * Set show cat name
      * Specifies that the category name should be shown in data labels.
      *
-     * @param bool $value        Show cat name
+     * @param bool $value Show cat name
      *
      * @return Layout
      */
@@ -418,7 +418,7 @@ class Layout
      * Set show ser name
      * Specifies that the series name should be shown in data labels.
      *
-     * @param bool $value        Show series name
+     * @param bool $value Show series name
      *
      * @return Layout
      */
@@ -443,7 +443,7 @@ class Layout
      * Set show percentage
      * Specifies that the percentage should be shown in data labels.
      *
-     * @param bool $value        Show percentage
+     * @param bool $value Show percentage
      *
      * @return Layout
      */
@@ -468,7 +468,7 @@ class Layout
      * Set show bubble size
      * Specifies that the bubble size should be shown in data labels.
      *
-     * @param bool $value        Show bubble size
+     * @param bool $value Show bubble size
      *
      * @return Layout
      */
@@ -493,7 +493,7 @@ class Layout
      * Set show leader lines
      * Specifies that leader lines should be shown in data labels.
      *
-     * @param bool $value        Show leader lines
+     * @param bool $value Show leader lines
      *
      * @return Layout
      */

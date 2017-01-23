@@ -722,9 +722,9 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $arg,... Data values
      *
-     * @return    float
+     * @return float
      */
     public static function AVEDEV()
     {
@@ -773,9 +773,9 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $arg,... Data values
      *
-     * @return    float
+     * @return float
      */
     public static function AVERAGE()
     {
@@ -816,9 +816,9 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $arg,... Data values
      *
-     * @return    float
+     * @return float
      */
     public static function AVERAGEA()
     {
@@ -863,12 +863,12 @@ class Statistical
      *
      * @category Mathematical and Trigonometric Functions
      *
-     * @param    mixed        $arg,...        Data values
-     * @param    string        $condition        the criteria that defines which cells will be checked
-     * @param    mixed[]        $averageArgs    Data values
+     * @param mixed $arg,... Data values
+     * @param string $condition the criteria that defines which cells will be checked
+     * @param mixed[] $averageArgs Data values
      * @param mixed $aArgs
      *
-     * @return    float
+     * @return float
      */
     public static function AVERAGEIF($aArgs, $condition, $averageArgs = [])
     {
@@ -907,13 +907,13 @@ class Statistical
      *
      * Returns the beta distribution.
      *
-     * @param    float        $value            Value at which you want to evaluate the distribution
-     * @param    float        $alpha            Parameter to the distribution
-     * @param    float        $beta            Parameter to the distribution
+     * @param float $value Value at which you want to evaluate the distribution
+     * @param float $alpha Parameter to the distribution
+     * @param float $beta Parameter to the distribution
      * @param mixed $rMin
      * @param mixed $rMax
      *
-     * @return    float
+     * @return float
      */
     public static function BETADIST($value, $alpha, $beta, $rMin = 0, $rMax = 1)
     {
@@ -946,13 +946,13 @@ class Statistical
      *
      * Returns the inverse of the beta distribution.
      *
-     * @param    float        $probability    Probability at which you want to evaluate the distribution
-     * @param    float        $alpha            Parameter to the distribution
-     * @param    float        $beta            Parameter to the distribution
-     * @param    float        $rMin            Minimum value
-     * @param    float        $rMax            Maximum value
+     * @param float $probability Probability at which you want to evaluate the distribution
+     * @param float $alpha Parameter to the distribution
+     * @param float $beta Parameter to the distribution
+     * @param float $rMin Minimum value
+     * @param float $rMax Maximum value
      *
-     * @return    float
+     * @return float
      */
     public static function BETAINV($probability, $alpha, $beta, $rMin = 0, $rMax = 1)
     {
@@ -1005,12 +1005,12 @@ class Statistical
      *        experiment. For example, BINOMDIST can calculate the probability that two of the next three
      *        babies born are male.
      *
-     * @param    float        $value            Number of successes in trials
-     * @param    float        $trials            Number of trials
-     * @param    float        $probability    Probability of success on each trial
-     * @param    bool        $cumulative
+     * @param float $value Number of successes in trials
+     * @param float $trials Number of trials
+     * @param float $probability Probability of success on each trial
+     * @param bool $cumulative
      *
-     * @return    float
+     * @return float
      *
      * @todo    Cumulative distribution function
      */
@@ -1049,10 +1049,10 @@ class Statistical
      *
      * Returns the one-tailed probability of the chi-squared distribution.
      *
-     * @param    float        $value            Value for the function
-     * @param    float        $degrees        degrees of freedom
+     * @param float $value Value for the function
+     * @param float $degrees degrees of freedom
      *
-     * @return    float
+     * @return float
      */
     public static function CHIDIST($value, $degrees)
     {
@@ -1082,10 +1082,10 @@ class Statistical
      *
      * Returns the one-tailed probability of the chi-squared distribution.
      *
-     * @param    float        $probability    Probability for the function
-     * @param    float        $degrees        degrees of freedom
+     * @param float $probability Probability for the function
+     * @param float $degrees degrees of freedom
      *
-     * @return    float
+     * @return float
      */
     public static function CHIINV($probability, $degrees)
     {
@@ -1140,11 +1140,11 @@ class Statistical
      *
      * Returns the confidence interval for a population mean
      *
-     * @param    float        $alpha
-     * @param    float        $stdDev        Standard Deviation
-     * @param    float        $size
+     * @param float $alpha
+     * @param float $stdDev Standard Deviation
+     * @param float $size
      *
-     * @return    float
+     * @return float
      */
     public static function CONFIDENCE($alpha, $stdDev, $size)
     {
@@ -1171,12 +1171,12 @@ class Statistical
      *
      * Returns covariance, the average of the products of deviations for each data point pair.
      *
-     * @param    array of mixed        Data Series Y
-     * @param    array of mixed        Data Series X
+     * @param array of mixed Data Series Y
+     * @param array of mixed Data Series X
      * @param mixed $yValues
      * @param null|mixed $xValues
      *
-     * @return    float
+     * @return float
      */
     public static function CORREL($yValues, $xValues = null)
     {
@@ -1210,9 +1210,9 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $arg,... Data values
      *
-     * @return    int
+     * @return int
      */
     public static function COUNT()
     {
@@ -1244,9 +1244,9 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $arg,... Data values
      *
-     * @return    int
+     * @return int
      */
     public static function COUNTA()
     {
@@ -1274,9 +1274,9 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $arg,... Data values
      *
-     * @return    int
+     * @return int
      */
     public static function COUNTBLANK()
     {
@@ -1304,11 +1304,11 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
-     * @param    string        $condition        the criteria that defines which cells will be counted
+     * @param mixed $arg,... Data values
+     * @param string $condition the criteria that defines which cells will be counted
      * @param mixed $aArgs
      *
-     * @return    int
+     * @return int
      */
     public static function COUNTIF($aArgs, $condition)
     {
@@ -1336,12 +1336,12 @@ class Statistical
      *
      * Returns covariance, the average of the products of deviations for each data point pair.
      *
-     * @param    array of mixed        Data Series Y
-     * @param    array of mixed        Data Series X
+     * @param array of mixed Data Series Y
+     * @param array of mixed Data Series X
      * @param mixed $yValues
      * @param mixed $xValues
      *
-     * @return    float
+     * @return float
      */
     public static function COVAR($yValues, $xValues)
     {
@@ -1370,11 +1370,11 @@ class Statistical
      *
      * See http://support.microsoft.com/kb/828117/ for details of the algorithm used
      *
-     * @param    float        $trials            number of Bernoulli trials
-     * @param    float        $probability    probability of a success on each trial
-     * @param    float        $alpha            criterion value
+     * @param float $trials number of Bernoulli trials
+     * @param float $probability probability of a success on each trial
+     * @param float $alpha criterion value
      *
-     * @return    int
+     * @return int
      *
      * @todo    Warning. This implementation differs from the algorithm detailed on the MS
      *            web site in that $CumPGuessMinus1 = $CumPGuess - 1 rather than $CumPGuess - $PGuess
@@ -1495,9 +1495,9 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $arg,... Data values
      *
-     * @return    float
+     * @return float
      */
     public static function DEVSQ()
     {
@@ -1544,11 +1544,11 @@ class Statistical
      *        such as how long an automated bank teller takes to deliver cash. For example, you can
      *        use EXPONDIST to determine the probability that the process takes at most 1 minute.
      *
-     * @param    float        $value            Value of the function
-     * @param    float        $lambda            The parameter value
-     * @param    bool        $cumulative
+     * @param float $value Value of the function
+     * @param float $lambda The parameter value
+     * @param bool $cumulative
      *
-     * @return    float
+     * @return float
      */
     public static function EXPONDIST($value, $lambda, $cumulative)
     {
@@ -1579,9 +1579,9 @@ class Statistical
      *        is normally distributed rather than skewed. Use this function to perform hypothesis
      *        testing on the correlation coefficient.
      *
-     * @param    float        $value
+     * @param float $value
      *
-     * @return    float
+     * @return float
      */
     public static function FISHER($value)
     {
@@ -1605,9 +1605,9 @@ class Statistical
      *        analyzing correlations between ranges or arrays of data. If y = FISHER(x), then
      *        FISHERINV(y) = x.
      *
-     * @param    float        $value
+     * @param float $value
      *
-     * @return    float
+     * @return float
      */
     public static function FISHERINV($value)
     {
@@ -1625,14 +1625,14 @@ class Statistical
      *
      * Calculates, or predicts, a future value by using existing values. The predicted value is a y-value for a given x-value.
      *
-     * @param    float                Value of X for which we want to find Y
-     * @param    array of mixed        Data Series Y
-     * @param    array of mixed        Data Series X
+     * @param float Value of X for which we want to find Y
+     * @param array of mixed Data Series Y
+     * @param array of mixed Data Series X
      * @param mixed $xValue
      * @param mixed $yValues
      * @param mixed $xValues
      *
-     * @return    float
+     * @return float
      */
     public static function FORECAST($xValue, $yValues, $xValues)
     {
@@ -1661,12 +1661,12 @@ class Statistical
      *
      * Returns the gamma distribution.
      *
-     * @param    float        $value            Value at which you want to evaluate the distribution
-     * @param    float        $a                Parameter to the distribution
-     * @param    float        $b                Parameter to the distribution
-     * @param    bool        $cumulative
+     * @param float $value Value at which you want to evaluate the distribution
+     * @param float $a Parameter to the distribution
+     * @param float $b Parameter to the distribution
+     * @param bool $cumulative
      *
-     * @return    float
+     * @return float
      */
     public static function GAMMADIST($value, $a, $b, $cumulative)
     {
@@ -1695,11 +1695,11 @@ class Statistical
      *
      * Returns the inverse of the beta distribution.
      *
-     * @param    float        $probability    Probability at which you want to evaluate the distribution
-     * @param    float        $alpha            Parameter to the distribution
-     * @param    float        $beta            Parameter to the distribution
+     * @param float $probability Probability at which you want to evaluate the distribution
+     * @param float $alpha Parameter to the distribution
+     * @param float $beta Parameter to the distribution
      *
-     * @return    float
+     * @return float
      */
     public static function GAMMAINV($probability, $alpha, $beta)
     {
@@ -1758,9 +1758,9 @@ class Statistical
      *
      * Returns the natural logarithm of the gamma function.
      *
-     * @param    float        $value
+     * @param float $value
      *
-     * @return    float
+     * @return float
      */
     public static function GAMMALN($value)
     {
@@ -1789,9 +1789,9 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $arg,... Data values
      *
-     * @return    float
+     * @return float
      */
     public static function GEOMEAN()
     {
@@ -1813,16 +1813,16 @@ class Statistical
      *
      * Returns values along a predicted emponential Trend
      *
-     * @param    array of mixed        Data Series Y
-     * @param    array of mixed        Data Series X
-     * @param    array of mixed        Values of X for which we want to find Y
-     * @param    bool                a logical value specifying whether to force the intersect to equal 0
+     * @param array of mixed Data Series Y
+     * @param array of mixed Data Series X
+     * @param array of mixed Values of X for which we want to find Y
+     * @param bool a logical value specifying whether to force the intersect to equal 0
      * @param mixed $yValues
      * @param mixed $xValues
      * @param mixed $newValues
      * @param mixed $const
      *
-     * @return    array of float
+     * @return array of float
      */
     public static function GROWTH($yValues, $xValues = [], $newValues = [], $const = true)
     {
@@ -1855,9 +1855,9 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $arg,... Data values
      *
-     * @return    float
+     * @return float
      */
     public static function HARMEAN()
     {
@@ -1899,12 +1899,12 @@ class Statistical
      * Returns the hypergeometric distribution. HYPGEOMDIST returns the probability of a given number of
      * sample successes, given the sample size, population successes, and population size.
      *
-     * @param    float        $sampleSuccesses        Number of successes in the sample
-     * @param    float        $sampleNumber            Size of the sample
-     * @param    float        $populationSuccesses    Number of successes in the population
-     * @param    float        $populationNumber        Population size
+     * @param float $sampleSuccesses Number of successes in the sample
+     * @param float $sampleNumber Size of the sample
+     * @param float $populationSuccesses Number of successes in the population
+     * @param float $populationNumber Population size
      *
-     * @return    float
+     * @return float
      */
     public static function HYPGEOMDIST($sampleSuccesses, $sampleNumber, $populationSuccesses, $populationNumber)
     {
@@ -1937,12 +1937,12 @@ class Statistical
      *
      * Calculates the point at which a line will intersect the y-axis by using existing x-values and y-values.
      *
-     * @param    array of mixed        Data Series Y
-     * @param    array of mixed        Data Series X
+     * @param array of mixed Data Series Y
+     * @param array of mixed Data Series X
      * @param mixed $yValues
      * @param mixed $xValues
      *
-     * @return    float
+     * @return float
      */
     public static function INTERCEPT($yValues, $xValues)
     {
@@ -1971,9 +1971,9 @@ class Statistical
      * kurtosis indicates a relatively peaked distribution. Negative kurtosis indicates a
      * relatively flat distribution.
      *
-     * @param    array    Data Series
+     * @param array Data Series
      *
-     * @return    float
+     * @return float
      */
     public static function KURT()
     {
@@ -2016,10 +2016,10 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
-     * @param    int            $entry            Position (ordered from the largest) in the array or range of data to return
+     * @param mixed $arg,... Data values
+     * @param int $entry Position (ordered from the largest) in the array or range of data to return
      *
-     * @return    float
+     * @return float
      */
     public static function LARGE()
     {
@@ -2055,16 +2055,16 @@ class Statistical
      * Calculates the statistics for a line by using the "least squares" method to calculate a straight line that best fits your data,
      *        and then returns an array that describes the line.
      *
-     * @param    array of mixed        Data Series Y
-     * @param    array of mixed        Data Series X
-     * @param    bool                a logical value specifying whether to force the intersect to equal 0
-     * @param    bool                a logical value specifying whether to return additional regression statistics
+     * @param array of mixed Data Series Y
+     * @param array of mixed Data Series X
+     * @param bool a logical value specifying whether to force the intersect to equal 0
+     * @param bool a logical value specifying whether to return additional regression statistics
      * @param mixed $yValues
      * @param null|mixed $xValues
      * @param mixed $const
      * @param mixed $stats
      *
-     * @return    array
+     * @return array
      */
     public static function LINEST($yValues, $xValues = null, $const = true, $stats = false)
     {
@@ -2118,16 +2118,16 @@ class Statistical
      * Calculates an exponential curve that best fits the X and Y data series,
      *        and then returns an array that describes the line.
      *
-     * @param    array of mixed        Data Series Y
-     * @param    array of mixed        Data Series X
-     * @param    bool                a logical value specifying whether to force the intersect to equal 0
-     * @param    bool                a logical value specifying whether to return additional regression statistics
+     * @param array of mixed Data Series Y
+     * @param array of mixed Data Series X
+     * @param bool a logical value specifying whether to force the intersect to equal 0
+     * @param bool a logical value specifying whether to return additional regression statistics
      * @param mixed $yValues
      * @param null|mixed $xValues
      * @param mixed $const
      * @param mixed $stats
      *
-     * @return    array
+     * @return array
      */
     public static function LOGEST($yValues, $xValues = null, $const = true, $stats = false)
     {
@@ -2186,11 +2186,11 @@ class Statistical
      *
      * Returns the inverse of the normal cumulative distribution
      *
-     * @param    float        $probability
-     * @param    float        $mean
-     * @param    float        $stdDev
+     * @param float $probability
+     * @param float $mean
+     * @param float $stdDev
      *
-     * @return    float
+     * @return float
      *
      * @todo    Try implementing P J Acklam's refinement algorithm for greater
      *            accuracy if I can get my head round the mathematics
@@ -2219,11 +2219,11 @@ class Statistical
      * Returns the cumulative lognormal distribution of x, where ln(x) is normally distributed
      * with parameters mean and standard_dev.
      *
-     * @param    float        $value
-     * @param    float        $mean
-     * @param    float        $stdDev
+     * @param float $value
+     * @param float $mean
+     * @param float $stdDev
      *
-     * @return    float
+     * @return float
      */
     public static function LOGNORMDIST($value, $mean, $stdDev)
     {
@@ -2253,9 +2253,9 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $arg,... Data values
      *
-     * @return    float
+     * @return float
      */
     public static function MAX()
     {
@@ -2289,9 +2289,9 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $arg,... Data values
      *
-     * @return    float
+     * @return float
      */
     public static function MAXA()
     {
@@ -2330,12 +2330,12 @@ class Statistical
      *
      * @category Mathematical and Trigonometric Functions
      *
-     * @param    mixed        $arg,...        Data values
-     * @param    string        $condition        the criteria that defines which cells will be checked
+     * @param mixed $arg,... Data values
+     * @param string $condition the criteria that defines which cells will be checked
      * @param mixed $aArgs
      * @param mixed $sumArgs
      *
-     * @return    float
+     * @return float
      */
     public static function MAXIF($aArgs, $condition, $sumArgs = [])
     {
@@ -2373,9 +2373,9 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $arg,... Data values
      *
-     * @return    float
+     * @return float
      */
     public static function MEDIAN()
     {
@@ -2417,9 +2417,9 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $arg,... Data values
      *
-     * @return    float
+     * @return float
      */
     public static function MIN()
     {
@@ -2453,9 +2453,9 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $arg,... Data values
      *
-     * @return    float
+     * @return float
      */
     public static function MINA()
     {
@@ -2494,12 +2494,12 @@ class Statistical
      *
      * @category Mathematical and Trigonometric Functions
      *
-     * @param    mixed        $arg,...        Data values
-     * @param    string        $condition        the criteria that defines which cells will be checked
+     * @param mixed $arg,... Data values
+     * @param string $condition the criteria that defines which cells will be checked
      * @param mixed $aArgs
      * @param mixed $sumArgs
      *
-     * @return    float
+     * @return float
      */
     public static function MINIF($aArgs, $condition, $sumArgs = [])
     {
@@ -2574,9 +2574,9 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $arg,... Data values
      *
-     * @return    float
+     * @return float
      */
     public static function MODE()
     {
@@ -2609,11 +2609,11 @@ class Statistical
      *        distribution, except that the number of successes is fixed, and the number of trials is
      *        variable. Like the binomial, trials are assumed to be independent.
      *
-     * @param    float        $failures        Number of Failures
-     * @param    float        $successes        Threshold number of Successes
-     * @param    float        $probability    Probability of success on each trial
+     * @param float $failures Number of Failures
+     * @param float $successes Threshold number of Successes
+     * @param float $probability Probability of success on each trial
      *
-     * @return    float
+     * @return float
      */
     public static function NEGBINOMDIST($failures, $successes, $probability)
     {
@@ -2646,12 +2646,12 @@ class Statistical
      * function has a very wide range of applications in statistics, including hypothesis
      * testing.
      *
-     * @param    float        $value
-     * @param    float        $mean        Mean Value
-     * @param    float        $stdDev        Standard Deviation
-     * @param    bool        $cumulative
+     * @param float $value
+     * @param float $mean Mean Value
+     * @param float $stdDev Standard Deviation
+     * @param bool $cumulative
      *
-     * @return    float
+     * @return float
      */
     public static function NORMDIST($value, $mean, $stdDev, $cumulative)
     {
@@ -2680,11 +2680,11 @@ class Statistical
      *
      * Returns the inverse of the normal cumulative distribution for the specified mean and standard deviation.
      *
-     * @param    float        $probability
-     * @param    float        $mean        Mean Value
-     * @param    float        $stdDev        Standard Deviation
+     * @param float $probability
+     * @param float $mean Mean Value
+     * @param float $stdDev Standard Deviation
      *
-     * @return    float
+     * @return float
      */
     public static function NORMINV($probability, $mean, $stdDev)
     {
@@ -2713,9 +2713,9 @@ class Statistical
      * a mean of 0 (zero) and a standard deviation of one. Use this function in place of a
      * table of standard normal curve areas.
      *
-     * @param    float        $value
+     * @param float $value
      *
-     * @return    float
+     * @return float
      */
     public static function NORMSDIST($value)
     {
@@ -2729,9 +2729,9 @@ class Statistical
      *
      * Returns the inverse of the standard normal cumulative distribution
      *
-     * @param    float        $value
+     * @param float $value
      *
-     * @return    float
+     * @return float
      */
     public static function NORMSINV($value)
     {
@@ -2748,10 +2748,10 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
-     * @param    float        $entry            Percentile value in the range 0..1, inclusive.
+     * @param mixed $arg,... Data values
+     * @param float $entry Percentile value in the range 0..1, inclusive.
      *
-     * @return    float
+     * @return float
      */
     public static function PERCENTILE()
     {
@@ -2795,14 +2795,14 @@ class Statistical
      *
      * Returns the rank of a value in a data set as a percentage of the data set.
      *
-     * @param    array of number        An array of, or a reference to, a list of numbers
-     * @param    number                the number whose rank you want to find
-     * @param    number                the number of significant digits for the returned percentage value
+     * @param array of number        An array of, or a reference to, a list of numbers
+     * @param number the number whose rank you want to find
+     * @param number the number of significant digits for the returned percentage value
      * @param mixed $valueSet
      * @param mixed $value
      * @param mixed $significance
      *
-     * @return    float
+     * @return float
      */
     public static function PERCENTRANK($valueSet, $value, $significance = 3)
     {
@@ -2849,10 +2849,10 @@ class Statistical
      *        combinations, for which the internal order is not significant. Use this function
      *        for lottery-style probability calculations.
      *
-     * @param    int        $numObjs    Number of different objects
-     * @param    int        $numInSet    Number of objects in each permutation
+     * @param int $numObjs Number of different objects
+     * @param int $numInSet Number of objects in each permutation
      *
-     * @return    int        Number of permutations
+     * @return int Number of permutations
      */
     public static function PERMUT($numObjs, $numInSet)
     {
@@ -2878,11 +2878,11 @@ class Statistical
      * is predicting the number of events over a specific time, such as the number of
      * cars arriving at a toll plaza in 1 minute.
      *
-     * @param    float        $value
-     * @param    float        $mean        Mean Value
-     * @param    bool        $cumulative
+     * @param float $value
+     * @param float $mean Mean Value
+     * @param bool $cumulative
      *
-     * @return    float
+     * @return float
      */
     public static function POISSON($value, $mean, $cumulative)
     {
@@ -2920,10 +2920,10 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
-     * @param    int            $entry            Quartile value in the range 1..3, inclusive.
+     * @param mixed $arg,... Data values
+     * @param int $entry Quartile value in the range 1..3, inclusive.
      *
-     * @return    float
+     * @return float
      */
     public static function QUARTILE()
     {
@@ -2949,14 +2949,14 @@ class Statistical
      *
      * Returns the rank of a number in a list of numbers.
      *
-     * @param    number                the number whose rank you want to find
-     * @param    array of number        An array of, or a reference to, a list of numbers
-     * @param    mixed                Order to sort the values in the value set
+     * @param number the number whose rank you want to find
+     * @param array of number        An array of, or a reference to, a list of numbers
+     * @param mixed Order to sort the values in the value set
      * @param mixed $value
      * @param mixed $valueSet
      * @param mixed $order
      *
-     * @return    float
+     * @return float
      */
     public static function RANK($value, $valueSet, $order = 0)
     {
@@ -2988,12 +2988,12 @@ class Statistical
      *
      * Returns the square of the Pearson product moment correlation coefficient through data points in known_y's and known_x's.
      *
-     * @param    array of mixed        Data Series Y
-     * @param    array of mixed        Data Series X
+     * @param array of mixed Data Series Y
+     * @param array of mixed Data Series X
      * @param mixed $yValues
      * @param mixed $xValues
      *
-     * @return    float
+     * @return float
      */
     public static function RSQ($yValues, $xValues)
     {
@@ -3022,9 +3022,9 @@ class Statistical
      * asymmetric tail extending toward more positive values. Negative skewness indicates a
      * distribution with an asymmetric tail extending toward more negative values.
      *
-     * @param    array    Data Series
+     * @param array Data Series
      *
-     * @return    float
+     * @return float
      */
     public static function SKEW()
     {
@@ -3058,12 +3058,12 @@ class Statistical
      *
      * Returns the slope of the linear regression line through data points in known_y's and known_x's.
      *
-     * @param    array of mixed        Data Series Y
-     * @param    array of mixed        Data Series X
+     * @param array of mixed Data Series Y
+     * @param array of mixed Data Series X
      * @param mixed $yValues
      * @param mixed $xValues
      *
-     * @return    float
+     * @return float
      */
     public static function SLOPE($yValues, $xValues)
     {
@@ -3095,10 +3095,10 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
-     * @param    int            $entry            Position (ordered from the smallest) in the array or range of data to return
+     * @param mixed $arg,... Data values
+     * @param int $entry Position (ordered from the smallest) in the array or range of data to return
      *
-     * @return    float
+     * @return float
      */
     public static function SMALL()
     {
@@ -3133,11 +3133,11 @@ class Statistical
      *
      * Returns a normalized value from a distribution characterized by mean and standard_dev.
      *
-     * @param    float    $value        Value to normalize
-     * @param    float    $mean        Mean Value
-     * @param    float    $stdDev        Standard Deviation
+     * @param float $value Value to normalize
+     * @param float $mean Mean Value
+     * @param float $stdDev Standard Deviation
      *
-     * @return    float    Standardized value
+     * @return float Standardized value
      */
     public static function STANDARDIZE($value, $mean, $stdDev)
     {
@@ -3167,9 +3167,9 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $arg,... Data values
      *
-     * @return    float
+     * @return float
      */
     public static function STDEV()
     {
@@ -3216,9 +3216,9 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $arg,... Data values
      *
-     * @return    float
+     * @return float
      */
     public static function STDEVA()
     {
@@ -3268,9 +3268,9 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $arg,... Data values
      *
-     * @return    float
+     * @return float
      */
     public static function STDEVP()
     {
@@ -3315,9 +3315,9 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $arg,... Data values
      *
-     * @return    float
+     * @return float
      */
     public static function STDEVPA()
     {
@@ -3362,12 +3362,12 @@ class Statistical
      *
      * Returns the standard error of the predicted y-value for each x in the regression.
      *
-     * @param    array of mixed        Data Series Y
-     * @param    array of mixed        Data Series X
+     * @param array of mixed Data Series Y
+     * @param array of mixed Data Series X
      * @param mixed $yValues
      * @param mixed $xValues
      *
-     * @return    float
+     * @return float
      */
     public static function STEYX($yValues, $xValues)
     {
@@ -3393,11 +3393,11 @@ class Statistical
      *
      * Returns the probability of Student's T distribution.
      *
-     * @param    float        $value            Value for the function
-     * @param    float        $degrees        degrees of freedom
-     * @param    float        $tails            number of tails (1 or 2)
+     * @param float $value Value for the function
+     * @param float $degrees degrees of freedom
+     * @param float $tails number of tails (1 or 2)
      *
-     * @return    float
+     * @return float
      */
     public static function TDIST($value, $degrees, $tails)
     {
@@ -3458,10 +3458,10 @@ class Statistical
      *
      * Returns the one-tailed probability of the chi-squared distribution.
      *
-     * @param    float        $probability    Probability for the function
-     * @param    float        $degrees        degrees of freedom
+     * @param float $probability Probability for the function
+     * @param float $degrees degrees of freedom
      *
-     * @return    float
+     * @return float
      */
     public static function TINV($probability, $degrees)
     {
@@ -3516,16 +3516,16 @@ class Statistical
      *
      * Returns values along a linear Trend
      *
-     * @param    array of mixed        Data Series Y
-     * @param    array of mixed        Data Series X
-     * @param    array of mixed        Values of X for which we want to find Y
-     * @param    bool                a logical value specifying whether to force the intersect to equal 0
+     * @param array of mixed Data Series Y
+     * @param array of mixed Data Series X
+     * @param array of mixed Values of X for which we want to find Y
+     * @param bool a logical value specifying whether to force the intersect to equal 0
      * @param mixed $yValues
      * @param mixed $xValues
      * @param mixed $newValues
      * @param mixed $const
      *
-     * @return    array of float
+     * @return array of float
      */
     public static function TREND($yValues, $xValues = [], $newValues = [], $const = true)
     {
@@ -3559,10 +3559,10 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
-     * @param    float        $discard        Percentage to discard
+     * @param mixed $arg,... Data values
+     * @param float $discard Percentage to discard
      *
-     * @return    float
+     * @return float
      */
     public static function TRIMMEAN()
     {
@@ -3605,9 +3605,9 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $arg,... Data values
      *
-     * @return    float
+     * @return float
      */
     public static function VARFunc()
     {
@@ -3649,9 +3649,9 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $arg,... Data values
      *
-     * @return    float
+     * @return float
      */
     public static function VARA()
     {
@@ -3702,9 +3702,9 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $arg,... Data values
      *
-     * @return    float
+     * @return float
      */
     public static function VARP()
     {
@@ -3747,9 +3747,9 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $arg,... Data values
      *
-     * @return    float
+     * @return float
      */
     public static function VARPA()
     {
@@ -3796,12 +3796,12 @@ class Statistical
      * Returns the Weibull distribution. Use this distribution in reliability
      * analysis, such as calculating a device's mean time to failure.
      *
-     * @param    float        $value
-     * @param    float        $alpha        Alpha Parameter
-     * @param    float        $beta        Beta Parameter
-     * @param    bool        $cumulative
+     * @param float $value
+     * @param float $alpha Alpha Parameter
+     * @param float $beta Beta Parameter
+     * @param bool $cumulative
      *
-     * @return    float
+     * @return float
      */
     public static function WEIBULL($value, $alpha, $beta, $cumulative)
     {
@@ -3831,11 +3831,11 @@ class Statistical
      * Returns the Weibull distribution. Use this distribution in reliability
      * analysis, such as calculating a device's mean time to failure.
      *
-     * @param    float        $dataSet
-     * @param    float        $m0        Alpha Parameter
-     * @param    float        $sigma    Beta Parameter
+     * @param float $dataSet
+     * @param float $m0 Alpha Parameter
+     * @param float $sigma Beta Parameter
      *
-     * @return    float
+     * @return float
      */
     public static function ZTEST($dataSet, $m0, $sigma = null)
     {

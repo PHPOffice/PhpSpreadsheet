@@ -15,12 +15,12 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -58,11 +58,11 @@ class Xml extends BaseReader implements IReader
     /**
      * Can the current IReader read the file?
      *
-     * @param     string         $pFilename
+     * @param string $pFilename
      *
      * @throws Exception
      *
-     * @return     bool
+     * @return bool
      */
     public function canRead($pFilename)
     {
@@ -110,9 +110,9 @@ class Xml extends BaseReader implements IReader
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object.
      *
-     * @param     string         $pFilename
+     * @param string $pFilename
      *
-     * @throws     Exception
+     * @throws Exception
      */
     public function listWorksheetNames($pFilename)
     {
@@ -142,9 +142,9 @@ class Xml extends BaseReader implements IReader
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
-     * @param   string     $pFilename
+     * @param string $pFilename
      *
-     * @throws   Exception
+     * @throws Exception
      */
     public function listWorksheetInfo($pFilename)
     {
@@ -214,11 +214,11 @@ class Xml extends BaseReader implements IReader
     /**
      * Loads Spreadsheet from file.
      *
-     * @param     string         $pFilename
+     * @param string $pFilename
      *
-     * @throws     Exception
+     * @throws Exception
      *
-     * @return     \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     public function load($pFilename)
     {
@@ -287,12 +287,12 @@ class Xml extends BaseReader implements IReader
     /**
      * Loads from file into Spreadsheet instance.
      *
-     * @param     string         $pFilename
-     * @param     \PhpOffice\PhpSpreadsheet\Spreadsheet    $spreadsheet
+     * @param string $pFilename
+     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
      *
-     * @throws    Exception
+     * @throws Exception
      *
-     * @return    \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     public function loadIntoExisting($pFilename, \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
     {

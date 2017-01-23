@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\CalcEngine;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -62,7 +62,7 @@ class Logger
     /**
      * Instantiate a Calculation engine logger.
      *
-     * @param  CyclicReferenceStack $stack
+     * @param CyclicReferenceStack $stack
      */
     public function __construct(CyclicReferenceStack $stack)
     {
@@ -72,7 +72,7 @@ class Logger
     /**
      * Enable/Disable Calculation engine logging.
      *
-     * @param  bool $pValue
+     * @param bool $pValue
      */
     public function setWriteDebugLog($pValue = false)
     {
@@ -82,7 +82,7 @@ class Logger
     /**
      * Return whether calculation engine logging is enabled or disabled.
      *
-     * @return  bool
+     * @return bool
      */
     public function getWriteDebugLog()
     {
@@ -92,7 +92,7 @@ class Logger
     /**
      * Enable/Disable echoing of debug log information.
      *
-     * @param  bool $pValue
+     * @param bool $pValue
      */
     public function setEchoDebugLog($pValue = false)
     {
@@ -102,7 +102,7 @@ class Logger
     /**
      * Return whether echoing of debug log information is enabled or disabled.
      *
-     * @return  bool
+     * @return bool
      */
     public function getEchoDebugLog()
     {
@@ -141,7 +141,7 @@ class Logger
     /**
      * Return the calculation engine debug log.
      *
-     * @return  string[]
+     * @return string[]
      */
     public function getLog()
     {

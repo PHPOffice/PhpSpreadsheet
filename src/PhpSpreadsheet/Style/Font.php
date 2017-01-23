@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Style;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -99,10 +99,10 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     /**
      * Create a new Font.
      *
-     * @param    bool    $isSupervisor    Flag indicating if this is a supervisor or not
+     * @param bool $isSupervisor Flag indicating if this is a supervisor or not
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
-     * @param    bool    $isConditional    Flag indicating if this is a conditional style or not
+     * @param bool $isConditional Flag indicating if this is a conditional style or not
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
      */
@@ -172,9 +172,9 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      * );
      * </code>
      *
-     * @param   array    $pStyles    Array containing style information
+     * @param array $pStyles Array containing style information
      *
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
      * @return Font
      */
@@ -454,7 +454,7 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     /**
      * Set Underline.
      *
-     * @param string|bool $pValue    \PhpOffice\PhpSpreadsheet\Style\Font underline type
+     * @param string|bool $pValue \PhpOffice\PhpSpreadsheet\Style\Font underline type
      *                                    If a boolean is passed, then TRUE equates to UNDERLINE_SINGLE,
      *                                        false equates to UNDERLINE_NONE
      *
@@ -526,9 +526,9 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     /**
      * Set Color.
      *
-     * @param    Color $pValue
+     * @param Color $pValue
      *
-     * @throws   \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
      * @return Font
      */
@@ -550,7 +550,7 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     /**
      * Get hash code.
      *
-     * @return string    Hash code
+     * @return string Hash code
      */
     public function getHashCode()
     {

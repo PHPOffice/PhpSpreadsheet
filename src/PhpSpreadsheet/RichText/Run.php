@@ -10,12 +10,12 @@ namespace PhpOffice\PhpSpreadsheet\RichText;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -34,7 +34,7 @@ class Run extends TextElement implements ITextElement
     /**
      * Create a new Run instance.
      *
-     * @param     string        $pText        Text
+     * @param string $pText Text
      */
     public function __construct($pText = '')
     {
@@ -56,11 +56,11 @@ class Run extends TextElement implements ITextElement
     /**
      * Set font.
      *
-     * @param   \PhpOffice\PhpSpreadsheet\Style\Font        $pFont        Font
+     * @param \PhpOffice\PhpSpreadsheet\Style\Font $pFont Font
      *
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     * @return  ITextElement
+     * @return ITextElement
      */
     public function setFont(\PhpOffice\PhpSpreadsheet\Style\Font $pFont = null)
     {
@@ -72,7 +72,7 @@ class Run extends TextElement implements ITextElement
     /**
      * Get hash code.
      *
-     * @return string    Hash code
+     * @return string Hash code
      */
     public function getHashCode()
     {

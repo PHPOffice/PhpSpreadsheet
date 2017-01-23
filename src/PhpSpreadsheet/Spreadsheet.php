@@ -14,12 +14,12 @@ namespace PhpOffice\PhpSpreadsheet;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PHPSpreadsheet
  *
@@ -338,7 +338,7 @@ class Spreadsheet
     /**
      * Check if a sheet with a specified code name already exists.
      *
-     * @param string $pSheetCodeName  Name of the worksheet to check
+     * @param string $pSheetCodeName Name of the worksheet to check
      *
      * @return bool
      */
@@ -408,7 +408,7 @@ class Spreadsheet
 
     /**
      * Disconnect all worksheets from this PhpSpreadsheet workbook object,
-     *    typically so that the PhpSpreadsheet object can be unset.
+     * typically so that the PhpSpreadsheet object can be unset.
      */
     public function disconnectWorksheets()
     {
@@ -444,7 +444,7 @@ class Spreadsheet
     /**
      * Set properties.
      *
-     * @param Document\Properties    $pValue
+     * @param Document\Properties $pValue
      */
     public function setProperties(Document\Properties $pValue)
     {
@@ -464,7 +464,7 @@ class Spreadsheet
     /**
      * Set security.
      *
-     * @param Document\Security    $pValue
+     * @param Document\Security $pValue
      */
     public function setSecurity(Document\Security $pValue)
     {
@@ -486,7 +486,7 @@ class Spreadsheet
     /**
      * Create sheet and add it to this workbook.
      *
-     * @param  int|null $iSheetIndex Index where sheet should go (0,1,..., or null for last)
+     * @param int|null $iSheetIndex Index where sheet should go (0,1,..., or null for last)
      *
      * @throws Exception
      *
@@ -503,7 +503,7 @@ class Spreadsheet
     /**
      * Check if a sheet with a specified name already exists.
      *
-     * @param  string $pSheetName  Name of the worksheet to check
+     * @param string $pSheetName Name of the worksheet to check
      *
      * @return bool
      */
@@ -515,8 +515,8 @@ class Spreadsheet
     /**
      * Add sheet.
      *
-     * @param  Worksheet $pSheet
-     * @param  int|null $iSheetIndex Index where sheet should go (0,1,..., or null for last)
+     * @param Worksheet $pSheet
+     * @param int|null $iSheetIndex Index where sheet should go (0,1,..., or null for last)
      *
      * @throws Exception
      *
@@ -560,7 +560,7 @@ class Spreadsheet
     /**
      * Remove sheet by index.
      *
-     * @param  int $pIndex Active sheet index
+     * @param int $pIndex Active sheet index
      *
      * @throws Exception
      */
@@ -584,7 +584,7 @@ class Spreadsheet
     /**
      * Get sheet by index.
      *
-     * @param  int $pIndex Sheet index
+     * @param int $pIndex Sheet index
      *
      * @throws Exception
      *
@@ -615,7 +615,7 @@ class Spreadsheet
     /**
      * Get sheet by name.
      *
-     * @param  string $pName Sheet name
+     * @param string $pName Sheet name
      *
      * @return Worksheet
      */
@@ -634,7 +634,7 @@ class Spreadsheet
     /**
      * Get index for sheet.
      *
-     * @param  Worksheet $pSheet
+     * @param Worksheet $pSheet
      *
      * @throws Exception
      *
@@ -654,8 +654,8 @@ class Spreadsheet
     /**
      * Set index for sheet by sheet name.
      *
-     * @param  string $sheetName Sheet name to modify index for
-     * @param  int $newIndex New index for the sheet
+     * @param string $sheetName Sheet name to modify index for
+     * @param int $newIndex New index for the sheet
      *
      * @throws Exception
      *
@@ -702,7 +702,7 @@ class Spreadsheet
     /**
      * Set active sheet index.
      *
-     * @param  int $pIndex Active sheet index
+     * @param int $pIndex Active sheet index
      *
      * @throws Exception
      *
@@ -725,7 +725,7 @@ class Spreadsheet
     /**
      * Set active sheet index by name.
      *
-     * @param  string $pValue Sheet title
+     * @param string $pValue Sheet title
      *
      * @throws Exception
      *
@@ -761,8 +761,8 @@ class Spreadsheet
     /**
      * Add external sheet.
      *
-     * @param  Worksheet $pSheet External sheet to add
-     * @param  int|null $iSheetIndex Index where sheet should go (0,1,..., or null for last)
+     * @param Worksheet $pSheet External sheet to add
+     * @param int|null $iSheetIndex Index where sheet should go (0,1,..., or null for last)
      *
      * @throws Exception
      *
@@ -807,7 +807,7 @@ class Spreadsheet
     /**
      * Add named range.
      *
-     * @param  NamedRange $namedRange
+     * @param NamedRange $namedRange
      *
      * @return bool
      */
@@ -827,8 +827,8 @@ class Spreadsheet
     /**
      * Get named range.
      *
-     * @param  string $namedRange
-     * @param  Worksheet|null $pSheet Scope. Use null for global scope
+     * @param string $namedRange
+     * @param Worksheet|null $pSheet Scope. Use null for global scope
      *
      * @return NamedRange|null
      */
@@ -854,8 +854,8 @@ class Spreadsheet
     /**
      * Remove named range.
      *
-     * @param  string  $namedRange
-     * @param  Worksheet|null  $pSheet  scope: use null for global scope
+     * @param string $namedRange
+     * @param Worksheet|null $pSheet scope: use null for global scope
      *
      * @return Spreadsheet
      */
@@ -927,7 +927,7 @@ class Spreadsheet
     /**
      * Get cellXf by index.
      *
-     * @param  int $pIndex
+     * @param int $pIndex
      *
      * @return Style
      */
@@ -939,7 +939,7 @@ class Spreadsheet
     /**
      * Get cellXf by hash code.
      *
-     * @param  string $pValue
+     * @param string $pValue
      *
      * @return Style|false
      */
@@ -957,7 +957,7 @@ class Spreadsheet
     /**
      * Check if style exists in style collection.
      *
-     * @param  Style $pCellStyle
+     * @param Style $pCellStyle
      *
      * @return bool
      */
@@ -1059,7 +1059,7 @@ class Spreadsheet
     /**
      * Get cellStyleXf by hash code.
      *
-     * @param  string $pValue
+     * @param string $pValue
      *
      * @return Style|false
      */

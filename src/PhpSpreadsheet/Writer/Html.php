@@ -17,12 +17,12 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   Spreadsheet
  *
@@ -132,7 +132,7 @@ class Html extends BaseWriter implements IWriter
     /**
      * Create a new HTML.
      *
-     * @param    \PhpOffice\PhpSpreadsheet\Spreadsheet    $spreadsheet
+     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
      */
     public function __construct(Spreadsheet $spreadsheet)
     {
@@ -143,9 +143,9 @@ class Html extends BaseWriter implements IWriter
     /**
      * Save Spreadsheet to file.
      *
-     * @param    string        $pFilename
+     * @param string $pFilename
      *
-     * @throws    \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function save($pFilename = null)
     {
@@ -190,7 +190,7 @@ class Html extends BaseWriter implements IWriter
     /**
      * Map VAlign.
      *
-     * @param    string        $vAlign        Vertical alignment
+     * @param string $vAlign Vertical alignment
      *
      * @return string
      */
@@ -212,7 +212,7 @@ class Html extends BaseWriter implements IWriter
     /**
      * Map HAlign.
      *
-     * @param    string        $hAlign        Horizontal alignment
+     * @param string $hAlign Horizontal alignment
      *
      * @return string|false
      */
@@ -238,9 +238,9 @@ class Html extends BaseWriter implements IWriter
     /**
      * Map border style.
      *
-     * @param    int        $borderStyle        Sheet index
+     * @param int $borderStyle Sheet index
      *
-     * @return    string
+     * @return string
      */
     private function mapBorderStyle($borderStyle)
     {
@@ -292,7 +292,7 @@ class Html extends BaseWriter implements IWriter
     /**
      * Set sheet index.
      *
-     * @param    int        $pValue        Sheet index
+     * @param int $pValue Sheet index
      *
      * @return HTML
      */
@@ -316,7 +316,7 @@ class Html extends BaseWriter implements IWriter
     /**
      * Set sheet index.
      *
-     * @param    bool        $pValue        Flag indicating whether the sheet navigation block should be generated or not
+     * @param bool $pValue Flag indicating whether the sheet navigation block should be generated or not
      *
      * @return HTML
      */
@@ -340,11 +340,11 @@ class Html extends BaseWriter implements IWriter
     /**
      * Generate HTML header.
      *
-     * @param    bool        $pIncludeStyles        Include styles?
+     * @param bool $pIncludeStyles Include styles?
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
-     * @return    string
+     * @return string
      */
     public function generateHTMLHeader($pIncludeStyles = false)
     {
@@ -404,7 +404,7 @@ class Html extends BaseWriter implements IWriter
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
-     * @return    string
+     * @return string
      */
     public function generateSheetData()
     {
@@ -524,7 +524,7 @@ class Html extends BaseWriter implements IWriter
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
-     * @return    string
+     * @return string
      */
     public function generateNavigation()
     {
@@ -616,12 +616,12 @@ class Html extends BaseWriter implements IWriter
     /**
      * Generate image tag in cell.
      *
-     * @param    \PhpOffice\PhpSpreadsheet\Worksheet    $pSheet            \PhpOffice\PhpSpreadsheet\Worksheet
-     * @param    string                $coordinates    Cell coordinates
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pSheet \PhpOffice\PhpSpreadsheet\Worksheet
+     * @param string $coordinates Cell coordinates
      *
-     * @throws    \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
-     * @return    string
+     * @return string
      */
     private function writeImageInCell(\PhpOffice\PhpSpreadsheet\Worksheet $pSheet, $coordinates)
     {
@@ -699,12 +699,12 @@ class Html extends BaseWriter implements IWriter
     /**
      * Generate chart tag in cell.
      *
-     * @param    \PhpOffice\PhpSpreadsheet\Worksheet    $pSheet            \PhpOffice\PhpSpreadsheet\Worksheet
-     * @param    string                $coordinates    Cell coordinates
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pSheet \PhpOffice\PhpSpreadsheet\Worksheet
+     * @param string $coordinates Cell coordinates
      *
-     * @throws    \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
-     * @return    string
+     * @return string
      */
     private function writeChartInCell(\PhpOffice\PhpSpreadsheet\Worksheet $pSheet, $coordinates)
     {
@@ -748,11 +748,11 @@ class Html extends BaseWriter implements IWriter
     /**
      * Generate CSS styles.
      *
-     * @param    bool    $generateSurroundingHTML    Generate surrounding HTML tags? (&lt;style&gt; and &lt;/style&gt;)
+     * @param bool $generateSurroundingHTML Generate surrounding HTML tags? (&lt;style&gt; and &lt;/style&gt;)
      *
-     * @throws    \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
-     * @return    string
+     * @return string
      */
     public function generateStyles($generateSurroundingHTML = true)
     {
@@ -792,11 +792,11 @@ class Html extends BaseWriter implements IWriter
     /**
      * Build CSS styles.
      *
-     * @param    bool    $generateSurroundingHTML    Generate surrounding HTML style? (html { })
+     * @param bool $generateSurroundingHTML Generate surrounding HTML style? (html { })
      *
-     * @throws    \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
-     * @return    array
+     * @return array
      */
     public function buildCSS($generateSurroundingHTML = true)
     {
@@ -949,9 +949,9 @@ class Html extends BaseWriter implements IWriter
     /**
      * Create CSS style.
      *
-     * @param    \PhpOffice\PhpSpreadsheet\Style        $pStyle
+     * @param \PhpOffice\PhpSpreadsheet\Style $pStyle
      *
-     * @return    array
+     * @return array
      */
     private function createCSSStyle(\PhpOffice\PhpSpreadsheet\Style $pStyle)
     {
@@ -973,9 +973,9 @@ class Html extends BaseWriter implements IWriter
     /**
      * Create CSS style (\PhpOffice\PhpSpreadsheet\Style\Alignment).
      *
-     * @param    \PhpOffice\PhpSpreadsheet\Style\Alignment        $pStyle            \PhpOffice\PhpSpreadsheet\Style\Alignment
+     * @param \PhpOffice\PhpSpreadsheet\Style\Alignment $pStyle \PhpOffice\PhpSpreadsheet\Style\Alignment
      *
-     * @return    array
+     * @return array
      */
     private function createCSSStyleAlignment(\PhpOffice\PhpSpreadsheet\Style\Alignment $pStyle)
     {
@@ -997,9 +997,9 @@ class Html extends BaseWriter implements IWriter
     /**
      * Create CSS style (\PhpOffice\PhpSpreadsheet\Style\Font).
      *
-     * @param    \PhpOffice\PhpSpreadsheet\Style\Font        $pStyle            \PhpOffice\PhpSpreadsheet\Style\Font
+     * @param \PhpOffice\PhpSpreadsheet\Style\Font $pStyle \PhpOffice\PhpSpreadsheet\Style\Font
      *
-     * @return    array
+     * @return array
      */
     private function createCSSStyleFont(\PhpOffice\PhpSpreadsheet\Style\Font $pStyle)
     {
@@ -1031,9 +1031,9 @@ class Html extends BaseWriter implements IWriter
     /**
      * Create CSS style (\PhpOffice\PhpSpreadsheet\Style\Borders).
      *
-     * @param    \PhpOffice\PhpSpreadsheet\Style\Borders        $pStyle            \PhpOffice\PhpSpreadsheet\Style\Borders
+     * @param \PhpOffice\PhpSpreadsheet\Style\Borders $pStyle \PhpOffice\PhpSpreadsheet\Style\Borders
      *
-     * @return    array
+     * @return array
      */
     private function createCSSStyleBorders(\PhpOffice\PhpSpreadsheet\Style\Borders $pStyle)
     {
@@ -1052,9 +1052,9 @@ class Html extends BaseWriter implements IWriter
     /**
      * Create CSS style (\PhpOffice\PhpSpreadsheet\Style\Border).
      *
-     * @param    \PhpOffice\PhpSpreadsheet\Style\Border        $pStyle            \PhpOffice\PhpSpreadsheet\Style\Border
+     * @param \PhpOffice\PhpSpreadsheet\Style\Border $pStyle \PhpOffice\PhpSpreadsheet\Style\Border
      *
-     * @return    string
+     * @return string
      */
     private function createCSSStyleBorder(\PhpOffice\PhpSpreadsheet\Style\Border $pStyle)
     {
@@ -1068,9 +1068,9 @@ class Html extends BaseWriter implements IWriter
     /**
      * Create CSS style (\PhpOffice\PhpSpreadsheet\Style\Fill).
      *
-     * @param    \PhpOffice\PhpSpreadsheet\Style\Fill        $pStyle            \PhpOffice\PhpSpreadsheet\Style\Fill
+     * @param \PhpOffice\PhpSpreadsheet\Style\Fill $pStyle \PhpOffice\PhpSpreadsheet\Style\Fill
      *
-     * @return    array
+     * @return array
      */
     private function createCSSStyleFill(\PhpOffice\PhpSpreadsheet\Style\Fill $pStyle)
     {
@@ -1101,11 +1101,11 @@ class Html extends BaseWriter implements IWriter
     /**
      * Generate table header.
      *
-     * @param    \PhpOffice\PhpSpreadsheet\Worksheet    $pSheet        The worksheet for the table we are writing
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pSheet The worksheet for the table we are writing
      *
-     * @throws    \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
-     * @return    string
+     * @return string
      */
     private function generateTableHeader($pSheet)
     {
@@ -1150,7 +1150,7 @@ class Html extends BaseWriter implements IWriter
     /**
      * Generate table footer.
      *
-     * @throws    \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function generateTableFooter()
     {
@@ -1162,14 +1162,14 @@ class Html extends BaseWriter implements IWriter
     /**
      * Generate row.
      *
-     * @param    \PhpOffice\PhpSpreadsheet\Worksheet    $pSheet            \PhpOffice\PhpSpreadsheet\Worksheet
-     * @param    array                $pValues        Array containing cells in a row
-     * @param    int                    $pRow            Row number (0-based)
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pSheet \PhpOffice\PhpSpreadsheet\Worksheet
+     * @param array $pValues Array containing cells in a row
+     * @param int $pRow Row number (0-based)
      * @param mixed $cellType
      *
-     * @throws    \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
-     * @return    string
+     * @return string
      */
     private function generateRow(\PhpOffice\PhpSpreadsheet\Worksheet $pSheet, $pValues = null, $pRow = 0, $cellType = 'td')
     {

@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category    PhpSpreadsheet
  *
@@ -110,8 +110,8 @@ class Column
     /**
      * Create a new Column.
      *
-     *    @param    string                           $pColumn        Column (e.g. A)
-     *    @param    \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter  $pParent        Autofilter for this column
+     * @param string $pColumn Column (e.g. A)
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter $pParent Autofilter for this column
      */
     public function __construct($pColumn, \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter $pParent = null)
     {
@@ -130,13 +130,13 @@ class Column
     }
 
     /**
-     *    Set AutoFilter Column Index.
+     * Set AutoFilter Column Index.
      *
-     *    @param    string        $pColumn        Column (e.g. A)
+     * @param string $pColumn Column (e.g. A)
      *
-     *    @throws    \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     *    @return Column
+     * @return Column
      */
     public function setColumnIndex($pColumn)
     {
@@ -186,13 +186,13 @@ class Column
     }
 
     /**
-     *    Set AutoFilter Type.
+     * Set AutoFilter Type.
      *
-     *    @param    string        $pFilterType
+     * @param string $pFilterType
      *
-     *    @throws    \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     *    @return Column
+     * @return Column
      */
     public function setFilterType($pFilterType = self::AUTOFILTER_FILTERTYPE_FILTER)
     {
@@ -216,13 +216,13 @@ class Column
     }
 
     /**
-     *    Set AutoFilter Multiple Rules And/Or.
+     * Set AutoFilter Multiple Rules And/Or.
      *
-     *    @param   string        $pJoin        And/Or
+     * @param string $pJoin And/Or
      *
-     *    @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     *    @return  Column
+     * @return Column
      */
     public function setJoin($pJoin = self::AUTOFILTER_COLUMN_JOIN_OR)
     {
@@ -238,13 +238,13 @@ class Column
     }
 
     /**
-     *    Set AutoFilter Attributes.
+     * Set AutoFilter Attributes.
      *
-     *    @param    string[]        $pAttributes
+     * @param string[] $pAttributes
      *
-     *    @throws   \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     *    @return   Column
+     * @return Column
      */
     public function setAttributes($pAttributes = [])
     {
@@ -254,14 +254,14 @@ class Column
     }
 
     /**
-     *    Set An AutoFilter Attribute.
+     * Set An AutoFilter Attribute.
      *
-     *    @param    string        $pName        Attribute Name
-     *    @param    string        $pValue        Attribute Value
+     * @param string $pName Attribute Name
+     * @param string $pValue Attribute Value
      *
-     *    @throws   \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     *    @return   Column
+     * @return Column
      */
     public function setAttribute($pName, $pValue)
     {
@@ -283,7 +283,7 @@ class Column
     /**
      * Get specific AutoFilter Column Attribute.
      *
-     *    @param    string        $pName        Attribute Name
+     * @param string $pName Attribute Name
      *
      * @return string
      */
@@ -299,9 +299,9 @@ class Column
     /**
      * Get all AutoFilter Column Rules.
      *
-     * @throws   \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     * @return   Column\Rule[]
+     * @return Column\Rule[]
      */
     public function getRules()
     {
@@ -311,9 +311,9 @@ class Column
     /**
      * Get a specified AutoFilter Column Rule.
      *
-     * @param    int    $pIndex        Rule index in the ruleset array
+     * @param int $pIndex Rule index in the ruleset array
      *
-     * @return    Column\Rule
+     * @return Column\Rule
      */
     public function getRule($pIndex)
     {
@@ -327,7 +327,7 @@ class Column
     /**
      * Create a new AutoFilter Column Rule in the ruleset.
      *
-     * @return    Column\Rule
+     * @return Column\Rule
      */
     public function createRule()
     {
@@ -339,10 +339,10 @@ class Column
     /**
      * Add a new AutoFilter Column Rule to the ruleset.
      *
-     * @param    Column\Rule    $pRule
-     * @param    bool    $returnRule     Flag indicating whether the rule object or the column object should be returned
+     * @param Column\Rule $pRule
+     * @param bool $returnRule Flag indicating whether the rule object or the column object should be returned
      *
-     * @return   Column|Column\Rule
+     * @return Column|Column\Rule
      */
     public function addRule(Column\Rule $pRule, $returnRule = true)
     {
@@ -354,11 +354,11 @@ class Column
 
     /**
      * Delete a specified AutoFilter Column Rule
-     *    If the number of rules is reduced to 1, then we reset And/Or logic to Or.
+     * If the number of rules is reduced to 1, then we reset And/Or logic to Or.
      *
-     * @param    int    $pIndex        Rule index in the ruleset array
+     * @param int $pIndex Rule index in the ruleset array
      *
-     * @return    Column
+     * @return Column
      */
     public function deleteRule($pIndex)
     {
@@ -376,7 +376,7 @@ class Column
     /**
      * Delete all AutoFilter Column Rules.
      *
-     * @return    Column
+     * @return Column
      */
     public function clearRules()
     {

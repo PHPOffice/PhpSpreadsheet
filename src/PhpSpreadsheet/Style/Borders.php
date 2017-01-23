@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Style;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -112,10 +112,10 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
     /**
      * Create a new Borders.
      *
-     * @param    bool    $isSupervisor    Flag indicating if this is a supervisor or not
+     * @param bool $isSupervisor Flag indicating if this is a supervisor or not
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
-     * @param    bool    $isConditional    Flag indicating if this is a conditional style or not
+     * @param bool $isConditional Flag indicating if this is a conditional style or not
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
      */
@@ -212,11 +212,11 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
      * );
      * </code>
      *
-     * @param   array    $pStyles    Array containing style information
+     * @param array $pStyles Array containing style information
      *
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     * @return  Borders
+     * @return Borders
      */
     public function applyFromArray($pStyles = null)
     {
@@ -309,9 +309,9 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
     /**
      * Get AllBorders (pseudo-border). Only applies to supervisor.
      *
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     * @return  Border
+     * @return Border
      */
     public function getAllBorders()
     {
@@ -425,7 +425,7 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
     /**
      * Get hash code.
      *
-     * @return string    Hash code
+     * @return string Hash code
      */
     public function getHashCode()
     {

@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -65,7 +65,7 @@ class Slk extends BaseReader implements IReader
     /**
      * Validate that the current file is a SYLK file.
      *
-     * @param     string         $pFilename
+     * @param string $pFilename
      *
      * @throws Exception
      *
@@ -121,9 +121,9 @@ class Slk extends BaseReader implements IReader
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
-     * @param    string     $pFilename
+     * @param string $pFilename
      *
-     * @throws   Exception
+     * @throws Exception
      */
     public function listWorksheetInfo($pFilename)
     {
@@ -190,11 +190,11 @@ class Slk extends BaseReader implements IReader
     /**
      * Loads PhpSpreadsheet from file.
      *
-     * @param     string         $pFilename
+     * @param string $pFilename
      *
-     * @throws     Exception
+     * @throws Exception
      *
-     * @return     \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     public function load($pFilename)
     {
@@ -208,12 +208,12 @@ class Slk extends BaseReader implements IReader
     /**
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      *
-     * @param     string         $pFilename
-     * @param     \PhpOffice\PhpSpreadsheet\Spreadsheet    $spreadsheet
+     * @param string $pFilename
+     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
      *
-     * @throws    Exception
+     * @throws Exception
      *
-     * @return    \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     public function loadIntoExisting($pFilename, \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
     {
@@ -470,7 +470,7 @@ class Slk extends BaseReader implements IReader
     /**
      * Set sheet index.
      *
-     * @param    int        $pValue        Sheet index
+     * @param int $pValue Sheet index
      *
      * @return SYLK
      */

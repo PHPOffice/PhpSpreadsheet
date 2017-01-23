@@ -14,12 +14,12 @@ use PhpOffice\PhpSpreadsheet\Shared\File;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -414,11 +414,11 @@ class Xls extends BaseReader implements IReader
     /**
      * Can the current IReader read the file?
      *
-     * @param     string         $pFilename
+     * @param string $pFilename
      *
      * @throws Exception
      *
-     * @return     bool
+     * @return bool
      */
     public function canRead($pFilename)
     {
@@ -440,9 +440,9 @@ class Xls extends BaseReader implements IReader
     /**
      * Reads names of the worksheets from a file, without parsing the whole file to a PhpSpreadsheet object.
      *
-     * @param     string         $pFilename
+     * @param string $pFilename
      *
-     * @throws     Exception
+     * @throws Exception
      */
     public function listWorksheetNames($pFilename)
     {
@@ -494,9 +494,9 @@ class Xls extends BaseReader implements IReader
     /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
-     * @param   string     $pFilename
+     * @param string $pFilename
      *
-     * @throws   Exception
+     * @throws Exception
      */
     public function listWorksheetInfo($pFilename)
     {
@@ -598,11 +598,11 @@ class Xls extends BaseReader implements IReader
     /**
      * Loads PhpSpreadsheet from file.
      *
-     * @param     string         $pFilename
+     * @param string $pFilename
      *
-     * @throws    Exception
+     * @throws Exception
      *
-     * @return    \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     public function load($pFilename)
     {
@@ -1202,9 +1202,9 @@ class Xls extends BaseReader implements IReader
     /**
      * Read record data from stream, decrypting as required.
      *
-     * @param string $data   Data stream to read from
-     * @param int    $pos    Position to start reading from
-     * @param int    $len    Record data length
+     * @param string $data Data stream to read from
+     * @param int $pos Position to start reading from
+     * @param int $len Record data length
      *
      * @return string Record data
      */
@@ -1603,7 +1603,7 @@ class Xls extends BaseReader implements IReader
     }
 
     /**
-     *    The TEXT Object record contains the text associated with a cell annotation.
+     * The TEXT Object record contains the text associated with a cell annotation.
      */
     private function readTextObject()
     {
@@ -1715,7 +1715,7 @@ class Xls extends BaseReader implements IReader
     /**
      * Make an RC4 decryptor for the given block.
      *
-     * @param int         Block for which to create decrypto
+     * @param int Block for which to create decrypto
      * @param string $valContext MD5 context state
      * @param mixed $block
      *
@@ -1748,11 +1748,11 @@ class Xls extends BaseReader implements IReader
     /**
      * Verify RC4 file password.
      *
-     * @param string $password        Password to check
-     * @param string $docid           Document id
-     * @param string $salt_data       Salt data
+     * @param string $password Password to check
+     * @param string $docid Document id
+     * @param string $salt_data Salt data
      * @param string $hashedsalt_data Hashed salt data
-     * @param string $valContext     Set to the MD5 context of the value
+     * @param string $valContext Set to the MD5 context of the value
      *
      * @return bool Success
      */

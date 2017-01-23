@@ -14,12 +14,12 @@ use PhpOffice\PhpSpreadsheet\Shared\File;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -33,7 +33,7 @@ abstract class BaseReader implements IReader
      * Identifies whether the Reader should only read data values for cells, and ignore any formatting information;
      *        or whether it should read both data and formatting.
      *
-     * @var    bool
+     * @var bool
      */
     protected $readDataOnly = false;
 
@@ -42,7 +42,7 @@ abstract class BaseReader implements IReader
      * Identifies whether the Reader should read data values for cells all cells, or should ignore cells containing
      *         null value or empty string.
      *
-     * @var    bool
+     * @var bool
      */
     protected $readEmptyCells = true;
 
@@ -50,7 +50,7 @@ abstract class BaseReader implements IReader
      * Read charts that are defined in the workbook?
      * Identifies whether the Reader should read the definitions for any charts that exist in the workbook;.
      *
-     * @var    bool
+     * @var bool
      */
     protected $includeCharts = false;
 
@@ -76,7 +76,7 @@ abstract class BaseReader implements IReader
      *        If this is true, then the Reader will only read data values for cells, it will not read any formatting information.
      *        If false (the default) it will read data and formatting.
      *
-     * @return    bool
+     * @return bool
      */
     public function getReadDataOnly()
     {
@@ -88,9 +88,9 @@ abstract class BaseReader implements IReader
      *        Set to true, to advise the Reader only to read data values for cells, and to ignore any formatting information.
      *        Set to false (the default) to advise the Reader to read both data and formatting for cells.
      *
-     * @param    bool    $pValue
+     * @param bool $pValue
      *
-     * @return    IReader
+     * @return IReader
      */
     public function setReadDataOnly($pValue = false)
     {
@@ -104,7 +104,7 @@ abstract class BaseReader implements IReader
      *        If this is true (the default), then the Reader will read data values for all cells, irrespective of value.
      *        If false it will not read data for cells containing a null value or an empty string.
      *
-     * @return    bool
+     * @return bool
      */
     public function getReadEmptyCells()
     {
@@ -116,9 +116,9 @@ abstract class BaseReader implements IReader
      *        Set to true (the default) to advise the Reader read data values for all cells, irrespective of value.
      *        Set to false to advise the Reader to ignore cells containing a null value or an empty string.
      *
-     * @param    bool    $pValue
+     * @param bool $pValue
      *
-     * @return    IReader
+     * @return IReader
      */
     public function setReadEmptyCells($pValue = true)
     {
@@ -133,7 +133,7 @@ abstract class BaseReader implements IReader
      *      Note that a ReadDataOnly value of false overrides, and charts won't be read regardless of the IncludeCharts value.
      *        If false (the default) it will ignore any charts defined in the workbook file.
      *
-     * @return    bool
+     * @return bool
      */
     public function getIncludeCharts()
     {
@@ -146,9 +146,9 @@ abstract class BaseReader implements IReader
      *      Note that a ReadDataOnly value of false overrides, and charts won't be read regardless of the IncludeCharts value.
      *        Set to false (the default) to discard charts.
      *
-     * @param    bool    $pValue
+     * @param bool $pValue
      *
-     * @return    IReader
+     * @return IReader
      */
     public function setIncludeCharts($pValue = false)
     {
@@ -231,7 +231,7 @@ abstract class BaseReader implements IReader
      *
      * @param string $pFilename
      *
-     * @throws    Exception
+     * @throws Exception
      *
      * @return resource
      */
@@ -249,7 +249,7 @@ abstract class BaseReader implements IReader
     /**
      * Scan theXML for use of <!ENTITY to prevent XXE/XEE attacks.
      *
-     * @param     string         $xml
+     * @param string $xml
      *
      * @throws Exception
      */
@@ -266,7 +266,7 @@ abstract class BaseReader implements IReader
     /**
      * Scan theXML for use of <!ENTITY to prevent XXE/XEE attacks.
      *
-     * @param     string         $filestream
+     * @param string $filestream
      *
      * @throws Exception
      */

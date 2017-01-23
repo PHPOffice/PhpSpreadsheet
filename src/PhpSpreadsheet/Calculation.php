@@ -39,12 +39,12 @@ if (!defined('CALCULATION_REGEXP_CELLREF')) {
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -165,7 +165,7 @@ class Calculation
     /**
      * Current iteration counter for cyclic formulae
      * If the value is 0 (or less) then cyclic formulae will throw an exception,
-     *    otherwise they will iterate to the limit defined here before returning a result.
+     * otherwise they will iterate to the limit defined here before returning a result.
      *
      * @var int
      */
@@ -2051,7 +2051,7 @@ class Calculation
     /**
      * Get an instance of this class.
      *
-     * @param   Spreadsheet $spreadsheet  Injected spreadsheet for working with a PhpSpreadsheet Spreadsheet object,
+     * @param Spreadsheet $spreadsheet Injected spreadsheet for working with a PhpSpreadsheet Spreadsheet object,
      *                                    or NULL to create a standalone claculation engine
      *
      * @return Calculation
@@ -2075,7 +2075,7 @@ class Calculation
     /**
      * Unset an instance of this class.
      *
-     * @param   Spreadsheet $spreadsheet  Injected spreadsheet identifying the instance to unset
+     * @param Spreadsheet $spreadsheet Injected spreadsheet identifying the instance to unset
      */
     public function __destruct()
     {
@@ -2104,7 +2104,7 @@ class Calculation
     /**
      * __clone implementation. Cloning should not be allowed in a Singleton!
      *
-     * @throws    Calculation\Exception
+     * @throws Calculation\Exception
      */
     final public function __clone()
     {
@@ -2114,7 +2114,7 @@ class Calculation
     /**
      * Return the locale-specific translation of TRUE.
      *
-     * @return     string        locale-specific translation of TRUE
+     * @return string locale-specific translation of TRUE
      */
     public static function getTRUE()
     {
@@ -2124,7 +2124,7 @@ class Calculation
     /**
      * Return the locale-specific translation of FALSE.
      *
-     * @return     string        locale-specific translation of FALSE
+     * @return string locale-specific translation of FALSE
      */
     public static function getFALSE()
     {
@@ -2134,9 +2134,9 @@ class Calculation
     /**
      * Set the Array Return Type (Array or Value of first element in the array).
      *
-     * @param     string    $returnType            Array return type
+     * @param string $returnType Array return type
      *
-     * @return     bool                    Success or failure
+     * @return bool Success or failure
      */
     public static function setArrayReturnType($returnType)
     {
@@ -2154,7 +2154,7 @@ class Calculation
     /**
      * Return the Array Return Type (Array or Value of first element in the array).
      *
-     * @return     string        $returnType            Array return type
+     * @return string $returnType Array return type
      */
     public static function getArrayReturnType()
     {
@@ -2245,7 +2245,7 @@ class Calculation
     /**
      * Set the locale code.
      *
-     * @param string $locale  The locale to use for formula translation
+     * @param string $locale The locale to use for formula translation
      *
      * @return bool
      */
@@ -2511,11 +2511,11 @@ class Calculation
      * Calculate cell value (using formula from a cell ID)
      * Retained for backward compatibility.
      *
-     * @param    Cell    $pCell    Cell to calculate
+     * @param Cell $pCell Cell to calculate
      *
-     * @throws    Calculation\Exception
+     * @throws Calculation\Exception
      *
-     * @return    mixed
+     * @return mixed
      */
     public function calculate(Cell $pCell = null)
     {
@@ -2529,12 +2529,12 @@ class Calculation
     /**
      * Calculate the value of a cell formula.
      *
-     * @param    Cell    $pCell        Cell to calculate
-     * @param    bool            $resetLog    Flag indicating whether the debug log should be reset or not
+     * @param Cell $pCell Cell to calculate
+     * @param bool $resetLog Flag indicating whether the debug log should be reset or not
      *
-     * @throws    Calculation\Exception
+     * @throws Calculation\Exception
      *
-     * @return    mixed
+     * @return mixed
      */
     public function calculateCellValue(Cell $pCell = null, $resetLog = true)
     {
@@ -2606,11 +2606,11 @@ class Calculation
     /**
      * Validate and parse a formula string.
      *
-     * @param    string        $formula        Formula to parse
+     * @param string $formula Formula to parse
      *
-     * @throws    Calculation\Exception
+     * @throws Calculation\Exception
      *
-     * @return    array
+     * @return array
      */
     public function parseFormula($formula)
     {
@@ -2632,13 +2632,13 @@ class Calculation
     /**
      * Calculate the value of a formula.
      *
-     * @param    string            $formula    Formula to parse
-     * @param    string            $cellID        Address of the cell to calculate
-     * @param    Cell    $pCell        Cell to calculate
+     * @param string $formula Formula to parse
+     * @param string $cellID Address of the cell to calculate
+     * @param Cell $pCell Cell to calculate
      *
-     * @throws    Calculation\Exception
+     * @throws Calculation\Exception
      *
-     * @return    mixed
+     * @return mixed
      */
     public function calculateFormula($formula, $cellID = null, Cell $pCell = null)
     {
@@ -2702,13 +2702,13 @@ class Calculation
     /**
      * Parse a cell formula and calculate its value.
      *
-     * @param    string            $formula    The formula to parse and calculate
-     * @param    string            $cellID        The ID (e.g. A3) of the cell that we are calculating
-     * @param    Cell    $pCell        Cell to calculate
+     * @param string $formula The formula to parse and calculate
+     * @param string $cellID The ID (e.g. A3) of the cell that we are calculating
+     * @param Cell $pCell Cell to calculate
      *
-     * @throws   Calculation\Exception
+     * @throws Calculation\Exception
      *
-     * @return   mixed
+     * @return mixed
      */
     public function _calculateFormulaValue($formula, $cellID = null, Cell $pCell = null)
     {
@@ -2770,9 +2770,9 @@ class Calculation
     /**
      * Ensure that paired matrix operands are both matrices and of the same size.
      *
-     * @param    mixed        &$operand1    First matrix operand
-     * @param    mixed        &$operand2    Second matrix operand
-     * @param    int        $resize        Flag indicating whether the matrices should be resized to match
+     * @param mixed &$operand1 First matrix operand
+     * @param mixed &$operand2 Second matrix operand
+     * @param int $resize Flag indicating whether the matrices should be resized to match
      *                                        and (if so), whether the smaller dimension should grow or the
      *                                        larger should shrink.
      *                                            0 = no resize
@@ -2813,9 +2813,9 @@ class Calculation
     /**
      * Read the dimensions of a matrix, and re-index it with straight numeric keys starting from row 0, column 0.
      *
-     * @param    mixed        &$matrix        matrix operand
+     * @param mixed &$matrix matrix operand
      *
-     * @return    int[]        An array comprising the number of rows, and number of columns
+     * @return int[] An array comprising the number of rows, and number of columns
      */
     private static function getMatrixDimensions(&$matrix)
     {
@@ -2837,12 +2837,12 @@ class Calculation
     /**
      * Ensure that paired matrix operands are both matrices of the same size.
      *
-     * @param    mixed        &$matrix1        First matrix operand
-     * @param    mixed        &$matrix2        Second matrix operand
-     * @param    int        $matrix1Rows    Row size of first matrix operand
-     * @param    int        $matrix1Columns    Column size of first matrix operand
-     * @param    int        $matrix2Rows    Row size of second matrix operand
-     * @param    int        $matrix2Columns    Column size of second matrix operand
+     * @param mixed &$matrix1 First matrix operand
+     * @param mixed &$matrix2 Second matrix operand
+     * @param int $matrix1Rows Row size of first matrix operand
+     * @param int $matrix1Columns Column size of first matrix operand
+     * @param int $matrix2Rows Row size of second matrix operand
+     * @param int $matrix2Columns Column size of second matrix operand
      */
     private static function resizeMatricesShrink(&$matrix1, &$matrix2, $matrix1Rows, $matrix1Columns, $matrix2Rows, $matrix2Columns)
     {
@@ -2880,12 +2880,12 @@ class Calculation
     /**
      * Ensure that paired matrix operands are both matrices of the same size.
      *
-     * @param    mixed        &$matrix1    First matrix operand
-     * @param    mixed        &$matrix2    Second matrix operand
-     * @param    int        $matrix1Rows    Row size of first matrix operand
-     * @param    int        $matrix1Columns    Column size of first matrix operand
-     * @param    int        $matrix2Rows    Row size of second matrix operand
-     * @param    int        $matrix2Columns    Column size of second matrix operand
+     * @param mixed &$matrix1 First matrix operand
+     * @param mixed &$matrix2 Second matrix operand
+     * @param int $matrix1Rows Row size of first matrix operand
+     * @param int $matrix1Columns Column size of first matrix operand
+     * @param int $matrix2Rows Row size of second matrix operand
+     * @param int $matrix2Columns Column size of second matrix operand
      */
     private static function resizeMatricesExtend(&$matrix1, &$matrix2, $matrix1Rows, $matrix1Columns, $matrix2Rows, $matrix2Columns)
     {
@@ -2927,9 +2927,9 @@ class Calculation
     /**
      * Format details of an operand for display in the log (based on operand type).
      *
-     * @param    mixed        $value    First matrix operand
+     * @param mixed $value First matrix operand
      *
-     * @return    mixed
+     * @return mixed
      */
     private function showValue($value)
     {
@@ -2965,9 +2965,9 @@ class Calculation
     /**
      * Format type and details of an operand for display in the log (based on operand type).
      *
-     * @param    mixed        $value    First matrix operand
+     * @param mixed $value First matrix operand
      *
-     * @return    string|null
+     * @return string|null
      */
     private function showTypeDetails($value)
     {
@@ -3949,10 +3949,10 @@ class Calculation
     /**
      * Compare two strings in the same way as strcmp() except that lowercase come before uppercase letters.
      *
-     * @param    string    $str1    First string value for the comparison
-     * @param    string    $str2    Second string value for the comparison
+     * @param string $str1 First string value for the comparison
+     * @param string $str2 Second string value for the comparison
      *
-     * @return   int
+     * @return int
      */
     private function strcmpLowercaseFirst($str1, $str2)
     {
@@ -4058,13 +4058,13 @@ class Calculation
     /**
      * Extract range values.
      *
-     * @param    string      &$pRange    String based range representation
-     * @param    Worksheet   $pSheet        Worksheet
-     * @param    bool     $resetLog    Flag indicating whether calculation log should be reset or not
+     * @param string &$pRange String based range representation
+     * @param Worksheet $pSheet Worksheet
+     * @param bool $resetLog Flag indicating whether calculation log should be reset or not
      *
-     * @throws   Calculation\Exception
+     * @throws Calculation\Exception
      *
-     * @return   mixed       Array of values in range if range contains more than one element. Otherwise, a single value is returned.
+     * @return mixed Array of values in range if range contains more than one element. Otherwise, a single value is returned.
      */
     public function extractCellRange(&$pRange = 'A1', Worksheet $pSheet = null, $resetLog = true)
     {
@@ -4109,13 +4109,13 @@ class Calculation
     /**
      * Extract range values.
      *
-     * @param    string       &$pRange    String based range representation
-     * @param    Worksheet    $pSheet        Worksheet
-     * @param    bool      $resetLog    Flag indicating whether calculation log should be reset or not
+     * @param string &$pRange String based range representation
+     * @param Worksheet $pSheet Worksheet
+     * @param bool $resetLog Flag indicating whether calculation log should be reset or not
      *
-     * @throws   Calculation\Exception
+     * @throws Calculation\Exception
      *
-     * @return   mixed        Array of values in range if range contains more than one element. Otherwise, a single value is returned.
+     * @return mixed Array of values in range if range contains more than one element. Otherwise, a single value is returned.
      */
     public function extractNamedRange(&$pRange = 'A1', Worksheet $pSheet = null, $resetLog = true)
     {
@@ -4175,9 +4175,9 @@ class Calculation
     /**
      * Is a specific function implemented?
      *
-     * @param    string    $pFunction    Function Name
+     * @param string $pFunction Function Name
      *
-     * @return    bool
+     * @return bool
      */
     public function isImplemented($pFunction)
     {
@@ -4190,7 +4190,7 @@ class Calculation
     /**
      * Get a list of all implemented functions as an array of function objects.
      *
-     * @return    array of Calculation\Category
+     * @return array of Calculation\Category
      */
     public function getFunctions()
     {
@@ -4200,7 +4200,7 @@ class Calculation
     /**
      * Get a list of implemented Excel function names.
      *
-     * @return    array
+     * @return array
      */
     public function getImplementedFunctionNames()
     {
