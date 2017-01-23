@@ -47,4 +47,4 @@ $helper->log('Write to Xlsx format');
 \PhpOffice\PhpSpreadsheet\Settings::setZipClass(\PhpOffice\PhpSpreadsheet\Settings::PCLZIP);
 
 // Save
-$helper->write($spreadsheet, __FILE__, ['Xlsx' => 'xlsx']);
+$helper->write($spreadsheet, __FILE__, ['Xlsx']);

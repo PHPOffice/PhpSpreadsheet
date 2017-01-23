@@ -26,58 +26,58 @@ namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
 class EigenvalueDecomposition
 {
     /**
-     *    Row and column dimension (square matrix).
+     * Row and column dimension (square matrix).
      *
-     *    @var int
+     * @var int
      */
     private $n;
 
     /**
-     *    Internal symmetry flag.
+     * Internal symmetry flag.
      *
-     *    @var int
+     * @var int
      */
     private $issymmetric;
 
     /**
-     *    Arrays for internal storage of eigenvalues.
+     * Arrays for internal storage of eigenvalues.
      *
-     *    @var array
+     * @var array
      */
     private $d = [];
     private $e = [];
 
     /**
-     *    Array for internal storage of eigenvectors.
+     * Array for internal storage of eigenvectors.
      *
-     *    @var array
+     * @var array
      */
     private $V = [];
 
     /**
-     *    Array for internal storage of nonsymmetric Hessenberg form.
+     * Array for internal storage of nonsymmetric Hessenberg form.
      *
-     *    @var array
+     * @var array
      */
     private $H = [];
 
     /**
-     *    Working storage for nonsymmetric algorithm.
+     * Working storage for nonsymmetric algorithm.
      *
-     *    @var array
+     * @var array
      */
     private $ort;
 
     /**
-     *    Used for complex scalar division.
+     * Used for complex scalar division.
      *
-     *    @var float
+     * @var float
      */
     private $cdivr;
     private $cdivi;
 
     /**
-     *    Symmetric Householder reduction to tridiagonal form.
+     * Symmetric Householder reduction to tridiagonal form.
      */
     private function tred2()
     {
@@ -179,12 +179,12 @@ class EigenvalueDecomposition
     }
 
     /**
-     *    Symmetric tridiagonal QL algorithm.
+     * Symmetric tridiagonal QL algorithm.
      *
      *    This is derived from the Algol procedures tql2, by
      *    Bowdler, Martin, Reinsch, and Wilkinson, Handbook for
      *    Auto. Comp., Vol.ii-Linear Algebra, and the corresponding
-     *    Fortran subroutine in EISPACK.
+     * Fortran subroutine in EISPACK.
      */
     private function tql2()
     {
@@ -286,12 +286,12 @@ class EigenvalueDecomposition
     }
 
     /**
-     *    Nonsymmetric reduction to Hessenberg form.
+     * Nonsymmetric reduction to Hessenberg form.
      *
      *    This is derived from the Algol procedures orthes and ortran,
      *    by Martin and Wilkinson, Handbook for Auto. Comp.,
      *    Vol.ii-Linear Algebra, and the corresponding
-     *    Fortran subroutines in EISPACK.
+     * Fortran subroutines in EISPACK.
      */
     private function orthes()
     {
@@ -371,7 +371,7 @@ class EigenvalueDecomposition
     }
 
     /**
-     *    Performs complex division.
+     * Performs complex division.
      *
      * @param mixed $xr
      * @param mixed $xi
@@ -394,12 +394,12 @@ class EigenvalueDecomposition
     }
 
     /**
-     *    Nonsymmetric reduction from Hessenberg to real Schur form.
+     * Nonsymmetric reduction from Hessenberg to real Schur form.
      *
      *    Code is derived from the Algol procedure hqr2,
      *    by Martin and Wilkinson, Handbook for Auto. Comp.,
      *    Vol.ii-Linear Algebra, and the corresponding
-     *    Fortran subroutine in EISPACK.
+     * Fortran subroutine in EISPACK.
      */
     private function hqr2()
     {
@@ -781,12 +781,12 @@ class EigenvalueDecomposition
  // end hqr2
 
     /**
-     *    Constructor: Check for symmetry, then construct the eigenvalue decomposition.
+     * Constructor: Check for symmetry, then construct the eigenvalue decomposition.
      *
-     *    @param A  Square matrix
+     * @param A Square matrix
      * @param mixed $Arg
      *
-     *    @return Structure to access D and V
+     * @return Structure to access D and V
      */
     public function __construct($Arg)
     {
@@ -817,9 +817,9 @@ class EigenvalueDecomposition
     }
 
     /**
-     *    Return the eigenvector matrix.
+     * Return the eigenvector matrix.
      *
-     *    @return V
+     * @return V
      */
     public function getV()
     {
@@ -827,9 +827,9 @@ class EigenvalueDecomposition
     }
 
     /**
-     *    Return the real parts of the eigenvalues.
+     * Return the real parts of the eigenvalues.
      *
-     *    @return real(diag(D))
+     * @return real(diag(D))
      */
     public function getRealEigenvalues()
     {
@@ -837,9 +837,9 @@ class EigenvalueDecomposition
     }
 
     /**
-     *    Return the imaginary parts of the eigenvalues.
+     * Return the imaginary parts of the eigenvalues.
      *
-     *    @return imag(diag(D))
+     * @return imag(diag(D))
      */
     public function getImagEigenvalues()
     {
@@ -847,9 +847,9 @@ class EigenvalueDecomposition
     }
 
     /**
-     *    Return the block diagonal eigenvalue matrix.
+     * Return the block diagonal eigenvalue matrix.
      *
-     *    @return D
+     * @return D
      */
     public function getD()
     {

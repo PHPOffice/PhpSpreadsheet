@@ -26,12 +26,12 @@ class LogicalTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerAND
+     *
+     * @param mixed $expectedResult
      */
-    public function testAND()
+    public function testAND($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Logical::class, 'logicalAnd'], $args);
+        $result = Logical::logicalAnd(...$args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -42,12 +42,12 @@ class LogicalTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerOR
+     *
+     * @param mixed $expectedResult
      */
-    public function testOR()
+    public function testOR($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Logical::class, 'logicalOr'], $args);
+        $result = Logical::logicalOr(...$args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -58,12 +58,12 @@ class LogicalTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerNOT
+     *
+     * @param mixed $expectedResult
      */
-    public function testNOT()
+    public function testNOT($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Logical::class, 'NOT'], $args);
+        $result = Logical::NOT(...$args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -74,12 +74,12 @@ class LogicalTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerIF
+     *
+     * @param mixed $expectedResult
      */
-    public function testIF()
+    public function testIF($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Logical::class, 'statementIf'], $args);
+        $result = Logical::statementIf(...$args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -90,12 +90,12 @@ class LogicalTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerIFERROR
+     *
+     * @param mixed $expectedResult
      */
-    public function testIFERROR()
+    public function testIFERROR($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Logical::class, 'IFERROR'], $args);
+        $result = Logical::IFERROR(...$args);
         $this->assertEquals($expectedResult, $result);
     }
 

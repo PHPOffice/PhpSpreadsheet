@@ -20,7 +20,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../../../Classes/');
 /** \PhpOffice\PhpSpreadsheet\IOFactory */
 include 'PHPExcel/IOFactory.php';
 
-$inputFileType = 'CSV';
+$inputFileType = 'Csv';
 $inputFileName = './sampleData/example2.csv';
 
 /**  Define a Read Filter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
@@ -30,7 +30,12 @@ class chunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 
     private $_endRow = 0;
 
-/**  Set the list of rows that we want to read  */
+    /**
+     * Set the list of rows that we want to read.
+     *
+     * @param mixed $startRow
+     * @param mixed $chunkSize
+     */
     public function setRows($startRow, $chunkSize)
     {
         $this->_startRow = $startRow;

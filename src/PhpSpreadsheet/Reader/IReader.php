@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -29,18 +29,18 @@ interface IReader
     /**
      * Can the current IReader read the file?
      *
-     * @param     string         $pFilename
+     * @param string $pFilename
      *
-     * @return     bool
+     * @return bool
      */
     public function canRead($pFilename);
 
     /**
      * Loads PhpSpreadsheet from file.
      *
-     * @param     string         $pFilename
+     * @param string $pFilename
      *
-     * @throws     Exception
+     * @throws Exception
      *
      * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
      */

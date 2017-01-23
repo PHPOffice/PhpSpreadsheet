@@ -19,7 +19,7 @@ describing the format can be found online at
 from [as a downloadable
 PDF](http://download.microsoft.com/download/2/4/8/24862317-78F0-4C4B-B355-C7B2C1D997DB/%5BMS-XLS%5D.pdf).
 
-### Excel2003XML
+### Xml
 
 Microsoft Excel™ 2003 included options for a file format called
 SpreadsheetML. This file is a zipped XML document. It is not very
@@ -54,7 +54,7 @@ Other information is available from the OpenOffice.org XML File Format
 web page (<http://xml.openoffice.org/general.html>), part of the
 OpenOffice.org project.
 
-### SYLK
+### Slk
 
 This is the Microsoft Multiplan Symbolic Link Interchange (SYLK) file
 format. Multiplan was a predecessor to Microsoft Excel™. Files normally
@@ -73,7 +73,7 @@ and the file is then compressed using the GNU project's gzip compression
 library.
 <http://projects.gnome.org/gnumeric/doc/file-format-gnumeric.shtml>
 
-### CSV
+### Csv
 
 Comma Separated Value (CSV) file format is a common structuring strategy
 for text format files. In CSV flies, each line in the file represents a
@@ -109,7 +109,7 @@ instead of a comma, since in some languages the comma is used as the
 decimal separator. Also, many regional versions of Excel will not be
 able to deal with Unicode characters in a CSV file.
 
-### HTML
+### Html
 
 HyperText Markup Language (HTML) is the main markup language for
 creating web pages and other information that can be displayed in a web

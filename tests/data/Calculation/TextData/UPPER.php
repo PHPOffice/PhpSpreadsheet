@@ -2,19 +2,19 @@
 
 return [
     [
-        'AbCdEfGhI',
         'ABCDEFGHI',
+        'AbCdEfGhI',
     ],
     [
-        'mark baker',
         'MARK BAKER',
+        'mark baker',
     ],
     [
-        true,
         'TRUE',
+        true,
     ],
     [
-        false,
         'FALSE',
+        false,
     ],
 ];

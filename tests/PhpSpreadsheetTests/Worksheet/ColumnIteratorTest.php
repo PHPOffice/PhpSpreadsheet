@@ -24,9 +24,6 @@ class ColumnIteratorTest extends \PHPUnit_Framework_TestCase
         $this->mockWorksheet->expects($this->any())
             ->method('getHighestColumn')
             ->will($this->returnValue('E'));
-        $this->mockWorksheet->expects($this->any())
-            ->method('current')
-            ->will($this->returnValue($this->mockColumn));
     }
 
     public function testIteratorFullRange()

@@ -25,8 +25,8 @@ class IOFactoryTest extends \PHPUnit_Framework_TestCase
             ['../samples/templates/GnumericTest.gnumeric', 'Gnumeric'],
             ['../samples/templates/30template.xls', 'Xls'],
             ['../samples/templates/OOCalcTest.ods', 'Ods'],
-            ['../samples/templates/SylkTest.slk', 'SYLK'],
-            ['../samples/templates/Excel2003XMLTest.xml', 'Excel2003XML'],
+            ['../samples/templates/SylkTest.slk', 'Slk'],
+            ['../samples/templates/Excel2003XMLTest.xml', 'Xml'],
         ];
     }
 

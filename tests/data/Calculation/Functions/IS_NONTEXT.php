@@ -5,63 +5,63 @@ return [
         true,
     ],
     [
+        true,
         null,
-        true,
     ],
     [
+        true,
         -1,
-        true,
     ],
     [
+        true,
         0,
-        true,
     ],
     [
+        true,
         9,
-        true,
     ],
     [
+        true,
         1.5,
-        true,
     ],
     [
+        false,
         '',
-        false,
     ],
     [
+        false,
         '-1',
-        false,
     ],
     [
+        false,
         '2',
-        false,
     ],
     [
+        false,
         '-1.5',
-        false,
     ],
     [
+        false,
         'ABC',
-        false,
     ],
     [
+        true,
         '#VALUE!',
-        true,
     ],
     [
+        true,
         '#N/A',
-        true,
     ],
     [
+        false,
         'TRUE',
-        false,
     ],
     [
         true,
         true,
     ],
     [
-        false,
         true,
+        false,
     ],
 ];

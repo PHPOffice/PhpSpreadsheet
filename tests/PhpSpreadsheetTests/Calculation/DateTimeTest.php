@@ -18,12 +18,12 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerDATE
+     *
+     * @param mixed $expectedResult
      */
-    public function testDATE()
+    public function testDATE($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([DateTime::class, 'DATE'], $args);
+        $result = DateTime::DATE(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -71,12 +71,12 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerDATEVALUE
+     *
+     * @param mixed $expectedResult
      */
-    public function testDATEVALUE()
+    public function testDATEVALUE($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([DateTime::class, 'DATEVALUE'], $args);
+        $result = DateTime::DATEVALUE(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -108,12 +108,12 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerYEAR
+     *
+     * @param mixed $expectedResult
      */
-    public function testYEAR()
+    public function testYEAR($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([DateTime::class, 'YEAR'], $args);
+        $result = DateTime::YEAR(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -124,12 +124,12 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerMONTH
+     *
+     * @param mixed $expectedResult
      */
-    public function testMONTH()
+    public function testMONTH($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([DateTime::class, 'MONTHOFYEAR'], $args);
+        $result = DateTime::MONTHOFYEAR(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -140,12 +140,12 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerWEEKNUM
+     *
+     * @param mixed $expectedResult
      */
-    public function testWEEKNUM()
+    public function testWEEKNUM($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([DateTime::class, 'WEEKNUM'], $args);
+        $result = DateTime::WEEKNUM(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -156,12 +156,12 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerWEEKDAY
+     *
+     * @param mixed $expectedResult
      */
-    public function testWEEKDAY()
+    public function testWEEKDAY($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([DateTime::class, 'WEEKDAY'], $args);
+        $result = DateTime::WEEKDAY(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -172,12 +172,12 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerDAY
+     *
+     * @param mixed $expectedResult
      */
-    public function testDAY()
+    public function testDAY($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([DateTime::class, 'DAYOFMONTH'], $args);
+        $result = DateTime::DAYOFMONTH(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -188,12 +188,12 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerTIME
+     *
+     * @param mixed $expectedResult
      */
-    public function testTIME()
+    public function testTIME($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([DateTime::class, 'TIME'], $args);
+        $result = DateTime::TIME(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -225,12 +225,12 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerTIMEVALUE
+     *
+     * @param mixed $expectedResult
      */
-    public function testTIMEVALUE()
+    public function testTIMEVALUE($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([DateTime::class, 'TIMEVALUE'], $args);
+        $result = DateTime::TIMEVALUE(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -262,12 +262,12 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerHOUR
+     *
+     * @param mixed $expectedResult
      */
-    public function testHOUR()
+    public function testHOUR($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([DateTime::class, 'HOUROFDAY'], $args);
+        $result = DateTime::HOUROFDAY(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -278,12 +278,12 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerMINUTE
+     *
+     * @param mixed $expectedResult
      */
-    public function testMINUTE()
+    public function testMINUTE($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([DateTime::class, 'MINUTE'], $args);
+        $result = DateTime::MINUTE(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -294,12 +294,12 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerSECOND
+     *
+     * @param mixed $expectedResult
      */
-    public function testSECOND()
+    public function testSECOND($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([DateTime::class, 'SECOND'], $args);
+        $result = DateTime::SECOND(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -310,12 +310,12 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerNETWORKDAYS
+     *
+     * @param mixed $expectedResult
      */
-    public function testNETWORKDAYS()
+    public function testNETWORKDAYS($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([DateTime::class, 'NETWORKDAYS'], $args);
+        $result = DateTime::NETWORKDAYS(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -326,12 +326,12 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerWORKDAY
+     *
+     * @param mixed $expectedResult
      */
-    public function testWORKDAY()
+    public function testWORKDAY($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([DateTime::class, 'WORKDAY'], $args);
+        $result = DateTime::WORKDAY(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -342,12 +342,12 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerEDATE
+     *
+     * @param mixed $expectedResult
      */
-    public function testEDATE()
+    public function testEDATE($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([DateTime::class, 'EDATE'], $args);
+        $result = DateTime::EDATE(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -379,12 +379,12 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerEOMONTH
+     *
+     * @param mixed $expectedResult
      */
-    public function testEOMONTH()
+    public function testEOMONTH($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([DateTime::class, 'EOMONTH'], $args);
+        $result = DateTime::EOMONTH(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -416,12 +416,12 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerDATEDIF
+     *
+     * @param mixed $expectedResult
      */
-    public function testDATEDIF()
+    public function testDATEDIF($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([DateTime::class, 'DATEDIF'], $args);
+        $result = DateTime::DATEDIF(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -432,12 +432,12 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerDAYS360
+     *
+     * @param mixed $expectedResult
      */
-    public function testDAYS360()
+    public function testDAYS360($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([DateTime::class, 'DAYS360'], $args);
+        $result = DateTime::DAYS360(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -448,12 +448,12 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerYEARFRAC
+     *
+     * @param mixed $expectedResult
      */
-    public function testYEARFRAC()
+    public function testYEARFRAC($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([DateTime::class, 'YEARFRAC'], $args);
+        $result = DateTime::YEARFRAC(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 

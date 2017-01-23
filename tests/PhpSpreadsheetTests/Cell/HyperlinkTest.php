@@ -6,14 +6,6 @@ use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
 
 class HyperlinkTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
-    {
-        if (!defined('PHPSPREADSHEET_ROOT')) {
-            define('PHPSPREADSHEET_ROOT', APPLICATION_PATH . '/');
-        }
-        require_once PHPSPREADSHEET_ROOT . '/Bootstrap.php';
-    }
-
     public function testGetUrl()
     {
         $urlValue = 'http://www.phpexcel.net';

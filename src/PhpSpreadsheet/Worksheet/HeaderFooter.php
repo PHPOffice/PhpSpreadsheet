@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not,241 write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -191,9 +191,9 @@ class HeaderFooter
     /**
      * Set OddHeader.
      *
-     * @param   string $pValue
+     * @param string $pValue
      *
-     * @return  HeaderFooter
+     * @return HeaderFooter
      */
     public function setOddHeader($pValue)
     {
@@ -215,9 +215,9 @@ class HeaderFooter
     /**
      * Set OddFooter.
      *
-     * @param   string  $pValue
+     * @param string $pValue
      *
-     * @return  HeaderFooter
+     * @return HeaderFooter
      */
     public function setOddFooter($pValue)
     {
@@ -239,9 +239,9 @@ class HeaderFooter
     /**
      * Set EvenHeader.
      *
-     * @param   string   $pValue
+     * @param string $pValue
      *
-     * @return  HeaderFooter
+     * @return HeaderFooter
      */
     public function setEvenHeader($pValue)
     {
@@ -263,9 +263,9 @@ class HeaderFooter
     /**
      * Set EvenFooter.
      *
-     * @param   string   $pValue
+     * @param string $pValue
      *
-     * @return  HeaderFooter
+     * @return HeaderFooter
      */
     public function setEvenFooter($pValue)
     {
@@ -287,9 +287,9 @@ class HeaderFooter
     /**
      * Set FirstHeader.
      *
-     * @param   string   $pValue
+     * @param string $pValue
      *
-     * @return  HeaderFooter
+     * @return HeaderFooter
      */
     public function setFirstHeader($pValue)
     {
@@ -421,12 +421,12 @@ class HeaderFooter
     /**
      * Add header/footer image.
      *
-     * @param   HeaderFooterDrawing $image
-     * @param   string $location
+     * @param HeaderFooterDrawing $image
+     * @param string $location
      *
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     * @return  HeaderFooter
+     * @return HeaderFooter
      */
     public function addImage(HeaderFooterDrawing $image = null, $location = self::IMAGE_HEADER_LEFT)
     {
@@ -456,7 +456,7 @@ class HeaderFooter
     /**
      * Set header/footer images.
      *
-     * @param  HeaderFooterDrawing[] $images
+     * @param HeaderFooterDrawing[] $images
      *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      *

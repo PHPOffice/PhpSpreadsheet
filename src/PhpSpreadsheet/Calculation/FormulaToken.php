@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -99,9 +99,9 @@ class FormulaToken
     /**
      * Create a new FormulaToken.
      *
-     * @param string    $pValue
-     * @param string    $pTokenType     Token type (represented by TOKEN_TYPE_*)
-     * @param string    $pTokenSubType     Token Subtype (represented by TOKEN_SUBTYPE_*)
+     * @param string $pValue
+     * @param string $pTokenType Token type (represented by TOKEN_TYPE_*)
+     * @param string $pTokenSubType Token Subtype (represented by TOKEN_SUBTYPE_*)
      */
     public function __construct($pValue, $pTokenType = self::TOKEN_TYPE_UNKNOWN, $pTokenSubType = self::TOKEN_SUBTYPE_NOTHING)
     {
@@ -124,7 +124,7 @@ class FormulaToken
     /**
      * Set Value.
      *
-     * @param string    $value
+     * @param string $value
      */
     public function setValue($value)
     {
@@ -144,7 +144,7 @@ class FormulaToken
     /**
      * Set Token Type.
      *
-     * @param string    $value
+     * @param string $value
      */
     public function setTokenType($value = self::TOKEN_TYPE_UNKNOWN)
     {
@@ -164,7 +164,7 @@ class FormulaToken
     /**
      * Set Token SubType.
      *
-     * @param string    $value
+     * @param string $value
      */
     public function setTokenSubType($value = self::TOKEN_SUBTYPE_NOTHING)
     {

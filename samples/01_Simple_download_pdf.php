@@ -14,10 +14,6 @@ if ($helper->isCli()) {
 //$rendererName = \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_TCPDF;
 $rendererName = \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_MPDF;
 //$rendererName = \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_DOMPDF;
-//$rendererLibrary = 'tcPDF5.9';
-$rendererLibrary = 'mPDF5.4';
-//$rendererLibrary = 'domPDF0.6.0beta3';
-$rendererLibraryPath = __DIR__ . '/../../../libraries/PDF/' . $rendererLibrary;
 
 // Create new Spreadsheet object
 $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
@@ -50,11 +46,7 @@ $spreadsheet->getActiveSheet()->setShowGridLines(false);
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
 $spreadsheet->setActiveSheetIndex(0);
 
-if (!\PhpOffice\PhpSpreadsheet\Settings::setPdfRenderer($rendererName, $rendererLibraryPath)) {
-    $helper->log('NOTICE: Please set the $rendererName and $rendererLibraryPath values at the top of this script as appropriate for your directory structure');
-
-    return;
-}
+\PhpOffice\PhpSpreadsheet\Settings::setPdfRendererName($rendererName);
 
 // Redirect output to a client’s web browser (PDF)
 header('Content-Type: application/pdf');

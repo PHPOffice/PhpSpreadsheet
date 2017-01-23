@@ -5,10 +5,13 @@ namespace PhpOffice\PhpSpreadsheet\Helper;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
+/**
+ * Helper class to be used in sample code.
+ */
 class Sample
 {
     /**
-     * Returns wether we run on CLI or browser.
+     * Returns whether we run on CLI or browser.
      *
      * @return bool
      */
@@ -28,7 +31,7 @@ class Sample
     }
 
     /**
-     * Wether we are executing the index page.
+     * Whether we are executing the index page.
      *
      * @return bool
      */
@@ -82,24 +85,20 @@ class Sample
      *
      * @param Spreadsheet $spreadsheet
      * @param string $filename
-     * @param array $writers
+     * @param string[] $writers
      */
-    public function write(Spreadsheet $spreadsheet, $filename, array $writers = ['Xlsx' => 'xlsx', 'Xls' => 'xls'])
+    public function write(Spreadsheet $spreadsheet, $filename, array $writers = ['Xlsx', 'Xls'])
     {
         // Set active sheet index to the first sheet, so Excel opens this as the first sheet
         $spreadsheet->setActiveSheetIndex(0);
 
         // Write documents
-        foreach ($writers as $format => $extension) {
-            $path = $this->getFilename($filename, $extension);
-            if (!is_null($extension)) {
-                $writer = IOFactory::createWriter($spreadsheet, $format);
-                $callStartTime = microtime(true);
-                $writer->save($path);
-                $this->logWrite($writer, $path, $callStartTime);
-            } else {
-                throw new \Exception('Missing extension');
-            }
+        foreach ($writers as $writerType) {
+            $path = $this->getFilename($filename, mb_strtolower($writerType));
+            $writer = IOFactory::createWriter($spreadsheet, $writerType);
+            $callStartTime = microtime(true);
+            $writer->save($path);
+            $this->logWrite($writer, $path, $callStartTime);
         }
 
         $this->logEndingNotes();

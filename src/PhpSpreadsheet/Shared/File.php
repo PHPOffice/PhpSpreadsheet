@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -30,7 +30,7 @@ class File
      * Use Temp or File Upload Temp for temporary files
      *
      * @protected
-     * @var    boolean
+     * @var boolean
      */
 
     protected static $useUploadTempDirectory = false;
@@ -38,7 +38,7 @@ class File
     /**
      * Set the flag indicating whether the File Upload Temp directory should be used for temporary files.
      *
-     * @param     bool    $useUploadTempDir        Use File Upload Temporary directory (true or false)
+     * @param bool $useUploadTempDir Use File Upload Temporary directory (true or false)
      */
     public static function setUseUploadTempDirectory($useUploadTempDir = false)
     {
@@ -48,7 +48,7 @@ class File
     /**
      * Get the flag indicating whether the File Upload Temp directory should be used for temporary files.
      *
-     * @return     bool    Use File Upload Temporary directory (true or false)
+     * @return bool Use File Upload Temporary directory (true or false)
      */
     public static function getUseUploadTempDirectory()
     {
@@ -58,7 +58,7 @@ class File
     /**
      * Verify if a file exists.
      *
-     * @param     string    $pFilename    Filename
+     * @param string $pFilename Filename
      *
      * @return bool
      */

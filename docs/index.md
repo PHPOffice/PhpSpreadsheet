@@ -12,7 +12,7 @@ spreadsheet file formats, like Excel and LibreOffice Calc.
 
 The following software is required to develop using PhpSpreadsheet:
 
--   PHP version 5.5 or newer
+-   PHP version 5.6 or newer
 -   PHP extension php\_zip enabled (see
     [FAQ](./faq.md#php-complains-about-ziparchive-not-being-found))
 -   PHP extension php\_xml enabled
@@ -75,39 +75,11 @@ using PhpSpreadsheet.
 
 ![01-schematic.png](./images/01-schematic.png "Basic Architecture Schematic")
 
-## Lazy Loader
+## AutoLoader
 
-PhpSpreadsheet implements an autoloader or "lazy loader", which means
-that it is not necessary to include every file within PhpSpreadsheet. It
-is only necessary to include the initial PhpSpreadsheet class file, then
-the autoloader will include other class files as and when required, so
-only those files that are actually required by your script will be
-loaded into PHP memory. The main benefit of this is that it reduces the
-memory footprint of PhpSpreadsheet itself, so that it uses less PHP
-memory.
-
-If your own scripts already define an autoload function, then this may
-be overwritten by the PhpSpreadsheet autoload function. For example, if
-you have:
-
-``` php
-function __autoload($class) {
-    ...
-}
-```
-
-Do this instead:
-
-``` php
-function myAutoload($class) {
-    ...
-}
-
-spl_autoload_register('myAutoload');
-```
-
-Your autoloader will then co-exist with the autoloader of
-PhpSpreadsheet.
+PhpSpreadsheet relies on Composer autoloader. So before working with
+PhpSpreadsheet in standalone, be sure to run `composer install`. Or add it to a
+pre-existing project with `composer require phpoffice/phpspreadsheet`.
 
 ## Spreadsheet in memory
 
@@ -1115,14 +1087,14 @@ versions of Microsoft Excel.
 has some limits regarding to styling cells and handling large
 spreadsheets via PHP.
 
-### \PhpOffice\PhpSpreadsheet\Reader\Excel2003XML
+### \PhpOffice\PhpSpreadsheet\Reader\Xml
 
 #### Reading a spreadsheet
 
 You can read an Excel 2003 .xml file using the following code:
 
 ``` php
-$reader = new \PhpOffice\PhpSpreadsheet\Reader\Excel2003XML();
+$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xml();
 $spreadsheet = $reader->load("05featuredemo.xml");
 ```
 
@@ -1150,7 +1122,7 @@ class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
 
 }
 
-$reader = new \PhpOffice\PhpSpreadsheet\Reader\Excel2003XML();
+$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xml();
 $reader->setReadFilter( new MyReadFilter() );
 $spreadsheet = $reader->load("06largescale.xml");
 ```
@@ -1166,14 +1138,14 @@ applications, such as databases.
 **SYLK limitations** Please note that SYLK file format has some limits
 regarding to styling cells and handling large spreadsheets via PHP.
 
-### \PhpOffice\PhpSpreadsheet\Reader\SYLK
+### \PhpOffice\PhpSpreadsheet\Reader\Slk
 
 #### Reading a spreadsheet
 
 You can read an .slk file using the following code:
 
 ``` php
-$reader = new \PhpOffice\PhpSpreadsheet\Reader\SYLK();
+$reader = new \PhpOffice\PhpSpreadsheet\Reader\Slk();
 $spreadsheet = $reader->load("05featuredemo.slk");
 ```
 
@@ -1201,7 +1173,7 @@ class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
 
 }
 
-$reader = new \PhpOffice\PhpSpreadsheet\Reader\SYLK();
+$reader = new \PhpOffice\PhpSpreadsheet\Reader\Slk();
 $reader->setReadFilter( new MyReadFilter() );
 $spreadsheet = $reader->load("06largescale.slk");
 ```
@@ -1260,14 +1232,14 @@ CSV files.
 **CSV limitations** Please note that CSV file format has some limits
 regarding to styling cells, number formatting, ...
 
-### \PhpOffice\PhpSpreadsheet\Reader\CSV
+### \PhpOffice\PhpSpreadsheet\Reader\Csv
 
 #### Reading a CSV file
 
 You can read a .csv file using the following code:
 
 ``` php
-$reader = new \PhpOffice\PhpSpreadsheet\Reader\CSV();
+$reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
 $spreadsheet = $reader->load("sample.csv");
 ```
 
@@ -1275,17 +1247,17 @@ $spreadsheet = $reader->load("sample.csv");
 
 Often, CSV files are not really “comma separated”, or use semicolon (;)
 as a separator. You can instruct
-\PhpOffice\PhpSpreadsheet\Reader\CSV some options before reading a CSV
+\PhpOffice\PhpSpreadsheet\Reader\Csv some options before reading a CSV
 file.
 
-Note that \PhpOffice\PhpSpreadsheet\Reader\CSV by default assumes that
+Note that \PhpOffice\PhpSpreadsheet\Reader\Csv by default assumes that
 the loaded CSV file is UTF-8 encoded. If you are reading CSV files that
 were created in Microsoft Office Excel the correct input encoding may
 rather be Windows-1252 (CP1252). Always make sure that the input
 encoding is set appropriately.
 
 ``` php
-$reader = new \PhpOffice\PhpSpreadsheet\Reader\CSV();
+$reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
 $reader->setInputEncoding('CP1252');
 $reader->setDelimiter(';');
 $reader->setEnclosure('');
@@ -1312,7 +1284,7 @@ CSV file into an existing \$spreadsheet containing some sheets, and
 imports onto the 6th sheet:
 
 ``` php
-$reader = new \PhpOffice\PhpSpreadsheet\Reader\CSV();
+$reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
 $reader->setDelimiter(';');
 $reader->setEnclosure('');
 $reader->setLineEnding("\r\n");
@@ -1321,14 +1293,14 @@ $reader->setSheetIndex(5);
 $reader->loadIntoExisting("05featuredemo.csv", $spreadsheet);
 ```
 
-### \PhpOffice\PhpSpreadsheet\Writer\CSV
+### \PhpOffice\PhpSpreadsheet\Writer\Csv
 
 #### Writing a CSV file
 
 You can write a .csv file using the following code:
 
 ``` php
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\CSV($spreadsheet);
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
 $writer->save("05featuredemo.csv");
 ```
 
@@ -1336,11 +1308,11 @@ $writer->save("05featuredemo.csv");
 
 Often, CSV files are not really “comma separated”, or use semicolon (;)
 as a separator. You can instruct
-\PhpOffice\PhpSpreadsheet\Writer\CSV some options before writing a CSV
+\PhpOffice\PhpSpreadsheet\Writer\Csv some options before writing a CSV
 file:
 
 ``` php
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\CSV($spreadsheet);
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
 $writer->setDelimiter(';');
 $writer->setEnclosure('');
 $writer->setLineEnding("\r\n");
@@ -1365,7 +1337,7 @@ This can be slow on large spreadsheets, and maybe even unwanted. You can
 however disable formula pre-calculation:
 
 ``` php
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\CSV($spreadsheet);
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
 $writer->setPreCalculateFormulas(false);
 $writer->save("05featuredemo.csv");
 ```
@@ -1376,7 +1348,7 @@ A CSV file can be marked as UTF-8 by writing a BOM file header. This can
 be enabled by using the following code:
 
 ``` php
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\CSV($spreadsheet);
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
 $writer->setUseBOM(true);
 $writer->save("05featuredemo.csv");
 ```
@@ -1419,14 +1391,14 @@ extension.
 **HTML limitations** Please note that HTML file format has some limits
 regarding to styling cells, number formatting, ...
 
-### \PhpOffice\PhpSpreadsheet\Reader\HTML
+### \PhpOffice\PhpSpreadsheet\Reader\Html
 
 #### Reading a spreadsheet
 
 You can read an .html or .htm file using the following code:
 
 ``` php
-$reader = new \PhpOffice\PhpSpreadsheet\Reader\HTML();
+$reader = new \PhpOffice\PhpSpreadsheet\Reader\Html();
 
 $spreadsheet = $reader->load("05featuredemo.html");
 ```
@@ -1434,9 +1406,9 @@ $spreadsheet = $reader->load("05featuredemo.html");
 **HTML limitations** Please note that HTML reader is still experimental
 and does not yet support merged cells or nested tables cleanly
 
-### \PhpOffice\PhpSpreadsheet\Writer\HTML
+### \PhpOffice\PhpSpreadsheet\Writer\Html
 
-Please note that \PhpOffice\PhpSpreadsheet\Writer\HTML only outputs the
+Please note that \PhpOffice\PhpSpreadsheet\Writer\Html only outputs the
 first worksheet by default.
 
 #### Writing a spreadsheet
@@ -1444,7 +1416,7 @@ first worksheet by default.
 You can write a .htm file using the following code:
 
 ``` php
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\HTML($spreadsheet);
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Html($spreadsheet);
 
 $writer->save("05featuredemo.htm");
 ```
@@ -1495,7 +1467,7 @@ This can be slow on large spreadsheets, and maybe even unwanted. You can
 however disable formula pre-calculation:
 
 ``` php
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\HTML($spreadsheet);
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Html($spreadsheet);
 $writer->setPreCalculateFormulas(false);
 
 $writer->save("05featuredemo.htm");
@@ -1504,7 +1476,7 @@ $writer->save("05featuredemo.htm");
 #### Embedding generated HTML in a web page
 
 There might be a situation where you want to embed the generated HTML in
-an existing website. \PhpOffice\PhpSpreadsheet\Writer\HTML provides
+an existing website. \PhpOffice\PhpSpreadsheet\Writer\Html provides
 support to generate only specific parts of the HTML code, which allows
 you to use these parts in your website.
 
@@ -1520,7 +1492,7 @@ them into a resulting HTML page:
 
 ``` php
 <?php
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\HTML($spreadsheet);
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Html($spreadsheet);
 echo $writer->generateHTMLHeader();
 ?>
 
@@ -1551,7 +1523,7 @@ A HTML file can be marked as UTF-8 by writing a BOM file header. This
 can be enabled by using the following code:
 
 ``` php
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\HTML($spreadsheet);
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Html($spreadsheet);
 $writer->setUseBOM(true);
 
 $writer->save("05featuredemo.htm");
@@ -1559,7 +1531,7 @@ $writer->save("05featuredemo.htm");
 
 #### Decimal and thousands separators
 
-See section \PhpOffice\PhpSpreadsheet\Writer\CSV how to control the
+See section \PhpOffice\PhpSpreadsheet\Writer\Csv how to control the
 appearance of these.
 
 ## PDF
@@ -1570,20 +1542,20 @@ fast distribution of represented data.
 **PDF limitations** Please note that PDF file format has some limits
 regarding to styling cells, number formatting, ...
 
-### \PhpOffice\PhpSpreadsheet\Writer\PDF
+### \PhpOffice\PhpSpreadsheet\Writer\Pdf
 
 PhpSpreadsheet’s PDF Writer is a wrapper for a 3rd-Party PDF Rendering
 library such as tcPDF, mPDF or DomPDF. You must now install a PDF
-Rendering library yourself; but PhpSpreadsheet will work with a number
+rendering library yourself; but PhpSpreadsheet will work with a number
 of different libraries.
 
 Currently, the following libraries are supported:
 
-Library | Version used for testing | Downloadable from                | PhpSpreadsheet Internal Constant
---------|--------------------------|----------------------------------|----------------------------
-tcPDF   | 5.9                      | http://www.tcpdf.org/            | PDF_RENDERER_TCPDF
-mPDF    | 5.4                      | http://www.mpdf1.com/mpdf/       | PDF_RENDERER_MPDF
-domPDF  | 0.6.0 beta 3             | http://code.google.com/p/dompdf/ | PDF_RENDERER_DOMPDF
+Library | Downloadable from                   | PhpSpreadsheet Internal Constant
+--------|-------------------------------------|---------------------------------
+tcPDF   | https://github.com/tecnickcom/tcpdf | PDF_RENDERER_TCPDF
+mPDF    | https://github.com/mpdf/mpdf        | PDF_RENDERER_MPDF
+domPDF  | https://github.com/dompdf/dompdf    | PDF_RENDERER_DOMPDF
 
 The different libraries have different strengths and weaknesses. Some
 generate better formatted output than others, some are faster or use
@@ -1592,23 +1564,11 @@ the developers choice which one they wish to use, appropriate to their
 own circumstances.
 
 Before instantiating a Writer to generate PDF output, you will need to
-indicate which Rendering library you are using, and where it is located.
+indicate which Rendering library you are using.
 
 ``` php
 $rendererName = \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_MPDF;
-$rendererLibrary = 'mPDF5.4';
-$rendererLibraryPath = dirname(__FILE__).'/../../../libraries/PDF/' . $rendererLibrary;
-
-if (!\PhpOffice\PhpSpreadsheet\Settings::setPdfRenderer(
-    $rendererName,
-    $rendererLibraryPath
-    )) {
-    die(
-        'Please set the $rendererName and $rendererLibraryPath values' .
-        PHP_EOL .
-        ' as appropriate for your directory structure'
-    );
-}
+\PhpOffice\PhpSpreadsheet\Settings::setPdfRendererName($rendererName);
 ```
 
 #### Writing a spreadsheet
@@ -1617,11 +1577,11 @@ Once you have identified the Renderer that you wish to use for PDF
 generation, you can write a .pdf file using the following code:
 
 ``` php
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\PDF($spreadsheet);
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf($spreadsheet);
 $writer->save("05featuredemo.pdf");
 ```
 
-Please note that \PhpOffice\PhpSpreadsheet\Writer\PDF only outputs the
+Please note that \PhpOffice\PhpSpreadsheet\Writer\Pdf only outputs the
 first worksheet by default.
 
 #### Write all worksheets
@@ -1649,7 +1609,7 @@ This can be slow on large spreadsheets, and maybe even unwanted. You can
 however disable formula pre-calculation:
 
 ``` php
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\PDF($spreadsheet);
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf($spreadsheet);
 $writer->setPreCalculateFormulas(false);
 
 $writer->save("05featuredemo.pdf");
@@ -1657,7 +1617,7 @@ $writer->save("05featuredemo.pdf");
 
 #### Decimal and thousands separators
 
-See section \PhpOffice\PhpSpreadsheet\Writer\CSV how to control the
+See section \PhpOffice\PhpSpreadsheet\Writer\Csv how to control the
 appearance of these.
 
 ## Generating Excel files from templates (read, modify, write)

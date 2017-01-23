@@ -27,46 +27,46 @@ class LUDecomposition
     const MATRIX_SQUARE_EXCEPTION = 'Mismatched Row dimension';
 
     /**
-     *    Decomposition storage.
+     * Decomposition storage.
      *
-     *    @var array
+     * @var array
      */
     private $LU = [];
 
     /**
-     *    Row dimension.
+     * Row dimension.
      *
-     *    @var int
+     * @var int
      */
     private $m;
 
     /**
-     *    Column dimension.
+     * Column dimension.
      *
-     *    @var int
+     * @var int
      */
     private $n;
 
     /**
-     *    Pivot sign.
+     * Pivot sign.
      *
-     *    @var int
+     * @var int
      */
     private $pivsign;
 
     /**
-     *    Internal storage of pivot vector.
+     * Internal storage of pivot vector.
      *
-     *    @var array
+     * @var array
      */
     private $piv = [];
 
     /**
-     *    LU Decomposition constructor.
+     * LU Decomposition constructor.
      *
-     *    @param Matrix $A Rectangular matrix
+     * @param Matrix $A Rectangular matrix
      *
-     *    @return Structure to access L, U and piv
+     * @return Structure to access L, U and piv
      */
     public function __construct($A)
     {
@@ -131,9 +131,9 @@ class LUDecomposition
     //    function __construct()
 
     /**
-     *    Get lower triangular factor.
+     * Get lower triangular factor.
      *
-     *    @return Matrix Lower triangular factor
+     * @return Matrix Lower triangular factor
      */
     public function getL()
     {
@@ -155,9 +155,9 @@ class LUDecomposition
     //    function getL()
 
     /**
-     *    Get upper triangular factor.
+     * Get upper triangular factor.
      *
-     *    @return Matrix Upper triangular factor
+     * @return Matrix Upper triangular factor
      */
     public function getU()
     {
@@ -177,9 +177,9 @@ class LUDecomposition
     //    function getU()
 
     /**
-     *    Return pivot permutation vector.
+     * Return pivot permutation vector.
      *
-     *    @return array Pivot vector
+     * @return array Pivot vector
      */
     public function getPivot()
     {
@@ -189,7 +189,7 @@ class LUDecomposition
     //    function getPivot()
 
     /**
-     *    Alias for getPivot.
+     * Alias for getPivot.
      *
      *    @see getPivot
      */
@@ -203,7 +203,7 @@ class LUDecomposition
     /**
      *    Is the matrix nonsingular?
      *
-     *    @return bool true if U, and hence A, is nonsingular
+     * @return bool true if U, and hence A, is nonsingular
      */
     public function isNonsingular()
     {
@@ -219,9 +219,9 @@ class LUDecomposition
     //    function isNonsingular()
 
     /**
-     *    Count determinants.
+     * Count determinants.
      *
-     *    @return array d matrix deterninat
+     * @return array d matrix deterninat
      */
     public function det()
     {
@@ -239,14 +239,14 @@ class LUDecomposition
     //    function det()
 
     /**
-     *    Solve A*X = B.
+     * Solve A*X = B.
      *
-     *    @param  $B  a Matrix with as many rows as A and any number of columns
+     * @param $B a Matrix with as many rows as A and any number of columns
      *
-     *    @throws \PhpOffice\PhpSpreadsheet\Calculation\Exception  illegalArgumentException Matrix row dimensions must agree
-     *    @throws \PhpOffice\PhpSpreadsheet\Calculation\Exception  runtimeException  Matrix is singular
+     * @throws \PhpOffice\PhpSpreadsheet\Calculation\Exception illegalArgumentException Matrix row dimensions must agree
+     * @throws \PhpOffice\PhpSpreadsheet\Calculation\Exception runtimeException  Matrix is singular
      *
-     *    @return  X so that L*U*X = B(piv,:)
+     * @return X so that L*U*X = B(piv,:)
      */
     public function solve($B)
     {

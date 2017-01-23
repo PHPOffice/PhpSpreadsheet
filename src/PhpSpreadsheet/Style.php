@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -201,10 +201,10 @@ class Style extends Style\Supervisor implements IComparable
      * );
      * </code>
      *
-     * @param   array    $pStyles    Array containing style information
-     * @param   bool        $pAdvanced    advanced mode for setting borders
+     * @param array $pStyles Array containing style information
+     * @param bool $pAdvanced advanced mode for setting borders
      *
-     * @throws  Exception
+     * @throws Exception
      *
      * @return Style
      */

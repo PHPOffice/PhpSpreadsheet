@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
-use PhpOffice\PhpSpreadsheet\Reader\HTML;
+use PhpOffice\PhpSpreadsheet\Reader\Html;
 
 class HTMLTest extends \PHPUnit_Framework_TestCase
 {

@@ -15,10 +15,6 @@ class RuleTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->mockAutoFilterColumnObject->expects($this->any())
-            ->method('testColumnInRange')
-            ->will($this->returnValue(3));
-
         $this->testAutoFilterRuleObject = new Column\Rule(
             $this->mockAutoFilterColumnObject
         );

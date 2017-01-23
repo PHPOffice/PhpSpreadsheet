@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\CachedObjectStorage;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -36,12 +36,12 @@ class Memory extends CacheBase implements ICache
     /**
      * Add or Update a cell in cache identified by coordinate address.
      *
-     * @param   string            $pCoord        Coordinate address of the cell to update
-     * @param   \PhpOffice\PhpSpreadsheet\Cell    $cell        Cell to update
+     * @param string $pCoord Coordinate address of the cell to update
+     * @param \PhpOffice\PhpSpreadsheet\Cell $cell Cell to update
      *
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     * @return  \PhpOffice\PhpSpreadsheet\Cell
+     * @return \PhpOffice\PhpSpreadsheet\Cell
      */
     public function addCacheData($pCoord, \PhpOffice\PhpSpreadsheet\Cell $cell)
     {
@@ -56,11 +56,11 @@ class Memory extends CacheBase implements ICache
     /**
      * Get cell at a specific coordinate.
      *
-     * @param   string             $pCoord        Coordinate of the cell
+     * @param string $pCoord Coordinate of the cell
      *
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     * @return  \PhpOffice\PhpSpreadsheet\Cell     Cell that was found, or null if not found
+     * @return \PhpOffice\PhpSpreadsheet\Cell Cell that was found, or null if not found
      */
     public function getCacheData($pCoord)
     {
@@ -81,7 +81,7 @@ class Memory extends CacheBase implements ICache
     /**
      * Clone the cell collection.
      *
-     * @param  \PhpOffice\PhpSpreadsheet\Worksheet    $parent        The new worksheet that we're copying to
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $parent The new worksheet that we're copying to
      */
     public function copyCellCollection(\PhpOffice\PhpSpreadsheet\Worksheet $parent)
     {

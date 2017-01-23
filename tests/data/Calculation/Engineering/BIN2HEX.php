@@ -2,49 +2,49 @@
 
 return [
     [
-        '10110010',
         'B2',
+        '10110010',
     ],
     // Too large
     [
-        '111001010101',
         '#NUM!',
+        '111001010101',
     ],
     // Leading places
     [
+        '00FB',
         '11111011',
         4,
-        '00FB',
     ],
     // Leading places as a float
     [
+        '0FB',
         '11111011',
         3.75,
-        '0FB',
     ],
     // Leading places negative
     [
+        '#NUM!',
         '11111011',
         -1,
-        '#NUM!',
     ],
     // Leading places non-numeric
     [
+        '#VALUE!',
         '11111011',
         'ABC',
-        '#VALUE!',
     ],
     [
-        '1110',
         'E',
+        '1110',
     ],
     [
-        '101',
         '5',
+        '101',
     ],
     [
-        '10',
         '2',
+        '10',
     ],
     [
         '0',
@@ -52,22 +52,22 @@ return [
     ],
     // Invalid binary number
     [
-        '21',
         '#NUM!',
+        '21',
     ],
     // Non string
     [
-        true,
         '#VALUE!',
+        true,
     ],
     // 2's Complement
     [
-        '1110010101',
         'FFFFFFFF95',
+        '1110010101',
     ],
     // 2's Complement
     [
-        '1111111111',
         'FFFFFFFFFF',
+        '1111111111',
     ],
 ];

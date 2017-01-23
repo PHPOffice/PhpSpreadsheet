@@ -14,12 +14,12 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -133,9 +133,9 @@ class Theme extends WriterPart
      *
      * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
      *
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
-     * @return string  XML Output
+     * @return string XML Output
      */
     public function writeTheme(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
     {
@@ -815,13 +815,13 @@ class Theme extends WriterPart
     /**
      * Write fonts to XML format.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter    $objWriter
-     * @param     string                        $latinFont
-     * @param     array of string                $fontSet
+     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter
+     * @param string $latinFont
+     * @param array of string                $fontSet
      *
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
-     * @return string                  XML Output
+     * @return string XML Output
      */
     private function writeFonts($objWriter, $latinFont, $fontSet)
     {
@@ -851,11 +851,11 @@ class Theme extends WriterPart
     /**
      * Write colour scheme to XML format.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter    $objWriter
+     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter
      *
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
-     * @return string                  XML Output
+     * @return string XML Output
      */
     private function writeColourScheme($objWriter)
     {

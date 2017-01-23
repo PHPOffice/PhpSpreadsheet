@@ -38,9 +38,9 @@ class CalculationTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider providerGetFunctions
      *
-     * @param mixed $category
-     * @param mixed $functionCall
-     * @param mixed $argumentCount
+     * @param string $category
+     * @param array|string $functionCall
+     * @param string $argumentCount
      */
     public function testGetFunctions($category, $functionCall, $argumentCount)
     {
@@ -59,5 +59,40 @@ class CalculationTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($calculation->isImplemented('AREAS'));
         $this->assertTrue($calculation->isImplemented('coUNt'));
         $this->assertTrue($calculation->isImplemented('abs'));
+    }
+
+    /**
+     * @dataProvider providerCanLoadAllSupportedLocales
+     *
+     * @param string $locale
+     */
+    public function testCanLoadAllSupportedLocales($locale)
+    {
+        $calculation = Calculation::getInstance();
+        $this->assertTrue($calculation->setLocale($locale));
+    }
+
+    public function providerCanLoadAllSupportedLocales()
+    {
+        return [
+            ['bg'],
+            ['cs'],
+            ['da'],
+            ['de'],
+            ['en_us'],
+            ['es'],
+            ['fi'],
+            ['fr'],
+            ['hu'],
+            ['it'],
+            ['nl'],
+            ['no'],
+            ['pl'],
+            ['pt'],
+            ['pt_br'],
+            ['ru'],
+            ['sv'],
+            ['tr'],
+        ];
     }
 }

@@ -36,7 +36,7 @@ class Logical
      *
      * @category Logical Functions
      *
-     * @return    bool        True
+     * @return bool True
      */
     public static function true()
     {
@@ -53,7 +53,7 @@ class Logical
      *
      * @category Logical Functions
      *
-     * @return    bool        False
+     * @return bool False
      */
     public static function false()
     {
@@ -78,17 +78,17 @@ class Logical
      *
      * @category Logical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $args Data values
      *
-     * @return    string|bool        the logical AND of the arguments
+     * @return string|bool the logical AND of the arguments
      */
-    public static function logicalAnd()
+    public static function logicalAnd(...$args)
     {
         // Return value
         $returnValue = true;
 
         // Loop through the arguments
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
         $argCount = -1;
         foreach ($aArgs as $argCount => $arg) {
             // Is it a boolean value?
@@ -135,17 +135,17 @@ class Logical
      *
      * @category Logical Functions
      *
-     * @param    mixed        $arg,...        Data values
+     * @param mixed $args Data values
      *
-     * @return    string|bool        the logical OR of the arguments
+     * @return string|bool the logical OR of the arguments
      */
-    public static function logicalOr()
+    public static function logicalOr(...$args)
     {
         // Return value
         $returnValue = false;
 
         // Loop through the arguments
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
         $argCount = -1;
         foreach ($aArgs as $argCount => $arg) {
             // Is it a boolean value?
@@ -191,9 +191,9 @@ class Logical
      *
      * @category Logical Functions
      *
-     * @param    mixed        $logical    A value or expression that can be evaluated to TRUE or FALSE
+     * @param mixed $logical A value or expression that can be evaluated to TRUE or FALSE
      *
-     * @return    bool|string        the boolean inverse of the argument
+     * @return bool|string the boolean inverse of the argument
      */
     public static function NOT($logical = false)
     {
@@ -239,11 +239,11 @@ class Logical
      *
      * @category Logical Functions
      *
-     * @param    mixed    $condition        Condition to evaluate
-     * @param    mixed    $returnIfTrue    Value to return when condition is true
-     * @param    mixed    $returnIfFalse    Optional value to return when condition is false
+     * @param mixed $condition Condition to evaluate
+     * @param mixed $returnIfTrue Value to return when condition is true
+     * @param mixed $returnIfFalse Optional value to return when condition is false
      *
-     * @return    mixed    The value of returnIfTrue or returnIfFalse determined by condition
+     * @return mixed The value of returnIfTrue or returnIfFalse determined by condition
      */
     public static function statementIf($condition = true, $returnIfTrue = 0, $returnIfFalse = false)
     {
@@ -262,10 +262,10 @@ class Logical
      *
      * @category Logical Functions
      *
-     * @param    mixed    $testValue    Value to check, is also the value returned when no error
-     * @param    mixed    $errorpart    Value to return when testValue is an error condition
+     * @param mixed $testValue Value to check, is also the value returned when no error
+     * @param mixed $errorpart Value to return when testValue is an error condition
      *
-     * @return    mixed    The value of errorpart or testValue determined by error condition
+     * @return mixed The value of errorpart or testValue determined by error condition
      */
     public static function IFERROR($testValue = '', $errorpart = '')
     {

@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -30,14 +30,14 @@ abstract class BaseWriter implements IWriter
      * Write charts that are defined in the workbook?
      * Identifies whether the Writer should write definitions for any charts that exist in the PhpSpreadsheet object;.
      *
-     * @var    bool
+     * @var bool
      */
     protected $includeCharts = false;
 
     /**
      * Pre-calculate formulas
      * Forces PhpSpreadsheet to recalculate all formulae in a workbook when saving, so that the pre-calculated values are
-     *    immediately available to MS Excel or other office spreadsheet viewer when opening the file.
+     * immediately available to MS Excel or other office spreadsheet viewer when opening the file.
      *
      * @var bool
      */
@@ -62,7 +62,7 @@ abstract class BaseWriter implements IWriter
      *        If this is true, then the Writer will write definitions for any charts that exist in the PhpSpreadsheet object.
      *        If false (the default) it will ignore any charts defined in the PhpSpreadsheet object.
      *
-     * @return    bool
+     * @return bool
      */
     public function getIncludeCharts()
     {
@@ -74,9 +74,9 @@ abstract class BaseWriter implements IWriter
      *        Set to true, to advise the Writer to include any charts that exist in the PhpSpreadsheet object.
      *        Set to false (the default) to ignore charts.
      *
-     * @param    bool    $pValue
+     * @param bool $pValue
      *
-     * @return   IWriter
+     * @return IWriter
      */
     public function setIncludeCharts($pValue = false)
     {
@@ -105,9 +105,9 @@ abstract class BaseWriter implements IWriter
      *        Set to true (the default) to advise the Writer to calculate all formulae on save
      *        Set to false to prevent precalculation of formulae on save.
      *
-     * @param bool $pValue    Pre-Calculate Formulas?
+     * @param bool $pValue Pre-Calculate Formulas?
      *
-     * @return    IWriter
+     * @return IWriter
      */
     public function setPreCalculateFormulas($pValue = true)
     {
@@ -129,12 +129,12 @@ abstract class BaseWriter implements IWriter
     /**
      * Set use disk caching where possible?
      *
-     * @param    bool     $pValue
-     * @param    string        $pDirectory        Disk caching directory
+     * @param bool $pValue
+     * @param string $pDirectory Disk caching directory
      *
-     * @throws   Exception    when directory does not exist
+     * @throws Exception when directory does not exist
      *
-     * @return   IWriter
+     * @return IWriter
      */
     public function setUseDiskCaching($pValue = false, $pDirectory = null)
     {

@@ -5,60 +5,60 @@ return [
         false,
     ],
     [
+        false,
         null,
-        false,
     ],
     [
+        true,
         -1,
-        true,
     ],
     [
+        true,
         0,
-        true,
     ],
     [
+        true,
         9,
-        true,
     ],
     [
+        true,
         1.5,
-        true,
     ],
     [
+        false,
         '',
-        false,
     ],
     [
+        false,
         '-1',
-        false,
     ],
     [
+        false,
         '2',
-        false,
     ],
     [
+        false,
         '-1.5',
-        false,
     ],
     [
+        false,
         'ABC',
-        false,
     ],
     [
+        false,
         '#VALUE!',
-        false,
     ],
     [
+        false,
         '#N/A',
-        false,
     ],
     [
+        false,
         'TRUE',
-        false,
     ],
     [
-        true,
         false,
+        true,
     ],
     [
         false,

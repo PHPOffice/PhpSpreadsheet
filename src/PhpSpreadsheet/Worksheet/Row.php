@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -43,8 +43,8 @@ class Row
     /**
      * Create a new row.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet         $parent
-     * @param int                        $rowIndex
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $parent
+     * @param int $rowIndex
      */
     public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $worksheet = null, $rowIndex = 1)
     {
@@ -74,8 +74,8 @@ class Row
     /**
      * Get cell iterator.
      *
-     * @param    string                $startColumn    The column address at which to start iterating
-     * @param    string                $endColumn        Optionally, the column address at which to stop iterating
+     * @param string $startColumn The column address at which to start iterating
+     * @param string $endColumn Optionally, the column address at which to stop iterating
      *
      * @return RowCellIterator
      */

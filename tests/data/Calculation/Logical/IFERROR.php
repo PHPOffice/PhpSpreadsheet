@@ -3,42 +3,42 @@
 return [
     [
         null,
-        'Error',
         null,
+        'Error',
     ],
     [
         true,
-        'Error',
         true,
+        'Error',
     ],
     [
         42,
-        'Error',
         42,
+        'Error',
     ],
     [
         '',
-        'Error',
         '',
+        'Error',
     ],
     [
+        'ABC',
         'ABC',
         'Error',
-        'ABC',
     ],
     [
+        'Error',
         '#VALUE!',
         'Error',
-        'Error',
     ],
     [
+        'Error',
         '#NAME?',
         'Error',
-        'Error',
     ],
     [
-        '#N/A',
         'Error',
+        '#N/A',
         'Error',
     ],
 ];

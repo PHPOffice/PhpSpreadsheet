@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -52,7 +52,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 // *
 // *    This library is distributed in the hope that it will be useful,
 // *    but WITHOUT ANY WARRANTY; without even the implied warranty of
-// *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // *    Lesser General Public License for more details.
 // *
 // *    You should have received a copy of the GNU Lesser General Public
@@ -219,13 +219,13 @@ class Worksheet extends BIFFwriter
     /**
      * Constructor.
      *
-     * @param int        &$str_total        Total number of strings
-     * @param int        &$str_unique    Total number of unique strings
-     * @param array        &$str_table        String Table
-     * @param array        &$colors        Colour Table
-     * @param mixed        $parser            The formula parser created for the Workbook
-     * @param bool    $preCalculateFormulas    Flag indicating whether formulas should be calculated or just written
-     * @param string    $phpSheet        The worksheet to write
+     * @param int &$str_total Total number of strings
+     * @param int &$str_unique Total number of unique strings
+     * @param array &$str_table String Table
+     * @param array &$colors Colour Table
+     * @param mixed $parser The formula parser created for the Workbook
+     * @param bool $preCalculateFormulas Flag indicating whether formulas should be calculated or just written
+     * @param string $phpSheet The worksheet to write
      * @param \PhpOffice\PhpSpreadsheet\Worksheet $phpSheet
      */
     public function __construct(&$str_total, &$str_unique, &$str_table, &$colors, $parser, $preCalculateFormulas, $phpSheet)
@@ -621,10 +621,10 @@ class Worksheet extends BIFFwriter
      * Returns  0 : normal termination
      *         -2 : row or column out of range
      *
-     * @param int $row    Zero indexed row
-     * @param int $col    Zero indexed column
-     * @param float   $num    The number to write
-     * @param mixed   $xfIndex The optional XF format
+     * @param int $row Zero indexed row
+     * @param int $col Zero indexed column
+     * @param float $num The number to write
+     * @param mixed $xfIndex The optional XF format
      *
      * @return int
      */
@@ -665,7 +665,7 @@ class Worksheet extends BIFFwriter
      * @param int $row Row index (0-based)
      * @param int $col Column index (0-based)
      * @param string $str The string
-     * @param int   $xfIndex The XF format index for the cell
+     * @param int $xfIndex The XF format index for the cell
      * @param array $arrcRun Index to Font record and characters beginning
      */
     private function writeRichTextString($row, $col, $str, $xfIndex, $arrcRun)
@@ -693,10 +693,10 @@ class Worksheet extends BIFFwriter
      *         -2 : row or column out of range
      *         -3 : long string truncated to 255 chars.
      *
-     * @param int $row    Zero indexed row
-     * @param int $col    Zero indexed column
-     * @param string  $str    The string to write
-     * @param mixed   $xfIndex The XF format index for the cell
+     * @param int $row Zero indexed row
+     * @param int $col Zero indexed column
+     * @param string $str The string to write
+     * @param mixed $xfIndex The XF format index for the cell
      *
      * @return int
      */
@@ -730,10 +730,10 @@ class Worksheet extends BIFFwriter
      *         -2 : row or column out of range
      *         -3 : long string truncated to 255 chars.
      *
-     * @param int $row    Zero indexed row
-     * @param int $col    Zero indexed column
-     * @param string  $str    The string to write
-     * @param mixed   $xfIndex The XF format index for the cell
+     * @param int $row Zero indexed row
+     * @param int $col Zero indexed column
+     * @param string $str The string to write
+     * @param mixed $xfIndex The XF format index for the cell
      *
      * @return int
      */
@@ -759,9 +759,9 @@ class Worksheet extends BIFFwriter
      * Writes a note associated with the cell given by the row and column.
      * NOTE records don't have a length limit.
      *
-     * @param int $row    Zero indexed row
-     * @param int $col    Zero indexed column
-     * @param string  $note   The note to write
+     * @param int $row Zero indexed row
+     * @param int $col Zero indexed column
+     * @param string $note The note to write
      */
     private function writeNote($row, $col, $note)
     {
@@ -798,9 +798,9 @@ class Worksheet extends BIFFwriter
      *         -1 : insufficient number of arguments
      *         -2 : row or column out of range
      *
-     * @param int $row    Zero indexed row
-     * @param int $col    Zero indexed column
-     * @param mixed   $xfIndex The XF format index
+     * @param int $row Zero indexed row
+     * @param int $col Zero indexed column
+     * @param mixed $xfIndex The XF format index
      */
     public function writeBlank($row, $col, $xfIndex)
     {
@@ -844,11 +844,11 @@ class Worksheet extends BIFFwriter
      *         -1 : formula errors (bad formula)
      *         -2 : row or column out of range
      *
-     * @param int $row     Zero indexed row
-     * @param int $col     Zero indexed column
-     * @param string  $formula The formula text string
-     * @param mixed   $xfIndex  The XF format index
-     * @param mixed   $calculatedValue  Calculated value
+     * @param int $row Zero indexed row
+     * @param int $col Zero indexed column
+     * @param string $formula The formula text string
+     * @param mixed $xfIndex The XF format index
+     * @param mixed $calculatedValue Calculated value
      *
      * @return int
      */
@@ -960,9 +960,9 @@ class Worksheet extends BIFFwriter
      *         -2 : row or column out of range
      *         -3 : long string truncated to 255 chars
      *
-     * @param int $row    Row
-     * @param int $col    Column
-     * @param string  $url    URL string
+     * @param int $row Row
+     * @param int $col Column
+     * @param string $url URL string
      *
      * @return int
      */
@@ -980,11 +980,11 @@ class Worksheet extends BIFFwriter
      *
      * @see writeUrl()
      *
-     * @param int $row1   Start row
-     * @param int $col1   Start column
-     * @param int $row2   End row
-     * @param int $col2   End column
-     * @param string  $url    URL string
+     * @param int $row1 Start row
+     * @param int $col1 Start column
+     * @param int $row2 End row
+     * @param int $col2 End column
+     * @param string $url URL string
      *
      * @return int
      */
@@ -1008,11 +1008,11 @@ class Worksheet extends BIFFwriter
      *
      * @see writeUrl()
      *
-     * @param int $row1   Start row
-     * @param int $col1   Start column
-     * @param int $row2   End row
-     * @param int $col2   End column
-     * @param string  $url    URL string
+     * @param int $row1 Start row
+     * @param int $col1 Start column
+     * @param int $row2 End row
+     * @param int $col2 End column
+     * @param string $url URL string
      *
      * @return int
      */
@@ -1053,11 +1053,11 @@ class Worksheet extends BIFFwriter
      *
      * @see writeUrl()
      *
-     * @param int $row1   Start row
-     * @param int $col1   Start column
-     * @param int $row2   End row
-     * @param int $col2   End column
-     * @param string  $url    URL string
+     * @param int $row1 Start row
+     * @param int $col1 Start column
+     * @param int $row2 End row
+     * @param int $col2 End column
+     * @param string $url URL string
      *
      * @return int
      */
@@ -1106,11 +1106,11 @@ class Worksheet extends BIFFwriter
      *
      * @see writeUrl()
      *
-     * @param int $row1   Start row
-     * @param int $col1   Start column
-     * @param int $row2   End row
-     * @param int $col2   End column
-     * @param string  $url    URL string
+     * @param int $row1 Start row
+     * @param int $col1 Start column
+     * @param int $row2 End row
+     * @param int $col2 End column
+     * @param string $url URL string
      *
      * @return int
      */
@@ -1202,12 +1202,12 @@ class Worksheet extends BIFFwriter
     /**
      * This method is used to set the height and format for a row.
      *
-     * @param int $row    The row to set
+     * @param int $row The row to set
      * @param int $height Height we are giving to the row.
      *                        Use null to set XF without setting height
-     * @param int $xfIndex  The optional cell style Xf index to apply to the columns
-     * @param bool    $hidden The optional hidden attribute
-     * @param int $level  The optional outline level for row, in range [0,7]
+     * @param int $xfIndex The optional cell style Xf index to apply to the columns
+     * @param bool $hidden The optional hidden attribute
+     * @param int $level The optional outline level for row, in range [0,7]
      */
     private function writeRow($row, $height, $xfIndex, $hidden = false, $level = 0)
     {
@@ -2322,13 +2322,13 @@ class Worksheet extends BIFFwriter
     /**
      * Insert a 24bit bitmap image in a worksheet.
      *
-     * @param int $row     The row we are going to insert the bitmap into
-     * @param int $col     The column we are going to insert the bitmap into
-     * @param mixed   $bitmap  The bitmap filename or GD-image resource
-     * @param int $x       the horizontal position (offset) of the image inside the cell
-     * @param int $y       the vertical position (offset) of the image inside the cell
-     * @param float   $scale_x The horizontal scale
-     * @param float   $scale_y The vertical scale
+     * @param int $row The row we are going to insert the bitmap into
+     * @param int $col The column we are going to insert the bitmap into
+     * @param mixed $bitmap The bitmap filename or GD-image resource
+     * @param int $x the horizontal position (offset) of the image inside the cell
+     * @param int $y the vertical position (offset) of the image inside the cell
+     * @param float $scale_x The horizontal scale
+     * @param float $scale_y The vertical scale
      */
     public function insertBitmap($row, $col, $bitmap, $x = 0, $y = 0, $scale_x = 1, $scale_y = 1)
     {
@@ -2398,10 +2398,10 @@ class Worksheet extends BIFFwriter
      *
      * @param int $col_start Col containing upper left corner of object
      * @param int $row_start Row containing top left corner of object
-     * @param int $x1        Distance to left side of object
-     * @param int $y1        Distance to top of object
-     * @param int $width     Width of image frame
-     * @param int $height    Height of image frame
+     * @param int $x1 Distance to left side of object
+     * @param int $y1 Distance to top of object
+     * @param int $width Width of image frame
+     * @param int $height Height of image frame
      */
     public function positionImage($col_start, $row_start, $x1, $y1, $width, $height)
     {
@@ -2462,13 +2462,13 @@ class Worksheet extends BIFFwriter
      * to support other Excel objects.
      *
      * @param int $colL Column containing upper left corner of object
-     * @param int $dxL  Distance from left side of cell
-     * @param int $rwT  Row containing top left corner of object
-     * @param int $dyT  Distance from top of cell
+     * @param int $dxL Distance from left side of cell
+     * @param int $rwT Row containing top left corner of object
+     * @param int $dyT Distance from top of cell
      * @param int $colR Column containing lower right corner of object
-     * @param int $dxR  Distance from right of cell
-     * @param int $rwB  Row containing bottom right corner of object
-     * @param int $dyB  Distance from bottom of cell
+     * @param int $dxR Distance from right of cell
+     * @param int $rwB Row containing bottom right corner of object
+     * @param int $dyB Distance from bottom of cell
      */
     private function writeObjPicture($colL, $dxL, $rwT, $dyT, $colR, $dxR, $rwB, $dyB)
     {
