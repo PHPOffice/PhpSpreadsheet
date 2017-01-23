@@ -12,7 +12,7 @@ spreadsheet file formats, like Excel and LibreOffice Calc.
 
 The following software is required to develop using PhpSpreadsheet:
 
--   PHP version 5.5 or newer
+-   PHP version 5.6 or newer
 -   PHP extension php\_zip enabled (see
     [FAQ](./faq.md#php-complains-about-ziparchive-not-being-found))
 -   PHP extension php\_xml enabled
