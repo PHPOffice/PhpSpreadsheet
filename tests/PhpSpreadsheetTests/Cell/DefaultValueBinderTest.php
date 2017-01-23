@@ -11,14 +11,6 @@ class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
 {
     protected $cellStub;
 
-    public function setUp()
-    {
-        if (!defined('PHPSPREADSHEET_ROOT')) {
-            define('PHPSPREADSHEET_ROOT', APPLICATION_PATH . '/');
-        }
-        require_once PHPSPREADSHEET_ROOT . '/Bootstrap.php';
-    }
-
     protected function createCellStub()
     {
         // Create a stub for the Cell class.

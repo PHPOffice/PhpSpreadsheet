@@ -12,19 +12,8 @@ use PhpOffice\PhpSpreadsheet\Worksheet;
 
 class AdvancedValueBinderTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
-    {
-        if (!defined('PHPSPREADSHEET_ROOT')) {
-            define('PHPSPREADSHEET_ROOT', APPLICATION_PATH . '/');
-        }
-        require_once PHPSPREADSHEET_ROOT . '/Bootstrap.php';
-    }
-
     public function provider()
     {
-        if (!class_exists(NumberFormat::class)) {
-            $this->setUp();
-        }
         $currencyUSD = NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
         $currencyEURO = str_replace('$', '€', NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
 
