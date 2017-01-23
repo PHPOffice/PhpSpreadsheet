@@ -41,7 +41,9 @@ class AdvancedValueBinderTest extends \PHPUnit_Framework_TestCase
      */
     public function testCurrency($value, $valueBinded, $format, $thousandsSeparator, $decimalSeparator, $currencyCode)
     {
-        $sheet = $this->getMock(Worksheet::class, ['getStyle', 'getNumberFormat', 'setFormatCode', 'getCellCacheController']);
+        $sheet = $this->getMockBuilder(Worksheet::class)
+            ->setMethods(['getStyle', 'getNumberFormat', 'setFormatCode', 'getCellCacheController'])
+            ->getMock();
         $cache = $this->getMockBuilder(Memory::class)
             ->disableOriginalConstructor()
             ->getMock();
