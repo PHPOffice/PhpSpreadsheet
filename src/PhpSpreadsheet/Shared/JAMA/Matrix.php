@@ -47,10 +47,9 @@ class Matrix
      *
      * As PHP has no support for polymorphic constructors, we use tricks to make our own sort of polymorphism using func_num_args, func_get_arg, and gettype. In essence, we're just implementing a simple RTTI filter and calling the appropriate constructor.
      */
-    public function __construct()
+    public function __construct(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -156,10 +155,9 @@ class Matrix
      *
      * @return Matrix Submatrix
      */
-    public function getMatrix()
+    public function getMatrix(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -462,10 +460,9 @@ class Matrix
      *
      * @return Matrix Sum
      */
-    public function plus()
+    public function plus(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -504,10 +501,9 @@ class Matrix
      *
      * @return Matrix Sum
      */
-    public function plusEquals()
+    public function plusEquals(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -560,10 +556,9 @@ class Matrix
      *
      * @return Matrix Sum
      */
-    public function minus()
+    public function minus(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -602,10 +597,9 @@ class Matrix
      *
      * @return Matrix Sum
      */
-    public function minusEquals()
+    public function minusEquals(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -659,10 +653,9 @@ class Matrix
      *
      * @return Matrix Matrix Cij
      */
-    public function arrayTimes()
+    public function arrayTimes(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -702,10 +695,9 @@ class Matrix
      *
      * @return Matrix Matrix Aij
      */
-    public function arrayTimesEquals()
+    public function arrayTimesEquals(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -759,10 +751,9 @@ class Matrix
      *
      * @return Matrix Division result
      */
-    public function arrayRightDivide()
+    public function arrayRightDivide(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -821,10 +812,9 @@ class Matrix
      *
      * @return Matrix Matrix Aij
      */
-    public function arrayRightDivideEquals()
+    public function arrayRightDivideEquals(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -864,10 +854,9 @@ class Matrix
      *
      * @return Matrix Division result
      */
-    public function arrayLeftDivide()
+    public function arrayLeftDivide(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -907,10 +896,9 @@ class Matrix
      *
      * @return Matrix Matrix Aij
      */
-    public function arrayLeftDivideEquals()
+    public function arrayLeftDivideEquals(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -949,10 +937,9 @@ class Matrix
      *
      * @return Matrix Product
      */
-    public function times()
+    public function times(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count() > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -1042,10 +1029,9 @@ class Matrix
      *
      * @return Matrix Sum
      */
-    public function power()
+    public function power(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count() > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {
@@ -1098,10 +1084,9 @@ class Matrix
      *
      * @return Matrix Sum
      */
-    public function concat()
+    public function concat(...$args)
     {
-        if (func_num_args() > 0) {
-            $args = func_get_args();
+        if (count($args) > 0) {
             $match = implode(',', array_map('gettype', $args));
 
             switch ($match) {

@@ -18,12 +18,12 @@ class LookupRefTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider providerHLOOKUP
      * @group fail19
+     *
+     * @param mixed $expectedResult
      */
-    public function testHLOOKUP()
+    public function testHLOOKUP($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([LookupRef::class, 'HLOOKUP'], $args);
+        $result = LookupRef::HLOOKUP(...$args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -35,12 +35,12 @@ class LookupRefTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider providerVLOOKUP
      * @group fail19
+     *
+     * @param mixed $expectedResult
      */
-    public function testVLOOKUP()
+    public function testVLOOKUP($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([LookupRef::class, 'VLOOKUP'], $args);
+        $result = LookupRef::VLOOKUP(...$args);
         $this->assertEquals($expectedResult, $result);
     }
 

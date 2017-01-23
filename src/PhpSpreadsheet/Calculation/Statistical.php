@@ -722,13 +722,13 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function AVEDEV()
+    public static function AVEDEV(...$args)
     {
-        $aArgs = Functions::flattenArrayIndexed(func_get_args());
+        $aArgs = Functions::flattenArrayIndexed($args);
 
         // Return value
         $returnValue = null;
@@ -773,16 +773,16 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function AVERAGE()
+    public static function AVERAGE(...$args)
     {
         $returnValue = $aCount = 0;
 
         // Loop through arguments
-        foreach (Functions::flattenArrayIndexed(func_get_args()) as $k => $arg) {
+        foreach (Functions::flattenArrayIndexed($args) as $k => $arg) {
             if ((is_bool($arg)) &&
                 ((!Functions::isCellValue($k)) || (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE))) {
                 $arg = (int) $arg;
@@ -816,17 +816,17 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function AVERAGEA()
+    public static function AVERAGEA(...$args)
     {
         $returnValue = null;
 
         $aCount = 0;
         // Loop through arguments
-        foreach (Functions::flattenArrayIndexed(func_get_args()) as $k => $arg) {
+        foreach (Functions::flattenArrayIndexed($args) as $k => $arg) {
             if ((is_bool($arg)) &&
                 (!Functions::isMatrixValue($k))) {
             } else {
@@ -863,10 +863,9 @@ class Statistical
      *
      * @category Mathematical and Trigonometric Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $aArgs Data values
      * @param string $condition the criteria that defines which cells will be checked
      * @param mixed[] $averageArgs Data values
-     * @param mixed $aArgs
      *
      * @return float
      */
@@ -1210,16 +1209,16 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return int
      */
-    public static function COUNT()
+    public static function COUNT(...$args)
     {
         $returnValue = 0;
 
         // Loop through arguments
-        $aArgs = Functions::flattenArrayIndexed(func_get_args());
+        $aArgs = Functions::flattenArrayIndexed($args);
         foreach ($aArgs as $k => $arg) {
             if ((is_bool($arg)) &&
                 ((!Functions::isCellValue($k)) || (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE))) {
@@ -1244,16 +1243,16 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return int
      */
-    public static function COUNTA()
+    public static function COUNTA(...$args)
     {
         $returnValue = 0;
 
         // Loop through arguments
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $arg) {
             // Is it a numeric, boolean or string value?
             if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) && ($arg != '')))) {
@@ -1274,16 +1273,16 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return int
      */
-    public static function COUNTBLANK()
+    public static function COUNTBLANK(...$args)
     {
         $returnValue = 0;
 
         // Loop through arguments
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $arg) {
             // Is it a blank cell?
             if ((is_null($arg)) || ((is_string($arg)) && ($arg == ''))) {
@@ -1304,9 +1303,8 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $aArgs Data values
      * @param string $condition the criteria that defines which cells will be counted
-     * @param mixed $aArgs
      *
      * @return int
      */
@@ -1495,13 +1493,13 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function DEVSQ()
+    public static function DEVSQ(...$args)
     {
-        $aArgs = Functions::flattenArrayIndexed(func_get_args());
+        $aArgs = Functions::flattenArrayIndexed($args);
 
         // Return value
         $returnValue = null;
@@ -1789,13 +1787,13 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function GEOMEAN()
+    public static function GEOMEAN(...$args)
     {
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
 
         $aMean = MathTrig::PRODUCT($aArgs);
         if (is_numeric($aMean) && ($aMean > 0)) {
@@ -1855,17 +1853,17 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function HARMEAN()
+    public static function HARMEAN(...$args)
     {
         // Return value
         $returnValue = Functions::NA();
 
         // Loop through arguments
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
         if (self::MIN($aArgs) < 0) {
             return Functions::NAN();
         }
@@ -1975,9 +1973,9 @@ class Statistical
      *
      * @return float
      */
-    public static function KURT()
+    public static function KURT(...$args)
     {
-        $aArgs = Functions::flattenArrayIndexed(func_get_args());
+        $aArgs = Functions::flattenArrayIndexed($args);
         $mean = self::AVERAGE($aArgs);
         $stdDev = self::STDEV($aArgs);
 
@@ -2016,14 +2014,14 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      * @param int $entry Position (ordered from the largest) in the array or range of data to return
      *
      * @return float
      */
-    public static function LARGE()
+    public static function LARGE(...$args)
     {
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
 
         // Calculate
         $entry = floor(array_pop($aArgs));
@@ -2253,16 +2251,16 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function MAX()
+    public static function MAX(...$args)
     {
         $returnValue = null;
 
         // Loop through arguments
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $arg) {
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
@@ -2289,16 +2287,16 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function MAXA()
+    public static function MAXA(...$args)
     {
         $returnValue = null;
 
         // Loop through arguments
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $arg) {
             // Is it a numeric value?
             if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) && ($arg != '')))) {
@@ -2330,9 +2328,8 @@ class Statistical
      *
      * @category Mathematical and Trigonometric Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $aArgs Data values
      * @param string $condition the criteria that defines which cells will be checked
-     * @param mixed $aArgs
      * @param mixed $sumArgs
      *
      * @return float
@@ -2373,17 +2370,17 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function MEDIAN()
+    public static function MEDIAN(...$args)
     {
         $returnValue = Functions::NAN();
 
         $mArgs = [];
         // Loop through arguments
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $arg) {
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
@@ -2417,16 +2414,16 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function MIN()
+    public static function MIN(...$args)
     {
         $returnValue = null;
 
         // Loop through arguments
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $arg) {
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
@@ -2453,16 +2450,16 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function MINA()
+    public static function MINA(...$args)
     {
         $returnValue = null;
 
         // Loop through arguments
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $arg) {
             // Is it a numeric value?
             if ((is_numeric($arg)) || (is_bool($arg)) || ((is_string($arg) && ($arg != '')))) {
@@ -2494,9 +2491,8 @@ class Statistical
      *
      * @category Mathematical and Trigonometric Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $aArgs Data values
      * @param string $condition the criteria that defines which cells will be checked
-     * @param mixed $aArgs
      * @param mixed $sumArgs
      *
      * @return float
@@ -2574,16 +2570,16 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function MODE()
+    public static function MODE(...$args)
     {
         $returnValue = Functions::NA();
 
         // Loop through arguments
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
 
         $mArgs = [];
         foreach ($aArgs as $arg) {
@@ -2748,14 +2744,14 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      * @param float $entry Percentile value in the range 0..1, inclusive.
      *
      * @return float
      */
-    public static function PERCENTILE()
+    public static function PERCENTILE(...$args)
     {
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
 
         // Calculate
         $entry = array_pop($aArgs);
@@ -2920,14 +2916,14 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      * @param int $entry Quartile value in the range 1..3, inclusive.
      *
      * @return float
      */
-    public static function QUARTILE()
+    public static function QUARTILE(...$args)
     {
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
 
         // Calculate
         $entry = floor(array_pop($aArgs));
@@ -3026,9 +3022,9 @@ class Statistical
      *
      * @return float
      */
-    public static function SKEW()
+    public static function SKEW(...$args)
     {
-        $aArgs = Functions::flattenArrayIndexed(func_get_args());
+        $aArgs = Functions::flattenArrayIndexed($args);
         $mean = self::AVERAGE($aArgs);
         $stdDev = self::STDEV($aArgs);
 
@@ -3095,14 +3091,14 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      * @param int $entry Position (ordered from the smallest) in the array or range of data to return
      *
      * @return float
      */
-    public static function SMALL()
+    public static function SMALL(...$args)
     {
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
 
         // Calculate
         $entry = array_pop($aArgs);
@@ -3167,13 +3163,13 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function STDEV()
+    public static function STDEV(...$args)
     {
-        $aArgs = Functions::flattenArrayIndexed(func_get_args());
+        $aArgs = Functions::flattenArrayIndexed($args);
 
         // Return value
         $returnValue = null;
@@ -3216,13 +3212,13 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function STDEVA()
+    public static function STDEVA(...$args)
     {
-        $aArgs = Functions::flattenArrayIndexed(func_get_args());
+        $aArgs = Functions::flattenArrayIndexed($args);
 
         $returnValue = null;
 
@@ -3268,13 +3264,13 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function STDEVP()
+    public static function STDEVP(...$args)
     {
-        $aArgs = Functions::flattenArrayIndexed(func_get_args());
+        $aArgs = Functions::flattenArrayIndexed($args);
 
         $returnValue = null;
 
@@ -3315,13 +3311,13 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function STDEVPA()
+    public static function STDEVPA(...$args)
     {
-        $aArgs = Functions::flattenArrayIndexed(func_get_args());
+        $aArgs = Functions::flattenArrayIndexed($args);
 
         $returnValue = null;
 
@@ -3559,14 +3555,14 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      * @param float $discard Percentage to discard
      *
      * @return float
      */
-    public static function TRIMMEAN()
+    public static function TRIMMEAN(...$args)
     {
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
 
         // Calculate
         $percent = array_pop($aArgs);
@@ -3605,18 +3601,18 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function VARFunc()
+    public static function VARFunc(...$args)
     {
         $returnValue = Functions::DIV0();
 
         $summerA = $summerB = 0;
 
         // Loop through arguments
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
         $aCount = 0;
         foreach ($aArgs as $arg) {
             if (is_bool($arg)) {
@@ -3649,18 +3645,18 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function VARA()
+    public static function VARA(...$args)
     {
         $returnValue = Functions::DIV0();
 
         $summerA = $summerB = 0;
 
         // Loop through arguments
-        $aArgs = Functions::flattenArrayIndexed(func_get_args());
+        $aArgs = Functions::flattenArrayIndexed($args);
         $aCount = 0;
         foreach ($aArgs as $k => $arg) {
             if ((is_string($arg)) &&
@@ -3702,11 +3698,11 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function VARP()
+    public static function VARP(...$args)
     {
         // Return value
         $returnValue = Functions::DIV0();
@@ -3714,7 +3710,7 @@ class Statistical
         $summerA = $summerB = 0;
 
         // Loop through arguments
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
         $aCount = 0;
         foreach ($aArgs as $arg) {
             if (is_bool($arg)) {
@@ -3747,18 +3743,18 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function VARPA()
+    public static function VARPA(...$args)
     {
         $returnValue = Functions::DIV0();
 
         $summerA = $summerB = 0;
 
         // Loop through arguments
-        $aArgs = Functions::flattenArrayIndexed(func_get_args());
+        $aArgs = Functions::flattenArrayIndexed($args);
         $aCount = 0;
         foreach ($aArgs as $k => $arg) {
             if ((is_string($arg)) &&

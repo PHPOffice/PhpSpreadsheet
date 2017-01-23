@@ -343,16 +343,16 @@ class MathTrig
      *
      * @category Mathematical and Trigonometric Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return int Greatest Common Divisor
      */
-    public static function GCD()
+    public static function GCD(...$args)
     {
         $returnValue = 1;
         $allValuesFactors = [];
         // Loop through arguments
-        foreach (Functions::flattenArray(func_get_args()) as $value) {
+        foreach (Functions::flattenArray($args) as $value) {
             if (!is_numeric($value)) {
                 return Functions::VALUE();
             } elseif ($value == 0) {
@@ -452,16 +452,16 @@ class MathTrig
      *
      * @category Mathematical and Trigonometric Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return int Lowest Common Multiplier
      */
-    public static function LCM()
+    public static function LCM(...$args)
     {
         $returnValue = 1;
         $allPoweredFactors = [];
         // Loop through arguments
-        foreach (Functions::flattenArray(func_get_args()) as $value) {
+        foreach (Functions::flattenArray($args) as $value) {
             if (!is_numeric($value)) {
                 return Functions::VALUE();
             }
@@ -755,12 +755,12 @@ class MathTrig
      *
      * @return float
      */
-    public static function MULTINOMIAL()
+    public static function MULTINOMIAL(...$args)
     {
         $summer = 0;
         $divisor = 1;
         // Loop through arguments
-        foreach (Functions::flattenArray(func_get_args()) as $arg) {
+        foreach (Functions::flattenArray($args) as $arg) {
             // Is it a numeric value?
             if (is_numeric($arg)) {
                 if ($arg < 1) {
@@ -855,17 +855,17 @@ class MathTrig
      *
      * @category Mathematical and Trigonometric Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function PRODUCT()
+    public static function PRODUCT(...$args)
     {
         // Return value
         $returnValue = null;
 
         // Loop through arguments
-        foreach (Functions::flattenArray(func_get_args()) as $arg) {
+        foreach (Functions::flattenArray($args) as $arg) {
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
                 if (is_null($returnValue)) {
@@ -895,17 +895,17 @@ class MathTrig
      *
      * @category Mathematical and Trigonometric Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function QUOTIENT()
+    public static function QUOTIENT(...$args)
     {
         // Return value
         $returnValue = null;
 
         // Loop through arguments
-        foreach (Functions::flattenArray(func_get_args()) as $arg) {
+        foreach (Functions::flattenArray($args) as $arg) {
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
                 if (is_null($returnValue)) {
@@ -1042,12 +1042,12 @@ class MathTrig
      *
      * @return float
      */
-    public static function SERIESSUM()
+    public static function SERIESSUM(...$args)
     {
         $returnValue = 0;
 
         // Loop through arguments
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
 
         $x = array_shift($aArgs);
         $n = array_shift($aArgs);
@@ -1134,9 +1134,9 @@ class MathTrig
      *
      * @return float
      */
-    public static function SUBTOTAL()
+    public static function SUBTOTAL(...$args)
     {
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
 
         // Calculate
         $subtotal = array_shift($aArgs);
@@ -1181,16 +1181,16 @@ class MathTrig
      *
      * @category Mathematical and Trigonometric Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function SUM()
+    public static function SUM(...$args)
     {
         $returnValue = 0;
 
         // Loop through the arguments
-        foreach (Functions::flattenArray(func_get_args()) as $arg) {
+        foreach (Functions::flattenArray($args) as $arg) {
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
                 $returnValue += $arg;
@@ -1210,7 +1210,7 @@ class MathTrig
      *
      * @category Mathematical and Trigonometric Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $aArgs Data values
      * @param string $condition the criteria that defines which cells will be summed
      * @param mixed $aArgs
      * @param mixed $sumArgs
@@ -1254,14 +1254,14 @@ class MathTrig
      *
      *    @category Mathematical and Trigonometric Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      * @param string $condition the criteria that defines which cells will be summed
      *
      * @return float
      */
-    public static function SUMIFS()
+    public static function SUMIFS(...$args)
     {
-        $arrayList = func_get_args();
+        $arrayList = $args;
 
         // Return value
         $returnValue = 0;
@@ -1302,13 +1302,13 @@ class MathTrig
      *
      * @category Mathematical and Trigonometric Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function SUMPRODUCT()
+    public static function SUMPRODUCT(...$args)
     {
-        $arrayList = func_get_args();
+        $arrayList = $args;
 
         $wrkArray = Functions::flattenArray(array_shift($arrayList));
         $wrkCellCount = count($wrkArray);
@@ -1347,16 +1347,16 @@ class MathTrig
      *
      * @category Mathematical and Trigonometric Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return float
      */
-    public static function SUMSQ()
+    public static function SUMSQ(...$args)
     {
         $returnValue = 0;
 
         // Loop through arguments
-        foreach (Functions::flattenArray(func_get_args()) as $arg) {
+        foreach (Functions::flattenArray($args) as $arg) {
             // Is it a numeric value?
             if ((is_numeric($arg)) && (!is_string($arg))) {
                 $returnValue += ($arg * $arg);

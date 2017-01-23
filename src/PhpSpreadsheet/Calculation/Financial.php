@@ -1480,13 +1480,13 @@ class Financial
      *
      * PV is the loan amount or present value of the payments
      */
-    public static function ISPMT()
+    public static function ISPMT(...$args)
     {
         // Return value
         $returnValue = 0;
 
         // Get the parameters
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
         $interestRate = array_shift($aArgs);
         $period = array_shift($aArgs);
         $numberPeriods = array_shift($aArgs);
@@ -1627,13 +1627,13 @@ class Financial
      *
      * @return float
      */
-    public static function NPV()
+    public static function NPV(...$args)
     {
         // Return value
         $returnValue = 0;
 
         // Loop through arguments
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
 
         // Calculate
         $rate = array_shift($aArgs);

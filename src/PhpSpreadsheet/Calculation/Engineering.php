@@ -2291,18 +2291,18 @@ class Engineering
      * Excel Function:
      *        IMSUM(complexNumber[,complexNumber[,...]])
      *
-     * @param string $complexNumber,... Series of complex numbers to add
+     * @param string $complexNumbers Series of complex numbers to add
      *
      * @return string
      */
-    public static function IMSUM()
+    public static function IMSUM(...$complexNumbers)
     {
         // Return value
         $returnValue = self::parseComplex('0');
         $activeSuffix = '';
 
         // Loop through the arguments
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($complexNumbers);
         foreach ($aArgs as $arg) {
             $parsedComplex = self::parseComplex($arg);
 
@@ -2331,18 +2331,18 @@ class Engineering
      * Excel Function:
      *        IMPRODUCT(complexNumber[,complexNumber[,...]])
      *
-     * @param string $complexNumber,... Series of complex numbers to multiply
+     * @param string $complexNumbers Series of complex numbers to multiply
      *
      * @return string
      */
-    public static function IMPRODUCT()
+    public static function IMPRODUCT(...$complexNumbers)
     {
         // Return value
         $returnValue = self::parseComplex('1');
         $activeSuffix = '';
 
         // Loop through the arguments
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($complexNumbers);
         foreach ($aArgs as $arg) {
             $parsedComplex = self::parseComplex($arg);
 

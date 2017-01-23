@@ -143,12 +143,12 @@ class TextData
      *
      * @return string
      */
-    public static function CONCATENATE()
+    public static function CONCATENATE(...$args)
     {
         $returnValue = '';
 
         // Loop through arguments
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
         foreach ($aArgs as $arg) {
             if (is_bool($arg)) {
                 if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {

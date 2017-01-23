@@ -78,17 +78,17 @@ class Logical
      *
      * @category Logical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return string|bool the logical AND of the arguments
      */
-    public static function logicalAnd()
+    public static function logicalAnd(...$args)
     {
         // Return value
         $returnValue = true;
 
         // Loop through the arguments
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
         $argCount = -1;
         foreach ($aArgs as $argCount => $arg) {
             // Is it a boolean value?
@@ -135,17 +135,17 @@ class Logical
      *
      * @category Logical Functions
      *
-     * @param mixed $arg,... Data values
+     * @param mixed $args Data values
      *
      * @return string|bool the logical OR of the arguments
      */
-    public static function logicalOr()
+    public static function logicalOr(...$args)
     {
         // Return value
         $returnValue = false;
 
         // Loop through the arguments
-        $aArgs = Functions::flattenArray(func_get_args());
+        $aArgs = Functions::flattenArray($args);
         $argCount = -1;
         foreach ($aArgs as $argCount => $arg) {
             // Is it a boolean value?

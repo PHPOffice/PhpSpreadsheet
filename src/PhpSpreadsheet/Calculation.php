@@ -3051,9 +3051,9 @@ class Calculation
         return $formula;
     }
 
-    private static function mkMatrix()
+    private static function mkMatrix(...$args)
     {
-        return func_get_args();
+        return $args;
     }
 
     //    Binary Operators

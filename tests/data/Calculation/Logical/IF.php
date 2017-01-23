@@ -5,33 +5,33 @@ return [
         0,
     ],
     [
-        true,
         0,
+        true,
     ],
     [
         false,
         false,
     ],
     [
+        'ABC',
         true,
         'ABC',
-        'ABC',
     ],
     [
         false,
-        'ABC',
         false,
+        'ABC',
     ],
     [
+        'ABC',
         true,
         'ABC',
         'XYZ',
-        'ABC',
     ],
     [
+        'XYZ',
         false,
         'ABC',
-        'XYZ',
         'XYZ',
     ],
 ];

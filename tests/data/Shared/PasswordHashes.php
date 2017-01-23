@@ -2,27 +2,27 @@
 
 return [
     [
-        'PhpSpreadsheet',
         'BCDE',
+        'PhpSpreadsheet',
     ],
     [
-        'Mark Baker',
         '877D',
+        'Mark Baker',
     ],
     [
-        '!+&=()~§±æþ',
         'C0EA',
+        '!+&=()~§±æþ',
     ],
     [
-        '秘密口令',
         'C07E',
+        '秘密口令',
     ],
     [
-        'leyndarmál lykilorð',
         '99E8',
+        'leyndarmál lykilorð',
     ],
     [
-        '',
         'CE4B',
+        '',
     ],
 ];

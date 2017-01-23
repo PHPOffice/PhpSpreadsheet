@@ -2,8 +2,8 @@
 
 return [
     [
+        null,
         123456.789,
-        null,
     ],
     [
         '123456.789',
@@ -18,7 +18,7 @@ return [
         null,
     ],
     [
+        null,
         true,
-        null,
     ],
 ];

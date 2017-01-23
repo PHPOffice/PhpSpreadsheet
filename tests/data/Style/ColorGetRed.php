@@ -3,33 +3,33 @@
 return [
     // RGBA (hex)
     [
-        'FFAABBCC',
         'AA',
+        'FFAABBCC',
     ],
     // RGBA (decimal)
     [
+        170,
         'FFAABBCC',
         false,
-        170,
     ],
     // RGB (hex)
     [
-        'AABBCC',
         'AA',
+        'AABBCC',
     ],
     // RGB (decimal)
     [
+        170,
         'AABBCC',
         false,
-        170,
     ],
     [
-        '00FFFF',
         '00',
+        '00FFFF',
     ],
     [
+        0,
         '00FFFF',
         false,
-        0,
     ],
 ];

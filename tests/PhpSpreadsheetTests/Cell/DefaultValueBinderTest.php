@@ -64,11 +64,12 @@ class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerDataTypeForValue
+     *
+     * @param mixed $expectedResult
      */
-    public function testDataTypeForValue()
+    public function testDataTypeForValue($expectedResult, ...$args)
     {
-        list($args, $expectedResult) = func_get_args();
-        $result = call_user_func_array([DefaultValueBinder::class, 'dataTypeForValue'], $args);
+        $result = DefaultValueBinder::dataTypeForValue(...$args);
         $this->assertEquals($expectedResult, $result);
     }
 

@@ -2,51 +2,51 @@
 
 return [
     [
-        '357',
         '165',
+        '357',
     ],
     [
-        '1357',
         '54D',
+        '1357',
     ],
     [
-        '246',
         'F6',
+        '246',
     ],
     [
-        '12345',
         '3039',
+        '12345',
     ],
     [
-        '123456789',
         '75BCD15',
+        '123456789',
     ],
     [
+        '0064',
         '100',
         4,
-        '0064',
     ],
     // Leading places as a float
     [
+        '00064',
         '100',
         5.75,
-        '00064',
     ],
     // Leading places negative
     [
+        '#NUM!',
         '100',
         -1,
-        '#NUM!',
     ],
     // Leading places non-numeric
     [
+        '#VALUE!',
         '100',
         'ABC',
-        '#VALUE!',
     ],
     [
-        '123.45',
         '7B',
+        '123.45',
     ],
     [
         '0',
@@ -54,22 +54,22 @@ return [
     ],
     // Invalid decimal
     [
-        '3579A',
         '#VALUE!',
+        '3579A',
     ],
     // Non string
     [
-        true,
         '#VALUE!',
+        true,
     ],
     // 2's Complement
     [
-        '-54',
         'FFFFFFFFCA',
+        '-54',
     ],
     // 2's Complement
     [
-        '-107',
         'FFFFFFFF95',
+        '-107',
     ],
 ];

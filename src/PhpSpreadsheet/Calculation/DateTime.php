@@ -951,15 +951,13 @@ class DateTime
      *
      * @return int Interval between the dates
      */
-    public static function NETWORKDAYS($startDate, $endDate)
+    public static function NETWORKDAYS($startDate, $endDate, ...$dateArgs)
     {
         //    Retrieve the mandatory start and end date that are referenced in the function definition
         $startDate = Functions::flattenSingleValue($startDate);
         $endDate = Functions::flattenSingleValue($endDate);
-        //    Flush the mandatory start and end date that are referenced in the function definition, and get the optional days
-        $dateArgs = Functions::flattenArray(func_get_args());
-        array_shift($dateArgs);
-        array_shift($dateArgs);
+        //    Get the optional days
+        $dateArgs = Functions::flattenArray($dateArgs);
 
         //    Validate the start and end dates
         if (is_string($startDate = $sDate = self::getDateValue($startDate))) {
@@ -1035,15 +1033,13 @@ class DateTime
      * @return mixed Excel date/time serial value, PHP date/time serial value or PHP date/time object,
      *                        depending on the value of the ReturnDateType flag
      */
-    public static function WORKDAY($startDate, $endDays)
+    public static function WORKDAY($startDate, $endDays, ...$dateArgs)
     {
         //    Retrieve the mandatory start date and days that are referenced in the function definition
         $startDate = Functions::flattenSingleValue($startDate);
         $endDays = Functions::flattenSingleValue($endDays);
-        //    Flush the mandatory start date and days that are referenced in the function definition, and get the optional days
-        $dateArgs = Functions::flattenArray(func_get_args());
-        array_shift($dateArgs);
-        array_shift($dateArgs);
+        //    Get the optional days
+        $dateArgs = Functions::flattenArray($dateArgs);
 
         if ((is_string($startDate = self::getDateValue($startDate))) || (!is_numeric($endDays))) {
             return Functions::VALUE();

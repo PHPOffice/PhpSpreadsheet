@@ -270,9 +270,6 @@ class LookupRef
      */
     public static function HYPERLINK($linkURL = '', $displayName = null, \PhpOffice\PhpSpreadsheet\Cell $pCell = null)
     {
-        $args = func_get_args();
-        $pCell = array_pop($args);
-
         $linkURL = (is_null($linkURL)) ? '' : Functions::flattenSingleValue($linkURL);
         $displayName = (is_null($displayName)) ? '' : Functions::flattenSingleValue($displayName);
 
@@ -377,10 +374,11 @@ class LookupRef
      * @param mixed $columns
      * @param null|mixed $height
      * @param null|mixed $width
+     * @param \PhpOffice\PhpSpreadsheet\Cell $pCell
      *
      * @return string A reference to a cell or range of cells
      */
-    public static function OFFSET($cellAddress = null, $rows = 0, $columns = 0, $height = null, $width = null)
+    public static function OFFSET($cellAddress = null, $rows = 0, $columns = 0, $height = null, $width = null, \PhpOffice\PhpSpreadsheet\Cell $pCell = null)
     {
         $rows = Functions::flattenSingleValue($rows);
         $columns = Functions::flattenSingleValue($columns);
@@ -390,8 +388,6 @@ class LookupRef
             return 0;
         }
 
-        $args = func_get_args();
-        $pCell = array_pop($args);
         if (!is_object($pCell)) {
             return Functions::REF();
         }
@@ -468,9 +464,8 @@ class LookupRef
      *
      * @return mixed The selected value
      */
-    public static function CHOOSE()
+    public static function CHOOSE(...$chooseArgs)
     {
-        $chooseArgs = func_get_args();
         $chosenEntry = Functions::flattenArray(array_shift($chooseArgs));
         $entryCount = count($chooseArgs) - 1;
 
