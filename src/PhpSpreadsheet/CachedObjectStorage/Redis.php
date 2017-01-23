@@ -2,6 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheet\CachedObjectStorage;
 
+use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Worksheet;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  * This library is free software; you can redistribute it and/or
@@ -47,12 +51,12 @@ class Redis extends CacheBase implements ICache
     /**
      * Initialise this new cell collection.
      *
-     * @param   \PhpOffice\PhpSpreadsheet\Worksheet $parent The worksheet for this cell collection
+     * @param   Worksheet $parent The worksheet for this cell collection
      * @param   mixed[] $arguments Additional initialisation arguments
      *
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @throws  Exception
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $parent, $arguments)
+    public function __construct(Worksheet $parent, $arguments)
     {
         $redisServer = isset($arguments['redisServer']) ? $arguments['redisServer'] : 'localhost';
         $redisPort = isset($arguments['redisPort']) ? (int) $arguments['redisPort'] : 6379;
@@ -65,7 +69,7 @@ class Redis extends CacheBase implements ICache
             //    Set a new Redis object and connect to the Redis server
             $this->redis = new \Redis();
             if (!$this->redis->connect($redisServer, $redisPort, 10)) {
-                throw new \PhpOffice\PhpSpreadsheet\Exception("Could not connect to Redis server at {$redisServer}:{$redisPort}");
+                throw new Exception("Could not connect to Redis server at {$redisServer}:{$redisPort}");
             }
             $this->cacheTime = $cacheTime;
 
@@ -92,13 +96,13 @@ class Redis extends CacheBase implements ICache
      * Add or Update a cell in cache identified by coordinate address.
      *
      * @param   string $pCoord Coordinate address of the cell to update
-     * @param   \PhpOffice\PhpSpreadsheet\Cell $cell Cell to update
+     * @param   Cell $cell Cell to update
      *
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @throws  Exception
      *
-     * @return  \PhpOffice\PhpSpreadsheet\Cell
+     * @return  Cell
      */
-    public function addCacheData($pCoord, \PhpOffice\PhpSpreadsheet\Cell $cell)
+    public function addCacheData($pCoord, Cell $cell)
     {
         if (($pCoord !== $this->currentObjectID) && ($this->currentObjectID !== null)) {
             $this->storeData();
@@ -116,7 +120,7 @@ class Redis extends CacheBase implements ICache
      * Store cell data in cache for the current cell object if it's "dirty",
      *     and the 'nullify' the current cell object.
      *
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @throws  Exception
      */
     protected function storeData()
     {
@@ -126,7 +130,7 @@ class Redis extends CacheBase implements ICache
             $obj = serialize($this->currentObject);
             if (!$this->redis->set($this->cachePrefix . $this->currentObjectID . '.cache', $obj, $this->cacheTime)) {
                 $this->__destruct();
-                throw new \PhpOffice\PhpSpreadsheet\Exception("Failed to store cell {$this->currentObjectID} in Redis");
+                throw new Exception("Failed to store cell {$this->currentObjectID} in Redis");
             }
             $this->currentCellIsDirty = false;
         }
@@ -136,7 +140,7 @@ class Redis extends CacheBase implements ICache
     /**
      * Destroy this cell collection.
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws Exception
      */
     public function __destruct()
     {
@@ -149,7 +153,7 @@ class Redis extends CacheBase implements ICache
     /**
      * Get a list of all cell addresses currently held in cache.
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws Exception
      *
      * @return  string[]
      */
@@ -167,7 +171,7 @@ class Redis extends CacheBase implements ICache
      *
      * @param    string $pCoord Coordinate address of the cell to check
      *
-     * @throws   \PhpOffice\PhpSpreadsheet\Exception
+     * @throws   Exception
      *
      * @return   bool
      */
@@ -183,7 +187,7 @@ class Redis extends CacheBase implements ICache
             if ($success === false) {
                 //    Entry no longer exists in Redis, so clear it from the cache array
                 parent::deleteCacheData($pCoord);
-                throw new \PhpOffice\PhpSpreadsheet\Exception('Cell entry ' . $pCoord . ' no longer exists in Redis');
+                throw new Exception('Cell entry ' . $pCoord . ' no longer exists in Redis');
             }
 
             return true;
@@ -197,9 +201,9 @@ class Redis extends CacheBase implements ICache
      *
      * @param   string $pCoord Coordinate of the cell
      *
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @throws  Exception
      *
-     * @return  \PhpOffice\PhpSpreadsheet\Cell     Cell that was found, or null if not found
+     * @return  Cell     Cell that was found, or null if not found
      */
     public function getCacheData($pCoord)
     {
@@ -214,7 +218,7 @@ class Redis extends CacheBase implements ICache
             if ($obj === false) {
                 //    Entry no longer exists in Redis, so clear it from the cache array
                 parent::deleteCacheData($pCoord);
-                throw new \PhpOffice\PhpSpreadsheet\Exception("Cell entry {$pCoord} no longer exists in Redis");
+                throw new Exception("Cell entry {$pCoord} no longer exists in Redis");
             }
         } else {
             //    Return null if requested entry doesn't exist in cache
@@ -236,7 +240,7 @@ class Redis extends CacheBase implements ICache
      *
      * @param   string $pCoord Coordinate address of the cell to delete
      *
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @throws  Exception
      */
     public function deleteCacheData($pCoord)
     {
@@ -250,11 +254,11 @@ class Redis extends CacheBase implements ICache
     /**
      * Clone the cell collection.
      *
-     * @param  \PhpOffice\PhpSpreadsheet\Worksheet $parent The new worksheet that we're copying to
+     * @param  Worksheet $parent The new worksheet that we're copying to
      *
-     * @throws   \PhpOffice\PhpSpreadsheet\Exception
+     * @throws   Exception
      */
-    public function copyCellCollection(\PhpOffice\PhpSpreadsheet\Worksheet $parent)
+    public function copyCellCollection(Worksheet $parent)
     {
         parent::copyCellCollection($parent);
         //    Get a new id for the new file name
@@ -267,11 +271,11 @@ class Redis extends CacheBase implements ICache
                 if ($obj === false) {
                     //    Entry no longer exists in Redis, so clear it from the cache array
                     parent::deleteCacheData($cellID);
-                    throw new \PhpOffice\PhpSpreadsheet\Exception("Cell entry {$cellID} no longer exists in Redis");
+                    throw new Exception("Cell entry {$cellID} no longer exists in Redis");
                 }
                 if (!$this->redis->set($newCachePrefix . $cellID . '.cache', $obj, $this->cacheTime)) {
                     $this->__destruct();
-                    throw new \PhpOffice\PhpSpreadsheet\Exception("Failed to store cell {$cellID} in Redis");
+                    throw new Exception("Failed to store cell {$cellID} in Redis");
                 }
             }
         }
@@ -281,7 +285,7 @@ class Redis extends CacheBase implements ICache
     /**
      * Clear the cell collection and disconnect from our parent.
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws Exception
      */
     public function unsetWorksheetCells()
     {
@@ -305,10 +309,10 @@ class Redis extends CacheBase implements ICache
      * @param   string $host Redis server
      * @param   int $port Redis port
      *
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @throws  Exception
      */
     public function failureCallback($host, $port)
     {
-        throw new \PhpOffice\PhpSpreadsheet\Exception("redis {$host}:{$port} failed");
+        throw new Exception("redis {$host}:{$port} failed");
     }
 }
