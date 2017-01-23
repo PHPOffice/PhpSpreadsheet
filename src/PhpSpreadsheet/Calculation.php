@@ -2039,7 +2039,7 @@ class Calculation
 
     private static function loadLocales()
     {
-        $localeFileDirectory = PHPSPREADSHEET_ROOT . 'PhpSpreadsheet/locale/';
+        $localeFileDirectory = __DIR__ . '/locale/';
         foreach (glob($localeFileDirectory . '/*', GLOB_ONLYDIR) as $filename) {
             $filename = substr($filename, strlen($localeFileDirectory) + 1);
             if ($filename != 'en') {
@@ -2269,10 +2269,10 @@ class Calculation
             //    Default is English, if user isn't requesting english, then read the necessary data from the locale files
             if ($locale != 'en_us') {
                 //    Search for a file with a list of function names for locale
-                $functionNamesFile = PHPSPREADSHEET_ROOT . 'PhpSpreadsheet' . DIRECTORY_SEPARATOR . 'locale' . DIRECTORY_SEPARATOR . str_replace('_', DIRECTORY_SEPARATOR, $locale) . DIRECTORY_SEPARATOR . 'functions';
+                $functionNamesFile = __DIR__ . '/locale/' . str_replace('_', DIRECTORY_SEPARATOR, $locale) . DIRECTORY_SEPARATOR . 'functions';
                 if (!file_exists($functionNamesFile)) {
                     //    If there isn't a locale specific function file, look for a language specific function file
-                    $functionNamesFile = PHPSPREADSHEET_ROOT . 'PhpSpreadsheet' . DIRECTORY_SEPARATOR . 'locale' . DIRECTORY_SEPARATOR . $language . DIRECTORY_SEPARATOR . 'functions';
+                    $functionNamesFile = __DIR__ . '/locale/' . $language . DIRECTORY_SEPARATOR . 'functions';
                     if (!file_exists($functionNamesFile)) {
                         return false;
                     }
@@ -2298,9 +2298,9 @@ class Calculation
                     self::$localeBoolean['FALSE'] = self::$localeFunctions['FALSE'];
                 }
 
-                $configFile = PHPSPREADSHEET_ROOT . 'PhpSpreadsheet' . DIRECTORY_SEPARATOR . 'locale' . DIRECTORY_SEPARATOR . str_replace('_', DIRECTORY_SEPARATOR, $locale) . DIRECTORY_SEPARATOR . 'config';
+                $configFile = __DIR__ . '/locale/' . str_replace('_', DIRECTORY_SEPARATOR, $locale) . DIRECTORY_SEPARATOR . 'config';
                 if (!file_exists($configFile)) {
-                    $configFile = PHPSPREADSHEET_ROOT . 'PhpSpreadsheet' . DIRECTORY_SEPARATOR . 'locale' . DIRECTORY_SEPARATOR . $language . DIRECTORY_SEPARATOR . 'config';
+                    $configFile = __DIR__ . '/locale/' . $language . DIRECTORY_SEPARATOR . 'config';
                 }
                 if (file_exists($configFile)) {
                     $localeSettings = file($configFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
