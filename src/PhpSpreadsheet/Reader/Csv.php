@@ -401,6 +401,7 @@ class Csv extends BaseReader implements IReader
     {
         return $this->contiguous;
     }
+
     /**
      * Can the current IReader read the file?
      *
@@ -446,9 +447,9 @@ class Csv extends BaseReader implements IReader
      * @param string $colLetter
      * @param mixed $dataType
      */
-    public function setColDataType($colLetter = 'A', $dateType = PHPExcel_Cell_DataType::TYPE_STRING)
+    public function setColDataType($colLetter = 'A', $dataType = PHPExcel_Cell_DataType::TYPE_STRING)
     {
-        $this->_colDataType[$colLetter] = $dateType;
+        $this->_colDataType[$colLetter] = $dataType;
 
         return $this;
     }
