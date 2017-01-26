@@ -71,7 +71,7 @@ class Csv extends BaseReader implements IReader
     private $contiguousRow = -1;
 
     /**
-     * Col Data Type 
+     * Col Data Type
      *
      * @access private
      * @array PHPExcel_Cell_DataType
@@ -284,7 +284,6 @@ class Csv extends BaseReader implements IReader
                     } else {
                         $sheet->getCell($columnLetter . $currentRow)->setValue($rowDatum);
                     }
-
                 }
                 ++$columnLetter;
             }
