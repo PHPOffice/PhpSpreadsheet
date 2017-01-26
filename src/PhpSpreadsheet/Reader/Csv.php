@@ -423,7 +423,7 @@ class Csv extends BaseReader implements IReader
 
         return true;
     }
-    
+
     /**
      * Get col data Type.
      *
@@ -436,10 +436,10 @@ class Csv extends BaseReader implements IReader
         if (isset($this->_colDataType[$colLetter])) {
             return $this->_colDataType[$colLetter];
         }
-        
+
         return false;
     }
-    
+
     /**
      * Set col data Type.
      *
