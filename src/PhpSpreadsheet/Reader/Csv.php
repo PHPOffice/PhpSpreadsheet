@@ -428,7 +428,7 @@ class Csv extends BaseReader implements IReader
     /**
      * Get col data Type.
      *
-     * @param string
+     * @param string $colLetter
      *
      * @return mixed
      */
@@ -444,7 +444,8 @@ class Csv extends BaseReader implements IReader
     /**
      * Set col data Type.
      *
-     * @param string, PHPExcel_Cell_DataType
+     * @param string $colletter
+     * @param PHPExcel_Cell_DataType $dataType
      */
     public function setColDataType($colLetter = 'A', $dateType = PHPExcel_Cell_DataType::TYPE_STRING)
     {
