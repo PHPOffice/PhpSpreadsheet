@@ -71,6 +71,14 @@ class Csv extends BaseReader implements IReader
     private $contiguousRow = -1;
 
     /**
+	 * Col Data Type 
+	 *
+	 * @access private
+	 * @array PHPExcel_Cell_DataType
+	*/
+	private $_colDataType = array();
+
+    /**
      * Create a new CSV Reader instance.
      */
     public function __construct()
@@ -271,7 +279,11 @@ class Csv extends BaseReader implements IReader
                     }
 
                     // Set cell value
-                    $sheet->getCell($columnLetter . $currentRow)->setValue($rowDatum);
+					if (isset($this->_colDataType[$columnLetter])) {
+						$sheet->setCellValueExplicit($columnLetter . $currentRow, $rowDatum, $this->_colDataType[$columnLetter]);
+					} else {
+						$sheet->getCell($columnLetter . $currentRow)->setValue($rowDatum);
+					}
                 }
                 ++$columnLetter;
             }
@@ -413,4 +425,29 @@ class Csv extends BaseReader implements IReader
 
         return true;
     }
+    
+    /**
+	 * Get col data Type
+	 *
+	 * @param string
+	 * @return mixed
+	 */
+	public function getColDataType($colLetter) {
+		if (isset($this->_colDataType[$colLetter]))
+			return $this->_colDataType[$colLetter];
+		else
+			return FALSE;
+	}
+
+	/**
+	 * Set col data Type
+	 *
+	 * @param string, PHPExcel_Cell_DataType
+	 * @return PHPExcel_Reader_CSV
+	 */
+	public function setColDataType($colLetter = 'A', $dateType = PHPExcel_Cell_DataType::TYPE_STRING) {
+		$this->_colDataType[$colLetter] = $dateType;
+		return $this;
+	}
+
 }
