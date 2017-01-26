@@ -437,9 +437,9 @@ class Csv extends BaseReader implements IReader
     {
         if (isset($this->_colDataType[$colLetter])) {
             return $this->_colDataType[$colLetter];
-        } else {
-            return false;
         }
+        
+        return false;
     }
     
     /**
