@@ -71,10 +71,9 @@ class Csv extends BaseReader implements IReader
     private $contiguousRow = -1;
 
     /**
-     * Col Data Type
+     * Col Data Type.
      *
-     * @access private
-     * @array PHPExcel_Cell_DataType
+     * @var PHPExcel_Cell_DataType
      */
     private $_colDataType = [];
 
@@ -427,9 +426,10 @@ class Csv extends BaseReader implements IReader
     }
     
     /**
-     * Get col data Type
+     * Get col data Type.
      *
      * @param string
+     *
      * @return mixed
      */
     public function getColDataType($colLetter)
@@ -442,10 +442,9 @@ class Csv extends BaseReader implements IReader
     }
     
     /**
-     * Set col data Type
+     * Set col data Type.
      *
      * @param string, PHPExcel_Cell_DataType
-     * @return PHPExcel_Reader_CSV
      */
     public function setColDataType($colLetter = 'A', $dateType = PHPExcel_Cell_DataType::TYPE_STRING)
     {
