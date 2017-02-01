@@ -7,20 +7,20 @@ return [
     ],
     // NULL
     [
-        null,
         false,
+        null,
     ],
     // Boolean TRUE and NULL
     [
         true,
-        null,
         true,
+        null,
     ],
     // Boolean FALSE and NULL
     [
         false,
-        null,
         false,
+        null,
     ],
     // Both TRUE Booleans
     [
@@ -31,13 +31,13 @@ return [
     // Mixed Booleans
     [
         true,
-        false,
         true,
+        false,
     ],
     // Mixed Booleans
     [
-        false,
         true,
+        false,
         true,
     ],
     // Both FALSE Booleans
@@ -50,8 +50,8 @@ return [
     [
         true,
         true,
-        false,
         true,
+        false,
     ],
     // Multiple TRUE Booleans
     [
@@ -69,51 +69,51 @@ return [
         false,
     ],
     [
+        true,
         -1,
         -2,
-        true,
     ],
     [
-        0,
-        0,
         false,
+        0,
+        0,
     ],
     [
+        true,
         0,
         1,
-        true,
     ],
     [
-        1,
-        1,
         true,
+        1,
+        1,
     ],
     // 'TRUE' String
     [
+        true,
         'TRUE',
         1,
-        true,
     ],
     // 'FALSE' String
     [
-        'FALSE',
         true,
+        'FALSE',
         true,
     ],
     // Non-numeric String
     [
+        '#VALUE!',
         'ABCD',
         1,
-        '#VALUE!',
     ],
     [
+        true,
         -2,
         1,
-        true,
     ],
     [
+        true,
         -2,
         0,
-        true,
     ],
 ];

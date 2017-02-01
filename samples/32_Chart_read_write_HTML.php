@@ -83,7 +83,7 @@ foreach ($inputFileNames as $inputFileName) {
 
     // Save
     $filename = $helper->getFilename($inputFileName);
-    $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'HTML');
+    $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Html');
     $writer->setIncludeCharts(true);
     $callStartTime = microtime(true);
     $writer->save($filename);

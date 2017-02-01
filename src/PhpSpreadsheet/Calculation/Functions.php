@@ -82,13 +82,13 @@ class Functions
      *
      * @category Function Configuration
      *
-     * @param     string $compatibilityMode Compatibility Mode
+     * @param string $compatibilityMode Compatibility Mode
      *                                                Permitted values are:
      *                                                    Functions::COMPATIBILITY_EXCEL            'Excel'
      *                                                    Functions::COMPATIBILITY_GNUMERIC        'Gnumeric'
      *                                                    Functions::COMPATIBILITY_OPENOFFICE    'OpenOfficeCalc'
      *
-     * @return     bool    (Success or Failure)
+     * @return bool (Success or Failure)
      */
     public static function setCompatibilityMode($compatibilityMode)
     {
@@ -109,7 +109,7 @@ class Functions
      *
      * @category Function Configuration
      *
-     * @return     string        Compatibility Mode
+     * @return string Compatibility Mode
      *                            Possible Return values are:
      *                                Functions::COMPATIBILITY_EXCEL            'Excel'
      *                                Functions::COMPATIBILITY_GNUMERIC        'Gnumeric'
@@ -125,13 +125,13 @@ class Functions
      *
      * @category Function Configuration
      *
-     * @param     string $returnDateType Return Date Format
+     * @param string $returnDateType Return Date Format
      *                                                Permitted values are:
      *                                                    Functions::RETURNDATE_PHP_NUMERIC        'P'
      *                                                    Functions::RETURNDATE_PHP_OBJECT        'O'
      *                                                    Functions::RETURNDATE_EXCEL            'E'
      *
-     * @return     bool                            Success or failure
+     * @return bool Success or failure
      */
     public static function setReturnDateType($returnDateType)
     {
@@ -152,7 +152,7 @@ class Functions
      *
      * @category Function Configuration
      *
-     * @return     string        Return Date Format
+     * @return string Return Date Format
      *                            Possible Return values are:
      *                                Functions::RETURNDATE_PHP_NUMERIC        'P'
      *                                Functions::RETURNDATE_PHP_OBJECT        'O'
@@ -168,7 +168,7 @@ class Functions
      *
      * @category Error Returns
      *
-     * @return    string    #Not Yet Implemented
+     * @return string #Not Yet Implemented
      */
     public static function DUMMY()
     {
@@ -180,7 +180,7 @@ class Functions
      *
      * @category Error Returns
      *
-     * @return    string    #Not Yet Implemented
+     * @return string #Not Yet Implemented
      */
     public static function DIV0()
     {
@@ -198,7 +198,7 @@ class Functions
      *
      * @category Logical Functions
      *
-     * @return    string    #N/A!
+     * @return string #N/A!
      */
     public static function NA()
     {
@@ -212,7 +212,7 @@ class Functions
      *
      * @category Error Returns
      *
-     * @return    string    #NUM!
+     * @return string #NUM!
      */
     public static function NAN()
     {
@@ -226,7 +226,7 @@ class Functions
      *
      * @category Error Returns
      *
-     * @return    string    #NAME?
+     * @return string #NAME?
      */
     public static function NAME()
     {
@@ -240,7 +240,7 @@ class Functions
      *
      * @category Error Returns
      *
-     * @return    string    #REF!
+     * @return string #REF!
      */
     public static function REF()
     {
@@ -254,7 +254,7 @@ class Functions
      *
      * @category Error Returns
      *
-     * @return    string    #NULL!
+     * @return string #NULL!
      */
     public static function null()
     {
@@ -268,7 +268,7 @@ class Functions
      *
      * @category Error Returns
      *
-     * @return    string    #VALUE!
+     * @return string #VALUE!
      */
     public static function VALUE()
     {
@@ -317,9 +317,9 @@ class Functions
     /**
      * ERROR_TYPE.
      *
-     * @param    mixed $value Value to check
+     * @param mixed $value Value to check
      *
-     * @return    bool
+     * @return bool
      */
     public static function errorType($value = '')
     {
@@ -339,9 +339,9 @@ class Functions
     /**
      * IS_BLANK.
      *
-     * @param    mixed $value Value to check
+     * @param mixed $value Value to check
      *
-     * @return    bool
+     * @return bool
      */
     public static function isBlank($value = null)
     {
@@ -355,9 +355,9 @@ class Functions
     /**
      * IS_ERR.
      *
-     * @param    mixed $value Value to check
+     * @param mixed $value Value to check
      *
-     * @return    bool
+     * @return bool
      */
     public static function isErr($value = '')
     {
@@ -369,9 +369,9 @@ class Functions
     /**
      * IS_ERROR.
      *
-     * @param    mixed $value Value to check
+     * @param mixed $value Value to check
      *
-     * @return    bool
+     * @return bool
      */
     public static function isError($value = '')
     {
@@ -387,9 +387,9 @@ class Functions
     /**
      * IS_NA.
      *
-     * @param    mixed $value Value to check
+     * @param mixed $value Value to check
      *
-     * @return    bool
+     * @return bool
      */
     public static function isNa($value = '')
     {
@@ -401,9 +401,9 @@ class Functions
     /**
      * IS_EVEN.
      *
-     * @param    mixed $value Value to check
+     * @param mixed $value Value to check
      *
-     * @return    string|bool
+     * @return string|bool
      */
     public static function isEven($value = null)
     {
@@ -421,9 +421,9 @@ class Functions
     /**
      * IS_ODD.
      *
-     * @param    mixed $value Value to check
+     * @param mixed $value Value to check
      *
-     * @return    string|bool
+     * @return string|bool
      */
     public static function isOdd($value = null)
     {
@@ -441,9 +441,9 @@ class Functions
     /**
      * IS_NUMBER.
      *
-     * @param    mixed $value Value to check
+     * @param mixed $value Value to check
      *
-     * @return    bool
+     * @return bool
      */
     public static function isNumber($value = null)
     {
@@ -459,9 +459,9 @@ class Functions
     /**
      * IS_LOGICAL.
      *
-     * @param    mixed $value Value to check
+     * @param mixed $value Value to check
      *
-     * @return    bool
+     * @return bool
      */
     public static function isLogical($value = null)
     {
@@ -473,9 +473,9 @@ class Functions
     /**
      * IS_TEXT.
      *
-     * @param    mixed $value Value to check
+     * @param mixed $value Value to check
      *
-     * @return    bool
+     * @return bool
      */
     public static function isText($value = null)
     {
@@ -487,9 +487,9 @@ class Functions
     /**
      * IS_NONTEXT.
      *
-     * @param    mixed $value Value to check
+     * @param mixed $value Value to check
      *
-     * @return    bool
+     * @return bool
      */
     public static function isNonText($value = null)
     {
@@ -501,10 +501,10 @@ class Functions
      *
      * Returns a value converted to a number
      *
-     * @param    value        The value you want converted
+     * @param value The value you want converted
      * @param null|mixed $value
      *
-     * @return    number        N converts values listed in the following table
+     * @return number N converts values listed in the following table
      *        If value is or refers to N returns
      *        A number            That number
      *        A date                The serial number of that date
@@ -542,10 +542,10 @@ class Functions
      *
      * Returns a number that identifies the type of a value
      *
-     * @param    value        The value you want tested
+     * @param value The value you want tested
      * @param null|mixed $value
      *
-     * @return    number        N converts values listed in the following table
+     * @return number N converts values listed in the following table
      *        If value is or refers to N returns
      *        A number            1
      *        Text                2
@@ -593,9 +593,9 @@ class Functions
     /**
      * Convert a multi-dimensional array to a simple 1-dimensional array.
      *
-     * @param    array $array Array to be flattened
+     * @param array $array Array to be flattened
      *
-     * @return    array    Flattened array
+     * @return array Flattened array
      */
     public static function flattenArray($array)
     {
@@ -626,9 +626,9 @@ class Functions
     /**
      * Convert a multi-dimensional array to a simple 1-dimensional array, but retain an element of indexing.
      *
-     * @param    array $array Array to be flattened
+     * @param array $array Array to be flattened
      *
-     * @return    array    Flattened array
+     * @return array Flattened array
      */
     public static function flattenArrayIndexed($array)
     {
@@ -659,9 +659,9 @@ class Functions
     /**
      * Convert an array to a single scalar value by extracting the first element.
      *
-     * @param    mixed $value Array or scalar value
+     * @param mixed $value Array or scalar value
      *
-     * @return    mixed
+     * @return mixed
      */
     public static function flattenSingleValue($value = '')
     {

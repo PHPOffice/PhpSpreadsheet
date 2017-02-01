@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -29,11 +29,11 @@ class Comments extends WriterPart
     /**
      * Write comments to XML format.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Worksheet                $pWorksheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet
      *
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
-     * @return string                          XML Output
+     * @return string XML Output
      */
     public function writeComments(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet = null)
     {
@@ -87,12 +87,12 @@ class Comments extends WriterPart
     /**
      * Write comment to XML format.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter        $objWriter             XML Writer
-     * @param    string                            $pCellReference        Cell reference
-     * @param     \PhpOffice\PhpSpreadsheet\Comment                $pComment            Comment
-     * @param    array                            $pAuthors            Array of authors
+     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
+     * @param string $pCellReference Cell reference
+     * @param \PhpOffice\PhpSpreadsheet\Comment $pComment Comment
+     * @param array $pAuthors Array of authors
      *
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeComment(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pCellReference = 'A1', \PhpOffice\PhpSpreadsheet\Comment $pComment = null, $pAuthors = null)
     {
@@ -186,11 +186,11 @@ class Comments extends WriterPart
     /**
      * Write VML comment to XML format.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter        $objWriter             XML Writer
-     * @param    string                            $pCellReference        Cell reference
-     * @param     \PhpOffice\PhpSpreadsheet\Comment                $pComment            Comment
+     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
+     * @param string $pCellReference Cell reference
+     * @param \PhpOffice\PhpSpreadsheet\Comment $pComment Comment
      *
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeVMLComment(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pCellReference = 'A1', \PhpOffice\PhpSpreadsheet\Comment $pComment = null)
     {

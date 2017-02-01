@@ -27,7 +27,7 @@ include 'PHPExcel/IOFactory.php';
 
 $inputFileType = 'Xls';
 //	$inputFileType = 'Xlsx';
-//	$inputFileType = 'Excel2003XML';
+//	$inputFileType = 'Xml';
 //	$inputFileType = 'Ods';
 //	$inputFileType = 'Gnumeric';
 $inputFileName = './sampleData/example1.xls';

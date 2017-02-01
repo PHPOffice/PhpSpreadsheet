@@ -15,12 +15,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider providerACCRINT
      * @group fail19
+     *
+     * @param mixed $expectedResult
      */
-    public function testACCRINT()
+    public function testACCRINT($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'ACCRINT'], $args);
+        $result = Financial::ACCRINT(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -31,12 +31,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerACCRINTM
+     *
+     * @param mixed $expectedResult
      */
-    public function testACCRINTM()
+    public function testACCRINTM($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'ACCRINTM'], $args);
+        $result = Financial::ACCRINTM(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -47,12 +47,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerAMORDEGRC
+     *
+     * @param mixed $expectedResult
      */
-    public function testAMORDEGRC()
+    public function testAMORDEGRC($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'AMORDEGRC'], $args);
+        $result = Financial::AMORDEGRC(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -63,12 +63,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerAMORLINC
+     *
+     * @param mixed $expectedResult
      */
-    public function testAMORLINC()
+    public function testAMORLINC($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'AMORLINC'], $args);
+        $result = Financial::AMORLINC(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -79,12 +79,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerCOUPDAYBS
+     *
+     * @param mixed $expectedResult
      */
-    public function testCOUPDAYBS()
+    public function testCOUPDAYBS($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'COUPDAYBS'], $args);
+        $result = Financial::COUPDAYBS(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -95,12 +95,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerCOUPDAYS
+     *
+     * @param mixed $expectedResult
      */
-    public function testCOUPDAYS()
+    public function testCOUPDAYS($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'COUPDAYS'], $args);
+        $result = Financial::COUPDAYS(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -111,12 +111,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerCOUPDAYSNC
+     *
+     * @param mixed $expectedResult
      */
-    public function testCOUPDAYSNC()
+    public function testCOUPDAYSNC($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'COUPDAYSNC'], $args);
+        $result = Financial::COUPDAYSNC(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -127,12 +127,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerCOUPNCD
+     *
+     * @param mixed $expectedResult
      */
-    public function testCOUPNCD()
+    public function testCOUPNCD($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'COUPNCD'], $args);
+        $result = Financial::COUPNCD(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -143,12 +143,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerCOUPNUM
+     *
+     * @param mixed $expectedResult
      */
-    public function testCOUPNUM()
+    public function testCOUPNUM($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'COUPNUM'], $args);
+        $result = Financial::COUPNUM(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -159,12 +159,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerCOUPPCD
+     *
+     * @param mixed $expectedResult
      */
-    public function testCOUPPCD()
+    public function testCOUPPCD($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'COUPPCD'], $args);
+        $result = Financial::COUPPCD(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -175,12 +175,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerCUMIPMT
+     *
+     * @param mixed $expectedResult
      */
-    public function testCUMIPMT()
+    public function testCUMIPMT($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'CUMIPMT'], $args);
+        $result = Financial::CUMIPMT(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -191,12 +191,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerCUMPRINC
+     *
+     * @param mixed $expectedResult
      */
-    public function testCUMPRINC()
+    public function testCUMPRINC($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'CUMPRINC'], $args);
+        $result = Financial::CUMPRINC(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -207,12 +207,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerDB
+     *
+     * @param mixed $expectedResult
      */
-    public function testDB()
+    public function testDB($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'DB'], $args);
+        $result = Financial::DB(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -223,12 +223,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerDDB
+     *
+     * @param mixed $expectedResult
      */
-    public function testDDB()
+    public function testDDB($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'DDB'], $args);
+        $result = Financial::DDB(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -239,12 +239,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerDISC
+     *
+     * @param mixed $expectedResult
      */
-    public function testDISC()
+    public function testDISC($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'DISC'], $args);
+        $result = Financial::DISC(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -255,12 +255,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerDOLLARDE
+     *
+     * @param mixed $expectedResult
      */
-    public function testDOLLARDE()
+    public function testDOLLARDE($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'DOLLARDE'], $args);
+        $result = Financial::DOLLARDE(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -271,12 +271,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerDOLLARFR
+     *
+     * @param mixed $expectedResult
      */
-    public function testDOLLARFR()
+    public function testDOLLARFR($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'DOLLARFR'], $args);
+        $result = Financial::DOLLARFR(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -287,12 +287,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerEFFECT
+     *
+     * @param mixed $expectedResult
      */
-    public function testEFFECT()
+    public function testEFFECT($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'EFFECT'], $args);
+        $result = Financial::EFFECT(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -303,12 +303,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerFV
+     *
+     * @param mixed $expectedResult
      */
-    public function testFV()
+    public function testFV($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'FV'], $args);
+        $result = Financial::FV(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -319,12 +319,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerFVSCHEDULE
+     *
+     * @param mixed $expectedResult
      */
-    public function testFVSCHEDULE()
+    public function testFVSCHEDULE($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'FVSCHEDULE'], $args);
+        $result = Financial::FVSCHEDULE(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -335,12 +335,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerINTRATE
+     *
+     * @param mixed $expectedResult
      */
-    public function testINTRATE()
+    public function testINTRATE($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'INTRATE'], $args);
+        $result = Financial::INTRATE(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -351,12 +351,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerIPMT
+     *
+     * @param mixed $expectedResult
      */
-    public function testIPMT()
+    public function testIPMT($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'IPMT'], $args);
+        $result = Financial::IPMT(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -367,12 +367,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerIRR
+     *
+     * @param mixed $expectedResult
      */
-    public function testIRR()
+    public function testIRR($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'IRR'], $args);
+        $result = Financial::IRR(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -383,12 +383,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerISPMT
+     *
+     * @param mixed $expectedResult
      */
-    public function testISPMT()
+    public function testISPMT($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'ISPMT'], $args);
+        $result = Financial::ISPMT(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -399,12 +399,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerMIRR
+     *
+     * @param mixed $expectedResult
      */
-    public function testMIRR()
+    public function testMIRR($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'MIRR'], $args);
+        $result = Financial::MIRR(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -415,12 +415,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerNOMINAL
+     *
+     * @param mixed $expectedResult
      */
-    public function testNOMINAL()
+    public function testNOMINAL($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'NOMINAL'], $args);
+        $result = Financial::NOMINAL(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -431,12 +431,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerNPER
+     *
+     * @param mixed $expectedResult
      */
-    public function testNPER()
+    public function testNPER($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'NPER'], $args);
+        $result = Financial::NPER(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -447,12 +447,12 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerNPV
+     *
+     * @param mixed $expectedResult
      */
-    public function testNPV()
+    public function testNPV($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'NPV'], $args);
+        $result = Financial::NPV(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -464,14 +464,14 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider providerPRICE
      * @group fail19
+     *
+     * @param mixed $expectedResult
      */
-    public function testPRICE()
+    public function testPRICE($expectedResult, ...$args)
     {
         $this->markTestIncomplete('TODO: This test should be fixed');
 
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'PRICE'], $args);
+        $result = Financial::PRICE(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -483,14 +483,14 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider providerRATE
      * @group fail19
+     *
+     * @param mixed $expectedResult
      */
-    public function testRATE()
+    public function testRATE($expectedResult, ...$args)
     {
         $this->markTestIncomplete('TODO: This test should be fixed');
 
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'RATE'], $args);
+        $result = Financial::RATE(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 
@@ -502,14 +502,14 @@ class FinancialTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider providerXIRR
      * @group fail19
+     *
+     * @param mixed $expectedResult
      */
-    public function testXIRR()
+    public function testXIRR($expectedResult, ...$args)
     {
         $this->markTestIncomplete('TODO: This test should be fixed');
 
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Financial::class, 'XIRR'], $args);
+        $result = Financial::XIRR(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-8);
     }
 

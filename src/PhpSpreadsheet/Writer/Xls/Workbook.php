@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -52,7 +52,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 // *
 // *    This library is distributed in the hope that it will be useful,
 // *    but WITHOUT ANY WARRANTY; without even the implied warranty of
-// *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // *    Lesser General Public License for more details.
 // *
 // *    You should have received a copy of the GNU Lesser General Public
@@ -191,11 +191,11 @@ class Workbook extends BIFFwriter
      * Class constructor.
      *
      * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet The Workbook
-     * @param int        $str_total        Total number of strings
-     * @param int        $str_unique    Total number of unique strings
-     * @param array        $str_table        String Table
-     * @param array        $colors        Colour Table
-     * @param Parser        $parser            The formula parser created for the Workbook
+     * @param int $str_total Total number of strings
+     * @param int $str_unique Total number of unique strings
+     * @param array $str_table String Table
+     * @param array $colors Colour Table
+     * @param Parser $parser The formula parser created for the Workbook
      */
     public function __construct(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet, &$str_total, &$str_unique, &$str_table, &$colors, Parser $parser)
     {
@@ -418,9 +418,9 @@ class Workbook extends BIFFwriter
      * Assemble worksheets into a workbook and send the BIFF data to an OLE
      * storage.
      *
-     * @param    array    $pWorksheetSizes    The sizes in bytes of the binary worksheet streams
+     * @param array $pWorksheetSizes The sizes in bytes of the binary worksheet streams
      *
-     * @return    string    Binary data for workbook stream
+     * @return string Binary data for workbook stream
      */
     public function writeWorkbook($pWorksheetSizes = null)
     {
@@ -794,12 +794,12 @@ class Workbook extends BIFFwriter
     /**
      * Write a DEFINEDNAME record for BIFF8 using explicit binary formula data.
      *
-     * @param    string        $name            The name in UTF-8
-     * @param    string        $formulaData    The binary formula data
-     * @param    string        $sheetIndex        1-based sheet index the defined name applies to. 0 = global
-     * @param    bool        $isBuiltIn        Built-in name?
+     * @param string $name The name in UTF-8
+     * @param string $formulaData The binary formula data
+     * @param string $sheetIndex 1-based sheet index the defined name applies to. 0 = global
+     * @param bool $isBuiltIn Built-in name?
      *
-     * @return    string    Complete binary record data
+     * @return string Complete binary record data
      */
     private function writeDefinedNameBiff8($name, $formulaData, $sheetIndex = 0, $isBuiltIn = false)
     {
@@ -830,12 +830,12 @@ class Workbook extends BIFFwriter
     /**
      * Write a short NAME record.
      *
-     * @param    string         $name
-     * @param    string         $sheetIndex        1-based sheet index the defined name applies to. 0 = global
-     * @param    integer[][]  $rangeBounds    range boundaries
-     * @param    bool      $isHidden
+     * @param string $name
+     * @param string $sheetIndex 1-based sheet index the defined name applies to. 0 = global
+     * @param integer[][] $rangeBounds range boundaries
+     * @param bool $isHidden
      *
-     * @return    string    Complete binary record data
+     * @return string Complete binary record data
      * */
     private function writeShortNameBiff8($name, $sheetIndex, $rangeBounds, $isHidden = false)
     {
@@ -914,8 +914,8 @@ class Workbook extends BIFFwriter
     /**
      * Writes Excel BIFF BOUNDSHEET record.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet  $sheet Worksheet name
-     * @param int $offset    Location of worksheet BOF
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $sheet Worksheet name
+     * @param int $offset Location of worksheet BOF
      */
     private function writeBoundSheet($sheet, $offset)
     {
@@ -1005,8 +1005,8 @@ class Workbook extends BIFFwriter
     /**
      * Writes Excel FORMAT record for non "built-in" numerical formats.
      *
-     * @param string  $format Custom format string
-     * @param int $ifmt   Format index code
+     * @param string $format Custom format string
+     * @param int $ifmt Format index code
      */
     private function writeNumberFormat($format, $ifmt)
     {
@@ -1085,8 +1085,8 @@ class Workbook extends BIFFwriter
      * Store the NAME record in the short format that is used for storing the print
      * area, repeat rows only and repeat columns only.
      *
-     * @param int $index  Sheet index
-     * @param int $type   Built-in name type
+     * @param int $index Sheet index
+     * @param int $type Built-in name type
      * @param int $rowmin Start row
      * @param int $rowmax End row
      * @param int $colmin Start colum
@@ -1150,7 +1150,7 @@ class Workbook extends BIFFwriter
      * Code abstraction for reuse can be carried too far, and I should know. ;-).
      *
      * @param int $index Sheet index
-     * @param int $type  Built-in name type
+     * @param int $type Built-in name type
      * @param int $rowmin Start row
      * @param int $rowmax End row
      * @param int $colmin Start colum

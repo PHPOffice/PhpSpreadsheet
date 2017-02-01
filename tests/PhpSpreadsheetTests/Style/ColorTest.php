@@ -8,12 +8,12 @@ class ColorTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider providerColorGetRed
+     *
+     * @param mixed $expectedResult
      */
-    public function testGetRed()
+    public function testGetRed($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Color::class, 'getRed'], $args);
+        $result = Color::getRed(...$args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -24,12 +24,12 @@ class ColorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerColorGetGreen
+     *
+     * @param mixed $expectedResult
      */
-    public function testGetGreen()
+    public function testGetGreen($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Color::class, 'getGreen'], $args);
+        $result = Color::getGreen(...$args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -40,12 +40,12 @@ class ColorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerColorGetBlue
+     *
+     * @param mixed $expectedResult
      */
-    public function testGetBlue()
+    public function testGetBlue($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([Color::class, 'getBlue'], $args);
+        $result = Color::getBlue(...$args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -56,11 +56,12 @@ class ColorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerColorChangeBrightness
+     *
+     * @param mixed $expectedResult
      */
-    public function testChangeBrightness()
+    public function testChangeBrightness($expectedResult, ...$args)
     {
-        list($args, $expectedResult) = func_get_args();
-        $result = call_user_func_array([Color::class, 'changeBrightness'], $args);
+        $result = Color::changeBrightness(...$args);
         $this->assertEquals($expectedResult, $result);
     }
 

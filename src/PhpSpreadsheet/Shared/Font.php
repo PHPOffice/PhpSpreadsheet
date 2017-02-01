@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -184,7 +184,7 @@ class Font
      *
      * @param string $pValue
      *
-     * @return     bool                    Success or failure
+     * @return bool Success or failure
      */
     public static function setAutoSizeMethod($pValue = self::AUTOSIZE_METHOD_APPROX)
     {
@@ -213,7 +213,7 @@ class Font
      *        <li>C:/Windows/Fonts/</li>
      *        <li>/usr/share/fonts/truetype/</li>
      *        <li>~/.fonts/</li>
-     *    </ul>.
+     * </ul>.
      *
      * @param string $pValue
      */
@@ -235,12 +235,12 @@ class Font
     /**
      * Calculate an (approximate) OpenXML column width, based on font size and text contained.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Style\Font            $font            Font object
-     * @param     \PhpOffice\PhpSpreadsheet\RichText|string    $cellText        Text to calculate width
-     * @param     int                        $rotation        Rotation angle
-     * @param     \PhpOffice\PhpSpreadsheet\Style\Font|null    $defaultFont    Font object
+     * @param \PhpOffice\PhpSpreadsheet\Style\Font $font Font object
+     * @param \PhpOffice\PhpSpreadsheet\RichText|string $cellText Text to calculate width
+     * @param int $rotation Rotation angle
+     * @param \PhpOffice\PhpSpreadsheet\Style\Font|null $defaultFont Font object
      *
-     * @return     int        Column width
+     * @return int Column width
      */
     public static function calculateColumnWidth(\PhpOffice\PhpSpreadsheet\Style\Font $font, $cellText = '', $rotation = 0, \PhpOffice\PhpSpreadsheet\Style\Font $defaultFont = null)
     {
@@ -378,9 +378,9 @@ class Font
     /**
      * Calculate an (approximate) pixel size, based on a font points size.
      *
-     * @param     int        $fontSizeInPoints    Font size (in points)
+     * @param int $fontSizeInPoints Font size (in points)
      *
-     * @return     int        Font size (in pixels)
+     * @return int Font size (in pixels)
      */
     public static function fontSizeToPixels($fontSizeInPoints = 11)
     {
@@ -390,9 +390,9 @@ class Font
     /**
      * Calculate an (approximate) pixel size, based on inch size.
      *
-     * @param     int        $sizeInInch    Font size (in inch)
+     * @param int $sizeInInch Font size (in inch)
      *
-     * @return     int        Size (in pixels)
+     * @return int Size (in pixels)
      */
     public static function inchSizeToPixels($sizeInInch = 1)
     {
@@ -402,9 +402,9 @@ class Font
     /**
      * Calculate an (approximate) pixel size, based on centimeter size.
      *
-     * @param     int        $sizeInCm    Font size (in centimeters)
+     * @param int $sizeInCm Font size (in centimeters)
      *
-     * @return     float        Size (in pixels)
+     * @return float Size (in pixels)
      */
     public static function centimeterSizeToPixels($sizeInCm = 1)
     {

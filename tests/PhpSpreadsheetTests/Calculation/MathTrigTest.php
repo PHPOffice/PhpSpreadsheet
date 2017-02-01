@@ -15,12 +15,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerATAN2
+     *
+     * @param mixed $expectedResult
      */
-    public function testATAN2()
+    public function testATAN2($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'ATAN2'], $args);
+        $result = MathTrig::ATAN2(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -31,12 +31,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerCEILING
+     *
+     * @param mixed $expectedResult
      */
-    public function testCEILING()
+    public function testCEILING($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'CEILING'], $args);
+        $result = MathTrig::CEILING(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -47,12 +47,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerCOMBIN
+     *
+     * @param mixed $expectedResult
      */
-    public function testCOMBIN()
+    public function testCOMBIN($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'COMBIN'], $args);
+        $result = MathTrig::COMBIN(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -63,12 +63,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerEVEN
+     *
+     * @param mixed $expectedResult
      */
-    public function testEVEN()
+    public function testEVEN($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'EVEN'], $args);
+        $result = MathTrig::EVEN(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -79,12 +79,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerODD
+     *
+     * @param mixed $expectedResult
      */
-    public function testODD()
+    public function testODD($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'ODD'], $args);
+        $result = MathTrig::ODD(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -95,12 +95,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerFACT
+     *
+     * @param mixed $expectedResult
      */
-    public function testFACT()
+    public function testFACT($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'FACT'], $args);
+        $result = MathTrig::FACT(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -111,12 +111,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerFACTDOUBLE
+     *
+     * @param mixed $expectedResult
      */
-    public function testFACTDOUBLE()
+    public function testFACTDOUBLE($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'FACTDOUBLE'], $args);
+        $result = MathTrig::FACTDOUBLE(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -127,12 +127,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerFLOOR
+     *
+     * @param mixed $expectedResult
      */
-    public function testFLOOR()
+    public function testFLOOR($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'FLOOR'], $args);
+        $result = MathTrig::FLOOR(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -143,12 +143,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerGCD
+     *
+     * @param mixed $expectedResult
      */
-    public function testGCD()
+    public function testGCD($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'GCD'], $args);
+        $result = MathTrig::GCD(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -159,12 +159,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerLCM
+     *
+     * @param mixed $expectedResult
      */
-    public function testLCM()
+    public function testLCM($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'LCM'], $args);
+        $result = MathTrig::LCM(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -175,12 +175,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerINT
+     *
+     * @param mixed $expectedResult
      */
-    public function testINT()
+    public function testINT($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'INT'], $args);
+        $result = MathTrig::INT(...$args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -191,12 +191,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerSIGN
+     *
+     * @param mixed $expectedResult
      */
-    public function testSIGN()
+    public function testSIGN($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'SIGN'], $args);
+        $result = MathTrig::SIGN(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -207,12 +207,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerPOWER
+     *
+     * @param mixed $expectedResult
      */
-    public function testPOWER()
+    public function testPOWER($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'POWER'], $args);
+        $result = MathTrig::POWER(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -223,12 +223,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerLOG
+     *
+     * @param mixed $expectedResult
      */
-    public function testLOG()
+    public function testLOG($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'logBase'], $args);
+        $result = MathTrig::logBase(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -239,12 +239,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerMOD
+     *
+     * @param mixed $expectedResult
      */
-    public function testMOD()
+    public function testMOD($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'MOD'], $args);
+        $result = MathTrig::MOD(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -255,12 +255,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerMDETERM
+     *
+     * @param mixed $expectedResult
      */
-    public function testMDETERM()
+    public function testMDETERM($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'MDETERM'], $args);
+        $result = MathTrig::MDETERM(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -272,14 +272,14 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider providerMINVERSE
      * @group fail19
+     *
+     * @param mixed $expectedResult
      */
-    public function testMINVERSE()
+    public function testMINVERSE($expectedResult, ...$args)
     {
         $this->markTestIncomplete('TODO: This test should be fixed');
 
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'MINVERSE'], $args);
+        $result = MathTrig::MINVERSE(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -291,14 +291,14 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider providerMMULT
      * @group fail19
+     *
+     * @param mixed $expectedResult
      */
-    public function testMMULT()
+    public function testMMULT($expectedResult, ...$args)
     {
         $this->markTestIncomplete('TODO: This test should be fixed');
 
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'MMULT'], $args);
+        $result = MathTrig::MMULT(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -309,12 +309,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerMULTINOMIAL
+     *
+     * @param mixed $expectedResult
      */
-    public function testMULTINOMIAL()
+    public function testMULTINOMIAL($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'MULTINOMIAL'], $args);
+        $result = MathTrig::MULTINOMIAL(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -325,13 +325,13 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerMROUND
+     *
+     * @param mixed $expectedResult
      */
-    public function testMROUND()
+    public function testMROUND($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
         Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_VALUE);
-        $result = call_user_func_array([MathTrig::class, 'MROUND'], $args);
+        $result = MathTrig::MROUND(...$args);
         Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_ARRAY);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
@@ -343,12 +343,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerPRODUCT
+     *
+     * @param mixed $expectedResult
      */
-    public function testPRODUCT()
+    public function testPRODUCT($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'PRODUCT'], $args);
+        $result = MathTrig::PRODUCT(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -359,12 +359,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerQUOTIENT
+     *
+     * @param mixed $expectedResult
      */
-    public function testQUOTIENT()
+    public function testQUOTIENT($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'QUOTIENT'], $args);
+        $result = MathTrig::QUOTIENT(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -375,12 +375,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerROUNDUP
+     *
+     * @param mixed $expectedResult
      */
-    public function testROUNDUP()
+    public function testROUNDUP($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'ROUNDUP'], $args);
+        $result = MathTrig::ROUNDUP(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -391,12 +391,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerROUNDDOWN
+     *
+     * @param mixed $expectedResult
      */
-    public function testROUNDDOWN()
+    public function testROUNDDOWN($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'ROUNDDOWN'], $args);
+        $result = MathTrig::ROUNDDOWN(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -407,12 +407,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerSERIESSUM
+     *
+     * @param mixed $expectedResult
      */
-    public function testSERIESSUM()
+    public function testSERIESSUM($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'SERIESSUM'], $args);
+        $result = MathTrig::SERIESSUM(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -423,12 +423,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerSUMSQ
+     *
+     * @param mixed $expectedResult
      */
-    public function testSUMSQ()
+    public function testSUMSQ($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'SUMSQ'], $args);
+        $result = MathTrig::SUMSQ(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -439,12 +439,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerTRUNC
+     *
+     * @param mixed $expectedResult
      */
-    public function testTRUNC()
+    public function testTRUNC($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'TRUNC'], $args);
+        $result = MathTrig::TRUNC(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -455,12 +455,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerROMAN
+     *
+     * @param mixed $expectedResult
      */
-    public function testROMAN()
+    public function testROMAN($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'ROMAN'], $args);
+        $result = MathTrig::ROMAN(...$args);
         $this->assertEquals($expectedResult, $result);
     }
 
@@ -471,12 +471,12 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerSQRTPI
+     *
+     * @param mixed $expectedResult
      */
-    public function testSQRTPI()
+    public function testSQRTPI($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'SQRTPI'], $args);
+        $result = MathTrig::SQRTPI(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
@@ -487,75 +487,17 @@ class MathTrigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerSUMIF
+     *
+     * @param mixed $expectedResult
      */
-    public function testSUMIF()
+    public function testSUMIF($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([MathTrig::class, 'SUMIF'], $args);
+        $result = MathTrig::SUMIF(...$args);
         $this->assertEquals($expectedResult, $result, null, 1E-12);
     }
 
     public function providerSUMIF()
     {
-        return [
-            [
-                [
-                    [1],
-                    [5],
-                    [10],
-                ],
-                '>=5',
-                15,
-            ],
-            [
-                [
-                    ['text'],
-                    [2],
-                ],
-                '=text',
-                [
-                    [10],
-                    [100],
-                ],
-                10,
-            ],
-            [
-                [
-                    ['"text with quotes"'],
-                    [2],
-                ],
-                '="text with quotes"',
-                [
-                    [10],
-                    [100],
-                ],
-                10,
-            ],
-            [
-                [
-                    ['"text with quotes"'],
-                    [''],
-                ],
-                '>"', // Compare to the single characater " (double quote)
-                [
-                    [10],
-                    [100],
-                ],
-                10,
-            ],
-            [
-                [
-                    [''],
-                    ['anything'],
-                ],
-                '>"', // Compare to the single characater " (double quote)
-                [
-                    [10],
-                    [100],
-                ],
-                100,
-            ],
-        ];
+        return require 'data/Calculation/MathTrig/SUMIF.php';
     }
 }

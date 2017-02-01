@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -64,10 +64,10 @@ class DataType
     /**
      * Check a string that it satisfies Excel requirements.
      *
-     * @param  mixed  Value to sanitize to an Excel string
+     * @param mixed Value to sanitize to an Excel string
      * @param null|mixed $pValue
      *
-     * @return mixed  Sanitized value
+     * @return mixed Sanitized value
      */
     public static function checkString($pValue = null)
     {
@@ -88,10 +88,10 @@ class DataType
     /**
      * Check a value that it is a valid error code.
      *
-     * @param  mixed   Value to sanitize to an Excel error code
+     * @param mixed Value to sanitize to an Excel error code
      * @param null|mixed $pValue
      *
-     * @return string  Sanitized value
+     * @return string Sanitized value
      */
     public static function checkErrorCode($pValue = null)
     {

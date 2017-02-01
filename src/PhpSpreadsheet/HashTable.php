@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -43,9 +43,9 @@ class HashTable
     /**
      * Create a new \PhpOffice\PhpSpreadsheet\HashTable.
      *
-     * @param    IComparable[] $pSource    Optional source array to create HashTable from
+     * @param IComparable[] $pSource Optional source array to create HashTable from
      *
-     * @throws   Exception
+     * @throws Exception
      */
     public function __construct($pSource = null)
     {
@@ -58,9 +58,9 @@ class HashTable
     /**
      * Add HashTable items from source.
      *
-     * @param    IComparable[]  $pSource    Source array to create HashTable from
+     * @param IComparable[] $pSource Source array to create HashTable from
      *
-     * @throws   Exception
+     * @throws Exception
      */
     public function addFromSource($pSource = null)
     {
@@ -79,9 +79,9 @@ class HashTable
     /**
      * Add HashTable item.
      *
-     * @param    IComparable $pSource    Item to add
+     * @param IComparable $pSource Item to add
      *
-     * @throws   Exception
+     * @throws Exception
      */
     public function add(IComparable $pSource = null)
     {
@@ -95,9 +95,9 @@ class HashTable
     /**
      * Remove HashTable item.
      *
-     * @param    IComparable $pSource    Item to remove
+     * @param IComparable $pSource Item to remove
      *
-     * @throws   Exception
+     * @throws Exception
      */
     public function remove(IComparable $pSource = null)
     {
@@ -141,9 +141,9 @@ class HashTable
     /**
      * Get index for hash code.
      *
-     * @param    string    $pHashCode
+     * @param string $pHashCode
      *
-     * @return   int       Index
+     * @return int Index
      */
     public function getIndexForHashCode($pHashCode = '')
     {
@@ -153,9 +153,9 @@ class HashTable
     /**
      * Get by index.
      *
-     * @param    int    $pIndex
+     * @param int $pIndex
      *
-     * @return   IComparable
+     * @return IComparable
      */
     public function getByIndex($pIndex = 0)
     {
@@ -169,9 +169,9 @@ class HashTable
     /**
      * Get by hashcode.
      *
-     * @param    string    $pHashCode
+     * @param string $pHashCode
      *
-     * @return   IComparable
+     * @return IComparable
      */
     public function getByHashCode($pHashCode = '')
     {

@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Shared\Trend;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -30,7 +30,7 @@ class PolynomialBestFit extends BestFit
      * Algorithm type to use for best-fit
      * (Name of this Trend class).
      *
-     * @var    string
+     * @var string
      **/
     protected $bestFitType = 'polynomial';
 
@@ -39,14 +39,14 @@ class PolynomialBestFit extends BestFit
      *
      * @protected
      *
-     * @var    int
+     * @var int
      **/
     protected $order = 0;
 
     /**
      * Return the order of this polynomial.
      *
-     * @return     int
+     * @return int
      **/
     public function getOrder()
     {
@@ -56,9 +56,9 @@ class PolynomialBestFit extends BestFit
     /**
      * Return the Y-Value for a specified value of X.
      *
-     * @param     float        $xValue            X-Value
+     * @param float $xValue X-Value
      *
-     * @return     float                        Y-Value
+     * @return float Y-Value
      **/
     public function getValueOfYForX($xValue)
     {
@@ -76,9 +76,9 @@ class PolynomialBestFit extends BestFit
     /**
      * Return the X-Value for a specified value of Y.
      *
-     * @param     float        $yValue            Y-Value
+     * @param float $yValue Y-Value
      *
-     * @return     float                        X-Value
+     * @return float X-Value
      **/
     public function getValueOfXForY($yValue)
     {
@@ -88,9 +88,9 @@ class PolynomialBestFit extends BestFit
     /**
      * Return the Equation of the best-fit line.
      *
-     * @param     int        $dp        Number of places of decimal precision to display
+     * @param int $dp Number of places of decimal precision to display
      *
-     * @return     string
+     * @return string
      **/
     public function getEquation($dp = 0)
     {
@@ -113,9 +113,9 @@ class PolynomialBestFit extends BestFit
     /**
      * Return the Slope of the line.
      *
-     * @param     int        $dp        Number of places of decimal precision to display
+     * @param int $dp Number of places of decimal precision to display
      *
-     * @return     string
+     * @return string
      **/
     public function getSlope($dp = 0)
     {
@@ -139,10 +139,10 @@ class PolynomialBestFit extends BestFit
     /**
      * Execute the regression and calculate the goodness of fit for a set of X and Y data values.
      *
-     * @param    int            $order        Order of Polynomial for this regression
-     * @param    float[]        $yValues    The set of Y-values for this regression
-     * @param    float[]        $xValues    The set of X-values for this regression
-     * @param    bool        $const
+     * @param int $order Order of Polynomial for this regression
+     * @param float[] $yValues The set of Y-values for this regression
+     * @param float[] $xValues The set of X-values for this regression
+     * @param bool $const
      */
     private function polynomialRegression($order, $yValues, $xValues, $const)
     {
@@ -196,10 +196,10 @@ class PolynomialBestFit extends BestFit
     /**
      * Define the regression and calculate the goodness of fit for a set of X and Y data values.
      *
-     * @param    int            $order        Order of Polynomial for this regression
-     * @param    float[]        $yValues    The set of Y-values for this regression
-     * @param    float[]        $xValues    The set of X-values for this regression
-     * @param    bool        $const
+     * @param int $order Order of Polynomial for this regression
+     * @param float[] $yValues The set of Y-values for this regression
+     * @param float[] $xValues The set of X-values for this regression
+     * @param bool $const
      */
     public function __construct($order, $yValues, $xValues = [], $const = true)
     {

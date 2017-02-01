@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\CalcEngine;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -27,16 +27,16 @@ namespace PhpOffice\PhpSpreadsheet\CalcEngine;
 class CyclicReferenceStack
 {
     /**
-     *  The call stack for calculated cells.
+     * The call stack for calculated cells.
      *
-     *  @var mixed[]
+     * @var mixed[]
      */
     private $stack = [];
 
     /**
      * Return the number of entries on the stack.
      *
-     * @return  int
+     * @return int
      */
     public function count()
     {
@@ -46,7 +46,7 @@ class CyclicReferenceStack
     /**
      * Push a new entry onto the stack.
      *
-     * @param  mixed  $value
+     * @param mixed $value
      */
     public function push($value)
     {
@@ -56,7 +56,7 @@ class CyclicReferenceStack
     /**
      * Pop the last entry from the stack.
      *
-     * @return  mixed
+     * @return mixed
      */
     public function pop()
     {
@@ -66,7 +66,7 @@ class CyclicReferenceStack
     /**
      * Test to see if a specified entry exists on the stack.
      *
-     * @param  mixed  $value  The value to test
+     * @param mixed $value The value to test
      */
     public function onStack($value)
     {
@@ -84,7 +84,7 @@ class CyclicReferenceStack
     /**
      * Return an array of all entries on the stack.
      *
-     * @return  mixed[]
+     * @return mixed[]
      */
     public function showStack()
     {

@@ -30,11 +30,11 @@ $inputFileName = './sampleData/example1.xls';
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using \PhpOffice\PhpSpreadsheet\Reader\Xls<br />';
 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
 //	$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-//	$reader = new \PhpOffice\PhpSpreadsheet\Reader\Excel2003XML();
+//	$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xml();
 //	$reader = new \PhpOffice\PhpSpreadsheet\Reader\Ods();
-//	$reader = new \PhpOffice\PhpSpreadsheet\Reader\SYLK();
+//	$reader = new \PhpOffice\PhpSpreadsheet\Reader\Slk();
 //	$reader = new \PhpOffice\PhpSpreadsheet\Reader\Gnumeric();
-//	$reader = new \PhpOffice\PhpSpreadsheet\Reader\CSV();
+//	$reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
 $spreadsheet = $reader->load($inputFileName);
 
 echo '<hr />';

@@ -177,7 +177,7 @@ class GridLines extends Properties
     /**
      * Get Line Style Property.
      *
-     * @param    array|string $elements
+     * @param array|string $elements
      *
      * @return string
      */
@@ -189,10 +189,10 @@ class GridLines extends Properties
     /**
      * Set Glow Properties.
      *
-     * @param    float $size
-     * @param    string $color_value
-     * @param    int $color_alpha
-     * @param    string $color_type
+     * @param float $size
+     * @param string $color_value
+     * @param int $color_alpha
+     * @param string $color_type
      */
     public function setGlowProperties($size, $color_value = null, $color_alpha = null, $color_type = null)
     {

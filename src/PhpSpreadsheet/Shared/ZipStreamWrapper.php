@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -66,14 +66,14 @@ class ZipStreamWrapper
     /**
      * Implements support for fopen().
      *
-     * @param    string    $path            resource name including scheme, e.g.
-     * @param    string    $mode            only "r" is supported
-     * @param    int        $options        mask of STREAM_REPORT_ERRORS and STREAM_USE_PATH
-     * @param    string  &$openedPath    absolute path of the opened stream (out parameter)
+     * @param string $path resource name including scheme, e.g.
+     * @param string $mode only "r" is supported
+     * @param int $options mask of STREAM_REPORT_ERRORS and STREAM_USE_PATH
+     * @param string &$openedPath absolute path of the opened stream (out parameter)
      *
-     * @throws   \PhpOffice\PhpSpreadsheet\Reader\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      *
-     * @return   bool    true on success
+     * @return bool true on success
      */
     public function stream_open($path, $mode, $options, &$opened_path) // @codingStandardsIgnoreLine
     {
@@ -101,7 +101,7 @@ class ZipStreamWrapper
     /**
      * Implements support for fstat().
      *
-     * @return  string
+     * @return string
      */
     public function statName()
     {
@@ -111,7 +111,7 @@ class ZipStreamWrapper
     /**
      * Implements support for fstat().
      *
-     * @return  string
+     * @return string
      */
     public function url_stat() // @codingStandardsIgnoreLine
     {
@@ -121,7 +121,7 @@ class ZipStreamWrapper
     /**
      * Implements support for fstat().
      *
-     * @return  bool
+     * @return bool
      */
     public function stream_stat() // @codingStandardsIgnoreLine
     {
@@ -131,9 +131,9 @@ class ZipStreamWrapper
     /**
      * Implements support for fread(), fgets() etc.
      *
-     * @param   int        $count    maximum number of bytes to read
+     * @param int $count maximum number of bytes to read
      *
-     * @return  string
+     * @return string
      */
     public function stream_read($count) // @codingStandardsIgnoreLine
     {
@@ -147,7 +147,7 @@ class ZipStreamWrapper
      * Returns the position of the file pointer, i.e. its offset into the file
      * stream. Implements support for ftell().
      *
-     * @return  int
+     * @return int
      */
     public function stream_tell() // @codingStandardsIgnoreLine
     {
@@ -157,7 +157,7 @@ class ZipStreamWrapper
     /**
      * EOF stream.
      *
-     * @return    bool
+     * @return bool
      */
     public function stream_eof() // @codingStandardsIgnoreLine
     {
@@ -167,10 +167,10 @@ class ZipStreamWrapper
     /**
      * Seek stream.
      *
-     * @param    int        $offset    byte offset
-     * @param    int        $whence    SEEK_SET, SEEK_CUR or SEEK_END
+     * @param int $offset byte offset
+     * @param int $whence SEEK_SET, SEEK_CUR or SEEK_END
      *
-     * @return    bool
+     * @return bool
      */
     public function stream_seek($offset, $whence) // @codingStandardsIgnoreLine
     {

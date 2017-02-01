@@ -20,32 +20,32 @@ namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
 class CholeskyDecomposition
 {
     /**
-     *    Decomposition storage.
+     * Decomposition storage.
      *
-     *    @var array
+     * @var array
      */
     private $L = [];
 
     /**
-     *    Matrix row and column dimension.
+     * Matrix row and column dimension.
      *
-     *    @var int
+     * @var int
      */
     private $m;
 
     /**
-     *    Symmetric positive definite flag.
+     * Symmetric positive definite flag.
      *
-     *    @var bool
+     * @var bool
      */
     private $isspd = true;
 
     /**
-     *    CholeskyDecomposition.
+     * CholeskyDecomposition.
      *
      *    Class constructor - decomposes symmetric positive definite matrix
      *
-     *    @param mixed Matrix square symmetric positive definite matrix
+     * @param mixed Matrix square symmetric positive definite matrix
      * @param null|mixed $A
      */
     public function __construct($A = null)
@@ -86,7 +86,7 @@ class CholeskyDecomposition
     /**
      *    Is the matrix symmetric and positive definite?
      *
-     *    @return bool
+     * @return bool
      */
     public function isSPD()
     {
@@ -96,11 +96,11 @@ class CholeskyDecomposition
     //    function isSPD()
 
     /**
-     *    getL.
+     * getL.
      *
-     *    Return triangular factor.
+     * Return triangular factor.
      *
-     *    @return Matrix Lower triangular matrix
+     * @return Matrix Lower triangular matrix
      */
     public function getL()
     {
@@ -110,11 +110,11 @@ class CholeskyDecomposition
     //    function getL()
 
     /**
-     *    Solve A*X = B.
+     * Solve A*X = B.
      *
-     *    @param $B Row-equal matrix
+     * @param $B Row-equal matrix
      *
-     *    @return Matrix L * L' * X = B
+     * @return Matrix L * L' * X = B
      */
     public function solve($B = null)
     {

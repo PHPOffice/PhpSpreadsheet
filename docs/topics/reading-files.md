@@ -64,11 +64,11 @@ $inputFileName = './sampleData/example1.xls';
 /** Create a new Xls Reader  **/
 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
 //    $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-//    $reader = new \PhpOffice\PhpSpreadsheet\Reader\Excel2003XML();
+//    $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xml();
 //    $reader = new \PhpOffice\PhpSpreadsheet\Reader\Ods();
-//    $reader = new \PhpOffice\PhpSpreadsheet\Reader\SYLK();
+//    $reader = new \PhpOffice\PhpSpreadsheet\Reader\Slk();
 //    $reader = new \PhpOffice\PhpSpreadsheet\Reader\Gnumeric();
-//    $reader = new \PhpOffice\PhpSpreadsheet\Reader\CSV();
+//    $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
 /** Load $inputFileName to a Spreadsheet Object  **/
 $spreadsheet = $reader->load($inputFileName);
 ```
@@ -83,11 +83,11 @@ of the reader that you want instantiating.
 ``` php
 $inputFileType = 'Xls';
 //    $inputFileType = 'Xlsx';
-//    $inputFileType = 'Excel2003XML';
+//    $inputFileType = 'Xml';
 //    $inputFileType = 'Ods';
-//    $inputFileType = 'SYLK';
+//    $inputFileType = 'Slk';
 //    $inputFileType = 'Gnumeric';
-//    $inputFileType = 'CSV';
+//    $inputFileType = 'Csv';
 $inputFileName = './sampleData/example1.xls';
 
 /**  Create a new Reader of the type defined in $inputFileType  **/
@@ -161,7 +161,7 @@ Reading Only Data from a Spreadsheet File applies to Readers:
 
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
-Xlsx      | YES | Xls | YES | Excel2003XML | YES |
+Xlsx      | YES | Xls | YES | Xml | YES |
 Ods    | YES | SYLK   | NO  | Gnumeric     | YES |
 CSV       | NO  | HTML   | NO
 
@@ -232,7 +232,7 @@ Reading Only Named WorkSheets from a File applies to Readers:
 
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
-Xlsx      | YES | Xls | YES | Excel2003XML | YES |
+Xlsx      | YES | Xls | YES | Xml | YES |
 Ods    | YES | SYLK   | NO  | Gnumeric     | YES |
 CSV       | NO  | HTML   | NO
 
@@ -380,7 +380,7 @@ Using Read Filters applies to:
 
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
-Xlsx      | YES | Xls    | YES | Excel2003XML | YES |
+Xlsx      | YES | Xls    | YES | Xml | YES |
 Ods       | YES | SYLK   | NO  | Gnumeric     | YES |
 CSV       | YES | HTML   | NO  |              |     |
 
@@ -397,7 +397,7 @@ loadIntoExisting() method rather than the load() method to actually read
 the file into that worksheet.
 
 ``` php
-$inputFileType = 'CSV';
+$inputFileType = 'Csv';
 $inputFileNames = array('./sampleData/example1.csv',
     './sampleData/example2.csv'
     './sampleData/example3.csv'
@@ -439,7 +439,7 @@ Combining Multiple Files into a Single Spreadsheet Object applies to:
 
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
-Xlsx      | NO  | Xls    | NO  | Excel2003XML | NO  |
+Xlsx      | NO  | Xls    | NO  | Xml | NO  |
 Ods       | NO  | SYLK   | YES | Gnumeric     | NO  |
 CSV       | YES | HTML   | NO
 
@@ -457,7 +457,7 @@ and the setSheetIndex() method of the \$reader, we can split the CSV
 file across several individual worksheets.
 
 ``` php
-$inputFileType = 'CSV';
+$inputFileType = 'Csv';
 $inputFileName = './sampleData/example2.csv';
 
 
@@ -518,7 +518,7 @@ Splitting a single loaded file across multiple worksheets applies to:
 
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
-Xlsx      | NO  | Xls    | NO  | Excel2003XML | NO  |
+Xlsx      | NO  | Xls    | NO  | Xml | NO  |
 Ods       | NO  | SYLK   | NO  | Gnumeric     | NO  |
 CSV       | YES | HTML   | NO
 
@@ -529,7 +529,7 @@ separator, but you can modify this to load tab- or pipe-separated value
 files using the setDelimiter() method.
 
 ``` php
-$inputFileType = 'CSV';
+$inputFileType = 'Csv';
 $inputFileName = './sampleData/example1.tsv';
 
 /**  Create a new Reader of the type defined in $inputFileType  **/ $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
@@ -554,7 +554,7 @@ Setting CSV delimiter applies to:
 
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
-Xlsx      | NO  | Xls    | NO  | Excel2003XML | NO  |
+Xlsx      | NO  | Xls    | NO  | Xml | NO  |
 Ods       | NO  | SYLK   | NO  | Gnumeric     | NO  |
 CSV       | YES | HTML   | NO
 
@@ -591,7 +591,7 @@ loader logic when reading unformatted text files.
 /**  Tell PhpSpreadsheet that we want to use the Advanced Value Binder  **/
 \PhpOffice\PhpSpreadsheet\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
 
-$inputFileType = 'CSV';
+$inputFileType = 'Csv';
 $inputFileName = './sampleData/example1.tsv';
 
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
@@ -606,7 +606,7 @@ Loading using a Value Binder applies to:
 
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N
 ----------|:---:|--------|:---:|--------------|:---:
-Xlsx      | NO  | Xls    | NO  | Excel2003XML | NO
+Xlsx      | NO  | Xls    | NO  | Xml | NO
 Ods       | NO  | SYLK   | NO  | Gnumeric     | NO
 CSV       | YES | HTML   | YES
 
@@ -654,7 +654,7 @@ Reading Only Data from a Spreadsheet File applies to Readers:
 
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
-Xlsx      | YES | Xls    | YES | Excel2003XML | YES |
+Xlsx      | YES | Xls    | YES | Xml | YES |
 Ods       | YES | SYLK   | NO  | Gnumeric     | YES |
 CSV       | NO  | HTML   | NO
 
@@ -725,7 +725,7 @@ Reading Only Named WorkSheets from a File applies to Readers:
 
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
-Xlsx      | YES | Xls | YES | Excel2003XML | YES |
+Xlsx      | YES | Xls | YES | Xml | YES |
 Ods    | YES | SYLK   | NO  | Gnumeric     | YES |
 CSV       | NO  | HTML   | NO
 
@@ -873,7 +873,7 @@ Using Read Filters applies to:
 
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
-Xlsx      | YES | Xls | YES | Excel2003XML | YES |
+Xlsx      | YES | Xls | YES | Xml | YES |
 Ods    | YES | SYLK   | NO  | Gnumeric     | YES |
 CSV       | YES | HTML   | NO
 
@@ -890,7 +890,7 @@ loadIntoExisting() method rather than the load() method to actually read
 the file into that worksheet.
 
 ``` php
-$inputFileType = 'CSV';
+$inputFileType = 'Csv';
 $inputFileNames = array('./sampleData/example1.csv',
     './sampleData/example2.csv'
     './sampleData/example3.csv'
@@ -932,7 +932,7 @@ Combining Multiple Files into a Single Spreadsheet Object applies to:
 
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
-Xlsx      | NO  | Xls | NO  | Excel2003XML | NO  |
+Xlsx      | NO  | Xls | NO  | Xml | NO  |
 Ods    | NO  | SYLK   | YES | Gnumeric     | NO  |
 CSV       | YES | HTML   | NO
 
@@ -950,7 +950,7 @@ and the setSheetIndex() method of the \$reader, we can split the CSV
 file across several individual worksheets.
 
 ``` php
-$inputFileType = 'CSV';
+$inputFileType = 'Csv';
 $inputFileName = './sampleData/example2.csv';
 
 
@@ -1011,7 +1011,7 @@ Splitting a single loaded file across multiple worksheets applies to:
 
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
-Xlsx      | NO  | Xls | NO  | Excel2003XML | NO  |
+Xlsx      | NO  | Xls | NO  | Xml | NO  |
 Ods    | NO  | SYLK   | NO  | Gnumeric     | NO  |
 CSV       | YES | HTML   | NO
 
@@ -1022,7 +1022,7 @@ separator, but you can modify this to load tab- or pipe-separated value
 files using the setDelimiter() method.
 
 ``` php
-$inputFileType = 'CSV';
+$inputFileType = 'Csv';
 $inputFileName = './sampleData/example1.tsv';
 
 /**  Create a new Reader of the type defined in $inputFileType  **/ $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
@@ -1047,7 +1047,7 @@ Setting CSV delimiter applies to:
 
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N |
 ----------|:---:|--------|:---:|--------------|:---:|
-Xlsx      | NO  | Xls | NO  | Excel2003XML | NO  |
+Xlsx      | NO  | Xls | NO  | Xml | NO  |
 Ods    | NO  | SYLK   | NO  | Gnumeric     | NO  |
 CSV       | YES | HTML   | NO
 
@@ -1084,7 +1084,7 @@ loader logic when reading unformatted text files.
 /**  Tell PhpSpreadsheet that we want to use the Advanced Value Binder  **/
 \PhpOffice\PhpSpreadsheet\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
 
-$inputFileType = 'CSV';
+$inputFileType = 'Csv';
 $inputFileName = './sampleData/example1.tsv';
 
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
@@ -1099,7 +1099,7 @@ Loading using a Value Binder applies to:
 
 Reader    | Y/N |Reader  | Y/N |Reader        | Y/N
 ----------|:---:|--------|:---:|--------------|:---:
-Xlsx      | NO  | Xls | NO  | Excel2003XML | NO
+Xlsx      | NO  | Xls | NO  | Xml | NO
 Ods    | NO  | SYLK   | NO  | Gnumeric     | NO
 CSV       | YES | HTML   | YES
 

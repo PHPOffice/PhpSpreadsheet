@@ -23,39 +23,39 @@ class QRDecomposition
     const MATRIX_RANK_EXCEPTION = 'Can only perform operation on full-rank matrix.';
 
     /**
-     *    Array for internal storage of decomposition.
+     * Array for internal storage of decomposition.
      *
-     *    @var array
+     * @var array
      */
     private $QR = [];
 
     /**
-     *    Row dimension.
+     * Row dimension.
      *
-     *    @var int
+     * @var int
      */
     private $m;
 
     /**
-     *    Column dimension.
+     * Column dimension.
      *
-     *    @var int
+     * @var int
      */
     private $n;
 
     /**
-     *    Array for internal storage of diagonal of R.
+     * Array for internal storage of diagonal of R.
      *
-     *    @var  array
+     * @var array
      */
     private $Rdiag = [];
 
     /**
-     *    QR Decomposition computed by Householder reflections.
+     * QR Decomposition computed by Householder reflections.
      *
-     *    @param matrix $A Rectangular matrix
+     * @param matrix $A Rectangular matrix
      *
-     *    @return Structure to access R and the Householder vectors and compute Q
+     * @return Structure to access R and the Householder vectors and compute Q
      */
     public function __construct($A)
     {
@@ -104,7 +104,7 @@ class QRDecomposition
     /**
      *    Is the matrix full rank?
      *
-     *    @return bool true if R, and hence A, has full rank, else false
+     * @return bool true if R, and hence A, has full rank, else false
      */
     public function isFullRank()
     {
@@ -120,9 +120,9 @@ class QRDecomposition
     //    function isFullRank()
 
     /**
-     *    Return the Householder vectors.
+     * Return the Householder vectors.
      *
-     *    @return Matrix Lower trapezoidal matrix whose columns define the reflections
+     * @return Matrix Lower trapezoidal matrix whose columns define the reflections
      */
     public function getH()
     {
@@ -142,9 +142,9 @@ class QRDecomposition
     //    function getH()
 
     /**
-     *    Return the upper triangular factor.
+     * Return the upper triangular factor.
      *
-     *    @return Matrix upper triangular factor
+     * @return Matrix upper triangular factor
      */
     public function getR()
     {
@@ -166,9 +166,9 @@ class QRDecomposition
     //    function getR()
 
     /**
-     *    Generate and return the (economy-sized) orthogonal factor.
+     * Generate and return the (economy-sized) orthogonal factor.
      *
-     *    @return Matrix orthogonal factor
+     * @return Matrix orthogonal factor
      */
     public function getQ()
     {
@@ -205,11 +205,11 @@ class QRDecomposition
     //    function getQ()
 
     /**
-     *    Least squares solution of A*X = B.
+     * Least squares solution of A*X = B.
      *
-     *    @param Matrix $B a Matrix with as many rows as A and any number of columns
+     * @param Matrix $B a Matrix with as many rows as A and any number of columns
      *
-     *    @return Matrix matrix that minimizes the two norm of Q*R*X-B
+     * @return Matrix matrix that minimizes the two norm of Q*R*X-B
      */
     public function solve($B)
     {

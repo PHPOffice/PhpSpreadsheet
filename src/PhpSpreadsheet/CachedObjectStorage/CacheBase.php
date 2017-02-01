@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\CachedObjectStorage;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -56,7 +56,7 @@ abstract class CacheBase
 
     /**
      * An array of cells or cell pointers for the worksheet cells held in this cache,
-     *        and indexed by their coordinate address within the worksheet.
+     * and indexed by their coordinate address within the worksheet.
      *
      * @var array of mixed
      */
@@ -65,7 +65,7 @@ abstract class CacheBase
     /**
      * Initialise this new cell collection.
      *
-     * @param    \PhpOffice\PhpSpreadsheet\Worksheet    $parent        The worksheet for this cell collection
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $parent The worksheet for this cell collection
      */
     public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $parent)
     {
@@ -78,7 +78,7 @@ abstract class CacheBase
     /**
      * Return the parent worksheet for this cell collection.
      *
-     * @return    \PhpOffice\PhpSpreadsheet\Worksheet
+     * @return \PhpOffice\PhpSpreadsheet\Worksheet
      */
     public function getParent()
     {
@@ -88,9 +88,9 @@ abstract class CacheBase
     /**
      * Is a value set in the current \PhpOffice\PhpSpreadsheet\CachedObjectStorage\ICache for an indexed cell?
      *
-     * @param    string        $pCoord        Coordinate address of the cell to check
+     * @param string $pCoord Coordinate address of the cell to check
      *
-     * @return    bool
+     * @return bool
      */
     public function isDataSet($pCoord)
     {
@@ -104,10 +104,10 @@ abstract class CacheBase
     /**
      * Move a cell object from one address to another.
      *
-     * @param    string        $fromAddress    Current address of the cell to move
-     * @param    string        $toAddress        Destination address of the cell to move
+     * @param string $fromAddress Current address of the cell to move
+     * @param string $toAddress Destination address of the cell to move
      *
-     * @return    bool
+     * @return bool
      */
     public function moveCell($fromAddress, $toAddress)
     {
@@ -126,11 +126,11 @@ abstract class CacheBase
     /**
      * Add or Update a cell in cache.
      *
-     * @param    \PhpOffice\PhpSpreadsheet\Cell    $cell        Cell to update
+     * @param \PhpOffice\PhpSpreadsheet\Cell $cell Cell to update
      *
-     * @throws   \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     * @return   \PhpOffice\PhpSpreadsheet\Cell
+     * @return \PhpOffice\PhpSpreadsheet\Cell
      */
     public function updateCacheData(\PhpOffice\PhpSpreadsheet\Cell $cell)
     {
@@ -140,9 +140,9 @@ abstract class CacheBase
     /**
      * Delete a cell in cache identified by coordinate address.
      *
-     * @param    string            $pCoord        Coordinate address of the cell to delete
+     * @param string $pCoord Coordinate address of the cell to delete
      *
-     * @throws   \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     public function deleteCacheData($pCoord)
     {
@@ -161,7 +161,7 @@ abstract class CacheBase
     /**
      * Get a list of all cell addresses currently held in cache.
      *
-     * @return    string[]
+     * @return string[]
      */
     public function getCellList()
     {
@@ -171,7 +171,7 @@ abstract class CacheBase
     /**
      * Sort the list of all cell addresses currently held in cache by row and column.
      *
-     * @return    string[]
+     * @return string[]
      */
     public function getSortedCellList()
     {
@@ -215,7 +215,7 @@ abstract class CacheBase
     /**
      * Return the cell address of the currently active cell object.
      *
-     * @return    string
+     * @return string
      */
     public function getCurrentAddress()
     {
@@ -225,7 +225,7 @@ abstract class CacheBase
     /**
      * Return the column address of the currently active cell object.
      *
-     * @return    string
+     * @return string
      */
     public function getCurrentColumn()
     {
@@ -237,7 +237,7 @@ abstract class CacheBase
     /**
      * Return the row address of the currently active cell object.
      *
-     * @return    int
+     * @return int
      */
     public function getCurrentRow()
     {
@@ -249,10 +249,10 @@ abstract class CacheBase
     /**
      * Get highest worksheet column.
      *
-     * @param   string     $row        Return the highest column for the specified row,
-     *                                     or the highest column of any row if no row number is passed
+     * @param string $row Return the highest column for the specified row,
+     *                    or the highest column of any row if no row number is passed
      *
-     * @return  string     Highest column name
+     * @return string Highest column name
      */
     public function getHighestColumn($row = null)
     {
@@ -277,10 +277,10 @@ abstract class CacheBase
     /**
      * Get highest worksheet row.
      *
-     * @param   string     $column     Return the highest row for the specified column,
-     *                                     or the highest row of any column if no column letter is passed
+     * @param string $column Return the highest row for the specified column,
+     *                       or the highest row of any column if no column letter is passed
      *
-     * @return  int        Highest row number
+     * @return int Highest row number
      */
     public function getHighestRow($column = null)
     {
@@ -321,7 +321,7 @@ abstract class CacheBase
     /**
      * Clone the cell collection.
      *
-     * @param  \PhpOffice\PhpSpreadsheet\Worksheet    $parent        The new worksheet that we're copying to
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $parent The new worksheet that we're copying to
      */
     public function copyCellCollection(\PhpOffice\PhpSpreadsheet\Worksheet $parent)
     {
@@ -337,7 +337,7 @@ abstract class CacheBase
     /**
      * Remove a row, deleting all cells in that row.
      *
-     * @param string    $row    Row number to remove
+     * @param string $row Row number to remove
      */
     public function removeRow($row)
     {
@@ -352,7 +352,7 @@ abstract class CacheBase
     /**
      * Remove a column, deleting all cells in that column.
      *
-     * @param string    $column    Column ID to remove
+     * @param string $column Column ID to remove
      */
     public function removeColumn($column)
     {
@@ -368,7 +368,7 @@ abstract class CacheBase
      * Identify whether the caching method is currently available
      * Some methods are dependent on the availability of certain extensions being enabled in the PHP build.
      *
-     * @return    bool
+     * @return bool
      */
     public static function cacheMethodIsAvailable()
     {

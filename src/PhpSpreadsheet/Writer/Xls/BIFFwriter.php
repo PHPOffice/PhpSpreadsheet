@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -51,7 +51,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 // *
 // *    This library is distributed in the hope that it will be useful,
 // *    but WITHOUT ANY WARRANTY; without even the implied warranty of
-// *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // *    Lesser General Public License for more details.
 // *
 // *    You should have received a copy of the GNU Lesser General Public
@@ -160,7 +160,7 @@ class BIFFwriter
      * Writes Excel BOF record to indicate the beginning of a stream or
      * sub-stream in the BIFF file.
      *
-     * @param  int $type type of BIFF file to write: 0x0005 Workbook,
+     * @param int $type type of BIFF file to write: 0x0005 Workbook,
      *                       0x0010 Worksheet
      */
     protected function storeBof($type)
@@ -213,9 +213,9 @@ class BIFFwriter
      * This function takes a long BIFF record and inserts CONTINUE records as
      * necessary.
      *
-     * @param  string  $data The original binary data to be written
+     * @param string $data The original binary data to be written
      *
-     * @return string        A very convenient string of continue blocks
+     * @return string A very convenient string of continue blocks
      */
     private function addContinue($data)
     {

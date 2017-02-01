@@ -124,16 +124,16 @@ class PPS
     /**
      * The constructor.
      *
-     * @param int $No   The PPS index
-     * @param string  $name The PPS name
+     * @param int $No The PPS index
+     * @param string $name The PPS name
      * @param int $type The PPS type. Dir, Root or File
      * @param int $prev The index of the previous PPS
      * @param int $next The index of the next PPS
-     * @param int $dir  The index of it's first child if this is a Dir or Root PPS
+     * @param int $dir The index of it's first child if this is a Dir or Root PPS
      * @param int $time_1st A timestamp
      * @param int $time_2nd A timestamp
-     * @param string  $data  The (usually binary) source data of the PPS
-     * @param array   $children Array containing children PPS for this PPS
+     * @param string $data The (usually binary) source data of the PPS
+     * @param array $children Array containing children PPS for this PPS
      */
     public function __construct($No, $name, $type, $prev, $next, $dir, $time_1st, $time_2nd, $data, $children)
     {
@@ -205,7 +205,7 @@ class PPS
      * @param mixed $to_save
      * @param mixed $depth
      *
-     * @return int          The index for this PPS
+     * @return int The index for this PPS
      */
     public static function _savePpsSetPnt(&$raList, $to_save, $depth = 0)
     {

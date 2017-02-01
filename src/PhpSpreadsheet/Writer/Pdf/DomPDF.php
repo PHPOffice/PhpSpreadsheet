@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Writer\PDF;
+namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
 /**
  *  Copyright (c) 2006 - 2015 PhpSpreadsheet.
@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Writer\PDF;
  *
  *  This library is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  *  Lesser General Public License for more details.
  *
  *  You should have received a copy of the GNU Lesser General Public
  *  License along with this library; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  *  @category    PhpSpreadsheet
  *
@@ -27,29 +27,11 @@ namespace PhpOffice\PhpSpreadsheet\Writer\PDF;
 class DomPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
 {
     /**
-     *  Create a new DomPDF Writer instance.
+     * Save Spreadsheet to file.
      *
-     *  @param   \PhpOffice\PhpSpreadsheet\Spreadsheet    $spreadsheet    Spreadsheet object
-     */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
-    {
-        parent::__construct($spreadsheet);
-
-        /*  Require DomPDF library */
-        $pdfRendererClassFile = \PhpOffice\PhpSpreadsheet\Settings::getPdfRendererPath() . '/dompdf_config.inc.php';
-        if (file_exists($pdfRendererClassFile)) {
-            require_once $pdfRendererClassFile;
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Unable to load PDF Rendering library');
-        }
-    }
-
-    /**
-     *  Save Spreadsheet to file.
+     * @param string $pFilename Name of the file to save as
      *
-     *  @param   string     $pFilename   Name of the file to save as
-     *
-     *  @throws  \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function save($pFilename = null)
     {
@@ -89,7 +71,7 @@ class DomPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
         }
 
         //  Create PDF
-        $pdf = new \DOMPDF();
+        $pdf = new \Dompdf\Dompdf();
         $pdf->set_paper(strtolower($paperSize), $orientation);
 
         $pdf->load_html(

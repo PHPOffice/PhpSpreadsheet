@@ -5,79 +5,79 @@ return [
         '#NAME?',
     ],
     [
-        null,
         '#NAME?',
+        null,
     ],
     [
+        false,
         -1,
-        false,
     ],
     [
+        true,
         0,
-        true,
     ],
     [
+        false,
         9,
-        false,
     ],
     [
+        false,
         1.25,
-        false,
     ],
     [
+        false,
         1.5,
-        false,
     ],
     [
+        true,
         2.25,
-        true,
     ],
     [
+        true,
         2.5,
-        true,
     ],
     [
+        '#VALUE!',
         '',
-        '#VALUE!',
     ],
     [
+        false,
         '-1',
-        false,
     ],
     [
+        true,
         '2',
-        true,
     ],
     [
+        false,
         '-1.5',
-        false,
     ],
     [
+        true,
         '2.5',
-        true,
     ],
     [
+        '#VALUE!',
         'ABC',
-        '#VALUE!',
     ],
     [
         '#VALUE!',
         '#VALUE!',
     ],
     [
+        '#VALUE!',
         '#N/A',
-        '#VALUE!',
     ],
     [
+        '#VALUE!',
         'TRUE',
-        '#VALUE!',
     ],
     [
+        '#VALUE!',
         true,
-        '#VALUE!',
     ],
     [
-        false,
         '#VALUE!',
+        false,
     ],
 ];

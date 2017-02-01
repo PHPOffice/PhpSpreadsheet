@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Style;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -97,10 +97,10 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
     /**
      * Create a new NumberFormat.
      *
-     * @param    bool    $isSupervisor    Flag indicating if this is a supervisor or not
+     * @param bool $isSupervisor Flag indicating if this is a supervisor or not
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
-     * @param    bool    $isConditional    Flag indicating if this is a conditional style or not
+     * @param bool $isConditional Flag indicating if this is a conditional style or not
      *                                    Leave this value at default unless you understand exactly what
      *                                        its ramifications are
      */
@@ -149,9 +149,9 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
      * );
      * </code>
      *
-     * @param    array    $pStyles    Array containing style information
+     * @param array $pStyles Array containing style information
      *
-     * @throws    \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
      * @return NumberFormat
      */
@@ -336,9 +336,9 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
     /**
      * Get built-in format code.
      *
-     * @param    int        $pIndex
+     * @param int $pIndex
      *
-     * @return    string
+     * @return string
      */
     public static function builtInFormatCode($pIndex)
     {
@@ -359,9 +359,9 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
     /**
      * Get built-in format code index.
      *
-     * @param    string        $formatCode
+     * @param string $formatCode
      *
-     * @return    int|bool
+     * @return int|bool
      */
     public static function builtInFormatCodeIndex($formatCode)
     {
@@ -379,7 +379,7 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
     /**
      * Get hash code.
      *
-     * @return string    Hash code
+     * @return string Hash code
      */
     public function getHashCode()
     {
@@ -587,11 +587,11 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
     /**
      * Convert a value in a pre-defined format to a PHP string.
      *
-     * @param mixed    $value        Value to format
-     * @param string    $format        Format code
-     * @param array        $callBack    Callback function for additional formatting of string
+     * @param mixed $value Value to format
+     * @param string $format Format code
+     * @param array $callBack Callback function for additional formatting of string
      *
-     * @return string    Formatted string
+     * @return string Formatted string
      */
     public static function toFormattedString($value = '0', $format = self::FORMAT_GENERAL, $callBack = null)
     {

@@ -15,12 +15,12 @@ use PhpOffice\PhpSpreadsheet\Exception;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -60,9 +60,9 @@ class ColumnIterator implements \Iterator
     /**
      * Create a new column iterator.
      *
-     * @param    \PhpOffice\PhpSpreadsheet\Worksheet   $subject       The worksheet to iterate over
-     * @param    string                $startColumn   The column address at which to start iterating
-     * @param    string                $endColumn     Optionally, the column address at which to stop iterating
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $subject The worksheet to iterate over
+     * @param string $startColumn The column address at which to start iterating
+     * @param string $endColumn Optionally, the column address at which to stop iterating
      */
     public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $subject, $startColumn = 'A', $endColumn = null)
     {
@@ -83,7 +83,7 @@ class ColumnIterator implements \Iterator
     /**
      * (Re)Set the start column and the current column pointer.
      *
-     * @param int    $startColumn    The column address at which to start iterating
+     * @param int $startColumn The column address at which to start iterating
      *
      * @throws Exception
      *
@@ -108,7 +108,7 @@ class ColumnIterator implements \Iterator
     /**
      * (Re)Set the end column.
      *
-     * @param string    $endColumn    The column address at which to stop iterating
+     * @param string $endColumn The column address at which to stop iterating
      *
      * @return ColumnIterator
      */
@@ -123,11 +123,11 @@ class ColumnIterator implements \Iterator
     /**
      * Set the column pointer to the selected column.
      *
-     * @param   string    $column    The column address to set the current pointer at
+     * @param string $column The column address to set the current pointer at
      *
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     * @return  ColumnIterator
+     * @return ColumnIterator
      */
     public function seek($column = 'A')
     {

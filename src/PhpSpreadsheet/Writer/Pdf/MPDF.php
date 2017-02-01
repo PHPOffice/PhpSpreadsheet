@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\Writer\PDF;
+namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
 /**
  *  Copyright (c) 2006 - 2015 PhpSpreadsheet.
@@ -12,45 +12,27 @@ namespace PhpOffice\PhpSpreadsheet\Writer\PDF;
  *
  *  This library is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  *  Lesser General Public License for more details.
  *
  *  You should have received a copy of the GNU Lesser General Public
  *  License along with this library; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  *  @category    PhpSpreadsheet
  *
  *  @copyright   Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  *  @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
-class TcPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
+class MPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
 {
     /**
-     *  Create a new tcPDF Writer instance.
+     * Save Spreadsheet to file.
      *
-     *  @param  \PhpOffice\PhpSpreadsheet\Spreadsheet  $spreadsheet  Spreadsheet object
-     */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
-    {
-        parent::__construct($spreadsheet);
-
-        /*  Require tcPDF library */
-        $pdfRendererClassFile = \PhpOffice\PhpSpreadsheet\Settings::getPdfRendererPath() . '/tcpdf.php';
-        if (file_exists($pdfRendererClassFile)) {
-            $k_path_url = \PhpOffice\PhpSpreadsheet\Settings::getPdfRendererPath();
-            require_once $pdfRendererClassFile;
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Unable to load PDF Rendering library');
-        }
-    }
-
-    /**
-     *  Save Spreadsheet to file.
+     * @param string $pFilename Name of the file to save as
      *
-     *  @param     string     $pFilename   Name of the file to save as
-     *
-     *  @throws    \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     public function save($pFilename = null)
     {
@@ -60,7 +42,7 @@ class TcPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
         $paperSize = 'LETTER'; //    Letter    (8.5 in. by 11 in.)
 
         //  Check for paper size and page orientation
-        if (is_null($this->getSheetIndex())) {
+        if (null === $this->getSheetIndex()) {
             $orientation = ($this->spreadsheet->getSheet(0)->getPageSetup()->getOrientation()
                 == \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
             $printPaperSize = $this->spreadsheet->getSheet(0)->getPageSetup()->getPaperSize();
@@ -71,15 +53,18 @@ class TcPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
             $printPaperSize = $this->spreadsheet->getSheet($this->getSheetIndex())->getPageSetup()->getPaperSize();
             $printMargins = $this->spreadsheet->getSheet($this->getSheetIndex())->getPageMargins();
         }
+        $this->setOrientation($orientation);
 
         //  Override Page Orientation
-        if (!is_null($this->getOrientation())) {
-            $orientation = ($this->getOrientation() == \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE)
-                ? 'L'
-                : 'P';
+        if (null !== $this->getOrientation()) {
+            $orientation = ($this->getOrientation() == \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_DEFAULT)
+                ? \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_PORTRAIT
+                : $this->getOrientation();
         }
+        $orientation = strtoupper($orientation);
+
         //  Override Paper Size
-        if (!is_null($this->getPaperSize())) {
+        if (null !== $this->getPaperSize()) {
             $printPaperSize = $this->getPaperSize();
         }
 
@@ -88,24 +73,11 @@ class TcPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
         }
 
         //  Create PDF
-        $pdf = new \TCPDF($orientation, 'pt', $paperSize);
-        $pdf->setFontSubsetting(false);
-        //    Set margins, converting inches to points (using 72 dpi)
-        $pdf->SetMargins($printMargins->getLeft() * 72, $printMargins->getTop() * 72, $printMargins->getRight() * 72);
-        $pdf->SetAutoPageBreak(true, $printMargins->getBottom() * 72);
-
-        $pdf->setPrintHeader(false);
-        $pdf->setPrintFooter(false);
-
-        $pdf->AddPage();
-
-        //  Set the appropriate font
-        $pdf->SetFont($this->getFont());
-        $pdf->writeHTML(
-            $this->generateHTMLHeader(false) .
-            $this->generateSheetData() .
-            $this->generateHTMLFooter()
-        );
+        $pdf = new \mPDF();
+        $ortmp = $orientation;
+        $pdf->_setPageSize(strtoupper($paperSize), $ortmp);
+        $pdf->DefOrientation = $orientation;
+        $pdf->AddPage($orientation);
 
         //  Document info
         $pdf->SetTitle($this->spreadsheet->getProperties()->getTitle());
@@ -114,8 +86,14 @@ class TcPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
         $pdf->SetKeywords($this->spreadsheet->getProperties()->getKeywords());
         $pdf->SetCreator($this->spreadsheet->getProperties()->getCreator());
 
+        $pdf->WriteHTML(
+            $this->generateHTMLHeader(false) .
+            $this->generateSheetData() .
+            $this->generateHTMLFooter()
+        );
+
         //  Write to file
-        fwrite($fileHandle, $pdf->output($pFilename, 'S'));
+        fwrite($fileHandle, $pdf->Output('', 'S'));
 
         parent::restoreStateAfterSave($fileHandle);
     }

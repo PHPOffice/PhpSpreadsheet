@@ -65,7 +65,7 @@ class File extends \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS
     /**
      * Returns a stream for reading this file using fread() etc.
      *
-     * @return  resource  a read-only stream
+     * @return resource a read-only stream
      */
     public function getStream()
     {

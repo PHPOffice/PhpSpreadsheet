@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\CachedObjectStorage;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -42,9 +42,9 @@ class SQLite extends CacheBase implements ICache
 
     /**
      * Store cell data in cache for the current cell object if it's "dirty",
-     *     and the 'nullify' the current cell object.
+     * and the 'nullify' the current cell object.
      *
-     * @throws   \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     protected function storeData()
     {
@@ -62,12 +62,12 @@ class SQLite extends CacheBase implements ICache
     /**
      * Add or Update a cell in cache identified by coordinate address.
      *
-     * @param   string            $pCoord        Coordinate address of the cell to update
-     * @param   \PhpOffice\PhpSpreadsheet\Cell    $cell        Cell to update
+     * @param string $pCoord Coordinate address of the cell to update
+     * @param \PhpOffice\PhpSpreadsheet\Cell $cell Cell to update
      *
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     * @return  \PhpOffice\PhpSpreadsheet\Cell
+     * @return \PhpOffice\PhpSpreadsheet\Cell
      */
     public function addCacheData($pCoord, \PhpOffice\PhpSpreadsheet\Cell $cell)
     {
@@ -85,11 +85,11 @@ class SQLite extends CacheBase implements ICache
     /**
      * Get cell at a specific coordinate.
      *
-     * @param   string             $pCoord        Coordinate of the cell
+     * @param string $pCoord Coordinate of the cell
      *
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     * @return  \PhpOffice\PhpSpreadsheet\Cell     Cell that was found, or null if not found
+     * @return \PhpOffice\PhpSpreadsheet\Cell Cell that was found, or null if not found
      */
     public function getCacheData($pCoord)
     {
@@ -122,11 +122,11 @@ class SQLite extends CacheBase implements ICache
     /**
      * Is a value set for an indexed cell?
      *
-     * @param   string        $pCoord        Coordinate address of the cell to check
+     * @param string $pCoord Coordinate address of the cell to check
      *
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     * @return  bool
+     * @return bool
      */
     public function isDataSet($pCoord)
     {
@@ -150,9 +150,9 @@ class SQLite extends CacheBase implements ICache
     /**
      * Delete a cell in cache identified by coordinate address.
      *
-     * @param   string            $pCoord        Coordinate address of the cell to delete
+     * @param string $pCoord Coordinate address of the cell to delete
      *
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     public function deleteCacheData($pCoord)
     {
@@ -173,12 +173,12 @@ class SQLite extends CacheBase implements ICache
     /**
      * Move a cell object from one address to another.
      *
-     * @param    string        $fromAddress    Current address of the cell to move
-     * @param    string        $toAddress        Destination address of the cell to move
+     * @param string $fromAddress Current address of the cell to move
+     * @param string $toAddress Destination address of the cell to move
      *
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     * @return    bool
+     * @return bool
      */
     public function moveCell($fromAddress, $toAddress)
     {
@@ -204,9 +204,9 @@ class SQLite extends CacheBase implements ICache
     /**
      * Get a list of all cell addresses currently held in cache.
      *
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     * @return    string[]
+     * @return string[]
      */
     public function getCellList()
     {
@@ -231,9 +231,9 @@ class SQLite extends CacheBase implements ICache
     /**
      * Clone the cell collection.
      *
-     * @param  \PhpOffice\PhpSpreadsheet\Worksheet    $parent        The new worksheet that we're copying to
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $parent The new worksheet that we're copying to
      *
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     public function copyCellCollection(\PhpOffice\PhpSpreadsheet\Worksheet $parent)
     {
@@ -271,9 +271,9 @@ class SQLite extends CacheBase implements ICache
     /**
      * Initialise this new cell collection.
      *
-     * @param    \PhpOffice\PhpSpreadsheet\Worksheet    $parent        The worksheet for this cell collection
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $parent The worksheet for this cell collection
      *
-     * @throws  \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $parent)
     {
@@ -307,7 +307,7 @@ class SQLite extends CacheBase implements ICache
      * Identify whether the caching method is currently available
      * Some methods are dependent on the availability of certain extensions being enabled in the PHP build.
      *
-     * @return    bool
+     * @return bool
      */
     public static function cacheMethodIsAvailable()
     {

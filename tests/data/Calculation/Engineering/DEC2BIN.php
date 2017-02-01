@@ -2,90 +2,90 @@
 
 return [
     [
-        357,
         '101100101',
+        357,
     ],
     // Too large
     [
-        512,
         '#NUM!',
+        512,
     ],
     // Too small
     [
-        -513,
         '#NUM!',
+        -513,
     ],
     [
+        '1001',
         9,
         4,
-        '1001',
     ],
     [
+        '00001001',
         9,
         8,
-        '00001001',
     ],
     // Leading places as a float
     [
+        '001001',
         9,
         6.75,
-        '001001',
     ],
     // Leading places negative
     [
+        '#NUM!',
         9,
         -1,
-        '#NUM!',
     ],
     // Leading places non-numeric
     [
+        '#VALUE!',
         9,
         'ABC',
-        '#VALUE!',
     ],
     [
-        246,
         '11110110',
+        246,
     ],
     [
+        '#NUM!',
         12345,
-        '#NUM!',
     ],
     [
+        '#NUM!',
         123456789,
-        '#NUM!',
     ],
     [
-        123.45,
         '1111011',
+        123.45,
     ],
     [
-        0,
         '0',
+        0,
     ],
     // Invalid decimal
     [
-        '3579A',
         '#VALUE!',
+        '3579A',
     ],
     // Non string
     [
-        true,
         '#VALUE!',
+        true,
     ],
     // 2's Complement
     [
-        -100,
         '1110011100',
+        -100,
     ],
     // 2's Complement
     [
-        -107,
         '1110010101',
+        -107,
     ],
     // 2's Complement
     [
-        -512,
         '1000000000',
+        -512,
     ],
 ];

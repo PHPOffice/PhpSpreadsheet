@@ -15,12 +15,12 @@ class NumberFormatDateTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider providerNumberFormat
+     *
+     * @param mixed $expectedResult
      */
-    public function testFormatValueWithMask()
+    public function testFormatValueWithMask($expectedResult, ...$args)
     {
-        $args = func_get_args();
-        $expectedResult = array_pop($args);
-        $result = call_user_func_array([NumberFormat::class, 'toFormattedString'], $args);
+        $result = NumberFormat::toFormattedString(...$args);
         $this->assertEquals($expectedResult, $result);
     }
 

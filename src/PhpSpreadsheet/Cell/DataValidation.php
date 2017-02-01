@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -162,7 +162,7 @@ class DataValidation
     /**
      * Set Formula 1.
      *
-     * @param  string    $value
+     * @param string $value
      *
      * @return DataValidation
      */
@@ -186,7 +186,7 @@ class DataValidation
     /**
      * Set Formula 2.
      *
-     * @param  string    $value
+     * @param string $value
      *
      * @return DataValidation
      */
@@ -210,7 +210,7 @@ class DataValidation
     /**
      * Set Type.
      *
-     * @param  string    $value
+     * @param string $value
      *
      * @return DataValidation
      */
@@ -234,7 +234,7 @@ class DataValidation
     /**
      * Set Error style.
      *
-     * @param  string    $value
+     * @param string $value
      *
      * @return DataValidation
      */
@@ -258,7 +258,7 @@ class DataValidation
     /**
      * Set Operator.
      *
-     * @param  string    $value
+     * @param string $value
      *
      * @return DataValidation
      */
@@ -282,7 +282,7 @@ class DataValidation
     /**
      * Set Allow Blank.
      *
-     * @param  bool    $value
+     * @param bool $value
      *
      * @return DataValidation
      */
@@ -306,7 +306,7 @@ class DataValidation
     /**
      * Set Show DropDown.
      *
-     * @param  bool    $value
+     * @param bool $value
      *
      * @return DataValidation
      */
@@ -330,7 +330,7 @@ class DataValidation
     /**
      * Set Show InputMessage.
      *
-     * @param  bool    $value
+     * @param bool $value
      *
      * @return DataValidation
      */
@@ -354,7 +354,7 @@ class DataValidation
     /**
      * Set Show ErrorMessage.
      *
-     * @param  bool    $value
+     * @param bool $value
      *
      * @return DataValidation
      */
@@ -378,7 +378,7 @@ class DataValidation
     /**
      * Set Error title.
      *
-     * @param  string    $value
+     * @param string $value
      *
      * @return DataValidation
      */
@@ -402,7 +402,7 @@ class DataValidation
     /**
      * Set Error.
      *
-     * @param  string    $value
+     * @param string $value
      *
      * @return DataValidation
      */
@@ -426,7 +426,7 @@ class DataValidation
     /**
      * Set Prompt title.
      *
-     * @param  string    $value
+     * @param string $value
      *
      * @return DataValidation
      */
@@ -450,7 +450,7 @@ class DataValidation
     /**
      * Set Prompt.
      *
-     * @param  string    $value
+     * @param string $value
      *
      * @return DataValidation
      */
@@ -464,7 +464,7 @@ class DataValidation
     /**
      * Get hash code.
      *
-     * @return string    Hash code
+     * @return string Hash code
      */
     public function getHashCode()
     {

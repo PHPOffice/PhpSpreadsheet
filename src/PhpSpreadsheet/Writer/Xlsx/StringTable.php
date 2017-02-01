@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -29,12 +29,12 @@ class StringTable extends WriterPart
     /**
      * Create worksheet stringtable.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Worksheet     $pSheet                Worksheet
-     * @param     string[]                 $pExistingTable     Existing table to eventually merge with
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pSheet Worksheet
+     * @param string[] $pExistingTable Existing table to eventually merge with
      *
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
-     * @return     string[]                 String table for worksheet
+     * @return string[] String table for worksheet
      */
     public function createStringTable($pSheet = null, $pExistingTable = null)
     {
@@ -79,11 +79,11 @@ class StringTable extends WriterPart
     /**
      * Write string table to XML format.
      *
-     * @param     string[]     $pStringTable
+     * @param string[] $pStringTable
      *
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
-     * @return string  XML Output
+     * @return string XML Output
      */
     public function writeStringTable($pStringTable = null)
     {
@@ -133,11 +133,11 @@ class StringTable extends WriterPart
     /**
      * Write Rich Text.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter    $objWriter         XML Writer
-     * @param     \PhpOffice\PhpSpreadsheet\RichText            $pRichText        Rich text
-     * @param     string                        $prefix            Optional Namespace prefix
+     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
+     * @param \PhpOffice\PhpSpreadsheet\RichText $pRichText Rich text
+     * @param string $prefix Optional Namespace prefix
      *
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function writeRichText(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpOffice\PhpSpreadsheet\RichText $pRichText = null, $prefix = null)
     {
@@ -218,11 +218,11 @@ class StringTable extends WriterPart
     /**
      * Write Rich Text.
      *
-     * @param     \PhpOffice\PhpSpreadsheet\Shared\XMLWriter    $objWriter         XML Writer
-     * @param     string|\PhpOffice\PhpSpreadsheet\RichText    $pRichText        text string or Rich text
-     * @param     string                        $prefix            Optional Namespace prefix
+     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
+     * @param string|\PhpOffice\PhpSpreadsheet\RichText $pRichText text string or Rich text
+     * @param string $prefix Optional Namespace prefix
      *
-     * @throws     \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function writeRichTextForCharts(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pRichText = null, $prefix = null)
     {
@@ -282,9 +282,9 @@ class StringTable extends WriterPart
     /**
      * Flip string table (for index searching).
      *
-     * @param     array    $stringTable    Stringtable
+     * @param array $stringTable Stringtable
      *
-     * @return     array
+     * @return array
      */
     public function flipStringTable($stringTable = [])
     {

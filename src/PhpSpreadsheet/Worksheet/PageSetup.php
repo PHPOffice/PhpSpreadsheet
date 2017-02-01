@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -339,10 +339,10 @@ class PageSetup
      * Print scaling. Valid values range from 10 to 400
      * This setting is overridden when fitToWidth and/or fitToHeight are in use
      *
-     * @param   int?    $pValue
-     * @param bool    $pUpdate    Update fitToPage so scaling applies rather than fitToHeight / fitToWidth
+     * @param int? $pValue
+     * @param bool $pUpdate Update fitToPage so scaling applies rather than fitToHeight / fitToWidth
      *
-     * @throws     \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
      * @return PageSetup
      */
@@ -528,7 +528,7 @@ class PageSetup
     /**
      * Set Rows to repeat at top.
      *
-     * @param array    $pValue    Containing start column and end column, empty array if option unset
+     * @param array $pValue Containing start column and end column, empty array if option unset
      *
      * @return PageSetup
      */
@@ -605,16 +605,16 @@ class PageSetup
     }
 
     /**
-     *    Get print area.
+     * Get print area.
      *
-     * @param    int        $index    Identifier for a specific print area range if several ranges have been set
+     * @param int $index Identifier for a specific print area range if several ranges have been set
      *                            Default behaviour, or a index value of 0, will return all ranges as a comma-separated string
      *                            Otherwise, the specific range identified by the value of $index will be returned
      *                            Print areas are numbered from 1
      *
-     * @throws    \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     * @return    string
+     * @return string
      */
     public function getPrintArea($index = 0)
     {
@@ -631,12 +631,12 @@ class PageSetup
     /**
      * Is print area set?
      *
-     * @param    int        $index    Identifier for a specific print area range if several ranges have been set
+     * @param int $index Identifier for a specific print area range if several ranges have been set
      *                            Default behaviour, or an index value of 0, will identify whether any print range is set
      *                            Otherwise, existence of the range identified by the value of $index will be returned
      *                            Print areas are numbered from 1
      *
-     * @return    bool
+     * @return bool
      */
     public function isPrintAreaSet($index = 0)
     {
@@ -651,12 +651,12 @@ class PageSetup
     /**
      * Clear a print area.
      *
-     * @param    int        $index    Identifier for a specific print area range if several ranges have been set
+     * @param int $index Identifier for a specific print area range if several ranges have been set
      *                            Default behaviour, or an index value of 0, will clear all print ranges that are set
      *                            Otherwise, the range identified by the value of $index will be removed from the series
      *                            Print areas are numbered from 1
      *
-     * @return  PageSetup
+     * @return PageSetup
      */
     public function clearPrintArea($index = 0)
     {
@@ -676,8 +676,8 @@ class PageSetup
     /**
      * Set print area. e.g. 'A1:D10' or 'A1:D10,G5:M20'.
      *
-     * @param    string    $value
-     * @param    int        $index    Identifier for a specific print area range allowing several ranges to be set
+     * @param string $value
+     * @param int $index Identifier for a specific print area range allowing several ranges to be set
      *                            When the method is "O"verwrite, then a positive integer index will overwrite that indexed
      *                                entry in the print areas list; a negative index value will identify which entry to
      *                                overwrite working bacward through the print area to the list, with the last entry as -1.
@@ -687,13 +687,13 @@ class PageSetup
      *                                Specifying an index value of 0, will always append the new print range at the end of the
      *                                list.
      *                            Print areas are numbered from 1
-     * @param    string    $method    Determines the method used when setting multiple print areas
+     * @param string $method Determines the method used when setting multiple print areas
      *                            Default behaviour, or the "O" method, overwrites existing print area
      *                            The "I" method, inserts the new print area before any specified index, or at the end of the list
      *
-     * @throws    \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     * @return    PageSetup
+     * @return PageSetup
      */
     public function setPrintArea($value, $index = 0, $method = self::SETPRINTRANGE_OVERWRITE)
     {
@@ -744,17 +744,17 @@ class PageSetup
     /**
      * Add a new print area (e.g. 'A1:D10' or 'A1:D10,G5:M20') to the list of print areas.
      *
-     * @param    string    $value
-     * @param    int        $index    Identifier for a specific print area range allowing several ranges to be set
+     * @param string $value
+     * @param int $index Identifier for a specific print area range allowing several ranges to be set
      *                            A positive index will insert after that indexed entry in the print areas list, while a
      *                                negative index will insert before the indexed entry.
      *                                Specifying an index value of 0, will always append the new print range at the end of the
      *                                list.
      *                            Print areas are numbered from 1
      *
-     * @throws    \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     * @return    PageSetup
+     * @return PageSetup
      */
     public function addPrintArea($value, $index = -1)
     {
@@ -764,11 +764,11 @@ class PageSetup
     /**
      * Set print area.
      *
-     * @param    int        $column1    Column 1
-     * @param    int        $row1        Row 1
-     * @param    int        $column2    Column 2
-     * @param    int        $row2        Row 2
-     * @param    int        $index        Identifier for a specific print area range allowing several ranges to be set
+     * @param int $column1 Column 1
+     * @param int $row1 Row 1
+     * @param int $column2 Column 2
+     * @param int $row2 Row 2
+     * @param int $index Identifier for a specific print area range allowing several ranges to be set
      *                                When the method is "O"verwrite, then a positive integer index will overwrite that indexed
      *                                    entry in the print areas list; a negative index value will identify which entry to
      *                                    overwrite working bacward through the print area to the list, with the last entry as -1.
@@ -778,13 +778,13 @@ class PageSetup
      *                                    Specifying an index value of 0, will always append the new print range at the end of the
      *                                    list.
      *                                Print areas are numbered from 1
-     * @param    string    $method        Determines the method used when setting multiple print areas
+     * @param string $method Determines the method used when setting multiple print areas
      *                                Default behaviour, or the "O" method, overwrites existing print area
      *                                The "I" method, inserts the new print area before any specified index, or at the end of the list
      *
-     * @throws    \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     * @return    PageSetup
+     * @return PageSetup
      */
     public function setPrintAreaByColumnAndRow($column1, $row1, $column2, $row2, $index = 0, $method = self::SETPRINTRANGE_OVERWRITE)
     {
@@ -798,20 +798,20 @@ class PageSetup
     /**
      * Add a new print area to the list of print areas.
      *
-     * @param    int        $column1    Start Column for the print area
-     * @param    int        $row1        Start Row for the print area
-     * @param    int        $column2    End Column for the print area
-     * @param    int        $row2        End Row for the print area
-     * @param    int        $index        Identifier for a specific print area range allowing several ranges to be set
+     * @param int $column1 Start Column for the print area
+     * @param int $row1 Start Row for the print area
+     * @param int $column2 End Column for the print area
+     * @param int $row2 End Row for the print area
+     * @param int $index Identifier for a specific print area range allowing several ranges to be set
      *                                A positive index will insert after that indexed entry in the print areas list, while a
      *                                    negative index will insert before the indexed entry.
      *                                    Specifying an index value of 0, will always append the new print range at the end of the
      *                                    list.
      *                                Print areas are numbered from 1
      *
-     * @throws    \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
-     * @return    PageSetup
+     * @return PageSetup
      */
     public function addPrintAreaByColumnAndRow($column1, $row1, $column2, $row2, $index = -1)
     {

@@ -12,12 +12,12 @@ namespace PhpOffice\PhpSpreadsheet;
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @category   PhpSpreadsheet
  *
@@ -160,8 +160,8 @@ class CachedObjectStorageFactory
     /**
      * Identify the cache storage method to use.
      *
-     * @param    string     $method       Name of the method to use for cell cacheing
-     * @param    mixed[]    $arguments    Additional arguments to pass to the cell caching class
+     * @param string $method Name of the method to use for cell cacheing
+     * @param mixed[] $arguments Additional arguments to pass to the cell caching class
      *                                        when instantiating
      *
      * @return bool
@@ -195,9 +195,9 @@ class CachedObjectStorageFactory
     /**
      * Initialise the cache storage.
      *
-     * @param    Worksheet     $parent    Enable cell caching for this worksheet
+     * @param Worksheet $parent Enable cell caching for this worksheet
      *
-     * @return   CachedObjectStorage\ICache
+     * @return CachedObjectStorage\ICache
      **/
     public static function getInstance(Worksheet $parent)
     {

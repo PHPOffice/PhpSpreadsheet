@@ -2,33 +2,33 @@
 
 return [
     [
+        '',
         null,
         1,
-        '',
     ],
     [
+        '',
         '',
         1,
-        '',
     ],
     [
+        '#VALUE!',
         'QWERTYUIOP',
         -1,
-        '#VALUE!',
     ],
     [
+        'ABC',
         'ABCDEFGHI',
         3,
-        'ABC',
     ],
     [
+        'TR',
         true,
         2,
-        'TR',
     ],
     [
+        'FA',
         false,
         2,
-        'FA',
     ],
 ];
