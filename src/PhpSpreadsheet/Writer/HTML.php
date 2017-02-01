@@ -596,18 +596,22 @@ class HTML extends BaseWriter implements IWriter
         }
         $html = '';
         ++$colMax;
-        while ($row <= $rowMax) {
-            $html .= '<tr>';
-            for ($col = 'A'; $col != $colMax; ++$col) {
-                $html .= '<td>';
-                $html .= $this->writeImageInCell($pSheet, $col . $row);
-                if ($this->includeCharts) {
-                    $html .= $this->writeChartInCell($pSheet, $col . $row);
+
+        //Do nothing if $rowMax didn't change
+        if ($row!==$rowMax) {
+            while ($row <= $rowMax) {
+                $html .= '<tr>';
+                for ($col = 'A'; $col != $colMax; ++$col) {
+                    $html .= '<td>';
+                    $html .= $this->writeImageInCell($pSheet, $col . $row);
+                    if ($this->includeCharts) {
+                        $html .= $this->writeChartInCell($pSheet, $col . $row);
+                    }
+                    $html .= '</td>';
                 }
-                $html .= '</td>';
+                ++$row;
+                $html .= '</tr>';
             }
-            ++$row;
-            $html .= '</tr>';
         }
 
         return $html;
