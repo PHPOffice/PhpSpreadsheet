@@ -594,8 +594,15 @@ class Html extends BaseWriter implements IWriter
                 }
             }
         }
+
+        // Don't extend rows if not needed
+        if ($row === $rowMax) {
+            return '';
+        }
+
         $html = '';
         ++$colMax;
+
         while ($row <= $rowMax) {
             $html .= '<tr>';
             for ($col = 'A'; $col != $colMax; ++$col) {
@@ -1316,7 +1323,8 @@ class Html extends BaseWriter implements IWriter
                         // General horizontal alignment: Actual horizontal alignment depends on dataType
                         $sharedStyle = $pSheet->getParent()->getCellXfByIndex($cell->getXfIndex());
                         if ($sharedStyle->getAlignment()->getHorizontal() == \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_GENERAL
-                            && isset($this->cssStyles['.' . $cell->getDataType()]['text-align'])) {
+                            && isset($this->cssStyles['.' . $cell->getDataType()]['text-align'])
+                        ) {
                             $cssClass['text-align'] = $this->cssStyles['.' . $cell->getDataType()]['text-align'];
                         }
                     }
@@ -1329,7 +1337,7 @@ class Html extends BaseWriter implements IWriter
 
                 // Should the cell be written or is it swallowed by a rowspan or colspan?
                 $writeCell = !(isset($this->isSpannedCell[$pSheet->getParent()->getIndex($pSheet)][$pRow + 1][$colNum])
-                            && $this->isSpannedCell[$pSheet->getParent()->getIndex($pSheet)][$pRow + 1][$colNum]);
+                    && $this->isSpannedCell[$pSheet->getParent()->getIndex($pSheet)][$pRow + 1][$colNum]);
 
                 // Colspan and Rowspan
                 $colspan = 1;
