@@ -598,7 +598,7 @@ class Html extends BaseWriter implements IWriter
         ++$colMax;
 
         //Do nothing if $rowMax didn't change
-        if ($row!==$rowMax) {
+        if ($row !== $rowMax) {
             while ($row <= $rowMax) {
                 $html .= '<tr>';
                 for ($col = 'A'; $col != $colMax; ++$col) {
