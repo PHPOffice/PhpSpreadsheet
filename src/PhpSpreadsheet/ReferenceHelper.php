@@ -547,7 +547,7 @@ class ReferenceHelper
         $autoFilterRange = $autoFilter->getRange();
         if (!empty($autoFilterRange)) {
             if ($pNumCols != 0) {
-                $autoFilterColumns = array_keys($autoFilter->getColumns());
+                $autoFilterColumns = $autoFilter->getColumns();
                 if (count($autoFilterColumns) > 0) {
                     sscanf($pBefore, '%[A-Z]%d', $column, $row);
                     $columnIndex = Cell::columnIndexFromString($column);
@@ -559,7 +559,7 @@ class ReferenceHelper
                             $deleteColumn = $columnIndex + $pNumCols - 1;
                             $deleteCount = abs($pNumCols);
                             for ($i = 1; $i <= $deleteCount; ++$i) {
-                                if (in_array(Cell::stringFromColumnIndex($deleteColumn), $autoFilterColumns)) {
+                                if (isset($autoFilterColumns[Cell::stringFromColumnIndex($deleteColumn)])) {
                                     $autoFilter->clearColumn(Cell::stringFromColumnIndex($deleteColumn));
                                 }
                                 ++$deleteColumn;
