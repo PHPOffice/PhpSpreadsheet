@@ -322,7 +322,7 @@ class Html extends BaseWriter implements IWriter
      */
     public function setGenerateSheetNavigationBlock($pValue = true)
     {
-        $this->generateSheetNavigationBlock = (bool) $pValue;
+        $this->generateSheetNavigationBlock = (bool)$pValue;
 
         return $this;
     }
@@ -597,21 +597,23 @@ class Html extends BaseWriter implements IWriter
         $html = '';
         ++$colMax;
 
-        //Do nothing if $rowMax didn't change
+        //Return $html if $rowMax didn't change
         if ($row !== $rowMax) {
-            while ($row <= $rowMax) {
-                $html .= '<tr>';
-                for ($col = 'A'; $col != $colMax; ++$col) {
-                    $html .= '<td>';
-                    $html .= $this->writeImageInCell($pSheet, $col . $row);
-                    if ($this->includeCharts) {
-                        $html .= $this->writeChartInCell($pSheet, $col . $row);
-                    }
-                    $html .= '</td>';
+            return $html;
+        }
+
+        while ($row <= $rowMax) {
+            $html .= '<tr>';
+            for ($col = 'A'; $col != $colMax; ++$col) {
+                $html .= '<td>';
+                $html .= $this->writeImageInCell($pSheet, $col . $row);
+                if ($this->includeCharts) {
+                    $html .= $this->writeChartInCell($pSheet, $col . $row);
                 }
-                ++$row;
-                $html .= '</tr>';
+                $html .= '</td>';
             }
+            ++$row;
+            $html .= '</tr>';
         }
 
         return $html;
@@ -991,7 +993,7 @@ class Html extends BaseWriter implements IWriter
         if ($textAlign = $this->mapHAlign($pStyle->getHorizontal())) {
             $css['text-align'] = $textAlign;
             if (in_array($textAlign, ['left', 'right'])) {
-                $css['padding-' . $textAlign] = (string) ((int) $pStyle->getIndent() * 9) . 'px';
+                $css['padding-' . $textAlign] = (string)((int)$pStyle->getIndent() * 9) . 'px';
             }
         }
 
@@ -1320,7 +1322,8 @@ class Html extends BaseWriter implements IWriter
                         // General horizontal alignment: Actual horizontal alignment depends on dataType
                         $sharedStyle = $pSheet->getParent()->getCellXfByIndex($cell->getXfIndex());
                         if ($sharedStyle->getAlignment()->getHorizontal() == \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_GENERAL
-                            && isset($this->cssStyles['.' . $cell->getDataType()]['text-align'])) {
+                            && isset($this->cssStyles['.' . $cell->getDataType()]['text-align'])
+                        ) {
                             $cssClass['text-align'] = $this->cssStyles['.' . $cell->getDataType()]['text-align'];
                         }
                     }
@@ -1333,7 +1336,7 @@ class Html extends BaseWriter implements IWriter
 
                 // Should the cell be written or is it swallowed by a rowspan or colspan?
                 $writeCell = !(isset($this->isSpannedCell[$pSheet->getParent()->getIndex($pSheet)][$pRow + 1][$colNum])
-                            && $this->isSpannedCell[$pSheet->getParent()->getIndex($pSheet)][$pRow + 1][$colNum]);
+                    && $this->isSpannedCell[$pSheet->getParent()->getIndex($pSheet)][$pRow + 1][$colNum]);
 
                 // Colspan and Rowspan
                 $colspan = 1;
