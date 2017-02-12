@@ -322,7 +322,7 @@ class Html extends BaseWriter implements IWriter
      */
     public function setGenerateSheetNavigationBlock($pValue = true)
     {
-        $this->generateSheetNavigationBlock = (bool)$pValue;
+        $this->generateSheetNavigationBlock = (bool) $pValue;
 
         return $this;
     }
@@ -993,7 +993,7 @@ class Html extends BaseWriter implements IWriter
         if ($textAlign = $this->mapHAlign($pStyle->getHorizontal())) {
             $css['text-align'] = $textAlign;
             if (in_array($textAlign, ['left', 'right'])) {
-                $css['padding-' . $textAlign] = (string)((int)$pStyle->getIndent() * 9) . 'px';
+                $css['padding-' . $textAlign] = (string) ((int) $pStyle->getIndent() * 9) . 'px';
             }
         }
 
