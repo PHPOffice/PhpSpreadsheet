@@ -594,13 +594,14 @@ class Html extends BaseWriter implements IWriter
                 }
             }
         }
+
+        //Return empty string if $rowMax didn't change
+        if ($row === $rowMax) {
+            return '';
+        }
+
         $html = '';
         ++$colMax;
-
-        //Return $html if $rowMax didn't change
-        if ($row !== $rowMax) {
-            return $html;
-        }
 
         while ($row <= $rowMax) {
             $html .= '<tr>';
