@@ -35,7 +35,6 @@ class CachedObjectStorageFactory
     const CACHE_TO_MEMCACHE = 'Memcache';
     const CACHE_TO_PHPTEMP = 'PHPTemp';
     const CACHE_TO_WINCACHE = 'Wincache';
-    const CACHE_TO_SQLITE = 'SQLite';
     const CACHE_TO_SQLITE3 = 'SQLite3';
 
     /**
@@ -67,7 +66,6 @@ class CachedObjectStorageFactory
         self::CACHE_TO_APC,
         self::CACHE_TO_MEMCACHE,
         self::CACHE_TO_WINCACHE,
-        self::CACHE_TO_SQLITE,
         self::CACHE_TO_SQLITE3,
     ];
 
@@ -98,7 +96,6 @@ class CachedObjectStorageFactory
         self::CACHE_TO_WINCACHE => [
             'cacheTime' => 600,
         ],
-        self::CACHE_TO_SQLITE => [],
         self::CACHE_TO_SQLITE3 => [],
     ];
 

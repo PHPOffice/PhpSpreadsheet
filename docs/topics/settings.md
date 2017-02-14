@@ -168,14 +168,6 @@ When your script terminates all entries will be cleared from Wincache,
 regardless of the cacheTime value, so it cannot be used for persistent
 storage using this mechanism.
 
-### \PhpOffice\PhpSpreadsheet\CachedObjectStorageFactory::CACHE\_TO\_SQLITE
-
-Uses an SQLite 2 "in-memory" database for caching cell data. Unlike
-other caching methods, neither cells nor an index are held in PHP memory
-- an indexed database table makes it unnecessary to hold any index in
-PHP memory, which makes this the most memory-efficient of the cell
-caching methods.
-
 ### \PhpOffice\PhpSpreadsheet\CachedObjectStorageFactory::CACHE\_TO\_SQLITE3;
 
 Uses an SQLite 3 "in-memory" database for caching cell data. Unlike

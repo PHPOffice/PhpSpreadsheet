@@ -95,7 +95,7 @@ class Migrator
             'PHPExcel_CachedObjectStorage_MemoryGZip' => '\\PhpOffice\\PhpSpreadsheet\\CachedObjectStorage\\MemoryGZip',
             'PHPExcel_CachedObjectStorage_MemorySerialized' => '\\PhpOffice\\PhpSpreadsheet\\CachedObjectStorage\\MemorySerialized',
             'PHPExcel_CachedObjectStorage_PHPTemp' => '\\PhpOffice\\PhpSpreadsheet\\CachedObjectStorage\\PHPTemp',
-            'PHPExcel_CachedObjectStorage_SQLite' => '\\PhpOffice\\PhpSpreadsheet\\CachedObjectStorage\\SQLite',
+            'PHPExcel_CachedObjectStorage_SQLite' => '\\PhpOffice\\PhpSpreadsheet\\CachedObjectStorage\\SQLite3',
             'PHPExcel_CachedObjectStorage_SQLite3' => '\\PhpOffice\\PhpSpreadsheet\\CachedObjectStorage\\SQLite3',
             'PHPExcel_CachedObjectStorage_Wincache' => '\\PhpOffice\\PhpSpreadsheet\\CachedObjectStorage\\Wincache',
             'PHPExcel_CalcEngine_CyclicReferenceStack' => '\\PhpOffice\\PhpSpreadsheet\\CalcEngine\\CyclicReferenceStack',
