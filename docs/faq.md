@@ -36,23 +36,6 @@ You can revert to using ZipArchive by calling:
 At present, this only allows you to write Xlsx files without the need
 for ZipArchive (not to read Xlsx or Ods)
 
-## Excel 2007 cannot open the file generated on Windows
-
-"Excel found unreadable content in '\*.xlsx'. Do you want to recover the
-contents of this workbook? If you trust the source of this workbook,
-click Yes."
-
-Some older versions of the 5.2.x php\_zip extension on Windows contain
-an error when creating ZIP files. The version that can be found on
-<http://snaps.php.net/win32/php5.2-win32-latest.zip> should work at all
-times.
-
-Alternatively, upgrading to at least PHP 5.2.9 should solve the problem.
-
-If you can't locate a clean copy of ZipArchive, then you can use the
-PCLZip library as an alternative when writing Xlsx files, as described
-above.
-
 ## Fatal error: Allowed memory size of xxx bytes exhausted (tried to allocate yyy bytes) in zzz on line aaa
 
 PhpSpreadsheet holds an "in memory" representation of a spreadsheet, so
