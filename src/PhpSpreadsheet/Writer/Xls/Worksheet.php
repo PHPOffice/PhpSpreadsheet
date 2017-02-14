@@ -518,8 +518,10 @@ class Worksheet extends BIFFwriter
                 foreach ($conditionalStyles as $conditional) {
                     if ($conditional->getConditionType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_EXPRESSION
                         || $conditional->getConditionType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS) {
-                        if (!in_array($conditional->getHashCode(), $arrConditional)) {
-                            $arrConditional[] = $conditional->getHashCode();
+                        if (!isset($arrConditional[$conditional->getHashCode()])) {
+                            // This hash code has been handled
+                            $arrConditional[$conditional->getHashCode()] = true;
+
                             // Write CFRULE record
                             $this->writeCFRule($conditional);
                         }

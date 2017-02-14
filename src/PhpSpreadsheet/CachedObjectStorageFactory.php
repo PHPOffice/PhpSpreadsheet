@@ -58,17 +58,17 @@ class CachedObjectStorageFactory
      * @var string[]
      */
     private static $storageMethods = [
-        self::CACHE_IN_MEMORY,
-        self::CACHE_IN_MEMORY_GZIP,
-        self::CACHE_IN_MEMORY_SERIALIZED,
-        self::CACHE_IGBINARY,
-        self::CACHE_TO_PHPTEMP,
-        self::CACHE_TO_DISCISAM,
-        self::CACHE_TO_APC,
-        self::CACHE_TO_MEMCACHE,
-        self::CACHE_TO_WINCACHE,
-        self::CACHE_TO_SQLITE,
-        self::CACHE_TO_SQLITE3,
+        self::CACHE_IN_MEMORY => true,
+        self::CACHE_IN_MEMORY_GZIP => true,
+        self::CACHE_IN_MEMORY_SERIALIZED => true,
+        self::CACHE_IGBINARY => true,
+        self::CACHE_TO_PHPTEMP => true,
+        self::CACHE_TO_DISCISAM => true,
+        self::CACHE_TO_APC => true,
+        self::CACHE_TO_MEMCACHE => true,
+        self::CACHE_TO_WINCACHE => true,
+        self::CACHE_TO_SQLITE => true,
+        self::CACHE_TO_SQLITE3 => true,
     ];
 
     /**
@@ -136,7 +136,7 @@ class CachedObjectStorageFactory
      **/
     public static function getAllCacheStorageMethods()
     {
-        return self::$storageMethods;
+        return array_keys(self::$storageMethods);
     }
 
     /**
@@ -147,7 +147,7 @@ class CachedObjectStorageFactory
     public static function getCacheStorageMethods()
     {
         $activeMethods = [];
-        foreach (self::$storageMethods as $storageMethod) {
+        foreach (self::getAllCacheStorageMethods() as $storageMethod) {
             $cacheStorageClass = '\\PhpOffice\\PhpSpreadsheet\\CachedObjectStorage\\' . $storageMethod;
             if (call_user_func([$cacheStorageClass, 'cacheMethodIsAvailable'])) {
                 $activeMethods[] = $storageMethod;
@@ -168,7 +168,7 @@ class CachedObjectStorageFactory
      **/
     public static function initialize($method = self::CACHE_IN_MEMORY, $arguments = [])
     {
-        if (!in_array($method, self::$storageMethods)) {
+        if (!isset(self::$storageMethods[$method])) {
             return false;
         }
 
