@@ -173,6 +173,7 @@ class Fill extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
                 }
                 if (isset($pStyles['color'])) {
                     $this->getStartColor()->applyFromArray($pStyles['color']);
+                    $this->getEndColor()->applyFromArray($pStyles['color']);
                 }
             }
         } else {

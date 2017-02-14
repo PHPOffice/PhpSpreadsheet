@@ -595,7 +595,7 @@ class Html extends BaseWriter implements IWriter
             }
         }
 
-        //Return empty string if $rowMax didn't change
+        // Don't extend rows if not needed
         if ($row === $rowMax) {
             return '';
         }
