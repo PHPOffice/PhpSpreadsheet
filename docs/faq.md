@@ -78,8 +78,8 @@ For example autofilter is not implemented in PEAR
 Spreadsheet\_Excel\_writer, which is the base of our Xls writer.
 
 We are slowly building up a list of features, together with the
-different readers and writers that support them, in the "Functionality
-Cross-Reference.xls" file in the /Documentation folder.
+different readers and writers that support them, in the [features cross
+reference](./references/features-cross-reference.md).
 
 ## Formulas don't seem to be calculated in Excel2003 using compatibility pack?
 
