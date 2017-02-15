@@ -1485,27 +1485,29 @@ class Xlsx extends BaseReader implements IReader
                                                 $shape->registerXPathNamespace('v', 'urn:schemas-microsoft-com:vml');
                                                 $imageData = $shape->xpath('//v:imagedata');
 
-                                                if ($imageData) {
-                                                    $imageData = $imageData[$idx];
-
-                                                    $imageData = $imageData->attributes('urn:schemas-microsoft-com:office:office');
-                                                    $style = self::toCSSArray((string) $shape['style']);
-
-                                                    $hfImages[(string) $shape['id']] = new Worksheet\HeaderFooterDrawing();
-                                                    if (isset($imageData['title'])) {
-                                                        $hfImages[(string) $shape['id']]->setName((string) $imageData['title']);
-                                                    }
-
-                                                    $hfImages[(string) $shape['id']]->setPath('zip://' . File::realpath($pFilename) . '#' . $drawings[(string) $imageData['relid']], false);
-                                                    $hfImages[(string) $shape['id']]->setResizeProportional(false);
-                                                    $hfImages[(string) $shape['id']]->setWidth($style['width']);
-                                                    $hfImages[(string) $shape['id']]->setHeight($style['height']);
-                                                    if (isset($style['margin-left'])) {
-                                                        $hfImages[(string) $shape['id']]->setOffsetX($style['margin-left']);
-                                                    }
-                                                    $hfImages[(string) $shape['id']]->setOffsetY($style['margin-top']);
-                                                    $hfImages[(string) $shape['id']]->setResizeProportional(true);
+                                                if (!$imageData) {
+                                                    continue;
                                                 }
+
+                                                $imageData = $imageData[$idx];
+
+                                                $imageData = $imageData->attributes('urn:schemas-microsoft-com:office:office');
+                                                $style = self::toCSSArray((string) $shape['style']);
+
+                                                $hfImages[(string) $shape['id']] = new Worksheet\HeaderFooterDrawing();
+                                                if (isset($imageData['title'])) {
+                                                    $hfImages[(string) $shape['id']]->setName((string) $imageData['title']);
+                                                }
+
+                                                $hfImages[(string) $shape['id']]->setPath('zip://' . File::realpath($pFilename) . '#' . $drawings[(string) $imageData['relid']], false);
+                                                $hfImages[(string) $shape['id']]->setResizeProportional(false);
+                                                $hfImages[(string) $shape['id']]->setWidth($style['width']);
+                                                $hfImages[(string) $shape['id']]->setHeight($style['height']);
+                                                if (isset($style['margin-left'])) {
+                                                    $hfImages[(string) $shape['id']]->setOffsetX($style['margin-left']);
+                                                }
+                                                $hfImages[(string) $shape['id']]->setOffsetY($style['margin-top']);
+                                                $hfImages[(string) $shape['id']]->setResizeProportional(true);
                                             }
 
                                             $docSheet->getHeaderFooter()->setImages($hfImages);
