@@ -103,9 +103,9 @@ class XMLWriter extends \XMLWriter
     }
 
     /**
-     * Fallback method for writeRaw, introduced in PHP 5.2.
+     * Wrapper method for writeRaw.
      *
-     * @param string $text
+     * @param string|string[] $text
      *
      * @return bool
      */
@@ -115,10 +115,6 @@ class XMLWriter extends \XMLWriter
             $text = implode("\n", $text);
         }
 
-        if (method_exists($this, 'writeRaw')) {
-            return $this->writeRaw(htmlspecialchars($text));
-        }
-
-        return $this->text($text);
+        return $this->writeRaw(htmlspecialchars($text));
     }
 }

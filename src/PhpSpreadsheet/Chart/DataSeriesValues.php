@@ -79,8 +79,8 @@ class DataSeriesValues
     /**
      * Create a new DataSeriesValues object.
      *
-     * @param string $dataSource
      * @param mixed $dataType
+     * @param string $dataSource
      * @param null|mixed $formatCode
      * @param mixed $pointCount
      * @param mixed $dataValues
