@@ -1484,6 +1484,11 @@ class Xlsx extends BaseReader implements IReader
                                             foreach ($shapes as $idx => $shape) {
                                                 $shape->registerXPathNamespace('v', 'urn:schemas-microsoft-com:vml');
                                                 $imageData = $shape->xpath('//v:imagedata');
+
+                                                if (!$imageData) {
+                                                    continue;
+                                                }
+
                                                 $imageData = $imageData[$idx];
 
                                                 $imageData = $imageData->attributes('urn:schemas-microsoft-com:office:office');
