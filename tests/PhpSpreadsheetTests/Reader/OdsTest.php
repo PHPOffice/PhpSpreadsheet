@@ -23,34 +23,48 @@ class OdsTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
-    public $spreadsheet;
+    public $spreadsheetOOCalcTest;
+
+    /**
+     * @var \PhpOffice\PhpSpreadsheet\Spreadsheet
+     */
+    public $spreadsheetData;
 
     /**
      * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
-    protected function loadOOCalcTest(){
+    protected function loadOOCalcTestFile(){
 
-        if(!$this->spreadsheet){
+        if(!$this->spreadsheetOOCalcTest){
             $filename = __DIR__ . '/../../../samples/templates/OOCalcTest.ods';
-
-            // Create new Spreadsheet
-            $this->spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
             // Load into this instance
             $reader = new Ods();
-            $this->spreadsheet = $reader->loadIntoExisting($filename, $this->spreadsheet);
+            $this->spreadsheetOOCalcTest = $reader->loadIntoExisting($filename, new \PhpOffice\PhpSpreadsheet\Spreadsheet());
         }
 
-        return $this->spreadsheet;
+        return $this->spreadsheetOOCalcTest;
+    }
+
+    /**
+     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
+     */
+    protected function loadDataFile(){
+
+        if(!$this->spreadsheetData){
+            $filename = __DIR__ . '/../../data/Reader/Ods/data.ods';
+
+            // Load into this instance
+            $reader = new Ods();
+            $this->spreadsheetData = $reader->loadIntoExisting($filename, new \PhpOffice\PhpSpreadsheet\Spreadsheet());
+        }
+
+        return $this->spreadsheetData;
     }
 
     public function testLoadWorksheets()
     {
-        $filename = __DIR__ . '/../../data/Reader/Ods/data.ods';
-
-        // Load into this instance
-        $reader = new Ods();
-        $spreadsheet = $reader->loadIntoExisting($filename, new \PhpOffice\PhpSpreadsheet\Spreadsheet());
+        $spreadsheet = $this->loadDataFile();
 
         $this->assertInstanceOf('PhpOffice\PhpSpreadsheet\Spreadsheet', $spreadsheet);
 
@@ -65,9 +79,7 @@ class OdsTest extends \PHPUnit_Framework_TestCase
 
     public function testReadValueAndComments(){
 
-        $spreadsheet = $this->loadOOCalcTest();
-
-        $this->assertInstanceOf('PhpOffice\PhpSpreadsheet\Spreadsheet', $spreadsheet);
+        $spreadsheet = $this->loadOOCalcTestFile();
 
         $firstSheet = $spreadsheet->getSheet(0);
 
@@ -115,14 +127,8 @@ class OdsTest extends \PHPUnit_Framework_TestCase
          * Percentage, Currency
          */
 
-        $filename = __DIR__ . '/../../data/Reader/Ods/data.ods';
+        $spreadsheet = $this->loadDataFile();
 
-        // Create new Spreadsheet
-        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
-
-        // Load into this instance
-        $reader = new Ods();
-        $spreadsheet = $reader->loadIntoExisting($filename, $spreadsheet);
         $firstSheet = $spreadsheet->getSheet(0);
 
         $this->assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell("A1")->getDataType()); // Percentage (10%)
@@ -140,7 +146,7 @@ class OdsTest extends \PHPUnit_Framework_TestCase
 
     public function testReadColors()
     {
-        $spreadsheet = $this->loadOOCalcTest();
+        $spreadsheet = $this->loadOOCalcTestFile();
         $firstSheet = $spreadsheet->getSheet(0);
 
         // Background color
@@ -152,6 +158,30 @@ class OdsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("FF000000", $style->getFill()->getEndColor()->getARGB());
     }
 
+    public function testReadRichText(){
+
+        $spreadsheet = $this->loadOOCalcTestFile();
+        $firstSheet = $spreadsheet->getSheet(0);
+
+        $this->assertEquals(
+            "I don't know if OOCalc supports Rich Text in the same way as Excel, " .
+            "And this row should be autofit height with text wrap",
+            $firstSheet->getCell("A28")->getValue()
+        );
+    }
+
+    public function testReadCellsWithRepeatedSpaces(){
+
+        $spreadsheet = $this->loadDataFile();
+        $firstSheet = $spreadsheet->getSheet(0);
+
+        $this->assertEquals("This has    4 spaces before and 2 after  ", $firstSheet->getCell("A8")->getValue());
+        $this->assertEquals("This only one after ", $firstSheet->getCell("A9")->getValue());
+        $this->assertEquals("Test with DIFFERENT styles     and multiple spaces:  ", $firstSheet->getCell("A10")->getValue());
+        $this->assertEquals("test with new \nLines", $firstSheet->getCell("A11")->getValue());
+
+    }
+
     /*
      * Below some test for features not implemented yet
      */
@@ -160,7 +190,7 @@ class OdsTest extends \PHPUnit_Framework_TestCase
     {
         $this->markTestSkipped("Features not implemented yet");
 
-        $spreadsheet = $this->loadOOCalcTest();
+        $spreadsheet = $this->loadOOCalcTestFile();
         $firstSheet = $spreadsheet->getSheet(0);
 
         // Font styles
@@ -178,25 +208,11 @@ class OdsTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($style->getFont()->getItalic());
     }
 
-    public function testReadRichTExt(){
-
-        $this->markTestSkipped("Features not implemented yet");
-
-        $spreadsheet = $this->loadOOCalcTest();
-        $firstSheet = $spreadsheet->getSheet(0);
-
-        $this->assertEquals(
-            "I don't know if OOCalc supports Rich Text in the same way as Excel, " .
-            "And this row should be autofit height with text wrap",
-            $firstSheet->getCell("A28")->getValue()
-        );
-    }
-
     public function testReadHyperlinks(){
 
         $this->markTestSkipped("Features not implemented fully");
 
-        $spreadsheet = $this->loadOOCalcTest();
+        $spreadsheet = $this->loadOOCalcTestFile();
         $firstSheet = $spreadsheet->getSheet(0);
 
         $hyperlink = $firstSheet->getCell("A29");
