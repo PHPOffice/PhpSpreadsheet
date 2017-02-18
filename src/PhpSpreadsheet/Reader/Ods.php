@@ -126,10 +126,10 @@ class Ods extends BaseReader implements IReader
         );
         $xml->setParserProperty(2, true);
 
-        //    Step into the first level of content of the XML
+        // Step into the first level of content of the XML
         $xml->read();
         while ($xml->read()) {
-            //    Quickly jump through to the office:body node
+            // Quickly jump through to the office:body node
             while ($xml->name !== 'office:body') {
                 if ($xml->isEmptyElement) {
                     $xml->read();
@@ -137,10 +137,10 @@ class Ods extends BaseReader implements IReader
                     $xml->next();
                 }
             }
-            //    Now read each node until we find our first table:table node
+            // Now read each node until we find our first table:table node
             while ($xml->read()) {
                 if ($xml->name == 'table:table' && $xml->nodeType == XMLReader::ELEMENT) {
-                    //    Loop through each table:table node reading the table:name attribute for each worksheet name
+                    // Loop through each table:table node reading the table:name attribute for each worksheet name
                     do {
                         $worksheetNames[] = $xml->getAttribute('table:name');
                         $xml->next();
@@ -180,10 +180,10 @@ class Ods extends BaseReader implements IReader
         );
         $xml->setParserProperty(2, true);
 
-        //    Step into the first level of content of the XML
+        // Step into the first level of content of the XML
         $xml->read();
         while ($xml->read()) {
-            //    Quickly jump through to the office:body node
+            // Quickly jump through to the office:body node
             while ($xml->name !== 'office:body') {
                 if ($xml->isEmptyElement) {
                     $xml->read();
@@ -191,7 +191,7 @@ class Ods extends BaseReader implements IReader
                     $xml->next();
                 }
             }
-                //    Now read each node until we find our first table:table node
+                // Now read each node until we find our first table:table node
             while ($xml->read()) {
                 if ($xml->name == 'table:table' && $xml->nodeType == XMLReader::ELEMENT) {
                     $worksheetNames[] = $xml->getAttribute('table:name');
@@ -204,7 +204,7 @@ class Ods extends BaseReader implements IReader
                         'totalColumns' => 0,
                     ];
 
-                    //    Loop through each child node of the table:table element reading
+                    // Loop through each child node of the table:table element reading
                     $currCells = 0;
                     do {
                         $xml->read();
@@ -214,7 +214,7 @@ class Ods extends BaseReader implements IReader
                             $tmpInfo['totalRows'] += $rowspan;
                             $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
                             $currCells = 0;
-                            //    Step into the row
+                            // Step into the row
                             $xml->read();
                             do {
                                 if ($xml->name == 'table:table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
@@ -432,9 +432,9 @@ class Ods extends BaseReader implements IReader
                 $spreadsheet->setActiveSheetIndex($worksheetID);
 
                 if ($worksheetName) {
-                    //    Use false for $updateFormulaCellReferences to prevent adjustment of worksheet references in
-                    //        formula cells... during the load, all formulae should be correct, and we're simply
-                    //        bringing the worksheet name in line with the formula, not the reverse
+                    // Use false for $updateFormulaCellReferences to prevent adjustment of worksheet references in
+                    // formula cells... during the load, all formulae should be correct, and we're simply
+                    // bringing the worksheet name in line with the formula, not the reverse
                     $spreadsheet->getActiveSheet()->setTitle($worksheetName, false);
                 }
 
@@ -459,7 +459,8 @@ class Ods extends BaseReader implements IReader
                     switch ($key) {
                         case 'table-header-rows':
                             /// TODO :: Figure this out. This is only a partial implementation I guess.
-                            //          ($rowData it's not used at all)
+                            //          ($rowData it's not used at all and I'm not sure that PHPExcel
+                            //          has an API for this)
                             
 //                            foreach ($rowData as $keyRowData => $cellData) {
 //                                $rowData = $cellData;
@@ -531,6 +532,7 @@ class Ods extends BaseReader implements IReader
 
                                     // Consolidate if there are multiple p records (maybe with spans as well)
                                     $dataArray = [];
+
                                     // Text can have multiple text:p and within those, multiple text:span.
                                     // text:p newlines, but text:span does not.
                                     // Also, here we assume there is no text data is span fields are specified, since
@@ -639,26 +641,28 @@ class Ods extends BaseReader implements IReader
                                     $temp = explode('"', $cellDataFormula);
                                     $tKey = false;
                                     foreach ($temp as &$value) {
-                                        //    Only replace in alternate array entries (i.e. non-quoted blocks)
+
+                                        // Only replace in alternate array entries (i.e. non-quoted blocks)
                                         if ($tKey = !$tKey) {
                                             
-                                            //  Cell range reference in another sheet
+                                            // Cell range reference in another sheet
                                             $value = preg_replace('/\[([^\.]+)\.([^\.]+):\.([^\.]+)\]/Ui', '$1!$2:$3', $value);
                                             
-                                            //  Cell reference in another sheet
+                                            // Cell reference in another sheet
                                             $value = preg_replace('/\[([^\.]+)\.([^\.]+)\]/Ui', '$1!$2', $value);
                                             
-                                            //  Cell range reference
+                                            // Cell range reference
                                             $value = preg_replace('/\[\.([^\.]+):\.([^\.]+)\]/Ui', '$1:$2', $value);
                                             
-                                            //  Simple cell reference
+                                            // Simple cell reference
                                             $value = preg_replace('/\[\.([^\.]+)\]/Ui', '$1', $value);
                                             
                                             $value = Calculation::translateSeparator(';', ',', $value, $inBraces);
                                         }
                                     }
                                     unset($value);
-                                    //    Then rebuild the formula string
+                                    
+                                    // Then rebuild the formula string
                                     $cellDataFormula = implode('"', $temp);
                                 }
 
@@ -717,7 +721,7 @@ class Ods extends BaseReader implements IReader
                                     }
                                 }
 
-                                //    Merged cells
+                                // Merged cells
                                 if ($childNode->hasAttributeNS($tableNs, 'number-columns-spanned')
                                     || $childNode->hasAttributeNS($tableNs, 'number-rows-spanned')
                                 ) {
@@ -732,10 +736,13 @@ class Ods extends BaseReader implements IReader
 
                                             $columnTo = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($columnIndex);
                                         }
+
                                         $rowTo = $rowID;
+
                                         if ($cellData->hasAttributeNS($tableNs, 'number-rows-spanned')) {
                                             $rowTo = $rowTo + (int)$cellData->getAttributeNS($tableNs, 'number-rows-spanned') - 1;
                                         }
+
                                         $cellRange = $columnID . $rowID . ':' . $columnTo . $rowTo;
                                         $spreadsheet->getActiveSheet()->mergeCells($cellRange);
                                     }
