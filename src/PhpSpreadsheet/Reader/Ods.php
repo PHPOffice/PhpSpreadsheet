@@ -403,6 +403,7 @@ class Ods extends BaseReader implements IReader
         $officeNs = $dom->lookupNamespaceUri("office");
         $tableNs = $dom->lookupNamespaceUri("table");
         $textNs = $dom->lookupNamespaceUri("text");
+        $xlinkNs = $dom->lookupNamespaceUri("xlink");
 
         $spreadsheets = $dom->getElementsByTagNameNS($officeNs, "body")
             ->item(0)
@@ -513,7 +514,10 @@ class Ods extends BaseReader implements IReader
                                 }
 
                                 // Content
+
+                                /** @var \DOMElement[] $paragraphs */
                                 $paragraphs = [];
+
                                 foreach ($cellData->childNodes as $item) {
                                     /** @var \DOMElement $item */
 
@@ -544,12 +548,13 @@ class Ods extends BaseReader implements IReader
                                             $type = DataType::TYPE_STRING;
                                             $dataValue = $allCellDataText;
 
-                                            /// TODO :: Fix this: usually it's text:p > text:a, not just text:a
-//                                            if (isset($dataValue->a)) {
-//                                                $dataValue = $dataValue->a;
-//                                                $cellXLinkAttributes = $dataValue->attributes($namespacesContent['xlink']);
-//                                                $hyperlink = $cellXLinkAttributes['href'];
-//                                            }
+                                            foreach ($paragraphs as $paragraph) {
+                                                $link = $paragraph->getElementsByTagNameNS($textNs, "a");
+                                                if($link->length > 0){
+                                                    $hyperlink = $link->item(0)->getAttributeNS($xlinkNs, "href");
+                                                }
+                                            }
+
                                             break;
                                         case 'boolean':
                                             $type = DataType::TYPE_BOOL;

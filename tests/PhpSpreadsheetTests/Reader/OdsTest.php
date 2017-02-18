@@ -15,7 +15,6 @@ use PhpOffice\PhpSpreadsheet\Style\Font;
 /*
  * @todo Fix sheet name (is not imported correctly)
  * @todo Sheets count is incorrect
- * @todo Support rich text: cells values with styles in them are not imported correctly (text missing!)
  * @todo The class doesn't read the bold/italic/underline properties
  */
 class OdsTest extends \PHPUnit_Framework_TestCase
@@ -182,6 +181,18 @@ class OdsTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    public function testReadHyperlinks(){
+
+        $spreadsheet = $this->loadOOCalcTestFile();
+        $firstSheet = $spreadsheet->getSheet(0);
+
+        $hyperlink = $firstSheet->getCell("A29");
+
+        $this->assertEquals(DataType::TYPE_STRING, $hyperlink->getDataType());
+        $this->assertEquals("PHPExcel", $hyperlink->getValue());
+        $this->assertEquals("http://www.phpexcel.net/", $hyperlink->getHyperlink()->getUrl());
+    }
+
     /*
      * Below some test for features not implemented yet
      */
@@ -206,19 +217,5 @@ class OdsTest extends \PHPUnit_Framework_TestCase
         $style = $firstSheet->getCell("E1")->getStyle();
         $this->assertTrue($style->getFont()->getBold());
         $this->assertTrue($style->getFont()->getItalic());
-    }
-
-    public function testReadHyperlinks(){
-
-        $this->markTestSkipped("Features not implemented fully");
-
-        $spreadsheet = $this->loadOOCalcTestFile();
-        $firstSheet = $spreadsheet->getSheet(0);
-
-        $hyperlink = $firstSheet->getCell("A29");
-
-        $this->assertEquals(DataType::TYPE_STRING, $hyperlink->getDataType());
-        $this->assertEquals("PHPExcel", $hyperlink->getValue());
-        $this->assertEquals("http://www.phpexcel.net/", $hyperlink->getHyperlink()->getUrl());
     }
 }
