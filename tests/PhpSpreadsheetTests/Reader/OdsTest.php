@@ -28,7 +28,7 @@ class OdsTest extends \PHPUnit_Framework_TestCase
     /**
      * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
-    protected function load(){
+    protected function loadOOCalcTest(){
 
         if(!$this->spreadsheet){
             $filename = __DIR__ . '/../../../samples/templates/OOCalcTest.ods';
@@ -44,9 +44,28 @@ class OdsTest extends \PHPUnit_Framework_TestCase
         return $this->spreadsheet;
     }
 
+    public function testLoadWorksheets()
+    {
+        $filename = __DIR__ . '/../../data/Reader/Ods/data.ods';
+
+        // Load into this instance
+        $reader = new Ods();
+        $spreadsheet = $reader->loadIntoExisting($filename, new \PhpOffice\PhpSpreadsheet\Spreadsheet());
+
+        $this->assertInstanceOf('PhpOffice\PhpSpreadsheet\Spreadsheet', $spreadsheet);
+
+//        $this->assertCount(1, $spreadsheet->getAllSheets());
+
+        $firstSheet = $spreadsheet->getSheet(0);
+        $this->assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet', $firstSheet);
+
+        $secondSheet = $spreadsheet->getSheet(1);
+        $this->assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet', $secondSheet);
+    }
+
     public function testReadValueAndComments(){
 
-        $spreadsheet = $this->load();
+        $spreadsheet = $this->loadOOCalcTest();
 
         $this->assertInstanceOf('PhpOffice\PhpSpreadsheet\Spreadsheet', $spreadsheet);
 
@@ -96,7 +115,7 @@ class OdsTest extends \PHPUnit_Framework_TestCase
          * Percentage, Currency
          */
 
-        $filename = __DIR__ . '/../../data/Reader/Ods/numbers.ods';
+        $filename = __DIR__ . '/../../data/Reader/Ods/data.ods';
 
         // Create new Spreadsheet
         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
@@ -104,7 +123,7 @@ class OdsTest extends \PHPUnit_Framework_TestCase
         // Load into this instance
         $reader = new Ods();
         $spreadsheet = $reader->loadIntoExisting($filename, $spreadsheet);
-        $firstSheet = $spreadsheet->getActiveSheet();
+        $firstSheet = $spreadsheet->getSheet(0);
 
         $this->assertEquals(DataType::TYPE_NUMERIC, $firstSheet->getCell("A1")->getDataType()); // Percentage (10%)
         $this->assertEquals(0.1, $firstSheet->getCell("A1")->getValue());
@@ -121,7 +140,7 @@ class OdsTest extends \PHPUnit_Framework_TestCase
 
     public function testReadColors()
     {
-        $spreadsheet = $this->load();
+        $spreadsheet = $this->loadOOCalcTest();
         $firstSheet = $spreadsheet->getSheet(0);
 
         // Background color
@@ -141,7 +160,7 @@ class OdsTest extends \PHPUnit_Framework_TestCase
     {
         $this->markTestSkipped("Features not implemented yet");
 
-        $spreadsheet = $this->load();
+        $spreadsheet = $this->loadOOCalcTest();
         $firstSheet = $spreadsheet->getSheet(0);
 
         // Font styles
@@ -163,7 +182,7 @@ class OdsTest extends \PHPUnit_Framework_TestCase
 
         $this->markTestSkipped("Features not implemented yet");
 
-        $spreadsheet = $this->load();
+        $spreadsheet = $this->loadOOCalcTest();
         $firstSheet = $spreadsheet->getSheet(0);
 
         $this->assertEquals(
@@ -177,7 +196,7 @@ class OdsTest extends \PHPUnit_Framework_TestCase
 
         $this->markTestSkipped("Features not implemented fully");
 
-        $spreadsheet = $this->load();
+        $spreadsheet = $this->loadOOCalcTest();
         $firstSheet = $spreadsheet->getSheet(0);
 
         $hyperlink = $firstSheet->getCell("A29");
