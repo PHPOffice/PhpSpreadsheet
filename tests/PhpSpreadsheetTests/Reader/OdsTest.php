@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: paul
- * Date: 2/14/17
- * Time: 9:18 PM
- */
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
