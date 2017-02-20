@@ -67,13 +67,6 @@ class StringHelper
     private static $currencyCode;
 
     /**
-     * Is mbstring extension avalable?
-     *
-     * @var bool
-     */
-    private static $isMbstringEnabled;
-
-    /**
      * Is iconv extension avalable?
      *
      * @var bool
@@ -260,23 +253,6 @@ class StringHelper
     }
 
     /**
-     * Get whether mbstring extension is available.
-     *
-     * @return bool
-     */
-    public static function getIsMbstringEnabled()
-    {
-        if (isset(self::$isMbstringEnabled)) {
-            return self::$isMbstringEnabled;
-        }
-
-        self::$isMbstringEnabled = function_exists('mb_convert_encoding') ?
-            true : false;
-
-        return self::$isMbstringEnabled;
-    }
-
-    /**
      * Get whether iconv extension is available.
      *
      * @return bool
@@ -387,13 +363,8 @@ class StringHelper
             return $value;
         }
 
-        if (self::getIsMbstringEnabled()) {
-            $value = mb_convert_encoding($value, 'UTF-8', 'UTF-8');
+        $value = mb_convert_encoding($value, 'UTF-8', 'UTF-8');
 
-            return $value;
-        }
-
-        // else, no conversion
         return $value;
     }
 
@@ -444,9 +415,7 @@ class StringHelper
         $ln = self::countCharacters($value, 'UTF-8');
         // option flags
         if (empty($arrcRuns)) {
-            $opt = (self::getIsIconvEnabled() || self::getIsMbstringEnabled()) ?
-                0x0001 : 0x0000;
-            $data = pack('CC', $ln, $opt);
+            $data = pack('CC', $ln, 0x0001);
             // characters
             $data .= self::convertEncoding($value, 'UTF-16LE', 'UTF-8');
         } else {
@@ -479,20 +448,16 @@ class StringHelper
         // character count
         $ln = self::countCharacters($value, 'UTF-8');
 
-        // option flags
-        $opt = (self::getIsIconvEnabled() || self::getIsMbstringEnabled()) ?
-            0x0001 : 0x0000;
-
         // characters
         $chars = self::convertEncoding($value, 'UTF-16LE', 'UTF-8');
 
-        $data = pack('vC', $ln, $opt) . $chars;
+        $data = pack('vC', $ln, 0x0001) . $chars;
 
         return $data;
     }
 
     /**
-     * Convert string from one encoding to another. First try mbstring, then iconv, finally strlen.
+     * Convert string from one encoding to another.
      *
      * @param string $value
      * @param string $to Encoding to convert to, e.g. 'UTF-8'
@@ -506,68 +471,11 @@ class StringHelper
             return iconv($from, $to . '//IGNORE//TRANSLIT', $value);
         }
 
-        if (self::getIsMbstringEnabled()) {
-            return mb_convert_encoding($value, $to, $from);
-        }
-
-        if ($from == 'UTF-16LE') {
-            return self::utf16Decode($value, false);
-        } elseif ($from == 'UTF-16BE') {
-            return self::utf16Decode($value);
-        }
-        // else, no conversion
-        return $value;
+        return mb_convert_encoding($value, $to, $from);
     }
 
     /**
-     * Decode UTF-16 encoded strings.
-     *
-     * Can handle both BOM'ed data and un-BOM'ed data.
-     * Assumes Big-Endian byte order if no BOM is available.
-     * This function was taken from http://php.net/manual/en/function.utf8-decode.php
-     * and $bom_be parameter added.
-     *
-     * @param string $str uTF-16 encoded data to decode
-     * @param mixed $bom_be
-     *
-     * @return string uTF-8 / ISO encoded data
-     *
-     * @version 0.2 / 2010-05-13
-     *
-     * @author  Rasmus Andersson {@link http://rasmusandersson.se/}
-     * @author vadik56
-     */
-    public static function utf16Decode($str, $bom_be = true)
-    {
-        if (strlen($str) < 2) {
-            return $str;
-        }
-        $c0 = ord($str[0]);
-        $c1 = ord($str[1]);
-        if ($c0 == 0xfe && $c1 == 0xff) {
-            $str = substr($str, 2);
-        } elseif ($c0 == 0xff && $c1 == 0xfe) {
-            $str = substr($str, 2);
-            $bom_be = false;
-        }
-        $len = strlen($str);
-        $newstr = '';
-        for ($i = 0; $i < $len; $i += 2) {
-            if ($bom_be) {
-                $val = ord($str[$i]) << 4;
-                $val += ord($str[$i + 1]);
-            } else {
-                $val = ord($str[$i + 1]) << 4;
-                $val += ord($str[$i]);
-            }
-            $newstr .= ($val == 0x228) ? "\n" : chr($val);
-        }
-
-        return $newstr;
-    }
-
-    /**
-     * Get character count. First try mbstring, then iconv, finally strlen.
+     * Get character count.
      *
      * @param string $value
      * @param string $enc Encoding
@@ -576,20 +484,11 @@ class StringHelper
      */
     public static function countCharacters($value, $enc = 'UTF-8')
     {
-        if (self::getIsMbstringEnabled()) {
-            return mb_strlen($value, $enc);
-        }
-
-        if (self::getIsIconvEnabled()) {
-            return iconv_strlen($value, $enc);
-        }
-
-        // else strlen
-        return strlen($value);
+        return mb_strlen($value, $enc);
     }
 
     /**
-     * Get a substring of a UTF-8 encoded string. First try mbstring, then iconv, finally strlen.
+     * Get a substring of a UTF-8 encoded string.
      *
      * @param string $pValue UTF-8 encoded string
      * @param int $pStart Start offset
@@ -599,16 +498,7 @@ class StringHelper
      */
     public static function substring($pValue = '', $pStart = 0, $pLength = 0)
     {
-        if (self::getIsMbstringEnabled()) {
-            return mb_substr($pValue, $pStart, $pLength, 'UTF-8');
-        }
-
-        if (self::getIsIconvEnabled()) {
-            return iconv_substr($pValue, $pStart, $pLength, 'UTF-8');
-        }
-
-        // else substr
-        return substr($pValue, $pStart, $pLength);
+        return mb_substr($pValue, $pStart, $pLength, 'UTF-8');
     }
 
     /**
@@ -620,11 +510,7 @@ class StringHelper
      */
     public static function strToUpper($pValue = '')
     {
-        if (function_exists('mb_convert_case')) {
-            return mb_convert_case($pValue, MB_CASE_UPPER, 'UTF-8');
-        }
-
-        return strtoupper($pValue);
+        return mb_convert_case($pValue, MB_CASE_UPPER, 'UTF-8');
     }
 
     /**
@@ -636,11 +522,7 @@ class StringHelper
      */
     public static function strToLower($pValue = '')
     {
-        if (function_exists('mb_convert_case')) {
-            return mb_convert_case($pValue, MB_CASE_LOWER, 'UTF-8');
-        }
-
-        return strtolower($pValue);
+        return mb_convert_case($pValue, MB_CASE_LOWER, 'UTF-8');
     }
 
     /**
@@ -653,11 +535,7 @@ class StringHelper
      */
     public static function strToTitle($pValue = '')
     {
-        if (function_exists('mb_convert_case')) {
-            return mb_convert_case($pValue, MB_CASE_TITLE, 'UTF-8');
-        }
-
-        return ucwords($pValue);
+        return mb_convert_case($pValue, MB_CASE_TITLE, 'UTF-8');
     }
 
     public static function mbIsUpper($char)
@@ -673,6 +551,44 @@ class StringHelper
     }
 
     /**
+     * Replace into multi-bytes string.
+     *
+     * Strangely, PHP doesn't have a mb_str_replace multibyte function
+     * As we'll only ever use this function with UTF-8 characters, we can simply "hard-code" the character set
+     *
+     * @param string|string[] $search
+     * @param string|string[] $replace
+     * @param string $subject
+     *
+     * @return string
+     */
+    public static function mbStrReplace($search, $replace, $subject)
+    {
+        if (is_array($subject)) {
+            $ret = [];
+            foreach ($subject as $key => $val) {
+                $ret[$key] = self::mbStrReplace($search, $replace, $val);
+            }
+
+            return $ret;
+        }
+
+        foreach ((array) $search as $key => $s) {
+            if ($s == '' && $s !== 0) {
+                continue;
+            }
+            $r = !is_array($replace) ? $replace : (isset($replace[$key]) ? $replace[$key] : '');
+            $pos = mb_strpos($subject, $s, 0, 'UTF-8');
+            while ($pos !== false) {
+                $subject = mb_substr($subject, 0, $pos, 'UTF-8') . $r . mb_substr($subject, $pos + mb_strlen($s, 'UTF-8'), null, 'UTF-8');
+                $pos = mb_strpos($subject, $s, $pos + mb_strlen($r, 'UTF-8'), 'UTF-8');
+            }
+        }
+
+        return $subject;
+    }
+
+    /**
      * Reverse the case of a string, so that all uppercase characters become lowercase
      * and all lowercase characters become uppercase.
      *
@@ -682,20 +598,16 @@ class StringHelper
      */
     public static function strCaseReverse($pValue = '')
     {
-        if (self::getIsMbstringEnabled()) {
-            $characters = self::mbStrSplit($pValue);
-            foreach ($characters as &$character) {
-                if (self::mbIsUpper($character)) {
-                    $character = mb_strtolower($character, 'UTF-8');
-                } else {
-                    $character = mb_strtoupper($character, 'UTF-8');
-                }
+        $characters = self::mbStrSplit($pValue);
+        foreach ($characters as &$character) {
+            if (self::mbIsUpper($character)) {
+                $character = mb_strtolower($character, 'UTF-8');
+            } else {
+                $character = mb_strtoupper($character, 'UTF-8');
             }
-
-            return implode('', $characters);
         }
 
-        return strtolower($pValue) ^ strtoupper($pValue) ^ $pValue;
+        return implode('', $characters);
     }
 
     /**

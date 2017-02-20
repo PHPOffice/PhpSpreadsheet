@@ -142,40 +142,6 @@ class File
             }
         }
 
-        // sys_get_temp_dir is only available since PHP 5.2.1
-        // http://php.net/manual/en/function.sys-get-temp-dir.php#94119
-        if (!function_exists('sys_get_temp_dir')) {
-            if ($temp = getenv('TMP')) {
-                if ((!empty($temp)) && (file_exists($temp))) {
-                    return realpath($temp);
-                }
-            }
-            if ($temp = getenv('TEMP')) {
-                if ((!empty($temp)) && (file_exists($temp))) {
-                    return realpath($temp);
-                }
-            }
-            if ($temp = getenv('TMPDIR')) {
-                if ((!empty($temp)) && (file_exists($temp))) {
-                    return realpath($temp);
-                }
-            }
-
-            // trick for creating a file in system's temporary dir
-            // without knowing the path of the system's temporary dir
-            $temp = tempnam(__FILE__, '');
-            if (file_exists($temp)) {
-                unlink($temp);
-
-                return realpath(dirname($temp));
-            }
-
-            return null;
-        }
-
-        // use ordinary built-in PHP function
-        //    There should be no problem with the 5.2.4 Suhosin realpath() bug, because this line should only
-        //        be called if we're running 5.2.1 or earlier
         return realpath(sys_get_temp_dir());
     }
 

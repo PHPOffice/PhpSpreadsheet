@@ -14,12 +14,6 @@ class StringTest extends \PHPUnit_Framework_TestCase
         StringHelper::setCurrencyCode(null);
     }
 
-    public function testGetIsMbStringEnabled()
-    {
-        $result = StringHelper::getIsMbstringEnabled();
-        $this->assertTrue($result);
-    }
-
     public function testGetIsIconvEnabled()
     {
         $result = StringHelper::getIsIconvEnabled();

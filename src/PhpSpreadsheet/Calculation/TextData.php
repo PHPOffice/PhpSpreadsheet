@@ -124,18 +124,11 @@ class TextData
         }
 
         $character = $characters;
-        if ((function_exists('mb_strlen')) && (function_exists('mb_substr'))) {
-            if (mb_strlen($characters, 'UTF-8') > 1) {
-                $character = mb_substr($characters, 0, 1, 'UTF-8');
-            }
-
-            return self::unicodeToOrd($character);
-        }
-        if (strlen($characters) > 0) {
-            $character = substr($characters, 0, 1);
+        if (mb_strlen($characters, 'UTF-8') > 1) {
+            $character = mb_substr($characters, 0, 1, 'UTF-8');
         }
 
-        return ord($character);
+        return self::unicodeToOrd($character);
     }
 
     /**
@@ -225,11 +218,8 @@ class TextData
                 if (\PhpOffice\PhpSpreadsheet\Shared\StringHelper::countCharacters($needle) == 0) {
                     return $offset;
                 }
-                if (function_exists('mb_strpos')) {
-                    $pos = mb_strpos($haystack, $needle, --$offset, 'UTF-8');
-                } else {
-                    $pos = strpos($haystack, $needle, --$offset);
-                }
+
+                $pos = mb_strpos($haystack, $needle, --$offset, 'UTF-8');
                 if ($pos !== false) {
                     return ++$pos;
                 }
@@ -263,11 +253,8 @@ class TextData
                 if (\PhpOffice\PhpSpreadsheet\Shared\StringHelper::countCharacters($needle) == 0) {
                     return $offset;
                 }
-                if (function_exists('mb_stripos')) {
-                    $pos = mb_stripos($haystack, $needle, --$offset, 'UTF-8');
-                } else {
-                    $pos = stripos($haystack, $needle, --$offset);
-                }
+
+                $pos = mb_stripos($haystack, $needle, --$offset, 'UTF-8');
                 if ($pos !== false) {
                     return ++$pos;
                 }
@@ -330,11 +317,7 @@ class TextData
             $value = ($value) ? \PhpOffice\PhpSpreadsheet\Calculation::getTRUE() : \PhpOffice\PhpSpreadsheet\Calculation::getFALSE();
         }
 
-        if (function_exists('mb_substr')) {
-            return mb_substr($value, 0, $chars, 'UTF-8');
-        }
-
-        return substr($value, 0, $chars);
+        return mb_substr($value, 0, $chars, 'UTF-8');
     }
 
     /**
@@ -363,11 +346,8 @@ class TextData
         if (empty($chars)) {
             return '';
         }
-        if (function_exists('mb_substr')) {
-            return mb_substr($value, --$start, $chars, 'UTF-8');
-        }
 
-        return substr($value, --$start, $chars);
+        return mb_substr($value, --$start, $chars, 'UTF-8');
     }
 
     /**
@@ -391,11 +371,7 @@ class TextData
             $value = ($value) ? \PhpOffice\PhpSpreadsheet\Calculation::getTRUE() : \PhpOffice\PhpSpreadsheet\Calculation::getFALSE();
         }
 
-        if ((function_exists('mb_substr')) && (function_exists('mb_strlen'))) {
-            return mb_substr($value, mb_strlen($value, 'UTF-8') - $chars, $chars, 'UTF-8');
-        }
-
-        return substr($value, strlen($value) - $chars);
+        return mb_substr($value, mb_strlen($value, 'UTF-8') - $chars, $chars, 'UTF-8');
     }
 
     /**
@@ -413,11 +389,7 @@ class TextData
             $value = ($value) ? \PhpOffice\PhpSpreadsheet\Calculation::getTRUE() : \PhpOffice\PhpSpreadsheet\Calculation::getFALSE();
         }
 
-        if (function_exists('mb_strlen')) {
-            return mb_strlen($value, 'UTF-8');
-        }
-
-        return strlen($value);
+        return mb_strlen($value, 'UTF-8');
     }
 
     /**
@@ -521,30 +493,20 @@ class TextData
         $instance = floor(Functions::flattenSingleValue($instance));
 
         if ($instance == 0) {
-            if (function_exists('mb_str_replace')) {
-                return mb_str_replace($fromText, $toText, $text);
-            }
-
-            return str_replace($fromText, $toText, $text);
+            return \PhpOffice\PhpSpreadsheet\Shared\StringHelper::mbStrReplace($fromText, $toText, $text);
         }
+
         $pos = -1;
         while ($instance > 0) {
-            if (function_exists('mb_strpos')) {
-                $pos = mb_strpos($text, $fromText, $pos + 1, 'UTF-8');
-            } else {
-                $pos = strpos($text, $fromText, $pos + 1);
-            }
+            $pos = mb_strpos($text, $fromText, $pos + 1, 'UTF-8');
             if ($pos === false) {
                 break;
             }
             --$instance;
         }
-        if ($pos !== false) {
-            if (function_exists('mb_strlen')) {
-                return self::REPLACE($text, ++$pos, mb_strlen($fromText, 'UTF-8'), $toText);
-            }
 
-            return self::REPLACE($text, ++$pos, strlen($fromText), $toText);
+        if ($pos !== false) {
+            return self::REPLACE($text, ++$pos, mb_strlen($fromText, 'UTF-8'), $toText);
         }
 
         return $text;
