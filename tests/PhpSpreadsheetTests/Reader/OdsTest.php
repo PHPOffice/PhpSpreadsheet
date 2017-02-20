@@ -13,9 +13,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Ods;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 
 /*
- * @todo Fix sheet name (is not imported correctly)
- * @todo Sheets count is incorrect
- * @todo The class doesn't read the bold/italic/underline properties
+ * @todo The class doesn't read the bold/italic/underline properties (rich text)
  */
 class OdsTest extends \PHPUnit_Framework_TestCase
 {
@@ -61,13 +59,28 @@ class OdsTest extends \PHPUnit_Framework_TestCase
         return $this->spreadsheetData;
     }
 
+    public function testReadFileProperties()
+    {
+        $filename = __DIR__ . '/../../data/Reader/Ods/data.ods';
+
+        // Load into this instance
+        $reader = new Ods();
+
+        // Test "listWorksheetNames" method
+
+        $this->assertEquals([
+            "Sheet1",
+            "Second Sheet",
+        ], $reader->listWorksheetNames($filename));
+    }
+
     public function testLoadWorksheets()
     {
         $spreadsheet = $this->loadDataFile();
 
         $this->assertInstanceOf('PhpOffice\PhpSpreadsheet\Spreadsheet', $spreadsheet);
 
-//        $this->assertCount(1, $spreadsheet->getAllSheets());
+        $this->assertEquals(2, $spreadsheet->getSheetCount());
 
         $firstSheet = $spreadsheet->getSheet(0);
         $this->assertInstanceOf('PhpOffice\PhpSpreadsheet\Worksheet', $firstSheet);

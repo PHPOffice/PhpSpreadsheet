@@ -435,7 +435,9 @@ class Ods extends BaseReader implements IReader
                 }
 
                 // Create sheet
-                $spreadsheet->createSheet();
+                if($worksheetID > 0){
+                    $spreadsheet->createSheet(); // First sheet is added by default
+                }
                 $spreadsheet->setActiveSheetIndex($worksheetID);
 
                 if ($worksheetName) {
