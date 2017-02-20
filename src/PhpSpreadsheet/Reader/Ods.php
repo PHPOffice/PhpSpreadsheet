@@ -107,6 +107,7 @@ class Ods extends BaseReader implements IReader
      * @param string $pFilename
      *
      * @throws Exception
+     *
      * @return string[]
      */
     public function listWorksheetNames($pFilename)
@@ -163,6 +164,7 @@ class Ods extends BaseReader implements IReader
      * @param string $pFilename
      *
      * @throws Exception
+     *
      * @return array
      */
     public function listWorksheetInfo($pFilename)
@@ -173,7 +175,7 @@ class Ods extends BaseReader implements IReader
 
         $zipClass = \PhpOffice\PhpSpreadsheet\Settings::getZipClass();
 
-         /** @var \ZipArchive $zip */
+        /** @var \ZipArchive $zip */
         $zip = new $zipClass();
         if (!$zip->open($pFilename)) {
             throw new Exception('Could not open ' . $pFilename . ' for reading! Error opening file.');
@@ -407,25 +409,23 @@ class Ods extends BaseReader implements IReader
             \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
         );
 
-        $officeNs = $dom->lookupNamespaceUri("office");
-        $tableNs = $dom->lookupNamespaceUri("table");
-        $textNs = $dom->lookupNamespaceUri("text");
-        $xlinkNs = $dom->lookupNamespaceUri("xlink");
+        $officeNs = $dom->lookupNamespaceUri('office');
+        $tableNs = $dom->lookupNamespaceUri('table');
+        $textNs = $dom->lookupNamespaceUri('text');
+        $xlinkNs = $dom->lookupNamespaceUri('xlink');
 
-        $spreadsheets = $dom->getElementsByTagNameNS($officeNs, "body")
+        $spreadsheets = $dom->getElementsByTagNameNS($officeNs, 'body')
             ->item(0)
-            ->getElementsByTagNameNS($officeNs, "spreadsheet");
+            ->getElementsByTagNameNS($officeNs, 'spreadsheet');
 
         foreach ($spreadsheets as $workbookData) {
             /** @var \DOMElement $workbookData */
-
-            $tables = $workbookData->getElementsByTagNameNS($tableNs, "table");
+            $tables = $workbookData->getElementsByTagNameNS($tableNs, 'table');
 
             $worksheetID = 0;
             foreach ($tables as $worksheetDataSet) {
                 /** @var \DOMElement $worksheetDataSet */
-
-                $worksheetName = $worksheetDataSet->getAttributeNS($tableNs, "name");
+                $worksheetName = $worksheetDataSet->getAttributeNS($tableNs, 'name');
 
                 // Check loadSheetsOnly
                 if (isset($this->loadSheetsOnly)
@@ -435,7 +435,7 @@ class Ods extends BaseReader implements IReader
                 }
 
                 // Create sheet
-                if($worksheetID > 0){
+                if ($worksheetID > 0) {
                     $spreadsheet->createSheet(); // First sheet is added by default
                 }
                 $spreadsheet->setActiveSheetIndex($worksheetID);
@@ -453,15 +453,15 @@ class Ods extends BaseReader implements IReader
                     /** @var \DOMElement $childNode */
 
                     // Filter elements which are not under the "table" ns
-                    if($childNode->namespaceURI != $tableNs){
+                    if ($childNode->namespaceURI != $tableNs) {
                         continue;
                     }
 
                     $key = $childNode->nodeName;
 
                     // Remove ns from node name
-                    if(strpos($key, ":") !== false){
-                        $keyChunks = explode(":", $key);
+                    if (strpos($key, ':') !== false) {
+                        $keyChunks = explode(':', $key);
                         $key = array_pop($keyChunks);
                     }
 
@@ -470,7 +470,7 @@ class Ods extends BaseReader implements IReader
                             /// TODO :: Figure this out. This is only a partial implementation I guess.
                             //          ($rowData it's not used at all and I'm not sure that PHPExcel
                             //          has an API for this)
-                            
+
 //                            foreach ($rowData as $keyRowData => $cellData) {
 //                                $rowData = $cellData;
 //                                break;
@@ -478,16 +478,15 @@ class Ods extends BaseReader implements IReader
                             break;
                         case 'table-row':
 
-                            if($childNode->hasAttributeNS($tableNs, 'number-rows-repeated')){
+                            if ($childNode->hasAttributeNS($tableNs, 'number-rows-repeated')) {
                                 $rowRepeats = $childNode->getAttributeNS($tableNs, 'number-rows-repeated');
-                            }
-                            else{
+                            } else {
                                 $rowRepeats = 1;
                             }
-                            
+
                             $columnID = 'A';
                             foreach ($childNode->childNodes as $key => $cellData) {
-                                /** @var \DOMElement $cellData */
+                                /* @var \DOMElement $cellData */
 
                                 if ($this->getReadFilter() !== null) {
                                     if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
@@ -501,19 +500,18 @@ class Ods extends BaseReader implements IReader
                                 $hasCalculatedValue = false;
                                 $cellDataFormula = '';
 
-                                if ($cellData->hasAttributeNS($tableNs, "formula")) {
-                                    $cellDataFormula = $cellData->getAttributeNS($tableNs, "formula");
+                                if ($cellData->hasAttributeNS($tableNs, 'formula')) {
+                                    $cellDataFormula = $cellData->getAttributeNS($tableNs, 'formula');
                                     $hasCalculatedValue = true;
                                 }
 
                                 // Annotations
-                                $annotation = $cellData->getElementsByTagNameNS($officeNs, "annotation");
+                                $annotation = $cellData->getElementsByTagNameNS($officeNs, 'annotation');
 
                                 if ($annotation->length > 0) {
-                                    $textNode = $annotation->item(0)->getElementsByTagNameNS($textNs, "p");
+                                    $textNode = $annotation->item(0)->getElementsByTagNameNS($textNs, 'p');
 
-                                    if($textNode->length > 0){
-
+                                    if ($textNode->length > 0) {
                                         $text = $this->scanElementForText($textNode->item(0));
 
                                         $spreadsheet->getActiveSheet()
@@ -532,13 +530,12 @@ class Ods extends BaseReader implements IReader
                                     /** @var \DOMElement $item */
 
                                     // Filter text:p elements
-                                    if($item->nodeName == "text:p"){
+                                    if ($item->nodeName == 'text:p') {
                                         $paragraphs[] = $item;
                                     }
                                 }
 
                                 if (count($paragraphs) > 0) {
-
                                     // Consolidate if there are multiple p records (maybe with spans as well)
                                     $dataArray = [];
 
@@ -560,9 +557,9 @@ class Ods extends BaseReader implements IReader
                                             $dataValue = $allCellDataText;
 
                                             foreach ($paragraphs as $paragraph) {
-                                                $link = $paragraph->getElementsByTagNameNS($textNs, "a");
-                                                if($link->length > 0){
-                                                    $hyperlink = $link->item(0)->getAttributeNS($xlinkNs, "href");
+                                                $link = $paragraph->getElementsByTagNameNS($textNs, 'a');
+                                                if ($link->length > 0) {
+                                                    $hyperlink = $link->item(0)->getAttributeNS($xlinkNs, 'href');
                                                 }
                                             }
 
@@ -573,7 +570,7 @@ class Ods extends BaseReader implements IReader
                                             break;
                                         case 'percentage':
                                             $type = DataType::TYPE_NUMERIC;
-                                            $dataValue = (float)$cellData->getAttributeNS($officeNs, 'value');
+                                            $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
 
                                             if (floor($dataValue) == $dataValue) {
                                                 $dataValue = (int) $dataValue;
@@ -582,7 +579,7 @@ class Ods extends BaseReader implements IReader
                                             break;
                                         case 'currency':
                                             $type = DataType::TYPE_NUMERIC;
-                                            $dataValue = (float)$cellData->getAttributeNS($officeNs, 'value');
+                                            $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
 
                                             if (floor($dataValue) == $dataValue) {
                                                 $dataValue = (int) $dataValue;
@@ -591,7 +588,7 @@ class Ods extends BaseReader implements IReader
                                             break;
                                         case 'float':
                                             $type = DataType::TYPE_NUMERIC;
-                                            $dataValue = (float)$cellData->getAttributeNS($officeNs, 'value');
+                                            $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
 
                                             if (floor($dataValue) == $dataValue) {
                                                 if ($dataValue == (int) $dataValue) {
@@ -635,7 +632,6 @@ class Ods extends BaseReader implements IReader
                                             );
                                             $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4;
                                             break;
-
                                         default:
                                             $dataValue = null;
                                     }
@@ -650,41 +646,37 @@ class Ods extends BaseReader implements IReader
                                     $temp = explode('"', $cellDataFormula);
                                     $tKey = false;
                                     foreach ($temp as &$value) {
-
                                         // Only replace in alternate array entries (i.e. non-quoted blocks)
                                         if ($tKey = !$tKey) {
-                                            
                                             // Cell range reference in another sheet
                                             $value = preg_replace('/\[([^\.]+)\.([^\.]+):\.([^\.]+)\]/Ui', '$1!$2:$3', $value);
-                                            
+
                                             // Cell reference in another sheet
                                             $value = preg_replace('/\[([^\.]+)\.([^\.]+)\]/Ui', '$1!$2', $value);
-                                            
+
                                             // Cell range reference
                                             $value = preg_replace('/\[\.([^\.]+):\.([^\.]+)\]/Ui', '$1:$2', $value);
-                                            
+
                                             // Simple cell reference
                                             $value = preg_replace('/\[\.([^\.]+)\]/Ui', '$1', $value);
-                                            
+
                                             $value = Calculation::translateSeparator(';', ',', $value, $inBraces);
                                         }
                                     }
                                     unset($value);
-                                    
+
                                     // Then rebuild the formula string
                                     $cellDataFormula = implode('"', $temp);
                                 }
 
-                                if($cellData->hasAttributeNS($tableNs, 'number-columns-repeated')){
-                                    $colRepeats = (int)$cellData->getAttributeNS($tableNs, 'number-columns-repeated');
-                                }
-                                else{
+                                if ($cellData->hasAttributeNS($tableNs, 'number-columns-repeated')) {
+                                    $colRepeats = (int) $cellData->getAttributeNS($tableNs, 'number-columns-repeated');
+                                } else {
                                     $colRepeats = 1;
                                 }
 
                                 if ($type !== null) {
                                     for ($i = 0; $i < $colRepeats; ++$i) {
-
                                         if ($i > 0) {
                                             ++$columnID;
                                         }
@@ -697,10 +689,9 @@ class Ods extends BaseReader implements IReader
                                                             ->getCell($columnID . $rID);
 
                                                 // Set value
-                                                if($hasCalculatedValue){
+                                                if ($hasCalculatedValue) {
                                                     $cell->setValueExplicit($cellDataFormula, $type);
-                                                }
-                                                else{
+                                                } else {
                                                     $cell->setValueExplicit($dataValue, $type);
                                                 }
 
@@ -738,9 +729,8 @@ class Ods extends BaseReader implements IReader
                                         $columnTo = $columnID;
 
                                         if ($cellData->hasAttributeNS($tableNs, 'number-columns-spanned')) {
-
                                             $columnIndex = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($columnID);
-                                            $columnIndex += (int)$cellData->getAttributeNS($tableNs, 'number-columns-spanned');
+                                            $columnIndex += (int) $cellData->getAttributeNS($tableNs, 'number-columns-spanned');
                                             $columnIndex -= 2;
 
                                             $columnTo = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($columnIndex);
@@ -749,7 +739,7 @@ class Ods extends BaseReader implements IReader
                                         $rowTo = $rowID;
 
                                         if ($cellData->hasAttributeNS($tableNs, 'number-rows-spanned')) {
-                                            $rowTo = $rowTo + (int)$cellData->getAttributeNS($tableNs, 'number-rows-spanned') - 1;
+                                            $rowTo = $rowTo + (int) $cellData->getAttributeNS($tableNs, 'number-rows-spanned') - 1;
                                         }
 
                                         $cellRange = $columnID . $rowID . ':' . $columnTo . $rowTo;
@@ -772,38 +762,35 @@ class Ods extends BaseReader implements IReader
     }
 
     /**
-     * Recursively scan element
+     * Recursively scan element.
      *
      * @param \DOMNode $element
+     *
      * @return string
      */
-    protected function scanElementForText(\DOMNode $element){
-
-        $str = "";
-        foreach($element->childNodes as $child){
+    protected function scanElementForText(\DOMNode $element)
+    {
+        $str = '';
+        foreach ($element->childNodes as $child) {
             /** @var \DOMNode $child */
-
-            if($child->nodeType == XML_TEXT_NODE){
+            if ($child->nodeType == XML_TEXT_NODE) {
                 $str .= $child->nodeValue;
-            }
-            elseif($child->nodeType == XML_ELEMENT_NODE && $child->nodeName == "text:s"){
+            } elseif ($child->nodeType == XML_ELEMENT_NODE && $child->nodeName == 'text:s') {
                 // It's a space
 
                 // Multiple spaces?
-                if(isset($child->attributes["text:c"])){
-
+                if (isset($child->attributes['text:c'])) {
                     /** @var \DOMAttr $cAttr */
-                    $cAttr = $child->attributes["text:c"];
-                    $multiplier = (int)$cAttr->nodeValue;
-                }
-                else{
+                    $cAttr = $child->attributes['text:c'];
+                    $multiplier = (int) $cAttr->nodeValue;
+                } else {
                     $multiplier = 1;
                 }
 
-                $str .= str_repeat(" ", $multiplier);
+                $str .= str_repeat(' ', $multiplier);
             }
 
-            if($child->hasChildNodes()){
+            if ($child->hasChildNodes()) {
                 $str .= $this->scanElementForText($child);
             }
         }
@@ -813,6 +800,7 @@ class Ods extends BaseReader implements IReader
 
     /**
      * @param string $is
+     *
      * @return \PhpOffice\PhpSpreadsheet\RichText
      */
     private function parseRichText($is = '')
