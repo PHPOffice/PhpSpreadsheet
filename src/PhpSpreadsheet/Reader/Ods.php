@@ -477,7 +477,6 @@ class Ods extends BaseReader implements IReader
 //                            }
                             break;
                         case 'table-row':
-
                             if ($childNode->hasAttributeNS($tableNs, 'number-rows-repeated')) {
                                 $rowRepeats = $childNode->getAttributeNS($tableNs, 'number-rows-repeated');
                             } else {
@@ -604,12 +603,18 @@ class Ods extends BaseReader implements IReader
 
                                             $dateObj = new DateTime($value, $GMT);
                                             $dateObj->setTimeZone($timezoneObj);
-                                            list($year, $month, $day, $hour, $minute, $second) = explode(' ',
+                                            list($year, $month, $day, $hour, $minute, $second) = explode(
+                                                ' ',
                                                 $dateObj->format('Y m d H i s')
                                             );
 
                                             $dataValue = \PhpOffice\PhpSpreadsheet\Shared\Date::formattedPHPToExcel(
-                                                $year, $month, $day, $hour, $minute, $second
+                                                $year,
+                                                $month,
+                                                $day,
+                                                $hour,
+                                                $minute,
+                                                $second
                                             );
 
                                             if ($dataValue != floor($dataValue)) {
