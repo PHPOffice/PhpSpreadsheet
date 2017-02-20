@@ -64,7 +64,10 @@ class Ods extends BaseReader implements IReader
         $zipClass = \PhpOffice\PhpSpreadsheet\Settings::getZipClass();
 
         $mimeType = 'UNKNOWN';
+
         // Load file
+
+        /** @var \ZipArchive $zip */
         $zip = new $zipClass();
         if ($zip->open($pFilename) === true) {
             // check if it is an OOXML archive
@@ -104,6 +107,7 @@ class Ods extends BaseReader implements IReader
      * @param string $pFilename
      *
      * @throws Exception
+     * @return string[]
      */
     public function listWorksheetNames($pFilename)
     {
@@ -111,6 +115,7 @@ class Ods extends BaseReader implements IReader
 
         $zipClass = \PhpOffice\PhpSpreadsheet\Settings::getZipClass();
 
+        /** @var \ZipArchive $zip */
         $zip = new $zipClass();
         if (!$zip->open($pFilename)) {
             throw new Exception('Could not open ' . $pFilename . ' for reading! Error opening file.');
@@ -118,8 +123,8 @@ class Ods extends BaseReader implements IReader
 
         $worksheetNames = [];
 
-        $xml = new XMLReader();
-        $res = $xml->xml(
+        $xml = new \XMLReader();
+        $xml->xml(
             $this->securityScanFile('zip://' . realpath($pFilename) . '#content.xml'),
             null,
             \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
@@ -139,12 +144,12 @@ class Ods extends BaseReader implements IReader
             }
             // Now read each node until we find our first table:table node
             while ($xml->read()) {
-                if ($xml->name == 'table:table' && $xml->nodeType == XMLReader::ELEMENT) {
+                if ($xml->name == 'table:table' && $xml->nodeType == \XMLReader::ELEMENT) {
                     // Loop through each table:table node reading the table:name attribute for each worksheet name
                     do {
                         $worksheetNames[] = $xml->getAttribute('table:name');
                         $xml->next();
-                    } while ($xml->name == 'table:table' && $xml->nodeType == XMLReader::ELEMENT);
+                    } while ($xml->name == 'table:table' && $xml->nodeType == \XMLReader::ELEMENT);
                 }
             }
         }
@@ -158,6 +163,7 @@ class Ods extends BaseReader implements IReader
      * @param string $pFilename
      *
      * @throws Exception
+     * @return array
      */
     public function listWorksheetInfo($pFilename)
     {
@@ -167,12 +173,13 @@ class Ods extends BaseReader implements IReader
 
         $zipClass = \PhpOffice\PhpSpreadsheet\Settings::getZipClass();
 
+         /** @var \ZipArchive $zip */
         $zip = new $zipClass();
         if (!$zip->open($pFilename)) {
             throw new Exception('Could not open ' . $pFilename . ' for reading! Error opening file.');
         }
 
-        $xml = new XMLReader();
+        $xml = new \XMLReader();
         $res = $xml->xml(
             $this->securityScanFile('zip://' . realpath($pFilename) . '#content.xml'),
             null,
@@ -193,7 +200,7 @@ class Ods extends BaseReader implements IReader
             }
                 // Now read each node until we find our first table:table node
             while ($xml->read()) {
-                if ($xml->name == 'table:table' && $xml->nodeType == XMLReader::ELEMENT) {
+                if ($xml->name == 'table:table' && $xml->nodeType == \XMLReader::ELEMENT) {
                     $worksheetNames[] = $xml->getAttribute('table:name');
 
                     $tmpInfo = [
@@ -208,7 +215,7 @@ class Ods extends BaseReader implements IReader
                     $currCells = 0;
                     do {
                         $xml->read();
-                        if ($xml->name == 'table:table-row' && $xml->nodeType == XMLReader::ELEMENT) {
+                        if ($xml->name == 'table:table-row' && $xml->nodeType == \XMLReader::ELEMENT) {
                             $rowspan = $xml->getAttribute('table:number-rows-repeated');
                             $rowspan = empty($rowspan) ? 1 : $rowspan;
                             $tmpInfo['totalRows'] += $rowspan;
@@ -217,14 +224,14 @@ class Ods extends BaseReader implements IReader
                             // Step into the row
                             $xml->read();
                             do {
-                                if ($xml->name == 'table:table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
+                                if ($xml->name == 'table:table-cell' && $xml->nodeType == \XMLReader::ELEMENT) {
                                     if (!$xml->isEmptyElement) {
                                         ++$currCells;
                                         $xml->next();
                                     } else {
                                         $xml->read();
                                     }
-                                } elseif ($xml->name == 'table:covered-table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
+                                } elseif ($xml->name == 'table:covered-table-cell' && $xml->nodeType == \XMLReader::ELEMENT) {
                                     $mergeSize = $xml->getAttribute('table:number-columns-repeated');
                                     $currCells += $mergeSize;
                                     $xml->read();
