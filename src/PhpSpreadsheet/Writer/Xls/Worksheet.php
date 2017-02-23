@@ -2907,6 +2907,9 @@ class Worksheet extends BIFFwriter
                         $operator = 0x07;
                         break;
                 }
+
+                $operator = (int) $operator;
+
                 $options |= $operator << 20;
 
                 $data = pack('V', $options);
