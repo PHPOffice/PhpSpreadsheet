@@ -2837,6 +2837,10 @@ class Worksheet extends BIFFwriter
                         $type = 0x07;
                         break;
                 }
+
+                /* PHP 7.1 Compatibility issue */
+                $type = (int) $type;
+
                 $options |= $type << 0;
 
                 // error style
@@ -2852,6 +2856,10 @@ class Worksheet extends BIFFwriter
                         $errorStyle = 0x02;
                         break;
                 }
+
+                /* PHP 7.1 Compatibility issue */
+                $errorStyle = (int) $errorStyle;
+
                 $options |= $errorStyle << 4;
 
                 // explicit formula?
