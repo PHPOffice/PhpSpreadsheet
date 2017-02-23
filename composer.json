@@ -30,7 +30,6 @@
         "ext-xmlwriter": "*"
     },
     "require-dev": {
-        "dompdf/dompdf": "^0.7.0",
         "dompdf/dompdf": "dev-master",
         "mpdf/mpdf": "^6.1",
         "tecnickcom/tcpdf": "^6.2",
