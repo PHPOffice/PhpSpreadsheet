@@ -1629,8 +1629,20 @@ class Xls extends BaseReader implements IReader
         $cbRuns = self::getInt2d($recordData, 12);
         $text = $this->getSplicedRecordData();
 
+        $textByte = $text['spliceOffsets'][1] - $text['spliceOffsets'][0] - 1;
+        $textStr = substr($text['recordData'], $text['spliceOffsets'][0] + 1, $textByte);
+        // get 1 byte
+        $is16Bit = ord($text['recordData'][0]);
+        // it is possible to use a compressed format,
+        // which omits the high bytes of all characters, if they are all zero
+        if (($is16Bit & 0x01) === 0) {
+            $textStr = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::ConvertEncoding($textStr, 'UTF-8', 'ISO-8859-1');
+        } else {
+            $textStr = $this->decodeCodepage($textStr);
+        }
+
         $this->textObjects[$this->textObjRef] = [
-            'text' => substr($text['recordData'], $text['spliceOffsets'][0] + 1, $cchText),
+            'text' => $textStr,
             'format' => substr($text['recordData'], $text['spliceOffsets'][1], $cbRuns),
             'alignment' => $grbitOpts,
             'rotation' => $rot,
