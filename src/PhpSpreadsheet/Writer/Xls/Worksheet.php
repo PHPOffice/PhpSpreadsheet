@@ -2908,6 +2908,7 @@ class Worksheet extends BIFFwriter
                         break;
                 }
 
+                /* PHP7.1 Compatible */
                 $operator = (int) $operator;
 
                 $options |= $operator << 20;
