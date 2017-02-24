@@ -23,7 +23,8 @@ before_script:
   # Deactivate xdebug if we don't do code coverage
   - if [ -z "$COVERAGE" ]; then rm -rfv /home/travis/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ; fi
   - composer install
-
+  - composer update
+  
 script:
   # PHP_CodeSniffer
   - if [ -z "$COVERAGE" ]; then ./vendor/bin/phpcs --report-width=200 --report-summary  --report-full samples/ src/ tests/ --standard=PSR2 -n ; fi
