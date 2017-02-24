@@ -8,10 +8,9 @@ php:
 
 matrix:
   include:
-    - php: 7.0
+    - php: 7.1
       env: COVERAGE=1
   allow_failures:
-    - php: 7.1
     - php: hhvm
 
 cache:
@@ -23,7 +22,7 @@ before_script:
   # Deactivate xdebug if we don't do code coverage
   - if [ -z "$COVERAGE" ]; then rm -rfv /home/travis/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ; fi
   - composer install
-
+  
 script:
   # PHP_CodeSniffer
   - if [ -z "$COVERAGE" ]; then ./vendor/bin/phpcs --report-width=200 --report-summary  --report-full samples/ src/ tests/ --standard=PSR2 -n ; fi
