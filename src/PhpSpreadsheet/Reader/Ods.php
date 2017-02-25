@@ -4,7 +4,10 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use DateTime;
 use DateTimeZone;
+use PhpOffice\PhpSpreadsheet\Calculation;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -61,7 +64,10 @@ class Ods extends BaseReader implements IReader
         $zipClass = \PhpOffice\PhpSpreadsheet\Settings::getZipClass();
 
         $mimeType = 'UNKNOWN';
+
         // Load file
+
+        /** @var \ZipArchive $zip */
         $zip = new $zipClass();
         if ($zip->open($pFilename) === true) {
             // check if it is an OOXML archive
@@ -101,6 +107,8 @@ class Ods extends BaseReader implements IReader
      * @param string $pFilename
      *
      * @throws Exception
+     *
+     * @return string[]
      */
     public function listWorksheetNames($pFilename)
     {
@@ -108,6 +116,7 @@ class Ods extends BaseReader implements IReader
 
         $zipClass = \PhpOffice\PhpSpreadsheet\Settings::getZipClass();
 
+        /** @var \ZipArchive $zip */
         $zip = new $zipClass();
         if (!$zip->open($pFilename)) {
             throw new Exception('Could not open ' . $pFilename . ' for reading! Error opening file.');
@@ -115,18 +124,18 @@ class Ods extends BaseReader implements IReader
 
         $worksheetNames = [];
 
-        $xml = new XMLReader();
-        $res = $xml->xml(
+        $xml = new \XMLReader();
+        $xml->xml(
             $this->securityScanFile('zip://' . realpath($pFilename) . '#content.xml'),
             null,
             \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
         );
         $xml->setParserProperty(2, true);
 
-        //    Step into the first level of content of the XML
+        // Step into the first level of content of the XML
         $xml->read();
         while ($xml->read()) {
-            //    Quickly jump through to the office:body node
+            // Quickly jump through to the office:body node
             while ($xml->name !== 'office:body') {
                 if ($xml->isEmptyElement) {
                     $xml->read();
@@ -134,14 +143,14 @@ class Ods extends BaseReader implements IReader
                     $xml->next();
                 }
             }
-            //    Now read each node until we find our first table:table node
+            // Now read each node until we find our first table:table node
             while ($xml->read()) {
-                if ($xml->name == 'table:table' && $xml->nodeType == XMLReader::ELEMENT) {
-                    //    Loop through each table:table node reading the table:name attribute for each worksheet name
+                if ($xml->name == 'table:table' && $xml->nodeType == \XMLReader::ELEMENT) {
+                    // Loop through each table:table node reading the table:name attribute for each worksheet name
                     do {
                         $worksheetNames[] = $xml->getAttribute('table:name');
                         $xml->next();
-                    } while ($xml->name == 'table:table' && $xml->nodeType == XMLReader::ELEMENT);
+                    } while ($xml->name == 'table:table' && $xml->nodeType == \XMLReader::ELEMENT);
                 }
             }
         }
@@ -155,6 +164,8 @@ class Ods extends BaseReader implements IReader
      * @param string $pFilename
      *
      * @throws Exception
+     *
+     * @return array
      */
     public function listWorksheetInfo($pFilename)
     {
@@ -164,12 +175,13 @@ class Ods extends BaseReader implements IReader
 
         $zipClass = \PhpOffice\PhpSpreadsheet\Settings::getZipClass();
 
+        /** @var \ZipArchive $zip */
         $zip = new $zipClass();
         if (!$zip->open($pFilename)) {
             throw new Exception('Could not open ' . $pFilename . ' for reading! Error opening file.');
         }
 
-        $xml = new XMLReader();
+        $xml = new \XMLReader();
         $res = $xml->xml(
             $this->securityScanFile('zip://' . realpath($pFilename) . '#content.xml'),
             null,
@@ -177,10 +189,10 @@ class Ods extends BaseReader implements IReader
         );
         $xml->setParserProperty(2, true);
 
-        //    Step into the first level of content of the XML
+        // Step into the first level of content of the XML
         $xml->read();
         while ($xml->read()) {
-            //    Quickly jump through to the office:body node
+            // Quickly jump through to the office:body node
             while ($xml->name !== 'office:body') {
                 if ($xml->isEmptyElement) {
                     $xml->read();
@@ -188,9 +200,9 @@ class Ods extends BaseReader implements IReader
                     $xml->next();
                 }
             }
-                //    Now read each node until we find our first table:table node
+                // Now read each node until we find our first table:table node
             while ($xml->read()) {
-                if ($xml->name == 'table:table' && $xml->nodeType == XMLReader::ELEMENT) {
+                if ($xml->name == 'table:table' && $xml->nodeType == \XMLReader::ELEMENT) {
                     $worksheetNames[] = $xml->getAttribute('table:name');
 
                     $tmpInfo = [
@@ -201,27 +213,27 @@ class Ods extends BaseReader implements IReader
                         'totalColumns' => 0,
                     ];
 
-                    //    Loop through each child node of the table:table element reading
+                    // Loop through each child node of the table:table element reading
                     $currCells = 0;
                     do {
                         $xml->read();
-                        if ($xml->name == 'table:table-row' && $xml->nodeType == XMLReader::ELEMENT) {
+                        if ($xml->name == 'table:table-row' && $xml->nodeType == \XMLReader::ELEMENT) {
                             $rowspan = $xml->getAttribute('table:number-rows-repeated');
                             $rowspan = empty($rowspan) ? 1 : $rowspan;
                             $tmpInfo['totalRows'] += $rowspan;
                             $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
                             $currCells = 0;
-                            //    Step into the row
+                            // Step into the row
                             $xml->read();
                             do {
-                                if ($xml->name == 'table:table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
+                                if ($xml->name == 'table:table-cell' && $xml->nodeType == \XMLReader::ELEMENT) {
                                     if (!$xml->isEmptyElement) {
                                         ++$currCells;
                                         $xml->next();
                                     } else {
                                         $xml->read();
                                     }
-                                } elseif ($xml->name == 'table:covered-table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
+                                } elseif ($xml->name == 'table:covered-table-cell' && $xml->nodeType == \XMLReader::ELEMENT) {
                                     $mergeSize = $xml->getAttribute('table:number-columns-repeated');
                                     $currCells += $mergeSize;
                                     $xml->read();
@@ -292,10 +304,15 @@ class Ods extends BaseReader implements IReader
 
         $zipClass = \PhpOffice\PhpSpreadsheet\Settings::getZipClass();
 
+        /** @var \ZipArchive $zip */
         $zip = new $zipClass();
         if (!$zip->open($pFilename)) {
             throw new Exception('Could not open ' . $pFilename . ' for reading! Error opening file.');
         }
+
+        /*
+         * Meta
+         */
 
         $xml = simplexml_load_string(
             $this->securityScan($zip->getFromName('meta.xml')),
@@ -382,50 +399,94 @@ class Ods extends BaseReader implements IReader
             }
         }
 
-        $xml = simplexml_load_string(
+        /*
+         * Content
+         */
+
+        $dom = new \DOMDocument('1.01', 'UTF-8');
+        $dom->loadXML(
             $this->securityScan($zip->getFromName('content.xml')),
-            'SimpleXMLElement',
             \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
         );
-        $namespacesContent = $xml->getNamespaces(true);
 
-        $workbook = $xml->children($namespacesContent['office']);
-        foreach ($workbook->body->spreadsheet as $workbookData) {
-            $workbookData = $workbookData->children($namespacesContent['table']);
+        $officeNs = $dom->lookupNamespaceUri('office');
+        $tableNs = $dom->lookupNamespaceUri('table');
+        $textNs = $dom->lookupNamespaceUri('text');
+        $xlinkNs = $dom->lookupNamespaceUri('xlink');
+
+        $spreadsheets = $dom->getElementsByTagNameNS($officeNs, 'body')
+            ->item(0)
+            ->getElementsByTagNameNS($officeNs, 'spreadsheet');
+
+        foreach ($spreadsheets as $workbookData) {
+            /** @var \DOMElement $workbookData */
+            $tables = $workbookData->getElementsByTagNameNS($tableNs, 'table');
+
             $worksheetID = 0;
-            foreach ($workbookData->table as $worksheetDataSet) {
-                $worksheetData = $worksheetDataSet->children($namespacesContent['table']);
-                $worksheetDataAttributes = $worksheetDataSet->attributes($namespacesContent['table']);
-                if ((isset($this->loadSheetsOnly)) && (isset($worksheetDataAttributes['name'])) &&
-                    (!in_array($worksheetDataAttributes['name'], $this->loadSheetsOnly))) {
+            foreach ($tables as $worksheetDataSet) {
+                /** @var \DOMElement $worksheetDataSet */
+                $worksheetName = $worksheetDataSet->getAttributeNS($tableNs, 'name');
+
+                // Check loadSheetsOnly
+                if (isset($this->loadSheetsOnly)
+                    && $worksheetName
+                    && !in_array($worksheetName, $this->loadSheetsOnly)) {
                     continue;
                 }
 
-                // Create new Worksheet
-                $spreadsheet->createSheet();
+                // Create sheet
+                if ($worksheetID > 0) {
+                    $spreadsheet->createSheet(); // First sheet is added by default
+                }
                 $spreadsheet->setActiveSheetIndex($worksheetID);
-                if (isset($worksheetDataAttributes['name'])) {
-                    $worksheetName = (string) $worksheetDataAttributes['name'];
-                    //    Use false for $updateFormulaCellReferences to prevent adjustment of worksheet references in
-                    //        formula cells... during the load, all formulae should be correct, and we're simply
-                    //        bringing the worksheet name in line with the formula, not the reverse
+
+                if ($worksheetName) {
+                    // Use false for $updateFormulaCellReferences to prevent adjustment of worksheet references in
+                    // formula cells... during the load, all formulae should be correct, and we're simply
+                    // bringing the worksheet name in line with the formula, not the reverse
                     $spreadsheet->getActiveSheet()->setTitle($worksheetName, false);
                 }
 
+                // Go through every child of table element
                 $rowID = 1;
-                foreach ($worksheetData as $key => $rowData) {
+                foreach ($worksheetDataSet->childNodes as $childNode) {
+                    /** @var \DOMElement $childNode */
+
+                    // Filter elements which are not under the "table" ns
+                    if ($childNode->namespaceURI != $tableNs) {
+                        continue;
+                    }
+
+                    $key = $childNode->nodeName;
+
+                    // Remove ns from node name
+                    if (strpos($key, ':') !== false) {
+                        $keyChunks = explode(':', $key);
+                        $key = array_pop($keyChunks);
+                    }
+
                     switch ($key) {
                         case 'table-header-rows':
-                            foreach ($rowData as $keyRowData => $cellData) {
-                                $rowData = $cellData;
-                                break;
-                            }
+                            /// TODO :: Figure this out. This is only a partial implementation I guess.
+                            //          ($rowData it's not used at all and I'm not sure that PHPExcel
+                            //          has an API for this)
+
+//                            foreach ($rowData as $keyRowData => $cellData) {
+//                                $rowData = $cellData;
+//                                break;
+//                            }
                             break;
                         case 'table-row':
-                            $rowDataTableAttributes = $rowData->attributes($namespacesContent['table']);
-                            $rowRepeats = (isset($rowDataTableAttributes['number-rows-repeated'])) ? $rowDataTableAttributes['number-rows-repeated'] : 1;
+                            if ($childNode->hasAttributeNS($tableNs, 'number-rows-repeated')) {
+                                $rowRepeats = $childNode->getAttributeNS($tableNs, 'number-rows-repeated');
+                            } else {
+                                $rowRepeats = 1;
+                            }
+
                             $columnID = 'A';
-                            foreach ($rowData as $key => $cellData) {
+                            foreach ($childNode->childNodes as $key => $cellData) {
+                                /* @var \DOMElement $cellData */
+
                                 if ($this->getReadFilter() !== null) {
                                     if (!$this->getReadFilter()->readCell($columnID, $rowID, $worksheetName)) {
                                         ++$columnID;
@@ -433,93 +494,101 @@ class Ods extends BaseReader implements IReader
                                     }
                                 }
 
-                                $cellDataText = (isset($namespacesContent['text'])) ? $cellData->children($namespacesContent['text']) : '';
-                                $cellDataOffice = $cellData->children($namespacesContent['office']);
-                                $cellDataOfficeAttributes = $cellData->attributes($namespacesContent['office']);
-                                $cellDataTableAttributes = $cellData->attributes($namespacesContent['table']);
-
-                                $type = $formatting = $hyperlink = null;
+                                // Initialize variables
+                                $formatting = $hyperlink = null;
                                 $hasCalculatedValue = false;
                                 $cellDataFormula = '';
-                                if (isset($cellDataTableAttributes['formula'])) {
-                                    $cellDataFormula = $cellDataTableAttributes['formula'];
+
+                                if ($cellData->hasAttributeNS($tableNs, 'formula')) {
+                                    $cellDataFormula = $cellData->getAttributeNS($tableNs, 'formula');
                                     $hasCalculatedValue = true;
                                 }
 
-                                if (isset($cellDataOffice->annotation)) {
-                                    $annotationText = $cellDataOffice->annotation->children($namespacesContent['text']);
-                                    $textArray = [];
-                                    foreach ($annotationText as $t) {
-                                        if (isset($t->span)) {
-                                            foreach ($t->span as $text) {
-                                                $textArray[] = (string) $text;
-                                            }
-                                        } else {
-                                            $textArray[] = (string) $t;
-                                        }
-                                    }
-                                    $text = implode("\n", $textArray);
-                                    $spreadsheet->getActiveSheet()->getComment($columnID . $rowID)->setText($this->parseRichText($text));
+                                // Annotations
+                                $annotation = $cellData->getElementsByTagNameNS($officeNs, 'annotation');
+
+                                if ($annotation->length > 0) {
+                                    $textNode = $annotation->item(0)->getElementsByTagNameNS($textNs, 'p');
+
+                                    if ($textNode->length > 0) {
+                                        $text = $this->scanElementForText($textNode->item(0));
+
+                                        $spreadsheet->getActiveSheet()
+                                            ->getComment($columnID . $rowID)
+                                            ->setText($this->parseRichText($text));
 //                                                                    ->setAuthor( $author )
+                                    }
                                 }
 
-                                if (isset($cellDataText->p)) {
+                                // Content
+
+                                /** @var \DOMElement[] $paragraphs */
+                                $paragraphs = [];
+
+                                foreach ($cellData->childNodes as $item) {
+                                    /** @var \DOMElement $item */
+
+                                    // Filter text:p elements
+                                    if ($item->nodeName == 'text:p') {
+                                        $paragraphs[] = $item;
+                                    }
+                                }
+
+                                if (count($paragraphs) > 0) {
                                     // Consolidate if there are multiple p records (maybe with spans as well)
                                     $dataArray = [];
+
                                     // Text can have multiple text:p and within those, multiple text:span.
                                     // text:p newlines, but text:span does not.
                                     // Also, here we assume there is no text data is span fields are specified, since
                                     // we have no way of knowing proper positioning anyway.
-                                    foreach ($cellDataText->p as $pData) {
-                                        if (isset($pData->span)) {
-                                            // span sections do not newline, so we just create one large string here
-                                            $spanSection = '';
-                                            foreach ($pData->span as $spanData) {
-                                                $spanSection .= $spanData;
-                                            }
-                                            array_push($dataArray, $spanSection);
-                                        } elseif (isset($pData->a)) {
-                                            //Reading the hyperlinks in p
-                                            array_push($dataArray, $pData->a);
-                                        } else {
-                                            array_push($dataArray, $pData);
-                                        }
+
+                                    foreach ($paragraphs as $pData) {
+                                        $dataArray[] = $this->scanElementForText($pData);
                                     }
                                     $allCellDataText = implode($dataArray, "\n");
 
-                                    switch ($cellDataOfficeAttributes['value-type']) {
+                                    $type = $cellData->getAttributeNS($officeNs, 'value-type');
+
+                                    switch ($type) {
                                         case 'string':
-                                            $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING;
+                                            $type = DataType::TYPE_STRING;
                                             $dataValue = $allCellDataText;
-                                            if (isset($dataValue->a)) {
-                                                $dataValue = $dataValue->a;
-                                                $cellXLinkAttributes = $dataValue->attributes($namespacesContent['xlink']);
-                                                $hyperlink = $cellXLinkAttributes['href'];
+
+                                            foreach ($paragraphs as $paragraph) {
+                                                $link = $paragraph->getElementsByTagNameNS($textNs, 'a');
+                                                if ($link->length > 0) {
+                                                    $hyperlink = $link->item(0)->getAttributeNS($xlinkNs, 'href');
+                                                }
                                             }
+
                                             break;
                                         case 'boolean':
-                                            $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_BOOL;
+                                            $type = DataType::TYPE_BOOL;
                                             $dataValue = ($allCellDataText == 'TRUE') ? true : false;
                                             break;
                                         case 'percentage':
-                                            $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
-                                            $dataValue = (float) $cellDataOfficeAttributes['value'];
+                                            $type = DataType::TYPE_NUMERIC;
+                                            $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
+
                                             if (floor($dataValue) == $dataValue) {
                                                 $dataValue = (int) $dataValue;
                                             }
                                             $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_PERCENTAGE_00;
                                             break;
                                         case 'currency':
-                                            $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
-                                            $dataValue = (float) $cellDataOfficeAttributes['value'];
+                                            $type = DataType::TYPE_NUMERIC;
+                                            $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
+
                                             if (floor($dataValue) == $dataValue) {
                                                 $dataValue = (int) $dataValue;
                                             }
                                             $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
                                             break;
                                         case 'float':
-                                            $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
-                                            $dataValue = (float) $cellDataOfficeAttributes['value'];
+                                            $type = DataType::TYPE_NUMERIC;
+                                            $dataValue = (float) $cellData->getAttributeNS($officeNs, 'value');
+
                                             if (floor($dataValue) == $dataValue) {
                                                 if ($dataValue == (int) $dataValue) {
                                                     $dataValue = (int) $dataValue;
@@ -529,85 +598,155 @@ class Ods extends BaseReader implements IReader
                                             }
                                             break;
                                         case 'date':
-                                            $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
-                                            $dateObj = new DateTime($cellDataOfficeAttributes['date-value'], $GMT);
+                                            $type = DataType::TYPE_NUMERIC;
+                                            $value = $cellData->getAttributeNS($officeNs, 'date-value');
+
+                                            $dateObj = new DateTime($value, $GMT);
                                             $dateObj->setTimeZone($timezoneObj);
-                                            list($year, $month, $day, $hour, $minute, $second) = explode(' ', $dateObj->format('Y m d H i s'));
-                                            $dataValue = \PhpOffice\PhpSpreadsheet\Shared\Date::formattedPHPToExcel($year, $month, $day, $hour, $minute, $second);
+                                            list($year, $month, $day, $hour, $minute, $second) = explode(
+                                                ' ',
+                                                $dateObj->format('Y m d H i s')
+                                            );
+
+                                            $dataValue = \PhpOffice\PhpSpreadsheet\Shared\Date::formattedPHPToExcel(
+                                                $year,
+                                                $month,
+                                                $day,
+                                                $hour,
+                                                $minute,
+                                                $second
+                                            );
+
                                             if ($dataValue != floor($dataValue)) {
-                                                $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX15 . ' ' . \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4;
+                                                $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX15
+                                                    . ' '
+                                                    . \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4;
                                             } else {
                                                 $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX15;
                                             }
                                             break;
                                         case 'time':
-                                            $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
-                                            $dataValue = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(strtotime('01-01-1970 ' . implode(':', sscanf($cellDataOfficeAttributes['time-value'], 'PT%dH%dM%dS'))));
+                                            $type = DataType::TYPE_NUMERIC;
+
+                                            $timeValue = $cellData->getAttributeNS($officeNs, 'time-value');
+
+                                            $dataValue = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(
+                                                strtotime(
+                                                    '01-01-1970 ' . implode(':', sscanf($timeValue, 'PT%dH%dM%dS'))
+                                                )
+                                            );
                                             $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4;
                                             break;
+                                        default:
+                                            $dataValue = null;
                                     }
                                 } else {
-                                    $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NULL;
+                                    $type = DataType::TYPE_NULL;
                                     $dataValue = null;
                                 }
 
                                 if ($hasCalculatedValue) {
-                                    $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_FORMULA;
+                                    $type = DataType::TYPE_FORMULA;
                                     $cellDataFormula = substr($cellDataFormula, strpos($cellDataFormula, ':=') + 1);
                                     $temp = explode('"', $cellDataFormula);
                                     $tKey = false;
                                     foreach ($temp as &$value) {
-                                        //    Only replace in alternate array entries (i.e. non-quoted blocks)
+                                        // Only replace in alternate array entries (i.e. non-quoted blocks)
                                         if ($tKey = !$tKey) {
-                                            $value = preg_replace('/\[([^\.]+)\.([^\.]+):\.([^\.]+)\]/Ui', '$1!$2:$3', $value); //  Cell range reference in another sheet
-                                            $value = preg_replace('/\[([^\.]+)\.([^\.]+)\]/Ui', '$1!$2', $value); //  Cell reference in another sheet
-                                            $value = preg_replace('/\[\.([^\.]+):\.([^\.]+)\]/Ui', '$1:$2', $value); //  Cell range reference
-                                            $value = preg_replace('/\[\.([^\.]+)\]/Ui', '$1', $value); //  Simple cell reference
-                                            $value = \PhpOffice\PhpSpreadsheet\Calculation::translateSeparator(';', ',', $value, $inBraces);
+                                            // Cell range reference in another sheet
+                                            $value = preg_replace('/\[([^\.]+)\.([^\.]+):\.([^\.]+)\]/Ui', '$1!$2:$3', $value);
+
+                                            // Cell reference in another sheet
+                                            $value = preg_replace('/\[([^\.]+)\.([^\.]+)\]/Ui', '$1!$2', $value);
+
+                                            // Cell range reference
+                                            $value = preg_replace('/\[\.([^\.]+):\.([^\.]+)\]/Ui', '$1:$2', $value);
+
+                                            // Simple cell reference
+                                            $value = preg_replace('/\[\.([^\.]+)\]/Ui', '$1', $value);
+
+                                            $value = Calculation::translateSeparator(';', ',', $value, $inBraces);
                                         }
                                     }
                                     unset($value);
-                                    //    Then rebuild the formula string
+
+                                    // Then rebuild the formula string
                                     $cellDataFormula = implode('"', $temp);
                                 }
 
-                                $colRepeats = (isset($cellDataTableAttributes['number-columns-repeated'])) ? $cellDataTableAttributes['number-columns-repeated'] : 1;
+                                if ($cellData->hasAttributeNS($tableNs, 'number-columns-repeated')) {
+                                    $colRepeats = (int) $cellData->getAttributeNS($tableNs, 'number-columns-repeated');
+                                } else {
+                                    $colRepeats = 1;
+                                }
+
                                 if ($type !== null) {
                                     for ($i = 0; $i < $colRepeats; ++$i) {
                                         if ($i > 0) {
                                             ++$columnID;
                                         }
-                                        if ($type !== \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NULL) {
+
+                                        if ($type !== DataType::TYPE_NULL) {
                                             for ($rowAdjust = 0; $rowAdjust < $rowRepeats; ++$rowAdjust) {
                                                 $rID = $rowID + $rowAdjust;
-                                                $spreadsheet->getActiveSheet()->getCell($columnID . $rID)->setValueExplicit((($hasCalculatedValue) ? $cellDataFormula : $dataValue), $type);
+
+                                                $cell = $spreadsheet->getActiveSheet()
+                                                            ->getCell($columnID . $rID);
+
+                                                // Set value
                                                 if ($hasCalculatedValue) {
-                                                    $spreadsheet->getActiveSheet()->getCell($columnID . $rID)->setCalculatedValue($dataValue);
-                                                }
-                                                if ($formatting !== null) {
-                                                    $spreadsheet->getActiveSheet()->getStyle($columnID . $rID)->getNumberFormat()->setFormatCode($formatting);
+                                                    $cell->setValueExplicit($cellDataFormula, $type);
                                                 } else {
-                                                    $spreadsheet->getActiveSheet()->getStyle($columnID . $rID)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_GENERAL);
+                                                    $cell->setValueExplicit($dataValue, $type);
                                                 }
+
+                                                if ($hasCalculatedValue) {
+                                                    $cell->setCalculatedValue($dataValue);
+                                                }
+
+                                                // Set other properties
+                                                if ($formatting !== null) {
+                                                    $spreadsheet->getActiveSheet()
+                                                        ->getStyle($columnID . $rID)
+                                                        ->getNumberFormat()
+                                                        ->setFormatCode($formatting);
+                                                } else {
+                                                    $spreadsheet->getActiveSheet()
+                                                        ->getStyle($columnID . $rID)
+                                                        ->getNumberFormat()
+                                                        ->setFormatCode(NumberFormat::FORMAT_GENERAL);
+                                                }
+
                                                 if ($hyperlink !== null) {
-                                                    $spreadsheet->getActiveSheet()->getCell($columnID . $rID)->getHyperlink()->setUrl($hyperlink);
+                                                    $cell->getHyperlink()
+                                                        ->setUrl($hyperlink);
                                                 }
                                             }
                                         }
                                     }
                                 }
 
-                                //    Merged cells
-                                if ((isset($cellDataTableAttributes['number-columns-spanned'])) || (isset($cellDataTableAttributes['number-rows-spanned']))) {
-                                    if (($type !== \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NULL) || (!$this->readDataOnly)) {
+                                // Merged cells
+                                if ($childNode->hasAttributeNS($tableNs, 'number-columns-spanned')
+                                    || $childNode->hasAttributeNS($tableNs, 'number-rows-spanned')
+                                ) {
+                                    if (($type !== DataType::TYPE_NULL) || (!$this->readDataOnly)) {
                                         $columnTo = $columnID;
-                                        if (isset($cellDataTableAttributes['number-columns-spanned'])) {
-                                            $columnTo = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex(\PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($columnID) + $cellDataTableAttributes['number-columns-spanned'] - 2);
+
+                                        if ($cellData->hasAttributeNS($tableNs, 'number-columns-spanned')) {
+                                            $columnIndex = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($columnID);
+                                            $columnIndex += (int) $cellData->getAttributeNS($tableNs, 'number-columns-spanned');
+                                            $columnIndex -= 2;
+
+                                            $columnTo = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($columnIndex);
                                         }
+
                                         $rowTo = $rowID;
-                                        if (isset($cellDataTableAttributes['number-rows-spanned'])) {
-                                            $rowTo = $rowTo + $cellDataTableAttributes['number-rows-spanned'] - 1;
+
+                                        if ($cellData->hasAttributeNS($tableNs, 'number-rows-spanned')) {
+                                            $rowTo = $rowTo + (int) $cellData->getAttributeNS($tableNs, 'number-rows-spanned') - 1;
                                         }
+
                                         $cellRange = $columnID . $rowID . ':' . $columnTo . $rowTo;
                                         $spreadsheet->getActiveSheet()->mergeCells($cellRange);
                                     }
@@ -627,10 +766,51 @@ class Ods extends BaseReader implements IReader
         return $spreadsheet;
     }
 
+    /**
+     * Recursively scan element.
+     *
+     * @param \DOMNode $element
+     *
+     * @return string
+     */
+    protected function scanElementForText(\DOMNode $element)
+    {
+        $str = '';
+        foreach ($element->childNodes as $child) {
+            /** @var \DOMNode $child */
+            if ($child->nodeType == XML_TEXT_NODE) {
+                $str .= $child->nodeValue;
+            } elseif ($child->nodeType == XML_ELEMENT_NODE && $child->nodeName == 'text:s') {
+                // It's a space
+
+                // Multiple spaces?
+                if (isset($child->attributes['text:c'])) {
+                    /** @var \DOMAttr $cAttr */
+                    $cAttr = $child->attributes['text:c'];
+                    $multiplier = (int) $cAttr->nodeValue;
+                } else {
+                    $multiplier = 1;
+                }
+
+                $str .= str_repeat(' ', $multiplier);
+            }
+
+            if ($child->hasChildNodes()) {
+                $str .= $this->scanElementForText($child);
+            }
+        }
+
+        return $str;
+    }
+
+    /**
+     * @param string $is
+     *
+     * @return \PhpOffice\PhpSpreadsheet\RichText
+     */
     private function parseRichText($is = '')
     {
         $value = new \PhpOffice\PhpSpreadsheet\RichText();
-
         $value->createText($is);
 
         return $value;
