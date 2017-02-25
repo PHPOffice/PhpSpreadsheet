@@ -338,7 +338,7 @@ class Worksheet implements IComparable
         $this->setCodeName($this->getTitle());
         $this->setSheetState(self::SHEETSTATE_VISIBLE);
 
-        $this->cellCollection = CachedObjectStorageFactory::getInstance($this);
+        $this->cellCollection = CellsFactory::getInstance($this);
         // Set page setup
         $this->pageSetup = new Worksheet\PageSetup();
         // Set page margins

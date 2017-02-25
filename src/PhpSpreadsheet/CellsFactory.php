@@ -24,7 +24,7 @@ namespace PhpOffice\PhpSpreadsheet;
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
-class CachedObjectStorageFactory
+class CellsFactory
 {
     const CACHE_IN_MEMORY = 'Memory';
     const CACHE_IN_MEMORY_GZIP = 'MemoryGZip';
@@ -145,7 +145,7 @@ class CachedObjectStorageFactory
     {
         $activeMethods = [];
         foreach (self::$storageMethods as $storageMethod) {
-            $cacheStorageClass = '\\PhpOffice\\PhpSpreadsheet\\CachedObjectStorage\\' . $storageMethod;
+            $cacheStorageClass = '\\PhpOffice\\PhpSpreadsheet\\Collection\\Cells\\' . $storageMethod;
             if (call_user_func([$cacheStorageClass, 'cacheMethodIsAvailable'])) {
                 $activeMethods[] = $storageMethod;
             }
@@ -169,7 +169,7 @@ class CachedObjectStorageFactory
             return false;
         }
 
-        $cacheStorageClass = '\\PhpOffice\\PhpSpreadsheet\\CachedObjectStorage\\' . $method;
+        $cacheStorageClass = '\\PhpOffice\\PhpSpreadsheet\\Collection\\Cells\\' . $method;
         if (!call_user_func([$cacheStorageClass, 'cacheMethodIsAvailable'])) {
             return false;
         }
@@ -182,7 +182,7 @@ class CachedObjectStorageFactory
         }
 
         if (self::$cacheStorageMethod === null) {
-            self::$cacheStorageClass = '\\PhpOffice\\PhpSpreadsheet\\CachedObjectStorage\\' . $method;
+            self::$cacheStorageClass = '\\PhpOffice\\PhpSpreadsheet\\Collection\\Cells\\' . $method;
             self::$cacheStorageMethod = $method;
         }
 
@@ -194,7 +194,7 @@ class CachedObjectStorageFactory
      *
      * @param Worksheet $parent Enable cell caching for this worksheet
      *
-     * @return CachedObjectStorage\ICache
+     * @return PhpOffice\PhpSpreadsheet\Collection\Cells\ICache
      **/
     public static function getInstance(Worksheet $parent)
     {

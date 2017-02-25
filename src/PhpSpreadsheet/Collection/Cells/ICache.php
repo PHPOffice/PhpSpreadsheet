@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\CachedObjectStorage;
+namespace PhpOffice\PhpSpreadsheet\Collection\Cells;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -70,7 +70,7 @@ interface ICache
     public function deleteCacheData($pCoord);
 
     /**
-     * Is a value set in the current \PhpOffice\PhpSpreadsheet\CachedObjectStorage\ICache for an indexed cell?
+     * Is a value set in the current \PhpOffice\PhpSpreadsheet\Collection\Cells\ICache for an indexed cell?
      *
      * @param string $pCoord Coordinate address of the cell to check
      *

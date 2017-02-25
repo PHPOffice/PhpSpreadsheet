@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\CachedObjectStorage;
+namespace PhpOffice\PhpSpreadsheet\Collection\Cells;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -24,13 +24,23 @@ namespace PhpOffice\PhpSpreadsheet\CachedObjectStorage;
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
-class Memory extends CacheBase implements ICache
+class MemorySerialized extends CacheBase implements ICache
 {
     /**
-     * Dummy method callable from CacheBase, but unused by Memory cache.
+     * Store cell data in cache for the current cell object if it's "dirty",
+     * and the 'nullify' the current cell object.
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     protected function storeData()
     {
+        if ($this->currentCellIsDirty && !empty($this->currentObjectID)) {
+            $this->currentObject->detach();
+
+            $this->cellCache[$this->currentObjectID] = serialize($this->currentObject);
+            $this->currentCellIsDirty = false;
+        }
+        $this->currentObjectID = $this->currentObject = null;
     }
 
     /**
@@ -45,10 +55,13 @@ class Memory extends CacheBase implements ICache
      */
     public function addCacheData($pCoord, \PhpOffice\PhpSpreadsheet\Cell $cell)
     {
-        $this->cellCache[$pCoord] = $cell;
+        if (($pCoord !== $this->currentObjectID) && ($this->currentObjectID !== null)) {
+            $this->storeData();
+        }
 
-        //    Set current entry to the new/updated entry
         $this->currentObjectID = $pCoord;
+        $this->currentObject = $cell;
+        $this->currentCellIsDirty = true;
 
         return $cell;
     }
@@ -64,36 +77,39 @@ class Memory extends CacheBase implements ICache
      */
     public function getCacheData($pCoord)
     {
+        if ($pCoord === $this->currentObjectID) {
+            return $this->currentObject;
+        }
+        $this->storeData();
+
         //    Check if the entry that has been requested actually exists
         if (!isset($this->cellCache[$pCoord])) {
-            $this->currentObjectID = null;
             //    Return null if requested entry doesn't exist in cache
             return null;
         }
 
         //    Set current entry to the requested entry
         $this->currentObjectID = $pCoord;
+        $this->currentObject = unserialize($this->cellCache[$pCoord]);
+        //    Re-attach this as the cell's parent
+        $this->currentObject->attach($this);
 
         //    Return requested entry
-        return $this->cellCache[$pCoord];
+        return $this->currentObject;
     }
 
     /**
-     * Clone the cell collection.
+     * Get a list of all cell addresses currently held in cache.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $parent The new worksheet that we're copying to
+     * @return string[]
      */
-    public function copyCellCollection(\PhpOffice\PhpSpreadsheet\Worksheet $parent)
+    public function getCellList()
     {
-        parent::copyCellCollection($parent);
-
-        $newCollection = [];
-        foreach ($this->cellCache as $k => &$cell) {
-            $newCollection[$k] = clone $cell;
-            $newCollection[$k]->attach($this);
+        if ($this->currentObjectID !== null) {
+            $this->storeData();
         }
 
-        $this->cellCache = $newCollection;
+        return parent::getCellList();
     }
 
     /**
@@ -101,13 +117,10 @@ class Memory extends CacheBase implements ICache
      */
     public function unsetWorksheetCells()
     {
-        // Because cells are all stored as intact objects in memory, we need to detach each one from the parent
-        foreach ($this->cellCache as $k => &$cell) {
-            $cell->detach();
-            $this->cellCache[$k] = null;
+        if (!is_null($this->currentObject)) {
+            $this->currentObject->detach();
+            $this->currentObject = $this->currentObjectID = null;
         }
-        unset($cell);
-
         $this->cellCache = [];
 
         //    detach ourself from the worksheet, so that it can then delete this object successfully

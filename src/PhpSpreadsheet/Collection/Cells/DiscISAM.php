@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\CachedObjectStorage;
+namespace PhpOffice\PhpSpreadsheet\Collection\Cells;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.

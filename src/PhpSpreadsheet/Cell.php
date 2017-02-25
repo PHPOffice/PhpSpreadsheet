@@ -69,7 +69,7 @@ class Cell
     /**
      * Parent worksheet.
      *
-     * @var CachedObjectStorage\CacheBase
+     * @var PhpOffice\PhpSpreadsheet\Collection\Cells\CacheBase
      */
     private $parent;
 
@@ -100,7 +100,7 @@ class Cell
         $this->parent = null;
     }
 
-    public function attach(CachedObjectStorage\CacheBase $parent)
+    public function attach(Collection\Cells\ICache $parent)
     {
         $this->parent = $parent;
     }
@@ -477,7 +477,7 @@ class Cell
     /**
      * Get parent worksheet.
      *
-     * @return CachedObjectStorage\CacheBase
+     * @return Collection\Cells\ICache
      */
     public function getParent()
     {

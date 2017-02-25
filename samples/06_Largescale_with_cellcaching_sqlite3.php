@@ -2,7 +2,7 @@
 
 require __DIR__ . '/Header.php';
 
-$cacheMethod = \PhpOffice\PhpSpreadsheet\CachedObjectStorageFactory::CACHE_TO_SQLITE3;
+$cacheMethod = \PhpOffice\PhpSpreadsheet\CellsFactory::CACHE_TO_SQLITE3;
 if (\PhpOffice\PhpSpreadsheet\Settings::setCacheStorageMethod($cacheMethod)) {
     $helper->log('Enable Cell Caching using ' . $cacheMethod . ' method');
 } else {

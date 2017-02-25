@@ -130,7 +130,7 @@ class Settings
      */
     public static function getCacheStorageMethod()
     {
-        return CachedObjectStorageFactory::getCacheStorageMethod();
+        return CellsFactory::getCacheStorageMethod();
     }
 
     /**
@@ -140,7 +140,7 @@ class Settings
      */
     public static function getCacheStorageClass()
     {
-        return CachedObjectStorageFactory::getCacheStorageClass();
+        return CellsFactory::getCacheStorageClass();
     }
 
     /**
@@ -151,9 +151,9 @@ class Settings
      *
      * @return bool Success or failure
      */
-    public static function setCacheStorageMethod($method = CachedObjectStorageFactory::CACHE_IN_MEMORY, $arguments = [])
+    public static function setCacheStorageMethod($method = CellsFactory::CACHE_IN_MEMORY, $arguments = [])
     {
-        return CachedObjectStorageFactory::initialize($method, $arguments);
+        return CellsFactory::initialize($method, $arguments);
     }
 
     /**

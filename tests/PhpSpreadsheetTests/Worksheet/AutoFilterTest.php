@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
-use PhpOffice\PhpSpreadsheet\CachedObjectStorage\Memory;
+use PhpOffice\PhpSpreadsheet\Collection\Cells\Memory;
 use PhpOffice\PhpSpreadsheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
