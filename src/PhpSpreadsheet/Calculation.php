@@ -3764,6 +3764,11 @@ class Calculation
                 } elseif (preg_match('/^' . self::CALCULATION_REGEXP_NAMEDRANGE . '$/i', $token, $matches)) {
                     $namedRange = $matches[6];
                     $this->debugLog->writeDebugLog('Evaluating Named Range ', $namedRange);
+
+                    if (substr($namedRange, 0, 6) === '_xlfn.') {
+                        return $this->raiseFormulaError("undefined named range / function '$token'");
+                    }
+
                     $cellValue = $this->extractNamedRange($namedRange, ((null !== $pCell) ? $pCellWorksheet : null), false);
                     $pCell->attach($pCellParent);
                     $this->debugLog->writeDebugLog('Evaluation Result for named range ', $namedRange, ' is ', $this->showTypeDetails($cellValue));
