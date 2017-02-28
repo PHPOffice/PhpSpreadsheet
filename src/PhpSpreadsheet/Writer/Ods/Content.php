@@ -27,6 +27,14 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 
+use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Writer\Exception;
+use PhpOffice\PhpSpreadsheet\Writer\Ods\Cell\Comment;
+
 /**
  * @category   PhpSpreadsheet
  *
@@ -47,17 +55,17 @@ class Content extends WriterPart
      *
      * @return string XML Output
      */
-    public function write(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function write(Spreadsheet $spreadsheet = null)
     {
         if (!$spreadsheet) {
-            $spreadsheet = $this->getParentWriter()->getSpreadsheet(); /* @var $spreadsheet PhpSpreadsheet */
+            $spreadsheet = $this->getParentWriter()->getSpreadsheet(); /* @var $spreadsheet Spreadsheet */
         }
 
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new XMLWriter(XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
+            $objWriter = new XMLWriter(XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -118,11 +126,11 @@ class Content extends WriterPart
     /**
      * Write sheets.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter
+     * @param XMLWriter $objWriter
      */
-    private function writeSheets(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter)
+    private function writeSheets(XMLWriter $objWriter)
     {
-        $spreadsheet = $this->getParentWriter()->getSpreadsheet(); /* @var $spreadsheet PhpSpreadsheet */
+        $spreadsheet = $this->getParentWriter()->getSpreadsheet(); /* @var $spreadsheet Spreadsheet */
 
         $sheet_count = $spreadsheet->getSheetCount();
         for ($i = 0; $i < $sheet_count; ++$i) {
@@ -140,10 +148,10 @@ class Content extends WriterPart
     /**
      * Write rows of the specified sheet.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $sheet
+     * @param XMLWriter $objWriter
+     * @param Worksheet $sheet
      */
-    private function writeRows(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Worksheet $sheet)
+    private function writeRows(XMLWriter $objWriter, Worksheet $sheet)
     {
         $number_rows_repeated = self::NUMBER_ROWS_REPEATED_MAX;
         $span_row = 0;
@@ -176,36 +184,36 @@ class Content extends WriterPart
     /**
      * Write cells of the specified row.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Row $row
+     * @param XMLWriter $objWriter
+     * @param Worksheet\Row $row
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws Exception
      */
-    private function writeCells(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Worksheet\Row $row)
+    private function writeCells(XMLWriter $objWriter, Worksheet\Row $row)
     {
         $number_cols_repeated = self::NUMBER_COLS_REPEATED_MAX;
         $prev_column = -1;
         $cells = $row->getCellIterator();
         while ($cells->valid()) {
             $cell = $cells->current();
-            $column = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($cell->getColumn()) - 1;
+            $column = Cell::columnIndexFromString($cell->getColumn()) - 1;
 
             $this->writeCellSpan($objWriter, $column, $prev_column);
             $objWriter->startElement('table:table-cell');
 
             switch ($cell->getDataType()) {
-                case \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_BOOL:
+                case DataType::TYPE_BOOL:
                     $objWriter->writeAttribute('office:value-type', 'boolean');
                     $objWriter->writeAttribute('office:value', $cell->getValue());
                     $objWriter->writeElement('text:p', $cell->getValue());
                     break;
-                case \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_ERROR:
-                    throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Writing of error not implemented yet.');
+                case DataType::TYPE_ERROR:
+                    throw new Exception('Writing of error not implemented yet.');
                     break;
-                case \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_FORMULA:
+                case DataType::TYPE_FORMULA:
                     try {
                         $formula_value = $cell->getCalculatedValue();
-                    } catch (Exception $e) {
+                    } catch (\Exception $e) {
                         $formula_value = $cell->getValue();
                     }
                     $objWriter->writeAttribute('table:formula', 'of:' . $cell->getValue());
@@ -217,20 +225,20 @@ class Content extends WriterPart
                     $objWriter->writeAttribute('office:value', $formula_value);
                     $objWriter->writeElement('text:p', $formula_value);
                     break;
-                case \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_INLINE:
-                    throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Writing of inline not implemented yet.');
+                case DataType::TYPE_INLINE:
+                    throw new Exception('Writing of inline not implemented yet.');
                     break;
-                case \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC:
+                case DataType::TYPE_NUMERIC:
                     $objWriter->writeAttribute('office:value-type', 'float');
                     $objWriter->writeAttribute('office:value', $cell->getValue());
                     $objWriter->writeElement('text:p', $cell->getValue());
                     break;
-                case \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING:
+                case DataType::TYPE_STRING:
                     $objWriter->writeAttribute('office:value-type', 'string');
                     $objWriter->writeElement('text:p', $cell->getValue());
                     break;
             }
-            Cell\Comment::write($objWriter, $cell);
+            Comment::write($objWriter, $cell);
             $objWriter->endElement();
             $prev_column = $column;
             $cells->next();
@@ -250,11 +258,11 @@ class Content extends WriterPart
     /**
      * Write span.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter
+     * @param XMLWriter $objWriter
      * @param int $curColumn
      * @param int $prevColumn
      */
-    private function writeCellSpan(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, $curColumn, $prevColumn)
+    private function writeCellSpan(XMLWriter $objWriter, $curColumn, $prevColumn)
     {
         $diff = $curColumn - $prevColumn - 1;
         if (1 === $diff) {
