@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use ArrayObject;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -2974,6 +2976,14 @@ class Worksheet implements IComparable
                     $newCollection = clone $this->cellCollection;
                     $newCollection->copyCellCollection($this);
                     $this->cellCollection = $newCollection;
+                } elseif ($key == 'drawingCollection') {
+                    $newCollection = new ArrayObject();
+                    foreach ($this->drawingCollection as $id => $item) {
+                        if (is_object($item)) {
+                            $newCollection[$id] = clone $this->drawingCollection[$id];
+                        }
+                    }
+                    $this->drawingCollection = $newCollection;
                 } elseif (($key == 'autoFilter') && ($this->autoFilter instanceof Worksheet\AutoFilter)) {
                     $newAutoFilter = clone $this->autoFilter;
                     $this->autoFilter = $newAutoFilter;
