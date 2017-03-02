@@ -2974,9 +2974,6 @@ class Worksheet implements IComparable
                     $newCollection = clone $this->cellCollection;
                     $newCollection->copyCellCollection($this);
                     $this->cellCollection = $newCollection;
-                } elseif ($key == 'drawingCollection') {
-                    $newCollection = clone $this->drawingCollection;
-                    $this->drawingCollection = $newCollection;
                 } elseif (($key == 'autoFilter') && ($this->autoFilter instanceof Worksheet\AutoFilter)) {
                     $newAutoFilter = clone $this->autoFilter;
                     $this->autoFilter = $newAutoFilter;
