@@ -1,8 +1,6 @@
 /tests/codeCoverage
 /analysis
 /vendor/
-/square/
-/public/
 /phpunit.xml
 /.php_cs.cache
 
