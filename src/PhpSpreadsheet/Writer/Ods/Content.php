@@ -130,8 +130,8 @@ class Content extends WriterPart
     {
         $spreadsheet = $this->getParentWriter()->getSpreadsheet(); /* @var $spreadsheet Spreadsheet */
 
-        $sheet_count = $spreadsheet->getSheetCount();
-        for ($i = 0; $i < $sheet_count; ++$i) {
+        $sheetCount = $spreadsheet->getSheetCount();
+        for ($i = 0; $i < $sheetCount; ++$i) {
             $objWriter->startElement('table:table');
             $objWriter->writeAttribute('table:name', $spreadsheet->getSheet($i)->getTitle());
             $objWriter->writeElement('office:forms');
@@ -151,11 +151,11 @@ class Content extends WriterPart
      */
     private function writeRows(XMLWriter $objWriter, Worksheet $sheet)
     {
-        $number_rows_repeated = self::NUMBER_ROWS_REPEATED_MAX;
+        $numberRowsRepeated = self::NUMBER_ROWS_REPEATED_MAX;
         $span_row = 0;
         $rows = $sheet->getRowIterator();
         while ($rows->valid()) {
-            --$number_rows_repeated;
+            --$numberRowsRepeated;
             $row = $rows->current();
             if ($row->getCellIterator()->valid()) {
                 if ($span_row) {
@@ -189,14 +189,14 @@ class Content extends WriterPart
      */
     private function writeCells(XMLWriter $objWriter, Worksheet\Row $row)
     {
-        $number_cols_repeated = self::NUMBER_COLS_REPEATED_MAX;
-        $prev_column = -1;
+        $numberColsRepeated = self::NUMBER_COLS_REPEATED_MAX;
+        $prevColumn = -1;
         $cells = $row->getCellIterator();
         while ($cells->valid()) {
             $cell = $cells->current();
             $column = Cell::columnIndexFromString($cell->getColumn()) - 1;
 
-            $this->writeCellSpan($objWriter, $column, $prev_column);
+            $this->writeCellSpan($objWriter, $column, $prevColumn);
             $objWriter->startElement('table:table-cell');
 
             switch ($cell->getDataType()) {
@@ -210,18 +210,18 @@ class Content extends WriterPart
                     break;
                 case DataType::TYPE_FORMULA:
                     try {
-                        $formula_value = $cell->getCalculatedValue();
+                        $formulaValue = $cell->getCalculatedValue();
                     } catch (\Exception $e) {
-                        $formula_value = $cell->getValue();
+                        $formulaValue = $cell->getValue();
                     }
                     $objWriter->writeAttribute('table:formula', 'of:' . $cell->getValue());
-                    if (is_numeric($formula_value)) {
+                    if (is_numeric($formulaValue)) {
                         $objWriter->writeAttribute('office:value-type', 'float');
                     } else {
                         $objWriter->writeAttribute('office:value-type', 'string');
                     }
-                    $objWriter->writeAttribute('office:value', $formula_value);
-                    $objWriter->writeElement('text:p', $formula_value);
+                    $objWriter->writeAttribute('office:value', $formulaValue);
+                    $objWriter->writeElement('text:p', $formulaValue);
                     break;
                 case DataType::TYPE_INLINE:
                     throw new Exception('Writing of inline not implemented yet.');
@@ -238,14 +238,14 @@ class Content extends WriterPart
             }
             Comment::write($objWriter, $cell);
             $objWriter->endElement();
-            $prev_column = $column;
+            $prevColumn = $column;
             $cells->next();
         }
-        $number_cols_repeated = $number_cols_repeated - $prev_column - 1;
-        if ($number_cols_repeated > 0) {
-            if ($number_cols_repeated > 1) {
+        $numberColsRepeated = $numberColsRepeated - $prevColumn - 1;
+        if ($numberColsRepeated > 0) {
+            if ($numberColsRepeated > 1) {
                 $objWriter->startElement('table:table-cell');
-                $objWriter->writeAttribute('table:number-columns-repeated', $number_cols_repeated);
+                $objWriter->writeAttribute('table:number-columns-repeated', $numberColsRepeated);
                 $objWriter->endElement();
             } else {
                 $objWriter->writeElement('table:table-cell');
