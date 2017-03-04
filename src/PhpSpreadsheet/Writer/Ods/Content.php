@@ -33,10 +33,12 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Writer\Exception;
+use PhpOffice\PhpSpreadsheet\Writer\Ods;
 use PhpOffice\PhpSpreadsheet\Writer\Ods\Cell\Comment;
 
 /**
  * @category   PhpSpreadsheet
+ * @method Ods getParentWriter
  *
  * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @author     Alexander Pervakov <frost-nzcr4@jagmort.com>
@@ -49,18 +51,12 @@ class Content extends WriterPart
     /**
      * Write content.xml to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
-     *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string XML Output
      */
-    public function write(Spreadsheet $spreadsheet = null)
+    public function write()
     {
-        if (!$spreadsheet) {
-            $spreadsheet = $this->getParentWriter()->getSpreadsheet(); /* @var $spreadsheet Spreadsheet */
-        }
-
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
             $objWriter = new XMLWriter(XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
@@ -114,7 +110,9 @@ class Content extends WriterPart
         $objWriter->startElement('office:body');
         $objWriter->startElement('office:spreadsheet');
         $objWriter->writeElement('table:calculation-settings');
+
         $this->writeSheets($objWriter);
+
         $objWriter->writeElement('table:named-expressions');
         $objWriter->endElement();
         $objWriter->endElement();
