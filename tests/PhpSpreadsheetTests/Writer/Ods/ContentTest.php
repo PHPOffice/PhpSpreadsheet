@@ -6,6 +6,8 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Writer\Ods;
 use PhpOffice\PhpSpreadsheet\Writer\Ods\Content;
@@ -45,6 +47,20 @@ class ContentTest extends \PHPUnit_Framework_TestCase
         $worksheet1->getStyle('D2')
             ->getNumberFormat()
             ->setFormatCode(NumberFormat::FORMAT_DATE_DATETIME);
+
+        // Styles
+        $worksheet1->getStyle('A1')->getFont()->setBold(true);
+        $worksheet1->getStyle('B1')->getFont()->setItalic(true);
+        $worksheet1->getStyle('C1')->getFont()->setName("Courier");
+        $worksheet1->getStyle('C1')->getFont()->setSize(14);
+        $worksheet1->getStyle('C1')->getFont()->setColor(new Color(Color::COLOR_BLUE));
+
+        $worksheet1->getStyle('C1')->getFill()->setFillType(Fill::FILL_SOLID);
+        $worksheet1->getStyle('C1')->getFill()->setStartColor(new Color(Color::COLOR_RED));
+
+        $worksheet1->getStyle('C1')->getFont()->setUnderline(Font::UNDERLINE_SINGLE);
+        $worksheet1->getStyle('C2')->getFont()->setUnderline(Font::UNDERLINE_DOUBLE);
+        $worksheet1->getStyle('D2')->getFont()->setUnderline(Font::UNDERLINE_NONE);
 
         // Worksheet 2
         $worksheet2 = $workbook->createSheet();

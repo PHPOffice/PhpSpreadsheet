@@ -30,6 +30,8 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Writer\Exception;
@@ -47,6 +49,7 @@ class Content extends WriterPart
 {
     const NUMBER_COLS_REPEATED_MAX = 1024;
     const NUMBER_ROWS_REPEATED_MAX = 1048576;
+    const CELL_STYLE_PREFIX = 'ce';
 
     /**
      * Write content.xml to XML format.
@@ -105,7 +108,11 @@ class Content extends WriterPart
 
         $objWriter->writeElement('office:scripts');
         $objWriter->writeElement('office:font-face-decls');
-        $objWriter->writeElement('office:automatic-styles');
+
+        // Styles XF
+        $objWriter->startElement('office:automatic-styles');
+        $this->writeXfStyles($objWriter, $this->getParentWriter()->getSpreadsheet());
+        $objWriter->endElement();
 
         $objWriter->startElement('office:body');
         $objWriter->startElement('office:spreadsheet');
@@ -193,11 +200,19 @@ class Content extends WriterPart
         $prevColumn = -1;
         $cells = $row->getCellIterator();
         while ($cells->valid()) {
+
+            /** @var Cell $cell */
             $cell = $cells->current();
             $column = Cell::columnIndexFromString($cell->getColumn()) - 1;
 
             $this->writeCellSpan($objWriter, $column, $prevColumn);
             $objWriter->startElement('table:table-cell');
+
+            // Style XF
+            $style = $cell->getXfIndex();
+            if($style !== null){
+                $objWriter->writeAttribute('table:style-name', self::CELL_STYLE_PREFIX.$style);
+            }
 
             switch ($cell->getDataType()) {
                 case DataType::TYPE_BOOL:
@@ -269,6 +284,109 @@ class Content extends WriterPart
             $objWriter->startElement('table:table-cell');
             $objWriter->writeAttribute('table:number-columns-repeated', $diff);
             $objWriter->endElement();
+        }
+    }
+
+    /**
+     * Write XF cell styles
+     *
+     * @param XMLWriter $writer
+     * @param Spreadsheet $spreadsheet
+     */
+    private function writeXfStyles(XMLWriter $writer, Spreadsheet $spreadsheet)
+    {
+        foreach($spreadsheet->getCellXfCollection() as $style) {
+
+            $writer->startElement('style:style');
+            $writer->writeAttribute('style:name', self::CELL_STYLE_PREFIX . $style->getIndex());
+            $writer->writeAttribute('style:family', 'table-cell');
+            $writer->writeAttribute('style:parent-style-name', 'Default');
+
+            /*
+             * style:text-properties
+             */
+
+            // Font
+            $writer->startElement('style:text-properties');
+
+            $font = $style->getFont();
+
+            if($font->getBold()) {
+                $writer->writeAttribute('fo:font-weight', 'bold');
+                $writer->writeAttribute('style:font-weight-complex', 'bold');
+                $writer->writeAttribute('style:font-weight-asian', 'bold');
+            }
+
+            if($font->getItalic()) {
+                $writer->writeAttribute('fo:font-style', 'italic');
+            }
+
+            if($color = $font->getColor()) {
+                $writer->writeAttribute('fo:color', sprintf('#%s', $color->getRGB()));
+            }
+
+            if($family = $font->getName()) {
+                $writer->writeAttribute('fo:font-family', $family);
+            }
+
+            if($size = $font->getSize()) {
+                $writer->writeAttribute('fo:font-size', sprintf('%.1fpt', $size));
+            }
+
+            if($font->getUnderline() && $font->getUnderline() != Font::UNDERLINE_NONE) {
+
+                $writer->writeAttribute('style:text-underline-style', 'solid');
+                $writer->writeAttribute('style:text-underline-width', 'auto');
+                $writer->writeAttribute('style:text-underline-color', 'font-color');
+
+                switch($font->getUnderline()){
+
+                    case Font::UNDERLINE_DOUBLE:
+                        $writer->writeAttribute('style:text-underline-type', 'double');
+                        break;
+
+                    case Font::UNDERLINE_SINGLE:
+                        $writer->writeAttribute('style:text-underline-type', 'single');
+                        break;
+                }
+            }
+
+            $writer->endElement(); // Close style:text-properties
+
+            /*
+             * style:table-cell-properties
+             */
+
+            $writer->startElement('style:table-cell-properties');
+            $writer->writeAttribute('style:rotation-align', 'none');
+
+            // Fill
+            if($fill = $style->getFill()) {
+                switch($fill->getFillType()) {
+
+                    case Fill::FILL_SOLID:
+                        $writer->writeAttribute('fo:background-color', sprintf('#%s',
+                            strtolower($fill->getStartColor()->getRGB())
+                        ));
+                        break;
+
+                    case Fill::FILL_GRADIENT_LINEAR:
+                    case Fill::FILL_GRADIENT_PATH:
+                        /// TODO :: To be implemented
+                        break;
+
+                    case Fill::FILL_NONE:
+                    default:
+                }
+            }
+
+            $writer->endElement(); // Close style:table-cell-properties
+
+            /*
+             * End
+             */
+
+            $writer->endElement(); // Close style:style
         }
     }
 }
