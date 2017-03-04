@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Ods\Content;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -15,6 +16,25 @@ use PhpOffice\PhpSpreadsheet\Writer\Ods\Content;
 class ContentTest extends \PHPUnit_Framework_TestCase
 {
     public $samplesPath = __DIR__ . '/../../../data/Writer/Ods';
+
+    /**
+     * @var string
+     */
+    protected $compatibilityMode;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->compatibilityMode = Functions::getCompatibilityMode();
+        Functions::setCompatibilityMode(Functions::COMPATIBILITY_OPENOFFICE);
+    }
+
+    protected function tearDown()
+    {
+        parent::tearDown();
+        Functions::setCompatibilityMode($this->compatibilityMode);
+    }
 
     public function testWriteEmptySpreadsheet()
     {
@@ -40,7 +60,11 @@ class ContentTest extends \PHPUnit_Framework_TestCase
 
         $worksheet1->setCellValue('A2', true); // Boolean
         $worksheet1->setCellValue('B2', false); // Boolean
-        $worksheet1->setCellValue('C2', '=IF(A3, CONCATENATE(A1, " ", A2), CONCATENATE(A2, " ", A1))'); // Formula
+        $worksheet1->setCellValueExplicit(
+            'C2',
+            '=IF(A3, CONCATENATE(A1, " ", A2), CONCATENATE(A2, " ", A1))',
+            DataType::TYPE_FORMULA
+        ); // Formula
 
         $worksheet1->setCellValue('D2', Date::PHPToExcel(1488635026)); // Date
         $worksheet1->getStyle('D2')
