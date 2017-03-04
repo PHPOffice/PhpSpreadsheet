@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
-/**
+/*
  * PhpSpreadsheet.
  *
  * Copyright (c) 2006 - 2015 PhpSpreadsheet
@@ -28,18 +28,19 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
  */
 
 use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Worksheet;
-use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Writer\Exception;
 use PhpOffice\PhpSpreadsheet\Writer\Ods;
 use PhpOffice\PhpSpreadsheet\Writer\Ods\Cell\Comment;
 
 /**
  * @category   PhpSpreadsheet
+ *
  * @method Ods getParentWriter
  *
  * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
@@ -200,7 +201,6 @@ class Content extends WriterPart
         $prevColumn = -1;
         $cells = $row->getCellIterator();
         while ($cells->valid()) {
-
             /** @var Cell $cell */
             $cell = $cells->current();
             $column = Cell::columnIndexFromString($cell->getColumn()) - 1;
@@ -210,8 +210,8 @@ class Content extends WriterPart
 
             // Style XF
             $style = $cell->getXfIndex();
-            if($style !== null){
-                $objWriter->writeAttribute('table:style-name', self::CELL_STYLE_PREFIX.$style);
+            if ($style !== null) {
+                $objWriter->writeAttribute('table:style-name', self::CELL_STYLE_PREFIX . $style);
             }
 
             switch ($cell->getDataType()) {
@@ -288,15 +288,14 @@ class Content extends WriterPart
     }
 
     /**
-     * Write XF cell styles
+     * Write XF cell styles.
      *
      * @param XMLWriter $writer
      * @param Spreadsheet $spreadsheet
      */
     private function writeXfStyles(XMLWriter $writer, Spreadsheet $spreadsheet)
     {
-        foreach($spreadsheet->getCellXfCollection() as $style) {
-
+        foreach ($spreadsheet->getCellXfCollection() as $style) {
             $writer->startElement('style:style');
             $writer->writeAttribute('style:name', self::CELL_STYLE_PREFIX . $style->getIndex());
             $writer->writeAttribute('style:family', 'table-cell');
@@ -311,40 +310,37 @@ class Content extends WriterPart
 
             $font = $style->getFont();
 
-            if($font->getBold()) {
+            if ($font->getBold()) {
                 $writer->writeAttribute('fo:font-weight', 'bold');
                 $writer->writeAttribute('style:font-weight-complex', 'bold');
                 $writer->writeAttribute('style:font-weight-asian', 'bold');
             }
 
-            if($font->getItalic()) {
+            if ($font->getItalic()) {
                 $writer->writeAttribute('fo:font-style', 'italic');
             }
 
-            if($color = $font->getColor()) {
+            if ($color = $font->getColor()) {
                 $writer->writeAttribute('fo:color', sprintf('#%s', $color->getRGB()));
             }
 
-            if($family = $font->getName()) {
+            if ($family = $font->getName()) {
                 $writer->writeAttribute('fo:font-family', $family);
             }
 
-            if($size = $font->getSize()) {
+            if ($size = $font->getSize()) {
                 $writer->writeAttribute('fo:font-size', sprintf('%.1fpt', $size));
             }
 
-            if($font->getUnderline() && $font->getUnderline() != Font::UNDERLINE_NONE) {
-
+            if ($font->getUnderline() && $font->getUnderline() != Font::UNDERLINE_NONE) {
                 $writer->writeAttribute('style:text-underline-style', 'solid');
                 $writer->writeAttribute('style:text-underline-width', 'auto');
                 $writer->writeAttribute('style:text-underline-color', 'font-color');
 
-                switch($font->getUnderline()){
-
+                switch ($font->getUnderline()) {
                     case Font::UNDERLINE_DOUBLE:
                         $writer->writeAttribute('style:text-underline-type', 'double');
                         break;
-
                     case Font::UNDERLINE_SINGLE:
                         $writer->writeAttribute('style:text-underline-type', 'single');
                         break;
@@ -361,20 +357,18 @@ class Content extends WriterPart
             $writer->writeAttribute('style:rotation-align', 'none');
 
             // Fill
-            if($fill = $style->getFill()) {
-                switch($fill->getFillType()) {
-
+            if ($fill = $style->getFill()) {
+                switch ($fill->getFillType()) {
                     case Fill::FILL_SOLID:
-                        $writer->writeAttribute('fo:background-color', sprintf('#%s',
+                        $writer->writeAttribute('fo:background-color', sprintf(
+                            '#%s',
                             strtolower($fill->getStartColor()->getRGB())
                         ));
                         break;
-
                     case Fill::FILL_GRADIENT_LINEAR:
                     case Fill::FILL_GRADIENT_PATH:
                         /// TODO :: To be implemented
                         break;
-
                     case Fill::FILL_NONE:
                     default:
                 }

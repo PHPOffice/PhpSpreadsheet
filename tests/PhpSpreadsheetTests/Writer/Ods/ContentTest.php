@@ -11,7 +11,6 @@ use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Writer\Ods;
 use PhpOffice\PhpSpreadsheet\Writer\Ods\Content;
-use PhpOffice\PhpSpreadsheetTests\Worksheet\WorksheetColumnTest;
 
 class ContentTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,7 +23,7 @@ class ContentTest extends \PHPUnit_Framework_TestCase
 
         $xml = $content->write();
 
-        $this->assertXmlStringEqualsXmlFile($this->samplesPath . "/content-empty.xml", $xml);
+        $this->assertXmlStringEqualsXmlFile($this->samplesPath . '/content-empty.xml', $xml);
     }
 
     public function testWriteSpreadsheet()
@@ -35,9 +34,9 @@ class ContentTest extends \PHPUnit_Framework_TestCase
         $worksheet1 = $workbook->getActiveSheet();
         $worksheet1->setCellValue('A1', 1); // Number
         $worksheet1->setCellValue('B1', 12345.6789); // Number
-        $worksheet1->setCellValue('C1', "1"); // Number without cast
-        $worksheet1->setCellValueExplicit('D1', "01234", DataType::TYPE_STRING); // Number casted to string
-        $worksheet1->setCellValue('E1', "Lorem ipsum"); // String
+        $worksheet1->setCellValue('C1', '1'); // Number without cast
+        $worksheet1->setCellValueExplicit('D1', '01234', DataType::TYPE_STRING); // Number casted to string
+        $worksheet1->setCellValue('E1', 'Lorem ipsum'); // String
 
         $worksheet1->setCellValue('A2', true); // Boolean
         $worksheet1->setCellValue('B2', false); // Boolean
@@ -51,7 +50,7 @@ class ContentTest extends \PHPUnit_Framework_TestCase
         // Styles
         $worksheet1->getStyle('A1')->getFont()->setBold(true);
         $worksheet1->getStyle('B1')->getFont()->setItalic(true);
-        $worksheet1->getStyle('C1')->getFont()->setName("Courier");
+        $worksheet1->getStyle('C1')->getFont()->setName('Courier');
         $worksheet1->getStyle('C1')->getFont()->setSize(14);
         $worksheet1->getStyle('C1')->getFont()->setColor(new Color(Color::COLOR_BLUE));
 
@@ -73,6 +72,6 @@ class ContentTest extends \PHPUnit_Framework_TestCase
 
         $xml = $content->write();
 
-        $this->assertXmlStringEqualsXmlFile($this->samplesPath . "/content-with-data.xml", $xml);
+        $this->assertXmlStringEqualsXmlFile($this->samplesPath . '/content-with-data.xml', $xml);
     }
 }
