@@ -493,7 +493,7 @@ class TextData
         $instance = floor(Functions::flattenSingleValue($instance));
 
         if ($instance == 0) {
-            return \PhpOffice\PhpSpreadsheet\Shared\StringHelper::mbStrReplace($fromText, $toText, $text);
+            return str_replace($fromText, $toText, $text);
         }
 
         $pos = -1;
