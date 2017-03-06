@@ -6,7 +6,7 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Ods;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 
-/*
+/**
  * @todo The class doesn't read the bold/italic/underline properties (rich text)
  */
 class OdsTest extends \PHPUnit_Framework_TestCase
@@ -14,12 +14,12 @@ class OdsTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
-    public $spreadsheetOOCalcTest;
+    private $spreadsheetOOCalcTest;
 
     /**
      * @var \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
-    public $spreadsheetData;
+    private $spreadsheetData;
 
     /**
      * @return \PhpOffice\PhpSpreadsheet\Spreadsheet

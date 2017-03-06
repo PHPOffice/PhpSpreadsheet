@@ -1,10 +1,15 @@
 # Features cross reference
 
+- <span style="text-align: center; color: green;">✔</span> Supported
+- <span style="text-align: center; color: orange;">●</span> Partially supported
+- <span style="text-align: center; color: red;">✖</span> Not supported
+- N/A Cannot be supported
+
 <table>
 	<tr>
 		<th></th>
-		<th colspan="7">Writers</th>
-		<th colspan="5">Writers</th>
+		<th colspan="7">Readers</th>
+		<th colspan="6">Writers</th>
 		<th colspan="2">Methods</th>
 	</tr>
 	<tr>
@@ -12,12 +17,13 @@
 		<th>XLS</th>
 		<th>XLSX</th>
 		<th>Excel2003XML</th>
-		<th>OOCalc</th>
+		<th>Ods</th>
 		<th>Gnumeric</th>
 		<th>CSV</th>
 		<th>SYLK</th>
 		<th>XLS</th>
 		<th>XLSX</th>
+		<th>Ods</th>
 		<th>CSV</th>
 		<th>HTML</th>
 		<th>PDF</th>
@@ -33,11 +39,12 @@
 		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
-		<td style="text-align: center;">-</td>
-		<td style="text-align: center;">-</td>
-		<td style="text-align: center;">-</td>
-		<td style="text-align: center;">-</td>
-		<td style="text-align: center;">-</td>
+		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center;">N/A</td>
 		<td></td>
 		<td></td>
 	</tr>
@@ -50,11 +57,12 @@
 		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
-		<td style="text-align: center;">-</td>
-		<td style="text-align: center;">-</td>
-		<td style="text-align: center;">-</td>
-		<td style="text-align: center;">-</td>
-		<td style="text-align: center;">-</td>
+		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center;">N/A</td>
 		<td>$reader-&gt;getReadDataOnly()</td>
 		<td>$reader-&gt;setReadDataOnly()</td>
 	</tr>
@@ -67,11 +75,12 @@
 		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
-		<td style="text-align: center;">-</td>
-		<td style="text-align: center;">-</td>
-		<td style="text-align: center;">-</td>
-		<td style="text-align: center;">-</td>
-		<td style="text-align: center;">-</td>
+		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center;">N/A</td>
 		<td>$reader-&gt;getLoadSheetsOnly()</td>
 		<td>$reader-&gt;setLoadSheetsOnly()<br>$reader-&gt;setLoadAllSheets()</td>
 	</tr>
@@ -84,11 +93,12 @@
 		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
-		<td style="text-align: center;">-</td>
-		<td style="text-align: center;">-</td>
-		<td style="text-align: center;">-</td>
-		<td style="text-align: center;">-</td>
-		<td style="text-align: center;">-</td>
+		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center;">N/A</td>
 		<td>$reader-&gt;getReadFilter()</td>
 		<td>$reader-&gt;setReadFilter()</td>
 	</tr>
@@ -102,6 +112,7 @@
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center; color: orange;">●</td>
+		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
@@ -120,6 +131,7 @@
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: orange;">●</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center; color: orange;">●</td>
@@ -135,6 +147,7 @@
 		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center;">N/A</td>
@@ -154,6 +167,7 @@
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center; color: red;">✖</td>
@@ -171,6 +185,7 @@
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: red;">✖</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center; color: red;">✖</td>
@@ -188,6 +203,7 @@
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: red;">✖</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center; color: red;">✖</td>
@@ -203,6 +219,7 @@
 		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center;">N/A</td>
@@ -222,6 +239,7 @@
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center; color: red;">✖</td>
@@ -237,6 +255,7 @@
 		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center;">N/A</td>
@@ -256,6 +275,7 @@
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center; color: green;">✔</td>
@@ -273,6 +293,7 @@
 		<td style="text-align: center;">N/A</td>
 		<td></td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: orange;">●</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
 		<td></td>
@@ -289,6 +310,7 @@
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
 		<td></td>
+		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
@@ -307,6 +329,7 @@
 		<td style="text-align: center;">N/A</td>
 		<td></td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
 		<td></td>
@@ -324,7 +347,8 @@
 		<td style="text-align: center;">N/A</td>
 		<td></td>
 		<td style="text-align: center; color: green;">✔</td>
-		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center; color: red;">✖</td>
+        <td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
 		<td></td>
 		<td>$spreadsheet-&gt;getProperties()-&gt;getManager()</td>
@@ -341,6 +365,7 @@
 		<td style="text-align: center;">N/A</td>
 		<td></td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: red;">✖</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
 		<td></td>
@@ -358,6 +383,7 @@
 		<td style="text-align: center;">N/A</td>
 		<td></td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: red;">✖</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
 		<td></td>
@@ -375,6 +401,7 @@
 		<td style="text-align: center;">N/A</td>
 		<td></td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: red;">✖</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
 		<td></td>
@@ -392,6 +419,7 @@
 		<td style="text-align: center;">N/A</td>
 		<td></td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: red;">✖</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
 		<td></td>
@@ -409,6 +437,7 @@
 		<td style="text-align: center;">N/A</td>
 		<td></td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: red;">✖</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
 		<td></td>
@@ -448,6 +477,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td style="padding-left: 1em;">Boolean</td>
@@ -456,6 +486,7 @@
 		<td></td>
 		<td></td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -482,6 +513,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td style="padding-left: 1em;">Floating Point</td>
@@ -490,6 +522,7 @@
 		<td></td>
 		<td></td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -516,6 +549,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td style="padding-left: 1em;">Error</td>
@@ -524,6 +558,7 @@
 		<td></td>
 		<td></td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -550,6 +585,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td style="padding-left: 1em;">Array</td>
@@ -558,6 +594,7 @@
 		<td></td>
 		<td></td>
 		<td style="text-align: center; color: red;">✖</td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -578,6 +615,7 @@
 		<td style="text-align: center;">N/A</td>
 		<td></td>
 		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: green;">✔</td>
 		<td></td>
 		<td style="text-align: center;">N/A</td>
 		<td></td>
@@ -601,6 +639,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td><strong>Rows and Column Properties</strong></td>
@@ -609,6 +648,7 @@
 		<td></td>
 		<td></td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -635,6 +675,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td style="padding-left: 1em;">Hidden</td>
@@ -643,6 +684,7 @@
 		<td></td>
 		<td></td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -669,6 +711,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td style="padding-left: 1em;">Frozen Panes</td>
@@ -677,6 +720,7 @@
 		<td></td>
 		<td></td>
 		<td style="text-align: center; color: red;">✖</td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -703,6 +747,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td><strong>Cell Formatting</strong></td>
@@ -711,6 +756,7 @@
 		<td></td>
 		<td></td>
 		<td style="text-align: center; color: orange;">●</td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -737,6 +783,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td style="padding-left: 1em;">Alignment</td>
@@ -745,6 +792,7 @@
 		<td></td>
 		<td></td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -771,6 +819,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td style="padding-left: 2em;">Vertical</td>
@@ -779,6 +828,7 @@
 		<td></td>
 		<td></td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -805,6 +855,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td style="padding-left: 1em;">Shring-to-Fit</td>
@@ -813,6 +864,7 @@
 		<td></td>
 		<td></td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -839,6 +891,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td style="padding-left: 1em;">Background Colour</td>
@@ -847,6 +900,7 @@
 		<td></td>
 		<td></td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -873,6 +927,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td style="padding-left: 1em;">Font Attributes</td>
@@ -885,6 +940,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td style="text-align: center; color: orange;">●</td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -902,6 +958,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td style="text-align: center; color: green;">✔</td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -919,6 +976,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td style="text-align: center; color: green;">✔</td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -936,6 +994,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td style="text-align: center; color: green;">✔</td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -953,6 +1012,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td style="text-align: center; color: green;">✔</td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -970,6 +1030,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td style="text-align: center; color: red;">✖</td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -987,6 +1048,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td style="text-align: center; color: green;">✔</td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -1004,6 +1066,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td style="text-align: center; color: red;">✖</td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -1021,6 +1084,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td style="text-align: center; color: red;">✖</td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -1034,6 +1098,7 @@
 		<td></td>
 		<td></td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -1060,6 +1125,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td style="padding-left: 2em;">Position</td>
@@ -1068,6 +1134,7 @@
 		<td></td>
 		<td></td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -1094,6 +1161,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td style="padding-left: 1em;">Hyperlinks</td>
@@ -1102,6 +1170,7 @@
 		<td></td>
 		<td></td>
 		<td style="text-align: center; color: red;">✖</td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -1128,6 +1197,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td style="padding-left: 1em;">Merged Cells</td>
@@ -1136,6 +1206,7 @@
 		<td></td>
 		<td></td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -1157,6 +1228,7 @@
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center; color: red;">✖</td>
 		<td style="text-align: center; color: orange;">●</td>
+		<td style="text-align: center; color: orange;">●</td>
 		<td style="text-align: center;">N/A</td>
 		<td></td>
 		<td style="text-align: center;">N/A</td>
@@ -1174,6 +1246,7 @@
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center; color: red;">✖</td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: red;">✖</td>
 		<td style="text-align: center;">N/A</td>
 		<td></td>
 		<td style="text-align: center;">N/A</td>
@@ -1189,6 +1262,7 @@
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
 		<td style="text-align: center;">N/A</td>
+		<td style="text-align: center; color: red;">✖</td>
 		<td style="text-align: center; color: red;">✖</td>
 		<td style="text-align: center; color: red;">✖</td>
 		<td style="text-align: center;">N/A</td>
@@ -1213,6 +1287,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td><strong>AutoFilters</strong></td>
@@ -1225,6 +1300,7 @@
 		<td></td>
 		<td style="text-align: center; color: orange;">●</td>
 		<td style="text-align: center; color: orange;">●</td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -1247,6 +1323,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td style="padding-left: 2em;">Filter</td>
@@ -1259,6 +1336,7 @@
 		<td></td>
 		<td style="text-align: center; color: red;">✖</td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -1281,6 +1359,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td style="padding-left: 2em;">DateGroup Filter</td>
@@ -1293,6 +1372,7 @@
 		<td></td>
 		<td style="text-align: center; color: red;">✖</td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -1315,6 +1395,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td style="padding-left: 2em;">Colour Filter</td>
@@ -1327,6 +1408,7 @@
 		<td></td>
 		<td style="text-align: center; color: red;">✖</td>
 		<td style="text-align: center; color: red;">✖</td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -1349,6 +1431,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td style="padding-left: 2em;">Top 10 Filter</td>
@@ -1361,6 +1444,7 @@
 		<td></td>
 		<td style="text-align: center; color: red;">✖</td>
 		<td style="text-align: center; color: green;">✔</td>
+		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>

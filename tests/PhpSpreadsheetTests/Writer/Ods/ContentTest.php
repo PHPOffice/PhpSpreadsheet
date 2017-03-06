@@ -15,14 +15,14 @@ use PhpOffice\PhpSpreadsheet\Writer\Ods\Content;
 
 class ContentTest extends \PHPUnit_Framework_TestCase
 {
-    public $samplesPath = __DIR__ . '/../../../data/Writer/Ods';
+    private $samplesPath = __DIR__ . '/../../../data/Writer/Ods';
 
     /**
      * @var string
      */
-    protected $compatibilityMode;
+    private $compatibilityMode;
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
