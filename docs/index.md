@@ -169,7 +169,7 @@ has been created using one of the previous two methods.
 
 Details of the different spreadsheet formats supported, and the options
 available to read them into a Spreadsheet object are described fully in
-the [Reading Files](../topics/reading-files.md) document.
+the [Reading Files](./topics/reading-files.md) document.
 
 ``` php
 $inputFileName = './sampleData/example1.xls';
