@@ -1039,20 +1039,26 @@ $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
 The measure for column width in PhpSpreadsheet does **not** correspond
 exactly to the measure you may be used to in Microsoft Office Excel.
 Column widths are difficult to deal with in Excel, and there are several
-measures for the column width.1) **Inner width in character units**
-(e.g. 8.43 this is probably what you are familiar with in Excel)2)
-**Full width in pixels** (e.g. 64 pixels)3) **Full width in character
-units** (e.g. 9.140625, value -1 indicates unset width)**PHPExcel always
-operates with 3) "Full width in character units"** which is in fact the
+measures for the column width.
+
+1. Inner width in character units
+(e.g. 8.43 this is probably what you are familiar with in Excel)
+2. Full width in pixels (e.g. 64 pixels)
+3. Full width in character units (e.g. 9.140625, value -1 indicates unset width)
+
+**PhpSpreadsheet always
+operates with "3. Full width in character units"** which is in fact the
 only value that is stored in any Excel file, hence the most reliable
 measure. Unfortunately, **Microsoft Office Excel does not present you
-with this measure**. Instead measures 1) and 2) are computed by the
+with this measure**. Instead measures 1 and 2 are computed by the
 application when the file is opened and these values are presented in
-various dialogues and tool tips.The character width unit is the width of
-a '0' (zero) glyph in the workbooks default font. Therefore column
+various dialogues and tool tips.
+
+The character width unit is the width of
+a `0` (zero) glyph in the workbooks default font. Therefore column
 widths measured in character units in two different workbooks can only
 be compared if they have the same default workbook font.If you have some
-Excel file and need to know the column widths in measure 3), you can
+Excel file and need to know the column widths in measure 3, you can
 read the Excel file with PhpSpreadsheet and echo the retrieved values.
 
 ## Show/hide a column
