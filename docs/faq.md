@@ -9,33 +9,6 @@ It is necessary to use UTF-8 encoding for all texts in PhpSpreadsheet.
 If the script uses different encoding then you can convert those texts
 with PHP's iconv() or mb\_convert\_encoding() functions.
 
-## PHP complains about ZipArchive not being found
-
-Make sure you meet all requirements, especially php\_zip extension
-should be enabled.
-
-The ZipArchive class is only required when reading or writing formats
-that use Zip compression (Xlsx and Ods). Since version 1.7.6 the PCLZip
-library has been bundled with PhpSpreadsheet as an alternative to the
-ZipArchive class.
-
-This can be enabled by calling:
-
-``` php
-\PhpOffice\PhpSpreadsheet\Settings::setZipClass(\PhpOffice\PhpSpreadsheet\Settings::PCLZIP);
-```
-
-*before* calling the save method of the Xlsx Writer.
-
-You can revert to using ZipArchive by calling:
-
-``` php
-\PhpOffice\PhpSpreadsheet\Settings::setZipClass(\PhpOffice\PhpSpreadsheet\Settings::ZIPARCHIVE);
-```
-
-At present, this only allows you to write Xlsx files without the need
-for ZipArchive (not to read Xlsx or Ods)
-
 ## Fatal error: Allowed memory size of xxx bytes exhausted (tried to allocate yyy bytes) in zzz on line aaa
 
 PhpSpreadsheet holds an "in memory" representation of a spreadsheet, so

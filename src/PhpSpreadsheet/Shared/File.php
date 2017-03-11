@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
+use ZipArchive;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -72,8 +74,7 @@ class File
             $zipFile = substr($pFilename, 6, strpos($pFilename, '#') - 6);
             $archiveFile = substr($pFilename, strpos($pFilename, '#') + 1);
 
-            $zipClass = \PhpOffice\PhpSpreadsheet\Settings::getZipClass();
-            $zip = new $zipClass();
+            $zip = new ZipArchive();
             if ($zip->open($zipFile) === true) {
                 $returnValue = ($zip->getFromName($archiveFile) !== false);
                 $zip->close();
@@ -83,8 +84,8 @@ class File
 
             return false;
         }
-            // Regular file_exists
-            return file_exists($pFilename);
+
+        return file_exists($pFilename);
     }
 
     /**

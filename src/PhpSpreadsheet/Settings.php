@@ -26,11 +26,6 @@ namespace PhpOffice\PhpSpreadsheet;
  */
 class Settings
 {
-    /**    constants */
-    /**    Available Zip library classes */
-    const PCLZIP = \PhpOffice\PhpSpreadsheet\Shared\ZipArchive::class;
-    const ZIPARCHIVE = \ZipArchive::class;
-
     /**    Optional Chart Rendering libraries */
     const CHART_RENDERER_JPGRAPH = 'JpGraph';
 
@@ -48,15 +43,6 @@ class Settings
         self::PDF_RENDERER_DOMPDF,
         self::PDF_RENDERER_MPDF,
     ];
-
-    /**
-     * Name of the class used for Zip file management
-     * e.g.
-     *        ZipArchive.
-     *
-     * @var string
-     */
-    private static $zipClass = self::ZIPARCHIVE;
 
     /**
      * Name of the external Library used for rendering charts
@@ -89,39 +75,6 @@ class Settings
      * @var int
      */
     private static $libXmlLoaderOptions = null;
-
-    /**
-     * Set the Zip handler Class that PhpSpreadsheet should use for Zip file management (PCLZip or ZipArchive).
-     *
-     * @param string $zipClass The Zip handler class that PhpSpreadsheet should use for Zip file management
-     *      e.g. \PhpOffice\PhpSpreadsheet\Settings::PCLZIP or \PhpOffice\PhpSpreadsheet\Settings::ZIPARCHIVE
-     *
-     * @return bool Success or failure
-     */
-    public static function setZipClass($zipClass)
-    {
-        if (($zipClass === self::PCLZIP) ||
-            ($zipClass === self::ZIPARCHIVE)) {
-            self::$zipClass = $zipClass;
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Return the name of the Zip handler Class that PhpSpreadsheet is configured to use (PCLZip or ZipArchive)
-     * or Zip file management.
-     *
-     * @return string Name of the Zip handler Class that PhpSpreadsheet is configured to use
-     *    for Zip file management
-     *    e.g. \PhpOffice\PhpSpreadsheet\Settings::PCLZIP or \PhpOffice\PhpSpreadsheet\Settings::ZIPARCHIVE
-     */
-    public static function getZipClass()
-    {
-        return self::$zipClass;
-    }
 
     /**
      * Return the name of the method that is currently configured for cell cacheing.

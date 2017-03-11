@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use ZipArchive;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -61,14 +62,11 @@ class Ods extends BaseReader implements IReader
     {
         File::assertFile($pFilename);
 
-        $zipClass = \PhpOffice\PhpSpreadsheet\Settings::getZipClass();
-
         $mimeType = 'UNKNOWN';
 
         // Load file
 
-        /** @var \ZipArchive $zip */
-        $zip = new $zipClass();
+        $zip = new ZipArchive();
         if ($zip->open($pFilename) === true) {
             // check if it is an OOXML archive
             $stat = $zip->statName('mimetype');
@@ -114,10 +112,7 @@ class Ods extends BaseReader implements IReader
     {
         File::assertFile($pFilename);
 
-        $zipClass = \PhpOffice\PhpSpreadsheet\Settings::getZipClass();
-
-        /** @var \ZipArchive $zip */
-        $zip = new $zipClass();
+        $zip = new ZipArchive();
         if (!$zip->open($pFilename)) {
             throw new Exception('Could not open ' . $pFilename . ' for reading! Error opening file.');
         }
@@ -173,10 +168,7 @@ class Ods extends BaseReader implements IReader
 
         $worksheetInfo = [];
 
-        $zipClass = \PhpOffice\PhpSpreadsheet\Settings::getZipClass();
-
-        /** @var \ZipArchive $zip */
-        $zip = new $zipClass();
+        $zip = new ZipArchive();
         if (!$zip->open($pFilename)) {
             throw new Exception('Could not open ' . $pFilename . ' for reading! Error opening file.');
         }
@@ -302,10 +294,7 @@ class Ods extends BaseReader implements IReader
         $timezoneObj = new DateTimeZone('Europe/London');
         $GMT = new \DateTimeZone('UTC');
 
-        $zipClass = \PhpOffice\PhpSpreadsheet\Settings::getZipClass();
-
-        /** @var \ZipArchive $zip */
-        $zip = new $zipClass();
+        $zip = new ZipArchive();
         if (!$zip->open($pFilename)) {
             throw new Exception('Could not open ' . $pFilename . ' for reading! Error opening file.');
         }

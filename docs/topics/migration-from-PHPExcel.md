@@ -132,3 +132,15 @@ to do is to specify a renderer like so:
 $rendererName = \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_MPDF;
 \PhpOffice\PhpSpreadsheet\Settings::setPdfRendererName($rendererName);
 ```
+
+## PclZip and ZipArchive
+
+Support for PclZip were dropped in favor of the more complete and modern
+PHP extension ZipArchive. So the following were removed:
+
+- `PclZip`
+- `PHPExcel_Settings::setZipClass()`
+- `PHPExcel_Settings::getZipClass()`
+- `PHPExcel_Shared_ZipArchive`
+- `PHPExcel_Shared_ZipStreamWrapper`
+

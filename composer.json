@@ -27,7 +27,8 @@
         "ext-mbstring": "*",
         "ext-iconv": "*",
         "ext-xml": "*",
-        "ext-xmlwriter": "*"
+        "ext-xmlwriter": "*",
+        "ext-zip": "*"
     },
     "require-dev": {
         "mpdf/mpdf": "^6.1",
@@ -38,7 +39,6 @@
         "dompdf/dompdf": "^0.8.0"
     },
     "suggest": {
-        "ext-zip": "Required to handle .xlsx .ods or .gnumeric files",
         "ext-gd": "Required for exact column width autocalculation",
         "ext-dom": "Option to read and write HTML files",
         "mpdf/mpdf": "Option for rendering PDF with PDF Writer",

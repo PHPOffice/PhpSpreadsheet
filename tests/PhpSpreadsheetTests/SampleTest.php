@@ -23,8 +23,6 @@ class SampleTest extends \PHPUnit_Framework_TestCase
     public function providerSample()
     {
         $skipped = [
-            '07 Reader PCLZip', // Xlsx cannot load file, leading to OpenOffice trying to and crashing. This is a bug that should be fixed
-            '20 Read Ods with PCLZip', // Crash: Call to undefined method \PhpOffice\PhpSpreadsheet\Shared\ZipArchive::statName()
             '21 Pdf', // for now we don't have 3rdparty libs to tests PDF, but it should be added
             '06 Largescale with cellcaching sqlite3', // Travis started crashing after they upgraded from PHP 7.0.13 to 7.0.14, so we disable it for now
         ];

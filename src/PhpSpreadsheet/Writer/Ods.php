@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use ZipArchive;
 
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet.
@@ -107,18 +108,18 @@ class Ods extends BaseWriter implements IWriter
             }
         }
 
-        $objZip = $this->createZip($pFilename);
+        $zip = $this->createZip($pFilename);
 
-        $objZip->addFromString('META-INF/manifest.xml', $this->getWriterPart('meta_inf')->writeManifest());
-        $objZip->addFromString('Thumbnails/thumbnail.png', $this->getWriterPart('thumbnails')->writeThumbnail());
-        $objZip->addFromString('content.xml', $this->getWriterPart('content')->write());
-        $objZip->addFromString('meta.xml', $this->getWriterPart('meta')->write());
-        $objZip->addFromString('mimetype', $this->getWriterPart('mimetype')->write());
-        $objZip->addFromString('settings.xml', $this->getWriterPart('settings')->write());
-        $objZip->addFromString('styles.xml', $this->getWriterPart('styles')->write());
+        $zip->addFromString('META-INF/manifest.xml', $this->getWriterPart('meta_inf')->writeManifest());
+        $zip->addFromString('Thumbnails/thumbnail.png', $this->getWriterPart('thumbnails')->writeThumbnail());
+        $zip->addFromString('content.xml', $this->getWriterPart('content')->write());
+        $zip->addFromString('meta.xml', $this->getWriterPart('meta')->write());
+        $zip->addFromString('mimetype', $this->getWriterPart('mimetype')->write());
+        $zip->addFromString('settings.xml', $this->getWriterPart('settings')->write());
+        $zip->addFromString('styles.xml', $this->getWriterPart('styles')->write());
 
         // Close file
-        if ($objZip->close() === false) {
+        if ($zip->close() === false) {
             throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Could not close zip file $pFilename.");
         }
 
@@ -143,26 +144,19 @@ class Ods extends BaseWriter implements IWriter
     private function createZip($pFilename)
     {
         // Create new ZIP file and open it for writing
-        $zipClass = \PhpOffice\PhpSpreadsheet\Settings::getZipClass();
-        $objZip = new $zipClass();
-
-        // Retrieve OVERWRITE and CREATE constants from the instantiated zip class
-        // This method of accessing constant values from a dynamic class should work with all appropriate versions of PHP
-        $ro = new \ReflectionObject($objZip);
-        $zipOverWrite = $ro->getConstant('OVERWRITE');
-        $zipCreate = $ro->getConstant('CREATE');
+        $zip = new ZipArchive();
 
         if (file_exists($pFilename)) {
             unlink($pFilename);
         }
         // Try opening the ZIP file
-        if ($objZip->open($pFilename, $zipOverWrite) !== true) {
-            if ($objZip->open($pFilename, $zipCreate) !== true) {
+        if ($zip->open($pFilename, ZipArchive::OVERWRITE) !== true) {
+            if ($zip->open($pFilename, ZipArchive::CREATE) !== true) {
                 throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Could not open $pFilename for writing.");
             }
         }
 
-        return $objZip;
+        return $zip;
     }
 
     /**

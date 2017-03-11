@@ -14,12 +14,12 @@ use PhpOffice\PhpSpreadsheet\Shared\Drawing;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\Font;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
-use PhpOffice\PhpSpreadsheet\Shared\ZipArchive;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
+use ZipArchive;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -81,17 +81,9 @@ class Xlsx extends BaseReader implements IReader
     {
         File::assertFile($pFilename);
 
-        $zipClass = Settings::getZipClass();
-
-        // Check if zip class exists
-//        if (!class_exists($zipClass, false)) {
-//            throw new Exception($zipClass . " library is not enabled");
-//        }
-
         $xl = false;
         // Load file
-        /** @var \ZipArchive | ZipArchive $zip */
-        $zip = new $zipClass();
+        $zip = new ZipArchive();
         if ($zip->open($pFilename) === true) {
             // check if it is an OOXML archive
             $rels = simplexml_load_string(
@@ -133,10 +125,7 @@ class Xlsx extends BaseReader implements IReader
 
         $worksheetNames = [];
 
-        $zipClass = Settings::getZipClass();
-
-        /** @var \ZipArchive | ZipArchive $zip */
-        $zip = new $zipClass();
+        $zip = new ZipArchive();
         $zip->open($pFilename);
 
         //    The files we're looking at here are small enough that simpleXML is more efficient than XMLReader
@@ -179,10 +168,7 @@ class Xlsx extends BaseReader implements IReader
 
         $worksheetInfo = [];
 
-        $zipClass = Settings::getZipClass();
-
-        /** @var \ZipArchive | ZipArchive $zip */
-        $zip = new $zipClass();
+        $zip = new ZipArchive();
         $zip->open($pFilename);
 
         $rels = simplexml_load_string(
@@ -320,12 +306,12 @@ class Xlsx extends BaseReader implements IReader
     }
 
     /**
-     * @param \ZipArchive | ZipArchive $archive
+     * @param ZipArchive $archive
      * @param string $fileName
      *
      * @return string
      */
-    private function getFromZipArchive($archive, $fileName = '')
+    private function getFromZipArchive(ZipArchive $archive, $fileName = '')
     {
         // Root-relative paths
         if (strpos($fileName, '//') !== false) {
@@ -338,11 +324,11 @@ class Xlsx extends BaseReader implements IReader
 
         // Apache POI fixes
         $contents = $archive->getFromIndex(
-            $archive->locateName($fileName, \ZipArchive::FL_NOCASE)
+            $archive->locateName($fileName, ZipArchive::FL_NOCASE)
         );
         if ($contents === false) {
             $contents = $archive->getFromIndex(
-                $archive->locateName(substr($fileName, 1), \ZipArchive::FL_NOCASE)
+                $archive->locateName(substr($fileName, 1), ZipArchive::FL_NOCASE)
             );
         }
 
@@ -370,10 +356,7 @@ class Xlsx extends BaseReader implements IReader
             $excel->removeCellXfByIndex(0); // remove the default style
         }
 
-        $zipClass = Settings::getZipClass();
-
-        /** @var \ZipArchive | ZipArchive $zip */
-        $zip = new $zipClass();
+        $zip = new ZipArchive();
         $zip->open($pFilename);
 
         //    Read the theme first, because we need the colour scheme when reading the styles
