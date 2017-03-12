@@ -12,8 +12,7 @@ spreadsheet files. This can lead to:
 -   Server Side Request Forgery
 -   Command Execution (depending on the installed PHP wrappers)
 
-To prevent this, PhpSpreadsheet sets `libxml_disable_entity_loader` to
-`true` for the XML-based Readers by default.
+To prevent this, by default every XML-based Reader looks for XML entities declared inside the DOCTYPE and if any is found an exception is raised.
 
 ## Loading a Spreadsheet File
 
