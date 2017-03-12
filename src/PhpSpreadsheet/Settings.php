@@ -237,7 +237,6 @@ class Settings
         if (is_null($options) && defined('LIBXML_DTDLOAD')) {
             $options = LIBXML_DTDLOAD | LIBXML_DTDATTR;
         }
-        @libxml_disable_entity_loader((bool) $options);
         self::$libXmlLoaderOptions = $options;
     }
 
@@ -254,7 +253,6 @@ class Settings
         } elseif (is_null(self::$libXmlLoaderOptions)) {
             self::$libXmlLoaderOptions = true;
         }
-        @libxml_disable_entity_loader((bool) self::$libXmlLoaderOptions);
 
         return self::$libXmlLoaderOptions;
     }
