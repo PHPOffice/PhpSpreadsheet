@@ -54,8 +54,8 @@ $writer->save('hello world.xlsx');
 
 ## Learn by example
 
-A good way to get started is to run some of the samples. Serve the sample via
-PHP built-in webserver;
+A good way to get started is to run some of the samples. Serve the samples via
+PHP built-in webserver:
 
 ```sh
 php -S localhost:8000 -t vendor/phpoffice/phpspreadsheet/samples
