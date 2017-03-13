@@ -5,8 +5,8 @@ Please note that these do NOT offer complete documentation on specific
 PhpSpreadsheet API functions, but just a bump to get you started. If you
 need specific API functions, please refer to the API documentation.
 
-For example, REF \_Ref191885321 \w \h 4.4.7 REF \_Ref191885321
-\h Setting a worksheet's page orientation and size covers setting a page
+For example, [setting a worksheet's page orientation and size
+](#setting-a-worksheets-page-orientation-and-size) covers setting a page
 orientation to A4. Other paper formats, like US Letter, are not covered
 in this document, but in the PhpSpreadsheet API documentation.
 
@@ -119,9 +119,9 @@ in an English version of Microsoft Office Excel, and PhpSpreadsheet
 handles all formulae internally in this format. This means that the
 following rules hold:
 
--   Decimal separator is '.' (period)
--   Function argument separator is ',' (comma)
--   Matrix row separator is ';' (semicolon)
+-   Decimal separator is `.` (period)
+-   Function argument separator is `,` (comma)
+-   Matrix row separator is `;` (semicolon)
 -   English function names must be used
 
 This is regardless of which language version of Microsoft Office Excel
@@ -132,15 +132,15 @@ will take care of displaying the formula according the applications
 language. Translation is taken care of by the application!
 
 The following line of code writes the formula
-'=IF(C4&gt;500,"profit","loss")' into the cell B8. Note that the
-formula must start with "=" to make PhpSpreadsheet recognise this as a
+`=IF(C4&gt;500,"profit","loss")` into the cell B8. Note that the
+formula must start with `=` to make PhpSpreadsheet recognise this as a
 formula.
 
 ``` php
 $spreadsheet->getActiveSheet()->setCellValue('B8','=IF(C4>500,"profit","loss")');
 ```
 
-If you want to write a string beginning with an "=" character to a
+If you want to write a string beginning with an `=` character to a
 cell, then you should use the setCellValueExplicit() method.
 
 ``` php
@@ -159,7 +159,7 @@ $formula = $spreadsheet->getActiveSheet()->getCell('B8')->getValue();
 ```
 
 If you need the calculated value of a cell, use the following code. This
-is further explained in REF \_Ref191885372 \w \h  \* MERGEFORMAT 4.4.35.
+is further explained in [the calculation engine](./calculation-engine.md).
 
 ``` php
 $value = $spreadsheet->getActiveSheet()->getCell('B8')->getCalculatedValue();

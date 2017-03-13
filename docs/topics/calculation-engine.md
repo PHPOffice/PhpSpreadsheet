@@ -7,7 +7,7 @@
 As PhpSpreadsheet represents an in-memory spreadsheet, it also offers
 formula calculation capabilities. A cell can be of a value type
 (containing a number or text), or a formula type (containing a formula
-which can be evaluated). For example, the formula "=SUM(A1:A10)"
+which can be evaluated). For example, the formula `=SUM(A1:A10)`
 evaluates to the sum of values in A1, A2, ..., A10.
 
 To calculate a formula, you can call the cell containing the formula’s
@@ -69,9 +69,9 @@ Reference for operator precedence in PHP: <http://www.php.net/operators>
 #### Formulas involving numbers and text
 
 Formulas involving numbers and text may produce unexpected results or
-even unreadable file contents. For example, the formula '=3+"Hello "' is
+even unreadable file contents. For example, the formula `=3+"Hello "` is
 expected to produce an error in Excel (\#VALUE!). Due to the fact that
-PHP converts “Hello” to a numeric value (zero), the result of this
+PHP converts `"Hello "` to a numeric value (zero), the result of this
 formula is evaluated as 3 instead of evaluating as an error. This also
 causes the Excel document being generated as containing unreadable
 content.

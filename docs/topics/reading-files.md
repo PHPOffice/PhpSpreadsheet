@@ -451,7 +451,7 @@ by available disk space. This means that we wouldn’t ordinarily be able
 to read all the rows from a very large CSV file that exceeded those
 limits, and save it as an Xls or Xlsx file. However, by using Read
 Filters to read the CSV file in “chunks” (using the chunkReadFilter
-Class that we defined in section REF \_Ref275604563 \r \p 5.3 above),
+Class that we defined in [the above section](#reading-only-specific-columns-and-rows-from-a-file-read-filters),
 and the setSheetIndex() method of the \$reader, we can split the CSV
 file across several individual worksheets.
 
