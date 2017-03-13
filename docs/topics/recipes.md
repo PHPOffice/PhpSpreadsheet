@@ -141,7 +141,7 @@ $spreadsheet->getActiveSheet()->setCellValue('B8','=IF(C4>500,"profit","loss")')
 ```
 
 If you want to write a string beginning with an `=` character to a
-cell, then you should use the setCellValueExplicit() method.
+cell, then you should use the `setCellValueExplicit()` method.
 
 ``` php
 $spreadsheet->getActiveSheet()
@@ -239,7 +239,7 @@ $spreadsheet->getActiveSheet()->getStyle('A1')->getAlignment()->setWrapText(true
 
 **Tip**
 
-Read more about formatting cells using getStyle() elsewhere.
+Read more about formatting cells using `getStyle()` elsewhere.
 
 **Tip**
 
@@ -332,7 +332,7 @@ $spreadsheet->getActiveSheet()->getPageSetup()->setFitToHeight(0);
 As you can see, it is not necessary to call setFitToPage(TRUE) since
 setFitToWidth(...) and setFitToHeight(...) triggers this.
 
-If you use setFitToWidth() you should in general also specify
+If you use `setFitToWidth()` you should in general also specify
 setFitToHeight() explicitly like in the example. Be careful relying on
 the initial values.
 
@@ -474,7 +474,9 @@ $spreadsheet->getActiveSheet()->setBreak( 'D10' , \PhpOffice\PhpSpreadsheet\Work
 
 To show/hide gridlines when printing, use the following code:
 
-\$spreadsheet-&gt;getActiveSheet()-&gt;setShowGridlines(true);
+```php
+$spreadsheet->getActiveSheet()->setShowGridlines(true);
+```
 
 ### Setting rows/columns to repeat at top/left
 
@@ -738,7 +740,7 @@ vertical/horizontal, left/right/top/bottom/diagonal.
 This border hierarchy can be utilized to achieve various effects in an
 easy manner.
 
-### Valid array keys for style applyFromArray()
+### Valid array keys for style `applyFromArray()`
 
 The following table lists the valid array keys for
 \PhpOffice\PhpSpreadsheet\Style applyFromArray() classes. If the "Maps
@@ -1001,15 +1003,15 @@ $validation->setFormula1('"Item A,Item B,Item C"');
 ```
 
 When using a data validation list like above, make sure you put the list
-between " and " and that you split the items with a comma (,).
+between `"` and `"` and that you split the items with a comma (`,`).
 
 It is important to remember that any string participating in an Excel
 formula is allowed to be maximum 255 characters (not bytes). This sets a
 limit on how many items you can have in the string "Item A,Item B,Item
 C". Therefore it is normally a better idea to type the item values
 directly in some cell range, say A1:A3, and instead use, say,
-$validation->setFormula1('Sheet!$A$1:$A\$3');. Another benefit is that
-the item values themselves can contain the comma "," character itself.
+`$validation->setFormula1('Sheet!$A$1:$A$3')`. Another benefit is that
+the item values themselves can contain the comma `,` character itself.
 
 If you need data validation on multiple cells, one can clone the
 ruleset:
@@ -1493,7 +1495,7 @@ visible via the user interface.
 
 ## Right-to-left worksheet
 
-Worksheets can be set individually whether column "A" should start at
+Worksheets can be set individually whether column `A` should start at
 left or right side. Default is left. Here is how to set columns from
 right-to-left.
 

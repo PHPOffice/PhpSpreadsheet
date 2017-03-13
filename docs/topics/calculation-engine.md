@@ -11,7 +11,7 @@ which can be evaluated). For example, the formula `=SUM(A1:A10)`
 evaluates to the sum of values in A1, A2, ..., A10.
 
 To calculate a formula, you can call the cell containing the formula’s
-method getCalculatedValue(), for example:
+method `getCalculatedValue()`, for example:
 
 ``` php
 $spreadsheet->getActiveSheet()->getCell('E11')->getCalculatedValue();
@@ -57,7 +57,7 @@ Not all functions are supported, for a comprehensive list, read the
 
 #### Operator precedence
 
-In Excel '+' wins over '&', just like '\*' wins over '+' in ordinary
+In Excel `+` wins over `&`, just like `*` wins over `+` in ordinary
 algebra. The former rule is not what one finds using the calculation
 engine shipped with PhpSpreadsheet.
 
@@ -94,14 +94,14 @@ return either an Excel timestamp or a PHP timestamp or date object.
 
 It is possible for scripts to change the data type used for returning
 date values by calling the
-\PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType()
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType()`
 method:
 
 ``` php
 \PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType($returnDateType);
 ```
 
-where the following constants can be used for \$returnDateType
+where the following constants can be used for `$returnDateType`:
 
 -   `\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_PHP_NUMERIC`
 -   `\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_PHP_OBJECT`
@@ -155,7 +155,7 @@ Excel date values by calling the
 \PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar($baseDate);
 ```
 
-where the following constants can be used for \$baseDate
+where the following constants can be used for `$baseDate`:
 
 -   \PhpOffice\PhpSpreadsheet\Shared\Date::CALENDAR\_WINDOWS\_1900
 -   \PhpOffice\PhpSpreadsheet\Shared\Date::CALENDAR\_MAC\_1904
@@ -202,9 +202,9 @@ However, if you pass through a value such as '31/12/2008' that would be
 considered an error by a US-based server, but which is not ambiguous,
 then PhpSpreadsheet will attempt to correct this to 31st December 2008.
 If the content of the string doesn’t match any of the formats recognised
-by the php date/time object implementation of strtotime() (which can
-handle a wider range of formats than the normal strtotime() function),
-then the function will return a '\#VALUE' error. However, Excel
+by the php date/time object implementation of `strtotime()` (which can
+handle a wider range of formats than the normal `strtotime()` function),
+then the function will return a `#VALUE` error. However, Excel
 recommends that you should always use date/timestamps for your date
 functions, and the recommendation for PhpSpreadsheet is the same: avoid
 strings because the result is not predictable.
@@ -238,12 +238,12 @@ rather than converted to Excel date timestamp values.
 
 ### Helper Methods
 
-In addition to the setExcelCalendar() and getExcelCalendar() methods, a
+In addition to the `setExcelCalendar()` and `getExcelCalendar()` methods, a
 number of other methods are available in the
 \PhpOffice\PhpSpreadsheet\Shared\Date class that can help when working
 with dates:
 
-#### \PhpOffice\PhpSpreadsheet\Shared\Date::ExcelToPHP(\$excelDate)
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::ExcelToPHP($excelDate)
 
 Converts a date/time from an Excel date timestamp to return a PHP
 serialized date/timestamp.
@@ -251,17 +251,17 @@ serialized date/timestamp.
 Note that this method does not trap for Excel dates that fall outside of
 the valid range for a PHP date timestamp.
 
-#### \PhpOffice\PhpSpreadsheet\Shared\Date::ExcelToPHPObject(\$excelDate)
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::ExcelToPHPObject($excelDate)
 
 Converts a date from an Excel date/timestamp to return a PHP DateTime
 object.
 
-#### \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(\$PHPDate)
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($PHPDate)
 
 Converts a PHP serialized date/timestamp or a PHP DateTime object to
 return an Excel date timestamp.
 
-#### \PhpOffice\PhpSpreadsheet\Shared\Date::FormattedPHPToExcel(\$year, \$month, \$day, \$hours=0, \$minutes=0, \$seconds=0)
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::FormattedPHPToExcel($year, $month, $day, $hours=0, $minutes=0, $seconds=0)
 
 Takes year, month and day values (and optional hour, minute and second
 values) and returns an Excel date timestamp value.
@@ -1114,7 +1114,7 @@ ym   | Months Excluding Years          | Complete calendar months between the da
 yd   | Days Excluding Years            | Complete calendar days between the dates as if they were of the same year.
 md   | Days Excluding Years And Months | Complete calendar days between the dates as if they were of the same month and same year.
 
-The unit value is not case sensitive, and defaults to "d".
+The unit value is not case sensitive, and defaults to `d`.
 
 ##### Return Value
 
@@ -1290,8 +1290,8 @@ $retVal = call_user_func_array(
 
 ##### Notes
 
-DATEVALUE uses the php date/time object implementation of strtotime()
-(which can handle a wider range of formats than the normal strtotime()
+DATEVALUE uses the php date/time object implementation of `strtotime()`
+(which can handle a wider range of formats than the normal `strtotime()`
 function), and it is also called for any date parameter passed to other
 date functions (such as DATEDIF) when the parameter value is a string.
 
@@ -1449,7 +1449,7 @@ $retVal = call_user_func_array(
 when a PHP Boolean is used for the third (optional) parameter (as shown
 in the example above), and the writer will generate and error. It will
 work if a numeric 0 or 1 is used for the method parameter; or if the
-Excel TRUE() and FALSE() functions are used instead.
+Excel `TRUE()` and `FALSE()` functions are used instead.
 
 #### EDATE
 
@@ -1824,7 +1824,7 @@ The NOW function returns the current date and time.
 
 ##### Parameters
 
-There are now parameters for the NOW() function.
+There are no parameters for the `NOW()` function.
 
 ##### Return Value
 

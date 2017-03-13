@@ -1,21 +1,18 @@
 # Frequently asked questions
 
-The up-to-date F.A.Q. page for PHPExcel can be found on
-<http://www.codeplex.com/PHPExcel/Wiki/View.aspx?title=FAQ&referringTitle=Requirements>.
-
 ## There seems to be a problem with character encoding...
 
 It is necessary to use UTF-8 encoding for all texts in PhpSpreadsheet.
 If the script uses different encoding then you can convert those texts
-with PHP's iconv() or mb\_convert\_encoding() functions.
+with PHP's `iconv()` or `mb_convert_encoding()` functions.
 
 ## Fatal error: Allowed memory size of xxx bytes exhausted (tried to allocate yyy bytes) in zzz on line aaa
 
 PhpSpreadsheet holds an "in memory" representation of a spreadsheet, so
 it is susceptible to PHP's memory limitations. The memory made available
-to PHP can be increased by editing the value of the memory\_limit
-directive in your php.ini file, or by using ini\_set('memory\_limit',
-'128M') within your code (ISP permitting).
+to PHP can be increased by editing the value of the `memory_limit`
+directive in your php.ini file, or by using
+`ini_set('memory_limit', '128M')` within your code.
 
 Some Readers and Writers are faster than others, and they also use
 differing amounts of memory. You can find some indication of the
@@ -56,8 +53,8 @@ reference](./references/features-cross-reference.md).
 
 ## Formulas don't seem to be calculated in Excel2003 using compatibility pack?
 
-This is normal behaviour of the compatibility pack, Xlsx displays this
-correctly. Use \PhpOffice\PhpSpreadsheet\Writer\Xls if you really need
+This is normal behaviour of the compatibility pack, `Xlsx` displays this
+correctly. Use `\PhpOffice\PhpSpreadsheet\Writer\Xls` if you really need
 calculated values, or force recalculation in Excel2003.
 
 ## Setting column width is not 100% accurate
@@ -66,7 +63,8 @@ Trying to set column width, I experience one problem. When I open the
 file in Excel, the actual width is 0.71 less than it should be.
 
 The short answer is that PhpSpreadsheet uses a measure where padding is
-included. See section: "Setting a column's width" for more details.
+included. See [how to seta column's width](./topics/recipes.md#setting-a-columns-width)
+for more details.
 
 ## How do I use PhpSpreadsheet with my framework
 
@@ -81,8 +79,8 @@ included. See section: "Setting a column's width" for more details.
     within CakePHP
 -   Integrating [PhpSpreadsheet into Kohana
     3](http://www.flynsarmy.com/2010/07/phpexcel-module-for-kohana-3/)
-    and \[Интеграция PHPExcel и Kohana
-    Framework\]\[http://szpargalki.blogspot.com/2011/02/phpexcel-kohana-framework.html\]
+    and [Интеграция PHPExcel и Kohana
+    Framework](http://szpargalki.blogspot.com/2011/02/phpexcel-kohana-framework.html)
 -   Using [PhpSpreadsheet with
     TYPO3](http://typo3.org/documentation/document-library/extension-manuals/phpexcel_library/1.1.1/view/toc/0/)
 

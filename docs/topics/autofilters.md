@@ -142,7 +142,7 @@ $columnFilter->createRule()
 ```
 
 This creates two filter rules: the column will be filtered by values
-that match “France” OR “Germany”. For Simple Filters, you can create as
+that match "France" OR "Germany". For Simple Filters, you can create as
 many rules as you want
 
 Simple filters are always a comparison match of EQUALS, and multiple
@@ -238,7 +238,7 @@ $columnFilter->setFilterType(
 And then define our rules.
 
 The following shows a simple wildcard filter to show all column entries
-beginning with the letter 'U'.
+beginning with the letter `U`.
 
 ``` php
 $columnFilter->createRule()
@@ -487,7 +487,7 @@ saved.
 ### Applying the Filter
 
 If you wish to execute your filter from within a script, you need to do
-this manually. You can do this using the autofilters showHideRows()
+this manually. You can do this using the autofilters `showHideRows()`
 method.
 
 ``` php

@@ -26,7 +26,7 @@ $spreadsheet->getActiveSheet()->setCellValue(
 ```
 
 Alternatively, you can retrieve the cell object, and then call the
-cell’s setValue() method:
+cell’s `setValue()` method:
 
 ``` php
 $spreadsheet->getActiveSheet()
@@ -275,8 +275,8 @@ Setting a cell value by coordinate can be done using the worksheet's
 $spreadsheet->getActiveSheet()->setCellValueByColumnAndRow(1, 5, 'PhpSpreadsheet');
 ```
 
-**Note** that column references start with '0' for column 'A', rather
-than from '1'.
+**Note** that column references start with `0` for column `A`, rather
+than from `1`.
 
 ## Retrieving a cell value by column and row
 

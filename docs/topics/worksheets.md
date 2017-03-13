@@ -92,7 +92,7 @@ new worksheet will be added after the last existing worksheet.
 ## Copying Worksheets
 
 Sheets within the same workbook can be copied by creating a clone of the
-worksheet you wish to copy, and then using the addSheet() method to
+worksheet you wish to copy, and then using the `addSheet()` method to
 insert the clone into the workbook.
 
 ``` php
@@ -103,7 +103,7 @@ $spreadsheet->addSheet($clonedWorksheet);
 
 You can also copy worksheets from one workbook to another, though this
 is more complex as PhpSpreadsheet also has to replicate the styling
-between the two workbooks. The addExternalSheet() method is provided for
+between the two workbooks. The `addExternalSheet()` method is provided for
 this purpose.
 
     $clonedWorksheet = clone $spreadsheet1->getSheetByName('Worksheet 1');
@@ -117,7 +117,7 @@ duplicate name.
 ## Removing a Worksheet
 
 You can delete a worksheet from a workbook, identified by its index
-position, using the removeSheetByIndex() method
+position, using the `removeSheetByIndex()` method
 
 ``` php
 $sheetIndex = $spreadsheet->getIndex(

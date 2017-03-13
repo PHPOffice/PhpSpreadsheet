@@ -435,7 +435,7 @@ $spreadsheet = $reader->load("sample.csv");
 
 #### Setting CSV options
 
-Often, CSV files are not really “comma separated”, or use semicolon (;)
+Often, CSV files are not really "comma separated", or use semicolon (;)
 as a separator. You can instruct
 \PhpOffice\PhpSpreadsheet\Reader\Csv some options before reading a CSV
 file.
@@ -470,7 +470,7 @@ $reader->setSheetIndex(0);
 
 When working with CSV files, it might occur that you want to import CSV
 data into an existing `Spreadsheet` object. The following code loads a
-CSV file into an existing \$spreadsheet containing some sheets, and
+CSV file into an existing `$spreadsheet` containing some sheets, and
 imports onto the 6th sheet:
 
 ``` php
@@ -496,7 +496,7 @@ $writer->save("05featuredemo.csv");
 
 #### Setting CSV options
 
-Often, CSV files are not really “comma separated”, or use semicolon (;)
+Often, CSV files are not really "comma separated", or use semicolon (`;`)
 as a separator. You can instruct
 \PhpOffice\PhpSpreadsheet\Writer\Csv some options before writing a CSV
 file:
@@ -672,10 +672,10 @@ you to use these parts in your website.
 
 Supported methods:
 
--   generateHTMLHeader()
--   generateStyles()
--   generateSheetData()
--   generateHTMLFooter()
+-   `generateHTMLHeader()`
+-   `generateStyles()`
+-   `generateSheetData()`
+-   `generateHTMLFooter()`
 
 Here's an example which retrieves all parts independently and merges
 them into a resulting HTML page:

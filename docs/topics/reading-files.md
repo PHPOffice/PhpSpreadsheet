@@ -17,8 +17,8 @@ To prevent this, by default every XML-based Reader looks for XML entities declar
 ## Loading a Spreadsheet File
 
 The simplest way to load a workbook file is to let PhpSpreadsheet's IO
-Factory identify the file type and load it, calling the static load()
-method of the \PhpOffice\PhpSpreadsheet\IOFactory class.
+Factory identify the file type and load it, calling the static `load()`
+method of the `\PhpOffice\PhpSpreadsheet\IOFactory` class.
 
 ``` php
 $inputFileName = './sampleData/example1.xls';
@@ -30,7 +30,7 @@ $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($inputFileName);
 > See Examples/Reader/exampleReader01.php for a working example of this
 > code.
 
-The load() method will attempt to identify the file type, and
+The `load()` method will attempt to identify the file type, and
 instantiate a loader for that file type; using it to load the file and
 store the data and any formatting in a `Spreadsheet` object.
 
@@ -51,7 +51,7 @@ actually reading the file into a `Spreadsheet` object.
 
 If you know the file type of the spreadsheet file that you need to load,
 you can instantiate a new reader object for that file type, then use the
-reader's load() method to read the file to a `Spreadsheet` object. It is
+reader's `load()` method to read the file to a `Spreadsheet` object. It is
 possible to instantiate the reader objects for each of the different
 supported filetype by name. However, you may get unpredictable results
 if the file isn't of the right type (e.g. it is a CSV with an extension
@@ -75,7 +75,7 @@ $spreadsheet = $reader->load($inputFileName);
 > See Examples/Reader/exampleReader02.php for a working example of this
 > code.
 
-Alternatively, you can use the IO Factory's createReader() method to
+Alternatively, you can use the IO Factory's `createReader()` method to
 instantiate the reader object for you, simply telling it the file type
 of the reader that you want instantiating.
 
@@ -120,7 +120,7 @@ $spreadsheet = $reader->load($inputFileName);
 
 Once you have created a reader object for the workbook that you want to
 load, you have the opportunity to set additional options before
-executing the load() method.
+executing the `load()` method.
 
 ### Reading Only Data from a Spreadsheet File
 
@@ -172,7 +172,7 @@ setLoadSheetsOnly() method to identify those sheets you are interested
 in reading.
 
 To read a single sheet, you can pass that sheet name as a parameter to
-the setLoadSheetsOnly() method.
+the `setLoadSheetsOnly()` method.
 
 ``` php
 $inputFileType = 'Xls';
@@ -191,7 +191,7 @@ $spreadsheet = $reader->load($inputFileName);
 > code.
 
 If you want to read more than just a single sheet, you can pass a list
-of sheet names as an array parameter to the setLoadSheetsOnly() method.
+of sheet names as an array parameter to the `setLoadSheetsOnly()` method.
 
 ``` php
 $inputFileType = 'Xls';
@@ -209,7 +209,7 @@ $spreadsheet = $reader->load($inputFileName);
 > See Examples/Reader/exampleReader08.php for a working example of this
 > code.
 
-To reset this option to the default, you can call the setLoadAllSheets()
+To reset this option to the default, you can call the `setLoadAllSheets()`
 method.
 
 ``` php
@@ -241,8 +241,8 @@ If you are only interested in reading part of a worksheet, then you can
 write a filter class that identifies whether or not individual cells
 should be read by the loader. A read filter must implement the
 \PhpOffice\PhpSpreadsheet\Reader\IReadFilter interface, and contain a
-readCell() method that accepts arguments of \$column, \$row and
-\$worksheetName, and return a boolean true or false that indicates
+readCell() method that accepts arguments of `$column`, `$row` and
+`$worksheetName`, and return a boolean true or false that indicates
 whether a workbook cell identified by those arguments should be read or
 not.
 
@@ -319,7 +319,7 @@ $filterSubset = new MyReadFilter(9,15,range('G','K'));
 > code.
 
 This can be particularly useful for conserving memory, by allowing you
-to read and process a large workbook in “chunks”: an example of this
+to read and process a large workbook in "chunks": an example of this
 usage might be when transferring data from an Excel worksheet to a
 database.
 
@@ -386,13 +386,13 @@ CSV       | YES | HTML   | NO  |              |     |
 ### Combining Multiple Files into a Single Spreadsheet Object
 
 While you can limit the number of worksheets that are read from a
-workbook file using the setLoadSheetsOnly() method, certain readers also
+workbook file using the `setLoadSheetsOnly()` method, certain readers also
 allow you to combine several individual "sheets" from different files
 into a single `Spreadsheet` object, where each individual file is a
 single worksheet within that workbook. For each file that you read, you
 need to indicate which worksheet index it should be loaded into using
-the setSheetIndex() method of the \$reader, then use the
-loadIntoExisting() method rather than the load() method to actually read
+the `setSheetIndex()` method of the `$reader`, then use the
+`loadIntoExisting()` method rather than the `load()` method to actually read
 the file into that worksheet.
 
 ``` php
@@ -450,9 +450,9 @@ Xlsx Microsoft Office Open XML SpreadsheetML .xlsx file is limited to
 by available disk space. This means that we wouldn’t ordinarily be able
 to read all the rows from a very large CSV file that exceeded those
 limits, and save it as an Xls or Xlsx file. However, by using Read
-Filters to read the CSV file in “chunks” (using the chunkReadFilter
+Filters to read the CSV file in "chunks" (using the chunkReadFilter
 Class that we defined in [the above section](#reading-only-specific-columns-and-rows-from-a-file-read-filters),
-and the setSheetIndex() method of the \$reader, we can split the CSV
+and the `setSheetIndex()` method of the `$reader`, we can split the CSV
 file across several individual worksheets.
 
 ``` php
@@ -503,7 +503,7 @@ for ($startRow = 2; $startRow <= 1000000; $startRow += $chunkSize) {
 This code will read 65,530 rows at a time from the CSV file that we’re
 loading, and store each "chunk" in a new worksheet.
 
-The setContiguous() method for the Reader is important here. It is
+The `setContiguous()` method for the Reader is important here. It is
 applicable only when working with a Read Filter, and identifies whether
 or not the cells should be stored by their position within the CSV file,
 or their position relative to the filter.
@@ -525,7 +525,7 @@ CSV       | YES | HTML   | NO
 
 The CSV loader defaults to loading a file where comma is used as the
 separator, but you can modify this to load tab- or pipe-separated value
-files using the setDelimiter() method.
+files using the `setDelimiter()` method.
 
 ``` php
 $inputFileType = 'Csv';
@@ -546,8 +546,11 @@ $spreadsheet = $reader->load($inputFileName);
 In addition to the delimiter, you can also use the following methods to
 set other attributes for the data load:
 
-setEnclosure() | default is " setLineEnding() | default is PHP\_EOL
-setInputEncoding() | default is UTF-8
+Method             | Default
+-------------------|----------
+setEnclosure()     | `"`
+setLineEnding()    | `PHP_EOL`
+setInputEncoding() | `UTF-8`
 
 Setting CSV delimiter applies to:
 
