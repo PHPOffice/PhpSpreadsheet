@@ -219,7 +219,7 @@ class Cell
      */
     public function addValue($pValue = null, $breakLine = false)
     {
-        $pValue = $breakLine ? "\n". $pValue : $pValue;
+        $pValue = $breakLine ? "\n" . $pValue : $pValue;
 
         $this->setValue($this->getValue() . $pValue);
 
