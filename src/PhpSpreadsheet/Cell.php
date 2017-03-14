@@ -215,8 +215,6 @@ class Cell
      * @param mixed $pValue Value
      * @param bool $breakLine Breaks the line(true) before concatenating value or not(false, default)
      *
-     * @throws Exception
-     *
      * @return Cell
      */
     public function addValue($pValue = null, $breakLine = false)
