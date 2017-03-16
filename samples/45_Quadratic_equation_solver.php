@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/Header.php';
 ?>
-<form action="Quadratic2.php" method="POST">
+<form action="45_Quadratic_equation_solver.php" method="POST">
     Enter the coefficients for the Ax<sup>2</sup> + Bx + C = 0
     <table border="0" cellpadding="0" cellspacing="0">
         <tr><td><b>A&nbsp;</b></td>
@@ -28,13 +28,13 @@ if (isset($_POST['submit'])) {
         echo '<hr /><b>Roots:</b><br />';
 
         $discriminantFormula = '=POWER(' . $_POST['B'] . ',2) - (4 * ' . $_POST['A'] . ' * ' . $_POST['C'] . ')';
-        $discriminant = PhpSpreadsheet_Calculation::getInstance()->calculateFormula($discriminantFormula);
+        $discriminant = \PhpOffice\PhpSpreadsheet\Calculation::getInstance()->calculateFormula($discriminantFormula);
 
         $r1Formula = '=IMDIV(IMSUM(-' . $_POST['B'] . ',IMSQRT(' . $discriminant . ')),2 * ' . $_POST['A'] . ')';
         $r2Formula = '=IF(' . $discriminant . '=0,"Only one root",IMDIV(IMSUB(-' . $_POST['B'] . ',IMSQRT(' . $discriminant . ')),2 * ' . $_POST['A'] . '))';
 
-        echo PhpSpreadsheet_Calculation::getInstance()->calculateFormula($r1Formula) . '<br />';
-        echo PhpSpreadsheet_Calculation::getInstance()->calculateFormula($r2Formula) . '<br />';
+        echo \PhpOffice\PhpSpreadsheet\Calculation::getInstance()->calculateFormula($r1Formula) . '<br />';
+        echo \PhpOffice\PhpSpreadsheet\Calculation::getInstance()->calculateFormula($r2Formula) . '<br />';
         $callEndTime = microtime(true);
         $helper->logEndingNotes();
     }
