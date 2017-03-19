@@ -1767,6 +1767,7 @@ class Calculation
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig::class, 'SUBTOTAL'],
             'argumentCount' => '2+',
+            'passCellReference' => true,
         ],
         'SUM' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
@@ -3721,6 +3722,7 @@ class Calculation
                     }
                     //    Reverse the order of the arguments
                     krsort($args);
+
                     if (($passByReference) && ($argCount == 0)) {
                         $args[] = $cellID;
                         $argArrayVals[] = $this->showValue($cellID);
@@ -3744,7 +3746,6 @@ class Calculation
                         }
                         unset($arg);
                     }
-
                     $result = call_user_func_array($functionCall, $args);
 
                     if ($functionName != 'MKMATRIX') {
