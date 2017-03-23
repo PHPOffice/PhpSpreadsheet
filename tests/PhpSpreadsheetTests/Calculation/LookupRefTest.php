@@ -48,4 +48,21 @@ class LookupRefTest extends \PHPUnit_Framework_TestCase
     {
         return require 'data/Calculation/LookupRef/VLOOKUP.php';
     }
+
+    /**
+     * @dataProvider providerMATCH
+     * @group fail19
+     *
+     * @param mixed $expectedResult
+     */
+    public function testMATCH($expectedResult, ...$args)
+    {
+        $result = LookupRef::MATCH(...$args);
+        $this->assertEquals($expectedResult, $result);
+    }
+
+    public function providerMATCH()
+    {
+        return require 'data/Calculation/LookupRef/MATCH.php';
+    }
 }
