@@ -497,41 +497,38 @@ class LookupRef
      * Excel Function:
      *        =MATCH(lookup_value, lookup_array, [match_type])
      *
-     * @param lookup_value The value that you want to match in lookup_array
-     * @param lookup_array The range of cells being searched
-     * @param match_type The number -1, 0, or 1. -1 means above, 0 means exact match, 1 means below. If match_type is 1 or -1, the list has to be ordered.
-     * @param mixed $lookup_value
-     * @param mixed $lookup_array
-     * @param mixed $match_type
+     * @param mixed $lookupValue The value that you want to match in lookup_array
+     * @param mixed $lookupArray The range of cells being searched
+     * @param mixed $matchType The number -1, 0, or 1. -1 means above, 0 means exact match, 1 means below. If match_type is 1 or -1, the list has to be ordered.
      *
      * @return int The relative position of the found item
      */
-    public static function MATCH($lookup_value, $lookup_array, $match_type = 1)
+    public static function MATCH($lookupValue, $lookupArray, $matchType = 1)
     {
-        $lookup_array = Functions::flattenArray($lookup_array);
-        $lookup_value = Functions::flattenSingleValue($lookup_value);
-        $match_type = (is_null($match_type)) ? 1 : (int) Functions::flattenSingleValue($match_type);
+        $lookupArray = Functions::flattenArray($lookupArray);
+        $lookupValue = Functions::flattenSingleValue($lookupValue);
+        $matchType = (is_null($matchType)) ? 1 : (int) Functions::flattenSingleValue($matchType);
         //    MATCH is not case sensitive
-        $lookup_value = strtolower($lookup_value);
+        $lookupValue = strtolower($lookupValue);
 
         //    lookup_value type has to be number, text, or logical values
-        if ((!is_numeric($lookup_value)) && (!is_string($lookup_value)) && (!is_bool($lookup_value))) {
+        if ((!is_numeric($lookupValue)) && (!is_string($lookupValue)) && (!is_bool($lookupValue))) {
             return Functions::NA();
         }
 
         //    match_type is 0, 1 or -1
-        if (($match_type !== 0) && ($match_type !== -1) && ($match_type !== 1)) {
+        if (($matchType !== 0) && ($matchType !== -1) && ($matchType !== 1)) {
             return Functions::NA();
         }
 
         //    lookup_array should not be empty
-        $lookupArraySize = count($lookup_array);
+        $lookupArraySize = count($lookupArray);
         if ($lookupArraySize <= 0) {
             return Functions::NA();
         }
 
         //    lookup_array should contain only number, text, or logical values, or empty (null) cells
-        foreach ($lookup_array as $i => $lookupArrayValue) {
+        foreach ($lookupArray as $i => $lookupArrayValue) {
             //    check the type of the value
             if ((!is_numeric($lookupArrayValue)) && (!is_string($lookupArrayValue)) &&
                 (!is_bool($lookupArrayValue)) && (!is_null($lookupArrayValue))) {
@@ -539,30 +536,30 @@ class LookupRef
             }
             //    convert strings to lowercase for case-insensitive testing
             if (is_string($lookupArrayValue)) {
-                $lookup_array[$i] = strtolower($lookupArrayValue);
+                $lookupArray[$i] = strtolower($lookupArrayValue);
             }
-            if ((is_null($lookupArrayValue)) && (($match_type == 1) || ($match_type == -1))) {
-                $lookup_array = array_slice($lookup_array, 0, $i - 1);
+            if ((is_null($lookupArrayValue)) && (($matchType == 1) || ($matchType == -1))) {
+                $lookupArray = array_slice($lookupArray, 0, $i - 1);
             }
         }
 
         // if match_type is 1 or -1, the list has to be ordered
-        if ($match_type == 1) {
-            asort($lookup_array);
-            $keySet = array_keys($lookup_array);
-        } elseif ($match_type == -1) {
-            arsort($lookup_array);
-            $keySet = array_keys($lookup_array);
+        if ($matchType == 1) {
+            asort($lookupArray);
+            $keySet = array_keys($lookupArray);
+        } elseif ($matchType == -1) {
+            arsort($lookupArray);
+            $keySet = array_keys($lookupArray);
         }
 
         // **
         // find the match
         // **
-        foreach ($lookup_array as $i => $lookupArrayValue) {
-            if (($match_type == 0) && ($lookupArrayValue == $lookup_value)) {
+        foreach ($lookupArray as $i => $lookupArrayValue) {
+            if (($matchType == 0) && ($lookupArrayValue == $lookupValue)) {
                 //    exact match
                 return ++$i;
-            } elseif (($match_type == -1) && ($lookupArrayValue <= $lookup_value)) {
+            } elseif (($matchType == -1) && ($lookupArrayValue <= $lookupValue)) {
                 $i = array_search($i, $keySet);
                 // if match_type is -1 <=> find the smallest value that is greater than or equal to lookup_value
                 if ($i < 1) {
@@ -571,7 +568,7 @@ class LookupRef
                 }
                     // the previous cell was the match
                     return $keySet[$i - 1] + 1;
-            } elseif (($match_type == 1) && ($lookupArrayValue >= $lookup_value)) {
+            } elseif (($matchType == 1) && ($lookupArrayValue >= $lookupValue)) {
                 $i = array_search($i, $keySet);
                 // if match_type is 1 <=> find the largest value that is less than or equal to lookup_value
                 if ($i < 1) {
