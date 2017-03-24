@@ -19,14 +19,10 @@ date_default_timezone_set('Europe/London');
 <h2>Estimates variance based on a sample from selected database entries.</h2>
 <?php
 
-/** Include path **/
-set_include_path(get_include_path() . PATH_SEPARATOR . '../../../../Classes/');
+require_once __DIR__ . '/../../../../src/Bootstrap.php';
 
-/** Include PhpSpreadsheet */
-include 'PHPExcel.php';
-
-// Create new PHPExcel object
-$spreadsheet = new PhpSpreadsheet();
+// Create new PhpSpreadsheet object
+$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 $worksheet = $spreadsheet->getActiveSheet();
 
 // Add some data

@@ -10,7 +10,7 @@ date_default_timezone_set('Europe/London');
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>PHPExcel Examples</title>
+<title>PhpSpreadsheet Examples</title>
 
 </head>
 <body>
@@ -20,7 +20,7 @@ date_default_timezone_set('Europe/London');
 $exampleTypeList = glob('./*', GLOB_ONLYDIR);
 
 foreach ($exampleTypeList as $exampleType) {
-    echo '<h1>PHPExcel ' . pathinfo($exampleType, PATHINFO_BASENAME) . ' Examples</h1>';
+    echo '<h1>PhpSpreadsheet ' . pathinfo($exampleType, PATHINFO_BASENAME) . ' Examples</h1>';
 
     $exampleList = glob('./' . $exampleType . '/*.php');
 

@@ -10,20 +10,16 @@ date_default_timezone_set('Europe/London');
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>PHPExcel Reader Example #12</title>
+<title>PhpSpreadsheet Reader Example #12</title>
 
 </head>
 <body>
 
-<h1>PHPExcel Reader Example #12</h1>
+<h1>PhpSpreadsheet Reader Example #12</h1>
 <h2>Reading a Workbook in "Chunks" Using a Configurable Read Filter (Version 2)</h2>
 <?php
 
-/**  Set Include path to point at the PHPExcel Classes folder  **/
-set_include_path(get_include_path() . PATH_SEPARATOR . '../../../Classes/');
-
-/**  Include \PhpOffice\PhpSpreadsheet\IOFactory  **/
-include 'PHPExcel/IOFactory.php';
+require_once __DIR__ . '/../../../src/Bootstrap.php';
 
 $inputFileType = 'Xls';
 //	$inputFileType = 'Xlsx';
@@ -81,7 +77,7 @@ for ($startRow = 2; $startRow <= 240; $startRow += $chunkSize) {
     echo 'Loading WorkSheet using configurable filter for headings row 1 and for rows ', $startRow, ' to ', ($startRow + $chunkSize - 1), '<br />';
     /*  Tell the Read Filter, the limits on which rows we want to read this iteration  **/
     $chunkFilter->setRows($startRow, $chunkSize);
-    /*  Load only the rows that match our filter from $inputFileName to a PHPExcel Object  **/
+    /*  Load only the rows that match our filter from $inputFileName to a PhpSpreadsheet Object  **/
     $spreadsheet = $reader->load($inputFileName);
 
     //	Do some processing here
