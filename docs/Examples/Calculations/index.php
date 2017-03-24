@@ -10,14 +10,14 @@ date_default_timezone_set('Europe/London');
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>PHPExcel Calculation Function Examples</title>
+<title>PhpSpreadsheet Calculation Function Examples</title>
 
 </head>
 <body>
 
 <?php
 
-echo '<h1>PHPExcel Calculation Function Examples</h1>';
+echo '<h1>PhpSpreadsheet Calculation Function Examples</h1>';
 
 $exampleTypeList = glob('./*', GLOB_ONLYDIR);
 

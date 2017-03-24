@@ -19,14 +19,10 @@ date_default_timezone_set('Europe/London');
 <h2>Calculates the standard deviation based on the entire population of selected database entries.</h2>
 <?php
 
-/** Include path **/
-set_include_path(get_include_path() . PATH_SEPARATOR . '../../../../Classes/');
-
-/** Include PhpSpreadsheet */
-include 'PHPExcel.php';
+require_once __DIR__ . '/../../../../src/Bootstrap.php';
 
 // Create new PhpSpreadsheet object
-$spreadsheet = new PHPExcel();
+$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 $worksheet = $spreadsheet->getActiveSheet();
 
 // Add some data

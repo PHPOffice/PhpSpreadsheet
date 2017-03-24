@@ -10,20 +10,16 @@ date_default_timezone_set('Europe/London');
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>PHPExcel Reader Example #11</title>
+<title>PhpSpreadsheet Reader Example #11</title>
 
 </head>
 <body>
 
-<h1>PHPExcel Reader Example #11</h1>
+<h1>PhpSpreadsheet Reader Example #11</h1>
 <h2>Reading a Workbook in "Chunks" Using a Configurable Read Filter (Version 1)</h2>
 <?php
 
-/** Include path **/
-set_include_path(get_include_path() . PATH_SEPARATOR . '../../../Classes/');
-
-/** \PhpOffice\PhpSpreadsheet\IOFactory */
-include 'PHPExcel/IOFactory.php';
+require_once __DIR__ . '/../../../src/Bootstrap.php';
 
 $inputFileType = 'Xls';
 //	$inputFileType = 'Xlsx';
@@ -78,7 +74,7 @@ for ($startRow = 2; $startRow <= 240; $startRow += $chunkSize) {
     $chunkFilter = new chunkReadFilter($startRow, $chunkSize);
     /*  Tell the Reader that we want to use the new Read Filter that we've just Instantiated  **/
     $reader->setReadFilter($chunkFilter);
-    /*  Load only the rows that match our filter from $inputFileName to a PHPExcel Object  **/
+    /*  Load only the rows that match our filter from $inputFileName to a PhpSpreadsheet Object  **/
     $spreadsheet = $reader->load($inputFileName);
 
     //	Do some processing here

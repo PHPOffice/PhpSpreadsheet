@@ -10,7 +10,7 @@ date_default_timezone_set('Europe/London');
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>PHPExcel Calculation Examples</title>
+<title>PhpSpreadsheet Calculation Examples</title>
 
 </head>
 <body>
@@ -19,14 +19,10 @@ date_default_timezone_set('Europe/London');
 <h2>Returns the serial number of a particular date.</h2>
 <?php
 
-/** Include path **/
-set_include_path(get_include_path() . PATH_SEPARATOR . '../../../../Classes/');
+require_once __DIR__ . '/../../../../src/Bootstrap.php';
 
-/** Include PHPExcel */
-include 'PHPExcel.php';
-
-// Create new PHPExcel object
-$spreadsheet = new PHPExcel();
+// Create new PhpSpreadsheet object
+$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 $worksheet = $spreadsheet->getActiveSheet();
 
 // Add some data
@@ -77,3 +73,5 @@ echo '<hr />';
     }
     ?>
 </table>
+</body>
+</html>

@@ -10,20 +10,16 @@ date_default_timezone_set('Europe/London');
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>PHPExcel Reader Example #10</title>
+<title>PhpSpreadsheet Reader Example #10</title>
 
 </head>
 <body>
 
-<h1>PHPExcel Reader Example #10</h1>
+<h1>PhpSpreadsheet Reader Example #10</h1>
 <h2>Simple File Reader Using a Configurable Read Filter</h2>
 <?php
 
-/** Include path **/
-set_include_path(get_include_path() . PATH_SEPARATOR . '../../../Classes/');
-
-/** \PhpOffice\PhpSpreadsheet\IOFactory */
-include 'PHPExcel/IOFactory.php';
+require_once __DIR__ . '/../../../src/Bootstrap.php';
 
 $inputFileType = 'Xls';
 //	$inputFileType = 'Xlsx';

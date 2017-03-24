@@ -1,24 +1,25 @@
 <?php
 
+error_reporting(E_ALL);
+set_time_limit(0);
+
+date_default_timezone_set('Europe/London');
+
 ?>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>PHPExcel Reader Example #15</title>
+<title>PhpSpreadsheet Reader Example #15</title>
 
 </head>
 <body>
 
-<h1>PHPExcel Reader Example #15</h1>
+<h1>PhpSpreadsheet Reader Example #15</h1>
 <h2>Simple File Reader for Tab-Separated Value File using the Advanced Value Binder</h2>
 <?php
 
-/** Include path **/
-set_include_path(get_include_path() . PATH_SEPARATOR . '../../../Classes/');
-
-/** \PhpOffice\PhpSpreadsheet\IOFactory */
-include 'PHPExcel/IOFactory.php';
+require_once __DIR__ . '/../../../src/Bootstrap.php';
 
 \PhpOffice\PhpSpreadsheet\Cell::setValueBinder(new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder());
 

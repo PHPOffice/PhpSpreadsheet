@@ -1,24 +1,25 @@
 <?php
 
+error_reporting(E_ALL);
+set_time_limit(0);
+
+date_default_timezone_set('Europe/London');
+
 ?>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>PHPExcel Reader Example #15</title>
+<title>PhpSpreadsheet Reader Example #14</title>
 
 </head>
 <body>
 
-<h1>PHPExcel Reader Example #14</h1>
+<h1>PhpSpreadsheet Reader Example #14</h1>
 <h2>Reading a Large CSV file in "Chunks" to split across multiple Worksheets</h2>
 <?php
 
-/** Include path **/
-set_include_path(get_include_path() . PATH_SEPARATOR . '../../../Classes/');
-
-/** \PhpOffice\PhpSpreadsheet\IOFactory */
-include 'PHPExcel/IOFactory.php';
+require_once __DIR__ . '/../../../src/Bootstrap.php';
 
 $inputFileType = 'Csv';
 $inputFileName = './sampleData/example2.csv';
@@ -69,8 +70,8 @@ $chunkFilter = new chunkReadFilter();
 $reader->setReadFilter($chunkFilter)
           ->setContiguous(true);
 
-/*  Instantiate a new PHPExcel object manually  **/
-$spreadsheet = new PHPExcel();
+/*  Instantiate a new PhpSpreadsheet object manually  **/
+$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
 /*  Set a sheet index  **/
 $sheet = 0;
@@ -83,7 +84,7 @@ for ($startRow = 2; $startRow <= 240; $startRow += $chunkSize) {
 
     /*  Increment the worksheet index pointer for the Reader  **/
     $reader->setSheetIndex($sheet);
-    /*  Load only the rows that match our filter into a new worksheet in the PHPExcel Object  **/
+    /*  Load only the rows that match our filter into a new worksheet in the PhpSpreadsheet Object  **/
     $reader->loadIntoExisting($inputFileName, $spreadsheet);
     /*  Set the worksheet title (to reference the "sheet" of data that we've loaded)  **/
     /*    and increment the sheet index as well  **/

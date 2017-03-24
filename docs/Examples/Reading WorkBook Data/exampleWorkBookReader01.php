@@ -10,27 +10,23 @@ date_default_timezone_set('Europe/London');
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>PHPExcel Reading WorkBook Data Example #01</title>
+<title>PhpSpreadsheet Reading WorkBook Data Example #01</title>
 
 </head>
 <body>
 
-<h1>PHPExcel Reading WorkBook Data Example #01</h1>
+<h1>PhpSpreadsheet Reading WorkBook Data Example #01</h1>
 <h2>Read the WorkBook Properties</h2>
 <?php
 
-/** Include path **/
-set_include_path(get_include_path() . PATH_SEPARATOR . '../../../Classes/');
-
-/** \PhpOffice\PhpSpreadsheet\IOFactory */
-include 'PHPExcel/IOFactory.php';
+require_once __DIR__ . '/../../../src/Bootstrap.php';
 
 $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 
 /*  Create a new Reader of the type defined in $inputFileType  **/
 $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
-/*  Load $inputFileName to a PHPExcel Object  **/
+/*  Load $inputFileName to a PhpSpreadsheet Object  **/
 $spreadsheet = $reader->load($inputFileName);
 
 echo '<hr />';
