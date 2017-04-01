@@ -22,10 +22,7 @@ class SampleTest extends \PHPUnit_Framework_TestCase
 
     public function providerSample()
     {
-        $skipped = [
-            '21 Pdf', // for now we don't have 3rdparty libs to tests PDF, but it should be added
-            '06 Largescale with cellcaching sqlite3', // Travis started crashing after they upgraded from PHP 7.0.13 to 7.0.14, so we disable it for now
-        ];
+        $skipped = [];
 
         // Unfortunately some tests are too long be ran with code-coverage
         // analysis on Travis, so we need to exclude them
