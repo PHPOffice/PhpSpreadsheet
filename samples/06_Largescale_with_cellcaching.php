@@ -2,7 +2,7 @@
 
 require __DIR__ . '/Header.php';
 
-$cacheMethod = \PhpOffice\PhpSpreadsheet\CachedObjectStorageFactory::CACHE_IN_MEMORY_GZIP;
+$cacheMethod = \PhpOffice\PhpSpreadsheet\CellsFactory::CACHE_IN_MEMORY_GZIP;
 if (\PhpOffice\PhpSpreadsheet\Settings::setCacheStorageMethod($cacheMethod)) {
     $helper->log('Enable Cell Caching using ' . $cacheMethod . ' method');
 } else {

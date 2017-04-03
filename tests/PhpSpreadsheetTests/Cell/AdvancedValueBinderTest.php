@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
-use PhpOffice\PhpSpreadsheet\CachedObjectStorage\Memory;
+use PhpOffice\PhpSpreadsheet\Collection\Cells\Memory;
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;

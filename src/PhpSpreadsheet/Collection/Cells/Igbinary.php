@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheet\CachedObjectStorage;
+namespace PhpOffice\PhpSpreadsheet\Collection\Cells;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -24,7 +24,7 @@ namespace PhpOffice\PhpSpreadsheet\CachedObjectStorage;
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
-class MemorySerialized extends CacheBase implements ICache
+class Igbinary extends CacheBase implements ICache
 {
     /**
      * Store cell data in cache for the current cell object if it's "dirty",
@@ -37,11 +37,13 @@ class MemorySerialized extends CacheBase implements ICache
         if ($this->currentCellIsDirty && !empty($this->currentObjectID)) {
             $this->currentObject->detach();
 
-            $this->cellCache[$this->currentObjectID] = serialize($this->currentObject);
+            $this->cellCache[$this->currentObjectID] = igbinary_serialize($this->currentObject);
             $this->currentCellIsDirty = false;
         }
         $this->currentObjectID = $this->currentObject = null;
     }
+
+    //    function _storeData()
 
     /**
      * Add or Update a cell in cache identified by coordinate address.
@@ -90,13 +92,15 @@ class MemorySerialized extends CacheBase implements ICache
 
         //    Set current entry to the requested entry
         $this->currentObjectID = $pCoord;
-        $this->currentObject = unserialize($this->cellCache[$pCoord]);
+        $this->currentObject = igbinary_unserialize($this->cellCache[$pCoord]);
         //    Re-attach this as the cell's parent
         $this->currentObject->attach($this);
 
         //    Return requested entry
         return $this->currentObject;
     }
+
+    //    function getCacheData()
 
     /**
      * Get a list of all cell addresses currently held in cache.
@@ -125,5 +129,22 @@ class MemorySerialized extends CacheBase implements ICache
 
         //    detach ourself from the worksheet, so that it can then delete this object successfully
         $this->parent = null;
+    }
+
+    //    function unsetWorksheetCells()
+
+    /**
+     * Identify whether the caching method is currently available
+     * Some methods are dependent on the availability of certain extensions being enabled in the PHP build.
+     *
+     * @return bool
+     */
+    public static function cacheMethodIsAvailable()
+    {
+        if (!function_exists('igbinary_serialize')) {
+            return false;
+        }
+
+        return true;
     }
 }
