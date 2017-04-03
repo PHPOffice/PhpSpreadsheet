@@ -172,8 +172,6 @@ class Csv extends BaseReader implements IReader
         $this->skipBOM();
         $this->checkSeparator();
 
-        $escapeEnclosures = ['\\' . $this->enclosure, $this->enclosure . $this->enclosure];
-
         $worksheetInfo = [];
         $worksheetInfo[0]['worksheetName'] = 'Worksheet';
         $worksheetInfo[0]['lastColumnLetter'] = 'A';
@@ -246,11 +244,6 @@ class Csv extends BaseReader implements IReader
         }
         $sheet = $spreadsheet->setActiveSheetIndex($this->sheetIndex);
 
-        $escapeEnclosures = [
-            '\\' . $this->enclosure,
-            $this->enclosure . $this->enclosure,
-        ];
-
         // Set our starting row based on whether we're in contiguous mode or not
         $currentRow = 1;
         if ($this->contiguous) {
@@ -262,9 +255,6 @@ class Csv extends BaseReader implements IReader
             $columnLetter = 'A';
             foreach ($rowData as $rowDatum) {
                 if ($rowDatum != '' && $this->readFilter->readCell($columnLetter, $currentRow)) {
-                    // Unescape enclosures
-                    $rowDatum = str_replace($escapeEnclosures, $this->enclosure, $rowDatum);
-
                     // Convert encoding if necessary
                     if ($this->inputEncoding !== 'UTF-8') {
                         $rowDatum = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertEncoding($rowDatum, 'UTF-8', $this->inputEncoding);
