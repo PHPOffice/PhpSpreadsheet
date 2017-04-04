@@ -1451,6 +1451,48 @@
 		<td></td>
 		<td></td>
 	</tr>
+	<tr>
+		<td><strong>Macros</strong></td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td>$spreadsheet->getMacrosCode();</td>
+		<td>$spreadsheet->setMacrosCode();</td>
+	</tr>
+	<tr>
+		<th></th>
+		<th>XLS</th>
+		<th>XLSX</th>
+		<th>Excel2003XML</th>
+		<th>Ods</th>
+		<th>Gnumeric</th>
+		<th>CSV</th>
+		<th>SYLK</th>
+		<th>XLS</th>
+		<th>XLSX</th>
+		<th>Ods</th>
+		<th>CSV</th>
+		<th>HTML</th>
+		<th>PDF</th>
+		<th>Getters</th>
+		<th>Setters</th>
+	</tr>
+	<tr>
+		<th></th>
+		<th colspan="7">Readers</th>
+		<th colspan="6">Writers</th>
+		<th colspan="2">Methods</th>
+	</tr>
 </table>
 
 1. Only BIFF8 files support Rich Text. Prior to that, comments could only be plain text
