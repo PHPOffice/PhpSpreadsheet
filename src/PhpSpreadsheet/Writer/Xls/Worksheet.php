@@ -2838,11 +2838,10 @@ class Worksheet extends BIFFwriter
                         break;
                 }
 
-                $type = (int) $type;
                 $options |= $type << 0;
 
                 // error style
-                $errorStyle = $dataValidation->getType();
+                $errorStyle = $dataValidation->getErrorStyle();
                 switch ($errorStyle) {
                     case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_STOP:
                         $errorStyle = 0x00;
@@ -2855,7 +2854,6 @@ class Worksheet extends BIFFwriter
                         break;
                 }
 
-                $errorStyle = (int) $errorStyle;
                 $options |= $errorStyle << 4;
 
                 // explicit formula?
@@ -2904,7 +2902,6 @@ class Worksheet extends BIFFwriter
                         break;
                 }
 
-                $operator = (int) $operator;
                 $options |= $operator << 20;
 
                 $data = pack('V', $options);

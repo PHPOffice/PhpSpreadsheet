@@ -84,7 +84,7 @@ class DataValidation
      *
      * @var string
      */
-    private $operator = '';
+    private $operator = self::OPERATOR_BETWEEN;
 
     /**
      * Allow Blank.
