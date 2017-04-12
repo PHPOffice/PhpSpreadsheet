@@ -1273,21 +1273,21 @@
 	</tr>
 	<tr>
         <td><strong>Cell Validation</strong></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
+		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center; color: red;">✖</td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td>$cell->getDataValidation()</td>
+		<td>$cell->setDataValidation()</td>
 	</tr>
 	<tr>
 		<td><strong>AutoFilters</strong></td>
@@ -1304,8 +1304,8 @@
 		<td></td>
 		<td></td>
 		<td></td>
-		<td>$spreadsheet-&gt;getActivesheet()-&gt;getAutoFilter()</td>
-		<td>$spreadsheet-&gt;getActivesheet()-&gt;setAutoFilter()</td>
+		<td>$sheet->getAutoFilter()</td>
+		<td>$sheet->setAutoFilter()</td>
 	</tr>
 	<tr>
 		<td style="padding-left: 1em;">AutoFilter Expressions</td>
