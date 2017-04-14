@@ -287,8 +287,6 @@ class Worksheet extends BIFFwriter
     {
         $phpSheet = $this->phpSheet;
 
-        $num_sheets = $phpSheet->getParent()->getSheetCount();
-
         // Write BOF record
         $this->storeBof(0x0010);
 
@@ -405,9 +403,9 @@ class Worksheet extends BIFFwriter
             $row = $cell->getRow() - 1;
             $column = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($cell->getColumn()) - 1;
 
-            // Don't break Excel!
+            // Don't break Excel break the code!
             if ($row > 65535 || $column > 255) {
-                break;
+                throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Rows or columns overflow! Excel5 has limit to 65535 rows and 255 columns. Use XLSX instead.');
             }
 
             // Write cell value
