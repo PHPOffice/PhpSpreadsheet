@@ -405,7 +405,7 @@ class Worksheet extends BIFFwriter
 
             // Don't break Excel break the code!
             if ($row > 65535 || $column > 255) {
-                throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Rows or coluumns overflow! Excel5 has limit to 65535 rows and 255 columns. Use Excel2007 instead.');
+                throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Rows or columns overflow! Excel5 has limit to 65535 rows and 255 columns. Use XLSX instead.');
             }
 
             // Write cell value
