@@ -467,8 +467,11 @@ class StringHelper
      */
     public static function convertEncoding($value, $to, $from)
     {
-        if (self::getIsIconvEnabled() && false !== $result = iconv($from, $to . '//IGNORE//TRANSLIT', $value)) {
-            return $result;
+        if (self::getIsIconvEnabled()) {
+            $result = iconv($from, $to . '//IGNORE//TRANSLIT', $value);
+            if (false !== $result) {
+                return $result;
+            }
         }
 
         return mb_convert_encoding($value, $to, $from);
