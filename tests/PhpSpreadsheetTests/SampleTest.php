@@ -30,8 +30,6 @@ class SampleTest extends \PHPUnit_Framework_TestCase
         if (in_array('--coverage-clover', $argv)) {
             $tooLongToBeCovered = [
                 '06 Largescale',
-                '06 Largescale with cellcaching',
-                '06 Largescale with cellcaching sqlite3',
                 '13 CalculationCyclicFormulae',
             ];
             $skipped = array_merge($skipped, $tooLongToBeCovered);

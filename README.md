@@ -38,10 +38,6 @@ PhpSpreadsheet is a library written in pure PHP and providing a set of classes t
  * PHP extension php_xml enabled
  * PHP extension php_gd2 enabled (optional, but required for exact column width autocalculation)
 
-*Note:* PHP 5.6.29 has [a bug](https://bugs.php.net/bug.php?id=73530) that
-prevents SQLite3 caching to work correctly. Use a newer (or older) versions of
-PHP if you need SQLite3 caching.
-
 ## PHP version support
 
 Support for PHP versions will only be maintained for a period of six months beyond the end-of-life of that PHP version
