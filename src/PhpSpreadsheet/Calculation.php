@@ -3663,7 +3663,7 @@ class Calculation
                             $this->debugLog->writeDebugLog('Evaluation Result for cell ', $cellRef, ' in worksheet ', $matches[2], ' is ', $this->showTypeDetails($cellValue));
                         } else {
                             $this->debugLog->writeDebugLog('Evaluating Cell ', $cellRef, ' in current worksheet');
-                            if ($pCellParent->isDataSet($cellRef)) {
+                            if ($pCellParent->has($cellRef)) {
                                 $cellValue = $this->extractCellRange($cellRef, $pCellWorksheet, false);
                                 $pCell->attach($pCellParent);
                             } else {

@@ -786,8 +786,8 @@ class Spreadsheet
         $pSheet->rebindParent($this);
 
         // update the cellXfs
-        foreach ($pSheet->getCellCollection(false) as $cellID) {
-            $cell = $pSheet->getCell($cellID);
+        foreach ($pSheet->getCoordinates(false) as $coordinate) {
+            $cell = $pSheet->getCell($coordinate);
             $cell->setXfIndex($cell->getXfIndex() + $countCellXfs);
         }
 
@@ -1010,8 +1010,8 @@ class Spreadsheet
 
         // then update cellXf indexes for cells
         foreach ($this->workSheetCollection as $worksheet) {
-            foreach ($worksheet->getCellCollection(false) as $cellID) {
-                $cell = $worksheet->getCell($cellID);
+            foreach ($worksheet->getCoordinates(false) as $coordinate) {
+                $cell = $worksheet->getCell($coordinate);
                 $xfIndex = $cell->getXfIndex();
                 if ($xfIndex > $pIndex) {
                     // decrease xf index by 1
@@ -1114,8 +1114,8 @@ class Spreadsheet
 
         foreach ($this->getWorksheetIterator() as $sheet) {
             // from cells
-            foreach ($sheet->getCellCollection(false) as $cellID) {
-                $cell = $sheet->getCell($cellID);
+            foreach ($sheet->getCoordinates(false) as $coordinate) {
+                $cell = $sheet->getCell($coordinate);
                 ++$countReferencesCellXf[$cell->getXfIndex()];
             }
 
@@ -1158,8 +1158,8 @@ class Spreadsheet
         // update the xfIndex for all cells, row dimensions, column dimensions
         foreach ($this->getWorksheetIterator() as $sheet) {
             // for all cells
-            foreach ($sheet->getCellCollection(false) as $cellID) {
-                $cell = $sheet->getCell($cellID);
+            foreach ($sheet->getCoordinates(false) as $coordinate) {
+                $cell = $sheet->getCell($coordinate);
                 $cell->setXfIndex($map[$cell->getXfIndex()]);
             }
 

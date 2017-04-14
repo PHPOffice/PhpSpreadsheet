@@ -387,9 +387,9 @@ class ReferenceHelper
     public function insertNewBefore($pBefore = 'A1', $pNumCols = 0, $pNumRows = 0, Worksheet $pSheet = null)
     {
         $remove = ($pNumCols < 0 || $pNumRows < 0);
-        $aCellCollection = $pSheet->getCellCollection();
+        $allCoordinates = $pSheet->getCoordinates();
 
-        // Get coordinates of $pBefore
+        // Get coordinate of $pBefore
         $beforeColumn = 'A';
         $beforeRow = 1;
         list($beforeColumn, $beforeRow) = Cell::coordinateFromString($pBefore);
@@ -427,39 +427,39 @@ class ReferenceHelper
             }
         }
 
-        // Loop through cells, bottom-up, and change cell coordinates
+        // Loop through cells, bottom-up, and change cell coordinate
         if ($remove) {
             // It's faster to reverse and pop than to use unshift, especially with large cell collections
-            $aCellCollection = array_reverse($aCellCollection);
+            $allCoordinates = array_reverse($allCoordinates);
         }
-        while ($cellID = array_pop($aCellCollection)) {
-            $cell = $pSheet->getCell($cellID);
+        while ($coordinate = array_pop($allCoordinates)) {
+            $cell = $pSheet->getCell($coordinate);
             $cellIndex = Cell::columnIndexFromString($cell->getColumn());
 
             if ($cellIndex - 1 + $pNumCols < 0) {
                 continue;
             }
 
-            // New coordinates
-            $newCoordinates = Cell::stringFromColumnIndex($cellIndex - 1 + $pNumCols) . ($cell->getRow() + $pNumRows);
+            // New coordinate
+            $newCoordinate = Cell::stringFromColumnIndex($cellIndex - 1 + $pNumCols) . ($cell->getRow() + $pNumRows);
 
             // Should the cell be updated? Move value and cellXf index from one cell to another.
             if (($cellIndex >= $beforeColumnIndex) && ($cell->getRow() >= $beforeRow)) {
                 // Update cell styles
-                $pSheet->getCell($newCoordinates)->setXfIndex($cell->getXfIndex());
+                $pSheet->getCell($newCoordinate)->setXfIndex($cell->getXfIndex());
 
                 // Insert this cell at its new location
                 if ($cell->getDataType() == Cell\DataType::TYPE_FORMULA) {
                     // Formula should be adjusted
-                    $pSheet->getCell($newCoordinates)
+                    $pSheet->getCell($newCoordinate)
                             ->setValue($this->updateFormulaReferences($cell->getValue(), $pBefore, $pNumCols, $pNumRows, $pSheet->getTitle()));
                 } else {
                     // Formula should not be adjusted
-                    $pSheet->getCell($newCoordinates)->setValue($cell->getValue());
+                    $pSheet->getCell($newCoordinate)->setValue($cell->getValue());
                 }
 
                 // Clear the original cell
-                $pSheet->getCellCacheController()->deleteCacheData($cellID);
+                $pSheet->getCellCollection()->delete($coordinate);
             } else {
                 /*    We don't need to update styles for rows/columns before our insertion position,
                         but we do still need to adjust any formulae    in those cells                    */
@@ -818,8 +818,8 @@ class ReferenceHelper
         }
 
         foreach ($spreadsheet->getWorksheetIterator() as $sheet) {
-            foreach ($sheet->getCellCollection(false) as $cellID) {
-                $cell = $sheet->getCell($cellID);
+            foreach ($sheet->getCoordinates(false) as $coordinate) {
+                $cell = $sheet->getCell($coordinate);
                 if (($cell !== null) && ($cell->getDataType() == Cell\DataType::TYPE_FORMULA)) {
                     $formula = $cell->getValue();
                     if (strpos($formula, $oldName) !== false) {
@@ -886,10 +886,10 @@ class ReferenceHelper
     private function updateSingleCellReference($pCellReference = 'A1', $pBefore = 'A1', $pNumCols = 0, $pNumRows = 0)
     {
         if (strpos($pCellReference, ':') === false && strpos($pCellReference, ',') === false) {
-            // Get coordinates of $pBefore
+            // Get coordinate of $pBefore
             list($beforeColumn, $beforeRow) = Cell::coordinateFromString($pBefore);
 
-            // Get coordinates of $pCellReference
+            // Get coordinate of $pCellReference
             list($newColumn, $newRow) = Cell::coordinateFromString($pCellReference);
 
             // Verify which parts should be updated

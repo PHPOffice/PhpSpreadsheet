@@ -3,6 +3,8 @@
 namespace PhpOffice\PhpSpreadsheet;
 
 use ArrayObject;
+use PhpOffice\PhpSpreadsheet\Collection\Cells;
+use PhpOffice\PhpSpreadsheet\Collection\CellsFactory;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -53,9 +55,9 @@ class Worksheet implements IComparable
     private $parent;
 
     /**
-     * Cacheable collection of cells.
+     * Collection of cells.
      *
-     * @var CachedObjectStorage_xxx
+     * @var Cells
      */
     private $cellCollection;
 
@@ -340,7 +342,7 @@ class Worksheet implements IComparable
         $this->setCodeName($this->getTitle());
         $this->setSheetState(self::SHEETSTATE_VISIBLE);
 
-        $this->cellCollection = CachedObjectStorageFactory::getInstance($this);
+        $this->cellCollection = CellsFactory::getInstance($this);
         // Set page setup
         $this->pageSetup = new Worksheet\PageSetup();
         // Set page margins
@@ -387,11 +389,11 @@ class Worksheet implements IComparable
     }
 
     /**
-     * Return the cache controller for the cell collection.
+     * Return the cell collection.
      *
-     * @return CachedObjectStorage_xxx
+     * @return Cells
      */
-    public function getCellCacheController()
+    public function getCellCollection()
     {
         return $this->cellCollection;
     }
@@ -461,37 +463,23 @@ class Worksheet implements IComparable
     }
 
     /**
-     * Get collection of cells.
+     * Get a sorted list of all cell coordinates currently held in the collection by row and column.
      *
-     * @param bool $pSorted Also sort the cell collection?
+     * @param bool $sorted Also sort the cell collection?
      *
-     * @return Cell[]
+     * @return string[]
      */
-    public function getCellCollection($pSorted = true)
+    public function getCoordinates($sorted = true)
     {
-        if ($pSorted) {
-            // Re-order cell collection
-            return $this->sortCellCollection();
-        }
-        if ($this->cellCollection !== null) {
-            return $this->cellCollection->getCellList();
+        if ($this->cellCollection == null) {
+            return [];
         }
 
-        return [];
-    }
-
-    /**
-     * Sort collection of cells.
-     *
-     * @return Worksheet
-     */
-    public function sortCellCollection()
-    {
-        if ($this->cellCollection !== null) {
-            return $this->cellCollection->getSortedCellList();
+        if ($sorted) {
+            return $this->cellCollection->getSortedCoordinates();
         }
 
-        return [];
+        return $this->cellCollection->getCoordinates();
     }
 
     /**
@@ -737,11 +725,11 @@ class Worksheet implements IComparable
             }
 
             // loop through all cells in the worksheet
-            foreach ($this->getCellCollection(false) as $cellID) {
-                $cell = $this->getCell($cellID, false);
+            foreach ($this->getCoordinates(false) as $coordinate) {
+                $cell = $this->getCell($coordinate, false);
                 if ($cell !== null && isset($autoSizes[$this->cellCollection->getCurrentColumn()])) {
                     //Determine if cell is in merge range
-                    $isMerged = isset($isMergeCell[$this->cellCollection->getCurrentAddress()]);
+                    $isMerged = isset($isMergeCell[$this->cellCollection->getCurrentCoordinate()]);
 
                     //By default merged cells should be ignored
                     $isMergedButProceed = false;
@@ -1201,8 +1189,8 @@ class Worksheet implements IComparable
     public function getCell($pCoordinate = 'A1', $createIfNotExists = true)
     {
         // Check cell collection
-        if ($this->cellCollection->isDataSet(strtoupper($pCoordinate))) {
-            return $this->cellCollection->getCacheData($pCoordinate);
+        if ($this->cellCollection->has(strtoupper($pCoordinate))) {
+            return $this->cellCollection->get($pCoordinate);
         }
 
         // Worksheet reference?
@@ -1251,8 +1239,8 @@ class Worksheet implements IComparable
         $columnLetter = Cell::stringFromColumnIndex($pColumn);
         $coordinate = $columnLetter . $pRow;
 
-        if ($this->cellCollection->isDataSet($coordinate)) {
-            return $this->cellCollection->getCacheData($coordinate);
+        if ($this->cellCollection->has($coordinate)) {
+            return $this->cellCollection->get($coordinate);
         }
 
         // Create new cell object, if required
@@ -1268,10 +1256,8 @@ class Worksheet implements IComparable
      */
     private function createNewCell($pCoordinate)
     {
-        $cell = $this->cellCollection->addCacheData(
-            $pCoordinate,
-            new Cell(null, Cell\DataType::TYPE_NULL, $this)
-        );
+        $cell = new Cell(null, Cell\DataType::TYPE_NULL, $this);
+        $this->cellCollection->add($pCoordinate, $cell);
         $this->cellCollectionIsSorted = false;
 
         // Coordinates
@@ -1344,7 +1330,7 @@ class Worksheet implements IComparable
             $aCoordinates = Cell::coordinateFromString($pCoordinate);
 
             // Cell exists?
-            return $this->cellCollection->isDataSet($pCoordinate);
+            return $this->cellCollection->has($pCoordinate);
     }
 
     /**
@@ -2129,7 +2115,7 @@ class Worksheet implements IComparable
             $objReferenceHelper = ReferenceHelper::getInstance();
             $objReferenceHelper->insertNewBefore('A' . ($pRow + $pNumRows), 0, -$pNumRows, $this);
             for ($r = 0; $r < $pNumRows; ++$r) {
-                $this->getCellCacheController()->removeRow($highestRow);
+                $this->getCellCollection()->removeRow($highestRow);
                 --$highestRow;
             }
         } else {
@@ -2157,7 +2143,7 @@ class Worksheet implements IComparable
             $objReferenceHelper = ReferenceHelper::getInstance();
             $objReferenceHelper->insertNewBefore($pColumn . '1', -$pNumCols, 0, $this);
             for ($c = 0; $c < $pNumCols; ++$c) {
-                $this->getCellCacheController()->removeColumn($highestColumn);
+                $this->getCellCollection()->removeColumn($highestColumn);
                 $highestColumn = Cell::stringFromColumnIndex(Cell::columnIndexFromString($highestColumn) - 2);
             }
         } else {
@@ -2568,9 +2554,9 @@ class Worksheet implements IComparable
                 $cRef = ($returnCellRef) ? $col : ++$c;
                 //    Using getCell() will create a new cell if it doesn't already exist. We don't want that to happen
                 //        so we test and retrieve directly against cellCollection
-                if ($this->cellCollection->isDataSet($col . $row)) {
+                if ($this->cellCollection->has($col . $row)) {
                     // Cell exists
-                    $cell = $this->cellCollection->getCacheData($col . $row);
+                    $cell = $this->cellCollection->get($col . $row);
                     if ($cell->getValue() !== null) {
                         if ($cell->getValue() instanceof RichText) {
                             $returnValue[$rRef][$cRef] = $cell->getValue()->getPlainText();
@@ -2688,7 +2674,7 @@ class Worksheet implements IComparable
     public function garbageCollect()
     {
         // Flush cache
-        $this->cellCollection->getCacheData('A1');
+        $this->cellCollection->get('A1');
 
         // Lookup highest column and highest row if cells are cleaned
         $colRow = $this->cellCollection->getHighestRowAndColumn();
@@ -2973,8 +2959,7 @@ class Worksheet implements IComparable
 
             if (is_object($val) || (is_array($val))) {
                 if ($key == 'cellCollection') {
-                    $newCollection = clone $this->cellCollection;
-                    $newCollection->copyCellCollection($this);
+                    $newCollection = $this->cellCollection->cloneCellCollection($this);
                     $this->cellCollection = $newCollection;
                 } elseif ($key == 'drawingCollection') {
                     $newCollection = new ArrayObject();

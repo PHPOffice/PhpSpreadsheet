@@ -995,9 +995,9 @@ class Worksheet extends WriterPart
 
             // Loop through cells
             $cellsByRow = [];
-            foreach ($pSheet->getCellCollection() as $cellID) {
-                $cellAddress = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($cellID);
-                $cellsByRow[$cellAddress[1]][] = $cellID;
+            foreach ($pSheet->getCoordinates() as $coordinate) {
+                $cellAddress = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($coordinate);
+                $cellsByRow[$cellAddress[1]][] = $coordinate;
             }
 
             $currentRow = 0;

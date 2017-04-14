@@ -28,7 +28,8 @@
         "ext-iconv": "*",
         "ext-xml": "*",
         "ext-xmlwriter": "*",
-        "ext-zip": "*"
+        "ext-zip": "*",
+        "psr/simple-cache": "^1.0"
     },
     "require-dev": {
         "mpdf/mpdf": "^6.1",

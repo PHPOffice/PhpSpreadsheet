@@ -205,7 +205,7 @@ class OdsTest extends \PHPUnit_Framework_TestCase
 
     public function testReadBoldItalicUnderline()
     {
-        $this->markTestSkipped('Features not implemented yet');
+        $this->markTestIncomplete('Features not implemented yet');
 
         $spreadsheet = $this->loadOOCalcTestFile();
         $firstSheet = $spreadsheet->getSheet(0);

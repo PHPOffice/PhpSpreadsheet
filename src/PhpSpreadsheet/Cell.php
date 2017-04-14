@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\Collection\Cells;
+
 /**
  *    Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -67,9 +69,9 @@ class Cell
     private $dataType;
 
     /**
-     * Parent worksheet.
+     * Collection of cells.
      *
-     * @var CachedObjectStorage\CacheBase
+     * @var Cells
      */
     private $parent;
 
@@ -86,11 +88,13 @@ class Cell
     private $formulaAttributes;
 
     /**
-     * Send notification to the cache controller.
-     **/
-    public function notifyCacheController()
+     * Update the cell into the cell collection.
+     *
+     * @return self
+     */
+    public function updateInCollection()
     {
-        $this->parent->updateCacheData($this);
+        $this->parent->update($this);
 
         return $this;
     }
@@ -100,7 +104,7 @@ class Cell
         $this->parent = null;
     }
 
-    public function attach(CachedObjectStorage\CacheBase $parent)
+    public function attach(Cells $parent)
     {
         $this->parent = $parent;
     }
@@ -120,7 +124,7 @@ class Cell
         $this->value = $pValue;
 
         // Set worksheet cache
-        $this->parent = $pSheet->getCellCacheController();
+        $this->parent = $pSheet->getCellCollection();
 
         // Set datatype?
         if ($pDataType !== null) {
@@ -160,7 +164,7 @@ class Cell
      */
     public function getCoordinate()
     {
-        return $this->parent->getCurrentAddress();
+        return $this->parent->getCurrentCoordinate();
     }
 
     /**
@@ -253,7 +257,7 @@ class Cell
         // set the datatype
         $this->dataType = $pDataType;
 
-        return $this->notifyCacheController();
+        return $this->updateInCollection();
     }
 
     /**
@@ -313,7 +317,7 @@ class Cell
             $this->calculatedValue = (is_numeric($pValue)) ? (float) $pValue : $pValue;
         }
 
-        return $this->notifyCacheController();
+        return $this->updateInCollection();
     }
 
     /**
@@ -355,7 +359,7 @@ class Cell
         }
         $this->dataType = $pDataType;
 
-        return $this->notifyCacheController();
+        return $this->updateInCollection();
     }
 
     /**
@@ -417,7 +421,7 @@ class Cell
 
         $this->getWorksheet()->setDataValidation($this->getCoordinate(), $pDataValidation);
 
-        return $this->notifyCacheController();
+        return $this->updateInCollection();
     }
 
     /**
@@ -469,13 +473,13 @@ class Cell
 
         $this->getWorksheet()->setHyperlink($this->getCoordinate(), $pHyperlink);
 
-        return $this->notifyCacheController();
+        return $this->updateInCollection();
     }
 
     /**
-     * Get parent worksheet.
+     * Get cell collection.
      *
-     * @return CachedObjectStorage\CacheBase
+     * @return Cells
      */
     public function getParent()
     {
@@ -555,9 +559,9 @@ class Cell
      */
     public function rebindParent(Worksheet $parent)
     {
-        $this->parent = $parent->getCellCacheController();
+        $this->parent = $parent->getCellCollection();
 
-        return $this->notifyCacheController();
+        return $this->updateInCollection();
     }
 
     /**
@@ -1031,7 +1035,7 @@ class Cell
     {
         $this->xfIndex = $pValue;
 
-        return $this->notifyCacheController();
+        return $this->updateInCollection();
     }
 
     /**

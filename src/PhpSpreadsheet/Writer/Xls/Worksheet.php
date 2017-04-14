@@ -400,13 +400,12 @@ class Worksheet extends BIFFwriter
         }
 
         // Write Cells
-        foreach ($phpSheet->getCellCollection() as $cellID) {
-            $cell = $phpSheet->getCell($cellID);
+        foreach ($phpSheet->getCoordinates() as $coordinate) {
+            $cell = $phpSheet->getCell($coordinate);
             $row = $cell->getRow() - 1;
             $column = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($cell->getColumn()) - 1;
 
             // Don't break Excel!
-//            if ($row + 1 > 65536 or $column + 1 > 256) {
             if ($row > 65535 || $column > 255) {
                 break;
             }

@@ -148,8 +148,8 @@ class Xls extends BaseWriter implements IWriter
 
         // add fonts from rich text eleemnts
         for ($i = 0; $i < $countSheets; ++$i) {
-            foreach ($this->writerWorksheets[$i]->phpSheet->getCellCollection() as $cellID) {
-                $cell = $this->writerWorksheets[$i]->phpSheet->getCell($cellID);
+            foreach ($this->writerWorksheets[$i]->phpSheet->getCoordinates() as $coordinate) {
+                $cell = $this->writerWorksheets[$i]->phpSheet->getCell($coordinate);
                 $cVal = $cell->getValue();
                 if ($cVal instanceof \PhpOffice\PhpSpreadsheet\RichText) {
                     $elements = $cVal->getRichTextElements();

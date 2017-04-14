@@ -2,6 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\Collection\Memory;
+use Psr\SimpleCache\CacheInterface;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -37,7 +40,6 @@ class Settings
     private static $chartRenderers = [
         self::CHART_RENDERER_JPGRAPH,
     ];
-
     private static $pdfRenderers = [
         self::PDF_RENDERER_TCPDF,
         self::PDF_RENDERER_DOMPDF,
@@ -77,37 +79,11 @@ class Settings
     private static $libXmlLoaderOptions = null;
 
     /**
-     * Return the name of the method that is currently configured for cell cacheing.
+     * The cache implementation to be used for cell collection.
      *
-     * @return string Name of the cacheing method
+     * @var CacheInterface
      */
-    public static function getCacheStorageMethod()
-    {
-        return CachedObjectStorageFactory::getCacheStorageMethod();
-    }
-
-    /**
-     * Return the name of the class that is currently being used for cell cacheing.
-     *
-     * @return string Name of the class currently being used for cacheing
-     */
-    public static function getCacheStorageClass()
-    {
-        return CachedObjectStorageFactory::getCacheStorageClass();
-    }
-
-    /**
-     * Set the method that should be used for cell caching.
-     *
-     * @param string $method Name of the caching method
-     * @param array $arguments Optional configuration arguments for the caching method
-     *
-     * @return bool Success or failure
-     */
-    public static function setCacheStorageMethod($method = CachedObjectStorageFactory::CACHE_IN_MEMORY, $arguments = [])
-    {
-        return CachedObjectStorageFactory::initialize($method, $arguments);
-    }
+    private static $cache;
 
     /**
      * Set the locale code to use for formula translations and any special formatting.
@@ -255,5 +231,29 @@ class Settings
         }
 
         return self::$libXmlLoaderOptions;
+    }
+
+    /**
+     * Sets the implementation of cache that should be used for cell collection.
+     *
+     * @param CacheInterface $cache
+     */
+    public static function setCache(CacheInterface $cache)
+    {
+        self::$cache = $cache;
+    }
+
+    /**
+     * Gets the implementation of cache that should be used for cell collection.
+     *
+     * @return CacheInterface
+     */
+    public static function getCache()
+    {
+        if (!self::$cache) {
+            self::$cache = new Memory();
+        }
+
+        return self::$cache;
     }
 }
