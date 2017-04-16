@@ -251,7 +251,7 @@ class Date
      *
      * @return float MS Excel serialized date/time value
      */
-    public static function dateTimeToExcel(\DateTimeInterface $dateValue = null)
+    public static function dateTimeToExcel(\DateTimeInterface $dateValue)
     {
         return self::formattedPHPToExcel(
             $dateValue->format('Y'),

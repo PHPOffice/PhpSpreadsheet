@@ -90,7 +90,7 @@ class Drawing extends WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function writeChart(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpOffice\PhpSpreadsheet\Chart $pChart = null, $pRelationId = -1)
+    public function writeChart(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Chart $pChart, $pRelationId = -1)
     {
         $tl = $pChart->getTopLeftPosition();
         $tl['colRow'] = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($tl['cell']);
@@ -293,7 +293,7 @@ class Drawing extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeVMLHeaderFooterImages(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet = null)
+    public function writeVMLHeaderFooterImages(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet)
     {
         // Create XML writer
         $objWriter = null;
@@ -442,7 +442,7 @@ class Drawing extends WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeVMLHeaderFooterImage(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pReference = '', \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing $pImage = null)
+    private function writeVMLHeaderFooterImage(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, $pReference, \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing $pImage)
     {
         // Calculate object id
         preg_match('{(\d+)}', md5($pReference), $m);
@@ -485,7 +485,7 @@ class Drawing extends WriterPart
      *
      * @return \PhpOffice\PhpSpreadsheet\Worksheet\Drawing[] All drawings in PhpSpreadsheet
      */
-    public function allDrawings(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function allDrawings(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
     {
         // Get an array of all drawings
         $aDrawings = [];

@@ -136,7 +136,7 @@ class Xf
      *
      * @param \PhpOffice\PhpSpreadsheet\Style The XF format
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Style $style = null)
+    public function __construct(\PhpOffice\PhpSpreadsheet\Style $style)
     {
         $this->isStyleXf = false;
         $this->fontIndex = 0;

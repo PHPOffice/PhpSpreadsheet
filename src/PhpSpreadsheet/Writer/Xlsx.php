@@ -111,7 +111,7 @@ class Xlsx extends BaseWriter implements IWriter
      *
      * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet = null)
+    public function __construct(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
     {
         // Assign PhpSpreadsheet
         $this->setSpreadsheet($spreadsheet);
@@ -411,7 +411,7 @@ class Xlsx extends BaseWriter implements IWriter
      *
      * @return Xlsx
      */
-    public function setSpreadsheet(Spreadsheet $spreadsheet = null)
+    public function setSpreadsheet(Spreadsheet $spreadsheet)
     {
         $this->spreadSheet = $spreadsheet;
 

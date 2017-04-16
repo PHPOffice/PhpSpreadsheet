@@ -81,7 +81,7 @@ class HashTable
      *
      * @throws Exception
      */
-    public function add(IComparable $pSource = null)
+    public function add(IComparable $pSource)
     {
         $hash = $pSource->getHashCode();
         if (!isset($this->items[$hash])) {
@@ -97,7 +97,7 @@ class HashTable
      *
      * @throws Exception
      */
-    public function remove(IComparable $pSource = null)
+    public function remove(IComparable $pSource)
     {
         $hash = $pSource->getHashCode();
         if (isset($this->items[$hash])) {

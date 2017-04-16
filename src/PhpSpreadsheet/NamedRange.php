@@ -238,7 +238,7 @@ class NamedRange
      *
      * @return NamedRange
      */
-    public static function resolveRange($pNamedRange, Worksheet $pSheet = null)
+    public static function resolveRange($pNamedRange, Worksheet $pSheet)
     {
         return $pSheet->getParent()->getNamedRange($pNamedRange, $pSheet);
     }

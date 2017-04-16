@@ -35,7 +35,7 @@ class Rels extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeRelationships(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function writeRelationships(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
     {
         // Create XML writer
         $objWriter = null;
@@ -110,7 +110,7 @@ class Rels extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeWorkbookRelationships(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function writeWorkbookRelationships(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
     {
         // Create XML writer
         $objWriter = null;
@@ -193,7 +193,7 @@ class Rels extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeWorksheetRelationships(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet = null, $pWorksheetId = 1, $includeCharts = false)
+    public function writeWorksheetRelationships(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet, $pWorksheetId = 1, $includeCharts = false)
     {
         // Create XML writer
         $objWriter = null;
@@ -353,7 +353,7 @@ class Rels extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeHeaderFooterDrawingRelationships(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet = null)
+    public function writeHeaderFooterDrawingRelationships(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet)
     {
         // Create XML writer
         $objWriter = null;

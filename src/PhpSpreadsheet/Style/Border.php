@@ -256,7 +256,7 @@ class Border extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Border
      */
-    public function setColor(Color $pValue = null)
+    public function setColor(Color $pValue)
     {
         // make sure parameter is a real color and not a supervisor
         $color = $pValue->getIsSupervisor() ? $pValue->getSharedComponent() : $pValue;

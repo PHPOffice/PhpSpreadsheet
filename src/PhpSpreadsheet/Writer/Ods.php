@@ -48,7 +48,7 @@ class Ods extends BaseWriter implements IWriter
      *
      * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function __construct(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
     {
         $this->setSpreadsheet($spreadsheet);
 
@@ -183,7 +183,7 @@ class Ods extends BaseWriter implements IWriter
      *
      * @return self
      */
-    public function setSpreadsheet(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function setSpreadsheet(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
     {
         $this->spreadSheet = $spreadsheet;
 

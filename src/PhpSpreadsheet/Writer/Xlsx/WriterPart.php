@@ -40,7 +40,7 @@ abstract class WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function setParentWriter(\PhpOffice\PhpSpreadsheet\Writer\IWriter $pWriter = null)
+    public function setParentWriter(\PhpOffice\PhpSpreadsheet\Writer\IWriter $pWriter)
     {
         $this->parentWriter = $pWriter;
     }
@@ -67,10 +67,8 @@ abstract class WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Writer\IWriter $pWriter = null)
+    public function __construct(\PhpOffice\PhpSpreadsheet\Writer\IWriter $pWriter)
     {
-        if (!is_null($pWriter)) {
-            $this->parentWriter = $pWriter;
-        }
+        $this->parentWriter = $pWriter;
     }
 }

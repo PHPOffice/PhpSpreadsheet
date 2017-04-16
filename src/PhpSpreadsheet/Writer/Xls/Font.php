@@ -45,7 +45,7 @@ class Font
      *
      * @param \PhpOffice\PhpSpreadsheet\Style\Font $font
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Style\Font $font = null)
+    public function __construct(\PhpOffice\PhpSpreadsheet\Style\Font $font)
     {
         $this->colorIndex = 0x7FFF;
         $this->font = $font;

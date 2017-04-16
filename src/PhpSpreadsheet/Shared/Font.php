@@ -330,7 +330,7 @@ class Font
      *
      * @return int Text width in pixels (no padding added)
      */
-    public static function getTextWidthPixelsApprox($columnText, \PhpOffice\PhpSpreadsheet\Style\Font $font = null, $rotation = 0)
+    public static function getTextWidthPixelsApprox($columnText, \PhpOffice\PhpSpreadsheet\Style\Font $font, $rotation = 0)
     {
         $fontName = $font->getName();
         $fontSize = $font->getSize();

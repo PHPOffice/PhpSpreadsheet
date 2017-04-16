@@ -118,7 +118,7 @@ class Cell
      *
      * @throws Exception
      */
-    public function __construct($pValue = null, $pDataType = null, Worksheet $pSheet = null)
+    public function __construct($pValue, $pDataType, Worksheet $pSheet)
     {
         // Initialise cell value
         $this->value = $pValue;
@@ -990,12 +990,8 @@ class Cell
      *
      * @throws Exception
      */
-    public static function setValueBinder(Cell\IValueBinder $binder = null)
+    public static function setValueBinder(Cell\IValueBinder $binder)
     {
-        if ($binder === null) {
-            throw new Exception('A \\PhpOffice\\PhpSpreadsheet\\Cell\\IValueBinder is required for PhpSpreadsheet to function correctly.');
-        }
-
         self::$valueBinder = $binder;
     }
 

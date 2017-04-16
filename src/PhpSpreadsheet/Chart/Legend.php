@@ -73,8 +73,9 @@ class Legend
     /**
      * Create a new Legend.
      *
-     * @param mixed $position
-     * @param mixed $overlay
+     * @param string $position
+     * @param Layout|null $layout
+     * @param bool $overlay
      */
     public function __construct($position = self::POSITION_RIGHT, Layout $layout = null, $overlay = false)
     {

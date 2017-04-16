@@ -35,7 +35,7 @@ class Comments extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeComments(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet = null)
+    public function writeComments(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet)
     {
         // Create XML writer
         $objWriter = null;
@@ -94,7 +94,7 @@ class Comments extends WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeComment(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pCellReference = 'A1', \PhpOffice\PhpSpreadsheet\Comment $pComment = null, $pAuthors = null)
+    private function writeComment(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, $pCellReference, \PhpOffice\PhpSpreadsheet\Comment $pComment, array $pAuthors)
     {
         // comment
         $objWriter->startElement('comment');
@@ -118,7 +118,7 @@ class Comments extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeVMLComments(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet = null)
+    public function writeVMLComments(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet)
     {
         // Create XML writer
         $objWriter = null;
@@ -187,12 +187,12 @@ class Comments extends WriterPart
      * Write VML comment to XML format.
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
-     * @param string $pCellReference Cell reference
+     * @param string $pCellReference Cell reference, eg: 'A1'
      * @param \PhpOffice\PhpSpreadsheet\Comment $pComment Comment
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeVMLComment(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pCellReference = 'A1', \PhpOffice\PhpSpreadsheet\Comment $pComment = null)
+    private function writeVMLComment(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, $pCellReference, \PhpOffice\PhpSpreadsheet\Comment $pComment)
     {
         // Metadata
         list($column, $row) = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($pCellReference);

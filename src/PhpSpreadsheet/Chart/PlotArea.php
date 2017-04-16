@@ -43,7 +43,8 @@ class PlotArea
     /**
      * Create a new PlotArea.
      *
-     * @param mixed $plotSeries
+     * @param Layout|null $layout
+     * @param array $plotSeries
      */
     public function __construct(Layout $layout = null, array $plotSeries = [])
     {

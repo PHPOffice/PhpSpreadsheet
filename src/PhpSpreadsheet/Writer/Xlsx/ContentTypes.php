@@ -36,7 +36,7 @@ class ContentTypes extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeContentTypes(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet = null, $includeCharts = false)
+    public function writeContentTypes(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet, $includeCharts = false)
     {
         // Create XML writer
         $objWriter = null;

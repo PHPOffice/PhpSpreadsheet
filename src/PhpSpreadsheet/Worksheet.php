@@ -550,7 +550,7 @@ class Worksheet implements IComparable
      *
      * @return Chart
      */
-    public function addChart(Chart $pChart = null, $iChartIndex = null)
+    public function addChart(Chart $pChart, $iChartIndex = null)
     {
         $pChart->setWorksheet($this);
         if (is_null($iChartIndex)) {
@@ -1546,7 +1546,7 @@ class Worksheet implements IComparable
      *
      * @return Worksheet
      */
-    public function duplicateStyle(Style $pCellStyle = null, $pRange = '')
+    public function duplicateStyle(Style $pCellStyle, $pRange)
     {
         // make sure we have a real style and not supervisor
         $style = $pCellStyle->getIsSupervisor() ? $pCellStyle->getSharedComponent() : $pCellStyle;
@@ -1594,7 +1594,7 @@ class Worksheet implements IComparable
      *
      * @return Worksheet
      */
-    public function duplicateConditionalStyle(array $pCellStyle = null, $pRange = '')
+    public function duplicateConditionalStyle(array $pCellStyle, $pRange = '')
     {
         foreach ($pCellStyle as $cellStyle) {
             if (!($cellStyle instanceof Style\Conditional)) {

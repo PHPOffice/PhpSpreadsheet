@@ -68,7 +68,7 @@ class RichText implements IComparable
      *
      * @return RichText
      */
-    public function addText(RichText\ITextElement $pText = null)
+    public function addText(RichText\ITextElement $pText)
     {
         $this->richTextElements[] = $pText;
 

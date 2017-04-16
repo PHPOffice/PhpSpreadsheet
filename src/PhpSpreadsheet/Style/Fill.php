@@ -264,7 +264,7 @@ class Fill extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Fill
      */
-    public function setStartColor(Color $pValue = null)
+    public function setStartColor(Color $pValue)
     {
         // make sure parameter is a real color and not a supervisor
         $color = $pValue->getIsSupervisor() ? $pValue->getSharedComponent() : $pValue;
@@ -298,7 +298,7 @@ class Fill extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Fill
      */
-    public function setEndColor(Color $pValue = null)
+    public function setEndColor(Color $pValue)
     {
         // make sure parameter is a real color and not a supervisor
         $color = $pValue->getIsSupervisor() ? $pValue->getSharedComponent() : $pValue;

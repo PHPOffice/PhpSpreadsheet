@@ -38,9 +38,7 @@ class ContentTest extends \PHPUnit_Framework_TestCase
 
     public function testWriteEmptySpreadsheet()
     {
-        $content = new Content();
-        $content->setParentWriter(new Ods(new Spreadsheet()));
-
+        $content = new Content(new Ods(new Spreadsheet()));
         $xml = $content->write();
 
         $this->assertXmlStringEqualsXmlFile($this->samplesPath . '/content-empty.xml', $xml);
@@ -91,9 +89,7 @@ class ContentTest extends \PHPUnit_Framework_TestCase
         $worksheet2->setCellValue('A1', 2);
 
         // Write
-        $content = new Content();
-        $content->setParentWriter(new Ods($workbook));
-
+        $content = new Content(new Ods($workbook));
         $xml = $content->write();
 
         $this->assertXmlStringEqualsXmlFile($this->samplesPath . '/content-with-data.xml', $xml);

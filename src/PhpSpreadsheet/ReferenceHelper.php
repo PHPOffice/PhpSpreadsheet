@@ -384,7 +384,7 @@ class ReferenceHelper
      *
      * @throws Exception
      */
-    public function insertNewBefore($pBefore = 'A1', $pNumCols = 0, $pNumRows = 0, Worksheet $pSheet = null)
+    public function insertNewBefore($pBefore, $pNumCols, $pNumRows, Worksheet $pSheet)
     {
         $remove = ($pNumCols < 0 || $pNumRows < 0);
         $allCoordinates = $pSheet->getCoordinates();

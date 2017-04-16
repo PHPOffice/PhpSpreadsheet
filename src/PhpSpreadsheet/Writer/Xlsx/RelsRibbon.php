@@ -35,7 +35,7 @@ class RelsRibbon extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeRibbonRelationships(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function writeRibbonRelationships(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
     {
         // Create XML writer
         $objWriter = null;

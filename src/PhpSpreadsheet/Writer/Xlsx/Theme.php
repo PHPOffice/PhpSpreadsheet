@@ -137,7 +137,7 @@ class Theme extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeTheme(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function writeTheme(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
     {
         // Create XML writer
         $objWriter = null;

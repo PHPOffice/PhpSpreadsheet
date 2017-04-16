@@ -35,7 +35,7 @@ class DocProps extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeDocPropsApp(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function writeDocPropsApp(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
     {
         // Create XML writer
         $objWriter = null;
@@ -134,7 +134,7 @@ class DocProps extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeDocPropsCore(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function writeDocPropsCore(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
     {
         // Create XML writer
         $objWriter = null;
@@ -203,7 +203,7 @@ class DocProps extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeDocPropsCustom(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function writeDocPropsCustom(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
     {
         $customPropertyList = $spreadsheet->getProperties()->getCustomProperties();
         if (empty($customPropertyList)) {

@@ -428,7 +428,7 @@ class HeaderFooter
      *
      * @return HeaderFooter
      */
-    public function addImage(HeaderFooterDrawing $image = null, $location = self::IMAGE_HEADER_LEFT)
+    public function addImage(HeaderFooterDrawing $image, $location = self::IMAGE_HEADER_LEFT)
     {
         $this->headerFooterImages[$location] = $image;
 

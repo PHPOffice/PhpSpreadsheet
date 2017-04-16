@@ -36,7 +36,7 @@ class Workbook extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeWorkbook(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null, $recalcRequired = false)
+    public function writeWorkbook(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet, $recalcRequired = false)
     {
         // Create XML writer
         if ($this->getParentWriter()->getUseDiskCaching()) {
@@ -128,7 +128,7 @@ class Workbook extends WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeBookViews(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    private function writeBookViews(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
     {
         // bookViews
         $objWriter->startElement('bookViews');
@@ -159,7 +159,7 @@ class Workbook extends WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeWorkbookProtection(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    private function writeWorkbookProtection(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
     {
         if ($spreadsheet->getSecurity()->isSecurityEnabled()) {
             $objWriter->startElement('workbookProtection');
@@ -211,7 +211,7 @@ class Workbook extends WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeSheets(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    private function writeSheets(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
     {
         // Write sheets
         $objWriter->startElement('sheets');
@@ -266,7 +266,7 @@ class Workbook extends WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeDefinedNames(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    private function writeDefinedNames(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
     {
         // Write defined names
         $objWriter->startElement('definedNames');
@@ -351,7 +351,7 @@ class Workbook extends WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeDefinedNameForAutofilter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Worksheet $pSheet = null, $pSheetId = 0)
+    private function writeDefinedNameForAutofilter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Worksheet $pSheet, $pSheetId = 0)
     {
         // definedName for autoFilter
         $autoFilterRange = $pSheet->getAutoFilter()->getRange();
@@ -388,7 +388,7 @@ class Workbook extends WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeDefinedNameForPrintTitles(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Worksheet $pSheet = null, $pSheetId = 0)
+    private function writeDefinedNameForPrintTitles(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Worksheet $pSheet, $pSheetId = 0)
     {
         // definedName for PrintTitles
         if ($pSheet->getPageSetup()->isColumnsToRepeatAtLeftSet() || $pSheet->getPageSetup()->isRowsToRepeatAtTopSet()) {
@@ -432,7 +432,7 @@ class Workbook extends WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeDefinedNameForPrintArea(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Worksheet $pSheet = null, $pSheetId = 0)
+    private function writeDefinedNameForPrintArea(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Worksheet $pSheet, $pSheetId = 0)
     {
         // definedName for PrintArea
         if ($pSheet->getPageSetup()->isPrintAreaSet()) {
