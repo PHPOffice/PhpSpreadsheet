@@ -36,7 +36,7 @@ class CodePage
      *
      * @return string Code Page Name
      */
-    public static function numberToName($codePage = 1252)
+    public static function numberToName($codePage)
     {
         switch ($codePage) {
             case 367:

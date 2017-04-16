@@ -81,9 +81,9 @@ class Csv extends BaseReader implements IReader
     /**
      * Set input encoding.
      *
-     * @param string $pValue Input encoding
+     * @param string $pValue Input encoding, eg: 'UTF-8'
      */
-    public function setInputEncoding($pValue = 'UTF-8')
+    public function setInputEncoding($pValue)
     {
         $this->inputEncoding = $pValue;
 
@@ -294,13 +294,13 @@ class Csv extends BaseReader implements IReader
     /**
      * Set delimiter.
      *
-     * @param string $pValue Delimiter, defaults to ,
+     * @param string $delimiter Delimiter, eg: ','
      *
      * @return CSV
      */
-    public function setDelimiter($pValue = ',')
+    public function setDelimiter($delimiter)
     {
-        $this->delimiter = $pValue;
+        $this->delimiter = $delimiter;
 
         return $this;
     }
@@ -318,16 +318,16 @@ class Csv extends BaseReader implements IReader
     /**
      * Set enclosure.
      *
-     * @param string $pValue Enclosure, defaults to "
+     * @param string $enclosure Enclosure, defaults to "
      *
      * @return CSV
      */
-    public function setEnclosure($pValue = '"')
+    public function setEnclosure($enclosure)
     {
-        if ($pValue == '') {
-            $pValue = '"';
+        if ($enclosure == '') {
+            $enclosure = '"';
         }
-        $this->enclosure = $pValue;
+        $this->enclosure = $enclosure;
 
         return $this;
     }
@@ -349,7 +349,7 @@ class Csv extends BaseReader implements IReader
      *
      * @return CSV
      */
-    public function setSheetIndex($pValue = 0)
+    public function setSheetIndex($pValue)
     {
         $this->sheetIndex = $pValue;
 
@@ -361,7 +361,7 @@ class Csv extends BaseReader implements IReader
      *
      * @param bool $contiguous
      */
-    public function setContiguous($contiguous = false)
+    public function setContiguous($contiguous)
     {
         $this->contiguous = (bool) $contiguous;
         if (!$contiguous) {

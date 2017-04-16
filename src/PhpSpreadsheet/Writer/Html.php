@@ -147,7 +147,7 @@ class Html extends BaseWriter implements IWriter
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function save($pFilename = null)
+    public function save($pFilename)
     {
         // garbage collect
         $this->spreadsheet->garbageCollect();
@@ -296,7 +296,7 @@ class Html extends BaseWriter implements IWriter
      *
      * @return HTML
      */
-    public function setSheetIndex($pValue = 0)
+    public function setSheetIndex($pValue)
     {
         $this->sheetIndex = $pValue;
 
@@ -320,7 +320,7 @@ class Html extends BaseWriter implements IWriter
      *
      * @return HTML
      */
-    public function setGenerateSheetNavigationBlock($pValue = true)
+    public function setGenerateSheetNavigationBlock($pValue)
     {
         $this->generateSheetNavigationBlock = (bool) $pValue;
 
@@ -1457,7 +1457,7 @@ class Html extends BaseWriter implements IWriter
      *
      * @return HTML
      */
-    public function setImagesRoot($pValue = '.')
+    public function setImagesRoot($pValue)
     {
         $this->imagesRoot = $pValue;
 
@@ -1481,7 +1481,7 @@ class Html extends BaseWriter implements IWriter
      *
      * @return HTML
      */
-    public function setEmbedImages($pValue = true)
+    public function setEmbedImages($pValue)
     {
         $this->embedImages = $pValue;
 
@@ -1505,7 +1505,7 @@ class Html extends BaseWriter implements IWriter
      *
      * @return HTML
      */
-    public function setUseInlineCss($pValue = false)
+    public function setUseInlineCss($pValue)
     {
         $this->useInlineCss = $pValue;
 

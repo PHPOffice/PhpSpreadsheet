@@ -171,3 +171,24 @@ to `\PhpOffice\PhpSpreadsheet::getCoordinates()` and
 `\PhpOffice\PhpSpreadsheet::getCellCollection()` for clarity.
 
 Refer to [the new documentation](./memory_saving.md) to see how to migrate.
+
+## Dropped conditionally returned cell
+
+For all the following methods, it is no more possible to change the type of
+returned value. It always return the Worksheet and never the Cell or Rule:
+
+- Worksheet::setCellValue()
+- Worksheet::setCellValueByColumnAndRow()
+- Worksheet::setCellValueExplicit()
+- Worksheet::setCellValueExplicitByColumnAndRow()
+- Worksheet::addRule()
+
+Migration would be similar to:
+
+``` php
+// Before
+$cell = $worksheet->setCellValue('A1', 'value', true);
+
+// After
+$cell = $worksheet->getCell('A1')->setValue('value');
+```

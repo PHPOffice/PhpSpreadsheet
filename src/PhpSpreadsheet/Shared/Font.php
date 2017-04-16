@@ -182,11 +182,11 @@ class Font
     /**
      * Set autoSize method.
      *
-     * @param string $pValue
+     * @param string $pValue see self::AUTOSIZE_METHOD_*
      *
      * @return bool Success or failure
      */
-    public static function setAutoSizeMethod($pValue = self::AUTOSIZE_METHOD_APPROX)
+    public static function setAutoSizeMethod($pValue)
     {
         if (!in_array($pValue, self::$autoSizeMethods)) {
             return false;
@@ -217,7 +217,7 @@ class Font
      *
      * @param string $pValue
      */
-    public static function setTrueTypeFontPath($pValue = '')
+    public static function setTrueTypeFontPath($pValue)
     {
         self::$trueTypeFontPath = $pValue;
     }
@@ -382,7 +382,7 @@ class Font
      *
      * @return int Font size (in pixels)
      */
-    public static function fontSizeToPixels($fontSizeInPoints = 11)
+    public static function fontSizeToPixels($fontSizeInPoints)
     {
         return (int) ((4 / 3) * $fontSizeInPoints);
     }
@@ -394,7 +394,7 @@ class Font
      *
      * @return int Size (in pixels)
      */
-    public static function inchSizeToPixels($sizeInInch = 1)
+    public static function inchSizeToPixels($sizeInInch)
     {
         return $sizeInInch * 96;
     }
@@ -406,7 +406,7 @@ class Font
      *
      * @return float Size (in pixels)
      */
-    public static function centimeterSizeToPixels($sizeInCm = 1)
+    public static function centimeterSizeToPixels($sizeInCm)
     {
         return $sizeInCm * 37.795275591;
     }

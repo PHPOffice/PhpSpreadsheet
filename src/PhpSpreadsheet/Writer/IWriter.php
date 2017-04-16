@@ -33,5 +33,5 @@ interface IWriter
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function save($pFilename = null);
+    public function save($pFilename);
 }

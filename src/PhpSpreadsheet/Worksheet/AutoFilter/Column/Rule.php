@@ -277,13 +277,13 @@ class Rule
     /**
      * Set AutoFilter Rule Type.
      *
-     * @param string $pRuleType
+     * @param string $pRuleType see self::AUTOFILTER_RULETYPE_*
      *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
      * @return Rule
      */
-    public function setRuleType($pRuleType = self::AUTOFILTER_RULETYPE_FILTER)
+    public function setRuleType($pRuleType)
     {
         if (!in_array($pRuleType, self::$ruleTypes)) {
             throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid rule type for column AutoFilter Rule.');
@@ -313,7 +313,7 @@ class Rule
      *
      * @return Rule
      */
-    public function setValue($pValue = '')
+    public function setValue($pValue)
     {
         if (is_array($pValue)) {
             $grouping = -1;
@@ -351,13 +351,13 @@ class Rule
     /**
      * Set AutoFilter Rule Operator.
      *
-     * @param string $pOperator
+     * @param string $pOperator see self::AUTOFILTER_COLUMN_RULE_*
      *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
      * @return Rule
      */
-    public function setOperator($pOperator = self::AUTOFILTER_COLUMN_RULE_EQUAL)
+    public function setOperator($pOperator)
     {
         if (empty($pOperator)) {
             $pOperator = self::AUTOFILTER_COLUMN_RULE_EQUAL;
@@ -390,7 +390,7 @@ class Rule
      *
      * @return Rule
      */
-    public function setGrouping($pGrouping = null)
+    public function setGrouping($pGrouping)
     {
         if (($pGrouping !== null) &&
             (!in_array($pGrouping, self::$dateTimeGroups)) &&
@@ -406,7 +406,7 @@ class Rule
     /**
      * Set AutoFilter Rule.
      *
-     * @param string $pOperator
+     * @param string $pOperator see self::AUTOFILTER_COLUMN_RULE_*
      * @param string|string[] $pValue
      * @param string $pGrouping
      *
@@ -414,7 +414,7 @@ class Rule
      *
      * @return Rule
      */
-    public function setRule($pOperator = self::AUTOFILTER_COLUMN_RULE_EQUAL, $pValue = '', $pGrouping = null)
+    public function setRule($pOperator, $pValue, $pGrouping = null)
     {
         $this->setOperator($pOperator);
         $this->setValue($pValue);

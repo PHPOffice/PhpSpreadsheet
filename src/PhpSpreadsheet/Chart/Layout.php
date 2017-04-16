@@ -133,9 +133,9 @@ class Layout
     /**
      * Create a new Layout.
      *
-     * @param mixed $layout
+     * @param array $layout
      */
-    public function __construct($layout = [])
+    public function __construct(array $layout = [])
     {
         if (isset($layout['layoutTarget'])) {
             $this->layoutTarget = $layout['layoutTarget'];

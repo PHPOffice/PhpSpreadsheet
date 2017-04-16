@@ -156,7 +156,7 @@ class Xlsx extends BaseWriter implements IWriter
      *
      * @return \PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart
      */
-    public function getWriterPart($pPartName = '')
+    public function getWriterPart($pPartName)
     {
         if ($pPartName != '' && isset($this->writerParts[strtolower($pPartName)])) {
             return $this->writerParts[strtolower($pPartName)];
@@ -172,7 +172,7 @@ class Xlsx extends BaseWriter implements IWriter
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function save($pFilename = null)
+    public function save($pFilename)
     {
         if ($this->spreadSheet !== null) {
             // garbage collect
@@ -515,7 +515,7 @@ class Xlsx extends BaseWriter implements IWriter
      *
      * @return Xlsx
      */
-    public function setOffice2003Compatibility($pValue = false)
+    public function setOffice2003Compatibility($pValue)
     {
         $this->office2003compatibility = $pValue;
 

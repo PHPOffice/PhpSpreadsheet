@@ -42,7 +42,7 @@ class File
      *
      * @param bool $useUploadTempDir Use File Upload Temporary directory (true or false)
      */
-    public static function setUseUploadTempDirectory($useUploadTempDir = false)
+    public static function setUseUploadTempDirectory($useUploadTempDir)
     {
         self::$useUploadTempDirectory = (bool) $useUploadTempDir;
     }

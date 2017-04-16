@@ -108,7 +108,7 @@ class Xls extends BaseWriter implements IWriter
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function save($pFilename = null)
+    public function save($pFilename)
     {
         // garbage collect
         $this->spreadsheet->garbageCollect();

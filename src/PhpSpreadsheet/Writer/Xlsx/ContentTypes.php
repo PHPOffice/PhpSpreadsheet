@@ -165,8 +165,8 @@ class ContentTypes extends WriterPart
         }
         $sheetCount = $spreadsheet->getSheetCount();
         for ($i = 0; $i < $sheetCount; ++$i) {
-            if (count($spreadsheet->getSheet()->getHeaderFooter()->getImages()) > 0) {
-                foreach ($spreadsheet->getSheet()->getHeaderFooter()->getImages() as $image) {
+            if (count($spreadsheet->getSheet($i)->getHeaderFooter()->getImages()) > 0) {
+                foreach ($spreadsheet->getSheet($i)->getHeaderFooter()->getImages() as $image) {
                     if (!isset($aMediaContentTypes[strtolower($image->getExtension())])) {
                         $aMediaContentTypes[strtolower($image->getExtension())] = $this->getImageMimeType($image->getPath());
 
@@ -191,7 +191,7 @@ class ContentTypes extends WriterPart
      *
      * @return string Mime Type
      */
-    private function getImageMimeType($pFile = '')
+    private function getImageMimeType($pFile)
     {
         if (\PhpOffice\PhpSpreadsheet\Shared\File::fileExists($pFile)) {
             $image = getimagesize($pFile);

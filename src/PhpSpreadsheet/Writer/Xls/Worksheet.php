@@ -539,7 +539,7 @@ class Worksheet extends BIFFwriter
      *
      * @return string Binary data
      */
-    private function writeBIFF8CellRangeAddressFixed($range = 'A1')
+    private function writeBIFF8CellRangeAddressFixed($range)
     {
         $explodes = explode(':', $range);
 

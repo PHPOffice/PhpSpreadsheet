@@ -92,7 +92,7 @@ abstract class BaseReader implements IReader
      *
      * @return IReader
      */
-    public function setReadDataOnly($pValue = false)
+    public function setReadDataOnly($pValue)
     {
         $this->readDataOnly = (bool) $pValue;
 
@@ -120,7 +120,7 @@ abstract class BaseReader implements IReader
      *
      * @return IReader
      */
-    public function setReadEmptyCells($pValue = true)
+    public function setReadEmptyCells($pValue)
     {
         $this->readEmptyCells = (bool) $pValue;
 
@@ -150,7 +150,7 @@ abstract class BaseReader implements IReader
      *
      * @return IReader
      */
-    public function setIncludeCharts($pValue = false)
+    public function setIncludeCharts($pValue)
     {
         $this->includeCharts = (bool) $pValue;
 
@@ -178,7 +178,7 @@ abstract class BaseReader implements IReader
      *
      * @return IReader
      */
-    public function setLoadSheetsOnly($value = null)
+    public function setLoadSheetsOnly($value)
     {
         if ($value === null) {
             return $this->setLoadAllSheets();

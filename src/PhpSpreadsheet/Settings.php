@@ -92,7 +92,7 @@ class Settings
      *
      * @return bool Success or failure
      */
-    public static function setLocale($locale = 'en_us')
+    public static function setLocale($locale)
     {
         return Calculation::getInstance()->setLocale($locale);
     }
@@ -208,7 +208,7 @@ class Settings
      *
      * @param int $options Default options for libxml loader
      */
-    public static function setLibXmlLoaderOptions($options = null)
+    public static function setLibXmlLoaderOptions($options)
     {
         if (is_null($options) && defined('LIBXML_DTDLOAD')) {
             $options = LIBXML_DTDLOAD | LIBXML_DTDATTR;

@@ -34,11 +34,11 @@ interface ITextElement
     /**
      * Set text.
      *
-     * @param $pText string Text
+     * @param $text string Text
      *
      * @return ITextElement
      */
-    public function setText($pText = '');
+    public function setText($text);
 
     /**
      * Get font.

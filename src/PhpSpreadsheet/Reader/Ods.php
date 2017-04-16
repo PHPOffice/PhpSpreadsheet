@@ -797,7 +797,7 @@ class Ods extends BaseReader implements IReader
      *
      * @return \PhpOffice\PhpSpreadsheet\RichText
      */
-    private function parseRichText($is = '')
+    private function parseRichText($is)
     {
         $value = new \PhpOffice\PhpSpreadsheet\RichText();
         $value->createText($is);

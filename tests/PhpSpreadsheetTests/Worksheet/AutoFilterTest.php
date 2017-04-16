@@ -83,7 +83,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         $expectedResult = '';
 
         //  Setters return the instance to implement the fluent interface
-        $result = $this->testAutoFilterObject->setRange();
+        $result = $this->testAutoFilterObject->setRange('');
         $this->assertInstanceOf(AutoFilter::class, $result);
 
         //  Result should be a clear range
@@ -268,7 +268,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
     public function testGetColumnWithoutRangeSet()
     {
         //  Clear the range
-        $result = $this->testAutoFilterObject->setRange();
+        $result = $this->testAutoFilterObject->setRange('');
         $result = $this->testAutoFilterObject->getColumn('A');
     }
 
@@ -282,7 +282,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         }
 
         //  Setters return the instance to implement the fluent interface
-        $result = $this->testAutoFilterObject->setRange();
+        $result = $this->testAutoFilterObject->setRange('');
         $this->assertInstanceOf(AutoFilter::class, $result);
 
         //  Range should be cleared

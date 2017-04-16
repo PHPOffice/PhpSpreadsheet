@@ -208,9 +208,9 @@ class Html extends BaseReader implements IReader
     /**
      * Set input encoding.
      *
-     * @param string $pValue Input encoding
+     * @param string $pValue Input encoding, eg: 'ANSI'
      */
-    public function setInputEncoding($pValue = 'ANSI')
+    public function setInputEncoding($pValue)
     {
         $this->inputEncoding = $pValue;
 
@@ -263,7 +263,7 @@ class Html extends BaseReader implements IReader
                 //    Only actually write it if there's content in the string
                 //    Write to worksheet to be done here...
                 //    ... we return the cell so we can mess about with styles more easily
-                $sheet->setCellValue($column . $row, $cellContent, true);
+                $sheet->setCellValue($column . $row, $cellContent);
                 $this->dataArray[$row][$column] = $cellContent;
             }
         } else {
@@ -556,7 +556,7 @@ class Html extends BaseReader implements IReader
      *
      * @return HTML
      */
-    public function setSheetIndex($pValue = 0)
+    public function setSheetIndex($pValue)
     {
         $this->sheetIndex = $pValue;
 

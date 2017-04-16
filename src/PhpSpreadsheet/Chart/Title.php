@@ -68,7 +68,7 @@ class Title
      *
      * @return Title
      */
-    public function setCaption($caption = null)
+    public function setCaption($caption)
     {
         $this->caption = $caption;
 

@@ -166,7 +166,7 @@ class DataValidation
      *
      * @return DataValidation
      */
-    public function setFormula1($value = '')
+    public function setFormula1($value)
     {
         $this->formula1 = $value;
 
@@ -190,7 +190,7 @@ class DataValidation
      *
      * @return DataValidation
      */
-    public function setFormula2($value = '')
+    public function setFormula2($value)
     {
         $this->formula2 = $value;
 
@@ -214,7 +214,7 @@ class DataValidation
      *
      * @return DataValidation
      */
-    public function setType($value = self::TYPE_NONE)
+    public function setType($value)
     {
         $this->type = $value;
 
@@ -234,11 +234,11 @@ class DataValidation
     /**
      * Set Error style.
      *
-     * @param string $value
+     * @param string $value see self::STYLE_*
      *
      * @return DataValidation
      */
-    public function setErrorStyle($value = self::STYLE_STOP)
+    public function setErrorStyle($value)
     {
         $this->errorStyle = $value;
 
@@ -262,7 +262,7 @@ class DataValidation
      *
      * @return DataValidation
      */
-    public function setOperator($value = '')
+    public function setOperator($value)
     {
         $this->operator = $value;
 
@@ -286,7 +286,7 @@ class DataValidation
      *
      * @return DataValidation
      */
-    public function setAllowBlank($value = false)
+    public function setAllowBlank($value)
     {
         $this->allowBlank = $value;
 
@@ -310,7 +310,7 @@ class DataValidation
      *
      * @return DataValidation
      */
-    public function setShowDropDown($value = false)
+    public function setShowDropDown($value)
     {
         $this->showDropDown = $value;
 
@@ -334,7 +334,7 @@ class DataValidation
      *
      * @return DataValidation
      */
-    public function setShowInputMessage($value = false)
+    public function setShowInputMessage($value)
     {
         $this->showInputMessage = $value;
 
@@ -358,7 +358,7 @@ class DataValidation
      *
      * @return DataValidation
      */
-    public function setShowErrorMessage($value = false)
+    public function setShowErrorMessage($value)
     {
         $this->showErrorMessage = $value;
 
@@ -382,7 +382,7 @@ class DataValidation
      *
      * @return DataValidation
      */
-    public function setErrorTitle($value = '')
+    public function setErrorTitle($value)
     {
         $this->errorTitle = $value;
 
@@ -406,7 +406,7 @@ class DataValidation
      *
      * @return DataValidation
      */
-    public function setError($value = '')
+    public function setError($value)
     {
         $this->error = $value;
 
@@ -430,7 +430,7 @@ class DataValidation
      *
      * @return DataValidation
      */
-    public function setPromptTitle($value = '')
+    public function setPromptTitle($value)
     {
         $this->promptTitle = $value;
 
@@ -454,7 +454,7 @@ class DataValidation
      *
      * @return DataValidation
      */
-    public function setPrompt($value = '')
+    public function setPrompt($value)
     {
         $this->prompt = $value;
 

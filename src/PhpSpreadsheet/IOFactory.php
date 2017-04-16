@@ -102,7 +102,7 @@ class IOFactory
      * @param string $location Example: PhpSpreadsheet/Writer/{0}.php
      * @param string $classname Example: Writer\{0}
      */
-    public static function addSearchLocation($type = '', $location = '', $classname = '')
+    public static function addSearchLocation($type, $location, $classname)
     {
         self::$searchLocations[] = ['type' => $type, 'path' => $location, 'class' => $classname];
     }
@@ -151,7 +151,7 @@ class IOFactory
      *
      * @return Reader\IReader
      */
-    public static function createReader($readerType = '')
+    public static function createReader($readerType)
     {
         // Search type
         $searchType = 'IReader';

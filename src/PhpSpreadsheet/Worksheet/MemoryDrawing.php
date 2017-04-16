@@ -94,11 +94,11 @@ class MemoryDrawing extends BaseDrawing implements \PhpOffice\PhpSpreadsheet\ICo
     /**
      * Set image resource.
      *
-     * @param $value resource
+     * @param resource $value
      *
      * @return MemoryDrawing
      */
-    public function setImageResource($value = null)
+    public function setImageResource($value)
     {
         $this->imageResource = $value;
 
@@ -124,11 +124,11 @@ class MemoryDrawing extends BaseDrawing implements \PhpOffice\PhpSpreadsheet\ICo
     /**
      * Set rendering function.
      *
-     * @param string $value
+     * @param string $value see self::RENDERING_*
      *
      * @return MemoryDrawing
      */
-    public function setRenderingFunction($value = self::RENDERING_DEFAULT)
+    public function setRenderingFunction($value)
     {
         $this->renderingFunction = $value;
 
@@ -148,11 +148,11 @@ class MemoryDrawing extends BaseDrawing implements \PhpOffice\PhpSpreadsheet\ICo
     /**
      * Set mime type.
      *
-     * @param string $value
+     * @param string $value see self::MIMETYPE_*
      *
      * @return MemoryDrawing
      */
-    public function setMimeType($value = self::MIMETYPE_DEFAULT)
+    public function setMimeType($value)
     {
         $this->mimeType = $value;
 

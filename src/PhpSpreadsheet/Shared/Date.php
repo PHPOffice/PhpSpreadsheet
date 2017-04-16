@@ -176,7 +176,7 @@ class Date
      *
      * @return \DateTime PHP date/time object
      */
-    public static function excelToDateTimeObject($excelTimestamp = 0, $timeZone = null)
+    public static function excelToDateTimeObject($excelTimestamp, $timeZone = null)
     {
         $timeZone = ($timeZone === null) ? self::getDefaultTimezone() : self::validateTimeZone($timeZone);
         if ($excelTimestamp < 1.0) {
@@ -217,7 +217,7 @@ class Date
      *
      * @return int Unix timetamp for this date/time
      */
-    public static function excelToTimestamp($excelTimestamp = 0, $timeZone = null)
+    public static function excelToTimestamp($excelTimestamp, $timeZone = null)
     {
         return (int) self::excelToDateTimeObject($excelTimestamp, $timeZone)
             ->format('U');
@@ -231,7 +231,7 @@ class Date
      * @return float|bool Excel date/time value
      *                                  or boolean FALSE on failure
      */
-    public static function PHPToExcel($dateValue = 0)
+    public static function PHPToExcel($dateValue)
     {
         if ((is_object($dateValue)) && ($dateValue instanceof \DateTimeInterface)) {
             return self::dateTimeToExcel($dateValue);
@@ -270,7 +270,7 @@ class Date
      *
      * @return float MS Excel serialized date/time value
      */
-    public static function timestampToExcel($dateValue = 0)
+    public static function timestampToExcel($dateValue)
     {
         if (!is_numeric($dateValue)) {
             return false;
@@ -363,7 +363,7 @@ class Date
      *
      * @return bool
      */
-    public static function isDateTimeFormatCode($pFormatCode = '')
+    public static function isDateTimeFormatCode($pFormatCode)
     {
         if (strtolower($pFormatCode) === strtolower(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_GENERAL)) {
             //    "General" contains an epoch letter 'e', so we trap for it explicitly here (case-insensitive check)
@@ -437,7 +437,7 @@ class Date
      *
      * @return float|false Excel date/time serial value
      */
-    public static function stringToExcel($dateValue = '')
+    public static function stringToExcel($dateValue)
     {
         if (strlen($dateValue) < 2) {
             return false;

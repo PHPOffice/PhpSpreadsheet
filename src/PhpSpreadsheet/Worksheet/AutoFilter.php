@@ -102,7 +102,7 @@ class AutoFilter
      *
      * @return AutoFilter
      */
-    public function setRange($pRange = '')
+    public function setRange($pRange)
     {
         // Uppercase coordinate
         $cellAddress = explode('!', strtoupper($pRange));
@@ -214,7 +214,7 @@ class AutoFilter
      *
      * @return AutoFilter\Column
      */
-    public function getColumnByOffset($pColumnOffset = 0)
+    public function getColumnByOffset($pColumnOffset)
     {
         list($rangeStart, $rangeEnd) = \PhpOffice\PhpSpreadsheet\Cell::rangeBoundaries($this->range);
         $pColumn = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($rangeStart[0] + $pColumnOffset - 1);
@@ -278,7 +278,7 @@ class AutoFilter
      * Shift an AutoFilter Column Rule to a different column.
      *
      * Note: This method bypasses validation of the destination column to ensure it is within this AutoFilter range.
-     *        Nor does it verify whether any column rule already exists at $toColumn, but will simply overrideany existing value.
+     *        Nor does it verify whether any column rule already exists at $toColumn, but will simply override any existing value.
      *        Use with caution.
      *
      * @param string $fromColumn Column name (e.g. A)
@@ -286,7 +286,7 @@ class AutoFilter
      *
      * @return AutoFilter
      */
-    public function shiftColumn($fromColumn = null, $toColumn = null)
+    public function shiftColumn($fromColumn, $toColumn)
     {
         $fromColumn = strtoupper($fromColumn);
         $toColumn = strtoupper($toColumn);

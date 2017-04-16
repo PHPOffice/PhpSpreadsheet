@@ -97,7 +97,7 @@ class Security
      *
      * @return Security
      */
-    public function setLockRevision($pValue = false)
+    public function setLockRevision($pValue)
     {
         $this->lockRevision = $pValue;
 
@@ -121,7 +121,7 @@ class Security
      *
      * @return Security
      */
-    public function setLockStructure($pValue = false)
+    public function setLockStructure($pValue)
     {
         $this->lockStructure = $pValue;
 
@@ -145,7 +145,7 @@ class Security
      *
      * @return Security
      */
-    public function setLockWindows($pValue = false)
+    public function setLockWindows($pValue)
     {
         $this->lockWindows = $pValue;
 
@@ -170,7 +170,7 @@ class Security
      *
      * @return Security
      */
-    public function setRevisionsPassword($pValue = '', $pAlreadyHashed = false)
+    public function setRevisionsPassword($pValue, $pAlreadyHashed = false)
     {
         if (!$pAlreadyHashed) {
             $pValue = \PhpOffice\PhpSpreadsheet\Shared\PasswordHasher::hashPassword($pValue);
@@ -198,7 +198,7 @@ class Security
      *
      * @return Security
      */
-    public function setWorkbookPassword($pValue = '', $pAlreadyHashed = false)
+    public function setWorkbookPassword($pValue, $pAlreadyHashed = false)
     {
         if (!$pAlreadyHashed) {
             $pValue = \PhpOffice\PhpSpreadsheet\Shared\PasswordHasher::hashPassword($pValue);

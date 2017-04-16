@@ -104,7 +104,7 @@ class NamedRange
      *
      * @return NamedRange
      */
-    public function setName($value = null)
+    public function setName($value)
     {
         if ($value !== null) {
             // Old title
@@ -171,7 +171,7 @@ class NamedRange
      *
      * @return NamedRange
      */
-    public function setRange($value = null)
+    public function setRange($value)
     {
         if ($value !== null) {
             $this->range = $value;
@@ -197,7 +197,7 @@ class NamedRange
      *
      * @return NamedRange
      */
-    public function setLocalOnly($value = false)
+    public function setLocalOnly($value)
     {
         $this->localOnly = $value;
         $this->scope = $value ? $this->worksheet : null;

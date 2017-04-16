@@ -194,7 +194,7 @@ class Protection
      *
      * @return Protection
      */
-    public function setSheet($pValue = false)
+    public function setSheet($pValue)
     {
         $this->sheet = $pValue;
 
@@ -218,7 +218,7 @@ class Protection
      *
      * @return Protection
      */
-    public function setObjects($pValue = false)
+    public function setObjects($pValue)
     {
         $this->objects = $pValue;
 
@@ -242,7 +242,7 @@ class Protection
      *
      * @return Protection
      */
-    public function setScenarios($pValue = false)
+    public function setScenarios($pValue)
     {
         $this->scenarios = $pValue;
 
@@ -266,7 +266,7 @@ class Protection
      *
      * @return Protection
      */
-    public function setFormatCells($pValue = false)
+    public function setFormatCells($pValue)
     {
         $this->formatCells = $pValue;
 
@@ -290,7 +290,7 @@ class Protection
      *
      * @return Protection
      */
-    public function setFormatColumns($pValue = false)
+    public function setFormatColumns($pValue)
     {
         $this->formatColumns = $pValue;
 
@@ -314,7 +314,7 @@ class Protection
      *
      * @return Protection
      */
-    public function setFormatRows($pValue = false)
+    public function setFormatRows($pValue)
     {
         $this->formatRows = $pValue;
 
@@ -338,7 +338,7 @@ class Protection
      *
      * @return Protection
      */
-    public function setInsertColumns($pValue = false)
+    public function setInsertColumns($pValue)
     {
         $this->insertColumns = $pValue;
 
@@ -362,7 +362,7 @@ class Protection
      *
      * @return Protection
      */
-    public function setInsertRows($pValue = false)
+    public function setInsertRows($pValue)
     {
         $this->insertRows = $pValue;
 
@@ -386,7 +386,7 @@ class Protection
      *
      * @return Protection
      */
-    public function setInsertHyperlinks($pValue = false)
+    public function setInsertHyperlinks($pValue)
     {
         $this->insertHyperlinks = $pValue;
 
@@ -410,7 +410,7 @@ class Protection
      *
      * @return Protection
      */
-    public function setDeleteColumns($pValue = false)
+    public function setDeleteColumns($pValue)
     {
         $this->deleteColumns = $pValue;
 
@@ -434,7 +434,7 @@ class Protection
      *
      * @return Protection
      */
-    public function setDeleteRows($pValue = false)
+    public function setDeleteRows($pValue)
     {
         $this->deleteRows = $pValue;
 
@@ -458,7 +458,7 @@ class Protection
      *
      * @return Protection
      */
-    public function setSelectLockedCells($pValue = false)
+    public function setSelectLockedCells($pValue)
     {
         $this->selectLockedCells = $pValue;
 
@@ -482,7 +482,7 @@ class Protection
      *
      * @return Protection
      */
-    public function setSort($pValue = false)
+    public function setSort($pValue)
     {
         $this->sort = $pValue;
 
@@ -506,7 +506,7 @@ class Protection
      *
      * @return Protection
      */
-    public function setAutoFilter($pValue = false)
+    public function setAutoFilter($pValue)
     {
         $this->autoFilter = $pValue;
 
@@ -530,7 +530,7 @@ class Protection
      *
      * @return Protection
      */
-    public function setPivotTables($pValue = false)
+    public function setPivotTables($pValue)
     {
         $this->pivotTables = $pValue;
 
@@ -554,7 +554,7 @@ class Protection
      *
      * @return Protection
      */
-    public function setSelectUnlockedCells($pValue = false)
+    public function setSelectUnlockedCells($pValue)
     {
         $this->selectUnlockedCells = $pValue;
 
@@ -579,7 +579,7 @@ class Protection
      *
      * @return Protection
      */
-    public function setPassword($pValue = '', $pAlreadyHashed = false)
+    public function setPassword($pValue, $pAlreadyHashed = false)
     {
         if (!$pAlreadyHashed) {
             $pValue = \PhpOffice\PhpSpreadsheet\Shared\PasswordHasher::hashPassword($pValue);

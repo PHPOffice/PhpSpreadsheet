@@ -2176,7 +2176,7 @@ class Calculation
      *
      * @param bool $pValue
      */
-    public function setCalculationCacheEnabled($pValue = true)
+    public function setCalculationCacheEnabled($pValue)
     {
         $this->calculationCacheEnabled = $pValue;
         $this->clearCalculationCache();
@@ -2245,11 +2245,11 @@ class Calculation
     /**
      * Set the locale code.
      *
-     * @param string $locale The locale to use for formula translation
+     * @param string $locale The locale to use for formula translation, eg: 'en_us'
      *
      * @return bool
      */
-    public function setLocale($locale = 'en_us')
+    public function setLocale($locale)
     {
         //    Identify our locale and language
         $language = $locale = strtolower($locale);

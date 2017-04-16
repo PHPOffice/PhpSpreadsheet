@@ -178,42 +178,38 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Font
      */
-    public function applyFromArray($pStyles = null)
+    public function applyFromArray(array $pStyles)
     {
-        if (is_array($pStyles)) {
-            if ($this->isSupervisor) {
-                $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
-            } else {
-                if (isset($pStyles['name'])) {
-                    $this->setName($pStyles['name']);
-                }
-                if (isset($pStyles['bold'])) {
-                    $this->setBold($pStyles['bold']);
-                }
-                if (isset($pStyles['italic'])) {
-                    $this->setItalic($pStyles['italic']);
-                }
-                if (isset($pStyles['superScript'])) {
-                    $this->setSuperScript($pStyles['superScript']);
-                }
-                if (isset($pStyles['subScript'])) {
-                    $this->setSubScript($pStyles['subScript']);
-                }
-                if (isset($pStyles['underline'])) {
-                    $this->setUnderline($pStyles['underline']);
-                }
-                if (isset($pStyles['strike'])) {
-                    $this->setStrikethrough($pStyles['strike']);
-                }
-                if (isset($pStyles['color'])) {
-                    $this->getColor()->applyFromArray($pStyles['color']);
-                }
-                if (isset($pStyles['size'])) {
-                    $this->setSize($pStyles['size']);
-                }
-            }
+        if ($this->isSupervisor) {
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid style array passed.');
+            if (isset($pStyles['name'])) {
+                $this->setName($pStyles['name']);
+            }
+            if (isset($pStyles['bold'])) {
+                $this->setBold($pStyles['bold']);
+            }
+            if (isset($pStyles['italic'])) {
+                $this->setItalic($pStyles['italic']);
+            }
+            if (isset($pStyles['superScript'])) {
+                $this->setSuperScript($pStyles['superScript']);
+            }
+            if (isset($pStyles['subScript'])) {
+                $this->setSubScript($pStyles['subScript']);
+            }
+            if (isset($pStyles['underline'])) {
+                $this->setUnderline($pStyles['underline']);
+            }
+            if (isset($pStyles['strike'])) {
+                $this->setStrikethrough($pStyles['strike']);
+            }
+            if (isset($pStyles['color'])) {
+                $this->getColor()->applyFromArray($pStyles['color']);
+            }
+            if (isset($pStyles['size'])) {
+                $this->setSize($pStyles['size']);
+            }
         }
 
         return $this;
@@ -240,7 +236,7 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Font
      */
-    public function setName($pValue = 'Calibri')
+    public function setName($pValue)
     {
         if ($pValue == '') {
             $pValue = 'Calibri';
@@ -276,7 +272,7 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Font
      */
-    public function setSize($pValue = 10)
+    public function setSize($pValue)
     {
         if ($pValue == '') {
             $pValue = 10;
@@ -312,7 +308,7 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Font
      */
-    public function setBold($pValue = false)
+    public function setBold($pValue)
     {
         if ($pValue == '') {
             $pValue = false;
@@ -348,7 +344,7 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Font
      */
-    public function setItalic($pValue = false)
+    public function setItalic($pValue)
     {
         if ($pValue == '') {
             $pValue = false;
@@ -384,7 +380,7 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Font
      */
-    public function setSuperScript($pValue = false)
+    public function setSuperScript($pValue)
     {
         if ($pValue == '') {
             $pValue = false;
@@ -421,7 +417,7 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Font
      */
-    public function setSubScript($pValue = false)
+    public function setSubScript($pValue)
     {
         if ($pValue == '') {
             $pValue = false;
@@ -460,7 +456,7 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Font
      */
-    public function setUnderline($pValue = self::UNDERLINE_NONE)
+    public function setUnderline($pValue)
     {
         if (is_bool($pValue)) {
             $pValue = ($pValue) ? self::UNDERLINE_SINGLE : self::UNDERLINE_NONE;
@@ -498,7 +494,7 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Font
      */
-    public function setStrikethrough($pValue = false)
+    public function setStrikethrough($pValue)
     {
         if ($pValue == '') {
             $pValue = false;

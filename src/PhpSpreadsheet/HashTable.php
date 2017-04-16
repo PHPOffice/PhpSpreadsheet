@@ -62,13 +62,11 @@ class HashTable
      *
      * @throws Exception
      */
-    public function addFromSource($pSource = null)
+    public function addFromSource(array $pSource = null)
     {
         // Check if an array was passed
         if ($pSource == null) {
             return;
-        } elseif (!is_array($pSource)) {
-            throw new Exception('Invalid array parameter passed.');
         }
 
         foreach ($pSource as $item) {
@@ -145,7 +143,7 @@ class HashTable
      *
      * @return int Index
      */
-    public function getIndexForHashCode($pHashCode = '')
+    public function getIndexForHashCode($pHashCode)
     {
         return array_search($pHashCode, $this->keyMap);
     }
@@ -157,7 +155,7 @@ class HashTable
      *
      * @return IComparable
      */
-    public function getByIndex($pIndex = 0)
+    public function getByIndex($pIndex)
     {
         if (isset($this->keyMap[$pIndex])) {
             return $this->getByHashCode($this->keyMap[$pIndex]);
@@ -173,7 +171,7 @@ class HashTable
      *
      * @return IComparable
      */
-    public function getByHashCode($pHashCode = '')
+    public function getByHashCode($pHashCode)
     {
         if (isset($this->items[$pHashCode])) {
             return $this->items[$pHashCode];

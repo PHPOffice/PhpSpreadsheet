@@ -62,7 +62,7 @@ class DefaultValueBinder implements IValueBinder
      *
      * @return string
      */
-    public static function dataTypeForValue($pValue = null)
+    public static function dataTypeForValue($pValue)
     {
         // Match the value against a few data types
         if ($pValue === null) {

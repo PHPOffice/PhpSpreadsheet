@@ -7465,7 +7465,7 @@ class Xls extends BaseReader implements IReader
         return ord($data[$pos]) | (ord($data[$pos + 1]) << 8) | (ord($data[$pos + 2]) << 16) | $_ord_24;
     }
 
-    private function parseRichText($is = '')
+    private function parseRichText($is)
     {
         $value = new \PhpOffice\PhpSpreadsheet\RichText();
         $value->createText($is);

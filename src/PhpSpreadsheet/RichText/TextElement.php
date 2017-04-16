@@ -55,13 +55,13 @@ class TextElement implements ITextElement
     /**
      * Set text.
      *
-     * @param $pText string Text
+     * @param $text string Text
      *
      * @return ITextElement
      */
-    public function setText($pText = '')
+    public function setText($text)
     {
-        $this->text = $pText;
+        $this->text = $text;
 
         return $this;
     }

@@ -99,9 +99,9 @@ class Slk extends BaseReader implements IReader
     /**
      * Set input encoding.
      *
-     * @param string $pValue Input encoding
+     * @param string $pValue Input encoding, eg: 'ANSI'
      */
-    public function setInputEncoding($pValue = 'ANSI')
+    public function setInputEncoding($pValue)
     {
         $this->inputEncoding = $pValue;
 
@@ -474,7 +474,7 @@ class Slk extends BaseReader implements IReader
      *
      * @return SYLK
      */
-    public function setSheetIndex($pValue = 0)
+    public function setSheetIndex($pValue)
     {
         $this->sheetIndex = $pValue;
 

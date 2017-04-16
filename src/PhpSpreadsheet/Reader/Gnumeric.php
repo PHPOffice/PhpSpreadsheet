@@ -804,7 +804,7 @@ class Gnumeric extends BaseReader implements IReader
         return $styleArray;
     }
 
-    private function parseRichText($is = '')
+    private function parseRichText($is)
     {
         $value = new \PhpOffice\PhpSpreadsheet\RichText();
         $value->createText($is);

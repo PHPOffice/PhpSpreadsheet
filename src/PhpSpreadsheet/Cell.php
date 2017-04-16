@@ -202,7 +202,7 @@ class Cell
      *
      * @return Cell
      */
-    public function setValue($pValue = null)
+    public function setValue($pValue)
     {
         if (!self::getValueBinder()->bindValue($this, $pValue)) {
             throw new Exception('Value could not be bound to cell.');
@@ -215,13 +215,13 @@ class Cell
      * Set the value for a cell, with the explicit data type passed to the method (bypassing any use of the value binder).
      *
      * @param mixed $pValue Value
-     * @param string $pDataType Explicit data type
+     * @param string $pDataType Explicit data type, see Cell\DataType::TYPE_*
      *
      * @throws Exception
      *
      * @return Cell
      */
-    public function setValueExplicit($pValue = null, $pDataType = Cell\DataType::TYPE_STRING)
+    public function setValueExplicit($pValue, $pDataType)
     {
         // set the value according to data type
         switch ($pDataType) {
@@ -311,7 +311,7 @@ class Cell
      *
      * @return Cell
      */
-    public function setCalculatedValue($pValue = null)
+    public function setCalculatedValue($pValue)
     {
         if ($pValue !== null) {
             $this->calculatedValue = (is_numeric($pValue)) ? (float) $pValue : $pValue;
@@ -348,11 +348,11 @@ class Cell
     /**
      * Set cell data type.
      *
-     * @param string $pDataType
+     * @param string $pDataType see Cell\DataType::TYPE_*
      *
      * @return Cell
      */
-    public function setDataType($pDataType = Cell\DataType::TYPE_STRING)
+    public function setDataType($pDataType)
     {
         if ($pDataType == Cell\DataType::TYPE_STRING2) {
             $pDataType = Cell\DataType::TYPE_STRING;
@@ -571,7 +571,7 @@ class Cell
      *
      * @return bool
      */
-    public function isInRange($pRange = 'A1:A1')
+    public function isInRange($pRange)
     {
         list($rangeStart, $rangeEnd) = self::rangeBoundaries($pRange);
 
@@ -587,13 +587,13 @@ class Cell
     /**
      * Coordinate from string.
      *
-     * @param string $pCoordinateString
+     * @param string $pCoordinateString eg: 'A1'
      *
      * @throws Exception
      *
      * @return string[] Array containing column and row (indexes 0 and 1)
      */
-    public static function coordinateFromString($pCoordinateString = 'A1')
+    public static function coordinateFromString($pCoordinateString)
     {
         if (preg_match("/^([$]?[A-Z]{1,3})([$]?\d{1,7})$/", $pCoordinateString, $matches)) {
             return [$matches[1], $matches[2]];
@@ -616,7 +616,7 @@ class Cell
      *
      * @return string Absolute coordinate        e.g. '$A' or '$1' or '$A$1'
      */
-    public static function absoluteReference($pCoordinateString = 'A1')
+    public static function absoluteReference($pCoordinateString)
     {
         if (strpos($pCoordinateString, ':') === false && strpos($pCoordinateString, ',') === false) {
             // Split out any worksheet name from the reference
@@ -651,7 +651,7 @@ class Cell
      *
      * @return string Absolute coordinate        e.g. '$A$1'
      */
-    public static function absoluteCoordinate($pCoordinateString = 'A1')
+    public static function absoluteCoordinate($pCoordinateString)
     {
         if (strpos($pCoordinateString, ':') === false && strpos($pCoordinateString, ',') === false) {
             // Split out any worksheet name from the coordinate
@@ -684,7 +684,7 @@ class Cell
      *                                e.g. array('B4','D9') or array(array('B4','D9'),array('H2','O11'))
      *                                        or array('B4')
      */
-    public static function splitRange($pRange = 'A1:A1')
+    public static function splitRange($pRange)
     {
         // Ensure $pRange is a valid range
         if (empty($pRange)) {
@@ -735,7 +735,7 @@ class Cell
      * @return array Range coordinates array(Start Cell, End Cell)
      *                    where Start Cell and End Cell are arrays (Column Number, Row Number)
      */
-    public static function rangeBoundaries($pRange = 'A1:A1')
+    public static function rangeBoundaries($pRange)
     {
         // Ensure $pRange is a valid range
         if (empty($pRange)) {
@@ -770,7 +770,7 @@ class Cell
      *
      * @return array Range dimension (width, height)
      */
-    public static function rangeDimension($pRange = 'A1:A1')
+    public static function rangeDimension($pRange)
     {
         // Calculate range outer borders
         list($rangeStart, $rangeEnd) = self::rangeBoundaries($pRange);
@@ -786,7 +786,7 @@ class Cell
      * @return array Range coordinates array(Start Cell, End Cell)
      *                    where Start Cell and End Cell are arrays (Column ID, Row Number)
      */
-    public static function getRangeBoundaries($pRange = 'A1:A1')
+    public static function getRangeBoundaries($pRange)
     {
         // Ensure $pRange is a valid range
         if (empty($pRange)) {
@@ -809,11 +809,11 @@ class Cell
     /**
      * Column index from string.
      *
-     * @param string $pString
+     * @param string $pString eg 'A'
      *
      * @return int Column index (base 1 !!!)
      */
-    public static function columnIndexFromString($pString = 'A')
+    public static function columnIndexFromString($pString)
     {
         //    Using a lookup cache adds a slight memory overhead, but boosts speed
         //    caching using a static within the method is faster than a class static,
@@ -856,11 +856,11 @@ class Cell
     /**
      * String from columnindex.
      *
-     * @param int $pColumnIndex Column index (base 0 !!!)
+     * @param int $pColumnIndex Column index (A = 0)
      *
      * @return string
      */
-    public static function stringFromColumnIndex($pColumnIndex = 0)
+    public static function stringFromColumnIndex($pColumnIndex)
     {
         //    Using a lookup cache adds a slight memory overhead, but boosts speed
         //    caching using a static within the method is faster than a class static,
@@ -891,7 +891,7 @@ class Cell
      *
      * @return array Array containing single cell references
      */
-    public static function extractAllCellReferencesInRange($pRange = 'A1')
+    public static function extractAllCellReferencesInRange($pRange)
     {
         // Returnvalue
         $returnValue = [];
@@ -1031,7 +1031,7 @@ class Cell
      *
      * @return Cell
      */
-    public function setXfIndex($pValue = 0)
+    public function setXfIndex($pValue)
     {
         $this->xfIndex = $pValue;
 

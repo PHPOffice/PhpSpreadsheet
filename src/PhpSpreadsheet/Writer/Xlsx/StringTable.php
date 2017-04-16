@@ -85,7 +85,7 @@ class StringTable extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeStringTable($pStringTable = null)
+    public function writeStringTable(array $pStringTable = null)
     {
         if ($pStringTable !== null) {
             // Create XML writer
@@ -286,7 +286,7 @@ class StringTable extends WriterPart
      *
      * @return array
      */
-    public function flipStringTable($stringTable = [])
+    public function flipStringTable(array $stringTable)
     {
         // Return value
         $returnValue = [];

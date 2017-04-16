@@ -84,7 +84,7 @@ class RichText implements IComparable
      *
      * @return RichText\TextElement
      */
-    public function createText($pText = '')
+    public function createText($pText)
     {
         $objText = new RichText\TextElement($pText);
         $this->addText($objText);
@@ -101,7 +101,7 @@ class RichText implements IComparable
      *
      * @return RichText\Run
      */
-    public function createTextRun($pText = '')
+    public function createTextRun($pText)
     {
         $objText = new RichText\Run($pText);
         $this->addText($objText);
@@ -150,19 +150,15 @@ class RichText implements IComparable
     /**
      * Set Rich Text elements.
      *
-     * @param RichText\ITextElement[] $pElements Array of elements
+     * @param RichText\ITextElement[] $textElements Array of elements
      *
      * @throws Exception
      *
      * @return RichText
      */
-    public function setRichTextElements($pElements = null)
+    public function setRichTextElements(array $textElements)
     {
-        if (is_array($pElements)) {
-            $this->richTextElements = $pElements;
-        } else {
-            throw new Exception("Invalid \PhpOffice\PhpSpreadsheet\RichText\ITextElement[] array passed.");
-        }
+        $this->richTextElements = $textElements;
 
         return $this;
     }

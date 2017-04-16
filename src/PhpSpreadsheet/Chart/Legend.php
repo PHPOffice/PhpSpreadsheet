@@ -96,9 +96,9 @@ class Legend
     /**
      * Get legend position using an excel string value.
      *
-     * @param string $position
+     * @param string $position see self::POSITION_*
      */
-    public function setPosition($position = self::POSITION_RIGHT)
+    public function setPosition($position)
     {
         if (!in_array($position, self::$positionXLref)) {
             return false;
@@ -112,7 +112,7 @@ class Legend
     /**
      * Get legend position as an Excel internal numeric value.
      *
-     * @return number
+     * @return int
      */
     public function getPositionXL()
     {
@@ -122,9 +122,9 @@ class Legend
     /**
      * Set legend position using an Excel internal numeric value.
      *
-     * @param number $positionXL
+     * @param int $positionXL see self::XL_LEGEND_POSITION_*
      */
-    public function setPositionXL($positionXL = self::XL_LEGEND_POSITION_RIGHT)
+    public function setPositionXL($positionXL)
     {
         if (!isset(self::$positionXLref[$positionXL])) {
             return false;
@@ -152,7 +152,7 @@ class Legend
      *
      * @return bool
      */
-    public function setOverlay($overlay = false)
+    public function setOverlay($overlay)
     {
         if (!is_bool($overlay)) {
             return false;

@@ -181,21 +181,17 @@ class Border extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Border
      */
-    public function applyFromArray($pStyles = null)
+    public function applyFromArray(array $pStyles)
     {
-        if (is_array($pStyles)) {
-            if ($this->isSupervisor) {
-                $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
-            } else {
-                if (isset($pStyles['style'])) {
-                    $this->setBorderStyle($pStyles['style']);
-                }
-                if (isset($pStyles['color'])) {
-                    $this->getColor()->applyFromArray($pStyles['color']);
-                }
-            }
+        if ($this->isSupervisor) {
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid style array passed.');
+            if (isset($pStyles['style'])) {
+                $this->setBorderStyle($pStyles['style']);
+            }
+            if (isset($pStyles['color'])) {
+                $this->getColor()->applyFromArray($pStyles['color']);
+            }
         }
 
         return $this;
@@ -224,7 +220,7 @@ class Border extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Border
      */
-    public function setBorderStyle($pValue = self::BORDER_NONE)
+    public function setBorderStyle($pValue)
     {
         if (empty($pValue)) {
             $pValue = self::BORDER_NONE;

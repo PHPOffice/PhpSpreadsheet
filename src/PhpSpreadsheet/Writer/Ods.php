@@ -74,7 +74,7 @@ class Ods extends BaseWriter implements IWriter
      *
      * @return Ods\WriterPart|null
      */
-    public function getWriterPart($pPartName = '')
+    public function getWriterPart($pPartName)
     {
         if ($pPartName != '' && isset($this->writerParts[strtolower($pPartName)])) {
             return $this->writerParts[strtolower($pPartName)];
@@ -90,7 +90,7 @@ class Ods extends BaseWriter implements IWriter
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function save($pFilename = null)
+    public function save($pFilename)
     {
         if (!$this->spreadSheet) {
             throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('PhpSpreadsheet object unassigned.');

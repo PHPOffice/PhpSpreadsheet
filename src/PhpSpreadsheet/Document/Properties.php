@@ -142,13 +142,13 @@ class Properties
     /**
      * Set Creator.
      *
-     * @param string $pValue
+     * @param string $creator
      *
      * @return Properties
      */
-    public function setCreator($pValue = '')
+    public function setCreator($creator)
     {
-        $this->creator = $pValue;
+        $this->creator = $creator;
 
         return $this;
     }
@@ -170,7 +170,7 @@ class Properties
      *
      * @return Properties
      */
-    public function setLastModifiedBy($pValue = '')
+    public function setLastModifiedBy($pValue)
     {
         $this->lastModifiedBy = $pValue;
 
@@ -194,7 +194,7 @@ class Properties
      *
      * @return Properties
      */
-    public function setCreated($pValue = null)
+    public function setCreated($pValue)
     {
         if ($pValue === null) {
             $pValue = time();
@@ -228,7 +228,7 @@ class Properties
      *
      * @return Properties
      */
-    public function setModified($pValue = null)
+    public function setModified($pValue)
     {
         if ($pValue === null) {
             $pValue = time();
@@ -258,13 +258,13 @@ class Properties
     /**
      * Set Title.
      *
-     * @param string $pValue
+     * @param string $title
      *
      * @return Properties
      */
-    public function setTitle($pValue = '')
+    public function setTitle($title)
     {
-        $this->title = $pValue;
+        $this->title = $title;
 
         return $this;
     }
@@ -282,13 +282,13 @@ class Properties
     /**
      * Set Description.
      *
-     * @param string $pValue
+     * @param string $description
      *
      * @return Properties
      */
-    public function setDescription($pValue = '')
+    public function setDescription($description)
     {
-        $this->description = $pValue;
+        $this->description = $description;
 
         return $this;
     }
@@ -306,13 +306,13 @@ class Properties
     /**
      * Set Subject.
      *
-     * @param string $pValue
+     * @param string $subject
      *
      * @return Properties
      */
-    public function setSubject($pValue = '')
+    public function setSubject($subject)
     {
-        $this->subject = $pValue;
+        $this->subject = $subject;
 
         return $this;
     }
@@ -330,13 +330,13 @@ class Properties
     /**
      * Set Keywords.
      *
-     * @param string $pValue
+     * @param string $keywords
      *
      * @return Properties
      */
-    public function setKeywords($pValue = '')
+    public function setKeywords($keywords)
     {
-        $this->keywords = $pValue;
+        $this->keywords = $keywords;
 
         return $this;
     }
@@ -354,13 +354,13 @@ class Properties
     /**
      * Set Category.
      *
-     * @param string $pValue
+     * @param string $category
      *
      * @return Properties
      */
-    public function setCategory($pValue = '')
+    public function setCategory($category)
     {
-        $this->category = $pValue;
+        $this->category = $category;
 
         return $this;
     }
@@ -378,13 +378,13 @@ class Properties
     /**
      * Set Company.
      *
-     * @param string $pValue
+     * @param string $company
      *
      * @return Properties
      */
-    public function setCompany($pValue = '')
+    public function setCompany($company)
     {
-        $this->company = $pValue;
+        $this->company = $company;
 
         return $this;
     }
@@ -402,13 +402,13 @@ class Properties
     /**
      * Set Manager.
      *
-     * @param string $pValue
+     * @param string $manager
      *
      * @return Properties
      */
-    public function setManager($pValue = '')
+    public function setManager($manager)
     {
-        $this->manager = $pValue;
+        $this->manager = $manager;
 
         return $this;
     }

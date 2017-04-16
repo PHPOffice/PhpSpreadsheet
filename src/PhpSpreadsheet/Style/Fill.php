@@ -153,31 +153,27 @@ class Fill extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Fill
      */
-    public function applyFromArray($pStyles = null)
+    public function applyFromArray(array $pStyles)
     {
-        if (is_array($pStyles)) {
-            if ($this->isSupervisor) {
-                $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
-            } else {
-                if (isset($pStyles['type'])) {
-                    $this->setFillType($pStyles['type']);
-                }
-                if (isset($pStyles['rotation'])) {
-                    $this->setRotation($pStyles['rotation']);
-                }
-                if (isset($pStyles['startcolor'])) {
-                    $this->getStartColor()->applyFromArray($pStyles['startcolor']);
-                }
-                if (isset($pStyles['endcolor'])) {
-                    $this->getEndColor()->applyFromArray($pStyles['endcolor']);
-                }
-                if (isset($pStyles['color'])) {
-                    $this->getStartColor()->applyFromArray($pStyles['color']);
-                    $this->getEndColor()->applyFromArray($pStyles['color']);
-                }
-            }
+        if ($this->isSupervisor) {
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid style array passed.');
+            if (isset($pStyles['type'])) {
+                $this->setFillType($pStyles['type']);
+            }
+            if (isset($pStyles['rotation'])) {
+                $this->setRotation($pStyles['rotation']);
+            }
+            if (isset($pStyles['startcolor'])) {
+                $this->getStartColor()->applyFromArray($pStyles['startcolor']);
+            }
+            if (isset($pStyles['endcolor'])) {
+                $this->getEndColor()->applyFromArray($pStyles['endcolor']);
+            }
+            if (isset($pStyles['color'])) {
+                $this->getStartColor()->applyFromArray($pStyles['color']);
+                $this->getEndColor()->applyFromArray($pStyles['color']);
+            }
         }
 
         return $this;
@@ -200,11 +196,11 @@ class Fill extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     /**
      * Set Fill Type.
      *
-     * @param string $pValue Fill type
+     * @param string $pValue Fill type, see self::FILL_*
      *
      * @return Fill
      */
-    public function setFillType($pValue = self::FILL_NONE)
+    public function setFillType($pValue)
     {
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['type' => $pValue]);
@@ -237,7 +233,7 @@ class Fill extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Fill
      */
-    public function setRotation($pValue = 0)
+    public function setRotation($pValue)
     {
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['rotation' => $pValue]);

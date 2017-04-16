@@ -45,7 +45,7 @@ class PlotArea
      *
      * @param mixed $plotSeries
      */
-    public function __construct(Layout $layout = null, $plotSeries = [])
+    public function __construct(Layout $layout = null, array $plotSeries = [])
     {
         $this->layout = $layout;
         $this->plotSeries = $plotSeries;
@@ -116,7 +116,7 @@ class PlotArea
      *
      * @return PlotArea
      */
-    public function setPlotSeries($plotSeries = [])
+    public function setPlotSeries(array $plotSeries)
     {
         $this->plotSeries = $plotSeries;
 

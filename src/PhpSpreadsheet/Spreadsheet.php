@@ -148,7 +148,7 @@ class Spreadsheet
      *
      * @param bool $hasMacros true|false
      */
-    public function setHasMacros($hasMacros = false)
+    public function setHasMacros($hasMacros)
     {
         $this->hasMacros = (bool) $hasMacros;
     }
@@ -158,7 +158,7 @@ class Spreadsheet
      *
      * @param string $macroCode string|null
      */
-    public function setMacrosCode($macroCode = null)
+    public function setMacrosCode($macroCode)
     {
         $this->macrosCode = $macroCode;
         $this->setHasMacros(!is_null($macroCode));
@@ -179,7 +179,7 @@ class Spreadsheet
      *
      * @param string|null $certificate
      */
-    public function setMacrosCertificate($certificate = null)
+    public function setMacrosCertificate($certificate)
     {
         $this->macrosCertificate = $certificate;
     }
@@ -220,7 +220,7 @@ class Spreadsheet
      * @param null|mixed $target
      * @param null|mixed $xmlData
      */
-    public function setRibbonXMLData($target = null, $xmlData = null)
+    public function setRibbonXMLData($target, $xmlData)
     {
         if (!is_null($target) && !is_null($xmlData)) {
             $this->ribbonXMLData = ['target' => $target, 'data' => $xmlData];
@@ -234,7 +234,7 @@ class Spreadsheet
      *
      * return string|null|array
      *
-     * @param mixed $what
+     * @param string $what
      *
      * @return string
      */
@@ -263,7 +263,7 @@ class Spreadsheet
      * @param null|mixed $BinObjectsNames
      * @param null|mixed $BinObjectsData
      */
-    public function setRibbonBinObjects($BinObjectsNames = null, $BinObjectsData = null)
+    public function setRibbonBinObjects($BinObjectsNames, $BinObjectsData)
     {
         if (!is_null($BinObjectsNames) && !is_null($BinObjectsData)) {
             $this->ribbonBinObjects = ['names' => $BinObjectsNames, 'data' => $BinObjectsData];
@@ -285,20 +285,20 @@ class Spreadsheet
     /**
      * retrieve Binaries Ribbon Objects.
      *
-     * @param mixed $What
+     * @param mixed $what
      */
-    public function getRibbonBinObjects($What = 'all')
+    public function getRibbonBinObjects($what = 'all')
     {
         $ReturnData = null;
-        $What = strtolower($What);
-        switch ($What) {
+        $what = strtolower($what);
+        switch ($what) {
             case 'all':
                 return $this->ribbonBinObjects;
                 break;
             case 'names':
             case 'data':
-                if (is_array($this->ribbonBinObjects) && isset($this->ribbonBinObjects[$What])) {
-                    $ReturnData = $this->ribbonBinObjects[$What];
+                if (is_array($this->ribbonBinObjects) && isset($this->ribbonBinObjects[$what])) {
+                    $ReturnData = $this->ribbonBinObjects[$what];
                 }
                 break;
             case 'types':
@@ -354,7 +354,7 @@ class Spreadsheet
      *
      * @return Worksheet
      */
-    public function getSheetByCodeName($pName = '')
+    public function getSheetByCodeName($pName)
     {
         $worksheetCount = count($this->workSheetCollection);
         for ($i = 0; $i < $worksheetCount; ++$i) {
@@ -486,16 +486,16 @@ class Spreadsheet
     /**
      * Create sheet and add it to this workbook.
      *
-     * @param int|null $iSheetIndex Index where sheet should go (0,1,..., or null for last)
+     * @param int|null $sheetIndex Index where sheet should go (0,1,..., or null for last)
      *
      * @throws Exception
      *
      * @return Worksheet
      */
-    public function createSheet($iSheetIndex = null)
+    public function createSheet($sheetIndex = null)
     {
         $newSheet = new Worksheet($this);
-        $this->addSheet($newSheet, $iSheetIndex);
+        $this->addSheet($newSheet, $sheetIndex);
 
         return $newSheet;
     }
@@ -564,7 +564,7 @@ class Spreadsheet
      *
      * @throws Exception
      */
-    public function removeSheetByIndex($pIndex = 0)
+    public function removeSheetByIndex($pIndex)
     {
         $numSheets = count($this->workSheetCollection);
         if ($pIndex > $numSheets - 1) {
@@ -590,7 +590,7 @@ class Spreadsheet
      *
      * @return Worksheet
      */
-    public function getSheet($pIndex = 0)
+    public function getSheet($pIndex)
     {
         if (!isset($this->workSheetCollection[$pIndex])) {
             $numSheets = $this->getSheetCount();
@@ -619,7 +619,7 @@ class Spreadsheet
      *
      * @return Worksheet
      */
-    public function getSheetByName($pName = '')
+    public function getSheetByName($pName)
     {
         $worksheetCount = count($this->workSheetCollection);
         for ($i = 0; $i < $worksheetCount; ++$i) {
@@ -708,7 +708,7 @@ class Spreadsheet
      *
      * @return Worksheet
      */
-    public function setActiveSheetIndex($pIndex = 0)
+    public function setActiveSheetIndex($pIndex)
     {
         $numSheets = count($this->workSheetCollection);
 
@@ -731,7 +731,7 @@ class Spreadsheet
      *
      * @return Worksheet
      */
-    public function setActiveSheetIndexByName($pValue = '')
+    public function setActiveSheetIndexByName($pValue)
     {
         if (($worksheet = $this->getSheetByName($pValue)) instanceof Worksheet) {
             $this->setActiveSheetIndex($this->getIndex($worksheet));
@@ -931,7 +931,7 @@ class Spreadsheet
      *
      * @return Style
      */
-    public function getCellXfByIndex($pIndex = 0)
+    public function getCellXfByIndex($pIndex)
     {
         return $this->cellXfCollection[$pIndex];
     }
@@ -943,7 +943,7 @@ class Spreadsheet
      *
      * @return Style|false
      */
-    public function getCellXfByHashCode($pValue = '')
+    public function getCellXfByHashCode($pValue)
     {
         foreach ($this->cellXfCollection as $cellXf) {
             if ($cellXf->getHashCode() == $pValue) {
@@ -961,7 +961,7 @@ class Spreadsheet
      *
      * @return bool
      */
-    public function cellXfExists($pCellStyle = null)
+    public function cellXfExists($pCellStyle)
     {
         return in_array($pCellStyle, $this->cellXfCollection, true);
     }
@@ -999,7 +999,7 @@ class Spreadsheet
      *
      * @throws Exception
      */
-    public function removeCellXfByIndex($pIndex = 0)
+    public function removeCellXfByIndex($pIndex)
     {
         if ($pIndex > count($this->cellXfCollection) - 1) {
             throw new Exception('CellXf index is out of bounds.');
@@ -1051,7 +1051,7 @@ class Spreadsheet
      *
      * @return Style
      */
-    public function getCellStyleXfByIndex($pIndex = 0)
+    public function getCellStyleXfByIndex($pIndex)
     {
         return $this->cellStyleXfCollection[$pIndex];
     }
@@ -1063,7 +1063,7 @@ class Spreadsheet
      *
      * @return Style|false
      */
-    public function getCellStyleXfByHashCode($pValue = '')
+    public function getCellStyleXfByHashCode($pValue)
     {
         foreach ($this->cellStyleXfCollection as $cellStyleXf) {
             if ($cellStyleXf->getHashCode() == $pValue) {
@@ -1092,7 +1092,7 @@ class Spreadsheet
      *
      * @throws Exception
      */
-    public function removeCellStyleXfByIndex($pIndex = 0)
+    public function removeCellStyleXfByIndex($pIndex)
     {
         if ($pIndex > count($this->cellStyleXfCollection) - 1) {
             throw new Exception('CellStyleXf index is out of bounds.');

@@ -166,7 +166,7 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return BaseDrawing
      */
-    public function setName($pValue = '')
+    public function setName($pValue)
     {
         $this->name = $pValue;
 
@@ -186,13 +186,13 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     /**
      * Set Description.
      *
-     * @param string $pValue
+     * @param string $description
      *
      * @return BaseDrawing
      */
-    public function setDescription($pValue = '')
+    public function setDescription($description)
     {
-        $this->description = $pValue;
+        $this->description = $description;
 
         return $this;
     }
@@ -260,11 +260,11 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     /**
      * Set Coordinates.
      *
-     * @param string $pValue
+     * @param string $pValue eg: 'A1'
      *
      * @return BaseDrawing
      */
-    public function setCoordinates($pValue = 'A1')
+    public function setCoordinates($pValue)
     {
         $this->coordinates = $pValue;
 
@@ -288,7 +288,7 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return BaseDrawing
      */
-    public function setOffsetX($pValue = 0)
+    public function setOffsetX($pValue)
     {
         $this->offsetX = $pValue;
 
@@ -312,7 +312,7 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return BaseDrawing
      */
-    public function setOffsetY($pValue = 0)
+    public function setOffsetY($pValue)
     {
         $this->offsetY = $pValue;
 
@@ -336,7 +336,7 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return BaseDrawing
      */
-    public function setWidth($pValue = 0)
+    public function setWidth($pValue)
     {
         // Resize proportional?
         if ($this->resizeProportional && $pValue != 0) {
@@ -367,7 +367,7 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return BaseDrawing
      */
-    public function setHeight($pValue = 0)
+    public function setHeight($pValue)
     {
         // Resize proportional?
         if ($this->resizeProportional && $pValue != 0) {
@@ -396,7 +396,7 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return BaseDrawing
      */
-    public function setWidthAndHeight($width = 0, $height = 0)
+    public function setWidthAndHeight($width, $height)
     {
         $xratio = $width / ($this->width != 0 ? $this->width : 1);
         $yratio = $height / ($this->height != 0 ? $this->height : 1);
@@ -433,7 +433,7 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return BaseDrawing
      */
-    public function setResizeProportional($pValue = true)
+    public function setResizeProportional($pValue)
     {
         $this->resizeProportional = $pValue;
 
@@ -457,7 +457,7 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return BaseDrawing
      */
-    public function setRotation($pValue = 0)
+    public function setRotation($pValue)
     {
         $this->rotation = $pValue;
 

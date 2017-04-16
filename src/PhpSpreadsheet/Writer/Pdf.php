@@ -73,7 +73,7 @@ class Pdf implements IWriter
     /**
      * {@inheritdoc}
      */
-    public function save($pFilename = null)
+    public function save($pFilename)
     {
         $this->renderer->save($pFilename);
     }

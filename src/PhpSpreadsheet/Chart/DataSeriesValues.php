@@ -120,7 +120,7 @@ class DataSeriesValues
      *
      * @return DataSeriesValues
      */
-    public function setDataType($dataType = self::DATASERIES_TYPE_NUMBER)
+    public function setDataType($dataType)
     {
         if (!in_array($dataType, self::$dataTypeValues)) {
             throw new Exception('Invalid datatype for chart data series values');
@@ -144,17 +144,12 @@ class DataSeriesValues
      * Set Series Data Source (formula).
      *
      * @param string $dataSource
-     * @param mixed $refreshDataValues
      *
      * @return DataSeriesValues
      */
-    public function setDataSource($dataSource = null, $refreshDataValues = true)
+    public function setDataSource($dataSource)
     {
         $this->dataSource = $dataSource;
-
-        if ($refreshDataValues) {
-            //    TO DO
-        }
 
         return $this;
     }
@@ -176,7 +171,7 @@ class DataSeriesValues
      *
      * @return DataSeriesValues
      */
-    public function setPointMarker($marker = null)
+    public function setPointMarker($marker)
     {
         $this->pointMarker = $marker;
 
@@ -200,7 +195,7 @@ class DataSeriesValues
      *
      * @return DataSeriesValues
      */
-    public function setFormatCode($formatCode = null)
+    public function setFormatCode($formatCode)
     {
         $this->formatCode = $formatCode;
 
@@ -277,27 +272,15 @@ class DataSeriesValues
      * Set Series Data Values.
      *
      * @param array $dataValues
-     * @param bool $refreshDataSource
-     *                    TRUE - refresh the value of dataSource based on the values of $dataValues
-     *                    FALSE - don't change the value of dataSource
      *
      * @return DataSeriesValues
      */
-    public function setDataValues($dataValues = [], $refreshDataSource = true)
+    public function setDataValues($dataValues)
     {
         $this->dataValues = \PhpOffice\PhpSpreadsheet\Calculation\Functions::flattenArray($dataValues);
         $this->pointCount = count($dataValues);
 
-        if ($refreshDataSource) {
-            //    TO DO
-        }
-
         return $this;
-    }
-
-    private function stripNulls($var)
-    {
-        return $var !== null;
     }
 
     public function refresh(\PhpOffice\PhpSpreadsheet\Worksheet $worksheet, $flatten = true)

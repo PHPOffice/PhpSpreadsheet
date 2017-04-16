@@ -48,14 +48,14 @@ abstract class BaseWriter implements IWriter
      *
      * @var bool
      */
-    protected $_useDiskCaching = false;
+    private $useDiskCaching = false;
 
     /**
      * Disk caching directory.
      *
      * @var string
      */
-    protected $_diskCachingDirectory = './';
+    private $diskCachingDirectory = './';
 
     /**
      * Write charts in workbook?
@@ -78,7 +78,7 @@ abstract class BaseWriter implements IWriter
      *
      * @return IWriter
      */
-    public function setIncludeCharts($pValue = false)
+    public function setIncludeCharts($pValue)
     {
         $this->includeCharts = (bool) $pValue;
 
@@ -109,7 +109,7 @@ abstract class BaseWriter implements IWriter
      *
      * @return IWriter
      */
-    public function setPreCalculateFormulas($pValue = true)
+    public function setPreCalculateFormulas($pValue)
     {
         $this->preCalculateFormulas = (bool) $pValue;
 
@@ -123,7 +123,7 @@ abstract class BaseWriter implements IWriter
      */
     public function getUseDiskCaching()
     {
-        return $this->_useDiskCaching;
+        return $this->useDiskCaching;
     }
 
     /**
@@ -136,13 +136,13 @@ abstract class BaseWriter implements IWriter
      *
      * @return IWriter
      */
-    public function setUseDiskCaching($pValue = false, $pDirectory = null)
+    public function setUseDiskCaching($pValue, $pDirectory = null)
     {
-        $this->_useDiskCaching = $pValue;
+        $this->useDiskCaching = $pValue;
 
         if ($pDirectory !== null) {
             if (is_dir($pDirectory)) {
-                $this->_diskCachingDirectory = $pDirectory;
+                $this->diskCachingDirectory = $pDirectory;
             } else {
                 throw new Exception("Directory does not exist: $pDirectory");
             }
@@ -158,6 +158,6 @@ abstract class BaseWriter implements IWriter
      */
     public function getDiskCachingDirectory()
     {
-        return $this->_diskCachingDirectory;
+        return $this->diskCachingDirectory;
     }
 }

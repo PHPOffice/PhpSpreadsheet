@@ -82,7 +82,7 @@ abstract class Dimension
      *
      * @return Dimension
      */
-    public function setVisible($pValue = true)
+    public function setVisible($pValue)
     {
         $this->visible = $pValue;
 
@@ -138,7 +138,7 @@ abstract class Dimension
      *
      * @return Dimension
      */
-    public function setCollapsed($pValue = true)
+    public function setCollapsed($pValue)
     {
         $this->collapsed = $pValue;
 
@@ -162,7 +162,7 @@ abstract class Dimension
      *
      * @return Dimension
      */
-    public function setXfIndex($pValue = 0)
+    public function setXfIndex($pValue)
     {
         $this->xfIndex = $pValue;
 

@@ -152,21 +152,17 @@ class Color extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Color
      */
-    public function applyFromArray($pStyles = null)
+    public function applyFromArray(array $pStyles)
     {
-        if (is_array($pStyles)) {
-            if ($this->isSupervisor) {
-                $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
-            } else {
-                if (isset($pStyles['rgb'])) {
-                    $this->setRGB($pStyles['rgb']);
-                }
-                if (isset($pStyles['argb'])) {
-                    $this->setARGB($pStyles['argb']);
-                }
-            }
+        if ($this->isSupervisor) {
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid style array passed.');
+            if (isset($pStyles['rgb'])) {
+                $this->setRGB($pStyles['rgb']);
+            }
+            if (isset($pStyles['argb'])) {
+                $this->setARGB($pStyles['argb']);
+            }
         }
 
         return $this;
@@ -189,11 +185,11 @@ class Color extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     /**
      * Set ARGB.
      *
-     * @param string $pValue
+     * @param string $pValue see self::COLOR_*
      *
      * @return Color
      */
-    public function setARGB($pValue = self::COLOR_BLACK)
+    public function setARGB($pValue)
     {
         if ($pValue == '') {
             $pValue = self::COLOR_BLACK;
@@ -229,7 +225,7 @@ class Color extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Color
      */
-    public function setRGB($pValue = '000000')
+    public function setRGB($pValue)
     {
         if ($pValue == '') {
             $pValue = '000000';

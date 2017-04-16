@@ -339,7 +339,7 @@ class HeaderFooter
      *
      * @return HeaderFooter
      */
-    public function setDifferentOddEven($pValue = false)
+    public function setDifferentOddEven($pValue)
     {
         $this->differentOddEven = $pValue;
 
@@ -363,7 +363,7 @@ class HeaderFooter
      *
      * @return HeaderFooter
      */
-    public function setDifferentFirst($pValue = false)
+    public function setDifferentFirst($pValue)
     {
         $this->differentFirst = $pValue;
 
@@ -387,7 +387,7 @@ class HeaderFooter
      *
      * @return HeaderFooter
      */
-    public function setScaleWithDocument($pValue = true)
+    public function setScaleWithDocument($pValue)
     {
         $this->scaleWithDocument = $pValue;
 
@@ -411,7 +411,7 @@ class HeaderFooter
      *
      * @return HeaderFooter
      */
-    public function setAlignWithMargins($pValue = true)
+    public function setAlignWithMargins($pValue)
     {
         $this->alignWithMargins = $pValue;
 

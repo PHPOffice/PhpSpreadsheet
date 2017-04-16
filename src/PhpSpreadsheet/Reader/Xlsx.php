@@ -2034,7 +2034,7 @@ class Xlsx extends BaseReader implements IReader
      *
      * @return RichText
      */
-    private function parseRichText($is = null)
+    private function parseRichText($is)
     {
         $value = new RichText();
 
@@ -2179,7 +2179,7 @@ class Xlsx extends BaseReader implements IReader
         return $style;
     }
 
-    private static function boolean($value = null)
+    private static function boolean($value)
     {
         if (is_object($value)) {
             $value = (string) $value;
