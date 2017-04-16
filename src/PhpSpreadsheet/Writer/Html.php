@@ -1172,253 +1172,250 @@ class Html extends BaseWriter implements IWriter
      * @param \PhpOffice\PhpSpreadsheet\Worksheet $pSheet \PhpOffice\PhpSpreadsheet\Worksheet
      * @param array $pValues Array containing cells in a row
      * @param int $pRow Row number (0-based)
-     * @param mixed $cellType
+     * @param mixed $cellType eg: 'td'
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string
      */
-    private function generateRow(\PhpOffice\PhpSpreadsheet\Worksheet $pSheet, $pValues = null, $pRow = 0, $cellType = 'td')
+    private function generateRow(\PhpOffice\PhpSpreadsheet\Worksheet $pSheet, array $pValues, $pRow, $cellType)
     {
-        if (is_array($pValues)) {
-            // Construct HTML
-            $html = '';
+        // Construct HTML
+        $html = '';
 
-            // Sheet index
-            $sheetIndex = $pSheet->getParent()->getIndex($pSheet);
+        // Sheet index
+        $sheetIndex = $pSheet->getParent()->getIndex($pSheet);
 
-            // DomPDF and breaks
-            if ($this->isPdf && count($pSheet->getBreaks()) > 0) {
-                $breaks = $pSheet->getBreaks();
+        // DomPDF and breaks
+        if ($this->isPdf && count($pSheet->getBreaks()) > 0) {
+            $breaks = $pSheet->getBreaks();
 
-                // check if a break is needed before this row
-                if (isset($breaks['A' . $pRow])) {
-                    // close table: </table>
-                    $html .= $this->generateTableFooter();
+            // check if a break is needed before this row
+            if (isset($breaks['A' . $pRow])) {
+                // close table: </table>
+                $html .= $this->generateTableFooter();
 
-                    // insert page break
-                    $html .= '<div style="page-break-before:always" />';
+                // insert page break
+                $html .= '<div style="page-break-before:always" />';
 
-                    // open table again: <table> + <col> etc.
-                    $html .= $this->generateTableHeader($pSheet);
-                }
+                // open table again: <table> + <col> etc.
+                $html .= $this->generateTableHeader($pSheet);
             }
-
-            // Write row start
-            if (!$this->useInlineCss) {
-                $html .= '          <tr class="row' . $pRow . '">' . PHP_EOL;
-            } else {
-                $style = isset($this->cssStyles['table.sheet' . $sheetIndex . ' tr.row' . $pRow])
-                    ? $this->assembleCSS($this->cssStyles['table.sheet' . $sheetIndex . ' tr.row' . $pRow]) : '';
-
-                $html .= '          <tr style="' . $style . '">' . PHP_EOL;
-            }
-
-            // Write cells
-            $colNum = 0;
-            foreach ($pValues as $cellAddress) {
-                $cell = ($cellAddress > '') ? $pSheet->getCell($cellAddress) : '';
-                $coordinate = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($colNum) . ($pRow + 1);
-                if (!$this->useInlineCss) {
-                    $cssClass = '';
-                    $cssClass = 'column' . $colNum;
-                } else {
-                    $cssClass = [];
-                    if ($cellType == 'th') {
-                        if (isset($this->cssStyles['table.sheet' . $sheetIndex . ' th.column' . $colNum])) {
-                            $this->cssStyles['table.sheet' . $sheetIndex . ' th.column' . $colNum];
-                        }
-                    } else {
-                        if (isset($this->cssStyles['table.sheet' . $sheetIndex . ' td.column' . $colNum])) {
-                            $this->cssStyles['table.sheet' . $sheetIndex . ' td.column' . $colNum];
-                        }
-                    }
-                }
-                $colSpan = 1;
-                $rowSpan = 1;
-
-                // initialize
-                $cellData = '&nbsp;';
-
-                // \PhpOffice\PhpSpreadsheet\Cell
-                if ($cell instanceof \PhpOffice\PhpSpreadsheet\Cell) {
-                    $cellData = '';
-                    if (is_null($cell->getParent())) {
-                        $cell->attach($pSheet);
-                    }
-                    // Value
-                    if ($cell->getValue() instanceof \PhpOffice\PhpSpreadsheet\RichText) {
-                        // Loop through rich text elements
-                        $elements = $cell->getValue()->getRichTextElements();
-                        foreach ($elements as $element) {
-                            // Rich text start?
-                            if ($element instanceof \PhpOffice\PhpSpreadsheet\RichText\Run) {
-                                $cellData .= '<span style="' . $this->assembleCSS($this->createCSSStyleFont($element->getFont())) . '">';
-
-                                if ($element->getFont()->getSuperScript()) {
-                                    $cellData .= '<sup>';
-                                } elseif ($element->getFont()->getSubScript()) {
-                                    $cellData .= '<sub>';
-                                }
-                            }
-
-                            // Convert UTF8 data to PCDATA
-                            $cellText = $element->getText();
-                            $cellData .= htmlspecialchars($cellText);
-
-                            if ($element instanceof \PhpOffice\PhpSpreadsheet\RichText\Run) {
-                                if ($element->getFont()->getSuperScript()) {
-                                    $cellData .= '</sup>';
-                                } elseif ($element->getFont()->getSubScript()) {
-                                    $cellData .= '</sub>';
-                                }
-
-                                $cellData .= '</span>';
-                            }
-                        }
-                    } else {
-                        if ($this->preCalculateFormulas) {
-                            $cellData = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::toFormattedString(
-                                $cell->getCalculatedValue(),
-                                $pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode(),
-                                [$this, 'formatColor']
-                            );
-                        } else {
-                            $cellData = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::toFormattedString(
-                                $cell->getValue(),
-                                $pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode(),
-                                [$this, 'formatColor']
-                            );
-                        }
-                        $cellData = htmlspecialchars($cellData);
-                        if ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSuperScript()) {
-                            $cellData = '<sup>' . $cellData . '</sup>';
-                        } elseif ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSubScript()) {
-                            $cellData = '<sub>' . $cellData . '</sub>';
-                        }
-                    }
-
-                    // Converts the cell content so that spaces occuring at beginning of each new line are replaced by &nbsp;
-                    // Example: "  Hello\n to the world" is converted to "&nbsp;&nbsp;Hello\n&nbsp;to the world"
-                    $cellData = preg_replace('/(?m)(?:^|\\G) /', '&nbsp;', $cellData);
-
-                    // convert newline "\n" to '<br>'
-                    $cellData = nl2br($cellData);
-
-                    // Extend CSS class?
-                    if (!$this->useInlineCss) {
-                        $cssClass .= ' style' . $cell->getXfIndex();
-                        $cssClass .= ' ' . $cell->getDataType();
-                    } else {
-                        if ($cellType == 'th') {
-                            if (isset($this->cssStyles['th.style' . $cell->getXfIndex()])) {
-                                $cssClass = array_merge($cssClass, $this->cssStyles['th.style' . $cell->getXfIndex()]);
-                            }
-                        } else {
-                            if (isset($this->cssStyles['td.style' . $cell->getXfIndex()])) {
-                                $cssClass = array_merge($cssClass, $this->cssStyles['td.style' . $cell->getXfIndex()]);
-                            }
-                        }
-
-                        // General horizontal alignment: Actual horizontal alignment depends on dataType
-                        $sharedStyle = $pSheet->getParent()->getCellXfByIndex($cell->getXfIndex());
-                        if ($sharedStyle->getAlignment()->getHorizontal() == \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_GENERAL
-                            && isset($this->cssStyles['.' . $cell->getDataType()]['text-align'])
-                        ) {
-                            $cssClass['text-align'] = $this->cssStyles['.' . $cell->getDataType()]['text-align'];
-                        }
-                    }
-                }
-
-                // Hyperlink?
-                if ($pSheet->hyperlinkExists($coordinate) && !$pSheet->getHyperlink($coordinate)->isInternal()) {
-                    $cellData = '<a href="' . htmlspecialchars($pSheet->getHyperlink($coordinate)->getUrl()) . '" title="' . htmlspecialchars($pSheet->getHyperlink($coordinate)->getTooltip()) . '">' . $cellData . '</a>';
-                }
-
-                // Should the cell be written or is it swallowed by a rowspan or colspan?
-                $writeCell = !(isset($this->isSpannedCell[$pSheet->getParent()->getIndex($pSheet)][$pRow + 1][$colNum])
-                    && $this->isSpannedCell[$pSheet->getParent()->getIndex($pSheet)][$pRow + 1][$colNum]);
-
-                // Colspan and Rowspan
-                $colspan = 1;
-                $rowspan = 1;
-                if (isset($this->isBaseCell[$pSheet->getParent()->getIndex($pSheet)][$pRow + 1][$colNum])) {
-                    $spans = $this->isBaseCell[$pSheet->getParent()->getIndex($pSheet)][$pRow + 1][$colNum];
-                    $rowSpan = $spans['rowspan'];
-                    $colSpan = $spans['colspan'];
-
-                    //    Also apply style from last cell in merge to fix borders -
-                    //        relies on !important for non-none border declarations in createCSSStyleBorder
-                    $endCellCoord = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($colNum + $colSpan - 1) . ($pRow + $rowSpan);
-                    if (!$this->useInlineCss) {
-                        $cssClass .= ' style' . $pSheet->getCell($endCellCoord)->getXfIndex();
-                    }
-                }
-
-                // Write
-                if ($writeCell) {
-                    // Column start
-                    $html .= '            <' . $cellType;
-                    if (!$this->useInlineCss) {
-                        $html .= ' class="' . $cssClass . '"';
-                    } else {
-                        //** Necessary redundant code for the sake of \PhpOffice\PhpSpreadsheet\Writer\Pdf **
-                        // We must explicitly write the width of the <td> element because TCPDF
-                        // does not recognize e.g. <col style="width:42pt">
-                        $width = 0;
-                        $i = $colNum - 1;
-                        $e = $colNum + $colSpan - 1;
-                        while ($i++ < $e) {
-                            if (isset($this->columnWidths[$sheetIndex][$i])) {
-                                $width += $this->columnWidths[$sheetIndex][$i];
-                            }
-                        }
-                        $cssClass['width'] = $width . 'pt';
-
-                        // We must also explicitly write the height of the <td> element because TCPDF
-                        // does not recognize e.g. <tr style="height:50pt">
-                        if (isset($this->cssStyles['table.sheet' . $sheetIndex . ' tr.row' . $pRow]['height'])) {
-                            $height = $this->cssStyles['table.sheet' . $sheetIndex . ' tr.row' . $pRow]['height'];
-                            $cssClass['height'] = $height;
-                        }
-                        //** end of redundant code **
-
-                        $html .= ' style="' . $this->assembleCSS($cssClass) . '"';
-                    }
-                    if ($colSpan > 1) {
-                        $html .= ' colspan="' . $colSpan . '"';
-                    }
-                    if ($rowSpan > 1) {
-                        $html .= ' rowspan="' . $rowSpan . '"';
-                    }
-                    $html .= '>';
-
-                    // Image?
-                    $html .= $this->writeImageInCell($pSheet, $coordinate);
-
-                    // Chart?
-                    if ($this->includeCharts) {
-                        $html .= $this->writeChartInCell($pSheet, $coordinate);
-                    }
-
-                    // Cell data
-                    $html .= $cellData;
-
-                    // Column end
-                    $html .= '</' . $cellType . '>' . PHP_EOL;
-                }
-
-                // Next column
-                ++$colNum;
-            }
-
-            // Write row end
-            $html .= '          </tr>' . PHP_EOL;
-
-            // Return
-            return $html;
         }
-        throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Invalid parameters passed.');
+
+        // Write row start
+        if (!$this->useInlineCss) {
+            $html .= '          <tr class="row' . $pRow . '">' . PHP_EOL;
+        } else {
+            $style = isset($this->cssStyles['table.sheet' . $sheetIndex . ' tr.row' . $pRow])
+                ? $this->assembleCSS($this->cssStyles['table.sheet' . $sheetIndex . ' tr.row' . $pRow]) : '';
+
+            $html .= '          <tr style="' . $style . '">' . PHP_EOL;
+        }
+
+        // Write cells
+        $colNum = 0;
+        foreach ($pValues as $cellAddress) {
+            $cell = ($cellAddress > '') ? $pSheet->getCell($cellAddress) : '';
+            $coordinate = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($colNum) . ($pRow + 1);
+            if (!$this->useInlineCss) {
+                $cssClass = '';
+                $cssClass = 'column' . $colNum;
+            } else {
+                $cssClass = [];
+                if ($cellType == 'th') {
+                    if (isset($this->cssStyles['table.sheet' . $sheetIndex . ' th.column' . $colNum])) {
+                        $this->cssStyles['table.sheet' . $sheetIndex . ' th.column' . $colNum];
+                    }
+                } else {
+                    if (isset($this->cssStyles['table.sheet' . $sheetIndex . ' td.column' . $colNum])) {
+                        $this->cssStyles['table.sheet' . $sheetIndex . ' td.column' . $colNum];
+                    }
+                }
+            }
+            $colSpan = 1;
+            $rowSpan = 1;
+
+            // initialize
+            $cellData = '&nbsp;';
+
+            // \PhpOffice\PhpSpreadsheet\Cell
+            if ($cell instanceof \PhpOffice\PhpSpreadsheet\Cell) {
+                $cellData = '';
+                if (is_null($cell->getParent())) {
+                    $cell->attach($pSheet);
+                }
+                // Value
+                if ($cell->getValue() instanceof \PhpOffice\PhpSpreadsheet\RichText) {
+                    // Loop through rich text elements
+                    $elements = $cell->getValue()->getRichTextElements();
+                    foreach ($elements as $element) {
+                        // Rich text start?
+                        if ($element instanceof \PhpOffice\PhpSpreadsheet\RichText\Run) {
+                            $cellData .= '<span style="' . $this->assembleCSS($this->createCSSStyleFont($element->getFont())) . '">';
+
+                            if ($element->getFont()->getSuperScript()) {
+                                $cellData .= '<sup>';
+                            } elseif ($element->getFont()->getSubScript()) {
+                                $cellData .= '<sub>';
+                            }
+                        }
+
+                        // Convert UTF8 data to PCDATA
+                        $cellText = $element->getText();
+                        $cellData .= htmlspecialchars($cellText);
+
+                        if ($element instanceof \PhpOffice\PhpSpreadsheet\RichText\Run) {
+                            if ($element->getFont()->getSuperScript()) {
+                                $cellData .= '</sup>';
+                            } elseif ($element->getFont()->getSubScript()) {
+                                $cellData .= '</sub>';
+                            }
+
+                            $cellData .= '</span>';
+                        }
+                    }
+                } else {
+                    if ($this->preCalculateFormulas) {
+                        $cellData = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::toFormattedString(
+                            $cell->getCalculatedValue(),
+                            $pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode(),
+                            [$this, 'formatColor']
+                        );
+                    } else {
+                        $cellData = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::toFormattedString(
+                            $cell->getValue(),
+                            $pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode(),
+                            [$this, 'formatColor']
+                        );
+                    }
+                    $cellData = htmlspecialchars($cellData);
+                    if ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSuperScript()) {
+                        $cellData = '<sup>' . $cellData . '</sup>';
+                    } elseif ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSubScript()) {
+                        $cellData = '<sub>' . $cellData . '</sub>';
+                    }
+                }
+
+                // Converts the cell content so that spaces occuring at beginning of each new line are replaced by &nbsp;
+                // Example: "  Hello\n to the world" is converted to "&nbsp;&nbsp;Hello\n&nbsp;to the world"
+                $cellData = preg_replace('/(?m)(?:^|\\G) /', '&nbsp;', $cellData);
+
+                // convert newline "\n" to '<br>'
+                $cellData = nl2br($cellData);
+
+                // Extend CSS class?
+                if (!$this->useInlineCss) {
+                    $cssClass .= ' style' . $cell->getXfIndex();
+                    $cssClass .= ' ' . $cell->getDataType();
+                } else {
+                    if ($cellType == 'th') {
+                        if (isset($this->cssStyles['th.style' . $cell->getXfIndex()])) {
+                            $cssClass = array_merge($cssClass, $this->cssStyles['th.style' . $cell->getXfIndex()]);
+                        }
+                    } else {
+                        if (isset($this->cssStyles['td.style' . $cell->getXfIndex()])) {
+                            $cssClass = array_merge($cssClass, $this->cssStyles['td.style' . $cell->getXfIndex()]);
+                        }
+                    }
+
+                    // General horizontal alignment: Actual horizontal alignment depends on dataType
+                    $sharedStyle = $pSheet->getParent()->getCellXfByIndex($cell->getXfIndex());
+                    if ($sharedStyle->getAlignment()->getHorizontal() == \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_GENERAL
+                        && isset($this->cssStyles['.' . $cell->getDataType()]['text-align'])
+                    ) {
+                        $cssClass['text-align'] = $this->cssStyles['.' . $cell->getDataType()]['text-align'];
+                    }
+                }
+            }
+
+            // Hyperlink?
+            if ($pSheet->hyperlinkExists($coordinate) && !$pSheet->getHyperlink($coordinate)->isInternal()) {
+                $cellData = '<a href="' . htmlspecialchars($pSheet->getHyperlink($coordinate)->getUrl()) . '" title="' . htmlspecialchars($pSheet->getHyperlink($coordinate)->getTooltip()) . '">' . $cellData . '</a>';
+            }
+
+            // Should the cell be written or is it swallowed by a rowspan or colspan?
+            $writeCell = !(isset($this->isSpannedCell[$pSheet->getParent()->getIndex($pSheet)][$pRow + 1][$colNum])
+                && $this->isSpannedCell[$pSheet->getParent()->getIndex($pSheet)][$pRow + 1][$colNum]);
+
+            // Colspan and Rowspan
+            $colspan = 1;
+            $rowspan = 1;
+            if (isset($this->isBaseCell[$pSheet->getParent()->getIndex($pSheet)][$pRow + 1][$colNum])) {
+                $spans = $this->isBaseCell[$pSheet->getParent()->getIndex($pSheet)][$pRow + 1][$colNum];
+                $rowSpan = $spans['rowspan'];
+                $colSpan = $spans['colspan'];
+
+                //    Also apply style from last cell in merge to fix borders -
+                //        relies on !important for non-none border declarations in createCSSStyleBorder
+                $endCellCoord = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($colNum + $colSpan - 1) . ($pRow + $rowSpan);
+                if (!$this->useInlineCss) {
+                    $cssClass .= ' style' . $pSheet->getCell($endCellCoord)->getXfIndex();
+                }
+            }
+
+            // Write
+            if ($writeCell) {
+                // Column start
+                $html .= '            <' . $cellType;
+                if (!$this->useInlineCss) {
+                    $html .= ' class="' . $cssClass . '"';
+                } else {
+                    //** Necessary redundant code for the sake of \PhpOffice\PhpSpreadsheet\Writer\Pdf **
+                    // We must explicitly write the width of the <td> element because TCPDF
+                    // does not recognize e.g. <col style="width:42pt">
+                    $width = 0;
+                    $i = $colNum - 1;
+                    $e = $colNum + $colSpan - 1;
+                    while ($i++ < $e) {
+                        if (isset($this->columnWidths[$sheetIndex][$i])) {
+                            $width += $this->columnWidths[$sheetIndex][$i];
+                        }
+                    }
+                    $cssClass['width'] = $width . 'pt';
+
+                    // We must also explicitly write the height of the <td> element because TCPDF
+                    // does not recognize e.g. <tr style="height:50pt">
+                    if (isset($this->cssStyles['table.sheet' . $sheetIndex . ' tr.row' . $pRow]['height'])) {
+                        $height = $this->cssStyles['table.sheet' . $sheetIndex . ' tr.row' . $pRow]['height'];
+                        $cssClass['height'] = $height;
+                    }
+                    //** end of redundant code **
+
+                    $html .= ' style="' . $this->assembleCSS($cssClass) . '"';
+                }
+                if ($colSpan > 1) {
+                    $html .= ' colspan="' . $colSpan . '"';
+                }
+                if ($rowSpan > 1) {
+                    $html .= ' rowspan="' . $rowSpan . '"';
+                }
+                $html .= '>';
+
+                // Image?
+                $html .= $this->writeImageInCell($pSheet, $coordinate);
+
+                // Chart?
+                if ($this->includeCharts) {
+                    $html .= $this->writeChartInCell($pSheet, $coordinate);
+                }
+
+                // Cell data
+                $html .= $cellData;
+
+                // Column end
+                $html .= '</' . $cellType . '>' . PHP_EOL;
+            }
+
+            // Next column
+            ++$colNum;
+        }
+
+        // Write row end
+        $html .= '          </tr>' . PHP_EOL;
+
+        // Return
+        return $html;
     }
 
     /**

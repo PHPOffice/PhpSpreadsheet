@@ -397,7 +397,7 @@ class Rels extends WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeRelationship(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pId = 1, $pType = '', $pTarget = '', $pTargetMode = '')
+    private function writeRelationship(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, $pId, $pType, $pTarget, $pTargetMode = '')
     {
         if ($pType != '' && $pTarget != '') {
             // Write relationship

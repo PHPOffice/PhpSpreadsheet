@@ -978,86 +978,82 @@ class Worksheet extends WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeSheetData(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpOffice\PhpSpreadsheet\Worksheet $pSheet = null, $pStringTable = null)
+    private function writeSheetData(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Worksheet $pSheet, array $pStringTable)
     {
-        if (is_array($pStringTable)) {
-            // Flipped stringtable, for faster index searching
-            $aFlippedStringTable = $this->getParentWriter()->getWriterPart('stringtable')->flipStringTable($pStringTable);
+        // Flipped stringtable, for faster index searching
+        $aFlippedStringTable = $this->getParentWriter()->getWriterPart('stringtable')->flipStringTable($pStringTable);
 
-            // sheetData
-            $objWriter->startElement('sheetData');
+        // sheetData
+        $objWriter->startElement('sheetData');
 
-            // Get column count
-            $colCount = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($pSheet->getHighestColumn());
+        // Get column count
+        $colCount = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($pSheet->getHighestColumn());
 
-            // Highest row number
-            $highestRow = $pSheet->getHighestRow();
+        // Highest row number
+        $highestRow = $pSheet->getHighestRow();
 
-            // Loop through cells
-            $cellsByRow = [];
-            foreach ($pSheet->getCoordinates() as $coordinate) {
-                $cellAddress = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($coordinate);
-                $cellsByRow[$cellAddress[1]][] = $coordinate;
-            }
-
-            $currentRow = 0;
-            while ($currentRow++ < $highestRow) {
-                // Get row dimension
-                $rowDimension = $pSheet->getRowDimension($currentRow);
-
-                // Write current row?
-                $writeCurrentRow = isset($cellsByRow[$currentRow]) || $rowDimension->getRowHeight() >= 0 || $rowDimension->getVisible() == false || $rowDimension->getCollapsed() == true || $rowDimension->getOutlineLevel() > 0 || $rowDimension->getXfIndex() !== null;
-
-                if ($writeCurrentRow) {
-                    // Start a new row
-                    $objWriter->startElement('row');
-                    $objWriter->writeAttribute('r', $currentRow);
-                    $objWriter->writeAttribute('spans', '1:' . $colCount);
-
-                    // Row dimensions
-                    if ($rowDimension->getRowHeight() >= 0) {
-                        $objWriter->writeAttribute('customHeight', '1');
-                        $objWriter->writeAttribute('ht', \PhpOffice\PhpSpreadsheet\Shared\StringHelper::formatNumber($rowDimension->getRowHeight()));
-                    }
-
-                    // Row visibility
-                    if ($rowDimension->getVisible() == false) {
-                        $objWriter->writeAttribute('hidden', 'true');
-                    }
-
-                    // Collapsed
-                    if ($rowDimension->getCollapsed() == true) {
-                        $objWriter->writeAttribute('collapsed', 'true');
-                    }
-
-                    // Outline level
-                    if ($rowDimension->getOutlineLevel() > 0) {
-                        $objWriter->writeAttribute('outlineLevel', $rowDimension->getOutlineLevel());
-                    }
-
-                    // Style
-                    if ($rowDimension->getXfIndex() !== null) {
-                        $objWriter->writeAttribute('s', $rowDimension->getXfIndex());
-                        $objWriter->writeAttribute('customFormat', '1');
-                    }
-
-                    // Write cells
-                    if (isset($cellsByRow[$currentRow])) {
-                        foreach ($cellsByRow[$currentRow] as $cellAddress) {
-                            // Write cell
-                            $this->writeCell($objWriter, $pSheet, $cellAddress, $pStringTable, $aFlippedStringTable);
-                        }
-                    }
-
-                    // End row
-                    $objWriter->endElement();
-                }
-            }
-
-            $objWriter->endElement();
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Invalid parameters passed.');
+        // Loop through cells
+        $cellsByRow = [];
+        foreach ($pSheet->getCoordinates() as $coordinate) {
+            $cellAddress = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($coordinate);
+            $cellsByRow[$cellAddress[1]][] = $coordinate;
         }
+
+        $currentRow = 0;
+        while ($currentRow++ < $highestRow) {
+            // Get row dimension
+            $rowDimension = $pSheet->getRowDimension($currentRow);
+
+            // Write current row?
+            $writeCurrentRow = isset($cellsByRow[$currentRow]) || $rowDimension->getRowHeight() >= 0 || $rowDimension->getVisible() == false || $rowDimension->getCollapsed() == true || $rowDimension->getOutlineLevel() > 0 || $rowDimension->getXfIndex() !== null;
+
+            if ($writeCurrentRow) {
+                // Start a new row
+                $objWriter->startElement('row');
+                $objWriter->writeAttribute('r', $currentRow);
+                $objWriter->writeAttribute('spans', '1:' . $colCount);
+
+                // Row dimensions
+                if ($rowDimension->getRowHeight() >= 0) {
+                    $objWriter->writeAttribute('customHeight', '1');
+                    $objWriter->writeAttribute('ht', \PhpOffice\PhpSpreadsheet\Shared\StringHelper::formatNumber($rowDimension->getRowHeight()));
+                }
+
+                // Row visibility
+                if ($rowDimension->getVisible() == false) {
+                    $objWriter->writeAttribute('hidden', 'true');
+                }
+
+                // Collapsed
+                if ($rowDimension->getCollapsed() == true) {
+                    $objWriter->writeAttribute('collapsed', 'true');
+                }
+
+                // Outline level
+                if ($rowDimension->getOutlineLevel() > 0) {
+                    $objWriter->writeAttribute('outlineLevel', $rowDimension->getOutlineLevel());
+                }
+
+                // Style
+                if ($rowDimension->getXfIndex() !== null) {
+                    $objWriter->writeAttribute('s', $rowDimension->getXfIndex());
+                    $objWriter->writeAttribute('customFormat', '1');
+                }
+
+                // Write cells
+                if (isset($cellsByRow[$currentRow])) {
+                    foreach ($cellsByRow[$currentRow] as $cellAddress) {
+                        // Write cell
+                        $this->writeCell($objWriter, $pSheet, $cellAddress, $aFlippedStringTable);
+                    }
+                }
+
+                // End row
+                $objWriter->endElement();
+            }
+        }
+
+        $objWriter->endElement();
     }
 
     /**
@@ -1071,113 +1067,109 @@ class Worksheet extends WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeCell(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpOffice\PhpSpreadsheet\Worksheet $pSheet = null, $pCellAddress = null, $pStringTable = null, $pFlippedStringTable = null)
+    private function writeCell(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Worksheet $pSheet, $pCellAddress, array $pFlippedStringTable)
     {
-        if (is_array($pStringTable) && is_array($pFlippedStringTable)) {
-            // Cell
-            $pCell = $pSheet->getCell($pCellAddress);
-            $objWriter->startElement('c');
-            $objWriter->writeAttribute('r', $pCellAddress);
+        // Cell
+        $pCell = $pSheet->getCell($pCellAddress);
+        $objWriter->startElement('c');
+        $objWriter->writeAttribute('r', $pCellAddress);
 
-            // Sheet styles
-            if ($pCell->getXfIndex() != '') {
-                $objWriter->writeAttribute('s', $pCell->getXfIndex());
+        // Sheet styles
+        if ($pCell->getXfIndex() != '') {
+            $objWriter->writeAttribute('s', $pCell->getXfIndex());
+        }
+
+        // If cell value is supplied, write cell value
+        $cellValue = $pCell->getValue();
+        if (is_object($cellValue) || $cellValue !== '') {
+            // Map type
+            $mappedType = $pCell->getDataType();
+
+            // Write data type depending on its type
+            switch (strtolower($mappedType)) {
+                case 'inlinestr':    // Inline string
+                case 's':            // String
+                case 'b':            // Boolean
+                    $objWriter->writeAttribute('t', $mappedType);
+                    break;
+                case 'f':            // Formula
+                    $calculatedValue = ($this->getParentWriter()->getPreCalculateFormulas()) ?
+                        $pCell->getCalculatedValue() : $cellValue;
+                    if (is_string($calculatedValue)) {
+                        $objWriter->writeAttribute('t', 'str');
+                    }
+                    break;
+                case 'e':            // Error
+                    $objWriter->writeAttribute('t', $mappedType);
             }
 
-            // If cell value is supplied, write cell value
-            $cellValue = $pCell->getValue();
-            if (is_object($cellValue) || $cellValue !== '') {
-                // Map type
-                $mappedType = $pCell->getDataType();
+            // Write data depending on its type
+            switch (strtolower($mappedType)) {
+                case 'inlinestr':    // Inline string
+                    if (!$cellValue instanceof \PhpOffice\PhpSpreadsheet\RichText) {
+                        $objWriter->writeElement('t', \PhpOffice\PhpSpreadsheet\Shared\StringHelper::controlCharacterPHP2OOXML(htmlspecialchars($cellValue)));
+                    } elseif ($cellValue instanceof \PhpOffice\PhpSpreadsheet\RichText) {
+                        $objWriter->startElement('is');
+                        $this->getParentWriter()->getWriterPart('stringtable')->writeRichText($objWriter, $cellValue);
+                        $objWriter->endElement();
+                    }
 
-                // Write data type depending on its type
-                switch (strtolower($mappedType)) {
-                    case 'inlinestr':    // Inline string
-                    case 's':            // String
-                    case 'b':            // Boolean
-                        $objWriter->writeAttribute('t', $mappedType);
-                        break;
-                    case 'f':            // Formula
-                        $calculatedValue = ($this->getParentWriter()->getPreCalculateFormulas()) ?
-                            $pCell->getCalculatedValue() : $cellValue;
-                        if (is_string($calculatedValue)) {
-                            $objWriter->writeAttribute('t', 'str');
+                    break;
+                case 's':            // String
+                    if (!$cellValue instanceof \PhpOffice\PhpSpreadsheet\RichText) {
+                        if (isset($pFlippedStringTable[$cellValue])) {
+                            $objWriter->writeElement('v', $pFlippedStringTable[$cellValue]);
                         }
-                        break;
-                    case 'e':            // Error
-                        $objWriter->writeAttribute('t', $mappedType);
-                }
+                    } elseif ($cellValue instanceof \PhpOffice\PhpSpreadsheet\RichText) {
+                        $objWriter->writeElement('v', $pFlippedStringTable[$cellValue->getHashCode()]);
+                    }
 
-                // Write data depending on its type
-                switch (strtolower($mappedType)) {
-                    case 'inlinestr':    // Inline string
-                        if (!$cellValue instanceof \PhpOffice\PhpSpreadsheet\RichText) {
-                            $objWriter->writeElement('t', \PhpOffice\PhpSpreadsheet\Shared\StringHelper::controlCharacterPHP2OOXML(htmlspecialchars($cellValue)));
-                        } elseif ($cellValue instanceof \PhpOffice\PhpSpreadsheet\RichText) {
-                            $objWriter->startElement('is');
-                            $this->getParentWriter()->getWriterPart('stringtable')->writeRichText($objWriter, $cellValue);
-                            $objWriter->endElement();
-                        }
-
-                        break;
-                    case 's':            // String
-                        if (!$cellValue instanceof \PhpOffice\PhpSpreadsheet\RichText) {
-                            if (isset($pFlippedStringTable[$cellValue])) {
-                                $objWriter->writeElement('v', $pFlippedStringTable[$cellValue]);
-                            }
-                        } elseif ($cellValue instanceof \PhpOffice\PhpSpreadsheet\RichText) {
-                            $objWriter->writeElement('v', $pFlippedStringTable[$cellValue->getHashCode()]);
-                        }
-
-                        break;
-                    case 'f':            // Formula
-                        $attributes = $pCell->getFormulaAttributes();
-                        if ($attributes['t'] == 'array') {
-                            $objWriter->startElement('f');
-                            $objWriter->writeAttribute('t', 'array');
-                            $objWriter->writeAttribute('ref', $pCellAddress);
-                            $objWriter->writeAttribute('aca', '1');
-                            $objWriter->writeAttribute('ca', '1');
-                            $objWriter->text(substr($cellValue, 1));
-                            $objWriter->endElement();
-                        } else {
-                            $objWriter->writeElement('f', substr($cellValue, 1));
-                        }
-                        if ($this->getParentWriter()->getOffice2003Compatibility() === false) {
-                            if ($this->getParentWriter()->getPreCalculateFormulas()) {
-                                if (!is_array($calculatedValue) && substr($calculatedValue, 0, 1) != '#') {
-                                    $objWriter->writeElement('v', \PhpOffice\PhpSpreadsheet\Shared\StringHelper::formatNumber($calculatedValue));
-                                } else {
-                                    $objWriter->writeElement('v', '0');
-                                }
+                    break;
+                case 'f':            // Formula
+                    $attributes = $pCell->getFormulaAttributes();
+                    if ($attributes['t'] == 'array') {
+                        $objWriter->startElement('f');
+                        $objWriter->writeAttribute('t', 'array');
+                        $objWriter->writeAttribute('ref', $pCellAddress);
+                        $objWriter->writeAttribute('aca', '1');
+                        $objWriter->writeAttribute('ca', '1');
+                        $objWriter->text(substr($cellValue, 1));
+                        $objWriter->endElement();
+                    } else {
+                        $objWriter->writeElement('f', substr($cellValue, 1));
+                    }
+                    if ($this->getParentWriter()->getOffice2003Compatibility() === false) {
+                        if ($this->getParentWriter()->getPreCalculateFormulas()) {
+                            if (!is_array($calculatedValue) && substr($calculatedValue, 0, 1) != '#') {
+                                $objWriter->writeElement('v', \PhpOffice\PhpSpreadsheet\Shared\StringHelper::formatNumber($calculatedValue));
                             } else {
                                 $objWriter->writeElement('v', '0');
                             }
-                        }
-                        break;
-                    case 'n':            // Numeric
-                        // force point as decimal separator in case current locale uses comma
-                        $objWriter->writeElement('v', str_replace(',', '.', $cellValue));
-                        break;
-                    case 'b':            // Boolean
-                        $objWriter->writeElement('v', ($cellValue ? '1' : '0'));
-                        break;
-                    case 'e':            // Error
-                        if (substr($cellValue, 0, 1) == '=') {
-                            $objWriter->writeElement('f', substr($cellValue, 1));
-                            $objWriter->writeElement('v', substr($cellValue, 1));
                         } else {
-                            $objWriter->writeElement('v', $cellValue);
+                            $objWriter->writeElement('v', '0');
                         }
+                    }
+                    break;
+                case 'n':            // Numeric
+                    // force point as decimal separator in case current locale uses comma
+                    $objWriter->writeElement('v', str_replace(',', '.', $cellValue));
+                    break;
+                case 'b':            // Boolean
+                    $objWriter->writeElement('v', ($cellValue ? '1' : '0'));
+                    break;
+                case 'e':            // Error
+                    if (substr($cellValue, 0, 1) == '=') {
+                        $objWriter->writeElement('f', substr($cellValue, 1));
+                        $objWriter->writeElement('v', substr($cellValue, 1));
+                    } else {
+                        $objWriter->writeElement('v', $cellValue);
+                    }
 
-                        break;
-                }
+                    break;
             }
-
-            $objWriter->endElement();
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Invalid parameters passed.');
         }
+
+        $objWriter->endElement();
     }
 
     /**

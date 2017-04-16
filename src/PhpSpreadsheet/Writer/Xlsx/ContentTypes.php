@@ -210,7 +210,7 @@ class ContentTypes extends WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeDefaultContentType(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pPartname = '', $pContentType = '')
+    private function writeDefaultContentType(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, $pPartname, $pContentType)
     {
         if ($pPartname != '' && $pContentType != '') {
             // Write content type
@@ -232,7 +232,7 @@ class ContentTypes extends WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeOverrideContentType(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pPartname = '', $pContentType = '')
+    private function writeOverrideContentType(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, $pPartname, $pContentType)
     {
         if ($pPartname != '' && $pContentType != '') {
             // Write content type

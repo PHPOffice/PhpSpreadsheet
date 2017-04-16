@@ -84,13 +84,9 @@ class IOFactory
      *
      * @throws Reader\Exception
      */
-    public static function setSearchLocations($value)
+    public static function setSearchLocations(array $value)
     {
-        if (is_array($value)) {
-            self::$searchLocations = $value;
-        } else {
-            throw new Reader\Exception('Invalid parameter passed.');
-        }
+        self::$searchLocations = $value;
     }
 
     /**

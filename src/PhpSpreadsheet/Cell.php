@@ -709,10 +709,10 @@ class Cell
      *
      * @return string String representation of $pRange
      */
-    public static function buildRange($pRange)
+    public static function buildRange(array $pRange)
     {
         // Verify range
-        if (!is_array($pRange) || empty($pRange) || !is_array($pRange[0])) {
+        if (empty($pRange) || !is_array($pRange[0])) {
             throw new Exception('Range does not contain any information');
         }
 

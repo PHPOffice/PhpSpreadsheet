@@ -163,7 +163,7 @@ class Drawing extends WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function writeDrawing(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, \PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing $pDrawing = null, $pRelationId = -1)
+    public function writeDrawing(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing $pDrawing, $pRelationId = -1)
     {
         if ($pRelationId >= 0) {
             // xdr:oneCellAnchor
@@ -271,54 +271,6 @@ class Drawing extends WriterPart
 
                 $objWriter->endElement();
             }
-/*
-
-                // a:scene3d
-                $objWriter->startElement('a:scene3d');
-
-                    // a:camera
-                    $objWriter->startElement('a:camera');
-                    $objWriter->writeAttribute('prst', 'orthographicFront');
-                    $objWriter->endElement();
-
-                    // a:lightRig
-                    $objWriter->startElement('a:lightRig');
-                    $objWriter->writeAttribute('rig', 'twoPt');
-                    $objWriter->writeAttribute('dir', 't');
-
-                        // a:rot
-                        $objWriter->startElement('a:rot');
-                        $objWriter->writeAttribute('lat', '0');
-                        $objWriter->writeAttribute('lon', '0');
-                        $objWriter->writeAttribute('rev', '0');
-                        $objWriter->endElement();
-
-                    $objWriter->endElement();
-
-                $objWriter->endElement();
-*/
-/*
-                // a:sp3d
-                $objWriter->startElement('a:sp3d');
-
-                    // a:bevelT
-                    $objWriter->startElement('a:bevelT');
-                    $objWriter->writeAttribute('w', '25400');
-                    $objWriter->writeAttribute('h', '19050');
-                    $objWriter->endElement();
-
-                    // a:contourClr
-                    $objWriter->startElement('a:contourClr');
-
-                        // a:srgbClr
-                        $objWriter->startElement('a:srgbClr');
-                        $objWriter->writeAttribute('val', 'FFFFFF');
-                        $objWriter->endElement();
-
-                    $objWriter->endElement();
-
-                $objWriter->endElement();
-*/
             $objWriter->endElement();
 
             $objWriter->endElement();

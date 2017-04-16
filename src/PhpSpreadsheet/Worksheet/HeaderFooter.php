@@ -462,12 +462,8 @@ class HeaderFooter
      *
      * @return HeaderFooter
      */
-    public function setImages($images)
+    public function setImages(array $images)
     {
-        if (!is_array($images)) {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid parameter!');
-        }
-
         $this->headerFooterImages = $images;
 
         return $this;
