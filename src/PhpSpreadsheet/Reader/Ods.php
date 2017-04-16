@@ -773,9 +773,9 @@ class Ods extends BaseReader implements IReader
                 // It's a space
 
                 // Multiple spaces?
-                if (isset($child->attributes['text:c'])) {
-                    /** @var \DOMAttr $cAttr */
-                    $cAttr = $child->attributes['text:c'];
+                /** @var \DOMAttr $cAttr */
+                $cAttr = $child->attributes->getNamedItem('c');
+                if ($cAttr) {
                     $multiplier = (int) $cAttr->nodeValue;
                 } else {
                     $multiplier = 1;
