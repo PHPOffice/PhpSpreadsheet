@@ -24,4 +24,18 @@ class CsvTest extends \PHPUnit_Framework_TestCase
         $actual = $reloadedSpreadsheet->getActiveSheet()->getCell('A1')->getCalculatedValue();
         $this->assertSame($value, $actual, 'should be able to write and read strings with multiples quotes');
     }
+
+    public function testDelimiterDetection()
+    {
+        $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+        $this->assertNull($reader->getDelimiter());
+
+        $filename = __DIR__ . '/../../data/Reader/CSV/semicolon_separated.csv';
+        $spreadsheet = $reader->load($filename);
+
+        $this->assertSame(';', $reader->getDelimiter(), 'should be able to infer the delimiter');
+
+        $actual = $spreadsheet->getActiveSheet()->getCell('C2')->getValue();
+        $this->assertSame('25,5', $actual, 'should be able to retrieve values with commas');
+    }
 }

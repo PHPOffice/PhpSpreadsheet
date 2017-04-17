@@ -523,15 +523,17 @@ CSV       | YES | HTML   | NO
 
 ### Pipe or Tab Separated Value Files
 
-The CSV loader defaults to loading a file where comma is used as the
-separator, but you can modify this to load tab- or pipe-separated value
-files using the `setDelimiter()` method.
+The CSV loader will attempt to auto-detect the separator used in the file. If it
+cannot auto-detect, it will default to the comma. If this does not fit your
+use-case, you can manually specify a separator by using the `setDelimiter()`
+method.
 
 ``` php
 $inputFileType = 'Csv';
 $inputFileName = './sampleData/example1.tsv';
 
-/**  Create a new Reader of the type defined in $inputFileType  **/ $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+/**  Create a new Reader of the type defined in $inputFileType  **/
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
 /**  Set the delimiter to a TAB character  **/
 $reader->setDelimiter("\t");
 //    $reader->setDelimiter('|');

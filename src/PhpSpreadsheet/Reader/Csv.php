@@ -40,7 +40,7 @@ class Csv extends BaseReader implements IReader
      *
      * @var string
      */
-    private $delimiter = ',';
+    private $delimiter = null;
 
     /**
      * Enclosure.
@@ -153,6 +153,86 @@ class Csv extends BaseReader implements IReader
     }
 
     /**
+     * Infer the separator if it isn't explicitly set in the file or specified by the user.
+     */
+    protected function inferSeparator()
+    {
+        if ($this->delimiter !== null) {
+            return;
+        }
+
+        $potentialDelimiters = [',', ';', "\t", '|', ':', ' '];
+        $counts = [];
+        foreach ($potentialDelimiters as $delimiter) {
+            $counts[$delimiter] = [];
+        }
+
+        // Count how many times each of the potential delimiters appears in each line
+        $numberLines = 0;
+        while (($line = fgets($this->fileHandle)) !== false && (++$numberLines < 1000)) {
+            $countLine = [];
+            for ($i = strlen($line) - 1; $i >= 0; --$i) {
+                $char = $line[$i];
+                if (isset($counts[$char])) {
+                    if (!isset($countLine[$char])) {
+                        $countLine[$char] = 0;
+                    }
+                    ++$countLine[$char];
+                }
+            }
+            foreach ($potentialDelimiters as $delimiter) {
+                $counts[$delimiter][] = isset($countLine[$delimiter])
+                    ? $countLine[$delimiter]
+                    : 0;
+            }
+        }
+
+        // Calculate the mean square deviations for each delimiter (ignoring delimiters that haven't been found consistently)
+        $meanSquareDeviations = [];
+        $middleIdx = floor(($numberLines - 1) / 2);
+
+        foreach ($potentialDelimiters as $delimiter) {
+            $series = $counts[$delimiter];
+            sort($series);
+
+            $median = ($numberLines % 2)
+                ? $series[$middleIdx]
+                : ($series[$middleIdx] + $series[$middleIdx + 1]) / 2;
+
+            if ($median === 0) {
+                continue;
+            }
+
+            $meanSquareDeviations[$delimiter] = array_reduce(
+                $series,
+                function ($sum, $value) use ($median) {
+                    return $sum + pow($value - $median, 2);
+                }
+            ) / count($series);
+        }
+
+        // ... and pick the delimiter with the smallest mean square deviation (in case of ties, the order in potentialDelimiters is respected)
+        $min = INF;
+        foreach ($potentialDelimiters as $delimiter) {
+            if (!isset($meanSquareDeviations[$delimiter])) {
+                continue;
+            }
+
+            if ($meanSquareDeviations[$delimiter] < $min) {
+                $min = $meanSquareDeviations[$delimiter];
+                $this->delimiter = $delimiter;
+            }
+        }
+
+        // If no delimiter could be detected, fall back to the default
+        if ($this->delimiter === null) {
+            $this->delimiter = reset($potentialDelimiters);
+        }
+
+        return $this->skipBOM();
+    }
+
+    /**
      * Return worksheet info (Name, Last Column Letter, Last Column Index, Total Rows, Total Columns).
      *
      * @param string $pFilename
@@ -171,6 +251,7 @@ class Csv extends BaseReader implements IReader
         // Skip BOM, if any
         $this->skipBOM();
         $this->checkSeparator();
+        $this->inferSeparator();
 
         $worksheetInfo = [];
         $worksheetInfo[0]['worksheetName'] = 'Worksheet';
@@ -237,6 +318,7 @@ class Csv extends BaseReader implements IReader
         // Skip BOM, if any
         $this->skipBOM();
         $this->checkSeparator();
+        $this->inferSeparator();
 
         // Create new PhpSpreadsheet object
         while ($spreadsheet->getSheetCount() <= $this->sheetIndex) {

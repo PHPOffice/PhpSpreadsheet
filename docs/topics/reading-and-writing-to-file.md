@@ -435,10 +435,14 @@ $spreadsheet = $reader->load("sample.csv");
 
 #### Setting CSV options
 
-Often, CSV files are not really "comma separated", or use semicolon (;)
+Often, CSV files are not really "comma separated", or use semicolon (`;`)
 as a separator. You can instruct
 \PhpOffice\PhpSpreadsheet\Reader\Csv some options before reading a CSV
 file.
+
+The separator will be auto-detected, so in most cases it should not be necessary
+to specify it. But in cases where auto-detection does not fit the use-case, then
+it can be set manually.
 
 Note that \PhpOffice\PhpSpreadsheet\Reader\Csv by default assumes that
 the loaded CSV file is UTF-8 encoded. If you are reading CSV files that
