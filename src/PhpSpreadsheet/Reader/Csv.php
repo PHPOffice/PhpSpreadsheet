@@ -162,7 +162,7 @@ class Csv extends BaseReader implements IReader
         }
 
         $potentialDelimiters = [',', ';', "\t", '|', ':', ' '];
-        $count = [];
+        $counts = [];
         foreach ($potentialDelimiters as $delimiter) {
             $counts[$delimiter] = [];
         }
