@@ -224,15 +224,13 @@ class Content extends WriterPart
                     throw new Exception('Writing of error not implemented yet.');
                     break;
                 case DataType::TYPE_FORMULA:
-                    if(!method_exists($this->getParentWriter(), "getPreCalculateFormulas") || $this->getParentWriter()->getPreCalculateFormulas()) {
+                    $formulaValue = $cell->getValue();
+                    if($this->getParentWriter()->getPreCalculateFormulas()) {
                         try {
-                            $formula_value = $cell->getCalculatedValue();
+                            $formulaValue = $cell->getCalculatedValue();
                         } catch (Exception $e) {
                             // don't do anything
                         }
-                    }
-                    if(empty($formula_value)) {
-                        $formulaValue = $cell->getValue();
                     }
                     $objWriter->writeAttribute('table:formula', 'of:' . $cell->getValue());
                     if (is_numeric($formulaValue)) {
