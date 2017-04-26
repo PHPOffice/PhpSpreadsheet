@@ -1165,21 +1165,21 @@
 	</tr>
 	<tr>
 		<td style="padding-left: 1em;">Hyperlinks</td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
+		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center; color: red;">✖</td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
+		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: green;">✔</td>
+		<td style="text-align: center; color: red;">✖</td>
+		<td>$cell->getHyperlink()->getUrl($url)</td>
+		<td>$cell->getHyperlink()->setUrl($url)</td>
 	</tr>
 	<tr>
 		<td style="padding-left: 2em;">http</td>
