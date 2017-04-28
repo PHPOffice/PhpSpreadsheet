@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-/**
+/*
  * PhpSpreadsheet.
  *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet

@@ -30,13 +30,16 @@ abstract class WriterPart
 {
     /**
      * Parent Xlsx object.
+     *
      * @var XlsxWriter
      */
     private $parentWriter;
 
     /**
      * Get parent Xlsx object.
+     *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      * @return XlsxWriter
      */
     public function getParentWriter()
@@ -49,7 +52,8 @@ abstract class WriterPart
      *
      * @param XlsxWriter $pWriter
      */
-    public function __construct(XlsxWriter $pWriter) {
+    public function __construct(XlsxWriter $pWriter)
+    {
         $this->parentWriter = $pWriter;
     }
 }
