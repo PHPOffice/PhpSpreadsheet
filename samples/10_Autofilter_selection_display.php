@@ -1,5 +1,6 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/Header.php';
@@ -50,7 +51,7 @@ foreach ($years as $year) {
         foreach ($countries as $country) {
             $endDays = date('t', mktime(0, 0, 0, $period, 1, $year));
             for ($i = 1; $i <= $endDays; ++$i) {
-                $eDate = \PhpOffice\PhpSpreadsheet\Shared\Date::formattedPHPToExcel(
+                $eDate = Date::formattedPHPToExcel(
                     $year,
                     $period,
                     $i

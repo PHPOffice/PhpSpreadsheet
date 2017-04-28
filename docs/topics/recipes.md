@@ -83,7 +83,7 @@ $spreadsheet->getActiveSheet()->getStyle('D1')
 // PHP-time (Unix time)
 $time = gmmktime(0,0,0,12,31,2008); // int(1230681600)
 $spreadsheet->getActiveSheet()
-    ->setCellValue('D1', \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($time));
+    ->setCellValue('D1', Date::PHPToExcel($time));
 $spreadsheet->getActiveSheet()->getStyle('D1')
     ->getNumberFormat()
     ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
@@ -99,7 +99,7 @@ The above methods for entering a date all yield the same result.
 \PhpOffice\PhpSpreadsheet\Style\NumberFormat provides a lot of
 pre-defined date formats.
 
-The \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel() method will also
+The Date::PHPToExcel() method will also
 work with a PHP DateTime object.
 
 Similarly, times (or date and time values) can be entered in the same

@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -543,7 +545,7 @@ class TextData
         $value = Functions::flattenSingleValue($value);
         $format = Functions::flattenSingleValue($format);
 
-        if ((is_string($value)) && (!is_numeric($value)) && \PhpOffice\PhpSpreadsheet\Shared\Date::isDateTimeFormatCode($format)) {
+        if ((is_string($value)) && (!is_numeric($value)) && Date::isDateTimeFormatCode($format)) {
             $value = DateTime::DATEVALUE($value);
         }
 

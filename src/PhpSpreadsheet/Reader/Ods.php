@@ -6,6 +6,8 @@ use DateTime;
 use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Settings;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
@@ -77,7 +79,7 @@ class Ods extends BaseReader implements IReader
                 $xml = simplexml_load_string(
                     $this->securityScan($zip->getFromName('META-INF/manifest.xml')),
                     'SimpleXMLElement',
-                    \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
+                    Settings::getLibXmlLoaderOptions()
                 );
                 $namespacesContent = $xml->getNamespaces(true);
                 if (isset($namespacesContent['manifest'])) {
@@ -124,7 +126,7 @@ class Ods extends BaseReader implements IReader
         $xml->xml(
             $this->securityScanFile('zip://' . realpath($pFilename) . '#content.xml'),
             null,
-            \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
+            Settings::getLibXmlLoaderOptions()
         );
         $xml->setParserProperty(2, true);
 
@@ -178,7 +180,7 @@ class Ods extends BaseReader implements IReader
         $res = $xml->xml(
             $this->securityScanFile('zip://' . realpath($pFilename) . '#content.xml'),
             null,
-            \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
+            Settings::getLibXmlLoaderOptions()
         );
         $xml->setParserProperty(2, true);
 
@@ -307,7 +309,7 @@ class Ods extends BaseReader implements IReader
         $xml = simplexml_load_string(
             $this->securityScan($zip->getFromName('meta.xml')),
             'SimpleXMLElement',
-            \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
+            Settings::getLibXmlLoaderOptions()
         );
         $namespacesMeta = $xml->getNamespaces(true);
 
@@ -396,7 +398,7 @@ class Ods extends BaseReader implements IReader
         $dom = new \DOMDocument('1.01', 'UTF-8');
         $dom->loadXML(
             $this->securityScan($zip->getFromName('content.xml')),
-            \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
+            Settings::getLibXmlLoaderOptions()
         );
 
         $officeNs = $dom->lookupNamespaceUri('office');
@@ -598,7 +600,7 @@ class Ods extends BaseReader implements IReader
                                                 $dateObj->format('Y m d H i s')
                                             );
 
-                                            $dataValue = \PhpOffice\PhpSpreadsheet\Shared\Date::formattedPHPToExcel(
+                                            $dataValue = Date::formattedPHPToExcel(
                                                 $year,
                                                 $month,
                                                 $day,
@@ -620,7 +622,7 @@ class Ods extends BaseReader implements IReader
 
                                             $timeValue = $cellData->getAttributeNS($officeNs, 'time-value');
 
-                                            $dataValue = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(
+                                            $dataValue = Date::PHPToExcel(
                                                 strtotime(
                                                     '01-01-1970 ' . implode(':', sscanf($timeValue, 'PT%dH%dM%dS'))
                                                 )

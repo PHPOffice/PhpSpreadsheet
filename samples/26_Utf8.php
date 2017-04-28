@@ -1,6 +1,7 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Settings;
 
 require __DIR__ . '/Header.php';
 
@@ -8,7 +9,7 @@ require __DIR__ . '/Header.php';
 //		and its directory location on your server
 //$rendererName = \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_TCPDF;
 //$rendererName = \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_MPDF;
-$rendererName = \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_DOMPDF;
+$rendererName = Settings::PDF_RENDERER_DOMPDF;
 
 // Read from Xlsx (.xlsx) template
 $helper->log('Load Xlsx template file');
@@ -20,7 +21,7 @@ $helper->write($spreadsheet, __FILE__, ['Xlsx', 'Xls', 'Html']);
 
 // Export to PDF (.pdf)
 $helper->log('Write to PDF format');
-\PhpOffice\PhpSpreadsheet\Settings::setPdfRendererName($rendererName);
+Settings::setPdfRendererName($rendererName);
 $helper->write($spreadsheet, __FILE__, ['Pdf']);
 
 // Remove first two rows with field headers before exporting to CSV

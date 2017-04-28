@@ -149,25 +149,25 @@ base date for the Mac 1904 calendar.
 
 It is possible for scripts to change the calendar used for calculating
 Excel date values by calling the
-\PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar() method:
+Date::setExcelCalendar() method:
 
 ``` php
-\PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar($baseDate);
+Date::setExcelCalendar($baseDate);
 ```
 
 where the following constants can be used for `$baseDate`:
 
--   \PhpOffice\PhpSpreadsheet\Shared\Date::CALENDAR\_WINDOWS\_1900
--   \PhpOffice\PhpSpreadsheet\Shared\Date::CALENDAR\_MAC\_1904
+-   Date::CALENDAR\_WINDOWS\_1900
+-   Date::CALENDAR\_MAC\_1904
 
 The method will return a Boolean True on success, False on failure (e.g.
 if an invalid value is passed in).
 
-The \PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar() method can
+The Date::getExcelCalendar() method can
 be used to determine the current value of this setting:
 
 ``` php
-$baseDate = \PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar();
+$baseDate = Date::getExcelCalendar();
 ```
 
 The default is CALENDAR\_WINDOWS\_1900.
@@ -240,10 +240,10 @@ rather than converted to Excel date timestamp values.
 
 In addition to the `setExcelCalendar()` and `getExcelCalendar()` methods, a
 number of other methods are available in the
-\PhpOffice\PhpSpreadsheet\Shared\Date class that can help when working
+Date class that can help when working
 with dates:
 
-#### \PhpOffice\PhpSpreadsheet\Shared\Date::ExcelToPHP($excelDate)
+#### Date::ExcelToPHP($excelDate)
 
 Converts a date/time from an Excel date timestamp to return a PHP
 serialized date/timestamp.
@@ -251,17 +251,17 @@ serialized date/timestamp.
 Note that this method does not trap for Excel dates that fall outside of
 the valid range for a PHP date timestamp.
 
-#### \PhpOffice\PhpSpreadsheet\Shared\Date::ExcelToPHPObject($excelDate)
+#### Date::ExcelToPHPObject($excelDate)
 
 Converts a date from an Excel date/timestamp to return a PHP DateTime
 object.
 
-#### \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($PHPDate)
+#### Date::PHPToExcel($PHPDate)
 
 Converts a PHP serialized date/timestamp or a PHP DateTime object to
 return an Excel date timestamp.
 
-#### \PhpOffice\PhpSpreadsheet\Shared\Date::FormattedPHPToExcel($year, $month, $day, $hours=0, $minutes=0, $seconds=0)
+#### Date::FormattedPHPToExcel($year, $month, $day, $hours=0, $minutes=0, $seconds=0)
 
 Takes year, month and day values (and optional hour, minute and second
 values) and returns an Excel date timestamp value.

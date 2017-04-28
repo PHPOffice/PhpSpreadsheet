@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -493,7 +495,7 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
         // escape any quoted characters so that DateTime format() will render them correctly
         $format = preg_replace_callback('/"(.*)"/U', ['self', 'escapeQuotesCallback'], $format);
 
-        $dateObj = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value);
+        $dateObj = Date::excelToDateTimeObject($value);
         $value = $dateObj->format($format);
     }
 

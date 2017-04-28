@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
@@ -113,7 +114,7 @@ class Workbook extends WriterPart
     {
         $objWriter->startElement('workbookPr');
 
-        if (\PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar() == \PhpOffice\PhpSpreadsheet\Shared\Date::CALENDAR_MAC_1904) {
+        if (Date::getExcelCalendar() == Date::CALENDAR_MAC_1904) {
             $objWriter->writeAttribute('date1904', '1');
         }
 

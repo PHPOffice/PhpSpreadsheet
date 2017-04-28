@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests;
 
+use PhpOffice\PhpSpreadsheet\Settings;
+
 class SettingsTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -22,15 +24,15 @@ class SettingsTest extends \PHPUnit_Framework_TestCase
 
     public function testGetXMLSettings()
     {
-        $result = \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions();
+        $result = Settings::getLibXmlLoaderOptions();
         $this->assertTrue((bool) ((LIBXML_DTDLOAD | LIBXML_DTDATTR) & $result));
         $this->assertFalse(libxml_disable_entity_loader());
     }
 
     public function testSetXMLSettings()
     {
-        \PhpOffice\PhpSpreadsheet\Settings::setLibXmlLoaderOptions(LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_DTDVALID);
-        $result = \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions();
+        Settings::setLibXmlLoaderOptions(LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_DTDVALID);
+        $result = Settings::getLibXmlLoaderOptions();
         $this->assertTrue((bool) ((LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_DTDVALID) & $result));
         $this->assertFalse(libxml_disable_entity_loader());
     }

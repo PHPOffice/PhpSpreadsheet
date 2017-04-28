@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -340,7 +342,7 @@ class AutoFilter
         }
 
         if (is_numeric($cellValue)) {
-            $dateValue = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($cellValue);
+            $dateValue = Date::excelToTimestamp($cellValue);
             if ($cellValue < 1) {
                 //    Just the time part
                 $dtVal = date('His', $dateValue);
@@ -460,7 +462,7 @@ class AutoFilter
         }
 
         if (is_numeric($cellValue)) {
-            $dateValue = date('m', \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($cellValue));
+            $dateValue = date('m', Date::excelToTimestamp($cellValue));
             if (in_array($dateValue, $monthSet)) {
                 return true;
             }
@@ -525,41 +527,41 @@ class AutoFilter
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_TODAY:
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_YESTERDAY:
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_TOMORROW:
-                $maxVal = (int) \PhpOffice\PhpSpreadsheet\Shared\Date::PHPtoExcel(strtotime('+1 day', $baseDate));
-                $val = (int) \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($baseDate);
+                $maxVal = (int) Date::PHPtoExcel(strtotime('+1 day', $baseDate));
+                $val = (int) Date::PHPToExcel($baseDate);
                 break;
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_YEARTODATE:
-                $maxVal = (int) \PhpOffice\PhpSpreadsheet\Shared\Date::PHPtoExcel(strtotime('+1 day', $baseDate));
-                $val = (int) \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(gmmktime(0, 0, 0, 1, 1, date('Y', $baseDate)));
+                $maxVal = (int) Date::PHPtoExcel(strtotime('+1 day', $baseDate));
+                $val = (int) Date::PHPToExcel(gmmktime(0, 0, 0, 1, 1, date('Y', $baseDate)));
                 break;
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_THISYEAR:
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_LASTYEAR:
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_NEXTYEAR:
-                $maxVal = (int) \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(gmmktime(0, 0, 0, 31, 12, date('Y', $baseDate)));
+                $maxVal = (int) Date::PHPToExcel(gmmktime(0, 0, 0, 31, 12, date('Y', $baseDate)));
                 ++$maxVal;
-                $val = (int) \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(gmmktime(0, 0, 0, 1, 1, date('Y', $baseDate)));
+                $val = (int) Date::PHPToExcel(gmmktime(0, 0, 0, 1, 1, date('Y', $baseDate)));
                 break;
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_THISQUARTER:
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_LASTQUARTER:
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_NEXTQUARTER:
                 $thisMonth = date('m', $baseDate);
                 $thisQuarter = floor(--$thisMonth / 3);
-                $maxVal = (int) \PhpOffice\PhpSpreadsheet\Shared\Date::PHPtoExcel(gmmktime(0, 0, 0, date('t', $baseDate), (1 + $thisQuarter) * 3, date('Y', $baseDate)));
+                $maxVal = (int) Date::PHPtoExcel(gmmktime(0, 0, 0, date('t', $baseDate), (1 + $thisQuarter) * 3, date('Y', $baseDate)));
                 ++$maxVal;
-                $val = (int) \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(gmmktime(0, 0, 0, 1, 1 + $thisQuarter * 3, date('Y', $baseDate)));
+                $val = (int) Date::PHPToExcel(gmmktime(0, 0, 0, 1, 1 + $thisQuarter * 3, date('Y', $baseDate)));
                 break;
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_THISMONTH:
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_LASTMONTH:
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_NEXTMONTH:
-                $maxVal = (int) \PhpOffice\PhpSpreadsheet\Shared\Date::PHPtoExcel(gmmktime(0, 0, 0, date('t', $baseDate), date('m', $baseDate), date('Y', $baseDate)));
+                $maxVal = (int) Date::PHPtoExcel(gmmktime(0, 0, 0, date('t', $baseDate), date('m', $baseDate), date('Y', $baseDate)));
                 ++$maxVal;
-                $val = (int) \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(gmmktime(0, 0, 0, 1, date('m', $baseDate), date('Y', $baseDate)));
+                $val = (int) Date::PHPToExcel(gmmktime(0, 0, 0, 1, date('m', $baseDate), date('Y', $baseDate)));
                 break;
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_THISWEEK:
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_LASTWEEK:
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_NEXTWEEK:
                 $dayOfWeek = date('w', $baseDate);
-                $val = (int) \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($baseDate) - $dayOfWeek;
+                $val = (int) Date::PHPToExcel($baseDate) - $dayOfWeek;
                 $maxVal = $val + 7;
                 break;
         }

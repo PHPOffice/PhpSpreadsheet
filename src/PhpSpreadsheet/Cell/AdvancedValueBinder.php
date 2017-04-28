@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -157,7 +159,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
             }
 
             // Check for datetime, e.g. '2008-12-31', '2008-12-31 15:59', '2008-12-31 15:59:10'
-            if (($d = \PhpOffice\PhpSpreadsheet\Shared\Date::stringToExcel($value)) !== false) {
+            if (($d = Date::stringToExcel($value)) !== false) {
                 // Convert value to number
                 $cell->setValueExplicit($d, DataType::TYPE_NUMERIC);
                 // Determine style. Either there is a time part or not. Look for ':'

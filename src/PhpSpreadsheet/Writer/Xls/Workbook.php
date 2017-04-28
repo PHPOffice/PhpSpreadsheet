@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
@@ -1030,7 +1031,7 @@ class Workbook extends BIFFwriter
         $record = 0x0022; // Record identifier
         $length = 0x0002; // Bytes to follow
 
-        $f1904 = (\PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar() == \PhpOffice\PhpSpreadsheet\Shared\Date::CALENDAR_MAC_1904)
+        $f1904 = (Date::getExcelCalendar() == Date::CALENDAR_MAC_1904)
             ? 1
             : 0; // Flag for 1904 date system
 

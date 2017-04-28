@@ -1,5 +1,6 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/Header.php';
@@ -72,7 +73,7 @@ $dateTimeNow = time();
 $spreadsheet->getActiveSheet()
         ->setCellValue('A9', 'Date/Time')
         ->setCellValue('B9', 'Date')
-        ->setCellValue('C9', \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($dateTimeNow));
+        ->setCellValue('C9', Date::PHPToExcel($dateTimeNow));
 $spreadsheet->getActiveSheet()
         ->getStyle('C9')
         ->getNumberFormat()
@@ -81,7 +82,7 @@ $spreadsheet->getActiveSheet()
 $spreadsheet->getActiveSheet()
         ->setCellValue('A10', 'Date/Time')
         ->setCellValue('B10', 'Time')
-        ->setCellValue('C10', \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($dateTimeNow));
+        ->setCellValue('C10', Date::PHPToExcel($dateTimeNow));
 $spreadsheet->getActiveSheet()
         ->getStyle('C10')
         ->getNumberFormat()
@@ -90,7 +91,7 @@ $spreadsheet->getActiveSheet()
 $spreadsheet->getActiveSheet()
         ->setCellValue('A11', 'Date/Time')
         ->setCellValue('B11', 'Date and Time')
-        ->setCellValue('C11', \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($dateTimeNow));
+        ->setCellValue('C11', Date::PHPToExcel($dateTimeNow));
 $spreadsheet->getActiveSheet()
         ->getStyle('C11')
         ->getNumberFormat()

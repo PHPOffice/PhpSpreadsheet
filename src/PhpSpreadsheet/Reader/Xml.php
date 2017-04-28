@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use PhpOffice\PhpSpreadsheet\Settings;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -126,7 +128,7 @@ class Xml extends BaseReader implements IReader
         $xml = simplexml_load_string(
             $this->securityScan(file_get_contents($pFilename)),
             'SimpleXMLElement',
-            \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
+            Settings::getLibXmlLoaderOptions()
         );
         $namespaces = $xml->getNamespaces(true);
 
@@ -155,7 +157,7 @@ class Xml extends BaseReader implements IReader
         $xml = simplexml_load_string(
             $this->securityScan(file_get_contents($pFilename)),
             'SimpleXMLElement',
-            \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
+            Settings::getLibXmlLoaderOptions()
         );
         $namespaces = $xml->getNamespaces(true);
 
@@ -332,7 +334,7 @@ class Xml extends BaseReader implements IReader
         $xml = simplexml_load_string(
             $this->securityScan(file_get_contents($pFilename)),
             'SimpleXMLElement',
-            \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
+            Settings::getLibXmlLoaderOptions()
         );
         $namespaces = $xml->getNamespaces(true);
 
@@ -642,7 +644,7 @@ class Xml extends BaseReader implements IReader
                                         break;
                                     case 'DateTime':
                                         $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
-                                        $cellValue = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(strtotime($cellValue));
+                                        $cellValue = Date::PHPToExcel(strtotime($cellValue));
                                         break;
                                     case 'Error':
                                         $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_ERROR;

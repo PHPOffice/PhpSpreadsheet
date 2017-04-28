@@ -96,7 +96,7 @@ calculate the correct Excel timestamp, and set a number format mask.
 ``` php
 // Get the current date/time and convert to an Excel date/time
 $dateTimeNow = time();
-$excelDateValue = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel( $dateTimeNow );
+$excelDateValue = Date::PHPToExcel( $dateTimeNow );
 // Set cell A6 with the Excel date/time value
 $spreadsheet->getActiveSheet()->setCellValue(
     'A6',

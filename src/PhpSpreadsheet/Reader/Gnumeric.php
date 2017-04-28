@@ -3,6 +3,8 @@
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use DateTimeZone;
+use PhpOffice\PhpSpreadsheet\Settings;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use XMLReader;
@@ -98,7 +100,7 @@ class Gnumeric extends BaseReader implements IReader
         File::assertFile($pFilename);
 
         $xml = new XMLReader();
-        $xml->xml($this->securityScanFile('compress.zlib://' . realpath($pFilename)), null, \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions());
+        $xml->xml($this->securityScanFile('compress.zlib://' . realpath($pFilename)), null, Settings::getLibXmlLoaderOptions());
         $xml->setParserProperty(2, true);
 
         $worksheetNames = [];
@@ -127,7 +129,7 @@ class Gnumeric extends BaseReader implements IReader
         File::assertFile($pFilename);
 
         $xml = new XMLReader();
-        $xml->xml($this->securityScanFile('compress.zlib://' . realpath($pFilename)), null, \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions());
+        $xml->xml($this->securityScanFile('compress.zlib://' . realpath($pFilename)), null, Settings::getLibXmlLoaderOptions());
         $xml->setParserProperty(2, true);
 
         $worksheetInfo = [];
@@ -217,7 +219,7 @@ class Gnumeric extends BaseReader implements IReader
 
         $gFileData = $this->gzfileGetContents($pFilename);
 
-        $xml = simplexml_load_string($this->securityScan($gFileData), 'SimpleXMLElement', \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions());
+        $xml = simplexml_load_string($this->securityScan($gFileData), 'SimpleXMLElement', Settings::getLibXmlLoaderOptions());
         $namespacesMeta = $xml->getNamespaces(true);
 
         $gnmXML = $xml->children($namespacesMeta['gnm']);
@@ -473,7 +475,7 @@ class Gnumeric extends BaseReader implements IReader
 
                     //    We still set the number format mask for date/time values, even if readDataOnly is true
                     if ((!$this->readDataOnly) ||
-                        (\PhpOffice\PhpSpreadsheet\Shared\Date::isDateTimeFormatCode((string) $styleAttributes['Format']))) {
+                        (Date::isDateTimeFormatCode((string) $styleAttributes['Format']))) {
                         $styleArray = [];
                         $styleArray['numberformat']['code'] = (string) $styleAttributes['Format'];
                         //    If readDataOnly is false, we set all formatting information

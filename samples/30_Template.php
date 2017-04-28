@@ -1,6 +1,7 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 require __DIR__ . '/Header.php';
 
@@ -23,7 +24,7 @@ $data = [['title' => 'Excel for dummies',
     ],
 ];
 
-$spreadsheet->getActiveSheet()->setCellValue('D1', \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(time()));
+$spreadsheet->getActiveSheet()->setCellValue('D1', Date::PHPToExcel(time()));
 
 $baseRow = 5;
 foreach ($data as $r => $dataRow) {

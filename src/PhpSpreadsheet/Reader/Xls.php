@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -1886,9 +1887,9 @@ class Xls extends BaseReader implements IReader
         $this->pos += 4 + $length;
 
         // offset: 0; size: 2; 0 = base 1900, 1 = base 1904
-        \PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar(\PhpOffice\PhpSpreadsheet\Shared\Date::CALENDAR_WINDOWS_1900);
+        Date::setExcelCalendar(Date::CALENDAR_WINDOWS_1900);
         if (ord($recordData[0]) == 1) {
-            \PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar(\PhpOffice\PhpSpreadsheet\Shared\Date::CALENDAR_MAC_1904);
+            Date::setExcelCalendar(Date::CALENDAR_MAC_1904);
         }
     }
 
