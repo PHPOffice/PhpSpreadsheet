@@ -2,11 +2,13 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
+
 require __DIR__ . '/Header.php';
 
 // Write temporary file
 $largeSpreadsheet = require __DIR__ . '/templates/largeSpreadsheet.php';
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($largeSpreadsheet);
+$writer = new XlsxWriter($largeSpreadsheet);
 $filename = $helper->getTemporaryFilename();
 $callStartTime = microtime(true);
 $writer->save($filename);

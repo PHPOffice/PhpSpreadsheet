@@ -1,6 +1,7 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing;
 
 require __DIR__ . '/Header.php';
 
@@ -36,7 +37,7 @@ $spreadsheet->getActiveSheet()
 
 // Add a drawing to the header
 $helper->log('Add a drawing to the header');
-$drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing();
+$drawing = new HeaderFooterDrawing();
 $drawing->setName('PhpSpreadsheet logo');
 $drawing->setPath(__DIR__ . '/images/PhpSpreadsheet_logo.png');
 $drawing->setHeight(36);

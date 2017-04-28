@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -440,11 +441,11 @@ class Drawing extends WriterPart
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
      * @param string $pReference Reference
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing $pImage Image
+     * @param HeaderFooterDrawing $pImage Image
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeVMLHeaderFooterImage(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, $pReference, \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing $pImage)
+    private function writeVMLHeaderFooterImage(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, $pReference, HeaderFooterDrawing $pImage)
     {
         // Calculate object id
         preg_match('{(\d+)}', md5($pReference), $m);

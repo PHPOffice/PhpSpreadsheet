@@ -1,12 +1,13 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 
 require __DIR__ . '/Header.php';
 
 $sampleSpreadsheet = require __DIR__ . '/templates/sampleSpreadsheet.php';
 $filename = $helper->getTemporaryFilename();
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($sampleSpreadsheet);
+$writer = new XlsxWriter($sampleSpreadsheet);
 $callStartTime = microtime(true);
 $writer->save($filename);
 $helper->logWrite($writer, $filename, $callStartTime);
