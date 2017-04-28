@@ -1,5 +1,8 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 error_reporting(E_ALL);
 set_time_limit(0);
 
@@ -56,7 +59,7 @@ class chunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using IOFactory with a defined reader type of ',$inputFileType,'<br />';
 /*  Create a new Reader of the type defined in $inputFileType  **/
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = IOFactory::createReader($inputFileType);
 
 echo '<hr />';
 
@@ -71,7 +74,7 @@ $reader->setReadFilter($chunkFilter)
           ->setContiguous(true);
 
 /*  Instantiate a new PhpSpreadsheet object manually  **/
-$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new Spreadsheet();
 
 /*  Set a sheet index  **/
 $sheet = 0;

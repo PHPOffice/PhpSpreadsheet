@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheetTests;
 
+use PhpOffice\PhpSpreadsheet\Helper\Sample;
+
 class SampleTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -35,7 +37,7 @@ class SampleTest extends \PHPUnit_Framework_TestCase
             $skipped = array_merge($skipped, $tooLongToBeCovered);
         }
 
-        $helper = new \PhpOffice\PhpSpreadsheet\Helper\Sample();
+        $helper = new Sample();
         $samples = [];
         foreach ($helper->getSamples() as $name => $sample) {
             if (!in_array($name, $skipped)) {

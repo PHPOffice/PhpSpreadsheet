@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -29,14 +31,14 @@ class Workbook extends WriterPart
     /**
      * Write workbook to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      * @param bool $recalcRequired Indicate whether formulas should be recalculated before writing
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string XML Output
      */
-    public function writeWorkbook(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet, $recalcRequired = false)
+    public function writeWorkbook(Spreadsheet $spreadsheet, $recalcRequired = false)
     {
         // Create XML writer
         if ($this->getParentWriter()->getUseDiskCaching()) {
@@ -124,11 +126,11 @@ class Workbook extends WriterPart
      * Write BookViews.
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
-     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeBookViews(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    private function writeBookViews(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, Spreadsheet $spreadsheet)
     {
         // bookViews
         $objWriter->startElement('bookViews');
@@ -155,11 +157,11 @@ class Workbook extends WriterPart
      * Write WorkbookProtection.
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
-     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeWorkbookProtection(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    private function writeWorkbookProtection(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, Spreadsheet $spreadsheet)
     {
         if ($spreadsheet->getSecurity()->isSecurityEnabled()) {
             $objWriter->startElement('workbookProtection');
@@ -207,11 +209,11 @@ class Workbook extends WriterPart
      * Write sheets.
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
-     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeSheets(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    private function writeSheets(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, Spreadsheet $spreadsheet)
     {
         // Write sheets
         $objWriter->startElement('sheets');
@@ -262,11 +264,11 @@ class Workbook extends WriterPart
      * Write Defined Names.
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
-     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeDefinedNames(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    private function writeDefinedNames(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, Spreadsheet $spreadsheet)
     {
         // Write defined names
         $objWriter->startElement('definedNames');
@@ -297,11 +299,11 @@ class Workbook extends WriterPart
      * Write named ranges.
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
-     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeNamedRanges(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    private function writeNamedRanges(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, Spreadsheet $spreadsheet)
     {
         // Loop named ranges
         $namedRanges = $spreadsheet->getNamedRanges();

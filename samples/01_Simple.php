@@ -1,10 +1,12 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 require __DIR__ . '/Header.php';
 
-// Create new Spreadsheet object
+$spreadsheet = new Spreadsheet();
 $helper->log('Create new Spreadsheet object');
-$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new Spreadsheet();
 
 // Set document properties
 $helper->log('Set document properties');

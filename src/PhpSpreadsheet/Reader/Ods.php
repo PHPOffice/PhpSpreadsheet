@@ -7,6 +7,7 @@ use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use ZipArchive;
 
@@ -252,12 +253,12 @@ class Ods extends BaseReader implements IReader
      *
      * @throws Exception
      *
-     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @return Spreadsheet
      */
     public function load($pFilename)
     {
         // Create new Spreadsheet
-        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $spreadsheet = new Spreadsheet();
 
         // Load into this instance
         return $this->loadIntoExisting($pFilename, $spreadsheet);
@@ -281,13 +282,13 @@ class Ods extends BaseReader implements IReader
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      *
      * @param string $pFilename
-     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws Exception
      *
-     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @return Spreadsheet
      */
-    public function loadIntoExisting($pFilename, \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
+    public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
     {
         File::assertFile($pFilename);
 

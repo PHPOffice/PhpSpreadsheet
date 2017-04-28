@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -29,13 +31,13 @@ class Rels extends WriterPart
     /**
      * Write relationships to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string XML Output
      */
-    public function writeRelationships(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    public function writeRelationships(Spreadsheet $spreadsheet)
     {
         // Create XML writer
         $objWriter = null;
@@ -104,13 +106,13 @@ class Rels extends WriterPart
     /**
      * Write workbook relationships to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string XML Output
      */
-    public function writeWorkbookRelationships(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    public function writeWorkbookRelationships(Spreadsheet $spreadsheet)
     {
         // Create XML writer
         $objWriter = null;

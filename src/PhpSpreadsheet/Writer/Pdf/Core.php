@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 /**
  *  Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
@@ -138,9 +140,9 @@ abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\Html
     /**
      * Create a new PDF Writer instance.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet Spreadsheet object
+     * @param Spreadsheet $spreadsheet Spreadsheet object
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
+    public function __construct(Spreadsheet $spreadsheet)
     {
         parent::__construct($spreadsheet);
         $this->setUseInlineCss(true);

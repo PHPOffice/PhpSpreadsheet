@@ -333,7 +333,7 @@ Below is an example where we read all the values in a worksheet and
 display them in a table.
 
 ``` php
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
+$reader = IOFactory::createReader('Xlsx');
 $reader->setReadDataOnly(TRUE);
 $spreadsheet = $reader->load("test.xlsx");
 
@@ -381,7 +381,7 @@ Below is an example where we read all the values in a worksheet and
 display them in a table.
 
 ``` php
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
+$reader = IOFactory::createReader('Xlsx');
 $reader->setReadDataOnly(TRUE);
 $spreadsheet = $reader->load("test.xlsx");
 
@@ -409,7 +409,7 @@ Alternatively, you can take advantage of PHP's "Perl-style" character
 incrementors to loop through the cells by coordinate:
 
 ``` php
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
+$reader = IOFactory::createReader('Xlsx');
 $reader->setReadDataOnly(TRUE);
 $spreadsheet = $reader->load("test.xlsx");
 
@@ -462,7 +462,7 @@ require_once 'src/Boostrap.php';
 \PhpOffice\PhpSpreadsheet\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
 
 // Create new Spreadsheet object
-$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new Spreadsheet();
 
 // ...
 // Add some data, resembling some different data types

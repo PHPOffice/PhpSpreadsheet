@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -29,14 +31,14 @@ class ContentTypes extends WriterPart
     /**
      * Write content types to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      * @param bool $includeCharts Flag indicating if we should include drawing details for charts
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string XML Output
      */
-    public function writeContentTypes(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet, $includeCharts = false)
+    public function writeContentTypes(Spreadsheet $spreadsheet, $includeCharts = false)
     {
         // Create XML writer
         $objWriter = null;

@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 error_reporting(E_ALL);
 set_time_limit(0);
 
@@ -26,7 +28,7 @@ require_once __DIR__ . '/../../../src/Bootstrap.php';
 $inputFileType = 'Csv';
 $inputFileName = './sampleData/example1.tsv';
 
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = IOFactory::createReader($inputFileType);
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' into WorkSheet #1 using IOFactory with a defined reader type of ',$inputFileType,'<br />';
 $reader->setDelimiter("\t");
 $spreadsheet = $reader->load($inputFileName);

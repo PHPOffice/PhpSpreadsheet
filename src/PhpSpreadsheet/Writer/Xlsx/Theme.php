@@ -26,6 +26,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
  * @category   PhpSpreadsheet
@@ -131,13 +132,13 @@ class Theme extends WriterPart
     /**
      * Write theme to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string XML Output
      */
-    public function writeTheme(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    public function writeTheme(Spreadsheet $spreadsheet)
     {
         // Create XML writer
         $objWriter = null;

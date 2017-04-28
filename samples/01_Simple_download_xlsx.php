@@ -1,15 +1,19 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Helper\Sample;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 require_once __DIR__ . '/../src/Bootstrap.php';
 
-$helper = new \PhpOffice\PhpSpreadsheet\Helper\Sample();
+$helper = new Sample();
 if ($helper->isCli()) {
     echo 'This example should only be run from a Web Browser' . PHP_EOL;
 
     return;
 }
 // Create new Spreadsheet object
-$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new Spreadsheet();
 
 // Set document properties
 $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
@@ -51,6 +55,6 @@ header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modifie
 header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
 header('Pragma: public'); // HTTP/1.0
 
-$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
 $writer->save('php://output');
 exit;

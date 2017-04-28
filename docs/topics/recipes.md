@@ -431,7 +431,7 @@ using the programs own interface. Save file as test.xlsx. Now, take that file
 and read off the values using PhpSpreadsheet as follows:
 
 ```php
-$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load('test.xlsx');
+$spreadsheet = IOFactory::load('test.xlsx');
 $worksheet = $spreadsheet->getActiveSheet();
 
 var_dump($worksheet->getHeaderFooter()->getOddFooter());
@@ -647,7 +647,7 @@ template workbook using e.g. Xlsx reader to reveal the number format
 code. Example how read a number format code for cell A1:
 
 ``` php
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
+$reader = IOFactory::createReader('Xlsx');
 $spreadsheet = $reader->load('template.xlsx');
 var_dump($spreadsheet->getActiveSheet()->getStyle('A1')->getNumberFormat()->getFormatCode());
 ```
@@ -1369,7 +1369,7 @@ header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetm
 header('Content-Disposition: attachment;filename="myfile.xlsx"');
 header('Cache-Control: max-age=0');
 
-$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
 $writer->save('php://output');
 ```
 
@@ -1383,7 +1383,7 @@ header('Content-Type: application/vnd.ms-excel');
 header('Content-Disposition: attachment;filename="myfile.xls"');
 header('Cache-Control: max-age=0');
 
-$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
+$writer = IOFactory::createWriter($spreadsheet, 'Xls');
 $writer->save('php://output');
 ```
 

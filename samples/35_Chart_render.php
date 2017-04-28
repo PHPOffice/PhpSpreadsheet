@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 require __DIR__ . '/Header.php';
 
 // Change these values to select the Rendering library that you wish to use
@@ -35,7 +37,7 @@ foreach ($inputFileNames as $inputFileName) {
 
     $helper->log("Load Test from $inputFileType file ", $inputFileNameShort);
 
-    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+    $reader = IOFactory::createReader($inputFileType);
     $reader->setIncludeCharts(true);
     $spreadsheet = $reader->load($inputFileName);
 

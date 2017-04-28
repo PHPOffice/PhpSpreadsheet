@@ -132,7 +132,7 @@ class Html extends BaseWriter implements IWriter
     /**
      * Create a new HTML.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      */
     public function __construct(Spreadsheet $spreadsheet)
     {

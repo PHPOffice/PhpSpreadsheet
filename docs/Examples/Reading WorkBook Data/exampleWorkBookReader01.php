@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 error_reporting(E_ALL);
 set_time_limit(0);
 
@@ -25,7 +27,7 @@ $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 
 /*  Create a new Reader of the type defined in $inputFileType  **/
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = IOFactory::createReader($inputFileType);
 /*  Load $inputFileName to a PhpSpreadsheet Object  **/
 $spreadsheet = $reader->load($inputFileName);
 

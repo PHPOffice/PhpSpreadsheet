@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
@@ -29,7 +31,7 @@ class Xls extends BaseWriter implements IWriter
     /**
      * PhpSpreadsheet object.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @var Spreadsheet
      */
     private $spreadsheet;
 
@@ -92,9 +94,9 @@ class Xls extends BaseWriter implements IWriter
     /**
      * Create a new Xls Writer.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet PhpSpreadsheet object
+     * @param Spreadsheet $spreadsheet PhpSpreadsheet object
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
+    public function __construct(Spreadsheet $spreadsheet)
     {
         $this->spreadsheet = $spreadsheet;
 

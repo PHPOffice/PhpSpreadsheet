@@ -46,9 +46,9 @@ class Ods extends BaseWriter implements IWriter
     /**
      * Create a new Ods.
      *
-     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    public function __construct(Spreadsheet $spreadsheet)
     {
         $this->setSpreadsheet($spreadsheet);
 
@@ -177,13 +177,13 @@ class Ods extends BaseWriter implements IWriter
     /**
      * Set Spreadsheet object.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet PhpSpreadsheet object
+     * @param Spreadsheet $spreadsheet PhpSpreadsheet object
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return self
      */
-    public function setSpreadsheet(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    public function setSpreadsheet(Spreadsheet $spreadsheet)
     {
         $this->spreadSheet = $spreadsheet;
 

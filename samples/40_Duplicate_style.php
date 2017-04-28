@@ -1,9 +1,11 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 require __DIR__ . '/Header.php';
 
 $helper->log('Create new Spreadsheet object');
-$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new Spreadsheet();
 $worksheet = $spreadsheet->getActiveSheet();
 
 $helper->log('Create styles array');

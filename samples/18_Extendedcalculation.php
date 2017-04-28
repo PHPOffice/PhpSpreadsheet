@@ -1,5 +1,6 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/Header.php';
 
@@ -10,7 +11,7 @@ print_r($calc->getImplementedFunctionNames());
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
-$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new Spreadsheet();
 
 // Add some data, we will use some formulas here
 $helper->log('Add some data');

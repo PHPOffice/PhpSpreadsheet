@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 require __DIR__ . '/Header.php';
 
 // Create temporary file that will be read
@@ -9,7 +11,7 @@ $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($sampleSpreadsheet);
 $writer->save($filename);
 
 $callStartTime = microtime(true);
-$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filename);
+$spreadsheet = IOFactory::load($filename);
 $helper->logRead('Xlsx', $filename, $callStartTime);
 
 // Save

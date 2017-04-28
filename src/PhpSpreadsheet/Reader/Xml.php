@@ -218,7 +218,7 @@ class Xml extends BaseReader implements IReader
      *
      * @throws Exception
      *
-     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @return Spreadsheet
      */
     public function load($pFilename)
     {
@@ -288,13 +288,13 @@ class Xml extends BaseReader implements IReader
      * Loads from file into Spreadsheet instance.
      *
      * @param string $pFilename
-     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws Exception
      *
-     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @return Spreadsheet
      */
-    public function loadIntoExisting($pFilename, \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
+    public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
     {
         $fromFormats = ['\-', '\ '];
         $toFormats = ['-', ' '];

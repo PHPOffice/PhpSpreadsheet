@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 error_reporting(E_ALL);
 set_time_limit(0);
 
@@ -16,7 +18,7 @@ date_default_timezone_set('Europe/London');
 <body>
 
 <h1>PhpSpreadsheet Reader Example #03</h1>
-<h2>Simple File Reader using the \PhpOffice\PhpSpreadsheet\IOFactory to Return a Reader</h2>
+<h2>Simple File Reader using the IOFactory to Return a Reader</h2>
 <?php
 
 require_once __DIR__ . '/../../../src/Bootstrap.php';
@@ -31,7 +33,7 @@ $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using IOFactory with a defined reader type of ',$inputFileType,'<br />';
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = IOFactory::createReader($inputFileType);
 $spreadsheet = $reader->load($inputFileName);
 
 echo '<hr />';

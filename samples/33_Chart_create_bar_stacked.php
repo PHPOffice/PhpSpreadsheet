@@ -1,9 +1,11 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/Header.php';
 
-$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new Spreadsheet();
 $worksheet = $spreadsheet->getActiveSheet();
 $worksheet->fromArray(
     [
@@ -92,7 +94,7 @@ $worksheet->addChart($chart);
 
 // Save Excel 2007 file
 $filename = $helper->getFilename(__FILE__);
-$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
 $writer->setIncludeCharts(true);
 $callStartTime = microtime(true);
 $writer->save($filename);

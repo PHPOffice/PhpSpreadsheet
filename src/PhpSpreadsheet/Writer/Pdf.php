@@ -38,7 +38,7 @@ class Pdf implements IWriter
     /**
      * Instantiate a new renderer of the configured type within this container class.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet PhpSpreadsheet object
+     * @param Spreadsheet $spreadsheet PhpSpreadsheet object
      *
      * @throws Exception when PDF library is not configured
      */

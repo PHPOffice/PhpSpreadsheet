@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -194,7 +195,7 @@ class Xls extends BaseReader implements IReader
     /**
      * Workbook to be returned by the reader.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @var Spreadsheet
      */
     private $spreadsheet;
 
@@ -602,7 +603,7 @@ class Xls extends BaseReader implements IReader
      *
      * @throws Exception
      *
-     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @return Spreadsheet
      */
     public function load($pFilename)
     {
@@ -610,7 +611,7 @@ class Xls extends BaseReader implements IReader
         $this->loadOLE($pFilename);
 
         // Initialisations
-        $this->spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $this->spreadsheet = new Spreadsheet();
         $this->spreadsheet->removeSheetByIndex(0); // remove 1st sheet
         if (!$this->readDataOnly) {
             $this->spreadsheet->removeCellStyleXfByIndex(0); // remove the default style

@@ -282,12 +282,12 @@ class Csv extends BaseReader implements IReader
      *
      * @throws Exception
      *
-     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @return Spreadsheet
      */
     public function load($pFilename)
     {
         // Create new Spreadsheet
-        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $spreadsheet = new Spreadsheet();
 
         // Load into this instance
         return $this->loadIntoExisting($pFilename, $spreadsheet);

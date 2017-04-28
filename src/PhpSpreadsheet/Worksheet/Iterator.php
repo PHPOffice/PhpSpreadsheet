@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -29,7 +31,7 @@ class Iterator implements \Iterator
     /**
      * Spreadsheet to iterate.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @var Spreadsheet
      */
     private $subject;
 
@@ -43,9 +45,9 @@ class Iterator implements \Iterator
     /**
      * Create a new worksheet iterator.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $subject
+     * @param Spreadsheet $subject
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Spreadsheet $subject = null)
+    public function __construct(Spreadsheet $subject = null)
     {
         // Set subject
         $this->subject = $subject;

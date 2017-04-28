@@ -1,10 +1,12 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 require __DIR__ . '/Header.php';
 
 $filename = __DIR__ . '/templates/Excel2003XMLTest.xml';
 $callStartTime = microtime(true);
-$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filename);
+$spreadsheet = IOFactory::load($filename);
 $helper->logRead('Xml', $filename, $callStartTime);
 
 // Save

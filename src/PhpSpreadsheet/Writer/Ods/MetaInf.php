@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
@@ -29,13 +31,13 @@ class MetaInf extends WriterPart
     /**
      * Write META-INF/manifest.xml to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string XML Output
      */
-    public function writeManifest(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function writeManifest(Spreadsheet $spreadsheet = null)
     {
         if (!$spreadsheet) {
             $spreadsheet = $this->getParentWriter()->getSpreadsheet();

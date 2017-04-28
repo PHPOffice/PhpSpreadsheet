@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -29,13 +31,13 @@ class DocProps extends WriterPart
     /**
      * Write docProps/app.xml to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string XML Output
      */
-    public function writeDocPropsApp(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    public function writeDocPropsApp(Spreadsheet $spreadsheet)
     {
         // Create XML writer
         $objWriter = null;
@@ -128,13 +130,13 @@ class DocProps extends WriterPart
     /**
      * Write docProps/core.xml to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string XML Output
      */
-    public function writeDocPropsCore(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    public function writeDocPropsCore(Spreadsheet $spreadsheet)
     {
         // Create XML writer
         $objWriter = null;
@@ -197,13 +199,13 @@ class DocProps extends WriterPart
     /**
      * Write docProps/custom.xml to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string XML Output
      */
-    public function writeDocPropsCustom(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    public function writeDocPropsCustom(Spreadsheet $spreadsheet)
     {
         $customPropertyList = $spreadsheet->getProperties()->getCustomProperties();
         if (empty($customPropertyList)) {

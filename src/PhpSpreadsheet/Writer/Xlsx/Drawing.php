@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -479,13 +481,13 @@ class Drawing extends WriterPart
     /**
      * Get an array of all drawings.
      *
-     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return \PhpOffice\PhpSpreadsheet\Worksheet\Drawing[] All drawings in PhpSpreadsheet
      */
-    public function allDrawings(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    public function allDrawings(Spreadsheet $spreadsheet)
     {
         // Get an array of all drawings
         $aDrawings = [];

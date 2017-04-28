@@ -474,7 +474,7 @@ class Html extends BaseReader implements IReader
                             $sheet->getStyle($column . $row)->applyFromArray(
                                 [
                                     'fill' => [
-                                        'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                                        'type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                                         'color' => ['rgb' => $attributeArray['bgcolor']],
                                     ],
                                 ]

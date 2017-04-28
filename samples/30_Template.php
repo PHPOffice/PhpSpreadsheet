@@ -1,9 +1,11 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 require __DIR__ . '/Header.php';
 
 $helper->log('Load from Xls template');
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xls');
+$reader = IOFactory::createReader('Xls');
 $spreadsheet = $reader->load(__DIR__ . '/templates/30template.xls');
 
 $helper->log('Add new data to the template');

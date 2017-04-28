@@ -2,11 +2,13 @@
 /**
  * Header file.
  */
+use PhpOffice\PhpSpreadsheet\Helper\Sample;
+
 error_reporting(E_ALL);
 
 require_once __DIR__ . '/../src/Bootstrap.php';
 
-$helper = new \PhpOffice\PhpSpreadsheet\Helper\Sample();
+$helper = new Sample();
 if (!defined('EOL')) {
     define('EOL', $helper->isCli() ? PHP_EOL : '<br />');
 }

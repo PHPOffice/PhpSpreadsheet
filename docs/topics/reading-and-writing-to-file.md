@@ -7,17 +7,17 @@ For this purpose, PhpSpreadsheet provides readers and writers, which are
 implementations of \PhpOffice\PhpSpreadsheet\Reader\IReader and
 \PhpOffice\PhpSpreadsheet\Writer\IWriter.
 
-## \PhpOffice\PhpSpreadsheet\IOFactory
+## IOFactory
 
 The PhpSpreadsheet API offers multiple methods to create a
 \PhpOffice\PhpSpreadsheet\Reader\IReader or
 \PhpOffice\PhpSpreadsheet\Writer\IWriter instance:
 
-Direct creation via \PhpOffice\PhpSpreadsheet\IOFactory. All examples
+Direct creation via IOFactory. All examples
 underneath demonstrate the direct creation method. Note that you can
-also use the \PhpOffice\PhpSpreadsheet\IOFactory class to do this.
+also use the IOFactory class to do this.
 
-### Creating \PhpOffice\PhpSpreadsheet\Reader\IReader using \PhpOffice\PhpSpreadsheet\IOFactory
+### Creating \PhpOffice\PhpSpreadsheet\Reader\IReader using IOFactory
 
 There are 2 methods for reading in a file into PhpSpreadsheet: using
 automatic file type resolving or explicitly.
@@ -30,11 +30,11 @@ Explicit mode requires you to specify which
 \PhpOffice\PhpSpreadsheet\Reader\IReader should be used.
 
 You can create a \PhpOffice\PhpSpreadsheet\Reader\IReader instance using
-\PhpOffice\PhpSpreadsheet\IOFactory in automatic file type resolving
+IOFactory in automatic file type resolving
 mode using the following code sample:
 
 ``` php
-$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load("05featuredemo.xlsx");
+$spreadsheet = IOFactory::load("05featuredemo.xlsx");
 ```
 
 A typical use of this feature is when you need to read files uploaded by
@@ -46,30 +46,30 @@ data, see more about this later), then you may instead want to use this
 variant:
 
 ``` php
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile("05featuredemo.xlsx");
+$reader = IOFactory::createReaderForFile("05featuredemo.xlsx");
 $reader->setReadDataOnly(true);
 $reader->load("05featuredemo.xlsx");
 ```
 
 You can create a \PhpOffice\PhpSpreadsheet\Reader\IReader instance using
-\PhpOffice\PhpSpreadsheet\IOFactory in explicit mode using the following
+IOFactory in explicit mode using the following
 code sample:
 
 ``` php
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
+$reader = IOFactory::createReader("Xlsx");
 $spreadsheet = $reader->load("05featuredemo.xlsx");
 ```
 
 Note that automatic type resolving mode is slightly slower than explicit
 mode.
 
-### Creating \PhpOffice\PhpSpreadsheet\Writer\IWriter using \PhpOffice\PhpSpreadsheet\IOFactory
+### Creating \PhpOffice\PhpSpreadsheet\Writer\IWriter using IOFactory
 
 You can create a PhpOffice\PhpSpreadsheet\Writer\IWriter instance using
-\PhpOffice\PhpSpreadsheet\IOFactory:
+IOFactory:
 
 ``` php
-$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, "Xlsx");
+$writer = IOFactory::createWriter($spreadsheet, "Xlsx");
 $writer->save("05featuredemo.xlsx");
 ```
 
@@ -825,14 +825,14 @@ Here is an example how to open a template file, fill in a couple of
 fields and save it again:
 
 ``` php
-$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load('template.xlsx');
+$spreadsheet = IOFactory::load('template.xlsx');
 
 $worksheet = $spreadsheet->getActiveSheet();
 
 $worksheet->getCell('A1')->setValue('John');
 $worksheet->getCell('A2')->setValue('Smith');
 
-$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
+$writer = IOFactory::createWriter($spreadsheet, 'Xls');
 $writer->save('write.xls');
 ```
 

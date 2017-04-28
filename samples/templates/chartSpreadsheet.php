@@ -1,6 +1,8 @@
 <?php
 
-$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
+$spreadsheet = new Spreadsheet();
 $worksheet = $spreadsheet->getActiveSheet();
 $worksheet->fromArray(
     [

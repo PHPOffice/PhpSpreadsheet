@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -29,13 +31,13 @@ class RelsVBA extends WriterPart
     /**
      * Write relationships for a signed VBA Project.
      *
-     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string XML Output
      */
-    public function writeVBARelationships(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    public function writeVBARelationships(Spreadsheet $spreadsheet)
     {
         // Create XML writer
         $objWriter = null;

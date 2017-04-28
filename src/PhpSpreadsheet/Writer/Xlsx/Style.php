@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -29,13 +31,13 @@ class Style extends WriterPart
     /**
      * Write styles to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string XML Output
      */
-    public function writeStyles(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    public function writeStyles(Spreadsheet $spreadsheet)
     {
         // Create XML writer
         $objWriter = null;
@@ -386,11 +388,11 @@ class Style extends WriterPart
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
      * @param \PhpOffice\PhpSpreadsheet\Style $pStyle Style
-     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet Workbook
+     * @param Spreadsheet $spreadsheet Workbook
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeCellStyleXf(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Style $pStyle, \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    private function writeCellStyleXf(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Style $pStyle, Spreadsheet $spreadsheet)
     {
         // xf
         $objWriter->startElement('xf');
@@ -574,13 +576,13 @@ class Style extends WriterPart
     /**
      * Get an array of all styles.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return \PhpOffice\PhpSpreadsheet\Style[] All styles in PhpSpreadsheet
      */
-    public function allStyles(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    public function allStyles(Spreadsheet $spreadsheet)
     {
         return $spreadsheet->getCellXfCollection();
     }
@@ -588,13 +590,13 @@ class Style extends WriterPart
     /**
      * Get an array of all conditional styles.
      *
-     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return \PhpOffice\PhpSpreadsheet\Style\Conditional[] All conditional styles in PhpSpreadsheet
      */
-    public function allConditionalStyles(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    public function allConditionalStyles(Spreadsheet $spreadsheet)
     {
         // Get an array of all styles
         $aStyles = [];
@@ -614,13 +616,13 @@ class Style extends WriterPart
     /**
      * Get an array of all fills.
      *
-     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return \PhpOffice\PhpSpreadsheet\Style\Fill[] All fills in PhpSpreadsheet
      */
-    public function allFills(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    public function allFills(Spreadsheet $spreadsheet)
     {
         // Get an array of unique fills
         $aFills = [];
@@ -648,13 +650,13 @@ class Style extends WriterPart
     /**
      * Get an array of all fonts.
      *
-     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return \PhpOffice\PhpSpreadsheet\Style\Font[] All fonts in PhpSpreadsheet
      */
-    public function allFonts(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    public function allFonts(Spreadsheet $spreadsheet)
     {
         // Get an array of unique fonts
         $aFonts = [];
@@ -673,13 +675,13 @@ class Style extends WriterPart
     /**
      * Get an array of all borders.
      *
-     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return \PhpOffice\PhpSpreadsheet\Style\Borders[] All borders in PhpSpreadsheet
      */
-    public function allBorders(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    public function allBorders(Spreadsheet $spreadsheet)
     {
         // Get an array of unique borders
         $aBorders = [];
@@ -698,13 +700,13 @@ class Style extends WriterPart
     /**
      * Get an array of all number formats.
      *
-     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return \PhpOffice\PhpSpreadsheet\Style\NumberFormat[] All number formats in PhpSpreadsheet
      */
-    public function allNumberFormats(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    public function allNumberFormats(Spreadsheet $spreadsheet)
     {
         // Get an array of unique number formats
         $aNumFmts = [];

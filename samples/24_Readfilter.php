@@ -26,7 +26,7 @@ class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 }
 
 $helper->log('Load from Xlsx file');
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
+$reader = IOFactory::createReader('Xlsx');
 $reader->setReadFilter(new MyReadFilter());
 $callStartTime = microtime(true);
 $spreadsheet = $reader->load($filename);

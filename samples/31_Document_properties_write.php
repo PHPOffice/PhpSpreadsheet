@@ -1,11 +1,13 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 require __DIR__ . '/Header.php';
 
 $inputFileType = 'Xlsx';
 $inputFileName = __DIR__ . '/templates/31docproperties.xlsx';
 
-$spreadsheetReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$spreadsheetReader = IOFactory::createReader($inputFileType);
 $callStartTime = microtime(true);
 $spreadsheet = $spreadsheetReader->load($inputFileName);
 $helper->logRead($inputFileType, $inputFileName, $callStartTime);
@@ -18,7 +20,7 @@ $spreadsheet->getProperties()->setTitle('Office 2007 XLSX Test Document')
 
 // Save Excel 2007 file
 $filename = $helper->getFilename(__FILE__);
-$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
 $callStartTime = microtime(true);
 $writer->save($filename);
 $helper->logWrite($writer, $filename, $callStartTime);
@@ -28,7 +30,7 @@ $helper->logEndingNotes();
 
 // Reread File
 $helper->log('Reread Xlsx file');
-$spreadsheetRead = \PhpOffice\PhpSpreadsheet\IOFactory::load($filename);
+$spreadsheetRead = IOFactory::load($filename);
 
 // Set properties
 $helper->log('Get properties');

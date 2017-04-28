@@ -1,5 +1,6 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/Header.php';
 
@@ -13,7 +14,7 @@ $helper->log('Set value binder');
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
-$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new Spreadsheet();
 
 // Set document properties
 $helper->log('Set document properties');

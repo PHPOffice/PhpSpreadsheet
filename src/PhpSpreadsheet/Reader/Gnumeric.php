@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use XMLReader;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.

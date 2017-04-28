@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -86,9 +88,9 @@ class Csv extends BaseWriter implements IWriter
     /**
      * Create a new CSV.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet Spreadsheet object
+     * @param Spreadsheet $spreadsheet Spreadsheet object
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
+    public function __construct(Spreadsheet $spreadsheet)
     {
         $this->spreadsheet = $spreadsheet;
     }

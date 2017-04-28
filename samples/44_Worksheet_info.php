@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 require __DIR__ . '/Header.php';
 
 // Create temporary file that will be read
@@ -8,8 +10,8 @@ $filename = $helper->getTemporaryFilename();
 $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($sampleSpreadsheet);
 $writer->save($filename);
 
-$inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($filename);
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$inputFileType = IOFactory::identify($filename);
+$reader = IOFactory::createReader($inputFileType);
 $sheetList = $reader->listWorksheetNames($filename);
 $sheetInfo = $reader->listWorksheetInfo($filename);
 
