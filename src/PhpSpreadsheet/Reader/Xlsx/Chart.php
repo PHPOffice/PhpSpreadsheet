@@ -3,9 +3,9 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
+use PhpOffice\PhpSpreadsheet\Chart\Layout;
 use PhpOffice\PhpSpreadsheet\Chart\Legend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
@@ -172,7 +172,7 @@ class Chart
                                     }
                                 }
                                 if ($plotAreaLayout == null) {
-                                    $plotAreaLayout = new Chart\Layout();
+                                    $plotAreaLayout = new Layout();
                                 }
                                 $plotArea = new PlotArea($plotAreaLayout, $plotSeries);
                                 self::setChartAttributes($plotAreaLayout, $plotAttributes);
@@ -253,7 +253,7 @@ class Chart
             $layout[$detailKey] = self::getAttribute($detail, 'val', 'string');
         }
 
-        return new Chart\Layout($layout);
+        return new Layout($layout);
     }
 
     private static function chartDataSeries($chartDetail, $namespacesChartMeta, $plotType)
@@ -505,10 +505,10 @@ class Chart
     }
 
     /**
-     * @param Chart\Layout $plotArea
+     * @param Layout $plotArea
      * @param mixed $plotAttributes
      */
-    private static function setChartAttributes(Chart\Layout $plotArea, $plotAttributes)
+    private static function setChartAttributes(Layout $plotArea, $plotAttributes)
     {
         foreach ($plotAttributes as $plotAttributeKey => $plotAttributeValue) {
             switch ($plotAttributeKey) {
