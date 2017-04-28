@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -3296,10 +3297,10 @@ class Xls extends BaseReader implements IReader
                 $this->phpSheet->getPageSetup()->setPaperSize($paperSize);
                 switch ($isPortrait) {
                     case 0:
-                        $this->phpSheet->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+                        $this->phpSheet->getPageSetup()->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
                         break;
                     case 1:
-                        $this->phpSheet->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_PORTRAIT);
+                        $this->phpSheet->getPageSetup()->setOrientation(PageSetup::ORIENTATION_PORTRAIT);
                         break;
                 }
 

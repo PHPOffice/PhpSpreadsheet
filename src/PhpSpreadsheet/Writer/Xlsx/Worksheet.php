@@ -27,6 +27,8 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\Style\Conditional;
+use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
 
 /**
  * @category   PhpSpreadsheet
@@ -489,7 +491,7 @@ class Worksheet extends WriterPart
                 // if ($this->getParentWriter()->getStylesConditionalHashTable()->getIndexForHashCode($conditional->getHashCode()) == '') {
                 //    continue;
                 // }
-                if ($conditional->getConditionType() != \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_NONE) {
+                if ($conditional->getConditionType() != Conditional::CONDITION_NONE) {
                     // conditionalFormatting
                     $objWriter->startElement('conditionalFormatting');
                     $objWriter->writeAttribute('sqref', $cellCoordinate);
@@ -500,35 +502,35 @@ class Worksheet extends WriterPart
                     $objWriter->writeAttribute('dxfId', $this->getParentWriter()->getStylesConditionalHashTable()->getIndexForHashCode($conditional->getHashCode()));
                     $objWriter->writeAttribute('priority', $id++);
 
-                    if (($conditional->getConditionType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS || $conditional->getConditionType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CONTAINSTEXT)
-                        && $conditional->getOperatorType() != \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_NONE) {
+                    if (($conditional->getConditionType() == Conditional::CONDITION_CELLIS || $conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT)
+                        && $conditional->getOperatorType() != Conditional::OPERATOR_NONE) {
                         $objWriter->writeAttribute('operator', $conditional->getOperatorType());
                     }
 
-                    if ($conditional->getConditionType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CONTAINSTEXT
+                    if ($conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT
                         && !is_null($conditional->getText())) {
                         $objWriter->writeAttribute('text', $conditional->getText());
                     }
 
-                    if ($conditional->getConditionType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CONTAINSTEXT
-                        && $conditional->getOperatorType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_CONTAINSTEXT
+                    if ($conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT
+                        && $conditional->getOperatorType() == Conditional::OPERATOR_CONTAINSTEXT
                         && !is_null($conditional->getText())) {
                         $objWriter->writeElement('formula', 'NOT(ISERROR(SEARCH("' . $conditional->getText() . '",' . $cellCoordinate . ')))');
-                    } elseif ($conditional->getConditionType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CONTAINSTEXT
-                        && $conditional->getOperatorType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_BEGINSWITH
+                    } elseif ($conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT
+                        && $conditional->getOperatorType() == Conditional::OPERATOR_BEGINSWITH
                         && !is_null($conditional->getText())) {
                         $objWriter->writeElement('formula', 'LEFT(' . $cellCoordinate . ',' . strlen($conditional->getText()) . ')="' . $conditional->getText() . '"');
-                    } elseif ($conditional->getConditionType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CONTAINSTEXT
-                        && $conditional->getOperatorType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_ENDSWITH
+                    } elseif ($conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT
+                        && $conditional->getOperatorType() == Conditional::OPERATOR_ENDSWITH
                         && !is_null($conditional->getText())) {
                         $objWriter->writeElement('formula', 'RIGHT(' . $cellCoordinate . ',' . strlen($conditional->getText()) . ')="' . $conditional->getText() . '"');
-                    } elseif ($conditional->getConditionType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CONTAINSTEXT
-                        && $conditional->getOperatorType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_NOTCONTAINS
+                    } elseif ($conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT
+                        && $conditional->getOperatorType() == Conditional::OPERATOR_NOTCONTAINS
                         && !is_null($conditional->getText())) {
                         $objWriter->writeElement('formula', 'ISERROR(SEARCH("' . $conditional->getText() . '",' . $cellCoordinate . '))');
-                    } elseif ($conditional->getConditionType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS
-                        || $conditional->getConditionType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CONTAINSTEXT
-                        || $conditional->getConditionType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_EXPRESSION) {
+                    } elseif ($conditional->getConditionType() == Conditional::CONDITION_CELLIS
+                        || $conditional->getConditionType() == Conditional::CONDITION_CONTAINSTEXT
+                        || $conditional->getConditionType() == Conditional::CONDITION_EXPRESSION) {
                         foreach ($conditional->getConditions() as $formula) {
                             // Formula
                             $objWriter->writeElement('formula', $formula);
@@ -797,11 +799,11 @@ class Worksheet extends WriterPart
 
                         foreach ($rules as $rule) {
                             if (($column->getFilterType() === \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_FILTER) &&
-                                ($rule->getOperator() === \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL) &&
+                                ($rule->getOperator() === Rule::AUTOFILTER_COLUMN_RULE_EQUAL) &&
                                 ($rule->getValue() === '')) {
                                 //    Filter rule for Blanks
                                 $objWriter->writeAttribute('blank', 1);
-                            } elseif ($rule->getRuleType() === \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER) {
+                            } elseif ($rule->getRuleType() === Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER) {
                                 //    Dynamic Filter Rule
                                 $objWriter->writeAttribute('type', $rule->getGrouping());
                                 $val = $column->getAttribute('val');
@@ -812,19 +814,19 @@ class Worksheet extends WriterPart
                                 if ($maxVal !== null) {
                                     $objWriter->writeAttribute('maxVal', $maxVal);
                                 }
-                            } elseif ($rule->getRuleType() === \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_TOPTENFILTER) {
+                            } elseif ($rule->getRuleType() === Rule::AUTOFILTER_RULETYPE_TOPTENFILTER) {
                                 //    Top 10 Filter Rule
                                 $objWriter->writeAttribute('val', $rule->getValue());
-                                $objWriter->writeAttribute('percent', (($rule->getOperator() === \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT) ? '1' : '0'));
-                                $objWriter->writeAttribute('top', (($rule->getGrouping() === \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP) ? '1' : '0'));
+                                $objWriter->writeAttribute('percent', (($rule->getOperator() === Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT) ? '1' : '0'));
+                                $objWriter->writeAttribute('top', (($rule->getGrouping() === Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP) ? '1' : '0'));
                             } else {
                                 //    Filter, DateGroupItem or CustomFilter
                                 $objWriter->startElement($rule->getRuleType());
 
-                                if ($rule->getOperator() !== \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL) {
+                                if ($rule->getOperator() !== Rule::AUTOFILTER_COLUMN_RULE_EQUAL) {
                                     $objWriter->writeAttribute('operator', $rule->getOperator());
                                 }
-                                if ($rule->getRuleType() === \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DATEGROUP) {
+                                if ($rule->getRuleType() === Rule::AUTOFILTER_RULETYPE_DATEGROUP) {
                                     // Date Group filters
                                     foreach ($rule->getValue() as $key => $value) {
                                         if ($value > '') {

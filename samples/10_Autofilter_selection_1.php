@@ -3,6 +3,8 @@
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
+use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
 
 require __DIR__ . '/Header.php';
 
@@ -108,45 +110,45 @@ $helper->log('Set active filters');
 // Filter the Country column on a filter value of countries beginning with the letter U (or Japan)
 //     We use * as a wildcard, so specify as U* and using a wildcard requires customFilter
 $autoFilter->getColumn('C')
-        ->setFilterType(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER)
+        ->setFilterType(Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER)
         ->createRule()
         ->setRule(
-            \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+            Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
             'u*'
         )
-        ->setRuleType(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
+        ->setRuleType(Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
 $autoFilter->getColumn('C')
         ->createRule()
         ->setRule(
-            \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+            Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
             'japan'
         )
-        ->setRuleType(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
+        ->setRuleType(Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
 // Filter the Date column on a filter value of the first day of every period of the current year
 //	We us a dateGroup ruletype for this, although it is still a standard filter
 foreach ($periods as $period) {
     $endDate = date('t', mktime(0, 0, 0, $period, 1, $currentYear));
 
     $autoFilter->getColumn('D')
-            ->setFilterType(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_FILTER)
+            ->setFilterType(Column::AUTOFILTER_FILTERTYPE_FILTER)
             ->createRule()
             ->setRule(
-                \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+                Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
                 [
                 'year' => $currentYear,
                 'month' => $period,
                 'day' => $endDate,
                     ]
             )
-            ->setRuleType(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DATEGROUP);
+            ->setRuleType(Rule::AUTOFILTER_RULETYPE_DATEGROUP);
 }
 // Display only sales values that are blank
 //     Standard filter, operator equals, and value of NULL
 $autoFilter->getColumn('E')
-        ->setFilterType(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_FILTER)
+        ->setFilterType(Column::AUTOFILTER_FILTERTYPE_FILTER)
         ->createRule()
         ->setRule(
-            \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+            Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
             ''
         );
 

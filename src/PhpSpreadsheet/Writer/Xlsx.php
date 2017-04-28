@@ -58,7 +58,7 @@ class Xlsx extends BaseWriter implements IWriter
     private $stringTable = [];
 
     /**
-     * Private unique \PhpOffice\PhpSpreadsheet\Style\Conditional HashTable.
+     * Private unique Conditional HashTable.
      *
      * @var \PhpOffice\PhpSpreadsheet\HashTable
      */
@@ -439,7 +439,7 @@ class Xlsx extends BaseWriter implements IWriter
     }
 
     /**
-     * Get \PhpOffice\PhpSpreadsheet\Style\Conditional HashTable.
+     * Get Conditional HashTable.
      *
      * @return \PhpOffice\PhpSpreadsheet\HashTable
      */

@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
 $helper->log('Create new Spreadsheet object');
 $spreadsheet = new Spreadsheet();
@@ -296,8 +297,8 @@ $spreadsheet->getActiveSheet()->getHeaderFooter()->setOddFooter('&L&B' . $spread
 
 // Set page orientation and size
 $helper->log('Set page orientation and size');
-$spreadsheet->getActiveSheet()->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_PORTRAIT);
-$spreadsheet->getActiveSheet()->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
+$spreadsheet->getActiveSheet()->getPageSetup()->setOrientation(PageSetup::ORIENTATION_PORTRAIT);
+$spreadsheet->getActiveSheet()->getPageSetup()->setPaperSize(PageSetup::PAPERSIZE_A4);
 
 // Rename first worksheet
 $helper->log('Rename first worksheet');
@@ -351,8 +352,8 @@ $drawing->setWorksheet($spreadsheet->getActiveSheet());
 
 // Set page orientation and size
 $helper->log('Set page orientation and size');
-$spreadsheet->getActiveSheet()->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
-$spreadsheet->getActiveSheet()->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
+$spreadsheet->getActiveSheet()->getPageSetup()->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
+$spreadsheet->getActiveSheet()->getPageSetup()->setPaperSize(PageSetup::PAPERSIZE_A4);
 
 // Rename second worksheet
 $helper->log('Rename second worksheet');

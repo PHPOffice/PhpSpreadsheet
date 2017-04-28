@@ -4,6 +4,8 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Conditional;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet.
@@ -516,8 +518,8 @@ class Worksheet extends BIFFwriter
             // Write ConditionalFormattingTable records
             foreach ($arrConditionalStyles as $cellCoordinate => $conditionalStyles) {
                 foreach ($conditionalStyles as $conditional) {
-                    if ($conditional->getConditionType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_EXPRESSION
-                        || $conditional->getConditionType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS) {
+                    if ($conditional->getConditionType() == Conditional::CONDITION_EXPRESSION
+                        || $conditional->getConditionType() == Conditional::CONDITION_CELLIS) {
                         if (!isset($arrConditional[$conditional->getHashCode()])) {
                             // This hash code has been handled
                             $arrConditional[$conditional->getHashCode()] = true;
@@ -1816,7 +1818,7 @@ class Worksheet extends BIFFwriter
         $fLeftToRight = 0x0; // Print over then down
 
         // Page orientation
-        $fLandscape = ($this->phpSheet->getPageSetup()->getOrientation() == \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE) ?
+        $fLandscape = ($this->phpSheet->getPageSetup()->getOrientation() == PageSetup::ORIENTATION_LANDSCAPE) ?
             0x0 : 0x1;
 
         $fNoPls = 0x0; // Setup not read from printer
@@ -3033,43 +3035,43 @@ class Worksheet extends BIFFwriter
     /**
      * Write CFRule Record.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Style\Conditional $conditional
+     * @param Conditional $conditional
      */
-    private function writeCFRule(\PhpOffice\PhpSpreadsheet\Style\Conditional $conditional)
+    private function writeCFRule(Conditional $conditional)
     {
         $record = 0x01B1; // Record identifier
 
         // $type : Type of the CF
         // $operatorType : Comparison operator
-        if ($conditional->getConditionType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_EXPRESSION) {
+        if ($conditional->getConditionType() == Conditional::CONDITION_EXPRESSION) {
             $type = 0x02;
             $operatorType = 0x00;
-        } elseif ($conditional->getConditionType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS) {
+        } elseif ($conditional->getConditionType() == Conditional::CONDITION_CELLIS) {
             $type = 0x01;
 
             switch ($conditional->getOperatorType()) {
-                case \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_NONE:
+                case Conditional::OPERATOR_NONE:
                     $operatorType = 0x00;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_EQUAL:
+                case Conditional::OPERATOR_EQUAL:
                     $operatorType = 0x03;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_GREATERTHAN:
+                case Conditional::OPERATOR_GREATERTHAN:
                     $operatorType = 0x05;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_GREATERTHANOREQUAL:
+                case Conditional::OPERATOR_GREATERTHANOREQUAL:
                     $operatorType = 0x07;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_LESSTHAN:
+                case Conditional::OPERATOR_LESSTHAN:
                     $operatorType = 0x06;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_LESSTHANOREQUAL:
+                case Conditional::OPERATOR_LESSTHANOREQUAL:
                     $operatorType = 0x08;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_NOTEQUAL:
+                case Conditional::OPERATOR_NOTEQUAL:
                     $operatorType = 0x04;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_BETWEEN:
+                case Conditional::OPERATOR_BETWEEN:
                     $operatorType = 0x01;
                     break;
                     // not OPERATOR_NOTBETWEEN 0x02
@@ -3085,7 +3087,7 @@ class Worksheet extends BIFFwriter
             $szValue2 = 0x0000;
             $operand1 = pack('Cv', 0x1E, $arrConditions[0]);
             $operand2 = null;
-        } elseif ($numConditions == 2 && ($conditional->getOperatorType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_BETWEEN)) {
+        } elseif ($numConditions == 2 && ($conditional->getOperatorType() == Conditional::OPERATOR_BETWEEN)) {
             $szValue1 = ($arrConditions[0] <= 65535 ? 3 : 0x0000);
             $szValue2 = ($arrConditions[1] <= 65535 ? 3 : 0x0000);
             $operand1 = pack('Cv', 0x1E, $arrConditions[0]);
@@ -4223,8 +4225,8 @@ class Worksheet extends BIFFwriter
         $arrConditional = [];
         foreach ($this->phpSheet->getConditionalStylesCollection() as $cellCoordinate => $conditionalStyles) {
             foreach ($conditionalStyles as $conditional) {
-                if ($conditional->getConditionType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_EXPRESSION
-                        || $conditional->getConditionType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS) {
+                if ($conditional->getConditionType() == Conditional::CONDITION_EXPRESSION
+                        || $conditional->getConditionType() == Conditional::CONDITION_CELLIS) {
                     if (!in_array($conditional->getHashCode(), $arrConditional)) {
                         $arrConditional[] = $conditional->getHashCode();
                     }

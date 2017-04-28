@@ -295,9 +295,9 @@ following lines of code:
 
 ``` php
 $spreadsheet->getActiveSheet()->getPageSetup()
-    ->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+    ->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
 $spreadsheet->getActiveSheet()->getPageSetup()
-    ->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
+    ->setPaperSize(PageSetup::PAPERSIZE_A4);
 ```
 
 Note that there are additional page settings available. Please refer to
@@ -448,11 +448,11 @@ to find the codes for header/footer.
 **Tip for picture**
 
 ```php
-$drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing();
+$drawing = new HeaderFooterDrawing();
 $drawing->setName('PhpSpreadsheet logo');
 $drawing->setPath('./images/PhpSpreadsheet_logo.png');
 $drawing->setHeight(36);
-$spreadsheet->getActiveSheet()->getHeaderFooter()->addImage($drawing, \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooter::IMAGE_HEADER_LEFT);
+$spreadsheet->getActiveSheet()->getHeaderFooter()->addImage($drawing, HeaderFooter::IMAGE_HEADER_LEFT);
 ```
 
 ### Setting printing breaks on a row or column
@@ -841,16 +841,16 @@ One can set a conditional style ruleset to a cell using the following
 code:
 
 ``` php
-$conditional1 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
-$conditional1->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS);
-$conditional1->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_LESSTHAN);
+$conditional1 = new Conditional();
+$conditional1->setConditionType(Conditional::CONDITION_CELLIS);
+$conditional1->setOperatorType(Conditional::OPERATOR_LESSTHAN);
 $conditional1->addCondition('0');
 $conditional1->getStyle()->getFont()->getColor()->setARGB(Color::COLOR_RED);
 $conditional1->getStyle()->getFont()->setBold(true);
 
-$conditional2 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
-$conditional2->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS);
-$conditional2->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_GREATERTHANOREQUAL);
+$conditional2 = new Conditional();
+$conditional2->setConditionType(Conditional::CONDITION_CELLIS);
+$conditional2->setOperatorType(Conditional::OPERATOR_GREATERTHANOREQUAL);
 $conditional2->addCondition('0');
 $conditional2->getStyle()->getFont()->getColor()->setARGB(Color::COLOR_GREEN);
 $conditional2->getStyle()->getFont()->setBold(true);
@@ -1507,9 +1507,9 @@ $spreadsheet->getActiveSheet()->setRightToLeft(true);
 [^1]: z
 
     ``` php
-    $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing();
+    $drawing = new HeaderFooterDrawing();
     $drawing->setName('PhpSpreadsheet logo');
     $drawing->setPath('./images/PhpSpreadsheet_logo.png');
     $drawing->setHeight(36);
-    $spreadsheet->getActiveSheet()->getHeaderFooter()->addImage($drawing, \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooter::IMAGE_HEADER_LEFT);
+    $spreadsheet->getActiveSheet()->getHeaderFooter()->addImage($drawing, HeaderFooter::IMAGE_HEADER_LEFT);
     ```

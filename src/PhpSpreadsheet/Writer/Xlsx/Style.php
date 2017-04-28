@@ -595,7 +595,7 @@ class Style extends WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
-     * @return \PhpOffice\PhpSpreadsheet\Style\Conditional[] All conditional styles in PhpSpreadsheet
+     * @return Conditional[] All conditional styles in PhpSpreadsheet
      */
     public function allConditionalStyles(Spreadsheet $spreadsheet)
     {

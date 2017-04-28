@@ -1,6 +1,7 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet;
 
 require __DIR__ . '/Header.php';
 
@@ -38,7 +39,7 @@ for ($i = 2; $i <= 50; ++$i) {
     // Add page breaks every 10 rows
     if ($i % 10 == 0) {
         // Add a page break
-        $spreadsheet->getActiveSheet()->setBreak('A' . $i, \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_ROW);
+        $spreadsheet->getActiveSheet()->setBreak('A' . $i, Worksheet::BREAK_ROW);
     }
 }
 
