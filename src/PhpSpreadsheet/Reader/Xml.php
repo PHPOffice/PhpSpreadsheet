@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Border;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -446,7 +447,7 @@ class Xml extends BaseReader implements IReader
                             foreach ($borderAttributes as $borderStyleKey => $borderStyleValue) {
                                 switch ($borderStyleKey) {
                                     case 'LineStyle':
-                                        $thisBorder['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM;
+                                        $thisBorder['style'] = Border::BORDER_MEDIUM;
                                         break;
                                     case 'Weight':
                                         break;

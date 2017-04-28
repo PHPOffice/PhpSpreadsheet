@@ -2,9 +2,13 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
+use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
 /**
@@ -2814,28 +2818,28 @@ class Worksheet extends BIFFwriter
                 // data type
                 $type = $dataValidation->getType();
                 switch ($type) {
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_NONE:
+                    case DataValidation::TYPE_NONE:
                         $type = 0x00;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_WHOLE:
+                    case DataValidation::TYPE_WHOLE:
                         $type = 0x01;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_DECIMAL:
+                    case DataValidation::TYPE_DECIMAL:
                         $type = 0x02;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST:
+                    case DataValidation::TYPE_LIST:
                         $type = 0x03;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_DATE:
+                    case DataValidation::TYPE_DATE:
                         $type = 0x04;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_TIME:
+                    case DataValidation::TYPE_TIME:
                         $type = 0x05;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_TEXTLENGTH:
+                    case DataValidation::TYPE_TEXTLENGTH:
                         $type = 0x06;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_CUSTOM:
+                    case DataValidation::TYPE_CUSTOM:
                         $type = 0x07;
                         break;
                 }
@@ -2845,13 +2849,13 @@ class Worksheet extends BIFFwriter
                 // error style
                 $errorStyle = $dataValidation->getErrorStyle();
                 switch ($errorStyle) {
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_STOP:
+                    case DataValidation::STYLE_STOP:
                         $errorStyle = 0x00;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_WARNING:
+                    case DataValidation::STYLE_WARNING:
                         $errorStyle = 0x01;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION:
+                    case DataValidation::STYLE_INFORMATION:
                         $errorStyle = 0x02;
                         break;
                 }
@@ -2878,28 +2882,28 @@ class Worksheet extends BIFFwriter
                 // condition operator
                 $operator = $dataValidation->getOperator();
                 switch ($operator) {
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_BETWEEN:
+                    case DataValidation::OPERATOR_BETWEEN:
                         $operator = 0x00;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_NOTBETWEEN:
+                    case DataValidation::OPERATOR_NOTBETWEEN:
                         $operator = 0x01;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_EQUAL:
+                    case DataValidation::OPERATOR_EQUAL:
                         $operator = 0x02;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_NOTEQUAL:
+                    case DataValidation::OPERATOR_NOTEQUAL:
                         $operator = 0x03;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_GREATERTHAN:
+                    case DataValidation::OPERATOR_GREATERTHAN:
                         $operator = 0x04;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_LESSTHAN:
+                    case DataValidation::OPERATOR_LESSTHAN:
                         $operator = 0x05;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_GREATERTHANOREQUAL:
+                    case DataValidation::OPERATOR_GREATERTHANOREQUAL:
                         $operator = 0x06;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_LESSTHANOREQUAL:
+                    case DataValidation::OPERATOR_LESSTHANOREQUAL:
                         $operator = 0x07;
                         break;
                 }
@@ -3122,13 +3126,13 @@ class Worksheet extends BIFFwriter
         }
         // Border
         $bBorderLeft = ($conditional->getStyle()->getBorders()->getLeft()->getColor()->getARGB() == Color::COLOR_BLACK
-                        && $conditional->getStyle()->getBorders()->getLeft()->getBorderStyle() == \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE ? 1 : 0);
+                        && $conditional->getStyle()->getBorders()->getLeft()->getBorderStyle() == Border::BORDER_NONE ? 1 : 0);
         $bBorderRight = ($conditional->getStyle()->getBorders()->getRight()->getColor()->getARGB() == Color::COLOR_BLACK
-                        && $conditional->getStyle()->getBorders()->getRight()->getBorderStyle() == \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE ? 1 : 0);
+                        && $conditional->getStyle()->getBorders()->getRight()->getBorderStyle() == Border::BORDER_NONE ? 1 : 0);
         $bBorderTop = ($conditional->getStyle()->getBorders()->getTop()->getColor()->getARGB() == Color::COLOR_BLACK
-                        && $conditional->getStyle()->getBorders()->getTop()->getBorderStyle() == \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE ? 1 : 0);
+                        && $conditional->getStyle()->getBorders()->getTop()->getBorderStyle() == Border::BORDER_NONE ? 1 : 0);
         $bBorderBottom = ($conditional->getStyle()->getBorders()->getBottom()->getColor()->getARGB() == Color::COLOR_BLACK
-                        && $conditional->getStyle()->getBorders()->getBottom()->getBorderStyle() == \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE ? 1 : 0);
+                        && $conditional->getStyle()->getBorders()->getBottom()->getBorderStyle() == Border::BORDER_NONE ? 1 : 0);
         if ($bBorderLeft == 0 || $bBorderRight == 0 || $bBorderTop == 0 || $bBorderBottom == 0) {
             $bFormatBorder = 1;
         } else {
@@ -3523,178 +3527,178 @@ class Worksheet extends BIFFwriter
         if ($bFormatBorder == 1) {
             $blockLineStyle = 0;
             switch ($conditional->getStyle()->getBorders()->getLeft()->getBorderStyle()) {
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE:
+                case Border::BORDER_NONE:
                     $blockLineStyle |= 0x00;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN:
+                case Border::BORDER_THIN:
                     $blockLineStyle |= 0x01;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM:
+                case Border::BORDER_MEDIUM:
                     $blockLineStyle |= 0x02;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHED:
+                case Border::BORDER_DASHED:
                     $blockLineStyle |= 0x03;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOTTED:
+                case Border::BORDER_DOTTED:
                     $blockLineStyle |= 0x04;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK:
+                case Border::BORDER_THICK:
                     $blockLineStyle |= 0x05;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOUBLE:
+                case Border::BORDER_DOUBLE:
                     $blockLineStyle |= 0x06;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_HAIR:
+                case Border::BORDER_HAIR:
                     $blockLineStyle |= 0x07;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED:
+                case Border::BORDER_MEDIUMDASHED:
                     $blockLineStyle |= 0x08;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT:
+                case Border::BORDER_DASHDOT:
                     $blockLineStyle |= 0x09;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOT:
+                case Border::BORDER_MEDIUMDASHDOT:
                     $blockLineStyle |= 0x0A;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOTDOT:
+                case Border::BORDER_DASHDOTDOT:
                     $blockLineStyle |= 0x0B;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOTDOT:
+                case Border::BORDER_MEDIUMDASHDOTDOT:
                     $blockLineStyle |= 0x0C;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_SLANTDASHDOT:
+                case Border::BORDER_SLANTDASHDOT:
                     $blockLineStyle |= 0x0D;
                     break;
             }
             switch ($conditional->getStyle()->getBorders()->getRight()->getBorderStyle()) {
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE:
+                case Border::BORDER_NONE:
                     $blockLineStyle |= 0x00 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN:
+                case Border::BORDER_THIN:
                     $blockLineStyle |= 0x01 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM:
+                case Border::BORDER_MEDIUM:
                     $blockLineStyle |= 0x02 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHED:
+                case Border::BORDER_DASHED:
                     $blockLineStyle |= 0x03 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOTTED:
+                case Border::BORDER_DOTTED:
                     $blockLineStyle |= 0x04 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK:
+                case Border::BORDER_THICK:
                     $blockLineStyle |= 0x05 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOUBLE:
+                case Border::BORDER_DOUBLE:
                     $blockLineStyle |= 0x06 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_HAIR:
+                case Border::BORDER_HAIR:
                     $blockLineStyle |= 0x07 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED:
+                case Border::BORDER_MEDIUMDASHED:
                     $blockLineStyle |= 0x08 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT:
+                case Border::BORDER_DASHDOT:
                     $blockLineStyle |= 0x09 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOT:
+                case Border::BORDER_MEDIUMDASHDOT:
                     $blockLineStyle |= 0x0A << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOTDOT:
+                case Border::BORDER_DASHDOTDOT:
                     $blockLineStyle |= 0x0B << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOTDOT:
+                case Border::BORDER_MEDIUMDASHDOTDOT:
                     $blockLineStyle |= 0x0C << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_SLANTDASHDOT:
+                case Border::BORDER_SLANTDASHDOT:
                     $blockLineStyle |= 0x0D << 4;
                     break;
             }
             switch ($conditional->getStyle()->getBorders()->getTop()->getBorderStyle()) {
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE:
+                case Border::BORDER_NONE:
                     $blockLineStyle |= 0x00 << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN:
+                case Border::BORDER_THIN:
                     $blockLineStyle |= 0x01 << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM:
+                case Border::BORDER_MEDIUM:
                     $blockLineStyle |= 0x02 << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHED:
+                case Border::BORDER_DASHED:
                     $blockLineStyle |= 0x03 << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOTTED:
+                case Border::BORDER_DOTTED:
                     $blockLineStyle |= 0x04 << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK:
+                case Border::BORDER_THICK:
                     $blockLineStyle |= 0x05 << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOUBLE:
+                case Border::BORDER_DOUBLE:
                     $blockLineStyle |= 0x06 << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_HAIR:
+                case Border::BORDER_HAIR:
                     $blockLineStyle |= 0x07 << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED:
+                case Border::BORDER_MEDIUMDASHED:
                     $blockLineStyle |= 0x08 << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT:
+                case Border::BORDER_DASHDOT:
                     $blockLineStyle |= 0x09 << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOT:
+                case Border::BORDER_MEDIUMDASHDOT:
                     $blockLineStyle |= 0x0A << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOTDOT:
+                case Border::BORDER_DASHDOTDOT:
                     $blockLineStyle |= 0x0B << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOTDOT:
+                case Border::BORDER_MEDIUMDASHDOTDOT:
                     $blockLineStyle |= 0x0C << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_SLANTDASHDOT:
+                case Border::BORDER_SLANTDASHDOT:
                     $blockLineStyle |= 0x0D << 8;
                     break;
             }
             switch ($conditional->getStyle()->getBorders()->getBottom()->getBorderStyle()) {
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE:
+                case Border::BORDER_NONE:
                     $blockLineStyle |= 0x00 << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN:
+                case Border::BORDER_THIN:
                     $blockLineStyle |= 0x01 << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM:
+                case Border::BORDER_MEDIUM:
                     $blockLineStyle |= 0x02 << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHED:
+                case Border::BORDER_DASHED:
                     $blockLineStyle |= 0x03 << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOTTED:
+                case Border::BORDER_DOTTED:
                     $blockLineStyle |= 0x04 << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK:
+                case Border::BORDER_THICK:
                     $blockLineStyle |= 0x05 << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOUBLE:
+                case Border::BORDER_DOUBLE:
                     $blockLineStyle |= 0x06 << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_HAIR:
+                case Border::BORDER_HAIR:
                     $blockLineStyle |= 0x07 << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED:
+                case Border::BORDER_MEDIUMDASHED:
                     $blockLineStyle |= 0x08 << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT:
+                case Border::BORDER_DASHDOT:
                     $blockLineStyle |= 0x09 << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOT:
+                case Border::BORDER_MEDIUMDASHDOT:
                     $blockLineStyle |= 0x0A << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOTDOT:
+                case Border::BORDER_DASHDOTDOT:
                     $blockLineStyle |= 0x0B << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOTDOT:
+                case Border::BORDER_MEDIUMDASHDOTDOT:
                     $blockLineStyle |= 0x0C << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_SLANTDASHDOT:
+                case Border::BORDER_SLANTDASHDOT:
                     $blockLineStyle |= 0x0D << 12;
                     break;
             }
@@ -3707,46 +3711,46 @@ class Worksheet extends BIFFwriter
             //@todo writeCFRule() => $blockColor => Index Color for bottom line
             //@todo writeCFRule() => $blockColor => Index Color for diagonal line
             switch ($conditional->getStyle()->getBorders()->getDiagonal()->getBorderStyle()) {
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE:
+                case Border::BORDER_NONE:
                     $blockColor |= 0x00 << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN:
+                case Border::BORDER_THIN:
                     $blockColor |= 0x01 << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM:
+                case Border::BORDER_MEDIUM:
                     $blockColor |= 0x02 << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHED:
+                case Border::BORDER_DASHED:
                     $blockColor |= 0x03 << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOTTED:
+                case Border::BORDER_DOTTED:
                     $blockColor |= 0x04 << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK:
+                case Border::BORDER_THICK:
                     $blockColor |= 0x05 << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOUBLE:
+                case Border::BORDER_DOUBLE:
                     $blockColor |= 0x06 << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_HAIR:
+                case Border::BORDER_HAIR:
                     $blockColor |= 0x07 << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED:
+                case Border::BORDER_MEDIUMDASHED:
                     $blockColor |= 0x08 << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT:
+                case Border::BORDER_DASHDOT:
                     $blockColor |= 0x09 << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOT:
+                case Border::BORDER_MEDIUMDASHDOT:
                     $blockColor |= 0x0A << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOTDOT:
+                case Border::BORDER_DASHDOTDOT:
                     $blockColor |= 0x0B << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOTDOT:
+                case Border::BORDER_MEDIUMDASHDOTDOT:
                     $blockColor |= 0x0C << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_SLANTDASHDOT:
+                case Border::BORDER_SLANTDASHDOT:
                     $blockColor |= 0x0D << 21;
                     break;
             }
@@ -3756,67 +3760,67 @@ class Worksheet extends BIFFwriter
             // Fill Patern Style
             $blockFillPatternStyle = 0;
             switch ($conditional->getStyle()->getFill()->getFillType()) {
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_NONE:
+                case Fill::FILL_NONE:
                     $blockFillPatternStyle = 0x00;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID:
+                case Fill::FILL_SOLID:
                     $blockFillPatternStyle = 0x01;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_MEDIUMGRAY:
+                case Fill::FILL_PATTERN_MEDIUMGRAY:
                     $blockFillPatternStyle = 0x02;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKGRAY:
+                case Fill::FILL_PATTERN_DARKGRAY:
                     $blockFillPatternStyle = 0x03;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTGRAY:
+                case Fill::FILL_PATTERN_LIGHTGRAY:
                     $blockFillPatternStyle = 0x04;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKHORIZONTAL:
+                case Fill::FILL_PATTERN_DARKHORIZONTAL:
                     $blockFillPatternStyle = 0x05;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKVERTICAL:
+                case Fill::FILL_PATTERN_DARKVERTICAL:
                     $blockFillPatternStyle = 0x06;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKDOWN:
+                case Fill::FILL_PATTERN_DARKDOWN:
                     $blockFillPatternStyle = 0x07;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKUP:
+                case Fill::FILL_PATTERN_DARKUP:
                     $blockFillPatternStyle = 0x08;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKGRID:
+                case Fill::FILL_PATTERN_DARKGRID:
                     $blockFillPatternStyle = 0x09;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKTRELLIS:
+                case Fill::FILL_PATTERN_DARKTRELLIS:
                     $blockFillPatternStyle = 0x0A;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTHORIZONTAL:
+                case Fill::FILL_PATTERN_LIGHTHORIZONTAL:
                     $blockFillPatternStyle = 0x0B;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTVERTICAL:
+                case Fill::FILL_PATTERN_LIGHTVERTICAL:
                     $blockFillPatternStyle = 0x0C;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTDOWN:
+                case Fill::FILL_PATTERN_LIGHTDOWN:
                     $blockFillPatternStyle = 0x0D;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTUP:
+                case Fill::FILL_PATTERN_LIGHTUP:
                     $blockFillPatternStyle = 0x0E;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTGRID:
+                case Fill::FILL_PATTERN_LIGHTGRID:
                     $blockFillPatternStyle = 0x0F;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTTRELLIS:
+                case Fill::FILL_PATTERN_LIGHTTRELLIS:
                     $blockFillPatternStyle = 0x10;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_GRAY125:
+                case Fill::FILL_PATTERN_GRAY125:
                     $blockFillPatternStyle = 0x11;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_GRAY0625:
+                case Fill::FILL_PATTERN_GRAY0625:
                     $blockFillPatternStyle = 0x12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR:
+                case Fill::FILL_GRADIENT_LINEAR:
                     $blockFillPatternStyle = 0x00;
                     break; // does not exist in BIFF8
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_PATH:
+                case Fill::FILL_GRADIENT_PATH:
                     $blockFillPatternStyle = 0x00;
                     break; // does not exist in BIFF8
                 default:
@@ -4176,10 +4180,10 @@ class Worksheet extends BIFFwriter
         }
         if ($bFormatProt == 1) {
             $dataBlockProtection = 0;
-            if ($conditional->getStyle()->getProtection()->getLocked() == \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED) {
+            if ($conditional->getStyle()->getProtection()->getLocked() == Protection::PROTECTION_PROTECTED) {
                 $dataBlockProtection = 1;
             }
-            if ($conditional->getStyle()->getProtection()->getHidden() == \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED) {
+            if ($conditional->getStyle()->getProtection()->getHidden() == Protection::PROTECTION_PROTECTED) {
                 $dataBlockProtection = 1 << 1;
             }
         }

@@ -7,6 +7,9 @@ use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\Font;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Borders;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 /**
@@ -247,33 +250,33 @@ class Html extends BaseWriter implements IWriter
     private function mapBorderStyle($borderStyle)
     {
         switch ($borderStyle) {
-            case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE:
+            case Border::BORDER_NONE:
                 return 'none';
-            case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT:
+            case Border::BORDER_DASHDOT:
                 return '1px dashed';
-            case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOTDOT:
+            case Border::BORDER_DASHDOTDOT:
                 return '1px dotted';
-            case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHED:
+            case Border::BORDER_DASHED:
                 return '1px dashed';
-            case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOTTED:
+            case Border::BORDER_DOTTED:
                 return '1px dotted';
-            case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOUBLE:
+            case Border::BORDER_DOUBLE:
                 return '3px double';
-            case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_HAIR:
+            case Border::BORDER_HAIR:
                 return '1px solid';
-            case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM:
+            case Border::BORDER_MEDIUM:
                 return '2px solid';
-            case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOT:
+            case Border::BORDER_MEDIUMDASHDOT:
                 return '2px dashed';
-            case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOTDOT:
+            case Border::BORDER_MEDIUMDASHDOTDOT:
                 return '2px dotted';
-            case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED:
+            case Border::BORDER_MEDIUMDASHED:
                 return '2px dashed';
-            case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_SLANTDASHDOT:
+            case Border::BORDER_SLANTDASHDOT:
                 return '2px dashed';
-            case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK:
+            case Border::BORDER_THICK:
                 return '3px solid';
-            case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN:
+            case Border::BORDER_THIN:
                 return '1px solid';
             default:
                 // map others to thin
@@ -1038,13 +1041,13 @@ class Html extends BaseWriter implements IWriter
     }
 
     /**
-     * Create CSS style (\PhpOffice\PhpSpreadsheet\Style\Borders).
+     * Create CSS style (Borders).
      *
-     * @param \PhpOffice\PhpSpreadsheet\Style\Borders $pStyle \PhpOffice\PhpSpreadsheet\Style\Borders
+     * @param Borders $pStyle Borders
      *
      * @return array
      */
-    private function createCSSStyleBorders(\PhpOffice\PhpSpreadsheet\Style\Borders $pStyle)
+    private function createCSSStyleBorders(Borders $pStyle)
     {
         // Construct CSS
         $css = [];
@@ -1059,13 +1062,13 @@ class Html extends BaseWriter implements IWriter
     }
 
     /**
-     * Create CSS style (\PhpOffice\PhpSpreadsheet\Style\Border).
+     * Create CSS style (Border).
      *
-     * @param \PhpOffice\PhpSpreadsheet\Style\Border $pStyle \PhpOffice\PhpSpreadsheet\Style\Border
+     * @param Border $pStyle Border
      *
      * @return string
      */
-    private function createCSSStyleBorder(\PhpOffice\PhpSpreadsheet\Style\Border $pStyle)
+    private function createCSSStyleBorder(Border $pStyle)
     {
         //    Create CSS - add !important to non-none border styles for merged cells
         $borderStyle = $this->mapBorderStyle($pStyle->getBorderStyle());
@@ -1075,19 +1078,19 @@ class Html extends BaseWriter implements IWriter
     }
 
     /**
-     * Create CSS style (\PhpOffice\PhpSpreadsheet\Style\Fill).
+     * Create CSS style (Fill).
      *
-     * @param \PhpOffice\PhpSpreadsheet\Style\Fill $pStyle \PhpOffice\PhpSpreadsheet\Style\Fill
+     * @param Fill $pStyle Fill
      *
      * @return array
      */
-    private function createCSSStyleFill(\PhpOffice\PhpSpreadsheet\Style\Fill $pStyle)
+    private function createCSSStyleFill(Fill $pStyle)
     {
         // Construct HTML
         $css = [];
 
         // Create CSS
-        $value = $pStyle->getFillType() == \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_NONE ?
+        $value = $pStyle->getFillType() == Fill::FILL_NONE ?
             'white' : '#' . $pStyle->getStartColor()->getRGB();
         $css['background-color'] = $value;
 

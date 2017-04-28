@@ -2,11 +2,15 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
+use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
 /**
@@ -1192,7 +1196,7 @@ class Xls extends BaseReader implements IReader
 
                         $scope = ($definedName['scope'] == 0) ? null : $this->spreadsheet->getSheetByName($this->sheets[$definedName['scope'] - 1]['name']);
 
-                        $this->spreadsheet->addNamedRange(new \PhpOffice\PhpSpreadsheet\NamedRange((string) $definedName['name'], $docSheet, $extractedRange, $localOnly, $scope));
+                        $this->spreadsheet->addNamedRange(new NamedRange((string) $definedName['name'], $docSheet, $extractedRange, $localOnly, $scope));
                     }
                 }
                     //    Named Value
@@ -2077,11 +2081,11 @@ class Xls extends BaseReader implements IReader
             $xfTypeProt = self::getInt2d($recordData, 4);
             // bit 0; mask 0x01; 1 = cell is locked
             $isLocked = (0x01 & $xfTypeProt) >> 0;
-            $objStyle->getProtection()->setLocked($isLocked ? \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_INHERIT : \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
+            $objStyle->getProtection()->setLocked($isLocked ? Protection::PROTECTION_INHERIT : Protection::PROTECTION_UNPROTECTED);
 
             // bit 1; mask 0x02; 1 = Formula is hidden
             $isHidden = (0x02 & $xfTypeProt) >> 1;
-            $objStyle->getProtection()->setHidden($isHidden ? \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED : \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
+            $objStyle->getProtection()->setHidden($isHidden ? Protection::PROTECTION_PROTECTED : Protection::PROTECTION_UNPROTECTED);
 
             // bit 2; mask 0x04; 0 = Cell XF, 1 = Cell Style XF
             $isCellStyleXf = (0x04 & $xfTypeProt) >> 2;
@@ -2200,13 +2204,13 @@ class Xls extends BaseReader implements IReader
                 $diagonalUp = (0x80000000 & self::getInt4d($recordData, 10)) >> 31 ? true : false;
 
                 if ($diagonalUp == false && $diagonalDown == false) {
-                    $objStyle->getBorders()->setDiagonalDirection(\PhpOffice\PhpSpreadsheet\Style\Borders::DIAGONAL_NONE);
+                    $objStyle->getBorders()->setDiagonalDirection(Borders::DIAGONAL_NONE);
                 } elseif ($diagonalUp == true && $diagonalDown == false) {
-                    $objStyle->getBorders()->setDiagonalDirection(\PhpOffice\PhpSpreadsheet\Style\Borders::DIAGONAL_UP);
+                    $objStyle->getBorders()->setDiagonalDirection(Borders::DIAGONAL_UP);
                 } elseif ($diagonalUp == false && $diagonalDown == true) {
-                    $objStyle->getBorders()->setDiagonalDirection(\PhpOffice\PhpSpreadsheet\Style\Borders::DIAGONAL_DOWN);
+                    $objStyle->getBorders()->setDiagonalDirection(Borders::DIAGONAL_DOWN);
                 } elseif ($diagonalUp == true && $diagonalDown == true) {
-                    $objStyle->getBorders()->setDiagonalDirection(\PhpOffice\PhpSpreadsheet\Style\Borders::DIAGONAL_BOTH);
+                    $objStyle->getBorders()->setDiagonalDirection(Borders::DIAGONAL_BOTH);
                 }
 
                 // offset: 14; size: 4;
@@ -4641,28 +4645,28 @@ class Xls extends BaseReader implements IReader
         $type = (0x0000000F & $options) >> 0;
         switch ($type) {
             case 0x00:
-                $type = \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_NONE;
+                $type = DataValidation::TYPE_NONE;
                 break;
             case 0x01:
-                $type = \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_WHOLE;
+                $type = DataValidation::TYPE_WHOLE;
                 break;
             case 0x02:
-                $type = \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_DECIMAL;
+                $type = DataValidation::TYPE_DECIMAL;
                 break;
             case 0x03:
-                $type = \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST;
+                $type = DataValidation::TYPE_LIST;
                 break;
             case 0x04:
-                $type = \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_DATE;
+                $type = DataValidation::TYPE_DATE;
                 break;
             case 0x05:
-                $type = \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_TIME;
+                $type = DataValidation::TYPE_TIME;
                 break;
             case 0x06:
-                $type = \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_TEXTLENGTH;
+                $type = DataValidation::TYPE_TEXTLENGTH;
                 break;
             case 0x07:
-                $type = \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_CUSTOM;
+                $type = DataValidation::TYPE_CUSTOM;
                 break;
         }
 
@@ -4670,13 +4674,13 @@ class Xls extends BaseReader implements IReader
         $errorStyle = (0x00000070 & $options) >> 4;
         switch ($errorStyle) {
             case 0x00:
-                $errorStyle = \PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_STOP;
+                $errorStyle = DataValidation::STYLE_STOP;
                 break;
             case 0x01:
-                $errorStyle = \PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_WARNING;
+                $errorStyle = DataValidation::STYLE_WARNING;
                 break;
             case 0x02:
-                $errorStyle = \PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION;
+                $errorStyle = DataValidation::STYLE_INFORMATION;
                 break;
         }
 
@@ -4700,28 +4704,28 @@ class Xls extends BaseReader implements IReader
         $operator = (0x00F00000 & $options) >> 20;
         switch ($operator) {
             case 0x00:
-                $operator = \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_BETWEEN;
+                $operator = DataValidation::OPERATOR_BETWEEN;
                 break;
             case 0x01:
-                $operator = \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_NOTBETWEEN;
+                $operator = DataValidation::OPERATOR_NOTBETWEEN;
                 break;
             case 0x02:
-                $operator = \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_EQUAL;
+                $operator = DataValidation::OPERATOR_EQUAL;
                 break;
             case 0x03:
-                $operator = \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_NOTEQUAL;
+                $operator = DataValidation::OPERATOR_NOTEQUAL;
                 break;
             case 0x04:
-                $operator = \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_GREATERTHAN;
+                $operator = DataValidation::OPERATOR_GREATERTHAN;
                 break;
             case 0x05:
-                $operator = \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_LESSTHAN;
+                $operator = DataValidation::OPERATOR_LESSTHAN;
                 break;
             case 0x06:
-                $operator = \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_GREATERTHANOREQUAL;
+                $operator = DataValidation::OPERATOR_GREATERTHANOREQUAL;
                 break;
             case 0x07:
-                $operator = \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_LESSTHANOREQUAL;
+                $operator = DataValidation::OPERATOR_LESSTHANOREQUAL;
                 break;
         }
 
@@ -4760,7 +4764,7 @@ class Xls extends BaseReader implements IReader
             $formula1 = $this->getFormulaFromStructure($formula1);
 
             // in list type validity, null characters are used as item separators
-            if ($type == \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST) {
+            if ($type == DataValidation::TYPE_LIST) {
                 $formula1 = str_replace(chr(0), ',', $formula1);
             }
         } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {

@@ -1,5 +1,6 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 mt_srand(1234567890);
@@ -8,7 +9,7 @@ require __DIR__ . '/Header.php';
 
 // List functions
 $helper->log('List implemented functions');
-$calc = \PhpOffice\PhpSpreadsheet\Calculation::getInstance();
+$calc = Calculation::getInstance();
 print_r($calc->getImplementedFunctionNames());
 
 // Create new Spreadsheet object

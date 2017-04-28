@@ -4,8 +4,11 @@
 use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
 $helper->log('Create new Spreadsheet object');
@@ -150,7 +153,7 @@ $helper->log('Set thin black border outline around column');
 $styleThinBlackBorderOutline = [
     'borders' => [
         'outline' => [
-            'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            'style' => Border::BORDER_THIN,
             'color' => ['argb' => 'FF000000'],
         ],
     ],
@@ -162,7 +165,7 @@ $helper->log('Set thick brown border outline around Total');
 $styleThickBrownBorderOutline = [
     'borders' => [
         'outline' => [
-            'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
+            'style' => Border::BORDER_THICK,
             'color' => ['argb' => 'FF993300'],
         ],
     ],
@@ -171,7 +174,7 @@ $spreadsheet->getActiveSheet()->getStyle('D13:E13')->applyFromArray($styleThickB
 
 // Set fills
 $helper->log('Set fills');
-$spreadsheet->getActiveSheet()->getStyle('A1:E1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+$spreadsheet->getActiveSheet()->getStyle('A1:E1')->getFill()->setFillType(Fill::FILL_SOLID);
 $spreadsheet->getActiveSheet()->getStyle('A1:E1')->getFill()->getStartColor()->setARGB('FF808080');
 
 // Set style for header row using alternative method
@@ -186,11 +189,11 @@ $spreadsheet->getActiveSheet()->getStyle('A3:E3')->applyFromArray(
             ],
             'borders' => [
                 'top' => [
-                    'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                    'style' => Border::BORDER_THIN,
                 ],
             ],
             'fill' => [
-                'type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
+                'type' => Fill::FILL_GRADIENT_LINEAR,
                 'rotation' => 90,
                 'startcolor' => [
                     'argb' => 'FFA0A0A0',
@@ -209,7 +212,7 @@ $spreadsheet->getActiveSheet()->getStyle('A3')->applyFromArray(
             ],
             'borders' => [
                 'left' => [
-                    'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                    'style' => Border::BORDER_THIN,
                 ],
             ],
         ]
@@ -227,7 +230,7 @@ $spreadsheet->getActiveSheet()->getStyle('E3')->applyFromArray(
     [
             'borders' => [
                 'right' => [
-                    'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                    'style' => Border::BORDER_THIN,
                 ],
             ],
         ]
@@ -235,7 +238,7 @@ $spreadsheet->getActiveSheet()->getStyle('E3')->applyFromArray(
 
 // Unprotect a cell
 $helper->log('Unprotect a cell');
-$spreadsheet->getActiveSheet()->getStyle('B1')->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
+$spreadsheet->getActiveSheet()->getStyle('B1')->getProtection()->setLocked(Protection::PROTECTION_UNPROTECTED);
 
 // Add a hyperlink to the sheet
 $helper->log('Add a hyperlink to an external website');

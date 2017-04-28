@@ -517,15 +517,15 @@ $spreadsheet->getActiveSheet()->getStyle('B2')
 $spreadsheet->getActiveSheet()->getStyle('B2')
     ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
 $spreadsheet->getActiveSheet()->getStyle('B2')
-    ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+    ->getBorders()->getTop()->setBorderStyle(Border::BORDER_THICK);
 $spreadsheet->getActiveSheet()->getStyle('B2')
-    ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+    ->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THICK);
 $spreadsheet->getActiveSheet()->getStyle('B2')
-    ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+    ->getBorders()->getLeft()->setBorderStyle(Border::BORDER_THICK);
 $spreadsheet->getActiveSheet()->getStyle('B2')
-    ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+    ->getBorders()->getRight()->setBorderStyle(Border::BORDER_THICK);
 $spreadsheet->getActiveSheet()->getStyle('B2')
-    ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+    ->getFill()->setFillType(Fill::FILL_SOLID);
 $spreadsheet->getActiveSheet()->getStyle('B2')
     ->getFill()->getStartColor()->setARGB('FFFF0000');
 ```
@@ -535,7 +535,7 @@ can set a red background color on a range of cells:
 
 ``` php
 $spreadsheet->getActiveSheet()->getStyle('B3:B7')->getFill()
-    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+    ->setFillType(Fill::FILL_SOLID)
     ->getStartColor()->setARGB('FFFF0000');
 ```
 
@@ -558,11 +558,11 @@ $styleArray = array(
     ),
     'borders' => array(
         'top' => array(
-            'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            'style' => Border::BORDER_THIN,
         ),
     ),
     'fill' => array(
-        'type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
+        'type' => Fill::FILL_GRADIENT_LINEAR,
         'rotation' => 90,
         'startcolor' => array(
             'argb' => 'FFA0A0A0',
@@ -693,7 +693,7 @@ B2:G8.
 $styleArray = array(
     'borders' => array(
         'outline' => array(
-            'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
+            'style' => Border::BORDER_THICK,
             'color' => array('argb' => 'FFFF0000'),
         ),
     ),
@@ -760,7 +760,7 @@ alignment    | getAlignment()
 numberformat | getNumberFormat()
 protection   | getProtection()
 
-**\PhpOffice\PhpSpreadsheet\Style\Fill**
+**Fill**
 
 Array key  | Maps to property
 -----------|-------------------
@@ -785,7 +785,7 @@ size        | setSize()
 superScript | setSuperScript()
 subScript   | setSubScript()
 
-**\PhpOffice\PhpSpreadsheet\Style\Borders**
+**Borders**
 
 Array key         | Maps to property
 ------------------|-------------------
@@ -800,7 +800,7 @@ horizontal        | getHorizontal()
 diagonaldirection | setDiagonalDirection()
 outline           | setOutline()
 
-**\PhpOffice\PhpSpreadsheet\Style\Border**
+**Border**
 
 Array key | Maps to property
 ----------|-------------------
@@ -824,7 +824,7 @@ Array key | Maps to property
 ----------|-------------------
 code      | setFormatCode()
 
-**\PhpOffice\PhpSpreadsheet\Style\Protection**
+**Protection**
 
 Array key | Maps to property
 ----------|-------------------
@@ -946,7 +946,7 @@ An example on setting cell security:
 ``` php
 $spreadsheet->getActiveSheet()->getStyle('B1')
     ->getProtection()
-    ->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
+    ->setLocked(Protection::PROTECTION_UNPROTECTED);
 ```
 
 **Make sure you enable worksheet protection if you need any of the
@@ -970,8 +970,8 @@ entered in cell B3:
 ``` php
 $validation = $spreadsheet->getActiveSheet()->getCell('B3')
     ->getDataValidation();
-$validation->setType( \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_WHOLE );
-$validation->setErrorStyle( \PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_STOP );
+$validation->setType( DataValidation::TYPE_WHOLE );
+$validation->setErrorStyle( DataValidation::STYLE_STOP );
 $validation->setAllowBlank(true);
 $validation->setShowInputMessage(true);
 $validation->setShowErrorMessage(true);
@@ -989,8 +989,8 @@ data to be entered in cell B3:
 ``` php
 $validation = $spreadsheet->getActiveSheet()->getCell('B5')
     ->getDataValidation();
-$validation->setType( \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST );
-$validation->setErrorStyle( \PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION );
+$validation->setType( DataValidation::TYPE_LIST );
+$validation->setErrorStyle( DataValidation::STYLE_INFORMATION );
 $validation->setAllowBlank(false);
 $validation->setShowInputMessage(true);
 $validation->setShowErrorMessage(true);
@@ -1327,8 +1327,8 @@ $spreadsheet->getActiveSheet()->setCellValue('B1', 'Maarten');
 $spreadsheet->getActiveSheet()->setCellValue('B2', 'Balliauw');
 
 // Define named ranges
-$spreadsheet->addNamedRange( new \PhpOffice\PhpSpreadsheet\NamedRange('PersonFN', $spreadsheet->getActiveSheet(), 'B1') );
-$spreadsheet->addNamedRange( new \PhpOffice\PhpSpreadsheet\NamedRange('PersonLN', $spreadsheet->getActiveSheet(), 'B2') );
+$spreadsheet->addNamedRange( new NamedRange('PersonFN', $spreadsheet->getActiveSheet(), 'B1') );
+$spreadsheet->addNamedRange( new NamedRange('PersonLN', $spreadsheet->getActiveSheet(), 'B2') );
 ```
 
 Optionally, a fourth parameter can be passed defining the named range

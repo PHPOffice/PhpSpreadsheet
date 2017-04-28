@@ -185,13 +185,13 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getBorders()->applyFromArray(
      *         array(
      *             'bottom'     => array(
-     *                 'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT,
+     *                 'style' => Border::BORDER_DASHDOT,
      *                 'color' => array(
      *                     'rgb' => '808080'
      *                 )
      *             ),
      *             'top'     => array(
-     *                 'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT,
+     *                 'style' => Border::BORDER_DASHDOT,
      *                 'color' => array(
      *                     'rgb' => '808080'
      *                 )
@@ -203,7 +203,7 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getBorders()->applyFromArray(
      *         array(
      *             'allborders' => array(
-     *                 'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT,
+     *                 'style' => Border::BORDER_DASHDOT,
      *                 'color' => array(
      *                     'rgb' => '808080'
      *                 )

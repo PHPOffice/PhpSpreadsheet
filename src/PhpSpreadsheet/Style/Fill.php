@@ -135,7 +135,7 @@ class Fill extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getFill()->applyFromArray(
      *        array(
-     *            'type'       => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
+     *            'type'       => Fill::FILL_GRADIENT_LINEAR,
      *            'rotation'   => 0,
      *            'startcolor' => array(
      *                'rgb' => '000000'

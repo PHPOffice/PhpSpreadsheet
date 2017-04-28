@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -317,11 +318,11 @@ class Workbook extends WriterPart
      * Write Defined Name for named range.
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
-     * @param \PhpOffice\PhpSpreadsheet\NamedRange $pNamedRange
+     * @param NamedRange $pNamedRange
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeDefinedNameForNamedRange(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\NamedRange $pNamedRange)
+    private function writeDefinedNameForNamedRange(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, NamedRange $pNamedRange)
     {
         // definedName for named range
         $objWriter->startElement('definedName');

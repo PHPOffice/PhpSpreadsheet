@@ -167,7 +167,7 @@ class Border extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getBorders()->getTop()->applyFromArray(
      *        array(
-     *            'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT,
+     *            'style' => Border::BORDER_DASHDOT,
      *            'color' => array(
      *                'rgb' => '808080'
      *            )

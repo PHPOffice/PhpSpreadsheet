@@ -1,6 +1,7 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Protection;
 
 require __DIR__ . '/Header.php';
 
@@ -39,7 +40,7 @@ $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
 $spreadsheet->getActiveSheet()
         ->getStyle('A2:B2')
         ->getProtection()->setLocked(
-            \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED
+            Protection::PROTECTION_UNPROTECTED
         );
 
 // Save

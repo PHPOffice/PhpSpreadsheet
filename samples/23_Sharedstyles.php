@@ -1,6 +1,8 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 require __DIR__ . '/Header.php';
 
@@ -27,24 +29,24 @@ $sharedStyle2 = new \PhpOffice\PhpSpreadsheet\Style();
 
 $sharedStyle1->applyFromArray(
     ['fill' => [
-                'type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                'type' => Fill::FILL_SOLID,
                 'color' => ['argb' => 'FFCCFFCC'],
             ],
             'borders' => [
-                'bottom' => ['style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
-                'right' => ['style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM],
+                'bottom' => ['style' => Border::BORDER_THIN],
+                'right' => ['style' => Border::BORDER_MEDIUM],
             ],
         ]
 );
 
 $sharedStyle2->applyFromArray(
     ['fill' => [
-                'type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                'type' => Fill::FILL_SOLID,
                 'color' => ['argb' => 'FFFFFF00'],
             ],
             'borders' => [
-                'bottom' => ['style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
-                'right' => ['style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM],
+                'bottom' => ['style' => Border::BORDER_THIN],
+                'right' => ['style' => Border::BORDER_MEDIUM],
             ],
         ]
 );

@@ -3,11 +3,15 @@
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use DateTimeZone;
+use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Borders;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 use XMLReader;
 
 /**
@@ -532,64 +536,64 @@ class Gnumeric extends BaseReader implements IReader
                                 $styleArray['fill']['endcolor']['rgb'] = $RGB2;
                                 switch ($shade) {
                                     case '1':
-                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID;
+                                        $styleArray['fill']['type'] = Fill::FILL_SOLID;
                                         break;
                                     case '2':
-                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR;
+                                        $styleArray['fill']['type'] = Fill::FILL_GRADIENT_LINEAR;
                                         break;
                                     case '3':
-                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_PATH;
+                                        $styleArray['fill']['type'] = Fill::FILL_GRADIENT_PATH;
                                         break;
                                     case '4':
-                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKDOWN;
+                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_DARKDOWN;
                                         break;
                                     case '5':
-                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKGRAY;
+                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_DARKGRAY;
                                         break;
                                     case '6':
-                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKGRID;
+                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_DARKGRID;
                                         break;
                                     case '7':
-                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKHORIZONTAL;
+                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_DARKHORIZONTAL;
                                         break;
                                     case '8':
-                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKTRELLIS;
+                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_DARKTRELLIS;
                                         break;
                                     case '9':
-                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKUP;
+                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_DARKUP;
                                         break;
                                     case '10':
-                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKVERTICAL;
+                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_DARKVERTICAL;
                                         break;
                                     case '11':
-                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_GRAY0625;
+                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_GRAY0625;
                                         break;
                                     case '12':
-                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_GRAY125;
+                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_GRAY125;
                                         break;
                                     case '13':
-                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTDOWN;
+                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_LIGHTDOWN;
                                         break;
                                     case '14':
-                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTGRAY;
+                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_LIGHTGRAY;
                                         break;
                                     case '15':
-                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTGRID;
+                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_LIGHTGRID;
                                         break;
                                     case '16':
-                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTHORIZONTAL;
+                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_LIGHTHORIZONTAL;
                                         break;
                                     case '17':
-                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTTRELLIS;
+                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_LIGHTTRELLIS;
                                         break;
                                     case '18':
-                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTUP;
+                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_LIGHTUP;
                                         break;
                                     case '19':
-                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTVERTICAL;
+                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_LIGHTVERTICAL;
                                         break;
                                     case '20':
-                                        $styleArray['fill']['type'] = \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_MEDIUMGRAY;
+                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_MEDIUMGRAY;
                                         break;
                                 }
                             }
@@ -641,13 +645,13 @@ class Gnumeric extends BaseReader implements IReader
                                 }
                                 if ((isset($styleRegion->Style->StyleBorder->Diagonal)) && (isset($styleRegion->Style->StyleBorder->{'Rev-Diagonal'}))) {
                                     $styleArray['borders']['diagonal'] = self::parseBorderAttributes($styleRegion->Style->StyleBorder->Diagonal->attributes());
-                                    $styleArray['borders']['diagonaldirection'] = \PhpOffice\PhpSpreadsheet\Style\Borders::DIAGONAL_BOTH;
+                                    $styleArray['borders']['diagonaldirection'] = Borders::DIAGONAL_BOTH;
                                 } elseif (isset($styleRegion->Style->StyleBorder->Diagonal)) {
                                     $styleArray['borders']['diagonal'] = self::parseBorderAttributes($styleRegion->Style->StyleBorder->Diagonal->attributes());
-                                    $styleArray['borders']['diagonaldirection'] = \PhpOffice\PhpSpreadsheet\Style\Borders::DIAGONAL_UP;
+                                    $styleArray['borders']['diagonaldirection'] = Borders::DIAGONAL_UP;
                                 } elseif (isset($styleRegion->Style->StyleBorder->{'Rev-Diagonal'})) {
                                     $styleArray['borders']['diagonal'] = self::parseBorderAttributes($styleRegion->Style->StyleBorder->{'Rev-Diagonal'}->attributes());
-                                    $styleArray['borders']['diagonaldirection'] = \PhpOffice\PhpSpreadsheet\Style\Borders::DIAGONAL_DOWN;
+                                    $styleArray['borders']['diagonaldirection'] = Borders::DIAGONAL_DOWN;
                                 }
                             }
                             if (isset($styleRegion->Style->HyperLink)) {
@@ -744,7 +748,7 @@ class Gnumeric extends BaseReader implements IReader
                 $range[0] = trim($range[0], "'");
                 if ($worksheet = $spreadsheet->getSheetByName($range[0])) {
                     $extractedRange = str_replace('$', '', $range[1]);
-                    $spreadsheet->addNamedRange(new \PhpOffice\PhpSpreadsheet\NamedRange($name, $worksheet, $extractedRange));
+                    $spreadsheet->addNamedRange(new NamedRange($name, $worksheet, $extractedRange));
                 }
             }
         }
@@ -762,46 +766,46 @@ class Gnumeric extends BaseReader implements IReader
 
         switch ($borderAttributes['Style']) {
             case '0':
-                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE;
+                $styleArray['style'] = Border::BORDER_NONE;
                 break;
             case '1':
-                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN;
+                $styleArray['style'] = Border::BORDER_THIN;
                 break;
             case '2':
-                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM;
+                $styleArray['style'] = Border::BORDER_MEDIUM;
                 break;
             case '3':
-                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_SLANTDASHDOT;
+                $styleArray['style'] = Border::BORDER_SLANTDASHDOT;
                 break;
             case '4':
-                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHED;
+                $styleArray['style'] = Border::BORDER_DASHED;
                 break;
             case '5':
-                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK;
+                $styleArray['style'] = Border::BORDER_THICK;
                 break;
             case '6':
-                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOUBLE;
+                $styleArray['style'] = Border::BORDER_DOUBLE;
                 break;
             case '7':
-                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOTTED;
+                $styleArray['style'] = Border::BORDER_DOTTED;
                 break;
             case '8':
-                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED;
+                $styleArray['style'] = Border::BORDER_MEDIUMDASHED;
                 break;
             case '9':
-                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT;
+                $styleArray['style'] = Border::BORDER_DASHDOT;
                 break;
             case '10':
-                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOT;
+                $styleArray['style'] = Border::BORDER_MEDIUMDASHDOT;
                 break;
             case '11':
-                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOTDOT;
+                $styleArray['style'] = Border::BORDER_DASHDOTDOT;
                 break;
             case '12':
-                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOTDOT;
+                $styleArray['style'] = Border::BORDER_MEDIUMDASHDOTDOT;
                 break;
             case '13':
-                $styleArray['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOTDOT;
+                $styleArray['style'] = Border::BORDER_MEDIUMDASHDOTDOT;
                 break;
         }
 

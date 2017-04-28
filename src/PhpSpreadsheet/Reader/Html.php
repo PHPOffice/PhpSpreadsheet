@@ -7,7 +7,9 @@ use DOMElement;
 use DOMNode;
 use DOMText;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -106,7 +108,7 @@ class Html extends BaseReader implements IReader
         'hr' => [
             'borders' => [
                 'bottom' => [
-                    'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                    'style' => Border::BORDER_THIN,
                     'color' => [
                         Color::COLOR_BLACK,
                     ],
@@ -475,7 +477,7 @@ class Html extends BaseReader implements IReader
                             $sheet->getStyle($column . $row)->applyFromArray(
                                 [
                                     'fill' => [
-                                        'type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                                        'type' => Fill::FILL_SOLID,
                                         'color' => ['rgb' => $attributeArray['bgcolor']],
                                     ],
                                 ]

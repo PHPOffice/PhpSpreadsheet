@@ -72,7 +72,7 @@ class Xlsx extends BaseWriter implements IWriter
     private $styleHashTable;
 
     /**
-     * Private unique \PhpOffice\PhpSpreadsheet\Style\Fill HashTable.
+     * Private unique Fill HashTable.
      *
      * @var \PhpOffice\PhpSpreadsheet\HashTable
      */
@@ -86,7 +86,7 @@ class Xlsx extends BaseWriter implements IWriter
     private $fontHashTable;
 
     /**
-     * Private unique \PhpOffice\PhpSpreadsheet\Style\Borders HashTable.
+     * Private unique Borders HashTable.
      *
      * @var \PhpOffice\PhpSpreadsheet\HashTable
      */
@@ -449,7 +449,7 @@ class Xlsx extends BaseWriter implements IWriter
     }
 
     /**
-     * Get \PhpOffice\PhpSpreadsheet\Style\Fill HashTable.
+     * Get Fill HashTable.
      *
      * @return \PhpOffice\PhpSpreadsheet\HashTable
      */
@@ -469,7 +469,7 @@ class Xlsx extends BaseWriter implements IWriter
     }
 
     /**
-     * Get \PhpOffice\PhpSpreadsheet\Style\Borders HashTable.
+     * Get Borders HashTable.
      *
      * @return \PhpOffice\PhpSpreadsheet\HashTable
      */
