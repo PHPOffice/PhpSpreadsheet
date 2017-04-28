@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Chart;
 
+use PhpOffice\PhpSpreadsheet\Cell;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -111,9 +113,9 @@ class DataSeriesValues
      *
      * @param string $dataType Datatype of this data series
      *                                Typical values are:
-     *                                    \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues::DATASERIES_TYPE_STRING
+     *                                    DataSeriesValues::DATASERIES_TYPE_STRING
      *                                        Normally used for axis point values
-     *                                    \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues::DATASERIES_TYPE_NUMBER
+     *                                    DataSeriesValues::DATASERIES_TYPE_NUMBER
      *                                        Normally used for chart data values
      *
      * @throws Exception
@@ -308,7 +310,7 @@ class DataSeriesValues
                     list(, $cellRange) = $cellRange;
                 }
 
-                $dimensions = \PhpOffice\PhpSpreadsheet\Cell::rangeDimension(str_replace('$', '', $cellRange));
+                $dimensions = Cell::rangeDimension(str_replace('$', '', $cellRange));
                 if (($dimensions[0] == 1) || ($dimensions[1] == 1)) {
                     $this->dataValues = \PhpOffice\PhpSpreadsheet\Calculation\Functions::flattenArray($newDataValues);
                 } else {

@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Cell;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -195,8 +197,8 @@ class Comments extends WriterPart
     private function writeVMLComment(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, $pCellReference, \PhpOffice\PhpSpreadsheet\Comment $pComment)
     {
         // Metadata
-        list($column, $row) = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($pCellReference);
-        $column = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($column);
+        list($column, $row) = Cell::coordinateFromString($pCellReference);
+        $column = Cell::columnIndexFromString($column);
         $id = 1024 + $column + $row;
         $id = substr($id, 0, 4);
 

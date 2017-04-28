@@ -1,5 +1,6 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/Header.php';
@@ -10,7 +11,7 @@ date_default_timezone_set('UTC');
 
 // Set value binder
 $helper->log('Set value binder');
-\PhpOffice\PhpSpreadsheet\Cell::setValueBinder(new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder());
+Cell::setValueBinder(new Cell\AdvancedValueBinder());
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');

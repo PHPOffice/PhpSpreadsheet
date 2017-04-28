@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
+use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 /**
@@ -331,11 +332,11 @@ class Date
     /**
      * Is a given cell a date/time?
      *
-     * @param \PhpOffice\PhpSpreadsheet\Cell $pCell
+     * @param Cell $pCell
      *
      * @return bool
      */
-    public static function isDateTime(\PhpOffice\PhpSpreadsheet\Cell $pCell)
+    public static function isDateTime(Cell $pCell)
     {
         return self::isDateTimeFormat(
             $pCell->getWorksheet()->getStyle(

@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Cell;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -785,7 +787,7 @@ class PageSetup
     public function setPrintAreaByColumnAndRow($column1, $row1, $column2, $row2, $index = 0, $method = self::SETPRINTRANGE_OVERWRITE)
     {
         return $this->setPrintArea(
-            \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($column1) . $row1 . ':' . \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($column2) . $row2,
+            Cell::stringFromColumnIndex($column1) . $row1 . ':' . Cell::stringFromColumnIndex($column2) . $row2,
             $index,
             $method
         );
@@ -812,7 +814,7 @@ class PageSetup
     public function addPrintAreaByColumnAndRow($column1, $row1, $column2, $row2, $index = -1)
     {
         return $this->setPrintArea(
-            \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($column1) . $row1 . ':' . \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($column2) . $row2,
+            Cell::stringFromColumnIndex($column1) . $row1 . ':' . Cell::stringFromColumnIndex($column2) . $row2,
             $index,
             self::SETPRINTRANGE_INSERT
         );

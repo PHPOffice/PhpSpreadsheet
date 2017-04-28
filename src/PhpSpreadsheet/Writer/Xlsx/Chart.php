@@ -40,14 +40,14 @@ class Chart extends WriterPart
     /**
      * Write charts to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Chart $pChart
+     * @param Chart $pChart
      * @param mixed $calculateCellValues
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string XML Output
      */
-    public function writeChart(\PhpOffice\PhpSpreadsheet\Chart $pChart, $calculateCellValues = true)
+    public function writeChart(Chart $pChart, $calculateCellValues = true)
     {
         $this->calculateCellValues = $calculateCellValues;
 
@@ -354,7 +354,7 @@ class Chart extends WriterPart
      * Write Data Labels.
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
-     * @param \PhpOffice\PhpSpreadsheet\Chart\Layout $chartLayout Chart layout
+     * @param Chart\Layout $chartLayout Chart layout
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */

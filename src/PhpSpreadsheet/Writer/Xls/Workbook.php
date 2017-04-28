@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
+use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -566,15 +567,15 @@ class Workbook extends BIFFwriter
             // Write a Name record if the print area has been defined
             if ($sheetSetup->isPrintAreaSet()) {
                 // Print area
-                $printArea = \PhpOffice\PhpSpreadsheet\Cell::splitRange($sheetSetup->getPrintArea());
+                $printArea = Cell::splitRange($sheetSetup->getPrintArea());
                 $printArea = $printArea[0];
-                $printArea[0] = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($printArea[0]);
-                $printArea[1] = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($printArea[1]);
+                $printArea[0] = Cell::coordinateFromString($printArea[0]);
+                $printArea[1] = Cell::coordinateFromString($printArea[1]);
 
                 $print_rowmin = $printArea[0][1] - 1;
                 $print_rowmax = $printArea[1][1] - 1;
-                $print_colmin = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($printArea[0][0]) - 1;
-                $print_colmax = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($printArea[1][0]) - 1;
+                $print_colmin = Cell::columnIndexFromString($printArea[0][0]) - 1;
+                $print_colmax = Cell::columnIndexFromString($printArea[1][0]) - 1;
 
                 $this->writeNameShort(
                     $i, // sheet index
@@ -594,8 +595,8 @@ class Workbook extends BIFFwriter
             // simultaneous repeatColumns repeatRows
             if ($sheetSetup->isColumnsToRepeatAtLeftSet() && $sheetSetup->isRowsToRepeatAtTopSet()) {
                 $repeat = $sheetSetup->getColumnsToRepeatAtLeft();
-                $colmin = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($repeat[0]) - 1;
-                $colmax = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($repeat[1]) - 1;
+                $colmin = Cell::columnIndexFromString($repeat[0]) - 1;
+                $colmax = Cell::columnIndexFromString($repeat[1]) - 1;
 
                 $repeat = $sheetSetup->getRowsToRepeatAtTop();
                 $rowmin = $repeat[0] - 1;
@@ -615,8 +616,8 @@ class Workbook extends BIFFwriter
                 // Columns to repeat
                 if ($sheetSetup->isColumnsToRepeatAtLeftSet()) {
                     $repeat = $sheetSetup->getColumnsToRepeatAtLeft();
-                    $colmin = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($repeat[0]) - 1;
-                    $colmax = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($repeat[1]) - 1;
+                    $colmin = Cell::columnIndexFromString($repeat[0]) - 1;
+                    $colmax = Cell::columnIndexFromString($repeat[1]) - 1;
                 } else {
                     $colmin = 0;
                     $colmax = 255;
@@ -658,14 +659,14 @@ class Workbook extends BIFFwriter
             $namedRanges = $this->spreadsheet->getNamedRanges();
             foreach ($namedRanges as $namedRange) {
                 // Create absolute coordinate
-                $range = \PhpOffice\PhpSpreadsheet\Cell::splitRange($namedRange->getRange());
+                $range = Cell::splitRange($namedRange->getRange());
                 for ($i = 0; $i < count($range); ++$i) {
-                    $range[$i][0] = '\'' . str_replace("'", "''", $namedRange->getWorksheet()->getTitle()) . '\'!' . \PhpOffice\PhpSpreadsheet\Cell::absoluteCoordinate($range[$i][0]);
+                    $range[$i][0] = '\'' . str_replace("'", "''", $namedRange->getWorksheet()->getTitle()) . '\'!' . Cell::absoluteCoordinate($range[$i][0]);
                     if (isset($range[$i][1])) {
-                        $range[$i][1] = \PhpOffice\PhpSpreadsheet\Cell::absoluteCoordinate($range[$i][1]);
+                        $range[$i][1] = Cell::absoluteCoordinate($range[$i][1]);
                     }
                 }
-                $range = \PhpOffice\PhpSpreadsheet\Cell::buildRange($range); // e.g. Sheet1!$A$1:$B$2
+                $range = Cell::buildRange($range); // e.g. Sheet1!$A$1:$B$2
 
                 // parse formula
                 try {
@@ -700,8 +701,8 @@ class Workbook extends BIFFwriter
             // simultaneous repeatColumns repeatRows
             if ($sheetSetup->isColumnsToRepeatAtLeftSet() && $sheetSetup->isRowsToRepeatAtTopSet()) {
                 $repeat = $sheetSetup->getColumnsToRepeatAtLeft();
-                $colmin = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($repeat[0]) - 1;
-                $colmax = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($repeat[1]) - 1;
+                $colmin = Cell::columnIndexFromString($repeat[0]) - 1;
+                $colmax = Cell::columnIndexFromString($repeat[1]) - 1;
 
                 $repeat = $sheetSetup->getRowsToRepeatAtTop();
                 $rowmin = $repeat[0] - 1;
@@ -721,8 +722,8 @@ class Workbook extends BIFFwriter
                 // Columns to repeat
                 if ($sheetSetup->isColumnsToRepeatAtLeftSet()) {
                     $repeat = $sheetSetup->getColumnsToRepeatAtLeft();
-                    $colmin = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($repeat[0]) - 1;
-                    $colmax = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($repeat[1]) - 1;
+                    $colmin = Cell::columnIndexFromString($repeat[0]) - 1;
+                    $colmax = Cell::columnIndexFromString($repeat[1]) - 1;
                 } else {
                     $colmin = 0;
                     $colmax = 255;
@@ -750,19 +751,19 @@ class Workbook extends BIFFwriter
             $sheetSetup = $this->spreadsheet->getSheet($i)->getPageSetup();
             if ($sheetSetup->isPrintAreaSet()) {
                 // Print area, e.g. A3:J6,H1:X20
-                $printArea = \PhpOffice\PhpSpreadsheet\Cell::splitRange($sheetSetup->getPrintArea());
+                $printArea = Cell::splitRange($sheetSetup->getPrintArea());
                 $countPrintArea = count($printArea);
 
                 $formulaData = '';
                 for ($j = 0; $j < $countPrintArea; ++$j) {
                     $printAreaRect = $printArea[$j]; // e.g. A3:J6
-                    $printAreaRect[0] = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($printAreaRect[0]);
-                    $printAreaRect[1] = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($printAreaRect[1]);
+                    $printAreaRect[0] = Cell::coordinateFromString($printAreaRect[0]);
+                    $printAreaRect[1] = Cell::coordinateFromString($printAreaRect[1]);
 
                     $print_rowmin = $printAreaRect[0][1] - 1;
                     $print_rowmax = $printAreaRect[1][1] - 1;
-                    $print_colmin = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($printAreaRect[0][0]) - 1;
-                    $print_colmax = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($printAreaRect[1][0]) - 1;
+                    $print_colmin = Cell::columnIndexFromString($printAreaRect[0][0]) - 1;
+                    $print_colmax = Cell::columnIndexFromString($printAreaRect[1][0]) - 1;
 
                     // construct formula data manually because parser does not recognize absolute 3d cell references
                     $formulaData .= pack('Cvvvvv', 0x3B, $i, $print_rowmin, $print_rowmax, $print_colmin, $print_colmax);
@@ -782,7 +783,7 @@ class Workbook extends BIFFwriter
             $sheetAutoFilter = $this->spreadsheet->getSheet($i)->getAutoFilter();
             $autoFilterRange = $sheetAutoFilter->getRange();
             if (!empty($autoFilterRange)) {
-                $rangeBounds = \PhpOffice\PhpSpreadsheet\Cell::rangeBoundaries($autoFilterRange);
+                $rangeBounds = Cell::rangeBoundaries($autoFilterRange);
 
                 //Autofilter built in name
                 $name = pack('C', 0x0D);

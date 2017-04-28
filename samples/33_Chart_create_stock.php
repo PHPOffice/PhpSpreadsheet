@@ -1,5 +1,11 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Chart;
+use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
+use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
+use PhpOffice\PhpSpreadsheet\Chart\Legend;
+use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
+use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
@@ -31,10 +37,10 @@ $worksheet->getStyle('B2:E6')->getNumberFormat()->setFormatCode(NumberFormat::FO
 //		Data values
 //		Data Marker
 $dataSeriesLabels = [
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$B$1', null, 1), //Max / Open
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$C$1', null, 1), //Min / Close
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$D$1', null, 1), //Min Threshold / Min
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$E$1', null, 1), //Max Threshold / Max
+    new DataSeriesValues('String', 'Worksheet!$B$1', null, 1), //Max / Open
+    new DataSeriesValues('String', 'Worksheet!$C$1', null, 1), //Min / Close
+    new DataSeriesValues('String', 'Worksheet!$D$1', null, 1), //Min Threshold / Min
+    new DataSeriesValues('String', 'Worksheet!$E$1', null, 1), //Max Threshold / Max
 ];
 //	Set the X-Axis Labels
 //		Datatype
@@ -44,7 +50,7 @@ $dataSeriesLabels = [
 //		Data values
 //		Data Marker
 $xAxisTickValues = [
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$A$2:$A$6', null, 5), //	Counts
+    new DataSeriesValues('String', 'Worksheet!$A$2:$A$6', null, 5), //	Counts
 ];
 //	Set the Data values for each data series we want to plot
 //		Datatype
@@ -54,15 +60,15 @@ $xAxisTickValues = [
 //		Data values
 //		Data Marker
 $dataSeriesValues = [
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'Worksheet!$B$2:$B$6', null, 5),
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'Worksheet!$C$2:$C$6', null, 5),
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'Worksheet!$D$2:$D$6', null, 5),
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'Worksheet!$E$2:$E$6', null, 5),
+    new DataSeriesValues('Number', 'Worksheet!$B$2:$B$6', null, 5),
+    new DataSeriesValues('Number', 'Worksheet!$C$2:$C$6', null, 5),
+    new DataSeriesValues('Number', 'Worksheet!$D$2:$D$6', null, 5),
+    new DataSeriesValues('Number', 'Worksheet!$E$2:$E$6', null, 5),
 ];
 
 //	Build the dataseries
-$series = new \PhpOffice\PhpSpreadsheet\Chart\DataSeries(
-    \PhpOffice\PhpSpreadsheet\Chart\DataSeries::TYPE_STOCKCHART, // plotType
+$series = new DataSeries(
+    DataSeries::TYPE_STOCKCHART, // plotType
     null, // plotGrouping - if we set this to not null, then xlsx throws error
     range(0, count($dataSeriesValues) - 1), // plotOrder
     $dataSeriesLabels, // plotLabel
@@ -71,16 +77,16 @@ $series = new \PhpOffice\PhpSpreadsheet\Chart\DataSeries(
 );
 
 //	Set the series in the plot area
-$plotArea = new \PhpOffice\PhpSpreadsheet\Chart\PlotArea(null, [$series]);
+$plotArea = new PlotArea(null, [$series]);
 //	Set the chart legend
-$legend = new \PhpOffice\PhpSpreadsheet\Chart\Legend(\PhpOffice\PhpSpreadsheet\Chart\Legend::POSITION_RIGHT, null, false);
+$legend = new Legend(Legend::POSITION_RIGHT, null, false);
 
-$title = new \PhpOffice\PhpSpreadsheet\Chart\Title('Test Stock Chart');
-$xAxisLabel = new \PhpOffice\PhpSpreadsheet\Chart\Title('Counts');
-$yAxisLabel = new \PhpOffice\PhpSpreadsheet\Chart\Title('Values');
+$title = new Title('Test Stock Chart');
+$xAxisLabel = new Title('Counts');
+$yAxisLabel = new Title('Values');
 
 //	Create the chart
-$chart = new \PhpOffice\PhpSpreadsheet\Chart(
+$chart = new Chart(
     'stock-chart', // name
     $title, // title
     $legend, // legend

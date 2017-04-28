@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\RichText;
 
 /**
@@ -62,7 +63,7 @@ class StringTable extends WriterPart
                     ($cellValue !== null) &&
                     $cellValue !== '' &&
                     !isset($aFlippedStringTable[$cellValue]) &&
-                    ($cell->getDataType() == \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING || $cell->getDataType() == \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING2 || $cell->getDataType() == \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NULL)) {
+                    ($cell->getDataType() == Cell\DataType::TYPE_STRING || $cell->getDataType() == Cell\DataType::TYPE_STRING2 || $cell->getDataType() == Cell\DataType::TYPE_NULL)) {
                     $aStringTable[] = $cellValue;
                     $aFlippedStringTable[$cellValue] = true;
                 } elseif ($cellValue instanceof RichText &&

@@ -5,7 +5,9 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 use DateTime;
 use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Calculation;
+use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -240,7 +242,7 @@ class Ods extends BaseReader implements IReader
 
                     $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
                     $tmpInfo['lastColumnIndex'] = $tmpInfo['totalColumns'] - 1;
-                    $tmpInfo['lastColumnLetter'] = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
+                    $tmpInfo['lastColumnLetter'] = Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
                     $worksheetInfo[] = $tmpInfo;
                 }
             }
@@ -363,26 +365,26 @@ class Ods extends BaseReader implements IReader
                         $docProps->setCreated($creationDate);
                         break;
                     case 'user-defined':
-                        $propertyValueType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_STRING;
+                        $propertyValueType = Properties::PROPERTY_TYPE_STRING;
                         foreach ($propertyValueAttributes as $key => $value) {
                             if ($key == 'name') {
                                 $propertyValueName = (string) $value;
                             } elseif ($key == 'value-type') {
                                 switch ($value) {
                                     case 'date':
-                                        $propertyValue = \PhpOffice\PhpSpreadsheet\Document\Properties::convertProperty($propertyValue, 'date');
-                                        $propertyValueType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_DATE;
+                                        $propertyValue = Properties::convertProperty($propertyValue, 'date');
+                                        $propertyValueType = Properties::PROPERTY_TYPE_DATE;
                                         break;
                                     case 'boolean':
-                                        $propertyValue = \PhpOffice\PhpSpreadsheet\Document\Properties::convertProperty($propertyValue, 'bool');
-                                        $propertyValueType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_BOOLEAN;
+                                        $propertyValue = Properties::convertProperty($propertyValue, 'bool');
+                                        $propertyValueType = Properties::PROPERTY_TYPE_BOOLEAN;
                                         break;
                                     case 'float':
-                                        $propertyValue = \PhpOffice\PhpSpreadsheet\Document\Properties::convertProperty($propertyValue, 'r4');
-                                        $propertyValueType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_FLOAT;
+                                        $propertyValue = Properties::convertProperty($propertyValue, 'r4');
+                                        $propertyValueType = Properties::PROPERTY_TYPE_FLOAT;
                                         break;
                                     default:
-                                        $propertyValueType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_STRING;
+                                        $propertyValueType = Properties::PROPERTY_TYPE_STRING;
                                 }
                             }
                         }
@@ -727,11 +729,11 @@ class Ods extends BaseReader implements IReader
                                         $columnTo = $columnID;
 
                                         if ($cellData->hasAttributeNS($tableNs, 'number-columns-spanned')) {
-                                            $columnIndex = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($columnID);
+                                            $columnIndex = Cell::columnIndexFromString($columnID);
                                             $columnIndex += (int) $cellData->getAttributeNS($tableNs, 'number-columns-spanned');
                                             $columnIndex -= 2;
 
-                                            $columnTo = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($columnIndex);
+                                            $columnTo = Cell::stringFromColumnIndex($columnIndex);
                                         }
 
                                         $rowTo = $rowID;

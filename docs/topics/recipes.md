@@ -71,7 +71,7 @@ method that suits you the best. Here are some examples:
 ``` php
 
 // MySQL-like timestamp '2008-12-31' or date string
-\PhpOffice\PhpSpreadsheet\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
+Cell::setValueBinder( new Cell\AdvancedValueBinder() );
 
 $spreadsheet->getActiveSheet()
     ->setCellValue('D1', '2008-12-31');
@@ -148,7 +148,7 @@ $spreadsheet->getActiveSheet()
     ->setCellValueExplicit(
         'B8',
         '=IF(C4>500,"profit","loss")',
-        \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING
+        Cell\DataType::TYPE_STRING
     );
 ```
 
@@ -248,7 +248,7 @@ when it sees a newline character in a string that you are inserting in a
 cell. Just like Microsoft Office Excel. Try this:
 
 ``` php
-\PhpOffice\PhpSpreadsheet\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
+Cell::setValueBinder( new Cell\AdvancedValueBinder() );
 
 $spreadsheet->getActiveSheet()->getCell('A1')->setValue("hello\nworld");
 ```
@@ -265,7 +265,7 @@ worksheet. Here's an example:
 $spreadsheet->getActiveSheet()->getCell('A1')
     ->setValueExplicit(
         '25',
-        \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC
+        Cell\DataType::TYPE_NUMERIC
     );
 ```
 
@@ -1236,15 +1236,15 @@ $textColor = imagecolorallocate($gdImage, 255, 255, 255);
 imagestring($gdImage, 1, 5, 5,  'Created with PhpSpreadsheet', $textColor);
 
 //  Add the In-Memory image to a worksheet
-$drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing();
+$drawing = new MemoryDrawing();
 $drawing->setName('In-Memory image 1');
 $drawing->setDescription('In-Memory image 1');
 $drawing->setCoordinates('A1');
 $drawing->setImageResource($gdImage);
 $drawing->setRenderingFunction(
-    \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_JPEG
+    MemoryDrawing::RENDERING_JPEG
 );
-$drawing->setMimeType(\PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_DEFAULT);
+$drawing->setMimeType(MemoryDrawing::MIMETYPE_DEFAULT);
 $drawing->setHeight(36);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
 ```
@@ -1260,7 +1260,7 @@ and writes each as a separate file.
 ``` php
 $i = 0;
 foreach ($spreadsheet->getActiveSheet()->getDrawingCollection() as $drawing) {
-    if ($drawing instanceof \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing) {
+    if ($drawing instanceof MemoryDrawing) {
         ob_start();
         call_user_func(
             $drawing->getRenderingFunction(),
@@ -1269,13 +1269,13 @@ foreach ($spreadsheet->getActiveSheet()->getDrawingCollection() as $drawing) {
         $imageContents = ob_get_contents();
         ob_end_clean();
         switch ($drawing->getMimeType()) {
-            case \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_PNG :
+            case MemoryDrawing::MIMETYPE_PNG :
                 $extension = 'png';
                 break;
-            case \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_GIF:
+            case MemoryDrawing::MIMETYPE_GIF:
                 $extension = 'gif';
                 break;
-            case \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_JPEG :
+            case MemoryDrawing::MIMETYPE_JPEG :
                 $extension = 'jpg';
                 break;
         }
@@ -1431,12 +1431,12 @@ $textColor = imagecolorallocate($gdImage, 255, 255, 255);
 imagestring($gdImage, 1, 5, 5,  'Created with PhpSpreadsheet', $textColor);
 
 // Add a drawing to the worksheet
-$drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing();
+$drawing = new MemoryDrawing();
 $drawing->setName('Sample image');
 $drawing->setDescription('Sample image');
 $drawing->setImageResource($gdImage);
-$drawing->setRenderingFunction(\PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_JPEG);
-$drawing->setMimeType(\PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_DEFAULT);
+$drawing->setRenderingFunction(MemoryDrawing::RENDERING_JPEG);
+$drawing->setMimeType(MemoryDrawing::MIMETYPE_DEFAULT);
 $drawing->setHeight(36);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
 ```

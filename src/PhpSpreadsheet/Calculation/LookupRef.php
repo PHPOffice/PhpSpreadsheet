@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Cell;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -72,7 +74,7 @@ class LookupRef
         }
         if ((!is_bool($referenceStyle)) || $referenceStyle) {
             $rowRelative = $columnRelative = '$';
-            $column = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($column - 1);
+            $column = Cell::stringFromColumnIndex($column - 1);
             if (($relativity == 2) || ($relativity == 4)) {
                 $columnRelative = '';
             }
@@ -118,7 +120,7 @@ class LookupRef
             foreach ($cellAddress as $columnKey => $value) {
                 $columnKey = preg_replace('/[^a-z]/i', '', $columnKey);
 
-                return (int) \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($columnKey);
+                return (int) Cell::columnIndexFromString($columnKey);
             }
         } else {
             if (strpos($cellAddress, '!') !== false) {
@@ -130,14 +132,14 @@ class LookupRef
                 $endAddress = preg_replace('/[^a-z]/i', '', $endAddress);
                 $returnValue = [];
                 do {
-                    $returnValue[] = (int) \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($startAddress);
+                    $returnValue[] = (int) Cell::columnIndexFromString($startAddress);
                 } while ($startAddress++ != $endAddress);
 
                 return $returnValue;
             }
             $cellAddress = preg_replace('/[^a-z]/i', '', $cellAddress);
 
-            return (int) \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($cellAddress);
+            return (int) Cell::columnIndexFromString($cellAddress);
         }
     }
 
@@ -264,11 +266,11 @@ class LookupRef
      *
      * @param string $linkURL Value to check, is also the value returned when no error
      * @param string $displayName Value to return when testValue is an error condition
-     * @param \PhpOffice\PhpSpreadsheet\Cell $pCell The cell to set the hyperlink in
+     * @param Cell $pCell The cell to set the hyperlink in
      *
      * @return mixed The value of $displayName (or $linkURL if $displayName was blank)
      */
-    public static function HYPERLINK($linkURL = '', $displayName = null, \PhpOffice\PhpSpreadsheet\Cell $pCell = null)
+    public static function HYPERLINK($linkURL = '', $displayName = null, Cell $pCell = null)
     {
         $linkURL = (is_null($linkURL)) ? '' : Functions::flattenSingleValue($linkURL);
         $displayName = (is_null($displayName)) ? '' : Functions::flattenSingleValue($displayName);
@@ -299,13 +301,13 @@ class LookupRef
      * NOTE - INDIRECT() does not yet support the optional a1 parameter introduced in Excel 2010
      *
      * @param cellAddress $cellAddress The cell address of the current cell (containing this formula)
-     * @param \PhpOffice\PhpSpreadsheet\Cell $pCell The current cell (containing this formula)
+     * @param Cell $pCell The current cell (containing this formula)
      *
      * @return mixed The cells referenced by cellAddress
      *
      * @todo    Support for the optional a1 parameter introduced in Excel 2010
      */
-    public static function INDIRECT($cellAddress = null, \PhpOffice\PhpSpreadsheet\Cell $pCell = null)
+    public static function INDIRECT($cellAddress = null, Cell $pCell = null)
     {
         $cellAddress = Functions::flattenSingleValue($cellAddress);
         if (is_null($cellAddress) || $cellAddress === '') {
@@ -374,11 +376,11 @@ class LookupRef
      * @param mixed $columns
      * @param null|mixed $height
      * @param null|mixed $width
-     * @param \PhpOffice\PhpSpreadsheet\Cell $pCell
+     * @param Cell $pCell
      *
      * @return string A reference to a cell or range of cells
      */
-    public static function OFFSET($cellAddress = null, $rows = 0, $columns = 0, $height = null, $width = null, \PhpOffice\PhpSpreadsheet\Cell $pCell = null)
+    public static function OFFSET($cellAddress = null, $rows = 0, $columns = 0, $height = null, $width = null, Cell $pCell = null)
     {
         $rows = Functions::flattenSingleValue($rows);
         $columns = Functions::flattenSingleValue($columns);
@@ -402,23 +404,23 @@ class LookupRef
         } else {
             $startCell = $endCell = $cellAddress;
         }
-        list($startCellColumn, $startCellRow) = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($startCell);
-        list($endCellColumn, $endCellRow) = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($endCell);
+        list($startCellColumn, $startCellRow) = Cell::coordinateFromString($startCell);
+        list($endCellColumn, $endCellRow) = Cell::coordinateFromString($endCell);
 
         $startCellRow += $rows;
-        $startCellColumn = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($startCellColumn) - 1;
+        $startCellColumn = Cell::columnIndexFromString($startCellColumn) - 1;
         $startCellColumn += $columns;
 
         if (($startCellRow <= 0) || ($startCellColumn < 0)) {
             return Functions::REF();
         }
-        $endCellColumn = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($endCellColumn) - 1;
+        $endCellColumn = Cell::columnIndexFromString($endCellColumn) - 1;
         if (($width != null) && (!is_object($width))) {
             $endCellColumn = $startCellColumn + $width - 1;
         } else {
             $endCellColumn += $columns;
         }
-        $startCellColumn = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($startCellColumn);
+        $startCellColumn = Cell::stringFromColumnIndex($startCellColumn);
 
         if (($height != null) && (!is_object($height))) {
             $endCellRow = $startCellRow + $height - 1;
@@ -429,7 +431,7 @@ class LookupRef
         if (($endCellRow <= 0) || ($endCellColumn < 0)) {
             return Functions::REF();
         }
-        $endCellColumn = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($endCellColumn);
+        $endCellColumn = Cell::stringFromColumnIndex($endCellColumn);
 
         $cellAddress = $startCellColumn . $startCellRow;
         if (($startCellColumn != $endCellColumn) || ($startCellRow != $endCellRow)) {

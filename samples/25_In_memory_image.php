@@ -1,6 +1,7 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 
 require __DIR__ . '/Header.php';
 
@@ -26,12 +27,12 @@ imagestring($gdImage, 1, 5, 5, 'Created with PhpSpreadsheet', $textColor);
 
 // Add a drawing to the worksheet
 $helper->log('Add a drawing to the worksheet');
-$drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing();
+$drawing = new MemoryDrawing();
 $drawing->setName('Sample image');
 $drawing->setDescription('Sample image');
 $drawing->setImageResource($gdImage);
-$drawing->setRenderingFunction(\PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_JPEG);
-$drawing->setMimeType(\PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_DEFAULT);
+$drawing->setRenderingFunction(MemoryDrawing::RENDERING_JPEG);
+$drawing->setMimeType(MemoryDrawing::MIMETYPE_DEFAULT);
 $drawing->setHeight(36);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
 

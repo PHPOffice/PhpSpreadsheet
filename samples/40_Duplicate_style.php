@@ -1,5 +1,6 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/Header.php';
@@ -22,7 +23,7 @@ for ($col = 0; $col < 50; ++$col) {
     for ($row = 0; $row < 100; ++$row) {
         $str = ($row + $col);
         $style = $styles[$row % 10];
-        $coord = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col) . ($row + 1);
+        $coord = Cell::stringFromColumnIndex($col) . ($row + 1);
         $worksheet->setCellValue($coord, $str);
         $worksheet->duplicateStyle($style, $coord);
     }

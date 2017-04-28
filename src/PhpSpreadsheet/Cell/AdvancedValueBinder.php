@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
+use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
@@ -33,12 +34,12 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
     /**
      * Bind value to a cell.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Cell $cell Cell to bind value to
+     * @param Cell $cell Cell to bind value to
      * @param mixed $value Value to bind in cell
      *
      * @return bool
      */
-    public function bindValue(\PhpOffice\PhpSpreadsheet\Cell $cell, $value = null)
+    public function bindValue(Cell $cell, $value = null)
     {
         // sanitize UTF-8 strings
         if (is_string($value)) {

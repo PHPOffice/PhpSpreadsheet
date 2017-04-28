@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader\Xls;
 
+use PhpOffice\PhpSpreadsheet\Cell;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -591,7 +593,7 @@ class Escher
         $endOffsetY = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt2d($recordData, 16);
 
         // set the start coordinates
-        $this->object->setStartCoordinates(\PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($c1) . ($r1 + 1));
+        $this->object->setStartCoordinates(Cell::stringFromColumnIndex($c1) . ($r1 + 1));
 
         // set the start offsetX
         $this->object->setStartOffsetX($startOffsetX);
@@ -600,7 +602,7 @@ class Escher
         $this->object->setStartOffsetY($startOffsetY);
 
         // set the end coordinates
-        $this->object->setEndCoordinates(\PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($c2) . ($r2 + 1));
+        $this->object->setEndCoordinates(Cell::stringFromColumnIndex($c2) . ($r2 + 1));
 
         // set the end offsetX
         $this->object->setEndOffsetX($endOffsetX);

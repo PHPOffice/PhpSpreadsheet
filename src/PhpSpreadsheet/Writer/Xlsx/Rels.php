@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -312,7 +313,7 @@ class Rels extends WriterPart
         $iterator = $pWorksheet->getDrawingCollection()->getIterator();
         while ($iterator->valid()) {
             if ($iterator->current() instanceof \PhpOffice\PhpSpreadsheet\Worksheet\Drawing
-                || $iterator->current() instanceof \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing) {
+                || $iterator->current() instanceof MemoryDrawing) {
                 // Write relationship for image drawing
                 $this->writeRelationship(
                     $objWriter,

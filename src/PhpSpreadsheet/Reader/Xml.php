@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -205,7 +207,7 @@ class Xml extends BaseReader implements IReader
                 }
             }
 
-            $tmpInfo['lastColumnLetter'] = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
+            $tmpInfo['lastColumnLetter'] = Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
             $tmpInfo['totalColumns'] = $tmpInfo['lastColumnIndex'] + 1;
 
             $worksheetInfo[] = $tmpInfo;
@@ -386,26 +388,26 @@ class Xml extends BaseReader implements IReader
             foreach ($xml->CustomDocumentProperties[0] as $propertyName => $propertyValue) {
                 $propertyAttributes = $propertyValue->attributes($namespaces['dt']);
                 $propertyName = preg_replace_callback('/_x([0-9a-z]{4})_/', ['self', 'hex2str'], $propertyName);
-                $propertyType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_UNKNOWN;
+                $propertyType = Properties::PROPERTY_TYPE_UNKNOWN;
                 switch ((string) $propertyAttributes) {
                     case 'string':
-                        $propertyType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_STRING;
+                        $propertyType = Properties::PROPERTY_TYPE_STRING;
                         $propertyValue = trim($propertyValue);
                         break;
                     case 'boolean':
-                        $propertyType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_BOOLEAN;
+                        $propertyType = Properties::PROPERTY_TYPE_BOOLEAN;
                         $propertyValue = (bool) $propertyValue;
                         break;
                     case 'integer':
-                        $propertyType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_INTEGER;
+                        $propertyType = Properties::PROPERTY_TYPE_INTEGER;
                         $propertyValue = (int) $propertyValue;
                         break;
                     case 'float':
-                        $propertyType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_FLOAT;
+                        $propertyType = Properties::PROPERTY_TYPE_FLOAT;
                         $propertyValue = (float) $propertyValue;
                         break;
                     case 'dateTime.tz':
-                        $propertyType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_DATE;
+                        $propertyType = Properties::PROPERTY_TYPE_DATE;
                         $propertyValue = strtotime(trim($propertyValue));
                         break;
                 }
@@ -554,7 +556,7 @@ class Xml extends BaseReader implements IReader
                 foreach ($worksheet->Table->Column as $columnData) {
                     $columnData_ss = $columnData->attributes($namespaces['ss']);
                     if (isset($columnData_ss['Index'])) {
-                        $columnID = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($columnData_ss['Index'] - 1);
+                        $columnID = Cell::stringFromColumnIndex($columnData_ss['Index'] - 1);
                     }
                     if (isset($columnData_ss['Width'])) {
                         $columnWidth = $columnData_ss['Width'];
@@ -578,7 +580,7 @@ class Xml extends BaseReader implements IReader
                     foreach ($rowData->Cell as $cell) {
                         $cell_ss = $cell->attributes($namespaces['ss']);
                         if (isset($cell_ss['Index'])) {
-                            $columnID = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($cell_ss['Index'] - 1);
+                            $columnID = Cell::stringFromColumnIndex($cell_ss['Index'] - 1);
                         }
                         $cellRange = $columnID . $rowID;
 
@@ -593,7 +595,7 @@ class Xml extends BaseReader implements IReader
                             $columnTo = $columnID;
                             if (isset($cell_ss['MergeAcross'])) {
                                 $additionalMergedCells += (int) $cell_ss['MergeAcross'];
-                                $columnTo = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex(\PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($columnID) + $cell_ss['MergeAcross'] - 1);
+                                $columnTo = Cell::stringFromColumnIndex(Cell::columnIndexFromString($columnID) + $cell_ss['MergeAcross'] - 1);
                             }
                             $rowTo = $rowID;
                             if (isset($cell_ss['MergeDown'])) {
@@ -615,7 +617,7 @@ class Xml extends BaseReader implements IReader
                         }
                         if (isset($cell->Data)) {
                             $cellValue = $cellData = $cell->Data;
-                            $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NULL;
+                            $type = Cell\DataType::TYPE_NULL;
                             $cellData_ss = $cellData->attributes($namespaces['ss']);
                             if (isset($cellData_ss['Type'])) {
                                 $cellDataType = $cellData_ss['Type'];
@@ -631,32 +633,32 @@ class Xml extends BaseReader implements IReader
                                     */
                                     case 'String':
                                         $cellValue = self::convertStringEncoding($cellValue, $this->charSet);
-                                        $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING;
+                                        $type = Cell\DataType::TYPE_STRING;
                                         break;
                                     case 'Number':
-                                        $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
+                                        $type = Cell\DataType::TYPE_NUMERIC;
                                         $cellValue = (float) $cellValue;
                                         if (floor($cellValue) == $cellValue) {
                                             $cellValue = (int) $cellValue;
                                         }
                                         break;
                                     case 'Boolean':
-                                        $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_BOOL;
+                                        $type = Cell\DataType::TYPE_BOOL;
                                         $cellValue = ($cellValue != 0);
                                         break;
                                     case 'DateTime':
-                                        $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
+                                        $type = Cell\DataType::TYPE_NUMERIC;
                                         $cellValue = Date::PHPToExcel(strtotime($cellValue));
                                         break;
                                     case 'Error':
-                                        $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_ERROR;
+                                        $type = Cell\DataType::TYPE_ERROR;
                                         break;
                                 }
                             }
 
                             if ($hasCalculatedValue) {
-                                $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_FORMULA;
-                                $columnNumber = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($columnID);
+                                $type = Cell\DataType::TYPE_FORMULA;
+                                $columnNumber = Cell::columnIndexFromString($columnID);
                                 if (substr($cellDataFormula, 0, 3) == 'of:') {
                                     $cellDataFormula = substr($cellDataFormula, 3);
                                     $temp = explode('"', $cellDataFormula);
@@ -700,7 +702,7 @@ class Xml extends BaseReader implements IReader
                                                 if ($columnReference[0] == '[') {
                                                     $columnReference = $columnNumber + trim($columnReference, '[]');
                                                 }
-                                                $A1CellReference = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($columnReference - 1) . $rowReference;
+                                                $A1CellReference = Cell::stringFromColumnIndex($columnReference - 1) . $rowReference;
                                                 $value = substr_replace($value, $A1CellReference, $cellReference[0][1], strlen($cellReference[0][0]));
                                             }
                                         }

@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use DateTimeZone;
+use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
@@ -162,7 +163,7 @@ class Gnumeric extends BaseReader implements IReader
                         break;
                     }
                 }
-                $tmpInfo['lastColumnLetter'] = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
+                $tmpInfo['lastColumnLetter'] = Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
                 $worksheetInfo[] = $tmpInfo;
             }
         }
@@ -395,7 +396,7 @@ class Gnumeric extends BaseReader implements IReader
                     $maxCol = $column;
                 }
 
-                $column = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($column);
+                $column = Cell::stringFromColumnIndex($column);
 
                 // Read cell?
                 if ($this->getReadFilter() !== null) {
@@ -406,7 +407,7 @@ class Gnumeric extends BaseReader implements IReader
 
                 $ValueType = $cellAttributes->ValueType;
                 $ExprID = (string) $cellAttributes->ExprID;
-                $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_FORMULA;
+                $type = Cell\DataType::TYPE_FORMULA;
                 if ($ExprID > '') {
                     if (((string) $cell) > '') {
                         $this->expressions[$ExprID] = [
@@ -425,27 +426,27 @@ class Gnumeric extends BaseReader implements IReader
                             $worksheetName
                         );
                     }
-                    $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_FORMULA;
+                    $type = Cell\DataType::TYPE_FORMULA;
                 } else {
                     switch ($ValueType) {
                         case '10':        //    NULL
-                            $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NULL;
+                            $type = Cell\DataType::TYPE_NULL;
                             break;
                         case '20':        //    Boolean
-                            $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_BOOL;
+                            $type = Cell\DataType::TYPE_BOOL;
                             $cell = ($cell == 'TRUE') ? true : false;
                             break;
                         case '30':        //    Integer
                             $cell = (int) $cell;
                             // Excel 2007+ doesn't differentiate between integer and float, so set the value and dropthru to the next (numeric) case
                         case '40':        //    Float
-                            $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
+                            $type = Cell\DataType::TYPE_NUMERIC;
                             break;
                         case '50':        //    Error
-                            $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_ERROR;
+                            $type = Cell\DataType::TYPE_ERROR;
                             break;
                         case '60':        //    String
-                            $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING;
+                            $type = Cell\DataType::TYPE_STRING;
                             break;
                         case '70':        //    Cell Range
                         case '80':        //    Array
@@ -467,11 +468,11 @@ class Gnumeric extends BaseReader implements IReader
                 $styleAttributes = $styleRegion->attributes();
                 if (($styleAttributes['startRow'] <= $maxRow) &&
                     ($styleAttributes['startCol'] <= $maxCol)) {
-                    $startColumn = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex((int) $styleAttributes['startCol']);
+                    $startColumn = Cell::stringFromColumnIndex((int) $styleAttributes['startCol']);
                     $startRow = $styleAttributes['startRow'] + 1;
 
                     $endColumn = ($styleAttributes['endCol'] > $maxCol) ? $maxCol : (int) $styleAttributes['endCol'];
-                    $endColumn = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($endColumn);
+                    $endColumn = Cell::stringFromColumnIndex($endColumn);
                     $endRow = ($styleAttributes['endRow'] > $maxRow) ? $maxRow : $styleAttributes['endRow'];
                     $endRow += 1;
                     $cellRange = $startColumn . $startRow . ':' . $endColumn . $endRow;
@@ -676,19 +677,19 @@ class Gnumeric extends BaseReader implements IReader
                     $hidden = ((isset($columnAttributes['Hidden'])) && ($columnAttributes['Hidden'] == '1')) ? true : false;
                     $columnCount = (isset($columnAttributes['Count'])) ? $columnAttributes['Count'] : 1;
                     while ($c < $column) {
-                        $spreadsheet->getActiveSheet()->getColumnDimension(\PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($c))->setWidth($defaultWidth);
+                        $spreadsheet->getActiveSheet()->getColumnDimension(Cell::stringFromColumnIndex($c))->setWidth($defaultWidth);
                         ++$c;
                     }
                     while (($c < ($column + $columnCount)) && ($c <= $maxCol)) {
-                        $spreadsheet->getActiveSheet()->getColumnDimension(\PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($c))->setWidth($columnWidth);
+                        $spreadsheet->getActiveSheet()->getColumnDimension(Cell::stringFromColumnIndex($c))->setWidth($columnWidth);
                         if ($hidden) {
-                            $spreadsheet->getActiveSheet()->getColumnDimension(\PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($c))->setVisible(false);
+                            $spreadsheet->getActiveSheet()->getColumnDimension(Cell::stringFromColumnIndex($c))->setVisible(false);
                         }
                         ++$c;
                     }
                 }
                 while ($c <= $maxCol) {
-                    $spreadsheet->getActiveSheet()->getColumnDimension(\PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($c))->setWidth($defaultWidth);
+                    $spreadsheet->getActiveSheet()->getColumnDimension(Cell::stringFromColumnIndex($c))->setWidth($defaultWidth);
                     ++$c;
                 }
             }

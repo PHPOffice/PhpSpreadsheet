@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Chart\Renderer;
 
+use PhpOffice\PhpSpreadsheet\Chart;
 use PhpOffice\PhpSpreadsheet\Settings;
 
 /**
@@ -850,7 +851,7 @@ class JpGraph
     /**
      * Create a new jpgraph.
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Chart $chart)
+    public function __construct(Chart $chart)
     {
         $this->graph = null;
         $this->chart = $chart;

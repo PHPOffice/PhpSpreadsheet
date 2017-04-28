@@ -3,6 +3,8 @@
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
 use PhpOffice\PhpSpreadsheet\Calculation;
+use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Chart;
 use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\Font;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
@@ -11,6 +13,7 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 
 /**
  * Copyright (c) 2006 - 2015 Spreadsheet.
@@ -442,10 +445,10 @@ class Html extends BaseWriter implements IWriter
 
             // Get worksheet dimension
             $dimension = explode(':', $sheet->calculateWorksheetDimension());
-            $dimension[0] = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($dimension[0]);
-            $dimension[0][0] = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($dimension[0][0]) - 1;
-            $dimension[1] = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($dimension[1]);
-            $dimension[1][0] = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($dimension[1][0]) - 1;
+            $dimension[0] = Cell::coordinateFromString($dimension[0]);
+            $dimension[0][0] = Cell::columnIndexFromString($dimension[0][0]) - 1;
+            $dimension[1] = Cell::coordinateFromString($dimension[1]);
+            $dimension[1][0] = Cell::columnIndexFromString($dimension[1][0]) - 1;
 
             // row min,max
             $rowMin = $dimension[0][1];
@@ -489,7 +492,7 @@ class Html extends BaseWriter implements IWriter
                     while ($column++ < $dimension[1][0]) {
                         // Cell exists?
                         if ($sheet->cellExistsByColumnAndRow($column, $row)) {
-                            $rowData[$column] = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($column) . $row;
+                            $rowData[$column] = Cell::stringFromColumnIndex($column) . $row;
                         } else {
                             $rowData[$column] = '';
                         }
@@ -573,13 +576,13 @@ class Html extends BaseWriter implements IWriter
         $colMax = 'A';
         if ($this->includeCharts) {
             foreach ($pSheet->getChartCollection() as $chart) {
-                if ($chart instanceof \PhpOffice\PhpSpreadsheet\Chart) {
+                if ($chart instanceof Chart) {
                     $chartCoordinates = $chart->getTopLeftPosition();
-                    $chartTL = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($chartCoordinates['cell']);
-                    $chartCol = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($chartTL[0]);
+                    $chartTL = Cell::coordinateFromString($chartCoordinates['cell']);
+                    $chartCol = Cell::columnIndexFromString($chartTL[0]);
                     if ($chartTL[1] > $rowMax) {
                         $rowMax = $chartTL[1];
-                        if ($chartCol > \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($colMax)) {
+                        if ($chartCol > Cell::columnIndexFromString($colMax)) {
                             $colMax = $chartTL[0];
                         }
                     }
@@ -589,11 +592,11 @@ class Html extends BaseWriter implements IWriter
 
         foreach ($pSheet->getDrawingCollection() as $drawing) {
             if ($drawing instanceof \PhpOffice\PhpSpreadsheet\Worksheet\Drawing) {
-                $imageTL = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($drawing->getCoordinates());
-                $imageCol = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($imageTL[0]);
+                $imageTL = Cell::coordinateFromString($drawing->getCoordinates());
+                $imageCol = Cell::columnIndexFromString($imageTL[0]);
                 if ($imageTL[1] > $rowMax) {
                     $rowMax = $imageTL[1];
-                    if ($imageCol > \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($colMax)) {
+                    if ($imageCol > Cell::columnIndexFromString($colMax)) {
                         $colMax = $imageTL[0];
                     }
                 }
@@ -686,7 +689,7 @@ class Html extends BaseWriter implements IWriter
                         $imageData . '" border="0" />';
                     $html .= '</div>';
                 }
-            } elseif ($drawing instanceof \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing) {
+            } elseif ($drawing instanceof MemoryDrawing) {
                 if ($drawing->getCoordinates() != $coordinates) {
                     continue;
                 }
@@ -725,7 +728,7 @@ class Html extends BaseWriter implements IWriter
 
         // Write charts
         foreach ($pSheet->getChartCollection() as $chart) {
-            if ($chart instanceof \PhpOffice\PhpSpreadsheet\Chart) {
+            if ($chart instanceof Chart) {
                 $chartCoordinates = $chart->getTopLeftPosition();
                 if ($chartCoordinates['cell'] == $coordinates) {
                     $chartFileName = \PhpOffice\PhpSpreadsheet\Shared\File::sysGetTempDir() . '/' . uniqid() . '.png';
@@ -890,7 +893,7 @@ class Html extends BaseWriter implements IWriter
             $sheet->calculateColumnWidths();
 
             // col elements, initialize
-            $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($sheet->getHighestColumn()) - 1;
+            $highestColumnIndex = Cell::columnIndexFromString($sheet->getHighestColumn()) - 1;
             $column = -1;
             while ($column++ < $highestColumnIndex) {
                 $this->columnWidths[$sheetIndex][$column] = 42; // approximation
@@ -901,7 +904,7 @@ class Html extends BaseWriter implements IWriter
             foreach ($sheet->getColumnDimensions() as $columnDimension) {
                 if (($width = \PhpOffice\PhpSpreadsheet\Shared\Drawing::cellDimensionToPixels($columnDimension->getWidth(), $this->defaultFont)) >= 0) {
                     $width = \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToPoints($width);
-                    $column = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($columnDimension->getColumnIndex()) - 1;
+                    $column = Cell::columnIndexFromString($columnDimension->getColumnIndex()) - 1;
                     $this->columnWidths[$sheetIndex][$column] = $width;
                     $css['table.sheet' . $sheetIndex . ' col.col' . $column]['width'] = $width . 'pt';
 
@@ -1142,7 +1145,7 @@ class Html extends BaseWriter implements IWriter
         }
 
         // Write <col> elements
-        $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($pSheet->getHighestColumn()) - 1;
+        $highestColumnIndex = Cell::columnIndexFromString($pSheet->getHighestColumn()) - 1;
         $i = -1;
         while ($i++ < $highestColumnIndex) {
             if (!$this->isPdf) {
@@ -1222,7 +1225,7 @@ class Html extends BaseWriter implements IWriter
         $colNum = 0;
         foreach ($pValues as $cellAddress) {
             $cell = ($cellAddress > '') ? $pSheet->getCell($cellAddress) : '';
-            $coordinate = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($colNum) . ($pRow + 1);
+            $coordinate = Cell::stringFromColumnIndex($colNum) . ($pRow + 1);
             if (!$this->useInlineCss) {
                 $cssClass = '';
                 $cssClass = 'column' . $colNum;
@@ -1244,8 +1247,8 @@ class Html extends BaseWriter implements IWriter
             // initialize
             $cellData = '&nbsp;';
 
-            // \PhpOffice\PhpSpreadsheet\Cell
-            if ($cell instanceof \PhpOffice\PhpSpreadsheet\Cell) {
+            // Cell
+            if ($cell instanceof Cell) {
                 $cellData = '';
                 if (is_null($cell->getParent())) {
                     $cell->attach($pSheet);
@@ -1353,7 +1356,7 @@ class Html extends BaseWriter implements IWriter
 
                 //    Also apply style from last cell in merge to fix borders -
                 //        relies on !important for non-none border declarations in createCSSStyleBorder
-                $endCellCoord = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($colNum + $colSpan - 1) . ($pRow + $rowSpan);
+                $endCellCoord = Cell::stringFromColumnIndex($colNum + $colSpan - 1) . ($pRow + $rowSpan);
                 if (!$this->useInlineCss) {
                     $cssClass .= ' style' . $pSheet->getCell($endCellCoord)->getXfIndex();
                 }
@@ -1564,15 +1567,15 @@ class Html extends BaseWriter implements IWriter
 
             // loop through all Excel merged cells
             foreach ($sheet->getMergeCells() as $cells) {
-                list($cells) = \PhpOffice\PhpSpreadsheet\Cell::splitRange($cells);
+                list($cells) = Cell::splitRange($cells);
                 $first = $cells[0];
                 $last = $cells[1];
 
-                list($fc, $fr) = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($first);
-                $fc = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($fc) - 1;
+                list($fc, $fr) = Cell::coordinateFromString($first);
+                $fc = Cell::columnIndexFromString($fc) - 1;
 
-                list($lc, $lr) = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($last);
-                $lc = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($lc) - 1;
+                list($lc, $lr) = Cell::coordinateFromString($last);
+                $lc = Cell::columnIndexFromString($lc) - 1;
 
                 // loop through the individual cells in the individual merge
                 $r = $fr - 1;
@@ -1602,7 +1605,7 @@ class Html extends BaseWriter implements IWriter
 
             // Identify which rows should be omitted in HTML. These are the rows where all the cells
             //   participate in a merge and the where base cells are somewhere above.
-            $countColumns = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($sheet->getHighestColumn());
+            $countColumns = Cell::columnIndexFromString($sheet->getHighestColumn());
             foreach ($candidateSpannedRow as $rowIndex) {
                 if (isset($this->isSpannedCell[$sheetIndex][$rowIndex])) {
                     if (count($this->isSpannedCell[$sheetIndex][$rowIndex]) == $countColumns) {

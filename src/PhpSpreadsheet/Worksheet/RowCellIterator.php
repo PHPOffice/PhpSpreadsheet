@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Cell;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -83,10 +85,10 @@ class RowCellIterator extends CellIterator implements \Iterator
      */
     public function resetStart($startColumn = 'A')
     {
-        $startColumnIndex = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($startColumn) - 1;
+        $startColumnIndex = Cell::columnIndexFromString($startColumn) - 1;
         $this->startColumn = $startColumnIndex;
         $this->adjustForExistingOnlyRange();
-        $this->seek(\PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($this->startColumn));
+        $this->seek(Cell::stringFromColumnIndex($this->startColumn));
 
         return $this;
     }
@@ -103,7 +105,7 @@ class RowCellIterator extends CellIterator implements \Iterator
     public function resetEnd($endColumn = null)
     {
         $endColumn = ($endColumn) ? $endColumn : $this->subject->getHighestColumn();
-        $this->endColumn = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($endColumn) - 1;
+        $this->endColumn = Cell::columnIndexFromString($endColumn) - 1;
         $this->adjustForExistingOnlyRange();
 
         return $this;
@@ -120,7 +122,7 @@ class RowCellIterator extends CellIterator implements \Iterator
      */
     public function seek($column = 'A')
     {
-        $column = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($column) - 1;
+        $column = Cell::columnIndexFromString($column) - 1;
         if (($column < $this->startColumn) || ($column > $this->endColumn)) {
             throw new \PhpOffice\PhpSpreadsheet\Exception("Column $column is out of range ({$this->startColumn} - {$this->endColumn})");
         } elseif ($this->onlyExistingCells && !($this->subject->cellExistsByColumnAndRow($column, $this->rowIndex))) {
@@ -142,7 +144,7 @@ class RowCellIterator extends CellIterator implements \Iterator
     /**
      * Return the current cell in this worksheet row.
      *
-     * @return \PhpOffice\PhpSpreadsheet\Cell
+     * @return Cell
      */
     public function current()
     {
@@ -156,7 +158,7 @@ class RowCellIterator extends CellIterator implements \Iterator
      */
     public function key()
     {
-        return \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($this->position);
+        return Cell::stringFromColumnIndex($this->position);
     }
 
     /**
@@ -181,8 +183,8 @@ class RowCellIterator extends CellIterator implements \Iterator
         if ($this->position <= $this->startColumn) {
             throw new \PhpOffice\PhpSpreadsheet\Exception(
                 'Column is already at the beginning of range (' .
-                \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($this->endColumn) . ' - ' .
-                \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($this->endColumn) . ')'
+                Cell::stringFromColumnIndex($this->endColumn) . ' - ' .
+                Cell::stringFromColumnIndex($this->endColumn) . ')'
             );
         }
 

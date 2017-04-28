@@ -26,6 +26,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
  * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
+use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
@@ -269,8 +270,8 @@ class Worksheet extends WriterPart
             // Calculate freeze coordinates
             $xSplit = $ySplit = 0;
 
-            list($xSplit, $ySplit) = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($topLeftCell);
-            $xSplit = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($xSplit);
+            list($xSplit, $ySplit) = Cell::coordinateFromString($topLeftCell);
+            $xSplit = Cell::columnIndexFromString($xSplit);
 
             // pane
             $pane = 'topRight';
@@ -389,8 +390,8 @@ class Worksheet extends WriterPart
             foreach ($pSheet->getColumnDimensions() as $colDimension) {
                 // col
                 $objWriter->startElement('col');
-                $objWriter->writeAttribute('min', \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($colDimension->getColumnIndex()));
-                $objWriter->writeAttribute('max', \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($colDimension->getColumnIndex()));
+                $objWriter->writeAttribute('min', Cell::columnIndexFromString($colDimension->getColumnIndex()));
+                $objWriter->writeAttribute('max', Cell::columnIndexFromString($colDimension->getColumnIndex()));
 
                 if ($colDimension->getWidth() < 0) {
                     // No width set, apply default of 10
@@ -774,7 +775,7 @@ class Worksheet extends WriterPart
             $objWriter->startElement('autoFilter');
 
             // Strip any worksheet reference from the filter coordinates
-            $range = \PhpOffice\PhpSpreadsheet\Cell::splitRange($autoFilterRange);
+            $range = Cell::splitRange($autoFilterRange);
             $range = $range[0];
             //    Strip any worksheet ref
             if (strpos($range[0], '!') !== false) {
@@ -942,7 +943,7 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('manualBreakCount', count($aRowBreaks));
 
             foreach ($aRowBreaks as $cell) {
-                $coords = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($cell);
+                $coords = Cell::coordinateFromString($cell);
 
                 $objWriter->startElement('brk');
                 $objWriter->writeAttribute('id', $coords[1]);
@@ -960,10 +961,10 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('manualBreakCount', count($aColumnBreaks));
 
             foreach ($aColumnBreaks as $cell) {
-                $coords = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($cell);
+                $coords = Cell::coordinateFromString($cell);
 
                 $objWriter->startElement('brk');
-                $objWriter->writeAttribute('id', \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($coords[0]) - 1);
+                $objWriter->writeAttribute('id', Cell::columnIndexFromString($coords[0]) - 1);
                 $objWriter->writeAttribute('man', '1');
                 $objWriter->endElement();
             }
@@ -990,7 +991,7 @@ class Worksheet extends WriterPart
         $objWriter->startElement('sheetData');
 
         // Get column count
-        $colCount = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($pSheet->getHighestColumn());
+        $colCount = Cell::columnIndexFromString($pSheet->getHighestColumn());
 
         // Highest row number
         $highestRow = $pSheet->getHighestRow();
@@ -998,7 +999,7 @@ class Worksheet extends WriterPart
         // Loop through cells
         $cellsByRow = [];
         foreach ($pSheet->getCoordinates() as $coordinate) {
-            $cellAddress = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($coordinate);
+            $cellAddress = Cell::coordinateFromString($coordinate);
             $cellsByRow[$cellAddress[1]][] = $coordinate;
         }
 
@@ -1064,7 +1065,7 @@ class Worksheet extends WriterPart
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
      * @param \PhpOffice\PhpSpreadsheet\Worksheet $pSheet Worksheet
-     * @param \PhpOffice\PhpSpreadsheet\Cell $pCellAddress Cell Address
+     * @param Cell $pCellAddress Cell Address
      * @param string[] $pStringTable String table
      * @param string[] $pFlippedStringTable String table (flipped), for faster index searching
      *

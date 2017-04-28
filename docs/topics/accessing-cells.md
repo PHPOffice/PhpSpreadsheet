@@ -133,7 +133,7 @@ not converted to a number.
 $spreadsheet->getActiveSheet()->setCellValueExplicit(
     'A8',
     "01513789642",
-    \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING
+    Cell\DataType::TYPE_STRING
 );
 ```
 
@@ -389,7 +389,7 @@ $worksheet = $spreadsheet->getActiveSheet();
 // Get the highest row and column numbers referenced in the worksheet
 $highestRow = $worksheet->getHighestRow(); // e.g. 10
 $highestColumn = $worksheet->getHighestColumn(); // e.g 'F'
-$highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($highestColumn); // e.g. 5
+$highestColumnIndex = Cell::columnIndexFromString($highestColumn); // e.g. 5
 
 echo '<table>' . "\n";
 for ($row = 1; $row <= $highestRow; ++$row) {
@@ -441,14 +441,14 @@ while \$col != the incremented highest column.
 ## Using value binders to facilitate data entry
 
 Internally, PhpSpreadsheet uses a default
-\PhpOffice\PhpSpreadsheet\Cell\IValueBinder implementation
-(\PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder) to determine data
+Cell\IValueBinder implementation
+(Cell\DefaultValueBinder) to determine data
 types of entered data using a cell's `setValue()` method (the
 `setValueExplicit()` method bypasses this check).
 
 Optionally, the default behaviour of PhpSpreadsheet can be modified,
 allowing easier data entry. For example, a
-\PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder class is available.
+Cell\AdvancedValueBinder class is available.
 It automatically converts percentages, number in scientific format, and
 dates entered as strings to the correct format, also setting the cell's
 style information. The following example demonstrates how to set the
@@ -459,7 +459,7 @@ value binder in PhpSpreadsheet:
 require_once 'src/Boostrap.php';
 
 // Set value binder
-\PhpOffice\PhpSpreadsheet\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
+Cell::setValueBinder( new Cell\AdvancedValueBinder() );
 
 // Create new Spreadsheet object
 $spreadsheet = new Spreadsheet();
@@ -477,6 +477,6 @@ $spreadsheet->getActiveSheet()->setCellValue('B5', '21 December 1983');
 
 **Creating your own value binder is easy.** When advanced value binding
 is required, you can implement the
-\PhpOffice\PhpSpreadsheet\Cell\IValueBinder interface or extend the
-\PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder or
-\PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder classes.
+Cell\IValueBinder interface or extend the
+Cell\DefaultValueBinder or
+Cell\AdvancedValueBinder classes.

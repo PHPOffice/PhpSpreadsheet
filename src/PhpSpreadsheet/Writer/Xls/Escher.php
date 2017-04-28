@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
+use PhpOffice\PhpSpreadsheet\Cell;
+
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
@@ -425,8 +427,8 @@ class Escher
                     $recType = 0xF010;
 
                     // start coordinates
-                    list($column, $row) = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($this->object->getStartCoordinates());
-                    $c1 = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($column) - 1;
+                    list($column, $row) = Cell::coordinateFromString($this->object->getStartCoordinates());
+                    $c1 = Cell::columnIndexFromString($column) - 1;
                     $r1 = $row - 1;
 
                     // start offsetX
@@ -436,8 +438,8 @@ class Escher
                     $startOffsetY = $this->object->getStartOffsetY();
 
                     // end coordinates
-                    list($column, $row) = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($this->object->getEndCoordinates());
-                    $c2 = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($column) - 1;
+                    list($column, $row) = Cell::coordinateFromString($this->object->getEndCoordinates());
+                    $c2 = Cell::columnIndexFromString($column) - 1;
                     $r2 = $row - 1;
 
                     // end offsetX

@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Cell;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -59,7 +61,7 @@ class ColumnCellIterator extends CellIterator implements \Iterator
     {
         // Set subject
         $this->subject = $subject;
-        $this->columnIndex = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($columnIndex) - 1;
+        $this->columnIndex = Cell::columnIndexFromString($columnIndex) - 1;
         $this->resetEnd($endRow);
         $this->resetStart($startRow);
     }
@@ -139,7 +141,7 @@ class ColumnCellIterator extends CellIterator implements \Iterator
     /**
      * Return the current cell in this worksheet column.
      *
-     * @return null|\PhpOffice\PhpSpreadsheet\Cell
+     * @return null|Cell
      */
     public function current()
     {

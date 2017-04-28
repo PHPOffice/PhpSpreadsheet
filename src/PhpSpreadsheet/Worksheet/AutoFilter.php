@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 /**
@@ -125,9 +126,9 @@ class AutoFilter
             $this->columns = [];
         } else {
             //    Discard any column rules that are no longer valid within this range
-            list($rangeStart, $rangeEnd) = \PhpOffice\PhpSpreadsheet\Cell::rangeBoundaries($this->range);
+            list($rangeStart, $rangeEnd) = Cell::rangeBoundaries($this->range);
             foreach ($this->columns as $key => $value) {
-                $colIndex = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($key);
+                $colIndex = Cell::columnIndexFromString($key);
                 if (($rangeStart[0] > $colIndex) || ($rangeEnd[0] < $colIndex)) {
                     unset($this->columns[$key]);
                 }
@@ -164,8 +165,8 @@ class AutoFilter
             throw new \PhpOffice\PhpSpreadsheet\Exception('No autofilter range is defined.');
         }
 
-        $columnIndex = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($column);
-        list($rangeStart, $rangeEnd) = \PhpOffice\PhpSpreadsheet\Cell::rangeBoundaries($this->range);
+        $columnIndex = Cell::columnIndexFromString($column);
+        list($rangeStart, $rangeEnd) = Cell::rangeBoundaries($this->range);
         if (($rangeStart[0] > $columnIndex) || ($rangeEnd[0] < $columnIndex)) {
             throw new \PhpOffice\PhpSpreadsheet\Exception('Column is outside of current autofilter range.');
         }
@@ -218,8 +219,8 @@ class AutoFilter
      */
     public function getColumnByOffset($pColumnOffset)
     {
-        list($rangeStart, $rangeEnd) = \PhpOffice\PhpSpreadsheet\Cell::rangeBoundaries($this->range);
-        $pColumn = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($rangeStart[0] + $pColumnOffset - 1);
+        list($rangeStart, $rangeEnd) = Cell::rangeBoundaries($this->range);
+        $pColumn = Cell::stringFromColumnIndex($rangeStart[0] + $pColumnOffset - 1);
 
         return $this->getColumn($pColumn);
     }
@@ -613,7 +614,7 @@ class AutoFilter
      */
     public function showHideRows()
     {
-        list($rangeStart, $rangeEnd) = \PhpOffice\PhpSpreadsheet\Cell::rangeBoundaries($this->range);
+        list($rangeStart, $rangeEnd) = Cell::rangeBoundaries($this->range);
 
         //    The heading row should always be visible
         $this->workSheet->getRowDimension($rangeStart[1])->setVisible(true);

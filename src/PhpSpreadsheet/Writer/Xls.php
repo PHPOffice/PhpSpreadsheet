@@ -2,8 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
+use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet.
@@ -315,7 +317,7 @@ class Xls extends BaseWriter implements IWriter
 
             // AutoFilters
             if (!empty($filterRange)) {
-                $rangeBounds = \PhpOffice\PhpSpreadsheet\Cell::rangeBoundaries($filterRange);
+                $rangeBounds = Cell::rangeBoundaries($filterRange);
                 $iNumColStart = $rangeBounds[0][0];
                 $iNumColEnd = $rangeBounds[1][0];
 
@@ -326,7 +328,7 @@ class Xls extends BaseWriter implements IWriter
                     // create an Drawing Object for the dropdown
                     $oDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing();
                     // get the coordinates of drawing
-                    $cDrawing = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($iInc - 1) . $rangeBounds[0][1];
+                    $cDrawing = Cell::stringFromColumnIndex($iInc - 1) . $rangeBounds[0][1];
                     $oDrawing->setCoordinates($cDrawing);
                     $oDrawing->setWorksheet($sheet);
 
@@ -355,7 +357,7 @@ class Xls extends BaseWriter implements IWriter
                     $spContainer->setOPT(0x03BF, 0x000A0000); // Group Shape -> fPrint
 
                     // set coordinates and offsets, client anchor
-                    $endCoordinates = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($iInc - 1);
+                    $endCoordinates = Cell::stringFromColumnIndex($iInc - 1);
                     $endCoordinates .= $rangeBounds[0][1] + 1;
 
                     $spContainer->setStartCoordinates($cDrawing);
@@ -487,15 +489,15 @@ class Xls extends BaseWriter implements IWriter
                     $BSE->setBlip($blip);
 
                     $bstoreContainer->addBSE($BSE);
-                } elseif ($drawing instanceof \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing) {
+                } elseif ($drawing instanceof MemoryDrawing) {
                     switch ($drawing->getRenderingFunction()) {
-                        case \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_JPEG:
+                        case MemoryDrawing::RENDERING_JPEG:
                             $blipType = \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_JPEG;
                             $renderingFunction = 'imagejpeg';
                             break;
-                        case \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_GIF:
-                        case \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_PNG:
-                        case \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_DEFAULT:
+                        case MemoryDrawing::RENDERING_GIF:
+                        case MemoryDrawing::RENDERING_PNG:
+                        case MemoryDrawing::RENDERING_DEFAULT:
                             $blipType = \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_PNG;
                             $renderingFunction = 'imagepng';
                             break;
