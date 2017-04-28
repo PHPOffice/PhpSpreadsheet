@@ -3,6 +3,8 @@
 namespace PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\Style\Color;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -56,7 +58,7 @@ class Chart
         if (isset($color['rgb'])) {
             return (string) $color['rgb'];
         } elseif (isset($color['indexed'])) {
-            return \PhpOffice\PhpSpreadsheet\Style\Color::indexedColor($color['indexed'] - 7, $background)->getARGB();
+            return Color::indexedColor($color['indexed'] - 7, $background)->getARGB();
         }
     }
 
@@ -401,7 +403,7 @@ class Chart
 
     private static function parseRichText(\SimpleXMLElement $titleDetailPart)
     {
-        $value = new \PhpOffice\PhpSpreadsheet\RichText();
+        $value = new RichText();
 
         foreach ($titleDetailPart as $titleDetailElementKey => $titleDetailElement) {
             if (isset($titleDetailElement->t)) {
@@ -419,7 +421,7 @@ class Chart
 
                 $fontColor = (self::getAttribute($titleDetailElement->rPr, 'color', 'string'));
                 if (!is_null($fontColor)) {
-                    $objText->getFont()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color(self::readColor($fontColor)));
+                    $objText->getFont()->setColor(new Color(self::readColor($fontColor)));
                 }
 
                 $bold = self::getAttribute($titleDetailElement->rPr, 'b', 'boolean');

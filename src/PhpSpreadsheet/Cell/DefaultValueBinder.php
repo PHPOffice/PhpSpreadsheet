@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
+use PhpOffice\PhpSpreadsheet\RichText;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -43,7 +45,7 @@ class DefaultValueBinder implements IValueBinder
             // Handle any objects that might be injected
             if ($value instanceof \DateTime) {
                 $value = $value->format('Y-m-d H:i:s');
-            } elseif (!($value instanceof \PhpOffice\PhpSpreadsheet\RichText)) {
+            } elseif (!($value instanceof RichText)) {
                 $value = (string) $value;
             }
         }
@@ -69,7 +71,7 @@ class DefaultValueBinder implements IValueBinder
             return DataType::TYPE_NULL;
         } elseif ($pValue === '') {
             return DataType::TYPE_STRING;
-        } elseif ($pValue instanceof \PhpOffice\PhpSpreadsheet\RichText) {
+        } elseif ($pValue instanceof RichText) {
             return DataType::TYPE_INLINE;
         } elseif ($pValue[0] === '=' && strlen($pValue) > 1) {
             return DataType::TYPE_FORMULA;

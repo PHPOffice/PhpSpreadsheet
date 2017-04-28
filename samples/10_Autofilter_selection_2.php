@@ -2,6 +2,7 @@
 
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 require __DIR__ . '/Header.php';
 
@@ -89,8 +90,8 @@ $spreadsheet->getActiveSheet()->getStyle('A1:F1')->getFont()->setBold(true);
 $spreadsheet->getActiveSheet()->getStyle('A1:F1')->getAlignment()->setWrapText(true);
 $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(12.5);
 $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(10.5);
-$spreadsheet->getActiveSheet()->getStyle('D2:D' . $row)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2);
-$spreadsheet->getActiveSheet()->getStyle('E2:F' . $row)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+$spreadsheet->getActiveSheet()->getStyle('D2:D' . $row)->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_YYYYMMDD2);
+$spreadsheet->getActiveSheet()->getStyle('E2:F' . $row)->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
 $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(14);
 $spreadsheet->getActiveSheet()->freezePane('A2');
 

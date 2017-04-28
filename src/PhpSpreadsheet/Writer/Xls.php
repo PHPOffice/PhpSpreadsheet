@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
+use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
@@ -153,10 +154,10 @@ class Xls extends BaseWriter implements IWriter
             foreach ($this->writerWorksheets[$i]->phpSheet->getCoordinates() as $coordinate) {
                 $cell = $this->writerWorksheets[$i]->phpSheet->getCell($coordinate);
                 $cVal = $cell->getValue();
-                if ($cVal instanceof \PhpOffice\PhpSpreadsheet\RichText) {
+                if ($cVal instanceof RichText) {
                     $elements = $cVal->getRichTextElements();
                     foreach ($elements as $element) {
-                        if ($element instanceof \PhpOffice\PhpSpreadsheet\RichText\Run) {
+                        if ($element instanceof RichText\Run) {
                             $font = $element->getFont();
                             $this->writerWorksheets[$i]->fontHashIndex[$font->getHashCode()] = $this->writerWorkbook->addFont($font);
                         }

@@ -1,6 +1,8 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 require __DIR__ . '/Header.php';
 
@@ -34,7 +36,7 @@ $spreadsheet->getActiveSheet()
 $spreadsheet->getActiveSheet()->getStyle('A1:A8')
         ->getNumberFormat()
         ->setFormatCode(
-            \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_PERCENTAGE_00
+            NumberFormat::FORMAT_PERCENTAGE_00
         );
 
 // Add conditional formatting
@@ -43,13 +45,13 @@ $conditional1 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
 $conditional1->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS)
         ->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_LESSTHAN)
         ->addCondition('0');
-$conditional1->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
+$conditional1->getStyle()->getFont()->getColor()->setARGB(Color::COLOR_RED);
 
 $conditional3 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
 $conditional3->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS)
         ->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_GREATERTHANOREQUAL)
         ->addCondition('1');
-$conditional3->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_GREEN);
+$conditional3->getStyle()->getFont()->getColor()->setARGB(Color::COLOR_GREEN);
 
 $conditionalStyles = $spreadsheet->getActiveSheet()->getStyle('A1')->getConditionalStyles();
 array_push($conditionalStyles, $conditional1);

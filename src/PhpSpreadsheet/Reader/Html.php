@@ -7,6 +7,7 @@ use DOMElement;
 use DOMNode;
 use DOMText;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Color;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -98,7 +99,7 @@ class Html extends BaseReader implements IReader
             'font' => [
                 'underline' => true,
                 'color' => [
-                    'argb' => \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLUE,
+                    'argb' => Color::COLOR_BLUE,
                 ],
             ],
         ], //    Blue underlined
@@ -107,7 +108,7 @@ class Html extends BaseReader implements IReader
                 'bottom' => [
                     'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
                     'color' => [
-                        \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK,
+                        Color::COLOR_BLACK,
                     ],
                 ],
             ],

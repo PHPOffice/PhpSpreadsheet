@@ -2,6 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
+use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
@@ -412,14 +415,14 @@ class Worksheet extends BIFFwriter
             $xfIndex = $cell->getXfIndex() + 15; // there are 15 cell style Xfs
 
             $cVal = $cell->getValue();
-            if ($cVal instanceof \PhpOffice\PhpSpreadsheet\RichText) {
+            if ($cVal instanceof RichText) {
                 $arrcRun = [];
                 $str_len = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::countCharacters($cVal->getPlainText(), 'UTF-8');
                 $str_pos = 0;
                 $elements = $cVal->getRichTextElements();
                 foreach ($elements as $element) {
                     // FONT Index
-                    if ($element instanceof \PhpOffice\PhpSpreadsheet\RichText\Run) {
+                    if ($element instanceof RichText\Run) {
                         $str_fontidx = $this->fontHashIndex[$element->getFont()->getHashCode()];
                     } else {
                         $str_fontidx = 0;
@@ -3116,13 +3119,13 @@ class Worksheet extends BIFFwriter
             $bFormatProt = 0;
         }
         // Border
-        $bBorderLeft = ($conditional->getStyle()->getBorders()->getLeft()->getColor()->getARGB() == \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK
+        $bBorderLeft = ($conditional->getStyle()->getBorders()->getLeft()->getColor()->getARGB() == Color::COLOR_BLACK
                         && $conditional->getStyle()->getBorders()->getLeft()->getBorderStyle() == \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE ? 1 : 0);
-        $bBorderRight = ($conditional->getStyle()->getBorders()->getRight()->getColor()->getARGB() == \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK
+        $bBorderRight = ($conditional->getStyle()->getBorders()->getRight()->getColor()->getARGB() == Color::COLOR_BLACK
                         && $conditional->getStyle()->getBorders()->getRight()->getBorderStyle() == \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE ? 1 : 0);
-        $bBorderTop = ($conditional->getStyle()->getBorders()->getTop()->getColor()->getARGB() == \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK
+        $bBorderTop = ($conditional->getStyle()->getBorders()->getTop()->getColor()->getARGB() == Color::COLOR_BLACK
                         && $conditional->getStyle()->getBorders()->getTop()->getBorderStyle() == \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE ? 1 : 0);
-        $bBorderBottom = ($conditional->getStyle()->getBorders()->getBottom()->getColor()->getARGB() == \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK
+        $bBorderBottom = ($conditional->getStyle()->getBorders()->getBottom()->getColor()->getARGB() == Color::COLOR_BLACK
                         && $conditional->getStyle()->getBorders()->getBottom()->getBorderStyle() == \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE ? 1 : 0);
         if ($bBorderLeft == 0 || $bBorderRight == 0 || $bBorderTop == 0 || $bBorderBottom == 0) {
             $bFormatBorder = 1;

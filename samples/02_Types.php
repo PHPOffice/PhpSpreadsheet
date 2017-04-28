@@ -1,7 +1,10 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 require __DIR__ . '/Header.php';
 
@@ -77,7 +80,7 @@ $spreadsheet->getActiveSheet()
 $spreadsheet->getActiveSheet()
         ->getStyle('C9')
         ->getNumberFormat()
-        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2);
+        ->setFormatCode(NumberFormat::FORMAT_DATE_YYYYMMDD2);
 
 $spreadsheet->getActiveSheet()
         ->setCellValue('A10', 'Date/Time')
@@ -86,7 +89,7 @@ $spreadsheet->getActiveSheet()
 $spreadsheet->getActiveSheet()
         ->getStyle('C10')
         ->getNumberFormat()
-        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4);
+        ->setFormatCode(NumberFormat::FORMAT_DATE_TIME4);
 
 $spreadsheet->getActiveSheet()
         ->setCellValue('A11', 'Date/Time')
@@ -95,19 +98,19 @@ $spreadsheet->getActiveSheet()
 $spreadsheet->getActiveSheet()
         ->getStyle('C11')
         ->getNumberFormat()
-        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DATETIME);
+        ->setFormatCode(NumberFormat::FORMAT_DATE_DATETIME);
 
 $spreadsheet->getActiveSheet()
         ->setCellValue('A12', 'NULL')
         ->setCellValue('C12', null);
 
-$richText = new \PhpOffice\PhpSpreadsheet\RichText();
+$richText = new RichText();
 $richText->createText('你好 ');
 
 $payable = $richText->createTextRun('你 好 吗？');
 $payable->getFont()->setBold(true);
 $payable->getFont()->setItalic(true);
-$payable->getFont()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN));
+$payable->getFont()->setColor(new Color(Color::COLOR_DARKGREEN));
 
 $richText->createText(', unless specified otherwise on the invoice.');
 
@@ -115,11 +118,11 @@ $spreadsheet->getActiveSheet()
         ->setCellValue('A13', 'Rich Text')
         ->setCellValue('C13', $richText);
 
-$richText2 = new \PhpOffice\PhpSpreadsheet\RichText();
+$richText2 = new RichText();
 $richText2->createText("black text\n");
 
 $red = $richText2->createTextRun('red text');
-$red->getFont()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED));
+$red->getFont()->setColor(new Color(Color::COLOR_RED));
 
 $spreadsheet->getActiveSheet()
         ->getCell('C14')

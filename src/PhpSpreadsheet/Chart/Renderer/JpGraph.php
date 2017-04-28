@@ -107,7 +107,7 @@ class JpGraph
             } else {
                 //    Format labels according to any formatting code
                 if (!is_null($datasetLabelFormatCode)) {
-                    $datasetLabels[$i] = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::toFormattedString($datasetLabel, $datasetLabelFormatCode);
+                    $datasetLabels[$i] = NumberFormat::toFormattedString($datasetLabel, $datasetLabelFormatCode);
                 }
             }
             ++$testCurrentIndex;

@@ -2,6 +2,7 @@
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 require __DIR__ . '/Header.php';
 
@@ -20,7 +21,7 @@ $worksheet->fromArray(
     'A1',
     true
 );
-$worksheet->getStyle('B2:E6')->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER_00);
+$worksheet->getStyle('B2:E6')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
 
 //	Set the Labels for each data series we want to plot
 //		Datatype

@@ -3,9 +3,11 @@
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
 use PhpOffice\PhpSpreadsheet\Calculation;
+use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\Font;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 /**
  * Copyright (c) 2006 - 2015 Spreadsheet.
@@ -1246,12 +1248,12 @@ class Html extends BaseWriter implements IWriter
                     $cell->attach($pSheet);
                 }
                 // Value
-                if ($cell->getValue() instanceof \PhpOffice\PhpSpreadsheet\RichText) {
+                if ($cell->getValue() instanceof RichText) {
                     // Loop through rich text elements
                     $elements = $cell->getValue()->getRichTextElements();
                     foreach ($elements as $element) {
                         // Rich text start?
-                        if ($element instanceof \PhpOffice\PhpSpreadsheet\RichText\Run) {
+                        if ($element instanceof RichText\Run) {
                             $cellData .= '<span style="' . $this->assembleCSS($this->createCSSStyleFont($element->getFont())) . '">';
 
                             if ($element->getFont()->getSuperScript()) {
@@ -1265,7 +1267,7 @@ class Html extends BaseWriter implements IWriter
                         $cellText = $element->getText();
                         $cellData .= htmlspecialchars($cellText);
 
-                        if ($element instanceof \PhpOffice\PhpSpreadsheet\RichText\Run) {
+                        if ($element instanceof RichText\Run) {
                             if ($element->getFont()->getSuperScript()) {
                                 $cellData .= '</sup>';
                             } elseif ($element->getFont()->getSubScript()) {
@@ -1277,13 +1279,13 @@ class Html extends BaseWriter implements IWriter
                     }
                 } else {
                     if ($this->preCalculateFormulas) {
-                        $cellData = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::toFormattedString(
+                        $cellData = NumberFormat::toFormattedString(
                             $cell->getCalculatedValue(),
                             $pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode(),
                             [$this, 'formatColor']
                         );
                     } else {
-                        $cellData = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::toFormattedString(
+                        $cellData = NumberFormat::toFormattedString(
                             $cell->getValue(),
                             $pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode(),
                             [$this, 'formatColor']

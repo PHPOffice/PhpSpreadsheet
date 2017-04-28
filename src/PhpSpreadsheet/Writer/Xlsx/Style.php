@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -554,12 +555,12 @@ class Style extends WriterPart
      * Write NumberFormat.
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
-     * @param \PhpOffice\PhpSpreadsheet\Style\NumberFormat $pNumberFormat Number Format
+     * @param NumberFormat $pNumberFormat Number Format
      * @param int $pId Number Format identifier
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeNumFmt(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Style\NumberFormat $pNumberFormat, $pId = 0)
+    private function writeNumFmt(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, NumberFormat $pNumberFormat, $pId = 0)
     {
         // Translate formatcode
         $formatCode = $pNumberFormat->getFormatCode();
@@ -704,7 +705,7 @@ class Style extends WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
-     * @return \PhpOffice\PhpSpreadsheet\Style\NumberFormat[] All number formats in PhpSpreadsheet
+     * @return NumberFormat[] All number formats in PhpSpreadsheet
      */
     public function allNumberFormats(Spreadsheet $spreadsheet)
     {

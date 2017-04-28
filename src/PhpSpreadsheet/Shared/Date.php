@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -345,11 +347,11 @@ class Date
     /**
      * Is a given number format a date/time?
      *
-     * @param \PhpOffice\PhpSpreadsheet\Style\NumberFormat $pFormat
+     * @param NumberFormat $pFormat
      *
      * @return bool
      */
-    public static function isDateTimeFormat(\PhpOffice\PhpSpreadsheet\Style\NumberFormat $pFormat)
+    public static function isDateTimeFormat(NumberFormat $pFormat)
     {
         return self::isDateTimeFormatCode($pFormat->getFormatCode());
     }
@@ -365,7 +367,7 @@ class Date
      */
     public static function isDateTimeFormatCode($pFormatCode)
     {
-        if (strtolower($pFormatCode) === strtolower(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_GENERAL)) {
+        if (strtolower($pFormatCode) === strtolower(NumberFormat::FORMAT_GENERAL)) {
             //    "General" contains an epoch letter 'e', so we trap for it explicitly here (case-insensitive check)
             return false;
         }
@@ -377,28 +379,28 @@ class Date
         // Switch on formatcode
         switch ($pFormatCode) {
             //    Explicitly defined date formats
-            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD:
-            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2:
-            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DDMMYYYY:
-            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DMYSLASH:
-            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DMYMINUS:
-            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DMMINUS:
-            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_MYMINUS:
-            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DATETIME:
-            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME1:
-            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME2:
-            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME3:
-            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4:
-            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME5:
-            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME6:
-            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME7:
-            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME8:
-            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH:
-            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX14:
-            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX15:
-            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX16:
-            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX17:
-            case \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX22:
+            case NumberFormat::FORMAT_DATE_YYYYMMDD:
+            case NumberFormat::FORMAT_DATE_YYYYMMDD2:
+            case NumberFormat::FORMAT_DATE_DDMMYYYY:
+            case NumberFormat::FORMAT_DATE_DMYSLASH:
+            case NumberFormat::FORMAT_DATE_DMYMINUS:
+            case NumberFormat::FORMAT_DATE_DMMINUS:
+            case NumberFormat::FORMAT_DATE_MYMINUS:
+            case NumberFormat::FORMAT_DATE_DATETIME:
+            case NumberFormat::FORMAT_DATE_TIME1:
+            case NumberFormat::FORMAT_DATE_TIME2:
+            case NumberFormat::FORMAT_DATE_TIME3:
+            case NumberFormat::FORMAT_DATE_TIME4:
+            case NumberFormat::FORMAT_DATE_TIME5:
+            case NumberFormat::FORMAT_DATE_TIME6:
+            case NumberFormat::FORMAT_DATE_TIME7:
+            case NumberFormat::FORMAT_DATE_TIME8:
+            case NumberFormat::FORMAT_DATE_YYYYMMDDSLASH:
+            case NumberFormat::FORMAT_DATE_XLSX14:
+            case NumberFormat::FORMAT_DATE_XLSX15:
+            case NumberFormat::FORMAT_DATE_XLSX16:
+            case NumberFormat::FORMAT_DATE_XLSX17:
+            case NumberFormat::FORMAT_DATE_XLSX22:
                 return true;
         }
 

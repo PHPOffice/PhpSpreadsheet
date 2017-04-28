@@ -1,6 +1,8 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 require __DIR__ . '/Header.php';
 
@@ -54,25 +56,25 @@ $conditional1->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CON
         ->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_BETWEEN)
         ->addCondition('200')
         ->addCondition('400');
-$conditional1->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_YELLOW);
+$conditional1->getStyle()->getFont()->getColor()->setARGB(Color::COLOR_YELLOW);
 $conditional1->getStyle()->getFont()->setBold(true);
-$conditional1->getStyle()->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
+$conditional1->getStyle()->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
 
 $conditional2 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
 $conditional2->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS)
         ->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_LESSTHAN)
         ->addCondition('0');
-$conditional2->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
+$conditional2->getStyle()->getFont()->getColor()->setARGB(Color::COLOR_RED);
 $conditional2->getStyle()->getFont()->setItalic(true);
-$conditional2->getStyle()->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
+$conditional2->getStyle()->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
 
 $conditional3 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
 $conditional3->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS)
         ->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_GREATERTHANOREQUAL)
         ->addCondition('0');
-$conditional3->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_GREEN);
+$conditional3->getStyle()->getFont()->getColor()->setARGB(Color::COLOR_GREEN);
 $conditional3->getStyle()->getFont()->setItalic(true);
-$conditional3->getStyle()->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
+$conditional3->getStyle()->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
 
 $conditionalStyles = $spreadsheet->getActiveSheet()->getStyle('B2')->getConditionalStyles();
 array_push($conditionalStyles, $conditional1);

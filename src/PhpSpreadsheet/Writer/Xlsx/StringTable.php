@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\RichText;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -63,7 +65,7 @@ class StringTable extends WriterPart
                     ($cell->getDataType() == \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING || $cell->getDataType() == \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING2 || $cell->getDataType() == \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NULL)) {
                     $aStringTable[] = $cellValue;
                     $aFlippedStringTable[$cellValue] = true;
-                } elseif ($cellValue instanceof \PhpOffice\PhpSpreadsheet\RichText &&
+                } elseif ($cellValue instanceof RichText &&
                           ($cellValue !== null) &&
                           !isset($aFlippedStringTable[$cellValue->getHashCode()])) {
                     $aStringTable[] = $cellValue;
@@ -107,7 +109,7 @@ class StringTable extends WriterPart
         foreach ($pStringTable as $textElement) {
             $objWriter->startElement('si');
 
-            if (!$textElement instanceof \PhpOffice\PhpSpreadsheet\RichText) {
+            if (!$textElement instanceof RichText) {
                 $textToWrite = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::controlCharacterPHP2OOXML($textElement);
                 $objWriter->startElement('t');
                 if ($textToWrite !== trim($textToWrite)) {
@@ -115,7 +117,7 @@ class StringTable extends WriterPart
                 }
                 $objWriter->writeRawData($textToWrite);
                 $objWriter->endElement();
-            } elseif ($textElement instanceof \PhpOffice\PhpSpreadsheet\RichText) {
+            } elseif ($textElement instanceof RichText) {
                 $this->writeRichText($objWriter, $textElement);
             }
 
@@ -131,12 +133,12 @@ class StringTable extends WriterPart
      * Write Rich Text.
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
-     * @param \PhpOffice\PhpSpreadsheet\RichText $pRichText Rich text
+     * @param RichText $pRichText Rich text
      * @param string $prefix Optional Namespace prefix
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function writeRichText(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\RichText $pRichText, $prefix = null)
+    public function writeRichText(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, RichText $pRichText, $prefix = null)
     {
         if ($prefix !== null) {
             $prefix .= ':';
@@ -149,7 +151,7 @@ class StringTable extends WriterPart
             $objWriter->startElement($prefix . 'r');
 
             // rPr
-            if ($element instanceof \PhpOffice\PhpSpreadsheet\RichText\Run) {
+            if ($element instanceof RichText\Run) {
                 // rPr
                 $objWriter->startElement($prefix . 'rPr');
 
@@ -216,16 +218,16 @@ class StringTable extends WriterPart
      * Write Rich Text.
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
-     * @param string|\PhpOffice\PhpSpreadsheet\RichText $pRichText text string or Rich text
+     * @param string|RichText $pRichText text string or Rich text
      * @param string $prefix Optional Namespace prefix
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     public function writeRichTextForCharts(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, $pRichText = null, $prefix = null)
     {
-        if (!$pRichText instanceof \PhpOffice\PhpSpreadsheet\RichText) {
+        if (!$pRichText instanceof RichText) {
             $textRun = $pRichText;
-            $pRichText = new \PhpOffice\PhpSpreadsheet\RichText();
+            $pRichText = new RichText();
             $pRichText->createTextRun($textRun);
         }
 
@@ -290,9 +292,9 @@ class StringTable extends WriterPart
 
         // Loop through stringtable and add flipped items to $returnValue
         foreach ($stringTable as $key => $value) {
-            if (!$value instanceof \PhpOffice\PhpSpreadsheet\RichText) {
+            if (!$value instanceof RichText) {
                 $returnValue[$value] = $key;
-            } elseif ($value instanceof \PhpOffice\PhpSpreadsheet\RichText) {
+            } elseif ($value instanceof RichText) {
                 $returnValue[$value->getHashCode()] = $key;
             }
         }

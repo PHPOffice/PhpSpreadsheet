@@ -1,8 +1,11 @@
 <?php
 
 // Create new Spreadsheet object
+use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 $helper->log('Create new Spreadsheet object');
 $spreadsheet = new Spreadsheet();
@@ -22,7 +25,7 @@ $helper->log('Add some data');
 $spreadsheet->setActiveSheetIndex(0);
 $spreadsheet->getActiveSheet()->setCellValue('B1', 'Invoice');
 $spreadsheet->getActiveSheet()->setCellValue('D1', Date::PHPToExcel(gmmktime(0, 0, 0, date('m'), date('d'), date('Y'))));
-$spreadsheet->getActiveSheet()->getStyle('D1')->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX15);
+$spreadsheet->getActiveSheet()->getStyle('D1')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_XLSX15);
 $spreadsheet->getActiveSheet()->setCellValue('E1', '#12566');
 
 $spreadsheet->getActiveSheet()->setCellValue('A3', 'Product Id');
@@ -84,13 +87,13 @@ $spreadsheet->getActiveSheet()->getComment('E13')->getFillColor()->setRGB('EEEEE
 
 // Add rich-text string
 $helper->log('Add rich-text string');
-$richText = new \PhpOffice\PhpSpreadsheet\RichText();
+$richText = new RichText();
 $richText->createText('This invoice is ');
 
 $payable = $richText->createTextRun('payable within thirty days after the end of the month');
 $payable->getFont()->setBold(true);
 $payable->getFont()->setItalic(true);
-$payable->getFont()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN));
+$payable->getFont()->setColor(new Color(Color::COLOR_DARKGREEN));
 
 $richText->createText(', unless specified otherwise on the invoice.');
 
@@ -108,7 +111,7 @@ $spreadsheet->getActiveSheet()->protectCells('A3:E13', 'PhpSpreadsheet');
 
 // Set cell number formats
 $helper->log('Set cell number formats');
-$spreadsheet->getActiveSheet()->getStyle('E4:E13')->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
+$spreadsheet->getActiveSheet()->getStyle('E4:E13')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
 
 // Set column widths
 $helper->log('Set column widths');
@@ -122,10 +125,10 @@ $spreadsheet->getActiveSheet()->getStyle('B1')->getFont()->setName('Candara');
 $spreadsheet->getActiveSheet()->getStyle('B1')->getFont()->setSize(20);
 $spreadsheet->getActiveSheet()->getStyle('B1')->getFont()->setBold(true);
 $spreadsheet->getActiveSheet()->getStyle('B1')->getFont()->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE);
-$spreadsheet->getActiveSheet()->getStyle('B1')->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()->getStyle('B1')->getFont()->getColor()->setARGB(Color::COLOR_WHITE);
 
-$spreadsheet->getActiveSheet()->getStyle('D1')->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
-$spreadsheet->getActiveSheet()->getStyle('E1')->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()->getStyle('D1')->getFont()->getColor()->setARGB(Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()->getStyle('E1')->getFont()->getColor()->setARGB(Color::COLOR_WHITE);
 
 $spreadsheet->getActiveSheet()->getStyle('D13')->getFont()->setBold(true);
 $spreadsheet->getActiveSheet()->getStyle('E13')->getFont()->setBold(true);

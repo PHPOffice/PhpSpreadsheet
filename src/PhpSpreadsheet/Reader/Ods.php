@@ -6,6 +6,7 @@ use DateTime;
 use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
@@ -566,7 +567,7 @@ class Ods extends BaseReader implements IReader
                                             if (floor($dataValue) == $dataValue) {
                                                 $dataValue = (int) $dataValue;
                                             }
-                                            $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_PERCENTAGE_00;
+                                            $formatting = NumberFormat::FORMAT_PERCENTAGE_00;
                                             break;
                                         case 'currency':
                                             $type = DataType::TYPE_NUMERIC;
@@ -575,7 +576,7 @@ class Ods extends BaseReader implements IReader
                                             if (floor($dataValue) == $dataValue) {
                                                 $dataValue = (int) $dataValue;
                                             }
-                                            $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
+                                            $formatting = NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
                                             break;
                                         case 'float':
                                             $type = DataType::TYPE_NUMERIC;
@@ -610,11 +611,11 @@ class Ods extends BaseReader implements IReader
                                             );
 
                                             if ($dataValue != floor($dataValue)) {
-                                                $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX15
+                                                $formatting = NumberFormat::FORMAT_DATE_XLSX15
                                                     . ' '
-                                                    . \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4;
+                                                    . NumberFormat::FORMAT_DATE_TIME4;
                                             } else {
-                                                $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX15;
+                                                $formatting = NumberFormat::FORMAT_DATE_XLSX15;
                                             }
                                             break;
                                         case 'time':
@@ -627,7 +628,7 @@ class Ods extends BaseReader implements IReader
                                                     '01-01-1970 ' . implode(':', sscanf($timeValue, 'PT%dH%dM%dS'))
                                                 )
                                             );
-                                            $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4;
+                                            $formatting = NumberFormat::FORMAT_DATE_TIME4;
                                             break;
                                         default:
                                             $dataValue = null;
@@ -798,11 +799,11 @@ class Ods extends BaseReader implements IReader
     /**
      * @param string $is
      *
-     * @return \PhpOffice\PhpSpreadsheet\RichText
+     * @return RichText
      */
     private function parseRichText($is)
     {
-        $value = new \PhpOffice\PhpSpreadsheet\RichText();
+        $value = new RichText();
         $value->createText($is);
 
         return $value;

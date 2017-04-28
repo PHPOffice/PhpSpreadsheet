@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
+use PhpOffice\PhpSpreadsheet\RichText;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -71,7 +73,7 @@ class DataType
      */
     public static function checkString($pValue)
     {
-        if ($pValue instanceof \PhpOffice\PhpSpreadsheet\RichText) {
+        if ($pValue instanceof RichText) {
             // TODO: Sanitize Rich-Text string (max. character count is 32,767)
             return $pValue;
         }

@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -193,7 +194,7 @@ class TextData
             $value = MathTrig::MROUND($value, $round);
         }
 
-        return \PhpOffice\PhpSpreadsheet\Style\NumberFormat::toFormattedString($value, $mask);
+        return NumberFormat::toFormattedString($value, $mask);
     }
 
     /**
@@ -549,7 +550,7 @@ class TextData
             $value = DateTime::DATEVALUE($value);
         }
 
-        return (string) \PhpOffice\PhpSpreadsheet\Style\NumberFormat::toFormattedString($value, $format);
+        return (string) NumberFormat::toFormattedString($value, $format);
     }
 
     /**

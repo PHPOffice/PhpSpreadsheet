@@ -146,7 +146,7 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getNumberFormat()->applyFromArray(
      *        array(
-     *            'code' => \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE
+     *            'code' => NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE
      *        )
      * );
      * </code>

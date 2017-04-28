@@ -106,7 +106,7 @@ $spreadsheet->getActiveSheet()->setCellValue(
 $spreadsheet->getActiveSheet()->getStyle('A6')
     ->getNumberFormat()
     ->setFormatCode(
-        \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_DATETIME
+        NumberFormat::FORMAT_DATE_DATETIME
     );
 ```
 

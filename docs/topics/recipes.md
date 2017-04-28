@@ -78,7 +78,7 @@ $spreadsheet->getActiveSheet()
 
 $spreadsheet->getActiveSheet()->getStyle('D1')
     ->getNumberFormat()
-    ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
+    ->setFormatCode(NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
 
 // PHP-time (Unix time)
 $time = gmmktime(0,0,0,12,31,2008); // int(1230681600)
@@ -86,17 +86,17 @@ $spreadsheet->getActiveSheet()
     ->setCellValue('D1', Date::PHPToExcel($time));
 $spreadsheet->getActiveSheet()->getStyle('D1')
     ->getNumberFormat()
-    ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
+    ->setFormatCode(NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
 
 // Excel-date/time
 $spreadsheet->getActiveSheet()->setCellValue('D1', 39813)
 $spreadsheet->getActiveSheet()->getStyle('D1')
     ->getNumberFormat()
-    ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
+    ->setFormatCode(NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
 ```
 
 The above methods for entering a date all yield the same result.
-\PhpOffice\PhpSpreadsheet\Style\NumberFormat provides a lot of
+NumberFormat provides a lot of
 pre-defined date formats.
 
 The Date::PHPToExcel() method will also
@@ -513,7 +513,7 @@ that on cell B2:
 
 ``` php
 $spreadsheet->getActiveSheet()->getStyle('B2')
-    ->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
+    ->getFont()->getColor()->setARGB(Color::COLOR_RED);
 $spreadsheet->getActiveSheet()->getStyle('B2')
     ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
 $spreadsheet->getActiveSheet()->getStyle('B2')
@@ -604,7 +604,7 @@ Example:
 
 ``` php
 $spreadsheet->getActiveSheet()->getStyle('A1')->getNumberFormat()
-    ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+    ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
 ```
 
 This will format a number e.g. 1587.2 so it shows up as 1,587.20 when
@@ -818,7 +818,7 @@ wrap        | setWrapText()
 shrinkToFit | setShrinkToFit()
 indent      | setIndent()
 
-**\PhpOffice\PhpSpreadsheet\Style\NumberFormat**
+**NumberFormat**
 
 Array key | Maps to property
 ----------|-------------------
@@ -845,14 +845,14 @@ $conditional1 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
 $conditional1->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS);
 $conditional1->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_LESSTHAN);
 $conditional1->addCondition('0');
-$conditional1->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
+$conditional1->getStyle()->getFont()->getColor()->setARGB(Color::COLOR_RED);
 $conditional1->getStyle()->getFont()->setBold(true);
 
 $conditional2 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
 $conditional2->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS);
 $conditional2->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_GREATERTHANOREQUAL);
 $conditional2->addCondition('0');
-$conditional2->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_GREEN);
+$conditional2->getStyle()->getFont()->getColor()->setARGB(Color::COLOR_GREEN);
 $conditional2->getStyle()->getFont()->setBold(true);
 
 $conditionalStyles = $spreadsheet->getActiveSheet()->getStyle('B2')->getConditionalStyles();
@@ -1296,19 +1296,19 @@ foreach ($spreadsheet->getActiveSheet()->getDrawingCollection() as $drawing) {
 ## Add rich text to a cell
 
 Adding rich text to a cell can be done using
-\PhpOffice\PhpSpreadsheet\RichText instances. Here''s an example, which
+RichText instances. Here''s an example, which
 creates the following rich text string:
 
 > This invoice is ***payable within thirty days after the end of the
 > month*** unless specified otherwise on the invoice.
 
 ``` php
-$richText = new \PhpOffice\PhpSpreadsheet\RichText();
+$richText = new RichText();
 $richText->createText('This invoice is ');
 $payable = $richText->createTextRun('payable within thirty days after the end of the month');
 $payable->getFont()->setBold(true);
 $payable->getFont()->setItalic(true);
-$payable->getFont()->setColor( new \PhpOffice\PhpSpreadsheet\Style\Color( \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN ) );
+$payable->getFont()->setColor( new Color( Color::COLOR_DARKGREEN ) );
 $richText->createText(', unless specified otherwise on the invoice.');
 $spreadsheet->getActiveSheet()->getCell('A18')->setValue($richText);
 ```

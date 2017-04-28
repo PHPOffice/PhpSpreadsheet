@@ -26,6 +26,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
  * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
+use PhpOffice\PhpSpreadsheet\RichText;
 
 /**
  * @category   PhpSpreadsheet
@@ -1106,9 +1107,9 @@ class Worksheet extends WriterPart
             // Write data depending on its type
             switch (strtolower($mappedType)) {
                 case 'inlinestr':    // Inline string
-                    if (!$cellValue instanceof \PhpOffice\PhpSpreadsheet\RichText) {
+                    if (!$cellValue instanceof RichText) {
                         $objWriter->writeElement('t', \PhpOffice\PhpSpreadsheet\Shared\StringHelper::controlCharacterPHP2OOXML(htmlspecialchars($cellValue)));
-                    } elseif ($cellValue instanceof \PhpOffice\PhpSpreadsheet\RichText) {
+                    } elseif ($cellValue instanceof RichText) {
                         $objWriter->startElement('is');
                         $this->getParentWriter()->getWriterPart('stringtable')->writeRichText($objWriter, $cellValue);
                         $objWriter->endElement();
@@ -1116,11 +1117,11 @@ class Worksheet extends WriterPart
 
                     break;
                 case 's':            // String
-                    if (!$cellValue instanceof \PhpOffice\PhpSpreadsheet\RichText) {
+                    if (!$cellValue instanceof RichText) {
                         if (isset($pFlippedStringTable[$cellValue])) {
                             $objWriter->writeElement('v', $pFlippedStringTable[$cellValue]);
                         }
-                    } elseif ($cellValue instanceof \PhpOffice\PhpSpreadsheet\RichText) {
+                    } elseif ($cellValue instanceof RichText) {
                         $objWriter->writeElement('v', $pFlippedStringTable[$cellValue->getHashCode()]);
                     }
 

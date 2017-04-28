@@ -93,7 +93,7 @@ class Xlsx extends BaseWriter implements IWriter
     private $bordersHashTable;
 
     /**
-     * Private unique \PhpOffice\PhpSpreadsheet\Style\NumberFormat HashTable.
+     * Private unique NumberFormat HashTable.
      *
      * @var \PhpOffice\PhpSpreadsheet\HashTable
      */
@@ -479,7 +479,7 @@ class Xlsx extends BaseWriter implements IWriter
     }
 
     /**
-     * Get \PhpOffice\PhpSpreadsheet\Style\NumberFormat HashTable.
+     * Get NumberFormat HashTable.
      *
      * @return \PhpOffice\PhpSpreadsheet\HashTable
      */

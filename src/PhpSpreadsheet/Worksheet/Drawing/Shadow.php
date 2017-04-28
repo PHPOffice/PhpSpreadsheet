@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
+use PhpOffice\PhpSpreadsheet\Style\Color;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -78,7 +80,7 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
     /**
      * Color.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Style\Color
+     * @var Color
      */
     private $color;
 
@@ -100,7 +102,7 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
         $this->distance = 2;
         $this->direction = 0;
         $this->alignment = self::SHADOW_BOTTOM_RIGHT;
-        $this->color = new \PhpOffice\PhpSpreadsheet\Style\Color(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK);
+        $this->color = new Color(Color::COLOR_BLACK);
         $this->alpha = 50;
     }
 
@@ -227,7 +229,7 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
     /**
      * Get Color.
      *
-     * @return \PhpOffice\PhpSpreadsheet\Style\Color
+     * @return Color
      */
     public function getColor()
     {
@@ -237,13 +239,13 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
     /**
      * Set Color.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Style\Color $pValue
+     * @param Color $pValue
      *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
      * @return Shadow
      */
-    public function setColor(\PhpOffice\PhpSpreadsheet\Style\Color $pValue = null)
+    public function setColor(Color $pValue = null)
     {
         $this->color = $pValue;
 

@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
+use PhpOffice\PhpSpreadsheet\RichText;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -236,7 +238,7 @@ class Font
      * Calculate an (approximate) OpenXML column width, based on font size and text contained.
      *
      * @param \PhpOffice\PhpSpreadsheet\Style\Font $font Font object
-     * @param \PhpOffice\PhpSpreadsheet\RichText|string $cellText Text to calculate width
+     * @param RichText|string $cellText Text to calculate width
      * @param int $rotation Rotation angle
      * @param \PhpOffice\PhpSpreadsheet\Style\Font|null $defaultFont Font object
      *
@@ -245,7 +247,7 @@ class Font
     public static function calculateColumnWidth(\PhpOffice\PhpSpreadsheet\Style\Font $font, $cellText = '', $rotation = 0, \PhpOffice\PhpSpreadsheet\Style\Font $defaultFont = null)
     {
         // If it is rich text, use plain text
-        if ($cellText instanceof \PhpOffice\PhpSpreadsheet\RichText) {
+        if ($cellText instanceof RichText) {
             $cellText = $cellText->getPlainText();
         }
 

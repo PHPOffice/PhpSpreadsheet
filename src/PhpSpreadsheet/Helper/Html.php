@@ -6,6 +6,8 @@ use DOMDocument;
 use DOMElement;
 use DOMNode;
 use DOMText;
+use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\Style\Color;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -625,7 +627,7 @@ class Html
         //    Discard excess white space
         $dom->preserveWhiteSpace = false;
 
-        $this->richTextObject = new \PhpOffice\PhpSpreadsheet\RichText();
+        $this->richTextObject = new RichText();
         $this->parseElements($dom);
 
         // Clean any further spurious whitespace
@@ -663,7 +665,7 @@ class Html
             $richtextRun->getFont()->setSize($this->size);
         }
         if ($this->color) {
-            $richtextRun->getFont()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color('ff' . $this->color));
+            $richtextRun->getFont()->setColor(new Color('ff' . $this->color));
         }
         if ($this->bold) {
             $richtextRun->getFont()->setBold(true);

@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
+use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -47,7 +49,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
         $dataType = parent::dataTypeForValue($value);
 
         // Style logic - strings
-        if ($dataType === DataType::TYPE_STRING && !$value instanceof \PhpOffice\PhpSpreadsheet\RichText) {
+        if ($dataType === DataType::TYPE_STRING && !$value instanceof RichText) {
             //    Test for booleans using locale-setting
             if ($value == \PhpOffice\PhpSpreadsheet\Calculation::getTRUE()) {
                 $cell->setValueExplicit(true, DataType::TYPE_BOOL);
@@ -100,7 +102,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
                 $cell->setValueExplicit($value, DataType::TYPE_NUMERIC);
                 // Set style
                 $cell->getWorksheet()->getStyle($cell->getCoordinate())
-                    ->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_PERCENTAGE_00);
+                    ->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_PERCENTAGE_00);
 
                 return true;
             }
@@ -116,7 +118,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
                 // Set style
                 $cell->getWorksheet()->getStyle($cell->getCoordinate())
                     ->getNumberFormat()->setFormatCode(
-                        str_replace('$', $currencyCode, \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE)
+                        str_replace('$', $currencyCode, NumberFormat::FORMAT_CURRENCY_USD_SIMPLE)
                     );
 
                 return true;
@@ -126,7 +128,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
                 $cell->setValueExplicit($value, DataType::TYPE_NUMERIC);
                 // Set style
                 $cell->getWorksheet()->getStyle($cell->getCoordinate())
-                    ->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+                    ->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
 
                 return true;
             }
@@ -139,7 +141,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
                 $cell->setValueExplicit($days, DataType::TYPE_NUMERIC);
                 // Set style
                 $cell->getWorksheet()->getStyle($cell->getCoordinate())
-                    ->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME3);
+                    ->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_TIME3);
 
                 return true;
             }
@@ -153,7 +155,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
                 $cell->setValueExplicit($days, DataType::TYPE_NUMERIC);
                 // Set style
                 $cell->getWorksheet()->getStyle($cell->getCoordinate())
-                    ->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4);
+                    ->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_TIME4);
 
                 return true;
             }
