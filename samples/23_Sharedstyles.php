@@ -1,6 +1,7 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 
@@ -24,8 +25,8 @@ $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
 $helper->log('Add some data');
 $spreadsheet->setActiveSheetIndex(0);
 
-$sharedStyle1 = new \PhpOffice\PhpSpreadsheet\Style();
-$sharedStyle2 = new \PhpOffice\PhpSpreadsheet\Style();
+$sharedStyle1 = new Style();
+$sharedStyle2 = new Style();
 
 $sharedStyle1->applyFromArray(
     ['fill' => [

@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 
 require __DIR__ . '/Header.php';
@@ -14,7 +15,7 @@ $callStartTime = microtime(true);
 $writer->save($filename);
 $helper->logWrite($writer, $filename, $callStartTime);
 
-class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
+class MyReadFilter implements IReadFilter
 {
     public function readCell($column, $row, $worksheetName = '')
     {

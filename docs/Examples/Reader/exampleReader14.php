@@ -1,6 +1,7 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 error_reporting(E_ALL);
@@ -27,8 +28,8 @@ require_once __DIR__ . '/../../../src/Bootstrap.php';
 $inputFileType = 'Csv';
 $inputFileName = './sampleData/example2.csv';
 
-/**  Define a Read Filter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
-class chunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
+/**  Define a Read Filter class implementing IReadFilter  */
+class chunkReadFilter implements IReadFilter
 {
     private $_startRow = 0;
 

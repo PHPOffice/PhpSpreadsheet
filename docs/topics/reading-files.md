@@ -240,7 +240,7 @@ CSV       | NO  | HTML   | NO
 If you are only interested in reading part of a worksheet, then you can
 write a filter class that identifies whether or not individual cells
 should be read by the loader. A read filter must implement the
-\PhpOffice\PhpSpreadsheet\Reader\IReadFilter interface, and contain a
+IReadFilter interface, and contain a
 readCell() method that accepts arguments of `$column`, `$row` and
 `$worksheetName`, and return a boolean true or false that indicates
 whether a workbook cell identified by those arguments should be read or
@@ -252,8 +252,8 @@ $inputFileName = './sampleData/example1.xls';
 $sheetname = 'Data Sheet #3';
 
 
-/**  Define a Read Filter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
-class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
+/**  Define a Read Filter class implementing IReadFilter  */
+class MyReadFilter implements IReadFilter
 {
     public function readCell($column, $row, $worksheetName = '') {
         //  Read rows 1 to 7 and columns A to E only
@@ -286,8 +286,8 @@ A1:E7 from your worksheet. A generic Read Filter would probably be more
 useful:
 
 ``` php
-/**  Define a Read Filter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
-class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
+/**  Define a Read Filter class implementing IReadFilter  */
+class MyReadFilter implements IReadFilter
 {
     private $_startRow = 0;
     private $_endRow   = 0;
@@ -328,8 +328,8 @@ $inputFileType = 'Xls';
 $inputFileName = './sampleData/example2.xls';
 
 
-/**  Define a Read Filter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
-class chunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
+/**  Define a Read Filter class implementing IReadFilter  */
+class chunkReadFilter implements IReadFilter
 {
     private $_startRow = 0;
     private $_endRow   = 0;

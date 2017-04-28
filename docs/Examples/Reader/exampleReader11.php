@@ -1,6 +1,7 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
 
 error_reporting(E_ALL);
 set_time_limit(0);
@@ -30,8 +31,8 @@ $inputFileType = 'Xls';
 //	$inputFileType = 'Gnumeric';
 $inputFileName = './sampleData/example2.xls';
 
-/**  Define a Read Filter class implementing \PhpOffice\PhpSpreadsheet\Reader\IReadFilter  */
-class chunkReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
+/**  Define a Read Filter class implementing IReadFilter  */
+class chunkReadFilter implements IReadFilter
 {
     private $_startRow = 0;
 

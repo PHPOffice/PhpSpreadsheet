@@ -116,14 +116,14 @@ $spreadsheet = $reader->load("05featuredemo.xlsx");
 You can set the option setReadFilter on the reader, to instruct the
 reader to only load the cells which match a given rule. A read filter
 can be any class which implements
-\PhpOffice\PhpSpreadsheet\Reader\IReadFilter. By default, all cells are
+IReadFilter. By default, all cells are
 read using the \PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter.
 
 The following code will only read row 1 and rows 20 – 30 of any sheet in
 the Excel file:
 
 ``` php
-class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
+class MyReadFilter implements IReadFilter {
 
     public function readCell($column, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
@@ -234,14 +234,14 @@ $spreadsheet = $reader->load("05featuredemo.xls");
 You can set the option setReadFilter on the reader, to instruct the
 reader to only load the cells which match a given rule. A read filter
 can be any class which implements
-\PhpOffice\PhpSpreadsheet\Reader\IReadFilter. By default, all cells are
+IReadFilter. By default, all cells are
 read using the \PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter.
 
 The following code will only read row 1 and rows 20 to 30 of any sheet
 in the Excel file:
 
 ``` php
-class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
+class MyReadFilter implements IReadFilter {
 
     public function readCell($column, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
@@ -293,14 +293,14 @@ $spreadsheet = $reader->load("05featuredemo.xml");
 You can set the option setReadFilter on the reader, to instruct the
 reader to only load the cells which match a given rule. A read filter
 can be any class which implements
-\PhpOffice\PhpSpreadsheet\Reader\IReadFilter. By default, all cells are
+IReadFilter. By default, all cells are
 read using the \PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter.
 
 The following code will only read row 1 and rows 20 to 30 of any sheet
 in the Excel file:
 
 ``` php
-class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
+class MyReadFilter implements IReadFilter {
 
     public function readCell($column, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
@@ -344,14 +344,14 @@ $spreadsheet = $reader->load("05featuredemo.slk");
 You can set the option setReadFilter on the reader, to instruct the
 reader to only load the cells which match a given rule. A read filter
 can be any class which implements
-\PhpOffice\PhpSpreadsheet\Reader\IReadFilter. By default, all cells are
+IReadFilter. By default, all cells are
 read using the \PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter.
 
 The following code will only read row 1 and rows 20 to 30 of any sheet
 in the SYLK file:
 
 ``` php
-class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
+class MyReadFilter implements IReadFilter {
 
     public function readCell($column, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
@@ -389,14 +389,14 @@ $spreadsheet = $reader->load("05featuredemo.ods");
 You can set the option setReadFilter on the reader, to instruct the
 reader to only load the cells which match a given rule. A read filter
 can be any class which implements
-\PhpOffice\PhpSpreadsheet\Reader\IReadFilter. By default, all cells are
+IReadFilter. By default, all cells are
 read using the \PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter.
 
 The following code will only read row 1 and rows 20 to 30 of any sheet
 in the Calc file:
 
 ``` php
-class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
+class MyReadFilter implements IReadFilter {
 
     public function readCell($column, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
