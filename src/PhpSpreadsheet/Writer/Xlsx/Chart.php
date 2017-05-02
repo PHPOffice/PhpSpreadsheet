@@ -42,9 +42,12 @@ class Chart extends WriterPart
 
     /**
      * Write charts to XML format.
+     *
      * @param \PhpOffice\PhpSpreadsheet\Chart $pChart
      * @param mixed $calculateCellValues
+     *
      * @throws WriterException
+     *
      * @return string XML Output
      */
     public function writeChart(\PhpOffice\PhpSpreadsheet\Chart $pChart, $calculateCellValues = true)
