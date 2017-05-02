@@ -11,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Font;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -209,7 +210,7 @@ class Chart
                     }
             }
         }
-        $chart = new self($chartName, $title, $legend, $plotArea, $plotVisOnly, $dispBlanksAs, $XaxisLabel, $YaxisLabel);
+        $chart = new \PhpOffice\PhpSpreadsheet\Chart($chartName, $title, $legend, $plotArea, $plotVisOnly, $dispBlanksAs, $XaxisLabel, $YaxisLabel);
 
         return $chart;
     }
@@ -452,11 +453,11 @@ class Chart
                 $underscore = (self::getAttribute($titleDetailElement->rPr, 'u', 'string'));
                 if (!is_null($underscore)) {
                     if ($underscore == 'sng') {
-                        $objText->getFont()->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE);
+                        $objText->getFont()->setUnderline(Font::UNDERLINE_SINGLE);
                     } elseif ($underscore == 'dbl') {
-                        $objText->getFont()->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE);
+                        $objText->getFont()->setUnderline(Font::UNDERLINE_DOUBLE);
                     } else {
-                        $objText->getFont()->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_NONE);
+                        $objText->getFont()->setUnderline(Font::UNDERLINE_NONE);
                     }
                 }
 
