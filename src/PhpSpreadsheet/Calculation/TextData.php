@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 /**
@@ -70,7 +72,7 @@ class TextData
         $stringValue = Functions::flattenSingleValue($stringValue);
 
         if (is_bool($stringValue)) {
-            return ($stringValue) ? \PhpOffice\PhpSpreadsheet\Calculation::getTRUE() : \PhpOffice\PhpSpreadsheet\Calculation::getFALSE();
+            return ($stringValue) ? Calculation::getTRUE() : Calculation::getFALSE();
         }
 
         if (self::$invalidChars == null) {
@@ -95,7 +97,7 @@ class TextData
     {
         $stringValue = Functions::flattenSingleValue($stringValue);
         if (is_bool($stringValue)) {
-            return ($stringValue) ? \PhpOffice\PhpSpreadsheet\Calculation::getTRUE() : \PhpOffice\PhpSpreadsheet\Calculation::getFALSE();
+            return ($stringValue) ? Calculation::getTRUE() : Calculation::getFALSE();
         }
 
         if (is_string($stringValue) || is_numeric($stringValue)) {
@@ -122,7 +124,7 @@ class TextData
             if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
                 $characters = (int) $characters;
             } else {
-                $characters = ($characters) ? \PhpOffice\PhpSpreadsheet\Calculation::getTRUE() : \PhpOffice\PhpSpreadsheet\Calculation::getFALSE();
+                $characters = ($characters) ? Calculation::getTRUE() : Calculation::getFALSE();
             }
         }
 
@@ -150,7 +152,7 @@ class TextData
                 if (Functions::getCompatibilityMode() == Functions::COMPATIBILITY_OPENOFFICE) {
                     $arg = (int) $arg;
                 } else {
-                    $arg = ($arg) ? \PhpOffice\PhpSpreadsheet\Calculation::getTRUE() : \PhpOffice\PhpSpreadsheet\Calculation::getFALSE();
+                    $arg = ($arg) ? Calculation::getTRUE() : Calculation::getFALSE();
                 }
             }
             $returnValue .= $arg;
@@ -214,11 +216,11 @@ class TextData
 
         if (!is_bool($needle)) {
             if (is_bool($haystack)) {
-                $haystack = ($haystack) ? \PhpOffice\PhpSpreadsheet\Calculation::getTRUE() : \PhpOffice\PhpSpreadsheet\Calculation::getFALSE();
+                $haystack = ($haystack) ? Calculation::getTRUE() : Calculation::getFALSE();
             }
 
-            if (($offset > 0) && (\PhpOffice\PhpSpreadsheet\Shared\StringHelper::countCharacters($haystack) > $offset)) {
-                if (\PhpOffice\PhpSpreadsheet\Shared\StringHelper::countCharacters($needle) == 0) {
+            if (($offset > 0) && (StringHelper::countCharacters($haystack) > $offset)) {
+                if (StringHelper::countCharacters($needle) == 0) {
                     return $offset;
                 }
 
@@ -249,11 +251,11 @@ class TextData
 
         if (!is_bool($needle)) {
             if (is_bool($haystack)) {
-                $haystack = ($haystack) ? \PhpOffice\PhpSpreadsheet\Calculation::getTRUE() : \PhpOffice\PhpSpreadsheet\Calculation::getFALSE();
+                $haystack = ($haystack) ? Calculation::getTRUE() : Calculation::getFALSE();
             }
 
-            if (($offset > 0) && (\PhpOffice\PhpSpreadsheet\Shared\StringHelper::countCharacters($haystack) > $offset)) {
-                if (\PhpOffice\PhpSpreadsheet\Shared\StringHelper::countCharacters($needle) == 0) {
+            if (($offset > 0) && (StringHelper::countCharacters($haystack) > $offset)) {
+                if (StringHelper::countCharacters($needle) == 0) {
                     return $offset;
                 }
 
@@ -317,7 +319,7 @@ class TextData
         }
 
         if (is_bool($value)) {
-            $value = ($value) ? \PhpOffice\PhpSpreadsheet\Calculation::getTRUE() : \PhpOffice\PhpSpreadsheet\Calculation::getFALSE();
+            $value = ($value) ? Calculation::getTRUE() : Calculation::getFALSE();
         }
 
         return mb_substr($value, 0, $chars, 'UTF-8');
@@ -343,7 +345,7 @@ class TextData
         }
 
         if (is_bool($value)) {
-            $value = ($value) ? \PhpOffice\PhpSpreadsheet\Calculation::getTRUE() : \PhpOffice\PhpSpreadsheet\Calculation::getFALSE();
+            $value = ($value) ? Calculation::getTRUE() : Calculation::getFALSE();
         }
 
         if (empty($chars)) {
@@ -371,7 +373,7 @@ class TextData
         }
 
         if (is_bool($value)) {
-            $value = ($value) ? \PhpOffice\PhpSpreadsheet\Calculation::getTRUE() : \PhpOffice\PhpSpreadsheet\Calculation::getFALSE();
+            $value = ($value) ? Calculation::getTRUE() : Calculation::getFALSE();
         }
 
         return mb_substr($value, mb_strlen($value, 'UTF-8') - $chars, $chars, 'UTF-8');
@@ -389,7 +391,7 @@ class TextData
         $value = Functions::flattenSingleValue($value);
 
         if (is_bool($value)) {
-            $value = ($value) ? \PhpOffice\PhpSpreadsheet\Calculation::getTRUE() : \PhpOffice\PhpSpreadsheet\Calculation::getFALSE();
+            $value = ($value) ? Calculation::getTRUE() : Calculation::getFALSE();
         }
 
         return mb_strlen($value, 'UTF-8');
@@ -409,10 +411,10 @@ class TextData
         $mixedCaseString = Functions::flattenSingleValue($mixedCaseString);
 
         if (is_bool($mixedCaseString)) {
-            $mixedCaseString = ($mixedCaseString) ? \PhpOffice\PhpSpreadsheet\Calculation::getTRUE() : \PhpOffice\PhpSpreadsheet\Calculation::getFALSE();
+            $mixedCaseString = ($mixedCaseString) ? Calculation::getTRUE() : Calculation::getFALSE();
         }
 
-        return \PhpOffice\PhpSpreadsheet\Shared\StringHelper::strToLower($mixedCaseString);
+        return StringHelper::strToLower($mixedCaseString);
     }
 
     /**
@@ -429,10 +431,10 @@ class TextData
         $mixedCaseString = Functions::flattenSingleValue($mixedCaseString);
 
         if (is_bool($mixedCaseString)) {
-            $mixedCaseString = ($mixedCaseString) ? \PhpOffice\PhpSpreadsheet\Calculation::getTRUE() : \PhpOffice\PhpSpreadsheet\Calculation::getFALSE();
+            $mixedCaseString = ($mixedCaseString) ? Calculation::getTRUE() : Calculation::getFALSE();
         }
 
-        return \PhpOffice\PhpSpreadsheet\Shared\StringHelper::strToUpper($mixedCaseString);
+        return StringHelper::strToUpper($mixedCaseString);
     }
 
     /**
@@ -449,10 +451,10 @@ class TextData
         $mixedCaseString = Functions::flattenSingleValue($mixedCaseString);
 
         if (is_bool($mixedCaseString)) {
-            $mixedCaseString = ($mixedCaseString) ? \PhpOffice\PhpSpreadsheet\Calculation::getTRUE() : \PhpOffice\PhpSpreadsheet\Calculation::getFALSE();
+            $mixedCaseString = ($mixedCaseString) ? Calculation::getTRUE() : Calculation::getFALSE();
         }
 
-        return \PhpOffice\PhpSpreadsheet\Shared\StringHelper::strToTitle($mixedCaseString);
+        return StringHelper::strToTitle($mixedCaseString);
     }
 
     /**
@@ -566,9 +568,9 @@ class TextData
 
         if (!is_numeric($value)) {
             $numberValue = str_replace(
-                \PhpOffice\PhpSpreadsheet\Shared\StringHelper::getThousandsSeparator(),
+                StringHelper::getThousandsSeparator(),
                 '',
-                trim($value, " \t\n\r\0\x0B" . \PhpOffice\PhpSpreadsheet\Shared\StringHelper::getCurrencyCode())
+                trim($value, " \t\n\r\0\x0B" . StringHelper::getCurrencyCode())
             );
             if (is_numeric($numberValue)) {
                 return (float) $numberValue;

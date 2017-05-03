@@ -8,12 +8,15 @@ use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
+use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -1345,7 +1348,7 @@ class Xls extends BaseReader implements IReader
                 case 0x1E: // null-terminated string prepended by dword string length
                     $byteLength = self::getInt4d($this->summaryInformation, $secOffset + 4 + $offset);
                     $value = substr($this->summaryInformation, $secOffset + 8 + $offset, $byteLength);
-                    $value = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertEncoding($value, 'UTF-8', $codePage);
+                    $value = StringHelper::convertEncoding($value, 'UTF-8', $codePage);
                     $value = rtrim($value);
                     break;
                 case 0x40: // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
@@ -1483,7 +1486,7 @@ class Xls extends BaseReader implements IReader
                 case 0x1E:    //    null-terminated string prepended by dword string length
                     $byteLength = self::getInt4d($this->documentSummaryInformation, $secOffset + 4 + $offset);
                     $value = substr($this->documentSummaryInformation, $secOffset + 8 + $offset, $byteLength);
-                    $value = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertEncoding($value, 'UTF-8', $codePage);
+                    $value = StringHelper::convertEncoding($value, 'UTF-8', $codePage);
                     $value = rtrim($value);
                     break;
                 case 0x40:    //    Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
@@ -1647,7 +1650,7 @@ class Xls extends BaseReader implements IReader
         // it is possible to use a compressed format,
         // which omits the high bytes of all characters, if they are all zero
         if (($is16Bit & 0x01) === 0) {
-            $textStr = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::ConvertEncoding($textStr, 'UTF-8', 'ISO-8859-1');
+            $textStr = StringHelper::ConvertEncoding($textStr, 'UTF-8', 'ISO-8859-1');
         } else {
             $textStr = $this->decodeCodepage($textStr);
         }
@@ -2051,7 +2054,7 @@ class Xls extends BaseReader implements IReader
         // move stream pointer to next record
         $this->pos += 4 + $length;
 
-        $objStyle = new \PhpOffice\PhpSpreadsheet\Style();
+        $objStyle = new Style();
 
         if (!$this->readDataOnly) {
             // offset:  0; size: 2; Index to FONT record
@@ -3636,13 +3639,13 @@ class Xls extends BaseReader implements IReader
                 $sstCount = count($this->sst[$index]['fmtRuns']);
                 for ($i = 0; $i <= $sstCount; ++$i) {
                     if (isset($fmtRuns[$i])) {
-                        $text = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::substring($this->sst[$index]['value'], $charPos, $fmtRuns[$i]['charPos'] - $charPos);
+                        $text = StringHelper::substring($this->sst[$index]['value'], $charPos, $fmtRuns[$i]['charPos'] - $charPos);
                         $charPos = $fmtRuns[$i]['charPos'];
                     } else {
-                        $text = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::substring($this->sst[$index]['value'], $charPos, \PhpOffice\PhpSpreadsheet\Shared\StringHelper::countCharacters($this->sst[$index]['value']));
+                        $text = StringHelper::substring($this->sst[$index]['value'], $charPos, StringHelper::countCharacters($this->sst[$index]['value']));
                     }
 
-                    if (\PhpOffice\PhpSpreadsheet\Shared\StringHelper::countCharacters($text) > 0) {
+                    if (StringHelper::countCharacters($text) > 0) {
                         if ($i == 0) { // first text run, no style
                             $richText->createText($text);
                         } else {
@@ -4248,9 +4251,9 @@ class Xls extends BaseReader implements IReader
 
         //FIXME: set $firstVisibleRow and $firstVisibleColumn
 
-        if ($this->phpSheet->getSheetView()->getView() !== \PhpOffice\PhpSpreadsheet\Worksheet\SheetView::SHEETVIEW_PAGE_LAYOUT) {
+        if ($this->phpSheet->getSheetView()->getView() !== SheetView::SHEETVIEW_PAGE_LAYOUT) {
             //NOTE: this setting is inferior to page layout view(Excel2007-)
-            $view = $isPageBreakPreview ? \PhpOffice\PhpSpreadsheet\Worksheet\SheetView::SHEETVIEW_PAGE_BREAK_PREVIEW : \PhpOffice\PhpSpreadsheet\Worksheet\SheetView::SHEETVIEW_NORMAL;
+            $view = $isPageBreakPreview ? SheetView::SHEETVIEW_PAGE_BREAK_PREVIEW : SheetView::SHEETVIEW_NORMAL;
             $this->phpSheet->getSheetView()->setView($view);
             if ($this->version === self::XLS_BIFF8) {
                 $zoomScale = $isPageBreakPreview ? $zoomscaleInPageBreakPreview : $zoomscaleInNormalView;
@@ -4291,7 +4294,7 @@ class Xls extends BaseReader implements IReader
         $fWhitespaceHidden = ($grbit >> 3) & 0x01; //no support
 
         if ($fPageLayoutView === 1) {
-            $this->phpSheet->getSheetView()->setView(\PhpOffice\PhpSpreadsheet\Worksheet\SheetView::SHEETVIEW_PAGE_LAYOUT);
+            $this->phpSheet->getSheetView()->setView(SheetView::SHEETVIEW_PAGE_LAYOUT);
             $this->phpSheet->getSheetView()->setZoomScale($wScalePLV); //set by Excel2007 only if SHEETVIEW_PAGE_LAYOUT
         }
         //otherwise, we cannot know whether SHEETVIEW_PAGE_LAYOUT or SHEETVIEW_PAGE_BREAK_PREVIEW.
@@ -7406,7 +7409,7 @@ class Xls extends BaseReader implements IReader
             $string = self::uncompressByteString($string);
         }
 
-        return \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertEncoding($string, 'UTF-8', 'UTF-16LE');
+        return StringHelper::convertEncoding($string, 'UTF-8', 'UTF-16LE');
     }
 
     /**
@@ -7436,7 +7439,7 @@ class Xls extends BaseReader implements IReader
      */
     private function decodeCodepage($string)
     {
-        return \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertEncoding($string, 'UTF-8', $this->codepage);
+        return StringHelper::convertEncoding($string, 'UTF-8', $this->codepage);
     }
 
     /**

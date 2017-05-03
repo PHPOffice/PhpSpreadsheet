@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Chart;
 
+use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell;
 
 /**
@@ -288,8 +289,8 @@ class DataSeriesValues
     public function refresh(\PhpOffice\PhpSpreadsheet\Worksheet $worksheet, $flatten = true)
     {
         if ($this->dataSource !== null) {
-            $calcEngine = \PhpOffice\PhpSpreadsheet\Calculation::getInstance($worksheet->getParent());
-            $newDataValues = \PhpOffice\PhpSpreadsheet\Calculation::unwrapResult(
+            $calcEngine = Calculation::getInstance($worksheet->getParent());
+            $newDataValues = Calculation::unwrapResult(
                 $calcEngine->_calculateFormulaValue(
                     '=' . $this->dataSource,
                     null,

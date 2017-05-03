@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
+use PhpOffice\PhpSpreadsheet\Calculation;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -588,7 +590,7 @@ class StringHelper
         if (preg_match('/^' . self::STRING_REGEXP_FRACTION . '$/i', $operand, $match)) {
             $sign = ($match[1] == '-') ? '-' : '+';
             $fractionFormula = '=' . $sign . $match[2] . $sign . $match[3];
-            $operand = \PhpOffice\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($fractionFormula);
+            $operand = Calculation::getInstance()->_calculateFormulaValue($fractionFormula);
 
             return true;
         }

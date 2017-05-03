@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\Font;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
@@ -964,11 +965,11 @@ class Html extends BaseWriter implements IWriter
     /**
      * Create CSS style.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Style $pStyle
+     * @param Style $pStyle
      *
      * @return array
      */
-    private function createCSSStyle(\PhpOffice\PhpSpreadsheet\Style $pStyle)
+    private function createCSSStyle(Style $pStyle)
     {
         // Construct CSS
         $css = '';

@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
@@ -586,7 +588,7 @@ class Parser
             throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('String is too long');
         }
 
-        return pack('C', $this->ptg['ptgStr']) . \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeShort($string);
+        return pack('C', $this->ptg['ptgStr']) . StringHelper::UTF8toBIFF8UnicodeShort($string);
     }
 
     /**

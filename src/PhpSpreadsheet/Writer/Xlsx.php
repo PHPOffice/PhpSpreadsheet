@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
+use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use ZipArchive;
@@ -66,7 +67,7 @@ class Xlsx extends BaseWriter implements IWriter
     private $stylesConditionalHashTable;
 
     /**
-     * Private unique \PhpOffice\PhpSpreadsheet\Style HashTable.
+     * Private unique Style HashTable.
      *
      * @var \PhpOffice\PhpSpreadsheet\HashTable
      */
@@ -188,8 +189,8 @@ class Xlsx extends BaseWriter implements IWriter
                 }
             }
 
-            $saveDebugLog = \PhpOffice\PhpSpreadsheet\Calculation::getInstance($this->spreadSheet)->getDebugLog()->getWriteDebugLog();
-            \PhpOffice\PhpSpreadsheet\Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog(false);
+            $saveDebugLog = Calculation::getInstance($this->spreadSheet)->getDebugLog()->getWriteDebugLog();
+            Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog(false);
             $saveDateReturnType = \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType();
             \PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType(\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_EXCEL);
 
@@ -371,7 +372,7 @@ class Xlsx extends BaseWriter implements IWriter
             }
 
             \PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType($saveDateReturnType);
-            \PhpOffice\PhpSpreadsheet\Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
+            Calculation::getInstance($this->spreadSheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
 
             // Close file
             if ($zip->close() === false) {
@@ -430,7 +431,7 @@ class Xlsx extends BaseWriter implements IWriter
     }
 
     /**
-     * Get \PhpOffice\PhpSpreadsheet\Style HashTable.
+     * Get Style HashTable.
      *
      * @return \PhpOffice\PhpSpreadsheet\HashTable
      */

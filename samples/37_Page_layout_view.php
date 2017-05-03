@@ -1,6 +1,7 @@
 <?php
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
 
 require __DIR__ . '/Header.php';
 
@@ -25,7 +26,7 @@ $spreadsheet->setActiveSheetIndex(0)
         ->setCellValue('B2', 'world!');
 
 // Set the page layout view as page layout
-$spreadsheet->getActiveSheet()->getSheetView()->setView(\PhpOffice\PhpSpreadsheet\Worksheet\SheetView::SHEETVIEW_PAGE_LAYOUT);
+$spreadsheet->getActiveSheet()->getSheetView()->setView(SheetView::SHEETVIEW_PAGE_LAYOUT);
 
 // Save
 $helper->write($spreadsheet, __FILE__);

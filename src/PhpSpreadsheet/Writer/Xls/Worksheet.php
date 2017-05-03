@@ -5,12 +5,14 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
+use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
 
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet.
@@ -424,7 +426,7 @@ class Worksheet extends BIFFwriter
             $cVal = $cell->getValue();
             if ($cVal instanceof RichText) {
                 $arrcRun = [];
-                $str_len = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::countCharacters($cVal->getPlainText(), 'UTF-8');
+                $str_len = StringHelper::countCharacters($cVal->getPlainText(), 'UTF-8');
                 $str_pos = 0;
                 $elements = $cVal->getRichTextElements();
                 foreach ($elements as $element) {
@@ -436,7 +438,7 @@ class Worksheet extends BIFFwriter
                     }
                     $arrcRun[] = ['strlen' => $str_pos, 'fontidx' => $str_fontidx];
                     // Position FROM
-                    $str_pos += \PhpOffice\PhpSpreadsheet\Shared\StringHelper::countCharacters($element->getText(), 'UTF-8');
+                    $str_pos += StringHelper::countCharacters($element->getText(), 'UTF-8');
                 }
                 $this->writeRichTextString($row, $column, $cVal->getPlainText(), $xfIndex, $arrcRun);
             } else {
@@ -681,7 +683,7 @@ class Worksheet extends BIFFwriter
     {
         $record = 0x00FD; // Record identifier
         $length = 0x000A; // Bytes to follow
-        $str = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeShort($str, $arrcRun);
+        $str = StringHelper::UTF8toBIFF8UnicodeShort($str, $arrcRun);
 
         /* check if string is already present */
         if (!isset($this->stringTable[$str])) {
@@ -751,7 +753,7 @@ class Worksheet extends BIFFwriter
         $record = 0x00FD; // Record identifier
         $length = 0x000A; // Bytes to follow
 
-        $str = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong($str);
+        $str = StringHelper::UTF8toBIFF8UnicodeLong($str);
 
         /* check if string is already present */
         if (!isset($this->stringTable[$str])) {
@@ -946,7 +948,7 @@ class Worksheet extends BIFFwriter
     private function writeStringRecord($stringValue)
     {
         $record = 0x0207; // Record identifier
-        $data = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong($stringValue);
+        $data = StringHelper::UTF8toBIFF8UnicodeLong($stringValue);
 
         $length = strlen($data);
         $header = pack('vv', $record, $length);
@@ -1088,10 +1090,10 @@ class Worksheet extends BIFFwriter
         $url .= "\0";
 
         // character count
-        $url_len = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::countCharacters($url);
+        $url_len = StringHelper::countCharacters($url);
         $url_len = pack('V', $url_len);
 
-        $url = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertEncoding($url, 'UTF-16LE', 'UTF-8');
+        $url = StringHelper::convertEncoding($url, 'UTF-16LE', 'UTF-8');
 
         // Calculate the data length
         $length = 0x24 + strlen($url);
@@ -1303,7 +1305,7 @@ class Worksheet extends BIFFwriter
         // no support in PhpSpreadsheet for selected sheet, therefore sheet is only selected if it is the active sheet
         $fSelected = ($this->phpSheet === $this->phpSheet->getParent()->getActiveSheet()) ? 1 : 0;
         $fPaged = 1; // 2
-        $fPageBreakPreview = $this->phpSheet->getSheetView()->getView() === \PhpOffice\PhpSpreadsheet\Worksheet\SheetView::SHEETVIEW_PAGE_BREAK_PREVIEW;
+        $fPageBreakPreview = $this->phpSheet->getSheetView()->getView() === SheetView::SHEETVIEW_PAGE_BREAK_PREVIEW;
 
         $grbit = $fDspFmla;
         $grbit |= $fDspGrid << 1;
@@ -1650,7 +1652,7 @@ class Worksheet extends BIFFwriter
                 hexdec($password)
             );
 
-            $recordData .= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong('p' . md5($recordData));
+            $recordData .= StringHelper::UTF8toBIFF8UnicodeLong('p' . md5($recordData));
 
             $length = strlen($recordData);
 
@@ -1872,7 +1874,7 @@ class Worksheet extends BIFFwriter
         }
         */
 
-        $recordData = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong($this->phpSheet->getHeaderFooter()->getOddHeader());
+        $recordData = StringHelper::UTF8toBIFF8UnicodeLong($this->phpSheet->getHeaderFooter()->getOddHeader());
         $length = strlen($recordData);
 
         $header = pack('vv', $record, $length);
@@ -1896,7 +1898,7 @@ class Worksheet extends BIFFwriter
         }
         */
 
-        $recordData = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong($this->phpSheet->getHeaderFooter()->getOddFooter());
+        $recordData = StringHelper::UTF8toBIFF8UnicodeLong($this->phpSheet->getHeaderFooter()->getOddFooter());
         $length = strlen($recordData);
 
         $header = pack('vv', $record, $length);
@@ -2916,22 +2918,22 @@ class Worksheet extends BIFFwriter
                 // prompt title
                 $promptTitle = $dataValidation->getPromptTitle() !== '' ?
                     $dataValidation->getPromptTitle() : chr(0);
-                $data .= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong($promptTitle);
+                $data .= StringHelper::UTF8toBIFF8UnicodeLong($promptTitle);
 
                 // error title
                 $errorTitle = $dataValidation->getErrorTitle() !== '' ?
                     $dataValidation->getErrorTitle() : chr(0);
-                $data .= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong($errorTitle);
+                $data .= StringHelper::UTF8toBIFF8UnicodeLong($errorTitle);
 
                 // prompt text
                 $prompt = $dataValidation->getPrompt() !== '' ?
                     $dataValidation->getPrompt() : chr(0);
-                $data .= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong($prompt);
+                $data .= StringHelper::UTF8toBIFF8UnicodeLong($prompt);
 
                 // error text
                 $error = $dataValidation->getError() !== '' ?
                     $dataValidation->getError() : chr(0);
-                $data .= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong($error);
+                $data .= StringHelper::UTF8toBIFF8UnicodeLong($error);
 
                 // formula 1
                 try {
@@ -3020,7 +3022,7 @@ class Worksheet extends BIFFwriter
         $wScalvePLV = $this->phpSheet->getSheetView()->getZoomScale(); // 2
 
         // The options flags that comprise $grbit
-        if ($this->phpSheet->getSheetView()->getView() == \PhpOffice\PhpSpreadsheet\Worksheet\SheetView::SHEETVIEW_PAGE_LAYOUT) {
+        if ($this->phpSheet->getSheetView()->getView() == SheetView::SHEETVIEW_PAGE_LAYOUT) {
             $fPageLayoutView = 1;
         } else {
             $fPageLayoutView = 0;
@@ -3209,7 +3211,7 @@ class Worksheet extends BIFFwriter
                 $dataBlockFont = pack('VVVVVVVV', 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000);
                 $dataBlockFont .= pack('VVVVVVVV', 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000);
             } else {
-                $dataBlockFont = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong($conditional->getStyle()->getFont()->getName());
+                $dataBlockFont = StringHelper::UTF8toBIFF8UnicodeLong($conditional->getStyle()->getFont()->getName());
             }
             // Font Size
             if ($conditional->getStyle()->getFont()->getSize() == null) {

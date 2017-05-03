@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
+use PhpOffice\PhpSpreadsheet\Style;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
@@ -139,9 +140,9 @@ class Xf
     /**
      * Constructor.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Style The XF format
+     * @param Style The XF format
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Style $style)
+    public function __construct(Style $style)
     {
         $this->isStyleXf = false;
         $this->fontIndex = 0;

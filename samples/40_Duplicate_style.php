@@ -2,6 +2,7 @@
 
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style;
 
 require __DIR__ . '/Header.php';
 
@@ -12,7 +13,7 @@ $worksheet = $spreadsheet->getActiveSheet();
 $helper->log('Create styles array');
 $styles = [];
 for ($i = 0; $i < 10; ++$i) {
-    $style = new \PhpOffice\PhpSpreadsheet\Style();
+    $style = new Style();
     $style->getFont()->setSize($i + 4);
     $styles[] = $style;
 }

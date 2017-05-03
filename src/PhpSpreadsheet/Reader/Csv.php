@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
@@ -340,7 +341,7 @@ class Csv extends BaseReader implements IReader
                 if ($rowDatum != '' && $this->readFilter->readCell($columnLetter, $currentRow)) {
                     // Convert encoding if necessary
                     if ($this->inputEncoding !== 'UTF-8') {
-                        $rowDatum = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertEncoding($rowDatum, 'UTF-8', $this->inputEncoding);
+                        $rowDatum = StringHelper::convertEncoding($rowDatum, 'UTF-8', $this->inputEncoding);
                     }
 
                     // Set cell value

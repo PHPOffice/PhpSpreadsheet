@@ -8,6 +8,7 @@ use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 
@@ -770,7 +771,7 @@ class Xml extends BaseReader implements IReader
     protected static function convertStringEncoding($string, $charset)
     {
         if ($charset != 'UTF-8') {
-            return \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertEncoding($string, 'UTF-8', $charset);
+            return StringHelper::convertEncoding($string, 'UTF-8', $charset);
         }
 
         return $string;

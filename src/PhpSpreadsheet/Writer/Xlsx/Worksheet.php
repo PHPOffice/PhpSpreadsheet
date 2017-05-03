@@ -28,8 +28,10 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
  */
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
+use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
 
 /**
  * @category   PhpSpreadsheet
@@ -237,7 +239,7 @@ class Worksheet extends WriterPart
         }
 
         // View Layout Type
-        if ($pSheet->getSheetView()->getView() !== \PhpOffice\PhpSpreadsheet\Worksheet\SheetView::SHEETVIEW_NORMAL) {
+        if ($pSheet->getSheetView()->getView() !== SheetView::SHEETVIEW_NORMAL) {
             $objWriter->writeAttribute('view', $pSheet->getSheetView()->getView());
         }
 
@@ -333,7 +335,7 @@ class Worksheet extends WriterPart
         // Default row height
         if ($pSheet->getDefaultRowDimension()->getRowHeight() >= 0) {
             $objWriter->writeAttribute('customHeight', 'true');
-            $objWriter->writeAttribute('defaultRowHeight', \PhpOffice\PhpSpreadsheet\Shared\StringHelper::formatNumber($pSheet->getDefaultRowDimension()->getRowHeight()));
+            $objWriter->writeAttribute('defaultRowHeight', StringHelper::formatNumber($pSheet->getDefaultRowDimension()->getRowHeight()));
         } else {
             $objWriter->writeAttribute('defaultRowHeight', '14.4');
         }
@@ -346,7 +348,7 @@ class Worksheet extends WriterPart
 
         // Default column width
         if ($pSheet->getDefaultColumnDimension()->getWidth() >= 0) {
-            $objWriter->writeAttribute('defaultColWidth', \PhpOffice\PhpSpreadsheet\Shared\StringHelper::formatNumber($pSheet->getDefaultColumnDimension()->getWidth()));
+            $objWriter->writeAttribute('defaultColWidth', StringHelper::formatNumber($pSheet->getDefaultColumnDimension()->getWidth()));
         }
 
         // Outline level - row
@@ -398,7 +400,7 @@ class Worksheet extends WriterPart
                     $objWriter->writeAttribute('width', '9.10');
                 } else {
                     // Width set
-                    $objWriter->writeAttribute('width', \PhpOffice\PhpSpreadsheet\Shared\StringHelper::formatNumber($colDimension->getWidth()));
+                    $objWriter->writeAttribute('width', StringHelper::formatNumber($colDimension->getWidth()));
                 }
 
                 // Column visibility
@@ -750,12 +752,12 @@ class Worksheet extends WriterPart
     {
         // pageMargins
         $objWriter->startElement('pageMargins');
-        $objWriter->writeAttribute('left', \PhpOffice\PhpSpreadsheet\Shared\StringHelper::formatNumber($pSheet->getPageMargins()->getLeft()));
-        $objWriter->writeAttribute('right', \PhpOffice\PhpSpreadsheet\Shared\StringHelper::formatNumber($pSheet->getPageMargins()->getRight()));
-        $objWriter->writeAttribute('top', \PhpOffice\PhpSpreadsheet\Shared\StringHelper::formatNumber($pSheet->getPageMargins()->getTop()));
-        $objWriter->writeAttribute('bottom', \PhpOffice\PhpSpreadsheet\Shared\StringHelper::formatNumber($pSheet->getPageMargins()->getBottom()));
-        $objWriter->writeAttribute('header', \PhpOffice\PhpSpreadsheet\Shared\StringHelper::formatNumber($pSheet->getPageMargins()->getHeader()));
-        $objWriter->writeAttribute('footer', \PhpOffice\PhpSpreadsheet\Shared\StringHelper::formatNumber($pSheet->getPageMargins()->getFooter()));
+        $objWriter->writeAttribute('left', StringHelper::formatNumber($pSheet->getPageMargins()->getLeft()));
+        $objWriter->writeAttribute('right', StringHelper::formatNumber($pSheet->getPageMargins()->getRight()));
+        $objWriter->writeAttribute('top', StringHelper::formatNumber($pSheet->getPageMargins()->getTop()));
+        $objWriter->writeAttribute('bottom', StringHelper::formatNumber($pSheet->getPageMargins()->getBottom()));
+        $objWriter->writeAttribute('header', StringHelper::formatNumber($pSheet->getPageMargins()->getHeader()));
+        $objWriter->writeAttribute('footer', StringHelper::formatNumber($pSheet->getPageMargins()->getFooter()));
         $objWriter->endElement();
     }
 
@@ -1020,7 +1022,7 @@ class Worksheet extends WriterPart
                 // Row dimensions
                 if ($rowDimension->getRowHeight() >= 0) {
                     $objWriter->writeAttribute('customHeight', '1');
-                    $objWriter->writeAttribute('ht', \PhpOffice\PhpSpreadsheet\Shared\StringHelper::formatNumber($rowDimension->getRowHeight()));
+                    $objWriter->writeAttribute('ht', StringHelper::formatNumber($rowDimension->getRowHeight()));
                 }
 
                 // Row visibility
@@ -1111,7 +1113,7 @@ class Worksheet extends WriterPart
             switch (strtolower($mappedType)) {
                 case 'inlinestr':    // Inline string
                     if (!$cellValue instanceof RichText) {
-                        $objWriter->writeElement('t', \PhpOffice\PhpSpreadsheet\Shared\StringHelper::controlCharacterPHP2OOXML(htmlspecialchars($cellValue)));
+                        $objWriter->writeElement('t', StringHelper::controlCharacterPHP2OOXML(htmlspecialchars($cellValue)));
                     } elseif ($cellValue instanceof RichText) {
                         $objWriter->startElement('is');
                         $this->getParentWriter()->getWriterPart('stringtable')->writeRichText($objWriter, $cellValue);
@@ -1145,7 +1147,7 @@ class Worksheet extends WriterPart
                     if ($this->getParentWriter()->getOffice2003Compatibility() === false) {
                         if ($this->getParentWriter()->getPreCalculateFormulas()) {
                             if (!is_array($calculatedValue) && substr($calculatedValue, 0, 1) != '#') {
-                                $objWriter->writeElement('v', \PhpOffice\PhpSpreadsheet\Shared\StringHelper::formatNumber($calculatedValue));
+                                $objWriter->writeElement('v', StringHelper::formatNumber($calculatedValue));
                             } else {
                                 $objWriter->writeElement('v', '0');
                             }

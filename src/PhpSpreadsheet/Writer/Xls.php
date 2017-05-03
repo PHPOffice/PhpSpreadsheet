@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
+use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -118,8 +119,8 @@ class Xls extends BaseWriter implements IWriter
         // garbage collect
         $this->spreadsheet->garbageCollect();
 
-        $saveDebugLog = \PhpOffice\PhpSpreadsheet\Calculation::getInstance($this->spreadsheet)->getDebugLog()->getWriteDebugLog();
-        \PhpOffice\PhpSpreadsheet\Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog(false);
+        $saveDebugLog = Calculation::getInstance($this->spreadsheet)->getDebugLog()->getWriteDebugLog();
+        Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog(false);
         $saveDateReturnType = \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType();
         \PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType(\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_EXCEL);
 
@@ -218,7 +219,7 @@ class Xls extends BaseWriter implements IWriter
         $res = $root->save($pFilename);
 
         \PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType($saveDateReturnType);
-        \PhpOffice\PhpSpreadsheet\Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
+        Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
     }
 
     /**

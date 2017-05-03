@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Calculation;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -1231,11 +1233,11 @@ class MathTrig
         foreach ($aArgs as $key => $arg) {
             if (!is_numeric($arg)) {
                 $arg = str_replace('"', '""', $arg);
-                $arg = \PhpOffice\PhpSpreadsheet\Calculation::wrapResult(strtoupper($arg));
+                $arg = Calculation::wrapResult(strtoupper($arg));
             }
 
             $testCondition = '=' . $arg . $condition;
-            if (\PhpOffice\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+            if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                 // Is it a value within our criteria
                 $returnValue += $sumArgs[$key];
             }
@@ -1280,10 +1282,10 @@ class MathTrig
             // Loop through arguments
             foreach ($aArgs as $key => $arg) {
                 if (!is_numeric($arg)) {
-                    $arg = \PhpOffice\PhpSpreadsheet\Calculation::wrapResult(strtoupper($arg));
+                    $arg = Calculation::wrapResult(strtoupper($arg));
                 }
                 $testCondition = '=' . $arg . $condition;
-                if (\PhpOffice\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+                if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                     // Is it a value within our criteria
                     $returnValue += $sumArgs[$key];
                 }

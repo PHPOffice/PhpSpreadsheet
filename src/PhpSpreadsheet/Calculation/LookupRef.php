@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell;
 
 /**
@@ -166,7 +167,7 @@ class LookupRef
 
         reset($cellAddress);
         $isMatrix = (is_numeric(key($cellAddress)));
-        list($columns, $rows) = \PhpOffice\PhpSpreadsheet\Calculation::_getMatrixDimensions($cellAddress);
+        list($columns, $rows) = Calculation::_getMatrixDimensions($cellAddress);
 
         if ($isMatrix) {
             return $rows;
@@ -247,7 +248,7 @@ class LookupRef
 
         reset($cellAddress);
         $isMatrix = (is_numeric(key($cellAddress)));
-        list($columns, $rows) = \PhpOffice\PhpSpreadsheet\Calculation::_getMatrixDimensions($cellAddress);
+        list($columns, $rows) = Calculation::_getMatrixDimensions($cellAddress);
 
         if ($isMatrix) {
             return $columns;
@@ -320,9 +321,9 @@ class LookupRef
             list($cellAddress1, $cellAddress2) = explode(':', $cellAddress);
         }
 
-        if ((!preg_match('/^' . \PhpOffice\PhpSpreadsheet\Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress1, $matches)) ||
-            ((!is_null($cellAddress2)) && (!preg_match('/^' . \PhpOffice\PhpSpreadsheet\Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress2, $matches)))) {
-            if (!preg_match('/^' . \PhpOffice\PhpSpreadsheet\Calculation::CALCULATION_REGEXP_NAMEDRANGE . '$/i', $cellAddress1, $matches)) {
+        if ((!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress1, $matches)) ||
+            ((!is_null($cellAddress2)) && (!preg_match('/^' . Calculation::CALCULATION_REGEXP_CELLREF . '$/i', $cellAddress2, $matches)))) {
+            if (!preg_match('/^' . Calculation::CALCULATION_REGEXP_NAMEDRANGE . '$/i', $cellAddress1, $matches)) {
                 return Functions::REF();
             }
 
@@ -334,7 +335,7 @@ class LookupRef
                 $pSheet = $pCell->getWorksheet();
             }
 
-            return \PhpOffice\PhpSpreadsheet\Calculation::getInstance()->extractNamedRange($cellAddress, $pSheet, false);
+            return Calculation::getInstance()->extractNamedRange($cellAddress, $pSheet, false);
         }
 
         if (strpos($cellAddress, '!') !== false) {
@@ -345,7 +346,7 @@ class LookupRef
             $pSheet = $pCell->getWorksheet();
         }
 
-        return \PhpOffice\PhpSpreadsheet\Calculation::getInstance()->extractCellRange($cellAddress, $pSheet, false);
+        return Calculation::getInstance()->extractCellRange($cellAddress, $pSheet, false);
     }
 
     /**
@@ -444,7 +445,7 @@ class LookupRef
             $pSheet = $pCell->getWorksheet();
         }
 
-        return \PhpOffice\PhpSpreadsheet\Calculation::getInstance()->extractCellRange($cellAddress, $pSheet, false);
+        return Calculation::getInstance()->extractCellRange($cellAddress, $pSheet, false);
     }
 
     /**

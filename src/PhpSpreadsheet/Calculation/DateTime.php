@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -294,9 +295,9 @@ class DateTime
             $day = Date::dayStringToNumber($day);
         }
 
-        $year = ($year !== null) ? \PhpOffice\PhpSpreadsheet\Shared\StringHelper::testStringAsNumeric($year) : 0;
-        $month = ($month !== null) ? \PhpOffice\PhpSpreadsheet\Shared\StringHelper::testStringAsNumeric($month) : 0;
-        $day = ($day !== null) ? \PhpOffice\PhpSpreadsheet\Shared\StringHelper::testStringAsNumeric($day) : 0;
+        $year = ($year !== null) ? StringHelper::testStringAsNumeric($year) : 0;
+        $month = ($month !== null) ? StringHelper::testStringAsNumeric($month) : 0;
+        $day = ($day !== null) ? StringHelper::testStringAsNumeric($day) : 0;
         if ((!is_numeric($year)) ||
             (!is_numeric($month)) ||
             (!is_numeric($day))) {

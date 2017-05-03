@@ -56,7 +56,7 @@ abstract class Supervisor
     /**
      * Bind parent. Only used for supervisor.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Style $parent
+     * @param Style $parent
      * @param null|mixed $parentPropertyName
      *
      * @return Supervisor

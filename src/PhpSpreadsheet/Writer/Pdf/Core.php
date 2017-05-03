@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
+use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
@@ -266,8 +267,8 @@ abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\Html
         //  garbage collect
         $this->spreadsheet->garbageCollect();
 
-        $this->saveArrayReturnType = \PhpOffice\PhpSpreadsheet\Calculation::getArrayReturnType();
-        \PhpOffice\PhpSpreadsheet\Calculation::setArrayReturnType(\PhpOffice\PhpSpreadsheet\Calculation::RETURN_ARRAY_AS_VALUE);
+        $this->saveArrayReturnType = Calculation::getArrayReturnType();
+        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_VALUE);
 
         //  Open file
         $fileHandle = fopen($pFilename, 'w');
@@ -295,6 +296,6 @@ abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\Html
         //  Close file
         fclose($fileHandle);
 
-        \PhpOffice\PhpSpreadsheet\Calculation::setArrayReturnType($this->saveArrayReturnType);
+        Calculation::setArrayReturnType($this->saveArrayReturnType);
     }
 }

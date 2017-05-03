@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -111,7 +112,7 @@ class StringTable extends WriterPart
             $objWriter->startElement('si');
 
             if (!$textElement instanceof RichText) {
-                $textToWrite = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::controlCharacterPHP2OOXML($textElement);
+                $textToWrite = StringHelper::controlCharacterPHP2OOXML($textElement);
                 $objWriter->startElement('t');
                 if ($textToWrite !== trim($textToWrite)) {
                     $objWriter->writeAttribute('xml:space', 'preserve');
@@ -208,7 +209,7 @@ class StringTable extends WriterPart
             // t
             $objWriter->startElement($prefix . 't');
             $objWriter->writeAttribute('xml:space', 'preserve');
-            $objWriter->writeRawData(\PhpOffice\PhpSpreadsheet\Shared\StringHelper::controlCharacterPHP2OOXML($element->getText()));
+            $objWriter->writeRawData(StringHelper::controlCharacterPHP2OOXML($element->getText()));
             $objWriter->endElement();
 
             $objWriter->endElement();
@@ -272,7 +273,7 @@ class StringTable extends WriterPart
 
             // t
             $objWriter->startElement($prefix . 't');
-            $objWriter->writeRawData(\PhpOffice\PhpSpreadsheet\Shared\StringHelper::controlCharacterPHP2OOXML($element->getText()));
+            $objWriter->writeRawData(StringHelper::controlCharacterPHP2OOXML($element->getText()));
             $objWriter->endElement();
 
             $objWriter->endElement();

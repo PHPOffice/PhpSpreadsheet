@@ -13,6 +13,8 @@ namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
  *    @license PHP v3.0
  *    @see http://math.nist.gov/javanumerics/jama/
  */
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+
 class Matrix
 {
     const POLYMORPHIC_ARGUMENT_EXCEPTION = 'Invalid argument pattern for polymorphic function.';
@@ -528,11 +530,11 @@ class Matrix
                     $value = $M->get($i, $j);
                     if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
                         $this->A[$i][$j] = trim($this->A[$i][$j], '"');
-                        $validValues &= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
+                        $validValues &= StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
                     }
                     if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
                         $value = trim($value, '"');
-                        $validValues &= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertToNumberIfFraction($value);
+                        $validValues &= StringHelper::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
                         $this->A[$i][$j] += $value;
@@ -624,11 +626,11 @@ class Matrix
                     $value = $M->get($i, $j);
                     if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
                         $this->A[$i][$j] = trim($this->A[$i][$j], '"');
-                        $validValues &= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
+                        $validValues &= StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
                     }
                     if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
                         $value = trim($value, '"');
-                        $validValues &= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertToNumberIfFraction($value);
+                        $validValues &= StringHelper::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
                         $this->A[$i][$j] -= $value;
@@ -722,11 +724,11 @@ class Matrix
                     $value = $M->get($i, $j);
                     if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
                         $this->A[$i][$j] = trim($this->A[$i][$j], '"');
-                        $validValues &= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
+                        $validValues &= StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
                     }
                     if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
                         $value = trim($value, '"');
-                        $validValues &= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertToNumberIfFraction($value);
+                        $validValues &= StringHelper::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
                         $this->A[$i][$j] *= $value;
@@ -778,11 +780,11 @@ class Matrix
                     $value = $M->get($i, $j);
                     if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
                         $this->A[$i][$j] = trim($this->A[$i][$j], '"');
-                        $validValues &= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
+                        $validValues &= StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
                     }
                     if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
                         $value = trim($value, '"');
-                        $validValues &= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertToNumberIfFraction($value);
+                        $validValues &= StringHelper::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
                         if ($value == 0) {
@@ -1056,11 +1058,11 @@ class Matrix
                     $value = $M->get($i, $j);
                     if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
                         $this->A[$i][$j] = trim($this->A[$i][$j], '"');
-                        $validValues &= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
+                        $validValues &= StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
                     }
                     if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
                         $value = trim($value, '"');
-                        $validValues &= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertToNumberIfFraction($value);
+                        $validValues &= StringHelper::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
                         $this->A[$i][$j] = pow($this->A[$i][$j], $value);

@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
+use PhpOffice\PhpSpreadsheet\IComparable;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -26,7 +28,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
-class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
+class NumberFormat extends Supervisor implements IComparable
 {
     /* Pre-defined formats */
     const FORMAT_GENERAL = 'General';
@@ -719,8 +721,8 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
                             $value = number_format(
                                 $value,
                                 strlen($right),
-                                \PhpOffice\PhpSpreadsheet\Shared\StringHelper::getDecimalSeparator(),
-                                \PhpOffice\PhpSpreadsheet\Shared\StringHelper::getThousandsSeparator()
+                                StringHelper::getDecimalSeparator(),
+                                StringHelper::getThousandsSeparator()
                             );
                             $value = preg_replace($number_regex, $value, $format);
                         } else {
@@ -743,7 +745,7 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
                     $currencyCode = $m[1];
                     list($currencyCode) = explode('-', $currencyCode);
                     if ($currencyCode == '') {
-                        $currencyCode = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::getCurrencyCode();
+                        $currencyCode = StringHelper::getCurrencyCode();
                     }
                     $value = preg_replace('/\[\$([^\]]*)\]/u', $currencyCode, $value);
                 }

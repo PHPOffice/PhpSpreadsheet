@@ -2,7 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 
@@ -155,7 +157,7 @@ class Slk extends BaseReader implements IReader
             $columnIndex = 0;
 
             // convert SYLK encoded $rowData to UTF-8
-            $rowData = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::SYLKtoUTF8($rowData);
+            $rowData = StringHelper::SYLKtoUTF8($rowData);
 
             // explode each row at semicolons while taking into account that literal semicolon (;)
             // is escaped like this (;;)
@@ -245,7 +247,7 @@ class Slk extends BaseReader implements IReader
         // loop through one row (line) at a time in the file
         while (($rowData = fgets($fileHandle)) !== false) {
             // convert SYLK encoded $rowData to UTF-8
-            $rowData = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::SYLKtoUTF8($rowData);
+            $rowData = StringHelper::SYLKtoUTF8($rowData);
 
             // explode each row at semicolons while taking into account that literal semicolon (;)
             // is escaped like this (;;)
@@ -360,12 +362,12 @@ class Slk extends BaseReader implements IReader
                     }
                 }
                 $columnLetter = Cell::stringFromColumnIndex($column - 1);
-                $cellData = \PhpOffice\PhpSpreadsheet\Calculation::unwrapResult($cellData);
+                $cellData = Calculation::unwrapResult($cellData);
 
                 // Set cell value
                 $spreadsheet->getActiveSheet()->getCell($columnLetter . $row)->setValue(($hasCalculatedValue) ? $cellDataFormula : $cellData);
                 if ($hasCalculatedValue) {
-                    $cellData = \PhpOffice\PhpSpreadsheet\Calculation::unwrapResult($cellData);
+                    $cellData = Calculation::unwrapResult($cellData);
                     $spreadsheet->getActiveSheet()->getCell($columnLetter . $row)->setCalculatedValue($cellData);
                 }
             //    Read cell formatting

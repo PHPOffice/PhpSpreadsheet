@@ -3,6 +3,8 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 /* LOG_GAMMA_X_MAX_VALUE */
+use PhpOffice\PhpSpreadsheet\Calculation;
+
 define('LOG_GAMMA_X_MAX_VALUE', 2.55e305);
 
 /* XMININ */
@@ -883,10 +885,10 @@ class Statistical
         $aCount = 0;
         foreach ($aArgs as $key => $arg) {
             if (!is_numeric($arg)) {
-                $arg = \PhpOffice\PhpSpreadsheet\Calculation::wrapResult(strtoupper($arg));
+                $arg = Calculation::wrapResult(strtoupper($arg));
             }
             $testCondition = '=' . $arg . $condition;
-            if (\PhpOffice\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+            if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                 if ((is_null($returnValue)) || ($arg > $returnValue)) {
                     $returnValue += $arg;
                     ++$aCount;
@@ -1317,10 +1319,10 @@ class Statistical
         // Loop through arguments
         foreach ($aArgs as $arg) {
             if (!is_numeric($arg)) {
-                $arg = \PhpOffice\PhpSpreadsheet\Calculation::wrapResult(strtoupper($arg));
+                $arg = Calculation::wrapResult(strtoupper($arg));
             }
             $testCondition = '=' . $arg . $condition;
-            if (\PhpOffice\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+            if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                 // Is it a value within our criteria
                 ++$returnValue;
             }
@@ -2347,10 +2349,10 @@ class Statistical
         // Loop through arguments
         foreach ($aArgs as $key => $arg) {
             if (!is_numeric($arg)) {
-                $arg = \PhpOffice\PhpSpreadsheet\Calculation::wrapResult(strtoupper($arg));
+                $arg = Calculation::wrapResult(strtoupper($arg));
             }
             $testCondition = '=' . $arg . $condition;
-            if (\PhpOffice\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+            if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                 if ((is_null($returnValue)) || ($arg > $returnValue)) {
                     $returnValue = $arg;
                 }
@@ -2510,10 +2512,10 @@ class Statistical
         // Loop through arguments
         foreach ($aArgs as $key => $arg) {
             if (!is_numeric($arg)) {
-                $arg = \PhpOffice\PhpSpreadsheet\Calculation::wrapResult(strtoupper($arg));
+                $arg = Calculation::wrapResult(strtoupper($arg));
             }
             $testCondition = '=' . $arg . $condition;
-            if (\PhpOffice\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+            if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                 if ((is_null($returnValue)) || ($arg < $returnValue)) {
                     $returnValue = $arg;
                 }

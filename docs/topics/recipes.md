@@ -187,7 +187,7 @@ internal English coding.
 
 ``` php
 $formula = $spreadsheet->getActiveSheet()->getCell('B8')->getValue();
-$translatedFormula = \PhpOffice\PhpSpreadsheet\Calculation::getInstance()->_translateFormulaToLocale($formula);
+$translatedFormula = Calculation::getInstance()->_translateFormulaToLocale($formula);
 ```
 
 You can also create a formula using the function names and argument
@@ -196,7 +196,7 @@ English before setting the cell value:
 
 ``` php
 $formula = '=ДНЕЙ360(ДАТА(2010;2;5);ДАТА(2010;12;31);ИСТИНА)';
-$internalFormula = \PhpOffice\PhpSpreadsheet\Calculation::getInstance()->translateFormulaToEnglish($formula);
+$internalFormula = Calculation::getInstance()->translateFormulaToEnglish($formula);
 $spreadsheet->getActiveSheet()->setCellValue('B8',$internalFormula);
 ```
 
@@ -743,7 +743,7 @@ easy manner.
 ### Valid array keys for style `applyFromArray()`
 
 The following table lists the valid array keys for
-\PhpOffice\PhpSpreadsheet\Style applyFromArray() classes. If the "Maps
+Style applyFromArray() classes. If the "Maps
 to property" column maps a key to a setter, the value provided for that
 key will be applied directly. If the "Maps to property" column maps a
 key to a getter, the value provided for that key will be applied as

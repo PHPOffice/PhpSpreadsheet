@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
+use PhpOffice\PhpSpreadsheet\IComparable;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -24,7 +26,7 @@ namespace PhpOffice\PhpSpreadsheet\Style;
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
-class Protection extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
+class Protection extends Supervisor implements IComparable
 {
     /** Protection styles */
     const PROTECTION_INHERIT = 'inherit';

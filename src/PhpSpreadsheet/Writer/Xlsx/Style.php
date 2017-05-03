@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
@@ -330,7 +331,7 @@ class Style extends WriterPart
         // Size
         if ($pFont->getSize() !== null) {
             $objWriter->startElement('sz');
-            $objWriter->writeAttribute('val', \PhpOffice\PhpSpreadsheet\Shared\StringHelper::formatNumber($pFont->getSize()));
+            $objWriter->writeAttribute('val', StringHelper::formatNumber($pFont->getSize()));
             $objWriter->endElement();
         }
 
@@ -392,12 +393,12 @@ class Style extends WriterPart
      * Write Cell Style Xf.
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
-     * @param \PhpOffice\PhpSpreadsheet\Style $pStyle Style
+     * @param Style $pStyle Style
      * @param Spreadsheet $spreadsheet Workbook
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeCellStyleXf(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Style $pStyle, Spreadsheet $spreadsheet)
+    private function writeCellStyleXf(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, Style $pStyle, Spreadsheet $spreadsheet)
     {
         // xf
         $objWriter->startElement('xf');
@@ -469,11 +470,11 @@ class Style extends WriterPart
      * Write Cell Style Dxf.
      *
      * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
-     * @param \PhpOffice\PhpSpreadsheet\Style $pStyle Style
+     * @param Style $pStyle Style
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeCellStyleDxf(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Style $pStyle)
+    private function writeCellStyleDxf(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, Style $pStyle)
     {
         // dxf
         $objWriter->startElement('dxf');
@@ -642,7 +643,7 @@ class Style extends WriterPart
         $aFills[] = $fill1;
         // The remaining fills
         $aStyles = $this->allStyles($spreadsheet);
-        /** @var \PhpOffice\PhpSpreadsheet\Style $style */
+        /** @var Style $style */
         foreach ($aStyles as $style) {
             if (!isset($aFills[$style->getFill()->getHashCode()])) {
                 $aFills[$style->getFill()->getHashCode()] = $style->getFill();
@@ -667,7 +668,7 @@ class Style extends WriterPart
         $aFonts = [];
         $aStyles = $this->allStyles($spreadsheet);
 
-        /** @var \PhpOffice\PhpSpreadsheet\Style $style */
+        /** @var Style $style */
         foreach ($aStyles as $style) {
             if (!isset($aFonts[$style->getFont()->getHashCode()])) {
                 $aFonts[$style->getFont()->getHashCode()] = $style->getFont();
@@ -692,7 +693,7 @@ class Style extends WriterPart
         $aBorders = [];
         $aStyles = $this->allStyles($spreadsheet);
 
-        /** @var \PhpOffice\PhpSpreadsheet\Style $style */
+        /** @var Style $style */
         foreach ($aStyles as $style) {
             if (!isset($aBorders[$style->getBorders()->getHashCode()])) {
                 $aBorders[$style->getBorders()->getHashCode()] = $style->getBorders();
@@ -717,7 +718,7 @@ class Style extends WriterPart
         $aNumFmts = [];
         $aStyles = $this->allStyles($spreadsheet);
 
-        /** @var \PhpOffice\PhpSpreadsheet\Style $style */
+        /** @var Style $style */
         foreach ($aStyles as $style) {
             if ($style->getNumberFormat()->getBuiltInFormatCode() === false && !isset($aNumFmts[$style->getNumberFormat()->getHashCode()])) {
                 $aNumFmts[$style->getNumberFormat()->getHashCode()] = $style->getNumberFormat();

@@ -560,15 +560,15 @@ to set the characters explicitly as shown below.
 English users will want to use this before doing the export:
 
 ``` php
-\PhpOffice\PhpSpreadsheet\Shared\StringHelper::setDecimalSeparator('.');
-\PhpOffice\PhpSpreadsheet\Shared\StringHelper::setThousandsSeparator(',');
+StringHelper::setDecimalSeparator('.');
+StringHelper::setThousandsSeparator(',');
 ```
 
 German users will want to use the opposite values.
 
 ``` php
-\PhpOffice\PhpSpreadsheet\Shared\StringHelper::setDecimalSeparator(',');
-\PhpOffice\PhpSpreadsheet\Shared\StringHelper::setThousandsSeparator('.');
+StringHelper::setDecimalSeparator(',');
+StringHelper::setThousandsSeparator('.');
 ```
 
 Note that the above code sets decimal and thousand separators as global

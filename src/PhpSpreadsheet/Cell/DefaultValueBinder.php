@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Cell;
 
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -41,7 +42,7 @@ class DefaultValueBinder implements IValueBinder
     {
         // sanitize UTF-8 strings
         if (is_string($value)) {
-            $value = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::sanitizeUTF8($value);
+            $value = StringHelper::sanitizeUTF8($value);
         } elseif (is_object($value)) {
             // Handle any objects that might be injected
             if ($value instanceof \DateTime) {

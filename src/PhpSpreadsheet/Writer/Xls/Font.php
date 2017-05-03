@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
@@ -114,7 +116,7 @@ class Font
             $bCharSet,
             $reserved
         );
-        $data .= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeShort($this->font->getName());
+        $data .= StringHelper::UTF8toBIFF8UnicodeShort($this->font->getName());
 
         $length = strlen($data);
         $header = pack('vv', $record, $length);

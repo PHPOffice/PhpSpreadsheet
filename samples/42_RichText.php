@@ -1,5 +1,6 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Helper\Html as HtmlHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/Header.php';
@@ -50,7 +51,7 @@ $html4 = 'H<sub>2</sub>SO<sub>4</sub> is the chemical formula for Sulphuric acid
 
 $html5 = '<strong>bold</strong>, <em>italic</em>, <strong><em>bold+italic</em></strong>';
 
-$wizard = new \PhpOffice\PhpSpreadsheet\Helper\Html();
+$wizard = new HtmlHelper();
 $richText = $wizard->toRichTextObject($html1);
 
 $spreadsheet->getActiveSheet()

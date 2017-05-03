@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
+use PhpOffice\PhpSpreadsheet\IComparable;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 
 /**
@@ -26,7 +27,7 @@ use PhpOffice\PhpSpreadsheet\Style\Color;
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
-class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
+class Shadow implements IComparable
 {
     /* Shadow alignment */
     const SHADOW_BOTTOM = 'b';

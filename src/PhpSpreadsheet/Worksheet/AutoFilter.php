@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
@@ -724,7 +725,7 @@ class AutoFilter
                             //    Number (Average) based
                             //    Calculate the average
                             $averageFormula = '=AVERAGE(' . $columnID . ($rangeStart[1] + 1) . ':' . $columnID . $rangeEnd[1] . ')';
-                            $average = \PhpOffice\PhpSpreadsheet\Calculation::getInstance()->calculateFormula($averageFormula, null, $this->workSheet->getCell('A1'));
+                            $average = Calculation::getInstance()->calculateFormula($averageFormula, null, $this->workSheet->getCell('A1'));
                             //    Set above/below rule based on greaterThan or LessTan
                             $operator = ($dynamicRuleType === AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_ABOVEAVERAGE)
                                 ? AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_GREATERTHAN

@@ -2,9 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
+use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 /**
@@ -43,7 +45,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
     {
         // sanitize UTF-8 strings
         if (is_string($value)) {
-            $value = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::sanitizeUTF8($value);
+            $value = StringHelper::sanitizeUTF8($value);
         }
 
         // Find out data type
@@ -52,18 +54,18 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
         // Style logic - strings
         if ($dataType === DataType::TYPE_STRING && !$value instanceof RichText) {
             //    Test for booleans using locale-setting
-            if ($value == \PhpOffice\PhpSpreadsheet\Calculation::getTRUE()) {
+            if ($value == Calculation::getTRUE()) {
                 $cell->setValueExplicit(true, DataType::TYPE_BOOL);
 
                 return true;
-            } elseif ($value == \PhpOffice\PhpSpreadsheet\Calculation::getFALSE()) {
+            } elseif ($value == Calculation::getFALSE()) {
                 $cell->setValueExplicit(false, DataType::TYPE_BOOL);
 
                 return true;
             }
 
             // Check for number in scientific format
-            if (preg_match('/^' . \PhpOffice\PhpSpreadsheet\Calculation::CALCULATION_REGEXP_NUMBER . '$/', $value)) {
+            if (preg_match('/^' . Calculation::CALCULATION_REGEXP_NUMBER . '$/', $value)) {
                 $cell->setValueExplicit((float) $value, DataType::TYPE_NUMERIC);
 
                 return true;
@@ -109,9 +111,9 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
             }
 
             // Check for currency
-            $currencyCode = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::getCurrencyCode();
-            $decimalSeparator = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::getDecimalSeparator();
-            $thousandsSeparator = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::getThousandsSeparator();
+            $currencyCode = StringHelper::getCurrencyCode();
+            $decimalSeparator = StringHelper::getDecimalSeparator();
+            $thousandsSeparator = StringHelper::getThousandsSeparator();
             if (preg_match('/^' . preg_quote($currencyCode) . ' *(\d{1,3}(' . preg_quote($thousandsSeparator) . '\d{3})*|(\d+))(' . preg_quote($decimalSeparator) . '\d{2})?$/', $value)) {
                 // Convert value to number
                 $value = (float) trim(str_replace([$currencyCode, $thousandsSeparator, $decimalSeparator], ['', '', '.'], $value));
@@ -179,7 +181,7 @@ class AdvancedValueBinder extends DefaultValueBinder implements IValueBinder
 
             // Check for newline character "\n"
             if (strpos($value, "\n") !== false) {
-                $value = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::sanitizeUTF8($value);
+                $value = StringHelper::sanitizeUTF8($value);
                 $cell->setValueExplicit($value, DataType::TYPE_STRING);
                 // Set style
                 $cell->getWorksheet()->getStyle($cell->getCoordinate())
