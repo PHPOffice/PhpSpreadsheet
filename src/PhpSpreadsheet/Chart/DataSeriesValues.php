@@ -82,7 +82,15 @@ class DataSeriesValues
     private $dataValues = [];
 
     /**
+     * Fill color.
+     *
+     * @var string
+     */
+    private $fillColor;
+
+    /**
      * Create a new DataSeriesValues object.
+     *
      *
      * @param mixed $dataType
      * @param string $dataSource
@@ -90,8 +98,9 @@ class DataSeriesValues
      * @param mixed $pointCount
      * @param mixed $dataValues
      * @param null|mixed $marker
+     * @param null|string $fillColor
      */
-    public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = [], $marker = null)
+    public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = [], $marker = null, $fillColor = null)
     {
         $this->setDataType($dataType);
         $this->dataSource = $dataSource;
@@ -99,6 +108,7 @@ class DataSeriesValues
         $this->pointCount = $pointCount;
         $this->dataValues = $dataValues;
         $this->pointMarker = $marker;
+        $this->fillColor = $fillColor;
     }
 
     /**
@@ -215,6 +225,33 @@ class DataSeriesValues
     public function getPointCount()
     {
         return $this->pointCount;
+    }
+
+    /**
+     * Get fill color.
+     *
+     * @return string HEX color
+     */
+    public function getFillColor()
+    {
+        return $this->fillColor;
+    }
+
+    /**
+     * Set fill color for series.
+     *
+     * @param string $color HEX color
+     *
+     * @return   DataSeriesValues
+     */
+    public function setFillColor($color)
+    {
+        if (!preg_match('/^[a-f0-9]{6}$/i', $color)) {
+            throw new Exception('Invalid hex color for chart series');
+        }
+        $this->fillColor = $color;
+
+        return $this;
     }
 
     /**
