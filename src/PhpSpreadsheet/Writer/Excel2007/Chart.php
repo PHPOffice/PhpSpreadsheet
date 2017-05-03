@@ -1086,6 +1086,17 @@ class Chart extends WriterPart
         foreach ($plotSeriesOrder as $plotSeriesIdx => $plotSeriesRef) {
             $objWriter->startElement('c:ser');
 
+            $fillColor = $plotGroup->getPlotLabelByIndex($plotSeriesIdx)->getFillColor();
+            if ($fillColor != null){
+                $objWriter->startElement('c:spPr');
+                $objWriter->startElement('a:solidFill');
+                $objWriter->startElement('a:srgbClr');
+                $objWriter->writeAttribute('val', $fillColor);
+                $objWriter->endElement();
+                $objWriter->endElement();
+                $objWriter->endElement();
+            }
+
             $objWriter->startElement('c:idx');
             $objWriter->writeAttribute('val', $this->_seriesIndex + $plotSeriesIdx);
             $objWriter->endElement();

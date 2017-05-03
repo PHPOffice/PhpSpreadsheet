@@ -77,10 +77,17 @@ class DataSeriesValues
     private $dataValues = [];
 
     /**
+     * Fill color.
+     *
+     * @var string
+     */
+    private $fillColor;
+
+    /**
      * Create a new DataSeriesValues object
      * @param string $dataSource
      */
-    public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = [], $marker = null)
+    public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = [], $marker = null, $color = null)
     {
         $this->setDataType($dataType);
         $this->dataSource = $dataSource;
@@ -88,6 +95,7 @@ class DataSeriesValues
         $this->pointCount = $pointCount;
         $this->dataValues = $dataValues;
         $this->pointMarker = $marker;
+        $this->fillColor = $color;
     }
 
     /**
@@ -203,6 +211,16 @@ class DataSeriesValues
     public function getPointCount()
     {
         return $this->pointCount;
+    }
+
+    /**
+     * Get fill color.
+     *
+     * @return string
+     */
+    public function getFillColor()
+    {
+        return $this->fillColor;
     }
 
     /**
