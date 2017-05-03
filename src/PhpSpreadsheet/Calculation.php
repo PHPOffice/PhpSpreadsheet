@@ -2066,7 +2066,7 @@ class Calculation
         }
 
         if (!isset(self::$instance) || (self::$instance === null)) {
-            self::$instance = new Calculation();
+            self::$instance = new self();
         }
 
         return self::$instance;
