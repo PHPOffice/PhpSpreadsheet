@@ -224,6 +224,21 @@ class DataSeriesValues
     }
 
     /**
+     * Set fill color for series
+     *
+     * @param    string    HEX color
+     * @return   DataSeriesValues
+     */
+    public function setFillColor($color)
+    {
+        if (!preg_match('/^[a-f0-9]{6}$/i', $color)) {
+            throw new Exception('Invalid hex color for chart series');
+        }
+        $this->fillColor = $color;
+        return $this;
+    }
+
+    /**
      * Identify if the Data Series is a multi-level or a simple series
      *
      * @return    bool|null
