@@ -188,7 +188,6 @@ class RowCellIterator extends CellIterator implements \Iterator
                 Cell::stringFromColumnIndex($this->endColumn) . ')'
             );
         }
-
         do {
             --$this->position;
         } while (($this->onlyExistingCells) &&

@@ -191,7 +191,6 @@ class ColumnIterator implements \Iterator
                 Cell::stringFromColumnIndex($this->endColumn) . ')'
             );
         }
-
         --$this->position;
     }
 
