@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Chart;
 
+use PhpOffice\PhpSpreadsheet\Worksheet;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
