@@ -33,7 +33,7 @@ class StringTable extends WriterPart
     /**
      * Create worksheet stringtable.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pSheet Worksheet
+     * @param Worksheet $pSheet Worksheet
      * @param string[] $pExistingTable Existing table to eventually merge with
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
@@ -77,7 +77,7 @@ class StringTable extends WriterPart
 
             return $aStringTable;
         }
-        throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Invalid \PhpOffice\PhpSpreadsheet\Worksheet object passed.");
+        throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Invalid Worksheet object passed.');
     }
 
     /**

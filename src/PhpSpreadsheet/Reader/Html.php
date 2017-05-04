@@ -280,12 +280,12 @@ class Html extends BaseReader implements IReader
 
     /**
      * @param DOMNode $element
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $sheet
+     * @param Worksheet $sheet
      * @param int $row
      * @param string $column
      * @param string $cellContent
      */
-    protected function processDomElement(DOMNode $element, \PhpOffice\PhpSpreadsheet\Worksheet $sheet, &$row, &$column, &$cellContent)
+    protected function processDomElement(DOMNode $element, Worksheet $sheet, &$row, &$column, &$cellContent)
     {
         foreach ($element->childNodes as $child) {
             if ($child instanceof DOMText) {

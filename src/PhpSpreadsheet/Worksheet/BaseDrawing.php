@@ -213,14 +213,14 @@ class BaseDrawing implements IComparable
     /**
      * Set Worksheet.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pValue
+     * @param Worksheet $pValue
      * @param bool $pOverrideOld If a Worksheet has already been assigned, overwrite it and remove image from old Worksheet?
      *
      * @throws PhpSpreadsheetException
      *
      * @return BaseDrawing
      */
-    public function setWorksheet(\PhpOffice\PhpSpreadsheet\Worksheet $pValue = null, $pOverrideOld = false)
+    public function setWorksheet(Worksheet $pValue = null, $pOverrideOld = false)
     {
         if (is_null($this->worksheet)) {
             // Add drawing to \PhpOffice\PhpSpreadsheet\Worksheet
@@ -243,7 +243,7 @@ class BaseDrawing implements IComparable
                 // Set new \PhpOffice\PhpSpreadsheet\Worksheet
                 $this->setWorksheet($pValue);
             } else {
-                throw new PhpSpreadsheetException("A \PhpOffice\PhpSpreadsheet\Worksheet has already been assigned. Drawings can only exist on one \PhpOffice\PhpSpreadsheet\Worksheet.");
+                throw new PhpSpreadsheetException("A Worksheet has already been assigned. Drawings can only exist on one \PhpOffice\PhpSpreadsheet\Worksheet.");
             }
         }
 

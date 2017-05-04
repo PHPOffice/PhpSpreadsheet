@@ -124,7 +124,7 @@ class PlotArea
         return $this;
     }
 
-    public function refresh(\PhpOffice\PhpSpreadsheet\Worksheet $worksheet)
+    public function refresh(Worksheet $worksheet)
     {
         foreach ($this->plotSeries as $plotSeries) {
             $plotSeries->refresh($worksheet);

@@ -221,7 +221,7 @@ class Chart extends WriterPart
      * Write Chart Plot Area.
      *
      * @param XMLWriter $objWriter XML Writer
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pSheet
+     * @param Worksheet $pSheet
      * @param PlotArea $plotArea
      * @param Title $xAxisLabel
      * @param Title $yAxisLabel
@@ -230,7 +230,7 @@ class Chart extends WriterPart
      *
      * @throws WriterException
      */
-    private function writePlotArea(XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Worksheet $pSheet, PlotArea $plotArea, Title $xAxisLabel = null, Title $yAxisLabel = null, Axis $xAxis = null, Axis $yAxis = null, GridLines $majorGridlines = null, GridLines $minorGridlines = null)
+    private function writePlotArea(XMLWriter $objWriter, Worksheet $pSheet, PlotArea $plotArea, Title $xAxisLabel = null, Title $yAxisLabel = null, Axis $xAxis = null, Axis $yAxis = null, GridLines $majorGridlines = null, GridLines $minorGridlines = null)
     {
         if (is_null($plotArea)) {
             return;
@@ -1054,11 +1054,11 @@ class Chart extends WriterPart
      * @param bool &$catIsMultiLevelSeries Is category a multi-series category
      * @param bool &$valIsMultiLevelSeries Is value set a multi-series set
      * @param string &$plotGroupingType Type of grouping for multi-series values
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pSheet
+     * @param Worksheet $pSheet
      *
      * @throws WriterException
      */
-    private function writePlotGroup($plotGroup, $groupType, $objWriter, &$catIsMultiLevelSeries, &$valIsMultiLevelSeries, &$plotGroupingType, \PhpOffice\PhpSpreadsheet\Worksheet $pSheet)
+    private function writePlotGroup($plotGroup, $groupType, $objWriter, &$catIsMultiLevelSeries, &$valIsMultiLevelSeries, &$plotGroupingType, Worksheet $pSheet)
     {
         if (is_null($plotGroup)) {
             return;

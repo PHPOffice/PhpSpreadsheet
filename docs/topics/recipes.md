@@ -461,13 +461,13 @@ To set a print break, use the following code, which sets a row break on
 row 10.
 
 ``` php
-$spreadsheet->getActiveSheet()->setBreak( 'A10' , \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_ROW );
+$spreadsheet->getActiveSheet()->setBreak( 'A10' , Worksheet::BREAK_ROW );
 ```
 
 The following line of code sets a print break on column D:
 
 ``` php
-$spreadsheet->getActiveSheet()->setBreak( 'D10' , \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_COLUMN );
+$spreadsheet->getActiveSheet()->setBreak( 'D10' , Worksheet::BREAK_COLUMN );
 ```
 
 ### Show/hide gridlines when printing
@@ -1479,15 +1479,15 @@ Set a worksheet to be **hidden** using this code:
 
 ``` php
 $spreadsheet->getActiveSheet()
-    ->setSheetState(\PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_HIDDEN);
+    ->setSheetState(Worksheet::SHEETSTATE_HIDDEN);
 ```
 
 Sometimes you may even want the worksheet to be **"very hidden"**. The
 available sheet states are :
 
--   `\PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VISIBLE`
--   `\PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_HIDDEN`
--   `\PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VERYHIDDEN`
+-   `Worksheet::SHEETSTATE_VISIBLE`
+-   `Worksheet::SHEETSTATE_HIDDEN`
+-   `Worksheet::SHEETSTATE_VERYHIDDEN`
 
 In Excel the sheet state "very hidden" can only be set programmatically,
 e.g. with Visual Basic Macro. It is not possible to make such a sheet

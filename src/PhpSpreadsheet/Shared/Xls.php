@@ -33,7 +33,7 @@ class Xls
      * x is the width in intrinsic Excel units (measuring width in number of normal characters)
      * This holds for Arial 10.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $sheet The sheet
+     * @param Worksheet $sheet The sheet
      * @param string $col The column
      *
      * @return int The width in pixels
@@ -76,7 +76,7 @@ class Xls
      * the relationship is: y = 4/3x. If the height hasn't been set by the user we
      * use the default value. If the row is hidden we use a value of zero.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $sheet The sheet
+     * @param Worksheet $sheet The sheet
      * @param int $row The row index (1-based)
      *
      * @return int The width in pixels
@@ -119,7 +119,7 @@ class Xls
      * Get the horizontal distance in pixels between two anchors
      * The distanceX is found as sum of all the spanning columns widths minus correction for the two offsets.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $sheet
+     * @param Worksheet $sheet
      * @param string $startColumn
      * @param int $startOffsetX Offset within start cell measured in 1/1024 of the cell width
      * @param string $endColumn
@@ -127,7 +127,7 @@ class Xls
      *
      * @return int Horizontal measured in pixels
      */
-    public static function getDistanceX(\PhpOffice\PhpSpreadsheet\Worksheet $sheet, $startColumn = 'A', $startOffsetX = 0, $endColumn = 'A', $endOffsetX = 0)
+    public static function getDistanceX(Worksheet $sheet, $startColumn = 'A', $startOffsetX = 0, $endColumn = 'A', $endOffsetX = 0)
     {
         $distanceX = 0;
 
@@ -151,7 +151,7 @@ class Xls
      * Get the vertical distance in pixels between two anchors
      * The distanceY is found as sum of all the spanning rows minus two offsets.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $sheet
+     * @param Worksheet $sheet
      * @param int $startRow (1-based)
      * @param int $startOffsetY Offset within start cell measured in 1/256 of the cell height
      * @param int $endRow (1-based)
@@ -159,7 +159,7 @@ class Xls
      *
      * @return int Vertical distance measured in pixels
      */
-    public static function getDistanceY(\PhpOffice\PhpSpreadsheet\Worksheet $sheet, $startRow = 1, $startOffsetY = 0, $endRow = 1, $endOffsetY = 0)
+    public static function getDistanceY(Worksheet $sheet, $startRow = 1, $startOffsetY = 0, $endRow = 1, $endOffsetY = 0)
     {
         $distanceY = 0;
 
@@ -221,7 +221,7 @@ class Xls
      *               W is the width of the cell
      *               H is the height of the cell
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $sheet
+     * @param Worksheet $sheet
      * @param string $coordinates E.g. 'A1'
      * @param int $offsetX Horizontal offset in pixels
      * @param int $offsetY Vertical offset in pixels

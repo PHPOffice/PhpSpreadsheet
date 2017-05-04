@@ -53,12 +53,12 @@ class RowCellIterator extends CellIterator implements \Iterator
     /**
      * Create a new column iterator.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $subject The worksheet to iterate over
+     * @param Worksheet $subject The worksheet to iterate over
      * @param int $rowIndex The row that we want to iterate
      * @param string $startColumn The column address at which to start iterating
      * @param string $endColumn Optionally, the column address at which to stop iterating
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $subject = null, $rowIndex = 1, $startColumn = 'A', $endColumn = null)
+    public function __construct(Worksheet $subject = null, $rowIndex = 1, $startColumn = 'A', $endColumn = null)
     {
         // Set subject and row index
         $this->subject = $subject;

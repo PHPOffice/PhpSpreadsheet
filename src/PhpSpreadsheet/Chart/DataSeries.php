@@ -388,7 +388,7 @@ class DataSeries
         return $this;
     }
 
-    public function refresh(\PhpOffice\PhpSpreadsheet\Worksheet $worksheet)
+    public function refresh(Worksheet $worksheet)
     {
         foreach ($this->plotValues as $plotValues) {
             if ($plotValues !== null) {

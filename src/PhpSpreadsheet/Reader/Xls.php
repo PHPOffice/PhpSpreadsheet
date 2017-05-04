@@ -2577,16 +2577,16 @@ class Xls extends BaseReader implements IReader
         // offset: 4; size: 1; sheet state
         switch (ord($recordData[4])) {
             case 0x00:
-                $sheetState = \PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VISIBLE;
+                $sheetState = Worksheet::SHEETSTATE_VISIBLE;
                 break;
             case 0x01:
-                $sheetState = \PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_HIDDEN;
+                $sheetState = Worksheet::SHEETSTATE_HIDDEN;
                 break;
             case 0x02:
-                $sheetState = \PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VERYHIDDEN;
+                $sheetState = Worksheet::SHEETSTATE_VERYHIDDEN;
                 break;
             default:
-                $sheetState = \PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VISIBLE;
+                $sheetState = Worksheet::SHEETSTATE_VISIBLE;
                 break;
         }
 
@@ -3079,7 +3079,7 @@ class Xls extends BaseReader implements IReader
                 $cl = self::getInt2d($recordData, 2 + 6 * $i + 4);
 
                 // not sure why two column indexes are necessary?
-                $this->phpSheet->setBreakByColumnAndRow($cf, $r, \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_ROW);
+                $this->phpSheet->setBreakByColumnAndRow($cf, $r, Worksheet::BREAK_ROW);
             }
         }
     }
@@ -3106,7 +3106,7 @@ class Xls extends BaseReader implements IReader
                 $rl = self::getInt2d($recordData, 2 + 6 * $i + 4);
 
                 // not sure why two row indexes are necessary?
-                $this->phpSheet->setBreakByColumnAndRow($c, $rf, \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_COLUMN);
+                $this->phpSheet->setBreakByColumnAndRow($c, $rf, Worksheet::BREAK_COLUMN);
             }
         }
     }

@@ -188,7 +188,7 @@ class Rels extends WriterPart
      *     rId1                 - Drawings
      *  rId_hyperlink_x     - Hyperlinks
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet
+     * @param Worksheet $pWorksheet
      * @param int $pWorksheetId
      * @param bool $includeCharts Flag indicating if we should write charts
      *
@@ -196,7 +196,7 @@ class Rels extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeWorksheetRelationships(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet, $pWorksheetId = 1, $includeCharts = false)
+    public function writeWorksheetRelationships(Worksheet $pWorksheet, $pWorksheetId = 1, $includeCharts = false)
     {
         // Create XML writer
         $objWriter = null;
@@ -283,7 +283,7 @@ class Rels extends WriterPart
     /**
      * Write drawing relationships to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet
+     * @param Worksheet $pWorksheet
      * @param int &$chartRef Chart ID
      * @param bool $includeCharts Flag indicating if we should write charts
      *
@@ -291,7 +291,7 @@ class Rels extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeDrawingRelationships(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet, &$chartRef, $includeCharts = false)
+    public function writeDrawingRelationships(Worksheet $pWorksheet, &$chartRef, $includeCharts = false)
     {
         // Create XML writer
         $objWriter = null;
@@ -350,13 +350,13 @@ class Rels extends WriterPart
     /**
      * Write header/footer drawing relationships to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet
+     * @param Worksheet $pWorksheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string XML Output
      */
-    public function writeHeaderFooterDrawingRelationships(\PhpOffice\PhpSpreadsheet\Worksheet $pWorksheet)
+    public function writeHeaderFooterDrawingRelationships(Worksheet $pWorksheet)
     {
         // Create XML writer
         $objWriter = null;

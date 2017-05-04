@@ -286,7 +286,7 @@ class DataSeriesValues
         return $this;
     }
 
-    public function refresh(\PhpOffice\PhpSpreadsheet\Worksheet $worksheet, $flatten = true)
+    public function refresh(Worksheet $worksheet, $flatten = true)
     {
         if ($this->dataSource !== null) {
             $calcEngine = Calculation::getInstance($worksheet->getParent());

@@ -571,7 +571,7 @@ class Html extends BaseWriter implements IWriter
         return $html;
     }
 
-    private function extendRowsForChartsAndImages(\PhpOffice\PhpSpreadsheet\Worksheet $pSheet, $row)
+    private function extendRowsForChartsAndImages(Worksheet $pSheet, $row)
     {
         $rowMax = $row;
         $colMax = 'A';
@@ -632,14 +632,14 @@ class Html extends BaseWriter implements IWriter
     /**
      * Generate image tag in cell.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pSheet \PhpOffice\PhpSpreadsheet\Worksheet
+     * @param Worksheet $pSheet \PhpOffice\PhpSpreadsheet\Worksheet
      * @param string $coordinates Cell coordinates
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string
      */
-    private function writeImageInCell(\PhpOffice\PhpSpreadsheet\Worksheet $pSheet, $coordinates)
+    private function writeImageInCell(Worksheet $pSheet, $coordinates)
     {
         // Construct HTML
         $html = '';
@@ -715,14 +715,14 @@ class Html extends BaseWriter implements IWriter
     /**
      * Generate chart tag in cell.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pSheet \PhpOffice\PhpSpreadsheet\Worksheet
+     * @param Worksheet $pSheet \PhpOffice\PhpSpreadsheet\Worksheet
      * @param string $coordinates Cell coordinates
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string
      */
-    private function writeChartInCell(\PhpOffice\PhpSpreadsheet\Worksheet $pSheet, $coordinates)
+    private function writeChartInCell(Worksheet $pSheet, $coordinates)
     {
         // Construct HTML
         $html = '';
@@ -1117,7 +1117,7 @@ class Html extends BaseWriter implements IWriter
     /**
      * Generate table header.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pSheet The worksheet for the table we are writing
+     * @param Worksheet $pSheet The worksheet for the table we are writing
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
@@ -1178,7 +1178,7 @@ class Html extends BaseWriter implements IWriter
     /**
      * Generate row.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pSheet \PhpOffice\PhpSpreadsheet\Worksheet
+     * @param Worksheet $pSheet \PhpOffice\PhpSpreadsheet\Worksheet
      * @param array $pValues Array containing cells in a row
      * @param int $pRow Row number (0-based)
      * @param mixed $cellType eg: 'td'
@@ -1187,7 +1187,7 @@ class Html extends BaseWriter implements IWriter
      *
      * @return string
      */
-    private function generateRow(\PhpOffice\PhpSpreadsheet\Worksheet $pSheet, array $pValues, $pRow, $cellType)
+    private function generateRow(Worksheet $pSheet, array $pValues, $pRow, $cellType)
     {
         // Construct HTML
         $html = '';
@@ -1640,7 +1640,7 @@ class Html extends BaseWriter implements IWriter
         $this->spansAreCalculated = true;
     }
 
-    private function setMargins(\PhpOffice\PhpSpreadsheet\Worksheet $pSheet)
+    private function setMargins(Worksheet $pSheet)
     {
         $htmlPage = '@page { ';
         $htmlBody = 'body { ';

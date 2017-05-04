@@ -31,7 +31,7 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 class ColumnIterator implements \Iterator
 {
     /**
-     * \PhpOffice\PhpSpreadsheet\Worksheet to iterate.
+     * Worksheet to iterate.
      *
      * @var \PhpOffice\PhpSpreadsheet\Worksheet
      */
@@ -61,11 +61,11 @@ class ColumnIterator implements \Iterator
     /**
      * Create a new column iterator.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $subject The worksheet to iterate over
+     * @param Worksheet $subject The worksheet to iterate over
      * @param string $startColumn The column address at which to start iterating
      * @param string $endColumn Optionally, the column address at which to stop iterating
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $subject, $startColumn = 'A', $endColumn = null)
+    public function __construct(Worksheet $subject, $startColumn = 'A', $endColumn = null)
     {
         // Set subject
         $this->subject = $subject;

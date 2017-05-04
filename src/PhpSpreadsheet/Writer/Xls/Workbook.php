@@ -920,7 +920,7 @@ class Workbook extends BIFFwriter
     /**
      * Writes Excel BIFF BOUNDSHEET record.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $sheet Worksheet name
+     * @param Worksheet $sheet Worksheet name
      * @param int $offset Location of worksheet BOF
      */
     private function writeBoundSheet($sheet, $offset)
@@ -930,13 +930,13 @@ class Workbook extends BIFFwriter
 
         // sheet state
         switch ($sheet->getSheetState()) {
-            case \PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VISIBLE:
+            case Worksheet::SHEETSTATE_VISIBLE:
                 $ss = 0x00;
                 break;
-            case \PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_HIDDEN:
+            case Worksheet::SHEETSTATE_HIDDEN:
                 $ss = 0x01;
                 break;
-            case \PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VERYHIDDEN:
+            case Worksheet::SHEETSTATE_VERYHIDDEN:
                 $ss = 0x02;
                 break;
             default:

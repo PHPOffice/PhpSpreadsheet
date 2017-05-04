@@ -239,7 +239,7 @@ class Worksheet extends BIFFwriter
      * @param mixed $parser The formula parser created for the Workbook
      * @param bool $preCalculateFormulas Flag indicating whether formulas should be calculated or just written
      * @param string $phpSheet The worksheet to write
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $phpSheet
+     * @param Worksheet $phpSheet
      */
     public function __construct(&$str_total, &$str_unique, &$str_table, &$colors, $parser, $preCalculateFormulas, $phpSheet)
     {
@@ -2175,15 +2175,15 @@ class Worksheet extends BIFFwriter
 
             // Decide what to do by the type of break
             switch ($breakType) {
-                case \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_COLUMN:
+                case self::BREAK_COLUMN:
                     // Add to list of vertical breaks
                     $vbreaks[] = Cell::columnIndexFromString($coordinates[0]) - 1;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_ROW:
+                case self::BREAK_ROW:
                     // Add to list of horizontal breaks
                     $hbreaks[] = $coordinates[1];
                     break;
-                case \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_NONE:
+                case self::BREAK_NONE:
                 default:
                     // Nothing to do
                     break;

@@ -29,7 +29,7 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 abstract class CellIterator
 {
     /**
-     * \PhpOffice\PhpSpreadsheet\Worksheet to iterate.
+     * Worksheet to iterate.
      *
      * @var \PhpOffice\PhpSpreadsheet\Worksheet
      */

@@ -43,10 +43,10 @@ class Row
     /**
      * Create a new row.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $parent
+     * @param Worksheet $parent
      * @param int $rowIndex
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $worksheet = null, $rowIndex = 1)
+    public function __construct(Worksheet $worksheet = null, $rowIndex = 1)
     {
         // Set parent and row index
         $this->worksheet = $worksheet;

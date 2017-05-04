@@ -29,7 +29,7 @@ use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 class RowIterator implements \Iterator
 {
     /**
-     * \PhpOffice\PhpSpreadsheet\Worksheet to iterate.
+     * Worksheet to iterate.
      *
      * @var \PhpOffice\PhpSpreadsheet\Worksheet
      */
@@ -59,11 +59,11 @@ class RowIterator implements \Iterator
     /**
      * Create a new row iterator.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $subject The worksheet to iterate over
+     * @param Worksheet $subject The worksheet to iterate over
      * @param int $startRow The row number at which to start iterating
      * @param int $endRow Optionally, the row number at which to stop iterating
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $subject, $startRow = 1, $endRow = null)
+    public function __construct(Worksheet $subject, $startRow = 1, $endRow = null)
     {
         // Set subject
         $this->subject = $subject;

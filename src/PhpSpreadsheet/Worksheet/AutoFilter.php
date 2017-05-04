@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -34,7 +35,7 @@ class AutoFilter
     /**
      * Autofilter Worksheet.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Worksheet
+     * @var Worksheet
      */
     private $workSheet;
 
@@ -56,9 +57,9 @@ class AutoFilter
      * Create a new AutoFilter.
      *
      * @param string $pRange Cell range (i.e. A1:E10)
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pSheet
+     * @param Worksheet $pSheet
      */
-    public function __construct($pRange = '', \PhpOffice\PhpSpreadsheet\Worksheet $pSheet = null)
+    public function __construct($pRange = '', Worksheet $pSheet = null)
     {
         $this->range = $pRange;
         $this->workSheet = $pSheet;
@@ -67,7 +68,7 @@ class AutoFilter
     /**
      * Get AutoFilter Parent Worksheet.
      *
-     * @return \PhpOffice\PhpSpreadsheet\Worksheet
+     * @return Worksheet
      */
     public function getParent()
     {
@@ -77,11 +78,11 @@ class AutoFilter
     /**
      * Set AutoFilter Parent Worksheet.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pSheet
+     * @param Worksheet $pSheet
      *
      * @return AutoFilter
      */
-    public function setParent(\PhpOffice\PhpSpreadsheet\Worksheet $pSheet = null)
+    public function setParent(Worksheet $pSheet = null)
     {
         $this->workSheet = $pSheet;
 
