@@ -48,40 +48,34 @@ class CholeskyDecomposition
      * @param mixed Matrix square symmetric positive definite matrix
      * @param null|mixed $A
      */
-    public function __construct($A = null)
+    public function __construct(Matrix $A)
     {
-        if ($A instanceof Matrix) {
-            $this->L = $A->getArray();
-            $this->m = $A->getRowDimension();
+        $this->L = $A->getArray();
+        $this->m = $A->getRowDimension();
 
-            for ($i = 0; $i < $this->m; ++$i) {
-                for ($j = $i; $j < $this->m; ++$j) {
-                    for ($sum = $this->L[$i][$j], $k = $i - 1; $k >= 0; --$k) {
-                        $sum -= $this->L[$i][$k] * $this->L[$j][$k];
-                    }
-                    if ($i == $j) {
-                        if ($sum >= 0) {
-                            $this->L[$i][$i] = sqrt($sum);
-                        } else {
-                            $this->isspd = false;
-                        }
-                    } else {
-                        if ($this->L[$i][$i] != 0) {
-                            $this->L[$j][$i] = $sum / $this->L[$i][$i];
-                        }
-                    }
+        for ($i = 0; $i < $this->m; ++$i) {
+            for ($j = $i; $j < $this->m; ++$j) {
+                for ($sum = $this->L[$i][$j], $k = $i - 1; $k >= 0; --$k) {
+                    $sum -= $this->L[$i][$k] * $this->L[$j][$k];
                 }
-
-                for ($k = $i + 1; $k < $this->m; ++$k) {
-                    $this->L[$i][$k] = 0.0;
+                if ($i == $j) {
+                    if ($sum >= 0) {
+                        $this->L[$i][$i] = sqrt($sum);
+                    } else {
+                        $this->isspd = false;
+                    }
+                } else {
+                    if ($this->L[$i][$i] != 0) {
+                        $this->L[$j][$i] = $sum / $this->L[$i][$i];
+                    }
                 }
             }
-        } else {
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(ARGUMENT_TYPE_EXCEPTION));
+
+            for ($k = $i + 1; $k < $this->m; ++$k) {
+                $this->L[$i][$k] = 0.0;
+            }
         }
     }
-
-    //    function __construct()
 
     /**
      *    Is the matrix symmetric and positive definite?
@@ -92,8 +86,6 @@ class CholeskyDecomposition
     {
         return $this->isspd;
     }
-
-    //    function isSPD()
 
     /**
      * getL.
@@ -107,8 +99,6 @@ class CholeskyDecomposition
         return new Matrix($this->L);
     }
 
-    //    function getL()
-
     /**
      * Solve A*X = B.
      *
@@ -116,44 +106,39 @@ class CholeskyDecomposition
      *
      * @return Matrix L * L' * X = B
      */
-    public function solve($B = null)
+    public function solve(Matrix $B)
     {
-        if ($B instanceof Matrix) {
-            if ($B->getRowDimension() == $this->m) {
-                if ($this->isspd) {
-                    $X = $B->getArrayCopy();
-                    $nx = $B->getColumnDimension();
+        if ($B->getRowDimension() == $this->m) {
+            if ($this->isspd) {
+                $X = $B->getArrayCopy();
+                $nx = $B->getColumnDimension();
 
-                    for ($k = 0; $k < $this->m; ++$k) {
-                        for ($i = $k + 1; $i < $this->m; ++$i) {
-                            for ($j = 0; $j < $nx; ++$j) {
-                                $X[$i][$j] -= $X[$k][$j] * $this->L[$i][$k];
-                            }
-                        }
+                for ($k = 0; $k < $this->m; ++$k) {
+                    for ($i = $k + 1; $i < $this->m; ++$i) {
                         for ($j = 0; $j < $nx; ++$j) {
-                            $X[$k][$j] /= $this->L[$k][$k];
+                            $X[$i][$j] -= $X[$k][$j] * $this->L[$i][$k];
                         }
                     }
-
-                    for ($k = $this->m - 1; $k >= 0; --$k) {
-                        for ($j = 0; $j < $nx; ++$j) {
-                            $X[$k][$j] /= $this->L[$k][$k];
-                        }
-                        for ($i = 0; $i < $k; ++$i) {
-                            for ($j = 0; $j < $nx; ++$j) {
-                                $X[$i][$j] -= $X[$k][$j] * $this->L[$k][$i];
-                            }
-                        }
+                    for ($j = 0; $j < $nx; ++$j) {
+                        $X[$k][$j] /= $this->L[$k][$k];
                     }
-
-                    return new Matrix($X, $this->m, $nx);
                 }
-                throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(MatrixSPDException));
-            }
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(MATRIX_DIMENSION_EXCEPTION));
-        }
-        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(ARGUMENT_TYPE_EXCEPTION));
-    }
 
-    //    function solve()
+                for ($k = $this->m - 1; $k >= 0; --$k) {
+                    for ($j = 0; $j < $nx; ++$j) {
+                        $X[$k][$j] /= $this->L[$k][$k];
+                    }
+                    for ($i = 0; $i < $k; ++$i) {
+                        for ($j = 0; $j < $nx; ++$j) {
+                            $X[$i][$j] -= $X[$k][$j] * $this->L[$k][$i];
+                        }
+                    }
+                }
+
+                return new Matrix($X, $this->m, $nx);
+            }
+            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(MatrixSPDException));
+        }
+        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(MATRIX_DIMENSION_EXCEPTION));
+    }
 }

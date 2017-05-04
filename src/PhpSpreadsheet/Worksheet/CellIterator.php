@@ -79,7 +79,7 @@ abstract class CellIterator
      *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
-    public function setIterateOnlyExistingCells($value = true)
+    public function setIterateOnlyExistingCells($value)
     {
         $this->onlyExistingCells = (bool) $value;
 

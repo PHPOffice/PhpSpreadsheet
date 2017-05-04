@@ -53,6 +53,6 @@ header('Content-Type: application/pdf');
 header('Content-Disposition: attachment;filename="01simple.pdf"');
 header('Cache-Control: max-age=0');
 
-$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'PDF');
+$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Pdf');
 $writer->save('php://output');
 exit;

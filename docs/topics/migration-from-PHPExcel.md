@@ -132,3 +132,63 @@ to do is to specify a renderer like so:
 $rendererName = \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_MPDF;
 \PhpOffice\PhpSpreadsheet\Settings::setPdfRendererName($rendererName);
 ```
+
+## PclZip and ZipArchive
+
+Support for PclZip were dropped in favor of the more complete and modern
+[PHP extension ZipArchive](http://php.net/manual/en/book.zip.php).
+So the following were removed:
+
+- `PclZip`
+- `PHPExcel_Settings::setZipClass()`
+- `PHPExcel_Settings::getZipClass()`
+- `PHPExcel_Shared_ZipArchive`
+- `PHPExcel_Shared_ZipStreamWrapper`
+
+
+## Cell caching
+
+Cell caching was heavily refactored to leverage
+[PSR-16](http://www.php-fig.org/psr/psr-16/). That means most classes
+related to that feature were removed:
+
+- `PHPExcel_CachedObjectStorage_APC`
+- `PHPExcel_CachedObjectStorage_DiscISAM`
+- `PHPExcel_CachedObjectStorage_ICache`
+- `PHPExcel_CachedObjectStorage_Igbinary`
+- `PHPExcel_CachedObjectStorage_Memcache`
+- `PHPExcel_CachedObjectStorage_Memory`
+- `PHPExcel_CachedObjectStorage_MemoryGZip`
+- `PHPExcel_CachedObjectStorage_MemorySerialized`
+- `PHPExcel_CachedObjectStorage_PHPTemp`
+- `PHPExcel_CachedObjectStorage_SQLite`
+- `PHPExcel_CachedObjectStorage_SQLite3`
+- `PHPExcel_CachedObjectStorage_Wincache`
+
+In addition to that, `\PhpOffice\PhpSpreadsheet::getCellCollection()` was renamed
+to `\PhpOffice\PhpSpreadsheet::getCoordinates()` and
+`\PhpOffice\PhpSpreadsheet::getCellCacheController()` to
+`\PhpOffice\PhpSpreadsheet::getCellCollection()` for clarity.
+
+Refer to [the new documentation](./memory_saving.md) to see how to migrate.
+
+## Dropped conditionally returned cell
+
+For all the following methods, it is no more possible to change the type of
+returned value. It always return the Worksheet and never the Cell or Rule:
+
+- Worksheet::setCellValue()
+- Worksheet::setCellValueByColumnAndRow()
+- Worksheet::setCellValueExplicit()
+- Worksheet::setCellValueExplicitByColumnAndRow()
+- Worksheet::addRule()
+
+Migration would be similar to:
+
+``` php
+// Before
+$cell = $worksheet->setCellValue('A1', 'value', true);
+
+// After
+$cell = $worksheet->getCell('A1')->setValue('value');
+```

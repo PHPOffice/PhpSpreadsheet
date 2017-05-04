@@ -155,18 +155,14 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
      *
      * @return NumberFormat
      */
-    public function applyFromArray($pStyles = null)
+    public function applyFromArray(array $pStyles)
     {
-        if (is_array($pStyles)) {
-            if ($this->isSupervisor) {
-                $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
-            } else {
-                if (isset($pStyles['code'])) {
-                    $this->setFormatCode($pStyles['code']);
-                }
-            }
+        if ($this->isSupervisor) {
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid style array passed.');
+            if (isset($pStyles['code'])) {
+                $this->setFormatCode($pStyles['code']);
+            }
         }
 
         return $this;
@@ -192,11 +188,11 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
     /**
      * Set Format Code.
      *
-     * @param string $pValue
+     * @param string $pValue see self::FORMAT_*
      *
      * @return NumberFormat
      */
-    public function setFormatCode($pValue = self::FORMAT_GENERAL)
+    public function setFormatCode($pValue)
     {
         if ($pValue == '') {
             $pValue = self::FORMAT_GENERAL;
@@ -233,7 +229,7 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
      *
      * @return NumberFormat
      */
-    public function setBuiltInFormatCode($pValue = 0)
+    public function setBuiltInFormatCode($pValue)
     {
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['code' => self::builtInFormatCode($pValue)]);
@@ -588,12 +584,12 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
      * Convert a value in a pre-defined format to a PHP string.
      *
      * @param mixed $value Value to format
-     * @param string $format Format code
+     * @param string $format Format code, see = self::FORMAT_*
      * @param array $callBack Callback function for additional formatting of string
      *
      * @return string Formatted string
      */
-    public static function toFormattedString($value = '0', $format = self::FORMAT_GENERAL, $callBack = null)
+    public static function toFormattedString($value, $format, $callBack = null)
     {
         // For now we do not treat strings although section 4 of a format code affects strings
         if (!is_numeric($value)) {

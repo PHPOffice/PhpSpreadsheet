@@ -107,7 +107,7 @@ class HeaderFooterDrawing extends Drawing implements \PhpOffice\PhpSpreadsheet\I
      *
      * @return HeaderFooterDrawing
      */
-    public function setName($pValue = '')
+    public function setName($pValue)
     {
         $this->name = $pValue;
 
@@ -131,7 +131,7 @@ class HeaderFooterDrawing extends Drawing implements \PhpOffice\PhpSpreadsheet\I
      *
      * @return HeaderFooterDrawing
      */
-    public function setOffsetX($pValue = 0)
+    public function setOffsetX($pValue)
     {
         $this->offsetX = $pValue;
 
@@ -155,7 +155,7 @@ class HeaderFooterDrawing extends Drawing implements \PhpOffice\PhpSpreadsheet\I
      *
      * @return HeaderFooterDrawing
      */
-    public function setOffsetY($pValue = 0)
+    public function setOffsetY($pValue)
     {
         $this->offsetY = $pValue;
 
@@ -179,7 +179,7 @@ class HeaderFooterDrawing extends Drawing implements \PhpOffice\PhpSpreadsheet\I
      *
      * @return HeaderFooterDrawing
      */
-    public function setWidth($pValue = 0)
+    public function setWidth($pValue)
     {
         // Resize proportional?
         if ($this->resizeProportional && $pValue != 0) {
@@ -210,7 +210,7 @@ class HeaderFooterDrawing extends Drawing implements \PhpOffice\PhpSpreadsheet\I
      *
      * @return HeaderFooterDrawing
      */
-    public function setHeight($pValue = 0)
+    public function setHeight($pValue)
     {
         // Resize proportional?
         if ($this->resizeProportional && $pValue != 0) {
@@ -239,7 +239,7 @@ class HeaderFooterDrawing extends Drawing implements \PhpOffice\PhpSpreadsheet\I
      *
      * @return HeaderFooterDrawing
      */
-    public function setWidthAndHeight($width = 0, $height = 0)
+    public function setWidthAndHeight($width, $height)
     {
         $xratio = $width / $this->width;
         $yratio = $height / $this->height;
@@ -273,7 +273,7 @@ class HeaderFooterDrawing extends Drawing implements \PhpOffice\PhpSpreadsheet\I
      *
      * @return HeaderFooterDrawing
      */
-    public function setResizeProportional($pValue = true)
+    public function setResizeProportional($pValue)
     {
         $this->resizeProportional = $pValue;
 
@@ -322,7 +322,7 @@ class HeaderFooterDrawing extends Drawing implements \PhpOffice\PhpSpreadsheet\I
      *
      * @return HeaderFooterDrawing
      */
-    public function setPath($pValue = '', $pVerifyFile = true)
+    public function setPath($pValue, $pVerifyFile = true)
     {
         if ($pVerifyFile) {
             if (file_exists($pValue)) {

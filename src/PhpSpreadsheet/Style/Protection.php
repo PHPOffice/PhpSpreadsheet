@@ -108,21 +108,17 @@ class Protection extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompar
      *
      * @return Protection
      */
-    public function applyFromArray($pStyles = null)
+    public function applyFromArray(array $pStyles)
     {
-        if (is_array($pStyles)) {
-            if ($this->isSupervisor) {
-                $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
-            } else {
-                if (isset($pStyles['locked'])) {
-                    $this->setLocked($pStyles['locked']);
-                }
-                if (isset($pStyles['hidden'])) {
-                    $this->setHidden($pStyles['hidden']);
-                }
-            }
+        if ($this->isSupervisor) {
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid style array passed.');
+            if (isset($pStyles['locked'])) {
+                $this->setLocked($pStyles['locked']);
+            }
+            if (isset($pStyles['hidden'])) {
+                $this->setHidden($pStyles['hidden']);
+            }
         }
 
         return $this;
@@ -145,11 +141,11 @@ class Protection extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompar
     /**
      * Set locked.
      *
-     * @param string $pValue
+     * @param string $pValue see self::PROTECTION_*
      *
      * @return Protection
      */
-    public function setLocked($pValue = self::PROTECTION_INHERIT)
+    public function setLocked($pValue)
     {
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['locked' => $pValue]);
@@ -178,11 +174,11 @@ class Protection extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompar
     /**
      * Set hidden.
      *
-     * @param string $pValue
+     * @param string $pValue see self::PROTECTION_*
      *
      * @return Protection
      */
-    public function setHidden($pValue = self::PROTECTION_INHERIT)
+    public function setHidden($pValue)
     {
         if ($this->isSupervisor) {
             $styleArray = $this->getStyleArray(['hidden' => $pValue]);

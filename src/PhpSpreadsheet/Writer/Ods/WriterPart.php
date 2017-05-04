@@ -24,6 +24,34 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
  * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
-abstract class WriterPart extends \PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart
+abstract class WriterPart
 {
+    /**
+     * Parent Ods object.
+     *
+     * @var \PhpOffice\PhpSpreadsheet\Writer\Ods
+     */
+    private $parentWriter;
+
+    /**
+     * Get Ods writer.
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
+     * @return \PhpOffice\PhpSpreadsheet\Writer\Ods
+     */
+    public function getParentWriter()
+    {
+        return $this->parentWriter;
+    }
+
+    /**
+     * Set parent Ods writer.
+     *
+     * @param \PhpOffice\PhpSpreadsheet\Writer\Ods $writer
+     */
+    public function __construct(\PhpOffice\PhpSpreadsheet\Writer\Ods $writer)
+    {
+        $this->parentWriter = $writer;
+    }
 }

@@ -770,7 +770,7 @@ class Xml extends BaseReader implements IReader
         return $string;
     }
 
-    protected function parseRichText($is = '')
+    protected function parseRichText($is)
     {
         $value = new \PhpOffice\PhpSpreadsheet\RichText();
 

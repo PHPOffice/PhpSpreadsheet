@@ -288,11 +288,11 @@ class PageSetup
     /**
      * Set Paper Size.
      *
-     * @param int $pValue
+     * @param int $pValue see self::PAPERSIZE_*
      *
      * @return PageSetup
      */
-    public function setPaperSize($pValue = self::PAPERSIZE_LETTER)
+    public function setPaperSize($pValue)
     {
         $this->paperSize = $pValue;
 
@@ -312,11 +312,11 @@ class PageSetup
     /**
      * Set Orientation.
      *
-     * @param string $pValue
+     * @param string $pValue see self::ORIENTATION_*
      *
      * @return PageSetup
      */
-    public function setOrientation($pValue = self::ORIENTATION_DEFAULT)
+    public function setOrientation($pValue)
     {
         $this->orientation = $pValue;
 
@@ -339,14 +339,14 @@ class PageSetup
      * Print scaling. Valid values range from 10 to 400
      * This setting is overridden when fitToWidth and/or fitToHeight are in use
      *
-     * @param int? $pValue
+     * @param int|null $pValue
      * @param bool $pUpdate Update fitToPage so scaling applies rather than fitToHeight / fitToWidth
      *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
      * @return PageSetup
      */
-    public function setScale($pValue = 100, $pUpdate = true)
+    public function setScale($pValue, $pUpdate = true)
     {
         // Microsoft Office Excel 2007 only allows setting a scale between 10 and 400 via the user interface,
         // but it is apparently still able to handle any scale >= 0, where 0 results in 100
@@ -379,7 +379,7 @@ class PageSetup
      *
      * @return PageSetup
      */
-    public function setFitToPage($pValue = true)
+    public function setFitToPage($pValue)
     {
         $this->fitToPage = $pValue;
 
@@ -399,12 +399,12 @@ class PageSetup
     /**
      * Set Fit To Height.
      *
-     * @param int? $pValue
+     * @param int|null $pValue
      * @param bool $pUpdate Update fitToPage so it applies rather than scaling
      *
      * @return PageSetup
      */
-    public function setFitToHeight($pValue = 1, $pUpdate = true)
+    public function setFitToHeight($pValue, $pUpdate = true)
     {
         $this->fitToHeight = $pValue;
         if ($pUpdate) {
@@ -427,12 +427,12 @@ class PageSetup
     /**
      * Set Fit To Width.
      *
-     * @param int? $pValue
+     * @param int|null $pValue
      * @param bool $pUpdate Update fitToPage so it applies rather than scaling
      *
      * @return PageSetup
      */
-    public function setFitToWidth($pValue = 1, $pUpdate = true)
+    public function setFitToWidth($pValue, $pUpdate = true)
     {
         $this->fitToWidth = $pValue;
         if ($pUpdate) {
@@ -475,11 +475,9 @@ class PageSetup
      *
      * @return PageSetup
      */
-    public function setColumnsToRepeatAtLeft($pValue = null)
+    public function setColumnsToRepeatAtLeft(array $pValue)
     {
-        if (is_array($pValue)) {
-            $this->columnsToRepeatAtLeft = $pValue;
-        }
+        $this->columnsToRepeatAtLeft = $pValue;
 
         return $this;
     }
@@ -487,12 +485,12 @@ class PageSetup
     /**
      * Set Columns to repeat at left by start and end.
      *
-     * @param string $pStart
-     * @param string $pEnd
+     * @param string $pStart eg: 'A'
+     * @param string $pEnd eg: 'B'
      *
      * @return PageSetup
      */
-    public function setColumnsToRepeatAtLeftByStartAndEnd($pStart = 'A', $pEnd = 'A')
+    public function setColumnsToRepeatAtLeftByStartAndEnd($pStart, $pEnd)
     {
         $this->columnsToRepeatAtLeft = [$pStart, $pEnd];
 
@@ -532,11 +530,9 @@ class PageSetup
      *
      * @return PageSetup
      */
-    public function setRowsToRepeatAtTop($pValue = null)
+    public function setRowsToRepeatAtTop(array $pValue)
     {
-        if (is_array($pValue)) {
-            $this->rowsToRepeatAtTop = $pValue;
-        }
+        $this->rowsToRepeatAtTop = $pValue;
 
         return $this;
     }
@@ -544,12 +540,12 @@ class PageSetup
     /**
      * Set Rows to repeat at top by start and end.
      *
-     * @param int $pStart
-     * @param int $pEnd
+     * @param int $pStart eg: 1
+     * @param int $pEnd eg: 1
      *
      * @return PageSetup
      */
-    public function setRowsToRepeatAtTopByStartAndEnd($pStart = 1, $pEnd = 1)
+    public function setRowsToRepeatAtTopByStartAndEnd($pStart, $pEnd)
     {
         $this->rowsToRepeatAtTop = [$pStart, $pEnd];
 
@@ -573,7 +569,7 @@ class PageSetup
      *
      * @return PageSetup
      */
-    public function setHorizontalCentered($value = false)
+    public function setHorizontalCentered($value)
     {
         $this->horizontalCentered = $value;
 
@@ -597,7 +593,7 @@ class PageSetup
      *
      * @return PageSetup
      */
-    public function setVerticalCentered($value = false)
+    public function setVerticalCentered($value)
     {
         $this->verticalCentered = $value;
 
@@ -839,7 +835,7 @@ class PageSetup
      *
      * @return PageSetup
      */
-    public function setFirstPageNumber($value = null)
+    public function setFirstPageNumber($value)
     {
         $this->firstPageNumber = $value;
 

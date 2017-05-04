@@ -339,7 +339,7 @@ class HeaderFooter
      *
      * @return HeaderFooter
      */
-    public function setDifferentOddEven($pValue = false)
+    public function setDifferentOddEven($pValue)
     {
         $this->differentOddEven = $pValue;
 
@@ -363,7 +363,7 @@ class HeaderFooter
      *
      * @return HeaderFooter
      */
-    public function setDifferentFirst($pValue = false)
+    public function setDifferentFirst($pValue)
     {
         $this->differentFirst = $pValue;
 
@@ -387,7 +387,7 @@ class HeaderFooter
      *
      * @return HeaderFooter
      */
-    public function setScaleWithDocument($pValue = true)
+    public function setScaleWithDocument($pValue)
     {
         $this->scaleWithDocument = $pValue;
 
@@ -411,7 +411,7 @@ class HeaderFooter
      *
      * @return HeaderFooter
      */
-    public function setAlignWithMargins($pValue = true)
+    public function setAlignWithMargins($pValue)
     {
         $this->alignWithMargins = $pValue;
 
@@ -428,7 +428,7 @@ class HeaderFooter
      *
      * @return HeaderFooter
      */
-    public function addImage(HeaderFooterDrawing $image = null, $location = self::IMAGE_HEADER_LEFT)
+    public function addImage(HeaderFooterDrawing $image, $location = self::IMAGE_HEADER_LEFT)
     {
         $this->headerFooterImages[$location] = $image;
 
@@ -462,12 +462,8 @@ class HeaderFooter
      *
      * @return HeaderFooter
      */
-    public function setImages($images)
+    public function setImages(array $images)
     {
-        if (!is_array($images)) {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid parameter!');
-        }
-
         $this->headerFooterImages = $images;
 
         return $this;

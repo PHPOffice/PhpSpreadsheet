@@ -33,7 +33,7 @@ class Drawing
      *
      * @return int Value in EMU
      */
-    public static function pixelsToEMU($pValue = 0)
+    public static function pixelsToEMU($pValue)
     {
         return round($pValue * 9525);
     }
@@ -45,7 +45,7 @@ class Drawing
      *
      * @return int Value in pixels
      */
-    public static function EMUToPixels($pValue = 0)
+    public static function EMUToPixels($pValue)
     {
         if ($pValue != 0) {
             return round($pValue / 9525);
@@ -118,7 +118,7 @@ class Drawing
      *
      * @return float Value in points
      */
-    public static function pixelsToPoints($pValue = 0)
+    public static function pixelsToPoints($pValue)
     {
         return $pValue * 0.67777777;
     }
@@ -130,7 +130,7 @@ class Drawing
      *
      * @return int Value in pixels
      */
-    public static function pointsToPixels($pValue = 0)
+    public static function pointsToPixels($pValue)
     {
         if ($pValue != 0) {
             return (int) ceil($pValue * 1.333333333);
@@ -146,7 +146,7 @@ class Drawing
      *
      * @return int Angle
      */
-    public static function degreesToAngle($pValue = 0)
+    public static function degreesToAngle($pValue)
     {
         return (int) round($pValue * 60000);
     }
@@ -158,7 +158,7 @@ class Drawing
      *
      * @return int Degrees
      */
-    public static function angleToDegrees($pValue = 0)
+    public static function angleToDegrees($pValue)
     {
         if ($pValue != 0) {
             return round($pValue / 60000);

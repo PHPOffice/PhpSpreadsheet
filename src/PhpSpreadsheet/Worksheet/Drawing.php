@@ -100,7 +100,7 @@ class Drawing extends BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparab
      *
      * @return Drawing
      */
-    public function setPath($pValue = '', $pVerifyFile = true)
+    public function setPath($pValue, $pVerifyFile = true)
     {
         if ($pVerifyFile) {
             if (file_exists($pValue)) {

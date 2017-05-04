@@ -162,37 +162,33 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
      *
      * @return Alignment
      */
-    public function applyFromArray($pStyles = null)
+    public function applyFromArray(array $pStyles)
     {
-        if (is_array($pStyles)) {
-            if ($this->isSupervisor) {
-                $this->getActiveSheet()->getStyle($this->getSelectedCells())
-                    ->applyFromArray($this->getStyleArray($pStyles));
-            } else {
-                if (isset($pStyles['horizontal'])) {
-                    $this->setHorizontal($pStyles['horizontal']);
-                }
-                if (isset($pStyles['vertical'])) {
-                    $this->setVertical($pStyles['vertical']);
-                }
-                if (isset($pStyles['rotation'])) {
-                    $this->setTextRotation($pStyles['rotation']);
-                }
-                if (isset($pStyles['wrap'])) {
-                    $this->setWrapText($pStyles['wrap']);
-                }
-                if (isset($pStyles['shrinkToFit'])) {
-                    $this->setShrinkToFit($pStyles['shrinkToFit']);
-                }
-                if (isset($pStyles['indent'])) {
-                    $this->setIndent($pStyles['indent']);
-                }
-                if (isset($pStyles['readorder'])) {
-                    $this->setReadorder($pStyles['readorder']);
-                }
-            }
+        if ($this->isSupervisor) {
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())
+                ->applyFromArray($this->getStyleArray($pStyles));
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid style array passed.');
+            if (isset($pStyles['horizontal'])) {
+                $this->setHorizontal($pStyles['horizontal']);
+            }
+            if (isset($pStyles['vertical'])) {
+                $this->setVertical($pStyles['vertical']);
+            }
+            if (isset($pStyles['rotation'])) {
+                $this->setTextRotation($pStyles['rotation']);
+            }
+            if (isset($pStyles['wrap'])) {
+                $this->setWrapText($pStyles['wrap']);
+            }
+            if (isset($pStyles['shrinkToFit'])) {
+                $this->setShrinkToFit($pStyles['shrinkToFit']);
+            }
+            if (isset($pStyles['indent'])) {
+                $this->setIndent($pStyles['indent']);
+            }
+            if (isset($pStyles['readorder'])) {
+                $this->setReadorder($pStyles['readorder']);
+            }
         }
 
         return $this;
@@ -215,11 +211,11 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
     /**
      * Set Horizontal.
      *
-     * @param string $pValue
+     * @param string $pValue see self::HORIZONTAL_*
      *
      * @return Alignment
      */
-    public function setHorizontal($pValue = self::HORIZONTAL_GENERAL)
+    public function setHorizontal($pValue)
     {
         if ($pValue == '') {
             $pValue = self::HORIZONTAL_GENERAL;
@@ -252,11 +248,11 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
     /**
      * Set Vertical.
      *
-     * @param string $pValue
+     * @param string $pValue see self::VERTICAL_*
      *
      * @return Alignment
      */
-    public function setVertical($pValue = self::VERTICAL_BOTTOM)
+    public function setVertical($pValue)
     {
         if ($pValue == '') {
             $pValue = self::VERTICAL_BOTTOM;
@@ -295,7 +291,7 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
      *
      * @return Alignment
      */
-    public function setTextRotation($pValue = 0)
+    public function setTextRotation($pValue)
     {
         // Excel2007 value 255 => PhpSpreadsheet value -165
         if ($pValue == 255) {
@@ -338,7 +334,7 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
      *
      * @return Alignment
      */
-    public function setWrapText($pValue = false)
+    public function setWrapText($pValue)
     {
         if ($pValue == '') {
             $pValue = false;
@@ -374,7 +370,7 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
      *
      * @return Alignment
      */
-    public function setShrinkToFit($pValue = false)
+    public function setShrinkToFit($pValue)
     {
         if ($pValue == '') {
             $pValue = false;
@@ -410,7 +406,7 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
      *
      * @return Alignment
      */
-    public function setIndent($pValue = 0)
+    public function setIndent($pValue)
     {
         if ($pValue > 0) {
             if ($this->getHorizontal() != self::HORIZONTAL_GENERAL &&
@@ -450,7 +446,7 @@ class Alignment extends Supervisor implements \PhpOffice\PhpSpreadsheet\ICompara
      *
      * @return Alignment
      */
-    public function setReadorder($pValue = 0)
+    public function setReadorder($pValue)
     {
         if ($pValue < 0 || $pValue > 2) {
             $pValue = 0;

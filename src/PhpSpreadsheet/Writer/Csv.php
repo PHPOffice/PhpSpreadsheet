@@ -100,7 +100,7 @@ class Csv extends BaseWriter implements IWriter
      *
      * @throws Exception
      */
-    public function save($pFilename = null)
+    public function save($pFilename)
     {
         // Fetch sheet
         $sheet = $this->spreadsheet->getSheet($this->sheetIndex);
@@ -164,11 +164,11 @@ class Csv extends BaseWriter implements IWriter
     /**
      * Set delimiter.
      *
-     * @param string $pValue Delimiter, defaults to ,
+     * @param string $pValue Delimiter, defaults to ','
      *
      * @return CSV
      */
-    public function setDelimiter($pValue = ',')
+    public function setDelimiter($pValue)
     {
         $this->delimiter = $pValue;
 
@@ -192,7 +192,7 @@ class Csv extends BaseWriter implements IWriter
      *
      * @return CSV
      */
-    public function setEnclosure($pValue = '"')
+    public function setEnclosure($pValue)
     {
         if ($pValue == '') {
             $pValue = null;
@@ -219,7 +219,7 @@ class Csv extends BaseWriter implements IWriter
      *
      * @return CSV
      */
-    public function setLineEnding($pValue = PHP_EOL)
+    public function setLineEnding($pValue)
     {
         $this->lineEnding = $pValue;
 
@@ -243,7 +243,7 @@ class Csv extends BaseWriter implements IWriter
      *
      * @return CSV
      */
-    public function setUseBOM($pValue = false)
+    public function setUseBOM($pValue)
     {
         $this->useBOM = $pValue;
 
@@ -267,7 +267,7 @@ class Csv extends BaseWriter implements IWriter
      *
      * @return CSV
      */
-    public function setIncludeSeparatorLine($pValue = false)
+    public function setIncludeSeparatorLine($pValue)
     {
         $this->includeSeparatorLine = $pValue;
 
@@ -292,7 +292,7 @@ class Csv extends BaseWriter implements IWriter
      *
      * @return CSV
      */
-    public function setExcelCompatibility($pValue = false)
+    public function setExcelCompatibility($pValue)
     {
         $this->excelCompatibility = $pValue;
 
@@ -316,7 +316,7 @@ class Csv extends BaseWriter implements IWriter
      *
      * @return CSV
      */
-    public function setSheetIndex($pValue = 0)
+    public function setSheetIndex($pValue)
     {
         $this->sheetIndex = $pValue;
 
@@ -331,37 +331,33 @@ class Csv extends BaseWriter implements IWriter
      *
      * @throws Exception
      */
-    private function writeLine($pFileHandle = null, $pValues = null)
+    private function writeLine($pFileHandle, array $pValues)
     {
-        if (is_array($pValues)) {
-            // No leading delimiter
-            $writeDelimiter = false;
+        // No leading delimiter
+        $writeDelimiter = false;
 
-            // Build the line
-            $line = '';
+        // Build the line
+        $line = '';
 
-            foreach ($pValues as $element) {
-                // Escape enclosures
-                $element = str_replace($this->enclosure, $this->enclosure . $this->enclosure, $element);
+        foreach ($pValues as $element) {
+            // Escape enclosures
+            $element = str_replace($this->enclosure, $this->enclosure . $this->enclosure, $element);
 
-                // Add delimiter
-                if ($writeDelimiter) {
-                    $line .= $this->delimiter;
-                } else {
-                    $writeDelimiter = true;
-                }
-
-                // Add enclosed string
-                $line .= $this->enclosure . $element . $this->enclosure;
+            // Add delimiter
+            if ($writeDelimiter) {
+                $line .= $this->delimiter;
+            } else {
+                $writeDelimiter = true;
             }
 
-            // Add line ending
-            $line .= $this->lineEnding;
-
-            // Write to file
-            fwrite($pFileHandle, $line);
-        } else {
-            throw new Exception('Invalid data row passed to CSV writer.');
+            // Add enclosed string
+            $line .= $this->enclosure . $element . $this->enclosure;
         }
+
+        // Add line ending
+        $line .= $this->lineEnding;
+
+        // Write to file
+        fwrite($pFileHandle, $line);
     }
 }

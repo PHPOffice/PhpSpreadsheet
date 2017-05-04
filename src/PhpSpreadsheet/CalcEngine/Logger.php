@@ -74,7 +74,7 @@ class Logger
      *
      * @param bool $pValue
      */
-    public function setWriteDebugLog($pValue = false)
+    public function setWriteDebugLog($pValue)
     {
         $this->writeDebugLog = $pValue;
     }
@@ -94,7 +94,7 @@ class Logger
      *
      * @param bool $pValue
      */
-    public function setEchoDebugLog($pValue = false)
+    public function setEchoDebugLog($pValue)
     {
         $this->echoDebugLog = $pValue;
     }

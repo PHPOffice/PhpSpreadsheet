@@ -486,7 +486,7 @@ class OLE
      *
      * @return string The string for the OLE container
      */
-    public static function localDateToOLE($date = null)
+    public static function localDateToOLE($date)
     {
         if (!isset($date)) {
             return "\x00\x00\x00\x00\x00\x00\x00\x00";

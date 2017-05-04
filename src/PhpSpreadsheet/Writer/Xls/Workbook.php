@@ -422,7 +422,7 @@ class Workbook extends BIFFwriter
      *
      * @return string Binary data for workbook stream
      */
-    public function writeWorkbook($pWorksheetSizes = null)
+    public function writeWorkbook(array $pWorksheetSizes)
     {
         $this->worksheetSizes = $pWorksheetSizes;
 

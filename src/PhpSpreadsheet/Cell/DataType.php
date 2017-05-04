@@ -69,7 +69,7 @@ class DataType
      *
      * @return mixed Sanitized value
      */
-    public static function checkString($pValue = null)
+    public static function checkString($pValue)
     {
         if ($pValue instanceof \PhpOffice\PhpSpreadsheet\RichText) {
             // TODO: Sanitize Rich-Text string (max. character count is 32,767)
@@ -93,7 +93,7 @@ class DataType
      *
      * @return string Sanitized value
      */
-    public static function checkErrorCode($pValue = null)
+    public static function checkErrorCode($pValue)
     {
         $pValue = (string) $pValue;
 

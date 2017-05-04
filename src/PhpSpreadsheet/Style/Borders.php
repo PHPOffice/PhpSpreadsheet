@@ -218,39 +218,35 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
      *
      * @return Borders
      */
-    public function applyFromArray($pStyles = null)
+    public function applyFromArray(array $pStyles)
     {
-        if (is_array($pStyles)) {
-            if ($this->isSupervisor) {
-                $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
-            } else {
-                if (isset($pStyles['left'])) {
-                    $this->getLeft()->applyFromArray($pStyles['left']);
-                }
-                if (isset($pStyles['right'])) {
-                    $this->getRight()->applyFromArray($pStyles['right']);
-                }
-                if (isset($pStyles['top'])) {
-                    $this->getTop()->applyFromArray($pStyles['top']);
-                }
-                if (isset($pStyles['bottom'])) {
-                    $this->getBottom()->applyFromArray($pStyles['bottom']);
-                }
-                if (isset($pStyles['diagonal'])) {
-                    $this->getDiagonal()->applyFromArray($pStyles['diagonal']);
-                }
-                if (isset($pStyles['diagonaldirection'])) {
-                    $this->setDiagonalDirection($pStyles['diagonaldirection']);
-                }
-                if (isset($pStyles['allborders'])) {
-                    $this->getLeft()->applyFromArray($pStyles['allborders']);
-                    $this->getRight()->applyFromArray($pStyles['allborders']);
-                    $this->getTop()->applyFromArray($pStyles['allborders']);
-                    $this->getBottom()->applyFromArray($pStyles['allborders']);
-                }
-            }
+        if ($this->isSupervisor) {
+            $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid style array passed.');
+            if (isset($pStyles['left'])) {
+                $this->getLeft()->applyFromArray($pStyles['left']);
+            }
+            if (isset($pStyles['right'])) {
+                $this->getRight()->applyFromArray($pStyles['right']);
+            }
+            if (isset($pStyles['top'])) {
+                $this->getTop()->applyFromArray($pStyles['top']);
+            }
+            if (isset($pStyles['bottom'])) {
+                $this->getBottom()->applyFromArray($pStyles['bottom']);
+            }
+            if (isset($pStyles['diagonal'])) {
+                $this->getDiagonal()->applyFromArray($pStyles['diagonal']);
+            }
+            if (isset($pStyles['diagonaldirection'])) {
+                $this->setDiagonalDirection($pStyles['diagonaldirection']);
+            }
+            if (isset($pStyles['allborders'])) {
+                $this->getLeft()->applyFromArray($pStyles['allborders']);
+                $this->getRight()->applyFromArray($pStyles['allborders']);
+                $this->getTop()->applyFromArray($pStyles['allborders']);
+                $this->getBottom()->applyFromArray($pStyles['allborders']);
+            }
         }
 
         return $this;
@@ -403,11 +399,11 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
     /**
      * Set DiagonalDirection.
      *
-     * @param int $pValue
+     * @param int $pValue see self::DIAGONAL_*
      *
      * @return Borders
      */
-    public function setDiagonalDirection($pValue = self::DIAGONAL_NONE)
+    public function setDiagonalDirection($pValue)
     {
         if ($pValue == '') {
             $pValue = self::DIAGONAL_NONE;

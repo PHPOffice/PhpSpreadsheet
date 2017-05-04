@@ -5,8 +5,8 @@ Please note that these do NOT offer complete documentation on specific
 PhpSpreadsheet API functions, but just a bump to get you started. If you
 need specific API functions, please refer to the API documentation.
 
-For example, REF \_Ref191885321 \w \h 4.4.7 REF \_Ref191885321
-\h Setting a worksheet's page orientation and size covers setting a page
+For example, [setting a worksheet's page orientation and size
+](#setting-a-worksheets-page-orientation-and-size) covers setting a page
 orientation to A4. Other paper formats, like US Letter, are not covered
 in this document, but in the PhpSpreadsheet API documentation.
 
@@ -119,9 +119,9 @@ in an English version of Microsoft Office Excel, and PhpSpreadsheet
 handles all formulae internally in this format. This means that the
 following rules hold:
 
--   Decimal separator is '.' (period)
--   Function argument separator is ',' (comma)
--   Matrix row separator is ';' (semicolon)
+-   Decimal separator is `.` (period)
+-   Function argument separator is `,` (comma)
+-   Matrix row separator is `;` (semicolon)
 -   English function names must be used
 
 This is regardless of which language version of Microsoft Office Excel
@@ -132,16 +132,16 @@ will take care of displaying the formula according the applications
 language. Translation is taken care of by the application!
 
 The following line of code writes the formula
-'=IF(C4&gt;500,"profit","loss")' into the cell B8. Note that the
-formula must start with "=" to make PhpSpreadsheet recognise this as a
+`=IF(C4&gt;500,"profit","loss")` into the cell B8. Note that the
+formula must start with `=` to make PhpSpreadsheet recognise this as a
 formula.
 
 ``` php
 $spreadsheet->getActiveSheet()->setCellValue('B8','=IF(C4>500,"profit","loss")');
 ```
 
-If you want to write a string beginning with an "=" character to a
-cell, then you should use the setCellValueExplicit() method.
+If you want to write a string beginning with an `=` character to a
+cell, then you should use the `setCellValueExplicit()` method.
 
 ``` php
 $spreadsheet->getActiveSheet()
@@ -159,7 +159,7 @@ $formula = $spreadsheet->getActiveSheet()->getCell('B8')->getValue();
 ```
 
 If you need the calculated value of a cell, use the following code. This
-is further explained in REF \_Ref191885372 \w \h  \* MERGEFORMAT 4.4.35.
+is further explained in [the calculation engine](./calculation-engine.md).
 
 ``` php
 $value = $spreadsheet->getActiveSheet()->getCell('B8')->getCalculatedValue();
@@ -239,7 +239,7 @@ $spreadsheet->getActiveSheet()->getStyle('A1')->getAlignment()->setWrapText(true
 
 **Tip**
 
-Read more about formatting cells using getStyle() elsewhere.
+Read more about formatting cells using `getStyle()` elsewhere.
 
 **Tip**
 
@@ -332,7 +332,7 @@ $spreadsheet->getActiveSheet()->getPageSetup()->setFitToHeight(0);
 As you can see, it is not necessary to call setFitToPage(TRUE) since
 setFitToWidth(...) and setFitToHeight(...) triggers this.
 
-If you use setFitToWidth() you should in general also specify
+If you use `setFitToWidth()` you should in general also specify
 setFitToHeight() explicitly like in the example. Be careful relying on
 the initial values.
 
@@ -474,7 +474,9 @@ $spreadsheet->getActiveSheet()->setBreak( 'D10' , \PhpOffice\PhpSpreadsheet\Work
 
 To show/hide gridlines when printing, use the following code:
 
-\$spreadsheet-&gt;getActiveSheet()-&gt;setShowGridlines(true);
+```php
+$spreadsheet->getActiveSheet()->setShowGridlines(true);
+```
 
 ### Setting rows/columns to repeat at top/left
 
@@ -738,7 +740,7 @@ vertical/horizontal, left/right/top/bottom/diagonal.
 This border hierarchy can be utilized to achieve various effects in an
 easy manner.
 
-### Valid array keys for style applyFromArray()
+### Valid array keys for style `applyFromArray()`
 
 The following table lists the valid array keys for
 \PhpOffice\PhpSpreadsheet\Style applyFromArray() classes. If the "Maps
@@ -1001,15 +1003,15 @@ $validation->setFormula1('"Item A,Item B,Item C"');
 ```
 
 When using a data validation list like above, make sure you put the list
-between " and " and that you split the items with a comma (,).
+between `"` and `"` and that you split the items with a comma (`,`).
 
 It is important to remember that any string participating in an Excel
 formula is allowed to be maximum 255 characters (not bytes). This sets a
 limit on how many items you can have in the string "Item A,Item B,Item
 C". Therefore it is normally a better idea to type the item values
 directly in some cell range, say A1:A3, and instead use, say,
-$validation->setFormula1('Sheet!$A$1:$A\$3');. Another benefit is that
-the item values themselves can contain the comma "," character itself.
+`$validation->setFormula1('Sheet!$A$1:$A$3')`. Another benefit is that
+the item values themselves can contain the comma `,` character itself.
 
 If you need data validation on multiple cells, one can clone the
 ruleset:
@@ -1039,20 +1041,26 @@ $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
 The measure for column width in PhpSpreadsheet does **not** correspond
 exactly to the measure you may be used to in Microsoft Office Excel.
 Column widths are difficult to deal with in Excel, and there are several
-measures for the column width.1) **Inner width in character units**
-(e.g. 8.43 this is probably what you are familiar with in Excel)2)
-**Full width in pixels** (e.g. 64 pixels)3) **Full width in character
-units** (e.g. 9.140625, value -1 indicates unset width)**PHPExcel always
-operates with 3) "Full width in character units"** which is in fact the
+measures for the column width.
+
+1. Inner width in character units
+(e.g. 8.43 this is probably what you are familiar with in Excel)
+2. Full width in pixels (e.g. 64 pixels)
+3. Full width in character units (e.g. 9.140625, value -1 indicates unset width)
+
+**PhpSpreadsheet always
+operates with "3. Full width in character units"** which is in fact the
 only value that is stored in any Excel file, hence the most reliable
 measure. Unfortunately, **Microsoft Office Excel does not present you
-with this measure**. Instead measures 1) and 2) are computed by the
+with this measure**. Instead measures 1 and 2 are computed by the
 application when the file is opened and these values are presented in
-various dialogues and tool tips.The character width unit is the width of
-a '0' (zero) glyph in the workbooks default font. Therefore column
+various dialogues and tool tips.
+
+The character width unit is the width of
+a `0` (zero) glyph in the workbooks default font. Therefore column
 widths measured in character units in two different workbooks can only
 be compared if they have the same default workbook font.If you have some
-Excel file and need to know the column widths in measure 3), you can
+Excel file and need to know the column widths in measure 3, you can
 read the Excel file with PhpSpreadsheet and echo the retrieved values.
 
 ## Show/hide a column
@@ -1487,7 +1495,7 @@ visible via the user interface.
 
 ## Right-to-left worksheet
 
-Worksheets can be set individually whether column "A" should start at
+Worksheets can be set individually whether column `A` should start at
 left or right side. Default is left. Here is how to set columns from
 right-to-left.
 

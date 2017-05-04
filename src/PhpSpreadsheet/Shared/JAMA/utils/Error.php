@@ -67,17 +67,13 @@ $error['EN'][ROW_LENGTH_EXCEPTION] = 'All rows must have the same length.';
  *
  * @param int $errorNumber Error number
  */
-function JAMAError($errorNumber = null)
+function JAMAError($errorNumber)
 {
     global $error;
 
-    if (isset($errorNumber)) {
-        if (isset($error[JAMALANG][$errorNumber])) {
-            return $error[JAMALANG][$errorNumber];
-        }
-
-        return $error['EN'][$errorNumber];
+    if (isset($error[JAMALANG][$errorNumber])) {
+        return $error[JAMALANG][$errorNumber];
     }
 
-    return 'Invalid argument to JAMAError()';
+    return $error['EN'][$errorNumber];
 }

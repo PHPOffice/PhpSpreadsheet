@@ -116,13 +116,13 @@ class Comment implements IComparable
     /**
      * Set Author.
      *
-     * @param string $pValue
+     * @param string $author
      *
      * @return Comment
      */
-    public function setAuthor($pValue = '')
+    public function setAuthor($author)
     {
-        $this->author = $pValue;
+        $this->author = $author;
 
         return $this;
     }
@@ -164,13 +164,13 @@ class Comment implements IComparable
     /**
      * Set comment width (CSS style, i.e. XXpx or YYpt).
      *
-     * @param string $value
+     * @param string $width
      *
      * @return Comment
      */
-    public function setWidth($value = '96pt')
+    public function setWidth($width)
     {
-        $this->width = $value;
+        $this->width = $width;
 
         return $this;
     }
@@ -192,7 +192,7 @@ class Comment implements IComparable
      *
      * @return Comment
      */
-    public function setHeight($value = '55.5pt')
+    public function setHeight($value)
     {
         $this->height = $value;
 
@@ -216,7 +216,7 @@ class Comment implements IComparable
      *
      * @return Comment
      */
-    public function setMarginLeft($value = '59.25pt')
+    public function setMarginLeft($value)
     {
         $this->marginLeft = $value;
 
@@ -240,7 +240,7 @@ class Comment implements IComparable
      *
      * @return Comment
      */
-    public function setMarginTop($value = '1.5pt')
+    public function setMarginTop($value)
     {
         $this->marginTop = $value;
 
@@ -264,7 +264,7 @@ class Comment implements IComparable
      *
      * @return Comment
      */
-    public function setVisible($value = false)
+    public function setVisible($value)
     {
         $this->visible = $value;
 
@@ -284,13 +284,13 @@ class Comment implements IComparable
     /**
      * Set Alignment.
      *
-     * @param string $pValue
+     * @param string $alignment see Style\Alignment::HORIZONTAL_*
      *
      * @return Comment
      */
-    public function setAlignment($pValue = Style\Alignment::HORIZONTAL_GENERAL)
+    public function setAlignment($alignment)
     {
-        $this->alignment = $pValue;
+        $this->alignment = $alignment;
 
         return $this;
     }

@@ -31,6 +31,7 @@ class Conditional implements \PhpOffice\PhpSpreadsheet\IComparable
     const CONDITION_CELLIS = 'cellIs';
     const CONDITION_CONTAINSTEXT = 'containsText';
     const CONDITION_EXPRESSION = 'expression';
+    const CONDITION_CONTAINSBLANKS = 'containsBlanks';
 
     /* Operator types */
     const OPERATOR_NONE = '';
@@ -107,11 +108,11 @@ class Conditional implements \PhpOffice\PhpSpreadsheet\IComparable
     /**
      * Set Condition type.
      *
-     * @param string $pValue Condition type
+     * @param string $pValue Condition type, see self::CONDITION_*
      *
      * @return Conditional
      */
-    public function setConditionType($pValue = self::CONDITION_NONE)
+    public function setConditionType($pValue)
     {
         $this->conditionType = $pValue;
 
@@ -131,11 +132,11 @@ class Conditional implements \PhpOffice\PhpSpreadsheet\IComparable
     /**
      * Set Operator type.
      *
-     * @param string $pValue Conditional operator type
+     * @param string $pValue Conditional operator type, see self::OPERATOR_*
      *
      * @return Conditional
      */
-    public function setOperatorType($pValue = self::OPERATOR_NONE)
+    public function setOperatorType($pValue)
     {
         $this->operatorType = $pValue;
 
@@ -159,7 +160,7 @@ class Conditional implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Conditional
      */
-    public function setText($value = null)
+    public function setText($value)
     {
         $this->text = $value;
 
@@ -200,7 +201,7 @@ class Conditional implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Conditional
      */
-    public function addCondition($pValue = '')
+    public function addCondition($pValue)
     {
         $this->condition[] = $pValue;
 

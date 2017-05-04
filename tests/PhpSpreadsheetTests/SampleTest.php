@@ -22,12 +22,7 @@ class SampleTest extends \PHPUnit_Framework_TestCase
 
     public function providerSample()
     {
-        $skipped = [
-            '07 Reader PCLZip', // Xlsx cannot load file, leading to OpenOffice trying to and crashing. This is a bug that should be fixed
-            '20 Read Ods with PCLZip', // Crash: Call to undefined method \PhpOffice\PhpSpreadsheet\Shared\ZipArchive::statName()
-            '21 Pdf', // for now we don't have 3rdparty libs to tests PDF, but it should be added
-            '06 Largescale with cellcaching sqlite3', // Travis started crashing after they upgraded from PHP 7.0.13 to 7.0.14, so we disable it for now
-        ];
+        $skipped = [];
 
         // Unfortunately some tests are too long be ran with code-coverage
         // analysis on Travis, so we need to exclude them
@@ -35,8 +30,6 @@ class SampleTest extends \PHPUnit_Framework_TestCase
         if (in_array('--coverage-clover', $argv)) {
             $tooLongToBeCovered = [
                 '06 Largescale',
-                '06 Largescale with cellcaching',
-                '06 Largescale with cellcaching sqlite3',
                 '13 CalculationCyclicFormulae',
             ];
             $skipped = array_merge($skipped, $tooLongToBeCovered);

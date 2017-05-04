@@ -34,7 +34,7 @@ class MPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
-    public function save($pFilename = null)
+    public function save($pFilename)
     {
         $fileHandle = parent::prepareForSave($pFilename);
 

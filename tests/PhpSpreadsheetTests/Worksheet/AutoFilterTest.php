@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet;
 
-use PhpOffice\PhpSpreadsheet\CachedObjectStorage\Memory;
+use PhpOffice\PhpSpreadsheet\Collection\Cells;
 use PhpOffice\PhpSpreadsheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
@@ -12,19 +12,19 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
     private $testInitialRange = 'H2:O256';
     private $testAutoFilterObject;
     private $mockWorksheetObject;
-    private $mockCacheController;
+    private $cellCollection;
 
     public function setUp()
     {
         $this->mockWorksheetObject = $this->getMockBuilder(Worksheet::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->mockCacheController = $this->getMockBuilder(Memory::class)
+        $this->cellCollection = $this->getMockBuilder(Cells::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->mockWorksheetObject->expects($this->any())
-            ->method('getCellCacheController')
-            ->will($this->returnValue($this->mockCacheController));
+            ->method('getCellCollection')
+            ->will($this->returnValue($this->cellCollection));
 
         $this->testAutoFilterObject = new AutoFilter($this->testInitialRange, $this->mockWorksheetObject);
     }
@@ -83,7 +83,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         $expectedResult = '';
 
         //  Setters return the instance to implement the fluent interface
-        $result = $this->testAutoFilterObject->setRange();
+        $result = $this->testAutoFilterObject->setRange('');
         $this->assertInstanceOf(AutoFilter::class, $result);
 
         //  Result should be a clear range
@@ -268,7 +268,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
     public function testGetColumnWithoutRangeSet()
     {
         //  Clear the range
-        $result = $this->testAutoFilterObject->setRange();
+        $result = $this->testAutoFilterObject->setRange('');
         $result = $this->testAutoFilterObject->getColumn('A');
     }
 
@@ -282,7 +282,7 @@ class AutoFilterTest extends \PHPUnit_Framework_TestCase
         }
 
         //  Setters return the instance to implement the fluent interface
-        $result = $this->testAutoFilterObject->setRange();
+        $result = $this->testAutoFilterObject->setRange('');
         $this->assertInstanceOf(AutoFilter::class, $result);
 
         //  Range should be cleared

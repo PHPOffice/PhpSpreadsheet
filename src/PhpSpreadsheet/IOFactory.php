@@ -84,13 +84,9 @@ class IOFactory
      *
      * @throws Reader\Exception
      */
-    public static function setSearchLocations($value)
+    public static function setSearchLocations(array $value)
     {
-        if (is_array($value)) {
-            self::$searchLocations = $value;
-        } else {
-            throw new Reader\Exception('Invalid parameter passed.');
-        }
+        self::$searchLocations = $value;
     }
 
     /**
@@ -102,7 +98,7 @@ class IOFactory
      * @param string $location Example: PhpSpreadsheet/Writer/{0}.php
      * @param string $classname Example: Writer\{0}
      */
-    public static function addSearchLocation($type = '', $location = '', $classname = '')
+    public static function addSearchLocation($type, $location, $classname)
     {
         self::$searchLocations[] = ['type' => $type, 'path' => $location, 'class' => $classname];
     }
@@ -151,7 +147,7 @@ class IOFactory
      *
      * @return Reader\IReader
      */
-    public static function createReader($readerType = '')
+    public static function createReader($readerType)
     {
         // Search type
         $searchType = 'IReader';

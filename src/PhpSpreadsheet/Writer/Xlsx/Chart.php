@@ -47,7 +47,7 @@ class Chart extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeChart(\PhpOffice\PhpSpreadsheet\Chart $pChart = null, $calculateCellValues = true)
+    public function writeChart(\PhpOffice\PhpSpreadsheet\Chart $pChart, $calculateCellValues = true)
     {
         $this->calculateCellValues = $calculateCellValues;
 
@@ -358,7 +358,7 @@ class Chart extends WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeDataLabels($objWriter, Layout $chartLayout = null)
+    private function writeDataLabels(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, Layout $chartLayout = null)
     {
         $objWriter->startElement('c:dLbls');
 

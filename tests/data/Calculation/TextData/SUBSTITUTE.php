@@ -27,4 +27,16 @@ return [
         'a',
         1,
     ],
+    'Unicode equivalence is not supported' => [
+        "\u{0061}\u{030A}",
+        "\u{0061}\u{030A}",
+        "\u{00E5}",
+        'x',
+    ],
+    'Multibytes are supported' => [
+        'x',
+        "\u{00E5}",
+        "\u{00E5}",
+        'x',
+    ],
 ];

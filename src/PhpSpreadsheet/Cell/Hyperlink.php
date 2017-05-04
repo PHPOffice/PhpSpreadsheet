@@ -70,7 +70,7 @@ class Hyperlink
      *
      * @return Hyperlink
      */
-    public function setUrl($value = '')
+    public function setUrl($value)
     {
         $this->url = $value;
 
@@ -94,7 +94,7 @@ class Hyperlink
      *
      * @return Hyperlink
      */
-    public function setTooltip($value = '')
+    public function setTooltip($value)
     {
         $this->tooltip = $value;
 

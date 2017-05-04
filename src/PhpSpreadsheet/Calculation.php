@@ -2177,7 +2177,7 @@ class Calculation
      *
      * @param bool $pValue
      */
-    public function setCalculationCacheEnabled($pValue = true)
+    public function setCalculationCacheEnabled($pValue)
     {
         $this->calculationCacheEnabled = $pValue;
         $this->clearCalculationCache();
@@ -2246,11 +2246,11 @@ class Calculation
     /**
      * Set the locale code.
      *
-     * @param string $locale The locale to use for formula translation
+     * @param string $locale The locale to use for formula translation, eg: 'en_us'
      *
      * @return bool
      */
-    public function setLocale($locale = 'en_us')
+    public function setLocale($locale)
     {
         //    Identify our locale and language
         $language = $locale = strtolower($locale);
@@ -3664,7 +3664,7 @@ class Calculation
                             $this->debugLog->writeDebugLog('Evaluation Result for cell ', $cellRef, ' in worksheet ', $matches[2], ' is ', $this->showTypeDetails($cellValue));
                         } else {
                             $this->debugLog->writeDebugLog('Evaluating Cell ', $cellRef, ' in current worksheet');
-                            if ($pCellParent->isDataSet($cellRef)) {
+                            if ($pCellParent->has($cellRef)) {
                                 $cellValue = $this->extractCellRange($cellRef, $pCellWorksheet, false);
                                 $pCell->attach($pCellParent);
                             } else {
@@ -3765,6 +3765,11 @@ class Calculation
                 } elseif (preg_match('/^' . self::CALCULATION_REGEXP_NAMEDRANGE . '$/i', $token, $matches)) {
                     $namedRange = $matches[6];
                     $this->debugLog->writeDebugLog('Evaluating Named Range ', $namedRange);
+
+                    if (substr($namedRange, 0, 6) === '_xlfn.') {
+                        return $this->raiseFormulaError("undefined named range / function '$token'");
+                    }
+
                     $cellValue = $this->extractNamedRange($namedRange, ((null !== $pCell) ? $pCellWorksheet : null), false);
                     $pCell->attach($pCellParent);
                     $this->debugLog->writeDebugLog('Evaluation Result for named range ', $namedRange, ' is ', $this->showTypeDetails($cellValue));

@@ -194,7 +194,7 @@ class Column
      *
      * @return Column
      */
-    public function setFilterType($pFilterType = self::AUTOFILTER_FILTERTYPE_FILTER)
+    public function setFilterType($pFilterType)
     {
         if (!in_array($pFilterType, self::$filterTypes)) {
             throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid filter type for column AutoFilter.');
@@ -224,7 +224,7 @@ class Column
      *
      * @return Column
      */
-    public function setJoin($pJoin = self::AUTOFILTER_COLUMN_JOIN_OR)
+    public function setJoin($pJoin)
     {
         // Lowercase And/Or
         $pJoin = strtolower($pJoin);
@@ -240,15 +240,15 @@ class Column
     /**
      * Set AutoFilter Attributes.
      *
-     * @param string[] $pAttributes
+     * @param string[] $attributes
      *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      *
      * @return Column
      */
-    public function setAttributes($pAttributes = [])
+    public function setAttributes(array $attributes)
     {
-        $this->attributes = $pAttributes;
+        $this->attributes = $attributes;
 
         return $this;
     }
@@ -273,7 +273,7 @@ class Column
     /**
      * Get AutoFilter Column Attributes.
      *
-     * @return string
+     * @return string[]
      */
     public function getAttributes()
     {
@@ -340,16 +340,15 @@ class Column
      * Add a new AutoFilter Column Rule to the ruleset.
      *
      * @param Column\Rule $pRule
-     * @param bool $returnRule Flag indicating whether the rule object or the column object should be returned
      *
-     * @return Column|Column\Rule
+     * @return Column
      */
-    public function addRule(Column\Rule $pRule, $returnRule = true)
+    public function addRule(Column\Rule $pRule)
     {
         $pRule->setParent($this);
         $this->ruleset[] = $pRule;
 
-        return ($returnRule) ? $pRule : $this;
+        return $this;
     }
 
     /**

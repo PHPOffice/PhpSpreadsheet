@@ -104,7 +104,7 @@ class RowDimension extends Dimension
      *
      * @return RowDimension
      */
-    public function setRowHeight($pValue = -1)
+    public function setRowHeight($pValue)
     {
         $this->height = $pValue;
 
@@ -128,7 +128,7 @@ class RowDimension extends Dimension
      *
      * @return RowDimension
      */
-    public function setZeroHeight($pValue = false)
+    public function setZeroHeight($pValue)
     {
         $this->zeroHeight = $pValue;
 

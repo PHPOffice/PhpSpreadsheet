@@ -287,8 +287,6 @@ class Worksheet extends BIFFwriter
     {
         $phpSheet = $this->phpSheet;
 
-        $num_sheets = $phpSheet->getParent()->getSheetCount();
-
         // Write BOF record
         $this->storeBof(0x0010);
 
@@ -400,15 +398,14 @@ class Worksheet extends BIFFwriter
         }
 
         // Write Cells
-        foreach ($phpSheet->getCellCollection() as $cellID) {
-            $cell = $phpSheet->getCell($cellID);
+        foreach ($phpSheet->getCoordinates() as $coordinate) {
+            $cell = $phpSheet->getCell($coordinate);
             $row = $cell->getRow() - 1;
             $column = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($cell->getColumn()) - 1;
 
-            // Don't break Excel!
-//            if ($row + 1 > 65536 or $column + 1 > 256) {
+            // Don't break Excel break the code!
             if ($row > 65535 || $column > 255) {
-                break;
+                throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Rows or columns overflow! Excel5 has limit to 65535 rows and 255 columns. Use XLSX instead.');
             }
 
             // Write cell value
@@ -542,7 +539,7 @@ class Worksheet extends BIFFwriter
      *
      * @return string Binary data
      */
-    private function writeBIFF8CellRangeAddressFixed($range = 'A1')
+    private function writeBIFF8CellRangeAddressFixed($range)
     {
         $explodes = explode(':', $range);
 
@@ -2837,10 +2834,11 @@ class Worksheet extends BIFFwriter
                         $type = 0x07;
                         break;
                 }
+
                 $options |= $type << 0;
 
                 // error style
-                $errorStyle = $dataValidation->getType();
+                $errorStyle = $dataValidation->getErrorStyle();
                 switch ($errorStyle) {
                     case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_STOP:
                         $errorStyle = 0x00;
@@ -2852,6 +2850,7 @@ class Worksheet extends BIFFwriter
                         $errorStyle = 0x02;
                         break;
                 }
+
                 $options |= $errorStyle << 4;
 
                 // explicit formula?
@@ -2899,6 +2898,7 @@ class Worksheet extends BIFFwriter
                         $operator = 0x07;
                         break;
                 }
+
                 $options |= $operator << 20;
 
                 $data = pack('V', $options);

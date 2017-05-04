@@ -37,7 +37,7 @@ class PasswordHasher
      *
      * @return string Hashed password
      */
-    public static function hashPassword($pPassword = '')
+    public static function hashPassword($pPassword)
     {
         $password = 0x0000;
         $charPos = 1; // char position

@@ -78,10 +78,10 @@ library.
 Comma Separated Value (CSV) file format is a common structuring strategy
 for text format files. In CSV flies, each line in the file represents a
 row of data and (within each line of the file) the different data fields
-(or columns) are separated from one another using a comma (","). If a
+(or columns) are separated from one another using a comma (`,`). If a
 data field contains a comma, then it should be enclosed (typically in
-quotation marks ("). Sometimes tabs "\t", or the pipe symbol ("|"), or a
-semi-colon (";") are used as separators instead of a comma, although
+quotation marks (`"`). Sometimes tabs `\t`, or the pipe symbol (`|`), or a
+semi-colon (`;`) are used as separators instead of a comma, although
 other symbols can be used. Because CSV is a text-only format, it doesn't
 support any data formatting options.
 

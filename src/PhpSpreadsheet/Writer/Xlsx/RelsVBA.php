@@ -35,7 +35,7 @@ class RelsVBA extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeVBARelationships(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function writeVBARelationships(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
     {
         // Create XML writer
         $objWriter = null;

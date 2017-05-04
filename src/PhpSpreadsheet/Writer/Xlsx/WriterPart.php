@@ -27,50 +27,31 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 abstract class WriterPart
 {
     /**
-     * Parent IWriter object.
+     * Parent Xlsx object.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Writer\IWriter
+     * @var \PhpOffice\PhpSpreadsheet\Writer\Xlsx
      */
     private $parentWriter;
 
     /**
-     * Set parent IWriter object.
-     *
-     * @param \PhpOffice\PhpSpreadsheet\Writer\IWriter $pWriter
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     */
-    public function setParentWriter(\PhpOffice\PhpSpreadsheet\Writer\IWriter $pWriter = null)
-    {
-        $this->parentWriter = $pWriter;
-    }
-
-    /**
-     * Get parent IWriter object.
+     * Get parent Xlsx object.
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
-     * @return \PhpOffice\PhpSpreadsheet\Writer\IWriter
+     * @return \PhpOffice\PhpSpreadsheet\Writer\Xlsx
      */
     public function getParentWriter()
     {
-        if (!is_null($this->parentWriter)) {
-            return $this->parentWriter;
-        }
-        throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('No parent \\PhpOffice\\PhpSpreadsheet\\Writer\\IWriter assigned.');
+        return $this->parentWriter;
     }
 
     /**
-     * Set parent IWriter object.
+     * Set parent Xlsx object.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Writer\IWriter $pWriter
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @param \PhpOffice\PhpSpreadsheet\Writer\Xlsx $pWriter
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Writer\IWriter $pWriter = null)
+    public function __construct(\PhpOffice\PhpSpreadsheet\Writer\Xlsx $pWriter)
     {
-        if (!is_null($pWriter)) {
-            $this->parentWriter = $pWriter;
-        }
+        $this->parentWriter = $pWriter;
     }
 }

@@ -323,7 +323,7 @@ class StringHelper
      *
      * @return string
      */
-    public static function controlCharacterOOXML2PHP($value = '')
+    public static function controlCharacterOOXML2PHP($value)
     {
         return str_replace(array_keys(self::$controlCharacters), array_values(self::$controlCharacters), $value);
     }
@@ -343,7 +343,7 @@ class StringHelper
      *
      * @return string
      */
-    public static function controlCharacterPHP2OOXML($value = '')
+    public static function controlCharacterPHP2OOXML($value)
     {
         return str_replace(array_values(self::$controlCharacters), array_keys(self::$controlCharacters), $value);
     }
@@ -375,7 +375,7 @@ class StringHelper
      *
      * @return bool
      */
-    public static function isUTF8($value = '')
+    public static function isUTF8($value)
     {
         return $value === '' || preg_match('/^./su', $value) === 1;
     }
@@ -468,7 +468,10 @@ class StringHelper
     public static function convertEncoding($value, $to, $from)
     {
         if (self::getIsIconvEnabled()) {
-            return iconv($from, $to . '//IGNORE//TRANSLIT', $value);
+            $result = iconv($from, $to . '//IGNORE//TRANSLIT', $value);
+            if (false !== $result) {
+                return $result;
+            }
         }
 
         return mb_convert_encoding($value, $to, $from);
@@ -496,7 +499,7 @@ class StringHelper
      *
      * @return string
      */
-    public static function substring($pValue = '', $pStart = 0, $pLength = 0)
+    public static function substring($pValue, $pStart, $pLength = 0)
     {
         return mb_substr($pValue, $pStart, $pLength, 'UTF-8');
     }
@@ -508,7 +511,7 @@ class StringHelper
      *
      * @return string
      */
-    public static function strToUpper($pValue = '')
+    public static function strToUpper($pValue)
     {
         return mb_convert_case($pValue, MB_CASE_UPPER, 'UTF-8');
     }
@@ -520,7 +523,7 @@ class StringHelper
      *
      * @return string
      */
-    public static function strToLower($pValue = '')
+    public static function strToLower($pValue)
     {
         return mb_convert_case($pValue, MB_CASE_LOWER, 'UTF-8');
     }
@@ -533,7 +536,7 @@ class StringHelper
      *
      * @return string
      */
-    public static function strToTitle($pValue = '')
+    public static function strToTitle($pValue)
     {
         return mb_convert_case($pValue, MB_CASE_TITLE, 'UTF-8');
     }
@@ -551,44 +554,6 @@ class StringHelper
     }
 
     /**
-     * Replace into multi-bytes string.
-     *
-     * Strangely, PHP doesn't have a mb_str_replace multibyte function
-     * As we'll only ever use this function with UTF-8 characters, we can simply "hard-code" the character set
-     *
-     * @param string|string[] $search
-     * @param string|string[] $replace
-     * @param string $subject
-     *
-     * @return string
-     */
-    public static function mbStrReplace($search, $replace, $subject)
-    {
-        if (is_array($subject)) {
-            $ret = [];
-            foreach ($subject as $key => $val) {
-                $ret[$key] = self::mbStrReplace($search, $replace, $val);
-            }
-
-            return $ret;
-        }
-
-        foreach ((array) $search as $key => $s) {
-            if ($s == '' && $s !== 0) {
-                continue;
-            }
-            $r = !is_array($replace) ? $replace : (isset($replace[$key]) ? $replace[$key] : '');
-            $pos = mb_strpos($subject, $s, 0, 'UTF-8');
-            while ($pos !== false) {
-                $subject = mb_substr($subject, 0, $pos, 'UTF-8') . $r . mb_substr($subject, $pos + mb_strlen($s, 'UTF-8'), null, 'UTF-8');
-                $pos = mb_strpos($subject, $s, $pos + mb_strlen($r, 'UTF-8'), 'UTF-8');
-            }
-        }
-
-        return $subject;
-    }
-
-    /**
      * Reverse the case of a string, so that all uppercase characters become lowercase
      * and all lowercase characters become uppercase.
      *
@@ -596,7 +561,7 @@ class StringHelper
      *
      * @return string
      */
-    public static function strCaseReverse($pValue = '')
+    public static function strCaseReverse($pValue)
     {
         $characters = self::mbStrSplit($pValue);
         foreach ($characters as &$character) {
@@ -661,7 +626,7 @@ class StringHelper
      *
      * @param string $pValue Character for decimal separator
      */
-    public static function setDecimalSeparator($pValue = '.')
+    public static function setDecimalSeparator($pValue)
     {
         self::$decimalSeparator = $pValue;
     }
@@ -694,7 +659,7 @@ class StringHelper
      *
      * @param string $pValue Character for thousands separator
      */
-    public static function setThousandsSeparator($pValue = ',')
+    public static function setThousandsSeparator($pValue)
     {
         self::$thousandsSeparator = $pValue;
     }
@@ -732,7 +697,7 @@ class StringHelper
      *
      * @param string $pValue Character for currency code
      */
-    public static function setCurrencyCode($pValue = '$')
+    public static function setCurrencyCode($pValue)
     {
         self::$currencyCode = $pValue;
     }
@@ -744,7 +709,7 @@ class StringHelper
      *
      * @return string UTF-8 encoded string
      */
-    public static function SYLKtoUTF8($pValue = '')
+    public static function SYLKtoUTF8($pValue)
     {
         // If there is no escape character in the string there is nothing to do
         if (strpos($pValue, '') === false) {

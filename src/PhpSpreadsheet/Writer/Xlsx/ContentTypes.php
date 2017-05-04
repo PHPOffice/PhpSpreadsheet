@@ -36,7 +36,7 @@ class ContentTypes extends WriterPart
      *
      * @return string XML Output
      */
-    public function writeContentTypes(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet = null, $includeCharts = false)
+    public function writeContentTypes(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet, $includeCharts = false)
     {
         // Create XML writer
         $objWriter = null;
@@ -165,8 +165,8 @@ class ContentTypes extends WriterPart
         }
         $sheetCount = $spreadsheet->getSheetCount();
         for ($i = 0; $i < $sheetCount; ++$i) {
-            if (count($spreadsheet->getSheet()->getHeaderFooter()->getImages()) > 0) {
-                foreach ($spreadsheet->getSheet()->getHeaderFooter()->getImages() as $image) {
+            if (count($spreadsheet->getSheet($i)->getHeaderFooter()->getImages()) > 0) {
+                foreach ($spreadsheet->getSheet($i)->getHeaderFooter()->getImages() as $image) {
                     if (!isset($aMediaContentTypes[strtolower($image->getExtension())])) {
                         $aMediaContentTypes[strtolower($image->getExtension())] = $this->getImageMimeType($image->getPath());
 
@@ -191,7 +191,7 @@ class ContentTypes extends WriterPart
      *
      * @return string Mime Type
      */
-    private function getImageMimeType($pFile = '')
+    private function getImageMimeType($pFile)
     {
         if (\PhpOffice\PhpSpreadsheet\Shared\File::fileExists($pFile)) {
             $image = getimagesize($pFile);
@@ -210,7 +210,7 @@ class ContentTypes extends WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeDefaultContentType(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pPartname = '', $pContentType = '')
+    private function writeDefaultContentType(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, $pPartname, $pContentType)
     {
         if ($pPartname != '' && $pContentType != '') {
             // Write content type
@@ -232,7 +232,7 @@ class ContentTypes extends WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    private function writeOverrideContentType(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter = null, $pPartname = '', $pContentType = '')
+    private function writeOverrideContentType(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, $pPartname, $pContentType)
     {
         if ($pPartname != '' && $pContentType != '') {
             // Write content type

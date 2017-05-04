@@ -34,6 +34,7 @@ return PhpCsFixer\Config::create()
             'hash_to_slash_comment' => true,
             'header_comment' => false, // We don't use common header in all our files
             'heredoc_to_nowdoc' => false, // Not sure about this one
+            'is_null' => false, // Risky
             'include' => true,
             'indentation_type' => true,
             'line_ending' => true,
@@ -46,6 +47,7 @@ return PhpCsFixer\Config::create()
             'method_separation' => true,
             'modernize_types_casting' => true,
             'native_function_casing' => true,
+            'native_function_invocation'=> false, // This is risky and seems to be micro-optimization that make code uglier so not worth it, at least for now
             'new_with_braces' => true,
             'no_alias_functions' => true,
             'no_blank_lines_after_class_opening' => true,
@@ -88,7 +90,7 @@ return PhpCsFixer\Config::create()
             'php_unit_construct' => true,
             'php_unit_dedicate_assert' => true,
             'php_unit_fqcn_annotation' => true,
-            'php_unit_strict' => false, // We sometime actually need assertEquals            'phpdoc_align' => false, // Waste of time
+            'php_unit_strict' => false, // We sometime actually need assertEquals
             'phpdoc_add_missing_param_annotation' => true,
             'phpdoc_align' => false, // Waste of time
             'phpdoc_annotation_without_dot' => true,
@@ -98,7 +100,9 @@ return PhpCsFixer\Config::create()
             'phpdoc_no_alias_tag' => true,
             'phpdoc_no_empty_return' => true,
             'phpdoc_no_package' => true,
+            'phpdoc_no_useless_inheritdoc' => true,
             'phpdoc_order' => true,
+            'phpdoc_return_self_reference' => true,
             'phpdoc_scalar' => true,
             'phpdoc_separation' => true,
             'phpdoc_single_line_var_spacing' => true,
@@ -132,6 +136,7 @@ return PhpCsFixer\Config::create()
             'switch_case_semicolon_to_colon' => true,
             'switch_case_space' => true,
             'ternary_operator_spaces' => true,
+            'ternary_to_null_coalescing' => false, // Cannot use that with PHP 5.6
             'trailing_comma_in_multiline_array' => true,
             'trim_array_spaces' => true,
             'unary_operator_spaces' => true,

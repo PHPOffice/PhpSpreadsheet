@@ -186,11 +186,11 @@ abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\Html
     /**
      * Set Paper Size.
      *
-     * @param string $pValue Paper size
+     * @param string $pValue Paper size see \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_*
      *
      * @return self
      */
-    public function setPaperSize($pValue = \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_LETTER)
+    public function setPaperSize($pValue)
     {
         $this->paperSize = $pValue;
 
@@ -210,11 +210,11 @@ abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\Html
     /**
      * Set Orientation.
      *
-     * @param string $pValue Page orientation
+     * @param string $pValue Page orientation see \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_*
      *
      * @return self
      */
-    public function setOrientation($pValue = \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_DEFAULT)
+    public function setOrientation($pValue)
     {
         $this->orientation = $pValue;
 
@@ -240,7 +240,7 @@ abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\Html
      *
      * @return self
      */
-    public function setTempDir($pValue = '')
+    public function setTempDir($pValue)
     {
         if (is_dir($pValue)) {
             $this->tempDir = $pValue;
@@ -258,7 +258,7 @@ abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\Html
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    protected function prepareForSave($pFilename = null)
+    protected function prepareForSave($pFilename)
     {
         //  garbage collect
         $this->spreadsheet->garbageCollect();

@@ -142,11 +142,11 @@ class FormulaToken
     }
 
     /**
-     * Set Token Type.
+     * Set Token Type (represented by TOKEN_TYPE_*).
      *
      * @param string $value
      */
-    public function setTokenType($value = self::TOKEN_TYPE_UNKNOWN)
+    public function setTokenType($value)
     {
         $this->tokenType = $value;
     }
@@ -162,11 +162,11 @@ class FormulaToken
     }
 
     /**
-     * Set Token SubType.
+     * Set Token SubType (represented by TOKEN_SUBTYPE_*).
      *
      * @param string $value
      */
-    public function setTokenSubType($value = self::TOKEN_SUBTYPE_NOTHING)
+    public function setTokenSubType($value)
     {
         $this->tokenSubType = $value;
     }

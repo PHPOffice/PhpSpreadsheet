@@ -341,7 +341,7 @@ class Chart
      *
      * @return Chart
      */
-    public function setPlotVisibleOnly($plotVisibleOnly = true)
+    public function setPlotVisibleOnly($plotVisibleOnly)
     {
         $this->plotVisibleOnly = $plotVisibleOnly;
 
@@ -365,7 +365,7 @@ class Chart
      *
      * @return Chart
      */
-    public function setDisplayBlanksAs($displayBlanksAs = '0')
+    public function setDisplayBlanksAs($displayBlanksAs)
     {
         $this->displayBlanksAs = $displayBlanksAs;
     }
@@ -494,11 +494,12 @@ class Chart
      *
      * @return Chart
      */
-    public function setTopLeftOffset($xOffset = null, $yOffset = null)
+    public function setTopLeftOffset($xOffset, $yOffset)
     {
         if (!is_null($xOffset)) {
             $this->setTopLeftXOffset($xOffset);
         }
+
         if (!is_null($yOffset)) {
             $this->setTopLeftYOffset($yOffset);
         }
@@ -604,11 +605,12 @@ class Chart
      *
      * @return Chart
      */
-    public function setBottomRightOffset($xOffset = null, $yOffset = null)
+    public function setBottomRightOffset($xOffset, $yOffset)
     {
         if (!is_null($xOffset)) {
             $this->setBottomRightXOffset($xOffset);
         }
+
         if (!is_null($yOffset)) {
             $this->setBottomRightYOffset($yOffset);
         }

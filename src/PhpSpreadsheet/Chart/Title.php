@@ -44,6 +44,7 @@ class Title
      * Create a new Title.
      *
      * @param null|mixed $caption
+     * @param null|Layout $layout
      */
     public function __construct($caption = null, Layout $layout = null)
     {
@@ -68,7 +69,7 @@ class Title
      *
      * @return Title
      */
-    public function setCaption($caption = null)
+    public function setCaption($caption)
     {
         $this->caption = $caption;
 

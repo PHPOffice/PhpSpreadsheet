@@ -88,17 +88,17 @@ class Chart
                                             break;
                                         case 'catAx':
                                             if (isset($chartDetail->title)) {
-                                                $XaxisLabel = self::chartTitle($chartDetail->title->children($namespacesChartMeta['c']), $namespacesChartMeta, 'cat');
+                                                $XaxisLabel = self::chartTitle($chartDetail->title->children($namespacesChartMeta['c']), $namespacesChartMeta);
                                             }
                                             break;
                                         case 'dateAx':
                                             if (isset($chartDetail->title)) {
-                                                $XaxisLabel = self::chartTitle($chartDetail->title->children($namespacesChartMeta['c']), $namespacesChartMeta, 'cat');
+                                                $XaxisLabel = self::chartTitle($chartDetail->title->children($namespacesChartMeta['c']), $namespacesChartMeta);
                                             }
                                             break;
                                         case 'valAx':
                                             if (isset($chartDetail->title)) {
-                                                $YaxisLabel = self::chartTitle($chartDetail->title->children($namespacesChartMeta['c']), $namespacesChartMeta, 'cat');
+                                                $YaxisLabel = self::chartTitle($chartDetail->title->children($namespacesChartMeta['c']), $namespacesChartMeta);
                                             }
                                             break;
                                         case 'barChart':
@@ -176,7 +176,7 @@ class Chart
                                 $dispBlanksAs = self::getAttribute($chartDetails, 'val', 'string');
                                 break;
                             case 'title':
-                                $title = self::chartTitle($chartDetails, $namespacesChartMeta, 'title');
+                                $title = self::chartTitle($chartDetails, $namespacesChartMeta);
                                 break;
                             case 'legend':
                                 $legendPos = 'r';
@@ -206,7 +206,7 @@ class Chart
         return $chart;
     }
 
-    private static function chartTitle($titleDetails, $namespacesChartMeta, $type)
+    private static function chartTitle(\SimpleXMLElement $titleDetails, array $namespacesChartMeta)
     {
         $caption = [];
         $titleLayout = null;
@@ -399,7 +399,7 @@ class Chart
         ];
     }
 
-    private static function parseRichText($titleDetailPart = null)
+    private static function parseRichText(\SimpleXMLElement $titleDetailPart)
     {
         $value = new \PhpOffice\PhpSpreadsheet\RichText();
 

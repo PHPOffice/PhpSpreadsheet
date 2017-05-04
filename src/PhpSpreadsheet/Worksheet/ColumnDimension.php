@@ -104,7 +104,7 @@ class ColumnDimension extends Dimension
      *
      * @return ColumnDimension
      */
-    public function setWidth($pValue = -1)
+    public function setWidth($pValue)
     {
         $this->width = $pValue;
 
@@ -128,7 +128,7 @@ class ColumnDimension extends Dimension
      *
      * @return ColumnDimension
      */
-    public function setAutoSize($pValue = false)
+    public function setAutoSize($pValue)
     {
         $this->autoSize = $pValue;
 

@@ -135,7 +135,7 @@ class SpContainer
      *
      * @param bool $value
      */
-    public function setSpgr($value = false)
+    public function setSpgr($value)
     {
         $this->spgr = $value;
     }
@@ -250,9 +250,9 @@ class SpContainer
     /**
      * Set cell coordinates of upper-left corner of shape.
      *
-     * @param string $value
+     * @param string $value eg: 'A1'
      */
-    public function setStartCoordinates($value = 'A1')
+    public function setStartCoordinates($value)
     {
         $this->startCoordinates = $value;
     }
@@ -272,7 +272,7 @@ class SpContainer
      *
      * @param int $startOffsetX
      */
-    public function setStartOffsetX($startOffsetX = 0)
+    public function setStartOffsetX($startOffsetX)
     {
         $this->startOffsetX = $startOffsetX;
     }
@@ -292,7 +292,7 @@ class SpContainer
      *
      * @param int $startOffsetY
      */
-    public function setStartOffsetY($startOffsetY = 0)
+    public function setStartOffsetY($startOffsetY)
     {
         $this->startOffsetY = $startOffsetY;
     }
@@ -310,9 +310,9 @@ class SpContainer
     /**
      * Set cell coordinates of bottom-right corner of shape.
      *
-     * @param string $value
+     * @param string $value eg: 'A1'
      */
-    public function setEndCoordinates($value = 'A1')
+    public function setEndCoordinates($value)
     {
         $this->endCoordinates = $value;
     }
@@ -332,7 +332,7 @@ class SpContainer
      *
      * @param int $endOffsetX
      */
-    public function setEndOffsetX($endOffsetX = 0)
+    public function setEndOffsetX($endOffsetX)
     {
         $this->endOffsetX = $endOffsetX;
     }
@@ -352,7 +352,7 @@ class SpContainer
      *
      * @param int $endOffsetY
      */
-    public function setEndOffsetY($endOffsetY = 0)
+    public function setEndOffsetY($endOffsetY)
     {
         $this->endOffsetY = $endOffsetY;
     }

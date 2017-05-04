@@ -96,7 +96,7 @@ class Theme
      *
      * @return string
      */
-    public function getColourByIndex($index = 0)
+    public function getColourByIndex($index)
     {
         if (isset($this->colourMap[$index])) {
             return $this->colourMap[$index];

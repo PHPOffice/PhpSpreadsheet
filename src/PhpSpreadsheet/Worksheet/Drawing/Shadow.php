@@ -121,7 +121,7 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Shadow
      */
-    public function setVisible($pValue = false)
+    public function setVisible($pValue)
     {
         $this->visible = $pValue;
 
@@ -145,7 +145,7 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Shadow
      */
-    public function setBlurRadius($pValue = 6)
+    public function setBlurRadius($pValue)
     {
         $this->blurRadius = $pValue;
 
@@ -169,7 +169,7 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Shadow
      */
-    public function setDistance($pValue = 2)
+    public function setDistance($pValue)
     {
         $this->distance = $pValue;
 
@@ -193,7 +193,7 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Shadow
      */
-    public function setDirection($pValue = 0)
+    public function setDirection($pValue)
     {
         $this->direction = $pValue;
 
@@ -217,7 +217,7 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Shadow
      */
-    public function setAlignment($pValue = 0)
+    public function setAlignment($pValue)
     {
         $this->alignment = $pValue;
 
@@ -267,7 +267,7 @@ class Shadow implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @return Shadow
      */
-    public function setAlpha($pValue = 0)
+    public function setAlpha($pValue)
     {
         $this->alpha = $pValue;
 

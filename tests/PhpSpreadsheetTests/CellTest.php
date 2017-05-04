@@ -223,18 +223,17 @@ class CellTest extends \PHPUnit_Framework_TestCase
         return require 'data/CellBuildRange.php';
     }
 
+    /**
+     * @expectedException \TypeError
+     */
     public function testBuildRangeInvalid()
     {
-        $cellRange = '';
-        try {
-            Cell::buildRange($cellRange);
-        } catch (\Exception $e) {
-            $this->assertInstanceOf(Exception::class, $e);
-            $this->assertEquals($e->getMessage(), 'Range does not contain any information');
-
-            return;
+        if (PHP_MAJOR_VERSION < 7) {
+            $this->markTestSkipped('Cannot catch type hinting error with PHP 5.6');
         }
-        $this->fail('An expected exception has not been raised.');
+
+        $cellRange = '';
+        Cell::buildRange($cellRange);
     }
 
     /**
