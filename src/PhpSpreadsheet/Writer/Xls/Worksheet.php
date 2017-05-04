@@ -7,6 +7,8 @@ use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use PhpOffice\PhpSpreadsheet\Shared\Xls;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
@@ -14,6 +16,7 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
+use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet.
@@ -239,7 +242,7 @@ class Worksheet extends BIFFwriter
      * @param mixed $parser The formula parser created for the Workbook
      * @param bool $preCalculateFormulas Flag indicating whether formulas should be calculated or just written
      * @param string $phpSheet The worksheet to write
-     * @param Worksheet $phpSheet
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $phpSheet
      */
     public function __construct(&$str_total, &$str_unique, &$str_table, &$colors, $parser, $preCalculateFormulas, $phpSheet)
     {
@@ -418,7 +421,7 @@ class Worksheet extends BIFFwriter
 
             // Don't break Excel break the code!
             if ($row > 65535 || $column > 255) {
-                throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Rows or columns overflow! Excel5 has limit to 65535 rows and 255 columns. Use XLSX instead.');
+                throw new WriterException('Rows or columns overflow! Excel5 has limit to 65535 rows and 255 columns. Use XLSX instead.');
             }
 
             // Write cell value
@@ -2175,15 +2178,15 @@ class Worksheet extends BIFFwriter
 
             // Decide what to do by the type of break
             switch ($breakType) {
-                case self::BREAK_COLUMN:
+                case \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_COLUMN:
                     // Add to list of vertical breaks
                     $vbreaks[] = Cell::columnIndexFromString($coordinates[0]) - 1;
                     break;
-                case self::BREAK_ROW:
+                case \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_ROW:
                     // Add to list of horizontal breaks
                     $hbreaks[] = $coordinates[1];
                     break;
-                case self::BREAK_NONE:
+                case \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_NONE:
                 default:
                     // Nothing to do
                     break;
@@ -2422,10 +2425,10 @@ class Worksheet extends BIFFwriter
         $row_end = $row_start; // Row containing bottom right corner of object
 
         // Zero the specified offset if greater than the cell dimensions
-        if ($x1 >= \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_start))) {
+        if ($x1 >= Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_start))) {
             $x1 = 0;
         }
-        if ($y1 >= \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeRow($this->phpSheet, $row_start + 1)) {
+        if ($y1 >= Xls::sizeRow($this->phpSheet, $row_start + 1)) {
             $y1 = 0;
         }
 
@@ -2433,38 +2436,38 @@ class Worksheet extends BIFFwriter
         $height = $height + $y1 - 1;
 
         // Subtract the underlying cell widths to find the end cell of the image
-        while ($width >= \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_end))) {
-            $width -= \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_end));
+        while ($width >= Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_end))) {
+            $width -= Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_end));
             ++$col_end;
         }
 
         // Subtract the underlying cell heights to find the end cell of the image
-        while ($height >= \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeRow($this->phpSheet, $row_end + 1)) {
-            $height -= \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeRow($this->phpSheet, $row_end + 1);
+        while ($height >= Xls::sizeRow($this->phpSheet, $row_end + 1)) {
+            $height -= Xls::sizeRow($this->phpSheet, $row_end + 1);
             ++$row_end;
         }
 
         // Bitmap isn't allowed to start or finish in a hidden cell, i.e. a cell
         // with zero eight or width.
         //
-        if (\PhpOffice\PhpSpreadsheet\Shared\Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_start)) == 0) {
+        if (Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_start)) == 0) {
             return;
         }
-        if (\PhpOffice\PhpSpreadsheet\Shared\Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_end)) == 0) {
+        if (Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_end)) == 0) {
             return;
         }
-        if (\PhpOffice\PhpSpreadsheet\Shared\Xls::sizeRow($this->phpSheet, $row_start + 1) == 0) {
+        if (Xls::sizeRow($this->phpSheet, $row_start + 1) == 0) {
             return;
         }
-        if (\PhpOffice\PhpSpreadsheet\Shared\Xls::sizeRow($this->phpSheet, $row_end + 1) == 0) {
+        if (Xls::sizeRow($this->phpSheet, $row_end + 1) == 0) {
             return;
         }
 
         // Convert the pixel values to the percentage value expected by Excel
-        $x1 = $x1 / \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_start)) * 1024;
-        $y1 = $y1 / \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeRow($this->phpSheet, $row_start + 1) * 256;
-        $x2 = $width / \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_end)) * 1024; // Distance to right side of object
-        $y2 = $height / \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeRow($this->phpSheet, $row_end + 1) * 256; // Distance to bottom of object
+        $x1 = $x1 / Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_start)) * 1024;
+        $y1 = $y1 / Xls::sizeRow($this->phpSheet, $row_start + 1) * 256;
+        $x2 = $width / Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_end)) * 1024; // Distance to right side of object
+        $y2 = $height / Xls::sizeRow($this->phpSheet, $row_end + 1) * 256; // Distance to bottom of object
 
         $this->writeObjPicture($col_start, $x1, $row_start, $y1, $col_end, $x2, $row_end, $y2);
     }
@@ -2590,7 +2593,7 @@ class Worksheet extends BIFFwriter
         // Open file.
         $bmp_fd = @fopen($bitmap, 'rb');
         if (!$bmp_fd) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Couldn't import $bitmap");
+            throw new WriterException("Couldn't import $bitmap");
         }
 
         // Slurp the file into a string.
@@ -2598,13 +2601,13 @@ class Worksheet extends BIFFwriter
 
         // Check that the file is big enough to be a bitmap.
         if (strlen($data) <= 0x36) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("$bitmap doesn't contain enough data.\n");
+            throw new WriterException("$bitmap doesn't contain enough data.\n");
         }
 
         // The first 2 bytes are used to identify the bitmap.
         $identity = unpack('A2ident', $data);
         if ($identity['ident'] != 'BM') {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("$bitmap doesn't appear to be a valid bitmap image.\n");
+            throw new WriterException("$bitmap doesn't appear to be a valid bitmap image.\n");
         }
 
         // Remove bitmap data: ID.
@@ -2628,20 +2631,20 @@ class Worksheet extends BIFFwriter
         $height = $width_and_height[2];
         $data = substr($data, 8);
         if ($width > 0xFFFF) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("$bitmap: largest image width supported is 65k.\n");
+            throw new WriterException("$bitmap: largest image width supported is 65k.\n");
         }
         if ($height > 0xFFFF) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("$bitmap: largest image height supported is 65k.\n");
+            throw new WriterException("$bitmap: largest image height supported is 65k.\n");
         }
 
         // Read and remove the bitmap planes and bpp data. Verify them.
         $planes_and_bitcount = unpack('v2', substr($data, 0, 4));
         $data = substr($data, 4);
         if ($planes_and_bitcount[2] != 24) { // Bitcount
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("$bitmap isn't a 24bit true color bitmap.\n");
+            throw new WriterException("$bitmap isn't a 24bit true color bitmap.\n");
         }
         if ($planes_and_bitcount[1] != 1) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("$bitmap: only 1 plane supported in bitmap image.\n");
+            throw new WriterException("$bitmap: only 1 plane supported in bitmap image.\n");
         }
 
         // Read and remove the bitmap compression. Verify compression.
@@ -2649,7 +2652,7 @@ class Worksheet extends BIFFwriter
         $data = substr($data, 4);
 
         if ($compression['comp'] != 0) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("$bitmap: compression not supported in bitmap image.\n");
+            throw new WriterException("$bitmap: compression not supported in bitmap image.\n");
         }
 
         // Remove bitmap data: data size, hres, vres, colours, imp. colours.
@@ -2708,7 +2711,7 @@ class Worksheet extends BIFFwriter
     {
         // write the Escher stream if necessary
         if (isset($this->escher)) {
-            $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xls\Escher($this->escher);
+            $writer = new Escher($this->escher);
             $data = $writer->close();
             $spOffsets = $writer->getSpOffsets();
             $spTypes = $writer->getSpTypes();
@@ -2956,7 +2959,7 @@ class Worksheet extends BIFFwriter
                 try {
                     $formula2 = $dataValidation->getFormula2();
                     if ($formula2 === '') {
-                        throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('No formula2');
+                        throw new WriterException('No formula2');
                     }
                     $this->parser->parse($formula2);
                     $formula2 = $this->parser->toReversePolish();
@@ -3471,22 +3474,22 @@ class Worksheet extends BIFFwriter
             $blockAlign = 0;
             // Alignment and text break
             switch ($conditional->getStyle()->getAlignment()->getHorizontal()) {
-                case \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_GENERAL:
+                case Alignment::HORIZONTAL_GENERAL:
                     $blockAlign = 0;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT:
+                case Alignment::HORIZONTAL_LEFT:
                     $blockAlign = 1;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT:
+                case Alignment::HORIZONTAL_RIGHT:
                     $blockAlign = 3;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER:
+                case Alignment::HORIZONTAL_CENTER:
                     $blockAlign = 2;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER_CONTINUOUS:
+                case Alignment::HORIZONTAL_CENTER_CONTINUOUS:
                     $blockAlign = 6;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_JUSTIFY:
+                case Alignment::HORIZONTAL_JUSTIFY:
                     $blockAlign = 5;
                     break;
             }
@@ -3496,16 +3499,16 @@ class Worksheet extends BIFFwriter
                 $blockAlign |= 0 << 3;
             }
             switch ($conditional->getStyle()->getAlignment()->getVertical()) {
-                case \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_BOTTOM:
+                case Alignment::VERTICAL_BOTTOM:
                     $blockAlign = 2 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP:
+                case Alignment::VERTICAL_TOP:
                     $blockAlign = 0 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER:
+                case Alignment::VERTICAL_CENTER:
                     $blockAlign = 1 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_JUSTIFY:
+                case Alignment::VERTICAL_JUSTIFY:
                     $blockAlign = 3 << 4;
                     break;
             }

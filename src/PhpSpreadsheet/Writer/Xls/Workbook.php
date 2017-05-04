@@ -121,7 +121,7 @@ class Workbook extends BIFFwriter
     /**
      * Fonts writers.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Writer\Xls\Font[]
+     * @var Font[]
      */
     private $fontWriters = [];
 
@@ -312,7 +312,7 @@ class Workbook extends BIFFwriter
             $countFonts = count($this->fontWriters);
             $fontIndex = ($countFonts < 4) ? $countFonts : $countFonts + 1;
 
-            $fontWriter = new \PhpOffice\PhpSpreadsheet\Writer\Xls\Font($font);
+            $fontWriter = new Font($font);
             $fontWriter->setColorIndex($this->addColor($font->getColor()->getRGB()));
             $this->fontWriters[] = $fontWriter;
 
@@ -920,7 +920,7 @@ class Workbook extends BIFFwriter
     /**
      * Writes Excel BIFF BOUNDSHEET record.
      *
-     * @param Worksheet $sheet Worksheet name
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet $sheet Worksheet name
      * @param int $offset Location of worksheet BOF
      */
     private function writeBoundSheet($sheet, $offset)
@@ -930,13 +930,13 @@ class Workbook extends BIFFwriter
 
         // sheet state
         switch ($sheet->getSheetState()) {
-            case Worksheet::SHEETSTATE_VISIBLE:
+            case \PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VISIBLE:
                 $ss = 0x00;
                 break;
-            case Worksheet::SHEETSTATE_HIDDEN:
+            case \PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_HIDDEN:
                 $ss = 0x01;
                 break;
-            case Worksheet::SHEETSTATE_VERYHIDDEN:
+            case \PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VERYHIDDEN:
                 $ss = 0x02;
                 break;
             default:
@@ -1422,7 +1422,7 @@ class Workbook extends BIFFwriter
     {
         // write the Escher stream if necessary
         if (isset($this->escher)) {
-            $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xls\Escher($this->escher);
+            $writer = new Escher($this->escher);
             $data = $writer->close();
 
             $record = 0x00EB;
