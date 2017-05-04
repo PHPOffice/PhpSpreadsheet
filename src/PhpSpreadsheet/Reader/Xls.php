@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -446,7 +447,7 @@ class Xls extends BaseReader implements IReader
             $ole->read($pFilename);
 
             return true;
-        } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
+        } catch (PhpSpreadsheetException $e) {
             return false;
         }
     }
@@ -2782,7 +2783,7 @@ class Xls extends BaseReader implements IReader
 
             try {
                 $formula = $this->getFormulaFromStructure($formulaStructure);
-            } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
+            } catch (PhpSpreadsheetException $e) {
                 $formula = '';
             }
 
@@ -3890,7 +3891,7 @@ class Xls extends BaseReader implements IReader
                     }
                     $formula = $this->getFormulaFromStructure($formulaStructure); // get formula in human language
                     $cell->setValueExplicit('=' . $formula, Cell\DataType::TYPE_FORMULA);
-                } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
+                } catch (PhpSpreadsheetException $e) {
                     $cell->setValueExplicit($value, $dataType);
                 }
             } else {
@@ -4460,7 +4461,7 @@ class Xls extends BaseReader implements IReader
             // offset: 0; size: 8; cell range address of all cells containing this hyperlink
             try {
                 $cellRange = $this->readBIFF8CellRangeAddressFixed($recordData);
-            } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
+            } catch (PhpSpreadsheetException $e) {
                 return;
             }
 
@@ -4772,7 +4773,7 @@ class Xls extends BaseReader implements IReader
             if ($type == DataValidation::TYPE_LIST) {
                 $formula1 = str_replace(chr(0), ',', $formula1);
             }
-        } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
+        } catch (PhpSpreadsheetException $e) {
             return;
         }
         $offset += $sz1;
@@ -4789,7 +4790,7 @@ class Xls extends BaseReader implements IReader
         $formula2 = pack('v', $sz2) . $formula2; // prepend the length
         try {
             $formula2 = $this->getFormulaFromStructure($formula2);
-        } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
+        } catch (PhpSpreadsheetException $e) {
             return;
         }
         $offset += $sz2;
@@ -4995,7 +4996,7 @@ class Xls extends BaseReader implements IReader
             for ($i = 0; $i < $cref; ++$i) {
                 try {
                     $cellRange = $this->readBIFF8CellRangeAddressFixed(substr($recordData, 27 + 8 * $i, 8));
-                } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
+                } catch (PhpSpreadsheetException $e) {
                     return;
                 }
                 $cellRanges[] = $cellRange;
@@ -6638,7 +6639,7 @@ class Xls extends BaseReader implements IReader
                     $cellAddress = $this->readBIFF8CellAddress(substr($formulaData, 3, 4));
 
                     $data = "$sheetRange!$cellAddress";
-                } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
+                } catch (PhpSpreadsheetException $e) {
                     // deleted sheet reference
                     $data = '#REF!';
                 }
@@ -6656,7 +6657,7 @@ class Xls extends BaseReader implements IReader
                     $cellRangeAddress = $this->readBIFF8CellRangeAddress(substr($formulaData, 3, 8));
 
                     $data = "$sheetRange!$cellRangeAddress";
-                } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
+                } catch (PhpSpreadsheetException $e) {
                     // deleted sheet reference
                     $data = '#REF!';
                 }

@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\RichText;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+
 /**
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -58,7 +60,7 @@ class Run extends TextElement implements ITextElement
      *
      * @param \PhpOffice\PhpSpreadsheet\Style\Font $pFont Font
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return ITextElement
      */

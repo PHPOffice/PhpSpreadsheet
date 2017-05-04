@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 /**
@@ -102,7 +103,7 @@ class AutoFilter
      *
      * @param string $pRange Cell range (i.e. A1:E10)
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return AutoFilter
      */
@@ -119,7 +120,7 @@ class AutoFilter
         } elseif (empty($pRange)) {
             $this->range = '';
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Autofilter must be set on a range of cells.');
+            throw new PhpSpreadsheetException('Autofilter must be set on a range of cells.');
         }
 
         if (empty($pRange)) {
@@ -142,7 +143,7 @@ class AutoFilter
     /**
      * Get all AutoFilter Columns.
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return AutoFilter\Column[]
      */
@@ -156,20 +157,20 @@ class AutoFilter
      *
      * @param string $column Column name (e.g. A)
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return int The column offset within the autofilter range
      */
     public function testColumnInRange($column)
     {
         if (empty($this->range)) {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('No autofilter range is defined.');
+            throw new PhpSpreadsheetException('No autofilter range is defined.');
         }
 
         $columnIndex = Cell::columnIndexFromString($column);
         list($rangeStart, $rangeEnd) = Cell::rangeBoundaries($this->range);
         if (($rangeStart[0] > $columnIndex) || ($rangeEnd[0] < $columnIndex)) {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Column is outside of current autofilter range.');
+            throw new PhpSpreadsheetException('Column is outside of current autofilter range.');
         }
 
         return $columnIndex - $rangeStart[0];
@@ -180,7 +181,7 @@ class AutoFilter
      *
      * @param string $pColumn Column name (e.g. A)
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return int The offset of the specified column within the autofilter range
      */
@@ -194,7 +195,7 @@ class AutoFilter
      *
      * @param string $pColumn Column name (e.g. A)
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return AutoFilter\Column
      */
@@ -214,7 +215,7 @@ class AutoFilter
      *
      * @param int $pColumnOffset Column offset within range (starting from 0)
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return AutoFilter\Column
      */
@@ -232,7 +233,7 @@ class AutoFilter
      * @param AutoFilter\Column|string $pColumn
      *            A simple string containing a Column ID like 'A' is permitted
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return AutoFilter
      */
@@ -243,7 +244,7 @@ class AutoFilter
         } elseif (is_object($pColumn) && ($pColumn instanceof AutoFilter\Column)) {
             $column = $pColumn->getColumnIndex();
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Column is not within the autofilter range.');
+            throw new PhpSpreadsheetException('Column is not within the autofilter range.');
         }
         $this->testColumnInRange($column);
 
@@ -263,7 +264,7 @@ class AutoFilter
      *
      * @param string $pColumn Column name (e.g. A)
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return AutoFilter
      */
@@ -609,7 +610,7 @@ class AutoFilter
     /**
      * Apply the AutoFilter rules to the AutoFilter Range.
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return AutoFilter
      */

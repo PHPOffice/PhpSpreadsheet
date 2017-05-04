@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -134,7 +136,7 @@ class Column
      *
      * @param string $pColumn Column (e.g. A)
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Column
      */
@@ -190,14 +192,14 @@ class Column
      *
      * @param string $pFilterType
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Column
      */
     public function setFilterType($pFilterType)
     {
         if (!in_array($pFilterType, self::$filterTypes)) {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid filter type for column AutoFilter.');
+            throw new PhpSpreadsheetException('Invalid filter type for column AutoFilter.');
         }
 
         $this->filterType = $pFilterType;
@@ -220,7 +222,7 @@ class Column
      *
      * @param string $pJoin And/Or
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Column
      */
@@ -229,7 +231,7 @@ class Column
         // Lowercase And/Or
         $pJoin = strtolower($pJoin);
         if (!in_array($pJoin, self::$ruleJoins)) {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid rule connection for column AutoFilter.');
+            throw new PhpSpreadsheetException('Invalid rule connection for column AutoFilter.');
         }
 
         $this->join = $pJoin;
@@ -242,7 +244,7 @@ class Column
      *
      * @param string[] $attributes
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Column
      */
@@ -259,7 +261,7 @@ class Column
      * @param string $pName Attribute Name
      * @param string $pValue Attribute Value
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Column
      */
@@ -299,7 +301,7 @@ class Column
     /**
      * Get all AutoFilter Column Rules.
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Column\Rule[]
      */

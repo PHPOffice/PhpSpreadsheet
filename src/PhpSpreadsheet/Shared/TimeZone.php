@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -85,7 +87,7 @@ class TimeZone
      * @param string $timezone The timezone for finding the adjustment to UST
      * @param int $timestamp PHP date/time value
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return int Number of seconds for timezone adjustment
      */
@@ -93,7 +95,7 @@ class TimeZone
     {
         if ($timezone !== null) {
             if (!self::validateTimezone($timezone)) {
-                throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid timezone ' . $timezone);
+                throw new PhpSpreadsheetException('Invalid timezone ' . $timezone);
             }
         } else {
             $timezone = self::$timezone;

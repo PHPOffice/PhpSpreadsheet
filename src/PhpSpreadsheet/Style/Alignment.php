@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IComparable;
 
 /**
@@ -146,7 +147,6 @@ class Alignment extends Supervisor implements IComparable
 
     /**
      * Apply styles from array.
-     *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getAlignment()->applyFromArray(
      *        array(
@@ -156,11 +156,11 @@ class Alignment extends Supervisor implements IComparable
      *            'wrap'            => TRUE
      *        )
      * );
-     * </code>
+     * </code>.
      *
      * @param array $pStyles Array containing style information
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Alignment
      */
@@ -289,7 +289,7 @@ class Alignment extends Supervisor implements IComparable
      *
      * @param int $pValue
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Alignment
      */
@@ -309,7 +309,7 @@ class Alignment extends Supervisor implements IComparable
                 $this->textRotation = $pValue;
             }
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Text rotation should be a value between -90 and 90.');
+            throw new PhpSpreadsheetException('Text rotation should be a value between -90 and 90.');
         }
 
         return $this;

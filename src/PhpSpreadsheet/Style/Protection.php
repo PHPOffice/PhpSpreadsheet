@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IComparable;
 
 /**
@@ -94,7 +95,6 @@ class Protection extends Supervisor implements IComparable
 
     /**
      * Apply styles from array.
-     *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getLocked()->applyFromArray(
      *        array(
@@ -102,11 +102,11 @@ class Protection extends Supervisor implements IComparable
      *            'hidden' => FALSE
      *        )
      * );
-     * </code>
+     * </code>.
      *
      * @param array $pStyles Array containing style information
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Protection
      */

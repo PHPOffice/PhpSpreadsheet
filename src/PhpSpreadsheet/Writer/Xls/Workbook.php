@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -687,7 +688,7 @@ class Workbook extends BIFFwriter
                         $scope = 0;
                     }
                     $chunk .= $this->writeData($this->writeDefinedNameBiff8($namedRange->getName(), $formulaData, $scope, false));
-                } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
+                } catch (PhpSpreadsheetException $e) {
                     // do nothing
                 }
             }

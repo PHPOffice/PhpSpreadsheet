@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IComparable;
 
 /**
@@ -109,7 +110,7 @@ class Border extends Supervisor implements IComparable
      * Get the shared style component for the currently active cell in currently active sheet.
      * Only used for style supervisor.
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Border
      */
@@ -121,7 +122,7 @@ class Border extends Supervisor implements IComparable
             case 'inside':
             case 'outline':
             case 'vertical':
-                throw new \PhpOffice\PhpSpreadsheet\Exception('Cannot get shared component for a pseudo-border.');
+                throw new PhpSpreadsheetException('Cannot get shared component for a pseudo-border.');
                 break;
             case 'bottom':
                 return $this->parent->getSharedComponent()->getBottom();
@@ -179,7 +180,7 @@ class Border extends Supervisor implements IComparable
      *
      * @param array $pStyles Array containing style information
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Border
      */
@@ -254,7 +255,7 @@ class Border extends Supervisor implements IComparable
      *
      * @param Color $pValue
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Border
      */

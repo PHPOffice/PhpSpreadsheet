@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\Border;
@@ -935,7 +936,7 @@ class Worksheet extends BIFFwriter
             }
 
             return 0;
-        } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
+        } catch (PhpSpreadsheetException $e) {
             // do nothing
         }
     }
@@ -2944,7 +2945,7 @@ class Worksheet extends BIFFwriter
                     $this->parser->parse($formula1);
                     $formula1 = $this->parser->toReversePolish();
                     $sz1 = strlen($formula1);
-                } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
+                } catch (PhpSpreadsheetException $e) {
                     $sz1 = 0;
                     $formula1 = '';
                 }
@@ -2960,7 +2961,7 @@ class Worksheet extends BIFFwriter
                     $this->parser->parse($formula2);
                     $formula2 = $this->parser->toReversePolish();
                     $sz2 = strlen($formula2);
-                } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
+                } catch (PhpSpreadsheetException $e) {
                     $sz2 = 0;
                     $formula2 = '';
                 }

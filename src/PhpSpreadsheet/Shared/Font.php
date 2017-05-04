@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\RichText;
 
 /**
@@ -270,7 +271,7 @@ class Font
                 // Width of text in pixels excl. padding
                 // and addition because Excel adds some padding, just use approx width of 'n' glyph
                 $columnWidth = self::getTextWidthPixelsExact($cellText, $font, $rotation) + $columnWidthAdjust;
-            } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
+            } catch (PhpSpreadsheetException $e) {
                 $approximate = true;
             }
         }
@@ -296,14 +297,14 @@ class Font
      * @param \PhpOffice\PhpSpreadsheet\Style\Font
      * @param int $rotation
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return int
      */
     public static function getTextWidthPixelsExact($text, \PhpOffice\PhpSpreadsheet\Style\Font $font, $rotation = 0)
     {
         if (!function_exists('imagettfbbox')) {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('GD library needs to be enabled');
+            throw new PhpSpreadsheetException('GD library needs to be enabled');
         }
 
         // font size should really be supplied in pixels in GD2,
@@ -423,7 +424,7 @@ class Font
     public static function getTrueTypeFontFileFromFont($font)
     {
         if (!file_exists(self::$trueTypeFontPath) || !is_dir(self::$trueTypeFontPath)) {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Valid directory to TrueType Font files not specified');
+            throw new PhpSpreadsheetException('Valid directory to TrueType Font files not specified');
         }
 
         $name = $font->getName();
@@ -512,7 +513,7 @@ class Font
                 );
                 break;
             default:
-                throw new \PhpOffice\PhpSpreadsheet\Exception('Unknown font name "' . $name . '". Cannot map to TrueType font file');
+                throw new PhpSpreadsheetException('Unknown font name "' . $name . '". Cannot map to TrueType font file');
                 break;
         }
 
@@ -520,7 +521,7 @@ class Font
 
         // Check if file actually exists
         if (!file_exists($fontFile)) {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('TrueType Font file not found');
+            throw new PhpSpreadsheetException('TrueType Font file not found');
         }
 
         return $fontFile;

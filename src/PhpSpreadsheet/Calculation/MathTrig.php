@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation;
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -572,7 +573,7 @@ class MathTrig
             $matrix = new \PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix($matrixData);
 
             return $matrix->det();
-        } catch (\PhpOffice\PhpSpreadsheet\Exception $ex) {
+        } catch (PhpSpreadsheetException $ex) {
             return Functions::VALUE();
         }
     }
@@ -626,7 +627,7 @@ class MathTrig
             $matrix = new \PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix($matrixData);
 
             return $matrix->inverse()->getArray();
-        } catch (\PhpOffice\PhpSpreadsheet\Exception $ex) {
+        } catch (PhpSpreadsheetException $ex) {
             return Functions::VALUE();
         }
     }
@@ -688,7 +689,7 @@ class MathTrig
             }
 
             return $matrixA->times($matrixB)->getArray();
-        } catch (\PhpOffice\PhpSpreadsheet\Exception $ex) {
+        } catch (PhpSpreadsheetException $ex) {
             return Functions::VALUE();
         }
     }

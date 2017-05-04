@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
 /**
@@ -34,7 +35,7 @@ class MPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
      * @param string $pFilename Name of the file to save as
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      */
     public function save($pFilename)
     {

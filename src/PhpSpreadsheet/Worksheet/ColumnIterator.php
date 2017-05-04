@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Exception;
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -125,7 +126,7 @@ class ColumnIterator implements \Iterator
      *
      * @param string $column The column address to set the current pointer at
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return ColumnIterator
      */
@@ -133,7 +134,7 @@ class ColumnIterator implements \Iterator
     {
         $column = Cell::columnIndexFromString($column) - 1;
         if (($column < $this->startColumn) || ($column > $this->endColumn)) {
-            throw new \PhpOffice\PhpSpreadsheet\Exception("Column $column is out of range ({$this->startColumn} - {$this->endColumn})");
+            throw new PhpSpreadsheetException("Column $column is out of range ({$this->startColumn} - {$this->endColumn})");
         }
         $this->position = $column;
 
@@ -179,13 +180,12 @@ class ColumnIterator implements \Iterator
     /**
      * Set the iterator to its previous value.
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      */
     public function prev()
     {
         if ($this->position <= $this->startColumn) {
-            throw new \PhpOffice\PhpSpreadsheet\Exception(
-                'Column is already at the beginning of range (' .
+            throw new PhpSpreadsheetException('Column is already at the beginning of range (' .
                 Cell::stringFromColumnIndex($this->endColumn) . ' - ' .
                 Cell::stringFromColumnIndex($this->endColumn) . ')'
             );

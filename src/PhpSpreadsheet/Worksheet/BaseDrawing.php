@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IComparable;
 
 /**
@@ -215,7 +216,7 @@ class BaseDrawing implements IComparable
      * @param \PhpOffice\PhpSpreadsheet\Worksheet $pValue
      * @param bool $pOverrideOld If a Worksheet has already been assigned, overwrite it and remove image from old Worksheet?
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return BaseDrawing
      */
@@ -242,7 +243,7 @@ class BaseDrawing implements IComparable
                 // Set new \PhpOffice\PhpSpreadsheet\Worksheet
                 $this->setWorksheet($pValue);
             } else {
-                throw new \PhpOffice\PhpSpreadsheet\Exception("A \PhpOffice\PhpSpreadsheet\Worksheet has already been assigned. Drawings can only exist on one \PhpOffice\PhpSpreadsheet\Worksheet.");
+                throw new PhpSpreadsheetException("A \PhpOffice\PhpSpreadsheet\Worksheet has already been assigned. Drawings can only exist on one \PhpOffice\PhpSpreadsheet\Worksheet.");
             }
         }
 
@@ -481,7 +482,7 @@ class BaseDrawing implements IComparable
      *
      * @param Drawing\Shadow $pValue
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return BaseDrawing
      */

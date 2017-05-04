@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -279,14 +281,14 @@ class Rule
      *
      * @param string $pRuleType see self::AUTOFILTER_RULETYPE_*
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Rule
      */
     public function setRuleType($pRuleType)
     {
         if (!in_array($pRuleType, self::$ruleTypes)) {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid rule type for column AutoFilter Rule.');
+            throw new PhpSpreadsheetException('Invalid rule type for column AutoFilter Rule.');
         }
 
         $this->ruleType = $pRuleType;
@@ -309,7 +311,7 @@ class Rule
      *
      * @param string|string[] $pValue
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Rule
      */
@@ -328,7 +330,7 @@ class Rule
                 }
             }
             if (count($pValue) == 0) {
-                throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid rule value for column AutoFilter Rule.');
+                throw new PhpSpreadsheetException('Invalid rule value for column AutoFilter Rule.');
             }
             //    Set the dateTime grouping that we've anticipated
             $this->setGrouping(self::$dateTimeGroups[$grouping]);
@@ -353,7 +355,7 @@ class Rule
      *
      * @param string $pOperator see self::AUTOFILTER_COLUMN_RULE_*
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Rule
      */
@@ -364,7 +366,7 @@ class Rule
         }
         if ((!in_array($pOperator, self::$operators)) &&
             (!in_array($pOperator, self::$topTenValue))) {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid operator for column AutoFilter Rule.');
+            throw new PhpSpreadsheetException('Invalid operator for column AutoFilter Rule.');
         }
         $this->operator = $pOperator;
 
@@ -386,7 +388,7 @@ class Rule
      *
      * @param string $pGrouping
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Rule
      */
@@ -396,7 +398,7 @@ class Rule
             (!in_array($pGrouping, self::$dateTimeGroups)) &&
             (!in_array($pGrouping, self::$dynamicTypes)) &&
             (!in_array($pGrouping, self::$topTenType))) {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid rule type for column AutoFilter Rule.');
+            throw new PhpSpreadsheetException('Invalid rule type for column AutoFilter Rule.');
         }
         $this->grouping = $pGrouping;
 
@@ -410,7 +412,7 @@ class Rule
      * @param string|string[] $pValue
      * @param string $pGrouping
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Rule
      */
