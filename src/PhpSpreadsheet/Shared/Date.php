@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
+use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
@@ -449,15 +451,15 @@ class Date
             return false;
         }
 
-        $dateValueNew = \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DATEVALUE($dateValue);
+        $dateValueNew = DateTime::DATEVALUE($dateValue);
 
-        if ($dateValueNew === \PhpOffice\PhpSpreadsheet\Calculation\Functions::VALUE()) {
+        if ($dateValueNew === Functions::VALUE()) {
             return false;
         }
 
         if (strpos($dateValue, ':') !== false) {
-            $timeValue = \PhpOffice\PhpSpreadsheet\Calculation\DateTime::TIMEVALUE($dateValue);
-            if ($timeValue === \PhpOffice\PhpSpreadsheet\Calculation\Functions::VALUE()) {
+            $timeValue = DateTime::TIMEVALUE($dateValue);
+            if ($timeValue === Functions::VALUE()) {
                 return false;
             }
             $dateValueNew += $timeValue;

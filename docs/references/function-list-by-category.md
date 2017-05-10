@@ -33,27 +33,27 @@ DVARP               | \PhpOffice\PhpSpreadsheet\Calculation\Database::DVARP
 
 Excel Function      | PhpSpreadsheet Function
 --------------------|-------------------------------------------
-DATE                | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DATE
-DATEDIF             | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DATEDIF
-DATEVALUE           | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DATEVALUE
-DAY                 | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DAYOFMONTH
-DAYS360             | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DAYS360
-EDATE               | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::EDATE
-EOMONTH             | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::EOMONTH
-HOUR                | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::HOUROFDAY
-MINUTE              | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::MINUTE
-MONTH               | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::MONTHOFYEAR
-NETWORKDAYS         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::NETWORKDAYS
-NOW                 | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DATETIMENOW
-SECOND              | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::SECOND
-TIME                | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::TIME
-TIMEVALUE           | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::TIMEVALUE
-TODAY               | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DATENOW
-WEEKDAY             | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::WEEKDAY
-WEEKNUM             | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::WEEKNUM
-WORKDAY             | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::WORKDAY
-YEAR                | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::YEAR
-YEARFRAC            | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::YEARFRAC
+DATE                | DateTime::DATE
+DATEDIF             | DateTime::DATEDIF
+DATEVALUE           | DateTime::DATEVALUE
+DAY                 | DateTime::DAYOFMONTH
+DAYS360             | DateTime::DAYS360
+EDATE               | DateTime::EDATE
+EOMONTH             | DateTime::EOMONTH
+HOUR                | DateTime::HOUROFDAY
+MINUTE              | DateTime::MINUTE
+MONTH               | DateTime::MONTHOFYEAR
+NETWORKDAYS         | DateTime::NETWORKDAYS
+NOW                 | DateTime::DATETIMENOW
+SECOND              | DateTime::SECOND
+TIME                | DateTime::TIME
+TIMEVALUE           | DateTime::TIMEVALUE
+TODAY               | DateTime::DATENOW
+WEEKDAY             | DateTime::WEEKDAY
+WEEKNUM             | DateTime::WEEKNUM
+WORKDAY             | DateTime::WORKDAY
+YEAR                | DateTime::YEAR
+YEARFRAC            | DateTime::YEARFRAC
 
 ## CATEGORY_ENGINEERING
 
@@ -163,22 +163,22 @@ YIELDMAT            | \PhpOffice\PhpSpreadsheet\Calculation\Financial::YIELDMAT
 Excel Function      | PhpSpreadsheet Function
 --------------------|-------------------------------------------
 CELL                | **Not yet Implemented**
-ERROR.TYPE          | \PhpOffice\PhpSpreadsheet\Calculation\Functions::ERROR_TYPE
+ERROR.TYPE          | Functions::ERROR_TYPE
 INFO                | **Not yet Implemented**
-ISBLANK             | \PhpOffice\PhpSpreadsheet\Calculation\Functions::IS_BLANK
-ISERR               | \PhpOffice\PhpSpreadsheet\Calculation\Functions::IS_ERR
-ISERROR             | \PhpOffice\PhpSpreadsheet\Calculation\Functions::IS_ERROR
-ISEVEN              | \PhpOffice\PhpSpreadsheet\Calculation\Functions::IS_EVEN
-ISLOGICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Functions::IS_LOGICAL
-ISNA                | \PhpOffice\PhpSpreadsheet\Calculation\Functions::IS_NA
-ISNONTEXT           | \PhpOffice\PhpSpreadsheet\Calculation\Functions::IS_NONTEXT
-ISNUMBER            | \PhpOffice\PhpSpreadsheet\Calculation\Functions::IS_NUMBER
-ISODD               | \PhpOffice\PhpSpreadsheet\Calculation\Functions::IS_ODD
+ISBLANK             | Functions::IS_BLANK
+ISERR               | Functions::IS_ERR
+ISERROR             | Functions::IS_ERROR
+ISEVEN              | Functions::IS_EVEN
+ISLOGICAL           | Functions::IS_LOGICAL
+ISNA                | Functions::IS_NA
+ISNONTEXT           | Functions::IS_NONTEXT
+ISNUMBER            | Functions::IS_NUMBER
+ISODD               | Functions::IS_ODD
 ISREF               | **Not yet Implemented**
-ISTEXT              | \PhpOffice\PhpSpreadsheet\Calculation\Functions::IS_TEXT
-N                   | \PhpOffice\PhpSpreadsheet\Calculation\Functions::N
-NA                  | \PhpOffice\PhpSpreadsheet\Calculation\Functions::NA
-TYPE                | \PhpOffice\PhpSpreadsheet\Calculation\Functions::TYPE
+ISTEXT              | Functions::IS_TEXT
+N                   | Functions::N
+NA                  | Functions::NA
+TYPE                | Functions::TYPE
 
 ## CATEGORY_LOGICAL
 

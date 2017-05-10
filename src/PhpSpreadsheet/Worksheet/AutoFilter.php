@@ -3,6 +3,8 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
 use PhpOffice\PhpSpreadsheet\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -493,12 +495,12 @@ class AutoFilter
      */
     private function dynamicFilterDateRange($dynamicRuleType, &$filterColumn)
     {
-        $rDateType = \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType();
-        \PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType(\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_PHP_NUMERIC);
+        $rDateType = Functions::getReturnDateType();
+        Functions::setReturnDateType(Functions::RETURNDATE_PHP_NUMERIC);
         $val = $maxVal = null;
 
         $ruleValues = [];
-        $baseDate = \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DATENOW();
+        $baseDate = DateTime::DATENOW();
         //    Calculate start/end dates for the required date range based on current date
         switch ($dynamicRuleType) {
             case AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_LASTWEEK:
@@ -588,7 +590,7 @@ class AutoFilter
         //    Set the rules for identifying rows for hide/show
         $ruleValues[] = ['operator' => AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL, 'value' => $val];
         $ruleValues[] = ['operator' => AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_LESSTHAN, 'value' => $maxVal];
-        \PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType($rDateType);
+        Functions::setReturnDateType($rDateType);
 
         return ['method' => 'filterTestInCustomDataSet', 'arguments' => ['filterRules' => $ruleValues, 'join' => AutoFilter\Column::AUTOFILTER_COLUMN_JOIN_AND]];
     }
@@ -596,7 +598,7 @@ class AutoFilter
     private function calculateTopTenValue($columnID, $startRow, $endRow, $ruleType, $ruleValue)
     {
         $range = $columnID . $startRow . ':' . $columnID . $endRow;
-        $dataValues = \PhpOffice\PhpSpreadsheet\Calculation\Functions::flattenArray($this->workSheet->rangeToArray($range, null, true, false));
+        $dataValues = Functions::flattenArray($this->workSheet->rangeToArray($range, null, true, false));
 
         $dataValues = array_filter($dataValues);
         if ($ruleType == AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP) {

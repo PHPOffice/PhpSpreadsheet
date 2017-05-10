@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Chart;
 
 use PhpOffice\PhpSpreadsheet\Calculation;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Worksheet;
 
@@ -281,7 +282,7 @@ class DataSeriesValues
      */
     public function setDataValues($dataValues)
     {
-        $this->dataValues = \PhpOffice\PhpSpreadsheet\Calculation\Functions::flattenArray($dataValues);
+        $this->dataValues = Functions::flattenArray($dataValues);
         $this->pointCount = count($dataValues);
 
         return $this;
@@ -299,7 +300,7 @@ class DataSeriesValues
                 )
             );
             if ($flatten) {
-                $this->dataValues = \PhpOffice\PhpSpreadsheet\Calculation\Functions::flattenArray($newDataValues);
+                $this->dataValues = Functions::flattenArray($newDataValues);
                 foreach ($this->dataValues as &$dataValue) {
                     if ((!empty($dataValue)) && ($dataValue[0] == '#')) {
                         $dataValue = 0.0;
@@ -314,7 +315,7 @@ class DataSeriesValues
 
                 $dimensions = Cell::rangeDimension(str_replace('$', '', $cellRange));
                 if (($dimensions[0] == 1) || ($dimensions[1] == 1)) {
-                    $this->dataValues = \PhpOffice\PhpSpreadsheet\Calculation\Functions::flattenArray($newDataValues);
+                    $this->dataValues = Functions::flattenArray($newDataValues);
                 } else {
                     $newArray = array_values(array_shift($newDataValues));
                     foreach ($newArray as $i => $newDataSet) {

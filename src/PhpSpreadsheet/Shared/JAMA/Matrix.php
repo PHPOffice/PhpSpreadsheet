@@ -13,6 +13,7 @@ namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
  *    @license PHP v3.0
  *    @see http://math.nist.gov/javanumerics/jama/
  */
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 
 class Matrix
@@ -539,7 +540,7 @@ class Matrix
                     if ($validValues) {
                         $this->A[$i][$j] += $value;
                     } else {
-                        $this->A[$i][$j] = \PhpOffice\PhpSpreadsheet\Calculation\Functions::NAN();
+                        $this->A[$i][$j] = Functions::NAN();
                     }
                 }
             }
@@ -635,7 +636,7 @@ class Matrix
                     if ($validValues) {
                         $this->A[$i][$j] -= $value;
                     } else {
-                        $this->A[$i][$j] = \PhpOffice\PhpSpreadsheet\Calculation\Functions::NAN();
+                        $this->A[$i][$j] = Functions::NAN();
                     }
                 }
             }
@@ -733,7 +734,7 @@ class Matrix
                     if ($validValues) {
                         $this->A[$i][$j] *= $value;
                     } else {
-                        $this->A[$i][$j] = \PhpOffice\PhpSpreadsheet\Calculation\Functions::NAN();
+                        $this->A[$i][$j] = Functions::NAN();
                     }
                 }
             }
@@ -794,7 +795,7 @@ class Matrix
                             $M->set($i, $j, $this->A[$i][$j] / $value);
                         }
                     } else {
-                        $M->set($i, $j, \PhpOffice\PhpSpreadsheet\Calculation\Functions::NAN());
+                        $M->set($i, $j, Functions::NAN());
                     }
                 }
             }
@@ -1067,7 +1068,7 @@ class Matrix
                     if ($validValues) {
                         $this->A[$i][$j] = pow($this->A[$i][$j], $value);
                     } else {
-                        $this->A[$i][$j] = \PhpOffice\PhpSpreadsheet\Calculation\Functions::NAN();
+                        $this->A[$i][$j] = Functions::NAN();
                     }
                 }
             }
