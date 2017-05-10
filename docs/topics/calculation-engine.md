@@ -94,27 +94,27 @@ return either an Excel timestamp or a PHP timestamp or date object.
 
 It is possible for scripts to change the data type used for returning
 date values by calling the
-`Functions::setReturnDateType()`
+`\PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType()`
 method:
 
 ``` php
-Functions::setReturnDateType($returnDateType);
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType($returnDateType);
 ```
 
 where the following constants can be used for `$returnDateType`:
 
--   `Functions::RETURNDATE_PHP_NUMERIC`
--   `Functions::RETURNDATE_PHP_OBJECT`
--   `Functions::RETURNDATE_EXCEL`
+-   `\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_PHP_NUMERIC`
+-   `\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_PHP_OBJECT`
+-   `\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_EXCEL`
 
 The method will return a Boolean True on success, False on failure (e.g.
 if an invalid value is passed in for the return date type).
 
-The Functions::getReturnDateType()
+The \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType()
 method can be used to determine the current value of this setting:
 
 ``` php
-$returnDateType = Functions::getReturnDateType();
+$returnDateType = \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType();
 ```
 
 The default is RETURNDATE\_PHP\_NUMERIC.
@@ -149,25 +149,25 @@ base date for the Mac 1904 calendar.
 
 It is possible for scripts to change the calendar used for calculating
 Excel date values by calling the
-Date::setExcelCalendar() method:
+\PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar() method:
 
 ``` php
-Date::setExcelCalendar($baseDate);
+\PhpOffice\PhpSpreadsheet\Shared\Date::setExcelCalendar($baseDate);
 ```
 
 where the following constants can be used for `$baseDate`:
 
--   Date::CALENDAR\_WINDOWS\_1900
--   Date::CALENDAR\_MAC\_1904
+-   \PhpOffice\PhpSpreadsheet\Shared\Date::CALENDAR\_WINDOWS\_1900
+-   \PhpOffice\PhpSpreadsheet\Shared\Date::CALENDAR\_MAC\_1904
 
 The method will return a Boolean True on success, False on failure (e.g.
 if an invalid value is passed in).
 
-The Date::getExcelCalendar() method can
+The \PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar() method can
 be used to determine the current value of this setting:
 
 ``` php
-$baseDate = Date::getExcelCalendar();
+$baseDate = \PhpOffice\PhpSpreadsheet\Shared\Date::getExcelCalendar();
 ```
 
 The default is CALENDAR\_WINDOWS\_1900.
@@ -240,10 +240,10 @@ rather than converted to Excel date timestamp values.
 
 In addition to the `setExcelCalendar()` and `getExcelCalendar()` methods, a
 number of other methods are available in the
-Date class that can help when working
+\PhpOffice\PhpSpreadsheet\Shared\Date class that can help when working
 with dates:
 
-#### Date::ExcelToPHP($excelDate)
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::ExcelToPHP($excelDate)
 
 Converts a date/time from an Excel date timestamp to return a PHP
 serialized date/timestamp.
@@ -251,17 +251,17 @@ serialized date/timestamp.
 Note that this method does not trap for Excel dates that fall outside of
 the valid range for a PHP date timestamp.
 
-#### Date::ExcelToPHPObject($excelDate)
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::ExcelToPHPObject($excelDate)
 
 Converts a date from an Excel date/timestamp to return a PHP DateTime
 object.
 
-#### Date::PHPToExcel($PHPDate)
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($PHPDate)
 
 Converts a PHP serialized date/timestamp or a PHP DateTime object to
 return an Excel date timestamp.
 
-#### Date::FormattedPHPToExcel($year, $month, $day, $hours=0, $minutes=0, $seconds=0)
+#### \PhpOffice\PhpSpreadsheet\Shared\Date::FormattedPHPToExcel($year, $month, $day, $hours=0, $minutes=0, $seconds=0)
 
 Takes year, month and day values (and optional hour, minute and second
 values) and returns an Excel date timestamp value.
@@ -1027,7 +1027,7 @@ February 27, 2008.
 
 This could be a PHP timestamp value (integer), a PHP date/time object,
 or an Excel timestamp value (real), depending on the value of
-Functions::getReturnDateType().
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
 
 ##### Examples
 
@@ -1049,31 +1049,31 @@ $retVal = $worksheet->getCell('D1')->getCalculatedValue();
 ``` php
 // We're going to be calling the same cell calculation multiple times,
 //    and expecting different return values, so disable calculation cacheing
-Calculation::getInstance()->setCalculationCacheEnabled(FALSE);
+\PhpOffice\PhpSpreadsheet\Calculation::getInstance()->setCalculationCacheEnabled(FALSE);
 
-$saveFormat = Functions::getReturnDateType();
+$saveFormat = \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType();
 
-Functions::setReturnDateType(
-    Functions::RETURNDATE_EXCEL
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType(
+    \PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_EXCEL
 );
 
 $retVal = call_user_func_array(
-    array('Functions', 'DATE'),
+    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATE'),
     array(2008, 12, 31)
 );
 // $retVal = 39813.0
 
-Functions::setReturnDateType(
-    Functions::RETURNDATE_PHP_NUMERIC
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType(
+    \PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_PHP_NUMERIC
 );
 
 $retVal = call_user_func_array(
-    array('Functions', 'DATE'),
+    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATE'),
     array(2008, 12, 31)
 );
 // $retVal = 1230681600
 
-Functions::setReturnDateType($saveFormat);
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType($saveFormat);
 ```
 
 ##### Notes
@@ -1170,37 +1170,37 @@ $date1 = 1193317015; // PHP timestamp for 25-Oct-2007
 $date2 = 1449579415; // PHP timestamp for 8-Dec-2015
 
 $retVal = call_user_func_array(
-    array('Functions', 'DATEDIF'),
+    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'),
     array($date1, $date2, 'd')
 );
 // $retVal = 2966
 
 $retVal = call_user_func_array(
-    array('Functions', 'DATEDIF'),
+    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'),
     array($date1, $date2, 'm')
 );
 // $retVal = 97
 
 $retVal = call_user_func_array(
-    array('Functions', 'DATEDIF'),
+    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'),
     array($date1, $date2, 'y')
 );
 // $retVal = 8
 
 $retVal = call_user_func_array(
-    array('Functions', 'DATEDIF'),
+    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'),
     array($date1, $date2, 'ym')
 );
 // $retVal = 1
 
 $retVal = call_user_func_array(
-    array('Functions', 'DATEDIF'),
+    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'),
     array($date1, $date2, 'yd')
 );
 // $retVal = 44
 
 $retVal = call_user_func_array(
-    array('Functions', 'DATEDIF'),
+    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEDIF'),
     array($date1, $date2, 'md')
 );
 // $retVal = 13
@@ -1232,7 +1232,7 @@ A string, representing a date value.
 
 This could be a PHP timestamp value (integer), a PHP date/time object,
 or an Excel timestamp value (real), depending on the value of
-Functions::getReturnDateType().
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
 
 ##### Examples
 
@@ -1246,8 +1246,8 @@ $worksheet->setCellValue('B2', '=DATEVALUE(A2)')
     ->setCellValue('B3', '=DATEVALUE(A3)')
     ->setCellValue('B4', '=DATEVALUE(A4)');
 
-Functions::setReturnDateType(
-    Functions::RETURNDATE_EXCEL
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType(
+    \PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_EXCEL
 );
 
 $retVal = $worksheet->getCell('B2')->getCalculatedValue();
@@ -1261,31 +1261,31 @@ $retVal = $worksheet->getCell('B4')->getCalculatedValue();
 ``` php
 // We're going to be calling the same cell calculation multiple times,
 //    and expecting different return values, so disable calculation cacheing
-Calculation::getInstance()->setCalculationCacheEnabled(FALSE);
+\PhpOffice\PhpSpreadsheet\Calculation::getInstance()->setCalculationCacheEnabled(FALSE);
 
-$saveFormat = Functions::getReturnDateType();
+$saveFormat = \PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType();
 
-Functions::setReturnDateType(
-    Functions::RETURNDATE_EXCEL
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType(
+    \PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_EXCEL
 );
 
 $retVal = call_user_func_array(
-    array('Functions', 'DATEVALUE'),
+    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEVALUE'),
     array('31-Dec-2008')
 );
 // $retVal = 39813.0
 
-Functions::setReturnDateType(
-    Functions::RETURNDATE_PHP_NUMERIC
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType(
+    \PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_PHP_NUMERIC
 );
 
 $retVal = call_user_func_array(
-    array('Functions', 'DATEVALUE'),
+    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DATEVALUE'),
     array('31-Dec-2008')
 );
 // $retVal = 1230681600
 
-Functions::setReturnDateType($saveFormat);
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType($saveFormat);
 ```
 
 ##### Notes
@@ -1345,7 +1345,7 @@ $retVal = $worksheet->getCell('B3')->getCalculatedValue();
 
 ``` php
 $retVal = call_user_func_array(
-    array('Functions', 'DAYOFMONTH'),
+    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DAYOFMONTH'),
     array('25-Dec-2008')
 );
 // $retVal = 25
@@ -1354,7 +1354,7 @@ $retVal = call_user_func_array(
 ##### Notes
 
 Note that the PhpSpreadsheet function is
-Functions::DAYOFMONTH() when the
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::DAYOFMONTH() when the
 method is called statically.
 
 #### DAYS360
@@ -1431,13 +1431,13 @@ $date1 = 37655.0; // Excel timestamp for 25-Oct-2007
 $date2 = 39233.0; // Excel timestamp for 8-Dec-2015
 
 $retVal = call_user_func_array(
-    array('Functions', 'DAYS360'),
+    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DAYS360'),
     array($date1, $date2)
 );
 // $retVal = 1558
 
 $retVal = call_user_func_array(
-    array('Functions', 'DAYS360'),
+    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'DAYS360'),
     array($date1, $date2, TRUE)
 );
 // $retVal = 1557
@@ -1482,7 +1482,7 @@ value yields a past date.
 
 This could be a PHP timestamp value (integer), a PHP date/time object,
 or an Excel timestamp value (real), depending on the value of
-Functions::getReturnDateType().
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
 
 ##### Examples
 
@@ -1494,8 +1494,8 @@ $worksheet->setCellValue('A1', 'Date String')
 $worksheet->setCellValue('B2', '=EDATE(A2,5)')
     ->setCellValue('B3', '=EDATE(A3,-12)');
 
-Functions::setReturnDateType(
-    Functions::RETURNDATE_EXCEL
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType(
+    \PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_EXCEL
 );
 
 $retVal = $worksheet->getCell('B2')->getCalculatedValue();
@@ -1506,12 +1506,12 @@ $retVal = $worksheet->getCell('B3')->getCalculatedValue();
 ```
 
 ``` php
-Functions::setReturnDateType(
-    Functions::RETURNDATE_EXCEL
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType(
+    \PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_EXCEL
 );
 
 $retVal = call_user_func_array(
-    array('Functions', 'EDATE'),
+    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'EDATE'),
     array('31-Oct-2008',25)
 );
 // $retVal = 40512.0 (30-Nov-2010)
@@ -1555,7 +1555,7 @@ value yields a past date.
 
 This could be a PHP timestamp value (integer), a PHP date/time object,
 or an Excel timestamp value (real), depending on the value of
-Functions::getReturnDateType().
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
 
 ##### Examples
 
@@ -1567,7 +1567,7 @@ $worksheet->setCellValue('A1', 'Date String')
 $worksheet->setCellValue('B2', '=EOMONTH(A2,5)')
     ->setCellValue('B3', '=EOMONTH(A3,-12)');
 
-Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType(\PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_EXCEL);
 
 $retVal = $worksheet->getCell('B2')->getCalculatedValue();
 // $retVal = 39629.0 (30-Jun-2008)
@@ -1577,12 +1577,12 @@ $retVal = $worksheet->getCell('B3')->getCalculatedValue();
 ```
 
 ``` php
-Functions::setReturnDateType(
-    Functions::RETURNDATE_EXCEL
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::setReturnDateType(
+    \PhpOffice\PhpSpreadsheet\Calculation\Functions::RETURNDATE_EXCEL
 );
 
 $retVal = call_user_func_array(
-    array('Functions', 'EOMONTH'),
+    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'EOMONTH'),
     array('31-Oct-2008',13)
 );
 // $retVal = 40147.0 (30-Nov-2010)
@@ -1640,7 +1640,7 @@ $retVal = $worksheet->getCell('B4')->getCalculatedValue();
 
 ``` php
 $retVal = call_user_func_array(
-    array('Functions', 'HOUROFDAY'),
+    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'HOUROFDAY'),
     array('09:30')
 );
 // $retVal = 9
@@ -1649,7 +1649,7 @@ $retVal = call_user_func_array(
 ##### Notes
 
 Note that the PhpSpreadsheet function is
-Functions::HOUROFDAY() when the
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::HOUROFDAY() when the
 method is called statically.
 
 #### MINUTE
@@ -1698,7 +1698,7 @@ $retVal = $worksheet->getCell('B4')->getCalculatedValue();
 
 ``` php
 $retVal = call_user_func_array(
-    array('Functions', 'MINUTE'),
+    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'MINUTE'),
     array('09:30')
 );
 // $retVal = 30
@@ -1707,7 +1707,7 @@ $retVal = call_user_func_array(
 ##### Notes
 
 Note that the PhpSpreadsheet function is
-Functions::MINUTE() when the
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::MINUTE() when the
 method is called statically.
 
 #### MONTH
@@ -1751,7 +1751,7 @@ $retVal = $worksheet->getCell('B3')->getCalculatedValue();
 
 ``` php
 $retVal = call_user_func_array(
-    array('Functions', 'MONTHOFYEAR'),
+    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'MONTHOFYEAR'),
     array('14-July-2008')
 );
 // $retVal = 7
@@ -1760,7 +1760,7 @@ $retVal = call_user_func_array(
 #### Notes
 
 Note that the PhpSpreadsheet function is
-Functions::MONTHOFYEAR() when the
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::MONTHOFYEAR() when the
 method is called statically.
 
 #### NETWORKDAYS
@@ -1833,7 +1833,7 @@ time.
 
 This could be a PHP timestamp value (integer), a PHP date/time object,
 or an Excel timestamp value (real), depending on the value of
-Functions::getReturnDateType().
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::getReturnDateType().
 
 ##### Examples
 
@@ -1846,7 +1846,7 @@ Functions::getReturnDateType().
 ##### Notes
 
 Note that the PhpSpreadsheet function is
-Functions::DATETIMENOW() when the
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::DATETIMENOW() when the
 method is called statically.
 
 #### SECOND
@@ -1896,7 +1896,7 @@ $retVal = $worksheet->getCell('B4')->getCalculatedValue();
 
 ``` php
 $retVal = call_user_func_array(
-    array('Functions', 'SECOND'),
+    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'SECOND'),
     array('09:30:17')
 );
 // $retVal = 17
@@ -1905,7 +1905,7 @@ $retVal = call_user_func_array(
 ##### Notes
 
 Note that the PhpSpreadsheet function is
-Functions::SECOND() when the
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::SECOND() when the
 method is called statically.
 
 #### TIME
@@ -1980,7 +1980,7 @@ $retVal = $worksheet->getCell('B4')->getCalculatedValue();
 
 ``` php
 $retVal = call_user_func_array(
-    array('Functions', 'WEEKDAY'),
+    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'WEEKDAY'),
     array('14-July-2008')
 );
 // $retVal = 7
@@ -1989,7 +1989,7 @@ $retVal = call_user_func_array(
 ##### Notes
 
 Note that the PhpSpreadsheet function is
-Functions::WEEKDAY() when the
+\PhpOffice\PhpSpreadsheet\Calculation\Functions::WEEKDAY() when the
 method is called statically.
 
 #### WEEKNUM
@@ -2040,7 +2040,7 @@ $retVal = $worksheet->getCell('B3')->getCalculatedValue();
 
 ``` php
 $retVal = call_user_func_array(
-    array('Functions', 'YEAR'),
+    array('\PhpOffice\PhpSpreadsheet\Calculation\Functions', 'YEAR'),
     array('14-July-2001')
 );
 // $retVal = 2001

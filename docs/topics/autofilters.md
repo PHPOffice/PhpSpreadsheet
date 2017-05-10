@@ -130,13 +130,13 @@ filter rule for each value.
 ``` php
 $columnFilter->createRule()
     ->setRule(
-        Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
         'France'
     );
 
 $columnFilter->createRule()
     ->setRule(
-        Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
         'Germany'
     );
 ```
@@ -155,7 +155,7 @@ If you want to create a filter to select blank cells, you would use:
 ``` php
 $columnFilter->createRule()
     ->setRule(
-        Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
         ''
     );
 ```
@@ -184,14 +184,14 @@ DateGroup rule identifying the selected year and month:
 ``` php
 $columnFilter->createRule()
     ->setRule(
-        Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
         array(
             'year' => 2012,
             'month' => 1
         )
     )
     ->setRuleType(
-        Rule::AUTOFILTER_RULETYPE_DATEGROUP
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DATEGROUP
     );
 ```
 
@@ -243,11 +243,11 @@ beginning with the letter `U`.
 ``` php
 $columnFilter->createRule()
     ->setRule(
-        Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
         'U*'
     )
     ->setRuleType(
-        Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER
     );
 ```
 
@@ -267,19 +267,19 @@ To create a "between" condition, we need to define two rules:
 ``` php
 $columnFilter->createRule()
     ->setRule(
-        Rule::AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL,
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL,
         -20
     )
     ->setRuleType(
-        Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER
     );
 $columnFilter->createRule()
     ->setRule(
-        Rule::AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL,
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL,
         20
     )
     ->setRuleType(
-        Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER
     );
 ```
 
@@ -296,7 +296,7 @@ $columnFilter->setAndOr(
 ```
 
 The valid set of operators for Custom Filters are defined in the
-Rule class, and
+\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule class, and
 comprise:
 
 Operator Constant                         | Value
@@ -333,19 +333,19 @@ category.
 ``` php
 $columnFilter->createRule()
     ->setRule(
-        Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
         NULL,
-        Rule::AUTOFILTER_RULETYPE_DYNAMIC_YEARTODATE
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_YEARTODATE
     )
     ->setRuleType(
-        Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER
     );
 ```
 
 We also set the rule type to DYNAMICFILTER.
 
 The valid set of dynamic filter categories is defined in the
-Rule class, and
+\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule class, and
 comprises:
 
 Operator Constant                        | Value
@@ -431,12 +431,12 @@ Then we create the rule:
 ``` php
 $columnFilter->createRule()
     ->setRule(
-        Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT,
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_PERCENT,
         5,
-        Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_TOP
     )
     ->setRuleType(
-        Rule::AUTOFILTER_RULETYPE_TOPTENFILTER
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_TOPTENFILTER
     );
 ```
 
@@ -447,18 +447,18 @@ To specify the lowest (bottom 2 values), we would specify a rule of:
 ``` php
 $columnFilter->createRule()
     ->setRule(
-        Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE,
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BY_VALUE,
         5,
-        Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM
     )
     ->setRuleType(
-        Rule::AUTOFILTER_RULETYPE_TOPTENFILTER
+        \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_TOPTENFILTER
     );
 ```
 
 The option values for TopTen Filters top/bottom value/percent are all
 defined in the
-Rule class, and
+\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule class, and
 comprise:
 
 Operator Constant                      | Value

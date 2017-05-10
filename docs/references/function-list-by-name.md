@@ -92,12 +92,12 @@ CUMPRINC            | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet
 
 Excel Function      | Category                       | PhpSpreadsheet Function
 --------------------|--------------------------------|-------------------------------------------
-DATE                | CATEGORY_DATE_AND_TIME         | DateTime::DATE
-DATEDIF             | CATEGORY_DATE_AND_TIME         | DateTime::DATEDIF
-DATEVALUE           | CATEGORY_DATE_AND_TIME         | DateTime::DATEVALUE
+DATE                | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DATE
+DATEDIF             | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DATEDIF
+DATEVALUE           | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DATEVALUE
 DAVERAGE            | CATEGORY_DATABASE              | \PhpOffice\PhpSpreadsheet\Calculation\Database::DAVERAGE
-DAY                 | CATEGORY_DATE_AND_TIME         | DateTime::DAYOFMONTH
-DAYS360             | CATEGORY_DATE_AND_TIME         | DateTime::DAYS360
+DAY                 | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DAYOFMONTH
+DAYS360             | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DAYS360
 DB                  | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::DB
 DCOUNT              | CATEGORY_DATABASE              | \PhpOffice\PhpSpreadsheet\Calculation\Database::DCOUNT
 DCOUNTA             | CATEGORY_DATABASE              | \PhpOffice\PhpSpreadsheet\Calculation\Database::DCOUNTA
@@ -127,12 +127,12 @@ DVARP               | CATEGORY_DATABASE              | \PhpOffice\PhpSpreadsheet
 
 Excel Function      | Category                       | PhpSpreadsheet Function
 --------------------|--------------------------------|-------------------------------------------
-EDATE               | CATEGORY_DATE_AND_TIME         | DateTime::EDATE
+EDATE               | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::EDATE
 EFFECT              | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::EFFECT
-EOMONTH             | CATEGORY_DATE_AND_TIME         | DateTime::EOMONTH
+EOMONTH             | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::EOMONTH
 ERF                 | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::ERF
 ERFC                | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::ERFC
-ERROR.TYPE          | CATEGORY_INFORMATION           | Functions::ERROR_TYPE
+ERROR.TYPE          | CATEGORY_INFORMATION           | \PhpOffice\PhpSpreadsheet\Calculation\Functions::ERROR_TYPE
 EVEN                | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::EVEN
 EXACT               | CATEGORY_TEXT_AND_DATA         | **Not yet Implemented**
 EXP                 | CATEGORY_MATH_AND_TRIG         | exp
@@ -181,7 +181,7 @@ HEX2BIN             | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet
 HEX2DEC             | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::HEXTODEC
 HEX2OCT             | CATEGORY_ENGINEERING           | \PhpOffice\PhpSpreadsheet\Calculation\Engineering::HEXTOOCT
 HLOOKUP             | CATEGORY_LOOKUP_AND_REFERENCE  | **Not yet Implemented**
-HOUR                | CATEGORY_DATE_AND_TIME         | DateTime::HOUROFDAY
+HOUR                | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::HOUROFDAY
 HYPERLINK           | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::HYPERLINK
 HYPGEOMDIST         | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::HYPGEOMDIST
 
@@ -216,18 +216,18 @@ INTERCEPT           | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet
 INTRATE             | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::INTRATE
 IPMT                | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::IPMT
 IRR                 | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::IRR
-ISBLANK             | CATEGORY_INFORMATION           | Functions::IS_BLANK
-ISERR               | CATEGORY_INFORMATION           | Functions::IS_ERR
-ISERROR             | CATEGORY_INFORMATION           | Functions::IS_ERROR
-ISEVEN              | CATEGORY_INFORMATION           | Functions::IS_EVEN
-ISLOGICAL           | CATEGORY_INFORMATION           | Functions::IS_LOGICAL
-ISNA                | CATEGORY_INFORMATION           | Functions::IS_NA
-ISNONTEXT           | CATEGORY_INFORMATION           | Functions::IS_NONTEXT
-ISNUMBER            | CATEGORY_INFORMATION           | Functions::IS_NUMBER
-ISODD               | CATEGORY_INFORMATION           | Functions::IS_ODD
+ISBLANK             | CATEGORY_INFORMATION           | \PhpOffice\PhpSpreadsheet\Calculation\Functions::IS_BLANK
+ISERR               | CATEGORY_INFORMATION           | \PhpOffice\PhpSpreadsheet\Calculation\Functions::IS_ERR
+ISERROR             | CATEGORY_INFORMATION           | \PhpOffice\PhpSpreadsheet\Calculation\Functions::IS_ERROR
+ISEVEN              | CATEGORY_INFORMATION           | \PhpOffice\PhpSpreadsheet\Calculation\Functions::IS_EVEN
+ISLOGICAL           | CATEGORY_INFORMATION           | \PhpOffice\PhpSpreadsheet\Calculation\Functions::IS_LOGICAL
+ISNA                | CATEGORY_INFORMATION           | \PhpOffice\PhpSpreadsheet\Calculation\Functions::IS_NA
+ISNONTEXT           | CATEGORY_INFORMATION           | \PhpOffice\PhpSpreadsheet\Calculation\Functions::IS_NONTEXT
+ISNUMBER            | CATEGORY_INFORMATION           | \PhpOffice\PhpSpreadsheet\Calculation\Functions::IS_NUMBER
+ISODD               | CATEGORY_INFORMATION           | \PhpOffice\PhpSpreadsheet\Calculation\Functions::IS_ODD
 ISPMT               | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::ISPMT
 ISREF               | CATEGORY_INFORMATION           | **Not yet Implemented**
-ISTEXT              | CATEGORY_INFORMATION           | Functions::IS_TEXT
+ISTEXT              | CATEGORY_INFORMATION           | \PhpOffice\PhpSpreadsheet\Calculation\Functions::IS_TEXT
 
 ## J
 
@@ -278,13 +278,13 @@ MIDB                | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet
 MIN                 | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MIN
 MINA                | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MINA
 MINIF               | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MINIF
-MINUTE              | CATEGORY_DATE_AND_TIME         | DateTime::MINUTE
+MINUTE              | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::MINUTE
 MINVERSE            | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::MINVERSE
 MIRR                | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::MIRR
 MMULT               | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::MMULT
 MOD                 | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::MOD
 MODE                | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::MODE
-MONTH               | CATEGORY_DATE_AND_TIME         | DateTime::MONTHOFYEAR
+MONTH               | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::MONTHOFYEAR
 MROUND              | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::MROUND
 MULTINOMIAL         | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::MULTINOMIAL
 
@@ -292,17 +292,17 @@ MULTINOMIAL         | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet
 
 Excel Function      | Category                       | PhpSpreadsheet Function
 --------------------|--------------------------------|-------------------------------------------
-N                   | CATEGORY_INFORMATION           | Functions::N
-NA                  | CATEGORY_INFORMATION           | Functions::NA
+N                   | CATEGORY_INFORMATION           | \PhpOffice\PhpSpreadsheet\Calculation\Functions::N
+NA                  | CATEGORY_INFORMATION           | \PhpOffice\PhpSpreadsheet\Calculation\Functions::NA
 NEGBINOMDIST        | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NEGBINOMDIST
-NETWORKDAYS         | CATEGORY_DATE_AND_TIME         | DateTime::NETWORKDAYS
+NETWORKDAYS         | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::NETWORKDAYS
 NOMINAL             | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::NOMINAL
 NORMDIST            | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMDIST
 NORMINV             | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMINV
 NORMSDIST           | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMSDIST
 NORMSINV            | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::NORMSINV
 NOT                 | CATEGORY_LOGICAL               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::NOT
-NOW                 | CATEGORY_DATE_AND_TIME         | DateTime::DATETIMENOW
+NOW                 | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DATETIMENOW
 NPER                | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::NPER
 NPV                 | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::NPV
 
@@ -380,7 +380,7 @@ Excel Function      | Category                       | PhpSpreadsheet Function
 --------------------|--------------------------------|-------------------------------------------
 SEARCH              | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData::SEARCHINSENSITIVE
 SEARCHB             | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData::SEARCHINSENSITIVE
-SECOND              | CATEGORY_DATE_AND_TIME         | DateTime::SECOND
+SECOND              | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::SECOND
 SERIESSUM           | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SERIESSUM
 SIGN                | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::SIGN
 SIN                 | CATEGORY_MATH_AND_TRIG         | sin
@@ -421,10 +421,10 @@ TBILLPRICE          | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet
 TBILLYIELD          | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::TBILLYIELD
 TDIST               | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::TDIST
 TEXT                | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData::TEXTFORMAT
-TIME                | CATEGORY_DATE_AND_TIME         | DateTime::TIME
-TIMEVALUE           | CATEGORY_DATE_AND_TIME         | DateTime::TIMEVALUE
+TIME                | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::TIME
+TIMEVALUE           | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::TIMEVALUE
 TINV                | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::TINV
-TODAY               | CATEGORY_DATE_AND_TIME         | DateTime::DATENOW
+TODAY               | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::DATENOW
 TRANSPOSE           | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet\Calculation\LookupRef::TRANSPOSE
 TREND               | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::TREND
 TRIM                | CATEGORY_TEXT_AND_DATA         | \PhpOffice\PhpSpreadsheet\Calculation\TextData::TRIMSPACES
@@ -432,7 +432,7 @@ TRIMMEAN            | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet
 TRUE                | CATEGORY_LOGICAL               | \PhpOffice\PhpSpreadsheet\Calculation\Logical::TRUE
 TRUNC               | CATEGORY_MATH_AND_TRIG         | \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::TRUNC
 TTEST               | CATEGORY_STATISTICAL           | **Not yet Implemented**
-TYPE                | CATEGORY_INFORMATION           | Functions::TYPE
+TYPE                | CATEGORY_INFORMATION           | \PhpOffice\PhpSpreadsheet\Calculation\Functions::TYPE
 
 ## U
 
@@ -457,10 +457,10 @@ VLOOKUP             | CATEGORY_LOOKUP_AND_REFERENCE  | \PhpOffice\PhpSpreadsheet
 
 Excel Function      | Category                       | PhpSpreadsheet Function
 --------------------|--------------------------------|-------------------------------------------
-WEEKDAY             | CATEGORY_DATE_AND_TIME         | DateTime::WEEKDAY
-WEEKNUM             | CATEGORY_DATE_AND_TIME         | DateTime::WEEKNUM
+WEEKDAY             | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::WEEKDAY
+WEEKNUM             | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::WEEKNUM
 WEIBULL             | CATEGORY_STATISTICAL           | \PhpOffice\PhpSpreadsheet\Calculation\Statistical::WEIBULL
-WORKDAY             | CATEGORY_DATE_AND_TIME         | DateTime::WORKDAY
+WORKDAY             | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::WORKDAY
 
 ## X
 
@@ -473,8 +473,8 @@ XNPV                | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet
 
 Excel Function      | Category                       | PhpSpreadsheet Function
 --------------------|--------------------------------|-------------------------------------------
-YEAR                | CATEGORY_DATE_AND_TIME         | DateTime::YEAR
-YEARFRAC            | CATEGORY_DATE_AND_TIME         | DateTime::YEARFRAC
+YEAR                | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::YEAR
+YEARFRAC            | CATEGORY_DATE_AND_TIME         | \PhpOffice\PhpSpreadsheet\Calculation\DateTime::YEARFRAC
 YIELD               | CATEGORY_FINANCIAL             | **Not yet Implemented**
 YIELDDISC           | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::YIELDDISC
 YIELDMAT            | CATEGORY_FINANCIAL             | \PhpOffice\PhpSpreadsheet\Calculation\Financial::YIELDMAT

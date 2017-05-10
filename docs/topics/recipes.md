@@ -71,35 +71,35 @@ method that suits you the best. Here are some examples:
 ``` php
 
 // MySQL-like timestamp '2008-12-31' or date string
-Cell::setValueBinder( new Cell\AdvancedValueBinder() );
+\PhpOffice\PhpSpreadsheet\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
 
 $spreadsheet->getActiveSheet()
     ->setCellValue('D1', '2008-12-31');
 
 $spreadsheet->getActiveSheet()->getStyle('D1')
     ->getNumberFormat()
-    ->setFormatCode(NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
+    ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
 
 // PHP-time (Unix time)
 $time = gmmktime(0,0,0,12,31,2008); // int(1230681600)
 $spreadsheet->getActiveSheet()
-    ->setCellValue('D1', Date::PHPToExcel($time));
+    ->setCellValue('D1', \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($time));
 $spreadsheet->getActiveSheet()->getStyle('D1')
     ->getNumberFormat()
-    ->setFormatCode(NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
+    ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
 
 // Excel-date/time
 $spreadsheet->getActiveSheet()->setCellValue('D1', 39813)
 $spreadsheet->getActiveSheet()->getStyle('D1')
     ->getNumberFormat()
-    ->setFormatCode(NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
+    ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
 ```
 
 The above methods for entering a date all yield the same result.
-NumberFormat provides a lot of
+\PhpOffice\PhpSpreadsheet\Style\NumberFormat provides a lot of
 pre-defined date formats.
 
-The Date::PHPToExcel() method will also
+The \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel() method will also
 work with a PHP DateTime object.
 
 Similarly, times (or date and time values) can be entered in the same
@@ -148,7 +148,7 @@ $spreadsheet->getActiveSheet()
     ->setCellValueExplicit(
         'B8',
         '=IF(C4>500,"profit","loss")',
-        Cell\DataType::TYPE_STRING
+        \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING
     );
 ```
 
@@ -187,7 +187,7 @@ internal English coding.
 
 ``` php
 $formula = $spreadsheet->getActiveSheet()->getCell('B8')->getValue();
-$translatedFormula = Calculation::getInstance()->_translateFormulaToLocale($formula);
+$translatedFormula = \PhpOffice\PhpSpreadsheet\Calculation::getInstance()->_translateFormulaToLocale($formula);
 ```
 
 You can also create a formula using the function names and argument
@@ -196,7 +196,7 @@ English before setting the cell value:
 
 ``` php
 $formula = '=ДНЕЙ360(ДАТА(2010;2;5);ДАТА(2010;12;31);ИСТИНА)';
-$internalFormula = Calculation::getInstance()->translateFormulaToEnglish($formula);
+$internalFormula = \PhpOffice\PhpSpreadsheet\Calculation::getInstance()->translateFormulaToEnglish($formula);
 $spreadsheet->getActiveSheet()->setCellValue('B8',$internalFormula);
 ```
 
@@ -248,7 +248,7 @@ when it sees a newline character in a string that you are inserting in a
 cell. Just like Microsoft Office Excel. Try this:
 
 ``` php
-Cell::setValueBinder( new Cell\AdvancedValueBinder() );
+\PhpOffice\PhpSpreadsheet\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
 
 $spreadsheet->getActiveSheet()->getCell('A1')->setValue("hello\nworld");
 ```
@@ -265,7 +265,7 @@ worksheet. Here's an example:
 $spreadsheet->getActiveSheet()->getCell('A1')
     ->setValueExplicit(
         '25',
-        Cell\DataType::TYPE_NUMERIC
+        \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC
     );
 ```
 
@@ -295,9 +295,9 @@ following lines of code:
 
 ``` php
 $spreadsheet->getActiveSheet()->getPageSetup()
-    ->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
+    ->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
 $spreadsheet->getActiveSheet()->getPageSetup()
-    ->setPaperSize(PageSetup::PAPERSIZE_A4);
+    ->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
 ```
 
 Note that there are additional page settings available. Please refer to
@@ -431,7 +431,7 @@ using the programs own interface. Save file as test.xlsx. Now, take that file
 and read off the values using PhpSpreadsheet as follows:
 
 ```php
-$spreadsheet = IOFactory::load('test.xlsx');
+$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load('test.xlsx');
 $worksheet = $spreadsheet->getActiveSheet();
 
 var_dump($worksheet->getHeaderFooter()->getOddFooter());
@@ -448,11 +448,11 @@ to find the codes for header/footer.
 **Tip for picture**
 
 ```php
-$drawing = new HeaderFooterDrawing();
+$drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing();
 $drawing->setName('PhpSpreadsheet logo');
 $drawing->setPath('./images/PhpSpreadsheet_logo.png');
 $drawing->setHeight(36);
-$spreadsheet->getActiveSheet()->getHeaderFooter()->addImage($drawing, HeaderFooter::IMAGE_HEADER_LEFT);
+$spreadsheet->getActiveSheet()->getHeaderFooter()->addImage($drawing, \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooter::IMAGE_HEADER_LEFT);
 ```
 
 ### Setting printing breaks on a row or column
@@ -461,13 +461,13 @@ To set a print break, use the following code, which sets a row break on
 row 10.
 
 ``` php
-$spreadsheet->getActiveSheet()->setBreak( 'A10' , Worksheet::BREAK_ROW );
+$spreadsheet->getActiveSheet()->setBreak( 'A10' , \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_ROW );
 ```
 
 The following line of code sets a print break on column D:
 
 ``` php
-$spreadsheet->getActiveSheet()->setBreak( 'D10' , Worksheet::BREAK_COLUMN );
+$spreadsheet->getActiveSheet()->setBreak( 'D10' , \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_COLUMN );
 ```
 
 ### Show/hide gridlines when printing
@@ -513,19 +513,19 @@ that on cell B2:
 
 ``` php
 $spreadsheet->getActiveSheet()->getStyle('B2')
-    ->getFont()->getColor()->setARGB(Color::COLOR_RED);
+    ->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
 $spreadsheet->getActiveSheet()->getStyle('B2')
     ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
 $spreadsheet->getActiveSheet()->getStyle('B2')
-    ->getBorders()->getTop()->setBorderStyle(Border::BORDER_THICK);
+    ->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
 $spreadsheet->getActiveSheet()->getStyle('B2')
-    ->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THICK);
+    ->getBorders()->getBottom()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
 $spreadsheet->getActiveSheet()->getStyle('B2')
-    ->getBorders()->getLeft()->setBorderStyle(Border::BORDER_THICK);
+    ->getBorders()->getLeft()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
 $spreadsheet->getActiveSheet()->getStyle('B2')
-    ->getBorders()->getRight()->setBorderStyle(Border::BORDER_THICK);
+    ->getBorders()->getRight()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
 $spreadsheet->getActiveSheet()->getStyle('B2')
-    ->getFill()->setFillType(Fill::FILL_SOLID);
+    ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
 $spreadsheet->getActiveSheet()->getStyle('B2')
     ->getFill()->getStartColor()->setARGB('FFFF0000');
 ```
@@ -535,7 +535,7 @@ can set a red background color on a range of cells:
 
 ``` php
 $spreadsheet->getActiveSheet()->getStyle('B3:B7')->getFill()
-    ->setFillType(Fill::FILL_SOLID)
+    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
     ->getStartColor()->setARGB('FFFF0000');
 ```
 
@@ -558,11 +558,11 @@ $styleArray = array(
     ),
     'borders' => array(
         'top' => array(
-            'style' => Border::BORDER_THIN,
+            'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
         ),
     ),
     'fill' => array(
-        'type' => Fill::FILL_GRADIENT_LINEAR,
+        'type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
         'rotation' => 90,
         'startcolor' => array(
             'argb' => 'FFA0A0A0',
@@ -604,7 +604,7 @@ Example:
 
 ``` php
 $spreadsheet->getActiveSheet()->getStyle('A1')->getNumberFormat()
-    ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+    ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
 ```
 
 This will format a number e.g. 1587.2 so it shows up as 1,587.20 when
@@ -647,7 +647,7 @@ template workbook using e.g. Xlsx reader to reveal the number format
 code. Example how read a number format code for cell A1:
 
 ``` php
-$reader = IOFactory::createReader('Xlsx');
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
 $spreadsheet = $reader->load('template.xlsx');
 var_dump($spreadsheet->getActiveSheet()->getStyle('A1')->getNumberFormat()->getFormatCode());
 ```
@@ -693,7 +693,7 @@ B2:G8.
 $styleArray = array(
     'borders' => array(
         'outline' => array(
-            'style' => Border::BORDER_THICK,
+            'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
             'color' => array('argb' => 'FFFF0000'),
         ),
     ),
@@ -743,7 +743,7 @@ easy manner.
 ### Valid array keys for style `applyFromArray()`
 
 The following table lists the valid array keys for
-Style applyFromArray() classes. If the "Maps
+\PhpOffice\PhpSpreadsheet\Style applyFromArray() classes. If the "Maps
 to property" column maps a key to a setter, the value provided for that
 key will be applied directly. If the "Maps to property" column maps a
 key to a getter, the value provided for that key will be applied as
@@ -760,7 +760,7 @@ alignment    | getAlignment()
 numberformat | getNumberFormat()
 protection   | getProtection()
 
-**Fill**
+**\PhpOffice\PhpSpreadsheet\Style\Fill**
 
 Array key  | Maps to property
 -----------|-------------------
@@ -785,7 +785,7 @@ size        | setSize()
 superScript | setSuperScript()
 subScript   | setSubScript()
 
-**Borders**
+**\PhpOffice\PhpSpreadsheet\Style\Borders**
 
 Array key         | Maps to property
 ------------------|-------------------
@@ -800,7 +800,7 @@ horizontal        | getHorizontal()
 diagonaldirection | setDiagonalDirection()
 outline           | setOutline()
 
-**Border**
+**\PhpOffice\PhpSpreadsheet\Style\Border**
 
 Array key | Maps to property
 ----------|-------------------
@@ -818,13 +818,13 @@ wrap        | setWrapText()
 shrinkToFit | setShrinkToFit()
 indent      | setIndent()
 
-**NumberFormat**
+**\PhpOffice\PhpSpreadsheet\Style\NumberFormat**
 
 Array key | Maps to property
 ----------|-------------------
 code      | setFormatCode()
 
-**Protection**
+**\PhpOffice\PhpSpreadsheet\Style\Protection**
 
 Array key | Maps to property
 ----------|-------------------
@@ -841,18 +841,18 @@ One can set a conditional style ruleset to a cell using the following
 code:
 
 ``` php
-$conditional1 = new Conditional();
-$conditional1->setConditionType(Conditional::CONDITION_CELLIS);
-$conditional1->setOperatorType(Conditional::OPERATOR_LESSTHAN);
+$conditional1 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
+$conditional1->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS);
+$conditional1->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_LESSTHAN);
 $conditional1->addCondition('0');
-$conditional1->getStyle()->getFont()->getColor()->setARGB(Color::COLOR_RED);
+$conditional1->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
 $conditional1->getStyle()->getFont()->setBold(true);
 
-$conditional2 = new Conditional();
-$conditional2->setConditionType(Conditional::CONDITION_CELLIS);
-$conditional2->setOperatorType(Conditional::OPERATOR_GREATERTHANOREQUAL);
+$conditional2 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
+$conditional2->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS);
+$conditional2->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_GREATERTHANOREQUAL);
 $conditional2->addCondition('0');
-$conditional2->getStyle()->getFont()->getColor()->setARGB(Color::COLOR_GREEN);
+$conditional2->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_GREEN);
 $conditional2->getStyle()->getFont()->setBold(true);
 
 $conditionalStyles = $spreadsheet->getActiveSheet()->getStyle('B2')->getConditionalStyles();
@@ -946,7 +946,7 @@ An example on setting cell security:
 ``` php
 $spreadsheet->getActiveSheet()->getStyle('B1')
     ->getProtection()
-    ->setLocked(Protection::PROTECTION_UNPROTECTED);
+    ->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
 ```
 
 **Make sure you enable worksheet protection if you need any of the
@@ -970,8 +970,8 @@ entered in cell B3:
 ``` php
 $validation = $spreadsheet->getActiveSheet()->getCell('B3')
     ->getDataValidation();
-$validation->setType( DataValidation::TYPE_WHOLE );
-$validation->setErrorStyle( DataValidation::STYLE_STOP );
+$validation->setType( \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_WHOLE );
+$validation->setErrorStyle( \PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_STOP );
 $validation->setAllowBlank(true);
 $validation->setShowInputMessage(true);
 $validation->setShowErrorMessage(true);
@@ -989,8 +989,8 @@ data to be entered in cell B3:
 ``` php
 $validation = $spreadsheet->getActiveSheet()->getCell('B5')
     ->getDataValidation();
-$validation->setType( DataValidation::TYPE_LIST );
-$validation->setErrorStyle( DataValidation::STYLE_INFORMATION );
+$validation->setType( \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST );
+$validation->setErrorStyle( \PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION );
 $validation->setAllowBlank(false);
 $validation->setShowInputMessage(true);
 $validation->setShowErrorMessage(true);
@@ -1236,15 +1236,15 @@ $textColor = imagecolorallocate($gdImage, 255, 255, 255);
 imagestring($gdImage, 1, 5, 5,  'Created with PhpSpreadsheet', $textColor);
 
 //  Add the In-Memory image to a worksheet
-$drawing = new MemoryDrawing();
+$drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing();
 $drawing->setName('In-Memory image 1');
 $drawing->setDescription('In-Memory image 1');
 $drawing->setCoordinates('A1');
 $drawing->setImageResource($gdImage);
 $drawing->setRenderingFunction(
-    MemoryDrawing::RENDERING_JPEG
+    \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_JPEG
 );
-$drawing->setMimeType(MemoryDrawing::MIMETYPE_DEFAULT);
+$drawing->setMimeType(\PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_DEFAULT);
 $drawing->setHeight(36);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
 ```
@@ -1260,7 +1260,7 @@ and writes each as a separate file.
 ``` php
 $i = 0;
 foreach ($spreadsheet->getActiveSheet()->getDrawingCollection() as $drawing) {
-    if ($drawing instanceof MemoryDrawing) {
+    if ($drawing instanceof \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing) {
         ob_start();
         call_user_func(
             $drawing->getRenderingFunction(),
@@ -1269,13 +1269,13 @@ foreach ($spreadsheet->getActiveSheet()->getDrawingCollection() as $drawing) {
         $imageContents = ob_get_contents();
         ob_end_clean();
         switch ($drawing->getMimeType()) {
-            case MemoryDrawing::MIMETYPE_PNG :
+            case \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_PNG :
                 $extension = 'png';
                 break;
-            case MemoryDrawing::MIMETYPE_GIF:
+            case \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_GIF:
                 $extension = 'gif';
                 break;
-            case MemoryDrawing::MIMETYPE_JPEG :
+            case \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_JPEG :
                 $extension = 'jpg';
                 break;
         }
@@ -1296,19 +1296,19 @@ foreach ($spreadsheet->getActiveSheet()->getDrawingCollection() as $drawing) {
 ## Add rich text to a cell
 
 Adding rich text to a cell can be done using
-RichText instances. Here''s an example, which
+\PhpOffice\PhpSpreadsheet\RichText instances. Here''s an example, which
 creates the following rich text string:
 
 > This invoice is ***payable within thirty days after the end of the
 > month*** unless specified otherwise on the invoice.
 
 ``` php
-$richText = new RichText();
+$richText = new \PhpOffice\PhpSpreadsheet\RichText();
 $richText->createText('This invoice is ');
 $payable = $richText->createTextRun('payable within thirty days after the end of the month');
 $payable->getFont()->setBold(true);
 $payable->getFont()->setItalic(true);
-$payable->getFont()->setColor( new Color( Color::COLOR_DARKGREEN ) );
+$payable->getFont()->setColor( new \PhpOffice\PhpSpreadsheet\Style\Color( \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN ) );
 $richText->createText(', unless specified otherwise on the invoice.');
 $spreadsheet->getActiveSheet()->getCell('A18')->setValue($richText);
 ```
@@ -1327,8 +1327,8 @@ $spreadsheet->getActiveSheet()->setCellValue('B1', 'Maarten');
 $spreadsheet->getActiveSheet()->setCellValue('B2', 'Balliauw');
 
 // Define named ranges
-$spreadsheet->addNamedRange( new NamedRange('PersonFN', $spreadsheet->getActiveSheet(), 'B1') );
-$spreadsheet->addNamedRange( new NamedRange('PersonLN', $spreadsheet->getActiveSheet(), 'B2') );
+$spreadsheet->addNamedRange( new \PhpOffice\PhpSpreadsheet\NamedRange('PersonFN', $spreadsheet->getActiveSheet(), 'B1') );
+$spreadsheet->addNamedRange( new \PhpOffice\PhpSpreadsheet\NamedRange('PersonLN', $spreadsheet->getActiveSheet(), 'B2') );
 ```
 
 Optionally, a fourth parameter can be passed defining the named range
@@ -1369,7 +1369,7 @@ header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetm
 header('Content-Disposition: attachment;filename="myfile.xlsx"');
 header('Cache-Control: max-age=0');
 
-$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
 $writer->save('php://output');
 ```
 
@@ -1383,7 +1383,7 @@ header('Content-Type: application/vnd.ms-excel');
 header('Content-Disposition: attachment;filename="myfile.xls"');
 header('Cache-Control: max-age=0');
 
-$writer = IOFactory::createWriter($spreadsheet, 'Xls');
+$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
 $writer->save('php://output');
 ```
 
@@ -1431,12 +1431,12 @@ $textColor = imagecolorallocate($gdImage, 255, 255, 255);
 imagestring($gdImage, 1, 5, 5,  'Created with PhpSpreadsheet', $textColor);
 
 // Add a drawing to the worksheet
-$drawing = new MemoryDrawing();
+$drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing();
 $drawing->setName('Sample image');
 $drawing->setDescription('Sample image');
 $drawing->setImageResource($gdImage);
-$drawing->setRenderingFunction(MemoryDrawing::RENDERING_JPEG);
-$drawing->setMimeType(MemoryDrawing::MIMETYPE_DEFAULT);
+$drawing->setRenderingFunction(\PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_JPEG);
+$drawing->setMimeType(\PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_DEFAULT);
 $drawing->setHeight(36);
 $drawing->setWorksheet($spreadsheet->getActiveSheet());
 ```
@@ -1479,15 +1479,15 @@ Set a worksheet to be **hidden** using this code:
 
 ``` php
 $spreadsheet->getActiveSheet()
-    ->setSheetState(Worksheet::SHEETSTATE_HIDDEN);
+    ->setSheetState(\PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_HIDDEN);
 ```
 
 Sometimes you may even want the worksheet to be **"very hidden"**. The
 available sheet states are :
 
--   `Worksheet::SHEETSTATE_VISIBLE`
--   `Worksheet::SHEETSTATE_HIDDEN`
--   `Worksheet::SHEETSTATE_VERYHIDDEN`
+-   `\PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VISIBLE`
+-   `\PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_HIDDEN`
+-   `\PhpOffice\PhpSpreadsheet\Worksheet::SHEETSTATE_VERYHIDDEN`
 
 In Excel the sheet state "very hidden" can only be set programmatically,
 e.g. with Visual Basic Macro. It is not possible to make such a sheet
@@ -1507,9 +1507,9 @@ $spreadsheet->getActiveSheet()->setRightToLeft(true);
 [^1]: z
 
     ``` php
-    $drawing = new HeaderFooterDrawing();
+    $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing();
     $drawing->setName('PhpSpreadsheet logo');
     $drawing->setPath('./images/PhpSpreadsheet_logo.png');
     $drawing->setHeight(36);
-    $spreadsheet->getActiveSheet()->getHeaderFooter()->addImage($drawing, HeaderFooter::IMAGE_HEADER_LEFT);
+    $spreadsheet->getActiveSheet()->getHeaderFooter()->addImage($drawing, \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooter::IMAGE_HEADER_LEFT);
     ```

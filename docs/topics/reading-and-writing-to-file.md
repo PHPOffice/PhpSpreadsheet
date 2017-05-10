@@ -7,17 +7,17 @@ For this purpose, PhpSpreadsheet provides readers and writers, which are
 implementations of \PhpOffice\PhpSpreadsheet\Reader\IReader and
 \PhpOffice\PhpSpreadsheet\Writer\IWriter.
 
-## IOFactory
+## \PhpOffice\PhpSpreadsheet\IOFactory
 
 The PhpSpreadsheet API offers multiple methods to create a
 \PhpOffice\PhpSpreadsheet\Reader\IReader or
 \PhpOffice\PhpSpreadsheet\Writer\IWriter instance:
 
-Direct creation via IOFactory. All examples
+Direct creation via \PhpOffice\PhpSpreadsheet\IOFactory. All examples
 underneath demonstrate the direct creation method. Note that you can
-also use the IOFactory class to do this.
+also use the \PhpOffice\PhpSpreadsheet\IOFactory class to do this.
 
-### Creating \PhpOffice\PhpSpreadsheet\Reader\IReader using IOFactory
+### Creating \PhpOffice\PhpSpreadsheet\Reader\IReader using \PhpOffice\PhpSpreadsheet\IOFactory
 
 There are 2 methods for reading in a file into PhpSpreadsheet: using
 automatic file type resolving or explicitly.
@@ -30,11 +30,11 @@ Explicit mode requires you to specify which
 \PhpOffice\PhpSpreadsheet\Reader\IReader should be used.
 
 You can create a \PhpOffice\PhpSpreadsheet\Reader\IReader instance using
-IOFactory in automatic file type resolving
+\PhpOffice\PhpSpreadsheet\IOFactory in automatic file type resolving
 mode using the following code sample:
 
 ``` php
-$spreadsheet = IOFactory::load("05featuredemo.xlsx");
+$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load("05featuredemo.xlsx");
 ```
 
 A typical use of this feature is when you need to read files uploaded by
@@ -46,30 +46,30 @@ data, see more about this later), then you may instead want to use this
 variant:
 
 ``` php
-$reader = IOFactory::createReaderForFile("05featuredemo.xlsx");
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile("05featuredemo.xlsx");
 $reader->setReadDataOnly(true);
 $reader->load("05featuredemo.xlsx");
 ```
 
 You can create a \PhpOffice\PhpSpreadsheet\Reader\IReader instance using
-IOFactory in explicit mode using the following
+\PhpOffice\PhpSpreadsheet\IOFactory in explicit mode using the following
 code sample:
 
 ``` php
-$reader = IOFactory::createReader("Xlsx");
+$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
 $spreadsheet = $reader->load("05featuredemo.xlsx");
 ```
 
 Note that automatic type resolving mode is slightly slower than explicit
 mode.
 
-### Creating \PhpOffice\PhpSpreadsheet\Writer\IWriter using IOFactory
+### Creating \PhpOffice\PhpSpreadsheet\Writer\IWriter using \PhpOffice\PhpSpreadsheet\IOFactory
 
 You can create a PhpOffice\PhpSpreadsheet\Writer\IWriter instance using
-IOFactory:
+\PhpOffice\PhpSpreadsheet\IOFactory:
 
 ``` php
-$writer = IOFactory::createWriter($spreadsheet, "Xlsx");
+$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, "Xlsx");
 $writer->save("05featuredemo.xlsx");
 ```
 
@@ -116,14 +116,14 @@ $spreadsheet = $reader->load("05featuredemo.xlsx");
 You can set the option setReadFilter on the reader, to instruct the
 reader to only load the cells which match a given rule. A read filter
 can be any class which implements
-IReadFilter. By default, all cells are
+\PhpOffice\PhpSpreadsheet\Reader\IReadFilter. By default, all cells are
 read using the \PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter.
 
 The following code will only read row 1 and rows 20 – 30 of any sheet in
 the Excel file:
 
 ``` php
-class MyReadFilter implements IReadFilter {
+class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
 
     public function readCell($column, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
@@ -234,14 +234,14 @@ $spreadsheet = $reader->load("05featuredemo.xls");
 You can set the option setReadFilter on the reader, to instruct the
 reader to only load the cells which match a given rule. A read filter
 can be any class which implements
-IReadFilter. By default, all cells are
+\PhpOffice\PhpSpreadsheet\Reader\IReadFilter. By default, all cells are
 read using the \PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter.
 
 The following code will only read row 1 and rows 20 to 30 of any sheet
 in the Excel file:
 
 ``` php
-class MyReadFilter implements IReadFilter {
+class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
 
     public function readCell($column, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
@@ -293,14 +293,14 @@ $spreadsheet = $reader->load("05featuredemo.xml");
 You can set the option setReadFilter on the reader, to instruct the
 reader to only load the cells which match a given rule. A read filter
 can be any class which implements
-IReadFilter. By default, all cells are
+\PhpOffice\PhpSpreadsheet\Reader\IReadFilter. By default, all cells are
 read using the \PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter.
 
 The following code will only read row 1 and rows 20 to 30 of any sheet
 in the Excel file:
 
 ``` php
-class MyReadFilter implements IReadFilter {
+class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
 
     public function readCell($column, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
@@ -344,14 +344,14 @@ $spreadsheet = $reader->load("05featuredemo.slk");
 You can set the option setReadFilter on the reader, to instruct the
 reader to only load the cells which match a given rule. A read filter
 can be any class which implements
-IReadFilter. By default, all cells are
+\PhpOffice\PhpSpreadsheet\Reader\IReadFilter. By default, all cells are
 read using the \PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter.
 
 The following code will only read row 1 and rows 20 to 30 of any sheet
 in the SYLK file:
 
 ``` php
-class MyReadFilter implements IReadFilter {
+class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
 
     public function readCell($column, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
@@ -389,14 +389,14 @@ $spreadsheet = $reader->load("05featuredemo.ods");
 You can set the option setReadFilter on the reader, to instruct the
 reader to only load the cells which match a given rule. A read filter
 can be any class which implements
-IReadFilter. By default, all cells are
+\PhpOffice\PhpSpreadsheet\Reader\IReadFilter. By default, all cells are
 read using the \PhpOffice\PhpSpreadsheet\Reader\DefaultReadFilter.
 
 The following code will only read row 1 and rows 20 to 30 of any sheet
 in the Calc file:
 
 ``` php
-class MyReadFilter implements IReadFilter {
+class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
 
     public function readCell($column, $row, $worksheetName = '') {
         // Read title row and rows 20 - 30
@@ -560,15 +560,15 @@ to set the characters explicitly as shown below.
 English users will want to use this before doing the export:
 
 ``` php
-StringHelper::setDecimalSeparator('.');
-StringHelper::setThousandsSeparator(',');
+\PhpOffice\PhpSpreadsheet\Shared\StringHelper::setDecimalSeparator('.');
+\PhpOffice\PhpSpreadsheet\Shared\StringHelper::setThousandsSeparator(',');
 ```
 
 German users will want to use the opposite values.
 
 ``` php
-StringHelper::setDecimalSeparator(',');
-StringHelper::setThousandsSeparator('.');
+\PhpOffice\PhpSpreadsheet\Shared\StringHelper::setDecimalSeparator(',');
+\PhpOffice\PhpSpreadsheet\Shared\StringHelper::setThousandsSeparator('.');
 ```
 
 Note that the above code sets decimal and thousand separators as global
@@ -825,14 +825,14 @@ Here is an example how to open a template file, fill in a couple of
 fields and save it again:
 
 ``` php
-$spreadsheet = IOFactory::load('template.xlsx');
+$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load('template.xlsx');
 
 $worksheet = $spreadsheet->getActiveSheet();
 
 $worksheet->getCell('A1')->setValue('John');
 $worksheet->getCell('A2')->setValue('Smith');
 
-$writer = IOFactory::createWriter($spreadsheet, 'Xls');
+$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
 $writer->save('write.xls');
 ```
 
