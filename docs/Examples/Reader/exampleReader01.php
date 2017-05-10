@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 error_reporting(E_ALL);
 set_time_limit(0);
 
@@ -16,14 +18,14 @@ date_default_timezone_set('Europe/London');
 <body>
 
 <h1>PhpSpreadsheet Reader Example #01</h1>
-<h2>Simple File Reader using \PhpOffice\PhpSpreadsheet\IOFactory::load()</h2>
+<h2>Simple File Reader using IOFactory::load()</h2>
 <?php
 
 require_once __DIR__ . '/../../../src/Bootstrap.php';
 
 $inputFileName = './sampleData/example1.xls';
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using IOFactory to identify the format<br />';
-$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($inputFileName);
+$spreadsheet = IOFactory::load($inputFileName);
 
 echo '<hr />';
 

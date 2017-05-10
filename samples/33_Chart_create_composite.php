@@ -1,9 +1,17 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Chart;
+use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
+use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
+use PhpOffice\PhpSpreadsheet\Chart\Legend;
+use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
+use PhpOffice\PhpSpreadsheet\Chart\Title;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/Header.php';
 
-$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new Spreadsheet();
 $worksheet = $spreadsheet->getActiveSheet();
 $worksheet->fromArray(
     [
@@ -31,13 +39,13 @@ $worksheet->fromArray(
 //		Data values
 //		Data Marker
 $dataSeriesLabels1 = [
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$B$1', null, 1), //	Temperature
+    new DataSeriesValues('String', 'Worksheet!$B$1', null, 1), //	Temperature
 ];
 $dataSeriesLabels2 = [
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$C$1', null, 1), //	Rainfall
+    new DataSeriesValues('String', 'Worksheet!$C$1', null, 1), //	Rainfall
 ];
 $dataSeriesLabels3 = [
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$D$1', null, 1), //	Humidity
+    new DataSeriesValues('String', 'Worksheet!$D$1', null, 1), //	Humidity
 ];
 
 //	Set the X-Axis Labels
@@ -48,7 +56,7 @@ $dataSeriesLabels3 = [
 //		Data values
 //		Data Marker
 $xAxisTickValues = [
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$A$2:$A$13', null, 12), //	Jan to Dec
+    new DataSeriesValues('String', 'Worksheet!$A$2:$A$13', null, 12), //	Jan to Dec
 ];
 
 //	Set the Data values for each data series we want to plot
@@ -59,13 +67,13 @@ $xAxisTickValues = [
 //		Data values
 //		Data Marker
 $dataSeriesValues1 = [
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'Worksheet!$B$2:$B$13', null, 12),
+    new DataSeriesValues('Number', 'Worksheet!$B$2:$B$13', null, 12),
 ];
 
 //	Build the dataseries
-$series1 = new \PhpOffice\PhpSpreadsheet\Chart\DataSeries(
-    \PhpOffice\PhpSpreadsheet\Chart\DataSeries::TYPE_BARCHART, // plotType
-    \PhpOffice\PhpSpreadsheet\Chart\DataSeries::GROUPING_CLUSTERED, // plotGrouping
+$series1 = new DataSeries(
+    DataSeries::TYPE_BARCHART, // plotType
+    DataSeries::GROUPING_CLUSTERED, // plotGrouping
     range(0, count($dataSeriesValues1) - 1), // plotOrder
     $dataSeriesLabels1, // plotLabel
     $xAxisTickValues, // plotCategory
@@ -73,7 +81,7 @@ $series1 = new \PhpOffice\PhpSpreadsheet\Chart\DataSeries(
 );
 //	Set additional dataseries parameters
 //		Make it a vertical column rather than a horizontal bar graph
-$series1->setPlotDirection(\PhpOffice\PhpSpreadsheet\Chart\DataSeries::DIRECTION_COL);
+$series1->setPlotDirection(DataSeries::DIRECTION_COL);
 
 //	Set the Data values for each data series we want to plot
 //		Datatype
@@ -83,13 +91,13 @@ $series1->setPlotDirection(\PhpOffice\PhpSpreadsheet\Chart\DataSeries::DIRECTION
 //		Data values
 //		Data Marker
 $dataSeriesValues2 = [
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'Worksheet!$C$2:$C$13', null, 12),
+    new DataSeriesValues('Number', 'Worksheet!$C$2:$C$13', null, 12),
 ];
 
 //	Build the dataseries
-$series2 = new \PhpOffice\PhpSpreadsheet\Chart\DataSeries(
-    \PhpOffice\PhpSpreadsheet\Chart\DataSeries::TYPE_LINECHART, // plotType
-    \PhpOffice\PhpSpreadsheet\Chart\DataSeries::GROUPING_STANDARD, // plotGrouping
+$series2 = new DataSeries(
+    DataSeries::TYPE_LINECHART, // plotType
+    DataSeries::GROUPING_STANDARD, // plotGrouping
     range(0, count($dataSeriesValues2) - 1), // plotOrder
     $dataSeriesLabels2, // plotLabel
     null, // plotCategory
@@ -104,13 +112,13 @@ $series2 = new \PhpOffice\PhpSpreadsheet\Chart\DataSeries(
 //		Data values
 //		Data Marker
 $dataSeriesValues3 = [
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'Worksheet!$D$2:$D$13', null, 12),
+    new DataSeriesValues('Number', 'Worksheet!$D$2:$D$13', null, 12),
 ];
 
 //	Build the dataseries
-$series3 = new \PhpOffice\PhpSpreadsheet\Chart\DataSeries(
-    \PhpOffice\PhpSpreadsheet\Chart\DataSeries::TYPE_AREACHART, // plotType
-    \PhpOffice\PhpSpreadsheet\Chart\DataSeries::GROUPING_STANDARD, // plotGrouping
+$series3 = new DataSeries(
+    DataSeries::TYPE_AREACHART, // plotType
+    DataSeries::GROUPING_STANDARD, // plotGrouping
     range(0, count($dataSeriesValues2) - 1), // plotOrder
     $dataSeriesLabels3, // plotLabel
     null, // plotCategory
@@ -118,14 +126,14 @@ $series3 = new \PhpOffice\PhpSpreadsheet\Chart\DataSeries(
 );
 
 //	Set the series in the plot area
-$plotArea = new \PhpOffice\PhpSpreadsheet\Chart\PlotArea(null, [$series1, $series2, $series3]);
+$plotArea = new PlotArea(null, [$series1, $series2, $series3]);
 //	Set the chart legend
-$legend = new \PhpOffice\PhpSpreadsheet\Chart\Legend(\PhpOffice\PhpSpreadsheet\Chart\Legend::POSITION_RIGHT, null, false);
+$legend = new Legend(Legend::POSITION_RIGHT, null, false);
 
-$title = new \PhpOffice\PhpSpreadsheet\Chart\Title('Average Weather Chart for Crete');
+$title = new Title('Average Weather Chart for Crete');
 
 //	Create the chart
-$chart = new \PhpOffice\PhpSpreadsheet\Chart(
+$chart = new Chart(
     'chart1', // name
     $title, // title
     $legend, // legend
@@ -145,7 +153,7 @@ $worksheet->addChart($chart);
 
 // Save Excel 2007 file
 $filename = $helper->getFilename(__FILE__);
-$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
 $writer->setIncludeCharts(true);
 $callStartTime = microtime(true);
 $writer->save($filename);

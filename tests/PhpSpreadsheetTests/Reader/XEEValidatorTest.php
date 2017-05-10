@@ -3,8 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
 use PhpOffice\PhpSpreadsheet\Reader\BaseReader;
+use PHPUnit_Framework_TestCase;
 
-class XEEValidatorTest extends \PHPUnit_Framework_TestCase
+class XEEValidatorTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider providerInvalidXML

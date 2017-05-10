@@ -26,6 +26,9 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
 * OLE_ChainedBlockStream::stream_open().
 * @var  array
 */
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
+use PhpOffice\PhpSpreadsheet\Shared\OLE\ChainedBlockStream;
+
 $GLOBALS['_OLE_INSTANCES'] = [];
 
 /**
@@ -101,7 +104,7 @@ class OLE
      *
      * @param string $file
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
+     * @throws ReaderException
      *
      * @return bool true on success, PEAR_Error on failure
      */
@@ -109,18 +112,18 @@ class OLE
     {
         $fh = fopen($file, 'r');
         if (!$fh) {
-            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception("Can't open file $file");
+            throw new ReaderException("Can't open file $file");
         }
         $this->_file_handle = $fh;
 
         $signature = fread($fh, 8);
         if ("\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1" != $signature) {
-            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception("File doesn't seem to be an OLE container.");
+            throw new ReaderException("File doesn't seem to be an OLE container.");
         }
         fseek($fh, 28);
         if (fread($fh, 2) != "\xFE\xFF") {
             // This shouldn't be a problem in practice
-            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('Only Little-Endian encoding is supported.');
+            throw new ReaderException('Only Little-Endian encoding is supported.');
         }
         // Size of blocks and short blocks in bytes
         $this->bigBlockSize = pow(2, self::_readInt2($fh));
@@ -212,7 +215,7 @@ class OLE
     {
         static $isRegistered = false;
         if (!$isRegistered) {
-            stream_wrapper_register('ole-chainedblockstream', \PhpOffice\PhpSpreadsheet\Shared\OLE\ChainedBlockStream::class);
+            stream_wrapper_register('ole-chainedblockstream', ChainedBlockStream::class);
             $isRegistered = true;
         }
 

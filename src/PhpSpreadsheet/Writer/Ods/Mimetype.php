@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 /**
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -27,13 +29,13 @@ class Mimetype extends WriterPart
     /**
      * Write mimetype to plain text format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string XML Output
      */
-    public function write(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function write(Spreadsheet $spreadsheet = null)
     {
         return 'application/vnd.oasis.opendocument.spreadsheet';
     }

@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 error_reporting(E_ALL);
 set_time_limit(0);
 
@@ -29,7 +31,7 @@ $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using IOFactory with a defined reader type of ',$inputFileType,'<br />';
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = IOFactory::createReader($inputFileType);
 echo 'Turning Formatting off for Load<br />';
 $reader->setReadDataOnly(true);
 $spreadsheet = $reader->load($inputFileName);

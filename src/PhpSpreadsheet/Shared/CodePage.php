@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -32,7 +34,7 @@ class CodePage
      *
      * @param int $codePage Microsoft Code Page Indentifier
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return string Code Page Name
      */
@@ -44,7 +46,7 @@ class CodePage
             case 437:
                 return 'CP437'; //    OEM US
             case 720:
-                throw new \PhpOffice\PhpSpreadsheet\Exception('Code page 720 not supported.'); //    OEM Arabic
+                throw new PhpSpreadsheetException('Code page 720 not supported.'); //    OEM Arabic
             case 737:
                 return 'CP737'; //    OEM Greek
             case 775:
@@ -146,12 +148,12 @@ class CodePage
             case 32768:
                 return 'MAC'; //    Apple Roman
             case 32769:
-                throw new \PhpOffice\PhpSpreadsheet\Exception('Code page 32769 not supported.'); //    ANSI Latin I (BIFF2-BIFF3)
+                throw new PhpSpreadsheetException('Code page 32769 not supported.'); //    ANSI Latin I (BIFF2-BIFF3)
             case 65000:
                 return 'UTF-7'; //    Unicode (UTF-7)
             case 65001:
                 return 'UTF-8'; //    Unicode (UTF-8)
         }
-        throw new \PhpOffice\PhpSpreadsheet\Exception('Unknown codepage: ' . $codePage);
+        throw new PhpSpreadsheetException('Unknown codepage: ' . $codePage);
     }
 }

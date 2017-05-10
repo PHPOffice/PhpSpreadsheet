@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -101,19 +103,18 @@ abstract class Dimension
 
     /**
      * Set Outline Level.
-     *
-     * Value must be between 0 and 7
+     * Value must be between 0 and 7.
      *
      * @param int $pValue
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Dimension
      */
     public function setOutlineLevel($pValue)
     {
         if ($pValue < 0 || $pValue > 7) {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Outline level must range between 0 and 7.');
+            throw new PhpSpreadsheetException('Outline level must range between 0 and 7.');
         }
 
         $this->outlineLevel = $pValue;

@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -424,7 +426,7 @@ class HeaderFooter
      * @param HeaderFooterDrawing $image
      * @param string $location
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return HeaderFooter
      */
@@ -440,7 +442,7 @@ class HeaderFooter
      *
      * @param string $location
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return HeaderFooter
      */
@@ -458,7 +460,7 @@ class HeaderFooter
      *
      * @param HeaderFooterDrawing[] $images
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return HeaderFooter
      */

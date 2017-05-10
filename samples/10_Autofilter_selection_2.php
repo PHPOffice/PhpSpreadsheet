@@ -1,10 +1,16 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
+use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule;
+
 require __DIR__ . '/Header.php';
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
-$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new Spreadsheet();
 
 // Set document properties
 $helper->log('Set document properties');
@@ -48,7 +54,7 @@ foreach ($years as $year) {
         foreach ($countries as $country) {
             $endDays = date('t', mktime(0, 0, 0, $period, 1, $year));
             for ($i = 1; $i <= $endDays; ++$i) {
-                $eDate = \PhpOffice\PhpSpreadsheet\Shared\Date::formattedPHPToExcel(
+                $eDate = Date::formattedPHPToExcel(
                     $year,
                     $period,
                     $i
@@ -86,8 +92,8 @@ $spreadsheet->getActiveSheet()->getStyle('A1:F1')->getFont()->setBold(true);
 $spreadsheet->getActiveSheet()->getStyle('A1:F1')->getAlignment()->setWrapText(true);
 $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(12.5);
 $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(10.5);
-$spreadsheet->getActiveSheet()->getStyle('D2:D' . $row)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2);
-$spreadsheet->getActiveSheet()->getStyle('E2:F' . $row)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+$spreadsheet->getActiveSheet()->getStyle('D2:D' . $row)->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_YYYYMMDD2);
+$spreadsheet->getActiveSheet()->getStyle('E2:F' . $row)->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
 $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(14);
 $spreadsheet->getActiveSheet()->freezePane('A2');
 
@@ -104,39 +110,39 @@ $helper->log('Set active filters');
 // Filter the Country column on a filter value of Germany
 //	As it's just a simple value filter, we can use FILTERTYPE_FILTER
 $autoFilter->getColumn('C')
-        ->setFilterType(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_FILTER)
+        ->setFilterType(Column::AUTOFILTER_FILTERTYPE_FILTER)
         ->createRule()
         ->setRule(
-            \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+            Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
             'Germany'
         );
 // Filter the Date column on a filter value of the year to date
 $autoFilter->getColumn('D')
-        ->setFilterType(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER)
+        ->setFilterType(Column::AUTOFILTER_FILTERTYPE_DYNAMICFILTER)
         ->createRule()
         ->setRule(
-            \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
+            Rule::AUTOFILTER_COLUMN_RULE_EQUAL,
             null,
-            \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMIC_YEARTODATE
+            Rule::AUTOFILTER_RULETYPE_DYNAMIC_YEARTODATE
         )
-        ->setRuleType(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER);
+        ->setRuleType(Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER);
 // Display only sales values that are between 400 and 600
 $autoFilter->getColumn('E')
-        ->setFilterType(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER)
+        ->setFilterType(Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER)
         ->createRule()
         ->setRule(
-            \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL,
+            Rule::AUTOFILTER_COLUMN_RULE_GREATERTHANOREQUAL,
             400
         )
-        ->setRuleType(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
+        ->setRuleType(Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
 $autoFilter->getColumn('E')
-        ->setJoin(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column::AUTOFILTER_COLUMN_JOIN_AND)
+        ->setJoin(Column::AUTOFILTER_COLUMN_JOIN_AND)
         ->createRule()
         ->setRule(
-            \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL,
+            Rule::AUTOFILTER_COLUMN_RULE_LESSTHANOREQUAL,
             600
         )
-        ->setRuleType(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column\Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
+        ->setRuleType(Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
 
 // Save
 $helper->write($spreadsheet, __FILE__);

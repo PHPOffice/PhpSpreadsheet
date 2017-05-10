@@ -3,8 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
 use PhpOffice\PhpSpreadsheet\Chart\Legend;
+use PHPUnit_Framework_TestCase;
 
-class LegendTest extends \PHPUnit_Framework_TestCase
+class LegendTest extends PHPUnit_Framework_TestCase
 {
     public function testSetPosition()
     {

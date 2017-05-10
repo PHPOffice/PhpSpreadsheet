@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 error_reporting(E_ALL);
 set_time_limit(0);
 
@@ -16,18 +18,18 @@ date_default_timezone_set('Europe/London');
 <body>
 
 <h1>PhpSpreadsheet Reader Example #04</h1>
-<h2>Simple File Reader using the \PhpOffice\PhpSpreadsheet\IOFactory to Identify a Reader to Use</h2>
+<h2>Simple File Reader using the IOFactory to Identify a Reader to Use</h2>
 <?php
 
 require_once __DIR__ . '/../../../src/Bootstrap.php';
 
 $inputFileName = './sampleData/example1.xls';
 
-$inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName);
+$inputFileType = IOFactory::identify($inputFileName);
 echo 'File ',pathinfo($inputFileName, PATHINFO_BASENAME),' has been identified as an ',$inputFileType,' file<br />';
 
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using IOFactory with the identified reader type<br />';
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = IOFactory::createReader($inputFileType);
 $spreadsheet = $reader->load($inputFileName);
 
 echo '<hr />';

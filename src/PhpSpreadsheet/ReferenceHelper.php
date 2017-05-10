@@ -807,7 +807,7 @@ class ReferenceHelper
     /**
      * Update named formulas (i.e. containing worksheet references / named ranges).
      *
-     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet Object to update
+     * @param Spreadsheet $spreadsheet Object to update
      * @param string $oldName Old name (name to replace)
      * @param string $newName New name
      */

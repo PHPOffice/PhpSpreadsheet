@@ -2,6 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+use PhpOffice\PhpSpreadsheet\IComparable;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -24,7 +27,7 @@ namespace PhpOffice\PhpSpreadsheet\Style;
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
-class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
+class Font extends Supervisor implements IComparable
 {
     /* Underline types */
     const UNDERLINE_NONE = 'none';
@@ -156,7 +159,6 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
 
     /**
      * Apply styles from array.
-     *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getFont()->applyFromArray(
      *        array(
@@ -170,11 +172,11 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *            )
      *        )
      * );
-     * </code>
+     * </code>.
      *
      * @param array $pStyles Array containing style information
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Font
      */
@@ -524,7 +526,7 @@ class Font extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @param Color $pValue
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Font
      */

@@ -3,8 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PHPUnit_Framework_TestCase;
 
-class FileTest extends \PHPUnit_Framework_TestCase
+class FileTest extends PHPUnit_Framework_TestCase
 {
     public function testGetUseUploadTempDirectory()
     {

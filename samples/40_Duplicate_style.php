@@ -1,15 +1,19 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style;
+
 require __DIR__ . '/Header.php';
 
 $helper->log('Create new Spreadsheet object');
-$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new Spreadsheet();
 $worksheet = $spreadsheet->getActiveSheet();
 
 $helper->log('Create styles array');
 $styles = [];
 for ($i = 0; $i < 10; ++$i) {
-    $style = new \PhpOffice\PhpSpreadsheet\Style();
+    $style = new Style();
     $style->getFont()->setSize($i + 4);
     $styles[] = $style;
 }
@@ -20,7 +24,7 @@ for ($col = 0; $col < 50; ++$col) {
     for ($row = 0; $row < 100; ++$row) {
         $str = ($row + $col);
         $style = $styles[$row % 10];
-        $coord = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col) . ($row + 1);
+        $coord = Cell::stringFromColumnIndex($col) . ($row + 1);
         $worksheet->setCellValue($coord, $str);
         $worksheet->duplicateStyle($style, $coord);
     }

@@ -4,8 +4,9 @@ namespace PhpOffice\PhpSpreadsheetTests\Style;
 
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PHPUnit_Framework_TestCase;
 
-class NumberFormatDateTest extends \PHPUnit_Framework_TestCase
+class NumberFormatDateTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

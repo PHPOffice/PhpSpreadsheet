@@ -1,10 +1,14 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
+use PhpOffice\PhpSpreadsheet\NamedRange;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 require __DIR__ . '/Header.php';
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
-$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new Spreadsheet();
 
 // Set document properties
 $helper->log('Set document properties');
@@ -39,7 +43,7 @@ foreach ($continents as $key => $filename) {
     $spreadsheet->getActiveSheet()
             ->fromArray($countries, null, $column . '1');
     $spreadsheet->addNamedRange(
-        new \PhpOffice\PhpSpreadsheet\NamedRange(
+        new NamedRange(
             $continent,
             $spreadsheet->getActiveSheet(),
             $column . '1:' . $column . $countryCount
@@ -61,7 +65,7 @@ $spreadsheet->getActiveSheet()
         ->setVisible(false);
 
 $spreadsheet->addNamedRange(
-    new \PhpOffice\PhpSpreadsheet\NamedRange(
+    new NamedRange(
         'Continents',
         $spreadsheet->getActiveSheet(),
         $continentColumn . '1:' . $continentColumn . count($continents)
@@ -85,8 +89,8 @@ $spreadsheet->getActiveSheet()
 $validation = $spreadsheet->getActiveSheet()
         ->getCell('B1')
         ->getDataValidation();
-$validation->setType(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST)
-        ->setErrorStyle(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION)
+$validation->setType(DataValidation::TYPE_LIST)
+        ->setErrorStyle(DataValidation::STYLE_INFORMATION)
         ->setAllowBlank(false)
         ->setShowInputMessage(true)
         ->setShowErrorMessage(true)
@@ -106,8 +110,8 @@ $spreadsheet->getActiveSheet()
 $validation = $spreadsheet->getActiveSheet()
         ->getCell('B3')
         ->getDataValidation();
-$validation->setType(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST)
-        ->setErrorStyle(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION)
+$validation->setType(DataValidation::TYPE_LIST)
+        ->setErrorStyle(DataValidation::STYLE_INFORMATION)
         ->setAllowBlank(false)
         ->setShowInputMessage(true)
         ->setShowErrorMessage(true)

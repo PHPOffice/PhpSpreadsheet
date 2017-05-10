@@ -19,6 +19,7 @@ use PhpOffice\PhpSpreadsheet\Style;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
+use XMLReader;
 use ZipArchive;
 
 /**
@@ -219,7 +220,7 @@ class Xlsx extends BaseReader implements IReader
 
                         $fileWorksheet = $worksheets[(string) self::getArrayItem($eleSheet->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'), 'id')];
 
-                        $xml = new \XMLReader();
+                        $xml = new XMLReader();
                         $res = $xml->xml(
                             $this->securityScanFile(
                                 'zip://' . File::realpath($pFilename) . '#' . "$dir/$fileWorksheet"
@@ -231,12 +232,12 @@ class Xlsx extends BaseReader implements IReader
 
                         $currCells = 0;
                         while ($xml->read()) {
-                            if ($xml->name == 'row' && $xml->nodeType == \XMLReader::ELEMENT) {
+                            if ($xml->name == 'row' && $xml->nodeType == XMLReader::ELEMENT) {
                                 $row = $xml->getAttribute('r');
                                 $tmpInfo['totalRows'] = $row;
                                 $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
                                 $currCells = 0;
-                            } elseif ($xml->name == 'c' && $xml->nodeType == \XMLReader::ELEMENT) {
+                            } elseif ($xml->name == 'c' && $xml->nodeType == XMLReader::ELEMENT) {
                                 ++$currCells;
                             }
                         }

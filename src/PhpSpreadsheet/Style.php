@@ -184,13 +184,13 @@ class Style extends Style\Supervisor implements IComparable
      *             ),
      *             'borders' => array(
      *                 'bottom'     => array(
-     *                     'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT,
+     *                     'style' => Border::BORDER_DASHDOT,
      *                     'color' => array(
      *                         'rgb' => '808080'
      *                     )
      *                 ),
      *                 'top'     => array(
-     *                     'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT,
+     *                     'style' => Border::BORDER_DASHDOT,
      *                     'color' => array(
      *                         'rgb' => '808080'
      *                     )

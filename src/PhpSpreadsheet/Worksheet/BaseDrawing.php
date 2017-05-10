@@ -2,6 +2,10 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+use PhpOffice\PhpSpreadsheet\IComparable;
+use PhpOffice\PhpSpreadsheet\Worksheet;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -24,7 +28,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
-class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
+class BaseDrawing implements IComparable
 {
     /**
      * Image counter.
@@ -210,14 +214,14 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
     /**
      * Set Worksheet.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $pValue
+     * @param Worksheet $pValue
      * @param bool $pOverrideOld If a Worksheet has already been assigned, overwrite it and remove image from old Worksheet?
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return BaseDrawing
      */
-    public function setWorksheet(\PhpOffice\PhpSpreadsheet\Worksheet $pValue = null, $pOverrideOld = false)
+    public function setWorksheet(Worksheet $pValue = null, $pOverrideOld = false)
     {
         if (is_null($this->worksheet)) {
             // Add drawing to \PhpOffice\PhpSpreadsheet\Worksheet
@@ -240,7 +244,7 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
                 // Set new \PhpOffice\PhpSpreadsheet\Worksheet
                 $this->setWorksheet($pValue);
             } else {
-                throw new \PhpOffice\PhpSpreadsheet\Exception("A \PhpOffice\PhpSpreadsheet\Worksheet has already been assigned. Drawings can only exist on one \PhpOffice\PhpSpreadsheet\Worksheet.");
+                throw new PhpSpreadsheetException("A Worksheet has already been assigned. Drawings can only exist on one \PhpOffice\PhpSpreadsheet\Worksheet.");
             }
         }
 
@@ -479,7 +483,7 @@ class BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @param Drawing\Shadow $pValue
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return BaseDrawing
      */

@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+
 /**
  *    For an m-by-n matrix A with m >= n, the LU decomposition is an m-by-n
  *    unit lower triangular matrix L, an n-by-n upper triangular matrix U,
@@ -124,7 +126,7 @@ class LUDecomposition
                 }
             }
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(Matrix::ARGUMENT_TYPE_EXCEPTION);
+            throw new CalculationException(Matrix::ARGUMENT_TYPE_EXCEPTION);
         }
     }
 
@@ -233,7 +235,7 @@ class LUDecomposition
 
             return $d;
         }
-        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(Matrix::MATRIX_DIMENSION_EXCEPTION);
+        throw new CalculationException(Matrix::MATRIX_DIMENSION_EXCEPTION);
     }
 
     //    function det()
@@ -243,8 +245,8 @@ class LUDecomposition
      *
      * @param $B a Matrix with as many rows as A and any number of columns
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Calculation\Exception illegalArgumentException Matrix row dimensions must agree
-     * @throws \PhpOffice\PhpSpreadsheet\Calculation\Exception runtimeException  Matrix is singular
+     * @throws CalculationException illegalArgumentException Matrix row dimensions must agree
+     * @throws CalculationException runtimeException  Matrix is singular
      *
      * @return X so that L*U*X = B(piv,:)
      */
@@ -277,8 +279,8 @@ class LUDecomposition
 
                 return $X;
             }
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::MATRIX_SINGULAR_EXCEPTION);
+            throw new CalculationException(self::MATRIX_SINGULAR_EXCEPTION);
         }
-        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::MATRIX_SQUARE_EXCEPTION);
+        throw new CalculationException(self::MATRIX_SQUARE_EXCEPTION);
     }
 }

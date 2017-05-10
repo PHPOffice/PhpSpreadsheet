@@ -70,13 +70,13 @@ class Drawing
         $name = $pDefaultFont->getName();
         $size = $pDefaultFont->getSize();
 
-        if (isset(\PhpOffice\PhpSpreadsheet\Shared\Font::$defaultColumnWidths[$name][$size])) {
+        if (isset(Font::$defaultColumnWidths[$name][$size])) {
             // Exact width can be determined
-            $colWidth = $pValue * \PhpOffice\PhpSpreadsheet\Shared\Font::$defaultColumnWidths[$name][$size]['width'] / \PhpOffice\PhpSpreadsheet\Shared\Font::$defaultColumnWidths[$name][$size]['px'];
+            $colWidth = $pValue * Font::$defaultColumnWidths[$name][$size]['width'] / Font::$defaultColumnWidths[$name][$size]['px'];
         } else {
             // We don't have data for this particular font and size, use approximation by
             // extrapolating from Calibri 11
-            $colWidth = $pValue * 11 * \PhpOffice\PhpSpreadsheet\Shared\Font::$defaultColumnWidths['Calibri'][11]['width'] / \PhpOffice\PhpSpreadsheet\Shared\Font::$defaultColumnWidths['Calibri'][11]['px'] / $size;
+            $colWidth = $pValue * 11 * Font::$defaultColumnWidths['Calibri'][11]['width'] / Font::$defaultColumnWidths['Calibri'][11]['px'] / $size;
         }
 
         return $colWidth;
@@ -96,13 +96,13 @@ class Drawing
         $name = $pDefaultFont->getName();
         $size = $pDefaultFont->getSize();
 
-        if (isset(\PhpOffice\PhpSpreadsheet\Shared\Font::$defaultColumnWidths[$name][$size])) {
+        if (isset(Font::$defaultColumnWidths[$name][$size])) {
             // Exact width can be determined
-            $colWidth = $pValue * \PhpOffice\PhpSpreadsheet\Shared\Font::$defaultColumnWidths[$name][$size]['px'] / \PhpOffice\PhpSpreadsheet\Shared\Font::$defaultColumnWidths[$name][$size]['width'];
+            $colWidth = $pValue * Font::$defaultColumnWidths[$name][$size]['px'] / Font::$defaultColumnWidths[$name][$size]['width'];
         } else {
             // We don't have data for this particular font and size, use approximation by
             // extrapolating from Calibri 11
-            $colWidth = $pValue * $size * \PhpOffice\PhpSpreadsheet\Shared\Font::$defaultColumnWidths['Calibri'][11]['px'] / \PhpOffice\PhpSpreadsheet\Shared\Font::$defaultColumnWidths['Calibri'][11]['width'] / 11;
+            $colWidth = $pValue * $size * Font::$defaultColumnWidths['Calibri'][11]['px'] / Font::$defaultColumnWidths['Calibri'][11]['width'] / 11;
         }
 
         // Round pixels to closest integer

@@ -1,10 +1,13 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 require __DIR__ . '/Header.php';
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
-$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new Spreadsheet();
 
 // Set document properties
 $helper->log('Set document properties');
@@ -35,8 +38,8 @@ $spreadsheet->getActiveSheet()->setCellValue('A1', 'Cell B3 and B5 contain data 
 // Set data validation
 $helper->log('Set data validation');
 $validation = $spreadsheet->getActiveSheet()->getCell('B3')->getDataValidation();
-$validation->setType(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_WHOLE);
-$validation->setErrorStyle(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_STOP);
+$validation->setType(DataValidation::TYPE_WHOLE);
+$validation->setErrorStyle(DataValidation::STYLE_STOP);
 $validation->setAllowBlank(true);
 $validation->setShowInputMessage(true);
 $validation->setShowErrorMessage(true);
@@ -48,8 +51,8 @@ $validation->setFormula1(10);
 $validation->setFormula2(20);
 
 $validation = $spreadsheet->getActiveSheet()->getCell('B5')->getDataValidation();
-$validation->setType(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST);
-$validation->setErrorStyle(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION);
+$validation->setType(DataValidation::TYPE_LIST);
+$validation->setErrorStyle(DataValidation::STYLE_INFORMATION);
 $validation->setAllowBlank(false);
 $validation->setShowInputMessage(true);
 $validation->setShowErrorMessage(true);
@@ -61,8 +64,8 @@ $validation->setPrompt('Please pick a value from the drop-down list.');
 $validation->setFormula1('"Item A,Item B,Item C"'); // Make sure to put the list items between " and " if your list is simply a comma-separated list of values !!!
 
 $validation = $spreadsheet->getActiveSheet()->getCell('B7')->getDataValidation();
-$validation->setType(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST);
-$validation->setErrorStyle(\PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION);
+$validation->setType(DataValidation::TYPE_LIST);
+$validation->setErrorStyle(DataValidation::STYLE_INFORMATION);
 $validation->setAllowBlank(false);
 $validation->setShowInputMessage(true);
 $validation->setShowErrorMessage(true);

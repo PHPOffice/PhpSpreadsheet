@@ -1657,7 +1657,7 @@ class Worksheet implements IComparable
      *
      * @param int $pColumn Numeric column coordinate of the cell (A = 0)
      * @param int $pRow Numeric row coordinate of the cell
-     * @param int $pBreak Break type (type of \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_*)
+     * @param int $pBreak Break type (type of Worksheet::BREAK_*)
      *
      * @return Worksheet
      */

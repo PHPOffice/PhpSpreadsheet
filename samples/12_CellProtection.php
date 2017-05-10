@@ -1,10 +1,13 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Protection;
+
 require __DIR__ . '/Header.php';
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
-$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new Spreadsheet();
 
 // Set document properties
 $helper->log('Set document properties');
@@ -37,7 +40,7 @@ $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
 $spreadsheet->getActiveSheet()
         ->getStyle('A2:B2')
         ->getProtection()->setLocked(
-            \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED
+            Protection::PROTECTION_UNPROTECTED
         );
 
 // Save

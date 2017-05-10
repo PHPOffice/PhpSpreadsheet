@@ -3,8 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PHPUnit_Framework_TestCase;
 
-class IOFactoryTest extends \PHPUnit_Framework_TestCase
+class IOFactoryTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider providerIdentify

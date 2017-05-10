@@ -2,7 +2,16 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
+use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
+use PhpOffice\PhpSpreadsheet\Writer\Ods\Content;
+use PhpOffice\PhpSpreadsheet\Writer\Ods\Meta;
+use PhpOffice\PhpSpreadsheet\Writer\Ods\MetaInf;
+use PhpOffice\PhpSpreadsheet\Writer\Ods\Mimetype;
+use PhpOffice\PhpSpreadsheet\Writer\Ods\Settings;
+use PhpOffice\PhpSpreadsheet\Writer\Ods\Styles;
+use PhpOffice\PhpSpreadsheet\Writer\Ods\Thumbnails;
 use ZipArchive;
 
 /**
@@ -46,20 +55,20 @@ class Ods extends BaseWriter implements IWriter
     /**
      * Create a new Ods.
      *
-     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    public function __construct(Spreadsheet $spreadsheet)
     {
         $this->setSpreadsheet($spreadsheet);
 
         $writerPartsArray = [
-            'content' => \PhpOffice\PhpSpreadsheet\Writer\Ods\Content::class,
-            'meta' => \PhpOffice\PhpSpreadsheet\Writer\Ods\Meta::class,
-            'meta_inf' => \PhpOffice\PhpSpreadsheet\Writer\Ods\MetaInf::class,
-            'mimetype' => \PhpOffice\PhpSpreadsheet\Writer\Ods\Mimetype::class,
-            'settings' => \PhpOffice\PhpSpreadsheet\Writer\Ods\Settings::class,
-            'styles' => \PhpOffice\PhpSpreadsheet\Writer\Ods\Styles::class,
-            'thumbnails' => \PhpOffice\PhpSpreadsheet\Writer\Ods\Thumbnails::class,
+            'content' => Content::class,
+            'meta' => Meta::class,
+            'meta_inf' => MetaInf::class,
+            'mimetype' => Mimetype::class,
+            'settings' => Settings::class,
+            'styles' => Styles::class,
+            'thumbnails' => Thumbnails::class,
         ];
 
         foreach ($writerPartsArray as $writer => $class) {
@@ -88,12 +97,12 @@ class Ods extends BaseWriter implements IWriter
      *
      * @param string $pFilename
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws WriterException
      */
     public function save($pFilename)
     {
         if (!$this->spreadSheet) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('PhpSpreadsheet object unassigned.');
+            throw new WriterException('PhpSpreadsheet object unassigned.');
         }
 
         // garbage collect
@@ -102,7 +111,7 @@ class Ods extends BaseWriter implements IWriter
         // If $pFilename is php://output or php://stdout, make it a temporary file...
         $originalFilename = $pFilename;
         if (strtolower($pFilename) == 'php://output' || strtolower($pFilename) == 'php://stdout') {
-            $pFilename = @tempnam(\PhpOffice\PhpSpreadsheet\Shared\File::sysGetTempDir(), 'phpxltmp');
+            $pFilename = @tempnam(File::sysGetTempDir(), 'phpxltmp');
             if ($pFilename == '') {
                 $pFilename = $originalFilename;
             }
@@ -120,13 +129,13 @@ class Ods extends BaseWriter implements IWriter
 
         // Close file
         if ($zip->close() === false) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Could not close zip file $pFilename.");
+            throw new WriterException("Could not close zip file $pFilename.");
         }
 
         // If a temporary file was used, copy it to the correct file stream
         if ($originalFilename != $pFilename) {
             if (copy($pFilename, $originalFilename) === false) {
-                throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Could not copy temporary zip file $pFilename to $originalFilename.");
+                throw new WriterException("Could not copy temporary zip file $pFilename to $originalFilename.");
             }
             @unlink($pFilename);
         }
@@ -137,7 +146,7 @@ class Ods extends BaseWriter implements IWriter
      *
      * @param string $pFilename
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws WriterException
      *
      * @return ZipArchive
      */
@@ -152,7 +161,7 @@ class Ods extends BaseWriter implements IWriter
         // Try opening the ZIP file
         if ($zip->open($pFilename, ZipArchive::OVERWRITE) !== true) {
             if ($zip->open($pFilename, ZipArchive::CREATE) !== true) {
-                throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Could not open $pFilename for writing.");
+                throw new WriterException("Could not open $pFilename for writing.");
             }
         }
 
@@ -162,7 +171,7 @@ class Ods extends BaseWriter implements IWriter
     /**
      * Get Spreadsheet object.
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws WriterException
      *
      * @return Spreadsheet
      */
@@ -171,19 +180,19 @@ class Ods extends BaseWriter implements IWriter
         if ($this->spreadSheet !== null) {
             return $this->spreadSheet;
         }
-        throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('No PhpSpreadsheet assigned.');
+        throw new WriterException('No PhpSpreadsheet assigned.');
     }
 
     /**
      * Set Spreadsheet object.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet PhpSpreadsheet object
+     * @param Spreadsheet $spreadsheet PhpSpreadsheet object
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws WriterException
      *
      * @return self
      */
-    public function setSpreadsheet(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    public function setSpreadsheet(Spreadsheet $spreadsheet)
     {
         $this->spreadSheet = $spreadsheet;
 

@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
+use PhpOffice\PhpSpreadsheet\Calculation;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -116,12 +118,12 @@ class Database
                 $k = array_search($criteriaName, $fieldNames);
                 if (isset($dataValues[$k])) {
                     $dataValue = $dataValues[$k];
-                    $dataValue = (is_string($dataValue)) ? \PhpOffice\PhpSpreadsheet\Calculation::wrapResult(strtoupper($dataValue)) : $dataValue;
+                    $dataValue = (is_string($dataValue)) ? Calculation::wrapResult(strtoupper($dataValue)) : $dataValue;
                     $testConditionList = str_replace('[:' . $criteriaName . ']', $dataValue, $testConditionList);
                 }
             }
             //    evaluate the criteria against the row data
-            $result = \PhpOffice\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue('=' . $testConditionList);
+            $result = Calculation::getInstance()->_calculateFormulaValue('=' . $testConditionList);
             //    If the row failed to meet the criteria, remove it from the database
             if (!$result) {
                 unset($database[$dataRow]);
