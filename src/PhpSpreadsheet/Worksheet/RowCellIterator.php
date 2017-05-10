@@ -8,20 +8,17 @@ use PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
- *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  * @category   PhpSpreadsheet
  *
@@ -170,9 +167,7 @@ class RowCellIterator extends CellIterator implements \Iterator
     {
         do {
             ++$this->position;
-        } while (($this->onlyExistingCells) &&
-            (!$this->subject->cellExistsByColumnAndRow($this->position, $this->rowIndex)) &&
-            ($this->position <= $this->endColumn));
+        } while (($this->onlyExistingCells) && (!$this->subject->cellExistsByColumnAndRow($this->position, $this->rowIndex)) && ($this->position <= $this->endColumn));
     }
 
     /**
@@ -183,16 +178,11 @@ class RowCellIterator extends CellIterator implements \Iterator
     public function prev()
     {
         if ($this->position <= $this->startColumn) {
-            throw new PhpSpreadsheetException('Column is already at the beginning of range (' .
-                Cell::stringFromColumnIndex($this->endColumn) . ' - ' .
-                Cell::stringFromColumnIndex($this->endColumn) . ')'
-            );
+            throw new PhpSpreadsheetException('Column is already at the beginning of range (' . Cell::stringFromColumnIndex($this->endColumn) . ' - ' . Cell::stringFromColumnIndex($this->endColumn) . ')');
         }
         do {
             --$this->position;
-        } while (($this->onlyExistingCells) &&
-            (!$this->subject->cellExistsByColumnAndRow($this->position, $this->rowIndex)) &&
-            ($this->position >= $this->startColumn));
+        } while (($this->onlyExistingCells) && (!$this->subject->cellExistsByColumnAndRow($this->position, $this->rowIndex)) && ($this->position >= $this->startColumn));
     }
 
     /**
@@ -213,15 +203,13 @@ class RowCellIterator extends CellIterator implements \Iterator
     protected function adjustForExistingOnlyRange()
     {
         if ($this->onlyExistingCells) {
-            while ((!$this->subject->cellExistsByColumnAndRow($this->startColumn, $this->rowIndex)) &&
-                ($this->startColumn <= $this->endColumn)) {
+            while ((!$this->subject->cellExistsByColumnAndRow($this->startColumn, $this->rowIndex)) && ($this->startColumn <= $this->endColumn)) {
                 ++$this->startColumn;
             }
             if ($this->startColumn > $this->endColumn) {
                 throw new PhpSpreadsheetException('No cells exist within the specified range');
             }
-            while ((!$this->subject->cellExistsByColumnAndRow($this->endColumn, $this->rowIndex)) &&
-                ($this->endColumn >= $this->startColumn)) {
+            while ((!$this->subject->cellExistsByColumnAndRow($this->endColumn, $this->rowIndex)) && ($this->endColumn >= $this->startColumn)) {
                 --$this->endColumn;
             }
             if ($this->endColumn < $this->startColumn) {
