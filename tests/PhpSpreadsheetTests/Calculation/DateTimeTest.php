@@ -5,11 +5,12 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PHPUnit_Framework_TestCase;
 
 /**
  * Class DateTimeTest.
  */
-class DateTimeTest extends \PHPUnit_Framework_TestCase
+class DateTimeTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

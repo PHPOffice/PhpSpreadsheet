@@ -3,8 +3,11 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
 use PhpOffice\PhpSpreadsheet\Calculation;
+use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
+use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
+use PhpOffice\PhpSpreadsheet\Writer\Html as WriterHtml;
 
 /**
  *  Copyright (c) 2006 - 2015 PhpSpreadsheet.
@@ -28,7 +31,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
  *  @copyright   Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  *  @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
-abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\Html
+abstract class Core extends WriterHtml
 {
     /**
      * Temporary storage directory.
@@ -148,7 +151,7 @@ abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\Html
     {
         parent::__construct($spreadsheet);
         $this->setUseInlineCss(true);
-        $this->tempDir = \PhpOffice\PhpSpreadsheet\Shared\File::sysGetTempDir();
+        $this->tempDir = File::sysGetTempDir();
     }
 
     /**
@@ -240,7 +243,7 @@ abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\Html
      *
      * @param string $pValue Temporary storage directory
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception when directory does not exist
+     * @throws WriterException when directory does not exist
      *
      * @return self
      */
@@ -249,7 +252,7 @@ abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\Html
         if (is_dir($pValue)) {
             $this->tempDir = $pValue;
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Directory does not exist: $pValue");
+            throw new WriterException("Directory does not exist: $pValue");
         }
 
         return $this;
@@ -260,7 +263,7 @@ abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\Html
      *
      * @param string $pFilename Name of the file to save as
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws WriterException
      */
     protected function prepareForSave($pFilename)
     {
@@ -273,7 +276,7 @@ abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\Html
         //  Open file
         $fileHandle = fopen($pFilename, 'w');
         if ($fileHandle === false) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Could not open file $pFilename for writing.");
+            throw new WriterException("Could not open file $pFilename for writing.");
         }
 
         //  Set PDF
@@ -289,7 +292,7 @@ abstract class Core extends \PhpOffice\PhpSpreadsheet\Writer\Html
      *
      * @param resource $fileHandle
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws WriterException
      */
     protected function restoreStateAfterSave($fileHandle)
     {

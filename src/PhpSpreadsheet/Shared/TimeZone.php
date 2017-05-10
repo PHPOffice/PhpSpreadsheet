@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
+use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 
 /**
@@ -45,7 +46,7 @@ class TimeZone
      */
     private static function validateTimeZone($timezone)
     {
-        if (in_array($timezone, \DateTimeZone::listIdentifiers())) {
+        if (in_array($timezone, DateTimeZone::listIdentifiers())) {
             return true;
         }
 
@@ -105,7 +106,7 @@ class TimeZone
             return 0;
         }
 
-        $objTimezone = new \DateTimeZone($timezone);
+        $objTimezone = new DateTimeZone($timezone);
         $transitions = $objTimezone->getTransitions($timestamp, $timestamp);
 
         return (count($transitions) > 0) ? $transitions[0]['offset'] : 0;

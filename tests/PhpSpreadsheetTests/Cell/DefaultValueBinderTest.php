@@ -2,12 +2,14 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
+use DateTime;
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
 use PhpOffice\PhpSpreadsheet\RichText;
+use PHPUnit_Framework_TestCase;
 
-class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
+class DefaultValueBinderTest extends PHPUnit_Framework_TestCase
 {
     protected $cellStub;
 
@@ -50,7 +52,7 @@ class DefaultValueBinderTest extends \PHPUnit_Framework_TestCase
             ['123'],
             ['-123.456'],
             ['#REF!'],
-            [new \DateTime()],
+            [new DateTime()],
         ];
     }
 

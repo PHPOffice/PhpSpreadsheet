@@ -51,15 +51,15 @@ class Xls
             // then we have column dimension with explicit width
             $columnDimension = $columnDimensions[$col];
             $width = $columnDimension->getWidth();
-            $pixelWidth = \PhpOffice\PhpSpreadsheet\Shared\Drawing::cellDimensionToPixels($width, $font);
+            $pixelWidth = Drawing::cellDimensionToPixels($width, $font);
         } elseif ($sheet->getDefaultColumnDimension()->getWidth() != -1) {
             // then we have default column dimension with explicit width
             $defaultColumnDimension = $sheet->getDefaultColumnDimension();
             $width = $defaultColumnDimension->getWidth();
-            $pixelWidth = \PhpOffice\PhpSpreadsheet\Shared\Drawing::cellDimensionToPixels($width, $font);
+            $pixelWidth = Drawing::cellDimensionToPixels($width, $font);
         } else {
             // we don't even have any default column dimension. Width depends on default font
-            $pixelWidth = \PhpOffice\PhpSpreadsheet\Shared\Font::getDefaultColumnWidthByFont($font, true);
+            $pixelWidth = Font::getDefaultColumnWidthByFont($font, true);
         }
 
         // now find the effective column width in pixels
@@ -99,11 +99,11 @@ class Xls
             // then we have a default row dimension with explicit height
             $defaultRowDimension = $sheet->getDefaultRowDimension();
             $rowHeight = $defaultRowDimension->getRowHeight();
-            $pixelRowHeight = \PhpOffice\PhpSpreadsheet\Shared\Drawing::pointsToPixels($rowHeight);
+            $pixelRowHeight = Drawing::pointsToPixels($rowHeight);
         } else {
             // we don't even have any default row dimension. Height depends on default font
-            $pointRowHeight = \PhpOffice\PhpSpreadsheet\Shared\Font::getDefaultRowHeightByFont($font);
-            $pixelRowHeight = \PhpOffice\PhpSpreadsheet\Shared\Font::fontSizeToPixels($pointRowHeight);
+            $pointRowHeight = Font::getDefaultRowHeightByFont($font);
+            $pixelRowHeight = Font::fontSizeToPixels($pointRowHeight);
         }
 
         // now find the effective row height in pixels

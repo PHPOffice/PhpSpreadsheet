@@ -6,8 +6,9 @@ use PhpOffice\PhpSpreadsheet\Collection\Cells;
 use PhpOffice\PhpSpreadsheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
+use PHPUnit_Framework_TestCase;
 
-class AutoFilterTest extends \PHPUnit_Framework_TestCase
+class AutoFilterTest extends PHPUnit_Framework_TestCase
 {
     private $testInitialRange = 'H2:O256';
     private $testAutoFilterObject;

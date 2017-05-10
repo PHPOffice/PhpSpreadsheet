@@ -8,6 +8,7 @@ use DOMNode;
 use DOMText;
 use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Font;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -674,7 +675,7 @@ class Html
             $richtextRun->getFont()->setItalic(true);
         }
         if ($this->underline) {
-            $richtextRun->getFont()->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE);
+            $richtextRun->getFont()->setUnderline(Font::UNDERLINE_SINGLE);
         }
         if ($this->superscript) {
             $richtextRun->getFont()->setSuperScript(true);

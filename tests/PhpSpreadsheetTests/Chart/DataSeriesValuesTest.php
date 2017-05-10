@@ -4,8 +4,9 @@ namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
 use PhpOffice\PhpSpreadsheet\Exception;
+use PHPUnit_Framework_TestCase;
 
-class DataSeriesValuesTest extends \PHPUnit_Framework_TestCase
+class DataSeriesValuesTest extends PHPUnit_Framework_TestCase
 {
     public function testSetDataType()
     {

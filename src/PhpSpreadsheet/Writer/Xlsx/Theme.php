@@ -26,6 +26,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
+use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
@@ -143,9 +144,9 @@ class Theme extends WriterPart
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new XMLWriter(XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
+            $objWriter = new XMLWriter(XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -816,7 +817,7 @@ class Theme extends WriterPart
     /**
      * Write fonts to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter
+     * @param XMLWriter $objWriter
      * @param string $latinFont
      * @param array of string                $fontSet
      *
@@ -852,7 +853,7 @@ class Theme extends WriterPart
     /**
      * Write colour scheme to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter
+     * @param XMLWriter $objWriter
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *

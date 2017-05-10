@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 use PhpOffice\PhpSpreadsheet\Style;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
@@ -455,13 +456,13 @@ class Xf
      * @static    array of int
      */
     private static $mapHAlignments = [
-        \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_GENERAL => 0,
-        \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT => 1,
-        \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER => 2,
-        \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT => 3,
-        \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_FILL => 4,
-        \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_JUSTIFY => 5,
-        \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER_CONTINUOUS => 6,
+        Alignment::HORIZONTAL_GENERAL => 0,
+        Alignment::HORIZONTAL_LEFT => 1,
+        Alignment::HORIZONTAL_CENTER => 2,
+        Alignment::HORIZONTAL_RIGHT => 3,
+        Alignment::HORIZONTAL_FILL => 4,
+        Alignment::HORIZONTAL_JUSTIFY => 5,
+        Alignment::HORIZONTAL_CENTER_CONTINUOUS => 6,
     ];
 
     /**
@@ -486,10 +487,10 @@ class Xf
      * @static    array of int
      */
     private static $mapVAlignments = [
-        \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP => 0,
-        \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER => 1,
-        \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_BOTTOM => 2,
-        \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_JUSTIFY => 3,
+        Alignment::VERTICAL_TOP => 0,
+        Alignment::VERTICAL_CENTER => 1,
+        Alignment::VERTICAL_BOTTOM => 2,
+        Alignment::VERTICAL_JUSTIFY => 3,
     ];
 
     /**

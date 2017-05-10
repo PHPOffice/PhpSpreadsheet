@@ -4,8 +4,9 @@ namespace PhpOffice\PhpSpreadsheetTests;
 
 use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PHPUnit_Framework_TestCase;
 
-class CalculationTest extends \PHPUnit_Framework_TestCase
+class CalculationTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

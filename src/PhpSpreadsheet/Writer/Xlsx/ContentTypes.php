@@ -2,8 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
+use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -35,7 +38,7 @@ class ContentTypes extends WriterPart
      * @param Spreadsheet $spreadsheet
      * @param bool $includeCharts Flag indicating if we should include drawing details for charts
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws WriterException
      *
      * @return string XML Output
      */
@@ -44,9 +47,9 @@ class ContentTypes extends WriterPart
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new XMLWriter(XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
+            $objWriter = new XMLWriter(XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -190,30 +193,30 @@ class ContentTypes extends WriterPart
      *
      * @param string $pFile Filename
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws WriterException
      *
      * @return string Mime Type
      */
     private function getImageMimeType($pFile)
     {
-        if (\PhpOffice\PhpSpreadsheet\Shared\File::fileExists($pFile)) {
+        if (File::fileExists($pFile)) {
             $image = getimagesize($pFile);
 
             return image_type_to_mime_type($image[2]);
         }
-        throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("File $pFile does not exist");
+        throw new WriterException("File $pFile does not exist");
     }
 
     /**
      * Write Default content type.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
+     * @param XMLWriter $objWriter XML Writer
      * @param string $pPartname Part name
      * @param string $pContentType Content type
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws WriterException
      */
-    private function writeDefaultContentType(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, $pPartname, $pContentType)
+    private function writeDefaultContentType(XMLWriter $objWriter, $pPartname, $pContentType)
     {
         if ($pPartname != '' && $pContentType != '') {
             // Write content type
@@ -222,20 +225,20 @@ class ContentTypes extends WriterPart
             $objWriter->writeAttribute('ContentType', $pContentType);
             $objWriter->endElement();
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Invalid parameters passed.');
+            throw new WriterException('Invalid parameters passed.');
         }
     }
 
     /**
      * Write Override content type.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter XML Writer
+     * @param XMLWriter $objWriter XML Writer
      * @param string $pPartname Part name
      * @param string $pContentType Content type
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws WriterException
      */
-    private function writeOverrideContentType(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, $pPartname, $pContentType)
+    private function writeOverrideContentType(XMLWriter $objWriter, $pPartname, $pContentType)
     {
         if ($pPartname != '' && $pContentType != '') {
             // Write content type
@@ -244,7 +247,7 @@ class ContentTypes extends WriterPart
             $objWriter->writeAttribute('ContentType', $pContentType);
             $objWriter->endElement();
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Invalid parameters passed.');
+            throw new WriterException('Invalid parameters passed.');
         }
     }
 }

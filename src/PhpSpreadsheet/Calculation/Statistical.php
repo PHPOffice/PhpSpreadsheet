@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 /* LOG_GAMMA_X_MAX_VALUE */
 use PhpOffice\PhpSpreadsheet\Calculation;
+use PhpOffice\PhpSpreadsheet\Shared\trend\trend;
 
 define('LOG_GAMMA_X_MAX_VALUE', 2.55e305);
 
@@ -1196,7 +1197,7 @@ class Statistical
             return Functions::DIV0();
         }
 
-        $bestFitLinear = \PhpOffice\PhpSpreadsheet\Shared\trend\trend::calculate(\PhpOffice\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
+        $bestFitLinear = trend::calculate(trend::TREND_LINEAR, $yValues, $xValues);
 
         return $bestFitLinear->getCorrelation();
     }
@@ -1357,7 +1358,7 @@ class Statistical
             return Functions::DIV0();
         }
 
-        $bestFitLinear = \PhpOffice\PhpSpreadsheet\Shared\trend\trend::calculate(\PhpOffice\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
+        $bestFitLinear = trend::calculate(trend::TREND_LINEAR, $yValues, $xValues);
 
         return $bestFitLinear->getCovariance();
     }
@@ -1651,7 +1652,7 @@ class Statistical
             return Functions::DIV0();
         }
 
-        $bestFitLinear = \PhpOffice\PhpSpreadsheet\Shared\trend\trend::calculate(\PhpOffice\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
+        $bestFitLinear = trend::calculate(trend::TREND_LINEAR, $yValues, $xValues);
 
         return $bestFitLinear->getValueOfYForX($xValue);
     }
@@ -1831,7 +1832,7 @@ class Statistical
         $newValues = Functions::flattenArray($newValues);
         $const = (is_null($const)) ? true : (bool) Functions::flattenSingleValue($const);
 
-        $bestFitExponential = \PhpOffice\PhpSpreadsheet\Shared\trend\trend::calculate(\PhpOffice\PhpSpreadsheet\Shared\trend\trend::TREND_EXPONENTIAL, $yValues, $xValues, $const);
+        $bestFitExponential = trend::calculate(trend::TREND_EXPONENTIAL, $yValues, $xValues, $const);
         if (empty($newValues)) {
             $newValues = $bestFitExponential->getXValues();
         }
@@ -1958,7 +1959,7 @@ class Statistical
             return Functions::DIV0();
         }
 
-        $bestFitLinear = \PhpOffice\PhpSpreadsheet\Shared\trend\trend::calculate(\PhpOffice\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
+        $bestFitLinear = trend::calculate(trend::TREND_LINEAR, $yValues, $xValues);
 
         return $bestFitLinear->getIntersect();
     }
@@ -2086,7 +2087,7 @@ class Statistical
             return 0;
         }
 
-        $bestFitLinear = \PhpOffice\PhpSpreadsheet\Shared\trend\trend::calculate(\PhpOffice\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues, $const);
+        $bestFitLinear = trend::calculate(trend::TREND_LINEAR, $yValues, $xValues, $const);
         if ($stats) {
             return [
                 [
@@ -2155,7 +2156,7 @@ class Statistical
             return 1;
         }
 
-        $bestFitExponential = \PhpOffice\PhpSpreadsheet\Shared\trend\trend::calculate(\PhpOffice\PhpSpreadsheet\Shared\trend\trend::TREND_EXPONENTIAL, $yValues, $xValues, $const);
+        $bestFitExponential = trend::calculate(trend::TREND_EXPONENTIAL, $yValues, $xValues, $const);
         if ($stats) {
             return [
                 [
@@ -3007,7 +3008,7 @@ class Statistical
             return Functions::DIV0();
         }
 
-        $bestFitLinear = \PhpOffice\PhpSpreadsheet\Shared\trend\trend::calculate(\PhpOffice\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
+        $bestFitLinear = trend::calculate(trend::TREND_LINEAR, $yValues, $xValues);
 
         return $bestFitLinear->getGoodnessOfFit();
     }
@@ -3077,7 +3078,7 @@ class Statistical
             return Functions::DIV0();
         }
 
-        $bestFitLinear = \PhpOffice\PhpSpreadsheet\Shared\trend\trend::calculate(\PhpOffice\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
+        $bestFitLinear = trend::calculate(trend::TREND_LINEAR, $yValues, $xValues);
 
         return $bestFitLinear->getSlope();
     }
@@ -3381,7 +3382,7 @@ class Statistical
             return Functions::DIV0();
         }
 
-        $bestFitLinear = \PhpOffice\PhpSpreadsheet\Shared\trend\trend::calculate(\PhpOffice\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
+        $bestFitLinear = trend::calculate(trend::TREND_LINEAR, $yValues, $xValues);
 
         return $bestFitLinear->getStdevOfResiduals();
     }
@@ -3532,7 +3533,7 @@ class Statistical
         $newValues = Functions::flattenArray($newValues);
         $const = (is_null($const)) ? true : (bool) Functions::flattenSingleValue($const);
 
-        $bestFitLinear = \PhpOffice\PhpSpreadsheet\Shared\trend\trend::calculate(\PhpOffice\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues, $const);
+        $bestFitLinear = trend::calculate(trend::TREND_LINEAR, $yValues, $xValues, $const);
         if (empty($newValues)) {
             $newValues = $bestFitLinear->getXValues();
         }

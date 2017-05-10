@@ -1,5 +1,6 @@
 <?php
 
+use InvalidArgumentException;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 error_reporting(E_ALL);
@@ -27,7 +28,7 @@ $inputFileName = './sampleData/example_1.xls';
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using IOFactory to identify the format<br />';
 try {
     $spreadsheet = IOFactory::load($inputFileName);
-} catch (\InvalidArgumentException $e) {
+} catch (InvalidArgumentException $e) {
     die('Error loading file "' . pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
 }
 

@@ -6,16 +6,22 @@ use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Chart;
 use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\Shared\Drawing as SharedDrawing;
+use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\Font;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Font as StyleFont;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
+use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 
 /**
  * Copyright (c) 2006 - 2015 Spreadsheet.
@@ -93,7 +99,7 @@ class Html extends BaseWriter implements IWriter
     /**
      * Default font.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Style\Font
+     * @var StyleFont
      */
     private $defaultFont;
 
@@ -155,7 +161,7 @@ class Html extends BaseWriter implements IWriter
      *
      * @param string $pFilename
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws WriterException
      */
     public function save($pFilename)
     {
@@ -173,7 +179,7 @@ class Html extends BaseWriter implements IWriter
         // Open file
         $fileHandle = fopen($pFilename, 'wb+');
         if ($fileHandle === false) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Could not open file $pFilename for writing.");
+            throw new WriterException("Could not open file $pFilename for writing.");
         }
 
         // Write headers
@@ -207,12 +213,12 @@ class Html extends BaseWriter implements IWriter
     private function mapVAlign($vAlign)
     {
         switch ($vAlign) {
-            case \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_BOTTOM:
+            case Alignment::VERTICAL_BOTTOM:
                 return 'bottom';
-            case \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP:
+            case Alignment::VERTICAL_TOP:
                 return 'top';
-            case \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER:
-            case \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_JUSTIFY:
+            case Alignment::VERTICAL_CENTER:
+            case Alignment::VERTICAL_JUSTIFY:
                 return 'middle';
             default:
                 return 'baseline';
@@ -229,16 +235,16 @@ class Html extends BaseWriter implements IWriter
     private function mapHAlign($hAlign)
     {
         switch ($hAlign) {
-            case \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_GENERAL:
+            case Alignment::HORIZONTAL_GENERAL:
                 return false;
-            case \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT:
+            case Alignment::HORIZONTAL_LEFT:
                 return 'left';
-            case \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT:
+            case Alignment::HORIZONTAL_RIGHT:
                 return 'right';
-            case \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER:
-            case \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER_CONTINUOUS:
+            case Alignment::HORIZONTAL_CENTER:
+            case Alignment::HORIZONTAL_CENTER_CONTINUOUS:
                 return 'center';
-            case \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_JUSTIFY:
+            case Alignment::HORIZONTAL_JUSTIFY:
                 return 'justify';
             default:
                 return false;
@@ -352,7 +358,7 @@ class Html extends BaseWriter implements IWriter
      *
      * @param bool $pIncludeStyles Include styles?
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws WriterException
      *
      * @return string
      */
@@ -360,7 +366,7 @@ class Html extends BaseWriter implements IWriter
     {
         // Spreadsheet object known?
         if (is_null($this->spreadsheet)) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Internal Spreadsheet object not set to an instance of an object.');
+            throw new WriterException('Internal Spreadsheet object not set to an instance of an object.');
         }
 
         // Construct HTML
@@ -412,7 +418,7 @@ class Html extends BaseWriter implements IWriter
     /**
      * Generate sheet data.
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws WriterException
      *
      * @return string
      */
@@ -420,7 +426,7 @@ class Html extends BaseWriter implements IWriter
     {
         // Spreadsheet object known?
         if (is_null($this->spreadsheet)) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Internal Spreadsheet object not set to an instance of an object.');
+            throw new WriterException('Internal Spreadsheet object not set to an instance of an object.');
         }
 
         // Ensure that Spans have been calculated?
@@ -532,7 +538,7 @@ class Html extends BaseWriter implements IWriter
     /**
      * Generate sheet tabs.
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws WriterException
      *
      * @return string
      */
@@ -540,7 +546,7 @@ class Html extends BaseWriter implements IWriter
     {
         // Spreadsheet object known?
         if (is_null($this->spreadsheet)) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Internal Spreadsheet object not set to an instance of an object.');
+            throw new WriterException('Internal Spreadsheet object not set to an instance of an object.');
         }
 
         // Fetch sheets
@@ -593,7 +599,7 @@ class Html extends BaseWriter implements IWriter
         }
 
         foreach ($pSheet->getDrawingCollection() as $drawing) {
-            if ($drawing instanceof \PhpOffice\PhpSpreadsheet\Worksheet\Drawing) {
+            if ($drawing instanceof Drawing) {
                 $imageTL = Cell::coordinateFromString($drawing->getCoordinates());
                 $imageCol = Cell::columnIndexFromString($imageTL[0]);
                 if ($imageTL[1] > $rowMax) {
@@ -636,7 +642,7 @@ class Html extends BaseWriter implements IWriter
      * @param Worksheet $pSheet \PhpOffice\PhpSpreadsheet\Worksheet
      * @param string $coordinates Cell coordinates
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws WriterException
      *
      * @return string
      */
@@ -647,7 +653,7 @@ class Html extends BaseWriter implements IWriter
 
         // Write images
         foreach ($pSheet->getDrawingCollection() as $drawing) {
-            if ($drawing instanceof \PhpOffice\PhpSpreadsheet\Worksheet\Drawing) {
+            if ($drawing instanceof Drawing) {
                 if ($drawing->getCoordinates() == $coordinates) {
                     $filename = $drawing->getPath();
 
@@ -719,7 +725,7 @@ class Html extends BaseWriter implements IWriter
      * @param Worksheet $pSheet \PhpOffice\PhpSpreadsheet\Worksheet
      * @param string $coordinates Cell coordinates
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws WriterException
      *
      * @return string
      */
@@ -733,7 +739,7 @@ class Html extends BaseWriter implements IWriter
             if ($chart instanceof Chart) {
                 $chartCoordinates = $chart->getTopLeftPosition();
                 if ($chartCoordinates['cell'] == $coordinates) {
-                    $chartFileName = \PhpOffice\PhpSpreadsheet\Shared\File::sysGetTempDir() . '/' . uniqid() . '.png';
+                    $chartFileName = File::sysGetTempDir() . '/' . uniqid() . '.png';
                     if (!$chart->render($chartFileName)) {
                         return;
                     }
@@ -767,7 +773,7 @@ class Html extends BaseWriter implements IWriter
      *
      * @param bool $generateSurroundingHTML Generate surrounding HTML tags? (&lt;style&gt; and &lt;/style&gt;)
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws WriterException
      *
      * @return string
      */
@@ -775,7 +781,7 @@ class Html extends BaseWriter implements IWriter
     {
         // Spreadsheet object known?
         if (is_null($this->spreadsheet)) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Internal Spreadsheet object not set to an instance of an object.');
+            throw new WriterException('Internal Spreadsheet object not set to an instance of an object.');
         }
 
         // Build CSS
@@ -811,7 +817,7 @@ class Html extends BaseWriter implements IWriter
      *
      * @param bool $generateSurroundingHTML Generate surrounding HTML style? (html { })
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws WriterException
      *
      * @return array
      */
@@ -819,7 +825,7 @@ class Html extends BaseWriter implements IWriter
     {
         // Spreadsheet object known?
         if (is_null($this->spreadsheet)) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Internal Spreadsheet object not set to an instance of an object.');
+            throw new WriterException('Internal Spreadsheet object not set to an instance of an object.');
         }
 
         // Cached?
@@ -904,8 +910,8 @@ class Html extends BaseWriter implements IWriter
 
             // col elements, loop through columnDimensions and set width
             foreach ($sheet->getColumnDimensions() as $columnDimension) {
-                if (($width = \PhpOffice\PhpSpreadsheet\Shared\Drawing::cellDimensionToPixels($columnDimension->getWidth(), $this->defaultFont)) >= 0) {
-                    $width = \PhpOffice\PhpSpreadsheet\Shared\Drawing::pixelsToPoints($width);
+                if (($width = SharedDrawing::cellDimensionToPixels($columnDimension->getWidth(), $this->defaultFont)) >= 0) {
+                    $width = SharedDrawing::pixelsToPoints($width);
                     $column = Cell::columnIndexFromString($columnDimension->getColumnIndex()) - 1;
                     $this->columnWidths[$sheetIndex][$column] = $width;
                     $css['table.sheet' . $sheetIndex . ' col.col' . $column]['width'] = $width . 'pt';
@@ -990,11 +996,11 @@ class Html extends BaseWriter implements IWriter
     /**
      * Create CSS style (\PhpOffice\PhpSpreadsheet\Style\Alignment).
      *
-     * @param \PhpOffice\PhpSpreadsheet\Style\Alignment $pStyle \PhpOffice\PhpSpreadsheet\Style\Alignment
+     * @param Alignment $pStyle \PhpOffice\PhpSpreadsheet\Style\Alignment
      *
      * @return array
      */
-    private function createCSSStyleAlignment(\PhpOffice\PhpSpreadsheet\Style\Alignment $pStyle)
+    private function createCSSStyleAlignment(Alignment $pStyle)
     {
         // Construct CSS
         $css = [];
@@ -1014,11 +1020,11 @@ class Html extends BaseWriter implements IWriter
     /**
      * Create CSS style (\PhpOffice\PhpSpreadsheet\Style\Font).
      *
-     * @param \PhpOffice\PhpSpreadsheet\Style\Font $pStyle \PhpOffice\PhpSpreadsheet\Style\Font
+     * @param StyleFont $pStyle \PhpOffice\PhpSpreadsheet\Style\Font
      *
      * @return array
      */
-    private function createCSSStyleFont(\PhpOffice\PhpSpreadsheet\Style\Font $pStyle)
+    private function createCSSStyleFont(StyleFont $pStyle)
     {
         // Construct CSS
         $css = [];
@@ -1027,9 +1033,9 @@ class Html extends BaseWriter implements IWriter
         if ($pStyle->getBold()) {
             $css['font-weight'] = 'bold';
         }
-        if ($pStyle->getUnderline() != \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_NONE && $pStyle->getStrikethrough()) {
+        if ($pStyle->getUnderline() != StyleFont::UNDERLINE_NONE && $pStyle->getStrikethrough()) {
             $css['text-decoration'] = 'underline line-through';
-        } elseif ($pStyle->getUnderline() != \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_NONE) {
+        } elseif ($pStyle->getUnderline() != StyleFont::UNDERLINE_NONE) {
             $css['text-decoration'] = 'underline';
         } elseif ($pStyle->getStrikethrough()) {
             $css['text-decoration'] = 'line-through';
@@ -1120,7 +1126,7 @@ class Html extends BaseWriter implements IWriter
      *
      * @param Worksheet $pSheet The worksheet for the table we are writing
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws WriterException
      *
      * @return string
      */
@@ -1167,7 +1173,7 @@ class Html extends BaseWriter implements IWriter
     /**
      * Generate table footer.
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws WriterException
      */
     private function generateTableFooter()
     {
@@ -1184,7 +1190,7 @@ class Html extends BaseWriter implements IWriter
      * @param int $pRow Row number (0-based)
      * @param mixed $cellType eg: 'td'
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws WriterException
      *
      * @return string
      */
@@ -1331,7 +1337,7 @@ class Html extends BaseWriter implements IWriter
 
                     // General horizontal alignment: Actual horizontal alignment depends on dataType
                     $sharedStyle = $pSheet->getParent()->getCellXfByIndex($cell->getXfIndex());
-                    if ($sharedStyle->getAlignment()->getHorizontal() == \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_GENERAL
+                    if ($sharedStyle->getAlignment()->getHorizontal() == Alignment::HORIZONTAL_GENERAL
                         && isset($this->cssStyles['.' . $cell->getDataType()]['text-align'])
                     ) {
                         $cssClass['text-align'] = $this->cssStyles['.' . $cell->getDataType()]['text-align'];

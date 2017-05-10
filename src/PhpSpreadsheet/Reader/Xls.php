@@ -7,15 +7,23 @@ use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\NamedRange;
 use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\Shared\CodePage;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\Escher;
+use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Shared\OLE;
+use PhpOffice\PhpSpreadsheet\Shared\OLERead;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
+use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpSpreadsheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
@@ -442,7 +450,7 @@ class Xls extends BaseReader implements IReader
 
         try {
             // Use ParseXL for the hard work.
-            $ole = new \PhpOffice\PhpSpreadsheet\Shared\OLERead();
+            $ole = new OLERead();
 
             // get excel data
             $ole->read($pFilename);
@@ -778,7 +786,7 @@ class Xls extends BaseReader implements IReader
 
         // treat MSODRAWINGGROUP records, workbook-level Escher
         if (!$this->readDataOnly && $this->drawingGroupData) {
-            $escherWorkbook = new \PhpOffice\PhpSpreadsheet\Shared\Escher();
+            $escherWorkbook = new Escher();
             $reader = new Xls\Escher($escherWorkbook);
             $escherWorkbook = $reader->load($this->drawingGroupData);
         }
@@ -996,7 +1004,7 @@ class Xls extends BaseReader implements IReader
 
             // treat MSODRAWING records, sheet-level Escher
             if (!$this->readDataOnly && $this->drawingData) {
-                $escherWorksheet = new \PhpOffice\PhpSpreadsheet\Shared\Escher();
+                $escherWorksheet = new Escher();
                 $reader = new Xls\Escher($escherWorksheet);
                 $escherWorksheet = $reader->load($this->drawingData);
 
@@ -1074,11 +1082,11 @@ class Xls extends BaseReader implements IReader
                                 $drawing->setOffsetY($offsetY);
 
                                 switch ($blipType) {
-                                    case \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_JPEG:
+                                    case BSE::BLIPTYPE_JPEG:
                                         $drawing->setRenderingFunction(MemoryDrawing::RENDERING_JPEG);
                                         $drawing->setMimeType(MemoryDrawing::MIMETYPE_JPEG);
                                         break;
-                                    case \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_PNG:
+                                    case BSE::BLIPTYPE_PNG:
                                         $drawing->setRenderingFunction(MemoryDrawing::RENDERING_PNG);
                                         $drawing->setMimeType(MemoryDrawing::MIMETYPE_PNG);
                                         break;
@@ -1279,7 +1287,7 @@ class Xls extends BaseReader implements IReader
     private function loadOLE($pFilename)
     {
         // OLE reader
-        $ole = new \PhpOffice\PhpSpreadsheet\Shared\OLERead();
+        $ole = new OLERead();
         // get excel data,
         $ole->read($pFilename);
         // Get workbook data: workbook stream + sheet streams
@@ -1355,7 +1363,7 @@ class Xls extends BaseReader implements IReader
                     break;
                 case 0x40: // Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
                     // PHP-time
-                    $value = \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE2LocalDate(substr($this->summaryInformation, $secOffset + 4 + $offset, 8));
+                    $value = OLE::OLE2LocalDate(substr($this->summaryInformation, $secOffset + 4 + $offset, 8));
                     break;
                 case 0x47: // Clipboard format
                     // not needed yet, fix later if necessary
@@ -1364,7 +1372,7 @@ class Xls extends BaseReader implements IReader
 
             switch ($id) {
                 case 0x01:    //    Code Page
-                    $codePage = \PhpOffice\PhpSpreadsheet\Shared\CodePage::numberToName($value);
+                    $codePage = CodePage::numberToName($value);
                     break;
                 case 0x02:    //    Title
                     $this->spreadsheet->getProperties()->setTitle($value);
@@ -1493,7 +1501,7 @@ class Xls extends BaseReader implements IReader
                     break;
                 case 0x40:    //    Filetime (64-bit value representing the number of 100-nanosecond intervals since January 1, 1601)
                     // PHP-Time
-                    $value = \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE2LocalDate(substr($this->documentSummaryInformation, $secOffset + 4 + $offset, 8));
+                    $value = OLE::OLE2LocalDate(substr($this->documentSummaryInformation, $secOffset + 4 + $offset, 8));
                     break;
                 case 0x47:    //    Clipboard format
                     // not needed yet, fix later if necessary
@@ -1502,7 +1510,7 @@ class Xls extends BaseReader implements IReader
 
             switch ($id) {
                 case 0x01:    //    Code Page
-                    $codePage = \PhpOffice\PhpSpreadsheet\Shared\CodePage::numberToName($value);
+                    $codePage = CodePage::numberToName($value);
                     break;
                 case 0x02:    //    Category
                     $this->spreadsheet->getProperties()->setCategory($value);
@@ -1877,7 +1885,7 @@ class Xls extends BaseReader implements IReader
         // offset: 0; size: 2; code page identifier
         $codepage = self::getInt2d($recordData, 0);
 
-        $this->codepage = \PhpOffice\PhpSpreadsheet\Shared\CodePage::numberToName($codepage);
+        $this->codepage = CodePage::numberToName($codepage);
     }
 
     /**
@@ -1919,7 +1927,7 @@ class Xls extends BaseReader implements IReader
         $this->pos += 4 + $length;
 
         if (!$this->readDataOnly) {
-            $objFont = new \PhpOffice\PhpSpreadsheet\Style\Font();
+            $objFont = new Font();
 
             // offset: 0; size: 2; height of the font (in twips = 1/20 of a point)
             $size = self::getInt2d($recordData, 0);
@@ -1969,16 +1977,16 @@ class Xls extends BaseReader implements IReader
                 case 0x00:
                     break; // no underline
                 case 0x01:
-                    $objFont->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE);
+                    $objFont->setUnderline(Font::UNDERLINE_SINGLE);
                     break;
                 case 0x02:
-                    $objFont->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE);
+                    $objFont->setUnderline(Font::UNDERLINE_DOUBLE);
                     break;
                 case 0x21:
-                    $objFont->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLEACCOUNTING);
+                    $objFont->setUnderline(Font::UNDERLINE_SINGLEACCOUNTING);
                     break;
                 case 0x22:
-                    $objFont->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLEACCOUNTING);
+                    $objFont->setUnderline(Font::UNDERLINE_DOUBLEACCOUNTING);
                     break;
             }
 
@@ -2102,25 +2110,25 @@ class Xls extends BaseReader implements IReader
             $horAlign = (0x07 & ord($recordData[6])) >> 0;
             switch ($horAlign) {
                 case 0:
-                    $objStyle->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_GENERAL);
+                    $objStyle->getAlignment()->setHorizontal(Alignment::HORIZONTAL_GENERAL);
                     break;
                 case 1:
-                    $objStyle->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+                    $objStyle->getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);
                     break;
                 case 2:
-                    $objStyle->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                    $objStyle->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
                     break;
                 case 3:
-                    $objStyle->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+                    $objStyle->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
                     break;
                 case 4:
-                    $objStyle->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_FILL);
+                    $objStyle->getAlignment()->setHorizontal(Alignment::HORIZONTAL_FILL);
                     break;
                 case 5:
-                    $objStyle->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_JUSTIFY);
+                    $objStyle->getAlignment()->setHorizontal(Alignment::HORIZONTAL_JUSTIFY);
                     break;
                 case 6:
-                    $objStyle->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER_CONTINUOUS);
+                    $objStyle->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER_CONTINUOUS);
                     break;
             }
             // bit 3, mask 0x08; wrap text
@@ -2137,16 +2145,16 @@ class Xls extends BaseReader implements IReader
             $vertAlign = (0x70 & ord($recordData[6])) >> 4;
             switch ($vertAlign) {
                 case 0:
-                    $objStyle->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
+                    $objStyle->getAlignment()->setVertical(Alignment::VERTICAL_TOP);
                     break;
                 case 1:
-                    $objStyle->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                    $objStyle->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
                     break;
                 case 2:
-                    $objStyle->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_BOTTOM);
+                    $objStyle->getAlignment()->setVertical(Alignment::VERTICAL_BOTTOM);
                     break;
                 case 3:
-                    $objStyle->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_JUSTIFY);
+                    $objStyle->getAlignment()->setVertical(Alignment::VERTICAL_JUSTIFY);
                     break;
             }
 
@@ -5079,7 +5087,7 @@ class Xls extends BaseReader implements IReader
                 }
                 //imagepng($ih, 'image.png');
 
-                $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+                $drawing = new Drawing();
                 $drawing->setPath($filename);
                 $drawing->setWorksheet($this->phpSheet);
                 break;

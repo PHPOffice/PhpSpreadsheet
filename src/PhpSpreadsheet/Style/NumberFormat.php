@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
+use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\IComparable;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -528,7 +529,7 @@ class NumberFormat extends Supervisor implements IComparable
         $decimalLength = strlen($decimalPart);
         $decimalDivisor = pow(10, $decimalLength);
 
-        $GCD = \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::GCD($decimalPart, $decimalDivisor);
+        $GCD = MathTrig::GCD($decimalPart, $decimalDivisor);
 
         $adjustedDecimalPart = $decimalPart / $GCD;
         $adjustedDecimalDivisor = $decimalDivisor / $GCD;

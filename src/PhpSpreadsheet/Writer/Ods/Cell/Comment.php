@@ -27,6 +27,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Ods\Cell;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 
 /**
  * @category   PhpSpreadsheet
@@ -36,7 +37,7 @@ use PhpOffice\PhpSpreadsheet\Cell;
  */
 class Comment
 {
-    public static function write(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, Cell $cell)
+    public static function write(XMLWriter $objWriter, Cell $cell)
     {
         $comments = $cell->getWorksheet()->getComments();
         if (!isset($comments[$cell->getCoordinate()])) {

@@ -12,6 +12,7 @@ use PhpOffice\PhpSpreadsheet\Chart\Title;
 use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Font;
+use SimpleXMLElement;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -38,11 +39,11 @@ use PhpOffice\PhpSpreadsheet\Style\Font;
 class Chart
 {
     /**
-     * @param \SimpleXMLElement $component
+     * @param SimpleXMLElement $component
      * @param string $name
      * @param string $format
      */
-    private static function getAttribute(\SimpleXMLElement $component, $name, $format)
+    private static function getAttribute(SimpleXMLElement $component, $name, $format)
     {
         $attributes = $component->attributes();
         if (isset($attributes[$name])) {
@@ -70,10 +71,10 @@ class Chart
     }
 
     /**
-     * @param \SimpleXMLElement $chartElements
+     * @param SimpleXMLElement $chartElements
      * @param string $chartName
      */
-    public static function readChart(\SimpleXMLElement $chartElements, $chartName)
+    public static function readChart(SimpleXMLElement $chartElements, $chartName)
     {
         $namespacesChartMeta = $chartElements->getNamespaces(true);
         $chartElementsC = $chartElements->children($namespacesChartMeta['c']);
@@ -215,7 +216,7 @@ class Chart
         return $chart;
     }
 
-    private static function chartTitle(\SimpleXMLElement $titleDetails, array $namespacesChartMeta)
+    private static function chartTitle(SimpleXMLElement $titleDetails, array $namespacesChartMeta)
     {
         $caption = [];
         $titleLayout = null;
@@ -408,7 +409,7 @@ class Chart
         ];
     }
 
-    private static function parseRichText(\SimpleXMLElement $titleDetailPart)
+    private static function parseRichText(SimpleXMLElement $titleDetailPart)
     {
         $value = new RichText();
 

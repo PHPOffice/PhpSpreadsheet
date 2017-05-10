@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
+use PhpOffice\PhpSpreadsheet\Writer\IWriter;
 
 /**
  *  Copyright (c) 2006 - 2015 PhpSpreadsheet.
@@ -26,7 +27,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
  *  @copyright   Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  *  @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
-class DomPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
+class DomPDF extends Core implements IWriter
 {
     /**
      * Save Spreadsheet to file.

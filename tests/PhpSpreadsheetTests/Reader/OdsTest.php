@@ -6,11 +6,12 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Ods;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Font;
+use PHPUnit_Framework_TestCase;
 
 /**
  * @todo The class doesn't read the bold/italic/underline properties (rich text)
  */
-class OdsTest extends \PHPUnit_Framework_TestCase
+class OdsTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var Spreadsheet

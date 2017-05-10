@@ -5,14 +5,17 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\NamedRange;
+use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Font;
 use XMLReader;
 
 /**
@@ -61,7 +64,7 @@ class Gnumeric extends BaseReader implements IReader
     public function __construct()
     {
         $this->readFilter = new DefaultReadFilter();
-        $this->referenceHelper = \PhpOffice\PhpSpreadsheet\ReferenceHelper::getInstance();
+        $this->referenceHelper = ReferenceHelper::getInstance();
     }
 
     /**
@@ -488,38 +491,38 @@ class Gnumeric extends BaseReader implements IReader
                         if (!$this->readDataOnly) {
                             switch ($styleAttributes['HAlign']) {
                                 case '1':
-                                    $styleArray['alignment']['horizontal'] = \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_GENERAL;
+                                    $styleArray['alignment']['horizontal'] = Alignment::HORIZONTAL_GENERAL;
                                     break;
                                 case '2':
-                                    $styleArray['alignment']['horizontal'] = \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT;
+                                    $styleArray['alignment']['horizontal'] = Alignment::HORIZONTAL_LEFT;
                                     break;
                                 case '4':
-                                    $styleArray['alignment']['horizontal'] = \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT;
+                                    $styleArray['alignment']['horizontal'] = Alignment::HORIZONTAL_RIGHT;
                                     break;
                                 case '8':
-                                    $styleArray['alignment']['horizontal'] = \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER;
+                                    $styleArray['alignment']['horizontal'] = Alignment::HORIZONTAL_CENTER;
                                     break;
                                 case '16':
                                 case '64':
-                                    $styleArray['alignment']['horizontal'] = \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER_CONTINUOUS;
+                                    $styleArray['alignment']['horizontal'] = Alignment::HORIZONTAL_CENTER_CONTINUOUS;
                                     break;
                                 case '32':
-                                    $styleArray['alignment']['horizontal'] = \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_JUSTIFY;
+                                    $styleArray['alignment']['horizontal'] = Alignment::HORIZONTAL_JUSTIFY;
                                     break;
                             }
 
                             switch ($styleAttributes['VAlign']) {
                                 case '1':
-                                    $styleArray['alignment']['vertical'] = \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP;
+                                    $styleArray['alignment']['vertical'] = Alignment::VERTICAL_TOP;
                                     break;
                                 case '2':
-                                    $styleArray['alignment']['vertical'] = \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_BOTTOM;
+                                    $styleArray['alignment']['vertical'] = Alignment::VERTICAL_BOTTOM;
                                     break;
                                 case '4':
-                                    $styleArray['alignment']['vertical'] = \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER;
+                                    $styleArray['alignment']['vertical'] = Alignment::VERTICAL_CENTER;
                                     break;
                                 case '8':
-                                    $styleArray['alignment']['vertical'] = \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_JUSTIFY;
+                                    $styleArray['alignment']['vertical'] = Alignment::VERTICAL_JUSTIFY;
                                     break;
                             }
 
@@ -607,19 +610,19 @@ class Gnumeric extends BaseReader implements IReader
                             $styleArray['font']['strike'] = ($fontAttributes['StrikeThrough'] == '1') ? true : false;
                             switch ($fontAttributes['Underline']) {
                                 case '1':
-                                    $styleArray['font']['underline'] = \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE;
+                                    $styleArray['font']['underline'] = Font::UNDERLINE_SINGLE;
                                     break;
                                 case '2':
-                                    $styleArray['font']['underline'] = \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE;
+                                    $styleArray['font']['underline'] = Font::UNDERLINE_DOUBLE;
                                     break;
                                 case '3':
-                                    $styleArray['font']['underline'] = \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLEACCOUNTING;
+                                    $styleArray['font']['underline'] = Font::UNDERLINE_SINGLEACCOUNTING;
                                     break;
                                 case '4':
-                                    $styleArray['font']['underline'] = \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLEACCOUNTING;
+                                    $styleArray['font']['underline'] = Font::UNDERLINE_DOUBLEACCOUNTING;
                                     break;
                                 default:
-                                    $styleArray['font']['underline'] = \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_NONE;
+                                    $styleArray['font']['underline'] = Font::UNDERLINE_NONE;
                                     break;
                             }
                             switch ($fontAttributes['Script']) {

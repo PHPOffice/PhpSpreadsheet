@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Reader\Xls as ReaderXls;
+
 error_reporting(E_ALL);
 set_time_limit(0);
 
@@ -24,7 +26,7 @@ require_once __DIR__ . '/../../../src/Bootstrap.php';
 $inputFileName = './sampleData/example1.xls';
 
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using \PhpOffice\PhpSpreadsheet\Reader\Xls<br />';
-$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+$reader = new ReaderXls();
 //	$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
 //	$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xml();
 //	$reader = new \PhpOffice\PhpSpreadsheet\Reader\Ods();

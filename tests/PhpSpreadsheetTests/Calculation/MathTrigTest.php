@@ -5,8 +5,9 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
+use PHPUnit_Framework_TestCase;
 
-class MathTrigTest extends \PHPUnit_Framework_TestCase
+class MathTrigTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

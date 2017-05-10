@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\RichText;
@@ -10,7 +11,9 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Font;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -307,29 +310,29 @@ class Xml extends BaseReader implements IReader
         $toFormats = ['-', ' '];
 
         $underlineStyles = [
-            \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_NONE,
-            \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE,
-            \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLEACCOUNTING,
-            \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE,
-            \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLEACCOUNTING,
+            Font::UNDERLINE_NONE,
+            Font::UNDERLINE_DOUBLE,
+            Font::UNDERLINE_DOUBLEACCOUNTING,
+            Font::UNDERLINE_SINGLE,
+            Font::UNDERLINE_SINGLEACCOUNTING,
         ];
         $verticalAlignmentStyles = [
-            \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_BOTTOM,
-            \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP,
-            \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
-            \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_JUSTIFY,
+            Alignment::VERTICAL_BOTTOM,
+            Alignment::VERTICAL_TOP,
+            Alignment::VERTICAL_CENTER,
+            Alignment::VERTICAL_JUSTIFY,
         ];
         $horizontalAlignmentStyles = [
-            \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_GENERAL,
-            \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
-            \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
-            \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-            \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER_CONTINUOUS,
-            \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_JUSTIFY,
+            Alignment::HORIZONTAL_GENERAL,
+            Alignment::HORIZONTAL_LEFT,
+            Alignment::HORIZONTAL_RIGHT,
+            Alignment::HORIZONTAL_CENTER,
+            Alignment::HORIZONTAL_CENTER_CONTINUOUS,
+            Alignment::HORIZONTAL_JUSTIFY,
         ];
 
-        $timezoneObj = new \DateTimeZone('Europe/London');
-        $GMT = new \DateTimeZone('UTC');
+        $timezoneObj = new DateTimeZone('Europe/London');
+        $GMT = new DateTimeZone('UTC');
 
         File::assertFile($pFilename);
         if (!$this->canRead($pFilename)) {

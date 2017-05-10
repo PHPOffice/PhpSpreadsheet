@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
 
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+
 /**
  *    Cholesky decomposition class.
  *
@@ -137,8 +139,8 @@ class CholeskyDecomposition
 
                 return new Matrix($X, $this->m, $nx);
             }
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(MatrixSPDException));
+            throw new CalculationException(JAMAError(MatrixSPDException));
         }
-        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(MATRIX_DIMENSION_EXCEPTION));
+        throw new CalculationException(JAMAError(MATRIX_DIMENSION_EXCEPTION));
     }
 }

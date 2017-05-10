@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+use PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -570,7 +571,7 @@ class MathTrig
         }
 
         try {
-            $matrix = new \PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix($matrixData);
+            $matrix = new Matrix($matrixData);
 
             return $matrix->det();
         } catch (PhpSpreadsheetException $ex) {
@@ -624,7 +625,7 @@ class MathTrig
         }
 
         try {
-            $matrix = new \PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix($matrixData);
+            $matrix = new Matrix($matrixData);
 
             return $matrix->inverse()->getArray();
         } catch (PhpSpreadsheetException $ex) {
@@ -666,7 +667,7 @@ class MathTrig
                 }
                 ++$rowA;
             }
-            $matrixA = new \PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix($matrixAData);
+            $matrixA = new Matrix($matrixAData);
             $rowB = 0;
             foreach ($matrixData2 as $matrixRow) {
                 if (!is_array($matrixRow)) {
@@ -682,7 +683,7 @@ class MathTrig
                 }
                 ++$rowB;
             }
-            $matrixB = new \PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix($matrixBData);
+            $matrixB = new Matrix($matrixBData);
 
             if ($columnA != $rowB) {
                 return Functions::VALUE();

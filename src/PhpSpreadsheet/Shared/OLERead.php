@@ -26,6 +26,8 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
+
 defined('IDENTIFIER_OLE') ||
     define('IDENTIFIER_OLE', pack('CCCCCCCC', 0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1));
 
@@ -71,7 +73,7 @@ class OLERead
      *
      * @param $pFilename string Filename
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
+     * @throws ReaderException
      */
     public function read($pFilename)
     {
@@ -83,7 +85,7 @@ class OLERead
 
         // Check OLE identifier
         if ($this->data != self::IDENTIFIER_OLE) {
-            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('The filename ' . $pFilename . ' is not recognised as an OLE file');
+            throw new ReaderException('The filename ' . $pFilename . ' is not recognised as an OLE file');
         }
 
         // Get the file data
@@ -303,10 +305,10 @@ class OLERead
     {
         if (trim($data) == '') {
             // No data provided
-            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('Parameter data is empty.');
+            throw new ReaderException('Parameter data is empty.');
         } elseif ($pos < 0) {
             // Invalid position
-            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('Parameter pos=' . $pos . ' is invalid.');
+            throw new ReaderException('Parameter pos=' . $pos . ' is invalid.');
         }
 
         $len = strlen($data);

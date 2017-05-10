@@ -3,8 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Cell;
 
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
+use PHPUnit_Framework_TestCase;
 
-class HyperlinkTest extends \PHPUnit_Framework_TestCase
+class HyperlinkTest extends PHPUnit_Framework_TestCase
 {
     public function testGetUrl()
     {

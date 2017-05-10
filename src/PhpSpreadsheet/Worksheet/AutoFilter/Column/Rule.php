@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 
 use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -224,7 +225,7 @@ class Rule
     /**
      * Autofilter Column.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column
+     * @var Column
      */
     private $parent = null;
 
@@ -259,9 +260,9 @@ class Rule
     /**
      * Create a new Rule.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column $pParent
+     * @param Column $pParent
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column $pParent = null)
+    public function __construct(Column $pParent = null)
     {
         $this->parent = $pParent;
     }
@@ -433,7 +434,7 @@ class Rule
     /**
      * Get this Rule's AutoFilter Column Parent.
      *
-     * @return \PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column
+     * @return Column
      */
     public function getParent()
     {
@@ -447,7 +448,7 @@ class Rule
      *
      * @return Rule
      */
-    public function setParent(\PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column $pParent = null)
+    public function setParent(Column $pParent = null)
     {
         $this->parent = $pParent;
 

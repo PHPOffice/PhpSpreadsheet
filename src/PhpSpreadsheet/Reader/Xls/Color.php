@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader\Xls;
 
+use PhpOffice\PhpSpreadsheet\Reader\Xls as XlsReader;
+
 class Color
 {
     /**
@@ -24,7 +26,7 @@ class Color
         }
 
         // default color table
-        if ($version == \PhpOffice\PhpSpreadsheet\Reader\Xls::XLS_BIFF8) {
+        if ($version == XlsReader::XLS_BIFF8) {
             return Color\BIFF8::lookup($color);
         }
 
