@@ -274,4 +274,19 @@ abstract class BaseReader implements IReader
     {
         return $this->securityScan(file_get_contents($filestream));
     }
+
+    /**
+     * Checks if the file to be read is of a valid format.
+     * Redefined in some readers that inherit from this one.
+     *
+     * It's kind of against OOP and it's only added here because base reader
+     * actually calls this method despite it might be not implemented in
+     * an child class.
+     *
+     * @return bool
+     */
+    protected function isValidFormat()
+    {
+        return true;
+    }
 }
