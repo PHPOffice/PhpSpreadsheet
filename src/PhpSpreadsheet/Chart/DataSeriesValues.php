@@ -77,11 +77,9 @@ class DataSeriesValues
     private $dataValues = [];
 
     /**
-<<<<<<< HEAD
      * Create a new DataSeriesValues object.
      *
      * @param mixed $dataType
-=======
      * Fill color.
      *
      * @var string
@@ -90,7 +88,6 @@ class DataSeriesValues
 
     /**
      * Create a new DataSeriesValues object
->>>>>>> aea557bd70f6e4ac13ca625c342fce26ad544331
      * @param string $dataSource
      * @param null|mixed $formatCode
      * @param mixed $pointCount
