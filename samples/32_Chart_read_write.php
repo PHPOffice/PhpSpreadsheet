@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 require __DIR__ . '/Header.php';
 
 $inputFileType = 'Xlsx';
@@ -20,7 +22,7 @@ foreach ($inputFileNames as $inputFileName) {
         $helper->log('File ' . $inputFileNameShort . ' does not exist');
         continue;
     }
-    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+    $reader = IOFactory::createReader($inputFileType);
     $reader->setIncludeCharts(true);
     $callStartTime = microtime(true);
     $spreadsheet = $reader->load($inputFileName);
@@ -69,7 +71,7 @@ foreach ($inputFileNames as $inputFileName) {
     }
 
     $outputFileName = $helper->getFilename($inputFileName);
-    $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+    $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
     $writer->setIncludeCharts(true);
     $callStartTime = microtime(true);
     $writer->save($outputFileName);

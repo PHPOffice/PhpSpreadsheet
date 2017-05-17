@@ -2,6 +2,15 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
+use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer;
+use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer;
+use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer;
+use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer;
+use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer;
+use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE;
+use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE\Blip;
+
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
@@ -83,7 +92,7 @@ class Escher
                     $this->spTypes = $writer->getSpTypes();
                 }
                 break;
-            case \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer::class:
+            case DggContainer::class:
                 // this is a container record
 
                 // initialize
@@ -136,7 +145,7 @@ class Escher
 
                 $this->data = $header . $innerData;
                 break;
-            case \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer::class:
+            case BstoreContainer::class:
                 // this is a container record
 
                 // initialize
@@ -163,7 +172,7 @@ class Escher
 
                 $this->data = $header . $innerData;
                 break;
-            case \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::class:
+            case BSE::class:
                 // this is a semi-container record
 
                 // initialize
@@ -212,12 +221,12 @@ class Escher
 
                 $this->data .= $data;
                 break;
-            case \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE\Blip::class:
+            case Blip::class:
                 // this is an atom record
 
                 // write the record
                 switch ($this->object->getParent()->getBlipType()) {
-                    case \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_JPEG:
+                    case BSE::BLIPTYPE_JPEG:
                         // initialize
                         $innerData = '';
 
@@ -243,7 +252,7 @@ class Escher
 
                         $this->data .= $innerData;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE::BLIPTYPE_PNG:
+                    case BSE::BLIPTYPE_PNG:
                         // initialize
                         $innerData = '';
 
@@ -271,7 +280,7 @@ class Escher
                         break;
                 }
                 break;
-            case \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer::class:
+            case DgContainer::class:
                 // this is a container record
 
                 // initialize
@@ -323,7 +332,7 @@ class Escher
 
                 $this->data = $header . $innerData;
                 break;
-            case \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer::class:
+            case SpgrContainer::class:
                 // this is a container record
 
                 // initialize
@@ -362,7 +371,7 @@ class Escher
                 $this->spOffsets = $spOffsets;
                 $this->spTypes = $spTypes;
                 break;
-            case \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer::class:
+            case SpContainer::class:
                 // initialize
                 $data = '';
 
@@ -425,8 +434,8 @@ class Escher
                     $recType = 0xF010;
 
                     // start coordinates
-                    list($column, $row) = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($this->object->getStartCoordinates());
-                    $c1 = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($column) - 1;
+                    list($column, $row) = Cell::coordinateFromString($this->object->getStartCoordinates());
+                    $c1 = Cell::columnIndexFromString($column) - 1;
                     $r1 = $row - 1;
 
                     // start offsetX
@@ -436,8 +445,8 @@ class Escher
                     $startOffsetY = $this->object->getStartOffsetY();
 
                     // end coordinates
-                    list($column, $row) = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($this->object->getEndCoordinates());
-                    $c2 = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($column) - 1;
+                    list($column, $row) = Cell::coordinateFromString($this->object->getEndCoordinates());
+                    $c2 = Cell::columnIndexFromString($column) - 1;
                     $r2 = $row - 1;
 
                     // end offsetX

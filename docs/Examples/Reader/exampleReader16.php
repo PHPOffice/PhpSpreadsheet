@@ -1,5 +1,8 @@
 <?php
 
+use InvalidArgumentException;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 error_reporting(E_ALL);
 set_time_limit(0);
 
@@ -24,8 +27,8 @@ require_once __DIR__ . '/../../../src/Bootstrap.php';
 $inputFileName = './sampleData/example_1.xls';
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using IOFactory to identify the format<br />';
 try {
-    $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($inputFileName);
-} catch (\InvalidArgumentException $e) {
+    $spreadsheet = IOFactory::load($inputFileName);
+} catch (InvalidArgumentException $e) {
     die('Error loading file "' . pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
 }
 

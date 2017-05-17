@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
+use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
+
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
@@ -117,7 +119,7 @@ class BIFFwriter
                 $byte_order = 1; // Big Endian
             } else {
                 // Give up. I'll fix this in a later version.
-                throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Required floating point format not supported on this platform.');
+                throw new WriterException('Required floating point format not supported on this platform.');
             }
             self::$byteOrder = $byte_order;
         }

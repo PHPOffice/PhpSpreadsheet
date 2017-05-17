@@ -3,8 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Worksheet\AutoFilter\Column;
 
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
+use PHPUnit_Framework_TestCase;
 
-class RuleTest extends \PHPUnit_Framework_TestCase
+class RuleTest extends PHPUnit_Framework_TestCase
 {
     private $testAutoFilterRuleObject;
     private $mockAutoFilterColumnObject;

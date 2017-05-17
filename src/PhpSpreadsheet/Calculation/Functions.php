@@ -3,6 +3,8 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 /* MAX_VALUE */
+use PhpOffice\PhpSpreadsheet\Calculation;
+
 define('MAX_VALUE', 1.2e308);
 
 /* 2 / PI */
@@ -298,7 +300,7 @@ class Functions
         }
         if (!in_array($condition[0], ['>', '<', '='])) {
             if (!is_numeric($condition)) {
-                $condition = \PhpOffice\PhpSpreadsheet\Calculation::wrapResult(strtoupper($condition));
+                $condition = Calculation::wrapResult(strtoupper($condition));
             }
 
             return '=' . $condition;
@@ -308,7 +310,7 @@ class Functions
 
         if (!is_numeric($operand)) {
             $operand = str_replace('"', '""', $operand);
-            $operand = \PhpOffice\PhpSpreadsheet\Calculation::wrapResult(strtoupper($operand));
+            $operand = Calculation::wrapResult(strtoupper($operand));
         }
 
         return $operator . $operand;

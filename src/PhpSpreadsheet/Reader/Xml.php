@@ -2,8 +2,18 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use DateTimeZone;
+use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Document\Properties;
+use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\Settings;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Font;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -126,7 +136,7 @@ class Xml extends BaseReader implements IReader
         $xml = simplexml_load_string(
             $this->securityScan(file_get_contents($pFilename)),
             'SimpleXMLElement',
-            \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
+            Settings::getLibXmlLoaderOptions()
         );
         $namespaces = $xml->getNamespaces(true);
 
@@ -155,7 +165,7 @@ class Xml extends BaseReader implements IReader
         $xml = simplexml_load_string(
             $this->securityScan(file_get_contents($pFilename)),
             'SimpleXMLElement',
-            \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
+            Settings::getLibXmlLoaderOptions()
         );
         $namespaces = $xml->getNamespaces(true);
 
@@ -201,7 +211,7 @@ class Xml extends BaseReader implements IReader
                 }
             }
 
-            $tmpInfo['lastColumnLetter'] = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
+            $tmpInfo['lastColumnLetter'] = Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
             $tmpInfo['totalColumns'] = $tmpInfo['lastColumnIndex'] + 1;
 
             $worksheetInfo[] = $tmpInfo;
@@ -218,7 +228,7 @@ class Xml extends BaseReader implements IReader
      *
      * @throws Exception
      *
-     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @return Spreadsheet
      */
     public function load($pFilename)
     {
@@ -288,41 +298,41 @@ class Xml extends BaseReader implements IReader
      * Loads from file into Spreadsheet instance.
      *
      * @param string $pFilename
-     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws Exception
      *
-     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @return Spreadsheet
      */
-    public function loadIntoExisting($pFilename, \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
+    public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
     {
         $fromFormats = ['\-', '\ '];
         $toFormats = ['-', ' '];
 
         $underlineStyles = [
-            \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_NONE,
-            \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE,
-            \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLEACCOUNTING,
-            \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE,
-            \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLEACCOUNTING,
+            Font::UNDERLINE_NONE,
+            Font::UNDERLINE_DOUBLE,
+            Font::UNDERLINE_DOUBLEACCOUNTING,
+            Font::UNDERLINE_SINGLE,
+            Font::UNDERLINE_SINGLEACCOUNTING,
         ];
         $verticalAlignmentStyles = [
-            \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_BOTTOM,
-            \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP,
-            \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
-            \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_JUSTIFY,
+            Alignment::VERTICAL_BOTTOM,
+            Alignment::VERTICAL_TOP,
+            Alignment::VERTICAL_CENTER,
+            Alignment::VERTICAL_JUSTIFY,
         ];
         $horizontalAlignmentStyles = [
-            \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_GENERAL,
-            \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
-            \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
-            \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-            \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER_CONTINUOUS,
-            \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_JUSTIFY,
+            Alignment::HORIZONTAL_GENERAL,
+            Alignment::HORIZONTAL_LEFT,
+            Alignment::HORIZONTAL_RIGHT,
+            Alignment::HORIZONTAL_CENTER,
+            Alignment::HORIZONTAL_CENTER_CONTINUOUS,
+            Alignment::HORIZONTAL_JUSTIFY,
         ];
 
-        $timezoneObj = new \DateTimeZone('Europe/London');
-        $GMT = new \DateTimeZone('UTC');
+        $timezoneObj = new DateTimeZone('Europe/London');
+        $GMT = new DateTimeZone('UTC');
 
         File::assertFile($pFilename);
         if (!$this->canRead($pFilename)) {
@@ -332,7 +342,7 @@ class Xml extends BaseReader implements IReader
         $xml = simplexml_load_string(
             $this->securityScan(file_get_contents($pFilename)),
             'SimpleXMLElement',
-            \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
+            Settings::getLibXmlLoaderOptions()
         );
         $namespaces = $xml->getNamespaces(true);
 
@@ -382,26 +392,26 @@ class Xml extends BaseReader implements IReader
             foreach ($xml->CustomDocumentProperties[0] as $propertyName => $propertyValue) {
                 $propertyAttributes = $propertyValue->attributes($namespaces['dt']);
                 $propertyName = preg_replace_callback('/_x([0-9a-z]{4})_/', ['self', 'hex2str'], $propertyName);
-                $propertyType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_UNKNOWN;
+                $propertyType = Properties::PROPERTY_TYPE_UNKNOWN;
                 switch ((string) $propertyAttributes) {
                     case 'string':
-                        $propertyType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_STRING;
+                        $propertyType = Properties::PROPERTY_TYPE_STRING;
                         $propertyValue = trim($propertyValue);
                         break;
                     case 'boolean':
-                        $propertyType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_BOOLEAN;
+                        $propertyType = Properties::PROPERTY_TYPE_BOOLEAN;
                         $propertyValue = (bool) $propertyValue;
                         break;
                     case 'integer':
-                        $propertyType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_INTEGER;
+                        $propertyType = Properties::PROPERTY_TYPE_INTEGER;
                         $propertyValue = (int) $propertyValue;
                         break;
                     case 'float':
-                        $propertyType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_FLOAT;
+                        $propertyType = Properties::PROPERTY_TYPE_FLOAT;
                         $propertyValue = (float) $propertyValue;
                         break;
                     case 'dateTime.tz':
-                        $propertyType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_DATE;
+                        $propertyType = Properties::PROPERTY_TYPE_DATE;
                         $propertyValue = strtotime(trim($propertyValue));
                         break;
                 }
@@ -443,7 +453,7 @@ class Xml extends BaseReader implements IReader
                             foreach ($borderAttributes as $borderStyleKey => $borderStyleValue) {
                                 switch ($borderStyleKey) {
                                     case 'LineStyle':
-                                        $thisBorder['style'] = \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM;
+                                        $thisBorder['style'] = Border::BORDER_MEDIUM;
                                         break;
                                     case 'Weight':
                                         break;
@@ -550,7 +560,7 @@ class Xml extends BaseReader implements IReader
                 foreach ($worksheet->Table->Column as $columnData) {
                     $columnData_ss = $columnData->attributes($namespaces['ss']);
                     if (isset($columnData_ss['Index'])) {
-                        $columnID = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($columnData_ss['Index'] - 1);
+                        $columnID = Cell::stringFromColumnIndex($columnData_ss['Index'] - 1);
                     }
                     if (isset($columnData_ss['Width'])) {
                         $columnWidth = $columnData_ss['Width'];
@@ -574,7 +584,7 @@ class Xml extends BaseReader implements IReader
                     foreach ($rowData->Cell as $cell) {
                         $cell_ss = $cell->attributes($namespaces['ss']);
                         if (isset($cell_ss['Index'])) {
-                            $columnID = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($cell_ss['Index'] - 1);
+                            $columnID = Cell::stringFromColumnIndex($cell_ss['Index'] - 1);
                         }
                         $cellRange = $columnID . $rowID;
 
@@ -589,7 +599,7 @@ class Xml extends BaseReader implements IReader
                             $columnTo = $columnID;
                             if (isset($cell_ss['MergeAcross'])) {
                                 $additionalMergedCells += (int) $cell_ss['MergeAcross'];
-                                $columnTo = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex(\PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($columnID) + $cell_ss['MergeAcross'] - 1);
+                                $columnTo = Cell::stringFromColumnIndex(Cell::columnIndexFromString($columnID) + $cell_ss['MergeAcross'] - 1);
                             }
                             $rowTo = $rowID;
                             if (isset($cell_ss['MergeDown'])) {
@@ -611,7 +621,7 @@ class Xml extends BaseReader implements IReader
                         }
                         if (isset($cell->Data)) {
                             $cellValue = $cellData = $cell->Data;
-                            $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NULL;
+                            $type = Cell\DataType::TYPE_NULL;
                             $cellData_ss = $cellData->attributes($namespaces['ss']);
                             if (isset($cellData_ss['Type'])) {
                                 $cellDataType = $cellData_ss['Type'];
@@ -627,32 +637,32 @@ class Xml extends BaseReader implements IReader
                                     */
                                     case 'String':
                                         $cellValue = self::convertStringEncoding($cellValue, $this->charSet);
-                                        $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING;
+                                        $type = Cell\DataType::TYPE_STRING;
                                         break;
                                     case 'Number':
-                                        $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
+                                        $type = Cell\DataType::TYPE_NUMERIC;
                                         $cellValue = (float) $cellValue;
                                         if (floor($cellValue) == $cellValue) {
                                             $cellValue = (int) $cellValue;
                                         }
                                         break;
                                     case 'Boolean':
-                                        $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_BOOL;
+                                        $type = Cell\DataType::TYPE_BOOL;
                                         $cellValue = ($cellValue != 0);
                                         break;
                                     case 'DateTime':
-                                        $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
-                                        $cellValue = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(strtotime($cellValue));
+                                        $type = Cell\DataType::TYPE_NUMERIC;
+                                        $cellValue = Date::PHPToExcel(strtotime($cellValue));
                                         break;
                                     case 'Error':
-                                        $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_ERROR;
+                                        $type = Cell\DataType::TYPE_ERROR;
                                         break;
                                 }
                             }
 
                             if ($hasCalculatedValue) {
-                                $type = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_FORMULA;
-                                $columnNumber = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($columnID);
+                                $type = Cell\DataType::TYPE_FORMULA;
+                                $columnNumber = Cell::columnIndexFromString($columnID);
                                 if (substr($cellDataFormula, 0, 3) == 'of:') {
                                     $cellDataFormula = substr($cellDataFormula, 3);
                                     $temp = explode('"', $cellDataFormula);
@@ -696,7 +706,7 @@ class Xml extends BaseReader implements IReader
                                                 if ($columnReference[0] == '[') {
                                                     $columnReference = $columnNumber + trim($columnReference, '[]');
                                                 }
-                                                $A1CellReference = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($columnReference - 1) . $rowReference;
+                                                $A1CellReference = Cell::stringFromColumnIndex($columnReference - 1) . $rowReference;
                                                 $value = substr_replace($value, $A1CellReference, $cellReference[0][1], strlen($cellReference[0][0]));
                                             }
                                         }
@@ -764,7 +774,7 @@ class Xml extends BaseReader implements IReader
     protected static function convertStringEncoding($string, $charset)
     {
         if ($charset != 'UTF-8') {
-            return \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertEncoding($string, 'UTF-8', $charset);
+            return StringHelper::convertEncoding($string, 'UTF-8', $charset);
         }
 
         return $string;
@@ -772,7 +782,7 @@ class Xml extends BaseReader implements IReader
 
     protected function parseRichText($is)
     {
-        $value = new \PhpOffice\PhpSpreadsheet\RichText();
+        $value = new RichText();
 
         $value->createText(self::convertStringEncoding($is, $this->charSet));
 

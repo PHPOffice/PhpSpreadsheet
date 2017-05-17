@@ -3,6 +3,7 @@
 namespace PhpOffice\PhpSpreadsheet\Collection;
 
 use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
 use PhpOffice\PhpSpreadsheet\Worksheet;
 use Psr\SimpleCache\CacheInterface;
 
@@ -124,7 +125,7 @@ class Cells
      *
      * @param Cell $cell Cell to update
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Cell
      */
@@ -138,7 +139,7 @@ class Cells
      *
      * @param string $pCoord Coordinate of the cell to delete
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      */
     public function delete($pCoord)
     {
@@ -342,7 +343,7 @@ class Cells
         $stored = $newCollection->cache->setMultiple($newValues);
         if (!$stored) {
             $newCollection->__destruct();
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Failed to copy cells in cache');
+            throw new PhpSpreadsheetException('Failed to copy cells in cache');
         }
 
         return $newCollection;
@@ -382,7 +383,7 @@ class Cells
      * Store cell data in cache for the current cell object if it's "dirty",
      * and the 'nullify' the current cell object.
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      */
     private function storeCurrentCell()
     {
@@ -392,7 +393,7 @@ class Cells
             $stored = $this->cache->set($this->cachePrefix . $this->currentCoordinate, $this->currentCell);
             if (!$stored) {
                 $this->__destruct();
-                throw new \PhpOffice\PhpSpreadsheet\Exception("Failed to store cell {$this->currentCoordinate} in cache");
+                throw new PhpSpreadsheetException("Failed to store cell {$this->currentCoordinate} in cache");
             }
             $this->currentCellIsDirty = false;
         }
@@ -407,7 +408,7 @@ class Cells
      * @param string $pCoord Coordinate of the cell to update
      * @param Cell $cell Cell to update
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Cell
      */
@@ -430,7 +431,7 @@ class Cells
      *
      * @param string $pCoord Coordinate of the cell
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Cell Cell that was found, or null if not found
      */
@@ -449,7 +450,7 @@ class Cells
         // Check if the entry that has been requested actually exists
         $cell = $this->cache->get($this->cachePrefix . $pCoord);
         if ($cell === null) {
-            throw new \PhpOffice\PhpSpreadsheet\Exception("Cell entry {$pCoord} no longer exists in cache. This probably means that the cache was cleared by someone else.");
+            throw new PhpSpreadsheetException("Cell entry {$pCoord} no longer exists in cache. This probably means that the cache was cleared by someone else.");
         }
 
         // Set current entry to the requested entry

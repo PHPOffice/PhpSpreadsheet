@@ -2066,7 +2066,7 @@ class Calculation
         }
 
         if (!isset(self::$instance) || (self::$instance === null)) {
-            self::$instance = new \PhpOffice\PhpSpreadsheet\Calculation();
+            self::$instance = new self();
         }
 
         return self::$instance;
@@ -2084,7 +2084,7 @@ class Calculation
 
     /**
      * Flush the calculation cache for any existing instance of this class
-     *        but only if a \PhpOffice\PhpSpreadsheet\Calculation instance exists.
+     *        but only if a Calculation instance exists.
      */
     public function flushInstance()
     {

@@ -1,9 +1,17 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Chart;
+use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
+use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
+use PhpOffice\PhpSpreadsheet\Chart\Legend;
+use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
+use PhpOffice\PhpSpreadsheet\Chart\Title;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/Header.php';
 
-$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new Spreadsheet();
 $worksheet = $spreadsheet->getActiveSheet();
 $worksheet->fromArray(
     [
@@ -23,9 +31,9 @@ $worksheet->fromArray(
 //		Data values
 //		Data Marker
 $dataSeriesLabels1 = [
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$B$1', null, 1), //	2010
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$C$1', null, 1), //	2011
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$D$1', null, 1), //	2012
+    new DataSeriesValues('String', 'Worksheet!$B$1', null, 1), //	2010
+    new DataSeriesValues('String', 'Worksheet!$C$1', null, 1), //	2011
+    new DataSeriesValues('String', 'Worksheet!$D$1', null, 1), //	2012
 ];
 //	Set the X-Axis Labels
 //		Datatype
@@ -35,7 +43,7 @@ $dataSeriesLabels1 = [
 //		Data values
 //		Data Marker
 $xAxisTickValues1 = [
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$A$2:$A$5', null, 4), //	Q1 to Q4
+    new DataSeriesValues('String', 'Worksheet!$A$2:$A$5', null, 4), //	Q1 to Q4
 ];
 //	Set the Data values for each data series we want to plot
 //		Datatype
@@ -45,15 +53,15 @@ $xAxisTickValues1 = [
 //		Data values
 //		Data Marker
 $dataSeriesValues1 = [
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'Worksheet!$B$2:$B$5', null, 4),
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'Worksheet!$C$2:$C$5', null, 4),
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'Worksheet!$D$2:$D$5', null, 4),
+    new DataSeriesValues('Number', 'Worksheet!$B$2:$B$5', null, 4),
+    new DataSeriesValues('Number', 'Worksheet!$C$2:$C$5', null, 4),
+    new DataSeriesValues('Number', 'Worksheet!$D$2:$D$5', null, 4),
 ];
 
 //	Build the dataseries
-$series1 = new \PhpOffice\PhpSpreadsheet\Chart\DataSeries(
-    \PhpOffice\PhpSpreadsheet\Chart\DataSeries::TYPE_AREACHART, // plotType
-    \PhpOffice\PhpSpreadsheet\Chart\DataSeries::GROUPING_PERCENT_STACKED, // plotGrouping
+$series1 = new DataSeries(
+    DataSeries::TYPE_AREACHART, // plotType
+    DataSeries::GROUPING_PERCENT_STACKED, // plotGrouping
     range(0, count($dataSeriesValues1) - 1), // plotOrder
     $dataSeriesLabels1, // plotLabel
     $xAxisTickValues1, // plotCategory
@@ -61,15 +69,15 @@ $series1 = new \PhpOffice\PhpSpreadsheet\Chart\DataSeries(
 );
 
 //	Set the series in the plot area
-$plotArea1 = new \PhpOffice\PhpSpreadsheet\Chart\PlotArea(null, [$series1]);
+$plotArea1 = new PlotArea(null, [$series1]);
 //	Set the chart legend
-$legend1 = new \PhpOffice\PhpSpreadsheet\Chart\Legend(\PhpOffice\PhpSpreadsheet\Chart\Legend::POSITION_TOPRIGHT, null, false);
+$legend1 = new Legend(Legend::POSITION_TOPRIGHT, null, false);
 
-$title1 = new \PhpOffice\PhpSpreadsheet\Chart\Title('Test %age-Stacked Area Chart');
-$yAxisLabel1 = new \PhpOffice\PhpSpreadsheet\Chart\Title('Value ($k)');
+$title1 = new Title('Test %age-Stacked Area Chart');
+$yAxisLabel1 = new Title('Value ($k)');
 
 //	Create the chart
-$chart1 = new \PhpOffice\PhpSpreadsheet\Chart(
+$chart1 = new Chart(
     'chart1', // name
     $title1, // title
     $legend1, // legend
@@ -95,9 +103,9 @@ $worksheet->addChart($chart1);
 //		Data values
 //		Data Marker
 $dataSeriesLabels2 = [
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$B$1', null, 1), //	2010
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$C$1', null, 1), //	2011
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$D$1', null, 1), //	2012
+    new DataSeriesValues('String', 'Worksheet!$B$1', null, 1), //	2010
+    new DataSeriesValues('String', 'Worksheet!$C$1', null, 1), //	2011
+    new DataSeriesValues('String', 'Worksheet!$D$1', null, 1), //	2012
 ];
 //	Set the X-Axis Labels
 //		Datatype
@@ -107,7 +115,7 @@ $dataSeriesLabels2 = [
 //		Data values
 //		Data Marker
 $xAxisTickValues2 = [
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'Worksheet!$A$2:$A$5', null, 4), //	Q1 to Q4
+    new DataSeriesValues('String', 'Worksheet!$A$2:$A$5', null, 4), //	Q1 to Q4
 ];
 //	Set the Data values for each data series we want to plot
 //		Datatype
@@ -117,15 +125,15 @@ $xAxisTickValues2 = [
 //		Data values
 //		Data Marker
 $dataSeriesValues2 = [
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'Worksheet!$B$2:$B$5', null, 4),
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'Worksheet!$C$2:$C$5', null, 4),
-    new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'Worksheet!$D$2:$D$5', null, 4),
+    new DataSeriesValues('Number', 'Worksheet!$B$2:$B$5', null, 4),
+    new DataSeriesValues('Number', 'Worksheet!$C$2:$C$5', null, 4),
+    new DataSeriesValues('Number', 'Worksheet!$D$2:$D$5', null, 4),
 ];
 
 //	Build the dataseries
-$series2 = new \PhpOffice\PhpSpreadsheet\Chart\DataSeries(
-    \PhpOffice\PhpSpreadsheet\Chart\DataSeries::TYPE_BARCHART, // plotType
-    \PhpOffice\PhpSpreadsheet\Chart\DataSeries::GROUPING_STANDARD, // plotGrouping
+$series2 = new DataSeries(
+    DataSeries::TYPE_BARCHART, // plotType
+    DataSeries::GROUPING_STANDARD, // plotGrouping
     range(0, count($dataSeriesValues2) - 1), // plotOrder
     $dataSeriesLabels2, // plotLabel
     $xAxisTickValues2, // plotCategory
@@ -133,18 +141,18 @@ $series2 = new \PhpOffice\PhpSpreadsheet\Chart\DataSeries(
 );
 //	Set additional dataseries parameters
 //		Make it a vertical column rather than a horizontal bar graph
-$series2->setPlotDirection(\PhpOffice\PhpSpreadsheet\Chart\DataSeries::DIRECTION_COL);
+$series2->setPlotDirection(DataSeries::DIRECTION_COL);
 
 //	Set the series in the plot area
-$plotArea2 = new \PhpOffice\PhpSpreadsheet\Chart\PlotArea(null, [$series2]);
+$plotArea2 = new PlotArea(null, [$series2]);
 //	Set the chart legend
-$legend2 = new \PhpOffice\PhpSpreadsheet\Chart\Legend(\PhpOffice\PhpSpreadsheet\Chart\Legend::POSITION_RIGHT, null, false);
+$legend2 = new Legend(Legend::POSITION_RIGHT, null, false);
 
-$title2 = new \PhpOffice\PhpSpreadsheet\Chart\Title('Test Column Chart');
-$yAxisLabel2 = new \PhpOffice\PhpSpreadsheet\Chart\Title('Value ($k)');
+$title2 = new Title('Test Column Chart');
+$yAxisLabel2 = new Title('Value ($k)');
 
 //	Create the chart
-$chart2 = new \PhpOffice\PhpSpreadsheet\Chart(
+$chart2 = new Chart(
     'chart2', // name
     $title2, // title
     $legend2, // legend
@@ -164,7 +172,7 @@ $worksheet->addChart($chart2);
 
 // Save Excel 2007 file
 $filename = $helper->getFilename(__FILE__);
-$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
 $writer->setIncludeCharts(true);
 $callStartTime = microtime(true);
 $writer->save($filename);

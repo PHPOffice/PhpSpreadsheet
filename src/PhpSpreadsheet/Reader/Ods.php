@@ -5,9 +5,16 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 use DateTime;
 use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Calculation;
+use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Document\Properties;
+use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\Settings;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Shared\File;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use XMLReader;
 use ZipArchive;
 
 /**
@@ -76,7 +83,7 @@ class Ods extends BaseReader implements IReader
                 $xml = simplexml_load_string(
                     $this->securityScan($zip->getFromName('META-INF/manifest.xml')),
                     'SimpleXMLElement',
-                    \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
+                    Settings::getLibXmlLoaderOptions()
                 );
                 $namespacesContent = $xml->getNamespaces(true);
                 if (isset($namespacesContent['manifest'])) {
@@ -119,11 +126,11 @@ class Ods extends BaseReader implements IReader
 
         $worksheetNames = [];
 
-        $xml = new \XMLReader();
+        $xml = new XMLReader();
         $xml->xml(
             $this->securityScanFile('zip://' . realpath($pFilename) . '#content.xml'),
             null,
-            \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
+            Settings::getLibXmlLoaderOptions()
         );
         $xml->setParserProperty(2, true);
 
@@ -140,12 +147,12 @@ class Ods extends BaseReader implements IReader
             }
             // Now read each node until we find our first table:table node
             while ($xml->read()) {
-                if ($xml->name == 'table:table' && $xml->nodeType == \XMLReader::ELEMENT) {
+                if ($xml->name == 'table:table' && $xml->nodeType == XMLReader::ELEMENT) {
                     // Loop through each table:table node reading the table:name attribute for each worksheet name
                     do {
                         $worksheetNames[] = $xml->getAttribute('table:name');
                         $xml->next();
-                    } while ($xml->name == 'table:table' && $xml->nodeType == \XMLReader::ELEMENT);
+                    } while ($xml->name == 'table:table' && $xml->nodeType == XMLReader::ELEMENT);
                 }
             }
         }
@@ -173,11 +180,11 @@ class Ods extends BaseReader implements IReader
             throw new Exception('Could not open ' . $pFilename . ' for reading! Error opening file.');
         }
 
-        $xml = new \XMLReader();
+        $xml = new XMLReader();
         $res = $xml->xml(
             $this->securityScanFile('zip://' . realpath($pFilename) . '#content.xml'),
             null,
-            \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
+            Settings::getLibXmlLoaderOptions()
         );
         $xml->setParserProperty(2, true);
 
@@ -194,7 +201,7 @@ class Ods extends BaseReader implements IReader
             }
                 // Now read each node until we find our first table:table node
             while ($xml->read()) {
-                if ($xml->name == 'table:table' && $xml->nodeType == \XMLReader::ELEMENT) {
+                if ($xml->name == 'table:table' && $xml->nodeType == XMLReader::ELEMENT) {
                     $worksheetNames[] = $xml->getAttribute('table:name');
 
                     $tmpInfo = [
@@ -209,7 +216,7 @@ class Ods extends BaseReader implements IReader
                     $currCells = 0;
                     do {
                         $xml->read();
-                        if ($xml->name == 'table:table-row' && $xml->nodeType == \XMLReader::ELEMENT) {
+                        if ($xml->name == 'table:table-row' && $xml->nodeType == XMLReader::ELEMENT) {
                             $rowspan = $xml->getAttribute('table:number-rows-repeated');
                             $rowspan = empty($rowspan) ? 1 : $rowspan;
                             $tmpInfo['totalRows'] += $rowspan;
@@ -218,14 +225,14 @@ class Ods extends BaseReader implements IReader
                             // Step into the row
                             $xml->read();
                             do {
-                                if ($xml->name == 'table:table-cell' && $xml->nodeType == \XMLReader::ELEMENT) {
+                                if ($xml->name == 'table:table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
                                     if (!$xml->isEmptyElement) {
                                         ++$currCells;
                                         $xml->next();
                                     } else {
                                         $xml->read();
                                     }
-                                } elseif ($xml->name == 'table:covered-table-cell' && $xml->nodeType == \XMLReader::ELEMENT) {
+                                } elseif ($xml->name == 'table:covered-table-cell' && $xml->nodeType == XMLReader::ELEMENT) {
                                     $mergeSize = $xml->getAttribute('table:number-columns-repeated');
                                     $currCells += $mergeSize;
                                     $xml->read();
@@ -236,7 +243,7 @@ class Ods extends BaseReader implements IReader
 
                     $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
                     $tmpInfo['lastColumnIndex'] = $tmpInfo['totalColumns'] - 1;
-                    $tmpInfo['lastColumnLetter'] = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
+                    $tmpInfo['lastColumnLetter'] = Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
                     $worksheetInfo[] = $tmpInfo;
                 }
             }
@@ -252,12 +259,12 @@ class Ods extends BaseReader implements IReader
      *
      * @throws Exception
      *
-     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @return Spreadsheet
      */
     public function load($pFilename)
     {
         // Create new Spreadsheet
-        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $spreadsheet = new Spreadsheet();
 
         // Load into this instance
         return $this->loadIntoExisting($pFilename, $spreadsheet);
@@ -281,13 +288,13 @@ class Ods extends BaseReader implements IReader
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      *
      * @param string $pFilename
-     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws Exception
      *
-     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @return Spreadsheet
      */
-    public function loadIntoExisting($pFilename, \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
+    public function loadIntoExisting($pFilename, Spreadsheet $spreadsheet)
     {
         File::assertFile($pFilename);
 
@@ -306,7 +313,7 @@ class Ods extends BaseReader implements IReader
         $xml = simplexml_load_string(
             $this->securityScan($zip->getFromName('meta.xml')),
             'SimpleXMLElement',
-            \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
+            Settings::getLibXmlLoaderOptions()
         );
         $namespacesMeta = $xml->getNamespaces(true);
 
@@ -359,26 +366,26 @@ class Ods extends BaseReader implements IReader
                         $docProps->setCreated($creationDate);
                         break;
                     case 'user-defined':
-                        $propertyValueType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_STRING;
+                        $propertyValueType = Properties::PROPERTY_TYPE_STRING;
                         foreach ($propertyValueAttributes as $key => $value) {
                             if ($key == 'name') {
                                 $propertyValueName = (string) $value;
                             } elseif ($key == 'value-type') {
                                 switch ($value) {
                                     case 'date':
-                                        $propertyValue = \PhpOffice\PhpSpreadsheet\Document\Properties::convertProperty($propertyValue, 'date');
-                                        $propertyValueType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_DATE;
+                                        $propertyValue = Properties::convertProperty($propertyValue, 'date');
+                                        $propertyValueType = Properties::PROPERTY_TYPE_DATE;
                                         break;
                                     case 'boolean':
-                                        $propertyValue = \PhpOffice\PhpSpreadsheet\Document\Properties::convertProperty($propertyValue, 'bool');
-                                        $propertyValueType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_BOOLEAN;
+                                        $propertyValue = Properties::convertProperty($propertyValue, 'bool');
+                                        $propertyValueType = Properties::PROPERTY_TYPE_BOOLEAN;
                                         break;
                                     case 'float':
-                                        $propertyValue = \PhpOffice\PhpSpreadsheet\Document\Properties::convertProperty($propertyValue, 'r4');
-                                        $propertyValueType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_FLOAT;
+                                        $propertyValue = Properties::convertProperty($propertyValue, 'r4');
+                                        $propertyValueType = Properties::PROPERTY_TYPE_FLOAT;
                                         break;
                                     default:
-                                        $propertyValueType = \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_STRING;
+                                        $propertyValueType = Properties::PROPERTY_TYPE_STRING;
                                 }
                             }
                         }
@@ -395,7 +402,7 @@ class Ods extends BaseReader implements IReader
         $dom = new \DOMDocument('1.01', 'UTF-8');
         $dom->loadXML(
             $this->securityScan($zip->getFromName('content.xml')),
-            \PhpOffice\PhpSpreadsheet\Settings::getLibXmlLoaderOptions()
+            Settings::getLibXmlLoaderOptions()
         );
 
         $officeNs = $dom->lookupNamespaceUri('office');
@@ -563,7 +570,7 @@ class Ods extends BaseReader implements IReader
                                             if (floor($dataValue) == $dataValue) {
                                                 $dataValue = (int) $dataValue;
                                             }
-                                            $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_PERCENTAGE_00;
+                                            $formatting = NumberFormat::FORMAT_PERCENTAGE_00;
                                             break;
                                         case 'currency':
                                             $type = DataType::TYPE_NUMERIC;
@@ -572,7 +579,7 @@ class Ods extends BaseReader implements IReader
                                             if (floor($dataValue) == $dataValue) {
                                                 $dataValue = (int) $dataValue;
                                             }
-                                            $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
+                                            $formatting = NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
                                             break;
                                         case 'float':
                                             $type = DataType::TYPE_NUMERIC;
@@ -597,7 +604,7 @@ class Ods extends BaseReader implements IReader
                                                 $dateObj->format('Y m d H i s')
                                             );
 
-                                            $dataValue = \PhpOffice\PhpSpreadsheet\Shared\Date::formattedPHPToExcel(
+                                            $dataValue = Date::formattedPHPToExcel(
                                                 $year,
                                                 $month,
                                                 $day,
@@ -607,11 +614,11 @@ class Ods extends BaseReader implements IReader
                                             );
 
                                             if ($dataValue != floor($dataValue)) {
-                                                $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX15
+                                                $formatting = NumberFormat::FORMAT_DATE_XLSX15
                                                     . ' '
-                                                    . \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4;
+                                                    . NumberFormat::FORMAT_DATE_TIME4;
                                             } else {
-                                                $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX15;
+                                                $formatting = NumberFormat::FORMAT_DATE_XLSX15;
                                             }
                                             break;
                                         case 'time':
@@ -619,12 +626,12 @@ class Ods extends BaseReader implements IReader
 
                                             $timeValue = $cellData->getAttributeNS($officeNs, 'time-value');
 
-                                            $dataValue = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(
+                                            $dataValue = Date::PHPToExcel(
                                                 strtotime(
                                                     '01-01-1970 ' . implode(':', sscanf($timeValue, 'PT%dH%dM%dS'))
                                                 )
                                             );
-                                            $formatting = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4;
+                                            $formatting = NumberFormat::FORMAT_DATE_TIME4;
                                             break;
                                         default:
                                             $dataValue = null;
@@ -723,11 +730,11 @@ class Ods extends BaseReader implements IReader
                                         $columnTo = $columnID;
 
                                         if ($cellData->hasAttributeNS($tableNs, 'number-columns-spanned')) {
-                                            $columnIndex = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($columnID);
+                                            $columnIndex = Cell::columnIndexFromString($columnID);
                                             $columnIndex += (int) $cellData->getAttributeNS($tableNs, 'number-columns-spanned');
                                             $columnIndex -= 2;
 
-                                            $columnTo = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($columnIndex);
+                                            $columnTo = Cell::stringFromColumnIndex($columnIndex);
                                         }
 
                                         $rowTo = $rowID;
@@ -795,11 +802,11 @@ class Ods extends BaseReader implements IReader
     /**
      * @param string $is
      *
-     * @return \PhpOffice\PhpSpreadsheet\RichText
+     * @return RichText
      */
     private function parseRichText($is)
     {
-        $value = new \PhpOffice\PhpSpreadsheet\RichText();
+        $value = new RichText();
         $value->createText($is);
 
         return $value;

@@ -1,8 +1,13 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Helper\Sample;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Settings;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 require_once __DIR__ . '/../src/Bootstrap.php';
 
-$helper = new \PhpOffice\PhpSpreadsheet\Helper\Sample();
+$helper = new Sample();
 if ($helper->isCli()) {
     echo 'This example should only be run from a Web Browser' . PHP_EOL;
 
@@ -12,11 +17,11 @@ if ($helper->isCli()) {
 //	Change these values to select the Rendering library that you wish to use
 //		and its directory location on your server
 //$rendererName = \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_TCPDF;
-$rendererName = \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_MPDF;
+$rendererName = Settings::PDF_RENDERER_MPDF;
 //$rendererName = \PhpOffice\PhpSpreadsheet\Settings::PDF_RENDERER_DOMPDF;
 
 // Create new Spreadsheet object
-$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new Spreadsheet();
 
 // Set document properties
 $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
@@ -46,13 +51,13 @@ $spreadsheet->getActiveSheet()->setShowGridLines(false);
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
 $spreadsheet->setActiveSheetIndex(0);
 
-\PhpOffice\PhpSpreadsheet\Settings::setPdfRendererName($rendererName);
+Settings::setPdfRendererName($rendererName);
 
 // Redirect output to a client’s web browser (PDF)
 header('Content-Type: application/pdf');
 header('Content-Disposition: attachment;filename="01simple.pdf"');
 header('Cache-Control: max-age=0');
 
-$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Pdf');
+$writer = IOFactory::createWriter($spreadsheet, 'Pdf');
 $writer->save('php://output');
 exit;

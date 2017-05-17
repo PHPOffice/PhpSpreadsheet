@@ -2,6 +2,22 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
+use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use PhpOffice\PhpSpreadsheet\Shared\Xls;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Conditional;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Protection;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
+use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
+use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
+
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
@@ -266,8 +282,8 @@ class Worksheet extends BIFFwriter
         // Determine lowest and highest column and row
         $this->lastRowIndex = ($maxR > 65535) ? 65535 : $maxR;
 
-        $this->firstColumnIndex = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($minC);
-        $this->lastColumnIndex = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($maxC);
+        $this->firstColumnIndex = Cell::columnIndexFromString($minC);
+        $this->lastColumnIndex = Cell::columnIndexFromString($maxC);
 
 //        if ($this->firstColumnIndex > 255) $this->firstColumnIndex = 255;
         if ($this->lastColumnIndex > 255) {
@@ -316,7 +332,7 @@ class Worksheet extends BIFFwriter
 
             $width = $defaultWidth;
 
-            $columnLetter = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($i);
+            $columnLetter = Cell::stringFromColumnIndex($i);
             if (isset($columnDimensions[$columnLetter])) {
                 $columnDimension = $columnDimensions[$columnLetter];
                 if ($columnDimension->getWidth() >= 0) {
@@ -401,56 +417,56 @@ class Worksheet extends BIFFwriter
         foreach ($phpSheet->getCoordinates() as $coordinate) {
             $cell = $phpSheet->getCell($coordinate);
             $row = $cell->getRow() - 1;
-            $column = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($cell->getColumn()) - 1;
+            $column = Cell::columnIndexFromString($cell->getColumn()) - 1;
 
             // Don't break Excel break the code!
             if ($row > 65535 || $column > 255) {
-                throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Rows or columns overflow! Excel5 has limit to 65535 rows and 255 columns. Use XLSX instead.');
+                throw new WriterException('Rows or columns overflow! Excel5 has limit to 65535 rows and 255 columns. Use XLSX instead.');
             }
 
             // Write cell value
             $xfIndex = $cell->getXfIndex() + 15; // there are 15 cell style Xfs
 
             $cVal = $cell->getValue();
-            if ($cVal instanceof \PhpOffice\PhpSpreadsheet\RichText) {
+            if ($cVal instanceof RichText) {
                 $arrcRun = [];
-                $str_len = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::countCharacters($cVal->getPlainText(), 'UTF-8');
+                $str_len = StringHelper::countCharacters($cVal->getPlainText(), 'UTF-8');
                 $str_pos = 0;
                 $elements = $cVal->getRichTextElements();
                 foreach ($elements as $element) {
                     // FONT Index
-                    if ($element instanceof \PhpOffice\PhpSpreadsheet\RichText\Run) {
+                    if ($element instanceof RichText\Run) {
                         $str_fontidx = $this->fontHashIndex[$element->getFont()->getHashCode()];
                     } else {
                         $str_fontidx = 0;
                     }
                     $arrcRun[] = ['strlen' => $str_pos, 'fontidx' => $str_fontidx];
                     // Position FROM
-                    $str_pos += \PhpOffice\PhpSpreadsheet\Shared\StringHelper::countCharacters($element->getText(), 'UTF-8');
+                    $str_pos += StringHelper::countCharacters($element->getText(), 'UTF-8');
                 }
                 $this->writeRichTextString($row, $column, $cVal->getPlainText(), $xfIndex, $arrcRun);
             } else {
                 switch ($cell->getDatatype()) {
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING:
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NULL:
+                    case Cell\DataType::TYPE_STRING:
+                    case Cell\DataType::TYPE_NULL:
                         if ($cVal === '' || $cVal === null) {
                             $this->writeBlank($row, $column, $xfIndex);
                         } else {
                             $this->writeString($row, $column, $cVal, $xfIndex);
                         }
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC:
+                    case Cell\DataType::TYPE_NUMERIC:
                         $this->writeNumber($row, $column, $cVal, $xfIndex);
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_FORMULA:
+                    case Cell\DataType::TYPE_FORMULA:
                         $calculatedValue = $this->preCalculateFormulas ?
                             $cell->getCalculatedValue() : null;
                         $this->writeFormula($row, $column, $cVal, $xfIndex, $calculatedValue);
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_BOOL:
+                    case Cell\DataType::TYPE_BOOL:
                         $this->writeBoolErr($row, $column, $cVal, 0, $xfIndex);
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_ERROR:
+                    case Cell\DataType::TYPE_ERROR:
                         $this->writeBoolErr($row, $column, self::mapErrorCode($cVal), 1, $xfIndex);
                         break;
                 }
@@ -480,7 +496,7 @@ class Worksheet extends BIFFwriter
 
         // Hyperlinks
         foreach ($phpSheet->getHyperLinkCollection() as $coordinate => $hyperlink) {
-            list($column, $row) = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($coordinate);
+            list($column, $row) = Cell::coordinateFromString($coordinate);
 
             $url = $hyperlink->getUrl();
 
@@ -494,7 +510,7 @@ class Worksheet extends BIFFwriter
                 $url = 'external:' . $url;
             }
 
-            $this->writeUrl($row - 1, \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($column) - 1, $url);
+            $this->writeUrl($row - 1, Cell::columnIndexFromString($column) - 1, $url);
         }
 
         $this->writeDataValidity();
@@ -513,8 +529,8 @@ class Worksheet extends BIFFwriter
             // Write ConditionalFormattingTable records
             foreach ($arrConditionalStyles as $cellCoordinate => $conditionalStyles) {
                 foreach ($conditionalStyles as $conditional) {
-                    if ($conditional->getConditionType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_EXPRESSION
-                        || $conditional->getConditionType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS) {
+                    if ($conditional->getConditionType() == Conditional::CONDITION_EXPRESSION
+                        || $conditional->getConditionType() == Conditional::CONDITION_CELLIS) {
                         if (!isset($arrConditional[$conditional->getHashCode()])) {
                             // This hash code has been handled
                             $arrConditional[$conditional->getHashCode()] = true;
@@ -553,10 +569,10 @@ class Worksheet extends BIFFwriter
             $lastCell = $explodes[1];
         }
 
-        $firstCellCoordinates = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($firstCell); // e.g. array(0, 1)
-        $lastCellCoordinates = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($lastCell); // e.g. array(1, 6)
+        $firstCellCoordinates = Cell::coordinateFromString($firstCell); // e.g. array(0, 1)
+        $lastCellCoordinates = Cell::coordinateFromString($lastCell); // e.g. array(1, 6)
 
-        return pack('vvvv', $firstCellCoordinates[1] - 1, $lastCellCoordinates[1] - 1, \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($firstCellCoordinates[0]) - 1, \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($lastCellCoordinates[0]) - 1);
+        return pack('vvvv', $firstCellCoordinates[1] - 1, $lastCellCoordinates[1] - 1, Cell::columnIndexFromString($firstCellCoordinates[0]) - 1, Cell::columnIndexFromString($lastCellCoordinates[0]) - 1);
     }
 
     /**
@@ -671,7 +687,7 @@ class Worksheet extends BIFFwriter
     {
         $record = 0x00FD; // Record identifier
         $length = 0x000A; // Bytes to follow
-        $str = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeShort($str, $arrcRun);
+        $str = StringHelper::UTF8toBIFF8UnicodeShort($str, $arrcRun);
 
         /* check if string is already present */
         if (!isset($this->stringTable[$str])) {
@@ -741,7 +757,7 @@ class Worksheet extends BIFFwriter
         $record = 0x00FD; // Record identifier
         $length = 0x000A; // Bytes to follow
 
-        $str = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong($str);
+        $str = StringHelper::UTF8toBIFF8UnicodeLong($str);
 
         /* check if string is already present */
         if (!isset($this->stringTable[$str])) {
@@ -869,7 +885,7 @@ class Worksheet extends BIFFwriter
                 // Numeric value
                 $num = pack('d', $calculatedValue);
             } elseif (is_string($calculatedValue)) {
-                $errorCodes = \PhpOffice\PhpSpreadsheet\Cell\DataType::getErrorCodes();
+                $errorCodes = Cell\DataType::getErrorCodes();
                 if (isset($errorCodes[$calculatedValue])) {
                     // Error value
                     $num = pack('CCCvCv', 0x02, 0x00, self::mapErrorCode($calculatedValue), 0x00, 0x00, 0xFFFF);
@@ -923,7 +939,7 @@ class Worksheet extends BIFFwriter
             }
 
             return 0;
-        } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
+        } catch (PhpSpreadsheetException $e) {
             // do nothing
         }
     }
@@ -936,7 +952,7 @@ class Worksheet extends BIFFwriter
     private function writeStringRecord($stringValue)
     {
         $record = 0x0207; // Record identifier
-        $data = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong($stringValue);
+        $data = StringHelper::UTF8toBIFF8UnicodeLong($stringValue);
 
         $length = strlen($data);
         $header = pack('vv', $record, $length);
@@ -1078,10 +1094,10 @@ class Worksheet extends BIFFwriter
         $url .= "\0";
 
         // character count
-        $url_len = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::countCharacters($url);
+        $url_len = StringHelper::countCharacters($url);
         $url_len = pack('V', $url_len);
 
-        $url = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertEncoding($url, 'UTF-16LE', 'UTF-8');
+        $url = StringHelper::convertEncoding($url, 'UTF-16LE', 'UTF-8');
 
         // Calculate the data length
         $length = 0x24 + strlen($url);
@@ -1293,7 +1309,7 @@ class Worksheet extends BIFFwriter
         // no support in PhpSpreadsheet for selected sheet, therefore sheet is only selected if it is the active sheet
         $fSelected = ($this->phpSheet === $this->phpSheet->getParent()->getActiveSheet()) ? 1 : 0;
         $fPaged = 1; // 2
-        $fPageBreakPreview = $this->phpSheet->getSheetView()->getView() === \PhpOffice\PhpSpreadsheet\Worksheet\SheetView::SHEETVIEW_PAGE_BREAK_PREVIEW;
+        $fPageBreakPreview = $this->phpSheet->getSheetView()->getView() === SheetView::SHEETVIEW_PAGE_BREAK_PREVIEW;
 
         $grbit = $fDspFmla;
         $grbit |= $fDspGrid << 1;
@@ -1423,7 +1439,7 @@ class Worksheet extends BIFFwriter
     {
         // look up the selected cell range
         $selectedCells = $this->phpSheet->getSelectedCells();
-        $selectedCells = \PhpOffice\PhpSpreadsheet\Cell::splitRange($this->phpSheet->getSelectedCells());
+        $selectedCells = Cell::splitRange($this->phpSheet->getSelectedCells());
         $selectedCells = $selectedCells[0];
         if (count($selectedCells) == 2) {
             list($first, $last) = $selectedCells;
@@ -1432,12 +1448,12 @@ class Worksheet extends BIFFwriter
             $last = $selectedCells[0];
         }
 
-        list($colFirst, $rwFirst) = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($first);
-        $colFirst = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($colFirst) - 1; // base 0 column index
+        list($colFirst, $rwFirst) = Cell::coordinateFromString($first);
+        $colFirst = Cell::columnIndexFromString($colFirst) - 1; // base 0 column index
         --$rwFirst; // base 0 row index
 
-        list($colLast, $rwLast) = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($last);
-        $colLast = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($colLast) - 1; // base 0 column index
+        list($colLast, $rwLast) = Cell::coordinateFromString($last);
+        $colLast = Cell::columnIndexFromString($colLast) - 1; // base 0 column index
         --$rwLast; // base 0 row index
 
         // make sure we are not out of bounds
@@ -1510,12 +1526,12 @@ class Worksheet extends BIFFwriter
             ++$j;
 
             // extract the row and column indexes
-            $range = \PhpOffice\PhpSpreadsheet\Cell::splitRange($mergeCell);
+            $range = Cell::splitRange($mergeCell);
             list($first, $last) = $range[0];
-            list($firstColumn, $firstRow) = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($first);
-            list($lastColumn, $lastRow) = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($last);
+            list($firstColumn, $firstRow) = Cell::coordinateFromString($first);
+            list($lastColumn, $lastRow) = Cell::coordinateFromString($last);
 
-            $recordData .= pack('vvvv', $firstRow - 1, $lastRow - 1, \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($firstColumn) - 1, \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($lastColumn) - 1);
+            $recordData .= pack('vvvv', $firstRow - 1, $lastRow - 1, Cell::columnIndexFromString($firstColumn) - 1, Cell::columnIndexFromString($lastColumn) - 1);
 
             // flush record if we have reached limit for number of merged cells, or reached final merged cell
             if ($j == $maxCountMergeCellsPerRecord or $i == $countMergeCells) {
@@ -1640,7 +1656,7 @@ class Worksheet extends BIFFwriter
                 hexdec($password)
             );
 
-            $recordData .= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong('p' . md5($recordData));
+            $recordData .= StringHelper::UTF8toBIFF8UnicodeLong('p' . md5($recordData));
 
             $length = strlen($recordData);
 
@@ -1713,9 +1729,9 @@ class Worksheet extends BIFFwriter
     {
         $panes = [];
         if ($freezePane = $this->phpSheet->getFreezePane()) {
-            list($column, $row) = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($freezePane);
+            list($column, $row) = Cell::coordinateFromString($freezePane);
             $panes[0] = $row - 1;
-            $panes[1] = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($column) - 1;
+            $panes[1] = Cell::columnIndexFromString($column) - 1;
         } else {
             // thaw panes
             return;
@@ -1813,7 +1829,7 @@ class Worksheet extends BIFFwriter
         $fLeftToRight = 0x0; // Print over then down
 
         // Page orientation
-        $fLandscape = ($this->phpSheet->getPageSetup()->getOrientation() == \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE) ?
+        $fLandscape = ($this->phpSheet->getPageSetup()->getOrientation() == PageSetup::ORIENTATION_LANDSCAPE) ?
             0x0 : 0x1;
 
         $fNoPls = 0x0; // Setup not read from printer
@@ -1862,7 +1878,7 @@ class Worksheet extends BIFFwriter
         }
         */
 
-        $recordData = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong($this->phpSheet->getHeaderFooter()->getOddHeader());
+        $recordData = StringHelper::UTF8toBIFF8UnicodeLong($this->phpSheet->getHeaderFooter()->getOddHeader());
         $length = strlen($recordData);
 
         $header = pack('vv', $record, $length);
@@ -1886,7 +1902,7 @@ class Worksheet extends BIFFwriter
         }
         */
 
-        $recordData = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong($this->phpSheet->getHeaderFooter()->getOddFooter());
+        $recordData = StringHelper::UTF8toBIFF8UnicodeLong($this->phpSheet->getHeaderFooter()->getOddFooter());
         $length = strlen($recordData);
 
         $header = pack('vv', $record, $length);
@@ -2056,7 +2072,7 @@ class Worksheet extends BIFFwriter
         $record = 0x009D; // Record identifier
         $length = 0x0002; // Bytes to follow
 
-        $rangeBounds = \PhpOffice\PhpSpreadsheet\Cell::rangeBoundaries($this->phpSheet->getAutoFilter()->getRange());
+        $rangeBounds = Cell::rangeBoundaries($this->phpSheet->getAutoFilter()->getRange());
         $iNumFilters = 1 + $rangeBounds[1][0] - $rangeBounds[0][0];
 
         $header = pack('vv', $record, $length);
@@ -2158,13 +2174,13 @@ class Worksheet extends BIFFwriter
 
         foreach ($this->phpSheet->getBreaks() as $cell => $breakType) {
             // Fetch coordinates
-            $coordinates = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($cell);
+            $coordinates = Cell::coordinateFromString($cell);
 
             // Decide what to do by the type of break
             switch ($breakType) {
                 case \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_COLUMN:
                     // Add to list of vertical breaks
-                    $vbreaks[] = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($coordinates[0]) - 1;
+                    $vbreaks[] = Cell::columnIndexFromString($coordinates[0]) - 1;
                     break;
                 case \PhpOffice\PhpSpreadsheet\Worksheet::BREAK_ROW:
                     // Add to list of horizontal breaks
@@ -2409,10 +2425,10 @@ class Worksheet extends BIFFwriter
         $row_end = $row_start; // Row containing bottom right corner of object
 
         // Zero the specified offset if greater than the cell dimensions
-        if ($x1 >= \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeCol($this->phpSheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_start))) {
+        if ($x1 >= Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_start))) {
             $x1 = 0;
         }
-        if ($y1 >= \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeRow($this->phpSheet, $row_start + 1)) {
+        if ($y1 >= Xls::sizeRow($this->phpSheet, $row_start + 1)) {
             $y1 = 0;
         }
 
@@ -2420,38 +2436,38 @@ class Worksheet extends BIFFwriter
         $height = $height + $y1 - 1;
 
         // Subtract the underlying cell widths to find the end cell of the image
-        while ($width >= \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeCol($this->phpSheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_end))) {
-            $width -= \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeCol($this->phpSheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_end));
+        while ($width >= Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_end))) {
+            $width -= Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_end));
             ++$col_end;
         }
 
         // Subtract the underlying cell heights to find the end cell of the image
-        while ($height >= \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeRow($this->phpSheet, $row_end + 1)) {
-            $height -= \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeRow($this->phpSheet, $row_end + 1);
+        while ($height >= Xls::sizeRow($this->phpSheet, $row_end + 1)) {
+            $height -= Xls::sizeRow($this->phpSheet, $row_end + 1);
             ++$row_end;
         }
 
         // Bitmap isn't allowed to start or finish in a hidden cell, i.e. a cell
         // with zero eight or width.
         //
-        if (\PhpOffice\PhpSpreadsheet\Shared\Xls::sizeCol($this->phpSheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_start)) == 0) {
+        if (Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_start)) == 0) {
             return;
         }
-        if (\PhpOffice\PhpSpreadsheet\Shared\Xls::sizeCol($this->phpSheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_end)) == 0) {
+        if (Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_end)) == 0) {
             return;
         }
-        if (\PhpOffice\PhpSpreadsheet\Shared\Xls::sizeRow($this->phpSheet, $row_start + 1) == 0) {
+        if (Xls::sizeRow($this->phpSheet, $row_start + 1) == 0) {
             return;
         }
-        if (\PhpOffice\PhpSpreadsheet\Shared\Xls::sizeRow($this->phpSheet, $row_end + 1) == 0) {
+        if (Xls::sizeRow($this->phpSheet, $row_end + 1) == 0) {
             return;
         }
 
         // Convert the pixel values to the percentage value expected by Excel
-        $x1 = $x1 / \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeCol($this->phpSheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_start)) * 1024;
-        $y1 = $y1 / \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeRow($this->phpSheet, $row_start + 1) * 256;
-        $x2 = $width / \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeCol($this->phpSheet, \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($col_end)) * 1024; // Distance to right side of object
-        $y2 = $height / \PhpOffice\PhpSpreadsheet\Shared\Xls::sizeRow($this->phpSheet, $row_end + 1) * 256; // Distance to bottom of object
+        $x1 = $x1 / Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_start)) * 1024;
+        $y1 = $y1 / Xls::sizeRow($this->phpSheet, $row_start + 1) * 256;
+        $x2 = $width / Xls::sizeCol($this->phpSheet, Cell::stringFromColumnIndex($col_end)) * 1024; // Distance to right side of object
+        $y2 = $height / Xls::sizeRow($this->phpSheet, $row_end + 1) * 256; // Distance to bottom of object
 
         $this->writeObjPicture($col_start, $x1, $row_start, $y1, $col_end, $x2, $row_end, $y2);
     }
@@ -2577,7 +2593,7 @@ class Worksheet extends BIFFwriter
         // Open file.
         $bmp_fd = @fopen($bitmap, 'rb');
         if (!$bmp_fd) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Couldn't import $bitmap");
+            throw new WriterException("Couldn't import $bitmap");
         }
 
         // Slurp the file into a string.
@@ -2585,13 +2601,13 @@ class Worksheet extends BIFFwriter
 
         // Check that the file is big enough to be a bitmap.
         if (strlen($data) <= 0x36) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("$bitmap doesn't contain enough data.\n");
+            throw new WriterException("$bitmap doesn't contain enough data.\n");
         }
 
         // The first 2 bytes are used to identify the bitmap.
         $identity = unpack('A2ident', $data);
         if ($identity['ident'] != 'BM') {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("$bitmap doesn't appear to be a valid bitmap image.\n");
+            throw new WriterException("$bitmap doesn't appear to be a valid bitmap image.\n");
         }
 
         // Remove bitmap data: ID.
@@ -2615,20 +2631,20 @@ class Worksheet extends BIFFwriter
         $height = $width_and_height[2];
         $data = substr($data, 8);
         if ($width > 0xFFFF) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("$bitmap: largest image width supported is 65k.\n");
+            throw new WriterException("$bitmap: largest image width supported is 65k.\n");
         }
         if ($height > 0xFFFF) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("$bitmap: largest image height supported is 65k.\n");
+            throw new WriterException("$bitmap: largest image height supported is 65k.\n");
         }
 
         // Read and remove the bitmap planes and bpp data. Verify them.
         $planes_and_bitcount = unpack('v2', substr($data, 0, 4));
         $data = substr($data, 4);
         if ($planes_and_bitcount[2] != 24) { // Bitcount
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("$bitmap isn't a 24bit true color bitmap.\n");
+            throw new WriterException("$bitmap isn't a 24bit true color bitmap.\n");
         }
         if ($planes_and_bitcount[1] != 1) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("$bitmap: only 1 plane supported in bitmap image.\n");
+            throw new WriterException("$bitmap: only 1 plane supported in bitmap image.\n");
         }
 
         // Read and remove the bitmap compression. Verify compression.
@@ -2636,7 +2652,7 @@ class Worksheet extends BIFFwriter
         $data = substr($data, 4);
 
         if ($compression['comp'] != 0) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("$bitmap: compression not supported in bitmap image.\n");
+            throw new WriterException("$bitmap: compression not supported in bitmap image.\n");
         }
 
         // Remove bitmap data: data size, hres, vres, colours, imp. colours.
@@ -2695,7 +2711,7 @@ class Worksheet extends BIFFwriter
     {
         // write the Escher stream if necessary
         if (isset($this->escher)) {
-            $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xls\Escher($this->escher);
+            $writer = new Escher($this->escher);
             $data = $writer->close();
             $spOffsets = $writer->getSpOffsets();
             $spTypes = $writer->getSpTypes();
@@ -2809,28 +2825,28 @@ class Worksheet extends BIFFwriter
                 // data type
                 $type = $dataValidation->getType();
                 switch ($type) {
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_NONE:
+                    case DataValidation::TYPE_NONE:
                         $type = 0x00;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_WHOLE:
+                    case DataValidation::TYPE_WHOLE:
                         $type = 0x01;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_DECIMAL:
+                    case DataValidation::TYPE_DECIMAL:
                         $type = 0x02;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_LIST:
+                    case DataValidation::TYPE_LIST:
                         $type = 0x03;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_DATE:
+                    case DataValidation::TYPE_DATE:
                         $type = 0x04;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_TIME:
+                    case DataValidation::TYPE_TIME:
                         $type = 0x05;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_TEXTLENGTH:
+                    case DataValidation::TYPE_TEXTLENGTH:
                         $type = 0x06;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::TYPE_CUSTOM:
+                    case DataValidation::TYPE_CUSTOM:
                         $type = 0x07;
                         break;
                 }
@@ -2840,13 +2856,13 @@ class Worksheet extends BIFFwriter
                 // error style
                 $errorStyle = $dataValidation->getErrorStyle();
                 switch ($errorStyle) {
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_STOP:
+                    case DataValidation::STYLE_STOP:
                         $errorStyle = 0x00;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_WARNING:
+                    case DataValidation::STYLE_WARNING:
                         $errorStyle = 0x01;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::STYLE_INFORMATION:
+                    case DataValidation::STYLE_INFORMATION:
                         $errorStyle = 0x02;
                         break;
                 }
@@ -2873,28 +2889,28 @@ class Worksheet extends BIFFwriter
                 // condition operator
                 $operator = $dataValidation->getOperator();
                 switch ($operator) {
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_BETWEEN:
+                    case DataValidation::OPERATOR_BETWEEN:
                         $operator = 0x00;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_NOTBETWEEN:
+                    case DataValidation::OPERATOR_NOTBETWEEN:
                         $operator = 0x01;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_EQUAL:
+                    case DataValidation::OPERATOR_EQUAL:
                         $operator = 0x02;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_NOTEQUAL:
+                    case DataValidation::OPERATOR_NOTEQUAL:
                         $operator = 0x03;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_GREATERTHAN:
+                    case DataValidation::OPERATOR_GREATERTHAN:
                         $operator = 0x04;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_LESSTHAN:
+                    case DataValidation::OPERATOR_LESSTHAN:
                         $operator = 0x05;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_GREATERTHANOREQUAL:
+                    case DataValidation::OPERATOR_GREATERTHANOREQUAL:
                         $operator = 0x06;
                         break;
-                    case \PhpOffice\PhpSpreadsheet\Cell\DataValidation::OPERATOR_LESSTHANOREQUAL:
+                    case DataValidation::OPERATOR_LESSTHANOREQUAL:
                         $operator = 0x07;
                         break;
                 }
@@ -2906,22 +2922,22 @@ class Worksheet extends BIFFwriter
                 // prompt title
                 $promptTitle = $dataValidation->getPromptTitle() !== '' ?
                     $dataValidation->getPromptTitle() : chr(0);
-                $data .= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong($promptTitle);
+                $data .= StringHelper::UTF8toBIFF8UnicodeLong($promptTitle);
 
                 // error title
                 $errorTitle = $dataValidation->getErrorTitle() !== '' ?
                     $dataValidation->getErrorTitle() : chr(0);
-                $data .= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong($errorTitle);
+                $data .= StringHelper::UTF8toBIFF8UnicodeLong($errorTitle);
 
                 // prompt text
                 $prompt = $dataValidation->getPrompt() !== '' ?
                     $dataValidation->getPrompt() : chr(0);
-                $data .= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong($prompt);
+                $data .= StringHelper::UTF8toBIFF8UnicodeLong($prompt);
 
                 // error text
                 $error = $dataValidation->getError() !== '' ?
                     $dataValidation->getError() : chr(0);
-                $data .= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong($error);
+                $data .= StringHelper::UTF8toBIFF8UnicodeLong($error);
 
                 // formula 1
                 try {
@@ -2932,7 +2948,7 @@ class Worksheet extends BIFFwriter
                     $this->parser->parse($formula1);
                     $formula1 = $this->parser->toReversePolish();
                     $sz1 = strlen($formula1);
-                } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
+                } catch (PhpSpreadsheetException $e) {
                     $sz1 = 0;
                     $formula1 = '';
                 }
@@ -2943,12 +2959,12 @@ class Worksheet extends BIFFwriter
                 try {
                     $formula2 = $dataValidation->getFormula2();
                     if ($formula2 === '') {
-                        throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('No formula2');
+                        throw new WriterException('No formula2');
                     }
                     $this->parser->parse($formula2);
                     $formula2 = $this->parser->toReversePolish();
                     $sz2 = strlen($formula2);
-                } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
+                } catch (PhpSpreadsheetException $e) {
                     $sz2 = 0;
                     $formula2 = '';
                 }
@@ -3010,7 +3026,7 @@ class Worksheet extends BIFFwriter
         $wScalvePLV = $this->phpSheet->getSheetView()->getZoomScale(); // 2
 
         // The options flags that comprise $grbit
-        if ($this->phpSheet->getSheetView()->getView() == \PhpOffice\PhpSpreadsheet\Worksheet\SheetView::SHEETVIEW_PAGE_LAYOUT) {
+        if ($this->phpSheet->getSheetView()->getView() == SheetView::SHEETVIEW_PAGE_LAYOUT) {
             $fPageLayoutView = 1;
         } else {
             $fPageLayoutView = 0;
@@ -3030,43 +3046,43 @@ class Worksheet extends BIFFwriter
     /**
      * Write CFRule Record.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Style\Conditional $conditional
+     * @param Conditional $conditional
      */
-    private function writeCFRule(\PhpOffice\PhpSpreadsheet\Style\Conditional $conditional)
+    private function writeCFRule(Conditional $conditional)
     {
         $record = 0x01B1; // Record identifier
 
         // $type : Type of the CF
         // $operatorType : Comparison operator
-        if ($conditional->getConditionType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_EXPRESSION) {
+        if ($conditional->getConditionType() == Conditional::CONDITION_EXPRESSION) {
             $type = 0x02;
             $operatorType = 0x00;
-        } elseif ($conditional->getConditionType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS) {
+        } elseif ($conditional->getConditionType() == Conditional::CONDITION_CELLIS) {
             $type = 0x01;
 
             switch ($conditional->getOperatorType()) {
-                case \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_NONE:
+                case Conditional::OPERATOR_NONE:
                     $operatorType = 0x00;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_EQUAL:
+                case Conditional::OPERATOR_EQUAL:
                     $operatorType = 0x03;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_GREATERTHAN:
+                case Conditional::OPERATOR_GREATERTHAN:
                     $operatorType = 0x05;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_GREATERTHANOREQUAL:
+                case Conditional::OPERATOR_GREATERTHANOREQUAL:
                     $operatorType = 0x07;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_LESSTHAN:
+                case Conditional::OPERATOR_LESSTHAN:
                     $operatorType = 0x06;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_LESSTHANOREQUAL:
+                case Conditional::OPERATOR_LESSTHANOREQUAL:
                     $operatorType = 0x08;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_NOTEQUAL:
+                case Conditional::OPERATOR_NOTEQUAL:
                     $operatorType = 0x04;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_BETWEEN:
+                case Conditional::OPERATOR_BETWEEN:
                     $operatorType = 0x01;
                     break;
                     // not OPERATOR_NOTBETWEEN 0x02
@@ -3082,7 +3098,7 @@ class Worksheet extends BIFFwriter
             $szValue2 = 0x0000;
             $operand1 = pack('Cv', 0x1E, $arrConditions[0]);
             $operand2 = null;
-        } elseif ($numConditions == 2 && ($conditional->getOperatorType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_BETWEEN)) {
+        } elseif ($numConditions == 2 && ($conditional->getOperatorType() == Conditional::OPERATOR_BETWEEN)) {
             $szValue1 = ($arrConditions[0] <= 65535 ? 3 : 0x0000);
             $szValue2 = ($arrConditions[1] <= 65535 ? 3 : 0x0000);
             $operand1 = pack('Cv', 0x1E, $arrConditions[0]);
@@ -3116,14 +3132,14 @@ class Worksheet extends BIFFwriter
             $bFormatProt = 0;
         }
         // Border
-        $bBorderLeft = ($conditional->getStyle()->getBorders()->getLeft()->getColor()->getARGB() == \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK
-                        && $conditional->getStyle()->getBorders()->getLeft()->getBorderStyle() == \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE ? 1 : 0);
-        $bBorderRight = ($conditional->getStyle()->getBorders()->getRight()->getColor()->getARGB() == \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK
-                        && $conditional->getStyle()->getBorders()->getRight()->getBorderStyle() == \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE ? 1 : 0);
-        $bBorderTop = ($conditional->getStyle()->getBorders()->getTop()->getColor()->getARGB() == \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK
-                        && $conditional->getStyle()->getBorders()->getTop()->getBorderStyle() == \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE ? 1 : 0);
-        $bBorderBottom = ($conditional->getStyle()->getBorders()->getBottom()->getColor()->getARGB() == \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK
-                        && $conditional->getStyle()->getBorders()->getBottom()->getBorderStyle() == \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE ? 1 : 0);
+        $bBorderLeft = ($conditional->getStyle()->getBorders()->getLeft()->getColor()->getARGB() == Color::COLOR_BLACK
+                        && $conditional->getStyle()->getBorders()->getLeft()->getBorderStyle() == Border::BORDER_NONE ? 1 : 0);
+        $bBorderRight = ($conditional->getStyle()->getBorders()->getRight()->getColor()->getARGB() == Color::COLOR_BLACK
+                        && $conditional->getStyle()->getBorders()->getRight()->getBorderStyle() == Border::BORDER_NONE ? 1 : 0);
+        $bBorderTop = ($conditional->getStyle()->getBorders()->getTop()->getColor()->getARGB() == Color::COLOR_BLACK
+                        && $conditional->getStyle()->getBorders()->getTop()->getBorderStyle() == Border::BORDER_NONE ? 1 : 0);
+        $bBorderBottom = ($conditional->getStyle()->getBorders()->getBottom()->getColor()->getARGB() == Color::COLOR_BLACK
+                        && $conditional->getStyle()->getBorders()->getBottom()->getBorderStyle() == Border::BORDER_NONE ? 1 : 0);
         if ($bBorderLeft == 0 || $bBorderRight == 0 || $bBorderTop == 0 || $bBorderBottom == 0) {
             $bFormatBorder = 1;
         } else {
@@ -3199,7 +3215,7 @@ class Worksheet extends BIFFwriter
                 $dataBlockFont = pack('VVVVVVVV', 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000);
                 $dataBlockFont .= pack('VVVVVVVV', 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000);
             } else {
-                $dataBlockFont = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeLong($conditional->getStyle()->getFont()->getName());
+                $dataBlockFont = StringHelper::UTF8toBIFF8UnicodeLong($conditional->getStyle()->getFont()->getName());
             }
             // Font Size
             if ($conditional->getStyle()->getFont()->getSize() == null) {
@@ -3458,22 +3474,22 @@ class Worksheet extends BIFFwriter
             $blockAlign = 0;
             // Alignment and text break
             switch ($conditional->getStyle()->getAlignment()->getHorizontal()) {
-                case \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_GENERAL:
+                case Alignment::HORIZONTAL_GENERAL:
                     $blockAlign = 0;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT:
+                case Alignment::HORIZONTAL_LEFT:
                     $blockAlign = 1;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT:
+                case Alignment::HORIZONTAL_RIGHT:
                     $blockAlign = 3;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER:
+                case Alignment::HORIZONTAL_CENTER:
                     $blockAlign = 2;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER_CONTINUOUS:
+                case Alignment::HORIZONTAL_CENTER_CONTINUOUS:
                     $blockAlign = 6;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_JUSTIFY:
+                case Alignment::HORIZONTAL_JUSTIFY:
                     $blockAlign = 5;
                     break;
             }
@@ -3483,16 +3499,16 @@ class Worksheet extends BIFFwriter
                 $blockAlign |= 0 << 3;
             }
             switch ($conditional->getStyle()->getAlignment()->getVertical()) {
-                case \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_BOTTOM:
+                case Alignment::VERTICAL_BOTTOM:
                     $blockAlign = 2 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP:
+                case Alignment::VERTICAL_TOP:
                     $blockAlign = 0 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER:
+                case Alignment::VERTICAL_CENTER:
                     $blockAlign = 1 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_JUSTIFY:
+                case Alignment::VERTICAL_JUSTIFY:
                     $blockAlign = 3 << 4;
                     break;
             }
@@ -3518,178 +3534,178 @@ class Worksheet extends BIFFwriter
         if ($bFormatBorder == 1) {
             $blockLineStyle = 0;
             switch ($conditional->getStyle()->getBorders()->getLeft()->getBorderStyle()) {
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE:
+                case Border::BORDER_NONE:
                     $blockLineStyle |= 0x00;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN:
+                case Border::BORDER_THIN:
                     $blockLineStyle |= 0x01;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM:
+                case Border::BORDER_MEDIUM:
                     $blockLineStyle |= 0x02;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHED:
+                case Border::BORDER_DASHED:
                     $blockLineStyle |= 0x03;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOTTED:
+                case Border::BORDER_DOTTED:
                     $blockLineStyle |= 0x04;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK:
+                case Border::BORDER_THICK:
                     $blockLineStyle |= 0x05;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOUBLE:
+                case Border::BORDER_DOUBLE:
                     $blockLineStyle |= 0x06;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_HAIR:
+                case Border::BORDER_HAIR:
                     $blockLineStyle |= 0x07;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED:
+                case Border::BORDER_MEDIUMDASHED:
                     $blockLineStyle |= 0x08;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT:
+                case Border::BORDER_DASHDOT:
                     $blockLineStyle |= 0x09;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOT:
+                case Border::BORDER_MEDIUMDASHDOT:
                     $blockLineStyle |= 0x0A;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOTDOT:
+                case Border::BORDER_DASHDOTDOT:
                     $blockLineStyle |= 0x0B;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOTDOT:
+                case Border::BORDER_MEDIUMDASHDOTDOT:
                     $blockLineStyle |= 0x0C;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_SLANTDASHDOT:
+                case Border::BORDER_SLANTDASHDOT:
                     $blockLineStyle |= 0x0D;
                     break;
             }
             switch ($conditional->getStyle()->getBorders()->getRight()->getBorderStyle()) {
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE:
+                case Border::BORDER_NONE:
                     $blockLineStyle |= 0x00 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN:
+                case Border::BORDER_THIN:
                     $blockLineStyle |= 0x01 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM:
+                case Border::BORDER_MEDIUM:
                     $blockLineStyle |= 0x02 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHED:
+                case Border::BORDER_DASHED:
                     $blockLineStyle |= 0x03 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOTTED:
+                case Border::BORDER_DOTTED:
                     $blockLineStyle |= 0x04 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK:
+                case Border::BORDER_THICK:
                     $blockLineStyle |= 0x05 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOUBLE:
+                case Border::BORDER_DOUBLE:
                     $blockLineStyle |= 0x06 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_HAIR:
+                case Border::BORDER_HAIR:
                     $blockLineStyle |= 0x07 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED:
+                case Border::BORDER_MEDIUMDASHED:
                     $blockLineStyle |= 0x08 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT:
+                case Border::BORDER_DASHDOT:
                     $blockLineStyle |= 0x09 << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOT:
+                case Border::BORDER_MEDIUMDASHDOT:
                     $blockLineStyle |= 0x0A << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOTDOT:
+                case Border::BORDER_DASHDOTDOT:
                     $blockLineStyle |= 0x0B << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOTDOT:
+                case Border::BORDER_MEDIUMDASHDOTDOT:
                     $blockLineStyle |= 0x0C << 4;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_SLANTDASHDOT:
+                case Border::BORDER_SLANTDASHDOT:
                     $blockLineStyle |= 0x0D << 4;
                     break;
             }
             switch ($conditional->getStyle()->getBorders()->getTop()->getBorderStyle()) {
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE:
+                case Border::BORDER_NONE:
                     $blockLineStyle |= 0x00 << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN:
+                case Border::BORDER_THIN:
                     $blockLineStyle |= 0x01 << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM:
+                case Border::BORDER_MEDIUM:
                     $blockLineStyle |= 0x02 << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHED:
+                case Border::BORDER_DASHED:
                     $blockLineStyle |= 0x03 << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOTTED:
+                case Border::BORDER_DOTTED:
                     $blockLineStyle |= 0x04 << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK:
+                case Border::BORDER_THICK:
                     $blockLineStyle |= 0x05 << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOUBLE:
+                case Border::BORDER_DOUBLE:
                     $blockLineStyle |= 0x06 << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_HAIR:
+                case Border::BORDER_HAIR:
                     $blockLineStyle |= 0x07 << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED:
+                case Border::BORDER_MEDIUMDASHED:
                     $blockLineStyle |= 0x08 << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT:
+                case Border::BORDER_DASHDOT:
                     $blockLineStyle |= 0x09 << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOT:
+                case Border::BORDER_MEDIUMDASHDOT:
                     $blockLineStyle |= 0x0A << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOTDOT:
+                case Border::BORDER_DASHDOTDOT:
                     $blockLineStyle |= 0x0B << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOTDOT:
+                case Border::BORDER_MEDIUMDASHDOTDOT:
                     $blockLineStyle |= 0x0C << 8;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_SLANTDASHDOT:
+                case Border::BORDER_SLANTDASHDOT:
                     $blockLineStyle |= 0x0D << 8;
                     break;
             }
             switch ($conditional->getStyle()->getBorders()->getBottom()->getBorderStyle()) {
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE:
+                case Border::BORDER_NONE:
                     $blockLineStyle |= 0x00 << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN:
+                case Border::BORDER_THIN:
                     $blockLineStyle |= 0x01 << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM:
+                case Border::BORDER_MEDIUM:
                     $blockLineStyle |= 0x02 << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHED:
+                case Border::BORDER_DASHED:
                     $blockLineStyle |= 0x03 << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOTTED:
+                case Border::BORDER_DOTTED:
                     $blockLineStyle |= 0x04 << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK:
+                case Border::BORDER_THICK:
                     $blockLineStyle |= 0x05 << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOUBLE:
+                case Border::BORDER_DOUBLE:
                     $blockLineStyle |= 0x06 << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_HAIR:
+                case Border::BORDER_HAIR:
                     $blockLineStyle |= 0x07 << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED:
+                case Border::BORDER_MEDIUMDASHED:
                     $blockLineStyle |= 0x08 << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT:
+                case Border::BORDER_DASHDOT:
                     $blockLineStyle |= 0x09 << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOT:
+                case Border::BORDER_MEDIUMDASHDOT:
                     $blockLineStyle |= 0x0A << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOTDOT:
+                case Border::BORDER_DASHDOTDOT:
                     $blockLineStyle |= 0x0B << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOTDOT:
+                case Border::BORDER_MEDIUMDASHDOTDOT:
                     $blockLineStyle |= 0x0C << 12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_SLANTDASHDOT:
+                case Border::BORDER_SLANTDASHDOT:
                     $blockLineStyle |= 0x0D << 12;
                     break;
             }
@@ -3702,46 +3718,46 @@ class Worksheet extends BIFFwriter
             //@todo writeCFRule() => $blockColor => Index Color for bottom line
             //@todo writeCFRule() => $blockColor => Index Color for diagonal line
             switch ($conditional->getStyle()->getBorders()->getDiagonal()->getBorderStyle()) {
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_NONE:
+                case Border::BORDER_NONE:
                     $blockColor |= 0x00 << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN:
+                case Border::BORDER_THIN:
                     $blockColor |= 0x01 << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM:
+                case Border::BORDER_MEDIUM:
                     $blockColor |= 0x02 << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHED:
+                case Border::BORDER_DASHED:
                     $blockColor |= 0x03 << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOTTED:
+                case Border::BORDER_DOTTED:
                     $blockColor |= 0x04 << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK:
+                case Border::BORDER_THICK:
                     $blockColor |= 0x05 << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOUBLE:
+                case Border::BORDER_DOUBLE:
                     $blockColor |= 0x06 << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_HAIR:
+                case Border::BORDER_HAIR:
                     $blockColor |= 0x07 << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHED:
+                case Border::BORDER_MEDIUMDASHED:
                     $blockColor |= 0x08 << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT:
+                case Border::BORDER_DASHDOT:
                     $blockColor |= 0x09 << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOT:
+                case Border::BORDER_MEDIUMDASHDOT:
                     $blockColor |= 0x0A << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOTDOT:
+                case Border::BORDER_DASHDOTDOT:
                     $blockColor |= 0x0B << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUMDASHDOTDOT:
+                case Border::BORDER_MEDIUMDASHDOTDOT:
                     $blockColor |= 0x0C << 21;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_SLANTDASHDOT:
+                case Border::BORDER_SLANTDASHDOT:
                     $blockColor |= 0x0D << 21;
                     break;
             }
@@ -3751,67 +3767,67 @@ class Worksheet extends BIFFwriter
             // Fill Patern Style
             $blockFillPatternStyle = 0;
             switch ($conditional->getStyle()->getFill()->getFillType()) {
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_NONE:
+                case Fill::FILL_NONE:
                     $blockFillPatternStyle = 0x00;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID:
+                case Fill::FILL_SOLID:
                     $blockFillPatternStyle = 0x01;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_MEDIUMGRAY:
+                case Fill::FILL_PATTERN_MEDIUMGRAY:
                     $blockFillPatternStyle = 0x02;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKGRAY:
+                case Fill::FILL_PATTERN_DARKGRAY:
                     $blockFillPatternStyle = 0x03;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTGRAY:
+                case Fill::FILL_PATTERN_LIGHTGRAY:
                     $blockFillPatternStyle = 0x04;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKHORIZONTAL:
+                case Fill::FILL_PATTERN_DARKHORIZONTAL:
                     $blockFillPatternStyle = 0x05;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKVERTICAL:
+                case Fill::FILL_PATTERN_DARKVERTICAL:
                     $blockFillPatternStyle = 0x06;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKDOWN:
+                case Fill::FILL_PATTERN_DARKDOWN:
                     $blockFillPatternStyle = 0x07;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKUP:
+                case Fill::FILL_PATTERN_DARKUP:
                     $blockFillPatternStyle = 0x08;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKGRID:
+                case Fill::FILL_PATTERN_DARKGRID:
                     $blockFillPatternStyle = 0x09;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_DARKTRELLIS:
+                case Fill::FILL_PATTERN_DARKTRELLIS:
                     $blockFillPatternStyle = 0x0A;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTHORIZONTAL:
+                case Fill::FILL_PATTERN_LIGHTHORIZONTAL:
                     $blockFillPatternStyle = 0x0B;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTVERTICAL:
+                case Fill::FILL_PATTERN_LIGHTVERTICAL:
                     $blockFillPatternStyle = 0x0C;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTDOWN:
+                case Fill::FILL_PATTERN_LIGHTDOWN:
                     $blockFillPatternStyle = 0x0D;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTUP:
+                case Fill::FILL_PATTERN_LIGHTUP:
                     $blockFillPatternStyle = 0x0E;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTGRID:
+                case Fill::FILL_PATTERN_LIGHTGRID:
                     $blockFillPatternStyle = 0x0F;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_LIGHTTRELLIS:
+                case Fill::FILL_PATTERN_LIGHTTRELLIS:
                     $blockFillPatternStyle = 0x10;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_GRAY125:
+                case Fill::FILL_PATTERN_GRAY125:
                     $blockFillPatternStyle = 0x11;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_PATTERN_GRAY0625:
+                case Fill::FILL_PATTERN_GRAY0625:
                     $blockFillPatternStyle = 0x12;
                     break;
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR:
+                case Fill::FILL_GRADIENT_LINEAR:
                     $blockFillPatternStyle = 0x00;
                     break; // does not exist in BIFF8
-                case \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_PATH:
+                case Fill::FILL_GRADIENT_PATH:
                     $blockFillPatternStyle = 0x00;
                     break; // does not exist in BIFF8
                 default:
@@ -4171,10 +4187,10 @@ class Worksheet extends BIFFwriter
         }
         if ($bFormatProt == 1) {
             $dataBlockProtection = 0;
-            if ($conditional->getStyle()->getProtection()->getLocked() == \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED) {
+            if ($conditional->getStyle()->getProtection()->getLocked() == Protection::PROTECTION_PROTECTED) {
                 $dataBlockProtection = 1;
             }
-            if ($conditional->getStyle()->getProtection()->getHidden() == \PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED) {
+            if ($conditional->getStyle()->getProtection()->getHidden() == Protection::PROTECTION_PROTECTED) {
                 $dataBlockProtection = 1 << 1;
             }
         }
@@ -4220,15 +4236,15 @@ class Worksheet extends BIFFwriter
         $arrConditional = [];
         foreach ($this->phpSheet->getConditionalStylesCollection() as $cellCoordinate => $conditionalStyles) {
             foreach ($conditionalStyles as $conditional) {
-                if ($conditional->getConditionType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_EXPRESSION
-                        || $conditional->getConditionType() == \PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS) {
+                if ($conditional->getConditionType() == Conditional::CONDITION_EXPRESSION
+                        || $conditional->getConditionType() == Conditional::CONDITION_CELLIS) {
                     if (!in_array($conditional->getHashCode(), $arrConditional)) {
                         $arrConditional[] = $conditional->getHashCode();
                     }
                     // Cells
-                    $arrCoord = \PhpOffice\PhpSpreadsheet\Cell::coordinateFromString($cellCoordinate);
+                    $arrCoord = Cell::coordinateFromString($cellCoordinate);
                     if (!is_numeric($arrCoord[0])) {
-                        $arrCoord[0] = \PhpOffice\PhpSpreadsheet\Cell::columnIndexFromString($arrCoord[0]);
+                        $arrCoord[0] = Cell::columnIndexFromString($arrCoord[0]);
                     }
                     if (is_null($numColumnMin) || ($numColumnMin > $arrCoord[0])) {
                         $numColumnMin = $arrCoord[0];

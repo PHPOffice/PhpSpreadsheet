@@ -1,5 +1,8 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
+
 error_reporting(E_ALL);
 set_time_limit(0);
 
@@ -29,7 +32,7 @@ $inputFileType = 'Xls';
 $inputFileName = './sampleData/example1.xls';
 $sheetname = 'Data Sheet #3';
 
-class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
+class MyReadFilter implements IReadFilter
 {
     private $_startRow = 0;
 
@@ -59,7 +62,7 @@ class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 $filterSubset = new MyReadFilter(9, 15, range('G', 'K'));
 
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using IOFactory with a defined reader type of ',$inputFileType,'<br />';
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = IOFactory::createReader($inputFileType);
 echo 'Loading Sheet "',$sheetname,'" only<br />';
 $reader->setLoadSheetsOnly($sheetname);
 echo 'Loading Sheet using configurable filter<br />';

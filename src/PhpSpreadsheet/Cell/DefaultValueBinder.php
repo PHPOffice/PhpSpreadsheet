@@ -2,6 +2,11 @@
 
 namespace PhpOffice\PhpSpreadsheet\Cell;
 
+use DateTime;
+use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -29,21 +34,21 @@ class DefaultValueBinder implements IValueBinder
     /**
      * Bind value to a cell.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Cell $cell Cell to bind value to
+     * @param Cell $cell Cell to bind value to
      * @param mixed $value Value to bind in cell
      *
      * @return bool
      */
-    public function bindValue(\PhpOffice\PhpSpreadsheet\Cell $cell, $value = null)
+    public function bindValue(Cell $cell, $value = null)
     {
         // sanitize UTF-8 strings
         if (is_string($value)) {
-            $value = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::sanitizeUTF8($value);
+            $value = StringHelper::sanitizeUTF8($value);
         } elseif (is_object($value)) {
             // Handle any objects that might be injected
-            if ($value instanceof \DateTime) {
+            if ($value instanceof DateTime) {
                 $value = $value->format('Y-m-d H:i:s');
-            } elseif (!($value instanceof \PhpOffice\PhpSpreadsheet\RichText)) {
+            } elseif (!($value instanceof RichText)) {
                 $value = (string) $value;
             }
         }
@@ -69,7 +74,7 @@ class DefaultValueBinder implements IValueBinder
             return DataType::TYPE_NULL;
         } elseif ($pValue === '') {
             return DataType::TYPE_STRING;
-        } elseif ($pValue instanceof \PhpOffice\PhpSpreadsheet\RichText) {
+        } elseif ($pValue instanceof RichText) {
             return DataType::TYPE_INLINE;
         } elseif ($pValue[0] === '=' && strlen($pValue) > 1) {
             return DataType::TYPE_FORMULA;

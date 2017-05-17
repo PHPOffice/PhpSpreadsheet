@@ -3,6 +3,8 @@
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
 /* FINANCIAL_MAX_ITERATIONS */
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+
 define('FINANCIAL_MAX_ITERATIONS', 128);
 
 /* FINANCIAL_PRECISION */
@@ -64,10 +66,10 @@ class Financial
     {
         $months = 12 / $frequency;
 
-        $result = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($maturity);
+        $result = Date::excelToDateTimeObject($maturity);
         $eom = self::isLastDayOfMonth($result);
 
-        while ($settlement < \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($result)) {
+        while ($settlement < Date::PHPToExcel($result)) {
             $result->modify('-' . $months . ' months');
         }
         if ($next) {
@@ -78,7 +80,7 @@ class Financial
             $result->modify('-1 day');
         }
 
-        return \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($result);
+        return Date::PHPToExcel($result);
     }
 
     private static function isValidFrequency($frequency)

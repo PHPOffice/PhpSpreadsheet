@@ -2,17 +2,20 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 require __DIR__ . '/Header.php';
 
 // Write temporary file
 $largeSpreadsheet = require __DIR__ . '/templates/largeSpreadsheet.php';
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($largeSpreadsheet);
+$writer = new Xlsx($largeSpreadsheet);
 $filename = $helper->getTemporaryFilename();
 $callStartTime = microtime(true);
 $writer->save($filename);
 $helper->logWrite($writer, $filename, $callStartTime);
 
-class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
+class MyReadFilter implements IReadFilter
 {
     public function readCell($column, $row, $worksheetName = '')
     {
@@ -26,7 +29,7 @@ class MyReadFilter implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 }
 
 $helper->log('Load from Xlsx file');
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
+$reader = IOFactory::createReader('Xlsx');
 $reader->setReadFilter(new MyReadFilter());
 $callStartTime = microtime(true);
 $spreadsheet = $reader->load($filename);

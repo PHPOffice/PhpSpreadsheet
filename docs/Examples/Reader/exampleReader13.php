@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 error_reporting(E_ALL);
 set_time_limit(0);
 
@@ -24,7 +26,7 @@ require_once __DIR__ . '/../../../src/Bootstrap.php';
 $inputFileType = 'Csv';
 $inputFileNames = ['./sampleData/example1.csv', './sampleData/example2.csv'];
 
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = IOFactory::createReader($inputFileType);
 $inputFileName = array_shift($inputFileNames);
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' into WorkSheet #1 using IOFactory with a defined reader type of ',$inputFileType,'<br />';
 $spreadsheet = $reader->load($inputFileName);

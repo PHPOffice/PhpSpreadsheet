@@ -1,16 +1,18 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 require __DIR__ . '/Header.php';
 
 // Create temporary file that will be read
 $sampleSpreadsheet = require __DIR__ . '/templates/chartSpreadsheet.php';
 $filename = $helper->getTemporaryFilename();
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($sampleSpreadsheet);
+$writer = new Xlsx($sampleSpreadsheet);
 $writer->save($filename);
 
 $helper->log('Load from Xlsx file');
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
+$reader = IOFactory::createReader('Xlsx');
 $reader->setIncludeCharts(true);
 $spreadsheet = $reader->load($filename);
 
@@ -29,7 +31,7 @@ $worksheet->fromArray(
 
 // Save Excel 2007 file
 $filename = $helper->getFilename(__FILE__);
-$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
 $writer->setIncludeCharts(true);
 $callStartTime = microtime(true);
 $writer->save($filename);

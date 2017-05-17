@@ -1,10 +1,16 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Conditional;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
+
 require __DIR__ . '/Header.php';
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
-$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new Spreadsheet();
 
 // Set document properties
 $helper->log('Set document properties');
@@ -47,30 +53,30 @@ $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(12);
 
 // Add conditional formatting
 $helper->log('Add conditional formatting');
-$conditional1 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
-$conditional1->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS)
-        ->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_BETWEEN)
+$conditional1 = new Conditional();
+$conditional1->setConditionType(Conditional::CONDITION_CELLIS)
+        ->setOperatorType(Conditional::OPERATOR_BETWEEN)
         ->addCondition('200')
         ->addCondition('400');
-$conditional1->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_YELLOW);
+$conditional1->getStyle()->getFont()->getColor()->setARGB(Color::COLOR_YELLOW);
 $conditional1->getStyle()->getFont()->setBold(true);
-$conditional1->getStyle()->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
+$conditional1->getStyle()->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
 
-$conditional2 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
-$conditional2->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS)
-        ->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_LESSTHAN)
+$conditional2 = new Conditional();
+$conditional2->setConditionType(Conditional::CONDITION_CELLIS)
+        ->setOperatorType(Conditional::OPERATOR_LESSTHAN)
         ->addCondition('0');
-$conditional2->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
+$conditional2->getStyle()->getFont()->getColor()->setARGB(Color::COLOR_RED);
 $conditional2->getStyle()->getFont()->setItalic(true);
-$conditional2->getStyle()->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
+$conditional2->getStyle()->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
 
-$conditional3 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
-$conditional3->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS)
-        ->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_GREATERTHANOREQUAL)
+$conditional3 = new Conditional();
+$conditional3->setConditionType(Conditional::CONDITION_CELLIS)
+        ->setOperatorType(Conditional::OPERATOR_GREATERTHANOREQUAL)
         ->addCondition('0');
-$conditional3->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_GREEN);
+$conditional3->getStyle()->getFont()->getColor()->setARGB(Color::COLOR_GREEN);
 $conditional3->getStyle()->getFont()->setItalic(true);
-$conditional3->getStyle()->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
+$conditional3->getStyle()->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
 
 $conditionalStyles = $spreadsheet->getActiveSheet()->getStyle('B2')->getConditionalStyles();
 array_push($conditionalStyles, $conditional1);
@@ -98,8 +104,8 @@ $spreadsheet->getActiveSheet()->getHeaderFooter()->setOddFooter('&L&B' . $spread
 
 // Set page orientation and size
 $helper->log('Set page orientation and size');
-$spreadsheet->getActiveSheet()->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_PORTRAIT);
-$spreadsheet->getActiveSheet()->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
+$spreadsheet->getActiveSheet()->getPageSetup()->setOrientation(PageSetup::ORIENTATION_PORTRAIT);
+$spreadsheet->getActiveSheet()->getPageSetup()->setPaperSize(PageSetup::PAPERSIZE_A4);
 
 // Rename worksheet
 $helper->log('Rename worksheet');

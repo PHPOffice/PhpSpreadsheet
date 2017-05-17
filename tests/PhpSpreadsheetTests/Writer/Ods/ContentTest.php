@@ -12,8 +12,9 @@ use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Writer\Ods;
 use PhpOffice\PhpSpreadsheet\Writer\Ods\Content;
+use PHPUnit_Framework_TestCase;
 
-class ContentTest extends \PHPUnit_Framework_TestCase
+class ContentTest extends PHPUnit_Framework_TestCase
 {
     private $samplesPath = __DIR__ . '/../../../data/Writer/Ods';
 

@@ -4,25 +4,27 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Ods;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Font;
+use PHPUnit_Framework_TestCase;
 
 /**
  * @todo The class doesn't read the bold/italic/underline properties (rich text)
  */
-class OdsTest extends \PHPUnit_Framework_TestCase
+class OdsTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @var Spreadsheet
      */
     private $spreadsheetOOCalcTest;
 
     /**
-     * @var \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @var Spreadsheet
      */
     private $spreadsheetData;
 
     /**
-     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @return Spreadsheet
      */
     protected function loadOOCalcTestFile()
     {
@@ -31,14 +33,14 @@ class OdsTest extends \PHPUnit_Framework_TestCase
 
             // Load into this instance
             $reader = new Ods();
-            $this->spreadsheetOOCalcTest = $reader->loadIntoExisting($filename, new \PhpOffice\PhpSpreadsheet\Spreadsheet());
+            $this->spreadsheetOOCalcTest = $reader->loadIntoExisting($filename, new Spreadsheet());
         }
 
         return $this->spreadsheetOOCalcTest;
     }
 
     /**
-     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @return Spreadsheet
      */
     protected function loadDataFile()
     {
@@ -47,7 +49,7 @@ class OdsTest extends \PHPUnit_Framework_TestCase
 
             // Load into this instance
             $reader = new Ods();
-            $this->spreadsheetData = $reader->loadIntoExisting($filename, new \PhpOffice\PhpSpreadsheet\Spreadsheet());
+            $this->spreadsheetData = $reader->loadIntoExisting($filename, new Spreadsheet());
         }
 
         return $this->spreadsheetData;

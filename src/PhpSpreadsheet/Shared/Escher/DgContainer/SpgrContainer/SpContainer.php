@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer;
 
+use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -29,7 +31,7 @@ class SpContainer
     /**
      * Parent Shape Group Container.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer
+     * @var SpgrContainer
      */
     private $parent;
 
@@ -113,7 +115,7 @@ class SpContainer
     /**
      * Set parent Shape Group Container.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer $parent
+     * @param SpgrContainer $parent
      */
     public function setParent($parent)
     {
@@ -123,7 +125,7 @@ class SpContainer
     /**
      * Get the parent Shape Group Container.
      *
-     * @return \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer
+     * @return SpgrContainer
      */
     public function getParent()
     {
@@ -379,7 +381,7 @@ class SpContainer
         $nestingLevel = 0;
 
         $parent = $this->getParent();
-        while ($parent instanceof \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer) {
+        while ($parent instanceof SpgrContainer) {
             ++$nestingLevel;
             $parent = $parent->getParent();
         }

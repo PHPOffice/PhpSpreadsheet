@@ -3,8 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Style;
 
 use PhpOffice\PhpSpreadsheet\Style\Color;
+use PHPUnit_Framework_TestCase;
 
-class ColorTest extends \PHPUnit_Framework_TestCase
+class ColorTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider providerColorGetRed

@@ -2,13 +2,15 @@
 
 namespace PhpOffice\PhpSpreadsheet\Collection;
 
+use Psr\SimpleCache\CacheInterface;
+
 /**
  * This is the default implementation for in-memory cell collection.
  *
  * Alternatives implementation should leverage off-memory, non-volatile storage
  * to reduce overall memory usage.
  */
-class Memory implements \Psr\SimpleCache\CacheInterface
+class Memory implements CacheInterface
 {
     private $cache = [];
 

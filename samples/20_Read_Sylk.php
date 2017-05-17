@@ -1,10 +1,12 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 require __DIR__ . '/Header.php';
 
 $filename = __DIR__ . '/templates/SylkTest.slk';
 $callStartTime = microtime(true);
-$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filename);
+$spreadsheet = IOFactory::load($filename);
 $helper->logRead('Slk', $filename, $callStartTime);
 
 // Save

@@ -1,14 +1,17 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Settings;
+
 require __DIR__ . '/Header.php';
 
 //	Change these values to select the Rendering library that you wish to use
 //		and its directory location on your server
-$rendererName = \PhpOffice\PhpSpreadsheet\Settings::CHART_RENDERER_JPGRAPH;
+$rendererName = Settings::CHART_RENDERER_JPGRAPH;
 $rendererLibrary = 'jpgraph3.5.0b1/src/';
 $rendererLibraryPath = '/php/libraries/Charts/' . $rendererLibrary;
 
-if (!\PhpOffice\PhpSpreadsheet\Settings::setChartRenderer($rendererName, $rendererLibraryPath)) {
+if (!Settings::setChartRenderer($rendererName, $rendererLibraryPath)) {
     $helper->log('NOTICE: Please set the $rendererName and $rendererLibraryPath values at the top of this script as appropriate for your directory structure');
 
     return;
@@ -35,7 +38,7 @@ foreach ($inputFileNames as $inputFileName) {
 
     $helper->log("Load Test from $inputFileType file " . $inputFileNameShort);
 
-    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+    $reader = IOFactory::createReader($inputFileType);
     $reader->setIncludeCharts(true);
     $spreadsheet = $reader->load($inputFileName);
 
@@ -83,7 +86,7 @@ foreach ($inputFileNames as $inputFileName) {
 
     // Save
     $filename = $helper->getFilename($inputFileName);
-    $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Html');
+    $writer = IOFactory::createWriter($spreadsheet, 'Html');
     $writer->setIncludeCharts(true);
     $callStartTime = microtime(true);
     $writer->save($filename);
