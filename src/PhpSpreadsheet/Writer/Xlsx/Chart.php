@@ -1096,7 +1096,7 @@ class Chart extends WriterPart
             $objWriter->startElement('c:ser');
 
             $fillColor = $plotGroup->getPlotLabelByIndex($plotSeriesIdx)->getFillColor();
-            if ($fillColor != null){
+            if ($fillColor != null) {
                 $objWriter->startElement('c:spPr');
                 $objWriter->startElement('a:solidFill');
                 $objWriter->startElement('a:srgbClr');

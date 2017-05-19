@@ -87,12 +87,15 @@ class DataSeriesValues
     private $fillColor;
 
     /**
-     * Create a new DataSeriesValues object
+     * Create a new DataSeriesValues object.
+     *
      * @param string $dataSource
      * @param null|mixed $formatCode
      * @param mixed $pointCount
      * @param mixed $dataValues
      * @param null|mixed $marker
+     * @param mixed $dataType
+     * @param null|mixed $color
      */
     public function __construct($dataType = self::DATASERIES_TYPE_NUMBER, $dataSource = null, $formatCode = null, $pointCount = 0, $dataValues = [], $marker = null, $color = null)
     {
@@ -233,9 +236,11 @@ class DataSeriesValues
     }
 
     /**
-     * Set fill color for series
+     * Set fill color for series.
      *
      * @param    string    HEX color
+     * @param mixed $color
+     *
      * @return   DataSeriesValues
      */
     public function setFillColor($color)
@@ -244,11 +249,12 @@ class DataSeriesValues
             throw new Exception('Invalid hex color for chart series');
         }
         $this->fillColor = $color;
+
         return $this;
     }
 
     /**
-     * Identify if the Data Series is a multi-level or a simple series
+     * Identify if the Data Series is a multi-level or a simple series.
      *
      * @return bool|null
      */
