@@ -143,6 +143,7 @@ class OLERead
         $pos = 0;
         $sbdBlock = $this->sbdStartBlock;
         $this->smallBlockChain = '';
+        $sbdBlocks = array();
         while ($sbdBlock != -2) {
             $pos = ($sbdBlock + 1) * self::BIG_BLOCK_SIZE;
 
@@ -150,6 +151,12 @@ class OLERead
             $pos += 4 * $bbs;
 
             $sbdBlock = self::getInt4d($this->bigBlockChain, $sbdBlock * 4);
+
+            if (in_array($sbdBlock, $sbdBlocks)) {
+                throw new \PhpOffice\PhpSpreadsheet\Reader\Exception("Invalid file format");
+            } else {
+                $sbdBlocks[] = $sbdBlock;
+            }
         }
 
         // read the directory stream
