@@ -2,20 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
-/* LOG_GAMMA_X_MAX_VALUE */
 use PhpOffice\PhpSpreadsheet\Calculation;
 use PhpOffice\PhpSpreadsheet\Shared\Trend\Trend;
-
-define('LOG_GAMMA_X_MAX_VALUE', 2.55e305);
-
-/* XMININ */
-define('XMININ', 2.23e-308);
-
-/* EPS */
-define('EPS', 2.22e-16);
-
-/* SQRT2PI */
-define('SQRT2PI', 2.5066282746310005024157652848110452530069867406099);
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -41,6 +29,13 @@ define('SQRT2PI', 2.5066282746310005024157652848110452530069867406099);
  */
 class Statistical
 {
+    const LOG_GAMMA_X_MAX_VALUE = 2.55e305;
+    const XMININ = 2.23e-308;
+    const EPS = 2.22e-16;
+    const MAX_VALUE = 1.2e308;
+    const MAX_ITERATIONS = 256;
+    const SQRT2PI = 2.5066282746310005024157652848110452530069867406099;
+
     private static function checkTrendArrays(&$array1, &$array2)
     {
         if (!is_array($array1)) {
@@ -82,7 +77,7 @@ class Statistical
      */
     private static function beta($p, $q)
     {
-        if ($p <= 0.0 || $q <= 0.0 || ($p + $q) > LOG_GAMMA_X_MAX_VALUE) {
+        if ($p <= 0.0 || $q <= 0.0 || ($p + $q) > self::LOG_GAMMA_X_MAX_VALUE) {
             return 0.0;
         }
 
@@ -112,7 +107,7 @@ class Statistical
             return 0.0;
         } elseif ($x >= 1.0) {
             return 1.0;
-        } elseif (($p <= 0.0) || ($q <= 0.0) || (($p + $q) > LOG_GAMMA_X_MAX_VALUE)) {
+        } elseif (($p <= 0.0) || ($q <= 0.0) || (($p + $q) > self::LOG_GAMMA_X_MAX_VALUE)) {
             return 0.0;
         }
         $beta_gam = exp((0 - self::logBeta($p, $q)) + $p * log($x) + $q * log(1.0 - $x));
@@ -145,7 +140,7 @@ class Statistical
         if ($p != self::$logBetaCacheP || $q != self::$logBetaCacheQ) {
             self::$logBetaCacheP = $p;
             self::$logBetaCacheQ = $q;
-            if (($p <= 0.0) || ($q <= 0.0) || (($p + $q) > LOG_GAMMA_X_MAX_VALUE)) {
+            if (($p <= 0.0) || ($q <= 0.0) || (($p + $q) > self::LOG_GAMMA_X_MAX_VALUE)) {
                 self::$logBetaCacheResult = 0.0;
             } else {
                 self::$logBetaCacheResult = self::logGamma($p) + self::logGamma($q) - self::logGamma($p + $q);
@@ -172,37 +167,37 @@ class Statistical
         $p_plus = $p + 1.0;
         $p_minus = $p - 1.0;
         $h = 1.0 - $sum_pq * $x / $p_plus;
-        if (abs($h) < XMININ) {
-            $h = XMININ;
+        if (abs($h) < self::XMININ) {
+            $h = self::XMININ;
         }
         $h = 1.0 / $h;
         $frac = $h;
         $m = 1;
         $delta = 0.0;
-        while ($m <= MAX_ITERATIONS && abs($delta - 1.0) > PRECISION) {
+        while ($m <= self::MAX_ITERATIONS && abs($delta - 1.0) > Functions::PRECISION) {
             $m2 = 2 * $m;
             // even index for d
             $d = $m * ($q - $m) * $x / (($p_minus + $m2) * ($p + $m2));
             $h = 1.0 + $d * $h;
-            if (abs($h) < XMININ) {
-                $h = XMININ;
+            if (abs($h) < self::XMININ) {
+                $h = self::XMININ;
             }
             $h = 1.0 / $h;
             $c = 1.0 + $d / $c;
-            if (abs($c) < XMININ) {
-                $c = XMININ;
+            if (abs($c) < self::XMININ) {
+                $c = self::XMININ;
             }
             $frac *= $h * $c;
             // odd index for d
             $d = -($p + $m) * ($sum_pq + $m) * $x / (($p + $m2) * ($p_plus + $m2));
             $h = 1.0 + $d * $h;
-            if (abs($h) < XMININ) {
-                $h = XMININ;
+            if (abs($h) < self::XMININ) {
+                $h = self::XMININ;
             }
             $h = 1.0 / $h;
             $c = 1.0 + $d / $c;
-            if (abs($c) < XMININ) {
-                $c = XMININ;
+            if (abs($c) < self::XMININ) {
+                $c = self::XMININ;
             }
             $delta = $h * $c;
             $frac *= $delta;
@@ -346,8 +341,8 @@ class Statistical
             return self::$logGammaCacheResult;
         }
         $y = $x;
-        if ($y > 0.0 && $y <= LOG_GAMMA_X_MAX_VALUE) {
-            if ($y <= EPS) {
+        if ($y > 0.0 && $y <= self::LOG_GAMMA_X_MAX_VALUE) {
+            if ($y <= self::EPS) {
                 $res = -log(y);
             } elseif ($y <= 1.5) {
                 // ---------------------
@@ -415,7 +410,7 @@ class Statistical
                     }
                     $res /= $y;
                     $corr = log($y);
-                    $res = $res + log(SQRT2PI) - 0.5 * $corr;
+                    $res = $res + log(self::SQRT2PI) - 0.5 * $corr;
                     $res += $y * ($corr - 1.0);
                 }
             }
@@ -423,7 +418,7 @@ class Statistical
             // --------------------------
             //    Return for bad arguments
             // --------------------------
-            $res = MAX_VALUE;
+            $res = self::MAX_VALUE;
         }
         // ------------------------------
         //    Final adjustments and return
@@ -480,7 +475,7 @@ class Statistical
             $summer += ($p[$j] / ++$y);
         }
 
-        return exp(0 - $tmp + log(SQRT2PI * $summer / $x));
+        return exp(0 - $tmp + log(self::SQRT2PI * $summer / $x));
     }
 
     /***************************************************************************
@@ -977,7 +972,7 @@ class Statistical
             $b = 2;
 
             $i = 0;
-            while ((($b - $a) > PRECISION) && ($i++ < MAX_ITERATIONS)) {
+            while ((($b - $a) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
                 $guess = ($a + $b) / 2;
                 $result = self::BETADIST($guess, $alpha, $beta);
                 if (($result == $probability) || ($result == 0)) {
@@ -988,7 +983,7 @@ class Statistical
                     $a = $guess;
                 }
             }
-            if ($i == MAX_ITERATIONS) {
+            if ($i == self::MAX_ITERATIONS) {
                 return Functions::NA();
             }
 
@@ -1102,7 +1097,7 @@ class Statistical
             $dx = 1;
             $i = 0;
 
-            while ((abs($dx) > PRECISION) && ($i++ < MAX_ITERATIONS)) {
+            while ((abs($dx) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
                 // Apply Newton-Raphson step
                 $result = self::CHIDIST($x, $degrees);
                 $error = $result - $probability;
@@ -1127,7 +1122,7 @@ class Statistical
                 }
                 $x = $xNew;
             }
-            if ($i == MAX_ITERATIONS) {
+            if ($i == self::MAX_ITERATIONS) {
                 return Functions::NA();
             }
 
@@ -1721,7 +1716,7 @@ class Statistical
             $dx = 1024;
             $i = 0;
 
-            while ((abs($dx) > PRECISION) && ($i++ < MAX_ITERATIONS)) {
+            while ((abs($dx) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
                 // Apply Newton-Raphson step
                 $error = self::GAMMADIST($x, $alpha, $beta, true) - $probability;
                 if ($error < 0.0) {
@@ -1744,7 +1739,7 @@ class Statistical
                 }
                 $x = $xNew;
             }
-            if ($i == MAX_ITERATIONS) {
+            if ($i == self::MAX_ITERATIONS) {
                 return Functions::NA();
             }
 
@@ -2667,7 +2662,7 @@ class Statistical
                     return 0.5 * (1 + Engineering::erfVal(($value - $mean) / ($stdDev * sqrt(2))));
                 }
 
-                return (1 / (SQRT2PI * $stdDev)) * exp(0 - (pow($value - $mean, 2) / (2 * ($stdDev * $stdDev))));
+                return (1 / (self::SQRT2PI * $stdDev)) * exp(0 - (pow($value - $mean, 2) / (2 * ($stdDev * $stdDev))));
             }
         }
 
@@ -3439,7 +3434,7 @@ class Statistical
             }
             $tsum *= $ts;
             if (($degrees % 2) == 1) {
-                $tsum = M_2DIVPI * ($tsum + $ttheta);
+                $tsum = Functions::M_2DIVPI * ($tsum + $ttheta);
             }
             $tValue = 0.5 * (1 + $tsum);
             if ($tails == 1) {
@@ -3475,7 +3470,7 @@ class Statistical
             $dx = 1;
             $i = 0;
 
-            while ((abs($dx) > PRECISION) && ($i++ < MAX_ITERATIONS)) {
+            while ((abs($dx) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
                 // Apply Newton-Raphson step
                 $result = self::TDIST($x, $degrees, 2);
                 $error = $result - $probability;
@@ -3500,7 +3495,7 @@ class Statistical
                 }
                 $x = $xNew;
             }
-            if ($i == MAX_ITERATIONS) {
+            if ($i == self::MAX_ITERATIONS) {
                 return Functions::NA();
             }
 

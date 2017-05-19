@@ -2,14 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
-if (!defined('DATE_W3C')) {
-    define('DATE_W3C', 'Y-m-d\TH:i:sP');
-}
-
-if (!defined('DEBUGMODE_ENABLED')) {
-    define('DEBUGMODE_ENABLED', false);
-}
-
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -34,6 +26,8 @@ if (!defined('DEBUGMODE_ENABLED')) {
  */
 class XMLWriter extends \XMLWriter
 {
+    public static $debugEnabled = false;
+
     /** Temporary storage method */
     const STORAGE_MEMORY = 1;
     const STORAGE_DISK = 2;
@@ -71,7 +65,7 @@ class XMLWriter extends \XMLWriter
         }
 
         // Set default values
-        if (DEBUGMODE_ENABLED) {
+        if (self::$debugEnabled) {
             $this->setIndent(true);
         }
     }

@@ -139,8 +139,8 @@ class CholeskyDecomposition
 
                 return new Matrix($X, $this->m, $nx);
             }
-            throw new CalculationException(JAMAError(MatrixSPDException));
+            throw new CalculationException(Matrix::MATRIX_SPD_EXCEPTION);
         }
-        throw new CalculationException(JAMAError(MATRIX_DIMENSION_EXCEPTION));
+        throw new CalculationException(Matrix::MATRIX_DIMENSION_EXCEPTION);
     }
 }

@@ -24,6 +24,7 @@ class Matrix
     const ARGUMENT_BOUNDS_EXCEPTION = 'Invalid argument range.';
     const MATRIX_DIMENSION_EXCEPTION = 'Matrix dimensions are not equal.';
     const ARRAY_LENGTH_EXCEPTION = 'Array length must be a multiple of m.';
+    const MATRIX_SPD_EXCEPTION = 'Can only perform operation on symmetric positive definite matrix.';
 
     /**
      * Matrix storage.
@@ -971,7 +972,7 @@ class Matrix
 
                         return $C;
                     }
-                    throw new CalculationException(JAMAError(MatrixDimensionMismatch));
+                    throw new CalculationException(self::MATRIX_DIMENSION_EXCEPTION);
                 case 'array':
                     $B = new self($args[0]);
                     if ($this->n == $B->m) {
@@ -988,7 +989,7 @@ class Matrix
 
                         return $C;
                     }
-                    throw new CalculationException(JAMAError(MatrixDimensionMismatch));
+                    throw new CalculationException(self::MATRIX_DIMENSION_EXCEPTION);
                 case 'integer':
                     $C = new self($this->A);
                     for ($i = 0; $i < $C->m; ++$i) {
