@@ -2,17 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
-/* MAX_VALUE */
-define('MAX_VALUE', 1.2e308);
-
-/* 2 / PI */
-define('M_2DIVPI', 0.63661977236758134307553505349006);
-
-/* MAX_ITERATIONS */
-define('MAX_ITERATIONS', 256);
-
-/* PRECISION */
-define('PRECISION', 8.88E-016);
+use PhpOffice\PhpSpreadsheet\Calculation;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -38,11 +28,17 @@ define('PRECISION', 8.88E-016);
  */
 class Functions
 {
+    const PRECISION = 8.88E-016;
+
+    /**
+     * 2 / PI.
+     */
+    const M_2DIVPI = 0.63661977236758134307553505349006;
+
     /** constants */
     const COMPATIBILITY_EXCEL = 'Excel';
     const COMPATIBILITY_GNUMERIC = 'Gnumeric';
     const COMPATIBILITY_OPENOFFICE = 'OpenOfficeCalc';
-
     const RETURNDATE_PHP_NUMERIC = 'P';
     const RETURNDATE_PHP_OBJECT = 'O';
     const RETURNDATE_EXCEL = 'E';
@@ -298,7 +294,7 @@ class Functions
         }
         if (!in_array($condition[0], ['>', '<', '='])) {
             if (!is_numeric($condition)) {
-                $condition = \PhpOffice\PhpSpreadsheet\Calculation::wrapResult(strtoupper($condition));
+                $condition = Calculation::wrapResult(strtoupper($condition));
             }
 
             return '=' . $condition;
@@ -308,7 +304,7 @@ class Functions
 
         if (!is_numeric($operand)) {
             $operand = str_replace('"', '""', $operand);
-            $operand = \PhpOffice\PhpSpreadsheet\Calculation::wrapResult(strtoupper($operand));
+            $operand = Calculation::wrapResult(strtoupper($operand));
         }
 
         return $operator . $operand;

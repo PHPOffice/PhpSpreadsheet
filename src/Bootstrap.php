@@ -26,6 +26,7 @@
  */
 
 // This sucks, but we have to try to find the composer autoloader
+
 $paths = [
     __DIR__ . '/../vendor/autoload.php', // In case PhpSpreadsheet is cloned directly
     __DIR__ . '/../../../autoload.php', // In case PhpSpreadsheet is a composer dependency.

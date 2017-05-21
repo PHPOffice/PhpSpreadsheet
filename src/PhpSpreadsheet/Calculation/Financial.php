@@ -2,11 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
-/* FINANCIAL_MAX_ITERATIONS */
-define('FINANCIAL_MAX_ITERATIONS', 128);
-
-/* FINANCIAL_PRECISION */
-define('FINANCIAL_PRECISION', 1.0e-08);
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -32,6 +28,10 @@ define('FINANCIAL_PRECISION', 1.0e-08);
  */
 class Financial
 {
+    const FINANCIAL_MAX_ITERATIONS = 128;
+
+    const FINANCIAL_PRECISION = 1.0e-08;
+
     /**
      * isLastDayOfMonth.
      *
@@ -64,10 +64,10 @@ class Financial
     {
         $months = 12 / $frequency;
 
-        $result = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($maturity);
+        $result = Date::excelToDateTimeObject($maturity);
         $eom = self::isLastDayOfMonth($result);
 
-        while ($settlement < \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($result)) {
+        while ($settlement < Date::PHPToExcel($result)) {
             $result->modify('-' . $months . ' months');
         }
         if ($next) {
@@ -78,7 +78,7 @@ class Financial
             $result->modify('-1 day');
         }
 
-        return \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($result);
+        return Date::PHPToExcel($result);
     }
 
     private static function isValidFrequency($frequency)
@@ -1426,7 +1426,7 @@ class Financial
         $x2 = $guess;
         $f1 = self::NPV($x1, $values);
         $f2 = self::NPV($x2, $values);
-        for ($i = 0; $i < FINANCIAL_MAX_ITERATIONS; ++$i) {
+        for ($i = 0; $i < self::FINANCIAL_MAX_ITERATIONS; ++$i) {
             if (($f1 * $f2) < 0.0) {
                 break;
             }
@@ -1449,14 +1449,14 @@ class Financial
             $dx = $x1 - $x2;
         }
 
-        for ($i = 0; $i < FINANCIAL_MAX_ITERATIONS; ++$i) {
+        for ($i = 0; $i < self::FINANCIAL_MAX_ITERATIONS; ++$i) {
             $dx *= 0.5;
             $x_mid = $rtb + $dx;
             $f_mid = self::NPV($x_mid, $values);
             if ($f_mid <= 0.0) {
                 $rtb = $x_mid;
             }
-            if ((abs($f_mid) < FINANCIAL_PRECISION) || (abs($dx) < FINANCIAL_PRECISION)) {
+            if ((abs($f_mid) < self::FINANCIAL_PRECISION) || (abs($dx) < self::FINANCIAL_PRECISION)) {
                 return $x_mid;
             }
         }
@@ -1963,7 +1963,7 @@ class Financial
         $guess = (is_null($guess)) ? 0.1 : Functions::flattenSingleValue($guess);
 
         $rate = $guess;
-        if (abs($rate) < FINANCIAL_PRECISION) {
+        if (abs($rate) < self::FINANCIAL_PRECISION) {
             $y = $pv * (1 + $nper * $rate) + $pmt * (1 + $rate * $type) * $nper + $fv;
         } else {
             $f = exp($nper * log(1 + $rate));
@@ -1975,14 +1975,14 @@ class Financial
         // find root by secant method
         $i = $x0 = 0.0;
         $x1 = $rate;
-        while ((abs($y0 - $y1) > FINANCIAL_PRECISION) && ($i < FINANCIAL_MAX_ITERATIONS)) {
+        while ((abs($y0 - $y1) > self::FINANCIAL_PRECISION) && ($i < self::FINANCIAL_MAX_ITERATIONS)) {
             $rate = ($y1 * $x0 - $y0 * $x1) / ($y1 - $y0);
             $x0 = $x1;
             $x1 = $rate;
             if (($nper * abs($pmt)) > ($pv - $fv)) {
                 $x1 = abs($x1);
             }
-            if (abs($rate) < FINANCIAL_PRECISION) {
+            if (abs($rate) < self::FINANCIAL_PRECISION) {
                 $y = $pv * (1 + $nper * $rate) + $pmt * (1 + $rate * $type) * $nper + $fv;
             } else {
                 $f = exp($nper * log(1 + $rate));
@@ -2280,7 +2280,7 @@ class Financial
         $x2 = $guess;
         $f1 = self::XNPV($x1, $values, $dates);
         $f2 = self::XNPV($x2, $values, $dates);
-        for ($i = 0; $i < FINANCIAL_MAX_ITERATIONS; ++$i) {
+        for ($i = 0; $i < self::FINANCIAL_MAX_ITERATIONS; ++$i) {
             if (($f1 * $f2) < 0.0) {
                 break;
             } elseif (abs($f1) < abs($f2)) {
@@ -2302,14 +2302,14 @@ class Financial
             $dx = $x1 - $x2;
         }
 
-        for ($i = 0; $i < FINANCIAL_MAX_ITERATIONS; ++$i) {
+        for ($i = 0; $i < self::FINANCIAL_MAX_ITERATIONS; ++$i) {
             $dx *= 0.5;
             $x_mid = $rtb + $dx;
             $f_mid = self::XNPV($x_mid, $values, $dates);
             if ($f_mid <= 0.0) {
                 $rtb = $x_mid;
             }
-            if ((abs($f_mid) < FINANCIAL_PRECISION) || (abs($dx) < FINANCIAL_PRECISION)) {
+            if ((abs($f_mid) < self::FINANCIAL_PRECISION) || (abs($dx) < self::FINANCIAL_PRECISION)) {
                 return $x_mid;
             }
         }

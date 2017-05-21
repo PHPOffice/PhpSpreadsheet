@@ -3,8 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Shared\PasswordHasher;
+use PHPUnit_Framework_TestCase;
 
-class PasswordHasherTest extends \PHPUnit_Framework_TestCase
+class PasswordHasherTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider providerHashPassword

@@ -1,8 +1,21 @@
 <?php
 
 // Create new Spreadsheet object
+use PhpOffice\PhpSpreadsheet\RichText;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Font;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Style\Protection;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
+
 $helper->log('Create new Spreadsheet object');
-$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new Spreadsheet();
 
 // Set document properties
 $helper->log('Set document properties');
@@ -18,8 +31,8 @@ $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
 $helper->log('Add some data');
 $spreadsheet->setActiveSheetIndex(0);
 $spreadsheet->getActiveSheet()->setCellValue('B1', 'Invoice');
-$spreadsheet->getActiveSheet()->setCellValue('D1', \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(gmmktime(0, 0, 0, date('m'), date('d'), date('Y'))));
-$spreadsheet->getActiveSheet()->getStyle('D1')->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX15);
+$spreadsheet->getActiveSheet()->setCellValue('D1', Date::PHPToExcel(gmmktime(0, 0, 0, date('m'), date('d'), date('Y'))));
+$spreadsheet->getActiveSheet()->getStyle('D1')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_XLSX15);
 $spreadsheet->getActiveSheet()->setCellValue('E1', '#12566');
 
 $spreadsheet->getActiveSheet()->setCellValue('A3', 'Product Id');
@@ -81,13 +94,13 @@ $spreadsheet->getActiveSheet()->getComment('E13')->getFillColor()->setRGB('EEEEE
 
 // Add rich-text string
 $helper->log('Add rich-text string');
-$richText = new \PhpOffice\PhpSpreadsheet\RichText();
+$richText = new RichText();
 $richText->createText('This invoice is ');
 
 $payable = $richText->createTextRun('payable within thirty days after the end of the month');
 $payable->getFont()->setBold(true);
 $payable->getFont()->setItalic(true);
-$payable->getFont()->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_DARKGREEN));
+$payable->getFont()->setColor(new Color(Color::COLOR_DARKGREEN));
 
 $richText->createText(', unless specified otherwise on the invoice.');
 
@@ -105,7 +118,7 @@ $spreadsheet->getActiveSheet()->protectCells('A3:E13', 'PhpSpreadsheet');
 
 // Set cell number formats
 $helper->log('Set cell number formats');
-$spreadsheet->getActiveSheet()->getStyle('E4:E13')->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
+$spreadsheet->getActiveSheet()->getStyle('E4:E13')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
 
 // Set column widths
 $helper->log('Set column widths');
@@ -118,23 +131,23 @@ $helper->log('Set fonts');
 $spreadsheet->getActiveSheet()->getStyle('B1')->getFont()->setName('Candara');
 $spreadsheet->getActiveSheet()->getStyle('B1')->getFont()->setSize(20);
 $spreadsheet->getActiveSheet()->getStyle('B1')->getFont()->setBold(true);
-$spreadsheet->getActiveSheet()->getStyle('B1')->getFont()->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE);
-$spreadsheet->getActiveSheet()->getStyle('B1')->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()->getStyle('B1')->getFont()->setUnderline(Font::UNDERLINE_SINGLE);
+$spreadsheet->getActiveSheet()->getStyle('B1')->getFont()->getColor()->setARGB(Color::COLOR_WHITE);
 
-$spreadsheet->getActiveSheet()->getStyle('D1')->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
-$spreadsheet->getActiveSheet()->getStyle('E1')->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()->getStyle('D1')->getFont()->getColor()->setARGB(Color::COLOR_WHITE);
+$spreadsheet->getActiveSheet()->getStyle('E1')->getFont()->getColor()->setARGB(Color::COLOR_WHITE);
 
 $spreadsheet->getActiveSheet()->getStyle('D13')->getFont()->setBold(true);
 $spreadsheet->getActiveSheet()->getStyle('E13')->getFont()->setBold(true);
 
 // Set alignments
 $helper->log('Set alignments');
-$spreadsheet->getActiveSheet()->getStyle('D11')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
-$spreadsheet->getActiveSheet()->getStyle('D12')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
-$spreadsheet->getActiveSheet()->getStyle('D13')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+$spreadsheet->getActiveSheet()->getStyle('D11')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
+$spreadsheet->getActiveSheet()->getStyle('D12')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
+$spreadsheet->getActiveSheet()->getStyle('D13')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
 
-$spreadsheet->getActiveSheet()->getStyle('A18')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_JUSTIFY);
-$spreadsheet->getActiveSheet()->getStyle('A18')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+$spreadsheet->getActiveSheet()->getStyle('A18')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_JUSTIFY);
+$spreadsheet->getActiveSheet()->getStyle('A18')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 
 $spreadsheet->getActiveSheet()->getStyle('B5')->getAlignment()->setShrinkToFit(true);
 
@@ -143,7 +156,7 @@ $helper->log('Set thin black border outline around column');
 $styleThinBlackBorderOutline = [
     'borders' => [
         'outline' => [
-            'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            'style' => Border::BORDER_THIN,
             'color' => ['argb' => 'FF000000'],
         ],
     ],
@@ -155,7 +168,7 @@ $helper->log('Set thick brown border outline around Total');
 $styleThickBrownBorderOutline = [
     'borders' => [
         'outline' => [
-            'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
+            'style' => Border::BORDER_THICK,
             'color' => ['argb' => 'FF993300'],
         ],
     ],
@@ -164,7 +177,7 @@ $spreadsheet->getActiveSheet()->getStyle('D13:E13')->applyFromArray($styleThickB
 
 // Set fills
 $helper->log('Set fills');
-$spreadsheet->getActiveSheet()->getStyle('A1:E1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+$spreadsheet->getActiveSheet()->getStyle('A1:E1')->getFill()->setFillType(Fill::FILL_SOLID);
 $spreadsheet->getActiveSheet()->getStyle('A1:E1')->getFill()->getStartColor()->setARGB('FF808080');
 
 // Set style for header row using alternative method
@@ -175,15 +188,15 @@ $spreadsheet->getActiveSheet()->getStyle('A3:E3')->applyFromArray(
                 'bold' => true,
             ],
             'alignment' => [
-                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+                'horizontal' => Alignment::HORIZONTAL_RIGHT,
             ],
             'borders' => [
                 'top' => [
-                    'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                    'style' => Border::BORDER_THIN,
                 ],
             ],
             'fill' => [
-                'type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
+                'type' => Fill::FILL_GRADIENT_LINEAR,
                 'rotation' => 90,
                 'startcolor' => [
                     'argb' => 'FFA0A0A0',
@@ -198,11 +211,11 @@ $spreadsheet->getActiveSheet()->getStyle('A3:E3')->applyFromArray(
 $spreadsheet->getActiveSheet()->getStyle('A3')->applyFromArray(
     [
             'alignment' => [
-                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+                'horizontal' => Alignment::HORIZONTAL_LEFT,
             ],
             'borders' => [
                 'left' => [
-                    'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                    'style' => Border::BORDER_THIN,
                 ],
             ],
         ]
@@ -211,7 +224,7 @@ $spreadsheet->getActiveSheet()->getStyle('A3')->applyFromArray(
 $spreadsheet->getActiveSheet()->getStyle('B3')->applyFromArray(
     [
             'alignment' => [
-                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+                'horizontal' => Alignment::HORIZONTAL_LEFT,
             ],
         ]
 );
@@ -220,7 +233,7 @@ $spreadsheet->getActiveSheet()->getStyle('E3')->applyFromArray(
     [
             'borders' => [
                 'right' => [
-                    'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                    'style' => Border::BORDER_THIN,
                 ],
             ],
         ]
@@ -228,24 +241,24 @@ $spreadsheet->getActiveSheet()->getStyle('E3')->applyFromArray(
 
 // Unprotect a cell
 $helper->log('Unprotect a cell');
-$spreadsheet->getActiveSheet()->getStyle('B1')->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
+$spreadsheet->getActiveSheet()->getStyle('B1')->getProtection()->setLocked(Protection::PROTECTION_UNPROTECTED);
 
 // Add a hyperlink to the sheet
 $helper->log('Add a hyperlink to an external website');
 $spreadsheet->getActiveSheet()->setCellValue('E26', 'www.phpexcel.net');
 $spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setUrl('http://www.phpexcel.net');
 $spreadsheet->getActiveSheet()->getCell('E26')->getHyperlink()->setTooltip('Navigate to website');
-$spreadsheet->getActiveSheet()->getStyle('E26')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+$spreadsheet->getActiveSheet()->getStyle('E26')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
 
 $helper->log('Add a hyperlink to another cell on a different worksheet within the workbook');
 $spreadsheet->getActiveSheet()->setCellValue('E27', 'Terms and conditions');
 $spreadsheet->getActiveSheet()->getCell('E27')->getHyperlink()->setUrl("sheet://'Terms and conditions'!A1");
 $spreadsheet->getActiveSheet()->getCell('E27')->getHyperlink()->setTooltip('Review terms and conditions');
-$spreadsheet->getActiveSheet()->getStyle('E27')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+$spreadsheet->getActiveSheet()->getStyle('E27')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
 
 // Add a drawing to the worksheet
 $helper->log('Add a drawing to the worksheet');
-$drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+$drawing = new Drawing();
 $drawing->setName('Logo');
 $drawing->setDescription('Logo');
 $drawing->setPath(__DIR__ . '/../images/officelogo.jpg');
@@ -254,7 +267,7 @@ $drawing->setWorksheet($spreadsheet->getActiveSheet());
 
 // Add a drawing to the worksheet
 $helper->log('Add a drawing to the worksheet');
-$drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+$drawing = new Drawing();
 $drawing->setName('Paid');
 $drawing->setDescription('Paid');
 $drawing->setPath(__DIR__ . '/../images/paid.png');
@@ -267,7 +280,7 @@ $drawing->setWorksheet($spreadsheet->getActiveSheet());
 
 // Add a drawing to the worksheet
 $helper->log('Add a drawing to the worksheet');
-$drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+$drawing = new Drawing();
 $drawing->setName('PhpSpreadsheet logo');
 $drawing->setDescription('PhpSpreadsheet logo');
 $drawing->setPath(__DIR__ . '/../images/PhpSpreadsheet_logo.png');
@@ -290,8 +303,8 @@ $spreadsheet->getActiveSheet()->getHeaderFooter()->setOddFooter('&L&B' . $spread
 
 // Set page orientation and size
 $helper->log('Set page orientation and size');
-$spreadsheet->getActiveSheet()->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_PORTRAIT);
-$spreadsheet->getActiveSheet()->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
+$spreadsheet->getActiveSheet()->getPageSetup()->setOrientation(PageSetup::ORIENTATION_PORTRAIT);
+$spreadsheet->getActiveSheet()->getPageSetup()->setPaperSize(PageSetup::PAPERSIZE_A4);
 
 // Rename first worksheet
 $helper->log('Rename first worksheet');
@@ -330,13 +343,13 @@ $helper->log('Set fonts');
 $spreadsheet->getActiveSheet()->getStyle('A1')->getFont()->setName('Candara');
 $spreadsheet->getActiveSheet()->getStyle('A1')->getFont()->setSize(20);
 $spreadsheet->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
-$spreadsheet->getActiveSheet()->getStyle('A1')->getFont()->setUnderline(\PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_SINGLE);
+$spreadsheet->getActiveSheet()->getStyle('A1')->getFont()->setUnderline(Font::UNDERLINE_SINGLE);
 
 $spreadsheet->getActiveSheet()->getStyle('A3:A6')->getFont()->setSize(8);
 
 // Add a drawing to the worksheet
 $helper->log('Add a drawing to the worksheet');
-$drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+$drawing = new Drawing();
 $drawing->setName('Terms and conditions');
 $drawing->setDescription('Terms and conditions');
 $drawing->setPath(__DIR__ . '/../images/termsconditions.jpg');
@@ -345,8 +358,8 @@ $drawing->setWorksheet($spreadsheet->getActiveSheet());
 
 // Set page orientation and size
 $helper->log('Set page orientation and size');
-$spreadsheet->getActiveSheet()->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
-$spreadsheet->getActiveSheet()->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
+$spreadsheet->getActiveSheet()->getPageSetup()->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
+$spreadsheet->getActiveSheet()->getPageSetup()->setPaperSize(PageSetup::PAPERSIZE_A4);
 
 // Rename second worksheet
 $helper->log('Rename second worksheet');

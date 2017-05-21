@@ -2,9 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
-/* EULER */
-define('EULER', 2.71828182845904523536);
-
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -29,6 +26,11 @@ define('EULER', 2.71828182845904523536);
  */
 class Engineering
 {
+    /**
+     * EULER.
+     */
+    const EULER = 2.71828182845904523536;
+
     /**
      * Details of the Units of measure that can be used in CONVERTUOM().
      *
@@ -944,7 +946,7 @@ class Engineering
                 $f_PI_DIV_4 = M_PI / 4;
 
                 $fXAbs = abs($x);
-                $fResult = sqrt(M_2DIVPI / $fXAbs) * cos($fXAbs - $ord * $f_PI_DIV_2 - $f_PI_DIV_4);
+                $fResult = sqrt(Functions::M_2DIVPI / $fXAbs) * cos($fXAbs - $ord * $f_PI_DIV_2 - $f_PI_DIV_4);
                 if (($ord & 1) && ($x < 0)) {
                     $fResult = -$fResult;
                 }
@@ -2103,7 +2105,7 @@ class Engineering
             return log10($parsedComplex['real']);
         }
 
-        return self::IMPRODUCT(log10(EULER), self::IMLN($complexNumber));
+        return self::IMPRODUCT(log10(self::EULER), self::IMLN($complexNumber));
     }
 
     /**
@@ -2130,7 +2132,7 @@ class Engineering
             return log($parsedComplex['real'], 2);
         }
 
-        return self::IMPRODUCT(log(EULER, 2), self::IMLN($complexNumber));
+        return self::IMPRODUCT(log(self::EULER, 2), self::IMLN($complexNumber));
     }
 
     /**
@@ -2434,7 +2436,7 @@ class Engineering
             if ($sum == 0.0) {
                 break;
             }
-        } while (abs($term / $sum) > PRECISION);
+        } while (abs($term / $sum) > Functions::PRECISION);
 
         return self::$twoSqrtPi * $sum;
     }
@@ -2503,7 +2505,7 @@ class Engineering
             $n += 0.5;
             $q1 = $q2;
             $q2 = $b / $d;
-        } while ((abs($q1 - $q2) / $q2) > PRECISION);
+        } while ((abs($q1 - $q2) / $q2) > Functions::PRECISION);
 
         return self::$oneSqrtPi * exp(-$x * $x) * $q2;
     }

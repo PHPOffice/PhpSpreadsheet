@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
+use InvalidArgumentException;
 use ZipArchive;
 
 /**
@@ -151,16 +152,16 @@ class File
      *
      * @param string $filename
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public static function assertFile($filename)
     {
         if (!is_file($filename)) {
-            throw new \InvalidArgumentException('File "' . $filename . '" does not exist.');
+            throw new InvalidArgumentException('File "' . $filename . '" does not exist.');
         }
 
         if (!is_readable($filename)) {
-            throw new \InvalidArgumentException('Could not open "' . $filename . '" for reading.');
+            throw new InvalidArgumentException('Could not open "' . $filename . '" for reading.');
         }
     }
 }

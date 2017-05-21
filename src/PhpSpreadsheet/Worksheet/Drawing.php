@@ -2,6 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+use PhpOffice\PhpSpreadsheet\IComparable;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -24,7 +27,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
-class Drawing extends BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
+class Drawing extends BaseDrawing implements IComparable
 {
     /**
      * Path.
@@ -96,7 +99,7 @@ class Drawing extends BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparab
      * @param string $pValue File path
      * @param bool $pVerifyFile Verify file
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Drawing
      */
@@ -111,7 +114,7 @@ class Drawing extends BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparab
                     list($this->width, $this->height) = getimagesize($pValue);
                 }
             } else {
-                throw new \PhpOffice\PhpSpreadsheet\Exception("File $pValue not found!");
+                throw new PhpSpreadsheetException("File $pValue not found!");
             }
         } else {
             $this->path = $pValue;

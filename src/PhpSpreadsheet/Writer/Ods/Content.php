@@ -224,10 +224,13 @@ class Content extends WriterPart
                     throw new Exception('Writing of error not implemented yet.');
                     break;
                 case DataType::TYPE_FORMULA:
-                    try {
-                        $formulaValue = $cell->getCalculatedValue();
-                    } catch (\Exception $e) {
-                        $formulaValue = $cell->getValue();
+                    $formulaValue = $cell->getValue();
+                    if ($this->getParentWriter()->getPreCalculateFormulas()) {
+                        try {
+                            $formulaValue = $cell->getCalculatedValue();
+                        } catch (Exception $e) {
+                            // don't do anything
+                        }
                     }
                     $objWriter->writeAttribute('table:formula', 'of:' . $cell->getValue());
                     if (is_numeric($formulaValue)) {

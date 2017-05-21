@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 error_reporting(E_ALL);
 set_time_limit(0);
 
@@ -22,7 +24,7 @@ date_default_timezone_set('Europe/London');
 require_once __DIR__ . '/../../../../src/Bootstrap.php';
 
 // Create new PhpSpreadsheet object
-$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new Spreadsheet();
 $worksheet = $spreadsheet->getActiveSheet();
 
 // Add some data

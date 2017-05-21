@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -83,12 +85,11 @@ class SheetView
 
     /**
      * Set ZoomScale.
-     *
      * Valid values range from 10 to 400.
      *
      * @param int $pValue
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return SheetView
      */
@@ -99,7 +100,7 @@ class SheetView
         if (($pValue >= 1) || is_null($pValue)) {
             $this->zoomScale = $pValue;
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Scale must be greater than or equal to 1.');
+            throw new PhpSpreadsheetException('Scale must be greater than or equal to 1.');
         }
 
         return $this;
@@ -117,12 +118,11 @@ class SheetView
 
     /**
      * Set ZoomScale.
-     *
      * Valid values range from 10 to 400.
      *
      * @param int $pValue
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return SheetView
      */
@@ -131,7 +131,7 @@ class SheetView
         if (($pValue >= 1) || is_null($pValue)) {
             $this->zoomScaleNormal = $pValue;
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Scale must be greater than or equal to 1.');
+            throw new PhpSpreadsheetException('Scale must be greater than or equal to 1.');
         }
 
         return $this;
@@ -157,7 +157,7 @@ class SheetView
      *
      * @param string $pValue
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return SheetView
      */
@@ -170,7 +170,7 @@ class SheetView
         if (in_array($pValue, self::$sheetViewTypes)) {
             $this->sheetviewType = $pValue;
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Invalid sheetview layout type.');
+            throw new PhpSpreadsheetException('Invalid sheetview layout type.');
         }
 
         return $this;

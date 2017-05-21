@@ -2,6 +2,16 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader\Xls;
 
+use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Reader\Xls;
+use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer;
+use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer;
+use PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer;
+use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer;
+use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer;
+use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE;
+use PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE\Blip;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -100,7 +110,7 @@ class Escher
         // Parse Escher stream
         while ($this->pos < $this->dataSize) {
             // offset: 2; size: 2: Record Type
-            $fbt = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt2d($this->data, $this->pos + 2);
+            $fbt = Xls::getInt2d($this->data, $this->pos + 2);
 
             switch ($fbt) {
                 case self::DGGCONTAINER:
@@ -172,15 +182,15 @@ class Escher
     private function readDefault()
     {
         // offset 0; size: 2; recVer and recInstance
-        $verInstance = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt2d($this->data, $this->pos);
+        $verInstance = Xls::getInt2d($this->data, $this->pos);
 
         // offset: 2; size: 2: Record Type
-        $fbt = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt2d($this->data, $this->pos + 2);
+        $fbt = Xls::getInt2d($this->data, $this->pos + 2);
 
         // bit: 0-3; mask: 0x000F; recVer
         $recVer = (0x000F & $verInstance) >> 0;
 
-        $length = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt4d($this->data, $this->pos + 4);
+        $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
 
         // move stream pointer to next record
@@ -192,14 +202,14 @@ class Escher
      */
     private function readDggContainer()
     {
-        $length = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt4d($this->data, $this->pos + 4);
+        $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
 
         // move stream pointer to next record
         $this->pos += 8 + $length;
 
         // record is a container, read contents
-        $dggContainer = new \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer();
+        $dggContainer = new DggContainer();
         $this->object->setDggContainer($dggContainer);
         $reader = new self($dggContainer);
         $reader->load($recordData);
@@ -210,7 +220,7 @@ class Escher
      */
     private function readDgg()
     {
-        $length = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt4d($this->data, $this->pos + 4);
+        $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
 
         // move stream pointer to next record
@@ -222,14 +232,14 @@ class Escher
      */
     private function readBstoreContainer()
     {
-        $length = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt4d($this->data, $this->pos + 4);
+        $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
 
         // move stream pointer to next record
         $this->pos += 8 + $length;
 
         // record is a container, read contents
-        $bstoreContainer = new \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer();
+        $bstoreContainer = new BstoreContainer();
         $this->object->setBstoreContainer($bstoreContainer);
         $reader = new self($bstoreContainer);
         $reader->load($recordData);
@@ -243,16 +253,16 @@ class Escher
         // offset: 0; size: 2; recVer and recInstance
 
         // bit: 4-15; mask: 0xFFF0; recInstance
-        $recInstance = (0xFFF0 & \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt2d($this->data, $this->pos)) >> 4;
+        $recInstance = (0xFFF0 & Xls::getInt2d($this->data, $this->pos)) >> 4;
 
-        $length = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt4d($this->data, $this->pos + 4);
+        $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
 
         // move stream pointer to next record
         $this->pos += 8 + $length;
 
         // add BSE to BstoreContainer
-        $BSE = new \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE();
+        $BSE = new BSE();
         $this->object->addBSE($BSE);
 
         $BSE->setBLIPType($recInstance);
@@ -267,16 +277,16 @@ class Escher
         $rgbUid = substr($recordData, 2, 16);
 
         // offset: 18; size: 2; tag
-        $tag = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt2d($recordData, 18);
+        $tag = Xls::getInt2d($recordData, 18);
 
         // offset: 20; size: 4; size of BLIP in bytes
-        $size = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt4d($recordData, 20);
+        $size = Xls::getInt4d($recordData, 20);
 
         // offset: 24; size: 4; number of references to this BLIP
-        $cRef = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt4d($recordData, 24);
+        $cRef = Xls::getInt4d($recordData, 24);
 
         // offset: 28; size: 4; MSOFO file offset
-        $foDelay = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt4d($recordData, 28);
+        $foDelay = Xls::getInt4d($recordData, 28);
 
         // offset: 32; size: 1; unused1
         $unused1 = ord($recordData[32]);
@@ -297,7 +307,7 @@ class Escher
         $blipData = substr($recordData, 36 + $cbName);
 
         // record is a container, read contents
-        $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls\Escher($BSE);
+        $reader = new self($BSE);
         $reader->load($blipData);
     }
 
@@ -309,9 +319,9 @@ class Escher
         // offset: 0; size: 2; recVer and recInstance
 
         // bit: 4-15; mask: 0xFFF0; recInstance
-        $recInstance = (0xFFF0 & \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt2d($this->data, $this->pos)) >> 4;
+        $recInstance = (0xFFF0 & Xls::getInt2d($this->data, $this->pos)) >> 4;
 
-        $length = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt4d($this->data, $this->pos + 4);
+        $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
 
         // move stream pointer to next record
@@ -336,7 +346,7 @@ class Escher
         // offset: var; size: var; the raw image data
         $data = substr($recordData, $pos);
 
-        $blip = new \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE\Blip();
+        $blip = new Blip();
         $blip->setData($data);
 
         $this->object->setBlip($blip);
@@ -350,9 +360,9 @@ class Escher
         // offset: 0; size: 2; recVer and recInstance
 
         // bit: 4-15; mask: 0xFFF0; recInstance
-        $recInstance = (0xFFF0 & \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt2d($this->data, $this->pos)) >> 4;
+        $recInstance = (0xFFF0 & Xls::getInt2d($this->data, $this->pos)) >> 4;
 
-        $length = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt4d($this->data, $this->pos + 4);
+        $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
 
         // move stream pointer to next record
@@ -377,7 +387,7 @@ class Escher
         // offset: var; size: var; the raw image data
         $data = substr($recordData, $pos);
 
-        $blip = new \PhpOffice\PhpSpreadsheet\Shared\Escher\DggContainer\BstoreContainer\BSE\Blip();
+        $blip = new Blip();
         $blip->setData($data);
 
         $this->object->setBlip($blip);
@@ -391,9 +401,9 @@ class Escher
         // offset: 0; size: 2; recVer and recInstance
 
         // bit: 4-15; mask: 0xFFF0; recInstance
-        $recInstance = (0xFFF0 & \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt2d($this->data, $this->pos)) >> 4;
+        $recInstance = (0xFFF0 & Xls::getInt2d($this->data, $this->pos)) >> 4;
 
-        $length = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt4d($this->data, $this->pos + 4);
+        $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
 
         // move stream pointer to next record
@@ -410,9 +420,9 @@ class Escher
         // offset: 0; size: 2; recVer and recInstance
 
         // bit: 4-15; mask: 0xFFF0; recInstance
-        $recInstance = (0xFFF0 & \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt2d($this->data, $this->pos)) >> 4;
+        $recInstance = (0xFFF0 & Xls::getInt2d($this->data, $this->pos)) >> 4;
 
-        $length = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt4d($this->data, $this->pos + 4);
+        $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
 
         // move stream pointer to next record
@@ -424,7 +434,7 @@ class Escher
      */
     private function readSplitMenuColors()
     {
-        $length = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt4d($this->data, $this->pos + 4);
+        $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
 
         // move stream pointer to next record
@@ -436,16 +446,16 @@ class Escher
      */
     private function readDgContainer()
     {
-        $length = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt4d($this->data, $this->pos + 4);
+        $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
 
         // move stream pointer to next record
         $this->pos += 8 + $length;
 
         // record is a container, read contents
-        $dgContainer = new \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer();
+        $dgContainer = new DgContainer();
         $this->object->setDgContainer($dgContainer);
-        $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls\Escher($dgContainer);
+        $reader = new self($dgContainer);
         $escher = $reader->load($recordData);
     }
 
@@ -454,7 +464,7 @@ class Escher
      */
     private function readDg()
     {
-        $length = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt4d($this->data, $this->pos + 4);
+        $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
 
         // move stream pointer to next record
@@ -468,16 +478,16 @@ class Escher
     {
         // context is either context DgContainer or SpgrContainer
 
-        $length = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt4d($this->data, $this->pos + 4);
+        $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
 
         // move stream pointer to next record
         $this->pos += 8 + $length;
 
         // record is a container, read contents
-        $spgrContainer = new \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer();
+        $spgrContainer = new SpgrContainer();
 
-        if ($this->object instanceof \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer) {
+        if ($this->object instanceof DgContainer) {
             // DgContainer
             $this->object->setSpgrContainer($spgrContainer);
         } else {
@@ -494,11 +504,11 @@ class Escher
      */
     private function readSpContainer()
     {
-        $length = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt4d($this->data, $this->pos + 4);
+        $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
 
         // add spContainer to spgrContainer
-        $spContainer = new \PhpOffice\PhpSpreadsheet\Shared\Escher\DgContainer\SpgrContainer\SpContainer();
+        $spContainer = new SpContainer();
         $this->object->addChild($spContainer);
 
         // move stream pointer to next record
@@ -514,7 +524,7 @@ class Escher
      */
     private function readSpgr()
     {
-        $length = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt4d($this->data, $this->pos + 4);
+        $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
 
         // move stream pointer to next record
@@ -529,9 +539,9 @@ class Escher
         // offset: 0; size: 2; recVer and recInstance
 
         // bit: 4-15; mask: 0xFFF0; recInstance
-        $recInstance = (0xFFF0 & \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt2d($this->data, $this->pos)) >> 4;
+        $recInstance = (0xFFF0 & Xls::getInt2d($this->data, $this->pos)) >> 4;
 
-        $length = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt4d($this->data, $this->pos + 4);
+        $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
 
         // move stream pointer to next record
@@ -546,9 +556,9 @@ class Escher
         // offset: 0; size: 2; recVer and recInstance
 
         // bit: 4-15; mask: 0xFFF0; recInstance
-        $recInstance = (0xFFF0 & \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt2d($this->data, $this->pos)) >> 4;
+        $recInstance = (0xFFF0 & Xls::getInt2d($this->data, $this->pos)) >> 4;
 
-        $length = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt4d($this->data, $this->pos + 4);
+        $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
 
         // move stream pointer to next record
@@ -560,38 +570,38 @@ class Escher
      */
     private function readClientAnchor()
     {
-        $length = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt4d($this->data, $this->pos + 4);
+        $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
 
         // move stream pointer to next record
         $this->pos += 8 + $length;
 
         // offset: 2; size: 2; upper-left corner column index (0-based)
-        $c1 = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt2d($recordData, 2);
+        $c1 = Xls::getInt2d($recordData, 2);
 
         // offset: 4; size: 2; upper-left corner horizontal offset in 1/1024 of column width
-        $startOffsetX = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt2d($recordData, 4);
+        $startOffsetX = Xls::getInt2d($recordData, 4);
 
         // offset: 6; size: 2; upper-left corner row index (0-based)
-        $r1 = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt2d($recordData, 6);
+        $r1 = Xls::getInt2d($recordData, 6);
 
         // offset: 8; size: 2; upper-left corner vertical offset in 1/256 of row height
-        $startOffsetY = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt2d($recordData, 8);
+        $startOffsetY = Xls::getInt2d($recordData, 8);
 
         // offset: 10; size: 2; bottom-right corner column index (0-based)
-        $c2 = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt2d($recordData, 10);
+        $c2 = Xls::getInt2d($recordData, 10);
 
         // offset: 12; size: 2; bottom-right corner horizontal offset in 1/1024 of column width
-        $endOffsetX = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt2d($recordData, 12);
+        $endOffsetX = Xls::getInt2d($recordData, 12);
 
         // offset: 14; size: 2; bottom-right corner row index (0-based)
-        $r2 = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt2d($recordData, 14);
+        $r2 = Xls::getInt2d($recordData, 14);
 
         // offset: 16; size: 2; bottom-right corner vertical offset in 1/256 of row height
-        $endOffsetY = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt2d($recordData, 16);
+        $endOffsetY = Xls::getInt2d($recordData, 16);
 
         // set the start coordinates
-        $this->object->setStartCoordinates(\PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($c1) . ($r1 + 1));
+        $this->object->setStartCoordinates(Cell::stringFromColumnIndex($c1) . ($r1 + 1));
 
         // set the start offsetX
         $this->object->setStartOffsetX($startOffsetX);
@@ -600,7 +610,7 @@ class Escher
         $this->object->setStartOffsetY($startOffsetY);
 
         // set the end coordinates
-        $this->object->setEndCoordinates(\PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($c2) . ($r2 + 1));
+        $this->object->setEndCoordinates(Cell::stringFromColumnIndex($c2) . ($r2 + 1));
 
         // set the end offsetX
         $this->object->setEndOffsetX($endOffsetX);
@@ -614,7 +624,7 @@ class Escher
      */
     private function readClientData()
     {
-        $length = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt4d($this->data, $this->pos + 4);
+        $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
 
         // move stream pointer to next record
@@ -637,7 +647,7 @@ class Escher
             $fopte = substr($data, 6 * $i, 6);
 
             // offset: 0; size: 2; opid
-            $opid = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt2d($fopte, 0);
+            $opid = Xls::getInt2d($fopte, 0);
 
             // bit: 0-13; mask: 0x3FFF; opid.opid
             $opidOpid = (0x3FFF & $opid) >> 0;
@@ -649,7 +659,7 @@ class Escher
             $opidFComplex = (0x8000 & $opid) >> 15;
 
             // offset: 2; size: 4; the value for this property
-            $op = \PhpOffice\PhpSpreadsheet\Reader\Xls::getInt4d($fopte, 2);
+            $op = Xls::getInt4d($fopte, 2);
 
             if ($opidFComplex) {
                 $complexData = substr($splicedComplexData, 0, $op);

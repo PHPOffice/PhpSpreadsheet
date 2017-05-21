@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 error_reporting(E_ALL);
 set_time_limit(0);
 
@@ -30,7 +32,7 @@ $inputFileName = './sampleData/example1.xls';
 $sheetnames = ['Data Sheet #1', 'Data Sheet #3'];
 
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using IOFactory with a defined reader type of ',$inputFileType,'<br />';
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = IOFactory::createReader($inputFileType);
 echo 'Loading Sheet',((count($sheetnames) == 1) ? '' : 's'),' "',implode('" and "', $sheetnames),'" only<br />';
 $reader->setLoadSheetsOnly($sheetnames);
 $spreadsheet = $reader->load($inputFileName);

@@ -2,6 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
+use PhpOffice\PhpSpreadsheet\Calculation;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -86,9 +89,9 @@ class Csv extends BaseWriter implements IWriter
     /**
      * Create a new CSV.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet Spreadsheet object
+     * @param Spreadsheet $spreadsheet Spreadsheet object
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet)
+    public function __construct(Spreadsheet $spreadsheet)
     {
         $this->spreadsheet = $spreadsheet;
     }
@@ -105,10 +108,10 @@ class Csv extends BaseWriter implements IWriter
         // Fetch sheet
         $sheet = $this->spreadsheet->getSheet($this->sheetIndex);
 
-        $saveDebugLog = \PhpOffice\PhpSpreadsheet\Calculation::getInstance($this->spreadsheet)->getDebugLog()->getWriteDebugLog();
-        \PhpOffice\PhpSpreadsheet\Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog(false);
-        $saveArrayReturnType = \PhpOffice\PhpSpreadsheet\Calculation::getArrayReturnType();
-        \PhpOffice\PhpSpreadsheet\Calculation::setArrayReturnType(\PhpOffice\PhpSpreadsheet\Calculation::RETURN_ARRAY_AS_VALUE);
+        $saveDebugLog = Calculation::getInstance($this->spreadsheet)->getDebugLog()->getWriteDebugLog();
+        Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog(false);
+        $saveArrayReturnType = Calculation::getArrayReturnType();
+        Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_VALUE);
 
         // Open file
         $fileHandle = fopen($pFilename, 'wb+');
@@ -147,8 +150,8 @@ class Csv extends BaseWriter implements IWriter
         // Close file
         fclose($fileHandle);
 
-        \PhpOffice\PhpSpreadsheet\Calculation::setArrayReturnType($saveArrayReturnType);
-        \PhpOffice\PhpSpreadsheet\Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
+        Calculation::setArrayReturnType($saveArrayReturnType);
+        Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
     }
 
     /**

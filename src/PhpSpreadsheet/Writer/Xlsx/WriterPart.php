@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
@@ -29,7 +31,7 @@ abstract class WriterPart
     /**
      * Parent Xlsx object.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Writer\Xlsx
+     * @var Xlsx
      */
     private $parentWriter;
 
@@ -38,7 +40,7 @@ abstract class WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
-     * @return \PhpOffice\PhpSpreadsheet\Writer\Xlsx
+     * @return Xlsx
      */
     public function getParentWriter()
     {
@@ -48,9 +50,9 @@ abstract class WriterPart
     /**
      * Set parent Xlsx object.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Writer\Xlsx $pWriter
+     * @param Xlsx $pWriter
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Writer\Xlsx $pWriter)
+    public function __construct(Xlsx $pWriter)
     {
         $this->parentWriter = $pWriter;
     }

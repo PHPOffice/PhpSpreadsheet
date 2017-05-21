@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\IComparable;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -24,7 +26,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
-class MemoryDrawing extends BaseDrawing implements \PhpOffice\PhpSpreadsheet\IComparable
+class MemoryDrawing extends BaseDrawing implements IComparable
 {
     /* Rendering functions */
     const RENDERING_DEFAULT = 'imagepng';

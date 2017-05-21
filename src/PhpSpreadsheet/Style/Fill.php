@@ -2,6 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+use PhpOffice\PhpSpreadsheet\IComparable;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -24,7 +27,7 @@ namespace PhpOffice\PhpSpreadsheet\Style;
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
-class Fill extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
+class Fill extends Supervisor implements IComparable
 {
     /* Fill types */
     const FILL_NONE = 'none';
@@ -131,11 +134,10 @@ class Fill extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
 
     /**
      * Apply styles from array.
-     *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getFill()->applyFromArray(
      *        array(
-     *            'type'       => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
+     *            'type'       => Fill::FILL_GRADIENT_LINEAR,
      *            'rotation'   => 0,
      *            'startcolor' => array(
      *                'rgb' => '000000'
@@ -145,11 +147,11 @@ class Fill extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *            )
      *        )
      * );
-     * </code>
+     * </code>.
      *
      * @param array $pStyles Array containing style information
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Fill
      */
@@ -260,7 +262,7 @@ class Fill extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @param Color $pValue
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Fill
      */
@@ -294,7 +296,7 @@ class Fill extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @param Color $pValue
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Fill
      */

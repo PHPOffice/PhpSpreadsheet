@@ -4,17 +4,19 @@ namespace PhpOffice\PhpSpreadsheetTests\Calculation;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert;
+use PHPUnit_Framework_TestCase;
 
-class EngineeringTest extends \PHPUnit_Framework_TestCase
+class EngineeringTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var \PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert
+     * @var ComplexAssert
      */
     protected $complexAssert;
 
     public function setUp()
     {
-        $this->complexAssert = new \PhpOffice\PhpSpreadsheetTests\Custom\ComplexAssert();
+        $this->complexAssert = new ComplexAssert();
         Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
     }
 

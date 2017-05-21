@@ -2,6 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
+
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
@@ -548,7 +551,7 @@ class Parser
         }
 
         // TODO: use real error codes
-        throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Unknown token $token");
+        throw new WriterException("Unknown token $token");
     }
 
     /**
@@ -583,10 +586,10 @@ class Parser
         // chop away beggining and ending quotes
         $string = substr($string, 1, strlen($string) - 2);
         if (strlen($string) > 255) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('String is too long');
+            throw new WriterException('String is too long');
         }
 
-        return pack('C', $this->ptg['ptgStr']) . \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeShort($string);
+        return pack('C', $this->ptg['ptgStr']) . StringHelper::UTF8toBIFF8UnicodeShort($string);
     }
 
     /**
@@ -626,7 +629,7 @@ class Parser
             list($cell1, $cell2) = explode(':', $range);
         } else {
             // TODO: use real error codes
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Unknown range separator');
+            throw new WriterException('Unknown range separator');
         }
 
         // Convert the cell references
@@ -642,7 +645,7 @@ class Parser
             $ptgArea = pack('C', $this->ptg['ptgAreaA']);
         } else {
             // TODO: use real error codes
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Unknown class $class");
+            throw new WriterException("Unknown class $class");
         }
 
         return $ptgArea . $row1 . $row2 . $col1 . $col2;
@@ -773,11 +776,11 @@ class Parser
 
             $sheet1 = $this->getSheetIndex($sheet_name1);
             if ($sheet1 == -1) {
-                throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Unknown sheet name $sheet_name1 in formula");
+                throw new WriterException("Unknown sheet name $sheet_name1 in formula");
             }
             $sheet2 = $this->getSheetIndex($sheet_name2);
             if ($sheet2 == -1) {
-                throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Unknown sheet name $sheet_name2 in formula");
+                throw new WriterException("Unknown sheet name $sheet_name2 in formula");
             }
 
             // Reverse max and min sheet numbers if necessary
@@ -787,7 +790,7 @@ class Parser
         } else { // Single sheet name only.
             $sheet1 = $this->getSheetIndex($ext_ref);
             if ($sheet1 == -1) {
-                throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Unknown sheet name $ext_ref in formula");
+                throw new WriterException("Unknown sheet name $ext_ref in formula");
             }
             $sheet2 = $sheet1;
         }
@@ -819,11 +822,11 @@ class Parser
 
             $sheet1 = $this->getSheetIndex($sheet_name1);
             if ($sheet1 == -1) {
-                throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Unknown sheet name $sheet_name1 in formula");
+                throw new WriterException("Unknown sheet name $sheet_name1 in formula");
             }
             $sheet2 = $this->getSheetIndex($sheet_name2);
             if ($sheet2 == -1) {
-                throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Unknown sheet name $sheet_name2 in formula");
+                throw new WriterException("Unknown sheet name $sheet_name2 in formula");
             }
 
             // Reverse max and min sheet numbers if necessary
@@ -833,7 +836,7 @@ class Parser
         } else { // Single sheet name only.
             $sheet1 = $this->getSheetIndex($ext_ref);
             if ($sheet1 == -1) {
-                throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Unknown sheet name $ext_ref in formula");
+                throw new WriterException("Unknown sheet name $ext_ref in formula");
             }
             $sheet2 = $sheet1;
         }
@@ -903,10 +906,10 @@ class Parser
         $cell = strtoupper($cell);
         list($row, $col, $row_rel, $col_rel) = $this->cellToRowcol($cell);
         if ($col >= 256) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Column in: $cell greater than 255");
+            throw new WriterException("Column in: $cell greater than 255");
         }
         if ($row >= 65536) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Row in: $cell greater than 65536 ");
+            throw new WriterException("Row in: $cell greater than 65536 ");
         }
 
         // Set the high bits to indicate if row or col are relative.
@@ -944,7 +947,7 @@ class Parser
 
         // FIXME: this changes for BIFF8
         if (($row1 >= 65536) or ($row2 >= 65536)) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Row in: $range greater than 65536 ");
+            throw new WriterException("Row in: $range greater than 65536 ");
         }
 
         // Set the high bits to indicate if rows are relative.
@@ -1307,7 +1310,7 @@ class Parser
             $this->advance(); // eat the "("
             $result = $this->parenthesizedExpression();
             if ($this->currentToken != ')') {
-                throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("')' token expected.");
+                throw new WriterException("')' token expected.");
             }
             $this->advance(); // eat the ")"
             return $result;
@@ -1369,7 +1372,7 @@ class Parser
 
             return $result;
         }
-        throw new \PhpOffice\PhpSpreadsheet\Writer\Exception('Syntax error: ' . $this->currentToken . ', lookahead: ' . $this->lookAhead . ', current char: ' . $this->currentCharacter);
+        throw new WriterException('Syntax error: ' . $this->currentToken . ', lookahead: ' . $this->lookAhead . ', current char: ' . $this->currentCharacter);
     }
 
     /**
@@ -1390,7 +1393,7 @@ class Parser
                 if ($this->currentToken == ',' || $this->currentToken == ';') {
                     $this->advance(); // eat the "," or ";"
                 } else {
-                    throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Syntax error: comma expected in function $function, arg #{$num_args}");
+                    throw new WriterException("Syntax error: comma expected in function $function, arg #{$num_args}");
                 }
                 $result2 = $this->condition();
                 $result = $this->createTree('arg', $result, $result2);
@@ -1401,12 +1404,12 @@ class Parser
             ++$num_args;
         }
         if (!isset($this->functions[$function])) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Function $function() doesn't exist");
+            throw new WriterException("Function $function() doesn't exist");
         }
         $args = $this->functions[$function][1];
         // If fixed number of args eg. TIME($i, $j, $k). Check that the number of args is valid.
         if (($args >= 0) and ($args != $num_args)) {
-            throw new \PhpOffice\PhpSpreadsheet\Writer\Exception("Incorrect number of arguments in function $function() ");
+            throw new WriterException("Incorrect number of arguments in function $function() ");
         }
 
         $result = $this->createTree($function, $result, $num_args);

@@ -9,8 +9,9 @@ use PhpOffice\PhpSpreadsheet\Collection\Cells;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet;
+use PHPUnit_Framework_TestCase;
 
-class AdvancedValueBinderTest extends \PHPUnit_Framework_TestCase
+class AdvancedValueBinderTest extends PHPUnit_Framework_TestCase
 {
     public function provider()
     {

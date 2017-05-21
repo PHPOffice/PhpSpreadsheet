@@ -3,8 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Helper;
 
 use PhpOffice\PhpSpreadsheet\Helper\Migrator;
+use PHPUnit_Framework_TestCase;
 
-class MigratorTest extends \PHPUnit_Framework_TestCase
+class MigratorTest extends PHPUnit_Framework_TestCase
 {
     public function testMappingOnlyContainExistingClasses()
     {

@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Chart;
 
+use PhpOffice\PhpSpreadsheet\Worksheet;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -124,7 +126,7 @@ class PlotArea
         return $this;
     }
 
-    public function refresh(\PhpOffice\PhpSpreadsheet\Worksheet $worksheet)
+    public function refresh(Worksheet $worksheet)
     {
         foreach ($this->plotSeries as $plotSeries) {
             $plotSeries->refresh($worksheet);

@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods\Cell;
 
-/**
+/*
  * PhpSpreadsheet.
  *
  * Copyright (c) 2006 - 2015 PhpSpreadsheet
@@ -26,6 +26,8 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Ods\Cell;
  * @copyright  Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
+use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 
 /**
  * @category   PhpSpreadsheet
@@ -35,7 +37,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Ods\Cell;
  */
 class Comment
 {
-    public static function write(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter, \PhpOffice\PhpSpreadsheet\Cell $cell)
+    public static function write(XMLWriter $objWriter, Cell $cell)
     {
         $comments = $cell->getWorksheet()->getComments();
         if (!isset($comments[$cell->getCoordinate()])) {

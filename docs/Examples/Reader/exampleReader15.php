@@ -1,5 +1,8 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 error_reporting(E_ALL);
 set_time_limit(0);
 
@@ -21,12 +24,12 @@ date_default_timezone_set('Europe/London');
 
 require_once __DIR__ . '/../../../src/Bootstrap.php';
 
-\PhpOffice\PhpSpreadsheet\Cell::setValueBinder(new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder());
+Cell::setValueBinder(new Cell\AdvancedValueBinder());
 
 $inputFileType = 'Csv';
 $inputFileName = './sampleData/example1.tsv';
 
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$reader = IOFactory::createReader($inputFileType);
 echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' into WorkSheet #1 using IOFactory with a defined reader type of ',$inputFileType,'<br />';
 $reader->setDelimiter("\t");
 $spreadsheet = $reader->load($inputFileName);

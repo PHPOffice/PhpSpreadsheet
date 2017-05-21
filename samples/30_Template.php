@@ -1,9 +1,12 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+
 require __DIR__ . '/Header.php';
 
 $helper->log('Load from Xls template');
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xls');
+$reader = IOFactory::createReader('Xls');
 $spreadsheet = $reader->load(__DIR__ . '/templates/30template.xls');
 
 $helper->log('Add new data to the template');
@@ -21,7 +24,7 @@ $data = [['title' => 'Excel for dummies',
     ],
 ];
 
-$spreadsheet->getActiveSheet()->setCellValue('D1', \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(time()));
+$spreadsheet->getActiveSheet()->setCellValue('D1', Date::PHPToExcel(time()));
 
 $baseRow = 5;
 foreach ($data as $r => $dataRow) {

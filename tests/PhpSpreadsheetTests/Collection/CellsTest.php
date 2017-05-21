@@ -7,8 +7,9 @@ use PhpOffice\PhpSpreadsheet\Collection\Cells;
 use PhpOffice\PhpSpreadsheet\Collection\Memory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet;
+use PHPUnit_Framework_TestCase;
 
-class CellsTest extends \PHPUnit_Framework_TestCase
+class CellsTest extends PHPUnit_Framework_TestCase
 {
     public function testCollectionCell()
     {

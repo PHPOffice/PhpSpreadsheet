@@ -1,10 +1,14 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+
 require __DIR__ . '/Header.php';
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
-$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new Spreadsheet();
 
 // Set document properties
 $helper->log('Set document properties');
@@ -22,19 +26,19 @@ $spreadsheet->setActiveSheetIndex(0);
 
 $spreadsheet->getActiveSheet()->getStyle('A1:T100')->applyFromArray(
     ['fill' => [
-                'type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                'type' => Fill::FILL_SOLID,
                 'color' => ['argb' => 'FFCCFFCC'],
             ],
             'borders' => [
-                'bottom' => ['style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN],
-                'right' => ['style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM],
+                'bottom' => ['style' => Border::BORDER_THIN],
+                'right' => ['style' => Border::BORDER_MEDIUM],
             ],
         ]
 );
 
 $spreadsheet->getActiveSheet()->getStyle('C5:R95')->applyFromArray(
     ['fill' => [
-                'type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                'type' => Fill::FILL_SOLID,
                 'color' => ['argb' => 'FFFFFF00'],
             ],
         ]

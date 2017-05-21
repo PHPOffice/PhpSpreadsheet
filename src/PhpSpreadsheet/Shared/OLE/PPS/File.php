@@ -20,6 +20,8 @@ namespace PhpOffice\PhpSpreadsheet\Shared\OLE\PPS;
 // | Based on OLE::Storage_Lite by Kawai, Takanori                        |
 // +----------------------------------------------------------------------+
 //
+use PhpOffice\PhpSpreadsheet\Shared\OLE;
+use PhpOffice\PhpSpreadsheet\Shared\OLE\PPS;
 
 /**
  * Class for creating File PPS's for OLE containers.
@@ -28,7 +30,7 @@ namespace PhpOffice\PhpSpreadsheet\Shared\OLE\PPS;
  *
  * @category PhpSpreadsheet
  */
-class File extends \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS
+class File extends PPS
 {
     /**
      * The constructor.
@@ -39,7 +41,7 @@ class File extends \PhpOffice\PhpSpreadsheet\Shared\OLE\PPS
      */
     public function __construct($name)
     {
-        parent::__construct(null, $name, \PhpOffice\PhpSpreadsheet\Shared\OLE::OLE_PPS_TYPE_FILE, null, null, null, null, null, '', []);
+        parent::__construct(null, $name, OLE::OLE_PPS_TYPE_FILE, null, null, null, null, null, '', []);
     }
 
     /**

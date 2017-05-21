@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
+use PhpOffice\PhpSpreadsheet\Writer\Ods;
+
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
@@ -29,7 +31,7 @@ abstract class WriterPart
     /**
      * Parent Ods object.
      *
-     * @var \PhpOffice\PhpSpreadsheet\Writer\Ods
+     * @var Ods
      */
     private $parentWriter;
 
@@ -38,7 +40,7 @@ abstract class WriterPart
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
-     * @return \PhpOffice\PhpSpreadsheet\Writer\Ods
+     * @return Ods
      */
     public function getParentWriter()
     {
@@ -48,9 +50,9 @@ abstract class WriterPart
     /**
      * Set parent Ods writer.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Writer\Ods $writer
+     * @param Ods $writer
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Writer\Ods $writer)
+    public function __construct(Ods $writer)
     {
         $this->parentWriter = $writer;
     }

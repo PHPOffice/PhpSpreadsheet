@@ -2,6 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+use PhpOffice\PhpSpreadsheet\IComparable;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -24,7 +27,7 @@ namespace PhpOffice\PhpSpreadsheet\Style;
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
-class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
+class Borders extends Supervisor implements IComparable
 {
     /* Diagonal directions */
     const DIAGONAL_NONE = 0;
@@ -180,18 +183,17 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
 
     /**
      * Apply styles from array.
-     *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getBorders()->applyFromArray(
      *         array(
      *             'bottom'     => array(
-     *                 'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT,
+     *                 'style' => Border::BORDER_DASHDOT,
      *                 'color' => array(
      *                     'rgb' => '808080'
      *                 )
      *             ),
      *             'top'     => array(
-     *                 'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT,
+     *                 'style' => Border::BORDER_DASHDOT,
      *                 'color' => array(
      *                     'rgb' => '808080'
      *                 )
@@ -203,18 +205,18 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getBorders()->applyFromArray(
      *         array(
      *             'allborders' => array(
-     *                 'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DASHDOT,
+     *                 'style' => Border::BORDER_DASHDOT,
      *                 'color' => array(
      *                     'rgb' => '808080'
      *                 )
      *             )
      *         )
      * );
-     * </code>
+     * </code>.
      *
      * @param array $pStyles Array containing style information
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Borders
      */
@@ -305,14 +307,14 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
     /**
      * Get AllBorders (pseudo-border). Only applies to supervisor.
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Border
      */
     public function getAllBorders()
     {
         if (!$this->isSupervisor) {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Can only get pseudo-border for supervisor.');
+            throw new PhpSpreadsheetException('Can only get pseudo-border for supervisor.');
         }
 
         return $this->allBorders;
@@ -321,14 +323,14 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
     /**
      * Get Outline (pseudo-border). Only applies to supervisor.
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return bool
      */
     public function getOutline()
     {
         if (!$this->isSupervisor) {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Can only get pseudo-border for supervisor.');
+            throw new PhpSpreadsheetException('Can only get pseudo-border for supervisor.');
         }
 
         return $this->outline;
@@ -337,14 +339,14 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
     /**
      * Get Inside (pseudo-border). Only applies to supervisor.
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return bool
      */
     public function getInside()
     {
         if (!$this->isSupervisor) {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Can only get pseudo-border for supervisor.');
+            throw new PhpSpreadsheetException('Can only get pseudo-border for supervisor.');
         }
 
         return $this->inside;
@@ -353,14 +355,14 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
     /**
      * Get Vertical (pseudo-border). Only applies to supervisor.
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Border
      */
     public function getVertical()
     {
         if (!$this->isSupervisor) {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Can only get pseudo-border for supervisor.');
+            throw new PhpSpreadsheetException('Can only get pseudo-border for supervisor.');
         }
 
         return $this->vertical;
@@ -369,14 +371,14 @@ class Borders extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparabl
     /**
      * Get Horizontal (pseudo-border). Only applies to supervisor.
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Border
      */
     public function getHorizontal()
     {
         if (!$this->isSupervisor) {
-            throw new \PhpOffice\PhpSpreadsheet\Exception('Can only get pseudo-border for supervisor.');
+            throw new PhpSpreadsheetException('Can only get pseudo-border for supervisor.');
         }
 
         return $this->horizontal;

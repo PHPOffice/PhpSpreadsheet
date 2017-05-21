@@ -1,10 +1,15 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooter;
+use PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
+
 require __DIR__ . '/Header.php';
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
-$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new Spreadsheet();
 
 // Set document properties
 $helper->log('Set document properties');
@@ -34,22 +39,22 @@ $spreadsheet->getActiveSheet()
 
 // Add a drawing to the header
 $helper->log('Add a drawing to the header');
-$drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooterDrawing();
+$drawing = new HeaderFooterDrawing();
 $drawing->setName('PhpSpreadsheet logo');
 $drawing->setPath(__DIR__ . '/images/PhpSpreadsheet_logo.png');
 $drawing->setHeight(36);
 $spreadsheet->getActiveSheet()
         ->getHeaderFooter()
-        ->addImage($drawing, \PhpOffice\PhpSpreadsheet\Worksheet\HeaderFooter::IMAGE_HEADER_LEFT);
+        ->addImage($drawing, HeaderFooter::IMAGE_HEADER_LEFT);
 
 // Set page orientation and size
 $helper->log('Set page orientation and size');
 $spreadsheet->getActiveSheet()
         ->getPageSetup()
-        ->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+        ->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
 $spreadsheet->getActiveSheet()
         ->getPageSetup()
-        ->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
+        ->setPaperSize(PageSetup::PAPERSIZE_A4);
 
 // Rename worksheet
 $helper->log('Rename worksheet');
