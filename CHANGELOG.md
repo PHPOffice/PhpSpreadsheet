@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Fix to getCell() method when cell reference includes a worksheet reference - @MarkBaker
 - Ignore inlineStr type if formula element exists - @ncrypthic [#570](https://github.com/PHPOffice/PHPExcel/issues/570)
 - Excel 2007 Reader freezes because of conditional formatting - @rentalhost [#575](https://github.com/PHPOffice/PHPExcel/issues/575)
+- Fix definition of countifs function that made it impossible to import files where this function is used with more than 2 parameters
 
 ### General
 

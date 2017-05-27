@@ -501,7 +501,7 @@ class Calculation
         'COUNTIFS' => [
             'category' => Category::CATEGORY_STATISTICAL,
             'functionCall' => [Functions::class, 'DUMMY'],
-            'argumentCount' => '2',
+            'argumentCount' => '2+',
         ],
         'COUPDAYBS' => [
             'category' => Category::CATEGORY_FINANCIAL,
