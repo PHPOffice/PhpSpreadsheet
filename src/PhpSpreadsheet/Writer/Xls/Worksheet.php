@@ -2791,6 +2791,7 @@ class Worksheet extends BIFFwriter
 
     /**
      * Store the DATAVALIDATIONS and DATAVALIDATION records.
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeDataValidity()
     {
@@ -2849,6 +2850,8 @@ class Worksheet extends BIFFwriter
                     case DataValidation::TYPE_CUSTOM:
                         $type = 0x07;
                         break;
+                    default:
+                        throw new WriterException(sprintf('Unexpected type "%s"', $type));
                 }
 
                 $options |= $type << 0;
@@ -2865,6 +2868,8 @@ class Worksheet extends BIFFwriter
                     case DataValidation::STYLE_INFORMATION:
                         $errorStyle = 0x02;
                         break;
+                    default:
+                        throw new WriterException(sprintf('Unexpected error style "%s"', $errorStyle));
                 }
 
                 $options |= $errorStyle << 4;
@@ -2913,6 +2918,8 @@ class Worksheet extends BIFFwriter
                     case DataValidation::OPERATOR_LESSTHANOREQUAL:
                         $operator = 0x07;
                         break;
+                    default:
+                        throw new WriterException(sprintf('Unexpected operator "%s"', $operator));
                 }
 
                 $options |= $operator << 20;
