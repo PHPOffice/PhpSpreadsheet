@@ -2824,8 +2824,8 @@ class Worksheet extends BIFFwriter
                 $options = 0x00000000;
 
                 // data type
-                $type = $dataValidation->getType();
-                switch ($type) {
+                $type = 0x00;
+                switch ($dataValidation->getType()) {
                     case DataValidation::TYPE_NONE:
                         $type = 0x00;
                         break;
@@ -2850,15 +2850,13 @@ class Worksheet extends BIFFwriter
                     case DataValidation::TYPE_CUSTOM:
                         $type = 0x07;
                         break;
-                    default:
-                        throw new WriterException(sprintf('Unexpected type "%s"', $type));
                 }
 
                 $options |= $type << 0;
 
                 // error style
-                $errorStyle = $dataValidation->getErrorStyle();
-                switch ($errorStyle) {
+                $errorStyle = 0x00;
+                switch ($dataValidation->getErrorStyle()) {
                     case DataValidation::STYLE_STOP:
                         $errorStyle = 0x00;
                         break;
@@ -2868,8 +2866,6 @@ class Worksheet extends BIFFwriter
                     case DataValidation::STYLE_INFORMATION:
                         $errorStyle = 0x02;
                         break;
-                    default:
-                        throw new WriterException(sprintf('Unexpected error style "%s"', $errorStyle));
                 }
 
                 $options |= $errorStyle << 4;
@@ -2892,8 +2888,8 @@ class Worksheet extends BIFFwriter
                 $options |= $dataValidation->getShowErrorMessage() << 19;
 
                 // condition operator
-                $operator = $dataValidation->getOperator();
-                switch ($operator) {
+                $operator = 0x00;
+                switch ($dataValidation->getOperator()) {
                     case DataValidation::OPERATOR_BETWEEN:
                         $operator = 0x00;
                         break;
@@ -2918,8 +2914,6 @@ class Worksheet extends BIFFwriter
                     case DataValidation::OPERATOR_LESSTHANOREQUAL:
                         $operator = 0x07;
                         break;
-                    default:
-                        throw new WriterException(sprintf('Unexpected operator "%s"', $operator));
                 }
 
                 $options |= $operator << 20;
