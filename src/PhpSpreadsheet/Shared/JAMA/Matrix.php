@@ -10,7 +10,6 @@ namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
  *    @author Lukasz Karapuda
  *    @author Bartek Matosiuk
  *    @version 1.8
- *    @license PHP v3.0
  *    @see http://math.nist.gov/javanumerics/jama/
  */
 use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;

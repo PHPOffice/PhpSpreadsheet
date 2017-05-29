@@ -16,7 +16,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
  *    returns false.
  *
  *    @author  Paul Meagher
- *    @license PHP v3.0
  *
  *    @version 1.1
  */

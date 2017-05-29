@@ -20,8 +20,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
  *    @author Michael Bommarito
  *
  *    @version 1.1
- *
- *    @license PHP v3.0
  */
 class LUDecomposition
 {
