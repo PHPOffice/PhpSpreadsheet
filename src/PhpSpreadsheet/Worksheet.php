@@ -1122,6 +1122,23 @@ class Worksheet implements IComparable
     }
 
     /**
+     * Concatenates value to a cell.
+     *
+     * @param string $pCoordinate Coordinate of the cell
+     * @param mixed $pValue Value of the cell
+     * @param bool $returnCell Return the worksheet (false, default) or the cell (true)
+     * @param bool $breakLine Breaks the line(true) before concatenating value or not(false, default)
+     *
+     * @return Worksheet|Cell Depending on the last parameter being specified
+     */
+    public function addCellValue($pCoordinate = 'A1', $pValue = null, $returnCell = false, $breakLine = false)
+    {
+        $cell = $this->getCell(strtoupper($pCoordinate))->addValue($pValue, $breakLine);
+
+        return ($returnCell) ? $cell : $this;
+    }
+
+    /**
      * Set a cell value by using numeric cell coordinates.
      *
      * @param int $pColumn Numeric column coordinate of the cell (A = 0)

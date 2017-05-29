@@ -212,6 +212,25 @@ class Cell
     }
 
     /**
+     * Adds value to a cell.
+     *
+     *    Sets the value for a cell, automatically determining the datatype using the value binder
+     *
+     * @param mixed $pValue Value
+     * @param bool $breakLine Breaks the line(true) before concatenating value or not(false, default)
+     *
+     * @return Cell
+     */
+    public function addValue($pValue = null, $breakLine = false)
+    {
+        $pValue = $breakLine ? "\n" . $pValue : $pValue;
+
+        $this->setValue($this->getValue() . $pValue);
+
+        return $this;
+    }
+
+    /**
      * Set the value for a cell, with the explicit data type passed to the method (bypassing any use of the value binder).
      *
      * @param mixed $pValue Value
