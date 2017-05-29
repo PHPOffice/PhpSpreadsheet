@@ -2791,6 +2791,7 @@ class Worksheet extends BIFFwriter
 
     /**
      * Store the DATAVALIDATIONS and DATAVALIDATION records.
+     *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeDataValidity()
