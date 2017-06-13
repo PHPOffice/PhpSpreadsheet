@@ -493,6 +493,31 @@ class Worksheet implements IComparable
     }
 
     /**
+     * Clean up row dimensions.
+     *
+     * @param int $maxRow Maximum row to keep. Defaults to highest data row.
+     *
+     * @return $this
+     */
+    public function cleanRowDimensions($maxRow = null)
+    {
+        if ($maxRow === null) {
+            $maxRow = $this->getHighestDataRow();
+        }
+
+        foreach ($this->rowDimensions as $i => $dimension) {
+            if ($dimension->getRowIndex() > $maxRow) {
+                unset($this->rowDimensions[$i]);
+            }
+        }
+
+        // Garbage collect...
+        $this->garbageCollect();
+
+        return $this;
+    }
+
+    /**
      * Get default row dimension.
      *
      * @return Worksheet\RowDimension
