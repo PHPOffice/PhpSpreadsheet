@@ -357,6 +357,16 @@ class Color extends Supervisor implements IComparable
     }
 
     /**
+     * Set all indexed colors.
+     *
+     * @param array $colors Colors to be set
+     */
+    public static function setIndexedColors(array $colors)
+    {
+        self::$indexedColors = $colors;
+    }
+
+    /**
      * Get indexed color.
      *
      * @param int $pIndex Index entry point into the colour array

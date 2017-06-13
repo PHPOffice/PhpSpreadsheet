@@ -546,6 +546,13 @@ class Xlsx extends BaseReader implements IReader
                         'SimpleXMLElement',
                         Settings::getLibXmlLoaderOptions()
                     );
+                    if ($xmlStyles->colors->indexedColors) {
+                        $colors = [];
+                        foreach ($xmlStyles->colors->indexedColors as $rgbColor) {
+                            $colors[] = (string) $rgbColor['rgb'];
+                        }
+                        Style\Color::setIndexedColors($colors);
+                    }
                     $numFmts = null;
                     if ($xmlStyles && $xmlStyles->numFmts[0]) {
                         $numFmts = $xmlStyles->numFmts[0];
