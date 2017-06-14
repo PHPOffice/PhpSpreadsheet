@@ -430,11 +430,6 @@ class Worksheet implements IComparable
             throw new Exception('Invalid character found in sheet code name');
         }
 
-        // Maximum 31 characters allowed for sheet title
-        if ($CharCount > 31) {
-            throw new Exception('Maximum 31 characters allowed in sheet code name.');
-        }
-
         return $pValue;
     }
 
@@ -452,11 +447,6 @@ class Worksheet implements IComparable
         // Some of the printable ASCII characters are invalid:  * : / \ ? [ ]
         if (str_replace(self::$invalidCharacters, '', $pValue) !== $pValue) {
             throw new Exception('Invalid character found in sheet title');
-        }
-
-        // Maximum 31 characters allowed for sheet title
-        if (Shared\StringHelper::countCharacters($pValue) > 31) {
-            throw new Exception('Maximum 31 characters allowed in sheet title.');
         }
 
         return $pValue;
