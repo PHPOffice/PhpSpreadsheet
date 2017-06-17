@@ -2791,6 +2791,8 @@ class Worksheet extends BIFFwriter
 
     /**
      * Store the DATAVALIDATIONS and DATAVALIDATION records.
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
     private function writeDataValidity()
     {
@@ -2823,8 +2825,8 @@ class Worksheet extends BIFFwriter
                 $options = 0x00000000;
 
                 // data type
-                $type = $dataValidation->getType();
-                switch ($type) {
+                $type = 0x00;
+                switch ($dataValidation->getType()) {
                     case DataValidation::TYPE_NONE:
                         $type = 0x00;
                         break;
@@ -2854,8 +2856,8 @@ class Worksheet extends BIFFwriter
                 $options |= $type << 0;
 
                 // error style
-                $errorStyle = $dataValidation->getErrorStyle();
-                switch ($errorStyle) {
+                $errorStyle = 0x00;
+                switch ($dataValidation->getErrorStyle()) {
                     case DataValidation::STYLE_STOP:
                         $errorStyle = 0x00;
                         break;
@@ -2887,8 +2889,8 @@ class Worksheet extends BIFFwriter
                 $options |= $dataValidation->getShowErrorMessage() << 19;
 
                 // condition operator
-                $operator = $dataValidation->getOperator();
-                switch ($operator) {
+                $operator = 0x00;
+                switch ($dataValidation->getOperator()) {
                     case DataValidation::OPERATOR_BETWEEN:
                         $operator = 0x00;
                         break;
