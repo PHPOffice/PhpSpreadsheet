@@ -77,7 +77,7 @@ class MPDF extends Core implements IWriter
         }
 
         //  Create PDF
-        $pdf = new \mPDF();
+        $pdf = new \Mpdf\Mpdf();
         $ortmp = $orientation;
         $pdf->_setPageSize(strtoupper($paperSize), $ortmp);
         $pdf->DefOrientation = $orientation;
