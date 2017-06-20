@@ -442,29 +442,8 @@ class Html extends BaseReader implements IReader
                     case 'td':
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
 
-                        // add color styles (background & text) from dom element,currently support : td & th, using ONLY inline css style with RGB color
-                        if (isset($attributeArray['style'])) {
-                            $styles = explode(';', $attributeArray['style']);
-                            foreach ($styles as $st) {
-                                $value = explode(':', $st);
-                                if (!empty($value[0])) {
-                                    if (trim($value[0]) == 'background-color' || trim($value[0]) == 'color') {
-                                        $style_color = null;
-                                        //check if has #, so we can get clean hex
-                                        if (substr(trim($value[1]), 0, 1) == '#') {
-                                            $style_color = substr(trim($value[1]), 1);
-                                        }
-                                        if ($style_color) {
-                                            if (trim($value[0]) == 'background-color') {
-                                                $sheet->getStyle($column . $row)->applyFromArray(['fill' => ['type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'color' => ['rgb' => "{$style_color}"]]]);
-                                            } elseif (trim($value[0]) == 'color') {
-                                                $sheet->getStyle($column . $row)->applyFromArray(['font' => ['color' => ['rgb' => "$style_color}"]]]);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        // apply inline style
+                        $this->applyInlineStyle($sheet, $row, $column, $attributeArray);
 
                         while (isset($this->rowspan[$column . $row])) {
                             ++$column;
@@ -607,5 +586,49 @@ class Html extends BaseReader implements IReader
         }
 
         return $xml;
+    }
+
+    /**
+     * Apply inline css inline style.
+     *
+     * NOTES :
+     * Currently only intended for td & th element,
+     * and only takes 'background-color' and 'color'; property with HEX color
+     *
+     * TODO :
+     * - Implement to other propertie, such as border
+     *
+     * @param Worksheet $sheet
+     * @param array $attributeArray
+     * @param int $row
+     * @param string $column
+     */
+    private function applyInlineStyle(&$sheet, $row, $column, $attributeArray)
+    {
+        $supported_styles = ['background-color', 'color'];
+
+        // add color styles (background & text) from dom element,currently support : td & th, using ONLY inline css style with RGB color
+        if (isset($attributeArray['style'])) {
+            $styles = explode(';', $attributeArray['style']);
+            foreach ($styles as $st) {
+                $value = explode(':', $st);
+                if (!empty(trim($value[0]))) {
+                    if (in_array(trim($value[0]), $supported_styles)) {
+                        $style_color = null;
+                        //check if has #, so we can get clean hex
+                        if (substr(trim($value[1]), 0, 1) == '#') {
+                            $style_color = substr(trim($value[1]), 1);
+                        }
+                        if ($style_color) {
+                            if (trim($value[0]) == 'background-color') {
+                                $sheet->getStyle($column . $row)->applyFromArray(['fill' => ['type' => Fill::FILL_SOLID, 'color' => ['rgb' => "{$style_color}"]]]);
+                            } elseif (trim($value[0]) == 'color') {
+                                $sheet->getStyle($column . $row)->applyFromArray(['font' => ['color' => ['rgb' => "$style_color}"]]]);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

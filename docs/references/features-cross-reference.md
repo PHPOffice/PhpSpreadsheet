@@ -906,7 +906,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
-		<td></td>
+		<td style="text-align: center; color: orange;">●</td>
 		<td></td>
 		<td></td>
 		<td></td>
