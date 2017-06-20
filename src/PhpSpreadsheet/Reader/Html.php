@@ -443,22 +443,22 @@ class Html extends BaseReader implements IReader
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
 
                         // add color styles (background & text) from dom element,currently support : td & th, using ONLY inline css style with RGB color
-                        if (isset($attributeArray['style'])){
-                            $styles = explode(';',$attributeArray['style']);
+                        if (isset($attributeArray['style'])) {
+                            $styles = explode(';', $attributeArray['style']);
                             foreach ($styles as $st) {
                                 $value = explode(':', $st);
                                 if (!empty($value[0])) {
-                                    if(trim($value[0])=="background-color" || trim($value[0])=="color" ) {
+                                    if (trim($value[0]) == 'background-color' || trim($value[0]) == 'color') {
                                         $style_color = null;
                                         //check if has #, so we can get clean hex
-                                        if ( substr(trim($value[1]), 0, 1) == "#" ) {
+                                        if (substr(trim($value[1]), 0, 1) == '#') {
                                             $style_color = substr(trim($value[1]), 1);
                                         }
-                                        if($style_color) {
-                                            if (trim($value[0]) == "background-color") {
-                                                    $sheet->getStyle($column . $row)->applyFromArray( ['fill' => ['type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,'color' => ['rgb' => "{$style_color}" ],], ] );
-                                            } elseif (trim($value[0]) == "color") {
-                                                    $sheet->getStyle($column . $row)->applyFromArray( ['font' => ['color' => [ 'rgb' => "$style_color}" ]], ]);
+                                        if ($style_color) {
+                                            if (trim($value[0]) == 'background-color') {
+                                                $sheet->getStyle($column . $row)->applyFromArray(['fill' => ['type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'color' => ['rgb' => "{$style_color}"]]]);
+                                            } elseif (trim($value[0]) == 'color') {
+                                                $sheet->getStyle($column . $row)->applyFromArray(['font' => ['color' => ['rgb' => "$style_color}"]]]);
                                             }
                                         }
                                     }
