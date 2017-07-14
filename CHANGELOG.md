@@ -40,6 +40,7 @@ For a comprehensive list of all class changes, and a semi-automated migration pa
 
 - Dropped `PHPExcel_Calculation_Functions::VERSION()`. Composer or git should be used to know the version.
 - Dropped `PHPExcel_Settings::setPdfRenderer()` and `PHPExcel_Settings::setPdfRenderer()`. Composer should be used to autoload PDF libs.
+- Dropped support for HHVM
 
 ## Previous versions of PHPExcel
 

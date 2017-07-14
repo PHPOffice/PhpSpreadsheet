@@ -6,14 +6,11 @@ php:
   - 5.6
   - 7.0
   - 7.1
-  - hhvm
 
 matrix:
   include:
     - php: 7.0
       env: COVERAGE=1
-  allow_failures:
-    - php: hhvm
 
 cache:
   directories:
