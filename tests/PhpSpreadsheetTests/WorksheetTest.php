@@ -10,11 +10,11 @@ class WorksheetTest extends PHPUnit_Framework_TestCase
 {
     public function testSetTitle()
     {
-        $test_title = str_repeat('a', 31);
+        $testTitle = str_repeat('a', 31);
 
         $worksheet = new Worksheet();
-        $worksheet->setTitle($test_title);
-        $this->assertSame($test_title, $worksheet->getTitle());
+        $worksheet->setTitle($testTitle);
+        $this->assertSame($testTitle, $worksheet->getTitle());
     }
 
     public function setTitleInvalidProvider()
@@ -27,10 +27,10 @@ class WorksheetTest extends PHPUnit_Framework_TestCase
 
     /**
      * @param string $title
-     * @param string $expect_message
+     * @param string $expectMessage
      * @dataProvider setTitleInvalidProvider
      */
-    public function testSetTitleInvalid($title, $expect_message)
+    public function testSetTitleInvalid($title, $expectMessage)
     {
         // First, test setting title with validation disabled -- should be successful
         $worksheet = new Worksheet();
@@ -39,7 +39,7 @@ class WorksheetTest extends PHPUnit_Framework_TestCase
         // Next, test again with validation enabled -- this time we should fail
         $worksheet = new Worksheet();
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage($expect_message);
+        $this->expectExceptionMessage($expectMessage);
         $worksheet->setTitle($title);
     }
 
@@ -68,11 +68,11 @@ class WorksheetTest extends PHPUnit_Framework_TestCase
 
     public function testSetCodeName()
     {
-        $test_code_name = str_repeat('a', 31);
+        $testCodeName = str_repeat('a', 31);
 
         $worksheet = new Worksheet();
-        $worksheet->setCodeName($test_code_name);
-        $this->assertSame($test_code_name, $worksheet->getCodeName());
+        $worksheet->setCodeName($testCodeName);
+        $this->assertSame($testCodeName, $worksheet->getCodeName());
     }
 
     public function setCodeNameInvalidProvider()
@@ -84,21 +84,21 @@ class WorksheetTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param string $code_name
-     * @param string $expect_message
+     * @param string $codeName
+     * @param string $expectMessage
      * @dataProvider setCodeNameInvalidProvider
      */
-    public function testSetCodeNameInvalid($code_name, $expect_message)
+    public function testSetCodeNameInvalid($codeName, $expectMessage)
     {
         // First, test setting code name with validation disabled -- should be successful
         $worksheet = new Worksheet();
-        $worksheet->setCodeName($code_name, false);
+        $worksheet->setCodeName($codeName, false);
 
         // Next, test again with validation enabled -- this time we should fail
         $worksheet = new Worksheet();
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage($expect_message);
-        $worksheet->setCodeName($code_name);
+        $this->expectExceptionMessage($expectMessage);
+        $worksheet->setCodeName($codeName);
     }
 
     public function testSetCodeNameDuplicate()
