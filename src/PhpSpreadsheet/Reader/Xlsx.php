@@ -697,7 +697,7 @@ class Xlsx extends BaseReader implements IReader
                             //        references in formula cells... during the load, all formulae should be correct,
                             //        and we're simply bringing the worksheet name in line with the formula, not the
                             //        reverse
-                            $docSheet->setTitle((string) $eleSheet['name'], false);
+                            $docSheet->setTitle((string) $eleSheet['name'], false, false);
                             $fileWorksheet = $worksheets[(string) self::getArrayItem($eleSheet->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'), 'id')];
                             $xmlSheet = simplexml_load_string(
                                 //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
@@ -766,7 +766,7 @@ class Xlsx extends BaseReader implements IReader
                                 }
                             }
                             if (isset($xmlSheet->sheetPr) && isset($xmlSheet->sheetPr['codeName'])) {
-                                $docSheet->setCodeName((string) $xmlSheet->sheetPr['codeName']);
+                                $docSheet->setCodeName((string) $xmlSheet->sheetPr['codeName'], false);
                             }
                             if (isset($xmlSheet->sheetPr) && isset($xmlSheet->sheetPr->outlinePr)) {
                                 if (isset($xmlSheet->sheetPr->outlinePr['summaryRight']) &&
