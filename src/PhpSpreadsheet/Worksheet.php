@@ -1163,7 +1163,6 @@ class Worksheet implements IComparable
      * @param int $pRow Numeric row coordinate of the cell
      * @param mixed $pValue Value of the cell
      * @param string $pDataType Explicit data type, see Cell\DataType::TYPE_*
-     * @param bool $returnCell Return the worksheet (false, default) or the cell (true)
      *
      * @return Worksheet
      */
