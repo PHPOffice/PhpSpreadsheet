@@ -78,21 +78,21 @@ class Borders extends Supervisor implements IComparable
     protected $diagonalDirection;
 
     /**
-     * All borders psedo-border. Only applies to supervisor.
+     * All borders pseudo-border. Only applies to supervisor.
      *
      * @var Border
      */
     protected $allBorders;
 
     /**
-     * Outline psedo-border. Only applies to supervisor.
+     * Outline pseudo-border. Only applies to supervisor.
      *
      * @var Border
      */
     protected $outline;
 
     /**
-     * Inside psedo-border. Only applies to supervisor.
+     * Inside pseudo-border. Only applies to supervisor.
      *
      * @var Border
      */
@@ -325,7 +325,7 @@ class Borders extends Supervisor implements IComparable
      *
      * @throws PhpSpreadsheetException
      *
-     * @return bool
+     * @return Border
      */
     public function getOutline()
     {
@@ -341,7 +341,7 @@ class Borders extends Supervisor implements IComparable
      *
      * @throws PhpSpreadsheetException
      *
-     * @return bool
+     * @return Border
      */
     public function getInside()
     {
