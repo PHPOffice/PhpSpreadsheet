@@ -146,7 +146,7 @@ class Border extends Supervisor implements IComparable
      */
     public function getStyleArray($array)
     {
-        switch ($this->parentPropertyName) {
+        switch (strtolower($this->parentPropertyName)) {
             case 'allborders':
             case 'bottom':
             case 'diagonal':
