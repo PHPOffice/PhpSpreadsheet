@@ -42,6 +42,11 @@ PhpSpreadsheet is a library written in pure PHP and providing a set of classes t
 
 Support for PHP versions will only be maintained for a period of six months beyond the end-of-life of that PHP version
 
+## How to install
+http://phpspreadsheet.readthedocs.io/en/develop/
+see Installation section
+
+
 ## Want to contribute?
 
 If you would like to contribute, here are some notes and guidelines:
