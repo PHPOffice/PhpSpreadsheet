@@ -16,41 +16,14 @@ Develop:
 
 PhpSpreadsheet is a library written in pure PHP and providing a set of classes that allow you to read from and to write to different spreadsheet file formats, like Excel and LibreOffice Calc.
 
-## File formats supported
+## Documentation
 
-|Format                                      |Reading|Writing|
-|--------------------------------------------|:-----:|:-----:|
-|Open Document Format/OASIS (.ods)           |   ✓   |   ✓   |
-|Office Open XML (.xlsx) Excel 2007 and above|   ✓   |   ✓   |
-|BIFF 8 (.xls) Excel 97 and above            |   ✓   |   ✓   |
-|BIFF 5 (.xls) Excel 95                      |   ✓   |       |
-|SpreadsheetML (.xml) Excel 2003             |   ✓   |       |
-|Gnumeric                                    |   ✓   |       |
-|HTML                                        |   ✓   |   ✓   |
-|SYLK                                        |   ✓   |       |
-|CSV                                         |   ✓   |   ✓   |
-|PDF (using either the tcPDF, DomPDF or mPDF libraries, which need to be installed separately)|       |   ✓   |
+Read more about it, including install instructions, in the official documentation, either at the online version:
 
-## Requirements
+https://phpspreadsheet.readthedocs.io
 
- * PHP version 5.6 or higher
- * PHP extension php_zip enabled
- * PHP extension php_xml enabled
- * PHP extension php_gd2 enabled (optional, but required for exact column width autocalculation)
+Or directly in this repository in the folder `docs/`.
 
-## PHP version support
-
-Support for PHP versions will only be maintained for a period of six months beyond the end-of-life of that PHP version
-
-## Want to contribute?
-
-If you would like to contribute, here are some notes and guidelines:
- - All new development happens on feature/fix branches referenced with the GitHub issue number, and are then merged to the develop branch; so the develop branch is always the most up-to-date, working code
- - The master branch only contains tagged releases
- - If you are going to be submitting a pull request, please fork from develop, and submit your pull request back as a fix/feature branch referencing the GitHub issue number
- - Code changes must be validated by PHP-CS-Fixer and PHP_CodeSniffer (via `./vendor/bin/php-cs-fixer fix --verbose && ./vendor/bin/phpcs samples/ src/ tests/ --standard=PSR2 -n`)
- - [Helpful article about forking](https://help.github.com/articles/fork-a-repo/ "Forking a GitHub repository")
- - [Helpful article about pull requests](https://help.github.com/articles/using-pull-requests/ "Pull Requests")
 
 ## PHPExcel vs PhpSpreadsheet ?
 
