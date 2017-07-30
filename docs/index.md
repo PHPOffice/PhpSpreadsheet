@@ -6,6 +6,21 @@ PhpSpreadsheet is a library written in pure PHP and providing a set of
 classes that allow you to read from and to write to different
 spreadsheet file formats, like Excel and LibreOffice Calc.
 
+## File formats supported
+
+|Format                                      |Reading|Writing|
+|--------------------------------------------|:-----:|:-----:|
+|Open Document Format/OASIS (.ods)           |   ✓   |   ✓   |
+|Office Open XML (.xlsx) Excel 2007 and above|   ✓   |   ✓   |
+|BIFF 8 (.xls) Excel 97 and above            |   ✓   |   ✓   |
+|BIFF 5 (.xls) Excel 95                      |   ✓   |       |
+|SpreadsheetML (.xml) Excel 2003             |   ✓   |       |
+|Gnumeric                                    |   ✓   |       |
+|HTML                                        |   ✓   |   ✓   |
+|SYLK                                        |   ✓   |       |
+|CSV                                         |   ✓   |   ✓   |
+|PDF (using either the tcPDF, DomPDF or mPDF libraries, which need to be installed separately)|       |   ✓   |
+
 # Getting started
 
 ## Software requirements
@@ -16,6 +31,10 @@ The following software is required to develop using PhpSpreadsheet:
 -   PHP extension php\_zip enabled
 -   PHP extension php\_xml enabled
 -   PHP extension php\_gd2 enabled (if not compiled in)
+
+### PHP version support
+
+Support for PHP versions will only be maintained for a period of six months beyond the end-of-life of that PHP version
 
 ## Installation
 
