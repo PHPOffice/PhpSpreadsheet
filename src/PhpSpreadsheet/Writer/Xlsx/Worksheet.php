@@ -306,7 +306,6 @@ class Worksheet extends WriterPart
         }
 
         // Selection
-//      if ($pane != '') {
         // Only need to write selection element if we have a split pane
         // We cheat a little by over-riding the active cell selection, setting it to the split cell
         $objWriter->startElement('selection');
@@ -316,7 +315,6 @@ class Worksheet extends WriterPart
         $objWriter->writeAttribute('activeCell', $activeCell);
         $objWriter->writeAttribute('sqref', $activeCell);
         $objWriter->endElement();
-//      }
 
         $objWriter->endElement();
 

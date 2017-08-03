@@ -1190,14 +1190,14 @@ class Worksheet extends BIFFwriter
 
         // Pack the main data stream
         $data = pack('vvvv', $row1, $row2, $col1, $col2) .
-                          $unknown1 .
-                          $link_type .
-                          $unknown2 .
-                          $up_count .
-                          $dir_short_len .
-                          $dir_short .
-                          $unknown3 .
-                          $stream_len; /*.
+                            $unknown1 .
+                            $link_type .
+                            $unknown2 .
+                            $up_count .
+                            $dir_short_len .
+                            $dir_short .
+                            $unknown3 .
+                            $stream_len; /*.
                           $dir_long_len .
                           $unknown4     .
                           $dir_long     .

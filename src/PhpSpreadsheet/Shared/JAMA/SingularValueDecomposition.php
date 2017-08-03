@@ -436,8 +436,6 @@ class SingularValueDecomposition
         } // end while
     }
 
- // end constructor
-
     /**
      * Return the left singular vectors.
      *
