@@ -720,7 +720,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -771,7 +771,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -814,7 +814,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -1207,7 +1207,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return int
      */
@@ -1241,7 +1241,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return int
      */
@@ -1271,7 +1271,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return int
      */
@@ -1491,7 +1491,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -1785,7 +1785,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -1851,7 +1851,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -1967,7 +1967,7 @@ class Statistical
      * kurtosis indicates a relatively peaked distribution. Negative kurtosis indicates a
      * relatively flat distribution.
      *
-     * @param array Data Series
+     * @param array ...$args Data Series
      *
      * @return float
      */
@@ -2249,7 +2249,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -2285,7 +2285,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -2368,7 +2368,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -2412,7 +2412,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -2448,7 +2448,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -2568,7 +2568,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -3016,7 +3016,7 @@ class Statistical
      * asymmetric tail extending toward more positive values. Negative skewness indicates a
      * distribution with an asymmetric tail extending toward more negative values.
      *
-     * @param array Data Series
+     * @param array ...$args Data Series
      *
      * @return float
      */
@@ -3161,7 +3161,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -3210,7 +3210,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -3262,7 +3262,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -3309,7 +3309,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -3599,7 +3599,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -3643,7 +3643,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -3696,7 +3696,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -3741,7 +3741,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */

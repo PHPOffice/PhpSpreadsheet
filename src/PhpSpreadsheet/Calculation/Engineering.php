@@ -2293,7 +2293,7 @@ class Engineering
      * Excel Function:
      *        IMSUM(complexNumber[,complexNumber[,...]])
      *
-     * @param string $complexNumbers Series of complex numbers to add
+     * @param string ...$complexNumbers Series of complex numbers to add
      *
      * @return string
      */
@@ -2333,7 +2333,7 @@ class Engineering
      * Excel Function:
      *        IMPRODUCT(complexNumber[,complexNumber[,...]])
      *
-     * @param string $complexNumbers Series of complex numbers to multiply
+     * @param string ...$complexNumbers Series of complex numbers to multiply
      *
      * @return string
      */

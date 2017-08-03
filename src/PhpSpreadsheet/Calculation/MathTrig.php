@@ -347,7 +347,7 @@ class MathTrig
      *
      * @category Mathematical and Trigonometric Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return int Greatest Common Divisor
      */
@@ -456,7 +456,7 @@ class MathTrig
      *
      * @category Mathematical and Trigonometric Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return int Lowest Common Multiplier
      */
@@ -859,7 +859,7 @@ class MathTrig
      *
      * @category Mathematical and Trigonometric Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -899,7 +899,7 @@ class MathTrig
      *
      * @category Mathematical and Trigonometric Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -1185,7 +1185,7 @@ class MathTrig
      *
      * @category Mathematical and Trigonometric Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -1306,7 +1306,7 @@ class MathTrig
      *
      * @category Mathematical and Trigonometric Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -1351,7 +1351,7 @@ class MathTrig
      *
      * @category Mathematical and Trigonometric Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
