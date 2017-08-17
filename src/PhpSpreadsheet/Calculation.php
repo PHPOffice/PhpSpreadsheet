@@ -13,6 +13,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
 use PhpOffice\PhpSpreadsheet\Calculation\Statistical;
 use PhpOffice\PhpSpreadsheet\Calculation\TextData;
+use PhpOffice\PhpSpreadsheet\Calculation\Token\Stack;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -2059,8 +2060,6 @@ class Calculation
 
     /**
      * Unset an instance of this class.
-     *
-     * @param Spreadsheet $spreadsheet Injected spreadsheet identifying the instance to unset
      */
     public function __destruct()
     {
@@ -2314,6 +2313,14 @@ class Calculation
         return false;
     }
 
+    /**
+     * @param string $fromSeparator
+     * @param string $toSeparator
+     * @param string $formula
+     * @param bool $inBraces
+     *
+     * @return string
+     */
     public static function translateSeparator($fromSeparator, $toSeparator, $formula, &$inBraces)
     {
         $strlen = mb_strlen($formula);
@@ -2657,6 +2664,12 @@ class Calculation
         return $result;
     }
 
+    /**
+     * @param string $cellReference
+     * @param mixed $cellValue
+     *
+     * @return bool
+     */
     public function getValueFromCache($cellReference, &$cellValue)
     {
         // Is calculation cacheing enabled?
@@ -2985,6 +2998,11 @@ class Calculation
         }
     }
 
+    /**
+     * @param string $formula
+     *
+     * @return string
+     */
     private function convertMatrixReferences($formula)
     {
         static $matrixReplaceFrom = ['{', ';', '}'];
@@ -3073,6 +3091,13 @@ class Calculation
     ];
 
     // Convert infix to postfix notation
+
+    /**
+     * @param string $formula
+     * @param Cell|null $pCell
+     *
+     * @return bool
+     */
     private function _parseFormula($formula, Cell $pCell = null)
     {
         if (($formula = $this->convertMatrixReferences(trim($formula))) === false) {
@@ -3094,7 +3119,7 @@ class Calculation
 
         //    Start with initialisation
         $index = 0;
-        $stack = new Calculation\Token\Stack();
+        $stack = new Stack();
         $output = [];
         $expectingOperator = false; //    We use this test in syntax-checking the expression to determine when a
                                                     //        - is a negation or + is a positive operator rather than an operation
@@ -3401,8 +3426,11 @@ class Calculation
     // evaluate postfix notation
 
     /**
-     * @param string $cellID
      * @param mixed $tokens
+     * @param string|null $cellID
+     * @param Cell|null $pCell
+     *
+     * @return bool
      */
     private function processTokenStack($tokens, $cellID = null, Cell $pCell = null)
     {
@@ -3414,7 +3442,7 @@ class Calculation
         //        so we store the parent cell collection so that we can re-attach it when necessary
         $pCellWorksheet = ($pCell !== null) ? $pCell->getWorksheet() : null;
         $pCellParent = ($pCell !== null) ? $pCell->getParent() : null;
-        $stack = new Calculation\Token\Stack();
+        $stack = new Stack();
 
         //    Loop through each token in turn
         foreach ($tokens as $tokenData) {
@@ -3770,9 +3798,6 @@ class Calculation
         $output = $stack->pop();
         $output = $output['value'];
 
-//        if ((is_array($output)) && (self::$returnArrayAsType != self::RETURN_ARRAY_AS_ARRAY)) {
-//            return array_shift(Calculation\Functions::flattenArray($output));
-//        }
         return $output;
     }
 
@@ -3814,7 +3839,17 @@ class Calculation
         return true;
     }
 
-    private function executeBinaryComparisonOperation($cellID, $operand1, $operand2, $operation, &$stack, $recursingArrays = false)
+    /**
+     * @param string|null $cellID
+     * @param mixed $operand1
+     * @param mixed $operand2
+     * @param string $operation
+     * @param Stack $stack
+     * @param bool $recursingArrays
+     *
+     * @return bool
+     */
+    private function executeBinaryComparisonOperation($cellID, $operand1, $operand2, $operation, Stack &$stack, $recursingArrays = false)
     {
         //    If we're dealing with matrix operations, we want a matrix result
         if ((is_array($operand1)) || (is_array($operand2))) {
@@ -3954,7 +3989,7 @@ class Calculation
 
     /**
      * @param string $matrixFunction
-     * @param mixed $cellID
+     * @param string|null $cellID
      * @param mixed $operand1
      * @param mixed $operand2
      * @param mixed $operation

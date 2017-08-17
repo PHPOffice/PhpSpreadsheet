@@ -440,7 +440,7 @@ class Ods extends BaseReader implements IReader
                     // Use false for $updateFormulaCellReferences to prevent adjustment of worksheet references in
                     // formula cells... during the load, all formulae should be correct, and we're simply
                     // bringing the worksheet name in line with the formula, not the reverse
-                    $spreadsheet->getActiveSheet()->setTitle($worksheetName, false);
+                    $spreadsheet->getActiveSheet()->setTitle($worksheetName, false, false);
                 }
 
                 // Go through every child of table element

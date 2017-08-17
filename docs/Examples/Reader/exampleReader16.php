@@ -7,36 +7,33 @@ error_reporting(E_ALL);
 set_time_limit(0);
 
 date_default_timezone_set('Europe/London');
-
 ?>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>PhpSpreadsheet Reader Example #16</title>
+        <title>PhpSpreadsheet Reader Example #16</title>
 
-</head>
-<body>
+    </head>
+    <body>
 
-<h1>PhpSpreadsheet Reader Example #16</h1>
-<h2>Handling Loader Exceptions using Try/Catch</h2>
-<?php
+        <h1>PhpSpreadsheet Reader Example #16</h1>
+        <h2>Handling Loader Exceptions using Try/Catch</h2>
+        <?php
+        require_once __DIR__ . '/../../../src/Bootstrap.php';
 
-require_once __DIR__ . '/../../../src/Bootstrap.php';
+        $inputFileName = './sampleData/example_1.xls';
+        echo 'Loading file ', pathinfo($inputFileName, PATHINFO_BASENAME), ' using IOFactory to identify the format<br />';
+        try {
+            $spreadsheet = IOFactory::load($inputFileName);
+        } catch (InvalidArgumentException $e) {
+            die('Error loading file "' . pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
+        }
 
-$inputFileName = './sampleData/example_1.xls';
-echo 'Loading file ',pathinfo($inputFileName, PATHINFO_BASENAME),' using IOFactory to identify the format<br />';
-try {
-    $spreadsheet = IOFactory::load($inputFileName);
-} catch (InvalidArgumentException $e) {
-    die('Error loading file "' . pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
-}
+        echo '<hr />';
 
-echo '<hr />';
-
-$sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-var_dump($sheetData);
-
-?>
-<body>
+        $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
+        var_dump($sheetData);
+        ?>
+    <body>
 </html>

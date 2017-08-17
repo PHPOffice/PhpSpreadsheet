@@ -159,8 +159,8 @@ class Xlsx extends BaseWriter implements IWriter
         }
 
         $hashTablesArray = ['stylesConditionalHashTable', 'fillHashTable', 'fontHashTable',
-                                  'bordersHashTable', 'numFmtHashTable', 'drawingHashTable',
-                                  'styleHashTable',
+                                    'bordersHashTable', 'numFmtHashTable', 'drawingHashTable',
+                                    'styleHashTable',
                                 ];
 
         // Set HashTable variables

@@ -317,7 +317,7 @@ class Html extends BaseReader implements IReader
                         break;
                     case 'title':
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
-                        $sheet->setTitle($cellContent);
+                        $sheet->setTitle($cellContent, true, false);
                         $cellContent = '';
                         break;
                     case 'span':

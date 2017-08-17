@@ -825,52 +825,54 @@ class Worksheet implements IComparable
      * Set title.
      *
      * @param string $pValue String containing the dimension of this worksheet
-     * @param string $updateFormulaCellReferences boolean Flag indicating whether cell references in formulae should
+     * @param bool $updateFormulaCellReferences Flag indicating whether cell references in formulae should
      *            be updated to reflect the new sheet name.
      *          This should be left as the default true, unless you are
      *          certain that no formula cells on any worksheet contain
      *          references to this worksheet
+     * @param bool $validate False to skip validation of new title. WARNING: This should only be set
+     *                       at parse time (by Readers), where titles can be assumed to be valid.
      *
      * @return Worksheet
      */
-    public function setTitle($pValue, $updateFormulaCellReferences = true)
+    public function setTitle($pValue, $updateFormulaCellReferences = true, $validate = true)
     {
         // Is this a 'rename' or not?
         if ($this->getTitle() == $pValue) {
             return $this;
         }
 
-        // Syntax check
-        self::checkSheetTitle($pValue);
-
         // Old title
         $oldTitle = $this->getTitle();
 
-        if ($this->parent) {
-            // Is there already such sheet name?
-            if ($this->parent->sheetNameExists($pValue)) {
-                // Use name, but append with lowest possible integer
+        if ($validate) {
+            // Syntax check
+            self::checkSheetTitle($pValue);
 
-                if (Shared\StringHelper::countCharacters($pValue) > 29) {
-                    $pValue = Shared\StringHelper::substring($pValue, 0, 29);
-                }
-                $i = 1;
-                while ($this->parent->sheetNameExists($pValue . ' ' . $i)) {
-                    ++$i;
-                    if ($i == 10) {
-                        if (Shared\StringHelper::countCharacters($pValue) > 28) {
-                            $pValue = Shared\StringHelper::substring($pValue, 0, 28);
-                        }
-                    } elseif ($i == 100) {
-                        if (Shared\StringHelper::countCharacters($pValue) > 27) {
-                            $pValue = Shared\StringHelper::substring($pValue, 0, 27);
+            if ($this->parent) {
+                // Is there already such sheet name?
+                if ($this->parent->sheetNameExists($pValue)) {
+                    // Use name, but append with lowest possible integer
+
+                    if (Shared\StringHelper::countCharacters($pValue) > 29) {
+                        $pValue = Shared\StringHelper::substring($pValue, 0, 29);
+                    }
+                    $i = 1;
+                    while ($this->parent->sheetNameExists($pValue . ' ' . $i)) {
+                        ++$i;
+                        if ($i == 10) {
+                            if (Shared\StringHelper::countCharacters($pValue) > 28) {
+                                $pValue = Shared\StringHelper::substring($pValue, 0, 28);
+                            }
+                        } elseif ($i == 100) {
+                            if (Shared\StringHelper::countCharacters($pValue) > 27) {
+                                $pValue = Shared\StringHelper::substring($pValue, 0, 27);
+                            }
                         }
                     }
+
+                    $pValue .= " $i";
                 }
-
-                $altTitle = $pValue . ' ' . $i;
-
-                return $this->setTitle($altTitle, $updateFormulaCellReferences);
             }
         }
 
@@ -1161,7 +1163,6 @@ class Worksheet implements IComparable
      * @param int $pRow Numeric row coordinate of the cell
      * @param mixed $pValue Value of the cell
      * @param string $pDataType Explicit data type, see Cell\DataType::TYPE_*
-     * @param bool $returnCell Return the worksheet (false, default) or the cell (true)
      *
      * @return Worksheet
      */
@@ -2976,51 +2977,55 @@ class Worksheet implements IComparable
     /**
      * Define the code name of the sheet.
      *
-     * @param null|string Same rule as Title minus space not allowed (but, like Excel, change silently space to underscore)
-     * @param null|mixed $pValue
+     * @param string $pValue Same rule as Title minus space not allowed (but, like Excel, change
+     *                       silently space to underscore)
+     * @param bool $validate False to skip validation of new title. WARNING: This should only be set
+     *                       at parse time (by Readers), where titles can be assumed to be valid.
      *
      * @throws Exception
      *
      * @return objWorksheet
      */
-    public function setCodeName($pValue)
+    public function setCodeName($pValue, $validate = true)
     {
         // Is this a 'rename' or not?
         if ($this->getCodeName() == $pValue) {
             return $this;
         }
-        $pValue = str_replace(' ', '_', $pValue); //Excel does this automatically without flinching, we are doing the same
-        // Syntax check
-        // throw an exception if not valid
-        self::checkSheetCodeName($pValue);
 
-        // We use the same code that setTitle to find a valid codeName else not using a space (Excel don't like) but a '_'
+        if ($validate) {
+            $pValue = str_replace(' ', '_', $pValue); //Excel does this automatically without flinching, we are doing the same
 
-        if ($this->getParent()) {
-            // Is there already such sheet name?
-            if ($this->getParent()->sheetCodeNameExists($pValue)) {
-                // Use name, but append with lowest possible integer
+            // Syntax check
+            // throw an exception if not valid
+            self::checkSheetCodeName($pValue);
 
-                if (Shared\StringHelper::countCharacters($pValue) > 29) {
-                    $pValue = Shared\StringHelper::substring($pValue, 0, 29);
-                }
-                $i = 1;
-                while ($this->getParent()->sheetCodeNameExists($pValue . '_' . $i)) {
-                    ++$i;
-                    if ($i == 10) {
-                        if (Shared\StringHelper::countCharacters($pValue) > 28) {
-                            $pValue = Shared\StringHelper::substring($pValue, 0, 28);
-                        }
-                    } elseif ($i == 100) {
-                        if (Shared\StringHelper::countCharacters($pValue) > 27) {
-                            $pValue = Shared\StringHelper::substring($pValue, 0, 27);
+            // We use the same code that setTitle to find a valid codeName else not using a space (Excel don't like) but a '_'
+
+            if ($this->getParent()) {
+                // Is there already such sheet name?
+                if ($this->getParent()->sheetCodeNameExists($pValue)) {
+                    // Use name, but append with lowest possible integer
+
+                    if (Shared\StringHelper::countCharacters($pValue) > 29) {
+                        $pValue = Shared\StringHelper::substring($pValue, 0, 29);
+                    }
+                    $i = 1;
+                    while ($this->getParent()->sheetCodeNameExists($pValue . '_' . $i)) {
+                        ++$i;
+                        if ($i == 10) {
+                            if (Shared\StringHelper::countCharacters($pValue) > 28) {
+                                $pValue = Shared\StringHelper::substring($pValue, 0, 28);
+                            }
+                        } elseif ($i == 100) {
+                            if (Shared\StringHelper::countCharacters($pValue) > 27) {
+                                $pValue = Shared\StringHelper::substring($pValue, 0, 27);
+                            }
                         }
                     }
-                }
 
-                $pValue = $pValue . '_' . $i; // ok, we have a valid name
-                //codeName is'nt used in formula : no need to call for an update
-                //return $this->setTitle($altTitle, $updateFormulaCellReferences);
+                    $pValue = $pValue . '_' . $i; // ok, we have a valid name
+                }
             }
         }
 

@@ -84,9 +84,9 @@ class Font
         $bFamily = 0; // Font family
         $bCharSet = \PhpOffice\PhpSpreadsheet\Shared\Font::getCharsetFromFontName($this->font->getName()); // Character set
 
-        $record = 0x31;        // Record identifier
-        $reserved = 0x00;    // Reserved
-        $grbit = 0x00;        // Font attributes
+        $record = 0x31; // Record identifier
+        $reserved = 0x00; // Reserved
+        $grbit = 0x00; // Font attributes
         if ($this->font->getItalic()) {
             $grbit |= 0x02;
         }
@@ -134,10 +134,10 @@ class Font
     private static function mapBold($bold)
     {
         if ($bold) {
-            return 0x2BC;  //  700 = Bold font weight
+            return 0x2BC; //  700 = Bold font weight
         }
 
-        return 0x190;      //  400 = Normal font weight
+        return 0x190; //  400 = Normal font weight
     }
 
     /**

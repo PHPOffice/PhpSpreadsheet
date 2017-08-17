@@ -80,7 +80,7 @@ class Logical
      *
      * @category Logical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return string|bool the logical AND of the arguments
      */
