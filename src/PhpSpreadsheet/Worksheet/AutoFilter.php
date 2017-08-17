@@ -629,6 +629,7 @@ class AutoFilter
             $rules = $filterColumn->getRules();
             switch ($filterColumn->getFilterType()) {
                 case AutoFilter\Column::AUTOFILTER_FILTERTYPE_FILTER:
+                    $ruleType = null;
                     $ruleValues = [];
                     //    Build a list of the filter value selections
                     foreach ($rules as $rule) {
@@ -700,7 +701,6 @@ class AutoFilter
                     $ruleValues = [];
                     //    Build a list of the filter value selections
                     foreach ($rules as $rule) {
-                        $ruleType = $rule->getRuleType();
                         $ruleValue = $rule->getValue();
                         if (!is_numeric($ruleValue)) {
                             //    Convert to a regexp allowing for regexp reserved characters, wildcards and escaped wildcards
