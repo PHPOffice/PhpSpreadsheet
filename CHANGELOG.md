@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+### Changed
+
+### Fixed
+
+
+## [1.0.0-beta] - 2017-08-17
+
+### Added
+
 - Initial implementation of SUMIFS() function
 - Additional codepages
 - MemoryDrawing not working in HTML writer [#808](https://github.com/PHPOffice/PHPExcel/issues/808)
@@ -18,7 +27,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Start following [SemVer](http://semver.org) properly.
 
-### Bugfixes
+### Fixed
 
 - Fix to getCell() method when cell reference includes a worksheet reference - @MarkBaker
 - Ignore inlineStr type if formula element exists - @ncrypthic [#570](https://github.com/PHPOffice/PHPExcel/issues/570)
