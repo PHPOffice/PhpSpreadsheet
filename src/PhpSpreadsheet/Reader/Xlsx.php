@@ -869,7 +869,7 @@ class Xlsx extends BaseReader implements IReader
                                     foreach ($row->c as $c) {
                                         $r = (string) $c['r'];
                                         if ($r == '') {
-                                            $r = Cell::stringFromColumnIndex($rowIndex). $cIndex;
+                                            $r = Cell::stringFromColumnIndex($rowIndex) . $cIndex;
                                         }
                                         $cellDataType = (string) $c['t'];
                                         $value = null;
