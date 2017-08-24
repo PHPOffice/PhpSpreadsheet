@@ -166,7 +166,7 @@ class Chart
      * @param mixed $plotVisibleOnly
      * @param mixed $displayBlanksAs
      */
-    public function __construct($name, Chart\Title $title = null, Chart\Legend $legend = null, Chart\PlotArea $plotArea = null, $plotVisibleOnly = true, $displayBlanksAs = '0', Chart\Title $xAxisLabel = null, Array $yAxisLabel = [], Chart\Axis $xAxis = null, Chart\Axis $yAxis = null, Chart\GridLines $majorGridlines = null, Chart\GridLines $minorGridlines = null)
+    public function __construct($name, Chart\Title $title = null, Chart\Legend $legend = null, Chart\PlotArea $plotArea = null, $plotVisibleOnly = true, $displayBlanksAs = '0', Chart\Title $xAxisLabel = null, array $yAxisLabel = [], Chart\Axis $xAxis = null, Chart\Axis $yAxis = null, Chart\GridLines $majorGridlines = null, Chart\GridLines $minorGridlines = null)
     {
         $this->name = $name;
         $this->title = $title;
@@ -307,7 +307,7 @@ class Chart
      *
      * @return Chart
      */
-    public function setYAxisLabel(Array $label)
+    public function setYAxisLabel(array $label)
     {
         $this->yAxisLabel = $label;
 
