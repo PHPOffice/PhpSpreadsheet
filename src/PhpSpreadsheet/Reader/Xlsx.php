@@ -88,9 +88,9 @@ class Xlsx extends BaseReader implements IReader
         if ($zip->open($pFilename) === true) {
             // check if it is an OOXML archive
             $rels = simplexml_load_string(
-                $this->securityScan(
+                $this->removeNamespaces($this->securityScan(
                     $this->getFromZipArchive($zip, '_rels/.rels')
-                ),
+                )),
                 'SimpleXMLElement',
                 Settings::getLibXmlLoaderOptions()
             );
@@ -131,13 +131,13 @@ class Xlsx extends BaseReader implements IReader
 
         //    The files we're looking at here are small enough that simpleXML is more efficient than XMLReader
         $rels = simplexml_load_string(
-            $this->securityScan($this->getFromZipArchive($zip, '_rels/.rels'))
+            $this->removeNamespaces($this->securityScan($this->getFromZipArchive($zip, '_rels/.rels')))
         ); //~ http://schemas.openxmlformats.org/package/2006/relationships");
         foreach ($rels->Relationship as $rel) {
             switch ($rel['Type']) {
                 case 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument':
                     $xmlWorkbook = simplexml_load_string(
-                        $this->securityScan($this->getFromZipArchive($zip, "{$rel['Target']}"))
+                        $this->removeNamespaces($this->securityScan($this->getFromZipArchive($zip, "{$rel['Target']}")))
                     ); //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 
                     if ($xmlWorkbook->sheets) {
@@ -173,8 +173,8 @@ class Xlsx extends BaseReader implements IReader
         $zip->open($pFilename);
 
         $rels = simplexml_load_string(
-            //~ http://schemas.openxmlformats.org/package/2006/relationships"
-            $this->securityScan($this->getFromZipArchive($zip, '_rels/.rels')),
+        //~ http://schemas.openxmlformats.org/package/2006/relationships"
+            $this->removeNamespaces($this->securityScan($this->getFromZipArchive($zip, '_rels/.rels'))),
             'SimpleXMLElement',
             Settings::getLibXmlLoaderOptions()
         );
@@ -182,10 +182,10 @@ class Xlsx extends BaseReader implements IReader
             if ($rel['Type'] == 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument') {
                 $dir = dirname($rel['Target']);
                 $relsWorkbook = simplexml_load_string(
-                    //~ http://schemas.openxmlformats.org/package/2006/relationships"
-                    $this->securityScan(
+                //~ http://schemas.openxmlformats.org/package/2006/relationships"
+                    $this->removeNamespaces($this->securityScan(
                         $this->getFromZipArchive($zip, "$dir/_rels/" . basename($rel['Target']) . '.rels')
-                    ),
+                    )),
                     'SimpleXMLElement',
                     Settings::getLibXmlLoaderOptions()
                 );
@@ -199,10 +199,10 @@ class Xlsx extends BaseReader implements IReader
                 }
 
                 $xmlWorkbook = simplexml_load_string(
-                    //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
-                    $this->securityScan(
+                //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
+                    $this->removeNamespaces($this->securityScan(
                         $this->getFromZipArchive($zip, "{$rel['Target']}")
-                    ),
+                    )),
                     'SimpleXMLElement',
                     Settings::getLibXmlLoaderOptions()
                 );
@@ -222,9 +222,9 @@ class Xlsx extends BaseReader implements IReader
 
                         $xml = new XMLReader();
                         $res = $xml->xml(
-                            $this->securityScanFile(
+                            $this->removeNamespaces($this->securityScanFile(
                                 'zip://' . File::realpath($pFilename) . '#' . "$dir/$fileWorksheet"
-                            ),
+                            )),
                             null,
                             Settings::getLibXmlLoaderOptions()
                         );
@@ -337,6 +337,36 @@ class Xlsx extends BaseReader implements IReader
     }
 
     /**
+     * Remove namespaces in XML code so that they can be parsed.
+     *
+     * @param string $xml
+     *
+     * @return mixed
+     */
+    private function removeNamespaces($xml)
+    {
+        return str_replace(
+            [
+                '<x:',
+                '</x:',
+                /*':x=',*/
+                '<d:',
+                '</d:'
+                /*, ':d='*/
+            ],
+            [
+                '<',
+                '</',
+                /*'=',*/
+                '<',
+                '</'
+                /*, '='*/
+            ],
+            $xml
+        );
+    }
+
+    /**
      * Loads Spreadsheet from file.
      *
      * @param string $pFilename
@@ -362,8 +392,8 @@ class Xlsx extends BaseReader implements IReader
 
         //    Read the theme first, because we need the colour scheme when reading the styles
         $wbRels = simplexml_load_string(
-            //~ http://schemas.openxmlformats.org/package/2006/relationships"
-            $this->securityScan($this->getFromZipArchive($zip, 'xl/_rels/workbook.xml.rels')),
+        //~ http://schemas.openxmlformats.org/package/2006/relationships"
+            $this->removeNamespaces($this->securityScan($this->getFromZipArchive($zip, 'xl/_rels/workbook.xml.rels'))),
             'SimpleXMLElement',
             Settings::getLibXmlLoaderOptions()
         );
@@ -374,7 +404,7 @@ class Xlsx extends BaseReader implements IReader
                     $themeOrderAdditional = count($themeOrderArray);
 
                     $xmlTheme = simplexml_load_string(
-                        $this->securityScan($this->getFromZipArchive($zip, "xl/{$rel['Target']}")),
+                        $this->removeNamespaces($this->securityScan($this->getFromZipArchive($zip, "xl/{$rel['Target']}"))),
                         'SimpleXMLElement',
                         Settings::getLibXmlLoaderOptions()
                     );
@@ -408,8 +438,8 @@ class Xlsx extends BaseReader implements IReader
         }
 
         $rels = simplexml_load_string(
-            //~ http://schemas.openxmlformats.org/package/2006/relationships"
-            $this->securityScan($this->getFromZipArchive($zip, '_rels/.rels')),
+        //~ http://schemas.openxmlformats.org/package/2006/relationships"
+            $this->removeNamespaces($this->securityScan($this->getFromZipArchive($zip, '_rels/.rels'))),
             'SimpleXMLElement',
             Settings::getLibXmlLoaderOptions()
         );
@@ -417,7 +447,7 @@ class Xlsx extends BaseReader implements IReader
             switch ($rel['Type']) {
                 case 'http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties':
                     $xmlCore = simplexml_load_string(
-                        $this->securityScan($this->getFromZipArchive($zip, "{$rel['Target']}")),
+                        $this->removeNamespaces($this->securityScan($this->getFromZipArchive($zip, "{$rel['Target']}"))),
                         'SimpleXMLElement',
                         Settings::getLibXmlLoaderOptions()
                     );
@@ -439,7 +469,7 @@ class Xlsx extends BaseReader implements IReader
                     break;
                 case 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties':
                     $xmlCore = simplexml_load_string(
-                        $this->securityScan($this->getFromZipArchive($zip, "{$rel['Target']}")),
+                        $this->removeNamespaces($this->securityScan($this->getFromZipArchive($zip, "{$rel['Target']}"))),
                         'SimpleXMLElement',
                         Settings::getLibXmlLoaderOptions()
                     );
@@ -455,7 +485,7 @@ class Xlsx extends BaseReader implements IReader
                     break;
                 case 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/custom-properties':
                     $xmlCore = simplexml_load_string(
-                        $this->securityScan($this->getFromZipArchive($zip, "{$rel['Target']}")),
+                        $this->removeNamespaces($this->securityScan($this->getFromZipArchive($zip, "{$rel['Target']}"))),
                         'SimpleXMLElement',
                         Settings::getLibXmlLoaderOptions()
                     );
@@ -486,8 +516,8 @@ class Xlsx extends BaseReader implements IReader
                 case 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument':
                     $dir = dirname($rel['Target']);
                     $relsWorkbook = simplexml_load_string(
-                        //~ http://schemas.openxmlformats.org/package/2006/relationships"
-                        $this->securityScan($this->getFromZipArchive($zip, "$dir/_rels/" . basename($rel['Target']) . '.rels')),
+                    //~ http://schemas.openxmlformats.org/package/2006/relationships"
+                        $this->removeNamespaces($this->securityScan($this->getFromZipArchive($zip, "$dir/_rels/" . basename($rel['Target']) . '.rels'))),
                         'SimpleXMLElement',
                         Settings::getLibXmlLoaderOptions()
                     );
@@ -496,8 +526,8 @@ class Xlsx extends BaseReader implements IReader
                     $sharedStrings = [];
                     $xpath = self::getArrayItem($relsWorkbook->xpath("rel:Relationship[@Type='http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings']"));
                     $xmlStrings = simplexml_load_string(
-                        //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
-                        $this->securityScan($this->getFromZipArchive($zip, "$dir/$xpath[Target]")),
+                    //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
+                        $this->removeNamespaces($this->securityScan($this->getFromZipArchive($zip, "$dir/$xpath[Target]"))),
                         'SimpleXMLElement',
                         Settings::getLibXmlLoaderOptions()
                     );
@@ -541,8 +571,8 @@ class Xlsx extends BaseReader implements IReader
                     $cellStyles = [];
                     $xpath = self::getArrayItem($relsWorkbook->xpath("rel:Relationship[@Type='http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles']"));
                     $xmlStyles = simplexml_load_string(
-                        //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
-                        $this->securityScan($this->getFromZipArchive($zip, "$dir/$xpath[Target]")),
+                    //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
+                        $this->removeNamespaces($this->securityScan($this->getFromZipArchive($zip, "$dir/$xpath[Target]"))),
                         'SimpleXMLElement',
                         Settings::getLibXmlLoaderOptions()
                     );
@@ -652,8 +682,8 @@ class Xlsx extends BaseReader implements IReader
                     }
 
                     $xmlWorkbook = simplexml_load_string(
-                        //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
-                        $this->securityScan($this->getFromZipArchive($zip, "{$rel['Target']}")),
+                    //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
+                        $this->removeNamespaces($this->securityScan($this->getFromZipArchive($zip, "{$rel['Target']}"))),
                         'SimpleXMLElement',
                         Settings::getLibXmlLoaderOptions()
                     );
@@ -700,8 +730,8 @@ class Xlsx extends BaseReader implements IReader
                             $docSheet->setTitle((string) $eleSheet['name'], false, false);
                             $fileWorksheet = $worksheets[(string) self::getArrayItem($eleSheet->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'), 'id')];
                             $xmlSheet = simplexml_load_string(
-                                //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
-                                $this->securityScan($this->getFromZipArchive($zip, "$dir/$fileWorksheet")),
+                            //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
+                                $this->removeNamespaces($this->securityScan($this->getFromZipArchive($zip, "$dir/$fileWorksheet"))),
                                 'SimpleXMLElement',
                                 Settings::getLibXmlLoaderOptions()
                             );
@@ -1050,7 +1080,7 @@ class Xlsx extends BaseReader implements IReader
                                             //    Or Date Group elements
                                             foreach ($filters->dateGroupItem as $dateGroupItem) {
                                                 $column->createRule()->setRule(
-                                                    //    Operator is undefined, but always treated as EQUAL
+                                                //    Operator is undefined, but always treated as EQUAL
                                                     null,
                                                     [
                                                         'year' => (string) $dateGroupItem['year'],
@@ -1062,7 +1092,7 @@ class Xlsx extends BaseReader implements IReader
                                                     ],
                                                     (string) $dateGroupItem['dateTimeGrouping']
                                                 )
-                                                ->setRuleType(Column\Rule::AUTOFILTER_RULETYPE_DATEGROUP);
+                                                    ->setRuleType(Column\Rule::AUTOFILTER_RULETYPE_DATEGROUP);
                                             }
                                         }
                                         //    Check for custom filters
@@ -1079,7 +1109,7 @@ class Xlsx extends BaseReader implements IReader
                                                     (string) $filterRule['operator'],
                                                     (string) $filterRule['val']
                                                 )
-                                                ->setRuleType(Column\Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
+                                                    ->setRuleType(Column\Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
                                             }
                                         }
                                         //    Check for dynamic filters
@@ -1088,12 +1118,12 @@ class Xlsx extends BaseReader implements IReader
                                             //    We should only ever have one dynamic filter
                                             foreach ($filterColumn->dynamicFilter as $filterRule) {
                                                 $column->createRule()->setRule(
-                                                    //    Operator is undefined, but always treated as EQUAL
+                                                //    Operator is undefined, but always treated as EQUAL
                                                     null,
                                                     (string) $filterRule['val'],
                                                     (string) $filterRule['type']
                                                 )
-                                                ->setRuleType(Column\Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER);
+                                                    ->setRuleType(Column\Rule::AUTOFILTER_RULETYPE_DYNAMICFILTER);
                                                 if (isset($filterRule['val'])) {
                                                     $column->setAttribute('val', (string) $filterRule['val']);
                                                 }
@@ -1118,7 +1148,7 @@ class Xlsx extends BaseReader implements IReader
                                                         : Column\Rule::AUTOFILTER_COLUMN_RULE_TOPTEN_BOTTOM
                                                     )
                                                 )
-                                                ->setRuleType(Column\Rule::AUTOFILTER_RULETYPE_TOPTENFILTER);
+                                                    ->setRuleType(Column\Rule::AUTOFILTER_RULETYPE_TOPTENFILTER);
                                             }
                                         }
                                     }
@@ -1255,10 +1285,10 @@ class Xlsx extends BaseReader implements IReader
                                 // Locate hyperlink relations
                                 if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
                                     $relsWorksheet = simplexml_load_string(
-                                        //~ http://schemas.openxmlformats.org/package/2006/relationships"
-                                        $this->securityScan(
+                                    //~ http://schemas.openxmlformats.org/package/2006/relationships"
+                                        $this->removeNamespaces($this->securityScan(
                                             $this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')
-                                        ),
+                                        )),
                                         'SimpleXMLElement',
                                         Settings::getLibXmlLoaderOptions()
                                     );
@@ -1304,10 +1334,10 @@ class Xlsx extends BaseReader implements IReader
                                 // Locate comment relations
                                 if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
                                     $relsWorksheet = simplexml_load_string(
-                                        //~ http://schemas.openxmlformats.org/package/2006/relationships"
-                                        $this->securityScan(
+                                    //~ http://schemas.openxmlformats.org/package/2006/relationships"
+                                        $this->removeNamespaces($this->securityScan(
                                             $this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')
-                                        ),
+                                        )),
                                         'SimpleXMLElement',
                                         Settings::getLibXmlLoaderOptions()
                                     );
@@ -1326,7 +1356,7 @@ class Xlsx extends BaseReader implements IReader
                                     // Load comments file
                                     $relPath = File::realpath(dirname("$dir/$fileWorksheet") . '/' . $relPath);
                                     $commentsFile = simplexml_load_string(
-                                        $this->securityScan($this->getFromZipArchive($zip, $relPath)),
+                                        $this->removeNamespaces($this->securityScan($this->getFromZipArchive($zip, $relPath))),
                                         'SimpleXMLElement',
                                         Settings::getLibXmlLoaderOptions()
                                     );
@@ -1353,7 +1383,7 @@ class Xlsx extends BaseReader implements IReader
                                     // Load VML comments file
                                     $relPath = File::realpath(dirname("$dir/$fileWorksheet") . '/' . $relPath);
                                     $vmlCommentsFile = simplexml_load_string(
-                                        $this->securityScan($this->getFromZipArchive($zip, $relPath)),
+                                        $this->removeNamespaces($this->securityScan($this->getFromZipArchive($zip, $relPath))),
                                         'SimpleXMLElement',
                                         Settings::getLibXmlLoaderOptions()
                                     );
@@ -1421,10 +1451,10 @@ class Xlsx extends BaseReader implements IReader
                                 if ($xmlSheet && $xmlSheet->legacyDrawingHF && !$this->readDataOnly) {
                                     if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
                                         $relsWorksheet = simplexml_load_string(
-                                            //~ http://schemas.openxmlformats.org/package/2006/relationships"
-                                            $this->securityScan(
+                                        //~ http://schemas.openxmlformats.org/package/2006/relationships"
+                                            $this->removeNamespaces($this->securityScan(
                                                 $this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')
-                                            ),
+                                            )),
                                             'SimpleXMLElement',
                                             Settings::getLibXmlLoaderOptions()
                                         );
@@ -1439,10 +1469,10 @@ class Xlsx extends BaseReader implements IReader
                                         if ($vmlRelationship != '') {
                                             // Fetch linked images
                                             $relsVML = simplexml_load_string(
-                                                //~ http://schemas.openxmlformats.org/package/2006/relationships"
-                                                $this->securityScan(
+                                            //~ http://schemas.openxmlformats.org/package/2006/relationships"
+                                                $this->removeNamespaces($this->securityScan(
                                                     $this->getFromZipArchive($zip, dirname($vmlRelationship) . '/_rels/' . basename($vmlRelationship) . '.rels')
-                                                ),
+                                                )),
                                                 'SimpleXMLElement',
                                                 Settings::getLibXmlLoaderOptions()
                                             );
@@ -1455,7 +1485,7 @@ class Xlsx extends BaseReader implements IReader
 
                                             // Fetch VML document
                                             $vmlDrawing = simplexml_load_string(
-                                                $this->securityScan($this->getFromZipArchive($zip, $vmlRelationship)),
+                                                $this->removeNamespaces($this->securityScan($this->getFromZipArchive($zip, $vmlRelationship))),
                                                 'SimpleXMLElement',
                                                 Settings::getLibXmlLoaderOptions()
                                             );
@@ -1502,10 +1532,10 @@ class Xlsx extends BaseReader implements IReader
                             // TODO: Autoshapes from twoCellAnchors!
                             if ($zip->locateName(dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')) {
                                 $relsWorksheet = simplexml_load_string(
-                                    //~ http://schemas.openxmlformats.org/package/2006/relationships"
-                                    $this->securityScan(
+                                //~ http://schemas.openxmlformats.org/package/2006/relationships"
+                                    $this->removeNamespaces($this->securityScan(
                                         $this->getFromZipArchive($zip, dirname("$dir/$fileWorksheet") . '/_rels/' . basename($fileWorksheet) . '.rels')
-                                    ),
+                                    )),
                                     'SimpleXMLElement',
                                     Settings::getLibXmlLoaderOptions()
                                 );
@@ -1519,10 +1549,10 @@ class Xlsx extends BaseReader implements IReader
                                     foreach ($xmlSheet->drawing as $drawing) {
                                         $fileDrawing = $drawings[(string) self::getArrayItem($drawing->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'), 'id')];
                                         $relsDrawing = simplexml_load_string(
-                                            //~ http://schemas.openxmlformats.org/package/2006/relationships"
-                                            $this->securityScan(
+                                        //~ http://schemas.openxmlformats.org/package/2006/relationships"
+                                            $this->removeNamespaces($this->securityScan(
                                                 $this->getFromZipArchive($zip, dirname($fileDrawing) . '/_rels/' . basename($fileDrawing) . '.rels')
-                                            ),
+                                            )),
                                             'SimpleXMLElement',
                                             Settings::getLibXmlLoaderOptions()
                                         );
@@ -1543,7 +1573,7 @@ class Xlsx extends BaseReader implements IReader
                                             }
                                         }
                                         $xmlDrawing = simplexml_load_string(
-                                            $this->securityScan($this->getFromZipArchive($zip, $fileDrawing)),
+                                            $this->removeNamespaces($this->securityScan($this->getFromZipArchive($zip, $fileDrawing))),
                                             'SimpleXMLElement',
                                             Settings::getLibXmlLoaderOptions()
                                         )->children('http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing');
@@ -1822,9 +1852,9 @@ class Xlsx extends BaseReader implements IReader
 
         if (!$this->readDataOnly) {
             $contentTypes = simplexml_load_string(
-                $this->securityScan(
+                $this->removeNamespaces($this->securityScan(
                     $this->getFromZipArchive($zip, '[Content_Types].xml')
-                ),
+                )),
                 'SimpleXMLElement',
                 Settings::getLibXmlLoaderOptions()
             );
@@ -1834,9 +1864,9 @@ class Xlsx extends BaseReader implements IReader
                         if ($this->includeCharts) {
                             $chartEntryRef = ltrim($contentType['PartName'], '/');
                             $chartElements = simplexml_load_string(
-                                $this->securityScan(
+                                $this->removeNamespaces($this->securityScan(
                                     $this->getFromZipArchive($zip, $chartEntryRef)
-                                ),
+                                )),
                                 'SimpleXMLElement',
                                 Settings::getLibXmlLoaderOptions()
                             );
@@ -2111,7 +2141,7 @@ class Xlsx extends BaseReader implements IReader
         if ($dataRels) {
             // exists and not empty if the ribbon have some pictures (other than internal MSO)
             $UIRels = simplexml_load_string(
-                $this->securityScan($dataRels),
+                $this->removeNamespaces($this->securityScan($dataRels)),
                 'SimpleXMLElement',
                 Settings::getLibXmlLoaderOptions()
             );
