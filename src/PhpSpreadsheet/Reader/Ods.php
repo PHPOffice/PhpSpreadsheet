@@ -650,16 +650,16 @@ class Ods extends BaseReader implements IReader
                                         // Only replace in alternate array entries (i.e. non-quoted blocks)
                                         if ($tKey = !$tKey) {
                                             // Cell range reference in another sheet
-                                            $value = preg_replace('/\[([^\.]+)\.([^\.]+):\.([^\.]+)\]/Ui', '$1!$2:$3', $value);
+                                            $value = preg_replace('/\[([^\.]+)\.([^\.]+):\.([^\.]+)\]/U', '$1!$2:$3', $value);
 
                                             // Cell reference in another sheet
-                                            $value = preg_replace('/\[([^\.]+)\.([^\.]+)\]/Ui', '$1!$2', $value);
+                                            $value = preg_replace('/\[([^\.]+)\.([^\.]+)\]/U', '$1!$2', $value);
 
                                             // Cell range reference
-                                            $value = preg_replace('/\[\.([^\.]+):\.([^\.]+)\]/Ui', '$1:$2', $value);
+                                            $value = preg_replace('/\[\.([^\.]+):\.([^\.]+)\]/U', '$1:$2', $value);
 
                                             // Simple cell reference
-                                            $value = preg_replace('/\[\.([^\.]+)\]/Ui', '$1', $value);
+                                            $value = preg_replace('/\[\.([^\.]+)\]/U', '$1', $value);
 
                                             $value = Calculation::translateSeparator(';', ',', $value, $inBraces);
                                         }

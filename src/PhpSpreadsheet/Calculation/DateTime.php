@@ -493,7 +493,7 @@ class DateTime
         //    Strip any ordinals because they're allowed in Excel (English only)
         $dateValue = preg_replace('/(\d)(st|nd|rd|th)([ -\/])/Ui', '$1$3', $dateValue);
         //    Convert separators (/ . or space) to hyphens (should also handle dot used for ordinals in some countries, e.g. Denmark, Germany)
-        $dateValue = str_replace(['/', '.', '-', '  '], [' ', ' ', ' ', ' '], $dateValue);
+        $dateValue = str_replace(['/', '.', '-', '  '], ' ', $dateValue);
 
         $yearFound = false;
         $t1 = explode(' ', $dateValue);
@@ -520,7 +520,7 @@ class DateTime
                     $t1[1] += 1900;
                     array_unshift($t1, 1);
                 } else {
-                    array_push($t1, date('Y'));
+                    $t1[] = date('Y');
                 }
             }
         }
@@ -621,7 +621,7 @@ class DateTime
     public static function TIMEVALUE($timeValue)
     {
         $timeValue = trim(Functions::flattenSingleValue($timeValue), '"');
-        $timeValue = str_replace(['/', '.'], ['-', '-'], $timeValue);
+        $timeValue = str_replace(['/', '.'], '-', $timeValue);
 
         $arraySplit = preg_split('/[\/:\-\s]/', $timeValue);
         if ((count($arraySplit) == 2 || count($arraySplit) == 3) && $arraySplit[0] > 24) {

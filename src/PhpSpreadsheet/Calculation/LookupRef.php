@@ -201,7 +201,7 @@ class LookupRef
         if (is_array($cellAddress)) {
             foreach ($cellAddress as $columnKey => $rowValue) {
                 foreach ($rowValue as $rowKey => $cellValue) {
-                    return (int) preg_replace('/[^0-9]/i', '', $rowKey);
+                    return (int) preg_replace('/[^0-9]/', '', $rowKey);
                 }
             }
         } else {
