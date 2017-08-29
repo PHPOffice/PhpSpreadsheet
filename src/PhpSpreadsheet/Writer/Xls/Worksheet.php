@@ -1438,7 +1438,6 @@ class Worksheet extends BIFFwriter
     private function writeSelection()
     {
         // look up the selected cell range
-        $selectedCells = $this->phpSheet->getSelectedCells();
         $selectedCells = Cell::splitRange($this->phpSheet->getSelectedCells());
         $selectedCells = $selectedCells[0];
         if (count($selectedCells) == 2) {

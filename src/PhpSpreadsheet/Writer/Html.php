@@ -978,9 +978,6 @@ class Html extends BaseWriter implements IWriter
      */
     private function createCSSStyle(Style $pStyle)
     {
-        // Construct CSS
-        $css = '';
-
         // Create CSS
         $css = array_merge(
             $this->createCSSStyleAlignment($pStyle->getAlignment()),
@@ -1235,7 +1232,6 @@ class Html extends BaseWriter implements IWriter
             $cell = ($cellAddress > '') ? $pSheet->getCell($cellAddress) : '';
             $coordinate = Cell::stringFromColumnIndex($colNum) . ($pRow + 1);
             if (!$this->useInlineCss) {
-                $cssClass = '';
                 $cssClass = 'column' . $colNum;
             } else {
                 $cssClass = [];

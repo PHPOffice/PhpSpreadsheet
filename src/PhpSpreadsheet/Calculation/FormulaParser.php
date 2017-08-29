@@ -253,7 +253,7 @@ class FormulaParser
 
             // establish state-dependent character evaluations
             if ($this->formula[$index] == self::QUOTE_DOUBLE) {
-                if (strlen($value > 0)) {
+                if (strlen($value) > 0) {
                     // unexpected
                     $tokens1[] = new FormulaToken($value, FormulaToken::TOKEN_TYPE_UNKNOWN);
                     $value = '';
@@ -593,7 +593,7 @@ class FormulaParser
             if ($token->getTokenType() == FormulaToken::TOKEN_TYPE_OPERAND &&
                 $token->getTokenSubType() == FormulaToken::TOKEN_SUBTYPE_NOTHING) {
                 if (!is_numeric($token->getValue())) {
-                    if (strtoupper($token->getValue()) == 'TRUE' || strtoupper($token->getValue() == 'FALSE')) {
+                    if (strtoupper($token->getValue()) == 'TRUE' || strtoupper($token->getValue()) == 'FALSE') {
                         $token->setTokenSubType(FormulaToken::TOKEN_SUBTYPE_LOGICAL);
                     } else {
                         $token->setTokenSubType(FormulaToken::TOKEN_SUBTYPE_RANGE);
@@ -607,7 +607,7 @@ class FormulaParser
             }
 
             if ($token->getTokenType() == FormulaToken::TOKEN_TYPE_FUNCTION) {
-                if (strlen($token->getValue() > 0)) {
+                if (strlen($token->getValue()) > 0) {
                     if (substr($token->getValue(), 0, 1) == '@') {
                         $token->setValue(substr($token->getValue(), 1));
                     }
