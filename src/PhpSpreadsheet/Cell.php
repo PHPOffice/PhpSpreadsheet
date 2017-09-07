@@ -949,6 +949,86 @@ class Cell
     }
 
     /**
+     * Convert an associative array of single cell coordinates to values to an associative array
+     * of cell ranges to values.  Only adjacent cell coordinates with the same
+     * value will be merged.  If the value is an object, it must implement the method getHashCode().
+     *
+     * For example, this function converts:
+     *
+     *    [ 'A1' => 'x', 'A2' => 'x', 'A3' => 'x', 'A4' => 'y' ]
+     *
+     * to:
+     *
+     *    [ 'A1:A3' => 'x', 'A4' => 'y' ]
+     *
+     * @param array $pCoordCollection associative array mapping coordinates to values
+     *
+     * @return array associative array mapping coordinate ranges to valuea
+     */
+    public static function mergeRangesInCollection(array $pCoordCollection)
+    {
+        $hashedValues = [];
+
+        foreach ($pCoordCollection as $coord => $value) {
+            list($column, $row) = self::coordinateFromString($coord);
+            $row = (int) (ltrim($row, '$'));
+            $hashCode = $column . '-' . (is_object($value) ? $value->getHashCode() : $value);
+
+            if (!isset($hashedValues[$hashCode])) {
+                $hashedValues[$hashCode] = (object) [
+                    'value' => $value,
+                    'col' => $column,
+                    'rows' => [$row],
+                ];
+            } else {
+                $hashedValues[$hashCode]->rows[] = $row;
+            }
+        }
+
+        $mergedCoordCollection = [];
+        ksort($hashedValues);
+
+        foreach ($hashedValues as $hashedValue) {
+            sort($hashedValue->rows);
+            $rowStart = null;
+            $rowEnd = null;
+            $ranges = [];
+
+            foreach ($hashedValue->rows as $row) {
+                if ($rowStart === null) {
+                    $rowStart = $row;
+                    $rowEnd = $row;
+                } elseif ($rowEnd === $row - 1) {
+                    $rowEnd = $row;
+                } else {
+                    if ($rowStart == $rowEnd) {
+                        $ranges[] = $hashedValue->col . $rowStart;
+                    } else {
+                        $ranges[] = $hashedValue->col . $rowStart . ':' . $hashedValue->col . $rowEnd;
+                    }
+
+                    $rowStart = $row;
+                    $rowEnd = $row;
+                }
+            }
+
+            if ($rowStart !== null) {
+                if ($rowStart == $rowEnd) {
+                    $ranges[] = $hashedValue->col . $rowStart;
+                } else {
+                    $ranges[] = $hashedValue->col . $rowStart . ':' . $hashedValue->col . $rowEnd;
+                }
+            }
+
+            foreach ($ranges as $range) {
+                $mergedCoordCollection[$range] = $hashedValue->value;
+            }
+        }
+
+        return $mergedCoordCollection;
+    }
+
+    /**
      * Compare 2 cells.
      *
      * @param Cell $a Cell a

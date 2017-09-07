@@ -300,4 +300,20 @@ class CellTest extends PHPUnit_Framework_TestCase
     {
         return require 'data/CellExtractAllCellReferencesInRange.php';
     }
+
+    /**
+     * @dataProvider providerMergeRangesInCollection
+     *
+     * @param mixed $expectedResult
+     */
+    public function testMergeRangesInCollection($expectedResult, ...$args)
+    {
+        $result = Cell::mergeRangesInCollection(...$args);
+        $this->assertEquals($expectedResult, $result);
+    }
+
+    public function providerMergeRangesInCollection()
+    {
+        return require 'data/CellMergeRangesInCollection.php';
+    }
 }
