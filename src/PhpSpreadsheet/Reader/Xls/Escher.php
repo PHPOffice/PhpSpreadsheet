@@ -110,7 +110,7 @@ class Escher
         // Parse Escher stream
         while ($this->pos < $this->dataSize) {
             // offset: 2; size: 2: Record Type
-            $fbt = Xls::getInt2d($this->data, $this->pos + 2);
+            $fbt = Xls::getUInt2d($this->data, $this->pos + 2);
 
             switch ($fbt) {
                 case self::DGGCONTAINER:
@@ -182,10 +182,10 @@ class Escher
     private function readDefault()
     {
         // offset 0; size: 2; recVer and recInstance
-        $verInstance = Xls::getInt2d($this->data, $this->pos);
+        $verInstance = Xls::getUInt2d($this->data, $this->pos);
 
         // offset: 2; size: 2: Record Type
-        $fbt = Xls::getInt2d($this->data, $this->pos + 2);
+        $fbt = Xls::getUInt2d($this->data, $this->pos + 2);
 
         // bit: 0-3; mask: 0x000F; recVer
         $recVer = (0x000F & $verInstance) >> 0;
@@ -253,7 +253,7 @@ class Escher
         // offset: 0; size: 2; recVer and recInstance
 
         // bit: 4-15; mask: 0xFFF0; recInstance
-        $recInstance = (0xFFF0 & Xls::getInt2d($this->data, $this->pos)) >> 4;
+        $recInstance = (0xFFF0 & Xls::getUInt2d($this->data, $this->pos)) >> 4;
 
         $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
@@ -277,7 +277,7 @@ class Escher
         $rgbUid = substr($recordData, 2, 16);
 
         // offset: 18; size: 2; tag
-        $tag = Xls::getInt2d($recordData, 18);
+        $tag = Xls::getUInt2d($recordData, 18);
 
         // offset: 20; size: 4; size of BLIP in bytes
         $size = Xls::getInt4d($recordData, 20);
@@ -319,7 +319,7 @@ class Escher
         // offset: 0; size: 2; recVer and recInstance
 
         // bit: 4-15; mask: 0xFFF0; recInstance
-        $recInstance = (0xFFF0 & Xls::getInt2d($this->data, $this->pos)) >> 4;
+        $recInstance = (0xFFF0 & Xls::getUInt2d($this->data, $this->pos)) >> 4;
 
         $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
@@ -360,7 +360,7 @@ class Escher
         // offset: 0; size: 2; recVer and recInstance
 
         // bit: 4-15; mask: 0xFFF0; recInstance
-        $recInstance = (0xFFF0 & Xls::getInt2d($this->data, $this->pos)) >> 4;
+        $recInstance = (0xFFF0 & Xls::getUInt2d($this->data, $this->pos)) >> 4;
 
         $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
@@ -401,7 +401,7 @@ class Escher
         // offset: 0; size: 2; recVer and recInstance
 
         // bit: 4-15; mask: 0xFFF0; recInstance
-        $recInstance = (0xFFF0 & Xls::getInt2d($this->data, $this->pos)) >> 4;
+        $recInstance = (0xFFF0 & Xls::getUInt2d($this->data, $this->pos)) >> 4;
 
         $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
@@ -420,7 +420,7 @@ class Escher
         // offset: 0; size: 2; recVer and recInstance
 
         // bit: 4-15; mask: 0xFFF0; recInstance
-        $recInstance = (0xFFF0 & Xls::getInt2d($this->data, $this->pos)) >> 4;
+        $recInstance = (0xFFF0 & Xls::getUInt2d($this->data, $this->pos)) >> 4;
 
         $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
@@ -539,7 +539,7 @@ class Escher
         // offset: 0; size: 2; recVer and recInstance
 
         // bit: 4-15; mask: 0xFFF0; recInstance
-        $recInstance = (0xFFF0 & Xls::getInt2d($this->data, $this->pos)) >> 4;
+        $recInstance = (0xFFF0 & Xls::getUInt2d($this->data, $this->pos)) >> 4;
 
         $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
@@ -556,7 +556,7 @@ class Escher
         // offset: 0; size: 2; recVer and recInstance
 
         // bit: 4-15; mask: 0xFFF0; recInstance
-        $recInstance = (0xFFF0 & Xls::getInt2d($this->data, $this->pos)) >> 4;
+        $recInstance = (0xFFF0 & Xls::getUInt2d($this->data, $this->pos)) >> 4;
 
         $length = Xls::getInt4d($this->data, $this->pos + 4);
         $recordData = substr($this->data, $this->pos + 8, $length);
@@ -577,28 +577,28 @@ class Escher
         $this->pos += 8 + $length;
 
         // offset: 2; size: 2; upper-left corner column index (0-based)
-        $c1 = Xls::getInt2d($recordData, 2);
+        $c1 = Xls::getUInt2d($recordData, 2);
 
         // offset: 4; size: 2; upper-left corner horizontal offset in 1/1024 of column width
-        $startOffsetX = Xls::getInt2d($recordData, 4);
+        $startOffsetX = Xls::getUInt2d($recordData, 4);
 
         // offset: 6; size: 2; upper-left corner row index (0-based)
-        $r1 = Xls::getInt2d($recordData, 6);
+        $r1 = Xls::getUInt2d($recordData, 6);
 
         // offset: 8; size: 2; upper-left corner vertical offset in 1/256 of row height
-        $startOffsetY = Xls::getInt2d($recordData, 8);
+        $startOffsetY = Xls::getUInt2d($recordData, 8);
 
         // offset: 10; size: 2; bottom-right corner column index (0-based)
-        $c2 = Xls::getInt2d($recordData, 10);
+        $c2 = Xls::getUInt2d($recordData, 10);
 
         // offset: 12; size: 2; bottom-right corner horizontal offset in 1/1024 of column width
-        $endOffsetX = Xls::getInt2d($recordData, 12);
+        $endOffsetX = Xls::getUInt2d($recordData, 12);
 
         // offset: 14; size: 2; bottom-right corner row index (0-based)
-        $r2 = Xls::getInt2d($recordData, 14);
+        $r2 = Xls::getUInt2d($recordData, 14);
 
         // offset: 16; size: 2; bottom-right corner vertical offset in 1/256 of row height
-        $endOffsetY = Xls::getInt2d($recordData, 16);
+        $endOffsetY = Xls::getUInt2d($recordData, 16);
 
         // set the start coordinates
         $this->object->setStartCoordinates(Cell::stringFromColumnIndex($c1) . ($r1 + 1));
@@ -647,7 +647,7 @@ class Escher
             $fopte = substr($data, 6 * $i, 6);
 
             // offset: 0; size: 2; opid
-            $opid = Xls::getInt2d($fopte, 0);
+            $opid = Xls::getUInt2d($fopte, 0);
 
             // bit: 0-13; mask: 0x3FFF; opid.opid
             $opidOpid = (0x3FFF & $opid) >> 0;
