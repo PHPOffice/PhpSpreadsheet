@@ -507,7 +507,7 @@ class NumberFormat extends Supervisor implements IComparable
         if ($format === self::FORMAT_PERCENTAGE) {
             $value = round((100 * $value), 0) . '%';
         } else {
-            if (preg_match('/\.[#0]+/i', $format, $m)) {
+            if (preg_match('/\.[#0]+/', $format, $m)) {
                 $s = substr($m[0], 0, 1) . (strlen($m[0]) - 1);
                 $format = str_replace($m[0], $s, $format);
             }

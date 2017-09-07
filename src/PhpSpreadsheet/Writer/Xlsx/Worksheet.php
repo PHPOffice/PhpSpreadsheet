@@ -790,7 +790,7 @@ class Worksheet extends WriterPart
             $objWriter->writeAttribute('ref', str_replace('$', '', $range));
 
             $columns = $pSheet->getAutoFilter()->getColumns();
-            if (count($columns > 0)) {
+            if (count($columns) > 0) {
                 foreach ($columns as $columnID => $column) {
                     $rules = $column->getRules();
                     if (count($rules) > 0) {

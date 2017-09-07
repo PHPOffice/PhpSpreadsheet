@@ -739,7 +739,7 @@ class Html extends BaseWriter implements IWriter
             if ($chart instanceof Chart) {
                 $chartCoordinates = $chart->getTopLeftPosition();
                 if ($chartCoordinates['cell'] == $coordinates) {
-                    $chartFileName = File::sysGetTempDir() . '/' . uniqid() . '.png';
+                    $chartFileName = File::sysGetTempDir() . '/' . uniqid('', true) . '.png';
                     if (!$chart->render($chartFileName)) {
                         return;
                     }
@@ -978,9 +978,6 @@ class Html extends BaseWriter implements IWriter
      */
     private function createCSSStyle(Style $pStyle)
     {
-        // Construct CSS
-        $css = '';
-
         // Create CSS
         $css = array_merge(
             $this->createCSSStyleAlignment($pStyle->getAlignment()),
@@ -1235,7 +1232,6 @@ class Html extends BaseWriter implements IWriter
             $cell = ($cellAddress > '') ? $pSheet->getCell($cellAddress) : '';
             $coordinate = Cell::stringFromColumnIndex($colNum) . ($pRow + 1);
             if (!$this->useInlineCss) {
-                $cssClass = '';
                 $cssClass = 'column' . $colNum;
             } else {
                 $cssClass = [];
@@ -1541,8 +1537,7 @@ class Html extends BaseWriter implements IWriter
 
         $color_regex = '/^\\[[a-zA-Z]+\\]/';
         if (preg_match($color_regex, $pFormat, $matches)) {
-            $color = str_replace('[', '', $matches[0]);
-            $color = str_replace(']', '', $color);
+            $color = str_replace(['[', ']'], '', $matches[0]);
             $color = strtolower($color);
         }
 
