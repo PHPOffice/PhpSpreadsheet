@@ -146,22 +146,7 @@ class Border extends Supervisor implements IComparable
      */
     public function getStyleArray($array)
     {
-        switch ($this->parentPropertyName) {
-            case 'allborders':
-            case 'bottom':
-            case 'diagonal':
-            case 'horizontal':
-            case 'inside':
-            case 'left':
-            case 'outline':
-            case 'right':
-            case 'top':
-            case 'vertical':
-                $key = strtolower($this->parentPropertyName);
-                break;
-        }
-
-        return $this->parent->getStyleArray([$key => $array]);
+        return $this->parent->getStyleArray([$this->parentPropertyName => $array]);
     }
 
     /**
@@ -170,7 +155,7 @@ class Border extends Supervisor implements IComparable
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getBorders()->getTop()->applyFromArray(
      *        array(
-     *            'style' => Border::BORDER_DASHDOT,
+     *            'borderStyle' => Border::BORDER_DASHDOT,
      *            'color' => array(
      *                'rgb' => '808080'
      *            )
@@ -189,8 +174,8 @@ class Border extends Supervisor implements IComparable
         if ($this->isSupervisor) {
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
         } else {
-            if (isset($pStyles['style'])) {
-                $this->setBorderStyle($pStyles['style']);
+            if (isset($pStyles['borderStyle'])) {
+                $this->setBorderStyle($pStyles['borderStyle']);
             }
             if (isset($pStyles['color'])) {
                 $this->getColor()->applyFromArray($pStyles['color']);
@@ -231,7 +216,7 @@ class Border extends Supervisor implements IComparable
             $pValue = self::BORDER_MEDIUM;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['style' => $pValue]);
+            $styleArray = $this->getStyleArray(['borderStyle' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->borderStyle = $pValue;

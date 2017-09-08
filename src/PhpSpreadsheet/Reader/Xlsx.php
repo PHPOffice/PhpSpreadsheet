@@ -1918,10 +1918,10 @@ class Xlsx extends BaseReader implements IReader
             if (isset($style->font->vertAlign) && isset($style->font->vertAlign['val'])) {
                 $vertAlign = strtolower((string) $style->font->vertAlign['val']);
                 if ($vertAlign == 'superscript') {
-                    $docStyle->getFont()->setSuperScript(true);
+                    $docStyle->getFont()->setSuperscript(true);
                 }
                 if ($vertAlign == 'subscript') {
-                    $docStyle->getFont()->setSubScript(true);
+                    $docStyle->getFont()->setSubscript(true);
                 }
             }
         }
@@ -1988,7 +1988,7 @@ class Xlsx extends BaseReader implements IReader
             $docStyle->getAlignment()->setWrapText(self::boolean((string) $style->alignment['wrapText']));
             $docStyle->getAlignment()->setShrinkToFit(self::boolean((string) $style->alignment['shrinkToFit']));
             $docStyle->getAlignment()->setIndent((int) ((string) $style->alignment['indent']) > 0 ? (int) ((string) $style->alignment['indent']) : 0);
-            $docStyle->getAlignment()->setReadorder((int) ((string) $style->alignment['readingOrder']) > 0 ? (int) ((string) $style->alignment['readingOrder']) : 0);
+            $docStyle->getAlignment()->setReadOrder((int) ((string) $style->alignment['readingOrder']) > 0 ? (int) ((string) $style->alignment['readingOrder']) : 0);
         }
 
         // protection
@@ -2069,10 +2069,10 @@ class Xlsx extends BaseReader implements IReader
                         if (isset($run->rPr->vertAlign) && isset($run->rPr->vertAlign['val'])) {
                             $vertAlign = strtolower((string) $run->rPr->vertAlign['val']);
                             if ($vertAlign == 'superscript') {
-                                $objText->getFont()->setSuperScript(true);
+                                $objText->getFont()->setSuperscript(true);
                             }
                             if ($vertAlign == 'subscript') {
-                                $objText->getFont()->setSubScript(true);
+                                $objText->getFont()->setSubscript(true);
                             }
                         }
                         if (isset($run->rPr->u) && !isset($run->rPr->u['val'])) {

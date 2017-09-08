@@ -445,9 +445,9 @@ class Chart
                 $baseline = self::getAttribute($titleDetailElement->rPr, 'baseline', 'integer');
                 if (!is_null($baseline)) {
                     if ($baseline > 0) {
-                        $objText->getFont()->setSuperScript(true);
+                        $objText->getFont()->setSuperscript(true);
                     } elseif ($baseline < 0) {
-                        $objText->getFont()->setSubScript(true);
+                        $objText->getFont()->setSubscript(true);
                     }
                 }
 

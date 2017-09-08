@@ -3160,8 +3160,8 @@ class Worksheet extends BIFFwriter
             || $conditional->getStyle()->getFont()->getSize() != null
             || $conditional->getStyle()->getFont()->getBold() != null
             || $conditional->getStyle()->getFont()->getItalic() != null
-            || $conditional->getStyle()->getFont()->getSuperScript() != null
-            || $conditional->getStyle()->getFont()->getSubScript() != null
+            || $conditional->getStyle()->getFont()->getSuperscript() != null
+            || $conditional->getStyle()->getFont()->getSubscript() != null
             || $conditional->getStyle()->getFont()->getUnderline() != null
             || $conditional->getStyle()->getFont()->getStrikethrough() != null
             || $conditional->getStyle()->getFont()->getColor()->getARGB() != null) {
@@ -3233,10 +3233,10 @@ class Worksheet extends BIFFwriter
                 $dataBlockFont .= pack('v', 0x0190);
             }
             // Escapement type
-            if ($conditional->getStyle()->getFont()->getSubScript() == true) {
+            if ($conditional->getStyle()->getFont()->getSubscript() == true) {
                 $dataBlockFont .= pack('v', 0x02);
                 $fontEscapement = 0;
-            } elseif ($conditional->getStyle()->getFont()->getSuperScript() == true) {
+            } elseif ($conditional->getStyle()->getFont()->getSuperscript() == true) {
                 $dataBlockFont .= pack('v', 0x01);
                 $fontEscapement = 0;
             } else {

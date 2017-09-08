@@ -1266,9 +1266,9 @@ class Html extends BaseWriter implements IWriter
                         if ($element instanceof RichText\Run) {
                             $cellData .= '<span style="' . $this->assembleCSS($this->createCSSStyleFont($element->getFont())) . '">';
 
-                            if ($element->getFont()->getSuperScript()) {
+                            if ($element->getFont()->getSuperscript()) {
                                 $cellData .= '<sup>';
-                            } elseif ($element->getFont()->getSubScript()) {
+                            } elseif ($element->getFont()->getSubscript()) {
                                 $cellData .= '<sub>';
                             }
                         }
@@ -1278,9 +1278,9 @@ class Html extends BaseWriter implements IWriter
                         $cellData .= htmlspecialchars($cellText);
 
                         if ($element instanceof RichText\Run) {
-                            if ($element->getFont()->getSuperScript()) {
+                            if ($element->getFont()->getSuperscript()) {
                                 $cellData .= '</sup>';
-                            } elseif ($element->getFont()->getSubScript()) {
+                            } elseif ($element->getFont()->getSubscript()) {
                                 $cellData .= '</sub>';
                             }
 
@@ -1302,9 +1302,9 @@ class Html extends BaseWriter implements IWriter
                         );
                     }
                     $cellData = htmlspecialchars($cellData);
-                    if ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSuperScript()) {
+                    if ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSuperscript()) {
                         $cellData = '<sup>' . $cellData . '</sup>';
-                    } elseif ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSubScript()) {
+                    } elseif ($pSheet->getParent()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSubscript()) {
                         $cellData = '<sub>' . $cellData . '</sub>';
                     }
                 }

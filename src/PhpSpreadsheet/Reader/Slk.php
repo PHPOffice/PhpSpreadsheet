@@ -260,7 +260,7 @@ class Slk extends BaseReader implements IReader
                 foreach ($rowData as $rowDatum) {
                     switch ($rowDatum[0]) {
                         case 'P':
-                            $formatArray['numberformat']['code'] = str_replace($fromFormats, $toFormats, substr($rowDatum, 1));
+                            $formatArray['numberFormat']['formatCode'] = str_replace($fromFormats, $toFormats, substr($rowDatum, 1));
                             break;
                         case 'E':
                         case 'F':
@@ -280,16 +280,16 @@ class Slk extends BaseReader implements IReader
                                         $formatArray['font']['bold'] = true;
                                         break;
                                     case 'T':
-                                        $formatArray['borders']['top']['style'] = Border::BORDER_THIN;
+                                        $formatArray['borders']['top']['borderStyle'] = Border::BORDER_THIN;
                                         break;
                                     case 'B':
-                                        $formatArray['borders']['bottom']['style'] = Border::BORDER_THIN;
+                                        $formatArray['borders']['bottom']['borderStyle'] = Border::BORDER_THIN;
                                         break;
                                     case 'L':
-                                        $formatArray['borders']['left']['style'] = Border::BORDER_THIN;
+                                        $formatArray['borders']['left']['borderStyle'] = Border::BORDER_THIN;
                                         break;
                                     case 'R':
-                                        $formatArray['borders']['right']['style'] = Border::BORDER_THIN;
+                                        $formatArray['borders']['right']['borderStyle'] = Border::BORDER_THIN;
                                         break;
                                 }
                             }
@@ -401,16 +401,16 @@ class Slk extends BaseReader implements IReader
                                         $styleData['font']['bold'] = true;
                                         break;
                                     case 'T':
-                                        $styleData['borders']['top']['style'] = Border::BORDER_THIN;
+                                        $styleData['borders']['top']['borderStyle'] = Border::BORDER_THIN;
                                         break;
                                     case 'B':
-                                        $styleData['borders']['bottom']['style'] = Border::BORDER_THIN;
+                                        $styleData['borders']['bottom']['borderStyle'] = Border::BORDER_THIN;
                                         break;
                                     case 'L':
-                                        $styleData['borders']['left']['style'] = Border::BORDER_THIN;
+                                        $styleData['borders']['left']['borderStyle'] = Border::BORDER_THIN;
                                         break;
                                     case 'R':
-                                        $styleData['borders']['right']['style'] = Border::BORDER_THIN;
+                                        $styleData['borders']['right']['borderStyle'] = Border::BORDER_THIN;
                                         break;
                                 }
                             }

@@ -678,10 +678,10 @@ class Html
             $richtextRun->getFont()->setUnderline(Font::UNDERLINE_SINGLE);
         }
         if ($this->superscript) {
-            $richtextRun->getFont()->setSuperScript(true);
+            $richtextRun->getFont()->setSuperscript(true);
         }
         if ($this->subscript) {
-            $richtextRun->getFont()->setSubScript(true);
+            $richtextRun->getFont()->setSubscript(true);
         }
         if ($this->strikethrough) {
             $richtextRun->getFont()->setStrikethrough(true);

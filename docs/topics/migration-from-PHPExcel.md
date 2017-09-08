@@ -192,3 +192,74 @@ $cell = $worksheet->setCellValue('A1', 'value', true);
 // After
 $cell = $worksheet->getCell('A1')->setValue('value');
 ```
+
+## Standardized keys for styling
+
+Array keys used for styling have been standardized for a more coherent experience.
+It now uses the same wording and casing as the getter and setter:
+
+```php
+// Before
+$style = [
+    'numberformat' => [
+        'code' => NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE,
+    ],
+    'font' => [
+        'strike' => true,
+        'superScript' => true,
+        'subScript' => true,
+    ],
+    'alignment' => [
+        'rotation' => 90,
+        'readorder' => Alignment::READORDER_RTL,
+        'wrap' => true,
+    ],
+    'borders' => [
+        'diagonaldirection' => Borders::DIAGONAL_BOTH,
+        'allborders' => [
+            'style' => Border::BORDER_THIN,
+        ],
+    ],
+    'fill' => [
+        'type' => Fill::FILL_GRADIENT_LINEAR,
+        'startcolor' => [
+            'argb' => 'FFA0A0A0',
+        ],
+        'endcolor' => [
+            'argb' => 'FFFFFFFF',
+        ],
+    ],
+];
+
+// After
+$style = [
+    'numberFormat' => [
+        'formatCode' => NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE,
+    ],
+    'font' => [
+        'strikethrough' => true,
+        'superscript' => true,
+        'subscript' => true,
+    ],
+    'alignment' => [
+        'textRotation' => 90,
+        'readOrder' => Alignment::READORDER_RTL,
+        'wrapText' => true,
+    ],
+    'borders' => [
+        'diagonalDirection' => Borders::DIAGONAL_BOTH,
+        'allBorders' => [
+            'borderStyle' => Border::BORDER_THIN,
+        ],
+    ],
+    'fill' => [
+        'fillType' => Fill::FILL_GRADIENT_LINEAR,
+        'startColor' => [
+            'argb' => 'FFA0A0A0',
+        ],
+        'endColor' => [
+            'argb' => 'FFFFFFFF',
+        ],
+    ],
+];
+```

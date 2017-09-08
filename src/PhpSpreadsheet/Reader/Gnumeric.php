@@ -486,7 +486,7 @@ class Gnumeric extends BaseReader implements IReader
                     if ((!$this->readDataOnly) ||
                         (Date::isDateTimeFormatCode((string) $styleAttributes['Format']))) {
                         $styleArray = [];
-                        $styleArray['numberformat']['code'] = (string) $styleAttributes['Format'];
+                        $styleArray['numberFormat']['formatCode'] = (string) $styleAttributes['Format'];
                         //    If readDataOnly is false, we set all formatting information
                         if (!$this->readDataOnly) {
                             switch ($styleAttributes['HAlign']) {
@@ -526,7 +526,7 @@ class Gnumeric extends BaseReader implements IReader
                                     break;
                             }
 
-                            $styleArray['alignment']['wrap'] = ($styleAttributes['WrapText'] == '1') ? true : false;
+                            $styleArray['alignment']['wrapText'] = ($styleAttributes['WrapText'] == '1') ? true : false;
                             $styleArray['alignment']['shrinkToFit'] = ($styleAttributes['ShrinkToFit'] == '1') ? true : false;
                             $styleArray['alignment']['indent'] = ((int) ($styleAttributes['Indent']) > 0) ? $styleAttributes['indent'] : 0;
 
@@ -535,69 +535,69 @@ class Gnumeric extends BaseReader implements IReader
                             $RGB = self::parseGnumericColour($styleAttributes['Back']);
                             $shade = $styleAttributes['Shade'];
                             if (($RGB != '000000') || ($shade != '0')) {
-                                $styleArray['fill']['color']['rgb'] = $styleArray['fill']['startcolor']['rgb'] = $RGB;
+                                $styleArray['fill']['color']['rgb'] = $styleArray['fill']['startColor']['rgb'] = $RGB;
                                 $RGB2 = self::parseGnumericColour($styleAttributes['PatternColor']);
-                                $styleArray['fill']['endcolor']['rgb'] = $RGB2;
+                                $styleArray['fill']['endColor']['rgb'] = $RGB2;
                                 switch ($shade) {
                                     case '1':
-                                        $styleArray['fill']['type'] = Fill::FILL_SOLID;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_SOLID;
                                         break;
                                     case '2':
-                                        $styleArray['fill']['type'] = Fill::FILL_GRADIENT_LINEAR;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_GRADIENT_LINEAR;
                                         break;
                                     case '3':
-                                        $styleArray['fill']['type'] = Fill::FILL_GRADIENT_PATH;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_GRADIENT_PATH;
                                         break;
                                     case '4':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_DARKDOWN;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_DARKDOWN;
                                         break;
                                     case '5':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_DARKGRAY;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_DARKGRAY;
                                         break;
                                     case '6':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_DARKGRID;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_DARKGRID;
                                         break;
                                     case '7':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_DARKHORIZONTAL;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_DARKHORIZONTAL;
                                         break;
                                     case '8':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_DARKTRELLIS;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_DARKTRELLIS;
                                         break;
                                     case '9':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_DARKUP;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_DARKUP;
                                         break;
                                     case '10':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_DARKVERTICAL;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_DARKVERTICAL;
                                         break;
                                     case '11':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_GRAY0625;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_GRAY0625;
                                         break;
                                     case '12':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_GRAY125;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_GRAY125;
                                         break;
                                     case '13':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_LIGHTDOWN;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_LIGHTDOWN;
                                         break;
                                     case '14':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_LIGHTGRAY;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_LIGHTGRAY;
                                         break;
                                     case '15':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_LIGHTGRID;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_LIGHTGRID;
                                         break;
                                     case '16':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_LIGHTHORIZONTAL;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_LIGHTHORIZONTAL;
                                         break;
                                     case '17':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_LIGHTTRELLIS;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_LIGHTTRELLIS;
                                         break;
                                     case '18':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_LIGHTUP;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_LIGHTUP;
                                         break;
                                     case '19':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_LIGHTVERTICAL;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_LIGHTVERTICAL;
                                         break;
                                     case '20':
-                                        $styleArray['fill']['type'] = Fill::FILL_PATTERN_MEDIUMGRAY;
+                                        $styleArray['fill']['fillType'] = Fill::FILL_PATTERN_MEDIUMGRAY;
                                         break;
                                 }
                             }
@@ -607,7 +607,7 @@ class Gnumeric extends BaseReader implements IReader
                             $styleArray['font']['size'] = (int) ($fontAttributes['Unit']);
                             $styleArray['font']['bold'] = ($fontAttributes['Bold'] == '1') ? true : false;
                             $styleArray['font']['italic'] = ($fontAttributes['Italic'] == '1') ? true : false;
-                            $styleArray['font']['strike'] = ($fontAttributes['StrikeThrough'] == '1') ? true : false;
+                            $styleArray['font']['strikethrough'] = ($fontAttributes['StrikeThrough'] == '1') ? true : false;
                             switch ($fontAttributes['Underline']) {
                                 case '1':
                                     $styleArray['font']['underline'] = Font::UNDERLINE_SINGLE;
@@ -627,10 +627,10 @@ class Gnumeric extends BaseReader implements IReader
                             }
                             switch ($fontAttributes['Script']) {
                                 case '1':
-                                    $styleArray['font']['superScript'] = true;
+                                    $styleArray['font']['superscript'] = true;
                                     break;
                                 case '-1':
-                                    $styleArray['font']['subScript'] = true;
+                                    $styleArray['font']['subscript'] = true;
                                     break;
                             }
 
@@ -649,13 +649,13 @@ class Gnumeric extends BaseReader implements IReader
                                 }
                                 if ((isset($styleRegion->Style->StyleBorder->Diagonal)) && (isset($styleRegion->Style->StyleBorder->{'Rev-Diagonal'}))) {
                                     $styleArray['borders']['diagonal'] = self::parseBorderAttributes($styleRegion->Style->StyleBorder->Diagonal->attributes());
-                                    $styleArray['borders']['diagonaldirection'] = Borders::DIAGONAL_BOTH;
+                                    $styleArray['borders']['diagonalDirection'] = Borders::DIAGONAL_BOTH;
                                 } elseif (isset($styleRegion->Style->StyleBorder->Diagonal)) {
                                     $styleArray['borders']['diagonal'] = self::parseBorderAttributes($styleRegion->Style->StyleBorder->Diagonal->attributes());
-                                    $styleArray['borders']['diagonaldirection'] = Borders::DIAGONAL_UP;
+                                    $styleArray['borders']['diagonalDirection'] = Borders::DIAGONAL_UP;
                                 } elseif (isset($styleRegion->Style->StyleBorder->{'Rev-Diagonal'})) {
                                     $styleArray['borders']['diagonal'] = self::parseBorderAttributes($styleRegion->Style->StyleBorder->{'Rev-Diagonal'}->attributes());
-                                    $styleArray['borders']['diagonaldirection'] = Borders::DIAGONAL_DOWN;
+                                    $styleArray['borders']['diagonalDirection'] = Borders::DIAGONAL_DOWN;
                                 }
                             }
                             if (isset($styleRegion->Style->HyperLink)) {
@@ -770,46 +770,46 @@ class Gnumeric extends BaseReader implements IReader
 
         switch ($borderAttributes['Style']) {
             case '0':
-                $styleArray['style'] = Border::BORDER_NONE;
+                $styleArray['borderStyle'] = Border::BORDER_NONE;
                 break;
             case '1':
-                $styleArray['style'] = Border::BORDER_THIN;
+                $styleArray['borderStyle'] = Border::BORDER_THIN;
                 break;
             case '2':
-                $styleArray['style'] = Border::BORDER_MEDIUM;
+                $styleArray['borderStyle'] = Border::BORDER_MEDIUM;
                 break;
             case '3':
-                $styleArray['style'] = Border::BORDER_SLANTDASHDOT;
+                $styleArray['borderStyle'] = Border::BORDER_SLANTDASHDOT;
                 break;
             case '4':
-                $styleArray['style'] = Border::BORDER_DASHED;
+                $styleArray['borderStyle'] = Border::BORDER_DASHED;
                 break;
             case '5':
-                $styleArray['style'] = Border::BORDER_THICK;
+                $styleArray['borderStyle'] = Border::BORDER_THICK;
                 break;
             case '6':
-                $styleArray['style'] = Border::BORDER_DOUBLE;
+                $styleArray['borderStyle'] = Border::BORDER_DOUBLE;
                 break;
             case '7':
-                $styleArray['style'] = Border::BORDER_DOTTED;
+                $styleArray['borderStyle'] = Border::BORDER_DOTTED;
                 break;
             case '8':
-                $styleArray['style'] = Border::BORDER_MEDIUMDASHED;
+                $styleArray['borderStyle'] = Border::BORDER_MEDIUMDASHED;
                 break;
             case '9':
-                $styleArray['style'] = Border::BORDER_DASHDOT;
+                $styleArray['borderStyle'] = Border::BORDER_DASHDOT;
                 break;
             case '10':
-                $styleArray['style'] = Border::BORDER_MEDIUMDASHDOT;
+                $styleArray['borderStyle'] = Border::BORDER_MEDIUMDASHDOT;
                 break;
             case '11':
-                $styleArray['style'] = Border::BORDER_DASHDOTDOT;
+                $styleArray['borderStyle'] = Border::BORDER_DASHDOTDOT;
                 break;
             case '12':
-                $styleArray['style'] = Border::BORDER_MEDIUMDASHDOTDOT;
+                $styleArray['borderStyle'] = Border::BORDER_MEDIUMDASHDOTDOT;
                 break;
             case '13':
-                $styleArray['style'] = Border::BORDER_MEDIUMDASHDOTDOT;
+                $styleArray['borderStyle'] = Border::BORDER_MEDIUMDASHDOTDOT;
                 break;
         }
 

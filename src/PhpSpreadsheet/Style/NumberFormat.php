@@ -141,7 +141,7 @@ class NumberFormat extends Supervisor implements IComparable
      */
     public function getStyleArray($array)
     {
-        return ['numberformat' => $array];
+        return ['numberFormat' => $array];
     }
 
     /**
@@ -149,7 +149,7 @@ class NumberFormat extends Supervisor implements IComparable
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getNumberFormat()->applyFromArray(
      *        array(
-     *            'code' => NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE
+     *            'formatCode' => NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE
      *        )
      * );
      * </code>.
@@ -165,8 +165,8 @@ class NumberFormat extends Supervisor implements IComparable
         if ($this->isSupervisor) {
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
         } else {
-            if (isset($pStyles['code'])) {
-                $this->setFormatCode($pStyles['code']);
+            if (isset($pStyles['formatCode'])) {
+                $this->setFormatCode($pStyles['formatCode']);
             }
         }
 
@@ -203,7 +203,7 @@ class NumberFormat extends Supervisor implements IComparable
             $pValue = self::FORMAT_GENERAL;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['code' => $pValue]);
+            $styleArray = $this->getStyleArray(['formatCode' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->formatCode = $pValue;
@@ -237,7 +237,7 @@ class NumberFormat extends Supervisor implements IComparable
     public function setBuiltInFormatCode($pValue)
     {
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['code' => self::builtInFormatCode($pValue)]);
+            $styleArray = $this->getStyleArray(['formatCode' => self::builtInFormatCode($pValue)]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->builtInFormatCode = $pValue;

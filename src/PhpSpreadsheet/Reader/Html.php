@@ -110,7 +110,7 @@ class Html extends BaseReader implements IReader
         'hr' => [
             'borders' => [
                 'bottom' => [
-                    'style' => Border::BORDER_THIN,
+                    'borderStyle' => Border::BORDER_THIN,
                     'color' => [
                         Color::COLOR_BLACK,
                     ],
@@ -482,7 +482,7 @@ class Html extends BaseReader implements IReader
                             $sheet->getStyle($column . $row)->applyFromArray(
                                 [
                                     'fill' => [
-                                        'type' => Fill::FILL_SOLID,
+                                        'fillType' => Fill::FILL_SOLID,
                                         'color' => ['rgb' => $attributeArray['bgcolor']],
                                     ],
                                 ]
@@ -631,7 +631,7 @@ class Html extends BaseReader implements IReader
 
             switch (trim($value[0])) {
                 case 'background-color':
-                    $sheet->getStyle($column . $row)->applyFromArray(['fill' => ['type' => Fill::FILL_SOLID, 'color' => ['rgb' => "{$style_color}"]]]);
+                    $sheet->getStyle($column . $row)->applyFromArray(['fill' => ['fillType' => Fill::FILL_SOLID, 'color' => ['rgb' => "{$style_color}"]]]);
                     break;
                 case 'color':
                     $sheet->getStyle($column . $row)->applyFromArray(['font' => ['color' => ['rgb' => "$style_color}"]]]);

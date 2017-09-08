@@ -175,11 +175,11 @@ class StringTable extends WriterPart
                 $objWriter->endElement();
 
                 // Superscript / subscript
-                if ($element->getFont()->getSuperScript() || $element->getFont()->getSubScript()) {
+                if ($element->getFont()->getSuperscript() || $element->getFont()->getSubscript()) {
                     $objWriter->startElement($prefix . 'vertAlign');
-                    if ($element->getFont()->getSuperScript()) {
+                    if ($element->getFont()->getSuperscript()) {
                         $objWriter->writeAttribute('val', 'superscript');
-                    } elseif ($element->getFont()->getSubScript()) {
+                    } elseif ($element->getFont()->getSubscript()) {
                         $objWriter->writeAttribute('val', 'subscript');
                     }
                     $objWriter->endElement();

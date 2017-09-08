@@ -320,11 +320,11 @@ class Style extends WriterPart
         }
 
         // Superscript / subscript
-        if ($pFont->getSuperScript() === true || $pFont->getSubScript() === true) {
+        if ($pFont->getSuperscript() === true || $pFont->getSubscript() === true) {
             $objWriter->startElement('vertAlign');
-            if ($pFont->getSuperScript() === true) {
+            if ($pFont->getSuperscript() === true) {
                 $objWriter->writeAttribute('val', 'superscript');
-            } elseif ($pFont->getSubScript() === true) {
+            } elseif ($pFont->getSubscript() === true) {
                 $objWriter->writeAttribute('val', 'subscript');
             }
             $objWriter->endElement();
@@ -448,8 +448,8 @@ class Style extends WriterPart
         if ($pStyle->getAlignment()->getIndent() > 0) {
             $objWriter->writeAttribute('indent', $pStyle->getAlignment()->getIndent());
         }
-        if ($pStyle->getAlignment()->getReadorder() > 0) {
-            $objWriter->writeAttribute('readingOrder', $pStyle->getAlignment()->getReadorder());
+        if ($pStyle->getAlignment()->getReadOrder() > 0) {
+            $objWriter->writeAttribute('readingOrder', $pStyle->getAlignment()->getReadOrder());
         }
         $objWriter->endElement();
 

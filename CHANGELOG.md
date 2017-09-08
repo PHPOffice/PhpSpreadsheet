@@ -1,4 +1,5 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
@@ -16,6 +17,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
+### BREAKING CHANGE
+
+- Standardization of array keys used for style, see the [migration guide](./docs/topics/migration-from-PHPExcel.md).
 
 ## [1.0.0-beta] - 2017-08-17
 
@@ -50,7 +54,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Introduction of namespaces for all classes, eg: `PHPExcel_Calculation_Functions` becomes `PhpOffice\PhpSpreadsheet\Calculation\Functions`
 - Some classes were renamed for clarity and/or consistency:
 
-For a comprehensive list of all class changes, and a semi-automated migration path, read the [migration guide](./docs/Migration-from-PHPExcel.md).
+For a comprehensive list of all class changes, and a semi-automated migration path, read the [migration guide](./docs/topics/migration-from-PHPExcel.md).
 
 - Dropped `PHPExcel_Calculation_Functions::VERSION()`. Composer or git should be used to know the version.
 - Dropped `PHPExcel_Settings::setPdfRenderer()` and `PHPExcel_Settings::setPdfRenderer()`. Composer should be used to autoload PDF libs.

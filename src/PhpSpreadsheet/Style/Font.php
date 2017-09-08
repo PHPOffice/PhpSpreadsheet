@@ -69,14 +69,14 @@ class Font extends Supervisor implements IComparable
      *
      * @var bool
      */
-    protected $superScript = false;
+    protected $superscript = false;
 
     /**
      * Subscript.
      *
      * @var bool
      */
-    protected $subScript = false;
+    protected $subscript = false;
 
     /**
      * Underline.
@@ -120,8 +120,8 @@ class Font extends Supervisor implements IComparable
             $this->size = null;
             $this->bold = null;
             $this->italic = null;
-            $this->superScript = null;
-            $this->subScript = null;
+            $this->superscript = null;
+            $this->subscript = null;
             $this->underline = null;
             $this->strikethrough = null;
             $this->color = new Color(Color::COLOR_BLACK, $isSupervisor, $isConditional);
@@ -166,7 +166,7 @@ class Font extends Supervisor implements IComparable
      *            'bold'      => TRUE,
      *            'italic'    => FALSE,
      *            'underline' => \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE,
-     *            'strike'    => FALSE,
+     *            'strikethrough'    => FALSE,
      *            'color'     => array(
      *                'rgb' => '808080'
      *            )
@@ -194,17 +194,17 @@ class Font extends Supervisor implements IComparable
             if (isset($pStyles['italic'])) {
                 $this->setItalic($pStyles['italic']);
             }
-            if (isset($pStyles['superScript'])) {
-                $this->setSuperScript($pStyles['superScript']);
+            if (isset($pStyles['superscript'])) {
+                $this->setSuperscript($pStyles['superscript']);
             }
-            if (isset($pStyles['subScript'])) {
-                $this->setSubScript($pStyles['subScript']);
+            if (isset($pStyles['subscript'])) {
+                $this->setSubscript($pStyles['subscript']);
             }
             if (isset($pStyles['underline'])) {
                 $this->setUnderline($pStyles['underline']);
             }
-            if (isset($pStyles['strike'])) {
-                $this->setStrikethrough($pStyles['strike']);
+            if (isset($pStyles['strikethrough'])) {
+                $this->setStrikethrough($pStyles['strikethrough']);
             }
             if (isset($pStyles['color'])) {
                 $this->getColor()->applyFromArray($pStyles['color']);
@@ -362,74 +362,74 @@ class Font extends Supervisor implements IComparable
     }
 
     /**
-     * Get SuperScript.
+     * Get Superscript.
      *
      * @return bool
      */
-    public function getSuperScript()
+    public function getSuperscript()
     {
         if ($this->isSupervisor) {
-            return $this->getSharedComponent()->getSuperScript();
+            return $this->getSharedComponent()->getSuperscript();
         }
 
-        return $this->superScript;
+        return $this->superscript;
     }
 
     /**
-     * Set SuperScript.
+     * Set Superscript.
      *
      * @param bool $pValue
      *
      * @return Font
      */
-    public function setSuperScript($pValue)
+    public function setSuperscript($pValue)
     {
         if ($pValue == '') {
             $pValue = false;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['superScript' => $pValue]);
+            $styleArray = $this->getStyleArray(['superscript' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->superScript = $pValue;
-            $this->subScript = !$pValue;
+            $this->superscript = $pValue;
+            $this->subscript = !$pValue;
         }
 
         return $this;
     }
 
     /**
-     * Get SubScript.
+     * Get Subscript.
      *
      * @return bool
      */
-    public function getSubScript()
+    public function getSubscript()
     {
         if ($this->isSupervisor) {
-            return $this->getSharedComponent()->getSubScript();
+            return $this->getSharedComponent()->getSubscript();
         }
 
-        return $this->subScript;
+        return $this->subscript;
     }
 
     /**
-     * Set SubScript.
+     * Set Subscript.
      *
      * @param bool $pValue
      *
      * @return Font
      */
-    public function setSubScript($pValue)
+    public function setSubscript($pValue)
     {
         if ($pValue == '') {
             $pValue = false;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['subScript' => $pValue]);
+            $styleArray = $this->getStyleArray(['subscript' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->subScript = $pValue;
-            $this->superScript = !$pValue;
+            $this->subscript = $pValue;
+            $this->superscript = !$pValue;
         }
 
         return $this;
@@ -561,8 +561,8 @@ class Font extends Supervisor implements IComparable
             $this->size .
             ($this->bold ? 't' : 'f') .
             ($this->italic ? 't' : 'f') .
-            ($this->superScript ? 't' : 'f') .
-            ($this->subScript ? 't' : 'f') .
+            ($this->superscript ? 't' : 'f') .
+            ($this->subscript ? 't' : 'f') .
             $this->underline .
             ($this->strikethrough ? 't' : 'f') .
             $this->color->getHashCode() .

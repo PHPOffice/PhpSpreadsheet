@@ -441,7 +441,7 @@ class Xml extends BaseReader implements IReader
                                     }
                                     break;
                                 case 'WrapText':
-                                    $this->styles[$styleID]['alignment']['wrap'] = true;
+                                    $this->styles[$styleID]['alignment']['wrapText'] = true;
                                     break;
                             }
                         }
@@ -453,7 +453,7 @@ class Xml extends BaseReader implements IReader
                             foreach ($borderAttributes as $borderStyleKey => $borderStyleValue) {
                                 switch ($borderStyleKey) {
                                     case 'LineStyle':
-                                        $thisBorder['style'] = Border::BORDER_MEDIUM;
+                                        $thisBorder['borderStyle'] = Border::BORDER_MEDIUM;
                                         break;
                                     case 'Weight':
                                         break;
@@ -507,7 +507,7 @@ class Xml extends BaseReader implements IReader
                                     $this->styles[$styleID]['fill']['color']['rgb'] = substr($styleAttributeValue, 1);
                                     break;
                                 case 'Pattern':
-                                    $this->styles[$styleID]['fill']['type'] = strtolower($styleAttributeValue);
+                                    $this->styles[$styleID]['fill']['fillType'] = strtolower($styleAttributeValue);
                                     break;
                             }
                         }
@@ -521,7 +521,7 @@ class Xml extends BaseReader implements IReader
                                     break;
                             }
                             if ($styleAttributeValue > '') {
-                                $this->styles[$styleID]['numberformat']['code'] = $styleAttributeValue;
+                                $this->styles[$styleID]['numberFormat']['formatCode'] = $styleAttributeValue;
                             }
                         }
                         break;

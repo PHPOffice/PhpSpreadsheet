@@ -30,24 +30,24 @@ $sharedStyle2 = new Style();
 
 $sharedStyle1->applyFromArray(
     ['fill' => [
-                'type' => Fill::FILL_SOLID,
+                'fillType' => Fill::FILL_SOLID,
                 'color' => ['argb' => 'FFCCFFCC'],
             ],
             'borders' => [
-                'bottom' => ['style' => Border::BORDER_THIN],
-                'right' => ['style' => Border::BORDER_MEDIUM],
+                'bottom' => ['borderStyle' => Border::BORDER_THIN],
+                'right' => ['borderStyle' => Border::BORDER_MEDIUM],
             ],
         ]
 );
 
 $sharedStyle2->applyFromArray(
     ['fill' => [
-                'type' => Fill::FILL_SOLID,
+                'fillType' => Fill::FILL_SOLID,
                 'color' => ['argb' => 'FFFFFF00'],
             ],
             'borders' => [
-                'bottom' => ['style' => Border::BORDER_THIN],
-                'right' => ['style' => Border::BORDER_MEDIUM],
+                'bottom' => ['borderStyle' => Border::BORDER_THIN],
+                'right' => ['borderStyle' => Border::BORDER_MEDIUM],
             ],
         ]
 );

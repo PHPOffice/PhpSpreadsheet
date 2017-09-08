@@ -558,16 +558,16 @@ $styleArray = array(
     ),
     'borders' => array(
         'top' => array(
-            'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
         ),
     ),
     'fill' => array(
-        'type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
+        'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
         'rotation' => 90,
-        'startcolor' => array(
+        'startColor' => array(
             'argb' => 'FFA0A0A0',
         ),
-        'endcolor' => array(
+        'endColor' => array(
             'argb' => 'FFFFFFFF',
         ),
     ),
@@ -693,7 +693,7 @@ B2:G8.
 $styleArray = array(
     'borders' => array(
         'outline' => array(
-            'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
+            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
             'color' => array('argb' => 'FFFF0000'),
         ),
     ),
@@ -721,7 +721,7 @@ operating on a single cell at a time:
 Additional shortcut borders come in handy like in the example above.
 These are the shortcut borders available:
 
--   allborders
+-   allBorders
 -   outline
 -   inside
 -   vertical
@@ -731,10 +731,10 @@ An overview of all border shortcuts can be seen in the following image:
 
 ![08-styling-border-options.png](./images/08-styling-border-options.png)
 
-If you simultaneously set e.g. allborders and vertical, then we have
+If you simultaneously set e.g. allBorders and vertical, then we have
 "overlapping" borders, and one of the components has to win over the
 other where there is border overlap. In PhpSpreadsheet, from weakest to
-strongest borders, the list is as follows: allborders, outline/inside,
+strongest borders, the list is as follows: allBorders, outline/inside,
 vertical/horizontal, left/right/top/bottom/diagonal.
 
 This border hierarchy can be utilized to achieve various effects in an
@@ -757,17 +757,17 @@ fill         | getFill()
 font         | getFont()
 borders      | getBorders()
 alignment    | getAlignment()
-numberformat | getNumberFormat()
+numberFormat | getNumberFormat()
 protection   | getProtection()
 
 **\PhpOffice\PhpSpreadsheet\Style\Fill**
 
 Array key  | Maps to property
 -----------|-------------------
-type       | setFillType()
+fillType   | setFillType()
 rotation   | setRotation()
-startcolor | getStartColor()
-endcolor   | getEndColor()
+startColor | getStartColor()
+endColor   | getEndColor()
 color      | getStartColor()
 
 
@@ -779,17 +779,17 @@ name        | setName()
 bold        | setBold()
 italic      | setItalic()
 underline   | setUnderline()
-strike      | setStrikethrough()
+strikethrough | setStrikethrough()
 color       | getColor()
 size        | setSize()
-superScript | setSuperScript()
-subScript   | setSubScript()
+superscript | setSuperscript()
+subscript   | setSubscript()
 
 **\PhpOffice\PhpSpreadsheet\Style\Borders**
 
 Array key         | Maps to property
 ------------------|-------------------
-allborders        | getLeft(); getRight(); getTop(); getBottom()
+allBorders        | getLeft(); getRight(); getTop(); getBottom()
 left              | getLeft()
 right             | getRight()
 top               | getTop()
@@ -797,7 +797,7 @@ bottom            | getBottom()
 diagonal          | getDiagonal()
 vertical          | getVertical()
 horizontal        | getHorizontal()
-diagonaldirection | setDiagonalDirection()
+diagonalDirection | setDiagonalDirection()
 outline           | setOutline()
 
 **\PhpOffice\PhpSpreadsheet\Style\Border**
@@ -813,8 +813,8 @@ Array key   | Maps to property
 ------------|-------------------
 horizontal  | setHorizontal()
 vertical    | setVertical()
-rotation    | setTextRotation()
-wrap        | setWrapText()
+textRotation| setTextRotation()
+wrapText    | setWrapText()
 shrinkToFit | setShrinkToFit()
 indent      | setIndent()
 
@@ -822,7 +822,7 @@ indent      | setIndent()
 
 Array key | Maps to property
 ----------|-------------------
-code      | setFormatCode()
+formatCode      | setFormatCode()
 
 **\PhpOffice\PhpSpreadsheet\Style\Protection**
 

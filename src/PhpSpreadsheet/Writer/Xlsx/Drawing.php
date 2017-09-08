@@ -477,7 +477,7 @@ class Drawing extends WriterPart
         // o:lock
         $objWriter->startElement('o:lock');
         $objWriter->writeAttribute('v:ext', 'edit');
-        $objWriter->writeAttribute('rotation', 't');
+        $objWriter->writeAttribute('textRotation', 't');
         $objWriter->endElement();
 
         $objWriter->endElement();

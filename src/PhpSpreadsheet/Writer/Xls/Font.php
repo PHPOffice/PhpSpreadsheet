@@ -74,9 +74,9 @@ class Font
         $font_shadow = 0;
 
         $icv = $this->colorIndex; // Index to color palette
-        if ($this->font->getSuperScript()) {
+        if ($this->font->getSuperscript()) {
             $sss = 1;
-        } elseif ($this->font->getSubScript()) {
+        } elseif ($this->font->getSubscript()) {
             $sss = 2;
         } else {
             $sss = 0;

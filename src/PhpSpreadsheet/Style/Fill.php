@@ -137,12 +137,12 @@ class Fill extends Supervisor implements IComparable
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getFill()->applyFromArray(
      *        array(
-     *            'type'       => Fill::FILL_GRADIENT_LINEAR,
+     *            'fillType'       => Fill::FILL_GRADIENT_LINEAR,
      *            'rotation'   => 0,
-     *            'startcolor' => array(
+     *            'startColor' => array(
      *                'rgb' => '000000'
      *            ),
-     *            'endcolor'   => array(
+     *            'endColor'   => array(
      *                'argb' => 'FFFFFFFF'
      *            )
      *        )
@@ -160,17 +160,17 @@ class Fill extends Supervisor implements IComparable
         if ($this->isSupervisor) {
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
         } else {
-            if (isset($pStyles['type'])) {
-                $this->setFillType($pStyles['type']);
+            if (isset($pStyles['fillType'])) {
+                $this->setFillType($pStyles['fillType']);
             }
             if (isset($pStyles['rotation'])) {
                 $this->setRotation($pStyles['rotation']);
             }
-            if (isset($pStyles['startcolor'])) {
-                $this->getStartColor()->applyFromArray($pStyles['startcolor']);
+            if (isset($pStyles['startColor'])) {
+                $this->getStartColor()->applyFromArray($pStyles['startColor']);
             }
-            if (isset($pStyles['endcolor'])) {
-                $this->getEndColor()->applyFromArray($pStyles['endcolor']);
+            if (isset($pStyles['endColor'])) {
+                $this->getEndColor()->applyFromArray($pStyles['endColor']);
             }
             if (isset($pStyles['color'])) {
                 $this->getStartColor()->applyFromArray($pStyles['color']);
@@ -205,7 +205,7 @@ class Fill extends Supervisor implements IComparable
     public function setFillType($pValue)
     {
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['type' => $pValue]);
+            $styleArray = $this->getStyleArray(['fillType' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->fillType = $pValue;

@@ -177,20 +177,20 @@ class Style extends Style\Supervisor implements IComparable
      *                 'bold'      => true,
      *                 'italic'    => false,
      *                 'underline' => \PhpOffice\PhpSpreadsheet\Style\Font::UNDERLINE_DOUBLE,
-     *                 'strike'    => false,
+     *                 'strikethrough'    => false,
      *                 'color'     => array(
      *                     'rgb' => '808080'
      *                 )
      *             ),
      *             'borders' => array(
      *                 'bottom'     => array(
-     *                     'style' => Border::BORDER_DASHDOT,
+     *                     'borderStyle' => Border::BORDER_DASHDOT,
      *                     'color' => array(
      *                         'rgb' => '808080'
      *                     )
      *                 ),
      *                 'top'     => array(
-     *                     'style' => Border::BORDER_DASHDOT,
+     *                     'borderStyle' => Border::BORDER_DASHDOT,
      *                     'color' => array(
      *                         'rgb' => '808080'
      *                     )
@@ -241,15 +241,15 @@ class Style extends Style\Supervisor implements IComparable
 
             // ADVANCED MODE:
             if ($pAdvanced && isset($pStyles['borders'])) {
-                // 'allborders' is a shorthand property for 'outline' and 'inside' and
+                // 'allBorders' is a shorthand property for 'outline' and 'inside' and
                 //        it applies to components that have not been set explicitly
-                if (isset($pStyles['borders']['allborders'])) {
+                if (isset($pStyles['borders']['allBorders'])) {
                     foreach (['outline', 'inside'] as $component) {
                         if (!isset($pStyles['borders'][$component])) {
-                            $pStyles['borders'][$component] = $pStyles['borders']['allborders'];
+                            $pStyles['borders'][$component] = $pStyles['borders']['allBorders'];
                         }
                     }
-                    unset($pStyles['borders']['allborders']); // not needed any more
+                    unset($pStyles['borders']['allBorders']); // not needed any more
                 }
                 // 'outline' is a shorthand property for 'top', 'right', 'bottom', 'left'
                 //        it applies to components that have not been set explicitly
@@ -452,8 +452,8 @@ class Style extends Style\Supervisor implements IComparable
             if (isset($pStyles['alignment'])) {
                 $this->getAlignment()->applyFromArray($pStyles['alignment']);
             }
-            if (isset($pStyles['numberformat'])) {
-                $this->getNumberFormat()->applyFromArray($pStyles['numberformat']);
+            if (isset($pStyles['numberFormat'])) {
+                $this->getNumberFormat()->applyFromArray($pStyles['numberFormat']);
             }
             if (isset($pStyles['protection'])) {
                 $this->getProtection()->applyFromArray($pStyles['protection']);

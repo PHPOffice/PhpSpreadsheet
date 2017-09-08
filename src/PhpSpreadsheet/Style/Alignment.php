@@ -98,7 +98,7 @@ class Alignment extends Supervisor implements IComparable
      *
      * @var int
      */
-    protected $readorder = 0;
+    protected $readOrder = 0;
 
     /**
      * Create a new Alignment.
@@ -152,8 +152,8 @@ class Alignment extends Supervisor implements IComparable
      *        array(
      *            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
      *            'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
-     *            'rotation'   => 0,
-     *            'wrap'            => TRUE
+     *            'textRotation'   => 0,
+     *            'wrapText'            => TRUE
      *        )
      * );
      * </code>.
@@ -176,11 +176,11 @@ class Alignment extends Supervisor implements IComparable
             if (isset($pStyles['vertical'])) {
                 $this->setVertical($pStyles['vertical']);
             }
-            if (isset($pStyles['rotation'])) {
-                $this->setTextRotation($pStyles['rotation']);
+            if (isset($pStyles['textRotation'])) {
+                $this->setTextRotation($pStyles['textRotation']);
             }
-            if (isset($pStyles['wrap'])) {
-                $this->setWrapText($pStyles['wrap']);
+            if (isset($pStyles['wrapText'])) {
+                $this->setWrapText($pStyles['wrapText']);
             }
             if (isset($pStyles['shrinkToFit'])) {
                 $this->setShrinkToFit($pStyles['shrinkToFit']);
@@ -188,8 +188,8 @@ class Alignment extends Supervisor implements IComparable
             if (isset($pStyles['indent'])) {
                 $this->setIndent($pStyles['indent']);
             }
-            if (isset($pStyles['readorder'])) {
-                $this->setReadorder($pStyles['readorder']);
+            if (isset($pStyles['readOrder'])) {
+                $this->setReadOrder($pStyles['readOrder']);
             }
         }
 
@@ -303,7 +303,7 @@ class Alignment extends Supervisor implements IComparable
         // Set rotation
         if (($pValue >= -90 && $pValue <= 90) || $pValue == -165) {
             if ($this->isSupervisor) {
-                $styleArray = $this->getStyleArray(['rotation' => $pValue]);
+                $styleArray = $this->getStyleArray(['textRotation' => $pValue]);
                 $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
             } else {
                 $this->textRotation = $pValue;
@@ -342,7 +342,7 @@ class Alignment extends Supervisor implements IComparable
             $pValue = false;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['wrap' => $pValue]);
+            $styleArray = $this->getStyleArray(['wrapText' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->wrapText = $pValue;
@@ -432,13 +432,13 @@ class Alignment extends Supervisor implements IComparable
      *
      * @return int
      */
-    public function getReadorder()
+    public function getReadOrder()
     {
         if ($this->isSupervisor) {
-            return $this->getSharedComponent()->getReadorder();
+            return $this->getSharedComponent()->getReadOrder();
         }
 
-        return $this->readorder;
+        return $this->readOrder;
     }
 
     /**
@@ -448,16 +448,16 @@ class Alignment extends Supervisor implements IComparable
      *
      * @return Alignment
      */
-    public function setReadorder($pValue)
+    public function setReadOrder($pValue)
     {
         if ($pValue < 0 || $pValue > 2) {
             $pValue = 0;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['readorder' => $pValue]);
+            $styleArray = $this->getStyleArray(['readOrder' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
-            $this->readorder = $pValue;
+            $this->readOrder = $pValue;
         }
 
         return $this;
@@ -481,7 +481,7 @@ class Alignment extends Supervisor implements IComparable
             ($this->wrapText ? 't' : 'f') .
             ($this->shrinkToFit ? 't' : 'f') .
             $this->indent .
-            $this->readorder .
+            $this->readOrder .
             __CLASS__
         );
     }

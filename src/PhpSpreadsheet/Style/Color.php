@@ -127,19 +127,7 @@ class Color extends Supervisor implements IComparable
      */
     public function getStyleArray($array)
     {
-        switch ($this->parentPropertyName) {
-            case 'endColor':
-                $key = 'endcolor';
-                break;
-            case 'color':
-                $key = 'color';
-                break;
-            case 'startColor':
-                $key = 'startcolor';
-                break;
-        }
-
-        return $this->parent->getStyleArray([$key => $array]);
+        return $this->parent->getStyleArray([$this->parentPropertyName => $array]);
     }
 
     /**

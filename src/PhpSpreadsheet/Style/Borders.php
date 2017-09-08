@@ -187,13 +187,13 @@ class Borders extends Supervisor implements IComparable
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getBorders()->applyFromArray(
      *         array(
      *             'bottom'     => array(
-     *                 'style' => Border::BORDER_DASHDOT,
+     *                 'borderStyle' => Border::BORDER_DASHDOT,
      *                 'color' => array(
      *                     'rgb' => '808080'
      *                 )
      *             ),
      *             'top'     => array(
-     *                 'style' => Border::BORDER_DASHDOT,
+     *                 'borderStyle' => Border::BORDER_DASHDOT,
      *                 'color' => array(
      *                     'rgb' => '808080'
      *                 )
@@ -204,8 +204,8 @@ class Borders extends Supervisor implements IComparable
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getBorders()->applyFromArray(
      *         array(
-     *             'allborders' => array(
-     *                 'style' => Border::BORDER_DASHDOT,
+     *             'allBorders' => array(
+     *                 'borderStyle' => Border::BORDER_DASHDOT,
      *                 'color' => array(
      *                     'rgb' => '808080'
      *                 )
@@ -240,14 +240,14 @@ class Borders extends Supervisor implements IComparable
             if (isset($pStyles['diagonal'])) {
                 $this->getDiagonal()->applyFromArray($pStyles['diagonal']);
             }
-            if (isset($pStyles['diagonaldirection'])) {
-                $this->setDiagonalDirection($pStyles['diagonaldirection']);
+            if (isset($pStyles['diagonalDirection'])) {
+                $this->setDiagonalDirection($pStyles['diagonalDirection']);
             }
-            if (isset($pStyles['allborders'])) {
-                $this->getLeft()->applyFromArray($pStyles['allborders']);
-                $this->getRight()->applyFromArray($pStyles['allborders']);
-                $this->getTop()->applyFromArray($pStyles['allborders']);
-                $this->getBottom()->applyFromArray($pStyles['allborders']);
+            if (isset($pStyles['allBorders'])) {
+                $this->getLeft()->applyFromArray($pStyles['allBorders']);
+                $this->getRight()->applyFromArray($pStyles['allBorders']);
+                $this->getTop()->applyFromArray($pStyles['allBorders']);
+                $this->getBottom()->applyFromArray($pStyles['allBorders']);
             }
         }
 
@@ -411,7 +411,7 @@ class Borders extends Supervisor implements IComparable
             $pValue = self::DIAGONAL_NONE;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['diagonaldirection' => $pValue]);
+            $styleArray = $this->getStyleArray(['diagonalDirection' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->diagonalDirection = $pValue;

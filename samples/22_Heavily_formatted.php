@@ -26,19 +26,19 @@ $spreadsheet->setActiveSheetIndex(0);
 
 $spreadsheet->getActiveSheet()->getStyle('A1:T100')->applyFromArray(
     ['fill' => [
-                'type' => Fill::FILL_SOLID,
+                'fillType' => Fill::FILL_SOLID,
                 'color' => ['argb' => 'FFCCFFCC'],
             ],
             'borders' => [
-                'bottom' => ['style' => Border::BORDER_THIN],
-                'right' => ['style' => Border::BORDER_MEDIUM],
+                'bottom' => ['borderStyle' => Border::BORDER_THIN],
+                'right' => ['borderStyle' => Border::BORDER_MEDIUM],
             ],
         ]
 );
 
 $spreadsheet->getActiveSheet()->getStyle('C5:R95')->applyFromArray(
     ['fill' => [
-                'type' => Fill::FILL_SOLID,
+                'fillType' => Fill::FILL_SOLID,
                 'color' => ['argb' => 'FFFFFF00'],
             ],
         ]

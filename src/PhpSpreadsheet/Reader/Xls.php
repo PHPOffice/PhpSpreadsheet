@@ -1942,7 +1942,7 @@ class Xls extends BaseReader implements IReader
             }
 
             // bit: 2; mask 0x0004; underlined (redundant in BIFF5-BIFF8)
-            // bit: 3; mask 0x0008; strike
+            // bit: 3; mask 0x0008; strikethrough
             $isStrike = (0x0008 & self::getInt2d($recordData, 2)) >> 3;
             if ($isStrike) {
                 $objFont->setStrikethrough(true);
@@ -1964,10 +1964,10 @@ class Xls extends BaseReader implements IReader
             $escapement = self::getInt2d($recordData, 8);
             switch ($escapement) {
                 case 0x0001:
-                    $objFont->setSuperScript(true);
+                    $objFont->setSuperscript(true);
                     break;
                 case 0x0002:
-                    $objFont->setSubScript(true);
+                    $objFont->setSubscript(true);
                     break;
             }
 
@@ -2081,15 +2081,15 @@ class Xls extends BaseReader implements IReader
             $numberFormatIndex = self::getInt2d($recordData, 2);
             if (isset($this->formats[$numberFormatIndex])) {
                 // then we have user-defined format code
-                $numberformat = ['code' => $this->formats[$numberFormatIndex]];
+                $numberFormat = ['formatCode' => $this->formats[$numberFormatIndex]];
             } elseif (($code = NumberFormat::builtInFormatCode($numberFormatIndex)) !== '') {
                 // then we have built-in format code
-                $numberformat = ['code' => $code];
+                $numberFormat = ['formatCode' => $code];
             } else {
                 // we set the general format code
-                $numberformat = ['code' => 'General'];
+                $numberFormat = ['formatCode' => 'General'];
             }
-            $objStyle->getNumberFormat()->setFormatCode($numberformat['code']);
+            $objStyle->getNumberFormat()->setFormatCode($numberFormat['formatCode']);
 
             // offset:  4; size: 2; XF type, cell protection, and parent style XF
             // bit 2-0; mask 0x0007; XF_TYPE_PROT
