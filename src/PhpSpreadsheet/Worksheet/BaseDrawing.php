@@ -139,7 +139,8 @@ class BaseDrawing implements IComparable
         $this->rotation = 0;
         $this->shadow = new Drawing\Shadow();
 
-        // Set image index++self::$imageCounter;
+        // Set image index
+        ++self::$imageCounter;
         $this->imageIndex = self::$imageCounter;
     }
 
