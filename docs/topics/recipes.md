@@ -910,15 +910,18 @@ practice...
 
 ## Setting security on a spreadsheet
 
-Excel offers 3 levels of "protection": document security, sheet security
-and cell security.
+Excel offers 3 levels of "protection":
 
-Document security allows you to set a password on a complete
+- Document: allows you to set a password on a complete
 spreadsheet, allowing changes to be made only when that password is
-entered.Worksheet security offers other security options: you can
-disallow inserting rows on a specific sheet, disallow sorting, ... Cell
-security offers the option to lock/unlock a cell as well as show/hide
-the internal formulaAn example on setting document security:
+entered.
+- Worksheet: offers other security options: you can
+disallow inserting rows on a specific sheet, disallow sorting, ...
+- Cell: offers the option to lock/unlock a cell as well as show/hide
+the internal formula.
+
+
+An example on setting document security:
 
 ``` php
 $spreadsheet->getSecurity()->setLockWindows(true);
