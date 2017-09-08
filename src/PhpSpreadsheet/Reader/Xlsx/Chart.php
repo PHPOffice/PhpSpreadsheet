@@ -79,7 +79,8 @@ class Chart
         $namespacesChartMeta = $chartElements->getNamespaces(true);
         $chartElementsC = $chartElements->children($namespacesChartMeta['c']);
 
-        $XaxisLabel = $YaxisLabel = $legend = $title = null;
+        $XaxisLabel = $legend = $title = null;
+        $YaxisLabel = [];
         $dispBlanksAs = $plotVisOnly = null;
 
         foreach ($chartElementsC as $chartElementKey => $chartElement) {
@@ -108,7 +109,7 @@ class Chart
                                             break;
                                         case 'valAx':
                                             if (isset($chartDetail->title)) {
-                                                $YaxisLabel = self::chartTitle($chartDetail->title->children($namespacesChartMeta['c']), $namespacesChartMeta);
+                                                $YaxisLabel[] = self::chartTitle($chartDetail->title->children($namespacesChartMeta['c']), $namespacesChartMeta);
                                             }
                                             break;
                                         case 'barChart':
