@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
+- Control characters in cell values are automatically escaped [#212](https://github.com/PHPOffice/PhpSpreadsheet/issues/212)
+
 ### BREAKING CHANGE
 
 - Standardization of array keys used for style, see the [migration guide](./docs/topics/migration-from-PHPExcel.md).

@@ -300,11 +300,12 @@ class StringHelper
         return true;
     }
 
-    public static function buildCharacterSets()
+    private static function buildCharacterSets()
     {
         if (empty(self::$controlCharacters)) {
             self::buildControlCharacters();
         }
+
         if (empty(self::$SYLKCharacters)) {
             self::buildSYLKCharacters();
         }
@@ -327,6 +328,8 @@ class StringHelper
      */
     public static function controlCharacterOOXML2PHP($value)
     {
+        self::buildCharacterSets();
+
         return str_replace(array_keys(self::$controlCharacters), array_values(self::$controlCharacters), $value);
     }
 
@@ -347,6 +350,8 @@ class StringHelper
      */
     public static function controlCharacterPHP2OOXML($value)
     {
+        self::buildCharacterSets();
+
         return str_replace(array_values(self::$controlCharacters), array_keys(self::$controlCharacters), $value);
     }
 
@@ -713,6 +718,8 @@ class StringHelper
      */
     public static function SYLKtoUTF8($pValue)
     {
+        self::buildCharacterSets();
+
         // If there is no escape character in the string there is nothing to do
         if (strpos($pValue, '') === false) {
             return $pValue;
