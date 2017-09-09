@@ -91,11 +91,10 @@ class DataSeriesValues
     /**
      * Create a new DataSeriesValues object.
      *
-     *
-     * @param mixed $dataType
+     * @param string $dataType
      * @param string $dataSource
      * @param null|mixed $formatCode
-     * @param mixed $pointCount
+     * @param int $pointCount
      * @param mixed $dataValues
      * @param null|mixed $marker
      * @param null|string $fillColor

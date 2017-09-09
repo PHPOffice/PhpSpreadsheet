@@ -310,30 +310,30 @@ class Chart
         return new DataSeries($plotType, $multiSeriesType, $plotOrder, $seriesLabel, $seriesCategory, $seriesValues, $smoothLine);
     }
 
-    private static function chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, $marker = null, $smoothLine = false)
+    private static function chartDataSeriesValueSet($seriesDetail, $namespacesChartMeta, $marker = null)
     {
         if (isset($seriesDetail->strRef)) {
             $seriesSource = (string) $seriesDetail->strRef->f;
             $seriesData = self::chartDataSeriesValues($seriesDetail->strRef->strCache->children($namespacesChartMeta['c']), 's');
 
-            return new DataSeriesValues('String', $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker, $smoothLine);
+            return new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker);
         } elseif (isset($seriesDetail->numRef)) {
             $seriesSource = (string) $seriesDetail->numRef->f;
             $seriesData = self::chartDataSeriesValues($seriesDetail->numRef->numCache->children($namespacesChartMeta['c']));
 
-            return new DataSeriesValues('Number', $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker, $smoothLine);
+            return new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker);
         } elseif (isset($seriesDetail->multiLvlStrRef)) {
             $seriesSource = (string) $seriesDetail->multiLvlStrRef->f;
             $seriesData = self::chartDataSeriesValuesMultiLevel($seriesDetail->multiLvlStrRef->multiLvlStrCache->children($namespacesChartMeta['c']), 's');
             $seriesData['pointCount'] = count($seriesData['dataValues']);
 
-            return new DataSeriesValues('String', $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker, $smoothLine);
+            return new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker);
         } elseif (isset($seriesDetail->multiLvlNumRef)) {
             $seriesSource = (string) $seriesDetail->multiLvlNumRef->f;
             $seriesData = self::chartDataSeriesValuesMultiLevel($seriesDetail->multiLvlNumRef->multiLvlNumCache->children($namespacesChartMeta['c']), 's');
             $seriesData['pointCount'] = count($seriesData['dataValues']);
 
-            return new DataSeriesValues('String', $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker, $smoothLine);
+            return new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, $seriesSource, $seriesData['formatCode'], $seriesData['pointCount'], $seriesData['dataValues'], $marker);
         }
 
         return null;
