@@ -37,10 +37,10 @@ $worksheet->getStyle('B2:E6')->getNumberFormat()->setFormatCode(NumberFormat::FO
 //		Data values
 //		Data Marker
 $dataSeriesLabels = [
-    new DataSeriesValues('String', 'Worksheet!$B$1', null, 1), //Max / Open
-    new DataSeriesValues('String', 'Worksheet!$C$1', null, 1), //Min / Close
-    new DataSeriesValues('String', 'Worksheet!$D$1', null, 1), //Min Threshold / Min
-    new DataSeriesValues('String', 'Worksheet!$E$1', null, 1), //Max Threshold / Max
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$B$1', null, 1), //Max / Open
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$C$1', null, 1), //Min / Close
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$D$1', null, 1), //Min Threshold / Min
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$E$1', null, 1), //Max Threshold / Max
 ];
 //	Set the X-Axis Labels
 //		Datatype
@@ -50,7 +50,7 @@ $dataSeriesLabels = [
 //		Data values
 //		Data Marker
 $xAxisTickValues = [
-    new DataSeriesValues('String', 'Worksheet!$A$2:$A$6', null, 5), //	Counts
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$A$2:$A$6', null, 5), //	Counts
 ];
 //	Set the Data values for each data series we want to plot
 //		Datatype
@@ -60,10 +60,10 @@ $xAxisTickValues = [
 //		Data values
 //		Data Marker
 $dataSeriesValues = [
-    new DataSeriesValues('Number', 'Worksheet!$B$2:$B$6', null, 5),
-    new DataSeriesValues('Number', 'Worksheet!$C$2:$C$6', null, 5),
-    new DataSeriesValues('Number', 'Worksheet!$D$2:$D$6', null, 5),
-    new DataSeriesValues('Number', 'Worksheet!$E$2:$E$6', null, 5),
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Worksheet!$B$2:$B$6', null, 5),
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Worksheet!$C$2:$C$6', null, 5),
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Worksheet!$D$2:$D$6', null, 5),
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Worksheet!$E$2:$E$6', null, 5),
 ];
 
 //	Build the dataseries

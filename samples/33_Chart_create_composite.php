@@ -39,13 +39,13 @@ $worksheet->fromArray(
 //		Data values
 //		Data Marker
 $dataSeriesLabels1 = [
-    new DataSeriesValues('String', 'Worksheet!$B$1', null, 1), //	Temperature
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$B$1', null, 1), //	Temperature
 ];
 $dataSeriesLabels2 = [
-    new DataSeriesValues('String', 'Worksheet!$C$1', null, 1), //	Rainfall
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$C$1', null, 1), //	Rainfall
 ];
 $dataSeriesLabels3 = [
-    new DataSeriesValues('String', 'Worksheet!$D$1', null, 1), //	Humidity
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$D$1', null, 1), //	Humidity
 ];
 
 //	Set the X-Axis Labels
@@ -56,7 +56,7 @@ $dataSeriesLabels3 = [
 //		Data values
 //		Data Marker
 $xAxisTickValues = [
-    new DataSeriesValues('String', 'Worksheet!$A$2:$A$13', null, 12), //	Jan to Dec
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$A$2:$A$13', null, 12), //	Jan to Dec
 ];
 
 //	Set the Data values for each data series we want to plot
@@ -67,7 +67,7 @@ $xAxisTickValues = [
 //		Data values
 //		Data Marker
 $dataSeriesValues1 = [
-    new DataSeriesValues('Number', 'Worksheet!$B$2:$B$13', null, 12),
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Worksheet!$B$2:$B$13', null, 12),
 ];
 
 //	Build the dataseries
@@ -91,7 +91,7 @@ $series1->setPlotDirection(DataSeries::DIRECTION_COL);
 //		Data values
 //		Data Marker
 $dataSeriesValues2 = [
-    new DataSeriesValues('Number', 'Worksheet!$C$2:$C$13', null, 12),
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Worksheet!$C$2:$C$13', null, 12),
 ];
 
 //	Build the dataseries
@@ -112,7 +112,7 @@ $series2 = new DataSeries(
 //		Data values
 //		Data Marker
 $dataSeriesValues3 = [
-    new DataSeriesValues('Number', 'Worksheet!$D$2:$D$13', null, 12),
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Worksheet!$D$2:$D$13', null, 12),
 ];
 
 //	Build the dataseries

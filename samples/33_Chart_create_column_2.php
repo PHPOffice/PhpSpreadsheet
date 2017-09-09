@@ -39,9 +39,9 @@ $worksheet->fromArray(
 //		Data values
 //		Data Marker
 $dataSeriesLabels = [
-    new DataSeriesValues('String', 'Worksheet!$C$1', null, 1), //	'Budget'
-    new DataSeriesValues('String', 'Worksheet!$D$1', null, 1), //	'Forecast'
-    new DataSeriesValues('String', 'Worksheet!$E$1', null, 1), //	'Actual'
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$C$1', null, 1), //	'Budget'
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$D$1', null, 1), //	'Forecast'
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$E$1', null, 1), //	'Actual'
 ];
 //	Set the X-Axis Labels
 //		Datatype
@@ -51,7 +51,7 @@ $dataSeriesLabels = [
 //		Data values
 //		Data Marker
 $xAxisTickValues = [
-    new DataSeriesValues('String', 'Worksheet!$A$2:$B$13', null, 12), //	Q1 to Q4 for 2010 to 2012
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Worksheet!$A$2:$B$13', null, 12), //	Q1 to Q4 for 2010 to 2012
 ];
 //	Set the Data values for each data series we want to plot
 //		Datatype
@@ -61,9 +61,9 @@ $xAxisTickValues = [
 //		Data values
 //		Data Marker
 $dataSeriesValues = [
-    new DataSeriesValues('Number', 'Worksheet!$C$2:$C$13', null, 12),
-    new DataSeriesValues('Number', 'Worksheet!$D$2:$D$13', null, 12),
-    new DataSeriesValues('Number', 'Worksheet!$E$2:$E$13', null, 12),
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Worksheet!$C$2:$C$13', null, 12),
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Worksheet!$D$2:$D$13', null, 12),
+    new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Worksheet!$E$2:$E$13', null, 12),
 ];
 
 //	Build the dataseries
