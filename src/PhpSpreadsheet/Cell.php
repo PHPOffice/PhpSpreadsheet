@@ -856,32 +856,25 @@ class Cell
     /**
      * String from columnindex.
      *
-     * @param int $pColumnIndex Column index (A = 0)
+     * @param int $columnIndex Column index (A = 0)
      *
      * @return string
      */
-    public static function stringFromColumnIndex($pColumnIndex)
+    public static function stringFromColumnIndex($columnIndex)
     {
-        //    Using a lookup cache adds a slight memory overhead, but boosts speed
-        //    caching using a static within the method is faster than a class static,
-        //        though it's additional memory overhead
-        static $_indexCache = [];
+        static $indexCache = array();
 
-        if (!isset($_indexCache[$pColumnIndex])) {
-            // Determine column string
-            if ($pColumnIndex < 26) {
-                $_indexCache[$pColumnIndex] = chr(65 + $pColumnIndex);
-            } elseif ($pColumnIndex < 702) {
-                $_indexCache[$pColumnIndex] = chr(64 + ($pColumnIndex / 26)) .
-                                                chr(65 + $pColumnIndex % 26);
-            } else {
-                $_indexCache[$pColumnIndex] = chr(64 + (($pColumnIndex - 26) / 676)) .
-                                                chr(65 + ((($pColumnIndex - 26) % 676) / 26)) .
-                                                chr(65 + $pColumnIndex % 26);
-            }
+        if (!isset($indexCache[$columnIndex])) {
+            $indexValue = $columnIndex + 1;
+            $base26 = null;
+            do {
+                $characterValue = ($indexValue % 26) ?: 26;
+                $indexValue = ($indexValue - $characterValue) / 26;
+                $base26 = chr($characterValue + 64).($base26 ?: '');
+            } while ($indexValue > 0);
+            $indexCache[$columnIndex] = $base26;
         }
-
-        return $_indexCache[$pColumnIndex];
+        return $indexCache[$columnIndex];
     }
 
     /**
