@@ -340,12 +340,17 @@ class Workbook extends BIFFwriter
                     0,
                 ];
             $colorIndex = array_search($color, $this->palette);
-            if (isset($colorIndex)) {
+            if ($colorIndex) {
                 $this->colors[$rgb] = $colorIndex;
             } else {
-                if (count($this->colors) < 57) {
+                if(count($this->colors) == 0){
+                    $lastColor = 7;
+                }else{
+                    $lastColor = end($this->colors);
+                }
+                if ($lastColor < 57) {
                     // then we add a custom color altering the palette
-                    $colorIndex = 8 + count($this->colors);
+                    $colorIndex = $lastColor + 1;
                     $this->palette[$colorIndex] = $color;
                     $this->colors[$rgb] = $colorIndex;
                 } else {
