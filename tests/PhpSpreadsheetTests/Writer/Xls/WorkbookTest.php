@@ -1,9 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: youri
+ * User: all-lala
  * Date: 10/09/2017
- * Time: 10:43
+ * Time: 10:43.
  */
 
 namespace PhpOffice\PhpSpreadsheetTests\Writer\Xls\Workbook;
@@ -15,11 +14,10 @@ use PHPUnit_Framework_TestCase;
 
 class WorkbookTest extends PHPUnit_Framework_TestCase
 {
-
     private $workbook;
 
-
-    protected function setUp(){
+    protected function setUp()
+    {
         $spreadsheet = new Spreadsheet();
         $strTotal = 0;
         $strUnique = 0;
@@ -27,7 +25,7 @@ class WorkbookTest extends PHPUnit_Framework_TestCase
         $colors = [];
         $parser = new Parser();
 
-        $this->workbook = new Workbook($spreadsheet, $strTotal, $strUnique, $str_table, $colors,$parser);
+        $this->workbook = new Workbook($spreadsheet, $strTotal, $strUnique, $str_table, $colors, $parser);
     }
 
     protected function tearDown()
@@ -39,18 +37,18 @@ class WorkbookTest extends PHPUnit_Framework_TestCase
      * @dataProvider providerAddColor
      *
      * @param mixed $expectedResult
+     * @param mixed $testColors
      */
-    public function testAddColor($testColors,$expectedResult){
-        $result = 0;
-
+    public function testAddColor($testColors, $expectedResult)
+    {
         $workbookReflection = new \ReflectionClass(Workbook::class);
         $methodAddColor = $workbookReflection->getMethod('addColor');
         $propertyPalette = $workbookReflection->getProperty('palette');
-        $methodAddColor->setAccessible(TRUE);
-        $propertyPalette->setAccessible(TRUE);
+        $methodAddColor->setAccessible(true);
+        $propertyPalette->setAccessible(true);
 
-        foreach($testColors as $testColor){
-            $result = $methodAddColor->invoke($this->workbook, $testColor);
+        foreach ($testColors as $testColor) {
+            $methodAddColor->invoke($this->workbook, $testColor);
         }
 
         $palette = $propertyPalette->getValue($this->workbook);
@@ -58,7 +56,8 @@ class WorkbookTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expectedResult, $palette);
     }
 
-    public function providerAddColor(){
+    public function providerAddColor()
+    {
         $this->setUp();
 
         $workbookReflection = new \ReflectionClass(Workbook::class);
@@ -123,26 +122,29 @@ class WorkbookTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Change palette color to rgb string
+     * Change palette color to rgb string.
      *
      * @param array $palette palette color
+     *
      * @return string rgb string
      */
-    public static function paletteToColor($palette){
-        return self::right('00'.dechex(intval($palette[0])),2)
-            .self::right('00'.dechex(intval($palette[1])),2)
-            .self::right('00'.dechex(intval($palette[2])),2);
+    public static function paletteToColor($palette)
+    {
+        return self::right('00' . dechex((int) ($palette[0])), 2)
+            . self::right('00' . dechex((int) ($palette[1])), 2)
+            . self::right('00' . dechex((int) ($palette[2])), 2);
     }
 
     /**
-     * Return n right character in string
+     * Return n right character in string.
      *
      * @param string $value text tu get right character
-     * @param integer $nbchar number of char at right of string
+     * @param int $nbchar number of char at right of string
+     *
      * @return string
      */
-    public static function right($value,$nbchar)
+    public static function right($value, $nbchar)
     {
-            return mb_substr($value,mb_strlen($value)-$nbchar, $nbchar);
+        return mb_substr($value, mb_strlen($value) - $nbchar, $nbchar);
     }
 }
