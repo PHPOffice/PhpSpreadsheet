@@ -2,6 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
+use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
+use PhpOffice\PhpSpreadsheet\Writer\IWriter;
+
 /**
  *  Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
@@ -24,7 +27,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Pdf;
  *  @copyright   Copyright (c) 2006 - 2015 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  *  @license     http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
-class TcPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
+class TcPDF extends Core implements IWriter
 {
     /**
      * Save Spreadsheet to file.
@@ -43,19 +46,19 @@ class TcPDF extends Core implements \PhpOffice\PhpSpreadsheet\Writer\IWriter
         //  Check for paper size and page orientation
         if (is_null($this->getSheetIndex())) {
             $orientation = ($this->spreadsheet->getSheet(0)->getPageSetup()->getOrientation()
-                == \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
+                == PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
             $printPaperSize = $this->spreadsheet->getSheet(0)->getPageSetup()->getPaperSize();
             $printMargins = $this->spreadsheet->getSheet(0)->getPageMargins();
         } else {
             $orientation = ($this->spreadsheet->getSheet($this->getSheetIndex())->getPageSetup()->getOrientation()
-                == \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
+                == PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
             $printPaperSize = $this->spreadsheet->getSheet($this->getSheetIndex())->getPageSetup()->getPaperSize();
             $printMargins = $this->spreadsheet->getSheet($this->getSheetIndex())->getPageMargins();
         }
 
         //  Override Page Orientation
         if (!is_null($this->getOrientation())) {
-            $orientation = ($this->getOrientation() == \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE)
+            $orientation = ($this->getOrientation() == PageSetup::ORIENTATION_LANDSCAPE)
                 ? 'L'
                 : 'P';
         }

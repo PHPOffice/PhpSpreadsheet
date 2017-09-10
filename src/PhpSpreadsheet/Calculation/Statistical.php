@@ -2,17 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Calculation;
 
-/* LOG_GAMMA_X_MAX_VALUE */
-define('LOG_GAMMA_X_MAX_VALUE', 2.55e305);
-
-/* XMININ */
-define('XMININ', 2.23e-308);
-
-/* EPS */
-define('EPS', 2.22e-16);
-
-/* SQRT2PI */
-define('SQRT2PI', 2.5066282746310005024157652848110452530069867406099);
+use PhpOffice\PhpSpreadsheet\Calculation;
+use PhpOffice\PhpSpreadsheet\Shared\Trend\Trend;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -38,6 +29,13 @@ define('SQRT2PI', 2.5066282746310005024157652848110452530069867406099);
  */
 class Statistical
 {
+    const LOG_GAMMA_X_MAX_VALUE = 2.55e305;
+    const XMININ = 2.23e-308;
+    const EPS = 2.22e-16;
+    const MAX_VALUE = 1.2e308;
+    const MAX_ITERATIONS = 256;
+    const SQRT2PI = 2.5066282746310005024157652848110452530069867406099;
+
     private static function checkTrendArrays(&$array1, &$array2)
     {
         if (!is_array($array1)) {
@@ -79,7 +77,7 @@ class Statistical
      */
     private static function beta($p, $q)
     {
-        if ($p <= 0.0 || $q <= 0.0 || ($p + $q) > LOG_GAMMA_X_MAX_VALUE) {
+        if ($p <= 0.0 || $q <= 0.0 || ($p + $q) > self::LOG_GAMMA_X_MAX_VALUE) {
             return 0.0;
         }
 
@@ -109,7 +107,7 @@ class Statistical
             return 0.0;
         } elseif ($x >= 1.0) {
             return 1.0;
-        } elseif (($p <= 0.0) || ($q <= 0.0) || (($p + $q) > LOG_GAMMA_X_MAX_VALUE)) {
+        } elseif (($p <= 0.0) || ($q <= 0.0) || (($p + $q) > self::LOG_GAMMA_X_MAX_VALUE)) {
             return 0.0;
         }
         $beta_gam = exp((0 - self::logBeta($p, $q)) + $p * log($x) + $q * log(1.0 - $x));
@@ -142,7 +140,7 @@ class Statistical
         if ($p != self::$logBetaCacheP || $q != self::$logBetaCacheQ) {
             self::$logBetaCacheP = $p;
             self::$logBetaCacheQ = $q;
-            if (($p <= 0.0) || ($q <= 0.0) || (($p + $q) > LOG_GAMMA_X_MAX_VALUE)) {
+            if (($p <= 0.0) || ($q <= 0.0) || (($p + $q) > self::LOG_GAMMA_X_MAX_VALUE)) {
                 self::$logBetaCacheResult = 0.0;
             } else {
                 self::$logBetaCacheResult = self::logGamma($p) + self::logGamma($q) - self::logGamma($p + $q);
@@ -169,37 +167,37 @@ class Statistical
         $p_plus = $p + 1.0;
         $p_minus = $p - 1.0;
         $h = 1.0 - $sum_pq * $x / $p_plus;
-        if (abs($h) < XMININ) {
-            $h = XMININ;
+        if (abs($h) < self::XMININ) {
+            $h = self::XMININ;
         }
         $h = 1.0 / $h;
         $frac = $h;
         $m = 1;
         $delta = 0.0;
-        while ($m <= MAX_ITERATIONS && abs($delta - 1.0) > PRECISION) {
+        while ($m <= self::MAX_ITERATIONS && abs($delta - 1.0) > Functions::PRECISION) {
             $m2 = 2 * $m;
             // even index for d
             $d = $m * ($q - $m) * $x / (($p_minus + $m2) * ($p + $m2));
             $h = 1.0 + $d * $h;
-            if (abs($h) < XMININ) {
-                $h = XMININ;
+            if (abs($h) < self::XMININ) {
+                $h = self::XMININ;
             }
             $h = 1.0 / $h;
             $c = 1.0 + $d / $c;
-            if (abs($c) < XMININ) {
-                $c = XMININ;
+            if (abs($c) < self::XMININ) {
+                $c = self::XMININ;
             }
             $frac *= $h * $c;
             // odd index for d
             $d = -($p + $m) * ($sum_pq + $m) * $x / (($p + $m2) * ($p_plus + $m2));
             $h = 1.0 + $d * $h;
-            if (abs($h) < XMININ) {
-                $h = XMININ;
+            if (abs($h) < self::XMININ) {
+                $h = self::XMININ;
             }
             $h = 1.0 / $h;
             $c = 1.0 + $d / $c;
-            if (abs($c) < XMININ) {
-                $c = XMININ;
+            if (abs($c) < self::XMININ) {
+                $c = self::XMININ;
             }
             $delta = $h * $c;
             $frac *= $delta;
@@ -343,8 +341,8 @@ class Statistical
             return self::$logGammaCacheResult;
         }
         $y = $x;
-        if ($y > 0.0 && $y <= LOG_GAMMA_X_MAX_VALUE) {
-            if ($y <= EPS) {
+        if ($y > 0.0 && $y <= self::LOG_GAMMA_X_MAX_VALUE) {
+            if ($y <= self::EPS) {
                 $res = -log(y);
             } elseif ($y <= 1.5) {
                 // ---------------------
@@ -412,7 +410,7 @@ class Statistical
                     }
                     $res /= $y;
                     $corr = log($y);
-                    $res = $res + log(SQRT2PI) - 0.5 * $corr;
+                    $res = $res + log(self::SQRT2PI) - 0.5 * $corr;
                     $res += $y * ($corr - 1.0);
                 }
             }
@@ -420,7 +418,7 @@ class Statistical
             // --------------------------
             //    Return for bad arguments
             // --------------------------
-            $res = MAX_VALUE;
+            $res = self::MAX_VALUE;
         }
         // ------------------------------
         //    Final adjustments and return
@@ -477,7 +475,7 @@ class Statistical
             $summer += ($p[$j] / ++$y);
         }
 
-        return exp(0 - $tmp + log(SQRT2PI * $summer / $x));
+        return exp(0 - $tmp + log(self::SQRT2PI * $summer / $x));
     }
 
     /***************************************************************************
@@ -722,7 +720,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -773,7 +771,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -816,7 +814,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -883,10 +881,10 @@ class Statistical
         $aCount = 0;
         foreach ($aArgs as $key => $arg) {
             if (!is_numeric($arg)) {
-                $arg = \PhpOffice\PhpSpreadsheet\Calculation::wrapResult(strtoupper($arg));
+                $arg = Calculation::wrapResult(strtoupper($arg));
             }
             $testCondition = '=' . $arg . $condition;
-            if (\PhpOffice\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+            if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                 if ((is_null($returnValue)) || ($arg > $returnValue)) {
                     $returnValue += $arg;
                     ++$aCount;
@@ -974,7 +972,7 @@ class Statistical
             $b = 2;
 
             $i = 0;
-            while ((($b - $a) > PRECISION) && ($i++ < MAX_ITERATIONS)) {
+            while ((($b - $a) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
                 $guess = ($a + $b) / 2;
                 $result = self::BETADIST($guess, $alpha, $beta);
                 if (($result == $probability) || ($result == 0)) {
@@ -985,7 +983,7 @@ class Statistical
                     $a = $guess;
                 }
             }
-            if ($i == MAX_ITERATIONS) {
+            if ($i == self::MAX_ITERATIONS) {
                 return Functions::NA();
             }
 
@@ -1099,7 +1097,7 @@ class Statistical
             $dx = 1;
             $i = 0;
 
-            while ((abs($dx) > PRECISION) && ($i++ < MAX_ITERATIONS)) {
+            while ((abs($dx) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
                 // Apply Newton-Raphson step
                 $result = self::CHIDIST($x, $degrees);
                 $error = $result - $probability;
@@ -1124,7 +1122,7 @@ class Statistical
                 }
                 $x = $xNew;
             }
-            if ($i == MAX_ITERATIONS) {
+            if ($i == self::MAX_ITERATIONS) {
                 return Functions::NA();
             }
 
@@ -1194,7 +1192,7 @@ class Statistical
             return Functions::DIV0();
         }
 
-        $bestFitLinear = \PhpOffice\PhpSpreadsheet\Shared\trend\trend::calculate(\PhpOffice\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
+        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
 
         return $bestFitLinear->getCorrelation();
     }
@@ -1209,7 +1207,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return int
      */
@@ -1243,7 +1241,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return int
      */
@@ -1273,7 +1271,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return int
      */
@@ -1317,10 +1315,10 @@ class Statistical
         // Loop through arguments
         foreach ($aArgs as $arg) {
             if (!is_numeric($arg)) {
-                $arg = \PhpOffice\PhpSpreadsheet\Calculation::wrapResult(strtoupper($arg));
+                $arg = Calculation::wrapResult(strtoupper($arg));
             }
             $testCondition = '=' . $arg . $condition;
-            if (\PhpOffice\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+            if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                 // Is it a value within our criteria
                 ++$returnValue;
             }
@@ -1355,7 +1353,7 @@ class Statistical
             return Functions::DIV0();
         }
 
-        $bestFitLinear = \PhpOffice\PhpSpreadsheet\Shared\trend\trend::calculate(\PhpOffice\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
+        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
 
         return $bestFitLinear->getCovariance();
     }
@@ -1493,7 +1491,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -1649,7 +1647,7 @@ class Statistical
             return Functions::DIV0();
         }
 
-        $bestFitLinear = \PhpOffice\PhpSpreadsheet\Shared\trend\trend::calculate(\PhpOffice\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
+        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
 
         return $bestFitLinear->getValueOfYForX($xValue);
     }
@@ -1718,7 +1716,7 @@ class Statistical
             $dx = 1024;
             $i = 0;
 
-            while ((abs($dx) > PRECISION) && ($i++ < MAX_ITERATIONS)) {
+            while ((abs($dx) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
                 // Apply Newton-Raphson step
                 $error = self::GAMMADIST($x, $alpha, $beta, true) - $probability;
                 if ($error < 0.0) {
@@ -1741,7 +1739,7 @@ class Statistical
                 }
                 $x = $xNew;
             }
-            if ($i == MAX_ITERATIONS) {
+            if ($i == self::MAX_ITERATIONS) {
                 return Functions::NA();
             }
 
@@ -1787,7 +1785,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -1829,7 +1827,7 @@ class Statistical
         $newValues = Functions::flattenArray($newValues);
         $const = (is_null($const)) ? true : (bool) Functions::flattenSingleValue($const);
 
-        $bestFitExponential = \PhpOffice\PhpSpreadsheet\Shared\trend\trend::calculate(\PhpOffice\PhpSpreadsheet\Shared\trend\trend::TREND_EXPONENTIAL, $yValues, $xValues, $const);
+        $bestFitExponential = Trend::calculate(Trend::TREND_EXPONENTIAL, $yValues, $xValues, $const);
         if (empty($newValues)) {
             $newValues = $bestFitExponential->getXValues();
         }
@@ -1853,7 +1851,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -1956,7 +1954,7 @@ class Statistical
             return Functions::DIV0();
         }
 
-        $bestFitLinear = \PhpOffice\PhpSpreadsheet\Shared\trend\trend::calculate(\PhpOffice\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
+        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
 
         return $bestFitLinear->getIntersect();
     }
@@ -1969,7 +1967,7 @@ class Statistical
      * kurtosis indicates a relatively peaked distribution. Negative kurtosis indicates a
      * relatively flat distribution.
      *
-     * @param array Data Series
+     * @param array ...$args Data Series
      *
      * @return float
      */
@@ -2084,7 +2082,7 @@ class Statistical
             return 0;
         }
 
-        $bestFitLinear = \PhpOffice\PhpSpreadsheet\Shared\trend\trend::calculate(\PhpOffice\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues, $const);
+        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues, $const);
         if ($stats) {
             return [
                 [
@@ -2153,7 +2151,7 @@ class Statistical
             return 1;
         }
 
-        $bestFitExponential = \PhpOffice\PhpSpreadsheet\Shared\trend\trend::calculate(\PhpOffice\PhpSpreadsheet\Shared\trend\trend::TREND_EXPONENTIAL, $yValues, $xValues, $const);
+        $bestFitExponential = Trend::calculate(Trend::TREND_EXPONENTIAL, $yValues, $xValues, $const);
         if ($stats) {
             return [
                 [
@@ -2251,7 +2249,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -2287,7 +2285,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -2347,10 +2345,10 @@ class Statistical
         // Loop through arguments
         foreach ($aArgs as $key => $arg) {
             if (!is_numeric($arg)) {
-                $arg = \PhpOffice\PhpSpreadsheet\Calculation::wrapResult(strtoupper($arg));
+                $arg = Calculation::wrapResult(strtoupper($arg));
             }
             $testCondition = '=' . $arg . $condition;
-            if (\PhpOffice\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+            if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                 if ((is_null($returnValue)) || ($arg > $returnValue)) {
                     $returnValue = $arg;
                 }
@@ -2370,7 +2368,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -2414,7 +2412,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -2450,7 +2448,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -2510,10 +2508,10 @@ class Statistical
         // Loop through arguments
         foreach ($aArgs as $key => $arg) {
             if (!is_numeric($arg)) {
-                $arg = \PhpOffice\PhpSpreadsheet\Calculation::wrapResult(strtoupper($arg));
+                $arg = Calculation::wrapResult(strtoupper($arg));
             }
             $testCondition = '=' . $arg . $condition;
-            if (\PhpOffice\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
+            if (Calculation::getInstance()->_calculateFormulaValue($testCondition)) {
                 if ((is_null($returnValue)) || ($arg < $returnValue)) {
                     $returnValue = $arg;
                 }
@@ -2570,7 +2568,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -2664,7 +2662,7 @@ class Statistical
                     return 0.5 * (1 + Engineering::erfVal(($value - $mean) / ($stdDev * sqrt(2))));
                 }
 
-                return (1 / (SQRT2PI * $stdDev)) * exp(0 - (pow($value - $mean, 2) / (2 * ($stdDev * $stdDev))));
+                return (1 / (self::SQRT2PI * $stdDev)) * exp(0 - (pow($value - $mean, 2) / (2 * ($stdDev * $stdDev))));
             }
         }
 
@@ -3005,7 +3003,7 @@ class Statistical
             return Functions::DIV0();
         }
 
-        $bestFitLinear = \PhpOffice\PhpSpreadsheet\Shared\trend\trend::calculate(\PhpOffice\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
+        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
 
         return $bestFitLinear->getGoodnessOfFit();
     }
@@ -3018,7 +3016,7 @@ class Statistical
      * asymmetric tail extending toward more positive values. Negative skewness indicates a
      * distribution with an asymmetric tail extending toward more negative values.
      *
-     * @param array Data Series
+     * @param array ...$args Data Series
      *
      * @return float
      */
@@ -3075,7 +3073,7 @@ class Statistical
             return Functions::DIV0();
         }
 
-        $bestFitLinear = \PhpOffice\PhpSpreadsheet\Shared\trend\trend::calculate(\PhpOffice\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
+        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
 
         return $bestFitLinear->getSlope();
     }
@@ -3163,7 +3161,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -3212,7 +3210,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -3264,7 +3262,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -3311,7 +3309,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -3379,7 +3377,7 @@ class Statistical
             return Functions::DIV0();
         }
 
-        $bestFitLinear = \PhpOffice\PhpSpreadsheet\Shared\trend\trend::calculate(\PhpOffice\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues);
+        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues);
 
         return $bestFitLinear->getStdevOfResiduals();
     }
@@ -3436,7 +3434,7 @@ class Statistical
             }
             $tsum *= $ts;
             if (($degrees % 2) == 1) {
-                $tsum = M_2DIVPI * ($tsum + $ttheta);
+                $tsum = Functions::M_2DIVPI * ($tsum + $ttheta);
             }
             $tValue = 0.5 * (1 + $tsum);
             if ($tails == 1) {
@@ -3472,7 +3470,7 @@ class Statistical
             $dx = 1;
             $i = 0;
 
-            while ((abs($dx) > PRECISION) && ($i++ < MAX_ITERATIONS)) {
+            while ((abs($dx) > Functions::PRECISION) && ($i++ < self::MAX_ITERATIONS)) {
                 // Apply Newton-Raphson step
                 $result = self::TDIST($x, $degrees, 2);
                 $error = $result - $probability;
@@ -3497,7 +3495,7 @@ class Statistical
                 }
                 $x = $xNew;
             }
-            if ($i == MAX_ITERATIONS) {
+            if ($i == self::MAX_ITERATIONS) {
                 return Functions::NA();
             }
 
@@ -3530,7 +3528,7 @@ class Statistical
         $newValues = Functions::flattenArray($newValues);
         $const = (is_null($const)) ? true : (bool) Functions::flattenSingleValue($const);
 
-        $bestFitLinear = \PhpOffice\PhpSpreadsheet\Shared\trend\trend::calculate(\PhpOffice\PhpSpreadsheet\Shared\trend\trend::TREND_LINEAR, $yValues, $xValues, $const);
+        $bestFitLinear = Trend::calculate(Trend::TREND_LINEAR, $yValues, $xValues, $const);
         if (empty($newValues)) {
             $newValues = $bestFitLinear->getXValues();
         }
@@ -3601,7 +3599,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -3645,7 +3643,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -3698,7 +3696,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */
@@ -3743,7 +3741,7 @@ class Statistical
      *
      * @category Statistical Functions
      *
-     * @param mixed $args Data values
+     * @param mixed ...$args Data values
      *
      * @return float
      */

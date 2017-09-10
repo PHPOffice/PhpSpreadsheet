@@ -1,16 +1,19 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 require __DIR__ . '/Header.php';
 
 $sampleSpreadsheet = require __DIR__ . '/templates/sampleSpreadsheet.php';
 $filename = $helper->getTemporaryFilename();
-$writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($sampleSpreadsheet);
+$writer = new Xlsx($sampleSpreadsheet);
 $callStartTime = microtime(true);
 $writer->save($filename);
 $helper->logWrite($writer, $filename, $callStartTime);
 
 $callStartTime = microtime(true);
-$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
+$reader = IOFactory::createReader('Xlsx');
 $spreadsheet = $reader->load($filename);
 $helper->logRead('Xlsx', $filename, $callStartTime);
 $helper->log('Iterate worksheets');

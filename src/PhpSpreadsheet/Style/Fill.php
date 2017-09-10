@@ -2,6 +2,9 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+use PhpOffice\PhpSpreadsheet\IComparable;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -24,7 +27,7 @@ namespace PhpOffice\PhpSpreadsheet\Style;
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
-class Fill extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
+class Fill extends Supervisor implements IComparable
 {
     /* Fill types */
     const FILL_NONE = 'none';
@@ -131,25 +134,24 @@ class Fill extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
 
     /**
      * Apply styles from array.
-     *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getFill()->applyFromArray(
      *        array(
-     *            'type'       => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
+     *            'fillType'       => Fill::FILL_GRADIENT_LINEAR,
      *            'rotation'   => 0,
-     *            'startcolor' => array(
+     *            'startColor' => array(
      *                'rgb' => '000000'
      *            ),
-     *            'endcolor'   => array(
+     *            'endColor'   => array(
      *                'argb' => 'FFFFFFFF'
      *            )
      *        )
      * );
-     * </code>
+     * </code>.
      *
      * @param array $pStyles Array containing style information
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Fill
      */
@@ -158,17 +160,17 @@ class Fill extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
         if ($this->isSupervisor) {
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
         } else {
-            if (isset($pStyles['type'])) {
-                $this->setFillType($pStyles['type']);
+            if (isset($pStyles['fillType'])) {
+                $this->setFillType($pStyles['fillType']);
             }
             if (isset($pStyles['rotation'])) {
                 $this->setRotation($pStyles['rotation']);
             }
-            if (isset($pStyles['startcolor'])) {
-                $this->getStartColor()->applyFromArray($pStyles['startcolor']);
+            if (isset($pStyles['startColor'])) {
+                $this->getStartColor()->applyFromArray($pStyles['startColor']);
             }
-            if (isset($pStyles['endcolor'])) {
-                $this->getEndColor()->applyFromArray($pStyles['endcolor']);
+            if (isset($pStyles['endColor'])) {
+                $this->getEndColor()->applyFromArray($pStyles['endColor']);
             }
             if (isset($pStyles['color'])) {
                 $this->getStartColor()->applyFromArray($pStyles['color']);
@@ -203,7 +205,7 @@ class Fill extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
     public function setFillType($pValue)
     {
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['type' => $pValue]);
+            $styleArray = $this->getStyleArray(['fillType' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->fillType = $pValue;
@@ -260,7 +262,7 @@ class Fill extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @param Color $pValue
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Fill
      */
@@ -294,7 +296,7 @@ class Fill extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
      *
      * @param Color $pValue
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return Fill
      */

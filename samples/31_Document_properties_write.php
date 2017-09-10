@@ -1,11 +1,14 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Document\Properties;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 require __DIR__ . '/Header.php';
 
 $inputFileType = 'Xlsx';
 $inputFileName = __DIR__ . '/templates/31docproperties.xlsx';
 
-$spreadsheetReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+$spreadsheetReader = IOFactory::createReader($inputFileType);
 $callStartTime = microtime(true);
 $spreadsheet = $spreadsheetReader->load($inputFileName);
 $helper->logRead($inputFileType, $inputFileName, $callStartTime);
@@ -18,7 +21,7 @@ $spreadsheet->getProperties()->setTitle('Office 2007 XLSX Test Document')
 
 // Save Excel 2007 file
 $filename = $helper->getFilename(__FILE__);
-$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
 $callStartTime = microtime(true);
 $writer->save($filename);
 $helper->logWrite($writer, $filename, $callStartTime);
@@ -28,7 +31,7 @@ $helper->logEndingNotes();
 
 // Reread File
 $helper->log('Reread Xlsx file');
-$spreadsheetRead = \PhpOffice\PhpSpreadsheet\IOFactory::load($filename);
+$spreadsheetRead = IOFactory::load($filename);
 
 // Set properties
 $helper->log('Get properties');
@@ -53,9 +56,9 @@ $customProperties = $spreadsheet->getProperties()->getCustomProperties();
 foreach ($customProperties as $customProperty) {
     $propertyValue = $spreadsheet->getProperties()->getCustomPropertyValue($customProperty);
     $propertyType = $spreadsheet->getProperties()->getCustomPropertyType($customProperty);
-    if ($propertyType == \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_DATE) {
+    if ($propertyType == Properties::PROPERTY_TYPE_DATE) {
         $formattedValue = date('d-M-Y H:i:s', $propertyValue);
-    } elseif ($propertyType == \PhpOffice\PhpSpreadsheet\Document\Properties::PROPERTY_TYPE_BOOLEAN) {
+    } elseif ($propertyType == Properties::PROPERTY_TYPE_BOOLEAN) {
         $formattedValue = $propertyValue ? 'TRUE' : 'FALSE';
     } else {
         $formattedValue = $propertyValue;

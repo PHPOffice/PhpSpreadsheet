@@ -26,15 +26,11 @@ namespace PhpOffice\PhpSpreadsheet\Shared;
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
 
-defined('IDENTIFIER_OLE') ||
-    define('IDENTIFIER_OLE', pack('CCCCCCCC', 0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1));
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 
 class OLERead
 {
     private $data = '';
-
-    // OLE identifier
-    const IDENTIFIER_OLE = IDENTIFIER_OLE;
 
     // Size of a sector = 512 bytes
     const BIG_BLOCK_SIZE = 0x200;
@@ -71,7 +67,7 @@ class OLERead
      *
      * @param $pFilename string Filename
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
+     * @throws ReaderException
      */
     public function read($pFilename)
     {
@@ -82,8 +78,9 @@ class OLERead
         $this->data = file_get_contents($pFilename, false, null, 0, 8);
 
         // Check OLE identifier
-        if ($this->data != self::IDENTIFIER_OLE) {
-            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('The filename ' . $pFilename . ' is not recognised as an OLE file');
+        $identifierOle = pack('CCCCCCCC', 0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1);
+        if ($this->data != $identifierOle) {
+            throw new ReaderException('The filename ' . $pFilename . ' is not recognised as an OLE file');
         }
 
         // Get the file data
@@ -303,10 +300,10 @@ class OLERead
     {
         if (trim($data) == '') {
             // No data provided
-            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('Parameter data is empty.');
+            throw new ReaderException('Parameter data is empty.');
         } elseif ($pos < 0) {
             // Invalid position
-            throw new \PhpOffice\PhpSpreadsheet\Reader\Exception('Parameter pos=' . $pos . ' is invalid.');
+            throw new ReaderException('Parameter pos=' . $pos . ' is invalid.');
         }
 
         $len = strlen($data);

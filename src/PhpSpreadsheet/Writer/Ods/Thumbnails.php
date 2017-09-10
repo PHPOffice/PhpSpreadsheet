@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Ods;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
@@ -29,13 +31,13 @@ class Thumbnails extends WriterPart
     /**
      * Write Thumbnails/thumbnail.png to PNG format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string XML Output
      */
-    public function writeThumbnail(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet = null)
+    public function writeThumbnail(Spreadsheet $spreadsheet = null)
     {
         return '';
     }

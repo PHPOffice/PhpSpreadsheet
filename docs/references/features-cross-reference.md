@@ -5,7 +5,7 @@
 - <span style="text-align: center; color: red;">✖</span> Not supported
 - N/A Cannot be supported
 
-<table>
+<table class="features-cross-reference">
 	<tr>
 		<th></th>
 		<th colspan="7">Readers</th>
@@ -906,7 +906,7 @@
 		<td></td>
 		<td></td>
 		<td></td>
-		<td></td>
+		<td style="text-align: center; color: orange;">●</td>
 		<td></td>
 		<td></td>
 		<td></td>

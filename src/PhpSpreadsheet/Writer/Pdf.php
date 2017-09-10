@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer;
 
+use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
@@ -38,13 +39,13 @@ class Pdf implements IWriter
     /**
      * Instantiate a new renderer of the configured type within this container class.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet PhpSpreadsheet object
+     * @param Spreadsheet $spreadsheet PhpSpreadsheet object
      *
      * @throws Exception when PDF library is not configured
      */
     public function __construct(Spreadsheet $spreadsheet)
     {
-        $pdfLibraryName = \PhpOffice\PhpSpreadsheet\Settings::getPdfRendererName();
+        $pdfLibraryName = Settings::getPdfRendererName();
         if (is_null($pdfLibraryName)) {
             throw new Exception('PDF Rendering library has not been defined.');
         }

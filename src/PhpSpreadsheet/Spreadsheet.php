@@ -371,7 +371,7 @@ class Spreadsheet
      */
     public function __construct()
     {
-        $this->uniqueID = uniqid();
+        $this->uniqueID = uniqid('', true);
         $this->calculationEngine = new Calculation($this);
 
         // Initialise worksheet collection and add one worksheet

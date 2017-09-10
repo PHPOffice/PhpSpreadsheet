@@ -2,11 +2,13 @@
 /**
  * Header file.
  */
+use PhpOffice\PhpSpreadsheet\Helper\Sample;
+
 error_reporting(E_ALL);
 
 require_once __DIR__ . '/../src/Bootstrap.php';
 
-$helper = new \PhpOffice\PhpSpreadsheet\Helper\Sample();
+$helper = new Sample();
 if (!defined('EOL')) {
     define('EOL', $helper->isCli() ? PHP_EOL : '<br />');
 }
@@ -52,7 +54,7 @@ if ($helper->isCli()) {
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="https://github.com/PHPOffice/PHPSpreadsheet"><i class="fa fa-github fa-lg" title="GitHub"></i>&nbsp;</a></li>
-                        <li><a href="http://phpspreadsheet.readthedocs.org/en/develop/"><i class="fa fa-book fa-lg" title="Docs"></i>&nbsp;</a></li>
+                        <li><a href="https://phpspreadsheet.readthedocs.io"><i class="fa fa-book fa-lg" title="Docs"></i>&nbsp;</a></li>
                         <li><a href="http://twitter.com/PHPOffice"><i class="fa fa-twitter fa-lg" title="Twitter"></i>&nbsp;</a></li>
                     </ul>
                 </div>

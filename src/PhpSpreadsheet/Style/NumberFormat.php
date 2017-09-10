@@ -2,6 +2,12 @@
 
 namespace PhpOffice\PhpSpreadsheet\Style;
 
+use PhpOffice\PhpSpreadsheet\Calculation\MathTrig;
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+use PhpOffice\PhpSpreadsheet\IComparable;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -24,7 +30,7 @@ namespace PhpOffice\PhpSpreadsheet\Style;
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
-class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComparable
+class NumberFormat extends Supervisor implements IComparable
 {
     /* Pre-defined formats */
     const FORMAT_GENERAL = 'General';
@@ -135,23 +141,22 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
      */
     public function getStyleArray($array)
     {
-        return ['numberformat' => $array];
+        return ['numberFormat' => $array];
     }
 
     /**
      * Apply styles from array.
-     *
      * <code>
      * $spreadsheet->getActiveSheet()->getStyle('B2')->getNumberFormat()->applyFromArray(
      *        array(
-     *            'code' => \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE
+     *            'formatCode' => NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE
      *        )
      * );
-     * </code>
+     * </code>.
      *
      * @param array $pStyles Array containing style information
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      *
      * @return NumberFormat
      */
@@ -160,8 +165,8 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
         if ($this->isSupervisor) {
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($this->getStyleArray($pStyles));
         } else {
-            if (isset($pStyles['code'])) {
-                $this->setFormatCode($pStyles['code']);
+            if (isset($pStyles['formatCode'])) {
+                $this->setFormatCode($pStyles['formatCode']);
             }
         }
 
@@ -198,7 +203,7 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
             $pValue = self::FORMAT_GENERAL;
         }
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['code' => $pValue]);
+            $styleArray = $this->getStyleArray(['formatCode' => $pValue]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->formatCode = $pValue;
@@ -232,7 +237,7 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
     public function setBuiltInFormatCode($pValue)
     {
         if ($this->isSupervisor) {
-            $styleArray = $this->getStyleArray(['code' => self::builtInFormatCode($pValue)]);
+            $styleArray = $this->getStyleArray(['formatCode' => self::builtInFormatCode($pValue)]);
             $this->getActiveSheet()->getStyle($this->getSelectedCells())->applyFromArray($styleArray);
         } else {
             $this->builtInFormatCode = $pValue;
@@ -493,7 +498,7 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
         // escape any quoted characters so that DateTime format() will render them correctly
         $format = preg_replace_callback('/"(.*)"/U', ['self', 'escapeQuotesCallback'], $format);
 
-        $dateObj = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value);
+        $dateObj = Date::excelToDateTimeObject($value);
         $value = $dateObj->format($format);
     }
 
@@ -502,7 +507,7 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
         if ($format === self::FORMAT_PERCENTAGE) {
             $value = round((100 * $value), 0) . '%';
         } else {
-            if (preg_match('/\.[#0]+/i', $format, $m)) {
+            if (preg_match('/\.[#0]+/', $format, $m)) {
                 $s = substr($m[0], 0, 1) . (strlen($m[0]) - 1);
                 $format = str_replace($m[0], $s, $format);
             }
@@ -524,7 +529,7 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
         $decimalLength = strlen($decimalPart);
         $decimalDivisor = pow(10, $decimalLength);
 
-        $GCD = \PhpOffice\PhpSpreadsheet\Calculation\MathTrig::GCD($decimalPart, $decimalDivisor);
+        $GCD = MathTrig::GCD($decimalPart, $decimalDivisor);
 
         $adjustedDecimalPart = $decimalPart / $GCD;
         $adjustedDecimalDivisor = $decimalDivisor / $GCD;
@@ -717,8 +722,8 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
                             $value = number_format(
                                 $value,
                                 strlen($right),
-                                \PhpOffice\PhpSpreadsheet\Shared\StringHelper::getDecimalSeparator(),
-                                \PhpOffice\PhpSpreadsheet\Shared\StringHelper::getThousandsSeparator()
+                                StringHelper::getDecimalSeparator(),
+                                StringHelper::getThousandsSeparator()
                             );
                             $value = preg_replace($number_regex, $value, $format);
                         } else {
@@ -741,7 +746,7 @@ class NumberFormat extends Supervisor implements \PhpOffice\PhpSpreadsheet\IComp
                     $currencyCode = $m[1];
                     list($currencyCode) = explode('-', $currencyCode);
                     if ($currencyCode == '') {
-                        $currencyCode = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::getCurrencyCode();
+                        $currencyCode = StringHelper::getCurrencyCode();
                     }
                     $value = preg_replace('/\[\$([^\]]*)\]/u', $currencyCode, $value);
                 }

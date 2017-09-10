@@ -13,6 +13,10 @@ namespace PhpOffice\PhpSpreadsheet\Shared\JAMA;
  *    @license PHP v3.0
  *    @see http://math.nist.gov/javanumerics/jama/
  */
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+
 class Matrix
 {
     const POLYMORPHIC_ARGUMENT_EXCEPTION = 'Invalid argument pattern for polymorphic function.';
@@ -20,6 +24,7 @@ class Matrix
     const ARGUMENT_BOUNDS_EXCEPTION = 'Invalid argument range.';
     const MATRIX_DIMENSION_EXCEPTION = 'Matrix dimensions are not equal.';
     const ARRAY_LENGTH_EXCEPTION = 'Array length must be a multiple of m.';
+    const MATRIX_SPD_EXCEPTION = 'Can only perform operation on symmetric positive definite matrix.';
 
     /**
      * Matrix storage.
@@ -86,15 +91,15 @@ class Matrix
                             }
                         }
                     } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARRAY_LENGTH_EXCEPTION);
+                        throw new CalculationException(self::ARRAY_LENGTH_EXCEPTION);
                     }
                     break;
                 default:
-                    throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+                    throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
                     break;
             }
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+            throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
         }
     }
 
@@ -167,12 +172,12 @@ class Matrix
                     if ($i0 >= 0) {
                         $m = $this->m - $i0;
                     } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_BOUNDS_EXCEPTION);
+                        throw new CalculationException(self::ARGUMENT_BOUNDS_EXCEPTION);
                     }
                     if ($j0 >= 0) {
                         $n = $this->n - $j0;
                     } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_BOUNDS_EXCEPTION);
+                        throw new CalculationException(self::ARGUMENT_BOUNDS_EXCEPTION);
                     }
                     $R = new self($m, $n);
                     for ($i = $i0; $i < $this->m; ++$i) {
@@ -189,12 +194,12 @@ class Matrix
                     if (($iF > $i0) && ($this->m >= $iF) && ($i0 >= 0)) {
                         $m = $iF - $i0;
                     } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_BOUNDS_EXCEPTION);
+                        throw new CalculationException(self::ARGUMENT_BOUNDS_EXCEPTION);
                     }
                     if (($jF > $j0) && ($this->n >= $jF) && ($j0 >= 0)) {
                         $n = $jF - $j0;
                     } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_BOUNDS_EXCEPTION);
+                        throw new CalculationException(self::ARGUMENT_BOUNDS_EXCEPTION);
                     }
                     $R = new self($m + 1, $n + 1);
                     for ($i = $i0; $i <= $iF; ++$i) {
@@ -211,12 +216,12 @@ class Matrix
                     if (count($RL) > 0) {
                         $m = count($RL);
                     } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_BOUNDS_EXCEPTION);
+                        throw new CalculationException(self::ARGUMENT_BOUNDS_EXCEPTION);
                     }
                     if (count($CL) > 0) {
                         $n = count($CL);
                     } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_BOUNDS_EXCEPTION);
+                        throw new CalculationException(self::ARGUMENT_BOUNDS_EXCEPTION);
                     }
                     $R = new self($m, $n);
                     for ($i = 0; $i < $m; ++$i) {
@@ -233,12 +238,12 @@ class Matrix
                     if (($iF > $i0) && ($this->m >= $iF) && ($i0 >= 0)) {
                         $m = $iF - $i0;
                     } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_BOUNDS_EXCEPTION);
+                        throw new CalculationException(self::ARGUMENT_BOUNDS_EXCEPTION);
                     }
                     if (count($CL) > 0) {
                         $n = count($CL);
                     } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_BOUNDS_EXCEPTION);
+                        throw new CalculationException(self::ARGUMENT_BOUNDS_EXCEPTION);
                     }
                     $R = new self($m, $n);
                     for ($i = $i0; $i < $iF; ++$i) {
@@ -255,12 +260,12 @@ class Matrix
                     if (count($RL) > 0) {
                         $m = count($RL);
                     } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_BOUNDS_EXCEPTION);
+                        throw new CalculationException(self::ARGUMENT_BOUNDS_EXCEPTION);
                     }
                     if (($jF >= $j0) && ($this->n >= $jF) && ($j0 >= 0)) {
                         $n = $jF - $j0;
                     } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_BOUNDS_EXCEPTION);
+                        throw new CalculationException(self::ARGUMENT_BOUNDS_EXCEPTION);
                     }
                     $R = new self($m, $n + 1);
                     for ($i = 0; $i < $m; ++$i) {
@@ -272,11 +277,11 @@ class Matrix
                     return $R;
                     break;
                 default:
-                    throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+                    throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
                     break;
             }
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+            throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
         }
     }
 
@@ -295,9 +300,9 @@ class Matrix
             if (($this->m == $B->getRowDimension()) && ($this->n == $B->getColumnDimension())) {
                 return true;
             }
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::MATRIX_DIMENSION_EXCEPTION);
+            throw new CalculationException(self::MATRIX_DIMENSION_EXCEPTION);
         }
-        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_TYPE_EXCEPTION);
+        throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
     }
 
     //    function checkMatrixDimensions()
@@ -376,7 +381,7 @@ class Matrix
 
             return $this->getMatrix($i0, 0, $i0 + 1, $this->n);
         }
-        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_TYPE_EXCEPTION);
+        throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
     }
 
     /**
@@ -398,7 +403,7 @@ class Matrix
 
             return $this->getMatrix(0, $j0, $this->m, $j0 + 1);
         }
-        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_TYPE_EXCEPTION);
+        throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
     }
 
     /**
@@ -470,14 +475,14 @@ class Matrix
                     if ($args[0] instanceof self) {
                         $M = $args[0];
                     } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_TYPE_EXCEPTION);
+                        throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
                     break;
                 case 'array':
                     $M = new self($args[0]);
                     break;
                 default:
-                    throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+                    throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -489,7 +494,7 @@ class Matrix
 
             return $M;
         }
-        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+        throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
     /**
@@ -511,14 +516,14 @@ class Matrix
                     if ($args[0] instanceof self) {
                         $M = $args[0];
                     } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_TYPE_EXCEPTION);
+                        throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
                     break;
                 case 'array':
                     $M = new self($args[0]);
                     break;
                 default:
-                    throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+                    throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -528,23 +533,23 @@ class Matrix
                     $value = $M->get($i, $j);
                     if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
                         $this->A[$i][$j] = trim($this->A[$i][$j], '"');
-                        $validValues &= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
+                        $validValues &= StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
                     }
                     if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
                         $value = trim($value, '"');
-                        $validValues &= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertToNumberIfFraction($value);
+                        $validValues &= StringHelper::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
                         $this->A[$i][$j] += $value;
                     } else {
-                        $this->A[$i][$j] = \PhpOffice\PhpSpreadsheet\Calculation\Functions::NAN();
+                        $this->A[$i][$j] = Functions::NAN();
                     }
                 }
             }
 
             return $this;
         }
-        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+        throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
     /**
@@ -566,14 +571,14 @@ class Matrix
                     if ($args[0] instanceof self) {
                         $M = $args[0];
                     } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_TYPE_EXCEPTION);
+                        throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
                     break;
                 case 'array':
                     $M = new self($args[0]);
                     break;
                 default:
-                    throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+                    throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -585,7 +590,7 @@ class Matrix
 
             return $M;
         }
-        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+        throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
     /**
@@ -607,14 +612,14 @@ class Matrix
                     if ($args[0] instanceof self) {
                         $M = $args[0];
                     } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_TYPE_EXCEPTION);
+                        throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
                     break;
                 case 'array':
                     $M = new self($args[0]);
                     break;
                 default:
-                    throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+                    throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -624,23 +629,23 @@ class Matrix
                     $value = $M->get($i, $j);
                     if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
                         $this->A[$i][$j] = trim($this->A[$i][$j], '"');
-                        $validValues &= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
+                        $validValues &= StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
                     }
                     if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
                         $value = trim($value, '"');
-                        $validValues &= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertToNumberIfFraction($value);
+                        $validValues &= StringHelper::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
                         $this->A[$i][$j] -= $value;
                     } else {
-                        $this->A[$i][$j] = \PhpOffice\PhpSpreadsheet\Calculation\Functions::NAN();
+                        $this->A[$i][$j] = Functions::NAN();
                     }
                 }
             }
 
             return $this;
         }
-        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+        throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
     /**
@@ -663,14 +668,14 @@ class Matrix
                     if ($args[0] instanceof self) {
                         $M = $args[0];
                     } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_TYPE_EXCEPTION);
+                        throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
                     break;
                 case 'array':
                     $M = new self($args[0]);
                     break;
                 default:
-                    throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+                    throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -682,7 +687,7 @@ class Matrix
 
             return $M;
         }
-        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+        throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
     /**
@@ -705,14 +710,14 @@ class Matrix
                     if ($args[0] instanceof self) {
                         $M = $args[0];
                     } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_TYPE_EXCEPTION);
+                        throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
                     break;
                 case 'array':
                     $M = new self($args[0]);
                     break;
                 default:
-                    throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+                    throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -722,23 +727,23 @@ class Matrix
                     $value = $M->get($i, $j);
                     if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
                         $this->A[$i][$j] = trim($this->A[$i][$j], '"');
-                        $validValues &= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
+                        $validValues &= StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
                     }
                     if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
                         $value = trim($value, '"');
-                        $validValues &= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertToNumberIfFraction($value);
+                        $validValues &= StringHelper::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
                         $this->A[$i][$j] *= $value;
                     } else {
-                        $this->A[$i][$j] = \PhpOffice\PhpSpreadsheet\Calculation\Functions::NAN();
+                        $this->A[$i][$j] = Functions::NAN();
                     }
                 }
             }
 
             return $this;
         }
-        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+        throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
     /**
@@ -761,14 +766,14 @@ class Matrix
                     if ($args[0] instanceof self) {
                         $M = $args[0];
                     } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_TYPE_EXCEPTION);
+                        throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
                     break;
                 case 'array':
                     $M = new self($args[0]);
                     break;
                 default:
-                    throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+                    throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -778,11 +783,11 @@ class Matrix
                     $value = $M->get($i, $j);
                     if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
                         $this->A[$i][$j] = trim($this->A[$i][$j], '"');
-                        $validValues &= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
+                        $validValues &= StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
                     }
                     if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
                         $value = trim($value, '"');
-                        $validValues &= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertToNumberIfFraction($value);
+                        $validValues &= StringHelper::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
                         if ($value == 0) {
@@ -792,14 +797,14 @@ class Matrix
                             $M->set($i, $j, $this->A[$i][$j] / $value);
                         }
                     } else {
-                        $M->set($i, $j, \PhpOffice\PhpSpreadsheet\Calculation\Functions::NAN());
+                        $M->set($i, $j, Functions::NAN());
                     }
                 }
             }
 
             return $M;
         }
-        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+        throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
     /**
@@ -822,14 +827,14 @@ class Matrix
                     if ($args[0] instanceof self) {
                         $M = $args[0];
                     } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_TYPE_EXCEPTION);
+                        throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
                     break;
                 case 'array':
                     $M = new self($args[0]);
                     break;
                 default:
-                    throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+                    throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -841,7 +846,7 @@ class Matrix
 
             return $M;
         }
-        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+        throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
     /**
@@ -864,14 +869,14 @@ class Matrix
                     if ($args[0] instanceof self) {
                         $M = $args[0];
                     } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_TYPE_EXCEPTION);
+                        throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
                     break;
                 case 'array':
                     $M = new self($args[0]);
                     break;
                 default:
-                    throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+                    throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -883,7 +888,7 @@ class Matrix
 
             return $M;
         }
-        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+        throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
     /**
@@ -906,14 +911,14 @@ class Matrix
                     if ($args[0] instanceof self) {
                         $M = $args[0];
                     } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_TYPE_EXCEPTION);
+                        throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
                     break;
                 case 'array':
                     $M = new self($args[0]);
                     break;
                 default:
-                    throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+                    throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -925,7 +930,7 @@ class Matrix
 
             return $M;
         }
-        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+        throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
     /**
@@ -947,7 +952,7 @@ class Matrix
                     if ($args[0] instanceof self) {
                         $B = $args[0];
                     } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_TYPE_EXCEPTION);
+                        throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
                     if ($this->n == $B->m) {
                         $C = new self($this->m, $B->n);
@@ -967,7 +972,7 @@ class Matrix
 
                         return $C;
                     }
-                    throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(MatrixDimensionMismatch));
+                    throw new CalculationException(self::MATRIX_DIMENSION_EXCEPTION);
                 case 'array':
                     $B = new self($args[0]);
                     if ($this->n == $B->m) {
@@ -984,7 +989,7 @@ class Matrix
 
                         return $C;
                     }
-                    throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(JAMAError(MatrixDimensionMismatch));
+                    throw new CalculationException(self::MATRIX_DIMENSION_EXCEPTION);
                 case 'integer':
                     $C = new self($this->A);
                     for ($i = 0; $i < $C->m; ++$i) {
@@ -1013,10 +1018,10 @@ class Matrix
 
                     return $C;
                 default:
-                    throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+                    throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
             }
         } else {
-            throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+            throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
         }
     }
 
@@ -1039,14 +1044,14 @@ class Matrix
                     if ($args[0] instanceof self) {
                         $M = $args[0];
                     } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_TYPE_EXCEPTION);
+                        throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
                     break;
                 case 'array':
                     $M = new self($args[0]);
                     break;
                 default:
-                    throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+                    throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -1056,23 +1061,23 @@ class Matrix
                     $value = $M->get($i, $j);
                     if ((is_string($this->A[$i][$j])) && (strlen($this->A[$i][$j]) > 0) && (!is_numeric($this->A[$i][$j]))) {
                         $this->A[$i][$j] = trim($this->A[$i][$j], '"');
-                        $validValues &= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
+                        $validValues &= StringHelper::convertToNumberIfFraction($this->A[$i][$j]);
                     }
                     if ((is_string($value)) && (strlen($value) > 0) && (!is_numeric($value))) {
                         $value = trim($value, '"');
-                        $validValues &= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertToNumberIfFraction($value);
+                        $validValues &= StringHelper::convertToNumberIfFraction($value);
                     }
                     if ($validValues) {
                         $this->A[$i][$j] = pow($this->A[$i][$j], $value);
                     } else {
-                        $this->A[$i][$j] = \PhpOffice\PhpSpreadsheet\Calculation\Functions::NAN();
+                        $this->A[$i][$j] = Functions::NAN();
                     }
                 }
             }
 
             return $this;
         }
-        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+        throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
     /**
@@ -1094,14 +1099,14 @@ class Matrix
                     if ($args[0] instanceof self) {
                         $M = $args[0];
                     } else {
-                        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::ARGUMENT_TYPE_EXCEPTION);
+                        throw new CalculationException(self::ARGUMENT_TYPE_EXCEPTION);
                     }
                     break;
                 case 'array':
                     $M = new self($args[0]);
                     break;
                 default:
-                    throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+                    throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
                     break;
             }
             $this->checkMatrixDimensions($M);
@@ -1113,7 +1118,7 @@ class Matrix
 
             return $this;
         }
-        throw new \PhpOffice\PhpSpreadsheet\Calculation\Exception(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
+        throw new CalculationException(self::POLYMORPHIC_ARGUMENT_EXCEPTION);
     }
 
     /**

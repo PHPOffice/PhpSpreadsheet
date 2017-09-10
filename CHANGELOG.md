@@ -1,4 +1,5 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
@@ -8,20 +9,40 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+- Support for chart fill color - @CrazyBite [#158](https://github.com/PHPOffice/PhpSpreadsheet/pull/158)
+
+### Changed
+
+- Merge data-validations to reduce written worksheet size - @billblume [#131](https://github.com/PHPOffice/PhpSpreadSheet/issues/131)
+
+### Fixed
+
+- Control characters in cell values are automatically escaped [#212](https://github.com/PHPOffice/PhpSpreadsheet/issues/212)
+
+### BREAKING CHANGE
+
+- Standardization of array keys used for style, see the [migration guide](./docs/topics/migration-from-PHPExcel.md).
+
+## [1.0.0-beta] - 2017-08-17
+
+### Added
+
 - Initial implementation of SUMIFS() function
 - Additional codepages
 - MemoryDrawing not working in HTML writer [#808](https://github.com/PHPOffice/PHPExcel/issues/808)
 - CSV Reader can auto-detect the separator used in file [#141](https://github.com/PHPOffice/PhpSpreadsheet/pull/141)
+- HTML Reader supports some basic inline styles [#180](https://github.com/PHPOffice/PhpSpreadsheet/pull/180)
 
 ### Changed
 
 - Start following [SemVer](http://semver.org) properly.
 
-### Bugfixes
+### Fixed
 
 - Fix to getCell() method when cell reference includes a worksheet reference - @MarkBaker
 - Ignore inlineStr type if formula element exists - @ncrypthic [#570](https://github.com/PHPOffice/PHPExcel/issues/570)
 - Excel 2007 Reader freezes because of conditional formatting - @rentalhost [#575](https://github.com/PHPOffice/PHPExcel/issues/575)
+- Readers will now parse files containing worksheet titles over 31 characters [#176](https://github.com/PHPOffice/PhpSpreadsheet/pull/176)
 
 ### General
 
@@ -35,10 +56,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Introduction of namespaces for all classes, eg: `PHPExcel_Calculation_Functions` becomes `PhpOffice\PhpSpreadsheet\Calculation\Functions`
 - Some classes were renamed for clarity and/or consistency:
 
-For a comprehensive list of all class changes, and a semi-automated migration path, read the [migration guide](./docs/Migration-from-PHPExcel.md).
+For a comprehensive list of all class changes, and a semi-automated migration path, read the [migration guide](./docs/topics/migration-from-PHPExcel.md).
 
 - Dropped `PHPExcel_Calculation_Functions::VERSION()`. Composer or git should be used to know the version.
 - Dropped `PHPExcel_Settings::setPdfRenderer()` and `PHPExcel_Settings::setPdfRenderer()`. Composer should be used to autoload PDF libs.
+- Dropped support for HHVM
 
 ## Previous versions of PHPExcel
 

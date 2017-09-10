@@ -6,7 +6,12 @@ use DOMDocument;
 use DOMElement;
 use DOMNode;
 use DOMText;
+use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Worksheet;
 
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
@@ -98,16 +103,16 @@ class Html extends BaseReader implements IReader
             'font' => [
                 'underline' => true,
                 'color' => [
-                    'argb' => \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLUE,
+                    'argb' => Color::COLOR_BLUE,
                 ],
             ],
         ], //    Blue underlined
         'hr' => [
             'borders' => [
                 'bottom' => [
-                    'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                    'borderStyle' => Border::BORDER_THIN,
                     'color' => [
-                        \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK,
+                        Color::COLOR_BLACK,
                     ],
                 ],
             ],
@@ -276,12 +281,12 @@ class Html extends BaseReader implements IReader
 
     /**
      * @param DOMNode $element
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $sheet
+     * @param Worksheet $sheet
      * @param int $row
      * @param string $column
      * @param string $cellContent
      */
-    protected function processDomElement(DOMNode $element, \PhpOffice\PhpSpreadsheet\Worksheet $sheet, &$row, &$column, &$cellContent)
+    protected function processDomElement(DOMNode $element, Worksheet $sheet, &$row, &$column, &$cellContent)
     {
         foreach ($element->childNodes as $child) {
             if ($child instanceof DOMText) {
@@ -312,7 +317,7 @@ class Html extends BaseReader implements IReader
                         break;
                     case 'title':
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
-                        $sheet->setTitle($cellContent);
+                        $sheet->setTitle($cellContent, true, false);
                         $cellContent = '';
                         break;
                     case 'span':
@@ -437,6 +442,9 @@ class Html extends BaseReader implements IReader
                     case 'td':
                         $this->processDomElement($child, $sheet, $row, $column, $cellContent);
 
+                        // apply inline style
+                        $this->applyInlineStyle($sheet, $row, $column, $attributeArray);
+
                         while (isset($this->rowspan[$column . $row])) {
                             ++$column;
                         }
@@ -450,7 +458,7 @@ class Html extends BaseReader implements IReader
                                 ++$columnTo;
                             }
                             $range = $column . $row . ':' . $columnTo . ($row + $attributeArray['rowspan'] - 1);
-                            foreach (\PhpOffice\PhpSpreadsheet\Cell::extractAllCellReferencesInRange($range) as $value) {
+                            foreach (Cell::extractAllCellReferencesInRange($range) as $value) {
                                 $this->rowspan[$value] = true;
                             }
                             $sheet->mergeCells($range);
@@ -458,7 +466,7 @@ class Html extends BaseReader implements IReader
                         } elseif (isset($attributeArray['rowspan'])) {
                             //create merging rowspan
                             $range = $column . $row . ':' . $column . ($row + $attributeArray['rowspan'] - 1);
-                            foreach (\PhpOffice\PhpSpreadsheet\Cell::extractAllCellReferencesInRange($range) as $value) {
+                            foreach (Cell::extractAllCellReferencesInRange($range) as $value) {
                                 $this->rowspan[$value] = true;
                             }
                             $sheet->mergeCells($range);
@@ -474,7 +482,7 @@ class Html extends BaseReader implements IReader
                             $sheet->getStyle($column . $row)->applyFromArray(
                                 [
                                     'fill' => [
-                                        'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                                        'fillType' => Fill::FILL_SOLID,
                                         'color' => ['rgb' => $attributeArray['bgcolor']],
                                     ],
                                 ]
@@ -578,5 +586,57 @@ class Html extends BaseReader implements IReader
         }
 
         return $xml;
+    }
+
+    /**
+     * Apply inline css inline style.
+     *
+     * NOTES :
+     * Currently only intended for td & th element,
+     * and only takes 'background-color' and 'color'; property with HEX color
+     *
+     * TODO :
+     * - Implement to other propertie, such as border
+     *
+     * @param Worksheet $sheet
+     * @param array $attributeArray
+     * @param int $row
+     * @param string $column
+     */
+    private function applyInlineStyle(&$sheet, $row, $column, $attributeArray)
+    {
+        if (!isset($attributeArray['style'])) {
+            return;
+        }
+
+        $supported_styles = ['background-color', 'color'];
+
+        // add color styles (background & text) from dom element,currently support : td & th, using ONLY inline css style with RGB color
+        $styles = explode(';', $attributeArray['style']);
+        foreach ($styles as $st) {
+            $value = explode(':', $st);
+
+            if (empty(trim($value[0])) || !in_array(trim($value[0]), $supported_styles)) {
+                continue;
+            }
+
+            //check if has #, so we can get clean hex
+            if (substr(trim($value[1]), 0, 1) == '#') {
+                $style_color = substr(trim($value[1]), 1);
+            }
+
+            if (empty($style_color)) {
+                continue;
+            }
+
+            switch (trim($value[0])) {
+                case 'background-color':
+                    $sheet->getStyle($column . $row)->applyFromArray(['fill' => ['fillType' => Fill::FILL_SOLID, 'color' => ['rgb' => "{$style_color}"]]]);
+                    break;
+                case 'color':
+                    $sheet->getStyle($column . $row)->applyFromArray(['font' => ['color' => ['rgb' => "$style_color}"]]]);
+                    break;
+            }
+        }
     }
 }

@@ -1,8 +1,10 @@
 <?php
 
 // Create new Spreadsheet object
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 $helper->log('Create new Spreadsheet object');
-$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new Spreadsheet();
 
 // Set document properties
 $helper->log('Set properties');

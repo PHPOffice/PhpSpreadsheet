@@ -2,7 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-/**
+/*
  * PhpSpreadsheet.
  *
  * Copyright (c) 2006 - 2016 PhpSpreadsheet
@@ -26,6 +26,8 @@ namespace PhpOffice\PhpSpreadsheet\Writer\Xlsx;
  * @copyright  Copyright (c) 2006 - 2016 PhpSpreadsheet (https://github.com/PHPOffice/PhpSpreadsheet)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  */
+use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
  * @category   PhpSpreadsheet
@@ -131,20 +133,20 @@ class Theme extends WriterPart
     /**
      * Write theme to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet
+     * @param Spreadsheet $spreadsheet
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *
      * @return string XML Output
      */
-    public function writeTheme(\PhpOffice\PhpSpreadsheet\SpreadSheet $spreadsheet)
+    public function writeTheme(Spreadsheet $spreadsheet)
     {
         // Create XML writer
         $objWriter = null;
         if ($this->getParentWriter()->getUseDiskCaching()) {
-            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+            $objWriter = new XMLWriter(XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
         } else {
-            $objWriter = new \PhpOffice\PhpSpreadsheet\Shared\XMLWriter(\PhpOffice\PhpSpreadsheet\Shared\XMLWriter::STORAGE_MEMORY);
+            $objWriter = new XMLWriter(XMLWriter::STORAGE_MEMORY);
         }
 
         // XML header
@@ -815,7 +817,7 @@ class Theme extends WriterPart
     /**
      * Write fonts to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter
+     * @param XMLWriter $objWriter
      * @param string $latinFont
      * @param array of string                $fontSet
      *
@@ -851,7 +853,7 @@ class Theme extends WriterPart
     /**
      * Write colour scheme to XML format.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Shared\XMLWriter $objWriter
+     * @param XMLWriter $objWriter
      *
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      *

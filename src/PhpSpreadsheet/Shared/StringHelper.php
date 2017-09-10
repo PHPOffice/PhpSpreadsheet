@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
+use PhpOffice\PhpSpreadsheet\Calculation;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -298,11 +300,12 @@ class StringHelper
         return true;
     }
 
-    public static function buildCharacterSets()
+    private static function buildCharacterSets()
     {
         if (empty(self::$controlCharacters)) {
             self::buildControlCharacters();
         }
+
         if (empty(self::$SYLKCharacters)) {
             self::buildSYLKCharacters();
         }
@@ -325,6 +328,8 @@ class StringHelper
      */
     public static function controlCharacterOOXML2PHP($value)
     {
+        self::buildCharacterSets();
+
         return str_replace(array_keys(self::$controlCharacters), array_values(self::$controlCharacters), $value);
     }
 
@@ -345,6 +350,8 @@ class StringHelper
      */
     public static function controlCharacterPHP2OOXML($value)
     {
+        self::buildCharacterSets();
+
         return str_replace(array_values(self::$controlCharacters), array_keys(self::$controlCharacters), $value);
     }
 
@@ -588,7 +595,7 @@ class StringHelper
         if (preg_match('/^' . self::STRING_REGEXP_FRACTION . '$/i', $operand, $match)) {
             $sign = ($match[1] == '-') ? '-' : '+';
             $fractionFormula = '=' . $sign . $match[2] . $sign . $match[3];
-            $operand = \PhpOffice\PhpSpreadsheet\Calculation::getInstance()->_calculateFormulaValue($fractionFormula);
+            $operand = Calculation::getInstance()->_calculateFormulaValue($fractionFormula);
 
             return true;
         }
@@ -621,7 +628,7 @@ class StringHelper
     }
 
     /**
-     * Set the decimal separator. Only used by \PhpOffice\PhpSpreadsheet\Style\NumberFormat::toFormattedString()
+     * Set the decimal separator. Only used by NumberFormat::toFormattedString()
      * to format output by \PhpOffice\PhpSpreadsheet\Writer\Html and \PhpOffice\PhpSpreadsheet\Writer\Pdf.
      *
      * @param string $pValue Character for decimal separator
@@ -654,7 +661,7 @@ class StringHelper
     }
 
     /**
-     * Set the thousands separator. Only used by \PhpOffice\PhpSpreadsheet\Style\NumberFormat::toFormattedString()
+     * Set the thousands separator. Only used by NumberFormat::toFormattedString()
      * to format output by \PhpOffice\PhpSpreadsheet\Writer\Html and \PhpOffice\PhpSpreadsheet\Writer\Pdf.
      *
      * @param string $pValue Character for thousands separator
@@ -692,7 +699,7 @@ class StringHelper
     }
 
     /**
-     * Set the currency code. Only used by \PhpOffice\PhpSpreadsheet\Style\NumberFormat::toFormattedString()
+     * Set the currency code. Only used by NumberFormat::toFormattedString()
      *        to format output by \PhpOffice\PhpSpreadsheet\Writer\Html and \PhpOffice\PhpSpreadsheet\Writer\Pdf.
      *
      * @param string $pValue Character for currency code
@@ -711,6 +718,8 @@ class StringHelper
      */
     public static function SYLKtoUTF8($pValue)
     {
+        self::buildCharacterSets();
+
         // If there is no escape character in the string there is nothing to do
         if (strpos($pValue, '') === false) {
             return $pValue;

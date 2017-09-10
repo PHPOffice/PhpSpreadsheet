@@ -3,8 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+use PHPUnit_Framework_TestCase;
 
-class StringTest extends \PHPUnit_Framework_TestCase
+class StringHelperTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
@@ -70,6 +71,30 @@ class StringTest extends \PHPUnit_Framework_TestCase
         StringHelper::setCurrencyCode($expectedResult);
 
         $result = StringHelper::getCurrencyCode();
+        $this->assertEquals($expectedResult, $result);
+    }
+
+    public function testControlCharacterPHP2OOXML()
+    {
+        $expectedResult = 'foo_x000B_bar';
+        $result = StringHelper::controlCharacterPHP2OOXML('foo' . chr(11) . 'bar');
+
+        $this->assertEquals($expectedResult, $result);
+    }
+
+    public function testControlCharacterOOXML2PHP()
+    {
+        $expectedResult = 'foo' . chr(11) . 'bar';
+        $result = StringHelper::controlCharacterOOXML2PHP('foo_x000B_bar');
+
+        $this->assertEquals($expectedResult, $result);
+    }
+
+    public function testSYLKtoUTF8()
+    {
+        $expectedResult = 'foo' . chr(11) . 'bar';
+        $result = StringHelper::SYLKtoUTF8("foo\x1B ;bar");
+
         $this->assertEquals($expectedResult, $result);
     }
 }

@@ -3,8 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Chart;
 
 use PhpOffice\PhpSpreadsheet\Chart\Layout;
+use PHPUnit_Framework_TestCase;
 
-class LayoutTest extends \PHPUnit_Framework_TestCase
+class LayoutTest extends PHPUnit_Framework_TestCase
 {
     public function testSetLayoutTarget()
     {

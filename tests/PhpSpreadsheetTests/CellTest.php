@@ -4,8 +4,9 @@ namespace PhpOffice\PhpSpreadsheetTests;
 
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Exception;
+use PHPUnit_Framework_TestCase;
 
-class CellTest extends \PHPUnit_Framework_TestCase
+class CellTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider providerColumnString
@@ -298,5 +299,21 @@ class CellTest extends \PHPUnit_Framework_TestCase
     public function providerExtractAllCellReferencesInRange()
     {
         return require 'data/CellExtractAllCellReferencesInRange.php';
+    }
+
+    /**
+     * @dataProvider providerMergeRangesInCollection
+     *
+     * @param mixed $expectedResult
+     */
+    public function testMergeRangesInCollection($expectedResult, ...$args)
+    {
+        $result = Cell::mergeRangesInCollection(...$args);
+        $this->assertEquals($expectedResult, $result);
+    }
+
+    public function providerMergeRangesInCollection()
+    {
+        return require 'data/CellMergeRangesInCollection.php';
     }
 }

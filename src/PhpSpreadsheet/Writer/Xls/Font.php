@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Writer\Xls;
 
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
+
 /**
  * Copyright (c) 2006 - 2015 PhpSpreadsheet.
  *
@@ -72,9 +74,9 @@ class Font
         $font_shadow = 0;
 
         $icv = $this->colorIndex; // Index to color palette
-        if ($this->font->getSuperScript()) {
+        if ($this->font->getSuperscript()) {
             $sss = 1;
-        } elseif ($this->font->getSubScript()) {
+        } elseif ($this->font->getSubscript()) {
             $sss = 2;
         } else {
             $sss = 0;
@@ -82,9 +84,9 @@ class Font
         $bFamily = 0; // Font family
         $bCharSet = \PhpOffice\PhpSpreadsheet\Shared\Font::getCharsetFromFontName($this->font->getName()); // Character set
 
-        $record = 0x31;        // Record identifier
-        $reserved = 0x00;    // Reserved
-        $grbit = 0x00;        // Font attributes
+        $record = 0x31; // Record identifier
+        $reserved = 0x00; // Reserved
+        $grbit = 0x00; // Font attributes
         if ($this->font->getItalic()) {
             $grbit |= 0x02;
         }
@@ -114,7 +116,7 @@ class Font
             $bCharSet,
             $reserved
         );
-        $data .= \PhpOffice\PhpSpreadsheet\Shared\StringHelper::UTF8toBIFF8UnicodeShort($this->font->getName());
+        $data .= StringHelper::UTF8toBIFF8UnicodeShort($this->font->getName());
 
         $length = strlen($data);
         $header = pack('vv', $record, $length);
@@ -132,10 +134,10 @@ class Font
     private static function mapBold($bold)
     {
         if ($bold) {
-            return 0x2BC;  //  700 = Bold font weight
+            return 0x2BC; //  700 = Bold font weight
         }
 
-        return 0x190;      //  400 = Normal font weight
+        return 0x190; //  400 = Normal font weight
     }
 
     /**

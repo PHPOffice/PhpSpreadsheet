@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use PhpOffice\PhpSpreadsheet\Cell;
+use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**
@@ -266,7 +268,7 @@ class Csv extends BaseReader implements IReader
             $worksheetInfo[0]['lastColumnIndex'] = max($worksheetInfo[0]['lastColumnIndex'], count($rowData) - 1);
         }
 
-        $worksheetInfo[0]['lastColumnLetter'] = \PhpOffice\PhpSpreadsheet\Cell::stringFromColumnIndex($worksheetInfo[0]['lastColumnIndex']);
+        $worksheetInfo[0]['lastColumnLetter'] = Cell::stringFromColumnIndex($worksheetInfo[0]['lastColumnIndex']);
         $worksheetInfo[0]['totalColumns'] = $worksheetInfo[0]['lastColumnIndex'] + 1;
 
         // Close file
@@ -282,12 +284,12 @@ class Csv extends BaseReader implements IReader
      *
      * @throws Exception
      *
-     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @return Spreadsheet
      */
     public function load($pFilename)
     {
         // Create new Spreadsheet
-        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $spreadsheet = new Spreadsheet();
 
         // Load into this instance
         return $this->loadIntoExisting($pFilename, $spreadsheet);
@@ -339,7 +341,7 @@ class Csv extends BaseReader implements IReader
                 if ($rowDatum != '' && $this->readFilter->readCell($columnLetter, $currentRow)) {
                     // Convert encoding if necessary
                     if ($this->inputEncoding !== 'UTF-8') {
-                        $rowDatum = \PhpOffice\PhpSpreadsheet\Shared\StringHelper::convertEncoding($rowDatum, 'UTF-8', $this->inputEncoding);
+                        $rowDatum = StringHelper::convertEncoding($rowDatum, 'UTF-8', $this->inputEncoding);
                     }
 
                     // Set cell value

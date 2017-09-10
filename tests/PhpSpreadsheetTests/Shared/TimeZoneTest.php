@@ -3,8 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Shared;
 
 use PhpOffice\PhpSpreadsheet\Shared\TimeZone;
+use PHPUnit_Framework_TestCase;
 
-class TimeZoneTest extends \PHPUnit_Framework_TestCase
+class TimeZoneTest extends PHPUnit_Framework_TestCase
 {
     public function testSetTimezone()
     {

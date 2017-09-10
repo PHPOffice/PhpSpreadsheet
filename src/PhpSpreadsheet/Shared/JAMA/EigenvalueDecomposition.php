@@ -778,7 +778,7 @@ class EigenvalueDecomposition
         }
     }
 
- // end hqr2
+    // end hqr2
 
     /**
      * Constructor: Check for symmetry, then construct the eigenvalue decomposition.

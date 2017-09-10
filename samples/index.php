@@ -19,7 +19,7 @@ if (!$helper->isCli()) {
         <p>&nbsp;</p>
         <p>
             <a class="btn btn-lg btn-primary" href="https://github.com/PHPOffice/PHPSpreadsheet" role="button"><i class="fa fa-github fa-lg" title="GitHub"></i>  Fork us on Github!</a>
-            <a class="btn btn-lg btn-primary" href="http://phpspreadsheet.readthedocs.org/en/develop/" role="button"><i class="fa fa-book fa-lg" title="Docs"></i>  Read the Docs</a>
+            <a class="btn btn-lg btn-primary" href="https://phpspreadsheet.readthedocs.io" role="button"><i class="fa fa-book fa-lg" title="Docs"></i>  Read the Docs</a>
         </p>
     </div>
     <?php

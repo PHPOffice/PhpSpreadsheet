@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared\Trend;
 
+use PhpOffice\PhpSpreadsheet\Shared\JAMA\Matrix;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *

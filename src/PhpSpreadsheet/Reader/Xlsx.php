@@ -19,6 +19,7 @@ use PhpOffice\PhpSpreadsheet\Style;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\AutoFilter\Column;
+use XMLReader;
 use ZipArchive;
 
 /**
@@ -219,7 +220,7 @@ class Xlsx extends BaseReader implements IReader
 
                         $fileWorksheet = $worksheets[(string) self::getArrayItem($eleSheet->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'), 'id')];
 
-                        $xml = new \XMLReader();
+                        $xml = new XMLReader();
                         $res = $xml->xml(
                             $this->securityScanFile(
                                 'zip://' . File::realpath($pFilename) . '#' . "$dir/$fileWorksheet"
@@ -231,12 +232,12 @@ class Xlsx extends BaseReader implements IReader
 
                         $currCells = 0;
                         while ($xml->read()) {
-                            if ($xml->name == 'row' && $xml->nodeType == \XMLReader::ELEMENT) {
+                            if ($xml->name == 'row' && $xml->nodeType == XMLReader::ELEMENT) {
                                 $row = $xml->getAttribute('r');
                                 $tmpInfo['totalRows'] = $row;
                                 $tmpInfo['totalColumns'] = max($tmpInfo['totalColumns'], $currCells);
                                 $currCells = 0;
-                            } elseif ($xml->name == 'c' && $xml->nodeType == \XMLReader::ELEMENT) {
+                            } elseif ($xml->name == 'c' && $xml->nodeType == XMLReader::ELEMENT) {
                                 ++$currCells;
                             }
                         }
@@ -696,7 +697,7 @@ class Xlsx extends BaseReader implements IReader
                             //        references in formula cells... during the load, all formulae should be correct,
                             //        and we're simply bringing the worksheet name in line with the formula, not the
                             //        reverse
-                            $docSheet->setTitle((string) $eleSheet['name'], false);
+                            $docSheet->setTitle((string) $eleSheet['name'], false, false);
                             $fileWorksheet = $worksheets[(string) self::getArrayItem($eleSheet->attributes('http://schemas.openxmlformats.org/officeDocument/2006/relationships'), 'id')];
                             $xmlSheet = simplexml_load_string(
                                 //~ http://schemas.openxmlformats.org/spreadsheetml/2006/main"
@@ -765,7 +766,7 @@ class Xlsx extends BaseReader implements IReader
                                 }
                             }
                             if (isset($xmlSheet->sheetPr) && isset($xmlSheet->sheetPr['codeName'])) {
-                                $docSheet->setCodeName((string) $xmlSheet->sheetPr['codeName']);
+                                $docSheet->setCodeName((string) $xmlSheet->sheetPr['codeName'], false);
                             }
                             if (isset($xmlSheet->sheetPr) && isset($xmlSheet->sheetPr->outlinePr)) {
                                 if (isset($xmlSheet->sheetPr->outlinePr['summaryRight']) &&
@@ -1917,10 +1918,10 @@ class Xlsx extends BaseReader implements IReader
             if (isset($style->font->vertAlign) && isset($style->font->vertAlign['val'])) {
                 $vertAlign = strtolower((string) $style->font->vertAlign['val']);
                 if ($vertAlign == 'superscript') {
-                    $docStyle->getFont()->setSuperScript(true);
+                    $docStyle->getFont()->setSuperscript(true);
                 }
                 if ($vertAlign == 'subscript') {
-                    $docStyle->getFont()->setSubScript(true);
+                    $docStyle->getFont()->setSubscript(true);
                 }
             }
         }
@@ -1987,7 +1988,7 @@ class Xlsx extends BaseReader implements IReader
             $docStyle->getAlignment()->setWrapText(self::boolean((string) $style->alignment['wrapText']));
             $docStyle->getAlignment()->setShrinkToFit(self::boolean((string) $style->alignment['shrinkToFit']));
             $docStyle->getAlignment()->setIndent((int) ((string) $style->alignment['indent']) > 0 ? (int) ((string) $style->alignment['indent']) : 0);
-            $docStyle->getAlignment()->setReadorder((int) ((string) $style->alignment['readingOrder']) > 0 ? (int) ((string) $style->alignment['readingOrder']) : 0);
+            $docStyle->getAlignment()->setReadOrder((int) ((string) $style->alignment['readingOrder']) > 0 ? (int) ((string) $style->alignment['readingOrder']) : 0);
         }
 
         // protection
@@ -2068,10 +2069,10 @@ class Xlsx extends BaseReader implements IReader
                         if (isset($run->rPr->vertAlign) && isset($run->rPr->vertAlign['val'])) {
                             $vertAlign = strtolower((string) $run->rPr->vertAlign['val']);
                             if ($vertAlign == 'superscript') {
-                                $objText->getFont()->setSuperScript(true);
+                                $objText->getFont()->setSuperscript(true);
                             }
                             if ($vertAlign == 'subscript') {
-                                $objText->getFont()->setSubScript(true);
+                                $objText->getFont()->setSubscript(true);
                             }
                         }
                         if (isset($run->rPr->u) && !isset($run->rPr->u['val'])) {

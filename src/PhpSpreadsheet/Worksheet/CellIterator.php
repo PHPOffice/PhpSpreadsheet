@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Exception as PhpSpreadsheetException;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -27,7 +29,7 @@ namespace PhpOffice\PhpSpreadsheet\Worksheet;
 abstract class CellIterator
 {
     /**
-     * \PhpOffice\PhpSpreadsheet\Worksheet to iterate.
+     * Worksheet to iterate.
      *
      * @var \PhpOffice\PhpSpreadsheet\Worksheet
      */
@@ -68,7 +70,7 @@ abstract class CellIterator
     /**
      * Validate start/end values for "IterateOnlyExistingCells" mode, and adjust if necessary.
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      */
     abstract protected function adjustForExistingOnlyRange();
 
@@ -77,7 +79,7 @@ abstract class CellIterator
      *
      * @param bool $value
      *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws PhpSpreadsheetException
      */
     public function setIterateOnlyExistingCells($value)
     {

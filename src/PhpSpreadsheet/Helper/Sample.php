@@ -4,6 +4,8 @@ namespace PhpOffice\PhpSpreadsheet\Helper;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\IWriter;
+use ReflectionClass;
 
 /**
  * Helper class to be used in sample code.
@@ -164,15 +166,17 @@ class Sample
     /**
      * Log a line about the write operation.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Writer\IWriter $writer
+     * @param IWriter $writer
      * @param string $path
      * @param float $callStartTime
+     *
+     * @throws \ReflectionException
      */
-    public function logWrite(\PhpOffice\PhpSpreadsheet\Writer\IWriter $writer, $path, $callStartTime)
+    public function logWrite(IWriter $writer, $path, $callStartTime)
     {
         $callEndTime = microtime(true);
         $callTime = $callEndTime - $callStartTime;
-        $reflection = new \ReflectionClass($writer);
+        $reflection = new ReflectionClass($writer);
         $format = $reflection->getShortName();
         $message = "Write {$format} format to <code>{$path}</code>  in " . sprintf('%.4f', $callTime) . ' seconds';
 

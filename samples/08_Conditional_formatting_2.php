@@ -1,10 +1,15 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Conditional;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+
 require __DIR__ . '/Header.php';
 
 // Create new Spreadsheet object
 $helper->log('Create new Spreadsheet object');
-$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$spreadsheet = new Spreadsheet();
 
 // Set document properties
 $helper->log('Set document properties');
@@ -32,22 +37,22 @@ $spreadsheet->getActiveSheet()
 $spreadsheet->getActiveSheet()->getStyle('A1:A8')
         ->getNumberFormat()
         ->setFormatCode(
-            \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_PERCENTAGE_00
+            NumberFormat::FORMAT_PERCENTAGE_00
         );
 
 // Add conditional formatting
 $helper->log('Add conditional formatting');
-$conditional1 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
-$conditional1->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS)
-        ->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_LESSTHAN)
+$conditional1 = new Conditional();
+$conditional1->setConditionType(Conditional::CONDITION_CELLIS)
+        ->setOperatorType(Conditional::OPERATOR_LESSTHAN)
         ->addCondition('0');
-$conditional1->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
+$conditional1->getStyle()->getFont()->getColor()->setARGB(Color::COLOR_RED);
 
-$conditional3 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
-$conditional3->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS)
-        ->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_GREATERTHANOREQUAL)
+$conditional3 = new Conditional();
+$conditional3->setConditionType(Conditional::CONDITION_CELLIS)
+        ->setOperatorType(Conditional::OPERATOR_GREATERTHANOREQUAL)
         ->addCondition('1');
-$conditional3->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_GREEN);
+$conditional3->getStyle()->getFont()->getColor()->setARGB(Color::COLOR_GREEN);
 
 $conditionalStyles = $spreadsheet->getActiveSheet()->getStyle('A1')->getConditionalStyles();
 array_push($conditionalStyles, $conditional1);

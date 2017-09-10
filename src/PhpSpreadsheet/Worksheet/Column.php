@@ -2,6 +2,8 @@
 
 namespace PhpOffice\PhpSpreadsheet\Worksheet;
 
+use PhpOffice\PhpSpreadsheet\Worksheet;
+
 /**
  * Copyright (c) 2006 - 2016 PhpSpreadsheet.
  *
@@ -43,10 +45,10 @@ class Column
     /**
      * Create a new column.
      *
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet $parent
+     * @param Worksheet $parent
      * @param string $columnIndex
      */
-    public function __construct(\PhpOffice\PhpSpreadsheet\Worksheet $parent = null, $columnIndex = 'A')
+    public function __construct(Worksheet $parent = null, $columnIndex = 'A')
     {
         // Set parent and column index
         $this->parent = $parent;

@@ -1,0 +1,8 @@
+/* Make the huge table always visible */
+table.features-cross-reference {
+    overflow: visible !important;
+}
+.rst-content table.features-cross-reference.docutils th,
+.rst-content table.features-cross-reference.docutils td {
+    background-color: white;
+}
