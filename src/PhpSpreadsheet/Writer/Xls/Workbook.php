@@ -343,9 +343,9 @@ class Workbook extends BIFFwriter
             if ($colorIndex) {
                 $this->colors[$rgb] = $colorIndex;
             } else {
-                if(count($this->colors) == 0){
+                if (count($this->colors) == 0) {
                     $lastColor = 7;
-                }else{
+                } else {
                     $lastColor = end($this->colors);
                 }
                 if ($lastColor < 57) {
