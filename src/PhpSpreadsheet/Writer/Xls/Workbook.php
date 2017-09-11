@@ -332,20 +332,31 @@ class Workbook extends BIFFwriter
     private function addColor($rgb)
     {
         if (!isset($this->colors[$rgb])) {
-            if (count($this->colors) < 57) {
-                // then we add a custom color altering the palette
-                $colorIndex = 8 + count($this->colors);
-                $this->palette[$colorIndex] =
-                    [
-                        hexdec(substr($rgb, 0, 2)),
-                        hexdec(substr($rgb, 2, 2)),
-                        hexdec(substr($rgb, 4)),
-                        0,
-                    ];
+            $color =
+                [
+                    hexdec(substr($rgb, 0, 2)),
+                    hexdec(substr($rgb, 2, 2)),
+                    hexdec(substr($rgb, 4)),
+                    0,
+                ];
+            $colorIndex = array_search($color, $this->palette);
+            if ($colorIndex) {
                 $this->colors[$rgb] = $colorIndex;
             } else {
-                // no room for more custom colors, just map to black
-                $colorIndex = 0;
+                if (count($this->colors) == 0) {
+                    $lastColor = 7;
+                } else {
+                    $lastColor = end($this->colors);
+                }
+                if ($lastColor < 57) {
+                    // then we add a custom color altering the palette
+                    $colorIndex = $lastColor + 1;
+                    $this->palette[$colorIndex] = $color;
+                    $this->colors[$rgb] = $colorIndex;
+                } else {
+                    // no room for more custom colors, just map to black
+                    $colorIndex = 0;
+                }
             }
         } else {
             // fetch already added custom color
