@@ -6951,8 +6951,6 @@ class Xls extends BaseReader implements IReader
             $fr = $baseRow + $frIndex;
         }
 
-        $lc = Cell::stringFromColumnIndex($baseCol + $lcIndex);
-
         // bit: 14; mask 0x4000; (1 = relative column index, 0 = absolute column index)
         if (!(0x4000 & self::getUInt2d($subData, 6))) {
             // absolute column index
