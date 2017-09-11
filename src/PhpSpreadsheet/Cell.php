@@ -862,7 +862,7 @@ class Cell
      */
     public static function stringFromColumnIndex($columnIndex)
     {
-        static $indexCache = array();
+        static $indexCache = [];
 
         if (!isset($indexCache[$columnIndex])) {
             $indexValue = $columnIndex + 1;
@@ -870,10 +870,11 @@ class Cell
             do {
                 $characterValue = ($indexValue % 26) ?: 26;
                 $indexValue = ($indexValue - $characterValue) / 26;
-                $base26 = chr($characterValue + 64).($base26 ?: '');
+                $base26 = chr($characterValue + 64) . ($base26 ?: '');
             } while ($indexValue > 0);
             $indexCache[$columnIndex] = $base26;
         }
+
         return $indexCache[$columnIndex];
     }
 

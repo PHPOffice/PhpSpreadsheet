@@ -1127,16 +1127,20 @@ class MathTrig
         return Functions::VALUE();
     }
 
-    protected static function filterHiddenArgs($cellReference, $args) {
-        return array_filter($args,
+    protected static function filterHiddenArgs($cellReference, $args)
+    {
+        return array_filter(
+            $args,
             function ($index) use ($cellReference) {
                 list(, $row, $column) = explode('.', $index);
+
                 return $cellReference->getWorksheet()->getRowDimension($row)->getVisible() &&
                     $cellReference->getWorksheet()->getColumnDimension($column)->getVisible();
             },
             ARRAY_FILTER_USE_KEY
         );
     }
+
     /**
      * SUBTOTAL.
      *
@@ -1153,53 +1157,35 @@ class MathTrig
         $aArgs = Functions::flattenArrayIndexed($args);
         $cellReference = array_pop($aArgs);
         $subtotal = array_shift($aArgs);
-//        var_dump($cellReference->getValue(), $aArgs); die();
 
         // Calculate
         if ((is_numeric($subtotal)) && (!is_string($subtotal))) {
+            if ($subtotal > 100) {
+                $aArgs = self::filterHiddenArgs($cellReference, $aArgs);
+                $subtotal = $subtotal - 100;
+            }
+
             switch ($subtotal) {
-                case 101:
-                    $aArgs = self::filterHiddenArgs($cellReference, $aArgs);
                 case 1:
                     return Statistical::AVERAGE($aArgs);
-                case 102:
-                    $aArgs = self::filterHiddenArgs($cellReference, $aArgs);
                 case 2:
                     return Statistical::COUNT($aArgs);
-                case 103:
-                    $aArgs = self::filterHiddenArgs($cellReference, $aArgs);
                 case 3:
                     return Statistical::COUNTA($aArgs);
-                case 104:
-                    $aArgs = self::filterHiddenArgs($cellReference, $aArgs);
                 case 4:
                     return Statistical::MAX($aArgs);
-                case 105:
-                    $aArgs = self::filterHiddenArgs($cellReference, $aArgs);
                 case 5:
                     return Statistical::MIN($aArgs);
-                case 106:
-                    $aArgs = self::filterHiddenArgs($cellReference, $aArgs);
                 case 6:
                     return self::PRODUCT($aArgs);
-                case 107:
-                    $aArgs = self::filterHiddenArgs($cellReference, $aArgs);
                 case 7:
                     return Statistical::STDEV($aArgs);
-                case 108:
-                    $aArgs = self::filterHiddenArgs($cellReference, $aArgs);
                 case 8:
                     return Statistical::STDEVP($aArgs);
-                case 109:
-                    $aArgs = self::filterHiddenArgs($cellReference, $aArgs);
                 case 9:
                     return self::SUM($aArgs);
-                case 110:
-                    $aArgs = self::filterHiddenArgs($cellReference, $aArgs);
                 case 10:
                     return Statistical::VARFunc($aArgs);
-                case 111:
-                    $aArgs = self::filterHiddenArgs($cellReference, $aArgs);
                 case 11:
                     return Statistical::VARP($aArgs);
             }
