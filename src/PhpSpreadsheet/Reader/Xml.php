@@ -610,6 +610,10 @@ class Xml extends BaseReader implements IReader
                             }
                         }
 
+                        if (isset($cell_ss['HRef'])) {
+                            $spreadsheet->getActiveSheet()->getCell($cellRange)->getHyperlink()->setUrl($cell_ss['HRef']);
+                        }
+
                         if ((isset($cell_ss['MergeAcross'])) || (isset($cell_ss['MergeDown']))) {
                             $columnTo = $columnID;
                             if (isset($cell_ss['MergeAcross'])) {

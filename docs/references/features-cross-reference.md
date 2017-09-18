@@ -1167,7 +1167,7 @@
 		<td style="padding-left: 1em;">Hyperlinks</td>
 		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center; color: green;">✔</td>
-		<td style="text-align: center; color: red;">✖</td>
+		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center; color: green;">✔</td>
 		<td style="text-align: center; color: red;">✖</td>
 		<td style="text-align: center; color: red;">✖</td>
