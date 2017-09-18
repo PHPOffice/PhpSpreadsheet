@@ -864,8 +864,7 @@ class Xlsx extends BaseReader implements IReader
                                     }
                                     if ($row['s'] && !$this->readDataOnly) {
                                         $docSheet->getRowDimension((int) ($row['r']))->setXfIndex((int) ($row['s']));
-                                    }
-                                    
+                                    }     
                                     $rowIndex = 0; // Start form zero because Cell::stringFromColumnIndex start from A default, actually is 1
                                     foreach ($row->c as $c) {
                                         $r = (string) $c['r'];
