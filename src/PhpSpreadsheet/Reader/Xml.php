@@ -138,7 +138,7 @@ class Xml extends BaseReader implements IReader
             'SimpleXMLElement',
             Settings::getLibXmlLoaderOptions()
         );
-        if (!($xml instanceof \SimpleXMLElement)) {
+        if ($xml === false) {
             throw new Exception('SimpleXMLElement can not load ' . $pFilename);
         }
         $namespaces = $xml->getNamespaces(true);
@@ -170,7 +170,7 @@ class Xml extends BaseReader implements IReader
             'SimpleXMLElement',
             Settings::getLibXmlLoaderOptions()
         );
-        if (!($xml instanceof \SimpleXMLElement)) {
+        if ($xml === false) {
             throw new Exception('SimpleXMLElement can not load ' . $pFilename);
         }
         $namespaces = $xml->getNamespaces(true);
@@ -350,7 +350,7 @@ class Xml extends BaseReader implements IReader
             'SimpleXMLElement',
             Settings::getLibXmlLoaderOptions()
         );
-        if (!($xml instanceof \SimpleXMLElement)) {
+        if ($xml === false) {
             throw new Exception('SimpleXMLElement can not load ' . $pFilename);
         }
         $namespaces = $xml->getNamespaces(true);
