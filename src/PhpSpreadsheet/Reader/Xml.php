@@ -138,6 +138,9 @@ class Xml extends BaseReader implements IReader
             'SimpleXMLElement',
             Settings::getLibXmlLoaderOptions()
         );
+        if (!($xml instanceof \SimpleXMLElement)) {
+            throw new Exception('SimpleXMLElement can not load ' .$pFilename);
+        }
         $namespaces = $xml->getNamespaces(true);
 
         $xml_ss = $xml->children($namespaces['ss']);
@@ -167,6 +170,9 @@ class Xml extends BaseReader implements IReader
             'SimpleXMLElement',
             Settings::getLibXmlLoaderOptions()
         );
+        if (!($xml instanceof \SimpleXMLElement)) {
+            throw new Exception('SimpleXMLElement can not load ' .$pFilename);
+        }
         $namespaces = $xml->getNamespaces(true);
 
         $worksheetID = 1;
@@ -344,6 +350,9 @@ class Xml extends BaseReader implements IReader
             'SimpleXMLElement',
             Settings::getLibXmlLoaderOptions()
         );
+        if (!($xml instanceof \SimpleXMLElement)) {
+            throw new Exception('SimpleXMLElement can not load ' .$pFilename);
+        }
         $namespaces = $xml->getNamespaces(true);
 
         $docProps = $spreadsheet->getProperties();
