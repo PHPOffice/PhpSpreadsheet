@@ -118,6 +118,30 @@ class Xml extends BaseReader implements IReader
     }
 
     /**
+     * Check if the file is a valid SimpleXML.
+     *
+     * @param string $pFilename
+     *
+     * @throws Exception
+     *
+     * @return false|\SimpleXMLElement
+     */
+    public function trySimpleXMLLoadString($pFilename)
+    {
+        try {
+            $xml = simplexml_load_string(
+                $this->securityScan(file_get_contents($pFilename)),
+                'SimpleXMLElement',
+                Settings::getLibXmlLoaderOptions()
+            );
+        } catch (\Exception $e) {
+            throw new Exception('Cannot load invalid XML file: ' . $pFilename, 0, $e);
+        }
+
+        return $xml;
+    }
+
+    /**
      * Reads names of the worksheets from a file, without parsing the whole file to a Spreadsheet object.
      *
      * @param string $pFilename
@@ -133,11 +157,8 @@ class Xml extends BaseReader implements IReader
 
         $worksheetNames = [];
 
-        $xml = simplexml_load_string(
-            $this->securityScan(file_get_contents($pFilename)),
-            'SimpleXMLElement',
-            Settings::getLibXmlLoaderOptions()
-        );
+        $xml = $this->trySimpleXMLLoadString($pFilename);
+
         $namespaces = $xml->getNamespaces(true);
 
         $xml_ss = $xml->children($namespaces['ss']);
@@ -162,11 +183,8 @@ class Xml extends BaseReader implements IReader
 
         $worksheetInfo = [];
 
-        $xml = simplexml_load_string(
-            $this->securityScan(file_get_contents($pFilename)),
-            'SimpleXMLElement',
-            Settings::getLibXmlLoaderOptions()
-        );
+        $xml = $this->trySimpleXMLLoadString($pFilename);
+
         $namespaces = $xml->getNamespaces(true);
 
         $worksheetID = 1;
@@ -339,11 +357,8 @@ class Xml extends BaseReader implements IReader
             throw new Exception($pFilename . ' is an Invalid Spreadsheet file.');
         }
 
-        $xml = simplexml_load_string(
-            $this->securityScan(file_get_contents($pFilename)),
-            'SimpleXMLElement',
-            Settings::getLibXmlLoaderOptions()
-        );
+        $xml = $this->trySimpleXMLLoadString($pFilename);
+
         $namespaces = $xml->getNamespaces(true);
 
         $docProps = $spreadsheet->getProperties();

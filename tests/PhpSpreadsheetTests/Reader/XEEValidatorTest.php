@@ -3,6 +3,8 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
 use PhpOffice\PhpSpreadsheet\Reader\BaseReader;
+use PhpOffice\PhpSpreadsheet\Reader\Exception;
+use PhpOffice\PhpSpreadsheet\Reader\Xml;
 use PHPUnit_Framework_TestCase;
 
 class XEEValidatorTest extends PHPUnit_Framework_TestCase
@@ -24,7 +26,29 @@ class XEEValidatorTest extends PHPUnit_Framework_TestCase
     public function providerInvalidXML()
     {
         $tests = [];
-        foreach (glob(__DIR__ . '/../../data/Reader/XEE/XEETestInvalid*.xml') as $file) {
+        foreach (glob(__DIR__ . '/../../data/Reader/XEE/XEETestInvalidUTF*.xml') as $file) {
+            $tests[basename($file)] = [realpath($file)];
+        }
+
+        return $tests;
+    }
+
+    /**
+     * @dataProvider providerInvalidSimpleXML
+     * @expectedException \PhpOffice\PhpSpreadsheet\Reader\Exception
+     *
+     * @param $filename
+     */
+    public function testInvalidSimpleXML($filename)
+    {
+        $xmlReader = new Xml();
+        $xmlReader->trySimpleXMLLoadString($filename);
+    }
+
+    public function providerInvalidSimpleXML()
+    {
+        $tests = [];
+        foreach (glob(__DIR__ . '/../../data/Reader/XEE/XEETestInvalidSimpleXML*.xml') as $file) {
             $tests[basename($file)] = [realpath($file)];
         }
 
