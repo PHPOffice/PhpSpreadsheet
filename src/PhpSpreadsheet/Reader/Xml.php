@@ -119,7 +119,7 @@ class Xml extends BaseReader implements IReader
 
     /**
      * Check if the file is a valid SimpleXML.
-     * 
+     *
      * @param $pFilename
      *
      * @throws Exception
