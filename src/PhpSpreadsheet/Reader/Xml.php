@@ -120,11 +120,11 @@ class Xml extends BaseReader implements IReader
     /**
      * Check if the file is a valid SimpleXML.
      *
-     * @param $pFilename
+     * @param string $pFilename
      *
      * @throws Exception
      *
-     * @return \SimpleXMLElement or false
+     * @return false|\SimpleXMLElement
      */
     public function trySimpleXMLLoadString($pFilename)
     {
@@ -135,7 +135,7 @@ class Xml extends BaseReader implements IReader
                 Settings::getLibXmlLoaderOptions()
             );
         } catch (\Exception $e) {
-            throw new Exception($pFilename . ' -> ' . $e->getMessage());
+            throw new Exception('Cannot load invalid XML file: ' . $pFilename, 0, $e);
         }
 
         return $xml;
