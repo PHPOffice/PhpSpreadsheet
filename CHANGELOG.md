@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Control characters in cell values are automatically escaped - [#212](https://github.com/PHPOffice/PhpSpreadsheet/issues/212)
 - Prevent color changing when copy/pasting xls files written by PhpSpreadsheet to another file - @al-lala [#218](https://github.com/PHPOffice/PhpSpreadsheet/issues/218)
+- Check if a XML file is a valid SimpleXML - @GreatHumorist [#222](https://github.com/PHPOffice/PhpSpreadsheet/pull/222)
 
 ### BREAKING CHANGE
 
