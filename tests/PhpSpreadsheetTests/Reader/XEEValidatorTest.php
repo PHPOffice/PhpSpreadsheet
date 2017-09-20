@@ -4,6 +4,7 @@ namespace PhpOffice\PhpSpreadsheetTests\Reader;
 
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\BaseReader;
+use PhpOffice\PhpSpreadsheet\Reader\Exception;
 use PhpOffice\PhpSpreadsheet\Reader\Xml;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PHPUnit_Framework_TestCase;
