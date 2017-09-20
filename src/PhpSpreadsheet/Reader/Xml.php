@@ -5,7 +5,6 @@ namespace PhpOffice\PhpSpreadsheet\Reader;
 use DateTimeZone;
 use PhpOffice\PhpSpreadsheet\Cell;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
-use PhpOffice\PhpSpreadsheet\Reader\Exception;
 use PhpOffice\PhpSpreadsheet\RichText;
 use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -120,6 +119,7 @@ class Xml extends BaseReader implements IReader
 
     /**
      * Check if the file is a valid SimpleXML.
+     * 
      * @param $pFilename
      *
      * @throws Exception
@@ -128,7 +128,7 @@ class Xml extends BaseReader implements IReader
      */
     public function trySimpleXMLLoadString($pFilename)
     {
-        try{
+        try {
             $xml = simplexml_load_string(
                 $this->securityScan(file_get_contents($pFilename)),
                 'SimpleXMLElement',
@@ -137,6 +137,7 @@ class Xml extends BaseReader implements IReader
         } catch (\Exception $e) {
             throw new Exception($pFilename . ' -> ' . $e->getMessage());
         }
+
         return $xml;
     }
 
