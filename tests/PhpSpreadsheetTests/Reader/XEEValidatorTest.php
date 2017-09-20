@@ -41,7 +41,6 @@ class XEEValidatorTest extends PHPUnit_Framework_TestCase
      */
     public function testInvalidSimpleXML($filename)
     {
-        $this->expectException(Exception::class);
         $xmlReader = new Xml();
         $xmlReader->trySimpleXMLLoadString($filename);
     }
